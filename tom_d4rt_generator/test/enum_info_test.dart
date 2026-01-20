@@ -1,0 +1,53 @@
+/// Tests for EnumInfo class in the bridge generator.
+import 'package:test/test.dart';
+import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
+
+void main() {
+  group('EnumInfo', () {
+    test('creates simple enum info', () {
+      final info = EnumInfo(
+        name: 'Status',
+        values: ['pending', 'active', 'completed'],
+        sourceFile: 'test.dart',
+      );
+
+      expect(info.name, equals('Status'));
+      expect(info.values, equals(['pending', 'active', 'completed']));
+      expect(info.sourceFile, equals('test.dart'));
+      expect(info.hasMembers, isFalse);
+    });
+
+    test('creates enum info with members', () {
+      final info = EnumInfo(
+        name: 'Color',
+        values: ['red', 'green', 'blue'],
+        sourceFile: 'colors.dart',
+        hasMembers: true,
+      );
+
+      expect(info.name, equals('Color'));
+      expect(info.hasMembers, isTrue);
+    });
+
+    test('creates enum info with single value', () {
+      final info = EnumInfo(
+        name: 'Singleton',
+        values: ['instance'],
+        sourceFile: 'singleton.dart',
+      );
+
+      expect(info.values.length, equals(1));
+      expect(info.values.first, equals('instance'));
+    });
+
+    test('handles empty source file', () {
+      final info = EnumInfo(
+        name: 'Test',
+        values: ['a', 'b'],
+        sourceFile: '',
+      );
+
+      expect(info.sourceFile, isEmpty);
+    });
+  });
+}
