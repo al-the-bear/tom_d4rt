@@ -1,0 +1,18 @@
+# Shared analysis options for the Tom workspace
+# Individual projects should include this file with:
+#   include: ../analysis_options.yaml
+
+analyzer:
+  exclude:
+    - "**/*_generated.dart"
+    - "**/*_bridges.dart"
+    - "**/*.reflection.dart"
+
+linter:
+  rules:
+    unawaited_futures: true
+    discarded_futures: true
+    # Disabled - too many false positives, especially in test files
+    type_annotate_public_apis: false
+    # Disable file_names - we use numbered prefixes for ordering (e.g., 01_example.dart)
+    file_names: false
