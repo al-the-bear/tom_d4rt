@@ -1,3 +1,11 @@
+## 1.1.2
+
+### Changes
+- **Repository reorganization**: Moved to tom_module_d4rt repository as part of modular workspace structure
+- Updated repository URL to https://github.com/al-the-bear/tom_module_d4rt
+- Package now published to pub.dev (removed `publish_to: none`)
+- **followReExports feature**: Bridge generator can now follow re-exports from external packages
+
 ## 1.1.1
 
 ### Fixes

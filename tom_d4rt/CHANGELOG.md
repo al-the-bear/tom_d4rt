@@ -1,3 +1,7 @@
+## 1.3.1
+- **Repository reorganization**: Moved to tom_module_d4rt repository as part of modular workspace structure
+- Updated repository URL to https://github.com/al-the-bear/tom_module_d4rt
+
 ## 1.3.0
 - **Operator bridging support**: BridgedInstance now supports all Dart operators
   - Arithmetic: +, -, *, /, ~/, %

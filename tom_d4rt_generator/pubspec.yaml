@@ -1,7 +1,7 @@
 name: tom_d4rt_generator
 description: D4rt bridge generator for creating BridgedClass implementations from Dart source.
-version: 1.1.1
-publish_to: none
+version: 1.1.2
+repository: https://github.com/al-the-bear/tom_module_d4rt
 
 environment:
   sdk: ^3.10.4
