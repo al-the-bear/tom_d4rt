@@ -25,6 +25,17 @@ class ModuleConfig {
   
   /// Specific class names to exclude from processing.
   final List<String> excludeClasses;
+  
+  /// List of external packages to follow re-exports from.
+  /// 
+  /// When a barrel file re-exports from an external package (e.g.,
+  /// `export 'package:tom_basics/tom_basics.dart';`), the generator
+  /// normally skips these. Adding package names to this list enables
+  /// following re-exports from those packages and generating bridges
+  /// for their exported classes.
+  /// 
+  /// Example: `['tom_basics', 'tom_crypto']`
+  final List<String> followReExports;
 
   const ModuleConfig({
     required this.name,
@@ -33,6 +44,7 @@ class ModuleConfig {
     this.barrelImport,
     this.excludePatterns = const [],
     this.excludeClasses = const [],
+    this.followReExports = const [],
   });
 
   factory ModuleConfig.fromJson(Map<String, dynamic> json) {
@@ -43,6 +55,7 @@ class ModuleConfig {
       barrelImport: json['barrelImport'] as String?,
       excludePatterns: (json['excludePatterns'] as List?)?.cast<String>() ?? [],
       excludeClasses: (json['excludeClasses'] as List?)?.cast<String>() ?? [],
+      followReExports: (json['followReExports'] as List?)?.cast<String>() ?? [],
     );
   }
 
@@ -54,6 +67,7 @@ class ModuleConfig {
       if (barrelImport != null) 'barrelImport': barrelImport,
       if (excludePatterns.isNotEmpty) 'excludePatterns': excludePatterns,
       if (excludeClasses.isNotEmpty) 'excludeClasses': excludeClasses,
+      if (followReExports.isNotEmpty) 'followReExports': followReExports,
     };
   }
 }

@@ -4,6 +4,7 @@
 /// BridgedClass registrations for use with D4rt interpreter.
 library;
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
@@ -453,6 +454,85 @@ class BridgeGenerator {
     );
   }
 
+  /// Cache for resolved package paths.
+  final Map<String, String?> _packagePathCache = {};
+
+  /// Resolves a package name to its root directory path.
+  ///
+  /// Uses `.dart_tool/package_config.json` for reliable resolution,
+  /// falling back to sibling directories and pubspec.yaml path dependencies.
+  ///
+  /// Returns the package root directory path (without /lib), or null if not found.
+  Future<String?> _resolvePackagePath(String packageName) async {
+    // Check cache first
+    if (_packagePathCache.containsKey(packageName)) {
+      return _packagePathCache[packageName];
+    }
+
+    String? result;
+
+    // Try to read from .dart_tool/package_config.json (most reliable)
+    final packageConfigFile = File('$workspacePath/.dart_tool/package_config.json');
+    if (packageConfigFile.existsSync()) {
+      try {
+        final content = await packageConfigFile.readAsString();
+        final json = jsonDecode(content) as Map<String, dynamic>;
+        final packages = json['packages'] as List<dynamic>?;
+        if (packages != null) {
+          for (final pkg in packages) {
+            if (pkg['name'] == packageName) {
+              var rootUri = pkg['rootUri'] as String;
+              // rootUri is relative to .dart_tool directory
+              if (rootUri.startsWith('../')) {
+                rootUri = p.normalize(
+                  p.join(workspacePath, '.dart_tool', rootUri),
+                );
+              } else if (rootUri.startsWith('file://')) {
+                rootUri = Uri.parse(rootUri).toFilePath();
+              }
+              result = rootUri;
+              break;
+            }
+          }
+        }
+      } catch (e) {
+        if (verbose) print('Error reading package_config.json: $e');
+      }
+    }
+
+    // Fallback: Check sibling directories (common in monorepo)
+    if (result == null) {
+      final workspaceParent = p.dirname(workspacePath);
+      final siblingPackage = Directory('$workspaceParent/$packageName');
+      if (siblingPackage.existsSync()) {
+        result = siblingPackage.path;
+      }
+    }
+
+    // Fallback: Check pubspec.yaml path dependencies
+    if (result == null) {
+      final pubspecFile = File('$workspacePath/pubspec.yaml');
+      if (pubspecFile.existsSync()) {
+        final content = await pubspecFile.readAsString();
+        // Simple regex to find path dependencies
+        final pathMatch = RegExp(
+          '$packageName:\\s*path:\\s*([^\\n]+)',
+          multiLine: true,
+        ).firstMatch(content);
+        if (pathMatch != null) {
+          final pathValue = pathMatch.group(1)!.trim();
+          final resolvedPath = p.normalize(p.join(workspacePath, pathValue));
+          if (Directory(resolvedPath).existsSync()) {
+            result = resolvedPath;
+          }
+        }
+      }
+    }
+
+    _packagePathCache[packageName] = result;
+    return result;
+  }
+
   /// Checks if a file path matches any of the glob patterns.
   ///
   /// [filePath] - The file path to check
@@ -540,12 +620,18 @@ class BridgeGenerator {
   /// all `export '...'` directives to build a list of source files to bridge.
   /// Recursively follows re-exported barrel files.
   ///
+  /// [followReExports] - List of external package names to follow re-exports from.
+  /// When a barrel file exports from an external package that's in this list,
+  /// the generator will resolve the package path and include those exports.
+  ///
   /// Returns a map of source file paths to their export info (hide/show clauses).
   Future<Map<String, ExportInfo>> parseExportFiles(
     List<String> barrelFiles, {
     Set<String>? visited,
+    List<String>? followReExports,
   }) async {
     visited ??= <String>{};
+    followReExports ??= const [];
     final exports = <String, ExportInfo>{};
     final exportPattern = RegExp(
       r'''export\s+['"]([^'"]+)['"]\s*(hide\s+[^;]+|show\s+[^;]+)?;''',
@@ -570,19 +656,34 @@ class BridgeGenerator {
         final exportPath = match.group(1)!;
         final hideShow = match.group(2)?.trim();
 
-        // Skip package: exports that aren't from this package
+        // Handle package: exports
         String absolutePath;
         if (exportPath.startsWith('package:')) {
-          if (packageName != null &&
-              !exportPath.startsWith('package:$packageName/')) {
-            continue; // External package, skip
+          // Extract package name from export path
+          final packageMatch = RegExp(r'^package:([^/]+)/(.+)$').firstMatch(exportPath);
+          if (packageMatch == null) continue;
+          
+          final exportPackageName = packageMatch.group(1)!;
+          final exportRelativePath = packageMatch.group(2)!;
+          
+          // Check if this is the current package
+          if (packageName != null && exportPackageName == packageName) {
+            // Convert package: to relative path for current package
+            absolutePath = '$workspacePath/lib/$exportRelativePath';
+          } else if (followReExports.contains(exportPackageName)) {
+            // Follow re-exports from configured external packages
+            final externalPackagePath = await _resolvePackagePath(exportPackageName);
+            if (externalPackagePath == null) {
+              if (verbose) {
+                print('Warning: Could not resolve package path for $exportPackageName');
+              }
+              continue;
+            }
+            absolutePath = '$externalPackagePath/lib/$exportRelativePath';
+          } else {
+            // External package not in followReExports, skip
+            continue;
           }
-          // Convert package: to relative path
-          final relativePath = exportPath.replaceFirst(
-            'package:$packageName/',
-            '',
-          );
-          absolutePath = '$workspacePath/lib/$relativePath';
         } else if (exportPath.startsWith('dart:')) {
           continue; // Skip dart: exports
         } else {
@@ -599,7 +700,7 @@ class BridgeGenerator {
             // This file is a barrel - recursively parse it
             final nestedExports = await parseExportFiles([
               absolutePath,
-            ], visited: visited);
+            ], visited: visited, followReExports: followReExports);
             exports.addAll(nestedExports);
           } else {
             // Regular source file - add to exports
@@ -691,6 +792,7 @@ class BridgeGenerator {
   /// [moduleName] - Name for the generated bridge class
   /// [excludePatterns] - File path patterns to exclude (e.g., `_bridge.dart`)
   /// [excludeClasses] - Class names to exclude
+  /// [followReExports] - External package names to follow re-exports from
   /// [fileWriter] - The FileWriter to use for output
   Future<BridgeGeneratorResult> generateBridgesFromExportsWithWriter({
     required List<String> barrelFiles,
@@ -698,10 +800,14 @@ class BridgeGenerator {
     String? moduleName,
     List<String>? excludePatterns,
     List<String>? excludeClasses,
+    List<String>? followReExports,
     required FileWriter fileWriter,
   }) async {
     // Parse export files to get source files and their export info
-    final exports = await parseExportFiles(barrelFiles);
+    final exports = await parseExportFiles(
+      barrelFiles,
+      followReExports: followReExports,
+    );
 
     if (exports.isEmpty) {
       return BridgeGeneratorResult(
@@ -1242,7 +1348,7 @@ class BridgeGenerator {
       processedTypes.add(key);
 
       // Try to resolve the package path
-      final packagePath = _resolvePackagePath(dep.packageUri);
+      final packagePath = _resolvePackageUriToFilePath(dep.packageUri);
       if (packagePath == null) {
         if (verbose) {
           print('  Could not resolve path for ${dep.typeName} from ${dep.packageUri}');
@@ -1277,8 +1383,11 @@ class BridgeGenerator {
     return resolvedClasses;
   }
 
-  /// Resolves a package: URI to an absolute file path.
-  String? _resolvePackagePath(String packageUri) {
+  /// Resolves a package: URI to an absolute file path (synchronous version).
+  ///
+  /// This resolves a full package URI like `package:tom_core_kernel/src/foo.dart`
+  /// to an absolute file path. Used for resolving external type dependencies.
+  String? _resolvePackageUriToFilePath(String packageUri) {
     // Parse the package URI: package:tom_core_kernel/src/foo.dart
     if (!packageUri.startsWith('package:')) return null;
 

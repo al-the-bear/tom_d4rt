@@ -91,6 +91,7 @@ class D4rtBridgeBuilder implements Builder {
           moduleName: module.name,
           excludePatterns: module.excludePatterns,
           excludeClasses: module.excludeClasses,
+          followReExports: module.followReExports,
           fileWriter: fileWriter,
         );
 
