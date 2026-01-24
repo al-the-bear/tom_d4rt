@@ -4,6 +4,6 @@
 /// updated to use analyzer ^8.0.0 for compatibility with the Tom Framework.
 ///
 /// See [d4rt.dart] for the full API documentation.
-library tom_d4rt;
+library;
 
 export 'd4rt.dart';
