@@ -201,6 +201,42 @@ class EnumInfo {
   });
 }
 
+/// Information about a function type signature.
+/// Used to generate wrappers for function-type parameters.
+class FunctionTypeInfo {
+  /// Return type of the function (e.g., 'void', 'String', 'Widget')
+  final String returnType;
+
+  /// Whether the return type is nullable
+  final bool returnTypeNullable;
+
+  /// List of positional parameter types
+  final List<String> positionalParamTypes;
+
+  /// Map of named parameter name to type
+  final Map<String, String> namedParamTypes;
+
+  /// Whether named parameters are required (name -> isRequired)
+  final Map<String, bool> namedParamRequired;
+
+  const FunctionTypeInfo({
+    required this.returnType,
+    this.returnTypeNullable = false,
+    this.positionalParamTypes = const [],
+    this.namedParamTypes = const {},
+    this.namedParamRequired = const {},
+  });
+
+  /// Whether the function returns void
+  bool get isVoid => returnType == 'void';
+
+  /// Total number of parameters
+  int get paramCount => positionalParamTypes.length + namedParamTypes.length;
+
+  /// Whether this function has any parameters
+  bool get hasParams => paramCount > 0;
+}
+
 /// Information about a method parameter.
 class ParameterInfo {
   final String name;
@@ -217,6 +253,10 @@ class ParameterInfo {
   /// Function types can't be passed from D4rt scripts, so we use dynamic.
   final bool isFunctionTypeAlias;
 
+  /// Detailed function type info if this parameter is a function type.
+  /// Used to generate proper wrappers for InterpretedFunction.
+  final FunctionTypeInfo? functionTypeInfo;
+
   const ParameterInfo({
     required this.name,
     required this.type,
@@ -226,7 +266,11 @@ class ParameterInfo {
     this.isNamed = false,
     this.defaultValue,
     this.isFunctionTypeAlias = false,
+    this.functionTypeInfo,
   });
+
+  /// Whether this parameter is a function type that can be wrapped
+  bool get isFunctionType => functionTypeInfo != null;
 }
 
 /// Information about a constructor.
@@ -2375,6 +2419,9 @@ class BridgeGenerator {
       );
     }
 
+    // Map to store custom call expressions for function-type parameters
+    final callExpressions = <String, String>{};
+
     // Extract positional parameters
     final sourceUri = _getPackageUri(cls.sourceFile);
     for (var i = 0; i < positionalParams.length; i++) {
@@ -2387,6 +2434,7 @@ class BridgeGenerator {
         sourceUri: sourceUri,
         warnings: warnings,
         classTypeParams: cls.typeParameters,
+        callExpressions: callExpressions,
       )) {
         return false; // Can't bridge this constructor
       }
@@ -2401,6 +2449,7 @@ class BridgeGenerator {
         sourceUri: sourceUri,
         warnings: warnings,
         classTypeParams: cls.typeParameters,
+        callExpressions: callExpressions,
       )) {
         return false; // Can't bridge this constructor
       }
@@ -2412,11 +2461,15 @@ class BridgeGenerator {
         : prefixedName;
     final args = <String>[];
     for (final param in positionalParams) {
-      args.add(_getSafeLocalName(param.name));
+      // Use custom call expression if available, otherwise use local variable
+      final callExpr = callExpressions[param.name];
+      args.add(callExpr ?? _getSafeLocalName(param.name));
     }
     for (final param in namedParams) {
-      final localName = _getSafeLocalName(param.name);
-      args.add('${param.name}: $localName');
+      // Use custom call expression if available, otherwise use local variable
+      final callExpr = callExpressions[param.name];
+      final argValue = callExpr ?? _getSafeLocalName(param.name);
+      args.add('${param.name}: $argValue');
     }
     buffer.writeln('        return $ctorCall(${args.join(', ')});');
     return true;
@@ -2448,6 +2501,9 @@ class BridgeGenerator {
       );
     }
 
+    // Map to store custom call expressions for function-type parameters
+    final callExpressions = <String, String>{};
+
     // Extract positional parameters
     final sourceUri = _getPackageUri(cls.sourceFile);
     for (var i = 0; i < positionalParams.length; i++) {
@@ -2460,6 +2516,7 @@ class BridgeGenerator {
         sourceUri: sourceUri,
         warnings: warnings,
         classTypeParams: cls.typeParameters,
+        callExpressions: callExpressions,
       )) {
         return false;
       }
@@ -2474,6 +2531,7 @@ class BridgeGenerator {
         sourceUri: sourceUri,
         warnings: warnings,
         classTypeParams: cls.typeParameters,
+        callExpressions: callExpressions,
       )) {
         return false;
       }
@@ -2482,11 +2540,15 @@ class BridgeGenerator {
     // Method call
     final args = <String>[];
     for (final param in positionalParams) {
-      args.add(_getSafeLocalName(param.name));
+      // Use custom call expression if available, otherwise use local variable
+      final callExpr = callExpressions[param.name];
+      args.add(callExpr ?? _getSafeLocalName(param.name));
     }
     for (final param in namedParams) {
-      final localName = _getSafeLocalName(param.name);
-      args.add('${param.name}: $localName');
+      // Use custom call expression if available, otherwise use local variable
+      final callExpr = callExpressions[param.name];
+      final argValue = callExpr ?? _getSafeLocalName(param.name);
+      args.add('${param.name}: $argValue');
     }
 
     final isVoid = method.returnType == 'void';
@@ -2651,6 +2713,10 @@ class BridgeGenerator {
 
   /// Generates extraction code for a positional parameter.
   /// Returns false if the parameter cannot be bridged (e.g., required function type).
+  /// 
+  /// If [callExpressions] is provided and this is a function-type parameter,
+  /// the wrapper expression will be stored in the map. Otherwise the local
+  /// variable name will be stored.
   bool _generatePositionalParamExtraction(
     StringBuffer buffer,
     ParameterInfo param,
@@ -2659,6 +2725,7 @@ class BridgeGenerator {
     String? sourceUri,
     List<String>? warnings,
     Map<String, String?> classTypeParams = const {},
+    Map<String, String>? callExpressions,
   }) {
     final isNullable = param.type.endsWith('?');
     final localName = _getSafeLocalName(param.name);
@@ -2803,6 +2870,67 @@ class BridgeGenerator {
       return true;
     }
 
+    // Check if the parameter type itself is a function typedef
+    final baseType = param.type.replaceAll('?', '');
+    if (_isFunctionTypeName(baseType)) {
+      // Get function type info - try known aliases first, then parse
+      var funcInfo = _knownFunctionTypeAliasInfo[baseType];
+      funcInfo ??= _parseFunctionType(baseType);
+      
+      if (funcInfo == null) {
+        // Could not parse function type - fall back to warning
+        warnings?.add(
+          'TODO: $contextName: parameter "${param.name}" '
+          'has unparseable function type ${param.type}',
+        );
+        buffer.writeln(
+          "        // TODO: Unparseable function type ${param.type}",
+        );
+        buffer.writeln(
+          "        throw UnimplementedError('$contextName: Parameter \"${param.name}\" has unparseable function type ${param.type}.');",
+        );
+        buffer.writeln(
+          "        // ignore: dead_code",
+        );
+        buffer.writeln(
+          "        final $localName = null;",
+        );
+        return true;
+      }
+      
+      // Generate extraction of raw InterpretedFunction value
+      final rawVarName = '${localName}_raw';
+      if (param.isRequired) {
+        buffer.writeln("        if (positional.length <= $index) {");
+        buffer.writeln(
+          "          throw ArgumentError('$contextName: Missing required argument \"${param.name}\" at position $index');",
+        );
+        buffer.writeln("        }");
+        buffer.writeln(
+          "        final $rawVarName = positional[$index];",
+        );
+      } else {
+        buffer.writeln(
+          "        final $rawVarName = positional.length > $index ? positional[$index] : null;",
+        );
+      }
+      
+      // Generate wrapper expression and store in callExpressions map
+      final wrapperExpr = _generateFunctionWrapper(
+        callbackVarName: rawVarName,
+        funcInfo: funcInfo,
+        isNullable: isNullable || !param.isRequired,
+      );
+      
+      if (callExpressions != null) {
+        callExpressions[param.name] = wrapperExpr;
+      } else {
+        // If no callExpressions map, generate as local variable (for backwards compat)
+        buffer.writeln("        final $localName = $wrapperExpr;");
+      }
+      return true;
+    }
+
     // Standard extraction for other types
     final typeArg = _getTypeArgument(
       param.type,
@@ -2896,6 +3024,10 @@ class BridgeGenerator {
   /// Generates extraction code for a named parameter.
   /// Handles List and Map types with coercion helpers.
   /// Returns false if this parameter cannot be bridged (e.g., required function type).
+  /// 
+  /// If [callExpressions] is provided and this is a function-type parameter,
+  /// the wrapper expression will be stored in the map. Otherwise the local
+  /// variable name will be stored.
   bool _generateNamedParamExtraction(
     StringBuffer buffer,
     ParameterInfo param,
@@ -2903,6 +3035,7 @@ class BridgeGenerator {
     String? sourceUri,
     List<String>? warnings,
     Map<String, String?> classTypeParams = const {},
+    Map<String, String>? callExpressions,
   }) {
     final isNullable = param.type.endsWith('?');
     final localName = _getSafeLocalName(param.name);
@@ -2993,25 +3126,65 @@ class BridgeGenerator {
     }
 
     // Check if the parameter type itself is a function typedef
-    if (_isFunctionTypeName(param.type.replaceAll('?', ''))) {
-      warnings?.add(
-        'TODO: $contextName: parameter "${param.name}" '
-        'has unbridgeable function type ${param.type}',
+    final baseType = param.type.replaceAll('?', '');
+    if (_isFunctionTypeName(baseType)) {
+      // Get function type info - try known aliases first, then parse
+      var funcInfo = _knownFunctionTypeAliasInfo[baseType];
+      funcInfo ??= _parseFunctionType(baseType);
+      
+      if (funcInfo == null) {
+        // Could not parse function type - fall back to warning
+        warnings?.add(
+          'TODO: $contextName: parameter "${param.name}" '
+          'has unparseable function type ${param.type}',
+        );
+        buffer.writeln(
+          "        // TODO: Unparseable function type ${param.type}",
+        );
+        buffer.writeln(
+          "        throw UnimplementedError('$contextName: Parameter \"${param.name}\" has unparseable function type ${param.type}.');",
+        );
+        buffer.writeln(
+          "        // ignore: dead_code",
+        );
+        buffer.writeln(
+          "        final $localName = null;",
+        );
+        return true;
+      }
+      
+      // Generate extraction of raw InterpretedFunction value
+      final rawVarName = '${localName}_raw';
+      if (param.isRequired) {
+        buffer.writeln(
+          "        if (!named.containsKey('${param.name}') || named['${param.name}'] == null) {",
+        );
+        buffer.writeln(
+          "          throw ArgumentError('$contextName: Missing required named argument \"${param.name}\"');",
+        );
+        buffer.writeln("        }");
+        buffer.writeln(
+          "        final $rawVarName = named['${param.name}'];",
+        );
+      } else {
+        buffer.writeln(
+          "        final $rawVarName = named['${param.name}'];",
+        );
+      }
+      
+      // Generate wrapper expression and store in callExpressions map
+      final wrapperExpr = _generateFunctionWrapper(
+        callbackVarName: rawVarName,
+        funcInfo: funcInfo,
+        isNullable: isNullable || !param.isRequired,
       );
-      // Generate TODO code that throws at runtime, but define variable for compilation
-      buffer.writeln(
-        "        // TODO: Unbridgeable function type ${param.type}",
-      );
-      buffer.writeln(
-        "        throw UnimplementedError('$contextName: Parameter \"${param.name}\" has unbridgeable function type ${param.type}. Bridge cannot handle function type parameters.');",
-      );
-      // Define dummy variable so code compiles (unreachable due to throw)
-      buffer.writeln(
-        "        // ignore: dead_code",
-      );
-      buffer.writeln(
-        "        final $localName = null;",
-      );
+      
+      if (callExpressions != null) {
+        callExpressions[param.name] = wrapperExpr;
+      } else {
+        // If no callExpressions map, generate as local variable (for backwards compat)
+        buffer.writeln("        final $localName = $wrapperExpr;");
+      }
       return true;
     }
 
@@ -3352,6 +3525,236 @@ class BridgeGenerator {
       return true;
     }
     return false;
+  }
+
+  /// Parses a function type string and extracts its signature.
+  /// Returns null if the type cannot be parsed.
+  ///
+  /// Handles patterns like:
+  /// - `void Function()`
+  /// - `String Function(int, String)`
+  /// - `void Function(int value)?`
+  /// - `Widget Function(T)`
+  /// - `String? Function(String)?`
+  FunctionTypeInfo? _parseFunctionType(String typeStr) {
+    // Remove trailing nullable marker for the function type itself
+    var funcType = typeStr.trim();
+    if (funcType.endsWith('?')) {
+      funcType = funcType.substring(0, funcType.length - 1).trim();
+    }
+
+    // Check for inline function type pattern: ReturnType Function(Params)
+    final funcMatch = RegExp(r'^(.+?)\s+Function\(([^)]*)\)$').firstMatch(funcType);
+    if (funcMatch == null) {
+      // Check known typedef aliases
+      final aliasInfo = _knownFunctionTypeAliasInfo[typeStr.replaceAll('?', '')];
+      if (aliasInfo != null) {
+        return aliasInfo;
+      }
+      return null;
+    }
+
+    final returnTypeStr = funcMatch.group(1)!.trim();
+    final paramsStr = funcMatch.group(2)!.trim();
+
+    // Parse return type
+    var returnType = returnTypeStr;
+    var returnTypeNullable = false;
+    if (returnType.endsWith('?')) {
+      returnTypeNullable = true;
+      returnType = returnType.substring(0, returnType.length - 1);
+    }
+
+    // Parse parameters
+    final positionalParamTypes = <String>[];
+    final namedParamTypes = <String, String>{};
+    final namedParamRequired = <String, bool>{};
+
+    if (paramsStr.isNotEmpty) {
+      // Split parameters, handling nested generics
+      final params = _splitFunctionParams(paramsStr);
+      var inNamedSection = false;
+
+      for (var param in params) {
+        param = param.trim();
+        if (param.isEmpty) continue;
+
+        // Check for named parameters section
+        if (param.startsWith('{')) {
+          inNamedSection = true;
+          param = param.substring(1).trim();
+        }
+        if (param.endsWith('}')) {
+          param = param.substring(0, param.length - 1).trim();
+        }
+
+        if (inNamedSection) {
+          // Named parameter: "required Type name" or "Type name" or "Type? name"
+          final isRequired = param.startsWith('required ');
+          if (isRequired) {
+            param = param.substring(9).trim();
+          }
+          // Split "Type name" - last word is name, rest is type
+          final parts = param.split(RegExp(r'\s+'));
+          if (parts.length >= 2) {
+            final name = parts.last;
+            final type = parts.sublist(0, parts.length - 1).join(' ');
+            namedParamTypes[name] = type;
+            namedParamRequired[name] = isRequired;
+          }
+        } else {
+          // Positional parameter: "Type" or "Type name"
+          // We only need the type, so take everything except the last word if it looks like a name
+          final parts = param.split(RegExp(r'\s+'));
+          if (parts.length == 1) {
+            positionalParamTypes.add(parts[0]);
+          } else {
+            // Last part might be a name (no < or > and not a keyword)
+            final lastPart = parts.last;
+            if (!lastPart.contains('<') && !lastPart.contains('>') && 
+                !_isTypeKeyword(lastPart)) {
+              positionalParamTypes.add(parts.sublist(0, parts.length - 1).join(' '));
+            } else {
+              positionalParamTypes.add(param);
+            }
+          }
+        }
+      }
+    }
+
+    return FunctionTypeInfo(
+      returnType: returnType,
+      returnTypeNullable: returnTypeNullable,
+      positionalParamTypes: positionalParamTypes,
+      namedParamTypes: namedParamTypes,
+      namedParamRequired: namedParamRequired,
+    );
+  }
+
+  /// Checks if a string is a type keyword (not a parameter name)
+  bool _isTypeKeyword(String s) {
+    return s == 'dynamic' || s == 'void' || s == 'Object' || 
+           s == 'int' || s == 'double' || s == 'String' || s == 'bool' ||
+           s == 'num' || s == 'Function' || s == 'Never';
+  }
+
+  /// Splits function parameters string handling nested generics
+  List<String> _splitFunctionParams(String paramsStr) {
+    final result = <String>[];
+    var depth = 0;
+    var current = StringBuffer();
+
+    for (var i = 0; i < paramsStr.length; i++) {
+      final char = paramsStr[i];
+      if (char == '<' || char == '(' || char == '{') {
+        depth++;
+        current.write(char);
+      } else if (char == '>' || char == ')' || char == '}') {
+        depth--;
+        current.write(char);
+      } else if (char == ',' && depth == 0) {
+        result.add(current.toString());
+        current = StringBuffer();
+      } else {
+        current.write(char);
+      }
+    }
+    if (current.isNotEmpty) {
+      result.add(current.toString());
+    }
+    return result;
+  }
+
+  /// Known function typedef info for common aliases
+  static final _knownFunctionTypeAliasInfo = <String, FunctionTypeInfo>{
+    'VoidCallback': FunctionTypeInfo(returnType: 'void'),
+    'ValueChanged': FunctionTypeInfo(returnType: 'void', positionalParamTypes: ['T']),
+    'ValueGetter': FunctionTypeInfo(returnType: 'T'),
+    'ValueSetter': FunctionTypeInfo(returnType: 'void', positionalParamTypes: ['T']),
+  };
+
+  /// Generates a wrapper that converts an InterpretedFunction to a native function.
+  ///
+  /// Example output for `void Function(int, String)`:
+  /// ```dart
+  /// (int p0, String p1) {
+  ///   (callback as InterpretedFunction).call(visitor as InterpreterVisitor, [p0, p1]);
+  /// }
+  /// ```
+  ///
+  /// Example output for `String Function(int)?`:
+  /// ```dart
+  /// callback == null ? null : (int p0) {
+  ///   return (callback as InterpretedFunction).call(visitor as InterpreterVisitor, [p0]) as String;
+  /// }
+  /// ```
+  String _generateFunctionWrapper({
+    required String callbackVarName,
+    required FunctionTypeInfo funcInfo,
+    required bool isNullable,
+  }) {
+    // Generate parameter list for the wrapper function
+    final paramList = <String>[];
+    final argList = <String>[];
+
+    for (var i = 0; i < funcInfo.positionalParamTypes.length; i++) {
+      final paramType = funcInfo.positionalParamTypes[i];
+      final paramName = 'p$i';
+      paramList.add('$paramType $paramName');
+      argList.add(paramName);
+    }
+
+    // Handle named parameters if any
+    if (funcInfo.namedParamTypes.isNotEmpty) {
+      final namedParams = <String>[];
+      for (final entry in funcInfo.namedParamTypes.entries) {
+        final isRequired = funcInfo.namedParamRequired[entry.key] ?? false;
+        final prefix = isRequired ? 'required ' : '';
+        namedParams.add('$prefix${entry.value} ${entry.key}');
+      }
+      paramList.add('{${namedParams.join(', ')}}');
+      // Named args need to be passed as a map
+    }
+
+    final paramsStr = paramList.join(', ');
+    final argsStr = argList.isNotEmpty ? '[${argList.join(', ')}]' : '[]';
+
+    // Generate named args map if there are named parameters
+    String namedArgsStr = '{}';
+    if (funcInfo.namedParamTypes.isNotEmpty) {
+      final namedArgEntries = funcInfo.namedParamTypes.keys
+          .map((name) => "'$name': $name")
+          .join(', ');
+      namedArgsStr = '{$namedArgEntries}';
+    }
+
+    // Build the call expression
+    String callExpr;
+    if (funcInfo.namedParamTypes.isEmpty) {
+      callExpr = '($callbackVarName as InterpretedFunction).call(visitor as InterpreterVisitor, $argsStr)';
+    } else {
+      callExpr = '($callbackVarName as InterpretedFunction).call(visitor as InterpreterVisitor, $argsStr, $namedArgsStr)';
+    }
+
+    // Build the wrapper body
+    String wrapperBody;
+    if (funcInfo.isVoid) {
+      wrapperBody = '{ $callExpr; }';
+    } else {
+      final returnCast = funcInfo.returnTypeNullable 
+          ? 'as ${funcInfo.returnType}?' 
+          : 'as ${funcInfo.returnType}';
+      wrapperBody = '{ return $callExpr $returnCast; }';
+    }
+
+    // Build complete wrapper
+    final wrapper = '($paramsStr) $wrapperBody';
+
+    if (isNullable) {
+      return '$callbackVarName == null ? null : $wrapper';
+    } else {
+      return wrapper;
+    }
   }
 
   /// Extracts the key and value types from a Map type.
