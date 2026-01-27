@@ -161,6 +161,10 @@ dart run tom_d4rt_generator:d4rt_generator --project=/path/to/project
 | `barrelImport` | string | No | Import path for barrel file |
 | `excludePatterns` | string[] | No | Patterns to exclude from processing |
 | `excludeClasses` | string[] | No | Specific class names to exclude |
+| `excludeEnums` | string[] | No | Specific enum names to exclude |
+| `excludeFunctions` | string[] | No | Specific global function names to exclude |
+| `excludeVariables` | string[] | No | Specific global variable names to exclude |
+| `followReExports` | string[] | No | External packages to follow re-exports from |
 
 ## Generated Files
 

@@ -86,6 +86,10 @@ targets:
 | `outputPath` | String | ✓ | Output path for generated bridges |
 | `excludePatterns` | List | | Glob patterns to exclude files |
 | `excludeClasses` | List | | Class names to exclude |
+| `excludeEnums` | List | | Enum names to exclude |
+| `excludeFunctions` | List | | Global function names to exclude |
+| `excludeVariables` | List | | Global variable names to exclude |
+| `followReExports` | List | | External packages to follow re-exports from |
 
 ### Exclude Patterns (Glob Syntax)
 

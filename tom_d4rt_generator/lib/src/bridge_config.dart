@@ -26,6 +26,15 @@ class ModuleConfig {
   /// Specific class names to exclude from processing.
   final List<String> excludeClasses;
   
+  /// Specific enum names to exclude from processing.
+  final List<String> excludeEnums;
+  
+  /// Specific global function names to exclude from processing.
+  final List<String> excludeFunctions;
+  
+  /// Specific global variable names to exclude from processing.
+  final List<String> excludeVariables;
+  
   /// List of external packages to follow re-exports from.
   /// 
   /// When a barrel file re-exports from an external package (e.g.,
@@ -44,6 +53,9 @@ class ModuleConfig {
     this.barrelImport,
     this.excludePatterns = const [],
     this.excludeClasses = const [],
+    this.excludeEnums = const [],
+    this.excludeFunctions = const [],
+    this.excludeVariables = const [],
     this.followReExports = const [],
   });
 
@@ -55,6 +67,9 @@ class ModuleConfig {
       barrelImport: json['barrelImport'] as String?,
       excludePatterns: (json['excludePatterns'] as List?)?.cast<String>() ?? [],
       excludeClasses: (json['excludeClasses'] as List?)?.cast<String>() ?? [],
+      excludeEnums: (json['excludeEnums'] as List?)?.cast<String>() ?? [],
+      excludeFunctions: (json['excludeFunctions'] as List?)?.cast<String>() ?? [],
+      excludeVariables: (json['excludeVariables'] as List?)?.cast<String>() ?? [],
       followReExports: (json['followReExports'] as List?)?.cast<String>() ?? [],
     );
   }
@@ -67,6 +82,9 @@ class ModuleConfig {
       if (barrelImport != null) 'barrelImport': barrelImport,
       if (excludePatterns.isNotEmpty) 'excludePatterns': excludePatterns,
       if (excludeClasses.isNotEmpty) 'excludeClasses': excludeClasses,
+      if (excludeEnums.isNotEmpty) 'excludeEnums': excludeEnums,
+      if (excludeFunctions.isNotEmpty) 'excludeFunctions': excludeFunctions,
+      if (excludeVariables.isNotEmpty) 'excludeVariables': excludeVariables,
       if (followReExports.isNotEmpty) 'followReExports': followReExports,
     };
   }

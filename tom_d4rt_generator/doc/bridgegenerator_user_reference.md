@@ -134,6 +134,10 @@ dart run build_runner watch
 | `barrelImport` | String | first barrelFile | Import path for source code |
 | `excludePatterns` | List\<String\> | `[]` | Glob patterns for files to exclude |
 | `excludeClasses` | List\<String\> | `[]` | Class names to exclude |
+| `excludeEnums` | List\<String\> | `[]` | Enum names to exclude |
+| `excludeFunctions` | List\<String\> | `[]` | Global function names to exclude |
+| `excludeVariables` | List\<String\> | `[]` | Global variable names to exclude |
+| `followReExports` | List\<String\> | `[]` | External packages to follow re-exports from |
 
 ### 4.3 Exclude Patterns
 

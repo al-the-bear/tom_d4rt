@@ -94,6 +94,9 @@ Future<GenerationResult> generateBridges({
         moduleName: module.name,
         excludePatterns: module.excludePatterns,
         excludeClasses: module.excludeClasses,
+        excludeEnums: module.excludeEnums,
+        excludeFunctions: module.excludeFunctions,
+        excludeVariables: module.excludeVariables,
       );
 
       totalClasses += result.classesGenerated;

@@ -202,6 +202,9 @@ Future<void> _generateBridges(BridgeConfig config, String projectDir,
       moduleName: module.name,
       excludePatterns: module.excludePatterns,
       excludeClasses: module.excludeClasses,
+      excludeEnums: module.excludeEnums,
+      excludeFunctions: module.excludeFunctions,
+      excludeVariables: module.excludeVariables,
     );
 
     if (verbose) {

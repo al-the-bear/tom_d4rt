@@ -804,12 +804,18 @@ class BridgeGenerator {
   /// [moduleName] - Name for the generated bridge class
   /// [excludePatterns] - File path patterns to exclude (e.g., `_bridge.dart`)
   /// [excludeClasses] - Class names to exclude
+  /// [excludeEnums] - Enum names to exclude
+  /// [excludeFunctions] - Global function names to exclude
+  /// [excludeVariables] - Global variable names to exclude
   Future<BridgeGeneratorResult> generateBridgesFromExports({
     required List<String> barrelFiles,
     required String outputPath,
     String? moduleName,
     List<String>? excludePatterns,
     List<String>? excludeClasses,
+    List<String>? excludeEnums,
+    List<String>? excludeFunctions,
+    List<String>? excludeVariables,
   }) async {
     // Parse export files to get source files and their export info
     final exports = await parseExportFiles(barrelFiles);
@@ -843,6 +849,9 @@ class BridgeGenerator {
       outputPath: outputPath,
       moduleName: moduleName,
       excludeClasses: excludeClasses,
+      excludeEnums: excludeEnums,
+      excludeFunctions: excludeFunctions,
+      excludeVariables: excludeVariables,
       exportInfo: exports,
     );
   }
@@ -857,6 +866,9 @@ class BridgeGenerator {
   /// [moduleName] - Name for the generated bridge class
   /// [excludePatterns] - File path patterns to exclude (e.g., `_bridge.dart`)
   /// [excludeClasses] - Class names to exclude
+  /// [excludeEnums] - Enum names to exclude
+  /// [excludeFunctions] - Global function names to exclude
+  /// [excludeVariables] - Global variable names to exclude
   /// [followReExports] - External package names to follow re-exports from
   /// [fileWriter] - The FileWriter to use for output
   Future<BridgeGeneratorResult> generateBridgesFromExportsWithWriter({
@@ -865,6 +877,9 @@ class BridgeGenerator {
     String? moduleName,
     List<String>? excludePatterns,
     List<String>? excludeClasses,
+    List<String>? excludeEnums,
+    List<String>? excludeFunctions,
+    List<String>? excludeVariables,
     List<String>? followReExports,
     required FileWriter fileWriter,
   }) async {
@@ -903,6 +918,9 @@ class BridgeGenerator {
       outputFileId: outputFileId,
       moduleName: moduleName,
       excludeClasses: excludeClasses,
+      excludeEnums: excludeEnums,
+      excludeFunctions: excludeFunctions,
+      excludeVariables: excludeVariables,
       exportInfo: exports,
       fileWriter: fileWriter,
     );
@@ -916,6 +934,9 @@ class BridgeGenerator {
     String? targetClassName,
     String? moduleName,
     List<String>? excludeClasses,
+    List<String>? excludeEnums,
+    List<String>? excludeFunctions,
+    List<String>? excludeVariables,
     Map<String, ExportInfo>? exportInfo,
   }) async {
     final allClasses = <ClassInfo>[];
@@ -1130,6 +1151,9 @@ class BridgeGenerator {
     String? targetClassName,
     String? moduleName,
     List<String>? excludeClasses,
+    List<String>? excludeEnums,
+    List<String>? excludeFunctions,
+    List<String>? excludeVariables,
     Map<String, ExportInfo>? exportInfo,
     required FileWriter fileWriter,
   }) async {
@@ -1297,6 +1321,42 @@ class BridgeGenerator {
           warnings.add(
             'Skipping hidden variable ${v.name} (not exported from barrel)',
           );
+          return false;
+        }
+        return true;
+      }).toList();
+    }
+
+    // Filter out explicitly excluded enums
+    if (excludeEnums != null && excludeEnums.isNotEmpty) {
+      final excludeSet = excludeEnums.toSet();
+      filteredEnums = filteredEnums.where((e) {
+        if (excludeSet.contains(e.name)) {
+          warnings.add('Skipping excluded enum ${e.name}');
+          return false;
+        }
+        return true;
+      }).toList();
+    }
+
+    // Filter out explicitly excluded functions
+    if (excludeFunctions != null && excludeFunctions.isNotEmpty) {
+      final excludeSet = excludeFunctions.toSet();
+      filteredFunctions = filteredFunctions.where((f) {
+        if (excludeSet.contains(f.name)) {
+          warnings.add('Skipping excluded function ${f.name}');
+          return false;
+        }
+        return true;
+      }).toList();
+    }
+
+    // Filter out explicitly excluded variables
+    if (excludeVariables != null && excludeVariables.isNotEmpty) {
+      final excludeSet = excludeVariables.toSet();
+      filteredVariables = filteredVariables.where((v) {
+        if (excludeSet.contains(v.name)) {
+          warnings.add('Skipping excluded variable ${v.name}');
           return false;
         }
         return true;
