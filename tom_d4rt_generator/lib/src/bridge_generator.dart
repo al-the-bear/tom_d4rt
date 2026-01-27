@@ -469,6 +469,18 @@ class BridgeGenerator {
   /// External types that require wrapper classes (detected during generation).
   final List<ExternalTypeWarning> externalTypeWarnings = [];
 
+  /// Non-wrappable defaults encountered during generation.
+  /// Each entry contains context about where the non-wrappable default was found.
+  final List<String> _nonWrappableDefaultWarnings = [];
+
+  /// Missing exports encountered during generation.
+  /// Tracks types that are used but not exported from the barrel file.
+  final List<String> _missingExportWarnings = [];
+
+  /// Set of class/enum names that are exported from the barrel file.
+  /// Built during bridge file generation from the export info.
+  Set<String> _exportedTypeNames = {};
+
   /// Cached analysis context collection for resolved analysis.
   AnalysisContextCollection? _analysisContext;
 
@@ -1009,6 +1021,12 @@ class BridgeGenerator {
       bridgeableClasses.add(cls);
     }
 
+    // Build the set of exported type names from bridgeable classes
+    // This is used to detect when a type is used but not exported from the barrel
+    _exportedTypeNames = bridgeableClasses.map((c) => c.name).toSet();
+    // Clear previous warnings since we're starting a new generation
+    _missingExportWarnings.clear();
+
     if (bridgeableClasses.isEmpty) {
       return BridgeGeneratorResult(
         classesGenerated: 0,
@@ -1090,7 +1108,7 @@ class BridgeGenerator {
       globalVariablesGenerated: 0, // TODO: count from globals
       outputFiles: outputFiles,
       errors: errors,
-      warnings: warnings,
+      warnings: warnings..addAll(_nonWrappableDefaultWarnings)..addAll(_missingExportWarnings),
     );
   }
 
@@ -1217,6 +1235,12 @@ class BridgeGenerator {
       bridgeableClasses.add(cls);
     }
 
+    // Build the set of exported type names from bridgeable classes
+    // This is used to detect when a type is used but not exported from the barrel
+    _exportedTypeNames = bridgeableClasses.map((c) => c.name).toSet();
+    // Clear previous warnings since we're starting a new generation
+    _missingExportWarnings.clear();
+
     if (bridgeableClasses.isEmpty) {
       return BridgeGeneratorResult(
         classesGenerated: 0,
@@ -1252,7 +1276,7 @@ class BridgeGenerator {
       globalVariablesGenerated: globals.variables.length,
       outputFiles: outputFiles,
       errors: errors,
-      warnings: warnings,
+      warnings: warnings..addAll(_nonWrappableDefaultWarnings)..addAll(_missingExportWarnings),
     );
   }
 
@@ -1692,6 +1716,60 @@ class BridgeGenerator {
     return _prefixDefaultValue(defaultValue, null) != null;
   }
 
+  /// Records a warning for a non-wrappable default value.
+  /// 
+  /// [context] describes where the default was found (e.g., "global function foo", "class Bar.method").
+  /// [paramName] is the parameter name.
+  /// [defaultValue] is the non-wrappable default value.
+  void _recordNonWrappableDefault(String context, String paramName, String defaultValue) {
+    final warning = 'Non-wrappable default in $context: parameter "$paramName" has default "$defaultValue"';
+    _nonWrappableDefaultWarnings.add(warning);
+    if (verbose) {
+      print('WARNING: $warning');
+    }
+  }
+
+  /// Records a warning for a type that is used but not exported from the barrel file.
+  /// 
+  /// [context] describes where the type was used.
+  /// [typeName] is the missing type name.
+  void _recordMissingExport(String context, String typeName) {
+    // Avoid duplicates
+    final warning = 'Missing export: Type "$typeName" used in $context is not exported from barrel file';
+    if (!_missingExportWarnings.contains(warning)) {
+      _missingExportWarnings.add(warning);
+      if (verbose) {
+        print('WARNING: $warning');
+      }
+    }
+  }
+
+  /// Checks if a type name is exported from the barrel file.
+  /// Returns true if:
+  /// - The exported type names set is empty (no barrel tracking)
+  /// - The type is a primitive/built-in type
+  /// - The type is in the exported set
+  bool _isTypeExported(String typeName) {
+    // If we're not tracking exports, assume all types are available
+    if (_exportedTypeNames.isEmpty) {
+      return true;
+    }
+
+    // Built-in types are always available
+    const builtInTypes = {
+      'int', 'double', 'num', 'String', 'bool', 'void', 'dynamic', 'Object',
+      'List', 'Map', 'Set', 'Iterable', 'Future', 'Stream', 'Function',
+      'Type', 'Symbol', 'Null', 'Never', 'Duration', 'DateTime', 'Uri',
+      'BigInt', 'Comparable', 'Pattern', 'Match', 'RegExp', 'Runes',
+      'StringBuffer', 'Error', 'Exception', 'StackTrace',
+    };
+    if (builtInTypes.contains(typeName)) {
+      return true;
+    }
+
+    return _exportedTypeNames.contains(typeName);
+  }
+
   /// Escapes a string for use in generated code.
   /// Escapes single quotes and backslashes.
   String _escapeString(String s) {
@@ -1716,7 +1794,10 @@ class BridgeGenerator {
     final allSourceFiles = classes.map((c) => c.sourceFile).toSet().toList()..sort();
 
     // Collect external type imports from resolved types
-    final externalImports = _collectResolvedTypeImports(classes);
+    // Filter out file:// URIs as those are local files covered by the source import
+    final externalImports = _collectResolvedTypeImports(classes)
+        .where((uri) => !uri.startsWith('file://') && !uri.startsWith('file:///'))
+        .toSet();
 
     // Build import prefix map
     _importPrefixes = {};
@@ -1748,25 +1829,35 @@ class BridgeGenerator {
     }
     buffer.writeln();
 
-    // Import ALL source files without prefix (so their classes are available)
-    // Try to detect package name from source file path if not set globally
+    // Import source files WITH a prefix for global functions
+    // This allows us to call global functions as $source.functionName()
+    const sourcePrefix = r'$source';
     if (sourceImport != null) {
       // Use explicit barrel file import (preferred)
       final detectedPackageName = packageName ?? _getPackageNameFromPath(sourceFile);
       if (detectedPackageName != null) {
-        buffer.writeln("import 'package:$detectedPackageName/$sourceImport';");
+        final sourceImportPath = 'package:$detectedPackageName/$sourceImport';
+        buffer.writeln("import '$sourceImportPath' as $sourcePrefix;");
+        // Register the prefix for global function resolution
+        _importPrefixes[sourceImportPath] = sourcePrefix;
+        // Also register each source file path to map to this prefix
+        for (final srcFile in allSourceFiles) {
+          final srcUri = _getPackageUri(srcFile);
+          _importPrefixes[srcUri] = sourcePrefix;
+        }
       }
     } else {
-      // Import each source file individually
+      // Import each source file individually with prefix
       for (final srcFile in allSourceFiles) {
         final detectedPackageName = packageName ?? _getPackageNameFromPath(srcFile);
         if (detectedPackageName != null) {
-          buffer.writeln(
-            "import 'package:$detectedPackageName/${_getRelativeImport(srcFile)}';",
-          );
+          final srcImportPath = 'package:$detectedPackageName/${_getRelativeImport(srcFile)}';
+          buffer.writeln("import '$srcImportPath' as $sourcePrefix;");
+          _importPrefixes[srcImportPath] = sourcePrefix;
+          _importPrefixes[_getPackageUri(srcFile)] = sourcePrefix;
         } else {
           // Use relative import (fallback)
-          buffer.writeln("import '${p.basename(srcFile)}';");
+          buffer.writeln("import '${p.basename(srcFile)}' as $sourcePrefix;");
         }
       }
     }
@@ -1799,9 +1890,11 @@ class BridgeGenerator {
       buffer.writeln('  static List<BridgedEnumDefinition> bridgedEnums() {');
       buffer.writeln('    return [');
       for (final enumInfo in enums) {
-        buffer.writeln('      BridgedEnumDefinition<${enumInfo.name}>(');
+        // Get prefixed enum name for proper import reference
+        final prefixedEnumName = _getPrefixedClassName(enumInfo.name, enumInfo.sourceFile);
+        buffer.writeln('      BridgedEnumDefinition<$prefixedEnumName>(');
         buffer.writeln("        name: '${enumInfo.name}',");
-        buffer.writeln('        values: ${enumInfo.name}.values,');
+        buffer.writeln('        values: $prefixedEnumName.values,');
         buffer.writeln('      ),');
       }
       buffer.writeln('    ];');
@@ -1868,13 +1961,15 @@ class BridgeGenerator {
       // Regular variables - evaluated at registration time
       for (final variable in regularVariables) {
         final override = globalsUserBridge?.getGlobalVariableOverride(variable.name);
+        // Get prefixed variable name for proper import reference
+        final prefixedVarName = _getPrefixedFunctionName(variable.name, variable.sourceFile);
         if (override != null) {
           buffer.writeln(
             "    interpreter.registerGlobalVariable('${variable.name}', ${globalsUserBridge!.userBridgeClassName}.$override());",
           );
         } else {
           buffer.writeln(
-            "    interpreter.registerGlobalVariable('${variable.name}', ${variable.name});",
+            "    interpreter.registerGlobalVariable('${variable.name}', $prefixedVarName);",
           );
         }
       }
@@ -1882,13 +1977,15 @@ class BridgeGenerator {
       // Getter variables - evaluated lazily at runtime
       for (final variable in getterVariables) {
         final override = globalsUserBridge?.getGlobalGetterOverride(variable.name);
+        // Get prefixed getter name for proper import reference
+        final prefixedGetterName = _getPrefixedFunctionName(variable.name, variable.sourceFile);
         if (override != null) {
           buffer.writeln(
             "    interpreter.registerGlobalGetter('${variable.name}', ${globalsUserBridge!.userBridgeClassName}.$override());",
           );
         } else {
           buffer.writeln(
-            "    interpreter.registerGlobalGetter('${variable.name}', () => ${variable.name});",
+            "    interpreter.registerGlobalGetter('${variable.name}', () => $prefixedGetterName);",
           );
         }
       }
@@ -1910,6 +2007,9 @@ class BridgeGenerator {
           continue;
         }
         
+        // Get the prefixed function name
+        final prefixedFuncName = _getPrefixedFunctionName(func.name, func.sourceFile);
+        
         buffer.writeln("      '${func.name}': (visitor, positional, named, typeArgs) {");
         
         // Count required positional parameters
@@ -1924,20 +2024,60 @@ class BridgeGenerator {
         final callArgs = <String>[];
         
         for (final param in func.parameters) {
+          // Resolve the type using _getTypeArgument to handle generics and external types
+          final resolvedType = _getTypeArgument(
+            param.type,
+            typeToUri: param.typeToUri,
+          );
+          
           if (param.isNamed) {
-            // Named parameter - use D4.getOptionalNamedArg
-            final nullableType = param.type.endsWith('?') ? param.type : '${param.type}?';
-            argDeclarations.add("        final ${param.name} = D4.getOptionalNamedArg<$nullableType>(named, '${param.name}');");
+            // Named parameter handling
+            if (param.isRequired) {
+              argDeclarations.add("        final ${param.name} = D4.getRequiredNamedArg<$resolvedType>(named, '${param.name}', '${func.name}');");
+            } else if (param.defaultValue != null) {
+              // Optional with default - try to use the default value
+              final prefixedDefault = _prefixDefaultValue(
+                param.defaultValue!,
+                _getPackageUri(func.sourceFile),
+              );
+              if (prefixedDefault != null) {
+                argDeclarations.add("        final ${param.name} = D4.getNamedArgWithDefault<$resolvedType>(named, '${param.name}', $prefixedDefault);");
+              } else {
+                // Non-wrappable default - use TODO helper and record warning
+                _recordNonWrappableDefault('global function ${func.name}', param.name, param.defaultValue!);
+                argDeclarations.add("        // TODO: Non-wrappable default: ${param.defaultValue}");
+                argDeclarations.add("        final ${param.name} = D4.getRequiredNamedArgTodoDefault<$resolvedType>(named, '${param.name}', '${func.name}', '${_escapeString(param.defaultValue!)}');");
+              }
+            } else {
+              // Truly optional with no default - use nullable type
+              final nullableType = resolvedType.endsWith('?') ? resolvedType : '$resolvedType?';
+              argDeclarations.add("        final ${param.name} = D4.getOptionalNamedArg<$nullableType>(named, '${param.name}');");
+            }
             callArgs.add('${param.name}: ${param.name}');
           } else {
             // Positional parameter
             if (param.isRequired) {
               // Required positional - use D4.getRequiredArg
-              argDeclarations.add("        final ${param.name} = D4.getRequiredArg<${param.type}>(positional, $positionalIndex, '${param.name}', '${func.name}');");
+              argDeclarations.add("        final ${param.name} = D4.getRequiredArg<$resolvedType>(positional, $positionalIndex, '${param.name}', '${func.name}');");
+              callArgs.add(param.name);
+            } else if (param.defaultValue != null) {
+              // Optional positional with default
+              final prefixedDefault = _prefixDefaultValue(
+                param.defaultValue!,
+                _getPackageUri(func.sourceFile),
+              );
+              if (prefixedDefault != null) {
+                argDeclarations.add("        final ${param.name} = D4.getOptionalArgWithDefault<$resolvedType>(positional, $positionalIndex, '${param.name}', $prefixedDefault);");
+              } else {
+                // Non-wrappable default - use TODO helper and record warning
+                _recordNonWrappableDefault('global function ${func.name}', param.name, param.defaultValue!);
+                argDeclarations.add("        // TODO: Non-wrappable default: ${param.defaultValue}");
+                argDeclarations.add("        final ${param.name} = D4.getRequiredArgTodoDefault<$resolvedType>(positional, $positionalIndex, '${param.name}', '${func.name}', '${_escapeString(param.defaultValue!)}');");
+              }
               callArgs.add(param.name);
             } else {
-              // Optional positional - check length and cast
-              final nullableType = param.type.endsWith('?') ? param.type : '${param.type}?';
+              // Optional positional with no default - use nullable type
+              final nullableType = resolvedType.endsWith('?') ? resolvedType : '$resolvedType?';
               argDeclarations.add("        final ${param.name} = positional.length > $positionalIndex ? positional[$positionalIndex] as $nullableType : null;");
               callArgs.add(param.name);
             }
@@ -1950,7 +2090,7 @@ class BridgeGenerator {
           buffer.writeln(decl);
         }
         
-        buffer.writeln('        return ${func.name}(${callArgs.join(', ')});');
+        buffer.writeln('        return $prefixedFuncName(${callArgs.join(', ')});');
         buffer.writeln('      },');
       }
       buffer.writeln('    };');
@@ -2134,6 +2274,17 @@ class BridgeGenerator {
       return '$prefix.$className';
     }
     return className;
+  }
+
+  /// Gets the prefixed function name if the source file has a prefix, otherwise returns the plain name.
+  String _getPrefixedFunctionName(String funcName, String sourceFile) {
+    // Convert source file path to package URI
+    final uri = _getPackageUri(sourceFile);
+    final prefix = _importPrefixes[uri];
+    if (prefix != null) {
+      return '$prefix.$funcName';
+    }
+    return funcName;
   }
 
   /// Converts a source file path to a package URI.
@@ -2352,9 +2503,10 @@ class BridgeGenerator {
             "      '${getter.name}': ${userBridge!.userBridgeClassName}.$staticGetterOverride,",
           );
         } else {
+          // Use prefixedName for static access
           buffer.writeln(
             "      '${getter.name}': (visitor) => "
-            "${cls.name}.${getter.name},",
+            "$prefixedName.${getter.name},",
           );
         }
       }
@@ -2790,7 +2942,8 @@ class BridgeGenerator {
           );
           buffer.writeln("            : $typedDefault;");
         } else {
-          // Non-wrappable default for List
+          // Non-wrappable default for List - record warning
+          _recordNonWrappableDefault(contextName, param.name, param.defaultValue!);
           buffer.writeln(
             "        // TODO: Non-wrappable default: ${param.defaultValue}",
           );
@@ -2847,7 +3000,8 @@ class BridgeGenerator {
           );
           buffer.writeln("            : $typedDefault;");
         } else {
-          // Non-wrappable default for Map
+          // Non-wrappable default for Map - record warning
+          _recordNonWrappableDefault(contextName, param.name, param.defaultValue!);
           buffer.writeln(
             "        // TODO: Non-wrappable default: ${param.defaultValue}",
           );
@@ -2954,7 +3108,8 @@ class BridgeGenerator {
           "(positional, $index, '${param.name}', $prefixedDefault);",
         );
       } else {
-        // Non-wrappable default - use TODO helper
+        // Non-wrappable default - use TODO helper and record warning
+        _recordNonWrappableDefault(contextName, param.name, param.defaultValue!);
         buffer.writeln(
           "        // TODO: Non-wrappable default: ${param.defaultValue}",
         );
@@ -3102,7 +3257,8 @@ class BridgeGenerator {
           );
           buffer.writeln("            : $typedDefault;");
         } else {
-          // Non-wrappable default for List
+          // Non-wrappable default for List - record warning
+          _recordNonWrappableDefault(contextName, param.name, param.defaultValue!);
           buffer.writeln(
             "        // TODO: Non-wrappable default: ${param.defaultValue}",
           );
@@ -3224,7 +3380,8 @@ class BridgeGenerator {
           );
           buffer.writeln("            : $typedDefault;");
         } else {
-          // Non-wrappable default for Map
+          // Non-wrappable default for Map - record warning
+          _recordNonWrappableDefault(contextName, param.name, param.defaultValue!);
           buffer.writeln(
             "        // TODO: Non-wrappable default: ${param.defaultValue}",
           );
@@ -3270,7 +3427,8 @@ class BridgeGenerator {
           "(named, '${param.name}', $prefixedDefault);",
         );
       } else {
-        // Non-wrappable default - use TODO helper
+        // Non-wrappable default - use TODO helper and record warning
+        _recordNonWrappableDefault(contextName, param.name, param.defaultValue!);
         buffer.writeln(
           "        // TODO: Non-wrappable default: ${param.defaultValue}",
         );
@@ -3349,6 +3507,12 @@ class BridgeGenerator {
     if (uri != null) {
       final prefix = _importPrefixes[uri];
       if (prefix != null) {
+        // Check if this type is exported from the barrel file
+        if (!_isTypeExported(unprefixedType)) {
+          // Type is not exported - record warning and use dynamic
+          _recordMissingExport('type argument', unprefixedType);
+          return 'dynamic';
+        }
         final result = '$prefix.$unprefixedType';
         return isNullable ? '$result?' : result;
       }
@@ -3881,6 +4045,10 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
 
   @override
   void visitFunctionDeclaration(FunctionDeclaration node) {
+    // Only process top-level functions (skip local functions inside methods/functions)
+    // Top-level functions have CompilationUnit as their parent
+    if (node.parent is! CompilationUnit) return;
+
     // Skip private functions
     final name = node.name.lexeme;
     if (skipPrivate && name.startsWith('_')) return;

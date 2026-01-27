@@ -83,15 +83,17 @@ void main() {
     });
 
     test('generates BridgedEnumDefinition with correct type parameter', () {
-      expect(generatedCode, contains('BridgedEnumDefinition<SimpleStatus>'));
-      expect(generatedCode, contains('BridgedEnumDefinition<Color>'));
-      expect(generatedCode, contains('BridgedEnumDefinition<Priority>'));
+      // Types are now prefixed with $source. since source imports use a prefix
+      expect(generatedCode, contains(r'BridgedEnumDefinition<$source.SimpleStatus>'));
+      expect(generatedCode, contains(r'BridgedEnumDefinition<$source.Color>'));
+      expect(generatedCode, contains(r'BridgedEnumDefinition<$source.Priority>'));
     });
 
     test('generates enum values reference', () {
-      expect(generatedCode, contains('values: SimpleStatus.values'));
-      expect(generatedCode, contains('values: Color.values'));
-      expect(generatedCode, contains('values: Priority.values'));
+      // Types are now prefixed with $source. since source imports use a prefix
+      expect(generatedCode, contains(r'values: $source.SimpleStatus.values'));
+      expect(generatedCode, contains(r'values: $source.Color.values'));
+      expect(generatedCode, contains(r'values: $source.Priority.values'));
     });
 
     test('generates registerBridgedEnum calls in registerBridges', () {
@@ -209,7 +211,8 @@ class DummyClass {
       final code = await File(result.outputFiles.first).readAsString();
       
       expect(code, contains("name: 'SingletonEnum'"));
-      expect(code, contains('values: SingletonEnum.values'));
+      // Types are now prefixed with $source. since source imports use a prefix
+      expect(code, contains(r'values: $source.SingletonEnum.values'));
     });
   });
 }

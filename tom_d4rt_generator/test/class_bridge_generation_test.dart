@@ -60,7 +60,8 @@ void main() {
     group('Simple Classes', () {
       test('detects SimpleClass', () {
         expect(generatedCode, contains("name: 'SimpleClass'"));
-        expect(generatedCode, contains('nativeType: SimpleClass'));
+        // Types are now prefixed with $source. since source imports use a prefix
+        expect(generatedCode, contains(r'nativeType: $source.SimpleClass'));
       });
 
       test('detects OptionalPositionalClass', () {
@@ -120,9 +121,10 @@ void main() {
       });
 
       test('generates target validation for getters', () {
+        // Types are now prefixed with $source. since source imports use a prefix
         expect(
           generatedCode,
-          contains('D4.validateTarget<PropertyClass>'),
+          contains(r'D4.validateTarget<$source.PropertyClass>'),
         );
       });
     });
@@ -150,9 +152,10 @@ void main() {
       });
 
       test('generates method target validation', () {
+        // Types are now prefixed with $source. since source imports use a prefix
         expect(
           generatedCode,
-          contains("D4.validateTarget<MethodClass>(target, 'MethodClass')"),
+          contains(r"D4.validateTarget<$source.MethodClass>(target, 'MethodClass')"),
         );
       });
     });
@@ -371,7 +374,8 @@ void main() {
 
     test('generic class Container<T> is bridged', () {
       expect(generatedCode, contains("name: 'Container'"));
-      expect(generatedCode, contains('nativeType: Container'));
+      // Types are now prefixed with $source. since source imports use a prefix
+      expect(generatedCode, contains(r'nativeType: $source.Container'));
     });
 
     test('bounded generic NumberContainer<T extends num> is bridged', () {
