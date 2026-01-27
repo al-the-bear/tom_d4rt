@@ -133,16 +133,23 @@ class ExportInfo {
     this.showClause,
   });
 
-  /// Whether a class name is exported (not hidden).
-  bool isClassExported(String className) {
+  /// Whether a symbol (class, enum, function, variable, typedef) is exported.
+  ///
+  /// Returns true if the symbol is not hidden and is included in show clause
+  /// (if one exists).
+  bool isSymbolExported(String symbolName) {
     if (showClause != null) {
-      return showClause!.contains(className);
+      return showClause!.contains(symbolName);
     }
     if (hideClause != null) {
-      return !hideClause!.contains(className);
+      return !hideClause!.contains(symbolName);
     }
     return true;
   }
+
+  /// Deprecated: use [isSymbolExported] instead.
+  @Deprecated('Use isSymbolExported instead')
+  bool isClassExported(String className) => isSymbolExported(className);
 }
 
 /// Information about a top-level function for bridging.
@@ -942,7 +949,7 @@ class BridgeGenerator {
     if (exportInfo != null) {
       filteredClasses = filteredClasses.where((c) {
         final info = exportInfo[c.sourceFile];
-        if (info != null && !info.isClassExported(c.name)) {
+        if (info != null && !info.isSymbolExported(c.name)) {
           warnings.add(
             'Skipping hidden class ${c.name} (not exported from barrel)',
           );
@@ -1155,7 +1162,7 @@ class BridgeGenerator {
     if (exportInfo != null) {
       filteredClasses = filteredClasses.where((c) {
         final info = exportInfo[c.sourceFile];
-        if (info != null && !info.isClassExported(c.name)) {
+        if (info != null && !info.isSymbolExported(c.name)) {
           warnings.add(
             'Skipping hidden class ${c.name} (not exported from barrel)',
           );
@@ -1256,14 +1263,54 @@ class BridgeGenerator {
     // Parse globals from all source files
     final globals = await _parseGlobals(sourceFiles);
 
+    // Filter globals by export info (hide/show clauses from barrel files)
+    var filteredEnums = globals.enums;
+    var filteredFunctions = globals.functions;
+    var filteredVariables = globals.variables;
+
+    if (exportInfo != null) {
+      filteredEnums = globals.enums.where((e) {
+        final info = exportInfo[e.sourceFile];
+        if (info != null && !info.isSymbolExported(e.name)) {
+          warnings.add(
+            'Skipping hidden enum ${e.name} (not exported from barrel)',
+          );
+          return false;
+        }
+        return true;
+      }).toList();
+
+      filteredFunctions = globals.functions.where((f) {
+        final info = exportInfo[f.sourceFile];
+        if (info != null && !info.isSymbolExported(f.name)) {
+          warnings.add(
+            'Skipping hidden function ${f.name} (not exported from barrel)',
+          );
+          return false;
+        }
+        return true;
+      }).toList();
+
+      filteredVariables = globals.variables.where((v) {
+        final info = exportInfo[v.sourceFile];
+        if (info != null && !info.isSymbolExported(v.name)) {
+          warnings.add(
+            'Skipping hidden variable ${v.name} (not exported from barrel)',
+          );
+          return false;
+        }
+        return true;
+      }).toList();
+    }
+
     // Generate single output file content
     final code = _generateBridgeFile(
       bridgeableClasses,
       sourceFiles.first,
       moduleName,
-      globalFunctions: globals.functions,
-      globalVariables: globals.variables,
-      enums: globals.enums,
+      globalFunctions: filteredFunctions,
+      globalVariables: filteredVariables,
+      enums: filteredEnums,
     );
 
     // Write using the FileWriter
@@ -1272,8 +1319,8 @@ class BridgeGenerator {
 
     return BridgeGeneratorResult(
       classesGenerated: bridgeableClasses.length,
-      globalFunctionsGenerated: globals.functions.length,
-      globalVariablesGenerated: globals.variables.length,
+      globalFunctionsGenerated: filteredFunctions.length,
+      globalVariablesGenerated: filteredVariables.length,
       outputFiles: outputFiles,
       errors: errors,
       warnings: warnings..addAll(_nonWrappableDefaultWarnings)..addAll(_missingExportWarnings),
