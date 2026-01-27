@@ -1,0 +1,83 @@
+# D4rt Bridge Generator Log
+# Generated: 2026-01-27
+
+========================================
+PROJECT: tom_core_kernel
+========================================
+Building package executable... 
+Built build_runner:build_runner.
+3s compiling builders/jit
+135s tom_reflection_generator:reflection_generator on 9 inputs: 9 output; spent 70s analyzing, 63s building
+2s tom_d4rt_generator:d4rt_bridge_builder on 1 input: 1 output; spent 2s building
+
+lib/$lib$ tom_d4rt_generator:d4rt_bridge_builder
+W Warning: TODO: firstWhere: parameter "orElse" has unbridgeable function type dynamic Function()?
+W Warning: TODO: lastWhere: parameter "orElse" has unbridgeable function type dynamic Function()?
+W Warning: TODO: singleWhere: parameter "orElse" has unbridgeable function type dynamic Function()?
+W Warning: TODO: update: parameter "ifAbsent" has unbridgeable function type V Function()?
+
+Built with build_runner/jit in 141s with warnings; wrote 10 outputs.
+
+========================================
+PROJECT: tom_core_server
+========================================
+Building package executable... 
+Built build_runner:build_runner.
+4s compiling builders/jit
+5s tom_d4rt_generator:d4rt_bridge_builder on 1 input: 1 output; spent 5s building
+
+lib/$lib$ tom_d4rt_generator:d4rt_bridge_builder
+W Warning: TODO: TomDbColumn: parameter "fromDbConverter" has unbridgeable function type DART_TYPE Function(COL_TYPE)?
+W Warning: TODO: TomDbColumn: parameter "toDbConverter" has unbridgeable function type COL_TYPE Function(DART_TYPE)?
+W Warning: TODO: TomPersistenceEventHandler: parameter "postPersist" has unbridgeable function type void Function(DBTYPE)?
+W Warning: TODO: TomPersistenceEventHandler: parameter "postLoad" has unbridgeable function type void Function(DBTYPE)?
+W Warning: TODO: TomPersistenceEventHandler: parameter "preLoad" has unbridgeable function type void Function(DBTYPE)?
+W Warning: TODO: TomPersistenceEventHandler: parameter "prePersist" has unbridgeable function type void Function(DBTYPE)?
+
+Built with build_runner/jit in 10s with warnings; wrote 1 output.
+
+========================================
+PROJECT: tom_core_flutter
+========================================
+Building package executable... 
+Built build_runner:build_runner.
+3s compiling builders/jit
+10s tom_d4rt_generator:d4rt_bridge_builder on 1 input: 1 output; spent 10s building
+
+lib/$lib$ tom_d4rt_generator:d4rt_bridge_builder
+W Warning: TODO: TomObservingWidget: parameter "child" has unbridgeable function type Widget Function(T)
+W Warning: TODO: TomObservingWidgetState: parameter "child" has unbridgeable function type Widget Function(T)
+W Warning: TODO: TomField: parameter "valueConverter" has unbridgeable function type T Function(String)?
+W Warning: TODO: TomField: parameter "valueToTextConverter" has unbridgeable function type String Function(T)?
+W Warning: TODO: TomField: parameter "inputValidator" has unbridgeable function type String? Function(String)?
+W Warning: TODO: TomField: parameter "valueValidator" has unbridgeable function type String? Function(String)?
+
+Built with build_runner/jit in 13s with warnings; wrote 1 output.
+
+========================================
+PROJECT: tom_build
+========================================
+Building package executable... 
+Built build_runner:build_runner.
+3s compiling builders/jit
+14s tom_d4rt_generator:d4rt_bridge_builder on 1 input: 1 output; spent 14s building
+
+lib/$lib$ tom_d4rt_generator:d4rt_bridge_builder
+W Warning: TODO: D4rtRunner: parameter "evaluator" has unbridgeable function type D4rtEvaluator?
+
+Built with build_runner/jit in 18s with warnings; wrote 1 output.
+
+========================================
+PROJECT: tom_dartscript_bridge
+========================================
+Building package executable... 
+Built build_runner:build_runner.
+3s compiling builders/jit
+12s tom_d4rt_generator:d4rt_bridge_builder on 1 input: 1 output; spent 12s building
+
+Built with build_runner/jit in 17s; wrote 1 output.
+
+========================================
+GENERATION COMPLETE
+========================================
+

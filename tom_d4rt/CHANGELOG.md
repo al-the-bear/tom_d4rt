@@ -1,3 +1,14 @@
+## 1.4.0
+
+### Features
+- **Global getter lazy evaluation**: Added `GlobalGetter` wrapper class for lazy evaluation of top-level getters
+- **registerGlobalGetter method**: New D4rt method `registerGlobalGetter(name, getter)` for registering getters that are evaluated at access time rather than registration time
+- Essential for singleton patterns and values that may not be initialized at registration time
+
+### Documentation
+- Added "Global Variables and Getters" section to BRIDGING_GUIDE.md
+- Documented when to use `registerGlobalVariable` vs `registerGlobalGetter`
+
 ## 1.3.1
 - **Repository reorganization**: Moved to tom_module_d4rt repository as part of modular workspace structure
 - Updated repository URL to https://github.com/al-the-bear/tom_module_d4rt

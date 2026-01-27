@@ -228,3 +228,28 @@ int divideSafe(int a, int b) {
     return 0;
   }
 }
+
+// =============================================================================
+// Global Getters (should use registerGlobalGetter for lazy evaluation)
+// =============================================================================
+
+/// A global singleton that may not be initialized at registration time.
+class GlobalService {
+  static GlobalService? _instance;
+  static GlobalService get instance => _instance ??= GlobalService._();
+  GlobalService._();
+  
+  String get status => 'running';
+}
+
+/// Top-level getter returning the singleton instance.
+GlobalService get globalService => GlobalService.instance;
+
+/// Top-level getter returning computed value.
+DateTime get currentTime => DateTime.now();
+
+/// Top-level getter with nullable return.
+String? get lastLogMessage => lastError.isNotEmpty ? lastError : null;
+
+/// Top-level getter depending on mutable state.
+int get doubleRequestCount => requestCount * 2;

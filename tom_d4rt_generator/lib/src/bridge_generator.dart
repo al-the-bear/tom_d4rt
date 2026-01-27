@@ -166,6 +166,7 @@ class GlobalVariableInfo {
   final String type;
   final bool isFinal;
   final bool isConst;
+  final bool isGetter;
   final String sourceFile;
 
   const GlobalVariableInfo({
@@ -173,6 +174,7 @@ class GlobalVariableInfo {
     required this.type,
     required this.isFinal,
     required this.isConst,
+    this.isGetter = false,
     required this.sourceFile,
   });
 }
@@ -702,26 +704,26 @@ class BridgeGenerator {
               absolutePath,
             ], visited: visited, followReExports: followReExports);
             exports.addAll(nestedExports);
-          } else {
-            // Regular source file - add to exports
-            exports[absolutePath] = ExportInfo(
-              sourcePath: absolutePath,
-              hideClause: hideShow?.startsWith('hide') == true
-                  ? hideShow!
-                        .substring(5)
-                        .split(',')
-                        .map((s) => s.trim())
-                        .toList()
-                  : null,
-              showClause: hideShow?.startsWith('show') == true
-                  ? hideShow!
-                        .substring(5)
-                        .split(',')
-                        .map((s) => s.trim())
-                        .toList()
-                  : null,
-            );
           }
+          // Always add the file itself to exports (it may contain its own code)
+          // even if it's a barrel file that re-exports other files
+          exports[absolutePath] = ExportInfo(
+            sourcePath: absolutePath,
+            hideClause: hideShow?.startsWith('hide') == true
+                ? hideShow!
+                      .substring(5)
+                      .split(',')
+                      .map((s) => s.trim())
+                      .toList()
+                : null,
+            showClause: hideShow?.startsWith('show') == true
+                ? hideShow!
+                      .substring(5)
+                      .split(',')
+                      .map((s) => s.trim())
+                      .toList()
+                : null,
+          );
         }
       }
     }
@@ -1791,8 +1793,126 @@ class BridgeGenerator {
       );
       buffer.writeln('    }');
     }
+    // Register global variables
+    if (globalVariables.isNotEmpty) {
+      buffer.writeln();
+      buffer.writeln('    // Register global variables');
+      buffer.writeln('    registerGlobalVariables(interpreter);');
+    }
+    // Register global functions
+    if (globalFunctions.isNotEmpty) {
+      buffer.writeln();
+      buffer.writeln('    // Register global functions');
+      buffer.writeln('    for (final entry in globalFunctions().entries) {');
+      buffer.writeln('      interpreter.registertopLevelFunction(entry.key, entry.value);');
+      buffer.writeln('    }');
+    }
     buffer.writeln('  }');
     buffer.writeln();
+
+    // Get globals overrides if available
+    final globalsUserBridge = _userBridgeScanner.globalsUserBridge;
+
+    // Generate registerGlobalVariables method
+    if (globalVariables.isNotEmpty) {
+      final regularVariables = globalVariables.where((v) => !v.isGetter).toList();
+      final getterVariables = globalVariables.where((v) => v.isGetter).toList();
+      
+      buffer.writeln('  /// Registers all global variables with the interpreter.');
+      buffer.writeln('  static void registerGlobalVariables(D4rt interpreter) {');
+      
+      // Regular variables - evaluated at registration time
+      for (final variable in regularVariables) {
+        final override = globalsUserBridge?.getGlobalVariableOverride(variable.name);
+        if (override != null) {
+          buffer.writeln(
+            "    interpreter.registerGlobalVariable('${variable.name}', ${globalsUserBridge!.userBridgeClassName}.$override());",
+          );
+        } else {
+          buffer.writeln(
+            "    interpreter.registerGlobalVariable('${variable.name}', ${variable.name});",
+          );
+        }
+      }
+      
+      // Getter variables - evaluated lazily at runtime
+      for (final variable in getterVariables) {
+        final override = globalsUserBridge?.getGlobalGetterOverride(variable.name);
+        if (override != null) {
+          buffer.writeln(
+            "    interpreter.registerGlobalGetter('${variable.name}', ${globalsUserBridge!.userBridgeClassName}.$override());",
+          );
+        } else {
+          buffer.writeln(
+            "    interpreter.registerGlobalGetter('${variable.name}', () => ${variable.name});",
+          );
+        }
+      }
+      buffer.writeln('  }');
+      buffer.writeln();
+    }
+
+    // Generate globalFunctions method returning a map of wrappers
+    if (globalFunctions.isNotEmpty) {
+      buffer.writeln('  /// Returns a map of global function names to their native implementations.');
+      buffer.writeln('  static Map<String, NativeFunctionImpl> globalFunctions() {');
+      buffer.writeln('    return {');
+      for (final func in globalFunctions) {
+        // Check for function override
+        final override = globalsUserBridge?.getGlobalFunctionOverride(func.name);
+        if (override != null) {
+          // Use the override method instead of generating
+          buffer.writeln("      '${func.name}': ${globalsUserBridge!.userBridgeClassName}.$override,");
+          continue;
+        }
+        
+        buffer.writeln("      '${func.name}': (visitor, positional, named, typeArgs) {");
+        
+        // Count required positional parameters
+        final requiredPositionalCount = func.parameters.where((p) => !p.isNamed && p.isRequired).length;
+        if (requiredPositionalCount > 0) {
+          buffer.writeln("        D4.requireMinArgs(positional, $requiredPositionalCount, '${func.name}');");
+        }
+        
+        // Generate argument extraction with proper D4 helpers
+        var positionalIndex = 0;
+        final argDeclarations = <String>[];
+        final callArgs = <String>[];
+        
+        for (final param in func.parameters) {
+          if (param.isNamed) {
+            // Named parameter - use D4.getOptionalNamedArg
+            final nullableType = param.type.endsWith('?') ? param.type : '${param.type}?';
+            argDeclarations.add("        final ${param.name} = D4.getOptionalNamedArg<$nullableType>(named, '${param.name}');");
+            callArgs.add('${param.name}: ${param.name}');
+          } else {
+            // Positional parameter
+            if (param.isRequired) {
+              // Required positional - use D4.getRequiredArg
+              argDeclarations.add("        final ${param.name} = D4.getRequiredArg<${param.type}>(positional, $positionalIndex, '${param.name}', '${func.name}');");
+              callArgs.add(param.name);
+            } else {
+              // Optional positional - check length and cast
+              final nullableType = param.type.endsWith('?') ? param.type : '${param.type}?';
+              argDeclarations.add("        final ${param.name} = positional.length > $positionalIndex ? positional[$positionalIndex] as $nullableType : null;");
+              callArgs.add(param.name);
+            }
+            positionalIndex++;
+          }
+        }
+        
+        // Write declarations
+        for (final decl in argDeclarations) {
+          buffer.writeln(decl);
+        }
+        
+        buffer.writeln('        return ${func.name}(${callArgs.join(', ')});');
+        buffer.writeln('      },');
+      }
+      buffer.writeln('    };');
+      buffer.writeln('  }');
+      buffer.writeln();
+    }
 
     // getImportBlock method - returns import statements for D4rt scripts
     final detectedPackageName = packageName ?? _getPackageNameFromPath(sourceFile);
@@ -3362,8 +3482,24 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     final name = node.name.lexeme;
     if (skipPrivate && name.startsWith('_')) return;
 
-    // Skip getters/setters (they're handled differently)
-    if (node.isGetter || node.isSetter) return;
+    // Handle top-level getters as global variables
+    if (node.isGetter) {
+      final returnType = node.returnType?.toSource() ?? 'dynamic';
+      globalVariables.add(
+        GlobalVariableInfo(
+          name: name,
+          type: returnType,
+          isFinal: false,
+          isConst: false,
+          isGetter: true,
+          sourceFile: currentSourceFile ?? '',
+        ),
+      );
+      return;
+    }
+
+    // Skip setters (they don't make sense as standalone globals)
+    if (node.isSetter) return;
 
     final returnType = node.returnType?.toSource() ?? 'dynamic';
     final params = node.functionExpression.parameters;

@@ -594,7 +594,95 @@ The `extends D4UserBridge` pattern ensures:
 
 See [userbridge_override_design.md](userbridge_override_design.md) for full specification.
 
-### 8.4 When to Use Custom Bridges
+### 8.4 GlobalsUserBridge Override System
+
+Similar to class-level UserBridges, you can override top-level global functions, variables, and getters using a `GlobalsUserBridge` class.
+
+**Step 1:** Create a GlobalsUserBridge class:
+
+```dart
+// lib/src/d4rt_bridges/user_bridges/my_globals_user_bridge.dart
+import 'package:tom_d4rt/d4rt.dart';
+
+/// User overrides for global functions, variables, and getters.
+class MyGlobalsUserBridge extends D4UserBridge {
+  /// Override a global variable - returns the replacement value.
+  static int get overrideGlobalVariableMaxRetries => 10;
+  
+  /// Override a global getter - returns a lazy evaluation function.
+  static Object? Function() get overrideGlobalGetterLogger => 
+      () => CustomLogger.instance;
+  
+  /// Override a global function - returns the function implementation.
+  static Object? Function(InterpreterVisitor, List<Object?>, Map<String, Object?>, List<RuntimeType>?) 
+      get overrideGlobalFunctionCalculate => 
+          (visitor, positional, named, typeArgs) {
+            final a = D4.getRequiredArg<int>(positional, 0, 'a', 'calculate');
+            final b = D4.getRequiredArg<int>(positional, 1, 'b', 'calculate');
+            return customCalculate(a, b);
+          };
+}
+```
+
+**Step 2:** Ensure the GlobalsUserBridge file is included in the source files being scanned.
+
+The generator will automatically:
+1. Detect `GlobalsUserBridge` or `*GlobalsUserBridge` classes extending `D4UserBridge`
+2. Use override values/functions for specified globals
+3. Generate non-overridden globals normally
+
+**Global override naming convention:**
+
+| Global Type | Override Property Name |
+|-------------|------------------------|
+| Variable `myVar` | `overrideGlobalVariableMyVar` |
+| Getter `myGetter` | `overrideGlobalGetterMyGetter` |
+| Function `myFunc()` | `overrideGlobalFunctionMyFunc` |
+
+**Note:** The override name uses PascalCase for the global name (e.g., `maxRetries` → `overrideGlobalVariableMaxRetries`).
+
+**Override return types:**
+
+| Override Type | Return Type |
+|---------------|-------------|
+| `overrideGlobalVariableXxx` | The value directly (any type) |
+| `overrideGlobalGetterXxx` | `Object? Function()` - lazy evaluation function |
+| `overrideGlobalFunctionXxx` | `Object? Function(InterpreterVisitor, List<Object?>, Map<String, Object?>, List<RuntimeType>?)` |
+
+**Generated output example:**
+
+```dart
+// Auto-generated registerGlobalVariables method
+static void registerGlobalVariables(D4rt interpreter) {
+  // Uses override value
+  interpreter.registerGlobalVariable('maxRetries', MyGlobalsUserBridge.overrideGlobalVariableMaxRetries);
+  // Auto-generated
+  interpreter.registerGlobalVariable('appName', appName);
+}
+
+// Auto-generated registerGlobalGetters method
+static void registerGlobalGetters(D4rt interpreter) {
+  // Uses override getter
+  interpreter.registerGlobalGetter('logger', MyGlobalsUserBridge.overrideGlobalGetterLogger);
+  // Auto-generated
+  interpreter.registerGlobalGetter('currentUser', () => currentUser);
+}
+
+// Auto-generated globalFunctions map
+static Map<String, NativeFunctionImpl> globalFunctions() {
+  return {
+    // Uses override function
+    'calculate': MyGlobalsUserBridge.overrideGlobalFunctionCalculate,
+    // Auto-generated
+    'validate': (visitor, positional, named, typeArgs) {
+      final value = D4.getRequiredArg<String>(positional, 0, 'value', 'validate');
+      return validate(value);
+    },
+  };
+}
+```
+
+### 8.5 When to Use Custom Bridges
 
 | Scenario | Solution |
 |----------|----------|

@@ -183,9 +183,7 @@ void main() {
     });
 
     test('uses operator override from UserBridge', () {
-      // NOTE: Operators are currently skipped in parsing (line 3700 bridge_generator.dart)
-      // This test documents the expected behavior when operators are supported.
-      // For now, we verify the override is detected but not used in generation.
+      // Verify the override is detected
       final userBridge =
           generator.userBridgeScanner.getUserBridgeFor('MyCollection');
       expect(userBridge, isNotNull);
@@ -194,13 +192,13 @@ void main() {
         equals('overrideOperatorIndex'),
         reason: 'Operator override should be detected',
       );
-      // TODO: When operators are supported, uncomment this:
-      // expect(
-      //   generatedCode,
-      //   contains('MyCollectionUserBridge.overrideOperatorIndex'),
-      //   reason: 'Generated bridge should reference operator override',
-      // );
-    }, skip: 'Operators are currently skipped in bridge generation');
+      // Verify the generated code uses the override
+      expect(
+        generatedCode,
+        contains('MyCollectionUserBridge.overrideOperatorIndex'),
+        reason: 'Generated bridge should reference operator override',
+      );
+    });
 
     test('uses getter override from UserBridge', () {
       expect(
@@ -254,6 +252,169 @@ void main() {
         generatedCode,
         contains("'greet':"),
       );
+    });
+  });
+
+  group('GlobalsUserBridge', () {
+    late BridgeGenerator generator;
+    late String generatedCode;
+
+    setUpAll(() async {
+      generator = BridgeGenerator(
+        workspacePath: testFixturesDir,
+        skipPrivate: true,
+        helpersImport: 'package:tom_d4rt/tom_d4rt.dart',
+        sourceImport: 'global_test_source.dart',
+        packageName: 'test_package',
+        verbose: false,
+      );
+
+      // Include both global source and globals user bridge
+      final classSourceFile =
+          p.join(testFixturesDir, 'class_test_source.dart');
+      final globalSourceFile =
+          p.join(testFixturesDir, 'global_test_source.dart');
+      final globalsUserBridgeFile =
+          p.join(testFixturesDir, 'globals_user_bridge.dart');
+      final outputFile =
+          p.join(tempOutputDir, 'globals_user_bridge_test.dart');
+
+      final result = await generator.generateBridges(
+        sourceFiles: [classSourceFile, globalSourceFile, globalsUserBridgeFile],
+        outputPath: outputFile,
+        moduleName: 'globals_override',
+      );
+
+      expect(result.errors, isEmpty);
+      generatedCode = await File(result.outputFiles.first).readAsString();
+    });
+
+    group('Scanner Detection', () {
+      test('detects GlobalsUserBridge class', () {
+        final globalsInfo = generator.userBridgeScanner.globalsUserBridge;
+        expect(globalsInfo, isNotNull);
+        expect(
+            globalsInfo!.userBridgeClassName, equals('GlobalsUserBridge'));
+      });
+
+      test('excludes GlobalsUserBridge from bridge generation', () {
+        expect(
+          generator.userBridgeScanner
+              .shouldExcludeClass('GlobalsUserBridge'),
+          isTrue,
+        );
+      });
+
+      test('detects global variable overrides', () {
+        final globalsInfo = generator.userBridgeScanner.globalsUserBridge;
+        expect(globalsInfo, isNotNull);
+        expect(
+          globalsInfo!.globalVariableOverrides,
+          containsPair('appName', 'overrideGlobalVariableAppName'),
+        );
+        expect(
+          globalsInfo.globalVariableOverrides,
+          containsPair('maxRetries', 'overrideGlobalVariableMaxRetries'),
+        );
+      });
+
+      test('detects global getter overrides', () {
+        final globalsInfo = generator.userBridgeScanner.globalsUserBridge;
+        expect(globalsInfo, isNotNull);
+        expect(
+          globalsInfo!.globalGetterOverrides,
+          containsPair('currentTime', 'overrideGlobalGetterCurrentTime'),
+        );
+        expect(
+          globalsInfo.globalGetterOverrides,
+          containsPair('globalService', 'overrideGlobalGetterGlobalService'),
+        );
+      });
+
+      test('detects global function overrides', () {
+        final globalsInfo = generator.userBridgeScanner.globalsUserBridge;
+        expect(globalsInfo, isNotNull);
+        expect(
+          globalsInfo!.globalFunctionOverrides,
+          containsPair('greet', 'overrideGlobalFunctionGreet'),
+        );
+        expect(
+          globalsInfo.globalFunctionOverrides,
+          containsPair('add', 'overrideGlobalFunctionAdd'),
+        );
+      });
+    });
+
+    group('Code Generation with Overrides', () {
+      test('uses override for global variable appName', () {
+        expect(
+          generatedCode,
+          contains(
+            "interpreter.registerGlobalVariable('appName', GlobalsUserBridge.overrideGlobalVariableAppName())",
+          ),
+        );
+      });
+
+      test('uses override for global variable maxRetries', () {
+        expect(
+          generatedCode,
+          contains(
+            "interpreter.registerGlobalVariable('maxRetries', GlobalsUserBridge.overrideGlobalVariableMaxRetries())",
+          ),
+        );
+      });
+
+      test('uses override for global getter currentTime', () {
+        expect(
+          generatedCode,
+          contains(
+            "interpreter.registerGlobalGetter('currentTime', GlobalsUserBridge.overrideGlobalGetterCurrentTime())",
+          ),
+        );
+      });
+
+      test('uses override for global getter globalService', () {
+        expect(
+          generatedCode,
+          contains(
+            "interpreter.registerGlobalGetter('globalService', GlobalsUserBridge.overrideGlobalGetterGlobalService())",
+          ),
+        );
+      });
+
+      test('uses override for global function greet', () {
+        expect(
+          generatedCode,
+          contains("'greet': GlobalsUserBridge.overrideGlobalFunctionGreet,"),
+        );
+      });
+
+      test('uses override for global function add', () {
+        expect(
+          generatedCode,
+          contains("'add': GlobalsUserBridge.overrideGlobalFunctionAdd,"),
+        );
+      });
+
+      test('non-overridden globals are generated normally', () {
+        // debugMode is not overridden
+        expect(
+          generatedCode,
+          contains(
+              "interpreter.registerGlobalVariable('debugMode', debugMode)"),
+        );
+        // version is not overridden
+        expect(
+          generatedCode,
+          contains(
+              "interpreter.registerGlobalVariable('version', version)"),
+        );
+        // resetState function is not overridden
+        expect(
+          generatedCode,
+          contains("'resetState': (visitor, positional, named, typeArgs)"),
+        );
+      });
     });
   });
 }

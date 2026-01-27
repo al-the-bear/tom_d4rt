@@ -2,6 +2,29 @@ import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/src/bridge/bridged_enum.dart';
 import 'package:tom_d4rt/src/utils/extensions/string.dart';
 
+/// A wrapper for lazy-evaluated global getters.
+///
+/// When a [GlobalGetter] is stored in the environment and accessed via
+/// [Environment.get], the getter function is invoked and the result is
+/// returned. This enables lazy evaluation of global variables that may
+/// not be initialized at registration time.
+///
+/// ## Example:
+/// ```dart
+/// environment.define('vscode', GlobalGetter(() => VSCode.instance));
+/// // Later when 'vscode' is accessed, the getter is called
+/// ```
+class GlobalGetter {
+  /// The getter function that returns the value when called.
+  final Object? Function() getter;
+
+  /// Creates a new global getter wrapper.
+  GlobalGetter(this.getter);
+
+  /// Calls the getter and returns the result.
+  Object? call() => getter();
+}
+
 /// Represents the execution environment for interpreted code.
 ///
 /// The Environment class manages variable bindings, function definitions,
@@ -235,7 +258,12 @@ class Environment {
     // Normal search if there's no valid prefixed access or if the prefix is not resolved
     if (_values.containsKey(name)) {
       Logger.debug('[Env.get] Found \'$name\' locally in env: $hashCode');
-      return _values[name];
+      final value = _values[name];
+      // Unwrap GlobalGetter for lazy evaluation
+      if (value is GlobalGetter) {
+        return value();
+      }
+      return value;
     }
 
     if (_bridgedClasses.containsKey(name)) {

@@ -106,6 +106,58 @@ class UserBridgeInfo {
       'UserBridgeInfo($targetClassName <- $userBridgeClassName)';
 }
 
+/// Information about global overrides from a GlobalsUserBridge class.
+///
+/// This class holds override information for top-level functions, variables,
+/// and getters that are not associated with any class.
+class GlobalsUserBridgeInfo {
+  /// The name of the globals user bridge class (e.g., "GlobalsUserBridge").
+  final String userBridgeClassName;
+
+  /// The source file containing the user bridge.
+  final String sourceFile;
+
+  /// Override methods for global variables.
+  /// Key: variable name, Value: override method name
+  final Map<String, String> globalVariableOverrides;
+
+  /// Override methods for global getters.
+  /// Key: getter name, Value: override method name
+  final Map<String, String> globalGetterOverrides;
+
+  /// Override methods for top-level functions.
+  /// Key: function name, Value: override method name
+  final Map<String, String> globalFunctionOverrides;
+
+  GlobalsUserBridgeInfo({
+    required this.userBridgeClassName,
+    required this.sourceFile,
+    this.globalVariableOverrides = const {},
+    this.globalGetterOverrides = const {},
+    this.globalFunctionOverrides = const {},
+  });
+
+  /// Check if any overrides exist.
+  bool get hasOverrides =>
+      globalVariableOverrides.isNotEmpty ||
+      globalGetterOverrides.isNotEmpty ||
+      globalFunctionOverrides.isNotEmpty;
+
+  /// Get override method for a global variable.
+  String? getGlobalVariableOverride(String name) =>
+      globalVariableOverrides[name];
+
+  /// Get override method for a global getter.
+  String? getGlobalGetterOverride(String name) => globalGetterOverrides[name];
+
+  /// Get override method for a top-level function.
+  String? getGlobalFunctionOverride(String name) =>
+      globalFunctionOverrides[name];
+
+  @override
+  String toString() => 'GlobalsUserBridgeInfo($userBridgeClassName)';
+}
+
 /// Scans source files for user bridge classes.
 class UserBridgeScanner extends RecursiveAstVisitor<void> {
   /// Map of target class name to user bridge info.
@@ -113,6 +165,9 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
 
   /// Set of class names that extend D4UserBridge (to exclude from generation).
   final Set<String> _d4UserBridgeClasses = {};
+
+  /// Globals user bridge info (for module-level overrides).
+  GlobalsUserBridgeInfo? _globalsUserBridge;
 
   /// Current source file being scanned.
   String _currentSourceFile = '';
@@ -122,6 +177,9 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
 
   /// Get all class names that extend D4UserBridge.
   Set<String> get d4UserBridgeClasses => Set.unmodifiable(_d4UserBridgeClasses);
+
+  /// Get globals user bridge info, if available.
+  GlobalsUserBridgeInfo? get globalsUserBridge => _globalsUserBridge;
 
   /// Scan a compilation unit for user bridge classes.
   void scanUnit(CompilationUnit unit, String sourceFile) {
@@ -147,8 +205,13 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
     if (_extendsD4UserBridge(node)) {
       _d4UserBridgeClasses.add(className);
 
+      // Check if it's a GlobalsUserBridge (for module-level overrides)
+      if (className == 'GlobalsUserBridge' ||
+          className.endsWith('GlobalsUserBridge')) {
+        _globalsUserBridge = _extractGlobalsUserBridgeInfo(node, className);
+      }
       // Check if it follows the naming convention {ClassName}UserBridge
-      if (className.endsWith('UserBridge')) {
+      else if (className.endsWith('UserBridge')) {
         final targetClassName =
             className.substring(0, className.length - 'UserBridge'.length);
         if (targetClassName.isNotEmpty) {
@@ -236,6 +299,75 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
       operatorOverrides: operatorOverrides,
       hasNativeNames: hasNativeNames,
     );
+  }
+
+  /// Extract override information from a globals user bridge class.
+  GlobalsUserBridgeInfo _extractGlobalsUserBridgeInfo(
+    ClassDeclaration node,
+    String userBridgeClassName,
+  ) {
+    final globalVariableOverrides = <String, String>{};
+    final globalGetterOverrides = <String, String>{};
+    final globalFunctionOverrides = <String, String>{};
+
+    for (final member in node.members) {
+      if (member is MethodDeclaration) {
+        final methodName = member.name.lexeme;
+
+        // Parse static override methods only
+        if (member.isStatic && methodName.startsWith('override')) {
+          _parseGlobalOverrideMethod(
+            methodName,
+            globalVariableOverrides,
+            globalGetterOverrides,
+            globalFunctionOverrides,
+          );
+        }
+      }
+    }
+
+    return GlobalsUserBridgeInfo(
+      userBridgeClassName: userBridgeClassName,
+      sourceFile: _currentSourceFile,
+      globalVariableOverrides: globalVariableOverrides,
+      globalGetterOverrides: globalGetterOverrides,
+      globalFunctionOverrides: globalFunctionOverrides,
+    );
+  }
+
+  /// Parse a global override method name and add to appropriate map.
+  void _parseGlobalOverrideMethod(
+    String methodName,
+    Map<String, String> globalVariableOverrides,
+    Map<String, String> globalGetterOverrides,
+    Map<String, String> globalFunctionOverrides,
+  ) {
+    // Global variables: overrideGlobalVariableName
+    if (methodName.startsWith('overrideGlobalVariable')) {
+      final memberName = _extractMemberName(methodName, 'overrideGlobalVariable');
+      if (memberName.isNotEmpty) {
+        globalVariableOverrides[memberName] = methodName;
+      }
+      return;
+    }
+
+    // Global getters: overrideGlobalGetterName
+    if (methodName.startsWith('overrideGlobalGetter')) {
+      final memberName = _extractMemberName(methodName, 'overrideGlobalGetter');
+      if (memberName.isNotEmpty) {
+        globalGetterOverrides[memberName] = methodName;
+      }
+      return;
+    }
+
+    // Global functions: overrideGlobalFunctionName
+    if (methodName.startsWith('overrideGlobalFunction')) {
+      final memberName = _extractMemberName(methodName, 'overrideGlobalFunction');
+      if (memberName.isNotEmpty) {
+        globalFunctionOverrides[memberName] = methodName;
+      }
+      return;
+    }
   }
 
   /// Parse an override method name and add to appropriate map.

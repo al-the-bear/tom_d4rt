@@ -203,6 +203,131 @@ BridgedClass _createMyListBridge() {
 }
 ```
 
+## Global Overrides (Top-level Members)
+
+In addition to class member overrides, the system supports overriding top-level (global) variables, getters, and functions through a `GlobalsUserBridge` class.
+
+### GlobalsUserBridge Class
+
+Create a class named `GlobalsUserBridge` (or `{ModuleName}GlobalsUserBridge`) extending `D4UserBridge`:
+
+```dart
+import 'package:tom_d4rt/d4rt.dart';
+
+class GlobalsUserBridge extends D4UserBridge {
+  // Static override methods for globals...
+}
+```
+
+### Global Override Naming Conventions
+
+| Global Type | Override Method Name | Signature |
+|-------------|---------------------|-----------|
+| Global variable `vscode` | `overrideGlobalVariableVscode` | `static Object? overrideGlobalVariableVscode()` |
+| Global getter `currentTime` | `overrideGlobalGetterCurrentTime` | `static Object? Function() overrideGlobalGetterCurrentTime()` |
+| Top-level function `greet` | `overrideGlobalFunctionGreet` | `static Object? overrideGlobalFunctionGreet(visitor, positional, named, typeArgs)` |
+
+### Global Variable Override
+
+For global variables (const, final, or mutable), the override method returns the value to register:
+
+```dart
+class GlobalsUserBridge extends D4UserBridge {
+  /// Override the `appName` global variable.
+  /// Returns the value to register instead of the original.
+  static Object? overrideGlobalVariableAppName() => 'CustomAppName';
+  
+  /// Override the `maxRetries` global variable.
+  static Object? overrideGlobalVariableMaxRetries() => 10;
+}
+```
+
+**Generated code:**
+```dart
+interpreter.registerGlobalVariable('appName', GlobalsUserBridge.overrideGlobalVariableAppName());
+```
+
+### Global Getter Override
+
+For global getters (lazy-evaluated at runtime), the override method returns a getter function:
+
+```dart
+class GlobalsUserBridge extends D4UserBridge {
+  /// Override the `currentTime` global getter.
+  /// Returns a getter function that will be called at access time.
+  static Object? Function() overrideGlobalGetterCurrentTime() => 
+      () => DateTime.now();
+  
+  /// Override the `vscode` global getter.
+  /// Useful when the underlying value may not be initialized at registration.
+  static Object? Function() overrideGlobalGetterVscode() => 
+      () => VSCode.vsCode;
+}
+```
+
+**Generated code:**
+```dart
+interpreter.registerGlobalGetter('currentTime', GlobalsUserBridge.overrideGlobalGetterCurrentTime());
+```
+
+### Top-level Function Override
+
+For top-level functions, the override method has the same signature as `NativeFunctionImpl`:
+
+```dart
+class GlobalsUserBridge extends D4UserBridge {
+  /// Override the `greet` top-level function.
+  static Object? overrideGlobalFunctionGreet(
+    Object? visitor,
+    List<Object?> positional,
+    Map<String, Object?> named,
+    List<Object?>? typeArgs,
+  ) {
+    final name = positional.isNotEmpty ? positional[0] as String : 'Guest';
+    return 'Custom greeting for $name!';
+  }
+}
+```
+
+**Generated code:**
+```dart
+static Map<String, NativeFunctionImpl> globalFunctions() {
+  return {
+    'greet': GlobalsUserBridge.overrideGlobalFunctionGreet,
+    // ... other functions
+  };
+}
+```
+
+### Complete GlobalsUserBridge Example
+
+```dart
+import 'package:tom_d4rt/d4rt.dart';
+
+class GlobalsUserBridge extends D4UserBridge {
+  // Global variable overrides
+  static Object? overrideGlobalVariableAppName() => 'OverriddenApp';
+  static Object? overrideGlobalVariableMaxRetries() => 10;
+  
+  // Global getter overrides (return a getter function)
+  static Object? Function() overrideGlobalGetterVscode() => 
+      () => VSCode.vsCode;
+  static Object? Function() overrideGlobalGetterCurrentTime() => 
+      () => DateTime.now();
+  
+  // Top-level function overrides
+  static Object? overrideGlobalFunctionGreet(
+    Object? visitor,
+    List<Object?> positional,
+    Map<String, Object?> named,
+    List<Object?>? typeArgs,
+  ) {
+    final name = D4.getRequiredArg<String>(positional, 0, 'name', 'greet');
+    return 'Hello, $name!';
+  }
+}
+```
+
 ## Configuration
 
 ### Finding User Bridge Files
@@ -417,6 +542,14 @@ String overrideMethodToString(
 | `operator>>` | `overrideOperatorRightShift` |
 | `operator>>>` | `overrideOperatorUnsignedRightShift` |
 
+### Global Member Naming Conventions
+
+| Original Global | Override Method Name |
+|-----------------|---------------------|
+| Global variable `appName` | `overrideGlobalVariableAppName` |
+| Global getter `vscode` | `overrideGlobalGetterVscode` |
+| Top-level function `greet()` | `overrideGlobalFunctionGreet` |
+
 ## File Structure Example
 
 ```
@@ -424,6 +557,7 @@ lib/
   src/
     d4rt_bridges/
       user_bridges/                    # User-maintained
+        globals_user_bridge.dart       # GlobalsUserBridge (for top-level overrides)
         my_list_user_bridge.dart       # MyListUserBridge
         stream_user_bridge.dart        # StreamUserBridge
       all_bridges.dart                 # Generated barrel

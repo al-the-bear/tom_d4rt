@@ -1,3 +1,18 @@
+## 1.2.0
+
+### Features
+- **GlobalsUserBridge**: New override system for top-level global variables, getters, and functions
+  - `overrideGlobalVariableXxx` - override global variable values
+  - `overrideGlobalGetterXxx` - override global getters with lazy evaluation functions
+  - `overrideGlobalFunctionXxx` - override global function implementations
+- **Getter vs Variable distinction**: Generator now correctly uses `registerGlobalGetter` for top-level getters (lazy evaluation) and `registerGlobalVariable` for constants/variables
+- **Operator overrides enabled**: Removed outdated skip for operator UserBridge overrides - operators are now fully supported
+
+### Documentation
+- Updated bridgegenerator_user_guide.md with GlobalsUserBridge documentation
+- Updated bridgegenerator_user_reference.md with global override reference
+- Added global overrides section to userbridge_override_design.md
+
 ## 1.1.2
 
 ### Changes

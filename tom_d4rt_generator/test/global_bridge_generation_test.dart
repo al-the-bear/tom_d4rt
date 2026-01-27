@@ -362,4 +362,160 @@ void main() {
       expect(generatedCode, contains('getGlobalInitializationScript'));
     });
   });
+
+  group('Global Getter vs Variable Registration', () {
+    late String generatedCode;
+
+    setUpAll(() async {
+      final generator = BridgeGenerator(
+        workspacePath: testFixturesDir,
+        skipPrivate: true,
+        helpersImport: 'package:tom_d4rt/tom_d4rt.dart',
+        sourceImport: 'global_test_source.dart',
+        packageName: 'test_package',
+      );
+
+      final classSourceFile = p.join(testFixturesDir, 'class_test_source.dart');
+      final globalSourceFile =
+          p.join(testFixturesDir, 'global_test_source.dart');
+      final outputFile = p.join(tempOutputDir, 'getter_vs_var_test.dart');
+
+      await generator.generateBridges(
+        sourceFiles: [classSourceFile, globalSourceFile],
+        outputPath: outputFile,
+        moduleName: 'getters',
+      );
+
+      generatedCode = await File(outputFile).readAsString();
+    });
+
+    group('Regular Variables use registerGlobalVariable', () {
+      test('const variables use registerGlobalVariable', () {
+        expect(
+          generatedCode,
+          contains("interpreter.registerGlobalVariable('appName', appName)"),
+        );
+        expect(
+          generatedCode,
+          contains(
+              "interpreter.registerGlobalVariable('maxRetries', maxRetries)"),
+        );
+        expect(
+          generatedCode,
+          contains(
+              "interpreter.registerGlobalVariable('debugMode', debugMode)"),
+        );
+      });
+
+      test('final variables use registerGlobalVariable', () {
+        expect(
+          generatedCode,
+          contains("interpreter.registerGlobalVariable('version', version)"),
+        );
+        expect(
+          generatedCode,
+          contains(
+            "interpreter.registerGlobalVariable('supportedFormats', supportedFormats)",
+          ),
+        );
+      });
+
+      test('mutable variables use registerGlobalVariable', () {
+        expect(
+          generatedCode,
+          contains(
+            "interpreter.registerGlobalVariable('requestCount', requestCount)",
+          ),
+        );
+        expect(
+          generatedCode,
+          contains(
+              "interpreter.registerGlobalVariable('lastError', lastError)"),
+        );
+      });
+    });
+
+    group('Top-level Getters use registerGlobalGetter', () {
+      test('getter returning singleton uses registerGlobalGetter', () {
+        expect(
+          generatedCode,
+          contains(
+            "interpreter.registerGlobalGetter('globalService', () => globalService)",
+          ),
+        );
+      });
+
+      test('getter returning computed value uses registerGlobalGetter', () {
+        expect(
+          generatedCode,
+          contains(
+            "interpreter.registerGlobalGetter('currentTime', () => currentTime)",
+          ),
+        );
+      });
+
+      test('nullable getter uses registerGlobalGetter', () {
+        expect(
+          generatedCode,
+          contains(
+            "interpreter.registerGlobalGetter('lastLogMessage', () => lastLogMessage)",
+          ),
+        );
+      });
+
+      test('getter depending on mutable state uses registerGlobalGetter', () {
+        expect(
+          generatedCode,
+          contains(
+            "interpreter.registerGlobalGetter('doubleRequestCount', () => doubleRequestCount)",
+          ),
+        );
+      });
+    });
+
+    group('Getter vs Variable Separation', () {
+      test('registerGlobalVariables method contains both types', () {
+        expect(
+          generatedCode,
+          contains('static void registerGlobalVariables(D4rt interpreter)'),
+        );
+      });
+
+      test('getters are NOT registered with registerGlobalVariable', () {
+        // These should NOT be registered as regular variables
+        expect(
+          generatedCode,
+          isNot(contains(
+              "interpreter.registerGlobalVariable('globalService'")),
+        );
+        expect(
+          generatedCode,
+          isNot(contains(
+              "interpreter.registerGlobalVariable('currentTime'")),
+        );
+        expect(
+          generatedCode,
+          isNot(contains(
+              "interpreter.registerGlobalVariable('doubleRequestCount'")),
+        );
+      });
+
+      test('regular variables are NOT registered with registerGlobalGetter',
+          () {
+        // These should NOT be registered as getters
+        expect(
+          generatedCode,
+          isNot(contains("interpreter.registerGlobalGetter('appName'")),
+        );
+        expect(
+          generatedCode,
+          isNot(contains("interpreter.registerGlobalGetter('version'")),
+        );
+        expect(
+          generatedCode,
+          isNot(contains("interpreter.registerGlobalGetter('requestCount'")),
+        );
+      });
+    });
+  });
 }

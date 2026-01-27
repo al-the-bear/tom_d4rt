@@ -302,6 +302,58 @@ The generator automatically:
 | `>>` | `overrideOperatorRightShift` |
 | `>>>` | `overrideOperatorUnsignedRightShift` |
 
+### Option C: GlobalsUserBridge (Override Global Functions, Variables, and Getters)
+
+Override top-level functions, variables, and getters while auto-generating the rest:
+
+```dart
+// lib/src/d4rt_bridges/user_bridges/my_globals_user_bridge.dart
+import 'package:tom_d4rt/d4rt.dart';
+
+class MyGlobalsUserBridge extends D4UserBridge {
+  /// Override a global variable with a custom value
+  static int get overrideGlobalVariableMaxRetries => 10;
+  
+  /// Override a global getter with lazy evaluation
+  static Object? Function() get overrideGlobalGetterLogger => 
+      () => CustomLogger.instance;
+  
+  /// Override a global function with custom implementation
+  static Object? Function(InterpreterVisitor, List<Object?>, Map<String, Object?>, List<RuntimeType>?) 
+      get overrideGlobalFunctionCalculate => 
+          (visitor, positional, named, typeArgs) {
+            // Custom implementation
+            return customCalculate(positional[0] as int, positional[1] as int);
+          };
+}
+```
+
+The generator automatically:
+1. Detects `GlobalsUserBridge` or `*GlobalsUserBridge` class extending `D4UserBridge`
+2. Uses overrides for specified globals
+3. Auto-generates all other global variables, getters, and functions
+
+### Global Override Naming Convention
+
+| Global Type | Override Property/Getter |
+|-------------|--------------------------|
+| Variable `myVar` | `overrideGlobalVariableMyVar` |
+| Getter `myGetter` | `overrideGlobalGetterMyGetter` |
+| Function `myFunc()` | `overrideGlobalFunctionMyFunc` |
+
+**Note:** The override name uses PascalCase for the global name (e.g., `maxRetries` → `overrideGlobalVariableMaxRetries`).
+
+**Global Function Signature:**
+
+```dart
+Object? Function(
+  InterpreterVisitor visitor,
+  List<Object?> positional,
+  Map<String, Object?> named,
+  List<RuntimeType>? typeArgs,
+)
+```
+
 ---
 
 ## 5. Programmatic API

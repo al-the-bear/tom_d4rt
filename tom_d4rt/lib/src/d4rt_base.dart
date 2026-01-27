@@ -52,6 +52,7 @@ class D4rt {
   InterpreterVisitor? get visitor => _visitor;
   final List<NativeFunction> _nativeFunctions = [];
   final Map<String, Object?> _globalVariables = {};
+  final Map<String, Object? Function()> _globalGetters = {};
 
   late ModuleLoader _moduleLoader;
   bool _hasExecutedOnce = false;
@@ -112,6 +113,34 @@ class D4rt {
     if (_hasExecutedOnce) {
       try {
         _moduleLoader.globalEnvironment.define(name, value);
+      } catch (_) {
+        // Environment may not be initialized yet, which is fine
+      }
+    }
+  }
+
+  /// Registers a global getter for use in interpreted code.
+  ///
+  /// Unlike [registerGlobalVariable], this registers a getter function that
+  /// is evaluated each time the variable is accessed. This is useful for
+  /// variables whose values may not be available at registration time, or
+  /// whose values may change over time.
+  ///
+  /// [name] The name by which the variable will be accessible in interpreted code.
+  /// [getter] A function that returns the current value when called.
+  ///
+  /// ## Example:
+  /// ```dart
+  /// final interpreter = D4rt();
+  /// interpreter.registerGlobalGetter('currentTime', () => DateTime.now());
+  /// ```
+  void registerGlobalGetter(String name, Object? Function() getter) {
+    _globalGetters[name] = getter;
+    // Also update the environment if it exists (for subsequent eval() calls)
+    // This allows registering global getters after initial execute() has run
+    if (_hasExecutedOnce) {
+      try {
+        _moduleLoader.globalEnvironment.define(name, GlobalGetter(getter));
       } catch (_) {
         // Environment may not be initialized yet, which is fine
       }
@@ -358,6 +387,10 @@ class D4rt {
     for (var entry in _globalVariables.entries) {
       executionEnvironment.define(entry.key, entry.value);
     }
+    // Register global getters as lazy-evaluated values
+    for (var entry in _globalGetters.entries) {
+      executionEnvironment.define(entry.key, GlobalGetter(entry.value));
+    }
     Logger.debug("[execute] Starting Pass 1: Declaration");
     final declarationVisitor = DeclarationVisitor(executionEnvironment);
     for (final declaration in compilationUnit.declarations) {
@@ -552,6 +585,11 @@ class D4rt {
     // Register global variables
     for (var entry in _globalVariables.entries) {
       executionEnvironment.define(entry.key, entry.value);
+    }
+
+    // Register global getters as lazy-evaluated values
+    for (var entry in _globalGetters.entries) {
+      executionEnvironment.define(entry.key, GlobalGetter(entry.value));
     }
 
     // Pass 1: Declaration

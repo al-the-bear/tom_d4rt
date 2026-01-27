@@ -40,6 +40,10 @@ This guide provides a comprehensive overview of how to bridge your native Dart c
   - [When to Use `nativeNames`](#when-to-use-nativenames)
   - [Real-World Examples](#real-world-examples)
   - [Best Practices for `nativeNames`](#best-practices-for-nativenames)
+- [Global Variables and Getters](#global-variables-and-getters)
+  - [Registering Global Variables](#registering-global-variables)
+  - [Registering Global Getters (Lazy Evaluation)](#registering-global-getters-lazy-evaluation)
+  - [When to Use Getters vs Variables](#when-to-use-getters-vs-variables)
 - [Best Practices](#best-practices)
 
 ---
@@ -817,6 +821,102 @@ static BridgedClass get definition => BridgedClass(
 ```
 
 This feature is essential for creating robust bridges that work with the full ecosystem of Dart's internal implementations, ensuring your interpreted scripts can seamlessly interact with complex native objects.
+
+---
+
+## Global Variables and Getters
+
+D4rt allows you to register global variables and getters that can be accessed from interpreted scripts. These are registered on the `D4rt` instance before executing code.
+
+### Registering Global Variables
+
+Use `registerGlobalVariable` to register a value that is evaluated once at registration time:
+
+```dart
+final d4rt = D4rt();
+
+// Register a constant value
+d4rt.registerGlobalVariable('appVersion', '1.0.0');
+
+// Register an object
+d4rt.registerGlobalVariable('config', MyAppConfig());
+
+// Execute script that uses the variable
+d4rt.execute('''
+  print(appVersion);  // Prints: 1.0.0
+  print(config.someSetting);
+''');
+```
+
+**Important:** The value is captured at the time of registration. If you register a mutable object, the script will see changes to the object's state, but if you register a primitive or register the result of a getter, changes after registration won't be reflected.
+
+### Registering Global Getters (Lazy Evaluation)
+
+Use `registerGlobalGetter` when the value should be evaluated lazily each time it's accessed. This is essential for:
+
+- Values that may not be initialized at registration time (like singletons)
+- Values that may change between accesses
+- Expensive computations that should be deferred
+
+```dart
+final d4rt = D4rt();
+
+// Singleton pattern - getter is evaluated when accessed, not at registration
+d4rt.registerGlobalGetter('logger', () => Logger.instance);
+
+// Dynamic value - evaluated fresh each access
+d4rt.registerGlobalGetter('currentTime', () => DateTime.now());
+
+// Deferred initialization
+late MyService service;
+d4rt.registerGlobalGetter('service', () => service);
+
+// Initialize later
+service = MyService();
+
+// Now the script can access it
+d4rt.execute('''
+  logger.log('Message');          // Logger.instance evaluated here
+  print(currentTime);             // Gets current timestamp
+  service.doSomething();          // service evaluated here
+''');
+```
+
+### When to Use Getters vs Variables
+
+| Scenario | Use | Reason |
+|----------|-----|--------|
+| Constant values (`'1.0.0'`, `42`) | `registerGlobalVariable` | Value never changes |
+| Already initialized objects | `registerGlobalVariable` | Object exists at registration time |
+| Singletons accessed via getter | `registerGlobalGetter` | Instance may not exist at registration |
+| Top-level getters | `registerGlobalGetter` | Preserves lazy evaluation semantics |
+| Mutable state that may change | `registerGlobalGetter` | Get current value on each access |
+
+**Example - Singleton Pattern:**
+
+```dart
+// This pattern is common in Dart applications:
+class MyApp {
+  static MyApp? _instance;
+  static MyApp get instance => _instance!;
+  
+  static void initialize() {
+    _instance = MyApp._();
+  }
+  
+  MyApp._();
+}
+
+// WRONG - crashes if called before initialize()
+// d4rt.registerGlobalVariable('app', MyApp.instance);
+
+// CORRECT - evaluates when accessed
+d4rt.registerGlobalGetter('app', () => MyApp.instance);
+
+// Later...
+MyApp.initialize();
+d4rt.execute('print(app);');  // Works!
+```
 
 ---
 
