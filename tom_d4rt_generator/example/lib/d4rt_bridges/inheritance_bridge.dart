@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_generator/example/lib/test_classes/inheritance_classes.dart
-// Generated: 2026-01-28T12:35:50.923126
+// Generated: 2026-01-28T16:16:12.251564
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -56,8 +56,8 @@ BridgedClass _createCircleBridge() {
       },
     },
     getters: {
-      'radius': (visitor, target) => D4.validateTarget<$pkg.Circle>(target, 'Circle').radius,
       'name': (visitor, target) => D4.validateTarget<$pkg.Circle>(target, 'Circle').name,
+      'radius': (visitor, target) => D4.validateTarget<$pkg.Circle>(target, 'Circle').radius,
       'diameter': (visitor, target) => D4.validateTarget<$pkg.Circle>(target, 'Circle').diameter,
     },
     methods: {
@@ -68,6 +68,10 @@ BridgedClass _createCircleBridge() {
       'perimeter': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Circle>(target, 'Circle');
         return t.perimeter();
+      },
+      'describe': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.Circle>(target, 'Circle');
+        return t.describe();
       },
     },
   );
@@ -95,9 +99,9 @@ BridgedClass _createRectangleBridge() {
       },
     },
     getters: {
+      'name': (visitor, target) => D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').name,
       'width': (visitor, target) => D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').width,
       'height': (visitor, target) => D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').height,
-      'name': (visitor, target) => D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').name,
       'isSquare': (visitor, target) => D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').isSquare,
     },
     methods: {
@@ -203,9 +207,9 @@ BridgedClass _createColoredRectangleBridge() {
       },
     },
     getters: {
+      'name': (visitor, target) => D4.validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle').name,
       'width': (visitor, target) => D4.validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle').width,
       'height': (visitor, target) => D4.validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle').height,
-      'name': (visitor, target) => D4.validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle').name,
       'isSquare': (visitor, target) => D4.validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle').isSquare,
       'color': (visitor, target) => D4.validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle').color,
     },

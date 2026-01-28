@@ -398,13 +398,28 @@ class ClassInfo {
 
   /// Gets all instance operators including inherited ones from superclasses.
   List<MemberInfo> allInstanceOperators(Map<String, ClassInfo> classLookup) {
+    // Use a key that distinguishes by arity to prevent unary/binary clash
     final result = <String, MemberInfo>{};
-    _collectInheritedMembers(
-      classLookup,
-      (cls) => cls.instanceOperators,
-      result,
-    );
+    _collectInheritedOperators(classLookup, result);
     return result.values.toList();
+  }
+
+  /// Collects operators from this class and all superclasses.
+  /// Uses a key that includes arity to distinguish unary from binary operators.
+  void _collectInheritedOperators(
+    Map<String, ClassInfo> classLookup,
+    Map<String, MemberInfo> result,
+  ) {
+    // First collect from superclass (if any)
+    if (superclass != null && classLookup.containsKey(superclass)) {
+      classLookup[superclass]!._collectInheritedOperators(classLookup, result);
+    }
+    // Then add/override with this class's operators
+    for (final op in instanceOperators) {
+      // Use arity-aware key: "- (0)" for unary, "- (1)" for binary
+      final key = '${op.name} (${op.parameters.length})';
+      result[key] = op;
+    }
   }
 
   /// Collects members from this class and all superclasses.
@@ -513,6 +528,15 @@ class BridgeGenerator {
   /// Class lookup map for resolving superclass inheritance.
   /// Built during bridge file generation.
   Map<String, ClassInfo> _classLookup = {};
+
+  /// Cache for resolved type arguments to prevent redundant resolution.
+  /// Key is the full type string, value is the resolved result.
+  /// This cache is cleared at the start of each bridge file generation.
+  final Map<String, String> _typeResolutionCache = {};
+
+  /// Set of type strings currently being resolved, to detect recursive type bounds.
+  /// Used to prevent infinite recursion when resolving types like `T extends Comparable<T>`.
+  final Set<String> _typeResolutionInProgress = {};
 
   /// External type dependencies collected during parsing.
   final Set<ExternalTypeDependency> _externalDependencies = {};
@@ -1114,13 +1138,19 @@ class BridgeGenerator {
 
       // Generate one file per source file
       final classesPerFile = <String, List<ClassInfo>>{};
+      final allClassesPerFile = <String, List<ClassInfo>>{};
       for (final cls in bridgeableClasses) {
         classesPerFile.putIfAbsent(cls.sourceFile, () => []).add(cls);
+      }
+      // Also group all classes (including abstract) for inheritance lookup
+      for (final cls in filteredClasses) {
+        allClassesPerFile.putIfAbsent(cls.sourceFile, () => []).add(cls);
       }
 
       for (final entry in classesPerFile.entries) {
         final sourceFile = entry.key;
         final classes = entry.value;
+        final allClassesForFile = allClassesPerFile[sourceFile] ?? classes;
         final baseName = p.basenameWithoutExtension(sourceFile);
         final outFile =
             '${outputPath.endsWith('/') ? outputPath : '$outputPath/'}${baseName}_bridge.dart';
@@ -1131,6 +1161,7 @@ class BridgeGenerator {
           classes,
           sourceFile,
           moduleName,
+          allClasses: allClassesForFile,
           globalFunctions: globals.functions,
           globalVariables: globals.variables,
           enums: globals.enums,
@@ -1153,6 +1184,7 @@ class BridgeGenerator {
         bridgeableClasses,
         sourceFiles.first,
         moduleName,
+        allClasses: filteredClasses,
         globalFunctions: globals.functions,
         globalVariables: globals.variables,
         enums: globals.enums,
@@ -1394,6 +1426,7 @@ class BridgeGenerator {
       bridgeableClasses,
       sourceFiles.first,
       moduleName,
+      allClasses: filteredClasses,
       globalFunctions: filteredFunctions,
       globalVariables: filteredVariables,
       enums: filteredEnums,
@@ -1991,18 +2024,29 @@ class BridgeGenerator {
   }
 
   /// Generates bridge file content for a list of classes.
+  /// 
+  /// [classes] - The classes to generate bridges for (non-abstract classes that can be bridged).
+  /// [allClasses] - All classes including abstract ones, used for inheritance resolution.
+  ///                If not provided, defaults to [classes].
   String _generateBridgeFile(
     List<ClassInfo> classes,
     String sourceFile,
     String? overrideModuleName, {
+    List<ClassInfo>? allClasses,
     List<GlobalFunctionInfo> globalFunctions = const [],
     List<GlobalVariableInfo> globalVariables = const [],
     List<EnumInfo> enums = const [],
   }) {
     final buffer = StringBuffer();
 
+    // Clear type resolution caches for fresh generation
+    _typeResolutionCache.clear();
+    _typeResolutionInProgress.clear();
+
     // Build class lookup map for inheritance resolution
-    _classLookup = {for (final cls in classes) cls.name: cls};
+    // Use allClasses (which includes abstract classes) for looking up superclasses
+    final lookupClasses = allClasses ?? classes;
+    _classLookup = {for (final cls in lookupClasses) cls.name: cls};
 
     // Collect all unique source files from the classes
     final allSourceFiles = classes.map((c) => c.sourceFile).toSet().toList()..sort();
@@ -2749,19 +2793,33 @@ class BridgeGenerator {
         // If false, method is skipped (warning already added)
       }
       
-      // Operators
-      for (final operator in instanceOperators) {
+      // Operators - group by name to handle unary/binary variants
+      final operatorsByName = <String, List<MemberInfo>>{};
+      for (final op in instanceOperators) {
+        operatorsByName.putIfAbsent(op.name, () => []).add(op);
+      }
+      
+      for (final entry in operatorsByName.entries) {
+        final operatorName = entry.key;
+        final variants = entry.value;
+        
         // Check for operator override
-        final operatorOverride = userBridge?.getOperatorOverride(operator.name);
+        final operatorOverride = userBridge?.getOperatorOverride(operatorName);
         if (operatorOverride != null) {
           buffer.writeln(
-            "      '${operator.name}': ${userBridge!.userBridgeClassName}.$operatorOverride,",
+            "      '$operatorName': ${userBridge!.userBridgeClassName}.$operatorOverride,",
           );
           continue;
         }
         
-        // Generate operator body
-        _generateOperatorBody(buffer, cls, operator);
+        // Generate operator body - handle unary/binary variants
+        if (variants.length == 1) {
+          // Single variant - generate normally
+          _generateOperatorBody(buffer, cls, variants.first);
+        } else {
+          // Multiple variants (e.g., unary and binary -) - generate combined handler
+          _generateCombinedOperatorBody(buffer, cls, operatorName, variants);
+        }
       }
       
       buffer.writeln('    },');
@@ -3234,6 +3292,64 @@ class BridgeGenerator {
       } else {
         buffer.writeln("        return t $operatorName positional[0];");
       }
+    }
+    
+    buffer.writeln('      },');
+  }
+
+  /// Generates combined operator body for operators with multiple variants (e.g., unary and binary -).
+  void _generateCombinedOperatorBody(
+    StringBuffer buffer,
+    ClassInfo cls,
+    String operatorName,
+    List<MemberInfo> variants,
+  ) {
+    final prefixedName = _getPrefixedClassName(cls.name, cls.sourceFile);
+    
+    buffer.writeln(
+      "      '$operatorName': (visitor, target, positional, named, typeArgs) {",
+    );
+    buffer.writeln(
+      "        final t = D4.validateTarget<$prefixedName>(target, '${cls.name}');",
+    );
+    
+    // Sort by arity - unary first (0 params), then binary (1+ params)
+    final sortedVariants = variants.toList()
+      ..sort((a, b) => a.parameters.length.compareTo(b.parameters.length));
+    
+    // Check for unary variant (0 params)
+    final unaryVariant = sortedVariants.where((v) => v.parameters.isEmpty).firstOrNull;
+    final binaryVariant = sortedVariants.where((v) => v.parameters.isNotEmpty).firstOrNull;
+    
+    if (unaryVariant != null && binaryVariant != null) {
+      // Generate dispatch based on argument count
+      buffer.writeln("        if (positional.isEmpty) {");
+      buffer.writeln("          // Unary operator");
+      buffer.writeln("          return $operatorName" "t;");
+      buffer.writeln("        } else {");
+      buffer.writeln("          // Binary operator");
+      final operandParam = binaryVariant.parameters.first;
+      final operandType = _getTypeArgument(
+        operandParam.type,
+        typeToUri: operandParam.typeToUri,
+        classTypeParams: cls.typeParameters,
+      );
+      buffer.writeln("          final other = D4.getRequiredArg<$operandType>(positional, 0, 'other', 'operator$operatorName');");
+      buffer.writeln("          return t $operatorName other;");
+      buffer.writeln("        }");
+    } else if (unaryVariant != null) {
+      // Only unary
+      buffer.writeln("        return $operatorName" "t;");
+    } else if (binaryVariant != null) {
+      // Only binary
+      final operandParam = binaryVariant.parameters.first;
+      final operandType = _getTypeArgument(
+        operandParam.type,
+        typeToUri: operandParam.typeToUri,
+        classTypeParams: cls.typeParameters,
+      );
+      buffer.writeln("        final other = D4.getRequiredArg<$operandType>(positional, 0, 'other', 'operator$operatorName');");
+      buffer.writeln("        return t $operatorName other;");
     }
     
     buffer.writeln('      },');
@@ -3977,7 +4093,49 @@ class BridgeGenerator {
   /// If [typeToUri] is non-empty, external types will be prefixed.
   /// If [classTypeParams] is provided, generic type parameters will be resolved
   /// to their bounds (e.g., E -> TomObject).
+  ///
+  /// Uses caching to prevent redundant resolution and detects recursive type bounds
+  /// (like `T extends Comparable<T>`) to prevent infinite recursion.
   String _getTypeArgument(
+    String type, {
+    Map<String, String> typeToUri = const {},
+    Map<String, String?> classTypeParams = const {},
+  }) {
+    // Create a cache key that includes the context
+    // IMPORTANT: Include both keys AND values to distinguish E:null from E:Identifiable
+    final typeParamsKey = classTypeParams.entries
+        .map((e) => '${e.key}=${e.value ?? 'null'}')
+        .join(',');
+    final cacheKey = '$type|$typeParamsKey';
+    
+    // Check cache first
+    if (_typeResolutionCache.containsKey(cacheKey)) {
+      return _typeResolutionCache[cacheKey]!;
+    }
+    
+    // Detect recursive type bounds - if this type is already being resolved, use dynamic
+    if (_typeResolutionInProgress.contains(cacheKey)) {
+      // Recursive type bound detected (e.g., T extends Comparable<T>)
+      return 'dynamic';
+    }
+    
+    // Mark this type as being resolved
+    _typeResolutionInProgress.add(cacheKey);
+    
+    try {
+      final result = _resolveTypeArgument(type, typeToUri: typeToUri, classTypeParams: classTypeParams);
+      // Cache the result
+      _typeResolutionCache[cacheKey] = result;
+      return result;
+    } finally {
+      // Remove from in-progress set
+      _typeResolutionInProgress.remove(cacheKey);
+    }
+  }
+  
+  /// Internal implementation of type argument resolution.
+  /// Called by [_getTypeArgument] after caching and recursion checks.
+  String _resolveTypeArgument(
     String type, {
     Map<String, String> typeToUri = const {},
     Map<String, String?> classTypeParams = const {},
@@ -4006,6 +4164,20 @@ class BridgeGenerator {
     if (classTypeParams.containsKey(baseType)) {
       final bound = classTypeParams[baseType];
       if (bound != null) {
+        // Check if the bound contains the same type parameter (recursive bound)
+        // e.g., T extends Comparable<T> - we detect this by checking if the bound
+        // mentions the same type parameter
+        if (_containsTypeParameter(bound, baseType)) {
+          // Recursive type bound - extract the base type from the bound
+          // For "Comparable<T>", extract "Comparable" and use that
+          final baseBound = _extractBaseType(bound);
+          if (baseBound != baseType && !_isGenericTypeParameter(baseBound)) {
+            // Use the base bound type with dynamic for its parameters
+            return _getTypeArgument(baseBound, typeToUri: typeToUri, classTypeParams: classTypeParams);
+          }
+          // Fallback to dynamic for truly recursive bounds
+          return 'dynamic';
+        }
         // Use the bound type (e.g., E -> TomObject)
         // Recursively resolve in case the bound itself needs prefixing
         return _getTypeArgument(bound, typeToUri: typeToUri, classTypeParams: classTypeParams);
@@ -4322,6 +4494,27 @@ class BridgeGenerator {
     // Common multi-character type parameters
     const knownTypeParams = {'TValue', 'TKey', 'TResult', 'TElement'};
     return knownTypeParams.contains(type);
+  }
+
+  /// Checks if a type string contains a specific type parameter.
+  /// Used to detect recursive type bounds like `T extends Comparable<T>`.
+  bool _containsTypeParameter(String typeString, String typeParam) {
+    // Simple check: look for the type parameter as a word boundary
+    // This handles cases like "Comparable<T>" where T is the type parameter
+    final pattern = RegExp(r'(?<![a-zA-Z_])' + RegExp.escape(typeParam) + r'(?![a-zA-Z_0-9])');
+    return pattern.hasMatch(typeString);
+  }
+
+  /// Extracts the base type from a generic type string.
+  /// For "Comparable<T>", returns "Comparable".
+  /// For "List<Map<K, V>>", returns "List".
+  /// For non-generic types, returns the input unchanged.
+  String _extractBaseType(String type) {
+    final ltIndex = type.indexOf('<');
+    if (ltIndex > 0) {
+      return type.substring(0, ltIndex);
+    }
+    return type;
   }
 
   /// Checks if a type is a List type (e.g., List<String>, List<int>).
@@ -4815,7 +5008,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     if (hasTypeParameters) {
       for (final typeParam in funcTypeParams.typeParameters) {
         final paramName = typeParam.name.lexeme;
-        final bound = typeParam.bound?.toSource();
+        // Get the bound type - replaceFirst in case toSource() includes 'extends '
+        final bound = typeParam.bound?.toSource().replaceFirst('extends ', '');
         typeParamsMap[paramName] = bound;
       }
     }
@@ -5055,7 +5249,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     if (hasTypeParameters) {
       for (final typeParam in node.typeParameters!.typeParameters) {
         final paramName = typeParam.name.lexeme;
-        final bound = typeParam.bound?.toSource();
+        // Get the bound type - replaceFirst in case toSource() includes 'extends '
+        final bound = typeParam.bound?.toSource().replaceFirst('extends ', '');
         methodTypeParams[paramName] = bound;
       }
     }

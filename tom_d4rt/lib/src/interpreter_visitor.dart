@@ -4780,6 +4780,28 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // No class operator found, try extensions
         }
 
+        // Check for bridged operator methods (unary -)
+        if (toBridgedInstance(operandValue).$2) {
+          final bridgedInstance = toBridgedInstance(operandValue).$1!;
+          final bridgedClass = bridgedInstance.bridgedClass;
+          final methodAdapter =
+              bridgedClass.findInstanceMethodAdapter('-');
+          if (methodAdapter != null) {
+            Logger.debug(
+                "[PrefixExpr] Found bridged unary operator '-' for ${bridgedClass.name}. Calling adapter...");
+            try {
+              // Unary operator - call with empty positional args
+              return methodAdapter(
+                  this, bridgedInstance.nativeObject, [], {}, null);
+            } catch (e, s) {
+              Logger.error(
+                  "[PrefixExpr] Native exception during bridged unary operator '-' on ${bridgedClass.name}: $e\\n$s");
+              throw RuntimeError(
+                  "Native error during bridged unary operator '-' on ${bridgedClass.name}: $e");
+            }
+          }
+        }
+
         const operatorName = '-';
         try {
           final extensionOperator =
@@ -4827,6 +4849,28 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             }
           }
           // No class operator found, try extensions
+        }
+
+        // Check for bridged operator methods (unary ~)
+        if (toBridgedInstance(operandValue).$2) {
+          final bridgedInstance = toBridgedInstance(operandValue).$1!;
+          final bridgedClass = bridgedInstance.bridgedClass;
+          final methodAdapter =
+              bridgedClass.findInstanceMethodAdapter('~');
+          if (methodAdapter != null) {
+            Logger.debug(
+                "[PrefixExpr] Found bridged unary operator '~' for ${bridgedClass.name}. Calling adapter...");
+            try {
+              // Unary operator - call with empty positional args
+              return methodAdapter(
+                  this, bridgedInstance.nativeObject, [], {}, null);
+            } catch (e, s) {
+              Logger.error(
+                  "[PrefixExpr] Native exception during bridged unary operator '~' on ${bridgedClass.name}: $e\\n$s");
+              throw RuntimeError(
+                  "Native error during bridged unary operator '~' on ${bridgedClass.name}: $e");
+            }
+          }
         }
 
         // Try Extension Operator '~' (for non-int or BigInt)

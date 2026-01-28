@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_generator/example/lib/test_classes/operator_classes.dart
-// Generated: 2026-01-28T12:35:51.935757
+// Generated: 2026-01-28T16:16:13.141961
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -86,7 +86,14 @@ BridgedClass _createVector2DBridge() {
       },
       '-': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D');
-        return -t;
+        if (positional.isEmpty) {
+          // Unary operator
+          return -t;
+        } else {
+          // Binary operator
+          final other = D4.getRequiredArg<$pkg.Vector2D>(positional, 0, 'other', 'operator-');
+          return t - other;
+        }
       },
       '*': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D');
