@@ -187,17 +187,27 @@ Future<void> _generateBridges(BridgeConfig config, String projectDir,
       print('  Generating module: ${module.name}');
     }
 
+    // Determine sourceImport: use barrelImport if provided, otherwise first barrel file
+    final sourceImport = module.barrelImport ?? module.barrelFiles.first;
+
     final generator = BridgeGenerator(
       workspacePath: projectDir,
       packageName: config.name,
-      sourceImport: module.barrelImport ?? module.barrelFiles.first,
+      sourceImport: sourceImport,
       helpersImport: config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
       verbose: verbose,
     );
 
+    // Resolve barrel files - if they're package URIs, pass as-is; otherwise join with projectDir
+    final barrelFiles = module.barrelFiles.map((f) {
+      if (f.startsWith('package:')) {
+        return f; // Package URI - generator will resolve it
+      }
+      return p.join(projectDir, f);
+    }).toList();
+
     final result = await generator.generateBridgesFromExports(
-      barrelFiles:
-          module.barrelFiles.map((f) => p.join(projectDir, f)).toList(),
+      barrelFiles: barrelFiles,
       outputPath: p.join(projectDir, module.outputPath),
       moduleName: module.name,
       excludePatterns: module.excludePatterns,

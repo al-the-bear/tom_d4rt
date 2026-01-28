@@ -76,17 +76,27 @@ class D4rtBridgeBuilder implements Builder {
         // For build_runner, we need to resolve paths relative to package
         final projectRoot = p.current; // build_runner runs from package root
 
+        // Determine sourceImport: use barrelImport if provided, otherwise first barrel file
+        final sourceImport = module.barrelImport ?? module.barrelFiles.first;
+
         final generator = BridgeGenerator(
           workspacePath: projectRoot,
           packageName: config!.name,
-          sourceImport: module.barrelImport ?? module.barrelFiles.first,
+          sourceImport: sourceImport,
           helpersImport:
               config!.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
         );
 
+        // Resolve barrel files - if they're package URIs, pass as-is; otherwise join with projectRoot
+        final barrelFiles = module.barrelFiles.map((f) {
+          if (f.startsWith('package:')) {
+            return f; // Package URI - generator will resolve it
+          }
+          return p.join(projectRoot, f);
+        }).toList();
+
         final result = await generator.generateBridgesFromExportsWithWriter(
-          barrelFiles:
-              module.barrelFiles.map((f) => p.join(projectRoot, f)).toList(),
+          barrelFiles: barrelFiles,
           outputFileId: FileId(packageName, module.outputPath),
           moduleName: module.name,
           excludePatterns: module.excludePatterns,

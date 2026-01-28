@@ -182,6 +182,68 @@ class GlobalFunctionInfo {
   });
 }
 
+/// Configuration for a type to use in recursive bound dispatch.
+/// 
+/// When generating bridges for functions with recursive type bounds like
+/// `T extends Comparable<T>`, the generator creates runtime type dispatch
+/// for a limited set of types. This class configures one such type.
+class RecursiveBoundType {
+  /// The simple type name (e.g., 'TomInt', 'DateTime').
+  final String typeName;
+  
+  /// The import path for the type, or null for dart:core types.
+  /// Format: 'package:package_name/path.dart' or null.
+  final String? importPath;
+  
+  /// The import prefix to use for this type in generated code.
+  /// If null, uses the type name directly (for dart:core types).
+  final String? importPrefix;
+
+  const RecursiveBoundType({
+    required this.typeName,
+    this.importPath,
+    this.importPrefix,
+  });
+  
+  /// Creates a RecursiveBoundType from a simple type name (for dart:core types).
+  factory RecursiveBoundType.core(String typeName) => 
+      RecursiveBoundType(typeName: typeName);
+  
+  /// Creates a RecursiveBoundType from a package import.
+  /// Format: 'TypeName' or 'package:path.dart:TypeName'
+  factory RecursiveBoundType.fromString(String spec) {
+    if (spec.contains(':') && spec.startsWith('package:')) {
+      // Format: package:import/path.dart:TypeName
+      final lastColon = spec.lastIndexOf(':');
+      final importPath = spec.substring(0, lastColon);
+      final typeName = spec.substring(lastColon + 1);
+      // Generate a prefix from the package name
+      final packageMatch = RegExp(r'package:([^/]+)/').firstMatch(importPath);
+      final prefix = packageMatch != null 
+          ? '\$${_toCamelCase(packageMatch.group(1)!)}'
+          : null;
+      return RecursiveBoundType(
+        typeName: typeName,
+        importPath: importPath,
+        importPrefix: prefix,
+      );
+    }
+    // Simple type name - assume dart:core
+    return RecursiveBoundType(typeName: spec);
+  }
+  
+  /// Converts snake_case to camelCase for import prefixes.
+  static String _toCamelCase(String input) {
+    final parts = input.split('_');
+    return parts.first + parts.skip(1).map((p) => 
+        p.isEmpty ? '' : p[0].toUpperCase() + p.substring(1)).join();
+  }
+  
+  /// Returns the prefixed type name for generated code.
+  String get prefixedTypeName => 
+      importPrefix != null ? '$importPrefix.$typeName' : typeName;
+}
+
 /// Information about a top-level variable for bridging.
 class GlobalVariableInfo {
   final String name;
@@ -551,6 +613,35 @@ class BridgeGenerator {
   /// Expose user bridge scanner for testing.
   UserBridgeScanner get userBridgeScanner => _userBridgeScanner;
 
+  /// Types to use for runtime dispatch when handling recursive type bounds.
+  /// 
+  /// When a function has a type parameter with a recursive bound like
+  /// `T extends Comparable<T>`, Dart cannot infer the type at runtime.
+  /// The generator uses runtime type dispatch for these built-in types:
+  /// `int`, `double`, `num`, `String`, `bool`, `DateTime`.
+  /// 
+  /// Add custom types here to extend the dispatch. Each entry should be
+  /// in the format 'TypeName' or 'package:import/path.dart:TypeName' for
+  /// types that require imports.
+  /// 
+  /// Example: ['TomInt', 'package:tom_core_kernel/tom_core_kernel.dart:TomDouble']
+  List<RecursiveBoundType> recursiveBoundTypes = [];
+
+  /// Default types for recursive bound dispatch.
+  /// 
+  /// Note: Only types that actually implement Comparable<T> where T is themselves.
+  /// - `num` works (int and double are subtypes of num)
+  /// - `String` works (implements Comparable<String>)
+  /// - `DateTime` works (implements Comparable<DateTime>)
+  /// - `int` does NOT work (implements Comparable<num>, not Comparable<int>)
+  /// - `double` does NOT work (implements Comparable<num>, not Comparable<double>)
+  /// - `bool` does NOT work (doesn't implement Comparable at all)
+  static const List<String> _defaultRecursiveBoundTypes = [
+    'num',
+    'String',
+    'DateTime',
+  ];
+
   /// Gets or creates the analysis context collection.
   AnalysisContextCollection _getAnalysisContext() {
     // Ensure workspacePath is absolute for the analyzer
@@ -641,6 +732,44 @@ class BridgeGenerator {
     return result;
   }
 
+  /// Resolves a package URI to an absolute file path.
+  ///
+  /// Given a URI like `package:tom_core_kernel/tom_core_kernel.dart`, resolves
+  /// it to the absolute file system path using the package config.
+  ///
+  /// Returns null if the package cannot be resolved.
+  Future<String?> _resolvePackageUri(String packageUri) async {
+    if (!packageUri.startsWith('package:')) {
+      return null;
+    }
+    
+    final match = RegExp(r'^package:([^/]+)/(.+)$').firstMatch(packageUri);
+    if (match == null) return null;
+    
+    final pkgName = match.group(1)!;
+    final relativePath = match.group(2)!;
+    
+    final packageRoot = await _resolvePackagePath(pkgName);
+    if (packageRoot == null) return null;
+    
+    return p.normalize(p.join(packageRoot, 'lib', relativePath));
+  }
+
+  /// Extracts package name and relative path from a package URI.
+  ///
+  /// Given `package:tom_core_kernel/tom_core_kernel.dart`, returns
+  /// `('tom_core_kernel', 'tom_core_kernel.dart')`.
+  ///
+  /// Returns null if the URI is not a valid package URI.
+  (String, String)? _parsePackageUri(String uri) {
+    if (!uri.startsWith('package:')) return null;
+    
+    final match = RegExp(r'^package:([^/]+)/(.+)$').firstMatch(uri);
+    if (match == null) return null;
+    
+    return (match.group(1)!, match.group(2)!);
+  }
+
   /// Checks if a file path matches any of the glob patterns.
   ///
   /// [filePath] - The file path to check
@@ -667,7 +796,9 @@ class BridgeGenerator {
     this.skipPrivate = true,
     this.verbose = false,
     this.followPackages = const [],
-  });
+    List<RecursiveBoundType>? recursiveBoundTypes,
+  }) : recursiveBoundTypes = recursiveBoundTypes ?? 
+      _defaultRecursiveBoundTypes.map(RecursiveBoundType.core).toList();
 
   /// Finds the file containing a specific class.
   Future<String?> findFileForClass(String className) async {
@@ -859,7 +990,8 @@ class BridgeGenerator {
   /// This is the preferred method as it automatically discovers which classes
   /// to bridge based on what's exported from the barrel files.
   ///
-  /// [barrelFiles] - List of barrel file paths (e.g., `lib/tom_build.dart`)
+  /// [barrelFiles] - List of barrel file paths or package URIs 
+  ///   (e.g., `lib/tom_build.dart` or `package:tom_build/tom_build.dart`)
   /// [outputPath] - Where to write the generated bridge file
   /// [moduleName] - Name for the generated bridge class
   /// [excludePatterns] - File path patterns to exclude (e.g., `_bridge.dart`)
@@ -877,8 +1009,23 @@ class BridgeGenerator {
     List<String>? excludeFunctions,
     List<String>? excludeVariables,
   }) async {
+    // Resolve package URIs to file paths
+    final resolvedBarrelFiles = <String>[];
+    for (final barrelFile in barrelFiles) {
+      if (barrelFile.startsWith('package:')) {
+        final resolved = await _resolvePackageUri(barrelFile);
+        if (resolved != null) {
+          resolvedBarrelFiles.add(resolved);
+        } else {
+          if (verbose) print('Warning: Could not resolve package URI: $barrelFile');
+        }
+      } else {
+        resolvedBarrelFiles.add(barrelFile);
+      }
+    }
+    
     // Parse export files to get source files and their export info
-    final exports = await parseExportFiles(barrelFiles);
+    final exports = await parseExportFiles(resolvedBarrelFiles);
 
     if (exports.isEmpty) {
       return BridgeGeneratorResult(
@@ -921,7 +1068,8 @@ class BridgeGenerator {
   /// This variant is used by build_runner to write files via BuildStep
   /// instead of direct file system access.
   ///
-  /// [barrelFiles] - List of barrel file paths (e.g., `lib/tom_build.dart`)
+  /// [barrelFiles] - List of barrel file paths or package URIs
+  ///   (e.g., `lib/tom_build.dart` or `package:tom_build/tom_build.dart`)
   /// [outputFileId] - FileId for the output bridge file
   /// [moduleName] - Name for the generated bridge class
   /// [excludePatterns] - File path patterns to exclude (e.g., `_bridge.dart`)
@@ -943,9 +1091,24 @@ class BridgeGenerator {
     List<String>? followReExports,
     required FileWriter fileWriter,
   }) async {
+    // Resolve package URIs to file paths
+    final resolvedBarrelFiles = <String>[];
+    for (final barrelFile in barrelFiles) {
+      if (barrelFile.startsWith('package:')) {
+        final resolved = await _resolvePackageUri(barrelFile);
+        if (resolved != null) {
+          resolvedBarrelFiles.add(resolved);
+        } else {
+          if (verbose) print('Warning: Could not resolve package URI: $barrelFile');
+        }
+      } else {
+        resolvedBarrelFiles.add(barrelFile);
+      }
+    }
+    
     // Parse export files to get source files and their export info
     final exports = await parseExportFiles(
-      barrelFiles,
+      resolvedBarrelFiles,
       followReExports: followReExports,
     );
 
@@ -1113,12 +1276,21 @@ class BridgeGenerator {
     // Clear previous warnings since we're starting a new generation
     _missingExportWarnings.clear();
 
-    if (bridgeableClasses.isEmpty) {
+    // Parse globals (functions, variables, enums) from all source files early
+    // so we can check if there's anything to generate
+    final globals = await _parseGlobals(sourceFiles);
+    final hasEnums = globals.enums.isNotEmpty;
+    final hasGlobalFunctions = globals.functions.isNotEmpty;
+    final hasGlobalVariables = globals.variables.isNotEmpty;
+    final hasClasses = bridgeableClasses.isNotEmpty;
+
+    // Return early only if there's nothing to generate at all
+    if (!hasClasses && !hasEnums && !hasGlobalFunctions && !hasGlobalVariables) {
       return BridgeGeneratorResult(
         classesGenerated: 0,
         outputFiles: [],
         errors: errors,
-        warnings: warnings..add('No bridgeable classes found'),
+        warnings: warnings..add('No bridgeable content found (no classes, enums, or globals)'),
       );
     }
 
@@ -1136,7 +1308,7 @@ class BridgeGenerator {
         await outDir.create(recursive: true);
       }
 
-      // Generate one file per source file
+      // Group classes by source file
       final classesPerFile = <String, List<ClassInfo>>{};
       final allClassesPerFile = <String, List<ClassInfo>>{};
       for (final cls in bridgeableClasses) {
@@ -1147,24 +1319,47 @@ class BridgeGenerator {
         allClassesPerFile.putIfAbsent(cls.sourceFile, () => []).add(cls);
       }
 
-      for (final entry in classesPerFile.entries) {
-        final sourceFile = entry.key;
-        final classes = entry.value;
+      // Group globals (enums, functions, variables) by source file
+      final enumsPerFile = <String, List<EnumInfo>>{};
+      final functionsPerFile = <String, List<GlobalFunctionInfo>>{};
+      final variablesPerFile = <String, List<GlobalVariableInfo>>{};
+      for (final e in globals.enums) {
+        enumsPerFile.putIfAbsent(e.sourceFile, () => []).add(e);
+      }
+      for (final f in globals.functions) {
+        functionsPerFile.putIfAbsent(f.sourceFile, () => []).add(f);
+      }
+      for (final v in globals.variables) {
+        variablesPerFile.putIfAbsent(v.sourceFile, () => []).add(v);
+      }
+
+      // Collect all source files that have any bridgeable content
+      final allSourceFiles = <String>{
+        ...classesPerFile.keys,
+        ...enumsPerFile.keys,
+        ...functionsPerFile.keys,
+        ...variablesPerFile.keys,
+      };
+
+      for (final sourceFile in allSourceFiles) {
+        final classes = classesPerFile[sourceFile] ?? <ClassInfo>[];
         final allClassesForFile = allClassesPerFile[sourceFile] ?? classes;
+        final fileEnums = enumsPerFile[sourceFile] ?? <EnumInfo>[];
+        final fileFunctions = functionsPerFile[sourceFile] ?? <GlobalFunctionInfo>[];
+        final fileVariables = variablesPerFile[sourceFile] ?? <GlobalVariableInfo>[];
+        
         final baseName = p.basenameWithoutExtension(sourceFile);
         final outFile =
             '${outputPath.endsWith('/') ? outputPath : '$outputPath/'}${baseName}_bridge.dart';
 
-        // Parse globals from this source file
-        final globals = await _parseGlobals([sourceFile]);
         final code = _generateBridgeFile(
           classes,
           sourceFile,
           moduleName,
           allClasses: allClassesForFile,
-          globalFunctions: globals.functions,
-          globalVariables: globals.variables,
-          enums: globals.enums,
+          globalFunctions: fileFunctions,
+          globalVariables: fileVariables,
+          enums: fileEnums,
         );
         await File(outFile).writeAsString(code);
         outputFiles.add(outFile);
@@ -1176,10 +1371,7 @@ class BridgeGenerator {
         await parentDir.create(recursive: true);
       }
 
-      // Parse globals from all source files
-      final globals = await _parseGlobals(sourceFiles);
-
-      // Generate single output file
+      // Generate single output file using already-parsed globals
       final code = _generateBridgeFile(
         bridgeableClasses,
         sourceFiles.first,
@@ -1336,20 +1528,26 @@ class BridgeGenerator {
     // Clear previous warnings since we're starting a new generation
     _missingExportWarnings.clear();
 
-    if (bridgeableClasses.isEmpty) {
+    // Parse globals (functions, variables, enums) from all source files early
+    // so we can check if there's anything to generate
+    final globals = await _parseGlobals(sourceFiles);
+    final hasEnums = globals.enums.isNotEmpty;
+    final hasGlobalFunctions = globals.functions.isNotEmpty;
+    final hasGlobalVariables = globals.variables.isNotEmpty;
+    final hasClasses = bridgeableClasses.isNotEmpty;
+
+    // Return early only if there's nothing to generate at all
+    if (!hasClasses && !hasEnums && !hasGlobalFunctions && !hasGlobalVariables) {
       return BridgeGeneratorResult(
         classesGenerated: 0,
         outputFiles: [],
         errors: errors,
-        warnings: warnings..add('No bridgeable classes found'),
+        warnings: warnings..add('No bridgeable content found (no classes, enums, or globals)'),
       );
     }
 
     // Generate bridge code
     final outputFiles = <String>[];
-
-    // Parse globals from all source files
-    final globals = await _parseGlobals(sourceFiles);
 
     // Filter globals by export info (hide/show clauses from barrel files)
     var filteredEnums = globals.enums;
@@ -2048,8 +2246,13 @@ class BridgeGenerator {
     final lookupClasses = allClasses ?? classes;
     _classLookup = {for (final cls in lookupClasses) cls.name: cls};
 
-    // Collect all unique source files from the classes
-    final allSourceFiles = classes.map((c) => c.sourceFile).toSet().toList()..sort();
+    // Collect all unique source files from classes, enums, and globals
+    final allSourceFiles = <String>{
+      ...classes.map((c) => c.sourceFile),
+      ...enums.map((e) => e.sourceFile),
+      ...globalFunctions.map((f) => f.sourceFile),
+      ...globalVariables.map((v) => v.sourceFile),
+    }.toList()..sort();
 
     // Collect external type imports from resolved types
     // Filter out file:// URIs as those are local files covered by the source import
@@ -2093,18 +2296,31 @@ class BridgeGenerator {
     final currentPackageImportPrefix = currentPackageName != null 
         ? 'package:$currentPackageName/' 
         : null;
+    
+    // Determine the source package name (may be different for cross-package generation)
+    String? sourcePackageImportPrefix;
+    if (sourceImport != null && sourceImport!.startsWith('package:')) {
+      final parsed = _parsePackageUri(sourceImport!);
+      if (parsed != null) {
+        sourcePackageImportPrefix = 'package:${parsed.$1}/';
+      }
+    }
 
     // Map non-SDK imports
     for (final uri in externalImports) {
       if (uri.startsWith('dart:')) continue;
       
-      // Check if this URI belongs to the current package
-      bool isCurrentPackage = false;
+      // Check if this URI belongs to the current package or source package
+      bool isSourcePackage = false;
       if (currentPackageImportPrefix != null) {
-        isCurrentPackage = uri.startsWith(currentPackageImportPrefix);
+        isSourcePackage = uri.startsWith(currentPackageImportPrefix);
+      }
+      // Also treat source package imports as source package (for cross-package generation)
+      if (!isSourcePackage && sourcePackageImportPrefix != null) {
+        isSourcePackage = uri.startsWith(sourcePackageImportPrefix);
       }
       
-      if (isCurrentPackage) {
+      if (isSourcePackage) {
         // Current package imports -> map to source prefix (assuming barrel export)
         _importPrefixes[uri] = sourcePrefix;
       } else {
@@ -2119,8 +2335,26 @@ class BridgeGenerator {
     }
     
     // Import the package barrel file
-    if (sourceImport != null && packageName != null) {
-      final sourceImportPath = 'package:$packageName/$sourceImport';
+    // sourceImport can be:
+    //   1. A full package URI: 'package:tom_core_kernel/tom_core_kernel.dart'
+    //   2. A relative path: 'tom_core_kernel.dart' (requires packageName)
+    String? sourceImportPath;
+    String? sourcePackageName;
+    
+    if (sourceImport != null && sourceImport!.startsWith('package:')) {
+      // Full package URI provided
+      sourceImportPath = sourceImport;
+      final parsed = _parsePackageUri(sourceImport!);
+      if (parsed != null) {
+        sourcePackageName = parsed.$1;
+      }
+    } else if (sourceImport != null && packageName != null) {
+      // Relative path with package name
+      sourceImportPath = 'package:$packageName/$sourceImport';
+      sourcePackageName = packageName;
+    }
+    
+    if (sourceImportPath != null) {
       buffer.writeln("import '$sourceImportPath' as $sourcePrefix;");
       
       // Register the barrel and all source files to the prefix
@@ -2128,6 +2362,17 @@ class BridgeGenerator {
       for (final srcFile in allSourceFiles) {
         final srcUri = _getPackageUri(srcFile);
         _importPrefixes[srcUri] = sourcePrefix;
+      }
+      
+      // If the source package is different from the current package,
+      // also map any imports from the source package to the source prefix
+      if (sourcePackageName != null && sourcePackageName != packageName) {
+        final sourcePackagePrefix = 'package:$sourcePackageName/';
+        for (final uri in externalImports) {
+          if (uri.startsWith(sourcePackagePrefix)) {
+            _importPrefixes[uri] = sourcePrefix;
+          }
+        }
       }
     } else {
       // Fallback: If no single barrel is specified, this mode is likely not fully supported 
@@ -2294,12 +2539,28 @@ class BridgeGenerator {
         // Get the prefixed function name
         final prefixedFuncName = _getPrefixedFunctionName(func.name, func.sourceFile);
         
+        // Check for recursive type bounds
+        final recursiveTypeParams = _getRecursiveBoundTypeParams(func.typeParameters);
+        
         buffer.writeln("      '${func.name}': (visitor, positional, named, typeArgs) {");
         
         // Count required positional parameters
         final requiredPositionalCount = func.parameters.where((p) => !p.isNamed && p.isRequired).length;
         if (requiredPositionalCount > 0) {
           buffer.writeln("        D4.requireMinArgs(positional, $requiredPositionalCount, '${func.name}');");
+        }
+        
+        // If function has recursive type bounds, use special dispatch
+        if (recursiveTypeParams.isNotEmpty) {
+          _generateRecursiveBoundDispatch(
+            buffer,
+            func,
+            prefixedFuncName,
+            recursiveTypeParams,
+            '        ',
+          );
+          buffer.writeln('      },');
+          continue;
         }
         
         // Generate argument extraction with proper D4 helpers
@@ -2397,6 +2658,27 @@ class BridgeGenerator {
         }
 
         final isVoid = func.returnType == 'void';
+        
+        // Determine if we need explicit type arguments.
+        // When a function has unbounded type parameters that resolve to dynamic,
+        // and the return context is Object?, Dart's type inference may incorrectly
+        // infer T=Object instead of T=dynamic, causing type mismatches.
+        // We add explicit <dynamic, ...> type arguments to prevent this.
+        String typeArgsStr = '';
+        if (func.hasTypeParameters && funcTypeParams.isNotEmpty) {
+          // Check if any type parameter is unbounded (resolves to dynamic)
+          final needsExplicitTypeArgs = funcTypeParams.values.any((bound) => bound == null);
+          if (needsExplicitTypeArgs) {
+            // Generate <dynamic, dynamic, ...> for each unbounded type parameter
+            final typeArgs = funcTypeParams.entries.map((e) {
+              if (e.value == null) return 'dynamic';
+              // For bounded type parameters, use the bound
+              return _getTypeArgument(e.value!, typeToUri: {}, classTypeParams: funcTypeParams);
+            }).toList();
+            typeArgsStr = '<${typeArgs.join(', ')}>';
+          }
+        }
+        
         if (useCombinatorial) {
            _generateCombinatorialDispatch(
             buffer,
@@ -2408,7 +2690,7 @@ class BridgeGenerator {
             typeParams: funcTypeParams,
           );
         } else {
-          buffer.writeln('        return $prefixedFuncName(${callArgs.join(', ')});');
+          buffer.writeln('        return $prefixedFuncName$typeArgsStr(${callArgs.join(', ')});');
         }
         buffer.writeln('      },');
       }
@@ -2418,14 +2700,24 @@ class BridgeGenerator {
     }
 
     // getImportBlock method - returns import statements for D4rt scripts
-    final detectedPackageName = packageName ?? _getPackageNameFromPath(sourceFile);
-    if (detectedPackageName != null && sourceImport != null) {
+    String? importBlockUri;
+    if (sourceImport != null && sourceImport!.startsWith('package:')) {
+      // Full package URI provided
+      importBlockUri = sourceImport;
+    } else {
+      final detectedPackageName = packageName ?? _getPackageNameFromPath(sourceFile);
+      if (detectedPackageName != null && sourceImport != null) {
+        importBlockUri = 'package:$detectedPackageName/$sourceImport';
+      }
+    }
+    
+    if (importBlockUri != null) {
       buffer.writeln('  /// Returns the import statement needed for D4rt scripts.');
       buffer.writeln('  ///');
       buffer.writeln('  /// Use this in your D4rt initialization script to make all');
       buffer.writeln('  /// bridged classes available to scripts.');
       buffer.writeln('  static String getImportBlock() {');
-      buffer.writeln("    return \"import 'package:$detectedPackageName/$sourceImport';\";");
+      buffer.writeln("    return \"import '$importBlockUri';\";");
       buffer.writeln('  }');
       buffer.writeln();
     }
@@ -4477,6 +4769,148 @@ class BridgeGenerator {
     // This handles cases like "Comparable<T>" where T is the type parameter
     final pattern = RegExp(r'(?<![a-zA-Z_])' + RegExp.escape(typeParam) + r'(?![a-zA-Z_0-9])');
     return pattern.hasMatch(typeString);
+  }
+
+  /// Checks if a function has any type parameters with recursive bounds.
+  /// 
+  /// A recursive bound is one where the bound mentions the type parameter itself,
+  /// like `T extends Comparable<T>`. These cannot be inferred at runtime and
+  /// require special type dispatch handling.
+  /// 
+  /// Returns the list of type parameter names that have recursive bounds.
+  List<String> _getRecursiveBoundTypeParams(Map<String, String?> typeParameters) {
+    final result = <String>[];
+    for (final entry in typeParameters.entries) {
+      final typeParam = entry.key;
+      final bound = entry.value;
+      if (bound != null && _containsTypeParameter(bound, typeParam)) {
+        result.add(typeParam);
+      }
+    }
+    return result;
+  }
+
+  /// Generates runtime type dispatch code for functions with recursive type bounds.
+  /// 
+  /// For a function like `List<T> sortItems<T extends Comparable<T>>(List<T> items)`,
+  /// generates:
+  /// ```dart
+  /// final items = positional[0] as List;
+  /// if (items.isEmpty) return <dynamic>[];
+  /// final first = items.first;
+  /// if (first is int) return $pkg.sortItems<int>(items.cast<int>());
+  /// if (first is String) return $pkg.sortItems<String>(items.cast<String>());
+  /// // ... more types ...
+  /// throw ArgumentError('sortItems: unsupported type ${first.runtimeType}');
+  /// ```
+  void _generateRecursiveBoundDispatch(
+    StringBuffer buffer,
+    GlobalFunctionInfo func,
+    String prefixedFuncName,
+    List<String> recursiveTypeParams,
+    String indent,
+  ) {
+    // Print warning about recursive type bounds
+    // ignore: avoid_print
+    print('  Warning: Function "${func.name}" has recursive type bounds '
+        '(${recursiveTypeParams.join(', ')}). '
+        'Runtime dispatch limited to: ${recursiveBoundTypes.map((t) => t.typeName).join(', ')}');
+    
+    // Find the first parameter that uses the recursive type param
+    // This is our "sample" to detect the runtime type
+    ParameterInfo? sampleParam;
+    String? sampleParamType;
+    int sampleParamIndex = 0;
+    
+    for (var i = 0; i < func.parameters.length; i++) {
+      final param = func.parameters[i];
+      if (param.isNamed) continue;
+      
+      for (final typeParam in recursiveTypeParams) {
+        if (_containsTypeParameter(param.type, typeParam)) {
+          sampleParam = param;
+          sampleParamType = param.type;
+          sampleParamIndex = i;
+          break;
+        }
+      }
+      if (sampleParam != null) break;
+    }
+    
+    if (sampleParam == null) {
+      // No parameter uses the recursive type - fallback to dynamic
+      buffer.writeln('$indent// Warning: Recursive type bound but no sample parameter found');
+      buffer.writeln('${indent}throw ArgumentError("${func.name}: Cannot infer type for recursive bound");');
+      return;
+    }
+    
+    // Generate type dispatch based on the sample parameter
+    final isListType = _isListType(sampleParamType!);
+    
+    if (isListType) {
+      // For List<T>, check the element type
+      buffer.writeln('${indent}final _sample = positional[$sampleParamIndex] as List;');
+      buffer.writeln('${indent}if (_sample.isEmpty) return <dynamic>[];');
+      buffer.writeln('${indent}final _first = _sample.first;');
+      
+      for (final boundType in recursiveBoundTypes) {
+        final typeName = boundType.prefixedTypeName;
+        buffer.writeln('${indent}if (_first is $typeName) {');
+        
+        // Generate cast calls for all list parameters of the recursive type
+        final castArgs = <String>[];
+        var posIndex = 0;
+        for (final p in func.parameters) {
+          if (p.isNamed) {
+            castArgs.add('${p.name}: positional[$posIndex]'); // Won't happen, but safety
+          } else {
+            if (_isListType(p.type) && recursiveTypeParams.any((tp) => _containsTypeParameter(p.type, tp))) {
+              castArgs.add('(positional[$posIndex] as List).cast<$typeName>()');
+            } else if (recursiveTypeParams.any((tp) => _containsTypeParameter(p.type, tp))) {
+              castArgs.add('positional[$posIndex] as $typeName');
+            } else {
+              castArgs.add('positional[$posIndex]');
+            }
+            posIndex++;
+          }
+        }
+        
+        buffer.writeln('$indent  return $prefixedFuncName<$typeName>(${castArgs.join(', ')});');
+        buffer.writeln('$indent}');
+      }
+    } else {
+      // For single value T, check directly
+      buffer.writeln('${indent}final _sample = positional[$sampleParamIndex];');
+      
+      for (final boundType in recursiveBoundTypes) {
+        final typeName = boundType.prefixedTypeName;
+        buffer.writeln('${indent}if (_sample is $typeName) {');
+        
+        // Generate cast calls for all parameters of the recursive type
+        final castArgs = <String>[];
+        var posIndex = 0;
+        for (final p in func.parameters) {
+          if (p.isNamed) {
+            castArgs.add('${p.name}: positional[$posIndex]');
+          } else {
+            if (recursiveTypeParams.any((tp) => _containsTypeParameter(p.type, tp))) {
+              castArgs.add('positional[$posIndex] as $typeName');
+            } else {
+              castArgs.add('positional[$posIndex]');
+            }
+            posIndex++;
+          }
+        }
+        
+        buffer.writeln('$indent  return $prefixedFuncName<$typeName>(${castArgs.join(', ')});');
+        buffer.writeln('$indent}');
+      }
+    }
+    
+    // Fallback error
+    final typesList = recursiveBoundTypes.map((t) => t.typeName).join(', ');
+    buffer.writeln("${indent}throw ArgumentError('${func.name}: Unsupported type for recursive bound. "
+        "Supported types: $typesList. Got: \${_sample.runtimeType}');");
   }
 
   /// Extracts the base type from a generic type string.
