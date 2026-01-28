@@ -197,5 +197,53 @@ void main() {
         expect(info.typeParameters['T'], equals('Object'));
       });
     });
+
+    group('Recursive Type Bounds', () {
+      test('recursive type bound T extends Comparable<T> is handled without stack overflow', () {
+        // sortItems<T extends Comparable<T>> should compile without issues
+        expect(
+          generatedCode,
+          contains("'sortItems'"),
+          reason: 'Global function sortItems with recursive bound should be bridged',
+        );
+      });
+
+      test('recursive type bound uses base type Comparable for erasure', () {
+        // minValue<T extends Comparable<T>> - T should be erased to Comparable
+        expect(
+          generatedCode,
+          contains("'minValue'"),
+          reason: 'Global function minValue with recursive bound should be bridged',
+        );
+        expect(
+          generatedCode,
+          contains("'maxValue'"),
+          reason: 'Global function maxValue with recursive bound should be bridged',
+        );
+      });
+
+      test('class with recursive type bound parameter is bridged', () {
+        // SortableContainer<E extends Comparable<E>>
+        expect(
+          generatedCode,
+          contains('SortableContainer'),
+          reason: 'Class with recursive type bound should be bridged',
+        );
+      });
+
+      test('methods on class with recursive bound are included', () {
+        // SortableContainer.sorted() and minimum()
+        expect(
+          generatedCode,
+          contains("'sorted'"),
+          reason: 'sorted method should be bridged',
+        );
+        expect(
+          generatedCode,
+          contains("'minimum'"),
+          reason: 'minimum method should be bridged',
+        );
+      });
+    });
   });
 }

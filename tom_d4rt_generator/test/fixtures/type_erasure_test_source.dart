@@ -146,3 +146,43 @@ Map<K, V> buildEntityMap<K extends Comparable, V extends BaseEntity>(
   }
   return map;
 }
+
+// =============================================================================
+// Recursive Type Bounds (T extends Comparable<T>)
+// =============================================================================
+
+/// Sort items with recursive type bound.
+/// This tests the special case where T refers to itself in the bound.
+List<T> sortItems<T extends Comparable<T>>(List<T> items) {
+  final sorted = List<T>.from(items);
+  sorted.sort();
+  return sorted;
+}
+
+/// Find minimum value with recursive type bound.
+T minValue<T extends Comparable<T>>(T a, T b) {
+  return a.compareTo(b) <= 0 ? a : b;
+}
+
+/// Find maximum value with recursive type bound.
+T maxValue<T extends Comparable<T>>(T a, T b) {
+  return a.compareTo(b) >= 0 ? a : b;
+}
+
+/// Class with method using recursive type bound.
+class SortableContainer<E extends Comparable<E>> {
+  final List<E> _items = [];
+
+  void add(E item) => _items.add(item);
+
+  List<E> sorted() {
+    final result = List<E>.from(_items);
+    result.sort();
+    return result;
+  }
+
+  E minimum() {
+    if (_items.isEmpty) throw StateError('Empty container');
+    return _items.reduce((a, b) => a.compareTo(b) <= 0 ? a : b);
+  }
+}
