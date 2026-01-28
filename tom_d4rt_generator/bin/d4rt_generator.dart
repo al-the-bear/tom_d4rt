@@ -298,10 +298,6 @@ Future<void> _generateDartscriptFile(String dartscriptPath, BridgeConfig config,
     buffer.writeln("import '$relativePath' as ${module.name}_bridges;");
   }
 
-  // Re-export the barrel file for convenience
-  buffer.writeln();
-  buffer.writeln("export '${config.name}.dart';");
-
   buffer.writeln();
   buffer.writeln('/// Combined bridge registration for ${config.name}.');
   buffer.writeln('class $registrationClass {');
@@ -314,9 +310,11 @@ Future<void> _generateDartscriptFile(String dartscriptPath, BridgeConfig config,
     final capitalizedName = module.name.isEmpty 
         ? module.name 
         : '${module.name[0].toUpperCase()}${module.name.substring(1)}';
+    // Use barrelImport if provided, otherwise fall back to package name convention
+    final registrationImport = module.barrelImport ?? 'package:${config.name}/${config.name}.dart';
     buffer.writeln('    ${module.name}_bridges.${capitalizedName}Bridge.registerBridges(');
     buffer.writeln('      d4rt,');
-    buffer.writeln('      \'package:${config.name}/${config.name}.dart\',');
+    buffer.writeln('      \'$registrationImport\',');
     buffer.writeln('    );');
   }
 

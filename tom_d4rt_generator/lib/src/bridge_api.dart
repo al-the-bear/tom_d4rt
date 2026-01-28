@@ -183,11 +183,15 @@ Future<void> _generateDartscriptFile(String dartscriptPath, BridgeConfig config)
   buffer.writeln('    final d4rt = interpreter ?? D4rt();');
 
   for (final module in config.modules) {
-    // Get the module name (should be lowercase from the generator)
-    final moduleName = module.name.substring(0, 1).toLowerCase() + module.name.substring(1);
-    buffer.writeln('    ${module.name}_bridges.${moduleName}Bridge.registerBridges(');
+    // Capitalize module name for class name (e.g., "tom_core_kernel" -> "Tom_core_kernel")
+    final capitalizedName = module.name.isEmpty 
+        ? module.name 
+        : '${module.name[0].toUpperCase()}${module.name.substring(1)}';
+    // Use barrelImport if provided, otherwise fall back to package name convention
+    final registrationImport = module.barrelImport ?? 'package:${config.name}/${config.name}.dart';
+    buffer.writeln('    ${module.name}_bridges.${capitalizedName}Bridge.registerBridges(');
     buffer.writeln('      d4rt,');
-    buffer.writeln('      \'package:${config.name}/${config.name}.dart\',');
+    buffer.writeln('      \'$registrationImport\',');
     buffer.writeln('    );');
   }
 
@@ -198,9 +202,11 @@ Future<void> _generateDartscriptFile(String dartscriptPath, BridgeConfig config)
   buffer.writeln('    final buffer = StringBuffer();');
 
   for (final module in config.modules) {
-    final moduleName = module.name.substring(0, 1).toLowerCase() + module.name.substring(1);
+    final capitalizedName = module.name.isEmpty 
+        ? module.name 
+        : '${module.name[0].toUpperCase()}${module.name.substring(1)}';
     buffer.writeln(
-        '    buffer.writeln(${module.name}_bridges.${moduleName}Bridge.getImportBlock());');
+        '    buffer.writeln(${module.name}_bridges.${capitalizedName}Bridge.getImportBlock());');
   }
 
   buffer.writeln('    return buffer.toString();');
