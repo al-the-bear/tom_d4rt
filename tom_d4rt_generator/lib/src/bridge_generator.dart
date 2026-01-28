@@ -1803,7 +1803,11 @@ class BridgeGenerator {
   ///
   /// For complex defaults that can't be resolved (class static members, private symbols),
   /// returns null to indicate a TODO default should be used.
-  String? _prefixDefaultValue(String defaultValue, String? sourceUri) {
+  String? _prefixDefaultValue(
+    String defaultValue,
+    String? sourceUri, {
+    Map<String, String> typeToUri = const {},
+  }) {
     // Skip literals - these are safe
     if (defaultValue == 'null' ||
         defaultValue == 'true' ||
@@ -1844,14 +1848,38 @@ class BridgeGenerator {
     // 3. Static/Enum access (ClassName.value)
     // Matches "Name.name" where Name is capitalized (Class/Enum) and name is camelCase.
     // Explicitly excludes function calls (parentheses).
-    // We prefix with $source to use the aliased import of the bridged library.
     if (RegExp(r'^[A-Z]\w*\.[a-z]\w*$').hasMatch(defaultValue)) {
+      final className = defaultValue.split('.').first;
+
+      // If it's a built-in type (e.g. Duration.zero), don't prefix
+      if (_isBuiltInType(className)) {
+        return defaultValue;
+      }
+
+      // Check if we know where this class comes from
+      if (typeToUri.containsKey(className)) {
+        final uri = typeToUri[className];
+        if (uri != null) {
+          final prefix = _importPrefixes[uri];
+          if (prefix != null) {
+            return '$prefix.$defaultValue';
+          }
+        }
+      }
+
+      // Fallback: assume it's from the source library
       return '\$source.$defaultValue';
     }
 
     // 4. Simple Lists/Sets (heuristic: no internal function calls/parentheses)
     if ((defaultValue.startsWith('const [') || defaultValue.startsWith('const {')) &&
         !defaultValue.contains('(')) {
+      // If it contains a dot following an uppercase letter, it might be an Enum or Class constant.
+      // We can't safely wrap it without parsing, so we mark it as non-wrappable.
+      // This triggers combinatorial dispatch which uses the native default value.
+      if (RegExp(r'[A-Z]\w*\.').hasMatch(defaultValue)) {
+        return null;
+      }
       return defaultValue;
     }
 
@@ -1866,8 +1894,11 @@ class BridgeGenerator {
   }
 
   /// Checks if a default value is wrappable (can be used directly in bridge code).
-  bool _isWrappableDefault(String defaultValue) {
-    return _prefixDefaultValue(defaultValue, null) != null;
+  bool _isWrappableDefault(
+    String defaultValue, {
+    Map<String, String> typeToUri = const {},
+  }) {
+    return _prefixDefaultValue(defaultValue, null, typeToUri: typeToUri) != null;
   }
 
   /// Records a warning for a non-wrappable default value.
@@ -2183,7 +2214,7 @@ class BridgeGenerator {
         for (final p in func.parameters) {
           if (p.isNamed &&
               p.defaultValue != null &&
-              !_isWrappableDefault(p.defaultValue!)) {
+              !_isWrappableDefault(p.defaultValue!, typeToUri: p.typeToUri)) {
             nonWrappableDefaults.add(p);
           }
         }
@@ -2210,6 +2241,7 @@ class BridgeGenerator {
               final prefixedDefault = _prefixDefaultValue(
                 param.defaultValue!,
                 _getPackageUri(func.sourceFile),
+                typeToUri: param.typeToUri,
               );
               if (prefixedDefault != null) {
                 argDeclarations.add("        final ${param.name} = D4.getNamedArgWithDefault<$resolvedType>(named, '${param.name}', $prefixedDefault);");
@@ -2236,6 +2268,7 @@ class BridgeGenerator {
               final prefixedDefault = _prefixDefaultValue(
                 param.defaultValue!,
                 _getPackageUri(func.sourceFile),
+                typeToUri: param.typeToUri,
               );
               if (prefixedDefault != null) {
                 argDeclarations.add("        final ${param.name} = D4.getOptionalArgWithDefault<$resolvedType>(positional, $positionalIndex, '${param.name}', $prefixedDefault);");
@@ -2885,7 +2918,7 @@ class BridgeGenerator {
     // Check for named unwrappable defaults for combinatorial fallback
     final nonWrappableDefaults = <ParameterInfo>[];
     for (final p in namedParams) {
-      if (p.defaultValue != null && !_isWrappableDefault(p.defaultValue!)) {
+      if (p.defaultValue != null && !_isWrappableDefault(p.defaultValue!, typeToUri: p.typeToUri)) {
         nonWrappableDefaults.add(p);
       }
     }
@@ -2992,7 +3025,7 @@ class BridgeGenerator {
     // Check for named unwrappable defaults for combinatorial fallback
     final nonWrappableDefaults = <ParameterInfo>[];
     for (final p in namedParams) {
-      if (p.defaultValue != null && !_isWrappableDefault(p.defaultValue!)) {
+      if (p.defaultValue != null && !_isWrappableDefault(p.defaultValue!, typeToUri: p.typeToUri)) {
         nonWrappableDefaults.add(p);
       }
     }
@@ -3158,7 +3191,7 @@ class BridgeGenerator {
     // Check for unwrappable defaults
     final nonWrappablePositional = <ParameterInfo>[];
     for (final p in positionalParams) {
-      if (p.defaultValue != null && !_isWrappableDefault(p.defaultValue!)) {
+      if (p.defaultValue != null && !_isWrappableDefault(p.defaultValue!, typeToUri: p.typeToUri)) {
         nonWrappablePositional.add(p);
       }
     }
@@ -3166,7 +3199,7 @@ class BridgeGenerator {
 
     final nonWrappableNamed = <ParameterInfo>[];
     for (final p in namedParams) {
-      if (p.defaultValue != null && !_isWrappableDefault(p.defaultValue!)) {
+      if (p.defaultValue != null && !_isWrappableDefault(p.defaultValue!, typeToUri: p.typeToUri)) {
         nonWrappableNamed.add(p);
       }
     }
@@ -3322,7 +3355,7 @@ class BridgeGenerator {
         );
       } else if (param.defaultValue != null) {
         // Check if default is wrappable
-        if (_isWrappableDefault(param.defaultValue!)) {
+        if (_isWrappableDefault(param.defaultValue!, typeToUri: param.typeToUri)) {
           final typedDefault = _getTypedDefaultValue(
             param.defaultValue!,
             param.type,
@@ -3379,7 +3412,7 @@ class BridgeGenerator {
         );
       } else if (param.defaultValue != null) {
         // Check if default is wrappable
-        if (_isWrappableDefault(param.defaultValue!)) {
+        if (_isWrappableDefault(param.defaultValue!, typeToUri: param.typeToUri)) {
           final typedDefault = _getTypedDefaultValue(
             param.defaultValue!,
             param.type,
@@ -3496,6 +3529,7 @@ class BridgeGenerator {
       final prefixedDefault = _prefixDefaultValue(
         param.defaultValue!,
         sourceUri,
+        typeToUri: param.typeToUri,
       );
       if (prefixedDefault != null) {
         // Wrappable default - use normal optional arg with default
@@ -3638,7 +3672,7 @@ class BridgeGenerator {
         );
       } else if (param.defaultValue != null) {
         // Check if default is wrappable
-        if (_isWrappableDefault(param.defaultValue!)) {
+        if (_isWrappableDefault(param.defaultValue!, typeToUri: param.typeToUri)) {
           final typedDefault = _getTypedDefaultValue(
             param.defaultValue!,
             param.type,
@@ -3763,7 +3797,7 @@ class BridgeGenerator {
         );
       } else if (param.defaultValue != null) {
         // Check if default is wrappable
-        if (_isWrappableDefault(param.defaultValue!)) {
+        if (_isWrappableDefault(param.defaultValue!, typeToUri: param.typeToUri)) {
           final typedDefault = _getTypedDefaultValue(
             param.defaultValue!,
             param.type,
@@ -3817,6 +3851,7 @@ class BridgeGenerator {
       final prefixedDefault = _prefixDefaultValue(
         param.defaultValue!,
         sourceUri,
+        typeToUri: param.typeToUri,
       );
       if (prefixedDefault != null) {
         // Wrappable default - use normal named arg with default
