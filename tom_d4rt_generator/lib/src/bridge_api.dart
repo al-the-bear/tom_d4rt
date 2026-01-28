@@ -183,10 +183,8 @@ Future<void> _generateDartscriptFile(String dartscriptPath, BridgeConfig config)
   buffer.writeln('    final d4rt = interpreter ?? D4rt();');
 
   for (final module in config.modules) {
-    // Capitalize module name for class name (e.g., "tom_core_kernel" -> "Tom_core_kernel")
-    final capitalizedName = module.name.isEmpty 
-        ? module.name 
-        : '${module.name[0].toUpperCase()}${module.name.substring(1)}';
+    // Convert module name to PascalCase for class name (e.g., "tom_core_kernel" -> "TomCoreKernel")
+    final capitalizedName = toPascalCase(module.name);
     // Use barrelImport if provided, otherwise fall back to package name convention
     final registrationImport = module.barrelImport ?? 'package:${config.name}/${config.name}.dart';
     buffer.writeln('    ${module.name}_bridges.${capitalizedName}Bridge.registerBridges(');
@@ -202,19 +200,12 @@ Future<void> _generateDartscriptFile(String dartscriptPath, BridgeConfig config)
   buffer.writeln('    final buffer = StringBuffer();');
 
   for (final module in config.modules) {
-    final capitalizedName = module.name.isEmpty 
-        ? module.name 
-        : '${module.name[0].toUpperCase()}${module.name.substring(1)}';
+    final capitalizedName = toPascalCase(module.name);
     buffer.writeln(
         '    buffer.writeln(${module.name}_bridges.${capitalizedName}Bridge.getImportBlock());');
   }
 
   buffer.writeln('    return buffer.toString();');
-  buffer.writeln('  }');
-  buffer.writeln();
-  buffer.writeln('  /// Get global initialization script.');
-  buffer.writeln('  static String getGlobalInitializationScript() {');
-  buffer.writeln('    return \'\';');
   buffer.writeln('  }');
   buffer.writeln('}');
 

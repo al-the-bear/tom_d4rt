@@ -541,6 +541,20 @@ class ExternalTypeDependency {
   int get hashCode => Object.hash(typeName, packageUri);
 }
 
+/// Converts a snake_case or lowercase string to PascalCase.
+/// 
+/// Examples:
+/// - 'tom_core_kernel' -> 'TomCoreKernel'
+/// - 'all' -> 'All'
+/// - 'myModule' -> 'MyModule'
+String toPascalCase(String input) {
+  if (input.isEmpty) return input;
+  return input
+      .split('_')
+      .map((w) => w.isNotEmpty ? '${w[0].toUpperCase()}${w.substring(1)}' : '')
+      .join();
+}
+
 /// Generates D4rt BridgedClass implementations from Dart source files.
 class BridgeGenerator {
   /// Workspace root path.
@@ -2395,10 +2409,8 @@ class BridgeGenerator {
     // Generate module bridge class - use override name if provided, otherwise derive from file
     final moduleName =
         overrideModuleName ?? _getModuleName(classes.first.sourceFile);
-    // Capitalize module name for class name (e.g., "all" -> "All")
-    final capitalizedModuleName = moduleName.isEmpty 
-        ? moduleName 
-        : '${moduleName[0].toUpperCase()}${moduleName.substring(1)}';
+    // Convert module name to PascalCase for class name (e.g., "tom_core_kernel" -> "TomCoreKernel")
+    final capitalizedModuleName = toPascalCase(moduleName);
     buffer.writeln('/// Bridge class for $moduleName module.');
     buffer.writeln('class ${capitalizedModuleName}Bridge {');
 

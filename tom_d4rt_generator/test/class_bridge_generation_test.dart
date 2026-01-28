@@ -297,7 +297,7 @@ void main() {
     });
 
     test('generates module bridge class with correct name', () {
-      expect(generatedCode, contains('class Test_moduleBridge {'));
+      expect(generatedCode, contains('class TestModuleBridge {'));
     });
 
     test('generates bridgeClasses method', () {
