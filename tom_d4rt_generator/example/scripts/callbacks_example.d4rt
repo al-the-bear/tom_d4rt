@@ -53,8 +53,39 @@ main() async {
   var failure = await service.tryFetch('');
   print('Try fetch empty: $failure');
 
-  // Note: EventEmitter uses typedef callbacks which require special bridge handling
-  // Removed from example for now.
+  // 3. EventEmitter with typedef callbacks
+  print('\n--- EventEmitter ---');
+  var emitter = EventEmitter();
+  
+  var eventsReceived = [];
+  
+  // Register listener using typedef callback (EventCallback = void Function(String))
+  emitter.on('message', (event) { 
+    eventsReceived.add('on: $event');
+  });
+  
+  // Register another listener
+  emitter.on('message', (event) { 
+    eventsReceived.add('on2: $event');
+  });
+  
+  // Emit event
+  emitter.emit('message');
+  print('Events received after emit: $eventsReceived');
+  
+  // Check listener count
+  print('Listener count for message: ${emitter.listenerCount("message")}');
+  
+  // Register one-time listener
+  eventsReceived = [];
+  emitter.once('click', (event) {
+    eventsReceived.add('once: $event');
+  });
+  
+  emitter.emit('click');
+  emitter.emit('click'); // Should not trigger again
+  print('Events after once (should be 1): $eventsReceived');
+  print('Click listener count after once: ${emitter.listenerCount("click")}');
 
   return 'Callbacks example completed successfully!';
 }

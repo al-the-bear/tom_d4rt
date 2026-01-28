@@ -140,7 +140,8 @@ class EventEmitter {
   void emit(String event) {
     final listeners = _listeners[event];
     if (listeners != null) {
-      for (final listener in listeners) {
+      // Create a copy to avoid concurrent modification when listeners remove themselves
+      for (final listener in List.of(listeners)) {
         listener(event);
       }
     }

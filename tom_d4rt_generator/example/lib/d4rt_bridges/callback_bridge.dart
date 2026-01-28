@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_generator/example/lib/test_classes/callback_classes.dart
-// Generated: 2026-01-28T16:16:12.700394
+// Generated: 2026-01-28T16:26:32.716249
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -252,8 +252,11 @@ BridgedClass _createEventEmitterBridge() {
         final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 2, 'on');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'on');
-        final callback = D4.getRequiredArg<dynamic>(positional, 1, 'callback', 'on');
-        t.on(event, callback);
+        if (positional.length <= 1) {
+          throw ArgumentError('on: Missing required argument "callback" at position 1');
+        }
+        final callback_raw = positional[1];
+        t.on(event, (String p0) { (callback_raw as InterpretedFunction).call(visitor as InterpreterVisitor, [p0]); });
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {
@@ -267,16 +270,22 @@ BridgedClass _createEventEmitterBridge() {
         final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 2, 'off');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'off');
-        final callback = D4.getRequiredArg<dynamic>(positional, 1, 'callback', 'off');
-        t.off(event, callback);
+        if (positional.length <= 1) {
+          throw ArgumentError('off: Missing required argument "callback" at position 1');
+        }
+        final callback_raw = positional[1];
+        t.off(event, (String p0) { (callback_raw as InterpretedFunction).call(visitor as InterpreterVisitor, [p0]); });
         return null;
       },
       'once': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 2, 'once');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'once');
-        final callback = D4.getRequiredArg<dynamic>(positional, 1, 'callback', 'once');
-        t.once(event, callback);
+        if (positional.length <= 1) {
+          throw ArgumentError('once: Missing required argument "callback" at position 1');
+        }
+        final callback_raw = positional[1];
+        t.once(event, (String p0) { (callback_raw as InterpretedFunction).call(visitor as InterpreterVisitor, [p0]); });
         return null;
       },
       'listenerCount': (visitor, target, positional, named, typeArgs) {

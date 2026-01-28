@@ -138,6 +138,69 @@ void main() {
       final content = await outputFile.readAsString();
       expect(content.length, greaterThan(100));
     });
+
+    group('Custom Typedef Resolution', () {
+      test('custom typedef callback is resolved from source file', () {
+        // The callback_test_source.dart defines ProgressCallback typedef
+        // The generator should extract function type info from resolved type
+        expect(
+          generatedCode,
+          contains("'onProgress':"),
+          reason: 'Method with custom typedef callback should be generated',
+        );
+        // The wrapper should have the correct parameter type
+        expect(
+          generatedCode,
+          contains('(int p0)'),
+          reason: 'Progress callback wrapper should have int parameter',
+        );
+      });
+
+      test('custom typedef with string parameter generates correct wrapper', () {
+        // VoidCallback typedef is used in onComplete method
+        expect(
+          generatedCode,
+          contains("'onComplete':"),
+          reason: 'Method with VoidCallback should be generated',
+        );
+        // VoidCallback has no params, so wrapper should be () { ... }
+        expect(
+          generatedCode,
+          contains('() {'),
+          reason: 'VoidCallback wrapper should have no parameters',
+        );
+      });
+
+      test('typedef with multiple parameters generates correct wrapper', () {
+        // ItemProcessor = void Function(int index, String item)
+        expect(
+          generatedCode,
+          contains("'onItemProcessed':"),
+          reason: 'Method with multi-param typedef should be generated',
+        );
+        // Wrapper should have both parameters
+        expect(
+          generatedCode,
+          contains('(int p0, String p1)'),
+          reason: 'ItemProcessor wrapper should have int and String parameters',
+        );
+      });
+
+      test('typedef with return value generates correct wrapper', () {
+        // FilterPredicate = bool Function(int value)
+        expect(
+          generatedCode,
+          contains("'filter':"),
+          reason: 'Method with return-value typedef should be generated',
+        );
+        // Return statement should cast to bool
+        expect(
+          generatedCode,
+          contains('as bool'),
+          reason: 'FilterPredicate wrapper should cast return value to bool',
+        );
+      });
+    });
   });
 
   group('Warnings', () {

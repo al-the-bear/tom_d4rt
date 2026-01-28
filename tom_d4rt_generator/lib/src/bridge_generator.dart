@@ -3645,38 +3645,25 @@ class BridgeGenerator {
       return true;
     }
 
-    // Check if the parameter type itself is a function typedef
-    // Only strip the trailing ? (for nullable function type), preserve inner nullable types
-    var baseType = param.type;
-    if (baseType.endsWith('?')) {
-      baseType = baseType.substring(0, baseType.length - 1);
-    }
-    if (_isFunctionTypeName(baseType)) {
-      // Get function type info - try known aliases first, then parse
-      var funcInfo = _knownFunctionTypeAliasInfo[baseType.replaceAll('?', '')];
-      funcInfo ??= _parseFunctionType(baseType);
-      
-      if (funcInfo == null) {
-        // Could not parse function type - fall back to warning
-        warnings?.add(
-          'TODO: $contextName: parameter "${param.name}" '
-          'has unparseable function type ${param.type}',
-        );
-        buffer.writeln(
-          "        // TODO: Unparseable function type ${param.type}",
-        );
-        buffer.writeln(
-          "        throw UnimplementedError('$contextName: Parameter \"${param.name}\" has unparseable function type ${param.type}.');",
-        );
-        buffer.writeln(
-          "        // ignore: dead_code",
-        );
-        buffer.writeln(
-          "        final $localName = null;",
-        );
-        return true;
+    // Check if the parameter is a function type that needs wrapping
+    // First check if we have function type info from resolved type analysis
+    FunctionTypeInfo? funcInfo = param.functionTypeInfo;
+    
+    // If not, check if the parameter type itself is a function typedef (fallback for syntactic parsing)
+    if (funcInfo == null) {
+      // Only strip the trailing ? (for nullable function type), preserve inner nullable types
+      var baseType = param.type;
+      if (baseType.endsWith('?')) {
+        baseType = baseType.substring(0, baseType.length - 1);
       }
-      
+      if (_isFunctionTypeName(baseType)) {
+        // Get function type info - try known aliases first, then parse
+        funcInfo = _knownFunctionTypeAliasInfo[baseType.replaceAll('?', '')];
+        funcInfo ??= _parseFunctionType(baseType);
+      }
+    }
+    
+    if (funcInfo != null) {      
       // Generate extraction of raw InterpretedFunction value
       final rawVarName = '${localName}_raw';
       if (param.isRequired) {
@@ -3909,38 +3896,25 @@ class BridgeGenerator {
       return true;
     }
 
-    // Check if the parameter type itself is a function typedef
-    // Only strip the trailing ? (for nullable function type), preserve inner nullable types
-    var baseType = param.type;
-    if (baseType.endsWith('?')) {
-      baseType = baseType.substring(0, baseType.length - 1);
-    }
-    if (_isFunctionTypeName(baseType)) {
-      // Get function type info - try known aliases first, then parse
-      var funcInfo = _knownFunctionTypeAliasInfo[baseType.replaceAll('?', '')];
-      funcInfo ??= _parseFunctionType(baseType);
-      
-      if (funcInfo == null) {
-        // Could not parse function type - fall back to warning
-        warnings?.add(
-          'TODO: $contextName: parameter "${param.name}" '
-          'has unparseable function type ${param.type}',
-        );
-        buffer.writeln(
-          "        // TODO: Unparseable function type ${param.type}",
-        );
-        buffer.writeln(
-          "        throw UnimplementedError('$contextName: Parameter \"${param.name}\" has unparseable function type ${param.type}.');",
-        );
-        buffer.writeln(
-          "        // ignore: dead_code",
-        );
-        buffer.writeln(
-          "        final $localName = null;",
-        );
-        return true;
+    // Check if the parameter is a function type that needs wrapping
+    // First check if we have function type info from resolved type analysis
+    FunctionTypeInfo? funcInfo = param.functionTypeInfo;
+    
+    // If not, check if the parameter type itself is a function typedef (fallback for syntactic parsing)
+    if (funcInfo == null) {
+      // Only strip the trailing ? (for nullable function type), preserve inner nullable types
+      var baseType = param.type;
+      if (baseType.endsWith('?')) {
+        baseType = baseType.substring(0, baseType.length - 1);
       }
-      
+      if (_isFunctionTypeName(baseType)) {
+        // Get function type info - try known aliases first, then parse
+        funcInfo = _knownFunctionTypeAliasInfo[baseType.replaceAll('?', '')];
+        funcInfo ??= _parseFunctionType(baseType);
+      }
+    }
+    
+    if (funcInfo != null) {
       // Generate extraction of raw InterpretedFunction value
       final rawVarName = '${localName}_raw';
       if (param.isRequired) {
@@ -4735,6 +4709,44 @@ class BridgeGenerator {
     'ValueSetter': FunctionTypeInfo(returnType: 'void', positionalParamTypes: ['T']),
   };
 
+  /// Extracts FunctionTypeInfo from a resolved DartType.
+  /// Returns null if the type is not a function type.
+  static FunctionTypeInfo? extractFunctionTypeInfoFromDartType(DartType dartType) {
+    // Handle type aliases that resolve to function types
+    if (dartType is FunctionType) {
+      final returnTypeStr = dartType.returnType.getDisplayString();
+      final returnTypeNullable = returnTypeStr.endsWith('?');
+      final returnType = returnTypeNullable 
+          ? returnTypeStr.substring(0, returnTypeStr.length - 1)
+          : returnTypeStr;
+      
+      final positionalParamTypes = <String>[];
+      final namedParamTypes = <String, String>{};
+      final namedParamRequired = <String, bool>{};
+      
+      for (final param in dartType.formalParameters) {
+        final paramType = param.type.getDisplayString();
+        final paramName = param.name;
+        if (param.isNamed && paramName != null) {
+          namedParamTypes[paramName] = paramType;
+          namedParamRequired[paramName] = param.isRequired;
+        } else {
+          positionalParamTypes.add(paramType);
+        }
+      }
+      
+      return FunctionTypeInfo(
+        returnType: returnType,
+        returnTypeNullable: returnTypeNullable,
+        positionalParamTypes: positionalParamTypes,
+        namedParamTypes: namedParamTypes,
+        namedParamRequired: namedParamRequired,
+      );
+    }
+    
+    return null;
+  }
+
   /// Generates a wrapper that converts an InterpretedFunction to a native function.
   ///
   /// Example output for `void Function(int, String)`:
@@ -5109,18 +5121,19 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
   }
 
   /// Collects all import URIs from a type annotation, including generic type arguments.
-  /// Returns a record with the set of URIs, a map from type name to URI, and whether
-  /// the type is a function type alias.
+  /// Returns a record with the set of URIs, a map from type name to URI, whether
+  /// the type is a function type alias, and the function type info if applicable.
   ({
     Set<String> uris,
     Map<String, String> typeToUri,
     bool isFunctionTypeAlias,
+    FunctionTypeInfo? functionTypeInfo,
   }) _collectTypeInfo(TypeAnnotation? typeAnnotation) {
     final uris = <String>{};
     final typeToUri = <String, String>{};
     final functionTypeAliases = <String>{};
     if (typeAnnotation == null) {
-      return (uris: uris, typeToUri: typeToUri, isFunctionTypeAlias: false);
+      return (uris: uris, typeToUri: typeToUri, isFunctionTypeAlias: false, functionTypeInfo: null);
     }
 
     _collectInfoFromDartType(
@@ -5130,15 +5143,23 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       functionTypeAliases: functionTypeAliases,
     );
 
-    // Check if the main type is a function type alias
-    final typeName = typeAnnotation.type?.alias?.element.name;
+    // Check if the main type is a function type alias and extract its info
+    final dartType = typeAnnotation.type;
+    final typeName = dartType?.alias?.element.name;
     final isFunctionTypeAlias =
         typeName != null && functionTypeAliases.contains(typeName);
+    
+    // Extract function type info if this is a function type (alias or inline)
+    FunctionTypeInfo? functionTypeInfo;
+    if (dartType is FunctionType) {
+      functionTypeInfo = BridgeGenerator.extractFunctionTypeInfoFromDartType(dartType);
+    }
 
     return (
       uris: uris,
       typeToUri: typeToUri,
       isFunctionTypeAlias: isFunctionTypeAlias,
+      functionTypeInfo: functionTypeInfo,
     );
   }
 
@@ -5340,6 +5361,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       bool isRequired;
       bool isNamed;
       String? defaultValue;
+      bool isFunctionTypeAlias = false;
+      FunctionTypeInfo? functionTypeInfo;
 
       if (param is SimpleFormalParameter) {
         name = param.name?.lexeme ?? '';
@@ -5347,6 +5370,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         final typeInfo = _collectTypeInfo(param.type);
         typeImportUris = typeInfo.uris;
         typeToUri = typeInfo.typeToUri;
+        isFunctionTypeAlias = typeInfo.isFunctionTypeAlias;
+        functionTypeInfo = typeInfo.functionTypeInfo;
         isRequired = param.isRequired;
         isNamed = param.isNamed;
       } else if (param is DefaultFormalParameter) {
@@ -5357,6 +5382,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           final typeInfo = _collectTypeInfo(innerParam.type);
           typeImportUris = typeInfo.uris;
           typeToUri = typeInfo.typeToUri;
+          isFunctionTypeAlias = typeInfo.isFunctionTypeAlias;
+          functionTypeInfo = typeInfo.functionTypeInfo;
         } else if (innerParam is FieldFormalParameter) {
           name = innerParam.name.lexeme;
           // For this.x syntax, get type from resolved element if no explicit type
@@ -5365,6 +5392,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
             final typeInfo = _collectTypeInfo(innerParam.type);
             typeImportUris = typeInfo.uris;
             typeToUri = typeInfo.typeToUri;
+            isFunctionTypeAlias = typeInfo.isFunctionTypeAlias;
+            functionTypeInfo = typeInfo.functionTypeInfo;
           } else {
             final resolvedType = innerParam.declaredFragment?.element.type;
             if (resolvedType != null) {
@@ -5372,6 +5401,11 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
               typeImportUris = <String>{};
               typeToUri = <String, String>{};
               _collectInfoFromDartType(resolvedType, typeImportUris, typeToUri);
+              // Also extract function type info from resolved type
+              if (resolvedType is FunctionType) {
+                isFunctionTypeAlias = resolvedType.alias != null;
+                functionTypeInfo = BridgeGenerator.extractFunctionTypeInfoFromDartType(resolvedType);
+              }
             } else {
               type = 'dynamic';
               typeImportUris = <String>{};
@@ -5386,6 +5420,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
             final typeInfo = _collectTypeInfo(innerParam.type);
             typeImportUris = typeInfo.uris;
             typeToUri = typeInfo.typeToUri;
+            isFunctionTypeAlias = typeInfo.isFunctionTypeAlias;
+            functionTypeInfo = typeInfo.functionTypeInfo;
           } else {
             final resolvedType = innerParam.declaredFragment?.element.type;
             if (resolvedType != null) {
@@ -5393,6 +5429,11 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
               typeImportUris = <String>{};
               typeToUri = <String, String>{};
               _collectInfoFromDartType(resolvedType, typeImportUris, typeToUri);
+              // Also extract function type info from resolved type
+              if (resolvedType is FunctionType) {
+                isFunctionTypeAlias = resolvedType.alias != null;
+                functionTypeInfo = BridgeGenerator.extractFunctionTypeInfoFromDartType(resolvedType);
+              }
             } else {
               type = 'dynamic';
               typeImportUris = <String>{};
@@ -5421,6 +5462,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           final typeInfo = _collectTypeInfo(param.type);
           typeImportUris = typeInfo.uris;
           typeToUri = typeInfo.typeToUri;
+          isFunctionTypeAlias = typeInfo.isFunctionTypeAlias;
+          functionTypeInfo = typeInfo.functionTypeInfo;
         } else {
           final resolvedType = param.declaredFragment?.element.type;
           if (resolvedType != null) {
@@ -5428,6 +5471,11 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
             typeImportUris = <String>{};
             typeToUri = <String, String>{};
             _collectInfoFromDartType(resolvedType, typeImportUris, typeToUri);
+            // Also extract function type info from resolved type
+            if (resolvedType is FunctionType) {
+              isFunctionTypeAlias = resolvedType.alias != null;
+              functionTypeInfo = BridgeGenerator.extractFunctionTypeInfoFromDartType(resolvedType);
+            }
           } else {
             type = 'dynamic';
             typeImportUris = <String>{};
@@ -5444,6 +5492,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           final typeInfo = _collectTypeInfo(param.type);
           typeImportUris = typeInfo.uris;
           typeToUri = typeInfo.typeToUri;
+          isFunctionTypeAlias = typeInfo.isFunctionTypeAlias;
+          functionTypeInfo = typeInfo.functionTypeInfo;
         } else {
           final resolvedType = param.declaredFragment?.element.type;
           if (resolvedType != null) {
@@ -5451,6 +5501,11 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
             typeImportUris = <String>{};
             typeToUri = <String, String>{};
             _collectInfoFromDartType(resolvedType, typeImportUris, typeToUri);
+            // Also extract function type info from resolved type
+            if (resolvedType is FunctionType) {
+              isFunctionTypeAlias = resolvedType.alias != null;
+              functionTypeInfo = BridgeGenerator.extractFunctionTypeInfoFromDartType(resolvedType);
+            }
           } else {
             type = 'dynamic';
             typeImportUris = <String>{};
@@ -5477,6 +5532,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           isRequired: isRequired,
           isNamed: isNamed,
           defaultValue: defaultValue,
+          isFunctionTypeAlias: isFunctionTypeAlias,
+          functionTypeInfo: functionTypeInfo,
         ),
       );
     }
