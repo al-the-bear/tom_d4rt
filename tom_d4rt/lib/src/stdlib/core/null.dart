@@ -6,7 +6,7 @@ class NullCore {
         name: 'Null',
         typeParameterCount: 0,
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Null).toString();
           },
         },

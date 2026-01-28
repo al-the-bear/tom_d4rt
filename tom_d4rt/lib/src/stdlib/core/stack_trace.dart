@@ -9,15 +9,15 @@ class StackTraceCore {
           '_StringStackTrace',
         ],
         staticMethods: {
-          'current': (visitor, positionalArgs, namedArgs) {
+          'current': (visitor, positionalArgs, namedArgs, _) {
             return StackTrace.current;
           },
-          'empty': (visitor, positionalArgs, namedArgs) {
+          'empty': (visitor, positionalArgs, namedArgs, _) {
             return StackTrace.empty;
           },
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as StackTrace).toString();
           },
         },

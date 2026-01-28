@@ -22,7 +22,7 @@ class Base64CodecConvert {
           },
         },
         methods: {
-          'encode': (visitor, target, positionalArgs, namedArgs) {
+          'encode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
               throw RuntimeError(
                   'Base64Codec.encode requires a List argument.');
@@ -30,14 +30,14 @@ class Base64CodecConvert {
             return (target as Base64Codec)
                 .encode((positionalArgs[0] as List).cast());
           },
-          'decode': (visitor, target, positionalArgs, namedArgs) {
+          'decode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'Base64Codec.decode requires a String argument.');
             }
             return (target as Base64Codec).decode(positionalArgs[0] as String);
           },
-          'normalize': (visitor, target, positionalArgs, namedArgs) {
+          'normalize': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'Base64Codec.normalize requires a String argument.');
@@ -47,7 +47,7 @@ class Base64CodecConvert {
             return (target as Base64Codec)
                 .normalize(positionalArgs[0] as String, start, end);
           },
-          'fuse': (visitor, target, positionalArgs, namedArgs) {
+          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Codec<String, dynamic>) {
               throw RuntimeError(
@@ -90,7 +90,7 @@ class Base64EncoderConvert {
           },
         },
         methods: {
-          'convert': (visitor, target, positionalArgs, namedArgs) {
+          'convert': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
               throw RuntimeError(
                   'Base64Encoder.convert requires a List argument.');
@@ -99,7 +99,7 @@ class Base64EncoderConvert {
                 .convert((positionalArgs[0] as List).cast());
           },
           'startChunkedConversion':
-              (visitor, target, positionalArgs, namedArgs) {
+              (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<dynamic>) {
               throw RuntimeError(
@@ -108,7 +108,7 @@ class Base64EncoderConvert {
             return (target as Base64Encoder)
                 .startChunkedConversion(positionalArgs[0] as Sink<String>);
           },
-          'bind': (visitor, target, positionalArgs, namedArgs) {
+          'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<List<int>>) {
               throw RuntimeError('bind requires a Stream<List<int>> argument.');
@@ -116,7 +116,7 @@ class Base64EncoderConvert {
             return (target as Base64Encoder)
                 .bind(positionalArgs[0] as Stream<List<int>>);
           },
-          'fuse': (visitor, target, positionalArgs, namedArgs) {
+          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<String, dynamic>) {
               throw RuntimeError(
@@ -125,7 +125,7 @@ class Base64EncoderConvert {
             return (target as Base64Encoder)
                 .fuse(positionalArgs[0] as Converter<String, dynamic>);
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Base64Encoder).cast<List<int>, String>();
           },
         },
@@ -152,7 +152,7 @@ class Base64DecoderConvert {
           },
         },
         methods: {
-          'convert': (visitor, target, positionalArgs, namedArgs) {
+          'convert': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'Base64Decoder.convert requires a String argument.');
@@ -161,7 +161,7 @@ class Base64DecoderConvert {
                 .convert(positionalArgs[0] as String);
           },
           'startChunkedConversion':
-              (visitor, target, positionalArgs, namedArgs) {
+              (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<List<int>>) {
               throw RuntimeError(
@@ -170,7 +170,7 @@ class Base64DecoderConvert {
             return (target as Base64Decoder)
                 .startChunkedConversion(positionalArgs[0] as Sink<List<int>>);
           },
-          'bind': (visitor, target, positionalArgs, namedArgs) {
+          'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<String>) {
               throw RuntimeError('bind requires a Stream<String> argument.');
@@ -178,7 +178,7 @@ class Base64DecoderConvert {
             return (target as Base64Decoder)
                 .bind(positionalArgs[0] as Stream<String>);
           },
-          'fuse': (visitor, target, positionalArgs, namedArgs) {
+          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<List<int>, dynamic>) {
               throw RuntimeError(
@@ -187,7 +187,7 @@ class Base64DecoderConvert {
             return (target as Base64Decoder)
                 .fuse(positionalArgs[0] as Converter<List<int>, dynamic>);
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Base64Decoder).cast<String, List<int>>();
           },
         },

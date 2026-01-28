@@ -13,31 +13,31 @@ class StringBufferCore {
           },
         },
         methods: {
-          'write': (visitor, target, positionalArgs, namedArgs) {
+          'write': (visitor, target, positionalArgs, namedArgs, _) {
             (target as StringBuffer).write(positionalArgs[0]);
             return null;
           },
-          'writeAll': (visitor, target, positionalArgs, namedArgs) {
+          'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
             final objects = positionalArgs[0] as Iterable;
             final separator =
                 positionalArgs.length > 1 ? positionalArgs[1] as String : '';
             (target as StringBuffer).writeAll(objects, separator);
             return null;
           },
-          'writeln': (visitor, target, positionalArgs, namedArgs) {
+          'writeln': (visitor, target, positionalArgs, namedArgs, _) {
             final obj = positionalArgs.isNotEmpty ? positionalArgs[0] : '';
             (target as StringBuffer).writeln(obj);
             return null;
           },
-          'writeCharCode': (visitor, target, positionalArgs, namedArgs) {
+          'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
             (target as StringBuffer).writeCharCode(positionalArgs[0] as int);
             return null;
           },
-          'clear': (visitor, target, positionalArgs, namedArgs) {
+          'clear': (visitor, target, positionalArgs, namedArgs, _) {
             (target as StringBuffer).clear();
             return null;
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as StringBuffer).toString();
           },
         },

@@ -57,7 +57,7 @@ class StreamControllerAsync {
           },
         },
         methods: {
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError(
                   'StreamController.add requires an event argument.');
@@ -65,7 +65,7 @@ class StreamControllerAsync {
             (target as StreamController).add(positionalArgs[0]);
             return null;
           },
-          'addError': (visitor, target, positionalArgs, namedArgs) {
+          'addError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError(
                   'StreamController.addError requires an error argument.');
@@ -81,9 +81,9 @@ class StreamControllerAsync {
             (target as StreamController).addError(error, stackTrace);
             return null;
           },
-          'close': (visitor, target, positionalArgs, namedArgs) =>
+          'close': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as StreamController).close(),
-          'addStream': (visitor, target, positionalArgs, namedArgs) {
+          'addStream': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
               throw RuntimeError(
                   'StreamController.addStream requires a Stream argument.');

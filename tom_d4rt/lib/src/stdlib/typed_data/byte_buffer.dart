@@ -8,7 +8,7 @@ class ByteBufferTypedData {
         typeParameterCount: 0,
         constructors: {},
         methods: {
-          'asUint8List': (visitor, target, positionalArgs, namedArgs) {
+          'asUint8List': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteBuffer) {
               int offsetInBytes = 0;
               int? length;
@@ -32,7 +32,7 @@ class ByteBufferTypedData {
             }
             throw RuntimeError("Target is not a ByteBuffer for asUint8List");
           },
-          'asByteData': (visitor, target, positionalArgs, namedArgs) {
+          'asByteData': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteBuffer) {
               int offsetInBytes = 0;
               int? length;

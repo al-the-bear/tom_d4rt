@@ -6,17 +6,17 @@ class StringCore {
         name: 'String',
         typeParameterCount: 0,
         staticMethods: {
-          'fromCharCode': (visitor, positionalArgs, namedArgs) {
+          'fromCharCode': (visitor, positionalArgs, namedArgs, _) {
             return String.fromCharCode(positionalArgs[0] as int);
           },
-          'fromCharCodes': (visitor, positionalArgs, namedArgs) {
+          'fromCharCodes': (visitor, positionalArgs, namedArgs, _) {
             return String.fromCharCodes(
               (positionalArgs[0] as List).cast<int>(),
               positionalArgs.length > 1 ? positionalArgs[1] as int? ?? 0 : 0,
               positionalArgs.length > 2 ? positionalArgs[2] as int? : null,
             );
           },
-          'fromEnvironment': (visitor, positionalArgs, namedArgs) {
+          'fromEnvironment': (visitor, positionalArgs, namedArgs, _) {
             return String.fromEnvironment(
               positionalArgs[0] as String,
               defaultValue: namedArgs['defaultValue'] as String? ?? '',
@@ -24,71 +24,71 @@ class StringCore {
           },
         },
         methods: {
-          '[]': (visitor, target, positionalArgs, namedArgs) {
+          '[]': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
               throw RuntimeError(
                   'String index operator [] requires one int argument.');
             }
             return (target as String)[positionalArgs[0] as int];
           },
-          'substring': (visitor, target, positionalArgs, namedArgs) {
+          'substring': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).substring(
               positionalArgs[0] as int,
               positionalArgs.length > 1 ? positionalArgs[1] as int? : null,
             );
           },
-          'toUpperCase': (visitor, target, positionalArgs, namedArgs) {
+          'toUpperCase': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).toUpperCase();
           },
-          'toLowerCase': (visitor, target, positionalArgs, namedArgs) {
+          'toLowerCase': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).toLowerCase();
           },
-          'contains': (visitor, target, positionalArgs, namedArgs) {
+          'contains': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).contains(
               positionalArgs[0] as Pattern,
               positionalArgs.length > 1 ? positionalArgs[1] as int? ?? 0 : 0,
             );
           },
-          'startsWith': (visitor, target, positionalArgs, namedArgs) {
+          'startsWith': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).startsWith(
               positionalArgs[0] as Pattern,
               positionalArgs.length > 1 ? positionalArgs[1] as int? ?? 0 : 0,
             );
           },
-          'endsWith': (visitor, target, positionalArgs, namedArgs) {
+          'endsWith': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).endsWith(positionalArgs[0] as String);
           },
-          'indexOf': (visitor, target, positionalArgs, namedArgs) {
+          'indexOf': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).indexOf(
               positionalArgs[0] as Pattern,
               positionalArgs.length > 1 ? positionalArgs[1] as int? ?? 0 : 0,
             );
           },
-          'lastIndexOf': (visitor, target, positionalArgs, namedArgs) {
+          'lastIndexOf': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).lastIndexOf(
               positionalArgs[0] as Pattern,
               positionalArgs.length > 1 ? positionalArgs[1] as int? : null,
             );
           },
-          'trim': (visitor, target, positionalArgs, namedArgs) {
+          'trim': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).trim();
           },
-          'trimLeft': (visitor, target, positionalArgs, namedArgs) {
+          'trimLeft': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).trimLeft();
           },
-          'trimRight': (visitor, target, positionalArgs, namedArgs) {
+          'trimRight': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).trimRight();
           },
-          'replaceAll': (visitor, target, positionalArgs, namedArgs) {
+          'replaceAll': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).replaceAll(
               positionalArgs[0] as Pattern,
               positionalArgs[1] as String,
             );
           },
-          'split': (visitor, target, positionalArgs, namedArgs) {
+          'split': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).split(positionalArgs[0] as Pattern);
           },
-          'splitMapJoin': (visitor, target, positionalArgs, namedArgs) {
+          'splitMapJoin': (visitor, target, positionalArgs, namedArgs, _) {
             final pattern = positionalArgs[0] as Pattern;
             final onMatch = namedArgs['onMatch'] as InterpretedFunction?;
             final onNonMatch = namedArgs['onNonMatch'] as InterpretedFunction?;
@@ -102,7 +102,7 @@ class StringCore {
                   : (String s) => onNonMatch.call(visitor, [s]) as String,
             );
           },
-          'padLeft': (visitor, target, positionalArgs, namedArgs) {
+          'padLeft': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).padLeft(
               positionalArgs[0] as int,
               positionalArgs.length > 1
@@ -110,7 +110,7 @@ class StringCore {
                   : ' ',
             );
           },
-          'padRight': (visitor, target, positionalArgs, namedArgs) {
+          'padRight': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).padRight(
               positionalArgs[0] as int,
               positionalArgs.length > 1
@@ -118,36 +118,36 @@ class StringCore {
                   : ' ',
             );
           },
-          'replaceFirst': (visitor, target, positionalArgs, namedArgs) {
+          'replaceFirst': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).replaceFirst(
               positionalArgs[0] as Pattern,
               positionalArgs[1] as String,
               positionalArgs.length > 2 ? positionalArgs[2] as int? ?? 0 : 0,
             );
           },
-          'replaceRange': (visitor, target, positionalArgs, namedArgs) {
+          'replaceRange': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).replaceRange(
               positionalArgs[0] as int,
               positionalArgs.length > 1 ? positionalArgs[1] as int? : null,
               positionalArgs[2] as String,
             );
           },
-          'codeUnitAt': (visitor, target, positionalArgs, namedArgs) {
+          'codeUnitAt': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).codeUnitAt(positionalArgs[0] as int);
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).toString();
           },
-          'compareTo': (visitor, target, positionalArgs, namedArgs) {
+          'compareTo': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).compareTo(positionalArgs[0] as String);
           },
-          'allMatches': (visitor, target, positionalArgs, namedArgs) {
+          'allMatches': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).allMatches(
               positionalArgs[0] as String,
               positionalArgs.length > 1 ? positionalArgs[1] as int? ?? 0 : 0,
             );
           },
-          'replaceAllMapped': (visitor, target, positionalArgs, namedArgs) {
+          'replaceAllMapped': (visitor, target, positionalArgs, namedArgs, _) {
             final pattern = positionalArgs[0] as Pattern;
             final replace = positionalArgs[1];
             if (replace is! InterpretedFunction) {
@@ -158,7 +158,7 @@ class StringCore {
               return replace.call(visitor, [match]) as String;
             });
           },
-          'replaceFirstMapped': (visitor, target, positionalArgs, namedArgs) {
+          'replaceFirstMapped': (visitor, target, positionalArgs, namedArgs, _) {
             final pattern = positionalArgs[0] as Pattern;
             final replace = positionalArgs[1];
             if (replace is! InterpretedFunction) {

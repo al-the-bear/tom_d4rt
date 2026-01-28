@@ -62,55 +62,55 @@ class UriCore {
           },
         },
         staticMethods: {
-          'parse': (visitor, positionalArgs, namedArgs) {
+          'parse': (visitor, positionalArgs, namedArgs, _) {
             final start = namedArgs['start'] as int? ?? 0;
             final end = namedArgs['end'] as int?;
             return Uri.parse(positionalArgs[0] as String, start, end);
           },
-          'tryParse': (visitor, positionalArgs, namedArgs) {
+          'tryParse': (visitor, positionalArgs, namedArgs, _) {
             final start = namedArgs['start'] as int? ?? 0;
             final end = namedArgs['end'] as int?;
             return Uri.tryParse(positionalArgs[0] as String, start, end);
           },
-          'parseIPv4Address': (visitor, positionalArgs, namedArgs) {
+          'parseIPv4Address': (visitor, positionalArgs, namedArgs, _) {
             return Uri.parseIPv4Address(positionalArgs[0] as String);
           },
-          'parseIPv6Address': (visitor, positionalArgs, namedArgs) {
+          'parseIPv6Address': (visitor, positionalArgs, namedArgs, _) {
             final start = namedArgs['start'] as int? ?? 0;
             final end = namedArgs['end'] as int?;
             return Uri.parseIPv6Address(
                 positionalArgs[0] as String, start, end);
           },
-          'encodeComponent': (visitor, positionalArgs, namedArgs) {
+          'encodeComponent': (visitor, positionalArgs, namedArgs, _) {
             return Uri.encodeComponent(positionalArgs[0] as String);
           },
-          'encodeQueryComponent': (visitor, positionalArgs, namedArgs) {
+          'encodeQueryComponent': (visitor, positionalArgs, namedArgs, _) {
             final encoding = namedArgs['encoding'] as Encoding? ?? utf8;
             return Uri.encodeQueryComponent(positionalArgs[0] as String,
                 encoding: encoding);
           },
-          'decodeComponent': (visitor, positionalArgs, namedArgs) {
+          'decodeComponent': (visitor, positionalArgs, namedArgs, _) {
             return Uri.decodeComponent(positionalArgs[0] as String);
           },
-          'decodeQueryComponent': (visitor, positionalArgs, namedArgs) {
+          'decodeQueryComponent': (visitor, positionalArgs, namedArgs, _) {
             final encoding = namedArgs['encoding'] as Encoding? ?? utf8;
             return Uri.decodeQueryComponent(positionalArgs[0] as String,
                 encoding: encoding);
           },
-          'encodeFull': (visitor, positionalArgs, namedArgs) {
+          'encodeFull': (visitor, positionalArgs, namedArgs, _) {
             return Uri.encodeFull(positionalArgs[0] as String);
           },
-          'decodeFull': (visitor, positionalArgs, namedArgs) {
+          'decodeFull': (visitor, positionalArgs, namedArgs, _) {
             return Uri.decodeFull(positionalArgs[0] as String);
           },
-          'splitQueryString': (visitor, positionalArgs, namedArgs) {
+          'splitQueryString': (visitor, positionalArgs, namedArgs, _) {
             final encoding = namedArgs['encoding'] as Encoding? ?? utf8;
             return Uri.splitQueryString(positionalArgs[0] as String,
                 encoding: encoding);
           },
         },
         methods: {
-          'replace': (visitor, target, positionalArgs, namedArgs) {
+          'replace': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uri).replace(
               scheme: namedArgs['scheme'] as String?,
               userInfo: namedArgs['userInfo'] as String?,
@@ -124,23 +124,23 @@ class UriCore {
               fragment: namedArgs['fragment'] as String?,
             );
           },
-          'removeFragment': (visitor, target, positionalArgs, namedArgs) {
+          'removeFragment': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uri).removeFragment();
           },
-          'resolve': (visitor, target, positionalArgs, namedArgs) {
+          'resolve': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uri).resolve(positionalArgs[0] as String);
           },
-          'resolveUri': (visitor, target, positionalArgs, namedArgs) {
+          'resolveUri': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uri).resolveUri(positionalArgs[0] as Uri);
           },
-          'toFilePath': (visitor, target, positionalArgs, namedArgs) {
+          'toFilePath': (visitor, target, positionalArgs, namedArgs, _) {
             final windows = namedArgs['windows'] as bool?;
             return (target as Uri).toFilePath(windows: windows);
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uri).toString();
           },
-          'normalizePath': (visitor, target, positionalArgs, namedArgs) {
+          'normalizePath': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uri).normalizePath();
           },
         },

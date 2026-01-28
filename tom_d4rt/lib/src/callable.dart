@@ -4032,7 +4032,7 @@ class BridgedMethodCallable implements Callable {
     try {
       // Call the adapter with the native object of the instance and the arguments
       return _adapter(
-          visitor, _instance.nativeObject, positionalArguments, namedArguments);
+          visitor, _instance.nativeObject, positionalArguments, namedArguments, typeArguments);
     } on ArgumentError catch (e) {
       // Convert native ArgumentError to RuntimeError
       throw RuntimeError(
@@ -4073,7 +4073,7 @@ class BridgedStaticMethodCallable implements Callable {
       List<RuntimeType>? typeArguments]) {
     try {
       // Call the adapter with the visitor and arguments
-      return _adapter(visitor, positionalArguments, namedArguments);
+      return _adapter(visitor, positionalArguments, namedArguments, typeArguments);
     } on ArgumentError catch (e) {
       // Convert native ArgumentError to RuntimeError
       throw RuntimeError(

@@ -12,7 +12,7 @@ class LineSplitterConvert {
           },
         },
         methods: {
-          'convert': (visitor, target, positionalArgs, namedArgs) {
+          'convert': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'LineSplitter.convert requires one String argument.');
@@ -21,7 +21,7 @@ class LineSplitterConvert {
                 .convert(positionalArgs[0] as String);
           },
           'startChunkedConversion':
-              (visitor, target, positionalArgs, namedArgs) {
+              (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<String>) {
               throw RuntimeError(
@@ -30,7 +30,7 @@ class LineSplitterConvert {
             return (target as LineSplitter)
                 .startChunkedConversion(positionalArgs[0] as Sink<String>);
           },
-          'bind': (visitor, target, positionalArgs, namedArgs) {
+          'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<String>) {
               throw RuntimeError('bind requires a Stream<String> argument.');
@@ -38,7 +38,7 @@ class LineSplitterConvert {
             return (target as LineSplitter)
                 .bind(positionalArgs[0] as Stream<String>);
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as LineSplitter).cast<String, List<String>>();
           },
         },

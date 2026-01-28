@@ -46,20 +46,20 @@ class HashMapCollection {
           },
         },
         methods: {
-          '[]': (visitor, target, positionalArgs, namedArgs) {
+          '[]': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashMap && positionalArgs.length == 1) {
               return target[positionalArgs[0]];
             }
             throw RuntimeError("Invalid arguments for HashMap[] getter");
           },
-          '[]=': (visitor, target, positionalArgs, namedArgs) {
+          '[]=': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashMap && positionalArgs.length == 2) {
               target[positionalArgs[0]] = positionalArgs[1];
               return positionalArgs[1];
             }
             throw RuntimeError("Invalid arguments for HashMap[]= setter");
           },
-          'addAll': (visitor, target, positionalArgs, namedArgs) {
+          'addAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashMap && positionalArgs.length == 1) {
               final otherMap = positionalArgs[0];
               if (otherMap is Map) {
@@ -70,7 +70,7 @@ class HashMapCollection {
             }
             throw RuntimeError("Invalid arguments for HashMap.addAll");
           },
-          'clear': (visitor, target, positionalArgs, namedArgs) {
+          'clear': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashMap &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
@@ -79,19 +79,19 @@ class HashMapCollection {
             }
             throw RuntimeError("Invalid arguments for HashMap.clear");
           },
-          'containsKey': (visitor, target, positionalArgs, namedArgs) {
+          'containsKey': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashMap && positionalArgs.length == 1) {
               return target.containsKey(positionalArgs[0]);
             }
             throw RuntimeError("Invalid arguments for HashMap.containsKey");
           },
-          'containsValue': (visitor, target, positionalArgs, namedArgs) {
+          'containsValue': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashMap && positionalArgs.length == 1) {
               return target.containsValue(positionalArgs[0]);
             }
             throw RuntimeError("Invalid arguments for HashMap.containsValue");
           },
-          'forEach': (visitor, target, positionalArgs, namedArgs) {
+          'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashMap && positionalArgs.length == 1) {
               final action = positionalArgs[0];
               if (action is Callable) {
@@ -105,7 +105,7 @@ class HashMapCollection {
             }
             throw RuntimeError("Invalid arguments for HashMap.forEach");
           },
-          'putIfAbsent': (visitor, target, positionalArgs, namedArgs) {
+          'putIfAbsent': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashMap && positionalArgs.length == 2) {
               final key = positionalArgs[0];
               final ifAbsent = positionalArgs[1];
@@ -118,13 +118,13 @@ class HashMapCollection {
             }
             throw RuntimeError("Invalid arguments for HashMap.putIfAbsent");
           },
-          'remove': (visitor, target, positionalArgs, namedArgs) {
+          'remove': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashMap && positionalArgs.length == 1) {
               return target.remove(positionalArgs[0]);
             }
             throw RuntimeError("Invalid arguments for HashMap.remove");
           },
-          'removeWhere': (visitor, target, positionalArgs, namedArgs) {
+          'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashMap && positionalArgs.length == 1) {
               final test = positionalArgs[0];
               if (test is Callable) {
@@ -139,7 +139,7 @@ class HashMapCollection {
             }
             throw RuntimeError("Invalid arguments for HashMap.removeWhere");
           },
-          'update': (visitor, target, positionalArgs, namedArgs) {
+          'update': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashMap && positionalArgs.length == 2) {
               final key = positionalArgs[0];
               final update = positionalArgs[1];
@@ -156,7 +156,7 @@ class HashMapCollection {
             }
             throw RuntimeError("Invalid arguments for HashMap.update");
           },
-          'updateAll': (visitor, target, positionalArgs, namedArgs) {
+          'updateAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashMap && positionalArgs.length == 1) {
               final update = positionalArgs[0];
               if (update is Callable) {
@@ -169,7 +169,7 @@ class HashMapCollection {
             }
             throw RuntimeError("Invalid arguments for HashMap.updateAll");
           },
-          'addEntries': (visitor, target, positionalArgs, namedArgs) {
+          'addEntries': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashMap && positionalArgs.length == 1) {
               final newEntries = positionalArgs[0];
               if (newEntries is Iterable) {
@@ -181,13 +181,13 @@ class HashMapCollection {
             }
             throw RuntimeError("Invalid arguments for HashMap.addEntries");
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashMap) {
               return target.cast<dynamic, dynamic>();
             }
             throw RuntimeError("Invalid arguments for HashMap.cast");
           },
-          'map': (visitor, target, positionalArgs, namedArgs) {
+          'map': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashMap && positionalArgs.length == 1) {
               final transform = positionalArgs[0];
               if (transform is Callable) {

@@ -30,9 +30,9 @@ final userBridge = BridgedClass(
     'guest': (visitor, positionalArgs, namedArgs) => User.guest(),
   },
   methods: {
-    'greet': (visitor, target, positionalArgs, namedArgs) =>
+    'greet': (visitor, target, positionalArgs, namedArgs, typeArgs) =>
         (target as User).greet(prefix: namedArgs['prefix'] as String?),
-    'fetchProfile': (visitor, target, positionalArgs, namedArgs) =>
+    'fetchProfile': (visitor, target, positionalArgs, namedArgs, typeArgs) =>
         (target as User).fetchProfile(), // async supported
   },
   getters: {
@@ -43,7 +43,7 @@ final userBridge = BridgedClass(
     'age': (visitor, target, value) => (target as User).age = value as int,
   },
   staticMethods: {
-    'staticHello': (visitor, positionalArgs, namedArgs) => User.staticHello(),
+    'staticHello': (visitor, positionalArgs, namedArgs, typeArgs) => User.staticHello(),
   },
 );
 

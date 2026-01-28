@@ -14,10 +14,10 @@ class Utf8CodecConvert {
           },
         },
         methods: {
-          'encode': (visitor, target, positionalArgs, namedArgs) {
+          'encode': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Utf8Codec).encode(positionalArgs[0] as String);
           },
-          'decode': (visitor, target, positionalArgs, namedArgs) {
+          'decode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
               throw RuntimeError('Utf8Codec.decode requires a List argument.');
             }
@@ -26,7 +26,7 @@ class Utf8CodecConvert {
                 (positionalArgs[0] as List).cast(),
                 allowMalformed: allowMalformed);
           },
-          'fuse': (visitor, target, positionalArgs, namedArgs) {
+          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Codec<List<int>, dynamic>) {
               throw RuntimeError(
@@ -61,11 +61,11 @@ class Utf8EncoderConvert {
           },
         },
         methods: {
-          'convert': (visitor, target, positionalArgs, namedArgs) {
+          'convert': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Utf8Encoder).convert(positionalArgs[0] as String);
           },
           'startChunkedConversion':
-              (visitor, target, positionalArgs, namedArgs) {
+              (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<List<int>>) {
               throw RuntimeError(
@@ -74,7 +74,7 @@ class Utf8EncoderConvert {
             return (target as Utf8Encoder)
                 .startChunkedConversion(positionalArgs[0] as Sink<List<int>>);
           },
-          'bind': (visitor, target, positionalArgs, namedArgs) {
+          'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<String>) {
               throw RuntimeError('bind requires a Stream<String> argument.');
@@ -82,7 +82,7 @@ class Utf8EncoderConvert {
             return (target as Utf8Encoder)
                 .bind(positionalArgs[0] as Stream<String>);
           },
-          'fuse': (visitor, target, positionalArgs, namedArgs) {
+          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<List<int>, dynamic>) {
               throw RuntimeError(
@@ -91,7 +91,7 @@ class Utf8EncoderConvert {
             return (target as Utf8Encoder)
                 .fuse(positionalArgs[0] as Converter<List<int>, dynamic>);
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Utf8Encoder).cast<String, List<int>>();
           },
         },
@@ -116,7 +116,7 @@ class Utf8DecoderConvert {
           },
         },
         methods: {
-          'convert': (visitor, target, positionalArgs, namedArgs) {
+          'convert': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
               throw RuntimeError(
                   'Utf8Decoder.convert requires a List argument.');
@@ -127,7 +127,7 @@ class Utf8DecoderConvert {
                 positionalArgs.get<int?>(2));
           },
           'startChunkedConversion':
-              (visitor, target, positionalArgs, namedArgs) {
+              (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<String>) {
               throw RuntimeError(
@@ -136,7 +136,7 @@ class Utf8DecoderConvert {
             return (target as Utf8Decoder)
                 .startChunkedConversion(positionalArgs[0] as Sink<String>);
           },
-          'bind': (visitor, target, positionalArgs, namedArgs) {
+          'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<List<int>>) {
               throw RuntimeError('bind requires a Stream<List<int>> argument.');
@@ -144,7 +144,7 @@ class Utf8DecoderConvert {
             return (target as Utf8Decoder)
                 .bind(positionalArgs[0] as Stream<List<int>>);
           },
-          'fuse': (visitor, target, positionalArgs, namedArgs) {
+          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<String, dynamic>) {
               throw RuntimeError(
@@ -153,7 +153,7 @@ class Utf8DecoderConvert {
             return (target as Utf8Decoder)
                 .fuse(positionalArgs[0] as Converter<String, dynamic>);
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Utf8Decoder).cast<List<int>, String>();
           },
         },

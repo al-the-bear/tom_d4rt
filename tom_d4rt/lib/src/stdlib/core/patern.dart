@@ -7,17 +7,17 @@ class PatternCore {
         typeParameterCount: 0,
         constructors: {},
         methods: {
-          'allMatches': (visitor, target, positionalArgs, namedArgs) {
+          'allMatches': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Pattern).allMatches(
                 positionalArgs[0] as String, positionalArgs.get<int>(1) ?? 0);
           },
-          'matchAsPrefix': (visitor, target, positionalArgs, namedArgs) {
+          'matchAsPrefix': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Pattern).matchAsPrefix(
                 positionalArgs[0] as String, positionalArgs.get<int>(1) ?? 0);
           },
-          'hashCode': (visitor, target, positionalArgs, namedArgs) =>
+          'hashCode': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Pattern).hashCode,
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Pattern).toString(),
         },
         getters: {
@@ -34,22 +34,22 @@ class MatchCore {
         typeParameterCount: 0,
         constructors: {},
         methods: {
-          'group': (visitor, target, positionalArgs, namedArgs) {
+          'group': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Match).group(positionalArgs[0] as int);
           },
-          'groups': (visitor, target, positionalArgs, namedArgs) {
+          'groups': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Match).groups(positionalArgs[0] as List<int>);
           },
-          '[]': (visitor, target, positionalArgs, namedArgs) {
+          '[]': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
               throw RuntimeError(
                   'Match index operator [] requires one integer argument (group index).');
             }
             return (target as Match)[positionalArgs[0] as int];
           },
-          'hashCode': (visitor, target, positionalArgs, namedArgs) =>
+          'hashCode': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Match).hashCode,
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Match).toString(),
         },
         getters: {

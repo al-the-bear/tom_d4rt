@@ -7,7 +7,7 @@ class FunctionCore {
         typeParameterCount: 0,
         constructors: {},
         staticMethods: {
-          'apply': (visitor, positionalArgs, namedArgs) {
+          'apply': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
               throw RuntimeError(
                   'Function.apply requires a Callable as the first argument.');
@@ -25,15 +25,15 @@ class FunctionCore {
           },
         },
         methods: {
-          'call': (visitor, target, positionalArgs, namedArgs) {
+          'call': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Callable) {
               return target.call(visitor, positionalArgs, namedArgs);
             }
             throw RuntimeError('Cannot call non-Callable Function');
           },
-          'hashCode': (visitor, target, positionalArgs, namedArgs) =>
+          'hashCode': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Function).hashCode,
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Function).toString(),
         },
         getters: {

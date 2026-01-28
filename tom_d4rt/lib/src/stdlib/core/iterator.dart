@@ -7,7 +7,7 @@ class IteratorCore {
         typeParameterCount: 1,
         nativeNames: ['_ListQueueIterator', '_HashSetIterator'],
         methods: {
-          'moveNext': (visitor, target, positionalArgs, namedArgs) {
+          'moveNext': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Iterator).moveNext();
           },
         },

@@ -7,92 +7,92 @@ class NumCore {
         typeParameterCount: 0,
         constructors: {},
         staticMethods: {
-          'parse': (visitor, positionalArgs, namedArgs) {
+          'parse': (visitor, positionalArgs, namedArgs, _) {
             return num.parse(positionalArgs[0] as String);
           },
-          'tryParse': (visitor, positionalArgs, namedArgs) {
+          'tryParse': (visitor, positionalArgs, namedArgs, _) {
             return num.tryParse(positionalArgs[0] as String);
           },
         },
         methods: {
-          'abs': (visitor, target, positionalArgs, namedArgs) {
+          'abs': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num).abs();
           },
-          'ceil': (visitor, target, positionalArgs, namedArgs) {
+          'ceil': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num).ceil();
           },
-          'floor': (visitor, target, positionalArgs, namedArgs) {
+          'floor': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num).floor();
           },
-          'round': (visitor, target, positionalArgs, namedArgs) {
+          'round': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num).round();
           },
-          'truncate': (visitor, target, positionalArgs, namedArgs) {
+          'truncate': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num).truncate();
           },
-          'ceilToDouble': (visitor, target, positionalArgs, namedArgs) {
+          'ceilToDouble': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num).ceilToDouble();
           },
-          'floorToDouble': (visitor, target, positionalArgs, namedArgs) {
+          'floorToDouble': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num).floorToDouble();
           },
-          'roundToDouble': (visitor, target, positionalArgs, namedArgs) {
+          'roundToDouble': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num).roundToDouble();
           },
-          'truncateToDouble': (visitor, target, positionalArgs, namedArgs) {
+          'truncateToDouble': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num).truncateToDouble();
           },
-          'toDouble': (visitor, target, positionalArgs, namedArgs) {
+          'toDouble': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num).toDouble();
           },
-          'toInt': (visitor, target, positionalArgs, namedArgs) {
+          'toInt': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num).toInt();
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num).toString();
           },
-          'toStringAsFixed': (visitor, target, positionalArgs, namedArgs) {
+          'toStringAsFixed': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num).toStringAsFixed(positionalArgs[0] as int);
           },
           'toStringAsExponential':
-              (visitor, target, positionalArgs, namedArgs) {
+              (visitor, target, positionalArgs, namedArgs, _) {
             final fractionDigits =
                 positionalArgs.isNotEmpty ? positionalArgs[0] as int? : null;
             return (target as num).toStringAsExponential(fractionDigits);
           },
-          'toStringAsPrecision': (visitor, target, positionalArgs, namedArgs) {
+          'toStringAsPrecision': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num)
                 .toStringAsPrecision(positionalArgs[0] as int);
           },
-          'compareTo': (visitor, target, positionalArgs, namedArgs) {
+          'compareTo': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num).compareTo(positionalArgs[0] as num);
           },
-          'clamp': (visitor, target, positionalArgs, namedArgs) {
+          'clamp': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num)
                 .clamp(positionalArgs[0] as num, positionalArgs[1] as num);
           },
-          'remainder': (visitor, target, positionalArgs, namedArgs) {
+          'remainder': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num).remainder(positionalArgs[0] as num);
           },
-          '+': (visitor, target, positionalArgs, namedArgs) {
+          '+': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num) + (positionalArgs[0] as num);
           },
-          '-': (visitor, target, positionalArgs, namedArgs) {
+          '-': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num) - (positionalArgs[0] as num);
           },
-          '*': (visitor, target, positionalArgs, namedArgs) {
+          '*': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num) * (positionalArgs[0] as num);
           },
-          '/': (visitor, target, positionalArgs, namedArgs) {
+          '/': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num) / (positionalArgs[0] as num);
           },
-          '~/': (visitor, target, positionalArgs, namedArgs) {
+          '~/': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num) ~/ (positionalArgs[0] as num);
           },
-          '%': (visitor, target, positionalArgs, namedArgs) {
+          '%': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as num) % (positionalArgs[0] as num);
           },
-          'unary-': (visitor, target, positionalArgs, namedArgs) {
+          'unary-': (visitor, target, positionalArgs, namedArgs, _) {
             return -(target as num);
           },
         },

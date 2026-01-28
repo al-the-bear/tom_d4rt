@@ -8,19 +8,19 @@ class StringSinkIo {
         name: 'StringSink',
         typeParameterCount: 0,
         methods: {
-          'write': (visitor, target, positionalArgs, namedArgs) {
+          'write': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('StringSink.write requires object');
             }
             (target as StringSink).write(positionalArgs[0]);
             return null;
           },
-          'writeln': (visitor, target, positionalArgs, namedArgs) {
+          'writeln': (visitor, target, positionalArgs, namedArgs, _) {
             final obj = positionalArgs.isNotEmpty ? positionalArgs[0] : '';
             (target as StringSink).writeln(obj);
             return null;
           },
-          'writeAll': (visitor, target, positionalArgs, namedArgs) {
+          'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('StringSink.writeAll requires objects');
             }
@@ -30,7 +30,7 @@ class StringSinkIo {
             (target as StringSink).writeAll(objects, separator);
             return null;
           },
-          'writeCharCode': (visitor, target, positionalArgs, namedArgs) {
+          'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('StringSink.writeCharCode requires charCode');
             }

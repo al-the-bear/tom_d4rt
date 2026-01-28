@@ -1,0 +1,36 @@
+=== D4rt Bridge Generator Log ===
+Generated: 2026-01-28
+
+Projects with tom_d4rt_generator dev dependency:
+1. tom_core_kernel
+2. tom_core_server
+3. tom_core_flutter
+4. tom_build
+5. tom_dartscript_bridge
+6. tom_dist_ledger (no build.yaml - skipped regeneration)
+7. tom_process_monitor (no build.yaml - skipped regeneration)
+
+=== tom_core_kernel ===
+Build runner clean + build - 1 output generated
+
+=== tom_core_server ===
+Build runner clean + build - 1 output generated
+
+=== tom_core_flutter ===
+Build runner clean + build - 1 output generated
+
+=== tom_build ===
+Build runner clean + build - 1 output generated
+
+=== tom_dartscript_bridge ===
+Build runner clean + build - 1 output generated
+
+=== tom_dist_ledger ===
+SKIPPED - No build.yaml, restored from git
+
+=== tom_process_monitor ===
+SKIPPED - No build.yaml, restored from git
+
+=== Summary ===
+5 projects regenerated successfully
+2 projects skipped (no build_runner configuration) 2026-01-28

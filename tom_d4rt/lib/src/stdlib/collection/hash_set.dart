@@ -28,13 +28,13 @@ class HashSetCollection {
           },
         },
         methods: {
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               return target.add(positionalArgs[0]);
             }
             throw RuntimeError("Invalid arguments for HashSet.add");
           },
-          'addAll': (visitor, target, positionalArgs, namedArgs) {
+          'addAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final elements = positionalArgs[0];
               if (elements is Iterable) {
@@ -46,7 +46,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.addAll");
           },
-          'clear': (visitor, target, positionalArgs, namedArgs) {
+          'clear': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
@@ -55,13 +55,13 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.clear");
           },
-          'contains': (visitor, target, positionalArgs, namedArgs) {
+          'contains': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               return target.contains(positionalArgs[0]);
             }
             throw RuntimeError("Invalid arguments for HashSet.contains");
           },
-          'containsAll': (visitor, target, positionalArgs, namedArgs) {
+          'containsAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final elements = positionalArgs[0];
               if (elements is Iterable) {
@@ -72,7 +72,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.containsAll");
           },
-          'forEach': (visitor, target, positionalArgs, namedArgs) {
+          'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final action = positionalArgs[0];
               if (action is InterpretedFunction) {
@@ -86,13 +86,13 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.forEach");
           },
-          'remove': (visitor, target, positionalArgs, namedArgs) {
+          'remove': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               return target.remove(positionalArgs[0]);
             }
             throw RuntimeError("Invalid arguments for HashSet.remove");
           },
-          'removeAll': (visitor, target, positionalArgs, namedArgs) {
+          'removeAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final elements = positionalArgs[0];
               if (elements is Iterable) {
@@ -104,7 +104,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.removeAll");
           },
-          'retainAll': (visitor, target, positionalArgs, namedArgs) {
+          'retainAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final elements = positionalArgs[0];
               if (elements is Iterable) {
@@ -116,7 +116,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.retainAll");
           },
-          'removeWhere': (visitor, target, positionalArgs, namedArgs) {
+          'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final test = positionalArgs[0];
               if (test is InterpretedFunction) {
@@ -131,7 +131,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.removeWhere");
           },
-          'retainWhere': (visitor, target, positionalArgs, namedArgs) {
+          'retainWhere': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final test = positionalArgs[0];
               if (test is InterpretedFunction) {
@@ -146,7 +146,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.retainWhere");
           },
-          'any': (visitor, target, positionalArgs, namedArgs) {
+          'any': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final test = positionalArgs[0];
               if (test is InterpretedFunction) {
@@ -159,7 +159,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.any");
           },
-          'every': (visitor, target, positionalArgs, namedArgs) {
+          'every': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final test = positionalArgs[0];
               if (test is InterpretedFunction) {
@@ -173,7 +173,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.every");
           },
-          'where': (visitor, target, positionalArgs, namedArgs) {
+          'where': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final test = positionalArgs[0];
               if (test is InterpretedFunction) {
@@ -187,7 +187,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.where");
           },
-          'map': (visitor, target, positionalArgs, namedArgs) {
+          'map': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final f = positionalArgs[0];
               if (f is InterpretedFunction) {
@@ -197,7 +197,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.map");
           },
-          'expand': (visitor, target, positionalArgs, namedArgs) {
+          'expand': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final f = positionalArgs[0];
               if (f is InterpretedFunction) {
@@ -211,7 +211,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.expand");
           },
-          'fold': (visitor, target, positionalArgs, namedArgs) {
+          'fold': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 2) {
               final initialValue = positionalArgs[0];
               final combine = positionalArgs[1];
@@ -226,7 +226,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.fold");
           },
-          'reduce': (visitor, target, positionalArgs, namedArgs) {
+          'reduce': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final combine = positionalArgs[0];
               if (combine is InterpretedFunction) {
@@ -238,19 +238,19 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.reduce");
           },
-          'lookup': (visitor, target, positionalArgs, namedArgs) {
+          'lookup': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               return target.lookup(positionalArgs[0]);
             }
             throw RuntimeError("Invalid arguments for HashSet.lookup");
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet) {
               return target.cast<dynamic>();
             }
             throw RuntimeError("Invalid arguments for HashSet.cast");
           },
-          'followedBy': (visitor, target, positionalArgs, namedArgs) {
+          'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final other = positionalArgs[0];
               if (other is Iterable) {
@@ -261,21 +261,21 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.followedBy");
           },
-          'take': (visitor, target, positionalArgs, namedArgs) {
+          'take': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final count = positionalArgs[0] as int;
               return target.take(count);
             }
             throw RuntimeError("Invalid arguments for HashSet.take");
           },
-          'skip': (visitor, target, positionalArgs, namedArgs) {
+          'skip': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final count = positionalArgs[0] as int;
               return target.skip(count);
             }
             throw RuntimeError("Invalid arguments for HashSet.skip");
           },
-          'takeWhile': (visitor, target, positionalArgs, namedArgs) {
+          'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final test = positionalArgs[0];
               if (test is InterpretedFunction) {
@@ -289,7 +289,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.takeWhile");
           },
-          'skipWhile': (visitor, target, positionalArgs, namedArgs) {
+          'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final test = positionalArgs[0];
               if (test is InterpretedFunction) {
@@ -303,7 +303,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.skipWhile");
           },
-          'firstWhere': (visitor, target, positionalArgs, namedArgs) {
+          'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final test = positionalArgs[0];
               final orElse = namedArgs['orElse'] as InterpretedFunction?;
@@ -322,7 +322,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.firstWhere");
           },
-          'lastWhere': (visitor, target, positionalArgs, namedArgs) {
+          'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final test = positionalArgs[0];
               final orElse = namedArgs['orElse'] as InterpretedFunction?;
@@ -341,7 +341,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.lastWhere");
           },
-          'singleWhere': (visitor, target, positionalArgs, namedArgs) {
+          'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final test = positionalArgs[0];
               final orElse = namedArgs['orElse'] as InterpretedFunction?;
@@ -360,14 +360,14 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.singleWhere");
           },
-          'elementAt': (visitor, target, positionalArgs, namedArgs) {
+          'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               final index = positionalArgs[0] as int;
               return target.elementAt(index);
             }
             throw RuntimeError("Invalid arguments for HashSet.elementAt");
           },
-          'join': (visitor, target, positionalArgs, namedArgs) {
+          'join': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet) {
               final separator =
                   positionalArgs.isNotEmpty ? positionalArgs[0] as String : "";
@@ -375,7 +375,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.join");
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
@@ -383,7 +383,7 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.toString");
           },
-          'whereType': (visitor, target, positionalArgs, namedArgs) {
+          'whereType': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
@@ -391,14 +391,14 @@ class HashSetCollection {
             }
             throw RuntimeError("Invalid arguments for HashSet.whereType");
           },
-          'toList': (visitor, target, positionalArgs, namedArgs) {
+          'toList': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.isEmpty) {
               bool growable = namedArgs['growable'] as bool? ?? true;
               return target.toList(growable: growable);
             }
             throw RuntimeError("Invalid arguments for HashSet.toList");
           },
-          'toSet': (visitor, target, positionalArgs, namedArgs) {
+          'toSet': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {

@@ -15,16 +15,16 @@ class CompleterAsync {
           },
         },
         staticMethods: {
-          'sync': (visitor, positionalArgs, namedArgs) {
+          'sync': (visitor, positionalArgs, namedArgs, _) {
             return Completer<dynamic>.sync();
           },
         },
         methods: {
-          'complete': (visitor, target, positionalArgs, namedArgs) {
+          'complete': (visitor, target, positionalArgs, namedArgs, _) {
             (target as Completer).complete(positionalArgs.get<dynamic>(0));
             return null;
           },
-          'completeError': (visitor, target, positionalArgs, namedArgs) {
+          'completeError': (visitor, target, positionalArgs, namedArgs, _) {
             final error = positionalArgs[0];
             if (error == null) {
               throw RuntimeError(

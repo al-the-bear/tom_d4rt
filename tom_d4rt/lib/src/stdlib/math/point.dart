@@ -18,26 +18,26 @@ class PointMath {
           },
         },
         methods: {
-          'distanceTo': (visitor, target, positionalArgs, namedArgs) {
+          'distanceTo': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Point).distanceTo(positionalArgs[0] as Point);
           },
-          'squaredDistanceTo': (visitor, target, positionalArgs, namedArgs) {
+          'squaredDistanceTo': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Point)
                 .squaredDistanceTo(positionalArgs[0] as Point);
           },
-          '+': (visitor, target, positionalArgs, namedArgs) {
+          '+': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Point) {
               throw RuntimeError('Operator + requires one Point argument.');
             }
             return (target as Point) + (positionalArgs[0] as Point);
           },
-          '-': (visitor, target, positionalArgs, namedArgs) {
+          '-': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Point) {
               throw RuntimeError('Operator - requires one Point argument.');
             }
             return (target as Point) - (positionalArgs[0] as Point);
           },
-          '*': (visitor, target, positionalArgs, namedArgs) {
+          '*': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! num) {
               throw RuntimeError(
                   'Operator * requires one numeric argument (factor).');

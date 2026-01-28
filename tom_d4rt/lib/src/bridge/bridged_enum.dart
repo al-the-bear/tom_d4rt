@@ -112,7 +112,8 @@ class BridgedEnumValue implements RuntimeValue {
                       moduleLoader: ModuleLoader(Environment(), {}, [], [])),
                   nativeValue,
                   [],
-                  {});
+                  {},
+                  null);
             } catch (_) {
               // Fallback if the adapter does not exist or fails
               return '${enumType.name}.$name';
@@ -157,6 +158,7 @@ class BridgedEnumValue implements RuntimeValue {
         nativeValue, // The native enum object is the target
         args, // Interpreted positional arguments
         namedArgs, // Interpreted named arguments (if supported by the adapter)
+        null, // Type arguments (not needed for enum methods)
       );
     } catch (e) {
       throw RuntimeError(
@@ -178,7 +180,8 @@ class BridgedEnumValue implements RuntimeValue {
                 moduleLoader: ModuleLoader(Environment(), {}, [], [])),
             nativeValue,
             [],
-            {}).toString();
+            {},
+            null).toString();
       } catch (_) {
         // Fallback if the adapter fails
         return '${enumType.name}.$name (native toString failed)';

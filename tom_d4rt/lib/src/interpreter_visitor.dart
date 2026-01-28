@@ -1012,7 +1012,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               ? toBridgedInstance(rightOperandValue).$1!.nativeObject
               : rightOperandValue;
           return methodAdapter(
-              this, bridgedInstance.nativeObject, [rightArg], {});
+              this, bridgedInstance.nativeObject, [rightArg], {}, null);
         } catch (e, s) {
           Logger.error(
               "[BinaryExpression] Native exception during bridged operator '$operatorName' on ${bridgedClass.name}: $e\\n$s");
@@ -1239,7 +1239,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "[visitIndexExpression] Found bridged operator '$operatorName' for ${bridgedClass.name}. Calling adapter...");
         try {
           return methodAdapter(
-              this, bridgedInstance.nativeObject, [indexValue], {});
+              this, bridgedInstance.nativeObject, [indexValue], {}, null);
         } catch (e, s) {
           Logger.error(
               "[visitIndexExpression] Native exception during bridged operator '$operatorName' on ${bridgedClass.name}: $e\\n$s");
@@ -2107,7 +2107,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                   "[visitAssignmentExpression-Index] Found bridged operator '$operatorName' for ${bridgedClass.name}. Calling adapter for compound read...");
               try {
                 currentValue = methodAdapter(
-                    this, bridgedInstance.nativeObject, [indexValue], {});
+                    this, bridgedInstance.nativeObject, [indexValue], {}, null);
               } catch (e, s) {
                 Logger.error(
                     "[visitAssignmentExpression-Index] Native exception during bridged operator '$operatorName' read on ${bridgedClass.name}: $e\\n$s");
@@ -2222,7 +2222,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 "[visitAssignmentExpression-Index] Found bridged operator '$operatorName' for ${bridgedClass.name}. Calling adapter...");
             try {
               methodAdapter(this, bridgedInstance.nativeObject,
-                  [indexValue, finalValueToAssign], {});
+                  [indexValue, finalValueToAssign], {}, null);
               return finalValueToAssign;
             } catch (e, s) {
               Logger.error(
@@ -2482,7 +2482,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           try {
             // Call the adapter with the native object
             return adapter(
-                this, bridgedInstance.nativeObject, positionalArgs, namedArgs);
+                this, bridgedInstance.nativeObject, positionalArgs, namedArgs, null);
           } on ReturnException catch (e) {
             // Native calls shouldn't throw ReturnException directly, but handle defensively
             return e.value;
@@ -2701,9 +2701,18 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             final (positionalArgs, namedArgs) =
                 evaluationResult as (List<Object?>, Map<String, Object?>);
 
+            // Evaluate type arguments for generic methods
+            List<RuntimeType>? evaluatedTypeArguments;
+            final typeArgsNode = node.typeArguments;
+            if (typeArgsNode != null) {
+              evaluatedTypeArguments = typeArgsNode.arguments
+                  .map((typeNode) => _resolveTypeAnnotation(typeNode))
+                  .toList();
+            }
+
             try {
               final result =
-                  staticMethodAdapter(this, positionalArgs, namedArgs);
+                  staticMethodAdapter(this, positionalArgs, namedArgs, evaluatedTypeArguments);
 
               return result;
             } on RuntimeError catch (e) {
@@ -2768,10 +2777,19 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           final (positionalArgs, namedArgs) =
               evaluationResult as (List<Object?>, Map<String, Object?>);
 
+          // Evaluate type arguments for generic methods
+          List<RuntimeType>? evaluatedTypeArguments;
+          final typeArgsNode = node.typeArguments;
+          if (typeArgsNode != null) {
+            evaluatedTypeArguments = typeArgsNode.arguments
+                .map((typeNode) => _resolveTypeAnnotation(typeNode))
+                .toList();
+          }
+
           // Call the adapter with the native object as target
           try {
             return methodAdapter(
-                this, nativeSuperObject, positionalArgs, namedArgs);
+                this, nativeSuperObject, positionalArgs, namedArgs, evaluatedTypeArguments);
           } catch (e, s) {
             Logger.error(
                 "Native exception during super call to bridged method '${bridgedSuper.name}.$methodName': $e\n$s");
@@ -4080,7 +4098,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       final adapter =
           bridgedInstance.bridgedClass.findInstanceMethodAdapter(methodName);
       if (adapter != null) {
-        adapter(this, bridgedInstance.nativeObject, positionalArgs, namedArgs);
+        adapter(this, bridgedInstance.nativeObject, positionalArgs, namedArgs, evaluatedTypeArguments);
       } else {
         throw RuntimeError(
             "Bridged instance method '$methodName' not found in cascade.");

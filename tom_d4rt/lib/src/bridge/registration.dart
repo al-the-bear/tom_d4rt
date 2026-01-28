@@ -1,4 +1,5 @@
 import '../interpreter_visitor.dart'; // Import InterpreterVisitor for adapters
+import '../runtime_interfaces.dart'; // Import RuntimeType for type arguments
 import 'bridged_enum.dart';
 
 // The idea is that these functions will encapsulate the native call
@@ -24,16 +25,18 @@ typedef BridgedMethodAdapter = Object? Function(
     InterpreterVisitor visitor, // The current visitor
     Object target, // The native target object to call the method on
     List<Object?> positionalArguments, // Interpretted arguments
-    Map<String, Object?> namedArguments // Interpretted arguments
+    Map<String, Object?> namedArguments, // Interpretted arguments
+    List<RuntimeType>? typeArguments, // Type arguments for generic methods
     );
 
 /// Adapter for bridged static methods.
-/// Takes interpreter context, positional args, named args.
+/// Takes interpreter context, positional args, named args, type args.
 /// Returns the result of the native static method call.
 typedef BridgedStaticMethodAdapter = Object? Function(
     InterpreterVisitor visitor,
     List<Object?> positionalArguments,
-    Map<String, Object?> namedArguments);
+    Map<String, Object?> namedArguments,
+    List<RuntimeType>? typeArguments);
 
 /// Adapter for bridged static getters.
 /// Takes interpreter context.

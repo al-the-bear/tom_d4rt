@@ -37,28 +37,28 @@ class ListQueueCollection {
           },
         },
         methods: {
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ListQueue && positionalArgs.length == 1) {
               target.add(positionalArgs[0]);
               return null;
             }
             throw RuntimeError("Invalid arguments for ListQueue.add");
           },
-          'addFirst': (visitor, target, positionalArgs, namedArgs) {
+          'addFirst': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ListQueue && positionalArgs.length == 1) {
               target.addFirst(positionalArgs[0]);
               return null;
             }
             throw RuntimeError("Invalid arguments for ListQueue.addFirst");
           },
-          'addLast': (visitor, target, positionalArgs, namedArgs) {
+          'addLast': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ListQueue && positionalArgs.length == 1) {
               target.addLast(positionalArgs[0]);
               return null;
             }
             throw RuntimeError("Invalid arguments for ListQueue.addLast");
           },
-          'addAll': (visitor, target, positionalArgs, namedArgs) {
+          'addAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ListQueue && positionalArgs.length == 1) {
               final elements = positionalArgs[0];
               if (elements is Iterable) {
@@ -70,7 +70,7 @@ class ListQueueCollection {
             }
             throw RuntimeError("Invalid arguments for ListQueue.addAll");
           },
-          'clear': (visitor, target, positionalArgs, namedArgs) {
+          'clear': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ListQueue &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
@@ -79,7 +79,7 @@ class ListQueueCollection {
             }
             throw RuntimeError("Invalid arguments for ListQueue.clear");
           },
-          'removeFirst': (visitor, target, positionalArgs, namedArgs) {
+          'removeFirst': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ListQueue &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
@@ -91,7 +91,7 @@ class ListQueueCollection {
             }
             throw RuntimeError("Invalid arguments for ListQueue.removeFirst");
           },
-          'removeLast': (visitor, target, positionalArgs, namedArgs) {
+          'removeLast': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ListQueue &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
@@ -103,13 +103,13 @@ class ListQueueCollection {
             }
             throw RuntimeError("Invalid arguments for ListQueue.removeLast");
           },
-          'remove': (visitor, target, positionalArgs, namedArgs) {
+          'remove': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ListQueue && positionalArgs.length == 1) {
               return target.remove(positionalArgs[0]);
             }
             throw RuntimeError("Invalid arguments for ListQueue.remove");
           },
-          'forEach': (visitor, target, positionalArgs, namedArgs) {
+          'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ListQueue && positionalArgs.length == 1) {
               final action = positionalArgs[0];
               if (action is InterpretedFunction) {
@@ -123,7 +123,7 @@ class ListQueueCollection {
             }
             throw RuntimeError("Invalid arguments for ListQueue.forEach");
           },
-          'toList': (visitor, target, positionalArgs, namedArgs) {
+          'toList': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ListQueue && positionalArgs.isEmpty) {
               bool growable = namedArgs['growable'] as bool? ?? true;
               return target.toList(growable: growable);

@@ -20,40 +20,40 @@ class RegExpCore {
           },
         },
         staticMethods: {
-          'escape': (visitor, positionalArgs, namedArgs) {
+          'escape': (visitor, positionalArgs, namedArgs, _) {
             return RegExp.escape(positionalArgs[0] as String);
           },
         },
         methods: {
-          'hasMatch': (visitor, target, positionalArgs, namedArgs) {
+          'hasMatch': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as RegExp).hasMatch(positionalArgs[0] as String);
           },
-          'firstMatch': (visitor, target, positionalArgs, namedArgs) {
+          'firstMatch': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as RegExp).firstMatch(positionalArgs[0] as String);
           },
-          'allMatches': (visitor, target, positionalArgs, namedArgs) {
+          'allMatches': (visitor, target, positionalArgs, namedArgs, _) {
             final input = positionalArgs[0] as String;
             final start =
                 positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
             return (target as RegExp).allMatches(input, start);
           },
-          'stringMatch': (visitor, target, positionalArgs, namedArgs) {
+          'stringMatch': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as RegExp).stringMatch(positionalArgs[0] as String);
           },
-          'matchAsPrefix': (visitor, target, positionalArgs, namedArgs) {
+          'matchAsPrefix': (visitor, target, positionalArgs, namedArgs, _) {
             final string = positionalArgs[0] as String;
             final start =
                 positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
             return (target as RegExp).matchAsPrefix(string, start);
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as RegExp).toString();
           },
-          'noSuchMethod': (visitor, target, positionalArgs, namedArgs) {
+          'noSuchMethod': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as RegExp)
                 .noSuchMethod(positionalArgs[0] as Invocation);
           },
-          '==': (visitor, target, positionalArgs, namedArgs) {
+          '==': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as RegExp) == positionalArgs[0];
           },
         },
@@ -78,32 +78,32 @@ class RegExpMatchCore {
         constructors: {},
         methods: {
           // Methods inherited from Match
-          'group': (visitor, target, positionalArgs, namedArgs) {
+          'group': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as RegExpMatch).group(positionalArgs[0] as int);
           },
-          'groups': (visitor, target, positionalArgs, namedArgs) {
+          'groups': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as RegExpMatch)
                 .groups(positionalArgs[0] as List<int>);
           },
-          '[]': (visitor, target, positionalArgs, namedArgs) {
+          '[]': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
               throw RuntimeError(
                   'RegExpMatch index operator [] requires one integer argument (group index).');
             }
             return (target as RegExpMatch)[positionalArgs[0] as int];
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as RegExpMatch).toString();
           },
-          'noSuchMethod': (visitor, target, positionalArgs, namedArgs) {
+          'noSuchMethod': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as RegExpMatch)
                 .noSuchMethod(positionalArgs[0] as Invocation);
           },
-          '==': (visitor, target, positionalArgs, namedArgs) {
+          '==': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as RegExpMatch) == positionalArgs[0];
           },
           // RegExpMatch-specific methods
-          'namedGroup': (visitor, target, positionalArgs, namedArgs) {
+          'namedGroup': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'RegExpMatch.namedGroup requires one String argument (group name).');

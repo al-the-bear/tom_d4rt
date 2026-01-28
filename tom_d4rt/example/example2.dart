@@ -15,7 +15,7 @@ final statusEnumBridge = BridgedEnumDefinition<Status>(
   name: 'Status',
   values: Status.values,
   methods: {
-    'describe': (visitor, target, positionalArgs, namedArgs) =>
+    'describe': (visitor, target, positionalArgs, namedArgs, typeArgs) =>
         (target as Status).describe(),
   },
   getters: {

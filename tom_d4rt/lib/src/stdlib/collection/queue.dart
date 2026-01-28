@@ -30,7 +30,7 @@ class QueueCollection {
           },
         },
         methods: {
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Queue &&
                 positionalArgs.length == 1 &&
                 namedArgs.isEmpty) {
@@ -39,7 +39,7 @@ class QueueCollection {
             }
             throw RuntimeError("Invalid arguments for Queue.add");
           },
-          'removeFirst': (visitor, target, positionalArgs, namedArgs) {
+          'removeFirst': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Queue &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
@@ -50,7 +50,7 @@ class QueueCollection {
             }
             throw RuntimeError("Invalid arguments for Queue.removeFirst");
           },
-          'clear': (visitor, target, positionalArgs, namedArgs) {
+          'clear': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Queue &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
@@ -59,7 +59,7 @@ class QueueCollection {
             }
             throw RuntimeError("Invalid arguments for Queue.clear");
           },
-          'contains': (visitor, target, positionalArgs, namedArgs) {
+          'contains': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Queue &&
                 positionalArgs.length == 1 &&
                 namedArgs.isEmpty) {

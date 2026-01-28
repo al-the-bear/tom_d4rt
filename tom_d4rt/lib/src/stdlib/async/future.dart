@@ -17,7 +17,7 @@ class FutureAsync {
           },
         },
         staticMethods: {
-          'delayed': (visitor, positionalArgs, namedArgs) {
+          'delayed': (visitor, positionalArgs, namedArgs, _) {
             final duration = positionalArgs[0] as Duration;
             final computation = positionalArgs.get<InterpretedFunction?>(1);
             return Future.delayed(
@@ -25,10 +25,10 @@ class FutureAsync {
               computation == null ? null : () => computation.call(visitor, []),
             );
           },
-          'value': (visitor, positionalArgs, namedArgs) {
+          'value': (visitor, positionalArgs, namedArgs, _) {
             return Future.value(positionalArgs.get<dynamic>(0));
           },
-          'error': (visitor, positionalArgs, namedArgs) {
+          'error': (visitor, positionalArgs, namedArgs, _) {
             final error = positionalArgs[0];
             if (error == null) {
               throw RuntimeError(
@@ -37,21 +37,21 @@ class FutureAsync {
             final stackTrace = positionalArgs.get<StackTrace?>(1);
             return Future.error(error, stackTrace);
           },
-          'microtask': (visitor, positionalArgs, namedArgs) {
+          'microtask': (visitor, positionalArgs, namedArgs, _) {
             final computation = positionalArgs[0];
             if (computation is! InterpretedFunction) {
               throw RuntimeError('Future.microtask requires an Function.');
             }
             return Future.microtask(() => computation.call(visitor, []));
           },
-          'sync': (visitor, positionalArgs, namedArgs) {
+          'sync': (visitor, positionalArgs, namedArgs, _) {
             final computation = positionalArgs[0];
             if (computation is! InterpretedFunction) {
               throw RuntimeError('Future.sync requires an Function.');
             }
             return Future.sync(() => computation.call(visitor, []));
           },
-          'wait': (visitor, positionalArgs, namedArgs) {
+          'wait': (visitor, positionalArgs, namedArgs, _) {
             final futures = positionalArgs[0];
             if (futures is! Iterable) {
               throw RuntimeError('Future.wait requires an Iterable.');
@@ -64,14 +64,14 @@ class FutureAsync {
                     ? null
                     : (successValue) => cleanUp.call(visitor, [successValue]));
           },
-          'any': (visitor, positionalArgs, namedArgs) {
+          'any': (visitor, positionalArgs, namedArgs, _) {
             final futures = positionalArgs[0];
             if (futures is! Iterable) {
               throw RuntimeError('Future.any requires an Iterable.');
             }
             return Future.any(futures.cast<Future>());
           },
-          'forEach': (visitor, positionalArgs, namedArgs) {
+          'forEach': (visitor, positionalArgs, namedArgs, _) {
             final elements = positionalArgs[0] as Iterable;
             final action = positionalArgs[1];
             if (action is! InterpretedFunction) {
@@ -81,7 +81,7 @@ class FutureAsync {
             return Future.forEach(elements,
                 (element) => action.call(visitor, [element]) as FutureOr<void>);
           },
-          'doWhile': (visitor, positionalArgs, namedArgs) {
+          'doWhile': (visitor, positionalArgs, namedArgs, _) {
             final action = positionalArgs[0];
             if (action is! InterpretedFunction) {
               throw RuntimeError(
@@ -92,7 +92,7 @@ class FutureAsync {
           },
         },
         methods: {
-          'then': (visitor, target, positionalArgs, namedArgs) {
+          'then': (visitor, target, positionalArgs, namedArgs, _) {
             final onValue = positionalArgs[0];
             final onError = namedArgs.get<InterpretedFunction?>('onError');
             if (onValue is! InterpretedFunction) {
@@ -106,7 +106,7 @@ class FutureAsync {
                     : (error, stackTrace) =>
                         onError.call(visitor, [error, stackTrace]));
           },
-          'catchError': (visitor, target, positionalArgs, namedArgs) {
+          'catchError': (visitor, target, positionalArgs, namedArgs, _) {
             final onError = positionalArgs[0];
             final test = namedArgs.get<InterpretedFunction?>('test');
             if (onError is! InterpretedFunction) {
@@ -120,7 +120,7 @@ class FutureAsync {
                     ? null
                     : (error) => test.call(visitor, [error]) as bool);
           },
-          'whenComplete': (visitor, target, positionalArgs, namedArgs) {
+          'whenComplete': (visitor, target, positionalArgs, namedArgs, _) {
             final action = positionalArgs[0];
             if (action is! InterpretedFunction) {
               throw RuntimeError(
@@ -129,7 +129,7 @@ class FutureAsync {
             return (target as Future)
                 .whenComplete(() => action.call(visitor, []));
           },
-          'timeout': (visitor, target, positionalArgs, namedArgs) {
+          'timeout': (visitor, target, positionalArgs, namedArgs, _) {
             final timeLimit = positionalArgs[0] as Duration;
             final onTimeout = namedArgs.get<InterpretedFunction?>('onTimeout');
             return (target as Future).timeout(timeLimit,
@@ -137,11 +137,11 @@ class FutureAsync {
                     ? null
                     : () => onTimeout.call(visitor, []));
           },
-          'asStream': (visitor, target, positionalArgs, namedArgs) {
+          'asStream': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Future).asStream();
           },
           // FutureExtensions methods
-          'onError': (visitor, target, positionalArgs, namedArgs) {
+          'onError': (visitor, target, positionalArgs, namedArgs, _) {
             final handleError = positionalArgs[0];
             final test = namedArgs.get<InterpretedFunction?>('test');
             if (handleError is! InterpretedFunction) {
@@ -156,7 +156,7 @@ class FutureAsync {
                   : (error) => test.call(visitor, [error]) as bool,
             );
           },
-          'ignore': (visitor, target, positionalArgs, namedArgs) {
+          'ignore': (visitor, target, positionalArgs, namedArgs, _) {
             final future = target as Future;
             future.then<void>(
               (value) => null,
@@ -210,7 +210,7 @@ class TimeoutExceptionAsync {
               (target as TimeoutException).runtimeType,
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as TimeoutException).toString();
           },
         },

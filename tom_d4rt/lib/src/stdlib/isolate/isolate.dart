@@ -25,7 +25,7 @@ class IsolateSpawnExceptionIsolate {
               (target as IsolateSpawnException).runtimeType,
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as IsolateSpawnException).toString();
           },
         },
@@ -50,7 +50,7 @@ class IsolateIsolate {
           },
         },
         staticMethods: {
-          'run': (visitor, positionalArgs, namedArgs) {
+          'run': (visitor, positionalArgs, namedArgs, _) {
             final computation = positionalArgs[0];
             if (computation is! InterpretedFunction) {
               throw RuntimeError(
@@ -60,7 +60,7 @@ class IsolateIsolate {
             return Isolate.run(() => computation.call(visitor, []),
                 debugName: debugName);
           },
-          'spawn': (visitor, positionalArgs, namedArgs) {
+          'spawn': (visitor, positionalArgs, namedArgs, _) {
             final entryPoint = positionalArgs[0];
             positionalArgs[1]; // message (ignored in this stub implementation)
             if (entryPoint is! InterpretedFunction) {
@@ -71,7 +71,7 @@ class IsolateIsolate {
             // from InterpretedFunction to a native function
             throw RuntimeError('Isolate.spawn not fully implemented in D4rt');
           },
-          'spawnUri': (visitor, positionalArgs, namedArgs) {
+          'spawnUri': (visitor, positionalArgs, namedArgs, _) {
             final uri = positionalArgs[0] as Uri;
             final args = positionalArgs[1] as List<String>;
             final message = positionalArgs[2];
@@ -103,16 +103,16 @@ class IsolateIsolate {
               debugName: debugName,
             );
           },
-          'exit': (visitor, positionalArgs, namedArgs) {
+          'exit': (visitor, positionalArgs, namedArgs, _) {
             final finalMessagePort = positionalArgs.get<SendPort?>(0);
             final message = positionalArgs.get<Object?>(1);
             Isolate.exit(finalMessagePort, message);
           },
-          'resolvePackageUri': (visitor, positionalArgs, namedArgs) {
+          'resolvePackageUri': (visitor, positionalArgs, namedArgs, _) {
             final packageUri = positionalArgs[0] as Uri;
             return Isolate.resolvePackageUri(packageUri);
           },
-          'resolvePackageUriSync': (visitor, positionalArgs, namedArgs) {
+          'resolvePackageUriSync': (visitor, positionalArgs, namedArgs, _) {
             final packageUri = positionalArgs[0] as Uri;
             return Isolate.resolvePackageUriSync(packageUri);
           },
@@ -136,39 +136,39 @@ class IsolateIsolate {
           'runtimeType': (visitor, target) => (target as Isolate).runtimeType,
         },
         methods: {
-          'pause': (visitor, target, positionalArgs, namedArgs) {
+          'pause': (visitor, target, positionalArgs, namedArgs, _) {
             final resumeCapability = positionalArgs.get<Capability?>(0);
             return (target as Isolate).pause(resumeCapability);
           },
-          'resume': (visitor, target, positionalArgs, namedArgs) {
+          'resume': (visitor, target, positionalArgs, namedArgs, _) {
             final resumeCapability = positionalArgs[0] as Capability;
             (target as Isolate).resume(resumeCapability);
             return null;
           },
-          'addOnExitListener': (visitor, target, positionalArgs, namedArgs) {
+          'addOnExitListener': (visitor, target, positionalArgs, namedArgs, _) {
             final responsePort = positionalArgs[0] as SendPort;
             final response = namedArgs.get<Object?>('response');
             (target as Isolate)
                 .addOnExitListener(responsePort, response: response);
             return null;
           },
-          'removeOnExitListener': (visitor, target, positionalArgs, namedArgs) {
+          'removeOnExitListener': (visitor, target, positionalArgs, namedArgs, _) {
             final responsePort = positionalArgs[0] as SendPort;
             (target as Isolate).removeOnExitListener(responsePort);
             return null;
           },
-          'setErrorsFatal': (visitor, target, positionalArgs, namedArgs) {
+          'setErrorsFatal': (visitor, target, positionalArgs, namedArgs, _) {
             final errorsAreFatal = positionalArgs[0] as bool;
             (target as Isolate).setErrorsFatal(errorsAreFatal);
             return null;
           },
-          'kill': (visitor, target, positionalArgs, namedArgs) {
+          'kill': (visitor, target, positionalArgs, namedArgs, _) {
             final priority =
                 namedArgs.get<int?>('priority') ?? Isolate.beforeNextEvent;
             (target as Isolate).kill(priority: priority);
             return null;
           },
-          'ping': (visitor, target, positionalArgs, namedArgs) {
+          'ping': (visitor, target, positionalArgs, namedArgs, _) {
             final responsePort = positionalArgs[0] as SendPort;
             final response = namedArgs.get<Object?>('response');
             final priority =
@@ -177,12 +177,12 @@ class IsolateIsolate {
                 .ping(responsePort, response: response, priority: priority);
             return null;
           },
-          'addErrorListener': (visitor, target, positionalArgs, namedArgs) {
+          'addErrorListener': (visitor, target, positionalArgs, namedArgs, _) {
             final port = positionalArgs[0] as SendPort;
             (target as Isolate).addErrorListener(port);
             return null;
           },
-          'removeErrorListener': (visitor, target, positionalArgs, namedArgs) {
+          'removeErrorListener': (visitor, target, positionalArgs, namedArgs, _) {
             final port = positionalArgs[0] as SendPort;
             (target as Isolate).removeErrorListener(port);
             return null;
@@ -197,7 +197,7 @@ class SendPortIsolate {
         nativeType: SendPort,
         name: 'SendPort',
         methods: {
-          'send': (visitor, target, positionalArgs, namedArgs) {
+          'send': (visitor, target, positionalArgs, namedArgs, _) {
             final message = positionalArgs[0];
             (target as SendPort).send(message);
             return null;
@@ -238,7 +238,7 @@ class ReceivePortIsolate {
               (target as ReceivePort).runtimeType,
         },
         methods: {
-          'listen': (visitor, target, positionalArgs, namedArgs) {
+          'listen': (visitor, target, positionalArgs, namedArgs, _) {
             final onData = positionalArgs.get<InterpretedFunction?>(0);
             final onError = namedArgs.get<InterpretedFunction?>('onError');
             final onDone = namedArgs.get<InterpretedFunction?>('onDone');
@@ -255,12 +255,12 @@ class ReceivePortIsolate {
               cancelOnError: cancelOnError,
             );
           },
-          'close': (visitor, target, positionalArgs, namedArgs) {
+          'close': (visitor, target, positionalArgs, namedArgs, _) {
             (target as ReceivePort).close();
             return null;
           },
           // Stream methods
-          'map': (visitor, target, positionalArgs, namedArgs) {
+          'map': (visitor, target, positionalArgs, namedArgs, _) {
             final transform = positionalArgs[0];
             if (transform is! InterpretedFunction) {
               throw RuntimeError(
@@ -269,7 +269,7 @@ class ReceivePortIsolate {
             return (target as Stream)
                 .map((event) => transform.call(visitor, [event]));
           },
-          'where': (visitor, target, positionalArgs, namedArgs) {
+          'where': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0];
             if (test is! InterpretedFunction) {
               throw RuntimeError('Stream.where requires a Function for test.');
@@ -277,11 +277,11 @@ class ReceivePortIsolate {
             return (target as Stream)
                 .where((event) => test.call(visitor, [event]) as bool);
           },
-          'take': (visitor, target, positionalArgs, namedArgs) {
+          'take': (visitor, target, positionalArgs, namedArgs, _) {
             final count = positionalArgs[0] as int;
             return (target as Stream).take(count);
           },
-          'skip': (visitor, target, positionalArgs, namedArgs) {
+          'skip': (visitor, target, positionalArgs, namedArgs, _) {
             final count = positionalArgs[0] as int;
             return (target as Stream).skip(count);
           },
@@ -330,7 +330,7 @@ class RawReceivePortIsolate {
           },
         },
         methods: {
-          'close': (visitor, target, positionalArgs, namedArgs) {
+          'close': (visitor, target, positionalArgs, namedArgs, _) {
             (target as RawReceivePort).close();
             return null;
           },
@@ -358,7 +358,7 @@ class RemoteErrorIsolate {
               (target as RemoteError).runtimeType,
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as RemoteError).toString();
           },
         },
@@ -383,7 +383,7 @@ class TransferableTypedDataIsolate {
           },
         },
         methods: {
-          'materialize': (visitor, target, positionalArgs, namedArgs) {
+          'materialize': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as TransferableTypedData).materialize();
           },
         },

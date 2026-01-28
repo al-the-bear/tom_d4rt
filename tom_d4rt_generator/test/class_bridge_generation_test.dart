@@ -60,8 +60,8 @@ void main() {
     group('Simple Classes', () {
       test('detects SimpleClass', () {
         expect(generatedCode, contains("name: 'SimpleClass'"));
-        // Types are now prefixed with $source. since source imports use a prefix
-        expect(generatedCode, contains(r'nativeType: $source.SimpleClass'));
+        // Types are now prefixed with $pkg. since source imports use a prefix
+        expect(generatedCode, contains(r'nativeType: $pkg.SimpleClass'));
       });
 
       test('detects OptionalPositionalClass', () {
@@ -121,10 +121,10 @@ void main() {
       });
 
       test('generates target validation for getters', () {
-        // Types are now prefixed with $source. since source imports use a prefix
+        // Types are prefixed with $pkg since source imports use that prefix
         expect(
           generatedCode,
-          contains(r'D4.validateTarget<$source.PropertyClass>'),
+          contains(r'D4.validateTarget<$pkg.PropertyClass>'),
         );
       });
     });
@@ -152,10 +152,10 @@ void main() {
       });
 
       test('generates method target validation', () {
-        // Types are now prefixed with $source. since source imports use a prefix
+        // Types are prefixed with $pkg since source imports use that prefix
         expect(
           generatedCode,
-          contains(r"D4.validateTarget<$source.MethodClass>(target, 'MethodClass')"),
+          contains(r"D4.validateTarget<$pkg.MethodClass>(target, 'MethodClass')"),
         );
       });
     });
@@ -205,7 +205,7 @@ void main() {
       test('static method has correct signature', () {
         expect(
           generatedCode,
-          contains("'resetCount': (visitor, positional, named)"),
+          contains("'resetCount': (visitor, positional, named, typeArgs)"),
         );
       });
     });
@@ -374,8 +374,8 @@ void main() {
 
     test('generic class Container<T> is bridged', () {
       expect(generatedCode, contains("name: 'Container'"));
-      // Types are now prefixed with $source. since source imports use a prefix
-      expect(generatedCode, contains(r'nativeType: $source.Container'));
+      // Types are now prefixed with $pkg. since source imports use a prefix
+      expect(generatedCode, contains(r'nativeType: $pkg.Container'));
     });
 
     test('bounded generic NumberContainer<T extends num> is bridged', () {

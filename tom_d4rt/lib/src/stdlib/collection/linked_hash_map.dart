@@ -46,20 +46,20 @@ class LinkedHashMapCollection {
           },
         },
         methods: {
-          '[]': (visitor, target, positionalArgs, namedArgs) {
+          '[]': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedHashMap && positionalArgs.length == 1) {
               return target[positionalArgs[0]];
             }
             throw RuntimeError("Invalid arguments for LinkedHashMap[] getter");
           },
-          '[]=': (visitor, target, positionalArgs, namedArgs) {
+          '[]=': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedHashMap && positionalArgs.length == 2) {
               target[positionalArgs[0]] = positionalArgs[1];
               return positionalArgs[1];
             }
             throw RuntimeError("Invalid arguments for LinkedHashMap[]= setter");
           },
-          'addAll': (visitor, target, positionalArgs, namedArgs) {
+          'addAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedHashMap && positionalArgs.length == 1) {
               final otherMap = positionalArgs[0];
               if (otherMap is Map) {
@@ -71,7 +71,7 @@ class LinkedHashMapCollection {
             }
             throw RuntimeError("Invalid arguments for LinkedHashMap.addAll");
           },
-          'clear': (visitor, target, positionalArgs, namedArgs) {
+          'clear': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedHashMap &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
@@ -80,21 +80,21 @@ class LinkedHashMapCollection {
             }
             throw RuntimeError("Invalid arguments for LinkedHashMap.clear");
           },
-          'containsKey': (visitor, target, positionalArgs, namedArgs) {
+          'containsKey': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedHashMap && positionalArgs.length == 1) {
               return target.containsKey(positionalArgs[0]);
             }
             throw RuntimeError(
                 "Invalid arguments for LinkedHashMap.containsKey");
           },
-          'containsValue': (visitor, target, positionalArgs, namedArgs) {
+          'containsValue': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedHashMap && positionalArgs.length == 1) {
               return target.containsValue(positionalArgs[0]);
             }
             throw RuntimeError(
                 "Invalid arguments for LinkedHashMap.containsValue");
           },
-          'forEach': (visitor, target, positionalArgs, namedArgs) {
+          'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedHashMap && positionalArgs.length == 1) {
               final action = positionalArgs[0];
               if (action is InterpretedFunction) {
@@ -108,7 +108,7 @@ class LinkedHashMapCollection {
             }
             throw RuntimeError("Invalid arguments for LinkedHashMap.forEach");
           },
-          'putIfAbsent': (visitor, target, positionalArgs, namedArgs) {
+          'putIfAbsent': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedHashMap && positionalArgs.length == 2) {
               final key = positionalArgs[0];
               final ifAbsent = positionalArgs[1];
@@ -122,13 +122,13 @@ class LinkedHashMapCollection {
             throw RuntimeError(
                 "Invalid arguments for LinkedHashMap.putIfAbsent");
           },
-          'remove': (visitor, target, positionalArgs, namedArgs) {
+          'remove': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedHashMap && positionalArgs.length == 1) {
               return target.remove(positionalArgs[0]);
             }
             throw RuntimeError("Invalid arguments for LinkedHashMap.remove");
           },
-          'removeWhere': (visitor, target, positionalArgs, namedArgs) {
+          'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedHashMap && positionalArgs.length == 1) {
               final test = positionalArgs[0];
               if (test is InterpretedFunction) {
@@ -144,7 +144,7 @@ class LinkedHashMapCollection {
             throw RuntimeError(
                 "Invalid arguments for LinkedHashMap.removeWhere");
           },
-          'update': (visitor, target, positionalArgs, namedArgs) {
+          'update': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedHashMap && positionalArgs.length == 2) {
               final key = positionalArgs[0];
               final update = positionalArgs[1];
@@ -161,7 +161,7 @@ class LinkedHashMapCollection {
             }
             throw RuntimeError("Invalid arguments for LinkedHashMap.update");
           },
-          'updateAll': (visitor, target, positionalArgs, namedArgs) {
+          'updateAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedHashMap && positionalArgs.length == 1) {
               final update = positionalArgs[0];
               if (update is InterpretedFunction) {
@@ -174,7 +174,7 @@ class LinkedHashMapCollection {
             }
             throw RuntimeError("Invalid arguments for LinkedHashMap.updateAll");
           },
-          'addEntries': (visitor, target, positionalArgs, namedArgs) {
+          'addEntries': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedHashMap && positionalArgs.length == 1) {
               final newEntries = positionalArgs[0];
               if (newEntries is Iterable) {
@@ -187,13 +187,13 @@ class LinkedHashMapCollection {
             throw RuntimeError(
                 "Invalid arguments for LinkedHashMap.addEntries");
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedHashMap) {
               return target.cast<dynamic, dynamic>();
             }
             throw RuntimeError("Invalid arguments for LinkedHashMap.cast");
           },
-          'map': (visitor, target, positionalArgs, namedArgs) {
+          'map': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedHashMap && positionalArgs.length == 1) {
               final transform = positionalArgs[0];
               if (transform is InterpretedFunction) {

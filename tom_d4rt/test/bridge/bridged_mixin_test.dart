@@ -26,11 +26,11 @@ void main() {
           name: 'TestMixin',
           canBeUsedAsMixin: true,
           methods: {
-            'mixinMethod': (visitor, instance, positionalArgs, namedArgs) {
+            'mixinMethod': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
               final input = positionalArgs[0].toString();
               return 'Mixin called with: $input';
             },
-            'calculate': (visitor, instance, positionalArgs, namedArgs) {
+            'calculate': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
               final a = positionalArgs[0] as int;
               final b = positionalArgs[1] as int;
               return a + b;

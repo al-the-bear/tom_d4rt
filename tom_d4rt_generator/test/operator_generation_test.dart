@@ -52,11 +52,11 @@ void main() {
     });
 
     test('generates bridges for arithmetic operators', () {
-      // Check that Vector2 operators are present
-      expect(generatedCode, contains("'+': (visitor, target, positional, named)"));
-      expect(generatedCode, contains("'-': (visitor, target, positional, named)"));
-      expect(generatedCode, contains("'*': (visitor, target, positional, named)"));
-      expect(generatedCode, contains("'/': (visitor, target, positional, named)"));
+      // Check that Vector2 operators are present (now with typeArgs)
+      expect(generatedCode, contains("'+': (visitor, target, positional, named, typeArgs)"));
+      expect(generatedCode, contains("'-': (visitor, target, positional, named, typeArgs)"));
+      expect(generatedCode, contains("'*': (visitor, target, positional, named, typeArgs)"));
+      expect(generatedCode, contains("'/': (visitor, target, positional, named, typeArgs)"));
       // New format uses D4.getRequiredArg to extract typed operands
       expect(generatedCode, contains('return t + other;'));
       expect(generatedCode, contains('return t * other;'));
@@ -65,20 +65,20 @@ void main() {
     });
 
     test('generates bridges for index operators', () {
-      expect(generatedCode, contains("'[]': (visitor, target, positional, named)"));
-      expect(generatedCode, contains("'[]=': (visitor, target, positional, named)"));
+      expect(generatedCode, contains("'[]': (visitor, target, positional, named, typeArgs)"));
+      expect(generatedCode, contains("'[]=': (visitor, target, positional, named, typeArgs)"));
       // New format uses D4.getRequiredArg to extract typed index and value
       expect(generatedCode, contains('return t[index];'));
       expect(generatedCode, contains('t[index] = value;'));
     });
 
     test('generates bridges for bitwise operators', () {
-      expect(generatedCode, contains("'&': (visitor, target, positional, named)"));
-      expect(generatedCode, contains("'|': (visitor, target, positional, named)"));
-      expect(generatedCode, contains("'^': (visitor, target, positional, named)"));
-      expect(generatedCode, contains("'~': (visitor, target, positional, named)"));
-      expect(generatedCode, contains("'<<': (visitor, target, positional, named)"));
-      expect(generatedCode, contains("'>>': (visitor, target, positional, named)"));
+      expect(generatedCode, contains("'&': (visitor, target, positional, named, typeArgs)"));
+      expect(generatedCode, contains("'|': (visitor, target, positional, named, typeArgs)"));
+      expect(generatedCode, contains("'^': (visitor, target, positional, named, typeArgs)"));
+      expect(generatedCode, contains("'~': (visitor, target, positional, named, typeArgs)"));
+      expect(generatedCode, contains("'<<': (visitor, target, positional, named, typeArgs)"));
+      expect(generatedCode, contains("'>>': (visitor, target, positional, named, typeArgs)"));
       // New format uses D4.getRequiredArg to extract typed operands
       expect(generatedCode, contains('return t & other;'));
       expect(generatedCode, contains('return t | other;'));
@@ -89,11 +89,11 @@ void main() {
     });
 
     test('generates bridges for comparison operators', () {
-      expect(generatedCode, contains("'<': (visitor, target, positional, named)"));
-      expect(generatedCode, contains("'>': (visitor, target, positional, named)"));
-      expect(generatedCode, contains("'<=': (visitor, target, positional, named)"));
-      expect(generatedCode, contains("'>=': (visitor, target, positional, named)"));
-      expect(generatedCode, contains("'==': (visitor, target, positional, named)"));
+      expect(generatedCode, contains("'<': (visitor, target, positional, named, typeArgs)"));
+      expect(generatedCode, contains("'>': (visitor, target, positional, named, typeArgs)"));
+      expect(generatedCode, contains("'<=': (visitor, target, positional, named, typeArgs)"));
+      expect(generatedCode, contains("'>=': (visitor, target, positional, named, typeArgs)"));
+      expect(generatedCode, contains("'==': (visitor, target, positional, named, typeArgs)"));
       // New format uses D4.getRequiredArg to extract typed operands
       expect(generatedCode, contains('return t < other;'));
       expect(generatedCode, contains('return t > other;'));
@@ -105,8 +105,8 @@ void main() {
     test('operators are placed in methods map', () {
       // Both methods and operators should be in the same methods: block
       expect(generatedCode, contains('methods: {'));
-      // MixedClass has both add method and + operator
-      expect(generatedCode, contains("'add': (visitor, target, positional, named)"));
+      // MixedClass has both add method and + operator (now with typeArgs)
+      expect(generatedCode, contains("'add': (visitor, target, positional, named, typeArgs)"));
     });
   });
 }

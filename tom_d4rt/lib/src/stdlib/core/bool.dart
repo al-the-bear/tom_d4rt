@@ -7,7 +7,7 @@ class BoolCore {
         typeParameterCount: 0,
         constructors: {},
         staticMethods: {
-          'fromEnvironment': (visitor, positionalArgs, namedArgs) {
+          'fromEnvironment': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'bool.fromEnvironment expects one String argument for the name.');
@@ -15,14 +15,14 @@ class BoolCore {
             return bool.fromEnvironment(positionalArgs[0] as String,
                 defaultValue: namedArgs['defaultValue'] as bool? ?? false);
           },
-          'hasEnvironment': (visitor, positionalArgs, namedArgs) {
+          'hasEnvironment': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'bool.hasEnvironment expects one String argument for the name.');
             }
             return bool.hasEnvironment(positionalArgs[0] as String);
           },
-          'parse': (visitor, positionalArgs, namedArgs) {
+          'parse': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError('bool.parse expects one String argument.');
             }
@@ -30,7 +30,7 @@ class BoolCore {
             return bool.parse(positionalArgs[0] as String,
                 caseSensitive: caseSensitive);
           },
-          'tryParse': (visitor, positionalArgs, namedArgs) {
+          'tryParse': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError('bool.tryParse expects one String argument.');
             }
@@ -40,7 +40,7 @@ class BoolCore {
           },
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as bool).toString();
           },
         },

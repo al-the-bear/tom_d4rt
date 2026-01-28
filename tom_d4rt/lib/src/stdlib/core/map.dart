@@ -16,19 +16,19 @@ class MapCore {
           },
         },
         staticMethods: {
-          'from': (visitor, positionalArgs, namedArgs) {
+          'from': (visitor, positionalArgs, namedArgs, _) {
             return Map.from(positionalArgs[0] as Map);
           },
-          'of': (visitor, positionalArgs, namedArgs) {
+          'of': (visitor, positionalArgs, namedArgs, _) {
             return Map.of(positionalArgs[0] as Map);
           },
-          'unmodifiable': (visitor, positionalArgs, namedArgs) {
+          'unmodifiable': (visitor, positionalArgs, namedArgs, _) {
             return Map.unmodifiable(positionalArgs[0] as Map);
           },
-          'identity': (visitor, positionalArgs, namedArgs) {
+          'identity': (visitor, positionalArgs, namedArgs, _) {
             return Map.identity();
           },
-          'fromIterable': (visitor, positionalArgs, namedArgs) {
+          'fromIterable': (visitor, positionalArgs, namedArgs, _) {
             final iterable = positionalArgs[0] as Iterable;
             final key = namedArgs['key'] as InterpretedFunction?;
             final value = namedArgs['value'] as InterpretedFunction?;
@@ -43,13 +43,13 @@ class MapCore {
                   : (element) => value.call(visitor, [element]),
             );
           },
-          'fromIterables': (visitor, positionalArgs, namedArgs) {
+          'fromIterables': (visitor, positionalArgs, namedArgs, _) {
             return Map.fromIterables(
               positionalArgs[0] as Iterable,
               positionalArgs[1] as Iterable,
             );
           },
-          'fromEntries': (visitor, positionalArgs, namedArgs) {
+          'fromEntries': (visitor, positionalArgs, namedArgs, _) {
             final entries = positionalArgs[0] as Iterable;
             // Unwrap BridgedInstance<MapEntry> to get native MapEntry objects
             final nativeEntries = entries.map((entry) {
@@ -66,18 +66,18 @@ class MapCore {
           },
         },
         methods: {
-          '[]': (visitor, target, positionalArgs, namedArgs) {
+          '[]': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Map)[positionalArgs[0]];
           },
-          '[]=': (visitor, target, positionalArgs, namedArgs) {
+          '[]=': (visitor, target, positionalArgs, namedArgs, _) {
             (target as Map)[positionalArgs[0]] = positionalArgs[1];
             return null;
           },
-          'addAll': (visitor, target, positionalArgs, namedArgs) {
+          'addAll': (visitor, target, positionalArgs, namedArgs, _) {
             (target as Map).addAll(positionalArgs[0] as Map);
             return null;
           },
-          'addEntries': (visitor, target, positionalArgs, namedArgs) {
+          'addEntries': (visitor, target, positionalArgs, namedArgs, _) {
             final entries = positionalArgs[0] as Iterable;
             // Unwrap BridgedInstance<MapEntry> to get native MapEntry objects
             final nativeEntries = entries.map((entry) {
@@ -93,41 +93,41 @@ class MapCore {
             (target as Map).addEntries(nativeEntries);
             return null;
           },
-          'clear': (visitor, target, positionalArgs, namedArgs) {
+          'clear': (visitor, target, positionalArgs, namedArgs, _) {
             (target as Map).clear();
             return null;
           },
-          'containsKey': (visitor, target, positionalArgs, namedArgs) {
+          'containsKey': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Map).containsKey(positionalArgs[0]);
           },
-          'containsValue': (visitor, target, positionalArgs, namedArgs) {
+          'containsValue': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Map).containsValue(positionalArgs[0]);
           },
-          'forEach': (visitor, target, positionalArgs, namedArgs) {
+          'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             final action = positionalArgs[0] as InterpretedFunction;
             (target as Map).forEach((key, value) {
               action.call(visitor, [key, value]);
             });
             return null;
           },
-          'putIfAbsent': (visitor, target, positionalArgs, namedArgs) {
+          'putIfAbsent': (visitor, target, positionalArgs, namedArgs, _) {
             final ifAbsent = positionalArgs[1] as InterpretedFunction;
             return (target as Map).putIfAbsent(
               positionalArgs[0],
               () => ifAbsent.call(visitor, []),
             );
           },
-          'remove': (visitor, target, positionalArgs, namedArgs) {
+          'remove': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Map).remove(positionalArgs[0]);
           },
-          'removeWhere': (visitor, target, positionalArgs, namedArgs) {
+          'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             (target as Map).removeWhere((key, value) {
               return test.call(visitor, [key, value]) as bool;
             });
             return null;
           },
-          'update': (visitor, target, positionalArgs, namedArgs) {
+          'update': (visitor, target, positionalArgs, namedArgs, _) {
             final update = positionalArgs[1] as InterpretedFunction;
             final ifAbsent = namedArgs['ifAbsent'] as InterpretedFunction?;
             return (target as Map).update(
@@ -137,14 +137,14 @@ class MapCore {
                   ifAbsent == null ? null : () => ifAbsent.call(visitor, []),
             );
           },
-          'updateAll': (visitor, target, positionalArgs, namedArgs) {
+          'updateAll': (visitor, target, positionalArgs, namedArgs, _) {
             final update = positionalArgs[0] as InterpretedFunction;
             (target as Map).updateAll((key, value) {
               return update.call(visitor, [key, value]);
             });
             return null;
           },
-          'map': (visitor, target, positionalArgs, namedArgs) {
+          'map': (visitor, target, positionalArgs, namedArgs, _) {
             final convert = positionalArgs[0] as InterpretedFunction;
             return (target as Map).map((key, value) {
               final result = convert.call(visitor, [key, value]);
@@ -160,7 +160,7 @@ class MapCore {
               }
             });
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Map).cast();
           },
         },
@@ -192,9 +192,9 @@ class MapEntryCore {
           },
         },
         methods: {
-          'hashCode': (visitor, target, positionalArgs, namedArgs) =>
+          'hashCode': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as MapEntry).hashCode,
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as MapEntry).toString(),
         },
         getters: {

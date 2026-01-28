@@ -64,48 +64,48 @@ class DateTimeCore {
           },
         },
         staticMethods: {
-          'parse': (visitor, positionalArgs, namedArgs) {
+          'parse': (visitor, positionalArgs, namedArgs, _) {
             return DateTime.parse(positionalArgs[0] as String);
           },
-          'tryParse': (visitor, positionalArgs, namedArgs) {
+          'tryParse': (visitor, positionalArgs, namedArgs, _) {
             return DateTime.tryParse(positionalArgs[0] as String);
           },
         },
         methods: {
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as DateTime).add(positionalArgs[0] as Duration);
           },
-          'subtract': (visitor, target, positionalArgs, namedArgs) {
+          'subtract': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as DateTime).subtract(positionalArgs[0] as Duration);
           },
-          'difference': (visitor, target, positionalArgs, namedArgs) {
+          'difference': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as DateTime)
                 .difference(positionalArgs[0] as DateTime);
           },
-          'isBefore': (visitor, target, positionalArgs, namedArgs) {
+          'isBefore': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as DateTime).isBefore(positionalArgs[0] as DateTime);
           },
-          'isAfter': (visitor, target, positionalArgs, namedArgs) {
+          'isAfter': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as DateTime).isAfter(positionalArgs[0] as DateTime);
           },
-          'isAtSameMomentAs': (visitor, target, positionalArgs, namedArgs) {
+          'isAtSameMomentAs': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as DateTime)
                 .isAtSameMomentAs(positionalArgs[0] as DateTime);
           },
-          'compareTo': (visitor, target, positionalArgs, namedArgs) {
+          'compareTo': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as DateTime)
                 .compareTo(positionalArgs[0] as DateTime);
           },
-          'toLocal': (visitor, target, positionalArgs, namedArgs) {
+          'toLocal': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as DateTime).toLocal();
           },
-          'toUtc': (visitor, target, positionalArgs, namedArgs) {
+          'toUtc': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as DateTime).toUtc();
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as DateTime).toString();
           },
-          'toIso8601String': (visitor, target, positionalArgs, namedArgs) {
+          'toIso8601String': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as DateTime).toIso8601String();
           },
         },

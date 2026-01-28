@@ -1,0 +1,59 @@
+// D4rt Script - Inheritance Example
+// This script demonstrates class inheritance and interface bridging.
+
+import 'package:d4rt_generator_example/test_classes.dart';
+
+main() {
+  print('=== Inheritance Example ===\n');
+
+  // 1. Circle (extends Shape)
+  print('--- Circle (extends Shape) ---');
+  var circle = Circle(5.0);
+  print('Circle name: ${circle.name}');
+  print('Radius: ${circle.radius}');
+  print('Diameter: ${circle.diameter}');
+  print('Area: ${circle.area()}');
+  print('Perimeter: ${circle.perimeter()}');
+  // Note: describe() is inherited from Shape which is not bridged
+  // print('Description: ${circle.describe()}');
+
+  // 2. Rectangle with named constructor
+  print('\n--- Rectangle ---');
+  var rect = Rectangle(4.0, 3.0);
+  print('Rectangle: ${rect.width} x ${rect.height}');
+  print('Area: ${rect.area()}');
+  print('Is square: ${rect.isSquare}');
+  // Note: describe() is inherited from Shape which is not bridged
+  // print('Description: ${rect.describe()}');
+
+  var square = Rectangle.square(5.0);
+  print('Square: ${square.width} x ${square.height}, isSquare: ${square.isSquare}');
+
+  // 3. Point (implements Serializable, Cloneable)
+  print('\n--- Point (implements interfaces) ---');
+  var p1 = Point(3.0, 4.0);
+  print('Point: $p1');
+  print('toJson: ${p1.toJson()}');
+  
+  var p2 = p1.clone();
+  print('Cloned: $p2');
+  
+  var p3 = Point.origin();
+  print('Origin: $p3');
+  print('Distance p1 to origin: ${p1.distanceTo(p3)}');
+  
+  var sum = p1.add(Point(1.0, 1.0));
+  print('p1 + (1,1): $sum');
+
+  // 4. ColoredRectangle (multi-level inheritance)
+  print('\n--- ColoredRectangle (extends Rectangle, implements Serializable) ---');
+  var coloredRect = ColoredRectangle(6.0, 4.0, 'blue');
+  // Note: describe() inherits from Rectangle -> Shape which has limitations
+  print('Colored rectangle: ${coloredRect.width}x${coloredRect.height} in ${coloredRect.color}');
+  print('toJson: ${coloredRect.toJson()}');
+
+  var redRect = ColoredRectangle.red(3.0, 2.0);
+  print('Red rectangle: ${redRect.width}x${redRect.height} in ${redRect.color}');
+
+  return 'Inheritance example completed successfully!';
+}

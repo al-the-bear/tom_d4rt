@@ -7,7 +7,7 @@ class ByteConversionConvert {
         name: 'ByteConversionSink',
         typeParameterCount: 0,
         staticMethods: {
-          'from': (visitor, positionalArgs, namedArgs) {
+          'from': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<List<int>>) {
               throw RuntimeError(
@@ -16,7 +16,7 @@ class ByteConversionConvert {
             return ByteConversionSink.from(
                 positionalArgs[0] as Sink<List<int>>);
           },
-          'withCallback': (visitor, positionalArgs, namedArgs) {
+          'withCallback': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! InterpretedFunction) {
               throw RuntimeError(
@@ -29,7 +29,7 @@ class ByteConversionConvert {
           },
         },
         methods: {
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
               throw RuntimeError(
                   'ByteConversionSink.add requires one List<int> argument.');
@@ -38,7 +38,7 @@ class ByteConversionConvert {
                 .add((positionalArgs[0] as List).cast());
             return null;
           },
-          'addSlice': (visitor, target, positionalArgs, namedArgs) {
+          'addSlice': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 4 ||
                 positionalArgs[0] is! List ||
                 positionalArgs[1] is! int ||
@@ -54,7 +54,7 @@ class ByteConversionConvert {
                 positionalArgs[3] as bool);
             return null;
           },
-          'close': (visitor, target, positionalArgs, namedArgs) {
+          'close': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
               throw RuntimeError(
                   'ByteConversionSink.close takes no arguments.');

@@ -67,6 +67,13 @@ class MemberInfo {
   final bool isStatic;
   final bool isOperator;
   final List<ParameterInfo> parameters;
+  /// Whether the method has type parameters (generics).
+  /// These methods are bridged with type erasure (using their bounds).
+  final bool hasTypeParameters;
+  /// Type parameters and their bounds for this method (e.g., {'T': 'Object', 'E': 'TomObject'}).
+  /// Used for type erasure - when a type parameter is encountered in a parameter type,
+  /// it's replaced with its bound (or 'dynamic' if no bound).
+  final Map<String, String?> methodTypeParameters;
 
   const MemberInfo({
     required this.name,
@@ -79,6 +86,8 @@ class MemberInfo {
     this.isStatic = false,
     this.isOperator = false,
     this.parameters = const [],
+    this.hasTypeParameters = false,
+    this.methodTypeParameters = const {},
   });
 }
 
@@ -158,12 +167,18 @@ class GlobalFunctionInfo {
   final String returnType;
   final List<ParameterInfo> parameters;
   final String sourceFile;
+  /// Whether the function has type parameters (generics).
+  final bool hasTypeParameters;
+  /// Type parameters and their bounds for this function (e.g., {'T': 'Object', 'E': 'TomObject'}).
+  final Map<String, String?> typeParameters;
 
   const GlobalFunctionInfo({
     required this.name,
     required this.returnType,
     required this.parameters,
     required this.sourceFile,
+    this.hasTypeParameters = false,
+    this.typeParameters = const {},
   });
 }
 
@@ -483,6 +498,10 @@ class BridgeGenerator {
   /// Missing exports encountered during generation.
   /// Tracks types that are used but not exported from the barrel file.
   final List<String> _missingExportWarnings = [];
+
+  /// Skip reports for elements that were not bridged.
+  /// Each entry clearly explains what was skipped and why.
+  final List<String> _skipReports = [];
 
   /// Set of class/enum names that are exported from the barrel file.
   /// Built during bridge file generation from the export info.
@@ -956,6 +975,7 @@ class BridgeGenerator {
     List<String>? excludeVariables,
     Map<String, ExportInfo>? exportInfo,
   }) async {
+    _skipReports.clear();
     final allClasses = <ClassInfo>[];
     final errors = <String>[];
     final warnings = <String>[];
@@ -988,9 +1008,7 @@ class BridgeGenerator {
       filteredClasses = filteredClasses.where((c) {
         final info = exportInfo[c.sourceFile];
         if (info != null && !info.isSymbolExported(c.name)) {
-          warnings.add(
-            'Skipping hidden class ${c.name} (not exported from barrel)',
-          );
+          _recordSkip('class', c.name, 'not exported from barrel file');
           return false;
         }
         return true;
@@ -1002,7 +1020,7 @@ class BridgeGenerator {
       final excludeSet = excludeClasses.toSet();
       filteredClasses = filteredClasses.where((c) {
         if (excludeSet.contains(c.name)) {
-          warnings.add('Skipping excluded class ${c.name}');
+          _recordSkip('class', c.name, 'excluded by configuration');
           return false;
         }
         return true;
@@ -1012,9 +1030,7 @@ class BridgeGenerator {
     // Filter out classes that extend D4UserBridge (they are helper classes, not to be bridged)
     filteredClasses = filteredClasses.where((c) {
       if (_userBridgeScanner.shouldExcludeClass(c.name)) {
-        if (verbose) {
-          print('Skipping D4UserBridge subclass ${c.name}');
-        }
+        _recordSkip('class', c.name, 'extends D4UserBridge (helper class)');
         return false;
       }
       return true;
@@ -1054,16 +1070,12 @@ class BridgeGenerator {
         final hasFactoryCtor = cls.constructors.any((c) => c.isFactory);
         final hasStaticMembers = cls.members.any((m) => m.isStatic);
         if (!hasFactoryCtor && !hasStaticMembers) {
-          warnings.add(
-            'Skipping abstract class ${cls.name} (no factory constructor or static members)',
-          );
+          _recordSkip('class', cls.name, 'abstract class without factory constructor or static members');
           continue;
         }
       }
       if (seenClassNames.contains(cls.name)) {
-        warnings.add(
-          'Skipping duplicate class ${cls.name} from ${cls.sourceFile}',
-        );
+        _recordSkip('class', cls.name, 'duplicate (already seen from another source file)');
         continue;
       }
       seenClassNames.add(cls.name);
@@ -1158,7 +1170,7 @@ class BridgeGenerator {
       globalVariablesGenerated: 0, // TODO: count from globals
       outputFiles: outputFiles,
       errors: errors,
-      warnings: warnings..addAll(_nonWrappableDefaultWarnings)..addAll(_missingExportWarnings),
+      warnings: warnings..addAll(_nonWrappableDefaultWarnings)..addAll(_missingExportWarnings)..addAll(_skipReports),
     );
   }
 
@@ -1179,6 +1191,7 @@ class BridgeGenerator {
     Map<String, ExportInfo>? exportInfo,
     required FileWriter fileWriter,
   }) async {
+    _skipReports.clear();
     final allClasses = <ClassInfo>[];
     final errors = <String>[];
     final warnings = <String>[];
@@ -1209,9 +1222,7 @@ class BridgeGenerator {
       filteredClasses = filteredClasses.where((c) {
         final info = exportInfo[c.sourceFile];
         if (info != null && !info.isSymbolExported(c.name)) {
-          warnings.add(
-            'Skipping hidden class ${c.name} (not exported from barrel)',
-          );
+          _recordSkip('class', c.name, 'not exported from barrel file');
           return false;
         }
         return true;
@@ -1223,7 +1234,7 @@ class BridgeGenerator {
       final excludeSet = excludeClasses.toSet();
       filteredClasses = filteredClasses.where((c) {
         if (excludeSet.contains(c.name)) {
-          warnings.add('Skipping excluded class ${c.name}');
+          _recordSkip('class', c.name, 'excluded by configuration');
           return false;
         }
         return true;
@@ -1233,9 +1244,7 @@ class BridgeGenerator {
     // Filter out classes that extend D4UserBridge (they are helper classes, not to be bridged)
     filteredClasses = filteredClasses.where((c) {
       if (_userBridgeScanner.shouldExcludeClass(c.name)) {
-        if (verbose) {
-          print('Skipping D4UserBridge subclass ${c.name}');
-        }
+        _recordSkip('class', c.name, 'extends D4UserBridge (helper class)');
         return false;
       }
       return true;
@@ -1276,16 +1285,12 @@ class BridgeGenerator {
         final hasFactoryCtor = cls.constructors.any((c) => c.isFactory);
         final hasStaticMembers = cls.members.any((m) => m.isStatic);
         if (!hasFactoryCtor && !hasStaticMembers) {
-          warnings.add(
-            'Skipping abstract class ${cls.name} (no factory constructor or static members)',
-          );
+          _recordSkip('class', cls.name, 'abstract class without factory constructor or static members');
           continue;
         }
       }
       if (seenClassNames.contains(cls.name)) {
-        warnings.add(
-          'Skipping duplicate class ${cls.name} from ${cls.sourceFile}',
-        );
+        _recordSkip('class', cls.name, 'duplicate (already seen from another source file)');
         continue;
       }
       seenClassNames.add(cls.name);
@@ -1323,9 +1328,7 @@ class BridgeGenerator {
       filteredEnums = globals.enums.where((e) {
         final info = exportInfo[e.sourceFile];
         if (info != null && !info.isSymbolExported(e.name)) {
-          warnings.add(
-            'Skipping hidden enum ${e.name} (not exported from barrel)',
-          );
+          _recordSkip('enum', e.name, 'not exported from barrel file');
           return false;
         }
         return true;
@@ -1334,9 +1337,7 @@ class BridgeGenerator {
       filteredFunctions = globals.functions.where((f) {
         final info = exportInfo[f.sourceFile];
         if (info != null && !info.isSymbolExported(f.name)) {
-          warnings.add(
-            'Skipping hidden function ${f.name} (not exported from barrel)',
-          );
+          _recordSkip('function', f.name, 'not exported from barrel file');
           return false;
         }
         return true;
@@ -1345,9 +1346,7 @@ class BridgeGenerator {
       filteredVariables = globals.variables.where((v) {
         final info = exportInfo[v.sourceFile];
         if (info != null && !info.isSymbolExported(v.name)) {
-          warnings.add(
-            'Skipping hidden variable ${v.name} (not exported from barrel)',
-          );
+          _recordSkip('variable', v.name, 'not exported from barrel file');
           return false;
         }
         return true;
@@ -1359,7 +1358,7 @@ class BridgeGenerator {
       final excludeSet = excludeEnums.toSet();
       filteredEnums = filteredEnums.where((e) {
         if (excludeSet.contains(e.name)) {
-          warnings.add('Skipping excluded enum ${e.name}');
+          _recordSkip('enum', e.name, 'excluded by configuration');
           return false;
         }
         return true;
@@ -1371,7 +1370,7 @@ class BridgeGenerator {
       final excludeSet = excludeFunctions.toSet();
       filteredFunctions = filteredFunctions.where((f) {
         if (excludeSet.contains(f.name)) {
-          warnings.add('Skipping excluded function ${f.name}');
+          _recordSkip('function', f.name, 'excluded by configuration');
           return false;
         }
         return true;
@@ -1383,7 +1382,7 @@ class BridgeGenerator {
       final excludeSet = excludeVariables.toSet();
       filteredVariables = filteredVariables.where((v) {
         if (excludeSet.contains(v.name)) {
-          warnings.add('Skipping excluded variable ${v.name}');
+          _recordSkip('variable', v.name, 'excluded by configuration');
           return false;
         }
         return true;
@@ -1410,7 +1409,7 @@ class BridgeGenerator {
       globalVariablesGenerated: filteredVariables.length,
       outputFiles: outputFiles,
       errors: errors,
-      warnings: warnings..addAll(_nonWrappableDefaultWarnings)..addAll(_missingExportWarnings),
+      warnings: warnings..addAll(_nonWrappableDefaultWarnings)..addAll(_missingExportWarnings)..addAll(_skipReports),
     );
   }
 
@@ -1862,13 +1861,13 @@ class BridgeGenerator {
         if (uri != null) {
           final prefix = _importPrefixes[uri];
           if (prefix != null) {
-            return '$prefix.$defaultValue';
+            return prefix.isEmpty ? defaultValue : '$prefix.$defaultValue';
           }
         }
       }
 
       // Fallback: assume it's from the source library
-      return '\$source.$defaultValue';
+      return '\$pkg.$defaultValue';
     }
 
     // 4. Simple Lists/Sets (heuristic: no internal function calls/parentheses)
@@ -1929,6 +1928,19 @@ class BridgeGenerator {
     }
   }
 
+  /// Records a skip report for an element that was not bridged.
+  /// 
+  /// [category] describes what kind of element was skipped (e.g., "class", "method", "enum").
+  /// [name] is the element name.
+  /// [reason] explains why it was skipped.
+  void _recordSkip(String category, String name, String reason) {
+    final report = 'SKIPPED: $category $name - $reason';
+    _skipReports.add(report);
+    if (verbose) {
+      print(report);
+    }
+  }
+
   /// Checks if a type name is exported from the barrel file.
   /// Returns true if:
   /// - The exported type names set is empty (no barrel tracking)
@@ -1962,6 +1974,22 @@ class BridgeGenerator {
     return s.replaceAll(r'\', r'\\').replaceAll("'", r"\'");
   }
 
+  /// Generates a unique import prefix including package name for external packages.
+  String _generateUniqueImportPrefix(String uri) {
+    if (uri.startsWith('package:')) {
+      final content = uri.substring(8); // strip package:
+      final parts = content.split('/');
+      final pkg = parts.first;
+      // avoid double underscores if filename is same as package
+      final filename = p.basenameWithoutExtension(uri);
+      if (filename == pkg || filename == 'dart') {
+        return '\$ext_${pkg.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_')}';
+      }
+      return '\$ext_${pkg}_$filename'.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_');
+    }
+    return _generateImportPrefix(uri);
+  }
+
   /// Generates bridge file content for a list of classes.
   String _generateBridgeFile(
     List<ClassInfo> classes,
@@ -1988,12 +2016,6 @@ class BridgeGenerator {
     // Build import prefix map
     _importPrefixes = {};
 
-    // Use prefixes for ALL external imports to be safe (prevents any future conflicts)
-    for (final importPath in externalImports) {
-      final prefix = _generateImportPrefix(importPath);
-      _importPrefixes[importPath] = prefix;
-    }
-
     // Header - list all source files
     buffer.writeln('// D4rt Bridge - Generated file, do not edit');
     if (allSourceFiles.length == 1) {
@@ -2008,32 +2030,65 @@ class BridgeGenerator {
     buffer.writeln("import 'package:tom_d4rt/d4rt.dart';");
     buffer.writeln("import '$helpersImport';");
 
-    // Add external type imports with prefixes
-    for (final importPath in externalImports.toList()..sort()) {
-      final prefix = _importPrefixes[importPath]!;
-      buffer.writeln("import '$importPath' as $prefix;");
+    // Separate SDK imports (dart:*) from external package imports
+    final sdkImports = externalImports.where((uri) => uri.startsWith('dart:')).toSet();
+    
+    // Add SDK imports without prefixes
+    for (final importPath in sdkImports.toList()..sort()) {
+      // Map SDK imports to no prefix
+      _importPrefixes[importPath] = ''; 
+      buffer.writeln("import '$importPath';");
     }
     buffer.writeln();
+    
+    // Configure the main package prefix
+    const sourcePrefix = r'$pkg';
+    
+    // Determine the current package name from config or deduce from first source file
+    final currentPackageName = packageName ?? _getPackageNameFromPath(sourceFile);
+    final currentPackageImportPrefix = currentPackageName != null 
+        ? 'package:$currentPackageName/' 
+        : null;
 
-    // Import source files WITH a prefix for global functions
-    // This allows us to call global functions as $source.functionName()
-    const sourcePrefix = r'$source';
-    if (sourceImport != null) {
-      // Use explicit barrel file import (preferred)
-      final detectedPackageName = packageName ?? _getPackageNameFromPath(sourceFile);
-      if (detectedPackageName != null) {
-        final sourceImportPath = 'package:$detectedPackageName/$sourceImport';
-        buffer.writeln("import '$sourceImportPath' as $sourcePrefix;");
-        // Register the prefix for global function resolution
-        _importPrefixes[sourceImportPath] = sourcePrefix;
-        // Also register each source file path to map to this prefix
-        for (final srcFile in allSourceFiles) {
-          final srcUri = _getPackageUri(srcFile);
-          _importPrefixes[srcUri] = sourcePrefix;
+    // Map non-SDK imports
+    for (final uri in externalImports) {
+      if (uri.startsWith('dart:')) continue;
+      
+      // Check if this URI belongs to the current package
+      bool isCurrentPackage = false;
+      if (currentPackageImportPrefix != null) {
+        isCurrentPackage = uri.startsWith(currentPackageImportPrefix);
+      }
+      
+      if (isCurrentPackage) {
+        // Current package imports -> map to source prefix (assuming barrel export)
+        _importPrefixes[uri] = sourcePrefix;
+      } else {
+        // External package import -> generate unique prefix and add import
+        // Check if we already have a prefix for this URI to avoid duplicates
+        if (!_importPrefixes.containsKey(uri)) {
+          final prefix = _generateUniqueImportPrefix(uri);
+          _importPrefixes[uri] = prefix;
+          buffer.writeln("import '$uri' as $prefix;");
         }
       }
+    }
+    
+    // Import the package barrel file
+    if (sourceImport != null && packageName != null) {
+      final sourceImportPath = 'package:$packageName/$sourceImport';
+      buffer.writeln("import '$sourceImportPath' as $sourcePrefix;");
+      
+      // Register the barrel and all source files to the prefix
+      _importPrefixes[sourceImportPath] = sourcePrefix;
+      for (final srcFile in allSourceFiles) {
+        final srcUri = _getPackageUri(srcFile);
+        _importPrefixes[srcUri] = sourcePrefix;
+      }
     } else {
-      // Import each source file individually with prefix
+      // Fallback: If no single barrel is specified, this mode is likely not fully supported 
+      // with the new import strategy, but we try anyway.
+      // We import each source file and map it to $pkg.
       for (final srcFile in allSourceFiles) {
         final detectedPackageName = packageName ?? _getPackageNameFromPath(srcFile);
         if (detectedPackageName != null) {
@@ -2042,7 +2097,6 @@ class BridgeGenerator {
           _importPrefixes[srcImportPath] = sourcePrefix;
           _importPrefixes[_getPackageUri(srcFile)] = sourcePrefix;
         } else {
-          // Use relative import (fallback)
           buffer.writeln("import '${p.basename(srcFile)}' as $sourcePrefix;");
         }
       }
@@ -2221,11 +2275,15 @@ class BridgeGenerator {
         final useCombinatorial =
             nonWrappableDefaults.isNotEmpty && nonWrappableDefaults.length <= 4;
 
+        // Use function type parameters for type erasure
+        final funcTypeParams = func.typeParameters;
+
         for (final param in func.parameters) {
           // Resolve the type using _getTypeArgument to handle generics and external types
           final resolvedType = _getTypeArgument(
             param.type,
             typeToUri: param.typeToUri,
+            classTypeParams: funcTypeParams,
           );
 
           if (param.isNamed) {
@@ -2303,6 +2361,7 @@ class BridgeGenerator {
             nonWrappableDefaults,
             func.name,
             isVoid: isVoid,
+            typeParams: funcTypeParams,
           );
         } else {
           buffer.writeln('        return $prefixedFuncName(${callArgs.join(', ')});');
@@ -2487,7 +2546,7 @@ class BridgeGenerator {
     final uri = _getPackageUri(sourceFile);
     final prefix = _importPrefixes[uri];
     if (prefix != null) {
-      return '$prefix.$className';
+      return prefix.isEmpty ? className : '$prefix.$className';
     }
     return className;
   }
@@ -2498,11 +2557,11 @@ class BridgeGenerator {
     final uri = _getPackageUri(sourceFile);
     final prefix = _importPrefixes[uri];
     if (prefix != null) {
-      return '$prefix.$funcName';
+      return prefix.isEmpty ? funcName : '$prefix.$funcName';
     }
-    // Fallback to $source for global functions/variables from the source package
+    // Fallback to $pkg for global functions/variables from the source package
     // This handles cases where the URI format might not match exactly
-    return '\$source.$funcName';
+    return '\$pkg.$funcName';
   }
 
   /// Converts a source file path to a package URI.
@@ -2676,7 +2735,7 @@ class BridgeGenerator {
         // Try generating into temp buffer first
         final tempBuffer = StringBuffer();
         tempBuffer.writeln(
-          "      '${method.name}': (visitor, target, positional, named) {",
+          "      '${method.name}': (visitor, target, positional, named, typeArgs) {",
         );
         if (_generateMethodBody(
           tempBuffer,
@@ -2734,7 +2793,7 @@ class BridgeGenerator {
       buffer.writeln('    },');
     }
 
-    // Static methods use (visitor, positional, named) signature for method calls
+    // Static methods use (visitor, positional, named, typeArgs) signature for method calls
     if (staticMethods.isNotEmpty) {
       buffer.writeln('    staticMethods: {');
       for (final method in staticMethods) {
@@ -2750,7 +2809,7 @@ class BridgeGenerator {
         // Try generating into temp buffer first
         final tempBuffer = StringBuffer();
         tempBuffer.writeln(
-          "      '${method.name}': (visitor, positional, named) {",
+          "      '${method.name}': (visitor, positional, named, typeArgs) {",
         );
         if (_generateStaticMethodBody(
           tempBuffer,
@@ -2781,6 +2840,7 @@ class BridgeGenerator {
     String contextName, {
     bool isVoid = false,
     List<String> suffixArgs = const [],
+    Map<String, String?> typeParams = const {},
   }) {
     final requiredCount = allPositional.where((p) => p.isRequired).length;
     final totalCount = allPositional.length;
@@ -2795,6 +2855,7 @@ class BridgeGenerator {
         final resolvedType = _getTypeArgument(
           param.type,
           typeToUri: param.typeToUri,
+          classTypeParams: typeParams,
         );
         // We use getRequiredArg because we know it exists at this index
         buffer.writeln(
@@ -2825,6 +2886,7 @@ class BridgeGenerator {
     List<ParameterInfo> unwrappableParams,
     String contextName, {
     bool isVoid = false,
+    Map<String, String?> typeParams = const {},
   }) {
     final count = unwrappableParams.length;
     final limit = 1 << count;
@@ -2850,6 +2912,7 @@ class BridgeGenerator {
           final resolvedType = _getTypeArgument(
             param.type,
             typeToUri: param.typeToUri,
+            classTypeParams: typeParams,
           );
           buffer.writeln(
               "          final ${param.name} = D4.getRequiredNamedArg<$resolvedType>(named, '${param.name}', '$contextName');");
@@ -2968,6 +3031,7 @@ class BridgeGenerator {
         args,
         nonWrappableDefaults,
         cls.name,
+        typeParams: cls.typeParameters,
       );
     } else {
       buffer.writeln('        return $ctorCall(${args.join(', ')});');
@@ -3003,6 +3067,13 @@ class BridgeGenerator {
 
     // Map to store custom call expressions for function-type parameters
     final callExpressions = <String, String>{};
+    
+    // Merge class type parameters with method type parameters
+    // Method type parameters take precedence (they shadow class type params)
+    final effectiveTypeParams = <String, String?>{
+      ...cls.typeParameters,
+      ...method.methodTypeParameters,
+    };
 
     // Extract positional parameters
     final sourceUri = _getPackageUri(cls.sourceFile);
@@ -3015,7 +3086,7 @@ class BridgeGenerator {
         method.name,
         sourceUri: sourceUri,
         warnings: warnings,
-        classTypeParams: cls.typeParameters,
+        classTypeParams: effectiveTypeParams,
         callExpressions: callExpressions,
       )) {
         return false;
@@ -3042,7 +3113,7 @@ class BridgeGenerator {
         method.name,
         sourceUri: sourceUri,
         warnings: warnings,
-        classTypeParams: cls.typeParameters,
+        classTypeParams: effectiveTypeParams,
         callExpressions: callExpressions,
       )) {
         return false;
@@ -3074,6 +3145,7 @@ class BridgeGenerator {
         nonWrappableDefaults,
         method.name,
         isVoid: isVoid,
+        typeParams: effectiveTypeParams,
       );
     } else {
       if (isVoid) {
@@ -3097,7 +3169,7 @@ class BridgeGenerator {
     final operatorName = operator.name;
     
     buffer.writeln(
-      "      '$operatorName': (visitor, target, positional, named) {",
+      "      '$operatorName': (visitor, target, positional, named, typeArgs) {",
     );
     buffer.writeln(
       "        final t = D4.validateTarget<$prefixedName>(target, '${cls.name}');",
@@ -3207,6 +3279,10 @@ class BridgeGenerator {
         nonWrappableNamed.isNotEmpty && nonWrappableNamed.length <= 4;
     
     final sourceUri = _getPackageUri(cls.sourceFile);
+    
+    // For static methods, use method type parameters (not class type params)
+    // Static methods can't access class type parameters
+    final effectiveTypeParams = method.methodTypeParameters;
 
     // Extract positional parameters
     if (!usePositionalDispatch) {
@@ -3219,7 +3295,7 @@ class BridgeGenerator {
           method.name,
           sourceUri: sourceUri,
           warnings: warnings,
-          classTypeParams: cls.typeParameters,
+          classTypeParams: effectiveTypeParams,
         )) {
           return false;
         }
@@ -3236,7 +3312,7 @@ class BridgeGenerator {
         method.name,
         sourceUri: sourceUri,
         warnings: warnings,
-        classTypeParams: cls.typeParameters,
+        classTypeParams: effectiveTypeParams,
       )) {
         return false;
       }
@@ -3272,6 +3348,7 @@ class BridgeGenerator {
         method.name,
         isVoid: isVoid,
         suffixArgs: namedArgsForSuffix,
+        typeParams: effectiveTypeParams,
       );
     } else if (useCombinatorial) {
       _generateCombinatorialDispatch(
@@ -3281,6 +3358,7 @@ class BridgeGenerator {
         nonWrappableNamed,
         method.name,
         isVoid: isVoid,
+        typeParams: effectiveTypeParams,
       );
     } else {
       buffer.writeln(
@@ -3452,10 +3530,14 @@ class BridgeGenerator {
     }
 
     // Check if the parameter type itself is a function typedef
-    final baseType = param.type.replaceAll('?', '');
+    // Only strip the trailing ? (for nullable function type), preserve inner nullable types
+    var baseType = param.type;
+    if (baseType.endsWith('?')) {
+      baseType = baseType.substring(0, baseType.length - 1);
+    }
     if (_isFunctionTypeName(baseType)) {
       // Get function type info - try known aliases first, then parse
-      var funcInfo = _knownFunctionTypeAliasInfo[baseType];
+      var funcInfo = _knownFunctionTypeAliasInfo[baseType.replaceAll('?', '')];
       funcInfo ??= _parseFunctionType(baseType);
       
       if (funcInfo == null) {
@@ -3712,10 +3794,14 @@ class BridgeGenerator {
     }
 
     // Check if the parameter type itself is a function typedef
-    final baseType = param.type.replaceAll('?', '');
+    // Only strip the trailing ? (for nullable function type), preserve inner nullable types
+    var baseType = param.type;
+    if (baseType.endsWith('?')) {
+      baseType = baseType.substring(0, baseType.length - 1);
+    }
     if (_isFunctionTypeName(baseType)) {
       // Get function type info - try known aliases first, then parse
-      var funcInfo = _knownFunctionTypeAliasInfo[baseType];
+      var funcInfo = _knownFunctionTypeAliasInfo[baseType.replaceAll('?', '')];
       funcInfo ??= _parseFunctionType(baseType);
       
       if (funcInfo == null) {
@@ -3950,28 +4036,59 @@ class BridgeGenerator {
     // Check if this type needs a prefix
     final uri = typeToUri[unprefixedType];
     if (uri != null) {
+      // Check if this is an SDK type (dart:*) - use without prefix
+      if (uri.startsWith('dart:')) {
+        final result = unprefixedType;
+        return isNullable ? '$result?' : result;
+      }
+      
+      // Local file:// URIs are from the current package - use $pkg prefix
+      if (uri.startsWith('file://') || uri.startsWith('file:///')) {
+        if (!_isTypeExported(unprefixedType)) {
+          _recordMissingExport('type argument (local file, not exported)', unprefixedType);
+          return 'dynamic';
+        }
+        final result = '\$pkg.$unprefixedType';
+        return isNullable ? '$result?' : result;
+      }
+      
       final prefix = _importPrefixes[uri];
       if (prefix != null) {
-        // If prefix is $source, we need to check if the type is exported from the barrel
-        // External package types (non-$source prefix) are always accessible
-        if (prefix == r'$source' && !_isTypeExported(unprefixedType)) {
+        if (prefix.isEmpty) {
+          final result = unprefixedType;
+          return isNullable ? '$result?' : result;
+        }
+        // If prefix is $pkg, we need to check if the type is exported from the barrel
+        // External package types (non-$pkg prefix) are always accessible
+        if (prefix == r'$pkg' && !_isTypeExported(unprefixedType)) {
           // Type is hidden from barrel - use dynamic since it's not accessible
           _recordMissingExport('type argument', unprefixedType);
           return 'dynamic';
         }
         final result = '$prefix.$unprefixedType';
         return isNullable ? '$result?' : result;
+      } else {
+        // URI exists in typeToUri but no prefix was registered - this means the import
+        // wasn't collected. Generate a unique prefix on-the-fly and record the missing import.
+        // This handles external package types that weren't added to externalImports.
+        final prefix = _generateUniqueImportPrefix(uri);
+        _importPrefixes[uri] = prefix;
+        _recordMissingExport('missing import for type', '$unprefixedType (added import for $uri as $prefix)');
+        final result = '$prefix.$unprefixedType';
+        return isNullable ? '$result?' : result;
       }
     }
 
-    // For non-built-in types, use $source prefix
-    // If not in exported names, record warning but still try to use it
-    // (the type might still be accessible through the barrel)
+    // For non-built-in types without URI info, check if they're exported from the barrel
+    // If not exported, use dynamic since we can't access them
     if (!_isBuiltInType(unprefixedType)) {
       if (!_isTypeExported(unprefixedType)) {
-        _recordMissingExport('type argument', unprefixedType);
+        // Type is not exported from the barrel and has no URI info - use dynamic
+        _recordMissingExport('type argument (not exported, using dynamic)', unprefixedType);
+        return 'dynamic';
       }
-      final result = '\$source.$unprefixedType';
+      // Type is exported from barrel - use $pkg prefix
+      final result = '\$pkg.$unprefixedType';
       return isNullable ? '$result?' : result;
     }
 
@@ -3979,14 +4096,39 @@ class BridgeGenerator {
   }
 
   /// Returns true if the type is a Dart built-in type.
+  /// These types are from dart:core or other commonly used dart: libraries
+  /// that don't need import prefixes.
   static bool _isBuiltInType(String typeName) {
     const builtInTypes = {
+      // dart:core types
       'int', 'double', 'num', 'String', 'bool', 'void', 'dynamic', 'Object',
       'List', 'Map', 'Set', 'Iterable', 'Future', 'Stream', 'Function',
       'Type', 'Symbol', 'Null', 'Never', 'Duration', 'DateTime', 'Uri',
       'BigInt', 'Comparable', 'Pattern', 'Match', 'RegExp', 'Runes',
       'StringBuffer', 'StringSink', 'Error', 'Exception', 'StackTrace',
       'Record', 'FutureOr', 'MapEntry',
+      // dart:typed_data types
+      'Uint8List', 'Int8List', 'Uint8ClampedList', 'Int16List', 'Uint16List',
+      'Int32List', 'Uint32List', 'Int64List', 'Uint64List', 'Float32List',
+      'Float64List', 'ByteBuffer', 'ByteData', 'TypedData', 'Endian',
+      // dart:async types
+      'Completer', 'Timer', 'StreamController', 'StreamSubscription',
+      'StreamSink', 'EventSink', 'Zone', 'ZoneDelegate', 'ZoneSpecification',
+      // dart:io types
+      'File', 'Directory', 'FileSystemEntity', 'Platform', 'Process',
+      'ProcessResult', 'Stdin', 'Stdout', 'Socket', 'ServerSocket',
+      'RawSocket', 'RawServerSocket', 'HttpClient', 'HttpServer',
+      'HttpRequest', 'HttpResponse', 'Cookie', 'ContentType',
+      'InternetAddress', 'IOSink', 'RandomAccessFile', 'Link',
+      // dart:convert types
+      'Codec', 'Converter', 'Encoding', 'JsonCodec', 'JsonDecoder',
+      'JsonEncoder', 'Utf8Codec', 'Utf8Decoder', 'Utf8Encoder',
+      'Base64Codec', 'Base64Decoder', 'Base64Encoder', 'AsciiCodec',
+      'Latin1Codec', 'LineSplitter', 'HtmlEscape',
+      // dart:math types
+      'Random', 'Point', 'Rectangle', 'MutableRectangle',
+      // dart:isolate types
+      'Isolate', 'SendPort', 'ReceivePort', 'Capability',
     };
     return builtInTypes.contains(typeName);
   }
@@ -4007,16 +4149,31 @@ class BridgeGenerator {
     String prefixedBase = baseType;
     final baseUri = typeToUri[baseType];
     if (baseUri != null) {
-      final prefix = _importPrefixes[baseUri];
-      if (prefix != null) {
-        prefixedBase = '$prefix.$baseType';
+      // SDK types (dart:*) use no prefix
+      if (baseUri.startsWith('dart:')) {
+        prefixedBase = baseType;
+      } else if (baseUri.startsWith('file://') || baseUri.startsWith('file:///')) {
+        // Local file:// URIs are from the current package - use $pkg prefix
+        prefixedBase = '\$pkg.$baseType';
+      } else {
+        final prefix = _importPrefixes[baseUri];
+        if (prefix != null) {
+          prefixedBase = prefix.isEmpty ? baseType : '$prefix.$baseType';
+        } else {
+          // URI exists but no prefix - generate one on-the-fly
+          final prefix = _generateUniqueImportPrefix(baseUri);
+          _importPrefixes[baseUri] = prefix;
+          prefixedBase = '$prefix.$baseType';
+        }
       }
     } else if (!_isBuiltInType(baseType)) {
-      // Non-built-in type - use $source prefix
+      // Non-built-in type without URI info - check if exported from barrel
       if (!_isTypeExported(baseType)) {
-        _recordMissingExport('generic base type', baseType);
+        // Type not exported, use dynamic for the whole generic type
+        _recordMissingExport('generic base type (not exported, using dynamic)', baseType);
+        return 'dynamic';
       }
-      prefixedBase = '\$source.$baseType';
+      prefixedBase = '\$pkg.$baseType';
     }
 
     // Parse and resolve type arguments with prefixes
@@ -4074,17 +4231,31 @@ class BridgeGenerator {
           // Check if this type needs a prefix
           final uri = typeToUri[baseArg];
           if (uri != null) {
+            // SDK types don't need prefix
+            if (uri.startsWith('dart:')) {
+              return arg;
+            }
+            // Local file:// URIs are from the current package - use $pkg prefix
+            if (uri.startsWith('file://') || uri.startsWith('file:///')) {
+              if (!_isTypeExported(baseArg)) {
+                _recordMissingExport('type argument (local file, not exported)', baseArg);
+                return 'dynamic';
+              }
+              return '\$pkg.$baseArg';
+            }
             final prefix = _importPrefixes[uri];
             if (prefix != null) {
-              return '$prefix.$baseArg';
+              return prefix.isEmpty ? baseArg : '$prefix.$baseArg';
             }
           }
-          // Non-built-in type - use $source prefix
+          // Non-built-in type - check if exported from barrel
           if (!_isBuiltInType(baseArg)) {
             if (!_isTypeExported(baseArg)) {
-              _recordMissingExport('type argument', baseArg);
+              // Type not exported, use dynamic
+              _recordMissingExport('type argument (not exported, using dynamic)', baseArg);
+              return 'dynamic';
             }
-            return '\$source.$baseArg';
+            return '\$pkg.$baseArg';
           }
           return arg;
         })
@@ -4532,14 +4703,20 @@ class BridgeGenerator {
       for (final ctor in cls.constructors) {
         for (final param in ctor.parameters) {
           imports.addAll(param.typeImportUris);
+          // Also collect from typeToUri in case typeImportUris is incomplete
+          imports.addAll(param.typeToUri.values);
         }
       }
 
       // Check member return types and parameters
       for (final member in cls.members) {
         imports.addAll(member.returnTypeImportUris);
+        // Also collect from returnTypeToUri
+        imports.addAll(member.returnTypeToUri.values);
         for (final param in member.parameters) {
           imports.addAll(param.typeImportUris);
+          // Also collect from typeToUri
+          imports.addAll(param.typeToUri.values);
         }
       }
     }
@@ -4630,12 +4807,27 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     final parameters =
         params != null ? _parseParameters(params) : <ParameterInfo>[];
 
+    // Extract function type parameters and their bounds
+    final funcTypeParams = node.functionExpression.typeParameters;
+    final hasTypeParameters = funcTypeParams != null &&
+        funcTypeParams.typeParameters.isNotEmpty;
+    final typeParamsMap = <String, String?>{};
+    if (hasTypeParameters) {
+      for (final typeParam in funcTypeParams.typeParameters) {
+        final paramName = typeParam.name.lexeme;
+        final bound = typeParam.bound?.toSource();
+        typeParamsMap[paramName] = bound;
+      }
+    }
+
     globalFunctions.add(
       GlobalFunctionInfo(
         name: name,
         returnType: returnType,
         parameters: parameters,
         sourceFile: currentSourceFile ?? '',
+        hasTypeParameters: hasTypeParameters,
+        typeParameters: typeParamsMap,
       ),
     );
 
@@ -4854,10 +5046,18 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
 
     if (skipPrivate && name.startsWith('_')) return null;
 
-    // Skip methods with type parameters - D4rt can't handle generic methods
-    if (node.typeParameters != null &&
-        node.typeParameters!.typeParameters.isNotEmpty) {
-      return null;
+    // Track if method has type parameters (will use type erasure)
+    final hasTypeParameters = node.typeParameters != null &&
+        node.typeParameters!.typeParameters.isNotEmpty;
+
+    // Extract method type parameters and their bounds for type erasure
+    final methodTypeParams = <String, String?>{};
+    if (hasTypeParameters) {
+      for (final typeParam in node.typeParameters!.typeParameters) {
+        final paramName = typeParam.name.lexeme;
+        final bound = typeParam.bound?.toSource();
+        methodTypeParams[paramName] = bound;
+      }
     }
 
     final returnType = node.returnType?.toSource() ?? 'dynamic';
@@ -4883,6 +5083,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       isStatic: isStatic,
       isOperator: isOperator,
       parameters: parameters,
+      hasTypeParameters: hasTypeParameters,
+      methodTypeParameters: methodTypeParams,
     );
   }
 
@@ -5198,11 +5400,9 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
     // Skip private members
     if (skipPrivate && name.startsWith('_')) return null;
 
-    // Skip methods with type parameters - D4rt can't handle generic methods
-    if (node.typeParameters != null &&
-        node.typeParameters!.typeParameters.isNotEmpty) {
-      return null;
-    }
+    // Track if method has type parameters (will use type erasure)
+    final hasTypeParameters = node.typeParameters != null &&
+        node.typeParameters!.typeParameters.isNotEmpty;
 
     final returnType = node.returnType?.toSource() ?? 'dynamic';
     final isStatic = node.isStatic;
@@ -5224,6 +5424,7 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
       isStatic: isStatic,
       isOperator: isOperator,
       parameters: parameters,
+      hasTypeParameters: hasTypeParameters,
     );
   }
 

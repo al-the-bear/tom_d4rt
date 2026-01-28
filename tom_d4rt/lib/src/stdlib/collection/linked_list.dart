@@ -16,7 +16,7 @@ class LinkedListCollection {
           },
         },
         methods: {
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedList<BridgedLinkedListEntry> &&
                 positionalArgs.length == 1 &&
                 positionalArgs[0] is BridgedLinkedListEntry &&
@@ -27,7 +27,7 @@ class LinkedListCollection {
             throw RuntimeError(
                 "Invalid arguments for LinkedList.add. Expected a BridgedLinkedListEntry.");
           },
-          'remove': (visitor, target, positionalArgs, namedArgs) {
+          'remove': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedList<BridgedLinkedListEntry> &&
                 positionalArgs.length == 1 &&
                 positionalArgs[0] is BridgedLinkedListEntry &&
@@ -37,7 +37,7 @@ class LinkedListCollection {
             throw RuntimeError(
                 "Invalid arguments for LinkedList.remove. Expected a BridgedLinkedListEntry.");
           },
-          'clear': (visitor, target, positionalArgs, namedArgs) {
+          'clear': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedList<BridgedLinkedListEntry> &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
@@ -46,7 +46,7 @@ class LinkedListCollection {
             }
             throw RuntimeError("Invalid arguments for LinkedList.clear");
           },
-          'removeFirst': (visitor, target, positionalArgs, namedArgs) {
+          'removeFirst': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedList<BridgedLinkedListEntry> &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
@@ -131,7 +131,7 @@ class LinkedListEntryCollection {
           },
         },
         methods: {
-          'unlink': (visitor, target, positionalArgs, namedArgs) {
+          'unlink': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is BridgedLinkedListEntry &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {

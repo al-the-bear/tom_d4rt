@@ -132,7 +132,7 @@ void main() {
         methods: {
           // Adapter for the 'multiply' method
           'multiply': (InterpreterVisitor visitor, Object target,
-              List<Object?> positionalArgs, Map<String, Object?> namedArgs) {
+              List<Object?> positionalArgs, Map<String, Object?> namedArgs, typeArgs) {
             if (target is ComplexEnum &&
                 positionalArgs.length == 1 &&
                 positionalArgs[0] is int) {
@@ -156,7 +156,7 @@ void main() {
           },
           // Adapter for the 'isItemA' method
           'isItemA': (InterpreterVisitor visitor, Object target,
-              List<Object?> positionalArgs, Map<String, Object?> namedArgs) {
+              List<Object?> positionalArgs, Map<String, Object?> namedArgs, typeArgs) {
             if (target is ComplexEnum &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
@@ -168,7 +168,7 @@ void main() {
           // Adapter for 'toString'
           // This adapter will be used by invoke() if we do item.toString()
           'toString': (InterpreterVisitor visitor, Object target,
-              List<Object?> positionalArgs, Map<String, Object?> namedArgs) {
+              List<Object?> positionalArgs, Map<String, Object?> namedArgs, typeArgs) {
             if (target is ComplexEnum &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {

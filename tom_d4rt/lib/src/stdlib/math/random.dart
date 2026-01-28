@@ -17,13 +17,13 @@ class RandomMath {
           },
         },
         methods: {
-          'nextInt': (visitor, target, positionalArgs, namedArgs) {
+          'nextInt': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Random).nextInt(positionalArgs[0] as int);
           },
-          'nextDouble': (visitor, target, positionalArgs, namedArgs) {
+          'nextDouble': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Random).nextDouble();
           },
-          'nextBool': (visitor, target, positionalArgs, namedArgs) {
+          'nextBool': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Random).nextBool();
           },
         },

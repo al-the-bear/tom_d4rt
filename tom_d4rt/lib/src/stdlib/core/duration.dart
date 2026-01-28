@@ -38,29 +38,29 @@ class DurationCore {
           },
         },
         methods: {
-          '+': (visitor, target, positionalArgs, namedArgs) {
+          '+': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Duration) + (positionalArgs[0] as Duration);
           },
-          '-': (visitor, target, positionalArgs, namedArgs) {
+          '-': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Duration) - (positionalArgs[0] as Duration);
           },
-          '*': (visitor, target, positionalArgs, namedArgs) {
+          '*': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Duration) * (positionalArgs[0] as num);
           },
-          '~/': (visitor, target, positionalArgs, namedArgs) {
+          '~/': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Duration) ~/ (positionalArgs[0] as int);
           },
-          'unary-': (visitor, target, positionalArgs, namedArgs) {
+          'unary-': (visitor, target, positionalArgs, namedArgs, _) {
             return -(target as Duration);
           },
-          'abs': (visitor, target, positionalArgs, namedArgs) {
+          'abs': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Duration).abs();
           },
-          'compareTo': (visitor, target, positionalArgs, namedArgs) {
+          'compareTo': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Duration)
                 .compareTo(positionalArgs[0] as Duration);
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Duration).toString();
           },
         },

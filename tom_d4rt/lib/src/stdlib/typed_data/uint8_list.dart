@@ -67,7 +67,7 @@ class Uint8ListTypedData {
         },
         methods: {
           // Index operators
-          '[]': (visitor, target, positionalArgs, namedArgs) {
+          '[]': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Uint8List &&
                 positionalArgs.length == 1 &&
                 positionalArgs[0] is int) {
@@ -75,7 +75,7 @@ class Uint8ListTypedData {
             }
             throw RuntimeError("Uint8List[index] expects an int index.");
           },
-          '[]=': (visitor, target, positionalArgs, namedArgs) {
+          '[]=': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Uint8List &&
                 positionalArgs.length == 2 &&
                 positionalArgs[0] is int &&
@@ -90,54 +90,54 @@ class Uint8ListTypedData {
           },
 
           // List methods
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List).add(positionalArgs[0] as int);
           },
-          'addAll': (visitor, target, positionalArgs, namedArgs) {
+          'addAll': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List)
                 .addAll(positionalArgs[0] as Iterable<int>);
           },
-          'any': (visitor, target, positionalArgs, namedArgs) {
+          'any': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Uint8List).any((element) =>
                 _runAction<bool>(visitor, test, [element]) == true);
           },
-          'asMap': (visitor, target, positionalArgs, namedArgs) {
+          'asMap': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List).asMap();
           },
-          'asUnmodifiableView': (visitor, target, positionalArgs, namedArgs) {
+          'asUnmodifiableView': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List).asUnmodifiableView();
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List).cast();
           },
-          'clear': (visitor, target, positionalArgs, namedArgs) {
+          'clear': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List).clear();
           },
-          'contains': (visitor, target, positionalArgs, namedArgs) {
+          'contains': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List).contains(positionalArgs[0]);
           },
-          'elementAt': (visitor, target, positionalArgs, namedArgs) {
+          'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List).elementAt(positionalArgs[0] as int);
           },
-          'every': (visitor, target, positionalArgs, namedArgs) {
+          'every': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Uint8List).every((element) =>
                 _runAction<bool>(visitor, test, [element]) == true);
           },
-          'expand': (visitor, target, positionalArgs, namedArgs) {
+          'expand': (visitor, target, positionalArgs, namedArgs, _) {
             final toElements = positionalArgs[0] as InterpretedFunction;
             return (target as Uint8List).expand((element) =>
                 _runAction<Iterable>(visitor, toElements, [element]) ?? []);
           },
-          'fillRange': (visitor, target, positionalArgs, namedArgs) {
+          'fillRange': (visitor, target, positionalArgs, namedArgs, _) {
             final start = positionalArgs[0] as int;
             final end = positionalArgs[1] as int;
             final fillValue =
                 positionalArgs.length > 2 ? positionalArgs[2] as int? : null;
             return (target as Uint8List).fillRange(start, end, fillValue);
           },
-          'firstWhere': (visitor, target, positionalArgs, namedArgs) {
+          'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as Uint8List).firstWhere(
@@ -147,7 +147,7 @@ class Uint8ListTypedData {
                   : null,
             );
           },
-          'fold': (visitor, target, positionalArgs, namedArgs) {
+          'fold': (visitor, target, positionalArgs, namedArgs, _) {
             final initialValue = positionalArgs[0];
             final combine = positionalArgs[1] as InterpretedFunction;
             return (target as Uint8List).fold(
@@ -155,29 +155,29 @@ class Uint8ListTypedData {
                 (prev, element) =>
                     _runAction(visitor, combine, [prev, element]));
           },
-          'followedBy': (visitor, target, positionalArgs, namedArgs) {
+          'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List)
                 .followedBy(positionalArgs[0] as Iterable<int>);
           },
-          'forEach': (visitor, target, positionalArgs, namedArgs) {
+          'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             final action = positionalArgs[0] as InterpretedFunction;
             for (var element in (target as Uint8List)) {
               _runAction<void>(visitor, action, [element]);
             }
             return null;
           },
-          'getRange': (visitor, target, positionalArgs, namedArgs) {
+          'getRange': (visitor, target, positionalArgs, namedArgs, _) {
             final start = positionalArgs[0] as int;
             final end = positionalArgs[1] as int;
             return (target as Uint8List).getRange(start, end);
           },
-          'indexOf': (visitor, target, positionalArgs, namedArgs) {
+          'indexOf': (visitor, target, positionalArgs, namedArgs, _) {
             final element = positionalArgs[0] as int;
             final start =
                 positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
             return (target as Uint8List).indexOf(element, start);
           },
-          'indexWhere': (visitor, target, positionalArgs, namedArgs) {
+          'indexWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             final start =
                 positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
@@ -185,28 +185,28 @@ class Uint8ListTypedData {
                 (element) => _runAction<bool>(visitor, test, [element]) == true,
                 start);
           },
-          'insert': (visitor, target, positionalArgs, namedArgs) {
+          'insert': (visitor, target, positionalArgs, namedArgs, _) {
             final index = positionalArgs[0] as int;
             final element = positionalArgs[1] as int;
             return (target as Uint8List).insert(index, element);
           },
-          'insertAll': (visitor, target, positionalArgs, namedArgs) {
+          'insertAll': (visitor, target, positionalArgs, namedArgs, _) {
             final index = positionalArgs[0] as int;
             final iterable = positionalArgs[1] as Iterable<int>;
             return (target as Uint8List).insertAll(index, iterable);
           },
-          'join': (visitor, target, positionalArgs, namedArgs) {
+          'join': (visitor, target, positionalArgs, namedArgs, _) {
             final separator =
                 positionalArgs.isNotEmpty ? positionalArgs[0] as String : "";
             return (target as Uint8List).join(separator);
           },
-          'lastIndexOf': (visitor, target, positionalArgs, namedArgs) {
+          'lastIndexOf': (visitor, target, positionalArgs, namedArgs, _) {
             final element = positionalArgs[0] as int;
             final start =
                 positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
             return (target as Uint8List).lastIndexOf(element, start);
           },
-          'lastIndexWhere': (visitor, target, positionalArgs, namedArgs) {
+          'lastIndexWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             final start =
                 positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
@@ -214,7 +214,7 @@ class Uint8ListTypedData {
                 (element) => _runAction<bool>(visitor, test, [element]) == true,
                 start);
           },
-          'lastWhere': (visitor, target, positionalArgs, namedArgs) {
+          'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as Uint8List).lastWhere(
@@ -224,56 +224,56 @@ class Uint8ListTypedData {
                   : null,
             );
           },
-          'map': (visitor, target, positionalArgs, namedArgs) {
+          'map': (visitor, target, positionalArgs, namedArgs, _) {
             final toElement = positionalArgs[0] as InterpretedFunction;
             return (target as Uint8List)
                 .map((element) => _runAction(visitor, toElement, [element]));
           },
-          'noSuchMethod': (visitor, target, positionalArgs, namedArgs) {
+          'noSuchMethod': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List)
                 .noSuchMethod(positionalArgs[0] as Invocation);
           },
-          'reduce': (visitor, target, positionalArgs, namedArgs) {
+          'reduce': (visitor, target, positionalArgs, namedArgs, _) {
             final combine = positionalArgs[0] as InterpretedFunction;
             return (target as Uint8List).reduce((value, element) =>
                 _runAction<int>(visitor, combine, [value, element])!);
           },
-          'remove': (visitor, target, positionalArgs, namedArgs) {
+          'remove': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List).remove(positionalArgs[0]);
           },
-          'removeAt': (visitor, target, positionalArgs, namedArgs) {
+          'removeAt': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List).removeAt(positionalArgs[0] as int);
           },
-          'removeLast': (visitor, target, positionalArgs, namedArgs) {
+          'removeLast': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List).removeLast();
           },
-          'removeRange': (visitor, target, positionalArgs, namedArgs) {
+          'removeRange': (visitor, target, positionalArgs, namedArgs, _) {
             final start = positionalArgs[0] as int;
             final end = positionalArgs[1] as int;
             return (target as Uint8List).removeRange(start, end);
           },
-          'removeWhere': (visitor, target, positionalArgs, namedArgs) {
+          'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Uint8List).removeWhere((element) =>
                 _runAction<bool>(visitor, test, [element]) == true);
           },
-          'replaceRange': (visitor, target, positionalArgs, namedArgs) {
+          'replaceRange': (visitor, target, positionalArgs, namedArgs, _) {
             final start = positionalArgs[0] as int;
             final end = positionalArgs[1] as int;
             final replacements = positionalArgs[2] as Iterable<int>;
             return (target as Uint8List).replaceRange(start, end, replacements);
           },
-          'retainWhere': (visitor, target, positionalArgs, namedArgs) {
+          'retainWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Uint8List).retainWhere((element) =>
                 _runAction<bool>(visitor, test, [element]) == true);
           },
-          'setAll': (visitor, target, positionalArgs, namedArgs) {
+          'setAll': (visitor, target, positionalArgs, namedArgs, _) {
             final index = positionalArgs[0] as int;
             final iterable = positionalArgs[1] as Iterable<int>;
             return (target as Uint8List).setAll(index, iterable);
           },
-          'setRange': (visitor, target, positionalArgs, namedArgs) {
+          'setRange': (visitor, target, positionalArgs, namedArgs, _) {
             final start = positionalArgs[0] as int;
             final end = positionalArgs[1] as int;
             final iterable = positionalArgs[2] as Iterable<int>;
@@ -282,12 +282,12 @@ class Uint8ListTypedData {
             return (target as Uint8List)
                 .setRange(start, end, iterable, skipCount);
           },
-          'shuffle': (visitor, target, positionalArgs, namedArgs) {
+          'shuffle': (visitor, target, positionalArgs, namedArgs, _) {
             final random =
                 positionalArgs.isNotEmpty ? positionalArgs[0] as Random? : null;
             return (target as Uint8List).shuffle(random);
           },
-          'singleWhere': (visitor, target, positionalArgs, namedArgs) {
+          'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as Uint8List).singleWhere(
@@ -297,15 +297,15 @@ class Uint8ListTypedData {
                   : null,
             );
           },
-          'skip': (visitor, target, positionalArgs, namedArgs) {
+          'skip': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List).skip(positionalArgs[0] as int);
           },
-          'skipWhile': (visitor, target, positionalArgs, namedArgs) {
+          'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Uint8List).skipWhile((element) =>
                 _runAction<bool>(visitor, test, [element]) == true);
           },
-          'sort': (visitor, target, positionalArgs, namedArgs) {
+          'sort': (visitor, target, positionalArgs, namedArgs, _) {
             final compare = positionalArgs.isNotEmpty
                 ? positionalArgs[0] as InterpretedFunction?
                 : null;
@@ -313,44 +313,44 @@ class Uint8ListTypedData {
                 ? (a, b) => _runAction<int>(visitor, compare, [a, b])!
                 : null);
           },
-          'sublist': (visitor, target, positionalArgs, namedArgs) {
+          'sublist': (visitor, target, positionalArgs, namedArgs, _) {
             final start = positionalArgs[0] as int;
             final end =
                 positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
             return (target as Uint8List).sublist(start, end);
           },
-          'take': (visitor, target, positionalArgs, namedArgs) {
+          'take': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List).take(positionalArgs[0] as int);
           },
-          'takeWhile': (visitor, target, positionalArgs, namedArgs) {
+          'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Uint8List).takeWhile((element) =>
                 _runAction<bool>(visitor, test, [element]) == true);
           },
-          'toList': (visitor, target, positionalArgs, namedArgs) {
+          'toList': (visitor, target, positionalArgs, namedArgs, _) {
             final growable = namedArgs['growable'] as bool? ?? true;
             return (target as Uint8List).toList(growable: growable);
           },
-          'toSet': (visitor, target, positionalArgs, namedArgs) {
+          'toSet': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List).toSet();
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List).toString();
           },
-          'where': (visitor, target, positionalArgs, namedArgs) {
+          'where': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Uint8List).where((element) =>
                 _runAction<bool>(visitor, test, [element]) == true);
           },
-          'whereType': (visitor, target, positionalArgs, namedArgs) {
+          'whereType': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List).whereType();
           },
 
           // Operators
-          '+': (visitor, target, positionalArgs, namedArgs) {
+          '+': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List) + (positionalArgs[0] as List<int>);
           },
-          '==': (visitor, target, positionalArgs, namedArgs) {
+          '==': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List) == positionalArgs[0];
           },
         },

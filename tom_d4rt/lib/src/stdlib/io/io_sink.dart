@@ -10,14 +10,14 @@ class IOSinkIo {
         typeParameterCount: 0,
         nativeNames: ['_StdSink'],
         methods: {
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('IOSink.add requires data');
             }
             (target as IOSink).add(positionalArgs[0] as List<int>);
             return null;
           },
-          'addError': (visitor, target, positionalArgs, namedArgs) {
+          'addError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('IOSink.addError requires error');
             }
@@ -27,26 +27,26 @@ class IOSinkIo {
             (target as IOSink).addError(positionalArgs[0]!, stackTrace);
             return null;
           },
-          'addStream': (visitor, target, positionalArgs, namedArgs) {
+          'addStream': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('IOSink.addStream requires stream');
             }
             return (target as IOSink)
                 .addStream(positionalArgs[0] as Stream<List<int>>);
           },
-          'write': (visitor, target, positionalArgs, namedArgs) {
+          'write': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('IOSink.write requires object');
             }
             (target as IOSink).write(positionalArgs[0]);
             return null;
           },
-          'writeln': (visitor, target, positionalArgs, namedArgs) {
+          'writeln': (visitor, target, positionalArgs, namedArgs, _) {
             final obj = positionalArgs.isNotEmpty ? positionalArgs[0] : '';
             (target as IOSink).writeln(obj);
             return null;
           },
-          'writeAll': (visitor, target, positionalArgs, namedArgs) {
+          'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('IOSink.writeAll requires objects');
             }
@@ -56,17 +56,17 @@ class IOSinkIo {
             (target as IOSink).writeAll(objects, separator);
             return null;
           },
-          'writeCharCode': (visitor, target, positionalArgs, namedArgs) {
+          'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('IOSink.writeCharCode requires charCode');
             }
             (target as IOSink).writeCharCode(positionalArgs[0] as int);
             return null;
           },
-          'flush': (visitor, target, positionalArgs, namedArgs) {
+          'flush': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as IOSink).flush();
           },
-          'close': (visitor, target, positionalArgs, namedArgs) {
+          'close': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as IOSink).close();
           },
         },

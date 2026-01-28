@@ -10,28 +10,28 @@ class ProcessIo {
         name: 'Process',
         typeParameterCount: 0,
         staticMethods: {
-          'start': (visitor, positionalArgs, namedArgs) {
+          'start': (visitor, positionalArgs, namedArgs, _) {
             _checkProcessPermission(visitor,
                 positionalArgs.isNotEmpty ? positionalArgs[0].toString() : '');
             return _start(positionalArgs, namedArgs);
           },
-          'run': (visitor, positionalArgs, namedArgs) {
+          'run': (visitor, positionalArgs, namedArgs, _) {
             _checkProcessPermission(visitor,
                 positionalArgs.isNotEmpty ? positionalArgs[0].toString() : '');
             return _run(positionalArgs, namedArgs);
           },
-          'runSync': (visitor, positionalArgs, namedArgs) {
+          'runSync': (visitor, positionalArgs, namedArgs, _) {
             _checkProcessPermission(visitor,
                 positionalArgs.isNotEmpty ? positionalArgs[0].toString() : '');
             return _runSync(positionalArgs, namedArgs);
           },
-          'killPid': (visitor, positionalArgs, namedArgs) {
+          'killPid': (visitor, positionalArgs, namedArgs, _) {
             _checkProcessPermission(visitor, 'kill');
             return _killPid(positionalArgs, namedArgs);
           },
         },
         methods: {
-          'kill': (visitor, target, positionalArgs, namedArgs) =>
+          'kill': (visitor, target, positionalArgs, namedArgs, _) =>
               _kill(target, positionalArgs, namedArgs),
         },
         getters: {
@@ -237,9 +237,9 @@ class ProcessSignalIo {
           'hashCode': (visitor, target) => (target as ProcessSignal).hashCode,
         },
         methods: {
-          'watch': (visitor, target, positionalArgs, namedArgs) =>
+          'watch': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as ProcessSignal).watch(),
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as ProcessSignal).toString(),
         },
       );

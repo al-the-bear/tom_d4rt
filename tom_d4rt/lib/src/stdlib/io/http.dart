@@ -15,7 +15,7 @@ class HttpClientIo {
           },
         },
         staticMethods: {
-          'findProxyFromEnvironment': (visitor, positionalArgs, namedArgs) {
+          'findProxyFromEnvironment': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
               throw RuntimeError(
                   'HttpClient.findProxyFromEnvironment requires a Uri argument.');
@@ -29,43 +29,43 @@ class HttpClientIo {
           },
         },
         methods: {
-          'getUrl': (visitor, target, positionalArgs, namedArgs) {
+          'getUrl': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
               throw RuntimeError('getUrl requires a Uri argument.');
             }
             return (target as HttpClient).getUrl(positionalArgs[0] as Uri);
           },
-          'postUrl': (visitor, target, positionalArgs, namedArgs) {
+          'postUrl': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
               throw RuntimeError('postUrl requires a Uri argument.');
             }
             return (target as HttpClient).postUrl(positionalArgs[0] as Uri);
           },
-          'putUrl': (visitor, target, positionalArgs, namedArgs) {
+          'putUrl': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
               throw RuntimeError('putUrl requires a Uri argument.');
             }
             return (target as HttpClient).putUrl(positionalArgs[0] as Uri);
           },
-          'deleteUrl': (visitor, target, positionalArgs, namedArgs) {
+          'deleteUrl': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
               throw RuntimeError('deleteUrl requires a Uri argument.');
             }
             return (target as HttpClient).deleteUrl(positionalArgs[0] as Uri);
           },
-          'headUrl': (visitor, target, positionalArgs, namedArgs) {
+          'headUrl': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
               throw RuntimeError('headUrl requires a Uri argument.');
             }
             return (target as HttpClient).headUrl(positionalArgs[0] as Uri);
           },
-          'patchUrl': (visitor, target, positionalArgs, namedArgs) {
+          'patchUrl': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
               throw RuntimeError('patchUrl requires a Uri argument.');
             }
             return (target as HttpClient).patchUrl(positionalArgs[0] as Uri);
           },
-          'open': (visitor, target, positionalArgs, namedArgs) {
+          'open': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 4 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! String ||
@@ -81,7 +81,7 @@ class HttpClientIo {
               positionalArgs[3] as String,
             );
           },
-          'openUrl': (visitor, target, positionalArgs, namedArgs) {
+          'openUrl': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 2 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! Uri) {
@@ -92,7 +92,7 @@ class HttpClientIo {
               positionalArgs[1] as Uri,
             );
           },
-          'get': (visitor, target, positionalArgs, namedArgs) {
+          'get': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 3 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! int ||
@@ -106,7 +106,7 @@ class HttpClientIo {
               positionalArgs[2] as String,
             );
           },
-          'post': (visitor, target, positionalArgs, namedArgs) {
+          'post': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 3 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! int ||
@@ -120,7 +120,7 @@ class HttpClientIo {
               positionalArgs[2] as String,
             );
           },
-          'put': (visitor, target, positionalArgs, namedArgs) {
+          'put': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 3 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! int ||
@@ -134,7 +134,7 @@ class HttpClientIo {
               positionalArgs[2] as String,
             );
           },
-          'delete': (visitor, target, positionalArgs, namedArgs) {
+          'delete': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 3 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! int ||
@@ -148,7 +148,7 @@ class HttpClientIo {
               positionalArgs[2] as String,
             );
           },
-          'patch': (visitor, target, positionalArgs, namedArgs) {
+          'patch': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 3 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! int ||
@@ -162,7 +162,7 @@ class HttpClientIo {
               positionalArgs[2] as String,
             );
           },
-          'head': (visitor, target, positionalArgs, namedArgs) {
+          'head': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 3 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! int ||
@@ -176,7 +176,7 @@ class HttpClientIo {
               positionalArgs[2] as String,
             );
           },
-          'addCredentials': (visitor, target, positionalArgs, namedArgs) {
+          'addCredentials': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 3 ||
                 positionalArgs[0] is! Uri ||
                 positionalArgs[1] is! String ||
@@ -191,7 +191,7 @@ class HttpClientIo {
             );
             return null;
           },
-          'addProxyCredentials': (visitor, target, positionalArgs, namedArgs) {
+          'addProxyCredentials': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 4 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! int ||
@@ -208,7 +208,7 @@ class HttpClientIo {
             );
             return null;
           },
-          'close': (visitor, target, positionalArgs, namedArgs) {
+          'close': (visitor, target, positionalArgs, namedArgs, _) {
             (target as HttpClient).close(
               force: namedArgs['force'] as bool? ?? false,
             );
@@ -335,7 +335,7 @@ class HttpServerIo {
         typeParameterCount: 0,
         constructors: {},
         staticMethods: {
-          'bind': (visitor, positionalArgs, namedArgs) {
+          'bind': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 2 || positionalArgs[1] is! int) {
               throw RuntimeError(
                   'HttpServer.bind requires address and port arguments.');
@@ -348,7 +348,7 @@ class HttpServerIo {
               shared: namedArgs['shared'] as bool? ?? false,
             );
           },
-          'bindSecure': (visitor, positionalArgs, namedArgs) {
+          'bindSecure': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 3 ||
                 positionalArgs[1] is! int ||
                 positionalArgs[2] is! SecurityContext) {
@@ -366,7 +366,7 @@ class HttpServerIo {
               shared: namedArgs['shared'] as bool? ?? false,
             );
           },
-          'listenOn': (visitor, positionalArgs, namedArgs) {
+          'listenOn': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! ServerSocket) {
               throw RuntimeError(
@@ -376,7 +376,7 @@ class HttpServerIo {
           },
         },
         methods: {
-          'listen': (visitor, target, positionalArgs, namedArgs) {
+          'listen': (visitor, target, positionalArgs, namedArgs, _) {
             final onData = positionalArgs[0] as InterpretedFunction?;
             final onError = namedArgs['onError'] as InterpretedFunction?;
             final onDone = namedArgs['onDone'] as InterpretedFunction?;
@@ -396,11 +396,11 @@ class HttpServerIo {
               cancelOnError: cancelOnError,
             );
           },
-          'close': (visitor, target, positionalArgs, namedArgs) =>
+          'close': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as HttpServer).close(
                 force: namedArgs['force'] as bool? ?? false,
               ),
-          'connectionsInfo': (visitor, target, positionalArgs, namedArgs) =>
+          'connectionsInfo': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as HttpServer).connectionsInfo(),
         },
         getters: {
@@ -443,17 +443,17 @@ class HttpClientRequestIo {
         typeParameterCount: 0,
         constructors: {},
         methods: {
-          'write': (visitor, target, positionalArgs, namedArgs) {
+          'write': (visitor, target, positionalArgs, namedArgs, _) {
             (target as HttpClientRequest).write(positionalArgs[0]);
             return null;
           },
-          'writeln': (visitor, target, positionalArgs, namedArgs) {
+          'writeln': (visitor, target, positionalArgs, namedArgs, _) {
             (target as HttpClientRequest).writeln(
               positionalArgs.isNotEmpty ? positionalArgs[0] : '',
             );
             return null;
           },
-          'writeAll': (visitor, target, positionalArgs, namedArgs) {
+          'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! Iterable) {
               throw RuntimeError('writeAll requires an Iterable argument.');
             }
@@ -463,14 +463,14 @@ class HttpClientRequestIo {
             );
             return null;
           },
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
               throw RuntimeError('add requires a List<int> argument.');
             }
             (target as HttpClientRequest).add(positionalArgs[0] as List<int>);
             return null;
           },
-          'addStream': (visitor, target, positionalArgs, namedArgs) {
+          'addStream': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<List<int>>) {
               throw RuntimeError(
@@ -480,11 +480,11 @@ class HttpClientRequestIo {
               positionalArgs[0] as Stream<List<int>>,
             );
           },
-          'flush': (visitor, target, positionalArgs, namedArgs) =>
+          'flush': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as HttpClientRequest).flush(),
-          'close': (visitor, target, positionalArgs, namedArgs) =>
+          'close': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as HttpClientRequest).close(),
-          'addError': (visitor, target, positionalArgs, namedArgs) {
+          'addError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError(
                   'addError requires at least one argument (error).');
@@ -497,7 +497,7 @@ class HttpClientRequestIo {
             );
             return null;
           },
-          'abort': (visitor, target, positionalArgs, namedArgs) {
+          'abort': (visitor, target, positionalArgs, namedArgs, _) {
             (target as HttpClientRequest).abort(
               positionalArgs.isNotEmpty ? positionalArgs[0] : null,
               positionalArgs.length > 1
@@ -564,7 +564,7 @@ class HttpClientResponseIo {
         typeParameterCount: 0,
         constructors: {},
         methods: {
-          'listen': (visitor, target, positionalArgs, namedArgs) {
+          'listen': (visitor, target, positionalArgs, namedArgs, _) {
             final onData = positionalArgs[0] as InterpretedFunction?;
             final onError = namedArgs['onError'] as InterpretedFunction?;
             final onDone = namedArgs['onDone'] as InterpretedFunction?;
@@ -584,12 +584,12 @@ class HttpClientResponseIo {
               cancelOnError: cancelOnError,
             );
           },
-          'transform': (visitor, target, positionalArgs, namedArgs) {
+          'transform': (visitor, target, positionalArgs, namedArgs, _) {
             // Implementation for transform would be complex, placeholder
             throw RuntimeError(
                 'transform not yet implemented in interpreted environment');
           },
-          'redirect': (visitor, target, positionalArgs, namedArgs) {
+          'redirect': (visitor, target, positionalArgs, namedArgs, _) {
             final method =
                 positionalArgs.isNotEmpty ? positionalArgs[0] as String? : null;
             final url =
@@ -598,7 +598,7 @@ class HttpClientResponseIo {
             return (target as HttpClientResponse)
                 .redirect(method, url, followLoops);
           },
-          'detachSocket': (visitor, target, positionalArgs, namedArgs) =>
+          'detachSocket': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as HttpClientResponse).detachSocket(),
         },
         getters: {
@@ -657,7 +657,7 @@ class HttpHeadersIo {
           'userAgentHeader': (visitor) => HttpHeaders.userAgentHeader,
         },
         methods: {
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2) {
               throw RuntimeError('add requires name and value arguments.');
             }
@@ -669,7 +669,7 @@ class HttpHeadersIo {
             );
             return null;
           },
-          'set': (visitor, target, positionalArgs, namedArgs) {
+          'set': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2) {
               throw RuntimeError('set requires name and value arguments.');
             }
@@ -681,7 +681,7 @@ class HttpHeadersIo {
             );
             return null;
           },
-          'remove': (visitor, target, positionalArgs, namedArgs) {
+          'remove': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2) {
               throw RuntimeError('remove requires name and value arguments.');
             }
@@ -691,20 +691,20 @@ class HttpHeadersIo {
             );
             return null;
           },
-          'removeAll': (visitor, target, positionalArgs, namedArgs) {
+          'removeAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError('removeAll requires name argument.');
             }
             (target as HttpHeaders).removeAll(positionalArgs[0] as String);
             return null;
           },
-          'value': (visitor, target, positionalArgs, namedArgs) {
+          'value': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError('value requires name argument.');
             }
             return (target as HttpHeaders).value(positionalArgs[0] as String);
           },
-          'forEach': (visitor, target, positionalArgs, namedArgs) {
+          'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
               throw RuntimeError('forEach requires a function argument.');
@@ -715,14 +715,14 @@ class HttpHeadersIo {
             });
             return null;
           },
-          'noFolding': (visitor, target, positionalArgs, namedArgs) {
+          'noFolding': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError('noFolding requires name argument.');
             }
             (target as HttpHeaders).noFolding(positionalArgs[0] as String);
             return null;
           },
-          'clear': (visitor, target, positionalArgs, namedArgs) {
+          'clear': (visitor, target, positionalArgs, namedArgs, _) {
             (target as HttpHeaders).clear();
             return null;
           },
@@ -807,7 +807,7 @@ class ContentTypeIo {
           },
         },
         staticMethods: {
-          'parse': (visitor, positionalArgs, namedArgs) {
+          'parse': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'ContentType.parse requires a String argument.');
@@ -831,7 +831,7 @@ class ContentTypeIo {
           'parameters': (visitor, target) => (target as ContentType).parameters,
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as ContentType).toString(),
         },
       );
@@ -855,7 +855,7 @@ class CookieIo {
           },
         },
         staticMethods: {
-          'fromSetCookieValue': (visitor, positionalArgs, namedArgs) {
+          'fromSetCookieValue': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'Cookie.fromSetCookieValue requires a String argument.');
@@ -913,7 +913,7 @@ class CookieIo {
           },
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Cookie).toString(),
         },
       );
@@ -935,7 +935,7 @@ class HeaderValueIo {
           },
         },
         staticMethods: {
-          'parse': (visitor, positionalArgs, namedArgs) {
+          'parse': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'HeaderValue.parse requires a String argument.');
@@ -955,7 +955,7 @@ class HeaderValueIo {
           'parameters': (visitor, target) => (target as HeaderValue).parameters,
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as HeaderValue).toString(),
         },
       );

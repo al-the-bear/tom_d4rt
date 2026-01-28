@@ -13,16 +13,16 @@ class Latin1CodecConvert {
           },
         },
         methods: {
-          'encode': (visitor, target, positionalArgs, namedArgs) {
+          'encode': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Latin1Codec).encode(positionalArgs[0] as String);
           },
-          'decode': (visitor, target, positionalArgs, namedArgs) {
+          'decode': (visitor, target, positionalArgs, namedArgs, _) {
             final allowInvalid = namedArgs.get<bool?>('allowInvalid');
             return (target as Latin1Codec).decode(
                 positionalArgs[0] as List<int>,
                 allowInvalid: allowInvalid);
           },
-          'fuse': (visitor, target, positionalArgs, namedArgs) {
+          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Codec<List<int>, dynamic>) {
               throw RuntimeError(
@@ -56,12 +56,12 @@ class Latin1EncoderConvert {
           },
         },
         methods: {
-          'convert': (visitor, target, positionalArgs, namedArgs) {
+          'convert': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Latin1Encoder)
                 .convert(positionalArgs[0] as String);
           },
           'startChunkedConversion':
-              (visitor, target, positionalArgs, namedArgs) {
+              (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<List<int>>) {
               throw RuntimeError(
@@ -70,7 +70,7 @@ class Latin1EncoderConvert {
             return (target as Latin1Encoder)
                 .startChunkedConversion(positionalArgs[0] as Sink<List<int>>);
           },
-          'bind': (visitor, target, positionalArgs, namedArgs) {
+          'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<String>) {
               throw RuntimeError('bind requires a Stream<String> argument.');
@@ -78,7 +78,7 @@ class Latin1EncoderConvert {
             return (target as Latin1Encoder)
                 .bind(positionalArgs[0] as Stream<String>);
           },
-          'fuse': (visitor, target, positionalArgs, namedArgs) {
+          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<List<int>, dynamic>) {
               throw RuntimeError(
@@ -87,7 +87,7 @@ class Latin1EncoderConvert {
             return (target as Latin1Encoder)
                 .fuse(positionalArgs[0] as Converter<List<int>, dynamic>);
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Latin1Encoder).cast<String, List<int>>();
           },
         },
@@ -107,12 +107,12 @@ class Latin1DecoderConvert {
           },
         },
         methods: {
-          'convert': (visitor, target, positionalArgs, namedArgs) {
+          'convert': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Latin1Decoder)
                 .convert(positionalArgs[0] as List<int>);
           },
           'startChunkedConversion':
-              (visitor, target, positionalArgs, namedArgs) {
+              (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<String>) {
               throw RuntimeError(
@@ -121,7 +121,7 @@ class Latin1DecoderConvert {
             return (target as Latin1Decoder)
                 .startChunkedConversion(positionalArgs[0] as Sink<String>);
           },
-          'bind': (visitor, target, positionalArgs, namedArgs) {
+          'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<List<int>>) {
               throw RuntimeError('bind requires a Stream<List<int>> argument.');
@@ -129,7 +129,7 @@ class Latin1DecoderConvert {
             return (target as Latin1Decoder)
                 .bind(positionalArgs[0] as Stream<List<int>>);
           },
-          'fuse': (visitor, target, positionalArgs, namedArgs) {
+          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<String, dynamic>) {
               throw RuntimeError(
@@ -138,7 +138,7 @@ class Latin1DecoderConvert {
             return (target as Latin1Decoder)
                 .fuse(positionalArgs[0] as Converter<String, dynamic>);
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Latin1Decoder).cast<List<int>, String>();
           },
         },

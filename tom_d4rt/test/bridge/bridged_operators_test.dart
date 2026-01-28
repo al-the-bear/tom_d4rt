@@ -103,33 +103,33 @@ void main() {
         },
         methods: {
           // Arithmetic operators
-          '+': (visitor, target, positionalArgs, namedArgs) {
+          '+': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             final v = target as Vector2;
             final other = positionalArgs[0] as Vector2;
             return v + other;
           },
-          '-': (visitor, target, positionalArgs, namedArgs) {
+          '-': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             final v = target as Vector2;
             final other = positionalArgs[0] as Vector2;
             return v - other;
           },
-          '*': (visitor, target, positionalArgs, namedArgs) {
+          '*': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             final v = target as Vector2;
             final scalar = positionalArgs[0] as num;
             return v * scalar;
           },
-          '/': (visitor, target, positionalArgs, namedArgs) {
+          '/': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             final v = target as Vector2;
             final scalar = positionalArgs[0] as num;
             return v / scalar;
           },
           // Index operator
-          '[]': (visitor, target, positionalArgs, namedArgs) {
+          '[]': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             final v = target as Vector2;
             final index = positionalArgs[0] as int;
             return v[index];
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             return (target as Vector2).toString();
           },
         },
@@ -148,32 +148,32 @@ void main() {
         },
         methods: {
           // Bitwise operators
-          '&': (visitor, target, positionalArgs, namedArgs) {
+          '&': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             final b = target as BitMask;
             final other = positionalArgs[0] as BitMask;
             return b & other;
           },
-          '|': (visitor, target, positionalArgs, namedArgs) {
+          '|': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             final b = target as BitMask;
             final other = positionalArgs[0] as BitMask;
             return b | other;
           },
-          '^': (visitor, target, positionalArgs, namedArgs) {
+          '^': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             final b = target as BitMask;
             final other = positionalArgs[0] as BitMask;
             return b ^ other;
           },
-          '<<': (visitor, target, positionalArgs, namedArgs) {
+          '<<': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             final b = target as BitMask;
             final shift = positionalArgs[0] as int;
             return b << shift;
           },
-          '>>': (visitor, target, positionalArgs, namedArgs) {
+          '>>': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             final b = target as BitMask;
             final shift = positionalArgs[0] as int;
             return b >> shift;
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             return (target as BitMask).toString();
           },
         },
@@ -192,27 +192,27 @@ void main() {
         },
         methods: {
           // Comparison operators
-          '<': (visitor, target, positionalArgs, namedArgs) {
+          '<': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             final c = target as ComparableValue;
             final other = positionalArgs[0] as ComparableValue;
             return c < other;
           },
-          '>': (visitor, target, positionalArgs, namedArgs) {
+          '>': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             final c = target as ComparableValue;
             final other = positionalArgs[0] as ComparableValue;
             return c > other;
           },
-          '<=': (visitor, target, positionalArgs, namedArgs) {
+          '<=': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             final c = target as ComparableValue;
             final other = positionalArgs[0] as ComparableValue;
             return c <= other;
           },
-          '>=': (visitor, target, positionalArgs, namedArgs) {
+          '>=': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             final c = target as ComparableValue;
             final other = positionalArgs[0] as ComparableValue;
             return c >= other;
           },
-          '==': (visitor, target, positionalArgs, namedArgs) {
+          '==': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             final c = target as ComparableValue;
             final other = positionalArgs[0];
             if (other is ComparableValue) {
@@ -220,7 +220,7 @@ void main() {
             }
             return false;
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             return (target as ComparableValue).toString();
           },
         },

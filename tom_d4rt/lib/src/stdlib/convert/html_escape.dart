@@ -15,7 +15,7 @@ class HtmlEscapeConvert {
           },
         },
         methods: {
-          'convert': (visitor, target, positionalArgs, namedArgs) {
+          'convert': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'HtmlEscape.convert requires a String argument.');
@@ -23,7 +23,7 @@ class HtmlEscapeConvert {
             return (target as HtmlEscape).convert(positionalArgs[0] as String);
           },
           'startChunkedConversion':
-              (visitor, target, positionalArgs, namedArgs) {
+              (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<String>) {
               throw RuntimeError(
@@ -32,7 +32,7 @@ class HtmlEscapeConvert {
             return (target as HtmlEscape)
                 .startChunkedConversion(positionalArgs[0] as Sink<String>);
           },
-          'bind': (visitor, target, positionalArgs, namedArgs) {
+          'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<String>) {
               throw RuntimeError('bind requires a Stream<String> argument.');
@@ -40,7 +40,7 @@ class HtmlEscapeConvert {
             return (target as HtmlEscape)
                 .bind(positionalArgs[0] as Stream<String>);
           },
-          'fuse': (visitor, target, positionalArgs, namedArgs) {
+          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<String, dynamic>) {
               throw RuntimeError(
@@ -49,7 +49,7 @@ class HtmlEscapeConvert {
             return (target as HtmlEscape)
                 .fuse(positionalArgs[0] as Converter<String, dynamic>);
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as HtmlEscape).cast<String, String>();
           },
         },

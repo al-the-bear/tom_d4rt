@@ -42,24 +42,24 @@ class RandomAccessFileIo {
         name: 'RandomAccessFile',
         typeParameterCount: 0,
         methods: {
-          'close': (visitor, target, positionalArgs, namedArgs) =>
+          'close': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as RandomAccessFile).close(),
-          'closeSync': (visitor, target, positionalArgs, namedArgs) {
+          'closeSync': (visitor, target, positionalArgs, namedArgs, _) {
             (target as RandomAccessFile).closeSync();
             return null;
           },
-          'readByte': (visitor, target, positionalArgs, namedArgs) =>
+          'readByte': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as RandomAccessFile).readByte(),
-          'readByteSync': (visitor, target, positionalArgs, namedArgs) =>
+          'readByteSync': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as RandomAccessFile).readByteSync(),
-          'read': (visitor, target, positionalArgs, namedArgs) {
+          'read': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
               throw RuntimeError(
                   'RandomAccessFile.read requires one int argument (count).');
             }
             return (target as RandomAccessFile).read(positionalArgs[0] as int);
           },
-          'readSync': (visitor, target, positionalArgs, namedArgs) {
+          'readSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
               throw RuntimeError(
                   'RandomAccessFile.readSync requires one int argument (count).');
@@ -67,7 +67,7 @@ class RandomAccessFileIo {
             return (target as RandomAccessFile)
                 .readSync(positionalArgs[0] as int);
           },
-          'readInto': (visitor, target, positionalArgs, namedArgs) {
+          'readInto': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! List) {
               throw RuntimeError(
                   'RandomAccessFile.readInto requires a List<int> buffer.');
@@ -79,7 +79,7 @@ class RandomAccessFileIo {
                 positionalArgs.length > 2 ? positionalArgs[2] as int? : null;
             return (target as RandomAccessFile).readInto(buffer, start, end);
           },
-          'readIntoSync': (visitor, target, positionalArgs, namedArgs) {
+          'readIntoSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! List) {
               throw RuntimeError(
                   'RandomAccessFile.readIntoSync requires a List<int> buffer.');
@@ -92,7 +92,7 @@ class RandomAccessFileIo {
             return (target as RandomAccessFile)
                 .readIntoSync(buffer, start, end);
           },
-          'writeByte': (visitor, target, positionalArgs, namedArgs) {
+          'writeByte': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
               throw RuntimeError(
                   'RandomAccessFile.writeByte requires one int argument (value).');
@@ -100,7 +100,7 @@ class RandomAccessFileIo {
             return (target as RandomAccessFile)
                 .writeByte(positionalArgs[0] as int);
           },
-          'writeByteSync': (visitor, target, positionalArgs, namedArgs) {
+          'writeByteSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
               throw RuntimeError(
                   'RandomAccessFile.writeByteSync requires one int argument (value).');
@@ -108,7 +108,7 @@ class RandomAccessFileIo {
             return (target as RandomAccessFile)
                 .writeByteSync(positionalArgs[0] as int);
           },
-          'writeFrom': (visitor, target, positionalArgs, namedArgs) {
+          'writeFrom': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! List) {
               throw RuntimeError(
                   'RandomAccessFile.writeFrom requires a List<int> buffer.');
@@ -120,7 +120,7 @@ class RandomAccessFileIo {
                 positionalArgs.length > 2 ? positionalArgs[2] as int? : null;
             return (target as RandomAccessFile).writeFrom(buffer, start, end);
           },
-          'writeFromSync': (visitor, target, positionalArgs, namedArgs) {
+          'writeFromSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! List) {
               throw RuntimeError(
                   'RandomAccessFile.writeFromSync requires a List<int> buffer.');
@@ -133,7 +133,7 @@ class RandomAccessFileIo {
             (target as RandomAccessFile).writeFromSync(buffer, start, end);
             return null;
           },
-          'writeString': (visitor, target, positionalArgs, namedArgs) {
+          'writeString': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'RandomAccessFile.writeString requires one String argument.');
@@ -142,7 +142,7 @@ class RandomAccessFileIo {
             return (target as RandomAccessFile)
                 .writeString(positionalArgs[0] as String, encoding: encoding);
           },
-          'writeStringSync': (visitor, target, positionalArgs, namedArgs) {
+          'writeStringSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'RandomAccessFile.writeStringSync requires one String argument.');
@@ -153,11 +153,11 @@ class RandomAccessFileIo {
                 encoding: encoding);
             return null;
           },
-          'position': (visitor, target, positionalArgs, namedArgs) =>
+          'position': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as RandomAccessFile).position(),
-          'positionSync': (visitor, target, positionalArgs, namedArgs) =>
+          'positionSync': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as RandomAccessFile).positionSync(),
-          'setPosition': (visitor, target, positionalArgs, namedArgs) {
+          'setPosition': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
               throw RuntimeError(
                   'RandomAccessFile.setPosition requires one int argument (position).');
@@ -165,7 +165,7 @@ class RandomAccessFileIo {
             return (target as RandomAccessFile)
                 .setPosition(positionalArgs[0] as int);
           },
-          'setPositionSync': (visitor, target, positionalArgs, namedArgs) {
+          'setPositionSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
               throw RuntimeError(
                   'RandomAccessFile.setPositionSync requires one int argument (position).');
@@ -174,7 +174,7 @@ class RandomAccessFileIo {
                 .setPositionSync(positionalArgs[0] as int);
             return null;
           },
-          'truncate': (visitor, target, positionalArgs, namedArgs) {
+          'truncate': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
               throw RuntimeError(
                   'RandomAccessFile.truncate requires one int argument (length).');
@@ -182,7 +182,7 @@ class RandomAccessFileIo {
             return (target as RandomAccessFile)
                 .truncate(positionalArgs[0] as int);
           },
-          'truncateSync': (visitor, target, positionalArgs, namedArgs) {
+          'truncateSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
               throw RuntimeError(
                   'RandomAccessFile.truncateSync requires one int argument (length).');
@@ -190,41 +190,41 @@ class RandomAccessFileIo {
             (target as RandomAccessFile).truncateSync(positionalArgs[0] as int);
             return null;
           },
-          'length': (visitor, target, positionalArgs, namedArgs) =>
+          'length': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as RandomAccessFile).length(),
-          'lengthSync': (visitor, target, positionalArgs, namedArgs) =>
+          'lengthSync': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as RandomAccessFile).lengthSync(),
-          'flush': (visitor, target, positionalArgs, namedArgs) =>
+          'flush': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as RandomAccessFile).flush(),
-          'flushSync': (visitor, target, positionalArgs, namedArgs) {
+          'flushSync': (visitor, target, positionalArgs, namedArgs, _) {
             (target as RandomAccessFile).flushSync();
             return null;
           },
-          'lock': (visitor, target, positionalArgs, namedArgs) {
+          'lock': (visitor, target, positionalArgs, namedArgs, _) {
             final mode = namedArgs['mode'] as FileLock? ?? FileLock.exclusive;
             final start = namedArgs['start'] as int? ?? 0;
             final end = namedArgs['end'] as int? ?? -1;
             return (target as RandomAccessFile).lock(mode, start, end);
           },
-          'lockSync': (visitor, target, positionalArgs, namedArgs) {
+          'lockSync': (visitor, target, positionalArgs, namedArgs, _) {
             final mode = namedArgs['mode'] as FileLock? ?? FileLock.exclusive;
             final start = namedArgs['start'] as int? ?? 0;
             final end = namedArgs['end'] as int? ?? -1;
             (target as RandomAccessFile).lockSync(mode, start, end);
             return null;
           },
-          'unlock': (visitor, target, positionalArgs, namedArgs) {
+          'unlock': (visitor, target, positionalArgs, namedArgs, _) {
             final start = namedArgs['start'] as int? ?? 0;
             final end = namedArgs['end'] as int? ?? -1;
             return (target as RandomAccessFile).unlock(start, end);
           },
-          'unlockSync': (visitor, target, positionalArgs, namedArgs) {
+          'unlockSync': (visitor, target, positionalArgs, namedArgs, _) {
             final start = namedArgs['start'] as int? ?? 0;
             final end = namedArgs['end'] as int? ?? -1;
             (target as RandomAccessFile).unlockSync(start, end);
             return null;
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as RandomAccessFile).toString(),
         },
         getters: {
@@ -254,7 +254,7 @@ class FileSystemExceptionIo {
           },
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as FileSystemException).toString(),
         },
         getters: {
@@ -288,7 +288,7 @@ class PathAccessExceptionIo {
           },
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as PathAccessException).toString(),
         },
         getters: {
@@ -322,7 +322,7 @@ class PathExistsExceptionIo {
           },
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as PathExistsException).toString(),
         },
         getters: {
@@ -356,7 +356,7 @@ class PathNotFoundExceptionIo {
           },
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as PathNotFoundException).toString(),
         },
         getters: {
@@ -376,8 +376,8 @@ class PipeIo {
         name: 'Pipe',
         typeParameterCount: 0,
         staticMethods: {
-          'create': (visitor, positionalArgs, namedArgs) => Pipe.create(),
-          'createSync': (visitor, positionalArgs, namedArgs) =>
+          'create': (visitor, positionalArgs, namedArgs, _) => Pipe.create(),
+          'createSync': (visitor, positionalArgs, namedArgs, _) =>
               Pipe.createSync(),
         },
         getters: {
@@ -402,14 +402,14 @@ class FileIo {
           },
         },
         staticMethods: {
-          'fromRawPath': (visitor, positionalArgs, namedArgs) {
+          'fromRawPath': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uint8List) {
               throw RuntimeError(
                   'File.fromRawPath requires one Uint8List argument.');
             }
             return File.fromRawPath(positionalArgs[0] as Uint8List);
           },
-          'fromUri': (visitor, positionalArgs, namedArgs) {
+          'fromUri': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
               throw RuntimeError('File.fromUri requires one Uri argument.');
             }
@@ -417,27 +417,27 @@ class FileIo {
           },
         },
         methods: {
-          'exists': (visitor, target, positionalArgs, namedArgs) =>
+          'exists': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).exists(),
-          'existsSync': (visitor, target, positionalArgs, namedArgs) =>
+          'existsSync': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).existsSync(),
-          'readAsString': (visitor, target, positionalArgs, namedArgs) =>
+          'readAsString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).readAsString(
                   encoding: namedArgs['encoding'] as Encoding? ?? utf8),
-          'readAsStringSync': (visitor, target, positionalArgs, namedArgs) =>
+          'readAsStringSync': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).readAsStringSync(
                   encoding: namedArgs['encoding'] as Encoding? ?? utf8),
-          'readAsBytes': (visitor, target, positionalArgs, namedArgs) =>
+          'readAsBytes': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).readAsBytes(),
-          'readAsBytesSync': (visitor, target, positionalArgs, namedArgs) =>
+          'readAsBytesSync': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).readAsBytesSync(),
-          'readAsLines': (visitor, target, positionalArgs, namedArgs) =>
+          'readAsLines': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).readAsLines(
                   encoding: namedArgs['encoding'] as Encoding? ?? utf8),
-          'readAsLinesSync': (visitor, target, positionalArgs, namedArgs) =>
+          'readAsLinesSync': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).readAsLinesSync(
                   encoding: namedArgs['encoding'] as Encoding? ?? utf8),
-          'writeAsString': (visitor, target, positionalArgs, namedArgs) {
+          'writeAsString': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
@@ -450,7 +450,7 @@ class FileIo {
               flush: namedArgs['flush'] as bool? ?? false,
             );
           },
-          'writeAsStringSync': (visitor, target, positionalArgs, namedArgs) {
+          'writeAsStringSync': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
@@ -464,7 +464,7 @@ class FileIo {
             );
             return null;
           },
-          'writeAsBytes': (visitor, target, positionalArgs, namedArgs) {
+          'writeAsBytes': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
               throw RuntimeError(
@@ -476,7 +476,7 @@ class FileIo {
               flush: namedArgs['flush'] as bool? ?? false,
             );
           },
-          'writeAsBytesSync': (visitor, target, positionalArgs, namedArgs) {
+          'writeAsBytesSync': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
               throw RuntimeError(
@@ -489,15 +489,15 @@ class FileIo {
             );
             return null;
           },
-          'delete': (visitor, target, positionalArgs, namedArgs) =>
+          'delete': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File)
                   .delete(recursive: namedArgs['recursive'] as bool? ?? false),
-          'deleteSync': (visitor, target, positionalArgs, namedArgs) {
+          'deleteSync': (visitor, target, positionalArgs, namedArgs, _) {
             (target as File).deleteSync(
                 recursive: namedArgs['recursive'] as bool? ?? false);
             return null;
           },
-          'rename': (visitor, target, positionalArgs, namedArgs) {
+          'rename': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
@@ -505,7 +505,7 @@ class FileIo {
             }
             return file.rename(positionalArgs[0] as String);
           },
-          'renameSync': (visitor, target, positionalArgs, namedArgs) {
+          'renameSync': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
@@ -513,7 +513,7 @@ class FileIo {
             }
             return file.renameSync(positionalArgs[0] as String);
           },
-          'copy': (visitor, target, positionalArgs, namedArgs) {
+          'copy': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
@@ -521,7 +521,7 @@ class FileIo {
             }
             return file.copy(positionalArgs[0] as String);
           },
-          'copySync': (visitor, target, positionalArgs, namedArgs) {
+          'copySync': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
@@ -529,15 +529,15 @@ class FileIo {
             }
             return file.copySync(positionalArgs[0] as String);
           },
-          'length': (visitor, target, positionalArgs, namedArgs) =>
+          'length': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).length(),
-          'lengthSync': (visitor, target, positionalArgs, namedArgs) =>
+          'lengthSync': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).lengthSync(),
-          'lastAccessed': (visitor, target, positionalArgs, namedArgs) =>
+          'lastAccessed': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).lastAccessed(),
-          'lastAccessedSync': (visitor, target, positionalArgs, namedArgs) =>
+          'lastAccessedSync': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).lastAccessedSync(),
-          'setLastAccessed': (visitor, target, positionalArgs, namedArgs) {
+          'setLastAccessed': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! DateTime) {
               throw RuntimeError(
@@ -545,7 +545,7 @@ class FileIo {
             }
             return file.setLastAccessed(positionalArgs[0] as DateTime);
           },
-          'setLastAccessedSync': (visitor, target, positionalArgs, namedArgs) {
+          'setLastAccessedSync': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! DateTime) {
               throw RuntimeError(
@@ -554,11 +554,11 @@ class FileIo {
             file.setLastAccessedSync(positionalArgs[0] as DateTime);
             return null;
           },
-          'lastModified': (visitor, target, positionalArgs, namedArgs) =>
+          'lastModified': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).lastModified(),
-          'lastModifiedSync': (visitor, target, positionalArgs, namedArgs) =>
+          'lastModifiedSync': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).lastModifiedSync(),
-          'setLastModified': (visitor, target, positionalArgs, namedArgs) {
+          'setLastModified': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! DateTime) {
               throw RuntimeError(
@@ -566,7 +566,7 @@ class FileIo {
             }
             return file.setLastModified(positionalArgs[0] as DateTime);
           },
-          'setLastModifiedSync': (visitor, target, positionalArgs, namedArgs) {
+          'setLastModifiedSync': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! DateTime) {
               throw RuntimeError(
@@ -575,46 +575,46 @@ class FileIo {
             file.setLastModifiedSync(positionalArgs[0] as DateTime);
             return null;
           },
-          'open': (visitor, target, positionalArgs, namedArgs) =>
+          'open': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File)
                   .open(mode: namedArgs['mode'] as FileMode? ?? FileMode.read),
-          'openSync': (visitor, target, positionalArgs, namedArgs) => (target
+          'openSync': (visitor, target, positionalArgs, namedArgs, _) => (target
                   as File)
               .openSync(mode: namedArgs['mode'] as FileMode? ?? FileMode.read),
-          'openRead': (visitor, target, positionalArgs, namedArgs) =>
+          'openRead': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).openRead(
                   positionalArgs.isNotEmpty ? positionalArgs[0] as int? : null,
                   positionalArgs.length > 1 ? positionalArgs[1] as int? : null),
-          'openWrite': (visitor, target, positionalArgs, namedArgs) =>
+          'openWrite': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).openWrite(
                 mode: namedArgs['mode'] as FileMode? ?? FileMode.write,
                 encoding: namedArgs['encoding'] as Encoding? ?? utf8,
               ),
-          'stat': (visitor, target, positionalArgs, namedArgs) =>
+          'stat': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).stat(),
-          'statSync': (visitor, target, positionalArgs, namedArgs) =>
+          'statSync': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).statSync(),
           'resolveSymbolicLinks':
-              (visitor, target, positionalArgs, namedArgs) =>
+              (visitor, target, positionalArgs, namedArgs, _) =>
                   (target as File).resolveSymbolicLinks(),
           'resolveSymbolicLinksSync':
-              (visitor, target, positionalArgs, namedArgs) =>
+              (visitor, target, positionalArgs, namedArgs, _) =>
                   (target as File).resolveSymbolicLinksSync(),
-          'create': (visitor, target, positionalArgs, namedArgs) =>
+          'create': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).create(
                   recursive: namedArgs['recursive'] as bool? ?? false,
                   exclusive: namedArgs['exclusive'] as bool? ?? false),
-          'createSync': (visitor, target, positionalArgs, namedArgs) {
+          'createSync': (visitor, target, positionalArgs, namedArgs, _) {
             (target as File).createSync(
                 recursive: namedArgs['recursive'] as bool? ?? false,
                 exclusive: namedArgs['exclusive'] as bool? ?? false);
             return null;
           },
-          'watch': (visitor, target, positionalArgs, namedArgs) =>
+          'watch': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).watch(
                   events: namedArgs['events'] as int? ?? FileSystemEvent.all,
                   recursive: namedArgs['recursive'] as bool? ?? false),
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).toString(),
         },
         getters: {

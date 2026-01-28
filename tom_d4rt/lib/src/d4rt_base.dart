@@ -898,7 +898,7 @@ class D4rt {
           if (methodAdapter != null) {
             return _tryFunction(() {
               return methodAdapter.call(_visitor!, nativeSuperObject,
-                  interpreterPositionalArgs, interpreterNamedArgs);
+                  interpreterPositionalArgs, interpreterNamedArgs, null);
             }, "Error invoking bridged method '$name' on superclass '${bridgedSuperclass.name}'");
           }
 
@@ -925,7 +925,7 @@ class D4rt {
         if (staticMethodAdapter != null) {
           return _tryFunction(() {
             return staticMethodAdapter.call(
-                _visitor!, interpreterPositionalArgs, interpreterNamedArgs);
+                _visitor!, interpreterPositionalArgs, interpreterNamedArgs, null);
           }, "Error invoking bridged static method '$name' on superclass '${bridgedSuperclass.name}'");
         }
 

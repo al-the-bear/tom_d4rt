@@ -360,7 +360,7 @@ void _registerAllMixins(D4rt d4rt) {
       name: 'EventMixin',
       canBeUsedAsMixin: true,
       methods: {
-        'addEventListener': (visitor, instance, positionalArgs, namedArgs) {
+        'addEventListener': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.length < 2) {
             throw ArgumentError(
                 'addEventListener requires eventType and callback');
@@ -373,7 +373,7 @@ void _registerAllMixins(D4rt d4rt) {
           listeners.putIfAbsent(eventType, () => []).add(() => null);
           return null;
         },
-        'emit': (visitor, instance, positionalArgs, namedArgs) {
+        'emit': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.isEmpty) {
             throw ArgumentError('emit requires eventType');
           }
@@ -388,7 +388,7 @@ void _registerAllMixins(D4rt d4rt) {
           }
           return null;
         },
-        'getListenerCount': (visitor, instance, positionalArgs, namedArgs) {
+        'getListenerCount': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.isEmpty) {
             throw ArgumentError('getListenerCount requires eventType');
           }
@@ -412,7 +412,7 @@ void _registerAllMixins(D4rt d4rt) {
       name: 'ValidationMixin',
       canBeUsedAsMixin: true,
       methods: {
-        'validateEmail': (visitor, instance, positionalArgs, namedArgs) {
+        'validateEmail': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.isEmpty) {
             throw ArgumentError('validateEmail requires email');
           }
@@ -420,7 +420,7 @@ void _registerAllMixins(D4rt d4rt) {
           final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
           return emailRegex.hasMatch(email);
         },
-        'validatePhone': (visitor, instance, positionalArgs, namedArgs) {
+        'validatePhone': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.isEmpty) {
             throw ArgumentError('validatePhone requires phone');
           }
@@ -429,7 +429,7 @@ void _registerAllMixins(D4rt d4rt) {
           return phoneRegex
               .hasMatch(phone.replaceAll(RegExp(r'[\s\-\(\)]'), ''));
         },
-        'addValidationError': (visitor, instance, positionalArgs, namedArgs) {
+        'addValidationError': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.length < 2) {
             throw ArgumentError('addValidationError requires field and error');
           }
@@ -443,7 +443,7 @@ void _registerAllMixins(D4rt d4rt) {
           return null;
         },
         'clearValidationErrors':
-            (visitor, instance, positionalArgs, namedArgs) {
+            (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           final field =
               positionalArgs.isNotEmpty ? positionalArgs[0]?.toString() : null;
           final state = getInstanceState(instance);
@@ -457,7 +457,7 @@ void _registerAllMixins(D4rt d4rt) {
           }
           return null;
         },
-        'getFirstError': (visitor, instance, positionalArgs, namedArgs) {
+        'getFirstError': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.isEmpty) {
             throw ArgumentError('getFirstError requires field');
           }
@@ -494,7 +494,7 @@ void _registerAllMixins(D4rt d4rt) {
       name: 'CacheMixin',
       canBeUsedAsMixin: true,
       methods: {
-        'setCache': (visitor, instance, positionalArgs, namedArgs) {
+        'setCache': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.length < 2) {
             throw ArgumentError('setCache requires key and value');
           }
@@ -505,7 +505,7 @@ void _registerAllMixins(D4rt d4rt) {
           (state['cache'] as Map<String, dynamic>)[key] = value;
           return null;
         },
-        'getCache': (visitor, instance, positionalArgs, namedArgs) {
+        'getCache': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.isEmpty) {
             throw ArgumentError('getCache requires key');
           }
@@ -514,7 +514,7 @@ void _registerAllMixins(D4rt d4rt) {
           final cache = state['cache'] as Map<String, dynamic>?;
           return cache?[key];
         },
-        'removeCache': (visitor, instance, positionalArgs, namedArgs) {
+        'removeCache': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.isEmpty) {
             throw ArgumentError('removeCache requires key');
           }
@@ -524,7 +524,7 @@ void _registerAllMixins(D4rt d4rt) {
           cache?.remove(key);
           return null;
         },
-        'hasCache': (visitor, instance, positionalArgs, namedArgs) {
+        'hasCache': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.isEmpty) {
             throw ArgumentError('hasCache requires key');
           }
@@ -533,7 +533,7 @@ void _registerAllMixins(D4rt d4rt) {
           final cache = state['cache'] as Map<String, dynamic>?;
           return cache?.containsKey(key) ?? false;
         },
-        'clearCache': (visitor, instance, positionalArgs, namedArgs) {
+        'clearCache': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           final state = getInstanceState(instance);
           final cache = state['cache'] as Map<String, dynamic>?;
           cache?.clear();
@@ -563,7 +563,7 @@ void _registerAllMixins(D4rt d4rt) {
       name: 'MathMixin',
       canBeUsedAsMixin: true,
       methods: {
-        'calculateDistance': (visitor, instance, positionalArgs, namedArgs) {
+        'calculateDistance': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.length < 4) {
             throw ArgumentError('calculateDistance requires x1, y1, x2, y2');
           }
@@ -573,7 +573,7 @@ void _registerAllMixins(D4rt d4rt) {
           final y2 = (positionalArgs[3] as num).toDouble();
           return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
         },
-        'calculateArea': (visitor, instance, positionalArgs, namedArgs) {
+        'calculateArea': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.length < 2) {
             throw ArgumentError('calculateArea requires shape and params');
           }
@@ -607,7 +607,7 @@ void _registerAllMixins(D4rt d4rt) {
               throw ArgumentError('Unknown shape: $shape');
           }
         },
-        'generateFibonacci': (visitor, instance, positionalArgs, namedArgs) {
+        'generateFibonacci': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.isEmpty) {
             throw ArgumentError('generateFibonacci requires count');
           }
@@ -622,7 +622,7 @@ void _registerAllMixins(D4rt d4rt) {
           }
           return result;
         },
-        'isPrime': (visitor, instance, positionalArgs, namedArgs) {
+        'isPrime': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.isEmpty) {
             throw ArgumentError('isPrime requires number');
           }
@@ -636,7 +636,7 @@ void _registerAllMixins(D4rt d4rt) {
           }
           return true;
         },
-        'degreeToRadian': (visitor, instance, positionalArgs, namedArgs) {
+        'degreeToRadian': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.isEmpty) {
             throw ArgumentError('degreeToRadian requires degree');
           }

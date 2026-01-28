@@ -23,10 +23,10 @@ class JsonCodecConvert {
           },
         },
         methods: {
-          'encode': (visitor, target, positionalArgs, namedArgs) {
+          'encode': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as JsonCodec).encode(positionalArgs[0]);
           },
-          'decode': (visitor, target, positionalArgs, namedArgs) {
+          'decode': (visitor, target, positionalArgs, namedArgs, _) {
             final source = positionalArgs[0] as String;
             final reviverArg = namedArgs['reviver'] as InterpretedFunction? ??
                 (positionalArgs.length > 1
@@ -39,7 +39,7 @@ class JsonCodecConvert {
                   : (key, value) => reviverArg.call(visitor, [key, value]),
             );
           },
-          'fuse': (visitor, target, positionalArgs, namedArgs) {
+          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Codec<String, dynamic>) {
               throw RuntimeError(
@@ -75,10 +75,10 @@ class JsonEncoderConvert {
           },
         },
         methods: {
-          'convert': (visitor, target, positionalArgs, namedArgs) {
+          'convert': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as JsonEncoder).convert(positionalArgs[0]);
           },
-          'fuse': (visitor, target, positionalArgs, namedArgs) {
+          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<String, dynamic>) {
               throw RuntimeError(
@@ -88,7 +88,7 @@ class JsonEncoderConvert {
                 .fuse(positionalArgs[0] as Converter<String, dynamic>);
           },
           'startChunkedConversion':
-              (visitor, target, positionalArgs, namedArgs) {
+              (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<String>) {
               throw RuntimeError(
@@ -97,7 +97,7 @@ class JsonEncoderConvert {
             return (target as JsonEncoder)
                 .startChunkedConversion(positionalArgs[0] as Sink<String>);
           },
-          'bind': (visitor, target, positionalArgs, namedArgs) {
+          'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<dynamic>) {
               throw RuntimeError('bind requires a Stream<dynamic> argument.');
@@ -105,7 +105,7 @@ class JsonEncoderConvert {
             return (target as JsonEncoder)
                 .bind(positionalArgs[0] as Stream<dynamic>);
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as JsonEncoder).cast<dynamic, String>();
           },
         },
@@ -131,11 +131,11 @@ class JsonDecoderConvert {
           },
         },
         methods: {
-          'convert': (visitor, target, positionalArgs, namedArgs) {
+          'convert': (visitor, target, positionalArgs, namedArgs, _) {
             final source = positionalArgs[0] as String;
             return (target as JsonDecoder).convert(source);
           },
-          'fuse': (visitor, target, positionalArgs, namedArgs) {
+          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<dynamic, dynamic>) {
               throw RuntimeError(
@@ -145,7 +145,7 @@ class JsonDecoderConvert {
                 .fuse(positionalArgs[0] as Converter<dynamic, dynamic>);
           },
           'startChunkedConversion':
-              (visitor, target, positionalArgs, namedArgs) {
+              (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<dynamic>) {
               throw RuntimeError(
@@ -154,7 +154,7 @@ class JsonDecoderConvert {
             return (target as JsonDecoder)
                 .startChunkedConversion(positionalArgs[0] as Sink<dynamic>);
           },
-          'bind': (visitor, target, positionalArgs, namedArgs) {
+          'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<String>) {
               throw RuntimeError('bind requires a Stream<String> argument.');
@@ -162,7 +162,7 @@ class JsonDecoderConvert {
             return (target as JsonDecoder)
                 .bind(positionalArgs[0] as Stream<String>);
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as JsonDecoder).cast<String, dynamic>();
           },
         },

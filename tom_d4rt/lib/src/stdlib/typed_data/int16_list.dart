@@ -55,7 +55,7 @@ class Int16ListTypedData {
         },
         methods: {
           // Index operators
-          '[]': (visitor, target, positionalArgs, namedArgs) {
+          '[]': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Int16List &&
                 positionalArgs.length == 1 &&
                 positionalArgs[0] is int) {
@@ -63,7 +63,7 @@ class Int16ListTypedData {
             }
             throw RuntimeError("Int16List[index] expects an int index.");
           },
-          '[]=': (visitor, target, positionalArgs, namedArgs) {
+          '[]=': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Int16List &&
                 positionalArgs.length == 2 &&
                 positionalArgs[0] is int &&
@@ -78,19 +78,19 @@ class Int16ListTypedData {
           },
 
           // List methods
-          'sublist': (visitor, target, positionalArgs, namedArgs) {
+          'sublist': (visitor, target, positionalArgs, namedArgs, _) {
             final start =
                 positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
             final end =
                 positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
             return (target as Int16List).sublist(start, end);
           },
-          'getRange': (visitor, target, positionalArgs, namedArgs) {
+          'getRange': (visitor, target, positionalArgs, namedArgs, _) {
             final start = positionalArgs[0] as int;
             final end = positionalArgs[1] as int;
             return (target as Int16List).getRange(start, end);
           },
-          'setRange': (visitor, target, positionalArgs, namedArgs) {
+          'setRange': (visitor, target, positionalArgs, namedArgs, _) {
             final start = positionalArgs[0] as int;
             final end = positionalArgs[1] as int;
             final iterable = positionalArgs[2] as Iterable<int>;
@@ -99,13 +99,13 @@ class Int16ListTypedData {
             (target as Int16List).setRange(start, end, iterable, skipCount);
             return null;
           },
-          'setAll': (visitor, target, positionalArgs, namedArgs) {
+          'setAll': (visitor, target, positionalArgs, namedArgs, _) {
             final at = positionalArgs[0] as int;
             final iterable = positionalArgs[1] as Iterable<int>;
             (target as Int16List).setAll(at, iterable);
             return null;
           },
-          'fillRange': (visitor, target, positionalArgs, namedArgs) {
+          'fillRange': (visitor, target, positionalArgs, namedArgs, _) {
             final start = positionalArgs[0] as int;
             final end = positionalArgs[1] as int;
             final fill =
@@ -115,10 +115,10 @@ class Int16ListTypedData {
           },
 
           // Typed methods
-          'buffer': (visitor, target, positionalArgs, namedArgs) {
+          'buffer': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Int16List).buffer;
           },
-          'asUint8ListView': (visitor, target, positionalArgs, namedArgs) {
+          'asUint8ListView': (visitor, target, positionalArgs, namedArgs, _) {
             final offsetInBytes =
                 positionalArgs.isNotEmpty ? positionalArgs[0] as int? : null;
             final length =
@@ -129,10 +129,10 @@ class Int16ListTypedData {
           },
 
           // Standard methods
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Int16List).toString();
           },
-          '==': (visitor, target, positionalArgs, namedArgs) {
+          '==': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Int16List) == positionalArgs[0];
           },
         },

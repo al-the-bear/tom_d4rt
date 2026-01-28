@@ -18,7 +18,7 @@ class IterableCore {
           '_SyncGeneratorIterable',
         ],
         staticMethods: {
-          'generate': (visitor, positionalArgs, namedArgs) {
+          'generate': (visitor, positionalArgs, namedArgs, _) {
             final count = positionalArgs[0] as int;
             final generator = positionalArgs.length > 1
                 ? positionalArgs[1] as InterpretedFunction?
@@ -32,46 +32,46 @@ class IterableCore {
                         return generator.call(visitor, [index]);
                       });
           },
-          'empty': (visitor, positionalArgs, namedArgs) {
+          'empty': (visitor, positionalArgs, namedArgs, _) {
             return Iterable.empty();
           },
         },
         methods: {
-          'map': (visitor, target, positionalArgs, namedArgs) {
+          'map': (visitor, target, positionalArgs, namedArgs, _) {
             final f = positionalArgs[0] as InterpretedFunction;
             return (target as Iterable).map((element) {
               return f.call(visitor, [element]);
             });
           },
-          'where': (visitor, target, positionalArgs, namedArgs) {
+          'where': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Iterable).where((element) {
               return test.call(visitor, [element]) as bool;
             });
           },
-          'expand': (visitor, target, positionalArgs, namedArgs) {
+          'expand': (visitor, target, positionalArgs, namedArgs, _) {
             final f = positionalArgs[0] as InterpretedFunction;
             return (target as Iterable).expand((element) {
               return f.call(visitor, [element]) as Iterable;
             });
           },
-          'contains': (visitor, target, positionalArgs, namedArgs) {
+          'contains': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Iterable).contains(positionalArgs[0]);
           },
-          'forEach': (visitor, target, positionalArgs, namedArgs) {
+          'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             final action = positionalArgs[0] as InterpretedFunction;
             for (var element in (target as Iterable)) {
               action.call(visitor, [element]);
             }
             return null;
           },
-          'reduce': (visitor, target, positionalArgs, namedArgs) {
+          'reduce': (visitor, target, positionalArgs, namedArgs, _) {
             final combine = positionalArgs[0] as InterpretedFunction;
             return (target as Iterable).reduce((value, element) {
               return combine.call(visitor, [value, element]);
             });
           },
-          'fold': (visitor, target, positionalArgs, namedArgs) {
+          'fold': (visitor, target, positionalArgs, namedArgs, _) {
             final initialValue = positionalArgs[0];
             final combine = positionalArgs[1] as InterpretedFunction;
             return (target as Iterable).fold(initialValue,
@@ -79,49 +79,49 @@ class IterableCore {
               return combine.call(visitor, [previousValue, element]);
             });
           },
-          'every': (visitor, target, positionalArgs, namedArgs) {
+          'every': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Iterable).every((element) {
               return test.call(visitor, [element]) as bool;
             });
           },
-          'join': (visitor, target, positionalArgs, namedArgs) {
+          'join': (visitor, target, positionalArgs, namedArgs, _) {
             final separator =
                 positionalArgs.isNotEmpty ? positionalArgs[0] as String : '';
             return (target as Iterable).join(separator);
           },
-          'any': (visitor, target, positionalArgs, namedArgs) {
+          'any': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Iterable).any((element) {
               return test.call(visitor, [element]) as bool;
             });
           },
-          'toList': (visitor, target, positionalArgs, namedArgs) {
+          'toList': (visitor, target, positionalArgs, namedArgs, _) {
             final growable = namedArgs['growable'] as bool? ?? true;
             return (target as Iterable).toList(growable: growable);
           },
-          'toSet': (visitor, target, positionalArgs, namedArgs) {
+          'toSet': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Iterable).toSet();
           },
-          'take': (visitor, target, positionalArgs, namedArgs) {
+          'take': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Iterable).take(positionalArgs[0] as int);
           },
-          'takeWhile': (visitor, target, positionalArgs, namedArgs) {
+          'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Iterable).takeWhile((element) {
               return test.call(visitor, [element]) as bool;
             });
           },
-          'skip': (visitor, target, positionalArgs, namedArgs) {
+          'skip': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Iterable).skip(positionalArgs[0] as int);
           },
-          'skipWhile': (visitor, target, positionalArgs, namedArgs) {
+          'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Iterable).skipWhile((element) {
               return test.call(visitor, [element]) as bool;
             });
           },
-          'firstWhere': (visitor, target, positionalArgs, namedArgs) {
+          'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as Iterable).firstWhere(
@@ -129,7 +129,7 @@ class IterableCore {
               orElse: orElse == null ? null : () => orElse.call(visitor, []),
             );
           },
-          'lastWhere': (visitor, target, positionalArgs, namedArgs) {
+          'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as Iterable).lastWhere(
@@ -137,7 +137,7 @@ class IterableCore {
               orElse: orElse == null ? null : () => orElse.call(visitor, []),
             );
           },
-          'singleWhere': (visitor, target, positionalArgs, namedArgs) {
+          'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as Iterable).singleWhere(
@@ -145,21 +145,21 @@ class IterableCore {
               orElse: orElse == null ? null : () => orElse.call(visitor, []),
             );
           },
-          'elementAt': (visitor, target, positionalArgs, namedArgs) {
+          'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Iterable).elementAt(positionalArgs[0] as int);
           },
-          'elementAtOrNull': (visitor, target, positionalArgs, namedArgs) {
+          'elementAtOrNull': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Iterable)
                 .elementAtOrNull(positionalArgs[0] as int);
           },
-          'followedBy': (visitor, target, positionalArgs, namedArgs) {
+          'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Iterable)
                 .followedBy(positionalArgs[0] as Iterable);
           },
-          'whereType': (visitor, target, positionalArgs, namedArgs) {
+          'whereType': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Iterable).whereType();
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Iterable).cast();
           },
         },

@@ -45,7 +45,7 @@ class ByteDataTypedData {
         },
         methods: {
           // 8-bit integer methods
-          'getInt8': (visitor, target, positionalArgs, namedArgs) {
+          'getInt8': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.length == 1 &&
                 positionalArgs[0] is int) {
@@ -54,7 +54,7 @@ class ByteDataTypedData {
             throw RuntimeError(
                 "Invalid arguments for ByteData.getInt8. Expects int byteOffset.");
           },
-          'setInt8': (visitor, target, positionalArgs, namedArgs) {
+          'setInt8': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.length == 2 &&
                 positionalArgs[0] is int &&
@@ -66,7 +66,7 @@ class ByteDataTypedData {
             throw RuntimeError(
                 "Invalid arguments for ByteData.setInt8. Expects int byteOffset, int value.");
           },
-          'getUint8': (visitor, target, positionalArgs, namedArgs) {
+          'getUint8': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.length == 1 &&
                 positionalArgs[0] is int) {
@@ -75,7 +75,7 @@ class ByteDataTypedData {
             throw RuntimeError(
                 "Invalid arguments for ByteData.getUint8. Expects int byteOffset.");
           },
-          'setUint8': (visitor, target, positionalArgs, namedArgs) {
+          'setUint8': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.length == 2 &&
                 positionalArgs[0] is int &&
@@ -89,7 +89,7 @@ class ByteDataTypedData {
           },
 
           // 16-bit integer methods
-          'getInt16': (visitor, target, positionalArgs, namedArgs) {
+          'getInt16': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.isNotEmpty &&
                 positionalArgs[0] is int) {
@@ -102,7 +102,7 @@ class ByteDataTypedData {
             throw RuntimeError(
                 "Invalid arguments for ByteData.getInt16. Expects int byteOffset, [Endian endian].");
           },
-          'setInt16': (visitor, target, positionalArgs, namedArgs) {
+          'setInt16': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.length >= 2 &&
                 positionalArgs[0] is int &&
@@ -118,7 +118,7 @@ class ByteDataTypedData {
             throw RuntimeError(
                 "Invalid arguments for ByteData.setInt16. Expects int byteOffset, int value, [Endian endian].");
           },
-          'getUint16': (visitor, target, positionalArgs, namedArgs) {
+          'getUint16': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.isNotEmpty &&
                 positionalArgs[0] is int) {
@@ -131,7 +131,7 @@ class ByteDataTypedData {
             throw RuntimeError(
                 "Invalid arguments for ByteData.getUint16. Expects int byteOffset, [Endian endian].");
           },
-          'setUint16': (visitor, target, positionalArgs, namedArgs) {
+          'setUint16': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.length >= 2 &&
                 positionalArgs[0] is int &&
@@ -149,7 +149,7 @@ class ByteDataTypedData {
           },
 
           // 32-bit integer methods
-          'getInt32': (visitor, target, positionalArgs, namedArgs) {
+          'getInt32': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.isNotEmpty &&
                 positionalArgs[0] is int) {
@@ -162,7 +162,7 @@ class ByteDataTypedData {
             throw RuntimeError(
                 "Invalid arguments for ByteData.getInt32. Expects int byteOffset, [Endian endian].");
           },
-          'setInt32': (visitor, target, positionalArgs, namedArgs) {
+          'setInt32': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.length >= 2 &&
                 positionalArgs[0] is int &&
@@ -178,7 +178,7 @@ class ByteDataTypedData {
             throw RuntimeError(
                 "Invalid arguments for ByteData.setInt32. Expects int byteOffset, int value, [Endian endian].");
           },
-          'getUint32': (visitor, target, positionalArgs, namedArgs) {
+          'getUint32': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.isNotEmpty &&
                 positionalArgs[0] is int) {
@@ -191,7 +191,7 @@ class ByteDataTypedData {
             throw RuntimeError(
                 "Invalid arguments for ByteData.getUint32. Expects int byteOffset, [Endian endian].");
           },
-          'setUint32': (visitor, target, positionalArgs, namedArgs) {
+          'setUint32': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.length >= 2 &&
                 positionalArgs[0] is int &&
@@ -209,7 +209,7 @@ class ByteDataTypedData {
           },
 
           // 64-bit integer methods
-          'getInt64': (visitor, target, positionalArgs, namedArgs) {
+          'getInt64': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.isNotEmpty &&
                 positionalArgs[0] is int) {
@@ -222,7 +222,7 @@ class ByteDataTypedData {
             throw RuntimeError(
                 "Invalid arguments for ByteData.getInt64. Expects int byteOffset, [Endian endian].");
           },
-          'setInt64': (visitor, target, positionalArgs, namedArgs) {
+          'setInt64': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.length >= 2 &&
                 positionalArgs[0] is int &&
@@ -238,7 +238,7 @@ class ByteDataTypedData {
             throw RuntimeError(
                 "Invalid arguments for ByteData.setInt64. Expects int byteOffset, int value, [Endian endian].");
           },
-          'getUint64': (visitor, target, positionalArgs, namedArgs) {
+          'getUint64': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.isNotEmpty &&
                 positionalArgs[0] is int) {
@@ -251,7 +251,7 @@ class ByteDataTypedData {
             throw RuntimeError(
                 "Invalid arguments for ByteData.getUint64. Expects int byteOffset, [Endian endian].");
           },
-          'setUint64': (visitor, target, positionalArgs, namedArgs) {
+          'setUint64': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.length >= 2 &&
                 positionalArgs[0] is int &&
@@ -269,7 +269,7 @@ class ByteDataTypedData {
           },
 
           // Float methods
-          'getFloat32': (visitor, target, positionalArgs, namedArgs) {
+          'getFloat32': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.isNotEmpty &&
                 positionalArgs[0] is int) {
@@ -282,7 +282,7 @@ class ByteDataTypedData {
             throw RuntimeError(
                 "Invalid arguments for ByteData.getFloat32. Expects int byteOffset, [Endian endian].");
           },
-          'setFloat32': (visitor, target, positionalArgs, namedArgs) {
+          'setFloat32': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.length >= 2 &&
                 positionalArgs[0] is int &&
@@ -298,7 +298,7 @@ class ByteDataTypedData {
             throw RuntimeError(
                 "Invalid arguments for ByteData.setFloat32. Expects int byteOffset, num value, [Endian endian].");
           },
-          'getFloat64': (visitor, target, positionalArgs, namedArgs) {
+          'getFloat64': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.isNotEmpty &&
                 positionalArgs[0] is int) {
@@ -311,7 +311,7 @@ class ByteDataTypedData {
             throw RuntimeError(
                 "Invalid arguments for ByteData.getFloat64. Expects int byteOffset, [Endian endian].");
           },
-          'setFloat64': (visitor, target, positionalArgs, namedArgs) {
+          'setFloat64': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&
                 positionalArgs.length >= 2 &&
                 positionalArgs[0] is int &&
@@ -329,10 +329,10 @@ class ByteDataTypedData {
           },
 
           // Standard object methods
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ByteData).toString();
           },
-          '==': (visitor, target, positionalArgs, namedArgs) {
+          '==': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ByteData) == positionalArgs[0];
           },
         },

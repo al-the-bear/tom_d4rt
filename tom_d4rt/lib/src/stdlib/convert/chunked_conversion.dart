@@ -7,7 +7,7 @@ class ChunkedConversionConvert {
         name: 'ChunkedConversionSink',
         typeParameterCount: 1,
         staticMethods: {
-          'withCallback': (visitor, positionalArgs, namedArgs) {
+          'withCallback': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! InterpretedFunction) {
               throw RuntimeError(
@@ -21,7 +21,7 @@ class ChunkedConversionConvert {
           },
         },
         methods: {
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1) {
               throw RuntimeError(
                   'ChunkedConversionSink.add requires one argument.');
@@ -29,7 +29,7 @@ class ChunkedConversionConvert {
             (target as ChunkedConversionSink).add(positionalArgs[0]);
             return null;
           },
-          'close': (visitor, target, positionalArgs, namedArgs) {
+          'close': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
               throw RuntimeError(
                   'ChunkedConversionSink.close takes no arguments.');

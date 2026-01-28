@@ -391,32 +391,32 @@ void main() {
 
     group('Regular Variables use registerGlobalVariable', () {
       test('const variables use registerGlobalVariable', () {
-        // Variable values are now prefixed with $source. since source imports use a prefix
+        // Variable values are now prefixed with $pkg. since source imports use a prefix
         expect(
           generatedCode,
-          contains(r"interpreter.registerGlobalVariable('appName', $source.appName)"),
+          contains(r"interpreter.registerGlobalVariable('appName', $pkg.appName)"),
         );
         expect(
           generatedCode,
           contains(
-              r"interpreter.registerGlobalVariable('maxRetries', $source.maxRetries)"),
+              r"interpreter.registerGlobalVariable('maxRetries', $pkg.maxRetries)"),
         );
         expect(
           generatedCode,
           contains(
-              r"interpreter.registerGlobalVariable('debugMode', $source.debugMode)"),
+              r"interpreter.registerGlobalVariable('debugMode', $pkg.debugMode)"),
         );
       });
 
       test('final variables use registerGlobalVariable', () {
         expect(
           generatedCode,
-          contains(r"interpreter.registerGlobalVariable('version', $source.version)"),
+          contains(r"interpreter.registerGlobalVariable('version', $pkg.version)"),
         );
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalVariable('supportedFormats', $source.supportedFormats)",
+            r"interpreter.registerGlobalVariable('supportedFormats', $pkg.supportedFormats)",
           ),
         );
       });
@@ -425,24 +425,24 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalVariable('requestCount', $source.requestCount)",
+            r"interpreter.registerGlobalVariable('requestCount', $pkg.requestCount)",
           ),
         );
         expect(
           generatedCode,
           contains(
-              r"interpreter.registerGlobalVariable('lastError', $source.lastError)"),
+              r"interpreter.registerGlobalVariable('lastError', $pkg.lastError)"),
         );
       });
     });
 
     group('Top-level Getters use registerGlobalGetter', () {
       test('getter returning singleton uses registerGlobalGetter', () {
-        // Getter values are now prefixed with $source. since source imports use a prefix
+        // Getter values are now prefixed with $pkg. since source imports use a prefix
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalGetter('globalService', () => $source.globalService)",
+            r"interpreter.registerGlobalGetter('globalService', () => $pkg.globalService)",
           ),
         );
       });
@@ -451,7 +451,7 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalGetter('currentTime', () => $source.currentTime)",
+            r"interpreter.registerGlobalGetter('currentTime', () => $pkg.currentTime)",
           ),
         );
       });
@@ -460,7 +460,7 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalGetter('lastLogMessage', () => $source.lastLogMessage)",
+            r"interpreter.registerGlobalGetter('lastLogMessage', () => $pkg.lastLogMessage)",
           ),
         );
       });
@@ -469,7 +469,7 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalGetter('doubleRequestCount', () => $source.doubleRequestCount)",
+            r"interpreter.registerGlobalGetter('doubleRequestCount', () => $pkg.doubleRequestCount)",
           ),
         );
       });

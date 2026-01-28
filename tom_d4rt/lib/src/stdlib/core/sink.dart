@@ -7,23 +7,23 @@ class SinkCore {
         typeParameterCount: 1,
         constructors: {},
         methods: {
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1) {
               throw RuntimeError('Sink.add requires exactly one argument.');
             }
             (target as Sink).add(positionalArgs[0]);
             return null;
           },
-          'close': (visitor, target, positionalArgs, namedArgs) {
+          'close': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
               throw RuntimeError('Sink.close expects no arguments.');
             }
             (target as Sink).close();
             return null;
           },
-          'hashCode': (visitor, target, positionalArgs, namedArgs) =>
+          'hashCode': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Sink).hashCode,
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Sink).toString(),
         },
         getters: {

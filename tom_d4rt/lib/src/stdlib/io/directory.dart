@@ -17,14 +17,14 @@ class DirectoryIo {
           },
         },
         staticMethods: {
-          'fromRawPath': (visitor, positionalArgs, namedArgs) {
+          'fromRawPath': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uint8List) {
               throw RuntimeError(
                   'Directory.fromRawPath requires one Uint8List argument.');
             }
             return Directory.fromRawPath(positionalArgs[0] as Uint8List);
           },
-          'fromUri': (visitor, positionalArgs, namedArgs) {
+          'fromUri': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
               throw RuntimeError(
                   'Directory.fromUri requires one Uri argument.');
@@ -33,48 +33,48 @@ class DirectoryIo {
           },
         },
         methods: {
-          'exists': (visitor, target, positionalArgs, namedArgs) {
+          'exists': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Directory).exists();
           },
-          'existsSync': (visitor, target, positionalArgs, namedArgs) {
+          'existsSync': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Directory).existsSync();
           },
-          'create': (visitor, target, positionalArgs, namedArgs) {
+          'create': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Directory)
                 .create(recursive: namedArgs['recursive'] as bool? ?? false);
           },
-          'createSync': (visitor, target, positionalArgs, namedArgs) {
+          'createSync': (visitor, target, positionalArgs, namedArgs, _) {
             (target as Directory).createSync(
                 recursive: namedArgs['recursive'] as bool? ?? false);
             return null;
           },
-          'delete': (visitor, target, positionalArgs, namedArgs) {
+          'delete': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Directory)
                 .delete(recursive: namedArgs['recursive'] as bool? ?? false);
           },
-          'deleteSync': (visitor, target, positionalArgs, namedArgs) {
+          'deleteSync': (visitor, target, positionalArgs, namedArgs, _) {
             (target as Directory).deleteSync(
                 recursive: namedArgs['recursive'] as bool? ?? false);
             return null;
           },
-          'list': (visitor, target, positionalArgs, namedArgs) {
+          'list': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Directory).list(
                 recursive: namedArgs['recursive'] as bool? ?? false,
                 followLinks: namedArgs['followLinks'] as bool? ?? true);
           },
-          'listSync': (visitor, target, positionalArgs, namedArgs) {
+          'listSync': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Directory).listSync(
                 recursive: namedArgs['recursive'] as bool? ?? false,
                 followLinks: namedArgs['followLinks'] as bool? ?? true);
           },
-          'rename': (visitor, target, positionalArgs, namedArgs) {
+          'rename': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'Directory.rename requires one String argument (newPath).');
             }
             return (target as Directory).rename(positionalArgs[0] as String);
           },
-          'renameSync': (visitor, target, positionalArgs, namedArgs) {
+          'renameSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'Directory.renameSync requires one String argument (newPath).');
@@ -82,36 +82,36 @@ class DirectoryIo {
             (target as Directory).renameSync(positionalArgs[0] as String);
             return null;
           },
-          'stat': (visitor, target, positionalArgs, namedArgs) {
+          'stat': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Directory).stat();
           },
-          'statSync': (visitor, target, positionalArgs, namedArgs) {
+          'statSync': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Directory).statSync();
           },
-          'watch': (visitor, target, positionalArgs, namedArgs) {
+          'watch': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Directory).watch(
                 events: namedArgs['events'] as int? ?? FileSystemEvent.all,
                 recursive: namedArgs['recursive'] as bool? ?? false);
           },
-          'resolveSymbolicLinks': (visitor, target, positionalArgs, namedArgs) {
+          'resolveSymbolicLinks': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Directory).resolveSymbolicLinks();
           },
           'resolveSymbolicLinksSync':
-              (visitor, target, positionalArgs, namedArgs) {
+              (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Directory).resolveSymbolicLinksSync();
           },
-          'createTemp': (visitor, target, positionalArgs, namedArgs) {
+          'createTemp': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Directory).createTemp(positionalArgs.isNotEmpty
                 ? positionalArgs[0] as String?
                 : null);
           },
-          'createTempSync': (visitor, target, positionalArgs, namedArgs) {
+          'createTempSync': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Directory).createTempSync(
                 positionalArgs.isNotEmpty
                     ? positionalArgs[0] as String?
                     : null);
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Directory).toString(),
         },
         getters: {

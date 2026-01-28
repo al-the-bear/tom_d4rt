@@ -7,7 +7,7 @@ class FileSystemEntityIo {
         name: 'FileSystemEntity',
         typeParameterCount: 0,
         staticMethods: {
-          'identical': (visitor, positionalArgs, namedArgs) {
+          'identical': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 2 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! String) {
@@ -17,7 +17,7 @@ class FileSystemEntityIo {
             return FileSystemEntity.identical(
                 positionalArgs[0] as String, positionalArgs[1] as String);
           },
-          'identicalSync': (visitor, positionalArgs, namedArgs) {
+          'identicalSync': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 2 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! String) {
@@ -27,14 +27,14 @@ class FileSystemEntityIo {
             return FileSystemEntity.identicalSync(
                 positionalArgs[0] as String, positionalArgs[1] as String);
           },
-          'isDirectory': (visitor, positionalArgs, namedArgs) {
+          'isDirectory': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'FileSystemEntity.isDirectory requires one String argument (path).');
             }
             return FileSystemEntity.isDirectory(positionalArgs[0] as String);
           },
-          'isDirectorySync': (visitor, positionalArgs, namedArgs) {
+          'isDirectorySync': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'FileSystemEntity.isDirectorySync requires one String argument (path).');
@@ -42,35 +42,35 @@ class FileSystemEntityIo {
             return FileSystemEntity.isDirectorySync(
                 positionalArgs[0] as String);
           },
-          'isFile': (visitor, positionalArgs, namedArgs) {
+          'isFile': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'FileSystemEntity.isFile requires one String argument (path).');
             }
             return FileSystemEntity.isFile(positionalArgs[0] as String);
           },
-          'isFileSync': (visitor, positionalArgs, namedArgs) {
+          'isFileSync': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'FileSystemEntity.isFileSync requires one String argument (path).');
             }
             return FileSystemEntity.isFileSync(positionalArgs[0] as String);
           },
-          'isLink': (visitor, positionalArgs, namedArgs) {
+          'isLink': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'FileSystemEntity.isLink requires one String argument (path).');
             }
             return FileSystemEntity.isLink(positionalArgs[0] as String);
           },
-          'isLinkSync': (visitor, positionalArgs, namedArgs) {
+          'isLinkSync': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'FileSystemEntity.isLinkSync requires one String argument (path).');
             }
             return FileSystemEntity.isLinkSync(positionalArgs[0] as String);
           },
-          'type': (visitor, positionalArgs, namedArgs) {
+          'type': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'FileSystemEntity.type requires one String argument (path).');
@@ -78,7 +78,7 @@ class FileSystemEntityIo {
             return FileSystemEntity.type(positionalArgs[0] as String,
                 followLinks: namedArgs['followLinks'] as bool? ?? true);
           },
-          'typeSync': (visitor, positionalArgs, namedArgs) {
+          'typeSync': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'FileSystemEntity.typeSync requires one String argument (path).');
@@ -86,7 +86,7 @@ class FileSystemEntityIo {
             return FileSystemEntity.typeSync(positionalArgs[0] as String,
                 followLinks: namedArgs['followLinks'] as bool? ?? true);
           },
-          'parentOf': (visitor, positionalArgs, namedArgs) {
+          'parentOf': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'FileSystemEntity.parentOf requires one String argument (path).');
@@ -95,22 +95,22 @@ class FileSystemEntityIo {
           },
         },
         methods: {
-          'exists': (visitor, target, positionalArgs, namedArgs) {
+          'exists': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as FileSystemEntity).exists();
           },
-          'existsSync': (visitor, target, positionalArgs, namedArgs) {
+          'existsSync': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as FileSystemEntity).existsSync();
           },
-          'delete': (visitor, target, positionalArgs, namedArgs) {
+          'delete': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as FileSystemEntity)
                 .delete(recursive: namedArgs['recursive'] as bool? ?? false);
           },
-          'deleteSync': (visitor, target, positionalArgs, namedArgs) {
+          'deleteSync': (visitor, target, positionalArgs, namedArgs, _) {
             (target as FileSystemEntity).deleteSync(
                 recursive: namedArgs['recursive'] as bool? ?? false);
             return null;
           },
-          'rename': (visitor, target, positionalArgs, namedArgs) {
+          'rename': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'FileSystemEntity.rename requires one String argument (newPath).');
@@ -118,7 +118,7 @@ class FileSystemEntityIo {
             return (target as FileSystemEntity)
                 .rename(positionalArgs[0] as String);
           },
-          'renameSync': (visitor, target, positionalArgs, namedArgs) {
+          'renameSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'FileSystemEntity.renameSync requires one String argument (newPath).');
@@ -127,22 +127,22 @@ class FileSystemEntityIo {
                 .renameSync(positionalArgs[0] as String);
             return null;
           },
-          'stat': (visitor, target, positionalArgs, namedArgs) {
+          'stat': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as FileSystemEntity).stat();
           },
-          'statSync': (visitor, target, positionalArgs, namedArgs) {
+          'statSync': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as FileSystemEntity).statSync();
           },
-          'watch': (visitor, target, positionalArgs, namedArgs) {
+          'watch': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as FileSystemEntity).watch(
                 events: namedArgs['events'] as int? ?? FileSystemEvent.all,
                 recursive: namedArgs['recursive'] as bool? ?? false);
           },
-          'resolveSymbolicLinks': (visitor, target, positionalArgs, namedArgs) {
+          'resolveSymbolicLinks': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as FileSystemEntity).resolveSymbolicLinks();
           },
           'resolveSymbolicLinksSync':
-              (visitor, target, positionalArgs, namedArgs) {
+              (visitor, target, positionalArgs, namedArgs, _) {
             return (target as FileSystemEntity).resolveSymbolicLinksSync();
           },
         },
@@ -170,14 +170,14 @@ class FileStatIo {
           // FileStat is typically obtained from stat() operations
         },
         staticMethods: {
-          'stat': (visitor, positionalArgs, namedArgs) {
+          'stat': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'FileStat.stat requires one String argument (path).');
             }
             return FileStat.stat(positionalArgs[0] as String);
           },
-          'statSync': (visitor, positionalArgs, namedArgs) {
+          'statSync': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'FileStat.statSync requires one String argument (path).');
@@ -186,10 +186,10 @@ class FileStatIo {
           },
         },
         methods: {
-          'modeString': (visitor, target, positionalArgs, namedArgs) {
+          'modeString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as FileStat).modeString();
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as FileStat).toString(),
         },
         getters: {
@@ -210,7 +210,7 @@ class FileSystemEntityTypeIo {
         typeParameterCount: 0,
         constructors: {},
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as FileSystemEntityType).toString(),
         },
         staticGetters: {
@@ -239,7 +239,7 @@ class FileSystemEventIo {
           'all': (visitor) => FileSystemEvent.all,
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as FileSystemEvent).toString(),
         },
         getters: {

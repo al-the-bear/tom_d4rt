@@ -13,14 +13,14 @@ class AsciiCodecConvert {
           },
         },
         methods: {
-          'encode': (visitor, target, positionalArgs, namedArgs) {
+          'encode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'AsciiCodec.encode requires a String argument.');
             }
             return (target as AsciiCodec).encode(positionalArgs[0] as String);
           },
-          'decode': (visitor, target, positionalArgs, namedArgs) {
+          'decode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
               throw RuntimeError('AsciiCodec.decode requires a List argument.');
             }
@@ -29,7 +29,7 @@ class AsciiCodecConvert {
                 (positionalArgs[0] as List).cast(),
                 allowInvalid: allowInvalid);
           },
-          'fuse': (visitor, target, positionalArgs, namedArgs) {
+          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Codec<List<int>, dynamic>) {
               throw RuntimeError(
@@ -66,7 +66,7 @@ class AsciiEncoderConvert {
           },
         },
         methods: {
-          'convert': (visitor, target, positionalArgs, namedArgs) {
+          'convert': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'AsciiEncoder.convert requires a String argument.');
@@ -75,7 +75,7 @@ class AsciiEncoderConvert {
                 .convert(positionalArgs[0] as String);
           },
           'startChunkedConversion':
-              (visitor, target, positionalArgs, namedArgs) {
+              (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<List<int>>) {
               throw RuntimeError(
@@ -84,7 +84,7 @@ class AsciiEncoderConvert {
             return (target as AsciiEncoder)
                 .startChunkedConversion(positionalArgs[0] as Sink<List<int>>);
           },
-          'bind': (visitor, target, positionalArgs, namedArgs) {
+          'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<String>) {
               throw RuntimeError('bind requires a Stream<String> argument.');
@@ -92,7 +92,7 @@ class AsciiEncoderConvert {
             return (target as AsciiEncoder)
                 .bind(positionalArgs[0] as Stream<String>);
           },
-          'fuse': (visitor, target, positionalArgs, namedArgs) {
+          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<List<int>, dynamic>) {
               throw RuntimeError(
@@ -101,7 +101,7 @@ class AsciiEncoderConvert {
             return (target as AsciiEncoder)
                 .fuse(positionalArgs[0] as Converter<List<int>, dynamic>);
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as AsciiEncoder).cast<String, List<int>>();
           },
         },
@@ -127,7 +127,7 @@ class AsciiDecoderConvert {
           },
         },
         methods: {
-          'convert': (visitor, target, positionalArgs, namedArgs) {
+          'convert': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
               throw RuntimeError(
                   'AsciiDecoder.convert requires a List argument.');
@@ -136,7 +136,7 @@ class AsciiDecoderConvert {
                 .convert((positionalArgs[0] as List).cast());
           },
           'startChunkedConversion':
-              (visitor, target, positionalArgs, namedArgs) {
+              (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<String>) {
               throw RuntimeError(
@@ -145,7 +145,7 @@ class AsciiDecoderConvert {
             return (target as AsciiDecoder)
                 .startChunkedConversion(positionalArgs[0] as Sink<String>);
           },
-          'bind': (visitor, target, positionalArgs, namedArgs) {
+          'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<List<int>>) {
               throw RuntimeError('bind requires a Stream<List<int>> argument.');
@@ -153,7 +153,7 @@ class AsciiDecoderConvert {
             return (target as AsciiDecoder)
                 .bind(positionalArgs[0] as Stream<List<int>>);
           },
-          'fuse': (visitor, target, positionalArgs, namedArgs) {
+          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<String, dynamic>) {
               throw RuntimeError(
@@ -162,7 +162,7 @@ class AsciiDecoderConvert {
             return (target as AsciiDecoder)
                 .fuse(positionalArgs[0] as Converter<String, dynamic>);
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as AsciiDecoder).cast<List<int>, String>();
           },
         },

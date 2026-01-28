@@ -13,10 +13,10 @@ class EndianTypedData {
           'host': (InterpreterVisitor visitor) => Endian.host,
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Endian).toString();
           },
-          '==': (visitor, target, positionalArgs, namedArgs) {
+          '==': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Endian) == positionalArgs[0];
           },
         },

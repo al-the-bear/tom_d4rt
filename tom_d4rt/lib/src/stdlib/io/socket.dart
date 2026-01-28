@@ -21,30 +21,30 @@ class SocketIo {
         name: 'Socket',
         typeParameterCount: 0,
         staticMethods: {
-          'connect': (visitor, positionalArgs, namedArgs) =>
+          'connect': (visitor, positionalArgs, namedArgs, _) =>
               _connect(positionalArgs, namedArgs),
-          'startConnect': (visitor, positionalArgs, namedArgs) =>
+          'startConnect': (visitor, positionalArgs, namedArgs, _) =>
               _startConnect(positionalArgs, namedArgs),
         },
         methods: {
-          'destroy': (visitor, target, positionalArgs, namedArgs) {
+          'destroy': (visitor, target, positionalArgs, namedArgs, _) {
             (target as Socket).destroy();
             return null;
           },
-          'flush': (visitor, target, positionalArgs, namedArgs) {
+          'flush': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Socket).flush();
           },
-          'close': (visitor, target, positionalArgs, namedArgs) {
+          'close': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Socket).close();
           },
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('Socket.add requires data');
             }
             (target as Socket).add(positionalArgs[0] as List<int>);
             return null;
           },
-          'addError': (visitor, target, positionalArgs, namedArgs) {
+          'addError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('Socket.addError requires error');
             }
@@ -54,30 +54,30 @@ class SocketIo {
             (target as Socket).addError(positionalArgs[0]!, stackTrace);
             return null;
           },
-          'transform': (visitor, target, positionalArgs, namedArgs) {
+          'transform': (visitor, target, positionalArgs, namedArgs, _) {
             final separator = positionalArgs[0] as StreamTransformer;
             return (target as Socket).transform(separator.cast());
           },
-          'addStream': (visitor, target, positionalArgs, namedArgs) {
+          'addStream': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('Socket.addStream requires stream');
             }
             return (target as Socket)
                 .addStream(positionalArgs[0] as Stream<List<int>>);
           },
-          'write': (visitor, target, positionalArgs, namedArgs) {
+          'write': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('Socket.write requires object');
             }
             (target as Socket).write(positionalArgs[0]);
             return null;
           },
-          'writeln': (visitor, target, positionalArgs, namedArgs) {
+          'writeln': (visitor, target, positionalArgs, namedArgs, _) {
             final obj = positionalArgs.isNotEmpty ? positionalArgs[0] : '';
             (target as Socket).writeln(obj);
             return null;
           },
-          'writeAll': (visitor, target, positionalArgs, namedArgs) {
+          'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('Socket.writeAll requires objects');
             }
@@ -87,14 +87,14 @@ class SocketIo {
             (target as Socket).writeAll(objects, separator);
             return null;
           },
-          'writeCharCode': (visitor, target, positionalArgs, namedArgs) {
+          'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('Socket.writeCharCode requires charCode');
             }
             (target as Socket).writeCharCode(positionalArgs[0] as int);
             return null;
           },
-          'setOption': (visitor, target, positionalArgs, namedArgs) {
+          'setOption': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2) {
               throw ArgumentError(
                   'Socket.setOption requires option and enabled');
@@ -104,14 +104,14 @@ class SocketIo {
               positionalArgs[1] as bool,
             );
           },
-          'getRawOption': (visitor, target, positionalArgs, namedArgs) {
+          'getRawOption': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('Socket.getRawOption requires option');
             }
             return (target as Socket)
                 .getRawOption(positionalArgs[0] as RawSocketOption);
           },
-          'setRawOption': (visitor, target, positionalArgs, namedArgs) {
+          'setRawOption': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2) {
               throw ArgumentError(
                   'Socket.setRawOption requires option and value');
@@ -120,28 +120,28 @@ class SocketIo {
                 .setRawOption(positionalArgs[0] as RawSocketOption);
             return null;
           },
-          'any': (visitor, target, positionalArgs, namedArgs) {
+          'any': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).any((element) =>
                 _runAction<bool>(visitor, test, [element]) == true);
           },
-          'contains': (visitor, target, positionalArgs, namedArgs) {
+          'contains': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Socket).contains(positionalArgs[0]);
           },
-          'elementAt': (visitor, target, positionalArgs, namedArgs) {
+          'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Socket).elementAt(positionalArgs[0] as int);
           },
-          'every': (visitor, target, positionalArgs, namedArgs) {
+          'every': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).every((element) =>
                 _runAction<bool>(visitor, test, [element]) == true);
           },
-          'expand': (visitor, target, positionalArgs, namedArgs) {
+          'expand': (visitor, target, positionalArgs, namedArgs, _) {
             final toElements = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).expand((element) =>
                 _runAction<Iterable>(visitor, toElements, [element]) ?? []);
           },
-          'firstWhere': (visitor, target, positionalArgs, namedArgs) {
+          'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as Socket).firstWhere(
@@ -151,7 +151,7 @@ class SocketIo {
                   : null,
             );
           },
-          'fold': (visitor, target, positionalArgs, namedArgs) {
+          'fold': (visitor, target, positionalArgs, namedArgs, _) {
             final initialValue = positionalArgs[0];
             final combine = positionalArgs[1] as InterpretedFunction;
             return (target as Socket).fold(
@@ -159,18 +159,18 @@ class SocketIo {
                 (prev, element) =>
                     _runAction(visitor, combine, [prev, element]));
           },
-          'forEach': (visitor, target, positionalArgs, namedArgs) {
+          'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             final action = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).forEach((element) {
               _runAction<void>(visitor, action, [element]);
             });
           },
-          'join': (visitor, target, positionalArgs, namedArgs) {
+          'join': (visitor, target, positionalArgs, namedArgs, _) {
             final separator =
                 positionalArgs.isNotEmpty ? positionalArgs[0] as String : "";
             return (target as Socket).join(separator);
           },
-          'lastWhere': (visitor, target, positionalArgs, namedArgs) {
+          'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as Socket).lastWhere(
@@ -180,16 +180,16 @@ class SocketIo {
                   : null,
             );
           },
-          'map': (visitor, target, positionalArgs, namedArgs) {
+          'map': (visitor, target, positionalArgs, namedArgs, _) {
             final toElement = positionalArgs[0] as InterpretedFunction;
             return (target as Socket)
                 .map((element) => _runAction(visitor, toElement, [element]));
           },
-          'noSuchMethod': (visitor, target, positionalArgs, namedArgs) {
+          'noSuchMethod': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Socket)
                 .noSuchMethod(positionalArgs[0] as Invocation);
           },
-          'singleWhere': (visitor, target, positionalArgs, namedArgs) {
+          'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as Socket).singleWhere(
@@ -199,37 +199,37 @@ class SocketIo {
                   : null,
             );
           },
-          'skip': (visitor, target, positionalArgs, namedArgs) {
+          'skip': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Socket).skip(positionalArgs[0] as int);
           },
-          'skipWhile': (visitor, target, positionalArgs, namedArgs) {
+          'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).skipWhile((element) =>
                 _runAction<bool>(visitor, test, [element]) == true);
           },
-          'take': (visitor, target, positionalArgs, namedArgs) {
+          'take': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Socket).take(positionalArgs[0] as int);
           },
-          'takeWhile': (visitor, target, positionalArgs, namedArgs) {
+          'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).takeWhile((element) =>
                 _runAction<bool>(visitor, test, [element]) == true);
           },
-          'toList': (visitor, target, positionalArgs, namedArgs) {
+          'toList': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Socket).toList();
           },
-          'toSet': (visitor, target, positionalArgs, namedArgs) {
+          'toSet': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Socket).toSet();
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Socket).toString();
           },
-          'where': (visitor, target, positionalArgs, namedArgs) {
+          'where': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).where((element) =>
                 _runAction<bool>(visitor, test, [element]) == true);
           },
-          'listen': (visitor, target, positionalArgs, namedArgs) {
+          'listen': (visitor, target, positionalArgs, namedArgs, _) {
             final onData = positionalArgs[0] as InterpretedFunction?;
             final onError = namedArgs['onError'] as InterpretedFunction?;
             final onDone = namedArgs['onDone'] as InterpretedFunction?;
@@ -252,7 +252,7 @@ class SocketIo {
               cancelOnError: cancelOnError,
             );
           },
-          'asyncMap': (visitor, target, positionalArgs, namedArgs) {
+          'asyncMap': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
               throw RuntimeError(
@@ -263,7 +263,7 @@ class SocketIo {
               (event) => _runAction(visitor, convert, [event]),
             );
           },
-          'asyncExpand': (visitor, target, positionalArgs, namedArgs) {
+          'asyncExpand': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
               throw RuntimeError(
@@ -277,7 +277,7 @@ class SocketIo {
               },
             );
           },
-          'handleError': (visitor, target, positionalArgs, namedArgs) {
+          'handleError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
               throw RuntimeError(
@@ -293,7 +293,7 @@ class SocketIo {
                   : (error) => _runAction<bool>(visitor, test, [error]) == true,
             );
           },
-          'timeout': (visitor, target, positionalArgs, namedArgs) {
+          'timeout': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! Duration) {
               throw RuntimeError('Socket.timeout requires a Duration.');
             }
@@ -306,7 +306,7 @@ class SocketIo {
                   : (sink) => _runAction<void>(visitor, onTimeout, [sink]),
             );
           },
-          'asBroadcastStream': (visitor, target, positionalArgs, namedArgs) {
+          'asBroadcastStream': (visitor, target, positionalArgs, namedArgs, _) {
             final onListen = namedArgs['onListen'] as InterpretedFunction?;
             final onCancel = namedArgs['onCancel'] as InterpretedFunction?;
             return (target as Socket).asBroadcastStream(
@@ -320,7 +320,7 @@ class SocketIo {
                       _runAction<void>(visitor, onCancel, [subscription]),
             );
           },
-          'distinct': (visitor, target, positionalArgs, namedArgs) {
+          'distinct': (visitor, target, positionalArgs, namedArgs, _) {
             final equals = positionalArgs.isNotEmpty
                 ? positionalArgs[0] as InterpretedFunction?
                 : null;
@@ -333,14 +333,14 @@ class SocketIo {
               });
             }
           },
-          'reduce': (visitor, target, positionalArgs, namedArgs) {
+          'reduce': (visitor, target, positionalArgs, namedArgs, _) {
             final combine = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).reduce(
               (previous, element) =>
                   _runAction<dynamic>(visitor, combine, [previous, element]),
             );
           },
-          'pipe': (visitor, target, positionalArgs, namedArgs) {
+          'pipe': (visitor, target, positionalArgs, namedArgs, _) {
             final streamConsumer = positionalArgs[0];
             if (streamConsumer is! StreamConsumer) {
               throw RuntimeError(
@@ -349,14 +349,14 @@ class SocketIo {
             return (target as Socket)
                 .pipe(streamConsumer as StreamConsumer<Uint8List>);
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) =>
+          'cast': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Socket).cast(),
-          'drain': (visitor, target, positionalArgs, namedArgs) {
+          'drain': (visitor, target, positionalArgs, namedArgs, _) {
             final futureValue =
                 positionalArgs.isNotEmpty ? positionalArgs[0] : null;
             return (target as Socket).drain(futureValue);
           },
-          '==': (visitor, target, positionalArgs, namedArgs) {
+          '==': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Socket) == positionalArgs[0];
           },
         },
@@ -447,7 +447,7 @@ class InternetAddressIo {
         name: 'InternetAddress',
         typeParameterCount: 0,
         staticMethods: {
-          'lookup': (visitor, positionalArgs, namedArgs) {
+          'lookup': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('InternetAddress.lookup requires host');
             }
@@ -461,7 +461,7 @@ class InternetAddressIo {
 
             return InternetAddress.lookup(host, type: type);
           },
-          'fromRawAddress': (visitor, positionalArgs, namedArgs) {
+          'fromRawAddress': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError(
                   'InternetAddress.fromRawAddress requires host');
@@ -471,7 +471,7 @@ class InternetAddressIo {
             final type = namedArgs['type'] as InternetAddressType?;
             return InternetAddress.fromRawAddress(rawAddress, type: type);
           },
-          'tryParse': (visitor, positionalArgs, namedArgs) {
+          'tryParse': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw ArgumentError('InternetAddress.tryParse requires adresse');
             }
@@ -486,7 +486,7 @@ class InternetAddressIo {
           'anyIPv6': (visitor) => InternetAddress.anyIPv6,
         },
         methods: {
-          'reverse': (visitor, target, positionalArgs, namedArgs) {
+          'reverse': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as InternetAddress).reverse();
           },
         },
@@ -535,7 +535,7 @@ class InternetAddressTypeIo {
         name: 'InternetAddressType',
         typeParameterCount: 0,
         methods: {
-          'lookup': (visitor, target, positionalArgs, namedArgs) {
+          'lookup': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as InternetAddressType).toString();
           },
         },
@@ -562,10 +562,10 @@ class ServerSocketIo {
         name: 'ServerSocket',
         typeParameterCount: 0,
         methods: {
-          'close': (visitor, target, positionalArgs, namedArgs) {
+          'close': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ServerSocket).close();
           },
-          'listen': (visitor, target, positionalArgs, namedArgs) {
+          'listen': (visitor, target, positionalArgs, namedArgs, _) {
             final onData = positionalArgs[0] as InterpretedFunction;
             final onError = namedArgs['onError'] as InterpretedFunction?;
             final onDone = namedArgs['onDone'] as InterpretedFunction?;
@@ -588,28 +588,28 @@ class ServerSocketIo {
               cancelOnError: cancelOnError,
             );
           },
-          'any': (visitor, target, positionalArgs, namedArgs) {
+          'any': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as ServerSocket).any((element) =>
                 _runAction<bool>(visitor, test, [element]) == true);
           },
-          'contains': (visitor, target, positionalArgs, namedArgs) {
+          'contains': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ServerSocket).contains(positionalArgs[0]);
           },
-          'elementAt': (visitor, target, positionalArgs, namedArgs) {
+          'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ServerSocket).elementAt(positionalArgs[0] as int);
           },
-          'every': (visitor, target, positionalArgs, namedArgs) {
+          'every': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as ServerSocket).every((element) =>
                 _runAction<bool>(visitor, test, [element]) == true);
           },
-          'expand': (visitor, target, positionalArgs, namedArgs) {
+          'expand': (visitor, target, positionalArgs, namedArgs, _) {
             final toElements = positionalArgs[0] as InterpretedFunction;
             return (target as ServerSocket).expand((element) =>
                 _runAction<Iterable>(visitor, toElements, [element]) ?? []);
           },
-          'firstWhere': (visitor, target, positionalArgs, namedArgs) {
+          'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as ServerSocket).firstWhere(
@@ -619,7 +619,7 @@ class ServerSocketIo {
                   : null,
             );
           },
-          'fold': (visitor, target, positionalArgs, namedArgs) {
+          'fold': (visitor, target, positionalArgs, namedArgs, _) {
             final initialValue = positionalArgs[0];
             final combine = positionalArgs[1] as InterpretedFunction;
             return (target as ServerSocket).fold(
@@ -627,22 +627,22 @@ class ServerSocketIo {
                 (prev, element) =>
                     _runAction(visitor, combine, [prev, element]));
           },
-          'forEach': (visitor, target, positionalArgs, namedArgs) {
+          'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             final action = positionalArgs[0] as InterpretedFunction;
             return (target as ServerSocket).forEach((element) {
               _runAction<void>(visitor, action, [element]);
             });
           },
-          'join': (visitor, target, positionalArgs, namedArgs) {
+          'join': (visitor, target, positionalArgs, namedArgs, _) {
             final separator =
                 positionalArgs.isNotEmpty ? positionalArgs[0] as String : "";
             return (target as ServerSocket).join(separator);
           },
-          'transform': (visitor, target, positionalArgs, namedArgs) {
+          'transform': (visitor, target, positionalArgs, namedArgs, _) {
             final separator = positionalArgs[0] as StreamTransformer;
             return (target as ServerSocket).transform(separator.cast());
           },
-          'lastWhere': (visitor, target, positionalArgs, namedArgs) {
+          'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as ServerSocket).lastWhere(
@@ -652,16 +652,16 @@ class ServerSocketIo {
                   : null,
             );
           },
-          'map': (visitor, target, positionalArgs, namedArgs) {
+          'map': (visitor, target, positionalArgs, namedArgs, _) {
             final toElement = positionalArgs[0] as InterpretedFunction;
             return (target as ServerSocket)
                 .map((element) => _runAction(visitor, toElement, [element]));
           },
-          'noSuchMethod': (visitor, target, positionalArgs, namedArgs) {
+          'noSuchMethod': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ServerSocket)
                 .noSuchMethod(positionalArgs[0] as Invocation);
           },
-          'singleWhere': (visitor, target, positionalArgs, namedArgs) {
+          'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as ServerSocket).singleWhere(
@@ -671,42 +671,42 @@ class ServerSocketIo {
                   : null,
             );
           },
-          'skip': (visitor, target, positionalArgs, namedArgs) {
+          'skip': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ServerSocket).skip(positionalArgs[0] as int);
           },
-          'skipWhile': (visitor, target, positionalArgs, namedArgs) {
+          'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as ServerSocket).skipWhile((element) =>
                 _runAction<bool>(visitor, test, [element]) == true);
           },
-          'take': (visitor, target, positionalArgs, namedArgs) {
+          'take': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ServerSocket).take(positionalArgs[0] as int);
           },
-          'takeWhile': (visitor, target, positionalArgs, namedArgs) {
+          'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as ServerSocket).takeWhile((element) =>
                 _runAction<bool>(visitor, test, [element]) == true);
           },
-          'toList': (visitor, target, positionalArgs, namedArgs) {
+          'toList': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ServerSocket).toList();
           },
-          'toSet': (visitor, target, positionalArgs, namedArgs) {
+          'toSet': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ServerSocket).toSet();
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ServerSocket).toString();
           },
-          'where': (visitor, target, positionalArgs, namedArgs) {
+          'where': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as ServerSocket).where((element) =>
                 _runAction<bool>(visitor, test, [element]) == true);
           },
-          '==': (visitor, target, positionalArgs, namedArgs) {
+          '==': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ServerSocket) == positionalArgs[0];
           },
         },
         staticMethods: {
-          'bind': (visitor, positionalArgs, namedArgs) {
+          'bind': (visitor, positionalArgs, namedArgs, _) {
             final host = positionalArgs[0].toString();
             final port = positionalArgs[1] as int;
             final backlog = namedArgs['backlog'] as int? ?? 0;
@@ -739,24 +739,24 @@ class RawSocketIo {
         name: 'RawSocket',
         typeParameterCount: 0,
         methods: {
-          'available': (visitor, target, positionalArgs, namedArgs) =>
+          'available': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as RawSocket).available(),
-          'read': (visitor, target, positionalArgs, namedArgs) {
+          'read': (visitor, target, positionalArgs, namedArgs, _) {
             final len =
                 positionalArgs.isNotEmpty ? positionalArgs[0] as int? : null;
             return (target as RawSocket).read(len);
           },
-          'write': (visitor, target, positionalArgs, namedArgs) {
+          'write': (visitor, target, positionalArgs, namedArgs, _) {
             final data = positionalArgs[0] as List<int>;
             return (target as RawSocket).write(data);
           },
-          'close': (visitor, target, positionalArgs, namedArgs) =>
+          'close': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as RawSocket).close(),
-          'shutdown': (visitor, target, positionalArgs, namedArgs) {
+          'shutdown': (visitor, target, positionalArgs, namedArgs, _) {
             final direction = positionalArgs[0] as SocketDirection;
             return (target as RawSocket).shutdown(direction);
           },
-          'listen': (visitor, target, positionalArgs, namedArgs) {
+          'listen': (visitor, target, positionalArgs, namedArgs, _) {
             final onData = positionalArgs[0] as InterpretedFunction;
             final onError = namedArgs['onError'] as InterpretedFunction?;
             final onDone = namedArgs['onDone'] as InterpretedFunction?;
@@ -779,22 +779,22 @@ class RawSocketIo {
               cancelOnError: cancelOnError,
             );
           },
-          'setOption': (visitor, target, positionalArgs, namedArgs) {
+          'setOption': (visitor, target, positionalArgs, namedArgs, _) {
             final option = positionalArgs[0] as SocketOption;
             final enabled = positionalArgs[1] as bool;
             return (target as RawSocket).setOption(option, enabled);
           },
-          'getRawOption': (visitor, target, positionalArgs, namedArgs) {
+          'getRawOption': (visitor, target, positionalArgs, namedArgs, _) {
             final option = positionalArgs[0] as RawSocketOption;
             return (target as RawSocket).getRawOption(option);
           },
-          'setRawOption': (visitor, target, positionalArgs, namedArgs) {
+          'setRawOption': (visitor, target, positionalArgs, namedArgs, _) {
             final option = positionalArgs[0] as RawSocketOption;
             return (target as RawSocket).setRawOption(option);
           },
         },
         staticMethods: {
-          'connect': (visitor, positionalArgs, namedArgs) async {
+          'connect': (visitor, positionalArgs, namedArgs, _) async {
             final host = positionalArgs[0];
             final port = positionalArgs[1] as int;
             final sourceAddress = namedArgs['sourceAddress'];
@@ -802,7 +802,7 @@ class RawSocketIo {
             return RawSocket.connect(host, port,
                 sourceAddress: sourceAddress, timeout: timeout);
           },
-          'startConnect': (visitor, positionalArgs, namedArgs) async {
+          'startConnect': (visitor, positionalArgs, namedArgs, _) async {
             final host = positionalArgs[0];
             final port = positionalArgs[1] as int;
             final sourceAddress = namedArgs['sourceAddress'];
@@ -837,7 +837,7 @@ class RawServerSocketIo {
         name: 'RawServerSocket',
         typeParameterCount: 0,
         methods: {
-          'listen': (visitor, target, positionalArgs, namedArgs) {
+          'listen': (visitor, target, positionalArgs, namedArgs, _) {
             final onData = positionalArgs[0] as InterpretedFunction;
             final onError = namedArgs['onError'] as InterpretedFunction?;
             final onDone = namedArgs['onDone'] as InterpretedFunction?;
@@ -860,11 +860,11 @@ class RawServerSocketIo {
               cancelOnError: cancelOnError,
             );
           },
-          'close': (visitor, target, positionalArgs, namedArgs) =>
+          'close': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as RawServerSocket).close(),
         },
         staticMethods: {
-          'bind': (visitor, positionalArgs, namedArgs) async {
+          'bind': (visitor, positionalArgs, namedArgs, _) async {
             final address = positionalArgs[0];
             final port = positionalArgs[1] as int;
             final backlog = namedArgs['backlog'] as int? ?? 0;
@@ -969,7 +969,7 @@ class SocketExceptionIo {
           },
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as SocketException).toString(),
         },
         getters: {
@@ -988,7 +988,7 @@ class ConnectionTaskIo {
         name: 'ConnectionTask',
         typeParameterCount: 1,
         methods: {
-          'cancel': (visitor, target, positionalArgs, namedArgs) =>
+          'cancel': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as ConnectionTask).cancel(),
         },
         getters: {
@@ -1026,17 +1026,17 @@ class RawDatagramSocketIo {
         name: 'RawDatagramSocket',
         typeParameterCount: 0,
         methods: {
-          'receive': (visitor, target, positionalArgs, namedArgs) =>
+          'receive': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as RawDatagramSocket).receive(),
-          'send': (visitor, target, positionalArgs, namedArgs) {
+          'send': (visitor, target, positionalArgs, namedArgs, _) {
             final data = positionalArgs[0] as List<int>;
             final address = positionalArgs[1] as InternetAddress;
             final port = positionalArgs[2] as int;
             return (target as RawDatagramSocket).send(data, address, port);
           },
-          'close': (visitor, target, positionalArgs, namedArgs) =>
+          'close': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as RawDatagramSocket).close(),
-          'listen': (visitor, target, positionalArgs, namedArgs) {
+          'listen': (visitor, target, positionalArgs, namedArgs, _) {
             final onData = positionalArgs[0] as InterpretedFunction;
             final onError = namedArgs['onError'] as InterpretedFunction?;
             final onDone = namedArgs['onDone'] as InterpretedFunction?;
@@ -1059,25 +1059,25 @@ class RawDatagramSocketIo {
               cancelOnError: cancelOnError,
             );
           },
-          'joinMulticast': (visitor, target, positionalArgs, namedArgs) {
+          'joinMulticast': (visitor, target, positionalArgs, namedArgs, _) {
             final group = positionalArgs[0] as InternetAddress;
             return (target as RawDatagramSocket).joinMulticast(group);
           },
-          'leaveMulticast': (visitor, target, positionalArgs, namedArgs) {
+          'leaveMulticast': (visitor, target, positionalArgs, namedArgs, _) {
             final group = positionalArgs[0] as InternetAddress;
             return (target as RawDatagramSocket).leaveMulticast(group);
           },
-          'getRawOption': (visitor, target, positionalArgs, namedArgs) {
+          'getRawOption': (visitor, target, positionalArgs, namedArgs, _) {
             final option = positionalArgs[0] as RawSocketOption;
             return (target as RawDatagramSocket).getRawOption(option);
           },
-          'setRawOption': (visitor, target, positionalArgs, namedArgs) {
+          'setRawOption': (visitor, target, positionalArgs, namedArgs, _) {
             final option = positionalArgs[0] as RawSocketOption;
             return (target as RawDatagramSocket).setRawOption(option);
           },
         },
         staticMethods: {
-          'bind': (visitor, positionalArgs, namedArgs) async {
+          'bind': (visitor, positionalArgs, namedArgs, _) async {
             final host = positionalArgs[0];
             final port = positionalArgs[1] as int;
             final reuseAddress = namedArgs['reuseAddress'] as bool? ?? true;
@@ -1123,11 +1123,11 @@ class NetworkInterfaceIo {
         name: 'NetworkInterface',
         typeParameterCount: 0,
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as NetworkInterface).toString(),
         },
         staticMethods: {
-          'list': (visitor, positionalArgs, namedArgs) async {
+          'list': (visitor, positionalArgs, namedArgs, _) async {
             final includeLoopback =
                 namedArgs['includeLoopback'] as bool? ?? false;
             final includeLinkLocal =

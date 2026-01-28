@@ -13,7 +13,7 @@ class ExceptionCore {
           },
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Exception).toString();
           },
         },
@@ -39,7 +39,7 @@ class FormatExceptionCore {
           },
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as FormatException).toString();
           },
         },

@@ -7,7 +7,7 @@ class StringConversionConvert {
         name: 'StringConversionSink',
         typeParameterCount: 0,
         staticMethods: {
-          'withCallback': (visitor, positionalArgs, namedArgs) {
+          'withCallback': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! InterpretedFunction) {
               throw RuntimeError(
@@ -20,7 +20,7 @@ class StringConversionConvert {
           },
         },
         methods: {
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1) {
               throw RuntimeError(
                   'StringConversionSink.add requires one argument.');
@@ -32,7 +32,7 @@ class StringConversionConvert {
             (target as StringConversionSink).add(positionalArgs[0] as String);
             return null;
           },
-          'addSlice': (visitor, target, positionalArgs, namedArgs) {
+          'addSlice': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 4 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! int ||
@@ -48,7 +48,7 @@ class StringConversionConvert {
                 positionalArgs[3] as bool);
             return null;
           },
-          'close': (visitor, target, positionalArgs, namedArgs) {
+          'close': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
               throw RuntimeError(
                   'StringConversionSink.close takes no arguments.');
@@ -56,7 +56,7 @@ class StringConversionConvert {
             (target as StringConversionSink).close();
             return null;
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as StringConversionSink).toString();
           },
         },

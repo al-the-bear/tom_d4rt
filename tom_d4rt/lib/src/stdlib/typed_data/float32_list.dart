@@ -55,7 +55,7 @@ class Float32ListTypedData {
         },
         methods: {
           // Index operators
-          '[]': (visitor, target, positionalArgs, namedArgs) {
+          '[]': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Float32List &&
                 positionalArgs.length == 1 &&
                 positionalArgs[0] is int) {
@@ -63,7 +63,7 @@ class Float32ListTypedData {
             }
             throw RuntimeError("Float32List[index] expects an int index.");
           },
-          '[]=': (visitor, target, positionalArgs, namedArgs) {
+          '[]=': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Float32List &&
                 positionalArgs.length == 2 &&
                 positionalArgs[0] is int &&
@@ -78,19 +78,19 @@ class Float32ListTypedData {
           },
 
           // List methods
-          'sublist': (visitor, target, positionalArgs, namedArgs) {
+          'sublist': (visitor, target, positionalArgs, namedArgs, _) {
             final start =
                 positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
             final end =
                 positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
             return (target as Float32List).sublist(start, end);
           },
-          'getRange': (visitor, target, positionalArgs, namedArgs) {
+          'getRange': (visitor, target, positionalArgs, namedArgs, _) {
             final start = positionalArgs[0] as int;
             final end = positionalArgs[1] as int;
             return (target as Float32List).getRange(start, end);
           },
-          'setRange': (visitor, target, positionalArgs, namedArgs) {
+          'setRange': (visitor, target, positionalArgs, namedArgs, _) {
             final start = positionalArgs[0] as int;
             final end = positionalArgs[1] as int;
             final iterable = positionalArgs[2] as Iterable<double>;
@@ -99,13 +99,13 @@ class Float32ListTypedData {
             (target as Float32List).setRange(start, end, iterable, skipCount);
             return null;
           },
-          'setAll': (visitor, target, positionalArgs, namedArgs) {
+          'setAll': (visitor, target, positionalArgs, namedArgs, _) {
             final at = positionalArgs[0] as int;
             final iterable = positionalArgs[1] as Iterable<double>;
             (target as Float32List).setAll(at, iterable);
             return null;
           },
-          'fillRange': (visitor, target, positionalArgs, namedArgs) {
+          'fillRange': (visitor, target, positionalArgs, namedArgs, _) {
             final start = positionalArgs[0] as int;
             final end = positionalArgs[1] as int;
             final fill = positionalArgs.length > 2
@@ -116,10 +116,10 @@ class Float32ListTypedData {
           },
 
           // Typed methods
-          'buffer': (visitor, target, positionalArgs, namedArgs) {
+          'buffer': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Float32List).buffer;
           },
-          'asUint8ListView': (visitor, target, positionalArgs, namedArgs) {
+          'asUint8ListView': (visitor, target, positionalArgs, namedArgs, _) {
             final offsetInBytes =
                 positionalArgs.isNotEmpty ? positionalArgs[0] as int? : null;
             final length =
@@ -130,10 +130,10 @@ class Float32ListTypedData {
           },
 
           // Standard methods
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Float32List).toString();
           },
-          '==': (visitor, target, positionalArgs, namedArgs) {
+          '==': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Float32List) == positionalArgs[0];
           },
         },

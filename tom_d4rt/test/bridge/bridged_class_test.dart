@@ -191,7 +191,7 @@ void main() {
         staticMethods: {
           // Counter.staticMethod(prefix)
           'staticMethod': (InterpreterVisitor visitor,
-              List<Object?> positionalArgs, Map<String, Object?> namedArgs) {
+              List<Object?> positionalArgs, Map<String, Object?> namedArgs, typeArgs) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw ArgumentError('staticMethod expects 1 string argument');
             }
@@ -229,7 +229,7 @@ void main() {
         methods: {
           // counter.increment([amount])
           'increment': (InterpreterVisitor visitor, Object target,
-              List<Object?> positionalArgs, Map<String, Object?> namedArgs) {
+              List<Object?> positionalArgs, Map<String, Object?> namedArgs, typeArgs) {
             if (target is NativeCounter) {
               if (positionalArgs.isEmpty) {
                 target.increment();
@@ -247,7 +247,7 @@ void main() {
           },
           // counter.add(otherValue)
           'add': (InterpreterVisitor visitor, Object target,
-              List<Object?> positionalArgs, Map<String, Object?> namedArgs) {
+              List<Object?> positionalArgs, Map<String, Object?> namedArgs, typeArgs) {
             if (target is NativeCounter &&
                 positionalArgs.length == 1 &&
                 positionalArgs[0] is int) {
@@ -258,7 +258,7 @@ void main() {
           },
           // counter.isSame(otherCounter)
           'isSame': (InterpreterVisitor visitor, Object target,
-              List<Object?> positionalArgs, Map<String, Object?> namedArgs) {
+              List<Object?> positionalArgs, Map<String, Object?> namedArgs, typeArgs) {
             // Check the target and arguments
             if (target is NativeCounter && positionalArgs.length == 1) {
               final arg = positionalArgs[0];
@@ -294,7 +294,7 @@ void main() {
           },
           // counter.dispose()
           'dispose': (InterpreterVisitor visitor, Object target,
-              List<Object?> positionalArgs, Map<String, Object?> namedArgs) {
+              List<Object?> positionalArgs, Map<String, Object?> namedArgs, typeArgs) {
             if (target is NativeCounter && positionalArgs.isEmpty) {
               target.dispose();
               return null; // void
@@ -324,7 +324,7 @@ void main() {
         },
         methods: {
           // processor.delayedSuccess(input, duration) -> Future<String>
-          'delayedSuccess': (visitor, target, positionalArgs, namedArgs) {
+          'delayedSuccess': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             if (target is AsyncProcessor &&
                 positionalArgs.length == 2 &&
                 positionalArgs[0] is String &&
@@ -336,7 +336,7 @@ void main() {
             throw ArgumentError('Invalid arguments for delayedSuccess');
           },
           // processor.calculateAsync(value) -> Future<int>
-          'calculateAsync': (visitor, target, positionalArgs, namedArgs) {
+          'calculateAsync': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             if (target is AsyncProcessor &&
                 positionalArgs.length == 1 &&
                 positionalArgs[0] is int) {
@@ -345,14 +345,14 @@ void main() {
             throw ArgumentError('Invalid arguments for calculateAsync');
           },
           // processor.doSomethingAsync() -> Future<void>
-          'doSomethingAsync': (visitor, target, positionalArgs, namedArgs) {
+          'doSomethingAsync': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             if (target is AsyncProcessor && positionalArgs.isEmpty) {
               return target.doSomethingAsync();
             }
             throw ArgumentError('Invalid arguments for doSomethingAsync');
           },
           // processor.createCounterAsync(value, id) -> Future<Counter>
-          'createCounterAsync': (visitor, target, positionalArgs, namedArgs) {
+          'createCounterAsync': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             if (target is AsyncProcessor &&
                 positionalArgs.length == 2 &&
                 positionalArgs[0] is int &&
@@ -369,7 +369,7 @@ void main() {
             throw ArgumentError('Invalid arguments for createCounterAsync');
           },
           // processor.alwaysFail(message) -> Future<String> (which fails)
-          'alwaysFail': (visitor, target, positionalArgs, namedArgs) {
+          'alwaysFail': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             if (target is AsyncProcessor &&
                 positionalArgs.length == 1 &&
                 positionalArgs[0] is String) {
@@ -378,7 +378,7 @@ void main() {
             throw ArgumentError('Invalid arguments for alwaysFail');
           },
           // processor.createCounterSync(value, id) -> Counter (sync)
-          'createCounterSync': (visitor, target, positionalArgs, namedArgs) {
+          'createCounterSync': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             if (target is AsyncProcessor &&
                 positionalArgs.length == 2 &&
                 positionalArgs[0] is int &&

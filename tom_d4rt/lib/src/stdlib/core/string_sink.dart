@@ -7,7 +7,7 @@ class StringSinkCore {
         typeParameterCount: 0,
         constructors: {},
         methods: {
-          'write': (visitor, target, positionalArgs, namedArgs) {
+          'write': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1) {
               throw RuntimeError(
                   'StringSink.write requires exactly one argument.');
@@ -15,7 +15,7 @@ class StringSinkCore {
             (target as StringSink).write(positionalArgs[0]);
             return null;
           },
-          'writeln': (visitor, target, positionalArgs, namedArgs) {
+          'writeln': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length > 1) {
               throw RuntimeError(
                   'StringSink.writeln takes at most one argument.');
@@ -24,7 +24,7 @@ class StringSinkCore {
                 .writeln(positionalArgs.get<Object?>(0) ?? "");
             return null;
           },
-          'writeAll': (visitor, target, positionalArgs, namedArgs) {
+          'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs.length > 2 ||
                 positionalArgs[0] is! Iterable) {
@@ -35,7 +35,7 @@ class StringSinkCore {
                 positionalArgs.get<String?>(1) ?? "");
             return null;
           },
-          'writeCharCode': (visitor, target, positionalArgs, namedArgs) {
+          'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
               throw RuntimeError(
                   'StringSink.writeCharCode requires one integer argument.');
@@ -43,9 +43,9 @@ class StringSinkCore {
             (target as StringSink).writeCharCode(positionalArgs[0] as int);
             return null;
           },
-          'hashCode': (visitor, target, positionalArgs, namedArgs) =>
+          'hashCode': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as StringSink).hashCode,
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as StringSink).toString(),
         },
         getters: {

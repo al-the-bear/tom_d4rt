@@ -1720,7 +1720,7 @@ class BridgedSuperMethodCallable implements Callable {
       List<RuntimeType>? typeArguments]) {
     try {
       // Call the adapter, passing the stored native super object as the target
-      return adapter(visitor, superObject, positionalArguments, namedArguments);
+      return adapter(visitor, superObject, positionalArguments, namedArguments, typeArguments);
     } on ArgumentError catch (e) {
       throw RuntimeError(
           "Invalid arguments for bridged superclass method '$bridgedClassName.$methodName': ${e.message}");
@@ -1759,7 +1759,7 @@ class BridgedMixinMethodCallable implements Callable {
       // or handle the call differently since the adapter expects a native object
       // but we have an interpreted instance. For now, we'll pass the instance directly
       // and let the adapter handle the conversion.
-      return adapter(visitor, instance, positionalArguments, namedArguments);
+      return adapter(visitor, instance, positionalArguments, namedArguments, typeArguments);
     } catch (e, s) {
       Logger.error(
           "[BridgedMixinMethodCallable] Native exception during call to '$bridgedMixinName.$methodName': $e\n$s");
@@ -1793,7 +1793,7 @@ class BridgedEnumMixinMethodCallable implements Callable {
       List<RuntimeType>? typeArguments]) {
     try {
       // Pass the enum value as the target for the adapter
-      return adapter(visitor, enumValue, positionalArguments, namedArguments);
+      return adapter(visitor, enumValue, positionalArguments, namedArguments, typeArguments);
     } catch (e, s) {
       Logger.error(
           "[BridgedEnumMixinMethodCallable] Native exception during call to '$bridgedMixinName.$methodName': $e\n$s");

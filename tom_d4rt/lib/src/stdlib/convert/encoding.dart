@@ -8,7 +8,7 @@ class EncodingConvert {
         name: 'Encoding',
         typeParameterCount: 0,
         staticMethods: {
-          'getByName': (visitor, positionalArgs, namedArgs) {
+          'getByName': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'Encoding.getByName requires one String argument (name).');
@@ -17,14 +17,14 @@ class EncodingConvert {
           },
         },
         methods: {
-          'encode': (visitor, target, positionalArgs, namedArgs) {
+          'encode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeError(
                   'Encoding.encode requires one String argument.');
             }
             return (target as Encoding).encode(positionalArgs[0] as String);
           },
-          'decode': (visitor, target, positionalArgs, namedArgs) {
+          'decode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
               throw RuntimeError(
                   'Encoding.decode requires one List<int> argument.');
@@ -32,10 +32,10 @@ class EncodingConvert {
             return (target as Encoding)
                 .decode((positionalArgs[0] as List).cast());
           },
-          'inverted': (visitor, target, positionalArgs, namedArgs) {
+          'inverted': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Encoding).inverted;
           },
-          'fuse': (visitor, target, positionalArgs, namedArgs) {
+          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Codec<List<int>, dynamic>) {
               throw RuntimeError(

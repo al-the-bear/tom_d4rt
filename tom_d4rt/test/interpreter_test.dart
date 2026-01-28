@@ -3222,7 +3222,7 @@ void main() {
             name: 'Dummy',
             constructors: {'': (v, p, n) => DummyNative()},
             methods: {
-              'nativeMethod': (v, t, p, n) => (t as DummyNative).nativeMethod(),
+              'nativeMethod': (v, t, p, n, typeArgs) => (t as DummyNative).nativeMethod(),
             },
             getters: {},
             setters: {},

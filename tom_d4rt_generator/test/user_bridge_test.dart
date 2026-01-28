@@ -397,18 +397,18 @@ void main() {
       });
 
       test('non-overridden globals are generated normally', () {
-        // Variable values are now prefixed with $source. since source imports use a prefix
+        // Variable values are now prefixed with $pkg. since source imports use a prefix
         // debugMode is not overridden
         expect(
           generatedCode,
           contains(
-              r"interpreter.registerGlobalVariable('debugMode', $source.debugMode)"),
+              r"interpreter.registerGlobalVariable('debugMode', $pkg.debugMode)"),
         );
         // version is not overridden
         expect(
           generatedCode,
           contains(
-              r"interpreter.registerGlobalVariable('version', $source.version)"),
+              r"interpreter.registerGlobalVariable('version', $pkg.version)"),
         );
         // resetState function is not overridden
         expect(

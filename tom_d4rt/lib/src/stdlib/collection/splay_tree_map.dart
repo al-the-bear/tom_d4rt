@@ -97,20 +97,20 @@ class SplayTreeMapCollection {
           },
         },
         methods: {
-          '[]': (visitor, target, positionalArgs, namedArgs) {
+          '[]': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is SplayTreeMap && positionalArgs.length == 1) {
               return target[positionalArgs[0]];
             }
             throw RuntimeError("Invalid arguments for SplayTreeMap[] getter");
           },
-          '[]=': (visitor, target, positionalArgs, namedArgs) {
+          '[]=': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is SplayTreeMap && positionalArgs.length == 2) {
               target[positionalArgs[0]] = positionalArgs[1];
               return positionalArgs[1];
             }
             throw RuntimeError("Invalid arguments for SplayTreeMap[]= setter");
           },
-          'addAll': (visitor, target, positionalArgs, namedArgs) {
+          'addAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is SplayTreeMap && positionalArgs.length == 1) {
               final otherMap = positionalArgs[0];
               if (otherMap is Map) {
@@ -122,7 +122,7 @@ class SplayTreeMapCollection {
             }
             throw RuntimeError("Invalid arguments for SplayTreeMap.addAll");
           },
-          'clear': (visitor, target, positionalArgs, namedArgs) {
+          'clear': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is SplayTreeMap &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
@@ -131,21 +131,21 @@ class SplayTreeMapCollection {
             }
             throw RuntimeError("Invalid arguments for SplayTreeMap.clear");
           },
-          'containsKey': (visitor, target, positionalArgs, namedArgs) {
+          'containsKey': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is SplayTreeMap && positionalArgs.length == 1) {
               return target.containsKey(positionalArgs[0]);
             }
             throw RuntimeError(
                 "Invalid arguments for SplayTreeMap.containsKey");
           },
-          'containsValue': (visitor, target, positionalArgs, namedArgs) {
+          'containsValue': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is SplayTreeMap && positionalArgs.length == 1) {
               return target.containsValue(positionalArgs[0]);
             }
             throw RuntimeError(
                 "Invalid arguments for SplayTreeMap.containsValue");
           },
-          'forEach': (visitor, target, positionalArgs, namedArgs) {
+          'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is SplayTreeMap && positionalArgs.length == 1) {
               final action = positionalArgs[0];
               if (action is InterpretedFunction) {
@@ -159,7 +159,7 @@ class SplayTreeMapCollection {
             }
             throw RuntimeError("Invalid arguments for SplayTreeMap.forEach");
           },
-          'putIfAbsent': (visitor, target, positionalArgs, namedArgs) {
+          'putIfAbsent': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is SplayTreeMap && positionalArgs.length == 2) {
               final key = positionalArgs[0];
               final ifAbsent = positionalArgs[1];
@@ -173,20 +173,20 @@ class SplayTreeMapCollection {
             throw RuntimeError(
                 "Invalid arguments for SplayTreeMap.putIfAbsent");
           },
-          'remove': (visitor, target, positionalArgs, namedArgs) {
+          'remove': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is SplayTreeMap && positionalArgs.length == 1) {
               return target.remove(positionalArgs[0]);
             }
             throw RuntimeError("Invalid arguments for SplayTreeMap.remove");
           },
-          'firstKey': (visitor, target, positionalArgs, namedArgs) {
+          'firstKey': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is SplayTreeMap && positionalArgs.isEmpty) {
               if (target.isEmpty) throw RuntimeError("Map is empty");
               return target.firstKey();
             }
             throw RuntimeError("Invalid arguments for SplayTreeMap.firstKey");
           },
-          'lastKey': (visitor, target, positionalArgs, namedArgs) {
+          'lastKey': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is SplayTreeMap && positionalArgs.isEmpty) {
               if (target.isEmpty) throw RuntimeError("Map is empty");
               return target.lastKey();

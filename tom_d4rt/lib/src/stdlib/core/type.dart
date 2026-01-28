@@ -6,10 +6,10 @@ class TypeCore {
         name: 'Type',
         typeParameterCount: 0,
         methods: {
-          '==': (visitor, target, positionalArgs, namedArgs) {
+          '==': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Type) == positionalArgs[0];
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Type).toString();
           },
         },

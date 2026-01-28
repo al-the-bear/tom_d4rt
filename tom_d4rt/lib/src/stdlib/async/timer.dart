@@ -19,14 +19,14 @@ class TimerAsync {
           },
         },
         staticMethods: {
-          'periodic': (visitor, positionalArgs, namedArgs) {
+          'periodic': (visitor, positionalArgs, namedArgs, _) {
             final duration = positionalArgs[0] as Duration;
             final callback = positionalArgs[1] as InterpretedFunction;
             return Timer.periodic(duration, (timer) {
               callback.call(visitor, [timer]);
             });
           },
-          'run': (visitor, positionalArgs, namedArgs) {
+          'run': (visitor, positionalArgs, namedArgs, _) {
             final callback = positionalArgs[1] as InterpretedFunction;
             return Timer.run(() {
               callback.call(visitor, []);
@@ -34,11 +34,11 @@ class TimerAsync {
           },
         },
         methods: {
-          'cancel': (visitor, target, positionalArgs, namedArgs) {
+          'cancel': (visitor, target, positionalArgs, namedArgs, _) {
             (target as Timer).cancel();
             return null;
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Timer).toString();
           },
         },

@@ -7,7 +7,7 @@ class ComparableCore {
         typeParameterCount: 0,
         constructors: {},
         staticMethods: {
-          'compare': (visitor, positionalArgs, namedArgs) {
+          'compare': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 2 ||
                 positionalArgs[0] is! Comparable ||
                 positionalArgs[1] is! Comparable) {
@@ -19,10 +19,10 @@ class ComparableCore {
           },
         },
         methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs) {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Comparable).toString();
           },
-          'compareTo': (visitor, target, positionalArgs, namedArgs) {
+          'compareTo': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1) {
               throw RuntimeError(
                   'Comparable.compareTo requires a Comparable argument.');

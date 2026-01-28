@@ -21,86 +21,86 @@ class UnmodifiableListViewCollection {
           },
         },
         methods: {
-          '[]': (visitor, target, positionalArgs, namedArgs) {
+          '[]': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is UnmodifiableListView && positionalArgs.length == 1) {
               return target[positionalArgs[0] as int];
             }
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView[] getter");
           },
-          '[]=': (visitor, target, positionalArgs, namedArgs) {
+          '[]=': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'addAll': (visitor, target, positionalArgs, namedArgs) {
+          'addAll': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'clear': (visitor, target, positionalArgs, namedArgs) {
+          'clear': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'insert': (visitor, target, positionalArgs, namedArgs) {
+          'insert': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'insertAll': (visitor, target, positionalArgs, namedArgs) {
+          'insertAll': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'remove': (visitor, target, positionalArgs, namedArgs) {
+          'remove': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'removeAt': (visitor, target, positionalArgs, namedArgs) {
+          'removeAt': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'removeLast': (visitor, target, positionalArgs, namedArgs) {
+          'removeLast': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'removeRange': (visitor, target, positionalArgs, namedArgs) {
+          'removeRange': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'removeWhere': (visitor, target, positionalArgs, namedArgs) {
+          'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'replaceRange': (visitor, target, positionalArgs, namedArgs) {
+          'replaceRange': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'retainWhere': (visitor, target, positionalArgs, namedArgs) {
+          'retainWhere': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'fillRange': (visitor, target, positionalArgs, namedArgs) {
+          'fillRange': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'setAll': (visitor, target, positionalArgs, namedArgs) {
+          'setAll': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'setRange': (visitor, target, positionalArgs, namedArgs) {
+          'setRange': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'shuffle': (visitor, target, positionalArgs, namedArgs) {
+          'shuffle': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'sort': (visitor, target, positionalArgs, namedArgs) {
+          'sort': (visitor, target, positionalArgs, namedArgs, _) {
             throw RuntimeError(
                 "Unsupported operation: Cannot modify an unmodifiable list");
           },
-          'elementAt': (visitor, target, positionalArgs, namedArgs) {
+          'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 1 && positionalArgs[0] is int) {
               return t.elementAt(positionalArgs[0] as int);
@@ -108,7 +108,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.elementAt");
           },
-          'followedBy': (visitor, target, positionalArgs, namedArgs) {
+          'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 1 && positionalArgs[0] is Iterable) {
               return t.followedBy(positionalArgs[0] as Iterable);
@@ -116,7 +116,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.followedBy");
           },
-          'forEach': (visitor, target, positionalArgs, namedArgs) {
+          'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 1 &&
                 positionalArgs[0] is InterpretedFunction) {
@@ -129,7 +129,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.forEach");
           },
-          'map': (visitor, target, positionalArgs, namedArgs) {
+          'map': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 1 &&
                 positionalArgs[0] is InterpretedFunction) {
@@ -139,7 +139,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.map");
           },
-          'where': (visitor, target, positionalArgs, namedArgs) {
+          'where': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 1 &&
                 positionalArgs[0] is InterpretedFunction) {
@@ -154,7 +154,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.where");
           },
-          'any': (visitor, target, positionalArgs, namedArgs) {
+          'any': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 1 &&
                 positionalArgs[0] is InterpretedFunction) {
@@ -169,7 +169,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.any");
           },
-          'every': (visitor, target, positionalArgs, namedArgs) {
+          'every': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 1 &&
                 positionalArgs[0] is InterpretedFunction) {
@@ -184,7 +184,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.every");
           },
-          'contains': (visitor, target, positionalArgs, namedArgs) {
+          'contains': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 1) {
               return t.contains(positionalArgs[0]);
@@ -192,7 +192,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.contains");
           },
-          'indexOf': (visitor, target, positionalArgs, namedArgs) {
+          'indexOf': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.isNotEmpty) {
               final element = positionalArgs[0];
@@ -204,7 +204,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.indexOf");
           },
-          'lastIndexOf': (visitor, target, positionalArgs, namedArgs) {
+          'lastIndexOf': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.isNotEmpty) {
               final element = positionalArgs[0];
@@ -216,7 +216,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.lastIndexOf");
           },
-          'join': (visitor, target, positionalArgs, namedArgs) {
+          'join': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             String separator = "";
             if (positionalArgs.isNotEmpty) {
@@ -224,7 +224,7 @@ class UnmodifiableListViewCollection {
             }
             return t.join(separator);
           },
-          'getRange': (visitor, target, positionalArgs, namedArgs) {
+          'getRange': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 2 &&
                 positionalArgs[0] is int &&
@@ -235,7 +235,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.getRange");
           },
-          'sublist': (visitor, target, positionalArgs, namedArgs) {
+          'sublist': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.isNotEmpty && positionalArgs[0] is int) {
               final start = positionalArgs[0] as int;
@@ -246,7 +246,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.sublist");
           },
-          'toList': (visitor, target, positionalArgs, namedArgs) {
+          'toList': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             bool growable = namedArgs['growable'] as bool? ?? true;
             if (positionalArgs.isEmpty) {
@@ -255,7 +255,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.toList");
           },
-          'toSet': (visitor, target, positionalArgs, namedArgs) {
+          'toSet': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.isEmpty) {
               return t.toSet();
@@ -263,12 +263,12 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.toSet");
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             var castedSource = t.cast<dynamic>();
             return UnmodifiableListView(castedSource.toList());
           },
-          'singleWhere': (visitor, target, positionalArgs, namedArgs) {
+          'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 1 &&
                 positionalArgs[0] is InterpretedFunction) {
@@ -287,7 +287,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.singleWhere");
           },
-          'firstWhere': (visitor, target, positionalArgs, namedArgs) {
+          'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 1 &&
                 positionalArgs[0] is InterpretedFunction) {
@@ -306,7 +306,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.firstWhere");
           },
-          'lastWhere': (visitor, target, positionalArgs, namedArgs) {
+          'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 1 &&
                 positionalArgs[0] is InterpretedFunction) {
@@ -325,7 +325,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.lastWhere");
           },
-          'skip': (visitor, target, positionalArgs, namedArgs) {
+          'skip': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 1 && positionalArgs[0] is int) {
               return t.skip(positionalArgs[0] as int);
@@ -333,7 +333,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.skip");
           },
-          'take': (visitor, target, positionalArgs, namedArgs) {
+          'take': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 1 && positionalArgs[0] is int) {
               return t.take(positionalArgs[0] as int);
@@ -341,7 +341,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.take");
           },
-          'skipWhile': (visitor, target, positionalArgs, namedArgs) {
+          'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 1 &&
                 positionalArgs[0] is InterpretedFunction) {
@@ -356,7 +356,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.skipWhile");
           },
-          'takeWhile': (visitor, target, positionalArgs, namedArgs) {
+          'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 1 &&
                 positionalArgs[0] is InterpretedFunction) {
@@ -371,7 +371,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.takeWhile");
           },
-          'expand': (visitor, target, positionalArgs, namedArgs) {
+          'expand': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 1 &&
                 positionalArgs[0] is InterpretedFunction) {
@@ -386,7 +386,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.expand");
           },
-          'fold': (visitor, target, positionalArgs, namedArgs) {
+          'fold': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 2 &&
                 positionalArgs[1] is InterpretedFunction) {
@@ -398,7 +398,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.fold");
           },
-          'reduce': (visitor, target, positionalArgs, namedArgs) {
+          'reduce': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.length == 1 &&
                 positionalArgs[0] is InterpretedFunction) {
@@ -408,7 +408,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.reduce");
           },
-          'asMap': (visitor, target, positionalArgs, namedArgs) {
+          'asMap': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.isEmpty && namedArgs.isEmpty) {
               return t.asMap();
@@ -416,7 +416,7 @@ class UnmodifiableListViewCollection {
             throw RuntimeError(
                 "Invalid arguments for UnmodifiableListView.asMap");
           },
-          'reversed': (visitor, target, positionalArgs, namedArgs) {
+          'reversed': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
             if (positionalArgs.isEmpty && namedArgs.isEmpty) {
               return t.reversed;

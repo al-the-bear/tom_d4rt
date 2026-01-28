@@ -8,15 +8,15 @@ class StdinIo {
         name: 'Stdin',
         typeParameterCount: 0,
         methods: {
-          'readLineSync': (visitor, target, positionalArgs, namedArgs) =>
+          'readLineSync': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Stdin).readLineSync(
                   encoding:
                       namedArgs['encoding'] as Encoding? ?? systemEncoding,
                   retainNewlines:
                       namedArgs['retainNewlines'] as bool? ?? false),
-          'readByteSync': (visitor, target, positionalArgs, namedArgs) =>
+          'readByteSync': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Stdin).readByteSync(),
-          'listen': (visitor, target, positionalArgs, namedArgs) {
+          'listen': (visitor, target, positionalArgs, namedArgs, _) {
             final stdin = target as Stdin;
             final onData = positionalArgs[0] as InterpretedFunction?;
             final onError = namedArgs['onError'] as InterpretedFunction?;
@@ -55,16 +55,16 @@ class StdoutIo {
         typeParameterCount: 0,
         constructors: {},
         methods: {
-          'write': (visitor, target, positionalArgs, namedArgs) {
+          'write': (visitor, target, positionalArgs, namedArgs, _) {
             (target as Stdout).write(positionalArgs[0]);
             return null;
           },
-          'writeln': (visitor, target, positionalArgs, namedArgs) {
+          'writeln': (visitor, target, positionalArgs, namedArgs, _) {
             (target as Stdout)
                 .writeln(positionalArgs.isNotEmpty ? positionalArgs[0] : '');
             return null;
           },
-          'writeAll': (visitor, target, positionalArgs, namedArgs) {
+          'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
             final stdout = target as Stdout;
             if (positionalArgs.isEmpty || positionalArgs[0] is! Iterable) {
               throw RuntimeError('writeAll requires an Iterable argument.');
@@ -75,7 +75,7 @@ class StdoutIo {
             );
             return null;
           },
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             final stdout = target as Stdout;
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
               throw RuntimeError('add requires a List<int> argument.');
@@ -83,7 +83,7 @@ class StdoutIo {
             stdout.add(positionalArgs[0] as List<int>);
             return null;
           },
-          'addStream': (visitor, target, positionalArgs, namedArgs) {
+          'addStream': (visitor, target, positionalArgs, namedArgs, _) {
             final stdout = target as Stdout;
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<List<int>>) {
@@ -92,11 +92,11 @@ class StdoutIo {
             }
             return stdout.addStream(positionalArgs[0] as Stream<List<int>>);
           },
-          'flush': (visitor, target, positionalArgs, namedArgs) =>
+          'flush': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Stdout).flush(),
-          'close': (visitor, target, positionalArgs, namedArgs) =>
+          'close': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Stdout).close(),
-          'addError': (visitor, target, positionalArgs, namedArgs) {
+          'addError': (visitor, target, positionalArgs, namedArgs, _) {
             final stdout = target as Stdout;
             if (positionalArgs.isEmpty) {
               throw RuntimeError(
@@ -110,7 +110,7 @@ class StdoutIo {
             );
             return null;
           },
-          'toString': (visitor, target, positionalArgs, namedArgs) =>
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Stdout).toString(),
         },
         getters: {

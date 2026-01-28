@@ -44,13 +44,13 @@ class StreamAsync {
         ],
         constructors: {},
         staticMethods: {
-          'value': (visitor, positionalArgs, namedArgs) {
+          'value': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError('Stream.value requires one argument.');
             }
             return Stream.value(positionalArgs[0]);
           },
-          'error': (visitor, positionalArgs, namedArgs) {
+          'error': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError(
                   'Stream.error requires at least one argument.');
@@ -64,18 +64,18 @@ class StreamAsync {
                 : null;
             return Stream.error(error, stackTrace);
           },
-          'empty': (visitor, positionalArgs, namedArgs) {
+          'empty': (visitor, positionalArgs, namedArgs, _) {
             final broadcast = namedArgs['broadcast'] as bool? ?? true;
             return Stream.empty(broadcast: broadcast);
           },
-          'fromIterable': (visitor, positionalArgs, namedArgs) {
+          'fromIterable': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Iterable) {
               throw RuntimeError(
                   'Stream.fromIterable requires an Iterable argument.');
             }
             return Stream.fromIterable(positionalArgs[0] as Iterable);
           },
-          'periodic': (visitor, positionalArgs, namedArgs) {
+          'periodic': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! Duration) {
               throw RuntimeError(
                   'Stream.periodic requires a Duration argument.');
@@ -90,21 +90,21 @@ class StreamAsync {
                   : (i) => _runAction(visitor, callback, [i]),
             );
           },
-          'fromFuture': (visitor, positionalArgs, namedArgs) {
+          'fromFuture': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Future) {
               throw RuntimeError(
                   'Stream.fromFuture requires a Future argument.');
             }
             return Stream.fromFuture(positionalArgs[0] as Future);
           },
-          'fromFutures': (visitor, positionalArgs, namedArgs) {
+          'fromFutures': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Iterable) {
               throw RuntimeError(
                   'Stream.fromFutures requires an Iterable argument.');
             }
             return Stream.fromFutures((positionalArgs[0] as Iterable).cast());
           },
-          'multi': (visitor, positionalArgs, namedArgs) {
+          'multi': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
               throw RuntimeError('Stream.multi requires an onListen function.');
@@ -116,7 +116,7 @@ class StreamAsync {
               isBroadcast: isBroadcast,
             );
           },
-          'eventTransformed': (visitor, positionalArgs, namedArgs) {
+          'eventTransformed': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2) {
               throw RuntimeError(
                   'Stream.eventTransformed requires source and mapSink.');
@@ -131,7 +131,7 @@ class StreamAsync {
               },
             );
           },
-          'castFrom': (visitor, positionalArgs, namedArgs) {
+          'castFrom': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError('Stream.castFrom requires a source stream.');
             }
@@ -139,7 +139,7 @@ class StreamAsync {
           },
         },
         methods: {
-          'listen': (visitor, target, positionalArgs, namedArgs) {
+          'listen': (visitor, target, positionalArgs, namedArgs, _) {
             final onData = positionalArgs.isNotEmpty
                 ? positionalArgs[0] as InterpretedFunction?
                 : null;
@@ -164,7 +164,7 @@ class StreamAsync {
               cancelOnError: cancelOnError,
             );
           },
-          'map': (visitor, target, positionalArgs, namedArgs) {
+          'map': (visitor, target, positionalArgs, namedArgs, _) {
             final mapper = positionalArgs[0];
             if (mapper is! InterpretedFunction) {
               throw RuntimeError(
@@ -173,7 +173,7 @@ class StreamAsync {
             return (target as Stream)
                 .map((event) => _runAction<dynamic>(visitor, mapper, [event]));
           },
-          'where': (visitor, target, positionalArgs, namedArgs) {
+          'where': (visitor, target, positionalArgs, namedArgs, _) {
             final predicate = positionalArgs[0];
             if (predicate is! InterpretedFunction) {
               throw RuntimeError(
@@ -184,7 +184,7 @@ class StreamAsync {
               return result is bool && result;
             });
           },
-          'expand': (visitor, target, positionalArgs, namedArgs) {
+          'expand': (visitor, target, positionalArgs, namedArgs, _) {
             final converter = positionalArgs[0];
             if (converter is! InterpretedFunction) {
               throw RuntimeError(
@@ -195,7 +195,7 @@ class StreamAsync {
               return result is Iterable ? result : const [];
             });
           },
-          'transform': (visitor, target, positionalArgs, namedArgs) {
+          'transform': (visitor, target, positionalArgs, namedArgs, _) {
             final streamTransformer = positionalArgs[0];
             if (streamTransformer is! StreamTransformer) {
               throw RuntimeError(
@@ -203,7 +203,7 @@ class StreamAsync {
             }
             return (target as Stream).transform(streamTransformer);
           },
-          'take': (visitor, target, positionalArgs, namedArgs) {
+          'take': (visitor, target, positionalArgs, namedArgs, _) {
             final count = positionalArgs[0];
             if (count is! int) {
               throw RuntimeError(
@@ -211,7 +211,7 @@ class StreamAsync {
             }
             return (target as Stream).take(count);
           },
-          'skip': (visitor, target, positionalArgs, namedArgs) {
+          'skip': (visitor, target, positionalArgs, namedArgs, _) {
             final count = positionalArgs[0];
             if (count is! int) {
               throw RuntimeError(
@@ -219,7 +219,7 @@ class StreamAsync {
             }
             return (target as Stream).skip(count);
           },
-          'takeWhile': (visitor, target, positionalArgs, namedArgs) {
+          'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final predicate = positionalArgs[0];
             if (predicate is! InterpretedFunction) {
               throw RuntimeError(
@@ -230,7 +230,7 @@ class StreamAsync {
               return result is bool && result;
             });
           },
-          'skipWhile': (visitor, target, positionalArgs, namedArgs) {
+          'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final predicate = positionalArgs[0];
             if (predicate is! InterpretedFunction) {
               throw RuntimeError(
@@ -241,7 +241,7 @@ class StreamAsync {
               return result is bool && result;
             });
           },
-          'distinct': (visitor, target, positionalArgs, namedArgs) {
+          'distinct': (visitor, target, positionalArgs, namedArgs, _) {
             final equals = positionalArgs.isNotEmpty
                 ? positionalArgs[0] as InterpretedFunction?
                 : null;
@@ -254,17 +254,17 @@ class StreamAsync {
               });
             }
           },
-          'toList': (visitor, target, positionalArgs, namedArgs) =>
+          'toList': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Stream).toList(),
-          'toSet': (visitor, target, positionalArgs, namedArgs) =>
+          'toSet': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Stream).toSet(),
-          'join': (visitor, target, positionalArgs, namedArgs) {
+          'join': (visitor, target, positionalArgs, namedArgs, _) {
             final separator = positionalArgs.isNotEmpty
                 ? positionalArgs[0] as String? ?? ''
                 : '';
             return (target as Stream).join(separator);
           },
-          'pipe': (visitor, target, positionalArgs, namedArgs) {
+          'pipe': (visitor, target, positionalArgs, namedArgs, _) {
             final streamConsumer = positionalArgs[0];
             if (streamConsumer is! StreamConsumer) {
               throw RuntimeError(
@@ -272,7 +272,7 @@ class StreamAsync {
             }
             return (target as Stream).pipe(streamConsumer);
           },
-          'any': (visitor, target, positionalArgs, namedArgs) {
+          'any': (visitor, target, positionalArgs, namedArgs, _) {
             final predicate = positionalArgs[0];
             if (predicate is! InterpretedFunction) {
               throw RuntimeError(
@@ -283,14 +283,14 @@ class StreamAsync {
               return result is bool && result;
             });
           },
-          'contains': (visitor, target, positionalArgs, namedArgs) {
+          'contains': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError(
                   'Stream.contains requires an element argument.');
             }
             return (target as Stream).contains(positionalArgs[0]);
           },
-          'every': (visitor, target, positionalArgs, namedArgs) {
+          'every': (visitor, target, positionalArgs, namedArgs, _) {
             final predicate = positionalArgs[0];
             if (predicate is! InterpretedFunction) {
               throw RuntimeError(
@@ -301,7 +301,7 @@ class StreamAsync {
               return result is bool && result;
             });
           },
-          'fold': (visitor, target, positionalArgs, namedArgs) {
+          'fold': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2 ||
                 positionalArgs[1] is! InterpretedFunction) {
               throw RuntimeError(
@@ -315,7 +315,7 @@ class StreamAsync {
                   _runAction<dynamic>(visitor, combine, [previous, element]),
             );
           },
-          'reduce': (visitor, target, positionalArgs, namedArgs) {
+          'reduce': (visitor, target, positionalArgs, namedArgs, _) {
             final combine = positionalArgs[0];
             if (combine is! InterpretedFunction) {
               throw RuntimeError(
@@ -326,7 +326,7 @@ class StreamAsync {
                   _runAction<dynamic>(visitor, combine, [previous, element]),
             );
           },
-          'forEach': (visitor, target, positionalArgs, namedArgs) {
+          'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             final action = positionalArgs[0];
             if (action is! InterpretedFunction) {
               throw RuntimeError(
@@ -336,7 +336,7 @@ class StreamAsync {
               (element) => _runAction<void>(visitor, action, [element]),
             );
           },
-          'asBroadcastStream': (visitor, target, positionalArgs, namedArgs) {
+          'asBroadcastStream': (visitor, target, positionalArgs, namedArgs, _) {
             final onListen = namedArgs['onListen'] as InterpretedFunction?;
             final onCancel = namedArgs['onCancel'] as InterpretedFunction?;
             return (target as Stream).asBroadcastStream(
@@ -350,7 +350,7 @@ class StreamAsync {
                       _runAction<void>(visitor, onCancel, [subscription]),
             );
           },
-          'asyncMap': (visitor, target, positionalArgs, namedArgs) {
+          'asyncMap': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
               throw RuntimeError(
@@ -361,7 +361,7 @@ class StreamAsync {
               (event) => _runAction(visitor, convert, [event]),
             );
           },
-          'asyncExpand': (visitor, target, positionalArgs, namedArgs) {
+          'asyncExpand': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
               throw RuntimeError(
@@ -375,7 +375,7 @@ class StreamAsync {
               },
             );
           },
-          'handleError': (visitor, target, positionalArgs, namedArgs) {
+          'handleError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
               throw RuntimeError(
@@ -391,7 +391,7 @@ class StreamAsync {
                   : (error) => _runAction<bool>(visitor, test, [error]) == true,
             );
           },
-          'timeout': (visitor, target, positionalArgs, namedArgs) {
+          'timeout': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! Duration) {
               throw RuntimeError('Stream.timeout requires a Duration.');
             }
@@ -404,7 +404,7 @@ class StreamAsync {
                   : (sink) => _runAction<void>(visitor, onTimeout, [sink]),
             );
           },
-          'firstWhere': (visitor, target, positionalArgs, namedArgs) {
+          'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
               throw RuntimeError('Stream.firstWhere requires a test function.');
@@ -417,7 +417,7 @@ class StreamAsync {
                   orElse == null ? null : () => _runAction(visitor, orElse, []),
             );
           },
-          'lastWhere': (visitor, target, positionalArgs, namedArgs) {
+          'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
               throw RuntimeError('Stream.lastWhere requires a test function.');
@@ -430,7 +430,7 @@ class StreamAsync {
                   orElse == null ? null : () => _runAction(visitor, orElse, []),
             );
           },
-          'singleWhere': (visitor, target, positionalArgs, namedArgs) {
+          'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
               throw RuntimeError(
@@ -444,18 +444,18 @@ class StreamAsync {
                   orElse == null ? null : () => _runAction(visitor, orElse, []),
             );
           },
-          'elementAt': (visitor, target, positionalArgs, namedArgs) {
+          'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! int) {
               throw RuntimeError('Stream.elementAt requires an int index.');
             }
             return (target as Stream).elementAt(positionalArgs[0] as int);
           },
-          'drain': (visitor, target, positionalArgs, namedArgs) {
+          'drain': (visitor, target, positionalArgs, namedArgs, _) {
             final futureValue =
                 positionalArgs.isNotEmpty ? positionalArgs[0] : null;
             return (target as Stream).drain(futureValue);
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) =>
+          'cast': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Stream).cast(),
         },
         getters: {
@@ -487,15 +487,15 @@ class StreamSubscriptionAsync {
         ],
         constructors: {},
         methods: {
-          'cancel': (visitor, target, positionalArgs, namedArgs) =>
+          'cancel': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as StreamSubscription).cancel(),
-          'pause': (visitor, target, positionalArgs, namedArgs) {
+          'pause': (visitor, target, positionalArgs, namedArgs, _) {
             final resumeSignal =
                 positionalArgs.isNotEmpty ? positionalArgs[0] as Future? : null;
             (target as StreamSubscription).pause(resumeSignal);
             return null;
           },
-          'resume': (visitor, target, positionalArgs, namedArgs) {
+          'resume': (visitor, target, positionalArgs, namedArgs, _) {
             (target as StreamSubscription).resume();
             return null;
           },
@@ -547,14 +547,14 @@ class StreamSinkAsync {
         typeParameterCount: 1,
         constructors: {},
         methods: {
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError('StreamSink.add requires an event argument.');
             }
             (target as StreamSink).add(positionalArgs[0]);
             return null;
           },
-          'addError': (visitor, target, positionalArgs, namedArgs) {
+          'addError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError(
                   'StreamSink.addError requires an error argument.');
@@ -570,7 +570,7 @@ class StreamSinkAsync {
             (target as StreamSink).addError(error, stackTrace);
             return null;
           },
-          'close': (visitor, target, positionalArgs, namedArgs) =>
+          'close': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as StreamSink).close(),
         },
         getters: {
@@ -627,7 +627,7 @@ class StreamTransformerAsync {
         },
         staticMethods: {},
         methods: {
-          'bind': (visitor, target, positionalArgs, namedArgs) {
+          'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
               throw RuntimeError(
                   'StreamTransformer.bind requires a Stream argument.');
@@ -635,7 +635,7 @@ class StreamTransformerAsync {
             return (target as StreamTransformer)
                 .bind(positionalArgs[0] as Stream);
           },
-          'cast': (visitor, target, positionalArgs, namedArgs) =>
+          'cast': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as StreamTransformer).cast(),
         },
         getters: {},
@@ -657,9 +657,9 @@ class StreamIteratorAsync {
           },
         },
         methods: {
-          'moveNext': (visitor, target, positionalArgs, namedArgs) =>
+          'moveNext': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as StreamIterator).moveNext(),
-          'cancel': (visitor, target, positionalArgs, namedArgs) =>
+          'cancel': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as StreamIterator).cancel(),
         },
         getters: {
@@ -675,7 +675,7 @@ class MultiStreamControllerAsync {
         typeParameterCount: 1,
         constructors: {},
         methods: {
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError(
                   'MultiStreamController.add requires an event argument.');
@@ -683,7 +683,7 @@ class MultiStreamControllerAsync {
             (target as MultiStreamController).add(positionalArgs[0]);
             return null;
           },
-          'addSync': (visitor, target, positionalArgs, namedArgs) {
+          'addSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError(
                   'MultiStreamController.addSync requires an event argument.');
@@ -691,7 +691,7 @@ class MultiStreamControllerAsync {
             (target as MultiStreamController).addSync(positionalArgs[0]);
             return null;
           },
-          'addError': (visitor, target, positionalArgs, namedArgs) {
+          'addError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError(
                   'MultiStreamController.addError requires an error argument.');
@@ -707,7 +707,7 @@ class MultiStreamControllerAsync {
             (target as MultiStreamController).addError(error, stackTrace);
             return null;
           },
-          'addErrorSync': (visitor, target, positionalArgs, namedArgs) {
+          'addErrorSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError(
                   'MultiStreamController.addErrorSync requires an error argument.');
@@ -723,13 +723,13 @@ class MultiStreamControllerAsync {
             (target as MultiStreamController).addErrorSync(error, stackTrace);
             return null;
           },
-          'close': (visitor, target, positionalArgs, namedArgs) =>
+          'close': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as MultiStreamController).close(),
-          'closeSync': (visitor, target, positionalArgs, namedArgs) {
+          'closeSync': (visitor, target, positionalArgs, namedArgs, _) {
             (target as MultiStreamController).closeSync();
             return null;
           },
-          'addStream': (visitor, target, positionalArgs, namedArgs) {
+          'addStream': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! Stream) {
               throw RuntimeError(
                   'MultiStreamController.addStream requires a Stream argument.');
@@ -791,14 +791,14 @@ class EventSinkAsync {
         constructors: {},
         staticMethods: {},
         methods: {
-          'add': (visitor, target, positionalArgs, namedArgs) {
+          'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError('EventSink.add requires a value argument.');
             }
             (target as EventSink).add(positionalArgs[0]);
             return null;
           },
-          'addError': (visitor, target, positionalArgs, namedArgs) {
+          'addError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
               throw RuntimeError(
                   'EventSink.addError requires an error argument.');
@@ -810,7 +810,7 @@ class EventSinkAsync {
             (target as EventSink).addError(error, stackTrace);
             return null;
           },
-          'close': (visitor, target, positionalArgs, namedArgs) {
+          'close': (visitor, target, positionalArgs, namedArgs, _) {
             (target as EventSink).close();
             return null;
           },
