@@ -766,27 +766,44 @@ class BridgeGenerator {
             final nestedExports = await parseExportFiles([
               absolutePath,
             ], visited: visited, followReExports: followReExports);
-            exports.addAll(nestedExports);
+            // Only add nested exports if they're more permissive or don't exist yet
+            for (final entry in nestedExports.entries) {
+              final existingNested = exports[entry.key];
+              final isExistingNestedMorePermissive = existingNested != null && 
+                  existingNested.showClause == null && 
+                  existingNested.hideClause == null;
+              if (!isExistingNestedMorePermissive) {
+                exports[entry.key] = entry.value;
+              }
+            }
           }
           // Always add the file itself to exports (it may contain its own code)
           // even if it's a barrel file that re-exports other files
-          exports[absolutePath] = ExportInfo(
-            sourcePath: absolutePath,
-            hideClause: hideShow?.startsWith('hide') == true
-                ? hideShow!
-                      .substring(5)
-                      .split(',')
-                      .map((s) => s.trim())
-                      .toList()
-                : null,
-            showClause: hideShow?.startsWith('show') == true
-                ? hideShow!
-                      .substring(5)
-                      .split(',')
-                      .map((s) => s.trim())
-                      .toList()
-                : null,
-          );
+          // BUT: Don't overwrite an existing entry if it's more permissive
+          // (no show/hide clause beats having a show/hide clause)
+          final existingInfo = exports[absolutePath];
+          final isExistingMorePermissive = existingInfo != null && 
+              existingInfo.showClause == null && 
+              existingInfo.hideClause == null;
+          if (!isExistingMorePermissive) {
+            exports[absolutePath] = ExportInfo(
+              sourcePath: absolutePath,
+              hideClause: hideShow?.startsWith('hide') == true
+                  ? hideShow!
+                        .substring(5)
+                        .split(',')
+                        .map((s) => s.trim())
+                        .toList()
+                  : null,
+              showClause: hideShow?.startsWith('show') == true
+                  ? hideShow!
+                        .substring(5)
+                        .split(',')
+                        .map((s) => s.trim())
+                        .toList()
+                  : null,
+            );
+          }
         }
       }
     }
@@ -1028,16 +1045,20 @@ class BridgeGenerator {
       }
     }
 
-    // Filter out abstract classes without factory constructors
-    // Also deduplicate by class name (keep first occurrence)
+    // Filter out abstract classes without factory constructors OR static members
+    // We want to bridge abstract classes if they have factory constructors OR static members we can access
     final bridgeableClasses = <ClassInfo>[];
     final seenClassNames = <String>{};
     for (final cls in filteredClasses) {
-      if (cls.isAbstract && !cls.constructors.any((c) => c.isFactory)) {
-        warnings.add(
-          'Skipping abstract class ${cls.name} (no factory constructor)',
-        );
-        continue;
+      if (cls.isAbstract) {
+        final hasFactoryCtor = cls.constructors.any((c) => c.isFactory);
+        final hasStaticMembers = cls.members.any((m) => m.isStatic);
+        if (!hasFactoryCtor && !hasStaticMembers) {
+          warnings.add(
+            'Skipping abstract class ${cls.name} (no factory constructor or static members)',
+          );
+          continue;
+        }
       }
       if (seenClassNames.contains(cls.name)) {
         warnings.add(
@@ -1049,9 +1070,10 @@ class BridgeGenerator {
       bridgeableClasses.add(cls);
     }
 
-    // Build the set of exported type names from bridgeable classes
+    // Build the set of exported type names from ALL filtered classes (including abstract)
     // This is used to detect when a type is used but not exported from the barrel
-    _exportedTypeNames = bridgeableClasses.map((c) => c.name).toSet();
+    // We use filteredClasses (not bridgeableClasses) to include abstract classes like TomDbType
+    _exportedTypeNames = filteredClasses.map((c) => c.name).toSet();
     // Clear previous warnings since we're starting a new generation
     _missingExportWarnings.clear();
 
@@ -1245,16 +1267,20 @@ class BridgeGenerator {
       }
     }
 
-    // Filter out abstract classes without factory constructors
-    // Also deduplicate by class name (keep first occurrence)
+    // Filter out abstract classes without factory constructors OR static members
+    // We want to bridge abstract classes if they have factory constructors OR static members we can access
     final bridgeableClasses = <ClassInfo>[];
     final seenClassNames = <String>{};
     for (final cls in filteredClasses) {
-      if (cls.isAbstract && !cls.constructors.any((c) => c.isFactory)) {
-        warnings.add(
-          'Skipping abstract class ${cls.name} (no factory constructor)',
-        );
-        continue;
+      if (cls.isAbstract) {
+        final hasFactoryCtor = cls.constructors.any((c) => c.isFactory);
+        final hasStaticMembers = cls.members.any((m) => m.isStatic);
+        if (!hasFactoryCtor && !hasStaticMembers) {
+          warnings.add(
+            'Skipping abstract class ${cls.name} (no factory constructor or static members)',
+          );
+          continue;
+        }
       }
       if (seenClassNames.contains(cls.name)) {
         warnings.add(
@@ -1266,9 +1292,10 @@ class BridgeGenerator {
       bridgeableClasses.add(cls);
     }
 
-    // Build the set of exported type names from bridgeable classes
+    // Build the set of exported type names from ALL filtered classes (including abstract)
     // This is used to detect when a type is used but not exported from the barrel
-    _exportedTypeNames = bridgeableClasses.map((c) => c.name).toSet();
+    // We use filteredClasses (not bridgeableClasses) to include abstract classes like TomDbType
+    _exportedTypeNames = filteredClasses.map((c) => c.name).toSet();
     // Clear previous warnings since we're starting a new generation
     _missingExportWarnings.clear();
 
@@ -1808,6 +1835,26 @@ class BridgeGenerator {
       return defaultValue;
     }
 
+    // 2. Core Library Constants (Duration, DateTime)
+    if (defaultValue.startsWith('const Duration(') || 
+        defaultValue.startsWith('const DateTime(')) {
+      return defaultValue;
+    }
+
+    // 3. Static/Enum access (ClassName.value)
+    // Matches "Name.name" where Name is capitalized (Class/Enum) and name is camelCase.
+    // Explicitly excludes function calls (parentheses).
+    // We prefix with $source to use the aliased import of the bridged library.
+    if (RegExp(r'^[A-Z]\w*\.[a-z]\w*$').hasMatch(defaultValue)) {
+      return '\$source.$defaultValue';
+    }
+
+    // 4. Simple Lists/Sets (heuristic: no internal function calls/parentheses)
+    if ((defaultValue.startsWith('const [') || defaultValue.startsWith('const {')) &&
+        !defaultValue.contains('(')) {
+      return defaultValue;
+    }
+
     // All other cases are non-wrappable:
     // - Const collections with values
     // - Function calls
@@ -1868,7 +1915,8 @@ class BridgeGenerator {
       'List', 'Map', 'Set', 'Iterable', 'Future', 'Stream', 'Function',
       'Type', 'Symbol', 'Null', 'Never', 'Duration', 'DateTime', 'Uri',
       'BigInt', 'Comparable', 'Pattern', 'Match', 'RegExp', 'Runes',
-      'StringBuffer', 'Error', 'Exception', 'StackTrace',
+      'StringBuffer', 'StringSink', 'Error', 'Exception', 'StackTrace',
+      'Record', 'FutureOr', 'MapEntry',
     };
     if (builtInTypes.contains(typeName)) {
       return true;
@@ -2129,16 +2177,32 @@ class BridgeGenerator {
         var positionalIndex = 0;
         final argDeclarations = <String>[];
         final callArgs = <String>[];
-        
+
+        // Check for named unwrappable defaults for combinatorial fallback
+        final nonWrappableDefaults = <ParameterInfo>[];
+        for (final p in func.parameters) {
+          if (p.isNamed &&
+              p.defaultValue != null &&
+              !_isWrappableDefault(p.defaultValue!)) {
+            nonWrappableDefaults.add(p);
+          }
+        }
+        final useCombinatorial =
+            nonWrappableDefaults.isNotEmpty && nonWrappableDefaults.length <= 4;
+
         for (final param in func.parameters) {
           // Resolve the type using _getTypeArgument to handle generics and external types
           final resolvedType = _getTypeArgument(
             param.type,
             typeToUri: param.typeToUri,
           );
-          
+
           if (param.isNamed) {
             // Named parameter handling
+            if (useCombinatorial && nonWrappableDefaults.contains(param)) {
+              // Skip extraction for combinatorial params
+              continue;
+            }
             if (param.isRequired) {
               argDeclarations.add("        final ${param.name} = D4.getRequiredNamedArg<$resolvedType>(named, '${param.name}', '${func.name}');");
             } else if (param.defaultValue != null) {
@@ -2196,8 +2260,20 @@ class BridgeGenerator {
         for (final decl in argDeclarations) {
           buffer.writeln(decl);
         }
-        
-        buffer.writeln('        return $prefixedFuncName(${callArgs.join(', ')});');
+
+        final isVoid = func.returnType == 'void';
+        if (useCombinatorial) {
+           _generateCombinatorialDispatch(
+            buffer,
+            prefixedFuncName,
+            callArgs,
+            nonWrappableDefaults,
+            func.name,
+            isVoid: isVoid,
+          );
+        } else {
+          buffer.writeln('        return $prefixedFuncName(${callArgs.join(', ')});');
+        }
         buffer.writeln('      },');
       }
       buffer.writeln('    };');
@@ -2391,7 +2467,9 @@ class BridgeGenerator {
     if (prefix != null) {
       return '$prefix.$funcName';
     }
-    return funcName;
+    // Fallback to $source for global functions/variables from the source package
+    // This handles cases where the URI format might not match exactly
+    return '\$source.$funcName';
   }
 
   /// Converts a source file path to a package URI.
@@ -2465,6 +2543,9 @@ class BridgeGenerator {
     // Constructors
     buffer.writeln('    constructors: {');
     for (final ctor in cls.constructors) {
+      if (cls.isAbstract && !ctor.isFactory) {
+        continue;
+      }
       final ctorName = ctor.name ?? '';
       
       // Check for constructor override
@@ -2659,6 +2740,108 @@ class BridgeGenerator {
 
   /// Generates constructor body code.
   /// Returns false if the constructor cannot be bridged.
+  /// Generates positional dispatch loop for unwrappable positional defaults.
+  void _generatePositionalDispatch(
+    StringBuffer buffer,
+    String callTarget,
+    List<ParameterInfo> allPositional,
+    String contextName, {
+    bool isVoid = false,
+    List<String> suffixArgs = const [],
+  }) {
+    final requiredCount = allPositional.where((p) => p.isRequired).length;
+    final totalCount = allPositional.length;
+
+    // Generate branches for each possible argument count
+    for (var len = totalCount; len >= requiredCount; len--) {
+      buffer.writeln("        if (positional.length == $len) {");
+
+      final callArgs = <String>[];
+      for (var i = 0; i < len; i++) {
+        final param = allPositional[i];
+        final resolvedType = _getTypeArgument(
+          param.type,
+          typeToUri: param.typeToUri,
+        );
+        // We use getRequiredArg because we know it exists at this index
+        buffer.writeln(
+            "          final ${param.name} = D4.getRequiredArg<$resolvedType>(positional, $i, '${param.name}', '$contextName');");
+        callArgs.add(param.name);
+      }
+
+      // Add suffix args (e.g. named arguments)
+      if (suffixArgs.isNotEmpty) {
+        callArgs.addAll(suffixArgs);
+      }
+
+      if (isVoid) {
+        buffer.writeln("          $callTarget(${callArgs.join(', ')});");
+        buffer.writeln("          return null;");
+      } else {
+        buffer.writeln("          return $callTarget(${callArgs.join(', ')});");
+      }
+      buffer.writeln("        }");
+    }
+  }
+
+  /// Generates combinatorial dispatch for unwrappable named defaults.
+  void _generateCombinatorialDispatch(
+    StringBuffer buffer,
+    String callTarget,
+    List<String> baseArgs,
+    List<ParameterInfo> unwrappableParams,
+    String contextName, {
+    bool isVoid = false,
+  }) {
+    final count = unwrappableParams.length;
+    final limit = 1 << count;
+
+    for (var i = 0; i < limit; i++) {
+      final conditions = <String>[];
+      
+      for (var j = 0; j < count; j++) {
+        final param = unwrappableParams[j];
+        if ((i & (1 << j)) != 0) {
+          conditions.add("named.containsKey('${param.name}')");
+        } else {
+          conditions.add("!named.containsKey('${param.name}')");
+        }
+      }
+
+      buffer.writeln("        if (${conditions.join(' && ')}) {");
+
+      // Extract present parameters
+      for (var j = 0; j < count; j++) {
+        if ((i & (1 << j)) != 0) {
+          final param = unwrappableParams[j];
+          final resolvedType = _getTypeArgument(
+            param.type,
+            typeToUri: param.typeToUri,
+          );
+          buffer.writeln(
+              "          final ${param.name} = D4.getRequiredNamedArg<$resolvedType>(named, '${param.name}', '$contextName');");
+        }
+      }
+
+      // Construct call
+      final currentArgs = List<String>.from(baseArgs);
+      for (var j = 0; j < count; j++) {
+        if ((i & (1 << j)) != 0) {
+          final param = unwrappableParams[j];
+          currentArgs.add('${param.name}: ${param.name}');
+        }
+      }
+
+      if (isVoid) {
+        buffer.writeln("          $callTarget(${currentArgs.join(', ')});");
+        buffer.writeln("          return null;");
+      } else {
+        buffer.writeln("          return $callTarget(${currentArgs.join(', ')});");
+      }
+      buffer.writeln("        }");
+    }
+  }
+
   bool _generateConstructorBody(
     StringBuffer buffer,
     ClassInfo cls,
@@ -2699,8 +2882,20 @@ class BridgeGenerator {
       }
     }
 
+    // Check for named unwrappable defaults for combinatorial fallback
+    final nonWrappableDefaults = <ParameterInfo>[];
+    for (final p in namedParams) {
+      if (p.defaultValue != null && !_isWrappableDefault(p.defaultValue!)) {
+        nonWrappableDefaults.add(p);
+      }
+    }
+    final useCombinatorial =
+        nonWrappableDefaults.isNotEmpty && nonWrappableDefaults.length <= 4;
+
     // Extract named parameters
     for (final param in namedParams) {
+      if (useCombinatorial && nonWrappableDefaults.contains(param)) continue;
+
       if (!_generateNamedParamExtraction(
         buffer,
         param,
@@ -2725,12 +2920,25 @@ class BridgeGenerator {
       args.add(callExpr ?? _getSafeLocalName(param.name));
     }
     for (final param in namedParams) {
+      if (useCombinatorial && nonWrappableDefaults.contains(param)) continue;
+
       // Use custom call expression if available, otherwise use local variable
       final callExpr = callExpressions[param.name];
       final argValue = callExpr ?? _getSafeLocalName(param.name);
       args.add('${param.name}: $argValue');
     }
-    buffer.writeln('        return $ctorCall(${args.join(', ')});');
+
+    if (useCombinatorial) {
+      _generateCombinatorialDispatch(
+        buffer,
+        ctorCall,
+        args,
+        nonWrappableDefaults,
+        cls.name,
+      );
+    } else {
+      buffer.writeln('        return $ctorCall(${args.join(', ')});');
+    }
     return true;
   }
 
@@ -2781,8 +2989,20 @@ class BridgeGenerator {
       }
     }
 
+    // Check for named unwrappable defaults for combinatorial fallback
+    final nonWrappableDefaults = <ParameterInfo>[];
+    for (final p in namedParams) {
+      if (p.defaultValue != null && !_isWrappableDefault(p.defaultValue!)) {
+        nonWrappableDefaults.add(p);
+      }
+    }
+    final useCombinatorial =
+        nonWrappableDefaults.isNotEmpty && nonWrappableDefaults.length <= 4;
+
     // Extract named parameters
     for (final param in namedParams) {
+      if (useCombinatorial && nonWrappableDefaults.contains(param)) continue;
+
       if (!_generateNamedParamExtraction(
         buffer,
         param,
@@ -2804,6 +3024,8 @@ class BridgeGenerator {
       args.add(callExpr ?? _getSafeLocalName(param.name));
     }
     for (final param in namedParams) {
+      if (useCombinatorial && nonWrappableDefaults.contains(param)) continue;
+
       // Use custom call expression if available, otherwise use local variable
       final callExpr = callExpressions[param.name];
       final argValue = callExpr ?? _getSafeLocalName(param.name);
@@ -2811,11 +3033,22 @@ class BridgeGenerator {
     }
 
     final isVoid = method.returnType == 'void';
-    if (isVoid) {
-      buffer.writeln('        t.${method.name}(${args.join(', ')});');
-      buffer.writeln('        return null;');
+    if (useCombinatorial) {
+      _generateCombinatorialDispatch(
+        buffer,
+        't.${method.name}',
+        args,
+        nonWrappableDefaults,
+        method.name,
+        isVoid: isVoid,
+      );
     } else {
-      buffer.writeln('        return t.${method.name}(${args.join(', ')});');
+      if (isVoid) {
+        buffer.writeln('        t.${method.name}(${args.join(', ')});');
+        buffer.writeln('        return null;');
+      } else {
+        buffer.writeln('        return t.${method.name}(${args.join(', ')});');
+      }
     }
     return true;
   }
@@ -2922,25 +3155,48 @@ class BridgeGenerator {
       );
     }
 
-    // Extract positional parameters
+    // Check for unwrappable defaults
+    final nonWrappablePositional = <ParameterInfo>[];
+    for (final p in positionalParams) {
+      if (p.defaultValue != null && !_isWrappableDefault(p.defaultValue!)) {
+        nonWrappablePositional.add(p);
+      }
+    }
+    final usePositionalDispatch = nonWrappablePositional.isNotEmpty;
+
+    final nonWrappableNamed = <ParameterInfo>[];
+    for (final p in namedParams) {
+      if (p.defaultValue != null && !_isWrappableDefault(p.defaultValue!)) {
+        nonWrappableNamed.add(p);
+      }
+    }
+    final useCombinatorial =
+        nonWrappableNamed.isNotEmpty && nonWrappableNamed.length <= 4;
+    
     final sourceUri = _getPackageUri(cls.sourceFile);
-    for (var i = 0; i < positionalParams.length; i++) {
-      final param = positionalParams[i];
-      if (!_generatePositionalParamExtraction(
-        buffer,
-        param,
-        i,
-        method.name,
-        sourceUri: sourceUri,
-        warnings: warnings,
-        classTypeParams: cls.typeParameters,
-      )) {
-        return false;
+
+    // Extract positional parameters
+    if (!usePositionalDispatch) {
+      for (var i = 0; i < positionalParams.length; i++) {
+        final param = positionalParams[i];
+        if (!_generatePositionalParamExtraction(
+          buffer,
+          param,
+          i,
+          method.name,
+          sourceUri: sourceUri,
+          warnings: warnings,
+          classTypeParams: cls.typeParameters,
+        )) {
+          return false;
+        }
       }
     }
 
     // Extract named parameters
     for (final param in namedParams) {
+      if (useCombinatorial && nonWrappableNamed.contains(param)) continue;
+
       if (!_generateNamedParamExtraction(
         buffer,
         param,
@@ -2955,18 +3211,49 @@ class BridgeGenerator {
 
     // Static method call
     final prefixedName = _getPrefixedClassName(cls.name, cls.sourceFile);
+    final callTarget = '$prefixedName.${method.name}';
     final args = <String>[];
-    for (final param in positionalParams) {
-      args.add(_getSafeLocalName(param.name));
-    }
-    for (final param in namedParams) {
-      final localName = _getSafeLocalName(param.name);
-      args.add('${param.name}: $localName');
+    final namedArgsForSuffix = <String>[];
+
+    if (!usePositionalDispatch) {
+      for (final param in positionalParams) {
+        args.add(_getSafeLocalName(param.name));
+      }
     }
 
-    buffer.writeln(
-      '        return $prefixedName.${method.name}(${args.join(', ')});',
-    );
+    for (final param in namedParams) {
+      if (useCombinatorial && nonWrappableNamed.contains(param)) continue;
+
+      final argValue = _getSafeLocalName(param.name);
+      final s = '${param.name}: $argValue';
+      args.add(s);
+      namedArgsForSuffix.add(s);
+    }
+    
+    final isVoid = method.returnType == 'void';
+    if (usePositionalDispatch) {
+      _generatePositionalDispatch(
+        buffer,
+        callTarget,
+        positionalParams,
+        method.name,
+        isVoid: isVoid,
+        suffixArgs: namedArgsForSuffix,
+      );
+    } else if (useCombinatorial) {
+      _generateCombinatorialDispatch(
+        buffer,
+        callTarget,
+        args,
+        nonWrappableNamed,
+        method.name,
+        isVoid: isVoid,
+      );
+    } else {
+      buffer.writeln(
+        '        return $callTarget(${args.join(', ')});',
+      );
+    }
     return true;
   }
 
@@ -3181,6 +3468,8 @@ class BridgeGenerator {
         callbackVarName: rawVarName,
         funcInfo: funcInfo,
         isNullable: isNullable || !param.isRequired,
+        typeToUri: param.typeToUri,
+        classTypeParams: classTypeParams,
       );
       
       if (callExpressions != null) {
@@ -3440,6 +3729,8 @@ class BridgeGenerator {
         callbackVarName: rawVarName,
         funcInfo: funcInfo,
         isNullable: isNullable || !param.isRequired,
+        typeToUri: param.typeToUri,
+        classTypeParams: classTypeParams,
       );
       
       if (callExpressions != null) {
@@ -3583,15 +3874,27 @@ class BridgeGenerator {
       return 'dynamic';
     }
 
-    // Handle generic type parameters (T, R, E, K, V, S, etc.)
-    // Use the bound type from class context if available, otherwise dynamic
-    if (_isGenericTypeParameter(baseType)) {
+    // Handle record types like (ParsedHeadline, int, int) or (String name, int age)
+    if (baseType.startsWith('(') && baseType.endsWith(')')) {
+      final result = _resolveRecordTypeWithPrefixes(baseType, typeToUri, classTypeParams: classTypeParams);
+      return isNullable ? '$result?' : result;
+    }
+
+    // Check if type is a class type parameter first (e.g., COL_TYPE, DART_TYPE, DBTYPE)
+    // This handles both single-letter (T, E, K) and multi-character (COL_TYPE) type params
+    if (classTypeParams.containsKey(baseType)) {
       final bound = classTypeParams[baseType];
       if (bound != null) {
         // Use the bound type (e.g., E -> TomObject)
         // Recursively resolve in case the bound itself needs prefixing
         return _getTypeArgument(bound, typeToUri: typeToUri, classTypeParams: classTypeParams);
       }
+      return 'dynamic';
+    }
+
+    // Handle generic type parameters (T, R, E, K, V, S, etc.) that aren't in classTypeParams
+    // Use dynamic as fallback
+    if (_isGenericTypeParameter(baseType)) {
       return 'dynamic';
     }
 
@@ -3614,9 +3917,10 @@ class BridgeGenerator {
     if (uri != null) {
       final prefix = _importPrefixes[uri];
       if (prefix != null) {
-        // Check if this type is exported from the barrel file
-        if (!_isTypeExported(unprefixedType)) {
-          // Type is not exported - record warning and use dynamic
+        // If prefix is $source, we need to check if the type is exported from the barrel
+        // External package types (non-$source prefix) are always accessible
+        if (prefix == r'$source' && !_isTypeExported(unprefixedType)) {
+          // Type is hidden from barrel - use dynamic since it's not accessible
           _recordMissingExport('type argument', unprefixedType);
           return 'dynamic';
         }
@@ -3625,7 +3929,31 @@ class BridgeGenerator {
       }
     }
 
+    // For non-built-in types, use $source prefix
+    // If not in exported names, record warning but still try to use it
+    // (the type might still be accessible through the barrel)
+    if (!_isBuiltInType(unprefixedType)) {
+      if (!_isTypeExported(unprefixedType)) {
+        _recordMissingExport('type argument', unprefixedType);
+      }
+      final result = '\$source.$unprefixedType';
+      return isNullable ? '$result?' : result;
+    }
+
     return type;
+  }
+
+  /// Returns true if the type is a Dart built-in type.
+  static bool _isBuiltInType(String typeName) {
+    const builtInTypes = {
+      'int', 'double', 'num', 'String', 'bool', 'void', 'dynamic', 'Object',
+      'List', 'Map', 'Set', 'Iterable', 'Future', 'Stream', 'Function',
+      'Type', 'Symbol', 'Null', 'Never', 'Duration', 'DateTime', 'Uri',
+      'BigInt', 'Comparable', 'Pattern', 'Match', 'RegExp', 'Runes',
+      'StringBuffer', 'StringSink', 'Error', 'Exception', 'StackTrace',
+      'Record', 'FutureOr', 'MapEntry',
+    };
+    return builtInTypes.contains(typeName);
   }
 
   /// Resolves generic types with import prefixes.
@@ -3648,6 +3976,12 @@ class BridgeGenerator {
       if (prefix != null) {
         prefixedBase = '$prefix.$baseType';
       }
+    } else if (!_isBuiltInType(baseType)) {
+      // Non-built-in type - use $source prefix
+      if (!_isTypeExported(baseType)) {
+        _recordMissingExport('generic base type', baseType);
+      }
+      prefixedBase = '\$source.$baseType';
     }
 
     // Parse and resolve type arguments with prefixes
@@ -3710,9 +4044,67 @@ class BridgeGenerator {
               return '$prefix.$baseArg';
             }
           }
+          // Non-built-in type - use $source prefix
+          if (!_isBuiltInType(baseArg)) {
+            if (!_isTypeExported(baseArg)) {
+              _recordMissingExport('type argument', baseArg);
+            }
+            return '\$source.$baseArg';
+          }
           return arg;
         })
         .join(', ');
+  }
+
+  /// Resolves record types like (ParsedHeadline, int, int) or (String name, int age)
+  /// by prefixing each type in the record.
+  String _resolveRecordTypeWithPrefixes(
+    String type,
+    Map<String, String> typeToUri, {
+    Map<String, String?> classTypeParams = const {},
+  }) {
+    // Strip the outer parentheses
+    final inner = type.substring(1, type.length - 1).trim();
+    if (inner.isEmpty) return type;
+
+    // Parse record fields, handling nested types carefully
+    final fields = <String>[];
+    var depth = 0;
+    var genericDepth = 0;
+    var start = 0;
+
+    for (var i = 0; i < inner.length; i++) {
+      final char = inner[i];
+      if (char == '(') depth++;
+      else if (char == ')') depth--;
+      else if (char == '<') genericDepth++;
+      else if (char == '>') genericDepth--;
+      else if (char == ',' && depth == 0 && genericDepth == 0) {
+        fields.add(inner.substring(start, i).trim());
+        start = i + 1;
+      }
+    }
+    fields.add(inner.substring(start).trim());
+
+    // Resolve each field
+    final resolvedFields = fields.map((field) {
+      // Check for named record fields like "String name" or "int age"
+      final spaceIndex = field.lastIndexOf(' ');
+      if (spaceIndex > 0) {
+        // This might be "TypeName fieldName" - check if last part is a valid identifier
+        final typePart = field.substring(0, spaceIndex).trim();
+        final namePart = field.substring(spaceIndex + 1).trim();
+        // Check if namePart looks like a field name (starts with lowercase)
+        if (namePart.isNotEmpty && namePart[0].toLowerCase() == namePart[0] && !namePart.contains('<')) {
+          final resolvedType = _getTypeArgument(typePart, typeToUri: typeToUri, classTypeParams: classTypeParams);
+          return '$resolvedType $namePart';
+        }
+      }
+      // Positional record field - just a type
+      return _getTypeArgument(field, typeToUri: typeToUri, classTypeParams: classTypeParams);
+    }).join(', ');
+
+    return '($resolvedFields)';
   }
 
   /// Checks if a type is a generic type parameter.
@@ -3963,13 +4355,21 @@ class BridgeGenerator {
     required String callbackVarName,
     required FunctionTypeInfo funcInfo,
     required bool isNullable,
+    Map<String, String> typeToUri = const {},
+    Map<String, String?> classTypeParams = const {},
   }) {
     // Generate parameter list for the wrapper function
     final paramList = <String>[];
     final argList = <String>[];
 
     for (var i = 0; i < funcInfo.positionalParamTypes.length; i++) {
-      final paramType = funcInfo.positionalParamTypes[i];
+      final rawParamType = funcInfo.positionalParamTypes[i];
+      // Prefix the parameter type using _getTypeArgument
+      final paramType = _getTypeArgument(
+        rawParamType,
+        typeToUri: typeToUri,
+        classTypeParams: classTypeParams,
+      );
       final paramName = 'p$i';
       paramList.add('$paramType $paramName');
       argList.add(paramName);
@@ -3981,7 +4381,13 @@ class BridgeGenerator {
       for (final entry in funcInfo.namedParamTypes.entries) {
         final isRequired = funcInfo.namedParamRequired[entry.key] ?? false;
         final prefix = isRequired ? 'required ' : '';
-        namedParams.add('$prefix${entry.value} ${entry.key}');
+        // Prefix the parameter type using _getTypeArgument
+        final paramType = _getTypeArgument(
+          entry.value,
+          typeToUri: typeToUri,
+          classTypeParams: classTypeParams,
+        );
+        namedParams.add('$prefix$paramType ${entry.key}');
       }
       paramList.add('{${namedParams.join(', ')}}');
       // Named args need to be passed as a map
@@ -4007,14 +4413,19 @@ class BridgeGenerator {
       callExpr = '($callbackVarName as InterpretedFunction).call(visitor as InterpreterVisitor, $argsStr, $namedArgsStr)';
     }
 
-    // Build the wrapper body
+    // Build the wrapper body - prefix return type
+    final prefixedReturnType = _getTypeArgument(
+      funcInfo.returnType,
+      typeToUri: typeToUri,
+      classTypeParams: classTypeParams,
+    );
     String wrapperBody;
     if (funcInfo.isVoid) {
       wrapperBody = '{ $callExpr; }';
     } else {
       final returnCast = funcInfo.returnTypeNullable 
-          ? 'as ${funcInfo.returnType}?' 
-          : 'as ${funcInfo.returnType}';
+          ? 'as $prefixedReturnType?' 
+          : 'as $prefixedReturnType';
       wrapperBody = '{ return $callExpr $returnCast; }';
     }
 
@@ -4336,7 +4747,22 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           }
         }
       }
-      // Don't recurse into function type parameters/return - we'll use dynamic
+      // Recurse into function parameter types and return type to collect their URIs
+      // This ensures callback wrapper code can properly prefix types like Operation, HeartbeatError
+      _collectInfoFromDartType(
+        dartType.returnType,
+        uris,
+        typeToUri,
+        functionTypeAliases: functionTypeAliases,
+      );
+      for (final param in dartType.formalParameters) {
+        _collectInfoFromDartType(
+          param.type,
+          uris,
+          typeToUri,
+          functionTypeAliases: functionTypeAliases,
+        );
+      }
       return;
     }
 
