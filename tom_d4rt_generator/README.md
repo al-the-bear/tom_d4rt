@@ -269,7 +269,7 @@ dart run bin/generate_bridges.dart
 # Generate for a specific project only
 dart run bin/generate_bridges.dart --project=tom_core_kernel
 dart run bin/generate_bridges.dart --project=tom_build
-dart run bin/generate_bridges.dart --project=tom_dartscript_bridge
+dart run bin/generate_bridges.dart --project=tom_vscode_bridge
 
 # List available projects
 dart run bin/generate_bridges.dart --list
@@ -290,7 +290,7 @@ The generator respects the dependency hierarchy:
 | tom_core_kernel | tom_core_kernel classes | tom_reflection types |
 | tom_core_server | tom_core_server classes | Imports tom_core_kernel bridges |
 | tom_build | tom_build classes only | Imports kernel + server bridges |
-| tom_dartscript_bridge | VS Code API wrappers | Imports all above |
+| tom_vscode_bridge | VS Code API wrappers | Imports all above |
 
 ## Runtime Registration
 
@@ -301,7 +301,7 @@ At runtime, register bridges in dependency order:
 import 'package:tom_core_kernel/dartscript.dart';
 import 'package:tom_core_server/dartscript.dart';
 import 'package:tom_build/dartscript.dart';
-import 'package:tom_dartscript_bridge/dartscript.dart';
+import 'package:tom_vscode_bridge/dartscript.dart';
 
 final interpreter = D4rt();
 TomCoreKernelBridges.registerAllBridges(interpreter);

@@ -124,7 +124,8 @@ void main() {
 
     test('generated code compiles without errors', () async {
       // Run dart analyze on the generated code
-      final process = await Process.run(
+      // ignore: unused_local_variable
+      final _ = await Process.run(
         'dart',
         ['analyze', '--fatal-infos'],
         workingDirectory: tempOutputDir,

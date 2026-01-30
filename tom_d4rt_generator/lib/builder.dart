@@ -101,6 +101,11 @@ class D4rtBridgeBuilder implements Builder {
           moduleName: module.name,
           excludePatterns: module.excludePatterns,
           excludeClasses: module.excludeClasses,
+          excludeEnums: module.excludeEnums,
+          excludeFunctions: module.excludeFunctions,
+          excludeVariables: module.excludeVariables,
+          followAllReExports: module.followAllReExports,
+          skipReExports: module.skipReExports,
           followReExports: module.followReExports,
           fileWriter: fileWriter,
         );
@@ -198,12 +203,14 @@ class D4rtBridgeBuilder implements Builder {
     buffer.writeln('    final d4rt = interpreter ?? D4rt();');
 
     for (final module in cfg.modules) {
-      final capitalizedModuleName =
-          module.name.substring(0, 1).toUpperCase() + module.name.substring(1);
+      // Use toPascalCase for consistent class naming with bridge generator
+      final capitalizedModuleName = toPascalCase(module.name);
+      // Use the source barrel import the classes were generated from
+      final sourceImport = module.barrelImport ?? module.barrelFiles.first;
       buffer.writeln(
           '    ${module.name}_bridges.${capitalizedModuleName}Bridge.registerBridges(');
       buffer.writeln('      d4rt,');
-      buffer.writeln("      'package:${cfg.name}/${cfg.name}.dart',");
+      buffer.writeln("      '$sourceImport',");
       buffer.writeln('    );');
     }
 
@@ -214,8 +221,8 @@ class D4rtBridgeBuilder implements Builder {
     buffer.writeln('    final buffer = StringBuffer();');
 
     for (final module in cfg.modules) {
-      final capitalizedModuleName =
-          module.name.substring(0, 1).toUpperCase() + module.name.substring(1);
+      // Use toPascalCase for consistent class naming with bridge generator
+      final capitalizedModuleName = toPascalCase(module.name);
       buffer.writeln(
           '    buffer.writeln(${module.name}_bridges.${capitalizedModuleName}Bridge.getImportBlock());');
     }

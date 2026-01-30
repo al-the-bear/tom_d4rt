@@ -555,6 +555,34 @@ String toPascalCase(String input) {
       .join();
 }
 
+/// Maps private/internal Dart SDK libraries to their public equivalents.
+/// 
+/// Private SDK libraries (prefixed with dart:_) are internal implementation
+/// details and should not be imported directly. This function returns the
+/// public library that exports the same types.
+/// 
+/// Returns null if the library should be skipped entirely.
+String? mapPrivateSdkLibrary(String uri) {
+  if (!uri.startsWith('dart:_')) return uri;
+  
+  // Map known private libraries to public equivalents
+  const privateToPublic = {
+    'dart:_http': 'dart:io',
+    'dart:_internal': null, // Skip - internal utilities
+    'dart:_interceptors': null, // Skip - JS interop internals
+    'dart:_js_helper': null, // Skip - JS helper internals
+    'dart:_native_typed_data': 'dart:typed_data',
+    'dart:_foreign_helper': null, // Skip - foreign function internals
+  };
+  
+  if (privateToPublic.containsKey(uri)) {
+    return privateToPublic[uri];
+  }
+  
+  // For unknown private libraries, skip them
+  return null;
+}
+
 /// Generates D4rt BridgedClass implementations from Dart source files.
 class BridgeGenerator {
   /// Workspace root path.
@@ -657,6 +685,10 @@ class BridgeGenerator {
   ];
 
   /// Gets or creates the analysis context collection.
+  /// 
+  /// For cross-package bridge generation, the context needs to include
+  /// paths for external packages. Use [_getAnalysisContextFor] to get
+  /// a context that includes a specific file path.
   AnalysisContextCollection _getAnalysisContext() {
     // Ensure workspacePath is absolute for the analyzer
     final absoluteWorkspacePath = p.isAbsolute(workspacePath)
@@ -665,6 +697,53 @@ class BridgeGenerator {
     return _analysisContext ??= AnalysisContextCollection(
       includedPaths: [absoluteWorkspacePath],
     );
+  }
+
+  /// Cache for analysis contexts per package path.
+  /// This allows analyzing files from multiple packages in cross-package generation.
+  final Map<String, AnalysisContextCollection> _packageAnalysisContexts = {};
+
+  /// Gets or creates an analysis context that includes the given file path.
+  /// 
+  /// This is essential for cross-package bridge generation where source files
+  /// may come from different packages (e.g., generating bridges for tom_core_kernel
+  /// from within tom_dartscript_bridges).
+  AnalysisContextCollection _getAnalysisContextFor(String filePath) {
+    // Try the main workspace context first
+    final absoluteWorkspacePath = p.isAbsolute(workspacePath)
+        ? workspacePath
+        : p.normalize(p.join(Directory.current.path, workspacePath));
+    
+    // Check if the file is within the workspace
+    if (filePath.startsWith(absoluteWorkspacePath)) {
+      return _getAnalysisContext();
+    }
+    
+    // Find the package root for this file
+    // Walk up until we find a pubspec.yaml
+    var dir = p.dirname(filePath);
+    String? packageRoot;
+    while (dir.isNotEmpty && dir != p.dirname(dir)) {
+      if (File(p.join(dir, 'pubspec.yaml')).existsSync()) {
+        packageRoot = dir;
+        break;
+      }
+      dir = p.dirname(dir);
+    }
+    
+    if (packageRoot == null) {
+      // Fallback to the file's parent directory
+      packageRoot = p.dirname(filePath);
+    }
+    
+    // Get or create a context for this package root
+    if (!_packageAnalysisContexts.containsKey(packageRoot)) {
+      _packageAnalysisContexts[packageRoot] = AnalysisContextCollection(
+        includedPaths: [packageRoot],
+      );
+    }
+    
+    return _packageAnalysisContexts[packageRoot]!;
   }
 
   /// Cache for resolved package paths.
@@ -873,17 +952,22 @@ class BridgeGenerator {
   /// all `export '...'` directives to build a list of source files to bridge.
   /// Recursively follows re-exported barrel files.
   ///
-  /// [followReExports] - List of external package names to follow re-exports from.
-  /// When a barrel file exports from an external package that's in this list,
-  /// the generator will resolve the package path and include those exports.
+  /// [followAllReExports] - If true (default), follows all external package re-exports
+  /// except those in [skipReExports]. If false, only follows packages in [followReExports].
+  /// [skipReExports] - List of package names to skip when [followAllReExports] is true.
+  /// [followReExports] - List of external package names to follow when [followAllReExports] is false.
   ///
   /// Returns a map of source file paths to their export info (hide/show clauses).
   Future<Map<String, ExportInfo>> parseExportFiles(
     List<String> barrelFiles, {
     Set<String>? visited,
+    bool followAllReExports = true,
+    List<String>? skipReExports,
     List<String>? followReExports,
+    bool isTopLevel = true,
   }) async {
     visited ??= <String>{};
+    skipReExports ??= const [];
     followReExports ??= const [];
     final exports = <String, ExportInfo>{};
     final exportPattern = RegExp(
@@ -901,6 +985,21 @@ class BridgeGenerator {
       if (!file.existsSync()) {
         if (verbose) print('Warning: Barrel file not found: $normalizedPath');
         continue;
+      }
+
+      // Add the barrel file itself to exports (it may contain its own declarations
+      // like top-level getters, functions, variables, classes, or enums)
+      // Only add for top-level barrel files (not nested barrels from recursive calls)
+      // Nested barrels will have their restrictions handled by the parent export statement
+      if (isTopLevel) {
+        final existingBarrelInfo = exports[normalizedPath];
+        if (existingBarrelInfo == null) {
+          exports[normalizedPath] = ExportInfo(
+            sourcePath: normalizedPath,
+            hideClause: null,
+            showClause: null,
+          );
+        }
       }
 
       final content = await file.readAsString();
@@ -923,19 +1022,34 @@ class BridgeGenerator {
           if (packageName != null && exportPackageName == packageName) {
             // Convert package: to relative path for current package
             absolutePath = '$workspacePath/lib/$exportRelativePath';
-          } else if (followReExports.contains(exportPackageName)) {
-            // Follow re-exports from configured external packages
-            final externalPackagePath = await _resolvePackagePath(exportPackageName);
-            if (externalPackagePath == null) {
+          } else {
+            // Determine if we should follow this external package's re-exports
+            bool shouldFollow;
+            if (followAllReExports) {
+              // Follow all except those in skipReExports
+              shouldFollow = !skipReExports.contains(exportPackageName);
+            } else {
+              // Only follow those explicitly listed in followReExports
+              shouldFollow = followReExports.contains(exportPackageName);
+            }
+            
+            if (shouldFollow) {
+              // Follow re-exports from external package
+              final externalPackagePath = await _resolvePackagePath(exportPackageName);
+              if (externalPackagePath == null) {
+                if (verbose) {
+                  print('Warning: Could not resolve package path for $exportPackageName');
+                }
+                continue;
+              }
+              absolutePath = '$externalPackagePath/lib/$exportRelativePath';
+            } else {
+              // External package not configured to be followed, skip
               if (verbose) {
-                print('Warning: Could not resolve package path for $exportPackageName');
+                print('Skipping re-export from $exportPackageName (not configured to follow)');
               }
               continue;
             }
-            absolutePath = '$externalPackagePath/lib/$exportRelativePath';
-          } else {
-            // External package not in followReExports, skip
-            continue;
           }
         } else if (exportPath.startsWith('dart:')) {
           continue; // Skip dart: exports
@@ -953,7 +1067,13 @@ class BridgeGenerator {
             // This file is a barrel - recursively parse it
             final nestedExports = await parseExportFiles([
               absolutePath,
-            ], visited: visited, followReExports: followReExports);
+            ], 
+            visited: visited, 
+            followAllReExports: followAllReExports,
+            skipReExports: skipReExports,
+            followReExports: followReExports,
+            isTopLevel: false,
+            );
             // Only add nested exports if they're more permissive or don't exist yet
             for (final entry in nestedExports.entries) {
               final existingNested = exports[entry.key];
@@ -1013,6 +1133,9 @@ class BridgeGenerator {
   /// [excludeEnums] - Enum names to exclude
   /// [excludeFunctions] - Global function names to exclude
   /// [excludeVariables] - Global variable names to exclude
+  /// [followAllReExports] - If true (default), follows all external package re-exports
+  /// [skipReExports] - List of package names to skip when [followAllReExports] is true
+  /// [followReExports] - List of package names to follow when [followAllReExports] is false
   Future<BridgeGeneratorResult> generateBridgesFromExports({
     required List<String> barrelFiles,
     required String outputPath,
@@ -1022,6 +1145,9 @@ class BridgeGenerator {
     List<String>? excludeEnums,
     List<String>? excludeFunctions,
     List<String>? excludeVariables,
+    bool followAllReExports = true,
+    List<String>? skipReExports,
+    List<String>? followReExports,
   }) async {
     // Resolve package URIs to file paths
     final resolvedBarrelFiles = <String>[];
@@ -1039,7 +1165,12 @@ class BridgeGenerator {
     }
     
     // Parse export files to get source files and their export info
-    final exports = await parseExportFiles(resolvedBarrelFiles);
+    final exports = await parseExportFiles(
+      resolvedBarrelFiles,
+      followAllReExports: followAllReExports,
+      skipReExports: skipReExports,
+      followReExports: followReExports,
+    );
 
     if (exports.isEmpty) {
       return BridgeGeneratorResult(
@@ -1091,7 +1222,9 @@ class BridgeGenerator {
   /// [excludeEnums] - Enum names to exclude
   /// [excludeFunctions] - Global function names to exclude
   /// [excludeVariables] - Global variable names to exclude
-  /// [followReExports] - External package names to follow re-exports from
+  /// [followAllReExports] - If true (default), follows all external package re-exports
+  /// [skipReExports] - List of package names to skip when [followAllReExports] is true
+  /// [followReExports] - List of package names to follow when [followAllReExports] is false
   /// [fileWriter] - The FileWriter to use for output
   Future<BridgeGeneratorResult> generateBridgesFromExportsWithWriter({
     required List<String> barrelFiles,
@@ -1102,6 +1235,8 @@ class BridgeGenerator {
     List<String>? excludeEnums,
     List<String>? excludeFunctions,
     List<String>? excludeVariables,
+    bool followAllReExports = true,
+    List<String>? skipReExports,
     List<String>? followReExports,
     required FileWriter fileWriter,
   }) async {
@@ -1123,6 +1258,8 @@ class BridgeGenerator {
     // Parse export files to get source files and their export info
     final exports = await parseExportFiles(
       resolvedBarrelFiles,
+      followAllReExports: followAllReExports,
+      skipReExports: skipReExports,
       followReExports: followReExports,
     );
 
@@ -1385,14 +1522,51 @@ class BridgeGenerator {
         await parentDir.create(recursive: true);
       }
 
+      // Filter out explicitly excluded functions
+      var filteredFunctions = globals.functions.toList();
+      if (excludeFunctions != null && excludeFunctions.isNotEmpty) {
+        final excludeSet = excludeFunctions.toSet();
+        filteredFunctions = filteredFunctions.where((f) {
+          if (excludeSet.contains(f.name)) {
+            _recordSkip('function', f.name, 'excluded by configuration');
+            return false;
+          }
+          return true;
+        }).toList();
+      }
+
+      // Filter out duplicate functions (keep first occurrence)
+      final seenFunctions = <String>{};
+      filteredFunctions = filteredFunctions.where((f) {
+        if (seenFunctions.contains(f.name)) {
+          _recordSkip('function', f.name, 'duplicate (already seen from another source file)');
+          return false;
+        }
+        seenFunctions.add(f.name);
+        return true;
+      }).toList();
+
+      // Filter out explicitly excluded variables
+      var filteredVariables = globals.variables;
+      if (excludeVariables != null && excludeVariables.isNotEmpty) {
+        final excludeSet = excludeVariables.toSet();
+        filteredVariables = filteredVariables.where((v) {
+          if (excludeSet.contains(v.name)) {
+            _recordSkip('variable', v.name, 'excluded by configuration');
+            return false;
+          }
+          return true;
+        }).toList();
+      }
+
       // Generate single output file using already-parsed globals
       final code = _generateBridgeFile(
         bridgeableClasses,
         sourceFiles.first,
         moduleName,
         allClasses: filteredClasses,
-        globalFunctions: globals.functions,
-        globalVariables: globals.variables,
+        globalFunctions: filteredFunctions,
+        globalVariables: filteredVariables,
         enums: globals.enums,
       );
       final outFile = outputPath.endsWith('.dart')
@@ -1617,6 +1791,19 @@ class BridgeGenerator {
           _recordSkip('function', f.name, 'excluded by configuration');
           return false;
         }
+        return true;
+      }).toList();
+    }
+
+    // Filter out duplicate functions (keep first occurrence)
+    {
+      final seenFunctions = <String>{};
+      filteredFunctions = filteredFunctions.where((f) {
+        if (seenFunctions.contains(f.name)) {
+          _recordSkip('function', f.name, 'duplicate (already seen from another source file)');
+          return false;
+        }
+        seenFunctions.add(f.name);
         return true;
       }).toList();
     }
@@ -1887,7 +2074,9 @@ class BridgeGenerator {
 
     try {
       // Use resolved analysis to get type information
-      final context = _getAnalysisContext().contextFor(normalizedPath);
+      // Use _getAnalysisContextFor to support cross-package file analysis
+      final contextCollection = _getAnalysisContextFor(normalizedPath);
+      final context = contextCollection.contextFor(normalizedPath);
       final result = await context.currentSession.getResolvedLibrary(
         normalizedPath,
       );
@@ -1973,7 +2162,9 @@ class BridgeGenerator {
       final normalizedPath = p.normalize(absolutePath);
 
       try {
-        final context = _getAnalysisContext().contextFor(normalizedPath);
+        // Use _getAnalysisContextFor to support cross-package file analysis
+        final contextCollection = _getAnalysisContextFor(normalizedPath);
+        final context = contextCollection.contextFor(normalizedPath);
         final result = await context.currentSession.getResolvedLibrary(
           normalizedPath,
         );
@@ -2219,7 +2410,37 @@ class BridgeGenerator {
     return s.replaceAll(r'\', r'\\').replaceAll("'", r"\'");
   }
 
+  /// Sanitizes a parameter name for use as a local variable.
+  /// 
+  /// - Strips leading underscores (e.g., `_adapter` -> `adapter`)
+  /// - Converts snake_case to camelCase (e.g., `my_var` -> `myVar`)
+  String _sanitizeLocalVarName(String name) {
+    // Strip leading underscores
+    var result = name;
+    while (result.startsWith('_')) {
+      result = result.substring(1);
+    }
+    // If the name is empty after stripping underscores, use 'p' as fallback
+    if (result.isEmpty) {
+      return 'p';
+    }
+    // Convert snake_case to camelCase
+    final parts = result.split('_');
+    if (parts.length == 1) {
+      return result;
+    }
+    final buffer = StringBuffer(parts.first);
+    for (var i = 1; i < parts.length; i++) {
+      if (parts[i].isNotEmpty) {
+        buffer.write(parts[i][0].toUpperCase());
+        buffer.write(parts[i].substring(1));
+      }
+    }
+    return buffer.toString();
+  }
+
   /// Generates a unique import prefix including package name for external packages.
+  /// Uses 'ext\$' prefix to avoid lint warnings about leading underscores.
   String _generateUniqueImportPrefix(String uri) {
     if (uri.startsWith('package:')) {
       final content = uri.substring(8); // strip package:
@@ -2228,9 +2449,9 @@ class BridgeGenerator {
       // avoid double underscores if filename is same as package
       final filename = p.basenameWithoutExtension(uri);
       if (filename == pkg || filename == 'dart') {
-        return '\$ext_${pkg.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_')}';
+        return 'ext\$${pkg.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_')}';
       }
-      return '\$ext_${pkg}_$filename'.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_');
+      return 'ext\$${pkg}_$filename'.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_');
     }
     return _generateImportPrefix(uri);
   }
@@ -2286,13 +2507,22 @@ class BridgeGenerator {
     }
     buffer.writeln('// Generated: ${DateTime.now().toIso8601String()}');
     buffer.writeln();
+    
+    // Suppress common linter warnings in generated code
+    buffer.writeln('// ignore_for_file: unused_import');
+    buffer.writeln();
 
     // Imports
     buffer.writeln("import 'package:tom_d4rt/d4rt.dart';");
     buffer.writeln("import '$helpersImport';");
 
     // Separate SDK imports (dart:*) from external package imports
-    final sdkImports = externalImports.where((uri) => uri.startsWith('dart:')).toSet();
+    // Map private SDK libraries to their public equivalents
+    final sdkImports = externalImports
+        .where((uri) => uri.startsWith('dart:'))
+        .map((uri) => mapPrivateSdkLibrary(uri))
+        .whereType<String>() // Filter out nulls (skipped libraries)
+        .toSet();
     
     // Add SDK imports without prefixes
     for (final importPath in sdkImports.toList()..sort()) {
@@ -2497,25 +2727,34 @@ class BridgeGenerator {
       final getterVariables = globalVariables.where((v) => v.isGetter).toList();
       
       buffer.writeln('  /// Registers all global variables with the interpreter.');
+      buffer.writeln('  ///');
+      buffer.writeln('  /// Collects all registration errors and throws a single exception');
+      buffer.writeln('  /// with all error details if any registrations fail.');
       buffer.writeln('  static void registerGlobalVariables(D4rt interpreter) {');
+      buffer.writeln('    final errors = <String>[];');
+      buffer.writeln();
       
       // Regular variables - evaluated at registration time
       for (final variable in regularVariables) {
         final override = globalsUserBridge?.getGlobalVariableOverride(variable.name);
         // Get prefixed variable name for proper import reference
         final prefixedVarName = _getPrefixedFunctionName(variable.name, variable.sourceFile);
+        buffer.writeln('    try {');
         if (override != null) {
           buffer.writeln(
-            "    interpreter.registerGlobalVariable('${variable.name}', ${globalsUserBridge!.userBridgeClassName}.$override());",
+            "      interpreter.registerGlobalVariable('${variable.name}', ${globalsUserBridge!.userBridgeClassName}.$override());",
           );
         } else {
           buffer.writeln(
-            "    interpreter.registerGlobalVariable('${variable.name}', $prefixedVarName);",
+            "      interpreter.registerGlobalVariable('${variable.name}', $prefixedVarName);",
           );
         }
+        buffer.writeln('    } catch (e) {');
+        buffer.writeln("      errors.add('Failed to register variable \"${variable.name}\": \$e');");
+        buffer.writeln('    }');
       }
       
-      // Getter variables - evaluated lazily at runtime
+      // Getter variables - evaluated lazily at runtime (these are safe since they're closures)
       for (final variable in getterVariables) {
         final override = globalsUserBridge?.getGlobalGetterOverride(variable.name);
         // Get prefixed getter name for proper import reference
@@ -2530,6 +2769,12 @@ class BridgeGenerator {
           );
         }
       }
+      
+      // Throw collected errors if any
+      buffer.writeln();
+      buffer.writeln('    if (errors.isNotEmpty) {');
+      buffer.writeln("      throw StateError('Bridge registration errors ($moduleName):\\n\${errors.join(\"\\n\")}');");
+      buffer.writeln('    }');
       buffer.writeln('  }');
       buffer.writeln();
     }
@@ -2609,8 +2854,9 @@ class BridgeGenerator {
               // Skip extraction for combinatorial params
               continue;
             }
+            final localName = _sanitizeLocalVarName(param.name);
             if (param.isRequired) {
-              argDeclarations.add("        final ${param.name} = D4.getRequiredNamedArg<$resolvedType>(named, '${param.name}', '${func.name}');");
+              argDeclarations.add("        final $localName = D4.getRequiredNamedArg<$resolvedType>(named, '${param.name}', '${func.name}');");
             } else if (param.defaultValue != null) {
               // Optional with default - try to use the default value
               final prefixedDefault = _prefixDefaultValue(
@@ -2619,25 +2865,26 @@ class BridgeGenerator {
                 typeToUri: param.typeToUri,
               );
               if (prefixedDefault != null) {
-                argDeclarations.add("        final ${param.name} = D4.getNamedArgWithDefault<$resolvedType>(named, '${param.name}', $prefixedDefault);");
+                argDeclarations.add("        final $localName = D4.getNamedArgWithDefault<$resolvedType>(named, '${param.name}', $prefixedDefault);");
               } else {
                 // Non-wrappable default - use TODO helper and record warning
                 _recordNonWrappableDefault('global function ${func.name}', param.name, param.defaultValue!);
                 argDeclarations.add("        // TODO: Non-wrappable default: ${param.defaultValue}");
-                argDeclarations.add("        final ${param.name} = D4.getRequiredNamedArgTodoDefault<$resolvedType>(named, '${param.name}', '${func.name}', '${_escapeString(param.defaultValue!)}');");
+                argDeclarations.add("        final $localName = D4.getRequiredNamedArgTodoDefault<$resolvedType>(named, '${param.name}', '${func.name}', '${_escapeString(param.defaultValue!)}');");
               }
             } else {
               // Truly optional with no default - use nullable type
-              final nullableType = resolvedType.endsWith('?') ? resolvedType : '$resolvedType?';
-              argDeclarations.add("        final ${param.name} = D4.getOptionalNamedArg<$nullableType>(named, '${param.name}');");
+              final nullableType = _makeNullable(resolvedType);
+              argDeclarations.add("        final $localName = D4.getOptionalNamedArg<$nullableType>(named, '${param.name}');");
             }
-            callArgs.add('${param.name}: ${param.name}');
+            callArgs.add('${param.name}: $localName');
           } else {
             // Positional parameter
+            final localName = _sanitizeLocalVarName(param.name);
             if (param.isRequired) {
               // Required positional - use D4.getRequiredArg
-              argDeclarations.add("        final ${param.name} = D4.getRequiredArg<$resolvedType>(positional, $positionalIndex, '${param.name}', '${func.name}');");
-              callArgs.add(param.name);
+              argDeclarations.add("        final $localName = D4.getRequiredArg<$resolvedType>(positional, $positionalIndex, '${param.name}', '${func.name}');");
+              callArgs.add(localName);
             } else if (param.defaultValue != null) {
               // Optional positional with default
               final prefixedDefault = _prefixDefaultValue(
@@ -2646,19 +2893,19 @@ class BridgeGenerator {
                 typeToUri: param.typeToUri,
               );
               if (prefixedDefault != null) {
-                argDeclarations.add("        final ${param.name} = D4.getOptionalArgWithDefault<$resolvedType>(positional, $positionalIndex, '${param.name}', $prefixedDefault);");
+                argDeclarations.add("        final $localName = D4.getOptionalArgWithDefault<$resolvedType>(positional, $positionalIndex, '${param.name}', $prefixedDefault);");
               } else {
                 // Non-wrappable default - use TODO helper and record warning
                 _recordNonWrappableDefault('global function ${func.name}', param.name, param.defaultValue!);
                 argDeclarations.add("        // TODO: Non-wrappable default: ${param.defaultValue}");
-                argDeclarations.add("        final ${param.name} = D4.getRequiredArgTodoDefault<$resolvedType>(positional, $positionalIndex, '${param.name}', '${func.name}', '${_escapeString(param.defaultValue!)}');");
+                argDeclarations.add("        final $localName = D4.getRequiredArgTodoDefault<$resolvedType>(positional, $positionalIndex, '${param.name}', '${func.name}', '${_escapeString(param.defaultValue!)}');");
               }
-              callArgs.add(param.name);
+              callArgs.add(localName);
             } else {
               // Optional positional with no default - use nullable type
-              final nullableType = resolvedType.endsWith('?') ? resolvedType : '$resolvedType?';
-              argDeclarations.add("        final ${param.name} = positional.length > $positionalIndex ? positional[$positionalIndex] as $nullableType : null;");
-              callArgs.add(param.name);
+              final nullableType = _makeNullable(resolvedType);
+              argDeclarations.add("        final $localName = positional.length > $positionalIndex ? positional[$positionalIndex] as $nullableType : null;");
+              callArgs.add(localName);
             }
             positionalIndex++;
           }
@@ -2796,12 +3043,12 @@ class BridgeGenerator {
               namedParams.add('required ${p.type} ${p.name}');
             } else {
               // Optional named - ensure nullable type
-              final nullableType = p.type.endsWith('?') ? p.type : '${p.type}?';
+              final nullableType = _makeNullable(p.type);
               namedParams.add('$nullableType ${p.name}');
             }
           } else if (!p.isRequired) {
             // Optional positional - ensure nullable type
-            final nullableType = p.type.endsWith('?') ? p.type : '${p.type}?';
+            final nullableType = _makeNullable(p.type);
             optionalPositional.add('$nullableType ${p.name}');
           } else {
             // Required positional
@@ -3209,7 +3456,12 @@ class BridgeGenerator {
 
     // Generate branches for each possible argument count
     for (var len = totalCount; len >= requiredCount; len--) {
-      buffer.writeln("        if (positional.length == $len) {");
+      // Use isEmpty for len == 0 to satisfy prefer_is_empty lint
+      if (len == 0) {
+        buffer.writeln("        if (positional.isEmpty) {");
+      } else {
+        buffer.writeln("        if (positional.length == $len) {");
+      }
 
       final callArgs = <String>[];
       for (var i = 0; i < len; i++) {
@@ -3220,9 +3472,10 @@ class BridgeGenerator {
           classTypeParams: typeParams,
         );
         // We use getRequiredArg because we know it exists at this index
+        final sanitizedName = _sanitizeLocalVarName(param.name);
         buffer.writeln(
-            "          final ${param.name} = D4.getRequiredArg<$resolvedType>(positional, $i, '${param.name}', '$contextName');");
-        callArgs.add(param.name);
+            "          final $sanitizedName = D4.getRequiredArg<$resolvedType>(positional, $i, '${param.name}', '$contextName');");
+        callArgs.add(sanitizedName);
       }
 
       // Add suffix args (e.g. named arguments)
@@ -3238,6 +3491,8 @@ class BridgeGenerator {
       }
       buffer.writeln("        }");
     }
+    // Add unreachable fallback - the conditions above are exhaustive but analyzer can't prove it
+    buffer.writeln("        throw ArgumentError('Invalid argument count for $contextName');");
   }
 
   /// Generates combinatorial dispatch for unwrappable named defaults.
@@ -3271,13 +3526,14 @@ class BridgeGenerator {
       for (var j = 0; j < count; j++) {
         if ((i & (1 << j)) != 0) {
           final param = unwrappableParams[j];
+          final localName = _sanitizeLocalVarName(param.name);
           final resolvedType = _getTypeArgument(
             param.type,
             typeToUri: param.typeToUri,
             classTypeParams: typeParams,
           );
           buffer.writeln(
-              "          final ${param.name} = D4.getRequiredNamedArg<$resolvedType>(named, '${param.name}', '$contextName');");
+              "          final $localName = D4.getRequiredNamedArg<$resolvedType>(named, '${param.name}', '$contextName');");
         }
       }
 
@@ -3286,7 +3542,8 @@ class BridgeGenerator {
       for (var j = 0; j < count; j++) {
         if ((i & (1 << j)) != 0) {
           final param = unwrappableParams[j];
-          currentArgs.add('${param.name}: ${param.name}');
+          final localName = _sanitizeLocalVarName(param.name);
+          currentArgs.add('${param.name}: $localName');
         }
       }
 
@@ -3298,6 +3555,8 @@ class BridgeGenerator {
       }
       buffer.writeln("        }");
     }
+    // Add unreachable fallback - the conditions above are exhaustive but analyzer can't prove it
+    buffer.writeln("        throw StateError('Unreachable: all named parameter combinations should be covered');");
   }
 
   bool _generateConstructorBody(
@@ -3969,7 +4228,8 @@ class BridgeGenerator {
     
     if (funcInfo != null) {      
       // Generate extraction of raw InterpretedFunction value
-      final rawVarName = '${localName}_raw';
+      // Use camelCase suffix to satisfy non_constant_identifier_names lint
+      final rawVarName = '${localName}Raw';
       if (param.isRequired) {
         buffer.writeln("        if (positional.length <= $index) {");
         buffer.writeln(
@@ -4087,12 +4347,24 @@ class BridgeGenerator {
   };
 
   /// Gets a safe local variable name for a parameter.
-  /// Renames reserved names by appending an underscore.
+  /// Sanitizes the name (removes leading underscores, converts snake_case to camelCase)
+  /// and renames reserved names by appending an underscore.
   String _getSafeLocalName(String paramName) {
-    if (_reservedNames.contains(paramName)) {
-      return '${paramName}_';
+    var sanitized = _sanitizeLocalVarName(paramName);
+    if (_reservedNames.contains(sanitized)) {
+      return '${sanitized}_';
     }
-    return paramName;
+    return sanitized;
+  }
+
+  /// Makes a type nullable by appending '?' if necessary.
+  /// Returns the original type if it's already nullable, or if it's 'dynamic'
+  /// (since dynamic is inherently nullable).
+  String _makeNullable(String type) {
+    if (type == 'dynamic' || type.endsWith('?')) {
+      return type;
+    }
+    return '$type?';
   }
 
   /// Generates extraction code for a named parameter.
@@ -4220,7 +4492,8 @@ class BridgeGenerator {
     
     if (funcInfo != null) {
       // Generate extraction of raw InterpretedFunction value
-      final rawVarName = '${localName}_raw';
+      // Use camelCase suffix to satisfy non_constant_identifier_names lint
+      final rawVarName = '${localName}Raw';
       if (param.isRequired) {
         buffer.writeln(
           "        if (!named.containsKey('${param.name}') || named['${param.name}'] == null) {",
@@ -4861,13 +5134,13 @@ class BridgeGenerator {
     
     if (isListType) {
       // For List<T>, check the element type
-      buffer.writeln('${indent}final _sample = positional[$sampleParamIndex] as List;');
-      buffer.writeln('${indent}if (_sample.isEmpty) return <dynamic>[];');
-      buffer.writeln('${indent}final _first = _sample.first;');
+      buffer.writeln('${indent}final sample = positional[$sampleParamIndex] as List;');
+      buffer.writeln('${indent}if (sample.isEmpty) return <dynamic>[];');
+      buffer.writeln('${indent}final firstElem = sample.first;');
       
       for (final boundType in recursiveBoundTypes) {
         final typeName = boundType.prefixedTypeName;
-        buffer.writeln('${indent}if (_first is $typeName) {');
+        buffer.writeln('${indent}if (firstElem is $typeName) {');
         
         // Generate cast calls for all list parameters of the recursive type
         final castArgs = <String>[];
@@ -4892,11 +5165,11 @@ class BridgeGenerator {
       }
     } else {
       // For single value T, check directly
-      buffer.writeln('${indent}final _sample = positional[$sampleParamIndex];');
+      buffer.writeln('${indent}final sample = positional[$sampleParamIndex];');
       
       for (final boundType in recursiveBoundTypes) {
         final typeName = boundType.prefixedTypeName;
-        buffer.writeln('${indent}if (_sample is $typeName) {');
+        buffer.writeln('${indent}if (sample is $typeName) {');
         
         // Generate cast calls for all parameters of the recursive type
         final castArgs = <String>[];
@@ -5280,8 +5553,9 @@ class BridgeGenerator {
     if (funcInfo.isVoid) {
       wrapperBody = '{ $callExpr; }';
     } else {
+      final nullableReturnType = _makeNullable(prefixedReturnType);
       final returnCast = funcInfo.returnTypeNullable 
-          ? 'as $prefixedReturnType?' 
+          ? 'as $nullableReturnType' 
           : 'as $prefixedReturnType';
       wrapperBody = '{ return $callExpr $returnCast; }';
     }
@@ -5399,12 +5673,29 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     currentSourceFile = path;
   }
 
+  /// Checks if a node has @visibleForTesting, @protected, or @internal annotation.
+  /// These members should not be bridged as they are not part of the public API.
+  bool _hasTestOnlyAnnotation(AnnotatedNode node) {
+    for (final annotation in node.metadata) {
+      final name = annotation.name.name;
+      if (name == 'visibleForTesting' ||
+          name == 'protected' ||
+          name == 'internal') {
+        return true;
+      }
+    }
+    return false;
+  }
+
   @override
   void visitEnumDeclaration(EnumDeclaration node) {
     final enumName = node.name.lexeme;
 
     // Skip private enums if configured
     if (skipPrivate && enumName.startsWith('_')) return;
+
+    // Skip enums marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return;
 
     // Collect enum value names
     final values = node.constants.map((c) => c.name.lexeme).toList();
@@ -5433,6 +5724,9 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     // Skip private functions
     final name = node.name.lexeme;
     if (skipPrivate && name.startsWith('_')) return;
+
+    // Skip functions marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return;
 
     // Handle top-level getters as global variables
     if (node.isGetter) {
@@ -5488,6 +5782,9 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
 
   @override
   void visitTopLevelVariableDeclaration(TopLevelVariableDeclaration node) {
+    // Skip variables marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return;
+
     for (final variable in node.variables.variables) {
       final name = variable.name.lexeme;
 
@@ -5518,6 +5815,9 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
 
     // Skip private classes if configured
     if (skipPrivate && className.startsWith('_')) return;
+
+    // Skip classes marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return;
 
     final constructors = <ConstructorInfo>[];
     final members = <MemberInfo>[];
@@ -5628,7 +5928,14 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         if (aliasName != null) {
           functionTypeAliases?.add(aliasName);
           final library = alias.element.library;
-          final uri = library.identifier;
+          var uri = library.identifier;
+          // Map private SDK libraries to public equivalents
+          if (uri.startsWith('dart:_')) {
+            final mapped = mapPrivateSdkLibrary(uri);
+            if (mapped == null) return; // Skip libraries that should be ignored
+            uri = mapped;
+          }
+          // Skip dart:core types
           if (!uri.startsWith('dart:core')) {
             uris.add(uri);
             typeToUri[aliasName] = uri;
@@ -5657,7 +5964,25 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     if (dartType is InterfaceType) {
       final element = dartType.element;
       final library = element.library;
-      final uri = library.identifier;
+      var uri = library.identifier;
+
+      // Map private SDK libraries to public equivalents
+      if (uri.startsWith('dart:_')) {
+        final mapped = mapPrivateSdkLibrary(uri);
+        if (mapped == null) {
+          // Skip libraries that should be ignored, but still recurse into type args
+          for (final typeArg in dartType.typeArguments) {
+            _collectInfoFromDartType(
+              typeArg,
+              uris,
+              typeToUri,
+              functionTypeAliases: functionTypeAliases,
+            );
+          }
+          return;
+        }
+        uri = mapped;
+      }
 
       // Don't add imports for dart:core types (String, int, bool, etc.)
       if (!uri.startsWith('dart:core')) {
@@ -5691,6 +6016,9 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     final name = node.name?.lexeme;
     if (skipPrivate && name != null && name.startsWith('_')) return null;
 
+    // Skip constructors marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return null;
+
     final parameters = _parseParameters(node.parameters);
 
     return ConstructorInfo(
@@ -5706,6 +6034,9 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     final name = node.name.lexeme;
 
     if (skipPrivate && name.startsWith('_')) return null;
+
+    // Skip methods marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return null;
 
     // Track if method has type parameters (will use type erasure)
     final hasTypeParameters = node.typeParameters != null &&
@@ -5752,6 +6083,9 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
 
   /// Parses a field declaration with resolved types.
   List<MemberInfo> _parseField(FieldDeclaration node) {
+    // Skip fields marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return const [];
+
     final results = <MemberInfo>[];
     final isStatic = node.isStatic;
     final typeInfo = _collectTypeInfo(node.fields.type);
@@ -6020,12 +6354,29 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
 
   _ClassVisitor({this.skipPrivate = true});
 
+  /// Checks if a node has @visibleForTesting, @protected, or @internal annotation.
+  /// These members should not be bridged as they are not part of the public API.
+  bool _hasTestOnlyAnnotation(AnnotatedNode node) {
+    for (final annotation in node.metadata) {
+      final name = annotation.name.name;
+      if (name == 'visibleForTesting' ||
+          name == 'protected' ||
+          name == 'internal') {
+        return true;
+      }
+    }
+    return false;
+  }
+
   @override
   void visitClassDeclaration(ClassDeclaration node) {
     final className = node.name.lexeme;
 
     // Skip private classes if configured
     if (skipPrivate && className.startsWith('_')) return;
+
+    // Skip classes marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return;
 
     final constructors = <ConstructorInfo>[];
     final members = <MemberInfo>[];
@@ -6081,6 +6432,9 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
     final name = node.name?.lexeme;
     if (skipPrivate && name != null && name.startsWith('_')) return null;
 
+    // Skip constructors marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return null;
+
     final parameters = _parseParameters(node.parameters);
 
     return ConstructorInfo(
@@ -6097,6 +6451,9 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
 
     // Skip private members
     if (skipPrivate && name.startsWith('_')) return null;
+
+    // Skip methods marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return null;
 
     // Track if method has type parameters (will use type erasure)
     final hasTypeParameters = node.typeParameters != null &&
@@ -6128,6 +6485,9 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
 
   /// Parses a field declaration.
   List<MemberInfo> _parseField(FieldDeclaration node) {
+    // Skip fields marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return const [];
+
     final results = <MemberInfo>[];
     final isStatic = node.isStatic;
 

@@ -35,13 +35,29 @@ class ModuleConfig {
   /// Specific global variable names to exclude from processing.
   final List<String> excludeVariables;
   
+  /// Whether to follow all re-exports from external packages by default.
+  /// 
+  /// When true (default), the generator will follow `export 'package:...'`
+  /// directives and generate bridges for classes in those packages.
+  /// Use [skipReExports] to exclude specific packages from being followed.
+  /// 
+  /// When false, only packages listed in [followReExports] will be followed.
+  final bool followAllReExports;
+  
+  /// List of external packages to skip when following re-exports.
+  /// 
+  /// Only used when [followAllReExports] is true. Package names in this list
+  /// will not be followed even if they appear in export directives.
+  /// 
+  /// Example: `['some_large_package', 'internal_only']`
+  final List<String> skipReExports;
+  
   /// List of external packages to follow re-exports from.
   /// 
+  /// Only used when [followAllReExports] is false.
   /// When a barrel file re-exports from an external package (e.g.,
-  /// `export 'package:tom_basics/tom_basics.dart';`), the generator
-  /// normally skips these. Adding package names to this list enables
-  /// following re-exports from those packages and generating bridges
-  /// for their exported classes.
+  /// `export 'package:tom_basics/tom_basics.dart';`), only packages
+  /// in this list will be followed for generating bridges.
   /// 
   /// Example: `['tom_basics', 'tom_crypto']`
   final List<String> followReExports;
@@ -56,6 +72,8 @@ class ModuleConfig {
     this.excludeEnums = const [],
     this.excludeFunctions = const [],
     this.excludeVariables = const [],
+    this.followAllReExports = true,
+    this.skipReExports = const [],
     this.followReExports = const [],
   });
 
@@ -70,6 +88,8 @@ class ModuleConfig {
       excludeEnums: (json['excludeEnums'] as List?)?.cast<String>() ?? [],
       excludeFunctions: (json['excludeFunctions'] as List?)?.cast<String>() ?? [],
       excludeVariables: (json['excludeVariables'] as List?)?.cast<String>() ?? [],
+      followAllReExports: json['followAllReExports'] as bool? ?? true,
+      skipReExports: (json['skipReExports'] as List?)?.cast<String>() ?? [],
       followReExports: (json['followReExports'] as List?)?.cast<String>() ?? [],
     );
   }
@@ -85,6 +105,8 @@ class ModuleConfig {
       if (excludeEnums.isNotEmpty) 'excludeEnums': excludeEnums,
       if (excludeFunctions.isNotEmpty) 'excludeFunctions': excludeFunctions,
       if (excludeVariables.isNotEmpty) 'excludeVariables': excludeVariables,
+      if (!followAllReExports) 'followAllReExports': followAllReExports,
+      if (skipReExports.isNotEmpty) 'skipReExports': skipReExports,
       if (followReExports.isNotEmpty) 'followReExports': followReExports,
     };
   }

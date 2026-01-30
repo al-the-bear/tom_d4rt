@@ -108,6 +108,18 @@ class D4rt {
   /// ```
   void registerGlobalVariable(String name, Object? value) {
     _globalVariables[name] = value;
+    // If value has a registered bridge, ensure the bridge is available in the environment
+    // so that property/method access on the variable works correctly
+    if (value != null) {
+      final bridgedClass = _bridgedDefLookupByType[value.runtimeType];
+      if (bridgedClass != null && _hasExecutedOnce) {
+        try {
+          _moduleLoader.globalEnvironment.defineBridge(bridgedClass);
+        } catch (_) {
+          // May already be defined, which is fine
+        }
+      }
+    }
     // Also update the environment if it exists (for subsequent eval() calls)
     // This allows updating global variables after initial execute() has run
     if (_hasExecutedOnce) {
@@ -219,6 +231,125 @@ class D4rt {
     return false;
   }
 
+  /// Returns a complete configuration snapshot of this interpreter instance.
+  ///
+  /// This method provides a comprehensive view of the interpreter's current state,
+  /// including all registered bridges (classes, enums), permissions, global variables,
+  /// and other settings.
+  ///
+  /// ## Example:
+  /// ```dart
+  /// final interpreter = D4rt();
+  /// interpreter.registerBridgedClass(myClass, 'package:my_lib/my_lib.dart');
+  /// interpreter.grant(FilesystemPermission.read);
+  /// interpreter.registerGlobalVariable('config', {'debug': true});
+  ///
+  /// final config = interpreter.getConfiguration();
+  /// print(jsonEncode(config.toJson()));
+  /// ```
+  D4rtConfiguration getConfiguration() {
+    // Build imports map from registered bridges
+    final importsMap = <String, ImportConfiguration>{};
+
+    // Process bridged classes
+    for (final entry in _bridgedClases) {
+      for (final MapEntry(:key, :value) in entry.entries) {
+        final importPath = key;
+        final bridgedClass = value;
+
+        final classInfo = BridgedClassInfo(
+          name: bridgedClass.name,
+          nativeTypeName: bridgedClass.nativeType.toString(),
+          constructors: bridgedClass.constructors.keys.toList(),
+          methods: bridgedClass.methods.keys.toList(),
+          getters: bridgedClass.getters.keys.toList(),
+          setters: bridgedClass.setters.keys.toList(),
+          staticMethods: bridgedClass.staticMethods.keys.toList(),
+          staticGetters: bridgedClass.staticGetters.keys.toList(),
+          staticSetters: bridgedClass.staticSetters.keys.toList(),
+        );
+
+        if (importsMap.containsKey(importPath)) {
+          final existing = importsMap[importPath]!;
+          importsMap[importPath] = ImportConfiguration(
+            importPath: importPath,
+            classes: [...existing.classes, classInfo],
+            enums: existing.enums,
+          );
+        } else {
+          importsMap[importPath] = ImportConfiguration(
+            importPath: importPath,
+            classes: [classInfo],
+            enums: [],
+          );
+        }
+      }
+    }
+
+    // Process bridged enums
+    for (final entry in _bridgedEnumDefinitions) {
+      for (final MapEntry(:key, :value) in entry.entries) {
+        final importPath = key;
+        final enumDef = value;
+
+        final enumInfo = BridgedEnumInfo(
+          name: enumDef.name,
+          values: enumDef.values.map((e) => e.name).toList(),
+        );
+
+        if (importsMap.containsKey(importPath)) {
+          final existing = importsMap[importPath]!;
+          importsMap[importPath] = ImportConfiguration(
+            importPath: importPath,
+            classes: existing.classes,
+            enums: [...existing.enums, enumInfo],
+          );
+        } else {
+          importsMap[importPath] = ImportConfiguration(
+            importPath: importPath,
+            classes: [],
+            enums: [enumInfo],
+          );
+        }
+      }
+    }
+
+    // Build permissions list
+    final permissions = _grantedPermissions
+        .map((p) => PermissionInfo(
+              type: p.type,
+              description: p.description,
+            ))
+        .toList();
+
+    // Build global variables list
+    final globalVariables = _globalVariables.entries
+        .map((e) => GlobalVariableInfo(
+              name: e.key,
+              valueType: e.value?.runtimeType.toString() ?? 'Null',
+            ))
+        .toList();
+
+    // Build global getters list
+    final globalGetters = _globalGetters.keys.toList();
+
+    // Build global functions list from native functions (deduplicated)
+    final globalFunctions = _nativeFunctions
+        .map((f) => f.name)
+        .where((name) => name != '<native>')
+        .toSet()
+        .toList();
+
+    return D4rtConfiguration(
+      imports: importsMap.values.toList(),
+      permissions: permissions,
+      globalVariables: globalVariables,
+      globalGetters: globalGetters,
+      globalFunctions: globalFunctions,
+      debugEnabled: Logger.debugEnabled,
+    );
+  }
+
   /// Execute the given source code.
   ///
   /// [source] The source code to execute. If not provided, the main source will be loaded from the given library.
@@ -304,35 +435,122 @@ class D4rt {
           '[D4rt.execute] The "args" parameter is deprecated. Use "positionalArgs" instead.');
       positionalArgs = [args];
     }
+
+    // Initialize a fresh module loader (resets global environment)
     _moduleLoader = _initModule(sources,
         basePath: basePath, allowFileSystemImports: allowFileSystemImports);
-    Logger.debug("[D4rt.execute] Starting execution. library: $library");
-    CompilationUnit compilationUnit;
 
+    // Parse the source
+    final compilationUnit = _parseSource(source: source, library: library);
+
+    // Register globals in the fresh environment
+    final executionEnvironment = _moduleLoader.globalEnvironment;
+    _registerGlobals(executionEnvironment);
+
+    // Execute and return result
+    return _executeInEnvironment(
+      compilationUnit: compilationUnit,
+      executionEnvironment: executionEnvironment,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+      library: library,
+    );
+  }
+
+  /// Execute additional source code in the existing global context.
+  ///
+  /// Unlike [execute], this method does NOT reset the global environment.
+  /// It reuses the existing module loader and environment from a previous
+  /// [execute] call, allowing you to add more declarations and call functions
+  /// while preserving all previously defined variables, functions, and classes.
+  ///
+  /// **Important**: You must call [execute] at least once before calling
+  /// [continuedExecute] to establish the execution context.
+  ///
+  /// [source] The source code to execute.
+  ///
+  /// [name] The name of the function to call. Defaults to 'main'.
+  ///
+  /// [positionalArgs] The positional arguments to pass to the function.
+  ///
+  /// [namedArgs] The named arguments to pass to the function.
+  ///
+  /// [library] The URI of the named function source to load.
+  ///
+  /// ## Example:
+  /// ```dart
+  /// final d4rt = D4rt();
+  ///
+  /// // Initial execution sets up context
+  /// d4rt.execute(source: 'void main() {}');
+  ///
+  /// // Add more declarations without resetting
+  /// d4rt.continuedExecute(source: '''
+  ///   int square(int x) => x * x;
+  ///   void main() {}
+  /// ''');
+  ///
+  /// // The square function is now available
+  /// final result = d4rt.eval('square(5)'); // Returns 25
+  /// ```
+  dynamic continuedExecute({
+    String? source,
+    String name = 'main',
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+    String? library,
+  }) {
+    if (!_hasExecutedOnce) {
+      throw RuntimeError(
+          'continuedExecute() requires an existing execution context. Call execute() first.');
+    }
+
+    Logger.debug("[D4rt.continuedExecute] Continuing execution in existing context. library: $library");
+
+    // Parse the source (reuses existing module loader for library resolution)
+    final compilationUnit = _parseSource(source: source, library: library);
+
+    // Reuse existing environment - don't register globals again
+    final executionEnvironment = _moduleLoader.globalEnvironment;
+
+    // Execute and return result
+    return _executeInEnvironment(
+      compilationUnit: compilationUnit,
+      executionEnvironment: executionEnvironment,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+      library: library,
+    );
+  }
+
+  /// Parse source code into a CompilationUnit.
+  CompilationUnit _parseSource({String? source, String? library}) {
     if (library != null) {
       Logger.debug(
-          "[D4rt.execute] Attempting to load the $name source via ModuleLoader for URI: $library");
+          "[D4rt._parseSource] Attempting to load source via ModuleLoader for URI: $library");
 
       if (!_moduleLoader.sources.containsKey(library.toString())) {
         final errorMessage =
-            "[D4rt.execute] The $name source URI '$library' was not found in sources.";
+            "[D4rt._parseSource] The source URI '$library' was not found in sources.";
         Logger.error(errorMessage);
         throw SourceCodeException(errorMessage);
       }
 
       if (source?.isNotEmpty ?? false) {
         Logger.warn(
-            "[D4rt.execute] The 'source' parameter is not empty but 'library' ($library) is used to load from sources. The 'source' string will be ignored.");
+            "[D4rt._parseSource] The 'source' parameter is not empty but 'library' ($library) is used to load from sources. The 'source' string will be ignored.");
       }
 
       try {
         final loadedRootModule = _moduleLoader.loadModule(Uri.parse(library));
-        compilationUnit = loadedRootModule.ast;
         Logger.debug(
-            "[D4rt.execute] $name source loaded and parsed successfully via ModuleLoader for $library.");
+            "[D4rt._parseSource] Source loaded and parsed successfully via ModuleLoader for $library.");
+        return loadedRootModule.ast;
       } catch (e) {
         Logger.error(
-            "[D4rt.execute] Failed to load $name source $library via ModuleLoader: $e");
+            "[D4rt._parseSource] Failed to load source $library via ModuleLoader: $e");
         if (e is SourceCodeException || e is RuntimeError) {
           rethrow;
         } else {
@@ -342,10 +560,10 @@ class D4rt {
       }
     } else {
       if (source == null) {
-        throw Exception('Source content must be provide');
+        throw Exception('Source content must be provided');
       }
       Logger.debug(
-          "[D4rt.execute] Executing the provided source string directly (no source URI).");
+          "[D4rt._parseSource] Parsing the provided source string directly (no source URI).");
       final result = parseString(
         content: source,
         throwIfDiagnostics: false,
@@ -369,34 +587,58 @@ class D4rt {
       if (errors.isNotEmpty) {
         final errorMessages = errors.map((e) {
           final location = result.lineInfo.getLocation(e.offset);
-          return "- ${e.message} (ligne ${location.lineNumber}, colonne ${location.columnNumber})";
+          return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
         }).join("\n");
         Logger.error("Parsing errors for the direct source:\n$errorMessages");
         throw SourceCodeException(
             'Fatal parsing errors for the direct source:\n$errorMessages');
       }
-      compilationUnit = result.unit;
-      Logger.debug("[D4rt.execute] Direct source string parsed successfully.");
+      Logger.debug("[D4rt._parseSource] Direct source string parsed successfully.");
+      return result.unit;
     }
+  }
 
-    final Environment executionEnvironment = _moduleLoader.globalEnvironment;
+  /// Register global functions, variables, and getters in the environment.
+  void _registerGlobals(Environment executionEnvironment) {
     for (var function in _nativeFunctions) {
       executionEnvironment.define(function.name, function);
     }
-    // Register global variables
     for (var entry in _globalVariables.entries) {
+      // If value has a registered bridge, define it in the environment first
+      // so that property/method access on the variable works correctly
+      final value = entry.value;
+      if (value != null) {
+        final bridgedClass = _bridgedDefLookupByType[value.runtimeType];
+        if (bridgedClass != null) {
+          try {
+            executionEnvironment.defineBridge(bridgedClass);
+          } catch (_) {
+            // May already be defined, which is fine
+          }
+        }
+      }
       executionEnvironment.define(entry.key, entry.value);
     }
-    // Register global getters as lazy-evaluated values
     for (var entry in _globalGetters.entries) {
       executionEnvironment.define(entry.key, GlobalGetter(entry.value));
     }
-    Logger.debug("[execute] Starting Pass 1: Declaration");
+  }
+
+  /// Execute a parsed CompilationUnit in the given environment.
+  dynamic _executeInEnvironment({
+    required CompilationUnit compilationUnit,
+    required Environment executionEnvironment,
+    required String name,
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+    String? library,
+  }) {
+    Logger.debug("[_executeInEnvironment] Starting Pass 1: Declaration");
     final declarationVisitor = DeclarationVisitor(executionEnvironment);
     for (final declaration in compilationUnit.declarations) {
       declaration.accept<void>(declarationVisitor);
     }
-    Logger.debug("[execute] Finished Pass 1: Declaration");
+    Logger.debug("[_executeInEnvironment] Finished Pass 1: Declaration");
 
     _visitor = InterpreterVisitor(
         globalEnvironment: executionEnvironment,
@@ -404,33 +646,33 @@ class D4rt {
         initiallibrary: library != null ? Uri.parse(library) : null);
     Object? functionResult;
     try {
-      Logger.debug(" [execute] Starting Pass 2: Interpretation");
+      Logger.debug("[_executeInEnvironment] Starting Pass 2: Interpretation");
       Logger.debug(
-          " [execute] Processing directives (imports, exports, etc.)...");
+          "[_executeInEnvironment] Processing directives (imports, exports, etc.)...");
       for (final directive in compilationUnit.directives) {
         if (directive is ImportDirective) {
           Logger.debug(
-              " [execute]   - Processing ImportDirective: ${directive.uri.stringValue}");
+              "[_executeInEnvironment]   - Processing ImportDirective: ${directive.uri.stringValue}");
           _visitor!.visitImportDirective(directive);
         } else {
           Logger.debug(
-              " [execute]   - Skipping directive of type: ${directive.runtimeType}");
+              "[_executeInEnvironment]   - Skipping directive of type: ${directive.runtimeType}");
         }
       }
-      Logger.debug(" [execute] Finished processing directives.");
+      Logger.debug("[_executeInEnvironment] Finished processing directives.");
 
-      Logger.debug(" [execute] Processing ALL declarations sequentially");
+      Logger.debug("[_executeInEnvironment] Processing ALL declarations sequentially");
 
-      Logger.debug(" [execute] Top-level declarations for Pass 2:");
+      Logger.debug("[_executeInEnvironment] Top-level declarations for Pass 2:");
       for (final declaration in compilationUnit.declarations) {
-        Logger.debug(" [execute]   - ${declaration.runtimeType}");
+        Logger.debug("[_executeInEnvironment]   - ${declaration.runtimeType}");
       }
 
       for (final declaration in compilationUnit.declarations) {
         declaration.accept<Object?>(_visitor!);
       }
-      Logger.debug(" [execute] Finished processing declarations");
-      Logger.debug("[execute] Looking for $name function");
+      Logger.debug("[_executeInEnvironment] Finished processing declarations");
+      Logger.debug("[_executeInEnvironment] Looking for $name function");
       final functionCallable = executionEnvironment.get(name);
       if (functionCallable is Callable) {
         List<Object?> interpreterArgs = positionalArgs ?? [];
@@ -446,7 +688,7 @@ class D4rt {
           // main expects args but none were provided - pass empty list
           interpreterArgs = [<String>[]];
           Logger.debug(
-              "[execute] 'main' expects arguments but none provided. Passing empty list.");
+              "[_executeInEnvironment] 'main' expects arguments but none provided. Passing empty list.");
         }
 
         // Validate arity (only for positional args, named args are validated by the function itself)
@@ -456,7 +698,7 @@ class D4rt {
         }
 
         Logger.debug(
-            "[execute] Calling '$name' with positionalArgs: $interpreterArgs, namedArgs: $interpreterNamedArgs");
+            "[_executeInEnvironment] Calling '$name' with positionalArgs: $interpreterArgs, namedArgs: $interpreterNamedArgs");
 
         functionResult = functionCallable.call(
             _visitor!, interpreterArgs, interpreterNamedArgs);
@@ -464,7 +706,237 @@ class D4rt {
         throw Exception(
             "No callable '$name' function found in the test source code.");
       }
-      Logger.debug(" [execute] Finished Pass 2: Interpretation");
+      Logger.debug("[_executeInEnvironment] Finished Pass 2: Interpretation");
+    } on InternalInterpreterException catch (e) {
+      if (e.originalThrownValue is RuntimeError) {
+        throw e.originalThrownValue as RuntimeError;
+      } else {
+        throw e.originalThrownValue!;
+      }
+    } catch (e) {
+      if (e is RuntimeError) {
+        rethrow;
+      } else {
+        throw RuntimeError('Unexpected error: $e');
+      }
+    }
+    if (functionResult is InterpretedInstance) {
+      _interpretedInstance = functionResult;
+    }
+    final resultValue = _bridgeInterpreterValueToNative(functionResult);
+    if (resultValue is Future) {
+      try {
+        _hasExecutedOnce = true;
+        return resultValue
+            .then((value) => _bridgeInterpreterValueToNative(value));
+      } on InternalInterpreterException catch (e) {
+        if (e.originalThrownValue is RuntimeError) {
+          throw e.originalThrownValue as RuntimeError;
+        } else {
+          throw e.originalThrownValue!;
+        }
+      } catch (e) {
+        if (e is RuntimeError) {
+          rethrow;
+        } else {
+          throw RuntimeError('Unexpected error: $e');
+        }
+      }
+    }
+    _hasExecutedOnce = true;
+    return resultValue;
+  }
+
+  // ============================================================================
+  // _executeClassic - PRESERVED FOR DEBUGGING REFERENCE
+  // ============================================================================
+  // DO NOT MODIFY OR DELETE THIS METHOD!
+  // This is a backup copy of the original execute() implementation before
+  // refactoring. It is kept for reference during debugging in case the
+  // refactored version has issues that need comparison with the original logic.
+  // ============================================================================
+  dynamic _executeClassic({
+    String? source,
+    String name = 'main',
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+    @Deprecated('Use positionalArgs instead') Object? args,
+    String? library,
+    Map<String, String>? sources,
+    String? basePath,
+    bool allowFileSystemImports = false,
+  }) {
+    // Handle deprecated args parameter
+    if (args != null && positionalArgs != null) {
+      throw ArgumentError(
+          'Cannot use both "args" (deprecated) and "positionalArgs". Use only "positionalArgs".');
+    }
+    if (args != null) {
+      Logger.warn(
+          '[D4rt._executeClassic] The "args" parameter is deprecated. Use "positionalArgs" instead.');
+      positionalArgs = [args];
+    }
+    _moduleLoader = _initModule(sources,
+        basePath: basePath, allowFileSystemImports: allowFileSystemImports);
+    Logger.debug("[D4rt._executeClassic] Starting execution. library: $library");
+    CompilationUnit compilationUnit;
+
+    if (library != null) {
+      Logger.debug(
+          "[D4rt._executeClassic] Attempting to load the $name source via ModuleLoader for URI: $library");
+
+      if (!_moduleLoader.sources.containsKey(library.toString())) {
+        final errorMessage =
+            "[D4rt._executeClassic] The $name source URI '$library' was not found in sources.";
+        Logger.error(errorMessage);
+        throw SourceCodeException(errorMessage);
+      }
+
+      if (source?.isNotEmpty ?? false) {
+        Logger.warn(
+            "[D4rt._executeClassic] The 'source' parameter is not empty but 'library' ($library) is used to load from sources. The 'source' string will be ignored.");
+      }
+
+      try {
+        final loadedRootModule = _moduleLoader.loadModule(Uri.parse(library));
+        compilationUnit = loadedRootModule.ast;
+        Logger.debug(
+            "[D4rt._executeClassic] $name source loaded and parsed successfully via ModuleLoader for $library.");
+      } catch (e) {
+        Logger.error(
+            "[D4rt._executeClassic] Failed to load $name source $library via ModuleLoader: $e");
+        if (e is SourceCodeException || e is RuntimeError) {
+          rethrow;
+        } else {
+          throw Exception(
+              "Unexpected failure to load initial module $library: $e");
+        }
+      }
+    } else {
+      if (source == null) {
+        throw Exception('Source content must be provided');
+      }
+      Logger.debug(
+          "[D4rt._executeClassic] Executing the provided source string directly (no source URI).");
+      final result = parseString(
+        content: source,
+        throwIfDiagnostics: false,
+        featureSet: FeatureSet.fromEnableFlags2(
+          sdkLanguageVersion: Version(3, 0, 0),
+          flags: [
+            'non-nullable',
+            'null-aware-elements',
+            'triple-shift',
+            'spread-collections',
+            'control-flow-collections',
+            'extension-methods',
+            'extension-types',
+          ],
+        ),
+      );
+
+      final errors = result.errors
+          .where((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR)
+          .toList();
+      if (errors.isNotEmpty) {
+        final errorMessages = errors.map((e) {
+          final location = result.lineInfo.getLocation(e.offset);
+          return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
+        }).join("\n");
+        Logger.error("Parsing errors for the direct source:\n$errorMessages");
+        throw SourceCodeException(
+            'Fatal parsing errors for the direct source:\n$errorMessages');
+      }
+      compilationUnit = result.unit;
+      Logger.debug("[D4rt._executeClassic] Direct source string parsed successfully.");
+    }
+
+    final Environment executionEnvironment = _moduleLoader.globalEnvironment;
+    for (var function in _nativeFunctions) {
+      executionEnvironment.define(function.name, function);
+    }
+    // Register global variables
+    for (var entry in _globalVariables.entries) {
+      executionEnvironment.define(entry.key, entry.value);
+    }
+    // Register global getters as lazy-evaluated values
+    for (var entry in _globalGetters.entries) {
+      executionEnvironment.define(entry.key, GlobalGetter(entry.value));
+    }
+    Logger.debug("[_executeClassic] Starting Pass 1: Declaration");
+    final declarationVisitor = DeclarationVisitor(executionEnvironment);
+    for (final declaration in compilationUnit.declarations) {
+      declaration.accept<void>(declarationVisitor);
+    }
+    Logger.debug("[_executeClassic] Finished Pass 1: Declaration");
+
+    _visitor = InterpreterVisitor(
+        globalEnvironment: executionEnvironment,
+        moduleLoader: _moduleLoader,
+        initiallibrary: library != null ? Uri.parse(library) : null);
+    Object? functionResult;
+    try {
+      Logger.debug(" [_executeClassic] Starting Pass 2: Interpretation");
+      Logger.debug(
+          " [_executeClassic] Processing directives (imports, exports, etc.)...");
+      for (final directive in compilationUnit.directives) {
+        if (directive is ImportDirective) {
+          Logger.debug(
+              " [_executeClassic]   - Processing ImportDirective: ${directive.uri.stringValue}");
+          _visitor!.visitImportDirective(directive);
+        } else {
+          Logger.debug(
+              " [_executeClassic]   - Skipping directive of type: ${directive.runtimeType}");
+        }
+      }
+      Logger.debug(" [_executeClassic] Finished processing directives.");
+
+      Logger.debug(" [_executeClassic] Processing ALL declarations sequentially");
+
+      Logger.debug(" [_executeClassic] Top-level declarations for Pass 2:");
+      for (final declaration in compilationUnit.declarations) {
+        Logger.debug(" [_executeClassic]   - ${declaration.runtimeType}");
+      }
+
+      for (final declaration in compilationUnit.declarations) {
+        declaration.accept<Object?>(_visitor!);
+      }
+      Logger.debug(" [_executeClassic] Finished processing declarations");
+      Logger.debug("[_executeClassic] Looking for $name function");
+      final functionCallable = executionEnvironment.get(name);
+      if (functionCallable is Callable) {
+        List<Object?> interpreterArgs = positionalArgs ?? [];
+        final Map<String, Object?> interpreterNamedArgs = namedArgs ?? {};
+
+        // Special handling for 'main' function: if it expects args but none provided,
+        // pass an empty list automatically (standard Dart behavior)
+        final expectedArity = functionCallable.arity;
+        if (name == 'main' &&
+            expectedArity > 0 &&
+            interpreterArgs.isEmpty &&
+            namedArgs?.isEmpty != false) {
+          // main expects args but none were provided - pass empty list
+          interpreterArgs = [<String>[]];
+          Logger.debug(
+              "[_executeClassic] 'main' expects arguments but none provided. Passing empty list.");
+        }
+
+        // Validate arity (only for positional args, named args are validated by the function itself)
+        if (interpreterArgs.length > expectedArity) {
+          throw RuntimeError(
+              "'$name' function accepts at most $expectedArity positional argument(s), but ${interpreterArgs.length} were provided.");
+        }
+
+        Logger.debug(
+            "[_executeClassic] Calling '$name' with positionalArgs: $interpreterArgs, namedArgs: $interpreterNamedArgs");
+
+        functionResult = functionCallable.call(
+            _visitor!, interpreterArgs, interpreterNamedArgs);
+      } else {
+        throw Exception(
+            "No callable '$name' function found in the test source code.");
+      }
+      Logger.debug(" [_executeClassic] Finished Pass 2: Interpretation");
     } on InternalInterpreterException catch (e) {
       if (e.originalThrownValue is RuntimeError) {
         throw e.originalThrownValue as RuntimeError;

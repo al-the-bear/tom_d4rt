@@ -557,3 +557,190 @@ class IntrospectionBuilder {
     );
   }
 }
+
+// =============================================================================
+// D4rt Configuration Info
+// =============================================================================
+
+/// Complete configuration snapshot of a D4rt interpreter instance.
+///
+/// This class provides a comprehensive view of the interpreter's current state,
+/// including all registered bridges, permissions, and settings.
+class D4rtConfiguration {
+  /// List of all registered import libraries with their associated bridges.
+  final List<ImportConfiguration> imports;
+
+  /// List of all currently granted permissions.
+  final List<PermissionInfo> permissions;
+
+  /// List of registered global variables.
+  final List<GlobalVariableInfo> globalVariables;
+
+  /// List of registered global getters.
+  final List<String> globalGetters;
+
+  /// List of registered global functions (top-level functions).
+  final List<String> globalFunctions;
+
+  /// Whether debug logging is enabled.
+  final bool debugEnabled;
+
+  const D4rtConfiguration({
+    required this.imports,
+    required this.permissions,
+    required this.globalVariables,
+    required this.globalGetters,
+    required this.globalFunctions,
+    required this.debugEnabled,
+  });
+
+  /// Converts this configuration to a JSON-serializable map.
+  Map<String, dynamic> toJson() => {
+        'imports': imports.map((i) => i.toJson()).toList(),
+        'permissions': permissions.map((p) => p.toJson()).toList(),
+        'globalVariables': globalVariables.map((v) => v.toJson()).toList(),
+        'globalGetters': globalGetters,
+        'globalFunctions': globalFunctions,
+        'debugEnabled': debugEnabled,
+      };
+}
+
+/// Configuration for a single import library.
+class ImportConfiguration {
+  /// The import path (e.g., 'package:tom_core_kernel/tom_core_kernel.dart').
+  final String importPath;
+
+  /// List of bridged classes available from this import.
+  final List<BridgedClassInfo> classes;
+
+  /// List of bridged enums available from this import.
+  final List<BridgedEnumInfo> enums;
+
+  const ImportConfiguration({
+    required this.importPath,
+    required this.classes,
+    required this.enums,
+  });
+
+  /// Converts this import configuration to a JSON-serializable map.
+  Map<String, dynamic> toJson() => {
+        'importPath': importPath,
+        'classes': classes.map((c) => c.toJson()).toList(),
+        'enums': enums.map((e) => e.toJson()).toList(),
+      };
+}
+
+/// Information about a bridged class.
+class BridgedClassInfo {
+  /// The name of the class.
+  final String name;
+
+  /// The native Dart type name.
+  final String nativeTypeName;
+
+  /// List of constructor names (empty string for default constructor).
+  final List<String> constructors;
+
+  /// List of instance method names.
+  final List<String> methods;
+
+  /// List of instance getter names.
+  final List<String> getters;
+
+  /// List of instance setter names.
+  final List<String> setters;
+
+  /// List of static method names.
+  final List<String> staticMethods;
+
+  /// List of static getter names.
+  final List<String> staticGetters;
+
+  /// List of static setter names.
+  final List<String> staticSetters;
+
+  const BridgedClassInfo({
+    required this.name,
+    required this.nativeTypeName,
+    required this.constructors,
+    required this.methods,
+    required this.getters,
+    required this.setters,
+    required this.staticMethods,
+    required this.staticGetters,
+    required this.staticSetters,
+  });
+
+  /// Converts this class info to a JSON-serializable map.
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'nativeType': nativeTypeName,
+        'constructors': constructors,
+        'methods': methods,
+        'getters': getters,
+        'setters': setters,
+        'staticMethods': staticMethods,
+        'staticGetters': staticGetters,
+        'staticSetters': staticSetters,
+      };
+}
+
+/// Information about a bridged enum.
+class BridgedEnumInfo {
+  /// The name of the enum.
+  final String name;
+
+  /// List of enum value names.
+  final List<String> values;
+
+  const BridgedEnumInfo({
+    required this.name,
+    required this.values,
+  });
+
+  /// Converts this enum info to a JSON-serializable map.
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'values': values,
+      };
+}
+
+/// Information about a granted permission.
+class PermissionInfo {
+  /// The type of permission (e.g., 'filesystem', 'network', 'process').
+  final String type;
+
+  /// Human-readable description of what this permission allows.
+  final String description;
+
+  const PermissionInfo({
+    required this.type,
+    required this.description,
+  });
+
+  /// Converts this permission info to a JSON-serializable map.
+  Map<String, dynamic> toJson() => {
+        'type': type,
+        'description': description,
+      };
+}
+
+/// Information about a registered global variable.
+class GlobalVariableInfo {
+  /// The name of the variable.
+  final String name;
+
+  /// The runtime type of the value.
+  final String valueType;
+
+  const GlobalVariableInfo({
+    required this.name,
+    required this.valueType,
+  });
+
+  /// Converts this global variable info to a JSON-serializable map.
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'valueType': valueType,
+      };
+}

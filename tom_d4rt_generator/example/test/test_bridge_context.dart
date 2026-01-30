@@ -6,7 +6,7 @@ void testInBridgeContext() {
   final Map<String, NativeFunctionImpl> funcs = {
     'firstOrNull': (visitor, positional, named, typeArgs) {
       D4.requireMinArgs(positional, 1, 'firstOrNull');
-      final items = D4.getRequiredArg<List<dynamic>>(positional, 0, 'items', 'firstOrNull');
+      final items = D4.getRequiredArg<List<Object>>(positional, 0, 'items', 'firstOrNull');
       return $pkg.firstOrNull(items);
     },
   };
