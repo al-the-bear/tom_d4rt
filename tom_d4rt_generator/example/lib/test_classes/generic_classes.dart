@@ -26,23 +26,20 @@ class Entity implements Identifiable {
 
 /// A generic box container.
 class Box<T> {
-  T? _value;
+  T? value;
 
-  Box([this._value]);
+  Box([this.value]);
 
-  T? get value => _value;
-  set value(T? v) => _value = v;
+  bool get isEmpty => value == null;
 
-  bool get isEmpty => _value == null;
-
-  void clear() => _value = null;
+  void clear() => value = null;
 
   /// Generic method with unbounded type parameter.
   R transform<R>(R Function(T) transformer) {
-    if (_value == null) {
+    if (value == null) {
       throw StateError('Box is empty');
     }
-    return transformer(_value as T);
+    return transformer(value as T);
   }
 
   /// Static factory with type parameter.

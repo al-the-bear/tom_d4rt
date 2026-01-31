@@ -125,9 +125,8 @@ class ColoredRectangle extends Rectangle implements Serializable {
 
   ColoredRectangle(super.width, super.height, this.color);
 
-  ColoredRectangle.red(double width, double height)
-      : color = 'red',
-        super(width, height);
+  ColoredRectangle.red(super.width, super.height)
+      : color = 'red';
 
   @override
   Map<String, dynamic> toJson() => {

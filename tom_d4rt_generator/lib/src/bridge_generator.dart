@@ -541,6 +541,32 @@ class ExternalTypeDependency {
   int get hashCode => Object.hash(typeName, packageUri);
 }
 
+/// Information about an auxiliary import needed for types used in defaults/parameters
+/// that aren't directly exported from the barrel.
+class AuxiliaryImport {
+  /// The URI to import (e.g., 'package:dcli/src/functions/menu.dart').
+  final String uri;
+  
+  /// The type names available from this import.
+  final Set<String> typeNames;
+  
+  /// The prefix to use for this import in generated code.
+  String? prefix;
+
+  AuxiliaryImport({
+    required this.uri,
+    required this.typeNames,
+    this.prefix,
+  });
+  
+  @override
+  bool operator ==(Object other) =>
+      other is AuxiliaryImport && other.uri == uri;
+
+  @override
+  int get hashCode => uri.hashCode;
+}
+
 /// Converts a snake_case or lowercase string to PascalCase.
 /// 
 /// Examples:
@@ -645,12 +671,27 @@ class BridgeGenerator {
   /// External type dependencies collected during parsing.
   final Set<ExternalTypeDependency> _externalDependencies = {};
 
+  /// Auxiliary imports needed for types used in default values, parameters, etc.
+  /// that aren't directly exported from the barrel but are available via source file imports.
+  /// Key is the import URI, value is the set of type names from that import.
+  final Map<String, Set<String>> _auxiliaryImports = {};
+
+  /// Prefixes assigned to auxiliary imports.
+  /// Key is the import URI, value is the prefix to use.
+  final Map<String, String> _auxiliaryPrefixes = {};
+
+  /// Map of source file path to its imports.
+  /// Used to resolve types that aren't exported from the barrel but are used in defaults.
+  /// Key is the normalized source file path, value is a map of type name to import URI.
+  final Map<String, Map<String, String>> _sourceFileImports = {};
+
   /// Packages to follow for external type dependencies.
   /// Format: package names without 'package:' prefix (e.g., ['tom_core_kernel', 'tom_core_server'])
   List<String> followPackages = [];
 
   /// User bridge scanner for detecting UserBridge override classes.
-  final UserBridgeScanner _userBridgeScanner = UserBridgeScanner();
+  /// Can be injected externally to share user bridge data across generators.
+  late final UserBridgeScanner _userBridgeScanner;
 
   /// Expose user bridge scanner for testing.
   UserBridgeScanner get userBridgeScanner => _userBridgeScanner;
@@ -880,6 +921,9 @@ class BridgeGenerator {
   }
 
   /// Creates a bridge generator.
+  ///
+  /// [userBridgeScanner] - Optional pre-populated scanner for user bridge classes.
+  /// If not provided, a new empty scanner will be created.
   BridgeGenerator({
     required this.workspacePath,
     this.packageName,
@@ -890,8 +934,11 @@ class BridgeGenerator {
     this.verbose = false,
     this.followPackages = const [],
     List<RecursiveBoundType>? recursiveBoundTypes,
+    UserBridgeScanner? userBridgeScanner,
   }) : recursiveBoundTypes = recursiveBoundTypes ?? 
-      _defaultRecursiveBoundTypes.map(RecursiveBoundType.core).toList();
+      _defaultRecursiveBoundTypes.map(RecursiveBoundType.core).toList() {
+    _userBridgeScanner = userBridgeScanner ?? UserBridgeScanner();
+  }
 
   /// Finds the file containing a specific class.
   Future<String?> findFileForClass(String className) async {
@@ -1133,6 +1180,7 @@ class BridgeGenerator {
   /// [excludeEnums] - Enum names to exclude
   /// [excludeFunctions] - Global function names to exclude
   /// [excludeVariables] - Global variable names to exclude
+  /// [excludeSourcePatterns] - Source URI glob patterns to exclude
   /// [followAllReExports] - If true (default), follows all external package re-exports
   /// [skipReExports] - List of package names to skip when [followAllReExports] is true
   /// [followReExports] - List of package names to follow when [followAllReExports] is false
@@ -1145,6 +1193,7 @@ class BridgeGenerator {
     List<String>? excludeEnums,
     List<String>? excludeFunctions,
     List<String>? excludeVariables,
+    List<String>? excludeSourcePatterns,
     bool followAllReExports = true,
     List<String>? skipReExports,
     List<String>? followReExports,
@@ -1206,6 +1255,7 @@ class BridgeGenerator {
       excludeEnums: excludeEnums,
       excludeFunctions: excludeFunctions,
       excludeVariables: excludeVariables,
+      excludeSourcePatterns: excludeSourcePatterns,
       exportInfo: exports,
       importShowClause: importShowClause,
       importHideClause: importHideClause,
@@ -1226,6 +1276,7 @@ class BridgeGenerator {
   /// [excludeEnums] - Enum names to exclude
   /// [excludeFunctions] - Global function names to exclude
   /// [excludeVariables] - Global variable names to exclude
+  /// [excludeSourcePatterns] - Source URI glob patterns to exclude
   /// [followAllReExports] - If true (default), follows all external package re-exports
   /// [skipReExports] - List of package names to skip when [followAllReExports] is true
   /// [followReExports] - List of package names to follow when [followAllReExports] is false
@@ -1239,6 +1290,7 @@ class BridgeGenerator {
     List<String>? excludeEnums,
     List<String>? excludeFunctions,
     List<String>? excludeVariables,
+    List<String>? excludeSourcePatterns,
     bool followAllReExports = true,
     List<String>? skipReExports,
     List<String>? followReExports,
@@ -1301,6 +1353,7 @@ class BridgeGenerator {
       excludeEnums: excludeEnums,
       excludeFunctions: excludeFunctions,
       excludeVariables: excludeVariables,
+      excludeSourcePatterns: excludeSourcePatterns,
       exportInfo: exports,
       fileWriter: fileWriter,
       importShowClause: importShowClause,
@@ -1319,6 +1372,7 @@ class BridgeGenerator {
     List<String>? excludeEnums,
     List<String>? excludeFunctions,
     List<String>? excludeVariables,
+    List<String>? excludeSourcePatterns,
     Map<String, ExportInfo>? exportInfo,
     List<String> importShowClause = const [],
     List<String> importHideClause = const [],
@@ -1369,6 +1423,18 @@ class BridgeGenerator {
       filteredClasses = filteredClasses.where((c) {
         if (excludeSet.contains(c.name)) {
           _recordSkip('class', c.name, 'excluded by configuration');
+          return false;
+        }
+        return true;
+      }).toList();
+    }
+
+    // Filter out classes matching source URI patterns
+    if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
+      filteredClasses = filteredClasses.where((c) {
+        final sourceUri = _getPackageUri(c.sourceFile);
+        if (_matchesGlobPattern(sourceUri, excludeSourcePatterns)) {
+          _recordSkip('class', c.name, 'source URI excluded by pattern: $sourceUri');
           return false;
         }
         return true;
@@ -1547,6 +1613,18 @@ class BridgeGenerator {
         }).toList();
       }
 
+      // Filter out functions matching source URI patterns
+      if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
+        filteredFunctions = filteredFunctions.where((f) {
+          final sourceUri = _getPackageUri(f.sourceFile);
+          if (_matchesGlobPattern(sourceUri, excludeSourcePatterns)) {
+            _recordSkip('function', f.name, 'source URI excluded by pattern: $sourceUri');
+            return false;
+          }
+          return true;
+        }).toList();
+      }
+
       // Filter out duplicate functions (keep first occurrence)
       final seenFunctions = <String>{};
       filteredFunctions = filteredFunctions.where((f) {
@@ -1571,6 +1649,18 @@ class BridgeGenerator {
         }).toList();
       }
 
+      // Filter out variables matching source URI patterns
+      if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
+        filteredVariables = filteredVariables.where((v) {
+          final sourceUri = _getPackageUri(v.sourceFile);
+          if (_matchesGlobPattern(sourceUri, excludeSourcePatterns)) {
+            _recordSkip('variable', v.name, 'source URI excluded by pattern: $sourceUri');
+            return false;
+          }
+          return true;
+        }).toList();
+      }
+
       // Filter out duplicate variables (keep first occurrence)
       {
         final seenVariables = <String>{};
@@ -1586,6 +1676,19 @@ class BridgeGenerator {
 
       // Filter out duplicate enums (keep first occurrence)
       var filteredEnums = globals.enums.toList();
+
+      // Filter out enums matching source URI patterns
+      if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
+        filteredEnums = filteredEnums.where((e) {
+          final sourceUri = _getPackageUri(e.sourceFile);
+          if (_matchesGlobPattern(sourceUri, excludeSourcePatterns)) {
+            _recordSkip('enum', e.name, 'source URI excluded by pattern: $sourceUri');
+            return false;
+          }
+          return true;
+        }).toList();
+      }
+
       {
         final seenEnums = <String>{};
         filteredEnums = filteredEnums.where((e) {
@@ -1641,6 +1744,7 @@ class BridgeGenerator {
     List<String>? excludeEnums,
     List<String>? excludeFunctions,
     List<String>? excludeVariables,
+    List<String>? excludeSourcePatterns,
     Map<String, ExportInfo>? exportInfo,
     required FileWriter fileWriter,
     List<String> importShowClause = const [],
@@ -1690,6 +1794,18 @@ class BridgeGenerator {
       filteredClasses = filteredClasses.where((c) {
         if (excludeSet.contains(c.name)) {
           _recordSkip('class', c.name, 'excluded by configuration');
+          return false;
+        }
+        return true;
+      }).toList();
+    }
+
+    // Filter out classes matching source URI patterns
+    if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
+      filteredClasses = filteredClasses.where((c) {
+        final sourceUri = _getPackageUri(c.sourceFile);
+        if (_matchesGlobPattern(sourceUri, excludeSourcePatterns)) {
+          _recordSkip('class', c.name, 'source URI excluded by pattern: $sourceUri');
           return false;
         }
         return true;
@@ -1826,6 +1942,18 @@ class BridgeGenerator {
       }).toList();
     }
 
+    // Filter out enums matching source URI patterns
+    if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
+      filteredEnums = filteredEnums.where((e) {
+        final sourceUri = _getPackageUri(e.sourceFile);
+        if (_matchesGlobPattern(sourceUri, excludeSourcePatterns)) {
+          _recordSkip('enum', e.name, 'source URI excluded by pattern: $sourceUri');
+          return false;
+        }
+        return true;
+      }).toList();
+    }
+
     // Filter out duplicate enums (keep first occurrence)
     {
       final seenEnums = <String>{};
@@ -1851,6 +1979,18 @@ class BridgeGenerator {
       }).toList();
     }
 
+    // Filter out functions matching source URI patterns
+    if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
+      filteredFunctions = filteredFunctions.where((f) {
+        final sourceUri = _getPackageUri(f.sourceFile);
+        if (_matchesGlobPattern(sourceUri, excludeSourcePatterns)) {
+          _recordSkip('function', f.name, 'source URI excluded by pattern: $sourceUri');
+          return false;
+        }
+        return true;
+      }).toList();
+    }
+
     // Filter out duplicate functions (keep first occurrence)
     {
       final seenFunctions = <String>{};
@@ -1870,6 +2010,18 @@ class BridgeGenerator {
       filteredVariables = filteredVariables.where((v) {
         if (excludeSet.contains(v.name)) {
           _recordSkip('variable', v.name, 'excluded by configuration');
+          return false;
+        }
+        return true;
+      }).toList();
+    }
+
+    // Filter out variables matching source URI patterns
+    if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
+      filteredVariables = filteredVariables.where((v) {
+        final sourceUri = _getPackageUri(v.sourceFile);
+        if (_matchesGlobPattern(sourceUri, excludeSourcePatterns)) {
+          _recordSkip('variable', v.name, 'source URI excluded by pattern: $sourceUri');
           return false;
         }
         return true;
@@ -2153,6 +2305,9 @@ class BridgeGenerator {
       );
 
       if (result is ResolvedLibraryResult) {
+        // Collect imports from this file for auxiliary type resolution
+        _collectSourceFileImports(result, normalizedPath);
+        
         // Scan for user bridges in each unit
         for (final unit in result.units) {
           _userBridgeScanner.scanUnit(unit.unit, unit.path);
@@ -2241,6 +2396,9 @@ class BridgeGenerator {
         );
 
         if (result is ResolvedLibraryResult) {
+          // Collect imports from this file for auxiliary type resolution
+          _collectSourceFileImports(result, normalizedPath);
+          
           final visitor = _ResolvedClassVisitor(skipPrivate: skipPrivate);
           for (final unit in result.units) {
             visitor.setSourceFile(unit.path);
@@ -2309,10 +2467,14 @@ class BridgeGenerator {
   ///
   /// For complex defaults that can't be resolved (class static members, private symbols),
   /// returns null to indicate a TODO default should be used.
+  /// 
+  /// If [sourceFilePath] is provided, auxiliary imports from the source file will be
+  /// checked for types not found in the barrel exports.
   String? _prefixDefaultValue(
     String defaultValue,
     String? sourceUri, {
     Map<String, String> typeToUri = const {},
+    String? sourceFilePath,
   }) {
     // Skip literals - these are safe
     if (defaultValue == 'null' ||
@@ -2362,7 +2524,7 @@ class BridgeGenerator {
         return defaultValue;
       }
 
-      // Check if we know where this class comes from
+      // Check if we know where this class comes from (barrel exports)
       if (typeToUri.containsKey(className)) {
         final uri = typeToUri[className];
         if (uri != null) {
@@ -2370,6 +2532,19 @@ class BridgeGenerator {
           if (prefix != null) {
             return prefix.isEmpty ? defaultValue : '$prefix.$defaultValue';
           }
+        }
+      }
+      
+      // Check auxiliary imports from the source file's imports
+      if (sourceFilePath != null) {
+        final auxiliaryUri = _resolveTypeFromSourceImports(className, sourceFilePath);
+        if (auxiliaryUri != null) {
+          // Add this as an auxiliary import
+          _addAuxiliaryImport(auxiliaryUri, className);
+          
+          // Generate or get a prefix for this auxiliary import
+          final prefix = _getOrCreateAuxiliaryPrefix(auxiliaryUri);
+          return '$prefix.$defaultValue';
         }
       }
 
@@ -2403,8 +2578,15 @@ class BridgeGenerator {
   bool _isWrappableDefault(
     String defaultValue, {
     Map<String, String> typeToUri = const {},
+    String? sourceFilePath,
   }) {
-    return _prefixDefaultValue(defaultValue, null, typeToUri: typeToUri) != null;
+    return _prefixDefaultValue(
+          defaultValue,
+          null,
+          typeToUri: typeToUri,
+          sourceFilePath: sourceFilePath,
+        ) !=
+        null;
   }
 
   /// Records a warning for a non-wrappable default value.
@@ -2453,6 +2635,7 @@ class BridgeGenerator {
   /// - The exported type names set is empty (no barrel tracking)
   /// - The type is a primitive/built-in type
   /// - The type is in the exported set
+  /// - The type is available via an auxiliary import
   bool _isTypeExported(String typeName) {
     // If we're not tracking exports, assume all types are available
     if (_exportedTypeNames.isEmpty) {
@@ -2465,14 +2648,157 @@ class BridgeGenerator {
       'List', 'Map', 'Set', 'Iterable', 'Future', 'Stream', 'Function',
       'Type', 'Symbol', 'Null', 'Never', 'Duration', 'DateTime', 'Uri',
       'BigInt', 'Comparable', 'Pattern', 'Match', 'RegExp', 'Runes',
-      'StringBuffer', 'StringSink', 'Error', 'Exception', 'StackTrace',
+      'StringBuffer', 'StringSink', 'Sink', 'Error', 'Exception', 'StackTrace',
       'Record', 'FutureOr', 'MapEntry',
     };
     if (builtInTypes.contains(typeName)) {
       return true;
     }
 
-    return _exportedTypeNames.contains(typeName);
+    // Check if it's in the exported types
+    if (_exportedTypeNames.contains(typeName)) {
+      return true;
+    }
+    
+    // Check if it's available via an auxiliary import
+    for (final types in _auxiliaryImports.values) {
+      if (types.contains(typeName)) {
+        return true;
+      }
+    }
+    
+    return false;
+  }
+  
+  /// Resolves a type name that's not in the barrel exports by checking source file imports.
+  /// 
+  /// Returns the import URI if the type can be resolved, null otherwise.
+  String? _resolveTypeFromSourceImports(String typeName, String sourceFile) {
+    final normalizedPath = p.normalize(
+      p.isAbsolute(sourceFile)
+          ? sourceFile
+          : p.join(Directory.current.path, sourceFile),
+    );
+    final imports = _sourceFileImports[normalizedPath] ?? _sourceFileImports[sourceFile];
+    if (imports == null) return null;
+    return imports[typeName];
+  }
+  
+  /// Adds a type to the auxiliary imports, tracking which URI provides it.
+  void _addAuxiliaryImport(String importUri, String typeName) {
+    _auxiliaryImports.putIfAbsent(importUri, () => {}).add(typeName);
+  }
+  
+  /// Gets or creates a prefix for an auxiliary import URI.
+  /// 
+  /// Auxiliary imports are imports that aren't part of the barrel exports
+  /// but are needed for default values, parameter types, etc.
+  String _getOrCreateAuxiliaryPrefix(String uri) {
+    // Check if we already have a prefix for this URI
+    if (_importPrefixes.containsKey(uri)) {
+      final prefix = _importPrefixes[uri]!;
+      return prefix.isEmpty ? '\$aux' : prefix;
+    }
+    
+    // Check if we already have an auxiliary prefix for this URI
+    if (_auxiliaryPrefixes.containsKey(uri)) {
+      return _auxiliaryPrefixes[uri]!;
+    }
+    
+    // Generate a new auxiliary prefix
+    // Extract package name from URI for readability
+    String baseName;
+    if (uri.startsWith('package:')) {
+      final parts = uri.substring(8).split('/');
+      baseName = parts.first.replaceAll('-', '_');
+    } else {
+      baseName = 'aux';
+    }
+    
+    // Make the prefix unique
+    var prefix = '\$aux_$baseName';
+    var counter = 1;
+    while (_auxiliaryPrefixes.values.contains(prefix) ||
+      _importPrefixes.values.contains(prefix)) {
+      counter++;
+      prefix = '\$aux_${baseName}_$counter';
+    }
+    
+    _auxiliaryPrefixes[uri] = prefix;
+    return prefix;
+  }
+  
+  /// Collects imports from a resolved library and stores type-to-URI mappings.
+  /// 
+  /// This allows us to resolve types used in default values, parameters, etc.
+  /// that aren't directly exported from the barrel.
+  void _collectSourceFileImports(ResolvedLibraryResult result, String filePath) {
+    final typeToUri = <String, String>{};
+    
+    // Get the library element to access its fragments
+    final libraryElement = result.element;
+    
+    // Iterate through all fragments (includes the main file and parts)
+    for (final fragment in libraryElement.fragments) {
+      // Iterate through all imports in this fragment
+      for (final import in fragment.libraryImports) {
+        final importedLibrary = import.importedLibrary;
+        if (importedLibrary == null) continue;
+        
+        // Get the URI of the imported library
+        final importUri = importedLibrary.identifier;
+        
+        // Skip dart: imports - these are built-in
+        if (importUri.startsWith('dart:')) continue;
+        
+        // The namespace gives us names visible through this import
+        // (already accounts for show/hide combinators)
+        final namespace = import.namespace;
+        for (final name in namespace.definedNames2.keys) {
+          typeToUri[name] = importUri;
+        }
+      }
+    }
+    
+    _sourceFileImports[filePath] = typeToUri;
+  }
+
+  /// Pre-collect auxiliary imports needed for default values across classes and functions.
+  void _collectAuxiliaryImportsFromDefaults({
+    required List<ClassInfo> classes,
+    required List<GlobalFunctionInfo> globalFunctions,
+    required List<GlobalVariableInfo> globalVariables,
+  }) {
+    // Reset auxiliary tracking for this generation pass
+    _auxiliaryImports.clear();
+    _auxiliaryPrefixes.clear();
+
+    void processParams(Iterable<ParameterInfo> params, String sourceFile) {
+      final sourceUri = _getPackageUri(sourceFile);
+      for (final param in params) {
+        final defaultValue = param.defaultValue;
+        if (defaultValue == null) continue;
+        _prefixDefaultValue(
+          defaultValue,
+          sourceUri,
+          typeToUri: param.typeToUri,
+          sourceFilePath: sourceFile,
+        );
+      }
+    }
+
+    for (final func in globalFunctions) {
+      processParams(func.parameters, func.sourceFile);
+    }
+
+    for (final cls in classes) {
+      for (final ctor in cls.constructors) {
+        processParams(ctor.parameters, cls.sourceFile);
+      }
+      for (final member in cls.members) {
+        processParams(member.parameters, cls.sourceFile);
+      }
+    }
   }
 
   /// Escapes a string for use in generated code.
@@ -2707,6 +3033,24 @@ class BridgeGenerator {
         }
       }
     }
+    
+    // Collect and emit auxiliary imports needed for defaults
+    _collectAuxiliaryImportsFromDefaults(
+      classes: classes,
+      globalFunctions: globalFunctions,
+      globalVariables: globalVariables,
+    );
+
+    if (_auxiliaryPrefixes.isNotEmpty) {
+      for (final uri in _auxiliaryPrefixes.keys.toList()..sort()) {
+        if (_importPrefixes.containsKey(uri)) {
+          continue;
+        }
+        final prefix = _auxiliaryPrefixes[uri]!;
+        _importPrefixes[uri] = prefix;
+        buffer.writeln("import '$uri' as $prefix;");
+      }
+    }
     buffer.writeln();
 
     // Generate module bridge class - use override name if provided, otherwise derive from file
@@ -2743,38 +3087,37 @@ class BridgeGenerator {
     buffer.writeln('  }');
     buffer.writeln();
 
-    // Generate bridgedEnums method if there are enums
-    if (enums.isNotEmpty) {
-      buffer.writeln('  /// Returns all bridged enum definitions.');
-      buffer.writeln('  static List<BridgedEnumDefinition> bridgedEnums() {');
-      buffer.writeln('    return [');
-      for (final enumInfo in enums) {
-        // Get prefixed enum name for proper import reference
-        final prefixedEnumName = _getPrefixedClassName(enumInfo.name, enumInfo.sourceFile);
-        buffer.writeln('      BridgedEnumDefinition<$prefixedEnumName>(');
-        buffer.writeln("        name: '${enumInfo.name}',");
-        buffer.writeln('        values: $prefixedEnumName.values,');
-        buffer.writeln('      ),');
-      }
-      buffer.writeln('    ];');
-      buffer.writeln('  }');
-      buffer.writeln();
-
-      // Generate enumSourceUris method for deduplication
-      buffer.writeln('  /// Returns a map of enum names to their canonical source URIs.');
-      buffer.writeln('  ///');
-      buffer.writeln('  /// Used for deduplication when the same enum is exported through');
-      buffer.writeln('  /// multiple barrels (e.g., tom_core_kernel and tom_core_server).');
-      buffer.writeln('  static Map<String, String> enumSourceUris() {');
-      buffer.writeln('    return {');
-      for (final enumInfo in enums) {
-        final sourceUri = _getPackageUri(enumInfo.sourceFile);
-        buffer.writeln("      '${enumInfo.name}': '$sourceUri',");
-      }
-      buffer.writeln('    };');
-      buffer.writeln('  }');
-      buffer.writeln();
+    // Always generate bridgedEnums method (returns empty list if no enums)
+    // This is required for delegating barrel files to compile
+    buffer.writeln('  /// Returns all bridged enum definitions.');
+    buffer.writeln('  static List<BridgedEnumDefinition> bridgedEnums() {');
+    buffer.writeln('    return [');
+    for (final enumInfo in enums) {
+      // Get prefixed enum name for proper import reference
+      final prefixedEnumName = _getPrefixedClassName(enumInfo.name, enumInfo.sourceFile);
+      buffer.writeln('      BridgedEnumDefinition<$prefixedEnumName>(');
+      buffer.writeln("        name: '${enumInfo.name}',");
+      buffer.writeln('        values: $prefixedEnumName.values,');
+      buffer.writeln('      ),');
     }
+    buffer.writeln('    ];');
+    buffer.writeln('  }');
+    buffer.writeln();
+
+    // Always generate enumSourceUris method (returns empty map if no enums)
+    buffer.writeln('  /// Returns a map of enum names to their canonical source URIs.');
+    buffer.writeln('  ///');
+    buffer.writeln('  /// Used for deduplication when the same enum is exported through');
+    buffer.writeln('  /// multiple barrels (e.g., tom_core_kernel and tom_core_server).');
+    buffer.writeln('  static Map<String, String> enumSourceUris() {');
+    buffer.writeln('    return {');
+    for (final enumInfo in enums) {
+      final sourceUri = _getPackageUri(enumInfo.sourceFile);
+      buffer.writeln("      '${enumInfo.name}': '$sourceUri',");
+    }
+    buffer.writeln('    };');
+    buffer.writeln('  }');
+    buffer.writeln();
 
     // registerBridges method - accepts import path as parameter
     buffer.writeln('  /// Registers all bridges with an interpreter.');
@@ -2827,9 +3170,6 @@ class BridgeGenerator {
     buffer.writeln('  }');
     buffer.writeln();
 
-    // Get globals overrides if available
-    final globalsUserBridge = _userBridgeScanner.globalsUserBridge;
-
     // Generate registerGlobalVariables method
     if (globalVariables.isNotEmpty) {
       final regularVariables = globalVariables.where((v) => !v.isGetter).toList();
@@ -2846,11 +3186,13 @@ class BridgeGenerator {
       
       // Regular variables - evaluated at registration time
       for (final variable in regularVariables) {
+        // Get canonical source URI for deduplication
+        final sourceUri = _getPackageUri(variable.sourceFile);
+        // Get globals user bridge for this library
+        final globalsUserBridge = _userBridgeScanner.getGlobalsUserBridgeFor(sourceUri);
         final override = globalsUserBridge?.getGlobalVariableOverride(variable.name);
         // Get prefixed variable name for proper import reference
         final prefixedVarName = _getPrefixedFunctionName(variable.name, variable.sourceFile);
-        // Get canonical source URI for deduplication
-        final sourceUri = _getPackageUri(variable.sourceFile);
         buffer.writeln('    try {');
         if (override != null) {
           buffer.writeln(
@@ -2868,11 +3210,13 @@ class BridgeGenerator {
       
       // Getter variables - evaluated lazily at runtime (these are safe since they're closures)
       for (final variable in getterVariables) {
+        // Get canonical source URI for deduplication
+        final sourceUri = _getPackageUri(variable.sourceFile);
+        // Get globals user bridge for this library
+        final globalsUserBridge = _userBridgeScanner.getGlobalsUserBridgeFor(sourceUri);
         final override = globalsUserBridge?.getGlobalGetterOverride(variable.name);
         // Get prefixed getter name for proper import reference
         final prefixedGetterName = _getPrefixedFunctionName(variable.name, variable.sourceFile);
-        // Get canonical source URI for deduplication
-        final sourceUri = _getPackageUri(variable.sourceFile);
         if (override != null) {
           buffer.writeln(
             "    interpreter.registerGlobalGetter('${variable.name}', ${globalsUserBridge!.userBridgeClassName}.$override(), importPath, sourceUri: '$sourceUri');",
@@ -2899,6 +3243,10 @@ class BridgeGenerator {
       buffer.writeln('  static Map<String, NativeFunctionImpl> globalFunctions() {');
       buffer.writeln('    return {');
       for (final func in globalFunctions) {
+        // Get canonical source URI for deduplication
+        final sourceUri = _getPackageUri(func.sourceFile);
+        // Get globals user bridge for this library
+        final globalsUserBridge = _userBridgeScanner.getGlobalsUserBridgeFor(sourceUri);
         // Check for function override
         final override = globalsUserBridge?.getGlobalFunctionOverride(func.name);
         if (override != null) {
@@ -2944,7 +3292,11 @@ class BridgeGenerator {
         for (final p in func.parameters) {
           if (p.isNamed &&
               p.defaultValue != null &&
-              !_isWrappableDefault(p.defaultValue!, typeToUri: p.typeToUri)) {
+              !_isWrappableDefault(
+                p.defaultValue!,
+                typeToUri: p.typeToUri,
+                sourceFilePath: func.sourceFile,
+              )) {
             nonWrappableDefaults.add(p);
           }
         }
@@ -2977,6 +3329,7 @@ class BridgeGenerator {
                 param.defaultValue!,
                 _getPackageUri(func.sourceFile),
                 typeToUri: param.typeToUri,
+                sourceFilePath: func.sourceFile,
               );
               if (prefixedDefault != null) {
                 argDeclarations.add("        final $localName = D4.getNamedArgWithDefault<$resolvedType>(named, '${param.name}', $prefixedDefault);");
@@ -3005,6 +3358,7 @@ class BridgeGenerator {
                 param.defaultValue!,
                 _getPackageUri(func.sourceFile),
                 typeToUri: param.typeToUri,
+                sourceFilePath: func.sourceFile,
               );
               if (prefixedDefault != null) {
                 argDeclarations.add("        final $localName = D4.getOptionalArgWithDefault<$resolvedType>(positional, $positionalIndex, '${param.name}', $prefixedDefault);");
@@ -3083,6 +3437,19 @@ class BridgeGenerator {
         buffer.writeln("      '${func.name}': '$sourceUri',");
       }
       buffer.writeln('    };');
+      buffer.writeln('  }');
+      buffer.writeln();
+    } else {
+      // Always generate empty globalFunctions() for delegating barrel compatibility
+      buffer.writeln('  /// Returns a map of global function names to their native implementations.');
+      buffer.writeln('  static Map<String, NativeFunctionImpl> globalFunctions() {');
+      buffer.writeln('    return {};');
+      buffer.writeln('  }');
+      buffer.writeln();
+      
+      buffer.writeln('  /// Returns a map of global function names to their canonical source URIs.');
+      buffer.writeln('  static Map<String, String> globalFunctionSourceUris() {');
+      buffer.writeln('    return {};');
       buffer.writeln('  }');
       buffer.writeln();
     }
@@ -3240,6 +3607,15 @@ class BridgeGenerator {
         return 'package:$pkgName/$relativePath';
       }
     }
+    
+    // Also handle test files: /path/to/package/test/fixtures/foo.dart
+    // becomes package:package_name/foo.dart (using just filename for tests)
+    final testIndex = sourceFile.indexOf('/test/');
+    if (testIndex != -1 && packageName != null) {
+      final fileName = sourceFile.split('/').last;
+      return 'package:$packageName/$fileName';
+    }
+    
     return sourceFile;
   }
 
@@ -3276,7 +3652,8 @@ class BridgeGenerator {
   List<String> _generateClassBridge(StringBuffer buffer, ClassInfo cls) {
     final warnings = <String>[];
     final prefixedName = _getPrefixedClassName(cls.name, cls.sourceFile);
-    final userBridge = _userBridgeScanner.getUserBridgeFor(cls.name);
+    final libraryPath = _getPackageUri(cls.sourceFile);
+    final userBridge = _userBridgeScanner.getUserBridgeFor(libraryPath, cls.name);
     
     buffer.writeln(
       '// =============================================================================',
@@ -3660,6 +4037,7 @@ class BridgeGenerator {
         i,
         cls.name,
         sourceUri: sourceUri,
+        sourceFilePath: cls.sourceFile,
         warnings: warnings,
         classTypeParams: cls.typeParameters,
         callExpressions: callExpressions,
@@ -3671,7 +4049,12 @@ class BridgeGenerator {
     // Check for named unwrappable defaults for combinatorial fallback
     final nonWrappableDefaults = <ParameterInfo>[];
     for (final p in namedParams) {
-      if (p.defaultValue != null && !_isWrappableDefault(p.defaultValue!, typeToUri: p.typeToUri)) {
+      if (p.defaultValue != null &&
+          !_isWrappableDefault(
+            p.defaultValue!,
+            typeToUri: p.typeToUri,
+            sourceFilePath: cls.sourceFile,
+          )) {
         nonWrappableDefaults.add(p);
       }
     }
@@ -3687,6 +4070,7 @@ class BridgeGenerator {
         param,
         cls.name,
         sourceUri: sourceUri,
+        sourceFilePath: cls.sourceFile,
         warnings: warnings,
         classTypeParams: cls.typeParameters,
         callExpressions: callExpressions,
@@ -3775,6 +4159,7 @@ class BridgeGenerator {
         i,
         method.name,
         sourceUri: sourceUri,
+        sourceFilePath: cls.sourceFile,
         warnings: warnings,
         classTypeParams: effectiveTypeParams,
         callExpressions: callExpressions,
@@ -3786,7 +4171,12 @@ class BridgeGenerator {
     // Check for named unwrappable defaults for combinatorial fallback
     final nonWrappableDefaults = <ParameterInfo>[];
     for (final p in namedParams) {
-      if (p.defaultValue != null && !_isWrappableDefault(p.defaultValue!, typeToUri: p.typeToUri)) {
+      if (p.defaultValue != null &&
+          !_isWrappableDefault(
+            p.defaultValue!,
+            typeToUri: p.typeToUri,
+            sourceFilePath: cls.sourceFile,
+          )) {
         nonWrappableDefaults.add(p);
       }
     }
@@ -3802,6 +4192,7 @@ class BridgeGenerator {
         param,
         method.name,
         sourceUri: sourceUri,
+        sourceFilePath: cls.sourceFile,
         warnings: warnings,
         classTypeParams: effectiveTypeParams,
         callExpressions: callExpressions,
@@ -4011,7 +4402,12 @@ class BridgeGenerator {
     // Check for unwrappable defaults
     final nonWrappablePositional = <ParameterInfo>[];
     for (final p in positionalParams) {
-      if (p.defaultValue != null && !_isWrappableDefault(p.defaultValue!, typeToUri: p.typeToUri)) {
+      if (p.defaultValue != null &&
+          !_isWrappableDefault(
+            p.defaultValue!,
+            typeToUri: p.typeToUri,
+            sourceFilePath: cls.sourceFile,
+          )) {
         nonWrappablePositional.add(p);
       }
     }
@@ -4019,7 +4415,12 @@ class BridgeGenerator {
 
     final nonWrappableNamed = <ParameterInfo>[];
     for (final p in namedParams) {
-      if (p.defaultValue != null && !_isWrappableDefault(p.defaultValue!, typeToUri: p.typeToUri)) {
+      if (p.defaultValue != null &&
+          !_isWrappableDefault(
+            p.defaultValue!,
+            typeToUri: p.typeToUri,
+            sourceFilePath: cls.sourceFile,
+          )) {
         nonWrappableNamed.add(p);
       }
     }
@@ -4042,6 +4443,7 @@ class BridgeGenerator {
           i,
           method.name,
           sourceUri: sourceUri,
+          sourceFilePath: cls.sourceFile,
           warnings: warnings,
           classTypeParams: effectiveTypeParams,
         )) {
@@ -4059,6 +4461,7 @@ class BridgeGenerator {
         param,
         method.name,
         sourceUri: sourceUri,
+        sourceFilePath: cls.sourceFile,
         warnings: warnings,
         classTypeParams: effectiveTypeParams,
       )) {
@@ -4128,6 +4531,7 @@ class BridgeGenerator {
     int index,
     String contextName, {
     String? sourceUri,
+    String? sourceFilePath,
     List<String>? warnings,
     Map<String, String?> classTypeParams = const {},
     Map<String, String>? callExpressions,
@@ -4181,7 +4585,11 @@ class BridgeGenerator {
         );
       } else if (param.defaultValue != null) {
         // Check if default is wrappable
-        if (_isWrappableDefault(param.defaultValue!, typeToUri: param.typeToUri)) {
+        if (_isWrappableDefault(
+          param.defaultValue!,
+          typeToUri: param.typeToUri,
+          sourceFilePath: sourceFilePath,
+        )) {
           final typedDefault = _getTypedDefaultValue(
             param.defaultValue!,
             param.type,
@@ -4238,7 +4646,11 @@ class BridgeGenerator {
         );
       } else if (param.defaultValue != null) {
         // Check if default is wrappable
-        if (_isWrappableDefault(param.defaultValue!, typeToUri: param.typeToUri)) {
+        if (_isWrappableDefault(
+          param.defaultValue!,
+          typeToUri: param.typeToUri,
+          sourceFilePath: sourceFilePath,
+        )) {
           final typedDefault = _getTypedDefaultValue(
             param.defaultValue!,
             param.type,
@@ -4348,6 +4760,7 @@ class BridgeGenerator {
         param.defaultValue!,
         sourceUri,
         typeToUri: param.typeToUri,
+        sourceFilePath: sourceFilePath,
       );
       if (prefixedDefault != null) {
         // Wrappable default - use normal optional arg with default
@@ -4448,6 +4861,7 @@ class BridgeGenerator {
     ParameterInfo param,
     String contextName, {
     String? sourceUri,
+    String? sourceFilePath,
     List<String>? warnings,
     Map<String, String?> classTypeParams = const {},
     Map<String, String>? callExpressions,
@@ -4502,7 +4916,11 @@ class BridgeGenerator {
         );
       } else if (param.defaultValue != null) {
         // Check if default is wrappable
-        if (_isWrappableDefault(param.defaultValue!, typeToUri: param.typeToUri)) {
+        if (_isWrappableDefault(
+          param.defaultValue!,
+          typeToUri: param.typeToUri,
+          sourceFilePath: sourceFilePath,
+        )) {
           final typedDefault = _getTypedDefaultValue(
             param.defaultValue!,
             param.type,
@@ -4619,7 +5037,11 @@ class BridgeGenerator {
         );
       } else if (param.defaultValue != null) {
         // Check if default is wrappable
-        if (_isWrappableDefault(param.defaultValue!, typeToUri: param.typeToUri)) {
+        if (_isWrappableDefault(
+          param.defaultValue!,
+          typeToUri: param.typeToUri,
+          sourceFilePath: sourceFilePath,
+        )) {
           final typedDefault = _getTypedDefaultValue(
             param.defaultValue!,
             param.type,
@@ -4674,6 +5096,7 @@ class BridgeGenerator {
         param.defaultValue!,
         sourceUri,
         typeToUri: param.typeToUri,
+        sourceFilePath: sourceFilePath,
       );
       if (prefixedDefault != null) {
         // Wrappable default - use normal named arg with default
@@ -4897,7 +5320,7 @@ class BridgeGenerator {
       'List', 'Map', 'Set', 'Iterable', 'Future', 'Stream', 'Function',
       'Type', 'Symbol', 'Null', 'Never', 'Duration', 'DateTime', 'Uri',
       'BigInt', 'Comparable', 'Pattern', 'Match', 'RegExp', 'Runes',
-      'StringBuffer', 'StringSink', 'Error', 'Exception', 'StackTrace',
+      'StringBuffer', 'StringSink', 'Sink', 'Error', 'Exception', 'StackTrace',
       'Record', 'FutureOr', 'MapEntry',
       // dart:typed_data types
       'Uint8List', 'Int8List', 'Uint8ClampedList', 'Int16List', 'Uint16List',
