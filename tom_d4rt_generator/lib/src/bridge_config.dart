@@ -229,4 +229,29 @@ class BridgeConfig {
       if (libraryPath != null) 'libraryPath': libraryPath,
     };
   }
+
+  /// Creates a copy of this config with the given fields replaced.
+  BridgeConfig copyWith({
+    String? name,
+    List<ModuleConfig>? modules,
+    String? helpersImport,
+    bool? generateBarrel,
+    String? barrelPath,
+    bool? generateDartscript,
+    String? dartscriptPath,
+    String? registrationClass,
+    String? libraryPath,
+  }) {
+    return BridgeConfig(
+      name: name ?? this.name,
+      modules: modules ?? this.modules,
+      helpersImport: helpersImport ?? this.helpersImport,
+      generateBarrel: generateBarrel ?? this.generateBarrel,
+      barrelPath: barrelPath ?? this.barrelPath,
+      generateDartscript: generateDartscript ?? this.generateDartscript,
+      dartscriptPath: dartscriptPath ?? this.dartscriptPath,
+      registrationClass: registrationClass ?? this.registrationClass,
+      libraryPath: libraryPath ?? this.libraryPath,
+    );
+  }
 }

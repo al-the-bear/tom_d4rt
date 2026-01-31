@@ -5,6 +5,7 @@
 library;
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:build/build.dart';
 import 'package:path/path.dart' as p;
@@ -15,6 +16,18 @@ import 'src/bridge_generator.dart';
 import 'src/build_runner_file_writer.dart';
 import 'src/file_writer.dart';
 import 'src/per_package_orchestrator.dart';
+
+/// Default library path for per-package bridge files.
+///
+/// Returns `lib/src/d4rt_library_bridges` if `lib/src/` exists (package projects),
+/// otherwise returns `lib/d4rt_library_bridges` (console projects).
+String _getDefaultLibraryPath(String projectRoot) {
+  final srcDir = Directory(p.join(projectRoot, 'lib', 'src'));
+  if (srcDir.existsSync()) {
+    return 'lib/src/d4rt_library_bridges';
+  }
+  return 'lib/d4rt_library_bridges';
+}
 
 /// Builder that generates D4rt bridges from build.yaml configuration.
 ///
@@ -73,84 +86,45 @@ class D4rtBridgeBuilder implements Builder {
       var totalClasses = 0;
       final outputFiles = <String>[];
 
-      // Check if per-package deduplication is enabled
-      if (config!.libraryPath != null) {
-        // Use orchestrator for per-package deduplication
-        final orchestrator = PerPackageBridgeOrchestrator(
-          config: config!,
-          projectRoot: projectRoot,
-          fileWriter: fileWriter,
-          buildPackageName: packageName,
-        );
+      // Determine library path for per-package files
+      // Use configured path or default based on project structure
+      final libraryPath =
+          config!.libraryPath ?? _getDefaultLibraryPath(projectRoot);
 
-        log.info('  Using per-package deduplication mode...');
+      // Create config with resolved libraryPath
+      final effectiveConfig = config!.libraryPath != null
+          ? config!
+          : config!.copyWith(libraryPath: libraryPath);
 
-        // Phase 1: Collect package info from all modules
-        await orchestrator.collectPackageInfo();
+      // Use orchestrator for per-package deduplication
+      final orchestrator = PerPackageBridgeOrchestrator(
+        config: effectiveConfig,
+        projectRoot: projectRoot,
+        fileWriter: fileWriter,
+        buildPackageName: packageName,
+      );
 
-        // Phase 2: Generate per-package bridge files
-        final packageFiles = await orchestrator.generatePerPackageFiles();
-        outputFiles.addAll(packageFiles.values);
-        log.info('  Generated ${packageFiles.length} per-package bridge files');
+      log.info('  Per-package library path: $libraryPath');
 
-        // Phase 3: Generate delegating barrel files
-        await orchestrator.generateDelegatingBarrelFiles(packageFiles);
-        for (final module in config!.modules) {
-          outputFiles.add(module.outputPath);
-        }
-        log.info('  Generated ${config!.modules.length} delegating barrel files');
+      // Phase 1: Collect package info from all modules
+      await orchestrator.collectPackageInfo();
 
-        // Count total classes from package files (approximate)
-        totalClasses = packageFiles.length * 10; // Approximation for now
-      } else {
-        // Original logic: Generate bridges for each module
-        for (final module in config!.modules) {
-          // Determine sourceImport: use barrelImport if provided, otherwise first barrel file
-          final sourceImport = module.barrelImport ?? module.barrelFiles.first;
+      // Phase 2: Generate per-package bridge files
+      final packageFiles = await orchestrator.generatePerPackageFiles();
+      outputFiles.addAll(packageFiles.values);
+      log.info('  Generated ${packageFiles.length} per-package bridge files');
 
-          final generator = BridgeGenerator(
-            workspacePath: projectRoot,
-            packageName: config!.name,
-            sourceImport: sourceImport,
-            helpersImport:
-                config!.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
-          );
-
-          // Resolve barrel files - if they're package URIs, pass as-is; otherwise join with projectRoot
-          final barrelFiles = module.barrelFiles.map((f) {
-            if (f.startsWith('package:')) {
-              return f; // Package URI - generator will resolve it
-            }
-            return p.join(projectRoot, f);
-          }).toList();
-
-          final result = await generator.generateBridgesFromExportsWithWriter(
-            barrelFiles: barrelFiles,
-            outputFileId: FileId(packageName, module.outputPath),
-            moduleName: module.name,
-            excludePatterns: module.excludePatterns,
-            excludeClasses: module.excludeClasses,
-            excludeEnums: module.excludeEnums,
-            excludeFunctions: module.excludeFunctions,
-            excludeVariables: module.excludeVariables,
-            followAllReExports: module.followAllReExports,
-            skipReExports: module.skipReExports,
-            followReExports: module.followReExports,
-            fileWriter: fileWriter,
-            importShowClause: module.importShowClause,
-            importHideClause: module.importHideClause,
-          );
-
-          totalClasses += result.classesGenerated;
-          outputFiles.add(module.outputPath);
-
-          if (result.errors.isNotEmpty) {
-            for (final error in result.errors) {
-              log.warning('  $error');
-            }
-          }
-        }
+      // Phase 3: Generate delegating barrel files
+      await orchestrator.generateDelegatingBarrelFiles(packageFiles);
+      for (final module in config!.modules) {
+        outputFiles.add(module.outputPath);
       }
+      log.info(
+        '  Generated ${config!.modules.length} delegating barrel files',
+      );
+
+      // Count total classes from package files (approximate)
+      totalClasses = packageFiles.length * 10; // Approximation for now
 
       // Generate barrel file if requested
       if (config!.generateBarrel && config!.barrelPath != null) {
