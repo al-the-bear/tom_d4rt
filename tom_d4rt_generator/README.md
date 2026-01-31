@@ -175,7 +175,6 @@ The generator creates several files:
 3. **Dartscript file**: Provides unified registration class with:
    - `register()` - Register all bridges with D4rt
    - `getImportBlock()` - Get import statements for D4rt scripts
-   - `getGlobalInitializationScript()` - Get initialization code for D4rt scripts
 
 ## Migration from Old System
 

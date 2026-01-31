@@ -70,6 +70,12 @@ class Environment {
   /// Gets the map of variable bindings in this environment.
   Map<String, Object?> get values => _values;
 
+  /// Gets the names of all bridged classes registered in this environment.
+  List<String> get bridgedClassNames => _bridgedClasses.keys.toList();
+
+  /// Gets the names of all bridged enums registered in this environment.
+  List<String> get bridgedEnumNames => _bridgedEnums.keys.toList();
+
   /// Defines a new variable or function in this environment.
   ///
   /// [name] The name of the variable or function.

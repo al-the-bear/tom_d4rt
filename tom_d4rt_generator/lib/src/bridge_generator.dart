@@ -1148,6 +1148,8 @@ class BridgeGenerator {
     bool followAllReExports = true,
     List<String>? skipReExports,
     List<String>? followReExports,
+    List<String> importShowClause = const [],
+    List<String> importHideClause = const [],
   }) async {
     // Resolve package URIs to file paths
     final resolvedBarrelFiles = <String>[];
@@ -1205,6 +1207,8 @@ class BridgeGenerator {
       excludeFunctions: excludeFunctions,
       excludeVariables: excludeVariables,
       exportInfo: exports,
+      importShowClause: importShowClause,
+      importHideClause: importHideClause,
     );
   }
 
@@ -1239,6 +1243,8 @@ class BridgeGenerator {
     List<String>? skipReExports,
     List<String>? followReExports,
     required FileWriter fileWriter,
+    List<String> importShowClause = const [],
+    List<String> importHideClause = const [],
   }) async {
     // Resolve package URIs to file paths
     final resolvedBarrelFiles = <String>[];
@@ -1297,6 +1303,8 @@ class BridgeGenerator {
       excludeVariables: excludeVariables,
       exportInfo: exports,
       fileWriter: fileWriter,
+      importShowClause: importShowClause,
+      importHideClause: importHideClause,
     );
   }
 
@@ -1312,6 +1320,8 @@ class BridgeGenerator {
     List<String>? excludeFunctions,
     List<String>? excludeVariables,
     Map<String, ExportInfo>? exportInfo,
+    List<String> importShowClause = const [],
+    List<String> importHideClause = const [],
   }) async {
     _skipReports.clear();
     final allClasses = <ClassInfo>[];
@@ -1511,6 +1521,8 @@ class BridgeGenerator {
           globalFunctions: fileFunctions,
           globalVariables: fileVariables,
           enums: fileEnums,
+          importShowClause: importShowClause,
+          importHideClause: importHideClause,
         );
         await File(outFile).writeAsString(code);
         outputFiles.add(outFile);
@@ -1568,6 +1580,8 @@ class BridgeGenerator {
         globalFunctions: filteredFunctions,
         globalVariables: filteredVariables,
         enums: globals.enums,
+        importShowClause: importShowClause,
+        importHideClause: importHideClause,
       );
       final outFile = outputPath.endsWith('.dart')
           ? outputPath
@@ -1602,6 +1616,8 @@ class BridgeGenerator {
     List<String>? excludeVariables,
     Map<String, ExportInfo>? exportInfo,
     required FileWriter fileWriter,
+    List<String> importShowClause = const [],
+    List<String> importHideClause = const [],
   }) async {
     _skipReports.clear();
     final allClasses = <ClassInfo>[];
@@ -1829,6 +1845,8 @@ class BridgeGenerator {
       globalFunctions: filteredFunctions,
       globalVariables: filteredVariables,
       enums: filteredEnums,
+      importShowClause: importShowClause,
+      importHideClause: importHideClause,
     );
 
     // Write using the FileWriter
@@ -2469,6 +2487,8 @@ class BridgeGenerator {
     List<GlobalFunctionInfo> globalFunctions = const [],
     List<GlobalVariableInfo> globalVariables = const [],
     List<EnumInfo> enums = const [],
+    List<String> importShowClause = const [],
+    List<String> importHideClause = const [],
   }) {
     final buffer = StringBuffer();
 
@@ -2705,14 +2725,14 @@ class BridgeGenerator {
     if (globalVariables.isNotEmpty) {
       buffer.writeln();
       buffer.writeln('    // Register global variables');
-      buffer.writeln('    registerGlobalVariables(interpreter);');
+      buffer.writeln('    registerGlobalVariables(interpreter, importPath);');
     }
     // Register global functions
     if (globalFunctions.isNotEmpty) {
       buffer.writeln();
       buffer.writeln('    // Register global functions');
       buffer.writeln('    for (final entry in globalFunctions().entries) {');
-      buffer.writeln('      interpreter.registertopLevelFunction(entry.key, entry.value);');
+      buffer.writeln('      interpreter.registertopLevelFunction(entry.key, entry.value, importPath);');
       buffer.writeln('    }');
     }
     buffer.writeln('  }');
@@ -2728,9 +2748,10 @@ class BridgeGenerator {
       
       buffer.writeln('  /// Registers all global variables with the interpreter.');
       buffer.writeln('  ///');
+      buffer.writeln('  /// [importPath] is the package import path for library-scoped registration.');
       buffer.writeln('  /// Collects all registration errors and throws a single exception');
       buffer.writeln('  /// with all error details if any registrations fail.');
-      buffer.writeln('  static void registerGlobalVariables(D4rt interpreter) {');
+      buffer.writeln('  static void registerGlobalVariables(D4rt interpreter, String importPath) {');
       buffer.writeln('    final errors = <String>[];');
       buffer.writeln();
       
@@ -2742,11 +2763,11 @@ class BridgeGenerator {
         buffer.writeln('    try {');
         if (override != null) {
           buffer.writeln(
-            "      interpreter.registerGlobalVariable('${variable.name}', ${globalsUserBridge!.userBridgeClassName}.$override());",
+            "      interpreter.registerGlobalVariable('${variable.name}', ${globalsUserBridge!.userBridgeClassName}.$override(), importPath);",
           );
         } else {
           buffer.writeln(
-            "      interpreter.registerGlobalVariable('${variable.name}', $prefixedVarName);",
+            "      interpreter.registerGlobalVariable('${variable.name}', $prefixedVarName, importPath);",
           );
         }
         buffer.writeln('    } catch (e) {');
@@ -2761,11 +2782,11 @@ class BridgeGenerator {
         final prefixedGetterName = _getPrefixedFunctionName(variable.name, variable.sourceFile);
         if (override != null) {
           buffer.writeln(
-            "    interpreter.registerGlobalGetter('${variable.name}', ${globalsUserBridge!.userBridgeClassName}.$override());",
+            "    interpreter.registerGlobalGetter('${variable.name}', ${globalsUserBridge!.userBridgeClassName}.$override(), importPath);",
           );
         } else {
           buffer.writeln(
-            "    interpreter.registerGlobalGetter('${variable.name}', () => $prefixedGetterName);",
+            "    interpreter.registerGlobalGetter('${variable.name}', () => $prefixedGetterName, importPath);",
           );
         }
       }
@@ -2976,7 +2997,17 @@ class BridgeGenerator {
       buffer.writeln('  /// Use this in your D4rt initialization script to make all');
       buffer.writeln('  /// bridged classes available to scripts.');
       buffer.writeln('  static String getImportBlock() {');
-      buffer.writeln("    return \"import '$importBlockUri';\";");
+      
+      // Build import statement with optional show/hide clauses
+      if (importShowClause.isNotEmpty) {
+        final showList = importShowClause.join(', ');
+        buffer.writeln("    return \"import '$importBlockUri' show $showList;\";");
+      } else if (importHideClause.isNotEmpty) {
+        final hideList = importHideClause.join(', ');
+        buffer.writeln("    return \"import '$importBlockUri' hide $hideList;\";");
+      } else {
+        buffer.writeln("    return \"import '$importBlockUri';\";");
+      }
       buffer.writeln('  }');
       buffer.writeln();
     }
@@ -2996,99 +3027,6 @@ class BridgeGenerator {
         buffer.writeln('  ];');
         buffer.writeln();
       }
-
-      buffer.writeln('  /// Returns D4rt script code that documents available global functions.');
-      buffer.writeln('  ///');
-      buffer.writeln('  /// These functions are available directly in D4rt scripts when');
-      buffer.writeln('  /// the import block is included in the initialization script.');
-      buffer.writeln('  static List<String> get globalFunctionNames => [');
-      for (final func in globalFunctions) {
-        buffer.writeln("    '${func.name}',");
-      }
-      buffer.writeln('  ];');
-      buffer.writeln();
-      buffer.writeln('  /// Returns a list of global variable names.');
-      buffer.writeln('  static List<String> get globalVariableNames => [');
-      for (final variable in globalVariables) {
-        buffer.writeln("    '${variable.name}',");
-      }
-      buffer.writeln('  ];');
-      buffer.writeln();
-
-      // Generate getGlobalInitializationScript method
-      buffer.writeln('  /// Returns D4rt script code to initialize global functions and variables.');
-      buffer.writeln('  ///');
-      buffer.writeln('  /// This script creates wrapper functions that delegate to the static methods');
-      buffer.writeln('  /// in GlobalBridge, and mirrors global variables. Include this in your D4rt');
-      buffer.writeln('  /// initialization script after registering bridges.');
-      buffer.writeln('  ///');
-      buffer.writeln('  /// Example:');
-      buffer.writeln('  /// ```dart');
-      buffer.writeln('  /// interpreter.execute(source: getGlobalInitializationScript());');
-      buffer.writeln('  /// ```');
-      buffer.writeln('  static String getGlobalInitializationScript() {');
-      buffer.writeln("    return '''");
-
-      // Generate wrapper functions for each global function
-      for (final func in globalFunctions) {
-        // Separate parameters by kind
-        final requiredPositional = <String>[];
-        final optionalPositional = <String>[];
-        final namedParams = <String>[];
-
-        for (final p in func.parameters) {
-          if (p.isNamed) {
-            // Named parameters go in {...}
-            if (p.isRequired) {
-              namedParams.add('required ${p.type} ${p.name}');
-            } else {
-              // Optional named - ensure nullable type
-              final nullableType = _makeNullable(p.type);
-              namedParams.add('$nullableType ${p.name}');
-            }
-          } else if (!p.isRequired) {
-            // Optional positional - ensure nullable type
-            final nullableType = _makeNullable(p.type);
-            optionalPositional.add('$nullableType ${p.name}');
-          } else {
-            // Required positional
-            requiredPositional.add('${p.type} ${p.name}');
-          }
-        }
-
-        // Build parameter list with proper grouping
-        final paramParts = <String>[];
-        paramParts.addAll(requiredPositional);
-        if (optionalPositional.isNotEmpty) {
-          paramParts.add('[${optionalPositional.join(', ')}]');
-        }
-        if (namedParams.isNotEmpty) {
-          paramParts.add('{${namedParams.join(', ')}}');
-        }
-        final params = paramParts.join(', ');
-
-        // Build call arguments
-        final callArgs = func.parameters.map((p) {
-          if (p.isNamed) {
-            return '${p.name}: ${p.name}';
-          }
-          return p.name;
-        }).join(', ');
-
-        buffer.writeln('${func.returnType} ${func.name}($params) => ${capitalizedModuleName}Bridge.${func.name}($callArgs);');
-      }
-
-      // Generate variable mirrors
-      for (final variable in globalVariables) {
-        buffer.writeln('${variable.type} get ${variable.name} => ${capitalizedModuleName}Bridge.${variable.name};');
-        if (!variable.isFinal && !variable.isConst) {
-          buffer.writeln('set ${variable.name}(${variable.type} value) => ${capitalizedModuleName}Bridge.${variable.name} = value;');
-        }
-      }
-
-      buffer.writeln("''';");
-      buffer.writeln('  }');
-      buffer.writeln();
     }
 
     buffer.writeln('}');

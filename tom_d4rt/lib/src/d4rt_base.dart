@@ -18,6 +18,22 @@ import 'package:tom_d4rt/src/bridge/registration.dart';
 import 'package:tom_d4rt/src/security/permissions.dart';
 import 'package:tom_d4rt/src/introspection.dart';
 
+/// Wrapper class for library-scoped variables.
+/// Stores a variable name and its value for registration with a library path.
+class LibraryVariable {
+  final String name;
+  final Object? value;
+  const LibraryVariable(this.name, this.value);
+}
+
+/// Wrapper class for library-scoped getters.
+/// Stores a getter name and its function for registration with a library path.
+class LibraryGetter {
+  final String name;
+  final Object? Function() getter;
+  const LibraryGetter(this.name, this.getter);
+}
+
 /// The main D4rt interpreter class.
 ///
 /// This class provides the primary interface for executing Dart code at runtime.
@@ -50,9 +66,14 @@ class D4rt {
   ///
   /// Returns null if no execution is currently in progress.
   InterpreterVisitor? get visitor => _visitor;
-  final List<NativeFunction> _nativeFunctions = [];
-  final Map<String, Object?> _globalVariables = {};
-  final Map<String, Object? Function()> _globalGetters = {};
+  
+  // Library-scoped globals (registered with library path) - added when import is processed
+  // Structure matches classes/enums: List of {libraryPath: definition}
+  // For functions: the NativeFunction itself contains the name
+  // For variables/getters: we use wrapper classes that contain name and value/getter
+  final List<Map<String, NativeFunction>> _libraryFunctions = [];
+  final List<Map<String, LibraryVariable>> _libraryVariables = [];
+  final List<Map<String, LibraryGetter>> _libraryGetters = [];
 
   late ModuleLoader _moduleLoader;
   bool _hasExecutedOnce = false;
@@ -82,53 +103,31 @@ class D4rt {
   ///
   /// [name] The name by which the function will be accessible in interpreted code.
   /// [function] The native function implementation to be called.
-  void registertopLevelFunction(String? name, NativeFunctionImpl function) {
-    _nativeFunctions.add(NativeFunction(function, name: name, arity: 0));
+  /// [library] The library path (package URI) where this function is exported from.
+  ///   The function is only added to the environment when this library is imported.
+  void registertopLevelFunction(String? name, NativeFunctionImpl function, String library) {
+    final nativeFunc = NativeFunction(function, name: name, arity: 0);
+    _libraryFunctions.add({library: nativeFunc});
   }
 
   /// Registers a global variable for use in interpreted code.
   ///
   /// This allows native Dart objects to be accessible as top-level variables
-  /// in interpreted code without requiring an import statement.
+  /// in interpreted code when the corresponding library is imported.
   ///
   /// [name] The name by which the variable will be accessible in interpreted code.
   /// [value] The value to bind to the variable. Can be any Dart object.
+  /// [library] The library path (package URI) where this variable is exported from.
+  ///   The variable is only added to the environment when this library is imported.
   ///
   /// ## Example:
   /// ```dart
   /// final interpreter = D4rt();
-  /// interpreter.registerGlobalVariable('config', {'debug': true});
-  /// interpreter.registerGlobalVariable('appName', 'MyApp');
-  ///
-  /// final result = interpreter.execute(source: '''
-  ///   main() {
-  ///     print('Running $appName in debug: ${config['debug']}');
-  ///   }
-  /// ''');
+  /// interpreter.registerGlobalVariable('config', {'debug': true}, 'package:my_app/my_app.dart');
+  /// interpreter.registerGlobalVariable('appName', 'MyApp', 'package:my_app/my_app.dart');
   /// ```
-  void registerGlobalVariable(String name, Object? value) {
-    _globalVariables[name] = value;
-    // If value has a registered bridge, ensure the bridge is available in the environment
-    // so that property/method access on the variable works correctly
-    if (value != null) {
-      final bridgedClass = _bridgedDefLookupByType[value.runtimeType];
-      if (bridgedClass != null && _hasExecutedOnce) {
-        try {
-          _moduleLoader.globalEnvironment.defineBridge(bridgedClass);
-        } catch (_) {
-          // May already be defined, which is fine
-        }
-      }
-    }
-    // Also update the environment if it exists (for subsequent eval() calls)
-    // This allows updating global variables after initial execute() has run
-    if (_hasExecutedOnce) {
-      try {
-        _moduleLoader.globalEnvironment.define(name, value);
-      } catch (_) {
-        // Environment may not be initialized yet, which is fine
-      }
-    }
+  void registerGlobalVariable(String name, Object? value, String library) {
+    _libraryVariables.add({library: LibraryVariable(name, value)});
   }
 
   /// Registers a global getter for use in interpreted code.
@@ -140,23 +139,16 @@ class D4rt {
   ///
   /// [name] The name by which the variable will be accessible in interpreted code.
   /// [getter] A function that returns the current value when called.
+  /// [library] The library path (package URI) where this getter is exported from.
+  ///   The getter is only added to the environment when this library is imported.
   ///
   /// ## Example:
   /// ```dart
   /// final interpreter = D4rt();
-  /// interpreter.registerGlobalGetter('currentTime', () => DateTime.now());
+  /// interpreter.registerGlobalGetter('currentTime', () => DateTime.now(), 'package:my_app/my_app.dart');
   /// ```
-  void registerGlobalGetter(String name, Object? Function() getter) {
-    _globalGetters[name] = getter;
-    // Also update the environment if it exists (for subsequent eval() calls)
-    // This allows registering global getters after initial execute() has run
-    if (_hasExecutedOnce) {
-      try {
-        _moduleLoader.globalEnvironment.define(name, GlobalGetter(getter));
-      } catch (_) {
-        // Environment may not be initialized yet, which is fine
-      }
-    }
+  void registerGlobalGetter(String name, Object? Function() getter, String library) {
+    _libraryGetters.add({library: LibraryGetter(name, getter)});
   }
 
   ModuleLoader _initModule(Map<String, String>? sources,
@@ -166,6 +158,9 @@ class D4rt {
       sources ?? {},
       _bridgedEnumDefinitions,
       _bridgedClases,
+      libraryFunctions: _libraryFunctions,
+      libraryVariables: _libraryVariables,
+      libraryGetters: _libraryGetters,
       d4rt: this,
     );
     _visitor = InterpreterVisitor(
@@ -322,23 +317,45 @@ class D4rt {
             ))
         .toList();
 
-    // Build global variables list
-    final globalVariables = _globalVariables.entries
-        .map((e) => GlobalVariableInfo(
-              name: e.key,
-              valueType: e.value?.runtimeType.toString() ?? 'Null',
-            ))
-        .toList();
+    // Build global variables list from library-scoped variables
+    final globalVariables = <GlobalVariableInfo>[];
+    for (final entry in _libraryVariables) {
+      for (final MapEntry(key: libraryUri, value: variable)
+          in entry.entries) {
+        globalVariables.add(GlobalVariableInfo(
+          name: variable.name,
+          valueType: variable.value?.runtimeType.toString() ?? 'Null',
+          libraryUri: libraryUri,
+        ));
+      }
+    }
 
-    // Build global getters list
-    final globalGetters = _globalGetters.keys.toList();
+    // Build global getters list from library-scoped getters
+    final globalGetters = <GlobalGetterInfo>[];
+    for (final entry in _libraryGetters) {
+      for (final MapEntry(key: libraryUri, value: getter) in entry.entries) {
+        globalGetters.add(GlobalGetterInfo(
+          name: getter.name,
+          libraryUri: libraryUri,
+        ));
+      }
+    }
 
-    // Build global functions list from native functions (deduplicated)
-    final globalFunctions = _nativeFunctions
-        .map((f) => f.name)
-        .where((name) => name != '<native>')
-        .toSet()
-        .toList();
+    // Build global functions list from library-scoped functions
+    final globalFunctions = <GlobalFunctionInfo>[];
+    final seenFunctions = <String>{};
+    for (final entry in _libraryFunctions) {
+      for (final MapEntry(key: libraryUri, value: func) in entry.entries) {
+        final name = func.name;
+        if (name != '<native>' && !seenFunctions.contains(name)) {
+          seenFunctions.add(name);
+          globalFunctions.add(GlobalFunctionInfo(
+            name: name,
+            libraryUri: libraryUri,
+          ));
+        }
+      }
+    }
 
     return D4rtConfiguration(
       imports: importsMap.values.toList(),
@@ -347,6 +364,54 @@ class D4rt {
       globalGetters: globalGetters,
       globalFunctions: globalFunctions,
       debugEnabled: Logger.debugEnabled,
+    );
+  }
+
+  /// Returns the current state of the global environment.
+  ///
+  /// This captures what variables, bridged classes, and bridged enums
+  /// are currently defined in the interpreter's global environment.
+  /// This is useful for debugging and introspection to see what names
+  /// are actually available for use in scripts.
+  ///
+  /// Returns null if no execution has occurred yet.
+  ///
+  /// ## Example:
+  /// ```dart
+  /// final d4rt = D4rt();
+  /// d4rt.addBridges(SomeBridges.bridges);
+  /// d4rt.execute(source: 'var x = 42;');
+  /// final state = d4rt.getEnvironmentState();
+  /// print(state?.variables); // Shows 'x' and any registered globals
+  /// print(state?.bridgedClasses); // Shows registered bridged classes
+  /// ```
+  EnvironmentState? getEnvironmentState() {
+    if (!_hasExecutedOnce) {
+      return null;
+    }
+
+    final globalEnv = _moduleLoader.globalEnvironment;
+
+    // Get all variables from the global environment
+    final variables = <EnvironmentVariableInfo>[];
+    for (final entry in globalEnv.values.entries) {
+      variables.add(EnvironmentVariableInfo(
+        name: entry.key,
+        valueType: entry.value?.runtimeType.toString() ?? 'Null',
+        isNull: entry.value == null,
+      ));
+    }
+
+    // Get bridged class names
+    final bridgedClasses = globalEnv.bridgedClassNames;
+
+    // Get bridged enum names
+    final bridgedEnums = globalEnv.bridgedEnumNames;
+
+    return EnvironmentState(
+      variables: variables,
+      bridgedClasses: bridgedClasses,
+      bridgedEnums: bridgedEnums,
     );
   }
 
@@ -443,9 +508,8 @@ class D4rt {
     // Parse the source
     final compilationUnit = _parseSource(source: source, library: library);
 
-    // Register globals in the fresh environment
+    // Library-scoped globals are registered via ModuleLoader when imports are processed
     final executionEnvironment = _moduleLoader.globalEnvironment;
-    _registerGlobals(executionEnvironment);
 
     // Execute and return result
     return _executeInEnvironment(
@@ -598,32 +662,6 @@ class D4rt {
     }
   }
 
-  /// Register global functions, variables, and getters in the environment.
-  void _registerGlobals(Environment executionEnvironment) {
-    for (var function in _nativeFunctions) {
-      executionEnvironment.define(function.name, function);
-    }
-    for (var entry in _globalVariables.entries) {
-      // If value has a registered bridge, define it in the environment first
-      // so that property/method access on the variable works correctly
-      final value = entry.value;
-      if (value != null) {
-        final bridgedClass = _bridgedDefLookupByType[value.runtimeType];
-        if (bridgedClass != null) {
-          try {
-            executionEnvironment.defineBridge(bridgedClass);
-          } catch (_) {
-            // May already be defined, which is fine
-          }
-        }
-      }
-      executionEnvironment.define(entry.key, entry.value);
-    }
-    for (var entry in _globalGetters.entries) {
-      executionEnvironment.define(entry.key, GlobalGetter(entry.value));
-    }
-  }
-
   /// Execute a parsed CompilationUnit in the given environment.
   dynamic _executeInEnvironment({
     required CompilationUnit compilationUnit,
@@ -755,6 +793,9 @@ class D4rt {
   // refactoring. It is kept for reference during debugging in case the
   // refactored version has issues that need comparison with the original logic.
   // ============================================================================
+  // TODO: Remove this legacy method once all code uses the new execution path
+  // and has been thoroughly tested in production.
+  // ignore: unused_element
   dynamic _executeClassic({
     String? source,
     String name = 'main',
@@ -851,18 +892,9 @@ class D4rt {
       Logger.debug("[D4rt._executeClassic] Direct source string parsed successfully.");
     }
 
+    // Library-scoped globals are registered via ModuleLoader when imports are processed
     final Environment executionEnvironment = _moduleLoader.globalEnvironment;
-    for (var function in _nativeFunctions) {
-      executionEnvironment.define(function.name, function);
-    }
-    // Register global variables
-    for (var entry in _globalVariables.entries) {
-      executionEnvironment.define(entry.key, entry.value);
-    }
-    // Register global getters as lazy-evaluated values
-    for (var entry in _globalGetters.entries) {
-      executionEnvironment.define(entry.key, GlobalGetter(entry.value));
-    }
+    
     Logger.debug("[_executeClassic] Starting Pass 1: Declaration");
     final declarationVisitor = DeclarationVisitor(executionEnvironment);
     for (final declaration in compilationUnit.declarations) {
@@ -1047,22 +1079,9 @@ class D4rt {
     }
 
     final compilationUnit = parseResult.unit;
+    
+    // Library-scoped globals are registered via ModuleLoader when imports are processed
     final Environment executionEnvironment = _moduleLoader.globalEnvironment;
-
-    // Register native functions
-    for (var function in _nativeFunctions) {
-      executionEnvironment.define(function.name, function);
-    }
-
-    // Register global variables
-    for (var entry in _globalVariables.entries) {
-      executionEnvironment.define(entry.key, entry.value);
-    }
-
-    // Register global getters as lazy-evaluated values
-    for (var entry in _globalGetters.entries) {
-      executionEnvironment.define(entry.key, GlobalGetter(entry.value));
-    }
 
     // Pass 1: Declaration
     final declarationVisitor = DeclarationVisitor(executionEnvironment);

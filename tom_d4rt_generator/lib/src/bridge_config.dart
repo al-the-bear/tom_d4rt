@@ -61,6 +61,27 @@ class ModuleConfig {
   /// 
   /// Example: `['tom_basics', 'tom_crypto']`
   final List<String> followReExports;
+  
+  /// Optional show clause for the generated import statement.
+  /// 
+  /// When specified, the generated import in getImportBlock() will include
+  /// `show ClassName1, ClassName2, ...` to limit what symbols are visible
+  /// to D4rt scripts from this module.
+  /// 
+  /// Example: `['TomService', 'TomEnvironment']`
+  final List<String> importShowClause;
+  
+  /// Optional hide clause for the generated import statement.
+  /// 
+  /// When specified, the generated import in getImportBlock() will include
+  /// `hide functionName, ClassName, ...` to exclude specific symbols
+  /// from being visible to D4rt scripts from this module.
+  /// 
+  /// This is useful for resolving duplicate global function/variable names
+  /// when multiple modules export the same symbol.
+  /// 
+  /// Example: `['prettyJson', 'mergeMapsOneSided']`
+  final List<String> importHideClause;
 
   const ModuleConfig({
     required this.name,
@@ -75,6 +96,8 @@ class ModuleConfig {
     this.followAllReExports = true,
     this.skipReExports = const [],
     this.followReExports = const [],
+    this.importShowClause = const [],
+    this.importHideClause = const [],
   });
 
   factory ModuleConfig.fromJson(Map<String, dynamic> json) {
@@ -91,6 +114,8 @@ class ModuleConfig {
       followAllReExports: json['followAllReExports'] as bool? ?? true,
       skipReExports: (json['skipReExports'] as List?)?.cast<String>() ?? [],
       followReExports: (json['followReExports'] as List?)?.cast<String>() ?? [],
+      importShowClause: (json['importShowClause'] as List?)?.cast<String>() ?? [],
+      importHideClause: (json['importHideClause'] as List?)?.cast<String>() ?? [],
     );
   }
 
@@ -108,6 +133,8 @@ class ModuleConfig {
       if (!followAllReExports) 'followAllReExports': followAllReExports,
       if (skipReExports.isNotEmpty) 'skipReExports': skipReExports,
       if (followReExports.isNotEmpty) 'followReExports': followReExports,
+      if (importShowClause.isNotEmpty) 'importShowClause': importShowClause,
+      if (importHideClause.isNotEmpty) 'importHideClause': importHideClause,
     };
   }
 }

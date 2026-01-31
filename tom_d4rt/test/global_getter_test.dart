@@ -81,16 +81,19 @@ void main() {
 
   group('D4rt registerGlobalGetter', () {
     late D4rt interpreter;
+    // Test library path for registering globals
+    const testLib = 'package:test_lib/test_lib.dart';
 
     setUp(() {
       interpreter = D4rt();
     });
 
-    test('registerGlobalGetter makes getter accessible in scripts', () {
+    test('registerGlobalGetter makes getter accessible via import', () {
       var counter = 0;
-      interpreter.registerGlobalGetter('counter', () => ++counter);
+      interpreter.registerGlobalGetter('counter', () => ++counter, testLib);
 
       final result1 = interpreter.execute(source: '''
+        import '$testLib';
         main() {
           return counter;
         }
@@ -98,6 +101,7 @@ void main() {
       expect(result1, equals(1));
 
       final result2 = interpreter.execute(source: '''
+        import '$testLib';
         main() {
           return counter;
         }
@@ -107,11 +111,12 @@ void main() {
 
     test('registerGlobalGetter evaluates lazily not at registration', () {
       String? lateInitValue;
-      interpreter.registerGlobalGetter('lateValue', () => lateInitValue);
+      interpreter.registerGlobalGetter('lateValue', () => lateInitValue, testLib);
 
       // At registration time, lateInitValue is null
       // The getter should return null when accessed now
       var result = interpreter.execute(source: '''
+        import '$testLib';
         main() {
           return lateValue;
         }
@@ -123,6 +128,7 @@ void main() {
 
       // Access again - should see the new value
       result = interpreter.execute(source: '''
+        import '$testLib';
         main() {
           return lateValue;
         }
@@ -134,13 +140,14 @@ void main() {
       var mutableSource = 'initial';
 
       // Regular variable captures value at registration time
-      interpreter.registerGlobalVariable('capturedValue', mutableSource);
+      interpreter.registerGlobalVariable('capturedValue', mutableSource, testLib);
 
       // Getter evaluates at access time
-      interpreter.registerGlobalGetter('liveValue', () => mutableSource);
+      interpreter.registerGlobalGetter('liveValue', () => mutableSource, testLib);
 
       // Both should return 'initial' initially
       var result = interpreter.execute(source: '''
+        import '$testLib';
         main() {
           return [capturedValue, liveValue];
         }
@@ -153,6 +160,7 @@ void main() {
       // capturedValue should still be 'initial' (captured at registration)
       // liveValue should be 'changed' (evaluated at access)
       result = interpreter.execute(source: '''
+        import '$testLib';
         main() {
           return [capturedValue, liveValue];
         }
@@ -162,10 +170,11 @@ void main() {
 
     test('getter returning object instance works correctly', () {
       final instanceHolder = _InstanceHolder();
-      interpreter.registerGlobalGetter('instance', () => instanceHolder.instance);
+      interpreter.registerGlobalGetter('instance', () => instanceHolder.instance, testLib);
 
       // Initially instance is null
       var result = interpreter.execute(source: '''
+        import '$testLib';
         main() {
           return instance;
         }
@@ -177,6 +186,7 @@ void main() {
 
       // Now should return the instance
       result = interpreter.execute(source: '''
+        import '$testLib';
         main() {
           return instance;
         }
@@ -187,16 +197,21 @@ void main() {
 
   group('D4rt eval with GlobalGetter', () {
     late D4rt interpreter;
+    const testLib = 'package:test_lib/test_lib.dart';
 
     setUp(() {
       interpreter = D4rt();
-      // Must execute something first to enable eval
-      interpreter.execute(source: 'main() {}');
     });
 
-    test('eval can access global getters', () {
+    test('eval can access global getters via import', () {
       var timestamp = DateTime(2024, 1, 1);
-      interpreter.registerGlobalGetter('currentTime', () => timestamp);
+      interpreter.registerGlobalGetter('currentTime', () => timestamp, testLib);
+
+      // First execute imports the library, making the global available
+      interpreter.execute(source: '''
+        import '$testLib';
+        main() {}
+      ''');
 
       final result = interpreter.eval('currentTime');
       expect(result, equals(DateTime(2024, 1, 1)));

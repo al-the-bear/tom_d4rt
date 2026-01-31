@@ -108,6 +108,8 @@ class D4rtBridgeBuilder implements Builder {
           skipReExports: module.skipReExports,
           followReExports: module.followReExports,
           fileWriter: fileWriter,
+          importShowClause: module.importShowClause,
+          importHideClause: module.importHideClause,
         );
 
         totalClasses += result.classesGenerated;
@@ -228,11 +230,6 @@ class D4rtBridgeBuilder implements Builder {
     }
 
     buffer.writeln('    return buffer.toString();');
-    buffer.writeln('  }');
-    buffer.writeln();
-    buffer.writeln('  /// Get global initialization script.');
-    buffer.writeln('  static String getGlobalInitializationScript() {');
-    buffer.writeln("    return '';");
     buffer.writeln('  }');
     buffer.writeln('}');
 

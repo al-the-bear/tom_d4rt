@@ -573,14 +573,14 @@ class D4rtConfiguration {
   /// List of all currently granted permissions.
   final List<PermissionInfo> permissions;
 
-  /// List of registered global variables.
+  /// List of registered global variables with their library sources.
   final List<GlobalVariableInfo> globalVariables;
 
-  /// List of registered global getters.
-  final List<String> globalGetters;
+  /// List of registered global getters with their library sources.
+  final List<GlobalGetterInfo> globalGetters;
 
-  /// List of registered global functions (top-level functions).
-  final List<String> globalFunctions;
+  /// List of registered global functions with their library sources.
+  final List<GlobalFunctionInfo> globalFunctions;
 
   /// Whether debug logging is enabled.
   final bool debugEnabled;
@@ -599,8 +599,8 @@ class D4rtConfiguration {
         'imports': imports.map((i) => i.toJson()).toList(),
         'permissions': permissions.map((p) => p.toJson()).toList(),
         'globalVariables': globalVariables.map((v) => v.toJson()).toList(),
-        'globalGetters': globalGetters,
-        'globalFunctions': globalFunctions,
+        'globalGetters': globalGetters.map((g) => g.toJson()).toList(),
+        'globalFunctions': globalFunctions.map((f) => f.toJson()).toList(),
         'debugEnabled': debugEnabled,
       };
 }
@@ -733,14 +733,112 @@ class GlobalVariableInfo {
   /// The runtime type of the value.
   final String valueType;
 
+  /// The library URI that registered this variable.
+  final String libraryUri;
+
   const GlobalVariableInfo({
     required this.name,
     required this.valueType,
+    required this.libraryUri,
   });
 
   /// Converts this global variable info to a JSON-serializable map.
   Map<String, dynamic> toJson() => {
         'name': name,
         'valueType': valueType,
+        'libraryUri': libraryUri,
+      };
+}
+
+/// Information about a registered global function.
+class GlobalFunctionInfo {
+  /// The name of the function.
+  final String name;
+
+  /// The library URI that registered this function.
+  final String libraryUri;
+
+  const GlobalFunctionInfo({
+    required this.name,
+    required this.libraryUri,
+  });
+
+  /// Converts this global function info to a JSON-serializable map.
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'libraryUri': libraryUri,
+      };
+}
+
+/// Information about a registered global getter.
+class GlobalGetterInfo {
+  /// The name of the getter.
+  final String name;
+
+  /// The library URI that registered this getter.
+  final String libraryUri;
+
+  const GlobalGetterInfo({
+    required this.name,
+    required this.libraryUri,
+  });
+
+  /// Converts this global getter info to a JSON-serializable map.
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'libraryUri': libraryUri,
+      };
+}
+
+/// Represents the current state of the D4rt environment.
+///
+/// This captures what globals and bridged types are currently
+/// available in the interpreter's global environment.
+class EnvironmentState {
+  /// Variables currently defined in the global environment.
+  final List<EnvironmentVariableInfo> variables;
+
+  /// Bridged classes currently registered in the global environment.
+  final List<String> bridgedClasses;
+
+  /// Bridged enums currently registered in the global environment.
+  final List<String> bridgedEnums;
+
+  const EnvironmentState({
+    required this.variables,
+    required this.bridgedClasses,
+    required this.bridgedEnums,
+  });
+
+  /// Converts this environment state to a JSON-serializable map.
+  Map<String, dynamic> toJson() => {
+        'variables': variables.map((v) => v.toJson()).toList(),
+        'bridgedClasses': bridgedClasses,
+        'bridgedEnums': bridgedEnums,
+      };
+}
+
+/// Information about a variable in the environment.
+class EnvironmentVariableInfo {
+  /// The name of the variable.
+  final String name;
+
+  /// The runtime type of the value.
+  final String valueType;
+
+  /// Whether the value is null.
+  final bool isNull;
+
+  const EnvironmentVariableInfo({
+    required this.name,
+    required this.valueType,
+    required this.isNull,
+  });
+
+  /// Converts this variable info to a JSON-serializable map.
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'valueType': valueType,
+        'isNull': isNull,
       };
 }

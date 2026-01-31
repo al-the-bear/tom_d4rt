@@ -108,6 +108,8 @@ Future<GenerationResult> generateBridges({
         excludeEnums: module.excludeEnums,
         excludeFunctions: module.excludeFunctions,
         excludeVariables: module.excludeVariables,
+        importShowClause: module.importShowClause,
+        importHideClause: module.importHideClause,
       );
 
       totalClasses += result.classesGenerated;

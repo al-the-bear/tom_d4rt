@@ -32,10 +32,24 @@ class ModuleLoader {
   final D4rt? d4rt; // Reference to D4rt instance for permission checking
   Uri?
       currentlibrary; // Keep for the initial relative URI resolution in _fetchModuleSource and for relative imports
+  
+  // Library-scoped globals (registered with library path) - added when import is processed
+  final List<Map<String, NativeFunction>> libraryFunctions;
+  final List<Map<String, LibraryVariable>> libraryVariables;
+  final List<Map<String, LibraryGetter>> libraryGetters;
+  
+  // Track which globals have been registered and from which library
+  // Maps global name -> source library URI
+  final Map<String, String> _registeredFunctions = {};
+  final Map<String, String> _registeredVariables = {};
+  final Map<String, String> _registeredGetters = {};
 
   ModuleLoader(this.globalEnvironment, this.sources,
       this.bridgedEnumDefinitions, this.bridgedClases,
-      {this.d4rt}) {
+      {this.d4rt,
+      this.libraryFunctions = const [],
+      this.libraryVariables = const [],
+      this.libraryGetters = const []}) {
     Logger.debug(
         "[ModuleLoader] Initialized with ${sources.length} preloaded sources.");
   }
@@ -330,9 +344,17 @@ class ModuleLoader {
             "Dart library '${uri.toString()}' not supported.");
       }
     }
-    if (bridgedClases.isNotEmpty || bridgedEnumDefinitions.isNotEmpty) {
+    // Check if this URI has any bridged types or library-scoped globals registered
+    final hasBridgedContent = bridgedClases.isNotEmpty || bridgedEnumDefinitions.isNotEmpty ||
+        libraryFunctions.isNotEmpty || libraryVariables.isNotEmpty || libraryGetters.isNotEmpty;
+    
+    if (hasBridgedContent) {
+      // Track if this specific URI has any content registered
+      bool hasContentForUri = false;
+      
       for (var bridgedEnumDefinition in bridgedEnumDefinitions) {
         if (bridgedEnumDefinition.containsKey(uriString)) {
+          hasContentForUri = true;
           final definition = bridgedEnumDefinition[uriString]!;
           try {
             final bridgedEnum = definition.buildBridgedEnum();
@@ -349,6 +371,7 @@ class ModuleLoader {
 
       for (var bridgedClass in bridgedClases) {
         if (bridgedClass.containsKey(uriString)) {
+          hasContentForUri = true;
           final definition = bridgedClass[uriString]!;
           try {
             globalEnvironment.defineBridge(definition);
@@ -361,7 +384,113 @@ class ModuleLoader {
           }
         }
       }
-      return '';
+
+      // Register library-scoped functions for this import
+      for (var entry in libraryFunctions) {
+        if (entry.containsKey(uriString)) {
+          hasContentForUri = true;
+          final nativeFunc = entry[uriString]!;
+          final funcName = nativeFunc.name;
+          
+          // Check for duplicate registration
+          if (_registeredFunctions.containsKey(funcName)) {
+            final existingLib = _registeredFunctions[funcName]!;
+            if (existingLib == uriString) {
+              // Same function from same library - silently skip
+              Logger.debug(
+                  " [execute] Skipping duplicate function '$funcName' from same library: $uriString");
+              continue;
+            } else {
+              // Different library - this is an error
+              throw RuntimeError(
+                  "Duplicate function '$funcName' exists from library '$existingLib' and library '$uriString'. "
+                  "Use import show/hide clauses to resolve the conflict.");
+            }
+          }
+          
+          try {
+            globalEnvironment.define(funcName, nativeFunc);
+            _registeredFunctions[funcName] = uriString;
+            Logger.debug(
+                " [execute] Registered library function: $funcName");
+          } catch (e) {
+            Logger.error("registering library function '$funcName': $e");
+          }
+        }
+      }
+
+      // Register library-scoped variables for this import
+      for (var entry in libraryVariables) {
+        if (entry.containsKey(uriString)) {
+          hasContentForUri = true;
+          final libVar = entry[uriString]!;
+          final varName = libVar.name;
+          
+          // Check for duplicate registration
+          if (_registeredVariables.containsKey(varName)) {
+            final existingLib = _registeredVariables[varName]!;
+            if (existingLib == uriString) {
+              // Same variable from same library - silently skip
+              Logger.debug(
+                  " [execute] Skipping duplicate variable '$varName' from same library: $uriString");
+              continue;
+            } else {
+              // Different library - this is an error
+              throw RuntimeError(
+                  "Duplicate variable '$varName' exists from library '$existingLib' and library '$uriString'. "
+                  "Use import show/hide clauses to resolve the conflict.");
+            }
+          }
+          
+          try {
+            globalEnvironment.define(varName, libVar.value);
+            _registeredVariables[varName] = uriString;
+            Logger.debug(
+                " [execute] Registered library variable: $varName");
+          } catch (e) {
+            Logger.error("registering library variable '$varName': $e");
+          }
+        }
+      }
+
+      // Register library-scoped getters for this import
+      for (var entry in libraryGetters) {
+        if (entry.containsKey(uriString)) {
+          hasContentForUri = true;
+          final libGetter = entry[uriString]!;
+          final getterName = libGetter.name;
+          
+          // Check for duplicate registration
+          if (_registeredGetters.containsKey(getterName)) {
+            final existingLib = _registeredGetters[getterName]!;
+            if (existingLib == uriString) {
+              // Same getter from same library - silently skip
+              Logger.debug(
+                  " [execute] Skipping duplicate getter '$getterName' from same library: $uriString");
+              continue;
+            } else {
+              // Different library - this is an error
+              throw RuntimeError(
+                  "Duplicate getter '$getterName' exists from library '$existingLib' and library '$uriString'. "
+                  "Use import show/hide clauses to resolve the conflict.");
+            }
+          }
+          
+          try {
+            globalEnvironment.define(getterName, GlobalGetter(libGetter.getter));
+            _registeredGetters[getterName] = uriString;
+            Logger.debug(
+                " [execute] Registered library getter: $getterName");
+          } catch (e) {
+            Logger.error("registering library getter '$getterName': $e");
+          }
+        }
+      }
+
+      // If this URI had bridged content, return empty source
+      if (hasContentForUri) {
+        return '';
+      }
     }
 
     // If it's neither explicitly preloaded nor a known Dart library, it's an error.
