@@ -35,6 +35,22 @@ class ModuleConfig {
   /// Specific global variable names to exclude from processing.
   final List<String> excludeVariables;
   
+  /// Glob patterns for source URIs to exclude.
+  ///
+  /// These patterns are matched against the source URI of classes, enums,
+  /// functions, and variables (e.g., `package:dcli/src/shell/shell.dart`).
+  ///
+  /// Patterns may also include element selectors after '#', to exclude only
+  /// specific symbols from a source file:
+  /// - `package:dcli_core/src/functions/backup.dart#backupFile,restoreFile`
+  /// - `package:dcli_core/src/util/file.dart#*Temp*`
+  ///
+  /// Example patterns:
+  /// - `package:dcli/src/shell/**` - exclude all files in dcli's shell folder
+  /// - `package:*/src/internal/*` - exclude internal folders from any package
+  /// - `package:some_pkg/**` - exclude entire package
+  final List<String> excludeSourcePatterns;
+  
   /// Whether to follow all re-exports from external packages by default.
   /// 
   /// When true (default), the generator will follow `export 'package:...'`
@@ -93,6 +109,7 @@ class ModuleConfig {
     this.excludeEnums = const [],
     this.excludeFunctions = const [],
     this.excludeVariables = const [],
+    this.excludeSourcePatterns = const [],
     this.followAllReExports = true,
     this.skipReExports = const [],
     this.followReExports = const [],
@@ -111,6 +128,7 @@ class ModuleConfig {
       excludeEnums: (json['excludeEnums'] as List?)?.cast<String>() ?? [],
       excludeFunctions: (json['excludeFunctions'] as List?)?.cast<String>() ?? [],
       excludeVariables: (json['excludeVariables'] as List?)?.cast<String>() ?? [],
+      excludeSourcePatterns: (json['excludeSourcePatterns'] as List?)?.cast<String>() ?? [],
       followAllReExports: json['followAllReExports'] as bool? ?? true,
       skipReExports: (json['skipReExports'] as List?)?.cast<String>() ?? [],
       followReExports: (json['followReExports'] as List?)?.cast<String>() ?? [],
@@ -130,6 +148,7 @@ class ModuleConfig {
       if (excludeEnums.isNotEmpty) 'excludeEnums': excludeEnums,
       if (excludeFunctions.isNotEmpty) 'excludeFunctions': excludeFunctions,
       if (excludeVariables.isNotEmpty) 'excludeVariables': excludeVariables,
+      if (excludeSourcePatterns.isNotEmpty) 'excludeSourcePatterns': excludeSourcePatterns,
       if (!followAllReExports) 'followAllReExports': followAllReExports,
       if (skipReExports.isNotEmpty) 'skipReExports': skipReExports,
       if (followReExports.isNotEmpty) 'followReExports': followReExports,

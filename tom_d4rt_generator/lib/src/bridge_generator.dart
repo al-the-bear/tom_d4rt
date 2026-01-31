@@ -921,6 +921,53 @@ class BridgeGenerator {
     return false;
   }
 
+  /// Checks if a source URI and element name match any exclusion pattern.
+  ///
+  /// Patterns can be plain source globs (exclude entire file) or include
+  /// element selectors after '#', e.g.:
+  /// - 'package:dcli_core/src/functions/backup.dart' (exclude all elements)
+  /// - 'package:dcli_core/src/functions/backup.dart#backupFile,restoreFile'
+  /// - 'package:dcli_core/src/util/file.dart#*Temp*' (glob on element name)
+  bool _matchesSourceExclusion(
+    String sourceUri,
+    String elementName,
+    List<String> patterns,
+  ) {
+    for (final pattern in patterns) {
+      final parts = pattern.split('#');
+      final sourcePattern = parts.first.trim();
+      if (sourcePattern.isEmpty) {
+        continue;
+      }
+
+      if (!_matchesGlobPattern(sourceUri, [sourcePattern])) {
+        continue;
+      }
+
+      if (parts.length == 1) {
+        return true;
+      }
+
+      final selector = parts.sublist(1).join('#').trim();
+      if (selector.isEmpty) {
+        return true;
+      }
+
+      final selectors = selector.split(',');
+      for (final rawSelector in selectors) {
+        final namePattern = rawSelector.trim();
+        if (namePattern.isEmpty) {
+          continue;
+        }
+        if (_matchesGlobPattern(elementName, [namePattern])) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
   /// Creates a bridge generator.
   ///
   /// [userBridgeScanner] - Optional pre-populated scanner for user bridge classes.
@@ -1434,7 +1481,7 @@ class BridgeGenerator {
     if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
       filteredClasses = filteredClasses.where((c) {
         final sourceUri = _getPackageUri(c.sourceFile);
-        if (_matchesGlobPattern(sourceUri, excludeSourcePatterns)) {
+        if (_matchesSourceExclusion(sourceUri, c.name, excludeSourcePatterns)) {
           _recordSkip('class', c.name, 'source URI excluded by pattern: $sourceUri');
           return false;
         }
@@ -1622,7 +1669,7 @@ class BridgeGenerator {
       if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
         filteredFunctions = filteredFunctions.where((f) {
           final sourceUri = _getPackageUri(f.sourceFile);
-          if (_matchesGlobPattern(sourceUri, excludeSourcePatterns)) {
+          if (_matchesSourceExclusion(sourceUri, f.name, excludeSourcePatterns)) {
             _recordSkip('function', f.name, 'source URI excluded by pattern: $sourceUri');
             return false;
           }
@@ -1658,7 +1705,7 @@ class BridgeGenerator {
       if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
         filteredVariables = filteredVariables.where((v) {
           final sourceUri = _getPackageUri(v.sourceFile);
-          if (_matchesGlobPattern(sourceUri, excludeSourcePatterns)) {
+          if (_matchesSourceExclusion(sourceUri, v.name, excludeSourcePatterns)) {
             _recordSkip('variable', v.name, 'source URI excluded by pattern: $sourceUri');
             return false;
           }
@@ -1686,7 +1733,7 @@ class BridgeGenerator {
       if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
         filteredEnums = filteredEnums.where((e) {
           final sourceUri = _getPackageUri(e.sourceFile);
-          if (_matchesGlobPattern(sourceUri, excludeSourcePatterns)) {
+          if (_matchesSourceExclusion(sourceUri, e.name, excludeSourcePatterns)) {
             _recordSkip('enum', e.name, 'source URI excluded by pattern: $sourceUri');
             return false;
           }
@@ -1809,7 +1856,7 @@ class BridgeGenerator {
     if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
       filteredClasses = filteredClasses.where((c) {
         final sourceUri = _getPackageUri(c.sourceFile);
-        if (_matchesGlobPattern(sourceUri, excludeSourcePatterns)) {
+        if (_matchesSourceExclusion(sourceUri, c.name, excludeSourcePatterns)) {
           _recordSkip('class', c.name, 'source URI excluded by pattern: $sourceUri');
           return false;
         }
@@ -1955,7 +2002,7 @@ class BridgeGenerator {
     if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
       filteredEnums = filteredEnums.where((e) {
         final sourceUri = _getPackageUri(e.sourceFile);
-        if (_matchesGlobPattern(sourceUri, excludeSourcePatterns)) {
+        if (_matchesSourceExclusion(sourceUri, e.name, excludeSourcePatterns)) {
           _recordSkip('enum', e.name, 'source URI excluded by pattern: $sourceUri');
           return false;
         }
@@ -1992,7 +2039,7 @@ class BridgeGenerator {
     if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
       filteredFunctions = filteredFunctions.where((f) {
         final sourceUri = _getPackageUri(f.sourceFile);
-        if (_matchesGlobPattern(sourceUri, excludeSourcePatterns)) {
+        if (_matchesSourceExclusion(sourceUri, f.name, excludeSourcePatterns)) {
           _recordSkip('function', f.name, 'source URI excluded by pattern: $sourceUri');
           return false;
         }
@@ -2029,7 +2076,7 @@ class BridgeGenerator {
     if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
       filteredVariables = filteredVariables.where((v) {
         final sourceUri = _getPackageUri(v.sourceFile);
-        if (_matchesGlobPattern(sourceUri, excludeSourcePatterns)) {
+        if (_matchesSourceExclusion(sourceUri, v.name, excludeSourcePatterns)) {
           _recordSkip('variable', v.name, 'source URI excluded by pattern: $sourceUri');
           return false;
         }
