@@ -368,6 +368,7 @@ class ModuleLoader {
     if (hasBridgedContent) {
       // Track if this specific URI has any content registered
       bool hasContentForUri = false;
+      final registrationErrors = <String>[];
       
       for (var bridgedEnumDefinition in bridgedEnumDefinitions) {
         if (bridgedEnumDefinition.containsKey(uriString)) {
@@ -395,9 +396,10 @@ class ModuleLoader {
               continue;
             } else {
               // Different source - this is an actual duplicate, error
-              throw RuntimeError(
+              registrationErrors.add(
                   "Duplicate enum '$enumName' exists from source '$existingSourceUri' and source '$sourceUri'. "
                   "These are different enums with the same name.");
+              continue;
             }
           }
           
@@ -410,7 +412,7 @@ class ModuleLoader {
                 " [execute] Registered bridged enum: $enumName from $sourceUri");
           } catch (e) {
             Logger.error("registering bridged enum '$enumName': $e");
-            throw Exception(
+            registrationErrors.add(
                 "Failed to register bridged enum '$enumName': $e");
           }
         }
@@ -442,9 +444,10 @@ class ModuleLoader {
               continue;
             } else {
               // Different source - this is an actual duplicate, error
-              throw RuntimeError(
+              registrationErrors.add(
                   "Duplicate class '$className' exists from source '$existingSourceUri' and source '$sourceUri'. "
                   "These are different classes with the same name.");
+              continue;
             }
           }
           
@@ -456,7 +459,7 @@ class ModuleLoader {
                 " [execute] Registered bridged class: $className from $sourceUri");
           } catch (e) {
             Logger.error("registering bridged class '$className': $e");
-            throw Exception(
+            registrationErrors.add(
                 "Failed to register bridged class '$className': $e");
           }
         }
@@ -490,9 +493,10 @@ class ModuleLoader {
               continue;
             } else {
               // Different source - this is an actual duplicate, error
-              throw RuntimeError(
+              registrationErrors.add(
                   "Duplicate function '$funcName' exists from source '$existingSourceUri' and source '$sourceUri'. "
                   "Use import show/hide clauses to resolve the conflict.");
+              continue;
             }
           }
           
@@ -503,6 +507,8 @@ class ModuleLoader {
                 " [execute] Registered library function: $funcName from $sourceUri");
           } catch (e) {
             Logger.error("registering library function '$funcName': $e");
+            registrationErrors
+                .add("Failed to register function '$funcName': $e");
           }
         }
       }
@@ -534,9 +540,10 @@ class ModuleLoader {
               continue;
             } else {
               // Different source - this is an actual duplicate, error
-              throw RuntimeError(
+              registrationErrors.add(
                   "Duplicate variable '$varName' exists from source '$existingSourceUri' and source '$sourceUri'. "
                   "Use import show/hide clauses to resolve the conflict.");
+              continue;
             }
           }
           
@@ -547,6 +554,8 @@ class ModuleLoader {
                 " [execute] Registered library variable: $varName from $sourceUri");
           } catch (e) {
             Logger.error("registering library variable '$varName': $e");
+            registrationErrors
+                .add("Failed to register variable '$varName': $e");
           }
         }
       }
@@ -578,9 +587,10 @@ class ModuleLoader {
               continue;
             } else {
               // Different source - this is an actual duplicate, error
-              throw RuntimeError(
+              registrationErrors.add(
                   "Duplicate getter '$getterName' exists from source '$existingSourceUri' and source '$sourceUri'. "
                   "Use import show/hide clauses to resolve the conflict.");
+              continue;
             }
           }
           
@@ -591,8 +601,16 @@ class ModuleLoader {
                 " [execute] Registered library getter: $getterName from $sourceUri");
           } catch (e) {
             Logger.error("registering library getter '$getterName': $e");
+            registrationErrors
+                .add("Failed to register getter '$getterName': $e");
           }
         }
+      }
+
+      if (registrationErrors.isNotEmpty) {
+        final errorList = registrationErrors.map((e) => '- $e').join('\n');
+        throw RuntimeError(
+            'Errors during bridge registration:\n$errorList');
       }
 
       // If this URI had bridged content, return empty source
