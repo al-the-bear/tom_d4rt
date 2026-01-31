@@ -14,6 +14,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:path/path.dart' as p;
 
@@ -1496,16 +1497,20 @@ class BridgeGenerator {
       bridgeableClasses.add(cls);
     }
 
-    // Build the set of exported type names from ALL filtered classes (including abstract)
-    // This is used to detect when a type is used but not exported from the barrel
-    // We use filteredClasses (not bridgeableClasses) to include abstract classes like TomDbType
-    _exportedTypeNames = filteredClasses.map((c) => c.name).toSet();
-    // Clear previous warnings since we're starting a new generation
-    _missingExportWarnings.clear();
-
     // Parse globals (functions, variables, enums) from all source files early
     // so we can check if there's anything to generate
     final globals = await _parseGlobals(sourceFiles);
+
+    // Build the set of exported type names from ALL filtered classes (including abstract)
+    // and exported enums. This is used to detect when a type is used but not
+    // exported from the barrel.
+    // We use filteredClasses (not bridgeableClasses) to include abstract classes like TomDbType
+    _exportedTypeNames = {
+      ...filteredClasses.map((c) => c.name),
+      ...globals.enums.map((e) => e.name),
+    };
+    // Clear previous warnings since we're starting a new generation
+    _missingExportWarnings.clear();
     final hasEnums = globals.enums.isNotEmpty;
     final hasGlobalFunctions = globals.functions.isNotEmpty;
     final hasGlobalVariables = globals.variables.isNotEmpty;
@@ -1868,16 +1873,20 @@ class BridgeGenerator {
       bridgeableClasses.add(cls);
     }
 
-    // Build the set of exported type names from ALL filtered classes (including abstract)
-    // This is used to detect when a type is used but not exported from the barrel
-    // We use filteredClasses (not bridgeableClasses) to include abstract classes like TomDbType
-    _exportedTypeNames = filteredClasses.map((c) => c.name).toSet();
-    // Clear previous warnings since we're starting a new generation
-    _missingExportWarnings.clear();
-
     // Parse globals (functions, variables, enums) from all source files early
     // so we can check if there's anything to generate
     final globals = await _parseGlobals(sourceFiles);
+
+    // Build the set of exported type names from ALL filtered classes (including abstract)
+    // and exported enums. This is used to detect when a type is used but not
+    // exported from the barrel.
+    // We use filteredClasses (not bridgeableClasses) to include abstract classes like TomDbType
+    _exportedTypeNames = {
+      ...filteredClasses.map((c) => c.name),
+      ...globals.enums.map((e) => e.name),
+    };
+    // Clear previous warnings since we're starting a new generation
+    _missingExportWarnings.clear();
     final hasEnums = globals.enums.isNotEmpty;
     final hasGlobalFunctions = globals.functions.isNotEmpty;
     final hasGlobalVariables = globals.variables.isNotEmpty;
@@ -2548,6 +2557,11 @@ class BridgeGenerator {
         }
       }
 
+      // If the type isn't exported, treat as non-wrappable
+      if (!_isTypeExported(className)) {
+        return null;
+      }
+
       // Fallback: assume it's from the source library
       return '\$pkg.$defaultValue';
     }
@@ -2744,13 +2758,27 @@ class BridgeGenerator {
       for (final import in fragment.libraryImports) {
         final importedLibrary = import.importedLibrary;
         if (importedLibrary == null) continue;
-        
-        // Get the URI of the imported library
-        final importUri = importedLibrary.identifier;
-        
+
+        // Get the URI string from the directive
+        String? importUri;
+        final directiveUri = import.uri;
+        if (directiveUri is DirectiveUriWithRelativeUriString) {
+          importUri = directiveUri.relativeUriString;
+        }
+
+        // Resolve relative URIs to package: if possible
+        if (importUri == null || importUri.isEmpty) {
+          importUri = importedLibrary.identifier;
+        } else if (!importUri.startsWith('package:') &&
+            !importUri.startsWith('dart:') &&
+            directiveUri is DirectiveUriWithSource) {
+          final sourcePath = directiveUri.source.fullName;
+          importUri = _getPackageUri(sourcePath);
+        }
+
         // Skip dart: imports - these are built-in
         if (importUri.startsWith('dart:')) continue;
-        
+
         // The namespace gives us names visible through this import
         // (already accounts for show/hide combinators)
         final namespace = import.namespace;
@@ -4266,6 +4294,7 @@ class BridgeGenerator {
           indexParam.type,
           typeToUri: indexParam.typeToUri,
           classTypeParams: cls.typeParameters,
+          sourceFilePath: cls.sourceFile,
         );
         buffer.writeln("        final index = D4.getRequiredArg<$indexType>(positional, 0, 'index', 'operator[]');");
         buffer.writeln("        return t[index];");
@@ -4281,11 +4310,13 @@ class BridgeGenerator {
           indexParam.type,
           typeToUri: indexParam.typeToUri,
           classTypeParams: cls.typeParameters,
+          sourceFilePath: cls.sourceFile,
         );
         final valueType = _getTypeArgument(
           valueParam.type,
           typeToUri: valueParam.typeToUri,
           classTypeParams: cls.typeParameters,
+          sourceFilePath: cls.sourceFile,
         );
         buffer.writeln("        final index = D4.getRequiredArg<$indexType>(positional, 0, 'index', 'operator[]=');");
         buffer.writeln("        final value = D4.getRequiredArg<$valueType>(positional, 1, 'value', 'operator[]=');");
@@ -4309,6 +4340,7 @@ class BridgeGenerator {
           operandParam.type,
           typeToUri: operandParam.typeToUri,
           classTypeParams: cls.typeParameters,
+          sourceFilePath: cls.sourceFile,
         );
         buffer.writeln("        final other = D4.getRequiredArg<$operandType>(positional, 0, 'other', 'operator$operatorName');");
         buffer.writeln("        return t $operatorName other;");
@@ -4356,6 +4388,7 @@ class BridgeGenerator {
         operandParam.type,
         typeToUri: operandParam.typeToUri,
         classTypeParams: cls.typeParameters,
+        sourceFilePath: cls.sourceFile,
       );
       buffer.writeln("          final other = D4.getRequiredArg<$operandType>(positional, 0, 'other', 'operator$operatorName');");
       buffer.writeln("          return t $operatorName other;");
@@ -4370,6 +4403,7 @@ class BridgeGenerator {
         operandParam.type,
         typeToUri: operandParam.typeToUri,
         classTypeParams: cls.typeParameters,
+        sourceFilePath: cls.sourceFile,
       );
       buffer.writeln("        final other = D4.getRequiredArg<$operandType>(positional, 0, 'other', 'operator$operatorName');");
       buffer.writeln("        return t $operatorName other;");
@@ -4545,6 +4579,7 @@ class BridgeGenerator {
         param.type,
         typeToUri: param.typeToUri,
         classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
       );
 
       // Check if element type is a function typedef - can't bridge those properly
@@ -4594,6 +4629,7 @@ class BridgeGenerator {
             param.defaultValue!,
             param.type,
             typeToUri: param.typeToUri,
+            sourceFilePath: sourceFilePath,
           );
           buffer.writeln(
             "        final $localName = positional.length > $index && positional[$index] != null",
@@ -4633,6 +4669,7 @@ class BridgeGenerator {
         param.type,
         typeToUri: param.typeToUri,
         classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
       );
       final coerceMethod = isNullable ? 'D4.coerceMapOrNull' : 'D4.coerceMap';
       if (param.isRequired) {
@@ -4656,6 +4693,7 @@ class BridgeGenerator {
             param.type,
             typeToUri: param.typeToUri,
             classTypeParams: classTypeParams,
+            sourceFilePath: sourceFilePath,
           );
           buffer.writeln(
             "        final $localName = positional.length > $index && positional[$index] != null",
@@ -4733,6 +4771,7 @@ class BridgeGenerator {
         isNullable: isNullable || !param.isRequired,
         typeToUri: param.typeToUri,
         classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
       );
       
       if (callExpressions != null) {
@@ -4749,6 +4788,7 @@ class BridgeGenerator {
       param.type,
       typeToUri: param.typeToUri,
       classTypeParams: classTypeParams,
+      sourceFilePath: sourceFilePath,
     );
     if (param.isRequired) {
       buffer.writeln(
@@ -4795,12 +4835,14 @@ class BridgeGenerator {
     String fullType, {
     Map<String, String> typeToUri = const {},
     Map<String, String?> classTypeParams = const {},
+    String? sourceFilePath,
   }) {
     if (_isListType(fullType)) {
       final elementType = _getListElementType(
         fullType,
         typeToUri: typeToUri,
         classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
       );
       if (defaultValue == 'const []' || defaultValue == '[]') {
         return 'const <$elementType>[]';
@@ -4810,6 +4852,7 @@ class BridgeGenerator {
         fullType,
         typeToUri: typeToUri,
         classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
       );
       if (defaultValue == 'const {}' || defaultValue == '{}') {
         return 'const <$keyType, $valueType>{}';
@@ -4901,6 +4944,7 @@ class BridgeGenerator {
         param.type,
         typeToUri: param.typeToUri,
         classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
       );
       final coerceMethod = isNullable ? 'D4.coerceListOrNull' : 'D4.coerceList';
       if (param.isRequired) {
@@ -4926,6 +4970,7 @@ class BridgeGenerator {
             param.type,
             typeToUri: param.typeToUri,
             classTypeParams: classTypeParams,
+            sourceFilePath: sourceFilePath,
           );
           buffer.writeln(
             "        final $localName = named.containsKey('${param.name}') && named['${param.name}'] != null",
@@ -5005,6 +5050,7 @@ class BridgeGenerator {
         isNullable: isNullable || !param.isRequired,
         typeToUri: param.typeToUri,
         classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
       );
       
       if (callExpressions != null) {
@@ -5022,6 +5068,7 @@ class BridgeGenerator {
         param.type,
         typeToUri: param.typeToUri,
         classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
       );
       final coerceMethod = isNullable ? 'D4.coerceMapOrNull' : 'D4.coerceMap';
       if (param.isRequired) {
@@ -5047,6 +5094,7 @@ class BridgeGenerator {
             param.type,
             typeToUri: param.typeToUri,
             classTypeParams: classTypeParams,
+            sourceFilePath: sourceFilePath,
           );
           buffer.writeln(
             "        final $localName = named.containsKey('${param.name}') && named['${param.name}'] != null",
@@ -5090,6 +5138,7 @@ class BridgeGenerator {
       param.type,
       typeToUri: param.typeToUri,
       classTypeParams: classTypeParams,
+      sourceFilePath: sourceFilePath,
     );
     if (param.defaultValue != null) {
       final prefixedDefault = _prefixDefaultValue(
@@ -5143,13 +5192,14 @@ class BridgeGenerator {
     String type, {
     Map<String, String> typeToUri = const {},
     Map<String, String?> classTypeParams = const {},
+    String? sourceFilePath,
   }) {
     // Create a cache key that includes the context
     // IMPORTANT: Include both keys AND values to distinguish E:null from E:Identifiable
     final typeParamsKey = classTypeParams.entries
         .map((e) => '${e.key}=${e.value ?? 'null'}')
         .join(',');
-    final cacheKey = '$type|$typeParamsKey';
+    final cacheKey = '$type|$typeParamsKey|${sourceFilePath ?? ''}';
     
     // Check cache first
     if (_typeResolutionCache.containsKey(cacheKey)) {
@@ -5166,7 +5216,12 @@ class BridgeGenerator {
     _typeResolutionInProgress.add(cacheKey);
     
     try {
-      final result = _resolveTypeArgument(type, typeToUri: typeToUri, classTypeParams: classTypeParams);
+      final result = _resolveTypeArgument(
+        type,
+        typeToUri: typeToUri,
+        classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
+      );
       // Cache the result
       _typeResolutionCache[cacheKey] = result;
       return result;
@@ -5182,6 +5237,7 @@ class BridgeGenerator {
     String type, {
     Map<String, String> typeToUri = const {},
     Map<String, String?> classTypeParams = const {},
+    String? sourceFilePath,
   }) {
     // Handle nullable types first - strip the ?
     var baseType = type;
@@ -5198,7 +5254,12 @@ class BridgeGenerator {
 
     // Handle record types like (ParsedHeadline, int, int) or (String name, int age)
     if (baseType.startsWith('(') && baseType.endsWith(')')) {
-      final result = _resolveRecordTypeWithPrefixes(baseType, typeToUri, classTypeParams: classTypeParams);
+      final result = _resolveRecordTypeWithPrefixes(
+        baseType,
+        typeToUri,
+        classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
+      );
       return isNullable ? '$result?' : result;
     }
 
@@ -5216,14 +5277,24 @@ class BridgeGenerator {
           final baseBound = _extractBaseType(bound);
           if (baseBound != baseType && !_isGenericTypeParameter(baseBound)) {
             // Use the base bound type with dynamic for its parameters
-            return _getTypeArgument(baseBound, typeToUri: typeToUri, classTypeParams: classTypeParams);
+            return _getTypeArgument(
+              baseBound,
+              typeToUri: typeToUri,
+              classTypeParams: classTypeParams,
+              sourceFilePath: sourceFilePath,
+            );
           }
           // Fallback to dynamic for truly recursive bounds
           return 'dynamic';
         }
         // Use the bound type (e.g., E -> TomObject)
         // Recursively resolve in case the bound itself needs prefixing
-        return _getTypeArgument(bound, typeToUri: typeToUri, classTypeParams: classTypeParams);
+        return _getTypeArgument(
+          bound,
+          typeToUri: typeToUri,
+          classTypeParams: classTypeParams,
+          sourceFilePath: sourceFilePath,
+        );
       }
       return 'dynamic';
     }
@@ -5236,7 +5307,12 @@ class BridgeGenerator {
 
     // Handle generic types with type arguments like List<T>, Map<K, V>
     if (baseType.contains('<')) {
-      return _resolveGenericTypeWithPrefixes(baseType, typeToUri, classTypeParams: classTypeParams);
+      return _resolveGenericTypeWithPrefixes(
+        baseType,
+        typeToUri,
+        classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
+      );
     }
 
     // Strip any existing prefix from source (e.g., jwt.JWTKey -> JWTKey)
@@ -5294,17 +5370,34 @@ class BridgeGenerator {
       }
     }
 
-    // For non-built-in types without URI info, check if they're exported from the barrel
-    // If not exported, use dynamic since we can't access them
+    // For non-built-in types without URI info, try auxiliary imports from source file
     if (!_isBuiltInType(unprefixedType)) {
-      if (!_isTypeExported(unprefixedType)) {
-        // Type is not exported from the barrel and has no URI info - use dynamic
-        _recordMissingExport('type argument (not exported, using dynamic)', unprefixedType);
-        return 'dynamic';
+      if (sourceFilePath != null) {
+        final auxUri = _resolveTypeFromSourceImports(unprefixedType, sourceFilePath);
+        if (auxUri != null) {
+          _addAuxiliaryImport(auxUri, unprefixedType);
+          final prefix = _getOrCreateAuxiliaryPrefix(auxUri);
+          final result = '$prefix.$unprefixedType';
+          return isNullable ? '$result?' : result;
+        }
       }
-      // Type is exported from barrel - use $pkg prefix
-      final result = '\$pkg.$unprefixedType';
-      return isNullable ? '$result?' : result;
+
+      if (sourceFilePath != null) {
+        final sourceUri = _getPackageUri(sourceFilePath);
+        if (sourceUri.startsWith('package:') && _isTypeExported(unprefixedType)) {
+          _addAuxiliaryImport(sourceUri, unprefixedType);
+          final prefix = _getOrCreateAuxiliaryPrefix(sourceUri);
+          final result = '$prefix.$unprefixedType';
+          return isNullable ? '$result?' : result;
+        }
+        if (sourceFilePath.startsWith(workspacePath) && _isTypeExported(unprefixedType)) {
+          final result = '\$pkg.$unprefixedType';
+          return isNullable ? '$result?' : result;
+        }
+      }
+      // Type is not exported or has no URI info - use dynamic
+      _recordMissingExport('type argument (not exported, using dynamic)', unprefixedType);
+      return 'dynamic';
     }
 
     return type;
@@ -5353,6 +5446,7 @@ class BridgeGenerator {
     String type,
     Map<String, String> typeToUri, {
     Map<String, String?> classTypeParams = const {},
+    String? sourceFilePath,
   }) {
     final openBracket = type.indexOf('<');
     if (openBracket == -1) return type;
@@ -5382,13 +5476,38 @@ class BridgeGenerator {
         }
       }
     } else if (!_isBuiltInType(baseType)) {
-      // Non-built-in type without URI info - check if exported from barrel
-      if (!_isTypeExported(baseType)) {
-        // Type not exported, use dynamic for the whole generic type
-        _recordMissingExport('generic base type (not exported, using dynamic)', baseType);
-        return 'dynamic';
+      // Try auxiliary imports from source file if available
+      if (sourceFilePath != null) {
+        final auxUri = _resolveTypeFromSourceImports(baseType, sourceFilePath);
+        if (auxUri != null) {
+          _addAuxiliaryImport(auxUri, baseType);
+          final prefix = _getOrCreateAuxiliaryPrefix(auxUri);
+          prefixedBase = '$prefix.$baseType';
+        }
       }
-      prefixedBase = '\$pkg.$baseType';
+
+      if (prefixedBase == baseType) {
+        // Non-built-in type without URI info - check if exported from barrel
+        if (!_isTypeExported(baseType)) {
+          if (sourceFilePath != null) {
+            final sourceUri = _getPackageUri(sourceFilePath);
+            if (sourceUri.startsWith('package:')) {
+              _addAuxiliaryImport(sourceUri, baseType);
+              final prefix = _getOrCreateAuxiliaryPrefix(sourceUri);
+              prefixedBase = '$prefix.$baseType';
+            }
+          }
+          if (prefixedBase != baseType) {
+            // Use auxiliary import from source file
+          } else {
+            // Type not exported, use dynamic for the whole generic type
+            _recordMissingExport('generic base type (not exported, using dynamic)', baseType);
+            return 'dynamic';
+          }
+          // Type not exported, use dynamic for the whole generic type
+        }
+        prefixedBase = '\$pkg.$baseType';
+      }
     }
 
     // Parse and resolve type arguments with prefixes
@@ -5396,6 +5515,7 @@ class BridgeGenerator {
       argsStr,
       typeToUri,
       classTypeParams: classTypeParams,
+      sourceFilePath: sourceFilePath,
     );
 
     return '$prefixedBase<$resolvedArgs>';
@@ -5407,6 +5527,7 @@ class BridgeGenerator {
     String argsStr,
     Map<String, String> typeToUri, {
     Map<String, String?> classTypeParams = const {},
+    String? sourceFilePath,
   }) {
     final args = <String>[];
     var depth = 0;
@@ -5436,12 +5557,22 @@ class BridgeGenerator {
             final bound = classTypeParams[baseArg];
             if (bound != null) {
               // Recursively resolve the bound type
-              return _getTypeArgument(bound, typeToUri: typeToUri, classTypeParams: classTypeParams);
+              return _getTypeArgument(
+                bound,
+                typeToUri: typeToUri,
+                classTypeParams: classTypeParams,
+                sourceFilePath: sourceFilePath,
+              );
             }
             return 'dynamic';
           }
           if (baseArg.contains('<')) {
-            return _resolveGenericTypeWithPrefixes(arg, typeToUri, classTypeParams: classTypeParams);
+            return _resolveGenericTypeWithPrefixes(
+              arg,
+              typeToUri,
+              classTypeParams: classTypeParams,
+              sourceFilePath: sourceFilePath,
+            );
           }
           // Check if this type needs a prefix
           final uri = typeToUri[baseArg];
@@ -5463,14 +5594,30 @@ class BridgeGenerator {
               return prefix.isEmpty ? baseArg : '$prefix.$baseArg';
             }
           }
-          // Non-built-in type - check if exported from barrel
-          if (!_isBuiltInType(baseArg)) {
-            if (!_isTypeExported(baseArg)) {
-              // Type not exported, use dynamic
-              _recordMissingExport('type argument (not exported, using dynamic)', baseArg);
-              return 'dynamic';
+          // Try auxiliary imports if available
+          if (sourceFilePath != null) {
+            final auxUri = _resolveTypeFromSourceImports(baseArg, sourceFilePath);
+            if (auxUri != null) {
+              _addAuxiliaryImport(auxUri, baseArg);
+              final prefix = _getOrCreateAuxiliaryPrefix(auxUri);
+              return '$prefix.$baseArg';
             }
-            return '\$pkg.$baseArg';
+          }
+          // Non-built-in type without URI info
+          if (!_isBuiltInType(baseArg)) {
+            if (sourceFilePath != null) {
+              final sourceUri = _getPackageUri(sourceFilePath);
+              if (sourceUri.startsWith('package:') && _isTypeExported(baseArg)) {
+                _addAuxiliaryImport(sourceUri, baseArg);
+                final prefix = _getOrCreateAuxiliaryPrefix(sourceUri);
+                return '$prefix.$baseArg';
+              }
+              if (sourceFilePath.startsWith(workspacePath) && _isTypeExported(baseArg)) {
+                return '\$pkg.$baseArg';
+              }
+            }
+            _recordMissingExport('type argument (not exported, using dynamic)', baseArg);
+            return 'dynamic';
           }
           return arg;
         })
@@ -5483,6 +5630,7 @@ class BridgeGenerator {
     String type,
     Map<String, String> typeToUri, {
     Map<String, String?> classTypeParams = const {},
+    String? sourceFilePath,
   }) {
     // Strip the outer parentheses
     final inner = type.substring(1, type.length - 1).trim();
@@ -5517,12 +5665,22 @@ class BridgeGenerator {
         final namePart = field.substring(spaceIndex + 1).trim();
         // Check if namePart looks like a field name (starts with lowercase)
         if (namePart.isNotEmpty && namePart[0].toLowerCase() == namePart[0] && !namePart.contains('<')) {
-          final resolvedType = _getTypeArgument(typePart, typeToUri: typeToUri, classTypeParams: classTypeParams);
+          final resolvedType = _getTypeArgument(
+            typePart,
+            typeToUri: typeToUri,
+            classTypeParams: classTypeParams,
+            sourceFilePath: sourceFilePath,
+          );
           return '$resolvedType $namePart';
         }
       }
       // Positional record field - just a type
-      return _getTypeArgument(field, typeToUri: typeToUri, classTypeParams: classTypeParams);
+      return _getTypeArgument(
+        field,
+        typeToUri: typeToUri,
+        classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
+      );
     }).join(', ');
 
     return '($resolvedFields)';
@@ -5724,6 +5882,7 @@ class BridgeGenerator {
     String listType, {
     Map<String, String> typeToUri = const {},
     Map<String, String?> classTypeParams = const {},
+    String? sourceFilePath,
   }) {
     var baseType = listType.endsWith('?')
         ? listType.substring(0, listType.length - 1)
@@ -5737,7 +5896,12 @@ class BridgeGenerator {
       return 'dynamic';
     }
 
-    return _getTypeArgument(elementType, typeToUri: typeToUri, classTypeParams: classTypeParams);
+    return _getTypeArgument(
+      elementType,
+      typeToUri: typeToUri,
+      classTypeParams: classTypeParams,
+      sourceFilePath: sourceFilePath,
+    );
   }
 
   /// Extracts the raw element type from a List type without any prefixing.
@@ -5979,6 +6143,7 @@ class BridgeGenerator {
     required bool isNullable,
     Map<String, String> typeToUri = const {},
     Map<String, String?> classTypeParams = const {},
+    String? sourceFilePath,
   }) {
     // Generate parameter list for the wrapper function
     final paramList = <String>[];
@@ -5991,6 +6156,7 @@ class BridgeGenerator {
         rawParamType,
         typeToUri: typeToUri,
         classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
       );
       final paramName = 'p$i';
       paramList.add('$paramType $paramName');
@@ -6008,6 +6174,7 @@ class BridgeGenerator {
           entry.value,
           typeToUri: typeToUri,
           classTypeParams: classTypeParams,
+          sourceFilePath: sourceFilePath,
         );
         namedParams.add('$prefix$paramType ${entry.key}');
       }
@@ -6040,6 +6207,7 @@ class BridgeGenerator {
       funcInfo.returnType,
       typeToUri: typeToUri,
       classTypeParams: classTypeParams,
+      sourceFilePath: sourceFilePath,
     );
     String wrapperBody;
     if (funcInfo.isVoid) {
@@ -6068,6 +6236,7 @@ class BridgeGenerator {
     String mapType, {
     Map<String, String> typeToUri = const {},
     Map<String, String?> classTypeParams = const {},
+    String? sourceFilePath,
   }) {
     var baseType = mapType.endsWith('?')
         ? mapType.substring(0, mapType.length - 1)
@@ -6099,11 +6268,13 @@ class BridgeGenerator {
       argsStr.substring(0, splitIndex).trim(),
       typeToUri: typeToUri,
       classTypeParams: classTypeParams,
+      sourceFilePath: sourceFilePath,
     );
     final valueType = _getTypeArgument(
       argsStr.substring(splitIndex + 1).trim(),
       typeToUri: typeToUri,
       classTypeParams: classTypeParams,
+      sourceFilePath: sourceFilePath,
     );
     return (keyType, valueType);
   }
@@ -6163,6 +6334,40 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
   /// Sets the current source file for global element tracking.
   void setSourceFile(String path) {
     currentSourceFile = path;
+  }
+
+  /// Converts a file path under /lib/ to a package URI when possible.
+  String _getPackageUriFromFilePath(String sourceFile) {
+    final libIndex = sourceFile.indexOf('/lib/');
+    if (libIndex != -1) {
+      final pkgName = _getPackageNameFromPath(sourceFile);
+      if (pkgName != null) {
+        final relativePath = sourceFile.substring(libIndex + 5);
+        return 'package:$pkgName/$relativePath';
+      }
+    }
+    return sourceFile;
+  }
+
+  /// Detects the package name by reading pubspec.yaml near the file path.
+  String? _getPackageNameFromPath(String filePath) {
+    final libIndex = filePath.indexOf('/lib/');
+    if (libIndex == -1) return null;
+    final packageDir = filePath.substring(0, libIndex);
+    final pubspecPath = '$packageDir/pubspec.yaml';
+    try {
+      final pubspecFile = File(pubspecPath);
+      if (pubspecFile.existsSync()) {
+        final content = pubspecFile.readAsStringSync();
+        final nameMatch = RegExp(r'^name:\s*(\S+)', multiLine: true).firstMatch(content);
+        if (nameMatch != null) {
+          return nameMatch.group(1);
+        }
+      }
+    } catch (_) {
+      return null;
+    }
+    return null;
   }
 
   /// Checks if a node has @visibleForTesting, @protected, or @internal annotation.
@@ -6427,6 +6632,11 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
             if (mapped == null) return; // Skip libraries that should be ignored
             uri = mapped;
           }
+          // Convert file:// URIs to package: URIs when possible
+          if (uri.startsWith('file:')) {
+            final filePath = Uri.parse(uri).toFilePath();
+            uri = _getPackageUriFromFilePath(filePath);
+          }
           // Skip dart:core types
           if (!uri.startsWith('dart:core')) {
             uris.add(uri);
@@ -6474,6 +6684,12 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           return;
         }
         uri = mapped;
+      }
+
+      // Convert file:// URIs to package: URIs when possible
+      if (uri.startsWith('file:')) {
+        final filePath = Uri.parse(uri).toFilePath();
+        uri = _getPackageUriFromFilePath(filePath);
       }
 
       // Don't add imports for dart:core types (String, int, bool, etc.)
