@@ -1571,6 +1571,33 @@ class BridgeGenerator {
         }).toList();
       }
 
+      // Filter out duplicate variables (keep first occurrence)
+      {
+        final seenVariables = <String>{};
+        filteredVariables = filteredVariables.where((v) {
+          if (seenVariables.contains(v.name)) {
+            _recordSkip('variable', v.name, 'duplicate (already seen from another source file)');
+            return false;
+          }
+          seenVariables.add(v.name);
+          return true;
+        }).toList();
+      }
+
+      // Filter out duplicate enums (keep first occurrence)
+      var filteredEnums = globals.enums.toList();
+      {
+        final seenEnums = <String>{};
+        filteredEnums = filteredEnums.where((e) {
+          if (seenEnums.contains(e.name)) {
+            _recordSkip('enum', e.name, 'duplicate (already seen from another source file)');
+            return false;
+          }
+          seenEnums.add(e.name);
+          return true;
+        }).toList();
+      }
+
       // Generate single output file using already-parsed globals
       final code = _generateBridgeFile(
         bridgeableClasses,
@@ -1579,7 +1606,7 @@ class BridgeGenerator {
         allClasses: filteredClasses,
         globalFunctions: filteredFunctions,
         globalVariables: filteredVariables,
-        enums: globals.enums,
+        enums: filteredEnums,
         importShowClause: importShowClause,
         importHideClause: importHideClause,
       );
@@ -1799,6 +1826,19 @@ class BridgeGenerator {
       }).toList();
     }
 
+    // Filter out duplicate enums (keep first occurrence)
+    {
+      final seenEnums = <String>{};
+      filteredEnums = filteredEnums.where((e) {
+        if (seenEnums.contains(e.name)) {
+          _recordSkip('enum', e.name, 'duplicate (already seen from another source file)');
+          return false;
+        }
+        seenEnums.add(e.name);
+        return true;
+      }).toList();
+    }
+
     // Filter out explicitly excluded functions
     if (excludeFunctions != null && excludeFunctions.isNotEmpty) {
       final excludeSet = excludeFunctions.toSet();
@@ -1832,6 +1872,19 @@ class BridgeGenerator {
           _recordSkip('variable', v.name, 'excluded by configuration');
           return false;
         }
+        return true;
+      }).toList();
+    }
+
+    // Filter out duplicate variables (keep first occurrence)
+    {
+      final seenVariables = <String>{};
+      filteredVariables = filteredVariables.where((v) {
+        if (seenVariables.contains(v.name)) {
+          _recordSkip('variable', v.name, 'duplicate (already seen from another source file)');
+          return false;
+        }
+        seenVariables.add(v.name);
         return true;
       }).toList();
     }
