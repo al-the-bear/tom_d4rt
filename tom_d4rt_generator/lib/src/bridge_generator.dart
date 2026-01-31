@@ -831,20 +831,20 @@ class BridgeGenerator {
   /// it to the absolute file system path using the package config.
   ///
   /// Returns null if the package cannot be resolved.
-  Future<String?> _resolvePackageUri(String packageUri) async {
+  Future<String?> resolvePackageUri(String packageUri) async {
     if (!packageUri.startsWith('package:')) {
       return null;
     }
-    
+
     final match = RegExp(r'^package:([^/]+)/(.+)$').firstMatch(packageUri);
     if (match == null) return null;
-    
+
     final pkgName = match.group(1)!;
     final relativePath = match.group(2)!;
-    
+
     final packageRoot = await _resolvePackagePath(pkgName);
     if (packageRoot == null) return null;
-    
+
     return p.normalize(p.join(packageRoot, 'lib', relativePath));
   }
 
@@ -1155,7 +1155,7 @@ class BridgeGenerator {
     final resolvedBarrelFiles = <String>[];
     for (final barrelFile in barrelFiles) {
       if (barrelFile.startsWith('package:')) {
-        final resolved = await _resolvePackageUri(barrelFile);
+        final resolved = await resolvePackageUri(barrelFile);
         if (resolved != null) {
           resolvedBarrelFiles.add(resolved);
         } else {
@@ -1250,7 +1250,7 @@ class BridgeGenerator {
     final resolvedBarrelFiles = <String>[];
     for (final barrelFile in barrelFiles) {
       if (barrelFile.startsWith('package:')) {
-        final resolved = await _resolvePackageUri(barrelFile);
+        final resolved = await resolvePackageUri(barrelFile);
         if (resolved != null) {
           resolvedBarrelFiles.add(resolved);
         } else {

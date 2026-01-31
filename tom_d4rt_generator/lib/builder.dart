@@ -14,6 +14,7 @@ import 'src/bridge_config.dart';
 import 'src/bridge_generator.dart';
 import 'src/build_runner_file_writer.dart';
 import 'src/file_writer.dart';
+import 'src/per_package_orchestrator.dart';
 
 /// Builder that generates D4rt bridges from build.yaml configuration.
 ///
@@ -66,58 +67,87 @@ class D4rtBridgeBuilder implements Builder {
     log.info('Generating D4rt bridges for $packageName...');
 
     final fileWriter = BuildRunnerFileWriter(buildStep, packageName);
+    final projectRoot = p.current; // build_runner runs from package root
 
     try {
       var totalClasses = 0;
       final outputFiles = <String>[];
 
-      // Generate bridges for each module
-      for (final module in config!.modules) {
-        // For build_runner, we need to resolve paths relative to package
-        final projectRoot = p.current; // build_runner runs from package root
-
-        // Determine sourceImport: use barrelImport if provided, otherwise first barrel file
-        final sourceImport = module.barrelImport ?? module.barrelFiles.first;
-
-        final generator = BridgeGenerator(
-          workspacePath: projectRoot,
-          packageName: config!.name,
-          sourceImport: sourceImport,
-          helpersImport:
-              config!.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
-        );
-
-        // Resolve barrel files - if they're package URIs, pass as-is; otherwise join with projectRoot
-        final barrelFiles = module.barrelFiles.map((f) {
-          if (f.startsWith('package:')) {
-            return f; // Package URI - generator will resolve it
-          }
-          return p.join(projectRoot, f);
-        }).toList();
-
-        final result = await generator.generateBridgesFromExportsWithWriter(
-          barrelFiles: barrelFiles,
-          outputFileId: FileId(packageName, module.outputPath),
-          moduleName: module.name,
-          excludePatterns: module.excludePatterns,
-          excludeClasses: module.excludeClasses,
-          excludeEnums: module.excludeEnums,
-          excludeFunctions: module.excludeFunctions,
-          excludeVariables: module.excludeVariables,
-          followAllReExports: module.followAllReExports,
-          skipReExports: module.skipReExports,
-          followReExports: module.followReExports,
+      // Check if per-package deduplication is enabled
+      if (config!.libraryPath != null) {
+        // Use orchestrator for per-package deduplication
+        final orchestrator = PerPackageBridgeOrchestrator(
+          config: config!,
+          projectRoot: projectRoot,
           fileWriter: fileWriter,
-          importShowClause: module.importShowClause,
-          importHideClause: module.importHideClause,
+          buildPackageName: packageName,
         );
 
-        totalClasses += result.classesGenerated;
-        outputFiles.add(module.outputPath);
+        log.info('  Using per-package deduplication mode...');
 
-        if (result.errors.isNotEmpty) {
-          for (final error in result.errors) {
-            log.warning('  $error');
+        // Phase 1: Collect package info from all modules
+        await orchestrator.collectPackageInfo();
+
+        // Phase 2: Generate per-package bridge files
+        final packageFiles = await orchestrator.generatePerPackageFiles();
+        outputFiles.addAll(packageFiles.values);
+        log.info('  Generated ${packageFiles.length} per-package bridge files');
+
+        // Phase 3: Generate delegating barrel files
+        await orchestrator.generateDelegatingBarrelFiles(packageFiles);
+        for (final module in config!.modules) {
+          outputFiles.add(module.outputPath);
+        }
+        log.info('  Generated ${config!.modules.length} delegating barrel files');
+
+        // Count total classes from package files (approximate)
+        totalClasses = packageFiles.length * 10; // Approximation for now
+      } else {
+        // Original logic: Generate bridges for each module
+        for (final module in config!.modules) {
+          // Determine sourceImport: use barrelImport if provided, otherwise first barrel file
+          final sourceImport = module.barrelImport ?? module.barrelFiles.first;
+
+          final generator = BridgeGenerator(
+            workspacePath: projectRoot,
+            packageName: config!.name,
+            sourceImport: sourceImport,
+            helpersImport:
+                config!.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
+          );
+
+          // Resolve barrel files - if they're package URIs, pass as-is; otherwise join with projectRoot
+          final barrelFiles = module.barrelFiles.map((f) {
+            if (f.startsWith('package:')) {
+              return f; // Package URI - generator will resolve it
+            }
+            return p.join(projectRoot, f);
+          }).toList();
+
+          final result = await generator.generateBridgesFromExportsWithWriter(
+            barrelFiles: barrelFiles,
+            outputFileId: FileId(packageName, module.outputPath),
+            moduleName: module.name,
+            excludePatterns: module.excludePatterns,
+            excludeClasses: module.excludeClasses,
+            excludeEnums: module.excludeEnums,
+            excludeFunctions: module.excludeFunctions,
+            excludeVariables: module.excludeVariables,
+            followAllReExports: module.followAllReExports,
+            skipReExports: module.skipReExports,
+            followReExports: module.followReExports,
+            fileWriter: fileWriter,
+            importShowClause: module.importShowClause,
+            importHideClause: module.importHideClause,
+          );
+
+          totalClasses += result.classesGenerated;
+          outputFiles.add(module.outputPath);
+
+          if (result.errors.isNotEmpty) {
+            for (final error in result.errors) {
+              log.warning('  $error');
+            }
           }
         }
       }

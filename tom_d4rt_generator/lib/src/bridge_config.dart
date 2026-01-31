@@ -149,6 +149,14 @@ class BridgeConfig {
   final bool generateDartscript;
   final String? dartscriptPath;
   final String? registrationClass;
+  
+  /// Central directory path for per-package bridge files.
+  /// 
+  /// When specified, the generator will create one file per source package
+  /// in this directory (e.g., `lib/src/d4rt_bridges/package_tom_basics_bridges.dart`).
+  /// The per-barrel bridge files will then delegate to these per-package files,
+  /// eliminating duplicate code when the same package is re-exported by multiple barrels.
+  final String? libraryPath;
 
   const BridgeConfig({
     required this.name,
@@ -159,6 +167,7 @@ class BridgeConfig {
     this.generateDartscript = true,
     this.dartscriptPath,
     this.registrationClass,
+    this.libraryPath,
   });
 
   factory BridgeConfig.fromJson(Map<String, dynamic> json) {
@@ -173,6 +182,7 @@ class BridgeConfig {
       generateDartscript: json['generateDartscript'] as bool? ?? true,
       dartscriptPath: json['dartscriptPath'] as String?,
       registrationClass: json['registrationClass'] as String?,
+      libraryPath: json['libraryPath'] as String?,
     );
   }
 
@@ -216,6 +226,7 @@ class BridgeConfig {
       'generateDartscript': generateDartscript,
       if (dartscriptPath != null) 'dartscriptPath': dartscriptPath,
       if (registrationClass != null) 'registrationClass': registrationClass,
+      if (libraryPath != null) 'libraryPath': libraryPath,
     };
   }
 }
