@@ -27,22 +27,26 @@ class ModuleLoader {
   final Environment globalEnvironment;
   final Map<String, String> sources;
   final Map<Uri, LoadedModule> _moduleCache = {};
-  final List<Map<String, BridgedEnumDefinition>> bridgedEnumDefinitions;
-  final List<Map<String, BridgedClass>> bridgedClases;
+  final List<Map<String, LibraryEnum>> bridgedEnumDefinitions;
+  final List<Map<String, LibraryClass>> bridgedClases;
   final D4rt? d4rt; // Reference to D4rt instance for permission checking
   Uri?
       currentlibrary; // Keep for the initial relative URI resolution in _fetchModuleSource and for relative imports
   
   // Library-scoped globals (registered with library path) - added when import is processed
-  final List<Map<String, NativeFunction>> libraryFunctions;
+  // LibraryFunction wrapper includes sourceUri for deduplication across re-exports
+  final List<Map<String, LibraryFunction>> libraryFunctions;
   final List<Map<String, LibraryVariable>> libraryVariables;
   final List<Map<String, LibraryGetter>> libraryGetters;
   
-  // Track which globals have been registered and from which library
-  // Maps global name -> source library URI
+  // Track which globals have been registered and from which source library
+  // Maps global name -> canonical source library URI (not import barrel URI)
   final Map<String, String> _registeredFunctions = {};
   final Map<String, String> _registeredVariables = {};
   final Map<String, String> _registeredGetters = {};
+  // Track registered classes and enums by sourceUri for deduplication
+  final Map<String, String> _registeredClasses = {};
+  final Map<String, String> _registeredEnums = {};
 
   ModuleLoader(this.globalEnvironment, this.sources,
       this.bridgedEnumDefinitions, this.bridgedClases,
@@ -75,7 +79,7 @@ class ModuleLoader {
     // Add more dangerous modules as needed
   }
 
-  LoadedModule loadModule(Uri uri) {
+  LoadedModule loadModule(Uri uri, {Set<String>? showNames, Set<String>? hideNames}) {
     // Check permissions for dangerous modules
     _checkModulePermissions(uri);
 
@@ -83,7 +87,7 @@ class ModuleLoader {
     Uri? previouslibraryForRecursiveLoad = currentlibrary;
     currentlibrary = uri;
     Logger.debug(
-        "[ModuleLoader loadModule for $uri] Setting currentlibrary to: $uri");
+        "[ModuleLoader loadModule for $uri] Setting currentlibrary to: $uri (show: $showNames, hide: $hideNames)");
 
     if (_moduleCache.containsKey(uri)) {
       Logger.debug(
@@ -95,7 +99,7 @@ class ModuleLoader {
     Logger.debug(
         "[ModuleLoader loadModule for $uri] Loading module: ${uri.toString()}");
     String sourceCode = _fetchModuleSource(
-        uri); // Use this.currentlibrary (which is `uri` here)
+        uri, showNames: showNames, hideNames: hideNames); // Pass show/hide to filter bridged registrations
     CompilationUnit ast = _parseSource(uri, sourceCode);
 
     Environment moduleEnvironment = Environment(enclosing: globalEnvironment);
@@ -286,10 +290,23 @@ class ModuleLoader {
     return loadedModule;
   }
 
-  String _fetchModuleSource(Uri uri) {
+  /// Helper to check if a name should be registered based on show/hide filters.
+  bool _shouldRegisterName(String name, {Set<String>? showNames, Set<String>? hideNames}) {
+    // If hideNames is specified and contains this name, skip it
+    if (hideNames != null && hideNames.contains(name)) {
+      return false;
+    }
+    // If showNames is specified, only include if the name is in the list
+    if (showNames != null && !showNames.contains(name)) {
+      return false;
+    }
+    return true;
+  }
+
+  String _fetchModuleSource(Uri uri, {Set<String>? showNames, Set<String>? hideNames}) {
     final uriString = uri.toString();
     Logger.debug(
-        "[ModuleLoader] Récupération de la source pour: $uriString depuis sources.");
+        "[ModuleLoader] Récupération de la source pour: $uriString depuis sources. (show: $showNames, hide: $hideNames)");
 
     // First check if the exact URI is in the preloaded sources
     if (sources.containsKey(uriString)) {
@@ -355,16 +372,46 @@ class ModuleLoader {
       for (var bridgedEnumDefinition in bridgedEnumDefinitions) {
         if (bridgedEnumDefinition.containsKey(uriString)) {
           hasContentForUri = true;
-          final definition = bridgedEnumDefinition[uriString]!;
+          final libEnum = bridgedEnumDefinition[uriString]!;
+          final definition = libEnum.enumDefinition;
+          final enumName = definition.name;
+          
+          // Check show/hide filters
+          if (!_shouldRegisterName(enumName, showNames: showNames, hideNames: hideNames)) {
+            Logger.debug(
+                " [execute] Skipping enum '$enumName' due to show/hide filter");
+            continue;
+          }
+          
+          // Use sourceUri for deduplication if available, otherwise fall back to import URI
+          final sourceUri = libEnum.sourceUri ?? uriString;
+          
+          if (_registeredEnums.containsKey(enumName)) {
+            final existingSourceUri = _registeredEnums[enumName]!;
+            if (existingSourceUri == sourceUri) {
+              // Same enum from same canonical source - silently skip (re-export case)
+              Logger.debug(
+                  " [execute] Skipping duplicate enum '$enumName' from same source: $sourceUri");
+              continue;
+            } else {
+              // Different source - this is an actual duplicate, error
+              throw RuntimeError(
+                  "Duplicate enum '$enumName' exists from source '$existingSourceUri' and source '$sourceUri'. "
+                  "These are different enums with the same name.");
+            }
+          }
+          
+          _registeredEnums[enumName] = sourceUri;
+          
           try {
             final bridgedEnum = definition.buildBridgedEnum();
             globalEnvironment.defineBridgedEnum(bridgedEnum);
             Logger.debug(
-                " [execute] Registered bridged enum: ${definition.name}");
+                " [execute] Registered bridged enum: $enumName from $sourceUri");
           } catch (e) {
-            Logger.error("registering bridged enum '${definition.name}': $e");
+            Logger.error("registering bridged enum '$enumName': $e");
             throw Exception(
-                "Failed to register bridged enum '${definition.name}': $e");
+                "Failed to register bridged enum '$enumName': $e");
           }
         }
       }
@@ -372,15 +419,45 @@ class ModuleLoader {
       for (var bridgedClass in bridgedClases) {
         if (bridgedClass.containsKey(uriString)) {
           hasContentForUri = true;
-          final definition = bridgedClass[uriString]!;
+          final libClass = bridgedClass[uriString]!;
+          final definition = libClass.bridgedClass;
+          final className = definition.name;
+          
+          // Check show/hide filters
+          if (!_shouldRegisterName(className, showNames: showNames, hideNames: hideNames)) {
+            Logger.debug(
+                " [execute] Skipping class '$className' due to show/hide filter");
+            continue;
+          }
+          
+          // Use sourceUri for deduplication if available, otherwise fall back to import URI
+          final sourceUri = libClass.sourceUri ?? uriString;
+          
+          if (_registeredClasses.containsKey(className)) {
+            final existingSourceUri = _registeredClasses[className]!;
+            if (existingSourceUri == sourceUri) {
+              // Same class from same canonical source - silently skip (re-export case)
+              Logger.debug(
+                  " [execute] Skipping duplicate class '$className' from same source: $sourceUri");
+              continue;
+            } else {
+              // Different source - this is an actual duplicate, error
+              throw RuntimeError(
+                  "Duplicate class '$className' exists from source '$existingSourceUri' and source '$sourceUri'. "
+                  "These are different classes with the same name.");
+            }
+          }
+          
+          _registeredClasses[className] = sourceUri;
+          
           try {
             globalEnvironment.defineBridge(definition);
             Logger.debug(
-                " [execute] Registered bridged class: ${definition.name}");
+                " [execute] Registered bridged class: $className from $sourceUri");
           } catch (e) {
-            Logger.error("registering bridged class '${definition.name}': $e");
+            Logger.error("registering bridged class '$className': $e");
             throw Exception(
-                "Failed to register bridged class '${definition.name}': $e");
+                "Failed to register bridged class '$className': $e");
           }
         }
       }
@@ -389,30 +466,41 @@ class ModuleLoader {
       for (var entry in libraryFunctions) {
         if (entry.containsKey(uriString)) {
           hasContentForUri = true;
-          final nativeFunc = entry[uriString]!;
+          final libFunc = entry[uriString]!;
+          final nativeFunc = libFunc.function;
           final funcName = nativeFunc.name;
+          
+          // Check show/hide filters first
+          if (!_shouldRegisterName(funcName, showNames: showNames, hideNames: hideNames)) {
+            Logger.debug(
+                " [execute] Skipping function '$funcName' due to show/hide filter");
+            continue;
+          }
+          
+          // Use sourceUri for deduplication if available, otherwise fall back to import URI
+          final sourceUri = libFunc.sourceUri ?? uriString;
           
           // Check for duplicate registration
           if (_registeredFunctions.containsKey(funcName)) {
-            final existingLib = _registeredFunctions[funcName]!;
-            if (existingLib == uriString) {
-              // Same function from same library - silently skip
+            final existingSourceUri = _registeredFunctions[funcName]!;
+            if (existingSourceUri == sourceUri) {
+              // Same function from same canonical source - silently skip (re-export case)
               Logger.debug(
-                  " [execute] Skipping duplicate function '$funcName' from same library: $uriString");
+                  " [execute] Skipping duplicate function '$funcName' from same source: $sourceUri");
               continue;
             } else {
-              // Different library - this is an error
+              // Different source - this is an actual duplicate, error
               throw RuntimeError(
-                  "Duplicate function '$funcName' exists from library '$existingLib' and library '$uriString'. "
+                  "Duplicate function '$funcName' exists from source '$existingSourceUri' and source '$sourceUri'. "
                   "Use import show/hide clauses to resolve the conflict.");
             }
           }
           
           try {
             globalEnvironment.define(funcName, nativeFunc);
-            _registeredFunctions[funcName] = uriString;
+            _registeredFunctions[funcName] = sourceUri;
             Logger.debug(
-                " [execute] Registered library function: $funcName");
+                " [execute] Registered library function: $funcName from $sourceUri");
           } catch (e) {
             Logger.error("registering library function '$funcName': $e");
           }
@@ -426,27 +514,37 @@ class ModuleLoader {
           final libVar = entry[uriString]!;
           final varName = libVar.name;
           
+          // Check show/hide filters first
+          if (!_shouldRegisterName(varName, showNames: showNames, hideNames: hideNames)) {
+            Logger.debug(
+                " [execute] Skipping variable '$varName' due to show/hide filter");
+            continue;
+          }
+          
+          // Use sourceUri for deduplication if available, otherwise fall back to import URI
+          final sourceUri = libVar.sourceUri ?? uriString;
+          
           // Check for duplicate registration
           if (_registeredVariables.containsKey(varName)) {
-            final existingLib = _registeredVariables[varName]!;
-            if (existingLib == uriString) {
-              // Same variable from same library - silently skip
+            final existingSourceUri = _registeredVariables[varName]!;
+            if (existingSourceUri == sourceUri) {
+              // Same variable from same canonical source - silently skip (re-export case)
               Logger.debug(
-                  " [execute] Skipping duplicate variable '$varName' from same library: $uriString");
+                  " [execute] Skipping duplicate variable '$varName' from same source: $sourceUri");
               continue;
             } else {
-              // Different library - this is an error
+              // Different source - this is an actual duplicate, error
               throw RuntimeError(
-                  "Duplicate variable '$varName' exists from library '$existingLib' and library '$uriString'. "
+                  "Duplicate variable '$varName' exists from source '$existingSourceUri' and source '$sourceUri'. "
                   "Use import show/hide clauses to resolve the conflict.");
             }
           }
           
           try {
             globalEnvironment.define(varName, libVar.value);
-            _registeredVariables[varName] = uriString;
+            _registeredVariables[varName] = sourceUri;
             Logger.debug(
-                " [execute] Registered library variable: $varName");
+                " [execute] Registered library variable: $varName from $sourceUri");
           } catch (e) {
             Logger.error("registering library variable '$varName': $e");
           }
@@ -460,27 +558,37 @@ class ModuleLoader {
           final libGetter = entry[uriString]!;
           final getterName = libGetter.name;
           
+          // Check show/hide filters first
+          if (!_shouldRegisterName(getterName, showNames: showNames, hideNames: hideNames)) {
+            Logger.debug(
+                " [execute] Skipping getter '$getterName' due to show/hide filter");
+            continue;
+          }
+          
+          // Use sourceUri for deduplication if available, otherwise fall back to import URI
+          final sourceUri = libGetter.sourceUri ?? uriString;
+          
           // Check for duplicate registration
           if (_registeredGetters.containsKey(getterName)) {
-            final existingLib = _registeredGetters[getterName]!;
-            if (existingLib == uriString) {
-              // Same getter from same library - silently skip
+            final existingSourceUri = _registeredGetters[getterName]!;
+            if (existingSourceUri == sourceUri) {
+              // Same getter from same canonical source - silently skip (re-export case)
               Logger.debug(
-                  " [execute] Skipping duplicate getter '$getterName' from same library: $uriString");
+                  " [execute] Skipping duplicate getter '$getterName' from same source: $sourceUri");
               continue;
             } else {
-              // Different library - this is an error
+              // Different source - this is an actual duplicate, error
               throw RuntimeError(
-                  "Duplicate getter '$getterName' exists from library '$existingLib' and library '$uriString'. "
+                  "Duplicate getter '$getterName' exists from source '$existingSourceUri' and source '$sourceUri'. "
                   "Use import show/hide clauses to resolve the conflict.");
             }
           }
           
           try {
             globalEnvironment.define(getterName, GlobalGetter(libGetter.getter));
-            _registeredGetters[getterName] = uriString;
+            _registeredGetters[getterName] = sourceUri;
             Logger.debug(
-                " [execute] Registered library getter: $getterName");
+                " [execute] Registered library getter: $getterName from $sourceUri");
           } catch (e) {
             Logger.error("registering library getter '$getterName': $e");
           }

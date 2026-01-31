@@ -19,19 +19,80 @@ import 'package:tom_d4rt/src/security/permissions.dart';
 import 'package:tom_d4rt/src/introspection.dart';
 
 /// Wrapper class for library-scoped variables.
-/// Stores a variable name and its value for registration with a library path.
+/// Stores a variable name, its value, and optionally its canonical source URI
+/// for deduplication across re-exports.
 class LibraryVariable {
   final String name;
   final Object? value;
-  const LibraryVariable(this.name, this.value);
+  
+  /// The canonical source URI where this variable is defined.
+  /// 
+  /// Used for deduplication: when the same variable is exported through
+  /// multiple barrels (e.g., tom_core_kernel and tom_core_server both
+  /// re-export tom_basics), we need to recognize they're the same element.
+  /// Format: `package:pkg_name/path/to/source.dart`
+  final String? sourceUri;
+  
+  const LibraryVariable(this.name, this.value, {this.sourceUri});
 }
 
 /// Wrapper class for library-scoped getters.
-/// Stores a getter name and its function for registration with a library path.
+/// Stores a getter name, its function, and optionally its canonical source URI
+/// for deduplication across re-exports.
 class LibraryGetter {
   final String name;
   final Object? Function() getter;
-  const LibraryGetter(this.name, this.getter);
+  
+  /// The canonical source URI where this getter is defined.
+  /// See [LibraryVariable.sourceUri] for details.
+  final String? sourceUri;
+  
+  const LibraryGetter(this.name, this.getter, {this.sourceUri});
+}
+
+/// Wrapper class for library-scoped functions.
+/// Stores a native function with its canonical source URI for deduplication.
+class LibraryFunction {
+  final NativeFunction function;
+  
+  /// The canonical source URI where this function is defined.
+  /// See [LibraryVariable.sourceUri] for details.
+  final String? sourceUri;
+  
+  const LibraryFunction(this.function, {this.sourceUri});
+  
+  /// Convenience getter for the function name.
+  String get name => function.name;
+}
+
+/// Wrapper class for library-scoped bridged classes.
+/// Stores a bridged class with its canonical source URI for deduplication.
+class LibraryClass {
+  final BridgedClass bridgedClass;
+  
+  /// The canonical source URI where this class is defined.
+  /// See [LibraryVariable.sourceUri] for details.
+  final String? sourceUri;
+  
+  const LibraryClass(this.bridgedClass, {this.sourceUri});
+  
+  /// Convenience getter for the class name.
+  String get name => bridgedClass.name;
+}
+
+/// Wrapper class for library-scoped bridged enums.
+/// Stores a bridged enum with its canonical source URI for deduplication.
+class LibraryEnum {
+  final BridgedEnumDefinition enumDefinition;
+  
+  /// The canonical source URI where this enum is defined.
+  /// See [LibraryVariable.sourceUri] for details.
+  final String? sourceUri;
+  
+  const LibraryEnum(this.enumDefinition, {this.sourceUri});
+  
+  /// Convenience getter for the enum name.
+  String get name => enumDefinition.name;
 }
 
 /// The main D4rt interpreter class.
@@ -55,8 +116,8 @@ class LibraryGetter {
 /// ''');
 /// ```
 class D4rt {
-  final List<Map<String, BridgedEnumDefinition>> _bridgedEnumDefinitions = [];
-  final List<Map<String, BridgedClass>> _bridgedClases = [];
+  final List<Map<String, LibraryEnum>> _bridgedEnumDefinitions = [];
+  final List<Map<String, LibraryClass>> _bridgedClases = [];
   InterpretedInstance? _interpretedInstance;
   InterpreterVisitor? _visitor;
   final Map<Type, BridgedClass> _bridgedDefLookupByType = {};
@@ -69,9 +130,9 @@ class D4rt {
   
   // Library-scoped globals (registered with library path) - added when import is processed
   // Structure matches classes/enums: List of {libraryPath: definition}
-  // For functions: the NativeFunction itself contains the name
-  // For variables/getters: we use wrapper classes that contain name and value/getter
-  final List<Map<String, NativeFunction>> _libraryFunctions = [];
+  // For functions: use LibraryFunction wrapper that includes sourceUri for deduplication
+  // For variables/getters: wrapper classes contain name, value/getter, and sourceUri
+  final List<Map<String, LibraryFunction>> _libraryFunctions = [];
   final List<Map<String, LibraryVariable>> _libraryVariables = [];
   final List<Map<String, LibraryGetter>> _libraryGetters = [];
 
@@ -82,8 +143,11 @@ class D4rt {
   ///
   /// [definition] The enum definition containing the native enum type and its values.
   /// [library] The library identifier where this enum should be available.
-  void registerBridgedEnum(BridgedEnumDefinition definition, String library) {
-    _bridgedEnumDefinitions.add({library: definition});
+  /// [sourceUri] The canonical source URI where this enum is defined.
+  ///   Used for deduplication when the same enum is exported through multiple barrels.
+  void registerBridgedEnum(BridgedEnumDefinition definition, String library, {String? sourceUri}) {
+    final libEnum = LibraryEnum(definition, sourceUri: sourceUri);
+    _bridgedEnumDefinitions.add({library: libEnum});
   }
 
   /// Registers a bridged class definition for use in interpreted code.
@@ -94,8 +158,11 @@ class D4rt {
   ///
   /// [definition] The class definition containing constructors, methods, and properties.
   /// [library] The library identifier where this class should be available.
-  void registerBridgedClass(BridgedClass definition, String library) {
-    _bridgedClases.add({library: definition});
+  /// [sourceUri] The canonical source URI where this class is defined.
+  ///   Used for deduplication when the same class is exported through multiple barrels.
+  void registerBridgedClass(BridgedClass definition, String library, {String? sourceUri}) {
+    final libClass = LibraryClass(definition, sourceUri: sourceUri);
+    _bridgedClases.add({library: libClass});
     _bridgedDefLookupByType[definition.nativeType] = definition;
   }
 
@@ -105,9 +172,12 @@ class D4rt {
   /// [function] The native function implementation to be called.
   /// [library] The library path (package URI) where this function is exported from.
   ///   The function is only added to the environment when this library is imported.
-  void registertopLevelFunction(String? name, NativeFunctionImpl function, String library) {
+  /// [sourceUri] The canonical source URI where this function is defined.
+  ///   Used for deduplication when the same function is exported through multiple barrels.
+  void registertopLevelFunction(String? name, NativeFunctionImpl function, String library, {String? sourceUri}) {
     final nativeFunc = NativeFunction(function, name: name, arity: 0);
-    _libraryFunctions.add({library: nativeFunc});
+    final libFunc = LibraryFunction(nativeFunc, sourceUri: sourceUri);
+    _libraryFunctions.add({library: libFunc});
   }
 
   /// Registers a global variable for use in interpreted code.
@@ -119,6 +189,8 @@ class D4rt {
   /// [value] The value to bind to the variable. Can be any Dart object.
   /// [library] The library path (package URI) where this variable is exported from.
   ///   The variable is only added to the environment when this library is imported.
+  /// [sourceUri] The canonical source URI where this variable is defined.
+  ///   Used for deduplication when the same variable is exported through multiple barrels.
   ///
   /// ## Example:
   /// ```dart
@@ -126,8 +198,8 @@ class D4rt {
   /// interpreter.registerGlobalVariable('config', {'debug': true}, 'package:my_app/my_app.dart');
   /// interpreter.registerGlobalVariable('appName', 'MyApp', 'package:my_app/my_app.dart');
   /// ```
-  void registerGlobalVariable(String name, Object? value, String library) {
-    _libraryVariables.add({library: LibraryVariable(name, value)});
+  void registerGlobalVariable(String name, Object? value, String library, {String? sourceUri}) {
+    _libraryVariables.add({library: LibraryVariable(name, value, sourceUri: sourceUri)});
   }
 
   /// Registers a global getter for use in interpreted code.
@@ -141,14 +213,16 @@ class D4rt {
   /// [getter] A function that returns the current value when called.
   /// [library] The library path (package URI) where this getter is exported from.
   ///   The getter is only added to the environment when this library is imported.
+  /// [sourceUri] The canonical source URI where this getter is defined.
+  ///   Used for deduplication when the same getter is exported through multiple barrels.
   ///
   /// ## Example:
   /// ```dart
   /// final interpreter = D4rt();
   /// interpreter.registerGlobalGetter('currentTime', () => DateTime.now(), 'package:my_app/my_app.dart');
   /// ```
-  void registerGlobalGetter(String name, Object? Function() getter, String library) {
-    _libraryGetters.add({library: LibraryGetter(name, getter)});
+  void registerGlobalGetter(String name, Object? Function() getter, String library, {String? sourceUri}) {
+    _libraryGetters.add({library: LibraryGetter(name, getter, sourceUri: sourceUri)});
   }
 
   ModuleLoader _initModule(Map<String, String>? sources,
@@ -250,7 +324,8 @@ class D4rt {
     for (final entry in _bridgedClases) {
       for (final MapEntry(:key, :value) in entry.entries) {
         final importPath = key;
-        final bridgedClass = value;
+        final libClass = value;
+        final bridgedClass = libClass.bridgedClass;
 
         final classInfo = BridgedClassInfo(
           name: bridgedClass.name,
@@ -285,7 +360,8 @@ class D4rt {
     for (final entry in _bridgedEnumDefinitions) {
       for (final MapEntry(:key, :value) in entry.entries) {
         final importPath = key;
-        final enumDef = value;
+        final libEnum = value;
+        final enumDef = libEnum.enumDefinition;
 
         final enumInfo = BridgedEnumInfo(
           name: enumDef.name,

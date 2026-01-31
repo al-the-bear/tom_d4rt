@@ -46,3 +46,4 @@ export 'package:tom_d4rt/src/utils/logger/logger.dart';
 export 'package:tom_d4rt/src/security/permissions.dart';
 export 'package:tom_d4rt/src/introspection.dart';
 export 'package:tom_d4rt/src/generator/d4.dart';
+export 'package:tom_d4rt/src/bridge/library_mapping.dart';

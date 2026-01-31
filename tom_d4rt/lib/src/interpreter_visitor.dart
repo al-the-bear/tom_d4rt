@@ -8749,12 +8749,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
     final prefixIdentifier = node.prefix; // Get the prefix identifier
     final prefixName = prefixIdentifier?.name;
-    Logger.debug(
-        "[visitImportDirective] Loading module for resolved URI: $resolvedUri (prefix: $prefixName)");
-
-    LoadedModule loadedModule = moduleLoader.loadModule(resolvedUri);
-
-    // Extract the show/hide combinators from the import directive
+    
+    // Extract the show/hide combinators from the import directive BEFORE loading
     Set<String>? showNames;
     Set<String>? hideNames;
 
@@ -8771,6 +8767,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "[visitImportDirective] Combinator: hide ${combinator.hiddenNames.map((id) => id.name).join(', ')}");
       }
     }
+    
+    Logger.debug(
+        "[visitImportDirective] Loading module for resolved URI: $resolvedUri (prefix: $prefixName, show: $showNames, hide: $hideNames)");
+
+    // Pass show/hide to loadModule so bridged content respects the filters
+    LoadedModule loadedModule = moduleLoader.loadModule(resolvedUri, showNames: showNames, hideNames: hideNames);
 
     if (prefixName != null) {
       Logger.debug(

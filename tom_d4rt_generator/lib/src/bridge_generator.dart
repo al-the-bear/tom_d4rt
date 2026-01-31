@@ -2675,6 +2675,21 @@ class BridgeGenerator {
     buffer.writeln('  }');
     buffer.writeln();
 
+    // Generate classSourceUris method for deduplication
+    buffer.writeln('  /// Returns a map of class names to their canonical source URIs.');
+    buffer.writeln('  ///');
+    buffer.writeln('  /// Used for deduplication when the same class is exported through');
+    buffer.writeln('  /// multiple barrels (e.g., tom_core_kernel and tom_core_server).');
+    buffer.writeln('  static Map<String, String> classSourceUris() {');
+    buffer.writeln('    return {');
+    for (final cls in classes) {
+      final sourceUri = _getPackageUri(cls.sourceFile);
+      buffer.writeln("      '${cls.name}': '$sourceUri',");
+    }
+    buffer.writeln('    };');
+    buffer.writeln('  }');
+    buffer.writeln();
+
     // Generate bridgedEnums method if there are enums
     if (enums.isNotEmpty) {
       buffer.writeln('  /// Returns all bridged enum definitions.');
@@ -2691,6 +2706,21 @@ class BridgeGenerator {
       buffer.writeln('    ];');
       buffer.writeln('  }');
       buffer.writeln();
+
+      // Generate enumSourceUris method for deduplication
+      buffer.writeln('  /// Returns a map of enum names to their canonical source URIs.');
+      buffer.writeln('  ///');
+      buffer.writeln('  /// Used for deduplication when the same enum is exported through');
+      buffer.writeln('  /// multiple barrels (e.g., tom_core_kernel and tom_core_server).');
+      buffer.writeln('  static Map<String, String> enumSourceUris() {');
+      buffer.writeln('    return {');
+      for (final enumInfo in enums) {
+        final sourceUri = _getPackageUri(enumInfo.sourceFile);
+        buffer.writeln("      '${enumInfo.name}': '$sourceUri',");
+      }
+      buffer.writeln('    };');
+      buffer.writeln('  }');
+      buffer.writeln();
     }
 
     // registerBridges method - accepts import path as parameter
@@ -2705,19 +2735,23 @@ class BridgeGenerator {
     buffer.writeln(
       '  static void registerBridges(D4rt interpreter, String importPath) {',
     );
-    buffer.writeln('    // Register bridged classes');
-    buffer.writeln('    for (final bridge in bridgeClasses()) {');
+    buffer.writeln('    // Register bridged classes with source URIs for deduplication');
+    buffer.writeln('    final classes = bridgeClasses();');
+    buffer.writeln('    final classSources = classSourceUris();');
+    buffer.writeln('    for (final bridge in classes) {');
     buffer.writeln(
-      '      interpreter.registerBridgedClass(bridge, importPath);',
+      '      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);',
     );
     buffer.writeln('    }');
     // Register enums
     if (enums.isNotEmpty) {
       buffer.writeln();
-      buffer.writeln('    // Register bridged enums');
-      buffer.writeln('    for (final enumDef in bridgedEnums()) {');
+      buffer.writeln('    // Register bridged enums with source URIs for deduplication');
+      buffer.writeln('    final enums = bridgedEnums();');
+      buffer.writeln('    final enumSources = enumSourceUris();');
+      buffer.writeln('    for (final enumDef in enums) {');
       buffer.writeln(
-        '      interpreter.registerBridgedEnum(enumDef, importPath);',
+        '      interpreter.registerBridgedEnum(enumDef, importPath, sourceUri: enumSources[enumDef.name]);',
       );
       buffer.writeln('    }');
     }
@@ -2730,9 +2764,11 @@ class BridgeGenerator {
     // Register global functions
     if (globalFunctions.isNotEmpty) {
       buffer.writeln();
-      buffer.writeln('    // Register global functions');
-      buffer.writeln('    for (final entry in globalFunctions().entries) {');
-      buffer.writeln('      interpreter.registertopLevelFunction(entry.key, entry.value, importPath);');
+      buffer.writeln('    // Register global functions with source URIs for deduplication');
+      buffer.writeln('    final funcs = globalFunctions();');
+      buffer.writeln('    final funcSources = globalFunctionSourceUris();');
+      buffer.writeln('    for (final entry in funcs.entries) {');
+      buffer.writeln('      interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key]);');
       buffer.writeln('    }');
     }
     buffer.writeln('  }');
@@ -2760,14 +2796,16 @@ class BridgeGenerator {
         final override = globalsUserBridge?.getGlobalVariableOverride(variable.name);
         // Get prefixed variable name for proper import reference
         final prefixedVarName = _getPrefixedFunctionName(variable.name, variable.sourceFile);
+        // Get canonical source URI for deduplication
+        final sourceUri = _getPackageUri(variable.sourceFile);
         buffer.writeln('    try {');
         if (override != null) {
           buffer.writeln(
-            "      interpreter.registerGlobalVariable('${variable.name}', ${globalsUserBridge!.userBridgeClassName}.$override(), importPath);",
+            "      interpreter.registerGlobalVariable('${variable.name}', ${globalsUserBridge!.userBridgeClassName}.$override(), importPath, sourceUri: '$sourceUri');",
           );
         } else {
           buffer.writeln(
-            "      interpreter.registerGlobalVariable('${variable.name}', $prefixedVarName, importPath);",
+            "      interpreter.registerGlobalVariable('${variable.name}', $prefixedVarName, importPath, sourceUri: '$sourceUri');",
           );
         }
         buffer.writeln('    } catch (e) {');
@@ -2780,13 +2818,15 @@ class BridgeGenerator {
         final override = globalsUserBridge?.getGlobalGetterOverride(variable.name);
         // Get prefixed getter name for proper import reference
         final prefixedGetterName = _getPrefixedFunctionName(variable.name, variable.sourceFile);
+        // Get canonical source URI for deduplication
+        final sourceUri = _getPackageUri(variable.sourceFile);
         if (override != null) {
           buffer.writeln(
-            "    interpreter.registerGlobalGetter('${variable.name}', ${globalsUserBridge!.userBridgeClassName}.$override(), importPath);",
+            "    interpreter.registerGlobalGetter('${variable.name}', ${globalsUserBridge!.userBridgeClassName}.$override(), importPath, sourceUri: '$sourceUri');",
           );
         } else {
           buffer.writeln(
-            "    interpreter.registerGlobalGetter('${variable.name}', () => $prefixedGetterName, importPath);",
+            "    interpreter.registerGlobalGetter('${variable.name}', () => $prefixedGetterName, importPath, sourceUri: '$sourceUri');",
           );
         }
       }
@@ -2977,7 +3017,45 @@ class BridgeGenerator {
       buffer.writeln('    };');
       buffer.writeln('  }');
       buffer.writeln();
+      
+      // Generate globalFunctionSourceUris method for deduplication
+      buffer.writeln('  /// Returns a map of global function names to their canonical source URIs.');
+      buffer.writeln('  ///');
+      buffer.writeln('  /// Used for deduplication when the same function is exported through');
+      buffer.writeln('  /// multiple barrels (e.g., tom_core_kernel and tom_core_server).');
+      buffer.writeln('  static Map<String, String> globalFunctionSourceUris() {');
+      buffer.writeln('    return {');
+      for (final func in globalFunctions) {
+        final sourceUri = _getPackageUri(func.sourceFile);
+        buffer.writeln("      '${func.name}': '$sourceUri',");
+      }
+      buffer.writeln('    };');
+      buffer.writeln('  }');
+      buffer.writeln();
     }
+
+    // Generate sourceLibraries method - returns all unique source libraries
+    // Collect all unique source URIs from classes, enums, functions, and variables
+    final allSourceUris = <String>{
+      ...classes.map((c) => _getPackageUri(c.sourceFile)),
+      ...enums.map((e) => _getPackageUri(e.sourceFile)),
+      ...globalFunctions.map((f) => _getPackageUri(f.sourceFile)),
+      ...globalVariables.map((v) => _getPackageUri(v.sourceFile)),
+    }.toList()..sort();
+
+    buffer.writeln('  /// Returns the list of canonical source library URIs.');
+    buffer.writeln('  ///');
+    buffer.writeln('  /// These are the actual source locations of all elements in this bridge,');
+    buffer.writeln('  /// used for deduplication when the same libraries are exported through');
+    buffer.writeln('  /// multiple barrels.');
+    buffer.writeln('  static List<String> sourceLibraries() {');
+    buffer.writeln('    return [');
+    for (final uri in allSourceUris) {
+      buffer.writeln("      '$uri',");
+    }
+    buffer.writeln('    ];');
+    buffer.writeln('  }');
+    buffer.writeln();
 
     // getImportBlock method - returns import statements for D4rt scripts
     String? importBlockUri;
