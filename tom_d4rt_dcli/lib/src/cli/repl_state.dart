@@ -16,7 +16,17 @@ class InterruptedException implements Exception {
 }
 
 /// Multiline mode types
-enum MultilineMode { none, script, file, executeNew, define }
+enum MultilineMode { 
+  none, 
+  script, 
+  file, 
+  executeNew, 
+  define,
+  /// VS Code eval mode - returns last expression value
+  vscodeEval,
+  /// VS Code script mode - complete file with main()
+  vscodeScript,
+}
 
 /// Session state for the REPL
 class ReplState {
@@ -112,6 +122,12 @@ class ReplState {
   String get promptName => _promptName;
 
   /// Write the prompt with color
+  /// 
+  /// Prompt format: `tool cwd[session]>`
+  /// Examples:
+  /// - `dcli ~>` - DCli in home directory
+  /// - `tom tom_build>` - Tom in tom_build directory  
+  /// - `tom scripts[session]>` - Tom with active session
   void writePrompt({bool multiline = false}) {
     if (multiline) {
       console.setForegroundColor(ConsoleColor.brightBlack);
@@ -119,10 +135,28 @@ class ReplState {
     } else {
       console.setForegroundColor(ConsoleColor.cyan);
       console.write(promptName);
+      console.write(' ');
+      console.write(_currentDirName);
+      // Add session indicator if active
+      if (currentSessionId != null) {
+        console.setForegroundColor(ConsoleColor.yellow);
+        console.write('[');
+        console.write(currentSessionId!);
+        console.write(']');
+      }
       console.setForegroundColor(ConsoleColor.brightBlack);
       console.write('> ');
     }
     console.resetColorAttributes();
+  }
+  
+  /// Get just the current directory name (last path component)
+  /// Returns '~' for home directory
+  String get _currentDirName {
+    final home = Platform.environment['HOME'] ?? '';
+    if (currentDirectory == home) return '~';
+    final uri = Uri.parse(currentDirectory);
+    return uri.pathSegments.isNotEmpty ? uri.pathSegments.last : '~';
   }
   
   /// Write continuation prompt (for lines ending with \)

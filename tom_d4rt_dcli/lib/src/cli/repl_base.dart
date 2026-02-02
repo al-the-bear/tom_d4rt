@@ -92,6 +92,17 @@ abstract class D4rtReplBase {
     bool silent = false,
   }) async => false;
   
+  /// Handle additional multiline mode endings.
+  /// Called when .end is entered for a multiline mode not handled by the base class.
+  /// Returns true if the mode was handled, false otherwise.
+  Future<bool> handleAdditionalMultilineEnd(
+    D4rt d4rt,
+    ReplState state,
+    MultilineMode mode,
+    String code, {
+    bool silent = false,
+  }) async => false;
+  
   /// Called when starting the REPL, after printing the banner.
   /// Override to add tool-specific startup logic.
   Future<void> onReplStartup(D4rt d4rt, ReplState state) async {}
@@ -917,6 +928,15 @@ $code
             }
             break;
           case MultilineMode.none:
+            break;
+          default:
+            // Allow derived classes to handle custom multiline modes
+            final handled = await handleAdditionalMultilineEnd(
+              d4rt, state, currentMode, code, silent: silent,
+            );
+            if (!handled && !silent) {
+              state.writeWarning('Unknown multiline mode: $currentMode');
+            }
             break;
         }
       } catch (e) {

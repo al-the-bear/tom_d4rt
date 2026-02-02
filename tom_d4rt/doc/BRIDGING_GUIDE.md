@@ -1,6 +1,8 @@
 # d4rt Bridging Guide
 
-This guide provides a comprehensive overview of how to bridge your native Dart classes and enums for use within the d4rt interpreter. Bridging allows interpreted code to interact seamlessly with your application's existing Dart logic.
+> **Recommendation:** Most users should use the [Bridge Generator](../tom_d4rt_generator/doc/bridgegenerator_user_guide.md) to automate this process. Use this guide for writing *User Bridges* (overrides) or understanding the low-level API.
+
+This guide provides a comprehensive overview of how to *manually* bridge your native Dart classes and enums. Bridging allows interpreted code to interact seamlessly with your application's existing Dart logic.
 
 ## Table of Contents
 
@@ -931,5 +933,29 @@ d4rt.execute('print(app);');  // Works!
 -   **Keep Adapters Lean:** Adapters should primarily focus on the "bridging" aspect (type conversion, argument forwarding). Avoid putting complex business logic directly into adapter functions; keep that in your native classes.
 -   **Documentation:** Document your bridged APIs (available methods, properties, constructor arguments) for script writers.
 -   **Testing:** Thoroughly test your bridges with various valid and invalid inputs from the script side to ensure they behave as expected.
+
+---
+
+## User Bridges (Overrides)
+
+When using the `tom_d4rt_generator`, you may sometimes need to provide custom implementations for specific methods while keeping the rest auto-generated. This is done via **User Bridges**.
+
+To create a user bridge:
+1.  Create a class that extends `D4UserBridge`.
+2.  Implement static methods to handle specific native calls.
+3.  The generator will detect this class (if placed naming conventions are followed) and delegate to it.
+
+```dart
+import 'package:tom_d4rt/d4rt.dart';
+import 'package:native_package/native_package.dart';
+
+class MyClassUserBridge extends D4UserBridge {
+  // Override logic for specific methods...
+  // See Generator documentation for signature details.
+}
+```
+
+See the [Generator User Bridge Design](../tom_d4rt_generator/doc/userbridge_override_design.md) for full architectural details.
+
 
 This guide covers the main aspects of bridging in d4rt. Refer to the example files in the d4rt repository (especially under `test/bridge/`) for more detailed and specific examples of these concepts in action. 
