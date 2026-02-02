@@ -12,11 +12,17 @@ For information on bridging Dart classes and functions to the interpreter, see t
     *   [Evaluating Expressions](#evaluating-expressions)
     *   [Executing Scripts](#executing-scripts)
     *   [Executing Files](#executing-files)
+    *   [Continued Execution](#continued-execution)
 4.  [The Environment](#the-environment)
     *   [Standard Library](#standard-library)
-    *   [Globals](#globals)
-    *   [Security & Isolation](#security--isolation)
-5.  [Interpreted Code Execution Flow](#interpreted-code-execution-flow)
+    *   [Imports and Bridged Code](#imports-and-bridged-code)
+    *   [Security & Permissions](#security--permissions)
+5.  [Script Structure Requirements](#script-structure-requirements)
+6.  [Interpreted Code Execution Flow](#interpreted-code-execution-flow)
+7.  [Advanced Topics](#advanced-topics)
+    *   [Permission System](#permission-system)
+    *   [Debug Logging](#debug-logging)
+    *   [Configuration Introspection](#configuration-introspection)
 
 ---
 
@@ -39,16 +45,28 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 
 ## Initialization
 
-The core class is `TomD4rt`. You must Create an instance and call `init()` prior to executing any code. This step sets up the core libraries and types.
+The core class is `D4rt`. The interpreter is ready to use immediately after instantiation, but **you must call `execute()` at least once before using `eval()`** to establish the execution context.
 
 ```dart
 void main() async {
-  final d4rt = TomD4rt();
-  await d4rt.init();
+  final d4rt = D4rt();
   
-  // Ready to execute
+  // First, establish context with execute()
+  d4rt.execute(
+    source: '''
+      var counter = 0;
+      void increment() { counter++; }
+    ''',
+  );
+  
+  // Now eval() can be used in this context
+  d4rt.eval('increment()');
+  final result = d4rt.eval('counter');
+  print(result); // 1
 }
 ```
+
+**Important:** The `D4rt` class does not have an `init()` method. The first call to `execute()` establishes the global environment that `eval()` operates within.
 
 ---
 
@@ -58,19 +76,37 @@ D4rt supports different ways to run code depending on your needs.
 
 ### Evaluating Expressions
 
-Use `eval` to compute a value from a single D4rt expression string. This is useful for calculations, condition checking, or retrieving values.
+Use `eval()` to execute code in the context of a previous `execute()` call. **You must call `execute()` first** to establish the execution environment.
 
 ```dart
-final result = await d4rt.eval('2 * 21');
-print(result); // 42
+final d4rt = D4rt();
 
-final message = await d4rt.eval('"Hello " + "World"');
-print(message); // Hello World
+// First, establish context
+d4rt.execute(
+  source: '''
+    var counter = 0;
+    void increment() { counter++; }
+    int getCounter() => counter;
+  ''',
+);
+
+// Now eval() works in this context
+d4rt.eval('increment()');
+d4rt.eval('increment()');
+final result = d4rt.eval('getCounter()');
+print(result); // 2
+
+// You can also define new functions via eval
+d4rt.eval('int double(int x) => x * 2;');
+final doubled = d4rt.eval('double(counter)');
+print(doubled); // 4
 ```
 
 ### Executing Scripts
 
-Use `execute` to run a full Dart script source string. The script should ideally contain a `main()` function, or top-level statements.
+Use `execute()` to run a full Dart script source string. The script should contain top-level declarations (functions, classes, variables). You specify which function to call and what arguments to pass.
+
+**Basic execution (calls `main()` by default):**
 
 ```dart
 const script = '''
@@ -79,28 +115,85 @@ const script = '''
   }
 ''';
 
-await d4rt.execute(script);
+d4rt.execute(
+  source: script,
+  // name: 'main' is the default
+);
 ```
 
-You can pass arguments to the `main` function:
+**Passing arguments to the function:**
 
 ```dart
 const script = '''
-  void main(List<String> args) {
-    print("Args: \$args");
+  void greet(String name, int age) {
+    print("Hello \$name, you are \$age years old");
   }
 ''';
 
-await d4rt.execute(script, arguments: ['--flag', 'value']);
+d4rt.execute(
+  source: script,
+  name: 'greet',  // Specify which function to call
+  positionalArgs: ['Alice', 30],
+);
 ```
+
+**Using named arguments:**
+
+```dart
+const script = '''
+  void configure({required String mode, int port = 8080}) {
+    print("Mode: \$mode, Port: \$port");
+  }
+''';
+
+d4rt.execute(
+  source: script,
+  name: 'configure',
+  namedArgs: {'mode': 'production', 'port': 9000},
+);
+```
+
+**Note:** The function name doesn't have to be `main()` — you can call any top-level function in the script by specifying the `name` parameter.
 
 ### Executing Files
 
-Use `executeFile` to load and run a Dart file from the filesystem.
+Use the `executeFile` utility function (from `package:tom_d4rt/src/script_execution.dart`) to load and run a Dart file from the filesystem. This automatically resolves relative imports.
 
 ```dart
-await d4rt.executeFile('path/to/script.dart', arguments: ['arg1']);
+import 'package:tom_d4rt/tom_d4rt.dart';
+import 'package:tom_d4rt/src/script_execution.dart';
+
+void main() {
+  final d4rt = D4rt();
+  final result = executeFile(d4rt, 'path/to/script.dart');
+  
+  if (result.success) {
+    print('Executed successfully: ${result.result}');
+  } else {
+    print('Error: ${result.error}');
+  }
+}
 ```
+
+### Continued Execution
+
+Use `executeFileContinued` to execute a file within the context of a previously executed file. This allows you to:
+1.  Execute a setup file that declares global variables and functions
+2.  Execute additional files that use those globals
+
+```dart
+import 'package:tom_d4rt/src/script_execution.dart';
+
+final d4rt = D4rt();
+
+// First, execute a setup file
+executeFileContinued(d4rt, 'setup.dart');
+
+// Then execute main script in that context
+final result = executeFileContinued(d4rt, 'main.dart');
+```
+
+Unlike `executeFile` which uses `execute()` and creates fresh state, `executeFileContinued` uses `eval()` to add declarations to the existing global environment.
 
 ---
 
@@ -109,46 +202,187 @@ await d4rt.executeFile('path/to/script.dart', arguments: ['arg1']);
 ### Standard Library
 
 D4rt comes with a reimplementation of core Dart libraries:
--   `dart:core`: Basic types (`int`, `double`, `String`, `List`, `Map`, etc.), printing, and basic utilities.
--   `dart:math`: Mathematical constants and functions.
--   `dart:async`: `Future`, `Stream` (partial support in interpreted context).
 
-**Note:** `dart:io` and `dart:isolate` are **NOT** available by default for security reasons.
+*   **`dart:core`**: Basic types (`int`, `double`, `String`, `List`, `Map`, `Set`, `bool`, `num`, `Object`, `Null`), printing, exceptions, and basic utilities.
+*   **`dart:math`**: Mathematical constants (`pi`, `e`) and functions (`sin`, `cos`, `sqrt`, `pow`, `max`, `min`, etc.).
+*   **`dart:async`**: `Future`, `Stream` (partial support in interpreted context).
+*   **`dart:convert`**: JSON encoding/decoding support.
+*   **`dart:collection`**: Collection types (`Queue`, `LinkedList`, etc.).
+*   **`dart:typed_data`**: Typed data buffers.
 
-### Globals
+**Restricted Libraries** (require permissions):
 
-You can inject variables and functions into the global scope of the interpreter.
+*   **`dart:io`**: File system, network, and process operations. **Requires `FilesystemPermission`** to access.
+*   **`dart:isolate`**: Isolate operations. **Requires `IsolatePermission`** to access.
 
-**Adding a Value:**
+**Not Available:**
+
+*   **`dart:mirrors`**: Reflection is not supported in the interpreter.
+*   **`dart:ffi`**: Foreign function interface is not available.
+*   **`dart:ui`**: Flutter UI library is not available (use Flutter-specific bridges instead).
+
+### Imports and Bridged Code
+
+Scripts must use `import` statements to access bridged classes and functions. Bridged code is registered with a library identifier (usually a package URI like `package:my_app/my_app.dart`), and scripts import from that library.
+
+**Example:**
+
 ```dart
-d4rt.addGlobal('apiVersion', 1);
+// Host application registers bridges
+d4rt.registerBridgedClass(MyClassBridge(), 'package:my_app/my_app.dart');
+d4rt.registerGlobalVariable('config', {'debug': true}, 'package:my_app/my_app.dart');
+
+// Script uses imports to access them
+const script = '''
+  import 'package:my_app/my_app.dart';
+  
+  void main() {
+    print(config); // Access global variable
+    final obj = MyClass(); // Use bridged class
+  }
+''';
 ```
 
-**Adding a Function:**
-```dart
-d4rt.addGlobal('log', (String msg) => print('[LOG] $msg'));
-```
+**Global Context Setup:**
 
-**Lazy Loading (Getters):**
-Use `registerGlobalGetter` for objects that should only be instantiated when accessed by the script.
+You cannot directly inject globals into the interpreter's environment. Instead:
+1.  Register variables/functions with a library identifier using `registerGlobalVariable` or `registerGlobalGetter`
+2.  Scripts import from that library to access them
 
-```dart
-d4rt.registerGlobalGetter('heavyResource', () => HeavyResource());
-```
+Or, use the `executeFileContinued` pattern to build up context incrementally.
 
-### Security & Isolation
+### Security & Permissions
 
 D4rt is designed to be a sandbox.
 
 1.  **Memory Isolation:** Interpreted objects are wrappers around native objects. Direct memory access is not possible.
-2.  **No IO Access:** Scripts cannot read files, access the network, or spawn processes unless you explicitly bridge those capabilities.
+2.  **No IO Access by Default:** Scripts cannot read files, access the network, or spawn processes unless you explicitly grant permissions.
 3.  **Type Safety:** The interpreter enforces Dart's type system at runtime.
+
+---
+
+## Script Structure Requirements
+
+**Important:** Dart does not allow top-level statements outside of function or class declarations. Scripts must:
+
+1.  **Have a `main()` function** if you want to execute logic:
+    ```dart
+    void main() {
+      print('Hello!');
+    }
+    ```
+
+2.  **Use imports** to access bridged classes:
+    ```dart
+    import 'package:my_app/my_app.dart';
+    
+    void main() {
+      final obj = MyBridgedClass();
+    }
+    ```
+
+3.  **Declare globals properly** (variables, functions, classes can be top-level, but executable statements must be in `main()`):
+    ```dart
+    // Valid
+    int globalCounter = 0;
+    
+    void helperFunction() {
+      print('Helper');
+    }
+    
+    void main() {
+      globalCounter++;
+      helperFunction();
+    }
+    ```
 
 ---
 
 ## Interpreted Code Execution Flow
 
 1.  **Parsing:** The source code is parsed into an AST (Abstract Syntax Tree).
-2.  **Compilation (Internal):** The AST is converted into bytecode or an optimized intermediate representation.
-3.  **Execution:** The interpreter runs the instructions.
+2.  **Declaration Phase:** Top-level declarations (classes, functions, variables) are registered.
+3.  **Execution:** The `main()` function (or evaluated expression) is executed.
 4.  **Interop:** When the script calls a bridged function, the interpreter yields to the native Dart runtime, executes the native code, and converts the result back to an interpreted object.
+
+---
+
+## Advanced Topics
+
+### Permission System
+
+D4rt includes a comprehensive permission system to control access to sensitive operations.
+
+**Available Permissions:**
+
+*   `FilesystemPermission`: Controls file/directory read/write access
+    *   `FilesystemPermission.any` - Allow all filesystem operations
+    *   `FilesystemPermission.read` - Allow read operations
+    *   `FilesystemPermission.write(path)` - Allow write to specific path
+*   `NetworkPermission`: Controls network socket operations
+    *   `NetworkPermission.any` - Allow all network operations
+    *   `NetworkPermission.connect(host)` - Allow connections to specific host
+*   `ProcessRunPermission`: Controls process execution
+    *   `ProcessRunPermission.any` - Allow executing any process
+*   `IsolatePermission`: Controls isolate operations
+    *   `IsolatePermission.any` - Allow all isolate operations
+*   `DangerousPermission`: Grants access to platform information
+    *   `DangerousPermission.any` - Allow access to `Platform` class
+
+**Granting Permissions:**
+
+```dart
+final d4rt = D4rt();
+
+// Grant filesystem access
+d4rt.grant(FilesystemPermission.any);
+
+// Grant network access to specific host
+d4rt.grant(NetworkPermission.connect('api.example.com'));
+
+// Grant process execution
+d4rt.grant(ProcessRunPermission.any);
+```
+
+**Checking Permissions:**
+
+```dart
+if (d4rt.hasPermission(FilesystemPermission.any)) {
+  print('Filesystem access granted');
+}
+
+// Or check if any permission allows an operation
+if (d4rt.checkPermission('filesystem:read:/tmp/file.txt')) {
+  print('Can read /tmp/file.txt');
+}
+```
+
+### Debug Logging
+
+Enable detailed logging to troubleshoot script execution:
+
+```dart
+d4rt.setDebug(true);
+
+// Now all execution will log detailed information
+final result = await d4rt.eval('2 + 2');
+```
+
+### Configuration Introspection
+
+Query the interpreter's current configuration (bridges, permissions, globals):
+
+```dart
+final config = d4rt.getConfiguration();
+
+// Access registered bridges
+for (final importInfo in config.imports.values) {
+  print('Classes: ${importInfo.classes.map((c) => c.name)}');
+  print('Functions: ${importInfo.functions.map((f) => f.name)}');
+}
+
+// Access permissions
+for (final perm in config.permissions) {
+  print('Permission: ${perm.type} - ${perm.description}');
+}
+```
