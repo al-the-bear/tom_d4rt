@@ -158,3 +158,17 @@ String getStdlibNote() {
   *Dart standard libraries dart:async, dart:io, dart:convert, dart:math,*
   *dart:collection, and dart:typed_data are available to all scripts.*''';
 }
+
+/// Returns the stdlib import statements to prepend to scripts.
+///
+/// These imports are for Dart standard libraries that are bridged in D4rt
+/// and available to all scripts.
+String getStdlibImports() {
+  return '''import 'dart:async';
+import 'dart:io';
+import 'dart:convert';
+import 'dart:math';
+import 'dart:collection';
+import 'dart:typed_data';
+''';
+}

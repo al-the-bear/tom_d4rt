@@ -286,6 +286,10 @@ Future<void> _generateDartscriptFile(String dartscriptPath, BridgeConfig config,
   final registrationClass = config.registrationClass ?? '${config.name}Bridges';
   final buffer = StringBuffer();
 
+  buffer.writeln('// D4rt Bridge - Generated file, do not edit');
+  buffer.writeln('// Dartscript registration for ${config.name}');
+  buffer.writeln('// Generated: ${DateTime.now().toIso8601String()}');
+  buffer.writeln();
   buffer.writeln('/// D4rt Bridge Registration for ${config.name}');
   buffer.writeln('library;');
   buffer.writeln();

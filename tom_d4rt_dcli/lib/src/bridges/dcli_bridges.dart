@@ -67,13 +67,6 @@ class DcliBridge {
 
   /// Returns the import block for scripts.
   static String getImportBlock() {
-    return '''import 'dart:async';
-import 'dart:io';
-import 'dart:convert';
-import 'dart:math';
-import 'dart:collection';
-import 'dart:typed_data';
-import 'package:dcli/dcli.dart';
-''';
+    return "import 'package:dcli/dcli.dart';\n";
   }
 }

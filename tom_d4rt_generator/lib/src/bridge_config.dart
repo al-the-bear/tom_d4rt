@@ -98,6 +98,16 @@ class ModuleConfig {
   /// 
   /// Example: `['prettyJson', 'mergeMapsOneSided']`
   final List<String> importHideClause;
+  
+  /// Whether to generate bridges for deprecated elements.
+  /// 
+  /// When false (default), classes, methods, functions, and variables
+  /// marked with @deprecated or @Deprecated() are skipped during generation.
+  /// A summary of skipped elements is printed at the end of generation.
+  /// 
+  /// When true, deprecated elements are included in the generated bridges.
+  /// The generated file will include `deprecated_member_use` in ignore_for_file.
+  final bool generateDeprecatedElements;
 
   const ModuleConfig({
     required this.name,
@@ -115,6 +125,7 @@ class ModuleConfig {
     this.followReExports = const [],
     this.importShowClause = const [],
     this.importHideClause = const [],
+    this.generateDeprecatedElements = false,
   });
 
   factory ModuleConfig.fromJson(Map<String, dynamic> json) {
@@ -134,6 +145,7 @@ class ModuleConfig {
       followReExports: (json['followReExports'] as List?)?.cast<String>() ?? [],
       importShowClause: (json['importShowClause'] as List?)?.cast<String>() ?? [],
       importHideClause: (json['importHideClause'] as List?)?.cast<String>() ?? [],
+      generateDeprecatedElements: json['generateDeprecatedElements'] as bool? ?? false,
     );
   }
 
@@ -154,6 +166,38 @@ class ModuleConfig {
       if (followReExports.isNotEmpty) 'followReExports': followReExports,
       if (importShowClause.isNotEmpty) 'importShowClause': importShowClause,
       if (importHideClause.isNotEmpty) 'importHideClause': importHideClause,
+      if (generateDeprecatedElements) 'generateDeprecatedElements': generateDeprecatedElements,
+    };
+  }
+}
+
+/// Configuration for an imported bridge package.
+/// 
+/// This allows the generated dartscript.dart to import and call registration
+/// methods from external bridge packages.
+class ImportedBridgeConfig {
+  /// The import path for the bridge package (e.g., 'package:tom_d4rt_dcli/dartscript.dart').
+  final String import;
+  
+  /// The registration class name (e.g., 'TomD4rtDcliBridge').
+  final String className;
+  
+  const ImportedBridgeConfig({
+    required this.import,
+    required this.className,
+  });
+  
+  factory ImportedBridgeConfig.fromJson(Map<String, dynamic> json) {
+    return ImportedBridgeConfig(
+      import: json['import'] as String,
+      className: json['class'] as String,
+    );
+  }
+  
+  Map<String, dynamic> toJson() {
+    return {
+      'import': import,
+      'class': className,
     };
   }
 }
@@ -176,6 +220,20 @@ class BridgeConfig {
   /// The per-barrel bridge files will then delegate to these per-package files,
   /// eliminating duplicate code when the same package is re-exported by multiple barrels.
   final String? libraryPath;
+  
+  /// List of external bridge packages to import and register.
+  /// 
+  /// When specified, the generated dartscript.dart will import these packages
+  /// and call their register() method before registering the local modules.
+  /// This allows inheriting bridges from dependency packages.
+  /// 
+  /// Example in build.yaml:
+  /// ```yaml
+  /// importedBridges:
+  ///   - import: package:tom_d4rt_dcli/dartscript.dart
+  ///     class: TomD4rtDcliBridge
+  /// ```
+  final List<ImportedBridgeConfig> importedBridges;
 
   const BridgeConfig({
     required this.name,
@@ -187,6 +245,7 @@ class BridgeConfig {
     this.dartscriptPath,
     this.registrationClass,
     this.libraryPath,
+    this.importedBridges = const [],
   });
 
   factory BridgeConfig.fromJson(Map<String, dynamic> json) {
@@ -202,6 +261,10 @@ class BridgeConfig {
       dartscriptPath: json['dartscriptPath'] as String?,
       registrationClass: json['registrationClass'] as String?,
       libraryPath: json['libraryPath'] as String?,
+      importedBridges: (json['importedBridges'] as List?)
+              ?.map((m) => ImportedBridgeConfig.fromJson(m as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
   }
 
@@ -246,6 +309,8 @@ class BridgeConfig {
       if (dartscriptPath != null) 'dartscriptPath': dartscriptPath,
       if (registrationClass != null) 'registrationClass': registrationClass,
       if (libraryPath != null) 'libraryPath': libraryPath,
+      if (importedBridges.isNotEmpty)
+        'importedBridges': importedBridges.map((b) => b.toJson()).toList(),
     };
   }
 
@@ -260,6 +325,7 @@ class BridgeConfig {
     String? dartscriptPath,
     String? registrationClass,
     String? libraryPath,
+    List<ImportedBridgeConfig>? importedBridges,
   }) {
     return BridgeConfig(
       name: name ?? this.name,
@@ -271,6 +337,7 @@ class BridgeConfig {
       dartscriptPath: dartscriptPath ?? this.dartscriptPath,
       registrationClass: registrationClass ?? this.registrationClass,
       libraryPath: libraryPath ?? this.libraryPath,
+      importedBridges: importedBridges ?? this.importedBridges,
     );
   }
 }

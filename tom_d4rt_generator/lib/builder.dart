@@ -223,10 +223,20 @@ class BridgesTrigger {
     final registrationClass = cfg.registrationClass ?? '${cfg.name}Bridges';
     final buffer = StringBuffer();
 
+    buffer.writeln('// D4rt Bridge - Generated file, do not edit');
+    buffer.writeln('// Dartscript registration for ${cfg.name}');
+    buffer.writeln('// Generated: ${DateTime.now().toIso8601String()}');
+    buffer.writeln();
     buffer.writeln('/// D4rt Bridge Registration for ${cfg.name}');
     buffer.writeln('library;');
     buffer.writeln();
     buffer.writeln("import 'package:tom_d4rt/d4rt.dart';");
+
+    // Import external bridge packages
+    for (var i = 0; i < cfg.importedBridges.length; i++) {
+      final imported = cfg.importedBridges[i];
+      buffer.writeln("import '${imported.import}' as imported_$i;");
+    }
 
     for (final module in cfg.modules) {
       final relativePath = module.outputPath.startsWith('lib/')
@@ -241,6 +251,18 @@ class BridgesTrigger {
     buffer.writeln('  /// Register all bridges with D4rt interpreter.');
     buffer.writeln('  static void register([D4rt? interpreter]) {');
     buffer.writeln('    final d4rt = interpreter ?? D4rt();');
+    buffer.writeln();
+    
+    // Register imported bridges first
+    if (cfg.importedBridges.isNotEmpty) {
+      buffer.writeln('    // Register imported bridges');
+      for (var i = 0; i < cfg.importedBridges.length; i++) {
+        final imported = cfg.importedBridges[i];
+        buffer.writeln('    imported_$i.${imported.className}.register(d4rt);');
+      }
+      buffer.writeln();
+      buffer.writeln('    // Register local bridges');
+    }
 
     for (final module in cfg.modules) {
       // Use toPascalCase for consistent class naming with bridge generator
@@ -259,6 +281,13 @@ class BridgesTrigger {
     buffer.writeln('  /// Get import block for all modules.');
     buffer.writeln('  static String getImportBlock() {');
     buffer.writeln('    final buffer = StringBuffer();');
+    
+    // Get import blocks from imported bridges first
+    for (var i = 0; i < cfg.importedBridges.length; i++) {
+      final imported = cfg.importedBridges[i];
+      buffer.writeln(
+          '    buffer.writeln(imported_$i.${imported.className}.getImportBlock());');
+    }
 
     for (final module in cfg.modules) {
       // Use toPascalCase for consistent class naming with bridge generator

@@ -166,10 +166,20 @@ Future<void> _generateDartscriptFile(String dartscriptPath, BridgeConfig config)
   final registrationClass = config.registrationClass ?? '${config.name}Bridges';
   final buffer = StringBuffer();
 
+  buffer.writeln('// D4rt Bridge - Generated file, do not edit');
+  buffer.writeln('// Dartscript registration for ${config.name}');
+  buffer.writeln('// Generated: ${DateTime.now().toIso8601String()}');
+  buffer.writeln();
   buffer.writeln('/// D4rt Bridge Registration for ${config.name}');
   buffer.writeln('library;');
   buffer.writeln();
   buffer.writeln("import 'package:tom_d4rt/d4rt.dart';");
+
+  // Import external bridge packages
+  for (var i = 0; i < config.importedBridges.length; i++) {
+    final imported = config.importedBridges[i];
+    buffer.writeln("import '${imported.import}' as imported_$i;");
+  }
 
   for (final module in config.modules) {
     final relativePath = module.outputPath.startsWith('lib/')
@@ -184,6 +194,18 @@ Future<void> _generateDartscriptFile(String dartscriptPath, BridgeConfig config)
   buffer.writeln('  /// Register all bridges with D4rt interpreter.');
   buffer.writeln('  static void register([D4rt? interpreter]) {');
   buffer.writeln('    final d4rt = interpreter ?? D4rt();');
+  buffer.writeln();
+
+  // Register imported bridges first
+  if (config.importedBridges.isNotEmpty) {
+    buffer.writeln('    // Register imported bridges');
+    for (var i = 0; i < config.importedBridges.length; i++) {
+      final imported = config.importedBridges[i];
+      buffer.writeln('    imported_$i.${imported.className}.register(d4rt);');
+    }
+    buffer.writeln();
+    buffer.writeln('    // Register local bridges');
+  }
 
   for (final module in config.modules) {
     // Convert module name to PascalCase for class name (e.g., "tom_core_kernel" -> "TomCoreKernel")
@@ -201,6 +223,13 @@ Future<void> _generateDartscriptFile(String dartscriptPath, BridgeConfig config)
   buffer.writeln('  /// Get import block for all modules.');
   buffer.writeln('  static String getImportBlock() {');
   buffer.writeln('    final buffer = StringBuffer();');
+
+  // Get import blocks from imported bridges first
+  for (var i = 0; i < config.importedBridges.length; i++) {
+    final imported = config.importedBridges[i];
+    buffer.writeln(
+        '    buffer.writeln(imported_$i.${imported.className}.getImportBlock());');
+  }
 
   for (final module in config.modules) {
     final capitalizedName = toPascalCase(module.name);

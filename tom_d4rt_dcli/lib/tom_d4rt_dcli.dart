@@ -34,7 +34,8 @@ class DcliRepl extends D4rtReplBase {
   
   @override
   String getImportBlock() {
-    return TomD4rtDcliBridge.getImportBlock();
+    // Prepend stdlib imports (available via D4rt's built-in stdlib bridges)
+    return getStdlibImports() + TomD4rtDcliBridge.getImportBlock();
   }
   
   @override

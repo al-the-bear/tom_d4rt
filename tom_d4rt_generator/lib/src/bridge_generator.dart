@@ -705,6 +705,14 @@ class BridgeGenerator {
   /// Format: package names without 'package:' prefix (e.g., ['tom_core_kernel', 'tom_core_server'])
   List<String> followPackages = [];
 
+  /// Whether to generate bridging code for deprecated elements.
+  /// When false (default), deprecated elements are skipped and counted.
+  /// Set this before calling generate methods if needed.
+  bool generateDeprecatedElements = false;
+  
+  /// Counter for skipped deprecated elements (for reporting).
+  int skippedDeprecatedCount = 0;
+
   /// User bridge scanner for detecting UserBridge override classes.
   /// Can be injected externally to share user bridge data across generators.
   late final UserBridgeScanner _userBridgeScanner;
@@ -2379,12 +2387,17 @@ class BridgeGenerator {
         }
 
         // Use the resolved visitor to extract classes with type URIs
-        final visitor = _ResolvedClassVisitor(skipPrivate: skipPrivate);
+        final visitor = _ResolvedClassVisitor(
+          skipPrivate: skipPrivate,
+          generateDeprecatedElements: generateDeprecatedElements,
+        );
         for (final unit in result.units) {
           visitor.setSourceFile(unit.path);
           unit.unit.visitChildren(visitor);
         }
         
+        // Accumulate skipped deprecated count
+        skippedDeprecatedCount += visitor.skippedDeprecatedCount;
         // Copy collected typedef expansions to the generator
         _typedefExpansions.addAll(visitor.typedefExpansions);
 
@@ -2419,8 +2432,14 @@ class BridgeGenerator {
     // Scan for user bridges in syntactic parsing fallback
     _userBridgeScanner.scanUnit(parseResult.unit, filePath);
 
-    final visitor = _ClassVisitor(skipPrivate: skipPrivate);
+    final visitor = _ClassVisitor(
+      skipPrivate: skipPrivate,
+      generateDeprecatedElements: generateDeprecatedElements,
+    );
     parseResult.unit.visitChildren(visitor);
+    
+    // Accumulate skipped deprecated count
+    skippedDeprecatedCount += visitor.skippedDeprecatedCount;
 
     return visitor.classes
         .map(
@@ -2467,7 +2486,10 @@ class BridgeGenerator {
           // Collect imports from this file for auxiliary type resolution
           _collectSourceFileImports(result, normalizedPath);
           
-          final visitor = _ResolvedClassVisitor(skipPrivate: skipPrivate);
+          final visitor = _ResolvedClassVisitor(
+            skipPrivate: skipPrivate,
+            generateDeprecatedElements: generateDeprecatedElements,
+          );
           for (final unit in result.units) {
             visitor.setSourceFile(unit.path);
             unit.unit.visitChildren(visitor);
@@ -2475,6 +2497,9 @@ class BridgeGenerator {
           functions.addAll(visitor.globalFunctions);
           variables.addAll(visitor.globalVariables);
           enums.addAll(visitor.enums);
+          
+          // Accumulate skipped deprecated count
+          skippedDeprecatedCount += visitor.skippedDeprecatedCount;
           
           // Copy collected typedef expansions to the generator
           _typedefExpansions.addAll(visitor.typedefExpansions);
@@ -2998,7 +3023,7 @@ class BridgeGenerator {
     buffer.writeln();
     
     // Suppress common linter warnings in generated code
-    buffer.writeln('// ignore_for_file: unused_import');
+    buffer.writeln('// ignore_for_file: unused_import, deprecated_member_use');
     buffer.writeln();
 
     // Imports
@@ -3505,7 +3530,7 @@ class BridgeGenerator {
             } else {
               // Optional positional with no default - use nullable type
               final nullableType = _makeNullable(resolvedType);
-              argDeclarations.add("        final $localName = positional.length > $positionalIndex ? positional[$positionalIndex] as $nullableType : null;");
+              argDeclarations.add("        final $localName = ${_lengthCheckGreaterThan('positional', positionalIndex)} ? positional[$positionalIndex] as $nullableType : null;");
               callArgs.add(localName);
             }
             positionalIndex++;
@@ -4821,7 +4846,7 @@ class BridgeGenerator {
 
       final coerceMethod = isNullable ? 'D4.coerceListOrNull' : 'D4.coerceList';
       if (param.isRequired) {
-        buffer.writeln("        if (positional.length <= $index) {");
+        buffer.writeln("        if (${_lengthCheckLessThanOrEqual('positional', index)}) {");
         buffer.writeln(
           "          throw ArgumentError('$contextName: Missing required argument \"${param.name}\" at position $index');",
         );
@@ -4843,7 +4868,7 @@ class BridgeGenerator {
             sourceFilePath: sourceFilePath,
           );
           buffer.writeln(
-            "        final $localName = positional.length > $index && positional[$index] != null",
+            "        final $localName = ${_lengthCheckGreaterThan('positional', index)} && positional[$index] != null",
           );
           buffer.writeln(
             "            ? $coerceMethod<$elementType>(positional[$index], '${param.name}')",
@@ -4855,7 +4880,7 @@ class BridgeGenerator {
           buffer.writeln(
             "        // TODO: Non-wrappable default: ${param.defaultValue}",
           );
-          buffer.writeln("        if (positional.length <= $index || positional[$index] == null) {");
+          buffer.writeln("        if (${_lengthCheckLessThanOrEqual('positional', index)} || positional[$index] == null) {");
           buffer.writeln(
             "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
           );
@@ -4867,14 +4892,14 @@ class BridgeGenerator {
       } else {
         // Optional positional param without default
         if (isNullable) {
-          buffer.writeln("        final $localName = positional.length > $index");
+          buffer.writeln("        final $localName = ${_lengthCheckGreaterThan('positional', index)}");
           buffer.writeln(
             "            ? D4.coerceListOrNull<$elementType>(positional[$index], '${param.name}')",
           );
           buffer.writeln("            : null;");
         } else {
           // Non-nullable optional List - use empty list as default
-          buffer.writeln("        final $localName = positional.length > $index");
+          buffer.writeln("        final $localName = ${_lengthCheckGreaterThan('positional', index)}");
           buffer.writeln(
             "            ? D4.coerceList<$elementType>(positional[$index], '${param.name}')",
           );
@@ -4894,7 +4919,7 @@ class BridgeGenerator {
       );
       final coerceMethod = isNullable ? 'D4.coerceMapOrNull' : 'D4.coerceMap';
       if (param.isRequired) {
-        buffer.writeln("        if (positional.length <= $index) {");;
+        buffer.writeln("        if (${_lengthCheckLessThanOrEqual('positional', index)}) {");;
         buffer.writeln(
           "          throw ArgumentError('$contextName: Missing required argument \"${param.name}\" at position $index');",
         );
@@ -4917,7 +4942,7 @@ class BridgeGenerator {
             sourceFilePath: sourceFilePath,
           );
           buffer.writeln(
-            "        final $localName = positional.length > $index && positional[$index] != null",
+            "        final $localName = ${_lengthCheckGreaterThan('positional', index)} && positional[$index] != null",
           );
           buffer.writeln(
             "            ? $coerceMethod<$keyType, $valueType>(positional[$index], '${param.name}')",
@@ -4929,7 +4954,7 @@ class BridgeGenerator {
           buffer.writeln(
             "        // TODO: Non-wrappable default: ${param.defaultValue}",
           );
-          buffer.writeln("        if (positional.length <= $index || positional[$index] == null) {");
+          buffer.writeln("        if (${_lengthCheckLessThanOrEqual('positional', index)} || positional[$index] == null) {");
           buffer.writeln(
             "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
           );
@@ -4941,14 +4966,14 @@ class BridgeGenerator {
       } else {
         // Optional positional param without default
         if (isNullable) {
-          buffer.writeln("        final $localName = positional.length > $index");
+          buffer.writeln("        final $localName = ${_lengthCheckGreaterThan('positional', index)}");
           buffer.writeln(
             "            ? D4.coerceMapOrNull<$keyType, $valueType>(positional[$index], '${param.name}')",
           );
           buffer.writeln("            : null;");
         } else {
           // Non-nullable optional Map - use empty map as default
-          buffer.writeln("        final $localName = positional.length > $index");
+          buffer.writeln("        final $localName = ${_lengthCheckGreaterThan('positional', index)}");
           buffer.writeln(
             "            ? D4.coerceMap<$keyType, $valueType>(positional[$index], '${param.name}')",
           );
@@ -4981,7 +5006,7 @@ class BridgeGenerator {
       // Use camelCase suffix to satisfy non_constant_identifier_names lint
       final rawVarName = '${localName}Raw';
       if (param.isRequired) {
-        buffer.writeln("        if (positional.length <= $index) {");
+        buffer.writeln("        if (${_lengthCheckLessThanOrEqual('positional', index)}) {");
         buffer.writeln(
           "          throw ArgumentError('$contextName: Missing required argument \"${param.name}\" at position $index');",
         );
@@ -4991,7 +5016,7 @@ class BridgeGenerator {
         );
       } else {
         buffer.writeln(
-          "        final $rawVarName = positional.length > $index ? positional[$index] : null;",
+          "        final $rawVarName = ${_lengthCheckGreaterThan('positional', index)} ? positional[$index] : null;",
         );
       }
       
@@ -6463,14 +6488,14 @@ class BridgeGenerator {
   /// Example output for `void Function(int, String)`:
   /// ```dart
   /// (int p0, String p1) {
-  ///   (callback as InterpretedFunction).call(visitor as InterpreterVisitor, [p0, p1]);
+  ///   (callback as InterpretedFunction).call(visitor, [p0, p1]);
   /// }
   /// ```
   ///
   /// Example output for `String Function(int)?`:
   /// ```dart
   /// callback == null ? null : (int p0) {
-  ///   return (callback as InterpretedFunction).call(visitor as InterpreterVisitor, [p0]) as String;
+  ///   return (callback as InterpretedFunction).call(visitor, [p0]) as String;
   /// }
   /// ```
   String _generateFunctionWrapper({
@@ -6531,11 +6556,13 @@ class BridgeGenerator {
     }
 
     // Build the call expression
+    // Note: The cast to InterpretedFunction is required because named args are Object?
+    // The ignore comment suppresses false positive unnecessary_cast warnings
     String callExpr;
     if (funcInfo.namedParamTypes.isEmpty) {
-      callExpr = '($callbackVarName as InterpretedFunction).call(visitor as InterpreterVisitor, $argsStr)';
+      callExpr = '($callbackVarName as InterpretedFunction).call(visitor, $argsStr)';
     } else {
-      callExpr = '($callbackVarName as InterpretedFunction).call(visitor as InterpreterVisitor, $argsStr, $namedArgsStr)';
+      callExpr = '($callbackVarName as InterpretedFunction).call(visitor, $argsStr, $namedArgsStr)';
     }
 
     // Build the wrapper body - prefix return type
@@ -6738,10 +6765,14 @@ class BridgeGenerator {
 /// allowing proper import generation in bridge files.
 class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
   final bool skipPrivate;
+  final bool generateDeprecatedElements;
   final List<_ParsedClass> classes = [];
   final List<GlobalFunctionInfo> globalFunctions = [];
   final List<GlobalVariableInfo> globalVariables = [];
   final List<EnumInfo> enums = [];
+  
+  /// Counter for skipped deprecated elements (for reporting).
+  int skippedDeprecatedCount = 0;
   
   /// Map of typedef names to their expanded function type signatures.
   /// Used to fall back to the definition when a typedef is not exported from the barrel.
@@ -6749,7 +6780,10 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
   
   String? currentSourceFile;
 
-  _ResolvedClassVisitor({this.skipPrivate = true});
+  _ResolvedClassVisitor({
+    this.skipPrivate = true,
+    this.generateDeprecatedElements = false,
+  });
 
   /// Sets the current source file for global element tracking.
   void setSourceFile(String path) {
@@ -6842,6 +6876,17 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     return false;
   }
 
+  /// Checks if a node has @deprecated or @Deprecated() annotation.
+  bool _hasDeprecatedAnnotation(AnnotatedNode node) {
+    for (final annotation in node.metadata) {
+      final name = annotation.name.name;
+      if (name == 'deprecated' || name == 'Deprecated') {
+        return true;
+      }
+    }
+    return false;
+  }
+
   @override
   void visitEnumDeclaration(EnumDeclaration node) {
     final enumName = node.name.lexeme;
@@ -6851,6 +6896,12 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
 
     // Skip enums marked as @visibleForTesting, @protected, or @internal
     if (_hasTestOnlyAnnotation(node)) return;
+
+    // Skip deprecated enums unless generateDeprecatedElements is enabled
+    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
+      skippedDeprecatedCount++;
+      return;
+    }
 
     // Collect enum value names
     final values = node.constants.map((c) => c.name.lexeme).toList();
@@ -6882,6 +6933,12 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
 
     // Skip functions marked as @visibleForTesting, @protected, or @internal
     if (_hasTestOnlyAnnotation(node)) return;
+
+    // Skip deprecated functions unless generateDeprecatedElements is enabled
+    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
+      skippedDeprecatedCount++;
+      return;
+    }
 
     // Handle top-level getters as global variables
     if (node.isGetter) {
@@ -6940,6 +6997,12 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     // Skip variables marked as @visibleForTesting, @protected, or @internal
     if (_hasTestOnlyAnnotation(node)) return;
 
+    // Skip deprecated variables unless generateDeprecatedElements is enabled
+    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
+      skippedDeprecatedCount++;
+      return;
+    }
+
     for (final variable in node.variables.variables) {
       final name = variable.name.lexeme;
 
@@ -6973,6 +7036,12 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
 
     // Skip classes marked as @visibleForTesting, @protected, or @internal
     if (_hasTestOnlyAnnotation(node)) return;
+
+    // Skip deprecated classes unless generateDeprecatedElements is enabled
+    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
+      skippedDeprecatedCount++;
+      return;
+    }
 
     final constructors = <ConstructorInfo>[];
     final members = <MemberInfo>[];
@@ -7522,9 +7591,16 @@ class _ParsedClass {
 /// AST visitor to extract class information (syntactic only, no type resolution).
 class _ClassVisitor extends RecursiveAstVisitor<void> {
   final bool skipPrivate;
+  final bool generateDeprecatedElements;
   final List<_ParsedClass> classes = [];
+  
+  /// Counter for skipped deprecated elements (for reporting).
+  int skippedDeprecatedCount = 0;
 
-  _ClassVisitor({this.skipPrivate = true});
+  _ClassVisitor({
+    this.skipPrivate = true,
+    this.generateDeprecatedElements = false,
+  });
 
   /// Checks if a node has @visibleForTesting, @protected, or @internal annotation.
   /// These members should not be bridged as they are not part of the public API.
@@ -7540,6 +7616,17 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
     return false;
   }
 
+  /// Checks if a node has @deprecated or @Deprecated() annotation.
+  bool _hasDeprecatedAnnotation(AnnotatedNode node) {
+    for (final annotation in node.metadata) {
+      final name = annotation.name.name;
+      if (name == 'deprecated' || name == 'Deprecated') {
+        return true;
+      }
+    }
+    return false;
+  }
+
   @override
   void visitClassDeclaration(ClassDeclaration node) {
     final className = node.name.lexeme;
@@ -7549,6 +7636,12 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
 
     // Skip classes marked as @visibleForTesting, @protected, or @internal
     if (_hasTestOnlyAnnotation(node)) return;
+
+    // Skip deprecated classes unless generateDeprecatedElements is enabled
+    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
+      skippedDeprecatedCount++;
+      return;
+    }
 
     final constructors = <ConstructorInfo>[];
     final members = <MemberInfo>[];
@@ -7763,4 +7856,30 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
 
     return results;
   }
+}
+
+// =============================================================================
+// CODE GENERATION UTILITIES
+// =============================================================================
+
+/// Generates a length check expression that uses isEmpty/isNotEmpty where appropriate.
+/// 
+/// For index 0, generates `collection.isEmpty` instead of `collection.length <= 0`
+/// to satisfy the prefer_is_empty lint rule.
+String _lengthCheckLessThanOrEqual(String collection, int index) {
+  if (index == 0) {
+    return '$collection.isEmpty';
+  }
+  return '$collection.length <= $index';
+}
+
+/// Generates a length check expression that uses isEmpty/isNotEmpty where appropriate.
+/// 
+/// For index 0, generates `collection.isNotEmpty` instead of `collection.length > 0`
+/// to satisfy the prefer_is_empty lint rule.
+String _lengthCheckGreaterThan(String collection, int index) {
+  if (index == 0) {
+    return '$collection.isNotEmpty';
+  }
+  return '$collection.length > $index';
 }

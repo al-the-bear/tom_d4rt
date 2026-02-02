@@ -30,12 +30,17 @@ class PackageInfo {
   /// Map of source file -> barrel file URI that exports it.
   /// Multiple source files may be exported by different barrel files.
   final Map<String, String> sourceFileToBarrel;
+  
+  /// Whether to generate bridging code for deprecated elements.
+  /// If any contributing module has this enabled, it will be true.
+  bool generateDeprecatedElements;
 
   PackageInfo({
     required this.packageName,
     required this.sourceFiles,
     required this.exportInfo,
     Map<String, String>? sourceFileToBarrel,
+    this.generateDeprecatedElements = false,
   }) : sourceFileToBarrel = sourceFileToBarrel ?? {};
   
   /// Returns all unique barrel file URIs that export classes in this package.
@@ -98,6 +103,9 @@ class PerPackageBridgeOrchestrator {
   final Set<String> _globalExcludeFunctions = {};
   final Set<String> _globalExcludeVariables = {};
   final Set<String> _globalExcludeSourcePatterns = {};
+  
+  /// Counter for deprecated elements skipped during generation.
+  int skippedDeprecatedCount = 0;
 
   PerPackageBridgeOrchestrator({
     required this.config,
@@ -240,6 +248,11 @@ class PerPackageBridgeOrchestrator {
         _packageInfoMap[pkgName]!.sourceFiles.add(sourceFile);
         _packageInfoMap[pkgName]!.exportInfo[sourceFile] = allExports[sourceFile]!;
         
+        // If any module enables deprecated generation, enable it for the package
+        if (module.generateDeprecatedElements) {
+          _packageInfoMap[pkgName]!.generateDeprecatedElements = true;
+        }
+        
         // Track which barrel this source file came from
         // Prefer barrels from the same package as the source file (not re-exporting packages)
         if (sourceFileToBarrel.containsKey(sourceFile)) {
@@ -306,6 +319,9 @@ class PerPackageBridgeOrchestrator {
         helpersImport: config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
         userBridgeScanner: _userBridgeScanner,
       );
+      
+      // Set per-package option for deprecated element generation
+      generator.generateDeprecatedElements = pkgInfo.generateDeprecatedElements;
 
       // Generate bridges for this package's source files
       // Apply global exclusions collected from all modules
@@ -320,6 +336,9 @@ class PerPackageBridgeOrchestrator {
         excludeVariables: _globalExcludeVariables.toList(),
         excludeSourcePatterns: _globalExcludeSourcePatterns.toList(),
       );
+      
+      // Accumulate skipped deprecated count
+      skippedDeprecatedCount += generator.skippedDeprecatedCount;
 
       // Only include packages that have actual content
       final hasContent = result.classesGenerated > 0 ||
@@ -328,6 +347,14 @@ class PerPackageBridgeOrchestrator {
       if (hasContent) {
         generatedFiles[pkgName] = outputPath;
       }
+    }
+    
+    // Report skipped deprecated elements if any
+    if (skippedDeprecatedCount > 0) {
+      onWarning?.call(
+        'Generation of bridging code for deprecated elements is not enabled. '
+        '$skippedDeprecatedCount element${skippedDeprecatedCount == 1 ? '' : 's'} skipped.',
+      );
     }
 
     return generatedFiles;
@@ -358,7 +385,7 @@ class PerPackageBridgeOrchestrator {
     buffer.writeln('// Delegating barrel for ${mapping.moduleName}');
     buffer.writeln('// Generated: ${DateTime.now().toIso8601String()}');
     buffer.writeln();
-    buffer.writeln('// ignore_for_file: unused_import');
+    buffer.writeln('// ignore_for_file: unused_import, deprecated_member_use');
     buffer.writeln();
     buffer.writeln("import 'package:tom_d4rt/d4rt.dart';");
     buffer.writeln("import 'package:tom_d4rt/tom_d4rt.dart';");
