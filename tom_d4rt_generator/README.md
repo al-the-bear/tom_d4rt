@@ -2,7 +2,16 @@
 
 D4rt bridge generator for creating BridgedClass implementations from Dart source code.
 
-This tool analyzes Dart source files and automatically generates bridge classes that make Dart APIs accessible to D4rt scripts.
+This tool analyzes Dart source files and automatically generates bridge classes that make Dart APIs accessible to D4rt scripts. Supports per-package generation, automatic deduplication, and cross-package bridging.
+
+## Features
+
+- **Per-package generation**: Generate separate bridge files for each package
+- **Automatic deduplication**: Prevents duplicate registrations across packages using `sourceUri` tracking
+- **Cross-package support**: Reference types from other packages in your bridges
+- **Show/hide filtering**: Control which enums, functions, and variables are bridged
+- **Callback wrapping**: Automatic handling of function-type parameters
+- **UserBridge overrides**: Customize generated bridges with override classes
 
 ## Installation
 
@@ -10,7 +19,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
-  tom_d4rt_generator: ^1.0.0
+  tom_d4rt_generator: ^1.3.0
 ```
 
 ## Usage

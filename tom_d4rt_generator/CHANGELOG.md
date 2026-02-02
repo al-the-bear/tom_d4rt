@@ -1,3 +1,31 @@
+## 1.3.0
+
+### Features
+- **Per-package bridge generation**: Generate separate bridge files per package to improve code organization and enable deduplication
+- **Cross-package support**: Package URI support for generating bridges that reference types from other packages
+- **Bridge deduplication**: Automatic deduplication for enums, variables, and global functions with `sourceUri` tracking
+- **Element-aware exclusions**: Exclude specific elements by source file pattern
+- **Show/hide filtering**: Filter enums, functions, and variables with show/hide lists
+- **Callback wrapping**: Automatic wrapping of function-type parameters for proper bridge integration
+- **Improved dartscript generation**: Generated file headers and stdlib imports in dartscript output
+
+### Bug Fixes
+- Fixed type erasure for complex generic types
+- Fixed dartscript.dart generation for cross-package scenarios
+- Fixed unwrappable defaults using combinatorial dispatch
+- Fixed typedef callback wrapping
+- Fixed auxiliary import resolution for complex dependency graphs
+- Fixed Windows filename compatibility (renamed files with invalid characters)
+
+### Breaking Changes
+- Per-package generation is now the default behavior
+- Generator output structure may differ from 1.2.x for multi-package projects
+
+### Internal
+- Consolidated duplicated file generation code into file_generators.dart
+- Improved error aggregation for bridge registration failures
+- Refactored type resolution for better accuracy
+
 ## 1.2.0
 
 ### Features

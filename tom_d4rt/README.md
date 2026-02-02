@@ -1,7 +1,9 @@
-# d4rt
+# tom_d4rt
 
-**d4rt** (pronounced "dart") is an interpreter and runtime for the Dart language, written in Dart.  
+**tom_d4rt** (pronounced "dart") is an interpreter and runtime for the Dart language, written in Dart.  
 It allows you to execute Dart code dynamically, bridge native classes, and build advanced scripting or plugin systems in your Dart/Flutter applications.
+
+This is an extended fork of [D4rt](https://github.com/kodjodevf/d4rt) with additional features for bridging, deduplication, and file-based script execution.
 
 ---
 
@@ -11,6 +13,7 @@ It allows you to execute Dart code dynamically, bridge native classes, and build
 - **Full generics support**: Complete support for generic classes, functions, and type constraints with runtime validation.
 - **Type bounds checking**: Enforce generic type constraints (e.g., `T extends num`) with dynamic resolution.
 - **Bridging system**: Expose your own Dart/Flutter classes, enums, and methods to interpreted code.
+- **Bridge deduplication**: Automatic deduplication of bridge registrations across multiple packages.
 - **Async/await support**: Handle asynchronous code and Futures.
 - **Class, enum, and extension support**: Use most Dart language features, including classes, inheritance, mixins, enums, and extensions.
 - **Pattern matching**: Support for Dart's pattern matching in switch/case and assignments.
@@ -20,6 +23,7 @@ It allows you to execute Dart code dynamically, bridge native classes, and build
 - **Function argument passing**: Pass positional and named arguments directly to functions via `execute()`.
 - **Code introspection**: Analyze Dart code structure with the `analyze()` method to extract metadata.
 - **Dynamic code evaluation**: Execute code dynamically with `eval()` while preserving execution state.
+- **File-based script execution**: Execute scripts from files with automatic import resolution.
 - **Extensible**: Add your own bridges for custom types and native APIs.
 
 ---
@@ -30,7 +34,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  d4rt: # latest version
+  tom_d4rt: ^1.5.0
 ```
 
 Then run:

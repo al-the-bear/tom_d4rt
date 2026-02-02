@@ -1,3 +1,19 @@
+## 1.5.0
+
+### Features
+- **Script execution module**: New `ScriptExecutionResult` and file-based script execution with automatic import resolution
+- **Bridge deduplication**: Complete deduplication system with `sourceUri` tracking to prevent duplicate registrations across packages
+- **D4rtConfiguration enhancement**: Added library info support for better multi-package configurations
+- **Unary operator fix**: Fixed unary operators (e.g., `-x`) on bridged instances
+
+### Bug Fixes
+- Fixed typedef callback wrapping in bridge registration
+- Fixed type resolution for bridges with complex generics
+
+### Internal
+- Added shared script_execution module for D4rt-based CLI tools
+- Improved error aggregation for bridge registration failures
+
 ## 1.4.0
 
 ### Features
