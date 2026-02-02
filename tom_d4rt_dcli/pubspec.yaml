@@ -26,3 +26,7 @@ dev_dependencies:
   test: ^1.25.6
   tom_d4rt_generator:
     path: ../tom_d4rt_generator
+
+dependency_overrides:
+  runtime_native_semaphores:
+    path: ../../named_semaphores
