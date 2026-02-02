@@ -2,9 +2,6 @@
 ///
 /// Scans source files for user bridge classes (extending D4UserBridge)
 /// and extracts override information for the bridge generator.
-///
-/// User bridges must be annotated with `@D4rtUserBridge(libraryPath)` or
-/// `@D4rtGlobalsUserBridge(libraryPath)` to be recognized.
 library;
 
 import 'package:analyzer/dart/ast/ast.dart';
@@ -12,17 +9,10 @@ import 'package:analyzer/dart/ast/visitor.dart';
 
 /// Information about a user bridge class and its overrides.
 class UserBridgeInfo {
-  /// The library path this bridge overrides (from @D4rtUserBridge annotation).
-  ///
-  /// Format: `package:package_name/path/to/file.dart`
-  final String libraryPath;
+  /// The name of the target class (e.g., "MyList" from "MyListUserBridge").
+  final String targetClassName;
 
-  /// Optional: The specific class name to override.
-  ///
-  /// If null, overrides apply to any class matching the naming convention.
-  final String? targetClassName;
-
-  /// The name of the user bridge class (e.g., "MyCollectionUserBridge").
+  /// The name of the user bridge class (e.g., "MyListUserBridge").
   final String userBridgeClassName;
 
   /// The source file containing the user bridge.
@@ -61,8 +51,7 @@ class UserBridgeInfo {
   final bool hasNativeNames;
 
   UserBridgeInfo({
-    required this.libraryPath,
-    this.targetClassName,
+    required this.targetClassName,
     required this.userBridgeClassName,
     required this.sourceFile,
     this.constructorOverrides = const {},
@@ -114,7 +103,7 @@ class UserBridgeInfo {
 
   @override
   String toString() =>
-      'UserBridgeInfo($userBridgeClassName for $libraryPath${targetClassName != null ? '::$targetClassName' : ''})';
+      'UserBridgeInfo($targetClassName <- $userBridgeClassName)';
 }
 
 /// Information about global overrides from a GlobalsUserBridge class.
@@ -122,12 +111,7 @@ class UserBridgeInfo {
 /// This class holds override information for top-level functions, variables,
 /// and getters that are not associated with any class.
 class GlobalsUserBridgeInfo {
-  /// The library path this bridge overrides (from @D4rtGlobalsUserBridge).
-  ///
-  /// Format: `package:package_name/path/to/file.dart`
-  final String libraryPath;
-
-  /// The name of the globals user bridge class.
+  /// The name of the globals user bridge class (e.g., "GlobalsUserBridge").
   final String userBridgeClassName;
 
   /// The source file containing the user bridge.
@@ -146,7 +130,6 @@ class GlobalsUserBridgeInfo {
   final Map<String, String> globalFunctionOverrides;
 
   GlobalsUserBridgeInfo({
-    required this.libraryPath,
     required this.userBridgeClassName,
     required this.sourceFile,
     this.globalVariableOverrides = const {},
@@ -172,66 +155,31 @@ class GlobalsUserBridgeInfo {
       globalFunctionOverrides[name];
 
   @override
-  String toString() =>
-      'GlobalsUserBridgeInfo($userBridgeClassName for $libraryPath)';
+  String toString() => 'GlobalsUserBridgeInfo($userBridgeClassName)';
 }
 
-/// Callback for emitting warnings during scanning.
-typedef WarningCallback = void Function(String message);
-
 /// Scans source files for user bridge classes.
-///
-/// User bridges must be annotated with `@D4rtUserBridge(libraryPath)` or
-/// `@D4rtGlobalsUserBridge(libraryPath)` to be recognized. Classes extending
-/// D4UserBridge without the annotation will emit a warning and be ignored.
 class UserBridgeScanner extends RecursiveAstVisitor<void> {
-  /// Map of (libraryPath, className) -> user bridge info.
-  ///
-  /// The key is a tuple of library path and optional class name.
-  /// If className is null, the bridge applies to any class from that library.
-  final Map<(String libraryPath, String? className), UserBridgeInfo>
-      _userBridges = {};
+  /// Map of target class name to user bridge info.
+  final Map<String, UserBridgeInfo> _userBridges = {};
 
   /// Set of class names that extend D4UserBridge (to exclude from generation).
   final Set<String> _d4UserBridgeClasses = {};
 
-  /// Globals user bridges by library path.
-  final Map<String, GlobalsUserBridgeInfo> _globalsUserBridges = {};
+  /// Globals user bridge info (for module-level overrides).
+  GlobalsUserBridgeInfo? _globalsUserBridge;
 
   /// Current source file being scanned.
   String _currentSourceFile = '';
 
-  /// Optional callback for emitting warnings.
-  WarningCallback? onWarning;
-
-  /// Creates a new UserBridgeScanner.
-  ///
-  /// [onWarning] is called when a D4UserBridge class is found without
-  /// the required annotation.
-  UserBridgeScanner({this.onWarning});
-
   /// Get all discovered user bridges.
-  Map<(String, String?), UserBridgeInfo> get userBridges =>
-      Map.unmodifiable(_userBridges);
+  Map<String, UserBridgeInfo> get userBridges => Map.unmodifiable(_userBridges);
 
   /// Get all class names that extend D4UserBridge.
   Set<String> get d4UserBridgeClasses => Set.unmodifiable(_d4UserBridgeClasses);
 
-  /// Get all globals user bridges.
-  Map<String, GlobalsUserBridgeInfo> get globalsUserBridges =>
-      Map.unmodifiable(_globalsUserBridges);
-
-  /// Get globals user bridge for a specific library, if available.
-  GlobalsUserBridgeInfo? getGlobalsUserBridgeFor(String libraryPath) {
-    return _globalsUserBridges[libraryPath];
-  }
-
-  /// Legacy getter for backward compatibility.
-  ///
-  /// Returns the first globals user bridge found, or null.
-  @Deprecated('Use getGlobalsUserBridgeFor(libraryPath) instead')
-  GlobalsUserBridgeInfo? get globalsUserBridge =>
-      _globalsUserBridges.isNotEmpty ? _globalsUserBridges.values.first : null;
+  /// Get globals user bridge info, if available.
+  GlobalsUserBridgeInfo? get globalsUserBridge => _globalsUserBridge;
 
   /// Scan a compilation unit for user bridge classes.
   void scanUnit(CompilationUnit unit, String sourceFile) {
@@ -239,37 +187,9 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
     unit.visitChildren(this);
   }
 
-  /// Get user bridge info for a specific library and class.
-  ///
-  /// First checks for exact match (libraryPath, className), then falls back
-  /// to library-only match (libraryPath, null).
-  UserBridgeInfo? getUserBridgeFor(String libraryPath, String className) {
-    // First try exact match with class name
-    final exactMatch = _userBridges[(libraryPath, className)];
-    if (exactMatch != null) return exactMatch;
-
-    // Fall back to library-only match
-    return _userBridges[(libraryPath, null)];
-  }
-
-  /// Get user bridge info by class name only (legacy behavior).
-  ///
-  /// Searches all bridges for one whose naming convention matches.
-  /// This is for backward compatibility with tests.
-  @Deprecated('Use getUserBridgeFor(libraryPath, className) instead')
-  UserBridgeInfo? getUserBridgeByClassName(String className) {
-    for (final info in _userBridges.values) {
-      // Check if naming convention matches
-      final expectedBridgeName = '${className}UserBridge';
-      if (info.userBridgeClassName == expectedBridgeName) {
-        return info;
-      }
-      // Also check explicit targetClassName
-      if (info.targetClassName == className) {
-        return info;
-      }
-    }
-    return null;
+  /// Get user bridge info for a target class, if available.
+  UserBridgeInfo? getUserBridgeFor(String className) {
+    return _userBridges[className];
   }
 
   /// Check if a class should be excluded (extends D4UserBridge).
@@ -285,90 +205,23 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
     if (_extendsD4UserBridge(node)) {
       _d4UserBridgeClasses.add(className);
 
-      // Try to extract annotation
-      final annotation = _extractD4rtUserBridgeAnnotation(node);
-      final globalsAnnotation = _extractD4rtGlobalsUserBridgeAnnotation(node);
-
-      if (annotation != null) {
-        // Has @D4rtUserBridge annotation - process it
-        final (libraryPath, targetClass) = annotation;
-        final info = _extractUserBridgeInfo(
-          node,
-          libraryPath,
-          targetClass,
-          className,
-        );
-        _userBridges[(libraryPath, targetClass)] = info;
-      } else if (globalsAnnotation != null) {
-        // Has @D4rtGlobalsUserBridge annotation - process it
-        final libraryPath = globalsAnnotation;
-        _globalsUserBridges[libraryPath] = _extractGlobalsUserBridgeInfo(
-          node,
-          libraryPath,
-          className,
-        );
-      } else {
-        // No annotation - emit warning
-        final warning =
-            'UserBridge $className has no @D4rtUserBridge or @D4rtGlobalsUserBridge annotation, ignoring';
-        onWarning?.call(warning);
+      // Check if it's a GlobalsUserBridge (for module-level overrides)
+      if (className == 'GlobalsUserBridge' ||
+          className.endsWith('GlobalsUserBridge')) {
+        _globalsUserBridge = _extractGlobalsUserBridgeInfo(node, className);
+      }
+      // Check if it follows the naming convention {ClassName}UserBridge
+      else if (className.endsWith('UserBridge')) {
+        final targetClassName =
+            className.substring(0, className.length - 'UserBridge'.length);
+        if (targetClassName.isNotEmpty) {
+          final info = _extractUserBridgeInfo(node, targetClassName, className);
+          _userBridges[targetClassName] = info;
+        }
       }
     }
 
     super.visitClassDeclaration(node);
-  }
-
-  /// Extract @D4rtUserBridge annotation from a class.
-  ///
-  /// Returns (libraryPath, className?) or null if not found.
-  (String, String?)? _extractD4rtUserBridgeAnnotation(ClassDeclaration node) {
-    for (final annotation in node.metadata) {
-      final name = annotation.name.name;
-      if (name == 'D4rtUserBridge') {
-        final arguments = annotation.arguments?.arguments;
-        if (arguments != null && arguments.isNotEmpty) {
-          // First argument: libraryPath (required)
-          final libraryArg = arguments.first;
-          String? libraryPath;
-          if (libraryArg is StringLiteral) {
-            libraryPath = libraryArg.stringValue;
-          }
-
-          if (libraryPath == null) continue;
-
-          // Second argument: className (optional)
-          String? targetClassName;
-          if (arguments.length > 1) {
-            final classArg = arguments[1];
-            if (classArg is StringLiteral) {
-              targetClassName = classArg.stringValue;
-            }
-          }
-
-          return (libraryPath, targetClassName);
-        }
-      }
-    }
-    return null;
-  }
-
-  /// Extract @D4rtGlobalsUserBridge annotation from a class.
-  ///
-  /// Returns libraryPath or null if not found.
-  String? _extractD4rtGlobalsUserBridgeAnnotation(ClassDeclaration node) {
-    for (final annotation in node.metadata) {
-      final name = annotation.name.name;
-      if (name == 'D4rtGlobalsUserBridge') {
-        final arguments = annotation.arguments?.arguments;
-        if (arguments != null && arguments.isNotEmpty) {
-          final libraryArg = arguments.first;
-          if (libraryArg is StringLiteral) {
-            return libraryArg.stringValue;
-          }
-        }
-      }
-    }
-    return null;
   }
 
   /// Check if a class extends D4UserBridge.
@@ -383,8 +236,7 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
   /// Extract override information from a user bridge class.
   UserBridgeInfo _extractUserBridgeInfo(
     ClassDeclaration node,
-    String libraryPath,
-    String? targetClassName,
+    String targetClassName,
     String userBridgeClassName,
   ) {
     final constructorOverrides = <String, String>{};
@@ -434,7 +286,6 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
     }
 
     return UserBridgeInfo(
-      libraryPath: libraryPath,
       targetClassName: targetClassName,
       userBridgeClassName: userBridgeClassName,
       sourceFile: _currentSourceFile,
@@ -453,7 +304,6 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
   /// Extract override information from a globals user bridge class.
   GlobalsUserBridgeInfo _extractGlobalsUserBridgeInfo(
     ClassDeclaration node,
-    String libraryPath,
     String userBridgeClassName,
   ) {
     final globalVariableOverrides = <String, String>{};
@@ -477,7 +327,6 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
     }
 
     return GlobalsUserBridgeInfo(
-      libraryPath: libraryPath,
       userBridgeClassName: userBridgeClassName,
       sourceFile: _currentSourceFile,
       globalVariableOverrides: globalVariableOverrides,
@@ -495,8 +344,7 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
   ) {
     // Global variables: overrideGlobalVariableName
     if (methodName.startsWith('overrideGlobalVariable')) {
-      final memberName =
-          _extractMemberName(methodName, 'overrideGlobalVariable');
+      final memberName = _extractMemberName(methodName, 'overrideGlobalVariable');
       if (memberName.isNotEmpty) {
         globalVariableOverrides[memberName] = methodName;
       }
@@ -514,8 +362,7 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
 
     // Global functions: overrideGlobalFunctionName
     if (methodName.startsWith('overrideGlobalFunction')) {
-      final memberName =
-          _extractMemberName(methodName, 'overrideGlobalFunction');
+      final memberName = _extractMemberName(methodName, 'overrideGlobalFunction');
       if (memberName.isNotEmpty) {
         globalFunctionOverrides[memberName] = methodName;
       }
@@ -542,8 +389,7 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
     }
     if (methodName.startsWith('overrideConstructor') &&
         methodName.length > 'overrideConstructor'.length) {
-      final constructorName =
-          _extractMemberName(methodName, 'overrideConstructor');
+      final constructorName = _extractMemberName(methodName, 'overrideConstructor');
       constructorOverrides[constructorName] = methodName;
       return;
     }

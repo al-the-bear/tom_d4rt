@@ -83,6 +83,15 @@ class BridgedClass implements RuntimeType {
   Map<String, BridgedInstanceGetterAdapter> getters = {};
   Map<String, BridgedInstanceSetterAdapter> setters = {};
 
+  // Signature strings for introspection
+  Map<String, String> constructorSignatures = {};
+  Map<String, String> methodSignatures = {};
+  Map<String, String> staticMethodSignatures = {};
+  Map<String, String> staticGetterSignatures = {};
+  Map<String, String> staticSetterSignatures = {};
+  Map<String, String> getterSignatures = {};
+  Map<String, String> setterSignatures = {};
+
   BridgedClass(
       {required this.nativeType,
       required this.name,
@@ -96,6 +105,13 @@ class BridgedClass implements RuntimeType {
       this.methods = const {},
       this.getters = const {},
       this.setters = const {},
+      this.constructorSignatures = const {},
+      this.methodSignatures = const {},
+      this.staticMethodSignatures = const {},
+      this.staticGetterSignatures = const {},
+      this.staticSetterSignatures = const {},
+      this.getterSignatures = const {},
+      this.setterSignatures = const {},
       this.isSubtypeOfFunc});
 
   @override

@@ -108,6 +108,7 @@ Future<GenerationResult> generateBridges({
         excludeEnums: module.excludeEnums,
         excludeFunctions: module.excludeFunctions,
         excludeVariables: module.excludeVariables,
+        excludeSourcePatterns: module.excludeSourcePatterns,
         importShowClause: module.importShowClause,
         importHideClause: module.importHideClause,
       );

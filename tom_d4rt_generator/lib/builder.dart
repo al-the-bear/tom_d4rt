@@ -102,9 +102,13 @@ class D4rtBridgeBuilder implements Builder {
         projectRoot: projectRoot,
         fileWriter: fileWriter,
         buildPackageName: packageName,
+        onWarning: (msg) => log.info('  $msg'),
       );
 
       log.info('  Per-package library path: $libraryPath');
+
+      // Phase 0: Scan for user bridge files in build package
+      await orchestrator.scanUserBridges();
 
       // Phase 1: Collect package info from all modules
       await orchestrator.collectPackageInfo();
@@ -145,6 +149,36 @@ class D4rtBridgeBuilder implements Builder {
         );
         outputFiles.add(config!.dartscriptPath!);
       }
+
+      // Write a trigger file to the source tree that can be deleted to force regeneration
+      // This is necessary because build_runner doesn't detect changes in external packages
+      final triggerPath = '$libraryPath/bridges_trigger.g.dart';
+      final triggerContent = '''
+// GENERATED FILE - DO NOT EDIT
+// This file triggers bridge regeneration when deleted before build_runner.
+// Delete this file to force all bridges to be regenerated.
+// Generated: ${DateTime.now().toIso8601String()}
+
+/// Marker class for bridge regeneration trigger.
+/// 
+/// Delete this file to force bridge regeneration when source packages
+/// (like tom_vscode_scripting_api) have changed but build_runner doesn't
+/// detect the changes because they're external dependencies.
+class BridgesTrigger {
+  BridgesTrigger._();
+  
+  /// Last bridge build timestamp.
+  static const String lastBuildTime = '${DateTime.now().toIso8601String()}';
+  
+  /// Number of modules generated.
+  static const int moduleCount = ${config!.modules.length};
+}
+''';
+      await fileWriter.writeFile(
+        FileId(packageName, triggerPath),
+        triggerContent,
+      );
+      outputFiles.add(triggerPath);
 
       // Write a marker file to track that generation completed
       final markerContent = '''

@@ -1,0 +1,4 @@
+# Override to use local tom_d4rt during development
+dependency_overrides:
+  tom_d4rt:
+    path: ../tom_d4rt

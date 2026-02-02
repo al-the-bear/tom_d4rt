@@ -1,7 +1,7 @@
 /// Tests for UserBridge override system.
 ///
 /// Verifies that:
-/// - UserBridgeScanner detects classes extending D4UserBridge
+/// - UserBridgeScanner detects classes extending D4UserBridge with @D4rtUserBridge annotation
 /// - Static override methods are correctly identified
 /// - Classes extending D4UserBridge are excluded from generation
 /// - Generated bridges use static override methods
@@ -12,6 +12,12 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
+
+/// Library path used in the test fixture's @D4rtUserBridge annotation.
+const testLibraryPath = 'package:test_package/user_bridge_test_source.dart';
+
+/// Library path used in the GlobalsUserBridge fixture's @D4rtGlobalsUserBridge annotation.
+const globalsLibraryPath = 'package:test_package/global_test_source.dart';
 
 void main() {
   late String testFixturesDir;
@@ -67,25 +73,26 @@ void main() {
       );
     });
 
-    test('identifies target class from naming convention', () {
-      // Should map MyCollectionUserBridge to target class MyCollection
+    test('identifies target class from annotation', () {
+      // Should map MyCollectionUserBridge to target class MyCollection via @D4rtUserBridge
       final userBridge =
-          generator.userBridgeScanner.getUserBridgeFor('MyCollection');
+          generator.userBridgeScanner.getUserBridgeFor(testLibraryPath, 'MyCollection');
       expect(userBridge, isNotNull);
       expect(userBridge!.targetClassName, equals('MyCollection'));
+      expect(userBridge.libraryPath, equals(testLibraryPath));
       expect(userBridge.userBridgeClassName, equals('MyCollectionUserBridge'));
     });
 
     test('detects static nativeNames getter', () {
       final userBridge =
-          generator.userBridgeScanner.getUserBridgeFor('MyCollection');
+          generator.userBridgeScanner.getUserBridgeFor(testLibraryPath, 'MyCollection');
       expect(userBridge, isNotNull);
       expect(userBridge!.hasNativeNames, isTrue);
     });
 
     test('detects static constructor override', () {
       final userBridge =
-          generator.userBridgeScanner.getUserBridgeFor('MyCollection');
+          generator.userBridgeScanner.getUserBridgeFor(testLibraryPath, 'MyCollection');
       expect(userBridge, isNotNull);
 
       // Default constructor override
@@ -95,7 +102,7 @@ void main() {
 
     test('detects static operator override', () {
       final userBridge =
-          generator.userBridgeScanner.getUserBridgeFor('MyCollection');
+          generator.userBridgeScanner.getUserBridgeFor(testLibraryPath, 'MyCollection');
       expect(userBridge, isNotNull);
 
       // operator[] override
@@ -105,7 +112,7 @@ void main() {
 
     test('detects static getter override', () {
       final userBridge =
-          generator.userBridgeScanner.getUserBridgeFor('MyCollection');
+          generator.userBridgeScanner.getUserBridgeFor(testLibraryPath, 'MyCollection');
       expect(userBridge, isNotNull);
 
       // length getter override
@@ -115,7 +122,7 @@ void main() {
 
     test('detects static method override', () {
       final userBridge =
-          generator.userBridgeScanner.getUserBridgeFor('MyCollection');
+          generator.userBridgeScanner.getUserBridgeFor(testLibraryPath, 'MyCollection');
       expect(userBridge, isNotNull);
 
       // add method override
@@ -125,7 +132,7 @@ void main() {
 
     test('detects static getter override for static member', () {
       final userBridge =
-          generator.userBridgeScanner.getUserBridgeFor('MyCollection');
+          generator.userBridgeScanner.getUserBridgeFor(testLibraryPath, 'MyCollection');
       expect(userBridge, isNotNull);
 
       // defaultCapacity static getter override
@@ -143,7 +150,7 @@ void main() {
 
       // Also no UserBridge info
       expect(
-        generator.userBridgeScanner.getUserBridgeFor('SimpleClass'),
+        generator.userBridgeScanner.getUserBridgeFor(testLibraryPath, 'SimpleClass'),
         isNull,
       );
     });
@@ -185,7 +192,7 @@ void main() {
     test('uses operator override from UserBridge', () {
       // Verify the override is detected
       final userBridge =
-          generator.userBridgeScanner.getUserBridgeFor('MyCollection');
+          generator.userBridgeScanner.getUserBridgeFor(testLibraryPath, 'MyCollection');
       expect(userBridge, isNotNull);
       expect(
         userBridge!.getOperatorOverride('[]'),
@@ -291,7 +298,8 @@ void main() {
 
     group('Scanner Detection', () {
       test('detects GlobalsUserBridge class', () {
-        final globalsInfo = generator.userBridgeScanner.globalsUserBridge;
+        final globalsInfo =
+            generator.userBridgeScanner.getGlobalsUserBridgeFor(globalsLibraryPath);
         expect(globalsInfo, isNotNull);
         expect(
             globalsInfo!.userBridgeClassName, equals('GlobalsUserBridge'));
@@ -306,7 +314,8 @@ void main() {
       });
 
       test('detects global variable overrides', () {
-        final globalsInfo = generator.userBridgeScanner.globalsUserBridge;
+        final globalsInfo =
+            generator.userBridgeScanner.getGlobalsUserBridgeFor(globalsLibraryPath);
         expect(globalsInfo, isNotNull);
         expect(
           globalsInfo!.globalVariableOverrides,
@@ -319,7 +328,8 @@ void main() {
       });
 
       test('detects global getter overrides', () {
-        final globalsInfo = generator.userBridgeScanner.globalsUserBridge;
+        final globalsInfo =
+            generator.userBridgeScanner.getGlobalsUserBridgeFor(globalsLibraryPath);
         expect(globalsInfo, isNotNull);
         expect(
           globalsInfo!.globalGetterOverrides,
@@ -332,7 +342,8 @@ void main() {
       });
 
       test('detects global function overrides', () {
-        final globalsInfo = generator.userBridgeScanner.globalsUserBridge;
+        final globalsInfo =
+            generator.userBridgeScanner.getGlobalsUserBridgeFor(globalsLibraryPath);
         expect(globalsInfo, isNotNull);
         expect(
           globalsInfo!.globalFunctionOverrides,
@@ -347,10 +358,17 @@ void main() {
 
     group('Code Generation with Overrides', () {
       test('uses override for global variable appName', () {
+        // The generated code includes importPath and sourceUri parameters
         expect(
           generatedCode,
           contains(
-            "interpreter.registerGlobalVariable('appName', GlobalsUserBridge.overrideGlobalVariableAppName())",
+            "GlobalsUserBridge.overrideGlobalVariableAppName()",
+          ),
+        );
+        expect(
+          generatedCode,
+          contains(
+            "interpreter.registerGlobalVariable('appName', GlobalsUserBridge.overrideGlobalVariableAppName(), importPath",
           ),
         );
       });
@@ -359,7 +377,13 @@ void main() {
         expect(
           generatedCode,
           contains(
-            "interpreter.registerGlobalVariable('maxRetries', GlobalsUserBridge.overrideGlobalVariableMaxRetries())",
+            "GlobalsUserBridge.overrideGlobalVariableMaxRetries()",
+          ),
+        );
+        expect(
+          generatedCode,
+          contains(
+            "interpreter.registerGlobalVariable('maxRetries', GlobalsUserBridge.overrideGlobalVariableMaxRetries(), importPath",
           ),
         );
       });
@@ -368,7 +392,13 @@ void main() {
         expect(
           generatedCode,
           contains(
-            "interpreter.registerGlobalGetter('currentTime', GlobalsUserBridge.overrideGlobalGetterCurrentTime())",
+            "GlobalsUserBridge.overrideGlobalGetterCurrentTime()",
+          ),
+        );
+        expect(
+          generatedCode,
+          contains(
+            "interpreter.registerGlobalGetter('currentTime', GlobalsUserBridge.overrideGlobalGetterCurrentTime(), importPath",
           ),
         );
       });
@@ -377,7 +407,13 @@ void main() {
         expect(
           generatedCode,
           contains(
-            "interpreter.registerGlobalGetter('globalService', GlobalsUserBridge.overrideGlobalGetterGlobalService())",
+            "GlobalsUserBridge.overrideGlobalGetterGlobalService()",
+          ),
+        );
+        expect(
+          generatedCode,
+          contains(
+            "interpreter.registerGlobalGetter('globalService', GlobalsUserBridge.overrideGlobalGetterGlobalService(), importPath",
           ),
         );
       });
@@ -398,17 +434,18 @@ void main() {
 
       test('non-overridden globals are generated normally', () {
         // Variable values are now prefixed with $pkg. since source imports use a prefix
+        // The generated code now includes importPath and sourceUri parameters
         // debugMode is not overridden
         expect(
           generatedCode,
           contains(
-              r"interpreter.registerGlobalVariable('debugMode', $pkg.debugMode)"),
+              r"interpreter.registerGlobalVariable('debugMode', $pkg.debugMode, importPath"),
         );
         // version is not overridden
         expect(
           generatedCode,
           contains(
-              r"interpreter.registerGlobalVariable('version', $pkg.version)"),
+              r"interpreter.registerGlobalVariable('version', $pkg.version, importPath"),
         );
         // resetState function is not overridden
         expect(

@@ -206,6 +206,7 @@ void main() {
           excludeEnums: ['InternalEnum'],
           excludeFunctions: ['debugHelper'],
           excludeVariables: ['_internalState'],
+          excludeSourcePatterns: ['package:dcli/src/shell/**', 'package:*/src/internal/*'],
           followReExports: ['tom_basics'],
         );
         
@@ -221,7 +222,31 @@ void main() {
         expect(restored.excludeEnums, equals(original.excludeEnums));
         expect(restored.excludeFunctions, equals(original.excludeFunctions));
         expect(restored.excludeVariables, equals(original.excludeVariables));
+        expect(restored.excludeSourcePatterns, equals(original.excludeSourcePatterns));
         expect(restored.followReExports, equals(original.followReExports));
+      });
+
+      test('excludeSourcePatterns serialization and deserialization', () {
+        final config = ModuleConfig(
+          name: 'source_pattern_test',
+          barrelFiles: ['lib/lib.dart'],
+          outputPath: 'lib/bridges.dart',
+          excludeSourcePatterns: [
+            'package:dcli/src/shell/**',
+            'package:*/src/internal/*',
+            'package:some_pkg/**',
+          ],
+        );
+        
+        final json = config.toJson();
+        expect(json['excludeSourcePatterns'], equals([
+          'package:dcli/src/shell/**',
+          'package:*/src/internal/*',
+          'package:some_pkg/**',
+        ]));
+        
+        final restored = ModuleConfig.fromJson(json);
+        expect(restored.excludeSourcePatterns, equals(config.excludeSourcePatterns));
       });
     });
   });

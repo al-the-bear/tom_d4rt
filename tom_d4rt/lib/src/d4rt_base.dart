@@ -58,8 +58,11 @@ class LibraryFunction {
   /// The canonical source URI where this function is defined.
   /// See [LibraryVariable.sourceUri] for details.
   final String? sourceUri;
+
+  /// The full signature of the function as a display string.
+  final String? signature;
   
-  const LibraryFunction(this.function, {this.sourceUri});
+  const LibraryFunction(this.function, {this.sourceUri, this.signature});
   
   /// Convenience getter for the function name.
   String get name => function.name;
@@ -174,9 +177,10 @@ class D4rt {
   ///   The function is only added to the environment when this library is imported.
   /// [sourceUri] The canonical source URI where this function is defined.
   ///   Used for deduplication when the same function is exported through multiple barrels.
-  void registertopLevelFunction(String? name, NativeFunctionImpl function, String library, {String? sourceUri}) {
+  /// [signature] The full signature of the function as a display string.
+  void registertopLevelFunction(String? name, NativeFunctionImpl function, String library, {String? sourceUri, String? signature}) {
     final nativeFunc = NativeFunction(function, name: name, arity: 0);
-    final libFunc = LibraryFunction(nativeFunc, sourceUri: sourceUri);
+    final libFunc = LibraryFunction(nativeFunc, sourceUri: sourceUri, signature: signature);
     _libraryFunctions.add({library: libFunc});
   }
 
@@ -337,6 +341,13 @@ class D4rt {
           staticMethods: bridgedClass.staticMethods.keys.toList(),
           staticGetters: bridgedClass.staticGetters.keys.toList(),
           staticSetters: bridgedClass.staticSetters.keys.toList(),
+          constructorSignatures: bridgedClass.constructorSignatures,
+          methodSignatures: bridgedClass.methodSignatures,
+          getterSignatures: bridgedClass.getterSignatures,
+          setterSignatures: bridgedClass.setterSignatures,
+          staticMethodSignatures: bridgedClass.staticMethodSignatures,
+          staticGetterSignatures: bridgedClass.staticGetterSignatures,
+          staticSetterSignatures: bridgedClass.staticSetterSignatures,
         );
 
         if (importsMap.containsKey(importPath)) {
@@ -428,6 +439,7 @@ class D4rt {
           globalFunctions.add(GlobalFunctionInfo(
             name: name,
             libraryUri: libraryUri,
+            signature: func.signature,
           ));
         }
       }

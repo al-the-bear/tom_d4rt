@@ -1,0 +1,51 @@
+# D4rt Bridge Generator Configuration for tom_d4rt_dcli
+# 
+# This file configures bridge generation for dcli only.
+# Run with: dart run build_runner build --delete-conflicting-outputs
+
+targets:
+  $default:
+    builders:
+      tom_d4rt_generator:d4rt_bridge_builder:
+        enabled: true
+        options:
+          name: tom_d4rt_dcli
+          helpersImport: package:tom_d4rt/tom_d4rt.dart
+          
+          # Generate master barrel files
+          generateBarrel: true
+          barrelPath: lib/d4rt_bridges.dart
+          generateDartscript: true
+          dartscriptPath: lib/dcli_bridges.dart
+          registrationClass: DcliBridges
+          
+          modules:
+            # DCli - CLI scripting utilities from pub.dev
+            - name: dcli
+              barrelFiles:
+                - package:dcli/dcli.dart
+              barrelImport: package:dcli/dcli.dart
+              outputPath: lib/src/bridges/dcli_bridges.dart
+              followAllReExports: true
+              excludePatterns:
+                - "**/*_bridge.dart"
+                - "**/*_generated.dart"
+              excludeSourcePatterns:
+                - "package:dcli_core/src/settings.dart#Settings,verbose"
+                - "package:dcli_core/src/util/file.dart#FileNotFoundException,NotAFileException,withOpenFile,symlink,deleteSymlink,resolveSymLink,stat,createTempFilename,createTempFile,fileLength,calculateHash"
+                - "package:dcli_core/src/functions/backup.dart#backupFile,restoreFile"
+                - "package:dcli_core/src/functions/cat.dart#cat"
+                - "package:dcli_core/src/functions/copy.dart#copy"
+                - "package:dcli_core/src/functions/copy_tree.dart#copyTree"
+                - "package:dcli_core/src/functions/create_dir.dart#createDir,createTempDir"
+                - "package:dcli_core/src/functions/delete.dart#delete"
+                - "package:dcli_core/src/functions/delete_dir.dart#deleteDir"
+                - "package:dcli_core/src/functions/find.dart#find"
+                - "package:dcli_core/src/functions/head.dart#head"
+                - "package:dcli_core/src/functions/is.dart#isFile,isDirectory,isLink,exists,lastModified,setLastModifed,isEmpty"
+                - "package:dcli_core/src/functions/move.dart#move"
+                - "package:dcli_core/src/functions/move_dir.dart#moveDir"
+                - "package:dcli_core/src/functions/move_tree.dart#moveTree"
+                - "package:dcli_core/src/functions/tail.dart#tail"
+                - "package:dcli_core/src/functions/touch.dart#touch"
+                - "package:dcli_core/src/functions/which.dart#which"

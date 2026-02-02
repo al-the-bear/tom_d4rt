@@ -623,7 +623,17 @@ class BridgeGenerator {
 
   /// Barrel file import path for source code (e.g., 'src/tom/tom.dart').
   /// If provided, this import is used in the generated file for accessing classes.
+  /// @deprecated Use [sourceImports] instead for multiple barrel support.
   final String? sourceImport;
+  
+  /// Multiple barrel file import paths for source code.
+  /// Each barrel is imported with a unique prefix ($pkg, $pkg2, etc.).
+  /// When set, [sourceImport] is ignored.
+  final List<String> sourceImports;
+  
+  /// Map of source file path to barrel file URI.
+  /// Used to resolve which barrel exports each source file.
+  final Map<String, String> sourceFileToBarrel;
 
   /// Whether to generate read-only bridges.
   final bool readOnly;
@@ -685,6 +695,11 @@ class BridgeGenerator {
   /// Used to resolve types that aren't exported from the barrel but are used in defaults.
   /// Key is the normalized source file path, value is a map of type name to import URI.
   final Map<String, Map<String, String>> _sourceFileImports = {};
+
+  /// Map of typedef names to their expanded function type signatures.
+  /// Used to fall back to the definition when a typedef is not exported from the barrel.
+  /// Key is the typedef name, value is the expanded signature (e.g., 'Object? Function(Object?)').
+  final Map<String, String> _typedefExpansions = {};
 
   /// Packages to follow for external type dependencies.
   /// Format: package names without 'package:' prefix (e.g., ['tom_core_kernel', 'tom_core_server'])
@@ -972,11 +987,19 @@ class BridgeGenerator {
   ///
   /// [userBridgeScanner] - Optional pre-populated scanner for user bridge classes.
   /// If not provided, a new empty scanner will be created.
+  /// 
+  /// [sourceImports] - List of barrel file URIs to import. Each will get a unique
+  /// prefix ($pkg, $pkg2, etc.). If empty, falls back to [sourceImport].
+  /// 
+  /// [sourceFileToBarrel] - Map of source file path to the barrel URI that exports it.
+  /// Used to determine which prefix to use for each class.
   BridgeGenerator({
     required this.workspacePath,
     this.packageName,
     this.helpersImport = 'package:tom_d4rt/tom_d4rt.dart',
     this.sourceImport,
+    this.sourceImports = const [],
+    this.sourceFileToBarrel = const {},
     this.readOnly = false,
     this.skipPrivate = true,
     this.verbose = false,
@@ -1523,19 +1546,12 @@ class BridgeGenerator {
       }
     }
 
-    // Filter out abstract classes without factory constructors OR static members
-    // We want to bridge abstract classes if they have factory constructors OR static members we can access
+    // Include all classes, including abstract ones
+    // Abstract classes without factory constructors will have no constructors in the bridge,
+    // but will still be registered for type checking (is/as) and accessing instance members
     final bridgeableClasses = <ClassInfo>[];
     final seenClassNames = <String>{};
     for (final cls in filteredClasses) {
-      if (cls.isAbstract) {
-        final hasFactoryCtor = cls.constructors.any((c) => c.isFactory);
-        final hasStaticMembers = cls.members.any((m) => m.isStatic);
-        if (!hasFactoryCtor && !hasStaticMembers) {
-          _recordSkip('class', cls.name, 'abstract class without factory constructor or static members');
-          continue;
-        }
-      }
       if (seenClassNames.contains(cls.name)) {
         _recordSkip('class', cls.name, 'duplicate (already seen from another source file)');
         continue;
@@ -1899,19 +1915,12 @@ class BridgeGenerator {
       }
     }
 
-    // Filter out abstract classes without factory constructors OR static members
-    // We want to bridge abstract classes if they have factory constructors OR static members we can access
+    // Include all classes, including abstract ones. Abstract classes without factory
+    // constructors will have no constructors in the bridge, but will still be registered
+    // for type checking (is/as) and accessing instance members.
     final bridgeableClasses = <ClassInfo>[];
     final seenClassNames = <String>{};
     for (final cls in filteredClasses) {
-      if (cls.isAbstract) {
-        final hasFactoryCtor = cls.constructors.any((c) => c.isFactory);
-        final hasStaticMembers = cls.members.any((m) => m.isStatic);
-        if (!hasFactoryCtor && !hasStaticMembers) {
-          _recordSkip('class', cls.name, 'abstract class without factory constructor or static members');
-          continue;
-        }
-      }
       if (seenClassNames.contains(cls.name)) {
         _recordSkip('class', cls.name, 'duplicate (already seen from another source file)');
         continue;
@@ -2375,6 +2384,9 @@ class BridgeGenerator {
           visitor.setSourceFile(unit.path);
           unit.unit.visitChildren(visitor);
         }
+        
+        // Copy collected typedef expansions to the generator
+        _typedefExpansions.addAll(visitor.typedefExpansions);
 
         return visitor.classes
             .map(
@@ -2463,6 +2475,9 @@ class BridgeGenerator {
           functions.addAll(visitor.globalFunctions);
           variables.addAll(visitor.globalVariables);
           enums.addAll(visitor.enums);
+          
+          // Copy collected typedef expansions to the generator
+          _typedefExpansions.addAll(visitor.typedefExpansions);
         }
       } catch (e) {
         if (verbose) {
@@ -3015,12 +3030,22 @@ class BridgeGenerator {
         ? 'package:$currentPackageName/' 
         : null;
     
-    // Determine the source package name (may be different for cross-package generation)
-    String? sourcePackageImportPrefix;
+    // Determine the source package names (may be different for cross-package generation)
+    // Check both sourceImports (new) and sourceImport (legacy)
+    final sourcePackagePrefixes = <String>{};
+    for (final si in sourceImports) {
+      if (si.startsWith('package:')) {
+        final parsed = _parsePackageUri(si);
+        if (parsed != null) {
+          sourcePackagePrefixes.add('package:${parsed.$1}/');
+        }
+      }
+    }
+    // Also check legacy sourceImport
     if (sourceImport != null && sourceImport!.startsWith('package:')) {
       final parsed = _parsePackageUri(sourceImport!);
       if (parsed != null) {
-        sourcePackageImportPrefix = 'package:${parsed.$1}/';
+        sourcePackagePrefixes.add('package:${parsed.$1}/');
       }
     }
 
@@ -3028,14 +3053,19 @@ class BridgeGenerator {
     for (final uri in externalImports) {
       if (uri.startsWith('dart:')) continue;
       
-      // Check if this URI belongs to the current package or source package
+      // Check if this URI belongs to the current package or source package(s)
       bool isSourcePackage = false;
       if (currentPackageImportPrefix != null) {
         isSourcePackage = uri.startsWith(currentPackageImportPrefix);
       }
       // Also treat source package imports as source package (for cross-package generation)
-      if (!isSourcePackage && sourcePackageImportPrefix != null) {
-        isSourcePackage = uri.startsWith(sourcePackageImportPrefix);
+      if (!isSourcePackage) {
+        for (final prefix in sourcePackagePrefixes) {
+          if (uri.startsWith(prefix)) {
+            isSourcePackage = true;
+            break;
+          }
+        }
       }
       
       if (isSourcePackage) {
@@ -3052,50 +3082,77 @@ class BridgeGenerator {
       }
     }
     
-    // Import the package barrel file
-    // sourceImport can be:
-    //   1. A full package URI: 'package:tom_core_kernel/tom_core_kernel.dart'
-    //   2. A relative path: 'tom_core_kernel.dart' (requires packageName)
-    String? sourceImportPath;
-    String? sourcePackageName;
+    // Import the package barrel file(s)
+    // Support multiple barrel files with unique prefixes
+    final effectiveSourceImports = sourceImports.isNotEmpty 
+        ? sourceImports 
+        : (sourceImport != null ? [sourceImport!] : <String>[]);
     
-    if (sourceImport != null && sourceImport!.startsWith('package:')) {
-      // Full package URI provided
-      sourceImportPath = sourceImport;
-      final parsed = _parsePackageUri(sourceImport!);
-      if (parsed != null) {
-        sourcePackageName = parsed.$1;
-      }
-    } else if (sourceImport != null && packageName != null) {
-      // Relative path with package name
-      sourceImportPath = 'package:$packageName/$sourceImport';
-      sourcePackageName = packageName;
-    }
+    // Map barrel URI -> prefix
+    final barrelPrefixes = <String, String>{};
+    var barrelIndex = 0;
     
-    if (sourceImportPath != null) {
-      buffer.writeln("import '$sourceImportPath' as $sourcePrefix;");
+    for (final barrel in effectiveSourceImports) {
+      String? barrelImportPath;
+      String? barrelPackageName;
       
-      // Register the barrel and all source files to the prefix
-      _importPrefixes[sourceImportPath] = sourcePrefix;
-      for (final srcFile in allSourceFiles) {
-        final srcUri = _getPackageUri(srcFile);
-        _importPrefixes[srcUri] = sourcePrefix;
+      if (barrel.startsWith('package:')) {
+        barrelImportPath = barrel;
+        final parsed = _parsePackageUri(barrel);
+        if (parsed != null) {
+          barrelPackageName = parsed.$1;
+        }
+      } else if (packageName != null) {
+        barrelImportPath = 'package:$packageName/$barrel';
+        barrelPackageName = packageName;
       }
       
-      // If the source package is different from the current package,
-      // also map any imports from the source package to the source prefix
-      if (sourcePackageName != null && sourcePackageName != packageName) {
-        final sourcePackagePrefix = 'package:$sourcePackageName/';
-        for (final uri in externalImports) {
-          if (uri.startsWith(sourcePackagePrefix)) {
-            _importPrefixes[uri] = sourcePrefix;
+      if (barrelImportPath != null) {
+        // Generate unique prefix for this barrel
+        final prefix = barrelIndex == 0 ? r'$pkg' : '\$pkg${barrelIndex + 1}';
+        barrelIndex++;
+        
+        buffer.writeln("import '$barrelImportPath' as $prefix;");
+        barrelPrefixes[barrelImportPath] = prefix;
+        _importPrefixes[barrelImportPath] = prefix;
+        
+        // If the source package is different from the current package,
+        // also map any imports from the source package to this prefix
+        if (barrelPackageName != null && barrelPackageName != packageName) {
+          final sourcePackagePrefix = 'package:$barrelPackageName/';
+          for (final uri in externalImports) {
+            if (uri.startsWith(sourcePackagePrefix) && 
+                !_importPrefixes.containsKey(uri)) {
+              _importPrefixes[uri] = prefix;
+            }
           }
         }
       }
-    } else {
-      // Fallback: If no single barrel is specified, this mode is likely not fully supported 
-      // with the new import strategy, but we try anyway.
-      // We import each source file and map it to $pkg.
+    }
+    
+    // Map source files to their barrel's prefix using sourceFileToBarrel
+    for (final srcFile in allSourceFiles) {
+      final srcUri = _getPackageUri(srcFile);
+      
+      // Check if we have explicit barrel mapping for this source file
+      final barrelUri = sourceFileToBarrel[srcFile];
+      if (barrelUri != null && barrelPrefixes.containsKey(barrelUri)) {
+        _importPrefixes[srcUri] = barrelPrefixes[barrelUri]!;
+        _importPrefixes[srcFile] = barrelPrefixes[barrelUri]!;
+      } else if (barrelPrefixes.isNotEmpty) {
+        // Default to first barrel's prefix if no explicit mapping
+        final defaultPrefix = barrelPrefixes.values.first;
+        if (!_importPrefixes.containsKey(srcUri)) {
+          _importPrefixes[srcUri] = defaultPrefix;
+        }
+        if (!_importPrefixes.containsKey(srcFile)) {
+          _importPrefixes[srcFile] = defaultPrefix;
+        }
+      }
+    }
+    
+    // Fallback: If no barrels specified, import each source file directly
+    if (effectiveSourceImports.isEmpty) {
       for (final srcFile in allSourceFiles) {
         final detectedPackageName = packageName ?? _getPackageNameFromPath(srcFile);
         if (detectedPackageName != null) {
@@ -3238,8 +3295,9 @@ class BridgeGenerator {
       buffer.writeln('    // Register global functions with source URIs for deduplication');
       buffer.writeln('    final funcs = globalFunctions();');
       buffer.writeln('    final funcSources = globalFunctionSourceUris();');
+      buffer.writeln('    final funcSigs = globalFunctionSignatures();');
       buffer.writeln('    for (final entry in funcs.entries) {');
-      buffer.writeln('      interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key]);');
+      buffer.writeln('      interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);');
       buffer.writeln('    }');
     }
     buffer.writeln('  }');
@@ -3514,6 +3572,18 @@ class BridgeGenerator {
       buffer.writeln('    };');
       buffer.writeln('  }');
       buffer.writeln();
+      
+      // Generate globalFunctionSignatures method for introspection
+      buffer.writeln('  /// Returns a map of global function names to their display signatures.');
+      buffer.writeln('  static Map<String, String> globalFunctionSignatures() {');
+      buffer.writeln('    return {');
+      for (final func in globalFunctions) {
+        final signature = _escapeString(_getGlobalFunctionSignature(func));
+        buffer.writeln("      '${func.name}': '$signature',");
+      }
+      buffer.writeln('    };');
+      buffer.writeln('  }');
+      buffer.writeln();
     } else {
       // Always generate empty globalFunctions() for delegating barrel compatibility
       buffer.writeln('  /// Returns a map of global function names to their native implementations.');
@@ -3524,6 +3594,12 @@ class BridgeGenerator {
       
       buffer.writeln('  /// Returns a map of global function names to their canonical source URIs.');
       buffer.writeln('  static Map<String, String> globalFunctionSourceUris() {');
+      buffer.writeln('    return {};');
+      buffer.writeln('  }');
+      buffer.writeln();
+      
+      buffer.writeln('  /// Returns a map of global function names to their display signatures.');
+      buffer.writeln('  static Map<String, String> globalFunctionSignatures() {');
       buffer.writeln('    return {};');
       buffer.writeln('  }');
       buffer.writeln();
@@ -3955,9 +4031,97 @@ class BridgeGenerator {
       buffer.writeln('    },');
     }
 
+    // Generate signature maps for introspection
+    _generateSignatureMaps(buffer, cls);
+
     buffer.writeln('  );');
     buffer.writeln('}');
     return warnings;
+  }
+
+  /// Generates signature maps for a class bridge.
+  void _generateSignatureMaps(StringBuffer buffer, ClassInfo cls) {
+    // Constructor signatures
+    if (cls.constructors.isNotEmpty) {
+      final validCtors = cls.constructors.where((ctor) => 
+        !cls.isAbstract || ctor.isFactory
+      ).toList();
+      if (validCtors.isNotEmpty) {
+        buffer.writeln('    constructorSignatures: {');
+        for (final ctor in validCtors) {
+          final ctorName = ctor.name ?? '';
+          final sig = _escapeString(_getConstructorSignature(cls, ctor));
+          buffer.writeln("      '$ctorName': '$sig',");
+        }
+        buffer.writeln('    },');
+      }
+    }
+
+    // Instance method signatures
+    final instanceMethods = cls.allInstanceMethods(_classLookup);
+    if (instanceMethods.isNotEmpty) {
+      buffer.writeln('    methodSignatures: {');
+      for (final method in instanceMethods) {
+        final sig = _escapeString(_getMethodSignature(method));
+        buffer.writeln("      '${method.name}': '$sig',");
+      }
+      buffer.writeln('    },');
+    }
+
+    // Instance getter signatures
+    final instanceGetters = cls.allInstanceGetters(_classLookup);
+    if (instanceGetters.isNotEmpty) {
+      buffer.writeln('    getterSignatures: {');
+      for (final getter in instanceGetters) {
+        final sig = _escapeString(_getMethodSignature(getter));
+        buffer.writeln("      '${getter.name}': '$sig',");
+      }
+      buffer.writeln('    },');
+    }
+
+    // Instance setter signatures
+    final instanceSetters = cls.allInstanceSetters(_classLookup);
+    if (instanceSetters.isNotEmpty) {
+      buffer.writeln('    setterSignatures: {');
+      for (final setter in instanceSetters) {
+        final sig = _escapeString(_getMethodSignature(setter));
+        buffer.writeln("      '${setter.name}': '$sig',");
+      }
+      buffer.writeln('    },');
+    }
+
+    // Static method signatures
+    final staticMethods = cls.staticMembers.where((m) => m.isMethod).toList();
+    if (staticMethods.isNotEmpty) {
+      buffer.writeln('    staticMethodSignatures: {');
+      for (final method in staticMethods) {
+        final sig = _escapeString(_getMethodSignature(method));
+        buffer.writeln("      '${method.name}': '$sig',");
+      }
+      buffer.writeln('    },');
+    }
+
+    // Static getter signatures
+    final staticGetters = cls.staticMembers.where((m) => m.isGetter).toList();
+    if (staticGetters.isNotEmpty) {
+      buffer.writeln('    staticGetterSignatures: {');
+      for (final getter in staticGetters) {
+        final sig = _escapeString(_getMethodSignature(getter));
+        buffer.writeln("      '${getter.name}': '$sig',");
+      }
+      buffer.writeln('    },');
+    }
+
+    // Static setter signatures
+    final staticSetters = cls.staticMembers.where((m) => m.isSetter).toList();
+    if (staticSetters.isNotEmpty) {
+      buffer.writeln('    staticSetterSignatures: {');
+      for (final setter in staticSetters) {
+        final sig = _escapeString(_getMethodSignature(setter));
+        buffer.writeln("      '${setter.name}': '$sig',");
+      }
+      buffer.writeln('    },');
+    }
   }
 
   /// Generates constructor body code.
@@ -4701,11 +4865,21 @@ class BridgeGenerator {
           );
         }
       } else {
-        buffer.writeln("        final $localName = positional.length > $index");
-        buffer.writeln(
-          "            ? D4.coerceListOrNull<$elementType>(positional[$index], '${param.name}')",
-        );
-        buffer.writeln("            : null;");
+        // Optional positional param without default
+        if (isNullable) {
+          buffer.writeln("        final $localName = positional.length > $index");
+          buffer.writeln(
+            "            ? D4.coerceListOrNull<$elementType>(positional[$index], '${param.name}')",
+          );
+          buffer.writeln("            : null;");
+        } else {
+          // Non-nullable optional List - use empty list as default
+          buffer.writeln("        final $localName = positional.length > $index");
+          buffer.writeln(
+            "            ? D4.coerceList<$elementType>(positional[$index], '${param.name}')",
+          );
+          buffer.writeln("            : <$elementType>[];");
+        }
       }
       return true;
     }
@@ -4765,11 +4939,21 @@ class BridgeGenerator {
           );
         }
       } else {
-        buffer.writeln("        final $localName = positional.length > $index");
-        buffer.writeln(
-          "            ? D4.coerceMapOrNull<$keyType, $valueType>(positional[$index], '${param.name}')",
-        );
-        buffer.writeln("            : null;");
+        // Optional positional param without default
+        if (isNullable) {
+          buffer.writeln("        final $localName = positional.length > $index");
+          buffer.writeln(
+            "            ? D4.coerceMapOrNull<$keyType, $valueType>(positional[$index], '${param.name}')",
+          );
+          buffer.writeln("            : null;");
+        } else {
+          // Non-nullable optional Map - use empty map as default
+          buffer.writeln("        final $localName = positional.length > $index");
+          buffer.writeln(
+            "            ? D4.coerceMap<$keyType, $valueType>(positional[$index], '${param.name}')",
+          );
+          buffer.writeln("            : <$keyType, $valueType>{};");
+        }
       }
       return true;
     }
@@ -5294,8 +5478,20 @@ class BridgeGenerator {
       isNullable = true;
     }
 
-    // Handle function types and known function typedefs - use dynamic
-    if (_isFunctionTypeName(baseType)) {
+    // Handle inline function types (e.g., Object? Function(Object?))
+    // Parse and resolve types within the function signature with proper prefixes
+    if (baseType.contains('Function(') || baseType.contains(') Function')) {
+      final resolved = _resolveInlineFunctionType(
+        baseType,
+        typeToUri: typeToUri,
+        classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
+      );
+      return isNullable ? '$resolved?' : resolved;
+    }
+    
+    // Handle known function type aliases (typedef names) - use dynamic since we can't bridge them
+    if (_knownFunctionTypeAliases.contains(baseType)) {
       return 'dynamic';
     }
 
@@ -5399,7 +5595,18 @@ class BridgeGenerator {
         // If prefix is $pkg, we need to check if the type is exported from the barrel
         // External package types (non-$pkg prefix) are always accessible
         if (prefix == r'$pkg' && !_isTypeExported(unprefixedType)) {
-          // Type is hidden from barrel - use dynamic since it's not accessible
+          // Type is hidden from barrel - check if it's a typedef we can expand
+          if (_typedefExpansions.containsKey(unprefixedType)) {
+            final expanded = _typedefExpansions[unprefixedType]!;
+            // Resolve types within the expanded function type
+            final resolved = _resolveInlineFunctionType(
+              expanded,
+              typeToUri: typeToUri,
+              classTypeParams: classTypeParams,
+              sourceFilePath: sourceFilePath,
+            );
+            return isNullable ? '$resolved?' : resolved;
+          }
           _recordMissingExport('type argument', unprefixedType);
           return 'dynamic';
         }
@@ -5442,7 +5649,18 @@ class BridgeGenerator {
           return isNullable ? '$result?' : result;
         }
       }
-      // Type is not exported or has no URI info - use dynamic
+      // Type is not exported or has no URI info - check if it's a typedef we can expand
+      if (_typedefExpansions.containsKey(unprefixedType)) {
+        final expanded = _typedefExpansions[unprefixedType]!;
+        // Resolve types within the expanded function type
+        final resolved = _resolveInlineFunctionType(
+          expanded,
+          typeToUri: typeToUri,
+          classTypeParams: classTypeParams,
+          sourceFilePath: sourceFilePath,
+        );
+        return isNullable ? '$resolved?' : resolved;
+      }
       _recordMissingExport('type argument (not exported, using dynamic)', unprefixedType);
       return 'dynamic';
     }
@@ -5985,6 +6203,77 @@ class BridgeGenerator {
     return false;
   }
 
+  /// Resolves an inline function type by prefixing types within it.
+  /// For example, `void Function(TomObservable observable)` becomes
+  /// `void Function($pkg.TomObservable observable)`.
+  String _resolveInlineFunctionType(
+    String funcType, {
+    Map<String, String> typeToUri = const {},
+    Map<String, String?> classTypeParams = const {},
+    String? sourceFilePath,
+  }) {
+    // Parse the function type to get its components
+    final funcInfo = _parseFunctionType(funcType);
+    if (funcInfo == null) {
+      // Couldn't parse - return as-is
+      return funcType;
+    }
+
+    // Resolve return type
+    final resolvedReturnType = _getTypeArgument(
+      funcInfo.returnType,
+      typeToUri: typeToUri,
+      classTypeParams: classTypeParams,
+      sourceFilePath: sourceFilePath,
+    );
+    final returnTypeStr = funcInfo.returnTypeNullable
+        ? '$resolvedReturnType?'
+        : resolvedReturnType;
+
+    // Resolve positional parameter types
+    final resolvedPositional = <String>[];
+    for (final paramType in funcInfo.positionalParamTypes) {
+      final resolved = _getTypeArgument(
+        paramType,
+        typeToUri: typeToUri,
+        classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
+      );
+      resolvedPositional.add(resolved);
+    }
+
+    // Resolve named parameter types
+    final resolvedNamed = <String>[];
+    for (final entry in funcInfo.namedParamTypes.entries) {
+      final resolved = _getTypeArgument(
+        entry.value,
+        typeToUri: typeToUri,
+        classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
+      );
+      final isRequired = funcInfo.namedParamRequired[entry.key] ?? false;
+      if (isRequired) {
+        resolvedNamed.add('required $resolved ${entry.key}');
+      } else {
+        resolvedNamed.add('$resolved ${entry.key}');
+      }
+    }
+
+    // Build the resolved function type string
+    final params = StringBuffer();
+    if (resolvedPositional.isNotEmpty) {
+      params.write(resolvedPositional.join(', '));
+    }
+    if (resolvedNamed.isNotEmpty) {
+      if (resolvedPositional.isNotEmpty) {
+        params.write(', ');
+      }
+      params.write('{${resolvedNamed.join(', ')}}');
+    }
+
+    return '$returnTypeStr Function($params)';
+  }
+
   /// Parses a function type string and extracts its signature.
   /// Returns null if the type cannot be parsed.
   ///
@@ -6317,8 +6606,9 @@ class BridgeGenerator {
       classTypeParams: classTypeParams,
       sourceFilePath: sourceFilePath,
     );
+    final rawValueType = argsStr.substring(splitIndex + 1).trim();
     final valueType = _getTypeArgument(
-      argsStr.substring(splitIndex + 1).trim(),
+      rawValueType,
       typeToUri: typeToUri,
       classTypeParams: classTypeParams,
       sourceFilePath: sourceFilePath,
@@ -6358,6 +6648,84 @@ class BridgeGenerator {
 
     return imports;
   }
+
+  /// Generates a display signature string for a constructor.
+  String _getConstructorSignature(ClassInfo cls, ConstructorInfo ctor) {
+    final buffer = StringBuffer();
+    if (ctor.isConst) buffer.write('const ');
+    if (ctor.isFactory) buffer.write('factory ');
+    buffer.write(cls.name);
+    if (ctor.name != null && ctor.name!.isNotEmpty) {
+      buffer.write('.${ctor.name}');
+    }
+    buffer.write('(');
+    buffer.write(_formatParameters(ctor.parameters));
+    buffer.write(')');
+    return buffer.toString();
+  }
+
+  /// Generates a display signature string for a method.
+  String _getMethodSignature(MemberInfo method) {
+    if (method.isGetter) {
+      return '${method.returnType} get ${method.name}';
+    }
+    if (method.isSetter) {
+      final paramType = method.parameters.isNotEmpty 
+          ? method.parameters.first.type 
+          : 'dynamic';
+      return 'set ${method.name}($paramType value)';
+    }
+    final buffer = StringBuffer();
+    buffer.write('${method.returnType} ${method.name}(');
+    buffer.write(_formatParameters(method.parameters));
+    buffer.write(')');
+    return buffer.toString();
+  }
+
+  /// Formats parameter list for display.
+  String _formatParameters(List<ParameterInfo> parameters) {
+    final positional = parameters.where((p) => !p.isNamed).toList();
+    final named = parameters.where((p) => p.isNamed).toList();
+    final requiredPositional = positional.where((p) => p.isRequired).toList();
+    final optionalPositional = positional.where((p) => !p.isRequired).toList();
+
+    final parts = <String>[];
+
+    // Required positional
+    for (final p in requiredPositional) {
+      parts.add('${p.type} ${p.name}');
+    }
+
+    // Optional positional (in brackets)
+    if (optionalPositional.isNotEmpty && named.isEmpty) {
+      final optParts = optionalPositional.map((p) {
+        final def = p.defaultValue != null ? ' = ${p.defaultValue}' : '';
+        return '${p.type} ${p.name}$def';
+      }).join(', ');
+      parts.add('[$optParts]');
+    }
+
+    // Named parameters (in braces)
+    if (named.isNotEmpty) {
+      final namedParts = named.map((p) {
+        final req = p.isRequired ? 'required ' : '';
+        final def = p.defaultValue != null ? ' = ${p.defaultValue}' : '';
+        return '$req${p.type} ${p.name}$def';
+      }).join(', ');
+      parts.add('{$namedParts}');
+    }
+
+    return parts.join(', ');
+  }
+
+  /// Generates a display signature string for a global function.
+  String _getGlobalFunctionSignature(GlobalFunctionInfo func) {
+    final buffer = StringBuffer();
+    buffer.write('${func.returnType} ${func.name}(');
+    buffer.write(_formatParameters(func.parameters));
+    buffer.write(')');
+    return buffer.toString();
+  }
 }
 
 // =============================================================================
@@ -6374,6 +6742,11 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
   final List<GlobalFunctionInfo> globalFunctions = [];
   final List<GlobalVariableInfo> globalVariables = [];
   final List<EnumInfo> enums = [];
+  
+  /// Map of typedef names to their expanded function type signatures.
+  /// Used to fall back to the definition when a typedef is not exported from the barrel.
+  final Map<String, String> typedefExpansions = {};
+  
   String? currentSourceFile;
 
   _ResolvedClassVisitor({this.skipPrivate = true});
@@ -6381,6 +6754,44 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
   /// Sets the current source file for global element tracking.
   void setSourceFile(String path) {
     currentSourceFile = path;
+  }
+  
+  /// Expands a FunctionType to its string representation.
+  /// E.g., `Object? Function(Object? instance)` for InvokerOfGetter.
+  String _expandFunctionType(FunctionType funcType) {
+    final returnType = funcType.returnType.getDisplayString();
+    final params = <String>[];
+    for (final param in funcType.formalParameters) {
+      final paramType = param.type.getDisplayString();
+      if (param.isNamed) {
+        final required = param.isRequiredNamed ? 'required ' : '';
+        params.add('$required$paramType ${param.name}');
+      } else {
+        params.add(paramType);
+      }
+    }
+    
+    // Handle named parameters - wrap in braces
+    final positionalParams = funcType.formalParameters
+        .where((p) => !p.isNamed)
+        .map((p) => p.type.getDisplayString())
+        .toList();
+    final namedParams = funcType.formalParameters
+        .where((p) => p.isNamed)
+        .map((p) {
+          final required = p.isRequiredNamed ? 'required ' : '';
+          return '$required${p.type.getDisplayString()} ${p.name}';
+        })
+        .toList();
+    
+    final paramStr = StringBuffer();
+    paramStr.write(positionalParams.join(', '));
+    if (namedParams.isNotEmpty) {
+      if (positionalParams.isNotEmpty) paramStr.write(', ');
+      paramStr.write('{${namedParams.join(', ')}}');
+    }
+    
+    return '$returnType Function($paramStr)';
   }
 
   /// Converts a file path under /lib/ to a package URI when possible.
@@ -6688,6 +7099,12 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           if (!uri.startsWith('dart:core')) {
             uris.add(uri);
             typeToUri[aliasName] = uri;
+          }
+          
+          // Store the expanded function signature for fallback when typedef is not exported
+          if (!typedefExpansions.containsKey(aliasName)) {
+            final expanded = _expandFunctionType(dartType);
+            typedefExpansions[aliasName] = expanded;
           }
         }
       }

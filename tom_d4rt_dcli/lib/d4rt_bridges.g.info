@@ -1,0 +1,5 @@
+// D4rt bridge generation marker
+// Generated: 2026-02-01T21:32:38.543814
+// Classes: 40
+// Modules: 1
+// Outputs: lib/src/d4rt_library_bridges/package_dcli_bridges.dart, lib/src/d4rt_library_bridges/package_crypto_bridges.dart, lib/src/d4rt_library_bridges/package_dcli_core_bridges.dart, lib/src/d4rt_library_bridges/package_dcli_terminal_bridges.dart, lib/src/bridges/dcli_bridges.dart, lib/d4rt_bridges.dart, lib/dcli_bridges.dart, lib/src/d4rt_library_bridges/bridges_trigger.g.dart

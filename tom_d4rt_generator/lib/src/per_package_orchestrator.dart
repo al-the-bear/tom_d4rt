@@ -7,11 +7,14 @@ library;
 
 import 'dart:io' as io;
 
+import 'package:analyzer/dart/analysis/features.dart';
+import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:path/path.dart' as p;
 
 import 'bridge_config.dart';
 import 'bridge_generator.dart';
 import 'file_writer.dart';
+import 'user_bridge_scanner.dart';
 
 /// Information about a source package and its elements.
 class PackageInfo {
@@ -24,11 +27,19 @@ class PackageInfo {
   /// Export info for filtering elements.
   final Map<String, ExportInfo> exportInfo;
 
+  /// Map of source file -> barrel file URI that exports it.
+  /// Multiple source files may be exported by different barrel files.
+  final Map<String, String> sourceFileToBarrel;
+
   PackageInfo({
     required this.packageName,
     required this.sourceFiles,
     required this.exportInfo,
-  });
+    Map<String, String>? sourceFileToBarrel,
+  }) : sourceFileToBarrel = sourceFileToBarrel ?? {};
+  
+  /// Returns all unique barrel file URIs that export classes in this package.
+  Set<String> get barrelFiles => sourceFileToBarrel.values.toSet();
 }
 
 /// Information about which packages a barrel needs.
@@ -56,9 +67,10 @@ class BarrelPackageMapping {
 /// Orchestrates per-package bridge generation.
 ///
 /// This orchestrator implements a two-phase generation approach:
-/// 1. Collect all source files from all modules and group by source package
-/// 2. Generate per-package bridge files containing deduplicated bridge code
-/// 3. Generate delegating barrel files that import and combine per-package files
+/// 1. Scan user bridge files from the build package's d4rt_user_bridges folder
+/// 2. Collect all source files from all modules and group by source package
+/// 3. Generate per-package bridge files containing deduplicated bridge code
+/// 4. Generate delegating barrel files that import and combine per-package files
 ///
 /// This eliminates duplicate code when the same package is re-exported
 /// by multiple barrel files within a single build.yaml scope.
@@ -68,22 +80,99 @@ class PerPackageBridgeOrchestrator {
   final FileWriter fileWriter;
   final String buildPackageName;
 
+  /// Optional callback for emitting warnings.
+  void Function(String)? onWarning;
+
   /// Map of package name -> source files for that package.
   final Map<String, PackageInfo> _packageInfoMap = {};
 
   /// Map of module name -> packages it needs.
   final Map<String, BarrelPackageMapping> _barrelMappings = {};
 
+  /// Shared user bridge scanner populated from build package's user bridge files.
+  final UserBridgeScanner _userBridgeScanner = UserBridgeScanner();
+
+  /// Aggregated exclusions from all modules.
+  /// These are applied globally when generating per-package bridges.
+  final Set<String> _globalExcludeClasses = {};
+  final Set<String> _globalExcludeFunctions = {};
+  final Set<String> _globalExcludeVariables = {};
+  final Set<String> _globalExcludeSourcePatterns = {};
+
   PerPackageBridgeOrchestrator({
     required this.config,
     required this.projectRoot,
     required this.fileWriter,
     required this.buildPackageName,
-  });
+    this.onWarning,
+  }) {
+    // Set up warning callback for user bridge scanner
+    _userBridgeScanner.onWarning = (msg) {
+      onWarning?.call('Warning: $msg');
+    };
+  }
+
+  /// Returns the user bridge scanner for access by generators.
+  UserBridgeScanner get userBridgeScanner => _userBridgeScanner;
+
+  /// Scans user bridge files from the build package's d4rt_user_bridges folder.
+  ///
+  /// User bridge files should be placed in:
+  /// - `lib/src/d4rt_user_bridges/` for package projects
+  /// - `lib/d4rt_user_bridges/` for console projects
+  ///
+  /// Classes extending D4UserBridge must have @D4rtUserBridge or
+  /// @D4rtGlobalsUserBridge annotation, otherwise a warning is emitted.
+  Future<void> scanUserBridges() async {
+    // Try lib/src/d4rt_user_bridges first, then lib/d4rt_user_bridges
+    final userBridgeDirs = [
+      p.join(projectRoot, 'lib', 'src', 'd4rt_user_bridges'),
+      p.join(projectRoot, 'lib', 'd4rt_user_bridges'),
+    ];
+
+    for (final dirPath in userBridgeDirs) {
+      final dir = io.Directory(dirPath);
+      if (!dir.existsSync()) continue;
+
+      onWarning?.call('Scanning user bridges in $dirPath');
+
+      await for (final entity in dir.list(recursive: true)) {
+        if (entity is! io.File) continue;
+        if (!entity.path.endsWith('.dart')) continue;
+
+        try {
+          final content = await entity.readAsString();
+          final parseResult = parseString(
+            content: content,
+            featureSet: FeatureSet.latestLanguageVersion(),
+          );
+          _userBridgeScanner.scanUnit(parseResult.unit, entity.path);
+        } catch (e) {
+          onWarning?.call('Warning: Failed to parse user bridge ${entity.path}: $e');
+        }
+      }
+    }
+
+    // Report what was found
+    final classCount = _userBridgeScanner.userBridges.length;
+    final globalsCount = _userBridgeScanner.globalsUserBridges.length;
+    if (classCount > 0 || globalsCount > 0) {
+      onWarning?.call(
+        'Found $classCount class user bridges and $globalsCount globals user bridges',
+      );
+    }
+  }
 
   /// Collects source files from all modules and groups them by source package.
+  /// Also collects all exclusions from all modules to apply globally.
   Future<void> collectPackageInfo() async {
     for (final module in config.modules) {
+      // Collect exclusions from all modules
+      _globalExcludeClasses.addAll(module.excludeClasses);
+      _globalExcludeFunctions.addAll(module.excludeFunctions);
+      _globalExcludeVariables.addAll(module.excludeVariables);
+      _globalExcludeSourcePatterns.addAll(module.excludeSourcePatterns);
+
       final sourceImport = module.barrelImport ?? module.barrelFiles.first;
 
       final generator = BridgeGenerator(
@@ -93,28 +182,47 @@ class PerPackageBridgeOrchestrator {
         helpersImport: config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
       );
 
-      // Resolve barrel files
-      final barrelFiles = <String>[];
+      // Resolve barrel files and track which one is which
+      final resolvedBarrels = <String, String>{}; // resolved path -> original URI
       for (final f in module.barrelFiles) {
         if (f.startsWith('package:')) {
           final resolved = await generator.resolvePackageUri(f);
-          if (resolved != null) barrelFiles.add(resolved);
+          if (resolved != null) resolvedBarrels[resolved] = f;
         } else {
-          barrelFiles.add(p.join(projectRoot, f));
+          final resolved = p.join(projectRoot, f);
+          resolvedBarrels[resolved] = f;
         }
       }
 
-      // Parse exports to get source files
-      final exports = await generator.parseExportFiles(
-        barrelFiles,
-        followAllReExports: module.followAllReExports,
-        skipReExports: module.skipReExports,
-        followReExports: module.followReExports,
-      );
+      // Parse exports from each barrel file separately to track origin
+      final allExports = <String, ExportInfo>{};
+      final sourceFileToBarrel = <String, String>{}; // source file -> barrel URI
+      
+      for (final entry in resolvedBarrels.entries) {
+        final resolvedPath = entry.key;
+        final barrelUri = entry.value;
+        
+        final exports = await generator.parseExportFiles(
+          [resolvedPath],
+          followAllReExports: module.followAllReExports,
+          skipReExports: module.skipReExports,
+          followReExports: module.followReExports,
+        );
+        
+        for (final sourceFile in exports.keys) {
+          // Track which barrel exports this source file
+          // If already tracked by another barrel, prefer the one that's not the main barrel
+          // (since the main barrel might not export internal types)
+          if (!sourceFileToBarrel.containsKey(sourceFile)) {
+            sourceFileToBarrel[sourceFile] = barrelUri;
+          }
+          allExports[sourceFile] = exports[sourceFile]!;
+        }
+      }
 
       // Group source files by package
       final requiredPackages = <String>{};
-      for (final sourceFile in exports.keys) {
+      for (final sourceFile in allExports.keys) {
         final pkgName = _extractPackageName(sourceFile);
         if (pkgName == null) continue;
 
@@ -130,7 +238,23 @@ class PerPackageBridgeOrchestrator {
         );
 
         _packageInfoMap[pkgName]!.sourceFiles.add(sourceFile);
-        _packageInfoMap[pkgName]!.exportInfo[sourceFile] = exports[sourceFile]!;
+        _packageInfoMap[pkgName]!.exportInfo[sourceFile] = allExports[sourceFile]!;
+        
+        // Track which barrel this source file came from
+        // Prefer barrels from the same package as the source file (not re-exporting packages)
+        if (sourceFileToBarrel.containsKey(sourceFile)) {
+          final barrelUri = sourceFileToBarrel[sourceFile]!;
+          final existingBarrel = _packageInfoMap[pkgName]!.sourceFileToBarrel[sourceFile];
+          
+          // Only set if not already tracked, or if this barrel is from the same package
+          if (existingBarrel == null) {
+            _packageInfoMap[pkgName]!.sourceFileToBarrel[sourceFile] = barrelUri;
+          } else if (barrelUri.startsWith('package:$pkgName/') && 
+                     !existingBarrel.startsWith('package:$pkgName/')) {
+            // Prefer barrel from same package over re-exporting package
+            _packageInfoMap[pkgName]!.sourceFileToBarrel[sourceFile] = barrelUri;
+          }
+        }
       }
 
       // Record which packages this barrel needs
@@ -162,20 +286,39 @@ class PerPackageBridgeOrchestrator {
       final fileName = 'package_${pkgName.replaceAll('-', '_')}_bridges.dart';
       final outputPath = p.join(libraryPath, fileName);
 
+      // Get all unique barrel files for this package
+      // Filter to only include barrels from the same package, or if none,
+      // use the package's own barrel as fallback
+      final barrelFiles = pkgInfo.barrelFiles;
+      final ownPackageBarrels = barrelFiles
+          .where((b) => b.startsWith('package:$pkgName/'))
+          .toList();
+      
+      final sourceImports = ownPackageBarrels.isNotEmpty
+          ? ownPackageBarrels
+          : ['package:$pkgName/$pkgName.dart'];
+
       final generator = BridgeGenerator(
         workspacePath: projectRoot,
         packageName: config.name,
-        sourceImport: 'package:$pkgName/$pkgName.dart',
+        sourceImports: sourceImports,
+        sourceFileToBarrel: pkgInfo.sourceFileToBarrel,
         helpersImport: config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
+        userBridgeScanner: _userBridgeScanner,
       );
 
       // Generate bridges for this package's source files
+      // Apply global exclusions collected from all modules
       final result = await generator.generateBridgesWithWriter(
         sourceFiles: pkgInfo.sourceFiles.toList(),
         outputFileId: FileId(buildPackageName, outputPath),
         moduleName: 'package_$pkgName',
         exportInfo: pkgInfo.exportInfo,
         fileWriter: fileWriter,
+        excludeClasses: _globalExcludeClasses.toList(),
+        excludeFunctions: _globalExcludeFunctions.toList(),
+        excludeVariables: _globalExcludeVariables.toList(),
+        excludeSourcePatterns: _globalExcludeSourcePatterns.toList(),
       );
 
       // Only include packages that have actual content

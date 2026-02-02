@@ -659,6 +659,27 @@ class BridgedClassInfo {
   /// List of static setter names.
   final List<String> staticSetters;
 
+  /// Constructor signatures as display strings, indexed by name.
+  final Map<String, String> constructorSignatures;
+
+  /// Method signatures as display strings, indexed by name.
+  final Map<String, String> methodSignatures;
+
+  /// Getter signatures as display strings, indexed by name.
+  final Map<String, String> getterSignatures;
+
+  /// Setter signatures as display strings, indexed by name.
+  final Map<String, String> setterSignatures;
+
+  /// Static method signatures as display strings, indexed by name.
+  final Map<String, String> staticMethodSignatures;
+
+  /// Static getter signatures as display strings, indexed by name.
+  final Map<String, String> staticGetterSignatures;
+
+  /// Static setter signatures as display strings, indexed by name.
+  final Map<String, String> staticSetterSignatures;
+
   const BridgedClassInfo({
     required this.name,
     required this.nativeTypeName,
@@ -669,6 +690,13 @@ class BridgedClassInfo {
     required this.staticMethods,
     required this.staticGetters,
     required this.staticSetters,
+    this.constructorSignatures = const {},
+    this.methodSignatures = const {},
+    this.getterSignatures = const {},
+    this.setterSignatures = const {},
+    this.staticMethodSignatures = const {},
+    this.staticGetterSignatures = const {},
+    this.staticSetterSignatures = const {},
   });
 
   /// Converts this class info to a JSON-serializable map.
@@ -682,6 +710,13 @@ class BridgedClassInfo {
         'staticMethods': staticMethods,
         'staticGetters': staticGetters,
         'staticSetters': staticSetters,
+        'constructorSignatures': constructorSignatures,
+        'methodSignatures': methodSignatures,
+        'getterSignatures': getterSignatures,
+        'setterSignatures': setterSignatures,
+        'staticMethodSignatures': staticMethodSignatures,
+        'staticGetterSignatures': staticGetterSignatures,
+        'staticSetterSignatures': staticSetterSignatures,
       };
 }
 
@@ -758,15 +793,20 @@ class GlobalFunctionInfo {
   /// The library URI that registered this function.
   final String libraryUri;
 
+  /// The full signature of the function as a display string.
+  final String? signature;
+
   const GlobalFunctionInfo({
     required this.name,
     required this.libraryUri,
+    this.signature,
   });
 
   /// Converts this global function info to a JSON-serializable map.
   Map<String, dynamic> toJson() => {
         'name': name,
         'libraryUri': libraryUri,
+        if (signature != null) 'signature': signature,
       };
 }
 
@@ -778,15 +818,20 @@ class GlobalGetterInfo {
   /// The library URI that registered this getter.
   final String libraryUri;
 
+  /// The return type of the getter.
+  final String? returnType;
+
   const GlobalGetterInfo({
     required this.name,
     required this.libraryUri,
+    this.returnType,
   });
 
   /// Converts this global getter info to a JSON-serializable map.
   Map<String, dynamic> toJson() => {
         'name': name,
         'libraryUri': libraryUri,
+        if (returnType != null) 'returnType': returnType,
       };
 }
 
