@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 29 files
-// Generated: 2026-02-01T21:32:37.405566
+// Generated: 2026-02-02T05:06:09.774660
 
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, deprecated_member_use
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -972,7 +972,7 @@ BridgedClass _createEnvBridge() {
       },
       'forScope': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Env');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('Env: Missing required argument "map" at position 0');
         }
         final map = D4.coerceMap<String, String>(positional[0], 'map');
@@ -989,7 +989,7 @@ BridgedClass _createEnvBridge() {
       'addAll': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Env>(target, 'Env');
         D4.requireMinArgs(positional, 1, 'addAll');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('addAll: Missing required argument "other" at position 0');
         }
         final other = D4.coerceMap<String, String>(positional[0], 'other');
@@ -1989,7 +1989,7 @@ BridgedClass _createLimitedStreamControllerBridge() {
         final onListenRaw = named['onListen'];
         final onCancelRaw = named['onCancel'];
         final sync = D4.getNamedArgWithDefault<bool>(named, 'sync', false);
-        return $pkg.LimitedStreamController(limit, onListen: onListenRaw == null ? null : () { (onListenRaw as InterpretedFunction).call(visitor as InterpreterVisitor, []); }, onCancel: onCancelRaw == null ? null : () { (onCancelRaw as InterpretedFunction).call(visitor as InterpreterVisitor, []); }, sync: sync);
+        return $pkg.LimitedStreamController(limit, onListen: onListenRaw == null ? null : () { (onListenRaw as InterpretedFunction).call(visitor, []); }, onCancel: onCancelRaw == null ? null : () { (onCancelRaw as InterpretedFunction).call(visitor, []); }, sync: sync);
       },
     },
     getters: {
@@ -2114,11 +2114,11 @@ BridgedClass _createLineFileBridge() {
       'readAll': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.LineFile>(target, 'LineFile');
         D4.requireMinArgs(positional, 1, 'readAll');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('readAll: Missing required argument "handleLine" at position 0');
         }
         final handleLineRaw = positional[0];
-        t.readAll((String p0) { return (handleLineRaw as InterpretedFunction).call(visitor as InterpreterVisitor, [p0]) as bool; });
+        t.readAll((String p0) { return (handleLineRaw as InterpretedFunction).call(visitor, [p0]) as bool; });
         return null;
       },
       'write': (visitor, target, positional, named, typeArgs) {
@@ -2191,7 +2191,7 @@ BridgedClass _createRunExceptionBridge() {
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'RunException');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('RunException: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
@@ -2312,7 +2312,7 @@ BridgedClass _createStackListBridge() {
       },
       'fromList': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'StackList');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('StackList: Missing required argument "initialStack" at position 0');
         }
         final initialStack = D4.coerceList<dynamic>(positional[0], 'initialStack');

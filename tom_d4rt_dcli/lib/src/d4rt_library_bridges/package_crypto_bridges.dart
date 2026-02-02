@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-02-01T21:32:35.319106
+// Generated: 2026-02-02T05:06:08.153244
 
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, deprecated_member_use
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -163,7 +163,7 @@ BridgedClass _createDigestBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Digest');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('Digest: Missing required argument "bytes" at position 0');
         }
         final bytes = D4.coerceList<int>(positional[0], 'bytes');
@@ -215,7 +215,7 @@ BridgedClass _createHashBridge() {
       'convert': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Hash>(target, 'Hash');
         D4.requireMinArgs(positional, 1, 'convert');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('convert: Missing required argument "input" at position 0');
         }
         final input = D4.coerceList<int>(positional[0], 'input');
@@ -261,7 +261,7 @@ BridgedClass _createHmacBridge() {
       'convert': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Hmac>(target, 'Hmac');
         D4.requireMinArgs(positional, 1, 'convert');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('convert: Missing required argument "input" at position 0');
         }
         final input = D4.coerceList<int>(positional[0], 'input');

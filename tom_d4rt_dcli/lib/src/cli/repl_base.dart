@@ -41,11 +41,19 @@ abstract class D4rtReplBase {
   /// Override in subclasses (e.g., 'd4rt' for *.d4rt files)
   String get toolExtension => toolName.toLowerCase();
   
+  /// Returns the list of file patterns to match when listing replay files.
+  /// Override in subclasses to add tool-specific extensions (e.g., '.d4rt').
+  /// Default returns ['.replay.txt', '.<toolExtension>'] (e.g., '.dcli')
+  List<String> get replayFilePatterns => ['.replay.txt', '.$toolExtension'];
+  
+  /// Formats replay file patterns for display in help text (e.g., "*.replay.txt, *.dcli")
+  String _formatReplayPatterns() => replayFilePatterns.map((p) => '*$p').join(', ');
+  
   /// The data directory for sessions, history, etc.
-  /// Default is ~/.tom/<toolname>. Override for custom location.
+  /// Default is `~/.tom/<toolname>`. Override for custom location.
   String get dataDirectory => '${Platform.environment['HOME']}/.tom/${toolName.toLowerCase()}';
   
-  /// The short form of dataDirectory for display in help (e.g., ~/.tom/dcli)
+  /// The short form of dataDirectory for display in help (e.g., `~/.tom/dcli`)
   String get dataDirectoryShort => '~/.tom/${toolName.toLowerCase()}';
   
   /// The init source file name (e.g., dcli_init_source.dart)
@@ -171,7 +179,7 @@ abstract class D4rtReplBase {
     
     print(getDefinesHelp());
     print('');
-    print(getDirectoryCommandsHelp(dataDirectoryShort));
+    print(getDirectoryCommandsHelp(dataDirectoryShort, replayPatterns: _formatReplayPatterns()));
     print('');
     print(getMultilineHelp());
     print('');
@@ -1065,7 +1073,7 @@ $code
     }
 
     if (line == 'plays') {
-      if (!silent) _listFilesByPattern(state, state.currentDirectory, '.replay.txt');
+      if (!silent) _listFilesByPatterns(state, state.currentDirectory, replayFilePatterns);
       return true;
     }
 
@@ -1423,6 +1431,10 @@ Object? __repl_expr__() {
   }
 
   void _listFilesByPattern(ReplState state, String dirPath, String suffix) {
+    _listFilesByPatterns(state, dirPath, [suffix]);
+  }
+  
+  void _listFilesByPatterns(ReplState state, String dirPath, List<String> suffixes) {
     final dir = Directory(dirPath);
     if (!dir.existsSync()) {
       state.writeError('Directory not found: $dirPath');
@@ -1432,13 +1444,23 @@ Object? __repl_expr__() {
     final names = dir
         .listSync()
         .whereType<File>()
-        .where((f) => f.path.endsWith(suffix))
-        .map((f) => f.uri.pathSegments.last.replaceAll(suffix, ''))
+        .where((f) => suffixes.any((suffix) => f.path.endsWith(suffix)))
+        .map((f) {
+          final filename = f.uri.pathSegments.last;
+          // Remove any matching suffix to get the base name
+          for (final suffix in suffixes) {
+            if (filename.endsWith(suffix)) {
+              return filename.replaceAll(suffix, '');
+            }
+          }
+          return filename;
+        })
+        .toSet() // Remove duplicates if same base name with different extensions
         .toList()
       ..sort();
 
     if (names.isEmpty) {
-      state.writeMuted('No files matching *$suffix found.');
+      state.writeMuted('No files matching ${suffixes.map((s) => '*$s').join(', ')} found.');
       return;
     }
 
@@ -1673,6 +1695,17 @@ Object? __repl_expr__() {
       return parts.first;
     }
     return importPath.split('/').last.replaceAll('.dart', '');
+  }
+  
+  /// Get sorted list of unique package names from D4rt configuration.
+  List<String> getPackageNames(D4rt d4rt) {
+    final config = d4rt.getConfiguration();
+    final packages = config.imports
+        .map((i) => _extractPackageName(i.importPath))
+        .toSet()
+        .toList()
+      ..sort();
+    return packages;
   }
   
   /// Format package info for display (used by info command and bridges help).

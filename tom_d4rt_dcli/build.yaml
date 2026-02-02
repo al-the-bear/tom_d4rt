@@ -16,8 +16,8 @@ targets:
           generateBarrel: true
           barrelPath: lib/d4rt_bridges.dart
           generateDartscript: true
-          dartscriptPath: lib/dcli_bridges.dart
-          registrationClass: DcliBridges
+          dartscriptPath: lib/dartscript.dart
+          registrationClass: TomD4rtDcliBridge
           
           modules:
             # DCli - CLI scripting utilities from pub.dev

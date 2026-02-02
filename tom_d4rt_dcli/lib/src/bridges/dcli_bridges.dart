@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Delegating barrel for dcli
-// Generated: 2026-02-01T21:32:38.540772
+// Generated: 2026-02-02T05:06:10.726905
 
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, deprecated_member_use
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -67,6 +67,13 @@ class DcliBridge {
 
   /// Returns the import block for scripts.
   static String getImportBlock() {
-    return "import 'package:dcli/dcli.dart';\n";
+    return '''import 'dart:async';
+import 'dart:io';
+import 'dart:convert';
+import 'dart:math';
+import 'dart:collection';
+import 'dart:typed_data';
+import 'package:dcli/dcli.dart';
+''';
   }
 }

@@ -6,31 +6,15 @@ library;
 
 import 'package:tom_d4rt/tom_d4rt.dart';
 
-import 'src/bridges/dcli_bridges.dart' as dcli_bridges;
+import 'dartscript.dart';
 import 'src/cli/repl_base.dart';
 
+export 'dartscript.dart';
 export 'src/bridges/dcli_bridges.dart';
 export 'src/cli/repl_base.dart';
 
 /// The current version of the dcli tool.
 const String dcliVersion = '0.1.0';
-
-/// Combined bridge registration for tom_d4rt_dcli.
-class DcliBridges {
-  /// Register all bridges with D4rt interpreter.
-  static void register([D4rt? interpreter]) {
-    final d4rt = interpreter ?? D4rt();
-    dcli_bridges.DcliBridge.registerBridges(
-      d4rt,
-      'package:dcli/dcli.dart',
-    );
-  }
-  
-  /// Get import block for all modules.
-  static String getImportBlock() {
-    return dcli_bridges.DcliBridge.getImportBlock();
-  }
-}
 
 /// DCLI REPL implementation.
 /// 
@@ -45,32 +29,33 @@ class DcliRepl extends D4rtReplBase {
   
   @override
   void registerBridges(D4rt d4rt) {
-    DcliBridges.register(d4rt);
+    TomD4rtDcliBridge.register(d4rt);
   }
   
   @override
   String getImportBlock() {
-    return DcliBridges.getImportBlock();
+    return TomD4rtDcliBridge.getImportBlock();
   }
   
   @override
   String getBridgesHelp([D4rt? d4rt]) {
-    if (d4rt == null) {
-      return '''
-<cyan>**Bridges**</cyan>
-  DCLI provides bridges for the `dcli` package.
-  Use <yellow>**info**</yellow> <package> to see details for a specific package.
-  Use <yellow>**classes**</yellow> to list all available classes.''';
-    }
-    
-    // Generate dynamic bridges help from configuration
     final buffer = StringBuffer();
     buffer.writeln('<cyan>**Bridges**</cyan>');
     buffer.writeln('  Use <yellow>**info**</yellow> <package> to see details for a specific package.');
     buffer.writeln('');
-    printAllPackagesInfo(d4rt);
-    buffer.writeln('');
+    
+    if (d4rt != null) {
+      // Generate list of info commands from configuration
+      final packages = getPackageNames(d4rt);
+      for (final pkg in packages) {
+        buffer.writeln('  <yellow>info</yellow> $pkg');
+      }
+      buffer.writeln('');
+    }
+    
     buffer.writeln('  Use <yellow>**classes**</yellow> to list all available classes.');
+    buffer.writeln('');
+    buffer.writeln(getStdlibNote());
     return buffer.toString();
   }
 }

@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 4 files
-// Generated: 2026-02-01T21:32:38.528858
+// Generated: 2026-02-02T05:06:10.720067
 
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, deprecated_member_use
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -388,7 +388,7 @@ BridgedClass _createFormatBridge() {
       'row': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Format>(target, 'Format');
         D4.requireMinArgs(positional, 1, 'row');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('row: Missing required argument "cols" at position 0');
         }
         final cols = D4.coerceList<String?>(positional[0], 'cols');

@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 50 files
-// Generated: 2026-02-01T21:32:34.026078
+// Generated: 2026-02-02T05:06:06.677804
 
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, deprecated_member_use
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -839,7 +839,7 @@ BridgedClass _createAskBridge() {
       },
       'any': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'any');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('any: Missing required argument "validators" at position 0');
         }
         final validators = D4.coerceList<$pkg.AskValidator>(positional[0], 'validators');
@@ -847,7 +847,7 @@ BridgedClass _createAskBridge() {
       },
       'all': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'all');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('all: Missing required argument "validators" at position 0');
         }
         final validators = D4.coerceList<$pkg.AskValidator>(positional[0], 'validators');
@@ -887,7 +887,7 @@ BridgedClass _createAskBridge() {
       },
       'inList': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'inList');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('inList: Missing required argument "validItems" at position 0');
         }
         final validItems = D4.coerceList<Object>(positional[0], 'validItems');
@@ -1062,7 +1062,7 @@ BridgedClass _createFetchDataBridge() {
       },
       'fromBytes': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FetchData');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('FetchData: Missing required argument "bytes" at position 0');
         }
         final bytes = D4.coerceList<int>(positional[0], 'bytes');
@@ -1185,7 +1185,7 @@ BridgedClass _createFetchProgressBridge() {
         D4.requireMinArgs(positional, 1, 'show');
         final progress = D4.getRequiredArg<$pkg.FetchProgress>(positional, 0, 'progress', 'show');
         final formatRaw = named['format'];
-        final format = formatRaw == null ? null : ($pkg.FetchProgress p0) { return (formatRaw as InterpretedFunction).call(visitor as InterpreterVisitor, [p0]) as String; };
+        final format = formatRaw == null ? null : ($pkg.FetchProgress p0) { return (formatRaw as InterpretedFunction).call(visitor, [p0]) as String; };
         return $pkg.FetchProgress.show(progress, format: format);
       },
     },
@@ -1343,11 +1343,11 @@ BridgedClass _createProgressBridge() {
       'forEach': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Progress>(target, 'Progress');
         D4.requireMinArgs(positional, 1, 'forEach');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('forEach: Missing required argument "print" at position 0');
         }
         final printRaw = positional[0];
-        t.forEach((String p0) { (printRaw as InterpretedFunction).call(visitor as InterpreterVisitor, [p0]); });
+        t.forEach((String p0) { (printRaw as InterpretedFunction).call(visitor, [p0]); });
         return null;
       },
       'toParagraph': (visitor, target, positional, named, typeArgs) {
@@ -2187,12 +2187,12 @@ BridgedClass _createShellBridge() {
       'withPrivileges': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Shell>(target, 'Shell');
         D4.requireMinArgs(positional, 1, 'withPrivileges');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('withPrivileges: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
         final allowUnprivileged = D4.getNamedArgWithDefault<bool>(named, 'allowUnprivileged', false);
-        t.withPrivileges(() { (actionRaw as InterpretedFunction).call(visitor as InterpreterVisitor, []); }, allowUnprivileged: allowUnprivileged);
+        t.withPrivileges(() { (actionRaw as InterpretedFunction).call(visitor, []); }, allowUnprivileged: allowUnprivileged);
         return null;
       },
       'privilegesRequiredMessage': (visitor, target, positional, named, typeArgs) {
@@ -2393,12 +2393,12 @@ BridgedClass _createUnknownShellBridge() {
       'withPrivileges': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.UnknownShell>(target, 'UnknownShell');
         D4.requireMinArgs(positional, 1, 'withPrivileges');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('withPrivileges: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
         final allowUnprivileged = D4.getNamedArgWithDefault<bool>(named, 'allowUnprivileged', false);
-        t.withPrivileges(() { (actionRaw as InterpretedFunction).call(visitor as InterpreterVisitor, []); }, allowUnprivileged: allowUnprivileged);
+        t.withPrivileges(() { (actionRaw as InterpretedFunction).call(visitor, []); }, allowUnprivileged: allowUnprivileged);
         return null;
       },
       'addFileAssocation': (visitor, target, positional, named, typeArgs) {
@@ -2609,7 +2609,7 @@ BridgedClass _createFileSortBridge() {
     staticMethods: {
       'expandColumns': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'expandColumns');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('expandColumns: Missing required argument "values" at position 0');
         }
         final values = D4.coerceList<String>(positional[0], 'values');
@@ -2741,7 +2741,7 @@ BridgedClass _createFileSyncBridge() {
       'writeFromSync': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.FileSync>(target, 'FileSync');
         D4.requireMinArgs(positional, 1, 'writeFromSync');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('writeFromSync: Missing required argument "buffer" at position 0');
         }
         final buffer = D4.coerceList<int>(positional[0], 'buffer');
@@ -2753,7 +2753,7 @@ BridgedClass _createFileSyncBridge() {
       'readIntoSync': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.FileSync>(target, 'FileSync');
         D4.requireMinArgs(positional, 1, 'readIntoSync');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('readIntoSync: Missing required argument "buffer" at position 0');
         }
         final buffer = D4.coerceList<int>(positional[0], 'buffer');
@@ -2872,22 +2872,22 @@ BridgedClass _createNamedLockBridge() {
       'withLock': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.NamedLock>(target, 'NamedLock');
         D4.requireMinArgs(positional, 1, 'withLock');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('withLock: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
         final waiting = D4.getOptionalNamedArg<String?>(named, 'waiting');
-        return t.withLock(() { return (actionRaw as InterpretedFunction).call(visitor as InterpreterVisitor, []) as dynamic; }, waiting: waiting);
+        return t.withLock(() { return (actionRaw as InterpretedFunction).call(visitor, []) as dynamic; }, waiting: waiting);
       },
       'withLockAsync': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.NamedLock>(target, 'NamedLock');
         D4.requireMinArgs(positional, 1, 'withLockAsync');
-        if (positional.length <= 0) {
+        if (positional.isEmpty) {
           throw ArgumentError('withLockAsync: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
         final waiting = D4.getOptionalNamedArg<String?>(named, 'waiting');
-        return t.withLockAsync(() { return (actionRaw as InterpretedFunction).call(visitor as InterpreterVisitor, []) as Future<dynamic>; }, waiting: waiting);
+        return t.withLockAsync(() { return (actionRaw as InterpretedFunction).call(visitor, []) as Future<dynamic>; }, waiting: waiting);
       },
     },
     constructorSignatures: {

@@ -22,12 +22,12 @@ String getCommonCommandsHelp() {
 }
 
 /// Returns the directory commands section.
-String getDirectoryCommandsHelp(String dataPath) {
+String getDirectoryCommandsHelp(String dataPath, {String replayPatterns = '*.replay.txt, *.dcli'}) {
   return '''
 <cyan>**Directory**</cyan>
   <yellow>**sessions**</yellow>    List session IDs *(from $dataPath)*
   <yellow>**scripts**</yellow>     List script files *(*.script.txt)*
-  <yellow>**plays**</yellow>       List replay files *(*.replay.txt)*
+  <yellow>**plays**</yellow>       List replay files *($replayPatterns)*
   <yellow>**executes**</yellow>    List executable files *(*.exec.dart)*
   <yellow>**ls**</yellow>          List all files in current directory
   <yellow>**cd**</yellow> <path>   Change current directory
@@ -150,4 +150,11 @@ String getInitSourceHelp(String toolName, String dataPath) {
   D4rt loads an initialization script before starting. By default, it uses
   the built-in import block for all registered bridges. Customize by placing
   a <yellow>$initFile</yellow> file in <yellow>$dataPath/</yellow>.''';
+}
+
+/// Returns the standard library note for bridges help.
+String getStdlibNote() {
+  return '''
+  *Dart standard libraries dart:async, dart:io, dart:convert, dart:math,*
+  *dart:collection, and dart:typed_data are available to all scripts.*''';
 }
