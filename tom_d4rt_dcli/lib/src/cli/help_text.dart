@@ -156,7 +156,7 @@ String getInitSourceHelp(String toolName, String dataPath) {
 String getStdlibNote() {
   return '''
   *Dart standard libraries dart:async, dart:io, dart:convert, dart:math,*
-  *dart:collection, and dart:typed_data are available to all scripts.*''';
+  *dart:collection, dart:typed_data, and dart:isolate are available to all scripts.*''';
 }
 
 /// Returns the stdlib import statements to prepend to scripts.
@@ -170,5 +170,6 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:collection';
 import 'dart:typed_data';
+import 'dart:isolate';
 ''';
 }

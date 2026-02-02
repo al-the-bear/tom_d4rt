@@ -11,11 +11,13 @@ import 'package:console_markdown/console_markdown.dart';
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 
+import 'cli_integration.dart';
 import 'help_text.dart';
 import 'persistent_history.dart';
 import 'repl_state.dart';
 import 'result_formatting.dart';
 
+export 'cli_integration.dart';
 export 'help_text.dart';
 export 'persistent_history.dart';
 export 'repl_state.dart';
@@ -31,6 +33,9 @@ export 'result_formatting.dart';
 /// 5. Override [getAdditionalHelpSections] to add tool-specific help
 /// 6. Override [handleAdditionalCommands] to add tool-specific commands
 abstract class D4rtReplBase {
+  /// CLI integration for the `cli` global variable.
+  final _cliIntegration = CliReplIntegration();
+  
   /// The name of the tool (shown in prompt and help)
   String get toolName;
   
@@ -345,6 +350,9 @@ abstract class D4rtReplBase {
 
     // Register all bridges
     registerBridges(d4rt);
+    
+    // Register CLI bridge for the `cli` global variable
+    _cliIntegration.registerBridge(d4rt);
 
     if (dumpConfig) {
       _dumpConfiguration(d4rt);
@@ -632,6 +640,9 @@ void main() {}
     print('  <yellow>**.file**</yellow>/<yellow>**execute**</yellow>/<yellow>**script**</yellow> - Run files');
     print('  <yellow>**define**</yellow> <n>=<t> - Create aliases | <yellow>**\$<n>**</yellow> - Invoke alias');
     print('');
+
+    // Initialize CLI controller for the `cli` global variable
+    _cliIntegration.initialize(d4rt, state, toolName: toolName);
 
     // Tool-specific startup (e.g., VS Code integration check)
     await onReplStartup(d4rt, state);

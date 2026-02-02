@@ -1,5 +1,5 @@
 // D4rt bridge generation marker
-// Generated: 2026-02-02T05:06:10.729423
-// Classes: 40
-// Modules: 1
-// Outputs: lib/src/d4rt_library_bridges/package_dcli_bridges.dart, lib/src/d4rt_library_bridges/package_crypto_bridges.dart, lib/src/d4rt_library_bridges/package_dcli_core_bridges.dart, lib/src/d4rt_library_bridges/package_dcli_terminal_bridges.dart, lib/src/bridges/dcli_bridges.dart, lib/d4rt_bridges.dart, lib/dartscript.dart, lib/src/d4rt_library_bridges/bridges_trigger.g.dart
+// Generated: 2026-02-02T09:06:14.018485
+// Classes: 50
+// Modules: 2
+// Outputs: lib/src/d4rt_library_bridges/package_tom_d4rt_dcli_bridges.dart, lib/src/d4rt_library_bridges/package_dcli_bridges.dart, lib/src/d4rt_library_bridges/package_crypto_bridges.dart, lib/src/d4rt_library_bridges/package_dcli_core_bridges.dart, lib/src/d4rt_library_bridges/package_dcli_terminal_bridges.dart, lib/src/bridges/cli_api_bridges.dart, lib/src/bridges/dcli_bridges.dart, lib/d4rt_bridges.dart, lib/dartscript.dart, lib/src/d4rt_library_bridges/bridges_trigger.g.dart

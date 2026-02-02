@@ -20,6 +20,14 @@ targets:
           registrationClass: TomD4rtDcliBridge
           
           modules:
+            # CLI API - D4rt CLI scripting API
+            - name: cli_api
+              barrelFiles:
+                - package:tom_d4rt_dcli/tom_d4rt_cli_api.dart
+              barrelImport: package:tom_d4rt_dcli/tom_d4rt_cli_api.dart
+              outputPath: lib/src/bridges/cli_api_bridges.dart
+              followAllReExports: false
+
             # DCli - CLI scripting utilities from pub.dev
             - name: dcli
               barrelFiles:
