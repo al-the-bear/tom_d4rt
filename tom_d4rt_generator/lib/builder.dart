@@ -12,8 +12,8 @@ import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
 import 'src/bridge_config.dart';
-import 'src/bridge_generator.dart';
 import 'src/build_runner_file_writer.dart';
+import 'src/file_generators.dart';
 import 'src/file_writer.dart';
 import 'src/per_package_orchestrator.dart';
 
@@ -132,7 +132,7 @@ class D4rtBridgeBuilder implements Builder {
 
       // Generate barrel file if requested
       if (config!.generateBarrel && config!.barrelPath != null) {
-        final barrelContent = _generateBarrelFileContent(config!);
+        final barrelContent = generateBarrelFileContent(config!);
         await fileWriter.writeFile(
           FileId(packageName, config!.barrelPath!),
           barrelContent,
@@ -142,7 +142,7 @@ class D4rtBridgeBuilder implements Builder {
 
       // Generate dartscript file if requested
       if (config!.generateDartscript && config!.dartscriptPath != null) {
-        final dartscriptContent = _generateDartscriptFileContent(config!);
+        final dartscriptContent = generateDartscriptFileContent(config!);
         await fileWriter.writeFile(
           FileId(packageName, config!.dartscriptPath!),
           dartscriptContent,
@@ -199,108 +199,6 @@ class BridgesTrigger {
       log.severe('Error generating D4rt bridges', e, stackTrace);
       rethrow;
     }
-  }
-
-  /// Generates the content for the barrel file.
-  String _generateBarrelFileContent(BridgeConfig cfg) {
-    final buffer = StringBuffer();
-    buffer.writeln('/// D4rt Bridges for ${cfg.name}');
-    buffer.writeln('library;');
-    buffer.writeln();
-
-    for (final module in cfg.modules) {
-      final relativePath = module.outputPath.startsWith('lib/')
-          ? module.outputPath.substring(4)
-          : module.outputPath;
-      buffer.writeln("export '$relativePath';");
-    }
-
-    return buffer.toString();
-  }
-
-  /// Generates the content for the dartscript registration file.
-  String _generateDartscriptFileContent(BridgeConfig cfg) {
-    final registrationClass = cfg.registrationClass ?? '${cfg.name}Bridges';
-    final buffer = StringBuffer();
-
-    buffer.writeln('// D4rt Bridge - Generated file, do not edit');
-    buffer.writeln('// Dartscript registration for ${cfg.name}');
-    buffer.writeln('// Generated: ${DateTime.now().toIso8601String()}');
-    buffer.writeln();
-    buffer.writeln('/// D4rt Bridge Registration for ${cfg.name}');
-    buffer.writeln('library;');
-    buffer.writeln();
-    buffer.writeln("import 'package:tom_d4rt/d4rt.dart';");
-
-    // Import external bridge packages
-    for (var i = 0; i < cfg.importedBridges.length; i++) {
-      final imported = cfg.importedBridges[i];
-      buffer.writeln("import '${imported.import}' as imported_$i;");
-    }
-
-    for (final module in cfg.modules) {
-      final relativePath = module.outputPath.startsWith('lib/')
-          ? module.outputPath.substring(4)
-          : module.outputPath;
-      buffer.writeln("import '$relativePath' as ${module.name}_bridges;");
-    }
-
-    buffer.writeln();
-    buffer.writeln('/// Combined bridge registration for ${cfg.name}.');
-    buffer.writeln('class $registrationClass {');
-    buffer.writeln('  /// Register all bridges with D4rt interpreter.');
-    buffer.writeln('  static void register([D4rt? interpreter]) {');
-    buffer.writeln('    final d4rt = interpreter ?? D4rt();');
-    buffer.writeln();
-    
-    // Register imported bridges first
-    if (cfg.importedBridges.isNotEmpty) {
-      buffer.writeln('    // Register imported bridges');
-      for (var i = 0; i < cfg.importedBridges.length; i++) {
-        final imported = cfg.importedBridges[i];
-        buffer.writeln('    imported_$i.${imported.className}.register(d4rt);');
-      }
-      buffer.writeln();
-      buffer.writeln('    // Register local bridges');
-    }
-
-    for (final module in cfg.modules) {
-      // Use toPascalCase for consistent class naming with bridge generator
-      final capitalizedModuleName = toPascalCase(module.name);
-      // Use the source barrel import the classes were generated from
-      final sourceImport = module.barrelImport ?? module.barrelFiles.first;
-      buffer.writeln(
-          '    ${module.name}_bridges.${capitalizedModuleName}Bridge.registerBridges(');
-      buffer.writeln('      d4rt,');
-      buffer.writeln("      '$sourceImport',");
-      buffer.writeln('    );');
-    }
-
-    buffer.writeln('  }');
-    buffer.writeln();
-    buffer.writeln('  /// Get import block for all modules.');
-    buffer.writeln('  static String getImportBlock() {');
-    buffer.writeln('    final buffer = StringBuffer();');
-    
-    // Get import blocks from imported bridges first
-    for (var i = 0; i < cfg.importedBridges.length; i++) {
-      final imported = cfg.importedBridges[i];
-      buffer.writeln(
-          '    buffer.writeln(imported_$i.${imported.className}.getImportBlock());');
-    }
-
-    for (final module in cfg.modules) {
-      // Use toPascalCase for consistent class naming with bridge generator
-      final capitalizedModuleName = toPascalCase(module.name);
-      buffer.writeln(
-          '    buffer.writeln(${module.name}_bridges.${capitalizedModuleName}Bridge.getImportBlock());');
-    }
-
-    buffer.writeln('    return buffer.toString();');
-    buffer.writeln('  }');
-    buffer.writeln('}');
-
-    return buffer.toString();
   }
 }
 

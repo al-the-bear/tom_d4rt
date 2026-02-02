@@ -233,20 +233,7 @@ Future<void> _generateBarrelFile(String barrelPath, BridgeConfig config,
   if (verbose) {
     print('  Generating barrel: $barrelPath');
   }
-
-  final buffer = StringBuffer();
-  buffer.writeln('/// D4rt Bridges for ${config.name}');
-  buffer.writeln('library;');
-  buffer.writeln();
-
-  for (final module in config.modules) {
-    final relativePath = module.outputPath.startsWith('lib/')
-        ? module.outputPath.substring(4)
-        : module.outputPath;
-    buffer.writeln("export '$relativePath';");
-  }
-
-  await File(barrelPath).writeAsString(buffer.toString());
+  await File(barrelPath).writeAsString(generateBarrelFileContent(config));
 }
 
 /// Generate dartscript file with combined bridge registration.
@@ -255,99 +242,7 @@ Future<void> _generateDartscriptFile(String dartscriptPath, BridgeConfig config,
   if (verbose) {
     print('  Generating dartscript: $dartscriptPath');
   }
-
-  final registrationClass = config.registrationClass ?? '${config.name}Bridges';
-  final buffer = StringBuffer();
-
-  buffer.writeln('// D4rt Bridge - Generated file, do not edit');
-  buffer.writeln('// Dartscript registration for ${config.name}');
-  buffer.writeln('// Generated: ${DateTime.now().toIso8601String()}');
-  buffer.writeln();
-  buffer.writeln('/// D4rt Bridge Registration for ${config.name}');
-  buffer.writeln('library;');
-  buffer.writeln();
-  buffer.writeln("import 'package:tom_d4rt/d4rt.dart';");
-
-  // Import external bridge packages
-  for (var i = 0; i < config.importedBridges.length; i++) {
-    final imported = config.importedBridges[i];
-    buffer.writeln("import '${imported.import}' as imported_$i;");
-  }
-
-  for (final module in config.modules) {
-    final relativePath = module.outputPath.startsWith('lib/')
-        ? module.outputPath.substring(4)
-        : module.outputPath;
-    buffer.writeln("import '$relativePath' as ${module.name}_bridges;");
-  }
-
-  buffer.writeln();
-  buffer.writeln('/// Combined bridge registration for ${config.name}.');
-  buffer.writeln('class $registrationClass {');
-  buffer.writeln('  /// Register all bridges with D4rt interpreter.');
-  buffer.writeln('  static void register([D4rt? interpreter]) {');
-  buffer.writeln('    final d4rt = interpreter ?? D4rt();');
-  buffer.writeln();
-
-  // Register imported bridges first
-  if (config.importedBridges.isNotEmpty) {
-    buffer.writeln('    // Register imported bridges');
-    for (var i = 0; i < config.importedBridges.length; i++) {
-      final imported = config.importedBridges[i];
-      buffer.writeln('    imported_$i.${imported.className}.register(d4rt);');
-    }
-    buffer.writeln();
-    buffer.writeln('    // Register local bridges');
-  }
-
-  for (final module in config.modules) {
-    final capitalizedName = toPascalCase(module.name);
-    final registrationImport = module.barrelImport ??
-        'package:${config.name}/${config.name}.dart';
-    buffer.writeln(
-        '    ${module.name}_bridges.${capitalizedName}Bridge.registerBridges(');
-    buffer.writeln('      d4rt,');
-    buffer.writeln('      \'$registrationImport\',');
-    buffer.writeln('    );');
-  }
-
-  buffer.writeln('  }');
-  buffer.writeln();
-  buffer.writeln('  /// Get all bridge classes.');
-  buffer.writeln('  static List<BridgedClass> bridgeClasses() {');
-  buffer.writeln('    return [');
-
-  for (final module in config.modules) {
-    final capitalizedName = toPascalCase(module.name);
-    buffer.writeln(
-        '      ...${module.name}_bridges.${capitalizedName}Bridge.bridgeClasses(),');
-  }
-
-  buffer.writeln('    ];');
-  buffer.writeln('  }');
-  buffer.writeln();
-  buffer.writeln('  /// Get import block for all modules.');
-  buffer.writeln('  static String getImportBlock() {');
-  buffer.writeln('    final buffer = StringBuffer();');
-
-  // Get import blocks from imported bridges first
-  for (var i = 0; i < config.importedBridges.length; i++) {
-    final imported = config.importedBridges[i];
-    buffer.writeln(
-        '    buffer.writeln(imported_$i.${imported.className}.getImportBlock());');
-  }
-
-  for (final module in config.modules) {
-    final capitalizedName = toPascalCase(module.name);
-    buffer.writeln(
-        '    buffer.writeln(${module.name}_bridges.${capitalizedName}Bridge.getImportBlock());');
-  }
-
-  buffer.writeln('    return buffer.toString();');
-  buffer.writeln('  }');
-  buffer.writeln('}');
-
-  await File(dartscriptPath).writeAsString(buffer.toString());
+  await File(dartscriptPath).writeAsString(generateDartscriptFileContent(config));
 }
 
 /// Prints usage information.
