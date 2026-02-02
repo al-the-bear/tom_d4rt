@@ -8,9 +8,11 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:console_markdown/console_markdown.dart';
+import 'package:path/path.dart' as p;
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 
+import '../api/cli_test_utils.dart';
 import 'cli_integration.dart';
 import 'help_text.dart';
 import 'persistent_history.dart';
@@ -255,12 +257,14 @@ abstract class D4rtReplBase {
                     arguments.contains('version');
     final debug = arguments.contains('--debug') || arguments.contains('-debug');
     final noInitSource = arguments.contains('-no-init-source') || arguments.contains('--no-init-source');
+    final testMode = arguments.contains('-test') || arguments.contains('--test');
 
     // Parse options
     String? sessionId;
     String? replayFile;
     String? runReplayFile;
     String? customInitSource;
+    String? testOutputPath;
     var replaceSession = false;
     final listSessions = arguments.contains('-list-sessions') || arguments.contains('--list-sessions');
     
@@ -277,6 +281,8 @@ abstract class D4rtReplBase {
       '-replay', '--replay',
       '-run-replay', '--run-replay',
       '-init-source', '--init-source',
+      '-test', '--test',
+      '-output', '--output',
     };
     
     for (var i = 0; i < arguments.length; i++) {
@@ -306,6 +312,15 @@ abstract class D4rtReplBase {
           customInitSource = arguments[i + 1];
         }
       }
+      if (arguments[i] == '-output' || arguments[i] == '--output') {
+        if (i + 1 < arguments.length) {
+          testOutputPath = arguments[i + 1];
+        }
+      }
+      // Also support -output=path format
+      if (arguments[i].startsWith('-output=') || arguments[i].startsWith('--output=')) {
+        testOutputPath = arguments[i].split('=').skip(1).join('=');
+      }
     }
 
     // Collect option values that should be excluded from non-option args
@@ -314,6 +329,7 @@ abstract class D4rtReplBase {
     if (replayFile != null) optionValues.add(replayFile);
     if (runReplayFile != null) optionValues.add(runReplayFile);
     if (customInitSource != null) optionValues.add(customInitSource);
+    if (testOutputPath != null) optionValues.add(testOutputPath);
 
     // Get non-option arguments
     final nonOptionArgs = arguments.where((arg) {
@@ -436,9 +452,21 @@ void main() {}
       return;
     }
 
+    // If -run-replay is provided with -test, run in test mode
+    if (runReplayFile != null && testMode) {
+      await _runReplayTestMode(d4rt, runReplayFile, initSource, testOutputPath);
+      return;
+    }
+
     // If -run-replay is provided, execute the replay file and exit
     if (runReplayFile != null) {
       await _runReplayAndExit(d4rt, runReplayFile, initSource);
+      return;
+    }
+    
+    // If a replay file was specified via extension (e.g., dcli myfile.dcli) with -test
+    if (replayFileFromExtension != null && testMode) {
+      await _runReplayTestMode(d4rt, replayFileFromExtension, initSource, testOutputPath);
       return;
     }
     
@@ -601,6 +629,89 @@ void main() {}
       }
       exit(1);
     }
+  }
+
+  /// Execute a replay file in test mode, capturing output.
+  /// 
+  /// Test mode runs the replay file silently and captures all output.
+  /// If [outputPath] is provided, output is written to that file.
+  /// Otherwise, output is written to stdout.
+  /// 
+  /// The test mode also captures verification failures from [verify] calls.
+  /// Exit code is 0 if all verifications pass, 1 if any fail.
+  Future<void> _runReplayTestMode(
+    D4rt d4rt, 
+    String replayPath, 
+    String initSource,
+    String? outputPath,
+  ) async {
+    final file = File(replayPath);
+    if (!file.existsSync()) {
+      stderr.writeln('Error: Replay file not found: $replayPath');
+      exit(1);
+    }
+
+    final fullPath = file.absolute.path;
+    final outputBuffer = StringBuffer();
+    
+    void log(String message) {
+      outputBuffer.writeln(message);
+    }
+
+    log('Test Mode: $fullPath');
+    log('Started: ${DateTime.now().toIso8601String()}');
+    log('');
+
+    d4rt.execute(source: initSource);
+
+    final state = createReplState();
+    state.currentDirectory = Directory.current.path;
+
+    // Clear any previous verification failures
+    clearVerificationFailures();
+
+    var hasErrors = false;
+    var lineCount = 0;
+    
+    try {
+      // Run replay silently, capturing output
+      lineCount = await _replayFile(d4rt, state, fullPath, silent: true);
+      log('Lines executed: $lineCount');
+    } catch (e, stackTrace) {
+      hasErrors = true;
+      log('ERROR: $e');
+      if (Platform.environment['DEBUG'] == 'true') {
+        log(stackTrace.toString());
+      }
+    }
+
+    // Check for verification failures from verify() calls
+    final failures = verificationFailures;
+    if (failures.isNotEmpty) {
+      hasErrors = true;
+      log('');
+      log('VERIFICATION FAILURES (${failures.length}):');
+      for (final failure in failures) {
+        log('  - $failure');
+      }
+    }
+
+    log('');
+    log('Result: ${hasErrors ? 'FAILED' : 'PASSED'}');
+    log('Completed: ${DateTime.now().toIso8601String()}');
+
+    // Output results
+    final output = outputBuffer.toString();
+    if (outputPath != null) {
+      final outputFile = File(outputPath);
+      outputFile.writeAsStringSync(output);
+      print('Test output written to: $outputPath');
+      print(hasErrors ? 'Result: FAILED' : 'Result: PASSED');
+    } else {
+      print(output);
+    }
+
+    exit(hasErrors ? 1 : 0);
   }
   
   /// Run the interactive REPL.
@@ -892,7 +1003,16 @@ void main() {}
             }
             break;
           case MultilineMode.executeNew:
-            final result = d4rt.execute(source: code);
+            // Create a fresh D4rt instance for isolated execution
+            // This ensures the main REPL's environment (bridges, etc.) is preserved
+            final freshD4rt = D4rt();
+            freshD4rt.grant(FilesystemPermission.any);
+            freshD4rt.grant(NetworkPermission.any);
+            freshD4rt.grant(ProcessRunPermission.any);
+            freshD4rt.grant(IsolatePermission.any);
+            freshD4rt.grant(DangerousPermission.any);
+            registerBridges(freshD4rt);
+            final result = freshD4rt.execute(source: code);
             if (result != null && !silent) {
               printResult(result);
             }
@@ -1514,7 +1634,7 @@ Object? __repl_expr__() {
     }
 
     final names = entries.map((e) {
-      final name = e.uri.pathSegments.last;
+      final name = p.basename(e.path);
       return e is Directory ? '$name/' : name;
     }).toList();
 
@@ -1536,14 +1656,16 @@ Object? __repl_expr__() {
       newPath = '${state.currentDirectory}/$path';
     }
 
+    // Normalize the path to resolve . and .. components
+    newPath = p.normalize(newPath);
+
     final dir = Directory(newPath);
     try {
-      final resolved = dir.absolute.path;
-      if (!Directory(resolved).existsSync()) {
+      if (!dir.existsSync()) {
         return 'Error: Directory not found: $path';
       }
-      state.currentDirectory = resolved;
-      return resolved;
+      state.currentDirectory = newPath;
+      return newPath;
     } catch (e) {
       return 'Error: Invalid path: $path';
     }

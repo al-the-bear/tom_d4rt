@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 8 files
-// Generated: 2026-02-02T09:06:08.488104
+// Sources: 9 files
+// Generated: 2026-02-02T15:41:47.193209
 
 // ignore_for_file: unused_import, deprecated_member_use
 
@@ -35,6 +35,7 @@ class PackageTomD4rtDcliBridge {
       _createCliRuntimeBridge(),
       _createCliRuntimeImplBridge(),
       _createCliStateBridge(),
+      _createVerificationFailureBridge(),
       _createExecutionContextBridge(),
       _createContextStackBridge(),
     ];
@@ -63,6 +64,7 @@ class PackageTomD4rtDcliBridge {
       'CliRuntime': 'package:tom_d4rt_dcli/src/api/cli_runtime.dart',
       'CliRuntimeImpl': 'package:tom_d4rt_dcli/src/api/cli_runtime.dart',
       'CliState': 'package:tom_d4rt_dcli/src/api/cli_state.dart',
+      'VerificationFailure': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
       'ExecutionContext': 'package:tom_d4rt_dcli/src/api/execution_context.dart',
       'ContextStack': 'package:tom_d4rt_dcli/src/api/execution_context.dart',
     };
@@ -142,6 +144,7 @@ class PackageTomD4rtDcliBridge {
     } catch (e) {
       errors.add('Failed to register variable "cliGlobalHolder": $e');
     }
+    interpreter.registerGlobalGetter('verificationFailures', () => $pkg.verificationFailures, importPath, sourceUri: 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart');
 
     if (errors.isNotEmpty) {
       throw StateError('Bridge registration errors (package_tom_d4rt_dcli):\n${errors.join("\n")}');
@@ -161,6 +164,70 @@ class PackageTomD4rtDcliBridge {
         final d4rt = D4.getRequiredArg<ext_tom_d4rt_d4rt_base.D4rt>(positional, 0, 'd4rt', 'registerCliShortcuts');
         return $pkg.registerCliShortcuts(d4rt);
       },
+      'clearVerificationFailures': (visitor, positional, named, typeArgs) {
+        return $pkg.clearVerificationFailures();
+      },
+      'verify': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'verify');
+        final condition = D4.getRequiredArg<bool>(positional, 0, 'condition', 'verify');
+        final errorMessage = D4.getRequiredArg<String>(positional, 1, 'errorMessage', 'verify');
+        return $pkg.verify(condition, errorMessage);
+      },
+      'verifyEquals': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'verifyEquals');
+        final actual = D4.getRequiredArg<Object?>(positional, 0, 'actual', 'verifyEquals');
+        final expected = D4.getRequiredArg<Object?>(positional, 1, 'expected', 'verifyEquals');
+        final message = positional.length > 2 ? positional[2] as String? : null;
+        return $pkg.verifyEquals(actual, expected, message);
+      },
+      'verifyNotNull': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'verifyNotNull');
+        final value = D4.getRequiredArg<Object?>(positional, 0, 'value', 'verifyNotNull');
+        final message = positional.length > 1 ? positional[1] as String? : null;
+        return $pkg.verifyNotNull(value, message);
+      },
+      'verifyNull': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'verifyNull');
+        final value = D4.getRequiredArg<Object?>(positional, 0, 'value', 'verifyNull');
+        final message = positional.length > 1 ? positional[1] as String? : null;
+        return $pkg.verifyNull(value, message);
+      },
+      'verifyContains': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'verifyContains');
+        final actual = D4.getRequiredArg<String>(positional, 0, 'actual', 'verifyContains');
+        final substring = D4.getRequiredArg<String>(positional, 1, 'substring', 'verifyContains');
+        final message = positional.length > 2 ? positional[2] as String? : null;
+        return $pkg.verifyContains(actual, substring, message);
+      },
+      'verifyMatches': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'verifyMatches');
+        final actual = D4.getRequiredArg<String>(positional, 0, 'actual', 'verifyMatches');
+        final pattern = D4.getRequiredArg<String>(positional, 1, 'pattern', 'verifyMatches');
+        final message = positional.length > 2 ? positional[2] as String? : null;
+        return $pkg.verifyMatches(actual, pattern, message);
+      },
+      'verifyNotEmpty': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'verifyNotEmpty');
+        final list = D4.getRequiredArg<List>(positional, 0, 'list', 'verifyNotEmpty');
+        final message = positional.length > 1 ? positional[1] as String? : null;
+        return $pkg.verifyNotEmpty(list, message);
+      },
+      'verifyLength': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'verifyLength');
+        final list = D4.getRequiredArg<List>(positional, 0, 'list', 'verifyLength');
+        final length = D4.getRequiredArg<int>(positional, 1, 'length', 'verifyLength');
+        final message = positional.length > 2 ? positional[2] as String? : null;
+        return $pkg.verifyLength(list, length, message);
+      },
+      'verifyThrows': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'verifyThrows');
+        final fn = D4.getRequiredArg<void Function()>(positional, 0, 'fn', 'verifyThrows');
+        final message = positional.length > 1 ? positional[1] as String? : null;
+        return $pkg.verifyThrows(fn, message);
+      },
+      'testSummary': (visitor, positional, named, typeArgs) {
+        return $pkg.testSummary();
+      },
     };
   }
 
@@ -172,6 +239,17 @@ class PackageTomD4rtDcliBridge {
     return {
       'registerCliBridge': 'package:tom_d4rt_dcli/src/api/cli_bridge.dart',
       'registerCliShortcuts': 'package:tom_d4rt_dcli/src/api/cli_bridge.dart',
+      'clearVerificationFailures': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verify': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verifyEquals': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verifyNotNull': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verifyNull': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verifyContains': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verifyMatches': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verifyNotEmpty': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verifyLength': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verifyThrows': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'testSummary': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
     };
   }
 
@@ -180,6 +258,17 @@ class PackageTomD4rtDcliBridge {
     return {
       'registerCliBridge': 'void registerCliBridge(D4rt d4rt)',
       'registerCliShortcuts': 'void registerCliShortcuts(D4rt d4rt)',
+      'clearVerificationFailures': 'void clearVerificationFailures()',
+      'verify': 'bool verify(bool condition, String errorMessage)',
+      'verifyEquals': 'bool verifyEquals(Object? actual, Object? expected, [String? message])',
+      'verifyNotNull': 'bool verifyNotNull(Object? value, [String? message])',
+      'verifyNull': 'bool verifyNull(Object? value, [String? message])',
+      'verifyContains': 'bool verifyContains(String actual, String substring, [String? message])',
+      'verifyMatches': 'bool verifyMatches(String actual, String pattern, [String? message])',
+      'verifyNotEmpty': 'bool verifyNotEmpty(List list, [String? message])',
+      'verifyLength': 'bool verifyLength(List list, int length, [String? message])',
+      'verifyThrows': 'bool verifyThrows(void Function() fn, [String? message])',
+      'testSummary': 'bool testSummary()',
     };
   }
 
@@ -197,6 +286,7 @@ class PackageTomD4rtDcliBridge {
       'package:tom_d4rt_dcli/src/api/cli_result_types.dart',
       'package:tom_d4rt_dcli/src/api/cli_runtime.dart',
       'package:tom_d4rt_dcli/src/api/cli_state.dart',
+      'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
       'package:tom_d4rt_dcli/src/api/execution_context.dart',
     ];
   }
@@ -1743,6 +1833,42 @@ BridgedClass _createCliStateBridge() {
     setterSignatures: {
       'sessionFile': 'set sessionFile(dynamic value)',
       'currentSessionId': 'set currentSessionId(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// VerificationFailure Bridge
+// =============================================================================
+
+BridgedClass _createVerificationFailureBridge() {
+  return BridgedClass(
+    nativeType: $pkg.VerificationFailure,
+    name: 'VerificationFailure',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'VerificationFailure');
+        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'VerificationFailure');
+        return $pkg.VerificationFailure(message);
+      },
+    },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.VerificationFailure>(target, 'VerificationFailure').message,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.VerificationFailure>(target, 'VerificationFailure');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'VerificationFailure(String message)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
     },
   );
 }

@@ -26,4 +26,5 @@ export 'src/api/cli_exceptions.dart';
 export 'src/api/cli_result_types.dart';
 export 'src/api/cli_runtime.dart';
 export 'src/api/cli_state.dart';
+export 'src/api/cli_test_utils.dart';
 export 'src/api/execution_context.dart';

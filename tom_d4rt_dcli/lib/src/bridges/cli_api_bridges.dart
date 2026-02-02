@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Delegating barrel for cli_api
-// Generated: 2026-02-02T09:06:14.016456
+// Generated: 2026-02-02T15:41:53.856055
 
 // ignore_for_file: unused_import, deprecated_member_use
 
