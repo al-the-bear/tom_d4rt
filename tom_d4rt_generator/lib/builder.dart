@@ -142,7 +142,10 @@ class D4rtBridgeBuilder implements Builder {
 
       // Generate dartscript file if requested
       if (config!.generateDartscript && config!.dartscriptPath != null) {
-        final dartscriptContent = generateDartscriptFileContent(config!);
+        final dartscriptContent = generateDartscriptFileContent(
+          config!,
+          dartscriptPath: config!.dartscriptPath,
+        );
         await fileWriter.writeFile(
           FileId(packageName, config!.dartscriptPath!),
           dartscriptContent,

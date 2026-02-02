@@ -58,8 +58,8 @@ String getMultilineHelp() {
 <cyan>**Multiline**</cyan>
   <yellow>**.start-define**</yellow>   Define functions/classes *(persists)*
   <yellow>**.start-script**</yellow>   Run code block with return value
-  <yellow>**.start-file**</yellow>     Run as file in current env
-  <yellow>**.start-execute**</yellow>  Run as fresh program
+  <yellow>**.start-file**</yellow>     Run in current env *(like .file)*
+  <yellow>**.start-execute**</yellow>  Run as fresh program *(like .execute)*
   <yellow>**.end**</yellow>            End multiline input and run''';
 }
 
@@ -67,8 +67,8 @@ String getMultilineHelp() {
 String getFileCommandsHelp() {
   return '''
 <cyan>**Files & Sessions**</cyan>
-  <yellow>**.execute**</yellow> <path>  Run file as fresh program *(*.dart)*
-  <yellow>**.file**</yellow> <path>     Execute file in current env *(*.exec.dart)*
+  <yellow>**.execute**</yellow> <path>  Run as fresh program *(like .start-execute)*
+  <yellow>**.file**</yellow> <path>     Run in current env *(like .start-file)*
   <yellow>**.script**</yellow> <path>   Load file line-by-line *(*.script.txt)*
   <yellow>**.load**</yellow> <path>     Replay file with output *(*.replay.txt)*
   <yellow>**.replay**</yellow> <path>   Replay file silently *(*.replay.txt)*

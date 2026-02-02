@@ -269,7 +269,9 @@ Future<void> _generateDartscriptFile(String dartscriptPath, BridgeConfig config,
   if (verbose) {
     print('  Generating dartscript: $dartscriptPath');
   }
-  await File(dartscriptPath).writeAsString(generateDartscriptFileContent(config));
+  await File(dartscriptPath).writeAsString(
+    generateDartscriptFileContent(config, dartscriptPath: config.dartscriptPath),
+  );
 }
 
 void _printUsage(ArgParser parser) {

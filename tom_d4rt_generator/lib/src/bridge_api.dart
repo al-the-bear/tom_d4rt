@@ -152,5 +152,7 @@ Future<void> _generateBarrelFile(String barrelPath, BridgeConfig config) async {
 
 /// Generate dartscript file with combined bridge registration.
 Future<void> _generateDartscriptFile(String dartscriptPath, BridgeConfig config) async {
-  await File(dartscriptPath).writeAsString(generateDartscriptFileContent(config));
+  await File(dartscriptPath).writeAsString(
+    generateDartscriptFileContent(config, dartscriptPath: config.dartscriptPath),
+  );
 }

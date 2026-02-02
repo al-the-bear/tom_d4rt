@@ -7,6 +7,8 @@
 /// - lib/builder.dart (build_runner integration)
 library;
 
+import 'package:path/path.dart' as p;
+
 import 'bridge_config.dart';
 import 'bridge_generator.dart'; // for toPascalCase
 
@@ -34,10 +36,19 @@ String generateBarrelFileContent(BridgeConfig config) {
 /// This file provides a unified registration class that registers all bridges
 /// from all modules with a D4rt interpreter.
 ///
+/// The [dartscriptPath] parameter is used to calculate correct relative imports
+/// from the dartscript file location to the module bridge files.
+///
 /// Returns the file content as a string.
-String generateDartscriptFileContent(BridgeConfig config) {
+String generateDartscriptFileContent(BridgeConfig config, {String? dartscriptPath}) {
   final registrationClass = config.registrationClass ?? '${config.name}Bridges';
   final buffer = StringBuffer();
+  
+  // Determine the directory containing the dartscript file
+  // Used for calculating relative imports to module bridge files
+  final dartscriptDir = dartscriptPath != null 
+      ? p.dirname(dartscriptPath)
+      : 'lib';
 
   // Header
   buffer.writeln('// D4rt Bridge - Generated file, do not edit');
@@ -55,11 +66,10 @@ String generateDartscriptFileContent(BridgeConfig config) {
     buffer.writeln("import '${imported.import}' as imported_$i;");
   }
 
-  // Import local module bridges
+  // Import local module bridges with correct relative paths
   for (final module in config.modules) {
-    final relativePath = module.outputPath.startsWith('lib/')
-        ? module.outputPath.substring(4)
-        : module.outputPath;
+    // Calculate relative path from dartscript directory to module output
+    final relativePath = p.relative(module.outputPath, from: dartscriptDir);
     buffer.writeln("import '$relativePath' as ${module.name}_bridges;");
   }
 

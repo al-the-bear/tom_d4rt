@@ -131,6 +131,8 @@ abstract class D4rtReplBase {
   <yellow>**-replace-session**</yellow> <id>         Delete existing session and start fresh
   <yellow>**-replay**</yellow> <file>                Replay a file before starting REPL
   <yellow>**-run-replay**</yellow> <file>            Execute replay file and exit
+  <yellow>**-test**</yellow>                         Run replay in test mode (with -run-replay)
+  <yellow>**-output**</yellow> <file>                Write test output to file (with -test)
   <yellow>**-list-sessions**</yellow>                List available sessions
   <yellow>**-init-source**</yellow> <file>           Use custom init source file
   <yellow>**-no-init-source**</yellow>               Don't load custom init source
