@@ -1899,10 +1899,9 @@ Object? __repl_expr__() {
   /// Format package info for display (used by info command and bridges help).
   void _printPackageInfo(D4rtConfiguration config, String packageName, ReplState state) {
     // Find matching import(s)
-    final matchingImports = config.imports.where((i) => 
-      _extractPackageName(i.importPath) == packageName ||
-      i.importPath.contains(packageName)
-    ).toList();
+    final matchingImports = config.imports
+        .where((i) => _extractPackageName(i.importPath) == packageName)
+        .toList();
     
     if (matchingImports.isEmpty) {
       state.writeMuted('No package found matching: $packageName');
@@ -2063,53 +2062,43 @@ Object? __repl_expr__() {
       return;
     }
     
-    // Parse query for case-sensitivity (quotes) and wildcard (asterisk)
-    var caseSensitive = false;
-    var startsWithMatch = false;
-    
-    // Check for quotes (single or double)
-    if ((query.startsWith('"') && query.endsWith('"')) ||
-        (query.startsWith("'") && query.endsWith("'"))) {
-      caseSensitive = true;
-      query = query.substring(1, query.length - 1);
+    final filter = parseSearchFilterDetails(query);
+    if (filter == null) {
+      state.writeMuted('No match found for: $query');
+      print('Try: classes, enums, methods, variables, or info <package-name>');
+      return;
     }
-    
-    // Check for asterisk wildcard suffix
-    if (query.endsWith('*')) {
-      startsWithMatch = true;
-      query = query.substring(0, query.length - 1);
-    }
-    
+
     // Helper to match names based on search mode
-    bool matchName(String name) {
-      if (startsWithMatch) {
-        return caseSensitive 
-            ? name.startsWith(query)
-            : name.toLowerCase().startsWith(query.toLowerCase());
-      } else {
-        return caseSensitive 
-            ? name == query
-            : name.toLowerCase() == query.toLowerCase();
-      }
-    }
-    
+    final matchName = filter.matches;
+
     // Check if query is a Class.member pattern (only for exact match mode)
-    if (!startsWithMatch && query.contains('.')) {
-      final parts = query.split('.');
+    if (filter.mode == SearchMatchMode.exact && filter.term.contains('.')) {
+      final parts = filter.term.split('.');
       if (parts.length == 2) {
         final className = parts[0];
         final memberName = parts[1];
-        if (_printClassMemberInfo(config, className, memberName, state, caseSensitive: caseSensitive)) {
+        if (_printClassMemberInfo(config, className, memberName, state, caseSensitive: filter.caseSensitive)) {
           return;
         }
       }
     }
-    
-    // Check if query matches a package name (only for exact match mode)
-    if (!startsWithMatch) {
-      final packages = config.imports.map((i) => _extractPackageName(i.importPath)).toSet();
-      if (packages.any((p) => p == query || p.contains(query))) {
-        _printPackageInfo(config, query, state);
+
+    // Check if query matches a package name
+    if (!filter.term.contains('.')) {
+      final packages = config.imports
+          .map((i) => _extractPackageName(i.importPath))
+          .toSet()
+          .toList()
+        ..sort();
+      final matchedPackages = packages.where(matchName).toList();
+      if (matchedPackages.isNotEmpty) {
+        var printed = false;
+        for (final pkg in matchedPackages) {
+          if (printed) print('');
+          _printPackageInfo(config, pkg, state);
+          printed = true;
+        }
         return;
       }
     }
@@ -2221,13 +2210,22 @@ Object? __repl_expr__() {
   /// Prints info for a specific class member (Class.member pattern).
   bool _printClassMemberInfo(D4rtConfiguration config, String className, String memberName, ReplState state, {bool caseSensitive = false}) {
     bool matchClassName(String name) => caseSensitive ? name == className : name.toLowerCase() == className.toLowerCase();
+    bool matchMemberName(String name) => caseSensitive ? name == memberName : name.toLowerCase() == memberName.toLowerCase();
+    String? findMemberMatch(List<String> names) {
+      for (final name in names) {
+        if (matchMemberName(name)) return name;
+      }
+      return null;
+    }
     
     for (final import in config.imports) {
       for (final cls in import.classes) {
         if (matchClassName(cls.name)) {
           // Check constructors
-          if (cls.constructors.contains(memberName) || (memberName == cls.name && cls.constructors.contains(''))) {
-            final key = memberName == cls.name ? '' : memberName;
+          final constructorMatch = findMemberMatch(cls.constructors);
+          final matchesClassName = matchMemberName(cls.name);
+          if (constructorMatch != null || (matchesClassName && cls.constructors.contains(''))) {
+            final key = constructorMatch ?? '';
             final sig = cls.constructorSignatures[key];
             final displayName = key.isEmpty ? cls.name : '${cls.name}.$key';
             print('<white>**$displayName**</white> (constructor)');
@@ -2238,9 +2236,10 @@ Object? __repl_expr__() {
           }
           
           // Check instance methods
-          if (cls.methods.contains(memberName)) {
-            final sig = cls.methodSignatures[memberName];
-            print('<white>**${cls.name}.$memberName**</white> (method)');
+          final methodMatch = findMemberMatch(cls.methods);
+          if (methodMatch != null) {
+            final sig = cls.methodSignatures[methodMatch];
+            print('<white>**${cls.name}.$methodMatch**</white> (method)');
             if (sig != null && sig.isNotEmpty) {
               print('  Signature: $sig');
             }
@@ -2248,9 +2247,10 @@ Object? __repl_expr__() {
           }
           
           // Check instance getters
-          if (cls.getters.contains(memberName)) {
-            final sig = cls.getterSignatures[memberName];
-            print('<white>**${cls.name}.$memberName**</white> (getter)');
+          final getterMatch = findMemberMatch(cls.getters);
+          if (getterMatch != null) {
+            final sig = cls.getterSignatures[getterMatch];
+            print('<white>**${cls.name}.$getterMatch**</white> (getter)');
             if (sig != null && sig.isNotEmpty) {
               print('  Type: $sig');
             }
@@ -2258,9 +2258,10 @@ Object? __repl_expr__() {
           }
           
           // Check instance setters
-          if (cls.setters.contains(memberName)) {
-            final sig = cls.setterSignatures[memberName];
-            print('<white>**${cls.name}.$memberName**</white> (setter)');
+          final setterMatch = findMemberMatch(cls.setters);
+          if (setterMatch != null) {
+            final sig = cls.setterSignatures[setterMatch];
+            print('<white>**${cls.name}.$setterMatch**</white> (setter)');
             if (sig != null && sig.isNotEmpty) {
               print('  Type: $sig');
             }
@@ -2268,9 +2269,10 @@ Object? __repl_expr__() {
           }
           
           // Check static methods
-          if (cls.staticMethods.contains(memberName)) {
-            final sig = cls.staticMethodSignatures[memberName];
-            print('<white>**${cls.name}.$memberName**</white> (static method)');
+          final staticMethodMatch = findMemberMatch(cls.staticMethods);
+          if (staticMethodMatch != null) {
+            final sig = cls.staticMethodSignatures[staticMethodMatch];
+            print('<white>**${cls.name}.$staticMethodMatch**</white> (static method)');
             if (sig != null && sig.isNotEmpty) {
               print('  Signature: $sig');
             }
@@ -2278,9 +2280,10 @@ Object? __repl_expr__() {
           }
           
           // Check static getters
-          if (cls.staticGetters.contains(memberName)) {
-            final sig = cls.staticGetterSignatures[memberName];
-            print('<white>**${cls.name}.$memberName**</white> (static getter)');
+          final staticGetterMatch = findMemberMatch(cls.staticGetters);
+          if (staticGetterMatch != null) {
+            final sig = cls.staticGetterSignatures[staticGetterMatch];
+            print('<white>**${cls.name}.$staticGetterMatch**</white> (static getter)');
             if (sig != null && sig.isNotEmpty) {
               print('  Type: $sig');
             }
@@ -2533,9 +2536,39 @@ Object? __repl_expr__() {
   }
 }
 
+enum SearchMatchMode {
+  exact,
+  startsWith,
+  contains,
+}
+
+class SearchFilter {
+  const SearchFilter({
+    required this.term,
+    required this.caseSensitive,
+    required this.mode,
+  });
+
+  final String term;
+  final bool caseSensitive;
+  final SearchMatchMode mode;
+
+  bool matches(String name) {
+    final source = caseSensitive ? name : name.toLowerCase();
+    final target = caseSensitive ? term : term.toLowerCase();
+    switch (mode) {
+      case SearchMatchMode.contains:
+        return source.contains(target);
+      case SearchMatchMode.startsWith:
+        return source.startsWith(target);
+      case SearchMatchMode.exact:
+        return source == target;
+    }
+  }
+}
+
 /// Parses a search query for case-sensitivity and wildcard matching.
-/// Returns a function that can be used to match names.
-/// 
+///
 /// Search syntax:
 /// - `query` - case-insensitive exact match
 /// - `"query"` or `'query'` - case-sensitive exact match
@@ -2543,55 +2576,51 @@ Object? __repl_expr__() {
 /// - `"query*"` - case-sensitive startsWith match
 /// - `*query*` - case-insensitive contains match
 /// - `"*query*"` - case-sensitive contains match
-/// 
+///
 /// Returns null if query is empty (meaning show all).
-bool Function(String)? parseSearchFilter(String query) {
+SearchFilter? parseSearchFilterDetails(String query) {
   if (query.isEmpty) return null;
-  
+
   var searchTerm = query;
   var caseSensitive = false;
-  
+
   // Check for quotes (single or double)
   if ((searchTerm.startsWith('"') && searchTerm.endsWith('"')) ||
       (searchTerm.startsWith("'") && searchTerm.endsWith("'"))) {
     caseSensitive = true;
     searchTerm = searchTerm.substring(1, searchTerm.length - 1);
   }
-  
+
   // Determine match mode based on asterisk wildcards
   // *term* = contains, term* = startsWith, term = exact
   final startsWithAsterisk = searchTerm.startsWith('*');
   final endsWithAsterisk = searchTerm.endsWith('*');
-  
-  // Remove asterisks from search term
-  if (startsWithAsterisk) {
-    searchTerm = searchTerm.substring(1);
-  }
-  if (endsWithAsterisk) {
+
+  SearchMatchMode mode;
+  if (startsWithAsterisk && endsWithAsterisk) {
+    mode = SearchMatchMode.contains;
+    searchTerm = searchTerm.substring(1, searchTerm.length - 1);
+  } else if (!startsWithAsterisk && endsWithAsterisk) {
+    mode = SearchMatchMode.startsWith;
     searchTerm = searchTerm.substring(0, searchTerm.length - 1);
-  }
-  
-  // Determine match type
-  // *term* or *term = contains
-  // term* = startsWith
-  // term = exact
-  final containsMatch = startsWithAsterisk;
-  final startsWithMatch = !startsWithAsterisk && endsWithAsterisk;
-  
-  // Return the matcher function
-  return (String name) {
-    if (containsMatch) {
-      return caseSensitive 
-          ? name.contains(searchTerm)
-          : name.toLowerCase().contains(searchTerm.toLowerCase());
-    } else if (startsWithMatch) {
-      return caseSensitive 
-          ? name.startsWith(searchTerm)
-          : name.toLowerCase().startsWith(searchTerm.toLowerCase());
-    } else {
-      return caseSensitive 
-          ? name == searchTerm
-          : name.toLowerCase() == searchTerm.toLowerCase();
+  } else {
+    mode = SearchMatchMode.exact;
+    if (startsWithAsterisk) {
+      searchTerm = searchTerm.substring(1);
     }
-  };
+  }
+
+  return SearchFilter(
+    term: searchTerm,
+    caseSensitive: caseSensitive,
+    mode: mode,
+  );
+}
+
+/// Parses a search query for case-sensitivity and wildcard matching.
+/// Returns a function that can be used to match names.
+bool Function(String)? parseSearchFilter(String query) {
+  final filter = parseSearchFilterDetails(query);
+  if (filter == null) return null;
+  return filter.matches;
 }
