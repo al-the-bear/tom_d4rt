@@ -75,7 +75,7 @@ Future<void> main(List<String> args) async {
     print('Directory: ${example.directory}');
     print('');
 
-    final exampleDir = Directory('${packageRoot}/${example.directory}');
+    final exampleDir = Directory('$packageRoot/${example.directory}');
     if (!exampleDir.existsSync()) {
       print('  ❌ Directory not found: ${exampleDir.path}');
       failCount++;
@@ -104,13 +104,11 @@ Future<void> main(List<String> args) async {
         'dart',
         [
           'run',
-          'tom_d4rt_generator',
+          'tom_d4rt_generator:d4rt_generator',
           '--config',
           example.configFile,
-          '--project',
-          exampleDir.path,
         ],
-        workingDirectory: packageRoot,
+        workingDirectory: exampleDir.path,
       );
 
       if (generateResult.exitCode != 0) {

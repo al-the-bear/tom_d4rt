@@ -1,59 +1,86 @@
-// Run the UserBridge override example with D4rt.
-//
-// This script demonstrates how generated bridges work with
-// UserBridge overrides for operators and globals.
+#!/usr/bin/env dart
+/// UserBridge Override Example - D4rt Script Runner
+///
+/// This script demonstrates how generated bridges work with
+/// UserBridge overrides for operators and globals.
+///
+/// From: userbridge_override_design.md
+///
+/// Run with:
+/// ```bash
+/// dart run bin/run_example.dart
+/// ```
+library;
 
-import 'package:tom_d4rt/tom_d4rt.dart';
+import 'dart:io';
 
-import '../lib/src/my_list.dart';
-import '../lib/src/globals.dart' as globals;
-// Import generated bridge when available
-// import 'userbridge_override_bridge.g.dart';
+import 'package:path/path.dart' as p;
+import 'package:tom_d4rt/d4rt.dart';
+
+import 'package:userbridge_override_example/dartscript.dart';
 
 void main() async {
-  print('=== UserBridge Override Example ===\n');
-
-  // Example 1: Using MyList directly in Dart
-  print('1. Using MyList in Dart:');
-  final list = MyList<String>();
-  list.add('one');
-  list.add('two');
-  list.add('three');
-  print('   list.length: ${list.length}');
-  print('   list[0]: ${list[0]}');
-  print('   list[1]: ${list[1]}');
-
-  // Example 2: Using globals directly in Dart
-  print('\n2. Using globals in Dart:');
-  print('   appName: ${globals.appName}');
-  print('   maxRetries: ${globals.maxRetries}');
-  print('   version: ${globals.version}');
-  print('   greet("World"): ${globals.greet("World")}');
-  print('   calculate(5, 3): ${globals.calculate(5, 3)}');
-
-  // Example 3: Using with D4rt interpreter
-  print('\n3. Running in D4rt (requires generated bridges):');
-  print('   Note: Run the bridge generator first with:');
-  print('   dart run tom_d4rt_generator --config d4rt_bridging.json');
+  print('=== UserBridge Override D4rt Example Runner ===');
   print('');
 
-  // Once bridges are generated, you can run scripts like:
-  //
-  // final interpreter = D4rtInterpreter();
-  // registerBridges(interpreter);
-  //
-  // final script = '''
-  // import 'userbridge_override_example.dart';
-  //
-  // var list = MyList<String>();
-  // list.add('hello');
-  // list.add('world');
-  // print(list[0]);  // Uses bridged operator[]
-  //
-  // print(greet('D4rt'));  // Uses bridged global function
-  // ''';
-  //
-  // await interpreter.run(script);
+  // Create D4rt interpreter
+  final d4rt = D4rt();
 
-  print('\n=== Example complete ===');
+  // Register all generated bridges (including UserBridge overrides)
+  UserbridgeOverrideExampleBridges.register(d4rt);
+
+  // Find the scripts directory
+  final scriptDir = _findScriptsDir();
+  if (scriptDir == null) {
+    print('Error: scripts/ directory not found');
+    exit(1);
+  }
+
+  // Run the example script
+  final scriptPath = p.join(scriptDir, 'userbridge_override_example.d4rt');
+  final scriptFile = File(scriptPath);
+
+  if (!scriptFile.existsSync()) {
+    print('Error: Script not found: $scriptPath');
+    exit(1);
+  }
+
+  print('Running: userbridge_override_example.d4rt');
+  print('-' * 60);
+  print('');
+
+  try {
+    final source = scriptFile.readAsStringSync();
+    final result = await d4rt.execute(source: source);
+
+    print('');
+    print('-' * 60);
+    print('Result: $result');
+    print('');
+    print('✓ Example completed successfully');
+  } catch (e, stack) {
+    print('');
+    print('❌ Example failed:');
+    print('Error: $e');
+    print('Stack: $stack');
+    exit(1);
+  }
+}
+
+/// Find the scripts directory relative to the current working directory.
+String? _findScriptsDir() {
+  // Try common locations
+  final candidates = [
+    'scripts',
+    '../scripts',
+    p.join(Directory.current.path, 'scripts'),
+  ];
+
+  for (final path in candidates) {
+    if (Directory(path).existsSync()) {
+      return path;
+    }
+  }
+
+  return null;
 }

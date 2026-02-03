@@ -5,6 +5,9 @@ library;
 
 /// A basic calculator with arithmetic operations.
 class Calculator {
+  /// Create a new calculator.
+  Calculator();
+
   /// Add two numbers.
   int add(int a, int b) => a + b;
 

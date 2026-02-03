@@ -1,86 +1,86 @@
-// Run the User Reference example with D4rt.
-//
-// This script demonstrates a more complex example with
-// data models and services.
+#!/usr/bin/env dart
+/// User Reference Example - D4rt Script Runner
+///
+/// This script demonstrates a more complex example with
+/// data models and services running through D4rt.
+///
+/// From: bridgegenerator_user_reference.md
+///
+/// Run with:
+/// ```bash
+/// dart run bin/run_example.dart
+/// ```
+library;
 
-import 'package:tom_d4rt/tom_d4rt.dart';
+import 'dart:io';
 
-import '../lib/src/data_models.dart';
-import '../lib/src/services.dart';
-// Import generated bridge when available
-// import 'user_reference_bridge.g.dart';
+import 'package:path/path.dart' as p;
+import 'package:tom_d4rt/d4rt.dart';
+
+import 'package:user_reference_example/dartscript.dart';
 
 void main() async {
-  print('=== User Reference Example ===\n');
-
-  // Example 1: Using data models directly in Dart
-  print('1. Using data models in Dart:');
-  final user = User(id: 1, name: 'Alice', email: 'alice@example.com');
-  print('   User: $user');
-
-  final product = Product(
-    sku: 'WIDGET-001',
-    name: 'Super Widget',
-    priceInCents: 1999,
-    quantity: 50,
-  );
-  print('   Product: $product');
-
-  final order = Order(orderId: 'ORD-001', customer: user);
-  order.addItem(product);
-  print('   Order: $order');
-
-  // Example 2: Using services
-  print('\n2. Using services in Dart:');
-  final userService = UserService();
-  userService.addUser(user);
-  userService.addUser(User(id: 2, name: 'Bob'));
-  print('   Users count: ${userService.users.length}');
-  print('   Found user: ${userService.getUserById(1)}');
-
-  final productService = ProductService();
-  productService.setProduct(product);
-  productService.setProduct(Product(
-    sku: 'GADGET-002',
-    name: 'Cool Gadget',
-    priceInCents: 2499,
-    quantity: 25,
-  ));
-  print('   In stock: ${productService.getInStockProducts().length} products');
-
-  // Example 3: Async operations
-  print('\n3. Async operations:');
-  final fetchedUser = await userService.fetchUser(1);
-  print('   Fetched: $fetchedUser');
-
-  // Example 4: Event emitter
-  print('\n4. Event emitter pattern:');
-  final emitter = EventEmitter<String>();
-  emitter.addListener((event) => print('   Event received: $event'));
-  emitter.emit('Hello from EventEmitter!');
-
-  // Example 5: Using with D4rt interpreter
-  print('\n5. Running in D4rt (requires generated bridges):');
-  print('   Note: Run the bridge generator first with:');
-  print('   dart run tom_d4rt_generator --config d4rt_bridging.json');
+  print('=== User Reference D4rt Example Runner ===');
   print('');
 
-  // Once bridges are generated, you can run scripts like:
-  //
-  // final interpreter = D4rtInterpreter();
-  // registerBridges(interpreter);
-  //
-  // final script = '''
-  // import 'user_reference_example.dart';
-  //
-  // var user = User(id: 1, name: 'ScriptUser');
-  // print(user.name);
-  //
-  // var service = UserService();
-  // service.addUser(user);
-  // ''';
-  //
-  // await interpreter.run(script);
+  // Create D4rt interpreter
+  final d4rt = D4rt();
 
-  print('\n=== Example complete ===');
+  // Register all generated bridges
+  UserReferenceExampleBridges.register(d4rt);
+
+  // Find the scripts directory
+  final scriptDir = _findScriptsDir();
+  if (scriptDir == null) {
+    print('Error: scripts/ directory not found');
+    exit(1);
+  }
+
+  // Run the example script
+  final scriptPath = p.join(scriptDir, 'user_reference_example.d4rt');
+  final scriptFile = File(scriptPath);
+
+  if (!scriptFile.existsSync()) {
+    print('Error: Script not found: $scriptPath');
+    exit(1);
+  }
+
+  print('Running: user_reference_example.d4rt');
+  print('-' * 60);
+  print('');
+
+  try {
+    final source = scriptFile.readAsStringSync();
+    final result = await d4rt.execute(source: source);
+
+    print('');
+    print('-' * 60);
+    print('Result: $result');
+    print('');
+    print('✓ Example completed successfully');
+  } catch (e, stack) {
+    print('');
+    print('❌ Example failed:');
+    print('Error: $e');
+    print('Stack: $stack');
+    exit(1);
+  }
+}
+
+/// Find the scripts directory relative to the current working directory.
+String? _findScriptsDir() {
+  // Try common locations
+  final candidates = [
+    'scripts',
+    '../scripts',
+    p.join(Directory.current.path, 'scripts'),
+  ];
+
+  for (final path in candidates) {
+    if (Directory(path).existsSync()) {
+      return path;
+    }
+  }
+
+  return null;
 }

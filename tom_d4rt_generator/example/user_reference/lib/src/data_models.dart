@@ -110,6 +110,9 @@ class Order {
   /// Add an item to the order.
   void addItem(Product product) => items.add(product);
 
+  /// Get the number of items in the order.
+  int get itemCount => items.length;
+
   /// Get the total price in cents.
   int get totalPriceInCents =>
       items.fold(0, (sum, p) => sum + p.priceInCents);

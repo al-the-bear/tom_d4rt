@@ -5,7 +5,7 @@
       "name": "all",
       "barrelFiles": ["lib/userbridge_override_example.dart"],
       "outputPath": "lib/src/d4rt_bridges/userbridge_bridges.dart",
-      "barrelImport": "userbridge_override_example.dart"
+      "barrelImport": "package:userbridge_override_example/userbridge_override_example.dart"
     }
   ],
   "helpersImport": "package:tom_d4rt/tom_d4rt.dart",

@@ -8,6 +8,9 @@ library;
 class MyList<T> {
   final List<T> _items = [];
 
+  /// Create a new MyList.
+  MyList();
+
   /// Get item at index.
   T operator [](int index) => _items[index];
 

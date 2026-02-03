@@ -9,6 +9,9 @@ import 'data_models.dart';
 class UserService {
   final List<User> _users = [];
 
+  /// Create a new user service.
+  UserService();
+
   /// Get all users.
   List<User> get users => List.unmodifiable(_users);
 
@@ -50,6 +53,9 @@ class UserService {
 class ProductService {
   final Map<String, Product> _products = {};
 
+  /// Create a new product service.
+  ProductService();
+
   /// Get all products.
   List<Product> get products => _products.values.toList();
 
@@ -81,6 +87,9 @@ class ProductService {
 /// A simple event emitter pattern.
 class EventEmitter<T> {
   final List<void Function(T)> _listeners = [];
+
+  /// Create a new event emitter.
+  EventEmitter();
 
   /// Add a listener.
   void addListener(void Function(T) listener) {

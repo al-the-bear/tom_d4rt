@@ -4,7 +4,7 @@
 /// userbridge_override_design.md.
 ///
 /// It contains:
-/// - MyList<T> - A generic list that requires operator overrides
+/// - `MyList<T>` - A generic list that requires operator overrides
 /// - Global variables and getters that need custom handling
 library;
 
