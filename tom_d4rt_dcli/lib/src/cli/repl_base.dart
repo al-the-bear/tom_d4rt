@@ -2009,6 +2009,18 @@ Object? __repl_expr__() {
       return;
     }
     
+    // Check if query is a Class.member pattern
+    if (query.contains('.')) {
+      final parts = query.split('.');
+      if (parts.length == 2) {
+        final className = parts[0];
+        final memberName = parts[1];
+        if (_printClassMemberInfo(config, className, memberName, state)) {
+          return;
+        }
+      }
+    }
+    
     // Check if query matches a package name
     final packages = config.imports.map((i) => _extractPackageName(i.importPath)).toSet();
     if (packages.any((p) => p == query || p.contains(query))) {
@@ -2016,30 +2028,29 @@ Object? __repl_expr__() {
       return;
     }
     
+    // Collect all matches to show them all, not just the first one
+    var foundMatch = false;
+    
+    // Check if query matches a global function (check FIRST for priority)
+    for (final func in config.globalFunctions) {
+      if (func.name.toLowerCase() == query.toLowerCase()) {
+        if (func.signature != null && func.signature!.isNotEmpty) {
+          print('<white>**${func.signature}**</white>');
+        } else {
+          print('<white>**${func.name}()**</white>');
+        }
+        print('  From: ${_extractPackageName(func.libraryUri)}');
+        foundMatch = true;
+      }
+    }
+    
     // Check if query matches a class
     for (final import in config.imports) {
       for (final cls in import.classes) {
         if (cls.name.toLowerCase() == query.toLowerCase()) {
-          print('<white>**${cls.name}**</white> (${_extractPackageName(import.importPath)})');
-          if (cls.constructors.isNotEmpty) {
-            print('  Constructors: ${cls.constructors.map((c) => c.isEmpty ? '${cls.name}()' : '${cls.name}.$c()').join(', ')}');
-          }
-          if (cls.methods.isNotEmpty) {
-            print('  Methods: ${cls.methods.join(', ')}');
-          }
-          if (cls.getters.isNotEmpty) {
-            print('  Getters: ${cls.getters.join(', ')}');
-          }
-          if (cls.setters.isNotEmpty) {
-            print('  Setters: ${cls.setters.join(', ')}');
-          }
-          if (cls.staticMethods.isNotEmpty) {
-            print('  Static Methods: ${cls.staticMethods.join(', ')}');
-          }
-          if (cls.staticGetters.isNotEmpty) {
-            print('  Static Getters: ${cls.staticGetters.join(', ')}');
-          }
-          return;
+          if (foundMatch) print(''); // Add spacing between matches
+          _printClassInfo(cls, import.importPath);
+          foundMatch = true;
         }
       }
     }
@@ -2048,24 +2059,152 @@ Object? __repl_expr__() {
     for (final import in config.imports) {
       for (final e in import.enums) {
         if (e.name.toLowerCase() == query.toLowerCase()) {
+          if (foundMatch) print('');
           print('<white>**${e.name}**</white> (${_extractPackageName(import.importPath)})');
           print('  Values: ${e.values.join(', ')}');
-          return;
+          foundMatch = true;
         }
       }
     }
     
-    // Check if query matches a global function
-    for (final func in config.globalFunctions) {
-      if (func.name.toLowerCase() == query.toLowerCase()) {
-        print('<white>**${func.name}()**</white>');
-        print('  From: ${_extractPackageName(func.libraryUri)}');
-        return;
+    // Check if query matches a global variable
+    for (final v in config.globalVariables) {
+      if (v.name.toLowerCase() == query.toLowerCase()) {
+        if (foundMatch) print('');
+        print('<white>**${v.name}**</white>');
+        print('  Type: ${v.valueType}');
+        print('  From: ${_extractPackageName(v.libraryUri)}');
+        foundMatch = true;
       }
     }
     
-    state.writeMuted('No match found for: $query');
-    print('Try: classes, enums, methods, variables, or info <package-name>');
+    // Check if query matches a global getter
+    for (final g in config.globalGetters) {
+      if (g.name.toLowerCase() == query.toLowerCase()) {
+        if (foundMatch) print('');
+        print('<white>**${g.name}**</white> (getter)');
+        if (g.returnType != null) {
+          print('  Type: ${g.returnType}');
+        }
+        print('  From: ${_extractPackageName(g.libraryUri)}');
+        foundMatch = true;
+      }
+    }
+    
+    if (!foundMatch) {
+      state.writeMuted('No match found for: $query');
+      print('Try: classes, enums, methods, variables, or info <package-name>');
+    }
+  }
+  
+  /// Prints detailed class information including signatures.
+  void _printClassInfo(BridgedClassInfo cls, String importPath) {
+    print('<white>**${cls.name}**</white> (${_extractPackageName(importPath)})');
+    
+    if (cls.constructors.isNotEmpty) {
+      print('  Constructors:');
+      for (final c in cls.constructors) {
+        final name = c.isEmpty ? cls.name : '${cls.name}.$c';
+        final sig = cls.constructorSignatures[c];
+        if (sig != null && sig.isNotEmpty) {
+          print('    $name$sig');
+        } else {
+          print('    $name()');
+        }
+      }
+    }
+    if (cls.methods.isNotEmpty) {
+      print('  Methods: ${cls.methods.join(', ')}');
+    }
+    if (cls.getters.isNotEmpty) {
+      print('  Getters: ${cls.getters.join(', ')}');
+    }
+    if (cls.setters.isNotEmpty) {
+      print('  Setters: ${cls.setters.join(', ')}');
+    }
+    if (cls.staticMethods.isNotEmpty) {
+      print('  Static Methods: ${cls.staticMethods.join(', ')}');
+    }
+    if (cls.staticGetters.isNotEmpty) {
+      print('  Static Getters: ${cls.staticGetters.join(', ')}');
+    }
+  }
+  
+  /// Prints info for a specific class member (Class.member pattern).
+  bool _printClassMemberInfo(D4rtConfiguration config, String className, String memberName, ReplState state) {
+    for (final import in config.imports) {
+      for (final cls in import.classes) {
+        if (cls.name.toLowerCase() == className.toLowerCase()) {
+          // Check constructors
+          if (cls.constructors.contains(memberName) || (memberName == cls.name && cls.constructors.contains(''))) {
+            final key = memberName == cls.name ? '' : memberName;
+            final sig = cls.constructorSignatures[key];
+            final displayName = key.isEmpty ? cls.name : '${cls.name}.$key';
+            print('<white>**$displayName**</white> (constructor)');
+            if (sig != null && sig.isNotEmpty) {
+              print('  Signature: $displayName$sig');
+            }
+            return true;
+          }
+          
+          // Check instance methods
+          if (cls.methods.contains(memberName)) {
+            final sig = cls.methodSignatures[memberName];
+            print('<white>**${cls.name}.$memberName**</white> (method)');
+            if (sig != null && sig.isNotEmpty) {
+              print('  Signature: $sig');
+            }
+            return true;
+          }
+          
+          // Check instance getters
+          if (cls.getters.contains(memberName)) {
+            final sig = cls.getterSignatures[memberName];
+            print('<white>**${cls.name}.$memberName**</white> (getter)');
+            if (sig != null && sig.isNotEmpty) {
+              print('  Type: $sig');
+            }
+            return true;
+          }
+          
+          // Check instance setters
+          if (cls.setters.contains(memberName)) {
+            final sig = cls.setterSignatures[memberName];
+            print('<white>**${cls.name}.$memberName**</white> (setter)');
+            if (sig != null && sig.isNotEmpty) {
+              print('  Type: $sig');
+            }
+            return true;
+          }
+          
+          // Check static methods
+          if (cls.staticMethods.contains(memberName)) {
+            final sig = cls.staticMethodSignatures[memberName];
+            print('<white>**${cls.name}.$memberName**</white> (static method)');
+            if (sig != null && sig.isNotEmpty) {
+              print('  Signature: $sig');
+            }
+            return true;
+          }
+          
+          // Check static getters
+          if (cls.staticGetters.contains(memberName)) {
+            final sig = cls.staticGetterSignatures[memberName];
+            print('<white>**${cls.name}.$memberName**</white> (static getter)');
+            if (sig != null && sig.isNotEmpty) {
+              print('  Type: $sig');
+            }
+            return true;
+          }
+          
+          // Member not found, but class exists
+          state.writeMuted('Member \'$memberName\' not found in class \'${cls.name}\'');
+          print('Available members: ${[...cls.methods, ...cls.getters, ...cls.staticMethods, ...cls.staticGetters].join(', ')}');
+          return true;
+        }
+      }
+    }
+    return false;
   }
   
   void _printEnvironmentClasses(D4rt d4rt, ReplState state) {

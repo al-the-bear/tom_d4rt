@@ -1,0 +1,86 @@
+# DCli IO and File System Tests
+# Run with: dcli -run-replay test_dcli_io.dcli -test
+# Or: dart run bin/dcli.dart -run-replay test/replay/test_dcli_io.dcli -test
+
+import 'dart:io';
+
+# =============================================================================
+# Test: File System Basics
+# =============================================================================
+
+# Get current directory
+var cwd = Directory.current.path;
+verifyNotNull(cwd, 'Current directory should not be null');
+verify(cwd.isNotEmpty, 'Current directory path should not be empty');
+
+# Check directory exists
+var currentDir = Directory.current;
+verify(currentDir.existsSync(), 'Current directory should exist');
+
+# =============================================================================
+# Test: Temporary File Operations
+# =============================================================================
+
+# Create temp directory
+var tempDir = Directory.systemTemp;
+verify(tempDir.existsSync(), 'System temp directory should exist');
+
+# Create a test file
+var testFilePath = '${tempDir.path}/dcli_test_${DateTime.now().millisecondsSinceEpoch}.txt';
+var testFile = File(testFilePath);
+
+# Write to file
+testFile.writeAsStringSync('Hello, DCli Test!\nLine 2\nLine 3');
+verify(testFile.existsSync(), 'Test file should be created');
+
+# Read file contents
+var contents = testFile.readAsStringSync();
+verifyContains(contents, 'Hello, DCli Test!', 'File should contain test text');
+
+# Read lines
+var lines = testFile.readAsLinesSync();
+verifyEquals(lines.length, 3, 'File should have 3 lines');
+verifyEquals(lines[0], 'Hello, DCli Test!', 'First line should match');
+
+# Get file stats
+var stat = testFile.statSync();
+verify(stat.size > 0, 'File size should be greater than 0');
+
+# Clean up
+testFile.deleteSync();
+verify(!testFile.existsSync(), 'Test file should be deleted');
+
+# =============================================================================
+# Test: Path Operations
+# =============================================================================
+
+var path = '/usr/local/bin/dart';
+var dir = path.substring(0, path.lastIndexOf('/'));
+verifyEquals(dir, '/usr/local/bin', 'Directory extraction should work');
+
+var filename = path.substring(path.lastIndexOf('/') + 1);
+verifyEquals(filename, 'dart', 'Filename extraction should work');
+
+# =============================================================================
+# Test: Platform Info
+# =============================================================================
+
+var pathSep = Platform.pathSeparator;
+verifyNotNull(pathSep, 'Path separator should not be null');
+verify(pathSep == '/' || pathSep == '\\', 'Path separator should be / or \\');
+
+var os = Platform.operatingSystem;
+verifyNotNull(os, 'Operating system should not be null');
+
+# =============================================================================
+# Test: Environment Variables
+# =============================================================================
+
+var home = Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
+verifyNotNull(home, 'Home directory should be in environment');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();

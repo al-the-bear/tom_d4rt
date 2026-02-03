@@ -377,6 +377,11 @@ class ConstructorInfo {
 class ClassInfo {
   final String name;
   final String? superclass;
+  
+  /// The package URI of the superclass (e.g., 'package:tom_basics/tom_basics.dart').
+  /// Used for resolving inherited members from external packages.
+  final String? superclassUri;
+  
   final bool isAbstract;
   final List<ConstructorInfo> constructors;
   final List<MemberInfo> members;
@@ -391,6 +396,7 @@ class ClassInfo {
     required this.name,
     required this.sourceFile,
     this.superclass,
+    this.superclassUri,
     this.isAbstract = false,
     this.constructors = const [],
     this.members = const [],
@@ -704,6 +710,12 @@ class BridgeGenerator {
   /// Packages to follow for external type dependencies.
   /// Format: package names without 'package:' prefix (e.g., ['tom_core_kernel', 'tom_core_server'])
   List<String> followPackages = [];
+
+  /// External class lookup for cross-package inheritance resolution.
+  /// Set this before generating bridges to include classes from other packages
+  /// in the inheritance lookup (e.g., TomBaseException for TomException).
+  /// Key is class name, value is ClassInfo from the external package.
+  Map<String, ClassInfo> externalClassLookup = {};
 
   /// Whether to generate bridging code for deprecated elements.
   /// When false (default), deprecated elements are skipped and counted.
@@ -1037,7 +1049,7 @@ class BridgeGenerator {
           content.contains('class $className{') ||
           content.contains('class $className<')) {
         // Verify with parser
-        final classes = await _parseFile(file.path);
+        final classes = await parseFile(file.path);
         if (classes.any((c) => c.name == className)) {
           return file.path;
         }
@@ -1464,7 +1476,7 @@ class BridgeGenerator {
     // Parse all source files
     for (final sourcePath in sourceFiles) {
       try {
-        final classes = await _parseFile(sourcePath);
+        final classes = await parseFile(sourcePath);
         allClasses.addAll(classes);
       } catch (e) {
         errors.add('Failed to parse $sourcePath: $e');
@@ -1660,6 +1672,7 @@ class BridgeGenerator {
           sourceFile,
           moduleName,
           allClasses: allClassesForFile,
+          externalClassLookup: externalClassLookup.isNotEmpty ? externalClassLookup : null,
           globalFunctions: fileFunctions,
           globalVariables: fileVariables,
           enums: fileEnums,
@@ -1783,6 +1796,7 @@ class BridgeGenerator {
         sourceFiles.first,
         moduleName,
         allClasses: filteredClasses,
+        externalClassLookup: externalClassLookup.isNotEmpty ? externalClassLookup : null,
         globalFunctions: filteredFunctions,
         globalVariables: filteredVariables,
         enums: filteredEnums,
@@ -1834,7 +1848,7 @@ class BridgeGenerator {
     // Parse all source files
     for (final sourcePath in sourceFiles) {
       try {
-        final classes = await _parseFile(sourcePath);
+        final classes = await parseFile(sourcePath);
         allClasses.addAll(classes);
       } catch (e) {
         errors.add('Failed to parse $sourcePath: $e');
@@ -2120,6 +2134,7 @@ class BridgeGenerator {
       sourceFiles.first,
       moduleName,
       allClasses: filteredClasses,
+      externalClassLookup: externalClassLookup.isNotEmpty ? externalClassLookup : null,
       globalFunctions: filteredFunctions,
       globalVariables: filteredVariables,
       enums: filteredEnums,
@@ -2184,10 +2199,25 @@ class BridgeGenerator {
 
   /// Collects external type dependencies from parsed classes.
   ///
-  /// Scans all method parameters, return types, and field types to find
-  /// types that come from packages in [followPackages].
+  /// Scans all method parameters, return types, field types, and superclasses 
+  /// to find types that come from packages in [followPackages].
   void _collectExternalDependencies(List<ClassInfo> classes) {
     for (final cls in classes) {
+      // Check superclass for cross-package inheritance
+      if (cls.superclass != null && cls.superclassUri != null) {
+        for (final pkg in followPackages) {
+          if (cls.superclassUri!.startsWith('package:$pkg/')) {
+            _externalDependencies.add(ExternalTypeDependency(
+              typeName: cls.superclass!,
+              packageUri: cls.superclassUri!,
+              referencedBy: cls.name,
+              usageContext: 'superclass',
+            ));
+            break;
+          }
+        }
+      }
+      
       // Check constructor parameters
       for (final ctor in cls.constructors) {
         for (final param in ctor.parameters) {
@@ -2289,7 +2319,7 @@ class BridgeGenerator {
 
       // Parse the file to find the class
       try {
-        final classes = await _parseFile(packagePath);
+        final classes = await parseFile(packagePath);
         final targetClass = classes.where((c) => c.name == dep.typeName).firstOrNull;
         if (targetClass != null) {
           // Check if it's already in our class lookup
@@ -2361,7 +2391,10 @@ class BridgeGenerator {
   }
 
   /// Parses a Dart file and extracts class information with resolved types.
-  Future<List<ClassInfo>> _parseFile(String filePath) async {
+  /// 
+  /// This method is public to allow the orchestrator to build a global class
+  /// lookup for cross-package inheritance resolution.
+  Future<List<ClassInfo>> parseFile(String filePath) async {
     // Normalize the file path
     final absolutePath = p.isAbsolute(filePath)
         ? filePath
@@ -2407,6 +2440,7 @@ class BridgeGenerator {
                 name: c.name,
                 sourceFile: normalizedPath,
                 superclass: c.superclass,
+                superclassUri: c.superclassUri,
                 isAbstract: c.isAbstract,
                 constructors: c.constructors,
                 members: c.members,
@@ -2973,11 +3007,14 @@ class BridgeGenerator {
   /// [classes] - The classes to generate bridges for (non-abstract classes that can be bridged).
   /// [allClasses] - All classes including abstract ones, used for inheritance resolution.
   ///                If not provided, defaults to [classes].
+  /// [externalClassLookup] - Classes from external packages for cross-package inheritance resolution.
+  ///                         These are used in the lookup but not generated in this file.
   String _generateBridgeFile(
     List<ClassInfo> classes,
     String sourceFile,
     String? overrideModuleName, {
     List<ClassInfo>? allClasses,
+    Map<String, ClassInfo>? externalClassLookup,
     List<GlobalFunctionInfo> globalFunctions = const [],
     List<GlobalVariableInfo> globalVariables = const [],
     List<EnumInfo> enums = const [],
@@ -2992,8 +3029,12 @@ class BridgeGenerator {
 
     // Build class lookup map for inheritance resolution
     // Use allClasses (which includes abstract classes) for looking up superclasses
+    // Also include external classes from other packages for cross-package inheritance
     final lookupClasses = allClasses ?? classes;
-    _classLookup = {for (final cls in lookupClasses) cls.name: cls};
+    _classLookup = {
+      if (externalClassLookup != null) ...externalClassLookup,
+      for (final cls in lookupClasses) cls.name: cls,
+    };
 
     // Collect all unique source files from classes, enums, and globals
     final allSourceFiles = <String>{
@@ -7046,10 +7087,22 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     final constructors = <ConstructorInfo>[];
     final members = <MemberInfo>[];
 
-    // Extract superclass
+    // Extract superclass name and URI for cross-package inheritance resolution
     String? superclass;
+    String? superclassUri;
     if (node.extendsClause != null) {
       superclass = node.extendsClause!.superclass.name.lexeme;
+      // Get the resolved type to find the library identifier
+      final superclassType = node.extendsClause!.superclass.type;
+      if (superclassType is InterfaceType) {
+        final superclassElement = superclassType.element;
+        final library = superclassElement.library;
+        final uri = library.identifier;
+        // Only store package: URIs, not file: or dart: URIs
+        if (uri.startsWith('package:')) {
+          superclassUri = uri;
+        }
+      }
     }
 
     // Visit class members
@@ -7080,6 +7133,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       _ParsedClass(
         name: className,
         superclass: superclass,
+        superclassUri: superclassUri,
         isAbstract: node.abstractKeyword != null,
         constructors: constructors,
         members: members,
@@ -7571,6 +7625,10 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
 class _ParsedClass {
   String name;
   String? superclass;
+  
+  /// The package URI of the superclass (e.g., 'package:tom_basics/tom_basics.dart').
+  String? superclassUri;
+  
   bool isAbstract;
   List<ConstructorInfo> constructors;
   List<MemberInfo> members;
@@ -7581,6 +7639,7 @@ class _ParsedClass {
   _ParsedClass({
     required this.name,
     this.superclass,
+    this.superclassUri,
     this.isAbstract = false,
     this.constructors = const [],
     this.members = const [],

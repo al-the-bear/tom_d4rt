@@ -1,0 +1,54 @@
+# DCli Test Suite - Part 8: JSON Operations
+# Run with: dcli -run-replay test_dcli_json.dcli -test
+# Tests: 12 verifications
+
+import 'dart:io';
+import 'dart:convert';
+
+# =============================================================================
+# Test: JSON Encoding (4 tests)
+# =============================================================================
+
+var simpleMap = {'name': 'DCli', 'version': 1};
+var json1 = jsonEncode(simpleMap);
+verifyContains(json1, 'DCli', 'JSON contains name');
+verifyContains(json1, '1', 'JSON contains version');
+
+var list = [1, 2, 3, 'hello', true];
+var json2 = jsonEncode(list);
+verifyContains(json2, 'hello', 'JSON list contains string');
+verifyContains(json2, 'true', 'JSON list contains bool');
+
+# =============================================================================
+# Test: JSON Decoding (4 tests)
+# =============================================================================
+
+var jsonStr = '{"id": 42, "active": true, "name": "test"}';
+var decoded = jsonDecode(jsonStr);
+verifyEquals(decoded['id'], 42, 'Decoded int value');
+verifyEquals(decoded['active'], true, 'Decoded bool value');
+verifyEquals(decoded['name'], 'test', 'Decoded string value');
+
+var arrayJson = '[10, 20, 30, 40]';
+var decodedList = jsonDecode(arrayJson);
+verifyEquals(decodedList.length, 4, 'Decoded list length');
+
+# =============================================================================
+# Test: Nested JSON (4 tests)
+# =============================================================================
+
+var nestedJson = '{"user": {"name": "John", "age": 30}, "items": [1, 2, 3]}';
+var nested = jsonDecode(nestedJson);
+var user = nested['user'];
+verifyEquals(user['name'], 'John', 'Nested object name');
+verifyEquals(user['age'], 30, 'Nested object age');
+
+var items = nested['items'];
+verifyEquals(items.length, 3, 'Nested list length');
+verifyEquals(items[2], 3, 'Nested list value');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();

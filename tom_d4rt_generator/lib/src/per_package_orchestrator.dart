@@ -104,6 +104,11 @@ class PerPackageBridgeOrchestrator {
   final Set<String> _globalExcludeVariables = {};
   final Set<String> _globalExcludeSourcePatterns = {};
   
+  /// Global class lookup for cross-package inheritance resolution.
+  /// Built by [buildGlobalClassLookup] before generating bridges.
+  /// Key is class name, value is ClassInfo.
+  final Map<String, ClassInfo> _globalClassLookup = {};
+  
   /// Counter for deprecated elements skipped during generation.
   int skippedDeprecatedCount = 0;
 
@@ -280,6 +285,56 @@ class PerPackageBridgeOrchestrator {
     }
   }
 
+  /// Builds the global class lookup for cross-package inheritance resolution.
+  /// 
+  /// This parses all source files from all packages and builds a map of
+  /// class name -> ClassInfo. This allows inheritance resolution across
+  /// packages (e.g., TomException extends TomBaseException from tom_basics).
+  /// 
+  /// Call this after [collectPackageInfo] and before [generatePerPackageFiles].
+  Future<void> buildGlobalClassLookup() async {
+    _globalClassLookup.clear();
+    
+    for (final entry in _packageInfoMap.entries) {
+      final pkgName = entry.key;
+      final pkgInfo = entry.value;
+      
+      // Get barrel files for this package
+      final barrelFiles = pkgInfo.barrelFiles;
+      final ownPackageBarrels = barrelFiles
+          .where((b) => b.startsWith('package:$pkgName/'))
+          .toList();
+      
+      final sourceImports = ownPackageBarrels.isNotEmpty
+          ? ownPackageBarrels
+          : ['package:$pkgName/$pkgName.dart'];
+
+      final generator = BridgeGenerator(
+        workspacePath: projectRoot,
+        packageName: config.name,
+        sourceImports: sourceImports,
+        sourceFileToBarrel: pkgInfo.sourceFileToBarrel,
+        helpersImport: config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
+        userBridgeScanner: _userBridgeScanner,
+      );
+      
+      // Parse all classes from this package's source files
+      for (final sourceFile in pkgInfo.sourceFiles) {
+        try {
+          final classes = await generator.parseFile(sourceFile);
+          for (final cls in classes) {
+            // Add to global lookup (later packages may override earlier ones)
+            _globalClassLookup[cls.name] = cls;
+          }
+        } catch (e) {
+          onWarning?.call('Warning: Failed to parse $sourceFile for class lookup: $e');
+        }
+      }
+    }
+    
+    onWarning?.call('Built global class lookup with ${_globalClassLookup.length} classes');
+  }
+
   /// Generates per-package bridge files.
   ///
   /// Returns a map of package name -> generated file path.
@@ -322,6 +377,9 @@ class PerPackageBridgeOrchestrator {
       
       // Set per-package option for deprecated element generation
       generator.generateDeprecatedElements = pkgInfo.generateDeprecatedElements;
+      
+      // Pass global class lookup for cross-package inheritance resolution
+      generator.externalClassLookup = Map.of(_globalClassLookup);
 
       // Generate bridges for this package's source files
       // Apply global exclusions collected from all modules

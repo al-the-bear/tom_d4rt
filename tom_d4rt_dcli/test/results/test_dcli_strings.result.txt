@@ -1,0 +1,7 @@
+Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_dcli/test/replay/test_dcli_strings.dcli
+Started: 2026-02-02T17:06:24.886334
+
+Lines executed: 64
+
+Result: PASSED
+Completed: 2026-02-02T17:06:25.153178

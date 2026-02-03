@@ -1,0 +1,47 @@
+# DCli Test Suite - Part 6: DateTime and Duration
+# Run with: dcli -run-replay test_dcli_datetime.dcli -test
+# Tests: 12 verifications
+
+import 'dart:io';
+
+# =============================================================================
+# Test: DateTime Creation (4 tests)
+# =============================================================================
+
+var now = DateTime.now();
+verifyNotNull(now, 'DateTime.now not null');
+verify(now.year >= 2026, 'Year is 2026 or later');
+
+var specific = DateTime(2026, 6, 15, 10, 30, 45);
+verifyEquals(specific.year, 2026, 'Specific year');
+verifyEquals(specific.month, 6, 'Specific month');
+
+# =============================================================================
+# Test: DateTime Properties (4 tests)
+# =============================================================================
+
+var date = DateTime(2026, 3, 15, 14, 30, 0);
+verifyEquals(date.day, 15, 'Day of month');
+verifyEquals(date.hour, 14, 'Hour');
+verifyEquals(date.minute, 30, 'Minute');
+verifyEquals(date.weekday, 7, 'Weekday (Sunday)');
+
+# =============================================================================
+# Test: Duration (4 tests)
+# =============================================================================
+
+var duration1 = Duration(hours: 2, minutes: 30);
+verifyEquals(duration1.inMinutes, 150, 'Duration in minutes');
+verifyEquals(duration1.inSeconds, 9000, 'Duration in seconds');
+
+var duration2 = Duration(days: 1, hours: 12);
+verifyEquals(duration2.inHours, 36, 'Duration in hours');
+
+var combined = duration1 + duration2;
+verifyEquals(combined.inMinutes, 2310, 'Combined duration');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();

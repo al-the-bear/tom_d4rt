@@ -113,6 +113,9 @@ class D4rtBridgeBuilder implements Builder {
       // Phase 1: Collect package info from all modules
       await orchestrator.collectPackageInfo();
 
+      // Phase 1.5: Build global class lookup for cross-package inheritance
+      await orchestrator.buildGlobalClassLookup();
+
       // Phase 2: Generate per-package bridge files
       final packageFiles = await orchestrator.generatePerPackageFiles();
       outputFiles.addAll(packageFiles.values);

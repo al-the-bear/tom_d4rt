@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 50 files
-// Generated: 2026-02-02T15:41:50.989995
+// Generated: 2026-02-03T09:08:03.404339
 
 // ignore_for_file: unused_import, deprecated_member_use
 
@@ -943,8 +943,50 @@ BridgedClass _createAskValidatorExceptionBridge() {
         return $pkg.AskValidatorException(message);
       },
     },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.AskValidatorException>(target, 'AskValidatorException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.AskValidatorException>(target, 'AskValidatorException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.AskValidatorException>(target, 'AskValidatorException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.AskValidatorException>(target, 'AskValidatorException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.AskValidatorException>(target, 'AskValidatorException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.AskValidatorException>(target, 'AskValidatorException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.AskValidatorException>(target, 'AskValidatorException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.AskValidatorException>(target, 'AskValidatorException');
+        return t.toJsonString();
+      },
+    },
     constructorSignatures: {
       '': 'AskValidatorException(dynamic message)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'Trace get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }
@@ -1239,21 +1281,55 @@ BridgedClass _createFetchExceptionBridge() {
       },
     },
     getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.FetchException>(target, 'FetchException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.FetchException>(target, 'FetchException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.FetchException>(target, 'FetchException').stackTrace,
       'errorCode': (visitor, target) => D4.validateTarget<$pkg.FetchException>(target, 'FetchException').errorCode,
     },
     setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.FetchException>(target, 'FetchException').stackTrace = value as dynamic,
       'errorCode': (visitor, target, value) => 
         D4.validateTarget<$pkg.FetchException>(target, 'FetchException').errorCode = value as int?,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.FetchException>(target, 'FetchException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.FetchException>(target, 'FetchException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.FetchException>(target, 'FetchException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.FetchException>(target, 'FetchException');
+        return t.toJsonString();
+      },
     },
     constructorSignatures: {
       '': 'FetchException(dynamic message)',
       'fromException': 'FetchException.fromException(SocketException e)',
       'fromHttpError': 'FetchException.fromHttpError(int? errorCode, String reasonPhrase)',
     },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
     getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'Trace get stackTrace',
       'errorCode': 'int? get errorCode',
     },
     setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
       'errorCode': 'set errorCode(dynamic value)',
     },
   );
@@ -1275,8 +1351,50 @@ BridgedClass _createReadExceptionBridge() {
         return $pkg.ReadException(reason, stacktrace);
       },
     },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.ReadException>(target, 'ReadException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.ReadException>(target, 'ReadException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.ReadException>(target, 'ReadException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.ReadException>(target, 'ReadException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ReadException>(target, 'ReadException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ReadException>(target, 'ReadException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ReadException>(target, 'ReadException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ReadException>(target, 'ReadException');
+        return t.toJsonString();
+      },
+    },
     constructorSignatures: {
       '': 'ReadException(dynamic reason, [dynamic stacktrace])',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'Trace get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }
@@ -1491,8 +1609,50 @@ BridgedClass _createResourceExceptionBridge() {
         return $pkg.ResourceException(message);
       },
     },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.ResourceException>(target, 'ResourceException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.ResourceException>(target, 'ResourceException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.ResourceException>(target, 'ResourceException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.ResourceException>(target, 'ResourceException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ResourceException>(target, 'ResourceException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ResourceException>(target, 'ResourceException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ResourceException>(target, 'ResourceException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ResourceException>(target, 'ResourceException');
+        return t.toJsonString();
+      },
+    },
     constructorSignatures: {
       '': 'ResourceException(dynamic message)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'Trace get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }
@@ -1636,8 +1796,50 @@ BridgedClass _createDartProjectExceptionBridge() {
         return $pkg.DartProjectException(message);
       },
     },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.DartProjectException>(target, 'DartProjectException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.DartProjectException>(target, 'DartProjectException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.DartProjectException>(target, 'DartProjectException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.DartProjectException>(target, 'DartProjectException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.DartProjectException>(target, 'DartProjectException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.DartProjectException>(target, 'DartProjectException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.DartProjectException>(target, 'DartProjectException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.DartProjectException>(target, 'DartProjectException');
+        return t.toJsonString();
+      },
+    },
     constructorSignatures: {
       '': 'DartProjectException(dynamic message)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'Trace get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }
@@ -1657,8 +1859,50 @@ BridgedClass _createTemplateNotFoundExceptionBridge() {
         return $pkg.TemplateNotFoundException(pathTo);
       },
     },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.TemplateNotFoundException>(target, 'TemplateNotFoundException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.TemplateNotFoundException>(target, 'TemplateNotFoundException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.TemplateNotFoundException>(target, 'TemplateNotFoundException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.TemplateNotFoundException>(target, 'TemplateNotFoundException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.TemplateNotFoundException>(target, 'TemplateNotFoundException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.TemplateNotFoundException>(target, 'TemplateNotFoundException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.TemplateNotFoundException>(target, 'TemplateNotFoundException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.TemplateNotFoundException>(target, 'TemplateNotFoundException');
+        return t.toJsonString();
+      },
+    },
     constructorSignatures: {
       '': 'TemplateNotFoundException(String pathTo)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'Trace get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }
@@ -1678,8 +1922,50 @@ BridgedClass _createInvalidProjectTemplateExceptionBridge() {
         return $pkg.InvalidProjectTemplateException(message);
       },
     },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.InvalidProjectTemplateException>(target, 'InvalidProjectTemplateException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.InvalidProjectTemplateException>(target, 'InvalidProjectTemplateException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.InvalidProjectTemplateException>(target, 'InvalidProjectTemplateException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.InvalidProjectTemplateException>(target, 'InvalidProjectTemplateException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.InvalidProjectTemplateException>(target, 'InvalidProjectTemplateException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.InvalidProjectTemplateException>(target, 'InvalidProjectTemplateException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.InvalidProjectTemplateException>(target, 'InvalidProjectTemplateException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.InvalidProjectTemplateException>(target, 'InvalidProjectTemplateException');
+        return t.toJsonString();
+      },
+    },
     constructorSignatures: {
       '': 'InvalidProjectTemplateException(dynamic message)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'Trace get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }
@@ -2265,8 +2551,50 @@ BridgedClass _createShellExceptionBridge() {
         return $pkg.ShellException(reason);
       },
     },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.ShellException>(target, 'ShellException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.ShellException>(target, 'ShellException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.ShellException>(target, 'ShellException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.ShellException>(target, 'ShellException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ShellException>(target, 'ShellException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ShellException>(target, 'ShellException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ShellException>(target, 'ShellException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ShellException>(target, 'ShellException');
+        return t.toJsonString();
+      },
+    },
     constructorSignatures: {
       '': 'ShellException(dynamic reason)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'Trace get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }
@@ -2504,8 +2832,50 @@ BridgedClass _createInvalidArgumentExceptionBridge() {
         return $pkg.InvalidArgumentException(message);
       },
     },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.InvalidArgumentException>(target, 'InvalidArgumentException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.InvalidArgumentException>(target, 'InvalidArgumentException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.InvalidArgumentException>(target, 'InvalidArgumentException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.InvalidArgumentException>(target, 'InvalidArgumentException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.InvalidArgumentException>(target, 'InvalidArgumentException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.InvalidArgumentException>(target, 'InvalidArgumentException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.InvalidArgumentException>(target, 'InvalidArgumentException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.InvalidArgumentException>(target, 'InvalidArgumentException');
+        return t.toJsonString();
+      },
+    },
     constructorSignatures: {
       '': 'InvalidArgumentException(dynamic message)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'Trace get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }
@@ -2525,8 +2895,50 @@ BridgedClass _createInvalidTemplateExceptionBridge() {
         return $pkg.InvalidTemplateException(message);
       },
     },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.InvalidTemplateException>(target, 'InvalidTemplateException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.InvalidTemplateException>(target, 'InvalidTemplateException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.InvalidTemplateException>(target, 'InvalidTemplateException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.InvalidTemplateException>(target, 'InvalidTemplateException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.InvalidTemplateException>(target, 'InvalidTemplateException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.InvalidTemplateException>(target, 'InvalidTemplateException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.InvalidTemplateException>(target, 'InvalidTemplateException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.InvalidTemplateException>(target, 'InvalidTemplateException');
+        return t.toJsonString();
+      },
+    },
     constructorSignatures: {
       '': 'InvalidTemplateException(dynamic message)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'Trace get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }
@@ -2546,8 +2958,50 @@ BridgedClass _createInstallExceptionBridge() {
         return $pkg.InstallException(message);
       },
     },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.InstallException>(target, 'InstallException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.InstallException>(target, 'InstallException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.InstallException>(target, 'InstallException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.InstallException>(target, 'InstallException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.InstallException>(target, 'InstallException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.InstallException>(target, 'InstallException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.InstallException>(target, 'InstallException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.InstallException>(target, 'InstallException');
+        return t.toJsonString();
+      },
+    },
     constructorSignatures: {
       '': 'InstallException(dynamic message)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'Trace get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }
@@ -2567,8 +3021,50 @@ BridgedClass _createProcessSyncExceptionBridge() {
         return $pkg.ProcessSyncException(message);
       },
     },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.ProcessSyncException>(target, 'ProcessSyncException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.ProcessSyncException>(target, 'ProcessSyncException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.ProcessSyncException>(target, 'ProcessSyncException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.ProcessSyncException>(target, 'ProcessSyncException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ProcessSyncException>(target, 'ProcessSyncException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ProcessSyncException>(target, 'ProcessSyncException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ProcessSyncException>(target, 'ProcessSyncException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ProcessSyncException>(target, 'ProcessSyncException');
+        return t.toJsonString();
+      },
+    },
     constructorSignatures: {
       '': 'ProcessSyncException(dynamic message)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'Trace get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }
@@ -2821,8 +3317,50 @@ BridgedClass _createFileNotFoundExceptionBridge() {
         return $pkg.FileNotFoundException(path);
       },
     },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.FileNotFoundException>(target, 'FileNotFoundException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.FileNotFoundException>(target, 'FileNotFoundException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.FileNotFoundException>(target, 'FileNotFoundException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.FileNotFoundException>(target, 'FileNotFoundException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.FileNotFoundException>(target, 'FileNotFoundException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.FileNotFoundException>(target, 'FileNotFoundException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.FileNotFoundException>(target, 'FileNotFoundException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.FileNotFoundException>(target, 'FileNotFoundException');
+        return t.toJsonString();
+      },
+    },
     constructorSignatures: {
       '': 'FileNotFoundException(String path)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'Trace get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }
@@ -2842,8 +3380,50 @@ BridgedClass _createNotAFileExceptionBridge() {
         return $pkg.NotAFileException(path);
       },
     },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.NotAFileException>(target, 'NotAFileException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.NotAFileException>(target, 'NotAFileException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.NotAFileException>(target, 'NotAFileException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.NotAFileException>(target, 'NotAFileException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.NotAFileException>(target, 'NotAFileException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.NotAFileException>(target, 'NotAFileException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.NotAFileException>(target, 'NotAFileException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.NotAFileException>(target, 'NotAFileException');
+        return t.toJsonString();
+      },
+    },
     constructorSignatures: {
       '': 'NotAFileException(String path)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'Trace get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }
@@ -2918,8 +3498,50 @@ BridgedClass _createLockExceptionBridge() {
         return $pkg.LockException(message);
       },
     },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.LockException>(target, 'LockException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.LockException>(target, 'LockException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.LockException>(target, 'LockException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.LockException>(target, 'LockException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.LockException>(target, 'LockException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.LockException>(target, 'LockException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.LockException>(target, 'LockException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.LockException>(target, 'LockException');
+        return t.toJsonString();
+      },
+    },
     constructorSignatures: {
       '': 'LockException(dynamic message)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'Trace get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }

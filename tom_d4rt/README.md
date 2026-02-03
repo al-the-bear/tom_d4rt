@@ -6,11 +6,12 @@ A secure, sandboxed Dart interpreter written in Dart.
 
 ## Features
 
-*   **Sandboxed Execution**: Scripts run in an isolated environment.
-*   **Dynamic Evaluation**: `eval()` expressions or `execute()` full scripts found in files or strings.
+*   **Sandboxed Execution**: Scripts run in an isolated environment with fine-grained permission control.
+*   **Dynamic Evaluation**: `execute()` full scripts or use `eval()` for REPL-style interaction.
 *   **Bridging**: Expose any Dart class, function, or library to the interpreter.
 *   **Code Generation**: Automate bridge creation with `tom_d4rt_generator`.
 *   **Type Safety**: Runtime type checking compatible with Dart's type system.
+*   **Async Support**: Full `async`/`await` support for bridged and interpreted code.
 
 ## Installation
 
@@ -19,97 +20,117 @@ dependencies:
   tom_d4rt: ^1.5.0
 ```
 
-## Usage
-
-### Basic Evaluation
+## Quick Start
 
 ```dart
 import 'package:tom_d4rt/tom_d4rt.dart';
 
-void main() async {
-  final d4rt = TomD4rt();
-  
-  // Initialize the interpreter
-  await d4rt.init();
-
-  // Evaluate a simple expression
-  var result = await d4rt.eval('2 + 2');
-  print(result); // 4
+void main() {
+  final d4rt = D4rt();
 
   // Execute a script with a main function
-  await d4rt.execute('''
-    void main() {
-      print("Hello from D4rt!");
-    }
-  ''');
+  d4rt.execute(
+    source: '''
+      void main() {
+        print("Hello from D4rt!");
+      }
+    ''',
+  );
 }
 ```
 
-### Exposing Native Functions (Bridging)
+## Usage
 
-You can expose simple functions using `addGlobal`:
+### Basic Execution
+
+The `execute()` method runs a script and calls a specified function (defaults to `main`):
 
 ```dart
-d4rt.addGlobal('sayHello', (String name) {
-  print('Hello, $name!');
-});
+final d4rt = D4rt();
 
-await d4rt.eval("sayHello('World')");
+// Call main() by default
+d4rt.execute(source: '''
+  void main() {
+    print("Hello!");
+  }
+''');
+
+// Call a custom function with arguments
+final result = d4rt.execute(
+  source: '''
+    String greet(String name, int age) {
+      return "Hello \$name, you are \$age";
+    }
+  ''',
+  name: 'greet',
+  positionalArgs: ['Alice', 30],
+);
+print(result);  // "Hello Alice, you are 30"
 ```
 
-### Exposing Classes (Advanced Bridging)
+### REPL-Style Evaluation
 
-To expose full Dart classes, you use "Bridges". A Bridge defines the methods, properties, and constructors available to the script.
+After calling `execute()`, use `eval()` for incremental execution:
 
-**1. Generate Bridges (Recommended)**
+```dart
+final d4rt = D4rt();
 
-Use `tom_d4rt_generator` to automatically create bridges for your packages.
+// Establish context
+d4rt.execute(source: '''
+  var counter = 0;
+  void increment() { counter++; }
+''');
+
+// Use eval() in the established context
+d4rt.eval('increment()');
+d4rt.eval('increment()');
+print(d4rt.eval('counter'));  // 2
+```
+
+### Exposing Native Code (Bridging)
+
+Register bridged classes to make them available in scripts:
+
+```dart
+// Register bridges before execution
+d4rt.registerBridgedClass(myClassBridge, 'package:my_app/types.dart');
+
+// Scripts import and use them
+d4rt.execute(source: '''
+  import 'package:my_app/types.dart';
+  
+  void main() {
+    final obj = MyClass();
+    obj.doSomething();
+  }
+''');
+```
+
+**Recommended:** Use `tom_d4rt_generator` to automatically create bridges.
 *   See [Bridge Generator User Guide](../tom_d4rt_generator/doc/bridgegenerator_user_guide.md)
 
-**2. Manual Bridging**
+For manual bridging, see the [Bridging Guide](doc/BRIDGING_GUIDE.md).
 
-You can also write bridges manually by extending `BridgedClass`:
+### Security and Permissions
 
-```dart
-class MyClass {
-  void doSomething() => print('Working');
-}
-
-class MyClassBridge extends BridgedClass<MyClass> {
-  // Bridge definitions...
-}
-```
-*   See [Bridging Guide](doc/BRIDGING_GUIDE.md) for details.
-
-### Script Execution
-
-Load and execute scripts from files:
+D4rt is sandboxed by default. Grant permissions for sensitive operations:
 
 ```dart
-final d4rt = TomD4rt();
-// ... register bridges ...
+final d4rt = D4rt();
 
-// Execute a file
-await d4rt.executeFile('path/to/script.dart');
+// Grant filesystem access
+d4rt.grant(FilesystemPermission.any);
 
-// Execute a script with arguments
-await d4rt.execute('''
-  void main(List<String> args) {
-    print(args);
-  }
-''', arguments: ['--verbose']);
+// Grant network access
+d4rt.grant(NetworkPermission.connect('api.example.com'));
+
+// Grant process execution
+d4rt.grant(ProcessRunPermission.any);
 ```
-
-## Security
-
-`tom_d4rt` provides isolation. Scripts cannot access `dart:io` or the file system unless you explicitly bridge those libraries.
-
-*   **FileSystem Access**: Use `tom_d4rt_dcli` or bridge `dart:io` selectively if needed.
-*   **Network**: Not available by default.
 
 ## Documentation
 
-*   [User Guide](doc/d4rt_user_guide.md): Core usage, initializing, and execution modes.
-*   [Bridging Guide](doc/BRIDGING_GUIDE.md): How to write and use bridges.
-*   [Generator Guide](../tom_d4rt_generator/doc/bridgegenerator_user_guide.md): Automating bridge creation.
-*   [API Reference](../tom_d4rt_generator/doc/bridgegenerator_user_reference.md): Generator configuration options.
+*   [User Guide](doc/d4rt_user_guide.md): Complete usage documentation, execution modes, and configuration.
+*   [Bridging Guide](doc/BRIDGING_GUIDE.md): How to bridge native Dart classes and functions.
+*   [Generator Guide](../tom_d4rt_generator/doc/bridgegenerator_user_guide.md): Automating bridge creation with code generation.
+*   [Generator Reference](../tom_d4rt_generator/doc/bridgegenerator_user_reference.md): Generator configuration options.

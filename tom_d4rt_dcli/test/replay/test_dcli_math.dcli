@@ -1,0 +1,46 @@
+# DCli Test Suite - Part 10: Math Operations
+# Run with: dcli -run-replay test_dcli_math.dcli -test
+# Tests: 12 verifications
+
+import 'dart:io';
+import 'dart:math';
+
+# =============================================================================
+# Test: Math Constants (3 tests)
+# =============================================================================
+
+verify(pi > 3.14 && pi < 3.15, 'Pi value');
+verify(e > 2.71 && e < 2.72, 'Euler number');
+verify(ln2 > 0.69 && ln2 < 0.70, 'Natural log of 2');
+
+# =============================================================================
+# Test: Math Functions (5 tests)
+# =============================================================================
+
+verifyEquals(sqrt(16), 4.0, 'Square root');
+verifyEquals(pow(2, 10), 1024, 'Power');
+verifyEquals(min(5, 3), 3, 'Minimum');
+verifyEquals(max(5, 3), 5, 'Maximum');
+verifyEquals(log(e), 1.0, 'Natural log');
+
+# =============================================================================
+# Test: Trigonometry (4 tests)
+# =============================================================================
+
+var sinVal = sin(0);
+verifyEquals(sinVal, 0.0, 'Sine of 0');
+
+var cosVal = cos(0);
+verifyEquals(cosVal, 1.0, 'Cosine of 0');
+
+var atanVal = atan(0);
+verifyEquals(atanVal, 0.0, 'Arctangent of 0');
+
+var atan2Val = atan2(0, 1);
+verifyEquals(atan2Val, 0.0, 'Atan2 of 0,1');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();

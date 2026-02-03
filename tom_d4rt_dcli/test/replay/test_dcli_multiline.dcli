@@ -1,0 +1,83 @@
+# DCli Multiline and Execution Mode Tests
+# Run with: dcli -run-replay test_dcli_multiline.dcli -test
+# Tests .start-define and class definitions
+
+# =============================================================================
+# Test: .start-define - Persisting Definitions
+# =============================================================================
+
+.start-define
+class Counter {
+  int _count = 0;
+  
+  void increment() { _count++; }
+  void decrement() { _count--; }
+  int get value => _count;
+}
+.end
+
+# Use the defined class
+var counter = Counter();
+counter.increment();
+counter.increment();
+verifyEquals(counter.value, 2, 'Counter should be 2 after two increments');
+
+counter.decrement();
+verifyEquals(counter.value, 1, 'Counter should be 1 after decrement');
+
+# =============================================================================
+# Test: Nested Function Definitions
+# =============================================================================
+
+.start-define
+int factorial(int n) {
+  if (n <= 1) return 1;
+  return n * factorial(n - 1);
+}
+
+int fibonacci(int n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+.end
+
+verifyEquals(factorial(5), 120, 'factorial(5) should be 120');
+verifyEquals(factorial(0), 1, 'factorial(0) should be 1');
+
+verifyEquals(fibonacci(0), 0, 'fibonacci(0) should be 0');
+verifyEquals(fibonacci(1), 1, 'fibonacci(1) should be 1');
+verifyEquals(fibonacci(6), 8, 'fibonacci(6) should be 8');
+
+# =============================================================================
+# Test: Class with Methods
+# =============================================================================
+
+.start-define
+class Calculator {
+  int add(int a, int b) => a + b;
+  int subtract(int a, int b) => a - b;
+  int multiply(int a, int b) => a * b;
+  double divide(int a, int b) => a / b;
+}
+.end
+
+var calc = Calculator();
+verifyEquals(calc.add(10, 5), 15, 'Calculator add should work');
+verifyEquals(calc.subtract(10, 5), 5, 'Calculator subtract should work');
+verifyEquals(calc.multiply(10, 5), 50, 'Calculator multiply should work');
+verifyEquals(calc.divide(10, 5), 2.0, 'Calculator divide should work');
+
+# =============================================================================
+# Test: .start-execute - Fresh Environment (basic test)
+# =============================================================================
+
+.start-execute
+var testVar = 100;
+verify(testVar == 100, '.start-execute variable works');
+.end
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();
