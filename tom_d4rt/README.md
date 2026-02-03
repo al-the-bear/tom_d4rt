@@ -122,7 +122,7 @@ final d4rt = D4rt();
 d4rt.grant(FilesystemPermission.any);
 
 // Grant network access
-d4rt.grant(NetworkPermission.connect('api.example.com'));
+d4rt.grant(NetworkPermission.connectTo('api.example.com'));
 
 // Grant process execution
 d4rt.grant(ProcessRunPermission.any);

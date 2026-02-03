@@ -13,7 +13,6 @@ This folder contains project-specific guidelines for the `tom_d4rt` package.
 ## Quick Reference
 
 **Package:** `tom_d4rt`  
-**Version:** 1.5.0  
 **Purpose:** Sandboxed Dart interpreter for runtime script execution
 
 **Key Classes:**
@@ -29,3 +28,4 @@ This folder contains project-specific guidelines for the `tom_d4rt` package.
 ## Related Packages
 
 - `tom_d4rt_generator` - Code generator for bridges (see `../tom_d4rt_generator/_copilot_guidelines/`)
+- `tom_d4rt_dcli` - DCli integration for D4rt scripting

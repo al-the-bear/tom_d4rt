@@ -34,6 +34,7 @@ Use consistent terminology throughout documentation:
 2. ❌ **No `TomD4rt` class** - The class is named `D4rt`
 3. ❌ **Cannot use `eval()` before `execute()`** - Must establish context first
 4. ❌ **Function name is configurable** - Not always `main()`
+5. ❌ **No `NetworkPermission.connect()`** - Use `NetworkPermission.connectTo(host)`
 
 ### execute() Method Parameters
 
@@ -50,73 +51,41 @@ d4rt.execute(
 );
 ```
 
-## Code Examples in Documentation
+## Key Entrypoints
 
-### Inline vs Referenced
+When working with D4rt code, start here:
 
-For short examples (< 20 lines), include inline:
-```markdown
-```dart
-final d4rt = D4rt();
-d4rt.execute(source: 'void main() => print("Hello");');
-```​
-```
+| File | Purpose |
+|------|---------|
+| `lib/d4rt.dart` | Public API exports |
+| `lib/src/d4rt.dart` | Main `D4rt` class implementation |
+| `lib/src/bridge/bridged_class.dart` | Bridge definition classes |
+| `lib/src/permissions/` | Permission system |
 
-For longer examples, reference the example file:
-```markdown
-See [basic_execution_example.dart](../example/basic_execution_example.dart) for a complete example.
-```
+## Code Examples Rules
 
-### Script Examples in Documentation
+**CRITICAL:** All code examples in documentation MUST follow these rules:
 
-When showing D4rt scripts (code that runs inside D4rt), use proper escaping:
-- `\$` for string interpolation in script source strings
-- `'''` for multi-line scripts
+1. **Examples MUST exist as runnable files** in `example/<document-name>/`:
+   - README.md examples → `example/readme/`
+   - d4rt_user_guide.md examples → `example/user_guide/`
+   - BRIDGING_GUIDE.md examples → `example/bridging_guide/`
 
-## README.md Requirements
+2. **Inline examples in docs** must be short (< 20 lines). For longer examples, reference the file:
+   ```markdown
+   See [basic_execution_example.dart](../example/user_guide/basic_execution_example.dart) for a complete example.
+   ```
 
-The README should include:
+3. **All examples MUST be included in `run_all_examples.dart`** and verified to run:
+   ```bash
+   dart run example/run_all_examples.dart
+   ```
 
-1. **Package description** - What D4rt is
-2. **Features list** - Key capabilities
-3. **Installation** - pubspec.yaml snippet
-4. **Quick Start** - Minimal working example
-5. **Basic Usage** - Common patterns
-6. **Documentation links** - To guides
-7. **License** - MIT
+4. **Script source escaping** - Use proper escaping for D4rt script strings:
+   - `\$` for string interpolation
+   - `'''` for multi-line scripts
 
-## CHANGELOG.md Format
-
-Follow Keep a Changelog format:
-
-```markdown
-## [1.5.0] - 2024-01-XX
-
-### Added
-- New feature description
-
-### Changed
-- Changed behavior description
-
-### Fixed
-- Bug fix description
-
-### Deprecated
-- Deprecated feature notice
-```
-
-## Cross-References
-
-When referencing related documentation:
-- Use relative paths: `[Bridging Guide](BRIDGING_GUIDE.md)`
-- Use descriptive link text: Not "click here"
-- Verify links work before committing
-
-## Updating Documentation
-
-When making code changes:
-
-1. Update relevant documentation sections
-2. Update CHANGELOG.md
-3. Verify all code examples still work
-4. Run examples to confirm accuracy
+5. **When adding new examples:**
+   - Add to appropriate subfolder
+   - Add import and run call to `run_all_examples.dart`
+   - Verify all examples still run
