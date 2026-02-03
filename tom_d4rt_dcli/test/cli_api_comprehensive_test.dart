@@ -362,7 +362,7 @@ void main() {
 
       test('info with package name', () async {
         await ctx.controller.execute('void main() {}');
-        final info = ctx.controller.info('dcli');
+        ctx.controller.info('dcli');
         // May or may not find it depending on bridge registration
         // Just check it doesn't crash
         expect(true, isTrue);

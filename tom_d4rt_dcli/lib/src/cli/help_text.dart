@@ -21,7 +21,7 @@ String getCommonCommandsHelp() {
   <yellow>**clear**</yellow>          Clear the screen
   <yellow>**exit**</yellow>/<yellow>**quit**</yellow>  Exit the REPL
   
-  *Search syntax:* <yellow>[q]</yellow> = filter, <yellow>"q"</yellow> = case-sensitive, <yellow>q*</yellow> = startsWith''';
+  *Search syntax:* <yellow>[q]</yellow> = filter, <yellow>"q"</yellow> = case-sensitive, <yellow>q*</yellow> = startsWith, <yellow>*q*</yellow> = contains''';
 }
 
 /// Returns the directory commands section.

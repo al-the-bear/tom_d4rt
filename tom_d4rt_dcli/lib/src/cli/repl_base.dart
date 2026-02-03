@@ -2037,54 +2037,7 @@ Object? __repl_expr__() {
   /// 
   /// Returns null if query is empty (meaning show all).
   bool Function(String)? _parseSearchFilter(String query) {
-    if (query.isEmpty) return null;
-    
-    var searchTerm = query;
-    var caseSensitive = false;
-    
-    // Check for quotes (single or double)
-    if ((searchTerm.startsWith('"') && searchTerm.endsWith('"')) ||
-        (searchTerm.startsWith("'") && searchTerm.endsWith("'"))) {
-      caseSensitive = true;
-      searchTerm = searchTerm.substring(1, searchTerm.length - 1);
-    }
-    
-    // Determine match mode based on asterisk wildcards
-    // *term* = contains, term* = startsWith, term = exact
-    final startsWithAsterisk = searchTerm.startsWith('*');
-    final endsWithAsterisk = searchTerm.endsWith('*');
-    
-    // Remove asterisks from search term
-    if (startsWithAsterisk) {
-      searchTerm = searchTerm.substring(1);
-    }
-    if (endsWithAsterisk) {
-      searchTerm = searchTerm.substring(0, searchTerm.length - 1);
-    }
-    
-    // Determine match type
-    // *term* or *term = contains
-    // term* = startsWith
-    // term = exact
-    final containsMatch = startsWithAsterisk;
-    final startsWithMatch = !startsWithAsterisk && endsWithAsterisk;
-    
-    // Return the matcher function
-    return (String name) {
-      if (containsMatch) {
-        return caseSensitive 
-            ? name.contains(searchTerm)
-            : name.toLowerCase().contains(searchTerm.toLowerCase());
-      } else if (startsWithMatch) {
-        return caseSensitive 
-            ? name.startsWith(searchTerm)
-            : name.toLowerCase().startsWith(searchTerm.toLowerCase());
-      } else {
-        return caseSensitive 
-            ? name == searchTerm
-            : name.toLowerCase() == searchTerm.toLowerCase();
-      }
-    };
+    return parseSearchFilter(query);
   }
   
   void _printInfo(D4rt d4rt, ReplState state, String line) {
@@ -2578,4 +2531,67 @@ Object? __repl_expr__() {
       print('${import.importPath} (${import.classes.length} classes, ${import.enums.length} enums)');
     }
   }
+}
+
+/// Parses a search query for case-sensitivity and wildcard matching.
+/// Returns a function that can be used to match names.
+/// 
+/// Search syntax:
+/// - `query` - case-insensitive exact match
+/// - `"query"` or `'query'` - case-sensitive exact match
+/// - `query*` - case-insensitive startsWith match
+/// - `"query*"` - case-sensitive startsWith match
+/// - `*query*` - case-insensitive contains match
+/// - `"*query*"` - case-sensitive contains match
+/// 
+/// Returns null if query is empty (meaning show all).
+bool Function(String)? parseSearchFilter(String query) {
+  if (query.isEmpty) return null;
+  
+  var searchTerm = query;
+  var caseSensitive = false;
+  
+  // Check for quotes (single or double)
+  if ((searchTerm.startsWith('"') && searchTerm.endsWith('"')) ||
+      (searchTerm.startsWith("'") && searchTerm.endsWith("'"))) {
+    caseSensitive = true;
+    searchTerm = searchTerm.substring(1, searchTerm.length - 1);
+  }
+  
+  // Determine match mode based on asterisk wildcards
+  // *term* = contains, term* = startsWith, term = exact
+  final startsWithAsterisk = searchTerm.startsWith('*');
+  final endsWithAsterisk = searchTerm.endsWith('*');
+  
+  // Remove asterisks from search term
+  if (startsWithAsterisk) {
+    searchTerm = searchTerm.substring(1);
+  }
+  if (endsWithAsterisk) {
+    searchTerm = searchTerm.substring(0, searchTerm.length - 1);
+  }
+  
+  // Determine match type
+  // *term* or *term = contains
+  // term* = startsWith
+  // term = exact
+  final containsMatch = startsWithAsterisk;
+  final startsWithMatch = !startsWithAsterisk && endsWithAsterisk;
+  
+  // Return the matcher function
+  return (String name) {
+    if (containsMatch) {
+      return caseSensitive 
+          ? name.contains(searchTerm)
+          : name.toLowerCase().contains(searchTerm.toLowerCase());
+    } else if (startsWithMatch) {
+      return caseSensitive 
+          ? name.startsWith(searchTerm)
+          : name.toLowerCase().startsWith(searchTerm.toLowerCase());
+    } else {
+      return caseSensitive 
+          ? name == searchTerm
+          : name.toLowerCase() == searchTerm.toLowerCase();
+    }
+  };
 }
