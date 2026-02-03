@@ -1,0 +1,42 @@
+{
+  "$schema": "../../json_schema/d4rt_bridging_schema.json",
+  "name": "user_reference",
+  "description": "Reference configuration demonstrating all available options",
+  
+  "// Comments": "This JSON config is the fallback when not using build.yaml with build_runner",
+  
+  "modules": [
+    {
+      "// Minimal module": "Just package and barrelFile are required",
+      "package": "user_reference_example",
+      "barrelFile": "lib/user_reference_example.dart"
+    },
+    {
+      "// Full module options": "All available configuration options",
+      "package": "user_reference_example",
+      "barrelFile": "lib/advanced_example.dart",
+      "followAllReExports": true,
+      "skipReExports": ["flutter", "sky_engine", "dart_internal"],
+      "excludeSourcePatterns": ["src/internal/**", "src/_private/**"]
+    }
+  ],
+  
+  "generateBarrel": true,
+  "generateDartscript": true,
+  
+  "helpersImport": "package:user_reference_example/helpers.dart",
+  
+  "importedBridges": ["TomD4rtCoreBridge"],
+  
+  "outputPath": "lib/src/d4rt_bridges/",
+  
+  "excludeClasses": [
+    "InternalClass",
+    "DebugHelper"
+  ],
+  
+  "excludeSourcePatterns": [
+    "lib/src/internal/**",
+    "lib/src/debug/**"
+  ]
+}

@@ -43,7 +43,7 @@ If you need to build manually:
 
 ### Version Management
 
-Unlike d4rt (tom_dartscript_bridges), dcli uses a simple const version in `lib/tom_d4rt_dcli.dart`:
+To dependency on a version generation library dcli uses a simple const version in `lib/tom_d4rt_dcli.dart`:
 
 ```dart
 const String dcliVersion = '0.1.0';

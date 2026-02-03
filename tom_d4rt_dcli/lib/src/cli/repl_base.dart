@@ -759,7 +759,7 @@ void main() {}
     print('  <yellow>**.start-script**</yellow> / <yellow>**.end**</yellow> for multiline (or use \\ at line end)');
     print('');
     print('<cyan>**Essential Commands**</cyan>');
-    print('  <yellow>**classes**</yellow>/<yellow>**enums**</yellow>/<yellow>**methods**</yellow>/<yellow>**variables**</yellow> - List available symbols');
+    print('  <yellow>**classes**</yellow>/<yellow>**enums**</yellow>/<yellow>**methods**</yellow>/<yellow>**variables**</yellow> [q] - List symbols (q=filter, "q"=case, q*=starts)');
     print('  <yellow>**ls**</yellow>/<yellow>**cd**</yellow>/<yellow>**cwd**</yellow> - Navigate directories');
     print('  <yellow>**.file**</yellow>/<yellow>**execute**</yellow>/<yellow>**script**</yellow> - Run files');
     print('  <yellow>**define**</yellow> <n>=<t> - Create aliases | <yellow>**\$<n>**</yellow> - Invoke alias');
@@ -1116,14 +1116,23 @@ $code
       return true;
     }
 
-    if (line == 'defines') {
+    if (line == 'defines' || line.startsWith('defines ')) {
       if (!silent) {
+        final filter = line.length > 7 ? line.substring(7).trim() : '';
         final defines = getDefines();
-        if (defines.isEmpty) {
-          print('No defines. Use: define <name>=<template>');
+        final matcher = _parseSearchFilter(filter);
+        final filtered = matcher == null 
+            ? defines.entries.toList() 
+            : defines.entries.where((e) => matcher(e.key)).toList();
+        if (filtered.isEmpty) {
+          if (matcher == null) {
+            print('No defines. Use: define <name>=<template>');
+          } else {
+            print('No defines matching: $filter');
+          }
         } else {
-          print('Defines (${defines.length}):');
-          for (final entry in defines.entries) {
+          print('Defines (${filtered.length}):');
+          for (final entry in filtered) {
             print('  \$${entry.key} = ${entry.value}');
           }
         }
@@ -1148,23 +1157,35 @@ $code
     }
 
     // Environment state commands
-    if (line == 'classes') {
-      if (!silent) _printEnvironmentClasses(d4rt, state);
+    if (line == 'classes' || line.startsWith('classes ')) {
+      if (!silent) {
+        final filter = line.length > 7 ? line.substring(7).trim() : '';
+        _printEnvironmentClasses(d4rt, state, filter);
+      }
       return true;
     }
 
-    if (line == 'enums') {
-      if (!silent) _printEnvironmentEnums(d4rt, state);
+    if (line == 'enums' || line.startsWith('enums ')) {
+      if (!silent) {
+        final filter = line.length > 5 ? line.substring(5).trim() : '';
+        _printEnvironmentEnums(d4rt, state, filter);
+      }
       return true;
     }
 
-    if (line == 'methods') {
-      if (!silent) _printEnvironmentMethods(d4rt, state);
+    if (line == 'methods' || line.startsWith('methods ')) {
+      if (!silent) {
+        final filter = line.length > 7 ? line.substring(7).trim() : '';
+        _printEnvironmentMethods(d4rt, state, filter);
+      }
       return true;
     }
 
-    if (line == 'variables') {
-      if (!silent) _printEnvironmentVariables(d4rt, state);
+    if (line == 'variables' || line.startsWith('variables ')) {
+      if (!silent) {
+        final filter = line.length > 9 ? line.substring(9).trim() : '';
+        _printEnvironmentVariables(d4rt, state, filter);
+      }
       return true;
     }
 
@@ -1174,23 +1195,35 @@ $code
     }
 
     // Registered bridge commands
-    if (line == 'registered-classes') {
-      if (!silent) _printClasses(d4rt, state);
+    if (line == 'registered-classes' || line.startsWith('registered-classes ')) {
+      if (!silent) {
+        final filter = line.length > 18 ? line.substring(18).trim() : '';
+        _printClasses(d4rt, state, filter);
+      }
       return true;
     }
 
-    if (line == 'registered-enums') {
-      if (!silent) _printEnums(d4rt, state);
+    if (line == 'registered-enums' || line.startsWith('registered-enums ')) {
+      if (!silent) {
+        final filter = line.length > 16 ? line.substring(16).trim() : '';
+        _printEnums(d4rt, state, filter);
+      }
       return true;
     }
 
-    if (line == 'registered-methods') {
-      if (!silent) _printGlobalMethods(d4rt, state);
+    if (line == 'registered-methods' || line.startsWith('registered-methods ')) {
+      if (!silent) {
+        final filter = line.length > 18 ? line.substring(18).trim() : '';
+        _printGlobalMethods(d4rt, state, filter);
+      }
       return true;
     }
 
-    if (line == 'registered-variables') {
-      if (!silent) _printGlobalVariables(d4rt, state);
+    if (line == 'registered-variables' || line.startsWith('registered-variables ')) {
+      if (!silent) {
+        final filter = line.length > 20 ? line.substring(20).trim() : '';
+        _printGlobalVariables(d4rt, state, filter);
+      }
       return true;
     }
 
@@ -1991,8 +2024,71 @@ Object? __repl_expr__() {
     }
   }
   
+  /// Parses a search query for case-sensitivity and wildcard matching.
+  /// Returns a function that can be used to match names.
+  /// 
+  /// Search syntax:
+  /// - `query` - case-insensitive exact match
+  /// - `"query"` or `'query'` - case-sensitive exact match
+  /// - `query*` - case-insensitive startsWith match
+  /// - `"query*"` - case-sensitive startsWith match
+  /// - `*query*` - case-insensitive contains match
+  /// - `"*query*"` - case-sensitive contains match
+  /// 
+  /// Returns null if query is empty (meaning show all).
+  bool Function(String)? _parseSearchFilter(String query) {
+    if (query.isEmpty) return null;
+    
+    var searchTerm = query;
+    var caseSensitive = false;
+    
+    // Check for quotes (single or double)
+    if ((searchTerm.startsWith('"') && searchTerm.endsWith('"')) ||
+        (searchTerm.startsWith("'") && searchTerm.endsWith("'"))) {
+      caseSensitive = true;
+      searchTerm = searchTerm.substring(1, searchTerm.length - 1);
+    }
+    
+    // Determine match mode based on asterisk wildcards
+    // *term* = contains, term* = startsWith, term = exact
+    final startsWithAsterisk = searchTerm.startsWith('*');
+    final endsWithAsterisk = searchTerm.endsWith('*');
+    
+    // Remove asterisks from search term
+    if (startsWithAsterisk) {
+      searchTerm = searchTerm.substring(1);
+    }
+    if (endsWithAsterisk) {
+      searchTerm = searchTerm.substring(0, searchTerm.length - 1);
+    }
+    
+    // Determine match type
+    // *term* or *term = contains
+    // term* = startsWith
+    // term = exact
+    final containsMatch = startsWithAsterisk;
+    final startsWithMatch = !startsWithAsterisk && endsWithAsterisk;
+    
+    // Return the matcher function
+    return (String name) {
+      if (containsMatch) {
+        return caseSensitive 
+            ? name.contains(searchTerm)
+            : name.toLowerCase().contains(searchTerm.toLowerCase());
+      } else if (startsWithMatch) {
+        return caseSensitive 
+            ? name.startsWith(searchTerm)
+            : name.toLowerCase().startsWith(searchTerm.toLowerCase());
+      } else {
+        return caseSensitive 
+            ? name == searchTerm
+            : name.toLowerCase() == searchTerm.toLowerCase();
+      }
+    };
+  }
+  
   void _printInfo(D4rt d4rt, ReplState state, String line) {
-    final query = line.length > 4 ? line.substring(4).trim() : '';
+    var query = line.length > 4 ? line.substring(4).trim() : '';
     final config = d4rt.getConfiguration();
 
     if (query.isEmpty) {
@@ -2000,6 +2096,11 @@ Object? __repl_expr__() {
       print('  info <name>         - Show details for a class, enum, function, or variable');
       print('  info <package>      - Show all types from a package');
       print('  info <Class.member> - Show details for a class member');
+      print('  info "Name"         - Case-sensitive search (with quotes)');
+      print('  info name*          - Starts-with search (with asterisk)');
+      print('  info "Name*"        - Case-sensitive starts-with search');
+      print('  info *name*         - Contains search (with asterisks)');
+      print('  info "*Name*"       - Case-sensitive contains search');
       print('');
       print('Available Packages:');
       final packages = config.imports.map((i) => _extractPackageName(i.importPath)).toSet().toList()..sort();
@@ -2009,23 +2110,55 @@ Object? __repl_expr__() {
       return;
     }
     
-    // Check if query is a Class.member pattern
-    if (query.contains('.')) {
+    // Parse query for case-sensitivity (quotes) and wildcard (asterisk)
+    var caseSensitive = false;
+    var startsWithMatch = false;
+    
+    // Check for quotes (single or double)
+    if ((query.startsWith('"') && query.endsWith('"')) ||
+        (query.startsWith("'") && query.endsWith("'"))) {
+      caseSensitive = true;
+      query = query.substring(1, query.length - 1);
+    }
+    
+    // Check for asterisk wildcard suffix
+    if (query.endsWith('*')) {
+      startsWithMatch = true;
+      query = query.substring(0, query.length - 1);
+    }
+    
+    // Helper to match names based on search mode
+    bool matchName(String name) {
+      if (startsWithMatch) {
+        return caseSensitive 
+            ? name.startsWith(query)
+            : name.toLowerCase().startsWith(query.toLowerCase());
+      } else {
+        return caseSensitive 
+            ? name == query
+            : name.toLowerCase() == query.toLowerCase();
+      }
+    }
+    
+    // Check if query is a Class.member pattern (only for exact match mode)
+    if (!startsWithMatch && query.contains('.')) {
       final parts = query.split('.');
       if (parts.length == 2) {
         final className = parts[0];
         final memberName = parts[1];
-        if (_printClassMemberInfo(config, className, memberName, state)) {
+        if (_printClassMemberInfo(config, className, memberName, state, caseSensitive: caseSensitive)) {
           return;
         }
       }
     }
     
-    // Check if query matches a package name
-    final packages = config.imports.map((i) => _extractPackageName(i.importPath)).toSet();
-    if (packages.any((p) => p == query || p.contains(query))) {
-      _printPackageInfo(config, query, state);
-      return;
+    // Check if query matches a package name (only for exact match mode)
+    if (!startsWithMatch) {
+      final packages = config.imports.map((i) => _extractPackageName(i.importPath)).toSet();
+      if (packages.any((p) => p == query || p.contains(query))) {
+        _printPackageInfo(config, query, state);
+        return;
+      }
     }
     
     // Collect all matches to show them all, not just the first one
@@ -2033,13 +2166,15 @@ Object? __repl_expr__() {
     
     // Check if query matches a global function (check FIRST for priority)
     for (final func in config.globalFunctions) {
-      if (func.name.toLowerCase() == query.toLowerCase()) {
+      if (matchName(func.name)) {
+        if (foundMatch) print(''); // Add blank line between matches
+        print('');
+        final pkgName = _extractPackageName(func.libraryUri);
         if (func.signature != null && func.signature!.isNotEmpty) {
-          print('<white>**${func.signature}**</white>');
+          print('<white>**${func.name}**</white> ($pkgName) function: ${func.signature}');
         } else {
-          print('<white>**${func.name}()**</white>');
+          print('<white>**${func.name}**</white> ($pkgName) function: ${func.name}()');
         }
-        print('  From: ${_extractPackageName(func.libraryUri)}');
         foundMatch = true;
       }
     }
@@ -2047,8 +2182,8 @@ Object? __repl_expr__() {
     // Check if query matches a class
     for (final import in config.imports) {
       for (final cls in import.classes) {
-        if (cls.name.toLowerCase() == query.toLowerCase()) {
-          if (foundMatch) print(''); // Add spacing between matches
+        if (matchName(cls.name)) {
+          print(''); // Add blank line before each match
           _printClassInfo(cls, import.importPath);
           foundMatch = true;
         }
@@ -2058,8 +2193,8 @@ Object? __repl_expr__() {
     // Check if query matches an enum
     for (final import in config.imports) {
       for (final e in import.enums) {
-        if (e.name.toLowerCase() == query.toLowerCase()) {
-          if (foundMatch) print('');
+        if (matchName(e.name)) {
+          print('');
           print('<white>**${e.name}**</white> (${_extractPackageName(import.importPath)})');
           print('  Values: ${e.values.join(', ')}');
           foundMatch = true;
@@ -2069,24 +2204,24 @@ Object? __repl_expr__() {
     
     // Check if query matches a global variable
     for (final v in config.globalVariables) {
-      if (v.name.toLowerCase() == query.toLowerCase()) {
-        if (foundMatch) print('');
-        print('<white>**${v.name}**</white>');
-        print('  Type: ${v.valueType}');
-        print('  From: ${_extractPackageName(v.libraryUri)}');
+      if (matchName(v.name)) {
+        print('');
+        final pkgName = _extractPackageName(v.libraryUri);
+        print('<white>**${v.name}**</white> ($pkgName) variable: ${v.valueType}');
         foundMatch = true;
       }
     }
     
     // Check if query matches a global getter
     for (final g in config.globalGetters) {
-      if (g.name.toLowerCase() == query.toLowerCase()) {
-        if (foundMatch) print('');
-        print('<white>**${g.name}**</white> (getter)');
+      if (matchName(g.name)) {
+        print('');
+        final pkgName = _extractPackageName(g.libraryUri);
         if (g.returnType != null) {
-          print('  Type: ${g.returnType}');
+          print('<white>**${g.name}**</white> ($pkgName) getter: ${g.returnType}');
+        } else {
+          print('<white>**${g.name}**</white> ($pkgName) getter');
         }
-        print('  From: ${_extractPackageName(g.libraryUri)}');
         foundMatch = true;
       }
     }
@@ -2131,10 +2266,12 @@ Object? __repl_expr__() {
   }
   
   /// Prints info for a specific class member (Class.member pattern).
-  bool _printClassMemberInfo(D4rtConfiguration config, String className, String memberName, ReplState state) {
+  bool _printClassMemberInfo(D4rtConfiguration config, String className, String memberName, ReplState state, {bool caseSensitive = false}) {
+    bool matchClassName(String name) => caseSensitive ? name == className : name.toLowerCase() == className.toLowerCase();
+    
     for (final import in config.imports) {
       for (final cls in import.classes) {
-        if (cls.name.toLowerCase() == className.toLowerCase()) {
+        if (matchClassName(cls.name)) {
           // Check constructors
           if (cls.constructors.contains(memberName) || (memberName == cls.name && cls.constructors.contains(''))) {
             final key = memberName == cls.name ? '' : memberName;
@@ -2207,70 +2344,104 @@ Object? __repl_expr__() {
     return false;
   }
   
-  void _printEnvironmentClasses(D4rt d4rt, ReplState state) {
+  void _printEnvironmentClasses(D4rt d4rt, ReplState state, [String filter = '']) {
     final envState = d4rt.getEnvironmentState();
     if (envState == null) {
       state.writeMuted('No environment state available.');
       return;
     }
-    final classes = envState.bridgedClasses.toList()..sort();
+    var classes = envState.bridgedClasses.toList()..sort();
+    final matcher = _parseSearchFilter(filter);
+    if (matcher != null) {
+      classes = classes.where(matcher).toList();
+    }
     if (classes.isEmpty) {
-      state.writeMuted('No classes defined in current environment.');
+      if (matcher == null) {
+        state.writeMuted('No classes defined in current environment.');
+      } else {
+        state.writeMuted('No classes matching: $filter');
+      }
       return;
     }
     state.printTabulated(classes);
   }
   
-  void _printEnvironmentEnums(D4rt d4rt, ReplState state) {
+  void _printEnvironmentEnums(D4rt d4rt, ReplState state, [String filter = '']) {
     final envState = d4rt.getEnvironmentState();
     if (envState == null) {
       state.writeMuted('No environment state available.');
       return;
     }
-    final enums = envState.bridgedEnums.toList()..sort();
+    var enums = envState.bridgedEnums.toList()..sort();
+    final matcher = _parseSearchFilter(filter);
+    if (matcher != null) {
+      enums = enums.where(matcher).toList();
+    }
     if (enums.isEmpty) {
-      state.writeMuted('No enums defined in current environment.');
+      if (matcher == null) {
+        state.writeMuted('No enums defined in current environment.');
+      } else {
+        state.writeMuted('No enums matching: $filter');
+      }
       return;
     }
     state.printTabulated(enums);
   }
   
-  void _printEnvironmentMethods(D4rt d4rt, ReplState state) {
+  void _printEnvironmentMethods(D4rt d4rt, ReplState state, [String filter = '']) {
     final envState = d4rt.getEnvironmentState();
     if (envState == null) {
       state.writeMuted('No environment state available.');
       return;
     }
     // Filter for NativeFunction values (methods/functions)
-    final methods = envState.variables
+    var methods = envState.variables
         .where((v) => v.valueType.contains('NativeFunction') || v.valueType.contains('Function'))
         .map((v) => v.name)
         .toList()
       ..sort();
+    final matcher = _parseSearchFilter(filter);
+    if (matcher != null) {
+      methods = methods.where(matcher).toList();
+    }
     if (methods.isEmpty) {
-      state.writeMuted('No functions defined in current environment.');
+      if (matcher == null) {
+        state.writeMuted('No functions defined in current environment.');
+      } else {
+        state.writeMuted('No functions matching: $filter');
+      }
       return;
     }
     state.printTabulated(methods);
   }
   
-  void _printEnvironmentVariables(D4rt d4rt, ReplState state) {
+  void _printEnvironmentVariables(D4rt d4rt, ReplState state, [String filter = '']) {
     final envState = d4rt.getEnvironmentState();
     if (envState == null) {
       state.writeMuted('No environment state available.');
       return;
     }
     // Filter out functions, show only non-function values
-    final variables = envState.variables
+    var variables = envState.variables
         .where((v) => !v.valueType.contains('NativeFunction') && !v.valueType.contains('Function'))
+        .toList();
+    final matcher = _parseSearchFilter(filter);
+    if (matcher != null) {
+      variables = variables.where((v) => matcher(v.name)).toList();
+    }
+    final formatted = variables
         .map((v) => '${v.name}: ${v.valueType}${v.isNull ? " (null)" : ""}')
         .toList()
       ..sort();
-    if (variables.isEmpty) {
-      state.writeMuted('No variables defined in current environment.');
+    if (formatted.isEmpty) {
+      if (matcher == null) {
+        state.writeMuted('No variables defined in current environment.');
+      } else {
+        state.writeMuted('No variables matching: $filter');
+      }
       return;
     }
-    for (final v in variables) {
+    for (final v in formatted) {
       print('  $v');
     }
   }
@@ -2302,60 +2473,95 @@ Object? __repl_expr__() {
     }
   }
   
-  void _printClasses(D4rt d4rt, ReplState state) {
+  void _printClasses(D4rt d4rt, ReplState state, [String filter = '']) {
     final config = d4rt.getConfiguration();
-    final classes = <String>[];
+    var classes = <String>[];
     for (final import in config.imports) {
       for (final cls in import.classes) {
         classes.add(cls.name);
       }
     }
+    final matcher = _parseSearchFilter(filter);
+    if (matcher != null) {
+      classes = classes.where(matcher).toList();
+    }
     if (classes.isEmpty) {
-      state.writeMuted('No registered classes.');
+      if (matcher == null) {
+        state.writeMuted('No registered classes.');
+      } else {
+        state.writeMuted('No registered classes matching: $filter');
+      }
       return;
     }
     classes.sort();
     state.printTabulated(classes);
   }
   
-  void _printEnums(D4rt d4rt, ReplState state) {
+  void _printEnums(D4rt d4rt, ReplState state, [String filter = '']) {
     final config = d4rt.getConfiguration();
-    final enums = <String>[];
+    var enums = <String>[];
     for (final import in config.imports) {
       for (final e in import.enums) {
         enums.add(e.name);
       }
     }
+    final matcher = _parseSearchFilter(filter);
+    if (matcher != null) {
+      enums = enums.where(matcher).toList();
+    }
     if (enums.isEmpty) {
-      state.writeMuted('No registered enums.');
+      if (matcher == null) {
+        state.writeMuted('No registered enums.');
+      } else {
+        state.writeMuted('No registered enums matching: $filter');
+      }
       return;
     }
     enums.sort();
     state.printTabulated(enums);
   }
   
-  void _printGlobalMethods(D4rt d4rt, ReplState state) {
+  void _printGlobalMethods(D4rt d4rt, ReplState state, [String filter = '']) {
     final config = d4rt.getConfiguration();
-    final methods = config.globalFunctions.map((f) => f.name).toList()..sort();
-    if (methods.isEmpty) {
-      state.writeMuted('No registered global methods.');
+    var methods = config.globalFunctions.map((f) => f.name).toList()..sort();
+    var getters = config.globalGetters.map((g) => g.name).toList()..sort();
+    final matcher = _parseSearchFilter(filter);
+    if (matcher != null) {
+      methods = methods.where(matcher).toList();
+      getters = getters.where(matcher).toList();
+    }
+    if (methods.isEmpty && getters.isEmpty) {
+      if (matcher == null) {
+        state.writeMuted('No registered global methods.');
+      } else {
+        state.writeMuted('No registered global methods matching: $filter');
+      }
       return;
     }
-    print('Global Functions: ${methods.length}');
-    state.printTabulated(methods);
-    
-    final getters = config.globalGetters.map((g) => g.name).toList()..sort();
+    if (methods.isNotEmpty) {
+      print('Global Functions: ${methods.length}');
+      state.printTabulated(methods);
+    }
     if (getters.isNotEmpty) {
-      print('\nGlobal Getters: ${getters.length}');
+      if (methods.isNotEmpty) print('');
+      print('Global Getters: ${getters.length}');
       state.printTabulated(getters);
     }
   }
   
-  void _printGlobalVariables(D4rt d4rt, ReplState state) {
+  void _printGlobalVariables(D4rt d4rt, ReplState state, [String filter = '']) {
     final config = d4rt.getConfiguration();
-    final variables = config.globalVariables.map((v) => v.name).toList()..sort();
+    var variables = config.globalVariables.map((v) => v.name).toList()..sort();
+    final matcher = _parseSearchFilter(filter);
+    if (matcher != null) {
+      variables = variables.where(matcher).toList();
+    }
     if (variables.isEmpty) {
-      state.writeMuted('No registered global variables.');
+      if (matcher == null) {
+        state.writeMuted('No registered global variables.');
+      } else {
+        state.writeMuted('No registered global variables matching: $filter');
+      }
       return;
     }
     print('Global Variables: ${variables.length}');

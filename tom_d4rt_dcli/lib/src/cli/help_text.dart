@@ -9,16 +9,19 @@ String getCommonCommandsHelp() {
   return '''
 <cyan>**Commands**</cyan>
   <yellow>**help**</yellow>           Show detailed help
-  <yellow>**info**</yellow> [name]    Show details and suggestions for symbols
-  <yellow>**classes**</yellow>        List classes in current environment
-  <yellow>**enums**</yellow>          List enums in current environment
-  <yellow>**methods**</yellow>        List methods in current environment
-  <yellow>**variables**</yellow>      List variables in current environment
+  <yellow>**info**</yellow> [query]   Show details and suggestions for symbols
+  <yellow>**classes**</yellow> [q]    List classes in current environment
+  <yellow>**enums**</yellow> [q]      List enums in current environment
+  <yellow>**methods**</yellow> [q]    List methods in current environment
+  <yellow>**variables**</yellow> [q]  List variables in current environment
+  <yellow>**defines**</yellow> [q]    List defined command aliases
   <yellow>**imports**</yellow>        Show imports in current environment
   <yellow>**registered-***</yellow>   Show registered bridges (classes/enums/methods/variables/imports)
   <yellow>**show-init**</yellow>      Show initialization source
   <yellow>**clear**</yellow>          Clear the screen
-  <yellow>**exit**</yellow>/<yellow>**quit**</yellow>  Exit the REPL''';
+  <yellow>**exit**</yellow>/<yellow>**quit**</yellow>  Exit the REPL
+  
+  *Search syntax:* <yellow>[q]</yellow> = filter, <yellow>"q"</yellow> = case-sensitive, <yellow>q*</yellow> = startsWith''';
 }
 
 /// Returns the directory commands section.

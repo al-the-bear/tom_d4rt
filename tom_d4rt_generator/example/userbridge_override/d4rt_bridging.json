@@ -1,0 +1,17 @@
+{
+  "name": "userbridge_override_example",
+  "modules": [
+    {
+      "name": "all",
+      "barrelFiles": ["lib/userbridge_override_example.dart"],
+      "outputPath": "lib/src/d4rt_bridges/userbridge_bridges.dart",
+      "barrelImport": "userbridge_override_example.dart"
+    }
+  ],
+  "helpersImport": "package:tom_d4rt/tom_d4rt.dart",
+  "generateBarrel": true,
+  "barrelPath": "lib/d4rt_bridges.dart",
+  "generateDartscript": true,
+  "dartscriptPath": "lib/dartscript.dart",
+  "registrationClass": "UserbridgeOverrideExampleBridges"
+}

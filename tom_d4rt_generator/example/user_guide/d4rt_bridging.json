@@ -1,0 +1,17 @@
+{
+  "name": "user_guide_example",
+  "modules": [
+    {
+      "name": "all",
+      "barrelFiles": ["lib/user_guide_example.dart"],
+      "outputPath": "lib/src/d4rt_bridges/user_guide_bridges.dart",
+      "barrelImport": "user_guide_example.dart"
+    }
+  ],
+  "helpersImport": "package:tom_d4rt/tom_d4rt.dart",
+  "generateBarrel": true,
+  "barrelPath": "lib/d4rt_bridges.dart",
+  "generateDartscript": true,
+  "dartscriptPath": "lib/dartscript.dart",
+  "registrationClass": "UserGuideExampleBridges"
+}

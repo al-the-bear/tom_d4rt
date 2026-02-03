@@ -1,0 +1,17 @@
+name: user_reference_example
+description: Reference example demonstrating all d4rt_bridging.json configuration options
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.0.0
+
+dependencies:
+  tom_d4rt:
+    path: ../../../tom_d4rt
+
+dev_dependencies:
+  tom_d4rt_generator:
+    path: ../..
+  build_runner: ^2.4.0
+  test: ^1.25.0

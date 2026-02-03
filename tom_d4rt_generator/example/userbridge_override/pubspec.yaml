@@ -1,0 +1,15 @@
+name: userbridge_override_example
+description: Example from userbridge_override_design.md - UserBridge override system
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  tom_d4rt:
+    path: ../../../tom_d4rt
+
+dev_dependencies:
+  tom_d4rt_generator:
+    path: ../../

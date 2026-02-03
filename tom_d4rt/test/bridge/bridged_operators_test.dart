@@ -110,6 +110,11 @@ void main() {
           },
           '-': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             final v = target as Vector2;
+            // If no positional args, this is unary minus
+            if (positionalArgs.isEmpty) {
+              return -v;
+            }
+            // Otherwise it's binary minus
             final other = positionalArgs[0] as Vector2;
             return v - other;
           },
@@ -172,6 +177,11 @@ void main() {
             final b = target as BitMask;
             final shift = positionalArgs[0] as int;
             return b >> shift;
+          },
+          // Unary bitwise not operator
+          '~': (visitor, target, positionalArgs, namedArgs, typeArgs) {
+            final b = target as BitMask;
+            return ~b;
           },
           'toString': (visitor, target, positionalArgs, namedArgs, typeArgs) {
             return (target as BitMask).toString();
@@ -305,6 +315,52 @@ void main() {
         ''');
 
         expect(result, equals([6.0, 6.0]));
+      });
+    });
+
+    group('unary operators', () {
+      test('unary minus operator on bridged class', () {
+        final result = interpreter.execute(source: '''
+          import 'package:test/vector.dart';
+          
+          main() {
+            final v = Vector2(3.0, 4.0);
+            final negated = -v;
+            return [negated.x, negated.y];
+          }
+        ''');
+
+        expect(result, equals([-3.0, -4.0]));
+      });
+
+      test('bitwise not operator on bridged class', () {
+        final result = interpreter.execute(source: '''
+          import 'package:test/bitmask.dart';
+          
+          main() {
+            final b = BitMask(0);
+            final inverted = ~b;
+            return inverted.value;
+          }
+        ''');
+
+        expect(result, equals(-1));
+      });
+
+      test('unary minus with expression', () {
+        final result = interpreter.execute(source: '''
+          import 'package:test/vector.dart';
+          
+          main() {
+            final v1 = Vector2(1.0, 2.0);
+            final v2 = Vector2(5.0, 6.0);
+            // Negate the result of addition
+            final negated = -(v1 + v2);
+            return [negated.x, negated.y];
+          }
+        ''');
+
+        expect(result, equals([-6.0, -8.0]));
       });
     });
 
