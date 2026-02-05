@@ -33,7 +33,7 @@ Bugs are issues that should work but don't. Status verified by automated tests.
 | Bug-1 | List.empty() constructor not bridged | ✅ Yes | Low | ⬜ TODO |
 | Bug-2 | Queue.addAll() method not bridged | ✅ Yes | Low | ⬜ TODO |
 | Bug-3 | Enum value access via Day.wednesday fails | ✅ Yes | Low | ✅ Fixed |
-| Bug-4 | Enum value at top-level const fails | ✅ Yes | Low | ✅ Fixed |
+| Bug-4 | Enum value at top-level const fails | ✅ Yes | Low | ⬜ TODO |
 | Bug-5 | Division by zero throws instead of returning infinity | ✅ Yes | Low | ⬜ TODO |
 | Bug-6 | Record missing Object methods (hashCode) | ✅ Yes | Low | ⬜ TODO |
 | Bug-7 | Digit separators (1_000_000) not parsed | ✅ Yes | Low | ⬜ TODO |
@@ -44,7 +44,7 @@ Bugs are issues that should work but don't. Status verified by automated tests.
 | Bug-12 | Interface Exception not found for implements | ✅ Yes | Medium | ⬜ TODO |
 | Bug-13 | Pattern \|\| in switch not supported (see Lim-8) | ⚠️ Major | High | ⬜ TODO |
 | Bug-14 | Record type annotation not resolved | ✅ Yes | Medium | ⬜ TODO |
-| Bug-15 | base64Encode function not exported from dart:convert | ✅ Yes | Low | ✅ Fixed |
+| Bug-15 | base64Encode function not exported from dart:convert | ✅ Yes | Low | ⬜ TODO |
 | Bug-16 | Abstract method inheritance false positive | ✅ Yes | Medium | ✅ Fixed |
 | Bug-17 | Interface class same-library extension incorrectly rejected | ✅ Yes | Medium | ✅ Fixed |
 | Bug-18 | Mixin abstract getter inheritance false positive | ✅ Yes | Medium | ✅ Fixed |
@@ -53,7 +53,7 @@ Bugs are issues that should work but don't. Status verified by automated tests.
 | Bug-22 | Error() class constructor not bridged | ✅ Yes | Low | ✅ Fixed |
 | Bug-23 | Static const referencing sibling const fails | ✅ Yes | Medium | ⬜ TODO |
 | Bug-24 | mixin class declaration not supported | ✅ Yes | Medium | ⬜ TODO |
-| Bug-26 | Assert in constructor initializer not supported | ✅ Yes | Medium | ✅ Fixed |
+| Bug-26 | Assert in constructor initializer not supported | ✅ Yes | Medium | ⬜ TODO |
 | Bug-27 | Short-circuit && with null check fails | ✅ Yes | Medium | ⬜ TODO |
 | Bug-28 | GenericFunctionTypeImpl not implemented | ✅ Yes | Medium | ✅ Fixed |
 | Bug-29 | Future.value() returns wrong type | ✅ Yes | Medium | ✅ Fixed |
@@ -63,13 +63,13 @@ Bugs are issues that should work but don't. Status verified by automated tests.
 | Bug-42 | noSuchMethod override not invoked for getters (see Lim-7) | ✅ Yes | Medium | ⚠️ Partial |
 | Bug-43 | Infinite sync* generators (see Lim-4) | ⚠️ Major | High | ⬜ TODO |
 | Bug-44 | Async generators completion detection issues | ✅ Yes | Medium | ✅ Fixed |
-| Bug-45 | Labeled continue in sync* generators fails | ✅ Yes | Medium | ✅ Fixed |
-| Bug-47 | Future.doWhile type cast issues | ✅ Yes | Medium | ✅ Fixed |
+| Bug-45 | Labeled continue in sync* generators fails | ✅ Yes | Medium | ⚠️ Broken |
+| Bug-47 | Future.doWhile type cast issues | ✅ Yes | Medium | ⬜ TODO |
 | Bug-48 | await for stream iteration fails | ✅ Yes | Medium | ✅ Fixed |
 | Bug-50 | Index assignment operator `[]=` not found | ✅ Yes | Low | ✅ Fixed |
 | Bug-51 | Bridged mixins not found during type resolution | ✅ Yes | Medium | ✅ Fixed |
-| Bug-52 | Implicit super() fails when superclass has constructors | ✅ Yes | Low | ✅ Fixed |
-| Bug-53 | NullAwareElement feature not supported | ✅ Yes | Low | ✅ Fixed |
+| Bug-52 | Implicit super() fails when superclass has constructors | ✅ Yes | Low | ⬜ TODO |
+| Bug-53 | NullAwareElement feature not supported | ✅ Yes | Low | ⬜ TODO |
 | Bug-54 | Void return type checking too strict | ✅ Yes | Low | ✅ Fixed |
 
 ---
@@ -416,6 +416,835 @@ print('Hello $name');  // ✅ Works
 ```
 
 **Test File:** `d4rt_bugs/hard_high/bug_41_future_interpolation.dart`
+
+---
+
+## Detailed Bug Descriptions (Open Bugs)
+
+This section provides detailed analysis for all bugs with ⬜ TODO status.
+
+---
+
+### Bug-1: List.empty() Constructor Not Bridged
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+The `List.empty()` constructor is not available in the D4rt bridge.
+
+```dart
+void main() {
+  var list = List<int>.empty(growable: true);  // ❌ FAILS
+  list.add(1);
+  print(list);
+}
+```
+
+**Error:** `Bridged class 'List' does not have a registered constructor named 'empty'.`
+
+#### Where is the Problem?
+
+- **Location:** `lib/src/bridges/dart_core/list_bridge.dart`
+- **Root Cause:** The `empty` named constructor was not added to the List bridge registration
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Add empty constructor to List bridge**
+   - In `ListBridge`, register `empty` constructor
+   - Handle the `growable` parameter
+   - Return `List<T>.empty(growable: growable)`
+   - Complexity: Low - straightforward constructor addition
+
+---
+
+### Bug-2: Queue.addAll() Method Not Bridged
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+The `Queue.addAll()` method is not bridged.
+
+```dart
+import 'dart:collection';
+
+void main() {
+  var queue = Queue<int>();
+  queue.addAll([1, 2, 3]);  // ❌ FAILS
+  print(queue);
+}
+```
+
+**Error:** `Bridged class 'Queue' has no instance method named 'addAll'.`
+
+#### Where is the Problem?
+
+- **Location:** `lib/src/bridges/dart_collection/queue_bridge.dart`
+- **Root Cause:** The `addAll` method was not registered in the Queue bridge
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Add addAll method to Queue bridge**
+   - In `QueueBridge`, register `addAll` instance method
+   - Unwrap the iterable argument and call native `addAll`
+   - Complexity: Low - standard method bridging
+
+---
+
+### Bug-5: Division by Zero Throws Instead of Returning Infinity
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+Floating-point division by zero should return `infinity` or `NaN`, but throws an error.
+
+```dart
+void main() {
+  var result = 1.0 / 0.0;  // ❌ FAILS - should return infinity
+  print(result);
+}
+```
+
+**Error:** `Division par zéro` (French locale error message)
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` → binary operator handling
+- **Root Cause:** There's explicit division-by-zero checking that throws before the native operation can produce infinity
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Remove explicit zero check for floating-point division**
+   - Check if operands are `double` - if so, let native division handle it
+   - Only throw for integer division by zero
+   - Complexity: Low
+
+---
+
+### Bug-6: Record Missing Object Methods (hashCode)
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+Dart records don't expose `hashCode`, `runtimeType`, and other Object methods through the interpreter.
+
+```dart
+void main() {
+  var r = (1, 2, name: 'test');
+  print(r.hashCode);  // ❌ FAILS
+}
+```
+
+**Error:** `Record has no field named 'hashCode'. Available fields: name`
+
+#### Where is the Problem?
+
+- **Location:** Record property access handling
+- **Root Cause:** Record field lookup doesn't fall back to Object methods
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Add Object method fallback for records**
+   - When accessing a property on a record, if not a field, check Object methods
+   - Handle `hashCode`, `runtimeType`, `toString`, `noSuchMethod`
+   - Complexity: Low
+
+---
+
+### Bug-7: Digit Separators (1_000_000) Not Parsed
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+Dart's digit separator feature (underscores in numeric literals) is not parsed.
+
+```dart
+void main() {
+  var million = 1_000_000;  // ❌ FAILS
+  print(million);
+}
+```
+
+**Error:** `This requires the 'digit-separators' language feature to be enabled.`
+
+#### Where is the Problem?
+
+- **Location:** Parser configuration / language version settings
+- **Root Cause:** The language version or feature flags don't include digit separators
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Enable digit-separators language feature**
+   - Update the analyzer's language version to Dart 2.6+ where digit separators are stable
+   - Ensure feature flags include `digit-separators`
+   - Complexity: Low - configuration change
+
+---
+
+### Bug-8: List.indexWhere() Method Not Bridged
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+The `List.indexWhere()` method is not bridged.
+
+```dart
+void main() {
+  var list = ['a', 'b', 'c', 'd'];
+  print(list.indexWhere((e) => e == 'b'));  // ❌ FAILS
+}
+```
+
+**Error:** `Bridged class 'List' has no instance method named 'indexWhere'.`
+
+#### Where is the Problem?
+
+- **Location:** `lib/src/bridges/dart_core/list_bridge.dart`
+- **Root Cause:** The `indexWhere` method was not registered in the List bridge
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Add indexWhere method to List bridge**
+   - Register `indexWhere` instance method
+   - Handle the function argument (interpreted closure)
+   - Wrap interpreted function as native callback
+   - Complexity: Low - but requires function unwrapping
+
+---
+
+### Bug-9: Type Never Not Found in Type Resolution
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+The `Never` type is not resolved in type annotations.
+
+```dart
+Never throwError() {  // ❌ FAILS
+  throw Exception('Error');
+}
+```
+
+**Error:** `Type 'Never' not found.`
+
+#### Where is the Problem?
+
+- **Location:** Type resolution in `type_resolver.dart` or similar
+- **Root Cause:** `Never` is a special type not registered in the type system
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Register Never as a special type**
+   - Add `Never` to the built-in types alongside `void`, `dynamic`, etc.
+   - Handle Never in function return type validation
+   - Complexity: Medium - touches type system
+
+---
+
+### Bug-10: Interface Comparable Not Found for Implements
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Implementing `Comparable<T>` fails because the interface is not found.
+
+```dart
+class Value implements Comparable<Value> {  // ❌ FAILS
+  final int n;
+  Value(this.n);
+  
+  @override
+  int compareTo(Value other) => n.compareTo(other.n);
+}
+```
+
+**Error:** `Interface 'Comparable' not found for class 'Value'. Ensure it's defined.`
+
+#### Where is the Problem?
+
+- **Location:** Class declaration handling, interface resolution
+- **Root Cause:** Dart core interfaces like `Comparable` are not registered as available interfaces
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Register Dart core interfaces**
+   - Add `Comparable`, `Iterator`, `Iterable`, etc. to the interface registry
+   - These are "marker" interfaces - implementation checking is already done by the bridge
+   - Complexity: Medium - need to identify all core interfaces
+
+---
+
+### Bug-11: Sealed Class Subclasses Incorrectly Rejected
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Subclasses of sealed classes are incorrectly rejected even when in the same library.
+
+```dart
+sealed class Shape {}
+class Circle extends Shape {}  // ❌ FAILS
+```
+
+**Error:** `Class 'Circle' cannot extend sealed class 'Shape' outside of its library.`
+
+#### Where is the Problem?
+
+- **Location:** Class modifier checking during class declaration
+- **Root Cause:** Library boundary checking is too strict or incorrect
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Fix library boundary detection**
+   - When checking if subclass is in same library as sealed parent
+   - Ensure interpreted code in the same module is treated as same library
+   - Complexity: Medium
+
+---
+
+### Bug-12: Interface Exception Not Found for Implements
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Implementing `Exception` fails because the interface is not found.
+
+```dart
+class MyException implements Exception {  // ❌ FAILS
+  final String message;
+  MyException(this.message);
+}
+```
+
+**Error:** `Interface 'Exception' not found for class 'MyException'. Ensure it's defined.`
+
+#### Where is the Problem?
+
+- **Location:** Interface resolution
+- **Root Cause:** `Exception` is not registered as an available interface
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Register Exception interface**
+   - Add `Exception` to the interface registry
+   - `Exception` is a simple marker interface in Dart
+   - Complexity: Low - same pattern as Bug-10
+
+---
+
+### Bug-14: Record Type Annotation Not Resolved
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Record type annotations in function signatures are not resolved.
+
+```dart
+(int, int) swap((int, int) pair) {  // ❌ FAILS
+  return (pair.$2, pair.$1);
+}
+```
+
+**Error:** `Type resolution for RecordTypeAnnotationImpl not implemented yet.`
+
+#### Where is the Problem?
+
+- **Location:** Type annotation visitor
+- **Root Cause:** `RecordTypeAnnotationImpl` is not handled in the type visitor
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Implement RecordTypeAnnotation visitor**
+   - Add case for `RecordTypeAnnotationImpl` in type resolution
+   - Parse positional and named field types
+   - Create a record type representation
+   - Complexity: Medium
+
+---
+
+### Bug-20: identical() Function Not Bridged
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+The `identical()` top-level function is not available.
+
+```dart
+void main() {
+  var a = [1, 2, 3];
+  var b = a;
+  print(identical(a, b));  // ❌ FAILS
+}
+```
+
+**Error:** `Undefined variable: identical`
+
+#### Where is the Problem?
+
+- **Location:** Top-level function registration for dart:core
+- **Root Cause:** `identical` function was not registered
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Register identical function**
+   - Add `identical` to dart:core top-level functions
+   - Implementation: `(a, b) => identical(a, b)`
+   - Complexity: Low - one function registration
+
+---
+
+### Bug-21: Set.from() Constructor Not Bridged
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+The `Set.from()` constructor is not bridged.
+
+```dart
+void main() {
+  var set = Set<int>.from([1, 2, 3]);  // ❌ FAILS
+  print(set);
+}
+```
+
+**Error:** `Bridged class 'Set' does not have a registered constructor named 'from'.`
+
+#### Where is the Problem?
+
+- **Location:** `lib/src/bridges/dart_core/set_bridge.dart`
+- **Root Cause:** The `from` constructor was not registered
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Add from constructor to Set bridge**
+   - Register `from` factory constructor
+   - Unwrap the iterable argument
+   - Return `Set<T>.from(iterable)`
+   - Complexity: Low
+
+---
+
+### Bug-23: Static Const Referencing Sibling Const Fails
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Static const fields cannot reference other static const fields in the same class.
+
+```dart
+class Colors {
+  static const red = '#FF0000';
+  static const blue = '#0000FF';
+  static const defaultColor = blue;  // ❌ FAILS
+}
+```
+
+**Error:** `Undefined variable: blue`
+
+#### Where is the Problem?
+
+- **Location:** Static field initialization order
+- **Root Cause:** When initializing `defaultColor`, `blue` isn't yet in scope
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Two-pass static field initialization**
+   - First pass: register all static field names
+   - Second pass: evaluate initializers with all names available
+   - Complexity: Medium
+
+---
+
+### Bug-24: mixin class Declaration Not Supported
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+The `mixin class` declaration (Dart 3.0+) is not supported.
+
+```dart
+mixin class Logger {  // ❌ FAILS
+  void log(String msg) => print('[LOG] $msg');
+}
+
+class Service with Logger {}
+```
+
+**Error:** `Class 'Logger' cannot be used as a mixin because it's not declared with 'mixin' or 'class mixin'.`
+
+#### Where is the Problem?
+
+- **Location:** Mixin resolution during `with` clause handling
+- **Root Cause:** `mixin class` modifier combination not recognized
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Recognize mixin class modifier**
+   - When parsing class declarations, detect `mixin class` syntax
+   - Mark such classes as usable both as class and mixin
+   - Complexity: Medium
+
+---
+
+### Bug-27: Short-Circuit && with Null Check Fails
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Short-circuit evaluation with `&&` doesn't prevent null access.
+
+```dart
+void main() {
+  String? name;
+  if (name != null && name.isNotEmpty) {  // ❌ FAILS
+    print('Has name');
+  }
+}
+```
+
+**Error:** `Cannot access property 'isNotEmpty' on target of type null.`
+
+#### Where is the Problem?
+
+- **Location:** Binary expression evaluation for `&&`
+- **Root Cause:** Both sides may be evaluated before short-circuit logic is applied, or type promotion isn't working
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Ensure lazy evaluation of &&**
+   - Evaluate left side first
+   - If false, don't evaluate right side
+   - Also check if type promotion is being applied after null check
+   - Complexity: Medium
+
+---
+
+### Bug-4: Enum Value at Top-Level const Fails
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+Accessing enum values in top-level `const` declarations fails, even though accessing them directly (e.g., `Day.wednesday`) works.
+
+```dart
+enum Day { monday, tuesday, wednesday, thursday, friday }
+
+const today = Day.wednesday;  // ❌ FAILS
+
+void main() {
+  print(today);
+}
+```
+
+**Error:** `RuntimeError: Cannot call method 'wednesday' on null.`
+
+#### Where is the Problem?
+
+- **Location:** `lib/src/interpreter_visitor.dart` → `visitPrefixedIdentifier` or const evaluation
+- **Root Cause:** When evaluating top-level const initializers, enum types are not yet fully resolved
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Ensure enums are resolved before const evaluation**
+   - Register enum types and their values early in the compilation phase
+   - Const evaluator should have access to enum values
+   - Complexity: Low - order of initialization issue
+
+2. **Strategy B: Lazy const evaluation**
+   - Defer const evaluation until first access
+   - By that time, all enums should be registered
+   - Complexity: Medium
+
+---
+
+### Bug-15: base64Encode Function Not Exported from dart:convert
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+The top-level `base64Encode()` function from `dart:convert` is not available.
+
+```dart
+import 'dart:convert';
+
+void main() {
+  var result = base64Encode([1, 2, 3]);  // ❌ FAILS
+  print(result);
+}
+```
+
+**Error:** `Undefined function 'base64Encode'.`
+
+#### Where is the Problem?
+
+- **Location:** `lib/src/bridges/dart_convert/dart_convert_bridge.dart`
+- **Root Cause:** Only the `base64` codec was bridged, not the convenience functions
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Add convenience functions to dart:convert bridge**
+   - Register `base64Encode`, `base64Decode`, `base64UrlEncode` as top-level functions
+   - These are simple wrappers: `base64Encode(bytes) => base64.encode(bytes)`
+   - Complexity: Low - straightforward function addition
+
+---
+
+### Bug-26: Assert in Constructor Initializer Not Supported
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Assert statements in constructor initializer lists are not supported.
+
+```dart
+class PositiveNumber {
+  final int value;
+  
+  PositiveNumber(this.value) : assert(value > 0);  // ❌ FAILS
+}
+
+void main() {
+  var n = PositiveNumber(5);
+  print(n.value);
+}
+```
+
+**Error:** `Bad state: Unsupported constructor initializer: AssertInitializer`
+
+#### Where is the Problem?
+
+- **Location:** `lib/src/interpreter_visitor.dart` → constructor initializer handling
+- **Root Cause:** `AssertInitializer` AST node type is not handled in the initializer list processing
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Handle AssertInitializer in constructor processing**
+   - Add case for `AssertInitializer` in initializer list visitor
+   - Evaluate the assert condition
+   - Throw if condition is false (similar to regular assert handling)
+   - Complexity: Medium - need to integrate with existing assert logic
+
+---
+
+### Bug-45: Labeled continue in sync* Generators Fails
+
+**Status:** ⚠️ Broken  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Using labeled `continue` statements in `sync*` generators returns an empty list instead of the expected values.
+
+```dart
+Iterable<int> gen() sync* {
+  outer:
+  for (var i = 0; i < 3; i++) {
+    if (i == 1) continue outer;
+    yield i;
+  }
+}
+
+void main() {
+  print(gen().toList());  // Expected: [0, 2], Got: []
+}
+```
+
+**Note:** This was previously marked as fixed, but testing shows it returns an empty list rather than the expected `[0, 2]`.
+
+#### Where is the Problem?
+
+- **Location:** `lib/src/interpreter_visitor.dart` → sync* generator handling with labeled continue
+- **Root Cause:** The labeled continue breaks out of the generator iteration entirely instead of just skipping to the next iteration
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Fix labeled continue propagation in generators**
+   - Ensure `continue` with label is caught at the correct loop level
+   - Don't let it propagate beyond the target loop
+   - Complexity: Medium - need to track label targets correctly
+
+---
+
+### Bug-47: Future.doWhile Type Cast Issues
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Using `Future.doWhile` fails with a type cast error when the callback returns a Future<bool>.
+
+```dart
+void main() async {
+  var count = 0;
+  await Future.doWhile(() async {
+    count++;
+    return count < 3;  // ❌ FAILS with type error
+  });
+  print('Count: $count');
+}
+```
+
+**Error:** `type 'Future<bool>' is not a subtype of type 'FutureOr<bool>' in type cast`
+
+#### Where is the Problem?
+
+- **Location:** `lib/src/bridges/dart_async/future_bridge.dart` or async handling
+- **Root Cause:** The `FutureOr<bool>` return type handling doesn't correctly unwrap `Future<bool>`
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Improve FutureOr handling**
+   - When a `FutureOr<T>` is expected, check if the value is a `Future<T>`
+   - If so, await it before processing
+   - Complexity: Medium
+
+2. **Strategy B: Bridge Future.doWhile with special handling**
+   - Override `Future.doWhile` in the bridge
+   - Manually handle the async callback and await results
+   - Complexity: Medium
+
+---
+
+### Bug-52: Implicit super() Fails When Superclass Has Constructors
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+When a subclass constructor doesn't explicitly call super(), and the superclass has a default constructor, D4rt fails to call it implicitly.
+
+```dart
+class Base {
+  Base() {
+    print('Base constructed');
+  }
+}
+
+class Child extends Base {
+  Child() {  // ❌ FAILS - should implicitly call super()
+    print('Child constructed');
+  }
+}
+
+void main() {
+  var c = Child();
+}
+```
+
+**Error:** `No super constructor call found for class 'Child'` or base constructor not called.
+
+#### Where is the Problem?
+
+- **Location:** `lib/src/interpreter_visitor.dart` → constructor invocation handling
+- **Root Cause:** Missing automatic `super()` call insertion when not explicitly provided
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Insert implicit super() call**
+   - When processing a constructor without explicit `super()` call
+   - Check if superclass has a default (no-args) constructor
+   - Insert an implicit call to it at the start of initialization
+   - Complexity: Low - straightforward addition
+
+---
+
+### Bug-53: NullAwareElement Feature Not Supported
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+The null-aware element syntax (`?element`) in list/set literals is not supported.
+
+```dart
+void main() {
+  String? name;
+  var list = [?name];  // ❌ FAILS - should be [] when name is null
+  print(list);
+}
+```
+
+**Error:** `Unexpected token '?'` or parser error.
+
+#### Where is the Problem?
+
+- **Location:** Parser configuration or AST handling for collection literals
+- **Root Cause:** Dart 3.x null-aware element feature not enabled or not handled
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Enable null-aware element language feature**
+   - Update language version to Dart 3.x
+   - Enable the `null-aware-elements` feature flag
+   - Complexity: Low - configuration change
+
+2. **Strategy B: Handle NullAwareElement in collection processing**
+   - When visiting list/set literals, check for `NullAwareElement` nodes
+   - If element is null, skip it; otherwise include it
+   - Complexity: Low - simple null check
 
 ---
 
