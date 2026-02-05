@@ -66,7 +66,7 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 | Bug-62 | [GenericFunctionType in generic type args fails](#bug-62-genericfunctiontype-in-generics) | Medium | ✅ Fixed |
 | Bug-64 | [Interface class same-library extension rejected](#bug-64-interface-class-extension) | Medium | ✅ Fixed |
 | Bug-67 | [if-case with int pattern wrong condition type](#bug-67-if-case-int-pattern) | Medium | ✅ Fixed |
-| Bug-45 | [Labeled continue in sync* generators fails](#bug-45-labeled-continue-in-sync-generators-fails) | Medium | ✅ Fixed |
+| Bug-45 | [Labeled continue in sync* generators fails](#bug-45-labeled-continue-in-sync-generators-fails) | Medium | ⚠️ Broken |
 | Bug-47 | [Future.doWhile type cast issues](#bug-47-futuredowhile-type-cast-issues) | Medium | ✅ Fixed |
 | Bug-72 | [Bridged mixins not found during class declaration](#bug-72-bridged-mixins-class-declaration) — `bridged_mixin_test` (5) + `complex_bridged_mixin_test` (5) | Medium | ✅ Fixed |
 | Bug-73, Bug-74 | [Async nested loops/return type error with anonymous name](#bug-73-async-nested-loops-return-type) — `async_nested_loops_test` (20 tests) | Medium | ✅ Fixed |
@@ -74,9 +74,9 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 | Bug-76 | [Introspection API returns globals for empty source](#bug-76-introspection-empty-source) — `introspection_api_test: empty source, imports only` (2) | Low | ✅ Fixed |
 | Bug-77 | [File.parent test flaky in full test suite](#bug-77-file-parent-flaky) — `file_test: comprehensive parent` (1) | Low | ✅ Fixed |
 | Bug-78 | [noSuchMethod not invoked for method calls](#bug-78-nosuchmethod-method-calls) — `limitations_and_bugs_test: Lim-7` (1) | Medium | ✅ Fixed |
-| Lim-4, Bug-43 | [Infinite sync* generators hang (eager evaluation)](#lim-4-bug-43-infinite-sync-generators-hang) — `limitations_and_bugs_test: Lim-4, Bug-43` (2) | High | ⬜ TODO |
-| Lim-8, Bug-13, Bug-68 | [Logical OR patterns in switch cases](#lim-8-bug-13-logicalorpattern-in-switch) — `limitations_and_bugs_test: Lim-8, Bug-13, Bug-68` (3) | High | ⬜ TODO |
-| Lim-1 | [Extension types (Dart 3.3+ inline classes) not supported](#lim-1-extension-types-dart-33-not-supported) — `limitations_and_bugs_test: Lim-1` (1) | High | ⬜ TODO |
+| Lim-1 | [Extension types (Dart 3.3+ inline classes)](#lim-1-extension-types-dart-33) | High | ✅ Fixed |
+| Lim-4, Bug-43 | [Infinite sync* generators hang (eager evaluation)](#lim-4-bug-43-infinite-sync-generators-hang) | High | ✅ Fixed |
+| Lim-8, Bug-13, Bug-68 | [Logical OR patterns in switch cases](#lim-8-bug-13-logicalorpattern-in-switch) | High | ✅ Fixed |
 | Bug-14 | [Records with named fields or >9 positional fields return InterpretedRecord](#bug-14-records-with-named-fields-or-9-positional-fields) — `limitations_and_bugs_test: Bug-14` (2) | High | 🚫 Won't Fix |
 | Lim-3 | [Isolate execution with interpreted code](#lim-3-isolate-execution-with-interpreted-code) — `limitations_and_bugs_test: Lim-3` (1) | Fundamental | 🚫 Won't Fix |
 
@@ -91,15 +91,15 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 
 ---
 
-### Lim-1: Extension Types (Dart 3.3+) Not Supported
+### Lim-1: Extension Types (Dart 3.3+)
 
-**Status:** ⬜ TODO  
-**Fixable:** ⚠️ Major effort required  
+**Status:** ✅ Fixed  
+**Fixed:** 2026-02-05  
 **Complexity:** High
 
 #### Problem Description
 
-Extension types (introduced in Dart 3.3) are inline class wrappers that provide zero-cost abstraction at compile time. D4rt does not support these.
+Extension types (introduced in Dart 3.3) are inline class wrappers that provide zero-cost abstraction at compile time.
 
 ```dart
 extension type UserId(int value) {
@@ -108,30 +108,18 @@ extension type UserId(int value) {
 
 void main() {
   var id = UserId(42);
-  print(id.value);    // ❌ FAILS
-  print(id.isValid);  // ❌ FAILS
+  print(id.value);    // ✅ Works
+  print(id.isValid);  // ✅ Works
 }
 ```
 
-**Error:** Parse error or undefined variable.
+#### Solution
 
-#### Where is the Problem?
-
-- **Location:** AST handling - `visitExtensionTypeDeclaration` does not exist
-- **Root Cause:** The analyzer provides `ExtensionTypeDeclaration` nodes, but D4rt has no visitor to handle them
-
-#### Potential Fix Strategies
-
-1. **Strategy A: Implement full extension type support**
-   - Add `visitExtensionTypeDeclaration` method
-   - Create `InterpretedExtensionType` class
-   - Handle representation field and member access
-   - Complexity: High - requires understanding full Dart 3.3+ semantics
-
-2. **Strategy B: Document as unsupported**
-   - Extension types are relatively new
-   - Users can use regular extensions or classes instead
-   - Complexity: None
+Fixed in 2026-02-05:
+1. Added `visitExtensionTypeDeclaration` method to `InterpreterVisitor`
+2. Created `InterpretedExtensionType` class in `runtime_types.dart`
+3. Created `InterpretedExtensionTypeInstance` class for instance wrapping
+4. Handle representation field access and member methods
 
 **Test File:** `d4rt_bugs/extensions/test9_extension_types.dart`
 
@@ -210,13 +198,13 @@ final result = await Isolate.run(() {
 
 ### Lim-4, Bug-43: Infinite Sync* Generators Hang
 
-**Status:** ⬜ TODO  
-**Fixable:** ⚠️ Major effort  
+**Status:** ✅ Fixed  
+**Fixed:** 2026-02-05  
 **Complexity:** High
 
 #### Problem Description
 
-Sync* generators that yield infinitely will hang because D4rt evaluates them eagerly.
+Sync* generators that yield infinitely now work correctly with lazy evaluation.
 
 ```dart
 Iterable<int> naturals() sync* {
@@ -227,21 +215,19 @@ Iterable<int> naturals() sync* {
 }
 
 void main() {
-  print(naturals().take(5).toList());  // ❌ Hangs - evaluates entire generator
+  print(naturals().take(5).toList());  // ✅ Works - returns [0, 1, 2, 3, 4]
 }
 ```
 
-#### Where is the Problem?
+#### Solution
 
-- **Location:** `callable.dart` → sync* generator implementation
-- **Root Cause:** D4rt collects all yielded values into a list before returning. Native Dart uses lazy evaluation.
-
-#### Potential Fix Strategies
-
-1. **Strategy A: Implement true lazy iteration**
-   - Create custom `Iterable`/`Iterator` that holds execution state
-   - `moveNext()` executes until next yield, then suspends
-   - Complexity: High - major refactor of generator handling
+Fixed in 2026-02-05:
+1. Created `_SyncGeneratorIterable` class that returns `_LazySyncGeneratorIterator`
+2. `_LazySyncGeneratorIterator` uses native Dart `sync*` to produce values lazily
+3. Added `SyncGeneratorYieldSuspension` exception to pause execution at yield points
+4. Added `isLazySyncGeneratorContext` flag to `InterpreterVisitor`
+5. Special handling for `WhileStatement`, `ForStatement`, and `Block` in lazy execution context
+6. `_executeBlockWithYieldSuspension` and related methods handle control flow lazily
 
 **Test File:** `d4rt_bugs/hard_high/bug_43_infinite_generator.dart`
 
@@ -372,31 +358,33 @@ Fixed in 2026-02-06:
 
 ### Lim-8, Bug-13: LogicalOrPattern in Switch
 
-**Status:** ⬜ TODO  
-**Fixable:** ⚠️ Major  
+**Status:** ✅ Fixed  
+**Fixed:** 2026-02-05  
 **Complexity:** High
 
 #### Problem Description
 
-Logical OR patterns (`||`) in switch cases are not fully supported in all contexts.
+Logical OR patterns (`||`) in switch cases now work correctly.
 
 ```dart
 switch (day) {
-  case Day.saturday || Day.sunday:  // ❌ May not work in some contexts
+  case Day.saturday || Day.sunday:  // ✅ Works
     print('Weekend');
 }
+
+// Switch expression also works:
+var result = switch (day) {
+  'Saturday' || 'Sunday' => 'Weekend',
+  _ => 'Weekday',
+};
 ```
 
-#### Workarounds
+#### Solution
 
-Use separate cases:
-```dart
-switch (day) {
-  case Day.saturday:
-  case Day.sunday:
-    print('Weekend');
-}
-```
+Fixed in 2026-02-05:
+1. Added `LogicalOrPattern` handling to `_matchAndBind` method in `interpreter_visitor.dart`
+2. When matching, tries left pattern first; if it fails, tries right pattern
+3. Collects bindings from whichever pattern matches
 
 ---
 

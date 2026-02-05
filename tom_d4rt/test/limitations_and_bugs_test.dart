@@ -166,25 +166,14 @@ String _escapeStringLiteral(String s) {
 
 void main() {
   // ============================================================
-  // LIMITATIONS (Lim-1 to Lim-9)
-  // Fundamental constraints - tests FAIL to demonstrate limitations
+  // LIMITATIONS (Fundamental constraints - Won't Fix)
+  // These represent architectural limitations that cannot be fixed
   // ============================================================
 
   group('Limitations (SHOULD FAIL)', () {
-    test('Lim-1: Extension types should work', () {
-      const source = '''
-extension type UserId(int value) {
-  bool get isValid => value > 0;
-}
-void main() {
-  var id = UserId(42);
-  print(id.value);
-}
-''';
-      expect(() => execute(source), returnsNormally);
-    });
-
     test('Lim-3: Isolate.run with interpreted closure should work', () async {
+      // Fundamental limitation: Interpreted closures cannot be serialized
+      // and passed to isolates. This is an architectural constraint.
       const source = '''
 import 'dart:isolate';
 Future<int> main() async {
@@ -196,84 +185,6 @@ Future<int> main() async {
 ''';
       final result = await executeAsync(source);
       expect(result, equals(42));
-    });
-
-    test('Lim-5: List.sort() with Comparable class should work', () {
-      const source = '''
-class Person implements Comparable<Person> {
-  final String name;
-  Person(this.name);
-  
-  @override
-  int compareTo(Person other) => name.compareTo(other.name);
-}
-List<String> main() {
-  var people = [Person('Bob'), Person('Alice')];
-  people.sort();
-  return people.map((p) => p.name).toList();
-}
-''';
-      final result = execute(source);
-      expect(result, equals(['Alice', 'Bob']));
-    });
-
-    test('Lim-6: Labeled continue in switch should work', () {
-      const source = '''
-void main() {
-  switch (1) {
-    case 1:
-      print('One');
-      continue two;
-    two:
-    case 2:
-      print('Two');
-      break;
-  }
-}
-''';
-      expect(() => execute(source), returnsNormally);
-    });
-
-    test('Lim-7: noSuchMethod for methods should work', () {
-      const source = '''
-class Dynamic {
-  @override
-  dynamic noSuchMethod(Invocation invocation) {
-    return 'handled: \${invocation.memberName}';
-  }
-}
-dynamic main() {
-  dynamic d = Dynamic();
-  return d.anyMethod();
-}
-''';
-      final result = execute(source);
-      expect(result, contains('handled'));
-    });
-
-    test('Lim-8: Logical OR pattern in switch should work', () {
-      const source = '''
-String main() {
-  var day = 'Saturday';
-  return switch (day) {
-    'Saturday' || 'Sunday' => 'Weekend',
-    _ => 'Weekday',
-  };
-}
-''';
-      final result = execute(source);
-      expect(result, equals('Weekend'));
-    });
-
-    test('Lim-9: Await in string interpolation should work', () async {
-      const source = '''
-Future<String> getValue() async => 'Hello';
-Future<String> main() async {
-  return 'Value: \${await getValue()}';
-}
-''';
-      final result = await executeAsync(source);
-      expect(result, equals('Value: Hello'));
     });
   });
 
@@ -1246,5 +1157,102 @@ List<int> main() {
         expect(result, equals([0, 1, 2, 3, 4]));
       },
     );
+
+    test('Lim-1: Extension types should work', () {
+      // Fixed: Added visitExtensionTypeDeclaration and InterpretedExtensionType
+      const source = '''
+extension type UserId(int value) {
+  bool get isValid => value > 0;
+}
+void main() {
+  var id = UserId(42);
+  print(id.value);
+}
+''';
+      expect(() => execute(source), returnsNormally);
+    });
+
+    test('Lim-5: List.sort() with Comparable class should work', () {
+      // Fixed: Modified List.sort bridge to use interpreted compareTo
+      const source = '''
+class Person implements Comparable<Person> {
+  final String name;
+  Person(this.name);
+  
+  @override
+  int compareTo(Person other) => name.compareTo(other.name);
+}
+List<String> main() {
+  var people = [Person('Bob'), Person('Alice')];
+  people.sort();
+  return people.map((p) => p.name).toList();
+}
+''';
+      final result = execute(source);
+      expect(result, equals(['Alice', 'Bob']));
+    });
+
+    test('Lim-6: Labeled continue in switch should work', () {
+      // Fixed: Added ContinueSwitchLabel exception handling
+      const source = '''
+void main() {
+  switch (1) {
+    case 1:
+      print('One');
+      continue two;
+    two:
+    case 2:
+      print('Two');
+      break;
+  }
+}
+''';
+      expect(() => execute(source), returnsNormally);
+    });
+
+    test('Lim-7: noSuchMethod for methods should work', () {
+      // Fixed: noSuchMethod now invoked for method calls
+      const source = '''
+class Dynamic {
+  @override
+  dynamic noSuchMethod(Invocation invocation) {
+    return 'handled: \${invocation.memberName}';
+  }
+}
+dynamic main() {
+  dynamic d = Dynamic();
+  return d.anyMethod();
+}
+''';
+      final result = execute(source);
+      expect(result, contains('handled'));
+    });
+
+    test('Lim-8/Bug-13/Bug-68: Logical OR pattern in switch should work', () {
+      // Fixed: Added LogicalOrPattern handling to _matchAndBind
+      const source = '''
+String main() {
+  var day = 'Saturday';
+  return switch (day) {
+    'Saturday' || 'Sunday' => 'Weekend',
+    _ => 'Weekday',
+  };
+}
+''';
+      final result = execute(source);
+      expect(result, equals('Weekend'));
+    });
+
+    test('Lim-9: Await in string interpolation should work', () async {
+      // Fixed: await expressions in interpolation now resolved correctly
+      const source = '''
+Future<String> getValue() async => 'Hello';
+Future<String> main() async {
+  return 'Value: \${await getValue()}';
+}
+''';
+      final result = await executeAsync(source);
+      expect(result, equals('Value: Hello'));
+    });
   });
 }
