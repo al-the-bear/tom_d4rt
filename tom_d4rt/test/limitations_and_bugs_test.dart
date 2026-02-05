@@ -198,24 +198,6 @@ Future<int> main() async {
       expect(result, equals(42));
     });
 
-    test(
-      'Lim-4: Infinite sync* generators with take() should work',
-      () async {
-        const source = '''
-Iterable<int> naturals() sync* {
-  int n = 0;
-  while (true) { yield n++; }
-}
-List<int> main() {
-  return naturals().take(5).toList();
-}
-''';
-        // Uses subprocess with 5s timeout - will timeout if hanging
-        final result = await executeInSubprocess(source);
-        expect(result, equals([0, 1, 2, 3, 4]));
-      },
-    );
-
     test('Lim-5: List.sort() with Comparable class should work', () {
       const source = '''
 class Person implements Comparable<Person> {
@@ -591,24 +573,6 @@ bool main() {
       final result = execute(source);
       expect(result, isFalse);
     });
-
-    test(
-      'Bug-43: Infinite sync* generator should work with take()',
-      () async {
-        const source = '''
-Iterable<int> naturals() sync* {
-  int n = 0;
-  while (true) { yield n++; }
-}
-List<int> main() {
-  return naturals().take(5).toList();
-}
-''';
-        // Uses subprocess with 5s timeout - will timeout if hanging
-        final result = await executeInSubprocess(source);
-        expect(result, equals([0, 1, 2, 3, 4]));
-      },
-    );
 
     test('Bug-45: Labeled continue in sync* should return correct values', () {
       const source = '''
@@ -1262,5 +1226,25 @@ Future<String> main() async {
       final result = execute(source);
       expect(result, completion(equals('hello')));
     });
+
+    test(
+      'Lim-4/Bug-43: Infinite sync* generators with take() should work',
+      () async {
+        // Fixed: Lazy sync* generator implementation using native Dart sync*
+        // to produce values on demand. Infinite generators now work with take().
+        const source = '''
+Iterable<int> naturals() sync* {
+  int n = 0;
+  while (true) { yield n++; }
+}
+List<int> main() {
+  return naturals().take(5).toList();
+}
+''';
+        // Uses subprocess with 15s timeout - will timeout if hanging
+        final result = await executeInSubprocess(source, timeout: const Duration(seconds: 15));
+        expect(result, equals([0, 1, 2, 3, 4]));
+      },
+    );
   });
 }

@@ -3932,35 +3932,6 @@ class SyncGeneratorYieldSuspension implements Exception {
   SyncGeneratorYieldSuspension(this.value, {this.isYieldStar = false});
 }
 
-/// State for lazy sync* generator execution
-class SyncGeneratorState {
-  final InterpretedFunction function;
-  final InterpreterVisitor visitor;
-  final Environment executionEnvironment;
-  final bool redirected;
-
-  // Current statement index in the block
-  int currentStatementIndex = 0;
-  // Track nested block states (for loops, etc.)
-  final List<_BlockExecutionState> blockStack = [];
-  // Flag indicating if generator is exhausted
-  bool isExhausted = false;
-  // Flag indicating if generator has been initialized
-  bool isInitialized = false;
-  // The function body statements
-  List<Statement>? statements;
-
-  SyncGeneratorState(
-      this.function, this.visitor, this.executionEnvironment, this.redirected);
-}
-
-/// State for nested block execution
-class _BlockExecutionState {
-  final List<Statement> statements;
-  int currentIndex;
-  _BlockExecutionState(this.statements, this.currentIndex);
-}
-
 // Iterable implementation for sync* generators
 class _SyncGeneratorIterable extends Iterable<Object?> {
   final InterpretedFunction function;
