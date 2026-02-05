@@ -2917,6 +2917,30 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // This block returns directly or throws an exception
       }
 
+      // Handle Function.call() - all Dart functions have an implicit 'call' method
+      else if (targetValue is Callable && methodName == 'call') {
+        // Calling .call() on a function is equivalent to invoking the function
+        final evaluationResult = _evaluateArgumentsAsync(node.argumentList);
+        if (evaluationResult is AsyncSuspensionRequest) {
+          return evaluationResult; // Propagate suspension
+        }
+        final (positionalArgs, namedArgs) =
+            evaluationResult as (List<Object?>, Map<String, Object?>);
+        List<RuntimeType>? evaluatedTypeArguments;
+        final typeArgsNode = node.typeArguments;
+        if (typeArgsNode != null) {
+          evaluatedTypeArguments = typeArgsNode.arguments
+              .map((typeNode) => _resolveTypeAnnotation(typeNode))
+              .toList();
+        }
+
+        try {
+          return targetValue.call(this, positionalArgs, namedArgs, evaluatedTypeArguments);
+        } on ReturnException catch (e) {
+          return e.value;
+        }
+      }
+
       //
       else {
         final evaluationResult = _evaluateArgumentsAsync(node.argumentList);
@@ -4299,17 +4323,64 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           .toList();
     }
 
-    // Resolve and call method ON targetValue
-    if (targetValue is InterpretedInstance) {
-      final callee = targetValue.get(methodName); // Gets bound method
+    // Check if the method invocation has its own target (e.g., ..members.add('Alice'))
+    // In this case, node.target is PropertyAccess to 'members'
+    Object? actualTarget = targetValue;
+    if (node.target != null) {
+      // The method has a target (e.g., ..members.add(...)  where members is the target)
+      // We need to evaluate the target, but substitute the cascade target for CascadeExpression references
+      final nodeTarget = node.target!;
+      if (nodeTarget is PropertyAccess) {
+        // This is like ..members.add(...) - first get 'members' from cascade target
+        final propertyName = nodeTarget.propertyName.name;
+        if (targetValue is InterpretedInstance) {
+          actualTarget = targetValue.get(propertyName, visitor: this);
+        } else if (targetValue is Map) {
+          actualTarget = targetValue[propertyName];
+        } else if (toBridgedInstance(targetValue).$2) {
+          final bridgedInstance = toBridgedInstance(targetValue).$1!;
+          final getter = bridgedInstance.bridgedClass.findInstanceGetterAdapter(propertyName);
+          if (getter != null) {
+            actualTarget = getter(this, bridgedInstance.nativeObject);
+          } else {
+            throw RuntimeError("Property '$propertyName' not found on ${bridgedInstance.bridgedClass.name} in cascade.");
+          }
+        } else {
+          throw RuntimeError("Cannot access property '$propertyName' on ${targetValue.runtimeType} in cascade.");
+        }
+      } else if (nodeTarget is IndexExpression) {
+        // This is like ..[index].method(...)
+        final indexValue = nodeTarget.index.accept<Object?>(this);
+        if (targetValue is List && indexValue is int) {
+          actualTarget = targetValue[indexValue];
+        } else if (targetValue is Map) {
+          actualTarget = targetValue[indexValue];
+        } else {
+          throw RuntimeError("Index access not supported on ${targetValue.runtimeType} in cascade.");
+        }
+      } else {
+        // For other target types, evaluate normally
+        actualTarget = nodeTarget.accept<Object?>(this);
+      }
+    }
+
+    if (actualTarget == null) {
+      Logger.debug("[Cascade] Actual target is null after property resolution, skipping.");
+      return;
+    }
+
+    // Resolve and call method ON actualTarget (not the original cascade target)
+    if (actualTarget is InterpretedInstance) {
+      final callee = actualTarget.get(methodName); // Gets bound method
       if (callee is Callable) {
         callee.call(this, positionalArgs, namedArgs, evaluatedTypeArguments);
       } else {
         throw RuntimeError(
             "Member '$methodName' on interpreted instance is not callable in cascade.");
       }
-    } else if (toBridgedInstance(targetValue).$2) {
-      final bridgedInstance = toBridgedInstance(targetValue).$1!;
+    } else if (toBridgedInstance(actualTarget).$2) {
+      // Use bridged method lookup first
+      final bridgedInstance = toBridgedInstance(actualTarget).$1!;
       final adapter =
           bridgedInstance.bridgedClass.findInstanceMethodAdapter(methodName);
       if (adapter != null) {
@@ -4318,8 +4389,95 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         throw RuntimeError(
             "Bridged instance method '$methodName' not found in cascade.");
       }
+    } else if (actualTarget is List) {
+      // Handle List methods directly for un-bridged lists (from property access)
+      _invokeListMethod(actualTarget, methodName, positionalArgs, namedArgs);
+    } else if (actualTarget is Map) {
+      // Handle Map methods directly
+      _invokeMapMethod(actualTarget, methodName, positionalArgs, namedArgs);
+    } else if (actualTarget is Set) {
+      // Handle Set methods directly
+      _invokeSetMethod(actualTarget, methodName, positionalArgs, namedArgs);
+    } else if (toBridgedInstance(actualTarget).$2) {
+      final bridgedInstance = toBridgedInstance(actualTarget).$1!;
+      final adapter =
+          bridgedInstance.bridgedClass.findInstanceMethodAdapter(methodName);
+      if (adapter != null) {
+        adapter(this, bridgedInstance.nativeObject, positionalArgs, namedArgs, evaluatedTypeArguments);
+      } else {
+        throw RuntimeError(
+            "Bridged instance method '$methodName' not found in cascade.");
+      }
+    } else {
+      throw RuntimeError(
+          "Cannot invoke method '$methodName' on ${actualTarget.runtimeType} in cascade.");
     }
     // Ignore the return value of the method call in a cascade
+  }
+
+  /// Helper to invoke List methods directly
+  Object? _invokeListMethod(List list, String methodName, List<Object?> positionalArgs, Map<String, Object?> namedArgs) {
+    switch (methodName) {
+      case 'add':
+        list.add(positionalArgs.first);
+        return null;
+      case 'addAll':
+        list.addAll(positionalArgs.first as Iterable);
+        return null;
+      case 'insert':
+        list.insert(positionalArgs[0] as int, positionalArgs[1]);
+        return null;
+      case 'remove':
+        return list.remove(positionalArgs.first);
+      case 'removeAt':
+        return list.removeAt(positionalArgs.first as int);
+      case 'clear':
+        list.clear();
+        return null;
+      case 'removeLast':
+        return list.removeLast();
+      case 'insertAll':
+        list.insertAll(positionalArgs[0] as int, positionalArgs[1] as Iterable);
+        return null;
+      default:
+        throw RuntimeError("List method '$methodName' not supported in cascade context.");
+    }
+  }
+
+  /// Helper to invoke Map methods directly
+  Object? _invokeMapMethod(Map map, String methodName, List<Object?> positionalArgs, Map<String, Object?> namedArgs) {
+    switch (methodName) {
+      case 'addAll':
+        map.addAll(positionalArgs.first as Map);
+        return null;
+      case 'remove':
+        return map.remove(positionalArgs.first);
+      case 'clear':
+        map.clear();
+        return null;
+      case 'putIfAbsent':
+        return map.putIfAbsent(positionalArgs[0], () => positionalArgs[1]);
+      default:
+        throw RuntimeError("Map method '$methodName' not supported in cascade context.");
+    }
+  }
+
+  /// Helper to invoke Set methods directly
+  Object? _invokeSetMethod(Set set, String methodName, List<Object?> positionalArgs, Map<String, Object?> namedArgs) {
+    switch (methodName) {
+      case 'add':
+        return set.add(positionalArgs.first);
+      case 'addAll':
+        set.addAll(positionalArgs.first as Iterable);
+        return null;
+      case 'remove':
+        return set.remove(positionalArgs.first);
+      case 'clear':
+        set.clear();
+        return null;
+      default:
+        throw RuntimeError("Set method '$methodName' not supported in cascade context.");
+    }
   }
 
   Object? _executeCascadePropertyAccess(
@@ -8538,15 +8696,44 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       final expectedTypeName = pattern.type.name2.lexeme;
 
       // Check if the value is of the expected type
-      // For now, we'll do basic runtime type checking
-      // In a full implementation, this would involve more sophisticated type checking
-
-      // Try to match common Dart types and interpreted classes
       bool typeMatches = false;
       String actualTypeName = value?.runtimeType.toString() ?? 'null';
 
-      // Handle common type aliases and matches
-      if (expectedTypeName == 'int' && value is int) {
+      // Handle InterpretedInstance specially - check class hierarchy
+      if (value is InterpretedInstance) {
+        // Check if the instance's class or any of its supertypes match the expected type
+        if (value.klass.name == expectedTypeName) {
+          typeMatches = true;
+        } else {
+          // Check superclass chain
+          InterpretedClass? current = value.klass.superclass;
+          while (current != null && !typeMatches) {
+            if (current.name == expectedTypeName) {
+              typeMatches = true;
+            }
+            current = current.superclass;
+          }
+          // Check interfaces
+          if (!typeMatches) {
+            for (final interface in value.klass.interfaces) {
+              if (interface.name == expectedTypeName) {
+                typeMatches = true;
+                break;
+              }
+            }
+          }
+          // Check mixins
+          if (!typeMatches) {
+            for (final mixin in value.klass.mixins) {
+              if (mixin.name == expectedTypeName) {
+                typeMatches = true;
+                break;
+              }
+            }
+          }
+        }
+        actualTypeName = value.klass.name;
+      } else if (expectedTypeName == 'int' && value is int) {
         typeMatches = true;
       } else if (expectedTypeName == 'double' && value is double) {
         typeMatches = true;
@@ -8567,23 +8754,19 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         typeMatches = true;
       } else {
         // Check if the value has an interpreted class that matches
-        // This is a simplified check - a full implementation would be more robust
         try {
-          // Try to look up the expected type in the environment
           final expectedType = environment.get(expectedTypeName);
           if (expectedType is RuntimeType) {
-            // In a full implementation, we'd check if value is an instance of expectedType
-            typeMatches =
-                true; // For now, assume it matches if we found the type
+            typeMatches = true;
           }
         } catch (e) {
-          // Type not found in environment, use basic matching
+          // Type not found in environment
         }
       }
 
       if (!typeMatches) {
         throw PatternMatchException(
-            "Object pattern expected type '$expectedTypeName', but got '${value?.runtimeType}'");
+            "Object pattern expected type '$expectedTypeName', but got '$actualTypeName'");
       }
 
       // Match each field pattern
@@ -8591,32 +8774,34 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final PatternFieldName? fieldName = field.name;
         final DartPattern fieldPattern = field.pattern;
 
-        if (fieldName == null) {
-          throw PatternMatchException("Object pattern field must have a name");
-        }
-
-        // Get the field name string
+        // Get the field name string - handle shorthand syntax (:fieldName)
         String fieldNameStr;
-        if (fieldName.name != null) {
+        if (fieldName != null && fieldName.name != null) {
           fieldNameStr = fieldName.name!.lexeme;
+        } else if (fieldPattern is DeclaredVariablePattern) {
+          // Shorthand syntax: (:fieldName) means field name is the variable name
+          fieldNameStr = fieldPattern.name.lexeme;
         } else {
           throw PatternMatchException(
-              "Object pattern field name is not a simple identifier");
+              "Object pattern field name could not be determined");
         }
 
         // Extract the field value from the object
         Object? fieldValue;
 
-        // For basic types, we can't really access fields, so this is limited
-        // In a full implementation, this would use reflection or interpreter class instances
-        if (value is Map && value.containsKey(fieldNameStr)) {
-          // If it's a map, treat field access as key access (common pattern)
+        if (value is InterpretedInstance) {
+          // Use InterpretedInstance.get() to access fields/getters
+          try {
+            fieldValue = value.get(fieldNameStr, visitor: this);
+          } catch (e) {
+            throw PatternMatchException(
+                "Object pattern field '$fieldNameStr' not found on '${value.klass.name}': $e");
+          }
+        } else if (value is Map && value.containsKey(fieldNameStr)) {
           fieldValue = value[fieldNameStr];
         } else {
-          // For now, we'll assume field access is not supported for most types
-          // A full implementation would use reflection or interpreter-managed objects
           throw PatternMatchException(
-              "Object pattern field access '$fieldNameStr' is not yet fully supported for type '${value?.runtimeType}'");
+              "Object pattern field access '$fieldNameStr' is not supported for type '${value?.runtimeType}'");
         }
 
         Logger.debug(

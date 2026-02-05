@@ -75,10 +75,9 @@ void main() {
         }
       ''';
 
-      // Object patterns with guards are not yet fully supported due to interpreter class limitations
-      // For now, this should return "no match" due to field access limitations
+      // Bug-79 fix: Object patterns with guards now work correctly
       final result = execute(code);
-      expect(result, equals("no match"));
+      expect(result, equals([10, 20]));
     });
   });
 }
