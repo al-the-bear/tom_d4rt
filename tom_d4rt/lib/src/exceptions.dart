@@ -135,6 +135,15 @@ class TomUnsupportedError extends D4rtException {
   String toString() => 'Unsupported Error: $message';
 }
 
+/// Exception for unimplemented features in D4rt components.
+class TomUnimplementedError extends D4rtException {
+  /// Creates a new unimplemented error with the given message.
+  TomUnimplementedError(super.message);
+
+  @override
+  String toString() => 'Unimplemented Error: $message';
+}
+
 /// Internal exception used to unwind the stack during a 'return' statement.
 ///
 /// This exception is used internally by the interpreter to implement

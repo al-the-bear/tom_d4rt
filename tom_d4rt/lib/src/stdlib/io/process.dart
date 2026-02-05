@@ -46,7 +46,7 @@ class ProcessIo {
   static Future<Process> _start(
       List<dynamic> positionalArgs, Map<String, dynamic> namedArgs) async {
     if (positionalArgs.isEmpty) {
-      throw ArgumentError('Process.start requires executable path');
+      throw TomArgumentError('Process.start requires executable path');
     }
 
     final executable = positionalArgs[0].toString();
@@ -75,7 +75,7 @@ class ProcessIo {
   static Future<ProcessResult> _run(
       List<dynamic> positionalArgs, Map<String, dynamic> namedArgs) async {
     if (positionalArgs.isEmpty) {
-      throw ArgumentError('Process.run requires executable path');
+      throw TomArgumentError('Process.run requires executable path');
     }
 
     final executable = positionalArgs[0].toString();
@@ -108,7 +108,7 @@ class ProcessIo {
   static ProcessResult _runSync(
       List<dynamic> positionalArgs, Map<String, dynamic> namedArgs) {
     if (positionalArgs.isEmpty) {
-      throw ArgumentError('Process.runSync requires executable path');
+      throw TomArgumentError('Process.runSync requires executable path');
     }
 
     // Check process permission
@@ -145,7 +145,7 @@ class ProcessIo {
   static bool _killPid(
       List<dynamic> positionalArgs, Map<String, dynamic> namedArgs) {
     if (positionalArgs.isEmpty) {
-      throw ArgumentError('Process.killPid requires pid');
+      throw TomArgumentError('Process.killPid requires pid');
     }
 
     final pid = positionalArgs[0] as int;
@@ -157,7 +157,7 @@ class ProcessIo {
   static bool _kill(dynamic instance, List<dynamic> positionalArgs,
       Map<String, dynamic> namedArgs) {
     if (instance is! Process) {
-      throw ArgumentError('Invalid process instance');
+      throw TomArgumentError('Invalid process instance');
     }
 
     final signal = namedArgs['signal'] ?? ProcessSignal.sigterm;

@@ -6,6 +6,7 @@
 library;
 
 import '../bridge/bridged_types.dart';
+import '../exceptions.dart';
 
 /// D4 - Static helper class for D4rt bridge code generation.
 ///
@@ -41,7 +42,7 @@ class D4 {
   /// expected type by casting each element.
   static List<T> coerceList<T>(Object? arg, String paramName) {
     if (arg == null) {
-      throw ArgumentError(
+      throw TomArgumentError(
         'Invalid parameter "$paramName": expected List<$T>, got null',
       );
     }
@@ -50,7 +51,7 @@ class D4 {
     final value = arg is BridgedInstance ? arg.nativeObject : arg;
 
     if (value is! List) {
-      throw ArgumentError(
+      throw TomArgumentError(
         'Invalid parameter "$paramName": expected List<$T>, got ${value.runtimeType}',
       );
     }
@@ -69,7 +70,7 @@ class D4 {
         return e as T;
       }).toList();
     } catch (e) {
-      throw ArgumentError(
+      throw TomArgumentError(
         'Invalid parameter "$paramName": cannot convert List to List<$T> - $e',
       );
     }
@@ -91,7 +92,7 @@ class D4 {
   /// function coerces the map to the expected key and value types.
   static Map<K, V> coerceMap<K, V>(Object? arg, String paramName) {
     if (arg == null) {
-      throw ArgumentError(
+      throw TomArgumentError(
         'Invalid parameter "$paramName": expected Map<$K, $V>, got null',
       );
     }
@@ -100,7 +101,7 @@ class D4 {
     final value = arg is BridgedInstance ? arg.nativeObject : arg;
 
     if (value is! Map) {
-      throw ArgumentError(
+      throw TomArgumentError(
         'Invalid parameter "$paramName": expected Map<$K, $V>, got ${value.runtimeType}',
       );
     }
@@ -118,7 +119,7 @@ class D4 {
         return MapEntry(key, val);
       });
     } catch (e) {
-      throw ArgumentError(
+      throw TomArgumentError(
         'Invalid parameter "$paramName": cannot convert Map to Map<$K, $V> - $e',
       );
     }
@@ -147,7 +148,7 @@ class D4 {
 
     final actualType =
         arg is BridgedInstance ? arg.nativeObject.runtimeType : arg.runtimeType;
-    throw ArgumentError(
+    throw TomArgumentError(
       'Invalid parameter "$paramName": expected $T, got $actualType',
     );
   }
@@ -176,7 +177,7 @@ class D4 {
     String methodName,
   ) {
     if (positional.length <= index) {
-      throw ArgumentError(
+      throw TomArgumentError(
         '$methodName: Missing required argument "$paramName" at position $index. '
         'Expected at least ${index + 1} arguments, got ${positional.length}',
       );
@@ -226,7 +227,7 @@ class D4 {
     String methodName,
   ) {
     if (!named.containsKey(paramName) || named[paramName] == null) {
-      throw ArgumentError(
+      throw TomArgumentError(
         '$methodName: Missing required named argument "$paramName"',
       );
     }
@@ -273,7 +274,7 @@ class D4 {
     String methodName,
   ) {
     if (positional.length < minCount) {
-      throw ArgumentError(
+      throw TomArgumentError(
         '$methodName expects at least $minCount argument(s), got ${positional.length}',
       );
     }
@@ -288,7 +289,7 @@ class D4 {
     String methodName,
   ) {
     if (positional.length != count) {
-      throw ArgumentError(
+      throw TomArgumentError(
         '$methodName expects exactly $count argument(s), got ${positional.length}',
       );
     }
@@ -305,7 +306,7 @@ class D4 {
     if (target is T) {
       return target;
     }
-    throw ArgumentError(
+    throw TomArgumentError(
       'Invalid target: expected $typeName, got ${target?.runtimeType}',
     );
   }
@@ -329,7 +330,7 @@ class D4 {
     String originalDefault,
   ) {
     if (positional.length <= index || positional[index] == null) {
-      throw ArgumentError(
+      throw TomArgumentError(
         '$methodName: Parameter "$paramName" has non-wrappable default ($originalDefault). '
         'Value must be specified but was null.',
       );
@@ -351,7 +352,7 @@ class D4 {
     String originalDefault,
   ) {
     if (!named.containsKey(paramName) || named[paramName] == null) {
-      throw ArgumentError(
+      throw TomArgumentError(
         '$methodName: Parameter "$paramName" has non-wrappable default ($originalDefault). '
         'Value must be specified but was null.',
       );

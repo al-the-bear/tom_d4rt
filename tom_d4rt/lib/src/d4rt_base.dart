@@ -580,7 +580,7 @@ class D4rt {
   }) {
     // Handle deprecated args parameter
     if (args != null && positionalArgs != null) {
-      throw ArgumentError(
+      throw TomArgumentError(
           'Cannot use both "args" (deprecated) and "positionalArgs". Use only "positionalArgs".');
     }
     if (args != null) {
@@ -706,13 +706,13 @@ class D4rt {
         if (e is SourceCodeException || e is RuntimeError) {
           rethrow;
         } else {
-          throw Exception(
+          throw RuntimeError(
               "Unexpected failure to load initial module $library: $e");
         }
       }
     } else {
       if (source == null) {
-        throw Exception('Source content must be provided');
+        throw RuntimeError('Source content must be provided');
       }
       Logger.debug(
           "[D4rt._parseSource] Parsing the provided source string directly (no source URI).");
@@ -830,7 +830,7 @@ class D4rt {
         functionResult = functionCallable.call(
             _visitor!, interpreterArgs, interpreterNamedArgs);
       } else {
-        throw Exception(
+        throw RuntimeError(
             "No callable '$name' function found in the test source code.");
       }
       Logger.debug("[_executeInEnvironment] Finished Pass 2: Interpretation");
@@ -898,7 +898,7 @@ class D4rt {
   }) {
     // Handle deprecated args parameter
     if (args != null && positionalArgs != null) {
-      throw ArgumentError(
+      throw TomArgumentError(
           'Cannot use both "args" (deprecated) and "positionalArgs". Use only "positionalArgs".');
     }
     if (args != null) {
@@ -938,13 +938,13 @@ class D4rt {
         if (e is SourceCodeException || e is RuntimeError) {
           rethrow;
         } else {
-          throw Exception(
+          throw RuntimeError(
               "Unexpected failure to load initial module $library: $e");
         }
       }
     } else {
       if (source == null) {
-        throw Exception('Source content must be provided');
+        throw RuntimeError('Source content must be provided');
       }
       Logger.debug(
           "[D4rt._executeClassic] Executing the provided source string directly (no source URI).");
@@ -1055,7 +1055,7 @@ class D4rt {
         functionResult = functionCallable.call(
             _visitor!, interpreterArgs, interpreterNamedArgs);
       } else {
-        throw Exception(
+        throw RuntimeError(
             "No callable '$name' function found in the test source code.");
       }
       Logger.debug(" [_executeClassic] Finished Pass 2: Interpretation");

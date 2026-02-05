@@ -1,3 +1,4 @@
+import '../exceptions.dart';
 import '../interpreter_visitor.dart'; // Import InterpreterVisitor for adapters
 import '../runtime_interfaces.dart'; // Import RuntimeType for type arguments
 import 'bridged_enum.dart';
@@ -83,7 +84,7 @@ class BridgedEnumDefinition<T extends Enum> {
   }) {
     // Validation: Ensure the value list is not empty
     if (values.isEmpty) {
-      throw ArgumentError('Cannot bridge an enum with no values: $name');
+      throw TomArgumentError('Cannot bridge an enum with no values: $name');
     }
   }
 

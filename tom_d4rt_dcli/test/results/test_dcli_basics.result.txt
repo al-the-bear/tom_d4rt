@@ -1,7 +1,240 @@
 Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_dcli/test/replay/test_dcli_basics.dcli
-Started: 2026-02-05T12:25:04.596576
+Started: 2026-02-05T13:26:24.898378
 
 Lines executed: 107
 
-Result: PASSED
-Completed: 2026-02-05T12:25:05.022960
+REPORTED ERRORS (89):
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var x = 10;
+}
+]
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var greeting = 'Hello, DCli!';
+}
+]
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var numbers = [1, 2, 3, 4, 5];
+}
+]
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var sum = 10 + 20;
+}
+]
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var product = 5 * 6;
+}
+]
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var quotient = 100 ~/ 7;
+}
+]
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var name = 'DCli';
+}
+]
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var fullName = 'Hello, $name!';
+}
+]
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var upper = name.toUpperCase();
+}
+]
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var lower = name.toLowerCase();
+}
+]
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var fruits = ['apple', 'banana', 'cherry'];
+}
+]
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var mapped = fruits.map((f) => f.toUpperCase()).toList();
+}
+]
+  - Runtime Error: Cannot bridge native object: No registered bridged class found for native type InterpretedFunction.
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var config = {'host': 'localhost', 'port': 8080};
+}
+]
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var keys = config.keys.toList();
+}
+]
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Function expressions can't be named. (line 2, column 14)
+Problematic code: [Object? __repl_expr__() {
+  return int add(int a, int b) => a + b;
+}
+]
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Function expressions can't be named. (line 2, column 17)
+Problematic code: [Object? __repl_expr__() {
+  return String greet(String name) => 'Hello, $name!';
+}
+]
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var numbers = [1, 2, 3, 4, 5];
+}
+]
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var result = numbers.fold(0, (a, b) => a + b);
+}
+]
+  - Runtime Error: Cannot bridge native object: No registered bridged class found for native type InterpretedFunction.
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var list = [1, 2, 3];
+}
+]
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var count = list.fold(0, (a, b) => a + b);
+}
+]
+  - Runtime Error: Cannot bridge native object: No registered bridged class found for native type InterpretedFunction.
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var age = 25;
+}
+]
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var category = age >= 18 ? 'adult' : 'minor';
+}
+]
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var nullValue = null;
+}
+]
+  - SourceCodeException: Failed to parse expression:
+- Expected an identifier. (line 2, column 10)
+- Expected to find ';'. (line 2, column 3)
+Problematic code: [Object? __repl_expr__() {
+  return var defaultValue = nullValue ?? 'default';
+}
+]
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+
+Result: FAILED
+Completed: 2026-02-05T13:26:25.718869

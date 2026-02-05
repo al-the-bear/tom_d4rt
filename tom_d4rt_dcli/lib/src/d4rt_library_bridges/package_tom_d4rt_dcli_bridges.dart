@@ -147,7 +147,7 @@ class PackageTomD4rtDcliBridge {
     interpreter.registerGlobalGetter('verificationFailures', () => $pkg.verificationFailures, importPath, sourceUri: 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart');
 
     if (errors.isNotEmpty) {
-      throw StateError('Bridge registration errors (package_tom_d4rt_dcli):\n${errors.join("\n")}');
+      throw TomStateError('Bridge registration errors (package_tom_d4rt_dcli):\n${errors.join("\n")}');
     }
   }
 
@@ -331,7 +331,7 @@ BridgedClass _createD4rtCliApiBridge() {
         final t = D4.validateTarget<$pkg.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'processPrompts');
         if (positional.isEmpty) {
-          throw ArgumentError('processPrompts: Missing required argument "lines" at position 0');
+          throw TomArgumentError('processPrompts: Missing required argument "lines" at position 0');
         }
         final lines = D4.coerceList<String>(positional[0], 'lines');
         final continueOnError = D4.getNamedArgWithDefault<bool>(named, 'continueOnError', false);
@@ -695,7 +695,7 @@ BridgedClass _createD4rtCliControllerBridge() {
         final t = D4.validateTarget<$pkg.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'processPrompts');
         if (positional.isEmpty) {
-          throw ArgumentError('processPrompts: Missing required argument "lines" at position 0');
+          throw TomArgumentError('processPrompts: Missing required argument "lines" at position 0');
         }
         final lines = D4.coerceList<String>(positional[0], 'lines');
         final continueOnError = D4.getNamedArgWithDefault<bool>(named, 'continueOnError', false);

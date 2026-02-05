@@ -220,7 +220,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
       return buffer.toString();
     }
-    throw UnimplementedError(
+    throw TomUnimplementedError(
       'Type de StringLiteral non géré: ${node.runtimeType}',
     );
   }
@@ -881,6 +881,60 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   @override
   Object? visitBinaryExpression(BinaryExpression node) {
     final operator = node.operator.type;
+
+    // Handle logical OR (||) with short-circuiting FIRST - don't evaluate right operand yet
+    if (operator == TokenType.BAR_BAR) {
+      final leftValue = node.leftOperand.accept<Object?>(this);
+      if (leftValue is AsyncSuspensionRequest) return leftValue;
+      if (leftValue is! bool) {
+        throw RuntimeError(
+            "Left operand of '||' must be bool, got ${leftValue?.runtimeType}.");
+      }
+      // If left is true, return true without evaluating right
+      if (leftValue) return true;
+      // Left is false, now evaluate right operand
+      final rightValue = node.rightOperand.accept<Object?>(this);
+      if (rightValue is AsyncSuspensionRequest) return rightValue;
+      if (rightValue is! bool) {
+        throw RuntimeError(
+            "Right operand of '||' must be bool, got ${rightValue?.runtimeType}.");
+      }
+      return rightValue;
+    }
+
+    // Handle logical AND (&&) with short-circuiting SECOND - don't evaluate right operand yet
+    if (operator == TokenType.AMPERSAND_AMPERSAND) {
+      final leftValue = node.leftOperand.accept<Object?>(this);
+      if (leftValue is AsyncSuspensionRequest) return leftValue;
+      if (leftValue is! bool) {
+        throw RuntimeError(
+            "Left operand of '&&' must be bool, got ${leftValue?.runtimeType}.");
+      }
+      // If left is false, return false without evaluating right
+      if (!leftValue) return false;
+      // Left is true, now evaluate right operand
+      final rightValue = node.rightOperand.accept<Object?>(this);
+      if (rightValue is AsyncSuspensionRequest) return rightValue;
+      if (rightValue is! bool) {
+        throw RuntimeError(
+            "Right operand of '&&' must be bool, got ${rightValue?.runtimeType}.");
+      }
+      return rightValue;
+    }
+
+    // Handle null-coalescing (??) with short-circuiting - don't evaluate right operand yet
+    if (operator == TokenType.QUESTION_QUESTION) {
+      final leftValue = node.leftOperand.accept<Object?>(this);
+      if (leftValue is AsyncSuspensionRequest) return leftValue;
+      // If left is not null, return it without evaluating right
+      if (leftValue != null) return leftValue;
+      // Left is null, evaluate right operand
+      final rightValue = node.rightOperand.accept<Object?>(this);
+      if (rightValue is AsyncSuspensionRequest) return rightValue;
+      return rightValue;
+    }
+
+    // For all other operators, evaluate both operands
     final leftOperandValue = node.leftOperand.accept<Object?>(this);
     final rightOperandValue = node.rightOperand.accept<Object?>(this);
 
@@ -895,48 +949,6 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     }
     if (rightOperandValue is AsyncSuspensionRequest) {
       return rightOperandValue;
-    }
-    // Handle logical OR (||) with short-circuiting FIRST
-    if (operator == TokenType.BAR_BAR) {
-      // Evaluate left operand FIRST
-      final leftValue = leftOperandValue;
-      if (leftValue is! bool) {
-        throw RuntimeError(
-            "Left operand of '||' must be bool, got ${leftValue?.runtimeType}.");
-      }
-      // If left is true, return true without evaluating right
-      if (leftValue) return true;
-      // Left is false, evaluate right operand
-      final rightValue = rightOperandValue;
-      if (rightValue is! bool) {
-        throw RuntimeError(
-            "Right operand of '||' must be bool, got ${rightValue?.runtimeType}.");
-      }
-      return rightValue;
-    }
-
-    // Handle logical AND (&&) with short-circuiting SECOND
-    if (operator == TokenType.AMPERSAND_AMPERSAND) {
-      // Evaluate left operand FIRST
-      final leftValue = leftOperandValue;
-      if (leftValue is! bool) {
-        throw RuntimeError(
-            "Left operand of '&&' must be bool, got ${leftValue?.runtimeType}.");
-      }
-      // If left is false, return false without evaluating right
-      if (!leftValue) return false;
-      // Left is true, evaluate right operand
-      final rightValue = rightOperandValue;
-      if (rightValue is! bool) {
-        throw RuntimeError(
-            "Right operand of '&&' must be bool, got ${rightValue?.runtimeType}.");
-      }
-      return rightValue;
-    }
-    if (operator == TokenType.QUESTION_QUESTION) {
-      final leftValue = leftOperandValue;
-      final rightValue = rightOperandValue;
-      return leftValue ?? rightValue;
     }
 
     final leftBridgedInstance = toBridgedInstance(leftOperandValue);
@@ -2283,7 +2295,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               'Unsupported target for index assignment: ${targetValue?.runtimeType}');
         }
       } else {
-        throw UnimplementedError(
+        throw TomUnimplementedError(
             'Assignation à une cible non gérée: ${lhs.runtimeType}');
       }
     }
@@ -3253,7 +3265,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       final staticMethod = bridgedClass.findStaticMethodAdapter(propertyName);
       if (staticMethod != null) {
         Logger.debug("[PropertyAccess]   Found static method adapter.");
-        throw UnimplementedError(
+        throw TomUnimplementedError(
             "Returning bridged static methods as values from PropertyAccess is not yet supported.");
         // return BridgedStaticMethodCallable(bridgedClass, staticMethod, propertyName);
       } else {
@@ -3596,7 +3608,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
     } else {
       // Should not happen with valid Dart code
-      throw StateError('Unknown ForLoopParts type: ${loopParts.runtimeType}');
+      throw TomStateError('Unknown ForLoopParts type: ${loopParts.runtimeType}');
     }
 
     return null; // For loops don't produce a value
@@ -3730,7 +3742,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 "Variable '$variableName' for for-in loop is not defined.");
           }
         } else {
-          throw StateError(
+          throw TomStateError(
               'Unexpected for-in loop variable type: ${loopVariableOrIdentifier.runtimeType}');
         }
 
@@ -3770,7 +3782,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
     } else {
       // Should not happen after the check above
-      throw StateError(
+      throw TomStateError(
           'Internal error: Expected Iterable but got ${iterableValue.runtimeType}');
     }
   }
@@ -3812,7 +3824,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       );
     } else {
       // Should not happen after the check above
-      throw StateError(
+      throw TomStateError(
           'Internal error: Expected Stream but got ${streamValue.runtimeType}');
     }
   }
@@ -3849,7 +3861,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "Variable '$variableName' for for-in loop is not defined.");
       }
     } else {
-      throw StateError(
+      throw TomStateError(
           'Unexpected for-in loop variable type: ${loopVariableOrIdentifier.runtimeType}');
     }
 
@@ -4068,7 +4080,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         _executeCascadeIndexAccess(targetValue, section);
       } else {
         // Should not happen with valid cascade sections
-        throw UnimplementedError(
+        throw TomUnimplementedError(
             'Cascade section type not handled: ${section.runtimeType}');
       }
     }
@@ -4336,7 +4348,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "Cannot set property '$propertyName' on ${targetValue.runtimeType} in cascade.");
       }
     } else {
-      throw UnimplementedError(
+      throw TomUnimplementedError(
           'Unsupported assignment LHS in cascade: ${lhs.runtimeType}');
     }
     // Assignment in cascade doesn't produce a value to be used further.
@@ -4365,7 +4377,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         collection[key] = value;
       } else {
         // Should not happen if isMap is true
-        throw StateError("Internal error: Expected Map for map literal.");
+        throw TomStateError("Internal error: Expected Map for map literal.");
       }
     } else if (element is SpreadElement) {
       final expressionValue = element.expression.accept<Object?>(this);
@@ -4414,7 +4426,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         } else if (collection is Set) {
           collection.addAll(iterableToAdd as Iterable); // Cast is safe here
         } else {
-          throw StateError(
+          throw TomStateError(
               "Internal error: Expected List or Set for non-map literal.");
         }
         // else case handled by error throws above
@@ -4466,7 +4478,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             } else if (loopVariableNode is SimpleIdentifier) {
               variableName = loopVariableNode.name;
             } else {
-              throw StateError(
+              throw TomStateError(
                   'Unexpected for-in loop variable type: ${loopVariableNode.runtimeType}');
             }
 
@@ -4531,7 +4543,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           environment = previousEnvironment;
         }
       } else {
-        throw UnimplementedError(
+        throw TomUnimplementedError(
             'Unsupported for-loop type in collection literal: ${loopParts.runtimeType}');
       }
     } else if (element is NullAwareElement) {
@@ -4544,13 +4556,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           collection.add(value);
         } else {
           // Should not happen if isMap is false
-          throw StateError(
+          throw TomStateError(
               "Internal error: Expected List or Set for NullAwareElement.");
         }
       }
       // If value is null, do nothing.
     } else {
-      throw UnimplementedError(
+      throw TomUnimplementedError(
           'Collection element type not yet supported: ${element.runtimeType}');
     }
   }
@@ -5262,7 +5274,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         } on RuntimeError {
           // Fall through if no generic extension op found
         }
-        throw UnimplementedError(
+        throw TomUnimplementedError(
             'Unary prefix operator not handled: ${node.operator.lexeme} ($operatorType)');
     }
   }
@@ -5655,7 +5667,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         buffer.write(stringify(value)); // Use stringify helper
       } else {
         // Should not happen based on AST structure
-        throw StateError(
+        throw TomStateError(
             'Unknown interpolation element: ${element.runtimeType}');
       }
     }
@@ -5747,7 +5759,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     Object? placeholder = environment.get(className);
     if (placeholder == null || placeholder is! InterpretedClass) {
       // This should not happen if Pass 1 worked correctly
-      throw StateError(
+      throw TomStateError(
           "Placeholder for class '$className' not found or invalid during Pass 2.");
     }
     final klass = placeholder;
@@ -5773,7 +5785,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // Standard Dart Superclass
         final superclass = potentialSuperclass;
 
-        // Add checks for final, interface, and sealed modifiers
+        // Add checks for final and interface modifiers
+        // Note: sealed classes CAN be extended within the same library/file,
+        // and in D4rt all interpreted code is considered the same library
         if (superclass.isFinal) {
           throw RuntimeError(
               "Class '$className' cannot extend final class '$superclassName'.");
@@ -5782,10 +5796,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           throw RuntimeError(
               "Class '$className' cannot extend interface class '$superclassName'. Use 'implements'.");
         }
-        if (superclass.isSealed) {
-          throw RuntimeError(
-              "Class '$className' cannot extend sealed class '$superclassName' outside of its library.");
-        }
+        // sealed classes are allowed to be extended - they restrict external libraries only
 
         // Set the superclass and clear bridged superclass
         klass.superclass = superclass;
@@ -5818,20 +5829,23 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         try {
           final potentialInterface = environment.get(interfaceName);
           if (potentialInterface is InterpretedClass) {
-            // Add checks for base and sealed modifiers
+            // Add checks for base modifier only
+            // Note: sealed classes CAN be implemented within the same library/file
             if (potentialInterface.isBase) {
               throw RuntimeError(
                   "Class '$className' cannot implement base class '$interfaceName' outside of its library.");
             }
-            if (potentialInterface.isSealed) {
-              throw RuntimeError(
-                  "Class '$className' cannot implement sealed class '$interfaceName' outside of its library.");
-            }
+            // sealed classes are allowed to be implemented - they restrict external libraries only
 
             // Add to the interfaces list of the existing klass object
             klass.interfaces.add(potentialInterface);
             Logger.debug(
                 "[Visitor.visitClassDeclaration] Added interface '$interfaceName' for '$className'");
+          } else if (potentialInterface is BridgedClass) {
+            // Support for bridged interfaces like Comparable, Exception
+            klass.bridgedInterfaces.add(potentialInterface);
+            Logger.debug(
+                "[Visitor.visitClassDeclaration] Added bridged interface '$interfaceName' for '$className'");
           } else {
             throw RuntimeError(
                 "Class '$className' cannot implement non-class '$interfaceName' (${potentialInterface?.runtimeType}).");
@@ -5866,15 +5880,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 "Class '$mixinName' cannot be used as a mixin because it's not declared with 'mixin' or 'class mixin'.");
           }
 
-          // Add checks for base and sealed modifiers
+          // Add checks for base modifier only
+          // Note: sealed classes CAN be mixed in within the same library/file
           if (mixin.isBase) {
             throw RuntimeError(
                 "Class '$className' cannot mix in base class '$mixinName' outside of its library.");
           }
-          if (mixin.isSealed) {
-            throw RuntimeError(
-                "Class '$className' cannot mix in sealed class '$mixinName' outside of its library.");
-          }
+          // sealed classes are allowed to be mixed in - they restrict external libraries only
 
           // Add to the mixins list of the existing klass object
           klass.mixins.add(mixin);
@@ -5958,58 +5970,85 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final constructorName = member.name?.lexeme ?? '';
         klass.constructors[constructorName] = function;
       } else if (member is FieldDeclaration) {
-        if (member.isStatic) {
-          try {
-            environment = staticInitEnv;
-            for (final variable in member.fields.variables) {
-              final fieldName = variable.name.lexeme;
-              final isLate = member.fields.lateKeyword != null;
-              final isFinal = member.fields.keyword?.lexeme == 'final';
-
-              if (isLate) {
-                // Handle late static field
-                if (variable.initializer != null) {
-                  // Late static field with lazy initializer
-                  final lateVar = LateVariable(fieldName, () {
-                    // Create a closure that will evaluate the initializer when accessed
-                    final savedEnv = environment;
-                    try {
-                      environment = staticInitEnv;
-                      return variable.initializer!.accept<Object?>(this);
-                    } finally {
-                      environment = savedEnv;
-                    }
-                  }, isFinal: isFinal);
-                  klass.staticFields[fieldName] = lateVar;
-                  Logger.debug(
-                      "[ClassDecl] Defined late static field '$fieldName' with lazy initializer for class '${klass.name}'.");
-                } else {
-                  // Late static field without initializer
-                  final lateVar =
-                      LateVariable(fieldName, null, isFinal: isFinal);
-                  klass.staticFields[fieldName] = lateVar;
-                  Logger.debug(
-                      "[ClassDecl] Defined late static field '$fieldName' without initializer for class '${klass.name}'.");
-                }
-              } else {
-                // Regular static field handling
-                Object? value;
-                if (variable.initializer != null) {
-                  value = variable.initializer!.accept<Object?>(this);
-                }
-                klass.staticFields[fieldName] = value;
-              }
-            }
-          } finally {
-            environment = originalVisitorEnv;
-          }
-        } else {
+        // Defer static field processing - collect them for later
+        if (!member.isStatic) {
           klass.fieldDeclarations.add(member);
         }
       } else {
-        throw StateError('Unknown member type: ${member.runtimeType}');
+        throw TomStateError('Unknown member type: ${member.runtimeType}');
       }
     }
+
+    // TWO-PASS STATIC FIELD PROCESSING to handle sibling references (Bug-23)
+    // Pass 1: Register all static field names in the class environment with null values
+    final staticFieldDecls = <VariableDeclaration>[];
+    final staticFieldMeta =
+        <String, (bool isLate, bool isFinal, Expression? initializer)>{};
+    for (final member in node.members) {
+      if (member is FieldDeclaration && member.isStatic) {
+        final isLate = member.fields.lateKeyword != null;
+        final isFinal = member.fields.keyword?.lexeme == 'final';
+        for (final variable in member.fields.variables) {
+          final fieldName = variable.name.lexeme;
+          staticFieldDecls.add(variable);
+          staticFieldMeta[fieldName] = (isLate, isFinal, variable.initializer);
+          // Pre-register all static fields so they can reference each other
+          klass.staticFields[fieldName] = null;
+        }
+      }
+    }
+
+    // Pass 2: Evaluate all static field initializers (now all fields are known)
+    // Create a child environment that can shadow with evaluated field values
+    final staticFieldEvalEnv = Environment(enclosing: staticInitEnv);
+    try {
+      environment = staticFieldEvalEnv;
+      for (final variable in staticFieldDecls) {
+        final fieldName = variable.name.lexeme;
+        final (isLate, isFinal, initializer) = staticFieldMeta[fieldName]!;
+
+        if (isLate) {
+          // Handle late static field
+          if (initializer != null) {
+            // Late static field with lazy initializer
+            final lateVar = LateVariable(fieldName, () {
+              // Create a closure that will evaluate the initializer when accessed
+              final savedEnv = environment;
+              try {
+                environment = staticFieldEvalEnv;
+                return initializer.accept<Object?>(this);
+              } finally {
+                environment = savedEnv;
+              }
+            }, isFinal: isFinal);
+            klass.staticFields[fieldName] = lateVar;
+            // Also define in eval environment for sibling access
+            staticFieldEvalEnv.define(fieldName, lateVar);
+            Logger.debug(
+                "[ClassDecl] Defined late static field '$fieldName' with lazy initializer for class '${klass.name}'.");
+          } else {
+            // Late static field without initializer
+            final lateVar = LateVariable(fieldName, null, isFinal: isFinal);
+            klass.staticFields[fieldName] = lateVar;
+            staticFieldEvalEnv.define(fieldName, lateVar);
+            Logger.debug(
+                "[ClassDecl] Defined late static field '$fieldName' without initializer for class '${klass.name}'.");
+          }
+        } else {
+          // Regular static field handling
+          Object? value;
+          if (initializer != null) {
+            value = initializer.accept<Object?>(this);
+          }
+          klass.staticFields[fieldName] = value;
+          // Define the evaluated value in the environment so subsequent fields can access it
+          staticFieldEvalEnv.define(fieldName, value);
+        }
+      }
+    } finally {
+      environment = originalVisitorEnv;
+    }
+
     Logger.debug(
         "[Visitor.visitClassDeclaration] Finished processing members for '$className'");
 
@@ -6090,7 +6129,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     if (placeholder == null ||
         placeholder is! InterpretedClass ||
         !placeholder.isMixin) {
-      throw StateError(
+      throw TomStateError(
           "Placeholder for mixin '$mixinName' not found or invalid during Pass 2.");
     }
     final mixinClass = placeholder;
@@ -6188,7 +6227,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // Retrieve the enum placeholder object created in Pass 1
     final enumObj = environment.get(enumName);
     if (enumObj == null || enumObj is! InterpretedEnum) {
-      throw StateError(
+      throw TomStateError(
           "Enum placeholder object for '$enumName' not found or invalid during Pass 2.");
     }
 
@@ -6277,11 +6316,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           }
         } else if (member is ConstructorDeclaration) {
           if (member.factoryKeyword != null) {
-            throw UnimplementedError(
+            throw TomUnimplementedError(
                 "Factory constructors in enums are not yet supported.");
           }
           if (member.redirectedConstructor != null) {
-            throw UnimplementedError(
+            throw TomUnimplementedError(
                 "Redirecting constructors in enums are not yet supported.");
           }
           // Check if it's the default unnamed constructor or a named one
@@ -6581,7 +6620,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
     }
 
-    throw UnimplementedError(
+    throw TomUnimplementedError(
         'Compound assignment operator $operatorType not handled for types ${currentValue?.runtimeType} and ${rhsValue?.runtimeType}');
   }
 
@@ -7060,7 +7099,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final originalError = asyncState.originalErrorForRethrow;
     if (originalError == null) {
       // Should not happen if isHandlingErrorForRethrow is true, but safety check
-      throw StateError("Internal error: Inconsistent state for rethrow.");
+      throw TomStateError("Internal error: Inconsistent state for rethrow.");
     }
     Logger.debug(
         "[Rethrow] Rethrowing original internal exception: ${originalError.originalThrownValue}");
@@ -7176,7 +7215,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
     } else {
       // Handle FunctionType, etc., later if needed
-      throw UnimplementedError(
+      throw TomUnimplementedError(
           'Type check for ${typeNode.runtimeType} not implemented.');
     }
 
@@ -7341,10 +7380,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
         throw RuntimeError("Type '$typeName' not found.");
       }
+    } else if (typeNode is RecordTypeAnnotation) {
+      // Handle record type annotations like (int, int) or (int, {String name})
+      // For now, return a placeholder that represents the Record type
+      // D4rt uses Dart's native Record type at runtime
+      Logger.debug(
+          "[ResolveType] Resolving RecordTypeAnnotation: ${typeNode.toSource()}");
+      return BridgedClass(nativeType: Record, name: 'Record');
     } else {
       Logger.error(
           "[ResolveType] Unsupported TypeAnnotation type: ${typeNode.runtimeType}");
-      throw UnimplementedError(
+      throw TomUnimplementedError(
           "Type resolution for ${typeNode.runtimeType} not implemented yet.");
     }
   }
@@ -7740,7 +7786,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "Bridged constructor '$constructorLookupName' not found for class '$className'.");
       }
 
-      throw UnimplementedError(
+      throw TomUnimplementedError(
           "Tear-off for bridged constructors ('$className.$constructorLookupName') is not yet supported.");
     } else {
       throw RuntimeError(
@@ -7844,7 +7890,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           }
           statementsToExecute = member.statements;
         } else {
-          throw StateError('Unknown switch member type: ${member.runtimeType}');
+          throw TomStateError('Unknown switch member type: ${member.runtimeType}');
         }
 
         // Execute statements if needed (either matched this round or fell through)
@@ -7890,7 +7936,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // Check for async state machine: do we have an async state?
     if (currentAsyncState == null) {
       // This shouldn't happen if the call is properly orchestrated
-      throw StateError(
+      throw TomStateError(
           "Internal error: 'await' encountered outside of a managed async execution state.");
     }
 
@@ -8016,7 +8062,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           if (element is DartPattern) {
             subPattern = element;
           } else {
-            throw StateError(
+            throw TomStateError(
                 "Unexpected ListPatternElement type: ${element.runtimeType}");
           }
 
@@ -8046,7 +8092,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           if (element is DartPattern) {
             subPattern = element;
           } else {
-            throw StateError(
+            throw TomStateError(
                 "Unexpected ListPatternElement type before rest: ${element.runtimeType}");
           }
 
@@ -8079,7 +8125,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           if (element is DartPattern) {
             subPattern = element;
           } else {
-            throw StateError(
+            throw TomStateError(
                 "Unexpected ListPatternElement type after rest: ${element.runtimeType}");
           }
 
@@ -8135,7 +8181,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           }
           // If element.pattern is null, it's just "..." (anonymous rest), no binding needed
         } else {
-          throw StateError(
+          throw TomStateError(
               "Unexpected MapPatternElement type: ${element.runtimeType}");
         }
       }
@@ -8204,7 +8250,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         if (fieldName == null) {
           // This case implies fieldPatternNode.name was null, which contradicts the filter where((f) => f.name != null)
           // Or fieldPatternNode.name.name was null, which is unlikely for a SimpleIdentifier.
-          throw StateError(
+          throw TomStateError(
               'Internal error: Named field detected but name lexeme is null.');
         }
 
@@ -8323,7 +8369,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
       Logger.debug("[_matchAndBind] Object pattern matched successfully.");
     } else {
-      throw UnimplementedError(
+      throw TomUnimplementedError(
           "Pattern type not yet supported in _matchAndBind: ${pattern.runtimeType}");
     }
   }

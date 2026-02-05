@@ -185,7 +185,7 @@ class PackageDcliBridge {
     interpreter.registerGlobalGetter('fileList', () => $pkg.fileList, importPath, sourceUri: 'package:dcli/src/functions/file_list.dart');
 
     if (errors.isNotEmpty) {
-      throw StateError('Bridge registration errors (package_dcli):\n${errors.join("\n")}');
+      throw TomStateError('Bridge registration errors (package_dcli):\n${errors.join("\n")}');
     }
   }
 
@@ -234,7 +234,7 @@ class PackageDcliBridge {
           $pkg.cat(path, stdout: stdout);
           return null;
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw TomStateError('Unreachable: all named parameter combinations should be covered');
       },
       'confirm': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'confirm');
@@ -266,7 +266,7 @@ class PackageDcliBridge {
           $pkg.copyTree(from, to, overwrite: overwrite, includeHidden: includeHidden, recursive: recursive, filter: filter);
           return null;
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw TomStateError('Unreachable: all named parameter combinations should be covered');
       },
       'createDir': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'createDir');
@@ -315,7 +315,7 @@ class PackageDcliBridge {
           final fetchProgress = D4.getRequiredNamedArg<void Function($pkg.FetchProgress)>(named, 'fetchProgress', 'fetch');
           return $pkg.fetch(url: url, saveToPath: saveToPath, method: method, headers: headers, data: data, fetchProgress: fetchProgress);
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw TomStateError('Unreachable: all named parameter combinations should be covered');
       },
       'fetchMultiple': (visitor, positional, named, typeArgs) {
         final urls = D4.getRequiredNamedArg<List<$pkg.FetchUrl>>(named, 'urls', 'fetchMultiple');
@@ -336,7 +336,7 @@ class PackageDcliBridge {
           final types = D4.getRequiredNamedArg<List<FileSystemEntityType>>(named, 'types', 'find');
           return $pkg.find(pattern, caseSensitive: caseSensitive, recursive: recursive, includeHidden: includeHidden, workingDirectory: workingDirectory, progress: progress, types: types);
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw TomStateError('Unreachable: all named parameter combinations should be covered');
       },
       'head': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'head');
@@ -411,7 +411,7 @@ class PackageDcliBridge {
           final customPrompt = D4.getRequiredNamedArg<String Function(String, String?)>(named, 'customPrompt', 'menu');
           return $pkg.menu(prompt, options: options, defaultOption: defaultOption, limit: limit, format: format, fromStart: fromStart, customPrompt: customPrompt);
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw TomStateError('Unreachable: all named parameter combinations should be covered');
       },
       'move': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'move');
@@ -441,7 +441,7 @@ class PackageDcliBridge {
           $pkg.moveTree(from, to, overwrite: overwrite, includeHidden: includeHidden, filter: filter);
           return null;
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw TomStateError('Unreachable: all named parameter combinations should be covered');
       },
       'read': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'read');
@@ -840,7 +840,7 @@ BridgedClass _createAskBridge() {
       'any': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'any');
         if (positional.isEmpty) {
-          throw ArgumentError('any: Missing required argument "validators" at position 0');
+          throw TomArgumentError('any: Missing required argument "validators" at position 0');
         }
         final validators = D4.coerceList<$pkg.AskValidator>(positional[0], 'validators');
         return $pkg.Ask.any(validators);
@@ -848,7 +848,7 @@ BridgedClass _createAskBridge() {
       'all': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'all');
         if (positional.isEmpty) {
-          throw ArgumentError('all: Missing required argument "validators" at position 0');
+          throw TomArgumentError('all: Missing required argument "validators" at position 0');
         }
         final validators = D4.coerceList<$pkg.AskValidator>(positional[0], 'validators');
         return $pkg.Ask.all(validators);
@@ -888,7 +888,7 @@ BridgedClass _createAskBridge() {
       'inList': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'inList');
         if (positional.isEmpty) {
-          throw ArgumentError('inList: Missing required argument "validItems" at position 0');
+          throw TomArgumentError('inList: Missing required argument "validItems" at position 0');
         }
         final validItems = D4.coerceList<Object>(positional[0], 'validItems');
         final caseSensitive = D4.getNamedArgWithDefault<bool>(named, 'caseSensitive', false);
@@ -1021,7 +1021,7 @@ BridgedClass _createAskValidatorIPAddressBridge() {
           final version = D4.getRequiredNamedArg<int>(named, 'version', 'AskValidatorIPAddress');
           return $pkg.AskValidatorIPAddress(version: version);
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw TomStateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
@@ -1105,7 +1105,7 @@ BridgedClass _createFetchDataBridge() {
       'fromBytes': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FetchData');
         if (positional.isEmpty) {
-          throw ArgumentError('FetchData: Missing required argument "bytes" at position 0');
+          throw TomArgumentError('FetchData: Missing required argument "bytes" at position 0');
         }
         final bytes = D4.coerceList<int>(positional[0], 'bytes');
         final mimeType = D4.getNamedArgWithDefault<String>(named, 'mimeType', 'application/octet-stream');
@@ -1155,7 +1155,7 @@ BridgedClass _createFetchUrlBridge() {
           final progress = D4.getRequiredNamedArg<void Function($pkg.FetchProgress)>(named, 'progress', 'FetchUrl');
           return $pkg.FetchUrl(url: url, saveToPath: saveToPath, headers: headers, method: method, data: data, progress: progress);
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw TomStateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
@@ -1420,7 +1420,7 @@ BridgedClass _createProgressBridge() {
           final stderr = D4.getRequiredNamedArg<dynamic>(named, 'stderr', 'Progress');
           return $pkg.Progress(stdout, captureStdout: captureStdout, captureStderr: captureStderr, stderr: stderr);
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw TomStateError('Unreachable: all named parameter combinations should be covered');
       },
       'print': (visitor, positional, named) {
         final capture = D4.getNamedArgWithDefault<bool>(named, 'capture', false);
@@ -1462,7 +1462,7 @@ BridgedClass _createProgressBridge() {
         final t = D4.validateTarget<$pkg.Progress>(target, 'Progress');
         D4.requireMinArgs(positional, 1, 'forEach');
         if (positional.isEmpty) {
-          throw ArgumentError('forEach: Missing required argument "print" at position 0');
+          throw TomArgumentError('forEach: Missing required argument "print" at position 0');
         }
         final printRaw = positional[0];
         t.forEach((String p0) { (printRaw as InterpretedFunction).call(visitor, [p0]); });
@@ -1557,7 +1557,7 @@ BridgedClass _createResourcesBridge() {
         D4.requireMinArgs(positional, 2, 'isExcluded');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'isExcluded');
         if (positional.length <= 1) {
-          throw ArgumentError('isExcluded: Missing required argument "excludes" at position 1');
+          throw TomArgumentError('isExcluded: Missing required argument "excludes" at position 1');
         }
         final excludes = D4.coerceList<String>(positional[1], 'excludes');
         return t.isExcluded(path, excludes);
@@ -2141,7 +2141,7 @@ BridgedClass _createDartSdkBridge() {
       'run': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.DartSdk>(target, 'DartSdk');
         if (!named.containsKey('args') || named['args'] == null) {
-          throw ArgumentError('run: Missing required named argument "args"');
+          throw TomArgumentError('run: Missing required named argument "args"');
         }
         final args = D4.coerceList<String>(named['args'], 'args');
         final workingDirectory = D4.getOptionalNamedArg<String?>(named, 'workingDirectory');
@@ -2154,7 +2154,7 @@ BridgedClass _createDartSdkBridge() {
       'runPub': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.DartSdk>(target, 'DartSdk');
         if (!named.containsKey('args') || named['args'] == null) {
-          throw ArgumentError('runPub: Missing required named argument "args"');
+          throw TomArgumentError('runPub: Missing required named argument "args"');
         }
         final args = D4.coerceList<String>(named['args'], 'args');
         final workingDirectory = D4.getOptionalNamedArg<String?>(named, 'workingDirectory');
@@ -2474,7 +2474,7 @@ BridgedClass _createShellBridge() {
         final t = D4.validateTarget<$pkg.Shell>(target, 'Shell');
         D4.requireMinArgs(positional, 1, 'withPrivileges');
         if (positional.isEmpty) {
-          throw ArgumentError('withPrivileges: Missing required argument "action" at position 0');
+          throw TomArgumentError('withPrivileges: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
         final allowUnprivileged = D4.getNamedArgWithDefault<bool>(named, 'allowUnprivileged', false);
@@ -2722,7 +2722,7 @@ BridgedClass _createUnknownShellBridge() {
         final t = D4.validateTarget<$pkg.UnknownShell>(target, 'UnknownShell');
         D4.requireMinArgs(positional, 1, 'withPrivileges');
         if (positional.isEmpty) {
-          throw ArgumentError('withPrivileges: Missing required argument "action" at position 0');
+          throw TomArgumentError('withPrivileges: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
         final allowUnprivileged = D4.getNamedArgWithDefault<bool>(named, 'allowUnprivileged', false);
@@ -3083,7 +3083,7 @@ BridgedClass _createFileSortBridge() {
         final inputPath = D4.getRequiredArg<String>(positional, 0, 'inputPath', 'FileSort');
         final outputPath = D4.getRequiredArg<String>(positional, 1, 'outputPath', 'FileSort');
         if (positional.length <= 2) {
-          throw ArgumentError('FileSort: Missing required argument "columns" at position 2');
+          throw TomArgumentError('FileSort: Missing required argument "columns" at position 2');
         }
         final columns = D4.coerceList<$pkg.Column>(positional[2], 'columns');
         final fieldDelimiter = D4.getRequiredArg<String?>(positional, 3, 'fieldDelimiter', 'FileSort');
@@ -3106,7 +3106,7 @@ BridgedClass _createFileSortBridge() {
       'expandColumns': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'expandColumns');
         if (positional.isEmpty) {
-          throw ArgumentError('expandColumns: Missing required argument "values" at position 0');
+          throw TomArgumentError('expandColumns: Missing required argument "values" at position 0');
         }
         final values = D4.coerceList<String>(positional[0], 'values');
         return $pkg.FileSort.expandColumns(values);
@@ -3238,7 +3238,7 @@ BridgedClass _createFileSyncBridge() {
         final t = D4.validateTarget<$pkg.FileSync>(target, 'FileSync');
         D4.requireMinArgs(positional, 1, 'writeFromSync');
         if (positional.isEmpty) {
-          throw ArgumentError('writeFromSync: Missing required argument "buffer" at position 0');
+          throw TomArgumentError('writeFromSync: Missing required argument "buffer" at position 0');
         }
         final buffer = D4.coerceList<int>(positional[0], 'buffer');
         final start = D4.getOptionalArgWithDefault<int>(positional, 1, 'start', 0);
@@ -3250,7 +3250,7 @@ BridgedClass _createFileSyncBridge() {
         final t = D4.validateTarget<$pkg.FileSync>(target, 'FileSync');
         D4.requireMinArgs(positional, 1, 'readIntoSync');
         if (positional.isEmpty) {
-          throw ArgumentError('readIntoSync: Missing required argument "buffer" at position 0');
+          throw TomArgumentError('readIntoSync: Missing required argument "buffer" at position 0');
         }
         final buffer = D4.coerceList<int>(positional[0], 'buffer');
         final start = D4.getOptionalArgWithDefault<int>(positional, 1, 'start', 0);
@@ -3453,7 +3453,7 @@ BridgedClass _createNamedLockBridge() {
         final t = D4.validateTarget<$pkg.NamedLock>(target, 'NamedLock');
         D4.requireMinArgs(positional, 1, 'withLock');
         if (positional.isEmpty) {
-          throw ArgumentError('withLock: Missing required argument "action" at position 0');
+          throw TomArgumentError('withLock: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
         final waiting = D4.getOptionalNamedArg<String?>(named, 'waiting');
@@ -3463,7 +3463,7 @@ BridgedClass _createNamedLockBridge() {
         final t = D4.validateTarget<$pkg.NamedLock>(target, 'NamedLock');
         D4.requireMinArgs(positional, 1, 'withLockAsync');
         if (positional.isEmpty) {
-          throw ArgumentError('withLockAsync: Missing required argument "action" at position 0');
+          throw TomArgumentError('withLockAsync: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
         final waiting = D4.getOptionalNamedArg<String?>(named, 'waiting');
@@ -3757,7 +3757,7 @@ BridgedClass _createRemoteBridge() {
         final t = D4.validateTarget<$pkg.Remote>(target, 'Remote');
         final host = D4.getRequiredNamedArg<String>(named, 'host', 'execList');
         if (!named.containsKey('commands') || named['commands'] == null) {
-          throw ArgumentError('execList: Missing required named argument "commands"');
+          throw TomArgumentError('execList: Missing required named argument "commands"');
         }
         final commands = D4.coerceList<String?>(named['commands'], 'commands');
         final agent = D4.getNamedArgWithDefault<bool>(named, 'agent', true);
@@ -3770,7 +3770,7 @@ BridgedClass _createRemoteBridge() {
       'scp': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Remote>(target, 'Remote');
         if (!named.containsKey('from') || named['from'] == null) {
-          throw ArgumentError('scp: Missing required named argument "from"');
+          throw TomArgumentError('scp: Missing required named argument "from"');
         }
         final from = D4.coerceList<String>(named['from'], 'from');
         final to = D4.getRequiredNamedArg<String>(named, 'to', 'scp');

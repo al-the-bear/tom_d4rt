@@ -30,6 +30,9 @@ class InterpretedClass implements Callable, RuntimeType {
   // Support for bridged mixins
   List<BridgedClass> bridgedMixins;
 
+  // Support for bridged interfaces (e.g., implements Comparable, Exception)
+  List<BridgedClass> bridgedInterfaces;
+
   // Add fields for type parameter information (like InterpretedFunction)
   final List<String> typeParameterNames; // e.g., ['T', 'U', 'V']
   final Map<String, RuntimeType?>
@@ -131,6 +134,7 @@ class InterpretedClass implements Callable, RuntimeType {
     List<InterpretedClass>? onClauseTypes,
     List<InterpretedClass>? mixins,
     List<BridgedClass>? bridgedMixins,
+    List<BridgedClass>? bridgedInterfaces,
     // Initialize class modifiers (default to false)
     this.isFinal = false,
     this.isInterface = false,
@@ -144,7 +148,8 @@ class InterpretedClass implements Callable, RuntimeType {
   })  : interfaces = interfaces ?? [],
         onClauseTypes = onClauseTypes ?? [],
         mixins = mixins ?? [],
-        bridgedMixins = bridgedMixins ?? [];
+        bridgedMixins = bridgedMixins ?? [],
+        bridgedInterfaces = bridgedInterfaces ?? [];
 
   @override
   String toString() {
@@ -1456,7 +1461,7 @@ class InterpretedEnum implements RuntimeType {
     if (_valuesListCache == null) {
       if (values.length != valueNames.length) {
         // This shouldn't happen if interpretation pass is correct, but safeguard.
-        throw StateError(
+        throw TomStateError(
             "Enum '$name' values mismatch between declaration and interpretation.");
       }
       // Ensure the order matches the declaration order

@@ -449,7 +449,7 @@ class Environment {
     Set<String>? hideNames,
   }) {
     if (showNames != null && hideNames != null) {
-      throw ArgumentError(
+      throw TomArgumentError(
           'Cannot provide both showNames and hideNames to shallowCopyFiltered.');
     }
 
@@ -525,7 +525,7 @@ class Environment {
   void importEnvironment(Environment other,
       {Set<String>? show, Set<String>? hide}) {
     if (show != null && hide != null) {
-      throw ArgumentError(
+      throw TomArgumentError(
           'Cannot provide both show and hide to importEnvironment.');
     }
 

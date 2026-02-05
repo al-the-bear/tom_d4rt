@@ -160,7 +160,7 @@ class PackageDcliCoreBridge {
     interpreter.registerGlobalGetter('rootPath', () => $pkg.rootPath, importPath, sourceUri: 'package:dcli_core/src/util/truepath.dart');
 
     if (errors.isNotEmpty) {
-      throw StateError('Bridge registration errors (package_dcli_core):\n${errors.join("\n")}');
+      throw TomStateError('Bridge registration errors (package_dcli_core):\n${errors.join("\n")}');
     }
   }
 
@@ -212,7 +212,7 @@ class PackageDcliCoreBridge {
           final types = D4.getRequiredNamedArg<List<FileSystemEntityType>>(named, 'types', 'findAsync');
           return $pkg.findAsync(pattern, caseSensitive: caseSensitive, recursive: recursive, includeHidden: includeHidden, workingDirectory: workingDirectory, types: types);
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw TomStateError('Unreachable: all named parameter combinations should be covered');
       },
       'devNull': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'devNull');
@@ -493,7 +493,7 @@ BridgedClass _createCatBridge() {
           t.cat(path, stdout: stdout);
           return null;
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw TomStateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     methodSignatures: {
@@ -973,7 +973,7 @@ BridgedClass _createEnvBridge() {
       'forScope': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Env');
         if (positional.isEmpty) {
-          throw ArgumentError('Env: Missing required argument "map" at position 0');
+          throw TomArgumentError('Env: Missing required argument "map" at position 0');
         }
         final map = D4.coerceMap<String, String>(positional[0], 'map');
         return $pkg.Env.forScope(map);
@@ -990,7 +990,7 @@ BridgedClass _createEnvBridge() {
         final t = D4.validateTarget<$pkg.Env>(target, 'Env');
         D4.requireMinArgs(positional, 1, 'addAll');
         if (positional.isEmpty) {
-          throw ArgumentError('addAll: Missing required argument "other" at position 0');
+          throw TomArgumentError('addAll: Missing required argument "other" at position 0');
         }
         final other = D4.coerceMap<String, String>(positional[0], 'other');
         t.addAll(other);
@@ -2115,7 +2115,7 @@ BridgedClass _createLineFileBridge() {
         final t = D4.validateTarget<$pkg.LineFile>(target, 'LineFile');
         D4.requireMinArgs(positional, 1, 'readAll');
         if (positional.isEmpty) {
-          throw ArgumentError('readAll: Missing required argument "handleLine" at position 0');
+          throw TomArgumentError('readAll: Missing required argument "handleLine" at position 0');
         }
         final handleLineRaw = positional[0];
         t.readAll((String p0) { return (handleLineRaw as InterpretedFunction).call(visitor, [p0]) as bool; });
@@ -2192,7 +2192,7 @@ BridgedClass _createRunExceptionBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'RunException');
         if (positional.isEmpty) {
-          throw ArgumentError('RunException: Missing required argument "json" at position 0');
+          throw TomArgumentError('RunException: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.RunException.fromJson(json);
@@ -2206,7 +2206,7 @@ BridgedClass _createRunExceptionBridge() {
         D4.requireMinArgs(positional, 4, 'RunException');
         final cmd = D4.getRequiredArg<String?>(positional, 0, 'cmd', 'RunException');
         if (positional.length <= 1) {
-          throw ArgumentError('RunException: Missing required argument "args" at position 1');
+          throw TomArgumentError('RunException: Missing required argument "args" at position 1');
         }
         final args = D4.coerceList<String?>(positional[1], 'args');
         final exitCode = D4.getRequiredArg<int?>(positional, 2, 'exitCode', 'RunException');
@@ -2219,7 +2219,7 @@ BridgedClass _createRunExceptionBridge() {
         final exception = D4.getRequiredArg<Object>(positional, 0, 'exception', 'RunException');
         final cmd = D4.getRequiredArg<String?>(positional, 1, 'cmd', 'RunException');
         if (positional.length <= 2) {
-          throw ArgumentError('RunException: Missing required argument "args" at position 2');
+          throw TomArgumentError('RunException: Missing required argument "args" at position 2');
         }
         final args = D4.coerceList<String?>(positional[2], 'args');
         final stackTrace = D4.getOptionalNamedArg<dynamic>(named, 'stackTrace');
@@ -2313,7 +2313,7 @@ BridgedClass _createStackListBridge() {
       'fromList': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'StackList');
         if (positional.isEmpty) {
-          throw ArgumentError('StackList: Missing required argument "initialStack" at position 0');
+          throw TomArgumentError('StackList: Missing required argument "initialStack" at position 0');
         }
         final initialStack = D4.coerceList<dynamic>(positional[0], 'initialStack');
         return $pkg.StackList.fromList(initialStack);

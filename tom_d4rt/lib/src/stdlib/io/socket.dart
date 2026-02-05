@@ -39,14 +39,14 @@ class SocketIo {
           },
           'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentError('Socket.add requires data');
+              throw TomArgumentError('Socket.add requires data');
             }
             (target as Socket).add(positionalArgs[0] as List<int>);
             return null;
           },
           'addError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentError('Socket.addError requires error');
+              throw TomArgumentError('Socket.addError requires error');
             }
             final stackTrace = positionalArgs.length > 1
                 ? positionalArgs[1] as StackTrace?
@@ -60,14 +60,14 @@ class SocketIo {
           },
           'addStream': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentError('Socket.addStream requires stream');
+              throw TomArgumentError('Socket.addStream requires stream');
             }
             return (target as Socket)
                 .addStream(positionalArgs[0] as Stream<List<int>>);
           },
           'write': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentError('Socket.write requires object');
+              throw TomArgumentError('Socket.write requires object');
             }
             (target as Socket).write(positionalArgs[0]);
             return null;
@@ -79,7 +79,7 @@ class SocketIo {
           },
           'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentError('Socket.writeAll requires objects');
+              throw TomArgumentError('Socket.writeAll requires objects');
             }
             final objects = positionalArgs[0] as Iterable;
             final separator =
@@ -89,14 +89,14 @@ class SocketIo {
           },
           'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentError('Socket.writeCharCode requires charCode');
+              throw TomArgumentError('Socket.writeCharCode requires charCode');
             }
             (target as Socket).writeCharCode(positionalArgs[0] as int);
             return null;
           },
           'setOption': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2) {
-              throw ArgumentError(
+              throw TomArgumentError(
                   'Socket.setOption requires option and enabled');
             }
             return (target as Socket).setOption(
@@ -106,14 +106,14 @@ class SocketIo {
           },
           'getRawOption': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentError('Socket.getRawOption requires option');
+              throw TomArgumentError('Socket.getRawOption requires option');
             }
             return (target as Socket)
                 .getRawOption(positionalArgs[0] as RawSocketOption);
           },
           'setRawOption': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2) {
-              throw ArgumentError(
+              throw TomArgumentError(
                   'Socket.setRawOption requires option and value');
             }
             (target as Socket)
@@ -388,7 +388,7 @@ class SocketIo {
   static Future<Socket> _connect(
       List<dynamic> positionalArgs, Map<String, dynamic> namedArgs) async {
     if (positionalArgs.length < 2) {
-      throw ArgumentError('Socket.connect requires host and port');
+      throw TomArgumentError('Socket.connect requires host and port');
     }
 
     final host = positionalArgs[0];
@@ -411,7 +411,7 @@ class SocketIo {
   static Future<ConnectionTask<Socket>> _startConnect(
       List<dynamic> positionalArgs, Map<String, dynamic> namedArgs) {
     if (positionalArgs.length < 2) {
-      throw ArgumentError('Socket.startConnect requires host and port');
+      throw TomArgumentError('Socket.startConnect requires host and port');
     }
 
     final host = positionalArgs[0];
@@ -449,7 +449,7 @@ class InternetAddressIo {
         staticMethods: {
           'lookup': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentError('InternetAddress.lookup requires host');
+              throw TomArgumentError('InternetAddress.lookup requires host');
             }
 
             // Check network permission
@@ -463,7 +463,7 @@ class InternetAddressIo {
           },
           'fromRawAddress': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentError(
+              throw TomArgumentError(
                   'InternetAddress.fromRawAddress requires host');
             }
 
@@ -473,7 +473,7 @@ class InternetAddressIo {
           },
           'tryParse': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentError('InternetAddress.tryParse requires adresse');
+              throw TomArgumentError('InternetAddress.tryParse requires adresse');
             }
             final adresse = positionalArgs[0] as String;
             return InternetAddress.tryParse(adresse);
@@ -506,7 +506,7 @@ class InternetAddressIo {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentError('InternetAddress requires address');
+              throw TomArgumentError('InternetAddress requires address');
             }
             final address = positionalArgs[0] as String;
             final type = namedArgs['type'] as InternetAddressType?;

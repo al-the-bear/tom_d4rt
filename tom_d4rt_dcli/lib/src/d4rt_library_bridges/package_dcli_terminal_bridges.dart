@@ -295,7 +295,7 @@ BridgedClass _createAnsiColorBridge() {
           final background = D4.getRequiredNamedArg<$pkg.AnsiColor>(named, 'background', 'apply');
           return t.apply(text, background: background);
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw TomStateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     staticGetters: {
@@ -389,7 +389,7 @@ BridgedClass _createFormatBridge() {
         final t = D4.validateTarget<$pkg.Format>(target, 'Format');
         D4.requireMinArgs(positional, 1, 'row');
         if (positional.isEmpty) {
-          throw ArgumentError('row: Missing required argument "cols" at position 0');
+          throw TomArgumentError('row: Missing required argument "cols" at position 0');
         }
         final cols = D4.coerceList<String?>(positional[0], 'cols');
         final widths = D4.coerceListOrNull<int>(named['widths'], 'widths');
@@ -493,7 +493,7 @@ BridgedClass _createTerminalBridge() {
           t.writeLine(text, alignment: alignment);
           return null;
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw TomStateError('Unreachable: all named parameter combinations should be covered');
       },
       'clearLine': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Terminal>(target, 'Terminal');

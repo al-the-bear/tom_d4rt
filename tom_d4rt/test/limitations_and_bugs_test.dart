@@ -485,7 +485,8 @@ String main() {
 }
 ''';
       final result = execute(source);
-      expect(result, equals((2, 1)));
+      // InterpretedRecord is used instead of native Dart records
+      expect(result, equals(InterpretedRecord([2, 1], {})));
     });
 
     test('Bug-15: base64Encode should work', () {

@@ -176,7 +176,7 @@ class PackageTomVscodeScriptingApiBridge {
     interpreter.registerGlobalGetter('chat', () => $pkg.chat, importPath, sourceUri: 'package:tom_vscode_scripting_api/script_globals.dart');
 
     if (errors.isNotEmpty) {
-      throw StateError('Bridge registration errors (package_tom_vscode_scripting_api):\n${errors.join("\n")}');
+      throw TomStateError('Bridge registration errors (package_tom_vscode_scripting_api):\n${errors.join("\n")}');
     }
   }
 
@@ -241,7 +241,7 @@ BridgedClass _createVSCodeAdapterBridge() {
         D4.requireMinArgs(positional, 2, 'sendRequest');
         final method = D4.getRequiredArg<String>(positional, 0, 'method', 'sendRequest');
         if (positional.length <= 1) {
-          throw ArgumentError('sendRequest: Missing required argument "params" at position 1');
+          throw TomArgumentError('sendRequest: Missing required argument "params" at position 1');
         }
         final params = D4.coerceMap<String, dynamic>(positional[1], 'params');
         final scriptName = D4.getOptionalNamedArg<String?>(named, 'scriptName');
@@ -341,7 +341,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
           final port = D4.getRequiredNamedArg<int>(named, 'port', 'VSCodeBridgeClient');
           return $pkg.VSCodeBridgeClient(host: host, connectTimeout: connectTimeout, requestTimeout: requestTimeout, port: port);
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw TomStateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
@@ -365,7 +365,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
         D4.requireMinArgs(positional, 2, 'sendRequest');
         final method = D4.getRequiredArg<String>(positional, 0, 'method', 'sendRequest');
         if (positional.length <= 1) {
-          throw ArgumentError('sendRequest: Missing required argument "params" at position 1');
+          throw TomArgumentError('sendRequest: Missing required argument "params" at position 1');
         }
         final params = D4.coerceMap<String, dynamic>(positional[1], 'params');
         return t.sendRequest(method, params);
@@ -399,7 +399,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
           final port = D4.getRequiredNamedArg<int>(named, 'port', 'isAvailable');
           return $pkg.VSCodeBridgeClient.isAvailable(host: host, port: port);
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw TomStateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     constructorSignatures: {
@@ -451,7 +451,7 @@ BridgedClass _createVSCodeBridgeAdapterBridge() {
         D4.requireMinArgs(positional, 2, 'sendRequest');
         final method = D4.getRequiredArg<String>(positional, 0, 'method', 'sendRequest');
         if (positional.length <= 1) {
-          throw ArgumentError('sendRequest: Missing required argument "params" at position 1');
+          throw TomArgumentError('sendRequest: Missing required argument "params" at position 1');
         }
         final params = D4.coerceMap<String, dynamic>(positional[1], 'params');
         final scriptName = D4.getOptionalNamedArg<String?>(named, 'scriptName');
@@ -497,7 +497,7 @@ BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
           final port = D4.getRequiredNamedArg<int>(named, 'port', 'LazyVSCodeBridgeAdapter');
           return $pkg.LazyVSCodeBridgeAdapter(host: host, onStatusMessage: onStatusMessageRaw == null ? null : (String p0) { (onStatusMessageRaw as InterpretedFunction).call(visitor, [p0]); }, onErrorMessage: onErrorMessageRaw == null ? null : (String p0) { (onErrorMessageRaw as InterpretedFunction).call(visitor, [p0]); }, port: port);
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw TomStateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
@@ -534,7 +534,7 @@ BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
         D4.requireMinArgs(positional, 2, 'sendRequest');
         final method = D4.getRequiredArg<String>(positional, 0, 'method', 'sendRequest');
         if (positional.length <= 1) {
-          throw ArgumentError('sendRequest: Missing required argument "params" at position 1');
+          throw TomArgumentError('sendRequest: Missing required argument "params" at position 1');
         }
         final params = D4.coerceMap<String, dynamic>(positional[1], 'params');
         final scriptName = D4.getOptionalNamedArg<String?>(named, 'scriptName');
@@ -791,7 +791,7 @@ BridgedClass _createExtensionBridge() {
         final extensionPath = D4.getRequiredNamedArg<String>(named, 'extensionPath', 'Extension');
         final isActive = D4.getRequiredNamedArg<bool>(named, 'isActive', 'Extension');
         if (!named.containsKey('packageJSON') || named['packageJSON'] == null) {
-          throw ArgumentError('Extension: Missing required named argument "packageJSON"');
+          throw TomArgumentError('Extension: Missing required named argument "packageJSON"');
         }
         final packageJSON = D4.coerceMap<String, dynamic>(named['packageJSON'], 'packageJSON');
         final extensionKind = D4.getOptionalNamedArg<String?>(named, 'extensionKind');
@@ -800,7 +800,7 @@ BridgedClass _createExtensionBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Extension');
         if (positional.isEmpty) {
-          throw ArgumentError('Extension: Missing required argument "json" at position 0');
+          throw TomArgumentError('Extension: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.Extension.fromJson(json);
@@ -955,7 +955,7 @@ BridgedClass _createVSCodeLanguageModelBridge() {
         D4.requireMinArgs(positional, 2, 'invokeTool');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'invokeTool');
         if (positional.length <= 1) {
-          throw ArgumentError('invokeTool: Missing required argument "options" at position 1');
+          throw TomArgumentError('invokeTool: Missing required argument "options" at position 1');
         }
         final options = D4.coerceMap<String, dynamic>(positional[1], 'options');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
@@ -966,7 +966,7 @@ BridgedClass _createVSCodeLanguageModelBridge() {
         D4.requireMinArgs(positional, 2, 'registerTool');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'registerTool');
         if (positional.length <= 1) {
-          throw ArgumentError('registerTool: Missing required argument "tool" at position 1');
+          throw TomArgumentError('registerTool: Missing required argument "tool" at position 1');
         }
         final tool = D4.coerceMap<String, dynamic>(positional[1], 'tool');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 120);
@@ -1011,7 +1011,7 @@ BridgedClass _createLanguageModelChatBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LanguageModelChat');
         if (positional.isEmpty) {
-          throw ArgumentError('LanguageModelChat: Missing required argument "json" at position 0');
+          throw TomArgumentError('LanguageModelChat: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.LanguageModelChat.fromJson(json);
@@ -1035,7 +1035,7 @@ BridgedClass _createLanguageModelChatBridge() {
         D4.requireMinArgs(positional, 2, 'sendRequest');
         final adapter = D4.getRequiredArg<$pkg.VSCodeAdapter>(positional, 0, 'adapter', 'sendRequest');
         if (positional.length <= 1) {
-          throw ArgumentError('sendRequest: Missing required argument "messages" at position 1');
+          throw TomArgumentError('sendRequest: Missing required argument "messages" at position 1');
         }
         final messages = D4.coerceList<$pkg.LanguageModelChatMessage>(positional[1], 'messages');
         final modelOptions = D4.coerceMapOrNull<String, dynamic>(named['modelOptions'], 'modelOptions');
@@ -1101,7 +1101,7 @@ BridgedClass _createLanguageModelChatMessageBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LanguageModelChatMessage');
         if (positional.isEmpty) {
-          throw ArgumentError('LanguageModelChatMessage: Missing required argument "json" at position 0');
+          throw TomArgumentError('LanguageModelChatMessage: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.LanguageModelChatMessage.fromJson(json);
@@ -1147,7 +1147,7 @@ BridgedClass _createLanguageModelChatResponseBridge() {
       '': (visitor, positional, named) {
         final text = D4.getRequiredNamedArg<String>(named, 'text', 'LanguageModelChatResponse');
         if (!named.containsKey('streamParts') || named['streamParts'] == null) {
-          throw ArgumentError('LanguageModelChatResponse: Missing required named argument "streamParts"');
+          throw TomArgumentError('LanguageModelChatResponse: Missing required named argument "streamParts"');
         }
         final streamParts = D4.coerceList<String>(named['streamParts'], 'streamParts');
         return $pkg.LanguageModelChatResponse(text: text, streamParts: streamParts);
@@ -1155,7 +1155,7 @@ BridgedClass _createLanguageModelChatResponseBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LanguageModelChatResponse');
         if (positional.isEmpty) {
-          throw ArgumentError('LanguageModelChatResponse: Missing required argument "json" at position 0');
+          throw TomArgumentError('LanguageModelChatResponse: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.LanguageModelChatResponse.fromJson(json);
@@ -1196,7 +1196,7 @@ BridgedClass _createLanguageModelToolResultBridge() {
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('content') || named['content'] == null) {
-          throw ArgumentError('LanguageModelToolResult: Missing required named argument "content"');
+          throw TomArgumentError('LanguageModelToolResult: Missing required named argument "content"');
         }
         final content = D4.coerceList<dynamic>(named['content'], 'content');
         return $pkg.LanguageModelToolResult(content: content);
@@ -1204,7 +1204,7 @@ BridgedClass _createLanguageModelToolResultBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LanguageModelToolResult');
         if (positional.isEmpty) {
-          throw ArgumentError('LanguageModelToolResult: Missing required argument "json" at position 0');
+          throw TomArgumentError('LanguageModelToolResult: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.LanguageModelToolResult.fromJson(json);
@@ -1245,7 +1245,7 @@ BridgedClass _createLanguageModelToolInformationBridge() {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'LanguageModelToolInformation');
         final description = D4.getRequiredNamedArg<String>(named, 'description', 'LanguageModelToolInformation');
         if (!named.containsKey('inputSchema') || named['inputSchema'] == null) {
-          throw ArgumentError('LanguageModelToolInformation: Missing required named argument "inputSchema"');
+          throw TomArgumentError('LanguageModelToolInformation: Missing required named argument "inputSchema"');
         }
         final inputSchema = D4.coerceMap<String, dynamic>(named['inputSchema'], 'inputSchema');
         return $pkg.LanguageModelToolInformation(name: name, description: description, inputSchema: inputSchema);
@@ -1253,7 +1253,7 @@ BridgedClass _createLanguageModelToolInformationBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LanguageModelToolInformation');
         if (positional.isEmpty) {
-          throw ArgumentError('LanguageModelToolInformation: Missing required argument "json" at position 0');
+          throw TomArgumentError('LanguageModelToolInformation: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.LanguageModelToolInformation.fromJson(json);
@@ -1332,7 +1332,7 @@ BridgedClass _createVSCodeWindowBridge() {
         final t = D4.validateTarget<$pkg.VSCodeWindow>(target, 'VSCodeWindow');
         D4.requireMinArgs(positional, 1, 'showQuickPick');
         if (positional.isEmpty) {
-          throw ArgumentError('showQuickPick: Missing required argument "items" at position 0');
+          throw TomArgumentError('showQuickPick: Missing required argument "items" at position 0');
         }
         final items = D4.coerceList<String>(positional[0], 'items');
         final placeHolder = D4.getOptionalNamedArg<String?>(named, 'placeHolder');
@@ -1615,7 +1615,7 @@ BridgedClass _createVSCodeChatBridge() {
         D4.requireMinArgs(positional, 1, 'createChatParticipant');
         final id = D4.getRequiredArg<String>(positional, 0, 'id', 'createChatParticipant');
         if (!named.containsKey('handler') || named['handler'] == null) {
-          throw ArgumentError('createChatParticipant: Missing required named argument "handler"');
+          throw TomArgumentError('createChatParticipant: Missing required named argument "handler"');
         }
         final handlerRaw = named['handler'];
         final description = D4.getOptionalNamedArg<String?>(named, 'description');
@@ -1628,7 +1628,7 @@ BridgedClass _createVSCodeChatBridge() {
       'handleChatRequest': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'handleChatRequest');
         if (positional.isEmpty) {
-          throw ArgumentError('handleChatRequest: Missing required argument "params" at position 0');
+          throw TomArgumentError('handleChatRequest: Missing required argument "params" at position 0');
         }
         final params = D4.coerceMap<String, dynamic>(positional[0], 'params');
         return $pkg.VSCodeChat.handleChatRequest(params);
@@ -1664,7 +1664,7 @@ BridgedClass _createChatParticipantBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatParticipant');
         if (positional.isEmpty) {
-          throw ArgumentError('ChatParticipant: Missing required argument "json" at position 0');
+          throw TomArgumentError('ChatParticipant: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.ChatParticipant.fromJson(json);
@@ -1709,7 +1709,7 @@ BridgedClass _createChatRequestBridge() {
         final prompt = D4.getRequiredNamedArg<String>(named, 'prompt', 'ChatRequest');
         final command = D4.getRequiredNamedArg<String>(named, 'command', 'ChatRequest');
         if (!named.containsKey('references') || named['references'] == null) {
-          throw ArgumentError('ChatRequest: Missing required named argument "references"');
+          throw TomArgumentError('ChatRequest: Missing required named argument "references"');
         }
         final references = D4.coerceList<$pkg.ChatPromptReference>(named['references'], 'references');
         return $pkg.ChatRequest(prompt: prompt, command: command, references: references);
@@ -1717,7 +1717,7 @@ BridgedClass _createChatRequestBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatRequest');
         if (positional.isEmpty) {
-          throw ArgumentError('ChatRequest: Missing required argument "json" at position 0');
+          throw TomArgumentError('ChatRequest: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.ChatRequest.fromJson(json);
@@ -1767,7 +1767,7 @@ BridgedClass _createChatPromptReferenceBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatPromptReference');
         if (positional.isEmpty) {
-          throw ArgumentError('ChatPromptReference: Missing required argument "json" at position 0');
+          throw TomArgumentError('ChatPromptReference: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.ChatPromptReference.fromJson(json);
@@ -1810,7 +1810,7 @@ BridgedClass _createChatContextBridge() {
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('history') || named['history'] == null) {
-          throw ArgumentError('ChatContext: Missing required named argument "history"');
+          throw TomArgumentError('ChatContext: Missing required named argument "history"');
         }
         final history = D4.coerceList<dynamic>(named['history'], 'history');
         return $pkg.ChatContext(history: history);
@@ -1818,7 +1818,7 @@ BridgedClass _createChatContextBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatContext');
         if (positional.isEmpty) {
-          throw ArgumentError('ChatContext: Missing required argument "json" at position 0');
+          throw TomArgumentError('ChatContext: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.ChatContext.fromJson(json);
@@ -1964,7 +1964,7 @@ BridgedClass _createChatResponseStreamBridge() {
         final t = D4.validateTarget<$pkg.ChatResponseStream>(target, 'ChatResponseStream');
         D4.requireMinArgs(positional, 1, 'filetree');
         if (positional.isEmpty) {
-          throw ArgumentError('filetree: Missing required argument "files" at position 0');
+          throw TomArgumentError('filetree: Missing required argument "files" at position 0');
         }
         final files = D4.coerceList<String>(positional[0], 'files');
         final baseUri = D4.getOptionalNamedArg<String?>(named, 'baseUri');
@@ -2082,7 +2082,7 @@ BridgedClass _createVsCodeHelperBridge() {
       'quickPick': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'quickPick');
         if (positional.isEmpty) {
-          throw ArgumentError('quickPick: Missing required argument "items" at position 0');
+          throw TomArgumentError('quickPick: Missing required argument "items" at position 0');
         }
         final items = D4.coerceList<String>(positional[0], 'items');
         final placeholder = D4.getOptionalNamedArg<String?>(named, 'placeholder');
@@ -2356,7 +2356,7 @@ BridgedClass _createVsCodeHelperBridge() {
       'applyWorkspaceEdit': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'applyWorkspaceEdit');
         if (positional.isEmpty) {
-          throw ArgumentError('applyWorkspaceEdit: Missing required argument "edits" at position 0');
+          throw TomArgumentError('applyWorkspaceEdit: Missing required argument "edits" at position 0');
         }
         final edits = D4.coerceList<Map<String, dynamic>>(positional[0], 'edits');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 180);
@@ -2599,7 +2599,7 @@ BridgedClass _createFileBatchBridge() {
         final t = D4.validateTarget<$pkg.FileBatch>(target, 'FileBatch');
         D4.requireMinArgs(positional, 1, 'process');
         if (positional.isEmpty) {
-          throw ArgumentError('process: Missing required argument "processor" at position 0');
+          throw TomArgumentError('process: Missing required argument "processor" at position 0');
         }
         final processorRaw = positional[0];
         return t.process((String p0, String p1) { return (processorRaw as InterpretedFunction).call(visitor, [p0, p1]) as Future<dynamic>; });
@@ -2608,7 +2608,7 @@ BridgedClass _createFileBatchBridge() {
         final t = D4.validateTarget<$pkg.FileBatch>(target, 'FileBatch');
         D4.requireMinArgs(positional, 1, 'filter');
         if (positional.isEmpty) {
-          throw ArgumentError('filter: Missing required argument "predicate" at position 0');
+          throw TomArgumentError('filter: Missing required argument "predicate" at position 0');
         }
         final predicateRaw = positional[0];
         return t.filter((String p0) { return (predicateRaw as InterpretedFunction).call(visitor, [p0]) as bool; });
@@ -2662,7 +2662,7 @@ BridgedClass _createVSCodeUriBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeUri');
         if (positional.isEmpty) {
-          throw ArgumentError('VSCodeUri: Missing required argument "json" at position 0');
+          throw TomArgumentError('VSCodeUri: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.VSCodeUri.fromJson(json);
@@ -2724,7 +2724,7 @@ BridgedClass _createWorkspaceFolderBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'WorkspaceFolder');
         if (positional.isEmpty) {
-          throw ArgumentError('WorkspaceFolder: Missing required argument "json" at position 0');
+          throw TomArgumentError('WorkspaceFolder: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.WorkspaceFolder.fromJson(json);
@@ -2779,7 +2779,7 @@ BridgedClass _createTextDocumentBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TextDocument');
         if (positional.isEmpty) {
-          throw ArgumentError('TextDocument: Missing required argument "json" at position 0');
+          throw TomArgumentError('TextDocument: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.TextDocument.fromJson(json);
@@ -2839,7 +2839,7 @@ BridgedClass _createPositionBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Position');
         if (positional.isEmpty) {
-          throw ArgumentError('Position: Missing required argument "json" at position 0');
+          throw TomArgumentError('Position: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.Position.fromJson(json);
@@ -2887,7 +2887,7 @@ BridgedClass _createRangeBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Range');
         if (positional.isEmpty) {
-          throw ArgumentError('Range: Missing required argument "json" at position 0');
+          throw TomArgumentError('Range: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.Range.fromJson(json);
@@ -2936,7 +2936,7 @@ BridgedClass _createSelectionBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Selection');
         if (positional.isEmpty) {
-          throw ArgumentError('Selection: Missing required argument "json" at position 0');
+          throw TomArgumentError('Selection: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.Selection.fromJson(json);
@@ -2985,7 +2985,7 @@ BridgedClass _createTextEditorBridge() {
         final document = D4.getRequiredNamedArg<$pkg.TextDocument>(named, 'document', 'TextEditor');
         final selection = D4.getRequiredNamedArg<$pkg.Selection>(named, 'selection', 'TextEditor');
         if (!named.containsKey('selections') || named['selections'] == null) {
-          throw ArgumentError('TextEditor: Missing required named argument "selections"');
+          throw TomArgumentError('TextEditor: Missing required named argument "selections"');
         }
         final selections = D4.coerceList<$pkg.Selection>(named['selections'], 'selections');
         final visibleRanges = D4.getOptionalNamedArg<$pkg.Range?>(named, 'visibleRanges');
@@ -2994,7 +2994,7 @@ BridgedClass _createTextEditorBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TextEditor');
         if (positional.isEmpty) {
-          throw ArgumentError('TextEditor: Missing required argument "json" at position 0');
+          throw TomArgumentError('TextEditor: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.TextEditor.fromJson(json);
@@ -3047,7 +3047,7 @@ BridgedClass _createQuickPickItemBridge() {
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'QuickPickItem');
         if (positional.isEmpty) {
-          throw ArgumentError('QuickPickItem: Missing required argument "json" at position 0');
+          throw TomArgumentError('QuickPickItem: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.QuickPickItem.fromJson(json);

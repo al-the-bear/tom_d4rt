@@ -152,7 +152,7 @@ void main() {
 
     test('cannot pop root context', () {
       final stack = ContextStack('/root');
-      expect(stack.pop, throwsStateError);
+      expect(() => stack.pop(), throwsA(isA<TomStateError>()));
     });
   });
 

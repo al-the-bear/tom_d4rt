@@ -11,6 +11,7 @@
 /// 4. Error unwinding through nested execution
 library;
 
+import 'package:tom_d4rt/d4rt.dart';
 import 'cli_exceptions.dart';
 
 // =============================================================================
@@ -306,7 +307,7 @@ class ContextStack {
   /// Throws [StateError] if attempting to pop the root context.
   ExecutionContext pop() {
     if (_stack.length <= 1) {
-      throw StateError('Cannot pop the root execution context');
+      throw TomStateError('Cannot pop the root execution context');
     }
     return _stack.removeLast();
   }

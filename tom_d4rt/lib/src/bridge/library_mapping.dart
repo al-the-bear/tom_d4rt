@@ -8,6 +8,7 @@ import 'package:tom_d4rt/src/bridge/bridged_types.dart';
 import 'package:tom_d4rt/src/bridge/registration.dart';
 import 'package:tom_d4rt/src/callable.dart';
 import 'package:tom_d4rt/src/d4rt_base.dart';
+import 'package:tom_d4rt/src/exceptions.dart';
 
 /// Bridges for a single source library.
 ///
@@ -76,7 +77,7 @@ class LibraryBridgeDefinition {
   /// Throws [StateError] if any element already exists (true duplicates).
   LibraryBridgeDefinition merge(LibraryBridgeDefinition other) {
     if (canonicalUri != other.canonicalUri) {
-      throw ArgumentError(
+      throw TomArgumentError(
         'Cannot merge libraries with different URIs: $canonicalUri != ${other.canonicalUri}',
       );
     }
@@ -84,27 +85,27 @@ class LibraryBridgeDefinition {
     // Check for duplicate names
     for (final name in other.classes.keys) {
       if (classes.containsKey(name)) {
-        throw StateError('Duplicate class "$name" in library $canonicalUri');
+        throw TomStateError('Duplicate class "$name" in library $canonicalUri');
       }
     }
     for (final name in other.functions.keys) {
       if (functions.containsKey(name)) {
-        throw StateError('Duplicate function "$name" in library $canonicalUri');
+        throw TomStateError('Duplicate function "$name" in library $canonicalUri');
       }
     }
     for (final name in other.variables.keys) {
       if (variables.containsKey(name)) {
-        throw StateError('Duplicate variable "$name" in library $canonicalUri');
+        throw TomStateError('Duplicate variable "$name" in library $canonicalUri');
       }
     }
     for (final name in other.getters.keys) {
       if (getters.containsKey(name)) {
-        throw StateError('Duplicate getter "$name" in library $canonicalUri');
+        throw TomStateError('Duplicate getter "$name" in library $canonicalUri');
       }
     }
     for (final name in other.enums.keys) {
       if (enums.containsKey(name)) {
-        throw StateError('Duplicate enum "$name" in library $canonicalUri');
+        throw TomStateError('Duplicate enum "$name" in library $canonicalUri');
       }
     }
 

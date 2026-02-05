@@ -114,7 +114,7 @@ class PackageCryptoBridge {
     }
 
     if (errors.isNotEmpty) {
-      throw StateError('Bridge registration errors (package_crypto):\n${errors.join("\n")}');
+      throw TomStateError('Bridge registration errors (package_crypto):\n${errors.join("\n")}');
     }
   }
 
@@ -164,7 +164,7 @@ BridgedClass _createDigestBridge() {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Digest');
         if (positional.isEmpty) {
-          throw ArgumentError('Digest: Missing required argument "bytes" at position 0');
+          throw TomArgumentError('Digest: Missing required argument "bytes" at position 0');
         }
         final bytes = D4.coerceList<int>(positional[0], 'bytes');
         return $pkg.Digest(bytes);
@@ -216,7 +216,7 @@ BridgedClass _createHashBridge() {
         final t = D4.validateTarget<$pkg.Hash>(target, 'Hash');
         D4.requireMinArgs(positional, 1, 'convert');
         if (positional.isEmpty) {
-          throw ArgumentError('convert: Missing required argument "input" at position 0');
+          throw TomArgumentError('convert: Missing required argument "input" at position 0');
         }
         final input = D4.coerceList<int>(positional[0], 'input');
         return t.convert(input);
@@ -251,7 +251,7 @@ BridgedClass _createHmacBridge() {
         D4.requireMinArgs(positional, 2, 'Hmac');
         final hash = D4.getRequiredArg<$pkg.Hash>(positional, 0, 'hash', 'Hmac');
         if (positional.length <= 1) {
-          throw ArgumentError('Hmac: Missing required argument "key" at position 1');
+          throw TomArgumentError('Hmac: Missing required argument "key" at position 1');
         }
         final key = D4.coerceList<int>(positional[1], 'key');
         return $pkg.Hmac(hash, key);
@@ -262,7 +262,7 @@ BridgedClass _createHmacBridge() {
         final t = D4.validateTarget<$pkg.Hmac>(target, 'Hmac');
         D4.requireMinArgs(positional, 1, 'convert');
         if (positional.isEmpty) {
-          throw ArgumentError('convert: Missing required argument "input" at position 0');
+          throw TomArgumentError('convert: Missing required argument "input" at position 0');
         }
         final input = D4.coerceList<int>(positional[0], 'input');
         return t.convert(input);

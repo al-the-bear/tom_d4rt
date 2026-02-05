@@ -2,6 +2,7 @@ import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/src/stdlib/core/comparable.dart';
 import 'package:tom_d4rt/src/stdlib/core/double.dart';
 import 'package:tom_d4rt/src/stdlib/core/exceptions.dart';
+import 'package:tom_d4rt/src/stdlib/core/never.dart';
 import 'package:tom_d4rt/src/stdlib/core/int.dart';
 import 'package:tom_d4rt/src/stdlib/core/iterable.dart';
 import 'package:tom_d4rt/src/stdlib/core/list.dart';
@@ -85,6 +86,7 @@ class CoreStdlib {
     environment.defineBridge(TypeCore.definition);
     environment.defineBridge(NullCore.definition);
     environment.defineBridge(ComparableCore.definition);
+    environment.defineBridge(NeverCore.definition);
     environment.define(
         'dynamic',
         NativeFunction((visitor, arguments, namedArguments, typeArguments) {

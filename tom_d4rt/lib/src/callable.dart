@@ -502,11 +502,11 @@ class InterpretedFunction implements Callable {
             isFieldInitializing = true;
           }
         } else {
-          throw UnimplementedError(
+          throw TomUnimplementedError(
               "Unsupported parameter kind after unwrapping DefaultFormalParameter: ${actualParam.runtimeType}");
         }
 
-        if (paramName == null) throw StateError("Parameter missing name");
+        if (paramName == null) throw TomStateError("Parameter missing name");
         processedParamNames.add(paramName);
 
         // Find corresponding argument and value
@@ -525,7 +525,7 @@ class InterpretedFunction implements Callable {
           }
         } else {
           // This should not happen if logic above is correct
-          throw StateError(
+          throw TomStateError(
               "Parameter '$paramName' is neither positional nor named?");
         }
 
@@ -626,7 +626,7 @@ class InterpretedFunction implements Callable {
               }
               if (ownerType is! InterpretedClass) {
                 // Should not happen if this is called from a constructor
-                throw StateError(
+                throw TomStateError(
                     "Super constructor call outside of class context.");
               }
               final ownerClass = ownerType as InterpretedClass;
@@ -658,7 +658,7 @@ class InterpretedFunction implements Callable {
                     .bind(thisValue)
                     .call(visitor, superPositionalArgs, superNamedArgs);
                 if (superCallResult is AsyncSuspensionRequest) {
-                  throw StateError(
+                  throw TomStateError(
                       "Internal error: Super constructor call returned SuspendedState.");
                 }
               } else if (bridgedSuperClass != null) {
@@ -688,7 +688,7 @@ class InterpretedFunction implements Callable {
                         "[SuperCall] Stored native object from bridged super constructor '$superConstructorName' ($nativeSuperObject)");
                   } else {
                     // This case (e.g., calling super() from an enum constructor?) seems unlikely/invalid.
-                    throw StateError(
+                    throw TomStateError(
                         "Cannot call super() constructor on non-instance 'this'.");
                   }
                 } on RuntimeError catch (e) {
@@ -700,7 +700,7 @@ class InterpretedFunction implements Callable {
                 }
               } else {
                 // Should be impossible given the check at the start
-                throw StateError(
+                throw TomStateError(
                     "Internal error: No superclass found despite initial check.");
               }
               explicitSuperCalled = true;
@@ -764,14 +764,36 @@ class InterpretedFunction implements Callable {
                   .call(visitor, targetPositionalArgs, targetNamedArgs);
               if (redirectCallResult is AsyncSuspensionRequest) {
                 // Should not happen as constructors are not async
-                throw StateError(
+                throw TomStateError(
                     "Internal error: Redirecting constructor call returned SuspendedState.");
               }
 
               explicitSuperCalled = true;
               redirected = true; // Mark that redirection occurred
+            } else if (initializer is AssertInitializer) {
+              // Handles: assert(condition) or assert(condition, message)
+              final conditionValue =
+                  initializer.condition.accept<Object?>(visitor);
+              if (conditionValue is AsyncSuspensionRequest) {
+                throw RuntimeError(
+                    "Dart language does not allow 'await' expressions in constructor assert initializers.");
+              }
+              if (conditionValue != true) {
+                // Evaluate message if provided
+                String? messageValue;
+                if (initializer.message != null) {
+                  final msgResult = initializer.message!.accept<Object?>(visitor);
+                  if (msgResult is AsyncSuspensionRequest) {
+                    throw RuntimeError(
+                        "Dart language does not allow 'await' expressions in constructor assert initializers.");
+                  }
+                  messageValue = msgResult?.toString();
+                }
+                throw RuntimeError(messageValue ??
+                    "Assertion failed in constructor initializer: ${initializer.condition.toSource()}");
+              }
             } else {
-              throw StateError(
+              throw TomStateError(
                   "Unknown constructor initializer type: ${initializer.runtimeType}");
             }
           }
@@ -785,19 +807,23 @@ class InterpretedFunction implements Callable {
       // implicitly call the superclass's unnamed constructor with no arguments.
       if (!explicitSuperCalled && superClass != null) {
         final defaultSuperConstructor = superClass.findConstructor('');
-        if (defaultSuperConstructor == null) {
+        if (defaultSuperConstructor != null) {
+          // Call the default super constructor, bound to the *current* instance
+          // NOTE: Default super constructor call CANNOT suspend
+          final defaultSuperResult =
+              defaultSuperConstructor.bind(thisValue).call(visitor, [], {});
+          if (defaultSuperResult is AsyncSuspensionRequest) {
+            // Should not happen as constructors are not async
+            throw TomStateError(
+                "Internal error: Implicit super constructor call returned SuspendedState.");
+          }
+        } else if (superClass.constructors.isNotEmpty) {
+          // Superclass has explicit constructors but no default one - error
           throw RuntimeError(
               "Implicit call to superclass '${superClass.name}' default constructor failed: No default constructor found.");
         }
-        // Call the default super constructor, bound to the *current* instance
-        // NOTE: Default super constructor call CANNOT suspend
-        final defaultSuperResult =
-            defaultSuperConstructor.bind(thisValue).call(visitor, [], {});
-        if (defaultSuperResult is AsyncSuspensionRequest) {
-          // Should not happen as constructors are not async
-          throw StateError(
-              "Internal error: Implicit super constructor call returned SuspendedState.");
-        }
+        // If superclass has NO explicit constructors, it uses the implicit default 
+        // constructor which does nothing - no need to call it explicitly
       }
     }
 
@@ -1020,7 +1046,7 @@ class InterpretedFunction implements Callable {
               initialStateIdentifier =
                   null; // Empty function, completes immediately
             } else {
-              throw StateError(
+              throw TomStateError(
                   "Unhandled function body type for async state machine: ${bodyToExecute.runtimeType}");
             }
           } else {
@@ -1077,7 +1103,7 @@ class InterpretedFunction implements Callable {
                 }
                 syncResult = null;
               } else {
-                throw StateError(
+                throw TomStateError(
                     "Unhandled function body type: ${bodyToExecute.runtimeType}");
               }
             } else {
@@ -1099,13 +1125,13 @@ class InterpretedFunction implements Callable {
             try {
               return _closure.get('this');
             } catch (_) {
-              throw StateError(
+              throw TomStateError(
                   "Internal error: 'this' not found in bound constructor environment.");
             }
           } else {
             // Check if the synchronous execution resulted in a suspension (shouldn't happen if await is blocked)
             if (syncResult is AsyncSuspensionRequest) {
-              throw StateError(
+              throw TomStateError(
                   "Internal error: Synchronous function returned SuspendedState.");
             }
             return syncResult; // Return sync result
@@ -1579,7 +1605,7 @@ class InterpretedFunction implements Callable {
                   currentState.forLoopEnvironment = null;
                   visitor.environment = currentState.environment;
                 } else {
-                  throw StateError(
+                  throw TomStateError(
                       "Unknown ForEachParts type: \\${parts.runtimeType}");
                 }
 
@@ -3133,7 +3159,7 @@ class InterpretedFunction implements Callable {
 
         // Assign the result to the loop variable
         if (state.loopEnvironmentStack.isEmpty) {
-          throw StateError(
+          throw TomStateError(
               "Internal error: For loop environment stack empty after initializer await resumption.");
         }
         final parts = forNode.forLoopParts;
@@ -3146,7 +3172,7 @@ class InterpretedFunction implements Callable {
             Logger.debug(
                 " [_determineNextNodeAfterAwait] Assigned awaited result $awaitResult to for loop variable '$loopVarName' in env ${currentExecutionEnvironment.hashCode}.");
           } else {
-            throw UnimplementedError(
+            throw TomUnimplementedError(
                 "Async initialization for multiple variables in a single 'for' declaration not yet supported.");
           }
         } else if (parts is ForPartsWithExpression) {
@@ -3687,7 +3713,7 @@ class InterpretedFunction implements Callable {
       // Evaluate argument, disallow await for now in constructor contexts
       final argValue = arg.accept<Object?>(visitor);
       if (argValue is AsyncSuspensionRequest) {
-        throw UnimplementedError(
+        throw TomUnimplementedError(
             "'await' is not yet supported within $invocationType call arguments.");
       }
 
@@ -3699,7 +3725,7 @@ class InterpretedFunction implements Callable {
         Logger.debug(
             " [_evalArgs] Evaluated NAMED arg expression '$name' = $value (${value?.runtimeType})");
         if (value is AsyncSuspensionRequest) {
-          throw UnimplementedError(
+          throw TomUnimplementedError(
               "'await' is not yet supported within $invocationType call arguments.");
         }
         if (namedArgs.containsKey(name)) {
@@ -4158,11 +4184,11 @@ class InterpretedExtensionMethod implements Callable {
           isNamed = actualParam.isNamed;
           isRequiredNamed = actualParam.isRequiredNamed;
         } else {
-          throw UnimplementedError(
+          throw TomUnimplementedError(
               "Unsupported parameter kind in extension method: ${actualParam.runtimeType}");
         }
         if (paramName == null) {
-          throw StateError("Extension parameter missing name");
+          throw TomStateError("Extension parameter missing name");
         }
         processedParamNames.add(paramName);
 
@@ -4246,7 +4272,7 @@ class InterpretedExtensionMethod implements Callable {
         throw RuntimeError(
             "Cannot execute empty body for extension method '${declaration.name.lexeme}'.");
       } else {
-        throw UnimplementedError(
+        throw TomUnimplementedError(
             'Function body type not handled in extension method: ${body.runtimeType}');
       }
     } on ReturnException catch (e) {

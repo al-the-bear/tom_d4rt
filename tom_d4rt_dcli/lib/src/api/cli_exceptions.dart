@@ -4,11 +4,10 @@
 /// These exceptions provide detailed error information for command failures.
 library;
 
-/// Base exception for CLI operations.
-class CliException implements Exception {
-  /// The error message.
-  final String message;
+import 'package:tom_d4rt/d4rt.dart';
 
+/// Base exception for CLI operations.
+class CliException extends D4rtException {
   /// The command that caused the error, if applicable.
   final String? command;
 
@@ -16,7 +15,7 @@ class CliException implements Exception {
   final StackTrace? stackTrace;
 
   /// Creates a CLI exception with the given message.
-  CliException(this.message, {this.command, this.stackTrace});
+  CliException(super.message, {this.command, this.stackTrace});
 
   @override
   String toString() => command != null

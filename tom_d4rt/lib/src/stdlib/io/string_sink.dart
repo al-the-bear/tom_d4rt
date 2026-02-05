@@ -10,7 +10,7 @@ class StringSinkIo {
         methods: {
           'write': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentError('StringSink.write requires object');
+              throw TomArgumentError('StringSink.write requires object');
             }
             (target as StringSink).write(positionalArgs[0]);
             return null;
@@ -22,7 +22,7 @@ class StringSinkIo {
           },
           'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentError('StringSink.writeAll requires objects');
+              throw TomArgumentError('StringSink.writeAll requires objects');
             }
             final objects = positionalArgs[0] as Iterable;
             final separator =
@@ -32,7 +32,7 @@ class StringSinkIo {
           },
           'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentError('StringSink.writeCharCode requires charCode');
+              throw TomArgumentError('StringSink.writeCharCode requires charCode');
             }
             (target as StringSink).writeCharCode(positionalArgs[0] as int);
             return null;
