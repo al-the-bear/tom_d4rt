@@ -68,17 +68,17 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 | Bug-67 | [if-case with int pattern wrong condition type](#bug-67-if-case-int-pattern) | Medium | ✅ Fixed |
 | Bug-45 | [Labeled continue in sync* generators fails](#bug-45-labeled-continue-in-sync-generators-fails) | Medium | ✅ Fixed |
 | Bug-47 | [Future.doWhile type cast issues](#bug-47-futuredowhile-type-cast-issues) | Medium | ✅ Fixed |
-| Bug-72 | [Bridged mixins not found during class declaration](#bug-72-bridged-mixins-class-declaration) — `bridged_mixin_test` (5) + `complex_bridged_mixin_test` (5) | Medium | ⬜ TODO |
-| Bug-73 | [Async nested loops fail with return type error](#bug-73-async-nested-loops-return-type) — `async_nested_loops_test` (11 tests) | Medium | ⬜ TODO |
-| Bug-74 | [Return type error shows anonymous instead of function name](#bug-74-return-type-anonymous-name) — `interpreter_test: Return Type Checking` (7 tests) | Medium | ⬜ TODO |
-| Bug-76 | [Introspection API returns globals for empty source](#bug-76-introspection-empty-source) — `introspection_api_test: empty source, imports only` (2) | Low | ⬜ TODO |
-| Bug-77 | [File.parent test flaky in full test suite](#bug-77-file-parent-flaky) — `file_test: comprehensive parent` (1) | Low | ⬜ TODO |
-| Bug-14 | [Records with named fields or >9 positional fields return InterpretedRecord](#bug-14-records-with-named-fields-or-9-positional-fields) — `limitations_and_bugs_test: Bug-14` (2) | High | ⬜ TODO |
+| Bug-72 | [Bridged mixins not found during class declaration](#bug-72-bridged-mixins-class-declaration) — `bridged_mixin_test` (5) + `complex_bridged_mixin_test` (5) | Medium | ✅ Fixed |
+| Bug-73, Bug-74 | [Async nested loops/return type error with anonymous name](#bug-73-async-nested-loops-return-type) — `async_nested_loops_test` (20 tests) | Medium | ✅ Fixed |
+| Bug-75 | [Division by zero returns Infinity instead of throwing](#bug-75-division-by-zero-returns-infinity) — `eval_method_test: should handle division by zero` | Low | ✅ Fixed |
+| Bug-76 | [Introspection API returns globals for empty source](#bug-76-introspection-empty-source) — `introspection_api_test: empty source, imports only` (2) | Low | ✅ Fixed |
+| Bug-77 | [File.parent test flaky in full test suite](#bug-77-file-parent-flaky) — `file_test: comprehensive parent` (1) | Low | ✅ Fixed |
+| Bug-78 | [noSuchMethod not invoked for method calls](#bug-78-nosuchmethod-method-calls) — `limitations_and_bugs_test: Lim-7` (1) | Medium | ✅ Fixed |
 | Lim-4, Bug-43 | [Infinite sync* generators hang (eager evaluation)](#lim-4-bug-43-infinite-sync-generators-hang) — `limitations_and_bugs_test: Lim-4, Bug-43` (2) | High | ⬜ TODO |
 | Lim-8, Bug-13, Bug-68 | [Logical OR patterns in switch cases](#lim-8-bug-13-logicalorpattern-in-switch) — `limitations_and_bugs_test: Lim-8, Bug-13, Bug-68` (3) | High | ⬜ TODO |
 | Lim-1 | [Extension types (Dart 3.3+ inline classes) not supported](#lim-1-extension-types-dart-33-not-supported) — `limitations_and_bugs_test: Lim-1` (1) | High | ⬜ TODO |
+| Bug-14 | [Records with named fields or >9 positional fields return InterpretedRecord](#bug-14-records-with-named-fields-or-9-positional-fields) — `limitations_and_bugs_test: Bug-14` (2) | High | 🚫 Won't Fix |
 | Lim-3 | [Isolate execution with interpreted code](#lim-3-isolate-execution-with-interpreted-code) — `limitations_and_bugs_test: Lim-3` (1) | Fundamental | 🚫 Won't Fix |
-| Bug-78 | [noSuchMethod not invoked for method calls](#bug-78-nosuchmethod-method-calls) — `limitations_and_bugs_test: Lim-7` (1) | Medium | ⬜ TODO |
 
 **Status Legend:**
 - ⬜ TODO - Not yet fixed
@@ -778,8 +778,8 @@ class MyException implements Exception {  // ❌ FAILS
 
 ### Bug-14: Records with Named Fields or >9 Positional Fields
 
-**Status:** ⬜ TODO  
-**Fixable:** ⚠️ Partial - Dart limitation  
+**Status:** 🚫 Won't Fix  
+**Fixable:** ❌ No - Dart language limitation  
 **Complexity:** High
 
 #### Problem Description
@@ -809,10 +809,11 @@ D4rt now supports record type annotations and can execute record operations. How
 
 **Error:** No runtime error, but the returned value is `InterpretedRecord` instead of a native Dart record, which fails equality checks with native records.
 
-#### Where is the Problem?
+#### Why Won't Fix
 
-- **Location:** `D4rt._bridgeInterpreterValueToNative()` in `d4rt_base.dart`
-- **Root Cause:** Dart does not support creating record types dynamically at runtime. Records are compile-time constructs, so we can only create them via hardcoded switch cases for each arity.
+Dart does not support creating record types dynamically at runtime. Records are compile-time constructs with their types determined by the compiler. There is no way to programmatically construct a native record with named fields or arbitrary arity without hardcoding every possible combination.
+
+This is a fundamental language limitation that cannot be worked around in an interpreter.
 
 #### Current Implementation
 
@@ -826,8 +827,6 @@ switch (pos.length) {
   default: return InterpretedRecord(pos, {});
 }
 ```
-
-#### Potential Fix Strategies
 
 1. **Strategy A: Extend to more arities**
    - Add more cases (10, 11, 12...)

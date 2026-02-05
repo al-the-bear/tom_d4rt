@@ -554,17 +554,16 @@ void main() {
       test('should handle division by zero', () {
         d4rt.execute(source: 'void init() {}', name: 'init');
 
-        // d4rt throws RuntimeError for division by zero (both int and double)
+        // Integer division by zero throws IntegerDivisionByZeroException
         expect(
           () => d4rt.eval('10 ~/ 0'),
           throwsA(anything),
         );
 
-        // d4rt also throws for double division by zero
-        expect(
-          () => d4rt.eval('10.0 / 0.0'),
-          throwsA(anything),
-        );
+        // Bug-75 FIX: Float division by zero returns Infinity (correct Dart behavior)
+        // In Dart, 10.0 / 0.0 returns double.infinity, not an error
+        var result = d4rt.eval('10.0 / 0.0');
+        expect(result, equals(double.infinity));
       });
 
       test('should throw error for null pointer on non-nullable', () {

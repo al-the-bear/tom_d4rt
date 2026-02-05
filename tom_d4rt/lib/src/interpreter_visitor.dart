@@ -2411,16 +2411,70 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                       "Error executing extension method '$methodName': $execError");
                 }
               } else {
-                // No suitable extension found, rethrow the original error from direct lookup
+                // No suitable extension found - check for noSuchMethod
                 Logger.debug(
-                    "[MethodInvocation] Extension method '$methodName' not found or not applicable. Rethrowing original error.");
+                    "[MethodInvocation] Extension method '$methodName' not found or not applicable. Checking for noSuchMethod...");
+                
+                // Bug-78 FIX: Check for noSuchMethod before throwing error
+                final noSuchMethod = targetValue.klass.findInstanceMethod('noSuchMethod');
+                if (noSuchMethod != null) {
+                  Logger.debug(
+                      "[MethodInvocation] Found noSuchMethod on ${targetValue.klass.name}. Invoking...");
+                  
+                  // Evaluate arguments for the noSuchMethod call
+                  final evaluationResult = _evaluateArgumentsAsync(node.argumentList);
+                  if (evaluationResult is AsyncSuspensionRequest) {
+                    return evaluationResult;
+                  }
+                  final (positionalArgs, namedArgs) =
+                      evaluationResult as (List<Object?>, Map<String, Object?>);
+                  
+                  // Create an Invocation.method for this method call
+                  final namedArgsSymbol = namedArgs.map((key, value) => MapEntry(Symbol(key), value));
+                  final invocation = Invocation.method(Symbol(methodName), positionalArgs, namedArgsSymbol);
+                  
+                  final boundNoSuchMethod = noSuchMethod.bind(targetValue);
+                  try {
+                    return boundNoSuchMethod.call(this, [invocation], {});
+                  } on ReturnException catch (returnExc) {
+                    return returnExc.value;
+                  }
+                }
+                
                 throw RuntimeError(
                     "Instance of '${targetValue.klass.name}' has no method named '$methodName' and no suitable extension method found. Original error: (${e.message})");
               }
             } on RuntimeError catch (findError) {
               // Error during the findExtensionMember call itself
               Logger.debug(
-                  "[MethodInvocation] Error during extension lookup for '$methodName': ${findError.message}. Rethrowing original error.");
+                  "[MethodInvocation] Error during extension lookup for '$methodName': ${findError.message}. Checking for noSuchMethod...");
+              
+              // Bug-78 FIX: Check for noSuchMethod before throwing error
+              final noSuchMethod = targetValue.klass.findInstanceMethod('noSuchMethod');
+              if (noSuchMethod != null) {
+                Logger.debug(
+                    "[MethodInvocation] Found noSuchMethod on ${targetValue.klass.name}. Invoking...");
+                
+                // Evaluate arguments for the noSuchMethod call
+                final evaluationResult = _evaluateArgumentsAsync(node.argumentList);
+                if (evaluationResult is AsyncSuspensionRequest) {
+                  return evaluationResult;
+                }
+                final (positionalArgs, namedArgs) =
+                    evaluationResult as (List<Object?>, Map<String, Object?>);
+                
+                // Create an Invocation.method for this method call
+                final namedArgsSymbol = namedArgs.map((key, value) => MapEntry(Symbol(key), value));
+                final invocation = Invocation.method(Symbol(methodName), positionalArgs, namedArgsSymbol);
+                
+                final boundNoSuchMethod = noSuchMethod.bind(targetValue);
+                try {
+                  return boundNoSuchMethod.call(this, [invocation], {});
+                } on ReturnException catch (returnExc) {
+                  return returnExc.value;
+                }
+              }
+              
               throw RuntimeError(
                   "Instance of '${targetValue.klass.name}' has no method named '$methodName'. Error during extension lookup: ${findError.message}. Original error: (${e.message})");
             }
@@ -4735,9 +4789,23 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
   @override
   Object? visitReturnStatement(ReturnStatement node) {
+    // Walk up the AST to find the enclosing function
+    // Bug-73, Bug-74 FIX: A FunctionDeclaration contains a FunctionExpression as its child,
+    // so we need to find the FunctionDeclaration (which has the name) rather than stopping
+    // at the inner FunctionExpression.
     AstNode? eDecl = node;
     while (eDecl != null) {
-      if (eDecl is FunctionDeclaration || eDecl is FunctionExpression) {
+      if (eDecl is FunctionDeclaration) {
+        // Named function - prefer this over FunctionExpression
+        break;
+      }
+      if (eDecl is FunctionExpression) {
+        // Check if parent is a FunctionDeclaration - if so, use that instead
+        if (eDecl.parent is FunctionDeclaration) {
+          eDecl = eDecl.parent;
+          break;
+        }
+        // Otherwise it's a true anonymous function (lambda, callback)
         break;
       }
       eDecl = eDecl.parent;
@@ -4829,6 +4897,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 showError = false;
               }
               if (declaredType.name == "Object" && returnValue != null) {
+                showError = false;
+              }
+              // Bug-73 FIX: In async functions, returning a Future<T> when declared type is T is allowed
+              // Dart automatically awaits the inner Future. Check if:
+              // 1. The function is async (currentCallable.isAsync)
+              // 2. The return value is a Future
+              // 3. The declared type matches the Future's inner type (or is void)
+              if (currentCallable != null && currentCallable.isAsync && returnValue is Future) {
+                // Allow returning Future from async function - Dart awaits it
                 showError = false;
               }
 

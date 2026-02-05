@@ -377,8 +377,10 @@ class IntrospectionBuilder {
 
   static bool _isBuiltinName(String name) {
     // List of common builtin/stdlib names to filter out
+    // Bug-76 FIX: List of common builtin/stdlib names to filter out
     const builtins = {
       'print',
+      'identical',
       'Object',
       'String',
       'int',

@@ -3,6 +3,7 @@ import 'package:tom_d4rt/src/stdlib/core/comparable.dart';
 import 'package:tom_d4rt/src/stdlib/core/double.dart';
 import 'package:tom_d4rt/src/stdlib/core/error.dart';
 import 'package:tom_d4rt/src/stdlib/core/exceptions.dart';
+import 'package:tom_d4rt/src/stdlib/core/invocation.dart';
 import 'package:tom_d4rt/src/stdlib/core/never.dart';
 import 'package:tom_d4rt/src/stdlib/core/int.dart';
 import 'package:tom_d4rt/src/stdlib/core/iterable.dart';
@@ -96,6 +97,7 @@ class CoreStdlib {
     environment.defineBridge(RangeErrorCore.definition);
     environment.defineBridge(UnsupportedErrorCore.definition);
     environment.defineBridge(UnimplementedErrorCore.definition);
+    environment.defineBridge(InvocationCore.definition); // Bug-78 FIX
     environment.define(
         'dynamic',
         NativeFunction((visitor, arguments, namedArguments, typeArguments) {
