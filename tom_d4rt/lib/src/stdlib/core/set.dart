@@ -14,6 +14,18 @@ class SetCore {
           '': (visitor, positionalArgs, namedArgs) {
             return <dynamic>{};
           },
+          'from': (visitor, positionalArgs, namedArgs) {
+            return Set.from(positionalArgs[0] as Iterable);
+          },
+          'of': (visitor, positionalArgs, namedArgs) {
+            return Set.of(positionalArgs[0] as Iterable);
+          },
+          'identity': (visitor, positionalArgs, namedArgs) {
+            return Set.identity();
+          },
+          'unmodifiable': (visitor, positionalArgs, namedArgs) {
+            return Set.unmodifiable(positionalArgs[0] as Iterable);
+          },
         },
         staticMethods: {
           'from': (visitor, positionalArgs, namedArgs, _) {

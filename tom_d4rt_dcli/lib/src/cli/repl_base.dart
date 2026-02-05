@@ -669,8 +669,9 @@ void main() {}
     final state = createReplState();
     state.currentDirectory = Directory.current.path;
 
-    // Clear any previous verification failures
+    // Clear any previous verification failures and error reporter
     clearVerificationFailures();
+    ErrorReporter.clear();
 
     var hasErrors = false;
     var lineCount = 0;
@@ -684,6 +685,16 @@ void main() {}
       log('ERROR: $e');
       if (Platform.environment['DEBUG'] == 'true') {
         log(stackTrace.toString());
+      }
+    }
+
+    // Check for reported TomExceptions during execution
+    if (ErrorReporter.hasErrors) {
+      hasErrors = true;
+      log('');
+      log('REPORTED ERRORS (${ErrorReporter.errors.length}):');
+      for (final error in ErrorReporter.errors) {
+        log('  - $error');
       }
     }
 
@@ -1741,8 +1752,14 @@ Object? __repl_expr__() {
     final lines = await file.readAsLines();
     var count = 0;
 
-    for (final line in lines) {
-      await processInput(d4rt, state, line, silent: silent);
+    for (var i = 0; i < lines.length; i++) {
+      final line = lines[i];
+      try {
+        await processInput(d4rt, state, line, silent: silent);
+      } catch (e) {
+        final lineNum = i + 1;
+        throw RuntimeError('Error on replay line $lineNum: "$line"\nDetails: $e');
+      }
       count++;
     }
 

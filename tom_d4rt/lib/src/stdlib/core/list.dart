@@ -5,6 +5,46 @@ class ListCore {
         nativeType: List,
         name: 'List',
         typeParameterCount: 1,
+        constructors: {
+          'empty': (visitor, positionalArgs, namedArgs) {
+            return List<dynamic>.empty(
+              growable: namedArgs['growable'] as bool? ?? false,
+            );
+          },
+          'filled': (visitor, positionalArgs, namedArgs) {
+            return List.filled(
+              positionalArgs[0] as int,
+              positionalArgs[1],
+              growable: namedArgs['growable'] as bool? ?? true,
+            );
+          },
+          'from': (visitor, positionalArgs, namedArgs) {
+            return List<dynamic>.from(
+              positionalArgs[0] as Iterable,
+              growable: namedArgs['growable'] as bool? ?? true,
+            );
+          },
+          'of': (visitor, positionalArgs, namedArgs) {
+            return List.of(
+              positionalArgs[0] as Iterable,
+              growable: namedArgs['growable'] as bool? ?? true,
+            );
+          },
+          'generate': (visitor, positionalArgs, namedArgs) {
+            final generator = positionalArgs[1];
+            if (generator is! InterpretedFunction) {
+              throw RuntimeError('Expected a InterpretedFunction for generate');
+            }
+            return List<dynamic>.generate(
+              positionalArgs[0] as int,
+              (i) => generator.call(visitor, [i]),
+              growable: namedArgs['growable'] as bool? ?? true,
+            );
+          },
+          'unmodifiable': (visitor, positionalArgs, namedArgs) {
+            return List<dynamic>.unmodifiable(positionalArgs[0] as Iterable);
+          },
+        },
         staticMethods: {
           'castFrom': (visitor, positionalArgs, namedArgs, _) {
             return List.castFrom<dynamic, dynamic>(positionalArgs[0] as List);
@@ -111,6 +151,24 @@ class ListCore {
             int? start =
                 positionalArgs.length == 2 ? positionalArgs[1] as int? : null;
             return (target as List).lastIndexOf(positionalArgs[0], start);
+          },
+          'indexWhere': (visitor, target, positionalArgs, namedArgs, _) {
+            final test = positionalArgs[0] as Callable;
+            int start =
+                positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
+            return (target as List).indexWhere(
+              (element) => test.call(visitor, [element], {}) as bool,
+              start,
+            );
+          },
+          'lastIndexWhere': (visitor, target, positionalArgs, namedArgs, _) {
+            final test = positionalArgs[0] as Callable;
+            int? start =
+                positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
+            return (target as List).lastIndexWhere(
+              (element) => test.call(visitor, [element], {}) as bool,
+              start,
+            );
           },
           'sublist': (visitor, target, positionalArgs, namedArgs, _) {
             int? end =

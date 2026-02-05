@@ -572,6 +572,19 @@ class InterpretedClass implements Callable, RuntimeType {
             "Class '$name' does not have an unnamed constructor that accepts arguments.");
       }
       // If no constructor and no args passed, it's okay (implicit default constructor).
+      // However, we STILL need to call the superclass's default constructor if one exists.
+      if (superclass != null) {
+        final defaultSuperConstructor = superclass!.findConstructor('');
+        if (defaultSuperConstructor != null) {
+          Logger.debug(
+              "[Instance Init] Calling implicit super() for class '$name' with no explicit constructor");
+          // Call the default super constructor, bound to the instance
+          defaultSuperConstructor.bind(instance).call(visitor, [], {});
+        }
+        // If superclass has no explicit constructor either, that's fine - 
+        // the superclass's createAndInitializeInstance will handle field initialization.
+        // No error needed here.
+      }
     }
 
     // Field initializers from constructor list (e.g., : this.x = y) need separate handling.

@@ -39,6 +39,55 @@ class QueueCollection {
             }
             throw RuntimeError("Invalid arguments for Queue.add");
           },
+          'addAll': (visitor, target, positionalArgs, namedArgs, _) {
+            if (target is Queue &&
+                positionalArgs.length == 1 &&
+                namedArgs.isEmpty) {
+              final elements = positionalArgs[0];
+              if (elements is Iterable) {
+                target.addAll(elements);
+                return null;
+              }
+              throw RuntimeError("Queue.addAll requires an Iterable argument.");
+            }
+            throw RuntimeError("Invalid arguments for Queue.addAll");
+          },
+          'addFirst': (visitor, target, positionalArgs, namedArgs, _) {
+            if (target is Queue &&
+                positionalArgs.length == 1 &&
+                namedArgs.isEmpty) {
+              target.addFirst(positionalArgs[0]);
+              return null;
+            }
+            throw RuntimeError("Invalid arguments for Queue.addFirst");
+          },
+          'addLast': (visitor, target, positionalArgs, namedArgs, _) {
+            if (target is Queue &&
+                positionalArgs.length == 1 &&
+                namedArgs.isEmpty) {
+              target.addLast(positionalArgs[0]);
+              return null;
+            }
+            throw RuntimeError("Invalid arguments for Queue.addLast");
+          },
+          'removeLast': (visitor, target, positionalArgs, namedArgs, _) {
+            if (target is Queue &&
+                positionalArgs.isEmpty &&
+                namedArgs.isEmpty) {
+              if (target.isEmpty) {
+                throw RuntimeError("Cannot removeLast from an empty queue.");
+              }
+              return target.removeLast();
+            }
+            throw RuntimeError("Invalid arguments for Queue.removeLast");
+          },
+          'toList': (visitor, target, positionalArgs, namedArgs, _) {
+            if (target is Queue) {
+              final growable = namedArgs['growable'] as bool? ?? true;
+              return target.toList(growable: growable);
+            }
+            throw RuntimeError("Invalid target for Queue.toList");
+          },
           'removeFirst': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Queue &&
                 positionalArgs.isEmpty &&

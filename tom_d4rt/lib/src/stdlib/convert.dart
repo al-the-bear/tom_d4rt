@@ -95,6 +95,31 @@ class ConvertStdlib {
     environment.define('utf8', utf8);
     environment.define('latin1', latin1);
 
+    // Register global functions
+    environment.define(
+        'base64Encode',
+        NativeFunction((visitor, arguments, namedArguments, typeArguments) {
+          if (arguments.length != 1) {
+            throw RuntimeError(
+                'base64Encode requires one positional argument (List<int> bytes).');
+          }
+          final bytes = arguments[0];
+          if (bytes is! List) {
+            throw RuntimeError('base64Encode requires a List<int> argument.');
+          }
+          return base64Encode(bytes.cast<int>());
+        }, arity: 1, name: 'base64Encode'));
+
+    environment.define(
+        'base64Decode',
+        NativeFunction((visitor, arguments, namedArguments, typeArguments) {
+          if (arguments.length != 1 || arguments[0] is! String) {
+            throw RuntimeError(
+                'base64Decode requires one positional argument (String source).');
+          }
+          return base64Decode(arguments[0] as String);
+        }, arity: 1, name: 'base64Decode'));
+
     // Register HtmlEscape classes
     HtmlEscapeConvert.register(environment);
   }

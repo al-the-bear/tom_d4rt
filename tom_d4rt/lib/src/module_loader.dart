@@ -124,6 +124,17 @@ class ModuleLoader {
 
     Logger.debug(
         "[ModuleLoader loadModule for $uri] Executing InterpreterVisitor pass for initializers...");
+    
+    // First, process enum declarations to populate enum values
+    // This must happen before top-level variable declarations in case
+    // const variables reference enum values
+    for (final declaration in ast.declarations) {
+      if (declaration is EnumDeclaration) {
+        declaration.accept(moduleInterpreter);
+      }
+    }
+    
+    // Then process top-level variable declarations
     for (final declaration in ast.declarations) {
       // We only care about the evaluation of TopLevelVariableDeclaration for their initializers.
       // Functions and classes are already "declared" by DeclarationVisitor.
@@ -623,7 +634,8 @@ class ModuleLoader {
     Logger.error(
         "[ModuleLoader] Source not preloaded and not a recognized Dart standard library for URI: $uriString");
     throw SourceCodeException(
-        "Module source not preloaded for URI: $uriString, and not a recognized Dart standard library.");
+        "Module source not preloaded for URI: $uriString, and not a recognized Dart standard library.",
+        uriString);
   }
 
   CompilationUnit _parseSource(Uri uri, String sourceCode) {
@@ -639,7 +651,7 @@ class ModuleLoader {
       throwIfDiagnostics: false,
       path: pathToReport,
       featureSet: FeatureSet.fromEnableFlags2(
-        sdkLanguageVersion: Version(3, 0, 0), // Keep a SDK version
+        sdkLanguageVersion: Version(3, 10, 0), // Dart 3.6 for digit-separators and null-aware-elements
         flags: [
           'non-nullable',
           'null-aware-elements',
@@ -648,6 +660,7 @@ class ModuleLoader {
           'control-flow-collections',
           'extension-methods',
           'extension-types',
+          'digit-separators',
         ],
       ),
     );
@@ -661,9 +674,9 @@ class ModuleLoader {
         return "- ${e.message} (ligne ${location.lineNumber}, colonne ${location.columnNumber})";
       }).join("\\n");
       Logger.error(
-          "[ModuleLoader] Parsing errors for $pathToReport:\\n$errorMessages");
+          "[ModuleLoader] Parsing errors for $pathToReport:\n$errorMessages");
       throw SourceCodeException(
-          "Parsing errors in module $pathToReport:\\n$errorMessages");
+          "Parsing errors in module $pathToReport:\n$errorMessages", sourceCode);
     }
     Logger.debug(
         "[ModuleLoader] Module ${uri.toString()} parsed successfully.");

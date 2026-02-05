@@ -720,7 +720,7 @@ class D4rt {
         content: source,
         throwIfDiagnostics: false,
         featureSet: FeatureSet.fromEnableFlags2(
-          sdkLanguageVersion: Version(3, 0, 0),
+          sdkLanguageVersion: Version(3, 10, 0),
           flags: [
             'non-nullable',
             'null-aware-elements',
@@ -729,6 +729,7 @@ class D4rt {
             'control-flow-collections',
             'extension-methods',
             'extension-types',
+          'digit-separators',
           ],
         ),
       );
@@ -743,7 +744,7 @@ class D4rt {
         }).join("\n");
         Logger.error("Parsing errors for the direct source:\n$errorMessages");
         throw SourceCodeException(
-            'Fatal parsing errors for the direct source:\n$errorMessages');
+            'Fatal parsing errors for the direct source:\n$errorMessages', source);
       }
       Logger.debug("[D4rt._parseSource] Direct source string parsed successfully.");
       return result.unit;
@@ -951,7 +952,7 @@ class D4rt {
         content: source,
         throwIfDiagnostics: false,
         featureSet: FeatureSet.fromEnableFlags2(
-          sdkLanguageVersion: Version(3, 0, 0),
+          sdkLanguageVersion: Version(3, 10, 0),
           flags: [
             'non-nullable',
             'null-aware-elements',
@@ -960,6 +961,7 @@ class D4rt {
             'control-flow-collections',
             'extension-methods',
             'extension-types',
+          'digit-separators',
           ],
         ),
       );
@@ -974,7 +976,7 @@ class D4rt {
         }).join("\n");
         Logger.error("Parsing errors for the direct source:\n$errorMessages");
         throw SourceCodeException(
-            'Fatal parsing errors for the direct source:\n$errorMessages');
+            'Fatal parsing errors for the direct source:\n$errorMessages', source);
       }
       compilationUnit = result.unit;
       Logger.debug("[D4rt._executeClassic] Direct source string parsed successfully.");
@@ -1142,7 +1144,7 @@ class D4rt {
       content: source,
       throwIfDiagnostics: false,
       featureSet: FeatureSet.fromEnableFlags2(
-        sdkLanguageVersion: Version(3, 0, 0),
+        sdkLanguageVersion: Version(3, 10, 0),
         flags: [
           'non-nullable',
           'null-aware-elements',
@@ -1151,6 +1153,7 @@ class D4rt {
           'control-flow-collections',
           'extension-methods',
           'extension-types',
+          'digit-separators',
         ],
       ),
     );
@@ -1163,7 +1166,7 @@ class D4rt {
         final location = parseResult.lineInfo.getLocation(e.offset);
         return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
       }).join("\n");
-      throw SourceCodeException('Parsing errors:\n$errorMessages');
+      throw SourceCodeException('Parsing errors:\n$errorMessages', source);
     }
 
     final compilationUnit = parseResult.unit;
@@ -1243,7 +1246,7 @@ class D4rt {
       content: expression,
       throwIfDiagnostics: false,
       featureSet: FeatureSet.fromEnableFlags2(
-        sdkLanguageVersion: Version(3, 0, 0),
+        sdkLanguageVersion: Version(3, 10, 0),
         flags: [
           'non-nullable',
           'null-aware-elements',
@@ -1252,6 +1255,7 @@ class D4rt {
           'control-flow-collections',
           'extension-methods',
           'extension-types',
+          'digit-separators',
         ],
       ),
     );
@@ -1298,7 +1302,7 @@ class D4rt {
         content: wrappedSource,
         throwIfDiagnostics: false,
         featureSet: FeatureSet.fromEnableFlags2(
-          sdkLanguageVersion: Version(3, 0, 0),
+          sdkLanguageVersion: Version(3, 10, 0),
           flags: [
             'non-nullable',
             'null-aware-elements',
@@ -1307,6 +1311,7 @@ class D4rt {
             'control-flow-collections',
             'extension-methods',
             'extension-types',
+          'digit-separators',
           ],
         ),
       );
@@ -1362,7 +1367,7 @@ class D4rt {
       content: statementSource,
       throwIfDiagnostics: false,
       featureSet: FeatureSet.fromEnableFlags2(
-        sdkLanguageVersion: Version(3, 0, 0),
+        sdkLanguageVersion: Version(3, 10, 0),
         flags: [
           'non-nullable',
           'null-aware-elements',
@@ -1371,6 +1376,7 @@ class D4rt {
           'control-flow-collections',
           'extension-methods',
           'extension-types',
+          'digit-separators',
         ],
       ),
     );
@@ -1409,7 +1415,7 @@ class D4rt {
       final location = declarationParseResult.lineInfo.getLocation(e.offset);
       return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
     }).join("\n");
-    throw SourceCodeException('Failed to parse expression:\n$errorMessages');
+    throw SourceCodeException('Failed to parse expression:\n$errorMessages', expression);
   }
 
   /// Invoke a property or method on the given instance.

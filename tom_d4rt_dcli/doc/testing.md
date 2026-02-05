@@ -39,6 +39,21 @@ When running in test mode:
    - Final PASSED/FAILED status
 4. Exit code is 0 for PASSED, 1 for FAILED
 
+### Running All Tests
+
+A script is provided to run all replay tests in the `test/replay` directory:
+
+```bash
+# From the project root
+./test/replay/run_tests.sh
+```
+
+This script will:
+1. Find all `*.dcli` files in `test/replay`
+2. Run each test using the local `bin/dcli.dart`
+3. Store results in `test/results`
+4. Report overall PASSED/FAILED status
+
 ## Verification Functions
 
 The following verification functions are available in D4rt/DCli scripts:

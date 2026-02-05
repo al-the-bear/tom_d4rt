@@ -779,6 +779,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       final record = prefixValue;
       Logger.debug(
           "[PrefixedIdentifier] Access on InterpretedRecord: .$memberName");
+      
+      // Check for Object methods (hashCode, runtimeType, toString)
+      switch (memberName) {
+        case 'hashCode':
+          return record.hashCode;
+        case 'runtimeType':
+          return record.runtimeType;
+      }
+      
       // Check if it's a positional field access ($1, $2, ...)
       if (memberName.startsWith('\$') && memberName.length > 1) {
         try {
@@ -952,7 +961,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         case TokenType.STAR:
           return left * right;
         case TokenType.SLASH:
-          if (right == 0) throw RuntimeError("Division par zéro.");
+          // For double division, Dart returns infinity for division by zero
+          if (left is double || right is double) {
+            return left.toDouble() / right.toDouble();
+          }
+          // For integer division that will produce double, also return infinity
           return left.toDouble() / right.toDouble();
         case TokenType.GT:
           return left > right;
@@ -963,10 +976,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         case TokenType.LT_EQ:
           return left <= right;
         case TokenType.PERCENT:
-          if (right == 0) throw RuntimeError("Modulo par zéro.");
+          if (right == 0) throw RuntimeError("Modulo by zero.");
           return left % right;
         case TokenType.TILDE_SLASH:
-          if (right == 0) throw RuntimeError("Division entière par zéro.");
+          if (right == 0) throw RuntimeError("Integer division by zero.");
           return left ~/ right;
         default:
           break;

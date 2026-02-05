@@ -21,15 +21,19 @@ The script automatically:
 ### Manual Build Steps
 
 If you need to build manually:
+1. **Delete generated files**: Delete all `*.g.dart` files in the project to ensure a clean build.
+   ```bash
+   find . -name "*.g.dart" -delete
+   ```
 
-1. **Run build_runner** (regenerates bridge code):
+2. **Run build_runner** (regenerates bridge code):
    ```bash
    cd xternal/tom_module_d4rt/tom_d4rt_dcli
    dart pub get
    dart run build_runner build --delete-conflicting-outputs
    ```
 
-2. **Compile the executable**:
+3. **Compile the executable**:
    ```bash
    dart compile exe bin/dcli.dart -o ~/.tom/bin/darwin-arm64/dcli
    ```

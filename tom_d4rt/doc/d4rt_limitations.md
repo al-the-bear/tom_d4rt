@@ -6,71 +6,61 @@ This document provides a comprehensive reference of all known D4rt interpreter l
 
 ---
 
-## Table 1: Limitations
+## Issue Tracker
 
-Limitations are fundamental constraints or intentionally unsupported features of the D4rt interpreter.
+Combined list of all limitations and bugs, sorted by estimated fix complexity (Low → Medium → High → Won't Fix).
 
-| ID | Description | Fixable? | Complexity | Status |
-|----|-------------|----------|------------|--------|
-| Lim-1 | Extension types (Dart 3.3+ inline classes) not supported | ⚠️ Major | High | ⬜ TODO |
-| Lim-2 | Extensions on bridged types don't work | ✅ Yes | Medium | ⬜ TODO |
-| Lim-3 | Isolate execution with interpreted code | ❌ No | Fundamental | 🚫 Won't Fix |
-| Lim-4 | Infinite sync* generators hang (eager evaluation) | ⚠️ Major | High | ⬜ TODO |
-| Lim-5 | Comparable interface not implemented for interpreted classes | ⚠️ Partial | High | 🚫 Limitation |
-| Lim-6 | Labeled continue in switch statements | ✅ Yes | Medium | ⬜ TODO |
-| Lim-7 | noSuchMethod getter/setter access (methods work) | ✅ Yes | Medium | ⚠️ Partial |
-| Lim-8 | Logical OR patterns in switch cases | ⚠️ Major | High | ⬜ TODO |
-| Lim-9 | Await in string interpolation (shows raw object) | ⚠️ Partial | Medium | ⚠️ Quirk |
+| ID | Description | Complexity | Status |
+|----|-------------|------------|--------|
+| Bug-1 | [List.empty() constructor not bridged](#bug-1-listempty-constructor-not-bridged) | Low | 🔍 Confirm Fix |
+| Bug-2 | [Queue.addAll() method not bridged](#bug-2-queueaddall-method-not-bridged) | Low | 🔍 Confirm Fix |
+| Bug-3 | [Enum value access via Day.wednesday fails](#bug-3-enum-value-access) | Low | 🔍 Confirm Fix |
+| Bug-4 | [Enum value at top-level const fails](#bug-4-enum-value-at-top-level-const-fails) | Low | 🔍 Confirm Fix |
+| Bug-5 | [Division by zero throws instead of returning infinity](#bug-5-division-by-zero-throws-instead-of-returning-infinity) | Low | 🔍 Confirm Fix |
+| Bug-6 | [Record missing Object methods (hashCode)](#bug-6-record-missing-object-methods-hashcode) | Low | 🔍 Confirm Fix |
+| Bug-7 | [Digit separators (1_000_000) not parsed](#bug-7-digit-separators-1_000_000-not-parsed) | Low | 🔍 Confirm Fix |
+| Bug-8 | [List.indexWhere() method not bridged](#bug-8-listindexwhere-method-not-bridged) | Low | 🔍 Confirm Fix |
+| Bug-15 | [base64Encode function not exported from dart:convert](#bug-15-base64encode-function-not-exported-from-dartconvert) | Low | 🔍 Confirm Fix |
+| Bug-20 | [identical() function not bridged](#bug-20-identical-function-not-bridged) | Low | 🔍 Confirm Fix |
+| Bug-21 | [Set.from() constructor not bridged](#bug-21-setfrom-constructor-not-bridged) | Low | 🔍 Confirm Fix |
+| Bug-22 | [Error() class constructor not bridged](#bug-22-error-class-constructor) | Low | 🔍 Confirm Fix |
+| Bug-50 | [Index assignment operator \[\]= not found](#bug-50-index-assignment-operator) | Low | 🔍 Confirm Fix |
+| Bug-52 | [Implicit super() fails when superclass has constructors](#bug-52-implicit-super-fails-when-superclass-has-constructors) | Low | 🔍 Confirm Fix |
+| Bug-53 | [NullAwareElement feature not supported](#bug-53-nullawareelement-feature-not-supported) | Low | 🔍 Confirm Fix |
+| Bug-54 | [Void return type checking too strict](#bug-54-void-return-type) | Low | 🔍 Confirm Fix |
+| Lim-2 | [Extensions on bridged types don't work](#lim-2-extensions-on-bridged-types-dont-work) | Medium | ⬜ TODO |
+| Lim-5, Bug-40 | [Comparable interface not implemented for interpreted classes](#lim-5-bug-40-comparable-interface-not-implemented) | Medium | ⬜ TODO |
+| Lim-6, Bug-32 | [Labeled continue in switch statements](#lim-6-bug-32-labeled-continue-in-switch-statements) | Medium | ⬜ TODO |
+| Lim-7, Bug-42 | [noSuchMethod not invoked for getter/setter access](#lim-7-bug-42-nosuchmethod-gettersetter-access) | Medium | ⬜ TODO |
+| Lim-9, Bug-41 | [Await in string interpolation shows raw object](#lim-9-bug-41-await-in-string-interpolation) | Medium | ⬜ TODO |
+| Bug-9 | [Type Never not found in type resolution](#bug-9-type-never-not-found-in-type-resolution) | Medium | ⬜ TODO |
+| Bug-10 | [Interface Comparable not found for implements](#bug-10-interface-comparable-not-found-for-implements) | Medium | ⬜ TODO |
+| Bug-11 | [Sealed class subclasses incorrectly rejected](#bug-11-sealed-class-subclasses-incorrectly-rejected) | Medium | ⬜ TODO |
+| Bug-12 | [Interface Exception not found for implements](#bug-12-interface-exception-not-found-for-implements) | Medium | ⬜ TODO |
+| Bug-14 | [Record type annotation not resolved](#bug-14-record-type-annotation-not-resolved) | Medium | ⬜ TODO |
+| Bug-16 | [Abstract method inheritance false positive](#bug-16-abstract-method-inheritance) | Medium | 🔍 Confirm Fix |
+| Bug-17 | [Interface class same-library extension incorrectly rejected](#bug-17-interface-class-extension) | Medium | 🔍 Confirm Fix |
+| Bug-18 | [Mixin abstract getter inheritance false positive](#bug-18-mixin-abstract-getter) | Medium | 🔍 Confirm Fix |
+| Bug-23 | [Static const referencing sibling const fails](#bug-23-static-const-referencing-sibling-const-fails) | Medium | ⬜ TODO |
+| Bug-24 | [mixin class declaration not supported](#bug-24-mixin-class-declaration-not-supported) | Medium | ⬜ TODO |
+| Bug-26 | [Assert in constructor initializer not supported](#bug-26-assert-in-constructor-initializer-not-supported) | Medium | ⬜ TODO |
+| Bug-27 | [Short-circuit && with null check fails](#bug-27-short-circuit--with-null-check-fails) | Medium | ⬜ TODO |
+| Bug-28 | [GenericFunctionTypeImpl not implemented](#bug-28-genericfunctiontypeimpl) | Medium | 🔍 Confirm Fix |
+| Bug-29 | [Future.value() returns wrong type](#bug-29-futurevalue-type) | Medium | 🔍 Confirm Fix |
+| Bug-44 | [Async generators completion detection issues](#bug-44-async-generators) | Medium | 🔍 Confirm Fix |
+| Bug-45 | [Labeled continue in sync* generators fails](#bug-45-labeled-continue-in-sync-generators-fails) | Medium | ⬜ TODO |
+| Bug-47 | [Future.doWhile type cast issues](#bug-47-futuredowhile-type-cast-issues) | Medium | ⬜ TODO |
+| Bug-48 | [await for stream iteration fails](#bug-48-await-for-stream) | Medium | 🔍 Confirm Fix |
+| Bug-51 | [Bridged mixins not found during type resolution](#bug-51-bridged-mixins) | Medium | 🔍 Confirm Fix |
+| Lim-4, Bug-43 | [Infinite sync* generators hang (eager evaluation)](#lim-4-bug-43-infinite-sync-generators-hang) | High | ⬜ TODO |
+| Lim-8, Bug-13 | [Logical OR patterns in switch cases](#lim-8-bug-13-logicalorpattern-in-switch) | High | ⬜ TODO |
+| Lim-1 | [Extension types (Dart 3.3+ inline classes) not supported](#lim-1-extension-types-dart-33-not-supported) | High | ⬜ TODO |
+| Lim-3 | [Isolate execution with interpreted code](#lim-3-isolate-execution-with-interpreted-code) | Fundamental | 🚫 Won't Fix |
 
----
-
-## Table 2: Bugs
-
-Bugs are issues that should work but don't. Status verified by automated tests.
-
-| ID | Description | Fixable? | Complexity | Status |
-|----|-------------|----------|------------|--------|
-| Bug-1 | List.empty() constructor not bridged | ✅ Yes | Low | ⬜ TODO |
-| Bug-2 | Queue.addAll() method not bridged | ✅ Yes | Low | ⬜ TODO |
-| Bug-3 | Enum value access via Day.wednesday fails | ✅ Yes | Low | ✅ Fixed |
-| Bug-4 | Enum value at top-level const fails | ✅ Yes | Low | ⬜ TODO |
-| Bug-5 | Division by zero throws instead of returning infinity | ✅ Yes | Low | ⬜ TODO |
-| Bug-6 | Record missing Object methods (hashCode) | ✅ Yes | Low | ⬜ TODO |
-| Bug-7 | Digit separators (1_000_000) not parsed | ✅ Yes | Low | ⬜ TODO |
-| Bug-8 | List.indexWhere() method not bridged | ✅ Yes | Low | ⬜ TODO |
-| Bug-9 | Type Never not found in type resolution | ✅ Yes | Medium | ⬜ TODO |
-| Bug-10 | Interface Comparable not found for implements | ✅ Yes | Medium | ⬜ TODO |
-| Bug-11 | Sealed class subclasses incorrectly rejected | ✅ Yes | Medium | ⬜ TODO |
-| Bug-12 | Interface Exception not found for implements | ✅ Yes | Medium | ⬜ TODO |
-| Bug-13 | Pattern \|\| in switch not supported (see Lim-8) | ⚠️ Major | High | ⬜ TODO |
-| Bug-14 | Record type annotation not resolved | ✅ Yes | Medium | ⬜ TODO |
-| Bug-15 | base64Encode function not exported from dart:convert | ✅ Yes | Low | ⬜ TODO |
-| Bug-16 | Abstract method inheritance false positive | ✅ Yes | Medium | ✅ Fixed |
-| Bug-17 | Interface class same-library extension incorrectly rejected | ✅ Yes | Medium | ✅ Fixed |
-| Bug-18 | Mixin abstract getter inheritance false positive | ✅ Yes | Medium | ✅ Fixed |
-| Bug-20 | identical() function not bridged | ✅ Yes | Low | ⬜ TODO |
-| Bug-21 | Set.from() constructor not bridged | ✅ Yes | Low | ⬜ TODO |
-| Bug-22 | Error() class constructor not bridged | ✅ Yes | Low | ✅ Fixed |
-| Bug-23 | Static const referencing sibling const fails | ✅ Yes | Medium | ⬜ TODO |
-| Bug-24 | mixin class declaration not supported | ✅ Yes | Medium | ⬜ TODO |
-| Bug-26 | Assert in constructor initializer not supported | ✅ Yes | Medium | ⬜ TODO |
-| Bug-27 | Short-circuit && with null check fails | ✅ Yes | Medium | ⬜ TODO |
-| Bug-28 | GenericFunctionTypeImpl not implemented | ✅ Yes | Medium | ✅ Fixed |
-| Bug-29 | Future.value() returns wrong type | ✅ Yes | Medium | ✅ Fixed |
-| Bug-32 | continue with label in switch case (see Lim-6) | ✅ Yes | Medium | ⬜ TODO |
-| Bug-40 | List.sort() with Comparable InterpretedInstance (see Lim-5) | ⚠️ Partial | High | 🚫 Limitation |
-| Bug-41 | Await in string interpolation (see Lim-9) | ⚠️ Partial | Medium | 🚫 Limitation |
-| Bug-42 | noSuchMethod override not invoked for getters (see Lim-7) | ✅ Yes | Medium | ⚠️ Partial |
-| Bug-43 | Infinite sync* generators (see Lim-4) | ⚠️ Major | High | ⬜ TODO |
-| Bug-44 | Async generators completion detection issues | ✅ Yes | Medium | ✅ Fixed |
-| Bug-45 | Labeled continue in sync* generators fails | ✅ Yes | Medium | ⚠️ Broken |
-| Bug-47 | Future.doWhile type cast issues | ✅ Yes | Medium | ⬜ TODO |
-| Bug-48 | await for stream iteration fails | ✅ Yes | Medium | ✅ Fixed |
-| Bug-50 | Index assignment operator `[]=` not found | ✅ Yes | Low | ✅ Fixed |
-| Bug-51 | Bridged mixins not found during type resolution | ✅ Yes | Medium | ✅ Fixed |
-| Bug-52 | Implicit super() fails when superclass has constructors | ✅ Yes | Low | ⬜ TODO |
-| Bug-53 | NullAwareElement feature not supported | ✅ Yes | Low | ⬜ TODO |
-| Bug-54 | Void return type checking too strict | ✅ Yes | Low | ✅ Fixed |
+**Status Legend:**
+- ⬜ TODO - Not yet fixed
+- 🔍 Confirm Fix - Previously fixed, needs verification
+- 🚫 Won't Fix - Fundamental limitation or too complex
 
 ---
 
@@ -195,7 +185,7 @@ final result = await Isolate.run(() {
 
 ---
 
-### Lim-4: Infinite Sync* Generators Hang
+### Lim-4, Bug-43: Infinite Sync* Generators Hang
 
 **Status:** ⬜ TODO  
 **Fixable:** ⚠️ Major effort  
@@ -234,9 +224,9 @@ void main() {
 
 ---
 
-### Lim-5: Comparable Interface Not Implemented
+### Lim-5, Bug-40: Comparable Interface Not Implemented
 
-**Status:** 🚫 Limitation  
+**Status:** ⬜ TODO  
 **Fixable:** ⚠️ Partial  
 **Complexity:** High
 
@@ -277,7 +267,7 @@ people.sort((a, b) => a.name.compareTo(b.name));  // ✅ Works
 
 ---
 
-### Lim-6: Labeled Continue in Switch Statements
+### Lim-6, Bug-32: Labeled Continue in Switch Statements
 
 **Status:** ⬜ TODO  
 **Fixable:** ✅ Yes  
@@ -317,9 +307,9 @@ void main() {
 
 ---
 
-### Lim-7: noSuchMethod Getter/Setter Access
+### Lim-7, Bug-42: noSuchMethod Getter/Setter Access
 
-**Status:** ⚠️ Partial  
+**Status:** ⬜ TODO  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -359,9 +349,9 @@ void main() {
 
 ---
 
-### Lim-8: LogicalOrPattern in Switch
+### Lim-8, Bug-13: LogicalOrPattern in Switch
 
-**Status:** 🚫 Limitation  
+**Status:** ⬜ TODO  
 **Fixable:** ⚠️ Major  
 **Complexity:** High
 
@@ -389,9 +379,9 @@ switch (day) {
 
 ---
 
-### Lim-9: Await in String Interpolation
+### Lim-9, Bug-41: Await in String Interpolation
 
-**Status:** 🚫 Limitation  
+**Status:** ⬜ TODO  
 **Fixable:** ⚠️ Partial  
 **Complexity:** Medium
 

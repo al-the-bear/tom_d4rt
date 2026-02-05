@@ -96,5 +96,13 @@ class CoreStdlib {
           print(arguments[0]);
           return null;
         }, arity: 1, name: 'print'));
+    environment.define(
+        'identical',
+        NativeFunction((visitor, arguments, namedArguments, typeArguments) {
+          if (arguments.length != 2) {
+            throw RuntimeError('identical requires two arguments.');
+          }
+          return identical(arguments[0], arguments[1]);
+        }, arity: 2, name: 'identical'));
   }
 }

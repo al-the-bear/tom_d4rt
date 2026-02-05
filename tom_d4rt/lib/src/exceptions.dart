@@ -1,17 +1,138 @@
+/// Static error reporter that tracks all created [D4rtException]s.
+///
+/// This is used primarily in test modes to detect errors that occurred
+/// during script execution.
+/// 
+/// Errors can be revoked if they are caught and handled gracefully,
+/// preventing them from causing test failures.
+class ErrorReporter {
+  static final List<D4rtException> _errors = [];
+
+  /// Reports an error to the reporter.
+  ///
+  /// This is called automatically by the [D4rtException] constructor.
+  static void reportError(D4rtException error) {
+    _errors.add(error);
+  }
+
+  /// Revokes (removes) an error from the reporter.
+  ///
+  /// This should be called when an exception has been caught and handled
+  /// gracefully, and should not count as a test failure.
+  /// 
+  /// Returns true if the error was found and removed, false otherwise.
+  static bool revokeError(D4rtException error) {
+    return _errors.remove(error);
+  }
+
+  /// Returns an unmodifiable list of all reported errors.
+  static List<D4rtException> get errors => List.unmodifiable(_errors);
+
+  /// Clears all reported errors.
+  static void clear() {
+    _errors.clear();
+  }
+
+  /// Returns true if any errors have been reported.
+  static bool get hasErrors => _errors.isNotEmpty;
+
+  /// Returns a formatted string with all reported errors.
+  static String get report {
+    if (_errors.isEmpty) return 'No errors reported.';
+    return _errors.map((e) => e.toString()).join('\n');
+  }
+}
+
+/// Base class for all D4rt-specific exceptions that should be tracked.
+/// 
+/// All exceptions are automatically registered with [ErrorReporter] on creation.
+/// If an exception is caught and handled gracefully, call [revoke()] to prevent
+/// it from causing test failures.
+abstract class D4rtException implements Exception {
+  /// The error message.
+  final String message;
+
+  /// Creates a [D4rtException] and registers it with the [ErrorReporter].
+  D4rtException(this.message) {
+    ErrorReporter.reportError(this);
+  }
+
+  /// Revokes this error from the ErrorReporter.
+  /// 
+  /// Call this when the exception has been caught and handled gracefully,
+  /// and should not count as a test failure.
+  /// 
+  /// Returns true if the error was successfully revoked, false if it was
+  /// not found in the reporter (possibly already revoked).
+  /// 
+  /// Example:
+  /// ```dart
+  /// try {
+  ///   // Some code that might fail
+  ///   d4rt.eval('badCode');
+  /// } catch (e) {
+  ///   if (e is SourceCodeException) {
+  ///     // Handle the error gracefully
+  ///     print('Handled parse error');
+  ///     e.revoke(); // Don't count this as a test failure
+  ///   }
+  /// }
+  /// ```
+  bool revoke() {
+    return ErrorReporter.revokeError(this);
+  }
+
+  @override
+  String toString();
+}
+
 /// Custom exception for runtime errors during interpretation.
 ///
 /// This exception is thrown when the interpreter encounters an error
 /// during code execution, such as accessing undefined variables,
 /// calling non-existent methods, or type mismatches.
-class RuntimeError implements Exception {
-  /// The error message describing what went wrong.
-  final String message;
-
+class RuntimeError extends D4rtException {
   /// Creates a new runtime error with the given message.
-  RuntimeError(this.message);
+  RuntimeError(super.message);
 
   @override
   String toString() => 'Runtime Error: $message';
+}
+
+/// Exception for state-related errors in D4rt components.
+class TomStateError extends D4rtException {
+  /// Creates a new state error with the given message.
+  TomStateError(super.message);
+
+  @override
+  String toString() => 'State Error: $message';
+}
+
+/// Exception for argument-related errors in D4rt components.
+class TomArgumentError extends D4rtException {
+  /// Creates a new argument error with the given message.
+  TomArgumentError(super.message);
+
+  @override
+  String toString() => 'Argument Error: $message';
+}
+
+/// Exception for range-related errors in D4rt components.
+class TomRangeError extends D4rtException {
+  /// Creates a new range error with the given message.
+  TomRangeError(super.message);
+
+  @override
+  String toString() => 'Range Error: $message';
+}
+
+/// Exception for unsupported operations in D4rt components.
+class TomUnsupportedError extends D4rtException {
+  /// Creates a new unsupported error with the given message.
+  TomUnsupportedError(super.message);
+
+  @override
+  String toString() => 'Unsupported Error: $message';
 }
 
 /// Internal exception used to unwind the stack during a 'return' statement.
@@ -61,15 +182,20 @@ class ContinueException implements Exception {
 ///
 /// This exception indicates problems with the Dart source code being
 /// interpreted, such as syntax errors, missing imports, or invalid URIs.
-class SourceCodeException implements Exception {
-  /// The error message describing the source code problem.
-  final String message;
+class SourceCodeException extends D4rtException {
+  /// The optional problematic code that caused the exception.
+  final String? problematicCode;
 
-  /// Creates a new source code exception with the given message.
-  SourceCodeException(this.message);
+  /// Creates a new source code exception with the given message and optional code.
+  SourceCodeException(super.message, [this.problematicCode]);
 
   @override
-  String toString() => 'SourceCodeException: $message';
+  String toString() {
+    if (problematicCode != null) {
+      return 'SourceCodeException: $message\nProblematic code: [$problematicCode]';
+    }
+    return 'SourceCodeException: $message';
+  }
 }
 
 /// Internal exception wrapper for user-thrown exceptions.
@@ -77,14 +203,15 @@ class SourceCodeException implements Exception {
 /// This helps distinguish between user 'throw x' exceptions and internal
 /// interpreter control flow exceptions like Return/Break/Continue.
 /// It wraps the original thrown value for proper exception handling.
-class InternalInterpreterException implements Exception {
+class InternalInterpreterException extends D4rtException {
   /// The original value that was thrown by user code.
   final Object? originalThrownValue;
   // StackTrace could be stored here if needed directly,
   // but catch in visitTryStatement already gets it.
 
   /// Creates a new internal interpreter exception wrapping the original thrown value.
-  InternalInterpreterException(this.originalThrownValue);
+  InternalInterpreterException(this.originalThrownValue)
+      : super('External error caught by interpreter');
 
   @override
   String toString() {
@@ -98,12 +225,9 @@ class InternalInterpreterException implements Exception {
 ///
 /// This exception is thrown when pattern matching operations fail
 /// to match the expected pattern against the actual value.
-class PatternMatchException implements Exception {
-  /// The error message describing the pattern match failure.
-  final String message;
-
+class PatternMatchException extends D4rtException {
   /// Creates a new pattern match exception with the given message.
-  PatternMatchException(this.message);
+  PatternMatchException(super.message);
 
   @override
   String toString() => "PatternMatchException: $message";
