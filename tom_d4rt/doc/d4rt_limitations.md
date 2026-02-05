@@ -31,7 +31,6 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 | Bug-55 | [Symbol class not bridged](#bug-55-symbol-class-not-bridged) | Low | ✅ Fixed |
 | Bug-65 | [Map.from constructor not bridged](#bug-65-mapfrom-constructor-not-bridged) | Low | ✅ Fixed |
 | Bug-71 | [Error class not bridged (undefined variable)](#bug-71-error-class-not-bridged) | Low | ✅ Fixed |
-| Bug-75 | [Division by zero returns Infinity instead of throwing](#bug-75-division-by-zero-returns-infinity) — `eval_method_test: should handle division by zero` | Low | ⬜ TODO |
 | Lim-2 | [Extensions on bridged types don't work](#lim-2-extensions-on-bridged-types-dont-work) | Medium | ✅ Fixed |
 | Lim-5, Bug-40 | [Comparable interface not implemented for interpreted classes](#lim-5-bug-40-comparable-interface-not-implemented) | Medium | ✅ Fixed |
 | Lim-6, Bug-32 | [Labeled continue in switch statements](#lim-6-bug-32-labeled-continue-in-switch-statements) | Medium | ✅ Fixed |

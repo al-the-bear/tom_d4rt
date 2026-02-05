@@ -166,11 +166,11 @@ String _escapeStringLiteral(String s) {
 
 void main() {
   // ============================================================
-  // LIMITATIONS (Fundamental constraints - Won't Fix)
-  // These represent architectural limitations that cannot be fixed
+  // OPEN BUGS - WON'T FIX
+  // Fundamental limitations that cannot be fixed
   // ============================================================
 
-  group('Limitations (SHOULD FAIL)', () {
+  group('Open Bugs - Won\'t Fix (SHOULD FAIL)', () {
     test('Lim-3: Isolate.run with interpreted closure should work', () async {
       // Fundamental limitation: Interpreted closures cannot be serialized
       // and passed to isolates. This is an architectural constraint.
@@ -186,14 +186,64 @@ Future<int> main() async {
       final result = await executeAsync(source);
       expect(result, equals(42));
     });
+
+    // Bug-14: Records with named fields can't be converted to native records
+    test('Bug-14: Records with named fields should return native record', () {
+      const source = '''
+({int x, int y}) main() {
+  return (x: 10, y: 20);
+}
+''';
+      final result = execute(source);
+      // Currently returns InterpretedRecord - this test fails until we can create
+      // native records with named fields (not possible in Dart at runtime)
+      expect(result, isA<({int x, int y})>());
+    });
+
+    // Bug-14: >9 positional fields can't be converted
+    test('Bug-14: Records with >9 positional fields should return native record', () {
+      const source = '''
+(int, int, int, int, int, int, int, int, int, int) main() {
+  return (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+}
+''';
+      final result = execute(source);
+      // Currently returns InterpretedRecord - this test fails until we add more cases
+      expect(result, equals((1, 2, 3, 4, 5, 6, 7, 8, 9, 10)));
+    });
   });
 
   // ============================================================
-  // OPEN BUGS (⬜ TODO status)
+  // OPEN BUGS - PENDING
   // Known issues that should be fixed - tests FAIL until fixed
   // ============================================================
 
-  group('Open Bugs (SHOULD FAIL)', () {
+  group('Open Bugs - Pending (SHOULD FAIL)', () {
+    // Bug-45: Labeled continue in sync* generators
+    test('Bug-45: Labeled continue in sync* should return correct values', () {
+      const source = '''
+Iterable<int> generateWithSkip() sync* {
+  outer:
+  for (int i = 0; i < 5; i++) {
+    if (i == 2) continue outer;
+    yield i;
+  }
+}
+List<int> main() {
+  return generateWithSkip().toList();
+}
+''';
+      final result = execute(source);
+      expect(result, equals([0, 1, 3, 4]));
+    });
+  });
+
+  // ============================================================
+  // FIXED BUGS (✅ Fixed status)
+  // Regression tests for bugs that have been resolved - TESTS PASS
+  // ============================================================
+
+  group('Fixed Bugs (SHOULD PASS)', () {
     test('Bug-1: List.empty() should work', () {
       const source = '''
 List<int> main() {
@@ -369,31 +419,6 @@ String main() {
       expect(result, equals((2, 1)));
     });
 
-    // This test documents the limitation: named records can't be converted to native records
-    test('Bug-14: Records with named fields should return native record', () {
-      const source = '''
-({int x, int y}) main() {
-  return (x: 10, y: 20);
-}
-''';
-      final result = execute(source);
-      // Currently returns InterpretedRecord - this test fails until we can create
-      // native records with named fields (not possible in Dart at runtime)
-      expect(result, isA<({int x, int y})>());
-    });
-
-    // This test documents the limitation: >9 positional fields can't be converted
-    test('Bug-14: Records with >9 positional fields should return native record', () {
-      const source = '''
-(int, int, int, int, int, int, int, int, int, int) main() {
-  return (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-}
-''';
-      final result = execute(source);
-      // Currently returns InterpretedRecord - this test fails until we add more cases
-      expect(result, equals((1, 2, 3, 4, 5, 6, 7, 8, 9, 10)));
-    });
-
     test('Bug-15: base64Encode should work', () {
       const source = '''
 import 'dart:convert';
@@ -483,23 +508,6 @@ bool main() {
 ''';
       final result = execute(source);
       expect(result, isFalse);
-    });
-
-    test('Bug-45: Labeled continue in sync* should return correct values', () {
-      const source = '''
-Iterable<int> generateWithSkip() sync* {
-  outer:
-  for (int i = 0; i < 5; i++) {
-    if (i == 2) continue outer;
-    yield i;
-  }
-}
-List<int> main() {
-  return generateWithSkip().toList();
-}
-''';
-      final result = execute(source);
-      expect(result, equals([0, 1, 3, 4]));
     });
 
     test(
@@ -684,14 +692,7 @@ bool main() {
       final result = execute(source);
       expect(result, isTrue);
     });
-  });
 
-  // ============================================================
-  // FIXED BUGS (✅ Fixed status)
-  // Regression tests for bugs that have been resolved - TESTS PASS
-  // ============================================================
-
-  group('Fixed Bugs (SHOULD PASS)', () {
     test('Bug-56: Constructor with positional arguments should work', () {
       const source = '''
 class Point {
