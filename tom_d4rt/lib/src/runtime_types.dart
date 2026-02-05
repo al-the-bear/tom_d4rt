@@ -1836,3 +1836,80 @@ class BridgedEnumMixinMethodCallable implements Callable {
     return '<bridged enum mixin method $bridgedMixinName.$methodName>';
   }
 }
+
+/// Lim-1 FIX: Represents an extension type definition at runtime.
+/// Extension types are inline classes that provide a zero-cost abstraction.
+class InterpretedExtensionType implements Callable, RuntimeType {
+  @override
+  final String name;
+  final String representationFieldName;
+  final RuntimeType? representationType;
+  final Environment definitionEnvironment;
+  final Map<String, InterpretedFunction> getters;
+  final Map<String, InterpretedFunction> methods;
+
+  InterpretedExtensionType(
+    this.name,
+    this.representationFieldName,
+    this.representationType,
+    this.definitionEnvironment,
+    this.getters,
+    this.methods,
+  );
+
+  @override
+  int get arity => 1; // Extension types take one positional argument (the wrapped value)
+
+  /// Call creates an instance wrapping the representation value
+  @override
+  Object? call(InterpreterVisitor visitor, List<Object?> positionalArgs,
+      [Map<String, Object?>? namedArgs, List<RuntimeType>? typeArguments]) {
+    if (positionalArgs.isEmpty) {
+      throw RuntimeError(
+          "Extension type '$name' requires exactly one positional argument");
+    }
+    final representationValue = positionalArgs[0];
+    return InterpretedExtensionTypeInstance(this, representationValue);
+  }
+
+  @override
+  bool isSubtypeOf(RuntimeType other, {Object? value}) {
+    // Extension types are subtypes of their representation type
+    if (other == this) return true;
+    if (representationType != null) {
+      return representationType!.isSubtypeOf(other, value: value);
+    }
+    return false;
+  }
+
+  @override
+  String toString() => '<extension type $name>';
+}
+
+/// An instance of an extension type
+class InterpretedExtensionTypeInstance {
+  final InterpretedExtensionType extensionType;
+  final Object? representationValue;
+
+  InterpretedExtensionTypeInstance(this.extensionType, this.representationValue);
+
+  /// Get a property (field or getter) on this extension type instance
+  Object? get(String propertyName, [InterpreterVisitor? visitor]) {
+    // Check if accessing the representation field
+    if (propertyName == extensionType.representationFieldName) {
+      return representationValue;
+    }
+
+    // Check for getters defined on the extension type
+    final getter = extensionType.getters[propertyName];
+    if (getter != null && visitor != null) {
+      return getter.call(visitor, [representationValue], {});
+    }
+
+    throw RuntimeError(
+        "Extension type '${extensionType.name}' has no property '$propertyName'");
+  }
+
+  @override
+  String toString() => '<instance of ${extensionType.name}>';
+}

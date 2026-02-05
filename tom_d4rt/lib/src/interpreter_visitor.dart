@@ -22,6 +22,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   /// When non-null, yield statements add directly to this list.
   List<Object?>? syncGeneratorValues;
 
+  /// For lazy sync* generators: when true, yield throws SyncYieldSuspension
+  /// to pause execution and bubble up through the call stack.
+  bool isLazySyncGeneratorContext = false;
+
   InterpreterVisitor({
     required this.globalEnvironment,
     required this.moduleLoader, // Accept ModuleLoader in the constructor
@@ -815,6 +819,27 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           throw RuntimeError(
               "Record has no field named '$memberName'. Available fields: ${record.namedFields.keys.join(', ')}");
         }
+      }
+    } else if (prefixValue is InterpretedExtensionTypeInstance) {
+      // Lim-1 FIX: Handle property access on extension type instances
+      final extensionInstance = prefixValue;
+      Logger.debug(
+          "[PrefixedIdentifier] Access on InterpretedExtensionTypeInstance: .$memberName");
+
+      // Check for Object methods first (hashCode, runtimeType, toString)
+      switch (memberName) {
+        case 'hashCode':
+          return extensionInstance.representationValue.hashCode;
+        case 'runtimeType':
+          return extensionInstance.extensionType;
+      }
+
+      // Delegate to the extension type instance's get() method
+      try {
+        return extensionInstance.get(memberName, this);
+      } on ReturnException catch (e) {
+        // If get() executes a getter that throws ReturnException
+        return e.value;
       }
     } else if (prefixValue is BridgedEnum) {
       Logger.debug(
@@ -4175,6 +4200,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         syncGeneratorValues!.add(value);
       }
       return null; // Continue execution
+    }
+
+    // Lim-4/Bug-43 FIX: If we're in a lazy sync* context, throw suspension to pause
+    if (isLazySyncGeneratorContext) {
+      throw SyncGeneratorYieldSuspension(value,
+          isYieldStar: node.star != null);
     }
 
     // Fallback for other contexts
@@ -8594,6 +8625,23 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
 
       Logger.debug("[_matchAndBind] Object pattern matched successfully.");
+    } else if (pattern is LogicalOrPattern) {
+      // Lim-8, Bug-13, Bug-68 FIX: Handle Logical OR patterns (pattern1 || pattern2)
+      // Try matching the left operand first, if that fails, try the right operand
+      Logger.debug(
+          "[_matchAndBind] LogicalOrPattern: trying left operand ${pattern.leftOperand.runtimeType}");
+      try {
+        _matchAndBind(pattern.leftOperand, value, environment);
+        Logger.debug("[_matchAndBind] LogicalOrPattern: left operand matched");
+        return; // Left matched, done
+      } on PatternMatchException {
+        // Left didn't match, try right
+        Logger.debug(
+            "[_matchAndBind] LogicalOrPattern: left failed, trying right operand ${pattern.rightOperand.runtimeType}");
+        _matchAndBind(pattern.rightOperand, value, environment);
+        Logger.debug("[_matchAndBind] LogicalOrPattern: right operand matched");
+        // If right also throws, the exception propagates up
+      }
     } else {
       throw TomUnimplementedError(
           "Pattern type not yet supported in _matchAndBind: ${pattern.runtimeType}");
@@ -8894,6 +8942,89 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     }
 
     return null; // Declarations typically return null
+  }
+
+  /// Lim-1 FIX: Handle extension type declarations (Dart 3.3+)
+  @override
+  Object? visitExtensionTypeDeclaration(ExtensionTypeDeclaration node) {
+    final typeName = node.name.lexeme;
+    Logger.debug(
+        "[visitExtensionTypeDeclaration] Declaring extension type: $typeName");
+
+    // Get the representation field name and type
+    final representation = node.representation;
+    final representationFieldName = representation.fieldName.lexeme;
+    final representationTypeNode = representation.fieldType;
+
+    Logger.debug(
+        "[visitExtensionTypeDeclaration] Representation field: $representationFieldName, type: ${representationTypeNode.toSource()}");
+
+    // Resolve the representation type
+    RuntimeType? representationType;
+    if (representationTypeNode is NamedType) {
+      final representationTypeName = representationTypeNode.name2.lexeme;
+      try {
+        final typeValue = environment.get(representationTypeName);
+        if (typeValue is RuntimeType) {
+          representationType = typeValue;
+        }
+      } catch (e) {
+        // Type not found, leave as null
+        Logger.debug(
+            "[visitExtensionTypeDeclaration] Could not resolve representation type: $e");
+      }
+    }
+
+    // Collect getters and methods from members
+    final getters = <String, InterpretedFunction>{};
+    final methods = <String, InterpretedFunction>{};
+
+    for (final member in node.members) {
+      if (member is MethodDeclaration) {
+        final methodName = member.name.lexeme;
+        final isGetter = member.isGetter;
+        final isSetter = member.isSetter;
+        final isStatic = member.isStatic;
+
+        if (isStatic) {
+          // Skip static members for now
+          continue;
+        }
+
+        // Create the interpreted function using the method constructor
+        // Extension type methods need access to the representation value
+        // We pass null for owner initially - extension types are special
+        final interpretedMethod =
+            InterpretedFunction.method(member, environment, null);
+
+        if (isGetter) {
+          getters[methodName] = interpretedMethod;
+          Logger.debug(
+              "[visitExtensionTypeDeclaration]   Added getter: $methodName");
+        } else if (!isSetter) {
+          methods[methodName] = interpretedMethod;
+          Logger.debug(
+              "[visitExtensionTypeDeclaration]   Added method: $methodName");
+        }
+      }
+    }
+
+    // Create the extension type
+    final extensionType = InterpretedExtensionType(
+      typeName,
+      representationFieldName,
+      representationType,
+      environment,
+      getters,
+      methods,
+    );
+
+    // Define it in the environment
+    environment.define(typeName, extensionType);
+    Logger.debug(
+        "[visitExtensionTypeDeclaration] Defined extension type '$typeName' in environment.");
+
+    return null;
   }
 
   BridgedClass? _getBridgedClassForNativeType(String typeName) {

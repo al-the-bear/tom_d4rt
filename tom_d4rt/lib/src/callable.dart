@@ -3925,6 +3925,42 @@ class InterpretedFunction implements Callable {
   }
 }
 
+/// Exception used to pause sync* generator execution at a yield point
+class SyncGeneratorYieldSuspension implements Exception {
+  final Object? value;
+  final bool isYieldStar;
+  SyncGeneratorYieldSuspension(this.value, {this.isYieldStar = false});
+}
+
+/// State for lazy sync* generator execution
+class SyncGeneratorState {
+  final InterpretedFunction function;
+  final InterpreterVisitor visitor;
+  final Environment executionEnvironment;
+  final bool redirected;
+
+  // Current statement index in the block
+  int currentStatementIndex = 0;
+  // Track nested block states (for loops, etc.)
+  final List<_BlockExecutionState> blockStack = [];
+  // Flag indicating if generator is exhausted
+  bool isExhausted = false;
+  // Flag indicating if generator has been initialized
+  bool isInitialized = false;
+  // The function body statements
+  List<Statement>? statements;
+
+  SyncGeneratorState(
+      this.function, this.visitor, this.executionEnvironment, this.redirected);
+}
+
+/// State for nested block execution
+class _BlockExecutionState {
+  final List<Statement> statements;
+  int currentIndex;
+  _BlockExecutionState(this.statements, this.currentIndex);
+}
+
 // Iterable implementation for sync* generators
 class _SyncGeneratorIterable extends Iterable<Object?> {
   final InterpretedFunction function;
@@ -3936,55 +3972,54 @@ class _SyncGeneratorIterable extends Iterable<Object?> {
       this.function, this.visitor, this.executionEnvironment, this.redirected);
 
   @override
-  Iterator<Object?> get iterator => _SyncGeneratorIterator(
+  Iterator<Object?> get iterator => _LazySyncGeneratorIterator(
       function, visitor, executionEnvironment, redirected);
 }
 
-// Iterator implementation for sync* generators
-class _SyncGeneratorIterator implements Iterator<Object?> {
+// Lazy iterator implementation for sync* generators
+// Uses Dart's native sync* to produce values lazily
+// This works by setting isLazySyncGeneratorContext which causes yield to throw
+// SyncGeneratorYieldSuspension, which we catch and convert to a native yield.
+class _LazySyncGeneratorIterator implements Iterator<Object?> {
   final InterpretedFunction function;
   final InterpreterVisitor visitor;
   final Environment executionEnvironment;
   final bool redirected;
 
-  List<Object?>? _values;
-  int _currentIndex = -1;
-  bool _initialized = false;
+  Iterator<Object?>? _nativeIterator;
+  Object? _current;
 
-  _SyncGeneratorIterator(
+  _LazySyncGeneratorIterator(
       this.function, this.visitor, this.executionEnvironment, this.redirected);
 
   @override
-  Object? get current =>
-      (_currentIndex >= 0 && _values != null && _currentIndex < _values!.length)
-          ? _values![_currentIndex]
-          : null;
+  Object? get current => _current;
 
   @override
   bool moveNext() {
-    if (!_initialized) {
-      _initialized = true;
-      _values = _collectAllValues();
+    _nativeIterator ??= _createLazyGenerator().iterator;
+    if (_nativeIterator!.moveNext()) {
+      _current = _nativeIterator!.current;
+      return true;
     }
-
-    if (_values == null || _values!.isEmpty) {
-      return false;
-    }
-
-    _currentIndex++;
-    return _currentIndex < _values!.length;
+    return false;
   }
 
-  List<Object?> _collectAllValues() {
-    final values = <Object?>[];
+  /// Creates a lazy generator using Dart's native sync*
+  /// This approach runs the generator body, catching SyncGeneratorYieldSuspension
+  /// to produce values lazily. The suspension mechanism allows infinite generators
+  /// to work with take().
+  Iterable<Object?> _createLazyGenerator() sync* {
     final previousVisitorEnv = visitor.environment;
     final previousCurrentFunction = visitor.currentFunction;
     final previousSyncGeneratorValues = visitor.syncGeneratorValues;
+    final previousLazySyncContext = visitor.isLazySyncGeneratorContext;
 
     try {
       visitor.environment = executionEnvironment;
       visitor.currentFunction = function;
-      visitor.syncGeneratorValues = values; // Set up sync* context
+      visitor.syncGeneratorValues = null; // Don't use eager collection
+      visitor.isLazySyncGeneratorContext = true; // Enable lazy yield suspension
 
       if (function.isAbstract) {
         throw RuntimeError(
@@ -3992,27 +4027,233 @@ class _SyncGeneratorIterator implements Iterator<Object?> {
       }
 
       final bodyToExecute = function._body;
-      if (!redirected) {
-        if (bodyToExecute is BlockFunctionBody) {
-          // Execute the block directly - yields will add to values via syncGeneratorValues
-          visitor.executeBlock(
-              bodyToExecute.block.statements, executionEnvironment);
-        } else if (bodyToExecute is ExpressionFunctionBody) {
-          // Expression body - just execute it
+      if (!redirected && bodyToExecute is BlockFunctionBody) {
+        // Execute the block - yields will throw SyncGeneratorYieldSuspension
+        // which we catch and convert to native yields
+        yield* _executeBlockWithYieldSuspension(bodyToExecute.block.statements);
+      } else if (bodyToExecute is ExpressionFunctionBody) {
+        try {
           bodyToExecute.expression.accept<Object?>(visitor);
-        } else if (bodyToExecute is EmptyFunctionBody) {
-          // Empty generator - no yields
+        } on SyncGeneratorYieldSuspension catch (e) {
+          if (e.isYieldStar) {
+            final iterable = e.value;
+            if (iterable is Iterable) {
+              yield* iterable;
+            }
+          } else {
+            yield e.value;
+          }
         }
       }
     } on ReturnException catch (_) {
-      // Generator completed with return
+      // Generator completed with return - just stop
     } finally {
       visitor.environment = previousVisitorEnv;
       visitor.currentFunction = previousCurrentFunction;
       visitor.syncGeneratorValues = previousSyncGeneratorValues;
+      visitor.isLazySyncGeneratorContext = previousLazySyncContext;
+    }
+  }
+
+  /// Execute a block, catching SyncGeneratorYieldSuspension to yield values lazily.
+  /// This is the key to making infinite generators work.
+  Iterable<Object?> _executeBlockWithYieldSuspension(
+      List<Statement> statements) sync* {
+    for (final statement in statements) {
+      yield* _executeStatementWithYieldSuspension(statement);
+    }
+  }
+
+  /// Execute a single statement, handling yield suspension.
+  /// For loops/control flow, we need special handling to allow resumption.
+  Iterable<Object?> _executeStatementWithYieldSuspension(
+      Statement statement) sync* {
+    // For while/for loops, we need to handle them specially
+    // because we need to resume execution after yielding
+    if (statement is WhileStatement) {
+      yield* _executeWhileWithYieldSuspension(statement);
+    } else if (statement is ForStatement) {
+      yield* _executeForWithYieldSuspension(statement);
+    } else if (statement is Block) {
+      yield* _executeBlockWithYieldSuspension(statement.statements);
+    } else {
+      // For other statements, just execute and catch any yield suspension
+      try {
+        statement.accept<Object?>(visitor);
+      } on SyncGeneratorYieldSuspension catch (e) {
+        if (e.isYieldStar) {
+          final iterable = e.value;
+          if (iterable is Iterable) {
+            yield* iterable;
+          }
+        } else {
+          yield e.value;
+        }
+      }
+    }
+  }
+
+  /// Execute a while loop lazily, yielding at each yield point
+  Iterable<Object?> _executeWhileWithYieldSuspension(
+      WhileStatement node) sync* {
+    while (true) {
+      // Evaluate condition
+      final conditionValue = node.condition.accept<Object?>(visitor);
+      bool conditionResult;
+      final bridgedInstance = visitor.toBridgedInstance(conditionValue);
+      if (conditionValue is bool) {
+        conditionResult = conditionValue;
+      } else if (bridgedInstance.$2 &&
+          bridgedInstance.$1?.nativeObject is bool) {
+        conditionResult = bridgedInstance.$1!.nativeObject as bool;
+      } else {
+        throw RuntimeError(
+            "The condition of a 'while' loop must be a boolean, but was ${conditionValue?.runtimeType}.");
+      }
+
+      if (!conditionResult) {
+        break;
+      }
+
+      // Execute body with yield suspension handling
+      try {
+        if (node.body is Block) {
+          yield* _executeBlockWithYieldSuspension(
+              (node.body as Block).statements);
+        } else {
+          yield* _executeStatementWithYieldSuspension(node.body);
+        }
+      } on BreakException catch (e) {
+        if (e.label == null) {
+          break;
+        }
+        rethrow;
+      } on ContinueException catch (e) {
+        if (e.label == null) {
+          continue;
+        }
+        rethrow;
+      }
+    }
+  }
+
+  /// Execute a for loop lazily, yielding at each yield point
+  Iterable<Object?> _executeForWithYieldSuspension(ForStatement node) sync* {
+    final loopParts = node.forLoopParts;
+
+    if (loopParts is ForPartsWithDeclarations) {
+      yield* _executeClassicForWithYieldSuspension(
+          loopParts.variables, loopParts.condition, loopParts.updaters, node.body);
+    } else if (loopParts is ForPartsWithExpression) {
+      yield* _executeClassicForWithYieldSuspension(
+          loopParts.initialization, loopParts.condition, loopParts.updaters, node.body);
+    } else if (loopParts is ForEachPartsWithDeclaration) {
+      yield* _executeForInWithYieldSuspension(
+          loopParts.loopVariable, loopParts.iterable, node.body);
+    } else if (loopParts is ForEachPartsWithIdentifier) {
+      yield* _executeForInWithYieldSuspension(
+          loopParts.identifier, loopParts.iterable, node.body);
+    } else {
+      throw TomStateError('Unknown ForLoopParts type: ${loopParts.runtimeType}');
+    }
+  }
+
+  /// Execute a classic for loop lazily
+  Iterable<Object?> _executeClassicForWithYieldSuspension(
+      AstNode? initialization,
+      Expression? condition,
+      List<Expression>? updaters,
+      Statement body) sync* {
+    // Execute initialization
+    if (initialization != null) {
+      initialization.accept<Object?>(visitor);
     }
 
-    return values;
+    while (true) {
+      // Evaluate condition
+      if (condition != null) {
+        final conditionValue = condition.accept<Object?>(visitor);
+        bool conditionResult;
+        final bridgedInstance = visitor.toBridgedInstance(conditionValue);
+        if (conditionValue is bool) {
+          conditionResult = conditionValue;
+        } else if (bridgedInstance.$2 &&
+            bridgedInstance.$1?.nativeObject is bool) {
+          conditionResult = bridgedInstance.$1!.nativeObject as bool;
+        } else {
+          throw RuntimeError(
+              "The condition of a 'for' loop must be a boolean, but was ${conditionValue?.runtimeType}.");
+        }
+
+        if (!conditionResult) {
+          break;
+        }
+      }
+
+      // Execute body with yield suspension handling
+      try {
+        if (body is Block) {
+          yield* _executeBlockWithYieldSuspension(body.statements);
+        } else {
+          yield* _executeStatementWithYieldSuspension(body);
+        }
+      } on BreakException catch (e) {
+        if (e.label == null) {
+          break;
+        }
+        rethrow;
+      } on ContinueException catch (e) {
+        if (e.label == null) {
+          // Fall through to updaters
+        } else {
+          rethrow;
+        }
+      }
+
+      // Execute updaters
+      if (updaters != null) {
+        for (final updater in updaters) {
+          updater.accept<Object?>(visitor);
+        }
+      }
+    }
+  }
+
+  /// Execute a for-in loop lazily
+  Iterable<Object?> _executeForInWithYieldSuspension(
+      AstNode loopVariable, Expression iterableExpr, Statement body) sync* {
+    final iterable = iterableExpr.accept<Object?>(visitor);
+    if (iterable is! Iterable) {
+      throw RuntimeError(
+          "for-in loop requires an Iterable, got ${iterable?.runtimeType}");
+    }
+
+    for (final element in iterable) {
+      // Define loop variable
+      if (loopVariable is DeclaredIdentifier) {
+        visitor.environment.define(loopVariable.name.lexeme, element);
+      } else if (loopVariable is SimpleIdentifier) {
+        visitor.environment.assign(loopVariable.name, element);
+      }
+
+      try {
+        if (body is Block) {
+          yield* _executeBlockWithYieldSuspension(body.statements);
+        } else {
+          yield* _executeStatementWithYieldSuspension(body);
+        }
+      } on BreakException catch (e) {
+        if (e.label == null) {
+          break;
+        }
+        rethrow;
+      } on ContinueException catch (e) {
+        if (e.label == null) {
+          continue;
+        }
+        rethrow;
+      }
+    }
   }
 }
 
