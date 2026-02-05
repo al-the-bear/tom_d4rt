@@ -1,6 +1,6 @@
 # D4rt Bridge Generator Configuration for tom_d4rt_dcli
 # 
-# This file configures bridge generation for dcli only.
+# This file configures bridge generation for dcli and VS Code scripting API.
 # Run with: dart run build_runner build --delete-conflicting-outputs
 
 targets:
@@ -27,6 +27,17 @@ targets:
               barrelImport: package:tom_d4rt_dcli/tom_d4rt_cli_api.dart
               outputPath: lib/src/bridges/cli_api_bridges.dart
               followAllReExports: false
+
+            # Tom VS Code Scripting API - VS Code API wrappers
+            - name: tom_vscode_scripting_api
+              barrelFiles:
+                - package:tom_vscode_scripting_api/script_globals.dart
+              barrelImport: package:tom_vscode_scripting_api/script_globals.dart
+              outputPath: lib/src/bridges/tom_vscode_scripting_api_bridges.dart
+              excludePatterns:
+                - "**/*_bridge.dart"
+                - "**/*_generated.dart"
+              excludeClasses: []
 
             # DCli - CLI scripting utilities from pub.dev
             - name: dcli

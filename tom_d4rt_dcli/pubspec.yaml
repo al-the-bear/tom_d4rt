@@ -11,6 +11,10 @@ dependencies:
   tom_d4rt:
     path: ../tom_d4rt
   
+  # VS Code scripting API (for bridge support)
+  tom_vscode_scripting_api:
+    path: ../tom_vscode_scripting_api
+  
   # External packages for CLI
   dcli: ^4.0.1
   dcli_core: ^4.0.7

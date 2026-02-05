@@ -1,0 +1,14 @@
+name: tom_vscode_scripting_api
+description: Dart abstractions for VS Code extension APIs, providing a bridge-agnostic interface for VS Code scripting.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.10.4
+
+# No dependencies - this package is designed to be standalone
+dependencies: {}
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.6

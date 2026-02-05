@@ -1,12 +1,13 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for tom_d4rt_dcli
-// Generated: 2026-02-03T09:08:06.960114
+// Generated: 2026-02-05T08:59:00.722200
 
 /// D4rt Bridge Registration for tom_d4rt_dcli
 library;
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'src/bridges/cli_api_bridges.dart' as cli_api_bridges;
+import 'src/bridges/tom_vscode_scripting_api_bridges.dart' as tom_vscode_scripting_api_bridges;
 import 'src/bridges/dcli_bridges.dart' as dcli_bridges;
 
 /// Combined bridge registration for tom_d4rt_dcli.
@@ -19,6 +20,10 @@ class TomD4rtDcliBridge {
       d4rt,
       'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart',
     );
+    tom_vscode_scripting_api_bridges.TomVscodeScriptingApiBridge.registerBridges(
+      d4rt,
+      'package:tom_vscode_scripting_api/script_globals.dart',
+    );
     dcli_bridges.DcliBridge.registerBridges(
       d4rt,
       'package:dcli/dcli.dart',
@@ -29,6 +34,7 @@ class TomD4rtDcliBridge {
   static String getImportBlock() {
     final buffer = StringBuffer();
     buffer.writeln(cli_api_bridges.CliApiBridge.getImportBlock());
+    buffer.writeln(tom_vscode_scripting_api_bridges.TomVscodeScriptingApiBridge.getImportBlock());
     buffer.writeln(dcli_bridges.DcliBridge.getImportBlock());
     return buffer.toString();
   }

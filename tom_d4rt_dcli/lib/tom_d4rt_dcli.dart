@@ -12,6 +12,7 @@ import 'src/cli/repl_base.dart';
 export 'dartscript.dart';
 export 'src/bridges/dcli_bridges.dart';
 export 'src/cli/repl_base.dart';
+export 'src/cli/vscode_integration.dart';
 
 /// The current version of the dcli tool.
 const String dcliVersion = '0.1.0';
