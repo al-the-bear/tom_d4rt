@@ -19,41 +19,42 @@ Limitations are fundamental constraints or intentionally unsupported features of
 | Lim-5 | Comparable interface not implemented for interpreted classes | ⚠️ Partial | High | 🚫 Limitation |
 | Lim-6 | Labeled continue in switch statements | ✅ Yes | Medium | ⬜ TODO |
 | Lim-7 | noSuchMethod getter/setter access (methods work) | ✅ Yes | Medium | ⚠️ Partial |
-| Lim-8 | Await in string interpolation (shows raw object) | ⚠️ Partial | Medium | ⚠️ Quirk |
+| Lim-8 | Logical OR patterns in switch cases | ⚠️ Major | High | ⬜ TODO |
+| Lim-9 | Await in string interpolation (shows raw object) | ⚠️ Partial | Medium | ⚠️ Quirk |
 
 ---
 
 ## Table 2: Bugs
 
-Bugs are issues that should work but don't. Many have been fixed.
+Bugs are issues that should work but don't. Status verified by automated tests.
 
 | ID | Description | Fixable? | Complexity | Status |
 |----|-------------|----------|------------|--------|
-| Bug-1 | List.empty() constructor not bridged | ✅ Yes | Low | ✅ Fixed |
-| Bug-2 | Queue.addAll() method not bridged | ✅ Yes | Low | ✅ Fixed |
+| Bug-1 | List.empty() constructor not bridged | ✅ Yes | Low | ⬜ TODO |
+| Bug-2 | Queue.addAll() method not bridged | ✅ Yes | Low | ⬜ TODO |
 | Bug-3 | Enum value access via Day.wednesday fails | ✅ Yes | Low | ✅ Fixed |
 | Bug-4 | Enum value at top-level const fails | ✅ Yes | Low | ✅ Fixed |
-| Bug-5 | Division by zero throws instead of returning infinity | ✅ Yes | Low | ✅ Fixed |
-| Bug-6 | Record missing Object methods (hashCode) | ✅ Yes | Low | ✅ Fixed |
-| Bug-7 | Digit separators (1_000_000) not parsed | ✅ Yes | Low | ✅ Fixed |
-| Bug-8 | List.indexWhere() method not bridged | ✅ Yes | Low | ✅ Fixed |
-| Bug-9 | Type Never not found in type resolution | ✅ Yes | Medium | ✅ Fixed |
-| Bug-10 | Interface Comparable not found for implements | ✅ Yes | Medium | ✅ Fixed |
-| Bug-11 | Sealed class subclasses incorrectly rejected | ✅ Yes | Medium | ✅ Fixed |
-| Bug-12 | Interface Exception not found for implements | ✅ Yes | Medium | ✅ Fixed |
-| Bug-13 | Pattern \|\| in switch not supported | ⚠️ Major | High | ✅ Fixed |
-| Bug-14 | Record type annotation not resolved | ✅ Yes | Medium | ✅ Fixed |
+| Bug-5 | Division by zero throws instead of returning infinity | ✅ Yes | Low | ⬜ TODO |
+| Bug-6 | Record missing Object methods (hashCode) | ✅ Yes | Low | ⬜ TODO |
+| Bug-7 | Digit separators (1_000_000) not parsed | ✅ Yes | Low | ⬜ TODO |
+| Bug-8 | List.indexWhere() method not bridged | ✅ Yes | Low | ⬜ TODO |
+| Bug-9 | Type Never not found in type resolution | ✅ Yes | Medium | ⬜ TODO |
+| Bug-10 | Interface Comparable not found for implements | ✅ Yes | Medium | ⬜ TODO |
+| Bug-11 | Sealed class subclasses incorrectly rejected | ✅ Yes | Medium | ⬜ TODO |
+| Bug-12 | Interface Exception not found for implements | ✅ Yes | Medium | ⬜ TODO |
+| Bug-13 | Pattern \|\| in switch not supported (see Lim-8) | ⚠️ Major | High | ⬜ TODO |
+| Bug-14 | Record type annotation not resolved | ✅ Yes | Medium | ⬜ TODO |
 | Bug-15 | base64Encode function not exported from dart:convert | ✅ Yes | Low | ✅ Fixed |
 | Bug-16 | Abstract method inheritance false positive | ✅ Yes | Medium | ✅ Fixed |
 | Bug-17 | Interface class same-library extension incorrectly rejected | ✅ Yes | Medium | ✅ Fixed |
 | Bug-18 | Mixin abstract getter inheritance false positive | ✅ Yes | Medium | ✅ Fixed |
-| Bug-20 | identical() function not bridged | ✅ Yes | Low | ✅ Fixed |
-| Bug-21 | Set.from() constructor not bridged | ✅ Yes | Low | ✅ Fixed |
+| Bug-20 | identical() function not bridged | ✅ Yes | Low | ⬜ TODO |
+| Bug-21 | Set.from() constructor not bridged | ✅ Yes | Low | ⬜ TODO |
 | Bug-22 | Error() class constructor not bridged | ✅ Yes | Low | ✅ Fixed |
-| Bug-23 | Static const referencing sibling const fails | ✅ Yes | Medium | ✅ Fixed |
-| Bug-24 | mixin class declaration not supported | ✅ Yes | Medium | ✅ Fixed |
+| Bug-23 | Static const referencing sibling const fails | ✅ Yes | Medium | ⬜ TODO |
+| Bug-24 | mixin class declaration not supported | ✅ Yes | Medium | ⬜ TODO |
 | Bug-26 | Assert in constructor initializer not supported | ✅ Yes | Medium | ✅ Fixed |
-| Bug-27 | Short-circuit && with null check fails | ✅ Yes | Medium | ✅ Fixed |
+| Bug-27 | Short-circuit && with null check fails | ✅ Yes | Medium | ⬜ TODO |
 | Bug-28 | GenericFunctionTypeImpl not implemented | ✅ Yes | Medium | ✅ Fixed |
 | Bug-29 | Future.value() returns wrong type | ✅ Yes | Medium | ✅ Fixed |
 | Bug-32 | continue with label in switch case (see Lim-6) | ✅ Yes | Medium | ⬜ TODO |

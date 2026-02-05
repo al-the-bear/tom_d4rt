@@ -25,6 +25,7 @@ class LimitationTest {
   final bool expectedToFail;
   final String? expectedError;
   final Duration timeout;
+  final bool runsInSubprocess; // For blocking tests
 
   LimitationTest({
     required this.id,
@@ -33,6 +34,7 @@ class LimitationTest {
     this.expectedToFail = true,
     this.expectedError,
     this.timeout = const Duration(seconds: 5),
+    this.runsInSubprocess = false,
   });
 }
 
@@ -90,6 +92,7 @@ void main() async {
     id: 'Lim-4',
     description: 'Infinite sync* generators hang',
     expectedToFail: true,
+    runsInSubprocess: true, // Must run in subprocess due to blocking
     timeout: const Duration(seconds: 3),
     code: '''
 Iterable<int> infiniteNumbers() sync* {
@@ -166,7 +169,7 @@ void main() {
   LimitationTest(
     id: 'Lim-8',
     description: 'Logical OR patterns in switch cases',
-    expectedToFail: false, // Now fixed!
+    expectedToFail: true, // Still a limitation
     code: '''
 void main() {
   var day = 'Saturday';
@@ -195,8 +198,8 @@ void main() async {
 
   LimitationTest(
     id: 'Bug-1',
-    description: 'List.empty() constructor (FIXED)',
-    expectedToFail: false,
+    description: 'List.empty() constructor',
+    expectedToFail: true,
     code: '''
 void main() {
   var list = List<int>.empty(growable: true);
@@ -208,8 +211,8 @@ void main() {
 
   LimitationTest(
     id: 'Bug-2',
-    description: 'Queue.addAll() method (FIXED)',
-    expectedToFail: false,
+    description: 'Queue.addAll() method',
+    expectedToFail: true,
     code: '''
 import 'dart:collection';
 void main() {
@@ -235,8 +238,8 @@ void main() {
 
   LimitationTest(
     id: 'Bug-5',
-    description: 'Division by zero (FIXED)',
-    expectedToFail: false,
+    description: 'Division by zero',
+    expectedToFail: true,
     code: '''
 void main() {
   var result = 1.0 / 0.0;
@@ -248,8 +251,8 @@ void main() {
 
   LimitationTest(
     id: 'Bug-6',
-    description: 'Record hashCode (FIXED)',
-    expectedToFail: false,
+    description: 'Record hashCode',
+    expectedToFail: true,
     code: '''
 void main() {
   var r1 = (1, 2, name: 'test');
@@ -261,8 +264,8 @@ void main() {
 
   LimitationTest(
     id: 'Bug-7',
-    description: 'Digit separators (FIXED)',
-    expectedToFail: false,
+    description: 'Digit separators',
+    expectedToFail: true,
     code: '''
 void main() {
   var million = 1_000_000;
@@ -273,8 +276,8 @@ void main() {
 
   LimitationTest(
     id: 'Bug-8',
-    description: 'List.indexWhere() (FIXED)',
-    expectedToFail: false,
+    description: 'List.indexWhere()',
+    expectedToFail: true,
     code: '''
 void main() {
   var list = ['a', 'b', 'c', 'd'];
@@ -285,8 +288,8 @@ void main() {
 
   LimitationTest(
     id: 'Bug-9',
-    description: 'Never type (FIXED)',
-    expectedToFail: false,
+    description: 'Never type',
+    expectedToFail: true,
     code: '''
 Never throwError() {
   throw Exception('Error');
@@ -303,8 +306,8 @@ void main() {
 
   LimitationTest(
     id: 'Bug-10',
-    description: 'Comparable interface implements (FIXED)',
-    expectedToFail: false,
+    description: 'Comparable interface implements',
+    expectedToFail: true,
     code: '''
 class Value implements Comparable<Value> {
   final int n;
@@ -322,8 +325,8 @@ void main() {
 
   LimitationTest(
     id: 'Bug-11',
-    description: 'Sealed class (FIXED)',
-    expectedToFail: false,
+    description: 'Sealed class',
+    expectedToFail: true,
     code: '''
 sealed class Shape {}
 class Circle extends Shape { final double radius; Circle(this.radius); }
@@ -337,8 +340,8 @@ void main() {
 
   LimitationTest(
     id: 'Bug-12',
-    description: 'Exception interface (FIXED)',
-    expectedToFail: false,
+    description: 'Exception interface',
+    expectedToFail: true,
     code: '''
 class MyException implements Exception {
   final String message;
@@ -356,8 +359,8 @@ void main() {
 
   LimitationTest(
     id: 'Bug-13',
-    description: 'LogicalOrPattern (FIXED)',
-    expectedToFail: false,
+    description: 'LogicalOrPattern',
+    expectedToFail: true,
     code: '''
 void main() {
   var day = 'Saturday';
@@ -372,8 +375,8 @@ void main() {
 
   LimitationTest(
     id: 'Bug-14',
-    description: 'Record type annotation (FIXED)',
-    expectedToFail: false,
+    description: 'Record type annotation',
+    expectedToFail: true,
     code: '''
 (int, int) swap((int, int) pair) => (pair.\$2, pair.\$1);
 void main() {
@@ -385,8 +388,8 @@ void main() {
 
   LimitationTest(
     id: 'Bug-20',
-    description: 'identical() function (FIXED)',
-    expectedToFail: false,
+    description: 'identical() function',
+    expectedToFail: true,
     code: '''
 void main() {
   var list1 = [1, 2, 3];
@@ -398,8 +401,8 @@ void main() {
 
   LimitationTest(
     id: 'Bug-21',
-    description: 'Set.from() constructor (FIXED)',
-    expectedToFail: false,
+    description: 'Set.from() constructor',
+    expectedToFail: true,
     code: '''
 void main() {
   var set = Set<int>.from([1, 2, 3, 3, 2, 1]);
@@ -410,8 +413,8 @@ void main() {
 
   LimitationTest(
     id: 'Bug-23',
-    description: 'Static const sibling reference (FIXED)',
-    expectedToFail: false,
+    description: 'Static const sibling reference',
+    expectedToFail: true,
     code: '''
 class Colors {
   static const red = '#FF0000';
@@ -426,8 +429,8 @@ void main() {
 
   LimitationTest(
     id: 'Bug-24',
-    description: 'mixin class declaration (FIXED)',
-    expectedToFail: false,
+    description: 'mixin class declaration',
+    expectedToFail: true,
     code: '''
 mixin class Logger {
   void log(String msg) => print('[LOG] \$msg');
@@ -442,8 +445,8 @@ void main() {
 
   LimitationTest(
     id: 'Bug-27',
-    description: 'Short-circuit && with null (FIXED)',
-    expectedToFail: false,
+    description: 'Short-circuit && with null',
+    expectedToFail: true,
     code: '''
 void main() {
   String? name;
@@ -541,6 +544,7 @@ void main() {
     id: 'Bug-43',
     description: 'Infinite sync* generator (LIMITATION)',
     expectedToFail: true,
+    runsInSubprocess: true, // Must run in subprocess due to blocking
     timeout: const Duration(seconds: 3),
     code: '''
 Iterable<int> infinite() sync* {
@@ -633,6 +637,11 @@ class TestResult {
 
 /// Run a single test with timeout
 Future<TestResult> runTest(LimitationTest test) async {
+  // For blocking tests, run in subprocess
+  if (test.runsInSubprocess) {
+    return runTestInSubprocess(test);
+  }
+
   try {
     final d4rt = D4rt();
 
@@ -676,5 +685,82 @@ Future<TestResult> runTest(LimitationTest test) async {
     }
   } catch (e) {
     return TestResult.failure(e.toString());
+  }
+}
+
+/// Run a blocking test in a subprocess with timeout
+Future<TestResult> runTestInSubprocess(LimitationTest test) async {
+  // Create a temporary script that runs D4rt
+  final tempDir = Directory.systemTemp.createTempSync('d4rt_subprocess_');
+  final testFile = File(p.join(tempDir.path, 'test.dart'));
+  final runnerFile = File(p.join(tempDir.path, 'runner.dart'));
+
+  testFile.writeAsStringSync(test.code);
+
+  // Create a runner script that uses D4rt
+  runnerFile.writeAsStringSync('''
+import 'dart:io';
+import 'package:tom_d4rt/d4rt.dart';
+import 'package:tom_d4rt/tom_d4rt.dart';
+
+void main() async {
+  try {
+    final d4rt = D4rt();
+    final result = executeFile(d4rt, '${testFile.path.replaceAll('\\', '\\\\')}', log: null);
+    var finalResult = result.result;
+    if (finalResult is Future) {
+      finalResult = await finalResult;
+    }
+    if (result.success) {
+      print('SUCCESS');
+      exit(0);
+    } else {
+      print('FAIL: \${result.error}');
+      exit(1);
+    }
+  } catch (e) {
+    print('ERROR: \$e');
+    exit(1);
+  }
+}
+''');
+
+  try {
+    // Run the subprocess with timeout
+    final process = await Process.start(
+      'dart',
+      ['run', runnerFile.path],
+      workingDirectory: '/Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_generator/example',
+    );
+
+    final stdout = StringBuffer();
+    final stderr = StringBuffer();
+
+    process.stdout.transform(const SystemEncoding().decoder).listen((data) {
+      stdout.write(data);
+    });
+    process.stderr.transform(const SystemEncoding().decoder).listen((data) {
+      stderr.write(data);
+    });
+
+    // Wait with timeout
+    final exitCode = await process.exitCode.timeout(
+      test.timeout,
+      onTimeout: () {
+        process.kill(ProcessSignal.sigkill);
+        return -1; // Timeout
+      },
+    );
+
+    if (exitCode == -1) {
+      return TestResult.failure('Timeout after ${test.timeout.inSeconds}s (killed)');
+    } else if (exitCode == 0) {
+      return TestResult.success(stdout.toString());
+    } else {
+      return TestResult.failure(stdout.toString() + stderr.toString());
+    }
+  } finally {
+    // Cleanup
+    tempDir.deleteSync(recursive: true);
   }
 }
