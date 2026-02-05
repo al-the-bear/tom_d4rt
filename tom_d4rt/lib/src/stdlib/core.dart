@@ -1,6 +1,7 @@
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/src/stdlib/core/comparable.dart';
 import 'package:tom_d4rt/src/stdlib/core/double.dart';
+import 'package:tom_d4rt/src/stdlib/core/error.dart';
 import 'package:tom_d4rt/src/stdlib/core/exceptions.dart';
 import 'package:tom_d4rt/src/stdlib/core/never.dart';
 import 'package:tom_d4rt/src/stdlib/core/int.dart';
@@ -17,6 +18,7 @@ import 'package:tom_d4rt/src/stdlib/core/string.dart';
 import 'package:tom_d4rt/src/stdlib/core/runes.dart';
 import 'package:tom_d4rt/src/stdlib/core/string_buffer.dart';
 import 'package:tom_d4rt/src/stdlib/core/string_sink.dart';
+import 'package:tom_d4rt/src/stdlib/core/symbol.dart';
 import 'package:tom_d4rt/src/stdlib/core/bigint.dart';
 import 'package:tom_d4rt/src/stdlib/core/bool.dart';
 import 'package:tom_d4rt/src/stdlib/core/iterator.dart';
@@ -87,6 +89,13 @@ class CoreStdlib {
     environment.defineBridge(NullCore.definition);
     environment.defineBridge(ComparableCore.definition);
     environment.defineBridge(NeverCore.definition);
+    environment.defineBridge(SymbolCore.definition);
+    environment.defineBridge(ErrorCore.definition);
+    environment.defineBridge(StateErrorCore.definition);
+    environment.defineBridge(ArgumentErrorCore.definition);
+    environment.defineBridge(RangeErrorCore.definition);
+    environment.defineBridge(UnsupportedErrorCore.definition);
+    environment.defineBridge(UnimplementedErrorCore.definition);
     environment.define(
         'dynamic',
         NativeFunction((visitor, arguments, namedArguments, typeArguments) {

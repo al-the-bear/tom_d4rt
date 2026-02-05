@@ -14,6 +14,33 @@ class MapCore {
           '': (visitor, positionalArgs, namedArgs) {
             return <dynamic, dynamic>{};
           },
+          'from': (visitor, positionalArgs, namedArgs) {
+            return Map.from(positionalArgs[0] as Map);
+          },
+          'of': (visitor, positionalArgs, namedArgs) {
+            return Map.of(positionalArgs[0] as Map);
+          },
+          'unmodifiable': (visitor, positionalArgs, namedArgs) {
+            return Map.unmodifiable(positionalArgs[0] as Map);
+          },
+          'identity': (visitor, positionalArgs, namedArgs) {
+            return Map.identity();
+          },
+          'fromEntries': (visitor, positionalArgs, namedArgs) {
+            final entries = positionalArgs[0] as Iterable;
+            // Unwrap BridgedInstance<MapEntry> to get native MapEntry objects
+            final nativeEntries = entries.map((entry) {
+              if (entry is BridgedInstance) {
+                return entry.nativeObject as MapEntry;
+              } else if (entry is MapEntry) {
+                return entry;
+              } else {
+                throw RuntimeError(
+                    'fromEntries expects Iterable<MapEntry>, got ${entry.runtimeType}');
+              }
+            });
+            return Map.fromEntries(nativeEntries);
+          },
         },
         staticMethods: {
           'from': (visitor, positionalArgs, namedArgs, _) {

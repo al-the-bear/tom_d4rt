@@ -28,9 +28,10 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 | Bug-52 | [Implicit super() fails when superclass has constructors](#bug-52-implicit-super-fails-when-superclass-has-constructors) | Low | ✅ Fixed |
 | Bug-53 | [NullAwareElement feature not supported](#bug-53-nullawareelement-feature-not-supported) | Low | ✅ Fixed |
 | Bug-54 | [Void return type checking too strict](#bug-54-void-return-type) | Low | ✅ Fixed |
-| Bug-55 | [Symbol class not bridged](#bug-55-symbol-class-not-bridged) | Low | ⬜ TODO |
-| Bug-65 | [Map.from constructor not bridged](#bug-65-mapfrom-constructor-not-bridged) | Low | ⬜ TODO |
-| Bug-71 | [Error class not bridged (undefined variable)](#bug-71-error-class-not-bridged) | Low | ⬜ TODO |
+| Bug-55 | [Symbol class not bridged](#bug-55-symbol-class-not-bridged) | Low | ✅ Fixed |
+| Bug-65 | [Map.from constructor not bridged](#bug-65-mapfrom-constructor-not-bridged) | Low | ✅ Fixed |
+| Bug-71 | [Error class not bridged (undefined variable)](#bug-71-error-class-not-bridged) | Low | ✅ Fixed |
+| Bug-75 | [Division by zero returns Infinity instead of throwing](#bug-75-division-by-zero-returns-infinity) — `eval_method_test: should handle division by zero` | Low | ⬜ TODO |
 | Lim-2 | [Extensions on bridged types don't work](#lim-2-extensions-on-bridged-types-dont-work) | Medium | ✅ Fixed |
 | Lim-5, Bug-40 | [Comparable interface not implemented for interpreted classes](#lim-5-bug-40-comparable-interface-not-implemented) | Medium | ✅ Fixed |
 | Lim-6, Bug-32 | [Labeled continue in switch statements](#lim-6-bug-32-labeled-continue-in-switch-statements) | Medium | ✅ Fixed |
@@ -60,18 +61,24 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 | Bug-44 | [Async generators completion detection issues](#bug-44-async-generators) | Medium | ✅ Fixed |
 | Bug-48 | [await for stream iteration fails](#bug-48-await-for-stream) | Medium | ✅ Fixed |
 | Bug-51 | [Bridged mixins not found during type resolution](#bug-51-bridged-mixins) | Medium | ✅ Fixed |
-| Bug-60 | [Null-safe indexing on null throws unclear error](#bug-60-null-safe-indexing) | Medium | ⬜ TODO |
-| Bug-61 | [if-case pattern evaluates pattern as condition](#bug-61-if-case-pattern) | Medium | ⬜ TODO |
-| Bug-62 | [GenericFunctionType in generic type args fails](#bug-62-genericfunctiontype-in-generics) | Medium | ⬜ TODO |
-| Bug-64 | [Interface class same-library extension rejected](#bug-64-interface-class-extension) | Medium | ⬜ TODO |
-| Bug-67 | [if-case with int pattern wrong condition type](#bug-67-if-case-int-pattern) | Medium | ⬜ TODO |
-| Bug-45 | [Labeled continue in sync* generators fails](#bug-45-labeled-continue-in-sync-generators-fails) | Medium | ⬜ TODO |
-| Bug-47 | [Future.doWhile type cast issues](#bug-47-futuredowhile-type-cast-issues) | Medium | ⬜ TODO |
-| Bug-14 | [Records with named fields or >9 positional fields return InterpretedRecord](#bug-14-records-with-named-fields-or-9-positional-fields) | High | ⬜ TODO |
-| Lim-4, Bug-43 | [Infinite sync* generators hang (eager evaluation)](#lim-4-bug-43-infinite-sync-generators-hang) | High | ⬜ TODO |
-| Lim-8, Bug-13, Bug-68 | [Logical OR patterns in switch cases](#lim-8-bug-13-logicalorpattern-in-switch) | High | ⬜ TODO |
-| Lim-1 | [Extension types (Dart 3.3+ inline classes) not supported](#lim-1-extension-types-dart-33-not-supported) | High | ⬜ TODO |
-| Lim-3 | [Isolate execution with interpreted code](#lim-3-isolate-execution-with-interpreted-code) | Fundamental | 🚫 Won't Fix |
+| Bug-60 | [Null-safe indexing on null throws unclear error](#bug-60-null-safe-indexing) | Medium | ✅ Fixed |
+| Bug-61 | [if-case pattern evaluates pattern as condition](#bug-61-if-case-pattern) | Medium | ✅ Fixed |
+| Bug-62 | [GenericFunctionType in generic type args fails](#bug-62-genericfunctiontype-in-generics) | Medium | ✅ Fixed |
+| Bug-64 | [Interface class same-library extension rejected](#bug-64-interface-class-extension) | Medium | ✅ Fixed |
+| Bug-67 | [if-case with int pattern wrong condition type](#bug-67-if-case-int-pattern) | Medium | ✅ Fixed |
+| Bug-45 | [Labeled continue in sync* generators fails](#bug-45-labeled-continue-in-sync-generators-fails) | Medium | ✅ Fixed |
+| Bug-47 | [Future.doWhile type cast issues](#bug-47-futuredowhile-type-cast-issues) | Medium | ✅ Fixed |
+| Bug-72 | [Bridged mixins not found during class declaration](#bug-72-bridged-mixins-class-declaration) — `bridged_mixin_test` (5) + `complex_bridged_mixin_test` (5) | Medium | ⬜ TODO |
+| Bug-73 | [Async nested loops fail with return type error](#bug-73-async-nested-loops-return-type) — `async_nested_loops_test` (11 tests) | Medium | ⬜ TODO |
+| Bug-74 | [Return type error shows anonymous instead of function name](#bug-74-return-type-anonymous-name) — `interpreter_test: Return Type Checking` (7 tests) | Medium | ⬜ TODO |
+| Bug-76 | [Introspection API returns globals for empty source](#bug-76-introspection-empty-source) — `introspection_api_test: empty source, imports only` (2) | Low | ⬜ TODO |
+| Bug-77 | [File.parent test flaky in full test suite](#bug-77-file-parent-flaky) — `file_test: comprehensive parent` (1) | Low | ⬜ TODO |
+| Bug-14 | [Records with named fields or >9 positional fields return InterpretedRecord](#bug-14-records-with-named-fields-or-9-positional-fields) — `limitations_and_bugs_test: Bug-14` (2) | High | ⬜ TODO |
+| Lim-4, Bug-43 | [Infinite sync* generators hang (eager evaluation)](#lim-4-bug-43-infinite-sync-generators-hang) — `limitations_and_bugs_test: Lim-4, Bug-43` (2) | High | ⬜ TODO |
+| Lim-8, Bug-13, Bug-68 | [Logical OR patterns in switch cases](#lim-8-bug-13-logicalorpattern-in-switch) — `limitations_and_bugs_test: Lim-8, Bug-13, Bug-68` (3) | High | ⬜ TODO |
+| Lim-1 | [Extension types (Dart 3.3+ inline classes) not supported](#lim-1-extension-types-dart-33-not-supported) — `limitations_and_bugs_test: Lim-1` (1) | High | ⬜ TODO |
+| Lim-3 | [Isolate execution with interpreted code](#lim-3-isolate-execution-with-interpreted-code) — `limitations_and_bugs_test: Lim-3` (1) | Fundamental | 🚫 Won't Fix |
+| Bug-78 | [noSuchMethod not invoked for method calls](#bug-78-nosuchmethod-method-calls) — `limitations_and_bugs_test: Lim-7` (1) | Medium | ⬜ TODO |
 
 **Status Legend:**
 - ⬜ TODO - Not yet fixed
@@ -1733,6 +1740,269 @@ bool main() {
 #### Solution Strategy
 
 Add `Error` to the environment as an accessible type, similar to how `Exception` is handled.
+
+---
+
+### Bug-72: Bridged Mixins Not Found During Class Declaration
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+When using bridged mixins in interpreted classes, the mixin lookup fails during class declaration. The error occurs even when the bridged mixin is properly defined and registered.
+
+```dart
+// Bridged mixin (defined in Dart)
+mixin EventMixin {
+  void emit(String event) => print('Event: $event');
+}
+
+// Interpreted code
+class DataProcessor with EventMixin {  // ❌ FAILS
+  void process() => emit('processing');
+}
+```
+
+**Error:** `Mixin 'EventMixin' not found during lookup for class 'DataProcessor'. Ensure it's defined (as a mixin or class mixin).`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` line 5987 - `visitClassDeclaration`
+- **Root Cause:** The mixin lookup during class declaration doesn't properly search bridged class definitions that are marked as mixins
+
+#### Affected Tests
+
+- `bridged_mixin_test.dart` - 5 tests
+- `complex_bridged_mixin_test.dart` - 5 tests
+
+#### Solution Strategy
+
+Improve mixin lookup in `visitClassDeclaration` to also search bridged classes that have `isMixin: true`.
+
+---
+
+### Bug-73: Async Nested Loops Fail with Return Type Error
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Async code inside nested loops incorrectly triggers a return type checking error, treating the async callback's return as if it were returning from a void function.
+
+```dart
+Future<int> main() async {
+  var result = 0;
+  for (var i = 0; i < 3; i++) {
+    for (var j = 0; j < 3; j++) {
+      await Future.delayed(Duration(milliseconds: 1));  // ❌ FAILS
+      result += i * j;
+    }
+  }
+  return result;
+}
+```
+
+**Error:** `A value of type 'Future' can't be returned from the function '<anonymous>' because it has a return type of 'void'.`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` line 4836 - `visitReturnStatement`
+- **Root Cause:** The async state machine incorrectly identifies the return type context when executing inside nested loops
+
+#### Affected Tests
+
+- `async_nested_loops_test.dart` - 11 tests covering various nested loop patterns
+
+#### Solution Strategy
+
+Review the async state machine's handling of return types when inside nested loop constructs. The `currentFunction` context may be lost or incorrect.
+
+---
+
+### Bug-74: Return Type Error Shows Anonymous Instead of Function Name
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+When a return type mismatch error occurs, the error message shows `<anonymous>` instead of the actual function name.
+
+```dart
+int getNumber() {
+  return 'hello';  // ❌ Type error
+}
+```
+
+**Expected Error:** `A value of type 'String' can't be returned from the function 'getNumber' because it has a return type of 'int'.`
+
+**Actual Error:** `A value of type 'String' can't be returned from the function '<anonymous>' because it has a return type of 'int'.`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` - return type checking logic
+- **Root Cause:** The function name resolution in the error message construction uses `<anonymous>` as a fallback when the function declaration context is not properly tracked
+
+#### Affected Tests
+
+- `interpreter_test.dart` - 7 "Return Type Checking Tests"
+
+#### Solution Strategy
+
+Ensure the function name is properly extracted from the current function context (`currentFunction`) when generating the error message.
+
+---
+
+### Bug-75: Division by Zero Returns Infinity Instead of Throwing
+
+**Status:** ⬜ TODO  
+**Fixable:** ⚠️ Deliberate behavior  
+**Complexity:** Low
+
+#### Problem Description
+
+Division by zero returns `Infinity` instead of throwing an exception, which matches Dart's native behavior but differs from some test expectations.
+
+```dart
+void main() {
+  var result = 1 / 0;  // Returns Infinity (not an error)
+  print(result);  // Prints: Infinity
+}
+```
+
+#### Note
+
+This is actually **correct Dart behavior**. In Dart, integer and double division by zero returns `Infinity` (or `-Infinity` for negative numerators), not an exception. The test expectation may be incorrect.
+
+#### Affected Tests
+
+- `eval_method_test.dart` - "Error handling should handle division by zero"
+
+#### Solution Strategy
+
+Review whether the test expectation is correct. Dart's behavior:
+- `1 / 0` → `Infinity`
+- `1 ~/ 0` → throws `IntegerDivisionByZeroException`
+
+The test may need to be updated rather than the interpreter.
+
+---
+
+### Bug-76: Introspection API Returns Globals for Empty Source
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+When analyzing empty source code or source with only imports, the introspection API incorrectly includes global functions (like `identical`) in the results.
+
+```dart
+// Empty source
+var result = d4rt.analyze('');
+print(result.all);  // ❌ Returns [VariableInfo:var identical: NativeFunction]
+```
+
+**Expected:** Empty list for empty source
+**Actual:** List containing global definitions
+
+#### Where is the Problem?
+
+- **Location:** Introspection API implementation
+- **Root Cause:** The analysis doesn't filter out pre-defined globals from the result
+
+#### Affected Tests
+
+- `introspection_api_test.dart` - "should handle empty source"
+- `introspection_api_test.dart` - "should handle source with imports only"
+
+#### Solution Strategy
+
+Filter the analysis results to exclude pre-defined global symbols when returning user-defined declarations.
+
+---
+
+### Bug-77: File.parent Test Flaky in Full Test Suite
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+The File.parent test in `file_test.dart` fails intermittently when running the full test suite but passes when run individually. This suggests a race condition or test isolation issue.
+
+```dart
+// Test: File methods - comprehensive parent
+void main() {
+  var file = File('/path/to/file.txt');
+  var parent = file.parent;  // Sometimes fails in full suite
+}
+```
+
+#### Where is the Problem?
+
+- **Location:** Test isolation or File bridge implementation
+- **Root Cause:** Possible state leakage between tests or resource contention when running in parallel
+
+#### Affected Tests
+
+- `stdlib/io/file_test.dart` - "File methods - comprehensive parent" (flaky)
+
+#### Solution Strategy
+
+1. Investigate test isolation - ensure each test has clean state
+2. Check for shared mutable state in File bridge
+3. Consider adding proper cleanup in test teardown
+
+---
+
+### Bug-78: noSuchMethod Not Invoked for Method Calls
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+When calling a non-existent method on an object that implements `noSuchMethod`, the interpreter throws an error instead of invoking `noSuchMethod`.
+
+```dart
+class Dynamic {
+  @override
+  dynamic noSuchMethod(Invocation invocation) {
+    return 'intercepted: ${invocation.memberName}';
+  }
+}
+
+void main() {
+  var d = Dynamic();
+  print(d.anyMethod());  // ❌ FAILS - should call noSuchMethod
+}
+```
+
+**Error:** `Instance of 'Dynamic' has no method named 'anyMethod'.`
+
+**Note:** This is different from Bug-42 (noSuchMethod for getter/setter) which is fixed. This bug is specifically about method calls.
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` - `visitMethodInvocation`
+- **Root Cause:** Method lookup doesn't fall back to `noSuchMethod` when the method is not found
+
+#### Affected Tests
+
+- `limitations_and_bugs_test.dart` - "Lim-7: noSuchMethod for methods should work"
+
+#### Solution Strategy
+
+When a method is not found on an InterpretedInstance, check if the class implements `noSuchMethod` and call it with an appropriate `Invocation` object.
 
 ---
 

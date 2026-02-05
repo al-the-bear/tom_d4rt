@@ -18,6 +18,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   AsyncExecutionState? currentAsyncState;
   Set<String> _currentStatementLabels = {};
 
+  /// For sync* generators: the list to collect yielded values into.
+  /// When non-null, yield statements add directly to this list.
+  List<Object?>? syncGeneratorValues;
+
   InterpreterVisitor({
     required this.globalEnvironment,
     required this.moduleLoader, // Accept ModuleLoader in the constructor
@@ -1218,6 +1222,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final target = node.target;
     final index = node.index;
     final targetValue = target?.accept<Object?>(this);
+
+    // Handle null-aware indexing: x?[i] returns null if x is null
+    if (node.isNullAware && targetValue == null) {
+      return null;
+    }
+
     final indexValue = index.accept<Object?>(this);
 
     if (targetValue is AsyncSuspensionRequest) return targetValue;
@@ -3455,26 +3465,85 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
   @override
   Object? visitIfStatement(IfStatement node) {
-    Object? conditionValue; // Try to evaluate the condition
-    conditionValue = node.expression.accept<Object?>(this);
+    // Evaluate the expression
+    final expressionValue = node.expression.accept<Object?>(this);
 
     // If the evaluation returns an AsyncSuspensionRequest, return it immediately
-    if (conditionValue is AsyncSuspensionRequest) {
+    if (expressionValue is AsyncSuspensionRequest) {
       Logger.debug(
-          "[IfStatement] Condition suspended (AsyncSuspensionRequest). Propagating.");
-      return conditionValue;
+          "[IfStatement] Expression suspended (AsyncSuspensionRequest). Propagating.");
+      return expressionValue;
     }
 
-    // Synchronous logic (if no suspension occurred)
+    // Check if this is an if-case statement (pattern matching)
+    final caseClause = node.caseClause;
+    if (caseClause != null) {
+      // This is an if-case statement: if (expr case Pattern when guard) { ... }
+      final pattern = caseClause.guardedPattern.pattern;
+      final guard = caseClause.guardedPattern.whenClause?.expression;
+
+      // Create a temporary environment for pattern variable bindings
+      final caseEnvironment = Environment(enclosing: environment);
+
+      try {
+        // Attempt to match the pattern against the expression value
+        _matchAndBind(pattern, expressionValue, caseEnvironment);
+        Logger.debug(
+            "[IfStatement] Pattern ${pattern.runtimeType} matched value ${expressionValue?.runtimeType}");
+
+        // Pattern matched, now check the guard (if it exists)
+        bool guardPassed = true;
+        if (guard != null) {
+          final previousVisitorEnv = environment;
+          try {
+            environment = caseEnvironment; // Evaluate guard in case scope
+            final guardResult = guard.accept<Object?>(this);
+            if (guardResult is! bool) {
+              throw RuntimeError(
+                  "If-case 'when' clause must evaluate to a boolean.");
+            }
+            guardPassed = guardResult;
+            Logger.debug("[IfStatement] Guard evaluated to: $guardPassed");
+          } finally {
+            environment = previousVisitorEnv;
+          }
+        }
+
+        // If pattern matched and guard passed, execute thenStatement
+        if (guardPassed) {
+          final previousVisitorEnv = environment;
+          try {
+            environment = caseEnvironment; // Execute body in case scope
+            node.thenStatement.accept<Object?>(this);
+          } finally {
+            environment = previousVisitorEnv;
+          }
+        } else if (node.elseStatement != null) {
+          // Guard failed, execute elseStatement
+          node.elseStatement!.accept<Object?>(this);
+        }
+      } on PatternMatchException {
+        // Pattern didn't match, execute elseStatement if present
+        Logger.debug(
+            "[IfStatement] Pattern ${pattern.runtimeType} did not match. Executing else if present.");
+        if (node.elseStatement != null) {
+          node.elseStatement!.accept<Object?>(this);
+        }
+      }
+
+      return null;
+    }
+
+    // Regular boolean condition if statement
     bool conditionResult;
-    final bridgedInstance = toBridgedInstance(conditionValue);
-    if (conditionValue is bool) {
-      conditionResult = conditionValue;
+    final bridgedInstance = toBridgedInstance(expressionValue);
+    if (expressionValue is bool) {
+      conditionResult = expressionValue;
     } else if (bridgedInstance.$2 && bridgedInstance.$1?.nativeObject is bool) {
       conditionResult = bridgedInstance.$1!.nativeObject as bool;
     } else {
       throw RuntimeError(
-          "The condition of an 'if' must be a boolean, but was ${conditionValue?.runtimeType}.");
+          "The condition of an 'if' must be a boolean, but was ${expressionValue?.runtimeType}.");
     }
 
     if (conditionResult) {
@@ -4038,7 +4107,23 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
     }
 
-    // Fallback for sync* generators or other contexts
+    // If we're in a sync* generator context, add directly to the values list
+    if (syncGeneratorValues != null) {
+      if (node.star != null) {
+        // yield* - expand iterable
+        if (value is Iterable) {
+          syncGeneratorValues!.addAll(value);
+        } else {
+          throw RuntimeError(
+              "yield* expression must be an Iterable, got ${value.runtimeType}");
+        }
+      } else {
+        syncGeneratorValues!.add(value);
+      }
+      return null; // Continue execution
+    }
+
+    // Fallback for other contexts
     return YieldValue(value, isYieldStar: node.star != null);
   }
 
@@ -4652,7 +4737,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   Object? visitReturnStatement(ReturnStatement node) {
     AstNode? eDecl = node;
     while (eDecl != null) {
-      if (eDecl is FunctionDeclaration) {
+      if (eDecl is FunctionDeclaration || eDecl is FunctionExpression) {
         break;
       }
       eDecl = eDecl.parent;
@@ -4668,14 +4753,22 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       returnValue = null;
     }
 
-    if (eDecl != null && eDecl is FunctionDeclaration) {
+    if (eDecl != null && (eDecl is FunctionDeclaration || eDecl is FunctionExpression)) {
       bool isNullable = false;
-      final functionName = eDecl.name.lexeme;
+      String functionName = '<anonymous>';
       RuntimeType? declaredType;
       RuntimeType? valueRuntimeType;
 
       try {
-        final currentCallable = environment.get(functionName);
+        InterpretedFunction? currentCallable;
+
+        if (eDecl is FunctionDeclaration) {
+          functionName = eDecl.name.lexeme;
+          currentCallable = environment.get(functionName) as InterpretedFunction?;
+        } else if (eDecl is FunctionExpression) {
+          // For anonymous functions (closures), use currentFunction from visitor
+          currentCallable = currentFunction;
+        }
 
         if (currentCallable is InterpretedFunction) {
           declaredType = currentCallable.declaredReturnType;
@@ -4741,7 +4834,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
               if (showError) {
                 throw RuntimeError(
-                    "A value of type '${valueRuntimeType.name}' can't be returned from the function '$functionName' because it has a return type of '${eDecl.returnType}'.");
+                    "A value of type '${valueRuntimeType.name}' can't be returned from the function '$functionName' because it has a return type of '${declaredType.name}'.");
               }
             }
           }
@@ -5810,17 +5903,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final superclass = potentialSuperclass;
 
         // Add checks for final and interface modifiers
-        // Note: sealed classes CAN be extended within the same library/file,
+        // Note: sealed and interface classes CAN be extended within the same library/file,
         // and in D4rt all interpreted code is considered the same library
         if (superclass.isFinal) {
           throw RuntimeError(
               "Class '$className' cannot extend final class '$superclassName'.");
         }
-        if (superclass.isInterface) {
-          throw RuntimeError(
-              "Class '$className' cannot extend interface class '$superclassName'. Use 'implements'.");
-        }
-        // sealed classes are allowed to be extended - they restrict external libraries only
+        // Interface classes can be extended within the same library, so we allow it in D4rt
+        // sealed classes are also allowed to be extended - they restrict external libraries only
 
         // Set the superclass and clear bridged superclass
         klass.superclass = superclass;
@@ -7411,6 +7501,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       Logger.debug(
           "[ResolveType] Resolving RecordTypeAnnotation: ${typeNode.toSource()}");
       return BridgedClass(nativeType: Record, name: 'Record');
+    } else if (typeNode is GenericFunctionType) {
+      // Handle function type annotations like int Function(int) or void Function(String, int)
+      // For runtime purposes, we treat all function types as the Function type
+      Logger.debug(
+          "[ResolveType] Resolving GenericFunctionType: ${typeNode.toSource()}");
+      return BridgedClass(nativeType: Function, name: 'Function');
     } else {
       Logger.error(
           "[ResolveType] Unsupported TypeAnnotation type: ${typeNode.runtimeType}");

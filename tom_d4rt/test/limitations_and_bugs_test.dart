@@ -640,8 +640,7 @@ Future<int> main() async {
   return count;
 }
 ''';
-        // Uses subprocess to avoid error escaping test framework
-        final result = await executeInSubprocess(source);
+        final result = await execute(source);
         expect(result, equals(3));
       },
     );

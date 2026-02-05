@@ -1178,7 +1178,9 @@ class InterpretedFunction implements Callable {
         visitor.environment = currentState.environment;
       }
       visitor.currentAsyncState = currentState;
-      // currentFunction is already defined by the call method
+      // Set currentFunction from the state - important for async callbacks
+      // that may run after the original call() returns
+      visitor.currentFunction = currentState.function;
 
       Logger.debug(
           " [StateMachine] Executing state: ${currentNode.runtimeType} in state env ${currentState.environment.hashCode}, loop stack depth: ${currentState.loopEnvironmentStack.length}. Visitor env set to: ${visitor.environment.hashCode}");
@@ -3977,10 +3979,12 @@ class _SyncGeneratorIterator implements Iterator<Object?> {
     final values = <Object?>[];
     final previousVisitorEnv = visitor.environment;
     final previousCurrentFunction = visitor.currentFunction;
+    final previousSyncGeneratorValues = visitor.syncGeneratorValues;
 
     try {
       visitor.environment = executionEnvironment;
       visitor.currentFunction = function;
+      visitor.syncGeneratorValues = values; // Set up sync* context
 
       if (function.isAbstract) {
         throw RuntimeError(
@@ -3990,16 +3994,12 @@ class _SyncGeneratorIterator implements Iterator<Object?> {
       final bodyToExecute = function._body;
       if (!redirected) {
         if (bodyToExecute is BlockFunctionBody) {
-          _executeGeneratorBlockSync(bodyToExecute.block.statements, values);
+          // Execute the block directly - yields will add to values via syncGeneratorValues
+          visitor.executeBlock(
+              bodyToExecute.block.statements, executionEnvironment);
         } else if (bodyToExecute is ExpressionFunctionBody) {
-          final result = bodyToExecute.expression.accept<Object?>(visitor);
-          if (result is YieldValue) {
-            if (result.isYieldStar) {
-              _handleYieldStarSync(result.value, values);
-            } else {
-              values.add(result.value);
-            }
-          }
+          // Expression body - just execute it
+          bodyToExecute.expression.accept<Object?>(visitor);
         } else if (bodyToExecute is EmptyFunctionBody) {
           // Empty generator - no yields
         }
@@ -4009,42 +4009,10 @@ class _SyncGeneratorIterator implements Iterator<Object?> {
     } finally {
       visitor.environment = previousVisitorEnv;
       visitor.currentFunction = previousCurrentFunction;
+      visitor.syncGeneratorValues = previousSyncGeneratorValues;
     }
 
     return values;
-  }
-
-  void _executeGeneratorBlockSync(
-      List<Statement> statements, List<Object?> values) {
-    for (final statement in statements) {
-      try {
-        final result = statement.accept<Object?>(visitor);
-        if (result is YieldValue) {
-          if (result.isYieldStar) {
-            _handleYieldStarSync(result.value, values);
-          } else {
-            values.add(result.value);
-          }
-        }
-      } on ReturnException catch (_) {
-        break; // Exit generator
-      } on BreakException catch (_) {
-        break; // Exit generator
-      } on ContinueException catch (_) {
-        continue; // Continue to next iteration
-      }
-    }
-  }
-
-  void _handleYieldStarSync(Object? value, List<Object?> values) {
-    if (value is Iterable) {
-      values.addAll(value);
-    } else if (value is Stream) {
-      throw RuntimeError("Cannot yield* a Stream in a sync* generator");
-    } else {
-      throw RuntimeError(
-          "yield* expression must be an Iterable, got ${value.runtimeType}");
-    }
   }
 }
 
