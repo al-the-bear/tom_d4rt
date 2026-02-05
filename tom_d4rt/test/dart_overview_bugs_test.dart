@@ -28,8 +28,8 @@ dynamic execute(String source) {
 }
 
 /// Execute D4rt code with multiple source files.
-dynamic executeMulti(Map<String, String> sources, {String library = 'package:test/main.dart'}) {
-  final d4rt = D4rt()..setDebug(false);
+dynamic executeMulti(Map<String, String> sources, {String library = 'package:test/main.dart', bool debug = false}) {
+  final d4rt = D4rt()..setDebug(debug);
   d4rt.grant(FilesystemPermission.any);
   d4rt.grant(NetworkPermission.any);
   d4rt.grant(ProcessRunPermission.any);

@@ -4029,24 +4029,30 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
   /// Execute a block, catching SyncGeneratorYieldSuspension to yield values lazily.
   /// This is the key to making infinite generators work.
   Iterable<Object?> _executeBlockWithYieldSuspension(
-      List<Statement> statements) sync* {
+      List<Statement> statements,
+      {Set<String>? labels}) sync* {
     for (final statement in statements) {
-      yield* _executeStatementWithYieldSuspension(statement);
+      yield* _executeStatementWithYieldSuspension(statement, labels: labels);
     }
   }
 
   /// Execute a single statement, handling yield suspension.
   /// For loops/control flow, we need special handling to allow resumption.
-  Iterable<Object?> _executeStatementWithYieldSuspension(
-      Statement statement) sync* {
+  Iterable<Object?> _executeStatementWithYieldSuspension(Statement statement,
+      {Set<String>? labels}) sync* {
     // For while/for loops, we need to handle them specially
     // because we need to resume execution after yielding
-    if (statement is WhileStatement) {
-      yield* _executeWhileWithYieldSuspension(statement);
+    if (statement is LabeledStatement) {
+      final labelSet = statement.labels.map((l) => l.label.name).toSet();
+      yield* _executeStatementWithYieldSuspension(statement.statement,
+          labels: labelSet);
+    } else if (statement is WhileStatement) {
+      yield* _executeWhileWithYieldSuspension(statement, labels: labels);
     } else if (statement is ForStatement) {
-      yield* _executeForWithYieldSuspension(statement);
+      yield* _executeForWithYieldSuspension(statement, labels: labels);
     } else if (statement is Block) {
-      yield* _executeBlockWithYieldSuspension(statement.statements);
+      yield* _executeBlockWithYieldSuspension(statement.statements,
+          labels: labels);
     } else {
       // For other statements, just execute and catch any yield suspension
       try {
@@ -4065,8 +4071,8 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
   }
 
   /// Execute a while loop lazily, yielding at each yield point
-  Iterable<Object?> _executeWhileWithYieldSuspension(
-      WhileStatement node) sync* {
+    Iterable<Object?> _executeWhileWithYieldSuspension(WhileStatement node,
+      {Set<String>? labels}) sync* {
     while (true) {
       // Evaluate condition
       final conditionValue = node.condition.accept<Object?>(visitor);
@@ -4090,17 +4096,19 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
       try {
         if (node.body is Block) {
           yield* _executeBlockWithYieldSuspension(
-              (node.body as Block).statements);
+              (node.body as Block).statements,
+              labels: labels);
         } else {
-          yield* _executeStatementWithYieldSuspension(node.body);
+          yield* _executeStatementWithYieldSuspension(node.body,
+              labels: labels);
         }
       } on BreakException catch (e) {
-        if (e.label == null) {
+        if (e.label == null || (labels != null && labels.contains(e.label))) {
           break;
         }
         rethrow;
       } on ContinueException catch (e) {
-        if (e.label == null) {
+        if (e.label == null || (labels != null && labels.contains(e.label))) {
           continue;
         }
         rethrow;
@@ -4109,21 +4117,26 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
   }
 
   /// Execute a for loop lazily, yielding at each yield point
-  Iterable<Object?> _executeForWithYieldSuspension(ForStatement node) sync* {
+  Iterable<Object?> _executeForWithYieldSuspension(ForStatement node,
+      {Set<String>? labels}) sync* {
     final loopParts = node.forLoopParts;
 
     if (loopParts is ForPartsWithDeclarations) {
-      yield* _executeClassicForWithYieldSuspension(
-          loopParts.variables, loopParts.condition, loopParts.updaters, node.body);
+        yield* _executeClassicForWithYieldSuspension(loopParts.variables,
+          loopParts.condition, loopParts.updaters, node.body,
+          labels: labels);
     } else if (loopParts is ForPartsWithExpression) {
-      yield* _executeClassicForWithYieldSuspension(
-          loopParts.initialization, loopParts.condition, loopParts.updaters, node.body);
+        yield* _executeClassicForWithYieldSuspension(loopParts.initialization,
+          loopParts.condition, loopParts.updaters, node.body,
+          labels: labels);
     } else if (loopParts is ForEachPartsWithDeclaration) {
-      yield* _executeForInWithYieldSuspension(
-          loopParts.loopVariable, loopParts.iterable, node.body);
+        yield* _executeForInWithYieldSuspension(
+          loopParts.loopVariable, loopParts.iterable, node.body,
+          labels: labels);
     } else if (loopParts is ForEachPartsWithIdentifier) {
-      yield* _executeForInWithYieldSuspension(
-          loopParts.identifier, loopParts.iterable, node.body);
+        yield* _executeForInWithYieldSuspension(
+          loopParts.identifier, loopParts.iterable, node.body,
+          labels: labels);
     } else {
       throw TomStateError('Unknown ForLoopParts type: ${loopParts.runtimeType}');
     }
@@ -4134,7 +4147,8 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
       AstNode? initialization,
       Expression? condition,
       List<Expression>? updaters,
-      Statement body) sync* {
+      Statement body,
+      {Set<String>? labels}) sync* {
     // Execute initialization
     if (initialization != null) {
       initialization.accept<Object?>(visitor);
@@ -4162,24 +4176,26 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
       }
 
       // Execute body with yield suspension handling
-      try {
-        if (body is Block) {
-          yield* _executeBlockWithYieldSuspension(body.statements);
-        } else {
-          yield* _executeStatementWithYieldSuspension(body);
-        }
-      } on BreakException catch (e) {
-        if (e.label == null) {
-          break;
-        }
-        rethrow;
-      } on ContinueException catch (e) {
-        if (e.label == null) {
-          // Fall through to updaters
-        } else {
+        try {
+          if (body is Block) {
+            yield* _executeBlockWithYieldSuspension(body.statements,
+                labels: labels);
+          } else {
+            yield* _executeStatementWithYieldSuspension(body,
+                labels: labels);
+          }
+        } on BreakException catch (e) {
+          if (e.label == null || (labels != null && labels.contains(e.label))) {
+            break;
+          }
           rethrow;
+        } on ContinueException catch (e) {
+          if (e.label == null || (labels != null && labels.contains(e.label))) {
+            // Fall through to updaters
+          } else {
+            rethrow;
+          }
         }
-      }
 
       // Execute updaters
       if (updaters != null) {
@@ -4191,8 +4207,9 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
   }
 
   /// Execute a for-in loop lazily
-  Iterable<Object?> _executeForInWithYieldSuspension(
-      AstNode loopVariable, Expression iterableExpr, Statement body) sync* {
+    Iterable<Object?> _executeForInWithYieldSuspension(AstNode loopVariable,
+      Expression iterableExpr, Statement body,
+      {Set<String>? labels}) sync* {
     final iterable = iterableExpr.accept<Object?>(visitor);
     if (iterable is! Iterable) {
       throw RuntimeError(
@@ -4209,17 +4226,19 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
 
       try {
         if (body is Block) {
-          yield* _executeBlockWithYieldSuspension(body.statements);
+          yield* _executeBlockWithYieldSuspension(body.statements,
+              labels: labels);
         } else {
-          yield* _executeStatementWithYieldSuspension(body);
+          yield* _executeStatementWithYieldSuspension(body,
+              labels: labels);
         }
       } on BreakException catch (e) {
-        if (e.label == null) {
+        if (e.label == null || (labels != null && labels.contains(e.label))) {
           break;
         }
         rethrow;
       } on ContinueException catch (e) {
-        if (e.label == null) {
+        if (e.label == null || (labels != null && labels.contains(e.label))) {
           continue;
         }
         rethrow;

@@ -220,6 +220,14 @@ class ModuleLoader {
       }
     }
     
+    // Bug-91: Process extension declarations to populate extension methods
+    // Extensions need to be processed by the interpreter to be available for imported modules
+    for (final declaration in ast.declarations) {
+      if (declaration is ExtensionDeclaration) {
+        declaration.accept(moduleInterpreter);
+      }
+    }
+    
     // Then process top-level variable declarations
     for (final declaration in ast.declarations) {
       // We only care about the evaluation of TopLevelVariableDeclaration for their initializers.

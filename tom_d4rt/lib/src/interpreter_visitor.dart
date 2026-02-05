@@ -5099,8 +5099,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               }
 
               if (showError) {
+                final declaredTypeName = isNullable ? '${declaredType.name}?' : declaredType.name;
                 throw RuntimeError(
-                    "A value of type '${valueRuntimeType.name}' can't be returned from the function '$functionName' because it has a return type of '${declaredType.name}'.");
+                    "A value of type '${valueRuntimeType.name}' can't be returned from the function '$functionName' because it has a return type of '$declaredTypeName'.");
               }
             }
           }
@@ -6171,7 +6172,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // Add checks for final and interface modifiers
         // Note: sealed and interface classes CAN be extended within the same library/file,
         // and in D4rt all interpreted code is considered the same library
-        if (superclass.isFinal) {
+        // 
+        // For 'final' classes:
+        // - A 'final' class cannot be extended outside its library
+        // - An 'abstract final' class CAN be extended within the same library (needs implementation)
+        // - Since all D4rt code is considered the same library, we only block non-abstract final classes
+        if (superclass.isFinal && !superclass.isAbstract) {
           throw RuntimeError(
               "Class '$className' cannot extend final class '$superclassName'.");
         }
@@ -6437,8 +6443,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     if (!klass.isAbstract) {
       final inheritedAbstract = klass.getAbstractInheritedMembers();
       final concreteMembers = klass.getConcreteMembers();
+      final fieldNames = klass.getInstanceFieldNames(); // Fields also satisfy abstract getters
       for (final abstractName in inheritedAbstract.keys) {
-        if (!concreteMembers.containsKey(abstractName)) {
+        // Check if the abstract member is satisfied by a concrete method/getter/setter OR a field
+        if (!concreteMembers.containsKey(abstractName) && !fieldNames.contains(abstractName)) {
           final abstractMember = inheritedAbstract[abstractName]!;
           String memberType = "method";
           if (abstractMember.isGetter) memberType = "getter";
@@ -7607,6 +7615,19 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     }
   }
 
+  /// Recursively check if a CollectionElement represents a map entry.
+  /// This handles ForElement, IfElement, and MapLiteralEntry directly.
+  bool _isMapLiteralElement(CollectionElement element) {
+    if (element is MapLiteralEntry) {
+      return true;
+    } else if (element is ForElement) {
+      return _isMapLiteralElement(element.body);
+    } else if (element is IfElement) {
+      return _isMapLiteralElement(element.thenElement);
+    }
+    return false;
+  }
+
   @override
   Object? visitSetOrMapLiteral(SetOrMapLiteral node) {
     bool isMap;
@@ -7626,12 +7647,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       CollectionElement? firstEffectiveElement;
 
       for (final element in node.elements) {
-        if (element is MapLiteralEntry) {
+        // Check if element (or its inner body) is a MapLiteralEntry
+        if (_isMapLiteralElement(element)) {
           isMap = true;
           onlySpreads = false;
           firstEffectiveElement = element;
           Logger.debug(
-              "[SetOrMapLiteral] Determined isMap = true (found MapLiteralEntry).");
+              "[SetOrMapLiteral] Determined isMap = true (found MapLiteralEntry or element containing one).");
           break; // Found a map entry, definitely a map
         }
         if (element is! SpreadElement && firstEffectiveElement == null) {
@@ -7673,8 +7695,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             Logger.debug(
                 "[SetOrMapLiteral]   First spread did not evaluate to Map. Setting isMap = false.");
           }
-        } else if (firstEffectiveElement is MapLiteralEntry) {
-          isMap = true; // Confirmation if first non-spread was entry
+        } else if (firstEffectiveElement != null &&
+            _isMapLiteralElement(firstEffectiveElement)) {
+          isMap = true; // Confirmation if first non-spread was entry (or contains one)
         } else {
           isMap = false; // If first non-spread was Expression, it's a Set
         }
@@ -8378,10 +8401,21 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       return expressionValue;
     }
 
-    if (expressionValue is Future) {
+    // Bug-92: Unwrap BridgedInstance containing a Future
+    // When Future is created via bridged constructor, it gets wrapped in BridgedInstance
+    // We need to unwrap it to get the actual Future for await
+    Object? futureValue = expressionValue;
+    if (expressionValue is BridgedInstance &&
+        expressionValue.nativeObject is Future) {
+      futureValue = expressionValue.nativeObject;
+      Logger.debug(
+          "[AwaitExpression] Unwrapped BridgedInstance to get native Future.");
+    }
+
+    if (futureValue is Future) {
       Logger.debug(
           "[AwaitExpression] Expression evaluated to a Future. Returning AsyncSuspensionRequest.");
-      final future = expressionValue as Future<Object?>;
+      final future = futureValue as Future<Object?>;
 
       // CRUCIAL: Return the suspension request with the future and the current state.
       // The async state machine will use this information.
@@ -8661,10 +8695,18 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final fieldPatternNode = fieldNode;
 
         // Use the corrected access path
-        final fieldName = fieldPatternNode.name?.name?.lexeme;
+        // For shorthand syntax (:name), fieldPatternNode.name.name is null
+        // and the name comes from the pattern itself (a DeclaredVariablePattern)
+        String? fieldName = fieldPatternNode.name?.name?.lexeme;
         if (fieldName == null) {
-          // This case implies fieldPatternNode.name was null, which contradicts the filter where((f) => f.name != null)
-          // Or fieldPatternNode.name.name was null, which is unlikely for a SimpleIdentifier.
+          // Shorthand syntax: (:name) - name comes from the pattern
+          final fieldSubPattern = (fieldPatternNode as dynamic).pattern;
+          if (fieldSubPattern is DeclaredVariablePattern) {
+            fieldName = fieldSubPattern.name.lexeme;
+          }
+        }
+        if (fieldName == null) {
+          // This case implies we couldn't determine the field name from either source
           throw TomStateError(
               'Internal error: Named field detected but name lexeme is null.');
         }

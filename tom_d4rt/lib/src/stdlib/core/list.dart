@@ -406,6 +406,28 @@ class ListCore {
           'elementAtOrNull': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as List).elementAtOrNull(positionalArgs[0] as int);
           },
+          'byName': (visitor, target, positionalArgs, namedArgs, _) {
+            // byName is used on List<Enum>.values to find enum by name
+            // For interpreted enums, elements are InterpretedEnumValue
+            final name = positionalArgs[0] as String;
+            final list = target as List;
+            for (final element in list) {
+              if (element is InterpretedEnumValue && element.name == name) {
+                return element;
+              }
+              // Try dynamic access for bridged enum values
+              try {
+                final dynamic dynElement = element;
+                if (dynElement.name == name) {
+                  return element;
+                }
+              } catch (_) {
+                // Element doesn't have a name property, skip
+              }
+            }
+            throw RuntimeError(
+                'No enum value with name "$name" in ${list.map((e) => e is InterpretedEnumValue ? e.name : e.toString()).toList()}');
+          },
           'setRange': (visitor, target, positionalArgs, namedArgs, _) {
             int skipCount =
                 positionalArgs.length > 3 ? positionalArgs[3] as int? ?? 0 : 0;

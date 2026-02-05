@@ -638,10 +638,32 @@ class InterpretedClass implements Callable, RuntimeType {
   }
 
   /// Returns a map of all concrete instance members (methods, getters, setters)
-  /// defined directly in this class.
+  /// defined directly in this class AND in applied mixins.
   /// The key is the member name, the value is the concrete InterpretedFunction.
+  /// Also includes instance fields (which implicitly provide getters).
   Map<String, InterpretedFunction> getConcreteMembers() {
     final concreteMembers = <String, InterpretedFunction>{};
+    
+    // Include concrete members from applied mixins (in order of application)
+    for (final mixin in mixins) {
+      mixin.methods.forEach((name, func) {
+        if (!func.isAbstract) {
+          concreteMembers[name] = func;
+        }
+      });
+      mixin.getters.forEach((name, func) {
+        if (!func.isAbstract) {
+          concreteMembers[name] = func;
+        }
+      });
+      mixin.setters.forEach((name, func) {
+        if (!func.isAbstract) {
+          concreteMembers[name] = func;
+        }
+      });
+    }
+    
+    // Include concrete members from this class (override mixin members if same name)
     methods.forEach((name, func) {
       if (!func.isAbstract) {
         concreteMembers[name] = func;
@@ -658,6 +680,30 @@ class InterpretedClass implements Callable, RuntimeType {
       }
     });
     return concreteMembers;
+  }
+  
+  /// Returns a set of all instance field names in this class.
+  /// Fields implicitly provide getters (and setters for non-final fields).
+  Set<String> getInstanceFieldNames() {
+    final fieldNames = <String>{};
+    for (final fieldDecl in fieldDeclarations) {
+      if (!fieldDecl.isStatic) {
+        for (final variable in fieldDecl.fields.variables) {
+          fieldNames.add(variable.name.lexeme);
+        }
+      }
+    }
+    // Also include fields from mixins
+    for (final mixin in mixins) {
+      for (final fieldDecl in mixin.fieldDeclarations) {
+        if (!fieldDecl.isStatic) {
+          for (final variable in fieldDecl.fields.variables) {
+            fieldNames.add(variable.name.lexeme);
+          }
+        }
+      }
+    }
+    return fieldNames;
   }
 
   /// Returns a map representing all members required by the interfaces implemented
@@ -1046,6 +1092,14 @@ class InterpretedInstance implements RuntimeValue {
   Object? get(String name, {InterpreterVisitor? visitor}) {
     Logger.debug(
         "[Instance.get] Looking for '$name' on instance $hashCode of '${klass.name}'. Fields: ${_fields.keys}");
+
+    // Handle Object properties that all objects have
+    switch (name) {
+      case 'runtimeType':
+        return klass;
+      case 'hashCode':
+        return hashCode;
+    }
 
     // Check fields in the current instance first
     if (_fields.containsKey(name)) {
