@@ -1,5 +1,5 @@
 Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_dcli/test/replay/test_dcli_filesystem.dcli
-Started: 2026-02-05T15:21:01.598530
+Started: 2026-02-05T15:28:31.873209
 
 Lines executed: 54
 
@@ -16,4 +16,4 @@ Problematic code: [import 'dart:convert';]
 (Set DEBUG=true environment variable to see stack traces)
 
 Result: FAILED
-Completed: 2026-02-05T15:21:02.027263
+Completed: 2026-02-05T15:28:32.375359

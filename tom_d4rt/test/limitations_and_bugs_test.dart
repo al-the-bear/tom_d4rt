@@ -685,6 +685,192 @@ Symbol main() {
       expect(result, equals(Symbol('test')));
     });
 
+    test('Bug-60: Indexing on null target should give clear error', () {
+      // dart_overview operators: "Unsupported target for indexing: null"
+      const source = '''
+String main() {
+  List<String>? nullList;
+  return nullList?[0] ?? 'default';
+}
+''';
+      final result = execute(source);
+      expect(result, equals('default'));
+    });
+
+    test('Bug-61: if-case pattern should work with String', () {
+      // dart_overview control_flow: "if condition must be a boolean, but was String"
+      const source = '''
+String main() {
+  var value = 'hello';
+  if (value case String s) {
+    return s.toUpperCase();
+  }
+  return 'not matched';
+}
+''';
+      final result = execute(source);
+      expect(result, equals('HELLO'));
+    });
+
+    test('Bug-62: GenericFunctionType in imported file should work', () {
+      // dart_overview functions: "GenericFunctionTypeImpl not implemented"
+      // This happens when loading a module that uses generic function types
+      final d4rt = D4rt()..setDebug(false);
+
+      const mainSource = '''
+import 'package:test/utils.dart';
+List<int> main() {
+  return applyToAll([1, 2, 3], (x) => x * 2);
+}
+''';
+
+      const utilsSource = '''
+List<int> applyToAll(List<int> numbers, int Function(int) f) {
+  return numbers.map(f).toList();
+}
+''';
+
+      final result = d4rt.execute(
+        library: 'package:test/main.dart',
+        sources: {
+          'package:test/main.dart': mainSource,
+          'package:test/utils.dart': utilsSource,
+        },
+      );
+      expect(result, equals([2, 4, 6]));
+    });
+
+    test('Bug-63: Abstract method from interface should be recognized', () {
+      // dart_overview classes: "Missing abstract method 'move' in AdvancedRobot"
+      const source = '''
+abstract class Robot {
+  void move();
+}
+class AdvancedRobot implements Robot {
+  @override
+  void move() => print('Moving');
+}
+void main() {
+  AdvancedRobot().move();
+}
+''';
+      expect(() => execute(source), returnsNormally);
+    });
+
+    test('Bug-64: Interface class same-library extension should work', () {
+      // dart_overview class_modifiers: "Cannot extend interface class"
+      const source = '''
+interface class DataSource {
+  void load() {}
+}
+class JsonDataSource extends DataSource {
+  @override
+  void load() => print('Loading JSON');
+}
+void main() {
+  JsonDataSource().load();
+}
+''';
+      expect(() => execute(source), returnsNormally);
+    });
+
+    test('Bug-65: Map.from constructor should be bridged', () {
+      // dart_overview collections: "Map.from constructor not bridged"
+      const source = '''
+Map<String, int> main() {
+  var original = {'a': 1, 'b': 2};
+  var copy = Map<String, int>.from(original);
+  return copy;
+}
+''';
+      final result = execute(source);
+      expect(result, equals({'a': 1, 'b': 2}));
+    });
+
+    test('Bug-66: Record pattern with named field should work', () {
+      // dart_overview records: "Named field lexeme is null"
+      const source = '''
+String main() {
+  var record = (name: 'Alice', age: 30);
+  var (name: n, age: a) = record;
+  return '\$n is \$a years old';
+}
+''';
+      final result = execute(source);
+      expect(result, equals('Alice is 30 years old'));
+    });
+
+    test('Bug-67: if-case with int pattern should work', () {
+      // dart_overview patterns: "if condition must be a boolean, but was int"
+      const source = '''
+String main() {
+  var value = 42;
+  if (value case int x when x > 0) {
+    return 'positive: \$x';
+  }
+  return 'not positive';
+}
+''';
+      final result = execute(source);
+      expect(result, equals('positive: 42'));
+    });
+
+    test('Bug-68: LogicalOrPattern in switch should work', () {
+      // dart_overview enums: "LogicalOrPatternImpl not supported"
+      const source = '''
+String main() {
+  var value = 2;
+  return switch (value) {
+    1 || 2 || 3 => 'low',
+    _ => 'high',
+  };
+}
+''';
+      final result = execute(source);
+      expect(result, equals('low'));
+    });
+
+    test('Bug-69: Abstract getter from mixin should be recognized', () {
+      // dart_overview mixins: "Missing abstract getter 'name' in Bird"
+      const source = '''
+mixin Named {
+  String get name;
+}
+class Bird with Named {
+  @override
+  String get name => 'Tweety';
+}
+String main() {
+  return Bird().name;
+}
+''';
+      final result = execute(source);
+      expect(result, equals('Tweety'));
+    });
+
+    test('Bug-70: await on Future.value should work', () {
+      // dart_overview async: "await must be Future, got BridgedInstance"
+      const source = '''
+Future<String> main() async {
+  var result = await Future.value('hello');
+  return result;
+}
+''';
+      final result = execute(source);
+      expect(result, completion(equals('hello')));
+    });
+
+    test('Bug-71: Error class should be accessible', () {
+      // dart_overview error_handling: "Undefined variable: Error"
+      const source = '''
+bool main() {
+  var e = Error();
+  return e is Error;
+}
+''';
+      final result = execute(source);
+      expect(result, isTrue);
+    });
   });
 
   // ============================================================

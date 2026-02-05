@@ -1,5 +1,5 @@
 Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_dcli/test/replay/test_dcli_basics.dcli
-Started: 2026-02-05T15:19:19.654350
+Started: 2026-02-05T15:26:32.894679
 
 Lines executed: 107
 
@@ -22,4 +22,4 @@ REPORTED ERRORS (14):
 (Set DEBUG=true environment variable to see stack traces)
 
 Result: FAILED
-Completed: 2026-02-05T15:19:20.306872
+Completed: 2026-02-05T15:26:33.288216

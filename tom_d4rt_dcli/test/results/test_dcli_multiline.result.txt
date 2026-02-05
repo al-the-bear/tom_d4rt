@@ -1,5 +1,5 @@
 Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_dcli/test/replay/test_dcli_multiline.dcli
-Started: 2026-02-05T15:22:33.577644
+Started: 2026-02-05T15:30:33.512570
 
 Lines executed: 83
 
@@ -13,4 +13,4 @@ verify(testVar == 100, '.start-execute variable works');]
 (Set DEBUG=true environment variable to see stack traces)
 
 Result: FAILED
-Completed: 2026-02-05T15:22:33.949302
+Completed: 2026-02-05T15:30:33.998328
