@@ -184,19 +184,6 @@ void main() {
       expect(() => execute(source), returnsNormally);
     });
 
-    test('Lim-2: Extension on DateTime should work', () {
-      const source = '''
-extension DateTimeExtension on DateTime {
-  bool get isWeekend => weekday == DateTime.saturday || weekday == DateTime.sunday;
-}
-void main() {
-  var now = DateTime.now();
-  print(now.isWeekend);
-}
-''';
-      expect(() => execute(source), returnsNormally);
-    });
-
     test('Lim-3: Isolate.run with interpreted closure should work', () async {
       const source = '''
 import 'dart:isolate';
@@ -605,66 +592,6 @@ bool main() {
       expect(result, isFalse);
     });
 
-    test('Bug-32: continue with label in switch should work', () {
-      const source = '''
-void main() {
-  switch (1) {
-    case 1:
-      print('One');
-      continue two;
-    two:
-    case 2:
-      print('Two');
-  }
-}
-''';
-      expect(() => execute(source), returnsNormally);
-    });
-
-    test('Bug-40: Comparable sort should work', () {
-      const source = '''
-class Person implements Comparable<Person> {
-  final String name;
-  Person(this.name);
-  @override
-  int compareTo(Person other) => name.compareTo(other.name);
-}
-List<String> main() {
-  var people = [Person('Bob'), Person('Alice')];
-  people.sort();
-  return people.map((p) => p.name).toList();
-}
-''';
-      final result = execute(source);
-      expect(result, equals(['Alice', 'Bob']));
-    });
-
-    test('Bug-41: Await in string interpolation should return correct value', () async {
-      const source = '''
-Future<String> getValue() async => 'Hello';
-Future<String> main() async {
-  return 'Value: \${await getValue()}';
-}
-''';
-      final result = await executeAsync(source);
-      expect(result, equals('Value: Hello'));
-    });
-
-    test('Bug-42: noSuchMethod should work for getters', () {
-      const source = '''
-class Flex {
-  @override
-  dynamic noSuchMethod(Invocation i) => 'handled';
-}
-dynamic main() {
-  dynamic f = Flex();
-  return f.anyProperty;
-}
-''';
-      final result = execute(source);
-      expect(result, equals('handled'));
-    });
-
     test(
       'Bug-43: Infinite sync* generator should work with take()',
       () async {
@@ -746,6 +673,18 @@ List<int> main() {
       final result = execute(source);
       expect(result, equals([1, 2, 3]));
     });
+
+    test('Bug-55: Symbol class should be accessible', () {
+      const source = '''
+Symbol main() {
+  var s = Symbol('test');
+  return s;
+}
+''';
+      final result = execute(source);
+      expect(result, equals(Symbol('test')));
+    });
+
   });
 
   // ============================================================
@@ -754,6 +693,152 @@ List<int> main() {
   // ============================================================
 
   group('Fixed Bugs (SHOULD PASS)', () {
+    test('Bug-56: Constructor with positional arguments should work', () {
+      const source = '''
+class Point {
+  final int x;
+  final int y;
+  Point(this.x, this.y);
+}
+String main() {
+  var p = Point(10, 20);
+  return 'Point(\${p.x}, \${p.y})';
+}
+''';
+      final result = execute(source);
+      expect(result, equals('Point(10, 20)'));
+    });
+
+    test('Bug-57: Class with operator override and constructor should work',
+        () {
+      // This mimics the dart_overview case where Point has operator == override
+      // and is defined at the bottom of the file but instantiated earlier
+      const source = '''
+void main() {
+  var p1 = Point(1, 2);
+  var p2 = Point(1, 2);
+  print('p1: \$p1, p2: \$p2');
+  print('p1 == p2: \${p1 == p2}');
+}
+
+class Point {
+  final int x;
+  final int y;
+
+  Point(this.x, this.y);
+
+  @override
+  bool operator ==(Object other) =>
+      other is Point && other.x == x && other.y == y;
+
+  @override
+  int get hashCode => Object.hash(x, y);
+
+  @override
+  String toString() => 'Point(\$x, \$y)';
+}
+''';
+      final result = execute(source);
+      expect(result, isNull); // void main returns null
+    });
+
+    test('Bug-58: Complex file with functions and classes defined at end', () {
+      // This is exactly like dart_overview/run_comparison.dart where
+      // helper function and class are at the end
+      const source = '''
+void main() {
+  print('Testing operators...');
+  
+  // Use a helper function defined at bottom
+  String? nullableStr = getString(null);
+  print('nullableStr == null: \${nullableStr == null}');
+  
+  // Custom equality
+  print('--- Custom Equality ---');
+  var p1 = Point(1, 2);
+  var p2 = Point(1, 2);
+  var p3 = p1;
+  print('p1: \$p1, p2: \$p2');
+  print('p1 == p2: \${p1 == p2}');
+  print('identical(p1, p2): \${identical(p1, p2)}');
+  print('identical(p1, p3): \${identical(p1, p3)}');
+}
+
+class Point {
+  final int x;
+  final int y;
+
+  Point(this.x, this.y);
+
+  @override
+  bool operator ==(Object other) =>
+      other is Point && other.x == x && other.y == y;
+
+  @override
+  int get hashCode => Object.hash(x, y);
+
+  @override
+  String toString() => 'Point(\$x, \$y)';
+}
+
+// Helper to return nullable string (prevents compile-time optimization)
+String? getString(String? s) => s;
+''';
+      final result = execute(source);
+      expect(result, isNull); // void main returns null
+    });
+
+    test('Bug-59: Multi-file imports with class constructor calls', () {
+      // Test using sources map with imports (like dart_overview)
+      // This was the main bug - imported classes had empty constructor maps
+      // Fixed by processing ClassDeclaration in ModuleLoader
+      final d4rt = D4rt()..setDebug(false);
+
+      const mainSource = '''
+import 'package:test/comparison.dart' as comparison;
+
+void main() {
+  comparison.main();
+}
+''';
+
+      const comparisonSource = '''
+void main() {
+  print('--- Custom Equality ---');
+  var p1 = Point(1, 2);
+  var p2 = Point(1, 2);
+  print('p1: \$p1, p2: \$p2');
+  print('p1 == p2: \${p1 == p2}');
+}
+
+class Point {
+  final int x;
+  final int y;
+
+  Point(this.x, this.y);
+
+  @override
+  bool operator ==(Object other) =>
+      other is Point && other.x == x && other.y == y;
+
+  @override
+  int get hashCode => Object.hash(x, y);
+
+  @override
+  String toString() => 'Point(\$x, \$y)';
+}
+''';
+
+      final result = d4rt.execute(
+        library: 'package:test/main.dart',
+        sources: {
+          'package:test/main.dart': mainSource,
+          'package:test/comparison.dart': comparisonSource,
+        },
+      );
+      expect(result, isNull); // void main returns null
+    });
+
     test('Bug-3: Enum value access should work', () {
       const source = '''
 enum Day { monday, tuesday, wednesday }
@@ -919,6 +1004,79 @@ void main() {
 }
 ''';
       expect(() => execute(source), returnsNormally);
+    });
+
+    test('Lim-2: Extension on DateTime should work', () {
+      const source = '''
+extension DateTimeExtension on DateTime {
+  bool get isWeekend => weekday == DateTime.saturday || weekday == DateTime.sunday;
+}
+void main() {
+  var now = DateTime.now();
+  print(now.isWeekend);
+}
+''';
+      expect(() => execute(source), returnsNormally);
+    });
+
+    test('Bug-32: continue with label in switch should work', () {
+      const source = '''
+void main() {
+  switch (1) {
+    case 1:
+      print('One');
+      continue two;
+    two:
+    case 2:
+      print('Two');
+  }
+}
+''';
+      expect(() => execute(source), returnsNormally);
+    });
+
+    test('Bug-40: Comparable sort should work', () {
+      const source = '''
+class Person implements Comparable<Person> {
+  final String name;
+  Person(this.name);
+  @override
+  int compareTo(Person other) => name.compareTo(other.name);
+}
+List<String> main() {
+  var people = [Person('Bob'), Person('Alice')];
+  people.sort();
+  return people.map((p) => p.name).toList();
+}
+''';
+      final result = execute(source);
+      expect(result, equals(['Alice', 'Bob']));
+    });
+
+    test('Bug-41: Await in string interpolation should return correct value', () async {
+      const source = '''
+Future<String> getValue() async => 'Hello';
+Future<String> main() async {
+  return 'Value: \${await getValue()}';
+}
+''';
+      final result = await executeAsync(source);
+      expect(result, equals('Value: Hello'));
+    });
+
+    test('Bug-42: noSuchMethod should work for getters', () {
+      const source = '''
+class Flex {
+  @override
+  dynamic noSuchMethod(Invocation i) => 'handled';
+}
+dynamic main() {
+  dynamic f = Flex();
+  return f.anyProperty;
+}
+''';
+      final result = execute(source);
+      expect(result, equals('handled'));
     });
   });
 }

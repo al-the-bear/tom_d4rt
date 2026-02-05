@@ -1,97 +1,18 @@
 Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_dcli/test/replay/test_dcli_classes.dcli
-Started: 2026-02-05T13:26:44.378226
+Started: 2026-02-05T15:19:44.054221
 
 Lines executed: 112
 
-REPORTED ERRORS (56):
-  - SourceCodeException: Failed to parse expression:
-- Expected to find ';'. (line 2, column 10)
-Problematic code: [Object? __repl_expr__() {
-  return import 'dart:io';
-}
-]
+REPORTED ERRORS (3):
   - SourceCodeException: Failed to parse expression:
 
 Problematic code: [import 'dart:io';]
   - SourceCodeException: Failed to parse expression:
-- Expected to find ';'. (line 2, column 10)
-Problematic code: [Object? __repl_expr__() {
-  return import 'dart:math';
-}
-]
-  - SourceCodeException: Failed to parse expression:
 
 Problematic code: [import 'dart:math';]
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var p1 = Point(3.0, 4.0);
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: x
-  - Runtime Error: Undefined variable: x
-  - Runtime Error: Undefined variable: y
-  - Runtime Error: Undefined variable: y
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined static field 'toString' on class '<class Point>.name'.
-  - Runtime Error: Undefined variable: x
-  - Runtime Error: Undefined variable: y
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var rect = Rectangle(10.0, 5.0);
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: width
-  - Runtime Error: Undefined variable: height
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: width
-  - Runtime Error: Undefined variable: height
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var square = Rectangle.square(4.0);
-}
-]
   - Runtime Error: Cannot bridge native object: No registered bridged class found for native type InterpretedClass.
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: width
-  - Runtime Error: Undefined variable: height
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Cannot bridge native object: No registered bridged class found for native type InterpretedClass.
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Cannot bridge native object: No registered bridged class found for native type InterpretedClass.
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Cannot bridge native object: No registered bridged class found for native type InterpretedClass.
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Cannot bridge native object: No registered bridged class found for native type InterpretedClass.
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
+
+(Set DEBUG=true environment variable to see stack traces)
 
 Result: FAILED
-Completed: 2026-02-05T13:26:44.782655
+Completed: 2026-02-05T15:19:44.785285

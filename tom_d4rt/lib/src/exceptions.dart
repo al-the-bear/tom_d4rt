@@ -7,12 +7,30 @@
 /// preventing them from causing test failures.
 class ErrorReporter {
   static final List<D4rtException> _errors = [];
+  static final Map<D4rtException, StackTrace> _stackTraces = {};
+  static bool _trackingEnabled = true;
 
-  /// Reports an error to the reporter.
+  /// Reports an error to the reporter (only if tracking is enabled).
   ///
   /// This is called automatically by the [D4rtException] constructor.
-  static void reportError(D4rtException error) {
-    _errors.add(error);
+  static void reportError(D4rtException error, [StackTrace? stackTrace]) {
+    if (_trackingEnabled) {
+      _errors.add(error);
+      _stackTraces[error] = stackTrace ?? StackTrace.current;
+    }
+  }
+
+  /// Temporarily disables error tracking.
+  ///
+  /// This is useful during speculative operations (like trying to parse as expression
+  /// before falling back to statement) where errors are expected and should not be tracked.
+  static void disableTracking() {
+    _trackingEnabled = false;
+  }
+
+  /// Re-enables error tracking.
+  static void enableTracking() {
+    _trackingEnabled = true;
   }
 
   /// Revokes (removes) an error from the reporter.
@@ -22,7 +40,18 @@ class ErrorReporter {
   /// 
   /// Returns true if the error was found and removed, false otherwise.
   static bool revokeError(D4rtException error) {
+    _stackTraces.remove(error);
     return _errors.remove(error);
+  }
+
+  /// Revokes all currently tracked errors.
+  ///
+  /// This is useful when a batch of errors occurred during a failed attempt
+  /// (like trying to parse as expression before falling back to statement),
+  /// and all those errors should be discarded.
+  static void revokeAll() {
+    _errors.clear();
+    _stackTraces.clear();
   }
 
   /// Returns an unmodifiable list of all reported errors.
@@ -31,6 +60,7 @@ class ErrorReporter {
   /// Clears all reported errors.
   static void clear() {
     _errors.clear();
+    _stackTraces.clear();
   }
 
   /// Returns true if any errors have been reported.
@@ -38,6 +68,18 @@ class ErrorReporter {
 
   /// Returns a formatted string with all reported errors.
   static String get report {
+    if (_errors.isEmpty) return 'No errors reported.';
+    return _errors.map((e) {
+      final stackTrace = _stackTraces[e];
+      if (stackTrace != null) {
+        return '$e\nStack trace:\n$stackTrace';
+      }
+      return e.toString();
+    }).join('\n\n');
+  }
+
+  /// Returns a formatted string with all reported errors (without stack traces).
+  static String get reportShort {
     if (_errors.isEmpty) return 'No errors reported.';
     return _errors.map((e) => e.toString()).join('\n');
   }
@@ -184,6 +226,12 @@ class ContinueException implements Exception {
 
   @override
   String toString() => 'ContinueException(label: $label)';
+}
+
+/// Internal exception for continue-to-label in switch statements.
+/// This is used to signal the switch handler to restart from a specific labeled case.
+class ContinueSwitchLabel implements Exception {
+  const ContinueSwitchLabel();
 }
 
 /// Exception thrown when there's an issue with the source code itself,

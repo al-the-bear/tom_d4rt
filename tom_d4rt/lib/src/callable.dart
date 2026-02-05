@@ -2908,8 +2908,72 @@ class InterpretedFunction implements Callable {
       }
     }
 
-    // Case 3: Return statement (return await f();)
-    else if (awaitContextNode is ReturnStatement && awaitExpression != null) {
+    // Case 3: Return statement with await in expression
+    // Handles both direct await (return await f();) and nested await (return 'Value: ${await f()}';)
+    else if (awaitContextNode is ReturnStatement) {
+      final returnNode = awaitContextNode;
+      
+      if (awaitExpression != null && returnNode.expression == awaitExpression) {
+        // Direct await: return await f();
+        // The result is already in lastAwaitResult, just trigger a return with it
+        Logger.debug(
+            "[_determineNextNodeAfterAwait] Resuming ReturnStatement with direct await. Result: $futureResult");
+        // The return statement will be re-executed with the resolved value
+        // We need to mark the function as complete with this value
+        state.lastAwaitResult = futureResult;
+        // Return null to signal completion - the state machine will use lastAwaitResult
+        return null;
+      } else {
+        // Nested await: return 'Value: ${await f()}';
+        // Need to re-evaluate the return expression with resumption mode enabled
+        Logger.debug(
+            "[_determineNextNodeAfterAwait] Resuming ReturnStatement with nested await. Re-evaluating expression...");
+        
+        try {
+          // Temporarily restore the async state to enable await processing
+          final previousAsyncState = visitor.currentAsyncState;
+          visitor.currentAsyncState = state;
+          
+          // Enable invocation resumption mode so await expressions return the resolved value
+          final previousResumptionMode = state.isInvocationResumptionMode;
+          state.isInvocationResumptionMode = true;
+          
+          // Re-evaluate just the return expression
+          final expression = returnNode.expression;
+          if (expression == null) {
+            // return; statement - no expression to evaluate
+            state.isInvocationResumptionMode = previousResumptionMode;
+            visitor.currentAsyncState = previousAsyncState;
+            return null;
+          }
+          
+          final result = expression.accept<Object?>(visitor);
+          
+          // Restore the previous modes
+          state.isInvocationResumptionMode = previousResumptionMode;
+          visitor.currentAsyncState = previousAsyncState;
+          
+          if (result is AsyncSuspensionRequest) {
+            Logger.debug(
+                "[_determineNextNodeAfterAwait] Another await encountered during return expression continuation.");
+            return awaitContextNode; // Stay on the same node to handle the next await
+          }
+          
+          // The expression completed successfully - store result for return
+          Logger.debug(
+              "[_determineNextNodeAfterAwait] Return expression completed with result: $result");
+          state.lastAwaitResult = result;
+          // Return null to signal completion - the state machine will use lastAwaitResult
+          return null;
+        } catch (e, s) {
+          Logger.error(
+              "[_determineNextNodeAfterAwait] Error during return expression continuation: $e\n$s");
+          if (!state.completer.isCompleted) {
+            state.completer.completeError(e, s);
+          }
+          return null; // Stop execution
+        }
+      }
     }
 
     // Case 4: Function body expression (=> await f();)

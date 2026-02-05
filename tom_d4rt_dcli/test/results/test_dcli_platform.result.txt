@@ -1,89 +1,14 @@
 Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_dcli/test/replay/test_dcli_platform.dcli
-Started: 2026-02-05T13:30:01.537624
+Started: 2026-02-05T15:22:51.368098
 
 Lines executed: 47
 
-REPORTED ERRORS (31):
-  - SourceCodeException: Failed to parse expression:
-- Expected to find ';'. (line 2, column 10)
-Problematic code: [Object? __repl_expr__() {
-  return import 'dart:io';
-}
-]
+REPORTED ERRORS (1):
   - SourceCodeException: Failed to parse expression:
 
 Problematic code: [import 'dart:io';]
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var os = Platform.operatingSystem;
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var pathSep = Platform.pathSeparator;
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var version = Platform.version;
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var numProcessors = Platform.numberOfProcessors;
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var env = Platform.environment;
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var home = Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var executable = Platform.executable;
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
+
+(Set DEBUG=true environment variable to see stack traces)
 
 Result: FAILED
-Completed: 2026-02-05T13:30:02.023382
+Completed: 2026-02-05T15:22:51.779095

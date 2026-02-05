@@ -679,7 +679,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           "Undefined static member '$memberName' on extension '${extension.name ?? '<unnamed>'}'.");
     } else if (prefixValue is InterpretedInstance) {
       try {
-        final member = prefixValue.get(memberName);
+        final member = prefixValue.get(memberName, visitor: this);
         if (member is InterpretedFunction && member.isGetter) {
           return member.bind(prefixValue).call(this, [], {});
         } else {
@@ -3301,6 +3301,26 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             bridgedInstance, methodAdapter, propertyName);
       }
 
+      // Try extension lookup before throwing error
+      Logger.debug(
+          "[PropertyAccess] Direct access failed for '$propertyName' on BridgedInstance. Trying extension lookup...");
+      final extensionMember =
+          environment.findExtensionMember(bridgedInstance, propertyName);
+
+      if (extensionMember is InterpretedExtensionMethod) {
+        if (extensionMember.isGetter) {
+          Logger.debug(
+              "[PropertyAccess] Found extension getter '$propertyName' for BridgedInstance. Calling...");
+          // Getters are called with the native object as the first positional argument
+          final extensionPositionalArgs = [bridgedInstance.nativeObject];
+          return extensionMember.call(this, extensionPositionalArgs, {});
+        } else if (!extensionMember.isOperator && !extensionMember.isSetter) {
+          Logger.debug(
+              "[PropertyAccess] Found extension method '$propertyName' for BridgedInstance. Returning tear-off.");
+          return extensionMember;
+        }
+      }
+
       throw RuntimeError(
           "Undefined property or method '$propertyName' on bridged instance of '${bridgedInstance.bridgedClass.name}'.");
     } else if (target is InterpretedRecord) {
@@ -5664,6 +5684,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         buffer.write(element.value);
       } else if (element is InterpolationExpression) {
         final value = element.expression.accept<Object?>(this);
+        // If the value is an async suspension, propagate it upward
+        if (value is AsyncSuspensionRequest) {
+          return value;
+        }
         buffer.write(stringify(value)); // Use stringify helper
       } else {
         // Should not happen based on AST structure
@@ -7815,27 +7839,41 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final previousEnvironment = environment;
     environment = switchEnvironment;
 
+    // Build a map of labels to member indices for 'continue <label>'
+    final Map<String, int> labelToIndex = {};
+    for (int i = 0; i < node.members.length; i++) {
+      final member = node.members[i];
+      for (final label in member.labels) {
+        labelToIndex[label.label.name] = i;
+      }
+    }
+
     bool matched = false; // Has any case matched the switchValue?
     bool execute =
         false; // Should we execute statements in the current/next section?
+    int startIndex = 0; // Starting index for processing members
 
     try {
-      for (final member in node.members) {
-        List<Statement> statementsToExecute = [];
+      while (true) {
+        // outer loop for continue with label
+        try {
+          for (int i = startIndex; i < node.members.length; i++) {
+            final member = node.members[i];
+            List<Statement> statementsToExecute = [];
 
-        if (member is SwitchCase) {
-          if (!matched) {
-            final caseValue = member.expression.accept<Object?>(this);
-            Logger.debug(
-                "[Switch] Checking legacy case value: $caseValue against $switchValue");
-            if (switchValue == caseValue) {
-              matched = true;
-              execute = true;
-              Logger.debug("[Switch] Matched legacy case: $caseValue");
-            }
-          }
-          statementsToExecute = member.statements;
-        } else if (member is SwitchPatternCase) {
+            if (member is SwitchCase) {
+              if (!matched) {
+                final caseValue = member.expression.accept<Object?>(this);
+                Logger.debug(
+                    "[Switch] Checking legacy case value: $caseValue against $switchValue");
+                if (switchValue == caseValue) {
+                  matched = true;
+                  execute = true;
+                  Logger.debug("[Switch] Matched legacy case: $caseValue");
+                }
+              }
+              statementsToExecute = member.statements;
+            } else if (member is SwitchPatternCase) {
           // Try explicit cast to potentially help the linter
           final pattern = member.guardedPattern.pattern;
           if (pattern is ConstantPattern) {
@@ -7915,12 +7953,27 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               Logger.debug("[Switch] Rethrowing outer break...");
               rethrow;
             }
-          } on ContinueException {
-            // 'continue' without a label is invalid here according to Dart spec
-            // Analyzer should catch 'continue L;' if L doesn't label a loop/switch member
-            throw RuntimeError(
-                "'continue' is not valid inside a switch case/default block without a loop target.");
+          } on ContinueException catch (e) {
+            if (e.label != null && labelToIndex.containsKey(e.label)) {
+              // Continue to a labeled case in this switch
+              Logger.debug("[Switch] Continue to labeled case: ${e.label}");
+              startIndex = labelToIndex[e.label]!;
+              matched = true;  // Mark as matched so we execute the target case
+              execute = true;
+              throw ContinueSwitchLabel(); // Signal to restart from target index
+            } else {
+              // 'continue' without a label or with unknown label
+              throw RuntimeError(
+                  "'continue' is not valid inside a switch case/default block without a loop target.");
+            }
           }
+            }
+          }
+          // Normal completion - exit the while(true) loop
+          break;
+        } on ContinueSwitchLabel {
+          // Restart execution from startIndex (already set before throwing)
+          continue;
         }
       }
     } finally {

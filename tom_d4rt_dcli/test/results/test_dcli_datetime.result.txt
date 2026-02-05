@@ -1,87 +1,15 @@
 Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_dcli/test/replay/test_dcli_datetime.dcli
-Started: 2026-02-05T13:27:44.385709
+Started: 2026-02-05T15:20:43.801426
 
 Lines executed: 47
 
-REPORTED ERRORS (35):
-  - SourceCodeException: Failed to parse expression:
-- Expected to find ';'. (line 2, column 10)
-Problematic code: [Object? __repl_expr__() {
-  return import 'dart:io';
-}
-]
+REPORTED ERRORS (2):
   - SourceCodeException: Failed to parse expression:
 
 Problematic code: [import 'dart:io';]
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var now = DateTime.now();
-}
-]
   - Runtime Error: Cannot bridge native object: No registered bridged class found for native type BridgedClass.
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var specific = DateTime(2026, 6, 15, 10, 30, 45);
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var date = DateTime(2026, 3, 15, 14, 30, 0);
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var duration1 = Duration(hours: 2, minutes: 30);
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var duration2 = Duration(days: 1, hours: 12);
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var combined = duration1 + duration2;
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
+
+(Set DEBUG=true environment variable to see stack traces)
 
 Result: FAILED
-Completed: 2026-02-05T13:27:44.897343
+Completed: 2026-02-05T15:20:44.199866

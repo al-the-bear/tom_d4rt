@@ -355,7 +355,31 @@ class ListCore {
           },
           'sort': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              (target as List).sort();
+              // Check if elements are InterpretedInstances that implement Comparable
+              final list = target as List;
+              if (list.isNotEmpty && list.first is InterpretedInstance) {
+                // Use interpreted compareTo method
+                list.sort((a, b) {
+                  if (a is InterpretedInstance && b is InterpretedInstance) {
+                    final compareToMethod = a.klass.findInstanceMethod('compareTo');
+                    if (compareToMethod != null) {
+                      final boundMethod = compareToMethod.bind(a);
+                      final result = boundMethod.call(visitor, [b], {});
+                      if (result is int) {
+                        return result;
+                      }
+                      throw RuntimeError(
+                          "compareTo must return an int, got ${result?.runtimeType}");
+                    }
+                    throw RuntimeError(
+                        "Class '${a.klass.name}' does not implement compareTo for sorting");
+                  }
+                  // Fall back to native Comparable
+                  return (a as Comparable).compareTo(b);
+                });
+              } else {
+                list.sort();
+              }
             } else {
               final compare = positionalArgs[0] as Callable;
               (target as List)

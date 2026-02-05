@@ -1,110 +1,20 @@
 Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_dcli/test/replay/test_dcli_core.dcli
-Started: 2026-02-05T13:27:23.758850
+Started: 2026-02-05T15:20:26.366866
 
 Lines executed: 53
 
-REPORTED ERRORS (44):
-  - SourceCodeException: Failed to parse expression:
-- Expected to find ';'. (line 2, column 10)
-Problematic code: [Object? __repl_expr__() {
-  return import 'dart:io';
-}
-]
+REPORTED ERRORS (3):
   - SourceCodeException: Failed to parse expression:
 
 Problematic code: [import 'dart:io';]
   - SourceCodeException: Failed to parse expression:
-- Expected to find ';'. (line 2, column 10)
-Problematic code: [Object? __repl_expr__() {
-  return import 'dart:convert';
-}
-]
-  - SourceCodeException: Failed to parse expression:
 
 Problematic code: [import 'dart:convert';]
   - SourceCodeException: Failed to parse expression:
-- Expected to find ';'. (line 2, column 10)
-Problematic code: [Object? __repl_expr__() {
-  return import 'dart:math';
-}
-]
-  - SourceCodeException: Failed to parse expression:
 
 Problematic code: [import 'dart:math';]
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var intVal = 42;
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var doubleVal = 3.14159;
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var boolTrue = true;
-}
-]
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var boolFalse = false;
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var stringVal = 'Hello, DCli!';
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var nullVal = null;
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
+
+(Set DEBUG=true environment variable to see stack traces)
 
 Result: FAILED
-Completed: 2026-02-05T13:27:24.321402
+Completed: 2026-02-05T15:20:26.883312

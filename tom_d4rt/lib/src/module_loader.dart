@@ -134,21 +134,28 @@ class ModuleLoader {
       }
     }
     
+    // Process class and mixin declarations to populate their members (methods, constructors, etc.)
+    // The DeclarationVisitor only creates placeholders with empty constructor maps.
+    // Bug-59: Without this, imported classes have no constructors available!
+    for (final declaration in ast.declarations) {
+      if (declaration is ClassDeclaration || declaration is MixinDeclaration) {
+        declaration.accept(moduleInterpreter);
+      }
+    }
+    
+    // Process function declarations to populate interpreted functions properly
+    for (final declaration in ast.declarations) {
+      if (declaration is FunctionDeclaration) {
+        declaration.accept(moduleInterpreter);
+      }
+    }
+    
     // Then process top-level variable declarations
     for (final declaration in ast.declarations) {
       // We only care about the evaluation of TopLevelVariableDeclaration for their initializers.
-      // Functions and classes are already "declared" by DeclarationVisitor.
-      // The InterpreterVisitor also handles function/class declarations but
-      // here, we want to make sure that the `define` of variables are done with the correct values.
       if (declaration is TopLevelVariableDeclaration) {
         declaration.accept(moduleInterpreter);
       }
-      // We could also want to execute other types of declarations if they have global side effects at the time of the module initialization,
-      // but for variables, this is the most crucial.
-      // Functions and classes are already "declared" (as Callable/InterpretedClass objects)
-      // by the DeclarationVisitor in moduleEnvironment. InterpreterVisitor would redefine them
-      // with the same objects (or similar objects if the logic differs slightly).
-      // For now, let's focus on variables.
     }
     Logger.debug(
         "[ModuleLoader loadModule for $uri] Finished InterpreterVisitor pass for initializers.");

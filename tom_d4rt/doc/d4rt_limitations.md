@@ -2,7 +2,7 @@
 
 This document provides a comprehensive reference of all known D4rt interpreter limitations and bugs, their current status, fixability assessment, and solution strategies.
 
-**Last Updated:** 2026-02-05
+**Last Updated:** 2026-02-06
 
 ---
 
@@ -28,11 +28,13 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 | Bug-52 | [Implicit super() fails when superclass has constructors](#bug-52-implicit-super-fails-when-superclass-has-constructors) | Low | 🔍 Confirm Fix |
 | Bug-53 | [NullAwareElement feature not supported](#bug-53-nullawareelement-feature-not-supported) | Low | 🔍 Confirm Fix |
 | Bug-54 | [Void return type checking too strict](#bug-54-void-return-type) | Low | 🔍 Confirm Fix |
-| Lim-2 | [Extensions on bridged types don't work](#lim-2-extensions-on-bridged-types-dont-work) | Medium | ⬜ TODO |
-| Lim-5, Bug-40 | [Comparable interface not implemented for interpreted classes](#lim-5-bug-40-comparable-interface-not-implemented) | Medium | ⬜ TODO |
-| Lim-6, Bug-32 | [Labeled continue in switch statements](#lim-6-bug-32-labeled-continue-in-switch-statements) | Medium | ⬜ TODO |
-| Lim-7, Bug-42 | [noSuchMethod not invoked for getter/setter access](#lim-7-bug-42-nosuchmethod-gettersetter-access) | Medium | ⬜ TODO |
-| Lim-9, Bug-41 | [Await in string interpolation shows raw object](#lim-9-bug-41-await-in-string-interpolation) | Medium | ⬜ TODO |
+| Bug-55 | [Symbol class not bridged](#bug-55-symbol-class-not-bridged) | Low | ⬜ TODO |
+| Lim-2 | [Extensions on bridged types don't work](#lim-2-extensions-on-bridged-types-dont-work) | Medium | ✅ Fixed |
+| Lim-5, Bug-40 | [Comparable interface not implemented for interpreted classes](#lim-5-bug-40-comparable-interface-not-implemented) | Medium | ✅ Fixed |
+| Lim-6, Bug-32 | [Labeled continue in switch statements](#lim-6-bug-32-labeled-continue-in-switch-statements) | Medium | ✅ Fixed |
+| Lim-7, Bug-42 | [noSuchMethod not invoked for getter/setter access](#lim-7-bug-42-nosuchmethod-gettersetter-access) | Medium | ✅ Fixed |
+| Lim-9, Bug-41 | [Await in string interpolation shows raw object](#lim-9-bug-41-await-in-string-interpolation) | Medium | ✅ Fixed |
+| Bug-59 | [Imported classes have empty constructor maps](#bug-59-imported-classes-have-empty-constructor-maps) | Medium | ✅ Fixed |
 | Bug-9 | [Type Never not found in type resolution](#bug-9-type-never-not-found-in-type-resolution) | Medium | 🔍 Confirm Fix |
 | Bug-10 | [Interface Comparable not found for implements](#bug-10-interface-comparable-not-found-for-implements) | Medium | 🔍 Confirm Fix |
 | Bug-11 | [Sealed class subclasses incorrectly rejected](#bug-11-sealed-class-subclasses-incorrectly-rejected) | Medium | 🔍 Confirm Fix |
@@ -116,7 +118,7 @@ void main() {
 
 ### Lim-2: Extensions on Bridged Types Don't Work
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -142,12 +144,12 @@ void main() {
 - **Location:** `interpreter_visitor.dart` → `visitPrefixedIdentifier()`, `visitPropertyAccess()`
 - **Root Cause:** When accessing a property on a bridged instance fails, the interpreter throws immediately instead of checking for applicable extensions
 
-#### Potential Fix Strategies
+#### Solution
 
-1. **Strategy A: Extension fallback for bridged instances**
-   - In property access error paths, before throwing, check `findExtensionMember(bridgedInstance, name)`
-   - If found, call the extension member
-   - Complexity: Medium
+Fixed in 2026-02-06:
+1. Modified `toBridgedClass()` in `environment.dart` to search enclosing environments recursively
+2. Added missing `DateTime` static getters (`saturday`, `sunday`, `monday`-`friday`, `january`-`december`, `daysPerWeek`, `monthsPerYear`)
+3. Extension lookup for bridged types now works correctly via `findExtensionMember()`
 
 **Test File:** `d4rt_bugs/extensions/test10_bridged_extension.dart`
 
@@ -226,9 +228,9 @@ void main() {
 
 ### Lim-5, Bug-40: Comparable Interface Not Implemented
 
-**Status:** ⬜ TODO  
-**Fixable:** ⚠️ Partial  
-**Complexity:** High
+**Status:** ✅ Fixed  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
 
 #### Problem Description
 
@@ -256,12 +258,10 @@ void main() {
 - **Location:** Native `List.sort()` implementation
 - **Root Cause:** `InterpretedInstance` is a wrapper that doesn't implement `Comparable<T>`
 
-#### Workarounds
+#### Solution
 
-Use explicit comparator functions:
-```dart
-people.sort((a, b) => a.name.compareTo(b.name));  // ✅ Works
-```
+Fixed in 2026-02-06:
+Modified the `List.sort` bridge in `stdlib/core/list.dart` to detect when list elements are `InterpretedInstance` and use the interpreted `compareTo` method instead of native comparison.
 
 **Test File:** `d4rt_bugs/hard_high/bug_40_comparable_sort.dart`
 
@@ -269,7 +269,7 @@ people.sort((a, b) => a.name.compareTo(b.name));  // ✅ Works
 
 ### Lim-6, Bug-32: Labeled Continue in Switch Statements
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -296,12 +296,12 @@ void main() {
 - **Location:** `interpreter_visitor.dart` → switch case handling
 - **Root Cause:** Continue with label inside switch cases requires tracking case labels and jumping
 
-#### Potential Fix Strategies
+#### Solution
 
-1. **Strategy A: Case label tracking**
-   - Track labeled cases in switch statements
-   - Implement continue-to-label as case jump
-   - Complexity: Medium
+Fixed in 2026-02-06:
+1. Rewrote `visitSwitchStatement` to track label-to-case-index mapping
+2. Added `ContinueSwitchLabel` exception class in `exceptions.dart`
+3. When `continue <label>` is caught inside switch, restart execution from the labeled case
 
 **Test File:** `d4rt_bugs/hard_high/bug_32_continue_label.dart`
 
@@ -309,7 +309,7 @@ void main() {
 
 ### Lim-7, Bug-42: noSuchMethod Getter/Setter Access
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -338,12 +338,12 @@ void main() {
 - **Location:** Property access handling in `interpreter_visitor.dart`
 - **Root Cause:** Getter/setter access paths throw `RuntimeError` without checking for `noSuchMethod`
 
-#### Potential Fix Strategies
+#### Solution
 
-1. **Strategy A: Check noSuchMethod for property access**
-   - Before throwing "property not found", check if class overrides `noSuchMethod`
-   - Create getter/setter `Invocation` and call the override
-   - Complexity: Medium
+Fixed in 2026-02-06:
+1. Modified `InterpretedInstance.get()` in `runtime_types.dart` to check for `noSuchMethod` before throwing
+2. Updated `visitPrefixedIdentifier` to pass the visitor to `get()` so `noSuchMethod` can be called
+3. When a property is not found, creates an `Invocation.getter(#propertyName)` and calls `noSuchMethod`
 
 **Test File:** `d4rt_bugs/hard_high/bug_42_nosuchmethod.dart`
 
@@ -381,8 +381,8 @@ switch (day) {
 
 ### Lim-9, Bug-41: Await in String Interpolation
 
-**Status:** ⬜ TODO  
-**Fixable:** ⚠️ Partial  
+**Status:** ✅ Fixed  
+**Fixable:** ✅ Yes  
 **Complexity:** Medium
 
 #### Problem Description
@@ -397,13 +397,17 @@ void main() async {
 }
 ```
 
-#### Workarounds
+#### Where is the Problem?
 
-Assign to variable first:
-```dart
-final name = await getName();
-print('Hello $name');  // ✅ Works
-```
+- **Location:** `interpreter_visitor.dart` → `visitStringInterpolation()`, `callable.dart` → async state machine
+- **Root Cause:** When await inside interpolation suspends, the string wasn't being rebuilt on resumption
+
+#### Solution
+
+Fixed in 2026-02-06:
+1. Modified `visitStringInterpolation()` to propagate `AsyncSuspensionRequest` upward when encountered
+2. Added handling for `ReturnStatement` with nested await in `_determineNextNodeAfterAwait()`
+3. On resumption, enables `isInvocationResumptionMode` and re-evaluates the return expression so the await returns the resolved value
 
 **Test File:** `d4rt_bugs/hard_high/bug_41_future_interpolation.dart`
 
@@ -1277,6 +1281,85 @@ void main() {
    - When visiting list/set literals, check for `NullAwareElement` nodes
    - If element is null, skip it; otherwise include it
    - Complexity: Low - simple null check
+
+---
+
+### Bug-55: Symbol Class Not Bridged
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+The `Symbol` class from dart:core is not bridged, causing `Type 'Symbol' not found` errors when trying to create symbols.
+
+```dart
+var s = Symbol('test');  // ❌ Type 'Symbol' not found
+```
+
+#### Where is the Problem?
+
+- **Location:** `lib/src/stdlib/core/`
+- **Root Cause:** No bridged class definition for `Symbol`
+
+#### Potential Fix Strategies
+
+1. **Strategy A: Add Symbol bridged class**
+   - Create `symbol.dart` with Symbol constructor bridged
+   - Register Symbol type in dart:core stdlib
+   - Complexity: Low - simple bridged class
+
+---
+
+### Bug-59: Imported Classes Have Empty Constructor Maps
+
+**Status:** ✅ Fixed  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+When a class is defined in an imported file, calling its constructor fails with "Class does not have an unnamed constructor that accepts arguments" even when the constructor is properly defined.
+
+```dart
+// In file a.dart:
+import 'b.dart';
+void main() {
+  var p = Point(1, 2);  // ❌ Error: Class 'Point' does not have...
+}
+
+// In file b.dart:
+class Point {
+  final int x, y;
+  Point(this.x, this.y);  // Constructor exists but not recognized!
+}
+```
+
+#### Where is the Problem?
+
+- **Location:** `lib/src/module_loader.dart` in `loadModule()`
+- **Root Cause:** ModuleLoader was only visiting `TopLevelVariableDeclaration` and `EnumDeclaration` with InterpreterVisitor, not `ClassDeclaration`. The DeclarationVisitor creates placeholder classes with empty constructor maps, but the actual members (methods, constructors, operators) are populated by InterpreterVisitor.visitClassDeclaration.
+
+#### Solution
+
+Added `ClassDeclaration`, `MixinDeclaration`, and `FunctionDeclaration` processing in `ModuleLoader.loadModule()`:
+
+```dart
+// Process class and mixin declarations to populate their members
+for (final declaration in ast.declarations) {
+  if (declaration is ClassDeclaration || declaration is MixinDeclaration) {
+    declaration.accept(moduleInterpreter);
+  }
+}
+
+// Process function declarations
+for (final declaration in ast.declarations) {
+  if (declaration is FunctionDeclaration) {
+    declaration.accept(moduleInterpreter);
+  }
+}
+```
 
 ---
 

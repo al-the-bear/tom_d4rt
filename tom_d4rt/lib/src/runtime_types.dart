@@ -1202,6 +1202,17 @@ class InterpretedInstance implements RuntimeValue {
       }
     }
 
+    // Check for noSuchMethod before throwing an error
+    final noSuchMethod = klass.findInstanceMethod('noSuchMethod');
+    if (noSuchMethod != null && visitor != null) {
+      Logger.debug(
+          "[Instance.get] Property '$name' not found but noSuchMethod exists. Invoking noSuchMethod...");
+      // Create an Invocation.getter for this property access
+      final invocation = Invocation.getter(Symbol(name));
+      final boundNoSuchMethod = noSuchMethod.bind(this);
+      return boundNoSuchMethod.call(visitor, [invocation], {});
+    }
+
     // If not found anywhere in the hierarchy or bridge
     throw RuntimeError("Undefined property '$name' on ${klass.name}.");
   }

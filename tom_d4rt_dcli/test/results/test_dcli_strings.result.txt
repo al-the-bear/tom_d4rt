@@ -1,143 +1,17 @@
 Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_dcli/test/replay/test_dcli_strings.dcli
-Started: 2026-02-05T13:30:20.546142
+Started: 2026-02-05T15:23:07.875016
 
 Lines executed: 64
 
-REPORTED ERRORS (48):
-  - SourceCodeException: Failed to parse expression:
-- Expected to find ';'. (line 2, column 10)
-Problematic code: [Object? __repl_expr__() {
-  return import 'dart:io';
-}
-]
+REPORTED ERRORS (2):
   - SourceCodeException: Failed to parse expression:
 
 Problematic code: [import 'dart:io';]
   - SourceCodeException: Failed to parse expression:
-- Expected to find ';'. (line 2, column 10)
-Problematic code: [Object? __repl_expr__() {
-  return import 'dart:convert';
-}
-]
-  - SourceCodeException: Failed to parse expression:
 
 Problematic code: [import 'dart:convert';]
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var singleQuote = 'Hello World';
-}
-]
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var doubleQuote = "Hello World";
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var multiConcat = 'Hello' + ' ' + 'World';
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var interpolated = 'Value: ${40 + 2}';
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var testStr = '  Hello, World!  ';
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var text = 'Hello, World!';
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var csv = 'one,two,three,four';
-}
-]
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var parts = csv.split(',');
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var joined = parts.join('-');
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var original = 'Hello World';
-}
-]
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var replaced = original.replaceAll('World', 'DCli');
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - SourceCodeException: Failed to parse expression:
-- Expected an identifier. (line 2, column 10)
-- Expected to find ';'. (line 2, column 3)
-Problematic code: [Object? __repl_expr__() {
-  return var first = 'a-b-c-d'.replaceFirst('-', '_');
-}
-]
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
-  - Runtime Error: Undefined variable: this
+
+(Set DEBUG=true environment variable to see stack traces)
 
 Result: FAILED
-Completed: 2026-02-05T13:30:21.213325
+Completed: 2026-02-05T15:23:08.248260

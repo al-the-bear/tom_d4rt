@@ -692,9 +692,18 @@ void main() {}
     if (ErrorReporter.hasErrors) {
       hasErrors = true;
       log('');
-      log('REPORTED ERRORS (${ErrorReporter.errors.length}):');
-      for (final error in ErrorReporter.errors) {
-        log('  - $error');
+      
+      // Use detailed report if DEBUG mode is enabled, otherwise use short report
+      if (Platform.environment['DEBUG'] == 'true') {
+        log('REPORTED ERRORS (${ErrorReporter.errors.length}) WITH STACK TRACES:');
+        log(ErrorReporter.report);
+      } else {
+        log('REPORTED ERRORS (${ErrorReporter.errors.length}):');
+        for (final error in ErrorReporter.errors) {
+          log('  - $error');
+        }
+        log('');
+        log('(Set DEBUG=true environment variable to see stack traces)');
       }
     }
 
@@ -828,6 +837,9 @@ void main() {}
           final replayedLines = await _replayFile(d4rt, state, sessionFileHandle.path, silent: true);
           print('Restored $replayedLines lines from session.');
         } catch (e) {
+          if (e is D4rtException) {
+            e.revoke();
+          }
           stderr.writeln('Warning: Failed to replay session: $e');
         }
         print('');
@@ -1491,6 +1503,9 @@ $code
           final replayedLines = await _replayFile(d4rt, state, sessionFile.path, silent: true);
           if (!silent) state.writeMuted('Replayed $replayedLines lines from session: $name');
         } catch (e) {
+          if (e is D4rtException) {
+            e.revoke();
+          }
           if (!silent) state.writeWarning('Failed to replay: $e');
         }
       } else {
@@ -1501,6 +1516,9 @@ $code
             final replayedLines = await _replayFile(d4rt, state, replayFilePath, silent: true);
             if (!silent) state.writeMuted('Replayed $replayedLines lines from: $replayFilePath');
           } catch (e) {
+            if (e is D4rtException) {
+              e.revoke();
+            }
             if (!silent) state.writeWarning('Failed to replay: $e');
           }
         } else {
@@ -1521,6 +1539,9 @@ $code
         final expr = line.endsWith(';') ? line.substring(0, line.length - 1).trim() : line;
         if (expr.isNotEmpty) {
           try {
+            // Disable error tracking during speculative expression parsing
+            ErrorReporter.disableTracking();
+            
             final hasAwait = expr.startsWith('await ') || expr.contains(' await ');
             
             final wrapperCode = hasAwait ? '''
@@ -1534,6 +1555,10 @@ Object? __repl_expr__() {
 ''';
             d4rt.eval(wrapperCode);
             var rawResult = d4rt.eval('__repl_expr__()');
+            
+            // Re-enable tracking before awaiting (in case the future throws)
+            ErrorReporter.enableTracking();
+            
             if (rawResult is Future) {
               state.startAwait();
               try {
@@ -1548,9 +1573,15 @@ Object? __repl_expr__() {
             }
             executed = true;
           } catch (e) {
+            // Re-enable tracking in case it was still disabled
+            ErrorReporter.enableTracking();
+            
+            // If expression parsing fails, we'll try as a statement next
+            // Don't rethrow unless it's an await expression
             if (expr.startsWith('await ')) {
               rethrow;
             }
+            // Otherwise suppress the error and continue to try as statement
           }
         }
       }
@@ -1575,7 +1606,7 @@ Object? __repl_expr__() {
         printResult(result);
       }
     } catch (e) {
-      state.writeError('$e');
+      if (!silent) state.writeError('$e');
     }
 
     return true;

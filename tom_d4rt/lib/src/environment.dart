@@ -136,40 +136,47 @@ class Environment {
   }
 
   BridgedClass toBridgedClass(Type nativeType) {
-    BridgedClass? bridgedClass = _bridgedClassesLookupByType[nativeType];
+    // Search current environment and enclosing ones
+    Environment? current = this;
+    while (current != null) {
+      BridgedClass? bridgedClass = current._bridgedClassesLookupByType[nativeType];
 
-    String nativeTypeName = nativeType.toString();
+      String nativeTypeName = nativeType.toString();
 
-    if (bridgedClass == null && (nativeTypeName.substring(0, 1) == '_')) {
-      if (nativeTypeName.endsWith('Impl')) {
-        nativeTypeName = nativeTypeName.substringBeforeLast('Impl');
+      if (bridgedClass == null && (nativeTypeName.substring(0, 1) == '_')) {
+        if (nativeTypeName.endsWith('Impl')) {
+          nativeTypeName = nativeTypeName.substringBeforeLast('Impl');
+        }
+        bridgedClass = current._bridgedClassesLookupByType.entries
+            .firstWhereOrNull((e) =>
+                (e.value.name ==
+                    nativeTypeName.substring(1).substringBefore('<')) ||
+                (e.value.nativeNames
+                        ?.any((name) => nativeTypeName.startsWith(name)) ??
+                    false))
+            ?.value;
+      } else if (bridgedClass == null && nativeTypeName.contains('<')) {
+        bridgedClass = current._bridgedClassesLookupByType.entries
+            .firstWhereOrNull((e) => nativeTypeName.contains('${e.value.name}<'))
+            ?.value;
       }
-      bridgedClass = _bridgedClassesLookupByType.entries
+      bridgedClass ??= current._bridgedClassesLookupByType.entries
           .firstWhereOrNull((e) =>
-              (e.value.name ==
-                  nativeTypeName.substring(1).substringBefore('<')) ||
+              (e.value.name == nativeTypeName) ||
               (e.value.nativeNames
                       ?.any((name) => nativeTypeName.startsWith(name)) ??
                   false))
           ?.value;
-    } else if (bridgedClass == null && nativeTypeName.contains('<')) {
-      bridgedClass = _bridgedClassesLookupByType.entries
-          .firstWhereOrNull((e) => nativeTypeName.contains('${e.value.name}<'))
-          ?.value;
-    }
-    bridgedClass ??= _bridgedClassesLookupByType.entries
-        .firstWhereOrNull((e) =>
-            (e.value.name == nativeTypeName) ||
-            (e.value.nativeNames
-                    ?.any((name) => nativeTypeName.startsWith(name)) ??
-                false))
-        ?.value;
 
-    if (bridgedClass == null) {
-      throw RuntimeError(
-          'Cannot bridge native object: No registered bridged class found for native type $nativeType.');
+      if (bridgedClass != null) {
+        return bridgedClass;
+      }
+      
+      current = current._enclosing;
     }
-    return bridgedClass;
+
+    throw RuntimeError(
+        'Cannot bridge native object: No registered bridged class found for native type $nativeType.');
   }
 
   // Method to define bridged enums
@@ -429,6 +436,18 @@ class Environment {
       } on RuntimeError {
         Logger.warn(
             "[getRuntimeType] RuntimeType for primitive '$typeName' not found in environment.");
+      }
+    }
+
+    // For other native objects (e.g., DateTime, Duration, etc.), try to find their BridgedClass
+    if (value != null) {
+      try {
+        final bridgedClass = toBridgedClass(value.runtimeType);
+        return bridgedClass;
+      } on RuntimeError {
+        // No bridged class found for this type
+        Logger.debug(
+            "[getRuntimeType] No BridgedClass found for native type ${value.runtimeType}");
       }
     }
 
