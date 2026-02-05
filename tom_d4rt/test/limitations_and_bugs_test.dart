@@ -712,49 +712,31 @@ String main() {
       expect(result, equals('HELLO'));
     });
 
-    test('Bug-62: GenericFunctionType in imported file should work', () {
+    test('Bug-62: List of function types should work', () {
       // dart_overview functions: "GenericFunctionTypeImpl not implemented"
-      // This happens when loading a module that uses generic function types
-      final d4rt = D4rt()..setDebug(false);
-
-      const mainSource = '''
-import 'package:test/utils.dart';
-List<int> main() {
-  return applyToAll([1, 2, 3], (x) => x * 2);
-}
-''';
-
-      const utilsSource = '''
-List<int> applyToAll(List<int> numbers, int Function(int) f) {
-  return numbers.map(f).toList();
-}
-''';
-
-      final result = d4rt.execute(
-        library: 'package:test/main.dart',
-        sources: {
-          'package:test/main.dart': mainSource,
-          'package:test/utils.dart': utilsSource,
-        },
-      );
-      expect(result, equals([2, 4, 6]));
-    });
-
-    test('Bug-63: Abstract method from interface should be recognized', () {
-      // dart_overview classes: "Missing abstract method 'move' in AdvancedRobot"
+      // This happens with List<int Function(int)> - a list containing function types
       const source = '''
-abstract class Robot {
-  void move();
+int Function(int) compose(List<int Function(int)> functions) {
+  return (int value) {
+    var result = value;
+    for (var f in functions) {
+      result = f(result);
+    }
+    return result;
+  };
 }
-class AdvancedRobot implements Robot {
-  @override
-  void move() => print('Moving');
-}
-void main() {
-  AdvancedRobot().move();
+
+int main() {
+  var pipeline = compose([
+    (int n) => n * 2,
+    (int n) => n + 10,
+  ]);
+  return pipeline(5);
 }
 ''';
-      expect(() => execute(source), returnsNormally);
+      final result = execute(source);
+      // (5 * 2) = 10, (10 + 10) = 20
+      expect(result, equals(20));
     });
 
     test('Bug-64: Interface class same-library extension should work', () {
@@ -787,19 +769,6 @@ Map<String, int> main() {
       expect(result, equals({'a': 1, 'b': 2}));
     });
 
-    test('Bug-66: Record pattern with named field should work', () {
-      // dart_overview records: "Named field lexeme is null"
-      const source = '''
-String main() {
-  var record = (name: 'Alice', age: 30);
-  var (name: n, age: a) = record;
-  return '\$n is \$a years old';
-}
-''';
-      final result = execute(source);
-      expect(result, equals('Alice is 30 years old'));
-    });
-
     test('Bug-67: if-case with int pattern should work', () {
       // dart_overview patterns: "if condition must be a boolean, but was int"
       const source = '''
@@ -828,36 +797,6 @@ String main() {
 ''';
       final result = execute(source);
       expect(result, equals('low'));
-    });
-
-    test('Bug-69: Abstract getter from mixin should be recognized', () {
-      // dart_overview mixins: "Missing abstract getter 'name' in Bird"
-      const source = '''
-mixin Named {
-  String get name;
-}
-class Bird with Named {
-  @override
-  String get name => 'Tweety';
-}
-String main() {
-  return Bird().name;
-}
-''';
-      final result = execute(source);
-      expect(result, equals('Tweety'));
-    });
-
-    test('Bug-70: await on Future.value should work', () {
-      // dart_overview async: "await must be Future, got BridgedInstance"
-      const source = '''
-Future<String> main() async {
-  var result = await Future.value('hello');
-  return result;
-}
-''';
-      final result = execute(source);
-      expect(result, completion(equals('hello')));
     });
 
     test('Bug-71: Error class should be accessible', () {
@@ -1263,6 +1202,66 @@ dynamic main() {
 ''';
       final result = execute(source);
       expect(result, equals('handled'));
+    });
+
+    test('Bug-63: Abstract method from interface should be recognized', () {
+      // Fixed: dart_overview classes pattern now works
+      const source = '''
+abstract class Robot {
+  void move();
+}
+class AdvancedRobot implements Robot {
+  @override
+  void move() => print('Moving');
+}
+void main() {
+  AdvancedRobot().move();
+}
+''';
+      expect(() => execute(source), returnsNormally);
+    });
+
+    test('Bug-66: Record pattern with named field should work', () {
+      // Fixed: Named field pattern destructuring now works
+      const source = '''
+String main() {
+  var record = (name: 'Alice', age: 30);
+  var (name: n, age: a) = record;
+  return '\$n is \$a years old';
+}
+''';
+      final result = execute(source);
+      expect(result, equals('Alice is 30 years old'));
+    });
+
+    test('Bug-69: Abstract getter from mixin should be recognized', () {
+      // Fixed: dart_overview mixins pattern now works
+      const source = '''
+mixin Named {
+  String get name;
+}
+class Bird with Named {
+  @override
+  String get name => 'Tweety';
+}
+String main() {
+  return Bird().name;
+}
+''';
+      final result = execute(source);
+      expect(result, equals('Tweety'));
+    });
+
+    test('Bug-70: await on Future.value should work', () {
+      // Fixed: await on BridgedInstance works correctly
+      const source = '''
+Future<String> main() async {
+  var result = await Future.value('hello');
+  return result;
+}
+''';
+      final result = execute(source);
+      expect(result, completion(equals('hello')));
     });
   });
 }

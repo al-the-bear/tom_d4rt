@@ -2,7 +2,7 @@
 
 This document provides a comprehensive reference of all known D4rt interpreter limitations and bugs, their current status, fixability assessment, and solution strategies.
 
-**Last Updated:** 2026-02-06
+**Last Updated:** 2026-02-05
 
 ---
 
@@ -12,56 +12,70 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 
 | ID | Description | Complexity | Status |
 |----|-------------|------------|--------|
-| Bug-1 | [List.empty() constructor not bridged](#bug-1-listempty-constructor-not-bridged) | Low | 🔍 Confirm Fix |
-| Bug-2 | [Queue.addAll() method not bridged](#bug-2-queueaddall-method-not-bridged) | Low | 🔍 Confirm Fix |
-| Bug-3 | [Enum value access via Day.wednesday fails](#bug-3-enum-value-access) | Low | 🔍 Confirm Fix |
-| Bug-4 | [Enum value at top-level const fails](#bug-4-enum-value-at-top-level-const-fails) | Low | 🔍 Confirm Fix |
-| Bug-5 | [Division by zero throws instead of returning infinity](#bug-5-division-by-zero-throws-instead-of-returning-infinity) | Low | 🔍 Confirm Fix |
-| Bug-6 | [Record missing Object methods (hashCode)](#bug-6-record-missing-object-methods-hashcode) | Low | 🔍 Confirm Fix |
-| Bug-7 | [Digit separators (1_000_000) not parsed](#bug-7-digit-separators-1_000_000-not-parsed) | Low | 🔍 Confirm Fix |
-| Bug-8 | [List.indexWhere() method not bridged](#bug-8-listindexwhere-method-not-bridged) | Low | 🔍 Confirm Fix |
-| Bug-15 | [base64Encode function not exported from dart:convert](#bug-15-base64encode-function-not-exported-from-dartconvert) | Low | 🔍 Confirm Fix |
-| Bug-20 | [identical() function not bridged](#bug-20-identical-function-not-bridged) | Low | 🔍 Confirm Fix |
-| Bug-21 | [Set.from() constructor not bridged](#bug-21-setfrom-constructor-not-bridged) | Low | 🔍 Confirm Fix |
-| Bug-22 | [Error() class constructor not bridged](#bug-22-error-class-constructor) | Low | 🔍 Confirm Fix |
-| Bug-50 | [Index assignment operator \[\]= not found](#bug-50-index-assignment-operator) | Low | 🔍 Confirm Fix |
-| Bug-52 | [Implicit super() fails when superclass has constructors](#bug-52-implicit-super-fails-when-superclass-has-constructors) | Low | 🔍 Confirm Fix |
-| Bug-53 | [NullAwareElement feature not supported](#bug-53-nullawareelement-feature-not-supported) | Low | 🔍 Confirm Fix |
-| Bug-54 | [Void return type checking too strict](#bug-54-void-return-type) | Low | 🔍 Confirm Fix |
+| Bug-1 | [List.empty() constructor not bridged](#bug-1-listempty-constructor-not-bridged) | Low | ✅ Fixed |
+| Bug-2 | [Queue.addAll() method not bridged](#bug-2-queueaddall-method-not-bridged) | Low | ✅ Fixed |
+| Bug-3 | [Enum value access via Day.wednesday fails](#bug-3-enum-value-access) | Low | ✅ Fixed |
+| Bug-4 | [Enum value at top-level const fails](#bug-4-enum-value-at-top-level-const-fails) | Low | ✅ Fixed |
+| Bug-5 | [Division by zero throws instead of returning infinity](#bug-5-division-by-zero-throws-instead-of-returning-infinity) | Low | ✅ Fixed |
+| Bug-6 | [Record missing Object methods (hashCode)](#bug-6-record-missing-object-methods-hashcode) | Low | ✅ Fixed |
+| Bug-7 | [Digit separators (1_000_000) not parsed](#bug-7-digit-separators-1_000_000-not-parsed) | Low | ✅ Fixed |
+| Bug-8 | [List.indexWhere() method not bridged](#bug-8-listindexwhere-method-not-bridged) | Low | ✅ Fixed |
+| Bug-15 | [base64Encode function not exported from dart:convert](#bug-15-base64encode-function-not-exported-from-dartconvert) | Low | ✅ Fixed |
+| Bug-20 | [identical() function not bridged](#bug-20-identical-function-not-bridged) | Low | ✅ Fixed |
+| Bug-21 | [Set.from() constructor not bridged](#bug-21-setfrom-constructor-not-bridged) | Low | ✅ Fixed |
+| Bug-22 | [Error() class constructor not bridged](#bug-22-error-class-constructor) | Low | ✅ Fixed |
+| Bug-50 | [Index assignment operator \[\]= not found](#bug-50-index-assignment-operator) | Low | ✅ Fixed |
+| Bug-52 | [Implicit super() fails when superclass has constructors](#bug-52-implicit-super-fails-when-superclass-has-constructors) | Low | ✅ Fixed |
+| Bug-53 | [NullAwareElement feature not supported](#bug-53-nullawareelement-feature-not-supported) | Low | ✅ Fixed |
+| Bug-54 | [Void return type checking too strict](#bug-54-void-return-type) | Low | ✅ Fixed |
 | Bug-55 | [Symbol class not bridged](#bug-55-symbol-class-not-bridged) | Low | ⬜ TODO |
+| Bug-65 | [Map.from constructor not bridged](#bug-65-mapfrom-constructor-not-bridged) | Low | ⬜ TODO |
+| Bug-71 | [Error class not bridged (undefined variable)](#bug-71-error-class-not-bridged) | Low | ⬜ TODO |
 | Lim-2 | [Extensions on bridged types don't work](#lim-2-extensions-on-bridged-types-dont-work) | Medium | ✅ Fixed |
 | Lim-5, Bug-40 | [Comparable interface not implemented for interpreted classes](#lim-5-bug-40-comparable-interface-not-implemented) | Medium | ✅ Fixed |
 | Lim-6, Bug-32 | [Labeled continue in switch statements](#lim-6-bug-32-labeled-continue-in-switch-statements) | Medium | ✅ Fixed |
 | Lim-7, Bug-42 | [noSuchMethod not invoked for getter/setter access](#lim-7-bug-42-nosuchmethod-gettersetter-access) | Medium | ✅ Fixed |
 | Lim-9, Bug-41 | [Await in string interpolation shows raw object](#lim-9-bug-41-await-in-string-interpolation) | Medium | ✅ Fixed |
+| Bug-56 | [Constructor with positional arguments fails](#bug-56-constructor-positional-arguments) | Medium | ✅ Fixed |
+| Bug-57 | [Class with operator override and constructor fails](#bug-57-operator-override-constructor) | Medium | ✅ Fixed |
+| Bug-58 | [Functions/classes at end of file not found](#bug-58-declarations-at-file-end) | Medium | ✅ Fixed |
 | Bug-59 | [Imported classes have empty constructor maps](#bug-59-imported-classes-have-empty-constructor-maps) | Medium | ✅ Fixed |
-| Bug-9 | [Type Never not found in type resolution](#bug-9-type-never-not-found-in-type-resolution) | Medium | 🔍 Confirm Fix |
-| Bug-10 | [Interface Comparable not found for implements](#bug-10-interface-comparable-not-found-for-implements) | Medium | 🔍 Confirm Fix |
-| Bug-11 | [Sealed class subclasses incorrectly rejected](#bug-11-sealed-class-subclasses-incorrectly-rejected) | Medium | 🔍 Confirm Fix |
-| Bug-12 | [Interface Exception not found for implements](#bug-12-interface-exception-not-found-for-implements) | Medium | 🔍 Confirm Fix |
-| Bug-16 | [Abstract method inheritance false positive](#bug-16-abstract-method-inheritance) | Medium | 🔍 Confirm Fix |
-| Bug-17 | [Interface class same-library extension incorrectly rejected](#bug-17-interface-class-extension) | Medium | 🔍 Confirm Fix |
-| Bug-18 | [Mixin abstract getter inheritance false positive](#bug-18-mixin-abstract-getter) | Medium | 🔍 Confirm Fix |
-| Bug-23 | [Static const referencing sibling const fails](#bug-23-static-const-referencing-sibling-const-fails) | Medium | 🔍 Confirm Fix |
-| Bug-24 | [mixin class declaration not supported](#bug-24-mixin-class-declaration-not-supported) | Medium | 🔍 Confirm Fix |
-| Bug-26 | [Assert in constructor initializer not supported](#bug-26-assert-in-constructor-initializer-not-supported) | Medium | 🔍 Confirm Fix |
-| Bug-27 | [Short-circuit && with null check fails](#bug-27-short-circuit--with-null-check-fails) | Medium | 🔍 Confirm Fix |
-| Bug-28 | [GenericFunctionTypeImpl not implemented](#bug-28-genericfunctiontypeimpl) | Medium | 🔍 Confirm Fix |
-| Bug-29 | [Future.value() returns wrong type](#bug-29-futurevalue-type) | Medium | 🔍 Confirm Fix |
-| Bug-44 | [Async generators completion detection issues](#bug-44-async-generators) | Medium | 🔍 Confirm Fix |
+| Bug-63 | [Abstract method from interface false positive](#bug-63-abstract-method-interface) | Medium | ✅ Fixed |
+| Bug-66 | [Record pattern with named field fails](#bug-66-record-pattern-named-field) | Medium | ✅ Fixed |
+| Bug-69 | [Abstract getter from mixin false positive](#bug-69-abstract-getter-mixin) | Medium | ✅ Fixed |
+| Bug-70 | [await on Future.value fails](#bug-70-await-future-value) | Medium | ✅ Fixed |
+| Bug-9 | [Type Never not found in type resolution](#bug-9-type-never-not-found-in-type-resolution) | Medium | ✅ Fixed |
+| Bug-10 | [Interface Comparable not found for implements](#bug-10-interface-comparable-not-found-for-implements) | Medium | ✅ Fixed |
+| Bug-11 | [Sealed class subclasses incorrectly rejected](#bug-11-sealed-class-subclasses-incorrectly-rejected) | Medium | ✅ Fixed |
+| Bug-12 | [Interface Exception not found for implements](#bug-12-interface-exception-not-found-for-implements) | Medium | ✅ Fixed |
+| Bug-16 | [Abstract method inheritance false positive](#bug-16-abstract-method-inheritance) | Medium | ✅ Fixed |
+| Bug-17 | [Interface class same-library extension incorrectly rejected](#bug-17-interface-class-extension) | Medium | ✅ Fixed |
+| Bug-18 | [Mixin abstract getter inheritance false positive](#bug-18-mixin-abstract-getter) | Medium | ✅ Fixed |
+| Bug-23 | [Static const referencing sibling const fails](#bug-23-static-const-referencing-sibling-const-fails) | Medium | ✅ Fixed |
+| Bug-24 | [mixin class declaration not supported](#bug-24-mixin-class-declaration-not-supported) | Medium | ✅ Fixed |
+| Bug-26 | [Assert in constructor initializer not supported](#bug-26-assert-in-constructor-initializer-not-supported) | Medium | ✅ Fixed |
+| Bug-27 | [Short-circuit && with null check fails](#bug-27-short-circuit--with-null-check-fails) | Medium | ✅ Fixed |
+| Bug-28 | [GenericFunctionTypeImpl not implemented](#bug-28-genericfunctiontypeimpl) | Medium | ✅ Fixed |
+| Bug-29 | [Future.value() returns wrong type](#bug-29-futurevalue-type) | Medium | ✅ Fixed |
+| Bug-44 | [Async generators completion detection issues](#bug-44-async-generators) | Medium | ✅ Fixed |
+| Bug-48 | [await for stream iteration fails](#bug-48-await-for-stream) | Medium | ✅ Fixed |
+| Bug-51 | [Bridged mixins not found during type resolution](#bug-51-bridged-mixins) | Medium | ✅ Fixed |
+| Bug-60 | [Null-safe indexing on null throws unclear error](#bug-60-null-safe-indexing) | Medium | ⬜ TODO |
+| Bug-61 | [if-case pattern evaluates pattern as condition](#bug-61-if-case-pattern) | Medium | ⬜ TODO |
+| Bug-62 | [GenericFunctionType in generic type args fails](#bug-62-genericfunctiontype-in-generics) | Medium | ⬜ TODO |
+| Bug-64 | [Interface class same-library extension rejected](#bug-64-interface-class-extension) | Medium | ⬜ TODO |
+| Bug-67 | [if-case with int pattern wrong condition type](#bug-67-if-case-int-pattern) | Medium | ⬜ TODO |
 | Bug-45 | [Labeled continue in sync* generators fails](#bug-45-labeled-continue-in-sync-generators-fails) | Medium | ⬜ TODO |
 | Bug-47 | [Future.doWhile type cast issues](#bug-47-futuredowhile-type-cast-issues) | Medium | ⬜ TODO |
-| Bug-48 | [await for stream iteration fails](#bug-48-await-for-stream) | Medium | 🔍 Confirm Fix |
-| Bug-51 | [Bridged mixins not found during type resolution](#bug-51-bridged-mixins) | Medium | 🔍 Confirm Fix |
 | Bug-14 | [Records with named fields or >9 positional fields return InterpretedRecord](#bug-14-records-with-named-fields-or-9-positional-fields) | High | ⬜ TODO |
 | Lim-4, Bug-43 | [Infinite sync* generators hang (eager evaluation)](#lim-4-bug-43-infinite-sync-generators-hang) | High | ⬜ TODO |
-| Lim-8, Bug-13 | [Logical OR patterns in switch cases](#lim-8-bug-13-logicalorpattern-in-switch) | High | ⬜ TODO |
+| Lim-8, Bug-13, Bug-68 | [Logical OR patterns in switch cases](#lim-8-bug-13-logicalorpattern-in-switch) | High | ⬜ TODO |
 | Lim-1 | [Extension types (Dart 3.3+ inline classes) not supported](#lim-1-extension-types-dart-33-not-supported) | High | ⬜ TODO |
 | Lim-3 | [Isolate execution with interpreted code](#lim-3-isolate-execution-with-interpreted-code) | Fundamental | 🚫 Won't Fix |
 
 **Status Legend:**
 - ⬜ TODO - Not yet fixed
-- 🔍 Confirm Fix - Previously fixed, needs verification
+- ✅ Fixed - Confirmed working
 - 🚫 Won't Fix - Fundamental limitation or too complex
 
 ---
@@ -1312,6 +1326,77 @@ var s = Symbol('test');  // ❌ Type 'Symbol' not found
 
 ---
 
+### Bug-56: Constructor with Positional Arguments (Fixed)
+
+**Status:** ✅ Fixed  
+**Complexity:** Medium
+
+#### Problem Description
+
+Classes with constructors using positional arguments failed when defined after their usage point in the file.
+
+```dart
+void main() {
+  var p = Point(10, 20);  // ❌ Used to fail
+}
+
+class Point {
+  final int x, y;
+  Point(this.x, this.y);
+}
+```
+
+#### Solution
+
+Fixed by ensuring DeclarationVisitor runs a complete pass before InterpreterVisitor, allowing forward references to work correctly.
+
+---
+
+### Bug-57: Class with Operator Override and Constructor (Fixed)
+
+**Status:** ✅ Fixed  
+**Complexity:** Medium
+
+#### Problem Description
+
+Classes with both operator overrides (like `==`) and constructors failed when defined at the bottom of the file.
+
+```dart
+void main() {
+  var p1 = Point(1, 2);
+  var p2 = Point(1, 2);
+  print(p1 == p2);  // ❌ Used to fail
+}
+
+class Point {
+  final int x, y;
+  Point(this.x, this.y);
+  @override
+  bool operator ==(Object other) => other is Point && other.x == x && other.y == y;
+}
+```
+
+#### Solution
+
+Fixed together with Bug-56 - proper two-pass declaration/interpretation ordering.
+
+---
+
+### Bug-58: Functions/Classes at End of File (Fixed)
+
+**Status:** ✅ Fixed  
+**Complexity:** Medium
+
+#### Problem Description
+
+Helper functions and classes defined at the end of a file were not accessible from main().
+
+#### Solution
+
+Fixed together with Bug-56/57 - complete DeclarationVisitor pass before execution.
+
+---
+
 ### Bug-59: Imported Classes Have Empty Constructor Maps
 
 **Status:** ✅ Fixed  
@@ -1360,6 +1445,294 @@ for (final declaration in ast.declarations) {
   }
 }
 ```
+
+---
+
+### Bug-60: Null-Safe Indexing on Null Throws Unclear Error
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Using null-aware indexing `list?[0]` on a null value throws an unclear error instead of returning null.
+
+```dart
+int? main() {
+  List<int>? list = null;
+  return list?[0];  // ❌ FAILS with "Unsupported target for indexing: null"
+}
+```
+
+**Expected:** Should return `null`  
+**Error:** `Unsupported target for indexing: null`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` → `visitIndexExpression()`
+- **Root Cause:** The null-aware operator `?` is not being properly handled before attempting the index operation
+
+---
+
+### Bug-61: if-case Pattern Evaluates Pattern as Condition
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+if-case with pattern matching evaluates the pattern as the condition instead of performing pattern matching.
+
+```dart
+String main() {
+  String s = 'hello';
+  if (s case String x) {  // ❌ FAILS - treats "s" as boolean condition
+    return 'matched: $x';
+  }
+  return 'no match';
+}
+```
+
+**Error:** `The condition of an 'if' must be a boolean, but was String.`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` → `visitIfStatement()`
+- **Root Cause:** The visitor checks if `caseClause` exists but still evaluates the condition as a boolean
+
+---
+
+### Bug-62: GenericFunctionType in Generic Type Arguments Fails
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+When a function type is used as a type argument to a generic type (like `List<int Function(int)>`), type resolution fails.
+
+```dart
+int Function(int) compose(List<int Function(int)> functions) {  // ❌ FAILS
+  return (value) {
+    for (var f in functions) {
+      value = f(value);
+    }
+    return value;
+  };
+}
+```
+
+**Error:** `Type resolution for GenericFunctionTypeImpl not implemented yet.`
+
+**Note:** Simple function types as parameters work fine (`int Function(int) f`). The issue is specifically when function types appear inside generic type arguments.
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` → `_resolveTypeAnnotation()`
+- **Root Cause:** `GenericFunctionTypeImpl` handling exists but doesn't work when nested inside `NamedType` type arguments
+
+---
+
+### Bug-63: Abstract Method from Interface (Fixed)
+
+**Status:** ✅ Fixed  
+**Complexity:** Medium
+
+#### Problem Description
+
+Classes implementing interfaces with abstract methods were incorrectly flagged as missing implementations.
+
+```dart
+abstract class Robot {
+  void move();
+}
+class AdvancedRobot implements Robot {
+  @override
+  void move() => print('Moving');  // ❌ Used to report "Missing abstract method 'move'"
+}
+```
+
+#### Solution
+
+Fixed by improving the abstract method inheritance checking to properly recognize implementations.
+
+---
+
+### Bug-64: Interface Class Same-Library Extension Rejected
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Classes extending interface classes in the same library are incorrectly rejected.
+
+```dart
+interface class DataSource {
+  void load() {}
+}
+class JsonDataSource extends DataSource {  // ❌ FAILS
+  @override
+  void load() => print('Loading JSON');
+}
+```
+
+**Error:** `Class 'JsonDataSource' cannot extend interface class 'DataSource'. Use 'implements'.`
+
+**Note:** In Dart, interface classes can be extended within the same library but only implemented from other libraries.
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` → `visitClassDeclaration()`
+- **Root Cause:** The check for interface class extension doesn't verify if both classes are in the same library
+
+---
+
+### Bug-65: Map.from Constructor Not Bridged
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+The `Map.from()` constructor is not registered in the Map bridge.
+
+```dart
+void main() {
+  var original = {'a': 1, 'b': 2};
+  var copy = Map.from(original);  // ❌ FAILS
+}
+```
+
+**Error:** `Bridged class 'Map' does not have a registered constructor named 'from'.`
+
+#### Solution Strategy
+
+Add `Map.from` constructor to the Map bridge in `bridges/map_bridge.dart`.
+
+---
+
+### Bug-66: Record Pattern with Named Field (Fixed)
+
+**Status:** ✅ Fixed  
+**Complexity:** Medium
+
+#### Problem Description
+
+Record patterns with named fields in destructuring were failing with null lexeme errors.
+
+```dart
+String main() {
+  var record = (name: 'Alice', age: 30);
+  var (name: n, age: a) = record;  // ❌ Used to fail with "Named field lexeme is null"
+  return '$n is $a years old';
+}
+```
+
+#### Solution
+
+Fixed by improving named field pattern handling in record destructuring.
+
+---
+
+### Bug-67: if-case with Int Pattern Wrong Condition Type
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+Same root cause as Bug-61 - the if-case pattern handling evaluates the expression as a boolean condition.
+
+```dart
+String main() {
+  var value = 42;
+  if (value case int x when x > 0) {  // ❌ FAILS
+    return 'positive: $x';
+  }
+  return 'not positive';
+}
+```
+
+**Error:** `The condition of an 'if' must be a boolean, but was int.`
+
+---
+
+### Bug-69: Abstract Getter from Mixin (Fixed)
+
+**Status:** ✅ Fixed  
+**Complexity:** Medium
+
+#### Problem Description
+
+Classes mixing in mixins with abstract getters were incorrectly flagged as missing implementations.
+
+```dart
+mixin Named {
+  String get name;
+}
+class Bird with Named {
+  @override
+  String get name => 'Tweety';  // ❌ Used to report "Missing abstract getter 'name'"
+}
+```
+
+#### Solution
+
+Fixed by improving abstract member inheritance checking to properly recognize mixin implementations.
+
+---
+
+### Bug-70: await on Future.value (Fixed)
+
+**Status:** ✅ Fixed  
+**Complexity:** Medium
+
+#### Problem Description
+
+Awaiting `Future.value()` resulted in type errors because the bridged Future wasn't properly unwrapped.
+
+```dart
+Future<String> main() async {
+  var result = await Future.value('hello');  // ❌ Used to fail
+  return result;
+}
+```
+
+**Error:** `await must be used on a Future, got BridgedInstance.`
+
+#### Solution
+
+Fixed by improving Future unwrapping in await expression handling.
+
+---
+
+### Bug-71: Error Class Not Bridged (Undefined Variable)
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+The `Error` class is not accessible as a type for instantiation.
+
+```dart
+bool main() {
+  var e = Error();  // ❌ FAILS - "Undefined variable: Error"
+  return e is Error;
+}
+```
+
+**Note:** `Error` works in catch clauses (Bug-22 was fixed) but not for direct instantiation.
+
+#### Solution Strategy
+
+Add `Error` to the environment as an accessible type, similar to how `Exception` is handled.
 
 ---
 

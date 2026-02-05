@@ -1,5 +1,5 @@
 Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_dcli/test/replay/test_dcli_functions.dcli
-Started: 2026-02-05T15:28:52.350273
+Started: 2026-02-05T15:37:20.535320
 
 Lines executed: 71
 
@@ -43,4 +43,4 @@ Problematic code: [import 'dart:math';]
 (Set DEBUG=true environment variable to see stack traces)
 
 Result: FAILED
-Completed: 2026-02-05T15:28:52.858371
+Completed: 2026-02-05T15:37:21.082598

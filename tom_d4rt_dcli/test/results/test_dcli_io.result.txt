@@ -1,5 +1,5 @@
 Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_dcli/test/replay/test_dcli_io.dcli
-Started: 2026-02-05T15:29:18.999905
+Started: 2026-02-05T15:37:42.272010
 
 Lines executed: 86
 
@@ -12,4 +12,4 @@ Problematic code: [import 'dart:io';]
 (Set DEBUG=true environment variable to see stack traces)
 
 Result: FAILED
-Completed: 2026-02-05T15:29:19.430544
+Completed: 2026-02-05T15:37:42.891028
