@@ -475,7 +475,7 @@ String main() {
       expect(result, equals('Weekend'));
     });
 
-    test('Bug-14: Record type annotation should work', () {
+    test('Bug-14: Record type annotation should work (positional-only)', () {
       const source = '''
 (int, int) swap((int, int) pair) {
   return (pair.\$2, pair.\$1);
@@ -485,8 +485,33 @@ String main() {
 }
 ''';
       final result = execute(source);
-      // InterpretedRecord is used instead of native Dart records
-      expect(result, equals(InterpretedRecord([2, 1], {})));
+      // Now returns native Dart record (positional-only records are converted)
+      expect(result, equals((2, 1)));
+    });
+
+    // This test documents the limitation: named records can't be converted to native records
+    test('Bug-14: Records with named fields should return native record', () {
+      const source = '''
+({int x, int y}) main() {
+  return (x: 10, y: 20);
+}
+''';
+      final result = execute(source);
+      // Currently returns InterpretedRecord - this test fails until we can create
+      // native records with named fields (not possible in Dart at runtime)
+      expect(result, isA<({int x, int y})>());
+    });
+
+    // This test documents the limitation: >9 positional fields can't be converted
+    test('Bug-14: Records with >9 positional fields should return native record', () {
+      const source = '''
+(int, int, int, int, int, int, int, int, int, int) main() {
+  return (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+}
+''';
+      final result = execute(source);
+      // Currently returns InterpretedRecord - this test fails until we add more cases
+      expect(result, equals((1, 2, 3, 4, 5, 6, 7, 8, 9, 10)));
     });
 
     test('Bug-15: base64Encode should work', () {

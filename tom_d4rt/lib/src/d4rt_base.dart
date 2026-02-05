@@ -1603,6 +1603,52 @@ class D4rt {
           _bridgeInterpreterValueToNative(key),
           _bridgeInterpreterValueToNative(value)));
     }
+    // Convert InterpretedRecord to native Dart records when possible
+    // For positional-only records up to 9 elements, we can create native records
+    // For records with named fields or more than 9 positional fields, we return
+    // InterpretedRecord with unwrapped field values
+    if (interpreterValue is InterpretedRecord) {
+      final pos = interpreterValue.positionalFields
+          .map(_bridgeInterpreterValueToNative)
+          .toList();
+      final named = interpreterValue.namedFields;
+
+      // Only convert to native record if there are no named fields
+      if (named.isEmpty) {
+        switch (pos.length) {
+          case 0:
+            return ();
+          case 1:
+            return (pos[0],);
+          case 2:
+            return (pos[0], pos[1]);
+          case 3:
+            return (pos[0], pos[1], pos[2]);
+          case 4:
+            return (pos[0], pos[1], pos[2], pos[3]);
+          case 5:
+            return (pos[0], pos[1], pos[2], pos[3], pos[4]);
+          case 6:
+            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5]);
+          case 7:
+            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6]);
+          case 8:
+            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7]);
+          case 9:
+            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8]);
+          default:
+            // More than 9 positional fields - return InterpretedRecord with unwrapped values
+            return InterpretedRecord(pos, {});
+        }
+      }
+
+      // Has named fields - can't convert to native record, return with unwrapped values
+      return InterpretedRecord(
+        pos,
+        named.map((key, value) =>
+            MapEntry(key, _bridgeInterpreterValueToNative(value))),
+      );
+    }
     if (interpreterValue is InterpretedInstance ||
         interpreterValue is InterpretedFunction ||
         interpreterValue is NativeFunction ||

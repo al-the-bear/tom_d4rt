@@ -33,18 +33,17 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 | Lim-6, Bug-32 | [Labeled continue in switch statements](#lim-6-bug-32-labeled-continue-in-switch-statements) | Medium | ⬜ TODO |
 | Lim-7, Bug-42 | [noSuchMethod not invoked for getter/setter access](#lim-7-bug-42-nosuchmethod-gettersetter-access) | Medium | ⬜ TODO |
 | Lim-9, Bug-41 | [Await in string interpolation shows raw object](#lim-9-bug-41-await-in-string-interpolation) | Medium | ⬜ TODO |
-| Bug-9 | [Type Never not found in type resolution](#bug-9-type-never-not-found-in-type-resolution) | Medium | ⬜ TODO |
-| Bug-10 | [Interface Comparable not found for implements](#bug-10-interface-comparable-not-found-for-implements) | Medium | ⬜ TODO |
-| Bug-11 | [Sealed class subclasses incorrectly rejected](#bug-11-sealed-class-subclasses-incorrectly-rejected) | Medium | ⬜ TODO |
-| Bug-12 | [Interface Exception not found for implements](#bug-12-interface-exception-not-found-for-implements) | Medium | ⬜ TODO |
-| Bug-14 | [Record type annotation not resolved](#bug-14-record-type-annotation-not-resolved) | Medium | ⬜ TODO |
+| Bug-9 | [Type Never not found in type resolution](#bug-9-type-never-not-found-in-type-resolution) | Medium | 🔍 Confirm Fix |
+| Bug-10 | [Interface Comparable not found for implements](#bug-10-interface-comparable-not-found-for-implements) | Medium | 🔍 Confirm Fix |
+| Bug-11 | [Sealed class subclasses incorrectly rejected](#bug-11-sealed-class-subclasses-incorrectly-rejected) | Medium | 🔍 Confirm Fix |
+| Bug-12 | [Interface Exception not found for implements](#bug-12-interface-exception-not-found-for-implements) | Medium | 🔍 Confirm Fix |
 | Bug-16 | [Abstract method inheritance false positive](#bug-16-abstract-method-inheritance) | Medium | 🔍 Confirm Fix |
 | Bug-17 | [Interface class same-library extension incorrectly rejected](#bug-17-interface-class-extension) | Medium | 🔍 Confirm Fix |
 | Bug-18 | [Mixin abstract getter inheritance false positive](#bug-18-mixin-abstract-getter) | Medium | 🔍 Confirm Fix |
-| Bug-23 | [Static const referencing sibling const fails](#bug-23-static-const-referencing-sibling-const-fails) | Medium | ⬜ TODO |
-| Bug-24 | [mixin class declaration not supported](#bug-24-mixin-class-declaration-not-supported) | Medium | ⬜ TODO |
-| Bug-26 | [Assert in constructor initializer not supported](#bug-26-assert-in-constructor-initializer-not-supported) | Medium | ⬜ TODO |
-| Bug-27 | [Short-circuit && with null check fails](#bug-27-short-circuit--with-null-check-fails) | Medium | ⬜ TODO |
+| Bug-23 | [Static const referencing sibling const fails](#bug-23-static-const-referencing-sibling-const-fails) | Medium | 🔍 Confirm Fix |
+| Bug-24 | [mixin class declaration not supported](#bug-24-mixin-class-declaration-not-supported) | Medium | 🔍 Confirm Fix |
+| Bug-26 | [Assert in constructor initializer not supported](#bug-26-assert-in-constructor-initializer-not-supported) | Medium | 🔍 Confirm Fix |
+| Bug-27 | [Short-circuit && with null check fails](#bug-27-short-circuit--with-null-check-fails) | Medium | 🔍 Confirm Fix |
 | Bug-28 | [GenericFunctionTypeImpl not implemented](#bug-28-genericfunctiontypeimpl) | Medium | 🔍 Confirm Fix |
 | Bug-29 | [Future.value() returns wrong type](#bug-29-futurevalue-type) | Medium | 🔍 Confirm Fix |
 | Bug-44 | [Async generators completion detection issues](#bug-44-async-generators) | Medium | 🔍 Confirm Fix |
@@ -52,6 +51,7 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 | Bug-47 | [Future.doWhile type cast issues](#bug-47-futuredowhile-type-cast-issues) | Medium | ⬜ TODO |
 | Bug-48 | [await for stream iteration fails](#bug-48-await-for-stream) | Medium | 🔍 Confirm Fix |
 | Bug-51 | [Bridged mixins not found during type resolution](#bug-51-bridged-mixins) | Medium | 🔍 Confirm Fix |
+| Bug-14 | [Records with named fields or >9 positional fields return InterpretedRecord](#bug-14-records-with-named-fields-or-9-positional-fields) | High | ⬜ TODO |
 | Lim-4, Bug-43 | [Infinite sync* generators hang (eager evaluation)](#lim-4-bug-43-infinite-sync-generators-hang) | High | ⬜ TODO |
 | Lim-8, Bug-13 | [Logical OR patterns in switch cases](#lim-8-bug-13-logicalorpattern-in-switch) | High | ⬜ TODO |
 | Lim-1 | [Extension types (Dart 3.3+ inline classes) not supported](#lim-1-extension-types-dart-33-not-supported) | High | ⬜ TODO |
@@ -621,7 +621,7 @@ void main() {
 
 ### Bug-9: Type Never Not Found in Type Resolution
 
-**Status:** ⬜ TODO  
+**Status:** 🔍 Confirm Fix  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -653,7 +653,7 @@ Never throwError() {  // ❌ FAILS
 
 ### Bug-10: Interface Comparable Not Found for Implements
 
-**Status:** ⬜ TODO  
+**Status:** 🔍 Confirm Fix  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -689,7 +689,7 @@ class Value implements Comparable<Value> {  // ❌ FAILS
 
 ### Bug-11: Sealed Class Subclasses Incorrectly Rejected
 
-**Status:** ⬜ TODO  
+**Status:** 🔍 Confirm Fix  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -720,7 +720,7 @@ class Circle extends Shape {}  // ❌ FAILS
 
 ### Bug-12: Interface Exception Not Found for Implements
 
-**Status:** ⬜ TODO  
+**Status:** 🔍 Confirm Fix  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -751,36 +751,78 @@ class MyException implements Exception {  // ❌ FAILS
 
 ---
 
-### Bug-14: Record Type Annotation Not Resolved
+### Bug-14: Records with Named Fields or >9 Positional Fields
 
 **Status:** ⬜ TODO  
-**Fixable:** ✅ Yes  
-**Complexity:** Medium
+**Fixable:** ⚠️ Partial - Dart limitation  
+**Complexity:** High
 
 #### Problem Description
 
-Record type annotations in function signatures are not resolved.
+D4rt now supports record type annotations and can execute record operations. However, when returning records from `execute()` or `eval()`, there's a limitation:
+
+- **Positional-only records with 1-9 fields**: Converted to native Dart records ✅
+- **Records with named fields**: Return as `InterpretedRecord` ❌
+- **Records with >9 positional fields**: Return as `InterpretedRecord` ❌
 
 ```dart
-(int, int) swap((int, int) pair) {  // ❌ FAILS
+// ✅ WORKS - returns native (2, 1)
+(int, int) swap((int, int) pair) {
   return (pair.$2, pair.$1);
+}
+
+// ❌ Returns InterpretedRecord, not native record
+({int x, int y}) getPoint() {
+  return (x: 10, y: 20);
+}
+
+// ❌ Returns InterpretedRecord (>9 elements)
+(int, int, int, int, int, int, int, int, int, int) getTen() {
+  return (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 }
 ```
 
-**Error:** `Type resolution for RecordTypeAnnotationImpl not implemented yet.`
+**Error:** No runtime error, but the returned value is `InterpretedRecord` instead of a native Dart record, which fails equality checks with native records.
 
 #### Where is the Problem?
 
-- **Location:** Type annotation visitor
-- **Root Cause:** `RecordTypeAnnotationImpl` is not handled in the type visitor
+- **Location:** `D4rt._bridgeInterpreterValueToNative()` in `d4rt_base.dart`
+- **Root Cause:** Dart does not support creating record types dynamically at runtime. Records are compile-time constructs, so we can only create them via hardcoded switch cases for each arity.
+
+#### Current Implementation
+
+The interpreter converts positional-only records to native records using a switch on arity:
+
+```dart
+switch (pos.length) {
+  case 1: return (pos[0],);
+  case 2: return (pos[0], pos[1]);
+  // ... up to 9
+  default: return InterpretedRecord(pos, {});
+}
+```
 
 #### Potential Fix Strategies
 
-1. **Strategy A: Implement RecordTypeAnnotation visitor**
-   - Add case for `RecordTypeAnnotationImpl` in type resolution
-   - Parse positional and named field types
-   - Create a record type representation
+1. **Strategy A: Extend to more arities**
+   - Add more cases (10, 11, 12...)
+   - Practical limit before code becomes unwieldy
+   - Complexity: Low (just more cases)
+
+2. **Strategy B: Named field combinations**
+   - Would require generating all possible named field combinations
+   - Combinatorial explosion makes this impractical
+   - Complexity: Impractical
+
+3. **Strategy C: Code generation**
+   - Generate switch cases for common patterns
+   - Still limited by what patterns are pre-generated
    - Complexity: Medium
+
+4. **Strategy D: Accept limitation**
+   - Document that named records and large positional records return `InterpretedRecord`
+   - Users can access fields via `.positionalFields` and `.namedFields`
+   - Complexity: None
 
 ---
 
@@ -854,7 +896,7 @@ void main() {
 
 ### Bug-23: Static Const Referencing Sibling Const Fails
 
-**Status:** ⬜ TODO  
+**Status:** 🔍 Confirm Fix  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -888,7 +930,7 @@ class Colors {
 
 ### Bug-24: mixin class Declaration Not Supported
 
-**Status:** ⬜ TODO  
+**Status:** 🔍 Confirm Fix  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -922,7 +964,7 @@ class Service with Logger {}
 
 ### Bug-27: Short-Circuit && with Null Check Fails
 
-**Status:** ⬜ TODO  
+**Status:** 🔍 Confirm Fix  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -1034,7 +1076,7 @@ void main() {
 
 ### Bug-26: Assert in Constructor Initializer Not Supported
 
-**Status:** ⬜ TODO  
+**Status:** 🔍 Confirm Fix  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
