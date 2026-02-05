@@ -2,7 +2,7 @@
 
 This document provides a comprehensive reference of all known D4rt interpreter limitations and bugs, their current status, fixability assessment, and solution strategies.
 
-**Last Updated:** 2026-02-05
+**Last Updated:** 2026-02-06
 
 ---
 
@@ -73,6 +73,20 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 | Bug-76 | [Introspection API returns globals for empty source](#bug-76-introspection-empty-source) — `introspection_api_test: empty source, imports only` (2) | Low | ✅ Fixed |
 | Bug-77 | [File.parent test flaky in full test suite](#bug-77-file-parent-flaky) — `file_test: comprehensive parent` (1) | Low | ✅ Fixed |
 | Bug-78 | [noSuchMethod not invoked for method calls](#bug-78-nosuchmethod-method-calls) — `limitations_and_bugs_test: Lim-7` (1) | Medium | ✅ Fixed |
+| Bug-79 | [Switch expression not exhaustive for sealed subclass](#bug-79-switch-expression-not-exhaustive-for-sealed-subclass) — `dart_overview_bugs_test: Bug-79` | Medium | ⬜ TODO |
+| Bug-80 | [Cascade on property access fails](#bug-80-cascade-on-property-access-fails) — `dart_overview_bugs_test: Bug-80` | Medium | ⬜ TODO |
+| Bug-81 | [Pattern with when guard fails (LogicalAndPatternImpl)](#bug-81-pattern-with-when-guard-fails) — `dart_overview_bugs_test: Bug-81` | Medium | ⬜ TODO |
+| Bug-82 | [Function.call method not found](#bug-82-function-call-method-not-found) — `dart_overview_bugs_test: Bug-82` | Medium | ⬜ TODO |
+| Bug-83 | [Nullable function?.call() fails](#bug-83-nullable-function-call-fails) — `dart_overview_bugs_test: Bug-83` | Medium | ⬜ TODO |
+| Bug-84 | [Mixin abstract method satisfaction false positive](#bug-84-mixin-abstract-method-satisfaction-false-positive) — `dart_overview_bugs_test: Bug-84` | Medium | ⬜ TODO |
+| Bug-85 | [Cannot extend abstract final class in same library](#bug-85-cannot-extend-abstract-final-class-in-same-library) — `dart_overview_bugs_test: Bug-85` | Low | ⬜ TODO |
+| Bug-86 | [runtimeType not accessible via PrefixedIdentifier](#bug-86-runtimetype-not-accessible-via-prefixedidentifier) — `dart_overview_bugs_test: Bug-86` | Medium | ⬜ TODO |
+| Bug-87 | [Map for-in comprehension fails with MapLiteralEntry error](#bug-87-map-for-in-comprehension-fails-with-mapliteralentry-error) — `dart_overview_bugs_test: Bug-87` | Medium | ⬜ TODO |
+| Bug-88 | [Record pattern with :name shorthand fails](#bug-88-record-pattern-with-name-shorthand-fails) — `dart_overview_bugs_test: Bug-88` | Medium | ⬜ TODO |
+| Bug-89 | [Enum.values.byName (List.byName) not bridged](#bug-89-enumvaluesbyname-listbyname-not-bridged) — `dart_overview_bugs_test: Bug-89` | Low | ⬜ TODO |
+| Bug-90 | [Mixin on constraint abstract getter false positive](#bug-90-mixin-on-constraint-abstract-getter-false-positive) — `dart_overview_bugs_test: Bug-90` | Medium | ⬜ TODO |
+| Bug-91 | [Imported extensions on bridged types fail](#bug-91-imported-extensions-on-bridged-types-fail) — `dart_overview_bugs_test: Bug-91` | Medium | ⬜ TODO |
+| Bug-92 | [Future factory constructor returns BridgedInstance&lt;Object&gt;](#bug-92-future-factory-constructor-returns-bridgedinstanceobject) — `dart_overview_bugs_test: Bug-92` | Medium | ⬜ TODO |
 | Lim-1 | [Extension types (Dart 3.3+ inline classes)](#lim-1-extension-types-dart-33) | High | ✅ Fixed |
 | Lim-4, Bug-43 | [Infinite sync* generators hang (eager evaluation)](#lim-4-bug-43-infinite-sync-generators-hang) | High | ✅ Fixed |
 | Lim-8, Bug-13, Bug-68 | [Logical OR patterns in switch cases](#lim-8-bug-13-logicalorpattern-in-switch) | High | ✅ Fixed |
@@ -1989,6 +2003,565 @@ void main() {
 #### Solution Strategy
 
 When a method is not found on an InterpretedInstance, check if the class implements `noSuchMethod` and call it with an appropriate `Invocation` object.
+
+---
+
+### Bug-79: Switch Expression Not Exhaustive for Sealed Subclass
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+When using a switch expression with object pattern destructuring on sealed class subclasses, the interpreter incorrectly reports the switch as not exhaustive.
+
+```dart
+sealed class Shape {}
+class Circle extends Shape {
+  final double radius;
+  Circle(this.radius);
+}
+class Square extends Shape {
+  final double side;
+  Square(this.side);
+}
+
+double calculateArea(Shape shape) {
+  return switch (shape) {
+    Circle(:var radius) => 3.14159 * radius * radius,
+    Square(:var side) => side * side,
+  };
+}
+
+void main() {
+  var circle = Circle(5.0);
+  print(calculateArea(circle));  // ❌ FAILS
+}
+```
+
+**Error:** `Switch expression was not exhaustive for value: <instance of Circle> (InterpretedInstance)`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` - `visitSwitchExpression`
+- **Root Cause:** Pattern matching with object destructuring patterns on sealed class instances isn't matching correctly
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-79: Switch expression should match sealed subclass"
+
+#### Solution Strategy
+
+Fix the object pattern matching logic to correctly match InterpretedInstance against declared class types with field destructuring.
+
+---
+
+### Bug-80: Cascade on Property Access Fails
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Cascade operators (`..`) that access a property and then call a method on that property fail to resolve the method.
+
+```dart
+class Team {
+  String name = '';
+  List<String> members = [];
+}
+
+void main() {
+  var team = Team()
+    ..name = 'Engineering'
+    ..members.add('Alice')  // ❌ FAILS
+    ..members.add('Bob');
+  print(team.members);
+}
+```
+
+**Error:** `Undefined property 'add' on Team.`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` - `_executeCascadeMethodInvocation`
+- **Root Cause:** The cascade is looking for `add` on the Team class instead of on the `members` property
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-80: Cascade should work on property access"
+
+#### Solution Strategy
+
+When processing cascade method invocations, correctly resolve the target when the cascade target is a property access (e.g., `..members.add` should look up `add` on the result of `members`).
+
+---
+
+### Bug-81: Pattern with When Guard Fails
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Using when guards with patterns in switch cases fails with "LogicalAndPatternImpl not supported".
+
+```dart
+void main() {
+  var person = (name: 'Charlie', age: 25);
+  var result = switch (person) {
+    (name: var n, age: var a) when a >= 18 => 'Adult: $n',
+    _ => 'Minor',
+  };
+  print(result);  // ❌ Should print "Adult: Charlie" but returns "Minor"
+}
+```
+
+**Error:** Returns wrong result - pattern with when guard doesn't match correctly.
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` - pattern matching logic
+- **Root Cause:** LogicalAndPatternImpl (pattern && condition) handling issues
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-81: Pattern with when guard should work"
+
+#### Solution Strategy
+
+Implement proper when guard evaluation in pattern matching.
+
+---
+
+### Bug-82: Function.call Method Not Found
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Calling `.call()` explicitly on an interpreted function fails.
+
+```dart
+void main() {
+  var fn = (int x) => x * 2;
+  print(fn.call(5));  // ❌ FAILS - should print 10
+}
+```
+
+**Error:** `Undefined property or method 'call' on InterpretedFunction.`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` - `visitMethodInvocation`
+- **Root Cause:** InterpretedFunction doesn't expose a `call` method, even though all Dart functions have an implicit `call` method
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-82: Function.call() should work on interpreted functions"
+
+#### Solution Strategy
+
+When looking up method `call` on an InterpretedFunction, invoke the function directly with the provided arguments.
+
+---
+
+### Bug-83: Nullable Function?.call() Fails
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Calling `?.call()` on a nullable function type fails.
+
+```dart
+void main() {
+  void Function()? onClick = () => print('Clicked');
+  onClick?.call();  // ❌ FAILS
+}
+```
+
+**Error:** `Undefined property or method 'call' on InterpretedFunction.`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` - `visitMethodInvocation` 
+- **Root Cause:** Same as Bug-82 - null-aware variant also fails
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-83: Nullable function?.call() should work"
+
+#### Solution Strategy
+
+Same fix as Bug-82, with proper null-aware handling.
+
+---
+
+### Bug-84: Mixin Abstract Method Satisfaction False Positive
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+When a mixin provides an override for an abstract method from its superclass constraint, the interpreter incorrectly reports the concrete class as missing the implementation.
+
+```dart
+abstract class Movable {
+  void move();
+}
+
+mixin CanWalk on Movable {
+  @override
+  void move() => print('Walking');  // ✅ Provides implementation
+}
+
+class Robot extends Movable with CanWalk {}  // ❌ FAILS
+
+void main() {
+  var robot = Robot();
+  robot.move();
+}
+```
+
+**Error:** `Missing concrete implementation for inherited abstract method 'move' in class 'Robot'.`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` - `visitClassDeclaration`
+- **Root Cause:** Abstract method checking doesn't account for implementations provided by mixins that override constraint methods
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-84: Mixin should satisfy abstract method from superclass"
+
+#### Solution Strategy
+
+When checking for missing abstract method implementations, include methods provided by mixins (with `@override`) in the list of available implementations.
+
+---
+
+### Bug-85: Cannot Extend Abstract Final Class in Same Library
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+The `abstract final` class modifier combination should allow the class to be extended only within the same library. The interpreter incorrectly blocks this.
+
+```dart
+abstract final class AbstractFinalClass {
+  void doSomething();
+}
+
+class ConcreteImpl extends AbstractFinalClass {  // ❌ FAILS
+  @override
+  void doSomething() => print('Done');
+}
+
+void main() {
+  var impl = ConcreteImpl();
+  impl.doSomething();
+}
+```
+
+**Error:** `Class 'ConcreteImpl' cannot extend final class 'AbstractFinalClass'.`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` - `visitClassDeclaration`
+- **Root Cause:** The check for `final` modifier doesn't account for `abstract final` combination which allows same-library extension
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-85: Should extend abstract final class in same library"
+
+#### Solution Strategy
+
+When checking class modifier restrictions, allow extending `abstract final` classes within the same library.
+
+---
+
+### Bug-86: runtimeType Not Accessible via PrefixedIdentifier
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Accessing `runtimeType` on an interpreted instance in string interpolation fails.
+
+```dart
+class Wrapper<T> {
+  final T value;
+  Wrapper(this.value);
+}
+
+void main() {
+  var w = Wrapper<int>(42);
+  print('Type: ${w.runtimeType}');  // ❌ FAILS
+}
+```
+
+**Error:** `Undefined property 'runtimeType' on Wrapper. (accessing property via PrefixedIdentifier 'runtimeType')`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` - `visitPrefixedIdentifier`
+- **Root Cause:** The `runtimeType` property (inherited from Object) isn't being resolved for InterpretedInstances in prefixed identifier context
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-86: runtimeType should be accessible on generic instance"
+
+#### Solution Strategy
+
+Add special handling for `runtimeType` in visitPrefixedIdentifier to return the runtime type of InterpretedInstances.
+
+---
+
+### Bug-87: Map For-In Comprehension Fails with MapLiteralEntry Error
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Using a for-in loop to create map entries in a map literal comprehension fails.
+
+```dart
+void main() {
+  var items = ['a', 'b', 'c'];
+  var indexed = {for (var i = 0; i < items.length; i++) i: items[i]};
+  print(indexed);  // ❌ FAILS
+}
+```
+
+**Error:** `Unexpected MapLiteralEntry ('key: value') in a non-map literal. (in Set literal)`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` - `visitSetOrMapLiteral`
+- **Root Cause:** The literal type detection is incorrectly identifying the collection as a Set instead of a Map when using for-in with MapLiteralEntry elements
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-87: Map for-in comprehension should work"
+
+#### Solution Strategy
+
+Improve the Set/Map literal type detection to consider MapLiteralEntry elements generated from for-in expressions.
+
+---
+
+### Bug-88: Record Pattern with :name Shorthand Fails
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Using the `:name` shorthand in record patterns fails with a null lexeme error.
+
+```dart
+void main() {
+  var point = (x: 10, y: 20);
+  var (:x, :y) = point;  // ❌ FAILS
+  print('x=$x, y=$y');
+}
+```
+
+**Error:** `Error during pattern binding: State Error: Internal error: Named field detected but name lexeme is null.`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` - pattern binding logic
+- **Root Cause:** The `:name` shorthand pattern doesn't extract the name lexeme correctly
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-88: Record pattern with :name shorthand should work"
+
+#### Solution Strategy
+
+Handle the shorthand pattern syntax where `:name` means both the pattern variable name and the field name.
+
+---
+
+### Bug-89: Enum.values.byName (List.byName) Not Bridged
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+The `byName` method on enum values list (which is a List extension) is not available.
+
+```dart
+enum Color { red, green, blue }
+
+void main() {
+  var color = Color.values.byName('green');  // ❌ FAILS
+  print(color.name);
+}
+```
+
+**Error:** `Bridged class 'List' has no instance method named 'byName'. Error during extension lookup: Bridged class 'List' has no instance method named 'byName'.`
+
+#### Where is the Problem?
+
+- **Location:** `dart_core_bridge.dart` - List bridge
+- **Root Cause:** The `byName` extension method from `dart:core` on `List<T extends Enum>` isn't bridged
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-89: Enum.values.byName should find enum value"
+
+#### Solution Strategy
+
+Add the `byName` method to the List bridge for enum value lists, or implement the extension method lookup for bridged types.
+
+---
+
+### Bug-90: Mixin on Constraint Abstract Getter False Positive
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+When a class extends an abstract class and uses a mixin with an `on` constraint that declares an abstract getter, the interpreter incorrectly reports the getter as unimplemented even when the class provides the implementation.
+
+```dart
+abstract class Named {
+  String get name;
+}
+
+mixin Greetable on Named {
+  String greet() => 'Hello, $name';
+}
+
+class Person extends Named with Greetable {
+  @override
+  final String name;  // ✅ Provides implementation
+  Person(this.name);
+}
+
+void main() {
+  var p = Person('Alice');
+  print(p.greet());  // ❌ FAILS
+}
+```
+
+**Error:** `Missing concrete implementation for inherited abstract getter 'name' in class 'Person'.`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` - `visitClassDeclaration`
+- **Root Cause:** The abstract member check looks at the mixin's `on` constraint and sees `name` as abstract, but doesn't recognize that Person provides the implementation
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-90: Mixin on constraint with getter should not require impl"
+
+#### Solution Strategy
+
+When checking for unimplemented abstract members, properly resolve which members the concrete class actually provides, including those inherited from mixins and those explicitly overridden.
+
+---
+
+### Bug-91: Imported Extensions on Bridged Types Fail
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Extensions on bridged types work when defined in the same file, but fail when imported from another file.
+
+```dart
+// string_ext.dart
+extension StringExtension on String {
+  String capitalize() => this[0].toUpperCase() + substring(1);
+}
+
+// main.dart
+import 'string_ext.dart';
+
+void main() {
+  print('hello'.capitalize());  // ❌ FAILS when imported
+}
+```
+
+**Error:** `Bridged class 'String' has no instance method named 'capitalize'. Error during extension lookup: Bridged class 'String' has no instance method named 'capitalize'.`
+
+#### Where is the Problem?
+
+- **Location:** `environment.dart` - extension lookup for bridged types
+- **Root Cause:** Extension lookup doesn't search imported modules for extensions on bridged types
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-91: Imported extensions on bridged types should work"
+
+#### Solution Strategy
+
+Extend the extension lookup mechanism to search imported modules, not just the current file's scope.
+
+---
+
+### Bug-92: Future Factory Constructor Returns BridgedInstance&lt;Object&gt;
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Using `Future(() => ...)` factory constructor returns a `BridgedInstance<Object>` instead of a proper Future, causing await to fail.
+
+```dart
+void main() async {
+  var computed = Future(() {
+    return 'Computed value';
+  });
+  print(await computed);  // ❌ FAILS
+}
+```
+
+**Error:** `The argument to 'await' must be a Future, but received type: BridgedInstance<Object>`
+
+Note: `Future.value(42)` works correctly; it's specifically the `Future(() => ...)` factory constructor that fails.
+
+#### Where is the Problem?
+
+- **Location:** `dart_async_bridge.dart` - Future constructor bridging
+- **Root Cause:** The `Future(() => ...)` factory constructor isn't properly bridged to return a Future type
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-92: await on Future factory constructor should work"
+
+#### Solution Strategy
+
+Bridge the `Future(() => computation)` factory constructor to properly return a Future that can be awaited.
 
 ---
 

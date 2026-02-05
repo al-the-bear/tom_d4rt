@@ -61,7 +61,7 @@ void main() {
   LimitationTest(
     id: 'Lim-2',
     description: 'Extensions on bridged types fail',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 extension DateTimeExtension on DateTime {
   bool get isWeekend => weekday == DateTime.saturday || weekday == DateTime.sunday;
@@ -93,7 +93,7 @@ void main() async {
     description: 'Infinite sync* generators hang',
     expectedToFail: true,
     runsInSubprocess: true, // Must run in subprocess due to blocking
-    timeout: const Duration(seconds: 3),
+    timeout: const Duration(seconds: 10),
     code: '''
 Iterable<int> infiniteNumbers() sync* {
   var n = 0;
@@ -111,7 +111,7 @@ void main() {
   LimitationTest(
     id: 'Lim-5',
     description: 'Comparable interface not fully supported',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 class Person implements Comparable<Person> {
   final String name;
@@ -131,7 +131,7 @@ void main() {
   LimitationTest(
     id: 'Lim-6',
     description: 'noSuchMethod for getters not supported',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 class FlexibleObject {
   @override
@@ -150,7 +150,7 @@ void main() {
   LimitationTest(
     id: 'Lim-7',
     description: 'Labeled continue in switch statements',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 void main() {
   outer: switch (1) {
@@ -169,7 +169,7 @@ void main() {
   LimitationTest(
     id: 'Lim-8',
     description: 'Logical OR patterns in switch cases',
-    expectedToFail: true, // Still a limitation
+    expectedToFail: false,
     code: '''
 void main() {
   var day = 'Saturday';
@@ -199,7 +199,7 @@ void main() async {
   LimitationTest(
     id: 'Bug-1',
     description: 'List.empty() constructor',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 void main() {
   var list = List<int>.empty(growable: true);
@@ -212,7 +212,7 @@ void main() {
   LimitationTest(
     id: 'Bug-2',
     description: 'Queue.addAll() method',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 import 'dart:collection';
 void main() {
@@ -239,7 +239,7 @@ void main() {
   LimitationTest(
     id: 'Bug-5',
     description: 'Division by zero',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 void main() {
   var result = 1.0 / 0.0;
@@ -252,7 +252,7 @@ void main() {
   LimitationTest(
     id: 'Bug-6',
     description: 'Record hashCode',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 void main() {
   var r1 = (1, 2, name: 'test');
@@ -265,7 +265,7 @@ void main() {
   LimitationTest(
     id: 'Bug-7',
     description: 'Digit separators',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 void main() {
   var million = 1_000_000;
@@ -277,7 +277,7 @@ void main() {
   LimitationTest(
     id: 'Bug-8',
     description: 'List.indexWhere()',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 void main() {
   var list = ['a', 'b', 'c', 'd'];
@@ -289,7 +289,7 @@ void main() {
   LimitationTest(
     id: 'Bug-9',
     description: 'Never type',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 Never throwError() {
   throw Exception('Error');
@@ -307,7 +307,7 @@ void main() {
   LimitationTest(
     id: 'Bug-10',
     description: 'Comparable interface implements',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 class Value implements Comparable<Value> {
   final int n;
@@ -326,7 +326,7 @@ void main() {
   LimitationTest(
     id: 'Bug-11',
     description: 'Sealed class',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 sealed class Shape {}
 class Circle extends Shape { final double radius; Circle(this.radius); }
@@ -341,7 +341,7 @@ void main() {
   LimitationTest(
     id: 'Bug-12',
     description: 'Exception interface',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 class MyException implements Exception {
   final String message;
@@ -360,7 +360,7 @@ void main() {
   LimitationTest(
     id: 'Bug-13',
     description: 'LogicalOrPattern',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 void main() {
   var day = 'Saturday';
@@ -376,7 +376,7 @@ void main() {
   LimitationTest(
     id: 'Bug-14',
     description: 'Record type annotation',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 (int, int) swap((int, int) pair) => (pair.\$2, pair.\$1);
 void main() {
@@ -389,7 +389,7 @@ void main() {
   LimitationTest(
     id: 'Bug-20',
     description: 'identical() function',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 void main() {
   var list1 = [1, 2, 3];
@@ -402,7 +402,7 @@ void main() {
   LimitationTest(
     id: 'Bug-21',
     description: 'Set.from() constructor',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 void main() {
   var set = Set<int>.from([1, 2, 3, 3, 2, 1]);
@@ -414,7 +414,7 @@ void main() {
   LimitationTest(
     id: 'Bug-23',
     description: 'Static const sibling reference',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 class Colors {
   static const red = '#FF0000';
@@ -430,7 +430,7 @@ void main() {
   LimitationTest(
     id: 'Bug-24',
     description: 'mixin class declaration',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 mixin class Logger {
   void log(String msg) => print('[LOG] \$msg');
@@ -446,7 +446,7 @@ void main() {
   LimitationTest(
     id: 'Bug-27',
     description: 'Short-circuit && with null',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 void main() {
   String? name;
@@ -488,7 +488,7 @@ void main() async {
   LimitationTest(
     id: 'Bug-32',
     description: 'continue label in switch (LIMITATION)',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 void main() {
   outer: switch (1) {
@@ -507,7 +507,7 @@ void main() {
   LimitationTest(
     id: 'Bug-40',
     description: 'Comparable sort (LIMITATION)',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 class Person implements Comparable<Person> {
   final String name;
@@ -526,7 +526,7 @@ void main() {
   LimitationTest(
     id: 'Bug-42',
     description: 'noSuchMethod getter (LIMITATION)',
-    expectedToFail: true,
+    expectedToFail: false,
     code: '''
 class Flex {
   @override
@@ -545,7 +545,7 @@ void main() {
     description: 'Infinite sync* generator (LIMITATION)',
     expectedToFail: true,
     runsInSubprocess: true, // Must run in subprocess due to blocking
-    timeout: const Duration(seconds: 3),
+    timeout: const Duration(seconds: 10),
     code: '''
 Iterable<int> infinite() sync* {
   var n = 0;
