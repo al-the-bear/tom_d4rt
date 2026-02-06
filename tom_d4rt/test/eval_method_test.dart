@@ -514,7 +514,7 @@ void main() {
 
         expect(
           () => freshD4rt.eval('1 + 1'),
-          throwsA(isA<RuntimeError>()),
+          throwsA(isA<RuntimeD4rtException>()),
         );
       });
 
@@ -523,7 +523,7 @@ void main() {
 
         expect(
           () => d4rt.eval('undefinedVariable'),
-          throwsA(isA<RuntimeError>()),
+          throwsA(isA<RuntimeD4rtException>()),
         );
       });
 
@@ -532,7 +532,7 @@ void main() {
 
         expect(
           () => d4rt.eval('undefinedFunction()'),
-          throwsA(isA<RuntimeError>()),
+          throwsA(isA<RuntimeD4rtException>()),
         );
       });
 

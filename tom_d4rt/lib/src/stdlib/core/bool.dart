@@ -9,7 +9,7 @@ class BoolCore {
         staticMethods: {
           'fromEnvironment': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'bool.fromEnvironment expects one String argument for the name.');
             }
             return bool.fromEnvironment(positionalArgs[0] as String,
@@ -17,14 +17,14 @@ class BoolCore {
           },
           'hasEnvironment': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'bool.hasEnvironment expects one String argument for the name.');
             }
             return bool.hasEnvironment(positionalArgs[0] as String);
           },
           'parse': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError('bool.parse expects one String argument.');
+              throw RuntimeD4rtException('bool.parse expects one String argument.');
             }
             final caseSensitive = namedArgs['caseSensitive'] as bool? ?? true;
             return bool.parse(positionalArgs[0] as String,
@@ -32,7 +32,7 @@ class BoolCore {
           },
           'tryParse': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError('bool.tryParse expects one String argument.');
+              throw RuntimeD4rtException('bool.tryParse expects one String argument.');
             }
             final caseSensitive = namedArgs['caseSensitive'] as bool? ?? true;
             return bool.tryParse(positionalArgs[0] as String,

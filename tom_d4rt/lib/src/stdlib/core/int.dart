@@ -19,7 +19,7 @@ class IntCore {
           },
           'fromEnvironment': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'int.fromEnvironment expects one String argument for the name.');
             }
             return int.fromEnvironment(positionalArgs[0] as String,

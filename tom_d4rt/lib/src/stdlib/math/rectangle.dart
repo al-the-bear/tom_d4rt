@@ -13,7 +13,7 @@ class RectangleMath {
                 positionalArgs[1] is! num ||
                 positionalArgs[2] is! num ||
                 positionalArgs[3] is! num) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Rectangle constructor requires 4 numeric arguments (left, top, width, height).');
             }
             return Rectangle(

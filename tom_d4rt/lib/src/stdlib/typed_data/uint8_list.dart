@@ -23,7 +23,7 @@ class Uint8ListTypedData {
             if (positionalArgs.length == 1 && positionalArgs[0] is int) {
               return Uint8List(positionalArgs[0] as int);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Uint8List constructor expects one int argument (length).");
           },
           'fromList': (visitor, positionalArgs, namedArgs) {
@@ -31,11 +31,11 @@ class Uint8ListTypedData {
               final sourceList = positionalArgs[0] as List;
               final intList = sourceList.toNativeList().map((e) {
                 if (e is int) return e;
-                throw RuntimeError("Uint8List.fromList expects a List<int>.");
+                throw RuntimeD4rtException("Uint8List.fromList expects a List<int>.");
               }).toList();
               return Uint8List.fromList(intList);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Uint8List.fromList expects one List<int> argument.");
           },
           'view': (visitor, positionalArgs, namedArgs) {
@@ -48,7 +48,7 @@ class Uint8ListTypedData {
                   positionalArgs.length > 2 ? positionalArgs[2] as int? : null;
               return Uint8List.view(buffer, offsetInBytes, length);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Uint8List.view expects ByteBuffer and optional int arguments.");
           },
           'sublistView': (visitor, positionalArgs, namedArgs) {
@@ -61,7 +61,7 @@ class Uint8ListTypedData {
                   positionalArgs.length > 2 ? positionalArgs[2] as int? : null;
               return Uint8List.sublistView(data, start, end);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Uint8List.sublistView expects TypedData and optional int arguments.");
           },
         },
@@ -73,7 +73,7 @@ class Uint8ListTypedData {
                 positionalArgs[0] is int) {
               return target[positionalArgs[0] as int];
             }
-            throw RuntimeError("Uint8List[index] expects an int index.");
+            throw RuntimeD4rtException("Uint8List[index] expects an int index.");
           },
           '[]=': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Uint8List &&
@@ -85,7 +85,7 @@ class Uint8ListTypedData {
               target[index] = value;
               return value;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Uint8List[index] = value expects int index and int value.");
           },
 

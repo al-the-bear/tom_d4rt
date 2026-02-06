@@ -9,13 +9,13 @@ class Base64CodecConvert {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
-              throw RuntimeError('Base64Codec constructor takes no arguments.');
+              throw RuntimeD4rtException('Base64Codec constructor takes no arguments.');
             }
             return Base64Codec();
           },
           'urlSafe': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Base64Codec.urlSafe constructor takes no arguments.');
             }
             return Base64Codec.urlSafe();
@@ -24,7 +24,7 @@ class Base64CodecConvert {
         methods: {
           'encode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Base64Codec.encode requires a List argument.');
             }
             return (target as Base64Codec)
@@ -32,14 +32,14 @@ class Base64CodecConvert {
           },
           'decode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Base64Codec.decode requires a String argument.');
             }
             return (target as Base64Codec).decode(positionalArgs[0] as String);
           },
           'normalize': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Base64Codec.normalize requires a String argument.');
             }
             final start = positionalArgs.get<int>(1) ?? 0;
@@ -50,7 +50,7 @@ class Base64CodecConvert {
           'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Codec<String, dynamic>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Base64Codec.fuse requires another Codec<String, dynamic> as argument.');
             }
             return (target as Base64Codec)
@@ -76,14 +76,14 @@ class Base64EncoderConvert {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Base64Encoder constructor takes no arguments.');
             }
             return Base64Encoder();
           },
           'urlSafe': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Base64Encoder.urlSafe factory constructor takes no arguments.');
             }
             return Base64Encoder.urlSafe();
@@ -92,7 +92,7 @@ class Base64EncoderConvert {
         methods: {
           'convert': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Base64Encoder.convert requires a List argument.');
             }
             return (target as Base64Encoder)
@@ -102,7 +102,7 @@ class Base64EncoderConvert {
               (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<dynamic>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'startChunkedConversion requires a Sink<String> argument.');
             }
             return (target as Base64Encoder)
@@ -111,7 +111,7 @@ class Base64EncoderConvert {
           'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<List<int>>) {
-              throw RuntimeError('bind requires a Stream<List<int>> argument.');
+              throw RuntimeD4rtException('bind requires a Stream<List<int>> argument.');
             }
             return (target as Base64Encoder)
                 .bind(positionalArgs[0] as Stream<List<int>>);
@@ -119,7 +119,7 @@ class Base64EncoderConvert {
           'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<String, dynamic>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Base64Encoder.fuse requires another Converter<String, dynamic> as argument.');
             }
             return (target as Base64Encoder)
@@ -145,7 +145,7 @@ class Base64DecoderConvert {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Base64Decoder constructor takes no arguments.');
             }
             return Base64Decoder();
@@ -154,7 +154,7 @@ class Base64DecoderConvert {
         methods: {
           'convert': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Base64Decoder.convert requires a String argument.');
             }
             return (target as Base64Decoder)
@@ -164,7 +164,7 @@ class Base64DecoderConvert {
               (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<List<int>>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'startChunkedConversion requires a Sink<List<int>> argument.');
             }
             return (target as Base64Decoder)
@@ -173,7 +173,7 @@ class Base64DecoderConvert {
           'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<String>) {
-              throw RuntimeError('bind requires a Stream<String> argument.');
+              throw RuntimeD4rtException('bind requires a Stream<String> argument.');
             }
             return (target as Base64Decoder)
                 .bind(positionalArgs[0] as Stream<String>);
@@ -181,7 +181,7 @@ class Base64DecoderConvert {
           'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<List<int>, dynamic>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Base64Decoder.fuse requires another Converter<List<int>, dynamic> as argument.');
             }
             return (target as Base64Decoder)

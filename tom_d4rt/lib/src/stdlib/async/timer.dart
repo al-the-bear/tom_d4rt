@@ -9,7 +9,7 @@ class TimerAsync {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.length != 2 || namedArgs.isNotEmpty) {
-              throw RuntimeError('Timer constructor takes 2 arguments.');
+              throw RuntimeD4rtException('Timer constructor takes 2 arguments.');
             }
             final duration = positionalArgs[0] as Duration;
             final callback = positionalArgs[1] as InterpretedFunction;

@@ -26,7 +26,7 @@ class StringCore {
         methods: {
           '[]': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'String index operator [] requires one int argument.');
             }
             return (target as String)[positionalArgs[0] as int];
@@ -151,7 +151,7 @@ class StringCore {
             final pattern = positionalArgs[0] as Pattern;
             final replace = positionalArgs[1];
             if (replace is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Expected an InterpretedFunction for replaceAllMapped');
             }
             return (target as String).replaceAllMapped(pattern, (match) {
@@ -162,7 +162,7 @@ class StringCore {
             final pattern = positionalArgs[0] as Pattern;
             final replace = positionalArgs[1];
             if (replace is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Expected an InterpretedFunction for replaceFirstMapped');
             }
             final startIndex =

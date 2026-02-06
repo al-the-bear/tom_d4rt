@@ -13,6 +13,10 @@
 
 include: package:lints/recommended.yaml
 
+linter:
+  rules:
+    dangling_library_doc_comments: false
+
 # Uncomment the following section to specify additional rules.
 
 # linter:

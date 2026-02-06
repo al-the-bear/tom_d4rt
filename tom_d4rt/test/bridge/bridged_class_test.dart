@@ -551,7 +551,7 @@ void main() {
       ''';
       expect(
           () => interpreter.execute(source: code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
               (e) => e.message,
               'message',
               contains(
@@ -565,7 +565,7 @@ void main() {
       '''; // Expects int
       expect(
           () => interpreter.execute(source: code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
               (e) => e.message,
               'message',
               contains(
@@ -579,7 +579,7 @@ void main() {
       '''; // Expects String
       expect(
           () => interpreter.execute(source: code),
-          throwsA(isA<RuntimeError>().having((e) => e.message, 'message',
+          throwsA(isA<RuntimeD4rtException>().having((e) => e.message, 'message',
               contains("Native error during bridged constructor"))));
     });
 
@@ -590,7 +590,7 @@ void main() {
       ''';
       expect(
           () => interpreter.execute(source: code),
-          throwsA(isA<RuntimeError>().having((e) => e.message, 'message',
+          throwsA(isA<RuntimeD4rtException>().having((e) => e.message, 'message',
               contains("Undefined static member 'nonExistentStatic'"))));
     });
 
@@ -601,7 +601,7 @@ void main() {
       ''';
       expect(
           () => interpreter.execute(source: code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
               (e) => e.message,
               'message',
               contains(
@@ -619,7 +619,7 @@ void main() {
       // This error comes from the fallback mechanism after bridge check fails
       expect(
           () => interpreter.execute(source: code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
               (e) => e.message,
               'message',
               contains(
@@ -636,7 +636,7 @@ void main() {
        ''';
       expect(
           () => interpreter.execute(source: code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
               (e) => e.message,
               'message',
               contains(
@@ -653,7 +653,7 @@ void main() {
        ''';
       expect(
           () => interpreter.execute(source: code),
-          throwsA(isA<RuntimeError>().having((e) => e.message, 'message',
+          throwsA(isA<RuntimeD4rtException>().having((e) => e.message, 'message',
               contains("Native error during bridged method call 'add'"))));
     });
 
@@ -668,7 +668,7 @@ void main() {
        ''';
       expect(
           () => interpreter.execute(source: code),
-          throwsA(isA<RuntimeError>().having((e) => e.message, 'message',
+          throwsA(isA<RuntimeD4rtException>().having((e) => e.message, 'message',
               contains("Unexpected error: Bad state: Instance disposed"))));
     });
 
@@ -1092,7 +1092,7 @@ void main() {
 
       expect(
         () => interpreter.invoke('nonExistent', []),
-        throwsA(isA<RuntimeError>().having(
+        throwsA(isA<RuntimeD4rtException>().having(
           (e) => e.message,
           'message',
           contains('Method or getter "nonExistent" not found'),

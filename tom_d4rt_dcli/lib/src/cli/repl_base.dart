@@ -1816,7 +1816,7 @@ Object? __repl_expr__() {
         await processInput(d4rt, state, line, silent: silent);
       } catch (e) {
         final lineNum = i + 1;
-        throw RuntimeError('Error on replay line $lineNum: "$line"\nDetails: $e');
+        throw RuntimeD4rtException('Error on replay line $lineNum: "$line"\nDetails: $e');
       }
       count++;
     }

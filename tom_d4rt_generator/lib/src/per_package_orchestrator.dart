@@ -350,8 +350,8 @@ class PerPackageBridgeOrchestrator {
       final pkgName = entry.key;
       final pkgInfo = entry.value;
 
-      // Generate file name: package_tom_basics_bridges.dart
-      final fileName = 'package_${pkgName.replaceAll('-', '_')}_bridges.dart';
+      // Generate file name: package_tom_basics_bridges.b.dart
+      final fileName = 'package_${pkgName.replaceAll('-', '_')}_bridges.b.dart';
       final outputPath = p.join(libraryPath, fileName);
 
       // Get all unique barrel files for this package

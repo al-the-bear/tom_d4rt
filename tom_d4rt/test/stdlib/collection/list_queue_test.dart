@@ -128,7 +128,7 @@ void main() {
             queue.removeFirst();
           }
         '''),
-        throwsA(isA<RuntimeError>()),
+        throwsA(isA<RuntimeD4rtException>()),
         reason: "removeFirst on empty queue",
       );
       expect(
@@ -139,7 +139,7 @@ void main() {
             queue.removeLast();
           }
         '''),
-        throwsA(isA<RuntimeError>()),
+        throwsA(isA<RuntimeD4rtException>()),
         reason: "removeLast on empty queue",
       );
     });
@@ -239,11 +239,11 @@ void main() {
       expect(() => d4rt.execute(source: '''
             import 'dart:collection';
             main() { ListQueue().single; }
-        '''), throwsA(isA<RuntimeError>()), reason: "single on empty queue");
+        '''), throwsA(isA<RuntimeD4rtException>()), reason: "single on empty queue");
       expect(() => d4rt.execute(source: '''
             import 'dart:collection';
             main() { ListQueue.from([1,2]).single; }
-        '''), throwsA(isA<RuntimeError>()),
+        '''), throwsA(isA<RuntimeD4rtException>()),
           reason: "single on multi-element queue");
     });
 

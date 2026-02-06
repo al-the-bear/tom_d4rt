@@ -16,7 +16,7 @@ class ByteBufferTypedData {
                 if (positionalArgs[0] is int) {
                   offsetInBytes = positionalArgs[0] as int;
                 } else {
-                  throw RuntimeError(
+                  throw RuntimeD4rtException(
                       "asUint8List: offsetInBytes must be an int.");
                 }
               }
@@ -24,13 +24,13 @@ class ByteBufferTypedData {
                 if (positionalArgs[1] is int?) {
                   length = positionalArgs[1] as int?;
                 } else if (positionalArgs[1] != null) {
-                  throw RuntimeError(
+                  throw RuntimeD4rtException(
                       "asUint8List: length must be an int or null.");
                 }
               }
               return target.asUint8List(offsetInBytes, length);
             }
-            throw RuntimeError("Target is not a ByteBuffer for asUint8List");
+            throw RuntimeD4rtException("Target is not a ByteBuffer for asUint8List");
           },
           'asByteData': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteBuffer) {
@@ -40,7 +40,7 @@ class ByteBufferTypedData {
                 if (positionalArgs[0] is int) {
                   offsetInBytes = positionalArgs[0] as int;
                 } else {
-                  throw RuntimeError(
+                  throw RuntimeD4rtException(
                       "asByteData: offsetInBytes must be an int.");
                 }
               }
@@ -48,13 +48,13 @@ class ByteBufferTypedData {
                 if (positionalArgs[1] is int?) {
                   length = positionalArgs[1] as int?;
                 } else if (positionalArgs[1] != null) {
-                  throw RuntimeError(
+                  throw RuntimeD4rtException(
                       "asByteData: length must be an int or null.");
                 }
               }
               return target.asByteData(offsetInBytes, length);
             }
-            throw RuntimeError("Target is not a ByteBuffer for asByteData");
+            throw RuntimeD4rtException("Target is not a ByteBuffer for asByteData");
           },
         },
         getters: {
@@ -62,21 +62,21 @@ class ByteBufferTypedData {
             if (target is ByteBuffer) {
               return target.lengthInBytes;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a ByteBuffer for getter 'lengthInBytes'");
           },
           'hashCode': (visitor, target) {
             if (target is ByteBuffer) {
               return target.hashCode;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a ByteBuffer for getter 'hashCode'");
           },
           'runtimeType': (visitor, target) {
             if (target is ByteBuffer) {
               return target.runtimeType;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a ByteBuffer for getter 'runtimeType'");
           },
         },

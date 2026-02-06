@@ -13,7 +13,7 @@ class ByteDataTypedData {
                 namedArgs.isEmpty) {
               return ByteData(positionalArgs[0] as int);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "ByteData constructor expects one int argument (length).");
           },
           'view': (visitor, positionalArgs, namedArgs) {
@@ -26,7 +26,7 @@ class ByteDataTypedData {
                   positionalArgs.length > 2 ? positionalArgs[2] as int? : null;
               return ByteData.view(buffer, offsetInBytes, length);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "ByteData.view expects ByteBuffer and optional offset/length arguments.");
           },
           'sublistView': (visitor, positionalArgs, namedArgs) {
@@ -39,7 +39,7 @@ class ByteDataTypedData {
                   positionalArgs.length > 2 ? positionalArgs[2] as int? : null;
               return ByteData.sublistView(data, start, end);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "ByteData.sublistView expects TypedData and optional start/end arguments.");
           },
         },
@@ -51,7 +51,7 @@ class ByteDataTypedData {
                 positionalArgs[0] is int) {
               return target.getInt8(positionalArgs[0] as int);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.getInt8. Expects int byteOffset.");
           },
           'setInt8': (visitor, target, positionalArgs, namedArgs, _) {
@@ -63,7 +63,7 @@ class ByteDataTypedData {
                   positionalArgs[0] as int, positionalArgs[1] as int);
               return null;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.setInt8. Expects int byteOffset, int value.");
           },
           'getUint8': (visitor, target, positionalArgs, namedArgs, _) {
@@ -72,7 +72,7 @@ class ByteDataTypedData {
                 positionalArgs[0] is int) {
               return target.getUint8(positionalArgs[0] as int);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.getUint8. Expects int byteOffset.");
           },
           'setUint8': (visitor, target, positionalArgs, namedArgs, _) {
@@ -84,7 +84,7 @@ class ByteDataTypedData {
                   positionalArgs[0] as int, positionalArgs[1] as int);
               return null;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.setUint8. Expects int byteOffset, int value.");
           },
 
@@ -99,7 +99,7 @@ class ByteDataTypedData {
                   : Endian.big;
               return target.getInt16(offset, endian);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.getInt16. Expects int byteOffset, [Endian endian].");
           },
           'setInt16': (visitor, target, positionalArgs, namedArgs, _) {
@@ -115,7 +115,7 @@ class ByteDataTypedData {
               target.setInt16(offset, value, endian);
               return null;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.setInt16. Expects int byteOffset, int value, [Endian endian].");
           },
           'getUint16': (visitor, target, positionalArgs, namedArgs, _) {
@@ -128,7 +128,7 @@ class ByteDataTypedData {
                   : Endian.big;
               return target.getUint16(offset, endian);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.getUint16. Expects int byteOffset, [Endian endian].");
           },
           'setUint16': (visitor, target, positionalArgs, namedArgs, _) {
@@ -144,7 +144,7 @@ class ByteDataTypedData {
               target.setUint16(offset, value, endian);
               return null;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.setUint16. Expects int byteOffset, int value, [Endian endian].");
           },
 
@@ -159,7 +159,7 @@ class ByteDataTypedData {
                   : Endian.big;
               return target.getInt32(offset, endian);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.getInt32. Expects int byteOffset, [Endian endian].");
           },
           'setInt32': (visitor, target, positionalArgs, namedArgs, _) {
@@ -175,7 +175,7 @@ class ByteDataTypedData {
               target.setInt32(offset, value, endian);
               return null;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.setInt32. Expects int byteOffset, int value, [Endian endian].");
           },
           'getUint32': (visitor, target, positionalArgs, namedArgs, _) {
@@ -188,7 +188,7 @@ class ByteDataTypedData {
                   : Endian.big;
               return target.getUint32(offset, endian);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.getUint32. Expects int byteOffset, [Endian endian].");
           },
           'setUint32': (visitor, target, positionalArgs, namedArgs, _) {
@@ -204,7 +204,7 @@ class ByteDataTypedData {
               target.setUint32(offset, value, endian);
               return null;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.setUint32. Expects int byteOffset, int value, [Endian endian].");
           },
 
@@ -219,7 +219,7 @@ class ByteDataTypedData {
                   : Endian.big;
               return target.getInt64(offset, endian);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.getInt64. Expects int byteOffset, [Endian endian].");
           },
           'setInt64': (visitor, target, positionalArgs, namedArgs, _) {
@@ -235,7 +235,7 @@ class ByteDataTypedData {
               target.setInt64(offset, value, endian);
               return null;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.setInt64. Expects int byteOffset, int value, [Endian endian].");
           },
           'getUint64': (visitor, target, positionalArgs, namedArgs, _) {
@@ -248,7 +248,7 @@ class ByteDataTypedData {
                   : Endian.big;
               return target.getUint64(offset, endian);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.getUint64. Expects int byteOffset, [Endian endian].");
           },
           'setUint64': (visitor, target, positionalArgs, namedArgs, _) {
@@ -264,7 +264,7 @@ class ByteDataTypedData {
               target.setUint64(offset, value, endian);
               return null;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.setUint64. Expects int byteOffset, int value, [Endian endian].");
           },
 
@@ -279,7 +279,7 @@ class ByteDataTypedData {
                   : Endian.big;
               return target.getFloat32(offset, endian);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.getFloat32. Expects int byteOffset, [Endian endian].");
           },
           'setFloat32': (visitor, target, positionalArgs, namedArgs, _) {
@@ -295,7 +295,7 @@ class ByteDataTypedData {
               target.setFloat32(offset, value, endian);
               return null;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.setFloat32. Expects int byteOffset, num value, [Endian endian].");
           },
           'getFloat64': (visitor, target, positionalArgs, namedArgs, _) {
@@ -308,7 +308,7 @@ class ByteDataTypedData {
                   : Endian.big;
               return target.getFloat64(offset, endian);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.getFloat64. Expects int byteOffset, [Endian endian].");
           },
           'setFloat64': (visitor, target, positionalArgs, namedArgs, _) {
@@ -324,7 +324,7 @@ class ByteDataTypedData {
               target.setFloat64(offset, value, endian);
               return null;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for ByteData.setFloat64. Expects int byteOffset, num value, [Endian endian].");
           },
 
@@ -339,31 +339,31 @@ class ByteDataTypedData {
         getters: {
           'lengthInBytes': (visitor, target) {
             if (target is ByteData) return target.lengthInBytes;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a ByteData for getter 'lengthInBytes'");
           },
           'elementSizeInBytes': (visitor, target) {
             if (target is ByteData) return target.elementSizeInBytes;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a ByteData for getter 'elementSizeInBytes'");
           },
           'offsetInBytes': (visitor, target) {
             if (target is ByteData) return target.offsetInBytes;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a ByteData for getter 'offsetInBytes'");
           },
           'buffer': (visitor, target) {
             if (target is ByteData) return target.buffer;
-            throw RuntimeError("Target is not a ByteData for getter 'buffer'");
+            throw RuntimeD4rtException("Target is not a ByteData for getter 'buffer'");
           },
           'hashCode': (visitor, target) {
             if (target is ByteData) return target.hashCode;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a ByteData for getter 'hashCode'");
           },
           'runtimeType': (visitor, target) {
             if (target is ByteData) return target.runtimeType;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a ByteData for getter 'runtimeType'");
           },
         },

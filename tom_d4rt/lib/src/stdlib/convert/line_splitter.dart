@@ -14,7 +14,7 @@ class LineSplitterConvert {
         methods: {
           'convert': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'LineSplitter.convert requires one String argument.');
             }
             return (target as LineSplitter)
@@ -24,7 +24,7 @@ class LineSplitterConvert {
               (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<String>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'startChunkedConversion requires a Sink<String> argument.');
             }
             return (target as LineSplitter)
@@ -33,7 +33,7 @@ class LineSplitterConvert {
           'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<String>) {
-              throw RuntimeError('bind requires a Stream<String> argument.');
+              throw RuntimeD4rtException('bind requires a Stream<String> argument.');
             }
             return (target as LineSplitter)
                 .bind(positionalArgs[0] as Stream<String>);

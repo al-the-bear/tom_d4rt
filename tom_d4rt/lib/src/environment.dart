@@ -175,7 +175,7 @@ class Environment {
       current = current._enclosing;
     }
 
-    throw RuntimeError(
+    throw RuntimeD4rtException(
         'Cannot bridge native object: No registered bridged class found for native type $nativeType.');
   }
 
@@ -243,10 +243,10 @@ class Environment {
           // No need to check _enclosing here, the prefixed environment will do that.
           try {
             return _prefixedImports[prefix]!.get(identifier);
-          } on RuntimeError catch (e) {
+          } on RuntimeD4rtException catch (e) {
             // If the identifier is not found in the prefixed environment, we want the original error to be propagated.
             // Or, according to the desired semantics, we could raise a new error indicating that 'identifier' was not found IN 'prefix'.
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Undefined name '$identifier' in imported prefix '$prefix'. Original error: ${e.message}");
           }
         } else {
@@ -263,7 +263,7 @@ class Environment {
             "[Env.get] Name '$name' contains multiple points, not supported for simple prefixed access.");
         // Falling into the normal search could be an option, but let's raise an error for now
         // because it probably indicates an unexpected usage or an invalid variable name.
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             "Complex prefixed access not supported: $name. Use the form prefix.identifier.");
       }
     }
@@ -300,7 +300,7 @@ class Environment {
 
     Logger.debug(
         '[Env.get] \'$name\' not found in env chain starting from: $hashCode (no parent)'); // Log chain end
-    throw RuntimeError("Undefined variable: $name");
+    throw RuntimeD4rtException("Undefined variable: $name");
   }
 
   Object? assign(String name, Object? value) {
@@ -313,12 +313,12 @@ class Environment {
     }
 
     if (_bridgedClasses.containsKey(name)) {
-      throw RuntimeError("Cannot assign to the name of a bridged class: $name");
+      throw RuntimeD4rtException("Cannot assign to the name of a bridged class: $name");
     }
 
     // Prevent assigning to bridged enum names
     if (_bridgedEnums.containsKey(name)) {
-      throw RuntimeError("Cannot assign to the name of a bridged enum: $name");
+      throw RuntimeD4rtException("Cannot assign to the name of a bridged enum: $name");
     }
 
     if (_enclosing != null) {
@@ -330,7 +330,7 @@ class Environment {
 
     Logger.debug(
         "[Env.assign] Variable '$name' not found for assignment, throwing error.");
-    throw RuntimeError("Assigning to undefined variable '$name'.");
+    throw RuntimeD4rtException("Assigning to undefined variable '$name'.");
   }
 
   // Check if a variable is defined in *this* specific scope
@@ -433,7 +433,7 @@ class Environment {
           Logger.warn(
               "[getRuntimeType] Found symbol '$typeName' but it's not a RuntimeType (${typeObj?.runtimeType})");
         }
-      } on RuntimeError {
+      } on RuntimeD4rtException {
         Logger.warn(
             "[getRuntimeType] RuntimeType for primitive '$typeName' not found in environment.");
       }
@@ -444,7 +444,7 @@ class Environment {
       try {
         final bridgedClass = toBridgedClass(value.runtimeType);
         return bridgedClass;
-      } on RuntimeError {
+      } on RuntimeD4rtException {
         // No bridged class found for this type
         Logger.debug(
             "[getRuntimeType] No BridgedClass found for native type ${value.runtimeType}");
@@ -468,7 +468,7 @@ class Environment {
     Set<String>? hideNames,
   }) {
     if (showNames != null && hideNames != null) {
-      throw TomArgumentError(
+      throw ArgumentD4rtException(
           'Cannot provide both showNames and hideNames to shallowCopyFiltered.');
     }
 
@@ -544,7 +544,7 @@ class Environment {
   void importEnvironment(Environment other,
       {Set<String>? show, Set<String>? hide}) {
     if (show != null && hide != null) {
-      throw TomArgumentError(
+      throw ArgumentD4rtException(
           'Cannot provide both show and hide to importEnvironment.');
     }
 
@@ -566,7 +566,7 @@ class Environment {
       if (_values.containsKey(name)) {
         // Allow if it's the same value (e.g., same class/function imported via different paths)
         if (!identical(_values[name], value)) {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Name conflict in environment: Symbol '$name' is already defined with a different value.");
         }
         // Same value, skip the duplicate
@@ -575,7 +575,7 @@ class Environment {
       if (_bridgedClasses.containsKey(name) ||
           _bridgedEnums.containsKey(name) ||
           _prefixedImports.containsKey(name)) {
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             "Name conflict in environment: Symbol '$name' is already defined.");
       }
       _values[name] = value;
@@ -585,7 +585,7 @@ class Environment {
       if (_bridgedClasses.containsKey(name)) {
         // Allow if it's the same bridged class
         if (!identical(_bridgedClasses[name], bridgedClass)) {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Name conflict in environment: Symbol '$name' (bridged class) is already defined with a different value.");
         }
         return;
@@ -593,7 +593,7 @@ class Environment {
       if (_values.containsKey(name) ||
           _bridgedEnums.containsKey(name) ||
           _prefixedImports.containsKey(name)) {
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             "Name conflict in environment: Symbol '$name' (bridged class) is already defined.");
       }
       _bridgedClasses[name] = bridgedClass;
@@ -604,7 +604,7 @@ class Environment {
       if (_bridgedEnums.containsKey(name)) {
         // Allow if it's the same bridged enum
         if (!identical(_bridgedEnums[name], bridgedEnum)) {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Name conflict in environment: Symbol '$name' (bridged enum) is already defined with a different value.");
         }
         return;
@@ -612,7 +612,7 @@ class Environment {
       if (_values.containsKey(name) ||
           _bridgedClasses.containsKey(name) ||
           _prefixedImports.containsKey(name)) {
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             "Name conflict in environment: Symbol '$name' (bridged enum) is already defined.");
       }
       _bridgedEnums[name] = bridgedEnum;
@@ -622,7 +622,7 @@ class Environment {
       if (_prefixedImports.containsKey(name)) {
         // Allow if it's the same prefixed environment
         if (!identical(_prefixedImports[name], env)) {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Name conflict in environment: Symbol '$name' (prefixed import) is already defined with a different environment.");
         }
         return;
@@ -630,7 +630,7 @@ class Environment {
       if (_values.containsKey(name) ||
           _bridgedClasses.containsKey(name) ||
           _bridgedEnums.containsKey(name)) {
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             "Name conflict in environment: Symbol '$name' (prefixed import) is already defined or collides with another symbol type.");
       }
       _prefixedImports[name] = env;

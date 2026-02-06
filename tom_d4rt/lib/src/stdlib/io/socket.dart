@@ -39,14 +39,14 @@ class SocketIo {
           },
           'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw TomArgumentError('Socket.add requires data');
+              throw ArgumentD4rtException('Socket.add requires data');
             }
             (target as Socket).add(positionalArgs[0] as List<int>);
             return null;
           },
           'addError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw TomArgumentError('Socket.addError requires error');
+              throw ArgumentD4rtException('Socket.addError requires error');
             }
             final stackTrace = positionalArgs.length > 1
                 ? positionalArgs[1] as StackTrace?
@@ -60,14 +60,14 @@ class SocketIo {
           },
           'addStream': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw TomArgumentError('Socket.addStream requires stream');
+              throw ArgumentD4rtException('Socket.addStream requires stream');
             }
             return (target as Socket)
                 .addStream(positionalArgs[0] as Stream<List<int>>);
           },
           'write': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw TomArgumentError('Socket.write requires object');
+              throw ArgumentD4rtException('Socket.write requires object');
             }
             (target as Socket).write(positionalArgs[0]);
             return null;
@@ -79,7 +79,7 @@ class SocketIo {
           },
           'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw TomArgumentError('Socket.writeAll requires objects');
+              throw ArgumentD4rtException('Socket.writeAll requires objects');
             }
             final objects = positionalArgs[0] as Iterable;
             final separator =
@@ -89,14 +89,14 @@ class SocketIo {
           },
           'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw TomArgumentError('Socket.writeCharCode requires charCode');
+              throw ArgumentD4rtException('Socket.writeCharCode requires charCode');
             }
             (target as Socket).writeCharCode(positionalArgs[0] as int);
             return null;
           },
           'setOption': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2) {
-              throw TomArgumentError(
+              throw ArgumentD4rtException(
                   'Socket.setOption requires option and enabled');
             }
             return (target as Socket).setOption(
@@ -106,14 +106,14 @@ class SocketIo {
           },
           'getRawOption': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw TomArgumentError('Socket.getRawOption requires option');
+              throw ArgumentD4rtException('Socket.getRawOption requires option');
             }
             return (target as Socket)
                 .getRawOption(positionalArgs[0] as RawSocketOption);
           },
           'setRawOption': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2) {
-              throw TomArgumentError(
+              throw ArgumentD4rtException(
                   'Socket.setRawOption requires option and value');
             }
             (target as Socket)
@@ -255,7 +255,7 @@ class SocketIo {
           'asyncMap': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Socket.asyncMap requires a convert function.');
             }
             final convert = positionalArgs[0] as InterpretedFunction;
@@ -266,7 +266,7 @@ class SocketIo {
           'asyncExpand': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Socket.asyncExpand requires a convert function.');
             }
             final convert = positionalArgs[0] as InterpretedFunction;
@@ -280,7 +280,7 @@ class SocketIo {
           'handleError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Socket.handleError requires an onError function.');
             }
             final onError = positionalArgs[0] as InterpretedFunction;
@@ -295,7 +295,7 @@ class SocketIo {
           },
           'timeout': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! Duration) {
-              throw RuntimeError('Socket.timeout requires a Duration.');
+              throw RuntimeD4rtException('Socket.timeout requires a Duration.');
             }
             final timeLimit = positionalArgs[0] as Duration;
             final onTimeout = namedArgs['onTimeout'] as InterpretedFunction?;
@@ -343,7 +343,7 @@ class SocketIo {
           'pipe': (visitor, target, positionalArgs, namedArgs, _) {
             final streamConsumer = positionalArgs[0];
             if (streamConsumer is! StreamConsumer) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Socket.pipe requires a StreamConsumer argument.');
             }
             return (target as Socket)
@@ -388,7 +388,7 @@ class SocketIo {
   static Future<Socket> _connect(
       List<dynamic> positionalArgs, Map<String, dynamic> namedArgs) async {
     if (positionalArgs.length < 2) {
-      throw TomArgumentError('Socket.connect requires host and port');
+      throw ArgumentD4rtException('Socket.connect requires host and port');
     }
 
     final host = positionalArgs[0];
@@ -411,7 +411,7 @@ class SocketIo {
   static Future<ConnectionTask<Socket>> _startConnect(
       List<dynamic> positionalArgs, Map<String, dynamic> namedArgs) {
     if (positionalArgs.length < 2) {
-      throw TomArgumentError('Socket.startConnect requires host and port');
+      throw ArgumentD4rtException('Socket.startConnect requires host and port');
     }
 
     final host = positionalArgs[0];
@@ -449,7 +449,7 @@ class InternetAddressIo {
         staticMethods: {
           'lookup': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw TomArgumentError('InternetAddress.lookup requires host');
+              throw ArgumentD4rtException('InternetAddress.lookup requires host');
             }
 
             // Check network permission
@@ -463,7 +463,7 @@ class InternetAddressIo {
           },
           'fromRawAddress': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw TomArgumentError(
+              throw ArgumentD4rtException(
                   'InternetAddress.fromRawAddress requires host');
             }
 
@@ -473,7 +473,7 @@ class InternetAddressIo {
           },
           'tryParse': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw TomArgumentError('InternetAddress.tryParse requires adresse');
+              throw ArgumentD4rtException('InternetAddress.tryParse requires adresse');
             }
             final adresse = positionalArgs[0] as String;
             return InternetAddress.tryParse(adresse);
@@ -506,7 +506,7 @@ class InternetAddressIo {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.isEmpty) {
-              throw TomArgumentError('InternetAddress requires address');
+              throw ArgumentD4rtException('InternetAddress requires address');
             }
             final address = positionalArgs[0] as String;
             final type = namedArgs['type'] as InternetAddressType?;
@@ -522,7 +522,7 @@ class InternetAddressIo {
 
     // Check for NetworkPermission
     if (!d4rt.checkPermission({'type': 'network', 'connect': true})) {
-      throw RuntimeError('Network operations require NetworkPermission. '
+      throw RuntimeD4rtException('Network operations require NetworkPermission. '
           'Use d4rt.grant(NetworkPermission.any) to allow network access.');
     }
   }

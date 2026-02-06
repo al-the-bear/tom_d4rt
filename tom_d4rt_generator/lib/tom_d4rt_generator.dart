@@ -19,7 +19,7 @@
 ///
 /// final result = await generator.generateBridgesFromExports(
 ///   barrelFiles: ['lib/my_package.dart'],
-///   outputPath: 'lib/src/d4rt_bridges/my_package_bridges.dart',
+///   outputPath: 'lib/src/d4rt_bridges/my_package_bridges.b.dart',
 ///   moduleName: 'All',
 /// );
 /// ```

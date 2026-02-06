@@ -391,7 +391,7 @@ void main() {
             name: 'add',
             positionalArgs: [1], // Missing second argument
           ),
-          throwsA(isA<RuntimeError>()),
+          throwsA(isA<RuntimeD4rtException>()),
         );
       });
 
@@ -405,7 +405,7 @@ void main() {
             name: 'add',
             positionalArgs: [1, 2, 3], // Too many arguments
           ),
-          throwsA(isA<RuntimeError>()),
+          throwsA(isA<RuntimeD4rtException>()),
         );
       });
 
@@ -420,7 +420,7 @@ void main() {
             name: 'greet',
             namedArgs: {'firstName': 'John'}, // Missing lastName
           ),
-          throwsA(isA<RuntimeError>()),
+          throwsA(isA<RuntimeD4rtException>()),
         );
       });
 
@@ -433,7 +433,7 @@ void main() {
             name: 'doSomething',
             namedArgs: {'unknownArg': 'value'},
           ),
-          throwsA(isA<RuntimeError>()),
+          throwsA(isA<RuntimeD4rtException>()),
         );
       });
 
@@ -446,7 +446,7 @@ void main() {
             name: 'nonExistentFunction',
             positionalArgs: [],
           ),
-          throwsA(isA<RuntimeError>()),
+          throwsA(isA<RuntimeD4rtException>()),
         );
       });
     });

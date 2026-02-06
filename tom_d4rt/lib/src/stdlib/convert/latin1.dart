@@ -25,7 +25,7 @@ class Latin1CodecConvert {
           'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Codec<List<int>, dynamic>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Latin1Codec.fuse requires another Codec<List<int>, dynamic> as argument.');
             }
             return (target as Latin1Codec)
@@ -49,7 +49,7 @@ class Latin1EncoderConvert {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Latin1Encoder constructor takes no arguments.');
             }
             return Latin1Encoder();
@@ -64,7 +64,7 @@ class Latin1EncoderConvert {
               (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<List<int>>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'startChunkedConversion requires a Sink<List<int>> argument.');
             }
             return (target as Latin1Encoder)
@@ -73,7 +73,7 @@ class Latin1EncoderConvert {
           'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<String>) {
-              throw RuntimeError('bind requires a Stream<String> argument.');
+              throw RuntimeD4rtException('bind requires a Stream<String> argument.');
             }
             return (target as Latin1Encoder)
                 .bind(positionalArgs[0] as Stream<String>);
@@ -81,7 +81,7 @@ class Latin1EncoderConvert {
           'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<List<int>, dynamic>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Latin1Encoder.fuse requires another Converter<List<int>, dynamic> as argument.');
             }
             return (target as Latin1Encoder)
@@ -115,7 +115,7 @@ class Latin1DecoderConvert {
               (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<String>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'startChunkedConversion requires a Sink<String> argument.');
             }
             return (target as Latin1Decoder)
@@ -124,7 +124,7 @@ class Latin1DecoderConvert {
           'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<List<int>>) {
-              throw RuntimeError('bind requires a Stream<List<int>> argument.');
+              throw RuntimeD4rtException('bind requires a Stream<List<int>> argument.');
             }
             return (target as Latin1Decoder)
                 .bind(positionalArgs[0] as Stream<List<int>>);
@@ -132,7 +132,7 @@ class Latin1DecoderConvert {
           'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<String, dynamic>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Latin1Decoder.fuse requires another Converter<String, dynamic> as argument.');
             }
             return (target as Latin1Decoder)

@@ -110,15 +110,15 @@ void main() {
     test('Offset out of bounds throws error', () {
       expect(
         () => executeTestScript("var bd = new ByteData(1); bd.getInt8(1);"),
-        throwsA(isA<RuntimeError>()),
+        throwsA(isA<RuntimeD4rtException>()),
       );
       expect(
         () => executeTestScript("var bd = new ByteData(1); bd.setInt8(1, 0);"),
-        throwsA(isA<RuntimeError>()),
+        throwsA(isA<RuntimeD4rtException>()),
       );
       expect(
         () => executeTestScript("var bd = new ByteData(1); bd.getUint16(0);"),
-        throwsA(isA<RuntimeError>()), // Not enough space for Uint16
+        throwsA(isA<RuntimeD4rtException>()), // Not enough space for Uint16
       );
     });
   });

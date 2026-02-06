@@ -59,6 +59,6 @@ class LateVariable {
 }
 
 /// Exception thrown when accessing an uninitialized late variable
-class LateInitializationError extends RuntimeError {
+class LateInitializationError extends RuntimeD4rtException {
   LateInitializationError(super.message);
 }

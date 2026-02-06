@@ -97,18 +97,18 @@ void main() {
     test('Uint8List.fromList with non-int values throws error', () {
       expect(
         () => executeTestScript("var list = Uint8List.fromList([1, 'a', 3]);"),
-        throwsA(isA<RuntimeError>()),
+        throwsA(isA<RuntimeD4rtException>()),
       );
     });
 
     test('Index out of bounds for Uint8List[] and []=', () {
       expect(
         () => executeTestScript("var list = Uint8List(2); list[2] = 0;"),
-        throwsA(isA<RuntimeError>()),
+        throwsA(isA<RuntimeD4rtException>()),
       );
       expect(
         () => executeTestScript("var list = Uint8List(2); return list[-1];"),
-        throwsA(isA<RuntimeError>()),
+        throwsA(isA<RuntimeD4rtException>()),
       );
     });
   });

@@ -6,6 +6,13 @@
 targets:
   $default:
     builders:
+      # Cleanup builder - removes generated files
+      tom_cleanup_builder:cleanup_builder:
+        enabled: true
+        options:
+          cleanup:
+            - 'lib/src/bridges_trigger.g.dart'
+      
       tom_d4rt_generator:d4rt_bridge_builder:
         enabled: true
         options:
@@ -14,9 +21,9 @@ targets:
           
           # Generate master barrel files
           generateBarrel: true
-          barrelPath: lib/d4rt_bridges.dart
+          barrelPath: lib/d4rt_bridges.b.dart
           generateDartscript: true
-          dartscriptPath: lib/dartscript.dart
+          dartscriptPath: lib/dartscript.b.dart
           registrationClass: TomD4rtDcliBridge
           
           modules:
@@ -25,7 +32,7 @@ targets:
               barrelFiles:
                 - package:tom_d4rt_dcli/tom_d4rt_cli_api.dart
               barrelImport: package:tom_d4rt_dcli/tom_d4rt_cli_api.dart
-              outputPath: lib/src/bridges/cli_api_bridges.dart
+              outputPath: lib/src/bridges/cli_api_bridges.b.dart
               followAllReExports: false
 
             # Tom VS Code Scripting API - VS Code API wrappers
@@ -33,7 +40,7 @@ targets:
               barrelFiles:
                 - package:tom_vscode_scripting_api/script_globals.dart
               barrelImport: package:tom_vscode_scripting_api/script_globals.dart
-              outputPath: lib/src/bridges/tom_vscode_scripting_api_bridges.dart
+              outputPath: lib/src/bridges/tom_vscode_scripting_api_bridges.b.dart
               excludePatterns:
                 - "**/*_bridge.dart"
                 - "**/*_generated.dart"
@@ -43,28 +50,70 @@ targets:
             - name: dcli
               barrelFiles:
                 - package:dcli/dcli.dart
-              barrelImport: package:dcli/dcli.dart
-              outputPath: lib/src/bridges/dcli_bridges.dart
-              followAllReExports: true
+              outputPath: lib/src/bridges/dcli_bridges.b.dart
+              # Don't follow re-exports - dcli re-exports from crypto/dcli_core
+              # which aren't accessible via the main barrel import
+              followAllReExports: false
               excludePatterns:
                 - "**/*_bridge.dart"
                 - "**/*_generated.dart"
-              excludeSourcePatterns:
-                - "package:dcli_core/src/settings.dart#Settings,verbose"
-                - "package:dcli_core/src/util/file.dart#FileNotFoundException,NotAFileException,withOpenFile,symlink,deleteSymlink,resolveSymLink,stat,createTempFilename,createTempFile,fileLength,calculateHash"
-                - "package:dcli_core/src/functions/backup.dart#backupFile,restoreFile"
-                - "package:dcli_core/src/functions/cat.dart#cat"
-                - "package:dcli_core/src/functions/copy.dart#copy"
-                - "package:dcli_core/src/functions/copy_tree.dart#copyTree"
-                - "package:dcli_core/src/functions/create_dir.dart#createDir,createTempDir"
-                - "package:dcli_core/src/functions/delete.dart#delete"
-                - "package:dcli_core/src/functions/delete_dir.dart#deleteDir"
-                - "package:dcli_core/src/functions/find.dart#find"
-                - "package:dcli_core/src/functions/head.dart#head"
-                - "package:dcli_core/src/functions/is.dart#isFile,isDirectory,isLink,exists,lastModified,setLastModifed,isEmpty"
-                - "package:dcli_core/src/functions/move.dart#move"
-                - "package:dcli_core/src/functions/move_dir.dart#moveDir"
-                - "package:dcli_core/src/functions/move_tree.dart#moveTree"
-                - "package:dcli_core/src/functions/tail.dart#tail"
-                - "package:dcli_core/src/functions/touch.dart#touch"
-                - "package:dcli_core/src/functions/which.dart#which"
+              excludeClasses:
+                # Crypto classes not exported from dcli barrel
+                - Hmac
+                - Cat
+                - Hash
+                - Digest
+                # dcli_core classes not re-exported by dcli.dart
+                - WhichSearch
+                - Which
+                - LineFile
+                - FileSync
+                - CopyTreeException
+                - DCliFunctionException
+                - HeadException
+                - TailException
+                - TouchException
+                - BackupFileException
+                - RestoreFileException
+                - CatException
+                - FindAsync
+                - DCliFunction
+                - LimitedStreamController
+                # Progress uses LineAction type which causes import issues
+                - Progress
+                # Settings has methods (captureLogOutput, clearLogCapture, frame, listener) 
+                # from dcli_core that aren't in dcli's re-exported Settings
+                - Settings
+              excludeFunctions:
+                # Functions not exported from dcli barrel
+                - dartSdkNotFound
+                - capturePrinterrKey
+                - withFileProtectionAsync
+                - withTempDirAsync
+                - withEnvironment
+                - findAsync
+                - withTempFileAsync
+                - withOpenLineFile
+                - sleepAsync
+                - isTerminalDumb
+                - searchForCommandExtension
+                - findExtension
+                # cat uses LineAction parameter which causes ext_dcli_core import issues
+                - cat
+                # which uses Sink<String> (WhichSearch callback) - type mismatch
+                - which
+                # withOpenFile uses FileSync type which isn't exported from dcli
+                - withOpenFile
+              excludeVariables:
+                # Crypto hash constants - re-exported but not directly accessible
+                - md5
+                - sha1
+                - sha256
+                - sha224
+                - sha384
+                - sha512
+                - sha512224
+                - sha512256
+                # Other variables not exported from main barrel
+                - dartSdkNotFound
+                - capturePrinterrKey

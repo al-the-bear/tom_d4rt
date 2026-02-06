@@ -12,14 +12,14 @@ class IOSinkIo {
         methods: {
           'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw TomArgumentError('IOSink.add requires data');
+              throw ArgumentD4rtException('IOSink.add requires data');
             }
             (target as IOSink).add(positionalArgs[0] as List<int>);
             return null;
           },
           'addError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw TomArgumentError('IOSink.addError requires error');
+              throw ArgumentD4rtException('IOSink.addError requires error');
             }
             final stackTrace = positionalArgs.length > 1
                 ? positionalArgs[1] as StackTrace?
@@ -29,14 +29,14 @@ class IOSinkIo {
           },
           'addStream': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw TomArgumentError('IOSink.addStream requires stream');
+              throw ArgumentD4rtException('IOSink.addStream requires stream');
             }
             return (target as IOSink)
                 .addStream(positionalArgs[0] as Stream<List<int>>);
           },
           'write': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw TomArgumentError('IOSink.write requires object');
+              throw ArgumentD4rtException('IOSink.write requires object');
             }
             (target as IOSink).write(positionalArgs[0]);
             return null;
@@ -48,7 +48,7 @@ class IOSinkIo {
           },
           'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw TomArgumentError('IOSink.writeAll requires objects');
+              throw ArgumentD4rtException('IOSink.writeAll requires objects');
             }
             final objects = positionalArgs[0] as Iterable;
             final separator =
@@ -58,7 +58,7 @@ class IOSinkIo {
           },
           'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw TomArgumentError('IOSink.writeCharCode requires charCode');
+              throw ArgumentD4rtException('IOSink.writeCharCode requires charCode');
             }
             (target as IOSink).writeCharCode(positionalArgs[0] as int);
             return null;

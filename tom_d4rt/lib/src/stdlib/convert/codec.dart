@@ -10,19 +10,19 @@ class CodecConvert {
         methods: {
           'encode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1) {
-              throw RuntimeError('Codec.encode requires one argument.');
+              throw RuntimeD4rtException('Codec.encode requires one argument.');
             }
             return (target as Codec).encode(positionalArgs[0]);
           },
           'decode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1) {
-              throw RuntimeError('Codec.decode requires one argument.');
+              throw RuntimeD4rtException('Codec.decode requires one argument.');
             }
             return (target as Codec).decode(positionalArgs[0]);
           },
           'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Codec) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Codec.fuse requires another Codec as argument.');
             }
             return (target as Codec).fuse(positionalArgs[0] as Codec);

@@ -1,3 +1,14 @@
+## 1.6.1
+
+### Documentation
+- **Advanced Bridging User Guide**: New comprehensive guide for the D4 helper class covering type coercion, argument extraction, target validation, and global function bridging
+- **Example suite**: Added 5 runnable examples demonstrating D4 class usage patterns:
+  - `d4_type_coercion_example.dart` - List and Map coercion
+  - `d4_argument_extraction_example.dart` - Positional and named arguments
+  - `d4_target_validation_example.dart` - Target validation and inheritance
+  - `d4_globals_example.dart` - Global functions and variables
+  - `d4_complete_bridge_example.dart` - Complete realistic example with enums, factories, and complex signatures
+
 ## 1.6.0
 
 ### Features

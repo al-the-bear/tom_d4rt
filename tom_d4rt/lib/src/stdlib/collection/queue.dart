@@ -9,24 +9,24 @@ class QueueCollection {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   "Constructor Queue() does not take arguments.");
             }
             return Queue<dynamic>();
           },
           'from': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.length != 1 || namedArgs.isNotEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   "Constructor Queue.from(elements) expects one positional argument.");
             }
             final elements = positionalArgs[0];
             if (elements is Iterable) {
               return Queue<dynamic>.from(elements);
             } else if (elements == null) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   "The argument type 'Null' can't be assigned to the parameter type 'Iterable<dynamic>'.");
             }
-            throw RuntimeError("Argument to Queue.from must be an Iterable.");
+            throw RuntimeD4rtException("Argument to Queue.from must be an Iterable.");
           },
         },
         methods: {
@@ -37,7 +37,7 @@ class QueueCollection {
               target.add(positionalArgs[0]);
               return null;
             }
-            throw RuntimeError("Invalid arguments for Queue.add");
+            throw RuntimeD4rtException("Invalid arguments for Queue.add");
           },
           'addAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Queue &&
@@ -48,9 +48,9 @@ class QueueCollection {
                 target.addAll(elements);
                 return null;
               }
-              throw RuntimeError("Queue.addAll requires an Iterable argument.");
+              throw RuntimeD4rtException("Queue.addAll requires an Iterable argument.");
             }
-            throw RuntimeError("Invalid arguments for Queue.addAll");
+            throw RuntimeD4rtException("Invalid arguments for Queue.addAll");
           },
           'addFirst': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Queue &&
@@ -59,7 +59,7 @@ class QueueCollection {
               target.addFirst(positionalArgs[0]);
               return null;
             }
-            throw RuntimeError("Invalid arguments for Queue.addFirst");
+            throw RuntimeD4rtException("Invalid arguments for Queue.addFirst");
           },
           'addLast': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Queue &&
@@ -68,36 +68,36 @@ class QueueCollection {
               target.addLast(positionalArgs[0]);
               return null;
             }
-            throw RuntimeError("Invalid arguments for Queue.addLast");
+            throw RuntimeD4rtException("Invalid arguments for Queue.addLast");
           },
           'removeLast': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Queue &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
               if (target.isEmpty) {
-                throw RuntimeError("Cannot removeLast from an empty queue.");
+                throw RuntimeD4rtException("Cannot removeLast from an empty queue.");
               }
               return target.removeLast();
             }
-            throw RuntimeError("Invalid arguments for Queue.removeLast");
+            throw RuntimeD4rtException("Invalid arguments for Queue.removeLast");
           },
           'toList': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Queue) {
               final growable = namedArgs['growable'] as bool? ?? true;
               return target.toList(growable: growable);
             }
-            throw RuntimeError("Invalid target for Queue.toList");
+            throw RuntimeD4rtException("Invalid target for Queue.toList");
           },
           'removeFirst': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Queue &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
               if (target.isEmpty) {
-                throw RuntimeError("Cannot removeFirst from an empty queue.");
+                throw RuntimeD4rtException("Cannot removeFirst from an empty queue.");
               }
               return target.removeFirst();
             }
-            throw RuntimeError("Invalid arguments for Queue.removeFirst");
+            throw RuntimeD4rtException("Invalid arguments for Queue.removeFirst");
           },
           'clear': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Queue &&
@@ -106,7 +106,7 @@ class QueueCollection {
               target.clear();
               return null;
             }
-            throw RuntimeError("Invalid arguments for Queue.clear");
+            throw RuntimeD4rtException("Invalid arguments for Queue.clear");
           },
           'contains': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Queue &&
@@ -114,7 +114,7 @@ class QueueCollection {
                 namedArgs.isEmpty) {
               return target.contains(positionalArgs[0]);
             }
-            throw RuntimeError("Invalid arguments for Queue.contains");
+            throw RuntimeD4rtException("Invalid arguments for Queue.contains");
           },
         },
         getters: {
@@ -122,49 +122,49 @@ class QueueCollection {
             if (target is Queue) {
               return target.length;
             }
-            throw RuntimeError("Target is not a Queue for getter 'length'");
+            throw RuntimeD4rtException("Target is not a Queue for getter 'length'");
           },
           'isEmpty': (visitor, target) {
             if (target is Queue) {
               return target.isEmpty;
             }
-            throw RuntimeError("Target is not a Queue for getter 'isEmpty'");
+            throw RuntimeD4rtException("Target is not a Queue for getter 'isEmpty'");
           },
           'isNotEmpty': (visitor, target) {
             if (target is Queue) {
               return target.isNotEmpty;
             }
-            throw RuntimeError("Target is not a Queue for getter 'isNotEmpty'");
+            throw RuntimeD4rtException("Target is not a Queue for getter 'isNotEmpty'");
           },
           'first': (visitor, target) {
             if (target is Queue) {
               if (target.isEmpty) {
-                throw RuntimeError("Cannot get first from an empty queue.");
+                throw RuntimeD4rtException("Cannot get first from an empty queue.");
               }
               return target.first;
             }
-            throw RuntimeError("Target is not a Queue for getter 'first'");
+            throw RuntimeD4rtException("Target is not a Queue for getter 'first'");
           },
           'last': (visitor, target) {
             if (target is Queue) {
               if (target.isEmpty) {
-                throw RuntimeError("Cannot get last from an empty queue.");
+                throw RuntimeD4rtException("Cannot get last from an empty queue.");
               }
               return target.last;
             }
-            throw RuntimeError("Target is not a Queue for getter 'last'");
+            throw RuntimeD4rtException("Target is not a Queue for getter 'last'");
           },
           'hashCode': (visitor, target) {
             if (target is Queue) {
               return target.hashCode;
             }
-            throw RuntimeError("Target is not a Queue for getter 'hashCode'");
+            throw RuntimeD4rtException("Target is not a Queue for getter 'hashCode'");
           },
           'runtimeType': (visitor, target) {
             if (target is Queue) {
               return target.runtimeType;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a Queue for getter 'runtimeType'");
           },
         },

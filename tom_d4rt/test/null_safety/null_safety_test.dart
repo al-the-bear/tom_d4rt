@@ -42,7 +42,7 @@ void main() {
           String nonNullable = nullableString!;
           return nonNullable;
         }
-      '''), throwsA(isA<RuntimeError>()));
+      '''), throwsA(isA<RuntimeD4rtException>()));
     });
 
     test('null-aware access operator (?.) returns null for null values', () {

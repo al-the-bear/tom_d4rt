@@ -157,18 +157,18 @@ void main() {
     test('Accessing first/last on empty list throws error', () {
       expect(
         () => executeTestScript('var list = LinkedList(); return list.first;'),
-        throwsA(isA<RuntimeError>()),
+        throwsA(isA<RuntimeD4rtException>()),
       );
       expect(
         () => executeTestScript('var list = LinkedList(); return list.last;'),
-        throwsA(isA<RuntimeError>()),
+        throwsA(isA<RuntimeD4rtException>()),
       );
     });
 
     test('removeFirst on empty list throws error', () {
       expect(
         () => executeTestScript('var list = LinkedList(); list.removeFirst();'),
-        throwsA(isA<RuntimeError>()),
+        throwsA(isA<RuntimeD4rtException>()),
       );
     });
 
@@ -177,7 +177,7 @@ void main() {
       expect(
         () => executeTestScript(
             'var entry = LinkedListEntry(0); entry.unlink();'),
-        throwsA(isA<RuntimeError>()),
+        throwsA(isA<RuntimeD4rtException>()),
       );
 
       // Unlinking an entry that was already unlinked
@@ -189,7 +189,7 @@ void main() {
           entry.unlink(); // First unlink
           entry.unlink(); // Second unlink, should throw
         '''),
-        throwsA(isA<RuntimeError>()),
+        throwsA(isA<RuntimeD4rtException>()),
       );
     });
   });

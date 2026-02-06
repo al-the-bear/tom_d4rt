@@ -33,7 +33,7 @@ class ListCore {
           'generate': (visitor, positionalArgs, namedArgs) {
             final generator = positionalArgs[1];
             if (generator is! InterpretedFunction) {
-              throw RuntimeError('Expected a InterpretedFunction for generate');
+              throw RuntimeD4rtException('Expected a InterpretedFunction for generate');
             }
             return List<dynamic>.generate(
               positionalArgs[0] as int,
@@ -63,7 +63,7 @@ class ListCore {
           'generate': (visitor, positionalArgs, namedArgs, _) {
             final generator = positionalArgs[1];
             if (generator is! InterpretedFunction) {
-              throw RuntimeError('Expected a InterpretedFunction for generate');
+              throw RuntimeD4rtException('Expected a InterpretedFunction for generate');
             }
             return List<dynamic>.generate(
               positionalArgs[0] as int,
@@ -185,7 +185,7 @@ class ListCore {
               } else if (callback is Function) {
                 callback(element);
               } else {
-                throw RuntimeError(
+                throw RuntimeD4rtException(
                     'Expected a function for forEach, got ${callback.runtimeType}');
               }
             }
@@ -274,7 +274,7 @@ class ListCore {
             if (orElse != null) {
               return orElse.call(visitor, [], {});
             } else {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'No element found matching the test condition');
             }
           },
@@ -374,10 +374,10 @@ class ListCore {
                       if (result is int) {
                         return result;
                       }
-                      throw RuntimeError(
+                      throw RuntimeD4rtException(
                           "compareTo must return an int, got ${result?.runtimeType}");
                     }
-                    throw RuntimeError(
+                    throw RuntimeD4rtException(
                         "Class '${a.klass.name}' does not implement compareTo for sorting");
                   }
                   // Fall back to native Comparable
@@ -431,7 +431,7 @@ class ListCore {
                 // Element doesn't have a name property, skip
               }
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 'No enum value with name "$name" in ${list.map((e) => e is InterpretedEnumValue ? e.name : e.toString()).toList()}');
           },
           'setRange': (visitor, target, positionalArgs, namedArgs, _) {

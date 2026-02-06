@@ -10,7 +10,7 @@ class DirectoryIo {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Directory constructor requires one String argument (path).');
             }
             return Directory(positionalArgs[0] as String);
@@ -19,14 +19,14 @@ class DirectoryIo {
         staticMethods: {
           'fromRawPath': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uint8List) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Directory.fromRawPath requires one Uint8List argument.');
             }
             return Directory.fromRawPath(positionalArgs[0] as Uint8List);
           },
           'fromUri': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Directory.fromUri requires one Uri argument.');
             }
             return Directory.fromUri(positionalArgs[0] as Uri);
@@ -69,14 +69,14 @@ class DirectoryIo {
           },
           'rename': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Directory.rename requires one String argument (newPath).');
             }
             return (target as Directory).rename(positionalArgs[0] as String);
           },
           'renameSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Directory.renameSync requires one String argument (newPath).');
             }
             (target as Directory).renameSync(positionalArgs[0] as String);

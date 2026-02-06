@@ -1325,7 +1325,7 @@ class BridgeGenerator {
 
     // Filter out files matching exclude patterns (glob patterns)
     // Always exclude generated bridge files to prevent circular references
-    final defaultExcludes = ['**/*_bridges.dart', '**/d4rt_bridges.dart'];
+    final defaultExcludes = ['**/*_bridges.b.dart', '**/d4rt_bridges.b.dart', '**/*.b.dart'];
     final allExcludePatterns = [...defaultExcludes, ...?excludePatterns];
     
     var sourceFiles = exports.keys.toList();
@@ -1423,7 +1423,7 @@ class BridgeGenerator {
 
     // Filter out files matching exclude patterns (glob patterns)
     // Always exclude generated bridge files to prevent circular references
-    final defaultExcludes = ['**/*_bridges.dart', '**/d4rt_bridges.dart'];
+    final defaultExcludes = ['**/*_bridges.b.dart', '**/d4rt_bridges.b.dart', '**/*.b.dart'];
     final allExcludePatterns = [...defaultExcludes, ...?excludePatterns];
 
     var sourceFiles = exports.keys.toList();

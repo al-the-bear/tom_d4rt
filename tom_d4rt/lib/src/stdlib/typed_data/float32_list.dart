@@ -11,7 +11,7 @@ class Float32ListTypedData {
             if (positionalArgs.length == 1 && positionalArgs[0] is int) {
               return Float32List(positionalArgs[0] as int);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Float32List constructor expects one int argument (length).");
           },
           'fromList': (visitor, positionalArgs, namedArgs) {
@@ -19,11 +19,11 @@ class Float32ListTypedData {
               final sourceList = positionalArgs[0] as List;
               final doubleList = sourceList.toNativeList().map((e) {
                 if (e is num) return e.toDouble();
-                throw RuntimeError("Float32List.fromList expects a List<num>.");
+                throw RuntimeD4rtException("Float32List.fromList expects a List<num>.");
               }).toList();
               return Float32List.fromList(doubleList);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Float32List.fromList expects one List<num> argument.");
           },
           'view': (visitor, positionalArgs, namedArgs) {
@@ -36,7 +36,7 @@ class Float32ListTypedData {
                   positionalArgs.length > 2 ? positionalArgs[2] as int? : null;
               return Float32List.view(buffer, offsetInBytes, length);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Float32List.view expects ByteBuffer and optional offset/length arguments.");
           },
           'sublistView': (visitor, positionalArgs, namedArgs) {
@@ -49,7 +49,7 @@ class Float32ListTypedData {
                   positionalArgs.length > 2 ? positionalArgs[2] as int? : null;
               return Float32List.sublistView(data, start, end);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Float32List.sublistView expects TypedData and optional start/end arguments.");
           },
         },
@@ -61,7 +61,7 @@ class Float32ListTypedData {
                 positionalArgs[0] is int) {
               return target[positionalArgs[0] as int];
             }
-            throw RuntimeError("Float32List[index] expects an int index.");
+            throw RuntimeD4rtException("Float32List[index] expects an int index.");
           },
           '[]=': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Float32List &&
@@ -73,7 +73,7 @@ class Float32ListTypedData {
               target[index] = value;
               return value;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Float32List[index] = value expects int index and num value.");
           },
 
@@ -140,56 +140,56 @@ class Float32ListTypedData {
         getters: {
           'length': (visitor, target) {
             if (target is Float32List) return target.length;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a Float32List for getter 'length'");
           },
           'lengthInBytes': (visitor, target) {
             if (target is Float32List) return target.lengthInBytes;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a Float32List for getter 'lengthInBytes'");
           },
           'elementSizeInBytes': (visitor, target) {
             if (target is Float32List) return target.elementSizeInBytes;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a Float32List for getter 'elementSizeInBytes'");
           },
           'offsetInBytes': (visitor, target) {
             if (target is Float32List) return target.offsetInBytes;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a Float32List for getter 'offsetInBytes'");
           },
           'buffer': (visitor, target) {
             if (target is Float32List) return target.buffer;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a Float32List for getter 'buffer'");
           },
           'first': (visitor, target) {
             if (target is Float32List) return target.first;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a Float32List for getter 'first'");
           },
           'last': (visitor, target) {
             if (target is Float32List) return target.last;
-            throw RuntimeError("Target is not a Float32List for getter 'last'");
+            throw RuntimeD4rtException("Target is not a Float32List for getter 'last'");
           },
           'isEmpty': (visitor, target) {
             if (target is Float32List) return target.isEmpty;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a Float32List for getter 'isEmpty'");
           },
           'isNotEmpty': (visitor, target) {
             if (target is Float32List) return target.isNotEmpty;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a Float32List for getter 'isNotEmpty'");
           },
           'hashCode': (visitor, target) {
             if (target is Float32List) return target.hashCode;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a Float32List for getter 'hashCode'");
           },
           'runtimeType': (visitor, target) {
             if (target is Float32List) return target.runtimeType;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a Float32List for getter 'runtimeType'");
           },
         },

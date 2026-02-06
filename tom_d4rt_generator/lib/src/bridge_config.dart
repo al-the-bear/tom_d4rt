@@ -176,7 +176,7 @@ class ModuleConfig {
 /// This allows the generated dartscript.dart to import and call registration
 /// methods from external bridge packages.
 class ImportedBridgeConfig {
-  /// The import path for the bridge package (e.g., 'package:tom_d4rt_dcli/dartscript.dart').
+  /// The import path for the bridge package (e.g., 'package:tom_d4rt_dcli/dartscript.b.dart').
   final String import;
   
   /// The registration class name (e.g., 'TomD4rtDcliBridge').
@@ -216,7 +216,7 @@ class BridgeConfig {
   /// Central directory path for per-package bridge files.
   /// 
   /// When specified, the generator will create one file per source package
-  /// in this directory (e.g., `lib/src/d4rt_bridges/package_tom_basics_bridges.dart`).
+  /// in this directory (e.g., `lib/src/d4rt_bridges/package_tom_basics_bridges.b.dart`).
   /// The per-barrel bridge files will then delegate to these per-package files,
   /// eliminating duplicate code when the same package is re-exported by multiple barrels.
   final String? libraryPath;
@@ -230,7 +230,7 @@ class BridgeConfig {
   /// Example in build.yaml:
   /// ```yaml
   /// importedBridges:
-  ///   - import: package:tom_d4rt_dcli/dartscript.dart
+  ///   - import: package:tom_d4rt_dcli/dartscript.b.dart
   ///     class: TomD4rtDcliBridge
   /// ```
   final List<ImportedBridgeConfig> importedBridges;

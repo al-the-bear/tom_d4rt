@@ -46,7 +46,7 @@ class ProcessIo {
   static Future<Process> _start(
       List<dynamic> positionalArgs, Map<String, dynamic> namedArgs) async {
     if (positionalArgs.isEmpty) {
-      throw TomArgumentError('Process.start requires executable path');
+      throw ArgumentD4rtException('Process.start requires executable path');
     }
 
     final executable = positionalArgs[0].toString();
@@ -75,7 +75,7 @@ class ProcessIo {
   static Future<ProcessResult> _run(
       List<dynamic> positionalArgs, Map<String, dynamic> namedArgs) async {
     if (positionalArgs.isEmpty) {
-      throw TomArgumentError('Process.run requires executable path');
+      throw ArgumentD4rtException('Process.run requires executable path');
     }
 
     final executable = positionalArgs[0].toString();
@@ -108,7 +108,7 @@ class ProcessIo {
   static ProcessResult _runSync(
       List<dynamic> positionalArgs, Map<String, dynamic> namedArgs) {
     if (positionalArgs.isEmpty) {
-      throw TomArgumentError('Process.runSync requires executable path');
+      throw ArgumentD4rtException('Process.runSync requires executable path');
     }
 
     // Check process permission
@@ -145,7 +145,7 @@ class ProcessIo {
   static bool _killPid(
       List<dynamic> positionalArgs, Map<String, dynamic> namedArgs) {
     if (positionalArgs.isEmpty) {
-      throw TomArgumentError('Process.killPid requires pid');
+      throw ArgumentD4rtException('Process.killPid requires pid');
     }
 
     final pid = positionalArgs[0] as int;
@@ -157,7 +157,7 @@ class ProcessIo {
   static bool _kill(dynamic instance, List<dynamic> positionalArgs,
       Map<String, dynamic> namedArgs) {
     if (instance is! Process) {
-      throw TomArgumentError('Invalid process instance');
+      throw ArgumentD4rtException('Invalid process instance');
     }
 
     final signal = namedArgs['signal'] ?? ProcessSignal.sigterm;
@@ -172,7 +172,7 @@ class ProcessIo {
 
     // Check for ProcessRunPermission
     if (!d4rt.checkPermission({'type': 'process'})) {
-      throw RuntimeError('Process execution requires ProcessRunPermission. '
+      throw RuntimeD4rtException('Process execution requires ProcessRunPermission. '
           'Use d4rt.grant(ProcessRunPermission.any) to allow process execution.');
     }
   }

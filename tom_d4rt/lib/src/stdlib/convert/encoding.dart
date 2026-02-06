@@ -10,7 +10,7 @@ class EncodingConvert {
         staticMethods: {
           'getByName': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Encoding.getByName requires one String argument (name).');
             }
             return Encoding.getByName(positionalArgs[0] as String);
@@ -19,14 +19,14 @@ class EncodingConvert {
         methods: {
           'encode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Encoding.encode requires one String argument.');
             }
             return (target as Encoding).encode(positionalArgs[0] as String);
           },
           'decode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Encoding.decode requires one List<int> argument.');
             }
             return (target as Encoding)
@@ -38,7 +38,7 @@ class EncodingConvert {
           'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Codec<List<int>, dynamic>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Encoding.fuse requires another Codec<List<int>, dynamic> as argument.');
             }
             return (target as Encoding)

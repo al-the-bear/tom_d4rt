@@ -80,7 +80,7 @@ class AsyncExecutionState {
   bool isHandlingErrorForRethrow = false;
 
   /// Store the original exception wrapped for potential rethrow.
-  InternalInterpreterException? originalErrorForRethrow;
+  InternalInterpreterD4rtException? originalErrorForRethrow;
 
   /// Flag to indicate we are currently executing a rethrow statement
   /// (as opposed to just being in a catch block)

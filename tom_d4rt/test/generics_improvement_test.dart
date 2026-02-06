@@ -44,7 +44,7 @@ void main() {
 
       expect(
         () => execute(invalidCode),
-        throwsA(isA<RuntimeError>().having(
+        throwsA(isA<RuntimeD4rtException>().having(
           (e) => e.message,
           'message',
           contains('does not satisfy bound'),
@@ -77,7 +77,7 @@ void main() {
 
       expect(
         () => execute(invalidCode),
-        throwsA(isA<RuntimeError>().having(
+        throwsA(isA<RuntimeD4rtException>().having(
           (e) => e.message,
           'message',
           contains('does not satisfy bound'),
@@ -116,7 +116,7 @@ void main() {
 
       expect(
         () => execute(invalidCode),
-        throwsA(isA<RuntimeError>().having(
+        throwsA(isA<RuntimeD4rtException>().having(
           (e) => e.message,
           'message',
           contains('does not satisfy bound'),
@@ -151,7 +151,7 @@ void main() {
 
       expect(
         () => execute(invalidCode),
-        throwsA(isA<RuntimeError>().having(
+        throwsA(isA<RuntimeD4rtException>().having(
           (e) => e.message,
           'message',
           contains('does not satisfy bound'),

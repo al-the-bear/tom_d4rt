@@ -37,7 +37,7 @@ void main() {
             print(content);
           }
         '''),
-        throwsA(isA<RuntimeError>().having((e) => e.message, 'message',
+        throwsA(isA<RuntimeD4rtException>().having((e) => e.message, 'message',
             contains('dart:io requires FilesystemPermission'))),
       );
     });
@@ -51,7 +51,7 @@ void main() {
             File('test_write.txt').writeAsStringSync('attempting to write');
           }
         '''),
-        throwsA(isA<RuntimeError>()),
+        throwsA(isA<RuntimeD4rtException>()),
       );
 
       // Verify file was not created
@@ -69,7 +69,7 @@ void main() {
             File('test.txt').deleteSync();
           }
         '''),
-        throwsA(isA<RuntimeError>()),
+        throwsA(isA<RuntimeD4rtException>()),
       );
 
       // Verify file still exists
@@ -174,7 +174,7 @@ void main() {
             Directory('.').listSync();
           }
         '''),
-        throwsA(isA<RuntimeError>()),
+        throwsA(isA<RuntimeD4rtException>()),
       );
     });
   });
@@ -207,7 +207,7 @@ void main() {
             Process.runSync('echo', ['test']);
           }
         '''),
-        throwsA(isA<RuntimeError>().having(
+        throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message, 'message', contains('ProcessRunPermission'))),
       );
     });
@@ -509,7 +509,7 @@ void main() {
             File('test.txt').writeAsStringSync('second write');
           }
         '''),
-        throwsA(isA<RuntimeError>()),
+        throwsA(isA<RuntimeD4rtException>()),
       );
 
       // Verify file still has first content
@@ -586,7 +586,7 @@ void main() {
             InternetAddress.lookup('localhost');
           }
         '''),
-        throwsA(isA<RuntimeError>().having(
+        throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message, 'message', contains('NetworkPermission'))),
       );
     });
@@ -605,7 +605,7 @@ void main() {
             InternetAddress.lookup('google.com');
           }
         '''),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
               (e) => e.message, 'message', contains('NetworkPermission'))),
         );
       });
@@ -639,7 +639,7 @@ void main() {
             Process.runSync('echo', ['test']);
           }
         '''),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
               (e) => e.message, 'message', contains('ProcessRunPermission'))),
         );
       });

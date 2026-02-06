@@ -18,16 +18,16 @@
 #             - name: all
 #               barrelFiles:
 #                 - lib/my_package.dart
-#               outputPath: lib/src/d4rt_bridges/my_package_bridges.dart
+#               outputPath: lib/src/d4rt_bridges/my_package_bridges.b.dart
 #               excludePatterns:
 #                 - _bridge.dart
 #               excludeClasses:
 #                 - SomeInternalClass
 #           helpersImport: package:tom_d4rt/tom_d4rt.dart
 #           generateBarrel: true
-#           barrelPath: lib/d4rt_bridges.dart
+#           barrelPath: lib/d4rt_bridges.b.dart
 #           generateDartscript: true
-#           dartscriptPath: lib/dartscript.dart
+#           dartscriptPath: lib/dartscript.b.dart
 #           registrationClass: MyPackageBridges
 
 builders:

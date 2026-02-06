@@ -54,14 +54,14 @@ class RandomAccessFileIo {
               (target as RandomAccessFile).readByteSync(),
           'read': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'RandomAccessFile.read requires one int argument (count).');
             }
             return (target as RandomAccessFile).read(positionalArgs[0] as int);
           },
           'readSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'RandomAccessFile.readSync requires one int argument (count).');
             }
             return (target as RandomAccessFile)
@@ -69,7 +69,7 @@ class RandomAccessFileIo {
           },
           'readInto': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! List) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'RandomAccessFile.readInto requires a List<int> buffer.');
             }
             final buffer = positionalArgs[0] as List<int>;
@@ -81,7 +81,7 @@ class RandomAccessFileIo {
           },
           'readIntoSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! List) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'RandomAccessFile.readIntoSync requires a List<int> buffer.');
             }
             final buffer = positionalArgs[0] as List<int>;
@@ -94,7 +94,7 @@ class RandomAccessFileIo {
           },
           'writeByte': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'RandomAccessFile.writeByte requires one int argument (value).');
             }
             return (target as RandomAccessFile)
@@ -102,7 +102,7 @@ class RandomAccessFileIo {
           },
           'writeByteSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'RandomAccessFile.writeByteSync requires one int argument (value).');
             }
             return (target as RandomAccessFile)
@@ -110,7 +110,7 @@ class RandomAccessFileIo {
           },
           'writeFrom': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! List) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'RandomAccessFile.writeFrom requires a List<int> buffer.');
             }
             final buffer = positionalArgs[0] as List<int>;
@@ -122,7 +122,7 @@ class RandomAccessFileIo {
           },
           'writeFromSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! List) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'RandomAccessFile.writeFromSync requires a List<int> buffer.');
             }
             final buffer = positionalArgs[0] as List<int>;
@@ -135,7 +135,7 @@ class RandomAccessFileIo {
           },
           'writeString': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'RandomAccessFile.writeString requires one String argument.');
             }
             final encoding = namedArgs['encoding'] as Encoding? ?? utf8;
@@ -144,7 +144,7 @@ class RandomAccessFileIo {
           },
           'writeStringSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'RandomAccessFile.writeStringSync requires one String argument.');
             }
             final encoding = namedArgs['encoding'] as Encoding? ?? utf8;
@@ -159,7 +159,7 @@ class RandomAccessFileIo {
               (target as RandomAccessFile).positionSync(),
           'setPosition': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'RandomAccessFile.setPosition requires one int argument (position).');
             }
             return (target as RandomAccessFile)
@@ -167,7 +167,7 @@ class RandomAccessFileIo {
           },
           'setPositionSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'RandomAccessFile.setPositionSync requires one int argument (position).');
             }
             (target as RandomAccessFile)
@@ -176,7 +176,7 @@ class RandomAccessFileIo {
           },
           'truncate': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'RandomAccessFile.truncate requires one int argument (length).');
             }
             return (target as RandomAccessFile)
@@ -184,7 +184,7 @@ class RandomAccessFileIo {
           },
           'truncateSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'RandomAccessFile.truncateSync requires one int argument (length).');
             }
             (target as RandomAccessFile).truncateSync(positionalArgs[0] as int);
@@ -276,7 +276,7 @@ class PathAccessExceptionIo {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.length < 2) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'PathAccessException requires path and osError arguments.');
             }
             final path = positionalArgs[0] as String;
@@ -310,7 +310,7 @@ class PathExistsExceptionIo {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.length < 2) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'PathExistsException requires path and osError arguments.');
             }
             final path = positionalArgs[0] as String;
@@ -344,7 +344,7 @@ class PathNotFoundExceptionIo {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.length < 2) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'PathNotFoundException requires path and osError arguments.');
             }
             final path = positionalArgs[0] as String;
@@ -395,7 +395,7 @@ class FileIo {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'File constructor requires one String argument (path).');
             }
             return File(positionalArgs[0] as String);
@@ -404,14 +404,14 @@ class FileIo {
         staticMethods: {
           'fromRawPath': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uint8List) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'File.fromRawPath requires one Uint8List argument.');
             }
             return File.fromRawPath(positionalArgs[0] as Uint8List);
           },
           'fromUri': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
-              throw RuntimeError('File.fromUri requires one Uri argument.');
+              throw RuntimeD4rtException('File.fromUri requires one Uri argument.');
             }
             return File.fromUri(positionalArgs[0] as Uri);
           },
@@ -440,7 +440,7 @@ class FileIo {
           'writeAsString': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'File.writeAsString requires one String argument (contents).');
             }
             return file.writeAsString(
@@ -453,7 +453,7 @@ class FileIo {
           'writeAsStringSync': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'File.writeAsStringSync requires one String argument (contents).');
             }
             file.writeAsStringSync(
@@ -467,7 +467,7 @@ class FileIo {
           'writeAsBytes': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'File.writeAsBytes requires one List<int> argument (bytes).');
             }
             return file.writeAsBytes(
@@ -479,7 +479,7 @@ class FileIo {
           'writeAsBytesSync': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'File.writeAsBytesSync requires one List<int> argument (bytes).');
             }
             file.writeAsBytesSync(
@@ -500,7 +500,7 @@ class FileIo {
           'rename': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'File.rename requires one String argument (newPath).');
             }
             return file.rename(positionalArgs[0] as String);
@@ -508,7 +508,7 @@ class FileIo {
           'renameSync': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'File.renameSync requires one String argument (newPath).');
             }
             return file.renameSync(positionalArgs[0] as String);
@@ -516,7 +516,7 @@ class FileIo {
           'copy': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'File.copy requires one String argument (newPath).');
             }
             return file.copy(positionalArgs[0] as String);
@@ -524,7 +524,7 @@ class FileIo {
           'copySync': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'File.copySync requires one String argument (newPath).');
             }
             return file.copySync(positionalArgs[0] as String);
@@ -540,7 +540,7 @@ class FileIo {
           'setLastAccessed': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! DateTime) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'File.setLastAccessed requires one DateTime argument.');
             }
             return file.setLastAccessed(positionalArgs[0] as DateTime);
@@ -548,7 +548,7 @@ class FileIo {
           'setLastAccessedSync': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! DateTime) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'File.setLastAccessedSync requires one DateTime argument.');
             }
             file.setLastAccessedSync(positionalArgs[0] as DateTime);
@@ -561,7 +561,7 @@ class FileIo {
           'setLastModified': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! DateTime) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'File.setLastModified requires one DateTime argument.');
             }
             return file.setLastModified(positionalArgs[0] as DateTime);
@@ -569,7 +569,7 @@ class FileIo {
           'setLastModifiedSync': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! DateTime) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'File.setLastModifiedSync requires one DateTime argument.');
             }
             file.setLastModifiedSync(positionalArgs[0] as DateTime);

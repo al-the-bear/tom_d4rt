@@ -89,7 +89,7 @@ class BridgedEnumValue implements RuntimeValue {
             // If the adapter needs the visitor, the interface will need to be revised.
             return getterAdapter(null, nativeValue);
           } catch (e) {
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 'Error executing bridged getter "$identifier" on ${enumType.name}.$name: $e');
           }
         }
@@ -121,12 +121,12 @@ class BridgedEnumValue implements RuntimeValue {
           }
           // For other methods, we could return a callable function here if needed.
           // For now, throw an error if trying to access a method via get.
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               'Cannot access method "$identifier" as a property on enum value ${enumType.name}.$name. Use call syntax ().');
         }
 
         // 3. If it's neither a standard property, nor a custom getter/method
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             'Property "$identifier" not found on enum value ${enumType.name}.$name');
     }
   }
@@ -134,7 +134,7 @@ class BridgedEnumValue implements RuntimeValue {
   @override
   void set(String identifier, Object? value) {
     // Enum values are typically immutable
-    throw RuntimeError(
+    throw RuntimeD4rtException(
         'Cannot set property "$identifier" on enum value ${enumType.name}.$name');
   }
 
@@ -147,7 +147,7 @@ class BridgedEnumValue implements RuntimeValue {
       if (method == 'toString' && args.isEmpty && namedArgs.isEmpty) {
         return '${enumType.name}.$name';
       }
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           'Method "$method" not found on enum value ${enumType.name}.$name');
     }
 
@@ -161,7 +161,7 @@ class BridgedEnumValue implements RuntimeValue {
         null, // Type arguments (not needed for enum methods)
       );
     } catch (e) {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           'Error executing bridged method "$method" on ${enumType.name}.$name: $e');
     }
   }

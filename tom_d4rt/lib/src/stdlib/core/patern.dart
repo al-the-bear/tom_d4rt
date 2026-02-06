@@ -42,7 +42,7 @@ class MatchCore {
           },
           '[]': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Match index operator [] requires one integer argument (group index).');
             }
             return (target as Match)[positionalArgs[0] as int];

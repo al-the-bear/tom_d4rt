@@ -17,7 +17,7 @@ tom_d4rt_generator/
 │       ├── config/                # Configuration parsing
 │       └── ...
 ├── bin/
-│   └── d4rt_generator.dart    # CLI entry point
+│   └── d4rt_gen.dart         # CLI entry point (d4rtgen)
 ├── example/                    # Example project with test classes
 ├── test/                       # Unit tests
 ├── doc/                        # Documentation
@@ -67,18 +67,32 @@ dart test --reporter=expanded
 
 ```bash
 # Generate bridges for example project
-dart run bin/d4rt_generator.dart --project=example
+dart run bin/d4rt_gen.dart --project=example
 
 # Show help
-dart run bin/d4rt_generator.dart --help
+dart run bin/d4rt_gen.dart --help
 
-# Scan for projects with d4rt_bridging.json
-dart run bin/d4rt_generator.dart --scan=. --recursive
+# Scan for projects recursively
+dart run bin/d4rt_gen.dart --scan=. --recursive
+
+# Process projects matching glob pattern
+dart run bin/d4rt_gen.dart --projects="./**/tom_*"
+
+# Exclude certain projects
+dart run bin/d4rt_gen.dart --scan=. -r --exclude="**/test_*"
+
+# Recursion exclusions (skip directories during traversal)
+dart run bin/d4rt_gen.dart --scan=. -r --recursion-exclude="**/node_modules/**"
 ```
+
+**Important Path Rules:**
+- All paths must be within the current working directory
+- Project-local `tom_build.yaml` (dartgen: section) takes precedence over CLI options
+- To access multiple directories, run from the workspace root
 
 ### Running Examples
 
-The example folder is itself a Dart project demonstrating bridge generation:
+The example folder has several Dart projects demonstrating bridge generation:
 
 ```bash
 # Navigate to example
@@ -89,7 +103,7 @@ dart pub get
 
 # Generate bridges (from parent directory)
 cd ..
-dart run bin/d4rt_generator.dart --project=example
+dart run bin/d4rt_gen.dart --project=example
 
 # Run D4rt scripts with generated bridges
 cd example
@@ -148,7 +162,7 @@ After making changes to the generator:
 
 ```bash
 # From tom_d4rt_generator directory
-dart run bin/d4rt_generator.dart --project=example
+dart run bin/d4rt_gen.dart --project=example
 
 # Verify generated bridges compile
 cd example && dart analyze lib/d4rt_bridges/

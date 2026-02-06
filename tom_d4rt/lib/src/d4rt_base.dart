@@ -580,7 +580,7 @@ class D4rt {
   }) {
     // Handle deprecated args parameter
     if (args != null && positionalArgs != null) {
-      throw TomArgumentError(
+      throw ArgumentD4rtException(
           'Cannot use both "args" (deprecated) and "positionalArgs". Use only "positionalArgs".');
     }
     if (args != null) {
@@ -654,7 +654,7 @@ class D4rt {
     String? library,
   }) {
     if (!_hasExecutedOnce) {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           'continuedExecute() requires an existing execution context. Call execute() first.');
     }
 
@@ -687,7 +687,7 @@ class D4rt {
         final errorMessage =
             "[D4rt._parseSource] The source URI '$library' was not found in sources.";
         Logger.error(errorMessage);
-        throw SourceCodeException(errorMessage);
+        throw SourceCodeD4rtException(errorMessage);
       }
 
       if (source?.isNotEmpty ?? false) {
@@ -703,16 +703,16 @@ class D4rt {
       } catch (e) {
         Logger.error(
             "[D4rt._parseSource] Failed to load source $library via ModuleLoader: $e");
-        if (e is SourceCodeException || e is RuntimeError) {
+        if (e is SourceCodeD4rtException || e is RuntimeD4rtException) {
           rethrow;
         } else {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Unexpected failure to load initial module $library: $e");
         }
       }
     } else {
       if (source == null) {
-        throw RuntimeError('Source content must be provided');
+        throw RuntimeD4rtException('Source content must be provided');
       }
       Logger.debug(
           "[D4rt._parseSource] Parsing the provided source string directly (no source URI).");
@@ -743,7 +743,7 @@ class D4rt {
           return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
         }).join("\n");
         Logger.error("Parsing errors for the direct source:\n$errorMessages");
-        throw SourceCodeException(
+        throw SourceCodeD4rtException(
             'Fatal parsing errors for the direct source:\n$errorMessages', source);
       }
       Logger.debug("[D4rt._parseSource] Direct source string parsed successfully.");
@@ -820,7 +820,7 @@ class D4rt {
 
         // Validate arity (only for positional args, named args are validated by the function itself)
         if (interpreterArgs.length > expectedArity) {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "'$name' function accepts at most $expectedArity positional argument(s), but ${interpreterArgs.length} were provided.");
         }
 
@@ -830,21 +830,21 @@ class D4rt {
         functionResult = functionCallable.call(
             _visitor!, interpreterArgs, interpreterNamedArgs);
       } else {
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             "No callable '$name' function found in the test source code.");
       }
       Logger.debug("[_executeInEnvironment] Finished Pass 2: Interpretation");
-    } on InternalInterpreterException catch (e) {
-      if (e.originalThrownValue is RuntimeError) {
-        throw e.originalThrownValue as RuntimeError;
+    } on InternalInterpreterD4rtException catch (e) {
+      if (e.originalThrownValue is RuntimeD4rtException) {
+        throw e.originalThrownValue as RuntimeD4rtException;
       } else {
         throw e.originalThrownValue!;
       }
     } catch (e) {
-      if (e is RuntimeError) {
+      if (e is RuntimeD4rtException) {
         rethrow;
       } else {
-        throw RuntimeError('Unexpected error: $e');
+        throw RuntimeD4rtException('Unexpected error: $e');
       }
     }
     if (functionResult is InterpretedInstance) {
@@ -856,17 +856,17 @@ class D4rt {
         _hasExecutedOnce = true;
         return resultValue
             .then((value) => _bridgeInterpreterValueToNative(value));
-      } on InternalInterpreterException catch (e) {
-        if (e.originalThrownValue is RuntimeError) {
-          throw e.originalThrownValue as RuntimeError;
+      } on InternalInterpreterD4rtException catch (e) {
+        if (e.originalThrownValue is RuntimeD4rtException) {
+          throw e.originalThrownValue as RuntimeD4rtException;
         } else {
           throw e.originalThrownValue!;
         }
       } catch (e) {
-        if (e is RuntimeError) {
+        if (e is RuntimeD4rtException) {
           rethrow;
         } else {
-          throw RuntimeError('Unexpected error: $e');
+          throw RuntimeD4rtException('Unexpected error: $e');
         }
       }
     }
@@ -898,7 +898,7 @@ class D4rt {
   }) {
     // Handle deprecated args parameter
     if (args != null && positionalArgs != null) {
-      throw TomArgumentError(
+      throw ArgumentD4rtException(
           'Cannot use both "args" (deprecated) and "positionalArgs". Use only "positionalArgs".');
     }
     if (args != null) {
@@ -919,7 +919,7 @@ class D4rt {
         final errorMessage =
             "[D4rt._executeClassic] The $name source URI '$library' was not found in sources.";
         Logger.error(errorMessage);
-        throw SourceCodeException(errorMessage);
+        throw SourceCodeD4rtException(errorMessage);
       }
 
       if (source?.isNotEmpty ?? false) {
@@ -935,16 +935,16 @@ class D4rt {
       } catch (e) {
         Logger.error(
             "[D4rt._executeClassic] Failed to load $name source $library via ModuleLoader: $e");
-        if (e is SourceCodeException || e is RuntimeError) {
+        if (e is SourceCodeD4rtException || e is RuntimeD4rtException) {
           rethrow;
         } else {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Unexpected failure to load initial module $library: $e");
         }
       }
     } else {
       if (source == null) {
-        throw RuntimeError('Source content must be provided');
+        throw RuntimeD4rtException('Source content must be provided');
       }
       Logger.debug(
           "[D4rt._executeClassic] Executing the provided source string directly (no source URI).");
@@ -975,7 +975,7 @@ class D4rt {
           return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
         }).join("\n");
         Logger.error("Parsing errors for the direct source:\n$errorMessages");
-        throw SourceCodeException(
+        throw SourceCodeD4rtException(
             'Fatal parsing errors for the direct source:\n$errorMessages', source);
       }
       compilationUnit = result.unit;
@@ -1045,7 +1045,7 @@ class D4rt {
 
         // Validate arity (only for positional args, named args are validated by the function itself)
         if (interpreterArgs.length > expectedArity) {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "'$name' function accepts at most $expectedArity positional argument(s), but ${interpreterArgs.length} were provided.");
         }
 
@@ -1055,21 +1055,21 @@ class D4rt {
         functionResult = functionCallable.call(
             _visitor!, interpreterArgs, interpreterNamedArgs);
       } else {
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             "No callable '$name' function found in the test source code.");
       }
       Logger.debug(" [_executeClassic] Finished Pass 2: Interpretation");
-    } on InternalInterpreterException catch (e) {
-      if (e.originalThrownValue is RuntimeError) {
-        throw e.originalThrownValue as RuntimeError;
+    } on InternalInterpreterD4rtException catch (e) {
+      if (e.originalThrownValue is RuntimeD4rtException) {
+        throw e.originalThrownValue as RuntimeD4rtException;
       } else {
         throw e.originalThrownValue!;
       }
     } catch (e) {
-      if (e is RuntimeError) {
+      if (e is RuntimeD4rtException) {
         rethrow;
       } else {
-        throw RuntimeError('Unexpected error: $e');
+        throw RuntimeD4rtException('Unexpected error: $e');
       }
     }
     if (functionResult is InterpretedInstance) {
@@ -1081,17 +1081,17 @@ class D4rt {
         _hasExecutedOnce = true;
         return resultValue
             .then((value) => _bridgeInterpreterValueToNative(value));
-      } on InternalInterpreterException catch (e) {
-        if (e.originalThrownValue is RuntimeError) {
-          throw e.originalThrownValue as RuntimeError;
+      } on InternalInterpreterD4rtException catch (e) {
+        if (e.originalThrownValue is RuntimeD4rtException) {
+          throw e.originalThrownValue as RuntimeD4rtException;
         } else {
           throw e.originalThrownValue!;
         }
       } catch (e) {
-        if (e is RuntimeError) {
+        if (e is RuntimeD4rtException) {
           rethrow;
         } else {
-          throw RuntimeError('Unexpected error: $e');
+          throw RuntimeD4rtException('Unexpected error: $e');
         }
       }
     }
@@ -1166,7 +1166,7 @@ class D4rt {
         final location = parseResult.lineInfo.getLocation(e.offset);
         return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
       }).join("\n");
-      throw SourceCodeException('Parsing errors:\n$errorMessages', source);
+      throw SourceCodeD4rtException('Parsing errors:\n$errorMessages', source);
     }
 
     final compilationUnit = parseResult.unit;
@@ -1234,7 +1234,7 @@ class D4rt {
   /// ```
   dynamic eval(String expression) {
     if (_visitor == null || !_hasExecutedOnce) {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           'eval() requires an existing execution context. Call execute() first.');
     }
 
@@ -1335,9 +1335,9 @@ class D4rt {
         if (evalFunc is Callable) {
           try {
             result = evalFunc.call(_visitor!, [], {});
-          } on InternalInterpreterException catch (e) {
-            if (e.originalThrownValue is RuntimeError) {
-              throw e.originalThrownValue as RuntimeError;
+          } on InternalInterpreterD4rtException catch (e) {
+            if (e.originalThrownValue is RuntimeD4rtException) {
+              throw e.originalThrownValue as RuntimeD4rtException;
             }
             throw e.originalThrownValue ?? e;
           }
@@ -1398,9 +1398,9 @@ class D4rt {
       if (evalFunc is Callable) {
         try {
           evalFunc.call(_visitor!, [], {});
-        } on InternalInterpreterException catch (e) {
-          if (e.originalThrownValue is RuntimeError) {
-            throw e.originalThrownValue as RuntimeError;
+        } on InternalInterpreterD4rtException catch (e) {
+          if (e.originalThrownValue is RuntimeD4rtException) {
+            throw e.originalThrownValue as RuntimeD4rtException;
           }
           throw e.originalThrownValue ?? e;
         }
@@ -1415,7 +1415,7 @@ class D4rt {
       final location = declarationParseResult.lineInfo.getLocation(e.offset);
       return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
     }).join("\n");
-    throw SourceCodeException('Failed to parse expression:\n$errorMessages', expression);
+    throw SourceCodeD4rtException('Failed to parse expression:\n$errorMessages', expression);
   }
 
   /// Invoke a property or method on the given instance.
@@ -1434,11 +1434,11 @@ class D4rt {
     Map<String, String>? sources,
   ]) {
     if (_interpretedInstance == null) {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "No interpreted instance found. Call setInterpretedInstance first.");
     }
     if (_visitor == null) {
-      throw RuntimeError("No visitor found. Call setVisitor first.");
+      throw RuntimeD4rtException("No visitor found. Call setVisitor first.");
     }
     final globalEnv = _visitor!.globalEnvironment;
     final instance = _interpretedInstance!;
@@ -1532,7 +1532,7 @@ class D4rt {
         }
       }
 
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           'Method or getter "$name" not found on instance of class "${klass.name}" or its bridged superclass.');
     }
 
@@ -1670,7 +1670,7 @@ class D4rt {
       if (e is ReturnException) {
         return _bridgeInterpreterValueToNative(e.value);
       }
-      if (e is InternalInterpreterException && e.originalThrownValue != null) {
+      if (e is InternalInterpreterD4rtException && e.originalThrownValue != null) {
         throw e.originalThrownValue!;
       }
       throw "$error : $e";

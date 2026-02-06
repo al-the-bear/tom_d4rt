@@ -10,7 +10,7 @@ class ChunkedConversionConvert {
           'withCallback': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'ChunkedConversionSink.withCallback requires an Function callback.');
             }
             final callback = positionalArgs[0] as InterpretedFunction;
@@ -23,7 +23,7 @@ class ChunkedConversionConvert {
         methods: {
           'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'ChunkedConversionSink.add requires one argument.');
             }
             (target as ChunkedConversionSink).add(positionalArgs[0]);
@@ -31,7 +31,7 @@ class ChunkedConversionConvert {
           },
           'close': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'ChunkedConversionSink.close takes no arguments.');
             }
             (target as ChunkedConversionSink).close();

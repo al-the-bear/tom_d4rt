@@ -84,7 +84,7 @@ class BridgedEnumDefinition<T extends Enum> {
   }) {
     // Validation: Ensure the value list is not empty
     if (values.isEmpty) {
-      throw TomArgumentError('Cannot bridge an enum with no values: $name');
+      throw ArgumentD4rtException('Cannot bridge an enum with no values: $name');
     }
   }
 

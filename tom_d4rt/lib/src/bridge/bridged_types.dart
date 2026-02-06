@@ -197,14 +197,14 @@ class BridgedInstance<T extends Object> implements RuntimeValue {
     // would need to be returned as a value.
 
     // 3. If neither method nor getter found, throw an error
-    throw RuntimeError(
+    throw RuntimeD4rtException(
         "Undefined property or method '$name' on bridged instance of '${bridgedClass.name}'");
   }
 
   @override
   void set(String name, Object? value, [InterpreterVisitor? visitor]) {
     // Visitor is optional
-    throw TomUnimplementedError(
+    throw UnimplementedD4rtException(
         "set('$name', ...) not implemented for BridgedInstance of '${bridgedClass.name}'");
   }
 

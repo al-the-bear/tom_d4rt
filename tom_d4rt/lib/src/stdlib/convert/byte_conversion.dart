@@ -10,7 +10,7 @@ class ByteConversionConvert {
           'from': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<List<int>>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'ByteConversionSink.from requires one Sink<List<int>> argument.');
             }
             return ByteConversionSink.from(
@@ -19,7 +19,7 @@ class ByteConversionConvert {
           'withCallback': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'ByteConversionSink.withCallback requires one Function argument.');
             }
             final callback = positionalArgs[0] as InterpretedFunction;
@@ -31,7 +31,7 @@ class ByteConversionConvert {
         methods: {
           'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'ByteConversionSink.add requires one List<int> argument.');
             }
             (target as ByteConversionSink)
@@ -44,7 +44,7 @@ class ByteConversionConvert {
                 positionalArgs[1] is! int ||
                 positionalArgs[2] is! int ||
                 positionalArgs[3] is! bool) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'ByteConversionSink.addSlice requires arguments (List, int, int, bool).');
             }
             (target as ByteConversionSink).addSlice(
@@ -56,7 +56,7 @@ class ByteConversionConvert {
           },
           'close': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'ByteConversionSink.close takes no arguments.');
             }
             (target as ByteConversionSink).close();

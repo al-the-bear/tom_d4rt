@@ -13,7 +13,7 @@ class FutureAsync {
               final computation = positionalArgs[0] as InterpretedFunction;
               return Future(() => computation.call(visitor, []));
             }
-            throw RuntimeError('Invalid arguments for Future constructor.');
+            throw RuntimeD4rtException('Invalid arguments for Future constructor.');
           },
         },
         staticMethods: {
@@ -31,7 +31,7 @@ class FutureAsync {
           'error': (visitor, positionalArgs, namedArgs, _) {
             final error = positionalArgs[0];
             if (error == null) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Future.error requires a non-null error object.');
             }
             final stackTrace = positionalArgs.get<StackTrace?>(1);
@@ -40,21 +40,21 @@ class FutureAsync {
           'microtask': (visitor, positionalArgs, namedArgs, _) {
             final computation = positionalArgs[0];
             if (computation is! InterpretedFunction) {
-              throw RuntimeError('Future.microtask requires an Function.');
+              throw RuntimeD4rtException('Future.microtask requires an Function.');
             }
             return Future.microtask(() => computation.call(visitor, []));
           },
           'sync': (visitor, positionalArgs, namedArgs, _) {
             final computation = positionalArgs[0];
             if (computation is! InterpretedFunction) {
-              throw RuntimeError('Future.sync requires an Function.');
+              throw RuntimeD4rtException('Future.sync requires an Function.');
             }
             return Future.sync(() => computation.call(visitor, []));
           },
           'wait': (visitor, positionalArgs, namedArgs, _) {
             final futures = positionalArgs[0];
             if (futures is! Iterable) {
-              throw RuntimeError('Future.wait requires an Iterable.');
+              throw RuntimeD4rtException('Future.wait requires an Iterable.');
             }
             final eagerError = namedArgs.get<bool?>('eagerError') ?? false;
             final cleanUp = namedArgs.get<InterpretedFunction?>('cleanUp');
@@ -67,7 +67,7 @@ class FutureAsync {
           'any': (visitor, positionalArgs, namedArgs, _) {
             final futures = positionalArgs[0];
             if (futures is! Iterable) {
-              throw RuntimeError('Future.any requires an Iterable.');
+              throw RuntimeD4rtException('Future.any requires an Iterable.');
             }
             return Future.any(futures.cast<Future>());
           },
@@ -75,7 +75,7 @@ class FutureAsync {
             final elements = positionalArgs[0] as Iterable;
             final action = positionalArgs[1];
             if (action is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Future.forEach requires an Function for action.');
             }
             return Future.forEach(elements,
@@ -84,7 +84,7 @@ class FutureAsync {
           'doWhile': (visitor, positionalArgs, namedArgs, _) {
             final action = positionalArgs[0];
             if (action is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Future.doWhile requires an Function for action.');
             }
             return Future.doWhile(() async {
@@ -102,7 +102,7 @@ class FutureAsync {
             final onValue = positionalArgs[0];
             final onError = namedArgs.get<InterpretedFunction?>('onError');
             if (onValue is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Future.then requires an Function for onValue.');
             }
             return (target as Future).then(
@@ -116,7 +116,7 @@ class FutureAsync {
             final onError = positionalArgs[0];
             final test = namedArgs.get<InterpretedFunction?>('test');
             if (onError is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Future.catchError requires an Function for onError.');
             }
             return (target as Future).catchError(
@@ -129,7 +129,7 @@ class FutureAsync {
           'whenComplete': (visitor, target, positionalArgs, namedArgs, _) {
             final action = positionalArgs[0];
             if (action is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Future.whenComplete requires an Function for action.');
             }
             return (target as Future)
@@ -151,7 +151,7 @@ class FutureAsync {
             final handleError = positionalArgs[0];
             final test = namedArgs.get<InterpretedFunction?>('test');
             if (handleError is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Future.onError requires a Function for handleError.');
             }
             return (target as Future).catchError(

@@ -94,7 +94,7 @@ void main() {
           return name;
         }
       ''';
-      expect(() => execute(code), throwsA(isA<RuntimeError>()));
+      expect(() => execute(code), throwsA(isA<RuntimeD4rtException>()));
     });
 
     test('late variable with lazy initialization only called once', () {
@@ -377,7 +377,7 @@ void main() {
           return Constants.appVersion;
         }
       ''';
-      expect(() => execute(code), throwsA(isA<RuntimeError>()));
+      expect(() => execute(code), throwsA(isA<RuntimeD4rtException>()));
     });
 
     test('late instance final field', () {

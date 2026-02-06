@@ -94,7 +94,7 @@ class PlatformIo {
 
     // Check for DangerousPermission
     if (!d4rt.checkPermission({'type': 'dangerous'})) {
-      throw RuntimeError('Access to Platform requires DangerousPermission. '
+      throw RuntimeD4rtException('Access to Platform requires DangerousPermission. '
           'Use d4rt.grant(DangerousPermission.any) to allow Platform access.');
     }
   }

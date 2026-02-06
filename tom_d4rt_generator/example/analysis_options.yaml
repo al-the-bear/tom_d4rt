@@ -1,9 +1,0 @@
-include: package:lints/recommended.yaml
-
-# Suppress lints for generated bridge code
-analyzer:
-  exclude:
-    - lib/d4rt_bridges/**
-  errors:
-    unnecessary_cast: ignore
-    unused_import: ignore

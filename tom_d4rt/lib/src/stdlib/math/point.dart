@@ -11,7 +11,7 @@ class PointMath {
             if (positionalArgs.length != 2 ||
                 positionalArgs[0] is! num ||
                 positionalArgs[1] is! num) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Point constructor requires 2 numeric arguments (x, y).');
             }
             return Point(positionalArgs[0] as num, positionalArgs[1] as num);
@@ -27,19 +27,19 @@ class PointMath {
           },
           '+': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Point) {
-              throw RuntimeError('Operator + requires one Point argument.');
+              throw RuntimeD4rtException('Operator + requires one Point argument.');
             }
             return (target as Point) + (positionalArgs[0] as Point);
           },
           '-': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Point) {
-              throw RuntimeError('Operator - requires one Point argument.');
+              throw RuntimeD4rtException('Operator - requires one Point argument.');
             }
             return (target as Point) - (positionalArgs[0] as Point);
           },
           '*': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! num) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Operator * requires one numeric argument (factor).');
             }
             return (target as Point) * (positionalArgs[0] as num);

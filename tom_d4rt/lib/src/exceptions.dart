@@ -133,54 +133,54 @@ abstract class D4rtException implements Exception {
 /// This exception is thrown when the interpreter encounters an error
 /// during code execution, such as accessing undefined variables,
 /// calling non-existent methods, or type mismatches.
-class RuntimeError extends D4rtException {
+class RuntimeD4rtException extends D4rtException {
   /// Creates a new runtime error with the given message.
-  RuntimeError(super.message);
+  RuntimeD4rtException(super.message);
 
   @override
   String toString() => 'Runtime Error: $message';
 }
 
 /// Exception for state-related errors in D4rt components.
-class TomStateError extends D4rtException {
+class StateD4rtException extends D4rtException {
   /// Creates a new state error with the given message.
-  TomStateError(super.message);
+  StateD4rtException(super.message);
 
   @override
   String toString() => 'State Error: $message';
 }
 
 /// Exception for argument-related errors in D4rt components.
-class TomArgumentError extends D4rtException {
+class ArgumentD4rtException extends D4rtException {
   /// Creates a new argument error with the given message.
-  TomArgumentError(super.message);
+  ArgumentD4rtException(super.message);
 
   @override
   String toString() => 'Argument Error: $message';
 }
 
 /// Exception for range-related errors in D4rt components.
-class TomRangeError extends D4rtException {
+class Ranged4rtException extends D4rtException {
   /// Creates a new range error with the given message.
-  TomRangeError(super.message);
+  Ranged4rtException(super.message);
 
   @override
   String toString() => 'Range Error: $message';
 }
 
 /// Exception for unsupported operations in D4rt components.
-class TomUnsupportedError extends D4rtException {
+class UnsupportedD4rtException extends D4rtException {
   /// Creates a new unsupported error with the given message.
-  TomUnsupportedError(super.message);
+  UnsupportedD4rtException(super.message);
 
   @override
   String toString() => 'Unsupported Error: $message';
 }
 
 /// Exception for unimplemented features in D4rt components.
-class TomUnimplementedError extends D4rtException {
+class UnimplementedD4rtException extends D4rtException {
   /// Creates a new unimplemented error with the given message.
-  TomUnimplementedError(super.message);
+  UnimplementedD4rtException(super.message);
 
   @override
   String toString() => 'Unimplemented Error: $message';
@@ -239,12 +239,12 @@ class ContinueSwitchLabel implements Exception {
 ///
 /// This exception indicates problems with the Dart source code being
 /// interpreted, such as syntax errors, missing imports, or invalid URIs.
-class SourceCodeException extends D4rtException {
+class SourceCodeD4rtException extends D4rtException {
   /// The optional problematic code that caused the exception.
   final String? problematicCode;
 
   /// Creates a new source code exception with the given message and optional code.
-  SourceCodeException(super.message, [this.problematicCode]);
+  SourceCodeD4rtException(super.message, [this.problematicCode]);
 
   @override
   String toString() {
@@ -260,14 +260,14 @@ class SourceCodeException extends D4rtException {
 /// This helps distinguish between user 'throw x' exceptions and internal
 /// interpreter control flow exceptions like Return/Break/Continue.
 /// It wraps the original thrown value for proper exception handling.
-class InternalInterpreterException extends D4rtException {
+class InternalInterpreterD4rtException extends D4rtException {
   /// The original value that was thrown by user code.
   final Object? originalThrownValue;
   // StackTrace could be stored here if needed directly,
   // but catch in visitTryStatement already gets it.
 
   /// Creates a new internal interpreter exception wrapping the original thrown value.
-  InternalInterpreterException(this.originalThrownValue)
+  InternalInterpreterD4rtException(this.originalThrownValue)
       : super('External error caught by interpreter');
 
   @override
@@ -282,9 +282,9 @@ class InternalInterpreterException extends D4rtException {
 ///
 /// This exception is thrown when pattern matching operations fail
 /// to match the expected pattern against the actual value.
-class PatternMatchException extends D4rtException {
+class PatternMatchD4rtException extends D4rtException {
   /// Creates a new pattern match exception with the given message.
-  PatternMatchException(super.message);
+  PatternMatchD4rtException(super.message);
 
   @override
   String toString() => "PatternMatchException: $message";

@@ -47,7 +47,7 @@ void main() {
 
         expect(
             () => execute(code),
-            throwsA(isA<RuntimeError>().having((e) => e.message, 'message',
+            throwsA(isA<RuntimeD4rtException>().having((e) => e.message, 'message',
                 contains("Cast failed with 'as'"))));
       });
 
@@ -241,7 +241,7 @@ void main() {
 
         expect(
             () => execute(code),
-            throwsA(isA<RuntimeError>().having(
+            throwsA(isA<RuntimeD4rtException>().having(
                 (e) => e.message,
                 'message',
                 allOf(contains("can't be returned"), contains("int"),
@@ -258,7 +258,7 @@ void main() {
 
         expect(
             () => execute(code),
-            throwsA(isA<RuntimeError>()
+            throwsA(isA<RuntimeD4rtException>()
                 .having((e) => e.message, 'message', contains("Cast failed"))));
       });
     });

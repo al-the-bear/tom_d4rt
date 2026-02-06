@@ -24,7 +24,7 @@ class StdinIo {
             final cancelOnError = namedArgs['cancelOnError'] as bool?;
 
             if (onData == null) {
-              throw RuntimeError('listen requires an onData callback.');
+              throw RuntimeD4rtException('listen requires an onData callback.');
             }
 
             return stdin.listen(
@@ -67,7 +67,7 @@ class StdoutIo {
           'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
             final stdout = target as Stdout;
             if (positionalArgs.isEmpty || positionalArgs[0] is! Iterable) {
-              throw RuntimeError('writeAll requires an Iterable argument.');
+              throw RuntimeD4rtException('writeAll requires an Iterable argument.');
             }
             stdout.writeAll(
               positionalArgs[0] as Iterable<dynamic>,
@@ -78,7 +78,7 @@ class StdoutIo {
           'add': (visitor, target, positionalArgs, namedArgs, _) {
             final stdout = target as Stdout;
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
-              throw RuntimeError('add requires a List<int> argument.');
+              throw RuntimeD4rtException('add requires a List<int> argument.');
             }
             stdout.add(positionalArgs[0] as List<int>);
             return null;
@@ -87,7 +87,7 @@ class StdoutIo {
             final stdout = target as Stdout;
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<List<int>>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'addStream requires a Stream<List<int>> argument.');
             }
             return stdout.addStream(positionalArgs[0] as Stream<List<int>>);
@@ -99,7 +99,7 @@ class StdoutIo {
           'addError': (visitor, target, positionalArgs, namedArgs, _) {
             final stdout = target as Stdout;
             if (positionalArgs.isEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'addError requires at least one argument (error).');
             }
             stdout.addError(
@@ -129,7 +129,7 @@ class StdoutIo {
         setters: {
           'encoding': (visitor, target, value) {
             if (value is! Encoding) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'encoding setter requires an Encoding argument.');
             }
             (target as Stdout).encoding = value;

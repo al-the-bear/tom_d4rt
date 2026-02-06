@@ -182,7 +182,7 @@ void main() {
           library: 'package:test/main.dart',
           sources: {'package:test/main.dart': code},
         ),
-        throwsA(isA<RuntimeError>().having(
+        throwsA(isA<RuntimeD4rtException>().having(
           (e) => e.message,
           'message',
           contains('cannot be used as a mixin'),

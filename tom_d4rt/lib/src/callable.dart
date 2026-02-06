@@ -135,11 +135,11 @@ class InterpretedFunction implements Callable {
             "[InterpretedFunction._resolveTypeAnnotationDynamic] Resolved from environment to RuntimeType: ${resolved.name}");
         return resolved;
       } else {
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             "Symbol '$typeName' resolved to non-type value: $resolved");
       }
     } else {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Unsupported type annotation for constraint: ${typeNode.runtimeType}");
     }
   }
@@ -329,7 +329,7 @@ class InterpretedFunction implements Callable {
   Callable bind(RuntimeValue instance) {
     if (ownerType == null) {
       // Check ownerType instead of definingClass
-      throw RuntimeError("Cannot bind 'this' to a non-method function.");
+      throw RuntimeD4rtException("Cannot bind 'this' to a non-method function.");
     }
     // Create a new environment that encloses the original function closure,
     // but defines 'this' locally.
@@ -389,7 +389,7 @@ class InterpretedFunction implements Callable {
     try {
       _closure.get('this');
       hasThis = true;
-    } on RuntimeError {
+    } on RuntimeD4rtException {
       hasThis = false;
     }
 
@@ -513,11 +513,11 @@ class InterpretedFunction implements Callable {
             isSuperParameter = true;
           }
         } else {
-          throw TomUnimplementedError(
+          throw UnimplementedD4rtException(
               "Unsupported parameter kind after unwrapping DefaultFormalParameter: ${actualParam.runtimeType}");
         }
 
-        if (paramName == null) throw TomStateError("Parameter missing name");
+        if (paramName == null) throw StateD4rtException("Parameter missing name");
         processedParamNames.add(paramName);
 
         // Find corresponding argument and value
@@ -536,7 +536,7 @@ class InterpretedFunction implements Callable {
           }
         } else {
           // This should not happen if logic above is correct
-          throw TomStateError(
+          throw StateD4rtException(
               "Parameter '$paramName' is neither positional nor named?");
         }
 
@@ -552,7 +552,7 @@ class InterpretedFunction implements Callable {
               visitor.environment = previousVisitorEnv;
             }
           } else if (isRequired || isRequiredNamed) {
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Missing required ${isNamed ? 'named' : ''} argument for '$paramName' in function '${_name ?? '<anonymous>'}'.");
           } else {
             // Optional parameters default to null if no default value specified
@@ -588,17 +588,17 @@ class InterpretedFunction implements Callable {
 
       // Final Validation
       if (positionalArgIndex < positionalArguments.length) {
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             "Too many positional arguments. Expected at most $_totalPositionalArity, got ${positionalArguments.length}.");
       }
       for (final providedName in providedNamedArgs.keys) {
         if (!processedParamNames.contains(providedName)) {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Function '${_name ?? '<anonymous>'}' does not have a parameter named '$providedName'.");
         }
       }
     } else if (positionalArguments.isNotEmpty || providedNamedArgs.isNotEmpty) {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Function '${_name ?? '<anonymous>'}' takes no arguments, but arguments were provided.");
     }
 
@@ -632,7 +632,7 @@ class InterpretedFunction implements Callable {
               if (value is AsyncSuspensionRequest) {
                 // Await in constructor field initializers is not allowed in Dart
                 // The parser would normally catch this, but if it gets here we should provide guidance
-                throw RuntimeError(
+                throw RuntimeD4rtException(
                     "Dart language does not allow 'await' expressions in constructor field initializers. "
                     "Consider using a static async factory method instead: "
                     "static Future<${ownerType?.name ?? 'YourClass'}> create() async { /* await initialization */ }");
@@ -642,12 +642,12 @@ class InterpretedFunction implements Callable {
             } else if (initializer is SuperConstructorInvocation) {
               // Handles: super(...) or super.named(...)
               if (explicitSuperCalled) {
-                throw RuntimeError(
+                throw RuntimeD4rtException(
                     "Cannot call 'super' or 'this' multiple times in a constructor initializer list.");
               }
               if (ownerType is! InterpretedClass) {
                 // Should not happen if this is called from a constructor
-                throw TomStateError(
+                throw StateD4rtException(
                     "Super constructor call outside of class context.");
               }
               final ownerClass = ownerType as InterpretedClass;
@@ -656,7 +656,7 @@ class InterpretedFunction implements Callable {
                   ownerClass.bridgedSuperclass;
 
               if (dartSuperClass == null && bridgedSuperClass == null) {
-                throw RuntimeError(
+                throw RuntimeD4rtException(
                     "Cannot call 'super' in constructor of class '${ownerType?.name}' because it has no superclass."); // Use ownerType?.name
               }
 
@@ -667,7 +667,7 @@ class InterpretedFunction implements Callable {
                 final superConstructor =
                     dartSuperClass.findConstructor(superConstructorName);
                 if (superConstructor == null) {
-                  throw RuntimeError(
+                  throw RuntimeD4rtException(
                       "Superclass '${dartSuperClass.name}' does not have a constructor named '$superConstructorName'.");
                 }
                 // Evaluate arguments (existing logic)
@@ -679,14 +679,14 @@ class InterpretedFunction implements Callable {
                     .bind(thisValue)
                     .call(visitor, superPositionalArgs, superNamedArgs);
                 if (superCallResult is AsyncSuspensionRequest) {
-                  throw TomStateError(
+                  throw StateD4rtException(
                       "Internal error: Super constructor call returned SuspendedState.");
                 }
               } else if (bridgedSuperClass != null) {
                 final constructorAdapter = bridgedSuperClass
                     .findConstructorAdapter(superConstructorName);
                 if (constructorAdapter == null) {
-                  throw RuntimeError(
+                  throw RuntimeD4rtException(
                       "Bridged superclass '${bridgedSuperClass.name}' does not have a constructor named '$superConstructorName'. Check bridge definition.");
                 }
                 // Evaluate arguments (using helper)
@@ -709,26 +709,26 @@ class InterpretedFunction implements Callable {
                         "[SuperCall] Stored native object from bridged super constructor '$superConstructorName' ($nativeSuperObject)");
                   } else {
                     // This case (e.g., calling super() from an enum constructor?) seems unlikely/invalid.
-                    throw TomStateError(
+                    throw StateD4rtException(
                         "Cannot call super() constructor on non-instance 'this'.");
                   }
-                } on RuntimeError catch (e) {
-                  throw RuntimeError(
+                } on RuntimeD4rtException catch (e) {
+                  throw RuntimeD4rtException(
                       "Error during bridged super constructor '$superConstructorName': ${e.message}");
                 } catch (e) {
-                  throw RuntimeError(
+                  throw RuntimeD4rtException(
                       "Native error during bridged super constructor '$superConstructorName': $e");
                 }
               } else {
                 // Should be impossible given the check at the start
-                throw TomStateError(
+                throw StateD4rtException(
                     "Internal error: No superclass found despite initial check.");
               }
               explicitSuperCalled = true;
             } else if (initializer is RedirectingConstructorInvocation) {
               // Handles: this(...)
               if (explicitSuperCalled) {
-                throw RuntimeError(
+                throw RuntimeD4rtException(
                     "Cannot call 'super' or 'this' multiple times in a constructor initializer list.");
               }
 
@@ -742,7 +742,7 @@ class InterpretedFunction implements Callable {
                     ownerClass.findConstructor(targetConstructorName);
               }
               if (targetConstructor == null) {
-                throw RuntimeError(
+                throw RuntimeD4rtException(
                     "Class '${ownerType?.name ?? '<unknown>'}' does not have a constructor named '$targetConstructorName' for redirection."); // Use ownerType?.name
               }
 
@@ -753,7 +753,7 @@ class InterpretedFunction implements Callable {
               for (final arg in initializer.argumentList.arguments) {
                 final argValue = arg.accept<Object?>(visitor);
                 if (argValue is AsyncSuspensionRequest) {
-                  throw RuntimeError(
+                  throw RuntimeD4rtException(
                       "Dart language does not allow 'await' expressions in redirecting constructor call arguments. "
                       "Consider using a static async factory method instead: "
                       "static Future<${ownerType?.name ?? 'YourClass'}> create() async { /* await initialization */ }");
@@ -764,13 +764,13 @@ class InterpretedFunction implements Callable {
                   final name = arg.name.label.name;
                   // Use already evaluated value
                   if (targetNamedArgs.containsKey(name)) {
-                    throw RuntimeError(
+                    throw RuntimeD4rtException(
                         "Named argument '$name' provided multiple times to this().");
                   }
                   targetNamedArgs[name] = argValue;
                 } else {
                   if (targetNamedArgsEncountered) {
-                    throw RuntimeError(
+                    throw RuntimeD4rtException(
                         "Positional arguments cannot follow named arguments in this().");
                   }
                   targetPositionalArgs
@@ -785,7 +785,7 @@ class InterpretedFunction implements Callable {
                   .call(visitor, targetPositionalArgs, targetNamedArgs);
               if (redirectCallResult is AsyncSuspensionRequest) {
                 // Should not happen as constructors are not async
-                throw TomStateError(
+                throw StateD4rtException(
                     "Internal error: Redirecting constructor call returned SuspendedState.");
               }
 
@@ -796,7 +796,7 @@ class InterpretedFunction implements Callable {
               final conditionValue =
                   initializer.condition.accept<Object?>(visitor);
               if (conditionValue is AsyncSuspensionRequest) {
-                throw RuntimeError(
+                throw RuntimeD4rtException(
                     "Dart language does not allow 'await' expressions in constructor assert initializers.");
               }
               if (conditionValue != true) {
@@ -805,16 +805,16 @@ class InterpretedFunction implements Callable {
                 if (initializer.message != null) {
                   final msgResult = initializer.message!.accept<Object?>(visitor);
                   if (msgResult is AsyncSuspensionRequest) {
-                    throw RuntimeError(
+                    throw RuntimeD4rtException(
                         "Dart language does not allow 'await' expressions in constructor assert initializers.");
                   }
                   messageValue = msgResult?.toString();
                 }
-                throw RuntimeError(messageValue ??
+                throw RuntimeD4rtException(messageValue ??
                     "Assertion failed in constructor initializer: ${initializer.condition.toSource()}");
               }
             } else {
-              throw TomStateError(
+              throw StateD4rtException(
                   "Unknown constructor initializer type: ${initializer.runtimeType}");
             }
           }
@@ -837,12 +837,12 @@ class InterpretedFunction implements Callable {
                   visitor, superPositionalForwards, superNamedForwards);
           if (defaultSuperResult is AsyncSuspensionRequest) {
             // Should not happen as constructors are not async
-            throw TomStateError(
+            throw StateD4rtException(
                 "Internal error: Implicit super constructor call returned SuspendedState.");
           }
         } else if (superClass.constructors.isNotEmpty) {
           // Superclass has explicit constructors but no default one - error
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Implicit call to superclass '${superClass.name}' default constructor failed: No default constructor found.");
         }
         // If superclass has NO explicit constructors, it uses the implicit default 
@@ -868,7 +868,7 @@ class InterpretedFunction implements Callable {
 
     // Validate that the number of type arguments matches the number of type parameters
     if (typeArguments.length > typeParameterNames.length) {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Too many type arguments for function '${_name ?? '<anonymous>'}'. Expected at most ${typeParameterNames.length}, got ${typeArguments.length}.");
     }
 
@@ -902,7 +902,7 @@ class InterpretedFunction implements Callable {
         bool satisfiesBound = _checkTypeSatisfiesBound(typeArg, bound);
 
         if (!satisfiesBound) {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Type argument '${typeArg.name}' for type parameter '$paramName' does not satisfy bound '${bound.name}' in function '${_name ?? '<anonymous>'}'");
         }
 
@@ -1069,7 +1069,7 @@ class InterpretedFunction implements Callable {
               initialStateIdentifier =
                   null; // Empty function, completes immediately
             } else {
-              throw TomStateError(
+              throw StateD4rtException(
                   "Unhandled function body type for async state machine: ${bodyToExecute.runtimeType}");
             }
           } else {
@@ -1106,7 +1106,7 @@ class InterpretedFunction implements Callable {
           final previousVisitorEnv = visitor.environment; // Save env
           try {
             if (isAbstract) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   "Cannot call abstract method '${_name ?? '<abstract>'}'.");
             }
 
@@ -1121,12 +1121,12 @@ class InterpretedFunction implements Callable {
                 syncResult = bodyToExecute.expression.accept<Object?>(visitor);
               } else if (bodyToExecute is EmptyFunctionBody) {
                 if (!isInitializer && _name != null) {
-                  throw RuntimeError(
+                  throw RuntimeD4rtException(
                       "Cannot execute non-constructor function $_name' with empty body.");
                 }
                 syncResult = null;
               } else {
-                throw TomStateError(
+                throw StateD4rtException(
                     "Unhandled function body type: ${bodyToExecute.runtimeType}");
               }
             } else {
@@ -1148,13 +1148,13 @@ class InterpretedFunction implements Callable {
             try {
               return _closure.get('this');
             } catch (_) {
-              throw TomStateError(
+              throw StateD4rtException(
                   "Internal error: 'this' not found in bound constructor environment.");
             }
           } else {
             // Check if the synchronous execution resulted in a suspension (shouldn't happen if await is blocked)
             if (syncResult is AsyncSuspensionRequest) {
-              throw TomStateError(
+              throw StateD4rtException(
                   "Internal error: Synchronous function returned SuspendedState.");
             }
             return syncResult; // Return sync result
@@ -1246,7 +1246,7 @@ class InterpretedFunction implements Callable {
             }
           } else {
             // The condition did not return a boolean or suspension
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "While loop condition must evaluate to a boolean, but got ${conditionResult?.runtimeType}.");
           }
         } else if (currentNode is DoStatement) {
@@ -1297,7 +1297,7 @@ class InterpretedFunction implements Callable {
             }
           } else {
             // The condition did not return a boolean or suspension
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "DoWhile loop condition must evaluate to a boolean, but got ${conditionResult?.runtimeType}.");
           }
           // If the condition was suspended, lastResult contains AsyncSuspensionRequest
@@ -1351,13 +1351,13 @@ class InterpretedFunction implements Callable {
                   if (bridgedInstance.nativeObject is Stream) {
                     streamValue = bridgedInstance.nativeObject;
                   } else {
-                    throw RuntimeError(
+                    throw RuntimeD4rtException(
                         'Value used in await for-in loop must be a Stream, but got BridgedInstance containing ${bridgedInstance.nativeObject.runtimeType}');
                   }
                 } else if (streamResult is Stream) {
                   streamValue = streamResult;
                 } else {
-                  throw RuntimeError(
+                  throw RuntimeD4rtException(
                       'Value used in await for-in loop must be a Stream, but got ${streamResult?.runtimeType}');
                 }
 
@@ -1569,7 +1569,7 @@ class InterpretedFunction implements Callable {
                 Logger.debug(
                     "[StateMachine] ForIn: Iterator created and added to stacks at index ${currentState.loopNodeStack.length - 1}");
               } else {
-                throw RuntimeError(
+                throw RuntimeD4rtException(
                     "The value iterate over in a for-in loop must be an Iterable, but got ${iterableResult?.runtimeType}.");
               }
             }
@@ -1582,7 +1582,7 @@ class InterpretedFunction implements Callable {
               } catch (e, s) {
                 Logger.warn(
                     "[StateMachine] Error during iterator.moveNext(): $e\n$s");
-                throw RuntimeError("Error during iteration: $e");
+                throw RuntimeD4rtException("Error during iteration: $e");
               }
 
               if (hasNext) {
@@ -1630,7 +1630,7 @@ class InterpretedFunction implements Callable {
                   currentState.forLoopEnvironment = null;
                   visitor.environment = currentState.environment;
                 } else {
-                  throw TomStateError(
+                  throw StateD4rtException(
                       "Unknown ForEachParts type: \\${parts.runtimeType}");
                 }
 
@@ -1860,7 +1860,7 @@ class InterpretedFunction implements Callable {
               } else {
                 // Restore the environment before throwing the error
                 visitor.environment = currentState.environment;
-                throw RuntimeError(
+                throw RuntimeD4rtException(
                     "For loop condition must be a boolean, but got ${lastResult?.runtimeType}");
               }
             }
@@ -2012,7 +2012,7 @@ class InterpretedFunction implements Callable {
             }
           } else {
             // The condition did not return a boolean or a suspension
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "If condition must evaluate to a boolean, but got ${conditionResult?.runtimeType}.");
           }
           // If the condition was suspended, lastResult contains AsyncSuspensionRequest
@@ -2043,7 +2043,7 @@ class InterpretedFunction implements Callable {
           } on ContinueException {
             rethrow; // Propagate to the outer catch
           } catch (error, stackTrace) {
-            if (error is InternalInterpreterException) {
+            if (error is InternalInterpreterD4rtException) {
               // This is a thrown exception (from throw statement). Try to handle it.
               Logger.debug(
                   " [StateMachine] Caught InternalInterpreterException from accept(). Attempting to handle with try/catch.");
@@ -2204,7 +2204,7 @@ class InterpretedFunction implements Callable {
           // This is an error: break outside a loop
           if (!currentState.completer.isCompleted) {
             currentState.completer.completeError(
-                RuntimeError("Break statement outside of a loop."),
+                RuntimeD4rtException("Break statement outside of a loop."),
                 StackTrace.current);
           }
           return;
@@ -2223,7 +2223,7 @@ class InterpretedFunction implements Callable {
           // This is an error: continue outside a loop
           if (!currentState.completer.isCompleted) {
             currentState.completer.completeError(
-                RuntimeError("Continue statement outside of a loop."),
+                RuntimeD4rtException("Continue statement outside of a loop."),
                 StackTrace.current);
           }
           return;
@@ -2232,7 +2232,7 @@ class InterpretedFunction implements Callable {
         // Other error during state execution (SYNC)
 
         // Check if the error comes from rethrow
-        if (error is InternalInterpreterException) {
+        if (error is InternalInterpreterD4rtException) {
           // This is an exception rethrown by rethrow. Do not handle it here.
           // Propagate it by completing the Future with the original error.
           Logger.debug(
@@ -2334,7 +2334,7 @@ class InterpretedFunction implements Callable {
   static void _handleAsyncError(InterpreterVisitor visitor,
       AsyncExecutionState state, AstNode nodeWhereErrorOccurred) {
     Object? error = state.currentError;
-    if (error is InternalInterpreterException) {
+    if (error is InternalInterpreterD4rtException) {
       error = error.originalThrownValue;
     }
     final stackTrace = state.currentStackTrace;
@@ -2383,7 +2383,7 @@ class InterpretedFunction implements Callable {
           .body.statements.firstOrNull; // Start of the catch block
 
       // Update the state for rethrow - store the original error
-      final internalError = InternalInterpreterException(
+      final internalError = InternalInterpreterD4rtException(
           error ?? Exception("Unknown error caught")); // Pass only the error
       state.originalErrorForRethrow = internalError;
       // NOTE: We set isHandlingErrorForRethrow to true here to indicate we're in a catch block
@@ -3120,7 +3120,7 @@ class InterpretedFunction implements Callable {
           " [_determineNextNodeAfterAwait] Resuming While condition with awaited result: $conditionResult");
 
       if (conditionResult is! bool) {
-        final error = RuntimeError(
+        final error = RuntimeD4rtException(
             "While condition (after await) must evaluate to a boolean, but got ${conditionResult?.runtimeType}.");
         if (!state.completer.isCompleted) {
           state.completer.completeError(error);
@@ -3150,7 +3150,7 @@ class InterpretedFunction implements Callable {
           " [_determineNextNodeAfterAwait] Resuming DoWhile condition with awaited result: $conditionResult");
 
       if (conditionResult is! bool) {
-        final error = RuntimeError(
+        final error = RuntimeD4rtException(
             "DoWhile condition (after await) must evaluate to a boolean, but got ${conditionResult?.runtimeType}.");
         if (!state.completer.isCompleted) {
           state.completer.completeError(error);
@@ -3181,7 +3181,7 @@ class InterpretedFunction implements Callable {
           " [_determineNextNodeAfterAwait] Resuming If condition with awaited result: $conditionResult");
 
       if (conditionResult is! bool) {
-        final error = RuntimeError(
+        final error = RuntimeD4rtException(
             "If condition (after await) must evaluate to a boolean, but got ${conditionResult?.runtimeType}.");
         if (!state.completer.isCompleted) {
           state.completer.completeError(error);
@@ -3248,7 +3248,7 @@ class InterpretedFunction implements Callable {
 
         // Assign the result to the loop variable
         if (state.loopEnvironmentStack.isEmpty) {
-          throw TomStateError(
+          throw StateD4rtException(
               "Internal error: For loop environment stack empty after initializer await resumption.");
         }
         final parts = forNode.forLoopParts;
@@ -3261,7 +3261,7 @@ class InterpretedFunction implements Callable {
             Logger.debug(
                 " [_determineNextNodeAfterAwait] Assigned awaited result $awaitResult to for loop variable '$loopVarName' in env ${currentExecutionEnvironment.hashCode}.");
           } else {
-            throw TomUnimplementedError(
+            throw UnimplementedD4rtException(
                 "Async initialization for multiple variables in a single 'for' declaration not yet supported.");
           }
         } else if (parts is ForPartsWithExpression) {
@@ -3315,7 +3315,7 @@ class InterpretedFunction implements Callable {
           Logger.debug(
               "[_determineNextNodeAfterAwait] Resumed from For condition. Result: $awaitResult");
           if (awaitResult is! bool) {
-            final error = RuntimeError(
+            final error = RuntimeD4rtException(
                 "For loop condition (after await) must be a boolean, but got ${awaitResult?.runtimeType}");
             if (!state.completer.isCompleted) {
               state.completer.completeError(error);
@@ -3802,7 +3802,7 @@ class InterpretedFunction implements Callable {
       // Evaluate argument, disallow await for now in constructor contexts
       final argValue = arg.accept<Object?>(visitor);
       if (argValue is AsyncSuspensionRequest) {
-        throw TomUnimplementedError(
+        throw UnimplementedD4rtException(
             "'await' is not yet supported within $invocationType call arguments.");
       }
 
@@ -3814,17 +3814,17 @@ class InterpretedFunction implements Callable {
         Logger.debug(
             " [_evalArgs] Evaluated NAMED arg expression '$name' = $value (${value?.runtimeType})");
         if (value is AsyncSuspensionRequest) {
-          throw TomUnimplementedError(
+          throw UnimplementedD4rtException(
               "'await' is not yet supported within $invocationType call arguments.");
         }
         if (namedArgs.containsKey(name)) {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Named argument '$name' provided multiple times to $invocationType.");
         }
         namedArgs[name] = value;
       } else {
         if (namedArgsEncountered) {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Positional arguments cannot follow named arguments in $invocationType.");
         }
         positionalArgs.add(argValue);
@@ -3851,7 +3851,7 @@ class InterpretedFunction implements Callable {
           visitor.currentFunction = this;
 
           if (isAbstract) {
-            controller.addError(RuntimeError(
+            controller.addError(RuntimeD4rtException(
                 "Cannot call abstract method '${_name ?? '<abstract>'}'."));
             return;
           }
@@ -3942,7 +3942,7 @@ class InterpretedFunction implements Callable {
         controller.add(item);
       }
     } else {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "yield* expression must be a Stream or Iterable, got ${value.runtimeType}");
     }
   }
@@ -4016,7 +4016,7 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
       visitor.isLazySyncGeneratorContext = true; // Enable lazy yield suspension
 
       if (function.isAbstract) {
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             "Cannot call abstract method '${function._name ?? '<abstract>'}'.");
       }
 
@@ -4107,7 +4107,7 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
           bridgedInstance.$1?.nativeObject is bool) {
         conditionResult = bridgedInstance.$1!.nativeObject as bool;
       } else {
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             "The condition of a 'while' loop must be a boolean, but was ${conditionValue?.runtimeType}.");
       }
 
@@ -4161,7 +4161,7 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
           loopParts.identifier, loopParts.iterable, node.body,
           labels: labels);
     } else {
-      throw TomStateError('Unknown ForLoopParts type: ${loopParts.runtimeType}');
+      throw StateD4rtException('Unknown ForLoopParts type: ${loopParts.runtimeType}');
     }
   }
 
@@ -4189,7 +4189,7 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
             bridgedInstance.$1?.nativeObject is bool) {
           conditionResult = bridgedInstance.$1!.nativeObject as bool;
         } else {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "The condition of a 'for' loop must be a boolean, but was ${conditionValue?.runtimeType}.");
         }
 
@@ -4235,7 +4235,7 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
       {Set<String>? labels}) sync* {
     final iterable = iterableExpr.accept<Object?>(visitor);
     if (iterable is! Iterable) {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "for-in loop requires an Iterable, got ${iterable?.runtimeType}");
     }
 
@@ -4347,13 +4347,13 @@ class BridgedMethodCallable implements Callable {
           visitor, _instance.nativeObject, positionalArguments, namedArguments, typeArguments);
     } on ArgumentError catch (e) {
       // Convert native ArgumentError to RuntimeError
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Invalid arguments for bridged method '${_instance.bridgedClass.name}.$_methodName': ${e.message}");
     } catch (e, s) {
       // Handle other native errors
       Logger.error(
           "[BridgedMethodCallable] Native exception during call to '${_instance.bridgedClass.name}.$_methodName': $e\n$s");
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Native error in bridged method '${_instance.bridgedClass.name}.$_methodName': $e");
     }
   }
@@ -4388,13 +4388,13 @@ class BridgedStaticMethodCallable implements Callable {
       return _adapter(visitor, positionalArguments, namedArguments, typeArguments);
     } on ArgumentError catch (e) {
       // Convert native ArgumentError to RuntimeError
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Invalid arguments for bridged static method '${_bridgedClass.name}.$_methodName': ${e.message}");
     } catch (e, s) {
       // Handle other native errors
       Logger.error(
           "[BridgedStaticMethodCallable] Native exception during call to '${_bridgedClass.name}.$_methodName': $e\n$s");
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Native error in bridged static method '${_bridgedClass.name}.$_methodName': $e");
     }
   }
@@ -4429,7 +4429,7 @@ class InterpretedExtensionMethod implements Callable {
       List<RuntimeType>? typeArguments]) {
     // 1. Extract the target instance (first argument)
     if (positionalArguments.isEmpty) {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Internal error: Extension method '${declaration.name.lexeme}' called without target instance ('this').");
     }
     final targetInstance =
@@ -4470,11 +4470,11 @@ class InterpretedExtensionMethod implements Callable {
           isNamed = actualParam.isNamed;
           isRequiredNamed = actualParam.isRequiredNamed;
         } else {
-          throw TomUnimplementedError(
+          throw UnimplementedD4rtException(
               "Unsupported parameter kind in extension method: ${actualParam.runtimeType}");
         }
         if (paramName == null) {
-          throw TomStateError("Extension parameter missing name");
+          throw StateD4rtException("Extension parameter missing name");
         }
         processedParamNames.add(paramName);
 
@@ -4505,7 +4505,7 @@ class InterpretedExtensionMethod implements Callable {
               visitor.environment = previousVisitorEnv;
             }
           } else if (isRequired || isRequiredNamed) {
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Missing required ${isNamed ? 'named' : ''} argument for '$paramName' in extension method '${declaration.name.lexeme}'.");
           } else {
             valueToDefine = null;
@@ -4521,17 +4521,17 @@ class InterpretedExtensionMethod implements Callable {
       final int totalPositionalDeclared =
           params.where((p) => p.isPositional).length;
       if (positionalArgIndex < positionalArguments.length) {
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             "Too many positional arguments for extension method '${declaration.name.lexeme}'. Expected at most $totalPositionalDeclared, got ${positionalArguments.length}.");
       }
       for (final providedName in providedNamedArgs.keys) {
         if (!processedParamNames.contains(providedName)) {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Extension method '${declaration.name.lexeme}' does not have a parameter named '$providedName'.");
         }
       }
     } else if (positionalArguments.isNotEmpty || providedNamedArgs.isNotEmpty) {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Extension method '${declaration.name.lexeme}' takes no arguments (besides 'this'), but arguments were provided.");
     }
 
@@ -4555,10 +4555,10 @@ class InterpretedExtensionMethod implements Callable {
         // No need to raise ReturnException here, we return directly
         return result;
       } else if (body is EmptyFunctionBody) {
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             "Cannot execute empty body for extension method '${declaration.name.lexeme}'.");
       } else {
-        throw TomUnimplementedError(
+        throw UnimplementedD4rtException(
             'Function body type not handled in extension method: ${body.runtimeType}');
       }
     } on ReturnException catch (e) {

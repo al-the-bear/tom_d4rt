@@ -67,7 +67,7 @@ void main() {
           var q = Queue();
           q.removeFirst();
         '''),
-        throwsA(isA<RuntimeError>().having(
+        throwsA(isA<RuntimeD4rtException>().having(
           (e) => e.message,
           'message',
           contains('Cannot removeFirst from an empty queue.'),
@@ -89,7 +89,7 @@ void main() {
           var q = Queue();
           return q.first;
         '''),
-        throwsA(isA<RuntimeError>().having(
+        throwsA(isA<RuntimeD4rtException>().having(
           (e) => e.message,
           'message',
           contains('Cannot get first from an empty queue.'),
@@ -103,7 +103,7 @@ void main() {
           var q = Queue();
           return q.last;
         '''),
-        throwsA(isA<RuntimeError>().having(
+        throwsA(isA<RuntimeD4rtException>().having(
           (e) => e.message,
           'message',
           contains('Cannot get last from an empty queue.'),

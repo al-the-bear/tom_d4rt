@@ -6,11 +6,11 @@ library;
 
 import 'package:tom_d4rt/tom_d4rt.dart';
 
-import 'dartscript.dart';
+import 'dartscript.b.dart';
 import 'src/cli/repl_base.dart';
 
-export 'dartscript.dart';
-export 'src/bridges/dcli_bridges.dart';
+export 'dartscript.b.dart';
+export 'src/bridges/dcli_bridges.b.dart';
 export 'src/cli/repl_base.dart';
 export 'src/cli/vscode_integration.dart';
 

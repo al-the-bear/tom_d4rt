@@ -201,7 +201,7 @@ void main() {
                 library: "d4rt-mem:/main_import_show_check_hidden.dart",
                 sources: sources),
             throwsA(
-              isA<RuntimeError>().having(
+              isA<RuntimeD4rtException>().having(
                 (e) => e.message,
                 'message',
                 contains("Undefined variable: getExtraMessage"),
@@ -229,7 +229,7 @@ void main() {
                 library: "d4rt-mem:/main_import_hide_check_hidden.dart",
                 sources: sources),
             throwsA(
-              isA<RuntimeError>().having(
+              isA<RuntimeD4rtException>().having(
                 (e) => e.message,
                 'message',
                 contains("Undefined variable: getExtraMessage"),
@@ -257,7 +257,7 @@ void main() {
                     "d4rt-mem:/main_prefixed_import_show_check_hidden.dart",
                 sources: sources),
             throwsA(
-              isA<RuntimeError>().having(
+              isA<RuntimeD4rtException>().having(
                 (e) => e.message,
                 'message',
                 contains(
@@ -286,7 +286,7 @@ void main() {
                     "d4rt-mem:/main_prefixed_import_hide_check_hidden.dart",
                 sources: sources),
             throwsA(
-              isA<RuntimeError>().having(
+              isA<RuntimeD4rtException>().having(
                 (e) => e.message,
                 'message',
                 contains(

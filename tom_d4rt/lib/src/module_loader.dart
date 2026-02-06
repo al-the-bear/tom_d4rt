@@ -67,12 +67,12 @@ class ModuleLoader {
     // Define dangerous modules that require permissions
     if (uriString == 'dart:io') {
       if (!d4rt!.checkPermission({'type': 'filesystem'})) {
-        throw RuntimeError('Access to dart:io requires FilesystemPermission. '
+        throw RuntimeD4rtException('Access to dart:io requires FilesystemPermission. '
             'Use d4rt.grant(FilesystemPermission.any) to allow filesystem access.');
       }
     } else if (uriString == 'dart:isolate') {
       if (!d4rt!.checkPermission({'type': 'isolate'})) {
-        throw RuntimeError('Access to dart:isolate requires IsolatePermission. '
+        throw RuntimeD4rtException('Access to dart:isolate requires IsolatePermission. '
             'Use d4rt.grant(IsolatePermission.any) to allow isolate operations.');
       }
     }
@@ -394,7 +394,7 @@ class ModuleLoader {
       } else {
         Logger.error(
             "[ModuleLoader] Dart library '${uri.toString()}' not supported or recognized by Stdlib.");
-        throw SourceCodeException(
+        throw SourceCodeD4rtException(
             "Dart library '${uri.toString()}' not supported.");
       }
     }
@@ -646,7 +646,7 @@ class ModuleLoader {
 
       if (registrationErrors.isNotEmpty) {
         final errorList = registrationErrors.map((e) => '- $e').join('\n');
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             'Errors during bridge registration:\n$errorList');
       }
 
@@ -659,7 +659,7 @@ class ModuleLoader {
     // If it's neither explicitly preloaded nor a known Dart library, it's an error.
     Logger.error(
         "[ModuleLoader] Source not preloaded and not a recognized Dart standard library for URI: $uriString");
-    throw SourceCodeException(
+    throw SourceCodeD4rtException(
         "Module source not preloaded for URI: $uriString, and not a recognized Dart standard library.",
         uriString);
   }
@@ -701,7 +701,7 @@ class ModuleLoader {
       }).join("\\n");
       Logger.error(
           "[ModuleLoader] Parsing errors for $pathToReport:\n$errorMessages");
-      throw SourceCodeException(
+      throw SourceCodeD4rtException(
           "Parsing errors in module $pathToReport:\n$errorMessages", sourceCode);
     }
     Logger.debug(

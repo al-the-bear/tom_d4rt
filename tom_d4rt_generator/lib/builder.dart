@@ -44,11 +44,11 @@ String _getDefaultLibraryPath(String projectRoot) {
 ///           modules:
 ///             - name: all
 ///               barrelFiles: [lib/my_package.dart]
-///               outputPath: lib/src/d4rt_bridges/my_package_bridges.dart
+///               outputPath: lib/src/d4rt_bridges/my_package_bridges.b.dart
 ///           generateBarrel: true
-///           barrelPath: lib/d4rt_bridges.dart
+///           barrelPath: lib/d4rt_bridges.b.dart
 ///           generateDartscript: true
-///           dartscriptPath: lib/dartscript.dart
+///           dartscriptPath: lib/dartscript.b.dart
 /// ```
 ///
 /// The builder triggers on any .dart file change and regenerates all bridges.
@@ -158,7 +158,7 @@ class D4rtBridgeBuilder implements Builder {
 
       // Write a trigger file to the source tree that can be deleted to force regeneration
       // This is necessary because build_runner doesn't detect changes in external packages
-      final triggerPath = '$libraryPath/bridges_trigger.g.dart';
+      final triggerPath = '$libraryPath/bridges_trigger.b.dart';
       final triggerContent = '''
 // GENERATED FILE - DO NOT EDIT
 // This file triggers bridge regeneration when deleted before build_runner.

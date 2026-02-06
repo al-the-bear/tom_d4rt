@@ -283,7 +283,7 @@ void main() {
        ''';
       expect(
           () => interpreter.execute(source: code),
-          throwsA(isA<RuntimeError>().having((e) => e.message, 'message',
+          throwsA(isA<RuntimeD4rtException>().having((e) => e.message, 'message',
               contains('Method "nonExistentMethod" not found'))));
     });
 
@@ -297,7 +297,7 @@ void main() {
        ''';
       expect(
           () => interpreter.execute(source: code),
-          throwsA(isA<RuntimeError>().having((e) => e.message, 'message',
+          throwsA(isA<RuntimeD4rtException>().having((e) => e.message, 'message',
               contains('Property "nonExistentProp" not found'))));
     });
 
@@ -311,7 +311,7 @@ void main() {
        ''';
       expect(
           () => interpreter.execute(source: code),
-          throwsA(isA<RuntimeError>().having((e) => e.message, 'message',
+          throwsA(isA<RuntimeD4rtException>().having((e) => e.message, 'message',
               contains('Error executing bridged method "multiply"'))));
     });
   });

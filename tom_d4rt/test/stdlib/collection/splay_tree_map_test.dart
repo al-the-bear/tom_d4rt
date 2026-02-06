@@ -253,11 +253,11 @@ void main() {
       expect(() => d4rt.execute(source: '''
           import 'dart:collection';
           main() { SplayTreeMap().firstKey(); }
-        '''), throwsA(isA<RuntimeError>()), reason: "firstKey on empty map");
+        '''), throwsA(isA<RuntimeD4rtException>()), reason: "firstKey on empty map");
       expect(() => d4rt.execute(source: '''
           import 'dart:collection';
           main() { SplayTreeMap().lastKey(); }
-        '''), throwsA(isA<RuntimeError>()), reason: "lastKey on empty map");
+        '''), throwsA(isA<RuntimeD4rtException>()), reason: "lastKey on empty map");
     });
   });
 }

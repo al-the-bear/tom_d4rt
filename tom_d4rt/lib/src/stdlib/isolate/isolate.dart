@@ -53,7 +53,7 @@ class IsolateIsolate {
           'run': (visitor, positionalArgs, namedArgs, _) {
             final computation = positionalArgs[0];
             if (computation is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Isolate.run requires a Function for computation.');
             }
             final debugName = namedArgs.get<String?>('debugName');
@@ -64,12 +64,12 @@ class IsolateIsolate {
             final entryPoint = positionalArgs[0];
             positionalArgs[1]; // message (ignored in this stub implementation)
             if (entryPoint is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Isolate.spawn requires a Function for entryPoint.');
             }
             // In a real implementation, this would need to handle the conversion
             // from InterpretedFunction to a native function
-            throw RuntimeError('Isolate.spawn not fully implemented in D4rt');
+            throw RuntimeD4rtException('Isolate.spawn not fully implemented in D4rt');
           },
           'spawnUri': (visitor, positionalArgs, namedArgs, _) {
             final uri = positionalArgs[0] as Uri;
@@ -263,7 +263,7 @@ class ReceivePortIsolate {
           'map': (visitor, target, positionalArgs, namedArgs, _) {
             final transform = positionalArgs[0];
             if (transform is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.map requires a Function for transform.');
             }
             return (target as Stream)
@@ -272,7 +272,7 @@ class ReceivePortIsolate {
           'where': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0];
             if (test is! InterpretedFunction) {
-              throw RuntimeError('Stream.where requires a Function for test.');
+              throw RuntimeD4rtException('Stream.where requires a Function for test.');
             }
             return (target as Stream)
                 .where((event) => test.call(visitor, [event]) as bool);
@@ -374,7 +374,7 @@ class TransferableTypedDataIsolate {
           'fromList': (visitor, positionalArgs, namedArgs) {
             final list = positionalArgs[0];
             if (list is! List) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'TransferableTypedData.fromList requires a List<TypedData>.');
             }
 

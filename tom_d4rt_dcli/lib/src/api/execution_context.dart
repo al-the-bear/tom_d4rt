@@ -307,7 +307,7 @@ class ContextStack {
   /// Throws [StateError] if attempting to pop the root context.
   ExecutionContext pop() {
     if (_stack.length <= 1) {
-      throw TomStateError('Cannot pop the root execution context');
+      throw StateD4rtException('Cannot pop the root execution context');
     }
     return _stack.removeLast();
   }

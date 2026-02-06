@@ -3,7 +3,7 @@ import 'package:tom_d4rt/d4rt.dart';
 
 Matcher throwsRuntimeError(dynamic messageMatcher) {
   return throwsA(
-      isA<RuntimeError>().having((e) => e.message, 'message', messageMatcher));
+      isA<RuntimeD4rtException>().having((e) => e.message, 'message', messageMatcher));
 }
 
 dynamic execute(String source, {List<Object?>? args}) {
@@ -114,7 +114,7 @@ void main() {
       // expect(execute(code), isA<RuntimeError>());
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             contains('Undefined variable: nonDefini'),
@@ -130,7 +130,7 @@ void main() {
       // expect(execute(code), isA<RuntimeError>());
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             contains("Assigning to undefined variable 'nonDefini'"),
@@ -205,7 +205,7 @@ void main() {
       // expect(execute(code), isA<RuntimeError>());
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             contains('Undefined variable: a'),
@@ -344,7 +344,7 @@ void main() {
       ''';
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             contains(
@@ -404,7 +404,7 @@ void main() {
       // expect(execute(code), isA<RuntimeError>());
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             contains(
@@ -453,7 +453,7 @@ void main() {
       // expect(execute(code), isA<RuntimeError>());
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             contains(
@@ -822,7 +822,7 @@ void main() {
         // expect(execute(code), isA<RuntimeError>());
         expect(
             () => execute(code),
-            throwsA(isA<RuntimeError>().having(
+            throwsA(isA<RuntimeD4rtException>().having(
               (e) => e.message,
               'message',
               contains(
@@ -932,7 +932,7 @@ void main() {
 
         expect(
             () => execute(code),
-            throwsA(isA<RuntimeError>().having(
+            throwsA(isA<RuntimeD4rtException>().having(
               (e) => e.message,
               'message',
               contains("Superclass 'NonExistent' not found for class 'Bad'."),
@@ -1024,7 +1024,7 @@ void main() {
         // expect(execute(code), isA<RuntimeError>());
         expect(
             () => execute(code),
-            throwsA(isA<RuntimeError>().having(
+            throwsA(isA<RuntimeD4rtException>().having(
               (e) => e.message,
               'message',
               contains("'super' can only be used within an instance method."),
@@ -1152,7 +1152,7 @@ void main() {
          ''';
         expect(
             () => execute(code),
-            throwsA(isA<RuntimeError>().having(
+            throwsA(isA<RuntimeD4rtException>().having(
               (e) => e.message,
               'message',
               contains(
@@ -1170,7 +1170,7 @@ void main() {
          ''';
         expect(
             () => execute(code),
-            throwsA(isA<RuntimeError>().having(
+            throwsA(isA<RuntimeD4rtException>().having(
               (e) => e.message,
               'message',
               contains(
@@ -1185,7 +1185,7 @@ void main() {
           ''';
         expect(
             () => execute(code),
-            throwsA(isA<RuntimeError>().having(
+            throwsA(isA<RuntimeD4rtException>().having(
               (e) => e.message,
               'message',
               contains(
@@ -1208,7 +1208,7 @@ void main() {
       ''';
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             // Check for the specific error message within the potential wrapper error
@@ -1228,7 +1228,7 @@ void main() {
       ''';
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             contains(
@@ -1327,7 +1327,7 @@ void main() {
       ''';
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             contains(
@@ -1375,7 +1375,7 @@ void main() {
       ''';
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             contains(
@@ -1447,7 +1447,7 @@ void main() {
       ''';
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             contains(
@@ -1467,7 +1467,7 @@ void main() {
       ''';
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             contains(
@@ -1487,7 +1487,7 @@ void main() {
       ''';
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             contains(
@@ -1544,7 +1544,7 @@ void main() {
         ''';
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             contains(
@@ -1560,7 +1560,7 @@ void main() {
         ''';
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             contains("Interface 'notAClass' not found for class 'MyClass'"),
@@ -1574,7 +1574,7 @@ void main() {
         ''';
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             contains("Interface 'NonExistent' not found for class 'MyClass'."),
@@ -1610,7 +1610,7 @@ void main() {
         ''';
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             // The check for interface members happens after abstract member check.
@@ -1631,7 +1631,7 @@ void main() {
         ''';
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             // Check for one of the missing methods (order might vary)
@@ -1744,7 +1744,7 @@ void main() {
       ''';
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             contains(
@@ -2182,7 +2182,7 @@ void main() {
       ''';
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having((e) => e.message, 'message',
+          throwsA(isA<RuntimeD4rtException>().having((e) => e.message, 'message',
               contains("'rethrow' can only be used within a catch block."))));
     });
   });
@@ -2291,7 +2291,7 @@ void main() {
       ''';
       expect(
           () => execute(code),
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
               (e) => e.message,
               'message',
               contains(
@@ -2699,7 +2699,7 @@ void main() {
             return int.parse('abc');
           }
         '''),
-        throwsA(isA<RuntimeError>().having(
+        throwsA(isA<RuntimeD4rtException>().having(
           (e) => e.message,
           'message',
           contains('FormatException'),
@@ -2841,11 +2841,11 @@ void main() {
       expect(() => execute('main() { assert(true); }'), returnsNormally);
       expect(
           () => execute('main() { assert(false); }'),
-          throwsA(isA<RuntimeError>()
+          throwsA(isA<RuntimeD4rtException>()
               .having((e) => e.message, 'message', 'Assertion failed')));
       expect(
           () => execute('main() { assert(1 == 2, "Math is broken"); }'),
-          throwsA(isA<RuntimeError>().having((e) => e.message, 'message',
+          throwsA(isA<RuntimeD4rtException>().having((e) => e.message, 'message',
               'Assertion failed: Math is broken')));
       expect(() => execute('main() { var x = 5; assert(x > 0); }'),
           returnsNormally);
@@ -2879,11 +2879,11 @@ void main() {
           () => execute(
               'main() { var s1 = {1}; var m1 = {"b":2}; return {...s1, ...m1}; }'),
           throwsA(isA<
-              RuntimeError>())); // Dart behavior: Cannot mix Map and Set spreads
+              RuntimeD4rtException>())); // Dart behavior: Cannot mix Map and Set spreads
       expect(
           () => execute(
               'main() { var s1 = {1}; var m1 = {"b":2}; return {...m1, ...s1}; }'),
-          throwsA(isA<RuntimeError>()));
+          throwsA(isA<RuntimeD4rtException>()));
 
       expect(execute('main() { var s1 = {1, 2}; return <int>{...s1}; }'),
           equals({1, 2}));

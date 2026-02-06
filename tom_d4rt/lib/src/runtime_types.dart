@@ -103,11 +103,11 @@ class InterpretedClass implements Callable, RuntimeType {
             "[InterpretedClass._resolveTypeAnnotationDynamic] Resolved from environment to RuntimeType: ${resolved.name}");
         return resolved;
       } else {
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             "Symbol '$typeName' resolved to non-type value: $resolved");
       }
     } else {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Unsupported type annotation for constraint: ${typeNode.runtimeType}");
     }
   }
@@ -295,7 +295,7 @@ class InterpretedClass implements Callable, RuntimeType {
       }
       return fieldValue;
     }
-    throw RuntimeError("Undefined static field '$name' on class '$this.name'.");
+    throw RuntimeD4rtException("Undefined static field '$name' on class '$this.name'.");
   }
 
   void setStaticField(String name, Object? value) {
@@ -385,7 +385,7 @@ class InterpretedClass implements Callable, RuntimeType {
       effective = List.generate(typeParameterNames.length,
           (_) => BridgedClass(nativeType: Object, name: 'dynamic'));
     } else if (providedTypeArguments.length != typeParameterNames.length) {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Class '$name' requires ${typeParameterNames.length} type argument(s), but ${providedTypeArguments.length} were provided.");
     } else {
       effective = providedTypeArguments;
@@ -399,7 +399,7 @@ class InterpretedClass implements Callable, RuntimeType {
       if (bound != null) {
         bool satisfiesBound = _checkTypeSatisfiesBound(typeArg, bound);
         if (!satisfiesBound) {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Type argument '${typeArg.name}' for type parameter '$paramName' does not satisfy bound '${bound.name}' in class '$name'");
         }
       }
@@ -412,7 +412,7 @@ class InterpretedClass implements Callable, RuntimeType {
       InterpreterVisitor visitor, List<RuntimeType>? typeArguments) {
     // Prevent direct instantiation of abstract classes
     if (isAbstract) {
-      throw RuntimeError("Cannot instantiate abstract class '$name'.");
+      throw RuntimeD4rtException("Cannot instantiate abstract class '$name'.");
     }
 
     // Get validated effective type arguments
@@ -569,14 +569,14 @@ class InterpretedClass implements Callable, RuntimeType {
         // Pass initializers to call?
         boundConstructor.call(
             visitor, positionalArguments, namedArguments, typeArguments);
-      } on RuntimeError catch (e) {
-        throw RuntimeError(
+      } on RuntimeD4rtException catch (e) {
+        throw RuntimeD4rtException(
             "Error during constructor execution for class '$name': ${e.message}");
       }
     } else {
       // No explicit constructor found. Check arity for default constructor.
       if (positionalArguments.isNotEmpty || (namedArguments.isNotEmpty)) {
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             "Class '$name' does not have an unnamed constructor that accepts arguments.");
       }
       // If no constructor and no args passed, it's okay (implicit default constructor).
@@ -984,7 +984,7 @@ class InterpretedInstance implements RuntimeValue {
     }
 
     if (!_isValueCompatibleWithType(value, expectedType)) {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Type error: Cannot assign value of type '${_getValueTypeName(value)}' to field '$fieldName' expecting type '${expectedType.name}' in class '${klass.name}'");
     }
   }
@@ -1028,14 +1028,14 @@ class InterpretedInstance implements RuntimeValue {
         // Validate all elements in the list
         for (int i = 0; i < value.length; i++) {
           if (!_isValueCompatibleWithType(value[i], elementType)) {
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Type error: Cannot add element of type '${_getValueTypeName(value[i])}' at index $i to List<${elementType.name}>");
           }
         }
       } else if (fieldName == 'add' || fieldName == 'insert') {
         // Validate single element
         if (!_isValueCompatibleWithType(value, elementType)) {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Type error: Cannot add element of type '${_getValueTypeName(value)}' to List<${elementType.name}>");
         }
       }
@@ -1049,11 +1049,11 @@ class InterpretedInstance implements RuntimeValue {
       if (value is Map) {
         for (final entry in value.entries) {
           if (!_isValueCompatibleWithType(entry.key, keyType)) {
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Type error: Cannot add key of type '${_getValueTypeName(entry.key)}' to Map<${keyType.name}, ${valueType.name}>");
           }
           if (!_isValueCompatibleWithType(entry.value, valueType)) {
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Type error: Cannot add value of type '${_getValueTypeName(entry.value)}' to Map<${keyType.name}, ${valueType.name}>");
           }
         }
@@ -1068,13 +1068,13 @@ class InterpretedInstance implements RuntimeValue {
       if (fieldName == 'addAll' && value is Iterable) {
         for (final element in value) {
           if (!_isValueCompatibleWithType(element, elementType)) {
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Type error: Cannot add element of type '${_getValueTypeName(element)}' to Set<${elementType.name}>");
           }
         }
       } else if (fieldName == 'add') {
         if (!_isValueCompatibleWithType(value, elementType)) {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Type error: Cannot add element of type '${_getValueTypeName(value)}' to Set<${elementType.name}>");
         }
       }
@@ -1187,7 +1187,7 @@ class InterpretedInstance implements RuntimeValue {
           } catch (e, s) {
             Logger.error(
                 "Native exception during bridged superclass getter '$name': $e\n$s");
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Native error in bridged superclass getter '$name': $e");
           }
         }
@@ -1243,7 +1243,7 @@ class InterpretedInstance implements RuntimeValue {
         } catch (e, s) {
           Logger.error(
               "Native exception during bridged mixin getter '$name': $e\n$s");
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Native error in bridged mixin getter '$name': $e");
         }
       }
@@ -1271,7 +1271,7 @@ class InterpretedInstance implements RuntimeValue {
     }
 
     // If not found anywhere in the hierarchy or bridge
-    throw RuntimeError("Undefined property '$name' on ${klass.name}.");
+    throw RuntimeD4rtException("Undefined property '$name' on ${klass.name}.");
   }
 
   // Find operator method on this instance (supports inheritance and mixins)
@@ -1331,7 +1331,7 @@ class InterpretedInstance implements RuntimeValue {
           } catch (e, s) {
             Logger.error(
                 "Native exception during bridged superclass setter '$name': $e\n$s");
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Native error in bridged superclass setter '$name': $e");
           }
         }
@@ -1375,7 +1375,7 @@ class InterpretedInstance implements RuntimeValue {
     // Accessing super.fieldName where fieldName is only defined in the superclass
     // isn't standard Dart behavior (you'd typically use super.getterName).
     // This method is primarily for the `super.` property access visitor to get the value.
-    throw RuntimeError(
+    throw RuntimeD4rtException(
         "Internal Error: Field '$name' not found for super access on instance of ${klass.name}. This might indicate an issue with super property access implementation.");
   }
 
@@ -1529,7 +1529,7 @@ class InterpretedEnum implements RuntimeType {
     if (_valuesListCache == null) {
       if (values.length != valueNames.length) {
         // This shouldn't happen if interpretation pass is correct, but safeguard.
-        throw TomStateError(
+        throw StateD4rtException(
             "Enum '$name' values mismatch between declaration and interpretation.");
       }
       // Ensure the order matches the declaration order
@@ -1610,7 +1610,7 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
       // We need to call the getter, binding `this` to `this` enum value instance
       // This requires the getter function to be callable with the instance
       if (visitor == null) {
-        throw RuntimeError(
+        throw RuntimeD4rtException(
             "Internal error: Visitor required to execute enum getter '$memberName'.");
       }
       final boundGetter = getter.bind(this);
@@ -1638,7 +1638,7 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
       final mixinGetter = mixin.getters[memberName];
       if (mixinGetter != null) {
         if (visitor == null) {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Internal error: Visitor required to execute mixin getter '$memberName'.");
         }
         final boundGetter = mixinGetter.bind(this);
@@ -1664,7 +1664,7 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
       final getterAdapter = bridgedMixin.findInstanceGetterAdapter(memberName);
       if (getterAdapter != null) {
         if (visitor == null) {
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Internal error: Visitor required to execute bridged mixin getter '$memberName'.");
         }
         Logger.debug(
@@ -1674,7 +1674,7 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
         } catch (e, s) {
           Logger.error(
               "Native exception during bridged mixin getter '$memberName': $e\n$s");
-          throw RuntimeError(
+          throw RuntimeD4rtException(
               "Native error in bridged mixin getter '$memberName': $e");
         }
       }
@@ -1691,7 +1691,7 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
     }
 
     // Property not found
-    throw RuntimeError(
+    throw RuntimeD4rtException(
         "Undefined property '$memberName' on enum value '$this'.");
   }
 
@@ -1769,7 +1769,7 @@ class InterpretedExtension {
   // Helper to get a static field
   Object? getStaticField(String name) {
     if (!staticFields.containsKey(name)) {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Extension '${this.name ?? '<unnamed>'}' has no static field '$name'.");
     }
     return staticFields[name];
@@ -1778,7 +1778,7 @@ class InterpretedExtension {
   // Helper to set a static field
   void setStaticField(String name, Object? value) {
     if (!staticFields.containsKey(name)) {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Extension '${this.name ?? '<unnamed>'}' has no static field '$name'.");
     }
     staticFields[name] = value;
@@ -1808,12 +1808,12 @@ class BridgedSuperMethodCallable implements Callable {
       // Call the adapter, passing the stored native super object as the target
       return adapter(visitor, superObject, positionalArguments, namedArguments, typeArguments);
     } on ArgumentError catch (e) {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Invalid arguments for bridged superclass method '$bridgedClassName.$methodName': ${e.message}");
     } catch (e, s) {
       Logger.error(
           "Native exception during call to bridged superclass method '$bridgedClassName.$methodName': $e\n$s");
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Native error in bridged superclass method '$bridgedClassName.$methodName': $e");
     }
   }
@@ -1849,7 +1849,7 @@ class BridgedMixinMethodCallable implements Callable {
     } catch (e, s) {
       Logger.error(
           "[BridgedMixinMethodCallable] Native exception during call to '$bridgedMixinName.$methodName': $e\n$s");
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Native error in bridged mixin method '$bridgedMixinName.$methodName': $e");
     }
   }
@@ -1883,7 +1883,7 @@ class BridgedEnumMixinMethodCallable implements Callable {
     } catch (e, s) {
       Logger.error(
           "[BridgedEnumMixinMethodCallable] Native exception during call to '$bridgedMixinName.$methodName': $e\n$s");
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Native error in bridged mixin method '$bridgedMixinName.$methodName': $e");
     }
   }
@@ -1922,7 +1922,7 @@ class InterpretedExtensionType implements Callable, RuntimeType {
   Object? call(InterpreterVisitor visitor, List<Object?> positionalArgs,
       [Map<String, Object?>? namedArgs, List<RuntimeType>? typeArguments]) {
     if (positionalArgs.isEmpty) {
-      throw RuntimeError(
+      throw RuntimeD4rtException(
           "Extension type '$name' requires exactly one positional argument");
     }
     final representationValue = positionalArgs[0];
@@ -1963,7 +1963,7 @@ class InterpretedExtensionTypeInstance {
       return getter.call(visitor, [representationValue], {});
     }
 
-    throw RuntimeError(
+    throw RuntimeD4rtException(
         "Extension type '${extensionType.name}' has no property '$propertyName'");
   }
 

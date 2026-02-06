@@ -17,7 +17,7 @@ class HttpClientIo {
         staticMethods: {
           'findProxyFromEnvironment': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'HttpClient.findProxyFromEnvironment requires a Uri argument.');
             }
             final environmentMap =
@@ -31,37 +31,37 @@ class HttpClientIo {
         methods: {
           'getUrl': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
-              throw RuntimeError('getUrl requires a Uri argument.');
+              throw RuntimeD4rtException('getUrl requires a Uri argument.');
             }
             return (target as HttpClient).getUrl(positionalArgs[0] as Uri);
           },
           'postUrl': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
-              throw RuntimeError('postUrl requires a Uri argument.');
+              throw RuntimeD4rtException('postUrl requires a Uri argument.');
             }
             return (target as HttpClient).postUrl(positionalArgs[0] as Uri);
           },
           'putUrl': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
-              throw RuntimeError('putUrl requires a Uri argument.');
+              throw RuntimeD4rtException('putUrl requires a Uri argument.');
             }
             return (target as HttpClient).putUrl(positionalArgs[0] as Uri);
           },
           'deleteUrl': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
-              throw RuntimeError('deleteUrl requires a Uri argument.');
+              throw RuntimeD4rtException('deleteUrl requires a Uri argument.');
             }
             return (target as HttpClient).deleteUrl(positionalArgs[0] as Uri);
           },
           'headUrl': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
-              throw RuntimeError('headUrl requires a Uri argument.');
+              throw RuntimeD4rtException('headUrl requires a Uri argument.');
             }
             return (target as HttpClient).headUrl(positionalArgs[0] as Uri);
           },
           'patchUrl': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
-              throw RuntimeError('patchUrl requires a Uri argument.');
+              throw RuntimeD4rtException('patchUrl requires a Uri argument.');
             }
             return (target as HttpClient).patchUrl(positionalArgs[0] as Uri);
           },
@@ -71,7 +71,7 @@ class HttpClientIo {
                 positionalArgs[1] is! String ||
                 positionalArgs[2] is! int ||
                 positionalArgs[3] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'open requires method, host, port, and path arguments.');
             }
             return (target as HttpClient).open(
@@ -85,7 +85,7 @@ class HttpClientIo {
             if (positionalArgs.length != 2 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! Uri) {
-              throw RuntimeError('openUrl requires method and Uri arguments.');
+              throw RuntimeD4rtException('openUrl requires method and Uri arguments.');
             }
             return (target as HttpClient).openUrl(
               positionalArgs[0] as String,
@@ -97,7 +97,7 @@ class HttpClientIo {
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! int ||
                 positionalArgs[2] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'get requires host, port, and path arguments.');
             }
             return (target as HttpClient).get(
@@ -111,7 +111,7 @@ class HttpClientIo {
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! int ||
                 positionalArgs[2] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'post requires host, port, and path arguments.');
             }
             return (target as HttpClient).post(
@@ -125,7 +125,7 @@ class HttpClientIo {
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! int ||
                 positionalArgs[2] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'put requires host, port, and path arguments.');
             }
             return (target as HttpClient).put(
@@ -139,7 +139,7 @@ class HttpClientIo {
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! int ||
                 positionalArgs[2] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'delete requires host, port, and path arguments.');
             }
             return (target as HttpClient).delete(
@@ -153,7 +153,7 @@ class HttpClientIo {
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! int ||
                 positionalArgs[2] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'patch requires host, port, and path arguments.');
             }
             return (target as HttpClient).patch(
@@ -167,7 +167,7 @@ class HttpClientIo {
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! int ||
                 positionalArgs[2] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'head requires host, port, and path arguments.');
             }
             return (target as HttpClient).head(
@@ -181,7 +181,7 @@ class HttpClientIo {
                 positionalArgs[0] is! Uri ||
                 positionalArgs[1] is! String ||
                 positionalArgs[2] is! HttpClientCredentials) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'addCredentials requires Uri, realm String, and HttpClientCredentials arguments.');
             }
             (target as HttpClient).addCredentials(
@@ -197,7 +197,7 @@ class HttpClientIo {
                 positionalArgs[1] is! int ||
                 positionalArgs[2] is! String ||
                 positionalArgs[3] is! HttpClientCredentials) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'addProxyCredentials requires host, port, realm, and HttpClientCredentials arguments.');
             }
             (target as HttpClient).addProxyCredentials(
@@ -265,7 +265,7 @@ class HttpClientIo {
               (target as HttpClient).authenticate =
                   (Uri url, String scheme, String? realm) async {
                 if (visitor == null) {
-                  throw RuntimeError(
+                  throw RuntimeD4rtException(
                       'Visitor cannot be null for authenticate callback');
                 }
                 final result = callback.call(visitor, [url, scheme, realm]);
@@ -281,7 +281,7 @@ class HttpClientIo {
               final callback = value as InterpretedFunction;
               (target as HttpClient).findProxy = (Uri url) {
                 if (visitor == null) {
-                  throw RuntimeError(
+                  throw RuntimeD4rtException(
                       'Visitor cannot be null for findProxy callback');
                 }
                 final result = callback.call(visitor, [url]);
@@ -298,7 +298,7 @@ class HttpClientIo {
               (target as HttpClient).badCertificateCallback =
                   (cert, host, port) {
                 if (visitor == null) {
-                  throw RuntimeError(
+                  throw RuntimeD4rtException(
                       'Visitor cannot be null for badCertificateCallback');
                 }
                 final result = callback.call(visitor, [cert, host, port]);
@@ -314,7 +314,7 @@ class HttpClientIo {
               final callback = value as InterpretedFunction;
               (target as HttpClient).keyLog = (String line) {
                 if (visitor == null) {
-                  throw RuntimeError(
+                  throw RuntimeD4rtException(
                       'Visitor cannot be null for keyLog callback');
                 }
                 callback.call(visitor, [line]);
@@ -337,7 +337,7 @@ class HttpServerIo {
         staticMethods: {
           'bind': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 2 || positionalArgs[1] is! int) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'HttpServer.bind requires address and port arguments.');
             }
             return HttpServer.bind(
@@ -352,7 +352,7 @@ class HttpServerIo {
             if (positionalArgs.length != 3 ||
                 positionalArgs[1] is! int ||
                 positionalArgs[2] is! SecurityContext) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'HttpServer.bindSecure requires address, port, and context arguments.');
             }
             return HttpServer.bindSecure(
@@ -369,7 +369,7 @@ class HttpServerIo {
           'listenOn': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! ServerSocket) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'HttpServer.listenOn requires a ServerSocket argument.');
             }
             return HttpServer.listenOn(positionalArgs[0] as ServerSocket);
@@ -383,7 +383,7 @@ class HttpServerIo {
             final cancelOnError = namedArgs['cancelOnError'] as bool?;
 
             if (onData == null) {
-              throw RuntimeError('listen requires an onData callback.');
+              throw RuntimeD4rtException('listen requires an onData callback.');
             }
 
             return (target as HttpServer).listen(
@@ -455,7 +455,7 @@ class HttpClientRequestIo {
           },
           'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! Iterable) {
-              throw RuntimeError('writeAll requires an Iterable argument.');
+              throw RuntimeD4rtException('writeAll requires an Iterable argument.');
             }
             (target as HttpClientRequest).writeAll(
               positionalArgs[0] as Iterable<dynamic>,
@@ -465,7 +465,7 @@ class HttpClientRequestIo {
           },
           'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
-              throw RuntimeError('add requires a List<int> argument.');
+              throw RuntimeD4rtException('add requires a List<int> argument.');
             }
             (target as HttpClientRequest).add(positionalArgs[0] as List<int>);
             return null;
@@ -473,7 +473,7 @@ class HttpClientRequestIo {
           'addStream': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<List<int>>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'addStream requires a Stream<List<int>> argument.');
             }
             return (target as HttpClientRequest).addStream(
@@ -486,7 +486,7 @@ class HttpClientRequestIo {
               (target as HttpClientRequest).close(),
           'addError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'addError requires at least one argument (error).');
             }
             (target as HttpClientRequest).addError(
@@ -571,7 +571,7 @@ class HttpClientResponseIo {
             final cancelOnError = namedArgs['cancelOnError'] as bool?;
 
             if (onData == null) {
-              throw RuntimeError('listen requires an onData callback.');
+              throw RuntimeD4rtException('listen requires an onData callback.');
             }
 
             return (target as HttpClientResponse).listen(
@@ -586,7 +586,7 @@ class HttpClientResponseIo {
           },
           'transform': (visitor, target, positionalArgs, namedArgs, _) {
             // Implementation for transform would be complex, placeholder
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 'transform not yet implemented in interpreted environment');
           },
           'redirect': (visitor, target, positionalArgs, namedArgs, _) {
@@ -659,7 +659,7 @@ class HttpHeadersIo {
         methods: {
           'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2) {
-              throw RuntimeError('add requires name and value arguments.');
+              throw RuntimeD4rtException('add requires name and value arguments.');
             }
             (target as HttpHeaders).add(
               positionalArgs[0] as String,
@@ -671,7 +671,7 @@ class HttpHeadersIo {
           },
           'set': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2) {
-              throw RuntimeError('set requires name and value arguments.');
+              throw RuntimeD4rtException('set requires name and value arguments.');
             }
             (target as HttpHeaders).set(
               positionalArgs[0] as String,
@@ -683,7 +683,7 @@ class HttpHeadersIo {
           },
           'remove': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2) {
-              throw RuntimeError('remove requires name and value arguments.');
+              throw RuntimeD4rtException('remove requires name and value arguments.');
             }
             (target as HttpHeaders).remove(
               positionalArgs[0] as String,
@@ -693,21 +693,21 @@ class HttpHeadersIo {
           },
           'removeAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeError('removeAll requires name argument.');
+              throw RuntimeD4rtException('removeAll requires name argument.');
             }
             (target as HttpHeaders).removeAll(positionalArgs[0] as String);
             return null;
           },
           'value': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeError('value requires name argument.');
+              throw RuntimeD4rtException('value requires name argument.');
             }
             return (target as HttpHeaders).value(positionalArgs[0] as String);
           },
           'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeError('forEach requires a function argument.');
+              throw RuntimeD4rtException('forEach requires a function argument.');
             }
             final callback = positionalArgs[0] as InterpretedFunction;
             (target as HttpHeaders).forEach((name, values) {
@@ -717,7 +717,7 @@ class HttpHeadersIo {
           },
           'noFolding': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeError('noFolding requires name argument.');
+              throw RuntimeD4rtException('noFolding requires name argument.');
             }
             (target as HttpHeaders).noFolding(positionalArgs[0] as String);
             return null;
@@ -794,7 +794,7 @@ class ContentTypeIo {
             if (positionalArgs.length < 2 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'ContentType constructor requires primaryType and subType arguments.');
             }
             return ContentType(
@@ -809,7 +809,7 @@ class ContentTypeIo {
         staticMethods: {
           'parse': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'ContentType.parse requires a String argument.');
             }
             return ContentType.parse(positionalArgs[0] as String);
@@ -847,7 +847,7 @@ class CookieIo {
             if (positionalArgs.length < 2 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Cookie constructor requires name and value arguments.');
             }
             return Cookie(
@@ -857,7 +857,7 @@ class CookieIo {
         staticMethods: {
           'fromSetCookieValue': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Cookie.fromSetCookieValue requires a String argument.');
             }
             return Cookie.fromSetCookieValue(positionalArgs[0] as String);
@@ -937,7 +937,7 @@ class HeaderValueIo {
         staticMethods: {
           'parse': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'HeaderValue.parse requires a String argument.');
             }
             return HeaderValue.parse(
@@ -985,7 +985,7 @@ class IoHttpStdlib {
           if (arguments.length != 2 ||
               arguments[0] is! String ||
               arguments[1] is! String) {
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 'HttpClientBasicCredentials requires username and password arguments.');
           }
           return HttpClientBasicCredentials(
@@ -998,7 +998,7 @@ class IoHttpStdlib {
           if (arguments.length != 2 ||
               arguments[0] is! String ||
               arguments[1] is! String) {
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 'HttpClientDigestCredentials requires username and password arguments.');
           }
           return HttpClientDigestCredentials(
@@ -1009,7 +1009,7 @@ class IoHttpStdlib {
         'HttpClientBearerCredentials',
         NativeFunction((visitor, arguments, namedArguments, typeArguments) {
           if (arguments.length != 1 || arguments[0] is! String) {
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 'HttpClientBearerCredentials requires a token argument.');
           }
           return HttpClientBearerCredentials(arguments[0] as String);

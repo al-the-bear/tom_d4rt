@@ -9,7 +9,7 @@ class CompleterAsync {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
-              throw RuntimeError('Completer constructor takes no arguments.');
+              throw RuntimeD4rtException('Completer constructor takes no arguments.');
             }
             return Completer<dynamic>();
           },
@@ -27,7 +27,7 @@ class CompleterAsync {
           'completeError': (visitor, target, positionalArgs, namedArgs, _) {
             final error = positionalArgs[0];
             if (error == null) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Completer.completeError requires a non-null error object.');
             }
             (target as Completer)

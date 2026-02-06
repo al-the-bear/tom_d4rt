@@ -35,7 +35,7 @@ class MapCore {
               } else if (entry is MapEntry) {
                 return entry;
               } else {
-                throw RuntimeError(
+                throw RuntimeD4rtException(
                     'fromEntries expects Iterable<MapEntry>, got ${entry.runtimeType}');
               }
             });
@@ -85,7 +85,7 @@ class MapCore {
               } else if (entry is MapEntry) {
                 return entry;
               } else {
-                throw RuntimeError(
+                throw RuntimeD4rtException(
                     'fromEntries expects Iterable<MapEntry>, got ${entry.runtimeType}');
               }
             });
@@ -113,7 +113,7 @@ class MapCore {
               } else if (entry is MapEntry) {
                 return entry;
               } else {
-                throw RuntimeError(
+                throw RuntimeD4rtException(
                     'addEntries expects Iterable<MapEntry>, got ${entry.runtimeType}');
               }
             });
@@ -182,7 +182,7 @@ class MapCore {
                   result.nativeObject is MapEntry) {
                 return result.nativeObject as MapEntry;
               } else {
-                throw RuntimeError(
+                throw RuntimeD4rtException(
                     'Map.map callback must return a MapEntry, got ${result.runtimeType}');
               }
             });
@@ -212,7 +212,7 @@ class MapEntryCore {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.length != 2) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'MapEntry constructor requires 2 arguments (key, value).');
             }
             return MapEntry(positionalArgs[0], positionalArgs[1]);

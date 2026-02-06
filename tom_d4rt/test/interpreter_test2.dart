@@ -23,7 +23,7 @@ void main() {
       expect(run('main() { return "Hello, World!"; }'), 'Hello, World!');
     });
     test('missing main', () {
-      expect(() => run('foo() {}'), throwsA(isA<RuntimeError>()));
+      expect(() => run('foo() {}'), throwsA(isA<RuntimeD4rtException>()));
     });
     test('syntax error', () {
       expect(() => run('main() {'), throwsA(isA<Exception>()));
@@ -387,10 +387,10 @@ void main() {
 
   test('AssertStatement', () {
     expect(
-        () => run('main() { assert(false); }'), throwsA(isA<RuntimeError>()));
+        () => run('main() { assert(false); }'), throwsA(isA<RuntimeD4rtException>()));
     expect(() => run('main() { assert(true); }'), returnsNormally);
     expect(() => run('main() { assert(1 == 2, "message"); }'),
-        throwsA(isA<RuntimeError>()));
+        throwsA(isA<RuntimeD4rtException>()));
   });
   test('AsExpression', () {
     expect(() => run('main() { return 123 as int; }'), returnsNormally);
@@ -598,7 +598,7 @@ void main() {
        }
        ''';
 
-      expect(() => run(source), throwsA(isA<RuntimeError>()));
+      expect(() => run(source), throwsA(isA<RuntimeD4rtException>()));
     });
 
     test('tear-off missing static method', () {
@@ -610,7 +610,7 @@ void main() {
       }
       ''';
 
-      expect(() => run(source), throwsA(isA<RuntimeError>()));
+      expect(() => run(source), throwsA(isA<RuntimeD4rtException>()));
     });
 
     test('pass function reference as argument', () {
@@ -691,12 +691,12 @@ void main() {
 
     test('record field access - positional out of bounds', () {
       final source = 'main() { var r = (1, 2); return r.\$3; }';
-      expect(() => run(source), throwsA(isA<RuntimeError>()));
+      expect(() => run(source), throwsA(isA<RuntimeD4rtException>()));
     });
 
     test('record field access - named not found', () {
       final source = 'main() { var r = (a: 1); return r.b; }';
-      expect(() => run(source), throwsA(isA<RuntimeError>()));
+      expect(() => run(source), throwsA(isA<RuntimeD4rtException>()));
     });
 
     test('nested record creation', () {

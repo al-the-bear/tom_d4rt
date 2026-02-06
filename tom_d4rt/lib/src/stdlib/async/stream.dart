@@ -46,18 +46,18 @@ class StreamAsync {
         staticMethods: {
           'value': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeError('Stream.value requires one argument.');
+              throw RuntimeD4rtException('Stream.value requires one argument.');
             }
             return Stream.value(positionalArgs[0]);
           },
           'error': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.error requires at least one argument.');
             }
             final error = positionalArgs[0];
             if (error == null) {
-              throw RuntimeError('Stream.error requires a non-null error.');
+              throw RuntimeD4rtException('Stream.error requires a non-null error.');
             }
             final stackTrace = positionalArgs.length > 1
                 ? positionalArgs[1] as StackTrace?
@@ -70,14 +70,14 @@ class StreamAsync {
           },
           'fromIterable': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Iterable) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.fromIterable requires an Iterable argument.');
             }
             return Stream.fromIterable(positionalArgs[0] as Iterable);
           },
           'periodic': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! Duration) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.periodic requires a Duration argument.');
             }
             final callback = positionalArgs.length > 1
@@ -92,14 +92,14 @@ class StreamAsync {
           },
           'fromFuture': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Future) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.fromFuture requires a Future argument.');
             }
             return Stream.fromFuture(positionalArgs[0] as Future);
           },
           'fromFutures': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Iterable) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.fromFutures requires an Iterable argument.');
             }
             return Stream.fromFutures((positionalArgs[0] as Iterable).cast());
@@ -107,7 +107,7 @@ class StreamAsync {
           'multi': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeError('Stream.multi requires an onListen function.');
+              throw RuntimeD4rtException('Stream.multi requires an onListen function.');
             }
             final onListen = positionalArgs[0] as InterpretedFunction;
             final isBroadcast = namedArgs['isBroadcast'] as bool? ?? false;
@@ -118,7 +118,7 @@ class StreamAsync {
           },
           'eventTransformed': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.eventTransformed requires source and mapSink.');
             }
             final source = positionalArgs[0] as Stream;
@@ -133,7 +133,7 @@ class StreamAsync {
           },
           'castFrom': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeError('Stream.castFrom requires a source stream.');
+              throw RuntimeD4rtException('Stream.castFrom requires a source stream.');
             }
             return Stream.castFrom(positionalArgs[0] as Stream);
           },
@@ -167,7 +167,7 @@ class StreamAsync {
           'map': (visitor, target, positionalArgs, namedArgs, _) {
             final mapper = positionalArgs[0];
             if (mapper is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.map requires an Function mapper argument.');
             }
             return (target as Stream)
@@ -176,7 +176,7 @@ class StreamAsync {
           'where': (visitor, target, positionalArgs, namedArgs, _) {
             final predicate = positionalArgs[0];
             if (predicate is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.where requires an Function predicate argument.');
             }
             return (target as Stream).where((event) {
@@ -187,7 +187,7 @@ class StreamAsync {
           'expand': (visitor, target, positionalArgs, namedArgs, _) {
             final converter = positionalArgs[0];
             if (converter is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.expand requires an Function converter argument.');
             }
             return (target as Stream).expand((event) {
@@ -198,7 +198,7 @@ class StreamAsync {
           'transform': (visitor, target, positionalArgs, namedArgs, _) {
             final streamTransformer = positionalArgs[0];
             if (streamTransformer is! StreamTransformer) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.transform requires a StreamTransformer argument.');
             }
             return (target as Stream).transform(streamTransformer);
@@ -206,7 +206,7 @@ class StreamAsync {
           'take': (visitor, target, positionalArgs, namedArgs, _) {
             final count = positionalArgs[0];
             if (count is! int) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.take requires an integer count argument.');
             }
             return (target as Stream).take(count);
@@ -214,7 +214,7 @@ class StreamAsync {
           'skip': (visitor, target, positionalArgs, namedArgs, _) {
             final count = positionalArgs[0];
             if (count is! int) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.skip requires an integer count argument.');
             }
             return (target as Stream).skip(count);
@@ -222,7 +222,7 @@ class StreamAsync {
           'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final predicate = positionalArgs[0];
             if (predicate is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.takeWhile requires an Function predicate argument.');
             }
             return (target as Stream).takeWhile((event) {
@@ -233,7 +233,7 @@ class StreamAsync {
           'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final predicate = positionalArgs[0];
             if (predicate is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.skipWhile requires an Function predicate argument.');
             }
             return (target as Stream).skipWhile((event) {
@@ -267,7 +267,7 @@ class StreamAsync {
           'pipe': (visitor, target, positionalArgs, namedArgs, _) {
             final streamConsumer = positionalArgs[0];
             if (streamConsumer is! StreamConsumer) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.pipe requires a StreamConsumer argument.');
             }
             return (target as Stream).pipe(streamConsumer);
@@ -275,7 +275,7 @@ class StreamAsync {
           'any': (visitor, target, positionalArgs, namedArgs, _) {
             final predicate = positionalArgs[0];
             if (predicate is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.any requires an Function predicate argument.');
             }
             return (target as Stream).any((event) {
@@ -285,7 +285,7 @@ class StreamAsync {
           },
           'contains': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.contains requires an element argument.');
             }
             return (target as Stream).contains(positionalArgs[0]);
@@ -293,7 +293,7 @@ class StreamAsync {
           'every': (visitor, target, positionalArgs, namedArgs, _) {
             final predicate = positionalArgs[0];
             if (predicate is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.every requires an Function predicate argument.');
             }
             return (target as Stream).every((event) {
@@ -304,7 +304,7 @@ class StreamAsync {
           'fold': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2 ||
                 positionalArgs[1] is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.fold requires initial value and InterpretedFunction combine arguments.');
             }
             final initialValue = positionalArgs[0];
@@ -318,7 +318,7 @@ class StreamAsync {
           'reduce': (visitor, target, positionalArgs, namedArgs, _) {
             final combine = positionalArgs[0];
             if (combine is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.reduce requires an Function combine argument.');
             }
             return (target as Stream).reduce(
@@ -329,7 +329,7 @@ class StreamAsync {
           'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             final action = positionalArgs[0];
             if (action is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.forEach requires an Function action argument.');
             }
             return (target as Stream).forEach(
@@ -353,7 +353,7 @@ class StreamAsync {
           'asyncMap': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.asyncMap requires a convert function.');
             }
             final convert = positionalArgs[0] as InterpretedFunction;
@@ -364,7 +364,7 @@ class StreamAsync {
           'asyncExpand': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.asyncExpand requires a convert function.');
             }
             final convert = positionalArgs[0] as InterpretedFunction;
@@ -378,7 +378,7 @@ class StreamAsync {
           'handleError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.handleError requires an onError function.');
             }
             final onError = positionalArgs[0] as InterpretedFunction;
@@ -389,7 +389,7 @@ class StreamAsync {
             return (target as Stream).handleError(
               (error, stackTrace) {
                 // Unwrap InternalInterpreterException to get the original thrown value
-                final actualError = error is InternalInterpreterException
+                final actualError = error is InternalInterpreterD4rtException
                     ? error.originalThrownValue
                     : error;
                 return callbackArity >= 2
@@ -399,7 +399,7 @@ class StreamAsync {
               test: test == null
                   ? null
                   : (error) {
-                      final actualError = error is InternalInterpreterException
+                      final actualError = error is InternalInterpreterD4rtException
                           ? error.originalThrownValue
                           : error;
                       return _runAction<bool>(visitor, test, [actualError]) == true;
@@ -408,7 +408,7 @@ class StreamAsync {
           },
           'timeout': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! Duration) {
-              throw RuntimeError('Stream.timeout requires a Duration.');
+              throw RuntimeD4rtException('Stream.timeout requires a Duration.');
             }
             final timeLimit = positionalArgs[0] as Duration;
             final onTimeout = namedArgs['onTimeout'] as InterpretedFunction?;
@@ -422,7 +422,7 @@ class StreamAsync {
           'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeError('Stream.firstWhere requires a test function.');
+              throw RuntimeD4rtException('Stream.firstWhere requires a test function.');
             }
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
@@ -435,7 +435,7 @@ class StreamAsync {
           'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeError('Stream.lastWhere requires a test function.');
+              throw RuntimeD4rtException('Stream.lastWhere requires a test function.');
             }
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
@@ -448,7 +448,7 @@ class StreamAsync {
           'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Stream.singleWhere requires a test function.');
             }
             final test = positionalArgs[0] as InterpretedFunction;
@@ -461,7 +461,7 @@ class StreamAsync {
           },
           'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! int) {
-              throw RuntimeError('Stream.elementAt requires an int index.');
+              throw RuntimeD4rtException('Stream.elementAt requires an int index.');
             }
             return (target as Stream).elementAt(positionalArgs[0] as int);
           },
@@ -564,19 +564,19 @@ class StreamSinkAsync {
         methods: {
           'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeError('StreamSink.add requires an event argument.');
+              throw RuntimeD4rtException('StreamSink.add requires an event argument.');
             }
             (target as StreamSink).add(positionalArgs[0]);
             return null;
           },
           'addError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'StreamSink.addError requires an error argument.');
             }
             final error = positionalArgs[0];
             if (error == null) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'StreamSink.addError requires a non-null error.');
             }
             final stackTrace = positionalArgs.length > 1
@@ -623,7 +623,7 @@ class StreamTransformerAsync {
           'fromBind': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'StreamTransformer.fromBind requires a bind function.');
             }
             final bind = positionalArgs[0] as InterpretedFunction;
@@ -633,7 +633,7 @@ class StreamTransformerAsync {
           },
           'castFrom': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'StreamTransformer.castFrom requires a source.');
             }
             return StreamTransformer.castFrom(
@@ -644,7 +644,7 @@ class StreamTransformerAsync {
         methods: {
           'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'StreamTransformer.bind requires a Stream argument.');
             }
             return (target as StreamTransformer)
@@ -665,7 +665,7 @@ class StreamIteratorAsync {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'StreamIterator constructor requires a Stream argument.');
             }
             return StreamIterator(positionalArgs[0] as Stream);
@@ -692,7 +692,7 @@ class MultiStreamControllerAsync {
         methods: {
           'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'MultiStreamController.add requires an event argument.');
             }
             (target as MultiStreamController).add(positionalArgs[0]);
@@ -700,7 +700,7 @@ class MultiStreamControllerAsync {
           },
           'addSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'MultiStreamController.addSync requires an event argument.');
             }
             (target as MultiStreamController).addSync(positionalArgs[0]);
@@ -708,12 +708,12 @@ class MultiStreamControllerAsync {
           },
           'addError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'MultiStreamController.addError requires an error argument.');
             }
             final error = positionalArgs[0];
             if (error == null) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'MultiStreamController.addError requires a non-null error.');
             }
             final stackTrace = positionalArgs.length > 1
@@ -724,12 +724,12 @@ class MultiStreamControllerAsync {
           },
           'addErrorSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'MultiStreamController.addErrorSync requires an error argument.');
             }
             final error = positionalArgs[0];
             if (error == null) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'MultiStreamController.addErrorSync requires a non-null error.');
             }
             final stackTrace = positionalArgs.length > 1
@@ -746,7 +746,7 @@ class MultiStreamControllerAsync {
           },
           'addStream': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! Stream) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'MultiStreamController.addStream requires a Stream argument.');
             }
             return (target as MultiStreamController)
@@ -808,14 +808,14 @@ class EventSinkAsync {
         methods: {
           'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeError('EventSink.add requires a value argument.');
+              throw RuntimeD4rtException('EventSink.add requires a value argument.');
             }
             (target as EventSink).add(positionalArgs[0]);
             return null;
           },
           'addError': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'EventSink.addError requires an error argument.');
             }
             final error = positionalArgs[0] as Object;

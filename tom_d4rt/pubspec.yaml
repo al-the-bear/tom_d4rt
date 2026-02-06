@@ -1,6 +1,6 @@
 name: tom_d4rt
 description: "D4rt - A Dart interpreter and runtime with bridging, security sandboxing, and dynamic code execution. Fork of D4rt with extended features."
-version: 1.6.0
+version: 1.6.1
 repository: https://github.com/al-the-bear/tom_module_d4rt
 homepage: https://github.com/al-the-bear/tom_module_d4rt
 platforms:

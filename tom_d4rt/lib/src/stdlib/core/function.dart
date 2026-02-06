@@ -9,7 +9,7 @@ class FunctionCore {
         staticMethods: {
           'apply': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'Function.apply requires a Callable as the first argument.');
             }
             final functionToApply = positionalArgs[0] as Callable;
@@ -29,7 +29,7 @@ class FunctionCore {
             if (target is Callable) {
               return target.call(visitor, positionalArgs, namedArgs);
             }
-            throw RuntimeError('Cannot call non-Callable Function');
+            throw RuntimeD4rtException('Cannot call non-Callable Function');
           },
           'hashCode': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Function).hashCode,

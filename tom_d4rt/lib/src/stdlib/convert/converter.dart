@@ -13,7 +13,7 @@ class ConverterConvert {
           'startChunkedConversion':
               (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Sink) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'startChunkedConversion requires one Sink argument.');
             }
             return (target as Converter)
@@ -21,13 +21,13 @@ class ConverterConvert {
           },
           'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
-              throw RuntimeError('bind requires one Stream argument.');
+              throw RuntimeD4rtException('bind requires one Stream argument.');
             }
             return (target as Converter).bind(positionalArgs[0] as Stream);
           },
           'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! Converter) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'fuse requires another Converter as argument.');
             }
             return (target as Converter).fuse(positionalArgs[0] as Converter);

@@ -11,7 +11,7 @@ class Int16ListTypedData {
             if (positionalArgs.length == 1 && positionalArgs[0] is int) {
               return Int16List(positionalArgs[0] as int);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Int16List constructor expects one int argument (length).");
           },
           'fromList': (visitor, positionalArgs, namedArgs) {
@@ -19,11 +19,11 @@ class Int16ListTypedData {
               final sourceList = positionalArgs[0] as List;
               final intList = sourceList.toNativeList().map((e) {
                 if (e is int) return e;
-                throw RuntimeError("Int16List.fromList expects a List<int>.");
+                throw RuntimeD4rtException("Int16List.fromList expects a List<int>.");
               }).toList();
               return Int16List.fromList(intList);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Int16List.fromList expects one List<int> argument.");
           },
           'view': (visitor, positionalArgs, namedArgs) {
@@ -36,7 +36,7 @@ class Int16ListTypedData {
                   positionalArgs.length > 2 ? positionalArgs[2] as int? : null;
               return Int16List.view(buffer, offsetInBytes, length);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Int16List.view expects ByteBuffer and optional offset/length arguments.");
           },
           'sublistView': (visitor, positionalArgs, namedArgs) {
@@ -49,7 +49,7 @@ class Int16ListTypedData {
                   positionalArgs.length > 2 ? positionalArgs[2] as int? : null;
               return Int16List.sublistView(data, start, end);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Int16List.sublistView expects TypedData and optional start/end arguments.");
           },
         },
@@ -61,7 +61,7 @@ class Int16ListTypedData {
                 positionalArgs[0] is int) {
               return target[positionalArgs[0] as int];
             }
-            throw RuntimeError("Int16List[index] expects an int index.");
+            throw RuntimeD4rtException("Int16List[index] expects an int index.");
           },
           '[]=': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is Int16List &&
@@ -73,7 +73,7 @@ class Int16ListTypedData {
               target[index] = value;
               return value;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Int16List[index] = value expects int index and int value.");
           },
 
@@ -139,55 +139,55 @@ class Int16ListTypedData {
         getters: {
           'length': (visitor, target) {
             if (target is Int16List) return target.length;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not an Int16List for getter 'length'");
           },
           'lengthInBytes': (visitor, target) {
             if (target is Int16List) return target.lengthInBytes;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not an Int16List for getter 'lengthInBytes'");
           },
           'elementSizeInBytes': (visitor, target) {
             if (target is Int16List) return target.elementSizeInBytes;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not an Int16List for getter 'elementSizeInBytes'");
           },
           'offsetInBytes': (visitor, target) {
             if (target is Int16List) return target.offsetInBytes;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not an Int16List for getter 'offsetInBytes'");
           },
           'buffer': (visitor, target) {
             if (target is Int16List) return target.buffer;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not an Int16List for getter 'buffer'");
           },
           'first': (visitor, target) {
             if (target is Int16List) return target.first;
-            throw RuntimeError("Target is not an Int16List for getter 'first'");
+            throw RuntimeD4rtException("Target is not an Int16List for getter 'first'");
           },
           'last': (visitor, target) {
             if (target is Int16List) return target.last;
-            throw RuntimeError("Target is not an Int16List for getter 'last'");
+            throw RuntimeD4rtException("Target is not an Int16List for getter 'last'");
           },
           'isEmpty': (visitor, target) {
             if (target is Int16List) return target.isEmpty;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not an Int16List for getter 'isEmpty'");
           },
           'isNotEmpty': (visitor, target) {
             if (target is Int16List) return target.isNotEmpty;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not an Int16List for getter 'isNotEmpty'");
           },
           'hashCode': (visitor, target) {
             if (target is Int16List) return target.hashCode;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not an Int16List for getter 'hashCode'");
           },
           'runtimeType': (visitor, target) {
             if (target is Int16List) return target.runtimeType;
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not an Int16List for getter 'runtimeType'");
           },
         },

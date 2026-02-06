@@ -13,6 +13,10 @@
 
 include: package:lints/recommended.yaml
 
+linter:
+  rules:
+    dangling_library_doc_comments: false
+
 # Ignore deprecated analyzer API warnings - upstream will migrate
 # Exclude example folder - those are standalone packages with their own analysis config
 analyzer:

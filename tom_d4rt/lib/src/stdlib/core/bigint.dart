@@ -110,25 +110,25 @@ class BigIntCore {
             if (positionalArgs[0] is BigInt) {
               return (target as BigInt) < (positionalArgs[0] as BigInt);
             }
-            throw RuntimeError("BigInt comparison requires another BigInt");
+            throw RuntimeD4rtException("BigInt comparison requires another BigInt");
           },
           '<=': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs[0] is BigInt) {
               return (target as BigInt) <= (positionalArgs[0] as BigInt);
             }
-            throw RuntimeError("BigInt comparison requires another BigInt");
+            throw RuntimeD4rtException("BigInt comparison requires another BigInt");
           },
           '>': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs[0] is BigInt) {
               return (target as BigInt) > (positionalArgs[0] as BigInt);
             }
-            throw RuntimeError("BigInt comparison requires another BigInt");
+            throw RuntimeD4rtException("BigInt comparison requires another BigInt");
           },
           '>=': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs[0] is BigInt) {
               return (target as BigInt) >= (positionalArgs[0] as BigInt);
             }
-            throw RuntimeError("BigInt comparison requires another BigInt");
+            throw RuntimeD4rtException("BigInt comparison requires another BigInt");
           },
         },
         getters: {

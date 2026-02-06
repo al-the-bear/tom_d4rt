@@ -11,7 +11,7 @@ class FileSystemEntityIo {
             if (positionalArgs.length != 2 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'FileSystemEntity.identical requires two String arguments (path1, path2).');
             }
             return FileSystemEntity.identical(
@@ -21,7 +21,7 @@ class FileSystemEntityIo {
             if (positionalArgs.length != 2 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'FileSystemEntity.identicalSync requires two String arguments (path1, path2).');
             }
             return FileSystemEntity.identicalSync(
@@ -29,14 +29,14 @@ class FileSystemEntityIo {
           },
           'isDirectory': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'FileSystemEntity.isDirectory requires one String argument (path).');
             }
             return FileSystemEntity.isDirectory(positionalArgs[0] as String);
           },
           'isDirectorySync': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'FileSystemEntity.isDirectorySync requires one String argument (path).');
             }
             return FileSystemEntity.isDirectorySync(
@@ -44,35 +44,35 @@ class FileSystemEntityIo {
           },
           'isFile': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'FileSystemEntity.isFile requires one String argument (path).');
             }
             return FileSystemEntity.isFile(positionalArgs[0] as String);
           },
           'isFileSync': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'FileSystemEntity.isFileSync requires one String argument (path).');
             }
             return FileSystemEntity.isFileSync(positionalArgs[0] as String);
           },
           'isLink': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'FileSystemEntity.isLink requires one String argument (path).');
             }
             return FileSystemEntity.isLink(positionalArgs[0] as String);
           },
           'isLinkSync': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'FileSystemEntity.isLinkSync requires one String argument (path).');
             }
             return FileSystemEntity.isLinkSync(positionalArgs[0] as String);
           },
           'type': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'FileSystemEntity.type requires one String argument (path).');
             }
             return FileSystemEntity.type(positionalArgs[0] as String,
@@ -80,7 +80,7 @@ class FileSystemEntityIo {
           },
           'typeSync': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'FileSystemEntity.typeSync requires one String argument (path).');
             }
             return FileSystemEntity.typeSync(positionalArgs[0] as String,
@@ -88,7 +88,7 @@ class FileSystemEntityIo {
           },
           'parentOf': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'FileSystemEntity.parentOf requires one String argument (path).');
             }
             return FileSystemEntity.parentOf(positionalArgs[0] as String);
@@ -112,7 +112,7 @@ class FileSystemEntityIo {
           },
           'rename': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'FileSystemEntity.rename requires one String argument (newPath).');
             }
             return (target as FileSystemEntity)
@@ -120,7 +120,7 @@ class FileSystemEntityIo {
           },
           'renameSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'FileSystemEntity.renameSync requires one String argument (newPath).');
             }
             (target as FileSystemEntity)
@@ -172,14 +172,14 @@ class FileStatIo {
         staticMethods: {
           'stat': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'FileStat.stat requires one String argument (path).');
             }
             return FileStat.stat(positionalArgs[0] as String);
           },
           'statSync': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'FileStat.statSync requires one String argument (path).');
             }
             return FileStat.statSync(positionalArgs[0] as String);

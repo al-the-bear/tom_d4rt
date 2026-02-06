@@ -58,7 +58,7 @@ class ConvertStdlib {
         'jsonEncode',
         NativeFunction((visitor, arguments, namedArguments, typeArguments) {
           if (arguments.length != 1) {
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 'jsonEncode requires one positional argument (object).');
           }
           final toEncodableArg =
@@ -75,7 +75,7 @@ class ConvertStdlib {
         'jsonDecode',
         NativeFunction((visitor, arguments, namedArguments, typeArguments) {
           if (arguments.length != 1 || arguments[0] is! String) {
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 'jsonDecode requires one positional argument (String source).');
           }
           final reviverArg = namedArguments['reviver'] as InterpretedFunction?;
@@ -100,12 +100,12 @@ class ConvertStdlib {
         'base64Encode',
         NativeFunction((visitor, arguments, namedArguments, typeArguments) {
           if (arguments.length != 1) {
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 'base64Encode requires one positional argument (List<int> bytes).');
           }
           final bytes = arguments[0];
           if (bytes is! List) {
-            throw RuntimeError('base64Encode requires a List<int> argument.');
+            throw RuntimeD4rtException('base64Encode requires a List<int> argument.');
           }
           return base64Encode(bytes.cast<int>());
         }, arity: 1, name: 'base64Encode'));
@@ -114,7 +114,7 @@ class ConvertStdlib {
         'base64Decode',
         NativeFunction((visitor, arguments, namedArguments, typeArguments) {
           if (arguments.length != 1 || arguments[0] is! String) {
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 'base64Decode requires one positional argument (String source).');
           }
           return base64Decode(arguments[0] as String);

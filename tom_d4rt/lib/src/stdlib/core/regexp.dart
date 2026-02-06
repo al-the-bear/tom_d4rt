@@ -87,7 +87,7 @@ class RegExpMatchCore {
           },
           '[]': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'RegExpMatch index operator [] requires one integer argument (group index).');
             }
             return (target as RegExpMatch)[positionalArgs[0] as int];
@@ -105,7 +105,7 @@ class RegExpMatchCore {
           // RegExpMatch-specific methods
           'namedGroup': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'RegExpMatch.namedGroup requires one String argument (group name).');
             }
             return (target as RegExpMatch)

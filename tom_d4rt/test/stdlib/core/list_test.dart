@@ -796,7 +796,7 @@ void main() {
         }
         ''';
         // Dart's elementAtOrNull throws RangeError for negative indices
-        expect(() => execute(source), throwsA(isA<RuntimeError>()));
+        expect(() => execute(source), throwsA(isA<RuntimeD4rtException>()));
       });
     });
 

@@ -42,7 +42,7 @@ class JsonCodecConvert {
           'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Codec<String, dynamic>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'JsonCodec.fuse requires another Codec<String, dynamic> as argument.');
             }
             return (target as JsonCodec)
@@ -81,7 +81,7 @@ class JsonEncoderConvert {
           'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<String, dynamic>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'JsonEncoder.fuse requires another Converter<String, dynamic> as argument.');
             }
             return (target as JsonEncoder)
@@ -91,7 +91,7 @@ class JsonEncoderConvert {
               (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<String>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'startChunkedConversion requires a Sink<String> argument.');
             }
             return (target as JsonEncoder)
@@ -100,7 +100,7 @@ class JsonEncoderConvert {
           'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<dynamic>) {
-              throw RuntimeError('bind requires a Stream<dynamic> argument.');
+              throw RuntimeD4rtException('bind requires a Stream<dynamic> argument.');
             }
             return (target as JsonEncoder)
                 .bind(positionalArgs[0] as Stream<dynamic>);
@@ -138,7 +138,7 @@ class JsonDecoderConvert {
           'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<dynamic, dynamic>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'JsonDecoder.fuse requires another Converter<dynamic, dynamic> as argument.');
             }
             return (target as JsonDecoder)
@@ -148,7 +148,7 @@ class JsonDecoderConvert {
               (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<dynamic>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'startChunkedConversion requires a Sink<dynamic> argument.');
             }
             return (target as JsonDecoder)
@@ -157,7 +157,7 @@ class JsonDecoderConvert {
           'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<String>) {
-              throw RuntimeError('bind requires a Stream<String> argument.');
+              throw RuntimeD4rtException('bind requires a Stream<String> argument.');
             }
             return (target as JsonDecoder)
                 .bind(positionalArgs[0] as Stream<String>);

@@ -200,7 +200,7 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
               "[DeclarationVisitor.visitFunctionDeclaration]     Type '$typeName' resolved to non-RuntimeType: $resolvedType. Using placeholder.");
           declaredReturnType = BridgedClass(nativeType: Object, name: typeName);
         }
-      } on RuntimeError catch (e) {
+      } on RuntimeD4rtException catch (e) {
         Logger.warn(
             "[DeclarationVisitor.visitFunctionDeclaration]     Type '$typeName' not found in environment (RuntimeError: ${e.message}). Using placeholder.");
         declaredReturnType = BridgedClass(nativeType: Object, name: typeName);

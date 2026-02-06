@@ -12,7 +12,7 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
-import 'package:tom_d4rt_dcli/dartscript.dart';
+import 'package:tom_d4rt_dcli/dartscript.b.dart';
 import 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart';
 
 /// Output capture for testing.

@@ -9,7 +9,7 @@ class LinkedListCollection {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   "Constructor LinkedList() does not take arguments.");
             }
             return LinkedList<BridgedLinkedListEntry>();
@@ -24,7 +24,7 @@ class LinkedListCollection {
               target.add(positionalArgs[0] as BridgedLinkedListEntry);
               return null;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for LinkedList.add. Expected a BridgedLinkedListEntry.");
           },
           'remove': (visitor, target, positionalArgs, namedArgs, _) {
@@ -34,7 +34,7 @@ class LinkedListCollection {
                 namedArgs.isEmpty) {
               return target.remove(positionalArgs[0] as BridgedLinkedListEntry);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Invalid arguments for LinkedList.remove. Expected a BridgedLinkedListEntry.");
           },
           'clear': (visitor, target, positionalArgs, namedArgs, _) {
@@ -44,21 +44,21 @@ class LinkedListCollection {
               target.clear();
               return null;
             }
-            throw RuntimeError("Invalid arguments for LinkedList.clear");
+            throw RuntimeD4rtException("Invalid arguments for LinkedList.clear");
           },
           'removeFirst': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedList<BridgedLinkedListEntry> &&
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
               if (target.isEmpty) {
-                throw RuntimeError(
+                throw RuntimeD4rtException(
                     "Cannot removeFirst from an empty LinkedList.");
               }
               final firstEntry = target.first;
               firstEntry.unlink();
               return firstEntry;
             }
-            throw RuntimeError("Invalid arguments for LinkedList.removeFirst");
+            throw RuntimeD4rtException("Invalid arguments for LinkedList.removeFirst");
           },
         },
         getters: {
@@ -66,41 +66,41 @@ class LinkedListCollection {
             if (target is LinkedList<BridgedLinkedListEntry>) {
               return target.length;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a LinkedList for getter 'length'");
           },
           'isEmpty': (visitor, target) {
             if (target is LinkedList<BridgedLinkedListEntry>) {
               return target.isEmpty;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a LinkedList for getter 'isEmpty'");
           },
           'isNotEmpty': (visitor, target) {
             if (target is LinkedList<BridgedLinkedListEntry>) {
               return target.isNotEmpty;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a LinkedList for getter 'isNotEmpty'");
           },
           'first': (visitor, target) {
             if (target is LinkedList<BridgedLinkedListEntry>) {
               if (target.isEmpty) {
-                throw RuntimeError(
+                throw RuntimeD4rtException(
                     "Cannot get first from an empty LinkedList.");
               }
               return target.first;
             }
-            throw RuntimeError("Target is not a LinkedList for getter 'first'");
+            throw RuntimeD4rtException("Target is not a LinkedList for getter 'first'");
           },
           'last': (visitor, target) {
             if (target is LinkedList<BridgedLinkedListEntry>) {
               if (target.isEmpty) {
-                throw RuntimeError("Cannot get last from an empty LinkedList.");
+                throw RuntimeD4rtException("Cannot get last from an empty LinkedList.");
               }
               return target.last;
             }
-            throw RuntimeError("Target is not a LinkedList for getter 'last'");
+            throw RuntimeD4rtException("Target is not a LinkedList for getter 'last'");
           },
         },
       );
@@ -126,7 +126,7 @@ class LinkedListEntryCollection {
             if (positionalArgs.length == 1 && namedArgs.isEmpty) {
               return BridgedLinkedListEntry(positionalArgs[0]);
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Constructor LinkedListEntry(value) expects one positional argument.");
           },
         },
@@ -136,13 +136,13 @@ class LinkedListEntryCollection {
                 positionalArgs.isEmpty &&
                 namedArgs.isEmpty) {
               if (target.list == null) {
-                throw RuntimeError(
+                throw RuntimeD4rtException(
                     "Cannot unlink an entry that is not in a list or already unlinked.");
               }
               target.unlink();
               return null;
             }
-            throw RuntimeError("Invalid arguments for LinkedListEntry.unlink");
+            throw RuntimeD4rtException("Invalid arguments for LinkedListEntry.unlink");
           },
         },
         getters: {
@@ -150,28 +150,28 @@ class LinkedListEntryCollection {
             if (target is BridgedLinkedListEntry) {
               return target.value;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a LinkedListEntry for getter 'value'");
           },
           'list': (visitor, target) {
             if (target is BridgedLinkedListEntry) {
               return target.list;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a LinkedListEntry for getter 'list'");
           },
           'previous': (visitor, target) {
             if (target is BridgedLinkedListEntry) {
               return target.previous;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a LinkedListEntry for getter 'previous'");
           },
           'next': (visitor, target) {
             if (target is BridgedLinkedListEntry) {
               return target.next;
             }
-            throw RuntimeError(
+            throw RuntimeD4rtException(
                 "Target is not a LinkedListEntry for getter 'next'");
           },
         },

@@ -16,7 +16,7 @@ void main() {
     void expectUnsupportedError(Function() action) {
       expect(
           action,
-          throwsA(isA<RuntimeError>().having(
+          throwsA(isA<RuntimeD4rtException>().having(
               (e) => e.message,
               'message',
               anyOf(contains('Unsupported operation'),

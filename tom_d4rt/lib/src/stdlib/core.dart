@@ -113,7 +113,7 @@ class CoreStdlib {
         'identical',
         NativeFunction((visitor, arguments, namedArguments, typeArguments) {
           if (arguments.length != 2) {
-            throw RuntimeError('identical requires two arguments.');
+            throw RuntimeD4rtException('identical requires two arguments.');
           }
           return identical(arguments[0], arguments[1]);
         }, arity: 2, name: 'identical'));

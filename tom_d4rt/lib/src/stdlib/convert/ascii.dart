@@ -15,14 +15,14 @@ class AsciiCodecConvert {
         methods: {
           'encode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'AsciiCodec.encode requires a String argument.');
             }
             return (target as AsciiCodec).encode(positionalArgs[0] as String);
           },
           'decode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
-              throw RuntimeError('AsciiCodec.decode requires a List argument.');
+              throw RuntimeD4rtException('AsciiCodec.decode requires a List argument.');
             }
             final allowInvalid = namedArgs['allowInvalid'] as bool?;
             return (target as AsciiCodec).decode(
@@ -32,7 +32,7 @@ class AsciiCodecConvert {
           'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Codec<List<int>, dynamic>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'AsciiCodec.fuse requires another Codec<List<int>, dynamic> as argument.');
             }
             return (target as AsciiCodec)
@@ -59,7 +59,7 @@ class AsciiEncoderConvert {
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {
             if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'AsciiEncoder constructor takes no arguments.');
             }
             return AsciiEncoder();
@@ -68,7 +68,7 @@ class AsciiEncoderConvert {
         methods: {
           'convert': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'AsciiEncoder.convert requires a String argument.');
             }
             return (target as AsciiEncoder)
@@ -78,7 +78,7 @@ class AsciiEncoderConvert {
               (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<List<int>>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'startChunkedConversion requires a Sink<List<int>> argument.');
             }
             return (target as AsciiEncoder)
@@ -87,7 +87,7 @@ class AsciiEncoderConvert {
           'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<String>) {
-              throw RuntimeError('bind requires a Stream<String> argument.');
+              throw RuntimeD4rtException('bind requires a Stream<String> argument.');
             }
             return (target as AsciiEncoder)
                 .bind(positionalArgs[0] as Stream<String>);
@@ -95,7 +95,7 @@ class AsciiEncoderConvert {
           'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<List<int>, dynamic>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'AsciiEncoder.fuse requires another Converter<List<int>, dynamic> as argument.');
             }
             return (target as AsciiEncoder)
@@ -129,7 +129,7 @@ class AsciiDecoderConvert {
         methods: {
           'convert': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'AsciiDecoder.convert requires a List argument.');
             }
             return (target as AsciiDecoder)
@@ -139,7 +139,7 @@ class AsciiDecoderConvert {
               (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Sink<String>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'startChunkedConversion requires a Sink<String> argument.');
             }
             return (target as AsciiDecoder)
@@ -148,7 +148,7 @@ class AsciiDecoderConvert {
           'bind': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Stream<List<int>>) {
-              throw RuntimeError('bind requires a Stream<List<int>> argument.');
+              throw RuntimeD4rtException('bind requires a Stream<List<int>> argument.');
             }
             return (target as AsciiDecoder)
                 .bind(positionalArgs[0] as Stream<List<int>>);
@@ -156,7 +156,7 @@ class AsciiDecoderConvert {
           'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Converter<String, dynamic>) {
-              throw RuntimeError(
+              throw RuntimeD4rtException(
                   'AsciiDecoder.fuse requires another Converter<String, dynamic> as argument.');
             }
             return (target as AsciiDecoder)
