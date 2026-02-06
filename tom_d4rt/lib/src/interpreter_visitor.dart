@@ -384,7 +384,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     } on RuntimeError catch (thisErr) {
       // 'this' not found OR instance.get() failed
       // If get() failed with a specific error, propagate it if it is NOT "Undefined property".
-      if (thisErr.message.contains("Undefined property '$name'")) {
+      if (thisErr.message.contains("Undefined property '$name'") ||
+          thisErr.message.contains("Undefined property or method '$name'")) {
         Logger.debug(
             "[SimpleIdentifier] Direct access failed for '$name' via implicit 'this'. Trying extension lookup on ${thisInstance?.runtimeType}.");
         if (thisInstance != null) {
@@ -4604,8 +4605,30 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "Cannot set property '$propertyName' on ${targetValue.runtimeType} in cascade.");
       }
     } else if (lhs is IndexExpression) {
-      // Index assignment: targetValue[index] op= rhsValue
+      // Index assignment in cascade. The IndexExpression may target:
+      // 1. The cascade target directly: ..[index] = value (lhs.target is null or CascadeExpression)
+      // 2. A property on the cascade target: ..property[index] = value (lhs.target is PropertyAccess)
       final indexValue = lhs.index.accept<Object?>(this);
+
+      // Bug-94 FIX: Resolve the actual indexable target. If the IndexExpression
+      // has an explicit target (e.g. PropertyAccess for ..headers['key']),
+      // resolve that property on the cascade target first.
+      Object? indexTarget = targetValue;
+      final lhsTarget = lhs.target;
+      if (lhsTarget != null && lhsTarget is PropertyAccess) {
+        final propName = lhsTarget.propertyName.name;
+        if (targetValue is InterpretedInstance) {
+          indexTarget = targetValue.get(propName);
+        } else if (toBridgedInstance(targetValue).$2) {
+          final bridgedInstance = toBridgedInstance(targetValue).$1!;
+          final getter = bridgedInstance.bridgedClass
+              .findInstanceGetterAdapter(propName);
+          if (getter != null) {
+            indexTarget = getter(this, bridgedInstance.nativeObject);
+          }
+        }
+      }
+
       Object? newValue;
 
       if (operatorType == TokenType.EQ) {
@@ -4613,14 +4636,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       } else {
         // Compound assignment
         Object? currentValue;
-        if (targetValue is List) {
+        if (indexTarget is List) {
           if (indexValue is! int) throw RuntimeError('List index must be int.');
-          if (indexValue < 0 || indexValue >= targetValue.length) {
+          if (indexValue < 0 || indexValue >= indexTarget.length) {
             throw RuntimeError('Index out of range.');
           }
-          currentValue = targetValue[indexValue];
-        } else if (targetValue is Map) {
-          currentValue = targetValue[indexValue];
+          currentValue = indexTarget[indexValue];
+        } else if (indexTarget is Map) {
+          currentValue = indexTarget[indexValue];
         } else {
           throw RuntimeError(
               "Compound index assignment target must be List or Map in cascade.");
@@ -4629,16 +4652,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
 
       // Set the value
-      if (targetValue is List) {
+      if (indexTarget is List) {
         if (indexValue is! int) throw RuntimeError('List index must be int.');
-        if (indexValue < 0 || indexValue >= targetValue.length) {
+        if (indexValue < 0 || indexValue >= indexTarget.length) {
           throw RuntimeError('Index out of range.');
         }
-        targetValue[indexValue] = newValue;
-      } else if (targetValue is Map) {
-        targetValue[indexValue] = newValue;
+        indexTarget[indexValue] = newValue;
+      } else if (indexTarget is Map) {
+        indexTarget[indexValue] = newValue;
       } else {
-        // Should have been caught earlier
         throw RuntimeError(
             "Index assignment target must be List or Map in cascade.");
       }
@@ -5096,6 +5118,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               if (currentCallable != null && currentCallable.isAsync && returnValue is Future) {
                 // Allow returning Future from async function - Dart awaits it
                 showError = false;
+              }
+
+              // Bug-93 FIX: Dart implicitly promotes int to double when the
+              // declared return type is double and the value is an int.
+              if (declaredType.name == 'double' && returnValue is int) {
+                showError = false;
+                returnValue = returnValue.toDouble();
               }
 
               if (showError) {

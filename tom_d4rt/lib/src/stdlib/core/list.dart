@@ -177,11 +177,17 @@ class ListCore {
           },
           'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             final callback = positionalArgs[0];
-            if (callback is! InterpretedFunction) {
-              throw RuntimeError('Expected a InterpretedFunction for forEach');
-            }
+            // Bug-95 FIX: Accept both InterpretedFunction/Callable and native
+            // Dart Function tear-offs (like `print`).
             for (final element in target as List) {
-              callback.call(visitor, [element]);
+              if (callback is Callable) {
+                callback.call(visitor, [element], {});
+              } else if (callback is Function) {
+                callback(element);
+              } else {
+                throw RuntimeError(
+                    'Expected a function for forEach, got ${callback.runtimeType}');
+              }
             }
             return null;
           },

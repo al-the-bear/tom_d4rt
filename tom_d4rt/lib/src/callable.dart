@@ -473,6 +473,12 @@ class InterpretedFunction implements Callable {
     final providedNamedArgs = namedArguments;
     final processedParamNames = <String>{};
 
+    // Bug-96 FIX: Track super.param forwarding values.
+    // These are collected during parameter processing and forwarded
+    // to the super constructor call.
+    final superPositionalForwards = <Object?>[];
+    final superNamedForwards = <String, Object?>{};
+
     if (params != null) {
       for (final param in params) {
         String? paramName;
@@ -482,6 +488,7 @@ class InterpretedFunction implements Callable {
         bool isNamed = false;
         bool isRequiredNamed = false;
         bool isFieldInitializing = false; // NEW flag
+        bool isSuperParameter = false; // Bug-96: super.param forwarding
 
         // Determine parameter info
         FormalParameter actualParam =
@@ -500,6 +507,10 @@ class InterpretedFunction implements Callable {
           // Check if it's specifically a field-initializing parameter (this.x)
           if (actualParam is FieldFormalParameter) {
             isFieldInitializing = true;
+          }
+          // Bug-96: Check if it's a super-forwarding parameter (super.x)
+          if (actualParam is SuperFormalParameter) {
+            isSuperParameter = true;
           }
         } else {
           throw TomUnimplementedError(
@@ -550,7 +561,17 @@ class InterpretedFunction implements Callable {
         }
 
         // Define variable in execution scope OR Initialize field
-        if (isFieldInitializing) {
+        if (isSuperParameter) {
+          // Bug-96: It's a `super.paramName` parameter. Collect the value
+          // to forward to the super constructor call.
+          if (isNamed || isRequiredNamed) {
+            superNamedForwards[paramName] = valueToDefine;
+          } else {
+            superPositionalForwards.add(valueToDefine);
+          }
+          // Also define it in the local scope so it can be referenced in the body
+          executionEnvironment.define(paramName, valueToDefine);
+        } else if (isFieldInitializing) {
           // It's a `this.fieldName` parameter. Initialize the field directly.
           final thisValue = _closure.get('this')
               as RuntimeValue; // Get 'this' as RuntimeValue
@@ -804,14 +825,16 @@ class InterpretedFunction implements Callable {
       }
 
       // If no explicit super() or this() was called, and there IS a superclass,
-      // implicitly call the superclass's unnamed constructor with no arguments.
+      // implicitly call the superclass's unnamed constructor.
+      // Bug-96 FIX: Pass any collected super.param forwarding values.
       if (!explicitSuperCalled && superClass != null) {
         final defaultSuperConstructor = superClass.findConstructor('');
         if (defaultSuperConstructor != null) {
           // Call the default super constructor, bound to the *current* instance
           // NOTE: Default super constructor call CANNOT suspend
           final defaultSuperResult =
-              defaultSuperConstructor.bind(thisValue).call(visitor, [], {});
+              defaultSuperConstructor.bind(thisValue).call(
+                  visitor, superPositionalForwards, superNamedForwards);
           if (defaultSuperResult is AsyncSuspensionRequest) {
             // Should not happen as constructors are not async
             throw TomStateError(

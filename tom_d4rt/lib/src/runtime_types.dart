@@ -348,12 +348,14 @@ class InterpretedClass implements Callable, RuntimeType {
 
     if (bound.name == 'Comparable') {
       // Check if the type implements Comparable
+      // Bug-97 FIX: num also implements Comparable<num>
       if (typeArg is BridgedClass) {
         try {
           // Basic check for common comparable types
           return typeArg.nativeType == String ||
               typeArg.nativeType == int ||
               typeArg.nativeType == double ||
+              typeArg.nativeType == num ||
               typeArg.nativeType == DateTime;
         } catch (e) {
           return false;
@@ -361,7 +363,8 @@ class InterpretedClass implements Callable, RuntimeType {
       }
       return typeArg.name == 'String' ||
           typeArg.name == 'int' ||
-          typeArg.name == 'double';
+          typeArg.name == 'double' ||
+          typeArg.name == 'num';
     }
 
     // Check if the type argument is a subtype of the bound

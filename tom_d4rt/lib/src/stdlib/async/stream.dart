@@ -383,12 +383,27 @@ class StreamAsync {
             }
             final onError = positionalArgs[0] as InterpretedFunction;
             final test = namedArgs['test'] as InterpretedFunction?;
+            // Dart's handleError callback can take 1 or 2 arguments
+            // Check the callback arity to pass the correct number of args
+            final callbackArity = onError.arity;
             return (target as Stream).handleError(
-              (error, stackTrace) =>
-                  _runAction<void>(visitor, onError, [error, stackTrace]),
+              (error, stackTrace) {
+                // Unwrap InternalInterpreterException to get the original thrown value
+                final actualError = error is InternalInterpreterException
+                    ? error.originalThrownValue
+                    : error;
+                return callbackArity >= 2
+                    ? _runAction<void>(visitor, onError, [actualError, stackTrace])
+                    : _runAction<void>(visitor, onError, [actualError]);
+              },
               test: test == null
                   ? null
-                  : (error) => _runAction<bool>(visitor, test, [error]) == true,
+                  : (error) {
+                      final actualError = error is InternalInterpreterException
+                          ? error.originalThrownValue
+                          : error;
+                      return _runAction<bool>(visitor, test, [actualError]) == true;
+                    },
             );
           },
           'timeout': (visitor, target, positionalArgs, namedArgs, _) {

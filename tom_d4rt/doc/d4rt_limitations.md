@@ -90,13 +90,13 @@ Combined list of all limitations and bugs, sorted by status (Fixed → TODO → 
 | Bug-90 | [Mixin on constraint abstract getter false positive](#bug-90-mixin-on-constraint-abstract-getter-false-positive) — `dart_overview_bugs_test: Bug-90` | Medium | ✅ Fixed |
 | Bug-91 | [Imported extensions on bridged types fail](#bug-91-imported-extensions-on-bridged-types-fail) — `dart_overview_bugs_test: Bug-91` | Medium | ✅ Fixed |
 | Bug-92 | [Future factory constructor returns BridgedInstance&lt;Object&gt;](#bug-92-future-factory-constructor-returns-bridgedinstanceobject) — `dart_overview_bugs_test: Bug-92` | Medium | ✅ Fixed |
-| Bug-93 | [Int not implicitly promoted to double return type](#bug-93-int-not-implicitly-promoted-to-double-return-type) — `dart_overview_bugs_test: Bug-93` | Low | ⬜ TODO |
-| Bug-94 | [Cascade index assignment on property fails](#bug-94-cascade-index-assignment-on-property-fails) — `dart_overview_bugs_test: Bug-94` | Medium | ⬜ TODO |
-| Bug-95 | [List.forEach with native function tear-off fails](#bug-95-listforeach-with-native-function-tear-off-fails) — `dart_overview_bugs_test: Bug-95` | Medium | ⬜ TODO |
-| Bug-96 | [super.name constructor parameter forwarding fails](#bug-96-supername-constructor-parameter-forwarding-fails) — `dart_overview_bugs_test: Bug-96` | Medium | ⬜ TODO |
-| Bug-97 | [num not recognized as satisfying Comparable bound](#bug-97-num-not-recognized-as-satisfying-comparable-bound) — `dart_overview_bugs_test: Bug-97` | Low | ⬜ TODO |
-| Bug-98 | [Extension getter on bridged List not resolved](#bug-98-extension-getter-on-bridged-list-not-resolved) — `dart_overview_bugs_test: Bug-98` | Medium | ⬜ TODO |
-| Bug-99 | [Stream.handleError callback receives wrong argument count](#bug-99-streamhandleerror-callback-receives-wrong-argument-count) — `dart_overview_bugs_test: Bug-99` | Low | ⬜ TODO |
+| Bug-93 | [Int not implicitly promoted to double return type](#bug-93-int-not-implicitly-promoted-to-double-return-type) — `dart_overview_bugs_test: Bug-93` | Low | ✅ Fixed |
+| Bug-94 | [Cascade index assignment on property fails](#bug-94-cascade-index-assignment-on-property-fails) — `dart_overview_bugs_test: Bug-94` | Medium | ✅ Fixed |
+| Bug-95 | [List.forEach with native function tear-off fails](#bug-95-listforeach-with-native-function-tear-off-fails) — `dart_overview_bugs_test: Bug-95` | Medium | ✅ Fixed |
+| Bug-96 | [super.name constructor parameter forwarding fails](#bug-96-supername-constructor-parameter-forwarding-fails) — `dart_overview_bugs_test: Bug-96` | Medium | ✅ Fixed |
+| Bug-97 | [num not recognized as satisfying Comparable bound](#bug-97-num-not-recognized-as-satisfying-comparable-bound) — `dart_overview_bugs_test: Bug-97` | Low | ✅ Fixed |
+| Bug-98 | [Extension getter on bridged List not resolved](#bug-98-extension-getter-on-bridged-list-not-resolved) — `dart_overview_bugs_test: Bug-98` | Medium | ✅ Fixed |
+| Bug-99 | [Stream.handleError callback receives wrong argument count](#bug-99-streamhandleerror-callback-receives-wrong-argument-count) — `dart_overview_bugs_test: Bug-99` | Low | ✅ Fixed |
 | Lim-3 | [Isolate execution with interpreted code](#lim-3-isolate-execution-with-interpreted-code) — `limitations_and_bugs_test: Lim-3` (1) | Fundamental | 🚫 Won't Fix |
 | Bug-14 | [Records with named fields or >9 positional fields return InterpretedRecord](#bug-14-records-with-named-fields-or-9-positional-fields) — `limitations_and_bugs_test: Bug-14` (2) | High | 🚫 Won't Fix |
 
