@@ -22,8 +22,6 @@
 library;
 
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
@@ -61,107 +59,6 @@ Future<dynamic> executeAsync(
     return await result.timeout(timeout);
   }
   return result;
-}
-
-/// Execute D4rt code in a subprocess with timeout.
-/// Returns the result if successful within timeout, throws on timeout or error.
-/// This is used for tests that might hang (infinite loops, etc).
-Future<dynamic> executeInSubprocess(
-  String source, {
-  Duration timeout = const Duration(seconds: 5),
-}) async {
-  // Create a temporary Dart script that runs D4rt
-  final tempDir = await Directory.systemTemp.createTemp('d4rt_test_');
-  final scriptFile = File('${tempDir.path}/test_script.dart');
-
-  // Get the path to the tom_d4rt package
-  final packageRoot = Directory.current.path;
-
-  final scriptContent = '''
-import 'dart:convert';
-import 'package:tom_d4rt/d4rt.dart';
-
-void main() {
-  final source = ${_escapeStringLiteral(source)};
-  
-  final d4rt = D4rt()..setDebug(false);
-  d4rt.grant(FilesystemPermission.any);
-  d4rt.grant(NetworkPermission.any);
-  d4rt.grant(ProcessRunPermission.any);
-  d4rt.grant(IsolatePermission.any);
-  
-  try {
-    final result = d4rt.execute(
-      library: 'package:test/main.dart',
-      sources: {'package:test/main.dart': source},
-    );
-    
-    if (result is Future) {
-      result.then((value) {
-        print('RESULT:\${jsonEncode(value)}');
-      }).catchError((e) {
-        print('ERROR:\$e');
-      });
-    } else {
-      print('RESULT:\${jsonEncode(result)}');
-    }
-  } catch (e) {
-    print('ERROR:\$e');
-  }
-}
-''';
-
-  await scriptFile.writeAsString(scriptContent);
-
-  try {
-    final process = await Process.start(
-      'dart',
-      ['run', '--packages=$packageRoot/.dart_tool/package_config.json', scriptFile.path],
-      workingDirectory: packageRoot,
-    );
-
-    final stdoutBuffer = StringBuffer();
-    final stderrBuffer = StringBuffer();
-
-    process.stdout.transform(utf8.decoder).listen((data) => stdoutBuffer.write(data));
-    process.stderr.transform(utf8.decoder).listen((data) => stderrBuffer.write(data));
-
-    final completed = await process.exitCode.timeout(
-      timeout,
-      onTimeout: () {
-        process.kill(ProcessSignal.sigkill);
-        throw TimeoutException('Process timed out after \${timeout.inSeconds} seconds');
-      },
-    );
-
-    final stdout = stdoutBuffer.toString();
-    final stderr = stderrBuffer.toString();
-
-    if (stdout.contains('RESULT:')) {
-      final resultLine = stdout.split('\n').firstWhere((l) => l.startsWith('RESULT:'));
-      final jsonStr = resultLine.substring(7);
-      return jsonDecode(jsonStr);
-    } else if (stdout.contains('ERROR:') || stderr.isNotEmpty) {
-      throw Exception('Subprocess error: \$stdout\$stderr');
-    } else if (completed != 0) {
-      throw Exception('Process exited with code \$completed: \$stderr');
-    }
-
-    return null;
-  } finally {
-    await tempDir.delete(recursive: true);
-  }
-}
-
-/// Escape a string for use as a Dart string literal
-String _escapeStringLiteral(String s) {
-  final escaped = s
-      .replaceAll('\\', '\\\\')
-      .replaceAll("'", "\\'")
-      .replaceAll('\$', '\\\$')
-      .replaceAll('\n', '\\n')
-      .replaceAll('\r', '\\r');
-  return "'''$escaped'''";
 }
 
 void main() {
@@ -1141,9 +1038,10 @@ Future<String> main() async {
 
     test(
       'Lim-4/Bug-43: Infinite sync* generators with take() should work',
-      () async {
+      () {
         // Fixed: Lazy sync* generator implementation using native Dart sync*
         // to produce values on demand. Infinite generators now work with take().
+        // Now runs in-process (no subprocess needed) since lazy evaluation works.
         const source = '''
 Iterable<int> naturals() sync* {
   int n = 0;
@@ -1153,8 +1051,7 @@ List<int> main() {
   return naturals().take(5).toList();
 }
 ''';
-        // Uses subprocess with 15s timeout - will timeout if hanging
-        final result = await executeInSubprocess(source, timeout: const Duration(seconds: 15));
+        final result = execute(source);
         expect(result, equals([0, 1, 2, 3, 4]));
       },
     );

@@ -2,7 +2,7 @@
 
 This document provides a comprehensive reference of all known D4rt interpreter limitations and bugs, their current status, fixability assessment, and solution strategies.
 
-**Last Updated:** 2026-02-06
+**Last Updated:** 2026-02-07
 
 ---
 
@@ -65,7 +65,7 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 | Bug-62 | [GenericFunctionType in generic type args fails](#bug-62-genericfunctiontype-in-generics) | Medium | ✅ Fixed |
 | Bug-64 | [Interface class same-library extension rejected](#bug-64-interface-class-extension) | Medium | ✅ Fixed |
 | Bug-67 | [if-case with int pattern wrong condition type](#bug-67-if-case-int-pattern) | Medium | ✅ Fixed |
-| Bug-45 | [Labeled continue in sync* generators fails](#bug-45-labeled-continue-in-sync-generators-fails) | Medium | ⚠️ Broken |
+| Bug-45 | [Labeled continue in sync* generators fails](#bug-45-labeled-continue-in-sync-generators-fails) | Medium | ✅ Fixed |
 | Bug-47 | [Future.doWhile type cast issues](#bug-47-futuredowhile-type-cast-issues) | Medium | ✅ Fixed |
 | Bug-72 | [Bridged mixins not found during class declaration](#bug-72-bridged-mixins-class-declaration) — `bridged_mixin_test` (5) + `complex_bridged_mixin_test` (5) | Medium | ✅ Fixed |
 | Bug-73, Bug-74 | [Async nested loops/return type error with anonymous name](#bug-73-async-nested-loops-return-type) — `async_nested_loops_test` (20 tests) | Medium | ✅ Fixed |
@@ -85,8 +85,15 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 | Bug-88 | [Record pattern with :name shorthand fails](#bug-88-record-pattern-with-name-shorthand-fails) — `dart_overview_bugs_test: Bug-88` | Medium | ⬜ TODO |
 | Bug-89 | [Enum.values.byName (List.byName) not bridged](#bug-89-enumvaluesbyname-listbyname-not-bridged) — `dart_overview_bugs_test: Bug-89` | Low | ⬜ TODO |
 | Bug-90 | [Mixin on constraint abstract getter false positive](#bug-90-mixin-on-constraint-abstract-getter-false-positive) — `dart_overview_bugs_test: Bug-90` | Medium | ⬜ TODO |
-| Bug-91 | [Imported extensions on bridged types fail](#bug-91-imported-extensions-on-bridged-types-fail) — `dart_overview_bugs_test: Bug-91` | Medium | ⬜ TODO |
-| Bug-92 | [Future factory constructor returns BridgedInstance&lt;Object&gt;](#bug-92-future-factory-constructor-returns-bridgedinstanceobject) — `dart_overview_bugs_test: Bug-92` | Medium | ⬜ TODO |
+| Bug-91 | [Imported extensions on bridged types fail](#bug-91-imported-extensions-on-bridged-types-fail) — `dart_overview_bugs_test: Bug-91` | Medium | ✅ Fixed |
+| Bug-92 | [Future factory constructor returns BridgedInstance&lt;Object&gt;](#bug-92-future-factory-constructor-returns-bridgedinstanceobject) — `dart_overview_bugs_test: Bug-92` | Medium | ✅ Fixed |
+| Bug-93 | [Int not implicitly promoted to double return type](#bug-93-int-not-implicitly-promoted-to-double-return-type) — `dart_overview_bugs_test: Bug-93` | Low | ⬜ TODO |
+| Bug-94 | [Cascade index assignment on property fails](#bug-94-cascade-index-assignment-on-property-fails) — `dart_overview_bugs_test: Bug-94` | Medium | ⬜ TODO |
+| Bug-95 | [List.forEach with native function tear-off fails](#bug-95-listforeach-with-native-function-tear-off-fails) — `dart_overview_bugs_test: Bug-95` | Medium | ⬜ TODO |
+| Bug-96 | [super.name constructor parameter forwarding fails](#bug-96-supername-constructor-parameter-forwarding-fails) — `dart_overview_bugs_test: Bug-96` | Medium | ⬜ TODO |
+| Bug-97 | [num not recognized as satisfying Comparable bound](#bug-97-num-not-recognized-as-satisfying-comparable-bound) — `dart_overview_bugs_test: Bug-97` | Low | ⬜ TODO |
+| Bug-98 | [Extension getter on bridged List not resolved](#bug-98-extension-getter-on-bridged-list-not-resolved) — `dart_overview_bugs_test: Bug-98` | Medium | ⬜ TODO |
+| Bug-99 | [Stream.handleError callback receives wrong argument count](#bug-99-streamhandleerror-callback-receives-wrong-argument-count) — `dart_overview_bugs_test: Bug-99` | Low | ⬜ TODO |
 | Lim-1 | [Extension types (Dart 3.3+ inline classes)](#lim-1-extension-types-dart-33) | High | ✅ Fixed |
 | Lim-4, Bug-43 | [Infinite sync* generators hang (eager evaluation)](#lim-4-bug-43-infinite-sync-generators-hang) | High | ✅ Fixed |
 | Lim-8, Bug-13, Bug-68 | [Logical OR patterns in switch cases](#lim-8-bug-13-logicalorpattern-in-switch) | High | ✅ Fixed |
@@ -1141,7 +1148,7 @@ void main() {
 
 ### Bug-45: Labeled continue in sync* Generators Fails
 
-**Status:** ⚠️ Broken  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -2488,7 +2495,7 @@ When checking for unimplemented abstract members, properly resolve which members
 
 ### Bug-91: Imported Extensions on Bridged Types Fail
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -2529,7 +2536,7 @@ Extend the extension lookup mechanism to search imported modules, not just the c
 
 ### Bug-92: Future Factory Constructor Returns BridgedInstance&lt;Object&gt;
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -2562,6 +2569,283 @@ Note: `Future.value(42)` works correctly; it's specifically the `Future(() => ..
 #### Solution Strategy
 
 Bridge the `Future(() => computation)` factory constructor to properly return a Future that can be awaited.
+
+---
+
+### Bug-93: Int Not Implicitly Promoted to Double Return Type
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+When a function has a `double` return type and returns an `int` value, Dart should implicitly promote the int to double. D4rt rejects this with a type error.
+
+```dart
+double foo(int x) {
+  return x;  // ❌ FAILS - should auto-promote int to double
+}
+
+void main() {
+  print(foo(5));  // Should print 5.0
+}
+```
+
+**Error:** `A value of type 'int' can't be returned from the function 'foo' because it has a return type of 'double'.`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` - `visitReturnStatement`
+- **Root Cause:** The return type check doesn't handle the implicit int→double promotion that Dart performs automatically
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-93: Int should be implicitly promoted to double return type"
+
+#### Solution Strategy
+
+Add int→double promotion logic in `visitReturnStatement` when the declared return type is `double` and the actual value is `int`.
+
+---
+
+### Bug-94: Cascade Index Assignment on Property Fails
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Cascade expressions that use index assignment (`[]=`) on a property of the cascade target fail. The interpreter only checks if the cascade target itself is a List or Map, not the property being indexed.
+
+```dart
+class Request {
+  final Map<String, String> headers = {};
+}
+
+void main() {
+  var request = Request()
+    ..headers['Content-Type'] = 'application/json';  // ❌ FAILS
+}
+```
+
+**Error:** `Index assignment target must be List or Map in cascade.`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` - `_executeCascadeAssignment`
+- **Root Cause:** The cascade assignment handler checks if the cascade target (Request) is a List/Map, but should look at the intermediate property (headers) which IS a Map
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-94: Cascade index assignment on property should work"
+
+#### Solution Strategy
+
+In `_executeCascadeAssignment`, when processing an index expression in a cascade, resolve the full property chain before checking if the target supports index assignment.
+
+---
+
+### Bug-95: List.forEach with Native Function Tear-off Fails
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Calling `forEach` on a bridged List with a native (non-interpreted) function tear-off like `print` fails. The bridge expects an `InterpretedFunction` but receives a native Dart function.
+
+```dart
+void main() {
+  var numbers = [1, 2, 3];
+  numbers.forEach(print);  // ❌ FAILS - print is a native function
+}
+```
+
+**Error:** `Native error during bridged method call 'forEach' on List: Runtime Error: Expected a InterpretedFunction for forEach`
+
+Note: `numbers.forEach((n) => print(n))` works because the lambda is an interpreted function.
+
+#### Where is the Problem?
+
+- **Location:** `dart_core_bridge.dart` - List bridge `forEach` implementation
+- **Root Cause:** The `forEach` bridge method only accepts `InterpretedFunction` but should also handle native Dart functions (like `print`)
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-95: List.forEach with native function tear-off should work"
+
+#### Solution Strategy
+
+Modify the `forEach` bridge to accept both `InterpretedFunction` and native Dart `Function` objects. Check the argument type and call it appropriately.
+
+---
+
+### Bug-96: super.name Constructor Parameter Forwarding Fails
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Dart 3's super parameter syntax (`Child(super.name)`) that automatically forwards parameters to the superclass constructor is not handled. The interpreter fails to pass the argument to the parent constructor.
+
+```dart
+class Parent {
+  final String name;
+  Parent(this.name);
+}
+
+class Child extends Parent {
+  Child(super.name);  // ❌ FAILS - should forward 'name' to Parent
+}
+
+void main() {
+  print(Child('test').name);
+}
+```
+
+**Error:** `Error during constructor execution for class 'Child': Missing required argument for 'name' in function ''.`
+
+#### Where is the Problem?
+
+- **Location:** `runtime_types.dart` - Constructor execution / super parameter handling
+- **Root Cause:** The `super.name` parameter syntax is not recognized as forwarding the argument to the superclass constructor
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-96: super.name constructor parameter forwarding should work"
+
+#### Solution Strategy
+
+When processing constructor parameters, detect `super.name` syntax (SuperFormalParameter in the AST) and forward the argument value to the corresponding superclass constructor parameter.
+
+---
+
+### Bug-97: num Not Recognized as Satisfying Comparable Bound
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+When a generic class has a type bound `T extends Comparable<dynamic>`, using `num` as the type argument is rejected. In Dart, `num` implements `Comparable<num>`, so it should satisfy this bound.
+
+```dart
+class Box<T extends Comparable<dynamic>> {
+  T value;
+  Box(this.value);
+}
+
+void main() {
+  var b = Box<num>(42);  // ❌ FAILS
+  print(b.value);
+}
+```
+
+**Error:** `Type argument 'num' for type parameter 'T' does not satisfy bound 'Comparable' in class 'Box'`
+
+#### Where is the Problem?
+
+- **Location:** `runtime_types.dart` - `_getValidatedTypeArguments`
+- **Root Cause:** The type bound checker doesn't recognize that `num` implements `Comparable<num>` since `num` is a bridged type and its interface hierarchy isn't fully checked
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-97: num should satisfy Comparable type bound"
+
+#### Solution Strategy
+
+In the type bound validation, add knowledge that core Dart types (`num`, `int`, `double`, `String`) implement `Comparable`. Either hardcode these known relationships or check the bridged type's interface chain.
+
+---
+
+### Bug-98: Extension Getter on Bridged List Not Resolved
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Medium
+
+#### Problem Description
+
+Extension getters defined on `List<int>` (or other specific bridged type parameterizations) are not found when called on a native List instance.
+
+```dart
+extension IntListExt on List<int> {
+  int get sum => fold(0, (a, b) => a + b);
+  double get average => isEmpty ? 0.0 : sum / length;
+}
+
+void main() {
+  var numbers = [1, 2, 3, 4, 5];
+  print(numbers.average);  // ❌ FAILS
+}
+```
+
+**Error:** `Undefined property or method 'average' on bridged instance of 'List'.`
+
+#### Where is the Problem?
+
+- **Location:** `interpreter_visitor.dart` - Extension lookup for bridged types
+- **Root Cause:** The extension matcher doesn't match `List<int>` extensions against native List instances. The type parameterization check may be too strict or missing for bridged types.
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-98: Extension getter on bridged List should work"
+
+#### Solution Strategy
+
+Enhance the extension lookup to match extensions on parameterized bridged types (like `List<int>`) against actual bridged instances, checking that the type arguments are compatible.
+
+---
+
+### Bug-99: Stream.handleError Callback Receives Wrong Argument Count
+
+**Status:** ⬜ TODO  
+**Fixable:** ✅ Yes  
+**Complexity:** Low
+
+#### Problem Description
+
+When using `Stream.handleError()` with a single-argument error handler, the interpreter passes too many arguments to the callback (error + stack trace), but the user's callback only expects one argument.
+
+```dart
+import 'dart:async';
+
+void main() async {
+  var stream = Stream.fromIterable([1, 2, 3]).map((n) {
+    if (n == 2) throw 'Error at $n';
+    return n;
+  });
+  var handled = stream.handleError((e) {  // ❌ FAILS - receives 2 args
+    print('Handled: $e');
+  });
+  await for (var n in handled) {
+    print('Value: $n');
+  }
+}
+```
+
+**Error:** `Too many positional arguments. Expected at most 1, got 2.`
+
+Note: Dart's `handleError` accepts `Function(error)` OR `Function(error, stackTrace)`. The implementation should check the callback's parameter count.
+
+#### Where is the Problem?
+
+- **Location:** `stdlib/async/stream.dart` - `handleError` bridge implementation
+- **Root Cause:** The bridge always passes both the error and stack trace to the callback, without checking if the callback accepts 1 or 2 arguments
+
+#### Affected Tests
+
+- `dart_overview_bugs_test.dart` - "Bug-99: Stream handleError callback should receive correct args"
+
+#### Solution Strategy
+
+Check the number of parameters the user's callback function accepts. If it accepts 1, pass only the error. If it accepts 2, pass both error and stack trace.
 
 ---
 

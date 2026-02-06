@@ -3,7 +3,7 @@
 /// These bugs were found when running the dart_overview examples
 /// through D4rt and comparing with native Dart execution.
 ///
-/// Bug IDs: Bug-79 through Bug-91
+/// Bug IDs: Bug-79 through Bug-99
 ///
 /// These tests assert the CORRECT behavior. When the bug exists, tests FAIL.
 /// When the bug is fixed, tests PASS.
@@ -316,6 +316,132 @@ Future<String> main() async {
 }
 ''');
       expect(result, equals('Computed value'));
+    });
+
+    // Bug-93: int not auto-promoted to double in return type
+    // In Dart, int values are implicitly promoted to double when the return type is double
+    test('Bug-93: Int should be implicitly promoted to double return type', () {
+      final result = execute('''
+double foo(int x) {
+  return x;
+}
+double main() {
+  return foo(5);
+}
+''');
+      expect(result, equals(5.0));
+    });
+
+    // Bug-94: Cascade index assignment on property fails
+    // ..headers['Content-Type'] = 'application/json' should work
+    test('Bug-94: Cascade index assignment on property should work', () {
+      final result = execute('''
+class Request {
+  String url = '';
+  Map<String, String> headers = {};
+}
+
+Map<String, String> main() {
+  var req = Request()
+    ..url = 'https://example.com'
+    ..headers['Content-Type'] = 'application/json'
+    ..headers['Accept'] = 'text/html';
+  return req.headers;
+}
+''');
+      expect(result, equals({'Content-Type': 'application/json', 'Accept': 'text/html'}));
+    });
+
+    // Bug-95: List.forEach with native function tear-off fails
+    // list.forEach(print) passes a native function reference that isn't InterpretedFunction
+    test('Bug-95: List.forEach with native function tear-off should work', () {
+      expect(
+        () => execute('''
+void main() {
+  var numbers = [1, 2, 3];
+  numbers.forEach(print);
+}
+'''),
+        returnsNormally,
+      );
+    });
+
+    // Bug-96: super.name constructor parameter forwarding fails
+    // Child(super.name) should forward the argument to Parent(this.name)
+    test('Bug-96: super.name constructor parameter forwarding should work', () {
+      final result = execute('''
+class Parent {
+  final String name;
+  Parent(this.name);
+}
+
+class Child extends Parent {
+  Child(super.name);
+}
+
+String main() {
+  return Child('test').name;
+}
+''');
+      expect(result, equals('test'));
+    });
+
+    // Bug-97: num not recognized as satisfying Comparable bound
+    // num implements Comparable<num> in Dart, but D4rt rejects it
+    test('Bug-97: num should satisfy Comparable type bound', () {
+      final result = execute('''
+class Box<T extends Comparable<dynamic>> {
+  T value;
+  Box(this.value);
+}
+
+int main() {
+  var b = Box<num>(42);
+  return b.value.toInt();
+}
+''');
+      expect(result, equals(42));
+    });
+
+    // Bug-98: Extension getter on bridged List<int> not resolved
+    // Extension methods defined on List<int> should work on native List instances
+    test('Bug-98: Extension getter on bridged List should work', () {
+      final result = execute('''
+extension IntListExt on List<int> {
+  int get sum => fold(0, (a, b) => a + b);
+  double get average => isEmpty ? 0.0 : sum / length;
+}
+
+double main() {
+  var numbers = [1, 2, 3, 4, 5];
+  return numbers.average;
+}
+''');
+      expect(result, equals(3.0));
+    });
+
+    // Bug-99: Stream.handleError callback receives wrong number of arguments
+    // handleError passes too many args to the error handler function
+    test('Bug-99: Stream handleError callback should receive correct args', () async {
+      final result = await executeAsync('''
+import 'dart:async';
+
+Future<List<String>> main() async {
+  var results = <String>[];
+  var stream = Stream.fromIterable([1, 2, 3]).map((n) {
+    if (n == 2) throw 'Error at \$n';
+    return n;
+  });
+  var handled = stream.handleError((e) {
+    results.add('Handled: \$e');
+  });
+  await for (var n in handled) {
+    results.add('Value: \$n');
+  }
+  return results;
+}
+''');
+      expect(result, equals(['Value: 1', 'Handled: Error at 2', 'Value: 3']));
     });
   });
 }
