@@ -2,7 +2,7 @@
 
 This document provides a comprehensive reference of all known D4rt interpreter limitations and bugs, their current status, fixability assessment, and solution strategies.
 
-**Last Updated:** 2026-02-07
+**Last Updated:** 2026-02-08
 
 ---
 
@@ -73,18 +73,18 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 | Bug-76 | [Introspection API returns globals for empty source](#bug-76-introspection-empty-source) — `introspection_api_test: empty source, imports only` (2) | Low | ✅ Fixed |
 | Bug-77 | [File.parent test flaky in full test suite](#bug-77-file-parent-flaky) — `file_test: comprehensive parent` (1) | Low | ✅ Fixed |
 | Bug-78 | [noSuchMethod not invoked for method calls](#bug-78-nosuchmethod-method-calls) — `limitations_and_bugs_test: Lim-7` (1) | Medium | ✅ Fixed |
-| Bug-79 | [Switch expression not exhaustive for sealed subclass](#bug-79-switch-expression-not-exhaustive-for-sealed-subclass) — `dart_overview_bugs_test: Bug-79` | Medium | ⬜ TODO |
-| Bug-80 | [Cascade on property access fails](#bug-80-cascade-on-property-access-fails) — `dart_overview_bugs_test: Bug-80` | Medium | ⬜ TODO |
-| Bug-81 | [Pattern with when guard fails (LogicalAndPatternImpl)](#bug-81-pattern-with-when-guard-fails) — `dart_overview_bugs_test: Bug-81` | Medium | ⬜ TODO |
-| Bug-82 | [Function.call method not found](#bug-82-function-call-method-not-found) — `dart_overview_bugs_test: Bug-82` | Medium | ⬜ TODO |
-| Bug-83 | [Nullable function?.call() fails](#bug-83-nullable-function-call-fails) — `dart_overview_bugs_test: Bug-83` | Medium | ⬜ TODO |
-| Bug-84 | [Mixin abstract method satisfaction false positive](#bug-84-mixin-abstract-method-satisfaction-false-positive) — `dart_overview_bugs_test: Bug-84` | Medium | ⬜ TODO |
-| Bug-85 | [Cannot extend abstract final class in same library](#bug-85-cannot-extend-abstract-final-class-in-same-library) — `dart_overview_bugs_test: Bug-85` | Low | ⬜ TODO |
-| Bug-86 | [runtimeType not accessible via PrefixedIdentifier](#bug-86-runtimetype-not-accessible-via-prefixedidentifier) — `dart_overview_bugs_test: Bug-86` | Medium | ⬜ TODO |
-| Bug-87 | [Map for-in comprehension fails with MapLiteralEntry error](#bug-87-map-for-in-comprehension-fails-with-mapliteralentry-error) — `dart_overview_bugs_test: Bug-87` | Medium | ⬜ TODO |
-| Bug-88 | [Record pattern with :name shorthand fails](#bug-88-record-pattern-with-name-shorthand-fails) — `dart_overview_bugs_test: Bug-88` | Medium | ⬜ TODO |
-| Bug-89 | [Enum.values.byName (List.byName) not bridged](#bug-89-enumvaluesbyname-listbyname-not-bridged) — `dart_overview_bugs_test: Bug-89` | Low | ⬜ TODO |
-| Bug-90 | [Mixin on constraint abstract getter false positive](#bug-90-mixin-on-constraint-abstract-getter-false-positive) — `dart_overview_bugs_test: Bug-90` | Medium | ⬜ TODO |
+| Bug-79 | [Switch expression not exhaustive for sealed subclass](#bug-79-switch-expression-not-exhaustive-for-sealed-subclass) — `dart_overview_bugs_test: Bug-79` | Medium | ✅ Fixed |
+| Bug-80 | [Cascade on property access fails](#bug-80-cascade-on-property-access-fails) — `dart_overview_bugs_test: Bug-80` | Medium | ✅ Fixed |
+| Bug-81 | [Pattern with when guard fails (LogicalAndPatternImpl)](#bug-81-pattern-with-when-guard-fails) — `dart_overview_bugs_test: Bug-81` | Medium | ✅ Fixed |
+| Bug-82 | [Function.call method not found](#bug-82-function-call-method-not-found) — `dart_overview_bugs_test: Bug-82` | Medium | ✅ Fixed |
+| Bug-83 | [Nullable function?.call() fails](#bug-83-nullable-function-call-fails) — `dart_overview_bugs_test: Bug-83` | Medium | ✅ Fixed |
+| Bug-84 | [Mixin abstract method satisfaction false positive](#bug-84-mixin-abstract-method-satisfaction-false-positive) — `dart_overview_bugs_test: Bug-84` | Medium | ✅ Fixed |
+| Bug-85 | [Cannot extend abstract final class in same library](#bug-85-cannot-extend-abstract-final-class-in-same-library) — `dart_overview_bugs_test: Bug-85` | Low | ✅ Fixed |
+| Bug-86 | [runtimeType not accessible via PrefixedIdentifier](#bug-86-runtimetype-not-accessible-via-prefixedidentifier) — `dart_overview_bugs_test: Bug-86` | Medium | ✅ Fixed |
+| Bug-87 | [Map for-in comprehension fails with MapLiteralEntry error](#bug-87-map-for-in-comprehension-fails-with-mapliteralentry-error) — `dart_overview_bugs_test: Bug-87` | Medium | ✅ Fixed |
+| Bug-88 | [Record pattern with :name shorthand fails](#bug-88-record-pattern-with-name-shorthand-fails) — `dart_overview_bugs_test: Bug-88` | Medium | ✅ Fixed |
+| Bug-89 | [Enum.values.byName (List.byName) not bridged](#bug-89-enumvaluesbyname-listbyname-not-bridged) — `dart_overview_bugs_test: Bug-89` | Low | ✅ Fixed |
+| Bug-90 | [Mixin on constraint abstract getter false positive](#bug-90-mixin-on-constraint-abstract-getter-false-positive) — `dart_overview_bugs_test: Bug-90` | Medium | ✅ Fixed |
 | Bug-91 | [Imported extensions on bridged types fail](#bug-91-imported-extensions-on-bridged-types-fail) — `dart_overview_bugs_test: Bug-91` | Medium | ✅ Fixed |
 | Bug-92 | [Future factory constructor returns BridgedInstance&lt;Object&gt;](#bug-92-future-factory-constructor-returns-bridgedinstanceobject) — `dart_overview_bugs_test: Bug-92` | Medium | ✅ Fixed |
 | Bug-93 | [Int not implicitly promoted to double return type](#bug-93-int-not-implicitly-promoted-to-double-return-type) — `dart_overview_bugs_test: Bug-93` | Low | ⬜ TODO |
@@ -442,15 +442,15 @@ Fixed in 2026-02-06:
 
 ---
 
-## Detailed Bug Descriptions (Open Bugs)
+## Detailed Bug Descriptions
 
-This section provides detailed analysis for all bugs with ⬜ TODO status.
+This section provides detailed analysis for all tracked bugs.
 
 ---
 
 ### Bug-1: List.empty() Constructor Not Bridged
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -485,7 +485,7 @@ void main() {
 
 ### Bug-2: Queue.addAll() Method Not Bridged
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -521,7 +521,7 @@ void main() {
 
 ### Bug-5: Division by Zero Throws Instead of Returning Infinity
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -554,7 +554,7 @@ void main() {
 
 ### Bug-6: Record Missing Object Methods (hashCode)
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -587,7 +587,7 @@ void main() {
 
 ### Bug-7: Digit Separators (1_000_000) Not Parsed
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -620,7 +620,7 @@ void main() {
 
 ### Bug-8: List.indexWhere() Method Not Bridged
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -654,7 +654,7 @@ void main() {
 
 ### Bug-9: Type Never Not Found in Type Resolution
 
-**Status:** 🔍 Confirm Fix  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -686,7 +686,7 @@ Never throwError() {  // ❌ FAILS
 
 ### Bug-10: Interface Comparable Not Found for Implements
 
-**Status:** 🔍 Confirm Fix  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -722,7 +722,7 @@ class Value implements Comparable<Value> {  // ❌ FAILS
 
 ### Bug-11: Sealed Class Subclasses Incorrectly Rejected
 
-**Status:** 🔍 Confirm Fix  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -753,7 +753,7 @@ class Circle extends Shape {}  // ❌ FAILS
 
 ### Bug-12: Interface Exception Not Found for Implements
 
-**Status:** 🔍 Confirm Fix  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -860,7 +860,7 @@ switch (pos.length) {
 
 ### Bug-20: identical() Function Not Bridged
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -894,7 +894,7 @@ void main() {
 
 ### Bug-21: Set.from() Constructor Not Bridged
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -928,7 +928,7 @@ void main() {
 
 ### Bug-23: Static Const Referencing Sibling Const Fails
 
-**Status:** 🔍 Confirm Fix  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -962,7 +962,7 @@ class Colors {
 
 ### Bug-24: mixin class Declaration Not Supported
 
-**Status:** 🔍 Confirm Fix  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -996,7 +996,7 @@ class Service with Logger {}
 
 ### Bug-27: Short-Circuit && with Null Check Fails
 
-**Status:** 🔍 Confirm Fix  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -1032,7 +1032,7 @@ void main() {
 
 ### Bug-4: Enum Value at Top-Level const Fails
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -1073,7 +1073,7 @@ void main() {
 
 ### Bug-15: base64Encode Function Not Exported from dart:convert
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -1108,7 +1108,7 @@ void main() {
 
 ### Bug-26: Assert in Constructor Initializer Not Supported
 
-**Status:** 🔍 Confirm Fix  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -1188,7 +1188,7 @@ void main() {
 
 ### Bug-47: Future.doWhile Type Cast Issues
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -1230,7 +1230,7 @@ void main() async {
 
 ### Bug-52: Implicit super() Fails When Superclass Has Constructors
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -1275,7 +1275,7 @@ void main() {
 
 ### Bug-53: NullAwareElement Feature Not Supported
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -1314,7 +1314,7 @@ void main() {
 
 ### Bug-55: Symbol Class Not Bridged
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -1464,7 +1464,7 @@ for (final declaration in ast.declarations) {
 
 ### Bug-60: Null-Safe Indexing on Null Throws Unclear Error
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -1491,7 +1491,7 @@ int? main() {
 
 ### Bug-61: if-case Pattern Evaluates Pattern as Condition
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -1520,7 +1520,7 @@ String main() {
 
 ### Bug-62: GenericFunctionType in Generic Type Arguments Fails
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -1577,7 +1577,7 @@ Fixed by improving the abstract method inheritance checking to properly recogniz
 
 ### Bug-64: Interface Class Same-Library Extension Rejected
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -1608,7 +1608,7 @@ class JsonDataSource extends DataSource {  // ❌ FAILS
 
 ### Bug-65: Map.from Constructor Not Bridged
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -1656,7 +1656,7 @@ Fixed by improving named field pattern handling in record destructuring.
 
 ### Bug-67: if-case with Int Pattern Wrong Condition Type
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -1727,7 +1727,7 @@ Fixed by improving Future unwrapping in await expression handling.
 
 ### Bug-71: Error Class Not Bridged (Undefined Variable)
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -1752,7 +1752,7 @@ Add `Error` to the environment as an accessible type, similar to how `Exception`
 
 ### Bug-72: Bridged Mixins Not Found During Class Declaration
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -1792,7 +1792,7 @@ Improve mixin lookup in `visitClassDeclaration` to also search bridged classes t
 
 ### Bug-73: Async Nested Loops Fail with Return Type Error
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -1832,7 +1832,7 @@ Review the async state machine's handling of return types when inside nested loo
 
 ### Bug-74: Return Type Error Shows Anonymous Instead of Function Name
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -1867,7 +1867,7 @@ Ensure the function name is properly extracted from the current function context
 
 ### Bug-75: Division by Zero Returns Infinity Instead of Throwing
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ⚠️ Deliberate behavior  
 **Complexity:** Low
 
@@ -1902,7 +1902,7 @@ The test may need to be updated rather than the interpreter.
 
 ### Bug-76: Introspection API Returns Globals for Empty Source
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -1937,7 +1937,7 @@ Filter the analysis results to exclude pre-defined global symbols when returning
 
 ### Bug-77: File.parent Test Flaky in Full Test Suite
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -1972,7 +1972,7 @@ void main() {
 
 ### Bug-78: noSuchMethod Not Invoked for Method Calls
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -2015,7 +2015,7 @@ When a method is not found on an InterpretedInstance, check if the class impleme
 
 ### Bug-79: Switch Expression Not Exhaustive for Sealed Subclass
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -2066,7 +2066,7 @@ Fix the object pattern matching logic to correctly match InterpretedInstance aga
 
 ### Bug-80: Cascade on Property Access Fails
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -2108,7 +2108,7 @@ When processing cascade method invocations, correctly resolve the target when th
 
 ### Bug-81: Pattern with When Guard Fails
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -2146,7 +2146,7 @@ Implement proper when guard evaluation in pattern matching.
 
 ### Bug-82: Function.call Method Not Found
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -2180,7 +2180,7 @@ When looking up method `call` on an InterpretedFunction, invoke the function dir
 
 ### Bug-83: Nullable Function?.call() Fails
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -2214,7 +2214,7 @@ Same fix as Bug-82, with proper null-aware handling.
 
 ### Bug-84: Mixin Abstract Method Satisfaction False Positive
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -2259,7 +2259,7 @@ When checking for missing abstract method implementations, include methods provi
 
 ### Bug-85: Cannot Extend Abstract Final Class in Same Library
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -2302,7 +2302,7 @@ When checking class modifier restrictions, allow extending `abstract final` clas
 
 ### Bug-86: runtimeType Not Accessible via PrefixedIdentifier
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -2341,7 +2341,7 @@ Add special handling for `runtimeType` in visitPrefixedIdentifier to return the 
 
 ### Bug-87: Map For-In Comprehension Fails with MapLiteralEntry Error
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -2376,7 +2376,7 @@ Improve the Set/Map literal type detection to consider MapLiteralEntry elements 
 
 ### Bug-88: Record Pattern with :name Shorthand Fails
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -2411,7 +2411,7 @@ Handle the shorthand pattern syntax where `:name` means both the pattern variabl
 
 ### Bug-89: Enum.values.byName (List.byName) Not Bridged
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Low
 
@@ -2447,7 +2447,7 @@ Add the `byName` method to the List bridge for enum value lists, or implement th
 
 ### Bug-90: Mixin on Constraint Abstract Getter False Positive
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
