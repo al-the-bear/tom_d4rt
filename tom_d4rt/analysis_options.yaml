@@ -14,9 +14,12 @@
 include: package:lints/recommended.yaml
 
 # Ignore deprecated analyzer API warnings - upstream will migrate
+# Exclude example folder - those are standalone packages with their own analysis config
 analyzer:
   errors:
     deprecated_member_use: ignore
+  exclude:
+    - example/**
 
 # Uncomment the following section to specify additional rules.
 

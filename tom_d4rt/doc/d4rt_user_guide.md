@@ -34,7 +34,7 @@ Add the dependency to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  tom_d4rt: ^1.5.0
+  tom_d4rt: ^1.6.0
 ```
 
 Import the package:

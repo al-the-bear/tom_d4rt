@@ -1,3 +1,60 @@
+## 1.6.0
+
+### Features
+- **Comprehensive Dart language coverage**: All 20 areas of the Dart language now pass the dart_overview test suite
+- **Extension types (Dart 3.3+)**: Full support for inline classes / extension types
+- **sync* generators**: Fixed infinite loop issues with sync* generators (lazy evaluation now works correctly)
+- **Improved extension support**: Extensions on bridged types and imported extensions now work correctly
+- **Enhanced pattern matching**: Full support for logical OR patterns, when guards, record patterns with named fields and shorthand syntax
+
+### Bug Fixes (99 total bugs tracked, 97 fixed)
+
+#### Interpreter Core
+- **Bug-93**: Int not implicitly promoted to double return type - fixed auto-promotion in return statements
+- **Bug-94**: Cascade index assignment on property (`..headers['key'] = value`) now works correctly
+- **Bug-96**: `super.name` constructor parameter forwarding now correctly passes values to super constructor
+- **Bug-97**: `num` now recognized as satisfying `Comparable<num>` type bound
+- **Bug-98**: Extension getters on bridged List resolved correctly, including accessing other extension members via implicit `this`
+- **Bug-99**: `Stream.handleError` callback arity detection - callbacks with 1 or 2 parameters both work correctly
+- **Bug-95**: `List.forEach` with native function tear-offs (like `print`) now works
+- **Bug-79-92**: Various fixes for switch expressions, cascades, patterns, and class modifiers
+
+#### Pattern Matching
+- **Bug-81**: Pattern with `when` guard now works (`case String s when s.isNotEmpty`)
+- **Bug-88**: Record pattern with `:name` shorthand syntax works
+- **Bug-66, Bug-67**: Record patterns with named fields and if-case with int patterns fixed
+
+#### Class System
+- **Bug-84, Bug-85**: Mixin abstract method satisfaction and extending abstract final classes
+- **Bug-72**: Bridged mixins properly resolved during class declaration
+- **Bug-51**: Mixing in bridged mixins works correctly
+
+#### Async/Stream
+- **Bug-44**: Async generators completion detection
+- **Bug-48**: `await for` stream iteration
+- **Bug-73, Bug-74**: Async nested loops and return type handling
+
+#### Standard Library
+- **Bug-89**: `Enum.values.byName` (via List.byName extension) bridged
+- **Bug-82, Bug-83**: Function.call and nullable function?.call() support
+- **Bug-65**: Map.from constructor bridged
+
+### Known Limitations (Won't Fix)
+- **Lim-3**: Isolate execution with interpreted closures - fundamental limitation due to Dart's isolate serialization requirements
+- **Bug-14**: Records with named fields or >9 positional fields return InterpretedRecord (Dart doesn't support dynamic record type creation)
+
+### Test Coverage
+- **1620 tests passing** (3 expected failures for "Won't Fix" limitations)
+- **21 dart_overview_bugs_test** tests all passing
+- All 20 Dart language areas demonstrated in dart_overview scripts
+
+### Documentation
+- Consolidated BRIDGING_GUIDE.md to single location in `doc/` folder
+- Moved dart_overview and d4rt_bugs test scripts to tom_d4rt/example folder
+- Updated documentation to reflect current capabilities
+
+---
+
 ## 1.5.0
 
 ### Features

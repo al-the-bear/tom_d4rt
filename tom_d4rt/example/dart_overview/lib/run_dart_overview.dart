@@ -28,24 +28,24 @@
 
 import 'variables/run_variables.dart' as variables;
 import 'operators/run_operators.dart' as operators;
-import '../control_flow/run_control_flow.dart' as control_flow;
-import '../functions/run_functions.dart' as functions;
-import '../classes/run_classes.dart' as classes;
-import '../class_modifiers/run_class_modifiers.dart' as class_modifiers;
-import '../generics/run_generics.dart' as generics;
-import '../collections/run_collections.dart' as collections;
+import 'control_flow/run_control_flow.dart' as control_flow;
+import 'functions/run_functions.dart' as functions;
+import 'classes/run_classes.dart' as classes;
+import 'class_modifiers/run_class_modifiers.dart' as class_modifiers;
+import 'generics/run_generics.dart' as generics;
+import 'collections/run_collections.dart' as collections;
 import 'records/run_records.dart' as records;
 import 'patterns/run_patterns.dart' as patterns;
-import '../enums/run_enums.dart' as enums;
+import 'enums/run_enums.dart' as enums;
 import 'mixins/run_mixins.dart' as mixins;
-import '../extensions/run_extensions.dart' as extensions;
-import '../async/run_async.dart' as async_area;
-import '../error_handling/run_error_handling.dart' as error_handling;
+import 'extensions/run_extensions.dart' as extensions;
+import 'async/run_async.dart' as async_area;
+import 'error_handling/run_error_handling.dart' as error_handling;
 import 'libraries/run_libraries.dart' as libraries;
-import '../comments/run_comments.dart' as comments;
+import 'comments/run_comments.dart' as comments;
 import 'typedefs/run_typedefs.dart' as typedefs;
-import '../annotations/run_annotations.dart' as annotations;
-import '../globals/run_globals.dart' as globals;
+import 'annotations/run_annotations.dart' as annotations;
+import 'globals/run_globals.dart' as globals;
 
 Future<void> main() async {
   final bigSeparator = '=' * 80;

@@ -6,18 +6,19 @@ A secure, sandboxed Dart interpreter written in Dart.
 
 ## Features
 
+*   **Comprehensive Dart Support**: Full coverage of Dart language features including classes, generics, patterns, extensions, async/await, streams, and generators.
 *   **Sandboxed Execution**: Scripts run in an isolated environment with fine-grained permission control.
 *   **Dynamic Evaluation**: `execute()` full scripts or use `eval()` for REPL-style interaction.
 *   **Bridging**: Expose any Dart class, function, or library to the interpreter.
 *   **Code Generation**: Automate bridge creation with `tom_d4rt_generator`.
 *   **Type Safety**: Runtime type checking compatible with Dart's type system.
-*   **Async Support**: Full `async`/`await` support for bridged and interpreted code.
+*   **Async Support**: Full `async`/`await` support including `async*`/`sync*` generators and stream handling.
 
 ## Installation
 
 ```yaml
 dependencies:
-  tom_d4rt: ^1.5.0
+  tom_d4rt: ^1.6.0
 ```
 
 ## Quick Start
