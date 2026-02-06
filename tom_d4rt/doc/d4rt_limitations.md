@@ -8,10 +8,18 @@ This document provides a comprehensive reference of all known D4rt interpreter l
 
 ## Issue Tracker
 
-Combined list of all limitations and bugs, sorted by estimated fix complexity (Low → Medium → High → Won't Fix).
+Combined list of all limitations and bugs, sorted by status (Fixed → TODO → Won't Fix), then by ID.
 
 | ID | Description | Complexity | Status |
 |----|-------------|------------|--------|
+| Lim-1 | [Extension types (Dart 3.3+ inline classes)](#lim-1-extension-types-dart-33) | High | ✅ Fixed |
+| Lim-2 | [Extensions on bridged types don't work](#lim-2-extensions-on-bridged-types-dont-work) | Medium | ✅ Fixed |
+| Lim-4, Bug-43 | [Infinite sync* generators hang (eager evaluation)](#lim-4-bug-43-infinite-sync-generators-hang) | High | ✅ Fixed |
+| Lim-5, Bug-40 | [Comparable interface not implemented for interpreted classes](#lim-5-bug-40-comparable-interface-not-implemented) | Medium | ✅ Fixed |
+| Lim-6, Bug-32 | [Labeled continue in switch statements](#lim-6-bug-32-labeled-continue-in-switch-statements) | Medium | ✅ Fixed |
+| Lim-7, Bug-42 | [noSuchMethod not invoked for getter/setter access](#lim-7-bug-42-nosuchmethod-gettersetter-access) | Medium | ✅ Fixed |
+| Lim-8, Bug-13, Bug-68 | [Logical OR patterns in switch cases](#lim-8-bug-13-logicalorpattern-in-switch) | High | ✅ Fixed |
+| Lim-9, Bug-41 | [Await in string interpolation shows raw object](#lim-9-bug-41-await-in-string-interpolation) | Medium | ✅ Fixed |
 | Bug-1 | [List.empty() constructor not bridged](#bug-1-listempty-constructor-not-bridged) | Low | ✅ Fixed |
 | Bug-2 | [Queue.addAll() method not bridged](#bug-2-queueaddall-method-not-bridged) | Low | ✅ Fixed |
 | Bug-3 | [Enum value access via Day.wednesday fails](#bug-3-enum-value-access) | Low | ✅ Fixed |
@@ -20,37 +28,17 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 | Bug-6 | [Record missing Object methods (hashCode)](#bug-6-record-missing-object-methods-hashcode) | Low | ✅ Fixed |
 | Bug-7 | [Digit separators (1_000_000) not parsed](#bug-7-digit-separators-1_000_000-not-parsed) | Low | ✅ Fixed |
 | Bug-8 | [List.indexWhere() method not bridged](#bug-8-listindexwhere-method-not-bridged) | Low | ✅ Fixed |
-| Bug-15 | [base64Encode function not exported from dart:convert](#bug-15-base64encode-function-not-exported-from-dartconvert) | Low | ✅ Fixed |
-| Bug-20 | [identical() function not bridged](#bug-20-identical-function-not-bridged) | Low | ✅ Fixed |
-| Bug-21 | [Set.from() constructor not bridged](#bug-21-setfrom-constructor-not-bridged) | Low | ✅ Fixed |
-| Bug-22 | [Error() class constructor not bridged](#bug-22-error-class-constructor) | Low | ✅ Fixed |
-| Bug-50 | [Index assignment operator \[\]= not found](#bug-50-index-assignment-operator) | Low | ✅ Fixed |
-| Bug-52 | [Implicit super() fails when superclass has constructors](#bug-52-implicit-super-fails-when-superclass-has-constructors) | Low | ✅ Fixed |
-| Bug-53 | [NullAwareElement feature not supported](#bug-53-nullawareelement-feature-not-supported) | Low | ✅ Fixed |
-| Bug-54 | [Void return type checking too strict](#bug-54-void-return-type) | Low | ✅ Fixed |
-| Bug-55 | [Symbol class not bridged](#bug-55-symbol-class-not-bridged) | Low | ✅ Fixed |
-| Bug-65 | [Map.from constructor not bridged](#bug-65-mapfrom-constructor-not-bridged) | Low | ✅ Fixed |
-| Bug-71 | [Error class not bridged (undefined variable)](#bug-71-error-class-not-bridged) | Low | ✅ Fixed |
-| Lim-2 | [Extensions on bridged types don't work](#lim-2-extensions-on-bridged-types-dont-work) | Medium | ✅ Fixed |
-| Lim-5, Bug-40 | [Comparable interface not implemented for interpreted classes](#lim-5-bug-40-comparable-interface-not-implemented) | Medium | ✅ Fixed |
-| Lim-6, Bug-32 | [Labeled continue in switch statements](#lim-6-bug-32-labeled-continue-in-switch-statements) | Medium | ✅ Fixed |
-| Lim-7, Bug-42 | [noSuchMethod not invoked for getter/setter access](#lim-7-bug-42-nosuchmethod-gettersetter-access) | Medium | ✅ Fixed |
-| Lim-9, Bug-41 | [Await in string interpolation shows raw object](#lim-9-bug-41-await-in-string-interpolation) | Medium | ✅ Fixed |
-| Bug-56 | [Constructor with positional arguments fails](#bug-56-constructor-positional-arguments) | Medium | ✅ Fixed |
-| Bug-57 | [Class with operator override and constructor fails](#bug-57-operator-override-constructor) | Medium | ✅ Fixed |
-| Bug-58 | [Functions/classes at end of file not found](#bug-58-declarations-at-file-end) | Medium | ✅ Fixed |
-| Bug-59 | [Imported classes have empty constructor maps](#bug-59-imported-classes-have-empty-constructor-maps) | Medium | ✅ Fixed |
-| Bug-63 | [Abstract method from interface false positive](#bug-63-abstract-method-interface) | Medium | ✅ Fixed |
-| Bug-66 | [Record pattern with named field fails](#bug-66-record-pattern-named-field) | Medium | ✅ Fixed |
-| Bug-69 | [Abstract getter from mixin false positive](#bug-69-abstract-getter-mixin) | Medium | ✅ Fixed |
-| Bug-70 | [await on Future.value fails](#bug-70-await-future-value) | Medium | ✅ Fixed |
 | Bug-9 | [Type Never not found in type resolution](#bug-9-type-never-not-found-in-type-resolution) | Medium | ✅ Fixed |
 | Bug-10 | [Interface Comparable not found for implements](#bug-10-interface-comparable-not-found-for-implements) | Medium | ✅ Fixed |
 | Bug-11 | [Sealed class subclasses incorrectly rejected](#bug-11-sealed-class-subclasses-incorrectly-rejected) | Medium | ✅ Fixed |
 | Bug-12 | [Interface Exception not found for implements](#bug-12-interface-exception-not-found-for-implements) | Medium | ✅ Fixed |
+| Bug-15 | [base64Encode function not exported from dart:convert](#bug-15-base64encode-function-not-exported-from-dartconvert) | Low | ✅ Fixed |
 | Bug-16 | [Abstract method inheritance false positive](#bug-16-abstract-method-inheritance) | Medium | ✅ Fixed |
 | Bug-17 | [Interface class same-library extension incorrectly rejected](#bug-17-interface-class-extension) | Medium | ✅ Fixed |
 | Bug-18 | [Mixin abstract getter inheritance false positive](#bug-18-mixin-abstract-getter) | Medium | ✅ Fixed |
+| Bug-20 | [identical() function not bridged](#bug-20-identical-function-not-bridged) | Low | ✅ Fixed |
+| Bug-21 | [Set.from() constructor not bridged](#bug-21-setfrom-constructor-not-bridged) | Low | ✅ Fixed |
+| Bug-22 | [Error() class constructor not bridged](#bug-22-error-class-constructor) | Low | ✅ Fixed |
 | Bug-23 | [Static const referencing sibling const fails](#bug-23-static-const-referencing-sibling-const-fails) | Medium | ✅ Fixed |
 | Bug-24 | [mixin class declaration not supported](#bug-24-mixin-class-declaration-not-supported) | Medium | ✅ Fixed |
 | Bug-26 | [Assert in constructor initializer not supported](#bug-26-assert-in-constructor-initializer-not-supported) | Medium | ✅ Fixed |
@@ -58,15 +46,30 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 | Bug-28 | [GenericFunctionTypeImpl not implemented](#bug-28-genericfunctiontypeimpl) | Medium | ✅ Fixed |
 | Bug-29 | [Future.value() returns wrong type](#bug-29-futurevalue-type) | Medium | ✅ Fixed |
 | Bug-44 | [Async generators completion detection issues](#bug-44-async-generators) | Medium | ✅ Fixed |
+| Bug-45 | [Labeled continue in sync* generators fails](#bug-45-labeled-continue-in-sync-generators-fails) | Medium | ✅ Fixed |
+| Bug-47 | [Future.doWhile type cast issues](#bug-47-futuredowhile-type-cast-issues) | Medium | ✅ Fixed |
 | Bug-48 | [await for stream iteration fails](#bug-48-await-for-stream) | Medium | ✅ Fixed |
+| Bug-50 | [Index assignment operator \[\]= not found](#bug-50-index-assignment-operator) | Low | ✅ Fixed |
 | Bug-51 | [Bridged mixins not found during type resolution](#bug-51-bridged-mixins) | Medium | ✅ Fixed |
+| Bug-52 | [Implicit super() fails when superclass has constructors](#bug-52-implicit-super-fails-when-superclass-has-constructors) | Low | ✅ Fixed |
+| Bug-53 | [NullAwareElement feature not supported](#bug-53-nullawareelement-feature-not-supported) | Low | ✅ Fixed |
+| Bug-54 | [Void return type checking too strict](#bug-54-void-return-type) | Low | ✅ Fixed |
+| Bug-55 | [Symbol class not bridged](#bug-55-symbol-class-not-bridged) | Low | ✅ Fixed |
+| Bug-56 | [Constructor with positional arguments fails](#bug-56-constructor-positional-arguments) | Medium | ✅ Fixed |
+| Bug-57 | [Class with operator override and constructor fails](#bug-57-operator-override-constructor) | Medium | ✅ Fixed |
+| Bug-58 | [Functions/classes at end of file not found](#bug-58-declarations-at-file-end) | Medium | ✅ Fixed |
+| Bug-59 | [Imported classes have empty constructor maps](#bug-59-imported-classes-have-empty-constructor-maps) | Medium | ✅ Fixed |
 | Bug-60 | [Null-safe indexing on null throws unclear error](#bug-60-null-safe-indexing) | Medium | ✅ Fixed |
 | Bug-61 | [if-case pattern evaluates pattern as condition](#bug-61-if-case-pattern) | Medium | ✅ Fixed |
 | Bug-62 | [GenericFunctionType in generic type args fails](#bug-62-genericfunctiontype-in-generics) | Medium | ✅ Fixed |
+| Bug-63 | [Abstract method from interface false positive](#bug-63-abstract-method-interface) | Medium | ✅ Fixed |
 | Bug-64 | [Interface class same-library extension rejected](#bug-64-interface-class-extension) | Medium | ✅ Fixed |
+| Bug-65 | [Map.from constructor not bridged](#bug-65-mapfrom-constructor-not-bridged) | Low | ✅ Fixed |
+| Bug-66 | [Record pattern with named field fails](#bug-66-record-pattern-named-field) | Medium | ✅ Fixed |
 | Bug-67 | [if-case with int pattern wrong condition type](#bug-67-if-case-int-pattern) | Medium | ✅ Fixed |
-| Bug-45 | [Labeled continue in sync* generators fails](#bug-45-labeled-continue-in-sync-generators-fails) | Medium | ✅ Fixed |
-| Bug-47 | [Future.doWhile type cast issues](#bug-47-futuredowhile-type-cast-issues) | Medium | ✅ Fixed |
+| Bug-69 | [Abstract getter from mixin false positive](#bug-69-abstract-getter-mixin) | Medium | ✅ Fixed |
+| Bug-70 | [await on Future.value fails](#bug-70-await-future-value) | Medium | ✅ Fixed |
+| Bug-71 | [Error class not bridged (undefined variable)](#bug-71-error-class-not-bridged) | Low | ✅ Fixed |
 | Bug-72 | [Bridged mixins not found during class declaration](#bug-72-bridged-mixins-class-declaration) — `bridged_mixin_test` (5) + `complex_bridged_mixin_test` (5) | Medium | ✅ Fixed |
 | Bug-73, Bug-74 | [Async nested loops/return type error with anonymous name](#bug-73-async-nested-loops-return-type) — `async_nested_loops_test` (20 tests) | Medium | ✅ Fixed |
 | Bug-75 | [Division by zero returns Infinity instead of throwing](#bug-75-division-by-zero-returns-infinity) — `eval_method_test: should handle division by zero` | Low | ✅ Fixed |
@@ -94,11 +97,8 @@ Combined list of all limitations and bugs, sorted by estimated fix complexity (L
 | Bug-97 | [num not recognized as satisfying Comparable bound](#bug-97-num-not-recognized-as-satisfying-comparable-bound) — `dart_overview_bugs_test: Bug-97` | Low | ⬜ TODO |
 | Bug-98 | [Extension getter on bridged List not resolved](#bug-98-extension-getter-on-bridged-list-not-resolved) — `dart_overview_bugs_test: Bug-98` | Medium | ⬜ TODO |
 | Bug-99 | [Stream.handleError callback receives wrong argument count](#bug-99-streamhandleerror-callback-receives-wrong-argument-count) — `dart_overview_bugs_test: Bug-99` | Low | ⬜ TODO |
-| Lim-1 | [Extension types (Dart 3.3+ inline classes)](#lim-1-extension-types-dart-33) | High | ✅ Fixed |
-| Lim-4, Bug-43 | [Infinite sync* generators hang (eager evaluation)](#lim-4-bug-43-infinite-sync-generators-hang) | High | ✅ Fixed |
-| Lim-8, Bug-13, Bug-68 | [Logical OR patterns in switch cases](#lim-8-bug-13-logicalorpattern-in-switch) | High | ✅ Fixed |
-| Bug-14 | [Records with named fields or >9 positional fields return InterpretedRecord](#bug-14-records-with-named-fields-or-9-positional-fields) — `limitations_and_bugs_test: Bug-14` (2) | High | 🚫 Won't Fix |
 | Lim-3 | [Isolate execution with interpreted code](#lim-3-isolate-execution-with-interpreted-code) — `limitations_and_bugs_test: Lim-3` (1) | Fundamental | 🚫 Won't Fix |
+| Bug-14 | [Records with named fields or >9 positional fields return InterpretedRecord](#bug-14-records-with-named-fields-or-9-positional-fields) — `limitations_and_bugs_test: Bug-14` (2) | High | 🚫 Won't Fix |
 
 **Status Legend:**
 - ⬜ TODO - Not yet fixed
