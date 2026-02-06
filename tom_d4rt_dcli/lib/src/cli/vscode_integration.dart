@@ -211,7 +211,7 @@ mixin VSCodeIntegrationMixin {
     }
   }
 
-  /// Handle the '.vscode <file>' command - execute file in VS Code bridge.
+  /// Handle the '.vscode `<file>`' command - execute file in VS Code bridge.
   Future<void> _handleVscodeFileCommand(ReplState state, String line, bool silent) async {
     final filePath = line.substring(8).trim();
     if (filePath.isEmpty) {
@@ -222,7 +222,7 @@ mixin VSCodeIntegrationMixin {
     await _executeInVscode(state, silent, filePath: filePath);
   }
 
-  /// Handle the 'vscode <expression>' command - evaluate expression in VS Code bridge.
+  /// Handle the 'vscode `<expression>`' command - evaluate expression in VS Code bridge.
   Future<void> _handleVscodeExpressionCommand(ReplState state, String line, bool silent) async {
     final expression = line.substring(7).trim();
     if (expression.isEmpty) {

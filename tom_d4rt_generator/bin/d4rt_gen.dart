@@ -35,6 +35,7 @@ import 'package:glob/list_local_fs.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_build_base/tom_build_base.dart';
 import 'package:tom_d4rt_generator/src/build_config_loader.dart';
+import 'package:tom_d4rt_generator/src/version.g.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 
 /// The tool key for dartgen in tom_build.yaml
@@ -109,6 +110,15 @@ String? _validatePathContainment(CliConfig config, String basePath) {
 }
 
 Future<void> main(List<String> arguments) async {
+  // Check for version command first (before parsing)
+  if (arguments.isNotEmpty &&
+      (arguments[0] == 'version' ||
+          arguments[0] == '-version' ||
+          arguments[0] == '--version')) {
+    _printVersion();
+    exit(0);
+  }
+
   final parser = ArgParser()
     ..addOption('project',
         abbr: 'p',
@@ -141,7 +151,23 @@ Future<void> main(List<String> arguments) async {
         negatable: false,
         help: 'Show usage help');
 
-  final args = parser.parse(arguments);
+  final ArgResults args;
+  try {
+    args = parser.parse(arguments);
+
+    // Check for unexpected arguments (rest)
+    if (args.rest.isNotEmpty) {
+      stderr.writeln('Error: Unknown arguments: ${args.rest.join(' ')}');
+      stderr.writeln('');
+      _printUsage(parser);
+      exit(1);
+    }
+  } catch (e) {
+    stderr.writeln('Error: $e');
+    stderr.writeln('');
+    _printUsage(parser);
+    exit(1);
+  }
 
   if (args['help'] as bool) {
     _printUsage(parser);
@@ -700,14 +726,27 @@ Future<void> _generateBridges(
       print('  Generating module: ${module.name}');
     }
 
-    // Determine sourceImport: use barrelImport if provided, otherwise first barrel file
-    final sourceImport = module.barrelImport ?? module.barrelFiles.first;
+    // Determine sourceImport(s): use barrelImport if provided, otherwise barrel files
+    // When there are multiple barrel files, use sourceImports for proper prefix handling
+    final List<String> sourceImports;
+    final String? sourceImport;
+    
+    if (module.barrelFiles.length > 1) {
+      // Multiple barrel files - use sourceImports for multiple prefix support
+      sourceImports = module.barrelFiles;
+      sourceImport = module.barrelImport; // May be null, used as primary import
+    } else {
+      // Single barrel file - use legacy sourceImport
+      sourceImport = module.barrelImport ?? module.barrelFiles.first;
+      sourceImports = const [];
+    }
 
     // Create a fresh generator instance for each module - no shared state
     final generator = BridgeGenerator(
       workspacePath: projectDir,
       packageName: config.name,
       sourceImport: sourceImport,
+      sourceImports: sourceImports,
       helpersImport: config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
       verbose: verbose,
     );
@@ -847,4 +886,10 @@ void _printUsage(ArgParser parser) {
   print('');
   print('  # Multiple exclusion patterns');
   print('  d4rtgen -s . -r -x "**/test_*" -R "**/node_modules/**"');
+}
+
+void _printVersion() {
+  print('D4rt Bridge Generator ${TomVersionInfo.versionShort}');
+  print('Git: ${TomVersionInfo.gitCommit}');
+  print('Built: ${TomVersionInfo.buildTime}');
 }

@@ -136,12 +136,27 @@ class ExportInfo {
 
   /// Symbols shown from the export (from `show` clause).
   final List<String>? showClause;
+  
+  /// The barrel file URI that this export was found in.
+  /// Used to determine which import prefix to use for classes from this source.
+  final String? barrelUri;
 
   const ExportInfo({
     required this.sourcePath,
     this.hideClause,
     this.showClause,
+    this.barrelUri,
   });
+
+  /// Create a copy with a different barrelUri.
+  ExportInfo copyWith({String? barrelUri}) {
+    return ExportInfo(
+      sourcePath: sourcePath,
+      hideClause: hideClause,
+      showClause: showClause,
+      barrelUri: barrelUri ?? this.barrelUri,
+    );
+  }
 
   /// Whether a symbol (class, enum, function, variable, typedef) is exported.
   ///
@@ -640,6 +655,11 @@ class BridgeGenerator {
   /// Map of source file path to barrel file URI.
   /// Used to resolve which barrel exports each source file.
   final Map<String, String> sourceFileToBarrel;
+  
+  /// Mutable internal map of source file path to barrel URI.
+  /// Built dynamically from exportInfo during bridge generation.
+  /// Takes precedence over [sourceFileToBarrel] when populated.
+  final Map<String, String> _dynamicSourceFileToBarrel = {};
 
   /// Whether to generate read-only bridges.
   final bool readOnly;
@@ -939,6 +959,45 @@ class BridgeGenerator {
     
     return (match.group(1)!, match.group(2)!);
   }
+  
+  /// Extracts the package name from a package URI.
+  /// 
+  /// Given `package:dcli_core/dcli_core.dart`, returns `dcli_core`.
+  String? _extractPackageFromUri(String uri) {
+    final parsed = _parsePackageUri(uri);
+    return parsed?.$1;
+  }
+  
+  /// Extracts the package name from a file path by looking at the /lib/ folder.
+  ///
+  /// Given `/path/to/.pub-cache/dcli_core-1.0.0/lib/src/util/line_file.dart`,
+  /// returns `dcli_core`.
+  String? _extractPackageFromPath(String filePath) {
+    final libIndex = filePath.indexOf('/lib/');
+    if (libIndex == -1) return null;
+    
+    final packageDir = filePath.substring(0, libIndex);
+    final pubspecPath = '$packageDir/pubspec.yaml';
+    
+    try {
+      final pubspecFile = File(pubspecPath);
+      if (pubspecFile.existsSync()) {
+        final content = pubspecFile.readAsStringSync();
+        final nameMatch = RegExp(r'^name:\s*(\S+)', multiLine: true).firstMatch(content);
+        if (nameMatch != null) {
+          return nameMatch.group(1);
+        }
+      }
+    } catch (_) {
+      // Fall back to directory name
+    }
+    
+    // Fall back to directory name (may include version suffix like dcli_core-1.0.0)
+    final dirName = p.basename(packageDir);
+    // Strip version suffix if present
+    final versionMatch = RegExp(r'^(.+?)-\d+\.\d+').firstMatch(dirName);
+    return versionMatch?.group(1) ?? dirName;
+  }
 
   /// Checks if a file path matches any of the glob patterns.
   ///
@@ -1094,8 +1153,10 @@ class BridgeGenerator {
   /// except those in [skipReExports]. If false, only follows packages in [followReExports].
   /// [skipReExports] - List of package names to skip when [followAllReExports] is true.
   /// [followReExports] - List of external package names to follow when [followAllReExports] is false.
+  /// [originBarrelUri] - The top-level barrel URI that originated this export chain.
+  ///   Used to track which barrel file each source file came from.
   ///
-  /// Returns a map of source file paths to their export info (hide/show clauses).
+  /// Returns a map of source file paths to their export info (hide/show clauses and barrel origin).
   Future<Map<String, ExportInfo>> parseExportFiles(
     List<String> barrelFiles, {
     Set<String>? visited,
@@ -1103,6 +1164,7 @@ class BridgeGenerator {
     List<String>? skipReExports,
     List<String>? followReExports,
     bool isTopLevel = true,
+    String? originBarrelUri,
   }) async {
     visited ??= <String>{};
     skipReExports ??= const [];
@@ -1124,6 +1186,14 @@ class BridgeGenerator {
         if (verbose) print('Warning: Barrel file not found: $normalizedPath');
         continue;
       }
+      
+      // Determine the barrel URI for this barrel file
+      // For top-level barrels, compute it from the path; for nested, use originBarrelUri
+      String? currentBarrelUri = originBarrelUri;
+      if (isTopLevel) {
+        // Convert file path to package URI for the barrel
+        currentBarrelUri = _getPackageUri(normalizedPath);
+      }
 
       // Add the barrel file itself to exports (it may contain its own declarations
       // like top-level getters, functions, variables, classes, or enums)
@@ -1136,6 +1206,7 @@ class BridgeGenerator {
             sourcePath: normalizedPath,
             hideClause: null,
             showClause: null,
+            barrelUri: currentBarrelUri,
           );
         }
       }
@@ -1211,6 +1282,7 @@ class BridgeGenerator {
             skipReExports: skipReExports,
             followReExports: followReExports,
             isTopLevel: false,
+            originBarrelUri: currentBarrelUri,
             );
             // Only add nested exports if they're more permissive or don't exist yet
             for (final entry in nestedExports.entries) {
@@ -1219,19 +1291,47 @@ class BridgeGenerator {
                   existingNested.showClause == null && 
                   existingNested.hideClause == null;
               if (!isExistingNestedMorePermissive) {
-                exports[entry.key] = entry.value;
+                // Preserve the barrel URI from the nested export, or use current if not set
+                exports[entry.key] = entry.value.barrelUri != null 
+                    ? entry.value 
+                    : entry.value.copyWith(barrelUri: currentBarrelUri);
               }
             }
           }
           // Always add the file itself to exports (it may contain its own code)
           // even if it's a barrel file that re-exports other files
-          // BUT: Don't overwrite an existing entry if it's more permissive
-          // (no show/hide clause beats having a show/hide clause)
+          // BUT: Don't overwrite an existing entry if:
+          // 1. It's more permissive (no show/hide clause beats having a show/hide clause)
+          // 2. It's from the same package as the source file (prefer same-package barrel)
           final existingInfo = exports[absolutePath];
+          
+          // Check if this barrel is from the same package as the source file
+          final sourcePackage = _extractPackageFromPath(absolutePath);
+          final currentBarrelPackage = currentBarrelUri != null 
+              ? _extractPackageFromUri(currentBarrelUri) 
+              : null;
+          final existingBarrelPackage = existingInfo?.barrelUri != null 
+              ? _extractPackageFromUri(existingInfo!.barrelUri!) 
+              : null;
+          
+          final isSamePackageBarrel = sourcePackage != null && 
+              currentBarrelPackage == sourcePackage;
+          final existingIsSamePackage = sourcePackage != null && 
+              existingBarrelPackage == sourcePackage;
+          
           final isExistingMorePermissive = existingInfo != null && 
               existingInfo.showClause == null && 
               existingInfo.hideClause == null;
-          if (!isExistingMorePermissive) {
+          
+          // Override if:
+          // - No existing entry
+          // - This barrel is same-package and existing is not
+          // - Existing is not more permissive AND this isn't less preferred
+          final shouldOverride = existingInfo == null ||
+              (isSamePackageBarrel && !existingIsSamePackage) ||
+              (!isExistingMorePermissive && !existingIsSamePackage);
+              
+          if (shouldOverride) {
             exports[absolutePath] = ExportInfo(
               sourcePath: absolutePath,
               hideClause: hideShow?.startsWith('hide') == true
@@ -1248,6 +1348,7 @@ class BridgeGenerator {
                         .map((s) => s.trim())
                         .toList()
                   : null,
+              barrelUri: currentBarrelUri,
             );
           }
         }
@@ -1469,6 +1570,19 @@ class BridgeGenerator {
     List<String> importHideClause = const [],
   }) async {
     _skipReports.clear();
+    
+    // Build dynamic source file to barrel mapping from exportInfo
+    _dynamicSourceFileToBarrel.clear();
+    if (exportInfo != null) {
+      for (final entry in exportInfo.entries) {
+        final sourcePath = entry.key;
+        final barrelUri = entry.value.barrelUri;
+        if (barrelUri != null && !_dynamicSourceFileToBarrel.containsKey(sourcePath)) {
+          _dynamicSourceFileToBarrel[sourcePath] = barrelUri;
+        }
+      }
+    }
+    
     final allClasses = <ClassInfo>[];
     final errors = <String>[];
     final warnings = <String>[];
@@ -3046,9 +3160,10 @@ class BridgeGenerator {
 
     // Collect external type imports from resolved types
     // Filter out file:// URIs as those are local files covered by the source import
-    final externalImports = _collectResolvedTypeImports(classes)
-        .where((uri) => !uri.startsWith('file://') && !uri.startsWith('file:///'))
-        .toSet();
+    final externalImports = _collectResolvedTypeImports(
+      classes,
+      globalFunctions: globalFunctions,
+    ).where((uri) => !uri.startsWith('file://') && !uri.startsWith('file:///')).toSet();
 
     // Build import prefix map
     _importPrefixes = {};
@@ -3116,6 +3231,8 @@ class BridgeGenerator {
     }
 
     // Map non-SDK imports
+    // When we have multiple barrels, defer source package mapping to barrel-specific logic
+    final hasMultipleBarrels = sourceImports.length > 1;
     for (final uri in externalImports) {
       if (uri.startsWith('dart:')) continue;
       
@@ -3135,8 +3252,13 @@ class BridgeGenerator {
       }
       
       if (isSourcePackage) {
-        // Current package imports -> map to source prefix (assuming barrel export)
-        _importPrefixes[uri] = sourcePrefix;
+        // When we have multiple barrels from different packages, don't default all to $pkg
+        // The barrel-specific mapping below will assign the correct prefix
+        if (!hasMultipleBarrels) {
+          // Single barrel: map to source prefix (assuming barrel export)
+          _importPrefixes[uri] = sourcePrefix;
+        }
+        // For multiple barrels, defer to barrel-specific mapping below
       } else {
         // External package import -> generate unique prefix and add import
         // Check if we already have a prefix for this URI to avoid duplicates
@@ -3197,11 +3319,19 @@ class BridgeGenerator {
     }
     
     // Map source files to their barrel's prefix using sourceFileToBarrel
+    // Check _dynamicSourceFileToBarrel first (built from exportInfo), then sourceFileToBarrel
+    // BUT: don't overwrite prefixes already set by the barrel package prefix loop above
     for (final srcFile in allSourceFiles) {
       final srcUri = _getPackageUri(srcFile);
       
+      // Skip if already mapped by the barrel package prefix loop
+      if (_importPrefixes.containsKey(srcUri)) {
+        continue;
+      }
+      
       // Check if we have explicit barrel mapping for this source file
-      final barrelUri = sourceFileToBarrel[srcFile];
+      // Priority: _dynamicSourceFileToBarrel > sourceFileToBarrel
+      final barrelUri = _dynamicSourceFileToBarrel[srcFile] ?? sourceFileToBarrel[srcFile];
       if (barrelUri != null && barrelPrefixes.containsKey(barrelUri)) {
         _importPrefixes[srcUri] = barrelPrefixes[barrelUri]!;
         _importPrefixes[srcFile] = barrelPrefixes[barrelUri]!;
@@ -3796,7 +3926,9 @@ class BridgeGenerator {
     if (prefix != null) {
       return prefix.isEmpty ? className : '$prefix.$className';
     }
-    return className;
+    // If no prefix found, try alternative URI formats
+    // Fall back to $pkg for source package types
+    return '\$pkg.$className';
   }
 
   /// Gets the prefixed function name if the source file has a prefix, otherwise returns the plain name.
@@ -6684,11 +6816,14 @@ class BridgeGenerator {
     return (keyType, valueType);
   }
 
-  /// Collects import URIs from resolved type information in classes.
+  /// Collects import URIs from resolved type information in classes and global functions.
   ///
   /// This uses the typeImportUris fields populated by the resolved analyzer,
   /// rather than a hardcoded type-to-import mapping.
-  Set<String> _collectResolvedTypeImports(List<ClassInfo> classes) {
+  Set<String> _collectResolvedTypeImports(
+    List<ClassInfo> classes, {
+    List<GlobalFunctionInfo> globalFunctions = const [],
+  }) {
     final imports = <String>{};
 
     for (final cls in classes) {
@@ -6711,6 +6846,14 @@ class BridgeGenerator {
           // Also collect from typeToUri
           imports.addAll(param.typeToUri.values);
         }
+      }
+    }
+    
+    // Also collect from global functions (parameter types only - return type URI not tracked)
+    for (final func in globalFunctions) {
+      for (final param in func.parameters) {
+        imports.addAll(param.typeImportUris);
+        imports.addAll(param.typeToUri.values);
       }
     }
 
@@ -7119,6 +7262,17 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       }
     }
 
+    // Collect inherited members from supertypes (superclasses, mixins, interfaces)
+    final declaredMemberNames = members.map((m) => m.name).toSet();
+    final classElement = node.declaredFragment?.element;
+    if (classElement != null) {
+      final inheritedMembers = _collectInheritedMembersFromElement(
+        classElement,
+        declaredMemberNames,
+      );
+      members.addAll(inheritedMembers);
+    }
+
     // Parse generic type parameters and their bounds
     final typeParams = <String, String?>{};
     if (node.typeParameters != null) {
@@ -7304,6 +7458,342 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       // These are handled by _isGenericTypeParameter - no import needed
       return;
     }
+  }
+
+  /// Collects inherited members from all supertypes of a class element.
+  ///
+  /// This includes members from:
+  /// - Superclasses (extends)
+  /// - Mixins (with)
+  /// - Interfaces (implements) - but only concrete implementations
+  ///
+  /// [classElement] - The class to collect inherited members from.
+  /// [declaredMemberNames] - Names of members already declared in the class,
+  ///   which should be excluded from the result (overrides take precedence).
+  ///
+  /// Returns a list of MemberInfo for all inherited members not already declared.
+  ///
+  /// Note: Static members are NOT collected from supertypes because static
+  /// members are not inherited in Dart - they belong only to the declaring class.
+  List<MemberInfo> _collectInheritedMembersFromElement(
+    InterfaceElement classElement,
+    Set<String> declaredMemberNames,
+  ) {
+    final result = <MemberInfo>[];
+    final processedNames = Set<String>.from(declaredMemberNames);
+
+    // Iterate through all supertypes (includes superclass, mixins, and interfaces)
+    for (final supertype in classElement.allSupertypes) {
+      final supertypeElement = supertype.element;
+
+      // Skip Object - its members are handled by the runtime
+      if (supertypeElement.name == 'Object') continue;
+
+      // Build a type substitution map for generic supertypes
+      // e.g., Converter<List<int>, Digest> -> {S: List<int>, T: Digest}
+      final typeSubstitution = <String, DartType>{};
+      final typeParams = supertypeElement.typeParameters;
+      final typeArgs = supertype.typeArguments;
+      for (var i = 0; i < typeParams.length && i < typeArgs.length; i++) {
+        final paramName = typeParams[i].name;
+        if (paramName != null) {
+          typeSubstitution[paramName] = typeArgs[i];
+        }
+      }
+
+      // Collect getters (skip static - they're not inherited)
+      for (final getter in supertypeElement.getters) {
+        // Skip static members - they are not inherited in Dart
+        if (getter.isStatic) continue;
+        
+        final getterName = getter.name;
+        // Skip null names (shouldn't happen but safe)
+        if (getterName == null) continue;
+        
+        // Skip private members
+        if (getterName.startsWith('_')) continue;
+
+        // Skip if already processed (declared or inherited from a more specific type)
+        if (processedNames.contains(getterName)) continue;
+
+        // Skip synthetic getters for enum values
+        if (getter.isSynthetic && supertypeElement is EnumElement) continue;
+
+        final memberInfo = _parseMemberFromGetterElement(getter, typeSubstitution);
+        if (memberInfo != null) {
+          result.add(memberInfo);
+          processedNames.add(getterName);
+        }
+      }
+
+      // Collect setters (skip static - they're not inherited)
+      for (final setter in supertypeElement.setters) {
+        // Skip static members - they are not inherited in Dart
+        if (setter.isStatic) continue;
+        
+        final setterName = setter.name;
+        // Skip null names (shouldn't happen but safe)
+        if (setterName == null) continue;
+        
+        // Skip private members (setters have = suffix)
+        if (setterName.startsWith('_')) continue;
+
+        // Skip if already processed
+        if (processedNames.contains(setterName)) continue;
+
+        final memberInfo = _parseMemberFromSetterElement(setter, typeSubstitution);
+        if (memberInfo != null) {
+          result.add(memberInfo);
+          processedNames.add(setterName);
+        }
+      }
+
+      // Collect methods (skip static - they're not inherited)
+      for (final method in supertypeElement.methods) {
+        // Skip static members - they are not inherited in Dart
+        if (method.isStatic) continue;
+        
+        final methodName = method.name;
+        // Skip private methods
+        if (methodName == null || methodName.startsWith('_')) continue;
+
+        // Skip if already processed
+        if (processedNames.contains(methodName)) continue;
+
+        // Skip operators - they're handled separately
+        if (method.isOperator) continue;
+
+        final memberInfo = _parseMemberFromMethodElement(method, typeSubstitution);
+        if (memberInfo != null) {
+          result.add(memberInfo);
+          processedNames.add(methodName);
+        }
+      }
+
+      // Collect operators (skip static - operators can't be static anyway)
+      for (final method in supertypeElement.methods) {
+        if (!method.isOperator) continue;
+
+        final methodName = method.name;
+        // Skip private operators (shouldn't exist but just in case)
+        if (methodName == null || methodName.startsWith('_')) continue;
+
+        // Check if operator is already declared in the class (using simple name)
+        // or already processed from a more specific supertype (using compound key)
+        // The declared members use simple names like '==', so check that first
+        if (processedNames.contains(methodName)) continue;
+        
+        // Use a unique key for operators to avoid overwriting unary/binary variants
+        // when collecting from different supertypes
+        final operatorKey = '$methodName#${method.formalParameters.length}';
+        if (processedNames.contains(operatorKey)) continue;
+
+        final memberInfo = _parseMemberFromMethodElement(method, typeSubstitution);
+        if (memberInfo != null) {
+          result.add(memberInfo);
+          // Add both the simple name and compound key to prevent duplicates
+          processedNames.add(methodName);
+          processedNames.add(operatorKey);
+        }
+      }
+    }
+
+    return result;
+  }
+
+  /// Substitutes type parameters in a DartType using the given substitution map.
+  ///
+  /// For example, if the type is `List<T>` and the substitution is `{T: int}`,
+  /// this returns the display string `List<int>`.
+  String _substituteTypeParameters(
+    DartType type,
+    Map<String, DartType> substitution,
+  ) {
+    // Handle type parameter references directly
+    if (type is TypeParameterType) {
+      final name = type.element.name;
+      if (name != null && substitution.containsKey(name)) {
+        return substitution[name]!.getDisplayString();
+      }
+      // Unknown type parameter - return as dynamic
+      return 'dynamic';
+    }
+
+    // Handle interface types (like List<T>, Map<K, V>, etc.)
+    if (type is InterfaceType) {
+      final typeArgs = type.typeArguments;
+      if (typeArgs.isEmpty) {
+        return type.getDisplayString();
+      }
+
+      // Recursively substitute type arguments
+      final substitutedArgs = typeArgs
+          .map((arg) => _substituteTypeParameters(arg, substitution))
+          .join(', ');
+      final baseName = type.element.name;
+      return '$baseName<$substitutedArgs>';
+    }
+
+    // Handle function types
+    if (type is FunctionType) {
+      // For function types, we'd need more complex handling
+      // For now, just return the display string with type params replaced
+      var display = type.getDisplayString();
+      for (final entry in substitution.entries) {
+        // Simple text replacement - not perfect but handles most cases
+        display = display.replaceAll(
+          RegExp(r'\b' + entry.key + r'\b'),
+          entry.value.getDisplayString(),
+        );
+      }
+      return display;
+    }
+
+    // For other types (dynamic, void, Never, etc.), return as-is
+    return type.getDisplayString();
+  }
+
+  /// Parses a MemberInfo from a GetterElement.
+  ///
+  /// [typeSubstitution] is a map from type parameter names to concrete types,
+  /// used when collecting inherited members from generic supertypes.
+  MemberInfo? _parseMemberFromGetterElement(
+    GetterElement getter, [
+    Map<String, DartType>? typeSubstitution,
+  ]) {
+    final name = getter.displayName;
+    final rawReturnType = getter.returnType;
+    final returnType = typeSubstitution != null && typeSubstitution.isNotEmpty
+        ? _substituteTypeParameters(rawReturnType, typeSubstitution)
+        : rawReturnType.getDisplayString();
+
+    // Collect type import URIs
+    final typeImportUris = <String>{};
+    final typeToUri = <String, String>{};
+    _collectInfoFromDartType(rawReturnType, typeImportUris, typeToUri);
+
+    return MemberInfo(
+      name: name,
+      returnType: returnType,
+      returnTypeImportUris: typeImportUris,
+      returnTypeToUri: typeToUri,
+      isGetter: true,
+      isStatic: getter.isStatic,
+    );
+  }
+
+  /// Parses a MemberInfo from a SetterElement.
+  ///
+  /// [typeSubstitution] is a map from type parameter names to concrete types,
+  /// used when collecting inherited members from generic supertypes.
+  MemberInfo? _parseMemberFromSetterElement(
+    SetterElement setter, [
+    Map<String, DartType>? typeSubstitution,
+  ]) {
+    final name = setter.displayName;
+    
+    // For setters, the return type is the parameter type
+    final params = setter.formalParameters;
+    final rawParamType = params.isNotEmpty ? params.first.type : null;
+    final paramType = rawParamType != null
+        ? (typeSubstitution != null && typeSubstitution.isNotEmpty
+            ? _substituteTypeParameters(rawParamType, typeSubstitution)
+            : rawParamType.getDisplayString())
+        : 'dynamic';
+
+    // Collect type import URIs from the parameter type
+    final typeImportUris = <String>{};
+    final typeToUri = <String, String>{};
+    if (rawParamType != null) {
+      _collectInfoFromDartType(rawParamType, typeImportUris, typeToUri);
+    }
+
+    return MemberInfo(
+      name: name,
+      returnType: paramType,
+      returnTypeImportUris: typeImportUris,
+      returnTypeToUri: typeToUri,
+      isSetter: true,
+      isStatic: setter.isStatic,
+      parameters: params.map((p) {
+        final pType = typeSubstitution != null && typeSubstitution.isNotEmpty
+            ? _substituteTypeParameters(p.type, typeSubstitution)
+            : p.type.getDisplayString();
+        return ParameterInfo(
+          name: p.name ?? 'value',
+          type: pType,
+          isRequired: p.isRequired,
+          isNamed: p.isNamed,
+        );
+      }).toList(),
+    );
+  }
+
+  /// Parses a MemberInfo from a MethodElement.
+  ///
+  /// [typeSubstitution] is a map from type parameter names to concrete types,
+  /// used when collecting inherited members from generic supertypes.
+  MemberInfo? _parseMemberFromMethodElement(
+    MethodElement method, [
+    Map<String, DartType>? typeSubstitution,
+  ]) {
+    final name = method.displayName;
+    final rawReturnType = method.returnType;
+    final returnType = typeSubstitution != null && typeSubstitution.isNotEmpty
+        ? _substituteTypeParameters(rawReturnType, typeSubstitution)
+        : rawReturnType.getDisplayString();
+
+    // Collect type import URIs
+    final typeImportUris = <String>{};
+    final typeToUri = <String, String>{};
+    _collectInfoFromDartType(rawReturnType, typeImportUris, typeToUri);
+
+    // Parse parameters with type substitution
+    final parameters = method.formalParameters.map((p) {
+      final paramTypeImportUris = <String>{};
+      final paramTypeToUri = <String, String>{};
+      _collectInfoFromDartType(p.type, paramTypeImportUris, paramTypeToUri);
+
+      final paramType = typeSubstitution != null && typeSubstitution.isNotEmpty
+          ? _substituteTypeParameters(p.type, typeSubstitution)
+          : p.type.getDisplayString();
+
+      return ParameterInfo(
+        name: p.name ?? '',
+        type: paramType,
+        isRequired: p.isRequired,
+        isNamed: p.isNamed,
+        defaultValue: p.hasDefaultValue ? p.defaultValueCode : null,
+        typeImportUris: paramTypeImportUris,
+        typeToUri: paramTypeToUri,
+      );
+    }).toList();
+
+    // Extract method type parameters
+    final hasTypeParameters = method.typeParameters.isNotEmpty;
+    final methodTypeParams = <String, String?>{};
+    if (hasTypeParameters) {
+      for (final typeParam in method.typeParameters) {
+        final bound = typeParam.bound?.getDisplayString();
+        final paramName = typeParam.name;
+        if (paramName != null) {
+          methodTypeParams[paramName] = bound;
+        }
+      }
+    }
+
+    return MemberInfo(
+      name: name,
+      returnType: returnType,
+      returnTypeImportUris: typeImportUris,
+      returnTypeToUri: typeToUri,
+      isMethod: !method.isOperator,
+      isOperator: method.isOperator,
+      isStatic: method.isStatic,
+      parameters: parameters,
+      hasTypeParameters: hasTypeParameters,
+      methodTypeParameters: methodTypeParams,
+    );
   }
 
   /// Parses a constructor declaration with resolved types.

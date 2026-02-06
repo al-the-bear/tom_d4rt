@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 13 files
-// Generated: 2026-02-06T21:31:01.131796
+// Generated: 2026-02-06T18:49:10.816764
 
 // ignore_for_file: unused_import, deprecated_member_use
 
@@ -10,8 +10,8 @@ import 'dart:async';
 
 import 'package:tom_vscode_scripting_api/script_globals.dart' as $pkg;
 
-/// Bridge class for tom_vscode_scripting_api module.
-class TomVscodeScriptingApiBridge {
+/// Bridge class for package_tom_vscode_scripting_api module.
+class PackageTomVscodeScriptingApiBridge {
   /// Returns all bridge class definitions.
   static List<BridgedClass> bridgeClasses() {
     return [
@@ -176,7 +176,7 @@ class TomVscodeScriptingApiBridge {
     interpreter.registerGlobalGetter('chat', () => $pkg.chat, importPath, sourceUri: 'package:tom_vscode_scripting_api/script_globals.dart');
 
     if (errors.isNotEmpty) {
-      throw StateError('Bridge registration errors (tom_vscode_scripting_api):\n${errors.join("\n")}');
+      throw StateError('Bridge registration errors (package_tom_vscode_scripting_api):\n${errors.join("\n")}');
     }
   }
 
@@ -216,14 +216,6 @@ class TomVscodeScriptingApiBridge {
       'package:tom_vscode_scripting_api/src/vscode_window.dart',
       'package:tom_vscode_scripting_api/src/vscode_workspace.dart',
     ];
-  }
-
-  /// Returns the import statement needed for D4rt scripts.
-  ///
-  /// Use this in your D4rt initialization script to make all
-  /// bridged classes available to scripts.
-  static String getImportBlock() {
-    return "import 'package:tom_vscode_scripting_api/script_globals.dart';";
   }
 
   /// Returns a list of bridged enum names.

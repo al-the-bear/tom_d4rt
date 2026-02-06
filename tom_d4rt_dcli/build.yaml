@@ -45,75 +45,19 @@ targets:
                 - "**/*_bridge.dart"
                 - "**/*_generated.dart"
               excludeClasses: []
-
-            # DCli - CLI scripting utilities from pub.dev
+              
+            # DCli - Full dcli package with additional utilities
             - name: dcli
               barrelFiles:
                 - package:dcli/dcli.dart
+                - package:dcli_core/dcli_core.dart
+              barrelImport: package:dcli/dcli.dart
               outputPath: lib/src/bridges/dcli_bridges.b.dart
-              # Don't follow re-exports - dcli re-exports from crypto/dcli_core
-              # which aren't accessible via the main barrel import
               followAllReExports: false
+              skipReExports:
+                - dcli_core
+                - crypto
               excludePatterns:
                 - "**/*_bridge.dart"
                 - "**/*_generated.dart"
-              excludeClasses:
-                # Crypto classes not exported from dcli barrel
-                - Hmac
-                - Cat
-                - Hash
-                - Digest
-                # dcli_core classes not re-exported by dcli.dart
-                - WhichSearch
-                - Which
-                - LineFile
-                - FileSync
-                - CopyTreeException
-                - DCliFunctionException
-                - HeadException
-                - TailException
-                - TouchException
-                - BackupFileException
-                - RestoreFileException
-                - CatException
-                - FindAsync
-                - DCliFunction
-                - LimitedStreamController
-                # Progress uses LineAction type which causes import issues
-                - Progress
-                # Settings has methods (captureLogOutput, clearLogCapture, frame, listener) 
-                # from dcli_core that aren't in dcli's re-exported Settings
-                - Settings
-              excludeFunctions:
-                # Functions not exported from dcli barrel
-                - dartSdkNotFound
-                - capturePrinterrKey
-                - withFileProtectionAsync
-                - withTempDirAsync
-                - withEnvironment
-                - findAsync
-                - withTempFileAsync
-                - withOpenLineFile
-                - sleepAsync
-                - isTerminalDumb
-                - searchForCommandExtension
-                - findExtension
-                # cat uses LineAction parameter which causes ext_dcli_core import issues
-                - cat
-                # which uses Sink<String> (WhichSearch callback) - type mismatch
-                - which
-                # withOpenFile uses FileSync type which isn't exported from dcli
-                - withOpenFile
-              excludeVariables:
-                # Crypto hash constants - re-exported but not directly accessible
-                - md5
-                - sha1
-                - sha256
-                - sha224
-                - sha384
-                - sha512
-                - sha512224
-                - sha512256
-                # Other variables not exported from main barrel
-                - dartSdkNotFound
-                - capturePrinterrKey
+

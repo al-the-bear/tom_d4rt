@@ -17,6 +17,10 @@ class CliException extends D4rtException {
   /// Creates a CLI exception with the given message.
   CliException(super.message, {this.command, this.stackTrace});
 
+  /// The error message (inherited from D4rtException, exposed for bridging).
+  @override
+  String get message => super.message;
+
   @override
   String toString() => command != null
       ? 'CliException: $message (command: $command)'

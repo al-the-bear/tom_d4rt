@@ -39,3 +39,14 @@ builders:
       r"$lib$": ["d4rt_bridges.g.info"]
     auto_apply: dependents
     build_to: source
+
+targets:
+  $default:
+    builders:
+      # Version builder - generates version.g.dart with build info
+      tom_version_builder:version_builder:
+        enabled: true
+        options:
+          output: lib/src/version.g.dart
+          includeGitCommit: true
+          variablePrefix: d4rtGen

@@ -224,10 +224,21 @@ class PerPackageBridgeOrchestrator {
         
         for (final sourceFile in exports.keys) {
           // Track which barrel exports this source file
-          // If already tracked by another barrel, prefer the one that's not the main barrel
-          // (since the main barrel might not export internal types)
-          if (!sourceFileToBarrel.containsKey(sourceFile)) {
+          // Prefer barrels from the same package as the source file
+          final sourcePackage = _extractPackageName(sourceFile);
+          final barrelPackage = _extractPackageNameFromUri(barrelUri);
+          final existingBarrel = sourceFileToBarrel[sourceFile];
+          
+          if (existingBarrel == null) {
+            // Not yet tracked - use this barrel
             sourceFileToBarrel[sourceFile] = barrelUri;
+          } else if (sourcePackage != null && barrelPackage == sourcePackage) {
+            // This barrel is from the same package as the source file - prefer it
+            final existingBarrelPackage = _extractPackageNameFromUri(existingBarrel);
+            if (existingBarrelPackage != sourcePackage) {
+              // Existing barrel is from a different package - override with same-package barrel
+              sourceFileToBarrel[sourceFile] = barrelUri;
+            }
           }
           allExports[sourceFile] = exports[sourceFile]!;
         }
@@ -584,6 +595,13 @@ class PerPackageBridgeOrchestrator {
 
     // Fall back to directory name
     return p.basename(packageDir);
+  }
+  
+  /// Extracts package name from a package URI (e.g., 'package:dcli_core/dcli_core.dart' -> 'dcli_core').
+  String? _extractPackageNameFromUri(String uri) {
+    if (!uri.startsWith('package:')) return null;
+    final match = RegExp(r'^package:([^/]+)/').firstMatch(uri);
+    return match?.group(1);
   }
 
   /// Calculates relative import path from one file to another.

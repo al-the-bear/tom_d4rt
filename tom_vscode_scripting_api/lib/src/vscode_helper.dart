@@ -83,7 +83,7 @@ class VsCodeHelper {
     final hour = now.hour.toString().padLeft(2, '0');
     final minute = now.minute.toString().padLeft(2, '0');
     final second = now.second.toString().padLeft(2, '0');
-    return '${year}${month}${day}_${hour}${minute}${second}';
+    return '$year$month${day}_$hour$minute$second';
   }
 
   /// Generate a short timestamp ID for internal use
@@ -460,7 +460,7 @@ class VsCodeHelper {
   /// Ask GitHub Copilot a question (D4rt-safe version)
   /// 
   /// This method performs the entire LM request in JavaScript to avoid
-  /// D4rt deserialization issues with List<LanguageModelChat>.
+  /// D4rt deserialization issues with `List<LanguageModelChat>`.
   static Future<String> askCopilot(String prompt, {String? context, int timeoutSeconds = 300}) async {
     final vscode = getVSCode();
     

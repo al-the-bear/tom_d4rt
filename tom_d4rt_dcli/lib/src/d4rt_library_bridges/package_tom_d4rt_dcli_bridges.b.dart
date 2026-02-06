@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 9 files
-// Generated: 2026-02-06T21:30:58.089017
+// Generated: 2026-02-06T18:49:09.075766
 
 // ignore_for_file: unused_import, deprecated_member_use
 
@@ -13,8 +13,8 @@ import 'package:tom_d4rt/src/introspection.dart' as ext_tom_d4rt_introspection;
 import 'package:tom_d4rt/src/d4rt_base.dart' as ext_tom_d4rt_d4rt_base;
 import 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart' as $pkg;
 
-/// Bridge class for cli_api module.
-class CliApiBridge {
+/// Bridge class for package_tom_d4rt_dcli module.
+class PackageTomD4rtDcliBridge {
   /// Returns all bridge class definitions.
   static List<BridgedClass> bridgeClasses() {
     return [
@@ -147,7 +147,7 @@ class CliApiBridge {
     interpreter.registerGlobalGetter('verificationFailures', () => $pkg.verificationFailures, importPath, sourceUri: 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart');
 
     if (errors.isNotEmpty) {
-      throw StateError('Bridge registration errors (cli_api):\n${errors.join("\n")}');
+      throw StateError('Bridge registration errors (package_tom_d4rt_dcli):\n${errors.join("\n")}');
     }
   }
 
@@ -289,14 +289,6 @@ class CliApiBridge {
       'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
       'package:tom_d4rt_dcli/src/api/execution_context.dart',
     ];
-  }
-
-  /// Returns the import statement needed for D4rt scripts.
-  ///
-  /// Use this in your D4rt initialization script to make all
-  /// bridged classes available to scripts.
-  static String getImportBlock() {
-    return "import 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart';";
   }
 
   /// Returns a list of bridged enum names.

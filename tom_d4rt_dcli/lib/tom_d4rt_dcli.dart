@@ -10,7 +10,7 @@ import 'dartscript.b.dart';
 import 'src/cli/repl_base.dart';
 
 export 'dartscript.b.dart';
-export 'src/bridges/dcli_bridges.b.dart';
+export 'src/bridges/dcli_core_bridges.b.dart';
 export 'src/cli/repl_base.dart';
 export 'src/cli/vscode_integration.dart';
 

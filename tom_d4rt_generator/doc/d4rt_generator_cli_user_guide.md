@@ -29,6 +29,7 @@ dart run tom_d4rt_generator:d4rtgen
 
 | Option | Short | Description |
 |--------|-------|-------------|
+| `--version` | | Display the version of the D4rt Bridge Generator |
 | `--project=<path>` | `-p` | Path to a single project directory |
 | `--projects=<glob>` | `-P` | Glob patterns for projects (e.g., `./**/tom_*`) |
 | `--config=<file>` | `-c` | Path to specific `d4rt_bridging.json` file |
@@ -38,6 +39,36 @@ dart run tom_d4rt_generator:d4rtgen
 | `--recursion-exclude=<glob>` | `-R` | Glob patterns to exclude from recursive traversal |
 | `--verbose` | `-v` | Show detailed output during generation |
 | `--help` | `-h` | Show usage help |
+
+### Version Information
+
+To display the version of the D4rt Bridge Generator:
+
+```bash
+d4rtgen --version
+# or
+d4rtgen version
+```
+
+Output example:
+
+```
+D4rt Bridge Generator 1.0.0+0
+```
+
+### Error Handling
+
+When invalid options or unknown arguments are provided, the CLI displays an error message followed by the full help text:
+
+```bash
+d4rtgen --unknown-option
+# Error: Could not find an option named '--unknown-option'
+# [followed by help text]
+
+d4rtgen unknownarg
+# Error: Unknown arguments: unknownarg
+# [followed by help text]
+```
 
 ## Configuration Sources
 
