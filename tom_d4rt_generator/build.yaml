@@ -44,7 +44,7 @@ targets:
   $default:
     builders:
       # Version builder - generates version.g.dart with build info
-      tom_version_builder:version_builder:
+      tom_build_kit:version_builder:
         enabled: true
         options:
           output: lib/src/version.g.dart
