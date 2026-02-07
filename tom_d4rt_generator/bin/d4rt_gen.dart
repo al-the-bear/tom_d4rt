@@ -6,7 +6,7 @@
 /// ## Configuration Sources (in order of precedence)
 ///
 /// 1. Command-line arguments
-/// 2. `tom_build.yaml` (dartgen: section) in project directory
+/// 2. `tom_build.yaml` (d4rtgen: section) in project directory
 /// 3. `build.yaml` in project directory
 /// 4. `d4rt_bridging.json` in project directory
 ///
@@ -39,8 +39,8 @@ import 'package:tom_d4rt_generator/src/version.g.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 import 'package:yaml/yaml.dart';
 
-/// The tool key for dartgen in tom_build.yaml
-const _toolKey = 'dartgen';
+/// The tool key for d4rtgen in tom_build.yaml
+const _toolKey = 'd4rtgen';
 
 /// Validates path containment using tom_build_base's validatePathContainment.
 String? _validatePathContainment(TomBuildConfig config, String basePath) {
@@ -143,7 +143,7 @@ Future<void> main(List<String> arguments) async {
       toolKey: _toolKey,
     );
     if (yamlConfig != null) {
-      print('Using configuration from tom_build.yaml (dartgen: section)');
+      print('Using configuration from tom_build.yaml (d4rtgen: section)');
       // Merge CLI flags (like --verbose) with yaml config
       config = yamlConfig.merge(cliConfig);
     } else {
@@ -527,7 +527,7 @@ Future<void> _findSubprojectsRecursive(
   }
 }
 
-/// Check if directory has tom_build.yaml with dartgen: section.
+/// Check if directory has tom_build.yaml with d4rtgen: section.
 /// Uses hasTomBuildConfig from tom_build_base.
 bool _hasTomBuildYaml(String dirPath) {
   return hasTomBuildConfig(dirPath, _toolKey);
@@ -1003,11 +1003,11 @@ void _printUsage(ArgParser parser) {
   print(parser.usage);
   print('');
   print('Configuration File (tom_build.yaml):');
-  print('  Each project can have a tom_build.yaml file with a dartgen: section.');
+  print('  Each project can have a tom_build.yaml file with a d4rtgen: section.');
   print('  When recursing into subprojects, the tool uses each project\'s config.');
   print('');
   print('    # tom_build.yaml');
-  print('    dartgen:');
+  print('    d4rtgen:');
   print('      recursive: true');
   print('      recursion-exclude:');
   print('        - "**/node_modules/**"');
@@ -1021,7 +1021,7 @@ void _printUsage(ArgParser parser) {
   print('    - pubspec.yaml, AND');
   print('    - Either build.yaml (with d4rt_bridge_builder config)');
   print('    - Or d4rt_bridging.json');
-  print('    - Or tom_build.yaml with dartgen: section');
+  print('    - Or tom_build.yaml with d4rtgen: section');
   print('');
   print('Recursion Behavior:');
   print('  With --recursive, the tool:');
