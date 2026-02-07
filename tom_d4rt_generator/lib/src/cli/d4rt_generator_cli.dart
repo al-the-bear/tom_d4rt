@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
+import 'package:tom_build_base/tom_build_base.dart';
 import '../build_config_loader.dart';
 import '../../tom_d4rt_generator.dart';
 
@@ -38,7 +39,7 @@ Future<void> d4rtGeneratorMain(List<String> arguments) async {
   try {
     // Process based on arguments
     if (args['config'] != null) {
-      // Explicit JSON config file specified
+      // Explicit tom_build.yaml config file specified
       final configPath = args['config'] as String;
       if (!File(configPath).existsSync()) {
         stderr.writeln('Error: Configuration file not found: $configPath');
@@ -90,21 +91,28 @@ Future<void> _processProject(String projectPath,
   exit(1);
 }
 
-/// Scan a directory for config files and process them.
+/// Scan a directory for D4rt projects and process them.
 Future<void> _scanDirectory(String scanPath,
     {required bool recursive, required bool verbose}) async {
-  final configFiles =
-      BridgeConfig.findConfigFiles(scanPath, recursive: recursive);
+  final dir = Directory(scanPath);
+  if (!dir.existsSync()) {
+    stderr.writeln('Error: Directory not found: $scanPath');
+    exit(1);
+  }
 
-  if (configFiles.isEmpty) {
+  // Find all directories with tom_build.yaml containing d4rtgen: section
+  final projectDirs = <String>[];
+  _findD4rtgenProjects(dir, projectDirs, recursive: recursive);
+
+  if (projectDirs.isEmpty) {
     stderr.writeln('Error: No D4rt projects found in $scanPath');
     exit(1);
   }
 
   if (verbose) {
-    print('Found ${configFiles.length} configuration file(s):');
-    for (final config in configFiles) {
-      print('  - $config');
+    print('Found ${projectDirs.length} D4rt project(s):');
+    for (final projDir in projectDirs) {
+      print('  - $projDir');
     }
     print('');
   }
@@ -112,12 +120,12 @@ Future<void> _scanDirectory(String scanPath,
   var successCount = 0;
   var failureCount = 0;
 
-  for (final configFile in configFiles) {
+  for (final projectDir in projectDirs) {
     try {
-      await _processConfigFile(configFile, verbose: verbose);
+      await _processProject(projectDir, verbose: verbose);
       successCount++;
     } catch (e) {
-      stderr.writeln('Error processing $configFile: $e');
+      stderr.writeln('Error processing $projectDir: $e');
       failureCount++;
     }
   }
@@ -132,6 +140,26 @@ Future<void> _scanDirectory(String scanPath,
   print('=' * 80);
 
   if (failureCount > 0) exit(1);
+}
+
+/// Recursively find directories containing tom_build.yaml with d4rtgen: section.
+void _findD4rtgenProjects(Directory dir, List<String> results,
+    {required bool recursive}) {
+  if (hasTomBuildConfig(dir.path, 'd4rtgen')) {
+    results.add(dir.path);
+  }
+
+  if (recursive) {
+    for (final entity in dir.listSync(followLinks: false)) {
+      if (entity is Directory) {
+        final name = p.basename(entity.path);
+        // Skip hidden directories and common non-project directories
+        if (!name.startsWith('.') && name != 'node_modules') {
+          _findD4rtgenProjects(entity, results, recursive: true);
+        }
+      }
+    }
+  }
 }
 
 /// Generate bridges from a BridgeConfig object.
@@ -209,16 +237,22 @@ Future<void> _generateBridges(BridgeConfig config, String projectDir,
   }
 }
 
-/// Process a single configuration file.
+/// Process a single tom_build.yaml configuration file.
 Future<void> _processConfigFile(String configPath,
     {required bool verbose}) async {
   if (verbose) {
     print('Processing: $configPath');
   }
 
-  // Load configuration
-  final config = BridgeConfig.fromFile(configPath);
+  // Derive project directory from config file path
   final projectDir = p.dirname(configPath);
+
+  // Load from tom_build.yaml d4rtgen: section
+  final config = BuildConfigLoader.loadFromTomBuildYaml(projectDir);
+  if (config == null) {
+    stderr.writeln('Error: No d4rtgen configuration found in $configPath');
+    exit(1);
+  }
 
   await _generateBridges(config, projectDir, verbose: verbose);
 }

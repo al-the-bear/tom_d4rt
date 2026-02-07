@@ -285,6 +285,11 @@ class BridgeConfig {
   }
 
   /// Load configuration from a JSON file.
+  ///
+  /// Use [BuildConfigLoader.loadFromTomBuildYaml] instead to load from
+  /// tom_build.yaml d4rtgen: section.
+  @Deprecated('Use BuildConfigLoader.loadFromTomBuildYaml() instead. '
+      'JSON config files (d4rt_bridging.json) are no longer supported.')
   static BridgeConfig fromFile(String filePath) {
     final file = File(filePath);
     if (!file.existsSync()) {
@@ -297,6 +302,11 @@ class BridgeConfig {
   }
 
   /// Find all d4rt_bridging.json files in a directory.
+  ///
+  /// Use [hasTomBuildConfig] from tom_build_base instead to check for
+  /// tom_build.yaml with d4rtgen: section.
+  @Deprecated('Use hasTomBuildConfig() from tom_build_base instead. '
+      'JSON config files (d4rt_bridging.json) are no longer supported.')
   static List<String> findConfigFiles(String directory, {bool recursive = false}) {
     final dir = Directory(directory);
     if (!dir.existsSync()) {

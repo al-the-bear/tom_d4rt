@@ -9,6 +9,7 @@ import 'package:path/path.dart' as p;
 
 import 'bridge_config.dart';
 import 'bridge_generator.dart';
+import 'build_config_loader.dart';
 import 'file_generators.dart';
 
 /// Result of a bridge generation operation.
@@ -42,7 +43,7 @@ class GenerationResult {
 
 /// Generate D4rt bridges for a project.
 ///
-/// Generates bridges from a [BridgeConfig] or from a configuration file path.
+/// Generates bridges from a [BridgeConfig] or from a tom_build.yaml file path.
 ///
 /// Either [config] or [configPath] must be provided.
 ///
@@ -55,7 +56,7 @@ class GenerationResult {
 /// Example using config file:
 /// ```dart
 /// final result = await generateBridges(
-///   configPath: '/path/to/d4rt_bridging.json',
+///   configPath: '/path/to/project/tom_build.yaml',
 /// );
 /// ```
 Future<GenerationResult> generateBridges({
@@ -70,9 +71,12 @@ Future<GenerationResult> generateBridges({
     throw ArgumentError('Only one of config or configPath should be provided');
   }
   
-  // Load config from file if needed
-  final bridgeConfig = config ?? BridgeConfig.fromFile(configPath!);
+  // Load config from tom_build.yaml if needed
   final projectDir = configPath != null ? p.dirname(configPath) : Directory.current.path;
+  final bridgeConfig = config ?? BuildConfigLoader.loadFromTomBuildYaml(projectDir);
+  if (bridgeConfig == null) {
+    throw ArgumentError('No d4rtgen configuration found in $projectDir');
+  }
   
   var totalClasses = 0;
   final outputFiles = <String>[];
