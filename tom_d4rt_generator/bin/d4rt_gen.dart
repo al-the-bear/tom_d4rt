@@ -122,10 +122,7 @@ Future<void> main(List<String> arguments) async {
   final parser = ArgParser()
     ..addOption('project',
         abbr: 'p',
-        help: 'Path to a single project directory')
-    ..addMultiOption('projects',
-        abbr: 'P',
-        help: 'Glob patterns for projects to process (e.g., "./**/tom_*")')
+        help: 'Project(s) to process (comma-separated, globs: tom_*_builder, ./*)')
     ..addOption('config',
         abbr: 'c',
         help: 'Path to specific d4rt_bridging.json file')
@@ -266,6 +263,7 @@ Future<void> main(List<String> arguments) async {
 /// Collect all projects that would be processed (for --list mode).
 Future<List<String>> _collectProjects(CliConfig config) async {
   final verbose = config.verbose;
+  final discovery = ProjectDiscovery(verbose: verbose);
 
   if (config.config != null) {
     // Single config file - return the directory containing it
@@ -274,13 +272,27 @@ Future<List<String>> _collectProjects(CliConfig config) async {
       return [p.dirname(configPath)];
     }
     return [];
-  } else if (config.projects.isNotEmpty) {
+  }
+  
+  // Handle --project with patterns (comma-separated, globs, etc.)
+  if (config.project != null) {
+    return discovery.resolveProjectPatterns(
+      config.project!,
+      basePath: Directory.current.path,
+      projectFilter: _isD4rtProject,
+    );
+  }
+  
+  // Legacy --projects support (for backward compatibility)
+  if (config.projects.isNotEmpty) {
     return await _findProjectsByGlob(
       config.projects,
       exclude: config.exclude,
       verbose: verbose,
     );
-  } else if (config.scan != null) {
+  } 
+  
+  if (config.scan != null) {
     return await _scanForProjects(
       config.scan!,
       recursive: config.recursive,
@@ -288,13 +300,6 @@ Future<List<String>> _collectProjects(CliConfig config) async {
       recursionExclude: config.recursionExclude,
       verbose: verbose,
     );
-  } else if (config.project != null) {
-    final projectPath = p.isAbsolute(config.project!)
-        ? config.project!
-        : p.join(Directory.current.path, config.project!);
-    if (_isD4rtProject(projectPath)) {
-      return [projectPath];
-    }
   }
   
   return [];
