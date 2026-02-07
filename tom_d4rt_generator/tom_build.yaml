@@ -1,0 +1,24 @@
+# Tom Build Configuration for tom_d4rt_generator
+
+compiler:
+  compiles:
+    # macOS ARM64 - compile for self + all Linux targets
+    - commandline:
+        - mkdir -p $HOME/.tom/bin/${target-platform-vs}
+        - dart compile exe ${file} --target-os=${target-os} -o $HOME/.tom/bin/${target-platform-vs}/${file.name}
+      files: bin/d4rt_gen.dart
+      targets: [darwin-arm64, linux-x64, linux-arm64, linux-armhf]
+      platforms: [darwin-arm64]
+    
+    # Other platforms - compile for self only
+    - commandline:
+        - mkdir -p $HOME/.tom/bin/${target-platform-vs}
+        - dart compile exe ${file} -o $HOME/.tom/bin/${target-platform-vs}/${file.name}
+      files: bin/d4rt_gen.dart
+      platforms: [darwin-x64, linux-*, win32-*]
+
+  postcompile:
+    # Make binaries executable on Unix-like systems
+    - commandline:
+        - chmod -R +x $HOME/.tom/bin/${current-platform-vs}/
+      platforms: [macos, linux]
