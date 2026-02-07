@@ -32,6 +32,13 @@ class DcliRepl extends D4rtReplBase with VSCodeIntegrationMixin {
   String get toolVersion => TomVersionInfo.versionShort;
   
   @override
+  ReplState createReplState() {
+    // Initialize VS Code integration before creating state
+    initVSCodeIntegration();
+    return super.createReplState();
+  }
+  
+  @override
   void registerBridges(D4rt d4rt) {
     TomD4rtDcliBridge.register(d4rt);
   }
