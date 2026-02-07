@@ -1,15 +1,18 @@
 #!/usr/bin/env dart
 /// Test all generated bridge test runners across example projects.
 ///
-/// This script runs the generated `bin/d4rtrun.b.dart` test runner for each
-/// example project, testing:
-/// 1. Script execution (`.d4rt` files via `execute()`)
-/// 2. Bridge registration validation (`--init-eval`)
+/// This script first regenerates bridges for all example projects, then runs
+/// the generated `bin/d4rtrun.b.dart` test runner for each, testing:
+/// 1. Bridge regeneration (via `generate_example_bridges.dart`)
+/// 2. Script execution (`.d4rt` files via `execute()`)
+/// 3. Bridge registration validation (`--init-eval`)
+/// 4. Standalone example scripts (dart_overview, userbridge_user_guide)
 ///
 /// Usage:
 ///   dart run example/test_example_bridges.dart
 ///   dart run example/test_example_bridges.dart --verbose
 ///   dart run example/test_example_bridges.dart --init-eval-only
+///   dart run example/test_example_bridges.dart --skip-generation
 
 import 'dart:io';
 
@@ -30,8 +33,23 @@ class ExampleTestConfig {
   });
 }
 
+/// A standalone example that runs a Dart script directly (no test runner).
+class StandaloneExampleConfig {
+  final String name;
+  final String directory;
+  final String script;
+  final List<String> args;
+
+  const StandaloneExampleConfig({
+    required this.name,
+    required this.directory,
+    required this.script,
+    this.args = const [],
+  });
+}
+
 /// All example projects with test runners.
-const examples = [
+const bridgeExamples = [
   ExampleTestConfig(
     name: 'User Guide',
     directory: 'example/user_guide',
@@ -49,6 +67,32 @@ const examples = [
     directory: 'example/userbridge_override',
     testRunner: 'bin/d4rtrun.b.dart',
     scriptFiles: ['scripts/userbridge_override_example.d4rt'],
+  ),
+  ExampleTestConfig(
+    name: 'Example Project',
+    directory: 'example/example_project',
+    testRunner: 'bin/d4rtrun.b.dart',
+    scriptFiles: [
+      'scripts/basic_example.d4rt',
+      'scripts/callbacks_example.d4rt',
+      'scripts/generic_example.d4rt',
+      'scripts/inheritance_example.d4rt',
+      'scripts/operators_example.d4rt',
+    ],
+  ),
+];
+
+/// Standalone example scripts (no bridge test runner, run directly).
+const standaloneExamples = [
+  StandaloneExampleConfig(
+    name: 'Dart Overview (D4rt)',
+    directory: 'example/dart_overview',
+    script: 'lib/run_overview_in_d4rt.dart',
+  ),
+  StandaloneExampleConfig(
+    name: 'UserBridge User Guide',
+    directory: 'example/userbridge_user_guide',
+    script: 'userbridge_example.dart',
   ),
 ];
 
@@ -76,6 +120,7 @@ class TestResult {
 Future<void> main(List<String> args) async {
   final verbose = args.contains('--verbose') || args.contains('-v');
   final initEvalOnly = args.contains('--init-eval-only');
+  final skipGeneration = args.contains('--skip-generation');
 
   print('╔══════════════════════════════════════════════════════════════╗');
   print('║       D4rt Bridge Generator - Example Bridge Tester        ║');
@@ -90,7 +135,53 @@ Future<void> main(List<String> args) async {
 
   final results = <TestResult>[];
 
-  for (final example in examples) {
+  // Step 0: Regenerate bridges (unless --skip-generation)
+  if (!skipGeneration) {
+    print('━━━ Bridge Generation ━━━');
+    final generatorScript =
+        p.join(packageRoot, 'example', 'generate_example_bridges.dart');
+    if (File(generatorScript).existsSync()) {
+      final sw = Stopwatch()..start();
+      final result = await Process.run(
+        'dart',
+        [
+          'run',
+          generatorScript,
+          if (verbose) '--verbose',
+        ],
+        workingDirectory: packageRoot,
+      );
+      sw.stop();
+
+      final passed = result.exitCode == 0;
+      results.add(TestResult(
+        project: 'Bridge Generation',
+        test: 'generate all',
+        passed: passed,
+        exitCode: result.exitCode,
+        stdout: result.stdout.toString(),
+        stderr: result.stderr.toString(),
+        duration: sw.elapsed,
+      ));
+
+      final icon = passed ? '✓' : '✗';
+      print('  $icon generate_example_bridges.dart  (${sw.elapsed.inMilliseconds}ms)');
+      if (verbose || !passed) {
+        _printOutput(result.stdout.toString(), result.stderr.toString(), passed);
+      }
+
+      if (!passed) {
+        print('');
+        print('⚠  Bridge generation failed. Continuing with existing bridges...');
+      }
+    } else {
+      print('  ⚠  generate_example_bridges.dart not found, skipping generation');
+    }
+    print('');
+  }
+
+  // Step 1: Test bridge example projects (with test runners)
+  for (final example in bridgeExamples) {
     final exampleDir = p.join(packageRoot, example.directory);
     final testRunner = p.join(exampleDir, example.testRunner);
 
@@ -183,6 +274,69 @@ Future<void> main(List<String> args) async {
     }
 
     print('');
+  }
+
+  // Step 2: Test standalone examples (no bridge test runner)
+  if (!initEvalOnly) {
+    for (final example in standaloneExamples) {
+      final exampleDir = p.join(packageRoot, example.directory);
+      final script = p.join(exampleDir, example.script);
+
+      if (!Directory(exampleDir).existsSync()) {
+        print('⚠  ${example.name}: directory not found at ${example.directory}');
+        results.add(TestResult(
+          project: example.name,
+          test: example.script,
+          passed: false,
+          exitCode: -1,
+          stdout: '',
+          stderr: 'Directory not found: $exampleDir',
+          duration: Duration.zero,
+        ));
+        continue;
+      }
+
+      if (!File(script).existsSync()) {
+        print('⚠  ${example.name}: script not found at ${example.script}');
+        results.add(TestResult(
+          project: example.name,
+          test: example.script,
+          passed: false,
+          exitCode: -1,
+          stdout: '',
+          stderr: 'Script not found: $script',
+          duration: Duration.zero,
+        ));
+        continue;
+      }
+
+      print('━━━ ${example.name} ━━━');
+      final sw = Stopwatch()..start();
+      final result = await Process.run(
+        'dart',
+        ['run', example.script, ...example.args],
+        workingDirectory: exampleDir,
+      );
+      sw.stop();
+
+      final passed = result.exitCode == 0;
+      results.add(TestResult(
+        project: example.name,
+        test: example.script,
+        passed: passed,
+        exitCode: result.exitCode,
+        stdout: result.stdout.toString(),
+        stderr: result.stderr.toString(),
+        duration: sw.elapsed,
+      ));
+
+      final icon = passed ? '✓' : '✗';
+      print('  $icon ${example.script}  (${sw.elapsed.inMilliseconds}ms)');
+      if (verbose || !passed) {
+        _printOutput(result.stdout.toString(), result.stderr.toString(), passed);
+      }
+      print('');
+    }
   }
 
   // Summary

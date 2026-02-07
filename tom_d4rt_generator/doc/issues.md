@@ -47,6 +47,7 @@
 | [GEN-037](#gen-037) | [Generated bridge files don't consistently use .b.dart extension](#gen-037) | Medium | Fixed |
 | [GEN-038](#gen-038) | [Test runner fails on first duplicate instead of reporting all](#gen-038) | Low | Already Fixed |
 | [GEN-039](#gen-039) | [Test runner config not supported in build.yaml](#gen-039) | Low | Already Fixed |
+| [GEN-040](#gen-040) | [Recursive bound error message references `_sample` instead of `sample`](#gen-040) | Low | Fixed |
 
 ---
 
@@ -1312,6 +1313,33 @@ Both the standalone CLI (`bin/d4rt_gen.dart`) and the library CLI (`lib/src/cli/
 
 **c) Resolution:**
 No changes needed. The build.yaml support was already fully implemented when the test runner config fields were added to `BridgeConfig`.
+
+---
+
+### GEN-040
+
+**Status:** Fixed  
+**Complexity:** Low  
+**Title:** Recursive bound error message references `_sample` instead of `sample`
+
+**a) What exactly is the problem:**
+
+The bridge generator's recursive bound type dispatch code emits an `ArgumentError` fallback message that references `_sample.runtimeType`. However, the local variable created in the generated code is named `sample` (without underscore), causing 3 compile errors in any bridge containing functions with recursive type bounds (e.g., `sortItems<T extends Comparable<T>>`).
+
+Example of generated code with the bug:
+```dart
+final sample = positional[0];
+// ... type checks ...
+throw ArgumentError('sortItems: ... Got: ${_sample.runtimeType}');  // ERROR: _sample undefined
+```
+
+**b) Location:**
+`lib/src/bridge_generator.dart` line 6366 — the fallback error string in `_generateRecursiveBoundDispatch()` used `\${_sample.runtimeType}` instead of `\${sample.runtimeType}`.
+
+Also added `prefer_function_declarations_over_variables` to the `ignore_for_file` directive (line 3211) since generated callback wrapper lambdas trigger this lint.
+
+**c) Resolution:**
+Fixed the interpolation from `_sample` to `sample` in the generator source. Regenerated all affected bridge files. The `ignore_for_file` directive now includes `prefer_function_declarations_over_variables` for generated files.
 
 ---
 

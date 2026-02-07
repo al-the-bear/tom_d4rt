@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-02-07T13:29:09.899651
+// Generated: 2026-02-07T13:53:56.341772
 
-// ignore_for_file: unused_import, deprecated_member_use
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';

@@ -195,7 +195,7 @@ class GlobalBridge {
         if (firstElem is DateTime) {
           return $pkg.sortItems<DateTime>((positional[0] as List).cast<DateTime>());
         }
-        throw ArgumentError('sortItems: Unsupported type for recursive bound. Supported types: num, String, DateTime. Got: ${_sample.runtimeType}');
+        throw ArgumentError('sortItems: Unsupported type for recursive bound. Supported types: num, String, DateTime. Got: ${sample.runtimeType}');
       },
       'minValue': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'minValue');
@@ -209,7 +209,7 @@ class GlobalBridge {
         if (sample is DateTime) {
           return $pkg.minValue<DateTime>(positional[0] as DateTime, positional[1] as DateTime);
         }
-        throw ArgumentError('minValue: Unsupported type for recursive bound. Supported types: num, String, DateTime. Got: ${_sample.runtimeType}');
+        throw ArgumentError('minValue: Unsupported type for recursive bound. Supported types: num, String, DateTime. Got: ${sample.runtimeType}');
       },
       'maxValue': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'maxValue');
@@ -223,7 +223,7 @@ class GlobalBridge {
         if (sample is DateTime) {
           return $pkg.maxValue<DateTime>(positional[0] as DateTime, positional[1] as DateTime);
         }
-        throw ArgumentError('maxValue: Unsupported type for recursive bound. Supported types: num, String, DateTime. Got: ${_sample.runtimeType}');
+        throw ArgumentError('maxValue: Unsupported type for recursive bound. Supported types: num, String, DateTime. Got: ${sample.runtimeType}');
       },
       'delayedGreeting': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'delayedGreeting');

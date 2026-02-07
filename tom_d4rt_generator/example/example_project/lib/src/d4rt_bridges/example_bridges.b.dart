@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-02-07T13:29:59.147567
+// Generated: 2026-02-07T13:55:03.073993
 
-// ignore_for_file: unused_import, deprecated_member_use
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -273,7 +273,7 @@ class AllBridge {
         if (firstElem is DateTime) {
           return $pkg.sortItems<DateTime>((positional[0] as List).cast<DateTime>());
         }
-        throw ArgumentError('sortItems: Unsupported type for recursive bound. Supported types: num, String, DateTime. Got: ${_sample.runtimeType}');
+        throw ArgumentError('sortItems: Unsupported type for recursive bound. Supported types: num, String, DateTime. Got: ${sample.runtimeType}');
       },
       'minValue': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'minValue');
@@ -287,7 +287,7 @@ class AllBridge {
         if (sample is DateTime) {
           return $pkg.minValue<DateTime>(positional[0] as DateTime, positional[1] as DateTime);
         }
-        throw ArgumentError('minValue: Unsupported type for recursive bound. Supported types: num, String, DateTime. Got: ${_sample.runtimeType}');
+        throw ArgumentError('minValue: Unsupported type for recursive bound. Supported types: num, String, DateTime. Got: ${sample.runtimeType}');
       },
       'maxValue': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'maxValue');
@@ -301,7 +301,7 @@ class AllBridge {
         if (sample is DateTime) {
           return $pkg.maxValue<DateTime>(positional[0] as DateTime, positional[1] as DateTime);
         }
-        throw ArgumentError('maxValue: Unsupported type for recursive bound. Supported types: num, String, DateTime. Got: ${_sample.runtimeType}');
+        throw ArgumentError('maxValue: Unsupported type for recursive bound. Supported types: num, String, DateTime. Got: ${sample.runtimeType}');
       },
       'delayedGreeting': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'delayedGreeting');

@@ -3208,7 +3208,7 @@ class BridgeGenerator {
     buffer.writeln();
     
     // Suppress common linter warnings in generated code
-    buffer.writeln('// ignore_for_file: unused_import, deprecated_member_use');
+    buffer.writeln('// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables');
     buffer.writeln();
 
     // Imports
@@ -6363,7 +6363,7 @@ class BridgeGenerator {
     // Fallback error
     final typesList = recursiveBoundTypes.map((t) => t.typeName).join(', ');
     buffer.writeln("${indent}throw ArgumentError('${func.name}: Unsupported type for recursive bound. "
-        "Supported types: $typesList. Got: \${_sample.runtimeType}');");
+        "Supported types: $typesList. Got: \${sample.runtimeType}');");
   }
 
   /// Extracts the base type from a generic type string.
