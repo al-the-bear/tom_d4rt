@@ -629,21 +629,47 @@ void main() {}
     
     d4rt.execute(source: defaultInitSource);
     
-    // Create execution callback
+    // Create ReplState for bot mode processing
+    final state = ReplState(
+      promptName: toolName.toLowerCase(),
+      dataDir: '${Platform.environment['HOME']}/.tom/${toolName.toLowerCase()}',
+    );
+    state.currentDirectory = Directory.current.path;
+    
+    // Create execution callback that uses processInput with zone-based output capture
     Future<ExecutionResult> executeCommand(String command) async {
+      final outputBuffer = StringBuffer();
+      
+      // Helper to strip ANSI escape codes for Telegram output
+      String stripAnsi(String text) {
+        return text.replaceAll(RegExp(r'\x1B\[[0-9;]*[a-zA-Z]'), '');
+      }
+      
       try {
-        final result = d4rt.eval(command);
-        final output = result?.toString() ?? '';
+        // Use runZoned to capture all print/stdout output
+        await runZoned(
+          () async {
+            await processInput(d4rt, state, command, silent: false);
+          },
+          zoneSpecification: ZoneSpecification(
+            print: (self, parent, zone, line) {
+              // Strip ANSI escape codes for Telegram output
+              final cleaned = stripAnsi(line);
+              outputBuffer.writeln(cleaned);
+            },
+          ),
+        );
+        
+        final output = outputBuffer.toString().trim();
         return ExecutionResult(
           output: output,
-          value: result,
           isError: false,
         );
       } catch (e) {
         return ExecutionResult(
-          output: '',
+          output: outputBuffer.toString().trim(),
           isError: true,
-          errorMessage: e.toString(),
+          errorMessage: stripAnsi(e.toString()),
         );
       }
     }
