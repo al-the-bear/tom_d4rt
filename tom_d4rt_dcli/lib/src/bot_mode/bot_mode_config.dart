@@ -339,7 +339,7 @@ class LimitsConfig {
   factory LimitsConfig.fromYaml(YamlMap yaml) {
     return LimitsConfig(
       maxExecutionTime: _parseDuration(yaml['max-execution-time'] as String? ?? '30s'),
-      maxOutputChars: yaml['max-output-chars'] as int? ?? 3800,
+      maxOutputChars: yaml['max-output-chars'] as int? ?? 4000,
       maxFileSize: _parseFileSize(yaml['max-file-size'] as String? ?? '20MB'),
       minMessageInterval: _parseDuration(yaml['min-message-interval'] as String? ?? '100ms'),
     );
@@ -348,7 +348,7 @@ class LimitsConfig {
   factory LimitsConfig.defaults() {
     return LimitsConfig(
       maxExecutionTime: const Duration(seconds: 30),
-      maxOutputChars: 3800,
+      maxOutputChars: 4000,
       maxFileSize: 20 * 1024 * 1024, // 20MB
       minMessageInterval: const Duration(milliseconds: 100),
     );
@@ -420,7 +420,7 @@ class OutputConfig {
       useMonospace: yaml['use-monospace'] as bool? ?? true,
       stripAnsi: yaml['strip-ansi'] as bool? ?? true,
       convertMarkdown: yaml['convert-markdown'] as bool? ?? true,
-      maxOutputChars: yaml['long-output-attach-result-limit'] as int? ?? 3000,
+      maxOutputChars: yaml['long-output-attach-result-limit'] as int? ?? 4000,
       attachFullOutput: yaml['attach-full-output'] as bool? ?? true,
       truncationSuffix: yaml['truncation-suffix'] as String? ?? 
           '\n... (output truncated, {remaining} more chars)',
@@ -433,7 +433,7 @@ class OutputConfig {
       useMonospace: true,
       stripAnsi: true,
       convertMarkdown: true,
-      maxOutputChars: 3000,
+      maxOutputChars: 4000,
       attachFullOutput: true,
       truncationSuffix: '\n... (output truncated, {remaining} more chars)',
       autoAttachCopilotFiles: true,

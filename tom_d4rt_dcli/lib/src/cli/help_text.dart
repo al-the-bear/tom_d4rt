@@ -20,6 +20,10 @@ String getCommonCommandsHelp() {
   <yellow>**show-init**</yellow>      Show initialization source
   <yellow>**clear**</yellow>          Clear the screen
   <yellow>**exit**</yellow>/<yellow>**quit**</yellow>  Exit the REPL
+
+<cyan>**Inline Execution**</cyan>
+  <yellow>**exec**</yellow> <code>     Execute code in a fresh D4rt instance *(isolated)*
+  <yellow>**exp**</yellow> <expr>      Evaluate expression in current REPL environment
   
   *Search syntax:* <yellow>[q]</yellow> = filter, <yellow>"q"</yellow> = case-sensitive, <yellow>q*</yellow> = startsWith, <yellow>*q*</yellow> = contains''';
 }
@@ -111,6 +115,30 @@ String getD4rtSyntaxHelp() {
   <yellow>print(x);</yellow>              Print value
   <yellow>int foo(int x) => x;</yellow>   Define function *(persists)*
   <yellow>class Foo {}</yellow>           Define class *(persists)*''';
+}
+
+/// Returns the bot mode trail commands section (for help command).
+String getTrailCommandsHelp() {
+  return '''
+<cyan>**Trail Commands**</cyan> *(Bot Mode)*
+  <yellow>**list-attachments**</yellow>              List all attachments from conversation trail
+  <yellow>**list-references**</yellow>               List all references from conversation trail
+  <yellow>**get-attachments**</yellow> <ids>         Retrieve specific attachments by ID
+  <yellow>**get-references**</yellow> <ids>          Retrieve specific references by ID
+  
+  *Example:* <yellow>get-attachments A000, A001</yellow>''';
+}
+
+/// Returns the Copilot prompts section (for help command).
+String getCopilotPromptsHelp() {
+  return '''
+<cyan>**Copilot Integration**</cyan> *(Bot Mode)*
+  Messages are sent to VS Code Copilot Chat when:
+  • Prefixed with <yellow>**?**</yellow> *(e.g., <yellow>? explain this code</yellow>)*
+  • Starting with <yellow>**TODO:**</yellow> or <yellow>**QUESTION:**</yellow>
+  • Ending with <yellow>**.**</yellow>, <yellow>**?**</yellow>, or <yellow>**---**</yellow>
+  
+  All other messages are processed as REPL commands.''';
 }
 
 /// Returns the file conventions section (for --help).

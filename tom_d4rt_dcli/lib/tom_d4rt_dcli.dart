@@ -60,6 +60,13 @@ class DcliRepl extends D4rtReplBase with VSCodeIntegrationMixin {
   }
   
   @override
+  List<String> getAdditionalHelpSections() {
+    return [
+      getVSCodeIntegrationHelp(),
+    ];
+  }
+  
+  @override
   String getBridgesHelp([D4rt? d4rt]) {
     final buffer = StringBuffer();
     buffer.writeln('<cyan>**Bridges**</cyan>');

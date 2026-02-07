@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-02-07T14:57:39.004004
+// Generated: 2026-02-07T22:14:59.544111
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -661,7 +661,8 @@ BridgedClass _createChatApiBridge() {
         D4.requireMinArgs(positional, 2, 'sendMessage');
         final receiver = D4.getRequiredArg<$pkg.ChatReceiver>(positional, 0, 'receiver', 'sendMessage');
         final text = D4.getRequiredArg<String>(positional, 1, 'text', 'sendMessage');
-        return t.sendMessage(receiver, text);
+        final parseMode = D4.getOptionalNamedArg<String?>(named, 'parseMode');
+        return t.sendMessage(receiver, text, parseMode: parseMode);
       },
       'send': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.ChatApi>(target, 'ChatApi');
@@ -686,6 +687,12 @@ BridgedClass _createChatApiBridge() {
         final receiver = D4.getRequiredArg<$pkg.ChatReceiver>(positional, 0, 'receiver', 'getReceiverInfo');
         return t.getReceiverInfo(receiver);
       },
+      'downloadAttachment': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ChatApi>(target, 'ChatApi');
+        D4.requireMinArgs(positional, 1, 'downloadAttachment');
+        final attachment = D4.getRequiredArg<$pkg.ChatAttachment>(positional, 0, 'attachment', 'downloadAttachment');
+        return t.downloadAttachment(attachment);
+      },
       'disconnect': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.ChatApi>(target, 'ChatApi');
         return t.disconnect();
@@ -700,10 +707,11 @@ BridgedClass _createChatApiBridge() {
     },
     methodSignatures: {
       'initialize': 'Future<void> initialize()',
-      'sendMessage': 'Future<ChatMessage> sendMessage(ChatReceiver receiver, String text)',
+      'sendMessage': 'Future<ChatMessage> sendMessage(ChatReceiver receiver, String text, {String? parseMode})',
       'send': 'Future<ChatMessage> send(ChatReceiver receiver, ChatMessage message)',
       'getMessages': 'Future<ChatResponse> getMessages(ChatReceiver receiver, {Duration maxWait = const Duration(seconds: 30), Duration minWait = Duration.zero, Duration interval = const Duration(seconds: 2), ChatMessageFilter? filter})',
       'getReceiverInfo': 'Future<ChatReceiverInfo?> getReceiverInfo(ChatReceiver receiver)',
+      'downloadAttachment': 'Future<List<int>?> downloadAttachment(ChatAttachment attachment)',
       'disconnect': 'Future<void> disconnect()',
     },
     getterSignatures: {

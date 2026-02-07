@@ -215,6 +215,10 @@ abstract class D4rtReplBase {
     print('');
     print(getD4rtSyntaxHelp());
     print('');
+    print(getTrailCommandsHelp());
+    print('');
+    print(getCopilotPromptsHelp());
+    print('');
     print(getBridgesHelp(d4rt));
   }
   
@@ -688,9 +692,25 @@ void main() {}
         );
         
         final output = outputBuffer.toString().trim();
+        
+        // Detect formatted text commands (help, info) that should render markdown
+        final isFormattedText = command == 'help' || 
+                                command.startsWith('info ') ||
+                                command == 'classes' ||
+                                command == 'enums' ||
+                                command == 'methods' ||
+                                command == 'variables' ||
+                                command == 'defines' ||
+                                command.startsWith('classes ') ||
+                                command.startsWith('enums ') ||
+                                command.startsWith('methods ') ||
+                                command.startsWith('variables ') ||
+                                command.startsWith('defines ');
+        
         return ExecutionResult(
           output: output,
           isError: false,
+          isFormattedText: isFormattedText,
         );
       } catch (e) {
         // Include captured output along with the error
@@ -1562,6 +1582,29 @@ $code
       await _executeFile(d4rt, filename, silent: silent);
       return true;
     }
+    
+    // Inline execution commands - handle space, newline, or multiple newlines after command
+    final execMatch = RegExp(r'^exec[\s\n]+(.+)$', dotAll: true).firstMatch(line);
+    if (execMatch != null) {
+      final code = execMatch.group(1)!;
+      if (code.trim().isEmpty) {
+        if (!silent) state.writeError('exec requires code to execute');
+        return true;
+      }
+      await _executeCodeInNewInstance(d4rt, state, code, silent: silent);
+      return true;
+    }
+    
+    final expMatch = RegExp(r'^exp[\s\n]+(.+)$', dotAll: true).firstMatch(line);
+    if (expMatch != null) {
+      final expression = expMatch.group(1)!;
+      if (expression.trim().isEmpty) {
+        if (!silent) state.writeError('exp requires an expression to evaluate');
+        return true;
+      }
+      await _executeCode(d4rt, state, expression, silent);
+      return true;
+    }
 
     if (line.startsWith('.script ')) {
       final name = line.substring(8).trim();
@@ -2077,6 +2120,41 @@ Object? __repl_expr__() {
         }
       } else {
         stderr.writeln('<red>Error:</red> ${result.error}');
+      }
+    } catch (e) {
+      stderr.writeln('<red>Error:</red> $e');
+    }
+  }
+  
+  /// Execute code in a new D4rt instance (isolated from current REPL state).
+  Future<void> _executeCodeInNewInstance(
+    D4rt d4rt, 
+    ReplState state, 
+    String code, 
+    {bool silent = false}
+  ) async {
+    try {
+      // Create a fresh D4rt instance for isolated execution
+      final freshD4rt = D4rt();
+      freshD4rt.grant(FilesystemPermission.any);
+      freshD4rt.grant(NetworkPermission.any);
+      freshD4rt.grant(ProcessRunPermission.any);
+      freshD4rt.grant(IsolatePermission.any);
+      freshD4rt.grant(DangerousPermission.any);
+      registerBridges(freshD4rt);
+      
+      // Combine all imports (stdlib + registered bridges) with user code
+      // This allows scripts to use all available classes without explicit imports
+      final imports = getImportBlock();
+      final fullSource = '$imports\n$code';
+      
+      // Execute the complete program
+      var result = freshD4rt.execute(source: fullSource);
+      if (result is Future) {
+        result = await result;
+      }
+      if (result != null && !silent) {
+        printResult(result);
       }
     } catch (e) {
       stderr.writeln('<red>Error:</red> $e');
@@ -2647,29 +2725,28 @@ Object? __repl_expr__() {
   }
   
   void _printEnvironmentImports(D4rt d4rt, ReplState state) {
-    final envState = d4rt.getEnvironmentState();
-    if (envState == null) {
-      state.writeMuted('No environment state available.');
+    final config = d4rt.getConfiguration();
+    
+    if (config.imports.isEmpty) {
+      state.writeMuted('No imports registered.');
       return;
     }
-
-    // Show bridged classes
-    if (envState.bridgedClasses.isNotEmpty) {
-      print('Classes (${envState.bridgedClasses.length}):');
-      final sortedClasses = envState.bridgedClasses.toList()..sort();
-      state.printTabulated(sortedClasses);
+    
+    // Group by package name
+    final packageImports = <String, List<String>>{};
+    for (final import in config.imports) {
+      final pkgName = _extractPackageName(import.importPath);
+      packageImports.putIfAbsent(pkgName, () => []).add(import.importPath);
     }
-
-    // Show bridged enums
-    if (envState.bridgedEnums.isNotEmpty) {
-      print('Enums (${envState.bridgedEnums.length}):');
-      final sortedEnums = envState.bridgedEnums.toList()..sort();
-      state.printTabulated(sortedEnums);
-    }
-
-    // Show summary if nothing available
-    if (envState.bridgedClasses.isEmpty && envState.bridgedEnums.isEmpty) {
-      state.writeMuted('No bridged types in the environment.');
+    
+    print('Registered imports (${config.imports.length}):');
+    final sortedPackages = packageImports.keys.toList()..sort();
+    for (final pkgName in sortedPackages) {
+      final paths = packageImports[pkgName]!..sort();
+      print('  $pkgName:');
+      for (final path in paths) {
+        print('    $path');
+      }
     }
   }
   

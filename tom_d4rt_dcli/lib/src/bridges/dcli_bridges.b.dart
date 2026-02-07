@@ -1,14 +1,17 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 74 files
-// Generated: 2026-02-07T14:57:32.785915
+// Sources: 90 files
+// Generated: 2026-02-07T22:14:54.798195
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:crypto/src/digest.dart' as ext_crypto_digest;
+import 'package:crypto/src/hash.dart' as ext_crypto_hash;
 import 'package:dcli_terminal/src/ansi_color.dart' as ext_dcli_terminal_ansi_color;
 import 'package:dcli_terminal/src/format.dart' as ext_dcli_terminal_format;
 import 'package:dcli_terminal/src/terminal.dart' as ext_dcli_terminal_terminal;
@@ -20,11 +23,18 @@ class DcliBridge {
   /// Returns all bridge class definitions.
   static List<BridgedClass> bridgeClasses() {
     return [
+      _createDigestBridge(),
+      _createHashBridge(),
+      _createHmacBridge(),
       _createRestoreFileExceptionBridge(),
       _createBackupFileExceptionBridge(),
+      _createCatBridge(),
       _createCatExceptionBridge(),
       _createCopyExceptionBridge(),
+      _createCopyTreeExceptionBridge(),
       _createCreateDirExceptionBridge(),
+      _createDCliFunctionBridge(),
+      _createDCliFunctionExceptionBridge(),
       _createDeleteExceptionBridge(),
       _createDeleteDirExceptionBridge(),
       _createEnvBridge(),
@@ -33,11 +43,18 @@ class DcliBridge {
       _createFindItemBridge(),
       _createFindExceptionBridge(),
       _createFindConfigBridge(),
+      _createFindAsyncBridge(),
+      _createHeadExceptionBridge(),
       _createMoveExceptionBridge(),
       _createMoveDirExceptionBridge(),
       _createMoveTreeExceptionBridge(),
+      _createTailExceptionBridge(),
+      _createTouchExceptionBridge(),
+      _createWhichBridge(),
+      _createWhichSearchBridge(),
       _createDCliExceptionBridge(),
       _createDCliPlatformBridge(),
+      _createLimitedStreamControllerBridge(),
       _createLineFileBridge(),
       _createRunExceptionBridge(),
       _createStackListBridge(),
@@ -94,11 +111,18 @@ class DcliBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> classSourceUris() {
     return {
+      'Digest': 'package:crypto/src/digest.dart',
+      'Hash': 'package:crypto/src/hash.dart',
+      'Hmac': 'package:crypto/src/hmac.dart',
       'RestoreFileException': 'package:dcli_core/src/functions/backup.dart',
       'BackupFileException': 'package:dcli_core/src/functions/backup.dart',
+      'Cat': 'package:dcli_core/src/functions/cat.dart',
       'CatException': 'package:dcli_core/src/functions/cat.dart',
       'CopyException': 'package:dcli_core/src/functions/copy.dart',
+      'CopyTreeException': 'package:dcli_core/src/functions/copy_tree.dart',
       'CreateDirException': 'package:dcli_core/src/functions/create_dir.dart',
+      'DCliFunction': 'package:dcli_core/src/functions/dcli_function.dart',
+      'DCliFunctionException': 'package:dcli_core/src/functions/dcli_function.dart',
       'DeleteException': 'package:dcli_core/src/functions/delete.dart',
       'DeleteDirException': 'package:dcli_core/src/functions/delete_dir.dart',
       'Env': 'package:dcli_core/src/functions/env.dart',
@@ -107,11 +131,18 @@ class DcliBridge {
       'FindItem': 'package:dcli_core/src/functions/find.dart',
       'FindException': 'package:dcli_core/src/functions/find.dart',
       'FindConfig': 'package:dcli_core/src/functions/find.dart',
+      'FindAsync': 'package:dcli_core/src/functions/find_async.dart',
+      'HeadException': 'package:dcli_core/src/functions/head.dart',
       'MoveException': 'package:dcli_core/src/functions/move.dart',
       'MoveDirException': 'package:dcli_core/src/functions/move_dir.dart',
       'MoveTreeException': 'package:dcli_core/src/functions/move_tree.dart',
+      'TailException': 'package:dcli_core/src/functions/tail.dart',
+      'TouchException': 'package:dcli_core/src/functions/touch.dart',
+      'Which': 'package:dcli_core/src/functions/which.dart',
+      'WhichSearch': 'package:dcli_core/src/functions/which.dart',
       'DCliException': 'package:dcli_core/src/util/dcli_exception.dart',
       'DCliPlatform': 'package:dcli_core/src/util/dcli_platform.dart',
+      'LimitedStreamController': 'package:dcli_core/src/util/limited_stream_controller.dart',
       'LineFile': 'package:dcli_core/src/util/line_file.dart',
       'RunException': 'package:dcli_core/src/util/run_exception.dart',
       'StackList': 'package:dcli_core/src/util/stack_list.dart',
@@ -251,6 +282,46 @@ class DcliBridge {
   static void registerGlobalVariables(D4rt interpreter, String importPath) {
     final errors = <String>[];
 
+    try {
+      interpreter.registerGlobalVariable('md5', $pkg.md5, importPath, sourceUri: 'package:crypto/src/md5.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "md5": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('sha1', $pkg.sha1, importPath, sourceUri: 'package:crypto/src/sha1.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "sha1": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('sha256', $pkg.sha256, importPath, sourceUri: 'package:crypto/src/sha256.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "sha256": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('sha224', $pkg.sha224, importPath, sourceUri: 'package:crypto/src/sha256.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "sha224": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('sha384', $pkg.sha384, importPath, sourceUri: 'package:crypto/src/sha512.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "sha384": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('sha512', $pkg.sha512, importPath, sourceUri: 'package:crypto/src/sha512.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "sha512": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('sha512224', $pkg.sha512224, importPath, sourceUri: 'package:crypto/src/sha512.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "sha512224": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('sha512256', $pkg.sha512256, importPath, sourceUri: 'package:crypto/src/sha512.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "sha512256": $e');
+    }
     interpreter.registerGlobalGetter('env', () => $pkg.env, importPath, sourceUri: 'package:dcli_core/src/functions/env.dart');
     interpreter.registerGlobalGetter('PATH', () => $pkg.PATH, importPath, sourceUri: 'package:dcli_core/src/functions/env.dart');
     interpreter.registerGlobalGetter('HOME', () => $pkg.HOME, importPath, sourceUri: 'package:dcli_core/src/functions/env.dart');
@@ -268,6 +339,20 @@ class DcliBridge {
   /// Returns a map of global function names to their native implementations.
   static Map<String, NativeFunctionImpl> globalFunctions() {
     return {
+      'withFileProtectionAsync': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'withFileProtectionAsync');
+        final protected = D4.getRequiredArg<List<String>>(positional, 0, 'protected', 'withFileProtectionAsync');
+        final action = D4.getRequiredArg<Future<dynamic> Function()>(positional, 1, 'action', 'withFileProtectionAsync');
+        final workingDirectory = D4.getOptionalNamedArg<String?>(named, 'workingDirectory');
+        return $pkg.withFileProtectionAsync<dynamic>(protected, action, workingDirectory: workingDirectory);
+      },
+      'withTempDirAsync': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'withTempDirAsync');
+        final action = D4.getRequiredArg<Future<dynamic> Function(String)>(positional, 0, 'action', 'withTempDirAsync');
+        final keep = D4.getNamedArgWithDefault<bool>(named, 'keep', false);
+        final pathToTempDir = D4.getOptionalNamedArg<String?>(named, 'pathToTempDir');
+        return $pkg.withTempDirAsync<dynamic>(action, keep: keep, pathToTempDir: pathToTempDir);
+      },
       'isOnPATH': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'isOnPATH');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'isOnPATH');
@@ -279,10 +364,41 @@ class DcliBridge {
         final environment = D4.getRequiredNamedArg<Map<String, String>>(named, 'environment', 'withEnvironmentAsync');
         return $pkg.withEnvironmentAsync<dynamic>(callback, environment: environment);
       },
+      'withEnvironment': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'withEnvironment');
+        final callback = D4.getRequiredArg<dynamic Function()>(positional, 0, 'callback', 'withEnvironment');
+        final environment = D4.getRequiredNamedArg<Map<String, String>>(named, 'environment', 'withEnvironment');
+        return $pkg.withEnvironment<dynamic>(callback, environment: environment);
+      },
+      'findAsync': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'findAsync');
+        final pattern = D4.getRequiredArg<String>(positional, 0, 'pattern', 'findAsync');
+        final caseSensitive = D4.getNamedArgWithDefault<bool>(named, 'caseSensitive', false);
+        final recursive = D4.getNamedArgWithDefault<bool>(named, 'recursive', true);
+        final includeHidden = D4.getNamedArgWithDefault<bool>(named, 'includeHidden', false);
+        final workingDirectory = D4.getNamedArgWithDefault<String>(named, 'workingDirectory', '.');
+        if (!named.containsKey('types')) {
+          return $pkg.findAsync(pattern, caseSensitive: caseSensitive, recursive: recursive, includeHidden: includeHidden, workingDirectory: workingDirectory);
+        }
+        if (named.containsKey('types')) {
+          final types = D4.getRequiredNamedArg<List<FileSystemEntityType>>(named, 'types', 'findAsync');
+          return $pkg.findAsync(pattern, caseSensitive: caseSensitive, recursive: recursive, includeHidden: includeHidden, workingDirectory: workingDirectory, types: types);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
+      },
       'devNull': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'devNull');
         final line = D4.getRequiredArg<String?>(positional, 0, 'line', 'devNull');
         return $pkg.devNull(line);
+      },
+      'withTempFileAsync': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'withTempFileAsync');
+        final action = D4.getRequiredArg<Future<dynamic> Function(String)>(positional, 0, 'action', 'withTempFileAsync');
+        final suffix = D4.getOptionalNamedArg<String?>(named, 'suffix');
+        final pathToTempDir = D4.getOptionalNamedArg<String?>(named, 'pathToTempDir');
+        final create = D4.getNamedArgWithDefault<bool>(named, 'create', true);
+        final keep = D4.getNamedArgWithDefault<bool>(named, 'keep', false);
+        return $pkg.withTempFileAsync<dynamic>(action, suffix: suffix, pathToTempDir: pathToTempDir, create: create, keep: keep);
       },
       'withOpenLineFile': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'withOpenLineFile');
@@ -807,9 +923,14 @@ class DcliBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> globalFunctionSourceUris() {
     return {
+      'withFileProtectionAsync': 'package:dcli_core/src/functions/backup.dart',
+      'withTempDirAsync': 'package:dcli_core/src/functions/create_dir.dart',
       'isOnPATH': 'package:dcli_core/src/functions/env.dart',
       'withEnvironmentAsync': 'package:dcli_core/src/functions/env.dart',
+      'withEnvironment': 'package:dcli_core/src/functions/env.dart',
+      'findAsync': 'package:dcli_core/src/functions/find_async.dart',
       'devNull': 'package:dcli_core/src/util/dev_null.dart',
+      'withTempFileAsync': 'package:dcli_core/src/util/file.dart',
       'withOpenLineFile': 'package:dcli_core/src/util/line_file.dart',
       'truepath': 'package:dcli_core/src/util/truepath.dart',
       'privatePath': 'package:dcli_core/src/util/truepath.dart',
@@ -886,9 +1007,14 @@ class DcliBridge {
   /// Returns a map of global function names to their display signatures.
   static Map<String, String> globalFunctionSignatures() {
     return {
+      'withFileProtectionAsync': 'Future<R> withFileProtectionAsync(List<String> protected, Future<R> Function() action, {String? workingDirectory})',
+      'withTempDirAsync': 'Future<R> withTempDirAsync(Future<R> Function(String tempDir) action, {bool keep = false, String? pathToTempDir})',
       'isOnPATH': 'bool isOnPATH(String path)',
       'withEnvironmentAsync': 'Future<R> withEnvironmentAsync(Future<R> Function() callback, {required Map<String, String> environment})',
+      'withEnvironment': 'R withEnvironment(R Function() callback, {required Map<String, String> environment})',
+      'findAsync': 'Stream<FindItem> findAsync(String pattern, {bool caseSensitive = false, bool recursive = true, bool includeHidden = false, String workingDirectory = \'.\', List<FileSystemEntityType> types = const [Find.file]})',
       'devNull': 'void devNull(String? line)',
+      'withTempFileAsync': 'Future<R> withTempFileAsync(Future<R> Function(String tempFile) action, {String? suffix, String? pathToTempDir, bool create = true, bool keep = false})',
       'withOpenLineFile': 'R withOpenLineFile(String pathToFile, R Function(LineFile) action, {FileMode fileMode = FileMode.writeOnlyAppend})',
       'truepath': 'String truepath(String part1, [String? part2, String? part3, String? part4, String? part5, String? part6, String? part7])',
       'privatePath': 'String privatePath(String part1, [String? part2, String? part3, String? part4, String? part5, String? part6, String? part7])',
@@ -969,6 +1095,13 @@ class DcliBridge {
   /// multiple barrels.
   static List<String> sourceLibraries() {
     return [
+      'package:crypto/src/digest.dart',
+      'package:crypto/src/hash.dart',
+      'package:crypto/src/hmac.dart',
+      'package:crypto/src/md5.dart',
+      'package:crypto/src/sha1.dart',
+      'package:crypto/src/sha256.dart',
+      'package:crypto/src/sha512.dart',
       'package:dcli/src/functions/ask.dart',
       'package:dcli/src/functions/backup.dart',
       'package:dcli/src/functions/cat.dart',
@@ -1022,18 +1155,27 @@ class DcliBridge {
       'package:dcli_core/src/functions/backup.dart',
       'package:dcli_core/src/functions/cat.dart',
       'package:dcli_core/src/functions/copy.dart',
+      'package:dcli_core/src/functions/copy_tree.dart',
       'package:dcli_core/src/functions/create_dir.dart',
+      'package:dcli_core/src/functions/dcli_function.dart',
       'package:dcli_core/src/functions/delete.dart',
       'package:dcli_core/src/functions/delete_dir.dart',
       'package:dcli_core/src/functions/env.dart',
       'package:dcli_core/src/functions/find.dart',
+      'package:dcli_core/src/functions/find_async.dart',
+      'package:dcli_core/src/functions/head.dart',
       'package:dcli_core/src/functions/move.dart',
       'package:dcli_core/src/functions/move_dir.dart',
       'package:dcli_core/src/functions/move_tree.dart',
       'package:dcli_core/src/functions/pwd.dart',
+      'package:dcli_core/src/functions/tail.dart',
+      'package:dcli_core/src/functions/touch.dart',
+      'package:dcli_core/src/functions/which.dart',
       'package:dcli_core/src/util/dcli_exception.dart',
       'package:dcli_core/src/util/dcli_platform.dart',
       'package:dcli_core/src/util/dev_null.dart',
+      'package:dcli_core/src/util/file.dart',
+      'package:dcli_core/src/util/limited_stream_controller.dart',
       'package:dcli_core/src/util/line_file.dart',
       'package:dcli_core/src/util/platform.dart',
       'package:dcli_core/src/util/run_exception.dart',
@@ -1068,6 +1210,176 @@ class DcliBridge {
     'SortDirection',
   ];
 
+}
+
+// =============================================================================
+// Digest Bridge
+// =============================================================================
+
+BridgedClass _createDigestBridge() {
+  return BridgedClass(
+    nativeType: ext_crypto_digest.Digest,
+    name: 'Digest',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'Digest');
+        if (positional.isEmpty) {
+          throw ArgumentError('Digest: Missing required argument "bytes" at position 0');
+        }
+        final bytes = D4.coerceList<int>(positional[0], 'bytes');
+        return ext_crypto_digest.Digest(bytes);
+      },
+    },
+    getters: {
+      'bytes': (visitor, target) => D4.validateTarget<ext_crypto_digest.Digest>(target, 'Digest').bytes,
+      'hashCode': (visitor, target) => D4.validateTarget<ext_crypto_digest.Digest>(target, 'Digest').hashCode,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<ext_crypto_digest.Digest>(target, 'Digest');
+        return t.toString();
+      },
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<ext_crypto_digest.Digest>(target, 'Digest');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'Digest(List<int> bytes)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'bytes': 'List<int> get bytes',
+      'hashCode': 'int get hashCode',
+    },
+  );
+}
+
+// =============================================================================
+// Hash Bridge
+// =============================================================================
+
+BridgedClass _createHashBridge() {
+  return BridgedClass(
+    nativeType: ext_crypto_hash.Hash,
+    name: 'Hash',
+    constructors: {
+    },
+    getters: {
+      'blockSize': (visitor, target) => D4.validateTarget<ext_crypto_hash.Hash>(target, 'Hash').blockSize,
+    },
+    methods: {
+      'convert': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<ext_crypto_hash.Hash>(target, 'Hash');
+        D4.requireMinArgs(positional, 1, 'convert');
+        if (positional.isEmpty) {
+          throw ArgumentError('convert: Missing required argument "input" at position 0');
+        }
+        final input = D4.coerceList<int>(positional[0], 'input');
+        return t.convert(input);
+      },
+      'startChunkedConversion': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<ext_crypto_hash.Hash>(target, 'Hash');
+        D4.requireMinArgs(positional, 1, 'startChunkedConversion');
+        final sink = D4.getRequiredArg<Sink<ext_crypto_digest.Digest>>(positional, 0, 'sink', 'startChunkedConversion');
+        return t.startChunkedConversion(sink);
+      },
+      'fuse': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<ext_crypto_hash.Hash>(target, 'Hash');
+        D4.requireMinArgs(positional, 1, 'fuse');
+        final other = D4.getRequiredArg<Converter<ext_crypto_digest.Digest, dynamic>>(positional, 0, 'other', 'fuse');
+        return t.fuse(other);
+      },
+      'bind': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<ext_crypto_hash.Hash>(target, 'Hash');
+        D4.requireMinArgs(positional, 1, 'bind');
+        final stream = D4.getRequiredArg<Stream<List<int>>>(positional, 0, 'stream', 'bind');
+        return t.bind(stream);
+      },
+      'cast': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<ext_crypto_hash.Hash>(target, 'Hash');
+        return t.cast();
+      },
+    },
+    methodSignatures: {
+      'convert': 'Digest convert(List<int> input)',
+      'startChunkedConversion': 'ByteConversionSink startChunkedConversion(Sink<Digest> sink)',
+      'fuse': 'Converter<List<int>, dynamic> fuse(Converter<Digest, dynamic> other)',
+      'bind': 'Stream<Digest> bind(Stream<List<int>> stream)',
+      'cast': 'Converter<dynamic, dynamic> cast()',
+    },
+    getterSignatures: {
+      'blockSize': 'int get blockSize',
+    },
+  );
+}
+
+// =============================================================================
+// Hmac Bridge
+// =============================================================================
+
+BridgedClass _createHmacBridge() {
+  return BridgedClass(
+    nativeType: $pkg.Hmac,
+    name: 'Hmac',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'Hmac');
+        final hash = D4.getRequiredArg<ext_crypto_hash.Hash>(positional, 0, 'hash', 'Hmac');
+        if (positional.length <= 1) {
+          throw ArgumentError('Hmac: Missing required argument "key" at position 1');
+        }
+        final key = D4.coerceList<int>(positional[1], 'key');
+        return $pkg.Hmac(hash, key);
+      },
+    },
+    methods: {
+      'convert': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.Hmac>(target, 'Hmac');
+        D4.requireMinArgs(positional, 1, 'convert');
+        if (positional.isEmpty) {
+          throw ArgumentError('convert: Missing required argument "input" at position 0');
+        }
+        final input = D4.coerceList<int>(positional[0], 'input');
+        return t.convert(input);
+      },
+      'startChunkedConversion': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.Hmac>(target, 'Hmac');
+        D4.requireMinArgs(positional, 1, 'startChunkedConversion');
+        final sink = D4.getRequiredArg<Sink<ext_crypto_digest.Digest>>(positional, 0, 'sink', 'startChunkedConversion');
+        return t.startChunkedConversion(sink);
+      },
+      'fuse': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.Hmac>(target, 'Hmac');
+        D4.requireMinArgs(positional, 1, 'fuse');
+        final other = D4.getRequiredArg<Converter<ext_crypto_digest.Digest, dynamic>>(positional, 0, 'other', 'fuse');
+        return t.fuse(other);
+      },
+      'bind': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.Hmac>(target, 'Hmac');
+        D4.requireMinArgs(positional, 1, 'bind');
+        final stream = D4.getRequiredArg<Stream<List<int>>>(positional, 0, 'stream', 'bind');
+        return t.bind(stream);
+      },
+      'cast': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.Hmac>(target, 'Hmac');
+        return t.cast();
+      },
+    },
+    constructorSignatures: {
+      '': 'Hmac(Hash hash, List<int> key)',
+    },
+    methodSignatures: {
+      'convert': 'Digest convert(List<int> input)',
+      'startChunkedConversion': 'ByteConversionSink startChunkedConversion(Sink<Digest> sink)',
+      'fuse': 'Converter<List<int>, dynamic> fuse(Converter<Digest, dynamic> other)',
+      'bind': 'Stream<Digest> bind(Stream<List<int>> stream)',
+      'cast': 'Converter<dynamic, dynamic> cast()',
+    },
+  );
 }
 
 // =============================================================================
@@ -1197,6 +1509,39 @@ BridgedClass _createBackupFileExceptionBridge() {
 }
 
 // =============================================================================
+// Cat Bridge
+// =============================================================================
+
+BridgedClass _createCatBridge() {
+  return BridgedClass(
+    nativeType: $pkg.Cat,
+    name: 'Cat',
+    constructors: {
+    },
+    methods: {
+      'cat': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.Cat>(target, 'Cat');
+        D4.requireMinArgs(positional, 1, 'cat');
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'cat');
+        if (!named.containsKey('stdout')) {
+          t.cat(path);
+          return null;
+        }
+        if (named.containsKey('stdout')) {
+          final stdout = D4.getRequiredNamedArg<void Function(String)>(named, 'stdout', 'cat');
+          t.cat(path, stdout: stdout);
+          return null;
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
+      },
+    },
+    methodSignatures: {
+      'cat': 'void cat(String path, {LineAction stdout = print})',
+    },
+  );
+}
+
+// =============================================================================
 // CatException Bridge
 // =============================================================================
 
@@ -1216,6 +1561,10 @@ BridgedClass _createCatExceptionBridge() {
       'message': (visitor, target) => D4.validateTarget<$pkg.CatException>(target, 'CatException').message,
       'cause': (visitor, target) => D4.validateTarget<$pkg.CatException>(target, 'CatException').cause,
       'stackTrace': (visitor, target) => D4.validateTarget<$pkg.CatException>(target, 'CatException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.CatException>(target, 'CatException').stackTrace = value as dynamic,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1250,6 +1599,9 @@ BridgedClass _createCatExceptionBridge() {
       'cause': 'Object? get cause',
       'stackTrace': 'InvalidType get stackTrace',
     },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
+    },
   );
 }
 
@@ -1272,6 +1624,10 @@ BridgedClass _createCopyExceptionBridge() {
       'message': (visitor, target) => D4.validateTarget<$pkg.CopyException>(target, 'CopyException').message,
       'cause': (visitor, target) => D4.validateTarget<$pkg.CopyException>(target, 'CopyException').cause,
       'stackTrace': (visitor, target) => D4.validateTarget<$pkg.CopyException>(target, 'CopyException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.CopyException>(target, 'CopyException').stackTrace = value as dynamic,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1306,6 +1662,72 @@ BridgedClass _createCopyExceptionBridge() {
       'cause': 'Object? get cause',
       'stackTrace': 'InvalidType get stackTrace',
     },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// CopyTreeException Bridge
+// =============================================================================
+
+BridgedClass _createCopyTreeExceptionBridge() {
+  return BridgedClass(
+    nativeType: $pkg.CopyTreeException,
+    name: 'CopyTreeException',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'CopyTreeException');
+        final reason = D4.getRequiredArg<String>(positional, 0, 'reason', 'CopyTreeException');
+        return $pkg.CopyTreeException(reason);
+      },
+    },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.CopyTreeException>(target, 'CopyTreeException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.CopyTreeException>(target, 'CopyTreeException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.CopyTreeException>(target, 'CopyTreeException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.CopyTreeException>(target, 'CopyTreeException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.CopyTreeException>(target, 'CopyTreeException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.CopyTreeException>(target, 'CopyTreeException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.CopyTreeException>(target, 'CopyTreeException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.CopyTreeException>(target, 'CopyTreeException');
+        return t.toJsonString();
+      },
+    },
+    constructorSignatures: {
+      '': 'CopyTreeException(String reason)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'InvalidType get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
+    },
   );
 }
 
@@ -1328,6 +1750,10 @@ BridgedClass _createCreateDirExceptionBridge() {
       'message': (visitor, target) => D4.validateTarget<$pkg.CreateDirException>(target, 'CreateDirException').message,
       'cause': (visitor, target) => D4.validateTarget<$pkg.CreateDirException>(target, 'CreateDirException').cause,
       'stackTrace': (visitor, target) => D4.validateTarget<$pkg.CreateDirException>(target, 'CreateDirException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.CreateDirException>(target, 'CreateDirException').stackTrace = value as dynamic,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1362,6 +1788,86 @@ BridgedClass _createCreateDirExceptionBridge() {
       'cause': 'Object? get cause',
       'stackTrace': 'InvalidType get stackTrace',
     },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// DCliFunction Bridge
+// =============================================================================
+
+BridgedClass _createDCliFunctionBridge() {
+  return BridgedClass(
+    nativeType: $pkg.DCliFunction,
+    name: 'DCliFunction',
+    constructors: {
+    },
+  );
+}
+
+// =============================================================================
+// DCliFunctionException Bridge
+// =============================================================================
+
+BridgedClass _createDCliFunctionExceptionBridge() {
+  return BridgedClass(
+    nativeType: $pkg.DCliFunctionException,
+    name: 'DCliFunctionException',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'DCliFunctionException');
+        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'DCliFunctionException');
+        final stackTrace = D4.getOptionalArg<dynamic>(positional, 1, 'stackTrace');
+        return $pkg.DCliFunctionException(message, stackTrace);
+      },
+    },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.DCliFunctionException>(target, 'DCliFunctionException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.DCliFunctionException>(target, 'DCliFunctionException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.DCliFunctionException>(target, 'DCliFunctionException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.DCliFunctionException>(target, 'DCliFunctionException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.DCliFunctionException>(target, 'DCliFunctionException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.DCliFunctionException>(target, 'DCliFunctionException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.DCliFunctionException>(target, 'DCliFunctionException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.DCliFunctionException>(target, 'DCliFunctionException');
+        return t.toJsonString();
+      },
+    },
+    constructorSignatures: {
+      '': 'DCliFunctionException(String message, [InvalidType stackTrace])',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'InvalidType get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
+    },
   );
 }
 
@@ -1384,6 +1890,10 @@ BridgedClass _createDeleteExceptionBridge() {
       'message': (visitor, target) => D4.validateTarget<$pkg.DeleteException>(target, 'DeleteException').message,
       'cause': (visitor, target) => D4.validateTarget<$pkg.DeleteException>(target, 'DeleteException').cause,
       'stackTrace': (visitor, target) => D4.validateTarget<$pkg.DeleteException>(target, 'DeleteException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.DeleteException>(target, 'DeleteException').stackTrace = value as dynamic,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1418,6 +1928,9 @@ BridgedClass _createDeleteExceptionBridge() {
       'cause': 'Object? get cause',
       'stackTrace': 'InvalidType get stackTrace',
     },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
+    },
   );
 }
 
@@ -1440,6 +1953,10 @@ BridgedClass _createDeleteDirExceptionBridge() {
       'message': (visitor, target) => D4.validateTarget<$pkg.DeleteDirException>(target, 'DeleteDirException').message,
       'cause': (visitor, target) => D4.validateTarget<$pkg.DeleteDirException>(target, 'DeleteDirException').cause,
       'stackTrace': (visitor, target) => D4.validateTarget<$pkg.DeleteDirException>(target, 'DeleteDirException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.DeleteDirException>(target, 'DeleteDirException').stackTrace = value as dynamic,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1473,6 +1990,9 @@ BridgedClass _createDeleteDirExceptionBridge() {
       'message': 'String get message',
       'cause': 'Object? get cause',
       'stackTrace': 'InvalidType get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }
@@ -1773,6 +2293,10 @@ BridgedClass _createFindExceptionBridge() {
       'cause': (visitor, target) => D4.validateTarget<$pkg2.FindException>(target, 'FindException').cause,
       'stackTrace': (visitor, target) => D4.validateTarget<$pkg2.FindException>(target, 'FindException').stackTrace,
     },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg2.FindException>(target, 'FindException').stackTrace = value as dynamic,
+    },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg2.FindException>(target, 'FindException');
@@ -1805,6 +2329,9 @@ BridgedClass _createFindExceptionBridge() {
       'message': 'String get message',
       'cause': 'Object? get cause',
       'stackTrace': 'InvalidType get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }
@@ -1866,6 +2393,92 @@ BridgedClass _createFindConfigBridge() {
 }
 
 // =============================================================================
+// FindAsync Bridge
+// =============================================================================
+
+BridgedClass _createFindAsyncBridge() {
+  return BridgedClass(
+    nativeType: $pkg.FindAsync,
+    name: 'FindAsync',
+    constructors: {
+    },
+    staticGetters: {
+      'file': (visitor) => $pkg.FindAsync.file,
+      'directory': (visitor) => $pkg.FindAsync.directory,
+      'link': (visitor) => $pkg.FindAsync.link,
+    },
+    staticGetterSignatures: {
+      'file': 'dynamic get file',
+      'directory': 'dynamic get directory',
+      'link': 'dynamic get link',
+    },
+  );
+}
+
+// =============================================================================
+// HeadException Bridge
+// =============================================================================
+
+BridgedClass _createHeadExceptionBridge() {
+  return BridgedClass(
+    nativeType: $pkg.HeadException,
+    name: 'HeadException',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'HeadException');
+        final reason = D4.getRequiredArg<String>(positional, 0, 'reason', 'HeadException');
+        return $pkg.HeadException(reason);
+      },
+    },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.HeadException>(target, 'HeadException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.HeadException>(target, 'HeadException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.HeadException>(target, 'HeadException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.HeadException>(target, 'HeadException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.HeadException>(target, 'HeadException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.HeadException>(target, 'HeadException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.HeadException>(target, 'HeadException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.HeadException>(target, 'HeadException');
+        return t.toJsonString();
+      },
+    },
+    constructorSignatures: {
+      '': 'HeadException(String reason)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'InvalidType get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
 // MoveException Bridge
 // =============================================================================
 
@@ -1884,6 +2497,10 @@ BridgedClass _createMoveExceptionBridge() {
       'message': (visitor, target) => D4.validateTarget<$pkg.MoveException>(target, 'MoveException').message,
       'cause': (visitor, target) => D4.validateTarget<$pkg.MoveException>(target, 'MoveException').cause,
       'stackTrace': (visitor, target) => D4.validateTarget<$pkg.MoveException>(target, 'MoveException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.MoveException>(target, 'MoveException').stackTrace = value as dynamic,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1918,6 +2535,9 @@ BridgedClass _createMoveExceptionBridge() {
       'cause': 'Object? get cause',
       'stackTrace': 'InvalidType get stackTrace',
     },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
+    },
   );
 }
 
@@ -1940,6 +2560,10 @@ BridgedClass _createMoveDirExceptionBridge() {
       'message': (visitor, target) => D4.validateTarget<$pkg.MoveDirException>(target, 'MoveDirException').message,
       'cause': (visitor, target) => D4.validateTarget<$pkg.MoveDirException>(target, 'MoveDirException').cause,
       'stackTrace': (visitor, target) => D4.validateTarget<$pkg.MoveDirException>(target, 'MoveDirException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.MoveDirException>(target, 'MoveDirException').stackTrace = value as dynamic,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1974,6 +2598,9 @@ BridgedClass _createMoveDirExceptionBridge() {
       'cause': 'Object? get cause',
       'stackTrace': 'InvalidType get stackTrace',
     },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
+    },
   );
 }
 
@@ -1996,6 +2623,10 @@ BridgedClass _createMoveTreeExceptionBridge() {
       'message': (visitor, target) => D4.validateTarget<$pkg.MoveTreeException>(target, 'MoveTreeException').message,
       'cause': (visitor, target) => D4.validateTarget<$pkg.MoveTreeException>(target, 'MoveTreeException').cause,
       'stackTrace': (visitor, target) => D4.validateTarget<$pkg.MoveTreeException>(target, 'MoveTreeException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.MoveTreeException>(target, 'MoveTreeException').stackTrace = value as dynamic,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -2029,6 +2660,220 @@ BridgedClass _createMoveTreeExceptionBridge() {
       'message': 'String get message',
       'cause': 'Object? get cause',
       'stackTrace': 'InvalidType get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// TailException Bridge
+// =============================================================================
+
+BridgedClass _createTailExceptionBridge() {
+  return BridgedClass(
+    nativeType: $pkg.TailException,
+    name: 'TailException',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'TailException');
+        final reason = D4.getRequiredArg<String>(positional, 0, 'reason', 'TailException');
+        return $pkg.TailException(reason);
+      },
+    },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.TailException>(target, 'TailException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.TailException>(target, 'TailException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.TailException>(target, 'TailException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.TailException>(target, 'TailException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.TailException>(target, 'TailException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.TailException>(target, 'TailException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.TailException>(target, 'TailException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.TailException>(target, 'TailException');
+        return t.toJsonString();
+      },
+    },
+    constructorSignatures: {
+      '': 'TailException(String reason)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'InvalidType get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// TouchException Bridge
+// =============================================================================
+
+BridgedClass _createTouchExceptionBridge() {
+  return BridgedClass(
+    nativeType: $pkg.TouchException,
+    name: 'TouchException',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'TouchException');
+        final reason = D4.getRequiredArg<String>(positional, 0, 'reason', 'TouchException');
+        return $pkg.TouchException(reason);
+      },
+    },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.TouchException>(target, 'TouchException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.TouchException>(target, 'TouchException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.TouchException>(target, 'TouchException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.TouchException>(target, 'TouchException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.TouchException>(target, 'TouchException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.TouchException>(target, 'TouchException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.TouchException>(target, 'TouchException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.TouchException>(target, 'TouchException');
+        return t.toJsonString();
+      },
+    },
+    constructorSignatures: {
+      '': 'TouchException(String reason)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'InvalidType get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// Which Bridge
+// =============================================================================
+
+BridgedClass _createWhichBridge() {
+  return BridgedClass(
+    nativeType: $pkg.Which,
+    name: 'Which',
+    constructors: {
+    },
+    getters: {
+      'progress': (visitor, target) => D4.validateTarget<$pkg.Which>(target, 'Which').progress,
+      'path': (visitor, target) => D4.validateTarget<$pkg.Which>(target, 'Which').path,
+      'paths': (visitor, target) => D4.validateTarget<$pkg.Which>(target, 'Which').paths,
+      'found': (visitor, target) => D4.validateTarget<$pkg.Which>(target, 'Which').found,
+      'notfound': (visitor, target) => D4.validateTarget<$pkg.Which>(target, 'Which').notfound,
+    },
+    setters: {
+      'progress': (visitor, target, value) => 
+        D4.validateTarget<$pkg.Which>(target, 'Which').progress = value as Stream<String>,
+    },
+    getterSignatures: {
+      'progress': 'Stream<String>? get progress',
+      'path': 'String? get path',
+      'paths': 'List<String> get paths',
+      'found': 'bool get found',
+      'notfound': 'bool get notfound',
+    },
+    setterSignatures: {
+      'progress': 'set progress(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// WhichSearch Bridge
+// =============================================================================
+
+BridgedClass _createWhichSearchBridge() {
+  return BridgedClass(
+    nativeType: $pkg.WhichSearch,
+    name: 'WhichSearch',
+    constructors: {
+      'found': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'WhichSearch');
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'WhichSearch');
+        final exePath = D4.getRequiredArg<String?>(positional, 1, 'exePath', 'WhichSearch');
+        return $pkg.WhichSearch.found(path, exePath);
+      },
+      'notfound': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'WhichSearch');
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'WhichSearch');
+        return $pkg.WhichSearch.notfound(path);
+      },
+    },
+    getters: {
+      'path': (visitor, target) => D4.validateTarget<$pkg.WhichSearch>(target, 'WhichSearch').path,
+      'found': (visitor, target) => D4.validateTarget<$pkg.WhichSearch>(target, 'WhichSearch').found,
+      'exePath': (visitor, target) => D4.validateTarget<$pkg.WhichSearch>(target, 'WhichSearch').exePath,
+    },
+    setters: {
+      'path': (visitor, target, value) => 
+        D4.validateTarget<$pkg.WhichSearch>(target, 'WhichSearch').path = value as String,
+      'found': (visitor, target, value) => 
+        D4.validateTarget<$pkg.WhichSearch>(target, 'WhichSearch').found = value as bool,
+      'exePath': (visitor, target, value) => 
+        D4.validateTarget<$pkg.WhichSearch>(target, 'WhichSearch').exePath = value as String?,
+    },
+    constructorSignatures: {
+      'found': 'WhichSearch.found(String path, String? exePath)',
+      'notfound': 'WhichSearch.notfound(String path)',
+    },
+    getterSignatures: {
+      'path': 'String get path',
+      'found': 'bool get found',
+      'exePath': 'String? get exePath',
+    },
+    setterSignatures: {
+      'path': 'set path(dynamic value)',
+      'found': 'set found(dynamic value)',
+      'exePath': 'set exePath(dynamic value)',
     },
   );
 }
@@ -2164,6 +3009,113 @@ BridgedClass _createDCliPlatformBridge() {
     },
     staticSetterSignatures: {
       'scopeKey': 'set scopeKey(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// LimitedStreamController Bridge
+// =============================================================================
+
+BridgedClass _createLimitedStreamControllerBridge() {
+  return BridgedClass(
+    nativeType: $pkg.LimitedStreamController,
+    name: 'LimitedStreamController',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'LimitedStreamController');
+        final limit = D4.getRequiredArg<int>(positional, 0, '_limit', 'LimitedStreamController');
+        final onListenRaw = named['onListen'];
+        final onCancelRaw = named['onCancel'];
+        final sync = D4.getNamedArgWithDefault<bool>(named, 'sync', false);
+        return $pkg.LimitedStreamController(limit, onListen: onListenRaw == null ? null : () { (onListenRaw as InterpretedFunction).call(visitor, []); }, onCancel: onCancelRaw == null ? null : () { (onCancelRaw as InterpretedFunction).call(visitor, []); }, sync: sync);
+      },
+    },
+    getters: {
+      'length': (visitor, target) => D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController').length,
+      'isClosed': (visitor, target) => D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController').isClosed,
+      'hasListener': (visitor, target) => D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController').hasListener,
+      'isPaused': (visitor, target) => D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController').isPaused,
+      'stream': (visitor, target) => D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController').stream,
+      'done': (visitor, target) => D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController').done,
+      'sink': (visitor, target) => D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController').sink,
+      'onListen': (visitor, target) => D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController').onListen,
+      'onPause': (visitor, target) => D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController').onPause,
+      'onResume': (visitor, target) => D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController').onResume,
+      'onCancel': (visitor, target) => D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController').onCancel,
+    },
+    setters: {
+      'onListen': (visitor, target, value) => 
+        D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController').onListen = value as dynamic,
+      'onPause': (visitor, target, value) => 
+        D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController').onPause = value as dynamic,
+      'onResume': (visitor, target, value) => 
+        D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController').onResume = value as dynamic,
+      'onCancel': (visitor, target, value) => 
+        D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController').onCancel = value as dynamic,
+    },
+    methods: {
+      'add': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController');
+        D4.requireMinArgs(positional, 1, 'add');
+        final event = D4.getRequiredArg<dynamic>(positional, 0, 'event', 'add');
+        t.add(event);
+        return null;
+      },
+      'asyncAdd': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController');
+        D4.requireMinArgs(positional, 1, 'asyncAdd');
+        final event = D4.getRequiredArg<dynamic>(positional, 0, 'event', 'asyncAdd');
+        return t.asyncAdd(event);
+      },
+      'addError': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController');
+        D4.requireMinArgs(positional, 1, 'addError');
+        final error = D4.getRequiredArg<Object>(positional, 0, 'error', 'addError');
+        final stackTrace = D4.getOptionalArg<StackTrace?>(positional, 1, 'stackTrace');
+        t.addError(error, stackTrace);
+        return null;
+      },
+      'addStream': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController');
+        D4.requireMinArgs(positional, 1, 'addStream');
+        final source = D4.getRequiredArg<Stream<dynamic>>(positional, 0, 'source', 'addStream');
+        final cancelOnError = D4.getNamedArgWithDefault<bool?>(named, 'cancelOnError', true);
+        return t.addStream(source, cancelOnError: cancelOnError);
+      },
+      'close': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.LimitedStreamController>(target, 'LimitedStreamController');
+        return t.close();
+      },
+    },
+    constructorSignatures: {
+      '': 'LimitedStreamController(int _limit, {void Function()? onListen, void Function()? onCancel, bool sync = false})',
+    },
+    methodSignatures: {
+      'add': 'void add(T event)',
+      'asyncAdd': 'Future<void> asyncAdd(T event)',
+      'addError': 'void addError(Object error, [StackTrace? stackTrace])',
+      'addStream': 'Future<bool> addStream(Stream<T> source, {bool? cancelOnError = true})',
+      'close': 'Future<dynamic> close()',
+    },
+    getterSignatures: {
+      'length': 'int get length',
+      'isClosed': 'bool get isClosed',
+      'hasListener': 'bool get hasListener',
+      'isPaused': 'bool get isPaused',
+      'stream': 'Stream<T> get stream',
+      'done': 'Future<dynamic> get done',
+      'sink': 'StreamSink<T> get sink',
+      'onListen': 'ControllerCallback? get onListen',
+      'onPause': 'ControllerCallback? get onPause',
+      'onResume': 'ControllerCallback? get onResume',
+      'onCancel': 'ControllerCancelCallback? get onCancel',
+    },
+    setterSignatures: {
+      'onListen': 'set onListen(void Function()? value)',
+      'onPause': 'set onPause(void Function()? value)',
+      'onResume': 'set onResume(void Function()? value)',
+      'onCancel': 'set onCancel(void Function()? value)',
     },
   );
 }
@@ -3347,8 +4299,50 @@ BridgedClass _createReadExceptionBridge() {
         return $pkg.ReadException(reason, stacktrace);
       },
     },
+    getters: {
+      'message': (visitor, target) => D4.validateTarget<$pkg.ReadException>(target, 'ReadException').message,
+      'cause': (visitor, target) => D4.validateTarget<$pkg.ReadException>(target, 'ReadException').cause,
+      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.ReadException>(target, 'ReadException').stackTrace,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.ReadException>(target, 'ReadException').stackTrace = value as dynamic,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ReadException>(target, 'ReadException');
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ReadException>(target, 'ReadException');
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ReadException>(target, 'ReadException');
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ReadException>(target, 'ReadException');
+        return t.toJsonString();
+      },
+    },
     constructorSignatures: {
       '': 'ReadException(dynamic reason, [dynamic stacktrace])',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'InvalidType get stackTrace',
+    },
+    setterSignatures: {
+      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }

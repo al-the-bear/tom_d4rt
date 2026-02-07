@@ -214,7 +214,7 @@ class BotInstance {
 *$toolName* v$toolVersion
 $vsInfo
 
-Type /help for available commands, or enter any REPL command directly.
+Type help for available commands, or enter any REPL command directly.
 ''';
 
     for (final userId in allowedUsers) {
@@ -301,14 +301,28 @@ ${receivedAttachments.join('\n')}
       return;
     }
     
-    // Check if this looks like a Copilot Chat prompt (using original text, not with attachments suffix)
-    print('[BOT] Checking if Copilot Chat prompt...');
-    print('[BOT]   originalText: "$originalText"');
-    final isCopilot = _isCopilotChatPrompt(originalText);
-    print('[BOT]   _isCopilotChatPrompt result: $isCopilot');
-    if (isCopilot) {
-      await _handleCopilotChatPrompt(message, text, receivedAttachments);
+    // Check if this is an explicit Copilot prompt (starts with ?)
+    // These always go to Copilot, even if they look like commands
+    if (originalText.trim().startsWith('?')) {
+      final prompt = _stripCopilotPrefix(text);
+      await _handleCopilotChatPrompt(message, prompt, receivedAttachments);
       return;
+    }
+    
+    // Check if this is a REPL command - commands should NOT go to Copilot
+    // even if they end with . or ?
+    if (_isReplCommand(originalText)) {
+      // Fall through to REPL execution below
+    } else {
+      // Check if this looks like a Copilot Chat prompt
+      print('[BOT] Checking if Copilot Chat prompt...');
+      print('[BOT]   originalText: "$originalText"');
+      final isCopilot = _isCopilotChatPrompt(originalText);
+      print('[BOT]   _isCopilotChatPrompt result: $isCopilot');
+      if (isCopilot) {
+        await _handleCopilotChatPrompt(message, text, receivedAttachments);
+        return;
+      }
     }
 
     // Security check
@@ -515,11 +529,17 @@ ${receivedAttachments.join('\n')}
   
   /// Check if text looks like a Copilot Chat prompt.
   /// Returns true if the message:
+  /// - Starts with ? (explicit Copilot trigger)
   /// - Starts with TODO: or QUESTION:
   /// - Ends with . or ?
   /// - Ends with at least three dashes (---) on a separate last line
   bool _isCopilotChatPrompt(String text) {
     final trimmed = text.trim();
+    
+    // Check for ? prefix (explicit Copilot trigger)
+    if (trimmed.startsWith('?')) {
+      return true;
+    }
     
     // Check for TODO: or QUESTION: prefix (case insensitive)
     final upperText = trimmed.toUpperCase();
@@ -539,6 +559,72 @@ ${receivedAttachments.join('\n')}
       if (RegExp(r'^-{3,}$').hasMatch(lastLine)) {
         return true;
       }
+    }
+    
+    return false;
+  }
+  
+  /// Remove the ? prefix from a Copilot prompt if present.
+  String _stripCopilotPrefix(String text) {
+    final trimmed = text.trim();
+    if (trimmed.startsWith('?')) {
+      return trimmed.substring(1).trim();
+    }
+    return text;
+  }
+  
+  /// Check if text is a known REPL command (to avoid sending commands to Copilot).
+  bool _isReplCommand(String text) {
+    final trimmed = text.trim().toLowerCase();
+    
+    // List of known REPL commands that should NOT go to Copilot
+    const commands = [
+      'help',
+      'quit',
+      'exit',
+      'clear',
+      'history',
+      'vars',
+      'variables',
+      'imports',
+      'registered-classes',
+      'registered-enums',
+      'registered-methods',
+      'registered-variables',
+      'registered-imports',
+      'show-init',
+      'show-initialization',
+      'sessions',
+      'session',
+      'bridges',
+      'config',
+      'status',
+      'env',
+      'reset',
+      'multiline',
+      'load',
+      'save',
+      'run',
+      'execute',
+      'exec',
+      'exp',
+      'classes',
+      'enums',
+      'methods',
+      'defines',
+      'info',
+    ];
+    
+    // Check exact match or prefix with space
+    for (final cmd in commands) {
+      if (trimmed == cmd || trimmed.startsWith('$cmd ')) {
+        return true;
+      }
+    }
+    
+    // Also check for dot-commands (.load, .save, etc.)
+    if (trimmed.startsWith('.')) {
+      return true;
     }
     
     return false;
@@ -618,36 +704,11 @@ ${receivedAttachments.join('\n')}
 
 $vsInfo
 
-*Commands:*
-/help - Show available commands
+*Bot Commands:*
+/start - Show this welcome message
 /status - Show bot status
 
-Type any REPL command to execute.
-'''),
-        );
-        break;
-
-      case '/help':
-        await _sendReply(
-          message,
-          FormattedOutput(text: '''
-*Available Commands*
-
-/start - Show welcome message
-/help - Show this help
-/status - Show bot status
-
-*Trail Commands*
-• `list-attachments` - List all attachments from conversation trail
-• `list-references` - List all references from conversation trail
-• `get-attachments A000, A001` - Retrieve specific attachments by ID
-• `get-references R000, R001` - Retrieve specific references by ID
-
-*REPL Commands*
-Type any REPL command directly, for example:
-• `print("Hello")` - Print a message
-• `help` - Show REPL help
-• `.history` - Show command history
+Type any REPL command directly, or `help` for detailed help.
 '''),
         );
         break;
@@ -668,7 +729,7 @@ VS Code: ${vscode != null ? "${vscode!.host}:${vscode!.port}" : "Not configured"
       default:
         await _sendReply(
           message,
-          formatter.formatWarning('Unknown command: $cmd\nType /help for available commands.'),
+          formatter.formatWarning('Unknown command: $cmd\nType help for available commands.'),
         );
     }
   }
@@ -678,6 +739,7 @@ VS Code: ${vscode != null ? "${vscode!.host}:${vscode!.port}" : "Not configured"
     await _telegram.sendMessage(
       ChatReceiver.id(original.sender.id),
       output.text,
+      parseMode: output.parseMode,
     );
 
     // Send attachments if any

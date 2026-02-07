@@ -330,12 +330,18 @@ Future<ProcessingResult> _runWithConfig(TomBuildConfig config, {required String 
           result.addFailure();
           continue;
         }
-        // Run with project's own configuration
-        final subResult = await _runWithConfig(
-          projectConfig,
-          basePath: projectPath,
-        );
-        result.merge(subResult);
+        // Process project directly using its tom_build.yaml configuration.
+        // Note: We call _processProjectDirect instead of _runWithConfig because
+        // the project-level config only contains toolOptions (e.g., modules,
+        // excludeClasses), not navigation fields. Calling _runWithConfig would
+        // skip all processing since no navigation fields are set.
+        try {
+          await _processProjectDirect(projectPath, verbose: verbose);
+          result.addSuccess();
+        } catch (e) {
+          stderr.writeln('Error processing $projectPath: $e');
+          result.addFailure();
+        }
       } else {
         // No project-local config, process directly
         try {
@@ -389,18 +395,19 @@ Future<ProcessingResult> _processProjectWithRecursion(
       result.addFailure();
       return result;
     }
-    // Run with the project's own configuration (project config takes precedence)
-    final mergedConfig = TomBuildConfig(
-      project: normalizedPath,
-      recursive: projectConfig.recursive || recursive,
-      exclude: projectConfig.exclude.isNotEmpty ? projectConfig.exclude : exclude,
-      recursionExclude: projectConfig.recursionExclude.isNotEmpty 
-          ? projectConfig.recursionExclude 
-          : recursionExclude,
-      verbose: projectConfig.verbose || verbose,
-    ).merge(projectConfig);
-    final subResult = await _runWithConfig(mergedConfig, basePath: normalizedPath);
-    result.merge(subResult);
+    // Process project directly using its tom_build.yaml configuration.
+    // Note: We call _processProjectDirect instead of _runWithConfig to avoid
+    // infinite recursion. The project-level config contains toolOptions (modules,
+    // excludeClasses, etc.) which _processProjectDirect reads via
+    // BuildConfigLoader. Calling _runWithConfig with project: set would loop
+    // back into _processProjectWithRecursion endlessly.
+    try {
+      await _processProjectDirect(normalizedPath, verbose: verbose);
+      result.addSuccess();
+    } catch (e) {
+      stderr.writeln('Error processing $normalizedPath: $e');
+      result.addFailure();
+    }
     return result;
   }
 

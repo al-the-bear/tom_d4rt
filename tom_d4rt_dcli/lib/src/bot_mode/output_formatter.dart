@@ -14,10 +14,14 @@ class FormattedOutput {
 
   /// Optional file attachments.
   final List<File>? attachments;
+  
+  /// Parse mode for Telegram ('Markdown', 'MarkdownV2', 'HTML', or null for plain text).
+  final String? parseMode;
 
   FormattedOutput({
     required this.text,
     this.attachments,
+    this.parseMode,
   });
 }
 
@@ -41,6 +45,11 @@ class ExecutionResult {
   /// Optional Copilot Chat response data.
   /// If present, this was a Copilot Chat interaction.
   final CopilotChatResponse? copilotResponse;
+  
+  /// Whether the output contains pre-formatted text with markdown.
+  /// When true, the output should be rendered as markdown, not wrapped in code blocks.
+  /// Used for help text, info output, and other formatted displays.
+  final bool isFormattedText;
 
   ExecutionResult({
     required this.output,
@@ -49,6 +58,7 @@ class ExecutionResult {
     this.isError = false,
     this.errorMessage,
     this.copilotResponse,
+    this.isFormattedText = false,
   });
 }
 
@@ -116,9 +126,18 @@ class OutputFormatter {
     if (config.convertMarkdown) {
       text = _convertMarkdown(text);
     }
+    
+    // For formatted text (help, info), escape for MarkdownV2 but don't wrap in code block
+    // For code output, wrap in code block
+    final useCodeBlock = config.useMonospace && text.isNotEmpty && !result.isFormattedText;
+    
+    if (result.isFormattedText && text.isNotEmpty) {
+      // Escape special MarkdownV2 characters outside of already-formatted content
+      text = _escapeMarkdownV2ForFormattedText(text);
+    }
 
-    // Wrap in code block if non-empty
-    if (config.useMonospace && text.isNotEmpty) {
+    // Wrap in code block if non-empty and not formatted text
+    if (useCodeBlock) {
       text = '```\n$text\n```';
     }
 
@@ -136,10 +155,12 @@ class OutputFormatter {
     }
 
     // Add result value if present and meaningful
+    // Escape for MarkdownV2 since this is outside the code block
     if (result.value != null) {
       final valueStr = result.value.toString();
       if (valueStr != 'null' && valueStr.isNotEmpty) {
-        text += '\n\n→ $valueStr';
+        final escaped = config.useMonospace ? _escapeMarkdownV2(valueStr) : valueStr;
+        text += '\n\n→ $escaped';
       }
     }
 
@@ -195,7 +216,12 @@ class OutputFormatter {
       }
     }
 
-    return FormattedOutput(text: text, attachments: attachments);
+    return FormattedOutput(
+      text: text, 
+      attachments: attachments,
+      // Use MarkdownV2 when we have code blocks or formatted content
+      parseMode: (config.useMonospace || result.isFormattedText) ? 'MarkdownV2' : null,
+    );
   }
 
   /// Format a simple text message.
@@ -229,25 +255,95 @@ class OutputFormatter {
     return text.replaceAll(RegExp(r'\x1B\[[0-9;]*[a-zA-Z]'), '');
   }
 
-  /// Convert console_markdown to Telegram markdown.
+  /// Convert markdown to Telegram-compatible format.
+  /// 
+  /// Telegram supports a subset of Markdown:
+  /// - *bold* or **bold** → *bold*
+  /// - _italic_ → _italic_
+  /// - `code` → `code`
+  /// - ```code block``` → ```code block```
+  /// - [text](url) → text (url) - links simplified
+  /// - # headers → **header** (bold)
   String _convertMarkdown(String text) {
-    // console_markdown uses patterns like **bold**, <yellow>text</yellow>
-    // Telegram MarkdownV2 uses *bold*, _italic_, `code`
-
     var result = text;
 
     // Remove console_markdown color tags
     result = result.replaceAll(RegExp(r'<(red|green|yellow|blue|cyan|magenta|white|black|gray)>'), '');
     result = result.replaceAll(RegExp(r'</(red|green|yellow|blue|cyan|magenta|white|black|gray)>'), '');
 
+    // Preserve code blocks first (don't process inside them)
+    final codeBlocks = <String>[];
+    result = result.replaceAllMapped(
+      RegExp(r'```[\s\S]*?```', multiLine: true),
+      (m) {
+        codeBlocks.add(m.group(0)!);
+        return '\x00CODE_BLOCK_${codeBlocks.length - 1}\x00';
+      },
+    );
+    
+    // Preserve inline code
+    final inlineCode = <String>[];
+    result = result.replaceAllMapped(
+      RegExp(r'`[^`]+`'),
+      (m) {
+        inlineCode.add(m.group(0)!);
+        return '\x00INLINE_CODE_${inlineCode.length - 1}\x00';
+      },
+    );
+
+    // Convert markdown headers to bold (# Header → *Header*)
+    result = result.replaceAllMapped(
+      RegExp(r'^#{1,6}\s+(.+)$', multiLine: true),
+      (m) => '*${m.group(1)}*',
+    );
+
     // Convert **bold** to *bold* (Telegram format)
-    // Note: Telegram MarkdownV2 actually uses *bold* for bold
     result = result.replaceAllMapped(
       RegExp(r'\*\*(.+?)\*\*'),
       (m) => '*${m.group(1)}*',
     );
+    
+    // Convert __bold__ to *bold* (alternative bold syntax)
+    result = result.replaceAllMapped(
+      RegExp(r'__(.+?)__'),
+      (m) => '*${m.group(1)}*',
+    );
 
-    return result;
+    // Convert markdown links [text](url) to simple format
+    result = result.replaceAllMapped(
+      RegExp(r'\[([^\]]+)\]\(([^)]+)\)'),
+      (m) => '${m.group(1)} (${m.group(2)})',
+    );
+
+    // Convert bullet lists: - item or * item → • item
+    result = result.replaceAllMapped(
+      RegExp(r'^[\s]*[-*]\s+', multiLine: true),
+      (m) => '• ',
+    );
+    
+    // Convert numbered lists: 1. item → 1. item (keep as is, just clean up spacing)
+    result = result.replaceAllMapped(
+      RegExp(r'^(\s*\d+)\.\s+', multiLine: true),
+      (m) => '${m.group(1)}. ',
+    );
+
+    // Remove horizontal rules (---, ***, ___)
+    result = result.replaceAll(RegExp(r'^[-*_]{3,}$', multiLine: true), '');
+    
+    // Clean up multiple blank lines
+    result = result.replaceAll(RegExp(r'\n{3,}'), '\n\n');
+
+    // Restore code blocks
+    for (var i = 0; i < codeBlocks.length; i++) {
+      result = result.replaceFirst('\x00CODE_BLOCK_$i\x00', codeBlocks[i]);
+    }
+    
+    // Restore inline code
+    for (var i = 0; i < inlineCode.length; i++) {
+      result = result.replaceFirst('\x00INLINE_CODE_$i\x00', inlineCode[i]);
+    }
+
+    return result.trim();
   }
 
   /// Create a temporary file with content.
@@ -261,5 +357,46 @@ class OutputFormatter {
     final file = File('${dir.path}/${timestamp}_$name');
     file.writeAsStringSync(content);
     return file;
+  }
+  
+  /// Escape special characters for Telegram's MarkdownV2.
+  /// 
+  /// Characters that need escaping outside of code blocks:
+  /// _ * [ ] ( ) ~ ` > # + - = | { } . !
+  String _escapeMarkdownV2(String text) {
+    // List of special characters that need escaping in MarkdownV2
+    const specialChars = r'_*[]()~`>#+-=|{}.!';
+    final buffer = StringBuffer();
+    
+    for (var i = 0; i < text.length; i++) {
+      final char = text[i];
+      if (specialChars.contains(char)) {
+        buffer.write('\\');
+      }
+      buffer.write(char);
+    }
+    
+    return buffer.toString();
+  }
+  
+  /// Escape special characters for MarkdownV2 while preserving formatting.
+  /// 
+  /// This method escapes characters that break MarkdownV2 parsing while
+  /// preserving intentional formatting like *bold*, _italic_, and `code`.
+  String _escapeMarkdownV2ForFormattedText(String text) {
+    // Characters to escape (excluding * _ ` which are used for formatting)
+    // Must escape: ( ) [ ] ~ > # + - = | { } . !
+    const escapeChars = r'()[]~>#+-=|{}.!';
+    final buffer = StringBuffer();
+    
+    for (var i = 0; i < text.length; i++) {
+      final char = text[i];
+      if (escapeChars.contains(char)) {
+        buffer.write('\\');
+      }
+      buffer.write(char);
+    }
+    
+    return buffer.toString();
   }
 }

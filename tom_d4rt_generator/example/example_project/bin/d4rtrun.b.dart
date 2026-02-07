@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for d4rt_generator_example
-// Generated: 2026-02-07T13:55:03.127537
+// Generated: 2026-02-07T22:15:02.882503
 //
 // Usage:
 //   dart run bin/d4rtrun.b.dart <script.dart|.d4rt>  Run a D4rt script file
