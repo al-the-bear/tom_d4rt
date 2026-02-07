@@ -104,6 +104,18 @@ String generateDartscriptFileContent(BridgeConfig config, {String? dartscriptPat
     buffer.writeln('      d4rt,');
     buffer.writeln("      '$sourceImport',");
     buffer.writeln('    );');
+    
+    // When a module has multiple barrel files, also register under each
+    // additional barrel import so that D4rt scripts can import from any of them.
+    for (final barrelFile in module.barrelFiles) {
+      if (barrelFile != sourceImport) {
+        buffer.writeln(
+            '    ${module.name}_bridges.${capitalizedModuleName}Bridge.registerBridges(');
+        buffer.writeln('      d4rt,');
+        buffer.writeln("      '$barrelFile',");
+        buffer.writeln('    );');
+      }
+    }
   }
 
   buffer.writeln('  }');

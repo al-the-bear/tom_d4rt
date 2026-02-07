@@ -146,6 +146,10 @@ Future<void> main(List<String> arguments) async {
         abbr: 'v',
         negatable: false,
         help: 'Show detailed output')
+    ..addFlag('list',
+        abbr: 'l',
+        negatable: false,
+        help: 'List projects that would be processed (no action)')
     ..addFlag('help',
         abbr: 'h',
         negatable: false,
@@ -223,6 +227,23 @@ Future<void> main(List<String> arguments) async {
     exit(1);
   }
 
+  // Handle --list mode: just list projects without processing
+  final listOnly = args['list'] as bool;
+  if (listOnly) {
+    final projects = await _collectProjects(config);
+    final workspaceRoot = ProjectDiscovery.findWorkspaceRoot(Directory.current.path);
+    if (projects.isEmpty) {
+      print('No d4rtgen projects found.');
+    } else {
+      print('D4rtgen projects (${projects.length}):');
+      for (final project in projects) {
+        final relativePath = p.relative(project, from: workspaceRoot);
+        print('  $relativePath');
+      }
+    }
+    exit(0);
+  }
+
   try {
     final result = await _runWithConfig(config, basePath: Directory.current.path);
 
@@ -240,6 +261,43 @@ Future<void> main(List<String> arguments) async {
     stderr.writeln('Fatal error: $e');
     exit(1);
   }
+}
+
+/// Collect all projects that would be processed (for --list mode).
+Future<List<String>> _collectProjects(CliConfig config) async {
+  final verbose = config.verbose;
+
+  if (config.config != null) {
+    // Single config file - return the directory containing it
+    final configPath = config.config!;
+    if (File(configPath).existsSync()) {
+      return [p.dirname(configPath)];
+    }
+    return [];
+  } else if (config.projects.isNotEmpty) {
+    return await _findProjectsByGlob(
+      config.projects,
+      exclude: config.exclude,
+      verbose: verbose,
+    );
+  } else if (config.scan != null) {
+    return await _scanForProjects(
+      config.scan!,
+      recursive: config.recursive,
+      exclude: config.exclude,
+      recursionExclude: config.recursionExclude,
+      verbose: verbose,
+    );
+  } else if (config.project != null) {
+    final projectPath = p.isAbsolute(config.project!)
+        ? config.project!
+        : p.join(Directory.current.path, config.project!);
+    if (_isD4rtProject(projectPath)) {
+      return [projectPath];
+    }
+  }
+  
+  return [];
 }
 
 /// Run the generator with the given configuration.
@@ -768,6 +826,12 @@ Future<void> _generateBridges(
       excludeEnums: module.excludeEnums,
       excludeFunctions: module.excludeFunctions,
       excludeVariables: module.excludeVariables,
+      excludeSourcePatterns: module.excludeSourcePatterns,
+      followAllReExports: module.followAllReExports,
+      skipReExports: module.skipReExports,
+      followReExports: module.followReExports,
+      importShowClause: module.importShowClause,
+      importHideClause: module.importHideClause,
     );
 
     if (verbose) {

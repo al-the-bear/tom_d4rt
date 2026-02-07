@@ -1803,8 +1803,41 @@ class BridgeGenerator {
         await parentDir.create(recursive: true);
       }
 
-      // Filter out explicitly excluded functions
+      // Filter globals by export info (hide/show clauses from barrel files)
       var filteredFunctions = globals.functions.toList();
+      var filteredVariables = globals.variables.toList();
+      var filteredEnums = globals.enums.toList();
+
+      if (exportInfo != null) {
+        filteredEnums = filteredEnums.where((e) {
+          final info = exportInfo[e.sourceFile];
+          if (info != null && !info.isSymbolExported(e.name)) {
+            _recordSkip('enum', e.name, 'not exported from barrel file');
+            return false;
+          }
+          return true;
+        }).toList();
+
+        filteredFunctions = filteredFunctions.where((f) {
+          final info = exportInfo[f.sourceFile];
+          if (info != null && !info.isSymbolExported(f.name)) {
+            _recordSkip('function', f.name, 'not exported from barrel file');
+            return false;
+          }
+          return true;
+        }).toList();
+
+        filteredVariables = filteredVariables.where((v) {
+          final info = exportInfo[v.sourceFile];
+          if (info != null && !info.isSymbolExported(v.name)) {
+            _recordSkip('variable', v.name, 'not exported from barrel file');
+            return false;
+          }
+          return true;
+        }).toList();
+      }
+
+      // Filter out explicitly excluded functions
       if (excludeFunctions != null && excludeFunctions.isNotEmpty) {
         final excludeSet = excludeFunctions.toSet();
         filteredFunctions = filteredFunctions.where((f) {
@@ -1840,7 +1873,6 @@ class BridgeGenerator {
       }).toList();
 
       // Filter out explicitly excluded variables
-      var filteredVariables = globals.variables;
       if (excludeVariables != null && excludeVariables.isNotEmpty) {
         final excludeSet = excludeVariables.toSet();
         filteredVariables = filteredVariables.where((v) {
@@ -1876,9 +1908,6 @@ class BridgeGenerator {
           return true;
         }).toList();
       }
-
-      // Filter out duplicate enums (keep first occurrence)
-      var filteredEnums = globals.enums.toList();
 
       // Filter out enums matching source URI patterns
       if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
@@ -3843,15 +3872,41 @@ class BridgeGenerator {
       buffer.writeln('  /// bridged classes available to scripts.');
       buffer.writeln('  static String getImportBlock() {');
       
-      // Build import statement with optional show/hide clauses
-      if (importShowClause.isNotEmpty) {
-        final showList = importShowClause.join(', ');
-        buffer.writeln("    return \"import '$importBlockUri' show $showList;\";");
-      } else if (importHideClause.isNotEmpty) {
-        final hideList = importHideClause.join(', ');
-        buffer.writeln("    return \"import '$importBlockUri' hide $hideList;\";");
+      // Check if we have additional barrel imports beyond the primary one
+      final additionalBarrels = sourceImports
+          .where((si) => si != importBlockUri && si.startsWith('package:'))
+          .toList();
+      
+      if (additionalBarrels.isEmpty) {
+        // Single barrel - return single import statement
+        // Build import statement with optional show/hide clauses
+        if (importShowClause.isNotEmpty) {
+          final showList = importShowClause.join(', ');
+          buffer.writeln("    return \"import '$importBlockUri' show $showList;\";");
+        } else if (importHideClause.isNotEmpty) {
+          final hideList = importHideClause.join(', ');
+          buffer.writeln("    return \"import '$importBlockUri' hide $hideList;\";");
+        } else {
+          buffer.writeln("    return \"import '$importBlockUri';\";");
+        }
       } else {
-        buffer.writeln("    return \"import '$importBlockUri';\";");
+        // Multiple barrels - return import statements for all of them
+        buffer.writeln("    final imports = StringBuffer();");
+        // Primary barrel with optional show/hide
+        if (importShowClause.isNotEmpty) {
+          final showList = importShowClause.join(', ');
+          buffer.writeln("    imports.writeln(\"import '$importBlockUri' show $showList;\");");
+        } else if (importHideClause.isNotEmpty) {
+          final hideList = importHideClause.join(', ');
+          buffer.writeln("    imports.writeln(\"import '$importBlockUri' hide $hideList;\");");
+        } else {
+          buffer.writeln("    imports.writeln(\"import '$importBlockUri';\");");
+        }
+        // Additional barrels without show/hide (they provide supplementary types)
+        for (final barrel in additionalBarrels) {
+          buffer.writeln("    imports.writeln(\"import '$barrel';\");");
+        }
+        buffer.writeln("    return imports.toString();");
       }
       buffer.writeln('  }');
       buffer.writeln();
