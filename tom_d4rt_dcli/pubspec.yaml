@@ -15,6 +15,10 @@ dependencies:
   tom_vscode_scripting_api:
     path: ../tom_vscode_scripting_api
   
+  # Chat tools for Telegram integration
+  tom_chattools:
+    path: ../../tom_module_communication/tom_chattools
+  
   # External packages for CLI
   dcli: ^4.0.1
   dcli_core: ^4.0.7
@@ -23,6 +27,7 @@ dependencies:
   console_markdown: ^0.0.3
   crypto: ^3.0.6
   path: ^1.9.0
+  yaml: ^3.1.2
 
 dev_dependencies:
   build_runner: ^2.4.15

@@ -61,6 +61,17 @@ targets:
                 - "**/*_bridge.dart"
                 - "**/*_generated.dart"
 
+            # Tom ChatTools - Telegram and other messaging platform APIs
+            - name: tom_chattools
+              barrelFiles:
+                - package:tom_chattools/tom_chattools.dart
+              barrelImport: package:tom_chattools/tom_chattools.dart
+              outputPath: lib/src/bridges/tom_chattools_bridges.b.dart
+              followAllReExports: false
+              excludePatterns:
+                - "**/*_bridge.dart"
+                - "**/*_generated.dart"
+
       # Compiler builder - cross-compiles dcli tool
       tom_compiler_builder:compiler_builder:
         enabled: true

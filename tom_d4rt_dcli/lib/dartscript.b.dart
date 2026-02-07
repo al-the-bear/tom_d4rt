@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for tom_d4rt_dcli
-// Generated: 2026-02-07T07:43:04.198024
+// Generated: 2026-02-07T08:37:01.034044
 
 /// D4rt Bridge Registration for tom_d4rt_dcli
 library;
@@ -9,6 +9,7 @@ import 'package:tom_d4rt/d4rt.dart';
 import 'src/bridges/cli_api_bridges.b.dart' as cli_api_bridges;
 import 'src/bridges/tom_vscode_scripting_api_bridges.b.dart' as tom_vscode_scripting_api_bridges;
 import 'src/bridges/dcli_bridges.b.dart' as dcli_bridges;
+import 'src/bridges/tom_chattools_bridges.b.dart' as tom_chattools_bridges;
 
 /// Combined bridge registration for tom_d4rt_dcli.
 class TomD4rtDcliBridge {
@@ -32,6 +33,10 @@ class TomD4rtDcliBridge {
       d4rt,
       'package:dcli_core/dcli_core.dart',
     );
+    tom_chattools_bridges.TomChattoolsBridge.registerBridges(
+      d4rt,
+      'package:tom_chattools/tom_chattools.dart',
+    );
   }
 
   /// Get import block for all modules.
@@ -40,6 +45,7 @@ class TomD4rtDcliBridge {
     buffer.writeln(cli_api_bridges.CliApiBridge.getImportBlock());
     buffer.writeln(tom_vscode_scripting_api_bridges.TomVscodeScriptingApiBridge.getImportBlock());
     buffer.writeln(dcli_bridges.DcliBridge.getImportBlock());
+    buffer.writeln(tom_chattools_bridges.TomChattoolsBridge.getImportBlock());
     return buffer.toString();
   }
 }

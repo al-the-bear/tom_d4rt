@@ -13,6 +13,7 @@ import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 
 import '../api/cli_test_utils.dart';
+import '../bot_mode/bot_mode.dart';
 import 'cli_integration.dart';
 import 'help_text.dart';
 import 'persistent_history.dart';
@@ -267,8 +268,10 @@ abstract class D4rtReplBase {
     String? runReplayFile;
     String? customInitSource;
     String? testOutputPath;
+    String? botModeConfigFile;
     var replaceSession = false;
     final listSessions = arguments.contains('-list-sessions') || arguments.contains('--list-sessions');
+    final botMode = arguments.contains('-bot-mode') || arguments.contains('--bot-mode');
     
     // Known option arguments
     final knownOptions = <String>{
@@ -285,6 +288,8 @@ abstract class D4rtReplBase {
       '-init-source', '--init-source',
       '-test', '--test',
       '-output', '--output',
+      '-bot-mode', '--bot-mode',
+      '-bot-config', '--bot-config',
     };
     
     for (var i = 0; i < arguments.length; i++) {
