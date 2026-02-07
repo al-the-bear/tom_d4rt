@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Delegating barrel for tom_vscode_scripting_api
-// Generated: 2026-02-07T08:37:01.015324
+// Generated: 2026-02-07T09:29:58.982881
 
 // ignore_for_file: unused_import, deprecated_member_use
 

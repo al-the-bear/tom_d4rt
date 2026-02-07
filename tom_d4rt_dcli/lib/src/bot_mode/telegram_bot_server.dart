@@ -62,6 +62,9 @@ class TelegramBotServer {
         _bots[botConfig.name] = bot;
         bot.startPolling();
         print('  ✓ Bot "${botConfig.name}" started');
+        
+        // Send welcome message to allowed users
+        await bot.sendWelcomeMessages();
       } catch (e) {
         stderr.writeln('Error starting bot "${botConfig.name}": $e');
       }
@@ -169,6 +172,34 @@ class BotInstance {
         stderr.writeln('[$name] Message stream error: $e');
       },
     );
+  }
+
+  /// Send welcome messages to all allowed users.
+  Future<void> sendWelcomeMessages() async {
+    final vsInfo = vscode != null
+        ? 'Connected to VS Code on ${vscode!.host}:${vscode!.port}'
+        : 'No VS Code connection configured';
+    
+    final welcomeMessage = '''
+🤖 *$name Bot* started!
+
+$vsInfo
+
+Type /help for available commands, or enter any REPL command directly.
+''';
+
+    for (final userId in allowedUsers) {
+      try {
+        await _telegram.sendMessage(
+          ChatReceiver.id(userId.toString()),
+          welcomeMessage,
+        );
+        print('  📨 Sent welcome to user $userId');
+      } catch (e) {
+        // User may not have started the bot yet, that's OK
+        stderr.writeln('  ⚠ Could not send welcome to user $userId: $e');
+      }
+    }
   }
 
   /// Handle an incoming message.

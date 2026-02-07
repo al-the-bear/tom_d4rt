@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 31 files
-// Generated: 2026-02-07T08:36:57.170224
+// Sources: 29 files
+// Generated: 2026-02-07T09:29:51.538307
 
 // ignore_for_file: unused_import, deprecated_member_use
 
@@ -42,11 +42,8 @@ class PackageDcliCoreBridge {
       _createTouchExceptionBridge(),
       _createWhichBridge(),
       _createWhichSearchBridge(),
-      _createSettingsBridge(),
       _createDCliExceptionBridge(),
       _createDCliPlatformBridge(),
-      _createFileNotFoundExceptionBridge(),
-      _createNotAFileExceptionBridge(),
       _createLimitedStreamControllerBridge(),
       _createLineFileBridge(),
       _createRunExceptionBridge(),
@@ -86,11 +83,8 @@ class PackageDcliCoreBridge {
       'TouchException': 'package:dcli_core/src/functions/touch.dart',
       'Which': 'package:dcli_core/src/functions/which.dart',
       'WhichSearch': 'package:dcli_core/src/functions/which.dart',
-      'Settings': 'package:dcli_core/src/settings.dart',
       'DCliException': 'package:dcli_core/src/util/dcli_exception.dart',
       'DCliPlatform': 'package:dcli_core/src/util/dcli_platform.dart',
-      'FileNotFoundException': 'package:dcli_core/src/util/file.dart',
-      'NotAFileException': 'package:dcli_core/src/util/file.dart',
       'LimitedStreamController': 'package:dcli_core/src/util/limited_stream_controller.dart',
       'LineFile': 'package:dcli_core/src/util/line_file.dart',
       'RunException': 'package:dcli_core/src/util/run_exception.dart',
@@ -173,18 +167,6 @@ class PackageDcliCoreBridge {
   /// Returns a map of global function names to their native implementations.
   static Map<String, NativeFunctionImpl> globalFunctions() {
     return {
-      'backupFile': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'backupFile');
-        final pathToFile = D4.getRequiredArg<String>(positional, 0, 'pathToFile', 'backupFile');
-        final ignoreMissing = D4.getNamedArgWithDefault<bool>(named, 'ignoreMissing', false);
-        return $pkg.backupFile(pathToFile, ignoreMissing: ignoreMissing);
-      },
-      'restoreFile': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'restoreFile');
-        final pathToFile = D4.getRequiredArg<String>(positional, 0, 'pathToFile', 'restoreFile');
-        final ignoreMissing = D4.getNamedArgWithDefault<bool>(named, 'ignoreMissing', false);
-        return $pkg.restoreFile(pathToFile, ignoreMissing: ignoreMissing);
-      },
       'withFileProtectionAsync': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'withFileProtectionAsync');
         final protected = D4.getRequiredArg<List<String>>(positional, 0, 'protected', 'withFileProtectionAsync');
@@ -192,71 +174,12 @@ class PackageDcliCoreBridge {
         final workingDirectory = D4.getOptionalNamedArg<String?>(named, 'workingDirectory');
         return $pkg.withFileProtectionAsync<dynamic>(protected, action, workingDirectory: workingDirectory);
       },
-      'cat': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'cat');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'cat');
-        if (!named.containsKey('stdout')) {
-          $pkg.cat(path);
-          return null;
-        }
-        if (named.containsKey('stdout')) {
-          final stdout = D4.getRequiredNamedArg<void Function(String)>(named, 'stdout', 'cat');
-          $pkg.cat(path, stdout: stdout);
-          return null;
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
-      },
-      'copy': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'copy');
-        final from = D4.getRequiredArg<String>(positional, 0, 'from', 'copy');
-        final to = D4.getRequiredArg<String>(positional, 1, 'to', 'copy');
-        final overwrite = D4.getNamedArgWithDefault<bool>(named, 'overwrite', false);
-        return $pkg.copy(from, to, overwrite: overwrite);
-      },
-      'copyTree': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'copyTree');
-        final from = D4.getRequiredArg<String>(positional, 0, 'from', 'copyTree');
-        final to = D4.getRequiredArg<String>(positional, 1, 'to', 'copyTree');
-        final overwrite = D4.getNamedArgWithDefault<bool>(named, 'overwrite', false);
-        final includeHidden = D4.getNamedArgWithDefault<bool>(named, 'includeHidden', false);
-        final recursive = D4.getNamedArgWithDefault<bool>(named, 'recursive', true);
-        if (!named.containsKey('filter')) {
-          $pkg.copyTree(from, to, overwrite: overwrite, includeHidden: includeHidden, recursive: recursive);
-          return null;
-        }
-        if (named.containsKey('filter')) {
-          final filter = D4.getRequiredNamedArg<bool Function(String)>(named, 'filter', 'copyTree');
-          $pkg.copyTree(from, to, overwrite: overwrite, includeHidden: includeHidden, recursive: recursive, filter: filter);
-          return null;
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
-      },
-      'createDir': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'createDir');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'createDir');
-        final recursive = D4.getNamedArgWithDefault<bool>(named, 'recursive', false);
-        return $pkg.createDir(path, recursive: recursive);
-      },
       'withTempDirAsync': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'withTempDirAsync');
         final action = D4.getRequiredArg<Future<dynamic> Function(String)>(positional, 0, 'action', 'withTempDirAsync');
         final keep = D4.getNamedArgWithDefault<bool>(named, 'keep', false);
         final pathToTempDir = D4.getOptionalNamedArg<String?>(named, 'pathToTempDir');
         return $pkg.withTempDirAsync<dynamic>(action, keep: keep, pathToTempDir: pathToTempDir);
-      },
-      'createTempDir': (visitor, positional, named, typeArgs) {
-        return $pkg.createTempDir();
-      },
-      'delete': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'delete');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'delete');
-        return $pkg.delete(path);
-      },
-      'deleteDir': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'deleteDir');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'deleteDir');
-        final recursive = D4.getNamedArgWithDefault<bool>(named, 'recursive', true);
-        return $pkg.deleteDir(path, recursive: recursive);
       },
       'isOnPATH': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'isOnPATH');
@@ -275,25 +198,6 @@ class PackageDcliCoreBridge {
         final environment = D4.getRequiredNamedArg<Map<String, String>>(named, 'environment', 'withEnvironment');
         return $pkg.withEnvironment<dynamic>(callback, environment: environment);
       },
-      'find': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'find');
-        final pattern = D4.getRequiredArg<String>(positional, 0, 'pattern', 'find');
-        final progress = D4.getRequiredNamedArg<bool Function($pkg.FindItem)>(named, 'progress', 'find');
-        final caseSensitive = D4.getNamedArgWithDefault<bool>(named, 'caseSensitive', false);
-        final recursive = D4.getNamedArgWithDefault<bool>(named, 'recursive', true);
-        final includeHidden = D4.getNamedArgWithDefault<bool>(named, 'includeHidden', false);
-        final workingDirectory = D4.getNamedArgWithDefault<String>(named, 'workingDirectory', '.');
-        if (!named.containsKey('types')) {
-          $pkg.find(pattern, progress: progress, caseSensitive: caseSensitive, recursive: recursive, includeHidden: includeHidden, workingDirectory: workingDirectory);
-          return null;
-        }
-        if (named.containsKey('types')) {
-          final types = D4.getRequiredNamedArg<List<FileSystemEntityType>>(named, 'types', 'find');
-          $pkg.find(pattern, progress: progress, caseSensitive: caseSensitive, recursive: recursive, includeHidden: includeHidden, workingDirectory: workingDirectory, types: types);
-          return null;
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
-      },
       'findAsync': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'findAsync');
         final pattern = D4.getRequiredArg<String>(positional, 0, 'pattern', 'findAsync');
@@ -310,151 +214,10 @@ class PackageDcliCoreBridge {
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
-      'head': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'head');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'head');
-        final lines = D4.getRequiredArg<int>(positional, 1, 'lines', 'head');
-        return $pkg.head(path, lines);
-      },
-      'isFile': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'isFile');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'isFile');
-        return $pkg.isFile(path);
-      },
-      'isDirectory': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'isDirectory');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'isDirectory');
-        return $pkg.isDirectory(path);
-      },
-      'isLink': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'isLink');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'isLink');
-        return $pkg.isLink(path);
-      },
-      'exists': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'exists');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'exists');
-        final followLinks = D4.getNamedArgWithDefault<bool>(named, 'followLinks', true);
-        return $pkg.exists(path, followLinks: followLinks);
-      },
-      'lastModified': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'lastModified');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'lastModified');
-        return $pkg.lastModified(path);
-      },
-      'setLastModifed': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'setLastModifed');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'setLastModifed');
-        final lastModified = D4.getRequiredArg<DateTime>(positional, 1, 'lastModified', 'setLastModifed');
-        return $pkg.setLastModifed(path, lastModified);
-      },
-      'isEmpty': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'isEmpty');
-        final pathToDirectory = D4.getRequiredArg<String>(positional, 0, 'pathToDirectory', 'isEmpty');
-        return $pkg.isEmpty(pathToDirectory);
-      },
-      'move': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'move');
-        final from = D4.getRequiredArg<String>(positional, 0, 'from', 'move');
-        final to = D4.getRequiredArg<String>(positional, 1, 'to', 'move');
-        final overwrite = D4.getNamedArgWithDefault<bool>(named, 'overwrite', false);
-        return $pkg.move(from, to, overwrite: overwrite);
-      },
-      'moveDir': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'moveDir');
-        final from = D4.getRequiredArg<String>(positional, 0, 'from', 'moveDir');
-        final to = D4.getRequiredArg<String>(positional, 1, 'to', 'moveDir');
-        return $pkg.moveDir(from, to);
-      },
-      'moveTree': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'moveTree');
-        final from = D4.getRequiredArg<String>(positional, 0, 'from', 'moveTree');
-        final to = D4.getRequiredArg<String>(positional, 1, 'to', 'moveTree');
-        final overwrite = D4.getNamedArgWithDefault<bool>(named, 'overwrite', false);
-        final includeHidden = D4.getNamedArgWithDefault<bool>(named, 'includeHidden', false);
-        if (!named.containsKey('filter')) {
-          $pkg.moveTree(from, to, overwrite: overwrite, includeHidden: includeHidden);
-          return null;
-        }
-        if (named.containsKey('filter')) {
-          final filter = D4.getRequiredNamedArg<bool Function(String)>(named, 'filter', 'moveTree');
-          $pkg.moveTree(from, to, overwrite: overwrite, includeHidden: includeHidden, filter: filter);
-          return null;
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
-      },
-      'tail': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'tail');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'tail');
-        final lines = D4.getRequiredArg<int>(positional, 1, 'lines', 'tail');
-        return $pkg.tail(path, lines);
-      },
-      'touch': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'touch');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'touch');
-        final create = D4.getNamedArgWithDefault<bool>(named, 'create', false);
-        return $pkg.touch(path, create: create);
-      },
-      'which': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'which');
-        final appname = D4.getRequiredArg<String>(positional, 0, 'appname', 'which');
-        final first = D4.getNamedArgWithDefault<bool>(named, 'first', true);
-        final verbose = D4.getNamedArgWithDefault<bool>(named, 'verbose', false);
-        final extensionSearch = D4.getNamedArgWithDefault<bool>(named, 'extensionSearch', true);
-        final progress = D4.getOptionalNamedArg<void Function($pkg.WhichSearch)?>(named, 'progress');
-        return $pkg.which(appname, first: first, verbose: verbose, extensionSearch: extensionSearch, progress: progress);
-      },
-      'verbose': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'verbose');
-        final callback = D4.getRequiredArg<String Function()>(positional, 0, 'callback', 'verbose');
-        return $pkg.verbose(callback);
-      },
       'devNull': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'devNull');
         final line = D4.getRequiredArg<String?>(positional, 0, 'line', 'devNull');
         return $pkg.devNull(line);
-      },
-      'withOpenFile': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'withOpenFile');
-        final pathToFile = D4.getRequiredArg<String>(positional, 0, 'pathToFile', 'withOpenFile');
-        final action = D4.getRequiredArg<dynamic Function(RandomAccessFile)>(positional, 1, 'action', 'withOpenFile');
-        final fileMode = D4.getNamedArgWithDefault<FileMode>(named, 'fileMode', FileMode.writeOnlyAppend);
-        return $pkg.withOpenFile<dynamic>(pathToFile, action, fileMode: fileMode);
-      },
-      'symlink': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'symlink');
-        final existingPath = D4.getRequiredArg<String>(positional, 0, 'existingPath', 'symlink');
-        final linkPath = D4.getRequiredArg<String>(positional, 1, 'linkPath', 'symlink');
-        return $pkg.symlink(existingPath, linkPath);
-      },
-      'deleteSymlink': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'deleteSymlink');
-        final linkPath = D4.getRequiredArg<String>(positional, 0, 'linkPath', 'deleteSymlink');
-        return $pkg.deleteSymlink(linkPath);
-      },
-      'resolveSymLink': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'resolveSymLink');
-        final pathToLink = D4.getRequiredArg<String>(positional, 0, 'pathToLink', 'resolveSymLink');
-        return $pkg.resolveSymLink(pathToLink);
-      },
-      'stat': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'stat');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'stat');
-        return $pkg.stat(path);
-      },
-      'createTempFilename': (visitor, positional, named, typeArgs) {
-        final suffix = D4.getOptionalNamedArg<String?>(named, 'suffix');
-        final pathToTempDir = D4.getOptionalNamedArg<String?>(named, 'pathToTempDir');
-        return $pkg.createTempFilename(suffix: suffix, pathToTempDir: pathToTempDir);
-      },
-      'createTempFile': (visitor, positional, named, typeArgs) {
-        final suffix = D4.getOptionalNamedArg<String?>(named, 'suffix');
-        return $pkg.createTempFile(suffix: suffix);
-      },
-      'fileLength': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'fileLength');
-        final pathToFile = D4.getRequiredArg<String>(positional, 0, 'pathToFile', 'fileLength');
-        return $pkg.fileLength(pathToFile);
       },
       'withTempFileAsync': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'withTempFileAsync');
@@ -464,11 +227,6 @@ class PackageDcliCoreBridge {
         final create = D4.getNamedArgWithDefault<bool>(named, 'create', true);
         final keep = D4.getNamedArgWithDefault<bool>(named, 'keep', false);
         return $pkg.withTempFileAsync<dynamic>(action, suffix: suffix, pathToTempDir: pathToTempDir, create: create, keep: keep);
-      },
-      'calculateHash': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'calculateHash');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'calculateHash');
-        return $pkg.calculateHash(path);
       },
       'withOpenLineFile': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'withOpenLineFile');
@@ -508,48 +266,14 @@ class PackageDcliCoreBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> globalFunctionSourceUris() {
     return {
-      'backupFile': 'package:dcli_core/src/functions/backup.dart',
-      'restoreFile': 'package:dcli_core/src/functions/backup.dart',
       'withFileProtectionAsync': 'package:dcli_core/src/functions/backup.dart',
-      'cat': 'package:dcli_core/src/functions/cat.dart',
-      'copy': 'package:dcli_core/src/functions/copy.dart',
-      'copyTree': 'package:dcli_core/src/functions/copy_tree.dart',
-      'createDir': 'package:dcli_core/src/functions/create_dir.dart',
       'withTempDirAsync': 'package:dcli_core/src/functions/create_dir.dart',
-      'createTempDir': 'package:dcli_core/src/functions/create_dir.dart',
-      'delete': 'package:dcli_core/src/functions/delete.dart',
-      'deleteDir': 'package:dcli_core/src/functions/delete_dir.dart',
       'isOnPATH': 'package:dcli_core/src/functions/env.dart',
       'withEnvironmentAsync': 'package:dcli_core/src/functions/env.dart',
       'withEnvironment': 'package:dcli_core/src/functions/env.dart',
-      'find': 'package:dcli_core/src/functions/find.dart',
       'findAsync': 'package:dcli_core/src/functions/find_async.dart',
-      'head': 'package:dcli_core/src/functions/head.dart',
-      'isFile': 'package:dcli_core/src/functions/is.dart',
-      'isDirectory': 'package:dcli_core/src/functions/is.dart',
-      'isLink': 'package:dcli_core/src/functions/is.dart',
-      'exists': 'package:dcli_core/src/functions/is.dart',
-      'lastModified': 'package:dcli_core/src/functions/is.dart',
-      'setLastModifed': 'package:dcli_core/src/functions/is.dart',
-      'isEmpty': 'package:dcli_core/src/functions/is.dart',
-      'move': 'package:dcli_core/src/functions/move.dart',
-      'moveDir': 'package:dcli_core/src/functions/move_dir.dart',
-      'moveTree': 'package:dcli_core/src/functions/move_tree.dart',
-      'tail': 'package:dcli_core/src/functions/tail.dart',
-      'touch': 'package:dcli_core/src/functions/touch.dart',
-      'which': 'package:dcli_core/src/functions/which.dart',
-      'verbose': 'package:dcli_core/src/settings.dart',
       'devNull': 'package:dcli_core/src/util/dev_null.dart',
-      'withOpenFile': 'package:dcli_core/src/util/file.dart',
-      'symlink': 'package:dcli_core/src/util/file.dart',
-      'deleteSymlink': 'package:dcli_core/src/util/file.dart',
-      'resolveSymLink': 'package:dcli_core/src/util/file.dart',
-      'stat': 'package:dcli_core/src/util/file.dart',
-      'createTempFilename': 'package:dcli_core/src/util/file.dart',
-      'createTempFile': 'package:dcli_core/src/util/file.dart',
-      'fileLength': 'package:dcli_core/src/util/file.dart',
       'withTempFileAsync': 'package:dcli_core/src/util/file.dart',
-      'calculateHash': 'package:dcli_core/src/util/file.dart',
       'withOpenLineFile': 'package:dcli_core/src/util/line_file.dart',
       'truepath': 'package:dcli_core/src/util/truepath.dart',
       'privatePath': 'package:dcli_core/src/util/truepath.dart',
@@ -559,48 +283,14 @@ class PackageDcliCoreBridge {
   /// Returns a map of global function names to their display signatures.
   static Map<String, String> globalFunctionSignatures() {
     return {
-      'backupFile': 'void backupFile(String pathToFile, {bool ignoreMissing = false})',
-      'restoreFile': 'void restoreFile(String pathToFile, {bool ignoreMissing = false})',
       'withFileProtectionAsync': 'Future<R> withFileProtectionAsync(List<String> protected, Future<R> Function() action, {String? workingDirectory})',
-      'cat': 'void cat(String path, {LineAction stdout = print})',
-      'copy': 'void copy(String from, String to, {bool overwrite = false})',
-      'copyTree': 'void copyTree(String from, String to, {bool overwrite = false, bool includeHidden = false, bool recursive = true, bool Function(String file) filter = _allowAll})',
-      'createDir': 'String createDir(String path, {bool recursive = false})',
       'withTempDirAsync': 'Future<R> withTempDirAsync(Future<R> Function(String tempDir) action, {bool keep = false, String? pathToTempDir})',
-      'createTempDir': 'String createTempDir()',
-      'delete': 'void delete(String path)',
-      'deleteDir': 'void deleteDir(String path, {bool recursive = true})',
       'isOnPATH': 'bool isOnPATH(String path)',
       'withEnvironmentAsync': 'Future<R> withEnvironmentAsync(Future<R> Function() callback, {required Map<String, String> environment})',
       'withEnvironment': 'R withEnvironment(R Function() callback, {required Map<String, String> environment})',
-      'find': 'void find(String pattern, {required ProgressCallback progress, bool caseSensitive = false, bool recursive = true, bool includeHidden = false, String workingDirectory = \'.\', List<FileSystemEntityType> types = const [Find.file]})',
       'findAsync': 'Stream<FindItem> findAsync(String pattern, {bool caseSensitive = false, bool recursive = true, bool includeHidden = false, String workingDirectory = \'.\', List<FileSystemEntityType> types = const [Find.file]})',
-      'head': 'List<String> head(String path, int lines)',
-      'isFile': 'bool isFile(String path)',
-      'isDirectory': 'bool isDirectory(String path)',
-      'isLink': 'bool isLink(String path)',
-      'exists': 'bool exists(String path, {bool followLinks = true})',
-      'lastModified': 'DateTime lastModified(String path)',
-      'setLastModifed': 'void setLastModifed(String path, DateTime lastModified)',
-      'isEmpty': 'bool isEmpty(String pathToDirectory)',
-      'move': 'void move(String from, String to, {bool overwrite = false})',
-      'moveDir': 'void moveDir(String from, String to)',
-      'moveTree': 'void moveTree(String from, String to, {bool overwrite = false, bool includeHidden = false, bool Function(String file) filter = _allowAll})',
-      'tail': 'List<String> tail(String path, int lines)',
-      'touch': 'String touch(String path, {bool create = false})',
-      'which': 'Which which(String appname, {bool first = true, bool verbose = false, bool extensionSearch = true, void Function(WhichSearch)? progress})',
-      'verbose': 'void verbose(String Function() callback)',
       'devNull': 'void devNull(String? line)',
-      'withOpenFile': 'Future<R> withOpenFile(String pathToFile, R Function(RandomAccessFile) action, {FileMode fileMode = FileMode.writeOnlyAppend})',
-      'symlink': 'void symlink(String existingPath, String linkPath)',
-      'deleteSymlink': 'void deleteSymlink(String linkPath)',
-      'resolveSymLink': 'String resolveSymLink(String pathToLink)',
-      'stat': 'FileStat stat(String path)',
-      'createTempFilename': 'String createTempFilename({String? suffix, String? pathToTempDir})',
-      'createTempFile': 'String createTempFile({String? suffix})',
-      'fileLength': 'int fileLength(String pathToFile)',
       'withTempFileAsync': 'Future<R> withTempFileAsync(Future<R> Function(String tempFile) action, {String? suffix, String? pathToTempDir, bool create = true, bool keep = false})',
-      'calculateHash': 'Digest calculateHash(String path)',
       'withOpenLineFile': 'R withOpenLineFile(String pathToFile, R Function(LineFile) action, {FileMode fileMode = FileMode.writeOnlyAppend})',
       'truepath': 'String truepath(String part1, [String? part2, String? part3, String? part4, String? part5, String? part6, String? part7])',
       'privatePath': 'String privatePath(String part1, [String? part2, String? part3, String? part4, String? part5, String? part6, String? part7])',
@@ -626,7 +316,6 @@ class PackageDcliCoreBridge {
       'package:dcli_core/src/functions/find.dart',
       'package:dcli_core/src/functions/find_async.dart',
       'package:dcli_core/src/functions/head.dart',
-      'package:dcli_core/src/functions/is.dart',
       'package:dcli_core/src/functions/move.dart',
       'package:dcli_core/src/functions/move_dir.dart',
       'package:dcli_core/src/functions/move_tree.dart',
@@ -634,7 +323,6 @@ class PackageDcliCoreBridge {
       'package:dcli_core/src/functions/tail.dart',
       'package:dcli_core/src/functions/touch.dart',
       'package:dcli_core/src/functions/which.dart',
-      'package:dcli_core/src/settings.dart',
       'package:dcli_core/src/util/dcli_exception.dart',
       'package:dcli_core/src/util/dcli_platform.dart',
       'package:dcli_core/src/util/dev_null.dart',
@@ -2152,78 +1840,6 @@ BridgedClass _createWhichSearchBridge() {
 }
 
 // =============================================================================
-// Settings Bridge
-// =============================================================================
-
-BridgedClass _createSettingsBridge() {
-  return BridgedClass(
-    nativeType: $pkg.Settings,
-    name: 'Settings',
-    constructors: {
-      '': (visitor, positional, named) {
-        return $pkg.Settings();
-      },
-    },
-    getters: {
-      'logger': (visitor, target) => D4.validateTarget<$pkg.Settings>(target, 'Settings').logger,
-      'isVerbose': (visitor, target) => D4.validateTarget<$pkg.Settings>(target, 'Settings').isVerbose,
-      'isMacOS': (visitor, target) => D4.validateTarget<$pkg.Settings>(target, 'Settings').isMacOS,
-      'isLinux': (visitor, target) => D4.validateTarget<$pkg.Settings>(target, 'Settings').isLinux,
-      'isWindows': (visitor, target) => D4.validateTarget<$pkg.Settings>(target, 'Settings').isWindows,
-    },
-    methods: {
-      'setVerbose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Settings>(target, 'Settings');
-        final enabled = D4.getRequiredNamedArg<bool>(named, 'enabled', 'setVerbose');
-        return t.setVerbose(enabled: enabled);
-      },
-      'verbose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Settings>(target, 'Settings');
-        D4.requireMinArgs(positional, 1, 'verbose');
-        final message = D4.getRequiredArg<String?>(positional, 0, 'message', 'verbose');
-        final frame = D4.getOptionalNamedArg<dynamic>(named, 'frame');
-        t.verbose(message, frame: frame);
-        return null;
-      },
-      'captureLogOutput': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Settings>(target, 'Settings');
-        return t.captureLogOutput();
-      },
-      'clearLogCapture': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Settings>(target, 'Settings');
-        t.clearLogCapture();
-        return null;
-      },
-    },
-    staticGetters: {
-      'listener': (visitor) => $pkg.Settings.listener,
-    },
-    constructorSignatures: {
-      '': 'factory Settings()',
-    },
-    methodSignatures: {
-      'setVerbose': 'Future<void> setVerbose({required bool enabled})',
-      'verbose': 'void verbose(String? message, {Frame? frame})',
-      'captureLogOutput': 'Stream<LogRecord> captureLogOutput()',
-      'clearLogCapture': 'void clearLogCapture()',
-    },
-    getterSignatures: {
-      'logger': 'dynamic get logger',
-      'isVerbose': 'bool get isVerbose',
-      'isMacOS': 'bool get isMacOS',
-      'isLinux': 'bool get isLinux',
-      'isWindows': 'bool get isWindows',
-    },
-    staticGetterSignatures: {
-      'listener': 'StreamSubscription<LogRecord>? get listener',
-    },
-    staticSetterSignatures: {
-      'listener': 'set listener(dynamic value)',
-    },
-  );
-}
-
-// =============================================================================
 // DCliException Bridge
 // =============================================================================
 
@@ -2354,132 +1970,6 @@ BridgedClass _createDCliPlatformBridge() {
     },
     staticSetterSignatures: {
       'scopeKey': 'set scopeKey(dynamic value)',
-    },
-  );
-}
-
-// =============================================================================
-// FileNotFoundException Bridge
-// =============================================================================
-
-BridgedClass _createFileNotFoundExceptionBridge() {
-  return BridgedClass(
-    nativeType: $pkg.FileNotFoundException,
-    name: 'FileNotFoundException',
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'FileNotFoundException');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'FileNotFoundException');
-        return $pkg.FileNotFoundException(path);
-      },
-    },
-    getters: {
-      'message': (visitor, target) => D4.validateTarget<$pkg.FileNotFoundException>(target, 'FileNotFoundException').message,
-      'cause': (visitor, target) => D4.validateTarget<$pkg.FileNotFoundException>(target, 'FileNotFoundException').cause,
-      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.FileNotFoundException>(target, 'FileNotFoundException').stackTrace,
-    },
-    setters: {
-      'stackTrace': (visitor, target, value) => 
-        D4.validateTarget<$pkg.FileNotFoundException>(target, 'FileNotFoundException').stackTrace = value as dynamic,
-    },
-    methods: {
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.FileNotFoundException>(target, 'FileNotFoundException');
-        return t.toString();
-      },
-      'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.FileNotFoundException>(target, 'FileNotFoundException');
-        t.printStackTrace();
-        return null;
-      },
-      'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.FileNotFoundException>(target, 'FileNotFoundException');
-        return t.toJson();
-      },
-      'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.FileNotFoundException>(target, 'FileNotFoundException');
-        return t.toJsonString();
-      },
-    },
-    constructorSignatures: {
-      '': 'FileNotFoundException(String path)',
-    },
-    methodSignatures: {
-      'toString': 'String toString()',
-      'printStackTrace': 'void printStackTrace()',
-      'toJson': 'Map<String, dynamic> toJson()',
-      'toJsonString': 'String toJsonString()',
-    },
-    getterSignatures: {
-      'message': 'String get message',
-      'cause': 'Object? get cause',
-      'stackTrace': 'InvalidType get stackTrace',
-    },
-    setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
-    },
-  );
-}
-
-// =============================================================================
-// NotAFileException Bridge
-// =============================================================================
-
-BridgedClass _createNotAFileExceptionBridge() {
-  return BridgedClass(
-    nativeType: $pkg.NotAFileException,
-    name: 'NotAFileException',
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'NotAFileException');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'NotAFileException');
-        return $pkg.NotAFileException(path);
-      },
-    },
-    getters: {
-      'message': (visitor, target) => D4.validateTarget<$pkg.NotAFileException>(target, 'NotAFileException').message,
-      'cause': (visitor, target) => D4.validateTarget<$pkg.NotAFileException>(target, 'NotAFileException').cause,
-      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.NotAFileException>(target, 'NotAFileException').stackTrace,
-    },
-    setters: {
-      'stackTrace': (visitor, target, value) => 
-        D4.validateTarget<$pkg.NotAFileException>(target, 'NotAFileException').stackTrace = value as dynamic,
-    },
-    methods: {
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.NotAFileException>(target, 'NotAFileException');
-        return t.toString();
-      },
-      'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.NotAFileException>(target, 'NotAFileException');
-        t.printStackTrace();
-        return null;
-      },
-      'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.NotAFileException>(target, 'NotAFileException');
-        return t.toJson();
-      },
-      'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.NotAFileException>(target, 'NotAFileException');
-        return t.toJsonString();
-      },
-    },
-    constructorSignatures: {
-      '': 'NotAFileException(String path)',
-    },
-    methodSignatures: {
-      'toString': 'String toString()',
-      'printStackTrace': 'void printStackTrace()',
-      'toJson': 'Map<String, dynamic> toJson()',
-      'toJsonString': 'String toJsonString()',
-    },
-    getterSignatures: {
-      'message': 'String get message',
-      'cause': 'Object? get cause',
-      'stackTrace': 'InvalidType get stackTrace',
-    },
-    setterSignatures: {
-      'stackTrace': 'set stackTrace(dynamic value)',
     },
   );
 }

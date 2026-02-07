@@ -156,6 +156,20 @@ class D4rtBridgeBuilder implements Builder {
         outputFiles.add(config!.dartscriptPath!);
       }
 
+      // Generate test runner file if requested
+      if (config!.generateTestRunner && config!.testRunnerPath != null) {
+        final testRunnerContent = generateTestRunnerContent(
+          config!,
+          testRunnerPath: config!.testRunnerPath,
+        );
+        await fileWriter.writeFile(
+          FileId(packageName, config!.testRunnerPath!),
+          testRunnerContent,
+        );
+        outputFiles.add(config!.testRunnerPath!);
+        log.info('  Generated test runner: ${config!.testRunnerPath}');
+      }
+
       // Write a trigger file to the source tree that can be deleted to force regeneration
       // This is necessary because build_runner doesn't detect changes in external packages
       final triggerPath = '$libraryPath/bridges_trigger.b.dart';

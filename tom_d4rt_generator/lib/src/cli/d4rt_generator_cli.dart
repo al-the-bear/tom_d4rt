@@ -207,6 +207,12 @@ Future<void> _generateBridges(BridgeConfig config, String projectDir,
     await _generateDartscriptFile(dartscriptPath, config, verbose: verbose);
   }
 
+  // Generate test runner file if requested
+  if (config.generateTestRunner && config.testRunnerPath != null) {
+    final testRunnerPath = p.join(projectDir, config.testRunnerPath!);
+    await _generateTestRunnerFile(testRunnerPath, config, verbose: verbose);
+  }
+
   if (verbose) {
     print('  ✓ Complete');
     print('');
@@ -244,6 +250,22 @@ Future<void> _generateDartscriptFile(String dartscriptPath, BridgeConfig config,
   }
   await File(dartscriptPath).writeAsString(
     generateDartscriptFileContent(config, dartscriptPath: config.dartscriptPath),
+  );
+}
+
+/// Generate test runner file for testing bridges.
+Future<void> _generateTestRunnerFile(String testRunnerPath, BridgeConfig config,
+    {required bool verbose}) async {
+  if (verbose) {
+    print('  Generating test runner: $testRunnerPath');
+  }
+  // Ensure directory exists (test runner may be in bin/)
+  final dir = File(testRunnerPath).parent;
+  if (!dir.existsSync()) {
+    dir.createSync(recursive: true);
+  }
+  await File(testRunnerPath).writeAsString(
+    generateTestRunnerContent(config, testRunnerPath: config.testRunnerPath),
   );
 }
 

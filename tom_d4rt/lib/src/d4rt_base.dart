@@ -230,7 +230,8 @@ class D4rt {
   }
 
   ModuleLoader _initModule(Map<String, String>? sources,
-      {String? basePath, bool allowFileSystemImports = false}) {
+      {String? basePath, bool allowFileSystemImports = false,
+      bool collectRegistrationErrors = false}) {
     final moduleLoader = ModuleLoader(
       Environment(),
       sources ?? {},
@@ -240,12 +241,78 @@ class D4rt {
       libraryVariables: _libraryVariables,
       libraryGetters: _libraryGetters,
       d4rt: this,
+      collectRegistrationErrors: collectRegistrationErrors,
     );
     _visitor = InterpreterVisitor(
         globalEnvironment: moduleLoader.globalEnvironment,
         moduleLoader: moduleLoader);
     Stdlib(moduleLoader.globalEnvironment).register();
     return moduleLoader;
+  }
+
+  /// Validates all bridge registrations by running the given init script
+  /// and collecting all registration errors without aborting on the first one.
+  ///
+  /// This is useful for checking that all bridges are correctly configured
+  /// and there are no duplicate element names across modules.
+  ///
+  /// Returns a list of registration error messages. An empty list means
+  /// all registrations are valid.
+  ///
+  /// [source] The source code that imports all bridge modules (typically
+  ///   all the import statements plus `void main() {}`).
+  ///
+  /// ## Example:
+  /// ```dart
+  /// final d4rt = D4rt();
+  /// // ... register bridges ...
+  /// final errors = d4rt.validateRegistrations(
+  ///   source: """
+  ///     import 'package:my_pkg/my_pkg.dart';
+  ///     import 'package:other_pkg/other_pkg.dart';
+  ///     void main() {}
+  ///   """,
+  /// );
+  /// if (errors.isNotEmpty) {
+  ///   print('Registration errors:');
+  ///   for (final error in errors) {
+  ///     print('  - $error');
+  ///   }
+  /// }
+  /// ```
+  List<String> validateRegistrations({
+    required String source,
+    Map<String, String>? sources,
+    String? basePath,
+    bool allowFileSystemImports = false,
+  }) {
+    // Initialize module loader in error-collecting mode
+    _moduleLoader = _initModule(sources,
+        basePath: basePath,
+        allowFileSystemImports: allowFileSystemImports,
+        collectRegistrationErrors: true);
+
+    try {
+      // Parse source — this triggers import processing and registration
+      final compilationUnit = _parseSource(source: source);
+
+      // Execute main to complete initialization
+      final executionEnvironment = _moduleLoader.globalEnvironment;
+      _executeInEnvironment(
+        compilationUnit: compilationUnit,
+        executionEnvironment: executionEnvironment,
+        name: 'main',
+      );
+    } catch (e) {
+      // If there are non-registration errors (e.g., parse errors), 
+      // add them to the accumulated list
+      if (_moduleLoader.accumulatedRegistrationErrors.isEmpty) {
+        return ['Unexpected error during validation: $e'];
+      }
+    }
+
+    _hasExecutedOnce = true;
+    return List.unmodifiable(_moduleLoader.accumulatedRegistrationErrors);
   }
 
   /// Enables or disables debug logging for the interpreter.

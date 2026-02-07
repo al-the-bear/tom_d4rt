@@ -221,6 +221,18 @@ class BridgeConfig {
   /// eliminating duplicate code when the same package is re-exported by multiple barrels.
   final String? libraryPath;
   
+  /// Whether to generate a test runner script (d4rtrun.b.dart).
+  ///
+  /// When true, generates an executable Dart script that can run D4rt scripts
+  /// or expressions with all generated bridges pre-registered. Supports
+  /// running files, evaluating expressions, and validating bridge registrations.
+  final bool generateTestRunner;
+  
+  /// Output path for the generated test runner script.
+  ///
+  /// Example: `bin/d4rtrun.b.dart`
+  final String? testRunnerPath;
+  
   /// List of external bridge packages to import and register.
   /// 
   /// When specified, the generated dartscript.dart will import these packages
@@ -245,6 +257,8 @@ class BridgeConfig {
     this.dartscriptPath,
     this.registrationClass,
     this.libraryPath,
+    this.generateTestRunner = false,
+    this.testRunnerPath,
     this.importedBridges = const [],
   });
 
@@ -261,6 +275,8 @@ class BridgeConfig {
       dartscriptPath: json['dartscriptPath'] as String?,
       registrationClass: json['registrationClass'] as String?,
       libraryPath: json['libraryPath'] as String?,
+      generateTestRunner: json['generateTestRunner'] as bool? ?? false,
+      testRunnerPath: json['testRunnerPath'] as String?,
       importedBridges: (json['importedBridges'] as List?)
               ?.map((m) => ImportedBridgeConfig.fromJson(m as Map<String, dynamic>))
               .toList() ??
@@ -309,6 +325,8 @@ class BridgeConfig {
       if (dartscriptPath != null) 'dartscriptPath': dartscriptPath,
       if (registrationClass != null) 'registrationClass': registrationClass,
       if (libraryPath != null) 'libraryPath': libraryPath,
+      'generateTestRunner': generateTestRunner,
+      if (testRunnerPath != null) 'testRunnerPath': testRunnerPath,
       if (importedBridges.isNotEmpty)
         'importedBridges': importedBridges.map((b) => b.toJson()).toList(),
     };
@@ -325,6 +343,8 @@ class BridgeConfig {
     String? dartscriptPath,
     String? registrationClass,
     String? libraryPath,
+    bool? generateTestRunner,
+    String? testRunnerPath,
     List<ImportedBridgeConfig>? importedBridges,
   }) {
     return BridgeConfig(
@@ -337,6 +357,8 @@ class BridgeConfig {
       dartscriptPath: dartscriptPath ?? this.dartscriptPath,
       registrationClass: registrationClass ?? this.registrationClass,
       libraryPath: libraryPath ?? this.libraryPath,
+      generateTestRunner: generateTestRunner ?? this.generateTestRunner,
+      testRunnerPath: testRunnerPath ?? this.testRunnerPath,
       importedBridges: importedBridges ?? this.importedBridges,
     );
   }

@@ -48,12 +48,26 @@ class ModuleLoader {
   final Map<String, String> _registeredClasses = {};
   final Map<String, String> _registeredEnums = {};
 
+  /// When true, registration errors are collected instead of thrown.
+  ///
+  /// Use this with [accumulatedRegistrationErrors] to validate all bridge
+  /// registrations in a single run without aborting on the first error.
+  bool collectRegistrationErrors;
+  
+  /// Accumulated registration errors when [collectRegistrationErrors] is true.
+  ///
+  /// These errors are collected across all import processing rather than
+  /// being thrown immediately. Check this list after [D4rt.execute] completes
+  /// to see all registration issues at once.
+  final List<String> accumulatedRegistrationErrors = [];
+
   ModuleLoader(this.globalEnvironment, this.sources,
       this.bridgedEnumDefinitions, this.bridgedClases,
       {this.d4rt,
       this.libraryFunctions = const [],
       this.libraryVariables = const [],
-      this.libraryGetters = const []}) {
+      this.libraryGetters = const [],
+      this.collectRegistrationErrors = false}) {
     Logger.debug(
         "[ModuleLoader] Initialized with ${sources.length} preloaded sources.");
   }
@@ -645,9 +659,14 @@ class ModuleLoader {
       }
 
       if (registrationErrors.isNotEmpty) {
-        final errorList = registrationErrors.map((e) => '- $e').join('\n');
-        throw RuntimeD4rtException(
-            'Errors during bridge registration:\n$errorList');
+        if (collectRegistrationErrors) {
+          // Accumulate errors instead of throwing — allows collecting all errors
+          accumulatedRegistrationErrors.addAll(registrationErrors);
+        } else {
+          final errorList = registrationErrors.map((e) => '- $e').join('\n');
+          throw RuntimeD4rtException(
+              'Errors during bridge registration:\n$errorList');
+        }
       }
 
       // If this URI had bridged content, return empty source

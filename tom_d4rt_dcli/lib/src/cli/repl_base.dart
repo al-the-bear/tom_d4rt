@@ -657,6 +657,7 @@ void main() {}
     try {
       await server.start();
       await server.waitForShutdown();
+      exit(0);
     } catch (e) {
       stderr.writeln('Bot server error: $e');
       exit(1);
