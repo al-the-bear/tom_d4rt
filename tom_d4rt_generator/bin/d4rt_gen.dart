@@ -42,65 +42,8 @@ import 'package:yaml/yaml.dart';
 /// The tool key for dartgen in tom_build.yaml
 const _toolKey = 'dartgen';
 
-/// Configuration loaded from tom_build.yaml (dartgen: section) or command-line.
-/// This is immutable and passed around - no global state.
-/// Uses TomBuildConfig from tom_build_base for common functionality.
-class CliConfig {
-  final String? project;
-  final List<String> projects;
-  final String? config;
-  final String? scan;
-  final bool recursive;
-  final List<String> exclude;
-  final List<String> recursionExclude;
-  final bool verbose;
-
-  const CliConfig({
-    this.project,
-    this.projects = const [],
-    this.config,
-    this.scan,
-    this.recursive = false,
-    this.exclude = const [],
-    this.recursionExclude = const [],
-    this.verbose = false,
-  });
-
-  /// Load configuration from tom_build.yaml file (dartgen: section).
-  /// Uses TomBuildConfig.load() for file loading and parsing.
-  static CliConfig? loadFromYaml(String dir) {
-    final buildConfig = TomBuildConfig.load(dir: dir, toolKey: _toolKey);
-    if (buildConfig == null) return null;
-
-    return CliConfig(
-      project: buildConfig.project,
-      projects: buildConfig.projects,
-      config: buildConfig.config,
-      scan: buildConfig.scan,
-      recursive: buildConfig.recursive,
-      exclude: buildConfig.exclude,
-      recursionExclude: buildConfig.recursionExclude,
-      verbose: buildConfig.verbose,
-    );
-  }
-
-  /// Merge with another config (other takes precedence for non-null values).
-  CliConfig merge(CliConfig other) {
-    return CliConfig(
-      project: other.project ?? project,
-      projects: other.projects.isNotEmpty ? other.projects : projects,
-      config: other.config ?? config,
-      scan: other.scan ?? scan,
-      recursive: other.recursive || recursive,
-      exclude: other.exclude.isNotEmpty ? other.exclude : exclude,
-      recursionExclude: other.recursionExclude.isNotEmpty ? other.recursionExclude : recursionExclude,
-      verbose: other.verbose || verbose,
-    );
-  }
-}
-
 /// Validates path containment using tom_build_base's validatePathContainment.
-String? _validatePathContainment(CliConfig config, String basePath) {
+String? _validatePathContainment(TomBuildConfig config, String basePath) {
   return validatePathContainment(
     project: config.project,
     projects: config.projects,
@@ -179,8 +122,8 @@ Future<void> main(List<String> arguments) async {
     exit(0);
   }
 
-  // Build config from CLI args
-  final cliConfig = CliConfig(
+  // Build config from CLI args (using TomBuildConfig from tom_build_base)
+  final cliConfig = TomBuildConfig(
     project: args['project'] as String?,
     projects: const [], // --projects not exposed as CLI arg; only via tom_build.yaml
     config: args['config'] as String?,
@@ -192,22 +135,20 @@ Future<void> main(List<String> arguments) async {
   );
 
   // Check if any meaningful option was provided
-  final hasAnyOption = cliConfig.project != null ||
-      cliConfig.projects.isNotEmpty ||
-      cliConfig.config != null ||
-      cliConfig.scan != null;
-
-  CliConfig config;
-  if (!hasAnyOption) {
+  TomBuildConfig config;
+  if (!cliConfig.hasProjectOptions) {
     // Try loading from tom_build.yaml in current directory
-    final yamlConfig = CliConfig.loadFromYaml(Directory.current.path);
+    final yamlConfig = TomBuildConfig.load(
+      dir: Directory.current.path,
+      toolKey: _toolKey,
+    );
     if (yamlConfig != null) {
       print('Using configuration from tom_build.yaml (dartgen: section)');
       // Merge CLI flags (like --verbose) with yaml config
       config = yamlConfig.merge(cliConfig);
     } else {
       // Default: process current directory
-      config = CliConfig(
+      config = TomBuildConfig(
         project: Directory.current.path,
         recursive: cliConfig.recursive,
         exclude: cliConfig.exclude,
@@ -270,7 +211,7 @@ Future<void> main(List<String> arguments) async {
 }
 
 /// Collect all projects that would be processed (for --list mode).
-Future<List<String>> _collectProjects(CliConfig config) async {
+Future<List<String>> _collectProjects(TomBuildConfig config) async {
   final verbose = config.verbose;
   final discovery = ProjectDiscovery(verbose: verbose);
 
@@ -317,7 +258,7 @@ Future<List<String>> _collectProjects(CliConfig config) async {
 /// Run the generator with the given configuration.
 /// This is the main entry point that can be called recursively.
 /// [basePath] is the directory that constrains all paths in config.
-Future<ProcessingResult> _runWithConfig(CliConfig config, {required String basePath}) async {
+Future<ProcessingResult> _runWithConfig(TomBuildConfig config, {required String basePath}) async {
   final result = ProcessingResult();
   final verbose = config.verbose;
 
@@ -376,7 +317,10 @@ Future<ProcessingResult> _runWithConfig(CliConfig config, {required String baseP
 
     for (final projectPath in projects) {
       // Check for project-local tom_build.yaml (takes precedence)
-      final projectConfig = CliConfig.loadFromYaml(projectPath);
+      final projectConfig = TomBuildConfig.load(
+        dir: projectPath,
+        toolKey: _toolKey,
+      );
       if (projectConfig != null) {
         if (verbose) {
           print('Found tom_build.yaml in $projectPath');
@@ -432,7 +376,10 @@ Future<ProcessingResult> _processProjectWithRecursion(
   final normalizedPath = p.normalize(p.absolute(projectPath));
 
   // Check if this project has its own tom_build.yaml
-  final projectConfig = CliConfig.loadFromYaml(normalizedPath);
+  final projectConfig = TomBuildConfig.load(
+    dir: normalizedPath,
+    toolKey: _toolKey,
+  );
   if (projectConfig != null) {
     if (verbose) {
       print('Found tom_build.yaml in $normalizedPath');
@@ -445,7 +392,7 @@ Future<ProcessingResult> _processProjectWithRecursion(
       return result;
     }
     // Run with the project's own configuration (project config takes precedence)
-    final mergedConfig = CliConfig(
+    final mergedConfig = TomBuildConfig(
       project: normalizedPath,
       recursive: projectConfig.recursive || recursive,
       exclude: projectConfig.exclude.isNotEmpty ? projectConfig.exclude : exclude,

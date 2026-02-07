@@ -30,7 +30,8 @@ dependencies:
   yaml: ^3.1.0
   
   # Shared build utilities
-  tom_build_base: ^1.0.0
+  tom_build_base:
+    path: ../../../xternal/tom_module_basics/tom_build_base
 
 executables:
   d4rtgen: d4rt_gen
@@ -39,4 +40,5 @@ dev_dependencies:
   build_runner: ^2.4.0
   lints: ^6.0.0
   test: ^1.25.6
-  tom_d4rt: ^1.4.0
+  tom_d4rt:
+    path: ../tom_d4rt
