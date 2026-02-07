@@ -630,11 +630,9 @@ void main() {}
     
     d4rt.execute(source: defaultInitSource);
     
-    // Create ReplState for bot mode processing
-    final state = ReplState(
-      promptName: toolName.toLowerCase(),
-      dataDir: '${Platform.environment['HOME']}/.tom/${toolName.toLowerCase()}',
-    );
+    // Create ReplState for bot mode processing using the overridable method
+    // This ensures subclasses can customize state initialization (e.g., VS Code integration)
+    final state = createReplState();
     state.currentDirectory = Directory.current.path;
     
     // Create execution callback that uses processInput with zone-based output capture

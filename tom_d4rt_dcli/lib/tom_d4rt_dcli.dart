@@ -13,7 +13,6 @@ import 'src/version.g.dart';
 
 export 'dartscript.b.dart';
 export 'src/bot_mode/bot_mode.dart';
-export 'src/bridges/dcli_core_bridges.b.dart';
 export 'src/cli/repl_base.dart';
 export 'src/cli/vscode_integration.dart';
 
