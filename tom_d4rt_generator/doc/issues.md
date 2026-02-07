@@ -8,12 +8,16 @@
 
 | ID | Description | Complexity | Status |
 |----|-------------|------------|--------|
+| [GEN-028](#gen-028) | [CLI didn't pass export filtering params to generator](#gen-028) | Medium | Fixed |
+| [GEN-029](#gen-029) | [CLI path missing export info filtering for globals](#gen-029) | Medium | Fixed |
+| [GEN-030](#gen-030) | [Multi-barrel modules only registered under primary barrel](#gen-030) | High | Fixed |
 | [GEN-001](#gen-001) | [Generic methods lose type parameters (type erasure)](#gen-001) | Fundamental | Won't Fix |
-| [GEN-002](#gen-002) | [Recursive type bounds dispatched to only 3 hardcoded types](#gen-002) | Low | TODO |
 | [GEN-003](#gen-003) | [Complex default values cannot be represented in generated code](#gen-003) | Fundamental | Won't Fix |
 | [GEN-004](#gen-004) | [Combinatorial dispatch capped at 4 non-wrappable params](#gen-004) | Medium | Won't Fix |
-| [GEN-005](#gen-005) | [Function types inside collections are unbridgeable](#gen-005) | High | TODO |
 | [GEN-006](#gen-006) | [Syntactic fallback loses all resolved type information](#gen-006) | Fundamental | Won't Fix |
+| [GEN-014](#gen-014) | [Syntactic fallback: this.x params always typed as dynamic](#gen-014) | Fundamental | Won't Fix |
+| [GEN-002](#gen-002) | [Recursive type bounds dispatched to only 3 hardcoded types](#gen-002) | Low | TODO |
+| [GEN-005](#gen-005) | [Function types inside collections are unbridgeable](#gen-005) | High | TODO |
 | [GEN-007](#gen-007) | [Function type alias detection limited to 7 hardcoded names](#gen-007) | Low | TODO |
 | [GEN-008](#gen-008) | [Private SDK library mapping is hardcoded and incomplete](#gen-008) | Low | TODO |
 | [GEN-009](#gen-009) | [Generic type parameter detection uses hardcoded name set](#gen-009) | Low | TODO |
@@ -21,7 +25,6 @@
 | [GEN-011](#gen-011) | [Global function/variable generation counts always report 0](#gen-011) | Low | TODO |
 | [GEN-012](#gen-012) | [Type parameter substitution uses fragile regex text replacement](#gen-012) | Medium | TODO |
 | [GEN-013](#gen-013) | [Build runner reports approximate class count (files × 10)](#gen-013) | Low | TODO |
-| [GEN-014](#gen-014) | [Syntactic fallback: this.x params always typed as dynamic](#gen-014) | Fundamental | Won't Fix |
 | [GEN-015](#gen-015) | [Nested public classes collected by syntactic visitor](#gen-015) | Low | TODO |
 | [GEN-016](#gen-016) | [Auxiliary imports may resolve wrong type on name collision](#gen-016) | Medium | TODO |
 | [GEN-017](#gen-017) | [Missing barrel export silently downgrades to dynamic](#gen-017) | Medium | TODO |
@@ -35,9 +38,6 @@
 | [GEN-025](#gen-025) | [Record types with nested functions may have edge cases](#gen-025) | Medium | TODO |
 | [GEN-026](#gen-026) | [14 concrete types across projects silently downgraded to dynamic](#gen-026) | Medium | TODO |
 | [GEN-027](#gen-027) | [InvalidType warnings indicate analyzer resolution failures](#gen-027) | Medium | TODO |
-| [GEN-028](#gen-028) | [CLI didn't pass export filtering params to generator](#gen-028) | Medium | Fixed |
-| [GEN-029](#gen-029) | [CLI path missing export info filtering for globals](#gen-029) | Medium | Fixed |
-| [GEN-030](#gen-030) | [Multi-barrel modules only registered under primary barrel](#gen-030) | High | Fixed |
 
 ---
 
