@@ -250,7 +250,64 @@ Dart 3 record type resolution is a newer code path that may have edge cases with
 
 ---
 
-## 6. Recently Fixed Issues (2026-02-07)
+## 6. Active Warnings Across Projects
+
+These warnings are emitted during bridge generation and indicate types that get silently downgraded to `dynamic` in the generated bridges. They fall into three categories.
+
+### 6.1 Missing Export: Concrete Types Not in Barrel
+
+Types used in method signatures or type arguments that are not re-exported from the module's barrel file. These become `dynamic` at the bridge boundary, losing type safety.
+
+| Type | Project(s) | Source Package |
+|------|-----------|----------------|
+| `Trace` | tom_d4rt_dcli | dcli (stack_trace) |
+| `SettingsYaml` | tom_d4rt_dcli | dcli_core |
+| `ColumnComparator` | tom_d4rt_dcli | dcli_core |
+| `CancelableLineAction` | tom_d4rt_dcli | dcli_core |
+| `Invocation` | tom_dartscript_bridges | dart:core (mirrors) |
+| `RSAPublicKey` | tom_dartscript_bridges | pointycastle |
+| `RSAPrivateKey` | tom_dartscript_bridges | pointycastle |
+| `SecureRandom` | tom_dartscript_bridges | pointycastle |
+| `JWTKey` | tom_dartscript_bridges | dart_jsonwebtoken |
+| `JWTAlgorithm` | tom_dartscript_bridges | dart_jsonwebtoken |
+| `JWT` | tom_dartscript_bridges | dart_jsonwebtoken |
+| `Argon2Parameters` | tom_dartscript_bridges | pointycastle |
+| `MdPdfConverterOptions` | tom_dartscript_bridges | tom_build |
+| `LedgerData` | tom_dartscript_bridges | tom_dist_ledger |
+
+**Impact:** Methods using these types as parameters or return values will accept/return `dynamic` instead. Callers in D4rt scripts won't get type checking for these.
+
+**Fix options:**
+- Add missing types to the barrel file's exports (if the package is under your control)
+- Add the types' packages as additional `barrelFiles` in the module config
+- Accept the `dynamic` fallback if the types are rarely used from scripts
+
+### 6.2 Missing Export: Type Parameters Misidentified as Concrete Types
+
+| Type | Project(s) | Actual Meaning |
+|------|-----------|----------------|
+| `T1` | tom_dartscript_bridges | Generic type parameter |
+| `T2` | tom_dartscript_bridges | Generic type parameter |
+| `K2` | tom_dartscript_bridges | Generic type parameter |
+| `V2` | tom_dartscript_bridges | Generic type parameter |
+
+These are **generic type parameters** incorrectly treated as concrete types because they don't match the hardcoded set in `_isGenericTypeParameter` (see issue 2.3). They should be recognized as type parameters and erased to their bounds, not looked up in barrel exports.
+
+**Fix:** Extend `_isGenericTypeParameter` detection (see issue 2.3).
+
+### 6.3 InvalidType Warnings
+
+| Type | Project(s) |
+|------|-----------|
+| `InvalidType` | tom_d4rt_dcli, tom_dartscript_bridges |
+
+`InvalidType` appears when the Dart analyzer cannot resolve a type at all (e.g., due to missing dependencies or circular references). This indicates an analyzer resolution failure rather than a barrel export issue.
+
+**Impact:** The affected method parameter/return type becomes `dynamic`.
+
+---
+
+## 7. Recently Fixed Issues (2026-02-07)
 
 These were discovered and fixed in the current session:
 
