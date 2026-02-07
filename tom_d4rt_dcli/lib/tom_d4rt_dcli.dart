@@ -8,6 +8,7 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 
 import 'dartscript.b.dart';
 import 'src/cli/repl_base.dart';
+import 'src/cli/vscode_integration.dart';
 import 'src/version.g.dart';
 
 export 'dartscript.b.dart';
@@ -23,7 +24,7 @@ export 'package:tom_chattools/tom_chattools.dart';
 /// 
 /// This is the concrete implementation of D4rtReplBase for the dcli tool,
 /// providing only dcli package bridges.
-class DcliRepl extends D4rtReplBase {
+class DcliRepl extends D4rtReplBase with VSCodeIntegrationMixin {
   @override
   String get toolName => 'DCLI';
   
@@ -39,6 +40,17 @@ class DcliRepl extends D4rtReplBase {
   String getImportBlock() {
     // Prepend stdlib imports (available via D4rt's built-in stdlib bridges)
     return getStdlibImports() + TomD4rtDcliBridge.getImportBlock();
+  }
+  
+  @override
+  Future<bool> handleAdditionalCommands(
+    D4rt d4rt,
+    ReplState state,
+    String line, {
+    bool silent = false,
+  }) async {
+    // Handle VS Code integration commands
+    return await handleVSCodeCommands(state, line, silent: silent);
   }
   
   @override

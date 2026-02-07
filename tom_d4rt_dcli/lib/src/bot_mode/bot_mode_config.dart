@@ -416,7 +416,7 @@ class OutputConfig {
       useMonospace: yaml['use-monospace'] as bool? ?? true,
       stripAnsi: yaml['strip-ansi'] as bool? ?? true,
       convertMarkdown: yaml['convert-markdown'] as bool? ?? true,
-      maxOutputChars: yaml['long-output-attach-result-limit'] as int? ?? 1000,
+      maxOutputChars: yaml['long-output-attach-result-limit'] as int? ?? 3000,
       attachFullOutput: yaml['attach-full-output'] as bool? ?? true,
       truncationSuffix: yaml['truncation-suffix'] as String? ?? 
           '\n... (output truncated, {remaining} more chars)',
@@ -428,7 +428,7 @@ class OutputConfig {
       useMonospace: true,
       stripAnsi: true,
       convertMarkdown: true,
-      maxOutputChars: 1000,
+      maxOutputChars: 3000,
       attachFullOutput: true,
       truncationSuffix: '\n... (output truncated, {remaining} more chars)',
     );
