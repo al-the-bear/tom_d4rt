@@ -30,6 +30,18 @@
       "outputPath": "lib/src/bridges/dcli_bridges.b.dart",
       "followAllReExports": true,
       "excludePatterns": ["**/*_bridge.dart", "**/*_generated.dart"],
+      "excludeClasses": [
+        "Hmac", "Hash", "Digest", "Cat", "CopyTreeException", "DCliFunction", "DCliFunctionException",
+        "FindAsync", "HeadException", "TailException", "TouchException",
+        "Which", "WhichSearch", "LimitedStreamController"
+      ],
+      "excludeVariables": [
+        "md5", "sha1", "sha256", "sha224", "sha384", "sha512", "sha512224", "sha512256"
+      ],
+      "excludeFunctions": [
+        "withFileProtectionAsync", "withTempDirAsync", "withEnvironment",
+        "findAsync", "withTempFileAsync"
+      ],
       "excludeSourcePatterns": [
         "package:dcli_core/src/settings.dart#Settings,verbose",
         "package:dcli_core/src/util/file.dart#FileNotFoundException,NotAFileException,withOpenFile,symlink,deleteSymlink,resolveSymLink,stat,createTempFilename,createTempFile,fileLength,calculateHash",
