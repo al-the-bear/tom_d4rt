@@ -15,6 +15,9 @@ export 'src/bridges/dcli_core_bridges.b.dart';
 export 'src/cli/repl_base.dart';
 export 'src/cli/vscode_integration.dart';
 
+// Re-export tom_chattools for consumers using bot mode
+export 'package:tom_chattools/tom_chattools.dart';
+
 /// The current version of the dcli tool.
 const String dcliVersion = '0.1.0';
 

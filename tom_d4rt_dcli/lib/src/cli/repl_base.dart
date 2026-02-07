@@ -5,6 +5,7 @@
 library;
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:console_markdown/console_markdown.dart';
@@ -640,24 +641,52 @@ void main() {}
     Future<ExecutionResult> executeCommand(String command) async {
       final outputBuffer = StringBuffer();
       
-      // Helper to strip ANSI escape codes for Telegram output
+      // Convert console_markdown format to Telegram markdown
+      // console_markdown: <yellow>**text**</yellow>, <cyan>text</cyan>, etc.
+      // Telegram: *bold*, _italic_, `code`, ```preformatted```
+      String convertToTelegramMarkdown(String text) {
+        var result = text;
+        // Convert **bold** to *bold* (Telegram uses single asterisk)
+        result = result.replaceAllMapped(
+          RegExp(r'\*\*(.+?)\*\*'),
+          (m) => '*${m.group(1)}*',
+        );
+        // Remove color tags - they have no Telegram equivalent
+        // <yellow>text</yellow> -> text
+        result = result.replaceAll(RegExp(r'<(yellow|cyan|red|green|blue|magenta|white|black|brightBlack|brightRed|brightGreen|brightYellow|brightBlue|brightMagenta|brightCyan|brightWhite)>'), '');
+        result = result.replaceAll(RegExp(r'</(yellow|cyan|red|green|blue|magenta|white|black|brightBlack|brightRed|brightGreen|brightYellow|brightBlue|brightMagenta|brightCyan|brightWhite)>'), '');
+        return result;
+      }
+      
+      // Strip ANSI escape codes
       String stripAnsi(String text) {
         return text.replaceAll(RegExp(r'\x1B\[[0-9;]*[a-zA-Z]'), '');
       }
       
+      // Create custom stdout/stderr that capture output
+      final capturedStdout = _CaptureStdout(outputBuffer, convertToTelegramMarkdown, stripAnsi);
+      final capturedStderr = _CaptureStdout(outputBuffer, convertToTelegramMarkdown, stripAnsi, isError: true);
+      
       try {
-        // Use runZoned to capture all print/stdout output
-        await runZoned(
+        // Use IOOverrides to capture ALL stdout/stderr, including Console writes
+        await IOOverrides.runZoned(
           () async {
-            await processInput(d4rt, state, command, silent: false);
+            // Also override print within the zone
+            await runZoned(
+              () async {
+                await processInput(d4rt, state, command, silent: false);
+              },
+              zoneSpecification: ZoneSpecification(
+                print: (self, parent, zone, line) {
+                  // Don't delegate to parent - this bypasses console_markdown ANSI conversion
+                  final converted = convertToTelegramMarkdown(line);
+                  outputBuffer.writeln(converted);
+                },
+              ),
+            );
           },
-          zoneSpecification: ZoneSpecification(
-            print: (self, parent, zone, line) {
-              // Strip ANSI escape codes for Telegram output
-              final cleaned = stripAnsi(line);
-              outputBuffer.writeln(cleaned);
-            },
-          ),
+          stdout: () => capturedStdout,
+          stderr: () => capturedStderr,
         );
         
         final output = outputBuffer.toString().trim();
@@ -666,10 +695,13 @@ void main() {}
           isError: false,
         );
       } catch (e) {
+        // Include captured output along with the error
+        final capturedOutput = outputBuffer.toString().trim();
+        final errorMsg = convertToTelegramMarkdown(stripAnsi(e.toString()));
         return ExecutionResult(
-          output: outputBuffer.toString().trim(),
+          output: capturedOutput.isNotEmpty ? '$capturedOutput\n\n❌ $errorMsg' : '',
           isError: true,
-          errorMessage: stripAnsi(e.toString()),
+          errorMessage: errorMsg,
         );
       }
     }
@@ -678,6 +710,8 @@ void main() {}
     final server = TelegramBotServer(
       config: config,
       executeCommand: executeCommand,
+      toolName: toolName,
+      toolVersion: toolVersion,
     );
     
     try {
@@ -2835,4 +2869,105 @@ bool Function(String)? parseSearchFilter(String query) {
   final filter = parseSearchFilterDetails(query);
   if (filter == null) return null;
   return filter.matches;
+}
+
+/// Stdout/Stderr capture wrapper for bot mode output capture.
+/// 
+/// Captures all writes to stdout/stderr and converts them to Telegram format.
+class _CaptureStdout implements Stdout {
+  final StringBuffer _buffer;
+  final String Function(String) _convertMarkdown;
+  final String Function(String) _stripAnsi;
+  final bool isError;
+  
+  _CaptureStdout(
+    this._buffer, 
+    this._convertMarkdown, 
+    this._stripAnsi, {
+    this.isError = false,
+  });
+  
+  @override
+  void write(Object? object) {
+    final text = _convertMarkdown(_stripAnsi(object?.toString() ?? ''));
+    if (isError && text.isNotEmpty) {
+      _buffer.write('❌ $text');
+    } else {
+      _buffer.write(text);
+    }
+  }
+  
+  @override
+  void writeln([Object? object = '']) {
+    final text = _convertMarkdown(_stripAnsi(object?.toString() ?? ''));
+    if (isError && text.isNotEmpty) {
+      _buffer.writeln('❌ $text');
+    } else {
+      _buffer.writeln(text);
+    }
+  }
+  
+  @override
+  void writeAll(Iterable objects, [String separator = '']) {
+    write(objects.map((o) => o.toString()).join(separator));
+  }
+  
+  @override
+  void writeCharCode(int charCode) {
+    write(String.fromCharCode(charCode));
+  }
+  
+  @override
+  void add(List<int> data) {
+    write(String.fromCharCodes(data));
+  }
+  
+  @override
+  void addError(Object error, [StackTrace? stackTrace]) {
+    writeln('Error: $error');
+  }
+  
+  @override
+  Future addStream(Stream<List<int>> stream) async {
+    await for (final data in stream) {
+      add(data);
+    }
+  }
+  
+  @override
+  Future close() async {}
+  
+  @override
+  Future get done => Future.value();
+  
+  @override
+  Future flush() async {}
+  
+  // Stub implementations for remaining Stdout interface
+  @override
+  Encoding get encoding => utf8;
+  
+  @override
+  set encoding(Encoding encoding) {}
+  
+  @override
+  String get lineTerminator => '\n';
+  
+  @override
+  set lineTerminator(String lineTerminator) {}
+  
+  @override
+  bool get hasTerminal => false;
+  
+  @override
+  IOSink get nonBlocking => this;
+  
+  @override
+  bool get supportsAnsiEscapes => false;
+  
+  @override
+  int get terminalColumns => 80;
+  
+  @override
+  int get terminalLines => 24;
 }

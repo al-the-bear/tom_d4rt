@@ -18,6 +18,8 @@ import 'security_manager.dart';
 /// Manages multiple bot connections and routes messages to REPL instances.
 class TelegramBotServer {
   final BotModeConfig config;
+  final String toolName;
+  final String toolVersion;
   final Map<String, BotInstance> _bots = {};
   final SecurityManager _security;
   final OutputFormatter _formatter;
@@ -29,6 +31,8 @@ class TelegramBotServer {
   TelegramBotServer({
     required this.config,
     required this.executeCommand,
+    required this.toolName,
+    required this.toolVersion,
   })  : _security = SecurityManager(config.security),
         _formatter = OutputFormatter(
           config: config.output,
@@ -57,6 +61,8 @@ class TelegramBotServer {
           formatter: _formatter,
           executeCommand: executeCommand,
           pollingTimeout: config.polling.timeout.inSeconds,
+          toolName: toolName,
+          toolVersion: toolVersion,
         );
 
         _bots[botConfig.name] = bot;
@@ -116,6 +122,8 @@ class BotInstance {
   final SecurityManager security;
   final OutputFormatter formatter;
   final Future<ExecutionResult> Function(String command) executeCommand;
+  final String toolName;
+  final String toolVersion;
 
   late final ChatApi _telegram;
   StreamSubscription<ChatMessage>? _subscription;
@@ -130,6 +138,8 @@ class BotInstance {
     required this.formatter,
     required this.executeCommand,
     required ChatApi telegram,
+    required this.toolName,
+    required this.toolVersion,
   }) : _telegram = telegram;
 
   /// Create and initialize a bot instance.
@@ -142,6 +152,8 @@ class BotInstance {
     required OutputFormatter formatter,
     required Future<ExecutionResult> Function(String command) executeCommand,
     int pollingTimeout = 30,
+    required String toolName,
+    required String toolVersion,
   }) async {
     // Create Telegram chat API with polling timeout
     final settings = ChatSettings.telegram(
@@ -159,6 +171,8 @@ class BotInstance {
       formatter: formatter,
       executeCommand: executeCommand,
       telegram: telegram,
+      toolName: toolName,
+      toolVersion: toolVersion,
     );
   }
 
@@ -183,6 +197,7 @@ class BotInstance {
     final welcomeMessage = '''
 🤖 *$name Bot* started!
 
+*$toolName* v$toolVersion
 $vsInfo
 
 Type /help for available commands, or enter any REPL command directly.
