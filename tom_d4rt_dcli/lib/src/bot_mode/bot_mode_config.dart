@@ -401,6 +401,9 @@ class OutputConfig {
 
   /// Truncation suffix
   final String truncationSuffix;
+  
+  /// Auto-attach files from Copilot Chat requestedAttachments
+  final bool autoAttachCopilotFiles;
 
   OutputConfig({
     required this.useMonospace,
@@ -409,6 +412,7 @@ class OutputConfig {
     required this.maxOutputChars,
     required this.attachFullOutput,
     required this.truncationSuffix,
+    this.autoAttachCopilotFiles = true,
   });
 
   factory OutputConfig.fromYaml(YamlMap yaml) {
@@ -420,6 +424,7 @@ class OutputConfig {
       attachFullOutput: yaml['attach-full-output'] as bool? ?? true,
       truncationSuffix: yaml['truncation-suffix'] as String? ?? 
           '\n... (output truncated, {remaining} more chars)',
+      autoAttachCopilotFiles: yaml['auto-attach-copilot-files'] as bool? ?? true,
     );
   }
 
@@ -431,6 +436,7 @@ class OutputConfig {
       maxOutputChars: 3000,
       attachFullOutput: true,
       truncationSuffix: '\n... (output truncated, {remaining} more chars)',
+      autoAttachCopilotFiles: true,
     );
   }
 }

@@ -37,6 +37,10 @@ class ExecutionResult {
 
   /// Error message (if isError is true).
   final String? errorMessage;
+  
+  /// Optional Copilot Chat response data.
+  /// If present, this was a Copilot Chat interaction.
+  final CopilotChatResponse? copilotResponse;
 
   ExecutionResult({
     required this.output,
@@ -44,7 +48,41 @@ class ExecutionResult {
     this.duration = Duration.zero,
     this.isError = false,
     this.errorMessage,
+    this.copilotResponse,
   });
+}
+
+/// Structured response from Copilot Chat.
+class CopilotChatResponse {
+  /// The main generated markdown content.
+  final String generatedMarkdown;
+  
+  /// Optional comment/notes from the response.
+  final String? comment;
+  
+  /// File paths referenced while forming the response.
+  final List<String> references;
+  
+  /// File paths the user explicitly requested as attachments.
+  final List<String> requestedAttachments;
+  
+  CopilotChatResponse({
+    required this.generatedMarkdown,
+    this.comment,
+    List<String>? references,
+    List<String>? requestedAttachments,
+  }) : references = references ?? [],
+       requestedAttachments = requestedAttachments ?? [];
+  
+  /// Create from the Map returned by VsCodeHelper.askCopilotChat.
+  factory CopilotChatResponse.fromMap(Map<String, dynamic> map) {
+    return CopilotChatResponse(
+      generatedMarkdown: map['generatedMarkdown'] as String? ?? '',
+      comment: map['comments'] as String?,
+      references: (map['references'] as List?)?.cast<String>() ?? [],
+      requestedAttachments: (map['requestedAttachments'] as List?)?.cast<String>() ?? [],
+    );
+  }
 }
 
 /// Formats REPL output for Telegram display.
@@ -108,6 +146,53 @@ class OutputFormatter {
     // Add timing info for slow commands
     if (result.duration.inMilliseconds > 100) {
       text += '\n⏱ ${result.duration.inMilliseconds}ms';
+    }
+    
+    // Handle Copilot Chat response formatting
+    if (result.copilotResponse != null) {
+      final copilot = result.copilotResponse!;
+      final buffer = StringBuffer();
+      
+      // Add comment at top if present
+      if (copilot.comment != null && copilot.comment!.isNotEmpty) {
+        buffer.writeln('💬 *Comment:* ${copilot.comment}');
+        buffer.writeln();
+      }
+      
+      // List references at top if present
+      if (copilot.references.isNotEmpty) {
+        buffer.writeln('📚 *References:*');
+        for (final ref in copilot.references) {
+          buffer.writeln('  • `$ref`');
+        }
+        buffer.writeln();
+      }
+      
+      // Add the main content
+      buffer.write(text);
+      
+      // Note about attachments at the end
+      if (copilot.requestedAttachments.isNotEmpty) {
+        buffer.writeln();
+        buffer.writeln();
+        buffer.writeln('📎 *Attachments available:*');
+        for (final att in copilot.requestedAttachments) {
+          buffer.writeln('  • `$att`');
+        }
+      }
+      
+      text = buffer.toString();
+      
+      // Auto-attach files from requestedAttachments if configured
+      if (config.autoAttachCopilotFiles && copilot.requestedAttachments.isNotEmpty) {
+        attachments ??= [];
+        for (final path in copilot.requestedAttachments) {
+          final file = File(path);
+          if (file.existsSync()) {
+            attachments.add(file);
+          }
+        }
+      }
     }
 
     return FormattedOutput(text: text, attachments: attachments);
