@@ -1,11 +1,11 @@
 {
-  "name": "user_guide_example",
+  "name": "d4rt_generator_example",
   "modules": [
     {
       "name": "all",
-      "barrelFiles": ["lib/user_guide_example.dart"],
-      "outputPath": "lib/src/d4rt_bridges/user_guide_bridges.b.dart",
-      "barrelImport": "package:user_guide_example/user_guide_example.dart"
+      "barrelFiles": ["lib/test_classes.dart"],
+      "outputPath": "lib/src/d4rt_bridges/example_bridges.b.dart",
+      "barrelImport": "package:d4rt_generator_example/test_classes.dart"
     }
   ],
   "helpersImport": "package:tom_d4rt/tom_d4rt.dart",
@@ -13,7 +13,7 @@
   "barrelPath": "lib/d4rt_bridges.b.dart",
   "generateDartscript": true,
   "dartscriptPath": "lib/dartscript.b.dart",
-  "registrationClass": "UserGuideExampleBridges",
+  "registrationClass": "D4rtGeneratorExampleBridges",
   "generateTestRunner": true,
   "testRunnerPath": "bin/d4rtrun.b.dart"
 }

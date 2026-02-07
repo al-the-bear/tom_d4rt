@@ -100,9 +100,10 @@ Future<GenerationResult> generateBridges({
         return p.join(projectDir, f);
       }).toList();
 
+      final normalizedOutputPath = ensureBDartExtension(module.outputPath);
       final result = await generator.generateBridgesFromExports(
         barrelFiles: barrelFiles,
-        outputPath: p.join(projectDir, module.outputPath),
+        outputPath: p.join(projectDir, normalizedOutputPath),
         moduleName: module.name,
         excludePatterns: module.excludePatterns,
         excludeClasses: module.excludeClasses,
@@ -115,22 +116,29 @@ Future<GenerationResult> generateBridges({
       );
 
       totalClasses += result.classesGenerated;
-      outputFiles.add(p.join(projectDir, module.outputPath));
+      outputFiles.add(p.join(projectDir, normalizedOutputPath));
       errors.addAll(result.errors);
     }
 
     // Generate barrel file if requested
     if (bridgeConfig.generateBarrel && bridgeConfig.barrelPath != null) {
-      final barrelPath = p.join(projectDir, bridgeConfig.barrelPath!);
+      final barrelPath = p.join(projectDir, ensureBDartExtension(bridgeConfig.barrelPath!));
       await _generateBarrelFile(barrelPath, bridgeConfig);
       outputFiles.add(barrelPath);
     }
 
     // Generate dartscript file if requested
     if (bridgeConfig.generateDartscript && bridgeConfig.dartscriptPath != null) {
-      final dartscriptPath = p.join(projectDir, bridgeConfig.dartscriptPath!);
+      final dartscriptPath = p.join(projectDir, ensureBDartExtension(bridgeConfig.dartscriptPath!));
       await _generateDartscriptFile(dartscriptPath, bridgeConfig);
       outputFiles.add(dartscriptPath);
+    }
+
+    // Generate test runner file if requested
+    if (bridgeConfig.generateTestRunner && bridgeConfig.testRunnerPath != null) {
+      final testRunnerPath = p.join(projectDir, ensureBDartExtension(bridgeConfig.testRunnerPath!));
+      await _generateTestRunnerFile(testRunnerPath, bridgeConfig);
+      outputFiles.add(testRunnerPath);
     }
   } catch (e) {
     errors.add(e.toString());
@@ -152,7 +160,24 @@ Future<void> _generateBarrelFile(String barrelPath, BridgeConfig config) async {
 
 /// Generate dartscript file with combined bridge registration.
 Future<void> _generateDartscriptFile(String dartscriptPath, BridgeConfig config) async {
+  final normalizedDartscriptPath = config.dartscriptPath != null
+      ? ensureBDartExtension(config.dartscriptPath!)
+      : null;
   await File(dartscriptPath).writeAsString(
-    generateDartscriptFileContent(config, dartscriptPath: config.dartscriptPath),
+    generateDartscriptFileContent(config, dartscriptPath: normalizedDartscriptPath),
+  );
+}
+
+/// Generate test runner file for testing bridges.
+Future<void> _generateTestRunnerFile(String testRunnerPath, BridgeConfig config) async {
+  final dir = File(testRunnerPath).parent;
+  if (!dir.existsSync()) {
+    dir.createSync(recursive: true);
+  }
+  final normalizedTestRunnerPath = config.testRunnerPath != null
+      ? ensureBDartExtension(config.testRunnerPath!)
+      : null;
+  await File(testRunnerPath).writeAsString(
+    generateTestRunnerContent(config, testRunnerPath: normalizedTestRunnerPath),
   );
 }

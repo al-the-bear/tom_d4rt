@@ -16,7 +16,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:tom_d4rt/d4rt.dart';
 
-import 'package:user_guide_example/dartscript.dart';
+import 'package:user_guide_example/dartscript.b.dart';
 
 void main() async {
   print('=== User Guide D4rt Example Runner ===');

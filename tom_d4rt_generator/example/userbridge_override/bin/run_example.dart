@@ -17,7 +17,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:tom_d4rt/d4rt.dart';
 
-import 'package:userbridge_override_example/dartscript.dart';
+import 'package:userbridge_override_example/dartscript.b.dart';
 
 void main() async {
   print('=== UserBridge Override D4rt Example Runner ===');

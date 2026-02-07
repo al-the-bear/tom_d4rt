@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for userbridge_override_example
-// Generated: 2026-02-07T11:51:37.292651
+// Generated: 2026-02-07T13:29:45.146535
 //
 // Usage:
 //   dart run bin/d4rtrun.b.dart <script.dart|.d4rt>  Run a D4rt script file
@@ -11,7 +11,7 @@
 import 'dart:io';
 
 import 'package:tom_d4rt/d4rt.dart';
-import '../lib/src/d4rt_bridges/userbridge_bridges.dart' as all_bridges;
+import 'package:userbridge_override_example/src/d4rt_bridges/userbridge_bridges.b.dart' as all_bridges;
 
 /// Init script source that imports all bridged modules.
 const String _initSource = '''

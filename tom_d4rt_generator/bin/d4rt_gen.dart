@@ -778,9 +778,10 @@ Future<void> _generateBridges(
       return p.join(projectDir, f);
     }).toList();
 
+    final normalizedOutputPath = ensureBDartExtension(module.outputPath);
     final result = await generator.generateBridgesFromExports(
       barrelFiles: barrelFiles,
-      outputPath: p.join(projectDir, module.outputPath),
+      outputPath: p.join(projectDir, normalizedOutputPath),
       moduleName: module.name,
       excludePatterns: module.excludePatterns,
       excludeClasses: module.excludeClasses,
@@ -802,19 +803,19 @@ Future<void> _generateBridges(
 
   // Generate barrel file if requested
   if (config.generateBarrel && config.barrelPath != null) {
-    final barrelPath = p.join(projectDir, config.barrelPath!);
+    final barrelPath = p.join(projectDir, ensureBDartExtension(config.barrelPath!));
     await _generateBarrelFile(barrelPath, config, verbose: verbose);
   }
 
   // Generate dartscript file if requested
   if (config.generateDartscript && config.dartscriptPath != null) {
-    final dartscriptPath = p.join(projectDir, config.dartscriptPath!);
+    final dartscriptPath = p.join(projectDir, ensureBDartExtension(config.dartscriptPath!));
     await _generateDartscriptFile(dartscriptPath, config, verbose: verbose);
   }
 
   // Generate test runner file if requested
   if (config.generateTestRunner && config.testRunnerPath != null) {
-    final testRunnerPath = p.join(projectDir, config.testRunnerPath!);
+    final testRunnerPath = p.join(projectDir, ensureBDartExtension(config.testRunnerPath!));
     await _generateTestRunnerFile(testRunnerPath, config, verbose: verbose);
   }
 
@@ -857,8 +858,11 @@ Future<void> _generateDartscriptFile(
   if (verbose) {
     print('  Generating dartscript: $dartscriptPath');
   }
+  final normalizedDartscriptPath = config.dartscriptPath != null
+      ? ensureBDartExtension(config.dartscriptPath!)
+      : null;
   await File(dartscriptPath).writeAsString(
-    generateDartscriptFileContent(config, dartscriptPath: config.dartscriptPath),
+    generateDartscriptFileContent(config, dartscriptPath: normalizedDartscriptPath),
   );
 }
 
@@ -875,8 +879,11 @@ Future<void> _generateTestRunnerFile(
   if (!dir.existsSync()) {
     dir.createSync(recursive: true);
   }
+  final normalizedTestRunnerPath = config.testRunnerPath != null
+      ? ensureBDartExtension(config.testRunnerPath!)
+      : null;
   await File(testRunnerPath).writeAsString(
-    generateTestRunnerContent(config, testRunnerPath: config.testRunnerPath),
+    generateTestRunnerContent(config, testRunnerPath: normalizedTestRunnerPath),
   );
 }
 

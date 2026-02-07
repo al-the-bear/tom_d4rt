@@ -13,6 +13,7 @@ import 'package:path/path.dart' as p;
 
 import 'bridge_config.dart';
 import 'bridge_generator.dart';
+import 'file_generators.dart' show ensureBDartExtension;
 import 'file_writer.dart';
 import 'user_bridge_scanner.dart';
 
@@ -290,7 +291,7 @@ class PerPackageBridgeOrchestrator {
       _barrelMappings[module.name] = BarrelPackageMapping(
         moduleName: module.name,
         barrelImport: sourceImport,
-        outputPath: module.outputPath,
+        outputPath: ensureBDartExtension(module.outputPath),
         requiredPackages: requiredPackages,
       );
     }

@@ -135,39 +135,42 @@ class D4rtBridgeBuilder implements Builder {
 
       // Generate barrel file if requested
       if (config!.generateBarrel && config!.barrelPath != null) {
+        final normalizedBarrelPath = ensureBDartExtension(config!.barrelPath!);
         final barrelContent = generateBarrelFileContent(config!);
         await fileWriter.writeFile(
-          FileId(packageName, config!.barrelPath!),
+          FileId(packageName, normalizedBarrelPath),
           barrelContent,
         );
-        outputFiles.add(config!.barrelPath!);
+        outputFiles.add(normalizedBarrelPath);
       }
 
       // Generate dartscript file if requested
       if (config!.generateDartscript && config!.dartscriptPath != null) {
+        final normalizedDartscriptPath = ensureBDartExtension(config!.dartscriptPath!);
         final dartscriptContent = generateDartscriptFileContent(
           config!,
-          dartscriptPath: config!.dartscriptPath,
+          dartscriptPath: normalizedDartscriptPath,
         );
         await fileWriter.writeFile(
-          FileId(packageName, config!.dartscriptPath!),
+          FileId(packageName, normalizedDartscriptPath),
           dartscriptContent,
         );
-        outputFiles.add(config!.dartscriptPath!);
+        outputFiles.add(normalizedDartscriptPath);
       }
 
       // Generate test runner file if requested
       if (config!.generateTestRunner && config!.testRunnerPath != null) {
+        final normalizedTestRunnerPath = ensureBDartExtension(config!.testRunnerPath!);
         final testRunnerContent = generateTestRunnerContent(
           config!,
-          testRunnerPath: config!.testRunnerPath,
+          testRunnerPath: normalizedTestRunnerPath,
         );
         await fileWriter.writeFile(
-          FileId(packageName, config!.testRunnerPath!),
+          FileId(packageName, normalizedTestRunnerPath),
           testRunnerContent,
         );
-        outputFiles.add(config!.testRunnerPath!);
-        log.info('  Generated test runner: ${config!.testRunnerPath}');
+        outputFiles.add(normalizedTestRunnerPath);
+        log.info('  Generated test runner: $normalizedTestRunnerPath');
       }
 
       // Write a trigger file to the source tree that can be deleted to force regeneration

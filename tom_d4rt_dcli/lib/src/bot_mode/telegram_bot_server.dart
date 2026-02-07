@@ -227,8 +227,16 @@ Type /help for available commands, or enter any REPL command directly.
     }
 
     // Get command text
-    final text = message.text;
+    var text = message.text;
     if (text == null || text.isEmpty) return;
+
+    // Normalize quotes: Convert curly quotes to straight quotes
+    // Telegram often converts straight quotes to curly quotes
+    text = text
+        .replaceAll('\u201C', '"')  // " (left double quotation mark)
+        .replaceAll('\u201D', '"')  // " (right double quotation mark)
+        .replaceAll('\u2018', "'")  // ' (left single quotation mark)
+        .replaceAll('\u2019', "'"); // ' (right single quotation mark)
 
     // Handle bot commands (starting with /)
     if (text.startsWith('/')) {

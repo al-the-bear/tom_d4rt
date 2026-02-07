@@ -44,9 +44,9 @@
 | [GEN-025](#gen-025) | [Record types with nested functions may have edge cases](#gen-025) | Medium | TODO |
 | [GEN-026](#gen-026) | [14 concrete types across projects silently downgraded to dynamic](#gen-026) | Medium | TODO |
 | [GEN-027](#gen-027) | [InvalidType warnings indicate analyzer resolution failures](#gen-027) | Medium | TODO |
-| [GEN-037](#gen-037) | [Generated bridge files don't consistently use .b.dart extension](#gen-037) | Medium | TODO |
-| [GEN-038](#gen-038) | [Test runner fails on first duplicate instead of reporting all](#gen-038) | Low | TODO |
-| [GEN-039](#gen-039) | [Test runner config not supported in build.yaml](#gen-039) | Low | TODO |
+| [GEN-037](#gen-037) | [Generated bridge files don't consistently use .b.dart extension](#gen-037) | Medium | Fixed |
+| [GEN-038](#gen-038) | [Test runner fails on first duplicate instead of reporting all](#gen-038) | Low | Already Fixed |
+| [GEN-039](#gen-039) | [Test runner config not supported in build.yaml](#gen-039) | Low | Already Fixed |
 
 ---
 
@@ -1233,7 +1233,7 @@ Fixed 2026-02-07. `dartscript.b.dart` now registers bridges under ALL barrel imp
 
 ### GEN-037
 
-**Status:** TODO  
+**Status:** Fixed  
 **Complexity:** Medium  
 **Title:** Generated bridge files don't consistently use .b.dart extension
 
@@ -1261,95 +1261,57 @@ The suffix must be **appended automatically** — if config says `"testRunnerPat
 - Module `outputPath` is used directly without transformation
 
 **c) Resolution:**
-Needs implementation. Add a `_ensureBDartExtension(String path)` helper that:
-1. Strips `.dart` if present
-2. Appends `.b.dart`
-3. Apply to ALL output paths before writing
+Fixed 2026-02-08. Added `ensureBDartExtension(String path)` helper in `file_generators.dart` that normalizes any path to `.b.dart`. Applied consistently across all four entry points:
+- `bin/d4rt_gen.dart` — standalone CLI
+- `lib/src/cli/d4rt_generator_cli.dart` — library CLI
+- `lib/src/bridge_api.dart` — programmatic API (also added missing test runner generation)
+- `lib/src/file_generators.dart` — content generators for barrel exports and dartscript/test runner imports
 
-Update all example configs to use base names (e.g., `"outputPath": "lib/src/d4rt_bridges/user_guide_bridges.dart"` → generator produces `user_guide_bridges.b.dart`).
+All generated files now use `.b.dart` extension regardless of what the config specifies.
 
 ---
 
 ### GEN-038
 
-**Status:** TODO  
+**Status:** Already Fixed (non-issue)  
 **Complexity:** Low  
 **Title:** Test runner fails on first duplicate instead of reporting all
 
 **a) What exactly is the problem:**
 
-The test runner's `--init-eval` mode is designed to validate bridge registrations and catch duplicate definitions. Currently, it throws an exception on the **first** duplicate encountered, which means:
-- You only see one duplicate at a time
-- Must fix, re-run, fix, re-run (tedious workflow)
-- Can't get a complete picture of all registration conflicts
+This was believed to be an issue, but investigation revealed it was already solved.
 
-Better behavior: collect ALL duplicate errors, then report them together in a summary.
+The generated `_runInitEval()` function calls `d4rt.validateRegistrations(source: _initSource)` which uses `collectRegistrationErrors: true` mode internally. This collects ALL duplicate registration errors and returns them as a `List<String>` rather than throwing on the first one.
+
+The `validateRegistrations()` method exists in `tom_d4rt/lib/src/d4rt_base.dart` at line 283.
 
 **b) Location:**
-`file_generators.dart` ~line 360 — `_runInitEval()` function in generated test runner. Currently just calls `d4rt.execute(source: _initSource)` which throws on first duplicate.
+`file_generators.dart` — `generateTestRunnerContent()` generates `_runInitEval()` which correctly calls `d4rt.validateRegistrations()` and iterates over all errors.
 
 **c) Resolution:**
-The D4rt interpreter's registration methods need to support a "validation mode" that collects errors instead of throwing. Check if `D4rt` class already has this capability (look for `registerBridges` implementation). If not, this may require changes to the `tom_d4rt` package itself.
-
-Possible implementation:
-```dart
-void _runInitEval() {
-  final d4rt = D4rt();
-  _registerBridges(d4rt);
-  
-  final errors = <String>[];
-  // Capture all registration errors
-  try {
-    d4rt.execute(source: _initSource, collectErrors: true);
-  } on DuplicateElementException catch (e) {
-    errors.add(e.toString());
-  }
-  
-  if (errors.isEmpty) {
-    print('✓ All bridges registered successfully, no duplicates found.');
-  } else {
-    print('✗ Found ${errors.length} duplicate registrations:');
-    for (var error in errors) {
-      print('  - $error');
-    }
-    exit(1);
-  }
-}
-```
+No changes needed. The implementation was already correct when the test runner feature was added.
 
 ---
 
 ### GEN-039
 
-**Status:** TODO  
+**Status:** Already Fixed (non-issue)  
 **Complexity:** Low  
 **Title:** Test runner config not supported in build.yaml
 
 **a) What exactly is the problem:**
 
-The generator supports loading config from multiple sources including `build.yaml`, but the CLI (`bin/d4rt_gen.dart`) only loads `BridgeConfig` from JSON files (`d4rt_bridging.json`), not from `build.yaml`.
+This was believed to be an issue, but investigation revealed it was already solved.
 
-This means `generateTestRunner` and `testRunnerPath` can't be configured in `build.yaml` — users must create a separate JSON config file even if they're already using `build.yaml` for other settings.
+The `BuildConfigLoader.loadFromBuildYaml()` in `lib/src/build_config_loader.dart` correctly navigates the `build.yaml` structure (`targets.$default.builders.tom_d4rt_generator:d4rt_bridge_builder.options`) and passes all fields through `BridgeConfig.fromJson()`. This includes `generateTestRunner` and `testRunnerPath`.
+
+Both the standalone CLI (`bin/d4rt_gen.dart`) and the library CLI (`lib/src/cli/d4rt_generator_cli.dart`) call `BuildConfigLoader.loadFromBuildYaml()` when processing a project directory, falling back to `d4rt_bridging.json` only if no build.yaml config is found.
 
 **b) Location:**
-`bin/d4rt_gen.dart` — the CLI only calls `BridgeConfig.fromFile(configPath)` which expects JSON. There's no path to parse `BridgeConfig` from the `dartgen:` section of `build.yaml`.
+`lib/src/build_config_loader.dart` — `loadFromBuildYaml()` correctly handles all `BridgeConfig` fields.
 
 **c) Resolution:**
-Add `BridgeConfig.fromBuildYaml(String buildYamlPath)` factory that:
-1. Loads and parses `build.yaml`
-2. Extracts the `dartgen:` section
-3. Converts YAML structure to `BridgeConfig`
-
-Update CLI to check for both:
-```dart
-if (configPath.endsWith('.json')) {
-  config = BridgeConfig.fromFile(configPath);
-} else if (configPath.endsWith('.yaml')) {
-  config = BridgeConfig.fromBuildYaml(configPath);
-}
-```
-
-Or better: auto-detect by trying JSON first, then YAML, then report error.
+No changes needed. The build.yaml support was already fully implemented when the test runner config fields were added to `BridgeConfig`.
 
 ---
 

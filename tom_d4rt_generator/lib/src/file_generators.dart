@@ -12,6 +12,46 @@ import 'package:path/path.dart' as p;
 import 'bridge_config.dart';
 import 'bridge_generator.dart'; // for toPascalCase
 
+/// Ensures a file path ends with the `.b.dart` extension.
+///
+/// This normalizes output paths so that all generated files use the `.b.dart`
+/// convention, regardless of what the user specified in their configuration.
+///
+/// Rules:
+/// - If path already ends with `.b.dart`, return as-is (no double suffix).
+/// - If path ends with `.dart`, replace `.dart` with `.b.dart`.
+/// - Otherwise, append `.b.dart`.
+///
+/// Examples:
+/// ```dart
+/// ensureBDartExtension('lib/bridges.dart')      // => 'lib/bridges.b.dart'
+/// ensureBDartExtension('lib/bridges.b.dart')     // => 'lib/bridges.b.dart'
+/// ensureBDartExtension('lib/bridges')             // => 'lib/bridges.b.dart'
+/// ```
+String ensureBDartExtension(String path) {
+  if (path.endsWith('.b.dart')) return path;
+  if (path.endsWith('.dart')) {
+    return '${path.substring(0, path.length - 5)}.b.dart';
+  }
+  return '$path.b.dart';
+}
+
+/// Computes the import path for a module's output file relative to the
+/// importing file's directory.
+///
+/// When the output is under `lib/` and the importing file is outside `lib/`,
+/// returns a `package:` import to avoid `avoid_relative_lib_imports` lint.
+/// Otherwise returns a relative path.
+String _moduleImportPath(String outputPath, String fromDir, String packageName) {
+  final normalizedOutput = ensureBDartExtension(outputPath);
+  if (normalizedOutput.startsWith('lib/') && !fromDir.startsWith('lib')) {
+    // Use package: import to avoid relative lib imports lint
+    final libRelative = normalizedOutput.substring(4); // strip 'lib/'
+    return 'package:$packageName/$libRelative';
+  }
+  return p.relative(normalizedOutput, from: fromDir);
+}
+
 /// Generates the content for a barrel file that exports all bridge modules.
 ///
 /// Returns the file content as a string.
@@ -22,9 +62,10 @@ String generateBarrelFileContent(BridgeConfig config) {
   buffer.writeln();
 
   for (final module in config.modules) {
-    final relativePath = module.outputPath.startsWith('lib/')
-        ? module.outputPath.substring(4)
-        : module.outputPath;
+    final normalizedOutput = ensureBDartExtension(module.outputPath);
+    final relativePath = normalizedOutput.startsWith('lib/')
+        ? normalizedOutput.substring(4)
+        : normalizedOutput;
     buffer.writeln("export '$relativePath';");
   }
 
@@ -69,8 +110,8 @@ String generateDartscriptFileContent(BridgeConfig config, {String? dartscriptPat
   // Import local module bridges with correct relative paths
   for (final module in config.modules) {
     // Calculate relative path from dartscript directory to module output
-    final relativePath = p.relative(module.outputPath, from: dartscriptDir);
-    buffer.writeln("import '$relativePath' as ${module.name}_bridges;");
+    final importPath = _moduleImportPath(module.outputPath, dartscriptDir, config.name);
+    buffer.writeln("import '$importPath' as ${module.name}_bridges;");
   }
 
   buffer.writeln();
@@ -191,8 +232,8 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
 
   // Import local module bridges with correct relative paths
   for (final module in config.modules) {
-    final relativePath = p.relative(module.outputPath, from: testRunnerDir);
-    buffer.writeln("import '$relativePath' as ${module.name}_bridges;");
+    final importPath = _moduleImportPath(module.outputPath, testRunnerDir, config.name);
+    buffer.writeln("import '$importPath' as ${module.name}_bridges;");
   }
 
   buffer.writeln();
