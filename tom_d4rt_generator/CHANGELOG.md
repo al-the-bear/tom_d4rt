@@ -1,3 +1,25 @@
+## 1.4.0
+
+### Features
+- **CLI: tom_build.yaml support**: The `d4rtgen` CLI now reads configuration from `tom_build.yaml` files (in addition to `build.yaml` and `d4rt_bridging.json`), using the shared `tom_build_base` infrastructure.
+- **CLI: Multi-project and glob support**: `--project` option now accepts comma-separated lists and glob patterns (e.g., `--project=tom_*_builder,xternal/tom_module_*/*`).
+- **CLI: `--list` flag**: List discovered projects without generating bridges.
+- **CLI: ProjectDiscovery integration**: Proper scan vs recursive semantics — scans directories until a project boundary, recursive mode also looks inside projects for nested subprojects.
+- **Known issues documentation**: Comprehensive `doc/issues.md` documenting 30 known issues and limitations with concrete cause→effect examples from real generated bridge code.
+
+### Bug Fixes
+- **Multi-barrel registration (GEN-030)**: Modules with multiple barrel files (e.g., `dcli.dart` + `dcli_core.dart`) now register bridges under ALL barrel import paths. Previously only the primary `barrelImport` was registered, causing `SourceCodeException: Module source not preloaded for URI` when scripts imported secondary barrels.
+- **CLI export filtering params (GEN-028)**: CLI code path now passes `followAllReExports`, `skipReExports`, `followReExports`, and `excludeSourcePatterns` from module config to the generator. Previously these were silently ignored, causing the CLI to follow all re-exports regardless of configuration.
+- **CLI global export filtering (GEN-029)**: CLI code path now filters global functions, variables, and enums by barrel export show/hide clauses, matching the build_runner path behavior. Previously the CLI would generate bridges for non-exported globals, causing compile errors.
+- **Import block for multi-barrel modules**: `getImportBlock()` now returns import statements for all barrel files, not just the primary barrel.
+
+### Dependencies
+- Added `tom_build_base: ^1.0.0` as a pub.dev dependency (replaces path dependency).
+
+### Documentation
+- Added `doc/issues.md` with 30 documented issues (GEN-001 through GEN-030) including concrete source→bridge→problem examples.
+- Updated `doc/d4rt_generator_cli_user_guide.md` with `tom_build.yaml` configuration and multi-project/glob support.
+
 ## 1.3.0
 
 ### Features
