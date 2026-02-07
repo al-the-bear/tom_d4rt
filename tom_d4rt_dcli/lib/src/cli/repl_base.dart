@@ -138,7 +138,9 @@ abstract class D4rtReplBase {
   <yellow>**-init-source**</yellow> <file>           Use custom init source file
   <yellow>**-no-init-source**</yellow>               Don't load custom init source
   <yellow>**--dump-configuration**</yellow>          Dump registered bridges and configuration
-  <yellow>**--debug**</yellow>                       Print init source and debug information''';
+  <yellow>**--debug**</yellow>                       Print init source and debug information
+  <yellow>**--bot-mode**</yellow>                    Run as Telegram bot server
+  <yellow>**--bot-config**</yellow> <file>           Bot mode configuration file''';
   }
 
   /// Returns the CLI examples section (for --help).
@@ -328,6 +330,15 @@ abstract class D4rtReplBase {
       if (arguments[i].startsWith('-output=') || arguments[i].startsWith('--output=')) {
         testOutputPath = arguments[i].split('=').skip(1).join('=');
       }
+      if (arguments[i] == '-bot-config' || arguments[i] == '--bot-config') {
+        if (i + 1 < arguments.length) {
+          botModeConfigFile = arguments[i + 1];
+        }
+      }
+      // Also support -bot-config=path format
+      if (arguments[i].startsWith('-bot-config=') || arguments[i].startsWith('--bot-config=')) {
+        botModeConfigFile = arguments[i].split('=').skip(1).join('=');
+      }
     }
 
     // Collect option values that should be excluded from non-option args
@@ -337,6 +348,7 @@ abstract class D4rtReplBase {
     if (runReplayFile != null) optionValues.add(runReplayFile);
     if (customInitSource != null) optionValues.add(customInitSource);
     if (testOutputPath != null) optionValues.add(testOutputPath);
+    if (botModeConfigFile != null) optionValues.add(botModeConfigFile);
 
     // Get non-option arguments
     final nonOptionArgs = arguments.where((arg) {
@@ -395,6 +407,12 @@ abstract class D4rtReplBase {
 
     if (listSessions) {
       _listSessions();
+      return;
+    }
+
+    // Bot mode - run as Telegram bot server
+    if (botMode) {
+      await _runBotMode(d4rt, configFile: botModeConfigFile);
       return;
     }
 
@@ -555,6 +573,93 @@ void main() {}
       print('    Modified: $modified');
       print('    Size: $size bytes, $lines lines');
       print('');
+    }
+  }
+
+  /// Run in bot mode - start Telegram bot server
+  Future<void> _runBotMode(D4rt d4rt, {String? configFile}) async {
+    // Determine config file location
+    final configPath = configFile ?? '$dataDirectory/bot_config.yaml';
+    final configFileObj = File(configPath);
+    
+    if (!configFileObj.existsSync()) {
+      stderr.writeln('Bot mode configuration file not found: $configPath');
+      stderr.writeln('');
+      stderr.writeln('Create a configuration file with the following structure:');
+      stderr.writeln('''
+# Bot Mode Configuration
+bots:
+  - name: MyBot
+    token_env: TELEGRAM_BOT_TOKEN  # Environment variable containing the token
+    allowed_users:
+      - 123456789  # Your Telegram user ID
+    
+security:
+  mode: blacklist  # whitelist or blacklist
+  allowed_paths:
+    - ~/.tom
+  blocked_commands:
+    - rm
+    - sudo
+    
+output:
+  max_length: 4000
+  file_threshold: 1000
+
+polling:
+  timeout_seconds: 30
+''');
+      exit(1);
+    }
+    
+    // Load configuration
+    BotModeConfig config;
+    try {
+      config = await BotModeConfig.loadFromFile(configPath);
+    } catch (e) {
+      stderr.writeln('Error loading bot configuration: $e');
+      exit(1);
+    }
+    
+    // Initialize the init source for REPL execution
+    final defaultInitSource = '''
+${getImportBlock()}
+void main() {}
+''';
+    
+    d4rt.execute(source: defaultInitSource);
+    
+    // Create execution callback
+    Future<ExecutionResult> executeCommand(String command) async {
+      try {
+        final result = d4rt.eval(command);
+        final output = result?.toString() ?? '';
+        return ExecutionResult(
+          output: output,
+          value: result,
+          isError: false,
+        );
+      } catch (e) {
+        return ExecutionResult(
+          output: '',
+          isError: true,
+          errorMessage: e.toString(),
+        );
+      }
+    }
+    
+    // Create and start the bot server
+    final server = TelegramBotServer(
+      config: config,
+      executeCommand: executeCommand,
+    );
+    
+    try {
+      await server.start();
+      await server.waitForShutdown();
+    } catch (e) {
+      stderr.writeln('Bot server error: $e');
+      exit(1);
     }
   }
   
