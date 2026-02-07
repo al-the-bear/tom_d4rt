@@ -41,3 +41,5 @@ dev_dependencies:
 dependency_overrides:
   runtime_native_semaphores:
     path: ../../named_semaphores
+  tom_build_base:
+    path: ../../tom_module_basics/tom_build_base

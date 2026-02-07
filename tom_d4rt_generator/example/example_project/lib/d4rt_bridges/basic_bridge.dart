@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_generator/example/example_project/lib/test_classes/basic_classes.dart
-// Generated: 2026-02-06T08:25:20.612805
+// Generated: 2026-02-07T11:52:05.716952
 
 // ignore_for_file: unused_import, deprecated_member_use
 

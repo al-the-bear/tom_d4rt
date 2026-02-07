@@ -1,11 +1,12 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_generator/example/example_project/lib/test_classes/global_members.dart
-// Generated: 2026-02-06T08:25:30.816629
+// Generated: 2026-02-07T11:52:16.573421
 
 // ignore_for_file: unused_import, deprecated_member_use
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
+import 'dart:async';
 
 import 'package:d4rt_generator_example/test_classes.dart' as $pkg;
 

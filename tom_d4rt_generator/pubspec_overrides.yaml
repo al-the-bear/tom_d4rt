@@ -1,4 +1,6 @@
-# Override to use local tom_d4rt during development
+# Override to use local packages during development
 dependency_overrides:
   tom_d4rt:
     path: ../tom_d4rt
+  tom_build_base:
+    path: ../../tom_module_basics/tom_build_base
