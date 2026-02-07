@@ -376,7 +376,7 @@ class VsCodeHelper {
     final vscode = getVSCode();
     return await vscode.commands.executeCommand(
       'dart.addDependency',
-      args: [name, if (version != null) version],
+      args: [name, ?version],
       timeoutSeconds: timeoutSeconds,
     ) != null;
   }
@@ -1045,10 +1045,10 @@ Please provide a fixed version of the code.
       args: [
         {
           'query': query,
-          if (includePattern != null) 'include': includePattern,
-          if (excludePattern != null) 'exclude': excludePattern,
+          'include': ?includePattern,
+          'exclude': ?excludePattern,
           'isRegex': isRegex,
-          if (maxResults != null) 'maxResults': maxResults,
+          'maxResults': ?maxResults,
         }
       ],
       timeoutSeconds: timeoutSeconds,
@@ -1072,8 +1072,8 @@ Please provide a fixed version of the code.
         {
           'query': query,
           'replace': replacement,
-          if (includePattern != null) 'include': includePattern,
-          if (excludePattern != null) 'exclude': excludePattern,
+          'include': ?includePattern,
+          'exclude': ?excludePattern,
           'isRegex': isRegex,
         }
       ],

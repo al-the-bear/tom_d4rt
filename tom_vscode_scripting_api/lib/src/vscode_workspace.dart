@@ -206,7 +206,7 @@ class VSCodeWorkspace {
       ''',
       'params': {
         'section': section,
-        if (scope != null) 'scope': scope,
+        'scope': ?scope,
       },
     }, scriptName: 'getConfiguration', timeout: Duration(seconds: timeoutSeconds));
 

@@ -24,7 +24,7 @@ class VSCodeCommands {
       ''',
       'params': {
         'command': command,
-        if (args != null) 'args': args,
+        'args': ?args,
       },
     }, scriptName: 'executeCommand', timeout: Duration(seconds: timeoutSeconds));
 

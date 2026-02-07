@@ -48,7 +48,7 @@ class VSCodeWindow {
       ''',
       'params': {
         'message': message,
-        if (items != null) 'items': items,
+        'items': ?items,
         if (options != null) 'options': options.toJson(),
       },
     }, scriptName: 'showInformationMessage', timeout: Duration(seconds: timeoutSeconds));
@@ -85,7 +85,7 @@ class VSCodeWindow {
       ''',
       'params': {
         'message': message,
-        if (items != null) 'items': items,
+        'items': ?items,
         if (options != null) 'options': options.toJson(),
       },
     }, scriptName: 'showWarningMessage', timeout: Duration(seconds: timeoutSeconds));
@@ -121,7 +121,7 @@ class VSCodeWindow {
       ''',
       'params': {
         'message': message,
-        if (items != null) 'items': items,
+        'items': ?items,
         if (options != null) 'options': options.toJson(),
       },
     }, scriptName: 'showErrorMessage', timeout: Duration(seconds: timeoutSeconds));
@@ -416,7 +416,7 @@ class VSCodeWindow {
       ''',
       'params': {
         'message': message,
-        if (timeout != null) 'timeout': timeout,
+        'timeout': ?timeout,
       },
     }, scriptName: 'setStatusBarMessage', timeout: Duration(seconds: timeoutSeconds));
   }
