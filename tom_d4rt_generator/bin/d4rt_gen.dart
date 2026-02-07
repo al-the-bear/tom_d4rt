@@ -7,8 +7,6 @@
 ///
 /// 1. Command-line arguments
 /// 2. `tom_build.yaml` (d4rtgen: section) in project directory
-/// 3. `build.yaml` in project directory
-/// 4. `d4rt_bridging.json` in project directory
 ///
 /// ## Usage
 ///
@@ -69,7 +67,7 @@ Future<void> main(List<String> arguments) async {
         help: 'Project(s) to process (comma-separated, globs: tom_*_builder, ./*)')
     ..addOption('config',
         abbr: 'c',
-        help: 'Path to specific d4rt_bridging.json file')
+        help: 'Path to specific tom_build.yaml file')
     ..addOption('scan',
         abbr: 's',
         help: 'Scan directory for all D4rt projects')
@@ -92,7 +90,7 @@ Future<void> main(List<String> arguments) async {
         negatable: false,
         help: 'List projects that would be processed (no action)')
     ..addFlag('show',
-        help: 'With --list, show build.yaml configuration for each project',
+        help: 'With --list, show tom_build.yaml d4rtgen configuration for each project',
         negatable: false)
     ..addFlag('help',
         abbr: 'h',
@@ -263,7 +261,7 @@ Future<ProcessingResult> _runWithConfig(TomBuildConfig config, {required String 
   final verbose = config.verbose;
 
   if (config.config != null) {
-    // Explicit JSON config file specified
+    // Explicit config file specified (tom_build.yaml)
     final configPath = config.config!;
     if (!File(configPath).existsSync()) {
       stderr.writeln('Error: Configuration file not found: $configPath');
@@ -661,24 +659,13 @@ Future<void> _findProjectsInDirRecursive(
 }
 
 /// Check if a directory is a D4rt project.
-/// A D4rt project has pubspec.yaml AND (build.yaml with d4rt config OR d4rt_bridging.json).
+/// A D4rt project has pubspec.yaml AND tom_build.yaml with a d4rtgen: section.
 bool _isD4rtProject(String dirPath) {
   final pubspecFile = File(p.join(dirPath, 'pubspec.yaml'));
   if (!pubspecFile.existsSync()) return false;
 
-  // Skip packages that DEFINE builders (they're not consumers)
-  if (isBuildYamlBuilderDefinition(dirPath)) return false;
-
-  // Check for d4rt_bridging.json
-  final jsonConfig = File(p.join(dirPath, 'd4rt_bridging.json'));
-  if (jsonConfig.existsSync()) return true;
-
-  // Check for build.yaml with D4rt consumer config (not builder definition)
-  // Use BuildConfigLoader to properly parse YAML and check for consumer config
-  final buildConfig = BuildConfigLoader.loadFromBuildYaml(dirPath);
-  if (buildConfig != null) return true;
-
-  return false;
+  // Check for tom_build.yaml with d4rtgen: section
+  return hasTomBuildConfig(dirPath, _toolKey);
 }
 
 /// Apply exclusion patterns to a list of projects.
@@ -703,28 +690,18 @@ Future<void> _processProjectDirect(String projectPath, {required bool verbose}) 
     print('Processing project: $projectPath');
   }
 
-  // Try loading from build.yaml first
-  var config = BuildConfigLoader.loadFromBuildYaml(projectPath);
+  // Load from tom_build.yaml d4rtgen: section
+  final config = BuildConfigLoader.loadFromTomBuildYaml(projectPath);
 
   if (config != null) {
     if (verbose) {
-      print('  Using configuration from build.yaml');
+      print('  Using configuration from tom_build.yaml');
     }
     await _generateBridges(config, projectPath, verbose: verbose);
     return;
   }
 
-  // Fall back to d4rt_bridging.json
-  final jsonConfigPath = p.join(projectPath, 'd4rt_bridging.json');
-  if (File(jsonConfigPath).existsSync()) {
-    if (verbose) {
-      print('  Using configuration from d4rt_bridging.json');
-    }
-    await _processConfigFile(jsonConfigPath, verbose: verbose);
-    return;
-  }
-
-  throw Exception('No D4rt configuration found in $projectPath');
+  throw Exception('No d4rtgen configuration found in $projectPath/tom_build.yaml');
 }
 
 /// Generate bridges from a BridgeConfig object.
@@ -825,14 +802,18 @@ Future<void> _generateBridges(
   }
 }
 
-/// Process a single configuration file.
+/// Process a single configuration file (tom_build.yaml).
 Future<void> _processConfigFile(String configPath, {required bool verbose}) async {
   if (verbose) {
     print('Processing: $configPath');
   }
 
-  final config = BridgeConfig.fromFile(configPath);
   final projectDir = p.dirname(configPath);
+  final config = BuildConfigLoader.loadFromTomBuildYaml(projectDir);
+
+  if (config == null) {
+    throw Exception('No d4rtgen configuration found in $configPath');
+  }
 
   await _generateBridges(config, projectDir, verbose: verbose);
 }
@@ -887,54 +868,35 @@ Future<void> _generateTestRunnerFile(
   );
 }
 
-/// Print the build.yaml section for a project (--show option).
+/// Print the tom_build.yaml d4rtgen section for a project (--show option).
 void _printBuildYamlSection(String projectPath, String workspaceRoot) {
-  final buildYamlPath = p.join(projectPath, 'build.yaml');
-  final buildYamlFile = File(buildYamlPath);
+  final tomBuildYamlPath = p.join(projectPath, 'tom_build.yaml');
+  final tomBuildYamlFile = File(tomBuildYamlPath);
   
-  if (!buildYamlFile.existsSync()) {
-    print('    (no build.yaml)');
+  if (!tomBuildYamlFile.existsSync()) {
+    print('    (no tom_build.yaml)');
     return;
   }
   
   try {
-    final content = buildYamlFile.readAsStringSync();
+    final content = tomBuildYamlFile.readAsStringSync();
     final rootYaml = loadYaml(content) as YamlMap?;
     if (rootYaml == null) {
-      print('    (empty build.yaml)');
+      print('    (empty tom_build.yaml)');
       return;
     }
     
-    // Navigate to tom_d4rt_generator:d4rt_bridge_builder section
-    final targets = rootYaml['targets'] as YamlMap?;
-    if (targets == null) {
-      print('    (no targets section in build.yaml)');
+    final d4rtgenSection = rootYaml['d4rtgen'] as YamlMap?;
+    if (d4rtgenSection == null) {
+      print('    (no d4rtgen section in tom_build.yaml)');
       return;
     }
     
-    final defaultTarget = targets[r'$default'] as YamlMap?;
-    if (defaultTarget == null) {
-      print('    (no \$default target in build.yaml)');
-      return;
-    }
-    
-    final builders = defaultTarget['builders'] as YamlMap?;
-    if (builders == null) {
-      print('    (no builders in build.yaml)');
-      return;
-    }
-    
-    final d4rtBuilder = builders['tom_d4rt_generator:d4rt_bridge_builder'] as YamlMap?;
-    if (d4rtBuilder == null) {
-      print('    (no tom_d4rt_generator:d4rt_bridge_builder section)');
-      return;
-    }
-    
-    // Print the d4rt_bridge_builder section as YAML
-    print('    build.yaml:');
-    _printYamlNode(d4rtBuilder, indent: 6);
+    // Print the d4rtgen section as YAML
+    print('    d4rtgen:');
+    _printYamlNode(d4rtgenSection, indent: 6);
   } catch (e) {
-    print('    (error reading build.yaml: $e)');
+    print('    (error reading tom_build.yaml: $e)');
   }
 }
 
@@ -993,7 +955,7 @@ void _printYamlNode(dynamic node, {int indent = 0}) {
 void _printUsage(ArgParser parser) {
   print('D4rt Bridge Generator (d4rtgen)');
   print('');
-  print('Generates D4rt bridges from build.yaml or d4rt_bridging.json configuration.');
+  print('Generates D4rt bridges from tom_build.yaml configuration.');
   print('');
   print('Usage:');
   print('  d4rtgen [options]');
@@ -1003,25 +965,25 @@ void _printUsage(ArgParser parser) {
   print(parser.usage);
   print('');
   print('Configuration File (tom_build.yaml):');
-  print('  Each project can have a tom_build.yaml file with a d4rtgen: section.');
+  print('  Each project must have a tom_build.yaml file with a d4rtgen: section.');
   print('  When recursing into subprojects, the tool uses each project\'s config.');
   print('');
   print('    # tom_build.yaml');
   print('    d4rtgen:');
-  print('      recursive: true');
-  print('      recursion-exclude:');
-  print('        - "**/node_modules/**"');
-  print('        - "**/build/**"');
-  print('      exclude:');
-  print('        - "**/test_*"');
-  print('      verbose: true');
+  print('      name: my_project');
+  print('      helpersImport: package:tom_d4rt/tom_d4rt.dart');
+  print('      generateBarrel: true');
+  print('      barrelPath: lib/d4rt_bridges.b.dart');
+  print('      modules:');
+  print('        - name: my_module');
+  print('          barrelFiles:');
+  print('            - package:my_project/my_module.dart');
+  print('          outputPath: lib/src/bridges/my_module_bridges.b.dart');
   print('');
   print('Project Detection:');
   print('  A D4rt project is a directory with:');
   print('    - pubspec.yaml, AND');
-  print('    - Either build.yaml (with d4rt_bridge_builder config)');
-  print('    - Or d4rt_bridging.json');
-  print('    - Or tom_build.yaml with d4rtgen: section');
+  print('    - tom_build.yaml with a d4rtgen: section');
   print('');
   print('Recursion Behavior:');
   print('  With --recursive, the tool:');

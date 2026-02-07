@@ -14,9 +14,9 @@ Future<void> d4rtGeneratorMain(List<String> arguments) async {
     ..addOption('project',
         abbr: 'p',
         help:
-            'Path to project directory (reads build.yaml or d4rt_bridging.json)')
+            'Path to project directory (reads tom_build.yaml d4rtgen: section)')
     ..addOption('config',
-        abbr: 'c', help: 'Path to specific d4rt_bridging.json file')
+        abbr: 'c', help: 'Path to specific tom_build.yaml file')
     ..addOption('scan', abbr: 's', help: 'Scan directory for all config files')
     ..addFlag('recursive',
         abbr: 'r',
@@ -74,30 +74,19 @@ Future<void> _processProject(String projectPath,
     print('Processing project: $projectPath');
   }
 
-  // Try loading from build.yaml first
-  final config = BuildConfigLoader.loadFromBuildYaml(projectPath);
+  // Load from tom_build.yaml d4rtgen: section
+  final config = BuildConfigLoader.loadFromTomBuildYaml(projectPath);
 
   if (config != null) {
     if (verbose) {
-      print('  Using configuration from build.yaml');
+      print('  Using configuration from tom_build.yaml');
     }
     await _generateBridges(config, projectPath, verbose: verbose);
     return;
   }
 
-  // Fall back to d4rt_bridging.json
-  final jsonConfigPath = p.join(projectPath, 'd4rt_bridging.json');
-  if (File(jsonConfigPath).existsSync()) {
-    if (verbose) {
-      print('  Using configuration from d4rt_bridging.json');
-    }
-    await _processConfigFile(jsonConfigPath, verbose: verbose);
-    return;
-  }
-
-  stderr.writeln('Error: No configuration found in $projectPath');
-  stderr.writeln('  Expected: build.yaml with d4rt_bridge_builder options');
-  stderr.writeln('  Or: d4rt_bridging.json');
+  stderr.writeln('Error: No d4rtgen configuration found in $projectPath');
+  stderr.writeln('  Expected: tom_build.yaml with d4rtgen: section');
   exit(1);
 }
 
@@ -108,7 +97,7 @@ Future<void> _scanDirectory(String scanPath,
       BridgeConfig.findConfigFiles(scanPath, recursive: recursive);
 
   if (configFiles.isEmpty) {
-    stderr.writeln('Error: No d4rt_bridging.json files found in $scanPath');
+    stderr.writeln('Error: No D4rt projects found in $scanPath');
     exit(1);
   }
 
@@ -280,7 +269,7 @@ Future<void> _generateTestRunnerFile(String testRunnerPath, BridgeConfig config,
 void printD4rtGeneratorUsage(ArgParser parser) {
   print('D4rt Bridge Generator');
   print('');
-  print('Generates D4rt bridges from d4rt_bridging.json configuration files.');
+  print('Generates D4rt bridges from tom_build.yaml configuration.');
   print('');
   print('Usage:');
   print('  d4rt_gen [options]');
@@ -296,7 +285,7 @@ void printD4rtGeneratorUsage(ArgParser parser) {
   print('  d4rt_gen --project=tom_build');
   print('');
   print('  # Use explicit config file');
-  print('  d4rt_gen --config=path/to/d4rt_bridging.json');
+  print('  d4rt_gen --config=path/to/tom_build.yaml');
   print('');
   print('  # Recursively scan workspace');
   print('  d4rt_gen --scan=. --recursive');

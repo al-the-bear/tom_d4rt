@@ -5,7 +5,7 @@
 /// Build configuration loader for D4rt bridge generator.
 ///
 /// Provides utilities for loading D4rt bridge configuration from
-/// build.yaml files, supporting both build_runner and CLI usage.
+/// tom_build.yaml files (d4rtgen: section).
 library;
 
 import 'dart:io';
@@ -15,69 +15,35 @@ import 'package:yaml/yaml.dart';
 
 import 'bridge_config.dart';
 
-/// Loads D4rt bridge configuration from a build.yaml file.
+/// Loads D4rt bridge configuration from a tom_build.yaml file.
 ///
-/// This class supports the standard build_runner configuration format,
-/// allowing both the builder and CLI to use the same configuration source.
+/// Reads the `d4rtgen:` section from the project's tom_build.yaml,
+/// which contains the bridge configuration (modules, paths, etc.).
 class BuildConfigLoader {
-  /// The builder name in build.yaml.
-  static const String builderName = 'tom_d4rt_generator:d4rt_bridge_builder';
-
-  /// Loads configuration from a build.yaml file.
+  /// Loads bridge configuration from a tom_build.yaml file.
   ///
-  /// The [projectPath] is the directory containing build.yaml.
-  /// Returns null if build.yaml doesn't exist or has no D4rt config.
-  static BridgeConfig? loadFromBuildYaml(String projectPath) {
-    final buildYamlPath = p.join(projectPath, 'build.yaml');
-    final buildYamlFile = File(buildYamlPath);
+  /// The [projectPath] is the directory containing tom_build.yaml.
+  /// Returns null if tom_build.yaml doesn't exist or has no d4rtgen section.
+  static BridgeConfig? loadFromTomBuildYaml(String projectPath) {
+    final tomBuildYamlPath = p.join(projectPath, 'tom_build.yaml');
+    final tomBuildYamlFile = File(tomBuildYamlPath);
 
-    if (!buildYamlFile.existsSync()) {
+    if (!tomBuildYamlFile.existsSync()) {
       return null;
     }
 
-    final content = buildYamlFile.readAsStringSync();
+    final content = tomBuildYamlFile.readAsStringSync();
     final yaml = loadYaml(content) as YamlMap?;
 
     if (yaml == null) return null;
 
-    return _extractConfig(yaml, projectPath);
-  }
-
-  /// Extracts D4rt bridge config from parsed build.yaml content.
-  static BridgeConfig? _extractConfig(YamlMap yaml, String projectPath) {
-    // Look for config in targets.$default.builders
-    final targets = yaml['targets'] as YamlMap?;
-    if (targets == null) return null;
-
-    final defaultTarget = targets[r'$default'] as YamlMap?;
-    if (defaultTarget == null) return null;
-
-    final builders = defaultTarget['builders'] as YamlMap?;
-    if (builders == null) return null;
-
-    final builderConfig = builders[builderName] as YamlMap?;
-    if (builderConfig == null) return null;
-
-    final options = builderConfig['options'] as YamlMap?;
-    if (options == null || options.isEmpty) {
-      // Try to load from d4rt_bridging.json as fallback
-      return _loadFromJsonFallback(projectPath);
+    final d4rtgenSection = yaml['d4rtgen'] as YamlMap?;
+    if (d4rtgenSection == null || d4rtgenSection.isEmpty) {
+      return null;
     }
 
     // Convert YamlMap to regular Map for BridgeConfig.fromJson
-    return BridgeConfig.fromJson(_yamlToJson(options));
-  }
-
-  /// Fallback: load from d4rt_bridging.json if build.yaml has no options.
-  static BridgeConfig? _loadFromJsonFallback(String projectPath) {
-    final jsonPath = p.join(projectPath, 'd4rt_bridging.json');
-    final jsonFile = File(jsonPath);
-
-    if (jsonFile.existsSync()) {
-      return BridgeConfig.fromFile(jsonPath);
-    }
-
-    return null;
+    return BridgeConfig.fromJson(_yamlToJson(d4rtgenSection));
   }
 
   /// Converts a YamlMap to a regular Dart Map.
