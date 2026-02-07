@@ -13,6 +13,14 @@ targets:
           cleanup:
             - 'lib/src/bridges_trigger.g.dart'
       
+      # Version builder - generates version.g.dart with build info
+      tom_version_builder:version_builder:
+        enabled: true
+        options:
+          output: lib/src/version.g.dart
+          includeGitCommit: true
+          variablePrefix: dcli
+      
       tom_d4rt_generator:d4rt_bridge_builder:
         enabled: true
         options:

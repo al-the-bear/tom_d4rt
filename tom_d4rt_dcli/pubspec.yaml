@@ -37,6 +37,8 @@ dev_dependencies:
     path: ../tom_d4rt_generator
   tom_cleanup_builder:
     path: ../../tom_module_basics/tom_cleanup_builder
+  tom_version_builder:
+    path: ../../tom_module_basics/tom_version_builder
 
 dependency_overrides:
   runtime_native_semaphores:

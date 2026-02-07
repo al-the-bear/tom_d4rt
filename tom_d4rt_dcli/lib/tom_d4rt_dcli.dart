@@ -8,6 +8,7 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 
 import 'dartscript.b.dart';
 import 'src/cli/repl_base.dart';
+import 'src/version.g.dart';
 
 export 'dartscript.b.dart';
 export 'src/bot_mode/bot_mode.dart';
@@ -18,9 +19,6 @@ export 'src/cli/vscode_integration.dart';
 // Re-export tom_chattools for consumers using bot mode
 export 'package:tom_chattools/tom_chattools.dart';
 
-/// The current version of the dcli tool.
-const String dcliVersion = '0.1.0';
-
 /// DCLI REPL implementation.
 /// 
 /// This is the concrete implementation of D4rtReplBase for the dcli tool,
@@ -30,7 +28,7 @@ class DcliRepl extends D4rtReplBase {
   String get toolName => 'DCLI';
   
   @override
-  String get toolVersion => dcliVersion;
+  String get toolVersion => TomVersionInfo.versionShort;
   
   @override
   void registerBridges(D4rt d4rt) {
