@@ -30,15 +30,28 @@ dart run tom_d4rt_generator:d4rtgen
 | Option | Short | Description |
 |--------|-------|-------------|
 | `--version` | | Display the version of the D4rt Bridge Generator |
-| `--project=<path>` | `-p` | Path to a single project directory |
-| `--projects=<glob>` | `-P` | Glob patterns for projects (e.g., `./**/tom_*`) |
+| `--project=<pattern>` | `-p` | Project(s) to process (comma-separated, globs: `tom_*`, `./*`) |
 | `--config=<file>` | `-c` | Path to specific `d4rt_bridging.json` file |
 | `--scan=<dir>` | `-s` | Scan directory for all D4rt projects |
 | `--recursive` | `-r` | Recursively process subprojects within each project |
 | `--exclude=<glob>` | `-x` | Glob patterns for projects to exclude from processing |
 | `--recursion-exclude=<glob>` | `-R` | Glob patterns to exclude from recursive traversal |
 | `--verbose` | `-v` | Show detailed output during generation |
+| `--list` | `-l` | List projects that would be processed (no action) |
 | `--help` | `-h` | Show usage help |
+
+### Project Selection (`--project`)
+
+The `--project` option supports multiple ways to specify projects:
+
+- **Single project**: `--project=my_app`
+- **Comma-separated**: `--project='project1,project2,project3'`
+- **Glob patterns**: `--project='tom_*'` (matches projects starting with `tom_`)
+- **Path globs**: `--project='xternal/tom_module_d4rt/*'`
+- **Current directory children**: `--project='./*'`
+- **Recursive from current directory**: `--project='./**/*'`
+
+Multiple patterns can be combined: `--project='tom_*_builder,tom_d4rt_*'`
 
 ### Version Information
 
@@ -108,7 +121,7 @@ When processing subprojects with `--recursive` or `--scan`, the tool also looks 
 
 **All paths must be within the current working directory or project directory:**
 
-- Command-line options (`--project`, `--scan`, `--config`, `--projects`) can only reference paths within the current working directory
+- Command-line options (`--project`, `--scan`, `--config`) can only reference paths within the current working directory
 - Project-local `tom_build.yaml` files can only reference paths within that project's directory
 - Patterns starting with `..` (parent directory references) are not allowed
 - To process projects across multiple directories, run from the workspace root
@@ -187,14 +200,17 @@ d4rtgen -p example/user_reference -v
 d4rtgen --config=path/to/d4rt_bridging.json
 ```
 
-### Process Projects by Glob Pattern
+### Process Projects by Pattern
 
 ```bash
 # Process all tom_* projects
-d4rtgen --projects="./**/tom_*"
+d4rtgen --project='tom_*'
 
-# Process multiple patterns
-d4rtgen -P "apps/*" -P "packages/*"
+# Process multiple patterns (comma-separated)
+d4rtgen --project='apps/*,packages/*'
+
+# Process all projects in current directory
+d4rtgen --project='./*'
 ```
 
 ### Scan Workspace for Projects
@@ -312,8 +328,8 @@ Bridge generation complete:
 |---------|-------------|--------------|
 | **Speed** | Faster (no watcher overhead) | Slower startup |
 | **Configuration** | `tom_build.yaml`, `build.yaml`, or JSON | `build.yaml` only |
-| **Batch Processing** | Yes (`--projects`, `--scan --recursive`) | Per-project only |
-| **Glob Patterns** | Yes (`--projects`, `--exclude`) | No |
+| **Batch Processing** | Yes (`--project='pattern'`, `--scan --recursive`) | Per-project only |
+| **Glob Patterns** | Yes (`--project='tom_*'`, `--exclude`) | No |
 | **Watch Mode** | No | Yes |
 | **Incremental Builds** | No (always regenerates) | Yes |
 | **Subproject Support** | Yes (with `--recursive`) | Manual |
@@ -344,10 +360,10 @@ The CLI couldn't find `build.yaml` or `d4rt_bridging.json` in the project direct
 
 ### "No projects found matching patterns"
 
-When using `--projects`, no directories matching the glob pattern are D4rt projects.
+When using `--project` with patterns, no directories matching the pattern are D4rt projects.
 
 **Solution:** 
-- Check your glob pattern
+- Check your pattern syntax
 - Ensure matching directories have `pubspec.yaml` and D4rt config
 
 ### "No D4rt projects found"
