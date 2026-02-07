@@ -11,7 +11,8 @@ targets:
         enabled: true
         options:
           cleanup:
-            - 'lib/src/bridges_trigger.g.dart'
+            - '*.g.dart'
+            - '*.b.dart'
       
       # Version builder - generates version.g.dart with build info
       tom_version_builder:version_builder:

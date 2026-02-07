@@ -541,8 +541,12 @@ class VsCodeHelper {
   /// [customResponseInstructions] - If true, prompt already contains response instructions,
   ///                                 don't add default suffix (default: false)
   /// 
-  /// Returns a Map with 'generatedMarkdown' and optionally 'comments' keys
-  static Future<Map<String, String>> askCopilotChat(
+  /// Returns a Map with the following keys:
+  /// - 'generatedMarkdown': String - The main response text (always present)
+  /// - 'comments': String - Optional additional notes or metadata
+  /// - 'references': `List<String>` - File paths Copilot referenced while forming response
+  /// - 'requestedAttachments': `List<String>` - File paths user explicitly requested
+  static Future<Map<String, dynamic>> askCopilotChat(
     String prompt, {
     String? requestId,
     int pollIntervalSeconds = 10,
@@ -573,8 +577,16 @@ The file must be valid JSON with this structure:
 {
   "requestId": "$effectiveRequestId",
   "generatedMarkdown": "<your response as a JSON-escaped string>",
-  "comments": "<optional comments>"
+  "comments": "<optional comments>",
+  "references": ["<optional array of file paths that are relevant context for the response>"],
+  "requestedAttachments": ["<optional array of file paths the user explicitly requested>"]
 }
+
+Field descriptions:
+- generatedMarkdown: Your main response text (required)
+- comments: Any additional notes or metadata (optional)
+- references: Files you referenced while forming your response (optional, include workspace-relative paths)
+- requestedAttachments: Files the user explicitly asked you to provide/attach (optional, include workspace-relative paths)
 
 Request ID: $effectiveRequestId
 ''';
@@ -672,7 +684,9 @@ Request ID: $effectiveRequestId
               return { 
                 found: true, 
                 generatedMarkdown: parsed.generatedMarkdown,
-                comments: parsed.comments || ''
+                comments: parsed.comments || '',
+                references: parsed.references || [],
+                requestedAttachments: parsed.requestedAttachments || []
               };
             }
             
@@ -693,9 +707,14 @@ Request ID: $effectiveRequestId
       
       if (innerResult is Map && innerResult['found'] == true) {
         if (HelperLogging.debugLogging) print('[COPRCV] Response received from Copilot Chat');
+        // Extract references and requestedAttachments as List<String>
+        final references = innerResult['references'];
+        final requestedAttachments = innerResult['requestedAttachments'];
         return {
           'generatedMarkdown': innerResult['generatedMarkdown']?.toString() ?? '',
           'comments': innerResult['comments']?.toString() ?? '',
+          'references': references is List ? references.map((e) => e.toString()).toList() : <String>[],
+          'requestedAttachments': requestedAttachments is List ? requestedAttachments.map((e) => e.toString()).toList() : <String>[],
         };
       }
     }
