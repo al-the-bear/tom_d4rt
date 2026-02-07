@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for user_reference_example
-// Generated: 2026-02-06T19:20:43.871745
+// Generated: 2026-02-07T10:06:36.055685
 
 /// D4rt Bridge Registration for user_reference_example
 library;
@@ -17,6 +17,10 @@ class UserReferenceExampleBridges {
     all_bridges.AllBridge.registerBridges(
       d4rt,
       'package:user_reference_example/user_reference_example.dart',
+    );
+    all_bridges.AllBridge.registerBridges(
+      d4rt,
+      'lib/user_reference_example.dart',
     );
   }
 

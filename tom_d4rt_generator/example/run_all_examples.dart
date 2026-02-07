@@ -104,7 +104,7 @@ Future<void> main(List<String> args) async {
         'dart',
         [
           'run',
-          'tom_d4rt_generator:d4rt_generator',
+          'tom_d4rt_generator:d4rt_gen',
           '--config',
           example.configFile,
         ],

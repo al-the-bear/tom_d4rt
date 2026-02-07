@@ -13,5 +13,7 @@
   "barrelPath": "lib/d4rt_bridges.dart",
   "generateDartscript": true,
   "dartscriptPath": "lib/dartscript.dart",
-  "registrationClass": "UserReferenceExampleBridges"
+  "registrationClass": "UserReferenceExampleBridges",
+  "generateTestRunner": true,
+  "testRunnerPath": "bin/d4rtrun.b.dart"
 }

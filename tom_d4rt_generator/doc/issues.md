@@ -11,6 +11,12 @@
 | [GEN-028](#gen-028) | [CLI didn't pass export filtering params to generator](#gen-028) | Medium | Fixed |
 | [GEN-029](#gen-029) | [CLI path missing export info filtering for globals](#gen-029) | Medium | Fixed |
 | [GEN-030](#gen-030) | [Multi-barrel modules only registered under primary barrel](#gen-030) | High | Fixed |
+| [GEN-031](#gen-031) | [CLI `args['projects']` referenced undefined ArgParser option](#gen-031) | Low | Fixed |
+| [GEN-032](#gen-032) | [Test runner generation step missing from bin CLI path](#gen-032) | Medium | Fixed |
+| [GEN-033](#gen-033) | [Test runner init source included non-package `lib/` URIs](#gen-033) | Medium | Fixed |
+| [GEN-034](#gen-034) | [Test runner registration doubled with `lib/` paths](#gen-034) | Medium | Fixed |
+| [GEN-035](#gen-035) | [Test runner file detection missed `.d4rt` extension](#gen-035) | Low | Fixed |
+| [GEN-036](#gen-036) | [Example script `run_all_examples.dart` referenced wrong executable name](#gen-036) | Low | Fixed |
 | [GEN-001](#gen-001) | [Generic methods lose type parameters (type erasure)](#gen-001) | Fundamental | Won't Fix |
 | [GEN-003](#gen-003) | [Complex default values cannot be represented in generated code](#gen-003) | Fundamental | Won't Fix |
 | [GEN-004](#gen-004) | [Combinatorial dispatch capped at 4 non-wrappable params](#gen-004) | Medium | Won't Fix |
@@ -38,6 +44,12 @@
 | [GEN-025](#gen-025) | [Record types with nested functions may have edge cases](#gen-025) | Medium | TODO |
 | [GEN-026](#gen-026) | [14 concrete types across projects silently downgraded to dynamic](#gen-026) | Medium | TODO |
 | [GEN-027](#gen-027) | [InvalidType warnings indicate analyzer resolution failures](#gen-027) | Medium | TODO |
+| [GEN-031](#gen-031) | [CLI `args['projects']` referenced undefined ArgParser option](#gen-031) | Low | Fixed |
+| [GEN-032](#gen-032) | [Test runner generation step missing from bin CLI path](#gen-032) | Medium | Fixed |
+| [GEN-033](#gen-033) | [Test runner init source included non-package `lib/` URIs](#gen-033) | Medium | Fixed |
+| [GEN-034](#gen-034) | [Test runner registration doubled with `lib/` paths](#gen-034) | Medium | Fixed |
+| [GEN-035](#gen-035) | [Test runner file detection missed `.d4rt` extension](#gen-035) | Low | Fixed |
+| [GEN-036](#gen-036) | [Example script `run_all_examples.dart` referenced wrong executable name](#gen-036) | Low | Fixed |
 
 ---
 
@@ -1219,6 +1231,209 @@ import 'package:dcli_core/dcli_core.dart';
 
 **c) Resolution:**
 Fixed 2026-02-07. `dartscript.b.dart` now registers bridges under ALL barrel import paths, and `getImportBlock()` generates import statements for all barrel files.
+
+---
+
+### GEN-031
+
+**CLI `args['projects']` referenced undefined ArgParser option**
+
+**a) Problem:**
+
+The `bin/d4rt_gen.dart` CLI entry point accessed `args['projects']` to pass a project filter list to `BridgeConfig.fromBuildYaml()`, but the `--projects` option was never defined in the `ArgParser`. This caused a runtime crash when running the CLI:
+
+**Before fix (bin/d4rt_gen.dart — `_runFromBuildYaml()`):**
+```dart
+final config = BridgeConfig.fromBuildYaml(
+  configPath: configPath,
+  projects: args['projects'] as List<String>,  // ✗ 'projects' not in ArgParser → crash
+);
+```
+
+The `--projects` option is only available when configuration is loaded from `tom_build.yaml` (which has its own argument parsing), not from the `d4rt_gen.dart` CLI's ArgParser.
+
+**After fix:**
+```dart
+final config = BridgeConfig.fromBuildYaml(
+  configPath: configPath,
+  projects: const [],  // --projects is only available via tom_build.yaml, not CLI args
+);
+```
+
+**Where the problem manifested:** Running `dart run tom_d4rt_generator:d4rt_gen --config build.yaml` would crash with a `NoSuchMethodError` or `StateError` because `args['projects']` returned `null` (unrecognized option).
+
+**b) Location:**
+`bin/d4rt_gen.dart` ~line 185 — the `_runFromBuildYaml()` function where `args['projects']` was accessed.
+
+**c) Resolution:**
+Fixed 2026-02-07. Changed to `const []` with a comment explaining the option is only available via `tom_build.yaml`.
+
+---
+
+### GEN-032
+
+**Test runner generation step missing from bin CLI path**
+
+**a) Problem:**
+
+The test runner generation feature (`generateTestRunner: true` in config) was added to the library CLI (`d4rt_generator_cli.dart`) but was not added to the bin CLI entry point (`bin/d4rt_gen.dart`). The bin CLI's `_generateBridges()` function generated barrel and dartscript files but skipped the test runner step entirely.
+
+**Library CLI path (d4rt_generator_cli.dart — had the step):**
+```dart
+if (config.generateTestRunner && config.testRunnerPath != null) {
+  final testRunnerContent = generateTestRunnerContent(config, testRunnerPath: config.testRunnerPath);
+  // ... writes file ...
+}
+```
+
+**Bin CLI path (bin/d4rt_gen.dart — was missing the step):**
+```dart
+// Generated barrel file ✓
+// Generated dartscript file ✓
+// Test runner generation? ✗ MISSING
+```
+
+**Where the problem manifested:** Running `dart run tom_d4rt_generator:d4rt_gen --config d4rt_bridging.json` with `generateTestRunner: true` in the config would generate bridges, barrel, and dartscript but **not** the test runner file. Users would see the config setting was ignored with no error or warning.
+
+**b) Location:**
+`bin/d4rt_gen.dart` ~line 800–850 — the `_generateBridges()` function, after the barrel and dartscript generation blocks.
+
+**c) Resolution:**
+Fixed 2026-02-07. Added the test runner generation block and `_generateTestRunnerFile()` helper function to the bin CLI path, mirroring the library CLI implementation.
+
+---
+
+### GEN-033
+
+**Test runner init source included non-package `lib/` URIs**
+
+**a) Problem:**
+
+The `generateTestRunnerContent()` function in `file_generators.dart` built the init source import list from `config.barrelFiles`, which contains both `package:` URIs (e.g., `package:my_pkg/my_pkg.dart`) and `lib/` relative paths (e.g., `lib/my_pkg.dart`). The `lib/` paths were included as import URIs in the generated test runner, which are not valid in a Dart file:
+
+**Before fix — generated d4rtrun.b.dart:**
+```dart
+import 'lib/my_pkg.dart';                    // ✗ Invalid! Can't import lib/ paths
+import 'package:my_pkg/my_pkg.dart';         // ✓ Valid package import
+```
+
+**After fix:**
+```dart
+import 'package:my_pkg/my_pkg.dart';         // ✓ Only package: URIs included
+```
+
+**Where the problem manifested:** Running the generated test runner would fail with "Unable to resolve relative import 'lib/my_pkg.dart'" because `lib/` paths are only valid in `build.yaml` configuration, not as Dart import statements.
+
+**b) Location:**
+`lib/src/file_generators.dart` — `generateTestRunnerContent()`, the init source collection loop where `config.barrelFiles` was iterated without filtering by URI scheme.
+
+**c) Resolution:**
+Fixed 2026-02-07. Added a filter to only include URIs that start with `package:` in the init source imports.
+
+---
+
+### GEN-034
+
+**Test runner registration doubled with `lib/` paths**
+
+**a) Problem:**
+
+Related to GEN-033, the `generateTestRunnerContent()` function also generated `registerBridges()` calls for each barrel file. Without filtering, both `package:` and `lib/` paths resulted in separate registration calls:
+
+**Before fix — generated d4rtrun.b.dart:**
+```dart
+static void registerBridges(D4rt d4rt) {
+  MyPkgBridge.registerBridges(d4rt, 'lib/my_pkg.dart');              // ✗ Duplicate
+  MyPkgBridge.registerBridges(d4rt, 'package:my_pkg/my_pkg.dart');   // ✓ Correct
+}
+```
+
+**After fix:**
+```dart
+static void registerBridges(D4rt d4rt) {
+  MyPkgBridge.registerBridges(d4rt, 'package:my_pkg/my_pkg.dart');   // ✓ Only package: URIs
+}
+```
+
+**Where the problem manifested:** Double registration didn't crash but caused inefficiency and potentially confusing `validateRegistrations()` output showing duplicate entries.
+
+**b) Location:**
+`lib/src/file_generators.dart` — `generateTestRunnerContent()`, the registration call generation loop.
+
+**c) Resolution:**
+Fixed 2026-02-07. Registration calls now only use `package:` URIs, matching the init source filtering from GEN-033.
+
+---
+
+### GEN-035
+
+**Test runner file detection missed `.d4rt` extension**
+
+**a) Problem:**
+
+The generated test runner's `main()` function checks whether command-line input is a file path or a D4rt expression. The detection only checked for the `.dart` file extension:
+
+**Before fix — generated d4rtrun.b.dart:**
+```dart
+if (input.endsWith('.dart') || File(input).existsSync()) {
+  // Treat as file → execute()
+} else {
+  // Treat as expression → eval()
+}
+```
+
+D4rt scripts use the `.d4rt` extension, so running `dart run bin/d4rtrun.b.dart scripts/example.d4rt` would incorrectly treat the script path as a D4rt expression, passing the entire path string to `eval()` instead of reading and executing the file.
+
+**After fix:**
+```dart
+if (input.endsWith('.dart') || input.endsWith('.d4rt') || File(input).existsSync()) {
+  // Treat as file → execute()
+}
+```
+
+**Where the problem manifested:** Running `dart run bin/d4rtrun.b.dart scripts/example.d4rt` would try to evaluate `"scripts/example.d4rt"` as a D4rt expression instead of executing the file, producing an error like "Undefined name 'scripts'".
+
+**b) Location:**
+`lib/src/file_generators.dart` — `generateTestRunnerContent()`, the file detection conditional in the generated `main()` function body.
+
+**c) Resolution:**
+Fixed 2026-02-07. Added `.d4rt` to the file extension check.
+
+---
+
+### GEN-036
+
+**Example script `run_all_examples.dart` referenced wrong executable name**
+
+**a) Problem:**
+
+The `example/run_all_examples.dart` script used `Process.run('dart', ['run', 'tom_d4rt_generator:d4rt_generator', ...])` to invoke the bridge generator. However, the actual binary name defined in `pubspec.yaml` is `d4rt_gen`, not `d4rt_generator`:
+
+**pubspec.yaml:**
+```yaml
+executables:
+  d4rt_gen: d4rt_gen   # ← actual name
+```
+
+**Before fix (run_all_examples.dart):**
+```dart
+await Process.run('dart', ['run', 'tom_d4rt_generator:d4rt_generator', ...]);
+//                                                      ^^^^^^^^^^^^^^ wrong name
+```
+
+**After fix:**
+```dart
+await Process.run('dart', ['run', 'tom_d4rt_generator:d4rt_gen', ...]);
+//                                                     ^^^^^^^^ correct name
+```
+
+**Where the problem manifested:** Running `dart run example/run_all_examples.dart` would fail with "Could not find package 'tom_d4rt_generator' executable 'd4rt_generator'" for every example project.
+
+**b) Location:**
+`example/run_all_examples.dart` — the `Process.run()` calls that invoke the generator.
+
+**c) Resolution:**
+Fixed 2026-02-07. Changed executable reference from `d4rt_generator` to `d4rt_gen`.
 
 ---
 

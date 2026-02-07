@@ -172,7 +172,7 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   buffer.writeln('// Generated: ${DateTime.now().toIso8601String()}');
   buffer.writeln('//');
   buffer.writeln('// Usage:');
-  buffer.writeln('//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} <script.dart>       Run a D4rt script file');
+  buffer.writeln('//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} <script.dart|.d4rt>  Run a D4rt script file');
   buffer.writeln('//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} "<expression>"      Evaluate an expression');
   buffer.writeln('//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --eval-file <file>  Evaluate file content with eval()');
   buffer.writeln('//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --init-eval         Validate bridge registrations');
@@ -200,19 +200,19 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   // Build the init script source with all imports
   buffer.writeln('/// Init script source that imports all bridged modules.');
   buffer.writeln("const String _initSource = '''");
-  // Add import for each module's barrel
+  // Add import for each module's barrel — only package: imports
   for (final module in config.modules) {
     final sourceImport = module.barrelImport ?? module.barrelFiles.first;
-    buffer.writeln("import '$sourceImport';");
-    // Additional barrel files
+    if (sourceImport.startsWith('package:')) {
+      buffer.writeln("import '$sourceImport';");
+    }
+    // Additional barrel files (only package: URIs)
     for (final barrelFile in module.barrelFiles) {
-      if (barrelFile != sourceImport) {
+      if (barrelFile != sourceImport && barrelFile.startsWith('package:')) {
         buffer.writeln("import '$barrelFile';");
       }
     }
   }
-  // Add imports from imported bridges — need to collect their import blocks
-  // at runtime, so add a placeholder comment
   buffer.writeln();
   buffer.writeln('void main() {}');
   buffer.writeln("''';");
@@ -239,8 +239,9 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
     buffer.writeln("    '$sourceImport',");
     buffer.writeln('  );');
 
+    // Register additional barrel files (only package: URIs to avoid duplicates)
     for (final barrelFile in module.barrelFiles) {
-      if (barrelFile != sourceImport) {
+      if (barrelFile != sourceImport && barrelFile.startsWith('package:')) {
         buffer.writeln(
             '  ${module.name}_bridges.${capitalizedModuleName}Bridge.registerBridges(');
         buffer.writeln('    d4rt,');
@@ -257,7 +258,7 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   buffer.writeln('void main(List<String> args) {');
   buffer.writeln('  if (args.isEmpty) {');
   buffer.writeln("    stderr.writeln('Usage:');");
-  buffer.writeln("    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} <script.dart>       Run a D4rt script file');");
+  buffer.writeln("    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} <script.dart|.d4rt>  Run a D4rt script file');");
   buffer.writeln("    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} \"<expression>\"      Evaluate an expression');");
   buffer.writeln("    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --eval-file <file>  Evaluate file content with eval()');");
   buffer.writeln("    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --init-eval         Validate bridge registrations');");
@@ -283,9 +284,9 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   buffer.writeln('  }');
   buffer.writeln();
 
-  // File or expression mode
+  // File or expression mode — detect by file extension or existence
   buffer.writeln('  final input = args.first;');
-  buffer.writeln("  if (input.endsWith('.dart')) {");
+  buffer.writeln("  if (input.endsWith('.dart') || input.endsWith('.d4rt') || File(input).existsSync()) {");
   buffer.writeln('    _runFile(input);');
   buffer.writeln('  } else {');
   buffer.writeln('    _runExpression(input);');

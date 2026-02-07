@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for userbridge_override_example
-// Generated: 2026-02-06T19:20:51.544367
+// Generated: 2026-02-07T10:07:12.775603
 
 /// D4rt Bridge Registration for userbridge_override_example
 library;
@@ -17,6 +17,10 @@ class UserbridgeOverrideExampleBridges {
     all_bridges.AllBridge.registerBridges(
       d4rt,
       'package:userbridge_override_example/userbridge_override_example.dart',
+    );
+    all_bridges.AllBridge.registerBridges(
+      d4rt,
+      'lib/userbridge_override_example.dart',
     );
   }
 
