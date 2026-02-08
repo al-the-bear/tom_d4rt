@@ -233,14 +233,16 @@ class OutputFormatter {
 
   /// Format raw text output (e.g., captured print output with console_markdown).
   ///
-  /// In rawPassthrough mode, text is sent as-is with Markdown parse mode.
+  /// In rawPassthrough mode, console_markdown color tags and markdown formatting
+  /// are stripped for clean Telegram display (no parse mode to avoid strict parsing).
   /// Otherwise, normal formatting is applied (strip ANSI, convert markdown, etc.).
   FormattedOutput formatRaw(String text) {
-    // Raw passthrough mode: skip all formatting, send directly with Markdown parse mode
+    // Raw passthrough mode: strip console_markdown for clean display
     if (config.rawPassthrough) {
+      final converted = _convertToTelegramMarkdown(text);
       return FormattedOutput(
-        text: text,
-        parseMode: 'Markdown',
+        text: converted,
+        parseMode: null, // Plain text - no Markdown parsing
       );
     }
 
@@ -305,6 +307,63 @@ class OutputFormatter {
   String _stripAnsi(String text) {
     // Remove ANSI escape codes (colors, cursor movements, etc.)
     return text.replaceAll(RegExp(r'\x1B\[[0-9;]*[a-zA-Z]'), '');
+  }
+
+  /// Convert console_markdown to Telegram-compatible format.
+  ///
+  /// This strips color tags and markdown formatting for safe Telegram display.
+  /// Telegram's Markdown parser is strict and many console_markdown patterns
+  /// (like `_.txt` wildcards) would break parsing.
+  String _convertToTelegramMarkdown(String text) {
+    var result = text;
+
+    // First, strip ANSI escape codes if any
+    result = _stripAnsi(result);
+
+    // Remove console_markdown color tags
+    result = result.replaceAll(
+      RegExp(r'<(red|green|yellow|blue|cyan|magenta|white|black|gray)>'),
+      '',
+    );
+    result = result.replaceAll(
+      RegExp(r'</(red|green|yellow|blue|cyan|magenta|white|black|gray)>'),
+      '',
+    );
+
+    // Remove **bold** markers (keep content)
+    result = result.replaceAllMapped(
+      RegExp(r'\*\*(.+?)\*\*'),
+      (m) => m.group(1)!,
+    );
+
+    // Remove *italic* markers (keep content) - be careful with wildcards
+    result = result.replaceAllMapped(
+      RegExp(r'(?<![*\w])\*([^*\s][^*]*?[^*\s]|[^*\s])\*(?![*\w])'),
+      (m) => m.group(1)!,
+    );
+
+    // Remove __bold__ markers (keep content)
+    result = result.replaceAllMapped(
+      RegExp(r'__(.+?)__'),
+      (m) => m.group(1)!,
+    );
+
+    // Remove _italic_ markers (keep content) - be careful with file patterns
+    result = result.replaceAllMapped(
+      RegExp(r'(?<![_\w])_([^_\s][^_]*?[^_\s]|[^_\s])_(?![_\w])'),
+      (m) => m.group(1)!,
+    );
+
+    // Convert bullet lists: - item → • item
+    result = result.replaceAllMapped(
+      RegExp(r'^(\s*)-\s+', multiLine: true),
+      (m) => '${m.group(1)}• ',
+    );
+
+    // Clean up multiple blank lines
+    result = result.replaceAll(RegExp(r'\n{3,}'), '\n\n');
+
+    return result.trim();
   }
 
   /// Convert markdown to Telegram-compatible format.
