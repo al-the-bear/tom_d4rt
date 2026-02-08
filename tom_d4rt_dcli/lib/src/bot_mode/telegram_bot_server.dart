@@ -322,6 +322,16 @@ class BotInstance {
     // -------------------------------------------------------------------------
     await _sendTyping(message);
     
+    // Send immediate confirmation for Copilot prompts (VS Code forwarding)
+    final messageType = _determineMessageType(preprocessed);
+    if (messageType == MessageType.explicitCopilot || 
+        messageType == MessageType.implicitCopilot) {
+      await _sendReply(
+        message,
+        FormattedOutput(text: '📡 Forwarding prompt to VS Code\\. Awaiting reply\\.', parseMode: 'MarkdownV2'),
+      );
+    }
+    
     final executionResult = await _executeWithCapture(preprocessed);
     
     // -------------------------------------------------------------------------
