@@ -937,15 +937,17 @@ throw ArgumentError('someMethod: Unsupported type for Comparable<T>: ${sample.ru
 **b) Location:**
 `bridge_generator.dart` ~line 730–760 — `_defaultRecursiveBoundTypes` list; recursive bound detection in `_getRecursiveBoundTypeParams()`; dispatch generation that iterates `recursiveBoundTypes` and generates `if (sample is X)` blocks with a final `throw ArgumentError(...)` fallback.
 
-**c) General Strategy — Auto-discover Comparable implementors from the analyzer:**
+**c) General Strategy — Auto-discover + user-configurable recursive bound types:**
 
 `_ResolvedClassVisitor` already has access to `ClassElement` for every bridged class. The Dart analyzer can determine whether a class implements an interface.
 
-**Fix:** During the resolved visitor pass, build a `Map<String, Set<String>> boundImplementors` (bound interface → concrete classes that implement it). For each class, check `classElement.allSupertypes` — if any match a recursive bound interface (e.g., `Comparable<T>`), add the class name to the set. After collection, pass `boundImplementors` to the dispatch generator. Instead of iterating `_defaultRecursiveBoundTypes`, iterate the discovered concrete types.
+**Fix (auto-discovery):** During the resolved visitor pass, build a `Map<String, Set<String>> boundImplementors` (bound interface → concrete classes that implement it). For each class, check `classElement.allSupertypes` — if any match a recursive bound interface (e.g., `Comparable<T>`), add the class name to the set. After collection, pass `boundImplementors` to the dispatch generator. Instead of iterating `_defaultRecursiveBoundTypes`, iterate the discovered concrete types.
 
 **Fallback:** Keep `_defaultRecursiveBoundTypes` as a seed for SDK types (`num`, `String`, `DateTime`) that aren't directly bridged but commonly appear. The auto-discovered types are *added* to this set, not replacing it.
 
-This eliminates the hardcoded-only list and automatically handles any `Comparable`-implementing type (including `Duration`, `BigInt`, and custom types) without configuration.
+**Configuration:** Make `recursiveBoundTypes` configurable in `build.yaml` / `BridgeConfig` per module. The user knows which types their specific API needs for recursive bound dispatch (e.g., `Duration`, `BigInt`, custom `Comparable` implementations). The effective list is: `configuredTypes ∪ autoDiscoveredTypes ∪ defaultSeedTypes`.
+
+This combines auto-discovery for bridged types with explicit user configuration for non-bridged types — no hardcoded-only path remains.
 
 ---
 
@@ -1095,6 +1097,8 @@ For the syntactic fallback: the existing manual expansion is inherently limited.
 
 Add test cases for parameterized typedef expansion to verify.
 
+**Decision:** This issue will remain open — the syntactic fallback path cannot fully resolve parameterized typedefs without type information from the analyzer.
+
 ---
 
 ---
@@ -1241,16 +1245,15 @@ The analyzer returns a special `InvalidType` sentinel instead of a resolved `Dar
 **b) Location:**
 Appears at generation runtime. The generator encounters `InvalidType` from the analyzer's resolved AST and logs a warning.
 
-**c) General Strategy — Pre-validate analysis context and report actionable diagnostics:**
+**c) General Strategy — Fall back to dynamic with improved diagnostics:**
 
-`InvalidType` is an analyzer sentinel meaning "I couldn't resolve this." The generator can't fix the analyzer, but it can:
+`InvalidType` is an analyzer sentinel meaning "I couldn't resolve this." The generator cannot fix analyzer failures — falling back to `dynamic` is the only option.
 
-**Fix:**
-1. **Pre-validation:** Before generation, run a quick analysis health check on the target package. If `dart pub get` hasn't been run or dependencies are missing, fail early with a clear message instead of producing degraded bridges.
-2. **Actionable diagnostics:** When `InvalidType` is encountered, log the specific file, line, and parameter along with the analysis errors for that compilation unit (available via `result.errors`). This gives the user enough context to fix the root cause.
-3. **Retry mechanism:** If a type resolves to `InvalidType`, try resolving it via the source file's imports (auxiliary import path) before giving up — the type may be resolvable through a different analysis context.
+**Decision:** Accept `dynamic` fallback for `InvalidType`. Improve diagnostics to help users fix the root cause:
+1. **Actionable diagnostics:** When `InvalidType` is encountered, log the specific file, line, and parameter along with the analysis errors for that compilation unit (available via `result.errors`). This gives the user enough context to fix the root cause.
+2. **Pre-validation:** Before generation, run a quick analysis health check. If `dart pub get` hasn't been run or dependencies are missing, fail early with a clear message.
 
-No hardcoding — systematic diagnostic improvement.
+This issue will remain open — it's an inherent limitation of depending on the analyzer.
 
 ---
 
@@ -1411,7 +1414,7 @@ The function-wrapping infrastructure already handles single function parameters.
 
 The wrapping function signature is determined by the element type, which the generator already knows from the type argument analysis. This is a structural extension of the existing single-function wrapping — no new concept needed, no hardcoding.
 
-**Scope limitation:** Deeply nested function types (3+ levels) may produce unreadable generated code. Accept a reasonable depth limit (e.g., 2 levels) and fall back to `dynamic` with a warning for deeper nesting.
+**Scope limitation:** Support up to 3 levels of nesting (e.g., `Map<String, List<void Function()>>`). Fall back to `dynamic` with a warning for deeper nesting. Three levels should cover virtually all real-world APIs.
 
 ---
 
@@ -1516,6 +1519,8 @@ The `_isGenericTypeParameter()` heuristic at L6230 is used in `_resolveTypeArgum
 3. The heuristic then only needs to catch edge cases in the syntactic fallback path where no element API is available.
 
 For the resolved path, `element.typeParameters` is authoritative — no heuristic needed at all. The hardcoded set `{'TValue', 'TKey', ...}` becomes dead code once method-level type params are propagated.
+
+**Decision:** This is a general solution — propagating method-level type parameters from both `ClassElement` and `MethodElement` eliminates the need for name-based heuristics in the resolved path. The syntactic fallback retains the heuristic as best-effort.
 
 ---
 
@@ -1720,16 +1725,18 @@ const privateToPublic = {
 **b) Location:**
 `bridge_generator.dart` ~line 625–650 — `mapPrivateSdkLibrary()` method.
 
-**c) General Strategy — Derive mapping from the analyzer's library resolution:**
+**c) General Strategy — Follow imports of the source file to resolve private SDK libraries:**
 
-The Dart analyzer itself knows the public-to-private library mapping. When it resolves a type from `dart:_http`, the element's `library.exportNamespace` shows which public library exports it.
+When the analyzer reports a type from `dart:_http`, the **source file** that uses this type must have imported it through a public library (e.g., `import 'dart:io';`). The type's element knows which file declared it, and that file's imports reveal the public library path.
 
-**Fix:**
-1. When encountering a `dart:_*` library URI, use the analyzer to find which public `dart:*` library re-exports the type: check `element.library.definingCompilationUnit.enclosingElement` or walk the SDK's public library exports.
-2. If that's too complex, use a simpler heuristic: strip the `_` prefix and check if `dart:{name}` exists (e.g., `dart:_http` → `dart:io` won't work, but a dictionary lookup would). Keep the hardcoded map as a **fallback** for known edge cases, not as the primary mechanism.
-3. Always log unmapped `dart:_*` libraries as warnings.
+**Fix:** When encountering a `dart:_*` library URI (identifiable by the underscore prefix):
+1. Get the source file that uses this type (available from the resolved AST context).
+2. Walk the source file's imports — find which `dart:*` (non-private) import provides the type name via its export namespace.
+3. Use that public library URI for the generated import.
 
-The hardcoded map remains as a known-good fallback but is no longer the sole mechanism.
+This is fully general — it resolves any private SDK mapping by following the same import chain that the original source file uses. The existing hardcoded map can remain as a fast-path cache but is no longer required for correctness.
+
+Always log unmapped `dart:_*` libraries as warnings if the import-walk approach fails.
 
 ---
 
