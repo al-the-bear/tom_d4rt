@@ -404,6 +404,10 @@ class OutputConfig {
   
   /// Auto-attach files from Copilot Chat requestedAttachments
   final bool autoAttachCopilotFiles;
+  
+  /// Bypass all formatting and pass raw output with Markdown parse mode.
+  /// When true, skips all processing and sends output directly.
+  final bool rawPassthrough;
 
   OutputConfig({
     required this.useMonospace,
@@ -413,6 +417,7 @@ class OutputConfig {
     required this.attachFullOutput,
     required this.truncationSuffix,
     this.autoAttachCopilotFiles = true,
+    this.rawPassthrough = false,
   });
 
   factory OutputConfig.fromYaml(YamlMap yaml) {
@@ -425,6 +430,7 @@ class OutputConfig {
       truncationSuffix: yaml['truncation-suffix'] as String? ?? 
           '\n... (output truncated, {remaining} more chars)',
       autoAttachCopilotFiles: yaml['auto-attach-copilot-files'] as bool? ?? true,
+      rawPassthrough: yaml['raw-passthrough'] as bool? ?? false,
     );
   }
 
@@ -437,6 +443,7 @@ class OutputConfig {
       attachFullOutput: true,
       truncationSuffix: '\n... (output truncated, {remaining} more chars)',
       autoAttachCopilotFiles: true,
+      rawPassthrough: true,  // Enable by default for testing
     );
   }
 }

@@ -105,6 +105,67 @@ class D4rtTester {
     this.runnerExecutable = 'd4rtrun.b',
   });
 
+  /// Generate bridges once for a project without running any script.
+  ///
+  /// Use this in `setUpAll` to generate bridges once, then call
+  /// [runScriptOnly] for each test script to avoid re-generating
+  /// bridges on every test invocation.
+  ///
+  /// Returns `true` if generation succeeded, `false` otherwise.
+  /// On failure, the generation errors are stored and can be retrieved
+  /// from subsequent [runScriptOnly] calls (which will return a failed
+  /// result immediately).
+  ///
+  /// Example:
+  /// ```dart
+  /// setUpAll(() async {
+  ///   final ok = await tester.prepareBridges(config);
+  ///   expect(ok, isTrue, reason: 'Bridge generation failed');
+  /// });
+  ///
+  /// test('feature X', () async {
+  ///   final result = await tester.runScriptOnly(config, 'test/x.dart');
+  ///   _expectSuccess(result, 'feature X');
+  /// });
+  /// ```
+  Future<bool> prepareBridges(BridgeConfig config) async {
+    final genResult = await _generateBridges(config);
+    _lastGenerationErrors =
+        genResult.isSuccess ? null : genResult.errors;
+    return genResult.isSuccess;
+  }
+
+  /// Run a D4rt script file **without** regenerating bridges.
+  ///
+  /// Requires [prepareBridges] to have been called first. If bridges
+  /// were not prepared (or preparation failed), returns a failed
+  /// [D4rtTestResult] with an appropriate error message.
+  ///
+  /// This is much faster than [runScript] when running many test scripts
+  /// against the same generated bridges.
+  Future<D4rtTestResult> runScriptOnly(
+    BridgeConfig config,
+    String scriptFile, {
+    Duration? timeout,
+  }) async {
+    if (_lastGenerationErrors != null) {
+      return D4rtTestResult(
+        timedOut: false,
+        exceptions: _lastGenerationErrors!,
+        exitCode: -1,
+      );
+    }
+
+    final runnerPath = _resolveRunnerPath(config);
+    return _runProcess(
+      ['run', runnerPath, '--test', scriptFile],
+      timeout ?? defaultTimeout,
+    );
+  }
+
+  /// Errors from the last [prepareBridges] call, or `null` if successful.
+  List<String>? _lastGenerationErrors;
+
   /// Generate bridges and run a D4rt script file, capturing results.
   ///
   /// 1. Runs the bridge generator in-memory with [config], producing bridge
