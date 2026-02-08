@@ -119,8 +119,6 @@ class OutputFormatter {
     
     // Raw passthrough mode: skip all formatting, send directly with Markdown parse mode
     if (config.rawPassthrough) {
-      // Just strip ANSI codes and send as-is
-      text = _stripAnsi(text);
       return FormattedOutput(
         text: text,
         parseMode: 'Markdown',

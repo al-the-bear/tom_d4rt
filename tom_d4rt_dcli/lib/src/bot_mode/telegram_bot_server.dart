@@ -219,7 +219,7 @@ Type help for available commands, or enter any REPL command directly.
 
     for (final userId in allowedUsers) {
       try {
-        await _telegram.sendMessage(
+        await _debugSendMessage(
           ChatReceiver.id(userId.toString()),
           welcomeMessage,
         );
@@ -284,13 +284,17 @@ ${receivedAttachments.join('\n')}
         .replaceAll('\u201D', '"')  // " (right double quotation mark)
         .replaceAll('\u2018', "'")  // ' (left single quotation mark)
         .replaceAll('\u2019', "'"); // ' (right single quotation mark)
-
-    // Handle bot commands (starting with /)
-    if (text.startsWith('/')) {
-      await _handleBotCommand(message, text);
+    
+    // Security check
+    final allowed = security.isCommandAllowed(text);
+    if (!allowed.permitted) {
+      await _sendReply(
+        message,
+        formatter.formatError('Command not allowed: ${allowed.reason}'),
+      );
       return;
     }
-    
+
     // Handle trail commands (check original text without attachments suffix)
     final originalText = message.text!;
     if (originalText.startsWith('list-attachments') || 
@@ -325,15 +329,6 @@ ${receivedAttachments.join('\n')}
       }
     }
 
-    // Security check
-    final allowed = security.isCommandAllowed(text);
-    if (!allowed.permitted) {
-      await _sendReply(
-        message,
-        formatter.formatError('Command not allowed: ${allowed.reason}'),
-      );
-      return;
-    }
 
     // Execute command
     try {
@@ -489,13 +484,13 @@ ${receivedAttachments.join('\n')}
           );
         } catch (e) {
           // Fallback to text message with path
-          await _telegram.sendMessage(
+          await _debugSendMessage(
             ChatReceiver.id(original.sender.id),
             '📎 File: $path\n(Could not send as attachment: $e)',
           );
         }
       } else {
-        await _telegram.sendMessage(
+        await _debugSendMessage(
           ChatReceiver.id(original.sender.id),
           '⚠️ File not found: $path',
         );
@@ -641,7 +636,7 @@ ${receivedAttachments.join('\n')}
       await _sendTyping(message);
       
       // Notify user we're sending to Copilot
-      await _telegram.sendMessage(
+      await _debugSendMessage(
         ChatReceiver.id(message.sender.id),
         '🤖 Sending to Copilot Chat...',
       );
@@ -688,55 +683,9 @@ ${receivedAttachments.join('\n')}
     }
   }
 
-  /// Handle bot commands (starting with /).
-  Future<void> _handleBotCommand(ChatMessage message, String command) async {
-    final cmd = command.toLowerCase().split(' ').first;
-
-    switch (cmd) {
-      case '/start':
-        final vsInfo = vscode != null
-            ? 'Connected to VS Code on ${vscode!.host}:${vscode!.port}'
-            : 'No VS Code connection configured';
-        await _sendReply(
-          message,
-          FormattedOutput(text: '''
-🤖 *$name Bot* - D4rt REPL
-
-$vsInfo
-
-*Bot Commands:*
-/start - Show this welcome message
-/status - Show bot status
-
-Type any REPL command directly, or `help` for detailed help.
-'''),
-        );
-        break;
-
-      case '/status':
-        await _sendReply(
-          message,
-          FormattedOutput(text: '''
-*Bot Status*
-
-Bot: $name
-Running: ${_running ? "✅ Yes" : "❌ No"}
-VS Code: ${vscode != null ? "${vscode!.host}:${vscode!.port}" : "Not configured"}
-'''),
-        );
-        break;
-
-      default:
-        await _sendReply(
-          message,
-          formatter.formatWarning('Unknown command: $cmd\nType help for available commands.'),
-        );
-    }
-  }
-
   /// Send a reply to a message.
   Future<void> _sendReply(ChatMessage original, FormattedOutput output) async {
-    await _telegram.sendMessage(
+    await _debugSendMessage(
       ChatReceiver.id(original.sender.id),
       output.text,
       parseMode: output.parseMode,
@@ -747,12 +696,36 @@ VS Code: ${vscode != null ? "${vscode!.host}:${vscode!.port}" : "Not configured"
       for (final file in output.attachments!) {
         // TODO: Implement file sending when ChatApi supports it
         // For now, just notify about the file
-        await _telegram.sendMessage(
+        await _debugSendMessage(
           ChatReceiver.id(original.sender.id),
           '📎 File: ${file.path}',
         );
       }
     }
+  }
+  
+  /// Debug wrapper for sending messages - prints exactly what is sent.
+  Future<void> _debugSendMessage(
+    ChatReceiver receiver,
+    String text, {
+    String? parseMode,
+  }) async {
+    print('');
+    print('╔════════════════════════════════════════════════════════════');
+    print('║ SENDING TO TELEGRAM');
+    print('╠════════════════════════════════════════════════════════════');
+    print('║ receiver: $receiver');
+    print('║ parseMode: $parseMode');
+    print('╠════════════════════════════════════════════════════════════');
+    print('║ TEXT:');
+    print('╠════════════════════════════════════════════════════════════');
+    for (final line in text.split('\n')) {
+      print('║ $line');
+    }
+    print('╚════════════════════════════════════════════════════════════');
+    print('');
+    
+    await _telegram.sendMessage(receiver, text, parseMode: parseMode);
   }
 
   /// Send typing indicator.
