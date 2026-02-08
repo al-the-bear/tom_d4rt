@@ -47,20 +47,20 @@ Each feature has a stable ID for cross-referencing between this document, test s
 
 ### Top-Level Exportables (29 features)
 
-| ID | Feature | Status | Test Project | Issue | Details |
-|----|---------|--------|--------------|-------|---------|
-| TOP01 | Class (concrete) | ✅ | example_project, user_guide, user_reference, dart_overview, userbridge_user_guide | | [→](#top01-class-concrete) |
+| ID | Feature | Status | Coverage Test | Issue | Details |
+|----|---------|--------|---------------|-------|---------|
+| TOP01 | Class (concrete) | ✅ | `top01_concrete_class` | | [→](#top01-class-concrete) |
 | TOP02 | Abstract class | ❌ | — | | [→](#top02-abstract-class) |
 | TOP03 | Sealed class | ❌ | — | | [→](#top03-sealed-class) |
 | TOP04 | Base class | ❌ | — | | [→](#top04-base-class) |
 | TOP05 | Interface class | ❌ | — | | [→](#top05-interface-class) |
 | TOP06 | Final class | ❌ | — | | [→](#top06-final-class) |
 | TOP07 | Mixin class | ❌ | — | | [→](#top07-mixin-class) |
-| TOP08 | Simple enum | ⚠️ | dart_overview | GEN-044 | [→](#top08-simple-enum) |
-| TOP09 | Enhanced enum (fields) | ⚠️ | example_project, dart_overview | GEN-041 | [→](#top09-enhanced-enum-fields) |
-| TOP10 | Enhanced enum (methods) | ⚠️ | dart_overview | GEN-041 | [→](#top10-enhanced-enum-methods) |
-| TOP11 | Enhanced enum (implements) | ⚠️ | dart_overview | GEN-041 | [→](#top11-enhanced-enum-implements) |
-| TOP12 | Enhanced enum (with mixin) | ⚠️ | dart_overview | GEN-041 | [→](#top12-enhanced-enum-with-mixin) |
+| TOP08 | Simple enum | ⚠️ | `top08_simple_enum` | GEN-044 | [→](#top08-simple-enum) |
+| TOP09 | Enhanced enum (fields) | ⚠️ | `top09_enhanced_enum_fields` | GEN-041 | [→](#top09-enhanced-enum-fields) |
+| TOP10 | Enhanced enum (methods) | ⚠️ | `top10_enhanced_enum_methods` | GEN-041 | [→](#top10-enhanced-enum-methods) |
+| TOP11 | Enhanced enum (implements) | ⚠️ | `top11_enhanced_enum_implements` | GEN-041 | [→](#top11-enhanced-enum-implements) |
+| TOP12 | Enhanced enum (with mixin) | ⚠️ | `top12_enhanced_enum_mixin` | GEN-041 | [→](#top12-enhanced-enum-with-mixin) |
 | TOP13 | Generic enum | ❌ | — | | [→](#top13-generic-enum) |
 | TOP14 | Mixin | ❌ | — | | [→](#top14-mixin) |
 | TOP15 | Base mixin | ❌ | — | | [→](#top15-base-mixin) |
@@ -70,45 +70,45 @@ Each feature has a stable ID for cross-referencing between this document, test s
 | TOP19 | Typedef (function) | ❌ | — | | [→](#top19-typedef-function) |
 | TOP20 | Typedef (type alias) | ❌ | — | | [→](#top20-typedef-type-alias) |
 | TOP21 | Typedef (generic) | ❌ | — | | [→](#top21-typedef-generic) |
-| TOP22 | Top-level function | ✅ | userbridge_override, dart_overview | | [→](#top22-top-level-function) |
+| TOP22 | Top-level function | ✅ | `top22_toplevel_function` | | [→](#top22-top-level-function) |
 | TOP23 | Top-level generic function | ❌ | — | | [→](#top23-top-level-generic-function) |
 | TOP24 | Top-level async function | ❌ | — | | [→](#top24-top-level-async-function) |
-| TOP25 | Top-level variable (var/final) | ✅ | userbridge_override | | [→](#top25-top-level-variable) |
-| TOP26 | Top-level const | ✅ | userbridge_override | | [→](#top26-top-level-const) |
+| TOP25 | Top-level variable (var/final) | ✅ | e2e: userbridge_override | | [→](#top25-top-level-variable) |
+| TOP26 | Top-level const | ✅ | e2e: userbridge_override | | [→](#top26-top-level-const) |
 | TOP27 | Top-level getter | ❌ | — | | [→](#top27-top-level-getter) |
 | TOP28 | Top-level setter | ❌ | — | | [→](#top28-top-level-setter) |
 | TOP29 | Mixin application (`class = with`) | ❌ | — | | [→](#top29-mixin-application) |
 
 ### Class Members (17 features)
 
-| ID | Feature | Status | Test Project | Issue | Details |
-|----|---------|--------|--------------|-------|---------|
-| CLS01 | Instance field (getter) | ✅ | example_project, user_guide, user_reference, dart_overview, userbridge_user_guide | | [→](#cls01-instance-field-getter) |
-| CLS02 | Instance field (setter) | ✅ | dart_overview | | [→](#cls02-instance-field-setter) |
-| CLS03 | Final field | ✅ | user_guide, dart_overview, userbridge_user_guide | | [→](#cls03-final-field) |
-| CLS04 | Private field with public getter | ✅ | dart_overview | | [→](#cls04-private-field-with-public-getter) |
+| ID | Feature | Status | Coverage Test | Issue | Details |
+|----|---------|--------|---------------|-------|---------|
+| CLS01 | Instance field (getter) | ✅ | `cls01_field_getter` | | [→](#cls01-instance-field-getter) |
+| CLS02 | Instance field (setter) | ✅ | `cls02_field_setter` | | [→](#cls02-instance-field-setter) |
+| CLS03 | Final field | ✅ | `cls03_final_field` | | [→](#cls03-final-field) |
+| CLS04 | Private field with public getter | ✅ | `cls04_private_field_getter` | | [→](#cls04-private-field-with-public-getter) |
 | CLS05 | Nullable field | ❌ | — | | [→](#cls05-nullable-field) |
 | CLS06 | Late field | ❌ | — | | [→](#cls06-late-field) |
 | CLS07 | Static field (mutable) | ❌ | — | | [→](#cls07-static-field-mutable) |
-| CLS08 | Static const field | ✅ | example_project, dart_overview | | [→](#cls08-static-const-field) |
-| CLS09 | Computed getter | ✅ | user_reference, dart_overview, userbridge_user_guide | | [→](#cls09-computed-getter) |
-| CLS10 | Explicit setter (`set x`) | ✅ | dart_overview | | [→](#cls10-explicit-setter) |
-| CLS11 | Static method | ✅ | example_project, user_guide, user_reference | | [→](#cls11-static-method) |
+| CLS08 | Static const field | ✅ | `cls08_static_const` | | [→](#cls08-static-const-field) |
+| CLS09 | Computed getter | ✅ | `cls09_computed_getter` | | [→](#cls09-computed-getter) |
+| CLS10 | Explicit setter (`set x`) | ✅ | `cls10_explicit_setter` | | [→](#cls10-explicit-setter) |
+| CLS11 | Static method | ✅ | e2e: example_project | | [→](#cls11-static-method) |
 | CLS12 | Static getter | ❌ | — | | [→](#cls12-static-getter) |
 | CLS13 | Static setter | ❌ | — | | [→](#cls13-static-setter) |
-| CLS14 | Instance method | ✅ | all projects, dart_overview | | [→](#cls14-instance-method) |
+| CLS14 | Instance method | ✅ | `cls14_instance_method` | | [→](#cls14-instance-method) |
 | CLS15 | Abstract method | ❌ | — | | [→](#cls15-abstract-method) |
-| CLS16 | `toString()` override | ✅ | dart_overview, userbridge_user_guide | | [→](#cls16-tostring-override) |
+| CLS16 | `toString()` override | ✅ | `cls16_tostring` | | [→](#cls16-tostring-override) |
 | CLS17 | `call()` method | ❌ | — | | [→](#cls17-call-method) |
 
 ### Constructors (8 features)
 
-| ID | Feature | Status | Test Project | Issue | Details |
-|----|---------|--------|--------------|-------|---------|
-| CTOR01 | Unnamed (default, explicit) | ✅ | example_project, user_guide, dart_overview, userbridge_user_guide | | [→](#ctor01-unnamed-constructor) |
-| CTOR02 | Implicit default (no ctor) | ⚠️ | dart_overview | GEN-042 | [→](#ctor02-implicit-default-constructor) |
-| CTOR03 | Named constructor | ✅ | example_project, user_guide, dart_overview, userbridge_user_guide | | [→](#ctor03-named-constructor) |
-| CTOR04 | Factory constructor | ✅ | dart_overview | | [→](#ctor04-factory-constructor) |
+| ID | Feature | Status | Coverage Test | Issue | Details |
+|----|---------|--------|---------------|-------|---------|
+| CTOR01 | Unnamed (default, explicit) | ✅ | `ctor01_unnamed` | | [→](#ctor01-unnamed-constructor) |
+| CTOR02 | Implicit default (no ctor) | ⚠️ | `ctor02_implicit_default` | GEN-042 | [→](#ctor02-implicit-default-constructor) |
+| CTOR03 | Named constructor | ✅ | `ctor03_named` | | [→](#ctor03-named-constructor) |
+| CTOR04 | Factory constructor | ✅ | `ctor04_factory` | | [→](#ctor04-factory-constructor) |
 | CTOR05 | Const constructor | ❌ | — | | [→](#ctor05-const-constructor) |
 | CTOR06 | Redirecting constructor | ❌ | — | | [→](#ctor06-redirecting-constructor) |
 | CTOR07 | Private constructor | ❌ | — | | [→](#ctor07-private-constructor) |
@@ -116,49 +116,49 @@ Each feature has a stable ID for cross-referencing between this document, test s
 
 ### Operators (12 features)
 
-| ID | Feature | Status | Test Project | Issue | Details |
-|----|---------|--------|--------------|-------|---------|
-| OP01 | `operator +` | ✅ | userbridge_user_guide (user bridge) | | [→](#op01-operator-plus) |
-| OP02 | `operator -` (binary) | ✅ | userbridge_user_guide (user bridge) | | [→](#op02-operator-minus-binary) |
-| OP03 | `operator -` (unary) | ✅ | userbridge_user_guide (user bridge) | | [→](#op03-operator-minus-unary) |
-| OP04 | `operator *` | ✅ | userbridge_user_guide (user bridge) | | [→](#op04-operator-multiply) |
+| ID | Feature | Status | Coverage Test | Issue | Details |
+|----|---------|--------|---------------|-------|---------|
+| OP01 | `operator +` | ✅ | e2e: userbridge_user_guide | | [→](#op01-operator-plus) |
+| OP02 | `operator -` (binary) | ✅ | e2e: userbridge_user_guide | | [→](#op02-operator-minus-binary) |
+| OP03 | `operator -` (unary) | ✅ | e2e: userbridge_user_guide | | [→](#op03-operator-minus-unary) |
+| OP04 | `operator *` | ✅ | e2e: userbridge_user_guide | | [→](#op04-operator-multiply) |
 | OP05 | `operator /` | ❌ | — | | [→](#op05-operator-divide) |
 | OP06 | `operator ~/` | ❌ | — | | [→](#op06-operator-integer-divide) |
 | OP07 | `operator %` | ❌ | — | | [→](#op07-operator-modulo) |
 | OP08 | `operator ==` | ❌ | — | | [→](#op08-operator-equals) |
 | OP09 | `operator <` / `>` / `<=` / `>=` | ❌ | — | | [→](#op09-comparison-operators) |
-| OP10 | `operator []` | ✅ | userbridge_user_guide (user bridge) | | [→](#op10-operator-index) |
-| OP11 | `operator []=` | ✅ | userbridge_user_guide (user bridge) | | [→](#op11-operator-index-assign) |
+| OP10 | `operator []` | ✅ | e2e: userbridge_user_guide | | [→](#op10-operator-index) |
+| OP11 | `operator []=` | ✅ | e2e: userbridge_user_guide | | [→](#op11-operator-index-assign) |
 | OP12 | Bitwise operators | ❌ | — | | [→](#op12-bitwise-operators) |
 
 ### Parameters (6 features)
 
-| ID | Feature | Status | Test Project | Issue | Details |
-|----|---------|--------|--------------|-------|---------|
-| PAR01 | Required positional | ✅ | example_project, user_guide, dart_overview | | [→](#par01-required-positional) |
-| PAR02 | Optional positional | ✅ | example_project | | [→](#par02-optional-positional) |
-| PAR03 | Named parameters | ✅ | user_reference, userbridge_override, dart_overview | | [→](#par03-named-parameters) |
-| PAR04 | Required named (`required`) | ✅ | user_reference | | [→](#par04-required-named) |
-| PAR05 | Default values | ✅ | example_project, userbridge_override | | [→](#par05-default-values) |
+| ID | Feature | Status | Coverage Test | Issue | Details |
+|----|---------|--------|---------------|-------|---------|
+| PAR01 | Required positional | ✅ | `par01_required_positional` | | [→](#par01-required-positional) |
+| PAR02 | Optional positional | ✅ | e2e: example_project | | [→](#par02-optional-positional) |
+| PAR03 | Named parameters | ✅ | `par03_named_params` | | [→](#par03-named-parameters) |
+| PAR04 | Required named (`required`) | ✅ | e2e: user_reference | | [→](#par04-required-named) |
+| PAR05 | Default values | ✅ | e2e: example_project | | [→](#par05-default-values) |
 | PAR06 | Function-typed parameter | ❌ | — | | [→](#par06-function-typed-parameter) |
 
 ### Generics (7 features)
 
-| ID | Feature | Status | Test Project | Issue | Details |
-|----|---------|--------|--------------|-------|---------|
-| GNRC01 | Generic class (single type param) | ✅ | dart_overview, userbridge_override | | [→](#gnrc01-generic-class-single) |
-| GNRC02 | Generic class (two type params) | ✅ | dart_overview | | [→](#gnrc02-generic-class-two-params) |
+| ID | Feature | Status | Coverage Test | Issue | Details |
+|----|---------|--------|---------------|-------|---------|
+| GNRC01 | Generic class (single type param) | ✅ | `gnrc01_single_type_param` | | [→](#gnrc01-generic-class-single) |
+| GNRC02 | Generic class (two type params) | ✅ | `gnrc02_two_type_params` | | [→](#gnrc02-generic-class-two-params) |
 | GNRC03 | Upper bound (`T extends X`) | ❌ | — | | [→](#gnrc03-upper-bound) |
-| GNRC04 | Generic method | ✅ | dart_overview | | [→](#gnrc04-generic-method) |
+| GNRC04 | Generic method | ✅ | `gnrc04_generic_method` | | [→](#gnrc04-generic-method) |
 | GNRC05 | Generic static factory | ❌ | — | | [→](#gnrc05-generic-static-factory) |
-| GNRC06 | Generic collection (implicit default ctor) | ⚠️ | dart_overview | GEN-042 | [→](#gnrc06-generic-collection-implicit-default-ctor) |
+| GNRC06 | Generic collection (implicit default ctor) | ⚠️ | `gnrc06_generic_collection` | GEN-042 | [→](#gnrc06-generic-collection-implicit-default-ctor) |
 | GNRC07 | F-bounded polymorphism | ❌ | — | | [→](#gnrc07-f-bounded-polymorphism) |
 
 ### Inheritance (6 features)
 
-| ID | Feature | Status | Test Project | Issue | Details |
-|----|---------|--------|--------------|-------|---------|
-| INH01 | Single-level extends | ✅ | example_project, dart_overview | | [→](#inh01-single-level-extends) |
+| ID | Feature | Status | Coverage Test | Issue | Details |
+|----|---------|--------|---------------|-------|---------|
+| INH01 | Single-level extends | ✅ | e2e: example_project | | [→](#inh01-single-level-extends) |
 | INH02 | Multi-level extends | ❌ | — | | [→](#inh02-multi-level-extends) |
 | INH03 | Implements (interface) | ❌ | — | | [→](#inh03-implements-interface) |
 | INH04 | Mixin with (`with`) | ❌ | — | | [→](#inh04-mixin-with) |
@@ -167,19 +167,19 @@ Each feature has a stable ID for cross-referencing between this document, test s
 
 ### User Bridges (6 features)
 
-| ID | Feature | Status | Test Project | Issue | Details |
-|----|---------|--------|--------------|-------|---------|
-| UBR01 | User bridge class (basic) | ✅ | userbridge_user_guide | | [→](#ubr01-user-bridge-class-basic) |
-| UBR02 | User bridge method override | ✅ | userbridge_override | | [→](#ubr02-user-bridge-method-override) |
-| UBR03 | User bridge field override | ✅ | userbridge_override | | [→](#ubr03-user-bridge-field-override) |
-| UBR04 | User bridge operator | ✅ | userbridge_user_guide | | [→](#ubr04-user-bridge-operator) |
-| UBR05 | User bridge constructor | ✅ | userbridge_user_guide | | [→](#ubr05-user-bridge-constructor) |
-| UBR06 | User bridge import prefix | ✅ | userbridge_user_guide | GEN-043 (fixed) | [→](#ubr06-user-bridge-import-prefix) |
+| ID | Feature | Status | Coverage Test | Issue | Details |
+|----|---------|--------|---------------|-------|---------|
+| UBR01 | User bridge class (basic) | ✅ | e2e: userbridge_user_guide | | [→](#ubr01-user-bridge-class-basic) |
+| UBR02 | User bridge method override | ✅ | e2e: userbridge_override | | [→](#ubr02-user-bridge-method-override) |
+| UBR03 | User bridge field override | ✅ | e2e: userbridge_override | | [→](#ubr03-user-bridge-field-override) |
+| UBR04 | User bridge operator | ✅ | e2e: userbridge_user_guide | | [→](#ubr04-user-bridge-operator) |
+| UBR05 | User bridge constructor | ✅ | e2e: userbridge_user_guide | | [→](#ubr05-user-bridge-constructor) |
+| UBR06 | User bridge import prefix | ✅ | e2e: userbridge_user_guide | GEN-043 (fixed) | [→](#ubr06-user-bridge-import-prefix) |
 
 ### Async & Streams (4 features)
 
-| ID | Feature | Status | Test Project | Issue | Details |
-|----|---------|--------|--------------|-------|---------|
+| ID | Feature | Status | Coverage Test | Issue | Details |
+|----|---------|--------|---------------|-------|---------|
 | ASYNC01 | Async function (Future) | 🔲 | — | | [→](#async01-async-function-future) |
 | ASYNC02 | Async* generator (Stream) | 🔲 | — | | [→](#async02-async-generator-stream) |
 | ASYNC03 | Sync* generator (Iterable) | 🔲 | — | | [→](#async03-sync-generator-iterable) |
@@ -187,22 +187,22 @@ Each feature has a stable ID for cross-referencing between this document, test s
 
 ### Special Types (5 features)
 
-| ID | Feature | Status | Test Project | Issue | Details |
-|----|---------|--------|--------------|-------|---------|
+| ID | Feature | Status | Coverage Test | Issue | Details |
+|----|---------|--------|---------------|-------|---------|
 | TYPE01 | Record type parameter | ❌ | — | | [→](#type01-record-type-parameter) |
 | TYPE02 | Record type return | ❌ | — | | [→](#type02-record-type-return) |
 | TYPE03 | Nullable parameter | ❌ | — | | [→](#type03-nullable-parameter) |
 | TYPE04 | Nullable return | ❌ | — | | [→](#type04-nullable-return) |
-| TYPE05 | `dynamic` parameter / return | ✅ | dart_overview | | [→](#type05-dynamic-parameter--return) |
+| TYPE05 | `dynamic` parameter / return | ✅ | e2e: dart_overview | | [→](#type05-dynamic-parameter--return) |
 
 ### Visibility & Exports (4 features)
 
-| ID | Feature | Status | Test Project | Issue | Details |
-|----|---------|--------|--------------|-------|---------|
-| VIS01 | Barrel export filtering | ✅ | dart_overview | | [→](#vis01-barrel-export-filtering) |
-| VIS02 | Private member exclusion | ✅ | dart_overview | | [→](#vis02-private-member-exclusion) |
+| ID | Feature | Status | Coverage Test | Issue | Details |
+|----|---------|--------|---------------|-------|---------|
+| VIS01 | Barrel export filtering | ✅ | e2e: dart_overview | | [→](#vis01-barrel-export-filtering) |
+| VIS02 | Private member exclusion | ✅ | e2e: dart_overview | | [→](#vis02-private-member-exclusion) |
 | VIS03 | Show/hide combinators | ❌ | — | | [→](#vis03-showhide-combinators) |
-| VIS04 | Multi-barrel modules | ✅ | dart_overview | GEN-030 (fixed) | [→](#vis04-multi-barrel-modules) |
+| VIS04 | Multi-barrel modules | ✅ | e2e: dart_overview | GEN-030 (fixed) | [→](#vis04-multi-barrel-modules) |
 
 ---
 
