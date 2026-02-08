@@ -1,6 +1,6 @@
 # D4rt Bridge Generator — Known Issues & Limitations
 
-> Last updated: 2026-02-08
+> Last updated: 2026-02-09
 
 ---
 
@@ -53,6 +53,7 @@
 | [GEN-043](#gen-043) | [Generated user bridge references lack import prefix ($pkg.)](#gen-043) | Medium | Fixed |
 | [GEN-044](#gen-044) | [Enum `.values` static getter not bridged](#gen-044) | Low | TODO |
 | [GEN-045](#gen-045) | [Barrel-level name collisions silently break bridging](#gen-045) | Medium | TODO |
+| [GEN-046](#gen-046) | [GlobalsUserBridge overrides not applied at runtime](#gen-046) | Medium | TODO |
 
 ---
 
@@ -1583,6 +1584,54 @@ This is a barrel design limitation rather than a generator bug per se. The gener
 - **Import aliasing:** Support importing conflicting source files with prefixes (e.g., `import '...inheritance.dart' as inh; import '...mixins.dart' as mix;`) in the generated bridge code, so both `inh.Animal` and `mix.Animal` can coexist.
 - **Per-export `show`/`hide`:** Allow the barrel to export from both files with explicit `show` clauses that avoid the collision, and have the generator respect which `Animal` is which based on source file origin.
 - **Short-term:** Document the limitation and advise users to rename conflicting types or use separate barrel files.
+
+---
+
+### GEN-046
+
+**GlobalsUserBridge overrides not applied at runtime**
+
+**Status: TODO**
+
+**a) Problem:**
+
+When a user bridge class provides overrides for global variables and global functions (using the `overrideGlobalVariable{Name}` and `overrideGlobalFunction{Name}` naming convention), these overrides are not applied at runtime. The original (non-overridden) values are returned instead.
+
+In the `userbridge_override` example project, `GlobalsUserBridge` defines overrides:
+
+```dart
+class GlobalsUserBridge extends D4UserBridge {
+  String? get overrideGlobalVariableAppName => 'OverriddenApp';
+  int? get overrideGlobalVariableMaxRetries => 10;
+  Function? get overrideGlobalFunctionGreet =>
+      (String name) => 'Custom greeting for $name!';
+  Function? get overrideGlobalFunctionCalculate =>
+      (int a, int b) => a * b + 100;
+}
+```
+
+Expected behavior: D4rt scripts accessing `appName` should get `'OverriddenApp'` (not `'DefaultApp'`), `maxRetries` should be `10` (not `3`), etc.
+
+Actual behavior: The original values are returned — `appName` is still `'DefaultApp'`, `maxRetries` is still `3`, and the original function implementations are called.
+
+The existing `d4rt_test_overrides.dart` test did not catch this because it only prints values without asserting on the overridden results.
+
+**Reproducing test:** `example/userbridge_override/test/ubr03_field_override.dart`
+
+**b) Location:**
+
+The issue is likely in the bridge runtime's user bridge resolution for globals. The class-level user bridge mechanism works (Vector2D, Matrix2x2, MyList overrides all apply correctly), but the globals user bridge mechanism does not wire up the `overrideGlobalVariable*` / `overrideGlobalFunction*` getters to the global accessor bridges.
+
+Possible locations:
+- Global bridge generation in the main generator (how globals bridges are emitted)
+- User bridge scanner (may not scan for global overrides)
+- Bridge runtime initialization (may not register global user bridge overrides)
+
+**c) Strategies:**
+
+- **Investigation:** Compare how class-level user bridge overrides are wired (e.g., `Vector2DUserBridge` methods replacing generated bridges) vs. how `GlobalsUserBridge` overrides are supposed to be wired. The class-level mechanism works, so the pattern exists — it just needs to be applied to globals.
+- **Fix:** Ensure the bridge init code checks for `overrideGlobalVariable*` / `overrideGlobalFunction*` getters in the globals user bridge and uses them instead of the default generated accessors.
+- **Validation:** The `ubr03_field_override.dart` test script will automatically verify the fix once applied.
 
 ---
 

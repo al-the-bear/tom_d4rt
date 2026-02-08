@@ -152,10 +152,10 @@ Same reasoning. The generator **must** bridge static const fields (e.g., `Counte
 | ID | Feature | Status | Coverage Test | UB Test | Issue | Details |
 |----|---------|--------|---------------|---------|-------|---------|
 | PAR01 | Required positional | ✅ | `par01_required_positional` | not needed | | [→](#par01-required-positional) |
-| PAR02 | Optional positional | ✅ | e2e: example_project | not needed | | [→](#par02-optional-positional) |
+| PAR02 | Optional positional | ✅ | `par02_optional_positional` | not needed | | [→](#par02-optional-positional) |
 | PAR03 | Named parameters | ✅ | `par03_named_params` | not needed | | [→](#par03-named-parameters) |
-| PAR04 | Required named (`required`) | ✅ | e2e: user_reference | not needed | | [→](#par04-required-named) |
-| PAR05 | Default values | ✅ | e2e: example_project | not needed | | [→](#par05-default-values) |
+| PAR04 | Required named (`required`) | ✅ | `par04_required_named` | not needed | | [→](#par04-required-named) |
+| PAR05 | Default values | ✅ | `par05_default_values` | not needed | | [→](#par05-default-values) |
 | PAR06 | Function-typed parameter | ⚠️ | `par06_function_typed_param` | not needed | GEN-005 | [→](#par06-function-typed-parameter) |
 
 ### Generics (7 features)
@@ -185,12 +185,12 @@ Same reasoning. The generator **must** bridge static const fields (e.g., `Counte
 
 | ID | Feature | Status | Coverage Test | UB Test | Issue | Details |
 |----|---------|--------|---------------|---------|-------|---------|
-| UBR01 | User bridge class (basic) | ✅ | e2e: userbridge_user_guide | `e2e: userbridge_user_guide` | | [→](#ubr01-user-bridge-class-basic) |
-| UBR02 | User bridge method override | ✅ | e2e: userbridge_override | `e2e: userbridge_override` | | [→](#ubr02-user-bridge-method-override) |
-| UBR03 | User bridge field override | ✅ | e2e: userbridge_override | `e2e: userbridge_override` | | [→](#ubr03-user-bridge-field-override) |
-| UBR04 | User bridge operator | ✅ | e2e: userbridge_user_guide | `e2e: userbridge_user_guide` | | [→](#ubr04-user-bridge-operator) |
-| UBR05 | User bridge constructor | ✅ | e2e: userbridge_user_guide | `e2e: userbridge_user_guide` | | [→](#ubr05-user-bridge-constructor) |
-| UBR06 | User bridge import prefix | ✅ | e2e: userbridge_user_guide | `e2e: userbridge_user_guide` | GEN-043 (fixed) | [→](#ubr06-user-bridge-import-prefix) |
+| UBR01 | User bridge class (basic) | ✅ | e2e: userbridge_user_guide | `ubr01_basic_class` | | [→](#ubr01-user-bridge-class-basic) |
+| UBR02 | User bridge method override | ✅ | e2e: userbridge_override | `ubr02_method_override` | | [→](#ubr02-user-bridge-method-override) |
+| UBR03 | User bridge field override | ⚠️ | e2e: userbridge_override | `ubr03_field_override` | GEN-046 | [→](#ubr03-user-bridge-field-override) |
+| UBR04 | User bridge operator | ✅ | e2e: userbridge_user_guide | `ubr04_operator` | | [→](#ubr04-user-bridge-operator) |
+| UBR05 | User bridge constructor | ✅ | e2e: userbridge_user_guide | `ubr05_constructor` | | [→](#ubr05-user-bridge-constructor) |
+| UBR06 | User bridge import prefix | ✅ | e2e: userbridge_user_guide | `ubr06_import_prefix` | GEN-043 (fixed) | [→](#ubr06-user-bridge-import-prefix) |
 
 ### Async & Streams (8 features)
 
@@ -262,12 +262,12 @@ Generator-level features cover configuration, type resolution, output generation
 | Parameters | 6 | 5 | 1 | 0 | 0 |
 | Generics | 7 | 5 | 2 | 0 | 0 |
 | Inheritance | 6 | 3 | 3 | 0 | 0 |
-| User Bridges | 6 | 6 | 0 | 0 | 0 |
+| User Bridges | 6 | 5 | 1 | 0 | 0 |
 | Async & Streams | 8 | 0 | 8 | 0 | 0 |
 | Special Types | 5 | 3 | 2 | 0 | 0 |
 | Visibility & Exports | 4 | 3 | 1 | 0 | 0 |
 | Generator Features | 18 | 4 | 0 | 14 | 0 |
-| **Total** | **126** | **70** | **42** | **14** | **0** |
+| **Total** | **126** | **69** | **43** | **14** | **0** |
 
 ---
 
@@ -992,8 +992,11 @@ Required positional parameters are the most basic parameter type.
 
 Optional positional parameters (`[int x = 0]`).
 
-**Coverage test:** —
-**Tested in:** example_project (via e2e test)
+**Coverage test:** `par02_optional_positional.dart` — PASSED
+- Tests `sayHello()` with all-optional positional params (0 args, 1 arg, 2 args).
+- Tests `power()` with required + optional positional param (default exponent, explicit exponent).
+
+**Tested in:** example_project, dart_overview
 
 ---
 
@@ -1012,8 +1015,12 @@ Named parameters (`{String name = 'default'}`).
 
 Required named parameters (`{required String name}`).
 
-**Coverage test:** —
-**Tested in:** user_reference (via e2e test)
+**Coverage test:** `par04_required_named.dart` — PASSED
+- Tests `describe()` with required + optional named params.
+- Tests `processOrder()` with mixed required/optional named params.
+- Tests `makeRequest()` with required named + optional positional params.
+
+**Tested in:** user_reference, dart_overview
 
 ---
 
@@ -1021,8 +1028,13 @@ Required named parameters (`{required String name}`).
 
 Default values for optional and named parameters.
 
-**Coverage test:** —
-**Tested in:** example_project, userbridge_override (via e2e tests)
+**Coverage test:** `par05_default_values.dart` — PASSED
+- Tests `sayHello()` default values for optional positional params.
+- Tests `power()` default exponent value.
+- Tests `makeRequest()` default method, default timeout.
+- Tests `processOrder()` default priority, default express flag.
+
+**Tested in:** example_project, userbridge_override, dart_overview
 
 **Note:** Complex default values cannot be represented in generated code (GEN-003).
 
@@ -1187,8 +1199,12 @@ Subclass overriding a parent method (`@override`).
 
 User bridge classes provide custom D4rt bindings for types the generator cannot fully handle.
 
-**Coverage test:** —
-**Tested in:** userbridge_user_guide (via e2e test)
+**Coverage test:** `ubr01_basic_class.dart` — PASSED
+- Tests Vector2D construction, field access (x, y), method calls (length, toString).
+- Tests Matrix2x2 construction, field access, determinant, trace.
+- Verifies user bridge print markers (`[UB:Vector2D]`, `[UB:Matrix2x2]`).
+
+**Tested in:** userbridge_user_guide
 
 ---
 
@@ -1196,8 +1212,12 @@ User bridge classes provide custom D4rt bindings for types the generator cannot 
 
 User bridges can override generated method bridges with custom implementations.
 
-**Coverage test:** —
-**Tested in:** userbridge_override (via e2e test)
+**Coverage test:** `ubr02_method_override.dart` — PASSED
+- Tests MyList `operator[]` and `operator[]=` via user bridge overrides.
+- Tests MyList `add()`, `remove()`, `clear()` method overrides.
+- Verifies user bridge print markers (`[UB:MyList]`).
+
+**Tested in:** userbridge_override
 
 ---
 
@@ -1205,8 +1225,12 @@ User bridges can override generated method bridges with custom implementations.
 
 User bridges can override generated field getters/setters.
 
-**Coverage test:** —
-**Tested in:** userbridge_override (via e2e test)
+**Coverage test:** `ubr03_field_override.dart` — FAILED
+- Tests GlobalsUserBridge overrides for `appName`, `maxRetries`, `greet()`, `calculate()`.
+- **Failure:** GlobalsUserBridge overrides not applied — global variables/functions retain original values.
+- **Issue:** GEN-046
+
+**Tested in:** userbridge_override
 
 ---
 
@@ -1214,8 +1238,12 @@ User bridges can override generated field getters/setters.
 
 User bridges can define operators (e.g., `+`, `-`, `[]`, `[]=`) on bridged types.
 
-**Coverage test:** —
-**Tested in:** userbridge_user_guide (via e2e test)
+**Coverage test:** `ubr04_operator.dart` — PASSED
+- Tests Vector2D `+`, `-` (binary), `-` (unary), `*` (scalar) operators.
+- Tests Matrix2x2 `[]` and `[]=` operators.
+- Verifies user bridge print markers.
+
+**Tested in:** userbridge_user_guide
 
 ---
 
@@ -1223,8 +1251,12 @@ User bridges can define operators (e.g., `+`, `-`, `[]`, `[]=`) on bridged types
 
 User bridges can define constructors for bridged types.
 
-**Coverage test:** —
-**Tested in:** userbridge_user_guide (via e2e test)
+**Coverage test:** `ubr05_constructor.dart` — PASSED
+- Tests Vector2D unnamed constructor and `Vector2D.zero()` named constructor.
+- Tests Matrix2x2 unnamed constructor and `Matrix2x2.identity()` named constructor.
+- Verifies correct field values after construction.
+
+**Tested in:** userbridge_user_guide
 
 ---
 
@@ -1232,8 +1264,11 @@ User bridges can define constructors for bridged types.
 
 User bridge generated references must use the correct import prefix (`$pkg.`). Previously broken (GEN-043, now fixed).
 
-**Coverage test:** —
-**Tested in:** userbridge_user_guide (via e2e test)
+**Coverage test:** `ubr06_import_prefix.dart` — PASSED
+- Tests that user bridge types (Vector2D, Matrix2x2) work correctly with import-prefixed references.
+- Verifies construction, field access, and method calls all resolve through correct prefix.
+
+**Tested in:** userbridge_user_guide
 **Issue:** GEN-043 (fixed)
 
 ---
