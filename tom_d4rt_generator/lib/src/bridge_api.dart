@@ -47,10 +47,16 @@ class GenerationResult {
 ///
 /// Either [config] or [configPath] must be provided.
 ///
+/// When using [config], specify [projectPath] to set the project root directory
+/// for resolving relative paths in the config. Defaults to [Directory.current].
+///
 /// Example using config object:
 /// ```dart
 /// final config = BridgeConfig.fromJson({...});
-/// final result = await generateBridges(config: config);
+/// final result = await generateBridges(
+///   config: config,
+///   projectPath: '/path/to/project',
+/// );
 /// ```
 ///
 /// Example using config file:
@@ -62,6 +68,7 @@ class GenerationResult {
 Future<GenerationResult> generateBridges({
   BridgeConfig? config,
   String? configPath,
+  String? projectPath,
 }) async {
   if (config == null && configPath == null) {
     throw ArgumentError('Either config or configPath must be provided');
@@ -71,8 +78,9 @@ Future<GenerationResult> generateBridges({
     throw ArgumentError('Only one of config or configPath should be provided');
   }
   
-  // Load config from tom_build.yaml if needed
-  final projectDir = configPath != null ? p.dirname(configPath) : Directory.current.path;
+  // Resolve project directory: explicit projectPath > configPath parent > cwd
+  final projectDir = projectPath ??
+      (configPath != null ? p.dirname(configPath) : Directory.current.path);
   final bridgeConfig = config ?? BuildConfigLoader.loadFromTomBuildYaml(projectDir);
   if (bridgeConfig == null) {
     throw ArgumentError('No d4rtgen configuration found in $projectDir');
