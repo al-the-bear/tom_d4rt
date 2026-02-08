@@ -29,7 +29,6 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:glob/glob.dart';
-import 'package:glob/list_local_fs.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_build_base/tom_build_base.dart';
 import 'package:tom_d4rt_generator/src/build_config_loader.dart';
@@ -233,21 +232,22 @@ Future<List<String>> _collectProjects(TomBuildConfig config) async {
   
   // Legacy --projects support (for backward compatibility)
   if (config.projects.isNotEmpty) {
-    return await _findProjectsByGlob(
-      config.projects,
-      exclude: config.exclude,
-      verbose: verbose,
+    final projects = await discovery.resolveProjectPatterns(
+      config.projects.join(','),
+      basePath: Directory.current.path,
+      projectFilter: _isD4rtProject,
     );
+    return _filterD4rtProjects(projects, config.exclude);
   } 
   
   if (config.scan != null) {
-    return await _scanForProjects(
+    final projects = await discovery.scanForProjects(
       config.scan!,
       recursive: config.recursive,
-      exclude: config.exclude,
+      toolKey: _toolKey,
       recursionExclude: config.recursionExclude,
-      verbose: verbose,
     );
+    return _filterD4rtProjects(projects, config.exclude);
   }
   
   return [];
@@ -277,11 +277,13 @@ Future<ProcessingResult> _runWithConfig(TomBuildConfig config, {required String 
     }
   } else if (config.projects.isNotEmpty) {
     // Process projects matching glob patterns
-    final projects = await _findProjectsByGlob(
-      config.projects,
-      exclude: config.exclude,
-      verbose: verbose,
+    final discovery = ProjectDiscovery(verbose: verbose);
+    final allProjects = await discovery.resolveProjectPatterns(
+      config.projects.join(','),
+      basePath: basePath,
+      projectFilter: _isD4rtProject,
     );
+    final projects = _filterD4rtProjects(allProjects, config.exclude);
 
     if (projects.isEmpty) {
       stderr.writeln('No projects found matching patterns: ${config.projects.join(", ")}');
@@ -300,13 +302,14 @@ Future<ProcessingResult> _runWithConfig(TomBuildConfig config, {required String 
     }
   } else if (config.scan != null) {
     // Scan directory for projects (finds all D4rt projects in directory)
-    final projects = await _scanForProjects(
+    final discovery = ProjectDiscovery(verbose: verbose);
+    final allProjects = await discovery.scanForProjects(
       config.scan!,
       recursive: config.recursive,
-      exclude: config.exclude,
+      toolKey: _toolKey,
       recursionExclude: config.recursionExclude,
-      verbose: verbose,
     );
+    final projects = _filterD4rtProjects(allProjects, config.exclude);
 
     if (projects.isEmpty) {
       stderr.writeln('No D4rt projects found in ${config.scan}');
@@ -447,27 +450,28 @@ Future<ProcessingResult> _processProjectWithRecursion(
   return result;
 }
 
-/// Find subprojects within a project directory.
+/// Find subprojects within a project directory using ProjectDiscovery.
 Future<List<String>> _findSubprojects(
   String projectPath, {
   required List<String> recursionExclude,
   required List<String> exclude,
   required bool verbose,
 }) async {
-  final subprojects = <String>[];
-  final projectDir = Directory(projectPath);
-
-  if (!projectDir.existsSync()) return subprojects;
-
-  await _findSubprojectsRecursive(
-    projectDir,
+  final discovery = ProjectDiscovery(verbose: verbose);
+  final allProjects = await discovery.scanForProjects(
     projectPath,
-    subprojects,
+    recursive: true,
+    toolKey: _toolKey,
     recursionExclude: recursionExclude,
   );
 
-  // Apply project exclusions
-  final filtered = _applyExclusions(subprojects, exclude);
+  // Remove the root project itself — we only want subprojects
+  final normalizedRoot = p.normalize(p.absolute(projectPath));
+  final subprojects = allProjects
+      .where((path) => p.normalize(p.absolute(path)) != normalizedRoot)
+      .toList();
+
+  final filtered = _filterD4rtProjects(subprojects, exclude);
 
   if (verbose && filtered.isNotEmpty) {
     print('Found ${filtered.length} subproject(s) in $projectPath:');
@@ -477,192 +481,6 @@ Future<List<String>> _findSubprojects(
   }
 
   return filtered;
-}
-
-/// Recursively find subprojects, respecting recursion exclusions.
-Future<void> _findSubprojectsRecursive(
-  Directory dir,
-  String rootPath,
-  List<String> subprojects, {
-  required List<String> recursionExclude,
-}) async {
-  final recursionGlobs = recursionExclude.map((pattern) => Glob(pattern)).toList();
-
-  try {
-    for (final entity in dir.listSync()) {
-      if (entity is! Directory) continue;
-
-      final dirPath = entity.path;
-      final dirName = p.basename(dirPath);
-      final relativePath = p.relative(dirPath, from: rootPath);
-
-      // Skip hidden directories and common non-project directories
-      if (dirName.startsWith('.') ||
-          dirName == 'build' ||
-          dirName == '.dart_tool' ||
-          dirName == 'node_modules') {
-        continue;
-      }
-
-      // Check recursion exclusions
-      bool excluded = false;
-      for (final glob in recursionGlobs) {
-        if (glob.matches(relativePath) || glob.matches(dirPath)) {
-          excluded = true;
-          break;
-        }
-      }
-      if (excluded) continue;
-
-      // Check if this is a D4rt project (has config)
-      if (_isD4rtProject(dirPath) || _hasTomBuildYaml(dirPath)) {
-        subprojects.add(p.normalize(dirPath));
-      }
-
-      // Continue recursion into subdirectories
-      await _findSubprojectsRecursive(
-        entity,
-        rootPath,
-        subprojects,
-        recursionExclude: recursionExclude,
-      );
-    }
-  } catch (e) {
-    // Ignore permission errors, etc.
-  }
-}
-
-/// Check if directory has tom_build.yaml with d4rtgen: section.
-/// Uses hasTomBuildConfig from tom_build_base.
-bool _hasTomBuildYaml(String dirPath) {
-  return hasTomBuildConfig(dirPath, _toolKey);
-}
-
-/// Find projects matching glob patterns.
-Future<List<String>> _findProjectsByGlob(
-  List<String> patterns, {
-  List<String> exclude = const [],
-  required bool verbose,
-}) async {
-  final projects = <String>{};
-
-  for (final pattern in patterns) {
-    final glob = Glob(pattern);
-
-    await for (final entity in glob.list()) {
-      if (entity is Directory) {
-        final dirPath = entity.path;
-        if (_isD4rtProject(dirPath) || _hasTomBuildYaml(dirPath)) {
-          projects.add(p.normalize(dirPath));
-        }
-      }
-    }
-  }
-
-  // Apply exclusions
-  final filtered = _applyExclusions(projects.toList(), exclude);
-
-  if (verbose && filtered.isNotEmpty) {
-    print('Found ${filtered.length} project(s) matching patterns:');
-    for (final project in filtered) {
-      print('  - $project');
-    }
-    print('');
-  }
-
-  return filtered;
-}
-
-/// Scan directory for D4rt projects.
-Future<List<String>> _scanForProjects(
-  String scanPath, {
-  required bool recursive,
-  List<String> exclude = const [],
-  List<String> recursionExclude = const [],
-  required bool verbose,
-}) async {
-  final projects = <String>[];
-  final scanDir = Directory(scanPath);
-
-  if (!scanDir.existsSync()) {
-    throw Exception('Scan directory not found: $scanPath');
-  }
-
-  // Check if the scan directory itself is a project
-  if (_isD4rtProject(scanPath)) {
-    projects.add(p.normalize(scanPath));
-  }
-
-  if (recursive) {
-    // Recursively find all projects
-    await _findProjectsInDirRecursive(scanDir, projects, recursionExclude: recursionExclude);
-  } else {
-    // Only immediate subdirectories
-    for (final entity in scanDir.listSync()) {
-      if (entity is Directory && _isD4rtProject(entity.path)) {
-        projects.add(p.normalize(entity.path));
-      }
-    }
-  }
-
-  // Apply exclusions
-  final filtered = _applyExclusions(projects, exclude);
-
-  if (verbose && filtered.isNotEmpty) {
-    print('Found ${filtered.length} D4rt project(s):');
-    for (final project in filtered) {
-      print('  - $project');
-    }
-    print('');
-  }
-
-  return filtered;
-}
-
-/// Recursively find all D4rt projects in a directory.
-Future<void> _findProjectsInDirRecursive(
-  Directory dir,
-  List<String> projects, {
-  required List<String> recursionExclude,
-}) async {
-  final recursionGlobs = recursionExclude.map((pattern) => Glob(pattern)).toList();
-
-  try {
-    for (final entity in dir.listSync()) {
-      if (entity is! Directory) continue;
-
-      final dirPath = entity.path;
-      final dirName = p.basename(dirPath);
-
-      // Skip hidden directories and common non-project directories
-      if (dirName.startsWith('.') ||
-          dirName == 'build' ||
-          dirName == '.dart_tool' ||
-          dirName == 'node_modules') {
-        continue;
-      }
-
-      // Check recursion exclusions
-      bool excluded = false;
-      for (final glob in recursionGlobs) {
-        if (glob.matches(dirPath)) {
-          excluded = true;
-          break;
-        }
-      }
-      if (excluded) continue;
-
-      // Check if this is a D4rt project
-      if (_isD4rtProject(dirPath)) {
-        projects.add(p.normalize(dirPath));
-      }
-
-      // Always recurse to find subprojects
-      await _findProjectsInDirRecursive(entity, projects, recursionExclude: recursionExclude);
-    }
-  } catch (e) {
-    // Ignore permission errors, etc.
-  }
 }
 
 /// Check if a directory is a D4rt project.
@@ -675,17 +493,16 @@ bool _isD4rtProject(String dirPath) {
   return hasTomBuildConfig(dirPath, _toolKey);
 }
 
-/// Apply exclusion patterns to a list of projects.
-List<String> _applyExclusions(List<String> projects, List<String> exclude) {
-  if (exclude.isEmpty) return projects;
+/// Filter a project list to only D4rt projects and apply exclusion patterns.
+List<String> _filterD4rtProjects(List<String> projects, List<String> exclude) {
+  var filtered = projects.where(_isD4rtProject).toList();
+  if (exclude.isEmpty) return filtered;
 
   final globs = exclude.map((pattern) => Glob(pattern)).toList();
-
-  return projects.where((project) {
+  return filtered.where((project) {
+    final dirName = p.basename(project);
     for (final glob in globs) {
-      if (glob.matches(project)) {
-        return false;
-      }
+      if (glob.matches(project) || glob.matches(dirName)) return false;
     }
     return true;
   }).toList();

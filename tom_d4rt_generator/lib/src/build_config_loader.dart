@@ -11,6 +11,7 @@ library;
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
+import 'package:tom_build_base/tom_build_base.dart';
 import 'package:yaml/yaml.dart';
 
 import 'bridge_config.dart';
@@ -43,37 +44,7 @@ class BuildConfigLoader {
     }
 
     // Convert YamlMap to regular Map for BridgeConfig.fromJson
-    return BridgeConfig.fromJson(_yamlToJson(d4rtgenSection));
-  }
-
-  /// Converts a YamlMap to a regular Dart Map.
-  static Map<String, dynamic> _yamlToJson(YamlMap yaml) {
-    final result = <String, dynamic>{};
-    for (final entry in yaml.entries) {
-      final key = entry.key.toString();
-      final value = entry.value;
-      if (value is YamlMap) {
-        result[key] = _yamlToJson(value);
-      } else if (value is YamlList) {
-        result[key] = _yamlListToJson(value);
-      } else {
-        result[key] = value;
-      }
-    }
-    return result;
-  }
-
-  /// Converts a YamlList to a regular Dart List.
-  static List<dynamic> _yamlListToJson(YamlList yaml) {
-    return yaml.map((item) {
-      if (item is YamlMap) {
-        return _yamlToJson(item);
-      } else if (item is YamlList) {
-        return _yamlListToJson(item);
-      } else {
-        return item;
-      }
-    }).toList();
+    return BridgeConfig.fromJson(yamlToMap(d4rtgenSection));
   }
 
   /// Gets the package name from pubspec.yaml.

@@ -1,8 +1,7 @@
 /// Shared file generation utilities for D4rt Bridge Generator.
 ///
 /// This library provides the content generation functions used by all entry points:
-/// - bin/d4rt_generator.dart (standalone CLI)
-/// - lib/src/cli/d4rt_generator_cli.dart (library CLI)
+/// - bin/d4rt_gen.dart (standalone CLI)
 /// - lib/src/bridge_api.dart (programmatic API)
 /// - lib/builder.dart (build_runner integration)
 library;
