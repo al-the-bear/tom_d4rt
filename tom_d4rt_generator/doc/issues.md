@@ -6,1100 +6,72 @@
 
 ## Issue Index
 
-| ID | Description | Complexity | Status |
-|----|-------------|------------|--------|
-| [GEN-028](#gen-028) | [CLI didn't pass export filtering params to generator](#gen-028) | Medium | Fixed |
-| [GEN-029](#gen-029) | [CLI path missing export info filtering for globals](#gen-029) | Medium | Fixed |
-| [GEN-030](#gen-030) | [Multi-barrel modules only registered under primary barrel](#gen-030) | High | Fixed |
-| [GEN-031](#gen-031) | [CLI `args['projects']` referenced undefined ArgParser option](#gen-031) | Low | Fixed |
-| [GEN-032](#gen-032) | [Test runner generation step missing from bin CLI path](#gen-032) | Medium | Fixed |
-| [GEN-033](#gen-033) | [Test runner init source included non-package `lib/` URIs](#gen-033) | Medium | Fixed |
-| [GEN-034](#gen-034) | [Test runner registration doubled with `lib/` paths](#gen-034) | Medium | Fixed |
-| [GEN-035](#gen-035) | [Test runner file detection missed `.d4rt` extension](#gen-035) | Low | Fixed |
-| [GEN-036](#gen-036) | [Example script `run_all_examples.dart` referenced wrong executable name](#gen-036) | Low | Fixed |
-| [GEN-001](#gen-001) | [Generic methods lose type parameters (type erasure)](#gen-001) | Fundamental | Won't Fix |
-| [GEN-003](#gen-003) | [Complex default values cannot be represented in generated code](#gen-003) | Fundamental | Won't Fix |
-| [GEN-004](#gen-004) | [Combinatorial dispatch capped at 4 non-wrappable params](#gen-004) | Medium | Won't Fix |
-| [GEN-006](#gen-006) | [Syntactic fallback loses all resolved type information](#gen-006) | Fundamental | Won't Fix |
-| [GEN-014](#gen-014) | [Syntactic fallback: this.x params always typed as dynamic](#gen-014) | Fundamental | Won't Fix |
-| [GEN-002](#gen-002) | [Recursive type bounds dispatched to only 3 hardcoded types](#gen-002) | Low | TODO |
-| [GEN-005](#gen-005) | [Function types inside collections are unbridgeable](#gen-005) | High | TODO |
-| [GEN-007](#gen-007) | [Function type alias detection limited to 7 hardcoded names](#gen-007) | Low | TODO |
-| [GEN-008](#gen-008) | [Private SDK library mapping is hardcoded and incomplete](#gen-008) | Low | TODO |
-| [GEN-009](#gen-009) | [Generic type parameter detection uses hardcoded name set](#gen-009) | Low | TODO |
-| [GEN-010](#gen-010) | [Complex external packages list is hardcoded](#gen-010) | Low | TODO |
-| [GEN-011](#gen-011) | [Global function/variable generation counts always report 0](#gen-011) | Low | TODO |
-| [GEN-012](#gen-012) | [Type parameter substitution uses fragile regex text replacement](#gen-012) | Medium | TODO |
-| [GEN-013](#gen-013) | [Build runner reports approximate class count (files × 10)](#gen-013) | Low | TODO |
-| [GEN-015](#gen-015) | [Nested public classes collected by syntactic visitor](#gen-015) | Low | TODO |
-| [GEN-016](#gen-016) | [Auxiliary imports may resolve wrong type on name collision](#gen-016) | Medium | TODO |
-| [GEN-017](#gen-017) | [Missing barrel export silently downgrades to dynamic](#gen-017) | Medium | TODO |
-| [GEN-018](#gen-018) | [Parameterized typedef expansion may produce incorrect types](#gen-018) | Medium | TODO |
-| [GEN-019](#gen-019) | [Barrel preference heuristic may pick wrong barrel for re-exports](#gen-019) | Medium | TODO |
-| [GEN-020](#gen-020) | [Global exclusions merge across modules — accidental cross-filtering](#gen-020) | Medium | TODO |
-| [GEN-021](#gen-021) | [Builder-defining packages unconditionally skipped for bridging](#gen-021) | Low | TODO |
-| [GEN-022](#gen-022) | [Main generator file is 8,490 lines — maintainability concern](#gen-022) | High | TODO |
-| [GEN-023](#gen-023) | [Duplicated visitor logic between resolved and syntactic paths](#gen-023) | High | TODO |
-| [GEN-024](#gen-024) | [Four config sources with complex precedence rules](#gen-024) | Medium | TODO |
-| [GEN-025](#gen-025) | [Record types with nested functions may have edge cases](#gen-025) | Medium | TODO |
-| [GEN-026](#gen-026) | [14 concrete types across projects silently downgraded to dynamic](#gen-026) | Medium | TODO |
-| [GEN-027](#gen-027) | [InvalidType warnings indicate analyzer resolution failures](#gen-027) | Medium | TODO |
-| [GEN-037](#gen-037) | [Generated bridge files don't consistently use .b.dart extension](#gen-037) | Medium | Fixed |
-| [GEN-038](#gen-038) | [Test runner fails on first duplicate instead of reporting all](#gen-038) | Low | Already Fixed |
-| [GEN-039](#gen-039) | [Test runner config not supported in build.yaml](#gen-039) | Low | Already Fixed |
-| [GEN-040](#gen-040) | [Recursive bound error message references `_sample` instead of `sample`](#gen-040) | Low | Fixed |
-| [GEN-041](#gen-041) | [Enhanced enum fields not accessible via bridges at runtime](#gen-041) | Medium | TODO |
-| [GEN-042](#gen-042) | [Classes with implicit default constructors are not bridged](#gen-042) | Medium | TODO |
-| [GEN-043](#gen-043) | [Generated user bridge references lack import prefix ($pkg.)](#gen-043) | Medium | Fixed |
-| [GEN-044](#gen-044) | [Enum `.values` static getter not bridged](#gen-044) | Low | TODO |
-| [GEN-045](#gen-045) | [Barrel-level name collisions silently break bridging](#gen-045) | Medium | TODO |
-| [GEN-046](#gen-046) | [GlobalsUserBridge overrides not applied at runtime](#gen-046) | Medium | TODO |
+### Fixed
+
+| ID | Description | Complexity | Status | Relevance |
+|----|-------------|------------|--------|-----------|
+| [GEN-028](#gen-028) | [CLI didn't pass export filtering params to generator](#gen-028) | Medium | Fixed | — |
+| [GEN-029](#gen-029) | [CLI path missing export info filtering for globals](#gen-029) | Medium | Fixed | — |
+| [GEN-030](#gen-030) | [Multi-barrel modules only registered under primary barrel](#gen-030) | High | Fixed | — |
+| [GEN-031](#gen-031) | [CLI `args['projects']` referenced undefined ArgParser option](#gen-031) | Low | Fixed | — |
+| [GEN-032](#gen-032) | [Test runner generation step missing from bin CLI path](#gen-032) | Medium | Fixed | — |
+| [GEN-033](#gen-033) | [Test runner init source included non-package `lib/` URIs](#gen-033) | Medium | Fixed | — |
+| [GEN-034](#gen-034) | [Test runner registration doubled with `lib/` paths](#gen-034) | Medium | Fixed | — |
+| [GEN-035](#gen-035) | [Test runner file detection missed `.d4rt` extension](#gen-035) | Low | Fixed | — |
+| [GEN-036](#gen-036) | [Example script `run_all_examples.dart` referenced wrong executable name](#gen-036) | Low | Fixed | — |
+| [GEN-037](#gen-037) | [Generated bridge files don't consistently use .b.dart extension](#gen-037) | Medium | Fixed | — |
+| [GEN-040](#gen-040) | [Recursive bound error message references `_sample` instead of `sample`](#gen-040) | Low | Fixed | — |
+| [GEN-043](#gen-043) | [Generated user bridge references lack import prefix ($pkg.)](#gen-043) | Medium | Fixed | — |
+| [GEN-038](#gen-038) | [Test runner fails on first duplicate instead of reporting all](#gen-038) | Low | Already Fixed | — |
+| [GEN-039](#gen-039) | [Test runner config not supported in build.yaml](#gen-039) | Low | Already Fixed | — |
+
+### Won't Fix
+
+| ID | Description | Complexity | Status | Relevance |
+|----|-------------|------------|--------|-----------|
+| [GEN-001](#gen-001) | [Generic methods lose type parameters (type erasure)](#gen-001) | Fundamental | Won't Fix | — |
+| [GEN-003](#gen-003) | [Complex default values cannot be represented in generated code](#gen-003) | Fundamental | Won't Fix | — |
+| [GEN-004](#gen-004) | [Combinatorial dispatch capped at 4 non-wrappable params](#gen-004) | Medium | Won't Fix | — |
+| [GEN-006](#gen-006) | [Syntactic fallback loses all resolved type information](#gen-006) | Fundamental | Won't Fix | — |
+| [GEN-014](#gen-014) | [Syntactic fallback: this.x params always typed as dynamic](#gen-014) | Fundamental | Won't Fix | — |
+
+### TODO (sorted by relevance)
+
+| ID | Description | Complexity | Status | Relevance |
+|----|-------------|------------|--------|-----------|
+| [GEN-017](#gen-017) | [Missing barrel export silently downgrades to dynamic](#gen-017) | Medium | TODO | Important |
+| [GEN-026](#gen-026) | [14 concrete types across projects silently downgraded to dynamic](#gen-026) | Medium | TODO | Important |
+| [GEN-041](#gen-041) | [Enhanced enum fields not accessible via bridges at runtime](#gen-041) | Medium | TODO | Important |
+| [GEN-042](#gen-042) | [Classes with implicit default constructors are not bridged](#gen-042) | Medium | TODO | Important |
+| [GEN-044](#gen-044) | [Enum `.values` static getter not bridged](#gen-044) | Low | TODO | Important |
+| [GEN-002](#gen-002) | [Recursive type bounds dispatched to only 3 hardcoded types](#gen-002) | Low | TODO | Relevant |
+| [GEN-012](#gen-012) | [Type parameter substitution uses fragile regex text replacement](#gen-012) | Medium | TODO | Relevant |
+| [GEN-016](#gen-016) | [Auxiliary imports may resolve wrong type on name collision](#gen-016) | Medium | TODO | Relevant |
+| [GEN-018](#gen-018) | [Parameterized typedef expansion may produce incorrect types](#gen-018) | Medium | TODO | Relevant |
+| [GEN-020](#gen-020) | [Global exclusions merge across modules — accidental cross-filtering](#gen-020) | Medium | TODO | Relevant |
+| [GEN-025](#gen-025) | [Record types with nested functions may have edge cases](#gen-025) | Medium | TODO | Relevant |
+| [GEN-027](#gen-027) | [InvalidType warnings indicate analyzer resolution failures](#gen-027) | Medium | TODO | Relevant |
+| [GEN-045](#gen-045) | [Barrel-level name collisions silently break bridging](#gen-045) | Medium | TODO | Relevant |
+| [GEN-046](#gen-046) | [GlobalsUserBridge overrides not applied at runtime](#gen-046) | Medium | TODO | Relevant |
+| [GEN-005](#gen-005) | [Function types inside collections are unbridgeable](#gen-005) | High | TODO | Not Important |
+| [GEN-007](#gen-007) | [Function type alias detection limited to 7 hardcoded names](#gen-007) | Low | TODO | Not Important |
+| [GEN-009](#gen-009) | [Generic type parameter detection uses hardcoded name set](#gen-009) | Low | TODO | Not Important |
+| [GEN-019](#gen-019) | [Barrel preference heuristic may pick wrong barrel for re-exports](#gen-019) | Medium | TODO | Not Important |
+| [GEN-021](#gen-021) | [Builder-defining packages unconditionally skipped for bridging](#gen-021) | Low | TODO | Not Important |
+| [GEN-022](#gen-022) | [Main generator file is 8,490 lines — maintainability concern](#gen-022) | High | TODO | Not Important |
+| [GEN-023](#gen-023) | [Duplicated visitor logic between resolved and syntactic paths](#gen-023) | High | TODO | Not Important |
+| [GEN-008](#gen-008) | [Private SDK library mapping is hardcoded and incomplete](#gen-008) | Low | TODO | Almost Irrelevant |
+| [GEN-010](#gen-010) | [Complex external packages list is hardcoded](#gen-010) | Low | TODO | Almost Irrelevant |
+| [GEN-011](#gen-011) | [Global function/variable generation counts always report 0](#gen-011) | Low | TODO | Almost Irrelevant |
+| [GEN-013](#gen-013) | [Build runner reports approximate class count (files × 10)](#gen-013) | Low | TODO | Almost Irrelevant |
+| [GEN-015](#gen-015) | [Nested public classes collected by syntactic visitor](#gen-015) | Low | TODO | Almost Irrelevant |
+| [GEN-024](#gen-024) | [Four config sources with complex precedence rules](#gen-024) | Medium | TODO | Almost Irrelevant |
 
 ---
 
 ## Issue Details
 
----
-
-### GEN-001
-
-**Generic methods lose type parameters (type erasure)**
-
-**a) Problem:**
-
-When a Dart API defines a generic method like `T withFileProtection<T>(List<String> protected, T Function() action)`, the bridge generator cannot forward the type argument `T` from the D4rt interpreter to the host Dart call. This is because Dart's reified generics require the type argument at compile time, but the interpreter only knows it at runtime.
-
-The generator detects type parameters during parsing:
-
-```dart
-// bridge_generator.dart — BridgedMethodInfo fields
-final bool hasTypeParameters;
-final Map<String, String?> methodTypeParameters; // e.g. {'T': 'Object', 'E': null}
-```
-
-When generating the bridge call, every occurrence of `T` is replaced with its bound (or `dynamic` if unbounded). The generated bridge always calls the host method with `<dynamic>`:
-
-**Source Dart API (dcli):**
-```dart
-T withFileProtection<T>(List<String> protected, T Function() action, {String? workingDirectory});
-```
-
-**Generated bridge code (dcli_bridges.b.dart):**
-```dart
-'withFileProtection': (visitor, positional, named, typeArgs) {
-  final protected = D4.getRequiredArg<List<String>>(positional, 0, 'protected', 'withFileProtection');
-  final action = D4.getRequiredArg<dynamic Function()>(positional, 1, 'action', 'withFileProtection');
-  //                                 ^^^^^^^ was T Function(), erased to dynamic
-  final workingDirectory = D4.getOptionalNamedArg<String?>(named, 'workingDirectory');
-  return $pkg.withFileProtection<dynamic>(protected, action, workingDirectory: workingDirectory);
-  //                             ^^^^^^^ type argument erased to <dynamic>
-},
-```
-
-**Where the problem manifests:** The `typeArgs` parameter is received by the bridge callback but never used. A D4rt script calling `withFileProtection<int>(...)` will not pass `int` to the host — the host always runs `<dynamic>`. This means:
-- Return types lose their generic precision (returns `dynamic` instead of `int`)
-- Function parameters typed with `T` become `dynamic Function()` instead of `int Function()`
-- Generic collection parameters like `List<T>` become `List<dynamic>`
-
-This pattern appears across all generic functions: `runChecked<T>()`, `runCheckedSync<T>()`, `tomProtect<T>()`, `getFromCurrentZone<T>()`, etc.
-
-**b) Location:**
-`bridge_generator.dart` — fields on `BridgedMethodInfo` (~line 82–87); type erasure logic in `_generateMethodBody()` where `effectiveTypeParams` merges class and method type params; `_getTypeArgument()` where type parameter names are looked up and replaced with their bounds.
-
-**c) Strategies:**
-- **Won't Fix (fundamental):** Dart's reified generics require the type argument to be known at compile time at the call site. The interpreter dispatches at runtime and cannot synthesize a `Type` object that the host Dart VM accepts as a generic argument.
-- **Mitigation:** For common cases, the generator already produces specialized overloads (e.g., `cast<int>`, `cast<String>`). Could extend the set of pre-specialized types via configuration.
-
----
-
-### GEN-002
-
-**Recursive type bounds dispatched to only 3 hardcoded types**
-
-**a) Problem:**
-
-When a method has a type parameter with a recursive bound like `T extends Comparable<T>`, the generator cannot use `<dynamic>` (since `dynamic` doesn't implement `Comparable<dynamic>`). Instead, it generates concrete dispatch variants that test the runtime type and call the method with the matching type argument. However, only 3 types are dispatched by default:
-
-**Generator source (bridge_generator.dart):**
-```dart
-static const List<String> _defaultRecursiveBoundTypes = [
-  'num',
-  'String',
-  'DateTime',
-];
-```
-
-**Generated dispatch code pattern:**
-```dart
-final sample = positional[0];
-if (sample is num) {
-  return someMethod<num>(sample);
-}
-if (sample is String) {
-  return someMethod<String>(sample);
-}
-if (sample is DateTime) {
-  return someMethod<DateTime>(sample);
-}
-throw ArgumentError('someMethod: Unsupported type for Comparable<T>: ${sample.runtimeType}');
-```
-
-**Where the problem manifests:** If a D4rt script calls a method requiring `T extends Comparable<T>` with a `Duration` value (which implements `Comparable<Duration>`), the dispatch won't find a matching variant and throws an `ArgumentError` at runtime. The same applies to `BigInt`, `bool`, or any custom `Comparable` implementation.
-
-**b) Location:**
-`bridge_generator.dart` ~line 730–760 — `_defaultRecursiveBoundTypes` list; recursive bound detection in `_getRecursiveBoundTypeParams()`; dispatch generation that iterates `recursiveBoundTypes` and generates `if (sample is X)` blocks with a final `throw ArgumentError(...)` fallback.
-
-**c) Strategies:**
-- Make `recursiveBoundTypes` configurable per-module in `build.yaml` / `BridgeConfig`. Users can add `Duration`, `BigInt`, or custom types as needed.
-- Scan the bridged packages' own source for concrete types implementing the recursive bound and auto-add them.
-
----
-
-### GEN-003
-
-**Complex default values cannot be represented in generated code**
-
-**a) Problem:**
-
-Dart allows arbitrary compile-time constant expressions as default values. The bridge generator lives in a separate library and can only represent simple literals and public const references. When it encounters a default value it can't reproduce, it marks it as "non-wrappable" and uses combinatorial dispatch (see GEN-004) to generate variants that either include or omit that parameter.
-
-The generator's `_prefixDefaultValue()` can handle:
-- Literals: `null`, `true`, `false`, `42`, `'hello'`
-- Empty collections: `const []`, `{}`
-- Core constants: `const Duration(...)`, `double.infinity`
-- Public enum/static access: `FetchMethod.get`, `Encoding.utf8`
-
-It **cannot** handle:
-- Private constants: `_defaultTimeout`
-- Constructor calls from unexported types
-- Complex const expressions: `const [1, 2, 3]`
-- Function call defaults: `_generateId()`
-
-**Source Dart API (dcli — `cat()`):**
-```dart
-void cat(String path, {Sink<List<int>> stdout = io.stdout});
-//                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ complex default: io.stdout
-```
-
-**Generated bridge code (dcli_bridges.b.dart):**
-```dart
-'cat': (visitor, positional, named, typeArgs) {
-  final path = D4.getRequiredArg<String>(positional, 0, 'path', 'cat');
-  if (!named.containsKey('stdout')) {
-    $pkg.cat(path);           // ← variant 1: omit 'stdout', let Dart use its own default
-    return null;
-  }
-  if (named.containsKey('stdout')) {
-    final stdout = D4.getRequiredNamedArg<void Function(String)>(named, 'stdout', 'cat');
-    $pkg.cat(path, stdout: stdout);  // ← variant 2: pass explicit 'stdout'
-    return null;
-  }
-  throw StateError('Unreachable: all named parameter combinations should be covered');
-},
-```
-
-**Where the problem manifests:** The generated code must check whether the D4rt script provided the parameter. If not, it calls the host method *without* that parameter so Dart applies its own default. This works but produces verbose code — and for methods with many non-wrappable defaults, the variants multiply exponentially (see GEN-004).
-
-**b) Location:**
-`bridge_generator.dart` — `_prefixDefaultValue()` for default value classification; `_isWrappableDefault()` for the wrappable check; `_generateCombinatorialDispatch()` for generating the 2^N if/else variants.
-
-**c) Strategies:**
-- **Won't Fix (fundamental):** Cross-library default value evaluation is not possible in Dart without code generation that imports the original library — but the bridge *is* that generated code, creating a circular problem for private defaults.
-- **Mitigation:** Combinatorial dispatch (2^N variants) works for up to 4 params (see GEN-004). Could also generate a thin forwarding function in the source package that exposes defaults explicitly.
-
----
-
-### GEN-004
-
-**Combinatorial dispatch capped at 4 non-wrappable params**
-
-**a) Problem:**
-
-When a method has N named parameters with non-wrappable defaults (see GEN-003), the generator produces 2^N call variants. Each variant is an `if` block that checks which named parameters were provided by the script:
-
-**Generator source (bridge_generator.dart):**
-```dart
-final useCombinatorial =
-    nonWrappableDefaults.isNotEmpty && nonWrappableDefaults.length <= 4;
-// ...
-final count = unwrappableParams.length;
-final limit = 1 << count;  // 2^N combinations
-for (var i = 0; i < limit; i++) { /* generate if block for each combination */ }
-```
-
-At N=1: 2 variants (like the `cat()` example in GEN-003).
-At N=2: 4 variants. At N=4: 16 variants. At N=5: 32 variants — too many.
-
-**Where the problem manifests:** Methods with 5+ non-wrappable defaults get **no** combinatorial dispatch at all. The generator cannot produce a correct call because it can't reproduce the default values and can't enumerate all 32+ combinations. Such methods are either bridged with only the "all params present" variant (losing defaults), or skipped with a `// TODO` comment.
-
-**b) Location:**
-`bridge_generator.dart` — the `nonWrappableDefaults.length <= 4` guard; `_generateCombinatorialDispatch()` which generates the 2^N `if` blocks.
-
-**c) Strategies:**
-- **Won't Fix (trade-off):** Raising the limit causes massive generated code bloat. 2^8 = 256 variants for a single method is impractical.
-- **Alternative:** Generate a single call variant that uses `Function.apply` with a `Map<Symbol, dynamic>` for named params. This avoids the combinatorial explosion but loses compile-time type safety in the generated code.
-
----
-
-### GEN-005
-
-**Function types inside collections are unbridgeable**
-
-**a) Problem:**
-
-Single function-type parameters work fine — the generator wraps them between D4rt closures and host Dart closures:
-
-```dart
-// Working: single function parameter
-final filter = D4.getRequiredNamedArg<bool Function(String)>(named, 'filter', 'copyTree');
-```
-
-But when a function type appears inside a collection (e.g., `List<void Function(int)>`), the generator would need to iterate the collection and wrap each element individually. This is not implemented — instead, the generator emits a runtime error:
-
-**Generator source (bridge_generator.dart):**
-```dart
-if (_isFunctionTypeName(rawElementType)) {
-  buffer.writeln("        throw UnimplementedError("
-    "'$contextName: Parameter \"${param.name}\" has unbridgeable "
-    "function type List<$rawElementType>. "
-    "Bridge cannot handle function types in collections.');");
-}
-```
-
-**Where the problem manifests:** If a bridged API has a parameter like `List<void Function(int)>`, the generated bridge compiles fine but throws `UnimplementedError` at runtime when a D4rt script tries to call that method. The script can import the class, see the method in its API, but crashes when calling it.
-
-**b) Location:**
-`bridge_generator.dart` — `_isFunctionTypeName()` detection and the `UnimplementedError` throw in both positional and named parameter handling paths.
-
-**c) Strategies:**
-- Generate a `.map()` wrapper that converts each element through `_wrapFunction()`, similar to how single function parameters are already wrapped.
-- For `List<FnType>` and `Set<FnType>`, iterate and wrap. For `Map<K, FnType>`, wrap values (or keys if they're function types).
-- Complexity is medium-high due to nested generics (e.g., `Map<String, List<void Function()>>`).
-
----
-
-### GEN-006
-
-**Syntactic fallback loses all resolved type information**
-
-**a) Problem:**
-
-The generator has two code paths: the **resolved path** (using the Dart analyzer's fully resolved AST) and the **syntactic fallback** (raw syntax tree parsing). When the analyzer cannot produce a resolved AST for a source file (e.g., missing dependencies, analysis errors), the generator falls back to `_ClassVisitor` which only sees the textual syntax.
-
-**Resolved path** produces rich bridge code:
-```dart
-// Knows the import URI for SettingsYaml, resolves this.field types, expands typedefs
-final config = D4.getRequiredArg<$pkg.SettingsYaml>(positional, 0, 'config', 'loadConfig');
-```
-
-**Syntactic fallback** produces degraded bridge code:
-```dart
-// Can't resolve SettingsYaml's import URI → falls back to dynamic
-// Can't resolve this.fieldName types → uses dynamic
-final config = D4.getRequiredArg<dynamic>(positional, 0, 'config', 'loadConfig');
-```
-
-**What is lost in the fallback:**
-- Type import URIs (import prefixes can't be resolved → types become `dynamic`)
-- Superclass/mixin type resolution (inherited methods not bridged)
-- `this.x` and `super.x` parameter types (become `dynamic` — see GEN-014)
-- Typedef expansion (alias names used instead of expanded `Function` signatures — see GEN-007)
-- Inherited members (only declared members are visible)
-
-**b) Location:**
-`bridge_generator.dart` ~line 2600–2630 — fallback decision in `_processSourceFile()`; `_ClassVisitor` defined at ~line 8200+ (syntactic path); `_ResolvedClassVisitor` at ~line 7400+ (resolved path).
-
-**c) Strategies:**
-- **Won't Fix (fundamental for the fallback path):** The fallback exists because analysis failed. By definition, resolved type info is unavailable.
-- **Mitigation:** Improve analyzer reliability by ensuring all dependencies are resolvable. Add a `--strict` flag that fails instead of falling back, so users know when quality is degraded.
-- Log which files used the fallback so users can investigate and fix the underlying analysis issue.
-
----
-
-### GEN-007
-
-**Function type alias detection limited to 7 hardcoded names**
-
-**a) Problem:**
-
-In the syntactic fallback path (see GEN-006), the generator needs to determine if a type name is a function type alias. Without resolved type information, it can only check against a hardcoded set:
-
-**Generator source (bridge_generator.dart):**
-```dart
-static const _knownFunctionTypeAliases = {
-  'BridgeRegistrar',  // void Function(D4rt)
-  'D4rtEvaluator',    // Future<dynamic> Function(...)
-  'VoidCallback',     // void Function()
-  'ValueChanged',     // void Function(T)
-  'ValueGetter',      // T Function()
-  'ValueSetter',      // void Function(T)
-  'WidgetBuilder',    // Widget Function(BuildContext)
-};
-```
-
-**Source Dart API (example):**
-```dart
-void onError(ErrorHandler handler);  // ErrorHandler = void Function(Object error)
-```
-
-**What happens for unknown aliases:**
-- Recognized alias (`VoidCallback`): generator expands it to `void Function()` and generates proper function wrapping
-- Unrecognized alias (`ErrorHandler`): generator treats it as a concrete class name → looks it up in barrel exports → not found → falls back to `dynamic`
-
-The resolved path doesn't have this issue because the analyzer already resolves typedefs to their underlying `FunctionType`.
-
-**b) Location:**
-`bridge_generator.dart` — `_knownFunctionTypeAliases` set; `_isFunctionTypeName()` method that checks both the hardcoded set and explicit `Function(` syntax.
-
-**c) Strategies:**
-- Extend the hardcoded set with commonly used aliases from Flutter, dart:async, etc.
-- Better: in the resolved path (which already handles this correctly), collect all encountered function typedefs and write them to a cache file. The syntactic fallback can then read this cache.
-- Best: detect function type aliases dynamically by checking if the resolved type is a `FunctionType` regardless of its alias name.
-
----
-
-### GEN-008
-
-**Private SDK library mapping is hardcoded and incomplete**
-
-**a) Problem:**
-
-The Dart analyzer sometimes reports a type's source as a private SDK library (e.g., `dart:_http` instead of `dart:io`). The generator must map these to their public equivalents to generate correct import statements.
-
-**Generator source (bridge_generator.dart — `mapPrivateSdkLibrary()`):**
-```dart
-const privateToPublic = {
-  'dart:_http': 'dart:io',
-  'dart:_internal': null,           // Skip — internal utilities
-  'dart:_interceptors': null,       // Skip — JS interop internals
-  'dart:_js_helper': null,          // Skip — JS helper internals
-  'dart:_native_typed_data': 'dart:typed_data',
-  'dart:_foreign_helper': null,     // Skip — foreign function internals
-};
-// For unknown private libraries → returns null (skip)
-```
-
-**Where the problem manifests:** If the analyzer reports a type from an unmapped private library (e.g., `dart:_wasm` in future Dart versions), `mapPrivateSdkLibrary()` returns `null`. The generator then cannot produce an import for that type, and it silently falls back to `dynamic`. The type is lost without any warning.
-
-**b) Location:**
-`bridge_generator.dart` ~line 625–650 — `mapPrivateSdkLibrary()` method.
-
-**c) Strategies:**
-- Maintain the mapping as a configuration file rather than hardcoded map, making it easy to update per Dart SDK version.
-- Log unmapped `dart:_*` libraries as warnings so users are aware of potential type information loss.
-- Research: the Dart SDK's `package:_fe_analyzer_shared` may provide an authoritative mapping.
-
----
-
-### GEN-009
-
-**Generic type parameter detection uses hardcoded name set**
-
-**a) Problem:**
-
-When the generator encounters a type name in a method signature, it needs to determine whether it's a generic type parameter (like `T`) or a concrete class name (like `Timer`). It uses a heuristic:
-
-**Generator source (bridge_generator.dart — `_isGenericTypeParameter()`):**
-```dart
-bool _isGenericTypeParameter(String type) {
-  // Single uppercase letter (T, R, E, K, V, S, etc.)
-  if (type.length == 1 && type.toUpperCase() == type) return true;
-  // Common multi-character type parameters
-  const knownTypeParams = {'TValue', 'TKey', 'TResult', 'TElement'};
-  return knownTypeParams.contains(type);
-}
-```
-
-**Source Dart API (example — a class with `T1`, `T2`):**
-```dart
-class Converter<T1, T2> {
-  T2 convert(T1 input);
-}
-```
-
-**What happens:** `T1` and `T2` are not recognized as type parameters by this heuristic. The generator treats them as concrete class names → looks them up in barrel exports → not found → triggers a "Missing export" warning → falls back to `dynamic`. The generated bridge correctly compiles but with degraded type safety.
-
-**Names that work:** `T`, `E`, `K`, `V`, `S`, `R`, `TValue`, `TKey`, `TResult`, `TElement`
-**Names that don't work:** `T1`, `T2`, `K2`, `V2`, `TItem`, `TOutput`, `TState`, `TData`
-
-During generation of `tom_dartscript_bridges`, this caused 4 false "Missing export" warnings for `T1`, `T2`, `K2`, `V2` type parameters.
-
-**b) Location:**
-`bridge_generator.dart` — `_isGenericTypeParameter()` method; subsequent fallback path where unrecognized names trigger `_recordMissingExport()` and return `'dynamic'`.
-
-**c) Strategies:**
-- Check against the enclosing class's or method's actual declared type parameters instead of using a name-based heuristic.
-- As a quick fix: extend the heuristic to include numbered variants (`T1`, `T2`, `K2`, `V2`) and any name starting with `T` followed by an uppercase letter.
-- In the resolved path, use `element.typeParameters` from the `ClassElement` or `MethodElement` for authoritative detection.
-
----
-
-### GEN-010
-
-**Complex external packages list is hardcoded**
-
-**a) Problem:**
-
-Certain external packages require special type resolution handling (e.g., types from `package:http` that appear in bridged method signatures but aren't in the module's barrel). The generator hardcodes which packages need this treatment:
-
-**Generator source (bridge_generator.dart):**
-```dart
-static const _complexExternalPackages = {
-  'package:pdf/',
-  'package:printing/',
-  'package:flutter/',
-  'package:http/',
-  'package:htmltopdfwidgets/',
-};
-```
-
-**Where the problem manifests:** When a new external package needs the same special handling (e.g., `package:dio/`, `package:grpc/`), a code change is required. There's no way to configure this in `build.yaml`. The `_checkExternalTypes()` method uses this set to emit warnings about external types and suggest wrapping them.
-
-**b) Location:**
-`bridge_generator.dart` ~line 2540 — `_complexExternalPackages` set; `_checkExternalTypes()` method that iterates all constructor/method parameters checking if type import URIs match these packages.
-
-**c) Strategies:**
-- Move to `build.yaml` configuration as a `complexExternalPackages` list in the module config.
-- Or remove the special handling entirely by making the general resolution path robust enough to handle these packages.
-
----
-
-### GEN-011
-
-**Global function/variable generation counts always report 0**
-
-**a) Problem:**
-
-After generation, the `GenerationResult` reports how many classes, functions, and variables were bridged. However, the global counts are hardcoded to 0:
-
-**Generator source (bridge_generator.dart):**
-```dart
-return GenerationResult(
-  classesGenerated: generatedClasses.length,
-  enumsGenerated: generatedEnums.length,
-  globalFunctionsGenerated: 0,  // TODO: count from globals
-  globalVariablesGenerated: 0,  // TODO: count from globals
-);
-```
-
-**Where the problem manifests:** Generation logs show "Generated: 72 classes, 15 enums, 0 functions, 0 variables" even when many global functions and variables were actually bridged (e.g., dcli has `cat()`, `copy()`, `find()`, `env`, `HOME` etc.). The counts are cosmetic only — they don't affect the generated code — but make reports misleading.
-
-**b) Location:**
-`bridge_generator.dart` ~line 1958–1959 — the `GenerationResult` construction with `// TODO: count from globals` comments.
-
-**c) Strategies:**
-- Count globals during the generation loop and pass the counts to `GenerationResult`. Straightforward fix.
-
----
-
-### GEN-012
-
-**Type parameter substitution uses fragile regex text replacement**
-
-**a) Problem:**
-
-When substituting type parameters in function types (e.g., replacing `T` with `int` in `T Function(T)`), the generator uses two approaches:
-
-**Generator source (bridge_generator.dart — `_substituteTypeParameters()`):**
-```dart
-// For InterfaceType and TypeParameterType: proper structural substitution
-if (type is TypeParameterType) {
-  return substitution[name]!.getDisplayString();  // ✓ correct
-}
-if (type is InterfaceType) {
-  // Recursively substitutes type arguments  // ✓ correct
-}
-
-// For FunctionType: falls back to regex text replacement
-if (type is FunctionType) {
-  var display = type.getDisplayString();
-  for (final entry in substitution.entries) {
-    display = display.replaceAll(
-      RegExp(r'\b' + entry.key + r'\b'),  // ✗ fragile
-      entry.value.getDisplayString(),
-    );
-  }
-  return display;
-}
-```
-
-**Example of potential failure:**
-- Type parameter: `T`
-- Function type display string: `DateTime Function(T, DateTime)`
-- Regex `\bT\b` matches `T` correctly here…
-- But with a type parameter named `E`: `Set<E> Function(E)` — regex `\bE\b` would also match the `E` in `Set<E>`, which is fine, but could fail with edge cases in complex nested types.
-
-**Where the problem manifests:** For `InterfaceType` and `TypeParameterType`, substitution is structural and correct. Only `FunctionType` uses the fragile regex path. The comment in the source says *"not perfect but handles most cases"*. Failures would produce incorrect type strings in the generated bridge code (wrong types, corrupted signatures).
-
-**b) Location:**
-`bridge_generator.dart` — `_substituteTypeParameters()` method; the `FunctionType` branch with `RegExp(r'\b' + entry.key + r'\b')`.
-
-**c) Strategies:**
-- Walk the `FunctionType` structurally: iterate over `parameters` and `returnType`, substituting `TypeParameterType` instances directly rather than doing string replacement.
-- Use the Dart analyzer's `Substitution.fromPairs()` utility if available.
-
----
-
-### GEN-013
-
-**Build runner reports approximate class count (files × 10)**
-
-**a) Problem:**
-
-In the build_runner integration path, the total class count for progress reporting is estimated rather than counted:
-
-**Generator source (per_package_orchestrator.dart):**
-```dart
-totalClasses = packageFiles.length * 10;  // assume 10 classes per file
-```
-
-**Where the problem manifests:** Progress output shows "Processing class 45/500" where 500 is a wild guess (50 files × 10). The real count might be 72 or 300. This is cosmetic — it doesn't affect generated code — but makes progress bars jump from 45% to "done" or appear stuck at 99% for a long time.
-
-**b) Location:**
-`per_package_orchestrator.dart` ~line 159 — `totalClasses = packageFiles.length * 10`.
-
-**c) Strategies:**
-- Accumulate actual class counts from each `GenerationResult` returned by `generateBridgesWithWriter()` and sum them.
-
----
-
-### GEN-014
-
-**Syntactic fallback: this.x params always typed as dynamic**
-
-**a) Problem:**
-
-In Dart constructors, `this.fieldName` is shorthand for assigning a parameter to a field. The type comes from the field declaration. In the syntactic fallback visitor (see GEN-006), the field's type is unknown because the AST isn't resolved:
-
-**Source Dart API:**
-```dart
-class Server {
-  final int port;
-  final String host;
-  Server(this.port, this.host);  // port is int, host is String
-}
-```
-
-**Resolved path produces:**
-```dart
-final port = D4.getRequiredArg<int>(positional, 0, 'port', 'Server');
-final host = D4.getRequiredArg<String>(positional, 1, 'host', 'Server');
-```
-
-**Syntactic fallback produces:**
-```dart
-final port = D4.getRequiredArg<dynamic>(positional, 0, 'port', 'Server');
-final host = D4.getRequiredArg<dynamic>(positional, 1, 'host', 'Server');
-```
-
-**Where the problem manifests:** The bridge compiles fine but loses type safety at the parameter boundary. A D4rt script could pass a `String` for `port` and the bridge wouldn't catch it — the error would only surface deep inside the host Dart code. The resolved path handles this correctly by looking up the field's declared type via the `ClassElement`.
-
-**b) Location:**
-`bridge_generator.dart` ~line 8390–8400 — `_ClassVisitor._parseParameters()` for `FieldFormalParameter`.
-
-**c) Strategies:**
-- **Won't Fix (inherent to fallback):** Without a resolved AST, the field type is unknown. The syntactic visitor would need to find and parse the field declaration in the same class, which is fragile and incomplete for inherited fields.
-- The resolved path handles this correctly, so the real mitigation is ensuring analysis succeeds.
-
----
-
-### GEN-015
-
-**Nested public classes collected by syntactic visitor**
-
-**a) Problem:**
-
-The syntactic visitor uses `super.visitClassDeclaration(node)` which recursively visits all child nodes, including nested class declarations:
-
-**Source Dart API:**
-```dart
-class OuterWidget {
-  // ... methods ...
-  class InnerState {  // nested public class — not independently accessible
-    // ...
-  }
-}
-```
-
-**What happens:** The visitor collects both `OuterWidget` and `InnerState` as top-level bridgeable classes. `InnerState` gets its own bridge entry even though it can't be independently instantiated from outside `OuterWidget`.
-
-**Where the problem manifests:** The generated bridge may contain a bridge for `InnerState` that doesn't work in practice because the class isn't accessible at the top-level scope. The bridge compiles but trying to instantiate `InnerState` from a D4rt script would fail. This only affects the syntactic fallback path — the resolved path handles class scoping correctly.
-
-**b) Location:**
-`bridge_generator.dart` ~line 8259 — end of `_ClassVisitor.visitClassDeclaration()` where `super.visitClassDeclaration(node)` causes recursive child visits.
-
-**c) Strategies:**
-- Track nesting depth: only collect classes at depth 0 (top-level).
-- Check `node.parent` — if it's another `ClassDeclaration`, skip collection.
-
----
-
-### GEN-016
-
-**Auxiliary imports may resolve wrong type on name collision**
-
-**a) Problem:**
-
-When a type isn't found in the module's barrel exports, the generator falls back to "auxiliary imports" — it looks at the source file's own import statements to find the type. If two packages export a type with the same name, the first match wins:
-
-**Source Dart API (file has two imports):**
-```dart
-import 'package:http/http.dart';  // exports Response
-import 'package:dio/dio.dart';     // also exports Response
-```
-
-**Method signature:** `Response sendRequest(...)` — which `Response` should the bridge import?
-
-**What happens:** The auxiliary import resolver picks whichever import it finds first. If it picks `package:dio`, but the method actually uses `package:http`'s `Response`, the generated bridge has a type mismatch that may or may not compile (depending on whether the types have compatible interfaces).
-
-**Where the problem manifests:** In the generated bridge import block, the wrong package would appear:
-```dart
-import 'package:dio/dio.dart' as ext_dio;  // Wrong! Should be package:http
-```
-This could cause compile errors (if the types are incompatible) or silent type mismatches (if they happen to have similar APIs).
-
-**b) Location:**
-`bridge_generator.dart` ~line 3040–3100 — auxiliary import resolution in `_resolveAuxiliaryType()`.
-
-**c) Strategies:**
-- When multiple candidates exist, prefer the one from a package already in the module's `barrelFiles`.
-- Emit a warning when ambiguous resolution occurs so users can add an explicit import mapping.
-
----
-
-### GEN-017
-
-**Missing barrel export silently downgrades to dynamic**
-
-**a) Problem:**
-
-When a type used in a method signature isn't exported from the module's barrel file, the generator logs a warning and replaces the type with `dynamic`:
-
-**Generator source (bridge_generator.dart):**
-```dart
-void _recordMissingExport(String context, String typeName) {
-  final warning = 'Missing export: Type "$typeName" used in $context is not exported from barrel file';
-  _missingExportWarnings.add(warning);
-  if (verbose) print('WARNING: $warning');
-}
-// Then returns 'dynamic' as the type
-```
-
-**Source Dart API (tom_crypto package):**
-```dart
-AsymmetricKeyPair<RSAPublicKey, RSAPrivateKey> getRsaKeyPair(SecureRandom secureRandom);
-```
-
-**Generated bridge code (tom_crypto_bridges.b.dart):**
-```dart
-'getRsaKeyPair': (visitor, positional, named, typeArgs) {
-  final secureRandom = D4.getRequiredArg<dynamic>(positional, 0, 'secureRandom', 'getRsaKeyPair');
-  //                                     ^^^^^^^ was SecureRandom — not in barrel exports
-  return ext_tom_crypto.getRsaKeyPair(secureRandom);
-},
-```
-
-**Where the problem manifests:** The generated code compiles and the method is callable from D4rt, but:
-1. **No type checking** at the bridge boundary — a script can pass any value, and the error surfaces deep in the host Dart code with an unhelpful cast error
-2. **IDE autocompletion** in D4rt shows the parameter as `dynamic` instead of `SecureRandom`
-3. **The warning is easily missed** in verbose generation output — users don't know their bridge has degraded type safety
-
-This is the root mechanism behind GEN-026 (14 concrete types downgraded across projects).
-
-**b) Location:**
-`bridge_generator.dart` — `_recordMissingExport()` logs the warning; multiple call sites in `_getTypeArgument()` that return `'dynamic'` after recording the missing export.
-
-**c) Strategies:**
-- Add a `--strict-exports` flag that fails generation instead of falling back to `dynamic`.
-- Generate a summary report at the end listing all dynamic fallbacks, grouped by affected class/method.
-- In the generated bridge code, add a comment `/* was: OriginalType */` next to `dynamic` so the degradation is visible in code review.
-
----
-
-### GEN-018
-
-**Parameterized typedef expansion may produce incorrect types**
-
-**a) Problem:**
-
-When a typedef not exported from the barrel is used in a method signature, the generator tries to expand it to its underlying type. Simple typedefs work:
-
-```dart
-typedef VoidCallback = void Function();
-// → expanded correctly to: void Function()
-```
-
-But parameterized typedefs require substituting type arguments:
-
-**Source Dart API:**
-```dart
-typedef Converter<S, T> = T Function(S input);
-void transform(Converter<String, int> converter);
-// Should expand to: void transform(int Function(String input) converter)
-```
-
-**What can go wrong:** If `_expandTypedef()` doesn't properly apply the type arguments `<String, int>` to `S` and `T`, the expanded type could be `dynamic Function(dynamic input)` or even `T Function(S input)` (leaving unsubstituted parameters).
-
-**Where the problem manifests:** The generated bridge would have the wrong function signature:
-```dart
-// Incorrect expansion:
-final converter = D4.getRequiredArg<dynamic Function(dynamic)>(positional, 0, ...);
-// Correct expansion:
-final converter = D4.getRequiredArg<int Function(String)>(positional, 0, ...);
-```
-The incorrect version compiles but loses type safety. The resolved path doesn't have this issue because the analyzer already provides the fully-resolved `FunctionType` with applied type arguments.
-
-**b) Location:**
-`bridge_generator.dart` ~line 5830–5910 — typedef expansion in `_expandTypedef()`.
-
-**c) Strategies:**
-- Use the resolved `FunctionType` from the analyzer (which already has type arguments applied) rather than manually expanding the typedef.
-- Add test cases for parameterized typedef expansion.
-
----
-
-### GEN-019
-
-**Barrel preference heuristic may pick wrong barrel for re-exports**
-
-**a) Problem:**
-
-When a class appears in multiple barrel files, the generator must decide which barrel to import it from. It uses a heuristic: prefer the barrel from the same package as the source file.
-
-**Example configuration (tom_d4rt_dcli — build.yaml):**
-```yaml
-barrelFiles:
-  - package:dcli/dcli.dart        # primary barrel
-  - package:dcli_core/dcli_core.dart  # secondary barrel
-barrelImport: package:dcli/dcli.dart
-```
-
-**The heuristic:** A class defined in `package:dcli_core/src/util/progress.dart` would prefer `package:dcli_core/dcli_core.dart` (same package). But if `dcli.dart` re-exports it and the user's script imports `package:dcli/dcli.dart`, the bridge should use the `$pkg` prefix (primary barrel) instead of `$pkg2` (secondary barrel).
-
-**Where the problem manifests:** The generated bridge might import with the wrong prefix:
-```dart
-// Using $pkg2 (dcli_core barrel) instead of $pkg (dcli barrel):
-final progress = D4.getRequiredArg<$pkg2.Progress>(...);
-// When the script imported dcli.dart which re-exports Progress from dcli_core
-```
-This usually still compiles because both imports bring in the same type, but it can cause issues when types from different barrels have subtle differences in their export visibility.
-
-**b) Location:**
-`per_package_orchestrator.dart` ~line 240–280 — barrel preference logic in `_assignBarrelForClass()`.
-
-**c) Strategies:**
-- Allow explicit barrel assignment overrides in `build.yaml` for specific classes.
-- Consider the module's `barrelImport` as the primary barrel and always prefer it for types that appear in its export list.
-
----
-
-### GEN-020
-
-**Global exclusions merge across modules — accidental cross-filtering**
-
-**a) Problem:**
-
-Exclusion patterns from all modules are merged into global sets before generation begins:
-
-**Generator source (per_package_orchestrator.dart — `collectPackageInfo()`):**
-```dart
-final Set<String> _globalExcludeClasses = {};
-// ...
-for (final module in config.modules) {
-  _globalExcludeClasses.addAll(module.excludeClasses);
-  _globalExcludeFunctions.addAll(module.excludeFunctions);
-  _globalExcludeVariables.addAll(module.excludeVariables);
-  _globalExcludeSourcePatterns.addAll(module.excludeSourcePatterns);
-}
-```
-
-These global sets are then applied to **every** package:
-```dart
-final result = await generator.generateBridgesWithWriter(
-  excludeClasses: _globalExcludeClasses.toList(),  // all modules' exclusions!
-  excludeFunctions: _globalExcludeFunctions.toList(),
-  // ...
-);
-```
-
-**Example scenario:**
-```yaml
-# Module A: dcli
-excludeClasses: ['*Exception', '*Error']
-
-# Module B: tom_basics
-# No exclusions — but wants its exception classes bridged
-```
-
-**Where the problem manifests:** Module A excludes `*Exception` for dcli, but after merging, the `*Exception` pattern also excludes `TomValidationException`, `ConfigException`, etc. from Module B's tom_basics package. Classes silently disappear from the generated bridge with no warning.
-
-**b) Location:**
-`per_package_orchestrator.dart` — `_globalExcludeClasses` and related fields; `collectPackageInfo()` merge loop; application via `generateBridgesWithWriter()` calls.
-
-**c) Strategies:**
-- Apply exclusions per-module rather than globally: each module's exclusion patterns should only affect classes from that module's barrel packages.
-- As a workaround, use `excludeSourcePatterns` (which filters by source URI) instead of `exclude` (which filters by class name) for module-specific exclusions.
-
----
-
-### GEN-021
-
-**Builder-defining packages unconditionally skipped for bridging**
-
-**a) Problem:**
-
-The orchestrator skips packages that define a `builders:` section in their `build.yaml`. This is a safeguard to avoid generating bridges for code generator packages (which typically shouldn't be imported at runtime):
-
-**Generator source (per_package_orchestrator.dart):**
-```dart
-if (isBuildYamlBuilderDefinition) {
-  // Skip — this package defines a builder, not runtime code
-  continue;
-}
-```
-
-**Example scenario:** A package `my_utils` has both:
-- A code generator (builder) in `lib/builder.dart`
-- Utility classes in `lib/src/helpers.dart` that should be bridged
-
-Because `my_utils/build.yaml` has a `builders:` section, the **entire package** is skipped — including the utility classes that should be bridged.
-
-**Where the problem manifests:** The utility classes silently don't appear in the generated bridge. No warning is emitted. The user may not realize the package was skipped until they try to use those classes from a D4rt script.
-
-**b) Location:**
-`per_package_orchestrator.dart` ~line 780 — `isBuildYamlBuilderDefinition` check.
-
-**c) Strategies:**
-- Add a `forceInclude` list in module config to override the builder-definition skip for specific packages.
-- Or only skip the builder's own source files, not the entire package.
-
----
-
-### GEN-022
-
-**Main generator file is 8,490 lines — maintainability concern**
-
-**a) Problem:**
-
-`bridge_generator.dart` contains all of the following in a single 8,490-line file:
-
-| Concern | Approximate Lines |
-|---------|------------------|
-| Class visitors (resolved + syntactic) | ~2,000 |
-| Type resolution (`_getTypeArgument`, `_resolveImportPrefix`, etc.) | ~1,500 |
-| Code emission (StringBuffer generation of Dart code) | ~2,000 |
-| Parameter/default-value analysis | ~800 |
-| Import management | ~600 |
-| Combinatorial dispatch | ~400 |
-| Configuration/setup | ~500 |
-| Utility methods | ~690 |
-
-**Where the problem manifests:** Finding a specific method requires searching through 8,490 lines. Related methods are scattered across the file. Testing individual concerns (e.g., type resolution) requires instantiating the entire generator. Code review diffs are hard to follow because a change to type resolution sits next to unrelated code emission changes.
-
-**b) Location:**
-`bridge_generator.dart` — entire file.
-
-**c) Strategies:**
-- Extract `_ResolvedClassVisitor` and `_ClassVisitor` into separate files.
-- Extract code emission (the actual Dart code string generation) into a `bridge_code_emitter.dart`.
-- Extract type resolution logic (`_getTypeArgument`, `_resolveImportPrefix`, etc.) into `bridge_type_resolver.dart`.
-- Extract parameter/default-value analysis into `bridge_parameter_analyzer.dart`.
-
----
-
-### GEN-023
-
-**Duplicated visitor logic between resolved and syntactic paths**
-
-**a) Problem:**
-
-Two visitors implement parallel parsing logic:
-
-| Method | `_ResolvedClassVisitor` (~line 7400) | `_ClassVisitor` (~line 8200) |
-|--------|--------------------------------------|------------------------------|
-| `_parseConstructor()` | Accesses `ConstructorElement`, resolved param types | Parses syntax nodes, types from text |
-| `_parseMethod()` | Accesses `MethodElement`, return type element | Parses method declaration syntax |
-| `_parseField()` | Accesses `FieldElement`, type from element | Parses field declaration syntax |
-| `_parseParameters()` | Resolves `this.x` via field element lookup | Types `this.x` as `dynamic` (GEN-014) |
-
-**Where the problem manifests:** When a bug is fixed in one visitor, the same fix must be manually applied to the other. For example, adding support for a new parameter pattern in `_ResolvedClassVisitor._parseParameters()` won't automatically appear in `_ClassVisitor._parseParameters()`. This has already led to divergent behavior (e.g., GEN-014 only affects the syntactic path).
-
-**b) Location:**
-`bridge_generator.dart` ~line 7400–7530 (`_ResolvedClassVisitor`) and ~line 8200+ (`_ClassVisitor`).
-
-**c) Strategies:**
-- Create a shared base class or strategy pattern where the parsing logic is shared and only the type-resolution hooks differ.
-- Alternatively, use a single visitor that receives a `TypeResolver` interface — the resolved version uses the analyzer, the syntactic version returns `dynamic`.
-
----
-
-### GEN-024
-
-**Four config sources with complex precedence rules**
-
-**a) Problem:**
-
-Configuration is loaded from four sources with the following precedence (highest first):
-
-1. **CLI arguments** (`d4rt_gen.dart`) — e.g., `--exclude-classes=Foo`
-2. **`tom_project.yaml`** — project-level overrides
-3. **`build.yaml`** — primary module configuration
-4. **`d4rt_bridging.json`** — legacy/generated config
-
-Each source can set overlapping values: exclusions, barrel files, output paths, etc. The merge logic in `bridge_config.dart` combines them, but the override semantics aren't always obvious.
-
-**Example scenario:**
-```yaml
-# build.yaml
-excludeClasses: ['InternalHelper']
-
-# tom_project.yaml
-excludeClasses: []  # Did this intend to clear the build.yaml exclusion? Or is it "no overrides"?
-```
-
-**Where the problem manifests:** Users may expect `tom_project.yaml` with an empty list to override `build.yaml`'s exclusions, but the merge logic might treat empty lists as "no override" and keep the `build.yaml` value. Or vice versa. Without a `--dump-config` flag, there's no way to see the effective merged configuration.
-
-**b) Location:**
-`d4rt_gen.dart` — CLI arg parsing; `bridge_config.dart` — config merging logic; `build.yaml` — primary module config.
-
-**c) Strategies:**
-- Add a `--dump-config` flag that prints the effective merged configuration, showing which source each value came from.
-- Document the precedence rules in the user guide.
-- Add integration tests covering config override scenarios.
-
----
-
-### GEN-025
-
-**Record types with nested functions may have edge cases**
-
-**a) Problem:**
-
-Dart 3 record type support (`(int, String)`, `({int x, String y})`) was added recently to the generator. Simple records work:
-
-```dart
-(int, String) getResult();  // → bridge returns (int, String) correctly
-```
-
-But records containing function types as fields are more complex:
-
-```dart
-(int, void Function()) getCallback();  // Record with function field
-((int, String), bool) getNested();     // Nested records
-```
-
-**Where the problem manifests:** The record type resolution in `_resolveRecordType()` is newer and less tested than the main type resolution path. Edge cases like:
-- Function types as positional record fields: `(void Function(), int)`
-- Named record fields with function types: `({void Function() callback, int count})`
-- Deeply nested records: `((int, (String, bool)), double)`
-- Record type aliases: `typedef Pair<T> = (T, T)`
-
-…may produce incorrect bridge code or fall back to `dynamic` for the entire record.
-
-**b) Location:**
-`bridge_generator.dart` ~line 6130–6200 — record type handling in `_resolveRecordType()`.
-
-**c) Strategies:**
-- Add comprehensive test cases for records with function fields, nested records, named record fields, and record type aliases.
-- Verify that record types in method signatures, return types, and default values all work correctly.
-
----
-
-### GEN-026
-
-**14 concrete types across projects silently downgraded to dynamic**
-
-**a) Problem:**
-
-This is GEN-017 in action across real projects. During generation, the following concrete types aren't found in barrel exports and get replaced with `dynamic`:
-
-**tom_d4rt_dcli (dcli module):**
-| Original Type | Used In | Bridge Result |
-|---------------|---------|---------------|
-| `Trace` | Stack trace methods | `dynamic` |
-| `SettingsYaml` | Configuration methods | `dynamic` |
-| `ColumnComparator` | Table formatting | `dynamic` |
-| `CancelableLineAction` | Line action callbacks | `dynamic` |
-
-**tom_dartscript_bridges (tom_crypto module):**
-| Original Type | Used In | Bridge Result |
-|---------------|---------|---------------|
-| `RSAPublicKey` | `rsaEncrypt()`, `rsaVerify()` | `dynamic` |
-| `RSAPrivateKey` | `rsaDecrypt()`, `rsaSign()` | `dynamic` |
-| `SecureRandom` | `getRsaKeyPair()` | `dynamic` |
-| `JWT`, `JWTKey`, `JWTAlgorithm` | JWT token operations | `dynamic` |
-| `Argon2Parameters` | Password hashing config | `dynamic` |
-| `Invocation` | Reflection | `dynamic` |
-| `MdPdfConverterOptions` | Markdown-to-PDF conversion | `dynamic` |
-| `LedgerData` | Distributed ledger | `dynamic` |
-
-**Concrete example — RSA functions in generated bridge:**
-
-Source Dart API:
-```dart
-Uint8List rsaEncrypt(RSAPublicKey myPublic, Uint8List dataToEncrypt);
-Uint8List rsaDecrypt(RSAPrivateKey myPrivate, Uint8List cipherText);
-```
-
-Generated bridge (tom_crypto_bridges.b.dart):
-```dart
-'rsaEncrypt': (visitor, positional, named, typeArgs) {
-  final myPublic = D4.getRequiredArg<dynamic>(positional, 0, 'myPublic', 'rsaEncrypt');
-  //                                  ^^^^^^^ was RSAPublicKey (from pointycastle package)
-  final dataToEncrypt = D4.getRequiredArg<dynamic>(positional, 1, 'dataToEncrypt', 'rsaEncrypt');
-  return ext_tom_crypto.rsaEncrypt(myPublic, dataToEncrypt);
-},
-'rsaDecrypt': (visitor, positional, named, typeArgs) {
-  final myPrivate = D4.getRequiredArg<dynamic>(positional, 0, 'myPrivate', 'rsaDecrypt');
-  //                                   ^^^^^^^ was RSAPrivateKey (from pointycastle package)
-  final cipherText = D4.getRequiredArg<dynamic>(positional, 1, 'cipherText', 'rsaDecrypt');
-  return ext_tom_crypto.rsaDecrypt(myPrivate, cipherText);
-},
-```
-
-**Where the problem manifests:** A D4rt script can pass any value for `myPublic` — the bridge won't catch the type error until `ext_tom_crypto.rsaEncrypt()` tries to use the value internally, producing an unhelpful cast error deep in the host code.
-
-**b) Location:**
-These are runtime warnings from the generator. Each triggers `_recordMissingExport()` (see GEN-017) because the types come from packages (`pointycastle`, `dart_jsonwebtoken`, `tom_basics`, `tom_dist_ledger`) that aren't included in the respective module's `barrelFiles`.
-
-**c) Strategies:**
-- For types from packages you control (`MdPdfConverterOptions`, `LedgerData`): add them to the barrel file's exports.
-- For third-party types (`RSAPublicKey`, `JWT`, etc.): add the third-party package as an additional `barrelFiles` entry in the module config.
-- For types that are rarely accessed from scripts: accept the `dynamic` fallback and document which methods are affected.
-
----
-
-### GEN-027
-
-**InvalidType warnings indicate analyzer resolution failures**
-
-**a) Problem:**
-
-Different from GEN-017 (type exists but isn't in barrel exports), `InvalidType` means the Dart analyzer itself could not determine what the type is. This happens when:
-- A dependency hasn't had `dart pub get` run
-- A source file has circular imports the analyzer can't resolve
-- An analyzer bug mishandles a specific type pattern
-
-**What the generator sees:**
-```
-WARNING: Parameter 'config' in method 'initialize' has InvalidType — using dynamic
-```
-
-The analyzer returns a special `InvalidType` sentinel instead of a resolved `DartType`. The generator has no choice but to use `dynamic`.
-
-**How it differs from GEN-017:**
-- GEN-017: Analyzer resolves the type correctly (e.g., `RSAPublicKey`), but it's not in barrel exports → `dynamic`
-- GEN-027: Analyzer cannot resolve the type at all → `InvalidType` → `dynamic`
-
-**Where the problem manifests:** Same as GEN-017 — the generated bridge has `dynamic` instead of the correct type. But the fix is different: instead of adding barrel exports, you need to fix the underlying analysis failure (missing dependency, circular import, etc.).
-
-**b) Location:**
-Appears at generation runtime. The generator encounters `InvalidType` from the analyzer's resolved AST and logs a warning.
-
-**c) Strategies:**
-- Investigate which specific methods trigger `InvalidType` and check their dependencies are properly resolvable.
-- Ensure `dart pub get` has been run and all dependencies are available.
-- If caused by analyzer bugs, consider filing issues against `package:analyzer`.
+### Fixed Issues
 
 ---
 
@@ -1144,6 +116,8 @@ Fixed 2026-02-07. All four parameters are now passed through from the module con
 
 ---
 
+---
+
 ### GEN-029
 
 **CLI path missing export info filtering for globals**
@@ -1173,6 +147,8 @@ for (final func in globalFunctions) {
 
 **c) Resolution:**
 Fixed 2026-02-07. Added export info filtering for enums, functions, and variables in `generateBridges()`, matching the existing logic in `generateBridgesWithWriter()`.
+
+---
 
 ---
 
@@ -1238,6 +214,8 @@ Fixed 2026-02-07. `dartscript.b.dart` now registers bridges under ALL barrel imp
 
 ---
 
+---
+
 ### GEN-037
 
 **Status:** Fixed  
@@ -1278,48 +256,6 @@ All generated files now use `.b.dart` extension regardless of what the config sp
 
 ---
 
-### GEN-038
-
-**Status:** Already Fixed (non-issue)  
-**Complexity:** Low  
-**Title:** Test runner fails on first duplicate instead of reporting all
-
-**a) What exactly is the problem:**
-
-This was believed to be an issue, but investigation revealed it was already solved.
-
-The generated `_runInitEval()` function calls `d4rt.validateRegistrations(source: _initSource)` which uses `collectRegistrationErrors: true` mode internally. This collects ALL duplicate registration errors and returns them as a `List<String>` rather than throwing on the first one.
-
-The `validateRegistrations()` method exists in `tom_d4rt/lib/src/d4rt_base.dart` at line 283.
-
-**b) Location:**
-`file_generators.dart` — `generateTestRunnerContent()` generates `_runInitEval()` which correctly calls `d4rt.validateRegistrations()` and iterates over all errors.
-
-**c) Resolution:**
-No changes needed. The implementation was already correct when the test runner feature was added.
-
----
-
-### GEN-039
-
-**Status:** Already Fixed (non-issue)  
-**Complexity:** Low  
-**Title:** Test runner config not supported in build.yaml
-
-**a) What exactly is the problem:**
-
-This was believed to be an issue, but investigation revealed it was already solved.
-
-The `BuildConfigLoader.loadFromBuildYaml()` in `lib/src/build_config_loader.dart` correctly navigates the `build.yaml` structure (`targets.$default.builders.tom_d4rt_generator:d4rt_bridge_builder.options`) and passes all fields through `BridgeConfig.fromJson()`. This includes `generateTestRunner` and `testRunnerPath`.
-
-Both the standalone CLI (`bin/d4rt_gen.dart`) and the library CLI (`lib/src/cli/d4rt_generator_cli.dart`) call `BuildConfigLoader.loadFromBuildYaml()` when processing a project directory, falling back to `d4rt_bridging.json` only if no build.yaml config is found.
-
-**b) Location:**
-`lib/src/build_config_loader.dart` — `loadFromBuildYaml()` correctly handles all `BridgeConfig` fields.
-
-**c) Resolution:**
-No changes needed. The build.yaml support was already fully implemented when the test runner config fields were added to `BridgeConfig`.
-
 ---
 
 ### GEN-040
@@ -1346,6 +282,450 @@ Also added `prefer_function_declarations_over_variables` to the `ignore_for_file
 
 **c) Resolution:**
 Fixed the interpolation from `_sample` to `sample` in the generator source. Regenerated all affected bridge files. The `ignore_for_file` directive now includes `prefer_function_declarations_over_variables` for generated files.
+
+---
+
+---
+
+### GEN-043
+
+**Generated user bridge references lack import prefix ($pkg.)**
+
+**Status: Fixed**
+
+**a) Problem:**
+
+When the generator detects a `D4UserBridge` subclass and wires its override methods into the generated bridge code, it emits bare class names like `Vector2DUserBridge.overrideOperatorPlus`. However, the barrel file is imported with a prefix (`as $pkg`), so the generated code should emit `$pkg.Vector2DUserBridge.overrideOperatorPlus`.
+
+Without the prefix, the generated bridge file fails to compile with "Undefined name" errors for every user bridge reference.
+
+**Example of broken generated code (before fix):**
+```dart
+import 'package:my_package/my_package.dart' as $pkg;
+
+// ...
+methods: {
+  '+': Vector2DUserBridge.overrideOperatorPlus,  // ERROR: Undefined name
+},
+```
+
+**Correct generated code (after fix):**
+```dart
+import 'package:my_package/my_package.dart' as $pkg;
+
+// ...
+methods: {
+  '+': $pkg.Vector2DUserBridge.overrideOperatorPlus,  // OK
+},
+```
+
+**Reproducing test:**
+`test/d4rt_tester_test.dart` → `D4rtTester end-to-end` → `userbridge_user_guide` → `Vector2D and Matrix2x2 via user bridges`
+
+**b) Location:**
+
+`bridge_generator.dart` — 11 emission points in `_generateClassBridge()` and the global registration methods where `userBridge.userBridgeClassName` or `globalsUserBridge.userBridgeClassName` was interpolated without calling `_getPrefixedClassName()`.
+
+**c) Fix applied:**
+
+In `_generateClassBridge()`, compute `prefixedUserBridge` at the top of the method using the existing `_getPrefixedClassName(userBridge.userBridgeClassName, userBridge.sourceFile)` helper. Replace all 8 class-level bare references with `prefixedUserBridge`. For the 3 global-level references, compute the prefixed name inline using the same method.
+
+---
+
+---
+
+### GEN-038
+
+**Status:** Already Fixed (non-issue)  
+**Complexity:** Low  
+**Title:** Test runner fails on first duplicate instead of reporting all
+
+**a) What exactly is the problem:**
+
+This was believed to be an issue, but investigation revealed it was already solved.
+
+The generated `_runInitEval()` function calls `d4rt.validateRegistrations(source: _initSource)` which uses `collectRegistrationErrors: true` mode internally. This collects ALL duplicate registration errors and returns them as a `List<String>` rather than throwing on the first one.
+
+The `validateRegistrations()` method exists in `tom_d4rt/lib/src/d4rt_base.dart` at line 283.
+
+**b) Location:**
+`file_generators.dart` — `generateTestRunnerContent()` generates `_runInitEval()` which correctly calls `d4rt.validateRegistrations()` and iterates over all errors.
+
+**c) Resolution:**
+No changes needed. The implementation was already correct when the test runner feature was added.
+
+---
+
+---
+
+### GEN-039
+
+**Status:** Already Fixed (non-issue)  
+**Complexity:** Low  
+**Title:** Test runner config not supported in build.yaml
+
+**a) What exactly is the problem:**
+
+This was believed to be an issue, but investigation revealed it was already solved.
+
+The `BuildConfigLoader.loadFromBuildYaml()` in `lib/src/build_config_loader.dart` correctly navigates the `build.yaml` structure (`targets.$default.builders.tom_d4rt_generator:d4rt_bridge_builder.options`) and passes all fields through `BridgeConfig.fromJson()`. This includes `generateTestRunner` and `testRunnerPath`.
+
+Both the standalone CLI (`bin/d4rt_gen.dart`) and the library CLI (`lib/src/cli/d4rt_generator_cli.dart`) call `BuildConfigLoader.loadFromBuildYaml()` when processing a project directory, falling back to `d4rt_bridging.json` only if no build.yaml config is found.
+
+**b) Location:**
+`lib/src/build_config_loader.dart` — `loadFromBuildYaml()` correctly handles all `BridgeConfig` fields.
+
+**c) Resolution:**
+No changes needed. The build.yaml support was already fully implemented when the test runner config fields were added to `BridgeConfig`.
+
+---
+
+### Won't Fix Issues
+
+---
+
+### GEN-001
+
+**Generic methods lose type parameters (type erasure)**
+
+**a) Problem:**
+
+When a Dart API defines a generic method like `T withFileProtection<T>(List<String> protected, T Function() action)`, the bridge generator cannot forward the type argument `T` from the D4rt interpreter to the host Dart call. This is because Dart's reified generics require the type argument at compile time, but the interpreter only knows it at runtime.
+
+The generator detects type parameters during parsing:
+
+```dart
+// bridge_generator.dart — BridgedMethodInfo fields
+final bool hasTypeParameters;
+final Map<String, String?> methodTypeParameters; // e.g. {'T': 'Object', 'E': null}
+```
+
+When generating the bridge call, every occurrence of `T` is replaced with its bound (or `dynamic` if unbounded). The generated bridge always calls the host method with `<dynamic>`:
+
+**Source Dart API (dcli):**
+```dart
+T withFileProtection<T>(List<String> protected, T Function() action, {String? workingDirectory});
+```
+
+**Generated bridge code (dcli_bridges.b.dart):**
+```dart
+'withFileProtection': (visitor, positional, named, typeArgs) {
+  final protected = D4.getRequiredArg<List<String>>(positional, 0, 'protected', 'withFileProtection');
+  final action = D4.getRequiredArg<dynamic Function()>(positional, 1, 'action', 'withFileProtection');
+  //                                 ^^^^^^^ was T Function(), erased to dynamic
+  final workingDirectory = D4.getOptionalNamedArg<String?>(named, 'workingDirectory');
+  return $pkg.withFileProtection<dynamic>(protected, action, workingDirectory: workingDirectory);
+  //                             ^^^^^^^ type argument erased to <dynamic>
+},
+```
+
+**Where the problem manifests:** The `typeArgs` parameter is received by the bridge callback but never used. A D4rt script calling `withFileProtection<int>(...)` will not pass `int` to the host — the host always runs `<dynamic>`. This means:
+- Return types lose their generic precision (returns `dynamic` instead of `int`)
+- Function parameters typed with `T` become `dynamic Function()` instead of `int Function()`
+- Generic collection parameters like `List<T>` become `List<dynamic>`
+
+This pattern appears across all generic functions: `runChecked<T>()`, `runCheckedSync<T>()`, `tomProtect<T>()`, `getFromCurrentZone<T>()`, etc.
+
+**b) Location:**
+`bridge_generator.dart` — fields on `BridgedMethodInfo` (~line 82–87); type erasure logic in `_generateMethodBody()` where `effectiveTypeParams` merges class and method type params; `_getTypeArgument()` where type parameter names are looked up and replaced with their bounds.
+
+**c) Strategies:**
+- **Won't Fix (fundamental):** Dart's reified generics require the type argument to be known at compile time at the call site. The interpreter dispatches at runtime and cannot synthesize a `Type` object that the host Dart VM accepts as a generic argument.
+- **Mitigation:** For common cases, the generator already produces specialized overloads (e.g., `cast<int>`, `cast<String>`). Could extend the set of pre-specialized types via configuration.
+
+---
+
+---
+
+### GEN-003
+
+**Complex default values cannot be represented in generated code**
+
+**a) Problem:**
+
+Dart allows arbitrary compile-time constant expressions as default values. The bridge generator lives in a separate library and can only represent simple literals and public const references. When it encounters a default value it can't reproduce, it marks it as "non-wrappable" and uses combinatorial dispatch (see GEN-004) to generate variants that either include or omit that parameter.
+
+The generator's `_prefixDefaultValue()` can handle:
+- Literals: `null`, `true`, `false`, `42`, `'hello'`
+- Empty collections: `const []`, `{}`
+- Core constants: `const Duration(...)`, `double.infinity`
+- Public enum/static access: `FetchMethod.get`, `Encoding.utf8`
+
+It **cannot** handle:
+- Private constants: `_defaultTimeout`
+- Constructor calls from unexported types
+- Complex const expressions: `const [1, 2, 3]`
+- Function call defaults: `_generateId()`
+
+**Source Dart API (dcli — `cat()`):**
+```dart
+void cat(String path, {Sink<List<int>> stdout = io.stdout});
+//                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ complex default: io.stdout
+```
+
+**Generated bridge code (dcli_bridges.b.dart):**
+```dart
+'cat': (visitor, positional, named, typeArgs) {
+  final path = D4.getRequiredArg<String>(positional, 0, 'path', 'cat');
+  if (!named.containsKey('stdout')) {
+    $pkg.cat(path);           // ← variant 1: omit 'stdout', let Dart use its own default
+    return null;
+  }
+  if (named.containsKey('stdout')) {
+    final stdout = D4.getRequiredNamedArg<void Function(String)>(named, 'stdout', 'cat');
+    $pkg.cat(path, stdout: stdout);  // ← variant 2: pass explicit 'stdout'
+    return null;
+  }
+  throw StateError('Unreachable: all named parameter combinations should be covered');
+},
+```
+
+**Where the problem manifests:** The generated code must check whether the D4rt script provided the parameter. If not, it calls the host method *without* that parameter so Dart applies its own default. This works but produces verbose code — and for methods with many non-wrappable defaults, the variants multiply exponentially (see GEN-004).
+
+**b) Location:**
+`bridge_generator.dart` — `_prefixDefaultValue()` for default value classification; `_isWrappableDefault()` for the wrappable check; `_generateCombinatorialDispatch()` for generating the 2^N if/else variants.
+
+**c) Strategies:**
+- **Won't Fix (fundamental):** Cross-library default value evaluation is not possible in Dart without code generation that imports the original library — but the bridge *is* that generated code, creating a circular problem for private defaults.
+- **Mitigation:** Combinatorial dispatch (2^N variants) works for up to 4 params (see GEN-004). Could also generate a thin forwarding function in the source package that exposes defaults explicitly.
+
+---
+
+---
+
+### GEN-004
+
+**Combinatorial dispatch capped at 4 non-wrappable params**
+
+**a) Problem:**
+
+When a method has N named parameters with non-wrappable defaults (see GEN-003), the generator produces 2^N call variants. Each variant is an `if` block that checks which named parameters were provided by the script:
+
+**Generator source (bridge_generator.dart):**
+```dart
+final useCombinatorial =
+    nonWrappableDefaults.isNotEmpty && nonWrappableDefaults.length <= 4;
+// ...
+final count = unwrappableParams.length;
+final limit = 1 << count;  // 2^N combinations
+for (var i = 0; i < limit; i++) { /* generate if block for each combination */ }
+```
+
+At N=1: 2 variants (like the `cat()` example in GEN-003).
+At N=2: 4 variants. At N=4: 16 variants. At N=5: 32 variants — too many.
+
+**Where the problem manifests:** Methods with 5+ non-wrappable defaults get **no** combinatorial dispatch at all. The generator cannot produce a correct call because it can't reproduce the default values and can't enumerate all 32+ combinations. Such methods are either bridged with only the "all params present" variant (losing defaults), or skipped with a `// TODO` comment.
+
+**b) Location:**
+`bridge_generator.dart` — the `nonWrappableDefaults.length <= 4` guard; `_generateCombinatorialDispatch()` which generates the 2^N `if` blocks.
+
+**c) Strategies:**
+- **Won't Fix (trade-off):** Raising the limit causes massive generated code bloat. 2^8 = 256 variants for a single method is impractical.
+- **Alternative:** Generate a single call variant that uses `Function.apply` with a `Map<Symbol, dynamic>` for named params. This avoids the combinatorial explosion but loses compile-time type safety in the generated code.
+
+---
+
+---
+
+### GEN-006
+
+**Syntactic fallback loses all resolved type information**
+
+**a) Problem:**
+
+The generator has two code paths: the **resolved path** (using the Dart analyzer's fully resolved AST) and the **syntactic fallback** (raw syntax tree parsing). When the analyzer cannot produce a resolved AST for a source file (e.g., missing dependencies, analysis errors), the generator falls back to `_ClassVisitor` which only sees the textual syntax.
+
+**Resolved path** produces rich bridge code:
+```dart
+// Knows the import URI for SettingsYaml, resolves this.field types, expands typedefs
+final config = D4.getRequiredArg<$pkg.SettingsYaml>(positional, 0, 'config', 'loadConfig');
+```
+
+**Syntactic fallback** produces degraded bridge code:
+```dart
+// Can't resolve SettingsYaml's import URI → falls back to dynamic
+// Can't resolve this.fieldName types → uses dynamic
+final config = D4.getRequiredArg<dynamic>(positional, 0, 'config', 'loadConfig');
+```
+
+**What is lost in the fallback:**
+- Type import URIs (import prefixes can't be resolved → types become `dynamic`)
+- Superclass/mixin type resolution (inherited methods not bridged)
+- `this.x` and `super.x` parameter types (become `dynamic` — see GEN-014)
+- Typedef expansion (alias names used instead of expanded `Function` signatures — see GEN-007)
+- Inherited members (only declared members are visible)
+
+**b) Location:**
+`bridge_generator.dart` ~line 2600–2630 — fallback decision in `_processSourceFile()`; `_ClassVisitor` defined at ~line 8200+ (syntactic path); `_ResolvedClassVisitor` at ~line 7400+ (resolved path).
+
+**c) Strategies:**
+- **Won't Fix (fundamental for the fallback path):** The fallback exists because analysis failed. By definition, resolved type info is unavailable.
+- **Mitigation:** Improve analyzer reliability by ensuring all dependencies are resolvable. Add a `--strict` flag that fails instead of falling back, so users know when quality is degraded.
+- Log which files used the fallback so users can investigate and fix the underlying analysis issue.
+
+---
+
+---
+
+### GEN-014
+
+**Syntactic fallback: this.x params always typed as dynamic**
+
+**a) Problem:**
+
+In Dart constructors, `this.fieldName` is shorthand for assigning a parameter to a field. The type comes from the field declaration. In the syntactic fallback visitor (see GEN-006), the field's type is unknown because the AST isn't resolved:
+
+**Source Dart API:**
+```dart
+class Server {
+  final int port;
+  final String host;
+  Server(this.port, this.host);  // port is int, host is String
+}
+```
+
+**Resolved path produces:**
+```dart
+final port = D4.getRequiredArg<int>(positional, 0, 'port', 'Server');
+final host = D4.getRequiredArg<String>(positional, 1, 'host', 'Server');
+```
+
+**Syntactic fallback produces:**
+```dart
+final port = D4.getRequiredArg<dynamic>(positional, 0, 'port', 'Server');
+final host = D4.getRequiredArg<dynamic>(positional, 1, 'host', 'Server');
+```
+
+**Where the problem manifests:** The bridge compiles fine but loses type safety at the parameter boundary. A D4rt script could pass a `String` for `port` and the bridge wouldn't catch it — the error would only surface deep inside the host Dart code. The resolved path handles this correctly by looking up the field's declared type via the `ClassElement`.
+
+**b) Location:**
+`bridge_generator.dart` ~line 8390–8400 — `_ClassVisitor._parseParameters()` for `FieldFormalParameter`.
+
+**c) Strategies:**
+- **Won't Fix (inherent to fallback):** Without a resolved AST, the field type is unknown. The syntactic visitor would need to find and parse the field declaration in the same class, which is fragile and incomplete for inherited fields.
+- The resolved path handles this correctly, so the real mitigation is ensuring analysis succeeds.
+
+---
+
+### TODO Issues
+
+---
+
+### GEN-017
+
+**Missing barrel export silently downgrades to dynamic**
+
+**a) Problem:**
+
+When a type used in a method signature isn't exported from the module's barrel file, the generator logs a warning and replaces the type with `dynamic`:
+
+**Generator source (bridge_generator.dart):**
+```dart
+void _recordMissingExport(String context, String typeName) {
+  final warning = 'Missing export: Type "$typeName" used in $context is not exported from barrel file';
+  _missingExportWarnings.add(warning);
+  if (verbose) print('WARNING: $warning');
+}
+// Then returns 'dynamic' as the type
+```
+
+**Source Dart API (tom_crypto package):**
+```dart
+AsymmetricKeyPair<RSAPublicKey, RSAPrivateKey> getRsaKeyPair(SecureRandom secureRandom);
+```
+
+**Generated bridge code (tom_crypto_bridges.b.dart):**
+```dart
+'getRsaKeyPair': (visitor, positional, named, typeArgs) {
+  final secureRandom = D4.getRequiredArg<dynamic>(positional, 0, 'secureRandom', 'getRsaKeyPair');
+  //                                     ^^^^^^^ was SecureRandom — not in barrel exports
+  return ext_tom_crypto.getRsaKeyPair(secureRandom);
+},
+```
+
+**Where the problem manifests:** The generated code compiles and the method is callable from D4rt, but:
+1. **No type checking** at the bridge boundary — a script can pass any value, and the error surfaces deep in the host Dart code with an unhelpful cast error
+2. **IDE autocompletion** in D4rt shows the parameter as `dynamic` instead of `SecureRandom`
+3. **The warning is easily missed** in verbose generation output — users don't know their bridge has degraded type safety
+
+This is the root mechanism behind GEN-026 (14 concrete types downgraded across projects).
+
+**b) Location:**
+`bridge_generator.dart` — `_recordMissingExport()` logs the warning; multiple call sites in `_getTypeArgument()` that return `'dynamic'` after recording the missing export.
+
+**c) Strategies:**
+- Add a `--strict-exports` flag that fails generation instead of falling back to `dynamic`.
+- Generate a summary report at the end listing all dynamic fallbacks, grouped by affected class/method.
+- In the generated bridge code, add a comment `/* was: OriginalType */` next to `dynamic` so the degradation is visible in code review.
+
+---
+
+---
+
+### GEN-026
+
+**14 concrete types across projects silently downgraded to dynamic**
+
+**a) Problem:**
+
+This is GEN-017 in action across real projects. During generation, the following concrete types aren't found in barrel exports and get replaced with `dynamic`:
+
+**tom_d4rt_dcli (dcli module):**
+| Original Type | Used In | Bridge Result |
+|---------------|---------|---------------|
+| `Trace` | Stack trace methods | `dynamic` |
+| `SettingsYaml` | Configuration methods | `dynamic` |
+| `ColumnComparator` | Table formatting | `dynamic` |
+| `CancelableLineAction` | Line action callbacks | `dynamic` |
+
+**tom_dartscript_bridges (tom_crypto module):**
+| Original Type | Used In | Bridge Result |
+|---------------|---------|---------------|
+| `RSAPublicKey` | `rsaEncrypt()`, `rsaVerify()` | `dynamic` |
+| `RSAPrivateKey` | `rsaDecrypt()`, `rsaSign()` | `dynamic` |
+| `SecureRandom` | `getRsaKeyPair()` | `dynamic` |
+| `JWT`, `JWTKey`, `JWTAlgorithm` | JWT token operations | `dynamic` |
+| `Argon2Parameters` | Password hashing config | `dynamic` |
+| `Invocation` | Reflection | `dynamic` |
+| `MdPdfConverterOptions` | Markdown-to-PDF conversion | `dynamic` |
+| `LedgerData` | Distributed ledger | `dynamic` |
+
+**Concrete example — RSA functions in generated bridge:**
+
+Source Dart API:
+```dart
+Uint8List rsaEncrypt(RSAPublicKey myPublic, Uint8List dataToEncrypt);
+Uint8List rsaDecrypt(RSAPrivateKey myPrivate, Uint8List cipherText);
+```
+
+Generated bridge (tom_crypto_bridges.b.dart):
+```dart
+'rsaEncrypt': (visitor, positional, named, typeArgs) {
+  final myPublic = D4.getRequiredArg<dynamic>(positional, 0, 'myPublic', 'rsaEncrypt');
+  //                                  ^^^^^^^ was RSAPublicKey (from pointycastle package)
+  final dataToEncrypt = D4.getRequiredArg<dynamic>(positional, 1, 'dataToEncrypt', 'rsaEncrypt');
+  return ext_tom_crypto.rsaEncrypt(myPublic, dataToEncrypt);
+},
+'rsaDecrypt': (visitor, positional, named, typeArgs) {
+  final myPrivate = D4.getRequiredArg<dynamic>(positional, 0, 'myPrivate', 'rsaDecrypt');
+  //                                   ^^^^^^^ was RSAPrivateKey (from pointycastle package)
+  final cipherText = D4.getRequiredArg<dynamic>(positional, 1, 'cipherText', 'rsaDecrypt');
+  return ext_tom_crypto.rsaDecrypt(myPrivate, cipherText);
+},
+```
+
+**Where the problem manifests:** A D4rt script can pass any value for `myPublic` — the bridge won't catch the type error until `ext_tom_crypto.rsaEncrypt()` tries to use the value internally, producing an unhelpful cast error deep in the host code.
+
+**b) Location:**
+These are runtime warnings from the generator. Each triggers `_recordMissingExport()` (see GEN-017) because the types come from packages (`pointycastle`, `dart_jsonwebtoken`, `tom_basics`, `tom_dist_ledger`) that aren't included in the respective module's `barrelFiles`.
+
+**c) General Strategy — same as GEN-017 (Resolved-Type Import Propagation):**
+
+This is GEN-017 manifested across real projects. All 14 types would be automatically resolved by the GEN-017 fix: since the resolved analyzer already knows these types and their source URIs, carrying that information through to code generation would auto-generate the correct auxiliary imports without any barrel configuration changes.
+
+No per-type or per-package manual configuration needed.
+
+---
 
 ---
 
@@ -1389,10 +769,20 @@ Test script: `example/example_project/test/d4rt_test_basics.dart` (line accessin
 **b) Location:**
 The bridge generator's enum handling is in `bridge_generator.dart`. The enum bridge generation creates `BridgedEnumValue` entries for each constant but doesn't emit getter bridges for custom fields defined on the enum class. The runtime `BridgedEnumValue.get()` in `tom_d4rt/src/bridge/bridged_enum.dart` only handles `name` and `index`, throwing for any other property.
 
-**c) Strategies:**
-- Extend the enum bridge generation to detect enhanced enum fields via the analyzer and generate property getter bridges for each field, similar to how class getters are bridged.
-- In `BridgedEnumValue`, add a mechanism to register custom field accessors that the generator can populate.
-- May also need to bridge enum methods (e.g., `compareTo()` on `Priority`).
+**c) General Strategy — Use `EnumElement` API for full enum introspection:**
+
+The current enum visitor (L7152) uses AST-level `EnumDeclaration` and only collects constant names. The Dart analyzer's `EnumElement` (available via `node.declaredElement`) provides full introspection: fields, methods, constructors, and implemented interfaces.
+
+**Fix:**
+1. In `_ResolvedClassVisitor.visitEnumDeclaration()`, obtain `EnumElement` via `node.declaredElement`.
+2. Iterate `enumElement.fields` — for each non-synthetic, non-private field (excluding `index`, `values`, built-in ones), record it as a bridgeable getter.
+3. Iterate `enumElement.methods` — for each non-synthetic, non-private method, record it as a bridgeable method.
+4. Extend the enum code generation (L3454) to emit property getter and method bridges per enum value, using a `getters:` and `methods:` map in `BridgedEnumDefinition`.
+5. In `BridgedEnumValue.get()` (in tom_d4rt), look up custom field accessors from the definition before throwing.
+
+This is fully general — any enhanced enum's fields and methods are auto-discovered from the analyzer, no hardcoding needed.
+
+---
 
 ---
 
@@ -1444,55 +834,24 @@ Test script: `example/dart_overview/test/d4rt_test_overview.dart` (line `var per
 **b) Location:**
 The bridge generator's constructor detection logic in `bridge_generator.dart`. When iterating class members to find constructors, it only emits a constructor bridge when it finds an explicit `ConstructorDeclaration` in the source. If none exists, no constructor bridge is generated, and the class becomes non-instantiable from D4rt.
 
-**c) Strategies:**
-- When the generator detects a class with no explicit constructors, synthesize a default no-arg constructor bridge that calls the Dart default constructor.
-- Use the analyzer's `ClassElement` API to check `unnamedConstructor` — if it's synthetic (implicit), generate a bridge for it anyway.
-- This should be straightforward since the default constructor takes no arguments.
+**c) General Strategy — Use `ClassElement.constructors` instead of AST-only detection:**
+
+Both visitors currently detect constructors by scanning AST `ConstructorDeclaration` nodes (L7330, L8283). This misses implicit constructors since they have no AST node.
+
+**Fix:** In `_ResolvedClassVisitor.visitClassDeclaration()`, after the AST scan finds zero constructors, check `classElement.constructors` (from `node.declaredElement`). If `classElement.unnamedConstructor?.isSynthetic == true` (implicit default), synthesize a constructor bridge entry with zero parameters that calls the Dart default constructor:
+
+```dart
+if (constructors.isEmpty) {
+  final classElement = node.declaredElement;
+  if (classElement?.unnamedConstructor?.isSynthetic == true) {
+    constructors.add(ConstructorInfo(name: '', params: [], isConst: false, isFactory: false));
+  }
+}
+```
+
+This is fully general — works for any class with an implicit default constructor without any hardcoding. The syntactic visitor (`_ClassVisitor`) should apply the same check for consistency, though it may not have access to `ClassElement` — in that case, assume a default constructor exists when none is found in the AST (safe heuristic since Dart always provides one).
 
 ---
-
-### GEN-043
-
-**Generated user bridge references lack import prefix ($pkg.)**
-
-**Status: Fixed**
-
-**a) Problem:**
-
-When the generator detects a `D4UserBridge` subclass and wires its override methods into the generated bridge code, it emits bare class names like `Vector2DUserBridge.overrideOperatorPlus`. However, the barrel file is imported with a prefix (`as $pkg`), so the generated code should emit `$pkg.Vector2DUserBridge.overrideOperatorPlus`.
-
-Without the prefix, the generated bridge file fails to compile with "Undefined name" errors for every user bridge reference.
-
-**Example of broken generated code (before fix):**
-```dart
-import 'package:my_package/my_package.dart' as $pkg;
-
-// ...
-methods: {
-  '+': Vector2DUserBridge.overrideOperatorPlus,  // ERROR: Undefined name
-},
-```
-
-**Correct generated code (after fix):**
-```dart
-import 'package:my_package/my_package.dart' as $pkg;
-
-// ...
-methods: {
-  '+': $pkg.Vector2DUserBridge.overrideOperatorPlus,  // OK
-},
-```
-
-**Reproducing test:**
-`test/d4rt_tester_test.dart` → `D4rtTester end-to-end` → `userbridge_user_guide` → `Vector2D and Matrix2x2 via user bridges`
-
-**b) Location:**
-
-`bridge_generator.dart` — 11 emission points in `_generateClassBridge()` and the global registration methods where `userBridge.userBridgeClassName` or `globalsUserBridge.userBridgeClassName` was interpolated without calling `_getPrefixedClassName()`.
-
-**c) Fix applied:**
-
-In `_generateClassBridge()`, compute `prefixedUserBridge` at the top of the method using the existing `_getPrefixedClassName(userBridge.userBridgeClassName, userBridge.sourceFile)` helper. Replace all 8 class-level bare references with `prefixedUserBridge`. For the 3 global-level references, compute the prefixed name inline using the same method.
 
 ---
 
@@ -1529,11 +888,371 @@ Day.values.length  // → Undefined enum value 'values' on bridged enum 'Day'
 
 The enum bridge generation logic in `bridge_generator.dart`. When generating an enum bridge, the generator emits individual named values (e.g., `Day.monday`, `Day.tuesday`) but does not synthesize a `.values` static getter that returns the complete list.
 
-**c) Strategies:**
-- When generating an enum bridge, also emit a `values` static getter that returns `EnumType.values` (the host Dart list).
-- This should map to a `BridgedStaticGetterAdapter` or be added to the enum's static members map.
-- The `.values` getter is always present on Dart enums, so it can be unconditionally generated.
-- Similarly, consider bridging `.name` and `.index` if not already covered (they appear to work based on passing tests).
+**c) General Strategy — Unconditionally emit `.values` for all enums:**
+
+Since `.values` is a built-in static getter on **every** Dart enum, this requires no detection — just unconditionally emit it in the enum code generation (L3454–L3507).
+
+**Fix:** In the enum bridge generation loop, add `values` as a static member that returns `EnumType.values`. In the runtime `BridgedEnumDefinition`, handle `values` lookup to return the host Dart `List<EnumType>`.
+
+This pairs naturally with the GEN-041 fix (enhanced enum introspection via `EnumElement`), since both modify the same generation and runtime code paths. Implement together as a single "complete enum bridging" change.
+
+---
+
+---
+
+### GEN-002
+
+**Recursive type bounds dispatched to only 3 hardcoded types**
+
+**a) Problem:**
+
+When a method has a type parameter with a recursive bound like `T extends Comparable<T>`, the generator cannot use `<dynamic>` (since `dynamic` doesn't implement `Comparable<dynamic>`). Instead, it generates concrete dispatch variants that test the runtime type and call the method with the matching type argument. However, only 3 types are dispatched by default:
+
+**Generator source (bridge_generator.dart):**
+```dart
+static const List<String> _defaultRecursiveBoundTypes = [
+  'num',
+  'String',
+  'DateTime',
+];
+```
+
+**Generated dispatch code pattern:**
+```dart
+final sample = positional[0];
+if (sample is num) {
+  return someMethod<num>(sample);
+}
+if (sample is String) {
+  return someMethod<String>(sample);
+}
+if (sample is DateTime) {
+  return someMethod<DateTime>(sample);
+}
+throw ArgumentError('someMethod: Unsupported type for Comparable<T>: ${sample.runtimeType}');
+```
+
+**Where the problem manifests:** If a D4rt script calls a method requiring `T extends Comparable<T>` with a `Duration` value (which implements `Comparable<Duration>`), the dispatch won't find a matching variant and throws an `ArgumentError` at runtime. The same applies to `BigInt`, `bool`, or any custom `Comparable` implementation.
+
+**b) Location:**
+`bridge_generator.dart` ~line 730–760 — `_defaultRecursiveBoundTypes` list; recursive bound detection in `_getRecursiveBoundTypeParams()`; dispatch generation that iterates `recursiveBoundTypes` and generates `if (sample is X)` blocks with a final `throw ArgumentError(...)` fallback.
+
+**c) General Strategy — Auto-discover Comparable implementors from the analyzer:**
+
+`_ResolvedClassVisitor` already has access to `ClassElement` for every bridged class. The Dart analyzer can determine whether a class implements an interface.
+
+**Fix:** During the resolved visitor pass, build a `Map<String, Set<String>> boundImplementors` (bound interface → concrete classes that implement it). For each class, check `classElement.allSupertypes` — if any match a recursive bound interface (e.g., `Comparable<T>`), add the class name to the set. After collection, pass `boundImplementors` to the dispatch generator. Instead of iterating `_defaultRecursiveBoundTypes`, iterate the discovered concrete types.
+
+**Fallback:** Keep `_defaultRecursiveBoundTypes` as a seed for SDK types (`num`, `String`, `DateTime`) that aren't directly bridged but commonly appear. The auto-discovered types are *added* to this set, not replacing it.
+
+This eliminates the hardcoded-only list and automatically handles any `Comparable`-implementing type (including `Duration`, `BigInt`, and custom types) without configuration.
+
+---
+
+---
+
+### GEN-012
+
+**Type parameter substitution uses fragile regex text replacement**
+
+**a) Problem:**
+
+When substituting type parameters in function types (e.g., replacing `T` with `int` in `T Function(T)`), the generator uses two approaches:
+
+**Generator source (bridge_generator.dart — `_substituteTypeParameters()`):**
+```dart
+// For InterfaceType and TypeParameterType: proper structural substitution
+if (type is TypeParameterType) {
+  return substitution[name]!.getDisplayString();  // ✓ correct
+}
+if (type is InterfaceType) {
+  // Recursively substitutes type arguments  // ✓ correct
+}
+
+// For FunctionType: falls back to regex text replacement
+if (type is FunctionType) {
+  var display = type.getDisplayString();
+  for (final entry in substitution.entries) {
+    display = display.replaceAll(
+      RegExp(r'\b' + entry.key + r'\b'),  // ✗ fragile
+      entry.value.getDisplayString(),
+    );
+  }
+  return display;
+}
+```
+
+**Example of potential failure:**
+- Type parameter: `T`
+- Function type display string: `DateTime Function(T, DateTime)`
+- Regex `\bT\b` matches `T` correctly here…
+- But with a type parameter named `E`: `Set<E> Function(E)` — regex `\bE\b` would also match the `E` in `Set<E>`, which is fine, but could fail with edge cases in complex nested types.
+
+**Where the problem manifests:** For `InterfaceType` and `TypeParameterType`, substitution is structural and correct. Only `FunctionType` uses the fragile regex path. The comment in the source says *"not perfect but handles most cases"*. Failures would produce incorrect type strings in the generated bridge code (wrong types, corrupted signatures).
+
+**b) Location:**
+`bridge_generator.dart` — `_substituteTypeParameters()` method; the `FunctionType` branch with `RegExp(r'\b' + entry.key + r'\b')`.
+
+**c) General Strategy — Use the analyzer's `TypeSystem.instantiate()` / structural walk:**
+
+The method at L7685 already handles `TypeParameterType` and `InterfaceType` structurally — only `FunctionType` falls back to regex. The fix is to extend the structural approach to `FunctionType`.
+
+**Fix:** In `_substituteTypeParameters()`, for the `FunctionType` branch:
+1. Recursively substitute the `returnType` (already handled for other type kinds).
+2. Iterate `type.parameters` — for each, recursively substitute its `type`.
+3. Reconstruct the function type string from the substituted parts: `"${substitutedReturn} Function(${substitutedParams.join(', ')})"`.
+
+Alternatively, use the Dart analyzer's `Substitution.fromPairs()` from `package:analyzer/dart/element/type_algebra.dart` which performs structural substitution on any `DartType` including `FunctionType`. This is the canonical way and handles all edge cases (nested functions, named params, optional params) correctly.
+
+No hardcoding involved — purely structural type manipulation.
+
+---
+
+---
+
+### GEN-016
+
+**Auxiliary imports may resolve wrong type on name collision**
+
+**a) Problem:**
+
+When a type isn't found in the module's barrel exports, the generator falls back to "auxiliary imports" — it looks at the source file's own import statements to find the type. If two packages export a type with the same name, the first match wins:
+
+**Source Dart API (file has two imports):**
+```dart
+import 'package:http/http.dart';  // exports Response
+import 'package:dio/dio.dart';     // also exports Response
+```
+
+**Method signature:** `Response sendRequest(...)` — which `Response` should the bridge import?
+
+**What happens:** The auxiliary import resolver picks whichever import it finds first. If it picks `package:dio`, but the method actually uses `package:http`'s `Response`, the generated bridge has a type mismatch that may or may not compile (depending on whether the types have compatible interfaces).
+
+**Where the problem manifests:** In the generated bridge import block, the wrong package would appear:
+```dart
+import 'package:dio/dio.dart' as ext_dio;  // Wrong! Should be package:http
+```
+This could cause compile errors (if the types are incompatible) or silent type mismatches (if they happen to have similar APIs).
+
+**b) Location:**
+`bridge_generator.dart` ~line 3040–3100 — auxiliary import resolution in `_resolveAuxiliaryType()`.
+
+**c) General Strategy — Use resolved `DartType` source URI for authoritative resolution:**
+
+The ambiguity only exists because auxiliary import resolution works by matching **type names** against **import URIs** from the source file. But the resolved analyzer already knows exactly which `DartType` the method uses — including its defining library URI.
+
+**Fix:** Same mechanism as GEN-017 (Resolved-Type Import Propagation). When the resolved visitor collects parameter types, record the authoritative `element.library.identifier` URI for each type. In code generation, use this URI directly to determine the import prefix — no name-based matching needed, no ambiguity possible.
+
+If the resolved data isn't available (syntactic fallback), warn about the ambiguity and pick the first match (current behavior) — this is acceptable for the fallback path.
+
+---
+
+---
+
+### GEN-018
+
+**Parameterized typedef expansion may produce incorrect types**
+
+**a) Problem:**
+
+When a typedef not exported from the barrel is used in a method signature, the generator tries to expand it to its underlying type. Simple typedefs work:
+
+```dart
+typedef VoidCallback = void Function();
+// → expanded correctly to: void Function()
+```
+
+But parameterized typedefs require substituting type arguments:
+
+**Source Dart API:**
+```dart
+typedef Converter<S, T> = T Function(S input);
+void transform(Converter<String, int> converter);
+// Should expand to: void transform(int Function(String input) converter)
+```
+
+**What can go wrong:** If `_expandTypedef()` doesn't properly apply the type arguments `<String, int>` to `S` and `T`, the expanded type could be `dynamic Function(dynamic input)` or even `T Function(S input)` (leaving unsubstituted parameters).
+
+**Where the problem manifests:** The generated bridge would have the wrong function signature:
+```dart
+// Incorrect expansion:
+final converter = D4.getRequiredArg<dynamic Function(dynamic)>(positional, 0, ...);
+// Correct expansion:
+final converter = D4.getRequiredArg<int Function(String)>(positional, 0, ...);
+```
+The incorrect version compiles but loses type safety. The resolved path doesn't have this issue because the analyzer already provides the fully-resolved `FunctionType` with applied type arguments.
+
+**b) Location:**
+`bridge_generator.dart` ~line 5830–5910 — typedef expansion in `_expandTypedef()`.
+
+**c) General Strategy — Rely on resolved `FunctionType` from analyzer (already correct):**
+
+The resolved path already gets the fully-instantiated `FunctionType` from the analyzer with all type arguments applied. The issue only occurs in manual expansion for the syntactic path.
+
+**Fix:** Ensure the resolved visitor's typedef expansion (L7057 `_expandFunctionType()`) passes the fully-resolved `FunctionType` to code generation, rather than reconstructing the expansion from the typedef's raw definition. The resolved `FunctionType.parameters` and `FunctionType.returnType` already have `<String, int>` substituted for `<S, T>` — no manual substitution needed.
+
+For the syntactic fallback: the existing manual expansion is inherently limited. Rather than improving it, mark the syntactic path's typedef handling as best-effort and document that correct typedef expansion requires the resolved path.
+
+Add test cases for parameterized typedef expansion to verify.
+
+---
+
+---
+
+### GEN-020
+
+**Global exclusions merge across modules — accidental cross-filtering**
+
+**a) Problem:**
+
+Exclusion patterns from all modules are merged into global sets before generation begins:
+
+**Generator source (per_package_orchestrator.dart — `collectPackageInfo()`):**
+```dart
+final Set<String> _globalExcludeClasses = {};
+// ...
+for (final module in config.modules) {
+  _globalExcludeClasses.addAll(module.excludeClasses);
+  _globalExcludeFunctions.addAll(module.excludeFunctions);
+  _globalExcludeVariables.addAll(module.excludeVariables);
+  _globalExcludeSourcePatterns.addAll(module.excludeSourcePatterns);
+}
+```
+
+These global sets are then applied to **every** package:
+```dart
+final result = await generator.generateBridgesWithWriter(
+  excludeClasses: _globalExcludeClasses.toList(),  // all modules' exclusions!
+  excludeFunctions: _globalExcludeFunctions.toList(),
+  // ...
+);
+```
+
+**Example scenario:**
+```yaml
+# Module A: dcli
+excludeClasses: ['*Exception', '*Error']
+
+# Module B: tom_basics
+# No exclusions — but wants its exception classes bridged
+```
+
+**Where the problem manifests:** Module A excludes `*Exception` for dcli, but after merging, the `*Exception` pattern also excludes `TomValidationException`, `ConfigException`, etc. from Module B's tom_basics package. Classes silently disappear from the generated bridge with no warning.
+
+**b) Location:**
+`per_package_orchestrator.dart` — `_globalExcludeClasses` and related fields; `collectPackageInfo()` merge loop; application via `generateBridgesWithWriter()` calls.
+
+**c) General Strategy — Scope exclusions to their declaring module:**
+
+The fix is straightforward: stop merging into global sets. Instead, pass each module's exclusions only to the packages belonging to that module.
+
+**Fix:** In `per_package_orchestrator.dart`, replace the global exclusion sets (L103–106) with a `Map<String, ModuleExclusions>` keyed by module name. In the per-package generation loop (L404), look up the exclusions for the module that owns the current package, not the global union.
+
+```dart
+// Before: global merge
+_globalExcludeClasses.addAll(module.excludeClasses);
+
+// After: per-module storage
+_moduleExclusions[module.name] = ModuleExclusions(
+  classes: module.excludeClasses,
+  functions: module.excludeFunctions,
+  variables: module.excludeVariables,
+  sourcePatterns: module.excludeSourcePatterns,
+);
+```
+
+No hardcoding involved — purely structural change to the exclusion scoping logic.
+
+---
+
+---
+
+### GEN-025
+
+**Record types with nested functions may have edge cases**
+
+**a) Problem:**
+
+Dart 3 record type support (`(int, String)`, `({int x, String y})`) was added recently to the generator. Simple records work:
+
+```dart
+(int, String) getResult();  // → bridge returns (int, String) correctly
+```
+
+But records containing function types as fields are more complex:
+
+```dart
+(int, void Function()) getCallback();  // Record with function field
+((int, String), bool) getNested();     // Nested records
+```
+
+**Where the problem manifests:** The record type resolution in `_resolveRecordType()` is newer and less tested than the main type resolution path. Edge cases like:
+- Function types as positional record fields: `(void Function(), int)`
+- Named record fields with function types: `({void Function() callback, int count})`
+- Deeply nested records: `((int, (String, bool)), double)`
+- Record type aliases: `typedef Pair<T> = (T, T)`
+
+…may produce incorrect bridge code or fall back to `dynamic` for the entire record.
+
+**b) Location:**
+`bridge_generator.dart` ~line 6130–6200 — record type handling in `_resolveRecordType()`.
+
+**c) General Strategy — Structural recursion through record type fields:**
+
+The record type handler (`_resolveRecordType()` at ~L6130) should delegate to the same type resolution pipeline for each field. This means function-type fields in records automatically get the same wrapping/resolution as standalone function-type parameters.
+
+**Fix:** In `_resolveRecordType()`, for each positional and named field:
+1. Call `_resolveTypeArgument()` on the field's type string (already done for simple types).
+2. If the field type is a `FunctionType`, apply the same function-wrapping logic used for regular parameters.
+3. For nested records `(int, (String, bool))`, recurse — `_resolveRecordType()` should call itself for inner record fields.
+
+Add comprehensive test cases for: function-type fields, nested records, named record fields with function types, and record type aliases.
+
+No hardcoding — relies on the existing type resolution pipeline being applied recursively.
+
+---
+
+---
+
+### GEN-027
+
+**InvalidType warnings indicate analyzer resolution failures**
+
+**a) Problem:**
+
+Different from GEN-017 (type exists but isn't in barrel exports), `InvalidType` means the Dart analyzer itself could not determine what the type is. This happens when:
+- A dependency hasn't had `dart pub get` run
+- A source file has circular imports the analyzer can't resolve
+- An analyzer bug mishandles a specific type pattern
+
+**What the generator sees:**
+```
+WARNING: Parameter 'config' in method 'initialize' has InvalidType — using dynamic
+```
+
+The analyzer returns a special `InvalidType` sentinel instead of a resolved `DartType`. The generator has no choice but to use `dynamic`.
+
+**How it differs from GEN-017:**
+- GEN-017: Analyzer resolves the type correctly (e.g., `RSAPublicKey`), but it's not in barrel exports → `dynamic`
+- GEN-027: Analyzer cannot resolve the type at all → `InvalidType` → `dynamic`
+
+**Where the problem manifests:** Same as GEN-017 — the generated bridge has `dynamic` instead of the correct type. But the fix is different: instead of adding barrel exports, you need to fix the underlying analysis failure (missing dependency, circular import, etc.).
+
+**b) Location:**
+Appears at generation runtime. The generator encounters `InvalidType` from the analyzer's resolved AST and logs a warning.
+
+**c) General Strategy — Pre-validate analysis context and report actionable diagnostics:**
+
+`InvalidType` is an analyzer sentinel meaning "I couldn't resolve this." The generator can't fix the analyzer, but it can:
+
+**Fix:**
+1. **Pre-validation:** Before generation, run a quick analysis health check on the target package. If `dart pub get` hasn't been run or dependencies are missing, fail early with a clear message instead of producing degraded bridges.
+2. **Actionable diagnostics:** When `InvalidType` is encountered, log the specific file, line, and parameter along with the analysis errors for that compilation unit (available via `result.errors`). This gives the user enough context to fix the root cause.
+3. **Retry mechanism:** If a type resolves to `InvalidType`, try resolving it via the source file's imports (auxiliary import path) before giving up — the type may be resolvable through a different analysis context.
+
+No hardcoding — systematic diagnostic improvement.
+
+---
 
 ---
 
@@ -1579,11 +1298,20 @@ This is a barrel design limitation rather than a generator bug per se. The gener
 1. Detecting name collisions during config loading / barrel scanning.
 2. Supporting `show`/`hide` prefixes or import aliases to disambiguate.
 
-**c) Strategies:**
-- **Detection:** During barrel scanning, detect when two different source files contribute the same exported name. Emit a warning with both source locations.
-- **Import aliasing:** Support importing conflicting source files with prefixes (e.g., `import '...inheritance.dart' as inh; import '...mixins.dart' as mix;`) in the generated bridge code, so both `inh.Animal` and `mix.Animal` can coexist.
-- **Per-export `show`/`hide`:** Allow the barrel to export from both files with explicit `show` clauses that avoid the collision, and have the generator respect which `Animal` is which based on source file origin.
-- **Short-term:** Document the limitation and advise users to rename conflicting types or use separate barrel files.
+**c) General Strategy — Source-file-level import aliasing in generated bridges:**
+
+The barrel collision happens because the barrel re-exports both types under the same name. But the generated bridge doesn't have to import via the barrel — it can import from the source files directly with unique prefixes.
+
+**Fix:**
+1. **Detection:** During barrel scanning, when the export map encounters a duplicate name from a different source file, flag the collision instead of silently picking one.
+2. **Per-source imports:** For colliding types, generate imports from the **source files** rather than the barrel: `import 'package:dart_overview/src/inheritance.dart' as $src_inh;` and `import 'package:dart_overview/src/mixins.dart' as $src_mix;`. Bridge one as `$src_inh.Animal` and the other as `$src_mix.Animal`.
+3. **D4rt namespace mapping:** In the D4rt runtime, register the colliding types under qualified names (e.g., `inheritance.Animal` and `mixins.Animal`) so scripts can disambiguate. The unqualified `Animal` could map to whichever the user specifies in config, or the generator could prompt the user.
+
+The source-file URI is already available from `_ResolvedClassVisitor._collectTypeInfo()` — this is a natural extension of the existing import management (`_getOrCreateAuxiliaryPrefix()` at L2978).
+
+No hardcoding — automatically handles any name collision by falling back to source-level imports.
+
+---
 
 ---
 
@@ -1627,11 +1355,563 @@ Possible locations:
 - User bridge scanner (may not scan for global overrides)
 - Bridge runtime initialization (may not register global user bridge overrides)
 
-**c) Strategies:**
+**c) General Strategy — Mirror class-level user bridge wiring for globals:**
 
-- **Investigation:** Compare how class-level user bridge overrides are wired (e.g., `Vector2DUserBridge` methods replacing generated bridges) vs. how `GlobalsUserBridge` overrides are supposed to be wired. The class-level mechanism works, so the pattern exists — it just needs to be applied to globals.
-- **Fix:** Ensure the bridge init code checks for `overrideGlobalVariable*` / `overrideGlobalFunction*` getters in the globals user bridge and uses them instead of the default generated accessors.
-- **Validation:** The `ubr03_field_override.dart` test script will automatically verify the fix once applied.
+The class-level user bridge mechanism already works. The pattern is: the generated init code checks if a user bridge provides an override getter, and if so, uses the override instead of the default.
+
+**Fix:**
+1. **Investigation:** Compare the class-level bridge init code (where `Vector2DUserBridge.overrideMethodXxx` replaces the generated bridge) with the globals bridge init code. The globals init likely doesn't check for `overrideGlobalVariable*`/`overrideGlobalFunction*` getters at all.
+2. **Generator change:** In the globals bridge generation, emit the same override-check pattern used for class bridges: `final getter = globalsUserBridge?.overrideGlobalVariableAppName; if (getter != null) { use getter } else { use default }`.
+3. **Validation:** The `ubr03_field_override.dart` test script will automatically verify the fix.
+
+No hardcoding — the same reflection-based override pattern used for classes is applied to globals.
+
+---
+
+---
+
+### GEN-005
+
+**Function types inside collections are unbridgeable**
+
+**a) Problem:**
+
+Single function-type parameters work fine — the generator wraps them between D4rt closures and host Dart closures:
+
+```dart
+// Working: single function parameter
+final filter = D4.getRequiredNamedArg<bool Function(String)>(named, 'filter', 'copyTree');
+```
+
+But when a function type appears inside a collection (e.g., `List<void Function(int)>`), the generator would need to iterate the collection and wrap each element individually. This is not implemented — instead, the generator emits a runtime error:
+
+**Generator source (bridge_generator.dart):**
+```dart
+if (_isFunctionTypeName(rawElementType)) {
+  buffer.writeln("        throw UnimplementedError("
+    "'$contextName: Parameter \"${param.name}\" has unbridgeable "
+    "function type List<$rawElementType>. "
+    "Bridge cannot handle function types in collections.');");
+}
+```
+
+**Where the problem manifests:** If a bridged API has a parameter like `List<void Function(int)>`, the generated bridge compiles fine but throws `UnimplementedError` at runtime when a D4rt script tries to call that method. The script can import the class, see the method in its API, but crashes when calling it.
+
+**b) Location:**
+`bridge_generator.dart` — `_isFunctionTypeName()` detection and the `UnimplementedError` throw in both positional and named parameter handling paths.
+
+**c) General Strategy — Recursive collection wrapping using existing `_wrapFunction()` machinery:**
+
+The function-wrapping infrastructure already handles single function parameters. The extension to collections is mechanical:
+
+**Fix:** Replace the `throw UnimplementedError(...)` in the collection-function-type branch with:
+1. Emit a `.map((e) => _wrapFunction(e))` call for `List` and `Set`.
+2. For `Map` with function-type values: `.map((k, v) => MapEntry(k, _wrapFunction(v)))`.
+3. For nested collections (`Map<String, List<void Function()>>`): recurse — the inner `List<void Function()>` gets the same `.map()` treatment.
+
+The wrapping function signature is determined by the element type, which the generator already knows from the type argument analysis. This is a structural extension of the existing single-function wrapping — no new concept needed, no hardcoding.
+
+**Scope limitation:** Deeply nested function types (3+ levels) may produce unreadable generated code. Accept a reasonable depth limit (e.g., 2 levels) and fall back to `dynamic` with a warning for deeper nesting.
+
+---
+
+---
+
+### GEN-007
+
+**Function type alias detection limited to 7 hardcoded names**
+
+**a) Problem:**
+
+In the syntactic fallback path (see GEN-006), the generator needs to determine if a type name is a function type alias. Without resolved type information, it can only check against a hardcoded set:
+
+**Generator source (bridge_generator.dart):**
+```dart
+static const _knownFunctionTypeAliases = {
+  'BridgeRegistrar',  // void Function(D4rt)
+  'D4rtEvaluator',    // Future<dynamic> Function(...)
+  'VoidCallback',     // void Function()
+  'ValueChanged',     // void Function(T)
+  'ValueGetter',      // T Function()
+  'ValueSetter',      // void Function(T)
+  'WidgetBuilder',    // Widget Function(BuildContext)
+};
+```
+
+**Source Dart API (example):**
+```dart
+void onError(ErrorHandler handler);  // ErrorHandler = void Function(Object error)
+```
+
+**What happens for unknown aliases:**
+- Recognized alias (`VoidCallback`): generator expands it to `void Function()` and generates proper function wrapping
+- Unrecognized alias (`ErrorHandler`): generator treats it as a concrete class name → looks it up in barrel exports → not found → falls back to `dynamic`
+
+The resolved path doesn't have this issue because the analyzer already resolves typedefs to their underlying `FunctionType`.
+
+**b) Location:**
+`bridge_generator.dart` — `_knownFunctionTypeAliases` set; `_isFunctionTypeName()` method that checks both the hardcoded set and explicit `Function(` syntax.
+
+**c) General Strategy — Propagate resolved typedef expansions to syntactic fallback:**
+
+The resolved path already correctly identifies function type aliases (L7057 `_expandFunctionType()`). The syntactic path only needs this info when the resolved path fails.
+
+**Fix:**
+1. During the resolved visitor pass, build a `Set<String> discoveredFunctionTypeAliases` containing every typedef name that resolves to a `FunctionType`.
+2. Store this set as a side-output of the resolved pass (e.g., on the generator instance).
+3. In the syntactic fallback, use `discoveredFunctionTypeAliases ∪ _knownFunctionTypeAliases` instead of the hardcoded set alone.
+4. Over time, the hardcoded set becomes redundant as the resolved path discovers all aliases.
+
+Alternatively, run a quick pre-scan of all source files using the analyzer to build the typedef→FunctionType map before either visitor runs. This is more upfront cost but eliminates the ordering dependency.
+
+No new hardcoding — the resolved analyzer auto-discovers all function type aliases.
+
+---
+
+---
+
+### GEN-009
+
+**Generic type parameter detection uses hardcoded name set**
+
+**a) Problem:**
+
+When the generator encounters a type name in a method signature, it needs to determine whether it's a generic type parameter (like `T`) or a concrete class name (like `Timer`). It uses a heuristic:
+
+**Generator source (bridge_generator.dart — `_isGenericTypeParameter()`):**
+```dart
+bool _isGenericTypeParameter(String type) {
+  // Single uppercase letter (T, R, E, K, V, S, etc.)
+  if (type.length == 1 && type.toUpperCase() == type) return true;
+  // Common multi-character type parameters
+  const knownTypeParams = {'TValue', 'TKey', 'TResult', 'TElement'};
+  return knownTypeParams.contains(type);
+}
+```
+
+**Source Dart API (example — a class with `T1`, `T2`):**
+```dart
+class Converter<T1, T2> {
+  T2 convert(T1 input);
+}
+```
+
+**What happens:** `T1` and `T2` are not recognized as type parameters by this heuristic. The generator treats them as concrete class names → looks them up in barrel exports → not found → triggers a "Missing export" warning → falls back to `dynamic`. The generated bridge correctly compiles but with degraded type safety.
+
+**Names that work:** `T`, `E`, `K`, `V`, `S`, `R`, `TValue`, `TKey`, `TResult`, `TElement`
+**Names that don't work:** `T1`, `T2`, `K2`, `V2`, `TItem`, `TOutput`, `TState`, `TData`
+
+During generation of `tom_dartscript_bridges`, this caused 4 false "Missing export" warnings for `T1`, `T2`, `K2`, `V2` type parameters.
+
+**b) Location:**
+`bridge_generator.dart` — `_isGenericTypeParameter()` method; subsequent fallback path where unrecognized names trigger `_recordMissingExport()` and return `'dynamic'`.
+
+**c) General Strategy — Use actual declared type parameters from the enclosing scope:**
+
+The `_isGenericTypeParameter()` heuristic at L6230 is used in `_resolveTypeArgument()` at L5741. At that call site, the enclosing class's type parameter map (`classTypeParams`) is already available — it just isn't consulted for multi-character names.
+
+**Fix:** In `_resolveTypeArgument()`, the check at step 5 already handles `classTypeParams` lookup. The problem is that step 6 (`_isGenericTypeParameter()`) is reached when the name isn't in `classTypeParams` — but it could be a **method-level** type parameter not in the class map. The fix:
+1. Pass method-level type parameters (from the `MethodElement.typeParameters` or from the AST `TypeParameterList`) alongside `classTypeParams`.
+2. Check both maps before falling back to the heuristic.
+3. The heuristic then only needs to catch edge cases in the syntactic fallback path where no element API is available.
+
+For the resolved path, `element.typeParameters` is authoritative — no heuristic needed at all. The hardcoded set `{'TValue', 'TKey', ...}` becomes dead code once method-level type params are propagated.
+
+---
+
+---
+
+### GEN-019
+
+**Barrel preference heuristic may pick wrong barrel for re-exports**
+
+**a) Problem:**
+
+When a class appears in multiple barrel files, the generator must decide which barrel to import it from. It uses a heuristic: prefer the barrel from the same package as the source file.
+
+**Example configuration (tom_d4rt_dcli — build.yaml):**
+```yaml
+barrelFiles:
+  - package:dcli/dcli.dart        # primary barrel
+  - package:dcli_core/dcli_core.dart  # secondary barrel
+barrelImport: package:dcli/dcli.dart
+```
+
+**The heuristic:** A class defined in `package:dcli_core/src/util/progress.dart` would prefer `package:dcli_core/dcli_core.dart` (same package). But if `dcli.dart` re-exports it and the user's script imports `package:dcli/dcli.dart`, the bridge should use the `$pkg` prefix (primary barrel) instead of `$pkg2` (secondary barrel).
+
+**Where the problem manifests:** The generated bridge might import with the wrong prefix:
+```dart
+// Using $pkg2 (dcli_core barrel) instead of $pkg (dcli barrel):
+final progress = D4.getRequiredArg<$pkg2.Progress>(...);
+// When the script imported dcli.dart which re-exports Progress from dcli_core
+```
+This usually still compiles because both imports bring in the same type, but it can cause issues when types from different barrels have subtle differences in their export visibility.
+
+**b) Location:**
+`per_package_orchestrator.dart` ~line 240–280 — barrel preference logic in `_assignBarrelForClass()`.
+
+**c) General Strategy — Prefer `barrelImport` (primary barrel) for all re-exported types:**
+
+The heuristic currently prefers the barrel from the same package as the source file. But the user-facing import is always the `barrelImport` (primary barrel), so bridges should use that whenever the type is available through it.
+
+**Fix:** In `_assignBarrelForClass()`, change the preference order:
+1. If the type appears in the `barrelImport` (primary barrel) exports → always use `$pkg`.
+2. If not in primary but in a secondary barrel → use the secondary barrel prefix.
+3. Only fall back to source-package preference when the type isn't in any barrel.
+
+This matches user expectations: scripts import the primary barrel, so bridges should reference types through the same barrel. No configuration needed — just a smarter preference order.
+
+---
+
+---
+
+### GEN-021
+
+**Builder-defining packages unconditionally skipped for bridging**
+
+**a) Problem:**
+
+The orchestrator skips packages that define a `builders:` section in their `build.yaml`. This is a safeguard to avoid generating bridges for code generator packages (which typically shouldn't be imported at runtime):
+
+**Generator source (per_package_orchestrator.dart):**
+```dart
+if (isBuildYamlBuilderDefinition) {
+  // Skip — this package defines a builder, not runtime code
+  continue;
+}
+```
+
+**Example scenario:** A package `my_utils` has both:
+- A code generator (builder) in `lib/builder.dart`
+- Utility classes in `lib/src/helpers.dart` that should be bridged
+
+Because `my_utils/build.yaml` has a `builders:` section, the **entire package** is skipped — including the utility classes that should be bridged.
+
+**Where the problem manifests:** The utility classes silently don't appear in the generated bridge. No warning is emitted. The user may not realize the package was skipped until they try to use those classes from a D4rt script.
+
+**b) Location:**
+`per_package_orchestrator.dart` ~line 780 — `isBuildYamlBuilderDefinition` check.
+
+**c) General Strategy — Skip only builder source files, not the entire package:**
+
+**Note:** The `isBuildYamlBuilderDefinition` check was not found in the current codebase — this issue may already be resolved or the mechanism may have changed. Verify current behavior.
+
+If the skip logic still exists:
+
+**Fix:** Instead of skipping the entire package when `build.yaml` has a `builders:` section, parse the `builders:` config to identify which source files implement the builder (typically `lib/builder.dart` or similar). Add those files to `excludeSourcePatterns` automatically, but still process the rest of the package's source files.
+
+This is fully general — any package with both builder and runtime code gets the builder files excluded and the runtime code bridged, without manual configuration.
+
+---
+
+---
+
+### GEN-022
+
+**Main generator file is 8,490 lines — maintainability concern**
+
+**a) Problem:**
+
+`bridge_generator.dart` contains all of the following in a single 8,490-line file:
+
+| Concern | Approximate Lines |
+|---------|------------------|
+| Class visitors (resolved + syntactic) | ~2,000 |
+| Type resolution (`_getTypeArgument`, `_resolveImportPrefix`, etc.) | ~1,500 |
+| Code emission (StringBuffer generation of Dart code) | ~2,000 |
+| Parameter/default-value analysis | ~800 |
+| Import management | ~600 |
+| Combinatorial dispatch | ~400 |
+| Configuration/setup | ~500 |
+| Utility methods | ~690 |
+
+**Where the problem manifests:** Finding a specific method requires searching through 8,490 lines. Related methods are scattered across the file. Testing individual concerns (e.g., type resolution) requires instantiating the entire generator. Code review diffs are hard to follow because a change to type resolution sits next to unrelated code emission changes.
+
+**b) Location:**
+`bridge_generator.dart` — entire file.
+
+**c) General Strategy — Extract by concern into focused files:**
+
+Decompose `bridge_generator.dart` along the concern boundaries identified in the problem section:
+
+1. `bridge_type_resolver.dart` — `_getTypeArgument()`, `_resolveTypeArgument()`, `_isGenericTypeParameter()`, `_isFunctionTypeName()`, `_substituteTypeParameters()`, `mapPrivateSdkLibrary()`, record type handling
+2. `bridge_code_emitter.dart` — all StringBuffer-based Dart code generation (class bridges, enum bridges, global bridges, constructor bridges)
+3. `bridge_visitors.dart` — `_ResolvedClassVisitor` and `_ClassVisitor`
+4. `bridge_parameter_analyzer.dart` — parameter parsing, default value analysis, combinatorial dispatch
+5. `bridge_import_manager.dart` — import prefix management, auxiliary imports, barrel resolution
+
+The main `bridge_generator.dart` becomes a coordinator that wires these components together. Each extracted file is independently testable.
+
+**Execution:** Do this as a separate refactoring pass, not mixed with feature changes. Use `part`/`part of` initially to avoid changing the public API, then migrate to proper imports.
+
+---
+
+---
+
+### GEN-023
+
+**Duplicated visitor logic between resolved and syntactic paths**
+
+**a) Problem:**
+
+Two visitors implement parallel parsing logic:
+
+| Method | `_ResolvedClassVisitor` (~line 7400) | `_ClassVisitor` (~line 8200) |
+|--------|--------------------------------------|------------------------------|
+| `_parseConstructor()` | Accesses `ConstructorElement`, resolved param types | Parses syntax nodes, types from text |
+| `_parseMethod()` | Accesses `MethodElement`, return type element | Parses method declaration syntax |
+| `_parseField()` | Accesses `FieldElement`, type from element | Parses field declaration syntax |
+| `_parseParameters()` | Resolves `this.x` via field element lookup | Types `this.x` as `dynamic` (GEN-014) |
+
+**Where the problem manifests:** When a bug is fixed in one visitor, the same fix must be manually applied to the other. For example, adding support for a new parameter pattern in `_ResolvedClassVisitor._parseParameters()` won't automatically appear in `_ClassVisitor._parseParameters()`. This has already led to divergent behavior (e.g., GEN-014 only affects the syntactic path).
+
+**b) Location:**
+`bridge_generator.dart` ~line 7400–7530 (`_ResolvedClassVisitor`) and ~line 8200+ (`_ClassVisitor`).
+
+**c) General Strategy — Unified visitor with pluggable `TypeResolver` strategy:**
+
+The two visitors share ~70% of their logic (constructor parsing, method enumeration, field collection, visibility filtering). Only type resolution differs.
+
+**Fix:** Create a single `BridgeClassVisitor` that takes a `TypeResolver` interface:
+
+```dart
+abstract class TypeResolver {
+  String resolveType(DartType? type, String? syntacticType);
+  String resolveConstructorParamType(FormalParameter param, ClassElement? classElement);
+  List<String> getInheritedMembers(ClassElement? element);
+  Map<String, String> getTypeParameterBounds(TypeParameterList? typeParams);
+}
+```
+
+- `ResolvedTypeResolver` — uses `DartType`, `ClassElement`, library URIs → full type info
+- `SyntacticTypeResolver` — uses `node.toSource()`, returns `dynamic` for unknowns
+
+The visitor iterates AST nodes identically in both cases. The `TypeResolver` is consulted for type information only. This eliminates all duplicated parsing logic and ensures fixes apply to both paths automatically.
+
+**Prerequisite:** GEN-022 extraction. Do visitors refactoring after the file split.
+
+---
+
+---
+
+### GEN-008
+
+**Private SDK library mapping is hardcoded and incomplete**
+
+**a) Problem:**
+
+The Dart analyzer sometimes reports a type's source as a private SDK library (e.g., `dart:_http` instead of `dart:io`). The generator must map these to their public equivalents to generate correct import statements.
+
+**Generator source (bridge_generator.dart — `mapPrivateSdkLibrary()`):**
+```dart
+const privateToPublic = {
+  'dart:_http': 'dart:io',
+  'dart:_internal': null,           // Skip — internal utilities
+  'dart:_interceptors': null,       // Skip — JS interop internals
+  'dart:_js_helper': null,          // Skip — JS helper internals
+  'dart:_native_typed_data': 'dart:typed_data',
+  'dart:_foreign_helper': null,     // Skip — foreign function internals
+};
+// For unknown private libraries → returns null (skip)
+```
+
+**Where the problem manifests:** If the analyzer reports a type from an unmapped private library (e.g., `dart:_wasm` in future Dart versions), `mapPrivateSdkLibrary()` returns `null`. The generator then cannot produce an import for that type, and it silently falls back to `dynamic`. The type is lost without any warning.
+
+**b) Location:**
+`bridge_generator.dart` ~line 625–650 — `mapPrivateSdkLibrary()` method.
+
+**c) General Strategy — Derive mapping from the analyzer's library resolution:**
+
+The Dart analyzer itself knows the public-to-private library mapping. When it resolves a type from `dart:_http`, the element's `library.exportNamespace` shows which public library exports it.
+
+**Fix:**
+1. When encountering a `dart:_*` library URI, use the analyzer to find which public `dart:*` library re-exports the type: check `element.library.definingCompilationUnit.enclosingElement` or walk the SDK's public library exports.
+2. If that's too complex, use a simpler heuristic: strip the `_` prefix and check if `dart:{name}` exists (e.g., `dart:_http` → `dart:io` won't work, but a dictionary lookup would). Keep the hardcoded map as a **fallback** for known edge cases, not as the primary mechanism.
+3. Always log unmapped `dart:_*` libraries as warnings.
+
+The hardcoded map remains as a known-good fallback but is no longer the sole mechanism.
+
+---
+
+---
+
+### GEN-010
+
+**Complex external packages list is hardcoded**
+
+**a) Problem:**
+
+Certain external packages require special type resolution handling (e.g., types from `package:http` that appear in bridged method signatures but aren't in the module's barrel). The generator hardcodes which packages need this treatment:
+
+**Generator source (bridge_generator.dart):**
+```dart
+static const _complexExternalPackages = {
+  'package:pdf/',
+  'package:printing/',
+  'package:flutter/',
+  'package:http/',
+  'package:htmltopdfwidgets/',
+};
+```
+
+**Where the problem manifests:** When a new external package needs the same special handling (e.g., `package:dio/`, `package:grpc/`), a code change is required. There's no way to configure this in `build.yaml`. The `_checkExternalTypes()` method uses this set to emit warnings about external types and suggest wrapping them.
+
+**b) Location:**
+`bridge_generator.dart` ~line 2540 — `_complexExternalPackages` set; `_checkExternalTypes()` method that iterates all constructor/method parameters checking if type import URIs match these packages.
+
+**c) General Strategy — Remove the need for the list entirely via Resolved-Type Import Propagation:**
+
+The `_complexExternalPackages` list exists because the type resolution path can't handle types from packages outside the barrel. The GEN-017 fix (Resolved-Type Import Propagation) makes this list unnecessary: when the resolved analyzer provides a type's source URI, the generator can auto-import it regardless of which package it comes from.
+
+**Fix:** After implementing the GEN-017 fix, remove the `_complexExternalPackages` set and `_checkExternalTypes()` entirely. External package types will be handled generically by the resolved-type import propagation.
+
+If removed before GEN-017 is implemented: move to `build.yaml` configuration as a transitional measure.
+
+---
+
+---
+
+### GEN-011
+
+**Global function/variable generation counts always report 0**
+
+**a) Problem:**
+
+After generation, the `GenerationResult` reports how many classes, functions, and variables were bridged. However, the global counts are hardcoded to 0:
+
+**Generator source (bridge_generator.dart):**
+```dart
+return GenerationResult(
+  classesGenerated: generatedClasses.length,
+  enumsGenerated: generatedEnums.length,
+  globalFunctionsGenerated: 0,  // TODO: count from globals
+  globalVariablesGenerated: 0,  // TODO: count from globals
+);
+```
+
+**Where the problem manifests:** Generation logs show "Generated: 72 classes, 15 enums, 0 functions, 0 variables" even when many global functions and variables were actually bridged (e.g., dcli has `cat()`, `copy()`, `find()`, `env`, `HOME` etc.). The counts are cosmetic only — they don't affect the generated code — but make reports misleading.
+
+**b) Location:**
+`bridge_generator.dart` ~line 1958–1959 — the `GenerationResult` construction with `// TODO: count from globals` comments.
+
+**c) General Strategy — Count globals during emission:**
+
+Straightforward: count global functions and variables as they are emitted in the code generation loop, and pass the counts to `GenerationResult`. The `// TODO: count from globals` comment at L1958 marks the exact insertion point.
+
+No hardcoding, no architectural change — just increment counters.
+
+---
+
+---
+
+### GEN-013
+
+**Build runner reports approximate class count (files × 10)**
+
+**a) Problem:**
+
+In the build_runner integration path, the total class count for progress reporting is estimated rather than counted:
+
+**Generator source (per_package_orchestrator.dart):**
+```dart
+totalClasses = packageFiles.length * 10;  // assume 10 classes per file
+```
+
+**Where the problem manifests:** Progress output shows "Processing class 45/500" where 500 is a wild guess (50 files × 10). The real count might be 72 or 300. This is cosmetic — it doesn't affect generated code — but makes progress bars jump from 45% to "done" or appear stuck at 99% for a long time.
+
+**b) Location:**
+`per_package_orchestrator.dart` ~line 159 — `totalClasses = packageFiles.length * 10`.
+
+**c) General Strategy — Two-pass or deferred count:**
+
+Either:
+1. **Quick pre-scan:** Parse source files to count class declarations before generation (cheap AST walk, no resolution).
+2. **Deferred total:** Don't report a total upfront. Instead, show `"Processing class 45/..."` during generation and report the actual total at the end.
+
+Option 2 is simpler and avoids the pre-scan cost. No hardcoding.
+
+---
+
+---
+
+### GEN-015
+
+**Nested public classes collected by syntactic visitor**
+
+**a) Problem:**
+
+The syntactic visitor uses `super.visitClassDeclaration(node)` which recursively visits all child nodes, including nested class declarations:
+
+**Source Dart API:**
+```dart
+class OuterWidget {
+  // ... methods ...
+  class InnerState {  // nested public class — not independently accessible
+    // ...
+  }
+}
+```
+
+**What happens:** The visitor collects both `OuterWidget` and `InnerState` as top-level bridgeable classes. `InnerState` gets its own bridge entry even though it can't be independently instantiated from outside `OuterWidget`.
+
+**Where the problem manifests:** The generated bridge may contain a bridge for `InnerState` that doesn't work in practice because the class isn't accessible at the top-level scope. The bridge compiles but trying to instantiate `InnerState` from a D4rt script would fail. This only affects the syntactic fallback path — the resolved path handles class scoping correctly.
+
+**b) Location:**
+`bridge_generator.dart` ~line 8259 — end of `_ClassVisitor.visitClassDeclaration()` where `super.visitClassDeclaration(node)` causes recursive child visits.
+
+**c) General Strategy — Check `node.parent` for nesting:**
+
+**Note:** As discussed, Dart doesn't actually support nested class declarations — this is a compile error in valid Dart code. The issue can only occur with malformed source files.
+
+**Fix:** In `_ClassVisitor.visitClassDeclaration()`, check `node.parent is ClassDeclaration` — if true, skip collection. Alternatively, don't call `super.visitClassDeclaration(node)` (which recurses into children) and instead explicitly iterate only the members needed (constructors, methods, fields).
+
+This is a defensive guard, not a practical concern for well-formed Dart code.
+
+---
+
+---
+
+### GEN-024
+
+**Four config sources with complex precedence rules**
+
+**a) Problem:**
+
+Configuration is loaded from four sources with the following precedence (highest first):
+
+1. **CLI arguments** (`d4rt_gen.dart`) — e.g., `--exclude-classes=Foo`
+2. **`tom_project.yaml`** — project-level overrides
+3. **`build.yaml`** — primary module configuration
+4. **`d4rt_bridging.json`** — legacy/generated config
+
+Each source can set overlapping values: exclusions, barrel files, output paths, etc. The merge logic in `bridge_config.dart` combines them, but the override semantics aren't always obvious.
+
+**Example scenario:**
+```yaml
+# build.yaml
+excludeClasses: ['InternalHelper']
+
+# tom_project.yaml
+excludeClasses: []  # Did this intend to clear the build.yaml exclusion? Or is it "no overrides"?
+```
+
+**Where the problem manifests:** Users may expect `tom_project.yaml` with an empty list to override `build.yaml`'s exclusions, but the merge logic might treat empty lists as "no override" and keep the `build.yaml` value. Or vice versa. Without a `--dump-config` flag, there's no way to see the effective merged configuration.
+
+**b) Location:**
+`d4rt_gen.dart` — CLI arg parsing; `bridge_config.dart` — config merging logic; `build.yaml` — primary module config.
+
+**c) General Strategy — Add `--dump-config` and document precedence:**
+
+The config system works correctly — the issue is transparency, not correctness.
+
+**Fix:**
+1. Add a `--dump-config` flag to CLI that prints the effective merged configuration, annotating each value with its source (`[cli]`, `[tom_project.yaml]`, `[build.yaml]`, `[d4rt_bridging.json]`).
+2. Document the precedence rules clearly in the user guide.
+3. Add integration tests for config override scenarios (empty list vs. absent list, CLI overriding yaml, etc.).
+
+No hardcoding needed.
+
+---
 
 ---
 
