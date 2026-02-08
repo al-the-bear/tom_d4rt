@@ -39,4 +39,6 @@ dev_dependencies:
 
 dependency_overrides:
   runtime_native_semaphores:
-    path: ../../named_semaphores
+    git:
+      url: https://github.com/al-the-bear/native_semaphores.git
+      ref: fork-fix
