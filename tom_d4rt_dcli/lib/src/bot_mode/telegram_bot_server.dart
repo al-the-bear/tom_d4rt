@@ -15,6 +15,87 @@ import 'conversation_trail.dart';
 import 'output_formatter.dart';
 import 'security_manager.dart';
 
+// =============================================================================
+// Message Processing Types
+// =============================================================================
+
+/// Preprocessed message data extracted from incoming Telegram message.
+class PreprocessedMessage {
+  /// The original ChatMessage from Telegram.
+  final ChatMessage original;
+  
+  /// User ID (validated).
+  final int userId;
+  
+  /// Original text (from message.text).
+  final String originalText;
+  
+  /// Processed text (with attachments suffix and normalized quotes).
+  final String processedText;
+  
+  /// Paths to saved received attachments.
+  final List<String> receivedAttachments;
+
+  PreprocessedMessage({
+    required this.original,
+    required this.userId,
+    required this.originalText,
+    required this.processedText,
+    required this.receivedAttachments,
+  });
+}
+
+/// Type of message determined during preprocessing.
+enum MessageType {
+  /// Trail command (list-attachments, get-references, etc.)
+  trailCommand,
+  
+  /// Explicit Copilot prompt (starts with ?)
+  explicitCopilot,
+  
+  /// Implicit Copilot prompt (ends with . or ?)
+  implicitCopilot,
+  
+  /// REPL command to execute
+  replCommand,
+}
+
+/// Result of message execution (before formatting).
+class MessageExecutionResult {
+  /// The execution result from REPL or Copilot.
+  final ExecutionResult? executionResult;
+  
+  /// Captured stdout during execution.
+  final String capturedOutput;
+  
+  /// Error that occurred during execution (if any).
+  final Object? error;
+  
+  /// Stack trace (if error occurred).
+  final StackTrace? stackTrace;
+  
+  /// Reply entry for conversation trail.
+  final ReplyEntry? replyEntry;
+  
+  /// Whether this is a trail command result (special handling).
+  final bool isTrailCommand;
+  
+  /// Pre-formatted output (for trail commands).
+  final FormattedOutput? preformattedOutput;
+
+  MessageExecutionResult({
+    this.executionResult,
+    this.capturedOutput = '',
+    this.error,
+    this.stackTrace,
+    this.replyEntry,
+    this.isTrailCommand = false,
+    this.preformattedOutput,
+  });
+  
+  bool get hasError => error != null;
+}
+
 /// Telegram Bot Mode Server.
 ///
 /// Manages multiple bot connections and routes messages to REPL instances.
@@ -133,6 +214,9 @@ class BotInstance {
   late final ChatApi _telegram;
   StreamSubscription<ChatMessage>? _subscription;
   bool _running = false;
+  
+  /// Whether the bot is currently running.
+  bool get isRunning => _running;
 
   BotInstance._({
     required this.name,
@@ -202,47 +286,69 @@ class BotInstance {
     );
   }
 
-  /// Send welcome messages to all allowed users.
-  Future<void> sendWelcomeMessages() async {
-    final vsInfo = vscode != null
-        ? 'Connected to VS Code on ${vscode!.host}:${vscode!.port}'
-        : 'No VS Code connection configured';
-    
-    final welcomeMessage = '''
-🤖 *$name Bot* started!
+  // ===========================================================================
+  // Message Handling - Main Entry Point
+  // ===========================================================================
 
-*$toolName* v$toolVersion
-$vsInfo
-
-Type help for available commands, or enter any REPL command directly.
-''';
-
-    for (final userId in allowedUsers) {
-      try {
-        await _debugSendMessage(
-          ChatReceiver.id(userId.toString()),
-          welcomeMessage,
-        );
-        print('  📨 Sent welcome to user $userId');
-      } catch (e) {
-        // User may not have started the bot yet, that's OK
-        stderr.writeln('  ⚠ Could not send welcome to user $userId: $e');
-      }
+  /// Handle an incoming message using 4-step processing:
+  /// 1. Preprocess: extract text, caption, attachments
+  /// 2. Security check
+  /// 3. Execute with output capture
+  /// 4. Send unified reply
+  Future<void> _handleMessage(ChatMessage message) async {
+    // -------------------------------------------------------------------------
+    // STEP 1: Message Preprocessing
+    // -------------------------------------------------------------------------
+    final preprocessed = await _preprocessMessage(message);
+    if (preprocessed == null) {
+      // Preprocessing failed (unauthorized user or empty message)
+      return;
     }
+    
+    // -------------------------------------------------------------------------
+    // STEP 2: Security Check
+    // -------------------------------------------------------------------------
+    final securityResult = security.isCommandAllowed(preprocessed.processedText);
+    if (!securityResult.permitted) {
+      await _sendReply(
+        message,
+        formatter.formatError('Command not allowed: ${securityResult.reason}'),
+      );
+      return;
+    }
+    
+    // -------------------------------------------------------------------------
+    // STEP 3: Execute with Output Capture (runZonedGuarded)
+    // -------------------------------------------------------------------------
+    await _sendTyping(message);
+    
+    final executionResult = await _executeWithCapture(preprocessed);
+    
+    // -------------------------------------------------------------------------
+    // STEP 4: Send Unified Reply
+    // -------------------------------------------------------------------------
+    await _sendUnifiedReply(preprocessed, executionResult);
   }
 
-  /// Handle an incoming message.
-  Future<void> _handleMessage(ChatMessage message) async {
+  // ===========================================================================
+  // Step 1: Message Preprocessing
+  // ===========================================================================
+
+  /// Preprocess incoming message: validate user, extract text, save attachments.
+  /// Returns null if message should not be processed (unauthorized or empty).
+  Future<PreprocessedMessage?> _preprocessMessage(ChatMessage message) async {
     // Validate user
     final userId = int.tryParse(message.sender.id);
     if (userId == null || !allowedUsers.contains(userId)) {
       await _sendReply(message, formatter.formatError('Unauthorized user'));
-      return;
+      return null;
     }
 
     // Get command text
     var text = message.text;
-    if (text == null || text.isEmpty) return;
+    if (text == null || text.isEmpty) return null;
+    
+    final originalText = text;
     
     // Process and save received file attachments
     final receivedAttachments = <String>[];
@@ -285,173 +391,359 @@ ${receivedAttachments.join('\n')}
         .replaceAll('\u2018', "'")  // ' (left single quotation mark)
         .replaceAll('\u2019', "'"); // ' (right single quotation mark)
     
-    // Security check
-    final allowed = security.isCommandAllowed(text);
-    if (!allowed.permitted) {
-      await _sendReply(
-        message,
-        formatter.formatError('Command not allowed: ${allowed.reason}'),
-      );
-      return;
-    }
+    return PreprocessedMessage(
+      original: message,
+      userId: userId,
+      originalText: originalText,
+      processedText: text,
+      receivedAttachments: receivedAttachments,
+    );
+  }
 
-    // Handle trail commands (check original text without attachments suffix)
-    final originalText = message.text!;
+  /// Determine the type of message for routing.
+  MessageType _determineMessageType(PreprocessedMessage msg) {
+    final originalText = msg.originalText;
+    
+    // Trail commands
     if (originalText.startsWith('list-attachments') || 
         originalText.startsWith('list-references') ||
         originalText.startsWith('get-attachments') ||
         originalText.startsWith('get-references')) {
-      await _handleTrailCommand(message, originalText);
-      return;
+      return MessageType.trailCommand;
     }
     
-    // Check if this is an explicit Copilot prompt (starts with ?)
-    // These always go to Copilot, even if they look like commands
+    // Explicit Copilot prompt (starts with ?)
     if (originalText.trim().startsWith('?')) {
-      final prompt = _stripCopilotPrefix(text);
-      await _handleCopilotChatPrompt(message, prompt, receivedAttachments);
+      return MessageType.explicitCopilot;
+    }
+    
+    // REPL command check - these should NOT go to Copilot
+    if (_isReplCommand(originalText)) {
+      return MessageType.replCommand;
+    }
+    
+    // Implicit Copilot prompt check
+    if (_isCopilotChatPrompt(originalText)) {
+      return MessageType.implicitCopilot;
+    }
+    
+    // Default: REPL command
+    return MessageType.replCommand;
+  }
+
+  // ===========================================================================
+  // Step 3: Execute with Output Capture
+  // ===========================================================================
+
+  /// Execute the message with stdout/stderr capture using runZonedGuarded.
+  Future<MessageExecutionResult> _executeWithCapture(PreprocessedMessage msg) async {
+    final messageType = _determineMessageType(msg);
+    final capturedOutput = StringBuffer();
+    ExecutionResult? executionResult;
+    ReplyEntry? replyEntry;
+    Object? error;
+    StackTrace? stackTrace;
+    FormattedOutput? preformattedOutput;
+    bool isTrailCommand = false;
+    
+    // Create a completer to track when execution finishes
+    final completer = Completer<void>();
+    
+    // Run with output capture
+    runZonedGuarded(
+      () async {
+        try {
+          switch (messageType) {
+            case MessageType.trailCommand:
+              isTrailCommand = true;
+              preformattedOutput = await _executeTrailCommand(msg.originalText);
+              
+            case MessageType.explicitCopilot:
+              final prompt = _stripCopilotPrefix(msg.processedText);
+              (executionResult, replyEntry) = await _executeCopilotPrompt(
+                prompt, 
+                msg.receivedAttachments,
+              );
+              
+            case MessageType.implicitCopilot:
+              (executionResult, replyEntry) = await _executeCopilotPrompt(
+                msg.processedText, 
+                msg.receivedAttachments,
+              );
+              
+            case MessageType.replCommand:
+              executionResult = await executeCommand(msg.processedText);
+              final formatted = formatter.format(executionResult!);
+              replyEntry = ReplyEntry(
+                markdown: formatted.text,
+                comment: executionResult!.isError ? executionResult!.errorMessage : null,
+              );
+          }
+        } catch (e, st) {
+          error = e;
+          stackTrace = st;
+        } finally {
+          completer.complete();
+        }
+      },
+      (e, st) {
+        // This catches uncaught errors in the zone
+        error = e;
+        stackTrace = st;
+        if (!completer.isCompleted) {
+          completer.complete();
+        }
+      },
+      zoneSpecification: ZoneSpecification(
+        print: (self, parent, zone, line) {
+          capturedOutput.writeln(line);
+          // Also print to actual stdout for debugging
+          parent.print(zone, line);
+        },
+      ),
+    );
+    
+    // Wait for execution to complete
+    await completer.future;
+    
+    return MessageExecutionResult(
+      executionResult: executionResult,
+      capturedOutput: capturedOutput.toString(),
+      error: error,
+      stackTrace: stackTrace,
+      replyEntry: replyEntry,
+      isTrailCommand: isTrailCommand,
+      preformattedOutput: preformattedOutput,
+    );
+  }
+
+  /// Execute a trail command and return formatted output.
+  Future<FormattedOutput> _executeTrailCommand(String command) async {
+    final parts = command.split(RegExp(r'\s+'));
+    final cmd = parts.first.toLowerCase();
+    print('[TRAIL] Handling trail command: "$cmd" (full: "$command")');
+    
+    switch (cmd) {
+      case 'list-attachments':
+        final attachments = trailManager.allAttachments;
+        print('[TRAIL] Found ${attachments.length} attachments');
+        if (attachments.isEmpty) {
+          return FormattedOutput(text: 'No attachments in trail.');
+        } else {
+          final buffer = StringBuffer('*Attachments in Trail*\n\n');
+          for (final entry in attachments.entries) {
+            buffer.writeln('`${entry.key}`: ${entry.value}');
+          }
+          return FormattedOutput(text: buffer.toString());
+        }
+        
+      case 'list-references':
+        final references = trailManager.allReferences;
+        print('[TRAIL] Found ${references.length} references');
+        if (references.isEmpty) {
+          return FormattedOutput(text: 'No references in trail.');
+        } else {
+          final buffer = StringBuffer('*References in Trail*\n\n');
+          for (final entry in references.entries) {
+            buffer.writeln('`${entry.key}`: ${entry.value}');
+          }
+          return FormattedOutput(text: buffer.toString());
+        }
+        
+      case 'get-attachments':
+        if (parts.length < 2) {
+          return FormattedOutput(
+            text: 'Usage: `get-attachments <id1>, <id2>, ...`\n\nExample: `get-attachments A000, A001`',
+          );
+        } else {
+          final ids = parts.sublist(1).join(' ').split(',').map((s) => s.trim()).toList();
+          final paths = trailManager.getAttachmentPaths(ids);
+          if (paths.isEmpty) {
+            return FormattedOutput(text: 'No matching attachments found.');
+          } else {
+            // Return file paths as text; actual file sending handled in reply step
+            return FormattedOutput(
+              text: '📎 Sending ${paths.length} attachment(s)...',
+              attachments: paths.map((p) => File(p)).toList(),
+            );
+          }
+        }
+        
+      case 'get-references':
+        if (parts.length < 2) {
+          return FormattedOutput(
+            text: 'Usage: `get-references <id1>, <id2>, ...`\n\nExample: `get-references R000, R001`',
+          );
+        } else {
+          final ids = parts.sublist(1).join(' ').split(',').map((s) => s.trim()).toList();
+          final paths = trailManager.getReferencePaths(ids);
+          if (paths.isEmpty) {
+            return FormattedOutput(text: 'No matching references found.');
+          } else {
+            // Return file paths as text; actual file sending handled in reply step
+            return FormattedOutput(
+              text: '📎 Sending ${paths.length} reference(s)...',
+              attachments: paths.map((p) => File(p)).toList(),
+            );
+          }
+        }
+        
+      default:
+        return FormattedOutput(text: '⚠️ Unknown trail command: `$cmd`');
+    }
+  }
+
+  /// Execute a Copilot Chat prompt and return result with reply entry.
+  Future<(ExecutionResult, ReplyEntry)> _executeCopilotPrompt(
+    String prompt,
+    List<String> receivedAttachments,
+  ) async {
+    // Notify user we're sending to Copilot (will be captured in output)
+    print('🤖 Sending to Copilot Chat...');
+    
+    // Call Copilot Chat
+    final response = await VsCodeHelper.askCopilotChat(prompt);
+    
+    // Parse response
+    final copilotResponse = CopilotChatResponse.fromMap(response);
+    
+    // Create execution result with Copilot response
+    final result = ExecutionResult(
+      output: copilotResponse.generatedMarkdown,
+      copilotResponse: copilotResponse,
+    );
+    
+    final replyEntry = ReplyEntry(
+      markdown: copilotResponse.generatedMarkdown,
+      comment: copilotResponse.comment,
+      references: copilotResponse.references,
+      requestedAttachments: copilotResponse.requestedAttachments,
+    );
+    
+    return (result, replyEntry);
+  }
+
+  // ===========================================================================
+  // Step 4: Send Unified Reply
+  // ===========================================================================
+
+  /// Send unified reply based on execution result.
+  Future<void> _sendUnifiedReply(
+    PreprocessedMessage msg,
+    MessageExecutionResult result,
+  ) async {
+    // Handle errors
+    if (result.hasError) {
+      await _sendReply(
+        msg.original,
+        formatter.formatError('${result.error}'),
+      );
       return;
     }
     
-    // Check if this is a REPL command - commands should NOT go to Copilot
-    // even if they end with . or ?
-    if (_isReplCommand(originalText)) {
-      // Fall through to REPL execution below
-    } else {
-      // Check if this looks like a Copilot Chat prompt
-      print('[BOT] Checking if Copilot Chat prompt...');
-      print('[BOT]   originalText: "$originalText"');
-      final isCopilot = _isCopilotChatPrompt(originalText);
-      print('[BOT]   _isCopilotChatPrompt result: $isCopilot');
-      if (isCopilot) {
-        await _handleCopilotChatPrompt(message, text, receivedAttachments);
-        return;
+    // Handle trail commands (special formatting)
+    if (result.isTrailCommand && result.preformattedOutput != null) {
+      await _sendReply(msg.original, result.preformattedOutput!);
+      
+      // Send file attachments if any
+      if (result.preformattedOutput!.attachments != null) {
+        await _sendFilesAsAttachments(
+          msg.original, 
+          result.preformattedOutput!.attachments!.map((f) => f.path).toList(),
+        );
       }
+      return;
     }
-
-
-    // Execute command
-    try {
-      // Send typing indicator
-      await _sendTyping(message);
-
-      // Execute the command via REPL
-      final result = await executeCommand(text);
-
-      // Format and send reply
-      final formatted = formatter.format(result);
+    
+    // Build the reply text
+    // For REPL commands: use ExecutionResult.output (captured by executeCommand's zone)
+    // For trail/copilot: use capturedOutput (captured by our zone)
+    String replyText;
+    
+    if (result.executionResult != null && result.executionResult!.output.isNotEmpty) {
+      // REPL command - use ExecutionResult.output which has the captured output
+      replyText = result.executionResult!.output.trim();
       
-      // Build reply entry from result
-      // If there's a Copilot response, use its structured data
-      final copilot = result.copilotResponse;
-      final replyEntry = copilot != null
-          ? ReplyEntry(
-              markdown: copilot.generatedMarkdown,
-              comment: copilot.comment,
-              references: copilot.references,
-              requestedAttachments: copilot.requestedAttachments,
-            )
-          : ReplyEntry(
-              markdown: formatted.text,
-              comment: result.isError ? result.errorMessage : null,
-            );
-      
-      // Record exchange in trail
+      // If there's a return value, append it
+      if (result.executionResult!.value != null) {
+        final valueStr = '${result.executionResult!.value}';
+        replyText = replyText.isNotEmpty ? '$replyText\n→ $valueStr' : '→ $valueStr';
+      }
+    } else if (result.capturedOutput.trim().isNotEmpty) {
+      // Other commands - use capturedOutput from our zone
+      replyText = result.capturedOutput.trim();
+    } else {
+      replyText = '✓ (no output)';
+    }
+    
+    // Format using the captured output, not ExecutionResult.output
+    final formatted = formatter.formatRaw(replyText);
+    
+    // Record exchange in trail
+    if (result.replyEntry != null || result.executionResult != null) {
       final exchange = ConversationExchange(
         timestamp: DateTime.now(),
         prompt: PromptEntry(
-          text: message.text ?? text,  // Use original text without attachments suffix
-          attachments: receivedAttachments,
+          text: msg.originalText,
+          attachments: msg.receivedAttachments,
         ),
-        reply: replyEntry,
+        reply: result.replyEntry ?? ReplyEntry(
+          markdown: replyText,
+          comment: result.executionResult?.isError == true 
+              ? result.executionResult?.errorMessage 
+              : null,
+        ),
       );
       await trailManager.addExchange(exchange);
-      
-      await _sendReply(message, formatted);
-    } catch (e) {
-      await _sendReply(message, formatter.formatError('$e'));
+    }
+    
+    await _sendReply(msg.original, formatted);
+    
+    // Send Copilot requested attachments if configured
+    final copilot = result.executionResult?.copilotResponse;
+    if (copilot != null && 
+        formatter.config.autoAttachCopilotFiles && 
+        copilot.requestedAttachments.isNotEmpty) {
+      await _sendFilesAsAttachments(msg.original, copilot.requestedAttachments);
     }
   }
-  
-  /// Handle trail-related commands.
-  Future<void> _handleTrailCommand(ChatMessage message, String command) async {
-    try {
-      final parts = command.split(RegExp(r'\s+'));
-      final cmd = parts.first.toLowerCase();
-      print('[TRAIL] Handling trail command: "$cmd" (full: "$command")');
-      
-      switch (cmd) {
-        case 'list-attachments':
-          final attachments = trailManager.allAttachments;
-          print('[TRAIL] Found ${attachments.length} attachments');
-          if (attachments.isEmpty) {
-            await _sendReply(message, FormattedOutput(text: 'No attachments in trail.'));
-          } else {
-            final buffer = StringBuffer('*Attachments in Trail*\n\n');
-            for (final entry in attachments.entries) {
-              buffer.writeln('`${entry.key}`: ${entry.value}');
-            }
-            await _sendReply(message, FormattedOutput(text: buffer.toString()));
-          }
-          break;
-          
-        case 'list-references':
-          final references = trailManager.allReferences;
-          print('[TRAIL] Found ${references.length} references');
-          if (references.isEmpty) {
-            await _sendReply(message, FormattedOutput(text: 'No references in trail.'));
-          } else {
-            final buffer = StringBuffer('*References in Trail*\n\n');
-            for (final entry in references.entries) {
-              buffer.writeln('`${entry.key}`: ${entry.value}');
-            }
-            await _sendReply(message, FormattedOutput(text: buffer.toString()));
-          }
-          break;
-          
-        case 'get-attachments':
-          if (parts.length < 2) {
-            await _sendReply(message, FormattedOutput(
-              text: 'Usage: `get-attachments <id1>, <id2>, ...`\n\nExample: `get-attachments A000, A001`',
-            ));
-          } else {
-            final ids = parts.sublist(1).join(' ').split(',').map((s) => s.trim()).toList();
-            final paths = trailManager.getAttachmentPaths(ids);
-            if (paths.isEmpty) {
-              await _sendReply(message, FormattedOutput(text: 'No matching attachments found.'));
-            } else {
-              await _sendFilesAsAttachments(message, paths);
-            }
-          }
-          break;
-          
-        case 'get-references':
-          if (parts.length < 2) {
-            await _sendReply(message, FormattedOutput(
-              text: 'Usage: `get-references <id1>, <id2>, ...`\n\nExample: `get-references R000, R001`',
-            ));
-          } else {
-            final ids = parts.sublist(1).join(' ').split(',').map((s) => s.trim()).toList();
-            final paths = trailManager.getReferencePaths(ids);
-            if (paths.isEmpty) {
-              await _sendReply(message, FormattedOutput(text: 'No matching references found.'));
-            } else {
-              await _sendFilesAsAttachments(message, paths);
-            }
-          }
-          break;
-          
-        default:
-          // This shouldn't happen since we pre-check with startsWith
-          await _sendReply(message, FormattedOutput(
-            text: '⚠️ Unknown trail command: `$cmd`',
-          ));
+
+  // ===========================================================================
+  // Welcome Messages
+  // ===========================================================================
+
+  /// Send welcome messages to all allowed users.
+  Future<void> sendWelcomeMessages() async {
+    final vsInfo = vscode != null
+        ? 'Connected to VS Code on ${vscode!.host}:${vscode!.port}'
+        : 'No VS Code connection configured';
+    
+    final welcomeMessage = '''
+🤖 *$name Bot* started!
+
+*$toolName* v$toolVersion
+$vsInfo
+
+Type help for available commands, or enter any REPL command directly.
+''';
+
+    for (final userId in allowedUsers) {
+      try {
+        await _debugSendMessage(
+          ChatReceiver.id(userId.toString()),
+          welcomeMessage,
+        );
+        print('  📨 Sent welcome to user $userId');
+      } catch (e) {
+        // User may not have started the bot yet, that's OK
+        stderr.writeln('  ⚠ Could not send welcome to user $userId: $e');
       }
-    } catch (e, stack) {
-      print('[TRAIL] Error handling trail command: $e\n$stack');
-      await _sendReply(message, formatter.formatError('Trail command error: $e'));
     }
   }
+
+  // ===========================================================================
+  // File Attachments
+  // ===========================================================================
   
   /// Send files as attachments to the user.
   Future<void> _sendFilesAsAttachments(ChatMessage original, List<String> paths) async {
@@ -624,106 +916,42 @@ ${receivedAttachments.join('\n')}
     
     return false;
   }
-  
-  /// Handle a message as a Copilot Chat prompt.
-  Future<void> _handleCopilotChatPrompt(
-    ChatMessage message, 
-    String prompt,
-    List<String> receivedAttachments,
-  ) async {
-    try {
-      // Send typing indicator
-      await _sendTyping(message);
-      
-      // Notify user we're sending to Copilot
-      await _debugSendMessage(
-        ChatReceiver.id(message.sender.id),
-        '🤖 Sending to Copilot Chat...',
-      );
-      
-      // Call Copilot Chat
-      final response = await VsCodeHelper.askCopilotChat(prompt);
-      
-      // Parse response
-      final copilotResponse = CopilotChatResponse.fromMap(response);
-      
-      // Create execution result with Copilot response
-      final result = ExecutionResult(
-        output: copilotResponse.generatedMarkdown,
-        copilotResponse: copilotResponse,
-      );
-      
-      // Format and send reply
-      final formatted = formatter.format(result);
-      
-      // Record exchange in trail
-      final exchange = ConversationExchange(
-        timestamp: DateTime.now(),
-        prompt: PromptEntry(
-          text: message.text ?? prompt,
-          attachments: receivedAttachments,
-        ),
-        reply: ReplyEntry(
-          markdown: copilotResponse.generatedMarkdown,
-          comment: copilotResponse.comment,
-          references: copilotResponse.references,
-          requestedAttachments: copilotResponse.requestedAttachments,
-        ),
-      );
-      await trailManager.addExchange(exchange);
-      
-      await _sendReply(message, formatted);
-      
-      // Send requested attachments as actual files if configured
-      if (formatter.config.autoAttachCopilotFiles && copilotResponse.requestedAttachments.isNotEmpty) {
-        await _sendFilesAsAttachments(message, copilotResponse.requestedAttachments);
-      }
-    } catch (e) {
-      await _sendReply(message, formatter.formatError('Copilot Chat error: $e'));
-    }
-  }
 
-  /// Send a reply to a message.
+  // ===========================================================================
+  // Reply Sending
+  // ===========================================================================
+
+  /// Send a text reply to a message.
+  /// Note: File attachments are handled separately via _sendFilesAsAttachments().
   Future<void> _sendReply(ChatMessage original, FormattedOutput output) async {
     await _debugSendMessage(
       ChatReceiver.id(original.sender.id),
       output.text,
       parseMode: output.parseMode,
     );
-
-    // Send attachments if any
-    if (output.attachments != null) {
-      for (final file in output.attachments!) {
-        // TODO: Implement file sending when ChatApi supports it
-        // For now, just notify about the file
-        await _debugSendMessage(
-          ChatReceiver.id(original.sender.id),
-          '📎 File: ${file.path}',
-        );
-      }
-    }
   }
   
   /// Debug wrapper for sending messages - prints exactly what is sent.
+  /// Uses stdout directly to avoid being captured by runZonedGuarded.
   Future<void> _debugSendMessage(
     ChatReceiver receiver,
     String text, {
     String? parseMode,
   }) async {
-    print('');
-    print('╔════════════════════════════════════════════════════════════');
-    print('║ SENDING TO TELEGRAM');
-    print('╠════════════════════════════════════════════════════════════');
-    print('║ receiver: $receiver');
-    print('║ parseMode: $parseMode');
-    print('╠════════════════════════════════════════════════════════════');
-    print('║ TEXT:');
-    print('╠════════════════════════════════════════════════════════════');
+    stdout.writeln('');
+    stdout.writeln('╔════════════════════════════════════════════════════════════');
+    stdout.writeln('║ SENDING TO TELEGRAM');
+    stdout.writeln('╠════════════════════════════════════════════════════════════');
+    stdout.writeln('║ receiver: $receiver');
+    stdout.writeln('║ parseMode: $parseMode');
+    stdout.writeln('╠════════════════════════════════════════════════════════════');
+    stdout.writeln('║ TEXT:');
+    stdout.writeln('╠════════════════════════════════════════════════════════════');
     for (final line in text.split('\n')) {
-      print('║ $line');
+      stdout.writeln('║ $line');
     }
-    print('╚════════════════════════════════════════════════════════════');
-    print('');
+    stdout.writeln('╚════════════════════════════════════════════════════════════');
+    stdout.writeln('');
     
     await _telegram.sendMessage(receiver, text, parseMode: parseMode);
   }

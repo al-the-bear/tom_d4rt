@@ -430,7 +430,7 @@ class OutputConfig {
       truncationSuffix: yaml['truncation-suffix'] as String? ?? 
           '\n... (output truncated, {remaining} more chars)',
       autoAttachCopilotFiles: yaml['auto-attach-copilot-files'] as bool? ?? true,
-      rawPassthrough: yaml['raw-passthrough'] as bool? ?? false,
+      rawPassthrough: yaml['raw-passthrough'] as bool? ?? true,  // Default to true for testing
     );
   }
 

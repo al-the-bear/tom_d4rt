@@ -239,14 +239,14 @@ abstract class D4rtReplBase {
     await runZonedGuarded(
       () => _runImpl(arguments),
       (error, stack) {
-        stderr.writeln('<red>**Uncaught error:**</red> $error'.toConsole());
+        stderr.writeln('<red>**Uncaught error:**</red> $error'/*.toConsole()*/);
         if (arguments.contains('--debug') || arguments.contains('-debug')) {
           stderr.writeln(stack.toString());
         }
       },
       zoneSpecification: ZoneSpecification(
         print: (Zone self, ZoneDelegate parent, Zone zone, String line) {
-          parent.print(zone, line.toConsole());
+          parent.print(zone, line/*.toConsole()*/);
         },
       ),
     );
@@ -663,7 +663,7 @@ void main() {}
               },
               zoneSpecification: ZoneSpecification(
                 print: (self, parent, zone, line) {
-                  // Don't delegate to parent - this bypasses console_markdown ANSI conversion
+                  // Write raw line with tags directly to buffer - bypass _CaptureStdout
                   outputBuffer.writeln(line);
                 },
               ),
@@ -674,6 +674,15 @@ void main() {}
         );
         
         final output = outputBuffer.toString().trim();
+        
+        // DEBUG: Log captured output and check for color tags
+        stdout.writeln('[executeCommand] command: "$command"');
+        stdout.writeln('[executeCommand] outputBuffer length: ${output.length}');
+        stdout.writeln('[executeCommand] has <cyan>: ${output.contains('<cyan>')}');
+        stdout.writeln('[executeCommand] has <yellow>: ${output.contains('<yellow>')}');
+        if (output.isNotEmpty) {
+          stdout.writeln('[executeCommand] first 300 chars: ${output.substring(0, output.length > 300 ? 300 : output.length)}');
+        }
         
         // Detect formatted text commands (help, info) that should render markdown
         final isFormattedText = command == 'help' || 

@@ -231,6 +231,56 @@ class OutputFormatter {
     return format(ExecutionResult(output: text));
   }
 
+  /// Format raw text output (e.g., captured print output with console_markdown).
+  ///
+  /// In rawPassthrough mode, text is sent as-is with Markdown parse mode.
+  /// Otherwise, normal formatting is applied (strip ANSI, convert markdown, etc.).
+  FormattedOutput formatRaw(String text) {
+    // Raw passthrough mode: skip all formatting, send directly with Markdown parse mode
+    if (config.rawPassthrough) {
+      return FormattedOutput(
+        text: text,
+        parseMode: 'Markdown',
+      );
+    }
+
+    // Apply normal formatting pipeline
+    var formatted = text;
+
+    // Strip ANSI codes
+    if (config.stripAnsi) {
+      formatted = _stripAnsi(formatted);
+    }
+
+    // Convert console_markdown to plain text (strip color tags, convert bullets)
+    if (config.convertMarkdown) {
+      formatted = _convertMarkdownToPlainText(formatted);
+    }
+
+    // Use monospace for all output via <pre> tags
+    final useMonospace = config.useMonospace && formatted.isNotEmpty;
+
+    // Wrap in <pre> tag for monospace display
+    if (useMonospace) {
+      formatted = '<pre>${_escapeHtml(formatted)}</pre>';
+    }
+
+    // Handle long output
+    if (formatted.length > config.maxOutputChars) {
+      final truncated = formatted.substring(0, config.maxOutputChars);
+      final remaining = formatted.length - config.maxOutputChars;
+
+      formatted = truncated +
+          config.truncationSuffix.replaceAll('{remaining}', remaining.toString());
+    }
+
+    return FormattedOutput(
+      text: formatted,
+      // Use HTML when we wrap in <pre> tags
+      parseMode: useMonospace ? 'HTML' : null,
+    );
+  }
+
   /// Format an error message.
   FormattedOutput formatError(String error) {
     return FormattedOutput(text: '❌ $error');

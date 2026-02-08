@@ -19,16 +19,16 @@ String formatResult(dynamic result) {
     if (result.containsKey('generatedMarkdown')) {
       final buffer = StringBuffer();
       buffer.writeln();
-      buffer.writeln('<cyan>─</cyan>'.toConsole() * 60);
-      buffer.writeln('📝 **Copilot Response:**'.toConsole());
-      buffer.writeln('<cyan>─</cyan>'.toConsole() * 60);
+      buffer.writeln('<cyan>─</cyan>'* 60);
+      buffer.writeln('📝 **Copilot Response:**');
+      buffer.writeln('<cyan>─</cyan>' * 60);
       // Apply markdown formatting to the response
-      buffer.writeln(result['generatedMarkdown'].toString().toConsole());
+      buffer.writeln(result['generatedMarkdown'].toString());
       if (result['comments'] != null && result['comments'].toString().isNotEmpty) {
         buffer.writeln();
-        buffer.writeln('💬 *Comments:* ${result['comments']}'.toConsole());
+        buffer.writeln('💬 *Comments:* ${result['comments']}');
       }
-      buffer.write('<cyan>─</cyan>'.toConsole() * 60);
+      buffer.write('<cyan>─</cyan>' * 60);
       return buffer.toString();
     }
     
