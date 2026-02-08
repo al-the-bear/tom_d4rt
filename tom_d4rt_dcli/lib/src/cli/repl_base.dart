@@ -137,6 +137,7 @@ abstract class D4rtReplBase {
   <yellow>**-h**</yellow>, <yellow>**--help**</yellow>                Show this help message
   <yellow>**-v**</yellow>, <yellow>**--version**</yellow>             Show version information
   <yellow>**--stdin**</yellow>                       Read and execute source code from stdin
+                                      (auto-prefixes imports, wraps in main if needed)
   <yellow>**-session**</yellow> <id>                 Resume or start a named session
   <yellow>**-replace-session**</yellow> <id>         Delete existing session and start fresh
   <yellow>**-replay**</yellow> <file>                Replay a file before starting REPL
@@ -171,8 +172,9 @@ abstract class D4rtReplBase {
   <yellow>$name -list-sessions</yellow>                   List available sessions
   <yellow>$name --dump-configuration</yellow>             Dump configuration
   <yellow>$name --bot-mode</yellow>                       Run as Telegram bot server
-  <yellow>echo 'print(42);' | $name --stdin</yellow>     Execute code from stdin
-  <yellow>cat script.dart | $name --stdin</yellow>        Pipe file content via stdin''';
+  <yellow>echo 'print(42);' | $name --stdin</yellow>     Execute code from stdin (auto-wrapped)
+  <yellow>cat script.dart | $name --stdin</yellow>        Pipe a complete script via stdin
+  <yellow>echo 'return 5+6;' | $name --stdin</yellow>    Bare expression, exit code = result''';
   }
   
   /// Print CLI usage information (for --help).
@@ -818,6 +820,18 @@ void main() {}
   /// print('Result: $x');
   /// DART
   /// ```
+  ///
+  /// **Smart source preprocessing:**
+  ///
+  /// The stdin source is automatically preprocessed based on its content:
+  ///
+  /// 1. **Complete script** (has imports and main function) — executed as-is
+  /// 2. **Has main but no imports** — bridge imports are auto-prefixed
+  /// 3. **Bare statements** (no main function) — bridge imports are prefixed
+  ///    and the code is wrapped in `Object main(List<String> args) { ... }`
+  ///
+  /// If the script returns an `int` value, it is used as the process exit code.
+  /// On error, a structured error message is printed to stderr with exit code 2.
   Future<void> _executeStdin(D4rt d4rt, String initSource) async {
     // Read all source from stdin
     final buffer = StringBuffer();
@@ -831,29 +845,94 @@ void main() {}
       exit(1);
     }
 
-    try {
-      // Initialize with bridges
-      d4rt.execute(source: initSource);
+    // Smart source preprocessing
+    final preprocessed = _preprocessStdinSource(source);
 
-      // Execute the stdin source
-      final result = d4rt.execute(source: source);
+    try {
+      // Initialize with bridges (unless source already has imports,
+      // in which case imports are part of the preprocessed source)
+      if (!_sourceHasImports(source)) {
+        d4rt.execute(source: initSource);
+      }
+
+      // Execute the preprocessed source
+      final result = d4rt.execute(source: preprocessed);
 
       // Handle Future results
       var finalResult = result;
       if (finalResult is Future) {
         finalResult = await finalResult;
       }
+
+      // If the result is an int, use it as exit code
+      if (finalResult is int) {
+        exit(finalResult);
+      }
+
       if (finalResult != null) {
         printResult(finalResult);
       }
       exit(0);
+    } on FormatException catch (e) {
+      // Parse / syntax errors
+      stderr.writeln('Syntax Error: $e');
+      exit(2);
     } catch (e, stackTrace) {
-      stderr.writeln('Error: $e');
+      stderr.writeln('Error executing stdin script:');
+      stderr.writeln('  $e');
       if (Platform.environment['DEBUG'] == 'true') {
+        stderr.writeln('');
+        stderr.writeln('Stack trace:');
         stderr.writeln(stackTrace);
       }
-      exit(1);
+      exit(2);
     }
+  }
+
+  /// Detect whether [source] contains `import` directives.
+  bool _sourceHasImports(String source) {
+    return RegExp(r"^\s*import\s+'", multiLine: true).hasMatch(source) ||
+        RegExp(r'^\s*import\s+"', multiLine: true).hasMatch(source);
+  }
+
+  /// Detect whether [source] defines a `main` function.
+  bool _sourceHasMain(String source) {
+    // Match common main signatures:
+    //   void main() / main() / Object main(...) / Future<void> main(...) etc.
+    return RegExp(
+      r'^\s*(?:\w+(?:<[\w<>, ]+>)?\s+)?main\s*\(',
+      multiLine: true,
+    ).hasMatch(source);
+  }
+
+  /// Preprocess stdin source by auto-prefixing imports and/or wrapping in main.
+  ///
+  /// Three cases:
+  /// 1. Source has imports AND main → return as-is
+  /// 2. Source has main but NO imports → prefix bridge imports
+  /// 3. Source has neither main → prefix imports AND wrap in main
+  String _preprocessStdinSource(String source) {
+    final hasImports = _sourceHasImports(source);
+    final hasMain = _sourceHasMain(source);
+
+    // Case 1: Complete script — execute as-is
+    if (hasImports && hasMain) {
+      return source;
+    }
+
+    final importBlock = getImportBlock();
+
+    // Case 2: Has main but no imports — prefix imports
+    if (hasMain) {
+      return '$importBlock\n$source';
+    }
+
+    // Case 3: Bare statements — prefix imports and wrap in main
+    return '''$importBlock
+Object main(List<String> args) {
+$source
+}
+''';
   }
 
   /// Execute a replay file and exit.
