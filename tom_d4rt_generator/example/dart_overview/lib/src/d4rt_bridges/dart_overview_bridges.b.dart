@@ -1,11 +1,12 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-02-08T16:45:25.807160
+// Generated: 2026-02-08T18:13:30.761903
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
+import 'dart:async';
 
 import 'package:dart_overview/dart_overview.dart' as $pkg;
 
@@ -87,6 +88,7 @@ class AllBridge {
       _createMultiplierBridge(),
       _createPrintableBridge(),
       _createTrackedItemBridge(),
+      _createDataProcessorBridge(),
       _createStatisticsBridge(),
       _createMusicianBridge(),
       _createProfessionalDancerBridge(),
@@ -180,6 +182,7 @@ class AllBridge {
       'Multiplier': 'package:dart_overview/classes/test_support/run_test_support.dart',
       'Printable': 'package:dart_overview/classes/test_support/run_test_support.dart',
       'TrackedItem': 'package:dart_overview/classes/test_support/run_test_support.dart',
+      'DataProcessor': 'package:dart_overview/classes/test_support/run_test_support.dart',
       'Statistics': 'package:dart_overview/generics/type_bounds/run_type_bounds.dart',
       'Musician': 'package:dart_overview/mixins/basics/run_basics.dart',
       'ProfessionalDancer': 'package:dart_overview/mixins/basics/run_basics.dart',
@@ -3171,6 +3174,78 @@ BridgedClass _createTrackedItemBridge() {
     getterSignatures: {
       'name': 'String get name',
       'trackCount': 'int get trackCount',
+    },
+  );
+}
+
+// =============================================================================
+// DataProcessor Bridge
+// =============================================================================
+
+BridgedClass _createDataProcessorBridge() {
+  return BridgedClass(
+    nativeType: $pkg.DataProcessor,
+    name: 'DataProcessor',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'DataProcessor');
+        final prefix = D4.getRequiredArg<String>(positional, 0, 'prefix', 'DataProcessor');
+        return $pkg.DataProcessor(prefix);
+      },
+    },
+    getters: {
+      'prefix': (visitor, target) => D4.validateTarget<$pkg.DataProcessor>(target, 'DataProcessor').prefix,
+    },
+    methods: {
+      'processAsync': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.DataProcessor>(target, 'DataProcessor');
+        D4.requireMinArgs(positional, 1, 'processAsync');
+        final input = D4.getRequiredArg<String>(positional, 0, 'input', 'processAsync');
+        return t.processAsync(input);
+      },
+      'generateRange': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.DataProcessor>(target, 'DataProcessor');
+        D4.requireMinArgs(positional, 2, 'generateRange');
+        final start = D4.getRequiredArg<int>(positional, 0, 'start', 'generateRange');
+        final end = D4.getRequiredArg<int>(positional, 1, 'end', 'generateRange');
+        return t.generateRange(start, end);
+      },
+      'streamItems': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.DataProcessor>(target, 'DataProcessor');
+        D4.requireMinArgs(positional, 1, 'streamItems');
+        if (positional.isEmpty) {
+          throw ArgumentError('streamItems: Missing required argument "items" at position 0');
+        }
+        final items = D4.coerceList<String>(positional[0], 'items');
+        return t.streamItems(items);
+      },
+    },
+    staticMethods: {
+      'staticRange': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'staticRange');
+        final count = D4.getRequiredArg<int>(positional, 0, 'count', 'staticRange');
+        return $pkg.DataProcessor.staticRange(count);
+      },
+      'staticCountdown': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'staticCountdown');
+        final from = D4.getRequiredArg<int>(positional, 0, 'from', 'staticCountdown');
+        return $pkg.DataProcessor.staticCountdown(from);
+      },
+    },
+    constructorSignatures: {
+      '': 'DataProcessor(String prefix)',
+    },
+    methodSignatures: {
+      'processAsync': 'Future<String> processAsync(String input)',
+      'generateRange': 'Iterable<int> generateRange(int start, int end)',
+      'streamItems': 'Stream<String> streamItems(List<String> items)',
+    },
+    getterSignatures: {
+      'prefix': 'String get prefix',
+    },
+    staticMethodSignatures: {
+      'staticRange': 'Iterable<int> staticRange(int count)',
+      'staticCountdown': 'Stream<int> staticCountdown(int from)',
     },
   );
 }

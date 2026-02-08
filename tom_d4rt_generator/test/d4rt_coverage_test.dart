@@ -813,6 +813,42 @@ void main() {
         _expectSuccess(result, 'ASYNC04');
         expect(result.processOutput, contains('ASYNC04_PASSED'));
       });
+
+      test('ASYNC05: instance async method (Future)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/async05_instance_async_method.dart',
+        );
+        _expectSuccess(result, 'ASYNC05');
+        expect(result.processOutput, contains('ASYNC05_PASSED'));
+      });
+
+      test('ASYNC06: instance sync* method (Iterable)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/async06_instance_sync_generator.dart',
+        );
+        _expectSuccess(result, 'ASYNC06');
+        expect(result.processOutput, contains('ASYNC06_PASSED'));
+      });
+
+      test('ASYNC07: instance async* method (Stream)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/async07_instance_async_generator.dart',
+        );
+        _expectSuccess(result, 'ASYNC07');
+        expect(result.processOutput, contains('ASYNC07_PASSED'));
+      });
+
+      test('ASYNC08: static sync*/async* method', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/async08_static_generators.dart',
+        );
+        _expectSuccess(result, 'ASYNC08');
+        expect(result.processOutput, contains('ASYNC08_PASSED'));
+      });
     });
 
     // ── Types ──────────────────────────────────────────────────────

@@ -63,7 +63,8 @@ export 'classes/test_support/run_test_support.dart' show
     Multiplier,
     Printable, Serializable, SerializablePrintable,
     Trackable, TrackedItem,
-    fetchGreeting, computeSum;
+    fetchGreeting, computeSum,
+    DataProcessor;
 
 // ── Generics: type bounds ──
 export 'generics/type_bounds/run_type_bounds.dart' show Statistics;

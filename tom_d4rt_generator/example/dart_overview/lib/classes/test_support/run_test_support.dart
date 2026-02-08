@@ -188,6 +188,54 @@ Future<int> computeSum(List<int> numbers) async {
 }
 
 // ============================================
+// DATA PROCESSOR (ASYNC05, ASYNC06, ASYNC07, ASYNC08)
+// ============================================
+
+/// A class with async, sync*, and async* methods for testing bridge generation
+/// of generator and async methods on class instances.
+class DataProcessor {
+  final String prefix;
+
+  DataProcessor(this.prefix);
+
+  /// Instance async method returning Future<String> (ASYNC05)
+  Future<String> processAsync(String input) async {
+    await Future.delayed(Duration(milliseconds: 10));
+    return '$prefix: $input';
+  }
+
+  /// Instance sync* method returning Iterable<int> (ASYNC06)
+  Iterable<int> generateRange(int start, int end) sync* {
+    for (var i = start; i <= end; i++) {
+      yield i;
+    }
+  }
+
+  /// Instance async* method returning Stream<String> (ASYNC07)
+  Stream<String> streamItems(List<String> items) async* {
+    for (var item in items) {
+      await Future.delayed(Duration(milliseconds: 10));
+      yield '$prefix: $item';
+    }
+  }
+
+  /// Static sync* method (ASYNC08)
+  static Iterable<int> staticRange(int count) sync* {
+    for (var i = 1; i <= count; i++) {
+      yield i;
+    }
+  }
+
+  /// Static async* method (ASYNC08)
+  static Stream<int> staticCountdown(int from) async* {
+    for (var i = from; i >= 0; i--) {
+      await Future.delayed(Duration(milliseconds: 10));
+      yield i;
+    }
+  }
+}
+
+// ============================================
 // MAIN (for standalone testing)
 // ============================================
 

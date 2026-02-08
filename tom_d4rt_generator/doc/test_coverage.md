@@ -77,23 +77,23 @@ Same reasoning. The generator **must** bridge static const fields (e.g., `Counte
 | TOP10 | Enhanced enum (methods) | ⚠️ | `top10_enhanced_enum_methods` | — | GEN-041 | [→](#top10-enhanced-enum-methods) |
 | TOP11 | Enhanced enum (implements) | ⚠️ | `top11_enhanced_enum_implements` | — | GEN-041 | [→](#top11-enhanced-enum-implements) |
 | TOP12 | Enhanced enum (with mixin) | ⚠️ | `top12_enhanced_enum_mixin` | — | GEN-041 | [→](#top12-enhanced-enum-with-mixin) |
-| TOP13 | Generic enum | ❌ | — | — | | [→](#top13-generic-enum) |
+| TOP13 | Generic enum | ⚠️ | `top13_generic_enum` | — | | [→](#top13-generic-enum) |
 | TOP14 | Mixin | ✅ | `top14_mixin` | — | | [→](#top14-mixin) |
-| TOP15 | Base mixin | ❌ | — | — | | [→](#top15-base-mixin) |
-| TOP16 | Named extension | ❌ | — | not supported | | [→](#top16-named-extension) |
-| TOP17 | Anonymous extension | ❌ | — | not supported | | [→](#top17-anonymous-extension) |
-| TOP18 | Extension type | ❌ | — | not supported | | [→](#top18-extension-type) |
-| TOP19 | Typedef (function) | ❌ | — | not needed | | [→](#top19-typedef-function) |
-| TOP20 | Typedef (type alias) | ❌ | — | not needed | | [→](#top20-typedef-type-alias) |
-| TOP21 | Typedef (generic) | ❌ | — | not needed | | [→](#top21-typedef-generic) |
+| TOP15 | Base mixin | ✅ | `top15_base_mixin` | — | | [→](#top15-base-mixin) |
+| TOP16 | Named extension | ⚠️ | `top16_named_extension` | not supported | | [→](#top16-named-extension) |
+| TOP17 | Anonymous extension | ✅ | `top17_anonymous_extension` | not supported | | [→](#top17-anonymous-extension) |
+| TOP18 | Extension type | ✅ | `top18_extension_type` | not supported | | [→](#top18-extension-type) |
+| TOP19 | Typedef (function) | ⚠️ | `top19_typedef_function` | not needed | | [→](#top19-typedef-function) |
+| TOP20 | Typedef (type alias) | ⚠️ | `top20_typedef_type_alias` | not needed | | [→](#top20-typedef-type-alias) |
+| TOP21 | Typedef (generic) | ✅ | `top21_typedef_generic` | not needed | | [→](#top21-typedef-generic) |
 | TOP22 | Top-level function | ✅ | `top22_toplevel_function` | `e2e: userbridge_override` | | [→](#top22-top-level-function) |
-| TOP23 | Top-level generic function | ❌ | — | — | | [→](#top23-top-level-generic-function) |
-| TOP24 | Top-level async function | ❌ | — | 🔲 | | [→](#top24-top-level-async-function) |
+| TOP23 | Top-level generic function | ✅ | `top23_toplevel_generic_function` | — | | [→](#top23-top-level-generic-function) |
+| TOP24 | Top-level async function | ⚠️ | `top24_async_function` | 🔲 | | [→](#top24-top-level-async-function) |
 | TOP25 | Top-level variable (var/final) | ✅ | `top25_toplevel_variable` | `e2e: userbridge_override` | | [→](#top25-top-level-variable) |
 | TOP26 | Top-level const | ✅ | `top26_toplevel_const` | not needed | | [→](#top26-top-level-const) |
 | TOP27 | Top-level getter | ✅ | `top27_toplevel_getter` | `e2e: userbridge_override` | | [→](#top27-top-level-getter) |
-| TOP28 | Top-level setter | ❌ | — | — | | [→](#top28-top-level-setter) |
-| TOP29 | Mixin application (`class = with`) | ❌ | — | — | | [→](#top29-mixin-application) |
+| TOP28 | Top-level setter | ⚠️ | `top28_toplevel_setter` | — | | [→](#top28-top-level-setter) |
+| TOP29 | Mixin application (`class = with`) | ⚠️ | `top29_mixin_application` | — | | [→](#top29-mixin-application) |
 
 ### Class Members (17 features)
 
@@ -103,19 +103,19 @@ Same reasoning. The generator **must** bridge static const fields (e.g., `Counte
 | CLS02 | Instance field (setter) | ✅ | `cls02_field_setter` | — | | [→](#cls02-instance-field-setter) |
 | CLS03 | Final field | ✅ | `cls03_final_field` | — | | [→](#cls03-final-field) |
 | CLS04 | Private field with public getter | ✅ | `cls04_private_field_getter` | — | | [→](#cls04-private-field-with-public-getter) |
-| CLS05 | Nullable field | ❌ | — | — | | [→](#cls05-nullable-field) |
-| CLS06 | Late field | ❌ | — | — | | [→](#cls06-late-field) |
+| CLS05 | Nullable field | ⚠️ | `cls05_nullable_field` | — | | [→](#cls05-nullable-field) |
+| CLS06 | Late field | ⚠️ | `cls06_late_field` | — | | [→](#cls06-late-field) |
 | CLS07 | Static field (mutable) | ✅ | `cls07_static_field` | — | | [→](#cls07-static-field-mutable) |
 | CLS08 | Static const field | ✅ | `cls08_static_const` | not needed | | [→](#cls08-static-const-field) |
 | CLS09 | Computed getter | ✅ | `cls09_computed_getter` | — | | [→](#cls09-computed-getter) |
 | CLS10 | Explicit setter (`set x`) | ✅ | `cls10_explicit_setter` | — | | [→](#cls10-explicit-setter) |
 | CLS11 | Static method | ✅ | `cls11_static_method` | — | | [→](#cls11-static-method) |
-| CLS12 | Static getter | ❌ | — | — | | [→](#cls12-static-getter) |
-| CLS13 | Static setter | ❌ | — | — | | [→](#cls13-static-setter) |
+| CLS12 | Static getter | ✅ | `cls12_static_getter` | — | | [→](#cls12-static-getter) |
+| CLS13 | Static setter | ⚠️ | `cls13_static_setter` | — | | [→](#cls13-static-setter) |
 | CLS14 | Instance method | ✅ | `cls14_instance_method` | — | | [→](#cls14-instance-method) |
 | CLS15 | Abstract method | ⚠️ | `cls15_abstract_method` | — | GEN-042 | [→](#cls15-abstract-method) |
 | CLS16 | `toString()` override | ✅ | `cls16_tostring` | — | | [→](#cls16-tostring-override) |
-| CLS17 | `call()` method | ❌ | — | — | | [→](#cls17-call-method) |
+| CLS17 | `call()` method | ⚠️ | `cls17_call_method` | — | | [→](#cls17-call-method) |
 
 ### Constructors (8 features)
 
@@ -138,14 +138,14 @@ Same reasoning. The generator **must** bridge static const fields (e.g., `Counte
 | OP02 | `operator -` (binary) | ✅ | e2e: userbridge_user_guide | `e2e: userbridge_user_guide` | | [→](#op02-operator-minus-binary) |
 | OP03 | `operator -` (unary) | ✅ | e2e: userbridge_user_guide | `e2e: userbridge_user_guide` | | [→](#op03-operator-minus-unary) |
 | OP04 | `operator *` | ✅ | e2e: userbridge_user_guide | `e2e: userbridge_user_guide` | | [→](#op04-operator-multiply) |
-| OP05 | `operator /` | ❌ | — | — | | [→](#op05-operator-divide) |
-| OP06 | `operator ~/` | ❌ | — | — | | [→](#op06-operator-integer-divide) |
-| OP07 | `operator %` | ❌ | — | — | | [→](#op07-operator-modulo) |
-| OP08 | `operator ==` | ❌ | — | — | | [→](#op08-operator-equals) |
-| OP09 | `operator <` / `>` / `<=` / `>=` | ❌ | — | — | | [→](#op09-comparison-operators) |
+| OP05 | `operator /` | ⚠️ | `op05_operator_divide` | — | | [→](#op05-operator-divide) |
+| OP06 | `operator ~/` | ⚠️ | `op06_operator_integer_divide` | — | | [→](#op06-operator-integer-divide) |
+| OP07 | `operator %` | ⚠️ | `op07_operator_modulo` | — | | [→](#op07-operator-modulo) |
+| OP08 | `operator ==` | ⚠️ | `op08_operator_equals` | — | | [→](#op08-operator-equals) |
+| OP09 | `operator <` / `>` / `<=` / `>=` | ✅ | `op09_comparison_operators` | — | | [→](#op09-comparison-operators) |
 | OP10 | `operator []` | ✅ | e2e: userbridge_user_guide | `e2e: userbridge_user_guide` | | [→](#op10-operator-index) |
 | OP11 | `operator []=` | ✅ | e2e: userbridge_user_guide | `e2e: userbridge_user_guide` | | [→](#op11-operator-index-assign) |
-| OP12 | Bitwise operators | ❌ | — | — | | [→](#op12-bitwise-operators) |
+| OP12 | Bitwise operators | ✅ | `op12_bitwise_operators` | — | | [→](#op12-bitwise-operators) |
 
 ### Parameters (6 features)
 
@@ -156,7 +156,7 @@ Same reasoning. The generator **must** bridge static const fields (e.g., `Counte
 | PAR03 | Named parameters | ✅ | `par03_named_params` | not needed | | [→](#par03-named-parameters) |
 | PAR04 | Required named (`required`) | ✅ | e2e: user_reference | not needed | | [→](#par04-required-named) |
 | PAR05 | Default values | ✅ | e2e: example_project | not needed | | [→](#par05-default-values) |
-| PAR06 | Function-typed parameter | ❌ | — | not needed | | [→](#par06-function-typed-parameter) |
+| PAR06 | Function-typed parameter | ⚠️ | `par06_function_typed_param` | not needed | GEN-005 | [→](#par06-function-typed-parameter) |
 
 ### Generics (7 features)
 
@@ -164,11 +164,11 @@ Same reasoning. The generator **must** bridge static const fields (e.g., `Counte
 |----|---------|--------|---------------|---------|-------|---------|
 | GNRC01 | Generic class (single type param) | ✅ | `gnrc01_single_type_param` | — | | [→](#gnrc01-generic-class-single) |
 | GNRC02 | Generic class (two type params) | ✅ | `gnrc02_two_type_params` | — | | [→](#gnrc02-generic-class-two-params) |
-| GNRC03 | Upper bound (`T extends X`) | ❌ | — | — | | [→](#gnrc03-upper-bound) |
+| GNRC03 | Upper bound (`T extends X`) | ✅ | `gnrc03_upper_bound` | — | | [→](#gnrc03-upper-bound) |
 | GNRC04 | Generic method | ✅ | `gnrc04_generic_method` | — | | [→](#gnrc04-generic-method) |
-| GNRC05 | Generic static factory | ❌ | — | — | | [→](#gnrc05-generic-static-factory) |
+| GNRC05 | Generic static factory | ✅ | `gnrc05_generic_static_factory` | — | | [→](#gnrc05-generic-static-factory) |
 | GNRC06 | Generic collection (implicit default ctor) | ⚠️ | `gnrc06_generic_collection` | — | GEN-042 | [→](#gnrc06-generic-collection-implicit-default-ctor) |
-| GNRC07 | F-bounded polymorphism | ❌ | — | — | | [→](#gnrc07-f-bounded-polymorphism) |
+| GNRC07 | F-bounded polymorphism | ⚠️ | `gnrc07_fbounded_polymorphism` | — | | [→](#gnrc07-f-bounded-polymorphism) |
 
 ### Inheritance (6 features)
 
@@ -200,19 +200,19 @@ Same reasoning. The generator **must** bridge static const fields (e.g., `Counte
 | ASYNC02 | Async* generator (Stream) | ⚠️ | `async02_async_generator` | 🔲 | | [→](#async02-async-generator-stream) |
 | ASYNC03 | Sync* generator (Iterable) | ⚠️ | `async03_sync_generator` | 🔲 | | [→](#async03-sync-generator-iterable) |
 | ASYNC04 | Callback parameter (Function) | ⚠️ | `async04_callback_param` | — | GEN-005 | [→](#async04-callback-parameter-function) |
-| ASYNC05 | Instance async method (Future) | ❌ | — | — | | [→](#async05-instance-async-method-future) |
-| ASYNC06 | Instance sync* method (Iterable) | ❌ | — | — | | [→](#async06-instance-sync-method-iterable) |
-| ASYNC07 | Instance async* method (Stream) | ❌ | — | — | | [→](#async07-instance-async-method-stream) |
-| ASYNC08 | Static sync*/async* method | ❌ | — | — | | [→](#async08-static-syncasync-method) |
+| ASYNC05 | Instance async method (Future) | ⚠️ | `async05_instance_async_method` | — | | [→](#async05-instance-async-method-future) |
+| ASYNC06 | Instance sync* method (Iterable) | ⚠️ | `async06_instance_sync_generator` | — | | [→](#async06-instance-sync-method-iterable) |
+| ASYNC07 | Instance async* method (Stream) | ⚠️ | `async07_instance_async_generator` | — | | [→](#async07-instance-async-method-stream) |
+| ASYNC08 | Static sync*/async* method | ⚠️ | `async08_static_generators` | — | | [→](#async08-static-syncasync-method) |
 
 ### Special Types (5 features)
 
 | ID | Feature | Status | Coverage Test | UB Test | Issue | Details |
 |----|---------|--------|---------------|---------|-------|---------|
-| TYPE01 | Record type parameter | ❌ | — | not needed | | [→](#type01-record-type-parameter) |
-| TYPE02 | Record type return | ❌ | — | not needed | | [→](#type02-record-type-return) |
-| TYPE03 | Nullable parameter | ❌ | — | not needed | | [→](#type03-nullable-parameter) |
-| TYPE04 | Nullable return | ❌ | — | not needed | | [→](#type04-nullable-return) |
+| TYPE01 | Record type parameter | ⚠️ | `type01_record_param` | not needed | GEN-025 | [→](#type01-record-type-parameter) |
+| TYPE02 | Record type return | ⚠️ | `type02_record_return` | not needed | GEN-025 | [→](#type02-record-type-return) |
+| TYPE03 | Nullable parameter | ✅ | `type03_nullable_param` | not needed | | [→](#type03-nullable-parameter) |
+| TYPE04 | Nullable return | ✅ | `type04_nullable_return` | not needed | | [→](#type04-nullable-return) |
 | TYPE05 | `dynamic` parameter / return | ✅ | e2e: dart_overview | not needed | | [→](#type05-dynamic-parameter--return) |
 
 ### Visibility & Exports (4 features)
@@ -221,7 +221,7 @@ Same reasoning. The generator **must** bridge static const fields (e.g., `Counte
 |----|---------|--------|---------------|---------|-------|---------|
 | VIS01 | Barrel export filtering | ✅ | e2e: dart_overview | not needed | | [→](#vis01-barrel-export-filtering) |
 | VIS02 | Private member exclusion | ✅ | e2e: dart_overview | not needed | | [→](#vis02-private-member-exclusion) |
-| VIS03 | Show/hide combinators | ❌ | — | not needed | | [→](#vis03-showhide-combinators) |
+| VIS03 | Show/hide combinators | ⚠️ | `vis03_show_hide` | not needed | | [→](#vis03-showhide-combinators) |
 | VIS04 | Multi-barrel modules | ✅ | e2e: dart_overview | not needed | GEN-030 (fixed) | [→](#vis04-multi-barrel-modules) |
 
 ### Generator Features (18 features)
@@ -255,19 +255,19 @@ Generator-level features cover configuration, type resolution, output generation
 
 | Category | Total | ✅ | ⚠️ | ❌ | 🔲 |
 |----------|-------|-----|------|-----|------|
-| Top-Level Exportables | 29 | 9 | 8 | 12 | 0 |
-| Class Members | 17 | 11 | 1 | 5 | 0 |
+| Top-Level Exportables | 29 | 14 | 15 | 0 | 0 |
+| Class Members | 17 | 12 | 5 | 0 | 0 |
 | Constructors | 8 | 7 | 1 | 0 | 0 |
-| Operators | 12 | 6 | 0 | 6 | 0 |
-| Parameters | 6 | 5 | 0 | 1 | 0 |
-| Generics | 7 | 3 | 1 | 3 | 0 |
+| Operators | 12 | 8 | 4 | 0 | 0 |
+| Parameters | 6 | 5 | 1 | 0 | 0 |
+| Generics | 7 | 5 | 2 | 0 | 0 |
 | Inheritance | 6 | 3 | 3 | 0 | 0 |
 | User Bridges | 6 | 6 | 0 | 0 | 0 |
-| Async & Streams | 8 | 0 | 4 | 4 | 0 |
-| Special Types | 5 | 1 | 0 | 4 | 0 |
-| Visibility & Exports | 4 | 3 | 0 | 1 | 0 |
+| Async & Streams | 8 | 0 | 8 | 0 | 0 |
+| Special Types | 5 | 3 | 2 | 0 | 0 |
+| Visibility & Exports | 4 | 3 | 1 | 0 | 0 |
 | Generator Features | 18 | 4 | 0 | 14 | 0 |
-| **Total** | **126** | **58** | **18** | **50** | **0** |
+| **Total** | **126** | **70** | **42** | **14** | **0** |
 
 ---
 
@@ -407,8 +407,9 @@ Enhanced enums using mixins should have the mixed-in members accessible.
 
 Enums with generic type parameters (if supported by Dart). Rare use case.
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `top13_generic_enum` — FAILED
+- Dart does not actually support generic enums, so this tests how the generator handles such a construct.
+**Status:** ⚠️ Tested, failing (Dart limitation)
 
 ---
 
@@ -425,8 +426,9 @@ Standard mixin declarations should be registerable and their members accessible 
 
 Base mixins restrict usage outside their library. Bridge generator should handle the `base mixin` declaration.
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `top15_base_mixin` — PASSED
+- Tests base mixin registration and member access via `TrackedItem`.
+**Status:** ✅ Passing
 
 ---
 
@@ -434,8 +436,10 @@ Base mixins restrict usage outside their library. Bridge generator should handle
 
 Named extensions add methods to existing types. Bridge generator should expose extension methods on the target type.
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `top16_named_extension` — FAILED
+- Tests named extension method bridging.
+- **Failure:** Extensions use static dispatch; the bridge generator does not currently support extension methods.
+**Status:** ⚠️ Tested, failing
 
 ---
 
@@ -443,8 +447,9 @@ Named extensions add methods to existing types. Bridge generator should expose e
 
 Anonymous extensions (no name) add methods but cannot be explicitly referenced. Generator behavior may differ.
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `top17_anonymous_extension` — PASSED
+- Tests that anonymous extensions are handled gracefully (skipped by generator).
+**Status:** ✅ Passing
 
 ---
 
@@ -452,8 +457,9 @@ Anonymous extensions (no name) add methods but cannot be explicitly referenced. 
 
 Extension types (Dart 3.3+) provide zero-cost wrappers. Bridge generator should handle the `extension type` declaration.
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `top18_extension_type` — PASSED
+- Tests that extension types are handled gracefully (skipped by generator).
+**Status:** ✅ Passing
 
 ---
 
@@ -461,8 +467,9 @@ Extension types (Dart 3.3+) provide zero-cost wrappers. Bridge generator should 
 
 Function typedefs like `typedef Compare = int Function(Object a, Object b)` should be recognized for parameter type resolution.
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `top19_typedef_function` — FAILED
+- Tests function typedef resolution in bridging.
+**Status:** ⚠️ Tested, failing
 
 ---
 
@@ -470,8 +477,9 @@ Function typedefs like `typedef Compare = int Function(Object a, Object b)` shou
 
 Type aliases like `typedef StringList = List<String>` should resolve to their underlying types during bridging.
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `top20_typedef_type_alias` — FAILED
+- Tests type alias resolution in bridging.
+**Status:** ⚠️ Tested, failing
 
 ---
 
@@ -479,8 +487,9 @@ Type aliases like `typedef StringList = List<String>` should resolve to their un
 
 Generic typedefs like `typedef Json<T> = Map<String, T>` should resolve with concrete type arguments.
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `top21_typedef_generic` — PASSED
+- Tests generic typedef resolution in bridging.
+**Status:** ✅ Passing
 
 ---
 
@@ -499,8 +508,9 @@ Top-level functions are bridged as global callables in D4rt.
 
 Top-level functions with generic type parameters are subject to type erasure (GEN-001).
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `top23_toplevel_generic_function` — PASSED
+- Tests calling generic top-level functions (type-erased to dynamic per GEN-001).
+**Status:** ✅ Passing
 
 ---
 
@@ -508,8 +518,10 @@ Top-level functions with generic type parameters are subject to type erasure (GE
 
 Top-level `async` functions returning `Future<T>`. Requires async bridge support.
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `top24_async_function` — FAILED
+- Tests calling top-level async function with `await`.
+- **Failure:** Related to ASYNC01 — parameter coercion or async return handling.
+**Status:** ⚠️ Tested, failing
 
 ---
 
@@ -548,8 +560,10 @@ Explicit top-level getters (`get x => ...`).
 
 Explicit top-level setters (`set x(value) => ...`).
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `top28_toplevel_setter` — FAILED
+- Tests setting values via explicit top-level setters.
+- **Failure:** Setter bridge not generated or not accessible.
+**Status:** ⚠️ Tested, failing
 
 **UB design gap:** The user bridge override design (`userbridge_override_design.md`) defines `overrideGlobalVariable`, `overrideGlobalGetter`, and `overrideGlobalFunction` but does **not** define an `overrideGlobalSetter{Name}` pattern. This is a design gap — top-level setter overrides should be added to the design.
 
@@ -559,8 +573,10 @@ Explicit top-level setters (`set x(value) => ...`).
 
 Mixin application shorthand: `class C = S with M;`
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `top29_mixin_application` — FAILED
+- Tests mixin application class (`SerializablePrintable = Printable with Serializable`).
+- **Failure:** Mixin application class not properly bridged.
+**Status:** ⚠️ Tested, failing
 
 ---
 
@@ -614,8 +630,10 @@ Private fields (`_x`) with explicit public getters (`get x => _x`) should only e
 
 Fields declared with nullable types (`String? name`).
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `cls05_nullable_field` — FAILED
+- Tests nullable field access on bridged instances.
+- **Failure:** Nullable field getter/setter not correctly bridged.
+**Status:** ⚠️ Tested, failing
 
 ---
 
@@ -623,8 +641,10 @@ Fields declared with nullable types (`String? name`).
 
 Fields declared with `late` modifier.
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `cls06_late_field` — FAILED
+- Tests late field initialization and access.
+- **Failure:** Late field bridge not generated correctly.
+**Status:** ⚠️ Tested, failing
 
 ---
 
@@ -689,8 +709,9 @@ Static methods are callable on the class without an instance.
 
 Explicit static getters on classes.
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `cls12_static_getter` — PASSED
+- Tests static getter access on bridged classes.
+**Status:** ✅ Passing
 
 **UB override:** `overrideStaticGetter{Name}` — static getters can be overridden via the static getter override pattern.
 
@@ -700,8 +721,10 @@ Explicit static getters on classes.
 
 Explicit static setters on classes.
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `cls13_static_setter` — FAILED
+- Tests static setter assignment on bridged classes.
+- **Failure:** Static setter bridge not generated correctly.
+**Status:** ⚠️ Tested, failing
 
 **UB override:** `overrideStaticSetter{Name}` — static setters can be overridden via the static setter override pattern.
 
@@ -744,8 +767,10 @@ Custom `toString()` overrides should be callable and return the expected string.
 
 Classes with a `call()` method should be callable as functions.
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `cls17_call_method` — FAILED
+- Tests callable class (class with `call()` method).
+- **Failure:** `Multiplier` implicit constructor not bridged (GEN-042); `call()` method may also not be specially handled.
+**Status:** ⚠️ Tested, failing
 
 ---
 
@@ -872,8 +897,10 @@ Unary negation (`operator -()` with no parameters).
 
 `operator /` (double division).
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `op05_divide` — FAILED
+- Tests `operator /` on bridged types.
+- **Failure:** Operator bridge not generated for `NumberWrapper`.
+**Status:** ⚠️ Tested, failing
 
 ---
 
@@ -881,8 +908,10 @@ Unary negation (`operator -()` with no parameters).
 
 `operator ~/` (integer division).
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `op06_integer_divide` — FAILED
+- Tests `operator ~/` on bridged types.
+- **Failure:** Operator bridge not generated for `NumberWrapper`.
+**Status:** ⚠️ Tested, failing
 
 ---
 
@@ -890,8 +919,10 @@ Unary negation (`operator -()` with no parameters).
 
 `operator %` (modulo).
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `op07_modulo` — FAILED
+- Tests `operator %` on bridged types.
+- **Failure:** Operator bridge not generated for `NumberWrapper`.
+**Status:** ⚠️ Tested, failing
 
 ---
 
@@ -899,8 +930,10 @@ Unary negation (`operator -()` with no parameters).
 
 `operator ==` (equality). May interact with `hashCode`.
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `op08_equals` — FAILED
+- Tests `operator ==` on bridged types.
+- **Failure:** Operator bridge not generated for `NumberWrapper`.
+**Status:** ⚠️ Tested, failing
 
 ---
 
@@ -908,8 +941,9 @@ Unary negation (`operator -()` with no parameters).
 
 `operator <`, `>`, `<=`, `>=`. Typically seen on `Comparable` types.
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `op09_comparison` — PASSED
+- Tests comparison operators on bridged types.
+**Status:** ✅ Passing
 
 ---
 
@@ -935,8 +969,9 @@ Unary negation (`operator -()` with no parameters).
 
 `operator &`, `|`, `^`, `<<`, `>>`, `>>>`.
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `op12_bitwise` — PASSED
+- Tests bitwise operators on `BitFlags` bridged type.
+**Status:** ✅ Passing
 
 ---
 
@@ -997,8 +1032,10 @@ Default values for optional and named parameters.
 
 Parameters with function types (`void Function(int) callback`).
 
-**Coverage test:** —
-**Status:** Not yet tested. Related to GEN-005 (function types inside collections).
+**Coverage test:** `par06_function_typed_param` — FAILED
+- Tests passing callback functions from D4rt into bridged host methods.
+- **Failure:** Function-typed parameters are not bridgeable (GEN-005).
+**Status:** ⚠️ Tested, failing. Related to GEN-005.
 
 ---
 
@@ -1030,8 +1067,9 @@ Generic classes with two type parameters (e.g., `Pair<A, B>`).
 
 Generic type with upper bound (`T extends Comparable<T>`).
 
-**Coverage test:** —
-**Status:** Not yet tested. Related to GEN-002 (recursive bound dispatch).
+**Coverage test:** `gnrc03_upper_bound` — PASSED
+- Tests generic class with upper bound type parameter.
+**Status:** ✅ Passing
 
 ---
 
@@ -1050,8 +1088,9 @@ Methods with their own type parameters (`T convert<T>(value)`).
 
 Static factory methods with generic return types.
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `gnrc05_generic_static_factory` — PASSED
+- Tests static factory method with generic return type.
+**Status:** ✅ Passing
 
 ---
 
@@ -1071,8 +1110,10 @@ Generic collection classes (e.g., `Stack<T>`, `Queue<T>`) that rely on implicit 
 
 F-bounded types like `class Comparable<T extends Comparable<T>>`. Related to GEN-002 (recursive type bounds).
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `gnrc07_fbounded` — FAILED
+- Tests F-bounded polymorphism patterns.
+- **Failure:** Recursive type bounds not fully handled (GEN-002).
+**Status:** ⚠️ Tested, failing
 
 ---
 
@@ -1272,8 +1313,10 @@ Instance methods marked `async` returning `Future<T>`. In compiled Dart, `await 
 
 This is distinct from ASYNC01 because instance methods are wired through the class bridge's method map, not the global function registry. The mapping code generation path is different.
 
-**Coverage test:** —
-**Status:** ❌ Not yet tested.
+**Coverage test:** `async05_instance_async_method` — FAILED
+- Tests `DataProcessor('test').processAsync('hello')` with `await`.
+- **Failure:** Bridge does not generate correct mapping for instance async methods. `DataProcessor` class may not be bridged or method not accessible.
+**Status:** ⚠️ Tested, failing
 
 ---
 
@@ -1288,8 +1331,10 @@ Instance methods using `sync*` that yield `Iterable<T>`. In compiled Dart, `for 
 
 Generators are just regular methods with a `sync*` body modifier — they are declared in the class like any other method. The generator's class analysis must recognize that the return type is `Iterable<T>` and produce a method bridge that correctly passes through the iterable.
 
-**Coverage test:** —
-**Status:** ❌ Not yet tested.
+**Coverage test:** `async06_instance_sync_generator` — FAILED
+- Tests `DataProcessor('test').generateRange(3, 7)` with `for-in` and lazy evaluation.
+- **Failure:** Bridge does not generate correct mapping for instance sync* methods.
+**Status:** ⚠️ Tested, failing
 
 ---
 
@@ -1299,8 +1344,10 @@ Instance methods using `async*` that yield `Stream<T>`. In compiled Dart, `await
 
 **Generator requirement:** Same pattern as ASYNC06 but for `Stream<T>` instead of `Iterable<T>`. The bridge adapter calls the host `async*` method and returns the `Stream` for the interpreter's `await for` to consume.
 
-**Coverage test:** —
-**Status:** ❌ Not yet tested.
+**Coverage test:** `async07_instance_async_generator` — FAILED
+- Tests `DataProcessor('tag').streamItems(['a', 'b', 'c'])` with `await for`.
+- **Failure:** Bridge does not generate correct mapping for instance async* methods.
+**Status:** ⚠️ Tested, failing
 
 ---
 
@@ -1310,8 +1357,10 @@ Static methods with `sync*` or `async*` modifiers on classes. These are register
 
 **Generator requirement:** Same as ASYNC06/ASYNC07 but through the static method registration path. Static generators are wired into the class bridge via `overrideStaticMethod{Name}` entries rather than instance method adapters.
 
-**Coverage test:** —
-**Status:** ❌ Not yet tested.
+**Coverage test:** `async08_static_generators` — FAILED
+- Tests `DataProcessor.staticRange(5)` (sync*) and `DataProcessor.staticCountdown(3)` (async*).
+- **Failure:** Bridge does not generate correct mapping for static generator methods.
+**Status:** ⚠️ Tested, failing
 
 ---
 
@@ -1321,8 +1370,9 @@ Static methods with `sync*` or `async*` modifiers on classes. These are register
 
 Methods/constructors accepting record types as parameters.
 
-**Coverage test:** —
-**Status:** Not yet tested. Related to GEN-025.
+**Coverage test:** `type01_record_param` — FAILED
+- **Failure:** Interpreter passes `InterpretedRecord`, bridge expects `(int, int)` record type.
+**Status:** ⚠️ Tested, failing. Related to GEN-025.
 
 ---
 
@@ -1330,8 +1380,9 @@ Methods/constructors accepting record types as parameters.
 
 Methods returning record types.
 
-**Coverage test:** —
-**Status:** Not yet tested. Related to GEN-025.
+**Coverage test:** `type02_record_return` — FAILED
+- **Failure:** `List<int>` parameter coercion issue — interpreter passes `List<Object?>`, bridge expects `List<int>`.
+**Status:** ⚠️ Tested, failing. Related to GEN-025.
 
 ---
 
@@ -1339,8 +1390,9 @@ Methods returning record types.
 
 Parameters with nullable types (`String? name`).
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `type03_nullable_param` — PASSED
+- Tests passing null and non-null values to nullable parameters.
+**Status:** ✅ Passing
 
 ---
 
@@ -1348,8 +1400,9 @@ Parameters with nullable types (`String? name`).
 
 Methods returning nullable types (`String? find()`).
 
-**Coverage test:** —
-**Status:** Not yet tested.
+**Coverage test:** `type04_nullable_return` — PASSED
+- Tests methods that return nullable types, including null and non-null returns.
+**Status:** ✅ Passing
 
 ---
 
@@ -1386,7 +1439,9 @@ Private members (`_x`) are never bridged, only their public accessors.
 
 Export statements with `show` or `hide` combinators should be respected by the generator.
 
-**Coverage test:** —
+**Coverage test:** `vis03_show_hide` — FAILED
+- **Failure:** `Person` is not callable (no default constructor bridge found) — related to GEN-042.
+**Status:** ⚠️ Tested, failing
 **Status:** Not yet tested.
 
 ---
