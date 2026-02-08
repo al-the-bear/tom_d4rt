@@ -59,6 +59,60 @@ void main() {
         expect(result.processOutput, contains('TOP01_PASSED'));
       });
 
+      test('TOP02: abstract class', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top02_abstract_class.dart',
+        );
+        _expectSuccess(result, 'TOP02');
+        expect(result.processOutput, contains('TOP02_PASSED'));
+      });
+
+      test('TOP03: sealed class', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top03_sealed_class.dart',
+        );
+        _expectSuccess(result, 'TOP03');
+        expect(result.processOutput, contains('TOP03_PASSED'));
+      });
+
+      test('TOP04: base class', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top04_base_class.dart',
+        );
+        _expectSuccess(result, 'TOP04');
+        expect(result.processOutput, contains('TOP04_PASSED'));
+      });
+
+      test('TOP05: interface class', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top05_interface_class.dart',
+        );
+        _expectSuccess(result, 'TOP05');
+        expect(result.processOutput, contains('TOP05_PASSED'));
+      });
+
+      test('TOP06: final class', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top06_final_class.dart',
+        );
+        _expectSuccess(result, 'TOP06');
+        expect(result.processOutput, contains('TOP06_PASSED'));
+      });
+
+      test('TOP07: mixin class', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top07_mixin_class.dart',
+        );
+        _expectSuccess(result, 'TOP07');
+        expect(result.processOutput, contains('TOP07_PASSED'));
+      });
+
       test('TOP08: simple enum', () async {
         final result = await tester.runScriptOnly(
           config,
@@ -104,13 +158,49 @@ void main() {
         expect(result.processOutput, contains('TOP12_PASSED'));
       });
 
-      test('TOP22: top-level function (not in barrel)', () async {
+      test('TOP14: mixin', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top14_mixin.dart',
+        );
+        _expectSuccess(result, 'TOP14');
+        expect(result.processOutput, contains('TOP14_PASSED'));
+      });
+
+      test('TOP22: top-level function', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top22_toplevel_function.dart',
         );
         _expectSuccess(result, 'TOP22');
         expect(result.processOutput, contains('TOP22_PASSED'));
+      });
+
+      test('TOP25: top-level variable', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top25_toplevel_variable.dart',
+        );
+        _expectSuccess(result, 'TOP25');
+        expect(result.processOutput, contains('TOP25_PASSED'));
+      });
+
+      test('TOP26: top-level const', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top26_toplevel_const.dart',
+        );
+        _expectSuccess(result, 'TOP26');
+        expect(result.processOutput, contains('TOP26_PASSED'));
+      });
+
+      test('TOP27: top-level getter', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top27_toplevel_getter.dart',
+        );
+        _expectSuccess(result, 'TOP27');
+        expect(result.processOutput, contains('TOP27_PASSED'));
       });
     });
 
@@ -153,6 +243,15 @@ void main() {
         expect(result.processOutput, contains('CLS04_PASSED'));
       });
 
+      test('CLS07: static field (mutable)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/cls07_static_field.dart',
+        );
+        _expectSuccess(result, 'CLS07');
+        expect(result.processOutput, contains('CLS07_PASSED'));
+      });
+
       test('CLS08: static const field (not in barrel)', () async {
         final result = await tester.runScriptOnly(
           config,
@@ -180,6 +279,15 @@ void main() {
         expect(result.processOutput, contains('CLS10_PASSED'));
       });
 
+      test('CLS11: static method', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/cls11_static_method.dart',
+        );
+        _expectSuccess(result, 'CLS11');
+        expect(result.processOutput, contains('CLS11_PASSED'));
+      });
+
       test('CLS14: instance method', () async {
         final result = await tester.runScriptOnly(
           config,
@@ -187,6 +295,15 @@ void main() {
         );
         _expectSuccess(result, 'CLS14');
         expect(result.processOutput, contains('CLS14_PASSED'));
+      });
+
+      test('CLS15: abstract method', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/cls15_abstract_method.dart',
+        );
+        _expectSuccess(result, 'CLS15');
+        expect(result.processOutput, contains('CLS15_PASSED'));
       });
 
       test('CLS16: toString override', () async {
@@ -236,6 +353,42 @@ void main() {
         );
         _expectSuccess(result, 'CTOR04');
         expect(result.processOutput, contains('CTOR04_PASSED'));
+      });
+
+      test('CTOR05: const constructor', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/ctor05_const.dart',
+        );
+        _expectSuccess(result, 'CTOR05');
+        expect(result.processOutput, contains('CTOR05_PASSED'));
+      });
+
+      test('CTOR06: redirecting constructor', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/ctor06_redirecting.dart',
+        );
+        _expectSuccess(result, 'CTOR06');
+        expect(result.processOutput, contains('CTOR06_PASSED'));
+      });
+
+      test('CTOR07: private constructor + factory', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/ctor07_private.dart',
+        );
+        _expectSuccess(result, 'CTOR07');
+        expect(result.processOutput, contains('CTOR07_PASSED'));
+      });
+
+      test('CTOR08: super parameters', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/ctor08_super_params.dart',
+        );
+        _expectSuccess(result, 'CTOR08');
+        expect(result.processOutput, contains('CTOR08_PASSED'));
       });
     });
 
@@ -298,6 +451,64 @@ void main() {
         );
         _expectSuccess(result, 'GNRC06');
         expect(result.processOutput, contains('GNRC06_PASSED'));
+      });
+    });
+
+    // ── Inheritance ────────────────────────────────────────────────
+
+    group('INH: Inheritance', () {
+      test('INH01: single-level extends', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/inh01_single_extends.dart',
+        );
+        _expectSuccess(result, 'INH01');
+        expect(result.processOutput, contains('INH01_PASSED'));
+      });
+
+      test('INH02: multi-level extends', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/inh02_multi_extends.dart',
+        );
+        _expectSuccess(result, 'INH02');
+        expect(result.processOutput, contains('INH02_PASSED'));
+      });
+
+      test('INH03: implements (interface)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/inh03_implements.dart',
+        );
+        _expectSuccess(result, 'INH03');
+        expect(result.processOutput, contains('INH03_PASSED'));
+      });
+
+      test('INH04: mixin with', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/inh04_mixin_with.dart',
+        );
+        _expectSuccess(result, 'INH04');
+        expect(result.processOutput, contains('INH04_PASSED'));
+      });
+
+      test('INH05: super constructor call', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/inh05_super_ctor.dart',
+        );
+        _expectSuccess(result, 'INH05');
+        expect(result.processOutput, contains('INH05_PASSED'));
+      });
+
+      test('INH06: method override', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/inh06_method_override.dart',
+        );
+        _expectSuccess(result, 'INH06');
+        expect(result.processOutput, contains('INH06_PASSED'));
       });
     });
   });
