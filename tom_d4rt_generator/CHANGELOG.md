@@ -1,3 +1,25 @@
+## 1.5.0
+
+### Features
+- **Test infrastructure**: New `testing.dart` library with `D4rtTester` — run D4rt test scripts that verify bridge correctness by executing DartScript code against real bridges.
+- **D4rtTestResult**: Structured pass/fail/skip/error results with detailed assertion messages for programmatic test evaluation.
+- **IssueTestHelper**: Specialized test helper for writing regression tests against known generator issues (GEN-xxx).
+- **94 D4rt test scripts**: Comprehensive test coverage across 6 example projects — constructors, fields, methods, operators, generics, inheritance, parameters, async, enums, and UserBridge overrides.
+- **Test coverage documentation**: `doc/test_coverage.md` with feature inventory across 10 categories.
+
+### Refactoring
+- **CLI scanning replaced with ProjectDiscovery**: Eliminated ~200 lines of manual directory traversal in `d4rt_gen.dart`, replaced with `ProjectDiscovery.resolveProjectPatterns()` and `scanForProjects()` from `tom_build_base`.
+- **Removed dead CLI code**: Deleted unused `d4rt_generator_cli.dart` (274 lines) and `cli.dart` barrel export.
+- **Shared YAML utilities**: Replaced private `_yamlToJson`/`_yamlListToJson` in `BuildConfigLoader` with shared `yamlToMap()` from `tom_build_base`.
+
+### Documentation
+- Expanded `doc/issues.md` to 46 documented issues (GEN-001 through GEN-046).
+- Added `doc/test_coverage.md` — full bridge generator feature inventory with pass/fail status.
+- Added project-level `_copilot_guidelines/testing.md`.
+
+### Dependencies
+- Updated `tom_build_base` to `^1.2.0` (adds `yamlToMap`/`yamlListToList` utilities).
+
 ## 1.4.0
 
 ### Features

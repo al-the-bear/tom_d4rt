@@ -22,7 +22,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
-  tom_d4rt_generator: ^1.4.0
+  tom_d4rt_generator: ^1.5.0
   build_runner: ^2.4.0  # if using build_runner integration
 ```
 
@@ -120,11 +120,12 @@ Key module options:
 | [CLI User Guide](doc/d4rt_generator_cli_user_guide.md) | Command-line tool usage |
 | [UserBridge Guide](doc/user_bridge_user_guide.md) | Custom override classes |
 | [UserBridge Design](doc/userbridge_override_design.md) | Override system design |
-| [Known Issues](doc/issues.md) | 30 documented issues with examples |
+| [Known Issues](doc/issues.md) | 46 documented issues with examples |
+| [Test Coverage](doc/test_coverage.md) | Bridge feature test inventory |
 
 ## Known Issues
 
-See [doc/issues.md](doc/issues.md) for a comprehensive list of 30 known issues and limitations, each with concrete source-to-bridge-to-problem examples showing:
+See [doc/issues.md](doc/issues.md) for a comprehensive list of 46 known issues and limitations, each with concrete source-to-bridge-to-problem examples showing:
 
 - What in the scanned source code triggers the problem
 - What the generated bridge code looks like

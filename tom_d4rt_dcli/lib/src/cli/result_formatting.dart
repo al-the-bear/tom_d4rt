@@ -3,8 +3,6 @@
 /// Provides special formatting for Maps, Lists, and other result types.
 library;
 
-import 'package:console_markdown/console_markdown.dart';
-
 /// Formats a result for display in the REPL.
 /// 
 /// Provides special formatting for:

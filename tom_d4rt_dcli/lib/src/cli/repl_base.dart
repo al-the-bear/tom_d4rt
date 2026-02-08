@@ -8,7 +8,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:console_markdown/console_markdown.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
