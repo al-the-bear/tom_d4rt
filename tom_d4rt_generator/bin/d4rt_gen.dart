@@ -834,7 +834,7 @@ void _printUsage(ArgParser parser) {
 }
 
 void _printVersion() {
-  print('D4rt Bridge Generator ${TomVersionInfo.versionShort}');
-  print('Git: ${TomVersionInfo.gitCommit}');
-  print('Built: ${TomVersionInfo.buildTime}');
+  print('D4rt Bridge Generator ${D4rtGenVersionInfo.versionShort}');
+  print('Git: ${D4rtGenVersionInfo.gitCommit}');
+  print('Built: ${D4rtGenVersionInfo.buildTime}');
 }

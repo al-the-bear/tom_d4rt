@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('version is defined', () {
-    expect(TomVersionInfo.versionShort, isNotEmpty);
+    expect(DcliVersionInfo.versionShort, isNotEmpty);
   });
 
   test('TomD4rtDcliBridge registers without error', () {

@@ -28,7 +28,7 @@ class DcliRepl extends D4rtReplBase with VSCodeIntegrationMixin {
   String get toolName => 'DCLI';
   
   @override
-  String get toolVersion => TomVersionInfo.versionLong;
+  String get toolVersion => DcliVersionInfo.versionLong;
   
   @override
   ReplState createReplState() {
