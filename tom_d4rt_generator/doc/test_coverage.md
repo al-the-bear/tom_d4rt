@@ -2,7 +2,7 @@
 
 This document tracks bridge generator features and the tests that verify them. It serves as a living inventory to identify coverage gaps and guide future test development.
 
-**Test infrastructure:** See `_copilot_guidelines/testing_d4rt_bridges.md` for the D4rtTester architecture and test conventions.
+**Test infrastructure:** See `_copilot_guidelines/testing.md` for the D4rtTester architecture and test conventions.
 
 **Test files:**
 - `test/d4rt_tester_test.dart` — end-to-end tests using D4rtTester (per-example-project)
@@ -29,6 +29,7 @@ Each feature has a stable ID for cross-referencing between this document, test s
 | ASYNC | Async & Streams |
 | TYPE | Special Types |
 | VIS | Visibility & Exports |
+| GEN | Generator Features |
 
 ---
 
@@ -41,7 +42,20 @@ Each feature has a stable ID for cross-referencing between this document, test s
 | ✅ | Tested and passing |
 | ⚠️ | Tested but failing (known bug) |
 | ❌ | Not yet tested |
-| 🔲 | Not yet relevant (interpreter support needed first) |
+| 🔲 | Not yet relevant (prerequisite missing — e.g., interpreter support needed first) |
+| — | Not applicable for this column (permanent — e.g., no UB test needed for this feature) |
+
+### Column Value Explanations
+
+**Why is UB Test "not needed" for top-level consts (TOP26)?**
+Constants are compile-time values inlined by the Dart compiler. They cannot be reassigned at runtime. A user bridge override would have no effect because the value is baked into the code at compile time. The bridge simply exposes the constant's value — there is no behavior to intercept or modify.
+
+**Why is UB Test "not needed" for static const fields (CLS08)?**
+Same reasoning as top-level consts. Static const fields are compile-time constants that are inlined. They cannot be overridden because there is no runtime accessor to intercept — the value is resolved at compile time. The bridge registers the constant value directly.
+
+**Difference between 🔲 and `—`:**
+- **🔲 (black square)** means the feature **cannot be tested yet** because a prerequisite is missing (e.g., the interpreter doesn't support the feature, or a generator capability is blocked). Once the prerequisite is implemented, the status should change to ❌ (not yet tested) or be tested directly. This is a **temporary** blocker.
+- **`—` (em dash)** means the column **does not apply** to this feature. For example, a feature that has no user-overridable behavior will have `—` in the UB Test column permanently. Parameters are tested via the method/constructor UB tests, not separately. This is a **structural** "not applicable".
 
 ---
 
@@ -180,10 +194,10 @@ Each feature has a stable ID for cross-referencing between this document, test s
 
 | ID | Feature | Status | Coverage Test | UB Test | Issue | Details |
 |----|---------|--------|---------------|---------|-------|---------|
-| ASYNC01 | Async function (Future) | 🔲 | — | 🔲 | | [→](#async01-async-function-future) |
-| ASYNC02 | Async* generator (Stream) | 🔲 | — | 🔲 | | [→](#async02-async-generator-stream) |
-| ASYNC03 | Sync* generator (Iterable) | 🔲 | — | 🔲 | | [→](#async03-sync-generator-iterable) |
-| ASYNC04 | Callback parameter (Function) | ❌ | — | — | | [→](#async04-callback-parameter-function) |
+| ASYNC01 | Async function (Future) | ⚠️ | `async01_async_function` | 🔲 | | [→](#async01-async-function-future) |
+| ASYNC02 | Async* generator (Stream) | ⚠️ | `async02_async_generator` | 🔲 | | [→](#async02-async-generator-stream) |
+| ASYNC03 | Sync* generator (Iterable) | ⚠️ | `async03_sync_generator` | 🔲 | | [→](#async03-sync-generator-iterable) |
+| ASYNC04 | Callback parameter (Function) | ⚠️ | `async04_callback_param` | — | GEN-005 | [→](#async04-callback-parameter-function) |
 
 ### Special Types (5 features)
 
@@ -204,6 +218,31 @@ Each feature has a stable ID for cross-referencing between this document, test s
 | VIS03 | Show/hide combinators | ❌ | — | not needed | | [→](#vis03-showhide-combinators) |
 | VIS04 | Multi-barrel modules | ✅ | e2e: dart_overview | not needed | GEN-030 (fixed) | [→](#vis04-multi-barrel-modules) |
 
+### Generator Features (18 features)
+
+Generator-level features cover configuration, type resolution, output generation, and diagnostics — independent of which Dart language constructs are bridged.
+
+| ID | Feature | Status | Test | Issue | Details |
+|----|---------|--------|------|-------|---------|
+| GFEAT01 | Single barrel analysis | ✅ | e2e: all projects | | [→](#gfeat01-single-barrel-analysis) |
+| GFEAT02 | Multi-barrel modules | ✅ | e2e: dart_overview | GEN-030 (fixed) | [→](#gfeat02-multi-barrel-modules) |
+| GFEAT03 | Re-export following (`followAllReExports`) | ❌ | — | | [→](#gfeat03-re-export-following) |
+| GFEAT04 | Selective re-export (`skipReExports` / `followReExports`) | ❌ | — | GEN-028 (fixed) | [→](#gfeat04-selective-re-export) |
+| GFEAT05 | Class/enum/function/variable exclusion | ❌ | — | | [→](#gfeat05-element-exclusion) |
+| GFEAT06 | Source pattern exclusion (`excludeSourcePatterns`) | ❌ | — | | [→](#gfeat06-source-pattern-exclusion) |
+| GFEAT07 | Deprecated element filtering | ❌ | — | | [→](#gfeat07-deprecated-element-filtering) |
+| GFEAT08 | Import show/hide clauses | ❌ | — | | [→](#gfeat08-import-showhide-clauses) |
+| GFEAT09 | Cross-package type resolution | ❌ | — | | [→](#gfeat09-cross-package-type-resolution) |
+| GFEAT10 | External bridge imports (`importedBridges`) | ❌ | — | | [→](#gfeat10-external-bridge-imports) |
+| GFEAT11 | Library path deduplication (`libraryPath`) | ❌ | — | | [→](#gfeat11-library-path-deduplication) |
+| GFEAT12 | Config precedence (CLI > project > build > legacy) | ❌ | — | GEN-024 | [→](#gfeat12-config-precedence) |
+| GFEAT13 | User bridge scanner | ✅ | e2e: userbridge_* | GEN-043 (fixed) | [→](#gfeat13-user-bridge-scanner) |
+| GFEAT14 | Barrel name collision detection | ❌ | — | GEN-045 | [→](#gfeat14-barrel-name-collision) |
+| GFEAT15 | Recursive type bound dispatch | ❌ | — | GEN-002 | [→](#gfeat15-recursive-type-bound-dispatch) |
+| GFEAT16 | Missing export / type downgrade warnings | ❌ | — | GEN-017 | [→](#gfeat16-missing-export-warnings) |
+| GFEAT17 | `.b.dart` extension normalization | ❌ | — | GEN-037 (fixed) | [→](#gfeat17-bdart-extension-normalization) |
+| GFEAT18 | Test runner generation | ✅ | e2e: all projects | | [→](#gfeat18-test-runner-generation) |
+
 ---
 
 ## Coverage Summary
@@ -218,10 +257,11 @@ Each feature has a stable ID for cross-referencing between this document, test s
 | Generics | 7 | 3 | 1 | 3 | 0 |
 | Inheritance | 6 | 3 | 3 | 0 | 0 |
 | User Bridges | 6 | 6 | 0 | 0 | 0 |
-| Async & Streams | 4 | 0 | 0 | 1 | 3 |
+| Async & Streams | 4 | 0 | 4 | 0 | 0 |
 | Special Types | 5 | 1 | 0 | 4 | 0 |
 | Visibility & Exports | 4 | 3 | 0 | 1 | 0 |
-| **Total** | **104** | **54** | **14** | **33** | **3** |
+| Generator Features | 18 | 4 | 0 | 14 | 0 |
+| **Total** | **122** | **58** | **18** | **46** | **0** |
 
 ---
 
@@ -1155,37 +1195,56 @@ User bridge generated references must use the correct import prefix (`$pkg.`). P
 
 #### ASYNC01: Async function (Future)
 
-Functions returning `Future<T>`. Requires D4rt interpreter async support.
+Functions returning `Future<T>`. The D4rt **interpreter** supports `async`/`await` natively. The question is whether the **generator** correctly bridges async functions so they can be called from D4rt scripts.
 
-**Coverage test:** —
-**Status:** 🔲 Interpreter support needed first.
+**Generator requirement:** The generator needs to emit bridge adapters that return `Future<T>` and allow the interpreter's `await` to resolve them. Since async functions return a `Future` on the host side, the bridge adapter must either:
+- Return the `Future` directly (letting D4rt's interpreter `await` it), or
+- Wrap the host call in an async adapter that the interpreter can `await`.
+
+**Coverage test:** `async01_async_function` — FAILED
+- Tests `fetchGreeting('World')` and `computeSum([10, 20, 30])` with `await`.
+- **Failure:** The bridge does not properly handle `List<int>` parameter coercion (interpreter passes `List<Object?>` instead of `List<int>`).
+- **Root cause:** Parameter type coercion issue, not async-specific. The async call mechanism itself may work if parameter types are resolved.
+**Status:** ⚠️ Tested, failing (parameter coercion issue)
 
 ---
 
 #### ASYNC02: Async generator (Stream)
 
-Functions using `async*` yielding `Stream<T>`.
+Functions using `async*` yielding `Stream<T>`. The D4rt **interpreter** supports `await for` loops. The **generator** needs to bridge `async*` functions so they return `Stream<T>` that the interpreter can consume.
 
-**Coverage test:** —
-**Status:** 🔲 Interpreter support needed first.
+**Generator requirement:** The bridge adapter for an `async*` function must return a `Stream` that the interpreter can iterate with `await for`. Since the host function already returns `Stream<T>`, the bridge adapter should pass it through.
+
+**Coverage test:** `async02_async_generator` — FAILED
+- Tests `countAsyncTo(3)` with `await for` loop.
+- **Failure:** Similar parameter type issue — the bridge may not correctly handle the function or the `await for` consumption of the stream result.
+**Status:** ⚠️ Tested, failing
 
 ---
 
 #### ASYNC03: Sync generator (Iterable)
 
-Functions using `sync*` yielding `Iterable<T>`.
+Functions using `sync*` yielding `Iterable<T>`. The D4rt **interpreter** supports `for-in` loops over iterables. The **generator** needs to bridge `sync*` functions so they return `Iterable<T>` that the interpreter can iterate.
 
-**Coverage test:** —
-**Status:** 🔲 Interpreter support needed first.
+**Generator requirement:** The bridge adapter for a `sync*` function must return an `Iterable` that the interpreter can iterate with `for-in`. Since the host function already returns `Iterable<T>`, the bridge adapter should pass it through.
+
+**Coverage test:** `async03_sync_generator` — FAILED
+- Tests `countTo(5)`, `range(3, 7)`, `naturalNumbers` (take 5), `fibonacci` (take 8).
+- **Failure:** The bridge does not properly handle generator functions. Likely the return type or lazy iteration semantics are not bridged correctly.
+**Status:** ⚠️ Tested, failing
 
 ---
 
 #### ASYNC04: Callback parameter (Function)
 
-Passing callback functions from D4rt into bridged host methods.
+Passing callback functions from D4rt into bridged host methods. This requires the bridge adapter to accept an `InterpretedFunction` from the D4rt interpreter and convert it to a native Dart function type that the host method expects.
 
-**Coverage test:** —
-**Status:** Not yet tested. Related to GEN-005.
+**Generator requirement:** When a bridged function has a `Function` parameter (e.g., `void transform(List<int> items, int Function(int) mapper)`), the bridge must wrap the interpreter's callback so the host can call it. This is a known limitation (GEN-005).
+
+**Coverage test:** `async04_callback_param` — FAILED
+- Tests `transform([1,2,3], (x) => x * 2)` and `fetchData('url', (data) => ...)` with callback parameters.
+- **Failure:** Function-typed parameters are not bridgeable (GEN-005).
+**Status:** ⚠️ Tested, failing. Related to GEN-005.
 
 ---
 
@@ -1272,6 +1331,187 @@ Packages exporting through multiple barrel files. Previously had a bug where sym
 **Coverage test:** —
 **Tested in:** dart_overview (module structure uses barrel exports)
 **Issue:** GEN-030 (fixed)
+
+---
+
+### Generator Features
+
+#### GFEAT01: Single barrel analysis
+
+The generator analyzes a single barrel file (e.g., `lib/pkg.dart`) and bridges all exported symbols — classes, enums, top-level functions, variables, getters, setters.
+
+**Test:** All example projects use single-barrel analysis. Implicitly tested in every e2e run.
+**Status:** ✅ Passing
+
+---
+
+#### GFEAT02: Multi-barrel modules
+
+A module can specify multiple `barrelFiles`. Each barrel's exports are bridged and registered under prefixed names (`$pkg`, `$pkg2`, etc.). Previously had a bug where only the primary barrel's symbols were registered (GEN-030, now fixed).
+
+**Test:** dart_overview (module structure with multi-barrel exports)
+**Issue:** GEN-030 (fixed)
+**Status:** ✅ Passing
+
+---
+
+#### GFEAT03: Re-export following
+
+When `followAllReExports: true` (the default), the generator recursively follows all `export` directives from the barrel file, bridging symbols from re-exported packages. This is the standard mode used by all existing example projects.
+
+**Test:** — (no dedicated test isolating re-export following behavior)
+**Status:** ❌ Not yet tested
+
+---
+
+#### GFEAT04: Selective re-export
+
+When `followAllReExports: false`, only packages listed in `followReExports` are followed. Alternatively, `skipReExports` blacklists specific packages while following all others. Previously broken (GEN-028, now fixed).
+
+**Test:** — (no test exercises whitelist/blacklist mode)
+**Issue:** GEN-028 (fixed)
+**Status:** ❌ Not yet tested
+
+---
+
+#### GFEAT05: Element exclusion
+
+Per-module `excludeClasses`, `excludeEnums`, `excludeFunctions`, and `excludeVariables` lists allow specific symbols to be excluded from bridging. Config parsing is tested, but generation-time filtering is not.
+
+**Test:** —
+**Status:** ❌ Not yet tested
+
+---
+
+#### GFEAT06: Source pattern exclusion
+
+`excludeSourcePatterns` takes glob patterns on source URIs (e.g., `**/generated/**`), optionally with `#symbol` selectors for fine-grained filtering. Config parsing is tested, but glob matching behavior is not.
+
+**Test:** —
+**Status:** ❌ Not yet tested
+
+---
+
+#### GFEAT07: Deprecated element filtering
+
+`generateDeprecatedElements: false` (the default) causes the generator to skip elements annotated with `@deprecated`. Setting it to `true` includes them.
+
+**Test:** —
+**Status:** ❌ Not yet tested
+
+---
+
+#### GFEAT08: Import show/hide clauses
+
+`importShowClause` and `importHideClause` control which symbols the generated barrel import exposes to D4rt scripts. Useful for restricting the visible API surface.
+
+**Test:** —
+**Status:** ❌ Not yet tested
+
+---
+
+#### GFEAT09: Cross-package type resolution
+
+When a bridged class uses a type from an external package (listed in `followPackages`), the generator records it as an `ExternalTypeDependency` and attempts to resolve it via `package_config.json`, sibling directories, or pubspec path dependencies.
+
+This is a critical feature for producing a **complete, working closure** of bridged types: the generator should ideally trace all types it encounters, follow them to their source packages, and include the needed types so the bridge set is self-contained. Current limitations:
+
+- **No configurable recursion depth** — tracing follows `followPackages` one level deep, but doesn't recursively trace into those packages' own dependencies.
+- **No transitive closure** — the generator doesn't compute a full transitive closure of all reachable types. Types used only in deeply nested generic arguments may be missed.
+- **Hardcoded external package list** (GEN-010) — `_complexExternalPackages` is fixed, not configurable.
+- **Missing export fallback** (GEN-017) — types not in the barrel and not resolvable via auxiliary imports silently become `dynamic`.
+
+**Ideal behavior:** The generator should automatically detect all types needed for a complete bridge closure by following types to their packages, with a configurable recursion depth limit and warnings when the closure captures too many types.
+
+**Test:** —
+**Status:** ❌ Not yet tested
+
+---
+
+#### GFEAT10: External bridge imports
+
+`importedBridges` lists external bridge packages to import and register. This allows composing bridges from multiple generator runs (e.g., `tom_dartscript_bridges` importing bridges from `tom_core`).
+
+**Test:** — (used in production but no dedicated test)
+**Status:** ❌ Not yet tested
+
+---
+
+#### GFEAT11: Library path deduplication
+
+`libraryPath` specifies a central directory for per-package bridge files, eliminating duplication when multiple modules bridge the same package.
+
+**Test:** —
+**Status:** ❌ Not yet tested
+
+---
+
+#### GFEAT12: Config precedence
+
+Configuration comes from four sources with a defined precedence order: CLI arguments > `tom_project.yaml` > `build.yaml` (`d4rtgen:` section) > `d4rt_bridging.json` (legacy). Higher-precedence sources override lower ones.
+
+**Test:** —
+**Issue:** GEN-024
+**Status:** ❌ Not yet tested
+
+---
+
+#### GFEAT13: User bridge scanner
+
+The generator detects classes extending `D4UserBridge` with the `@D4rtUserBridge` annotation and wires their override methods into the generated bridge code. Print markers verify user bridge code runs instead of generated code.
+
+**Test:** e2e: userbridge_user_guide, userbridge_override
+**Issue:** GEN-043 (fixed — import prefix)
+**Status:** ✅ Passing
+
+---
+
+#### GFEAT14: Barrel name collision
+
+When two classes with the same name come from different source files (e.g., `Animal` from both `mixins/basics` and `classes/inheritance`), the generator should detect the collision and either use import aliasing or emit a warning. Currently one of the classes is silently dropped.
+
+**Test:** — (GEN-045 test is skipped)
+**Issue:** GEN-045
+**Status:** ❌ Not yet tested (blocked)
+
+---
+
+#### GFEAT15: Recursive type bound dispatch
+
+Types like `T extends Comparable<T>` (F-bounded polymorphism) need special runtime dispatch. The generator creates combinatorial dispatch for a configurable set of `recursiveBoundTypes` (default: `[num, String, DateTime]`).
+
+**Test:** —
+**Issue:** GEN-002
+**Status:** ❌ Not yet tested
+
+---
+
+#### GFEAT16: Missing export warnings
+
+When a type is used in a bridged class but isn't exported from the barrel, the generator emits a warning and downgrades the type to `dynamic`. The warnings are collected in `_missingExportWarnings` and `externalTypeWarnings`.
+
+**Test:** — (no test validates that warnings are emitted correctly)
+**Issue:** GEN-017
+**Status:** ❌ Not yet tested
+
+---
+
+#### GFEAT17: `.b.dart` extension normalization
+
+The `ensureBDartExtension()` helper ensures all generated output files use the `.b.dart` extension convention.
+
+**Test:** —
+**Issue:** GEN-037 (fixed)
+**Status:** ❌ Not yet tested
+
+---
+
+#### GFEAT18: Test runner generation
+
+`generateTestRunner: true` produces a `d4rtrun.b.dart` file with `--test`, `--eval`, and `--run` modes for executing D4rt scripts against the generated bridges.
+
+**Test:** All example projects generate and use test runners. Implicitly tested in every e2e run.
+**Status:** ✅ Passing
 
 ---
 
