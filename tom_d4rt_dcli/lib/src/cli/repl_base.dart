@@ -643,31 +643,14 @@ void main() {}
     Future<ExecutionResult> executeCommand(String command) async {
       final outputBuffer = StringBuffer();
       
-      // Convert console_markdown format to Telegram markdown
-      // console_markdown: <yellow>**text**</yellow>, <cyan>text</cyan>, etc.
-      // Telegram: *bold*, _italic_, `code`, ```preformatted```
-      String convertToTelegramMarkdown(String text) {
-        var result = text;
-        // Convert **bold** to *bold* (Telegram uses single asterisk)
-        result = result.replaceAllMapped(
-          RegExp(r'\*\*(.+?)\*\*'),
-          (m) => '*${m.group(1)}*',
-        );
-        // Remove color tags - they have no Telegram equivalent
-        // <yellow>text</yellow> -> text
-        result = result.replaceAll(RegExp(r'<(yellow|cyan|red|green|blue|magenta|white|black|brightBlack|brightRed|brightGreen|brightYellow|brightBlue|brightMagenta|brightCyan|brightWhite)>'), '');
-        result = result.replaceAll(RegExp(r'</(yellow|cyan|red|green|blue|magenta|white|black|brightBlack|brightRed|brightGreen|brightYellow|brightBlue|brightMagenta|brightCyan|brightWhite)>'), '');
-        return result;
-      }
-      
       // Strip ANSI escape codes
       String stripAnsi(String text) {
         return text.replaceAll(RegExp(r'\x1B\[[0-9;]*[a-zA-Z]'), '');
       }
       
-      // Create custom stdout/stderr that capture output
-      final capturedStdout = _CaptureStdout(outputBuffer, convertToTelegramMarkdown, stripAnsi);
-      final capturedStderr = _CaptureStdout(outputBuffer, convertToTelegramMarkdown, stripAnsi, isError: true);
+      // Create custom stdout/stderr that capture output (no markdown conversion - done by formatter)
+      final capturedStdout = _CaptureStdout(outputBuffer, (s) => s, stripAnsi);
+      final capturedStderr = _CaptureStdout(outputBuffer, (s) => s, stripAnsi, isError: true);
       
       try {
         // Use IOOverrides to capture ALL stdout/stderr, including Console writes
@@ -681,8 +664,7 @@ void main() {}
               zoneSpecification: ZoneSpecification(
                 print: (self, parent, zone, line) {
                   // Don't delegate to parent - this bypasses console_markdown ANSI conversion
-                  final converted = convertToTelegramMarkdown(line);
-                  outputBuffer.writeln(converted);
+                  outputBuffer.writeln(line);
                 },
               ),
             );
@@ -715,7 +697,7 @@ void main() {}
       } catch (e) {
         // Include captured output along with the error
         final capturedOutput = outputBuffer.toString().trim();
-        final errorMsg = convertToTelegramMarkdown(stripAnsi(e.toString()));
+        final errorMsg = stripAnsi(e.toString());
         return ExecutionResult(
           output: capturedOutput.isNotEmpty ? '$capturedOutput\n\n❌ $errorMsg' : '',
           isError: true,
