@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Changed license from MIT to BSD-3-Clause.
+
 ## 1.0.0
 
 - Initial public release.

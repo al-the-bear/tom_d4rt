@@ -121,4 +121,4 @@ The package is structured around three layers:
 
 ## License
 
-MIT — see [LICENSE](LICENSE) for details.
+BSD-3-Clause — see [LICENSE](LICENSE) for details.
