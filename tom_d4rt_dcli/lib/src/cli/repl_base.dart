@@ -136,6 +136,7 @@ abstract class D4rtReplBase {
 <cyan>**Options**</cyan>
   <yellow>**-h**</yellow>, <yellow>**--help**</yellow>                Show this help message
   <yellow>**-v**</yellow>, <yellow>**--version**</yellow>             Show version information
+  <yellow>**--stdin**</yellow>                       Read and execute source code from stdin
   <yellow>**-session**</yellow> <id>                 Resume or start a named session
   <yellow>**-replace-session**</yellow> <id>         Delete existing session and start fresh
   <yellow>**-replay**</yellow> <file>                Replay a file before starting REPL
@@ -169,7 +170,9 @@ abstract class D4rtReplBase {
   <yellow>$name -replay setup.$ext -session x</yellow>   Replay file and start session
   <yellow>$name -list-sessions</yellow>                   List available sessions
   <yellow>$name --dump-configuration</yellow>             Dump configuration
-  <yellow>$name --bot-mode</yellow>                       Run as Telegram bot server''';
+  <yellow>$name --bot-mode</yellow>                       Run as Telegram bot server
+  <yellow>echo 'print(42);' | $name --stdin</yellow>     Execute code from stdin
+  <yellow>cat script.dart | $name --stdin</yellow>        Pipe file content via stdin''';
   }
   
   /// Print CLI usage information (for --help).
@@ -290,6 +293,7 @@ abstract class D4rtReplBase {
     var replaceSession = false;
     final listSessions = arguments.contains('-list-sessions') || arguments.contains('--list-sessions');
     final botMode = arguments.contains('-bot-mode') || arguments.contains('--bot-mode');
+    final stdinMode = arguments.contains('-stdin') || arguments.contains('--stdin');
     
     // Known option arguments
     final knownOptions = <String>{
@@ -308,6 +312,7 @@ abstract class D4rtReplBase {
       '-output', '--output',
       '-bot-mode', '--bot-mode',
       '-bot-config', '--bot-config',
+      '-stdin', '--stdin',
     };
     
     for (var i = 0; i < arguments.length; i++) {
@@ -485,6 +490,12 @@ void main() {}
         exit(1);
       }
       exit(0);
+    }
+
+    // If --stdin, read source from stdin and execute
+    if (stdinMode) {
+      await _executeStdin(d4rt, initSource);
+      return;
     }
 
     // If a script file is provided, execute it directly
@@ -784,6 +795,58 @@ void main() {}
         }
         exit(1);
       }
+    } catch (e, stackTrace) {
+      stderr.writeln('Error: $e');
+      if (Platform.environment['DEBUG'] == 'true') {
+        stderr.writeln(stackTrace);
+      }
+      exit(1);
+    }
+  }
+
+  /// Execute source code read from stdin and exit.
+  ///
+  /// Reads all input from stdin, initialises the D4rt interpreter with
+  /// bridges (via [initSource]), then executes the source code.
+  ///
+  /// Usage:
+  /// ```bash
+  /// echo 'print("hello");' | dcli --stdin
+  /// cat myscript.dart | dcli --stdin
+  /// dcli --stdin <<'DART'
+  /// var x = 42;
+  /// print('Result: $x');
+  /// DART
+  /// ```
+  Future<void> _executeStdin(D4rt d4rt, String initSource) async {
+    // Read all source from stdin
+    final buffer = StringBuffer();
+    String? line;
+    while ((line = stdin.readLineSync()) != null) {
+      buffer.writeln(line);
+    }
+    final source = buffer.toString();
+    if (source.trim().isEmpty) {
+      stderr.writeln('Error: No input received on stdin');
+      exit(1);
+    }
+
+    try {
+      // Initialize with bridges
+      d4rt.execute(source: initSource);
+
+      // Execute the stdin source
+      final result = d4rt.execute(source: source);
+
+      // Handle Future results
+      var finalResult = result;
+      if (finalResult is Future) {
+        finalResult = await finalResult;
+      }
+      if (finalResult != null) {
+        printResult(finalResult);
+      }
+      exit(0);
     } catch (e, stackTrace) {
       stderr.writeln('Error: $e');
       if (Platform.environment['DEBUG'] == 'true') {
