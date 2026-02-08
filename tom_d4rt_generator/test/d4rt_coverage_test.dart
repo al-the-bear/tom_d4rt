@@ -557,6 +557,15 @@ void main() {
         expect(result.processOutput, contains('PAR01_PASSED'));
       });
 
+      test('PAR02: optional positional', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/par02_optional_positional.dart',
+        );
+        _expectSuccess(result, 'PAR02');
+        expect(result.processOutput, contains('PAR02_PASSED'));
+      });
+
       test('PAR03: named parameters (not in barrel)', () async {
         final result = await tester.runScriptOnly(
           config,
@@ -564,6 +573,24 @@ void main() {
         );
         _expectSuccess(result, 'PAR03');
         expect(result.processOutput, contains('PAR03_PASSED'));
+      });
+
+      test('PAR04: required named', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/par04_required_named.dart',
+        );
+        _expectSuccess(result, 'PAR04');
+        expect(result.processOutput, contains('PAR04_PASSED'));
+      });
+
+      test('PAR05: default values', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/par05_default_values.dart',
+        );
+        _expectSuccess(result, 'PAR05');
+        expect(result.processOutput, contains('PAR05_PASSED'));
       });
 
       test('PAR06: function-typed parameter', () async {

@@ -141,6 +141,24 @@ void main() {
         _expectSuccess(result, 'userbridge_override');
         expect(result.processOutput, contains('ALL_TESTS_PASSED'));
       });
+
+      test('UBR02: user bridge method override', () async {
+        final result = await tester.runScript(
+          config,
+          'test/ubr02_method_override.dart',
+        );
+        _expectSuccess(result, 'UBR02');
+        expect(result.processOutput, contains('UBR02_PASSED'));
+      });
+
+      test('UBR03: user bridge field/variable override', () async {
+        final result = await tester.runScript(
+          config,
+          'test/ubr03_field_override.dart',
+        );
+        _expectSuccess(result, 'UBR03');
+        expect(result.processOutput, contains('UBR03_PASSED'));
+      });
     });
 
     // ── dart_overview ────────────────────────────────────────────────
@@ -251,6 +269,54 @@ void main() {
           contains('[Matrix2x2UserBridge] operator[]= called'),
           reason: 'Matrix2x2 operator[]= should use user bridge code',
         );
+      });
+
+      test('UBR01: user bridge class (basic)', () async {
+        final result = await tester.runScript(
+          config,
+          'test/ubr01_basic_class.dart',
+        );
+        _expectSuccess(result, 'UBR01');
+        expect(result.processOutput, contains('UBR01_PASSED'));
+      });
+
+      test('UBR04: user bridge operator overrides', () async {
+        final result = await tester.runScript(
+          config,
+          'test/ubr04_operator.dart',
+        );
+        _expectSuccess(result, 'UBR04');
+        expect(result.processOutput, contains('UBR04_PASSED'));
+
+        // Verify user bridge print markers
+        expect(
+          result.processOutput,
+          contains('[Vector2DUserBridge] operator+ called'),
+          reason: 'UBR04: operator+ should use user bridge',
+        );
+        expect(
+          result.processOutput,
+          contains('[Matrix2x2UserBridge] operator[] called'),
+          reason: 'UBR04: operator[] should use user bridge',
+        );
+      });
+
+      test('UBR05: user bridge constructor', () async {
+        final result = await tester.runScript(
+          config,
+          'test/ubr05_constructor.dart',
+        );
+        _expectSuccess(result, 'UBR05');
+        expect(result.processOutput, contains('UBR05_PASSED'));
+      });
+
+      test('UBR06: user bridge import prefix (GEN-043)', () async {
+        final result = await tester.runScript(
+          config,
+          'test/ubr06_import_prefix.dart',
+        );
+        _expectSuccess(result, 'UBR06');
+        expect(result.processOutput, contains('UBR06_PASSED'));
       });
     });
   });
