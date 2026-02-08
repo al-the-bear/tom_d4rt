@@ -89,13 +89,13 @@ Each feature has a stable ID for cross-referencing between this document, test s
 | CLS04 | Private field with public getter | ✅ | `cls04_private_field_getter` | — | | [→](#cls04-private-field-with-public-getter) |
 | CLS05 | Nullable field | ❌ | — | — | | [→](#cls05-nullable-field) |
 | CLS06 | Late field | ❌ | — | — | | [→](#cls06-late-field) |
-| CLS07 | Static field (mutable) | ✅ | `cls07_static_field` | not supported | | [→](#cls07-static-field-mutable) |
+| CLS07 | Static field (mutable) | ✅ | `cls07_static_field` | — | | [→](#cls07-static-field-mutable) |
 | CLS08 | Static const field | ✅ | `cls08_static_const` | not needed | | [→](#cls08-static-const-field) |
 | CLS09 | Computed getter | ✅ | `cls09_computed_getter` | — | | [→](#cls09-computed-getter) |
 | CLS10 | Explicit setter (`set x`) | ✅ | `cls10_explicit_setter` | — | | [→](#cls10-explicit-setter) |
-| CLS11 | Static method | ✅ | `cls11_static_method` | not supported | | [→](#cls11-static-method) |
-| CLS12 | Static getter | ❌ | — | not supported | | [→](#cls12-static-getter) |
-| CLS13 | Static setter | ❌ | — | not supported | | [→](#cls13-static-setter) |
+| CLS11 | Static method | ✅ | `cls11_static_method` | — | | [→](#cls11-static-method) |
+| CLS12 | Static getter | ❌ | — | — | | [→](#cls12-static-getter) |
+| CLS13 | Static setter | ❌ | — | — | | [→](#cls13-static-setter) |
 | CLS14 | Instance method | ✅ | `cls14_instance_method` | — | | [→](#cls14-instance-method) |
 | CLS15 | Abstract method | ⚠️ | `cls15_abstract_method` | — | GEN-042 | [→](#cls15-abstract-method) |
 | CLS16 | `toString()` override | ✅ | `cls16_tostring` | — | | [→](#cls16-tostring-override) |
@@ -505,6 +505,8 @@ Explicit top-level setters (`set x(value) => ...`).
 **Coverage test:** —
 **Status:** Not yet tested.
 
+**UB design gap:** The user bridge override design (`userbridge_override_design.md`) defines `overrideGlobalVariable`, `overrideGlobalGetter`, and `overrideGlobalFunction` but does **not** define an `overrideGlobalSetter{Name}` pattern. This is a design gap — top-level setter overrides should be added to the design.
+
 ---
 
 #### TOP29: Mixin application
@@ -587,6 +589,8 @@ Static fields that can be read and written.
 **Coverage test:** `cls07_static_field.dart` — PASSED
 - Tests reading and writing static fields on bridged classes.
 
+**UB override:** `overrideStaticGetter{Name}` / `overrideStaticSetter{Name}` — static fields are bridged as getter/setter pairs and can be overridden via the static getter/setter override pattern.
+
 ---
 
 #### CLS08: Static const field
@@ -629,6 +633,8 @@ Static methods are callable on the class without an instance.
 **Coverage test:** `cls11_static_method.dart` — PASSED
 - Tests calling static methods on bridged classes.
 
+**UB override:** `overrideStaticMethod{Name}` — static methods can be overridden via the static method override pattern.
+
 **Tested in:** example_project, user_guide, user_reference (via e2e tests)
 
 ---
@@ -640,6 +646,8 @@ Explicit static getters on classes.
 **Coverage test:** —
 **Status:** Not yet tested.
 
+**UB override:** `overrideStaticGetter{Name}` — static getters can be overridden via the static getter override pattern.
+
 ---
 
 #### CLS13: Static setter
@@ -648,6 +656,8 @@ Explicit static setters on classes.
 
 **Coverage test:** —
 **Status:** Not yet tested.
+
+**UB override:** `overrideStaticSetter{Name}` — static setters can be overridden via the static setter override pattern.
 
 ---
 
