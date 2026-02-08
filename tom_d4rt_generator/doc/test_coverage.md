@@ -47,11 +47,13 @@ Each feature has a stable ID for cross-referencing between this document, test s
 
 ### Column Value Explanations
 
+**Context:** The bridge generator produces code that initializes the runtime environment for interpreted scripts. The goal is to give the script an **identical API surface** to what compiled Dart code would see — same classes, same functions, same constants, same types.
+
 **Why is UB Test "not needed" for top-level consts (TOP26)?**
-Constants are compile-time values inlined by the Dart compiler. They cannot be reassigned at runtime. A user bridge override would have no effect because the value is baked into the code at compile time. The bridge simply exposes the constant's value — there is no behavior to intercept or modify.
+The generator **must** bridge top-level constants so the interpreter can access them by name (e.g., `print(maxRetries)`). The Coverage Test verifies this works. However, a User Bridge *override* is not needed because constants are **semantically immutable** — their contract is that the value never changes. Overriding a constant's value in a user bridge would violate the language semantics and produce an environment that doesn't match compiled behavior. If you need a changeable value, use a variable or getter instead of a const.
 
 **Why is UB Test "not needed" for static const fields (CLS08)?**
-Same reasoning as top-level consts. Static const fields are compile-time constants that are inlined. They cannot be overridden because there is no runtime accessor to intercept — the value is resolved at compile time. The bridge registers the constant value directly.
+Same reasoning. The generator **must** bridge static const fields (e.g., `Counter.maxCount`) so the interpreter can read them — and the Coverage Test confirms this. But a User Bridge override would break the `const` contract. The value must be identical in both compiled and interpreted execution. There is no legitimate use case for overriding a constant because the whole point of `const` is a compile-time guarantee of immutability.
 
 **Difference between 🔲 and `—`:**
 - **🔲 (black square)** means the feature **cannot be tested yet** because a prerequisite is missing (e.g., the interpreter doesn't support the feature, or a generator capability is blocked). Once the prerequisite is implemented, the status should change to ❌ (not yet tested) or be tested directly. This is a **temporary** blocker.
@@ -1195,55 +1197,62 @@ User bridge generated references must use the correct import prefix (`$pkg.`). P
 
 #### ASYNC01: Async function (Future)
 
-Functions returning `Future<T>`. The D4rt **interpreter** supports `async`/`await` natively. The question is whether the **generator** correctly bridges async functions so they can be called from D4rt scripts.
+Functions returning `Future<T>`. In compiled Dart, calling `await fetchGreeting('World')` resolves the Future and returns a `String`. The generator must recreate this exact behavior in the interpreter environment: the bridged function must return a `Future<T>` that the interpreter's native `await` mechanism can resolve.
 
-**Generator requirement:** The generator needs to emit bridge adapters that return `Future<T>` and allow the interpreter's `await` to resolve them. Since async functions return a `Future` on the host side, the bridge adapter must either:
-- Return the `Future` directly (letting D4rt's interpreter `await` it), or
-- Wrap the host call in an async adapter that the interpreter can `await`.
+**Generator requirement:** The bridge adapter must:
+1. Accept the interpreter's arguments and coerce them to the host function's expected types (e.g., `List<Object?>` → `List<int>`)
+2. Call the host async function
+3. Return the `Future` to the interpreter so `await` resolves it naturally
+
+The interpreter already supports `async`/`await` natively — the generator just needs to wire the host function into the environment correctly.
 
 **Coverage test:** `async01_async_function` — FAILED
 - Tests `fetchGreeting('World')` and `computeSum([10, 20, 30])` with `await`.
-- **Failure:** The bridge does not properly handle `List<int>` parameter coercion (interpreter passes `List<Object?>` instead of `List<int>`).
-- **Root cause:** Parameter type coercion issue, not async-specific. The async call mechanism itself may work if parameter types are resolved.
+- **Failure:** `List<int>` parameter coercion — interpreter passes `List<Object?>`, bridge expects `List<int>`. This is a **general parameter type coercion issue** (not async-specific). The async call mechanism itself likely works if parameter types match.
 **Status:** ⚠️ Tested, failing (parameter coercion issue)
 
 ---
 
 #### ASYNC02: Async generator (Stream)
 
-Functions using `async*` yielding `Stream<T>`. The D4rt **interpreter** supports `await for` loops. The **generator** needs to bridge `async*` functions so they return `Stream<T>` that the interpreter can consume.
+Functions using `async*` yielding `Stream<T>`. In compiled Dart, `await for (var n in countAsyncTo(3))` iterates the stream. The generator must recreate this: the bridged function must return a `Stream<T>` that the interpreter's `await for` can consume.
 
-**Generator requirement:** The bridge adapter for an `async*` function must return a `Stream` that the interpreter can iterate with `await for`. Since the host function already returns `Stream<T>`, the bridge adapter should pass it through.
+**Generator requirement:** The bridge adapter must return the host function's `Stream` directly to the interpreter. The interpreter already supports `await for` — it just needs to receive a real `Stream` object. No special wrapping should be needed if the return type is correctly handled.
 
 **Coverage test:** `async02_async_generator` — FAILED
 - Tests `countAsyncTo(3)` with `await for` loop.
-- **Failure:** Similar parameter type issue — the bridge may not correctly handle the function or the `await for` consumption of the stream result.
+- **Failure:** The bridge may not correctly return the `Stream` object, or parameter coercion interferes before the function executes.
 **Status:** ⚠️ Tested, failing
 
 ---
 
 #### ASYNC03: Sync generator (Iterable)
 
-Functions using `sync*` yielding `Iterable<T>`. The D4rt **interpreter** supports `for-in` loops over iterables. The **generator** needs to bridge `sync*` functions so they return `Iterable<T>` that the interpreter can iterate.
+Functions using `sync*` yielding `Iterable<T>`. In compiled Dart, `for (var n in countTo(5))` lazily iterates the generator. The generator must recreate this: the bridged function must return an `Iterable<T>` that the interpreter's `for-in` can iterate, preserving lazy evaluation semantics.
 
-**Generator requirement:** The bridge adapter for a `sync*` function must return an `Iterable` that the interpreter can iterate with `for-in`. Since the host function already returns `Iterable<T>`, the bridge adapter should pass it through.
+**Generator requirement:** The bridge adapter must return the host function's `Iterable` directly to the interpreter. The interpreter already supports `for-in` over iterables — it just needs to receive a real `Iterable` object. Lazy evaluation should be preserved naturally since the host `sync*` function produces elements on demand.
 
 **Coverage test:** `async03_sync_generator` — FAILED
 - Tests `countTo(5)`, `range(3, 7)`, `naturalNumbers` (take 5), `fibonacci` (take 8).
-- **Failure:** The bridge does not properly handle generator functions. Likely the return type or lazy iteration semantics are not bridged correctly.
+- **Failure:** The bridge does not properly return `Iterable` objects from generator functions. The return type or the function registration may not handle `sync*` return types.
 **Status:** ⚠️ Tested, failing
 
 ---
 
 #### ASYNC04: Callback parameter (Function)
 
-Passing callback functions from D4rt into bridged host methods. This requires the bridge adapter to accept an `InterpretedFunction` from the D4rt interpreter and convert it to a native Dart function type that the host method expects.
+Passing callback functions from D4rt into bridged host methods. In compiled Dart, `transform([1,2,3], (x) => x * 2)` passes a closure to the function. The generator must recreate this: when the interpreter passes an `InterpretedFunction`, the bridge must wrap it into a native Dart function type so the host function can call it.
 
-**Generator requirement:** When a bridged function has a `Function` parameter (e.g., `void transform(List<int> items, int Function(int) mapper)`), the bridge must wrap the interpreter's callback so the host can call it. This is a known limitation (GEN-005).
+**Generator requirement:** This is a fundamental bridging challenge. The bridge must:
+1. Detect that a parameter has a function type (e.g., `int Function(int)`)
+2. Generate a wrapper that converts the `InterpretedFunction` into a typed Dart closure
+3. The wrapper invokes the interpreter when the host function calls the callback
+
+This creates a two-way bridge: script → host function → callback → interpreter → result → host. This is the most complex parameter type to bridge and is a known limitation (GEN-005).
 
 **Coverage test:** `async04_callback_param` — FAILED
 - Tests `transform([1,2,3], (x) => x * 2)` and `fetchData('url', (data) => ...)` with callback parameters.
-- **Failure:** Function-typed parameters are not bridgeable (GEN-005).
+- **Failure:** Function-typed parameters are not bridgeable yet (GEN-005).
 **Status:** ⚠️ Tested, failing. Related to GEN-005.
 
 ---
