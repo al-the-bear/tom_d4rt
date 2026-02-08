@@ -23,4 +23,6 @@
 /// ```
 library;
 
+export 'src/testing/d4rt_test_result.dart';
+export 'src/testing/d4rt_tester.dart';
 export 'src/testing/issue_test_helper.dart';

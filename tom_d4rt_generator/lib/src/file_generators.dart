@@ -195,6 +195,8 @@ String generateDartscriptFileContent(BridgeConfig config, {String? dartscriptPat
 /// - Evaluate an expression: `dart run d4rtrun.b.dart "expression"`
 /// - Evaluate a file via eval: `dart run d4rtrun.b.dart --eval-file file`
 /// - Validate registrations: `dart run d4rtrun.b.dart --init-eval`
+/// - Test a script (structured output): `dart run d4rtrun.b.dart --test file`
+/// - Test eval (structured output): `dart run d4rtrun.b.dart --test-eval init expr`
 ///
 /// All bridges are pre-registered before script execution.
 ///
@@ -217,9 +219,13 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   buffer.writeln('//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} "<expression>"      Evaluate an expression');
   buffer.writeln('//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --eval-file <file>  Evaluate file content with eval()');
   buffer.writeln('//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --init-eval         Validate bridge registrations');
+  buffer.writeln('//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --test <file>       Test script (structured JSON output)');
+  buffer.writeln('//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --test-eval <init> <expr>  Test eval (structured JSON output)');
   buffer.writeln();
 
   // Imports
+  buffer.writeln("import 'dart:async';");
+  buffer.writeln("import 'dart:convert';");
   buffer.writeln("import 'dart:io';");
   buffer.writeln();
   buffer.writeln("import 'package:tom_d4rt/d4rt.dart';");
@@ -303,7 +309,31 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   buffer.writeln("    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} \"<expression>\"      Evaluate an expression');");
   buffer.writeln("    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --eval-file <file>  Evaluate file content with eval()');");
   buffer.writeln("    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --init-eval         Validate bridge registrations');");
+  buffer.writeln("    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --test <file>       Test script (structured JSON output)');");
+  buffer.writeln("    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --test-eval <init> <expr>  Test eval (structured JSON)');");
   buffer.writeln('    exit(1);');
+  buffer.writeln('  }');
+  buffer.writeln();
+
+  // --test mode (structured output for D4rtTester)
+  buffer.writeln("  if (args.first == '--test') {");
+  buffer.writeln('    if (args.length < 2) {');
+  buffer.writeln("      stderr.writeln('Error: --test requires a script file path argument.');");
+  buffer.writeln('      exit(1);');
+  buffer.writeln('    }');
+  buffer.writeln('    _runTestScript(args[1]);');
+  buffer.writeln('    return;');
+  buffer.writeln('  }');
+  buffer.writeln();
+
+  // --test-eval mode (structured output for D4rtTester)
+  buffer.writeln("  if (args.first == '--test-eval') {");
+  buffer.writeln('    if (args.length < 3) {');
+  buffer.writeln("      stderr.writeln('Error: --test-eval requires <init-file> and <expression-file> arguments.');");
+  buffer.writeln('      exit(1);');
+  buffer.writeln('    }');
+  buffer.writeln('    _runTestEval(args[1], args[2]);');
+  buffer.writeln('    return;');
   buffer.writeln('  }');
   buffer.writeln();
 
@@ -448,6 +478,108 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   buffer.writeln("    stderr.writeln('module configuration or by removing duplicate exports.');");
   buffer.writeln('    exit(2);');
   buffer.writeln('  }');
+  buffer.writeln('}');
+  buffer.writeln();
+
+  // _runTestScript — execute a script with structured output capture
+  buffer.writeln('/// Run a D4rt script in test mode with structured output capture.');
+  buffer.writeln('/// Uses runZonedGuarded with ZoneSpecification to capture all print()');
+  buffer.writeln('/// output and unhandled exceptions. Results are output as JSON.');
+  buffer.writeln('void _runTestScript(String filePath) {');
+  buffer.writeln('  final file = File(filePath);');
+  buffer.writeln('  if (!file.existsSync()) {');
+  buffer.writeln("    _emitTestResult('', ['File not found: \$filePath']);");
+  buffer.writeln('    exit(2);');
+  buffer.writeln('  }');
+  buffer.writeln();
+  buffer.writeln('  final source = file.readAsStringSync();');
+  buffer.writeln('  final capturedOutput = StringBuffer();');
+  buffer.writeln('  final capturedExceptions = <String>[];');
+  buffer.writeln();
+  buffer.writeln('  runZonedGuarded(');
+  buffer.writeln('    () {');
+  buffer.writeln('      final d4rt = D4rt();');
+  buffer.writeln('      _registerBridges(d4rt);');
+  buffer.writeln('      d4rt.grant(FilesystemPermission.any);');
+  buffer.writeln('      d4rt.execute(');
+  buffer.writeln('        source: source,');
+  buffer.writeln('        basePath: File(filePath).parent.path,');
+  buffer.writeln('        allowFileSystemImports: true,');
+  buffer.writeln('      );');
+  buffer.writeln('    },');
+  buffer.writeln('    (error, stackTrace) {');
+  buffer.writeln("      capturedExceptions.add('\$error\\n\$stackTrace');");
+  buffer.writeln('    },');
+  buffer.writeln('    zoneSpecification: ZoneSpecification(');
+  buffer.writeln('      print: (self, parent, zone, line) {');
+  buffer.writeln('        capturedOutput.writeln(line);');
+  buffer.writeln('      },');
+  buffer.writeln('    ),');
+  buffer.writeln('  );');
+  buffer.writeln();
+  buffer.writeln('  _emitTestResult(capturedOutput.toString(), capturedExceptions);');
+  buffer.writeln('  if (capturedExceptions.isNotEmpty) exit(2);');
+  buffer.writeln('}');
+  buffer.writeln();
+
+  // _runTestEval — eval with init script and structured output capture
+  buffer.writeln('/// Evaluate file content in test mode with structured output capture.');
+  buffer.writeln('/// Initializes with [initFilePath], then evaluates [evalFilePath].');
+  buffer.writeln('void _runTestEval(String initFilePath, String evalFilePath) {');
+  buffer.writeln('  final initFile = File(initFilePath);');
+  buffer.writeln('  final evalFile = File(evalFilePath);');
+  buffer.writeln('  if (!initFile.existsSync()) {');
+  buffer.writeln("    _emitTestResult('', ['Init file not found: \$initFilePath']);");
+  buffer.writeln('    exit(2);');
+  buffer.writeln('  }');
+  buffer.writeln('  if (!evalFile.existsSync()) {');
+  buffer.writeln("    _emitTestResult('', ['Eval file not found: \$evalFilePath']);");
+  buffer.writeln('    exit(2);');
+  buffer.writeln('  }');
+  buffer.writeln();
+  buffer.writeln('  final initSource = initFile.readAsStringSync();');
+  buffer.writeln('  final evalSource = evalFile.readAsStringSync();');
+  buffer.writeln('  final capturedOutput = StringBuffer();');
+  buffer.writeln('  final capturedExceptions = <String>[];');
+  buffer.writeln();
+  buffer.writeln('  runZonedGuarded(');
+  buffer.writeln('    () {');
+  buffer.writeln('      final d4rt = D4rt();');
+  buffer.writeln('      _registerBridges(d4rt);');
+  buffer.writeln('      d4rt.grant(FilesystemPermission.any);');
+  buffer.writeln('      // Initialize with the init script');
+  buffer.writeln('      d4rt.execute(');
+  buffer.writeln('        source: initSource,');
+  buffer.writeln('        basePath: File(initFilePath).parent.path,');
+  buffer.writeln('        allowFileSystemImports: true,');
+  buffer.writeln('      );');
+  buffer.writeln('      // Evaluate the expression file');
+  buffer.writeln('      d4rt.eval(evalSource);');
+  buffer.writeln('    },');
+  buffer.writeln('    (error, stackTrace) {');
+  buffer.writeln("      capturedExceptions.add('\$error\\n\$stackTrace');");
+  buffer.writeln('    },');
+  buffer.writeln('    zoneSpecification: ZoneSpecification(');
+  buffer.writeln('      print: (self, parent, zone, line) {');
+  buffer.writeln('        capturedOutput.writeln(line);');
+  buffer.writeln('      },');
+  buffer.writeln('    ),');
+  buffer.writeln('  );');
+  buffer.writeln();
+  buffer.writeln('  _emitTestResult(capturedOutput.toString(), capturedExceptions);');
+  buffer.writeln('  if (capturedExceptions.isNotEmpty) exit(2);');
+  buffer.writeln('}');
+  buffer.writeln();
+
+  // _emitTestResult — output structured JSON for D4rtTester
+  buffer.writeln('/// Emit structured test result as JSON for D4rtTester to parse.');
+  buffer.writeln('/// Uses stdout.writeln directly to bypass any zone print overrides.');
+  buffer.writeln('void _emitTestResult(String output, List<String> exceptions) {');
+  buffer.writeln('  final result = jsonEncode({');
+  buffer.writeln("    'output': output,");
+  buffer.writeln("    'exceptions': exceptions,");
+  buffer.writeln('  });');
+  buffer.writeln("  stdout.writeln('###D4RT_TEST_RESULT###\$result');");
   buffer.writeln('}');
 
   return buffer.toString();
