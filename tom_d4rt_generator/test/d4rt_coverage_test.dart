@@ -167,6 +167,78 @@ void main() {
         expect(result.processOutput, contains('TOP14_PASSED'));
       });
 
+      test('TOP13: generic enum (N/A — Dart limitation)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top13_generic_enum.dart',
+        );
+        _expectSuccess(result, 'TOP13');
+        expect(result.processOutput, contains('TOP13_PASSED'));
+      });
+
+      test('TOP15: base mixin', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top15_base_mixin.dart',
+        );
+        _expectSuccess(result, 'TOP15');
+        expect(result.processOutput, contains('TOP15_PASSED'));
+      });
+
+      test('TOP16: named extension (not supported)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top16_named_extension.dart',
+        );
+        _expectSuccess(result, 'TOP16');
+        expect(result.processOutput, contains('TOP16_PASSED'));
+      });
+
+      test('TOP17: anonymous extension (not supported)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top17_anonymous_extension.dart',
+        );
+        _expectSuccess(result, 'TOP17');
+        expect(result.processOutput, contains('TOP17_PASSED'));
+      });
+
+      test('TOP18: extension type (not supported)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top18_extension_type.dart',
+        );
+        _expectSuccess(result, 'TOP18');
+        expect(result.processOutput, contains('TOP18_PASSED'));
+      });
+
+      test('TOP19: typedef (function, not needed)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top19_typedef_function.dart',
+        );
+        _expectSuccess(result, 'TOP19');
+        expect(result.processOutput, contains('TOP19_PASSED'));
+      });
+
+      test('TOP20: typedef (type alias, not needed)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top20_typedef_type_alias.dart',
+        );
+        _expectSuccess(result, 'TOP20');
+        expect(result.processOutput, contains('TOP20_PASSED'));
+      });
+
+      test('TOP21: typedef (generic, not needed)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top21_typedef_generic.dart',
+        );
+        _expectSuccess(result, 'TOP21');
+        expect(result.processOutput, contains('TOP21_PASSED'));
+      });
+
       test('TOP22: top-level function', () async {
         final result = await tester.runScriptOnly(
           config,
@@ -201,6 +273,42 @@ void main() {
         );
         _expectSuccess(result, 'TOP27');
         expect(result.processOutput, contains('TOP27_PASSED'));
+      });
+
+      test('TOP23: top-level generic function', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top23_toplevel_generic_function.dart',
+        );
+        _expectSuccess(result, 'TOP23');
+        expect(result.processOutput, contains('TOP23_PASSED'));
+      });
+
+      test('TOP24: top-level async function', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top24_async_function.dart',
+        );
+        _expectSuccess(result, 'TOP24');
+        expect(result.processOutput, contains('TOP24_PASSED'));
+      });
+
+      test('TOP28: top-level setter', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top28_toplevel_setter.dart',
+        );
+        _expectSuccess(result, 'TOP28');
+        expect(result.processOutput, contains('TOP28_PASSED'));
+      });
+
+      test('TOP29: mixin application (class = with)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/top29_mixin_application.dart',
+        );
+        _expectSuccess(result, 'TOP29');
+        expect(result.processOutput, contains('TOP29_PASSED'));
       });
     });
 
@@ -314,6 +422,51 @@ void main() {
         _expectSuccess(result, 'CLS16');
         expect(result.processOutput, contains('CLS16_PASSED'));
       });
+
+      test('CLS05: nullable instance field', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/cls05_nullable_field.dart',
+        );
+        _expectSuccess(result, 'CLS05');
+        expect(result.processOutput, contains('CLS05_PASSED'));
+      });
+
+      test('CLS06: late field', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/cls06_late_field.dart',
+        );
+        _expectSuccess(result, 'CLS06');
+        expect(result.processOutput, contains('CLS06_PASSED'));
+      });
+
+      test('CLS12: static getter', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/cls12_static_getter.dart',
+        );
+        _expectSuccess(result, 'CLS12');
+        expect(result.processOutput, contains('CLS12_PASSED'));
+      });
+
+      test('CLS13: static setter', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/cls13_static_setter.dart',
+        );
+        _expectSuccess(result, 'CLS13');
+        expect(result.processOutput, contains('CLS13_PASSED'));
+      });
+
+      test('CLS17: call() method (callable class)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/cls17_call_method.dart',
+        );
+        _expectSuccess(result, 'CLS17');
+        expect(result.processOutput, contains('CLS17_PASSED'));
+      });
     });
 
     // ── Constructors ───────────────────────────────────────────────
@@ -412,6 +565,15 @@ void main() {
         _expectSuccess(result, 'PAR03');
         expect(result.processOutput, contains('PAR03_PASSED'));
       });
+
+      test('PAR06: function-typed parameter', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/par06_function_typed_param.dart',
+        );
+        _expectSuccess(result, 'PAR06');
+        expect(result.processOutput, contains('PAR06_PASSED'));
+      });
     });
 
     // ── Generics ───────────────────────────────────────────────────
@@ -451,6 +613,33 @@ void main() {
         );
         _expectSuccess(result, 'GNRC06');
         expect(result.processOutput, contains('GNRC06_PASSED'));
+      });
+
+      test('GNRC03: upper bound constraint', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/gnrc03_upper_bound.dart',
+        );
+        _expectSuccess(result, 'GNRC03');
+        expect(result.processOutput, contains('GNRC03_PASSED'));
+      });
+
+      test('GNRC05: generic static factory', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/gnrc05_generic_static_factory.dart',
+        );
+        _expectSuccess(result, 'GNRC05');
+        expect(result.processOutput, contains('GNRC05_PASSED'));
+      });
+
+      test('GNRC07: F-bounded polymorphism', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/gnrc07_fbounded_polymorphism.dart',
+        );
+        _expectSuccess(result, 'GNRC07');
+        expect(result.processOutput, contains('GNRC07_PASSED'));
       });
     });
 
@@ -526,6 +715,166 @@ void main() {
             'classes/inheritance. The generator needs name-collision '
             'detection or import aliasing support.',
       );
+    });
+
+    // ── Operators ──────────────────────────────────────────────────
+
+    group('OP: Operators', () {
+      test('OP05: operator / (divide)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/op05_operator_divide.dart',
+        );
+        _expectSuccess(result, 'OP05');
+        expect(result.processOutput, contains('OP05_PASSED'));
+      });
+
+      test('OP06: operator ~/ (integer divide)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/op06_operator_integer_divide.dart',
+        );
+        _expectSuccess(result, 'OP06');
+        expect(result.processOutput, contains('OP06_PASSED'));
+      });
+
+      test('OP07: operator % (modulo)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/op07_operator_modulo.dart',
+        );
+        _expectSuccess(result, 'OP07');
+        expect(result.processOutput, contains('OP07_PASSED'));
+      });
+
+      test('OP08: operator == (equality)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/op08_operator_equals.dart',
+        );
+        _expectSuccess(result, 'OP08');
+        expect(result.processOutput, contains('OP08_PASSED'));
+      });
+
+      test('OP09: comparison operators (compareTo)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/op09_comparison_operators.dart',
+        );
+        _expectSuccess(result, 'OP09');
+        expect(result.processOutput, contains('OP09_PASSED'));
+      });
+
+      test('OP12: bitwise operators', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/op12_bitwise_operators.dart',
+        );
+        _expectSuccess(result, 'OP12');
+        expect(result.processOutput, contains('OP12_PASSED'));
+      });
+    });
+
+    // ── Async ──────────────────────────────────────────────────────
+
+    group('ASYNC: Async Features', () {
+      test('ASYNC01: async function (Future)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/async01_async_function.dart',
+        );
+        _expectSuccess(result, 'ASYNC01');
+        expect(result.processOutput, contains('ASYNC01_PASSED'));
+      });
+
+      test('ASYNC02: async* generator (Stream)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/async02_async_generator.dart',
+        );
+        _expectSuccess(result, 'ASYNC02');
+        expect(result.processOutput, contains('ASYNC02_PASSED'));
+      });
+
+      test('ASYNC03: sync* generator (Iterable)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/async03_sync_generator.dart',
+        );
+        _expectSuccess(result, 'ASYNC03');
+        expect(result.processOutput, contains('ASYNC03_PASSED'));
+      });
+
+      test('ASYNC04: callback parameter (Function)', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/async04_callback_param.dart',
+        );
+        _expectSuccess(result, 'ASYNC04');
+        expect(result.processOutput, contains('ASYNC04_PASSED'));
+      });
+    });
+
+    // ── Types ──────────────────────────────────────────────────────
+
+    group('TYPE: Type Features', () {
+      test('TYPE01: record parameter', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/type01_record_param.dart',
+        );
+        _expectSuccess(result, 'TYPE01');
+        expect(result.processOutput, contains('TYPE01_PASSED'));
+      });
+
+      test('TYPE02: record return type', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/type02_record_return.dart',
+        );
+        _expectSuccess(result, 'TYPE02');
+        expect(result.processOutput, contains('TYPE02_PASSED'));
+      });
+
+      test('TYPE03: nullable parameter', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/type03_nullable_param.dart',
+        );
+        _expectSuccess(result, 'TYPE03');
+        expect(result.processOutput, contains('TYPE03_PASSED'));
+      });
+
+      test('TYPE04: nullable return type', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/type04_nullable_return.dart',
+        );
+        _expectSuccess(result, 'TYPE04');
+        expect(result.processOutput, contains('TYPE04_PASSED'));
+      });
+
+      test('TYPE05: dynamic type', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/type05_dynamic.dart',
+        );
+        _expectSuccess(result, 'TYPE05');
+        expect(result.processOutput, contains('TYPE05_PASSED'));
+      });
+    });
+
+    // ── Visibility ─────────────────────────────────────────────────
+
+    group('VIS: Visibility', () {
+      test('VIS03: show/hide combinators', () async {
+        final result = await tester.runScriptOnly(
+          config,
+          'test/vis03_show_hide.dart',
+        );
+        _expectSuccess(result, 'VIS03');
+        expect(result.processOutput, contains('VIS03_PASSED'));
+      });
     });
   });
 }

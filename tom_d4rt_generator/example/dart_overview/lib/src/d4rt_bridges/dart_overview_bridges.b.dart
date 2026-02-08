@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 12 files
-// Generated: 2026-02-08T15:28:28.480227
+// Sources: 16 files
+// Generated: 2026-02-08T16:45:25.807160
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -80,6 +80,14 @@ class AllBridge {
       _createCounterBridge(),
       _createFlexibleObjectBridge(),
       _createSortablePersonBridge(),
+      _createNumberWrapperBridge(),
+      _createBitFlagsBridge(),
+      _createNullableFieldsBridge(),
+      _createLateFieldDemoBridge(),
+      _createMultiplierBridge(),
+      _createPrintableBridge(),
+      _createTrackedItemBridge(),
+      _createStatisticsBridge(),
       _createMusicianBridge(),
       _createProfessionalDancerBridge(),
       _createEntertainerBridge(),
@@ -165,6 +173,14 @@ class AllBridge {
       'Counter': 'package:dart_overview/classes/static_object_methods/run_static_object_methods.dart',
       'FlexibleObject': 'package:dart_overview/classes/static_object_methods/run_static_object_methods.dart',
       'SortablePerson': 'package:dart_overview/classes/static_object_methods/run_static_object_methods.dart',
+      'NumberWrapper': 'package:dart_overview/classes/test_support/run_test_support.dart',
+      'BitFlags': 'package:dart_overview/classes/test_support/run_test_support.dart',
+      'NullableFields': 'package:dart_overview/classes/test_support/run_test_support.dart',
+      'LateFieldDemo': 'package:dart_overview/classes/test_support/run_test_support.dart',
+      'Multiplier': 'package:dart_overview/classes/test_support/run_test_support.dart',
+      'Printable': 'package:dart_overview/classes/test_support/run_test_support.dart',
+      'TrackedItem': 'package:dart_overview/classes/test_support/run_test_support.dart',
+      'Statistics': 'package:dart_overview/generics/type_bounds/run_type_bounds.dart',
       'Musician': 'package:dart_overview/mixins/basics/run_basics.dart',
       'ProfessionalDancer': 'package:dart_overview/mixins/basics/run_basics.dart',
       'Entertainer': 'package:dart_overview/mixins/basics/run_basics.dart',
@@ -209,6 +225,10 @@ class AllBridge {
         name: 'Role',
         values: $pkg.Role.values,
       ),
+      BridgedEnumDefinition<$pkg.LogSeverity>(
+        name: 'LogSeverity',
+        values: $pkg.LogSeverity.values,
+      ),
     ];
   }
 
@@ -225,6 +245,7 @@ class AllBridge {
       'LogLevel': 'package:dart_overview/enums/basics/run_basics.dart',
       'Priority': 'package:dart_overview/enums/basics/run_basics.dart',
       'Role': 'package:dart_overview/enums/basics/run_basics.dart',
+      'LogSeverity': 'package:dart_overview/globals/basics/run_basics.dart',
     };
   }
 
@@ -340,6 +361,7 @@ class AllBridge {
     interpreter.registerGlobalGetter('now', () => $pkg.now, importPath, sourceUri: 'package:dart_overview/globals/basics/run_basics.dart');
     interpreter.registerGlobalGetter('connectionCount', () => $pkg.connectionCount, importPath, sourceUri: 'package:dart_overview/globals/basics/run_basics.dart');
     interpreter.registerGlobalGetter('cachedValue', () => $pkg.cachedValue, importPath, sourceUri: 'package:dart_overview/globals/basics/run_basics.dart');
+    interpreter.registerGlobalGetter('logLevel', () => $pkg.logLevel, importPath, sourceUri: 'package:dart_overview/globals/basics/run_basics.dart');
 
     if (errors.isNotEmpty) {
       throw StateError('Bridge registration errors (all):\n${errors.join("\n")}');
@@ -448,6 +470,60 @@ class AllBridge {
         final items = D4.getRequiredArg<List<dynamic>>(positional, 0, 'items', 'firstOrNull');
         return $pkg.firstOrNull<dynamic>(items);
       },
+      'fetchGreeting': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'fetchGreeting');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'fetchGreeting');
+        return $pkg.fetchGreeting(name);
+      },
+      'computeSum': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'computeSum');
+        final numbers = D4.getRequiredArg<List<int>>(positional, 0, 'numbers', 'computeSum');
+        return $pkg.computeSum(numbers);
+      },
+      'findMinMax': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'findMinMax');
+        final numbers = D4.getRequiredArg<List<int>>(positional, 0, 'numbers', 'findMinMax');
+        return $pkg.findMinMax(numbers);
+      },
+      'swap': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'swap');
+        final pair = D4.getRequiredArg<(int, int)>(positional, 0, 'pair', 'swap');
+        return $pkg.swap(pair);
+      },
+      'parseUserString': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'parseUserString');
+        final input = D4.getRequiredArg<String>(positional, 0, 'input', 'parseUserString');
+        return $pkg.parseUserString(input);
+      },
+      'divideWithRemainder': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'divideWithRemainder');
+        final dividend = D4.getRequiredArg<int>(positional, 0, 'dividend', 'divideWithRemainder');
+        final divisor = D4.getRequiredArg<int>(positional, 1, 'divisor', 'divideWithRemainder');
+        return $pkg.divideWithRemainder(dividend, divisor);
+      },
+      'countTo': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'countTo');
+        final max = D4.getRequiredArg<int>(positional, 0, 'max', 'countTo');
+        return $pkg.countTo(max);
+      },
+      'range': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'range');
+        final start = D4.getRequiredArg<int>(positional, 0, 'start', 'range');
+        final end = D4.getRequiredArg<int>(positional, 1, 'end', 'range');
+        final step = D4.getOptionalArgWithDefault<int>(positional, 2, 'step', 1);
+        return $pkg.range(start, end, step);
+      },
+      'naturalNumbers': (visitor, positional, named, typeArgs) {
+        return $pkg.naturalNumbers();
+      },
+      'fibonacci': (visitor, positional, named, typeArgs) {
+        return $pkg.fibonacci();
+      },
+      'countAsyncTo': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'countAsyncTo');
+        final max = D4.getRequiredArg<int>(positional, 0, 'max', 'countAsyncTo');
+        return $pkg.countAsyncTo(max);
+      },
     };
   }
 
@@ -476,6 +552,17 @@ class AllBridge {
       'fetchData': 'package:dart_overview/functions/parameters/run_parameters.dart',
       'log': 'package:dart_overview/globals/basics/run_basics.dart',
       'firstOrNull': 'package:dart_overview/globals/basics/run_basics.dart',
+      'fetchGreeting': 'package:dart_overview/classes/test_support/run_test_support.dart',
+      'computeSum': 'package:dart_overview/classes/test_support/run_test_support.dart',
+      'findMinMax': 'package:dart_overview/records/basics/run_basics.dart',
+      'swap': 'package:dart_overview/records/basics/run_basics.dart',
+      'parseUserString': 'package:dart_overview/records/basics/run_basics.dart',
+      'divideWithRemainder': 'package:dart_overview/records/basics/run_basics.dart',
+      'countTo': 'package:dart_overview/functions/generators/run_generators.dart',
+      'range': 'package:dart_overview/functions/generators/run_generators.dart',
+      'naturalNumbers': 'package:dart_overview/functions/generators/run_generators.dart',
+      'fibonacci': 'package:dart_overview/functions/generators/run_generators.dart',
+      'countAsyncTo': 'package:dart_overview/functions/generators/run_generators.dart',
     };
   }
 
@@ -501,6 +588,17 @@ class AllBridge {
       'fetchData': 'void fetchData({required String url, required void Function(String) onSuccess, required void Function(String) onError})',
       'log': 'void log(String message)',
       'firstOrNull': 'T? firstOrNull(List<T> items)',
+      'fetchGreeting': 'Future<String> fetchGreeting(String name)',
+      'computeSum': 'Future<int> computeSum(List<int> numbers)',
+      'findMinMax': '({int min, int max}) findMinMax(List<int> numbers)',
+      'swap': '(int, int) swap((int, int) pair)',
+      'parseUserString': '(String, int) parseUserString(String input)',
+      'divideWithRemainder': '({int quotient, int remainder}) divideWithRemainder(int dividend, int divisor)',
+      'countTo': 'Iterable<int> countTo(int max)',
+      'range': 'Iterable<int> range(int start, int end, [int step = 1])',
+      'naturalNumbers': 'Iterable<int> naturalNumbers()',
+      'fibonacci': 'Iterable<int> fibonacci()',
+      'countAsyncTo': 'Stream<int> countAsyncTo(int max)',
     };
   }
 
@@ -516,12 +614,16 @@ class AllBridge {
       'package:dart_overview/classes/declarations/run_declarations.dart',
       'package:dart_overview/classes/inheritance/run_inheritance.dart',
       'package:dart_overview/classes/static_object_methods/run_static_object_methods.dart',
+      'package:dart_overview/classes/test_support/run_test_support.dart',
       'package:dart_overview/enums/basics/run_basics.dart',
       'package:dart_overview/functions/declarations/run_declarations.dart',
+      'package:dart_overview/functions/generators/run_generators.dart',
       'package:dart_overview/functions/parameters/run_parameters.dart',
       'package:dart_overview/generics/generic_classes/run_generic_classes.dart',
+      'package:dart_overview/generics/type_bounds/run_type_bounds.dart',
       'package:dart_overview/globals/basics/run_basics.dart',
       'package:dart_overview/mixins/basics/run_basics.dart',
+      'package:dart_overview/records/basics/run_basics.dart',
       'package:dart_overview/run_dart_overview.dart',
     ];
   }
@@ -543,6 +645,7 @@ class AllBridge {
     'LogLevel',
     'Priority',
     'Role',
+    'LogSeverity',
   ];
 
 }
@@ -2623,15 +2726,18 @@ BridgedClass _createCounterBridge() {
     },
     staticGetters: {
       'instanceCount': (visitor) => $pkg.Counter.instanceCount,
+      'label': (visitor) => $pkg.Counter.label,
     },
     constructorSignatures: {
       '': 'Counter()',
     },
     staticGetterSignatures: {
       'instanceCount': 'int get instanceCount',
+      'label': 'String get label',
     },
     staticSetterSignatures: {
       'instanceCount': 'set instanceCount(dynamic value)',
+      'label': 'set label(String value)',
     },
   );
 }
@@ -2702,6 +2808,405 @@ BridgedClass _createSortablePersonBridge() {
     getterSignatures: {
       'name': 'String get name',
       'age': 'int get age',
+    },
+  );
+}
+
+// =============================================================================
+// NumberWrapper Bridge
+// =============================================================================
+
+BridgedClass _createNumberWrapperBridge() {
+  return BridgedClass(
+    nativeType: $pkg.NumberWrapper,
+    name: 'NumberWrapper',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'NumberWrapper');
+        final value = D4.getRequiredArg<double>(positional, 0, 'value', 'NumberWrapper');
+        return $pkg.NumberWrapper(value);
+      },
+    },
+    getters: {
+      'value': (visitor, target) => D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper').value,
+      'hashCode': (visitor, target) => D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper').hashCode,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper');
+        return t.toString();
+      },
+      '+': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper');
+        final other = D4.getRequiredArg<$pkg.NumberWrapper>(positional, 0, 'other', 'operator+');
+        return t + other;
+      },
+      '-': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper');
+        if (positional.isEmpty) {
+          // Unary operator
+          return -t;
+        } else {
+          // Binary operator
+          final other = D4.getRequiredArg<$pkg.NumberWrapper>(positional, 0, 'other', 'operator-');
+          return t - other;
+        }
+      },
+      '*': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper');
+        final other = D4.getRequiredArg<$pkg.NumberWrapper>(positional, 0, 'other', 'operator*');
+        return t * other;
+      },
+      '/': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper');
+        final other = D4.getRequiredArg<$pkg.NumberWrapper>(positional, 0, 'other', 'operator/');
+        return t / other;
+      },
+      '~/': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper');
+        final other = D4.getRequiredArg<$pkg.NumberWrapper>(positional, 0, 'other', 'operator~/');
+        return t ~/ other;
+      },
+      '%': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper');
+        final other = D4.getRequiredArg<$pkg.NumberWrapper>(positional, 0, 'other', 'operator%');
+        return t % other;
+      },
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'const NumberWrapper(double value)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'value': 'double get value',
+      'hashCode': 'int get hashCode',
+    },
+  );
+}
+
+// =============================================================================
+// BitFlags Bridge
+// =============================================================================
+
+BridgedClass _createBitFlagsBridge() {
+  return BridgedClass(
+    nativeType: $pkg.BitFlags,
+    name: 'BitFlags',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'BitFlags');
+        final bits = D4.getRequiredArg<int>(positional, 0, 'bits', 'BitFlags');
+        return $pkg.BitFlags(bits);
+      },
+    },
+    getters: {
+      'bits': (visitor, target) => D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags').bits,
+      'hashCode': (visitor, target) => D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags').hashCode,
+    },
+    methods: {
+      'hasFlag': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
+        D4.requireMinArgs(positional, 1, 'hasFlag');
+        final flag = D4.getRequiredArg<int>(positional, 0, 'flag', 'hasFlag');
+        return t.hasFlag(flag);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
+        return t.toString();
+      },
+      '&': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
+        final other = D4.getRequiredArg<$pkg.BitFlags>(positional, 0, 'other', 'operator&');
+        return t & other;
+      },
+      '|': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
+        final other = D4.getRequiredArg<$pkg.BitFlags>(positional, 0, 'other', 'operator|');
+        return t | other;
+      },
+      '^': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
+        final other = D4.getRequiredArg<$pkg.BitFlags>(positional, 0, 'other', 'operator^');
+        return t ^ other;
+      },
+      '~': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
+        return ~t;
+      },
+      '<<': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
+        final other = D4.getRequiredArg<int>(positional, 0, 'other', 'operator<<');
+        return t << other;
+      },
+      '>>': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
+        final other = D4.getRequiredArg<int>(positional, 0, 'other', 'operator>>');
+        return t >> other;
+      },
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'const BitFlags(int bits)',
+    },
+    methodSignatures: {
+      'hasFlag': 'bool hasFlag(int flag)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'bits': 'int get bits',
+      'hashCode': 'int get hashCode',
+    },
+  );
+}
+
+// =============================================================================
+// NullableFields Bridge
+// =============================================================================
+
+BridgedClass _createNullableFieldsBridge() {
+  return BridgedClass(
+    nativeType: $pkg.NullableFields,
+    name: 'NullableFields',
+    constructors: {
+      '': (visitor, positional, named) {
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final age = D4.getOptionalNamedArg<int?>(named, 'age');
+        final tags = D4.coerceListOrNull<String>(named['tags'], 'tags');
+        return $pkg.NullableFields(name: name, age: age, tags: tags);
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$pkg.NullableFields>(target, 'NullableFields').name,
+      'age': (visitor, target) => D4.validateTarget<$pkg.NullableFields>(target, 'NullableFields').age,
+      'tags': (visitor, target) => D4.validateTarget<$pkg.NullableFields>(target, 'NullableFields').tags,
+    },
+    setters: {
+      'name': (visitor, target, value) => 
+        D4.validateTarget<$pkg.NullableFields>(target, 'NullableFields').name = value as String?,
+      'age': (visitor, target, value) => 
+        D4.validateTarget<$pkg.NullableFields>(target, 'NullableFields').age = value as int?,
+      'tags': (visitor, target, value) => 
+        D4.validateTarget<$pkg.NullableFields>(target, 'NullableFields').tags = value as List<String>,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.NullableFields>(target, 'NullableFields');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'NullableFields({String? name, int? age, List<String>? tags})',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'name': 'String? get name',
+      'age': 'int? get age',
+      'tags': 'List<String>? get tags',
+    },
+    setterSignatures: {
+      'name': 'set name(dynamic value)',
+      'age': 'set age(dynamic value)',
+      'tags': 'set tags(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// LateFieldDemo Bridge
+// =============================================================================
+
+BridgedClass _createLateFieldDemoBridge() {
+  return BridgedClass(
+    nativeType: $pkg.LateFieldDemo,
+    name: 'LateFieldDemo',
+    constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.LateFieldDemo();
+      },
+      'withValues': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'LateFieldDemo');
+        final config = D4.getRequiredArg<String>(positional, 0, 'config', 'LateFieldDemo');
+        final id = D4.getRequiredArg<int>(positional, 1, 'id', 'LateFieldDemo');
+        return $pkg.LateFieldDemo.withValues(config, id);
+      },
+    },
+    getters: {
+      'config': (visitor, target) => D4.validateTarget<$pkg.LateFieldDemo>(target, 'LateFieldDemo').config,
+      'id': (visitor, target) => D4.validateTarget<$pkg.LateFieldDemo>(target, 'LateFieldDemo').id,
+    },
+    setters: {
+      'config': (visitor, target, value) => 
+        D4.validateTarget<$pkg.LateFieldDemo>(target, 'LateFieldDemo').config = value as String,
+    },
+    constructorSignatures: {
+      '': 'LateFieldDemo()',
+      'withValues': 'LateFieldDemo.withValues(String config, int id)',
+    },
+    getterSignatures: {
+      'config': 'String get config',
+      'id': 'int get id',
+    },
+    setterSignatures: {
+      'config': 'set config(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// Multiplier Bridge
+// =============================================================================
+
+BridgedClass _createMultiplierBridge() {
+  return BridgedClass(
+    nativeType: $pkg.Multiplier,
+    name: 'Multiplier',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'Multiplier');
+        final factor = D4.getRequiredArg<int>(positional, 0, 'factor', 'Multiplier');
+        return $pkg.Multiplier(factor);
+      },
+    },
+    getters: {
+      'factor': (visitor, target) => D4.validateTarget<$pkg.Multiplier>(target, 'Multiplier').factor,
+    },
+    methods: {
+      'call': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.Multiplier>(target, 'Multiplier');
+        D4.requireMinArgs(positional, 1, 'call');
+        final value = D4.getRequiredArg<int>(positional, 0, 'value', 'call');
+        return t.call(value);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.Multiplier>(target, 'Multiplier');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const Multiplier(int factor)',
+    },
+    methodSignatures: {
+      'call': 'int call(int value)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'factor': 'int get factor',
+    },
+  );
+}
+
+// =============================================================================
+// Printable Bridge
+// =============================================================================
+
+BridgedClass _createPrintableBridge() {
+  return BridgedClass(
+    nativeType: $pkg.Printable,
+    name: 'Printable',
+    constructors: {
+    },
+    methods: {
+      'printInfo': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.Printable>(target, 'Printable');
+        t.printInfo();
+        return null;
+      },
+    },
+    methodSignatures: {
+      'printInfo': 'void printInfo()',
+    },
+  );
+}
+
+// =============================================================================
+// TrackedItem Bridge
+// =============================================================================
+
+BridgedClass _createTrackedItemBridge() {
+  return BridgedClass(
+    nativeType: $pkg.TrackedItem,
+    name: 'TrackedItem',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'TrackedItem');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'TrackedItem');
+        return $pkg.TrackedItem(name);
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$pkg.TrackedItem>(target, 'TrackedItem').name,
+      'trackCount': (visitor, target) => D4.validateTarget<$pkg.TrackedItem>(target, 'TrackedItem').trackCount,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.TrackedItem>(target, 'TrackedItem');
+        return t.toString();
+      },
+      'track': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.TrackedItem>(target, 'TrackedItem');
+        t.track();
+        return null;
+      },
+    },
+    constructorSignatures: {
+      '': 'TrackedItem(String name)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+      'track': 'void track()',
+    },
+    getterSignatures: {
+      'name': 'String get name',
+      'trackCount': 'int get trackCount',
+    },
+  );
+}
+
+// =============================================================================
+// Statistics Bridge
+// =============================================================================
+
+BridgedClass _createStatisticsBridge() {
+  return BridgedClass(
+    nativeType: $pkg.Statistics,
+    name: 'Statistics',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'Statistics');
+        if (positional.isEmpty) {
+          throw ArgumentError('Statistics: Missing required argument "values" at position 0');
+        }
+        final values = D4.coerceList<num>(positional[0], 'values');
+        return $pkg.Statistics(values);
+      },
+    },
+    getters: {
+      'values': (visitor, target) => D4.validateTarget<$pkg.Statistics>(target, 'Statistics').values,
+      'min': (visitor, target) => D4.validateTarget<$pkg.Statistics>(target, 'Statistics').min,
+      'max': (visitor, target) => D4.validateTarget<$pkg.Statistics>(target, 'Statistics').max,
+      'average': (visitor, target) => D4.validateTarget<$pkg.Statistics>(target, 'Statistics').average,
+    },
+    constructorSignatures: {
+      '': 'Statistics(List<T> values)',
+    },
+    getterSignatures: {
+      'values': 'List<T> get values',
+      'min': 'T get min',
+      'max': 'T get max',
+      'average': 'double get average',
     },
   );
 }

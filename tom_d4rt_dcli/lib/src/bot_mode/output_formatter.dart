@@ -6,6 +6,7 @@ library;
 import 'dart:io';
 
 import 'bot_mode_config.dart';
+import 'telegram_markdown.dart';
 
 /// Formatted output ready for Telegram.
 class FormattedOutput {
@@ -106,6 +107,9 @@ class OutputFormatter {
   });
 
   /// Format an execution result for Telegram.
+  /// 
+  /// Parses console_markdown and converts to Telegram-compatible Markdown.
+  /// Handles truncation at line endings and attaches full output if too long.
   FormattedOutput format(ExecutionResult result) {
     var text = result.output;
     List<File>? attachments;
@@ -116,53 +120,12 @@ class OutputFormatter {
         text: '❌ Error: ${result.errorMessage ?? "Unknown error"}',
       );
     }
-    
-    // Raw passthrough mode: skip all formatting, send directly with Markdown parse mode
-    if (config.rawPassthrough) {
-      return FormattedOutput(
-        text: text,
-        parseMode: 'Markdown',
-      );
-    }
-
-    // Strip ANSI codes
-    if (config.stripAnsi) {
-      text = _stripAnsi(text);
-    }
-
-    // Convert console_markdown to plain text (strip color tags, convert bullets)
-    if (config.convertMarkdown) {
-      text = _convertMarkdownToPlainText(text);
-    }
-    
-    // Use monospace for all output via <pre> tags
-    final useMonospace = config.useMonospace && text.isNotEmpty;
-
-    // Wrap in <pre> tag for monospace display
-    if (useMonospace) {
-      text = '<pre>${_escapeHtml(text)}</pre>';
-    }
-
-    // Handle long output
-    if (text.length > config.maxOutputChars) {
-      final truncated = text.substring(0, config.maxOutputChars);
-      final remaining = text.length - config.maxOutputChars;
-
-      text = truncated +
-          config.truncationSuffix.replaceAll('{remaining}', remaining.toString());
-
-      if (config.attachFullOutput) {
-        attachments = [_createTempFile('output.txt', result.output)];
-      }
-    }
 
     // Add result value if present and meaningful
-    // Escape for HTML since this is outside the code block
     if (result.value != null) {
       final valueStr = result.value.toString();
       if (valueStr != 'null' && valueStr.isNotEmpty) {
-        final escaped = config.useMonospace ? _escapeHtml(valueStr) : valueStr;
-        text += '\n\n→ $escaped';
+        text += '\n\n→ $valueStr';
       }
     }
 
@@ -178,15 +141,15 @@ class OutputFormatter {
       
       // Add comment at top if present
       if (copilot.comment != null && copilot.comment!.isNotEmpty) {
-        buffer.writeln('💬 *Comment:* ${copilot.comment}');
+        buffer.writeln('💬 Comment: ${copilot.comment}');
         buffer.writeln();
       }
       
       // List references at top if present
       if (copilot.references.isNotEmpty) {
-        buffer.writeln('📚 *References:*');
+        buffer.writeln('📚 References:');
         for (final ref in copilot.references) {
-          buffer.writeln('  • `$ref`');
+          buffer.writeln('  • $ref');
         }
         buffer.writeln();
       }
@@ -198,9 +161,9 @@ class OutputFormatter {
       if (copilot.requestedAttachments.isNotEmpty) {
         buffer.writeln();
         buffer.writeln();
-        buffer.writeln('📎 *Attachments available:*');
+        buffer.writeln('📎 Attachments available:');
         for (final att in copilot.requestedAttachments) {
-          buffer.writeln('  • `$att`');
+          buffer.writeln('  • $att');
         }
       }
       
@@ -218,11 +181,30 @@ class OutputFormatter {
       }
     }
 
+    // Parse and convert to Telegram markdown, with truncation
+    final prepared = prepareForTelegram(text, maxChars: config.maxOutputChars);
+    
+    // Handle single long line - send as attachment only
+    if (prepared.isSingleLongLine) {
+      attachments ??= [];
+      attachments.add(_createTempFile('output.txt', result.output));
+      return FormattedOutput(
+        text: prepared.text,
+        attachments: attachments,
+        parseMode: null, // Plain text for the "(Line too long)" message
+      );
+    }
+    
+    // Attach full output if truncated
+    if (prepared.wasTruncated && config.attachFullOutput) {
+      attachments ??= [];
+      attachments.add(_createTempFile('output.txt', result.output));
+    }
+
     return FormattedOutput(
-      text: text, 
+      text: prepared.text, 
       attachments: attachments,
-      // Use HTML when we wrap in <pre> tags
-      parseMode: useMonospace ? 'HTML' : null,
+      parseMode: 'Markdown',
     );
   }
 
@@ -231,56 +213,12 @@ class OutputFormatter {
     return format(ExecutionResult(output: text));
   }
 
-  /// Format raw text output (e.g., captured print output with console_markdown).
+  /// Format raw text output (e.g., captured print output).
   ///
-  /// In rawPassthrough mode, console_markdown color tags and markdown formatting
-  /// are stripped for clean Telegram display (no parse mode to avoid strict parsing).
-  /// Otherwise, normal formatting is applied (strip ANSI, convert markdown, etc.).
+  /// Delegates to [format] with an ExecutionResult wrapper.
+  /// This ensures all formatting logic (truncation, attachments, etc.) is handled consistently.
   FormattedOutput formatRaw(String text) {
-    // Raw passthrough mode: strip console_markdown for clean display
-    if (config.rawPassthrough) {
-      final converted = _convertToTelegramMarkdown(text);
-      return FormattedOutput(
-        text: converted,
-        parseMode: null, // Plain text - no Markdown parsing
-      );
-    }
-
-    // Apply normal formatting pipeline
-    var formatted = text;
-
-    // Strip ANSI codes
-    if (config.stripAnsi) {
-      formatted = _stripAnsi(formatted);
-    }
-
-    // Convert console_markdown to plain text (strip color tags, convert bullets)
-    if (config.convertMarkdown) {
-      formatted = _convertMarkdownToPlainText(formatted);
-    }
-
-    // Use monospace for all output via <pre> tags
-    final useMonospace = config.useMonospace && formatted.isNotEmpty;
-
-    // Wrap in <pre> tag for monospace display
-    if (useMonospace) {
-      formatted = '<pre>${_escapeHtml(formatted)}</pre>';
-    }
-
-    // Handle long output
-    if (formatted.length > config.maxOutputChars) {
-      final truncated = formatted.substring(0, config.maxOutputChars);
-      final remaining = formatted.length - config.maxOutputChars;
-
-      formatted = truncated +
-          config.truncationSuffix.replaceAll('{remaining}', remaining.toString());
-    }
-
-    return FormattedOutput(
-      text: formatted,
-      // Use HTML when we wrap in <pre> tags
-      parseMode: useMonospace ? 'HTML' : null,
-    );
+    return format(ExecutionResult(output: text));
   }
 
   /// Format an error message.
@@ -303,146 +241,6 @@ class OutputFormatter {
     return FormattedOutput(text: 'ℹ️ $message');
   }
 
-  /// Strip ANSI escape codes from text.
-  String _stripAnsi(String text) {
-    // Remove ANSI escape codes (colors, cursor movements, etc.)
-    return text.replaceAll(RegExp(r'\x1B\[[0-9;]*[a-zA-Z]'), '');
-  }
-
-  /// Convert console_markdown to Telegram-compatible format.
-  ///
-  /// This strips color tags and markdown formatting for safe Telegram display.
-  /// Telegram's Markdown parser is strict and many console_markdown patterns
-  /// (like `_.txt` wildcards) would break parsing.
-  String _convertToTelegramMarkdown(String text) {
-    var result = text;
-
-    // First, strip ANSI escape codes if any
-    result = _stripAnsi(result);
-
-    // Remove console_markdown color tags
-    result = result.replaceAll(
-      RegExp(r'<(red|green|yellow|blue|cyan|magenta|white|black|gray)>'),
-      '',
-    );
-    result = result.replaceAll(
-      RegExp(r'</(red|green|yellow|blue|cyan|magenta|white|black|gray)>'),
-      '',
-    );
-
-    // Remove **bold** markers (keep content)
-    result = result.replaceAllMapped(
-      RegExp(r'\*\*(.+?)\*\*'),
-      (m) => m.group(1)!,
-    );
-
-    // Remove *italic* markers (keep content) - be careful with wildcards
-    result = result.replaceAllMapped(
-      RegExp(r'(?<![*\w])\*([^*\s][^*]*?[^*\s]|[^*\s])\*(?![*\w])'),
-      (m) => m.group(1)!,
-    );
-
-    // Remove __bold__ markers (keep content)
-    result = result.replaceAllMapped(
-      RegExp(r'__(.+?)__'),
-      (m) => m.group(1)!,
-    );
-
-    // Remove _italic_ markers (keep content) - be careful with file patterns
-    result = result.replaceAllMapped(
-      RegExp(r'(?<![_\w])_([^_\s][^_]*?[^_\s]|[^_\s])_(?![_\w])'),
-      (m) => m.group(1)!,
-    );
-
-    // Convert bullet lists: - item → • item
-    result = result.replaceAllMapped(
-      RegExp(r'^(\s*)-\s+', multiLine: true),
-      (m) => '${m.group(1)}• ',
-    );
-
-    // Clean up multiple blank lines
-    result = result.replaceAll(RegExp(r'\n{3,}'), '\n\n');
-
-    return result.trim();
-  }
-
-  /// Convert markdown to Telegram-compatible format.
-  /// 
-  /// Telegram supports a subset of Markdown:
-  /// Convert console_markdown to plain text for Telegram.
-  /// 
-  /// Strips color tags, converts bullets, removes markdown formatting.
-  String _convertMarkdownToPlainText(String text) {
-    var result = text;
-
-    // Remove console_markdown color tags
-    result = result.replaceAll(RegExp(r'<(red|green|yellow|blue|cyan|magenta|white|black|gray)>'), '');
-    result = result.replaceAll(RegExp(r'</(red|green|yellow|blue|cyan|magenta|white|black|gray)>'), '');
-
-    // Remove code block markers but keep content
-    result = result.replaceAllMapped(
-      RegExp(r'```([\s\S]*?)```', multiLine: true),
-      (m) => m.group(1)!.trim(),
-    );
-    
-    // Remove inline code markers but keep content
-    result = result.replaceAllMapped(
-      RegExp(r'`([^`]+)`'),
-      (m) => m.group(1)!,
-    );
-
-    // Convert markdown headers (# Header → Header)
-    result = result.replaceAllMapped(
-      RegExp(r'^#{1,6}\s+(.+)$', multiLine: true),
-      (m) => m.group(1)!,
-    );
-
-    // Remove **bold** markers
-    result = result.replaceAllMapped(
-      RegExp(r'\*\*(.+?)\*\*'),
-      (m) => m.group(1)!,
-    );
-    
-    // Remove *italic* markers (but be careful with wildcards like *.txt)
-    // Only remove when there's text between asterisks without spaces at boundaries
-    result = result.replaceAllMapped(
-      RegExp(r'(?<!\S)\*([^*\s][^*]*[^*\s]|[^*\s])\*(?!\S)'),
-      (m) => m.group(1)!,
-    );
-    
-    // Remove __bold__ markers
-    result = result.replaceAllMapped(
-      RegExp(r'__(.+?)__'),
-      (m) => m.group(1)!,
-    );
-
-    // Remove _italic_ markers
-    result = result.replaceAllMapped(
-      RegExp(r'(?<!\S)_([^_\s][^_]*[^_\s]|[^_\s])_(?!\S)'),
-      (m) => m.group(1)!,
-    );
-
-    // Convert markdown links [text](url) to simple format
-    result = result.replaceAllMapped(
-      RegExp(r'\[([^\]]+)\]\(([^)]+)\)'),
-      (m) => '${m.group(1)} (${m.group(2)})',
-    );
-
-    // Convert bullet lists: - item → • item (but not * which could be wildcard)
-    result = result.replaceAllMapped(
-      RegExp(r'^(\s*)-\s+', multiLine: true),
-      (m) => '${m.group(1)}• ',
-    );
-
-    // Remove horizontal rules (---, ***, ___)
-    result = result.replaceAll(RegExp(r'^[-*_]{3,}$', multiLine: true), '');
-    
-    // Clean up multiple blank lines
-    result = result.replaceAll(RegExp(r'\n{3,}'), '\n\n');
-
-    return result.trim();
-  }
-
   /// Create a temporary file with content.
   File _createTempFile(String name, String content) {
     final dir = Directory(tempDirectory);
@@ -454,13 +252,5 @@ class OutputFormatter {
     final file = File('${dir.path}/${timestamp}_$name');
     file.writeAsStringSync(content);
     return file;
-  }
-  
-  /// Escape HTML special characters.
-  String _escapeHtml(String text) {
-    return text
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;');
   }
 }

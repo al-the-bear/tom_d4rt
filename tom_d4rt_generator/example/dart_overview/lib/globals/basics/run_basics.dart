@@ -97,11 +97,11 @@ String _computeExpensiveValue() {
 }
 
 // Getter and setter pair
-LogLevel _logLevel = LogLevel.info;
+LogSeverity _logLevel = LogSeverity.info;
 
-LogLevel get logLevel => _logLevel;
+LogSeverity get logLevel => _logLevel;
 
-set logLevel(LogLevel level) {
+set logLevel(LogSeverity level) {
   print('  Log level changed: $_logLevel -> $level');
   _logLevel = level;
 }
@@ -119,7 +119,7 @@ typedef JsonMap = Map<String, dynamic>;
 // ENUM (TOP-LEVEL)
 // ============================================
 
-enum LogLevel { debug, info, warning, error }
+enum LogSeverity { debug, info, warning, error }
 
 // ============================================
 // MAIN FUNCTION
@@ -216,9 +216,9 @@ void main() {
   // Getter/setter pair
   print('--- Getter/Setter Pair ---');
   print('logLevel: $logLevel');
-  logLevel = LogLevel.debug;
+  logLevel = LogSeverity.debug;
   print('logLevel: $logLevel');
-  logLevel = LogLevel.error;
+  logLevel = LogSeverity.error;
   print('logLevel: $logLevel');
   print('');
 

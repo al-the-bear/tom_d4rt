@@ -149,6 +149,15 @@ class MathUtils {
 class Counter {
   static int instanceCount = 0;
 
+  // Static getter/setter pair (CLS12/CLS13)
+  static String _label = 'default';
+
+  static String get label => 'Counter: $_label';
+
+  static set label(String value) {
+    _label = value.trim();
+  }
+
   Counter() {
     instanceCount++;
   }

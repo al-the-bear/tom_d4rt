@@ -54,7 +54,28 @@ export 'globals/basics/run_basics.dart' show
     globalCounter, appName, maxRetries, currentUser, lastProcessedId,
     appStartTime, sessionId, apiUrl, maxConnections, defaultTimeout,
     validStatuses, priorities, reservedIds, lazyConfig,
-    log, firstOrNull, now, connectionCount, cachedValue;
+    log, firstOrNull, now, connectionCount, cachedValue,
+    logLevel, LogSeverity;
+
+// ── Test support types (operators, nullable fields, etc.) ──
+export 'classes/test_support/run_test_support.dart' show
+    NumberWrapper, BitFlags, NullableFields, LateFieldDemo,
+    Multiplier,
+    Printable, Serializable, SerializablePrintable,
+    Trackable, TrackedItem,
+    fetchGreeting, computeSum;
+
+// ── Generics: type bounds ──
+export 'generics/type_bounds/run_type_bounds.dart' show Statistics;
+
+// ── Records (for record type tests) ──
+export 'records/basics/run_basics.dart' show
+    findMinMax, swap, parseUserString, divideWithRemainder;
+
+// ── Generators (for sync*/async* tests) ──
+export 'functions/generators/run_generators.dart' show
+    countTo, range, naturalNumbers, fibonacci,
+    countAsyncTo;
 
 // ── Mixins ──
 export 'mixins/basics/run_basics.dart' show
