@@ -1,0 +1,7 @@
+# This file marks this directory tree as excluded from Tom Build Kit processing.
+#
+# When present, all buildkit tools skip this directory and its subdirectories.
+# Test infrastructure also skips git operations for this repository.
+#
+# Purpose: Protect this submodule from accidental modifications during
+# buildkit integration tests or bulk operations.
