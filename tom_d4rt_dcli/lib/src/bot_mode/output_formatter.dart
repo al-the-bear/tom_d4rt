@@ -204,7 +204,7 @@ class OutputFormatter {
     return FormattedOutput(
       text: prepared.text, 
       attachments: attachments,
-      parseMode: 'Markdown',
+      parseMode: 'MarkdownV2',
     );
   }
 
