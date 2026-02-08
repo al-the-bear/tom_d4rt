@@ -1178,7 +1178,11 @@ class BridgeGenerator {
     for (final barrelPath in barrelFiles) {
       // Normalize path for comparison
       final normalizedPath = p.normalize(barrelPath);
-      if (visited.contains(normalizedPath)) continue;
+      // For top-level barrel files, allow re-processing even if already visited
+      // during recursive export chain from another barrel. This ensures each
+      // top-level barrel gets its own barrelUri assigned correctly.
+      // Only skip for recursive (non-top-level) calls to prevent infinite loops.
+      if (!isTopLevel && visited.contains(normalizedPath)) continue;
       visited.add(normalizedPath);
 
       final file = File(normalizedPath);
@@ -3355,6 +3359,10 @@ class BridgeGenerator {
       
       // Skip if already mapped by the barrel package prefix loop
       if (_importPrefixes.containsKey(srcUri)) {
+        // DEBUG: Show what prefix was already assigned
+        if (srcUri.contains('which') || srcUri.contains('/cat.dart')) {
+          print('DEBUG PREFIX-SKIP: srcUri=$srcUri already mapped to ${_importPrefixes[srcUri]}');
+        }
         continue;
       }
       
@@ -3362,9 +3370,25 @@ class BridgeGenerator {
       // Priority: _dynamicSourceFileToBarrel > sourceFileToBarrel
       final barrelUri = _dynamicSourceFileToBarrel[srcFile] ?? sourceFileToBarrel[srcFile];
       if (barrelUri != null && barrelPrefixes.containsKey(barrelUri)) {
+        // DEBUG: Show barrel mapping
+        if (srcUri.contains('which') || srcUri.contains('/cat.dart')) {
+          print('DEBUG PREFIX-BARREL: srcUri=$srcUri -> barrelUri=$barrelUri -> prefix=${barrelPrefixes[barrelUri]}');
+        }
         _importPrefixes[srcUri] = barrelPrefixes[barrelUri]!;
         _importPrefixes[srcFile] = barrelPrefixes[barrelUri]!;
       } else if (barrelPrefixes.isNotEmpty) {
+        // DEBUG: Print files that fall to default prefix
+        if (srcUri.contains('which') || srcUri.contains('/cat.dart')) {
+          print('DEBUG PREFIX-DEFAULT: srcFile=$srcFile');
+          print('DEBUG PREFIX-DEFAULT: srcUri=$srcUri');
+          print('DEBUG PREFIX-DEFAULT: barrelUri=$barrelUri');
+          print('DEBUG PREFIX-DEFAULT: _dynamicSourceFileToBarrel has ${_dynamicSourceFileToBarrel.length} entries');
+          for (final key in _dynamicSourceFileToBarrel.keys) {
+            if (key.contains('which') || key.contains('/cat.dart')) {
+              print('DEBUG PREFIX-DEFAULT: dynMap key=$key -> ${_dynamicSourceFileToBarrel[key]}');
+            }
+          }
+        }
         // Default to first barrel's prefix if no explicit mapping
         final defaultPrefix = barrelPrefixes.values.first;
         if (!_importPrefixes.containsKey(srcUri)) {

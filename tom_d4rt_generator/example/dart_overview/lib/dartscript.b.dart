@@ -1,26 +1,26 @@
 // D4rt Bridge - Generated file, do not edit
-// Dartscript registration for user_guide_example
-// Generated: 2026-02-08T12:02:18.290152
+// Dartscript registration for dart_overview
+// Generated: 2026-02-08T12:02:54.890100
 
-/// D4rt Bridge Registration for user_guide_example
+/// D4rt Bridge Registration for dart_overview
 library;
 
 import 'package:tom_d4rt/d4rt.dart';
-import 'src/d4rt_bridges/user_guide_bridges.b.dart' as all_bridges;
+import 'src/d4rt_bridges/dart_overview_bridges.b.dart' as all_bridges;
 
-/// Combined bridge registration for user_guide_example.
-class UserGuideExampleBridges {
+/// Combined bridge registration for dart_overview.
+class DartOverviewBridges {
   /// Register all bridges with D4rt interpreter.
   static void register([D4rt? interpreter]) {
     final d4rt = interpreter ?? D4rt();
 
     all_bridges.AllBridge.registerBridges(
       d4rt,
-      'package:user_guide_example/user_guide_example.dart',
+      'package:dart_overview/dart_overview.dart',
     );
     all_bridges.AllBridge.registerBridges(
       d4rt,
-      'lib/user_guide_example.dart',
+      'lib/dart_overview.dart',
     );
   }
 

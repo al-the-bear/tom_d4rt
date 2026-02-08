@@ -68,7 +68,7 @@ d4rtgen:
         - "package:dcli_core/src/functions/move_tree.dart#moveTree"
         - "package:dcli_core/src/functions/tail.dart#tail,TailException"
         - "package:dcli_core/src/functions/touch.dart#touch,TouchException"
-        - "package:dcli_core/src/functions/which.dart#which,Which,WhichSearch"
+        - "package:dcli_core/src/functions/which.dart#which"
     - name: tom_chattools
       barrelFiles:
         - package:tom_chattools/tom_chattools.dart

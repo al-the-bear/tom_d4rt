@@ -1,13 +1,17 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for user_reference_example
-// Generated: 2026-02-08T11:14:22.213777
+// Generated: 2026-02-08T12:02:27.743061
 //
 // Usage:
 //   dart run bin/d4rtrun.b.dart <script.dart|.d4rt>  Run a D4rt script file
 //   dart run bin/d4rtrun.b.dart "<expression>"      Evaluate an expression
 //   dart run bin/d4rtrun.b.dart --eval-file <file>  Evaluate file content with eval()
 //   dart run bin/d4rtrun.b.dart --init-eval         Validate bridge registrations
+//   dart run bin/d4rtrun.b.dart --test <file>       Test script (structured JSON output)
+//   dart run bin/d4rtrun.b.dart --test-eval <init> <expr>  Test eval (structured JSON output)
 
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:tom_d4rt/d4rt.dart';
@@ -35,7 +39,27 @@ void main(List<String> args) {
     stderr.writeln('  dart run bin/d4rtrun.b.dart "<expression>"      Evaluate an expression');
     stderr.writeln('  dart run bin/d4rtrun.b.dart --eval-file <file>  Evaluate file content with eval()');
     stderr.writeln('  dart run bin/d4rtrun.b.dart --init-eval         Validate bridge registrations');
+    stderr.writeln('  dart run bin/d4rtrun.b.dart --test <file>       Test script (structured JSON output)');
+    stderr.writeln('  dart run bin/d4rtrun.b.dart --test-eval <init> <expr>  Test eval (structured JSON)');
     exit(1);
+  }
+
+  if (args.first == '--test') {
+    if (args.length < 2) {
+      stderr.writeln('Error: --test requires a script file path argument.');
+      exit(1);
+    }
+    _runTestScript(args[1]);
+    return;
+  }
+
+  if (args.first == '--test-eval') {
+    if (args.length < 3) {
+      stderr.writeln('Error: --test-eval requires <init-file> and <expression-file> arguments.');
+      exit(1);
+    }
+    _runTestEval(args[1], args[2]);
+    return;
   }
 
   if (args.first == '--init-eval') {
@@ -166,4 +190,100 @@ void _runInitEval() {
     stderr.writeln('module configuration or by removing duplicate exports.');
     exit(2);
   }
+}
+
+/// Run a D4rt script in test mode with structured output capture.
+/// Uses runZonedGuarded with ZoneSpecification to capture all print()
+/// output and unhandled exceptions. Results are output as JSON.
+void _runTestScript(String filePath) {
+  final file = File(filePath);
+  if (!file.existsSync()) {
+    _emitTestResult('', ['File not found: $filePath']);
+    exit(2);
+  }
+
+  final source = file.readAsStringSync();
+  final capturedOutput = StringBuffer();
+  final capturedExceptions = <String>[];
+
+  runZonedGuarded(
+    () {
+      final d4rt = D4rt();
+      _registerBridges(d4rt);
+      d4rt.grant(FilesystemPermission.any);
+      d4rt.execute(
+        source: source,
+        basePath: File(filePath).parent.path,
+        allowFileSystemImports: true,
+      );
+    },
+    (error, stackTrace) {
+      capturedExceptions.add('$error\n$stackTrace');
+    },
+    zoneSpecification: ZoneSpecification(
+      print: (self, parent, zone, line) {
+        capturedOutput.writeln(line);
+      },
+    ),
+  );
+
+  _emitTestResult(capturedOutput.toString(), capturedExceptions);
+  if (capturedExceptions.isNotEmpty) exit(2);
+}
+
+/// Evaluate file content in test mode with structured output capture.
+/// Initializes with [initFilePath], then evaluates [evalFilePath].
+void _runTestEval(String initFilePath, String evalFilePath) {
+  final initFile = File(initFilePath);
+  final evalFile = File(evalFilePath);
+  if (!initFile.existsSync()) {
+    _emitTestResult('', ['Init file not found: $initFilePath']);
+    exit(2);
+  }
+  if (!evalFile.existsSync()) {
+    _emitTestResult('', ['Eval file not found: $evalFilePath']);
+    exit(2);
+  }
+
+  final initSource = initFile.readAsStringSync();
+  final evalSource = evalFile.readAsStringSync();
+  final capturedOutput = StringBuffer();
+  final capturedExceptions = <String>[];
+
+  runZonedGuarded(
+    () {
+      final d4rt = D4rt();
+      _registerBridges(d4rt);
+      d4rt.grant(FilesystemPermission.any);
+      // Initialize with the init script
+      d4rt.execute(
+        source: initSource,
+        basePath: File(initFilePath).parent.path,
+        allowFileSystemImports: true,
+      );
+      // Evaluate the expression file
+      d4rt.eval(evalSource);
+    },
+    (error, stackTrace) {
+      capturedExceptions.add('$error\n$stackTrace');
+    },
+    zoneSpecification: ZoneSpecification(
+      print: (self, parent, zone, line) {
+        capturedOutput.writeln(line);
+      },
+    ),
+  );
+
+  _emitTestResult(capturedOutput.toString(), capturedExceptions);
+  if (capturedExceptions.isNotEmpty) exit(2);
+}
+
+/// Emit structured test result as JSON for D4rtTester to parse.
+/// Uses stdout.writeln directly to bypass any zone print overrides.
+void _emitTestResult(String output, List<String> exceptions) {
+  final result = jsonEncode({
+    'output': output,
+    'exceptions': exceptions,
+  });
+  stdout.writeln('###D4RT_TEST_RESULT###$result');
 }
