@@ -1,6 +1,6 @@
 # D4rt Bridge Generator — Known Issues & Limitations
 
-> Last updated: 2026-02-07
+> Last updated: 2026-02-08
 
 ---
 
@@ -51,6 +51,8 @@
 | [GEN-041](#gen-041) | [Enhanced enum fields not accessible via bridges at runtime](#gen-041) | Medium | TODO |
 | [GEN-042](#gen-042) | [Classes with implicit default constructors are not bridged](#gen-042) | Medium | TODO |
 | [GEN-043](#gen-043) | [Generated user bridge references lack import prefix ($pkg.)](#gen-043) | Medium | Fixed |
+| [GEN-044](#gen-044) | [Enum `.values` static getter not bridged](#gen-044) | Low | TODO |
+| [GEN-045](#gen-045) | [Barrel-level name collisions silently break bridging](#gen-045) | Medium | TODO |
 
 ---
 
@@ -1490,6 +1492,97 @@ methods: {
 **c) Fix applied:**
 
 In `_generateClassBridge()`, compute `prefixedUserBridge` at the top of the method using the existing `_getPrefixedClassName(userBridge.userBridgeClassName, userBridge.sourceFile)` helper. Replace all 8 class-level bare references with `prefixedUserBridge`. For the 3 global-level references, compute the prefixed name inline using the same method.
+
+---
+
+### GEN-044
+
+**Enum `.values` static getter not bridged**
+
+**Status: TODO**
+
+**a) Problem:**
+
+Dart enums have a built-in static getter `.values` that returns a `List` of all enum members. The bridge generator does not generate a bridge for this static getter, so accessing `EnumType.values` from D4rt fails at runtime with:
+
+```
+Undefined enum value 'values' on bridged enum 'Day'
+```
+
+This prevents iterating over enum values, checking `length`, or using common enum patterns like `Day.values[index]` or `Day.values.where(...)` from within D4rt scripts.
+
+**Example:**
+```dart
+// Works in native Dart:
+print(Day.values.length); // 7
+print(Day.values[0]);     // Day.monday
+
+// Fails in D4rt:
+Day.values.length  // → Undefined enum value 'values' on bridged enum 'Day'
+```
+
+**Reproducing test:**
+`test/d4rt_coverage_test.dart` → `TOP08: simple enum` — fails with the above error because the script accesses `Day.values.length`.
+
+**b) Location:**
+
+The enum bridge generation logic in `bridge_generator.dart`. When generating an enum bridge, the generator emits individual named values (e.g., `Day.monday`, `Day.tuesday`) but does not synthesize a `.values` static getter that returns the complete list.
+
+**c) Strategies:**
+- When generating an enum bridge, also emit a `values` static getter that returns `EnumType.values` (the host Dart list).
+- This should map to a `BridgedStaticGetterAdapter` or be added to the enum's static members map.
+- The `.values` getter is always present on Dart enums, so it can be unconditionally generated.
+- Similarly, consider bridging `.name` and `.index` if not already covered (they appear to work based on passing tests).
+
+---
+
+### GEN-045
+
+**Barrel-level name collisions silently break bridging**
+
+**Status: TODO**
+
+**a) Problem:**
+
+When a barrel file exports two different classes with the same name from different source files, the Dart compiler raises a conflict error. This prevents the barrel from being used at all, and the types in conflict must be manually excluded.
+
+In the `dart_overview` example project, both `classes/inheritance/run_inheritance.dart` and `mixins/basics/run_basics.dart` define a class named `Animal`:
+
+```dart
+// classes/inheritance/run_inheritance.dart
+class Animal {
+  final String name;
+  Animal(this.name);
+  void eat() { ... }
+  String speak() { return 'Some sound'; }
+}
+
+// mixins/basics/run_basics.dart
+abstract class Animal {
+  String get name;
+  void move();
+}
+```
+
+Exporting both through the barrel file produces a compile error. The workaround was to exclude `Bird`, `Eagle`, `Penguin`, `Flying`, and `Walking` from the barrel (since they all depend on the mixins `Animal`), losing test coverage for:
+- Constrained mixins (`mixin Flying on Animal`)
+- `on` clause in mixin declarations
+- Multi-mixin concrete classes (`Eagle extends Bird with Flying`)
+
+**Reproducing test:**
+No test currently exists — the types were excluded from the barrel to avoid the compile error. Adding them back causes `dart analyze` to fail on the barrel.
+
+**b) Location:**
+
+This is a barrel design limitation rather than a generator bug per se. The generator processes whatever the barrel exports. However, the generator could help by:
+1. Detecting name collisions during config loading / barrel scanning.
+2. Supporting `show`/`hide` prefixes or import aliases to disambiguate.
+
+**c) Strategies:**
+- **Detection:** During barrel scanning, detect when two different source files contribute the same exported name. Emit a warning with both source locations.
+- **Import aliasing:** Support importing conflicting source files with prefixes (e.g., `import '...inheritance.dart' as inh; import '...mixins.dart' as mix;`) in the generated bridge code, so both `inh.Animal` and `mix.Animal` can coexist.
+- **Per-export `show`/`hide`:** Allow the barrel to export from both files with explicit `show` clauses that avoid the collision, and have the generator respect which `Animal` is which based on source file origin.
+- **Short-term:** Document the limitation and advise users to rename conflicting types or use separate barrel files.
 
 ---
 

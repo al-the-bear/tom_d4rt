@@ -113,7 +113,7 @@ void main() {
         expect(result.processOutput, contains('TOP07_PASSED'));
       });
 
-      test('TOP08: simple enum', () async {
+      test('TOP08: simple enum (GEN-044: .values not bridged)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top08_simple_enum.dart',
@@ -510,6 +510,22 @@ void main() {
         _expectSuccess(result, 'INH06');
         expect(result.processOutput, contains('INH06_PASSED'));
       });
+
+      test(
+        'GEN-045: barrel name collision (constrained mixin blocked)',
+        () async {
+          final result = await tester.runScriptOnly(
+            config,
+            'test/gen045_barrel_name_collision.dart',
+          );
+          _expectSuccess(result, 'GEN-045');
+          expect(result.processOutput, contains('TOP15_PASSED'));
+        },
+        skip: 'GEN-045: Bird/Eagle/Penguin excluded from barrel due to '
+            'Animal name collision between mixins/basics and '
+            'classes/inheritance. The generator needs name-collision '
+            'detection or import aliasing support.',
+      );
     });
   });
 }
