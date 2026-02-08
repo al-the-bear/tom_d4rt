@@ -125,7 +125,14 @@ abstract class D4rtReplBase {
 
   /// Returns the CLI-specific options section (for --help).
   String getCliOptionsHelp() {
+    final name = toolName.toLowerCase();
+    final ext = toolExtension;
     return '''
+<cyan>**Positional Arguments**</cyan>
+  <yellow>$name script.dart</yellow>               Execute a Dart file and exit
+  <yellow>$name replay.$ext</yellow>              Execute replay file and exit (shortcut for -run-replay)
+  <yellow>$name "expression"</yellow>              Evaluate a Dart expression and exit
+
 <cyan>**Options**</cyan>
   <yellow>**-h**</yellow>, <yellow>**--help**</yellow>                Show this help message
   <yellow>**-v**</yellow>, <yellow>**--version**</yellow>             Show version information
@@ -151,14 +158,18 @@ abstract class D4rtReplBase {
     return '''
 <cyan>**Examples**</cyan>
   <yellow>$name</yellow>                                  Start interactive REPL
-  <yellow>$name myscript.dart</yellow>                    Execute a script
+  <yellow>$name myscript.dart</yellow>                    Execute a Dart file and exit
+  <yellow>$name "1 + 2"</yellow>                          Evaluate expression and exit
+  <yellow>$name "DateTime.now()"</yellow>                  Evaluate expression (bridges available)
   <yellow>$name myscript.$ext</yellow>                   Same as <yellow>$name -run-replay myscript.$ext</yellow>
   <yellow>$name -run-replay setup.replay.txt</yellow>     Execute replay file and exit
+  <yellow>$name -run-replay test.$ext -test</yellow>     Run replay in test mode
   <yellow>$name -session mysession</yellow>               Start or resume a named session
   <yellow>$name -replace-session mysession</yellow>       Delete session and start fresh
   <yellow>$name -replay setup.$ext -session x</yellow>   Replay file and start session
   <yellow>$name -list-sessions</yellow>                   List available sessions
-  <yellow>$name --dump-configuration</yellow>             Dump configuration''';
+  <yellow>$name --dump-configuration</yellow>             Dump configuration
+  <yellow>$name --bot-mode</yellow>                       Run as Telegram bot server''';
   }
   
   /// Print CLI usage information (for --help).
@@ -170,7 +181,7 @@ abstract class D4rtReplBase {
     print('<cyan>─────────────────────────────────────────────────────────────</cyan>');
     print('');
     print('<cyan>**Usage**</cyan>');
-    print('  <yellow>$name</yellow> [options] [script.dart | replay.$ext]');
+    print('  <yellow>$name</yellow> [options] [script.dart | replay.$ext | expression]');
     print('');
     print(getCliOptionsHelp());
     print('');
