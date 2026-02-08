@@ -1,4 +1,0 @@
-# Override to use local packages during development
-dependency_overrides:
-  tom_d4rt:
-    path: ../tom_d4rt

@@ -8,11 +8,9 @@ environment:
 
 dependencies:
   tom_d4rt:
-    path: ../../../tom_d4rt
   path: ^1.9.0
 
 dev_dependencies:
   tom_d4rt_generator:
-    path: ../..
   build_runner: ^2.4.0
   test: ^1.25.0
