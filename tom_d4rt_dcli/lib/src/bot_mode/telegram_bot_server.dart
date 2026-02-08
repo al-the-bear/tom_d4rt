@@ -699,6 +699,14 @@ ${receivedAttachments.join('\n')}
     
     await _sendReply(msg.original, formatted);
     
+    // Send file attachments from formatter (e.g., full output on truncation)
+    if (formatted.attachments != null && formatted.attachments!.isNotEmpty) {
+      await _sendFilesAsAttachments(
+        msg.original,
+        formatted.attachments!.map((f) => f.path).toList(),
+      );
+    }
+    
     // Send Copilot requested attachments if configured
     final copilot = result.executionResult?.copilotResponse;
     if (copilot != null && 
