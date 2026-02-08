@@ -49,24 +49,24 @@ Each feature has a stable ID for cross-referencing between this document, test s
 
 | ID | Feature | Status | Coverage Test | UB Test | Issue | Details |
 |----|---------|--------|---------------|---------|-------|---------|
-| TOP01 | Class (concrete) | ✅ | `top01_concrete_class` | not needed | | [→](#top01-class-concrete) |
-| TOP02 | Abstract class | ⚠️ | `top02_abstract_class` | not needed | GEN-042 | [→](#top02-abstract-class) |
-| TOP03 | Sealed class | ✅ | `top03_sealed_class` | not needed | | [→](#top03-sealed-class) |
-| TOP04 | Base class | ✅ | `top04_base_class` | not needed | | [→](#top04-base-class) |
-| TOP05 | Interface class | ⚠️ | `top05_interface_class` | not needed | GEN-042 | [→](#top05-interface-class) |
-| TOP06 | Final class | ✅ | `top06_final_class` | not needed | | [→](#top06-final-class) |
-| TOP07 | Mixin class | ⚠️ | `top07_mixin_class` | not needed | GEN-042 | [→](#top07-mixin-class) |
+| TOP01 | Class (concrete) | ✅ | `top01_concrete_class` | — | | [→](#top01-class-concrete) |
+| TOP02 | Abstract class | ⚠️ | `top02_abstract_class` | — | GEN-042 | [→](#top02-abstract-class) |
+| TOP03 | Sealed class | ✅ | `top03_sealed_class` | — | | [→](#top03-sealed-class) |
+| TOP04 | Base class | ✅ | `top04_base_class` | — | | [→](#top04-base-class) |
+| TOP05 | Interface class | ⚠️ | `top05_interface_class` | — | GEN-042 | [→](#top05-interface-class) |
+| TOP06 | Final class | ✅ | `top06_final_class` | — | | [→](#top06-final-class) |
+| TOP07 | Mixin class | ⚠️ | `top07_mixin_class` | — | GEN-042 | [→](#top07-mixin-class) |
 | TOP08 | Simple enum | ⚠️ | `top08_simple_enum` | not needed | GEN-044 | [→](#top08-simple-enum) |
-| TOP09 | Enhanced enum (fields) | ⚠️ | `top09_enhanced_enum_fields` | not needed | GEN-041 | [→](#top09-enhanced-enum-fields) |
-| TOP10 | Enhanced enum (methods) | ⚠️ | `top10_enhanced_enum_methods` | not needed | GEN-041 | [→](#top10-enhanced-enum-methods) |
-| TOP11 | Enhanced enum (implements) | ⚠️ | `top11_enhanced_enum_implements` | not needed | GEN-041 | [→](#top11-enhanced-enum-implements) |
-| TOP12 | Enhanced enum (with mixin) | ⚠️ | `top12_enhanced_enum_mixin` | not needed | GEN-041 | [→](#top12-enhanced-enum-with-mixin) |
-| TOP13 | Generic enum | ❌ | — | not needed | | [→](#top13-generic-enum) |
-| TOP14 | Mixin | ✅ | `top14_mixin` | not needed | | [→](#top14-mixin) |
-| TOP15 | Base mixin | ❌ | — | not needed | | [→](#top15-base-mixin) |
-| TOP16 | Named extension | ❌ | — | not needed | | [→](#top16-named-extension) |
-| TOP17 | Anonymous extension | ❌ | — | not needed | | [→](#top17-anonymous-extension) |
-| TOP18 | Extension type | ❌ | — | not needed | | [→](#top18-extension-type) |
+| TOP09 | Enhanced enum (fields) | ⚠️ | `top09_enhanced_enum_fields` | — | GEN-041 | [→](#top09-enhanced-enum-fields) |
+| TOP10 | Enhanced enum (methods) | ⚠️ | `top10_enhanced_enum_methods` | — | GEN-041 | [→](#top10-enhanced-enum-methods) |
+| TOP11 | Enhanced enum (implements) | ⚠️ | `top11_enhanced_enum_implements` | — | GEN-041 | [→](#top11-enhanced-enum-implements) |
+| TOP12 | Enhanced enum (with mixin) | ⚠️ | `top12_enhanced_enum_mixin` | — | GEN-041 | [→](#top12-enhanced-enum-with-mixin) |
+| TOP13 | Generic enum | ❌ | — | — | | [→](#top13-generic-enum) |
+| TOP14 | Mixin | ✅ | `top14_mixin` | — | | [→](#top14-mixin) |
+| TOP15 | Base mixin | ❌ | — | — | | [→](#top15-base-mixin) |
+| TOP16 | Named extension | ❌ | — | not supported | | [→](#top16-named-extension) |
+| TOP17 | Anonymous extension | ❌ | — | not supported | | [→](#top17-anonymous-extension) |
+| TOP18 | Extension type | ❌ | — | not supported | | [→](#top18-extension-type) |
 | TOP19 | Typedef (function) | ❌ | — | not needed | | [→](#top19-typedef-function) |
 | TOP20 | Typedef (type alias) | ❌ | — | not needed | | [→](#top20-typedef-type-alias) |
 | TOP21 | Typedef (generic) | ❌ | — | not needed | | [→](#top21-typedef-generic) |
@@ -77,7 +77,7 @@ Each feature has a stable ID for cross-referencing between this document, test s
 | TOP26 | Top-level const | ✅ | `top26_toplevel_const` | not needed | | [→](#top26-top-level-const) |
 | TOP27 | Top-level getter | ✅ | `top27_toplevel_getter` | `e2e: userbridge_override` | | [→](#top27-top-level-getter) |
 | TOP28 | Top-level setter | ❌ | — | — | | [→](#top28-top-level-setter) |
-| TOP29 | Mixin application (`class = with`) | ❌ | — | not needed | | [→](#top29-mixin-application) |
+| TOP29 | Mixin application (`class = with`) | ❌ | — | — | | [→](#top29-mixin-application) |
 
 ### Class Members (17 features)
 
@@ -89,13 +89,13 @@ Each feature has a stable ID for cross-referencing between this document, test s
 | CLS04 | Private field with public getter | ✅ | `cls04_private_field_getter` | — | | [→](#cls04-private-field-with-public-getter) |
 | CLS05 | Nullable field | ❌ | — | — | | [→](#cls05-nullable-field) |
 | CLS06 | Late field | ❌ | — | — | | [→](#cls06-late-field) |
-| CLS07 | Static field (mutable) | ✅ | `cls07_static_field` | — | | [→](#cls07-static-field-mutable) |
+| CLS07 | Static field (mutable) | ✅ | `cls07_static_field` | not supported | | [→](#cls07-static-field-mutable) |
 | CLS08 | Static const field | ✅ | `cls08_static_const` | not needed | | [→](#cls08-static-const-field) |
 | CLS09 | Computed getter | ✅ | `cls09_computed_getter` | — | | [→](#cls09-computed-getter) |
 | CLS10 | Explicit setter (`set x`) | ✅ | `cls10_explicit_setter` | — | | [→](#cls10-explicit-setter) |
-| CLS11 | Static method | ✅ | `cls11_static_method` | — | | [→](#cls11-static-method) |
-| CLS12 | Static getter | ❌ | — | — | | [→](#cls12-static-getter) |
-| CLS13 | Static setter | ❌ | — | — | | [→](#cls13-static-setter) |
+| CLS11 | Static method | ✅ | `cls11_static_method` | not supported | | [→](#cls11-static-method) |
+| CLS12 | Static getter | ❌ | — | not supported | | [→](#cls12-static-getter) |
+| CLS13 | Static setter | ❌ | — | not supported | | [→](#cls13-static-setter) |
 | CLS14 | Instance method | ✅ | `cls14_instance_method` | — | | [→](#cls14-instance-method) |
 | CLS15 | Abstract method | ⚠️ | `cls15_abstract_method` | — | GEN-042 | [→](#cls15-abstract-method) |
 | CLS16 | `toString()` override | ✅ | `cls16_tostring` | — | | [→](#cls16-tostring-override) |
@@ -105,7 +105,7 @@ Each feature has a stable ID for cross-referencing between this document, test s
 
 | ID | Feature | Status | Coverage Test | UB Test | Issue | Details |
 |----|---------|--------|---------------|---------|-------|---------|
-| CTOR01 | Unnamed (default, explicit) | ✅ | `ctor01_unnamed` | — | | [→](#ctor01-unnamed-constructor) |
+| CTOR01 | Unnamed (default, explicit) | ✅ | `ctor01_unnamed` | `e2e: userbridge_user_guide` | | [→](#ctor01-unnamed-constructor) |
 | CTOR02 | Implicit default (no ctor) | ⚠️ | `ctor02_implicit_default` | — | GEN-042 | [→](#ctor02-implicit-default-constructor) |
 | CTOR03 | Named constructor | ✅ | `ctor03_named` | — | | [→](#ctor03-named-constructor) |
 | CTOR04 | Factory constructor | ✅ | `ctor04_factory` | — | | [→](#ctor04-factory-constructor) |
@@ -146,24 +146,24 @@ Each feature has a stable ID for cross-referencing between this document, test s
 
 | ID | Feature | Status | Coverage Test | UB Test | Issue | Details |
 |----|---------|--------|---------------|---------|-------|---------|
-| GNRC01 | Generic class (single type param) | ✅ | `gnrc01_single_type_param` | not needed | | [→](#gnrc01-generic-class-single) |
-| GNRC02 | Generic class (two type params) | ✅ | `gnrc02_two_type_params` | not needed | | [→](#gnrc02-generic-class-two-params) |
-| GNRC03 | Upper bound (`T extends X`) | ❌ | — | not needed | | [→](#gnrc03-upper-bound) |
-| GNRC04 | Generic method | ✅ | `gnrc04_generic_method` | not needed | | [→](#gnrc04-generic-method) |
-| GNRC05 | Generic static factory | ❌ | — | not needed | | [→](#gnrc05-generic-static-factory) |
-| GNRC06 | Generic collection (implicit default ctor) | ⚠️ | `gnrc06_generic_collection` | not needed | GEN-042 | [→](#gnrc06-generic-collection-implicit-default-ctor) |
-| GNRC07 | F-bounded polymorphism | ❌ | — | not needed | | [→](#gnrc07-f-bounded-polymorphism) |
+| GNRC01 | Generic class (single type param) | ✅ | `gnrc01_single_type_param` | — | | [→](#gnrc01-generic-class-single) |
+| GNRC02 | Generic class (two type params) | ✅ | `gnrc02_two_type_params` | — | | [→](#gnrc02-generic-class-two-params) |
+| GNRC03 | Upper bound (`T extends X`) | ❌ | — | — | | [→](#gnrc03-upper-bound) |
+| GNRC04 | Generic method | ✅ | `gnrc04_generic_method` | — | | [→](#gnrc04-generic-method) |
+| GNRC05 | Generic static factory | ❌ | — | — | | [→](#gnrc05-generic-static-factory) |
+| GNRC06 | Generic collection (implicit default ctor) | ⚠️ | `gnrc06_generic_collection` | — | GEN-042 | [→](#gnrc06-generic-collection-implicit-default-ctor) |
+| GNRC07 | F-bounded polymorphism | ❌ | — | — | | [→](#gnrc07-f-bounded-polymorphism) |
 
 ### Inheritance (6 features)
 
 | ID | Feature | Status | Coverage Test | UB Test | Issue | Details |
 |----|---------|--------|---------------|---------|-------|---------|
-| INH01 | Single-level extends | ✅ | `inh01_single_extends` | not needed | | [→](#inh01-single-level-extends) |
-| INH02 | Multi-level extends | ⚠️ | `inh02_multi_extends` | not needed | GEN-042 | [→](#inh02-multi-level-extends) |
-| INH03 | Implements (interface) | ⚠️ | `inh03_implements` | not needed | GEN-042 | [→](#inh03-implements-interface) |
-| INH04 | Mixin with (`with`) | ⚠️ | `inh04_mixin_with` | not needed | GEN-042 | [→](#inh04-mixin-with) |
-| INH05 | Super constructor call | ✅ | `inh05_super_ctor` | not needed | | [→](#inh05-super-constructor-call) |
-| INH06 | Method override | ✅ | `inh06_method_override` | not needed | | [→](#inh06-method-override) |
+| INH01 | Single-level extends | ✅ | `inh01_single_extends` | — | | [→](#inh01-single-level-extends) |
+| INH02 | Multi-level extends | ⚠️ | `inh02_multi_extends` | — | GEN-042 | [→](#inh02-multi-level-extends) |
+| INH03 | Implements (interface) | ⚠️ | `inh03_implements` | — | GEN-042 | [→](#inh03-implements-interface) |
+| INH04 | Mixin with (`with`) | ⚠️ | `inh04_mixin_with` | — | GEN-042 | [→](#inh04-mixin-with) |
+| INH05 | Super constructor call | ✅ | `inh05_super_ctor` | — | | [→](#inh05-super-constructor-call) |
+| INH06 | Method override | ✅ | `inh06_method_override` | — | | [→](#inh06-method-override) |
 
 ### User Bridges (6 features)
 
