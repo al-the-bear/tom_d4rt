@@ -34,6 +34,8 @@ void main() {
   // Test Priority enum
   print('Priority: ${Priority.high}');
   print('Priority name: ${Priority.high.name}');
+  // BUG: Enhanced enum fields (e.g. value) are not accessible via bridges
+  print('Priority value: ${Priority.high.value}');
 
   print('ALL_TESTS_PASSED');
 }

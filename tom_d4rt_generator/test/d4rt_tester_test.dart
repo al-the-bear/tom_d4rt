@@ -57,6 +57,15 @@ void main() {
         _expectSuccess(result, 'example_project');
         expect(result.processOutput, contains('ALL_TESTS_PASSED'));
       });
+
+      test('GEN-041: enhanced enum fields', () async {
+        final result = await tester.runScript(
+          config,
+          'test/d4rt_test_enum_fields.dart',
+        );
+        _expectSuccess(result, 'example_project/enum_fields');
+        expect(result.processOutput, contains('ALL_ENUM_FIELD_TESTS_PASSED'));
+      });
     });
 
     // ── user_guide ───────────────────────────────────────────────────
@@ -156,6 +165,30 @@ void main() {
         );
         _expectSuccess(result, 'dart_overview');
         expect(result.processOutput, contains('ALL_TESTS_PASSED'));
+      });
+
+      test('GEN-042: implicit default constructors', () async {
+        final result = await tester.runScript(
+          config,
+          'test/d4rt_test_implicit_ctors.dart',
+        );
+        _expectSuccess(result, 'dart_overview/implicit_ctors');
+        expect(
+          result.processOutput,
+          contains('ALL_IMPLICIT_CTOR_TESTS_PASSED'),
+        );
+      });
+
+      test('GEN-041: enhanced enum fields (dart_overview)', () async {
+        final result = await tester.runScript(
+          config,
+          'test/d4rt_test_enhanced_enums.dart',
+        );
+        _expectSuccess(result, 'dart_overview/enhanced_enums');
+        expect(
+          result.processOutput,
+          contains('ALL_ENHANCED_ENUM_TESTS_PASSED'),
+        );
       });
     });
   });

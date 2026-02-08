@@ -48,6 +48,8 @@
 | [GEN-038](#gen-038) | [Test runner fails on first duplicate instead of reporting all](#gen-038) | Low | Already Fixed |
 | [GEN-039](#gen-039) | [Test runner config not supported in build.yaml](#gen-039) | Low | Already Fixed |
 | [GEN-040](#gen-040) | [Recursive bound error message references `_sample` instead of `sample`](#gen-040) | Low | Fixed |
+| [GEN-041](#gen-041) | [Enhanced enum fields not accessible via bridges at runtime](#gen-041) | Medium | TODO |
+| [GEN-042](#gen-042) | [Classes with implicit default constructors are not bridged](#gen-042) | Medium | TODO |
 
 ---
 
@@ -1340,6 +1342,108 @@ Also added `prefer_function_declarations_over_variables` to the `ignore_for_file
 
 **c) Resolution:**
 Fixed the interpolation from `_sample` to `sample` in the generator source. Regenerated all affected bridge files. The `ignore_for_file` directive now includes `prefer_function_declarations_over_variables` for generated files.
+
+---
+
+### GEN-041
+
+**Status:** TODO  
+**Complexity:** Medium  
+**Title:** Enhanced enum fields not accessible via bridges at runtime
+
+**a) What exactly is the problem:**
+
+When a Dart enum has custom fields (an "enhanced enum"), the bridge generator creates `BridgedEnumValue` entries for each constant but does not bridge the custom field getters. At runtime in D4rt, accessing an enhanced enum's field (e.g., `Priority.high.value`) throws:
+
+```
+Runtime Error: Property "value" not found on enum value Priority.high
+```
+
+The standard enum properties (`name`, `index`) work because `BridgedEnumValue` in `tom_d4rt` provides them by default. But user-defined fields on enhanced enums require explicit getter bridges, which the generator does not currently produce.
+
+**Source Dart API (example_project — `enum_classes.dart`):**
+```dart
+enum Priority implements Comparable<Priority> {
+  low(1), medium(2), high(3), critical(4);
+  final int value;
+  const Priority(this.value);
+  // ...
+}
+```
+
+**D4rt script that fails:**
+```dart
+print('Priority value: ${Priority.high.value}'); // Runtime Error
+```
+
+The `name` and `index` properties work fine because they are built-in to `BridgedEnumValue`, but custom fields like `value` are not bridged.
+
+**Reproducing test:**
+`test/d4rt_tester_test.dart` → `D4rtTester end-to-end` → `example_project` → `basic classes, constructors, enums`  
+Test script: `example/example_project/test/d4rt_test_basics.dart` (line accessing `Priority.high.value`)
+
+**b) Location:**
+The bridge generator's enum handling is in `bridge_generator.dart`. The enum bridge generation creates `BridgedEnumValue` entries for each constant but doesn't emit getter bridges for custom fields defined on the enum class. The runtime `BridgedEnumValue.get()` in `tom_d4rt/src/bridge/bridged_enum.dart` only handles `name` and `index`, throwing for any other property.
+
+**c) Strategies:**
+- Extend the enum bridge generation to detect enhanced enum fields via the analyzer and generate property getter bridges for each field, similar to how class getters are bridged.
+- In `BridgedEnumValue`, add a mechanism to register custom field accessors that the generator can populate.
+- May also need to bridge enum methods (e.g., `compareTo()` on `Priority`).
+
+---
+
+### GEN-042
+
+**Status:** TODO  
+**Complexity:** Medium  
+**Title:** Classes with implicit default constructors are not bridged
+
+**a) What exactly is the problem:**
+
+When a Dart class has no explicit constructor declaration, Dart provides an implicit default no-argument constructor. The bridge generator does not detect or bridge this implicit constructor. At runtime in D4rt, attempting to instantiate such a class throws:
+
+```
+Runtime Error: 'Person' is not callable (no default constructor bridge found).
+```
+
+**Source Dart API (dart_overview — `run_declarations.dart`):**
+```dart
+class Person {
+  String name = '';
+  int age = 0;
+  void greet() { print('Hello, I am $name!'); }
+}
+// No explicit constructor — Dart provides Person() implicitly
+```
+
+**D4rt script that fails:**
+```dart
+var person = Person();  // Runtime Error: not callable
+person.name = 'Alice';
+```
+
+Classes with explicit constructors (e.g., `Dog(this.name, this.age)`) work correctly. The issue is limited to classes that rely on Dart's implicit default constructor.
+
+Similarly, the `Calculator` class in `dart_overview/classes/declarations/` has no explicit constructor, only methods:
+```dart
+class Calculator {
+  int add(int a, int b) => a + b;
+  int subtract(int a, int b) => a - b;
+  // ...
+}
+```
+
+**Reproducing test:**
+`test/d4rt_tester_test.dart` → `D4rtTester end-to-end` → `dart_overview` → `declarations, enums, generic classes`  
+Test script: `example/dart_overview/test/d4rt_test_overview.dart` (line `var person = Person()`)
+
+**b) Location:**
+The bridge generator's constructor detection logic in `bridge_generator.dart`. When iterating class members to find constructors, it only emits a constructor bridge when it finds an explicit `ConstructorDeclaration` in the source. If none exists, no constructor bridge is generated, and the class becomes non-instantiable from D4rt.
+
+**c) Strategies:**
+- When the generator detects a class with no explicit constructors, synthesize a default no-arg constructor bridge that calls the Dart default constructor.
+- Use the analyzer's `ClassElement` API to check `unnamedConstructor` — if it's synthetic (implicit), generate a bridge for it anyway.
+- This should be straightforward since the default constructor takes no arguments.
 
 ---
 

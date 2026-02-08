@@ -1,14 +1,27 @@
 // D4rt test script for dart_overview
 // Tests classes from declarations, enums, and generics modules.
-// Note: Only classes with explicit constructors are testable via bridges.
 
 import 'package:dart_overview/dart_overview.dart';
 
 void main() {
+  // BUG: Implicit default constructors are not bridged
+  // Person has no explicit constructor — just `String name = ''; int age = 0;`
+  var person = Person();
+  person.name = 'Alice';
+  person.age = 30;
+  print('Person name: ${person.name}');
+  print('Person age: ${person.age}');
+
   // Test Dog class (explicit constructor)
   var dog = Dog('Buddy', 3);
   print('Dog name: ${dog.name}');
   print('Dog age: ${dog.age}');
+
+  // Test Calculator class (implicit default constructor)
+  var calc = Calculator();
+  print('Add: ${calc.add(5, 3)}');
+  print('Subtract: ${calc.subtract(10, 4)}');
+  print('Multiply: ${calc.multiply(6, 7)}');
 
   // Test User class (explicit constructor)
   var user = User('Alice', 'alice@example.com');
@@ -30,6 +43,11 @@ void main() {
 
   // Test Priority enum
   print('Priority: ${Priority.high}');
+
+  // Test enhanced enum fields
+  // BUG: Enhanced enum fields not accessible
+  print('Season months: ${Season.spring.months}');
+  print('HttpStatus code: ${HttpStatus.ok.code}');
 
   // Test Role enum
   print('Role: ${Role.admin}');
