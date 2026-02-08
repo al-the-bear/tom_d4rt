@@ -20,10 +20,11 @@ import 'vector2d.dart';
 class Vector2DUserBridge extends D4UserBridge {
   /// Override operator+ with print marker.
   static Object? overrideOperatorPlus(
-    Object? visitor,
-    Object? target,
+    InterpreterVisitor visitor,
+    Object target,
     List<Object?> positional,
     Map<String, Object?> named,
+    List<RuntimeType>? typeArgs,
   ) {
     print('[Vector2DUserBridge] operator+ called');
     final vec = D4.validateTarget<Vector2D>(target, 'Vector2D');
@@ -36,10 +37,11 @@ class Vector2DUserBridge extends D4UserBridge {
   /// The interpreter uses the same '-' key for both binary (v1 - v2) and
   /// unary (-v1) operations. For unary negation, positional will be empty.
   static Object? overrideOperatorMinus(
-    Object? visitor,
-    Object? target,
+    InterpreterVisitor visitor,
+    Object target,
     List<Object?> positional,
     Map<String, Object?> named,
+    List<RuntimeType>? typeArgs,
   ) {
     final vec = D4.validateTarget<Vector2D>(target, 'Vector2D');
     if (positional.isEmpty) {
@@ -54,10 +56,11 @@ class Vector2DUserBridge extends D4UserBridge {
 
   /// Override operator* (scalar multiplication) with print marker.
   static Object? overrideOperatorMultiply(
-    Object? visitor,
-    Object? target,
+    InterpreterVisitor visitor,
+    Object target,
     List<Object?> positional,
     Map<String, Object?> named,
+    List<RuntimeType>? typeArgs,
   ) {
     print('[Vector2DUserBridge] operator* called');
     final vec = D4.validateTarget<Vector2D>(target, 'Vector2D');
@@ -67,10 +70,11 @@ class Vector2DUserBridge extends D4UserBridge {
 
   /// Override dot method with print marker.
   static Object? overrideMethodDot(
-    Object? visitor,
-    Object? target,
+    InterpreterVisitor visitor,
+    Object target,
     List<Object?> positional,
     Map<String, Object?> named,
+    List<RuntimeType>? typeArgs,
   ) {
     print('[Vector2DUserBridge] dot() called');
     final vec = D4.validateTarget<Vector2D>(target, 'Vector2D');

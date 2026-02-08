@@ -17,10 +17,11 @@ import 'matrix2x2.dart';
 class Matrix2x2UserBridge extends D4UserBridge {
   /// Override operator[] for multi-dimensional index access.
   static Object? overrideOperatorIndex(
-    Object? visitor,
-    Object? target,
+    InterpreterVisitor visitor,
+    Object target,
     List<Object?> positional,
     Map<String, Object?> named,
+    List<RuntimeType>? typeArgs,
   ) {
     print('[Matrix2x2UserBridge] operator[] called');
     final matrix = D4.validateTarget<Matrix2x2>(target, 'Matrix2x2');
@@ -30,10 +31,11 @@ class Matrix2x2UserBridge extends D4UserBridge {
 
   /// Override operator[]= for multi-dimensional index assignment.
   static Object? overrideOperatorIndexAssign(
-    Object? visitor,
-    Object? target,
+    InterpreterVisitor visitor,
+    Object target,
     List<Object?> positional,
     Map<String, Object?> named,
+    List<RuntimeType>? typeArgs,
   ) {
     print('[Matrix2x2UserBridge] operator[]= called');
     final matrix = D4.validateTarget<Matrix2x2>(target, 'Matrix2x2');

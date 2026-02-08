@@ -3619,7 +3619,11 @@ class BridgeGenerator {
         final override = globalsUserBridge?.getGlobalFunctionOverride(func.name);
         if (override != null) {
           // Use the override method instead of generating
-          buffer.writeln("      '${func.name}': ${globalsUserBridge!.userBridgeClassName}.$override,");
+          final prefixedGlobalsBridge = _getPrefixedClassName(
+            globalsUserBridge!.userBridgeClassName,
+            globalsUserBridge.sourceFile,
+          );
+          buffer.writeln("      '${func.name}': $prefixedGlobalsBridge.$override,");
           continue;
         }
         

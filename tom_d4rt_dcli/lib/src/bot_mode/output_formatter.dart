@@ -127,11 +127,11 @@ class OutputFormatter {
       text = _convertMarkdownToPlainText(text);
     }
     
-    // For code output, wrap in HTML <pre> tag for monospace
-    final useCodeBlock = config.useMonospace && text.isNotEmpty && !result.isFormattedText;
+    // Use monospace for all output via <pre> tags
+    final useMonospace = config.useMonospace && text.isNotEmpty;
 
-    // Wrap in <pre> tag for monospace if non-empty and not formatted text
-    if (useCodeBlock) {
+    // Wrap in <pre> tag for monospace display
+    if (useMonospace) {
       text = '<pre>${_escapeHtml(text)}</pre>';
     }
 
@@ -213,8 +213,8 @@ class OutputFormatter {
     return FormattedOutput(
       text: text, 
       attachments: attachments,
-      // Use HTML only when we have code blocks (useMonospace wraps in <pre>)
-      parseMode: useCodeBlock ? 'HTML' : null,
+      // Use HTML when we wrap in <pre> tags
+      parseMode: useMonospace ? 'HTML' : null,
     );
   }
 

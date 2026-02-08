@@ -1,6 +1,7 @@
 # Build configuration for D4rt bridge generator
 #
 # This builder generates D4rt bridge files for DartScript integration.
+# Version generation is configured in tom_build.yaml.
 #
 # Configuration is specified in the consuming package's build.yaml under
 # targets.$default.builders.tom_d4rt_generator:d4rt_bridge_builder.options
@@ -39,14 +40,3 @@ builders:
       r"$lib$": ["d4rt_bridges.g.info"]
     auto_apply: dependents
     build_to: source
-
-targets:
-  $default:
-    builders:
-      # Version builder - generates version.g.dart with build info
-      tom_build_kit:version_builder:
-        enabled: true
-        options:
-          output: lib/src/version.g.dart
-          includeGitCommit: true
-          variablePrefix: d4rtGen

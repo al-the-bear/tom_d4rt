@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-02-08T12:27:16.245262
+// Generated: 2026-02-08T12:33:55.655336
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -122,7 +122,7 @@ BridgedClass _createVector2DBridge() {
       'normalized': (visitor, target) => D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D').normalized,
     },
     methods: {
-      'dot': Vector2DUserBridge.overrideMethodDot,
+      'dot': $pkg.Vector2DUserBridge.overrideMethodDot,
       'scale': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D');
         D4.requireMinArgs(positional, 1, 'scale');
@@ -133,9 +133,9 @@ BridgedClass _createVector2DBridge() {
         final t = D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D');
         return t.toString();
       },
-      '+': Vector2DUserBridge.overrideOperatorPlus,
-      '-': Vector2DUserBridge.overrideOperatorMinus,
-      '*': Vector2DUserBridge.overrideOperatorMultiply,
+      '+': $pkg.Vector2DUserBridge.overrideOperatorPlus,
+      '-': $pkg.Vector2DUserBridge.overrideOperatorMinus,
+      '*': $pkg.Vector2DUserBridge.overrideOperatorMultiply,
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
@@ -197,8 +197,8 @@ BridgedClass _createMatrix2x2Bridge() {
         final t = D4.validateTarget<$pkg.Matrix2x2>(target, 'Matrix2x2');
         return t.toString();
       },
-      '[]': Matrix2x2UserBridge.overrideOperatorIndex,
-      '[]=': Matrix2x2UserBridge.overrideOperatorIndexAssign,
+      '[]': $pkg.Matrix2x2UserBridge.overrideOperatorIndex,
+      '[]=': $pkg.Matrix2x2UserBridge.overrideOperatorIndexAssign,
     },
     constructorSignatures: {
       '': 'Matrix2x2(double a, double b, double c, double d)',
