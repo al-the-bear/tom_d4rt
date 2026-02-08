@@ -849,11 +849,6 @@ void main() {}
     final preprocessed = _preprocessStdinSource(source);
 
     try {
-      // Initialize with bridges (unless source already has imports,
-      // in which case imports are part of the preprocessed source)
-      if (!_sourceHasImports(source)) {
-        d4rt.execute(source: initSource);
-      }
 
       // Execute the preprocessed source
       final result = d4rt.execute(source: preprocessed);
@@ -929,7 +924,7 @@ void main() {}
 
     // Case 3: Bare statements — prefix imports and wrap in main
     return '''$importBlock
-Object main(List<String> args) {
+Object? main(List<String> args) {
 $source
 }
 ''';
