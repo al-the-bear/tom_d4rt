@@ -50,6 +50,7 @@
 | [GEN-040](#gen-040) | [Recursive bound error message references `_sample` instead of `sample`](#gen-040) | Low | Fixed |
 | [GEN-041](#gen-041) | [Enhanced enum fields not accessible via bridges at runtime](#gen-041) | Medium | TODO |
 | [GEN-042](#gen-042) | [Classes with implicit default constructors are not bridged](#gen-042) | Medium | TODO |
+| [GEN-043](#gen-043) | [Generated user bridge references lack import prefix ($pkg.)](#gen-043) | Medium | Fixed |
 
 ---
 
@@ -1444,6 +1445,51 @@ The bridge generator's constructor detection logic in `bridge_generator.dart`. W
 - When the generator detects a class with no explicit constructors, synthesize a default no-arg constructor bridge that calls the Dart default constructor.
 - Use the analyzer's `ClassElement` API to check `unnamedConstructor` — if it's synthetic (implicit), generate a bridge for it anyway.
 - This should be straightforward since the default constructor takes no arguments.
+
+---
+
+### GEN-043
+
+**Generated user bridge references lack import prefix ($pkg.)**
+
+**Status: Fixed**
+
+**a) Problem:**
+
+When the generator detects a `D4UserBridge` subclass and wires its override methods into the generated bridge code, it emits bare class names like `Vector2DUserBridge.overrideOperatorPlus`. However, the barrel file is imported with a prefix (`as $pkg`), so the generated code should emit `$pkg.Vector2DUserBridge.overrideOperatorPlus`.
+
+Without the prefix, the generated bridge file fails to compile with "Undefined name" errors for every user bridge reference.
+
+**Example of broken generated code (before fix):**
+```dart
+import 'package:my_package/my_package.dart' as $pkg;
+
+// ...
+methods: {
+  '+': Vector2DUserBridge.overrideOperatorPlus,  // ERROR: Undefined name
+},
+```
+
+**Correct generated code (after fix):**
+```dart
+import 'package:my_package/my_package.dart' as $pkg;
+
+// ...
+methods: {
+  '+': $pkg.Vector2DUserBridge.overrideOperatorPlus,  // OK
+},
+```
+
+**Reproducing test:**
+`test/d4rt_tester_test.dart` → `D4rtTester end-to-end` → `userbridge_user_guide` → `Vector2D and Matrix2x2 via user bridges`
+
+**b) Location:**
+
+`bridge_generator.dart` — 11 emission points in `_generateClassBridge()` and the global registration methods where `userBridge.userBridgeClassName` or `globalsUserBridge.userBridgeClassName` was interpolated without calling `_getPrefixedClassName()`.
+
+**c) Fix applied:**
+
+In `_generateClassBridge()`, compute `prefixedUserBridge` at the top of the method using the existing `_getPrefixedClassName(userBridge.userBridgeClassName, userBridge.sourceFile)` helper. Replace all 8 class-level bare references with `prefixedUserBridge`. For the 3 global-level references, compute the prefixed name inline using the same method.
 
 ---
 
