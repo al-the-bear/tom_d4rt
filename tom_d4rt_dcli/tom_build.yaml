@@ -39,28 +39,36 @@ d4rtgen:
       barrelImport: package:dcli/dcli.dart
       outputPath: lib/src/bridges/dcli_bridges.b.dart
       followAllReExports: true
+      skipReExports:
+        - crypto
       excludePatterns:
         - "**/*_bridge.dart"
         - "**/*_generated.dart"
       excludeSourcePatterns:
+        # Settings and utilities
         - "package:dcli_core/src/settings.dart#Settings,verbose"
-        - "package:dcli_core/src/util/file.dart#FileNotFoundException,NotAFileException,withOpenFile,symlink,deleteSymlink,resolveSymLink,stat,createTempFilename,createTempFile,fileLength,calculateHash"
-        - "package:dcli_core/src/functions/backup.dart#backupFile,restoreFile"
-        - "package:dcli_core/src/functions/cat.dart#cat"
+        - "package:dcli_core/src/util/file.dart#FileNotFoundException,NotAFileException,withOpenFile,symlink,deleteSymlink,resolveSymLink,stat,createTempFilename,createTempFile,fileLength,calculateHash,withTempFileAsync"
+        - "package:dcli_core/src/util/limited_stream_controller.dart"
+        # Functions - exclude internal dcli_core functions and classes not re-exported from dcli barrel
+        - "package:dcli_core/src/functions/backup.dart#backupFile,restoreFile,withFileProtectionAsync"
+        - "package:dcli_core/src/functions/cat.dart#cat,Cat"
         - "package:dcli_core/src/functions/copy.dart#copy"
-        - "package:dcli_core/src/functions/copy_tree.dart#copyTree"
-        - "package:dcli_core/src/functions/create_dir.dart#createDir,createTempDir"
+        - "package:dcli_core/src/functions/copy_tree.dart#copyTree,CopyTreeException"
+        - "package:dcli_core/src/functions/create_dir.dart#createDir,createTempDir,withTempDirAsync"
+        - "package:dcli_core/src/functions/dcli_function.dart"
         - "package:dcli_core/src/functions/delete.dart#delete"
         - "package:dcli_core/src/functions/delete_dir.dart#deleteDir"
+        - "package:dcli_core/src/functions/env.dart#withEnvironment"
         - "package:dcli_core/src/functions/find.dart#find"
-        - "package:dcli_core/src/functions/head.dart#head"
+        - "package:dcli_core/src/functions/find_async.dart"
+        - "package:dcli_core/src/functions/head.dart#head,HeadException"
         - "package:dcli_core/src/functions/is.dart#isFile,isDirectory,isLink,exists,lastModified,setLastModifed,isEmpty"
         - "package:dcli_core/src/functions/move.dart#move"
         - "package:dcli_core/src/functions/move_dir.dart#moveDir"
         - "package:dcli_core/src/functions/move_tree.dart#moveTree"
-        - "package:dcli_core/src/functions/tail.dart#tail"
-        - "package:dcli_core/src/functions/touch.dart#touch"
-        - "package:dcli_core/src/functions/which.dart#which"
+        - "package:dcli_core/src/functions/tail.dart#tail,TailException"
+        - "package:dcli_core/src/functions/touch.dart#touch,TouchException"
+        - "package:dcli_core/src/functions/which.dart#which,Which,WhichSearch"
     - name: tom_chattools
       barrelFiles:
         - package:tom_chattools/tom_chattools.dart
