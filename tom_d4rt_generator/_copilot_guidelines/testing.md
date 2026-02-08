@@ -14,6 +14,51 @@ The bridge generator tests use a **subprocess-based end-to-end strategy**: bridg
 
 ---
 
+## Environment Reconstruction Framing
+
+The bridge generator's purpose is to **reconstruct the full API surface** of host Dart packages so that interpreted scripts see the exact same environment as compiled code. This framing is critical when evaluating bugs, missing features, and test requirements.
+
+### The Core Principle
+
+> **If it works in compiled Dart, it must work in the bridged environment too.**
+
+When a script runs against generated bridges, it should behave identically to the same code compiled natively. Every class, method, constructor, operator, constant, and type relationship that the script can access in compiled Dart must be present and functional in the bridged environment.
+
+### Applying the Principle to Bugs and Requirements
+
+When evaluating whether something is a bug or a missing feature, ask:
+
+1. **Does this work in compiled Dart?** If yes → the bridge generator must support it.
+2. **What would the script author expect?** They write standard Dart — they don't know or care about bridging internals.
+3. **Is the generated environment complete?** Missing members mean the script will fail at runtime with "not found" errors, even though the code is syntactically and semantically correct.
+
+### Examples
+
+| Scenario | Compiled Dart | Bridge Requirement |
+|----------|---------------|--------------------|
+| `await obj.fetchData()` | Works — async method returns Future | Bridge must return the Future from the host method |
+| `for (var x in obj.items())` | Works — sync* method returns Iterable | Bridge must return the Iterable from the host generator method |
+| `await for (var e in obj.events())` | Works — async* method returns Stream | Bridge must return the Stream from the host generator method |
+| `print(MyClass.maxCount)` | Works — static const is accessible | Bridge must expose the const value (override not needed — would violate const contract) |
+| `var s = Stack()` | Works — implicit default constructor | Bridge must emit constructor bridge (GEN-042) |
+| `transform(list, (x) => x * 2)` | Works — closure passed as argument | Bridge must wrap InterpretedFunction into native closure (GEN-005) |
+
+### Generators Are Just Methods
+
+Dart generators (`sync*`/`async*`) are not special declarations — they are **regular methods with a body modifier** that changes the return mechanism. They can appear as:
+
+- **Top-level functions** (ASYNC02, ASYNC03)
+- **Instance methods** on classes (ASYNC06, ASYNC07)
+- **Static methods** on classes (ASYNC08)
+
+The generator's class analysis must recognize these return types (`Iterable<T>`, `Stream<T>`) and produce method bridge adapters that correctly pass through the returned iterable or stream. The interpreter already supports `for-in` and `await for` — the bridge just needs to wire the host method into the environment so its return value reaches the script.
+
+### What This Means for Testing
+
+Tests should verify that the **script-visible behavior** matches compiled Dart, not just that the generator produces syntactically valid code. A test passes when the script runs identically to how it would run if compiled. A test fails when the bridged environment is incomplete or behaves differently from the compiled version — this is always a generator bug, not a test problem.
+
+---
+
 ## Architecture
 
 ```

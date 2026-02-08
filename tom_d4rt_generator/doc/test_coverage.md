@@ -192,7 +192,7 @@ Same reasoning. The generator **must** bridge static const fields (e.g., `Counte
 | UBR05 | User bridge constructor | ✅ | e2e: userbridge_user_guide | `e2e: userbridge_user_guide` | | [→](#ubr05-user-bridge-constructor) |
 | UBR06 | User bridge import prefix | ✅ | e2e: userbridge_user_guide | `e2e: userbridge_user_guide` | GEN-043 (fixed) | [→](#ubr06-user-bridge-import-prefix) |
 
-### Async & Streams (4 features)
+### Async & Streams (8 features)
 
 | ID | Feature | Status | Coverage Test | UB Test | Issue | Details |
 |----|---------|--------|---------------|---------|-------|---------|
@@ -200,6 +200,10 @@ Same reasoning. The generator **must** bridge static const fields (e.g., `Counte
 | ASYNC02 | Async* generator (Stream) | ⚠️ | `async02_async_generator` | 🔲 | | [→](#async02-async-generator-stream) |
 | ASYNC03 | Sync* generator (Iterable) | ⚠️ | `async03_sync_generator` | 🔲 | | [→](#async03-sync-generator-iterable) |
 | ASYNC04 | Callback parameter (Function) | ⚠️ | `async04_callback_param` | — | GEN-005 | [→](#async04-callback-parameter-function) |
+| ASYNC05 | Instance async method (Future) | ❌ | — | — | | [→](#async05-instance-async-method-future) |
+| ASYNC06 | Instance sync* method (Iterable) | ❌ | — | — | | [→](#async06-instance-sync-method-iterable) |
+| ASYNC07 | Instance async* method (Stream) | ❌ | — | — | | [→](#async07-instance-async-method-stream) |
+| ASYNC08 | Static sync*/async* method | ❌ | — | — | | [→](#async08-static-syncasync-method) |
 
 ### Special Types (5 features)
 
@@ -259,11 +263,11 @@ Generator-level features cover configuration, type resolution, output generation
 | Generics | 7 | 3 | 1 | 3 | 0 |
 | Inheritance | 6 | 3 | 3 | 0 | 0 |
 | User Bridges | 6 | 6 | 0 | 0 | 0 |
-| Async & Streams | 4 | 0 | 4 | 0 | 0 |
+| Async & Streams | 8 | 0 | 4 | 4 | 0 |
 | Special Types | 5 | 1 | 0 | 4 | 0 |
 | Visibility & Exports | 4 | 3 | 0 | 1 | 0 |
 | Generator Features | 18 | 4 | 0 | 14 | 0 |
-| **Total** | **122** | **58** | **18** | **46** | **0** |
+| **Total** | **126** | **58** | **18** | **50** | **0** |
 
 ---
 
@@ -1254,6 +1258,60 @@ This creates a two-way bridge: script → host function → callback → interpr
 - Tests `transform([1,2,3], (x) => x * 2)` and `fetchData('url', (data) => ...)` with callback parameters.
 - **Failure:** Function-typed parameters are not bridgeable yet (GEN-005).
 **Status:** ⚠️ Tested, failing. Related to GEN-005.
+
+---
+
+#### ASYNC05: Instance async method (Future)
+
+Instance methods marked `async` returning `Future<T>`. In compiled Dart, `await obj.fetchData()` works because the method returns a Future. The generator must produce mapping code that calls the host instance method and returns the `Future` to the interpreter, so `await` resolves it naturally.
+
+**Generator requirement:** The bridge adapter for the instance method must:
+1. Receive the host instance and interpreter arguments
+2. Call the host async method on the instance
+3. Return the `Future` to the interpreter (same pattern as ASYNC01, but on an instance method rather than a top-level function)
+
+This is distinct from ASYNC01 because instance methods are wired through the class bridge's method map, not the global function registry. The mapping code generation path is different.
+
+**Coverage test:** —
+**Status:** ❌ Not yet tested.
+
+---
+
+#### ASYNC06: Instance sync* method (Iterable)
+
+Instance methods using `sync*` that yield `Iterable<T>`. In compiled Dart, `for (var item in obj.items())` lazily iterates the generator. The generator must produce mapping code for this method that returns the host `Iterable` to the interpreter.
+
+**Generator requirement:** The bridge adapter must:
+1. Call the host `sync*` method on the instance
+2. Return the resulting `Iterable` directly to the interpreter
+3. The interpreter's `for-in` consumes it, preserving lazy evaluation
+
+Generators are just regular methods with a `sync*` body modifier — they are declared in the class like any other method. The generator's class analysis must recognize that the return type is `Iterable<T>` and produce a method bridge that correctly passes through the iterable.
+
+**Coverage test:** —
+**Status:** ❌ Not yet tested.
+
+---
+
+#### ASYNC07: Instance async* method (Stream)
+
+Instance methods using `async*` that yield `Stream<T>`. In compiled Dart, `await for (var event in obj.events())` iterates the stream. The generator must produce mapping code that returns the host `Stream` to the interpreter.
+
+**Generator requirement:** Same pattern as ASYNC06 but for `Stream<T>` instead of `Iterable<T>`. The bridge adapter calls the host `async*` method and returns the `Stream` for the interpreter's `await for` to consume.
+
+**Coverage test:** —
+**Status:** ❌ Not yet tested.
+
+---
+
+#### ASYNC08: Static sync*/async* method
+
+Static methods with `sync*` or `async*` modifiers on classes. These are registered in the class bridge's static method map rather than the instance method map. The generator must handle the return type (`Iterable<T>` or `Stream<T>`) correctly in the static context.
+
+**Generator requirement:** Same as ASYNC06/ASYNC07 but through the static method registration path. Static generators are wired into the class bridge via `overrideStaticMethod{Name}` entries rather than instance method adapters.
+
+**Coverage test:** —
+**Status:** ❌ Not yet tested.
 
 ---
 
