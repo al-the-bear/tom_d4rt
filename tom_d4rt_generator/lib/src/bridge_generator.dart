@@ -3555,10 +3555,13 @@ class BridgeGenerator {
         final override = globalsUserBridge?.getGlobalVariableOverride(variable.name);
         // Get prefixed variable name for proper import reference
         final prefixedVarName = _getPrefixedFunctionName(variable.name, variable.sourceFile);
+        final prefixedGlobalsBridge = globalsUserBridge != null
+            ? _getPrefixedClassName(globalsUserBridge.userBridgeClassName, globalsUserBridge.sourceFile)
+            : null;
         buffer.writeln('    try {');
         if (override != null) {
           buffer.writeln(
-            "      interpreter.registerGlobalVariable('${variable.name}', ${globalsUserBridge!.userBridgeClassName}.$override(), importPath, sourceUri: '$sourceUri');",
+            "      interpreter.registerGlobalVariable('${variable.name}', $prefixedGlobalsBridge.$override(), importPath, sourceUri: '$sourceUri');",
           );
         } else {
           buffer.writeln(
@@ -3579,9 +3582,12 @@ class BridgeGenerator {
         final override = globalsUserBridge?.getGlobalGetterOverride(variable.name);
         // Get prefixed getter name for proper import reference
         final prefixedGetterName = _getPrefixedFunctionName(variable.name, variable.sourceFile);
+        final prefixedGlobalsBridge = globalsUserBridge != null
+            ? _getPrefixedClassName(globalsUserBridge.userBridgeClassName, globalsUserBridge.sourceFile)
+            : null;
         if (override != null) {
           buffer.writeln(
-            "    interpreter.registerGlobalGetter('${variable.name}', ${globalsUserBridge!.userBridgeClassName}.$override(), importPath, sourceUri: '$sourceUri');",
+            "    interpreter.registerGlobalGetter('${variable.name}', $prefixedGlobalsBridge.$override(), importPath, sourceUri: '$sourceUri');",
           );
         } else {
           buffer.writeln(
@@ -4062,6 +4068,14 @@ class BridgeGenerator {
     final prefixedName = _getPrefixedClassName(cls.name, cls.sourceFile);
     final libraryPath = _getPackageUri(cls.sourceFile);
     final userBridge = _userBridgeScanner.getUserBridgeFor(libraryPath, cls.name);
+    // Compute prefixed user bridge class name so generated code resolves
+    // correctly even when the barrel file is imported with a prefix ($pkg).
+    final prefixedUserBridge = userBridge != null
+        ? _getPrefixedClassName(
+            userBridge.userBridgeClassName,
+            userBridge.sourceFile,
+          )
+        : null;
     
     buffer.writeln(
       '// =============================================================================',
@@ -4078,7 +4092,7 @@ class BridgeGenerator {
     
     // Use nativeNames from UserBridge if available
     if (userBridge != null && userBridge.hasNativeNames) {
-      buffer.writeln('    nativeNames: ${userBridge.userBridgeClassName}.nativeNames,');
+      buffer.writeln('    nativeNames: $prefixedUserBridge.nativeNames,');
     }
 
     // Constructors
@@ -4093,7 +4107,7 @@ class BridgeGenerator {
       final ctorOverride = userBridge?.getConstructorOverride(ctorName);
       if (ctorOverride != null) {
         buffer.writeln(
-          "      '$ctorName': ${userBridge!.userBridgeClassName}.$ctorOverride,",
+          "      '$ctorName': $prefixedUserBridge.$ctorOverride,",
         );
         continue;
       }
@@ -4124,7 +4138,7 @@ class BridgeGenerator {
         final getterOverride = userBridge?.getGetterOverride(getter.name);
         if (getterOverride != null) {
           buffer.writeln(
-            "      '${getter.name}': ${userBridge!.userBridgeClassName}.$getterOverride,",
+            "      '${getter.name}': $prefixedUserBridge.$getterOverride,",
           );
         } else {
           buffer.writeln(
@@ -4145,7 +4159,7 @@ class BridgeGenerator {
         final setterOverride = userBridge?.getSetterOverride(setter.name);
         if (setterOverride != null) {
           buffer.writeln(
-            "      '${setter.name}': ${userBridge!.userBridgeClassName}.$setterOverride,",
+            "      '${setter.name}': $prefixedUserBridge.$setterOverride,",
           );
         } else {
           // Use prefixed type for the cast
@@ -4176,7 +4190,7 @@ class BridgeGenerator {
             userBridge?.getOperatorOverride(method.name);
         if (methodOverride != null) {
           buffer.writeln(
-            "      '${method.name}': ${userBridge!.userBridgeClassName}.$methodOverride,",
+            "      '${method.name}': $prefixedUserBridge.$methodOverride,",
           );
           continue;
         }
@@ -4212,7 +4226,7 @@ class BridgeGenerator {
         final operatorOverride = userBridge?.getOperatorOverride(operatorName);
         if (operatorOverride != null) {
           buffer.writeln(
-            "      '$operatorName': ${userBridge!.userBridgeClassName}.$operatorOverride,",
+            "      '$operatorName': $prefixedUserBridge.$operatorOverride,",
           );
           continue;
         }
@@ -4243,7 +4257,7 @@ class BridgeGenerator {
         final staticGetterOverride = userBridge?.getStaticGetterOverride(getter.name);
         if (staticGetterOverride != null) {
           buffer.writeln(
-            "      '${getter.name}': ${userBridge!.userBridgeClassName}.$staticGetterOverride,",
+            "      '${getter.name}': $prefixedUserBridge.$staticGetterOverride,",
           );
         } else {
           // Use prefixedName for static access
@@ -4264,7 +4278,7 @@ class BridgeGenerator {
         final staticMethodOverride = userBridge?.getStaticMethodOverride(method.name);
         if (staticMethodOverride != null) {
           buffer.writeln(
-            "      '${method.name}': ${userBridge!.userBridgeClassName}.$staticMethodOverride,",
+            "      '${method.name}': $prefixedUserBridge.$staticMethodOverride,",
           );
           continue;
         }

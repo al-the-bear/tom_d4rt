@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Test runner for user_reference_example
-// Generated: 2026-02-08T12:17:44.270467
+// Test runner for userbridge_user_guide_example
+// Generated: 2026-02-08T12:27:16.263105
 //
 // Usage:
 //   dart run bin/d4rtrun.b.dart <script.dart|.d4rt>  Run a D4rt script file
@@ -15,11 +15,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:tom_d4rt/d4rt.dart';
-import 'package:user_reference_example/src/d4rt_bridges/user_reference_bridges.b.dart' as all_bridges;
+import 'package:userbridge_user_guide_example/src/d4rt_bridges/userbridge_user_guide_bridges.b.dart' as all_bridges;
 
 /// Init script source that imports all bridged modules.
 const String _initSource = '''
-import 'package:user_reference_example/user_reference_example.dart';
+import 'package:userbridge_user_guide_example/userbridge_user_guide_example.dart';
 
 void main() {}
 ''';
@@ -28,7 +28,7 @@ void main() {}
 void _registerBridges(D4rt d4rt) {
   all_bridges.AllBridge.registerBridges(
     d4rt,
-    'package:user_reference_example/user_reference_example.dart',
+    'package:userbridge_user_guide_example/userbridge_user_guide_example.dart',
   );
 }
 
@@ -168,7 +168,7 @@ void _runEvalFile(String filePath) {
 /// Validate bridge registrations by running the init script
 /// and collecting all duplicate element errors.
 void _runInitEval() {
-  print('Validating bridge registrations for user_reference_example...');
+  print('Validating bridge registrations for userbridge_user_guide_example...');
   print('');
 
   final d4rt = D4rt();

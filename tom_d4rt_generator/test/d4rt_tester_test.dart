@@ -191,6 +191,68 @@ void main() {
         );
       });
     });
+
+    // ── userbridge_user_guide ────────────────────────────────────────
+
+    group('userbridge_user_guide', () {
+      late D4rtTester tester;
+      late BridgeConfig config;
+
+      setUpAll(() {
+        final projectPath = p.join(_exampleRoot, 'userbridge_user_guide');
+        config = BuildConfigLoader.loadFromTomBuildYaml(projectPath)!;
+        tester = D4rtTester(
+          projectPath: projectPath,
+          defaultTimeout: const Duration(seconds: 30),
+        );
+      });
+
+      test('Vector2D and Matrix2x2 via user bridges', () async {
+        final result = await tester.runScript(
+          config,
+          'test/d4rt_test_user_bridges.dart',
+        );
+        _expectSuccess(result, 'userbridge_user_guide');
+        expect(result.processOutput, contains('ALL_TESTS_PASSED'));
+
+        // Verify user bridge print markers appear in output
+        expect(
+          result.processOutput,
+          contains('[Vector2DUserBridge] operator+ called'),
+          reason: 'Vector2D operator+ should use user bridge code',
+        );
+        expect(
+          result.processOutput,
+          contains('[Vector2DUserBridge] binary operator- called'),
+          reason: 'Vector2D binary operator- should use user bridge code',
+        );
+        expect(
+          result.processOutput,
+          contains('[Vector2DUserBridge] unary operator- called'),
+          reason: 'Vector2D unary operator- should use user bridge code',
+        );
+        expect(
+          result.processOutput,
+          contains('[Vector2DUserBridge] operator* called'),
+          reason: 'Vector2D operator* should use user bridge code',
+        );
+        expect(
+          result.processOutput,
+          contains('[Vector2DUserBridge] dot() called'),
+          reason: 'Vector2D dot() should use user bridge code',
+        );
+        expect(
+          result.processOutput,
+          contains('[Matrix2x2UserBridge] operator[] called'),
+          reason: 'Matrix2x2 operator[] should use user bridge code',
+        );
+        expect(
+          result.processOutput,
+          contains('[Matrix2x2UserBridge] operator[]= called'),
+          reason: 'Matrix2x2 operator[]= should use user bridge code',
+        );
+      });
+    });
   });
 }
 
