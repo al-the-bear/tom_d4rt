@@ -44,6 +44,8 @@
 | [GEN-041](#gen-041) | [Enhanced enum fields not accessible via bridges at runtime](#gen-041) | Medium | TODO | Important |
 | [GEN-042](#gen-042) | [Classes with implicit default constructors are not bridged](#gen-042) | Medium | TODO | Important |
 | [GEN-044](#gen-044) | [Enum `.values` static getter not bridged](#gen-044) | Low | TODO | Important |
+| [GEN-047](#gen-047) | [Extension declarations not bridged](#gen-047) | High | TODO | Important |
+| [GEN-049](#gen-049) | [Extension methods on bridged classes not resolved](#gen-049) | High | TODO | Important |
 | [GEN-002](#gen-002) | [Recursive type bounds dispatched to only 3 hardcoded types](#gen-002) | Low | TODO | Relevant |
 | [GEN-012](#gen-012) | [Type parameter substitution uses fragile regex text replacement](#gen-012) | Medium | TODO | Relevant |
 | [GEN-016](#gen-016) | [Auxiliary imports may resolve wrong type on name collision](#gen-016) | Medium | TODO | Relevant |
@@ -53,6 +55,7 @@
 | [GEN-027](#gen-027) | [InvalidType warnings indicate analyzer resolution failures](#gen-027) | Medium | TODO | Relevant |
 | [GEN-045](#gen-045) | [Barrel-level name collisions silently break bridging](#gen-045) | Medium | TODO | Relevant |
 | [GEN-046](#gen-046) | [GlobalsUserBridge overrides not applied at runtime](#gen-046) | Medium | TODO | Relevant |
+| [GEN-048](#gen-048) | [Pure mixin declarations not bridged](#gen-048) | Medium | TODO | Relevant |
 | [GEN-005](#gen-005) | [Function types inside collections are unbridgeable](#gen-005) | High | TODO | Not Important |
 | [GEN-007](#gen-007) | [Function type alias detection limited to 7 hardcoded names](#gen-007) | Low | TODO | Not Important |
 | [GEN-009](#gen-009) | [Generic type parameter detection uses hardcoded name set](#gen-009) | Low | TODO | Not Important |
@@ -1917,6 +1920,167 @@ The config system works correctly — the issue is transparency, not correctness
 3. Add integration tests for config override scenarios (empty list vs. absent list, CLI overriding yaml, etc.).
 
 No hardcoding needed.
+
+---
+
+### GEN-047
+
+**Extension declarations not bridged**
+
+- **Complexity:** High
+- **Status:** TODO
+- **Relevance:** Important
+
+**a) Problem:**
+
+The bridge generator has no `visitExtensionDeclaration()` in either `_ResolvedClassVisitor` or `_ClassVisitor`. When a library declares an extension (e.g., `extension StringHelpers on String { ... }`), the generator silently ignores it. The D4rt runtime **does** support extensions at runtime via `InterpretedExtension`, `InterpretedExtensionMethod`, and `BoundExtensionMethodCallable`, so the infrastructure exists — but no bridge code is ever generated for native extensions.
+
+This means D4rt scripts cannot call extension methods defined in bridged packages unless the user writes manual bridge code for every extension.
+
+**Example:**
+
+```dart
+// In a bridged package:
+extension DateTimeHelpers on DateTime {
+  String toIso8601DateOnly() => toIso8601String().split('T').first;
+  bool isSameDay(DateTime other) => year == other.year && month == other.month && day == other.day;
+}
+```
+
+A D4rt script importing this package cannot call `myDate.toIso8601DateOnly()` because no bridge is generated for `DateTimeHelpers`.
+
+**b) Location:**
+
+- `_ResolvedClassVisitor` (bridge_generator.dart L7027+) — only has `visitClassDeclaration`, `visitEnumDeclaration`, `visitTopLevelVariableDeclaration`, `visitFunctionDeclaration`. No `visitExtensionDeclaration`.
+- `_ClassVisitor` (bridge_generator.dart L8218+) — same gap.
+- D4rt runtime support: `InterpretedExtension` (runtime_types.dart L1724), `InterpretedExtensionMethod` (callable.dart L4408), `findExtensionMember()` (environment.dart L353-L410).
+
+**c) General Strategy — Add extension declaration visitor and bridge emission:**
+
+1. **Add `visitExtensionDeclaration()` to `_ResolvedClassVisitor`:** When visiting an `ExtensionDeclaration`, collect:
+   - The `onType` (the type this extension applies to)
+   - All methods, getters, setters, and operators declared in the extension
+   - The extension name (for named extensions) or generate a synthetic name (for unnamed extensions)
+
+2. **Emit bridge registration code:** Generate bridge code that registers the extension with the D4rt runtime so `findExtensionMember()` can discover it. Use the same method/getter/setter bridging patterns already used for class members, but register them under the extension rather than the class.
+
+3. **Handle the `onType` resolution:** Use the analyzer's `ExtensionElement.extendedType` (a `DartType`) to correctly identify the target type, including generic extensions like `extension on List<T>`. Carry the resolved `DartType` through to code generation — do NOT fall back to string heuristics.
+
+4. **Handle unnamed extensions:** Unnamed extensions (`extension on Foo { ... }`) are valid Dart. Generate a synthetic bridge name based on the library and position, or skip them with a warning (unnamed extensions are typically private/internal).
+
+5. **Filter by configuration:** Respect the same include/exclude configuration that classes use, so users can control which extensions get bridged.
+
+---
+
+### GEN-048
+
+**Pure mixin declarations not bridged**
+
+- **Complexity:** Medium
+- **Status:** TODO
+- **Relevance:** Relevant
+
+**a) Problem:**
+
+The generator has no `visitMixinDeclaration()` in either visitor. When a library declares a pure `mixin` (not `mixin class`), the generator ignores it entirely. The members of a mixin ARE collected when a consuming class uses `with MixinName` (via `_collectInheritedMembersFromElement()` iterating `allSupertypes`), but the mixin itself is never bridged as a standalone type.
+
+This means:
+- D4rt code cannot reference the mixin type itself (e.g., for type checks like `obj is MyMixin`)
+- The mixin's members only appear on classes that use it — if no bridged class uses the mixin, its members are invisible to D4rt
+- `mixin class` works because it's a class, but pure `mixin` does not
+
+**Example:**
+
+```dart
+// In a bridged package:
+mixin Serializable {
+  Map<String, dynamic> toMap();
+  String toJson() => jsonEncode(toMap());
+}
+
+class User with Serializable {
+  @override
+  Map<String, dynamic> toMap() => {'name': name};
+}
+```
+
+The `User` bridge includes `toMap()` and `toJson()` (inherited), but there's no `Serializable` type for D4rt to reference. `obj is Serializable` cannot work.
+
+**b) Location:**
+
+- `_ResolvedClassVisitor` (bridge_generator.dart L7027+) — no `visitMixinDeclaration`.
+- `_collectInheritedMembersFromElement()` (bridge_generator.dart L7555+) — collects mixin members on consuming classes.
+- `_ClassVisitor` (bridge_generator.dart L8218+) — no `visitMixinDeclaration`.
+
+**c) General Strategy — Add mixin declaration visitor:**
+
+1. **Add `visitMixinDeclaration()` to `_ResolvedClassVisitor`:** Treat it similarly to `visitClassDeclaration`, collecting methods, getters, setters, and operators. Use the analyzer's `MixinElement` to get resolved type information.
+
+2. **Bridge the mixin as a type:** Generate a bridge that registers the mixin type with D4rt, enabling `is` checks and type references. The bridge should include all declared members (not inherited ones — those come from the mixin's own `on` clause supertypes).
+
+3. **Handle `on` clause constraints:** If the mixin declares `on SomeClass`, record this constraint so D4rt can enforce it at runtime when `with` is used in interpreted code.
+
+4. **Respect existing inherited-member collection:** The current approach of collecting mixin members on consuming classes via `allSupertypes` continues to work. The mixin bridge adds the standalone type, not a duplicate of the members.
+
+5. **Filter by configuration:** Respect include/exclude configuration, same as classes and extensions.
+
+---
+
+### GEN-049
+
+**Extension methods on bridged classes not resolved**
+
+- **Complexity:** High
+- **Status:** TODO
+- **Relevance:** Important
+
+**a) Problem:**
+
+When a bridged class has extension methods defined on it in scope (either in the same library or in imported libraries), the generator does not discover or bridge those extension methods onto the class. The generator only bridges members declared directly on the class plus inherited members from superclasses/mixins.
+
+Dart's compiler resolves extensions statically by analyzing imports. The bridge generator currently has no equivalent mechanism — it does not walk the import tree of the processed library to discover which extensions are in scope for a given class.
+
+This is a significant gap because many Dart packages provide their API surface partly through extensions (e.g., `package:collection`, `package:path`, Flutter's widget extensions). If a D4rt script uses a bridged class, it cannot call extension methods even if those extensions are defined in the same package.
+
+**Example:**
+
+```dart
+// In collection_helpers.dart:
+extension IterableHelpers<T> on Iterable<T> {
+  T? firstWhereOrNull(bool Function(T) test) { ... }
+  Iterable<T> whereNotNull() { ... }
+}
+
+// In user's D4rt script:
+import 'package:my_package/collection_helpers.dart';
+final result = myList.firstWhereOrNull((e) => e.name == 'foo'); // FAILS — not bridged
+```
+
+**b) Location:**
+
+- `_ResolvedClassVisitor` (bridge_generator.dart L7027+) — visits class declarations but doesn't scan for extensions applying to the class.
+- `_collectInheritedMembersFromElement()` (bridge_generator.dart L7555+) — uses `ClassElement.allSupertypes`, which does not include extensions (Dart's `ClassElement` has no API for discovering extensions on a class).
+- The Dart analyzer's `LibraryElement` provides `units` → `CompilationUnitElement.extensions`, which lists all `ExtensionElement` objects. Each has `extendedType` to check if it applies to a given class.
+
+**c) General Strategy — Walk the import tree to discover in-scope extensions:**
+
+The user's key insight: "If the compiler can do it, we should be able to do it, too. If we can find the extensions that are currently existing we can find out what applies to our classes at the moment of generation. So we only have to follow through the dependencies, just like the compiler does. I think we'll not get around building the AST for the complete tree of imports of a library to resolve everything we need to know about a class."
+
+**Implementation:**
+
+1. **Build the in-scope extension index:** When processing a library, walk its resolved imports (using `LibraryElement.importedLibraries` recursively, respecting `show`/`hide` combinators) and collect all `ExtensionElement` objects that are visible. For each extension, record `extendedType` and the list of members.
+
+2. **Match extensions to bridged classes:** For each class being bridged, check which extensions in the index have an `extendedType` that matches (or is a supertype of) the class. Use `DartType.isAssignableTo()` or the type system's subtype check — not string matching.
+
+3. **Emit extension-aware bridge code:** For each matching extension, add its methods/getters/setters to the class bridge's member list, annotated as extension members. Register them with D4rt's `findExtensionMember()` mechanism so the runtime can resolve them.
+
+4. **Handle generic extensions:** Extensions like `extension on List<T>` must match `List<int>`, `List<String>`, etc. Use the analyzer's type system to check assignability, including generic type argument compatibility.
+
+5. **Handle extension precedence:** When multiple extensions provide the same member name for a class, follow Dart's resolution rules (most specific type wins, then lexical scope order). Document cases where the bridge cannot fully replicate Dart's static resolution and falls back to a defined order.
+
+6. **Scope the walk for performance:** Don't walk the entire transitive dependency graph. Walk only the direct and re-exported imports of the library being processed (matching how Dart's compiler resolves extensions). Cache the extension index per library to avoid redundant traversal.
+
+This is the same "follow the imports like the compiler does" approach that also benefits GEN-008 (private SDK library mapping) and GEN-017 (barrel export resolution). Building this import-tree walker as a shared utility will pay dividends across multiple issues.
 
 ---
 
