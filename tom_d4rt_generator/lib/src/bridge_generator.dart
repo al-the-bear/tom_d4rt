@@ -293,11 +293,21 @@ class EnumInfo {
   /// Whether this enum has members (methods, getters, etc.).
   final bool hasMembers;
 
+  /// Instance getter names (custom fields/getters on enhanced enums).
+  /// E.g., for `enum Priority { ... final int value; }` → ['value']
+  final List<String> getterNames;
+
+  /// Instance method names on enhanced enums.
+  /// E.g., for `enum HttpMethod { ... bool canHaveBody() => ...; }` → ['canHaveBody']
+  final List<String> methodNames;
+
   const EnumInfo({
     required this.name,
     required this.values,
     required this.sourceFile,
     this.hasMembers = false,
+    this.getterNames = const [],
+    this.methodNames = const [],
   });
 }
 
@@ -3459,6 +3469,30 @@ class BridgeGenerator {
       buffer.writeln('      BridgedEnumDefinition<$prefixedEnumName>(');
       buffer.writeln("        name: '${enumInfo.name}',");
       buffer.writeln('        values: $prefixedEnumName.values,');
+
+      // GEN-041: Emit getter adapters for enhanced enum fields
+      if (enumInfo.getterNames.isNotEmpty) {
+        buffer.writeln('        getters: {');
+        for (final getter in enumInfo.getterNames) {
+          buffer.writeln("          '$getter': (visitor, target) => (target as $prefixedEnumName).$getter,");
+        }
+        buffer.writeln('        },');
+      }
+
+      // GEN-041: Emit method adapters for enhanced enum methods
+      if (enumInfo.methodNames.isNotEmpty) {
+        buffer.writeln('        methods: {');
+        for (final method in enumInfo.methodNames) {
+          // For simplicity, emit a general adapter that passes positional and
+          // named args. The runtime will handle argument dispatch.
+          buffer.writeln("          '$method': (visitor, target, positional, named, typeArgs) {");
+          buffer.writeln('            final t = target as $prefixedEnumName;');
+          buffer.writeln("            return Function.apply(t.$method, positional, named?.map((k, v) => MapEntry(Symbol(k), v)));");
+          buffer.writeln('          },');
+        }
+        buffer.writeln('        },');
+      }
+
       buffer.writeln('      ),');
     }
     buffer.writeln('    ];');
@@ -7170,12 +7204,61 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     // Check if enum has members (methods, getters, fields)
     final hasMembers = node.members.isNotEmpty;
 
+    // GEN-041: Collect custom field getters and methods from EnumElement.
+    // Built-in enum properties (name, index, values, hashCode) are excluded
+    // since they're handled natively by BridgedEnumValue.
+    final getterNames = <String>[];
+    final methodNames = <String>[];
+    final enumElement = node.declaredFragment?.element;
+    if (hasMembers && enumElement != null) {
+      // Built-in names that BridgedEnumValue already handles
+      const builtInNames = {'name', 'index', 'values', 'hashCode', 'runtimeType'};
+
+      // Collect non-synthetic, non-private field getters (final fields like Planet.mass)
+      for (final field in enumElement.fields) {
+        if (field.isSynthetic) continue;
+        if (field.isPrivate) continue;
+        if (field.isStatic) continue; // Enum constants are static
+        final fieldName = field.name;
+        if (fieldName == null) continue;
+        if (builtInNames.contains(fieldName)) continue;
+        getterNames.add(fieldName);
+      }
+
+      // Collect non-synthetic, non-private instance getters (computed getters
+      // like Priority.level that aren't backed by fields)
+      for (final accessor in enumElement.getters) {
+        if (accessor.isSynthetic) continue;
+        if (accessor.isPrivate) continue;
+        if (accessor.isStatic) continue;
+        final accessorName = accessor.name;
+        if (accessorName == null) continue;
+        if (builtInNames.contains(accessorName)) continue;
+        // Skip if already collected from fields (field accessors are synthetic,
+        // so this shouldn't duplicate, but guard anyway)
+        if (getterNames.contains(accessorName)) continue;
+        getterNames.add(accessorName);
+      }
+
+      // Collect non-synthetic, non-private instance methods
+      for (final method in enumElement.methods) {
+        if (method.isSynthetic) continue;
+        if (method.isPrivate) continue;
+        if (method.isStatic) continue;
+        final methodName = method.name;
+        if (methodName == null) continue;
+        methodNames.add(methodName);
+      }
+    }
+
     enums.add(
       EnumInfo(
         name: enumName,
         values: values,
         sourceFile: currentSourceFile ?? '',
         hasMembers: hasMembers,
+        getterNames: getterNames,
+        methodNames: methodNames,
       ),
     );
 

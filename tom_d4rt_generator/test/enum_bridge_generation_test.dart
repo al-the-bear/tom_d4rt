@@ -111,6 +111,43 @@ void main() {
       expect(generatedCode, contains('_createTaskBridge'));
       expect(generatedCode, contains('_createTaskManagerBridge'));
     });
+
+    test('GEN-041: generates getter adapters for enhanced enum fields', () {
+      // Priority has computed getters: 'level' and 'isHighPriority'
+      expect(generatedCode, contains("'level': (visitor, target) =>"));
+      expect(generatedCode, contains(r'(target as $pkg.Priority).level'));
+      expect(generatedCode, contains("'isHighPriority': (visitor, target) =>"));
+      expect(generatedCode, contains(r'(target as $pkg.Priority).isHighPriority'));
+    });
+
+    test('GEN-041: generates getter adapters for Planet fields', () {
+      // Planet has 'mass' and 'radius' final fields, plus 'surfaceGravity' computed getter
+      expect(generatedCode, contains("'mass': (visitor, target) =>"));
+      expect(generatedCode, contains("'radius': (visitor, target) =>"));
+      expect(generatedCode, contains(r'(target as $pkg.Planet).mass'));
+      expect(generatedCode, contains(r'(target as $pkg.Planet).radius'));
+      expect(generatedCode, contains("'surfaceGravity': (visitor, target) =>"));
+    });
+
+    test('GEN-041: generates method adapters for enhanced enum methods', () {
+      // HttpMethod has 'canHaveBody()' and 'toUpperCase()'
+      expect(generatedCode, contains("'canHaveBody':"));
+      expect(generatedCode, contains("'toUpperCase':"));
+    });
+
+    test('GEN-041: does NOT generate getters for simple enums', () {
+      // SimpleStatus has no custom fields — should have no getters: block
+      // We need to check that there's no getters block right after SimpleStatus
+      final simpleIdx = generatedCode.indexOf("name: 'SimpleStatus'");
+      expect(simpleIdx, greaterThan(0));
+      // Find the closing '),\n' of this BridgedEnumDefinition
+      final nextDef = generatedCode.indexOf('BridgedEnumDefinition', simpleIdx + 1);
+      final section = nextDef > 0
+          ? generatedCode.substring(simpleIdx, nextDef)
+          : generatedCode.substring(simpleIdx, simpleIdx + 200);
+      expect(section, isNot(contains("getters:")),
+          reason: 'Simple enum should not have getters');
+    });
   });
 
   group('Enum Bridge Generation - Edge Cases', () {
