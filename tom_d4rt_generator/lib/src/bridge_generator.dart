@@ -22,6 +22,49 @@ import 'file_writer.dart';
 import 'user_bridge_scanner.dart';
 
 // =============================================================================
+// OPERATOR DETECTION
+// =============================================================================
+
+/// Set of Dart binary operator symbols.
+/// Used to detect operators in method names for code generation.
+const _binaryOperators = {
+  '<', '>', '<=', '>=', '==',
+  '+', '-', '*', '/', '~/', '%',
+  '&', '|', '^', '<<', '>>', '>>>',
+};
+
+/// Set of Dart index operator symbols.
+const _indexOperators = {'[]', '[]='};
+
+/// Set of Dart unary operator symbols.
+const _unaryOperators = {'~'};
+
+/// Generates the appropriate code for calling an operator.
+/// 
+/// For binary operators like `<`, generates `(t as dynamic) < positional[0]`.
+/// For index operator `[]`, generates `t[positional[0]]`.
+/// For index setter `[]=`, generates `t[positional[0]] = positional[1]`.
+/// For unary `~`, generates `~t`.
+/// 
+/// The `as dynamic` cast is used for binary operators because we don't have
+/// the operand type info. This lets Dart's runtime dispatch handle it.
+/// 
+/// Returns null if the name is not an operator (caller should use normal method call).
+String? _generateOperatorCall(String operatorName, String targetVar) {
+  if (_binaryOperators.contains(operatorName)) {
+    // Use dynamic cast to let Dart runtime dispatch handle the operator
+    return 'return ($targetVar as dynamic) $operatorName positional[0];';
+  } else if (operatorName == '[]') {
+    return 'return $targetVar[positional[0]];';
+  } else if (operatorName == '[]=') {
+    return '$targetVar[positional[0]] = positional[1]; return null;';
+  } else if (operatorName == '~') {
+    return 'return ~$targetVar;';
+  }
+  return null;
+}
+
+// =============================================================================
 // BRIDGE GENERATOR
 // =============================================================================
 
@@ -3539,14 +3582,21 @@ class BridgeGenerator {
       }
 
       // GEN-041: Emit method adapters for enhanced enum methods
+      // GEN-050: Handle operators with proper syntax (not dot notation)
       if (enumInfo.methodNames.isNotEmpty) {
         buffer.writeln('        methods: {');
         for (final method in enumInfo.methodNames) {
-          // For simplicity, emit a general adapter that passes positional and
-          // named args. The runtime will handle argument dispatch.
           buffer.writeln("          '$method': (visitor, target, positional, named, typeArgs) {");
           buffer.writeln('            final t = target as $prefixedEnumName;');
-          buffer.writeln("            return Function.apply(t.$method, positional, named?.map((k, v) => MapEntry(Symbol(k), v)));");
+          
+          // Check if this is an operator - use operator syntax instead of Function.apply
+          final operatorCall = _generateOperatorCall(method, 't');
+          if (operatorCall != null) {
+            buffer.writeln('            $operatorCall');
+          } else {
+            // Regular method - use Function.apply for flexibility
+            buffer.writeln("            return Function.apply(t.$method, positional, named.map((k, v) => MapEntry(Symbol(k), v)));");
+          }
           buffer.writeln('          },');
         }
         buffer.writeln('        },');
@@ -3604,12 +3654,21 @@ class BridgeGenerator {
       }
 
       // Method adapters
+      // GEN-050: Handle operators with proper syntax (not dot notation)
       if (ext.methodNames.isNotEmpty) {
         buffer.writeln('        methods: {');
         for (final method in ext.methodNames) {
           buffer.writeln("          '$method': (visitor, target, positional, named, typeArgs) {");
           buffer.writeln('            final t = target as $onTypePrefixed;');
-          buffer.writeln("            return Function.apply(t.$method, positional, named?.map((k, v) => MapEntry(Symbol(k), v)));");
+          
+          // Check if this is an operator - use operator syntax instead of Function.apply
+          final operatorCall = _generateOperatorCall(method, 't');
+          if (operatorCall != null) {
+            buffer.writeln('            $operatorCall');
+          } else {
+            // Regular method - use Function.apply for flexibility
+            buffer.writeln("            return Function.apply(t.$method, positional, named.map((k, v) => MapEntry(Symbol(k), v)));");
+          }
           buffer.writeln('          },');
         }
         buffer.writeln('        },');

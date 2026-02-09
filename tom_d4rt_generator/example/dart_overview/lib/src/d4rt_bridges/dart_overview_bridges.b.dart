@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-02-09T03:06:40.824459
+// Generated: 2026-02-09T04:10:12.866621
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -231,7 +231,7 @@ class AllBridge {
         methods: {
           'execute': (visitor, target, positional, named, typeArgs) {
             final t = target as $pkg.Operation;
-            return Function.apply(t.execute, positional, named?.map((k, v) => MapEntry(Symbol(k), v)));
+            return Function.apply(t.execute, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
           },
         },
       ),

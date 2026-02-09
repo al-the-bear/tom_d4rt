@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-02-09T03:05:35.905768
+// Generated: 2026-02-09T04:08:48.011559
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -89,15 +89,15 @@ class AllBridge {
         methods: {
           'compareTo': (visitor, target, positional, named, typeArgs) {
             final t = target as $pkg.Priority;
-            return Function.apply(t.compareTo, positional, named?.map((k, v) => MapEntry(Symbol(k), v)));
+            return Function.apply(t.compareTo, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
           },
           '<': (visitor, target, positional, named, typeArgs) {
             final t = target as $pkg.Priority;
-            return Function.apply(t.<, positional, named?.map((k, v) => MapEntry(Symbol(k), v)));
+            return (t as dynamic) < positional[0];
           },
           '>': (visitor, target, positional, named, typeArgs) {
             final t = target as $pkg.Priority;
-            return Function.apply(t.>, positional, named?.map((k, v) => MapEntry(Symbol(k), v)));
+            return (t as dynamic) > positional[0];
           },
         },
       ),

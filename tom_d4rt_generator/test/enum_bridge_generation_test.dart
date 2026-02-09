@@ -97,7 +97,8 @@ void main() {
     });
 
     test('generates registerBridgedEnum calls in registerBridges', () {
-      expect(generatedCode, contains('interpreter.registerBridgedEnum(enumDef, importPath)'));
+      // The call includes sourceUri for deduplication support
+      expect(generatedCode, contains('interpreter.registerBridgedEnum(enumDef, importPath, sourceUri:'));
     });
 
     test('generates enumNames property', () {
@@ -178,9 +179,12 @@ class SimpleClass {
       expect(result.errors, isEmpty);
       final code = await File(result.outputFiles.first).readAsString();
       
-      // Should not have bridgedEnums method when no enums
-      expect(code, isNot(contains('bridgedEnums()')));
-      expect(code, isNot(contains('registerBridgedEnum')));
+      // bridgedEnums() is always generated for API consistency,
+      // but returns empty list when no enums exist
+      expect(code, contains('bridgedEnums()'));
+      // The method signature List<BridgedEnumDefinition> is present,
+      // but no BridgedEnumDefinition( constructor calls (with opening paren)
+      expect(code, isNot(contains('BridgedEnumDefinition(')));
     });
 
     test('handles file with only private enums', () async {

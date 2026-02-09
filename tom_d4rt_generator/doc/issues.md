@@ -56,7 +56,7 @@
 | [GEN-045](#gen-045) | [Barrel-level name collisions silently break bridging](#gen-045) | Medium | TODO | Relevant |
 | [GEN-046](#gen-046) | [GlobalsUserBridge overrides not applied at runtime](#gen-046) | Medium | TODO | Relevant |
 | [GEN-048](#gen-048) | [Pure mixin declarations not bridged](#gen-048) | Medium | TODO | Relevant |
-| [GEN-050](#gen-050) | [Operator methods emit invalid syntax (`t.<`, `t.>`)](#gen-050) | Medium | TODO | Relevant |
+| [GEN-050](#gen-050) | [Operator methods emit invalid syntax (`t.<`, `t.>`)](#gen-050) | Medium | RESOLVED | Relevant |
 | [GEN-005](#gen-005) | [Function types inside collections are unbridgeable](#gen-005) | High | TODO | Not Important |
 | [GEN-007](#gen-007) | [Function type alias detection limited to 7 hardcoded names](#gen-007) | Low | TODO | Not Important |
 | [GEN-009](#gen-009) | [Generic type parameter detection uses hardcoded name set](#gen-009) | Low | TODO | Not Important |
@@ -2105,8 +2105,21 @@ This is the same "follow the imports like the compiler does" approach that also 
 **Operator methods emit invalid syntax (`t.<`, `t.>`)**
 
 - **Complexity:** Medium
-- **Status:** TODO
+- **Status:** RESOLVED
 - **Relevance:** Relevant
+
+**Resolution (2026-02-09):**
+
+Added operator detection and proper code generation in `bridge_generator.dart`:
+- Added `_binaryOperators`, `_indexOperators`, `_unaryOperators` constant sets
+- Added `_generateOperatorCall()` helper function that generates proper syntax:
+  - Binary operators: `return (t as dynamic) $operatorName positional[0];`
+  - Index operator `[]`: `return t[positional[0]];`
+  - Index setter `[]=`: `t[positional[0]] = positional[1]; return null;`
+  - Unary `~`: `return ~t;`
+- Updated enum method generation (GEN-041) to use `_generateOperatorCall()`
+- Updated extension method generation (GEN-047) to use `_generateOperatorCall()`
+- The `as dynamic` cast is needed because we don't have parameter type info
 
 **a) Problem:**
 
