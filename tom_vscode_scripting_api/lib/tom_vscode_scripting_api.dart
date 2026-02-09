@@ -28,5 +28,9 @@ export 'src/vscode_helper.dart';
 // Types
 export 'src/vscode_types.dart';
 
+// AI APIs (local LLM prompt processing & bot conversation)
+export 'src/ai_prompt_api.dart';
+export 'src/ai_conversation_api.dart';
+
 // Script globals (vscode, window, workspace, commands, extensions, lm, chat)
 export 'script_globals.dart';
