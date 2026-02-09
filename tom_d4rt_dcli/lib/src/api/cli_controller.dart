@@ -253,7 +253,7 @@ class D4rtCliController implements D4rtCliApi {
     if (line.startsWith('.load-defines ')) {
       return loadDefines(line.substring(14).trim());
     }
-    if (line.startsWith(r'$')) {
+    if (line.startsWith('@')) {
       return expandDefine(line);
     }
 
@@ -531,7 +531,7 @@ class D4rtCliController implements D4rtCliApi {
 
   @override
   String? expandDefine(String input) {
-    if (!input.startsWith(r'$')) return null;
+    if (!input.startsWith('@')) return null;
 
     final parts = input.substring(1).split(RegExp(r'\s+'));
     if (parts.isEmpty) return null;

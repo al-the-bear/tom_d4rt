@@ -146,7 +146,7 @@ abstract class D4rtCliApi {
 
   // ===========================================================================
   // DEFINES: Command Aliases
-  // Maps to: define, undefine, defines, .load-defines, $<name>
+  // Maps to: define, undefine, defines, .load-defines, @<name>
   // ===========================================================================
 
   /// Create a command alias.
@@ -170,12 +170,12 @@ abstract class D4rtCliApi {
   int loadDefines(String path);
 
   /// Invoke a define with arguments.
-  /// Maps to: `$<name> [args]`
+  /// Maps to: `@<name> [args]`
   ///
   /// Returns the expanded command, or null if define not found.
   String? invokeDefine(String name, [List<String>? args]);
 
-  /// Expand a define invocation string (e.g., "\$greet World").
+  /// Expand a define invocation string (e.g., "@greet World").
   /// Returns null if input doesn't match any define.
   String? expandDefine(String input);
 

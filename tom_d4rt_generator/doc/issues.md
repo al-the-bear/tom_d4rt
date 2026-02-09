@@ -45,17 +45,17 @@
 | [GEN-042](#gen-042) | [Classes with implicit default constructors are not bridged](#gen-042) | Medium | RESOLVED | Important |
 | [GEN-044](#gen-044) | [Enum `.values` static getter not bridged](#gen-044) | Low | RESOLVED | Important |
 | [GEN-047](#gen-047) | [Extension declarations not bridged](#gen-047) | High | RESOLVED | Important |
-| [GEN-049](#gen-049) | [Extension methods on bridged classes not resolved](#gen-049) | High | TODO | Important |
+| [GEN-049](#gen-049) | [Extension methods on bridged classes not resolved](#gen-049) | High | RESOLVED | Important |
 | [GEN-002](#gen-002) | [Recursive type bounds dispatched to only 3 hardcoded types](#gen-002) | Low | TODO | Relevant |
 | [GEN-012](#gen-012) | [Type parameter substitution uses fragile regex text replacement](#gen-012) | Medium | TODO | Relevant |
 | [GEN-016](#gen-016) | [Auxiliary imports may resolve wrong type on name collision](#gen-016) | Medium | TODO | Relevant |
 | [GEN-018](#gen-018) | [Parameterized typedef expansion may produce incorrect types](#gen-018) | Medium | TODO | Relevant |
-| [GEN-020](#gen-020) | [Global exclusions merge across modules — accidental cross-filtering](#gen-020) | Medium | TODO | Relevant |
+| [GEN-020](#gen-020) | [Global exclusions merge across modules — accidental cross-filtering](#gen-020) | Medium | RESOLVED | Relevant |
 | [GEN-025](#gen-025) | [Record types with nested functions may have edge cases](#gen-025) | Medium | TODO | Relevant |
 | [GEN-027](#gen-027) | [InvalidType warnings indicate analyzer resolution failures](#gen-027) | Medium | TODO | Relevant |
 | [GEN-045](#gen-045) | [Barrel-level name collisions silently break bridging](#gen-045) | Medium | TODO | Relevant |
 | [GEN-046](#gen-046) | [GlobalsUserBridge overrides not applied at runtime](#gen-046) | Medium | TODO | Relevant |
-| [GEN-048](#gen-048) | [Pure mixin declarations not bridged](#gen-048) | Medium | TODO | Relevant |
+| [GEN-048](#gen-048) | [Pure mixin declarations not bridged](#gen-048) | Medium | RESOLVED | Relevant |
 | [GEN-050](#gen-050) | [Operator methods emit invalid syntax (`t.<`, `t.>`)](#gen-050) | Medium | RESOLVED | Relevant |
 | [GEN-005](#gen-005) | [Function types inside collections are unbridgeable](#gen-005) | High | TODO | Not Important |
 | [GEN-007](#gen-007) | [Function type alias detection limited to 7 hardcoded names](#gen-007) | Low | TODO | Not Important |
@@ -1175,6 +1175,18 @@ _moduleExclusions[module.name] = ModuleExclusions(
 
 No hardcoding involved — purely structural change to the exclusion scoping logic.
 
+**d) Resolution:**
+
+**Status:** RESOLVED in v1.5.2
+
+Added per-module exclusion storage in `per_package_orchestrator.dart`:
+- Replaced `_globalExcludeClasses`, `_globalExcludeFunctions`, `_globalExcludeVariables`, `_globalExcludeSourcePatterns` global sets with `Map<String, _ModuleExclusions> _moduleExclusions`
+- In `collectPackageInfo()`: Store each module's exclusions separately keyed by module name
+- Added `_getExclusionsForPackage(packageName)` helper that finds all modules that include the package and returns their merged exclusions
+- In `generatePerPackageFiles()`: Call `_getExclusionsForPackage()` to get only relevant exclusions for each package
+
+Now exclusions are scoped correctly — excluding `*Exception` in the dcli module no longer affects tom_basics exception classes.
+
 ---
 
 ---
@@ -1993,8 +2005,25 @@ Fixed by implementing full extension bridging support in both runtime and genera
 **Pure mixin declarations not bridged**
 
 - **Complexity:** Medium
-- **Status:** TODO
+- **Status:** RESOLVED
 - **Relevance:** Relevant
+
+**Resolution (2026-02-09):**
+
+Added `visitMixinDeclaration()` to both `_ResolvedClassVisitor` and `_ClassVisitor` in `bridge_generator.dart`:
+
+- Mixins are now collected and bridged like classes, but with `isAbstract: true` and empty `constructors` (mixins cannot be instantiated directly)
+- Extracts superclass constraint from `on` clause if present (e.g., `mixin JsonSerializable on Object` records `Object` as superclass)
+- Collects methods, getters, setters, and fields from the mixin body
+- Collects inherited members from supertype constraints via `_collectInheritedMembersFromElement()`
+- Parses generic type parameters and their bounds
+- Respects `skipPrivate` setting for private mixins
+- Respects `@visibleForTesting`, `@protected`, `@internal` annotations
+- Respects deprecated element filtering
+
+Test coverage added:
+- `test/fixtures/mixin_test_source.dart` - defines `Printable`, `JsonSerializable`, `Comparable<T>`, `Nameable` mixins plus `_PrivateMixin` (skipped)
+- `test/mixin_bridge_generation_test.dart` - 12 tests verifying mixin bridging
 
 **a) Problem:**
 
@@ -2047,8 +2076,29 @@ The `User` bridge includes `toMap()` and `toJson()` (inherited), but there's no 
 **Extension methods on bridged classes not resolved**
 
 - **Complexity:** High
-- **Status:** TODO
+- **Status:** RESOLVED
 - **Relevance:** Important
+
+**Resolution (2026-02-09):**
+
+Added `_collectExtensionsFromImports()` function in `bridge_generator.dart` that walks the import tree of each processed source file to discover extensions from imported libraries:
+
+- For each source file being processed, iterates through `LibraryElement.fragments` → `fragment.libraryImports` to find all imported libraries
+- For each imported library (excluding `dart:` libraries), collects all `ExtensionElement` objects via `importedLibrary.extensions`
+- Respects show/hide combinators via `import.namespace.definedNames2`
+- Skips private extensions (names starting with `_`)
+- Collects getters via `extElement.getters`, setters via `extElement.setters`, and methods via `extElement.methods`
+- Handles generic extensions by using `extendedType.getDisplayString()` for non-InterfaceType targets
+- Deduplicates extensions by source URI + name to avoid duplicates when the same extension is imported through multiple paths
+- Extensions are integrated via call in `_parseGlobals()` after visitor.extensions collection
+- Added verbose logging: `GEN-049: Discovered extension {name} on {type} from import {uri}`
+
+Test coverage added:
+- `test/fixtures/external_extensions.dart` - defines `ImportedIntHelpers` and `ImportedListHelpers` extensions
+- `test/fixtures/imports_external_extensions.dart` - source file that imports the extensions
+- `test/import_extension_discovery_test.dart` - 5 tests verifying import-based extension discovery
+
+Note: This implementation walks only direct imports (not transitive) for performance. Extensions from transitive dependencies are not currently discovered, matching Dart's static extension resolution which only considers directly imported extensions.
 
 **a) Problem:**
 

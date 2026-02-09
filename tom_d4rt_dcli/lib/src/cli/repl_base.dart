@@ -1511,15 +1511,15 @@ $code
         } else {
           print('Defines (${filtered.length}):');
           for (final entry in filtered) {
-            print('  \$${entry.key} = ${entry.value}');
+            print('  @${entry.key} = ${entry.value}');
           }
         }
       }
       return true;
     }
 
-    // Expand $define invocations
-    if (line.startsWith(r'$')) {
+    // Expand @define invocations
+    if (line.startsWith('@')) {
       final expanded = tryExpandDefine(line);
       if (expanded != null) {
         if (!silent) {

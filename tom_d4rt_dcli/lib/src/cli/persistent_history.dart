@@ -258,10 +258,10 @@ String expandDefine(String template, String restOfLine) {
   return result;
 }
 
-/// Check if a line starts with a define invocation ($name)
+/// Check if a line starts with a define invocation (@name)
 /// Returns the expanded code if it matches, null otherwise
 String? tryExpandDefine(String line) {
-  if (!line.startsWith(r'$')) return null;
+  if (!line.startsWith('@')) return null;
   
   // Find the define name (everything until first space or end of line)
   final spaceIndex = line.indexOf(' ');

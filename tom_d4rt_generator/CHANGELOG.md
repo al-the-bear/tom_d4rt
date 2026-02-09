@@ -1,3 +1,22 @@
+## 1.5.2
+
+### Bug Fixes
+- **GEN-049**: Extension methods on bridged classes from imported libraries are now discovered. The generator walks the import tree of each source file to collect extensions from imported packages. This enables D4rt scripts to call extension methods from packages like `package:collection` when they are in scope.
+- **GEN-048**: Pure `mixin` declarations are now bridged. Previously only `mixin class` declarations were handled. Mixins are bridged as abstract classes without constructors, including their methods, getters, setters, and fields.
+- **GEN-020**: Global exclusions no longer merge across modules. Each module's exclusions now apply only to packages belonging to that module, preventing accidental cross-filtering.
+
+### New Features
+- `_collectExtensionsFromImports()`: New function that walks library imports and collects visible extensions
+- `visitMixinDeclaration()`: Added to both visitors to handle pure mixin declarations
+- `_getExclusionsForPackage()`: New helper that returns exclusions scoped to a package's owning modules
+- Verbose mode shows `GEN-049: Discovered extension {name} on {type} from import {uri}` messages
+
+### Tests
+- Added `test/import_extension_discovery_test.dart` — 5 tests for import-based extension discovery
+- Added `test/fixtures/external_extensions.dart` and `test/fixtures/imports_external_extensions.dart` test fixtures
+- Added `test/mixin_bridge_generation_test.dart` — 12 tests for mixin bridging
+- Added `test/fixtures/mixin_test_source.dart` test fixture with pure mixin declarations
+
 ## 1.5.1
 
 ### Documentation

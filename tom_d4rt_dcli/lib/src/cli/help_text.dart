@@ -50,13 +50,13 @@ String getDefinesHelp() {
   <yellow>**undefine**</yellow> <name>            Remove a command alias
   <yellow>**defines**</yellow>                    List all defines
   <yellow>**.load-defines**</yellow> <path>       Load defines from file *(*.define.txt)*
-  <yellow>**\$<name>**</yellow> [args]            Invoke a define
+  <yellow>**@<name>**</yellow> [args]             Invoke a define
 
   *Placeholders:* <yellow>\$\$</yellow> entire line, <yellow>\$1</yellow>-<yellow>\$9</yellow> individual args
 
   *Example:*
     <yellow>define greet=print("Hello, \$1!");</yellow>
-    <yellow>\$greet World</yellow>''';
+    <yellow>@greet World</yellow>''';
 }
 
 /// Returns the multiline input section.

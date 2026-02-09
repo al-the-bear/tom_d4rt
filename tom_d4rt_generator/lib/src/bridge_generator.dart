@@ -2787,6 +2787,10 @@ class BridgeGenerator {
           enums.addAll(visitor.enums);
           extensions.addAll(visitor.extensions);
           
+          // GEN-049: Collect extensions from imported libraries
+          final importedExtensions = _collectExtensionsFromImports(result, normalizedPath);
+          extensions.addAll(importedExtensions);
+          
           // Accumulate skipped deprecated count
           skippedDeprecatedCount += visitor.skippedDeprecatedCount;
           
@@ -3167,6 +3171,136 @@ class BridgeGenerator {
     }
     
     _sourceFileImports[filePath] = typeToUri;
+  }
+
+  /// Collects extensions from libraries imported by the given source file (GEN-049).
+  ///
+  /// Walks the direct imports of the resolved library and collects any extension
+  /// declarations that are visible. This allows D4rt scripts to use extension
+  /// methods from imported packages (e.g., `package:collection`).
+  ///
+  /// Only collects extensions from direct imports (not transitive) to avoid
+  /// performance issues. Respects show/hide combinators on imports.
+  ///
+  /// Returns a list of [ExtensionInfo] for all visible extensions from imports.
+  List<ExtensionInfo> _collectExtensionsFromImports(
+    ResolvedLibraryResult result,
+    String filePath,
+  ) {
+    final collectedExtensions = <ExtensionInfo>[];
+    final libraryElement = result.element;
+    
+    // Track which extensions we've already collected to avoid duplicates
+    final seenExtensions = <String>{};
+    
+    // Iterate through all fragments (includes the main file and parts)
+    for (final fragment in libraryElement.fragments) {
+      // Iterate through all imports in this fragment
+      for (final import in fragment.libraryImports) {
+        final importedLibrary = import.importedLibrary;
+        if (importedLibrary == null) continue;
+        
+        // Skip dart: imports - these are built-in and handled by the runtime
+        final libraryUri = importedLibrary.identifier;
+        if (libraryUri.startsWith('dart:')) continue;
+        
+        // Get the show/hide combinators for this import
+        // The namespace already accounts for these, but we need to check
+        // if the extension name itself is visible
+        final namespace = import.namespace;
+        final visibleNames = namespace.definedNames2.keys.toSet();
+        
+        // Collect extensions directly from the imported library
+        for (final extElement in importedLibrary.extensions) {
+          // Get the extension name (may be empty for unnamed extensions)
+          final extName = extElement.name;
+          
+          // Skip if the extension name is not visible via show/hide
+          // (unnamed extensions are always visible if the extended type is)
+          if (extName != null && extName.isNotEmpty && !visibleNames.contains(extName)) {
+            continue;
+          }
+          
+          // Skip private extensions
+          if (extName != null && extName.startsWith('_')) continue;
+          
+          // Create a unique key for deduplication
+          final extUri = extElement.firstFragment.libraryFragment.source.uri;
+          final extKey = '$extUri:${extName ?? '(unnamed)'}';
+          if (seenExtensions.contains(extKey)) continue;
+          seenExtensions.add(extKey);
+          
+          // Get the extended type name
+          final extendedType = extElement.extendedType;
+          String? onTypeName;
+          if (extendedType is InterfaceType) {
+            onTypeName = extendedType.element.name;
+          } else {
+            // For complex types, try to get a string representation
+            final typeStr = extendedType.getDisplayString();
+            // Skip generic types for now (e.g., List<T>) - too complex
+            if (typeStr.contains('<')) continue;
+            onTypeName = typeStr;
+          }
+          if (onTypeName == null || onTypeName.isEmpty) continue;
+          
+          // Collect getters, setters, and methods
+          final getterNames = <String>[];
+          final setterNames = <String>[];
+          final methodNames = <String>[];
+          
+          for (final getter in extElement.getters) {
+            if (getter.isStatic) continue;
+            final getterName = getter.name;
+            if (getterName == null || getterName.startsWith('_')) continue;
+            getterNames.add(getterName);
+          }
+          
+          for (final setter in extElement.setters) {
+            if (setter.isStatic) continue;
+            final setterName = setter.name;
+            if (setterName == null || setterName.startsWith('_')) continue;
+            // Setter names have '=' suffix in analyzer 8.x, remove it
+            final cleanName = setterName.endsWith('=')
+                ? setterName.substring(0, setterName.length - 1)
+                : setterName;
+            setterNames.add(cleanName);
+          }
+          
+          for (final method in extElement.methods) {
+            if (method.isStatic) continue;
+            final methodName = method.name;
+            if (methodName == null || methodName.startsWith('_')) continue;
+            // Skip operators for now
+            if (method.isOperator) continue;
+            methodNames.add(methodName);
+          }
+          
+          // Only add if there are bridgeable members
+          if (getterNames.isEmpty && setterNames.isEmpty && methodNames.isEmpty) {
+            continue;
+          }
+          
+          // Get the source file path for the extension
+          final extSourceUri = extUri.toString();
+          
+          collectedExtensions.add(ExtensionInfo(
+            name: extName,
+            onTypeName: onTypeName,
+            sourceFile: extSourceUri,
+            getterNames: getterNames,
+            setterNames: setterNames,
+            methodNames: methodNames,
+          ));
+          
+          if (verbose) {
+            print('  GEN-049: Discovered extension ${extName ?? "(unnamed)"} on $onTypeName from import $libraryUri');
+          }
+        }
+      }
+    }
+    
+    return collectedExtensions;
   }
 
   /// Pre-collect auxiliary imports needed for default values across classes and functions.
@@ -7802,6 +7936,97 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     super.visitClassDeclaration(node);
   }
 
+  /// GEN-048: Handle pure mixin declarations.
+  ///
+  /// Mixins are similar to abstract classes but cannot have constructors
+  /// and may have an `on` clause constraint.
+  @override
+  void visitMixinDeclaration(MixinDeclaration node) {
+    final mixinName = node.name.lexeme;
+
+    // Skip private mixins if configured
+    if (skipPrivate && mixinName.startsWith('_')) return;
+
+    // Skip mixins marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return;
+
+    // Skip deprecated mixins unless generateDeprecatedElements is enabled
+    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
+      skippedDeprecatedCount++;
+      return;
+    }
+
+    final members = <MemberInfo>[];
+
+    // Extract superclass constraint from `on` clause (if present)
+    // E.g., `mixin JsonSerializable on Object` has Object as constraint
+    String? superclass;
+    String? superclassUri;
+    if (node.onClause != null && node.onClause!.superclassConstraints.isNotEmpty) {
+      final firstConstraint = node.onClause!.superclassConstraints.first;
+      superclass = firstConstraint.name.lexeme;
+      // Get the resolved type to find the library identifier
+      final constraintType = firstConstraint.type;
+      if (constraintType is InterfaceType) {
+        final constraintElement = constraintType.element;
+        final library = constraintElement.library;
+        final uri = library.identifier;
+        // Only store package: URIs, not file: or dart: URIs
+        if (uri.startsWith('package:')) {
+          superclassUri = uri;
+        }
+      }
+    }
+
+    // Visit mixin members (methods, getters, setters, fields)
+    for (final member in node.members) {
+      // Mixins cannot have constructors
+      if (member is MethodDeclaration) {
+        final methodInfo = _parseMethod(member);
+        if (methodInfo != null) members.add(methodInfo);
+      } else if (member is FieldDeclaration) {
+        final fieldInfos = _parseField(member);
+        members.addAll(fieldInfos);
+      }
+    }
+
+    // Collect inherited members from supertype constraints
+    final declaredMemberNames = members.map((m) => m.name).toSet();
+    final mixinElement = node.declaredFragment?.element;
+    if (mixinElement != null) {
+      final inheritedMembers = _collectInheritedMembersFromElement(
+        mixinElement,
+        declaredMemberNames,
+      );
+      members.addAll(inheritedMembers);
+    }
+
+    // Parse generic type parameters and their bounds
+    final typeParams = <String, String?>{};
+    if (node.typeParameters != null) {
+      for (final typeParam in node.typeParameters!.typeParameters) {
+        final paramName = typeParam.name.lexeme;
+        final bound = typeParam.bound?.type?.element?.name;
+        typeParams[paramName] = bound;
+      }
+    }
+
+    // Add mixin as an abstract class (mixins cannot be instantiated directly)
+    classes.add(
+      _ParsedClass(
+        name: mixinName,
+        superclass: superclass,
+        superclassUri: superclassUri,
+        isAbstract: true, // Mixins are always abstract
+        constructors: const [], // Mixins cannot have constructors
+        members: members,
+        typeParameters: typeParams,
+      ),
+    );
+
+    super.visitMixinDeclaration(node);
+  }
+
   /// Collects all import URIs from a type annotation, including generic type arguments.
   /// Returns a record with the set of URIs, a map from type name to URI, whether
   /// the type is a function type alias, and the function type info if applicable.
@@ -8756,6 +8981,73 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
     );
 
     super.visitClassDeclaration(node);
+  }
+
+  /// GEN-048: Handle pure mixin declarations (syntactic visitor).
+  ///
+  /// Mixins are similar to abstract classes but cannot have constructors
+  /// and may have an `on` clause constraint.
+  @override
+  void visitMixinDeclaration(MixinDeclaration node) {
+    final mixinName = node.name.lexeme;
+
+    // Skip private mixins if configured
+    if (skipPrivate && mixinName.startsWith('_')) return;
+
+    // Skip mixins marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return;
+
+    // Skip deprecated mixins unless generateDeprecatedElements is enabled
+    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
+      skippedDeprecatedCount++;
+      return;
+    }
+
+    final members = <MemberInfo>[];
+
+    // Extract superclass constraint from `on` clause (if present)
+    String? superclass;
+    if (node.onClause != null && node.onClause!.superclassConstraints.isNotEmpty) {
+      final firstConstraint = node.onClause!.superclassConstraints.first;
+      superclass = firstConstraint.name.lexeme;
+    }
+
+    // Visit mixin members (methods, getters, setters, fields)
+    for (final member in node.members) {
+      // Mixins cannot have constructors
+      if (member is MethodDeclaration) {
+        final methodInfo = _parseMethod(member);
+        if (methodInfo != null) members.add(methodInfo);
+      } else if (member is FieldDeclaration) {
+        final fieldInfos = _parseField(member);
+        members.addAll(fieldInfos);
+      }
+    }
+
+    // Parse generic type parameters and their bounds (syntactic only)
+    final typeParams = <String, String?>{};
+    if (node.typeParameters != null) {
+      for (final typeParam in node.typeParameters!.typeParameters) {
+        final paramName = typeParam.name.lexeme;
+        // For syntactic parsing, get bound from token text
+        final bound = typeParam.bound?.toSource().replaceFirst('extends ', '');
+        typeParams[paramName] = bound;
+      }
+    }
+
+    // Add mixin as an abstract class (mixins cannot be instantiated directly)
+    classes.add(
+      _ParsedClass(
+        name: mixinName,
+        superclass: superclass,
+        isAbstract: true, // Mixins are always abstract
+        constructors: const [], // Mixins cannot have constructors
+        members: members,
+        typeParameters: typeParams,
+      ),
+    );
+
+    super.visitMixinDeclaration(node);
   }
 
   /// Parses a constructor declaration.

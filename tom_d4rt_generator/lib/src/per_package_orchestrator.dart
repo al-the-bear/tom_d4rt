@@ -98,12 +98,9 @@ class PerPackageBridgeOrchestrator {
   /// Shared user bridge scanner populated from build package's user bridge files.
   final UserBridgeScanner _userBridgeScanner = UserBridgeScanner();
 
-  /// Aggregated exclusions from all modules.
-  /// These are applied globally when generating per-package bridges.
-  final Set<String> _globalExcludeClasses = {};
-  final Set<String> _globalExcludeFunctions = {};
-  final Set<String> _globalExcludeVariables = {};
-  final Set<String> _globalExcludeSourcePatterns = {};
+  /// Per-module exclusions, keyed by module name.
+  /// Exclusions are only applied to packages from their declaring module.
+  final Map<String, _ModuleExclusions> _moduleExclusions = {};
   
   /// Global class lookup for cross-package inheritance resolution.
   /// Built by [buildGlobalClassLookup] before generating bridges.
@@ -178,14 +175,16 @@ class PerPackageBridgeOrchestrator {
   }
 
   /// Collects source files from all modules and groups them by source package.
-  /// Also collects all exclusions from all modules to apply globally.
+  /// Stores exclusions per-module for scoped application during generation.
   Future<void> collectPackageInfo() async {
     for (final module in config.modules) {
-      // Collect exclusions from all modules
-      _globalExcludeClasses.addAll(module.excludeClasses);
-      _globalExcludeFunctions.addAll(module.excludeFunctions);
-      _globalExcludeVariables.addAll(module.excludeVariables);
-      _globalExcludeSourcePatterns.addAll(module.excludeSourcePatterns);
+      // Store exclusions per module (not merged globally)
+      _moduleExclusions[module.name] = _ModuleExclusions(
+        excludeClasses: module.excludeClasses.toSet(),
+        excludeFunctions: module.excludeFunctions.toSet(),
+        excludeVariables: module.excludeVariables.toSet(),
+        excludeSourcePatterns: module.excludeSourcePatterns.toSet(),
+      );
 
       final sourceImport = module.barrelImport ?? module.barrelFiles.first;
 
@@ -393,18 +392,21 @@ class PerPackageBridgeOrchestrator {
       // Pass global class lookup for cross-package inheritance resolution
       generator.externalClassLookup = Map.of(_globalClassLookup);
 
+      // Collect exclusions only from modules that include this package
+      final exclusions = _getExclusionsForPackage(pkgName);
+
       // Generate bridges for this package's source files
-      // Apply global exclusions collected from all modules
+      // Apply only exclusions from modules that declared this package
       final result = await generator.generateBridgesWithWriter(
         sourceFiles: pkgInfo.sourceFiles.toList(),
         outputFileId: FileId(buildPackageName, outputPath),
         moduleName: 'package_$pkgName',
         exportInfo: pkgInfo.exportInfo,
         fileWriter: fileWriter,
-        excludeClasses: _globalExcludeClasses.toList(),
-        excludeFunctions: _globalExcludeFunctions.toList(),
-        excludeVariables: _globalExcludeVariables.toList(),
-        excludeSourcePatterns: _globalExcludeSourcePatterns.toList(),
+        excludeClasses: exclusions.excludeClasses.toList(),
+        excludeFunctions: exclusions.excludeFunctions.toList(),
+        excludeVariables: exclusions.excludeVariables.toList(),
+        excludeSourcePatterns: exclusions.excludeSourcePatterns.toList(),
       );
       
       // Accumulate skipped deprecated count
@@ -605,6 +607,37 @@ class PerPackageBridgeOrchestrator {
     return match?.group(1);
   }
 
+  /// Returns combined exclusions for modules that include the given package.
+  /// 
+  /// Looks up which modules have this package in their `requiredPackages` set
+  /// and returns the merged exclusions from only those modules.
+  _ModuleExclusions _getExclusionsForPackage(String packageName) {
+    final excludeClasses = <String>{};
+    final excludeFunctions = <String>{};
+    final excludeVariables = <String>{};
+    final excludeSourcePatterns = <String>{};
+    
+    // Find all modules that include this package
+    for (final mapping in _barrelMappings.values) {
+      if (mapping.requiredPackages.contains(packageName)) {
+        final moduleExclusions = _moduleExclusions[mapping.moduleName];
+        if (moduleExclusions != null) {
+          excludeClasses.addAll(moduleExclusions.excludeClasses);
+          excludeFunctions.addAll(moduleExclusions.excludeFunctions);
+          excludeVariables.addAll(moduleExclusions.excludeVariables);
+          excludeSourcePatterns.addAll(moduleExclusions.excludeSourcePatterns);
+        }
+      }
+    }
+    
+    return _ModuleExclusions(
+      excludeClasses: excludeClasses,
+      excludeFunctions: excludeFunctions,
+      excludeVariables: excludeVariables,
+      excludeSourcePatterns: excludeSourcePatterns,
+    );
+  }
+
   /// Calculates relative import path from one file to another.
   String _relativeImportPath(String from, String to) {
     // Both paths should be lib/ relative
@@ -630,4 +663,22 @@ class PerPackageBridgeOrchestrator {
             : part[0].toUpperCase() + part.substring(1).toLowerCase())
         .join();
   }
+}
+
+/// Stores exclusion patterns for a single module.
+class _ModuleExclusions {
+  final Set<String> excludeClasses;
+  final Set<String> excludeFunctions;
+  final Set<String> excludeVariables;
+  final Set<String> excludeSourcePatterns;
+
+  _ModuleExclusions({
+    Set<String>? excludeClasses,
+    Set<String>? excludeFunctions,
+    Set<String>? excludeVariables,
+    Set<String>? excludeSourcePatterns,
+  })  : excludeClasses = excludeClasses ?? {},
+        excludeFunctions = excludeFunctions ?? {},
+        excludeVariables = excludeVariables ?? {},
+        excludeSourcePatterns = excludeSourcePatterns ?? {};
 }
