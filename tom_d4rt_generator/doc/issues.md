@@ -40,11 +40,11 @@
 | ID | Description | Complexity | Status | Relevance |
 |----|-------------|------------|--------|-----------|
 | [GEN-017](#gen-017) | [Missing barrel export silently downgrades to dynamic](#gen-017) | Medium | TODO | Important |
-| [GEN-026](#gen-026) | [14 concrete types across projects silently downgraded to dynamic](#gen-026) | Medium | TODO | Important |
-| [GEN-041](#gen-041) | [Enhanced enum fields not accessible via bridges at runtime](#gen-041) | Medium | TODO | Important |
-| [GEN-042](#gen-042) | [Classes with implicit default constructors are not bridged](#gen-042) | Medium | TODO | Important |
-| [GEN-044](#gen-044) | [Enum `.values` static getter not bridged](#gen-044) | Low | TODO | Important |
-| [GEN-047](#gen-047) | [Extension declarations not bridged](#gen-047) | High | TODO | Important |
+| [GEN-026](#gen-026) | [14 concrete types across projects silently downgraded to dynamic](#gen-026) | Medium | RESOLVED | Important |
+| [GEN-041](#gen-041) | [Enhanced enum fields not accessible via bridges at runtime](#gen-041) | Medium | RESOLVED | Important |
+| [GEN-042](#gen-042) | [Classes with implicit default constructors are not bridged](#gen-042) | Medium | RESOLVED | Important |
+| [GEN-044](#gen-044) | [Enum `.values` static getter not bridged](#gen-044) | Low | RESOLVED | Important |
+| [GEN-047](#gen-047) | [Extension declarations not bridged](#gen-047) | High | RESOLVED | Important |
 | [GEN-049](#gen-049) | [Extension methods on bridged classes not resolved](#gen-049) | High | TODO | Important |
 | [GEN-002](#gen-002) | [Recursive type bounds dispatched to only 3 hardcoded types](#gen-002) | Low | TODO | Relevant |
 | [GEN-012](#gen-012) | [Type parameter substitution uses fragile regex text replacement](#gen-012) | Medium | TODO | Relevant |
@@ -1932,7 +1932,7 @@ No hardcoding needed.
 **Extension declarations not bridged**
 
 - **Complexity:** High
-- **Status:** TODO
+- **Status:** RESOLVED
 - **Relevance:** Important
 
 **a) Problem:**
@@ -1959,20 +1959,31 @@ A D4rt script importing this package cannot call `myDate.toIso8601DateOnly()` be
 - `_ClassVisitor` (bridge_generator.dart L8218+) — same gap.
 - D4rt runtime support: `InterpretedExtension` (runtime_types.dart L1724), `InterpretedExtensionMethod` (callable.dart L4408), `findExtensionMember()` (environment.dart L353-L410).
 
-**c) General Strategy — Add extension declaration visitor and bridge emission:**
+**c) Resolution:**
 
-1. **Add `visitExtensionDeclaration()` to `_ResolvedClassVisitor`:** When visiting an `ExtensionDeclaration`, collect:
-   - The `onType` (the type this extension applies to)
-   - All methods, getters, setters, and operators declared in the extension
-   - The extension name (for named extensions) or generate a synthetic name (for unnamed extensions)
+Fixed by implementing full extension bridging support in both runtime and generator:
 
-2. **Emit bridge registration code:** Generate bridge code that registers the extension with the D4rt runtime so `findExtensionMember()` can discover it. Use the same method/getter/setter bridging patterns already used for class members, but register them under the extension rather than the class.
+**Runtime changes (tom_d4rt):**
+- Added `ExtensionMemberCallable` abstract interface to unify `InterpretedExtensionMethod` and `NativeExtensionCallable`
+- Added `BoundExtensionCallable` as unified bound wrapper for extension callables
+- Added `NativeExtensionCallable` for generator-produced extension adapters (wraps native adapter function with isGetter/isSetter/isOperator flags)
+- Added `BridgedExtensionDefinition` to registration.dart with `buildInterpretedExtension(RuntimeType)` factory
+- Added `LibraryExtension` wrapper and `registerBridgedExtension()` to D4rt class
+- Updated `ModuleLoader` to accept and load bridged extensions via new `bridgedExtensions` parameter
+- Updated `interpreter_visitor.dart` to use `ExtensionMemberCallable` interface (28 type checks updated)
 
-3. **Handle the `onType` resolution:** Use the analyzer's `ExtensionElement.extendedType` (a `DartType`) to correctly identify the target type, including generic extensions like `extension on List<T>`. Carry the resolved `DartType` through to code generation — do NOT fall back to string heuristics.
+**Generator changes (tom_d4rt_generator):**
+- Added `ExtensionInfo` data class to collect extension metadata from AST (name, onTypeName, sourceFile, getterNames, setterNames, methodNames)
+- Added `visitExtensionDeclaration()` to collect extensions from source files
+- Updated `_parseGlobals()` to return extensions list alongside functions-related info
+- Added `bridgedExtensions()` code generation emitting `BridgedExtensionDefinition` constructors
+- Added `extensionSourceUris()` code generation for source file tracking
+- Updated `registerBridges()` to register extensions with interpreter
 
-4. **Handle unnamed extensions:** Unnamed extensions (`extension on Foo { ... }`) are valid Dart. Generate a synthetic bridge name based on the library and position, or skip them with a warning (unnamed extensions are typically private/internal).
-
-5. **Filter by configuration:** Respect the same include/exclude configuration that classes use, so users can control which extensions get bridged.
+**Testing:**
+- Added `extension_test_source.dart` fixture with StringHelpers, DateTimeHelpers, PointExtensions
+- Added `extension_bridge_generation_test.dart` with 13 comprehensive tests
+- All 65 class+extension tests pass, 1623 runtime tests pass
 
 ---
 
