@@ -16,19 +16,20 @@ This document tracks **open interpreter issues** that require changes to `tom_d4
 | [INTER-004](#inter-004) | Collection type casting in method parameters | Medium | Fixed in d4.dart | ✅ Fixed |
 | [INTER-005](#inter-005) | BridgedInstance unwrapping for native calls | Medium | Affects sorted collections | ⬜ TODO |
 | [Bug-92](#bug-92) | Future factory constructor returns BridgedInstance | Medium | Async bridging issue | ⬜ TODO |
-| [Bug-93](#bug-93) | Int not promoted to double return type | Low | Missing implicit promotion | ⬜ TODO |
-| [Bug-94](#bug-94) | Cascade index assignment on property fails | Medium | Cascade target resolution | ⬜ TODO |
-| [Bug-95](#bug-95) | List.forEach with native function tear-off fails | Medium | InterpretedFunction check too strict | ⬜ TODO |
-| [Bug-96](#bug-96) | super.name constructor parameter forwarding fails | Medium | Dart 3 super parameter syntax | ⬜ TODO |
-| [Bug-97](#bug-97) | num not recognized as satisfying Comparable bound | Low | Missing interface knowledge | ⬜ TODO |
+| [Bug-93](#bug-93) | Int not promoted to double return type | Low | Fixed in interpreter_visitor.dart | ✅ Fixed |
+| [Bug-94](#bug-94) | Cascade index assignment on property fails | Medium | Fixed in interpreter_visitor.dart | ✅ Fixed |
+| [Bug-95](#bug-95) | List.forEach with native function tear-off fails | Medium | Fixed in stdlib/core/list.dart | ✅ Fixed |
+| [Bug-96](#bug-96) | super.name constructor parameter forwarding fails | Medium | Fixed in callable.dart | ✅ Fixed |
+| [Bug-97](#bug-97) | num not recognized as satisfying Comparable bound | Low | Fixed in runtime_types.dart | ✅ Fixed |
 | [Bug-98](#bug-98) | Extension getter on bridged List not resolved | Medium | Type parameterization matching | ⬜ TODO |
-| [Bug-99](#bug-99) | Stream.handleError callback receives wrong arg count | Low | Callback arity checking | ⬜ TODO |
+| [Bug-99](#bug-99) | Stream.handleError callback receives wrong arg count | Low | May be fixed - needs verification | ⚠️ Verify |
 | [Lim-3](#lim-3) | Isolate execution with interpreted code | Fundamental | Dart VM architecture | 🚫 Won't Fix |
 | [Bug-14](#bug-14) | Records with named fields or >9 positional fields | High | Dart language limitation | 🚫 Won't Fix |
 
 **Status Legend:**
 - ⬜ TODO — Not yet fixed
 - ✅ Fixed — Resolved
+- ⚠️ Verify — May be fixed, needs verification
 - 🚫 Won't Fix — Fundamental limitation
 
 ---
@@ -103,7 +104,8 @@ if (target is BridgedInstance) {
 
 **Status:** ⬜ TODO  
 **Relevance:** Medium — Affects mutable global state  
-**Original ID:** GEN-056
+**Original ID:** GEN-056  
+**Complexity:** Medium
 
 #### Problem Description
 
@@ -124,52 +126,95 @@ void main() {
 
 **Error:** Assignment fails silently or throws "undefined variable"
 
-#### What Goes Wrong
+#### Detailed Analysis
 
-The generator can only call `registerGlobalGetter()` because there is no `registerGlobalSetter()` API. The `GlobalGetter` class only wraps a getter function, not a setter.
+##### Where It Appears
 
-When the interpreter encounters an assignment to a global variable:
-1. It looks up the name in the environment
-2. Finds a `GlobalGetter` object
-3. Cannot assign to it because `GlobalGetter` has no setter
+| File | Location | Description |
+|------|----------|-------------|
+| `lib/src/d4rt_base.dart` | Lines 258-260 | Only `registerGlobalGetter()` API exists |
+| `lib/src/environment.dart` | Lines 17-26 | `GlobalGetter` class only wraps getter, no setter |
+| `lib/src/environment.dart` | Lines 306-334 | `assign()` method doesn't handle GlobalGetter specially |
+| `lib/src/module_loader.dart` | Line 653 | Wraps getters in `GlobalGetter` during library loading |
 
-#### Where is the Problem
+##### When It Triggers
 
-**Location:** Multiple files in `tom_d4rt`:
-- `lib/src/d4rt.dart` — Missing `registerGlobalSetter()` API
-- `lib/src/environment.dart` — `GlobalGetter` class lacks setter support
-- `lib/src/module_loader.dart` — Doesn't load library setters
+1. A bridged library exports a top-level setter (e.g., `set globalValue(int v)`)
+2. Interpreted code tries to assign to that setter: `globalValue = 42;`
+3. Assignment goes through `Environment.assign()`
+4. `assign()` finds `GlobalGetter` in `_values`, but simply replaces it with the new value
+5. This breaks the getter (GlobalGetter wrapper is lost) and doesn't call the native setter
 
-#### How to Fix
+##### Why It Happens
 
-1. **Create `GlobalGetterSetter` class** (or extend `GlobalGetter`):
+**Root Cause:** The API was designed for read-only globals. The architecture assumes:
+- Global getters are lazy-evaluated wrappers (`GlobalGetter`)
+- Assignment replaces values in `_values` map directly
+
+There's no mechanism to:
+1. Register a setter function alongside the getter
+2. Detect assignment to a GlobalGetter and call a setter instead of replacing
+
+##### Fix Strategy
+
+**Implementation Approach:**
+
+1. **Extend GlobalGetter to GlobalGetterSetter** (in `environment.dart`):
 
 ```dart
 class GlobalGetterSetter {
-  final dynamic Function() getter;
-  final void Function(dynamic value)? setter;
-  GlobalGetterSetter(this.getter, this.setter);
+  final Object? Function() getter;
+  final void Function(Object? value)? setter;
+  GlobalGetterSetter(this.getter, {this.setter});
+  
+  Object? call() => getter();
 }
 ```
 
-2. **Add `registerGlobalSetter` API** to `D4rt` class:
+2. **Add `registerGlobalSetter` API** (in `d4rt_base.dart`):
 
 ```dart
-void registerGlobalSetter(String name, void Function(dynamic) setter, String library) {
-  // Register setter alongside getter
+void registerGlobalSetter(
+    String name, 
+    void Function(Object?) setter, 
+    String library, 
+    {String? sourceUri}) {
+  // Either:
+  // A) Update existing GlobalGetter to GlobalGetterSetter
+  // B) Store setters in a separate map _librarySetters
+  _librarySetters.add({library: LibrarySetter(name, setter, sourceUri: sourceUri)});
 }
 ```
 
-3. **Update `Environment.assign()`** to detect and call the setter:
+3. **Update Environment.assign()** (in `environment.dart`):
 
 ```dart
-if (value is GlobalGetterSetter && value.setter != null) {
-  value.setter!(newValue);
-  return;
+Object? assign(String name, Object? value) {
+  if (_values.containsKey(name)) {
+    final existing = _values[name];
+    // Check if it's a GlobalGetterSetter with a setter
+    if (existing is GlobalGetterSetter && existing.setter != null) {
+      existing.setter!(value);  // Call the native setter
+      return value;
+    }
+    _values[name] = value;  // Normal assignment
+    return value;
+  }
+  // ... rest of method
 }
 ```
 
-4. **Update generator** to emit `registerGlobalSetter()` calls for top-level setters.
+4. **Update generator** (in `tom_d4rt_generator`):
+   - Emit `registerGlobalSetter()` calls for top-level setters
+   - Pair with corresponding `registerGlobalGetter()` calls
+
+**Estimated Effort:** 3-4 hours
+
+**Files to Modify:**
+- `tom_d4rt/lib/src/environment.dart` — GlobalGetterSetter class + assign() changes
+- `tom_d4rt/lib/src/d4rt_base.dart` — registerGlobalSetter API
+- `tom_d4rt/lib/src/module_loader.dart` — Load library setters
+- `tom_d4rt_generator/lib/src/*.dart` — Emit setter registration
 
 ---
 
@@ -324,7 +369,8 @@ static T extractBridgedArg<T>(dynamic arg, String paramName) {
 
 **Status:** ⬜ TODO  
 **Relevance:** Medium — Affects native method calls with bridged objects  
-**Original ID:** GEN-062
+**Original ID:** GEN-062  
+**Complexity:** High
 
 #### Problem Description
 
@@ -348,43 +394,104 @@ void main() {
 
 **Error:** `type 'BridgedInstance<Object>' is not a subtype of type 'Comparable<dynamic>' in type cast`
 
-#### What Goes Wrong
+#### Detailed Analysis
 
-1. Interpreter creates list elements as `BridgedInstance<SortableItem>` wrappers
-2. When `sort()` is called, Dart's native `List.sort()` method runs
-3. Native sort tries to cast elements to `Comparable<dynamic>`
-4. `BridgedInstance` doesn't implement `Comparable`, even though the wrapped object does
-5. Cast fails
+##### Where It Appears
 
-#### Where is the Problem
+| File | Location | Description |
+|------|----------|-------------|
+| `lib/src/interpreter_visitor.dart` | List/collection creation | BridgedInstance wrappers are added to lists |
+| `lib/src/stdlib/core/list.dart` | `sort()` method (line ~330) | Calls native `List.sort()` |
+| Native Dart List | `sort()` internals | Casts elements to `Comparable<dynamic>` |
 
-**Location:** How bridged instances are stored and passed to native methods
+##### When It Triggers
 
-The core issue is that `BridgedInstance` wrappers aren't transparent to native Dart code. When native methods operate on collections:
-- They see `BridgedInstance` wrappers, not the actual objects
-- The wrappers don't forward interface implementations
+1. Interpreted code creates bridged class instances: `SortableItem(3)`
+2. Instances are stored as `BridgedInstance<SortableItem>` wrappers in a List
+3. Code calls a native method (like `sort()`) that operates on elements
+4. Native Dart code tries to cast elements: `element as Comparable<dynamic>`
+5. Cast fails because `BridgedInstance` doesn't implement `Comparable`
 
-#### How to Fix
+##### Why It Happens
 
-**Option A: Unwrap before native calls**
+**Root Cause:** `BridgedInstance<T>` is a wrapper class that holds a reference to the native object but doesn't proxy interface implementations. When native Dart code operates on these wrappers:
 
-When calling native methods on collections with bridged content:
-1. Detect that we're calling a native method (not a bridged one)
-2. Unwrap all `BridgedInstance` elements to their `nativeObject`
-3. Call the native method
-4. Re-wrap results if needed
+- `BridgedInstance` is seen as its own type, not as `T`
+- Interface checks fail: `bridgedInstance is Comparable` → false
+- Even though `bridgedInstance.nativeObject is Comparable` → true
 
-**Option B: Make BridgedInstance proxy interfaces**
+The interpreter has no control over what happens inside native method calls.
 
-Make `BridgedInstance<T>` forward common interface implementations:
-- `Comparable.compareTo` → delegate to wrapped object
-- `Iterable` methods → delegate to wrapped object
+##### Fix Strategy
 
-This is more complex but more transparent.
+**Option A: Unwrap elements before native collection method calls** (Recommended)
 
-**Option C: Don't wrap in lists**
+```dart
+// In list.dart sort() bridge:
+'sort': (visitor, target, positionalArgs, namedArgs, _) {
+  final list = target as List;
+  
+  // Unwrap all BridgedInstance elements to their native objects
+  final unwrappedList = list.map((e) => 
+    e is BridgedInstance ? e.nativeObject : e
+  ).toList();
+  
+  // Sort the unwrapped list
+  if (positionalArgs.isEmpty) {
+    unwrappedList.sort();
+  } else {
+    // Handle custom comparator...
+  }
+  
+  // Copy results back to original list
+  for (var i = 0; i < list.length; i++) {
+    if (list[i] is BridgedInstance) {
+      // Find the matching native object and update position
+      // This is tricky...
+    }
+  }
+}
+```
 
-Store unwrapped native objects in lists, only wrapping on access. This requires tracking which containers need wrapping behavior.
+**Challenges with Option A:**
+- Sort reorders elements, need to track which wrapper goes where
+- All collection methods that pass elements to native code need this
+- Performance overhead from copying
+
+**Option B: Store unwrapped objects in collections**
+
+Change how collection creation works:
+- Lists store `nativeObject` directly, not `BridgedInstance`
+- When accessing elements, wrap on-demand if needed
+
+**Challenges with Option B:**
+- Need to track which collections need wrapping behavior
+- Breaks when native code modifies collection contents
+
+**Option C: Make BridgedInstance implement common interfaces**
+
+```dart
+class BridgedInstance<T> implements Comparable<dynamic> {
+  @override
+  int compareTo(dynamic other) {
+    final otherObj = other is BridgedInstance ? other.nativeObject : other;
+    return (nativeObject as Comparable).compareTo(otherObj);
+  }
+}
+```
+
+**Challenges with Option C:**
+- Can't know which interfaces `T` implements at compile time
+- Would need dynamic proxying (not supported in Dart)
+
+**Recommended Approach:** Option A with careful handling
+
+**Estimated Effort:** 6-8 hours due to complexity
+
+**Files to Modify:**
+- `tom_d4rt/lib/src/stdlib/core/list.dart` — `sort()`, `indexOf()`, etc.
+- `tom_d4rt/lib/src/stdlib/core/set.dart` — Similar methods
+- Consider creating a utility function for unwrap/rewrap operations
 
 ---
 
@@ -393,7 +500,7 @@ Store unwrapped native objects in lists, only wrapping on access. This requires 
 **Future factory constructor returns BridgedInstance**
 
 **Status:** ⬜ TODO  
-**Fixable:** ✅ Yes  
+**Relevance:** Medium  
 **Complexity:** Medium
 
 #### Problem Description
@@ -408,18 +515,84 @@ void main() async {
 }
 ```
 
-#### Where is the Problem
+#### Detailed Analysis
 
-**Location:** `dart_async_bridge.dart` — Future constructor bridging
+##### Where It Appears
 
-The `Future(() => ...)` factory constructor isn't properly bridged to return a Future type that the interpreter can await.
+| File | Location | Description |
+|------|----------|-------------|
+| `lib/src/stdlib/async/future.dart` | Lines 10-16 | Future factory constructor bridge |
+| `lib/src/interpreter_visitor.dart` | Constructor invocation | May wrap return value incorrectly |
+| `lib/src/callable.dart` | Async handling | Await expression handling |
 
-#### How to Fix
+##### When It Triggers
 
-Bridge the `Future(() => computation)` factory constructor to:
-1. Accept an interpreted function as the computation
-2. Create a real Dart `Future` that executes the computation
-3. Return the Future (not wrapped in `BridgedInstance`)
+1. Interpreted code calls `Future(() => 'Hello')`
+2. Bridge constructor in `future.dart` creates: `Future(() => computation.call(visitor, []))`
+3. The resulting `Future` is returned from the constructor
+4. However, constructor invocation machinery may wrap the result in `BridgedInstance`
+5. `await` on `BridgedInstance<Future>` doesn't work as expected
+
+##### Why It Happens
+
+**Root Cause:** Looking at the Future constructor bridge (lines 10-16 in future.dart):
+
+```dart
+'': (visitor, positionalArgs, namedArgs) {
+  if (positionalArgs.length == 1 && positionalArgs[0] is InterpretedFunction) {
+    final computation = positionalArgs[0] as InterpretedFunction;
+    return Future(() => computation.call(visitor, []));
+  }
+  throw RuntimeD4rtException('Invalid arguments for Future constructor.');
+},
+```
+
+The issue is that this returns a native `Future`, but the **constructor invocation** machinery in `interpreter_visitor.dart` or `runtime_types.dart` may be wrapping the return value in a `BridgedInstance` because it came from a `BridgedClass` constructor.
+
+##### Fix Strategy
+
+**Option A: Mark Future as "unwrapped return"** (Recommended)
+
+Add a flag to `BridgedClass` constructors indicating that the return value should NOT be wrapped:
+
+```dart
+constructors: {
+  '': BridgedConstructor(
+    (visitor, positionalArgs, namedArgs) => ...,
+    returnUnwrapped: true,  // Don't wrap in BridgedInstance
+  ),
+}
+```
+
+**Option B: Special-case Future in constructor invocation**
+
+In the code that handles BridgedClass constructor returns, check if the result is already a `Future` and don't wrap it:
+
+```dart
+if (result is Future) {
+  return result;  // Don't wrap Futures
+}
+return BridgedInstance(bridgedClass, result);
+```
+
+**Option C: Make await handle BridgedInstance<Future>**
+
+In `await` handling code, unwrap if the value is `BridgedInstance<Future>`:
+
+```dart
+if (value is BridgedInstance && value.nativeObject is Future) {
+  return await (value.nativeObject as Future);
+}
+```
+
+**Recommended Approach:** Option B or C — they're simpler and handle related cases
+
+**Estimated Effort:** 2-3 hours
+
+**Files to Investigate:**
+- `tom_d4rt/lib/src/interpreter_visitor.dart` — Search for BridgedClass constructor invocation
+- `tom_d4rt/lib/src/runtime_types.dart` — BridgedClass instantiation
+- `tom_d4rt/lib/src/callable.dart` — Await expression handling
 
 ---
 
@@ -427,9 +600,9 @@ Bridge the `Future(() => computation)` factory constructor to:
 
 **Int not promoted to double return type**
 
-**Status:** ⬜ TODO  
-**Fixable:** ✅ Yes  
-**Complexity:** Low
+**Status:** ✅ Fixed  
+**Relevance:** Low  
+**Fixed:** 2026-02-09 — Added int→double promotion in visitReturnStatement
 
 #### Problem Description
 
@@ -437,29 +610,24 @@ When a function declares a `double` return type but returns an `int` value, D4rt
 
 ```dart
 double foo(int x) {
-  return x;  // ❌ FAILS - should auto-promote int to double
+  return x;  // ✅ WORKS NOW
 }
 
 void main() {
-  print(foo(5));  // Should print 5.0
+  print(foo(5));  // Prints 5.0
 }
 ```
 
-**Error:** `A value of type 'int' can't be returned from the function 'foo' because it has a return type of 'double'.`
+#### Fix Implementation
 
-#### Where is the Problem
-
-**Location:** `interpreter_visitor.dart` — `visitReturnStatement`
-
-The return type check doesn't handle implicit int→double promotion.
-
-#### How to Fix
-
-In `visitReturnStatement`, add promotion logic:
+**Location:** `tom_d4rt/lib/src/interpreter_visitor.dart` — `visitReturnStatement` (line ~5150)
 
 ```dart
-if (declaredReturnType == double && actualValue is int) {
-  return actualValue.toDouble();
+// Bug-93 FIX: Dart implicitly promotes int to double when the
+// declared return type is double and the value is an int.
+if (declaredType.name == 'double' && returnValue is int) {
+  showError = false;
+  returnValue = returnValue.toDouble();
 }
 ```
 
@@ -469,13 +637,13 @@ if (declaredReturnType == double && actualValue is int) {
 
 **Cascade index assignment on property fails**
 
-**Status:** ⬜ TODO  
-**Fixable:** ✅ Yes  
-**Complexity:** Medium
+**Status:** ✅ Fixed  
+**Relevance:** Medium  
+**Fixed:** 2026-02-09 — Resolved property chain before index check in _executeCascadeAssignment
 
 #### Problem Description
 
-Cascade expressions with index assignment on a property of the target fail.
+Cascade expressions with index assignment on a property of the target now work correctly.
 
 ```dart
 class Request {
@@ -484,24 +652,15 @@ class Request {
 
 void main() {
   var request = Request()
-    ..headers['Content-Type'] = 'application/json';  // ❌ FAILS
+    ..headers['Content-Type'] = 'application/json';  // ✅ WORKS NOW
 }
 ```
 
-**Error:** `Index assignment target must be List or Map in cascade.`
+#### Fix Implementation
 
-#### Where is the Problem
+**Location:** `tom_d4rt/lib/src/interpreter_visitor.dart` — `_executeCascadeAssignment` (line ~4640)
 
-**Location:** `interpreter_visitor.dart` — `_executeCascadeAssignment`
-
-The cascade handler checks if the cascade target (`Request`) is a List/Map, but should resolve the property chain first to check `headers`, which IS a Map.
-
-#### How to Fix
-
-In `_executeCascadeAssignment`, when processing an index expression in a cascade:
-1. Resolve the full property chain (`request.headers`)
-2. Check if THAT value supports index assignment
-3. Perform the assignment on the resolved target
+The cascade handler now resolves the full property chain (`request.headers`) before checking if the target supports index assignment. Previously it was checking the cascade target (`Request`) directly.
 
 ---
 
@@ -509,46 +668,39 @@ In `_executeCascadeAssignment`, when processing an index expression in a cascade
 
 **List.forEach with native function tear-off fails**
 
-**Status:** ⬜ TODO  
-**Fixable:** ✅ Yes  
-**Complexity:** Medium
+**Status:** ✅ Fixed  
+**Relevance:** Medium  
+**Fixed:** 2026-02-09 — Accept both InterpretedFunction and native Function in forEach
 
 #### Problem Description
 
-Calling `forEach` with a native function tear-off (like `print`) fails because the bridge expects an `InterpretedFunction`.
+Calling `forEach` with a native function tear-off (like `print`) now works correctly.
 
 ```dart
 void main() {
   var numbers = [1, 2, 3];
-  numbers.forEach(print);  // ❌ FAILS - print is native
+  numbers.forEach(print);  // ✅ WORKS NOW
 }
 ```
 
-**Error:** `Native error during bridged method call 'forEach' on List: Runtime Error: Expected a InterpretedFunction for forEach`
+#### Fix Implementation
 
-Note: `numbers.forEach((n) => print(n))` works because the lambda is interpreted.
-
-#### Where is the Problem
-
-**Location:** `dart_core_bridge.dart` — List bridge `forEach` implementation
-
-The forEach bridge only accepts `InterpretedFunction` but should also handle native Dart `Function` objects.
-
-#### How to Fix
-
-Check the callback type and handle both cases:
+**Location:** `tom_d4rt/lib/src/stdlib/core/list.dart` — `forEach` method (line ~180)
 
 ```dart
-'forEach': (visitor, target, positional, named) {
-  final callback = positional[0];
-  final list = target.nativeObject as List;
-  
-  if (callback is InterpretedFunction) {
-    for (var element in list) {
-      visitor.invokeInterpretedFunction(callback, [element]);
+'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+  final callback = positionalArgs[0];
+  // Bug-95 FIX: Accept both InterpretedFunction/Callable and native
+  // Dart Function tear-offs (like `print`).
+  for (final element in target as List) {
+    if (callback is Callable) {
+      callback.call(visitor, [element], {});
+    } else if (callback is Function) {
+      callback(element);  // Native function, call directly
+    } else {
+      throw RuntimeD4rtException(
+          'Expected a function for forEach, got ${callback.runtimeType}');
     }
-  } else if (callback is Function) {
-    list.forEach(callback);  // Native function, use directly
   }
 }
 ```
@@ -559,13 +711,13 @@ Check the callback type and handle both cases:
 
 **super.name constructor parameter forwarding fails**
 
-**Status:** ⬜ TODO  
-**Fixable:** ✅ Yes  
-**Complexity:** Medium
+**Status:** ✅ Fixed  
+**Relevance:** Medium  
+**Fixed:** 2026-02-09 — Track super.param forwarding values in callable.dart
 
 #### Problem Description
 
-Dart 3's `super.name` parameter syntax that forwards arguments to the superclass isn't handled.
+Dart 3's `super.name` parameter syntax that forwards arguments to the superclass now works.
 
 ```dart
 class Parent {
@@ -574,28 +726,19 @@ class Parent {
 }
 
 class Child extends Parent {
-  Child(super.name);  // ❌ FAILS - should forward to Parent
+  Child(super.name);  // ✅ WORKS NOW - forwards to Parent
 }
 
 void main() {
-  print(Child('test').name);
+  print(Child('test').name);  // Prints 'test'
 }
 ```
 
-**Error:** `Missing required argument for 'name' in function ''.`
+#### Fix Implementation
 
-#### Where is the Problem
+**Location:** `tom_d4rt/lib/src/callable.dart` — Constructor parameter processing (lines ~476, ~829)
 
-**Location:** `runtime_types.dart` — Constructor execution / super parameter handling
-
-The `super.name` syntax (SuperFormalParameter in AST) isn't recognized as forwarding the argument.
-
-#### How to Fix
-
-When processing constructor parameters:
-1. Detect `SuperFormalParameter` nodes in the AST
-2. Extract the parameter name and value
-3. Forward the value to the superclass constructor's matching parameter
+The fix tracks `SuperFormalParameter` nodes during constructor parameter processing and forwards the values to the superclass constructor call.
 
 ---
 
@@ -603,13 +746,13 @@ When processing constructor parameters:
 
 **num not recognized as satisfying Comparable bound**
 
-**Status:** ⬜ TODO  
-**Fixable:** ✅ Yes  
-**Complexity:** Low
+**Status:** ✅ Fixed  
+**Relevance:** Low  
+**Fixed:** 2026-02-09 — Added num to known Comparable types in runtime_types.dart
 
 #### Problem Description
 
-Using `num` as a type argument for a class with `T extends Comparable<dynamic>` bound is rejected.
+Using `num` as a type argument for a class with `T extends Comparable<dynamic>` bound now works.
 
 ```dart
 class Box<T extends Comparable<dynamic>> {
@@ -618,29 +761,29 @@ class Box<T extends Comparable<dynamic>> {
 }
 
 void main() {
-  var b = Box<num>(42);  // ❌ FAILS
+  var b = Box<num>(42);  // ✅ WORKS NOW
   print(b.value);
 }
 ```
 
-**Error:** `Type argument 'num' for type parameter 'T' does not satisfy bound 'Comparable' in class 'Box'`
+#### Fix Implementation
 
-#### Where is the Problem
-
-**Location:** `runtime_types.dart` — `_getValidatedTypeArguments`
-
-The type bound checker doesn't know that `num` implements `Comparable<num>`.
-
-#### How to Fix
-
-Add knowledge of core type interfaces:
+**Location:** `tom_d4rt/lib/src/runtime_types.dart` — `_checkTypeSatisfiesBound` (line ~351)
 
 ```dart
-// Known Comparable implementations
-const _comparableTypes = {'num', 'int', 'double', 'String', 'Duration'};
-
-bool _satisfiesComparableBound(String typeName) {
-  return _comparableTypes.contains(typeName);
+if (bound.name == 'Comparable') {
+  // Bug-97 FIX: num also implements Comparable<num>
+  if (typeArg is BridgedClass) {
+    return typeArg.nativeType == String ||
+        typeArg.nativeType == int ||
+        typeArg.nativeType == double ||
+        typeArg.nativeType == num ||  // Added num
+        typeArg.nativeType == DateTime;
+  }
+  return typeArg.name == 'String' ||
+      typeArg.name == 'int' ||
+      typeArg.name == 'double' ||
+      typeArg.name == 'num';  // Added num
 }
 ```
 
@@ -651,7 +794,7 @@ bool _satisfiesComparableBound(String typeName) {
 **Extension getter on bridged List not resolved**
 
 **Status:** ⬜ TODO  
-**Fixable:** ✅ Yes  
+**Relevance:** Medium  
 **Complexity:** Medium
 
 #### Problem Description
@@ -671,18 +814,85 @@ void main() {
 
 **Error:** `Undefined property or method 'sum' on bridged instance of 'List'.`
 
-#### Where is the Problem
+#### Detailed Analysis
 
-**Location:** `interpreter_visitor.dart` — Extension lookup for bridged types
+##### Where It Appears
 
-The extension matcher doesn't match `List<int>` extensions against native List instances with compatible type arguments.
+| File | Location | Description |
+|------|----------|-------------|
+| `lib/src/environment.dart` | Lines 358-405 | `findExtensionMember()` method |
+| `lib/src/environment.dart` | Lines 407-445 | `getRuntimeType()` for type matching |
+| `lib/src/runtime_types.dart` | `isSubtypeOf()` | Type comparison logic |
 
-#### How to Fix
+##### When It Triggers
 
-Enhance extension lookup to:
-1. Check if the target is a bridged collection
-2. Extract the actual type arguments of the collection elements
-3. Match against extensions with compatible type parameterization
+1. Interpreted code defines `extension IntListExt on List<int> { ... }`
+2. Extension is stored in environment with `onType = List<int>` (a BridgedClass with type args)
+3. Code accesses `numbers.sum` where `numbers` is a native `List<int>`
+4. `findExtensionMember()` gets the runtime type of `numbers`
+5. `getRuntimeType()` returns `List` (without type arguments)
+6. Type check: `List.isSubtypeOf(List<int>)` fails because `List` != `List<int>`
+
+##### Why It Happens
+
+**Root Cause:** The `getRuntimeType()` method in `environment.dart` (lines 419-422) returns:
+
+```dart
+if (value is List) typeName = 'List';  // No type arguments!
+if (value is Map) typeName = 'Map';
+```
+
+This loses the type argument information. When comparing:
+- Extension `onType`: `List<int>` (RuntimeType with typeArguments)
+- Actual `numbers` type: `List` (RuntimeType without typeArguments)
+- `List.isSubtypeOf(List<int>)` → false (invariance check fails)
+
+##### Fix Strategy
+
+**Option A: Infer element types from collection contents**
+
+In `getRuntimeType()`, when the value is a List with elements, infer the element type:
+
+```dart
+if (value is List) {
+  if (value.isNotEmpty) {
+    final elementType = getRuntimeType(value.first);
+    // Return List<elementType> instead of just List
+    return BridgedClassWithTypeArgs('List', [elementType]);
+  }
+  return get('List') as RuntimeType;
+}
+```
+
+**Option B: Relax extension matching for raw types**
+
+In `findExtensionMember()`, when matching extensions:
+- If target type is `List` (no args) and extension is on `List<T>`, allow match
+- The extension itself handles type constraints
+
+```dart
+bool matchesExtension(RuntimeType target, RuntimeType extensionOnType) {
+  if (target.name == extensionOnType.name) {
+    // Same base type, allow if extension has type args but target doesn't
+    if (target.typeArguments.isEmpty) return true;
+    // Otherwise check subtype normally
+    return target.isSubtypeOf(extensionOnType);
+  }
+  return false;
+}
+```
+
+**Option C: Track declared type, not runtime type**
+
+When the variable is declared, remember its declared type (including type arguments) and use that for extension matching.
+
+**Recommended Approach:** Option B — simpler and handles most cases
+
+**Estimated Effort:** 3-4 hours
+
+**Files to Modify:**
+- `tom_d4rt/lib/src/environment.dart` — `findExtensionMember()` type matching
+- `tom_d4rt/lib/src/runtime_types.dart` — Potentially relax `isSubtypeOf()` for extension matching
 
 ---
 
@@ -690,13 +900,13 @@ Enhance extension lookup to:
 
 **Stream.handleError callback receives wrong arg count**
 
-**Status:** ⬜ TODO  
-**Fixable:** ✅ Yes  
+**Status:** ⚠️ Verify  
+**Relevance:** Low  
 **Complexity:** Low
 
 #### Problem Description
 
-`Stream.handleError()` with a single-argument callback receives two arguments.
+`Stream.handleError()` with a single-argument callback may receive two arguments.
 
 ```dart
 import 'dart:async';
@@ -706,7 +916,7 @@ void main() async {
     if (n == 2) throw 'Error at $n';
     return n;
   });
-  var handled = stream.handleError((e) {  // ❌ FAILS - gets 2 args
+  var handled = stream.handleError((e) {  // Should only get 1 arg
     print('Handled: $e');
   });
   await for (var n in handled) {
@@ -717,24 +927,79 @@ void main() async {
 
 **Error:** `Too many positional arguments. Expected at most 1, got 2.`
 
-#### Where is the Problem
+#### Detailed Analysis
 
-**Location:** `stdlib/async/stream.dart` — `handleError` bridge
+##### Where It Appears
 
-The bridge always passes both error and stack trace, without checking callback arity.
+| File | Location | Description |
+|------|----------|-------------|
+| `lib/src/stdlib/async/stream.dart` | Lines 378-407 | `handleError` bridge implementation |
 
-#### How to Fix
+##### Current Code Review
 
-Check the callback's parameter count before invoking:
+Looking at the current implementation (lines 386-398 in stream.dart):
 
 ```dart
-final paramCount = callback.parameters.length;
-if (paramCount == 1) {
-  callback.invoke(visitor, [error]);
-} else {
-  callback.invoke(visitor, [error, stackTrace]);
+'handleError': (visitor, target, positionalArgs, namedArgs, _) {
+  final onError = positionalArgs[0] as InterpretedFunction;
+  final test = namedArgs['test'] as InterpretedFunction?;
+  // Dart's handleError callback can take 1 or 2 arguments
+  // Check the callback arity to pass the correct number of args
+  final callbackArity = onError.arity;  // <-- This checks arity!
+  return (target as Stream).handleError(
+    (error, stackTrace) {
+      return callbackArity >= 2
+          ? _runAction<void>(visitor, onError, [actualError, stackTrace])
+          : _runAction<void>(visitor, onError, [actualError]);  // <-- Only 1 arg
+    },
+    ...
+  );
 }
 ```
+
+**The code already checks arity!** The issue may be:
+1. Already fixed in current code
+2. Problem with how `arity` is calculated on `InterpretedFunction`
+3. Edge case not covered (e.g., callback from different source)
+
+##### Verification Needed
+
+**Status: ⚠️ Needs test verification**
+
+1. Create a test case with single-arg callback:
+```dart
+stream.handleError((e) { print(e); })
+```
+
+2. Create a test case with two-arg callback:
+```dart
+stream.handleError((e, st) { print('$e\n$st'); })
+```
+
+3. Verify both work correctly
+
+##### Potential Issues if Still Broken
+
+If `arity` is not being calculated correctly on `InterpretedFunction`, check:
+
+| File | Location | What to Check |
+|------|----------|--------------|
+| `lib/src/callable.dart` | `InterpretedFunction.arity` getter | Is it counting parameters correctly? |
+| N/A | Optional parameters | Does arity include optional params? |
+
+##### Fix Strategy (if needed)
+
+If `arity` isn't working, change to explicit parameter count:
+
+```dart
+final paramCount = onError.parameters?.parameters.length ?? 0;
+```
+
+**Estimated Effort:** 1-2 hours (including verification)
+
+**Files to Check:**
+- `tom_d4rt/lib/src/stdlib/async/stream.dart` — handleError implementation
+- `tom_d4rt/lib/src/callable.dart` — InterpretedFunction.arity getter
 
 ---
 
