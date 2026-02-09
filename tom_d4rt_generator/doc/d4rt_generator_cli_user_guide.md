@@ -7,6 +7,13 @@ The D4rt Bridge Generator provides a command-line interface (CLI) called `d4rtge
 - Projects that don't use build_runner
 - Batch processing multiple projects in a workspace
 
+## Related Documentation
+
+This tool uses the shared CLI infrastructure from **tom_build_base**:
+
+- [CLI Tools Navigation](../../../tom_module_basics/tom_build_base/doc/cli_tools_navigation.md) — Standard CLI commands, execution modes, and navigation options
+- [Build Base User Guide](../../../tom_module_basics/tom_build_base/doc/build_base_user_guide.md) — Configuration loading, project discovery, and workspace mode
+
 ## Installation
 
 The CLI is included with the `tom_d4rt_generator` package. Add it as a dev dependency:

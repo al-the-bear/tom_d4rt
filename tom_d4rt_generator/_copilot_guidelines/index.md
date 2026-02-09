@@ -7,6 +7,7 @@ This folder contains project-specific guidelines for the `tom_d4rt_generator` pa
 
 | File | Description |
 |------|-------------|
+| [implementation_hints.md](implementation_hints.md) | tom_build_base integration and CLI infrastructure |
 | [example.md](example.md) | Guidelines for creating and maintaining example files |
 | [documentation.md](documentation.md) | Documentation standards for this package |
 | [build.md](build.md) | Build, test, and publishing guidelines |
