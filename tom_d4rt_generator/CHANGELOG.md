@@ -4,12 +4,26 @@
 - **GEN-049**: Extension methods on bridged classes from imported libraries are now discovered. The generator walks the import tree of each source file to collect extensions from imported packages. This enables D4rt scripts to call extension methods from packages like `package:collection` when they are in scope.
 - **GEN-048**: Pure `mixin` declarations are now bridged. Previously only `mixin class` declarations were handled. Mixins are bridged as abstract classes without constructors, including their methods, getters, setters, and fields.
 - **GEN-020**: Global exclusions no longer merge across modules. Each module's exclusions now apply only to packages belonging to that module, preventing accidental cross-filtering.
+- **GEN-046**: GlobalsUserBridge overrides now work correctly. Fixed example project annotations and method signatures. The generator already correctly wired up overrides—the issue was missing `@D4rtGlobalsUserBridge` annotations in user code.
+- **GEN-007**: Expanded `_knownFunctionTypeAliases` from 7 to ~50 common function type aliases. Now covers D4rt, Dart core, Flutter, and async package types for better function type detection in syntactic fallback.
+- **GEN-009**: Improved `_isGenericTypeParameter()` heuristic to recognize multi-character type parameter patterns like `T1`, `T2`, `K2`, `V2` and `TValue`, `TOutput`, `TState`, etc. Eliminates false "Missing export" warnings.
+- **GEN-021**: Verified this issue is already resolved — no builder-skip logic exists in the current codebase.
+- **GEN-011**: Global function/variable generation counts now report actual values instead of hardcoded 0.
+- **GEN-013**: Verified already resolved — approximate class count (files × 10) pattern no longer exists.
+- **GEN-019**: Barrel preference now prioritizes primary barrel (`barrelImport`) over same-package barrels for consistent `$pkg` prefix usage.
+- **GEN-008**: Expanded `mapPrivateSdkLibrary()` from 6 to 20+ entries covering common SDK private libraries. Added optional warning callback for unknown libraries.
+- **GEN-025**: Enhanced record type resolution to handle named field groups `({int x, String y})` and mixed positional/named fields.
+- **GEN-027**: Added explicit `InvalidType` handling in `_collectInfoFromDartType()` to gracefully skip analyzer resolution failures.
 
 ### New Features
 - `_collectExtensionsFromImports()`: New function that walks library imports and collects visible extensions
 - `visitMixinDeclaration()`: Added to both visitors to handle pure mixin declarations
 - `_getExclusionsForPackage()`: New helper that returns exclusions scoped to a package's owning modules
 - Verbose mode shows `GEN-049: Discovered extension {name} on {type} from import {uri}` messages
+
+### Example Fixes
+- `userbridge_override`: Added missing `@D4rtGlobalsUserBridge` and `@D4rtUserBridge` annotations
+- `userbridge_override`: Fixed `MyListUserBridge` operator override signatures
 
 ### Tests
 - Added `test/import_extension_discovery_test.dart` — 5 tests for import-based extension discovery

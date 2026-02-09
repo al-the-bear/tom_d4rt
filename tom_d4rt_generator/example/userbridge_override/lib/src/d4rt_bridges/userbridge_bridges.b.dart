@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-02-09T05:32:10.319209
+// Generated: 2026-02-09T10:28:56.940091
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -88,12 +88,12 @@ class AllBridge {
     final errors = <String>[];
 
     try {
-      interpreter.registerGlobalVariable('appName', $pkg.appName, importPath, sourceUri: 'package:userbridge_override_example/src/globals.dart');
+      interpreter.registerGlobalVariable('appName', $pkg.GlobalsUserBridge.overrideGlobalVariableAppName(), importPath, sourceUri: 'package:userbridge_override_example/src/globals.dart');
     } catch (e) {
       errors.add('Failed to register variable "appName": $e');
     }
     try {
-      interpreter.registerGlobalVariable('maxRetries', $pkg.maxRetries, importPath, sourceUri: 'package:userbridge_override_example/src/globals.dart');
+      interpreter.registerGlobalVariable('maxRetries', $pkg.GlobalsUserBridge.overrideGlobalVariableMaxRetries(), importPath, sourceUri: 'package:userbridge_override_example/src/globals.dart');
     } catch (e) {
       errors.add('Failed to register variable "maxRetries": $e');
     }
@@ -102,7 +102,7 @@ class AllBridge {
     } catch (e) {
       errors.add('Failed to register variable "version": $e');
     }
-    interpreter.registerGlobalGetter('currentTime', () => $pkg.currentTime, importPath, sourceUri: 'package:userbridge_override_example/src/globals.dart');
+    interpreter.registerGlobalGetter('currentTime', $pkg.GlobalsUserBridge.overrideGlobalGetterCurrentTime(), importPath, sourceUri: 'package:userbridge_override_example/src/globals.dart');
 
     if (errors.isNotEmpty) {
       throw StateError('Bridge registration errors (all):\n${errors.join("\n")}');
@@ -112,18 +112,8 @@ class AllBridge {
   /// Returns a map of global function names to their native implementations.
   static Map<String, NativeFunctionImpl> globalFunctions() {
     return {
-      'greet': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'greet');
-        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'greet');
-        return $pkg.greet(name);
-      },
-      'calculate': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'calculate');
-        final a = D4.getRequiredArg<int>(positional, 0, 'a', 'calculate');
-        final b = D4.getRequiredArg<int>(positional, 1, 'b', 'calculate');
-        final operation = D4.getNamedArgWithDefault<String>(named, 'operation', 'add');
-        return $pkg.calculate(a, b, operation: operation);
-      },
+      'greet': $pkg.GlobalsUserBridge.overrideGlobalFunctionGreet,
+      'calculate': $pkg.GlobalsUserBridge.overrideGlobalFunctionCalculate,
     };
   }
 
@@ -204,18 +194,8 @@ BridgedClass _createMyListBridge() {
         t.clear();
         return null;
       },
-      '[]': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.MyList>(target, 'MyList');
-        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'operator[]');
-        return t[index];
-      },
-      '[]=': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.MyList>(target, 'MyList');
-        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'operator[]=');
-        final value = D4.getRequiredArg<dynamic>(positional, 1, 'value', 'operator[]=');
-        t[index] = value;
-        return null;
-      },
+      '[]': $pkg.MyListUserBridge.overrideOperatorIndex,
+      '[]=': $pkg.MyListUserBridge.overrideOperatorIndexAssign,
     },
     staticMethods: {
       'empty': (visitor, positional, named, typeArgs) {

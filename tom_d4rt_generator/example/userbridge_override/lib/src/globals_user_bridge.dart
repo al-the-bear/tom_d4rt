@@ -12,6 +12,7 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 /// - Variables: `overrideGlobalVariable{Name}`
 /// - Getters: `overrideGlobalGetter{Name}`
 /// - Functions: `overrideGlobalFunction{Name}`
+@D4rtGlobalsUserBridge('package:userbridge_override_example/src/globals.dart')
 class GlobalsUserBridge extends D4UserBridge {
   /// Override the `appName` global variable.
   /// Returns the value to register instead of the original.

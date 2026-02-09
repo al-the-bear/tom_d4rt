@@ -224,20 +224,29 @@ class PerPackageBridgeOrchestrator {
         
         for (final sourceFile in exports.keys) {
           // Track which barrel exports this source file
-          // Prefer barrels from the same package as the source file
-          final sourcePackage = _extractPackageName(sourceFile);
-          final barrelPackage = _extractPackageNameFromUri(barrelUri);
+          // Preference order:
+          // 1. Primary barrel (barrelImport) - always preferred for consistency
+          // 2. Barrels from the same package as the source file
+          // 3. First barrel that exports it (fallback)
           final existingBarrel = sourceFileToBarrel[sourceFile];
+          final isPrimaryBarrel = barrelUri == sourceImport;
           
           if (existingBarrel == null) {
             // Not yet tracked - use this barrel
             sourceFileToBarrel[sourceFile] = barrelUri;
-          } else if (sourcePackage != null && barrelPackage == sourcePackage) {
-            // This barrel is from the same package as the source file - prefer it
-            final existingBarrelPackage = _extractPackageNameFromUri(existingBarrel);
-            if (existingBarrelPackage != sourcePackage) {
-              // Existing barrel is from a different package - override with same-package barrel
-              sourceFileToBarrel[sourceFile] = barrelUri;
+          } else if (isPrimaryBarrel) {
+            // This is the primary barrel (barrelImport) - always prefer it
+            sourceFileToBarrel[sourceFile] = barrelUri;
+          } else if (existingBarrel != sourceImport) {
+            // Existing is not primary, so consider same-package preference
+            final sourcePackage = _extractPackageName(sourceFile);
+            final barrelPackage = _extractPackageNameFromUri(barrelUri);
+            if (sourcePackage != null && barrelPackage == sourcePackage) {
+              final existingBarrelPackage = _extractPackageNameFromUri(existingBarrel);
+              if (existingBarrelPackage != sourcePackage) {
+                // Existing barrel is from a different package - override with same-package barrel
+                sourceFileToBarrel[sourceFile] = barrelUri;
+              }
             }
           }
           allExports[sourceFile] = exports[sourceFile]!;
@@ -270,18 +279,27 @@ class PerPackageBridgeOrchestrator {
         }
         
         // Track which barrel this source file came from
-        // Prefer barrels from the same package as the source file (not re-exporting packages)
+        // Preference order:
+        // 1. Primary barrel (sourceImport) - always preferred for consistency
+        // 2. Barrels from the same package as the source file
+        // 3. Keep existing barrel (fallback)
         if (sourceFileToBarrel.containsKey(sourceFile)) {
           final barrelUri = sourceFileToBarrel[sourceFile]!;
           final existingBarrel = _packageInfoMap[pkgName]!.sourceFileToBarrel[sourceFile];
+          final isPrimaryBarrel = barrelUri == sourceImport;
           
-          // Only set if not already tracked, or if this barrel is from the same package
           if (existingBarrel == null) {
             _packageInfoMap[pkgName]!.sourceFileToBarrel[sourceFile] = barrelUri;
-          } else if (barrelUri.startsWith('package:$pkgName/') && 
-                     !existingBarrel.startsWith('package:$pkgName/')) {
-            // Prefer barrel from same package over re-exporting package
+          } else if (isPrimaryBarrel) {
+            // Primary barrel always wins
             _packageInfoMap[pkgName]!.sourceFileToBarrel[sourceFile] = barrelUri;
+          } else if (existingBarrel != sourceImport) {
+            // Existing is not primary, apply same-package preference
+            if (barrelUri.startsWith('package:$pkgName/') && 
+                !existingBarrel.startsWith('package:$pkgName/')) {
+              // Prefer barrel from same package over re-exporting package
+              _packageInfoMap[pkgName]!.sourceFileToBarrel[sourceFile] = barrelUri;
+            }
           }
         }
       }

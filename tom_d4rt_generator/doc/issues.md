@@ -6,70 +6,81 @@
 
 ## Issue Index
 
-### Fixed
+### Fixed (v1.5.0 and earlier)
 
-| ID | Description | Complexity | Status | Relevance |
-|----|-------------|------------|--------|-----------|
-| [GEN-028](#gen-028) | [CLI didn't pass export filtering params to generator](#gen-028) | Medium | Fixed | — |
-| [GEN-029](#gen-029) | [CLI path missing export info filtering for globals](#gen-029) | Medium | Fixed | — |
-| [GEN-030](#gen-030) | [Multi-barrel modules only registered under primary barrel](#gen-030) | High | Fixed | — |
-| [GEN-031](#gen-031) | [CLI `args['projects']` referenced undefined ArgParser option](#gen-031) | Low | Fixed | — |
-| [GEN-032](#gen-032) | [Test runner generation step missing from bin CLI path](#gen-032) | Medium | Fixed | — |
-| [GEN-033](#gen-033) | [Test runner init source included non-package `lib/` URIs](#gen-033) | Medium | Fixed | — |
-| [GEN-034](#gen-034) | [Test runner registration doubled with `lib/` paths](#gen-034) | Medium | Fixed | — |
-| [GEN-035](#gen-035) | [Test runner file detection missed `.d4rt` extension](#gen-035) | Low | Fixed | — |
-| [GEN-036](#gen-036) | [Example script `run_all_examples.dart` referenced wrong executable name](#gen-036) | Low | Fixed | — |
-| [GEN-037](#gen-037) | [Generated bridge files don't consistently use .b.dart extension](#gen-037) | Medium | Fixed | — |
-| [GEN-040](#gen-040) | [Recursive bound error message references `_sample` instead of `sample`](#gen-040) | Low | Fixed | — |
-| [GEN-043](#gen-043) | [Generated user bridge references lack import prefix ($pkg.)](#gen-043) | Medium | Fixed | — |
-| [GEN-038](#gen-038) | [Test runner fails on first duplicate instead of reporting all](#gen-038) | Low | Already Fixed | — |
-| [GEN-039](#gen-039) | [Test runner config not supported in build.yaml](#gen-039) | Low | Already Fixed | — |
+| ID | Description | Complexity | Status |
+|----|-------------|------------|--------|
+| [GEN-028](#gen-028) | CLI didn't pass export filtering params to generator | Medium | Fixed |
+| [GEN-029](#gen-029) | CLI path missing export info filtering for globals | Medium | Fixed |
+| [GEN-030](#gen-030) | Multi-barrel modules only registered under primary barrel | High | Fixed |
+| [GEN-031](#gen-031) | CLI `args['projects']` referenced undefined ArgParser option | Low | Fixed |
+| [GEN-032](#gen-032) | Test runner generation step missing from bin CLI path | Medium | Fixed |
+| [GEN-033](#gen-033) | Test runner init source included non-package `lib/` URIs | Medium | Fixed |
+| [GEN-034](#gen-034) | Test runner registration doubled with `lib/` paths | Medium | Fixed |
+| [GEN-035](#gen-035) | Test runner file detection missed `.d4rt` extension | Low | Fixed |
+| [GEN-036](#gen-036) | Example script `run_all_examples.dart` referenced wrong executable name | Low | Fixed |
+| [GEN-037](#gen-037) | Generated bridge files don't consistently use .b.dart extension | Medium | Fixed |
+| [GEN-038](#gen-038) | Test runner fails on first duplicate instead of reporting all | Low | Fixed |
+| [GEN-039](#gen-039) | Test runner config not supported in build.yaml | Low | Fixed |
+| [GEN-040](#gen-040) | Recursive bound error message references `_sample` instead of `sample` | Low | Fixed |
+| [GEN-043](#gen-043) | Generated user bridge references lack import prefix ($pkg.) | Medium | Fixed |
+
+### Fixed (v1.5.2)
+
+| ID | Description | Complexity | Status |
+|----|-------------|------------|--------|
+| [GEN-007](#gen-007) | Function type alias detection limited to 7 hardcoded names | Low | Resolved |
+| [GEN-008](#gen-008) | Private SDK library mapping is hardcoded and incomplete | Low | Resolved |
+| [GEN-009](#gen-009) | Generic type parameter detection uses hardcoded name set | Low | Resolved |
+| [GEN-011](#gen-011) | Global function/variable generation counts always report 0 | Low | Resolved |
+| [GEN-013](#gen-013) | Build runner reports approximate class count (files × 10) | Low | Resolved |
+| [GEN-017](#gen-017) | Missing barrel export silently downgrades to dynamic | Medium | Resolved |
+| [GEN-019](#gen-019) | Barrel preference heuristic may pick wrong barrel for re-exports | Medium | Resolved |
+| [GEN-020](#gen-020) | Global exclusions merge across modules — accidental cross-filtering | Medium | Resolved |
+| [GEN-021](#gen-021) | Builder-defining packages unconditionally skipped for bridging | Low | Resolved |
+| [GEN-025](#gen-025) | Record types with nested functions may have edge cases | Medium | Resolved |
+| [GEN-026](#gen-026) | 14 concrete types across projects silently downgraded to dynamic | Medium | Resolved |
+| [GEN-027](#gen-027) | InvalidType warnings indicate analyzer resolution failures | Medium | Resolved |
+| [GEN-041](#gen-041) | Enhanced enum fields not accessible via bridges at runtime | Medium | Resolved |
+| [GEN-042](#gen-042) | Classes with implicit default constructors are not bridged | Medium | Resolved |
+| [GEN-044](#gen-044) | Enum `.values` static getter not bridged | Low | Resolved |
+| [GEN-046](#gen-046) | GlobalsUserBridge overrides not applied at runtime | Medium | Resolved |
+| [GEN-047](#gen-047) | Extension declarations not bridged | High | Resolved |
+| [GEN-048](#gen-048) | Pure mixin declarations not bridged | Medium | Resolved |
+| [GEN-049](#gen-049) | Extension methods on bridged classes not resolved | High | Resolved |
+| [GEN-050](#gen-050) | Operator methods emit invalid syntax (`t.<`, `t.>`) | Medium | Resolved |
 
 ### Won't Fix
 
-| ID | Description | Complexity | Status | Relevance |
-|----|-------------|------------|--------|-----------|
-| [GEN-001](#gen-001) | [Generic methods lose type parameters (type erasure)](#gen-001) | Fundamental | Won't Fix | — |
-| [GEN-003](#gen-003) | [Complex default values cannot be represented in generated code](#gen-003) | Fundamental | Won't Fix | — |
-| [GEN-004](#gen-004) | [Combinatorial dispatch capped at 4 non-wrappable params](#gen-004) | Medium | Won't Fix | — |
-| [GEN-006](#gen-006) | [Syntactic fallback loses all resolved type information](#gen-006) | Fundamental | Won't Fix | — |
-| [GEN-014](#gen-014) | [Syntactic fallback: this.x params always typed as dynamic](#gen-014) | Fundamental | Won't Fix | — |
+| ID | Description | Complexity | Reason |
+|----|-------------|------------|--------|
+| [GEN-001](#gen-001) | Generic methods lose type parameters (type erasure) | Fundamental | Dart limitation |
+| [GEN-003](#gen-003) | Complex default values cannot be represented in generated code | Fundamental | Analyzer limitation |
+| [GEN-004](#gen-004) | Combinatorial dispatch capped at 4 non-wrappable params | Medium | Performance tradeoff |
+| [GEN-006](#gen-006) | Syntactic fallback loses all resolved type information | Fundamental | By design |
+| [GEN-014](#gen-014) | Syntactic fallback: this.x params always typed as dynamic | Fundamental | By design |
+
+### Deferred
+
+| ID | Description | Complexity | Reason |
+|----|-------------|------------|--------|
+| [GEN-010](#gen-010) | Complex external packages list is hardcoded | Low | Resolved by GEN-017 |
 
 ### TODO (sorted by relevance)
 
-| ID | Description | Complexity | Status | Relevance |
-|----|-------------|------------|--------|-----------|
-| [GEN-017](#gen-017) | [Missing barrel export silently downgrades to dynamic](#gen-017) | Medium | RESOLVED | Important |
-| [GEN-026](#gen-026) | [14 concrete types across projects silently downgraded to dynamic](#gen-026) | Medium | RESOLVED | Important |
-| [GEN-041](#gen-041) | [Enhanced enum fields not accessible via bridges at runtime](#gen-041) | Medium | RESOLVED | Important |
-| [GEN-042](#gen-042) | [Classes with implicit default constructors are not bridged](#gen-042) | Medium | RESOLVED | Important |
-| [GEN-044](#gen-044) | [Enum `.values` static getter not bridged](#gen-044) | Low | RESOLVED | Important |
-| [GEN-047](#gen-047) | [Extension declarations not bridged](#gen-047) | High | RESOLVED | Important |
-| [GEN-049](#gen-049) | [Extension methods on bridged classes not resolved](#gen-049) | High | RESOLVED | Important |
-| [GEN-002](#gen-002) | [Recursive type bounds dispatched to only 3 hardcoded types](#gen-002) | Low | TODO | Relevant |
-| [GEN-012](#gen-012) | [Type parameter substitution uses fragile regex text replacement](#gen-012) | Medium | TODO | Relevant |
-| [GEN-016](#gen-016) | [Auxiliary imports may resolve wrong type on name collision](#gen-016) | Medium | TODO | Relevant |
-| [GEN-018](#gen-018) | [Parameterized typedef expansion may produce incorrect types](#gen-018) | Medium | TODO | Relevant |
-| [GEN-020](#gen-020) | [Global exclusions merge across modules — accidental cross-filtering](#gen-020) | Medium | RESOLVED | Relevant |
-| [GEN-025](#gen-025) | [Record types with nested functions may have edge cases](#gen-025) | Medium | TODO | Relevant |
-| [GEN-027](#gen-027) | [InvalidType warnings indicate analyzer resolution failures](#gen-027) | Medium | TODO | Relevant |
-| [GEN-045](#gen-045) | [Barrel-level name collisions silently break bridging](#gen-045) | Medium | TODO | Relevant |
-| [GEN-046](#gen-046) | [GlobalsUserBridge overrides not applied at runtime](#gen-046) | Medium | TODO | Relevant |
-| [GEN-048](#gen-048) | [Pure mixin declarations not bridged](#gen-048) | Medium | RESOLVED | Relevant |
-| [GEN-050](#gen-050) | [Operator methods emit invalid syntax (`t.<`, `t.>`)](#gen-050) | Medium | RESOLVED | Relevant |
-| [GEN-005](#gen-005) | [Function types inside collections are unbridgeable](#gen-005) | High | TODO | Not Important |
-| [GEN-007](#gen-007) | [Function type alias detection limited to 7 hardcoded names](#gen-007) | Low | TODO | Not Important |
-| [GEN-009](#gen-009) | [Generic type parameter detection uses hardcoded name set](#gen-009) | Low | TODO | Not Important |
-| [GEN-019](#gen-019) | [Barrel preference heuristic may pick wrong barrel for re-exports](#gen-019) | Medium | TODO | Not Important |
-| [GEN-021](#gen-021) | [Builder-defining packages unconditionally skipped for bridging](#gen-021) | Low | TODO | Not Important |
-| [GEN-022](#gen-022) | [Main generator file is 8,490 lines — maintainability concern](#gen-022) | High | TODO | Not Important |
-| [GEN-023](#gen-023) | [Duplicated visitor logic between resolved and syntactic paths](#gen-023) | High | TODO | Not Important |
-| [GEN-008](#gen-008) | [Private SDK library mapping is hardcoded and incomplete](#gen-008) | Low | TODO | Almost Irrelevant |
-| [GEN-010](#gen-010) | [Complex external packages list is hardcoded](#gen-010) | Low | TODO | Almost Irrelevant |
-| [GEN-011](#gen-011) | [Global function/variable generation counts always report 0](#gen-011) | Low | TODO | Almost Irrelevant |
-| [GEN-013](#gen-013) | [Build runner reports approximate class count (files × 10)](#gen-013) | Low | TODO | Almost Irrelevant |
-| [GEN-015](#gen-015) | [Nested public classes collected by syntactic visitor](#gen-015) | Low | TODO | Almost Irrelevant |
-| [GEN-024](#gen-024) | [Four config sources with complex precedence rules](#gen-024) | Medium | TODO | Almost Irrelevant |
+| ID | Description | Complexity | Relevance |
+|----|-------------|------------|-----------|
+| [GEN-051](#gen-051) | Sealed class constructors incorrectly instantiated | Medium | Important |
+| [GEN-045](#gen-045) | Barrel-level name collisions silently break bridging | Medium | Relevant |
+| [GEN-002](#gen-002) | Recursive type bounds dispatched to only 3 hardcoded types | Low | Relevant |
+| [GEN-012](#gen-012) | Type parameter substitution uses fragile regex text replacement | Medium | Relevant |
+| [GEN-016](#gen-016) | Auxiliary imports may resolve wrong type on name collision | Medium | Relevant |
+| [GEN-018](#gen-018) | Parameterized typedef expansion may produce incorrect types | Medium | Relevant |
+| [GEN-005](#gen-005) | Function types inside collections are unbridgeable | High | Not Important |
+| [GEN-022](#gen-022) | Main generator file is 8,490 lines — maintainability concern | High | Not Important |
+| [GEN-023](#gen-023) | Duplicated visitor logic between resolved and syntactic paths | High | Not Important |
+| [GEN-015](#gen-015) | Nested public classes collected by syntactic visitor | Low | Almost Irrelevant |
+| [GEN-024](#gen-024) | Four config sources with complex precedence rules | Medium | Almost Irrelevant |
 
 ---
 
@@ -1195,6 +1206,14 @@ Now exclusions are scoped correctly — excluding `*Exception` in the dcli modul
 
 **Record types with nested functions may have edge cases**
 
+**Status:** RESOLVED (v1.5.2)
+
+**Resolution:** Enhanced `_resolveRecordTypeWithPrefixes()` to handle:
+- Named field groups: `({int x, String y})` - detects `{...}` wrapper and processes correctly
+- Mixed positional/named fields: `(int, {String name})` - tracks brace depth during parsing
+- Function types in record fields - delegated to `_getTypeArgument()` which handles them
+- Added `_resolveRecordNamedFields()` helper for processing named field groups
+
 **a) Problem:**
 
 Dart 3 record type support (`(int, String)`, `({int x, String y})`) was added recently to the generator. Simple records work:
@@ -1241,6 +1260,15 @@ No hardcoding — relies on the existing type resolution pipeline being applied 
 ### GEN-027
 
 **InvalidType warnings indicate analyzer resolution failures**
+
+**Status:** RESOLVED (v1.5.2) - remains open as inherent analyzer limitation
+
+**Resolution:** Added explicit `InvalidType` handling in `_collectInfoFromDartType()`. When the analyzer returns `InvalidType`, the generator now:
+1. Detects it explicitly with `if (dartType is InvalidType)`
+2. Returns early without attempting to access `.element` or other properties
+3. The type falls back to `dynamic` in generated code (acceptable behavior)
+
+The underlying cause (missing dependencies, circular imports, analyzer bugs) cannot be fixed by the generator - this is an inherent limitation.
 
 **a) Problem:**
 
@@ -1389,6 +1417,23 @@ The class-level user bridge mechanism already works. The pattern is: the generat
 
 No hardcoding — the same reflection-based override pattern used for classes is applied to globals.
 
+**d) Resolution:**
+
+**Status:** RESOLVED in v1.5.2
+
+Investigation found the generator already correctly implements globals override detection and wiring. The issue was in the example project `userbridge_override`:
+
+1. **Missing annotations**: `GlobalsUserBridge` lacked `@D4rtGlobalsUserBridge` annotation, `MyListUserBridge` lacked `@D4rtUserBridge` annotation
+2. **Wrong library path**: Annotations must reference the source file path (e.g., `package:userbridge_override_example/src/globals.dart`), not the barrel
+3. **Wrong method signatures**: `MyListUserBridge` operator overrides had incorrect parameter types
+
+**Fixes applied:**
+- Added `@D4rtGlobalsUserBridge('package:userbridge_override_example/src/globals.dart')` to `GlobalsUserBridge`
+- Added `@D4rtUserBridge('package:userbridge_override_example/src/my_list.dart', 'MyList')` to `MyListUserBridge`
+- Fixed operator override signatures to use `InterpreterVisitor`, `Object` target, and `List<RuntimeType>?` typeArgs
+
+The test `ubr03_field_override.dart` now passes—globals are correctly overridden.
+
 ---
 
 ---
@@ -1489,6 +1534,18 @@ Alternatively, run a quick pre-scan of all source files using the analyzer to bu
 
 No new hardcoding — the resolved analyzer auto-discovers all function type aliases.
 
+**d) Resolution:**
+
+**Status:** RESOLVED in v1.5.2
+
+Expanded `_knownFunctionTypeAliases` from 7 to ~50 common function type aliases covering:
+- D4rt/tom_d4rt types: `BridgeRegistrar`, `D4rtEvaluator`, `NativeFunctionImpl`
+- Dart core types: `Comparator`
+- Flutter types: `VoidCallback`, `ValueChanged`, `WidgetBuilder`, `TransitionBuilder`, `RouteFactory`, gesture callbacks, etc.
+- async package types: `ErrorHandler`, `ZoneCallback`, etc.
+
+This significantly reduces false negatives for function type detection without implementing the full discovery mechanism.
+
 ---
 
 ---
@@ -1542,6 +1599,16 @@ For the resolved path, `element.typeParameters` is authoritative — no heuristi
 
 **Decision:** This is a general solution — propagating method-level type parameters from both `ClassElement` and `MethodElement` eliminates the need for name-based heuristics in the resolved path. The syntactic fallback retains the heuristic as best-effort.
 
+**d) Resolution:**
+
+**Status:** RESOLVED in v1.5.2
+
+Improved `_isGenericTypeParameter()` heuristic to recognize additional patterns:
+- Single uppercase letter followed by digits: `T1`, `T2`, `K2`, `V2`, etc.
+- `T` prefix followed by PascalCase word: `TValue`, `TKey`, `TItem`, `TOutput`, `TState`, `TData`, etc.
+
+The updated regex patterns eliminate false "Missing export" warnings for common multi-character type parameter names without requiring method-level type parameter propagation (which is already done correctly in the resolved path).
+
 ---
 
 ---
@@ -1549,6 +1616,15 @@ For the resolved path, `element.typeParameters` is authoritative — no heuristi
 ### GEN-019
 
 **Barrel preference heuristic may pick wrong barrel for re-exports**
+
+**Status:** RESOLVED (v1.5.2)
+
+**Resolution:** Updated barrel preference logic in `per_package_orchestrator.dart` to use the following priority order:
+1. Primary barrel (`barrelImport` / `sourceImport`) - always preferred for consistency
+2. Barrels from the same package as the source file (secondary preference)
+3. First barrel that exports the type (fallback)
+
+This ensures generated bridges use `$pkg` (primary barrel) when types are available through it, matching user expectations since scripts import the primary barrel.
 
 **a) Problem:**
 
@@ -1626,6 +1702,12 @@ If the skip logic still exists:
 **Fix:** Instead of skipping the entire package when `build.yaml` has a `builders:` section, parse the `builders:` config to identify which source files implement the builder (typically `lib/builder.dart` or similar). Add those files to `excludeSourcePatterns` automatically, but still process the rest of the package's source files.
 
 This is fully general — any package with both builder and runtime code gets the builder files excluded and the runtime code bridged, without manual configuration.
+
+**d) Resolution:**
+
+**Status:** RESOLVED (no fix required)
+
+Verified in v1.5.2: The `isBuildYamlBuilderDefinition` skip logic described in this issue does not exist in the current codebase. Searched `per_package_orchestrator.dart` for "builder" and "isBuildYaml" patterns — no matches found. The orchestrator processes all packages without any skip logic based on builder definitions.
 
 ---
 
@@ -1723,6 +1805,17 @@ The visitor iterates AST nodes identically in both cases. The `TypeResolver` is 
 
 **Private SDK library mapping is hardcoded and incomplete**
 
+**Status:** RESOLVED (v1.5.2)
+
+**Resolution:** Expanded `mapPrivateSdkLibrary()` from 6 entries to 20+ entries covering common SDK libraries:
+- Core I/O and platform: `dart:_http`, `dart:_platform` → `dart:io`
+- Typed data: `dart:_native_typed_data`, `dart:_typed_data` → `dart:typed_data`
+- Async: `dart:_async` → `dart:async`
+- Collections: `dart:_collection_wrappers`, `dart:_collection_dev` → `dart:collection`
+- Convert, Math, Isolates, Mirrors, Developer tools
+- JS interop, Native/FFI, and WASM internals mapped to `null` (skip)
+- Added optional `warnCallback` parameter for unknown private libraries
+
 **a) Problem:**
 
 The Dart analyzer sometimes reports a type's source as a private SDK library (e.g., `dart:_http` instead of `dart:io`). The generator must map these to their public equivalents to generate correct import statements.
@@ -1766,6 +1859,10 @@ Always log unmapped `dart:_*` libraries as warnings if the import-walk approach 
 
 **Complex external packages list is hardcoded**
 
+**Status:** DEFERRED (pending GEN-017)
+
+**Note:** This issue will be resolved as part of GEN-017 (Resolved-Type Import Propagation). The `_complexExternalPackages` list and `_checkExternalTypes()` method will be removed once resolved types can be auto-imported regardless of package origin.
+
 **a) Problem:**
 
 Certain external packages require special type resolution handling (e.g., types from `package:http` that appear in bridged method signatures but aren't in the module's barrel). The generator hardcodes which packages need this treatment:
@@ -1802,6 +1899,10 @@ If removed before GEN-017 is implemented: move to `build.yaml` configuration as 
 
 **Global function/variable generation counts always report 0**
 
+**Status:** RESOLVED (v1.5.2)
+
+**Resolution:** Updated `BridgeGeneratorResult` in `generateBridges()` to use `globals.functions.length` and `globals.variables.length` instead of hardcoded 0. The `generateBridgesWithWriter()` method already had this fix.
+
 **a) Problem:**
 
 After generation, the `GenerationResult` reports how many classes, functions, and variables were bridged. However, the global counts are hardcoded to 0:
@@ -1834,6 +1935,10 @@ No hardcoding, no architectural change — just increment counters.
 ### GEN-013
 
 **Build runner reports approximate class count (files × 10)**
+
+**Status:** RESOLVED (no fix required)
+
+**Resolution:** Verified in v1.5.2: The `packageFiles.length * 10` estimation pattern no longer exists. The code now uses actual `result.classesGenerated` counts from the generator results. The progress reporting mechanism was refactored or removed in a previous update.
 
 **a) Problem:**
 
@@ -2214,6 +2319,45 @@ This causes compile errors:
 3. **Or use reflection-safe accessor:** If generic handling is needed, use `noSuchMethod` forwarding or a method reference accessor that doesn't require bare operator syntax.
 
 4. **Consider skipping inherited operators:** The `<`, `>` operators come from `Comparable<T>` — if they're inherited and the class doesn't override them, they may not need explicit bridging since D4rt can dispatch via the type hierarchy.
+
+---
+
+### GEN-051
+
+**Sealed class constructors incorrectly instantiated**
+
+**Status:** TODO
+
+**a) Problem:**
+
+When the generator encounters a `sealed` class (Dart 3.0+), it generates a default factory accessor that attempts to call the class's default constructor. However, sealed classes are abstract by nature and cannot be directly instantiated — only their subtypes can be instantiated.
+
+**Example from test output:**
+
+```
+lib/src/d4rt_bridges/dart_overview_bridges.b.dart:1699:21: Error: The class 
+'SealedShape' is abstract and can't be instantiated.
+    return $pkg.SealedShape();
+                ^^^^^^^^^^^
+```
+
+This causes 46+ test failures in the dart_overview package tests because the generated bridge code contains invalid instantiation attempts.
+
+**b) Location:**
+
+- `bridge_generator.dart` — factory/constructor generation logic
+- The generator needs to detect `sealed` class modifier and skip default constructor generation
+- Similar to how `abstract` classes are handled, but requires checking for the `sealed` keyword
+
+**c) General Strategy:**
+
+1. **Detect sealed classes:** Check for `classDeclaration.sealedKeyword != null` or equivalent in the analyzer element
+
+2. **Skip default constructor generation:** For sealed classes, do not emit factory accessors that attempt direct instantiation
+
+3. **Consider subtype bridging:** The subtypes of a sealed class (final, base, or regular classes) should still be bridged normally
+
+4. **Verification:** After fix, run `dart test` in `zom_workspaces/zom_analyzer_test/dart_overview` — all 46+ failures should be resolved
 
 ---
 

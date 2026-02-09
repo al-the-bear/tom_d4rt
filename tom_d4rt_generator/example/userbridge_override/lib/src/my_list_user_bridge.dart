@@ -13,16 +13,18 @@ import 'my_list.dart';
 ///
 /// Only override methods that need custom handling (like operators).
 /// All other members will be auto-generated.
+@D4rtUserBridge('package:userbridge_override_example/src/my_list.dart', 'MyList')
 class MyListUserBridge extends D4UserBridge {
   /// Override operator[] for generic type handling.
   ///
   /// This is needed because the auto-generator cannot determine
   /// the generic type T at generation time.
   static Object? overrideOperatorIndex(
-    Object? visitor,
-    Object? target,
+    InterpreterVisitor visitor,
+    Object target,
     List<Object?> positional,
     Map<String, Object?> named,
+    List<RuntimeType>? typeArgs,
   ) {
     final list = D4.validateTarget<MyList>(target, 'MyList');
     final index = D4.getRequiredArg<int>(positional, 0, 'index', '[]');
@@ -30,11 +32,12 @@ class MyListUserBridge extends D4UserBridge {
   }
 
   /// Override operator[]= for generic type handling.
-  static dynamic overrideOperatorIndexAssign(
-    Object? visitor,
-    Object? target,
+  static Object? overrideOperatorIndexAssign(
+    InterpreterVisitor visitor,
+    Object target,
     List<Object?> positional,
     Map<String, Object?> named,
+    List<RuntimeType>? typeArgs,
   ) {
     final list = D4.validateTarget<MyList>(target, 'MyList');
     final index = D4.getRequiredArg<int>(positional, 0, 'index', '[]=');

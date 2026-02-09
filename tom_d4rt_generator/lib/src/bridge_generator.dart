@@ -696,24 +696,73 @@ String toPascalCase(String input) {
 /// public library that exports the same types.
 /// 
 /// Returns null if the library should be skipped entirely.
-String? mapPrivateSdkLibrary(String uri) {
+/// 
+/// The [warnCallback] is called for unknown private libraries that are mapped
+/// to null. This helps users identify libraries that may need explicit mapping.
+String? mapPrivateSdkLibrary(String uri, {void Function(String)? warnCallback}) {
   if (!uri.startsWith('dart:_')) return uri;
   
   // Map known private libraries to public equivalents
-  const privateToPublic = {
+  // This covers common SDK private libraries
+  const privateToPublic = <String, String?>{
+    // Core I/O and platform
     'dart:_http': 'dart:io',
-    'dart:_internal': null, // Skip - internal utilities
-    'dart:_interceptors': null, // Skip - JS interop internals
-    'dart:_js_helper': null, // Skip - JS helper internals
+    'dart:_platform': 'dart:io',
+    
+    // Typed data and byte handling
     'dart:_native_typed_data': 'dart:typed_data',
-    'dart:_foreign_helper': null, // Skip - foreign function internals
+    'dart:_typed_data': 'dart:typed_data',
+    
+    // Async primitives
+    'dart:_async': 'dart:async',
+    
+    // Collections
+    'dart:_collection_wrappers': 'dart:collection',
+    'dart:_collection_dev': 'dart:collection',
+    
+    // Convert - encoding/decoding
+    'dart:_convert': 'dart:convert',
+    
+    // Math
+    'dart:_math': 'dart:math',
+    
+    // Isolates
+    'dart:_isolate': 'dart:isolate',
+    
+    // Mirrors (if available)
+    'dart:_mirrors': 'dart:mirrors',
+    
+    // Developer tools
+    'dart:_developer': 'dart:developer',
+    
+    // Internal utilities - skip (rarely needed in user code)
+    'dart:_internal': null,
+    'dart:_compact_hash': null,
+    'dart:_late_helper': null,
+    
+    // JS interop internals - skip
+    'dart:_interceptors': null,
+    'dart:_js_helper': null,
+    'dart:_js_primitives': null,
+    'dart:_js_types': null,
+    'dart:_js_annotations': null,
+    'dart:_foreign_helper': null,
+    
+    // Native/FFI internals - skip
+    'dart:_ffi': null,
+    'dart:_native_wrappers': null,
+    
+    // WASM (future-proofing) - skip for now
+    'dart:_wasm': null,
   };
   
   if (privateToPublic.containsKey(uri)) {
     return privateToPublic[uri];
   }
   
-  // For unknown private libraries, skip them
+  // For unknown private libraries, warn and skip them
+  // These are typically internal implementation details
+  warnCallback?.call('Unknown private SDK library: $uri - type will be mapped to dynamic');
   return null;
 }
 
@@ -2058,10 +2107,15 @@ class BridgeGenerator {
       outputFiles.add(outFile);
     }
 
+    // Count globals for result - use filtered counts from else branch if available,
+    // otherwise use globals totals from if branch
+    final functionCount = hasGlobalFunctions ? globals.functions.length : 0;
+    final variableCount = hasGlobalVariables ? globals.variables.length : 0;
+
     return BridgeGeneratorResult(
       classesGenerated: bridgeableClasses.length,
-      globalFunctionsGenerated: 0, // TODO: count from globals
-      globalVariablesGenerated: 0, // TODO: count from globals
+      globalFunctionsGenerated: functionCount,
+      globalVariablesGenerated: variableCount,
       outputFiles: outputFiles,
       errors: errors,
       warnings: warnings..addAll(_nonWrappableDefaultWarnings)..addAll(_missingExportWarnings)..addAll(_skipReports),
@@ -6585,6 +6639,13 @@ class BridgeGenerator {
 
   /// Resolves record types like (ParsedHeadline, int, int) or (String name, int age)
   /// by prefixing each type in the record.
+  /// 
+  /// Handles:
+  /// - Positional fields: `(int, String)`
+  /// - Named fields: `({int x, String y})`
+  /// - Mixed fields: `(int, {String name})`
+  /// - Function types in fields: `(void Function(), int)`
+  /// - Nested records: `((int, String), bool)`
   String _resolveRecordTypeWithPrefixes(
     String type,
     Map<String, String> typeToUri, {
@@ -6595,10 +6656,20 @@ class BridgeGenerator {
     final inner = type.substring(1, type.length - 1).trim();
     if (inner.isEmpty) return type;
 
+    // Check if the entire content is a named field group (starts with {)
+    if (inner.startsWith('{') && inner.endsWith('}')) {
+      // Pure named record: ({int x, String y})
+      final namedContent = inner.substring(1, inner.length - 1).trim();
+      final resolved = _resolveRecordNamedFields(namedContent, typeToUri, 
+          classTypeParams: classTypeParams, sourceFilePath: sourceFilePath);
+      return '({$resolved})';
+    }
+
     // Parse record fields, handling nested types carefully
     final fields = <String>[];
     var depth = 0;
     var genericDepth = 0;
+    var braceDepth = 0;
     var start = 0;
 
     for (var i = 0; i < inner.length; i++) {
@@ -6607,7 +6678,9 @@ class BridgeGenerator {
       else if (char == ')') depth--;
       else if (char == '<') genericDepth++;
       else if (char == '>') genericDepth--;
-      else if (char == ',' && depth == 0 && genericDepth == 0) {
+      else if (char == '{') braceDepth++;
+      else if (char == '}') braceDepth--;
+      else if (char == ',' && depth == 0 && genericDepth == 0 && braceDepth == 0) {
         fields.add(inner.substring(start, i).trim());
         start = i + 1;
       }
@@ -6616,6 +6689,14 @@ class BridgeGenerator {
 
     // Resolve each field
     final resolvedFields = fields.map((field) {
+      // Check for named field group: {Type name, Type2 name2}
+      if (field.startsWith('{') && field.endsWith('}')) {
+        final namedContent = field.substring(1, field.length - 1).trim();
+        final resolved = _resolveRecordNamedFields(namedContent, typeToUri,
+            classTypeParams: classTypeParams, sourceFilePath: sourceFilePath);
+        return '{$resolved}';
+      }
+      
       // Check for named record fields like "String name" or "int age"
       final spaceIndex = field.lastIndexOf(' ');
       if (spaceIndex > 0) {
@@ -6645,15 +6726,86 @@ class BridgeGenerator {
     return '($resolvedFields)';
   }
 
+  /// Resolves named fields within a record's named section.
+  /// E.g., "int x, String y" from ({int x, String y})
+  String _resolveRecordNamedFields(
+    String content,
+    Map<String, String> typeToUri, {
+    Map<String, String?> classTypeParams = const {},
+    String? sourceFilePath,
+  }) {
+    if (content.isEmpty) return content;
+    
+    // Parse comma-separated named fields
+    final fields = <String>[];
+    var depth = 0;
+    var genericDepth = 0;
+    var start = 0;
+
+    for (var i = 0; i < content.length; i++) {
+      final char = content[i];
+      if (char == '(') depth++;
+      else if (char == ')') depth--;
+      else if (char == '<') genericDepth++;
+      else if (char == '>') genericDepth--;
+      else if (char == ',' && depth == 0 && genericDepth == 0) {
+        fields.add(content.substring(start, i).trim());
+        start = i + 1;
+      }
+    }
+    fields.add(content.substring(start).trim());
+
+    // Resolve each named field (each is "Type name")
+    return fields.map((field) {
+      final spaceIndex = field.lastIndexOf(' ');
+      if (spaceIndex > 0) {
+        final typePart = field.substring(0, spaceIndex).trim();
+        final namePart = field.substring(spaceIndex + 1).trim();
+        final resolvedType = _getTypeArgument(
+          typePart,
+          typeToUri: typeToUri,
+          classTypeParams: classTypeParams,
+          sourceFilePath: sourceFilePath,
+        );
+        return '$resolvedType $namePart';
+      }
+      // Fallback: just resolve as type
+      return _getTypeArgument(
+        field,
+        typeToUri: typeToUri,
+        classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
+      );
+    }).join(', ');
+  }
+
   /// Checks if a type is a generic type parameter.
   bool _isGenericTypeParameter(String type) {
     // Single uppercase letter (T, R, E, K, V, S, etc.)
     if (type.length == 1 && type.toUpperCase() == type) {
       return true;
     }
-    // Common multi-character type parameters
-    const knownTypeParams = {'TValue', 'TKey', 'TResult', 'TElement'};
-    return knownTypeParams.contains(type);
+    
+    // Multi-character type parameters following common naming conventions:
+    // - T1, T2, K2, V2, etc. (letter + digit)
+    // - TValue, TKey, TResult, TElement, TItem, TOutput, TState, TData, etc.
+    if (type.length >= 2) {
+      // Pattern: single uppercase letter followed by digit(s) - T1, T2, K2, V2
+      if (type[0].toUpperCase() == type[0] && 
+          RegExp(r'^[A-Z][0-9]+$').hasMatch(type)) {
+        return true;
+      }
+      
+      // Pattern: T followed by PascalCase word - TValue, TKey, TOutput, etc.
+      if (type.startsWith('T') && 
+          type.length > 1 && 
+          type[1].toUpperCase() == type[1] &&
+          RegExp(r'^T[A-Z][a-zA-Z0-9]*$').hasMatch(type)) {
+        return true;
+      }
+    }
+    
+    return false;
   }
 
   /// Checks if a type string contains a specific type parameter.
@@ -6874,14 +7026,61 @@ class BridgeGenerator {
   }
 
   /// Known function typedef names that can't be bridged.
+  /// These are common function type aliases from Flutter, Dart SDK, and D4rt.
   static const _knownFunctionTypeAliases = {
+    // D4rt/tom_d4rt types
     'BridgeRegistrar', // void Function(D4rt)
     'D4rtEvaluator', // Future<dynamic> Function(...)
+    'NativeFunctionImpl', // Object? Function(...)
+    
+    // Dart core types
+    'Comparator', // int Function(T, T)
+    
+    // Flutter types
     'VoidCallback', // void Function()
     'ValueChanged', // void Function(T)
     'ValueGetter', // T Function()
     'ValueSetter', // void Function(T)
     'WidgetBuilder', // Widget Function(BuildContext)
+    'TransitionBuilder', // Widget Function(BuildContext, Widget?)
+    'IndexedWidgetBuilder', // Widget Function(BuildContext, int)
+    'NullableIndexedWidgetBuilder', // Widget? Function(BuildContext, int)
+    'RouteFactory', // Route<dynamic>? Function(RouteSettings)
+    'GenerateAppTitle', // String Function(BuildContext)
+    'PageRouteFactory', // PageRoute<T> Function(RouteSettings, WidgetBuilder)
+    'PopupMenuItemBuilder', // List<PopupMenuEntry<T>> Function(BuildContext)
+    'SelectableDayPredicate', // bool Function(DateTime)
+    'FormFieldValidator', // String? Function(T?)
+    'FormFieldSetter', // void Function(T?)
+    'FormFieldBuilder', // Widget Function(FormFieldState<T>)
+    'InputCounterWidgetBuilder', // Widget? Function(BuildContext, {required int currentLength, required bool isFocused, required int? maxLength})
+    'ScrollableWidgetBuilder', // Widget Function(BuildContext, ScrollController)
+    'StatefulWidgetBuilder', // Widget Function(BuildContext, StateSetter)
+    'LayoutWidgetBuilder', // Widget Function(BuildContext, BoxConstraints)
+    'OrientationWidgetBuilder', // Widget Function(BuildContext, Orientation)
+    'AnimatedTransitionBuilder', // Widget Function(Widget, Animation<double>)
+    'CreateRectTween', // Tween<Rect?>? Function(Rect?, Rect?)
+    'CreatePlatformViewCallback', // PlatformViewCreatedCallback
+    'GestureTapCallback', // void Function()
+    'GestureTapDownCallback', // void Function(TapDownDetails)
+    'GestureTapUpCallback', // void Function(TapUpDetails)
+    'GestureTapCancelCallback', // void Function()
+    'GestureLongPressCallback', // void Function()
+    'GestureDragCallback', // void Function(...)
+    'DragUpdateCallback', // void Function(DragUpdateDetails)
+    'DragEndCallback', // void Function(DragEndDetails)
+    'PointerEnterEventListener', // void Function(PointerEnterEvent)
+    'PointerExitEventListener', // void Function(PointerExitEvent)
+    'PointerHoverEventListener', // void Function(PointerHoverEvent)
+    
+    // async package types
+    'ErrorHandler', // void Function(Object error)
+    'ZoneBinaryCallback', // R Function(T1, T2)
+    'ZoneCallback', // R Function()
+    'ZoneUnaryCallback', // R Function(T)
+    'HandleUncaughtErrorHandler', // void Function(Zone, ZoneDelegate, Zone, Object, StackTrace)
+    'RegisterCallback', // ZoneCallback<R> Function(Zone, ZoneDelegate, Zone, R Function())
+    'RunHandler', // R Function(Zone, ZoneDelegate, Zone, R Function())
   };
 
   /// Checks if a type name is a known function typedef.
@@ -8079,6 +8278,15 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     Set<String>? functionTypeAliases,
   }) {
     if (dartType == null) return;
+
+    // GEN-027: Handle InvalidType - the analyzer couldn't resolve this type
+    // This happens when dependencies are missing, circular imports exist, or
+    // the analyzer has a bug. We can't fix these, but we can provide diagnostics.
+    if (dartType is InvalidType) {
+      // Type resolution failed - silently skip (type will be dynamic in generated code)
+      // Warnings are emitted elsewhere when the type is actually used
+      return;
+    }
 
     // Check for function types (including type aliases that resolve to function types)
     if (dartType is FunctionType) {
