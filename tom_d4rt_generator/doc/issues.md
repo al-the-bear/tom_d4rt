@@ -56,6 +56,7 @@
 | [GEN-045](#gen-045) | [Barrel-level name collisions silently break bridging](#gen-045) | Medium | TODO | Relevant |
 | [GEN-046](#gen-046) | [GlobalsUserBridge overrides not applied at runtime](#gen-046) | Medium | TODO | Relevant |
 | [GEN-048](#gen-048) | [Pure mixin declarations not bridged](#gen-048) | Medium | TODO | Relevant |
+| [GEN-050](#gen-050) | [Operator methods emit invalid syntax (`t.<`, `t.>`)](#gen-050) | Medium | TODO | Relevant |
 | [GEN-005](#gen-005) | [Function types inside collections are unbridgeable](#gen-005) | High | TODO | Not Important |
 | [GEN-007](#gen-007) | [Function type alias detection limited to 7 hardcoded names](#gen-007) | Low | TODO | Not Important |
 | [GEN-009](#gen-009) | [Generic type parameter detection uses hardcoded name set](#gen-009) | Low | TODO | Not Important |
@@ -2096,6 +2097,60 @@ The user's key insight: "If the compiler can do it, we should be able to do it, 
 6. **Scope the walk for performance:** Don't walk the entire transitive dependency graph. Walk only the direct and re-exported imports of the library being processed (matching how Dart's compiler resolves extensions). Cache the extension index per library to avoid redundant traversal.
 
 This is the same "follow the imports like the compiler does" approach that also benefits GEN-008 (private SDK library mapping) and GEN-017 (barrel export resolution). Building this import-tree walker as a shared utility will pay dividends across multiple issues.
+
+---
+
+### GEN-050
+
+**Operator methods emit invalid syntax (`t.<`, `t.>`)**
+
+- **Complexity:** Medium
+- **Status:** TODO
+- **Relevance:** Relevant
+
+**a) Problem:**
+
+When the generator bridges comparison operators like `<`, `>`, `<=`, `>=`, `+`, `-`, etc., it emits method bridge code that is syntactically invalid. For example, for the `<` operator on `Comparable`, the generated code produces:
+
+```dart
+return Function.apply(t.<, positional, named?.map((k, v) => MapEntry(Symbol(k), v)));
+```
+
+This is invalid Dart syntax — `t.<` is not a valid expression. The operator method should be accessed via indexing syntax like `t.operator <` or the call should use a different bridging strategy (direct invocation or symbolic access).
+
+**Example from `example_bridges.b.dart` line 96:**
+
+```dart
+'<': (t, positional, named) {
+  return Function.apply(t.<, positional, named?.map((k, v) => MapEntry(Symbol(k), v)));
+},
+```
+
+This causes compile errors:
+- "Expected a type name"
+- "Expected to find '>'"
+- "Expected to find '['"
+
+**b) Location:**
+
+- Method bridging code generation in `bridge_generator.dart`
+- Specifically where operator methods are emitted for classes implementing `Comparable`
+- The issue is in how `_emitMethodBridge()` or similar handles operator names
+
+**c) General Strategy:**
+
+1. **Detect operator methods by name:** Check if the method name is an operator symbol (`<`, `>`, `+`, etc.)
+
+2. **Use operator invocation syntax:** Instead of `Function.apply(t.<, ...)`, emit actual operator invocation:
+   ```dart
+   '<': (t, positional, named) {
+     return t < positional[0];
+   },
+   ```
+
+3. **Or use reflection-safe accessor:** If generic handling is needed, use `noSuchMethod` forwarding or a method reference accessor that doesn't require bare operator syntax.
+
+4. **Consider skipping inherited operators:** The `<`, `>` operators come from `Comparable<T>` — if they're inherited and the class doesn't override them, they may not need explicit bridging since D4rt can dispatch via the type hierarchy.
 
 ---
 
