@@ -94,6 +94,44 @@ void main() {
       final result = interpreter.execute(source: code);
       expect(result, equals([false, true, true]));
     });
+
+    test('GEN-044: Access .values static getter on bridged enum', () {
+      final code = '''
+        import 'package:test/color.dart';
+        main() {
+          var vals = BridgedColor.values;
+          return vals.length;
+        }
+      ''';
+      final result = interpreter.execute(source: code);
+      expect(result, equals(3)); // red, green, blue
+    });
+
+    test('GEN-044: Access .values and index into it', () {
+      final code = '''
+        import 'package:test/color.dart';
+        main() {
+          return BridgedColor.values[0].name;
+        }
+      ''';
+      final result = interpreter.execute(source: code);
+      expect(result, equals('red'));
+    });
+
+    test('GEN-044: Iterate .values with for-in', () {
+      final code = '''
+        import 'package:test/color.dart';
+        main() {
+          var names = <String>[];
+          for (var c in BridgedColor.values) {
+            names.add(c.name);
+          }
+          return names;
+        }
+      ''';
+      final result = interpreter.execute(source: code);
+      expect(result, equals(['red', 'green', 'blue']));
+    });
   });
 
   group('Bridged Enum Tests - Complex', () {

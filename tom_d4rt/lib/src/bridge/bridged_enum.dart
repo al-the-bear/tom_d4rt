@@ -28,8 +28,16 @@ class BridgedEnum implements RuntimeType {
     return other.name == 'Object' || other == this;
   }
 
-  /// Retrieves an enum value by its name.
-  BridgedEnumValue? getValue(String valueName) {
+  /// Retrieves an enum value by its name, or handles built-in static
+  /// properties like `values`.
+  ///
+  /// Returns a [BridgedEnumValue] for named values, a `List<BridgedEnumValue>`
+  /// for `values`, or `null` if not found.
+  Object? getValue(String valueName) {
+    // GEN-044: Handle built-in enum static getters.
+    if (valueName == 'values') {
+      return enumValues;
+    }
     return values[valueName];
   }
 
