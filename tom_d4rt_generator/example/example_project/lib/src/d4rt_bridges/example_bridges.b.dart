@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-02-08T20:23:04.910279
+// Generated: 2026-02-09T02:14:10.542534
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -83,18 +83,58 @@ class AllBridge {
       BridgedEnumDefinition<$pkg.Priority>(
         name: 'Priority',
         values: $pkg.Priority.values,
+        getters: {
+          'value': (visitor, target) => (target as $pkg.Priority).value,
+        },
+        methods: {
+          'compareTo': (visitor, target, positional, named, typeArgs) {
+            final t = target as $pkg.Priority;
+            return Function.apply(t.compareTo, positional, named?.map((k, v) => MapEntry(Symbol(k), v)));
+          },
+          '<': (visitor, target, positional, named, typeArgs) {
+            final t = target as $pkg.Priority;
+            return Function.apply(t.<, positional, named?.map((k, v) => MapEntry(Symbol(k), v)));
+          },
+          '>': (visitor, target, positional, named, typeArgs) {
+            final t = target as $pkg.Priority;
+            return Function.apply(t.>, positional, named?.map((k, v) => MapEntry(Symbol(k), v)));
+          },
+        },
       ),
       BridgedEnumDefinition<$pkg.Color>(
         name: 'Color',
         values: $pkg.Color.values,
+        getters: {
+          'r': (visitor, target) => (target as $pkg.Color).r,
+          'g': (visitor, target) => (target as $pkg.Color).g,
+          'b': (visitor, target) => (target as $pkg.Color).b,
+          'hex': (visitor, target) => (target as $pkg.Color).hex,
+          'brightness': (visitor, target) => (target as $pkg.Color).brightness,
+          'isDark': (visitor, target) => (target as $pkg.Color).isDark,
+          'isLight': (visitor, target) => (target as $pkg.Color).isLight,
+          'inverted': (visitor, target) => (target as $pkg.Color).inverted,
+        },
       ),
       BridgedEnumDefinition<$pkg.HttpMethod>(
         name: 'HttpMethod',
         values: $pkg.HttpMethod.values,
+        getters: {
+          'value': (visitor, target) => (target as $pkg.HttpMethod).value,
+          'isIdempotent': (visitor, target) => (target as $pkg.HttpMethod).isIdempotent,
+          'hasBody': (visitor, target) => (target as $pkg.HttpMethod).hasBody,
+        },
       ),
       BridgedEnumDefinition<$pkg.DayOfWeek>(
         name: 'DayOfWeek',
         values: $pkg.DayOfWeek.values,
+        getters: {
+          'number': (visitor, target) => (target as $pkg.DayOfWeek).number,
+          'shortName': (visitor, target) => (target as $pkg.DayOfWeek).shortName,
+          'isWeekend': (visitor, target) => (target as $pkg.DayOfWeek).isWeekend,
+          'isWeekday': (visitor, target) => (target as $pkg.DayOfWeek).isWeekday,
+          'next': (visitor, target) => (target as $pkg.DayOfWeek).next,
+          'previous': (visitor, target) => (target as $pkg.DayOfWeek).previous,
+        },
       ),
     ];
   }

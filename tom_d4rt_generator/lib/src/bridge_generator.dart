@@ -737,6 +737,12 @@ class BridgeGenerator {
   /// Key is the typedef name, value is the expanded signature (e.g., 'Object? Function(Object?)').
   final Map<String, String> _typedefExpansions = {};
 
+  /// GEN-017: Global registry of type name → package URI mappings, populated
+  /// from the resolved AST during visitor phase via `_collectInfoFromDartType()`.
+  /// Used as a penultimate fallback in `_resolveTypeArgument()` before `dynamic`,
+  /// so that types the analyzer fully resolves are never silently downgraded.
+  final Map<String, String> _globalTypeToUri = {};
+
   /// Packages to follow for external type dependencies.
   /// Format: package names without 'package:' prefix (e.g., ['tom_core_kernel', 'tom_core_server'])
   List<String> followPackages = [];
@@ -2590,6 +2596,8 @@ class BridgeGenerator {
         skippedDeprecatedCount += visitor.skippedDeprecatedCount;
         // Copy collected typedef expansions to the generator
         _typedefExpansions.addAll(visitor.typedefExpansions);
+        // GEN-017: Copy global type-to-URI mappings from resolved AST
+        _globalTypeToUri.addAll(visitor.globalTypeToUri);
 
         return visitor.classes
             .map(
@@ -2694,6 +2702,8 @@ class BridgeGenerator {
           
           // Copy collected typedef expansions to the generator
           _typedefExpansions.addAll(visitor.typedefExpansions);
+          // GEN-017: Copy global type-to-URI mappings from resolved AST
+          _globalTypeToUri.addAll(visitor.globalTypeToUri);
         }
       } catch (e) {
         if (verbose) {
@@ -5888,6 +5898,16 @@ class BridgeGenerator {
       // Local file:// URIs are from the current package - use $pkg prefix
       if (uri.startsWith('file://') || uri.startsWith('file:///')) {
         if (!_isTypeExported(unprefixedType)) {
+          // GEN-017: Convert file URI to package URI and use auxiliary import
+          // instead of silently falling back to dynamic
+          final localPath = Uri.parse(uri).toFilePath();
+          final packageUri = _getPackageUri(localPath);
+          if (packageUri.startsWith('package:')) {
+            _addAuxiliaryImport(packageUri, unprefixedType);
+            final auxPrefix = _getOrCreateAuxiliaryPrefix(packageUri);
+            final result = '$auxPrefix.$unprefixedType';
+            return isNullable ? '$result?' : result;
+          }
           _recordMissingExport('type argument (local file, not exported)', unprefixedType);
           return 'dynamic';
         }
@@ -5916,8 +5936,13 @@ class BridgeGenerator {
             );
             return isNullable ? '$resolved?' : resolved;
           }
-          _recordMissingExport('type argument', unprefixedType);
-          return 'dynamic';
+          // GEN-017: Use auxiliary import for non-barrel-exported types.
+          // The type is from the same package but not re-exported from the barrel,
+          // so import it directly from its source file via auxiliary import.
+          _addAuxiliaryImport(uri, unprefixedType);
+          final auxPrefix = _getOrCreateAuxiliaryPrefix(uri);
+          final result = '$auxPrefix.$unprefixedType';
+          return isNullable ? '$result?' : result;
         }
         final result = '$prefix.$unprefixedType';
         return isNullable ? '$result?' : result;
@@ -5969,6 +5994,22 @@ class BridgeGenerator {
           sourceFilePath: sourceFilePath,
         );
         return isNullable ? '$resolved?' : resolved;
+      }
+      // GEN-017: Check global type registry as penultimate fallback.
+      // Types may have been resolved by the analyzer for other members but are
+      // not in this member's typeToUri. The global registry captures all type→URI
+      // mappings seen across all source files.
+      final globalUri = _globalTypeToUri[unprefixedType];
+      if (globalUri != null) {
+        if (globalUri.startsWith('dart:')) {
+          // SDK type — use without prefix
+          final result = unprefixedType;
+          return isNullable ? '$result?' : result;
+        }
+        _addAuxiliaryImport(globalUri, unprefixedType);
+        final prefix = _getOrCreateAuxiliaryPrefix(globalUri);
+        final result = '$prefix.$unprefixedType';
+        return isNullable ? '$result?' : result;
       }
       _recordMissingExport('type argument (not exported, using dynamic)', unprefixedType);
       return 'dynamic';
@@ -6074,9 +6115,21 @@ class BridgeGenerator {
           if (prefixedBase != baseType) {
             // Use auxiliary import from source file
           } else {
-            // Type not exported, use dynamic for the whole generic type
-            _recordMissingExport('generic base type (not exported, using dynamic)', baseType);
-            return 'dynamic';
+            // GEN-017: Check global type registry before falling to dynamic
+            final globalUri = _globalTypeToUri[baseType];
+            if (globalUri != null) {
+              if (globalUri.startsWith('dart:')) {
+                prefixedBase = baseType;
+              } else {
+                _addAuxiliaryImport(globalUri, baseType);
+                final auxPrefix = _getOrCreateAuxiliaryPrefix(globalUri);
+                prefixedBase = '$auxPrefix.$baseType';
+              }
+            } else {
+              // Type not exported, use dynamic for the whole generic type
+              _recordMissingExport('generic base type (not exported, using dynamic)', baseType);
+              return 'dynamic';
+            }
           }
           // Type not exported, use dynamic for the whole generic type
         }
@@ -6158,6 +6211,14 @@ class BridgeGenerator {
             // Local file:// URIs are from the current package - use $pkg prefix
             if (uri.startsWith('file://') || uri.startsWith('file:///')) {
               if (!_isTypeExported(baseArg)) {
+                // GEN-017: Convert file URI to package URI and use auxiliary import
+                final localPath = Uri.parse(uri).toFilePath();
+                final packageUri = _getPackageUri(localPath);
+                if (packageUri.startsWith('package:')) {
+                  _addAuxiliaryImport(packageUri, baseArg);
+                  final auxPrefix = _getOrCreateAuxiliaryPrefix(packageUri);
+                  return '$auxPrefix.$baseArg';
+                }
                 _recordMissingExport('type argument (local file, not exported)', baseArg);
                 return 'dynamic';
               }
@@ -6189,6 +6250,16 @@ class BridgeGenerator {
               if (sourceFilePath.startsWith(workspacePath) && _isTypeExported(baseArg)) {
                 return '\$pkg.$baseArg';
               }
+            }
+            // GEN-017: Check global type registry before falling to dynamic
+            final globalUri = _globalTypeToUri[baseArg];
+            if (globalUri != null) {
+              if (globalUri.startsWith('dart:')) {
+                return arg;
+              }
+              _addAuxiliaryImport(globalUri, baseArg);
+              final auxPrefix = _getOrCreateAuxiliaryPrefix(globalUri);
+              return '$auxPrefix.$baseArg';
             }
             _recordMissingExport('type argument (not exported, using dynamic)', baseArg);
             return 'dynamic';
@@ -7072,6 +7143,11 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
   /// Map of typedef names to their expanded function type signatures.
   /// Used to fall back to the definition when a typedef is not exported from the barrel.
   final Map<String, String> typedefExpansions = {};
+
+  /// GEN-017: Global registry of type name → package URI mappings, populated
+  /// from the resolved AST during visitor phase via `_collectInfoFromDartType()`.
+  /// Copied to the `BridgeGenerator._globalTypeToUri` after visiting.
+  final Map<String, String> globalTypeToUri = {};
   
   String? currentSourceFile;
 
@@ -7552,6 +7628,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           if (!uri.startsWith('dart:core')) {
             uris.add(uri);
             typeToUri[aliasName] = uri;
+            // GEN-017: Also track globally for cross-member resolution
+            globalTypeToUri[aliasName] = uri;
           }
           
           // Store the expanded function signature for fallback when typedef is not exported
@@ -7615,6 +7693,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         final name = element.name;
         if (name != null) {
           typeToUri[name] = uri;
+          // GEN-017: Also track globally for cross-member resolution
+          globalTypeToUri[name] = uri;
         }
       }
 

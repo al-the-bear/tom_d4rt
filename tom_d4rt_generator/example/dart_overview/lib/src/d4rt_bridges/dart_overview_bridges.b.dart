@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-02-09T01:49:41.624983
+// Generated: 2026-02-09T02:14:57.069511
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -207,18 +207,40 @@ class AllBridge {
       BridgedEnumDefinition<$pkg.Season>(
         name: 'Season',
         values: $pkg.Season.values,
+        getters: {
+          'months': (visitor, target) => (target as $pkg.Season).months,
+          'avgTemperature': (visitor, target) => (target as $pkg.Season).avgTemperature,
+        },
       ),
       BridgedEnumDefinition<$pkg.HttpStatus>(
         name: 'HttpStatus',
         values: $pkg.HttpStatus.values,
+        getters: {
+          'code': (visitor, target) => (target as $pkg.HttpStatus).code,
+          'message': (visitor, target) => (target as $pkg.HttpStatus).message,
+          'isSuccess': (visitor, target) => (target as $pkg.HttpStatus).isSuccess,
+          'isError': (visitor, target) => (target as $pkg.HttpStatus).isError,
+        },
       ),
       BridgedEnumDefinition<$pkg.Operation>(
         name: 'Operation',
         values: $pkg.Operation.values,
+        getters: {
+          'symbol': (visitor, target) => (target as $pkg.Operation).symbol,
+        },
+        methods: {
+          'execute': (visitor, target, positional, named, typeArgs) {
+            final t = target as $pkg.Operation;
+            return Function.apply(t.execute, positional, named?.map((k, v) => MapEntry(Symbol(k), v)));
+          },
+        },
       ),
       BridgedEnumDefinition<$pkg.LogLevel>(
         name: 'LogLevel',
         values: $pkg.LogLevel.values,
+        getters: {
+          'severity': (visitor, target) => (target as $pkg.LogLevel).severity,
+        },
       ),
       BridgedEnumDefinition<$pkg.Priority>(
         name: 'Priority',
