@@ -102,6 +102,11 @@ Future<GenerationResult> generateBridges({
         sourceImport: sourceImport,
         helpersImport: bridgeConfig.helpersImport ?? 
             'package:tom_d4rt/tom_d4rt.dart',
+        recursiveBoundTypes: bridgeConfig.recursiveBoundTypes.isNotEmpty
+            ? bridgeConfig.recursiveBoundTypes
+                .map(RecursiveBoundType.fromString)
+                .toList()
+            : null, // Use defaults if not configured
       );
 
       // Resolve barrel files - if they're package URIs, pass as-is; otherwise join with projectDir

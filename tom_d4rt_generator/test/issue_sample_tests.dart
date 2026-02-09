@@ -378,9 +378,11 @@ class UserProfile {
   group('TODO Issues', () {
     // -----------------------------------------------------------------------
     // GEN-002: Recursive type bounds dispatched to only 3 hardcoded types
+    // Fixed: Added Duration and BigInt to default dispatch list, plus made
+    //        configurable via `recursiveBoundTypes` in buildkit.yaml
     // -----------------------------------------------------------------------
     group('GEN-002: recursive type bound dispatch', () {
-      test('dispatches to num, String, DateTime for Comparable<T>', () async {
+      test('dispatches to num, String, DateTime, Duration, BigInt for Comparable<T>', () async {
         // NOTE: Recursive bound dispatch only works for GLOBAL functions,
         // not class methods. Class methods get type erasure (GEN-001).
         final result = await runGenerationTest(
@@ -399,17 +401,17 @@ T findMax<T extends Comparable<T>>(List<T> items) {
         expect(result.generationSucceeded, isTrue);
         expect(result.generatedCode, isNotNull);
 
-        // GEN-002: Should dispatch to the 3 hardcoded types
+        // GEN-002 FIX: Now dispatches to 5 types by default
         expect(result.generatedCode!, contains('is num'),
             reason: 'Should have num dispatch for Comparable<T>');
         expect(result.generatedCode!, contains('is String'),
             reason: 'Should have String dispatch for Comparable<T>');
         expect(result.generatedCode!, contains('is DateTime'),
             reason: 'Should have DateTime dispatch for Comparable<T>');
-
-        // Known limitation: Duration, BigInt etc. are NOT dispatched
-        expect(result.generatedCode!, isNot(contains('is Duration')),
-            reason: 'GEN-002: Duration is not in the default dispatch list');
+        expect(result.generatedCode!, contains('is Duration'),
+            reason: 'GEN-002 FIX: Duration now in default dispatch list');
+        expect(result.generatedCode!, contains('is BigInt'),
+            reason: 'GEN-002 FIX: BigInt now in default dispatch list');
       });
     });
 

@@ -49,6 +49,10 @@
 | [GEN-048](#gen-048) | Pure mixin declarations not bridged | Medium | Resolved |
 | [GEN-049](#gen-049) | Extension methods on bridged classes not resolved | High | Resolved |
 | [GEN-050](#gen-050) | Operator methods emit invalid syntax (`t.<`, `t.>`) | Medium | Resolved |
+| [GEN-051](#gen-051) | Sealed class constructors incorrectly instantiated | Medium | Resolved |
+| [GEN-015](#gen-015) | Nested public classes collected by syntactic visitor | Low | Resolved |
+| [GEN-016](#gen-016) | Auxiliary imports may resolve wrong type on name collision | Medium | Resolved |
+| [GEN-002](#gen-002) | Recursive type bounds dispatched to only 3 hardcoded types | Low | Resolved |
 
 ### Won't Fix
 
@@ -59,6 +63,7 @@
 | [GEN-004](#gen-004) | Combinatorial dispatch capped at 4 non-wrappable params | Medium | Performance tradeoff |
 | [GEN-006](#gen-006) | Syntactic fallback loses all resolved type information | Fundamental | By design |
 | [GEN-014](#gen-014) | Syntactic fallback: this.x params always typed as dynamic | Fundamental | By design |
+| [GEN-018](#gen-018) | Parameterized typedef expansion may produce incorrect types | Medium | Syntactic fallback |
 
 ### Deferred
 
@@ -70,16 +75,11 @@
 
 | ID | Description | Complexity | Relevance |
 |----|-------------|------------|-----------|
-| [GEN-051](#gen-051) | Sealed class constructors incorrectly instantiated | Medium | Important |
 | [GEN-045](#gen-045) | Barrel-level name collisions silently break bridging | Medium | Relevant |
-| [GEN-002](#gen-002) | Recursive type bounds dispatched to only 3 hardcoded types | Low | Relevant |
 | [GEN-012](#gen-012) | Type parameter substitution uses fragile regex text replacement | Medium | Relevant |
-| [GEN-016](#gen-016) | Auxiliary imports may resolve wrong type on name collision | Medium | Relevant |
-| [GEN-018](#gen-018) | Parameterized typedef expansion may produce incorrect types | Medium | Relevant |
 | [GEN-005](#gen-005) | Function types inside collections are unbridgeable | High | Not Important |
 | [GEN-022](#gen-022) | Main generator file is 8,490 lines — maintainability concern | High | Not Important |
 | [GEN-023](#gen-023) | Duplicated visitor logic between resolved and syntactic paths | High | Not Important |
-| [GEN-015](#gen-015) | Nested public classes collected by syntactic visitor | Low | Almost Irrelevant |
 | [GEN-024](#gen-024) | Four config sources with complex precedence rules | Medium | Almost Irrelevant |
 
 ---
@@ -923,50 +923,26 @@ This pairs naturally with the GEN-041 fix (enhanced enum introspection via `Enum
 
 **Recursive type bounds dispatched to only 3 hardcoded types**
 
-**a) Problem:**
+**Status: RESOLVED in v1.5.2**
 
-When a method has a type parameter with a recursive bound like `T extends Comparable<T>`, the generator cannot use `<dynamic>` (since `dynamic` doesn't implement `Comparable<dynamic>`). Instead, it generates concrete dispatch variants that test the runtime type and call the method with the matching type argument. However, only 3 types are dispatched by default:
+**Fix applied:**
+1. Expanded `_defaultRecursiveBoundTypes` to include `Duration` and `BigInt` (both implement `Comparable<T>` where T is themselves)
+2. Added `recursiveBoundTypes` field to `BridgeConfig` for user configuration via `buildkit.yaml`
+3. Modified `BridgeGenerator` constructor to merge configured types with defaults (configured types take precedence, then defaults added)
 
-**Generator source (bridge_generator.dart):**
-```dart
-static const List<String> _defaultRecursiveBoundTypes = [
-  'num',
-  'String',
-  'DateTime',
-];
+**Configuration example (buildkit.yaml):**
+```yaml
+d4rtgen:
+  recursiveBoundTypes:
+    - MyCustomComparable
+    - package:my_pkg/types.dart:AnotherComparable
 ```
 
-**Generated dispatch code pattern:**
-```dart
-final sample = positional[0];
-if (sample is num) {
-  return someMethod<num>(sample);
-}
-if (sample is String) {
-  return someMethod<String>(sample);
-}
-if (sample is DateTime) {
-  return someMethod<DateTime>(sample);
-}
-throw ArgumentError('someMethod: Unsupported type for Comparable<T>: ${sample.runtimeType}');
-```
+The effective list is: `configuredTypes ∪ defaultTypes` where defaults are now `['num', 'String', 'DateTime', 'Duration', 'BigInt']`.
 
-**Where the problem manifests:** If a D4rt script calls a method requiring `T extends Comparable<T>` with a `Duration` value (which implements `Comparable<Duration>`), the dispatch won't find a matching variant and throws an `ArgumentError` at runtime. The same applies to `BigInt`, `bool`, or any custom `Comparable` implementation.
+**Original issue:**
 
-**b) Location:**
-`bridge_generator.dart` ~line 730–760 — `_defaultRecursiveBoundTypes` list; recursive bound detection in `_getRecursiveBoundTypeParams()`; dispatch generation that iterates `recursiveBoundTypes` and generates `if (sample is X)` blocks with a final `throw ArgumentError(...)` fallback.
-
-**c) General Strategy — Auto-discover + user-configurable recursive bound types:**
-
-`_ResolvedClassVisitor` already has access to `ClassElement` for every bridged class. The Dart analyzer can determine whether a class implements an interface.
-
-**Fix (auto-discovery):** During the resolved visitor pass, build a `Map<String, Set<String>> boundImplementors` (bound interface → concrete classes that implement it). For each class, check `classElement.allSupertypes` — if any match a recursive bound interface (e.g., `Comparable<T>`), add the class name to the set. After collection, pass `boundImplementors` to the dispatch generator. Instead of iterating `_defaultRecursiveBoundTypes`, iterate the discovered concrete types.
-
-**Fallback:** Keep `_defaultRecursiveBoundTypes` as a seed for SDK types (`num`, `String`, `DateTime`) that aren't directly bridged but commonly appear. The auto-discovered types are *added* to this set, not replacing it.
-
-**Configuration:** Make `recursiveBoundTypes` configurable in `build.yaml` / `BridgeConfig` per module. The user knows which types their specific API needs for recursive bound dispatch (e.g., `Duration`, `BigInt`, custom `Comparable` implementations). The effective list is: `configuredTypes ∪ autoDiscoveredTypes ∪ defaultSeedTypes`.
-
-This combines auto-discovery for bridged types with explicit user configuration for non-bridged types — no hardcoded-only path remains.
+When a method has a type parameter with a recursive bound like `T extends Comparable<T>`, the generator cannot use `<dynamic>` (since `dynamic` doesn't implement `Comparable<dynamic>`). Instead, it generates concrete dispatch variants that test the runtime type and call the method with the matching type argument. Previously only 3 types were dispatched by default (num, String, DateTime), causing `ArgumentError` at runtime for Duration, BigInt, etc.
 
 ---
 
@@ -1035,6 +1011,10 @@ No hardcoding involved — purely structural type manipulation.
 
 **Auxiliary imports may resolve wrong type on name collision**
 
+**Status:** RESOLVED (v1.5.2)
+
+**Resolution:** Addressed by GEN-017's Resolved-Type Import Propagation. The `_globalTypeToUri` registry now captures authoritative type→URI mappings from the analyzer. When generating imports, the code looks up the type in this registry to get the correct package URI, eliminating name-based ambiguity. The syntactic fallback path still uses first-match heuristic, which is acceptable for that limited path.
+
 **a) Problem:**
 
 When a type isn't found in the module's barrel exports, the generator falls back to "auxiliary imports" — it looks at the source file's own import statements to find the type. If two packages export a type with the same name, the first match wins:
@@ -1073,6 +1053,10 @@ If the resolved data isn't available (syntactic fallback), warn about the ambigu
 ### GEN-018
 
 **Parameterized typedef expansion may produce incorrect types**
+
+**Status:** Won't Fix (syntactic fallback limitation)
+
+**Resolution:** The resolved path correctly handles parameterized typedefs because the analyzer provides fully-instantiated `FunctionType` with all type arguments applied. The syntactic fallback path cannot fully resolve parameterized typedefs without type information from the analyzer — this is inherent to the syntactic approach. Users should ensure their project uses the resolved path (default) for correct typedef handling.
 
 **a) Problem:**
 
@@ -1970,7 +1954,11 @@ Option 2 is simpler and avoids the pre-scan cost. No hardcoding.
 
 **Nested public classes collected by syntactic visitor**
 
-**a) Problem:**
+**Status:** RESOLVED (v1.5.2)
+
+**Resolution:** Added defensive guard to skip nested class declarations by checking `node.parent is ClassDeclaration` in both `_ResolvedClassVisitor` and `_ClassVisitor`. While Dart doesn't actually support nested classes (compile error), this prevents unexpected behavior when parsing malformed code.
+
+**a) Problem:****
 
 The syntactic visitor uses `super.visitClassDeclaration(node)` which recursively visits all child nodes, including nested class declarations:
 
@@ -2326,9 +2314,11 @@ This causes compile errors:
 
 **Sealed class constructors incorrectly instantiated**
 
-**Status:** TODO
+**Status:** RESOLVED (v1.5.2)
 
-**a) Problem:**
+**Resolution:** Added `isSealed` property to `ClassInfo` and `_ParsedClass`. The generator now detects sealed classes by checking for `node.sealedKeyword != null` in both resolved and syntactic visitors. Constructor generation skips non-factory constructors for sealed classes, just like abstract classes.
+
+**a) Problem:****
 
 When the generator encounters a `sealed` class (Dart 3.0+), it generates a default factory accessor that attempts to call the class's default constructor. However, sealed classes are abstract by nature and cannot be directly instantiated — only their subtypes can be instantiated.
 

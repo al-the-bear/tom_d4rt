@@ -246,6 +246,27 @@ class BridgeConfig {
   ///     class: TomD4rtDcliBridge
   /// ```
   final List<ImportedBridgeConfig> importedBridges;
+  
+  /// Additional types to include in recursive bound dispatch.
+  /// 
+  /// When a function has a type parameter with a recursive bound like
+  /// `T extends Comparable<T>`, the generator creates runtime dispatch
+  /// for known types. By default, this includes `num`, `String`, `DateTime`,
+  /// `Duration`, and `BigInt`.
+  /// 
+  /// Use this to add custom types that implement recursive bounds (like
+  /// `Comparable<T>`). Each entry can be:
+  /// - A simple type name for dart:core types: `'CustomNum'`
+  /// - A package import with type: `'package:my_pkg/types.dart:MyComparable'`
+  /// 
+  /// Example in buildkit.yaml:
+  /// ```yaml
+  /// d4rtgen:
+  ///   recursiveBoundTypes:
+  ///     - Duration
+  ///     - package:my_pkg/types.dart:MyComparable
+  /// ```
+  final List<String> recursiveBoundTypes;
 
   const BridgeConfig({
     required this.name,
@@ -260,6 +281,7 @@ class BridgeConfig {
     this.generateTestRunner = false,
     this.testRunnerPath,
     this.importedBridges = const [],
+    this.recursiveBoundTypes = const [],
   });
 
   factory BridgeConfig.fromJson(Map<String, dynamic> json) {
@@ -281,6 +303,8 @@ class BridgeConfig {
               ?.map((m) => ImportedBridgeConfig.fromJson(m as Map<String, dynamic>))
               .toList() ??
           const [],
+      recursiveBoundTypes:
+          (json['recursiveBoundTypes'] as List?)?.cast<String>() ?? const [],
     );
   }
 
@@ -339,6 +363,8 @@ class BridgeConfig {
       if (testRunnerPath != null) 'testRunnerPath': testRunnerPath,
       if (importedBridges.isNotEmpty)
         'importedBridges': importedBridges.map((b) => b.toJson()).toList(),
+      if (recursiveBoundTypes.isNotEmpty)
+        'recursiveBoundTypes': recursiveBoundTypes,
     };
   }
 
@@ -356,6 +382,7 @@ class BridgeConfig {
     bool? generateTestRunner,
     String? testRunnerPath,
     List<ImportedBridgeConfig>? importedBridges,
+    List<String>? recursiveBoundTypes,
   }) {
     return BridgeConfig(
       name: name ?? this.name,
@@ -370,6 +397,7 @@ class BridgeConfig {
       generateTestRunner: generateTestRunner ?? this.generateTestRunner,
       testRunnerPath: testRunnerPath ?? this.testRunnerPath,
       importedBridges: importedBridges ?? this.importedBridges,
+      recursiveBoundTypes: recursiveBoundTypes ?? this.recursiveBoundTypes,
     );
   }
 }

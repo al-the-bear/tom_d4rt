@@ -484,6 +484,11 @@ class ClassInfo {
   final String? superclassUri;
   
   final bool isAbstract;
+  
+  /// GEN-051: Sealed classes cannot be directly instantiated.
+  /// Like abstract classes, they should not have bridge constructors.
+  final bool isSealed;
+  
   final List<ConstructorInfo> constructors;
   final List<MemberInfo> members;
   final String sourceFile;
@@ -499,6 +504,7 @@ class ClassInfo {
     this.superclass,
     this.superclassUri,
     this.isAbstract = false,
+    this.isSealed = false,
     this.constructors = const [],
     this.members = const [],
     this.typeParameters = const {},
@@ -913,6 +919,8 @@ class BridgeGenerator {
   /// - `num` works (int and double are subtypes of num)
   /// - `String` works (implements Comparable<String>)
   /// - `DateTime` works (implements Comparable<DateTime>)
+  /// - `Duration` works (implements Comparable<Duration>)
+  /// - `BigInt` works (implements Comparable<BigInt>)
   /// - `int` does NOT work (implements Comparable<num>, not Comparable<int>)
   /// - `double` does NOT work (implements Comparable<num>, not Comparable<double>)
   /// - `bool` does NOT work (doesn't implement Comparable at all)
@@ -920,6 +928,8 @@ class BridgeGenerator {
     'num',
     'String',
     'DateTime',
+    'Duration',
+    'BigInt',
   ];
 
   /// Gets or creates the analysis context collection.
@@ -1226,9 +1236,43 @@ class BridgeGenerator {
     this.followPackages = const [],
     List<RecursiveBoundType>? recursiveBoundTypes,
     UserBridgeScanner? userBridgeScanner,
-  }) : recursiveBoundTypes = recursiveBoundTypes ?? 
-      _defaultRecursiveBoundTypes.map(RecursiveBoundType.core).toList() {
+  }) : recursiveBoundTypes = _mergeRecursiveBoundTypes(recursiveBoundTypes) {
     _userBridgeScanner = userBridgeScanner ?? UserBridgeScanner();
+  }
+  
+  /// Merges configured recursive bound types with defaults.
+  /// 
+  /// Configured types are added to the default types (num, String, DateTime,
+  /// Duration, BigInt). Types are deduplicated by type name.
+  static List<RecursiveBoundType> _mergeRecursiveBoundTypes(
+      List<RecursiveBoundType>? configured) {
+    final defaults = _defaultRecursiveBoundTypes
+        .map(RecursiveBoundType.core)
+        .toList();
+    
+    if (configured == null || configured.isEmpty) {
+      return defaults;
+    }
+    
+    // Merge: configured types + defaults (deduplicate by type name)
+    final seen = <String>{};
+    final merged = <RecursiveBoundType>[];
+    
+    // Add configured types first (they take precedence for same type name)
+    for (final t in configured) {
+      if (seen.add(t.typeName)) {
+        merged.add(t);
+      }
+    }
+    
+    // Add defaults that weren't overridden
+    for (final t in defaults) {
+      if (seen.add(t.typeName)) {
+        merged.add(t);
+      }
+    }
+    
+    return merged;
   }
 
   /// Finds the file containing a specific class.
@@ -2748,6 +2792,7 @@ class BridgeGenerator {
                 superclass: c.superclass,
                 superclassUri: c.superclassUri,
                 isAbstract: c.isAbstract,
+                isSealed: c.isSealed,
                 constructors: c.constructors,
                 members: c.members,
                 typeParameters: c.typeParameters,
@@ -2788,6 +2833,7 @@ class BridgeGenerator {
             sourceFile: filePath,
             superclass: c.superclass,
             isAbstract: c.isAbstract,
+            isSealed: c.isSealed,
             constructors: c.constructors,
             members: c.members,
             typeParameters: c.typeParameters,
@@ -4514,7 +4560,8 @@ class BridgeGenerator {
     // Constructors
     buffer.writeln('    constructors: {');
     for (final ctor in cls.constructors) {
-      if (cls.isAbstract && !ctor.isFactory) {
+      // GEN-051: Skip non-factory constructors for abstract AND sealed classes
+      if ((cls.isAbstract || cls.isSealed) && !ctor.isFactory) {
         continue;
       }
       final ctorName = ctor.name ?? '';
@@ -8039,6 +8086,11 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     // Skip private classes if configured
     if (skipPrivate && className.startsWith('_')) return;
 
+    // GEN-015: Skip nested class declarations (defensive guard — Dart doesn't
+    // actually support nested classes, but this prevents unexpected behavior
+    // if parsing malformed code)
+    if (node.parent is ClassDeclaration) return;
+
     // Skip classes marked as @visibleForTesting, @protected, or @internal
     if (_hasTestOnlyAnnotation(node)) return;
 
@@ -8126,6 +8178,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         superclass: superclass,
         superclassUri: superclassUri,
         isAbstract: node.abstractKeyword != null,
+        isSealed: node.sealedKeyword != null,
         constructors: constructors,
         members: members,
         typeParameters: typeParams,
@@ -9061,6 +9114,10 @@ class _ParsedClass {
   String? superclassUri;
   
   bool isAbstract;
+  
+  /// GEN-051: Sealed classes cannot be directly instantiated.
+  bool isSealed;
+  
   List<ConstructorInfo> constructors;
   List<MemberInfo> members;
 
@@ -9072,6 +9129,7 @@ class _ParsedClass {
     this.superclass,
     this.superclassUri,
     this.isAbstract = false,
+    this.isSealed = false,
     this.constructors = const [],
     this.members = const [],
     this.typeParameters = const {},
@@ -9123,6 +9181,11 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
 
     // Skip private classes if configured
     if (skipPrivate && className.startsWith('_')) return;
+
+    // GEN-015: Skip nested class declarations (defensive guard — Dart doesn't
+    // actually support nested classes, but this prevents unexpected behavior
+    // if parsing malformed code)
+    if (node.parent is ClassDeclaration) return;
 
     // Skip classes marked as @visibleForTesting, @protected, or @internal
     if (_hasTestOnlyAnnotation(node)) return;
@@ -9182,6 +9245,7 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
         name: className,
         superclass: superclass,
         isAbstract: node.abstractKeyword != null,
+        isSealed: node.sealedKeyword != null,
         constructors: constructors,
         members: members,
         typeParameters: typeParams,
