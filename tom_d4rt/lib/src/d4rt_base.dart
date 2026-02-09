@@ -98,6 +98,21 @@ class LibraryEnum {
   String get name => enumDefinition.name;
 }
 
+/// Wrapper class for library-scoped bridged extensions.
+/// Stores a bridged extension definition with its canonical source URI.
+class LibraryExtension {
+  final BridgedExtensionDefinition extensionDefinition;
+  
+  /// The canonical source URI where this extension is defined.
+  /// See [LibraryVariable.sourceUri] for details.
+  final String? sourceUri;
+  
+  const LibraryExtension(this.extensionDefinition, {this.sourceUri});
+  
+  /// Convenience getter for the extension name.
+  String? get name => extensionDefinition.name;
+}
+
 /// The main D4rt interpreter class.
 ///
 /// This class provides the primary interface for executing Dart code at runtime.
@@ -121,6 +136,7 @@ class LibraryEnum {
 class D4rt {
   final List<Map<String, LibraryEnum>> _bridgedEnumDefinitions = [];
   final List<Map<String, LibraryClass>> _bridgedClases = [];
+  final List<Map<String, LibraryExtension>> _bridgedExtensions = [];
   InterpretedInstance? _interpretedInstance;
   InterpreterVisitor? _visitor;
   final Map<Type, BridgedClass> _bridgedDefLookupByType = {};
@@ -167,6 +183,20 @@ class D4rt {
     final libClass = LibraryClass(definition, sourceUri: sourceUri);
     _bridgedClases.add({library: libClass});
     _bridgedDefLookupByType[definition.nativeType] = definition;
+  }
+
+  /// Registers a bridged extension for use in interpreted code.
+  ///
+  /// When the corresponding library is imported in a D4rt script, the extension
+  /// is converted to an [InterpretedExtension] and added to the environment,
+  /// making its methods/getters/setters discoverable via [findExtensionMember].
+  ///
+  /// [definition] The extension definition containing methods, getters, and the target type name.
+  /// [library] The library identifier where this extension should be available.
+  /// [sourceUri] The canonical source URI where this extension is defined.
+  void registerBridgedExtension(BridgedExtensionDefinition definition, String library, {String? sourceUri}) {
+    final libExt = LibraryExtension(definition, sourceUri: sourceUri);
+    _bridgedExtensions.add({library: libExt});
   }
 
   /// Registers a top-level native function for use in interpreted code.
@@ -240,6 +270,7 @@ class D4rt {
       libraryFunctions: _libraryFunctions,
       libraryVariables: _libraryVariables,
       libraryGetters: _libraryGetters,
+      bridgedExtensions: _bridgedExtensions,
       d4rt: this,
       collectRegistrationErrors: collectRegistrationErrors,
     );

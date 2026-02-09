@@ -311,6 +311,39 @@ class EnumInfo {
   });
 }
 
+/// Information about an extension declaration in the source code.
+///
+/// Collected by `_ResolvedClassVisitor.visitExtensionDeclaration()` and used
+/// to generate `BridgedExtensionDefinition(...)` code.
+class ExtensionInfo {
+  /// The name of the extension (null for unnamed extensions).
+  final String? name;
+
+  /// The name of the type this extension applies to (e.g., 'String', 'DateTime').
+  final String onTypeName;
+
+  /// The source file containing this extension.
+  final String sourceFile;
+
+  /// Instance getter names defined in this extension.
+  final List<String> getterNames;
+
+  /// Instance setter names defined in this extension.
+  final List<String> setterNames;
+
+  /// Instance method names defined in this extension.
+  final List<String> methodNames;
+
+  const ExtensionInfo({
+    this.name,
+    required this.onTypeName,
+    required this.sourceFile,
+    this.getterNames = const [],
+    this.setterNames = const [],
+    this.methodNames = const [],
+  });
+}
+
 /// Information about a function type signature.
 /// Used to generate wrappers for function-type parameters.
 class FunctionTypeInfo {
@@ -1731,10 +1764,11 @@ class BridgeGenerator {
     final hasEnums = globals.enums.isNotEmpty;
     final hasGlobalFunctions = globals.functions.isNotEmpty;
     final hasGlobalVariables = globals.variables.isNotEmpty;
+    final hasExtensions = globals.extensions.isNotEmpty;
     final hasClasses = bridgeableClasses.isNotEmpty;
 
     // Return early only if there's nothing to generate at all
-    if (!hasClasses && !hasEnums && !hasGlobalFunctions && !hasGlobalVariables) {
+    if (!hasClasses && !hasEnums && !hasGlobalFunctions && !hasGlobalVariables && !hasExtensions) {
       return BridgeGeneratorResult(
         classesGenerated: 0,
         outputFiles: [],
@@ -1768,10 +1802,11 @@ class BridgeGenerator {
         allClassesPerFile.putIfAbsent(cls.sourceFile, () => []).add(cls);
       }
 
-      // Group globals (enums, functions, variables) by source file
+      // Group globals (enums, functions, variables, extensions) by source file
       final enumsPerFile = <String, List<EnumInfo>>{};
       final functionsPerFile = <String, List<GlobalFunctionInfo>>{};
       final variablesPerFile = <String, List<GlobalVariableInfo>>{};
+      final extensionsPerFile = <String, List<ExtensionInfo>>{};
       for (final e in globals.enums) {
         enumsPerFile.putIfAbsent(e.sourceFile, () => []).add(e);
       }
@@ -1781,6 +1816,9 @@ class BridgeGenerator {
       for (final v in globals.variables) {
         variablesPerFile.putIfAbsent(v.sourceFile, () => []).add(v);
       }
+      for (final ext in globals.extensions) {
+        extensionsPerFile.putIfAbsent(ext.sourceFile, () => []).add(ext);
+      }
 
       // Collect all source files that have any bridgeable content
       final allSourceFiles = <String>{
@@ -1788,6 +1826,7 @@ class BridgeGenerator {
         ...enumsPerFile.keys,
         ...functionsPerFile.keys,
         ...variablesPerFile.keys,
+        ...extensionsPerFile.keys,
       };
 
       for (final sourceFile in allSourceFiles) {
@@ -1796,6 +1835,7 @@ class BridgeGenerator {
         final fileEnums = enumsPerFile[sourceFile] ?? <EnumInfo>[];
         final fileFunctions = functionsPerFile[sourceFile] ?? <GlobalFunctionInfo>[];
         final fileVariables = variablesPerFile[sourceFile] ?? <GlobalVariableInfo>[];
+        final fileExtensions = extensionsPerFile[sourceFile] ?? <ExtensionInfo>[];
         
         final baseName = p.basenameWithoutExtension(sourceFile);
         final outFile =
@@ -1810,6 +1850,7 @@ class BridgeGenerator {
           globalFunctions: fileFunctions,
           globalVariables: fileVariables,
           enums: fileEnums,
+          extensions: fileExtensions,
           importShowClause: importShowClause,
           importHideClause: importHideClause,
         );
@@ -1963,6 +2004,7 @@ class BridgeGenerator {
         globalFunctions: filteredFunctions,
         globalVariables: filteredVariables,
         enums: filteredEnums,
+        extensions: globals.extensions,
         importShowClause: importShowClause,
         importHideClause: importHideClause,
       );
@@ -2131,10 +2173,11 @@ class BridgeGenerator {
     final hasEnums = globals.enums.isNotEmpty;
     final hasGlobalFunctions = globals.functions.isNotEmpty;
     final hasGlobalVariables = globals.variables.isNotEmpty;
+    final hasExtensions = globals.extensions.isNotEmpty;
     final hasClasses = bridgeableClasses.isNotEmpty;
 
     // Return early only if there's nothing to generate at all
-    if (!hasClasses && !hasEnums && !hasGlobalFunctions && !hasGlobalVariables) {
+    if (!hasClasses && !hasEnums && !hasGlobalFunctions && !hasGlobalVariables && !hasExtensions) {
       return BridgeGeneratorResult(
         classesGenerated: 0,
         outputFiles: [],
@@ -2301,6 +2344,7 @@ class BridgeGenerator {
       globalFunctions: filteredFunctions,
       globalVariables: filteredVariables,
       enums: filteredEnums,
+      extensions: globals.extensions,
       importShowClause: importShowClause,
       importHideClause: importHideClause,
     );
@@ -2662,10 +2706,12 @@ class BridgeGenerator {
     List<GlobalFunctionInfo> functions,
     List<GlobalVariableInfo> variables,
     List<EnumInfo> enums,
+    List<ExtensionInfo> extensions,
   })> _parseGlobals(List<String> sourceFiles) async {
     final functions = <GlobalFunctionInfo>[];
     final variables = <GlobalVariableInfo>[];
     final enums = <EnumInfo>[];
+    final extensions = <ExtensionInfo>[];
 
     for (final filePath in sourceFiles) {
       final absolutePath = p.isAbsolute(filePath)
@@ -2696,6 +2742,7 @@ class BridgeGenerator {
           functions.addAll(visitor.globalFunctions);
           variables.addAll(visitor.globalVariables);
           enums.addAll(visitor.enums);
+          extensions.addAll(visitor.extensions);
           
           // Accumulate skipped deprecated count
           skippedDeprecatedCount += visitor.skippedDeprecatedCount;
@@ -2712,7 +2759,7 @@ class BridgeGenerator {
       }
     }
 
-    return (functions: functions, variables: variables, enums: enums);
+    return (functions: functions, variables: variables, enums: enums, extensions: extensions);
   }
 
   /// Checks if a class name matches a pattern.
@@ -3185,6 +3232,7 @@ class BridgeGenerator {
     List<GlobalFunctionInfo> globalFunctions = const [],
     List<GlobalVariableInfo> globalVariables = const [],
     List<EnumInfo> enums = const [],
+    List<ExtensionInfo> extensions = const [],
     List<String> importShowClause = const [],
     List<String> importHideClause = const [],
   }) {
@@ -3203,10 +3251,11 @@ class BridgeGenerator {
       for (final cls in lookupClasses) cls.name: cls,
     };
 
-    // Collect all unique source files from classes, enums, and globals
+    // Collect all unique source files from classes, enums, extensions, and globals
     final allSourceFiles = <String>{
       ...classes.map((c) => c.sourceFile),
       ...enums.map((e) => e.sourceFile),
+      ...extensions.map((e) => e.sourceFile),
       ...globalFunctions.map((f) => f.sourceFile),
       ...globalVariables.map((v) => v.sourceFile),
     }.toList()..sort();
@@ -3524,6 +3573,67 @@ class BridgeGenerator {
     buffer.writeln('  }');
     buffer.writeln();
 
+    // GEN-047: Generate bridgedExtensions() method
+    buffer.writeln('  /// Returns all bridged extension definitions.');
+    buffer.writeln('  static List<BridgedExtensionDefinition> bridgedExtensions() {');
+    buffer.writeln('    return [');
+    for (final ext in extensions) {
+      final onTypePrefixed = _getPrefixedClassName(ext.onTypeName, ext.sourceFile);
+      buffer.writeln('      BridgedExtensionDefinition(');
+      if (ext.name != null) {
+        buffer.writeln("        name: '${ext.name}',");
+      }
+      buffer.writeln("        onTypeName: '${ext.onTypeName}',");
+
+      // Getter adapters
+      if (ext.getterNames.isNotEmpty) {
+        buffer.writeln('        getters: {');
+        for (final getter in ext.getterNames) {
+          buffer.writeln("          '$getter': (visitor, target) => (target as $onTypePrefixed).$getter,");
+        }
+        buffer.writeln('        },');
+      }
+
+      // Setter adapters
+      if (ext.setterNames.isNotEmpty) {
+        buffer.writeln('        setters: {');
+        for (final setter in ext.setterNames) {
+          buffer.writeln("          '$setter': (visitor, target, value) => (target as $onTypePrefixed).$setter = value,");
+        }
+        buffer.writeln('        },');
+      }
+
+      // Method adapters
+      if (ext.methodNames.isNotEmpty) {
+        buffer.writeln('        methods: {');
+        for (final method in ext.methodNames) {
+          buffer.writeln("          '$method': (visitor, target, positional, named, typeArgs) {");
+          buffer.writeln('            final t = target as $onTypePrefixed;');
+          buffer.writeln("            return Function.apply(t.$method, positional, named?.map((k, v) => MapEntry(Symbol(k), v)));");
+          buffer.writeln('          },');
+        }
+        buffer.writeln('        },');
+      }
+
+      buffer.writeln('      ),');
+    }
+    buffer.writeln('    ];');
+    buffer.writeln('  }');
+    buffer.writeln();
+
+    // Extension source URIs
+    buffer.writeln('  /// Returns a map of extension identifiers to their canonical source URIs.');
+    buffer.writeln('  static Map<String, String> extensionSourceUris() {');
+    buffer.writeln('    return {');
+    for (final ext in extensions) {
+      final sourceUri = _getPackageUri(ext.sourceFile);
+      final key = ext.name ?? '<unnamed>@${ext.onTypeName}';
+      buffer.writeln("      '$key': '$sourceUri',");
+    }
+    buffer.writeln('    };');
+    buffer.writeln('  }');
+    buffer.writeln();
+
     // registerBridges method - accepts import path as parameter
     buffer.writeln('  /// Registers all bridges with an interpreter.');
     buffer.writeln('  ///');
@@ -3571,6 +3681,17 @@ class BridgeGenerator {
       buffer.writeln('    final funcSigs = globalFunctionSignatures();');
       buffer.writeln('    for (final entry in funcs.entries) {');
       buffer.writeln('      interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);');
+      buffer.writeln('    }');
+    }
+    // GEN-047: Register bridged extensions
+    if (extensions.isNotEmpty) {
+      buffer.writeln();
+      buffer.writeln('    // Register bridged extensions with source URIs for deduplication');
+      buffer.writeln('    final extensions = bridgedExtensions();');
+      buffer.writeln('    final extSources = extensionSourceUris();');
+      buffer.writeln('    for (final extDef in extensions) {');
+      buffer.writeln("      final extKey = extDef.name ?? '<unnamed>@\${extDef.onTypeName}';");
+      buffer.writeln('      interpreter.registerBridgedExtension(extDef, importPath, sourceUri: extSources[extKey]);');
       buffer.writeln('    }');
     }
     buffer.writeln('  }');
@@ -7136,6 +7257,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
   final List<GlobalFunctionInfo> globalFunctions = [];
   final List<GlobalVariableInfo> globalVariables = [];
   final List<EnumInfo> enums = [];
+  final List<ExtensionInfo> extensions = [];
   
   /// Counter for skipped deprecated elements (for reporting).
   int skippedDeprecatedCount = 0;
@@ -7339,6 +7461,77 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     );
 
     super.visitEnumDeclaration(node);
+  }
+
+  @override
+  void visitExtensionDeclaration(ExtensionDeclaration node) {
+    final extName = node.name?.lexeme;
+
+    // Skip private extensions if configured
+    if (skipPrivate && extName != null && extName.startsWith('_')) return;
+
+    // Skip extensions marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return;
+
+    // Skip deprecated extensions unless generateDeprecatedElements is enabled
+    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
+      skippedDeprecatedCount++;
+      return;
+    }
+
+    // Get the 'on' type
+    final onClause = node.onClause;
+    if (onClause == null) return; // Extension without 'on' clause — skip
+    final onTypeName = onClause.extendedType.toSource();
+    // Only support simple type names for now (no generics like 'List<int>')
+    // If the type contains '<', it's generic — skip for now
+    if (onTypeName.contains('<')) {
+      return;
+    }
+
+    // Collect getters, setters, and methods from the extension's members
+    final getterNames = <String>[];
+    final setterNames = <String>[];
+    final methodNames = <String>[];
+
+    for (final member in node.members) {
+      if (member is MethodDeclaration) {
+        final memberName = member.name.lexeme;
+        if (skipPrivate && memberName.startsWith('_')) continue;
+
+        if (member.isGetter) {
+          getterNames.add(memberName);
+        } else if (member.isSetter) {
+          setterNames.add(memberName);
+        } else if (member.isOperator) {
+          // Skip operators for now — they require special handling
+          continue;
+        } else if (!member.isStatic) {
+          // Instance methods only
+          methodNames.add(memberName);
+        }
+        // Static methods are not extension members in the Dart sense
+      }
+    }
+
+    // Only add extensions that have at least one bridgeable member
+    if (getterNames.isEmpty && setterNames.isEmpty && methodNames.isEmpty) {
+      return;
+    }
+
+    extensions.add(
+      ExtensionInfo(
+        name: extName,
+        onTypeName: onTypeName,
+        sourceFile: currentSourceFile ?? '',
+        getterNames: getterNames,
+        setterNames: setterNames,
+        methodNames: methodNames,
+      ),
+    );
+
+    // Don't call super — we don't want the visitor to descend into
+    // extension members and try to parse them as top-level functions
   }
 
   @override

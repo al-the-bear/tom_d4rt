@@ -11,6 +11,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
+import 'package:console_markdown/console_markdown.dart';
 
 import '../api/cli_test_utils.dart';
 import '../bot_mode/bot_mode.dart';
@@ -254,14 +255,14 @@ abstract class D4rtReplBase {
     await runZonedGuarded(
       () => _runImpl(arguments),
       (error, stack) {
-        stderr.writeln('<red>**Uncaught error:**</red> $error'/*.toConsole()*/);
+        stderr.writeln('<red>**Uncaught error:**</red> $error'.toConsole());
         if (arguments.contains('--debug') || arguments.contains('-debug')) {
           stderr.writeln(stack.toString());
         }
       },
       zoneSpecification: ZoneSpecification(
         print: (Zone self, ZoneDelegate parent, Zone zone, String line) {
-          parent.print(zone, line/*.toConsole()*/);
+          parent.print(zone, line.toConsole());
         },
       ),
     );

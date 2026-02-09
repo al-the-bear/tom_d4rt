@@ -394,7 +394,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             final extensionMember =
                 environment.findExtensionMember(thisInstance, name);
 
-            if (extensionMember is InterpretedExtensionMethod) {
+            if (extensionMember is ExtensionMemberCallable) {
               if (extensionMember.isGetter) {
                 Logger.debug(
                     "[SimpleIdentifier] Found extension getter '$name' via implicit 'this'. Calling...");
@@ -415,7 +415,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 Logger.debug(
                     "[SimpleIdentifier] Found extension method '$name' via implicit 'this'. Returning callable.");
                 // Return a bound instance instead of the raw method.
-                return BoundExtensionMethodCallable(
+                return BoundExtensionCallable(
                     thisInstance, extensionMember);
               }
               // Operators/setters are generally not accessible directly via a simple identifier
@@ -698,7 +698,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         if (e.message.contains("Undefined property '$memberName'")) {
           final extensionMember =
               environment.findExtensionMember(prefixValue, memberName);
-          if (extensionMember is InterpretedExtensionMethod) {
+          if (extensionMember is ExtensionMemberCallable) {
             if (extensionMember.isGetter) {
               return extensionMember.call(this, [prefixValue], {});
             } else if (!extensionMember.isOperator &&
@@ -763,7 +763,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       try {
         final extensionMember =
             environment.findExtensionMember(bridgedInstance, memberName);
-        if (extensionMember is InterpretedExtensionMethod) {
+        if (extensionMember is ExtensionMemberCallable) {
           if (extensionMember.isGetter) {
             Logger.debug(
                 "[PrefixedIdentifier] Found extension getter '$memberName' for ${bridgedInstance.bridgedClass.name}. Calling...");
@@ -772,7 +772,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           } else if (!extensionMember.isOperator && !extensionMember.isSetter) {
             Logger.debug(
                 "[PrefixedIdentifier] Found extension method '$memberName' for ${bridgedInstance.bridgedClass.name}. Returning callable.");
-            return BoundExtensionMethodCallable(
+            return BoundExtensionCallable(
                 bridgedInstance, extensionMember);
           }
         }
@@ -876,7 +876,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final extensionMember =
             environment.findExtensionMember(prefixValue, memberName);
 
-        if (extensionMember is InterpretedExtensionMethod) {
+        if (extensionMember is ExtensionMemberCallable) {
           // Handle extension getter call immediately
           if (extensionMember.isGetter) {
             Logger.debug(
@@ -1097,7 +1097,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final extensionOperator =
             environment.findExtensionMember(leftOperandValue, operatorName);
 
-        if (extensionOperator is InterpretedExtensionMethod &&
+        if (extensionOperator is ExtensionMemberCallable &&
             extensionOperator.isOperator) {
           Logger.debug(
               "[BinaryExpression] Found extension operator '$operatorName' (early check) for type ${leftOperandValue?.runtimeType}. Calling...");
@@ -1216,7 +1216,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final extensionOperator =
             environment.findExtensionMember(leftOperandValue, operatorName);
 
-        if (extensionOperator is InterpretedExtensionMethod &&
+        if (extensionOperator is ExtensionMemberCallable &&
             extensionOperator.isOperator) {
           Logger.debug(
               "[BinaryExpression] Found extension operator '$operatorName' (late check) for type ${leftOperandValue?.runtimeType}. Calling...");
@@ -1317,7 +1317,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       final extensionOperator = environment.findExtensionMember(
           targetValue, operatorNameForExtension);
 
-      if (extensionOperator is InterpretedExtensionMethod &&
+      if (extensionOperator is ExtensionMemberCallable &&
           extensionOperator.isOperator) {
         Logger.debug(
             "[IndexExpression] Found extension operator '[]' for type ${targetValue?.runtimeType}. Calling...");
@@ -1418,7 +1418,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                     "[Assignment - implicit this] No direct setter found. Trying extension setter for '$variableName' on ${thisInstance.runtimeType}");
                 final extensionSetter =
                     environment.findExtensionMember(thisInstance, variableName);
-                if (extensionSetter is InterpretedExtensionMethod &&
+                if (extensionSetter is ExtensionMemberCallable &&
                     extensionSetter.isSetter) {
                   Logger.debug(
                       "[Assignment - implicit this] Found extension setter '$variableName'. Calling...");
@@ -1679,7 +1679,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // No direct setter, try extension setter
           final extensionSetter =
               environment.findExtensionMember(targetValue, propertyName);
-          if (extensionSetter is InterpretedExtensionMethod &&
+          if (extensionSetter is ExtensionMemberCallable &&
               extensionSetter.isSetter) {
             Logger.debug(
                 "[Assignment] Assigning via extension setter for '$propertyName'");
@@ -1894,7 +1894,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
           final extensionSetter =
               environment.findExtensionMember(target, propertyName);
-          if (extensionSetter is InterpretedExtensionMethod &&
+          if (extensionSetter is ExtensionMemberCallable &&
               extensionSetter.isSetter) {
             Logger.debug(
                 "[Assignment] Assigning via extension setter for PrefixedIdentifier '$propertyName'");
@@ -2134,7 +2134,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               try {
                 final extensionGetter =
                     environment.findExtensionMember(targetValue, '[]');
-                if (extensionGetter is InterpretedExtensionMethod &&
+                if (extensionGetter is ExtensionMemberCallable &&
                     extensionGetter.isOperator) {
                   final extensionPositionalArgs = [targetValue, indexValue];
                   try {
@@ -2183,7 +2183,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             try {
               final extensionGetter =
                   environment.findExtensionMember(targetValue, '[]');
-              if (extensionGetter is InterpretedExtensionMethod &&
+              if (extensionGetter is ExtensionMemberCallable &&
                   extensionGetter.isOperator) {
                 final extensionPositionalArgs = [targetValue, indexValue];
                 try {
@@ -2244,7 +2244,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             try {
               final extensionSetter =
                   environment.findExtensionMember(targetValue, operatorName);
-              if (extensionSetter is InterpretedExtensionMethod &&
+              if (extensionSetter is ExtensionMemberCallable &&
                   extensionSetter.isOperator) {
                 Logger.debug(
                     "[Assignment] Found extension operator '[]=' for ${targetValue.klass.name}. Calling...");
@@ -2299,7 +2299,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           try {
             final extensionSetter =
                 environment.findExtensionMember(targetValue, operatorName);
-            if (extensionSetter is InterpretedExtensionMethod &&
+            if (extensionSetter is ExtensionMemberCallable &&
                 extensionSetter.isOperator) {
               Logger.debug(
                   "[Assignment] Found extension operator '[]=' for type ${targetValue?.runtimeType}. Calling...");
@@ -2394,7 +2394,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               final extensionCallable =
                   environment.findExtensionMember(targetValue, methodName);
 
-              if (extensionCallable is InterpretedExtensionMethod &&
+              if (extensionCallable is ExtensionMemberCallable &&
                   !extensionCallable
                       .isOperator && // Ensure it's a regular method
                   !extensionCallable.isGetter &&
@@ -2525,7 +2525,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             try {
               final extensionCallable =
                   environment.findExtensionMember(targetValue, methodName);
-              if (extensionCallable is InterpretedExtensionMethod &&
+              if (extensionCallable is ExtensionMemberCallable &&
                   !extensionCallable.isOperator &&
                   !extensionCallable.isGetter &&
                   !extensionCallable.isSetter) {
@@ -2615,7 +2615,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           try {
             final extensionMethod =
                 environment.findExtensionMember(targetValue, methodName);
-            if (extensionMethod is InterpretedExtensionMethod) {
+            if (extensionMethod is ExtensionMemberCallable) {
               Logger.debug(
                   "[visitMethodInvocation] Found extension method '$methodName' for ${bridgedClass.name}. Calling...");
               final evaluationResult =
@@ -2961,7 +2961,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final extensionCallable =
             environment.findExtensionMember(targetValue, methodName);
 
-        if (extensionCallable is InterpretedExtensionMethod) {
+        if (extensionCallable is ExtensionMemberCallable) {
           Logger.debug(
               "[MethodInvocation] Found extension method '$methodName'. Calling...");
           // Prepend the target instance to the positional arguments for the extension call
@@ -3067,7 +3067,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final extensionMethod =
             environment.findExtensionMember(calleeValue, methodName);
 
-        if (extensionMethod is InterpretedExtensionMethod &&
+        if (extensionMethod is ExtensionMemberCallable &&
             !extensionMethod
                 .isOperator && // Ensure it's a regular method named 'call'
             !extensionMethod.isGetter &&
@@ -3169,7 +3169,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             final extensionMember =
                 environment.findExtensionMember(target, propertyName);
 
-            if (extensionMember is InterpretedExtensionMethod) {
+            if (extensionMember is ExtensionMemberCallable) {
               if (extensionMember.isGetter) {
                 Logger.debug(
                     "[PropertyAccess] Found extension getter '$propertyName'. Calling...");
@@ -3229,7 +3229,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           try {
             final extensionMember =
                 environment.findExtensionMember(target, propertyName);
-            if (extensionMember is InterpretedExtensionMethod) {
+            if (extensionMember is ExtensionMemberCallable) {
               if (extensionMember.isGetter) {
                 Logger.debug(
                     "[PropertyAccess] Found extension getter '$propertyName' for enum. Calling...");
@@ -3421,7 +3421,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       final extensionMember =
           environment.findExtensionMember(bridgedInstance, propertyName);
 
-      if (extensionMember is InterpretedExtensionMethod) {
+      if (extensionMember is ExtensionMemberCallable) {
         if (extensionMember.isGetter) {
           Logger.debug(
               "[PropertyAccess] Found extension getter '$propertyName' for BridgedInstance. Calling...");
@@ -3534,7 +3534,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       final extensionCallable =
           environment.findExtensionMember(target, propertyName);
 
-      if (extensionCallable is InterpretedExtensionMethod &&
+      if (extensionCallable is ExtensionMemberCallable &&
           extensionCallable.isGetter) {
         Logger.debug(
             "[PropertyAccess] Found extension getter '$propertyName'. Calling...");
@@ -5240,7 +5240,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         try {
           final extensionOperator =
               environment.findExtensionMember(operandValue, operatorName);
-          if (extensionOperator is InterpretedExtensionMethod &&
+          if (extensionOperator is ExtensionMemberCallable &&
               extensionOperator.isOperator) {
             Logger.debug(
                 "[PrefixExpr] Found extension operator '-' for type ${operandValue?.runtimeType}. Calling...");
@@ -5312,7 +5312,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         try {
           final extensionOperator =
               environment.findExtensionMember(operandValue, operatorNameTilde);
-          if (extensionOperator is InterpretedExtensionMethod &&
+          if (extensionOperator is ExtensionMemberCallable &&
               extensionOperator.isOperator) {
             Logger.debug(
                 "[PrefixExpr] Found extension operator '~' for type ${operandValue?.runtimeType}. Calling...");
@@ -5667,7 +5667,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         try {
           final extensionOperator =
               environment.findExtensionMember(operandValue, operatorLexeme);
-          if (extensionOperator is InterpretedExtensionMethod &&
+          if (extensionOperator is ExtensionMemberCallable &&
               extensionOperator.isOperator) {
             Logger.debug(
                 "[PrefixExpr] Found generic extension operator '$operatorLexeme' for type ${operandValue?.runtimeType}. Calling...");
@@ -7012,7 +7012,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final extensionOperator =
             environment.findExtensionMember(currentValue, operatorName);
 
-        if (extensionOperator is InterpretedExtensionMethod &&
+        if (extensionOperator is ExtensionMemberCallable &&
             extensionOperator.isOperator) {
           Logger.debug(
               "[CompoundAssign] Found extension operator '$operatorName' for type ${currentValue?.runtimeType}. Calling...");
@@ -8154,7 +8154,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final extensionMethod =
             environment.findExtensionMember(calleeValue, methodName);
 
-        if (extensionMethod is InterpretedExtensionMethod &&
+        if (extensionMethod is ExtensionMemberCallable &&
             !extensionMethod
                 .isOperator && // Ensure it's a regular method named 'call'
             !extensionMethod.isGetter &&

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-02-09T02:14:10.542534
+// Generated: 2026-02-09T02:57:54.867023
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -150,6 +150,18 @@ class AllBridge {
       'Color': 'package:d4rt_generator_example/test_classes/enum_classes.dart',
       'HttpMethod': 'package:d4rt_generator_example/test_classes/enum_classes.dart',
       'DayOfWeek': 'package:d4rt_generator_example/test_classes/enum_classes.dart',
+    };
+  }
+
+  /// Returns all bridged extension definitions.
+  static List<BridgedExtensionDefinition> bridgedExtensions() {
+    return [
+    ];
+  }
+
+  /// Returns a map of extension identifiers to their canonical source URIs.
+  static Map<String, String> extensionSourceUris() {
+    return {
     };
   }
 

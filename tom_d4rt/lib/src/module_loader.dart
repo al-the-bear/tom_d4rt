@@ -38,6 +38,7 @@ class ModuleLoader {
   final List<Map<String, LibraryFunction>> libraryFunctions;
   final List<Map<String, LibraryVariable>> libraryVariables;
   final List<Map<String, LibraryGetter>> libraryGetters;
+  final List<Map<String, LibraryExtension>> bridgedExtensions;
   
   // Track which globals have been registered and from which source library
   // Maps global name -> canonical source library URI (not import barrel URI)
@@ -47,6 +48,7 @@ class ModuleLoader {
   // Track registered classes and enums by sourceUri for deduplication
   final Map<String, String> _registeredClasses = {};
   final Map<String, String> _registeredEnums = {};
+  final Map<String, String> _registeredExtensions = {};
 
   /// When true, registration errors are collected instead of thrown.
   ///
@@ -67,6 +69,7 @@ class ModuleLoader {
       this.libraryFunctions = const [],
       this.libraryVariables = const [],
       this.libraryGetters = const [],
+      this.bridgedExtensions = const [],
       this.collectRegistrationErrors = false}) {
     Logger.debug(
         "[ModuleLoader] Initialized with ${sources.length} preloaded sources.");
@@ -414,7 +417,8 @@ class ModuleLoader {
     }
     // Check if this URI has any bridged types or library-scoped globals registered
     final hasBridgedContent = bridgedClases.isNotEmpty || bridgedEnumDefinitions.isNotEmpty ||
-        libraryFunctions.isNotEmpty || libraryVariables.isNotEmpty || libraryGetters.isNotEmpty;
+        libraryFunctions.isNotEmpty || libraryVariables.isNotEmpty || libraryGetters.isNotEmpty ||
+        bridgedExtensions.isNotEmpty;
     
     if (hasBridgedContent) {
       // Track if this specific URI has any content registered
@@ -654,6 +658,86 @@ class ModuleLoader {
             Logger.error("registering library getter '$getterName': $e");
             registrationErrors
                 .add("Failed to register getter '$getterName': $e");
+          }
+        }
+      }
+
+      // Register bridged extensions for this import
+      for (var entry in bridgedExtensions) {
+        if (entry.containsKey(uriString)) {
+          hasContentForUri = true;
+          final libExt = entry[uriString]!;
+          final definition = libExt.extensionDefinition;
+          final extName = definition.name ?? '<unnamed>';
+          
+          // Named extensions are subject to show/hide filters;
+          // unnamed extensions are always registered since they cannot be hidden by name.
+          if (definition.name != null &&
+              !_shouldRegisterName(definition.name!, showNames: showNames, hideNames: hideNames)) {
+            Logger.debug(
+                " [execute] Skipping extension '$extName' due to show/hide filter");
+            continue;
+          }
+          
+          // Use sourceUri for deduplication if available, otherwise fall back to import URI
+          final sourceUri = libExt.sourceUri ?? uriString;
+          
+          // Use a deduplication key that combines name + onType to allow
+          // extensions with different target types but same name.
+          final deduplicationKey = '$extName@${definition.onTypeName}';
+          
+          if (_registeredExtensions.containsKey(deduplicationKey)) {
+            final existingSourceUri = _registeredExtensions[deduplicationKey]!;
+            if (existingSourceUri == sourceUri) {
+              Logger.debug(
+                  " [execute] Skipping duplicate extension '$extName on ${definition.onTypeName}' from same source: $sourceUri");
+              continue;
+            } else {
+              registrationErrors.add(
+                  "Duplicate extension '$extName on ${definition.onTypeName}' exists from source '$existingSourceUri' and source '$sourceUri'.");
+              continue;
+            }
+          }
+          
+          _registeredExtensions[deduplicationKey] = sourceUri;
+          
+          try {
+            // Resolve the onType from the environment
+            RuntimeType? onType;
+            try {
+              final typeObj = globalEnvironment.get(definition.onTypeName);
+              if (typeObj is RuntimeType) {
+                onType = typeObj;
+              }
+            } on RuntimeD4rtException {
+              // Type not found yet — will be logged below
+            }
+            
+            if (onType == null) {
+              Logger.warn(
+                  " [execute] Could not resolve type '${definition.onTypeName}' for extension '$extName'. "
+                  "Extension will not be registered.");
+              registrationErrors.add(
+                  "Could not resolve type '${definition.onTypeName}' for extension '$extName'.");
+              continue;
+            }
+            
+            final interpretedExt = definition.buildInterpretedExtension(onType);
+            
+            // Named extensions are defined by name; unnamed are added as unnamed extensions
+            if (definition.name != null) {
+              globalEnvironment.define(definition.name!, interpretedExt);
+              Logger.debug(
+                  " [execute] Registered named bridged extension: ${definition.name} on ${definition.onTypeName} from $sourceUri");
+            } else {
+              globalEnvironment.addUnnamedExtension(interpretedExt);
+              Logger.debug(
+                  " [execute] Registered unnamed bridged extension on ${definition.onTypeName} from $sourceUri");
+            }
+          } catch (e) {
+            Logger.error("registering bridged extension '$extName': $e");
+            registrationErrors
+                .add("Failed to register extension '$extName': $e");
           }
         }
       }

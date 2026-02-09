@@ -4404,8 +4404,49 @@ class BridgedStaticMethodCallable implements Callable {
       '<bridged static method ${_bridgedClass.name}.$_methodName>';
 }
 
+/// Abstract interface for extension member callables.
+///
+/// Both [InterpretedExtensionMethod] (from parsed source) and
+/// [NativeExtensionCallable] (from bridged extensions) implement this
+/// interface. Call sites in the interpreter can check
+/// `is ExtensionMemberCallable` instead of checking for each concrete type.
+abstract class ExtensionMemberCallable implements Callable {
+  bool get isGetter;
+  bool get isSetter;
+  bool get isOperator;
+}
+
+/// A bound wrapper for any [ExtensionMemberCallable].
+///
+/// When `call` is invoked, it prepends the bound target as the first
+/// positional argument and delegates to the underlying extension callable.
+/// This replaces both [BoundExtensionMethodCallable] and
+/// [BoundNativeExtensionCallable] with a single unified type.
+class BoundExtensionCallable implements Callable {
+  final Object? target;
+  final ExtensionMemberCallable extensionCallable;
+
+  BoundExtensionCallable(this.target, this.extensionCallable);
+
+  @override
+  int get arity => extensionCallable.arity;
+
+  @override
+  Object? call(InterpreterVisitor visitor, List<Object?> positionalArguments,
+      [Map<String, Object?> namedArguments = const {},
+      List<RuntimeType>? typeArguments = const []]) {
+    final actualPositionalArgs = [target, ...positionalArguments];
+
+    Logger.debug(
+        "[BoundExtensionCallable] Calling extension member bound to ${target?.runtimeType}");
+
+    return extensionCallable.call(
+        visitor, actualPositionalArgs, namedArguments, typeArguments);
+  }
+}
+
 // Represents an extension method during interpretation.
-class InterpretedExtensionMethod implements Callable {
+class InterpretedExtensionMethod implements ExtensionMemberCallable {
   final MethodDeclaration declaration; // The AST node for the method
   final Environment closure; // Environment where the extension was declared
   // Store the 'on' type to potentially check 'this' type during call?
@@ -4414,8 +4455,11 @@ class InterpretedExtensionMethod implements Callable {
   InterpretedExtensionMethod(this.declaration, this.closure, this.onType);
 
   // Add getters for method type
+  @override
   bool get isGetter => declaration.isGetter;
+  @override
   bool get isSetter => declaration.isSetter;
+  @override
   bool get isOperator => declaration.isOperator;
 
   @override
@@ -4606,5 +4650,51 @@ class BoundExtensionMethodCallable implements Callable {
     // It will handle ReturnException, etc.
     return extensionMethod.call(
         visitor, actualPositionalArgs, namedArguments, typeArguments);
+  }
+}
+
+/// A callable for a native (bridged) extension member.
+///
+/// Wraps a native function adapter and provides metadata about whether it's
+/// a getter, setter, or operator — matching the protocol of
+/// [InterpretedExtensionMethod] so that [findExtensionMember] call sites
+/// can handle both interpreted and native extension members uniformly.
+///
+/// The adapter function receives the target instance as the first positional
+/// argument (the `this` value), following the same convention as
+/// [InterpretedExtensionMethod].
+class NativeExtensionCallable implements ExtensionMemberCallable {
+  final String name;
+  final Function adapter;
+  @override
+  final bool isGetter;
+  @override
+  final bool isSetter;
+  @override
+  final bool isOperator;
+  final int _arity;
+
+  NativeExtensionCallable({
+    required this.name,
+    required this.adapter,
+    this.isGetter = false,
+    this.isSetter = false,
+    this.isOperator = false,
+    int arity = 1,
+  }) : _arity = arity;
+
+  @override
+  int get arity => _arity;
+
+  @override
+  Object? call(InterpreterVisitor visitor, List<Object?> positionalArguments,
+      [Map<String, Object?> namedArguments = const {},
+      List<RuntimeType>? typeArguments = const []]) {
+    return Function.apply(adapter, [
+      visitor,
+      positionalArguments,
+      namedArguments,
+      typeArguments,
+    ]);
   }
 }

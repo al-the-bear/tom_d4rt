@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-02-09T02:14:15.442013
+// Generated: 2026-02-09T02:55:12.190256
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -41,6 +41,18 @@ class AllBridge {
   /// Used for deduplication when the same enum is exported through
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
+    return {
+    };
+  }
+
+  /// Returns all bridged extension definitions.
+  static List<BridgedExtensionDefinition> bridgedExtensions() {
+    return [
+    ];
+  }
+
+  /// Returns a map of extension identifiers to their canonical source URIs.
+  static Map<String, String> extensionSourceUris() {
     return {
     };
   }

@@ -1,6 +1,8 @@
 import '../exceptions.dart';
 import '../interpreter_visitor.dart'; // Import InterpreterVisitor for adapters
 import '../runtime_interfaces.dart'; // Import RuntimeType for type arguments
+import '../runtime_types.dart'; // Import InterpretedExtension for bridge extension
+import '../callable.dart'; // Import NativeExtensionCallable
 import 'bridged_enum.dart';
 
 // The idea is that these functions will encapsulate the native call
@@ -144,5 +146,118 @@ class BridgedEnumDefinition<T extends Enum> {
     bridgedEnum.values.addAll(finalBridgedValues);
 
     return bridgedEnum;
+  }
+}
+
+/// Definition for a bridged native extension.
+///
+/// This is the generator-facing API for registering native Dart extensions
+/// with the D4rt interpreter. The [buildInterpretedExtension] method converts
+/// this definition into an [InterpretedExtension] that the runtime can use
+/// for extension method resolution.
+///
+/// ## Example (generated code):
+/// ```dart
+/// BridgedExtensionDefinition(
+///   name: 'StringHelpers',
+///   onTypeName: 'String',
+///   getters: {
+///     'isPalindrome': (visitor, target) => (target as String) == (target as String).split('').reversed.join(),
+///   },
+///   methods: {
+///     'repeat': (visitor, target, positional, named, typeArgs) {
+///       return (target as String) * (positional[0] as int);
+///     },
+///   },
+/// )
+/// ```
+class BridgedExtensionDefinition {
+  /// The name of the extension (null for unnamed extensions).
+  final String? name;
+
+  /// The name of the type this extension applies to (e.g., 'String', 'DateTime').
+  /// Resolved to a [RuntimeType] at registration time.
+  final String onTypeName;
+
+  /// Adapters for instance getters.
+  final Map<String, BridgedInstanceGetterAdapter> getters;
+
+  /// Adapters for instance setters.
+  final Map<String, BridgedInstanceSetterAdapter> setters;
+
+  /// Adapters for instance methods.
+  final Map<String, BridgedMethodAdapter> methods;
+
+  const BridgedExtensionDefinition({
+    this.name,
+    required this.onTypeName,
+    this.getters = const {},
+    this.setters = const {},
+    this.methods = const {},
+  });
+
+  /// Builds an [InterpretedExtension] from this definition.
+  ///
+  /// The [onType] is the resolved [RuntimeType] for [onTypeName], provided
+  /// by the caller (typically the module loader) after the type has been
+  /// looked up in the environment.
+  InterpretedExtension buildInterpretedExtension(RuntimeType onType) {
+    final members = <String, Callable>{};
+
+    // Wrap getters as NativeExtensionCallable
+    for (final entry in getters.entries) {
+      members[entry.key] = NativeExtensionCallable(
+        name: entry.key,
+        adapter: (InterpreterVisitor visitor,
+            List<Object?> positionalArgs,
+            Map<String, Object?> namedArgs,
+            List<RuntimeType>? typeArgs) {
+          final target = positionalArgs[0];
+          return entry.value(visitor, target!);
+        },
+        isGetter: true,
+        arity: 1,
+      );
+    }
+
+    // Wrap setters as NativeExtensionCallable
+    for (final entry in setters.entries) {
+      members[entry.key] = NativeExtensionCallable(
+        name: entry.key,
+        adapter: (InterpreterVisitor visitor,
+            List<Object?> positionalArgs,
+            Map<String, Object?> namedArgs,
+            List<RuntimeType>? typeArgs) {
+          final target = positionalArgs[0];
+          final value = positionalArgs.length > 1 ? positionalArgs[1] : null;
+          entry.value(visitor, target!, value);
+          return null;
+        },
+        isSetter: true,
+        arity: 2,
+      );
+    }
+
+    // Wrap methods as NativeExtensionCallable
+    for (final entry in methods.entries) {
+      members[entry.key] = NativeExtensionCallable(
+        name: entry.key,
+        adapter: (InterpreterVisitor visitor,
+            List<Object?> positionalArgs,
+            Map<String, Object?> namedArgs,
+            List<RuntimeType>? typeArgs) {
+          final target = positionalArgs[0];
+          final methodArgs = positionalArgs.sublist(1);
+          return entry.value(visitor, target!, methodArgs, namedArgs, typeArgs);
+        },
+        arity: 1,
+      );
+    }
+
+    return InterpretedExtension(
+      name: name,
+      onType: onType,
+      members: members,
+    );
   }
 }

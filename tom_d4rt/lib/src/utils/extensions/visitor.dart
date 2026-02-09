@@ -7,7 +7,7 @@ extension InterpreterVisitorExtension on InterpreterVisitor {
     if (methodName != null) {
       final extensionCallable =
           environment.findExtensionMember(nativeObject, methodName);
-      if (extensionCallable is InterpretedExtensionMethod) {
+      if (extensionCallable is ExtensionMemberCallable) {
         return (null, false);
       }
     }
