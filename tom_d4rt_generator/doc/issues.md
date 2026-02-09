@@ -39,7 +39,7 @@
 
 | ID | Description | Complexity | Status | Relevance |
 |----|-------------|------------|--------|-----------|
-| [GEN-017](#gen-017) | [Missing barrel export silently downgrades to dynamic](#gen-017) | Medium | TODO | Important |
+| [GEN-017](#gen-017) | [Missing barrel export silently downgrades to dynamic](#gen-017) | Medium | RESOLVED | Important |
 | [GEN-026](#gen-026) | [14 concrete types across projects silently downgraded to dynamic](#gen-026) | Medium | RESOLVED | Important |
 | [GEN-041](#gen-041) | [Enhanced enum fields not accessible via bridges at runtime](#gen-041) | Medium | RESOLVED | Important |
 | [GEN-042](#gen-042) | [Classes with implicit default constructors are not bridged](#gen-042) | Medium | RESOLVED | Important |
