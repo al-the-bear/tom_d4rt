@@ -1873,13 +1873,23 @@ class BridgeGenerator {
     // Abstract classes without factory constructors will have no constructors in the bridge,
     // but will still be registered for type checking (is/as) and accessing instance members
     final bridgeableClasses = <ClassInfo>[];
-    final seenClassNames = <String>{};
+    final seenClassNames = <String, String>{}; // name -> sourceFile of first occurrence
     for (final cls in filteredClasses) {
-      if (seenClassNames.contains(cls.name)) {
-        _recordSkip('class', cls.name, 'duplicate (already seen from another source file)');
+      if (seenClassNames.containsKey(cls.name)) {
+        // GEN-045: Detect barrel-level name collisions
+        final firstSourceFile = seenClassNames[cls.name]!;
+        final firstUri = _getPackageUri(firstSourceFile);
+        final duplicateUri = _getPackageUri(cls.sourceFile);
+        warnings.add(
+          '⚠️  NAME COLLISION: Class "${cls.name}" is defined in multiple source files:\n'
+          '    1. $firstUri (kept)\n'
+          '    2. $duplicateUri (skipped)\n'
+          '    Consider excluding one with excludeClasses, or using show/hide in barrel exports.',
+        );
+        _recordSkip('class', cls.name, 'duplicate (already seen from another source file: $firstUri)');
         continue;
       }
-      seenClassNames.add(cls.name);
+      seenClassNames[cls.name] = cls.sourceFile;
       bridgeableClasses.add(cls);
     }
 
@@ -2059,13 +2069,22 @@ class BridgeGenerator {
       }
 
       // Filter out duplicate functions (keep first occurrence)
-      final seenFunctions = <String>{};
+      // GEN-045: Detect barrel-level name collisions
+      final seenFunctions = <String, String>{}; // name -> sourceFile
       filteredFunctions = filteredFunctions.where((f) {
-        if (seenFunctions.contains(f.name)) {
-          _recordSkip('function', f.name, 'duplicate (already seen from another source file)');
+        if (seenFunctions.containsKey(f.name)) {
+          final firstUri = _getPackageUri(seenFunctions[f.name]!);
+          final duplicateUri = _getPackageUri(f.sourceFile);
+          warnings.add(
+            '⚠️  NAME COLLISION: Function "${f.name}" is defined in multiple source files:\n'
+            '    1. $firstUri (kept)\n'
+            '    2. $duplicateUri (skipped)\n'
+            '    Consider excluding one with excludeFunctions, or using show/hide in barrel exports.',
+          );
+          _recordSkip('function', f.name, 'duplicate (already seen from another source file: $firstUri)');
           return false;
         }
-        seenFunctions.add(f.name);
+        seenFunctions[f.name] = f.sourceFile;
         return true;
       }).toList();
 
@@ -2094,14 +2113,23 @@ class BridgeGenerator {
       }
 
       // Filter out duplicate variables (keep first occurrence)
+      // GEN-045: Detect barrel-level name collisions
       {
-        final seenVariables = <String>{};
+        final seenVariables = <String, String>{}; // name -> sourceFile
         filteredVariables = filteredVariables.where((v) {
-          if (seenVariables.contains(v.name)) {
-            _recordSkip('variable', v.name, 'duplicate (already seen from another source file)');
+          if (seenVariables.containsKey(v.name)) {
+            final firstUri = _getPackageUri(seenVariables[v.name]!);
+            final duplicateUri = _getPackageUri(v.sourceFile);
+            warnings.add(
+              '⚠️  NAME COLLISION: Variable "${v.name}" is defined in multiple source files:\n'
+              '    1. $firstUri (kept)\n'
+              '    2. $duplicateUri (skipped)\n'
+              '    Consider excluding one with excludeVariables, or using show/hide in barrel exports.',
+            );
+            _recordSkip('variable', v.name, 'duplicate (already seen from another source file: $firstUri)');
             return false;
           }
-          seenVariables.add(v.name);
+          seenVariables[v.name] = v.sourceFile;
           return true;
         }).toList();
       }
@@ -2118,14 +2146,23 @@ class BridgeGenerator {
         }).toList();
       }
 
+      // GEN-045: Detect barrel-level name collisions for enums
       {
-        final seenEnums = <String>{};
+        final seenEnums = <String, String>{}; // name -> sourceFile
         filteredEnums = filteredEnums.where((e) {
-          if (seenEnums.contains(e.name)) {
-            _recordSkip('enum', e.name, 'duplicate (already seen from another source file)');
+          if (seenEnums.containsKey(e.name)) {
+            final firstUri = _getPackageUri(seenEnums[e.name]!);
+            final duplicateUri = _getPackageUri(e.sourceFile);
+            warnings.add(
+              '⚠️  NAME COLLISION: Enum "${e.name}" is defined in multiple source files:\n'
+              '    1. $firstUri (kept)\n'
+              '    2. $duplicateUri (skipped)\n'
+              '    Consider excluding one with excludeEnums, or using show/hide in barrel exports.',
+            );
+            _recordSkip('enum', e.name, 'duplicate (already seen from another source file: $firstUri)');
             return false;
           }
-          seenEnums.add(e.name);
+          seenEnums[e.name] = e.sourceFile;
           return true;
         }).toList();
       }
@@ -8628,19 +8665,57 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       return '$baseName<$substitutedArgs>';
     }
 
-    // Handle function types
+    // Handle function types structurally (GEN-012 fix: no regex text replacement)
     if (type is FunctionType) {
-      // For function types, we'd need more complex handling
-      // For now, just return the display string with type params replaced
-      var display = type.getDisplayString();
-      for (final entry in substitution.entries) {
-        // Simple text replacement - not perfect but handles most cases
-        display = display.replaceAll(
-          RegExp(r'\b' + entry.key + r'\b'),
-          entry.value.getDisplayString(),
-        );
+      // Recursively substitute the return type
+      final returnType = _substituteTypeParameters(type.returnType, substitution);
+      
+      // Build parameter list using formalParameters for names and isRequired info
+      final formalParams = type.formalParameters;
+      final params = <String>[];
+      final optionalParts = <String>[];
+      final namedParts = <String>[];
+      
+      for (final param in formalParams) {
+        final paramType = _substituteTypeParameters(param.type, substitution);
+        final paramName = param.name;
+        
+        if (param.isRequiredPositional) {
+          // Required positional parameter - names are optional in function types
+          if (paramName != null && paramName.isNotEmpty) {
+            params.add('$paramType $paramName');
+          } else {
+            params.add(paramType);
+          }
+        } else if (param.isOptionalPositional) {
+          // Optional positional parameter - names are optional in function types
+          if (paramName != null && paramName.isNotEmpty) {
+            optionalParts.add('$paramType $paramName');
+          } else {
+            optionalParts.add(paramType);
+          }
+        } else if (param.isNamed) {
+          // Named parameter (required or optional) - names are required here
+          final name = paramName ?? '';
+          if (param.isRequiredNamed) {
+            namedParts.add('required $paramType $name');
+          } else {
+            namedParts.add('$paramType $name');
+          }
+        }
       }
-      return display;
+      
+      // Add optional positional parameters if any
+      if (optionalParts.isNotEmpty) {
+        params.add('[${optionalParts.join(', ')}]');
+      }
+      
+      // Add named parameters if any
+      if (namedParts.isNotEmpty) {
+        params.add('{${namedParts.join(', ')}}');
+      }
+      
+      return '$returnType Function(${params.join(', ')})';
     }
 
     // For other types (dynamic, void, Never, etc.), return as-is

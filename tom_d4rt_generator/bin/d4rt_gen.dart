@@ -17,14 +17,35 @@
 /// # Process project and all subprojects recursively
 /// d4rtgen --project=my_app --recursive
 ///
-/// # Process projects matching glob, with recursion exclusions
-/// d4rtgen --projects="./**/tom_*" --recursive --recursion-exclude="**/node_modules/**"
+/// # Process from workspace root
+/// d4rtgen -R
 ///
 /// # Show help
 /// d4rtgen --help
 /// ```
+///
+/// ## Tool Options
+///   -c, --config           Path to specific buildkit.yaml file
+///   -v, --verbose          Show detailed output
+///   -l, --list             List projects that would be processed
+///   --show                 With --list, show buildkit.yaml d4rtgen configuration
+///   -h, --help             Show usage help
+///
+/// ## Navigation Options (common to all Tom build tools)
+///   -s, --scan             Scan directory for projects
+///   -r, --recursive        Scan directories recursively
+///   -b, --build-order      Sort projects in dependency build order
+///   -p, --project          Project(s) to run (comma-separated, globs supported)
+///   -R, --root             Workspace root (bare: detected, path: specified)
+///   -w, --workspace-recursion  Shell out to sub-workspaces
+///   -i, --inner-first-git  Scan git repos, process innermost first
+///   -o, --outer-first-git  Scan git repos, process outermost first
+///   -x, --exclude          Exclude patterns (path-based globs)
+///   --exclude-projects     Exclude projects by name or path
+///   --recursion-exclude    Exclude patterns during recursive scan
 library;
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
@@ -51,35 +72,26 @@ String? _validatePathContainment(TomBuildConfig config, String basePath) {
 }
 
 Future<void> main(List<String> arguments) async {
+  // Check for help command first (before parsing)
+  if (isHelpCommand(arguments)) {
+    _printUsage(null);
+    exit(0);
+  }
+
   // Check for version command first (before parsing)
-  if (arguments.isNotEmpty &&
-      (arguments[0] == 'version' ||
-          arguments[0] == '-version' ||
-          arguments[0] == '--version')) {
+  if (isVersionCommand(arguments)) {
     _printVersion();
     exit(0);
   }
 
+  // Preprocess args for bare -R detection
+  final (processedArgs, bareRoot) = preprocessRootFlag(arguments);
+
   final parser = ArgParser()
-    ..addOption('project',
-        abbr: 'p',
-        help: 'Project(s) to process (comma-separated, globs: tom_*_builder, ./*)')
+    // Tool-specific options
     ..addOption('config',
         abbr: 'c',
         help: 'Path to specific buildkit.yaml file')
-    ..addOption('scan',
-        abbr: 's',
-        help: 'Scan directory for all D4rt projects')
-    ..addFlag('recursive',
-        abbr: 'r',
-        defaultsTo: false,
-        help: 'Recursively process subprojects within each project')
-    ..addMultiOption('exclude',
-        abbr: 'x',
-        help: 'Glob patterns for projects to exclude')
-    ..addMultiOption('recursion-exclude',
-        abbr: 'R',
-        help: 'Glob patterns to exclude from recursion (e.g., "**/node_modules/**")')
     ..addFlag('verbose',
         abbr: 'v',
         negatable: false,
@@ -91,14 +103,20 @@ Future<void> main(List<String> arguments) async {
     ..addFlag('show',
         help: 'With --list, show buildkit.yaml d4rtgen configuration for each project',
         negatable: false)
+    ..addFlag('dump-config',
+        help: 'Print effective merged configuration as JSON (no action)',
+        negatable: false)
     ..addFlag('help',
         abbr: 'h',
         negatable: false,
         help: 'Show usage help');
+  
+  // Add standard navigation options
+  addNavigationOptions(parser);
 
   final ArgResults args;
   try {
-    args = parser.parse(arguments);
+    args = parser.parse(processedArgs);
 
     // Check for unexpected arguments (rest)
     if (args.rest.isNotEmpty) {
@@ -119,59 +137,30 @@ Future<void> main(List<String> arguments) async {
     exit(0);
   }
 
-  // Build config from CLI args (using TomBuildConfig from tom_build_base)
-  final cliConfig = TomBuildConfig(
-    project: args['project'] as String?,
-    projects: const [], // --projects not exposed as CLI arg; only via buildkit.yaml
-    config: args['config'] as String?,
-    scan: args['scan'] as String?,
-    recursive: args['recursive'] as bool,
-    exclude: args['exclude'] as List<String>,
-    recursionExclude: args['recursion-exclude'] as List<String>,
-    verbose: args['verbose'] as bool,
-  );
-
-  // Check if any meaningful option was provided
-  TomBuildConfig config;
-  if (!cliConfig.hasProjectOptions) {
-    // Try loading from buildkit.yaml in current directory
-    final yamlConfig = TomBuildConfig.load(
-      dir: Directory.current.path,
-      toolKey: _toolKey,
-    );
-    if (yamlConfig != null) {
-      print('Using configuration from buildkit.yaml (d4rtgen: section)');
-      // Merge CLI flags (like --verbose) with yaml config
-      config = yamlConfig.merge(cliConfig);
-    } else {
-      // Default: process current directory
-      config = TomBuildConfig(
-        project: Directory.current.path,
-        recursive: cliConfig.recursive,
-        exclude: cliConfig.exclude,
-        recursionExclude: cliConfig.recursionExclude,
-        verbose: cliConfig.verbose,
-      );
-    }
-  } else {
-    config = cliConfig;
-  }
-
-  // Validate that all paths are contained within current working directory
-  final validationError = _validatePathContainment(config, Directory.current.path);
-  if (validationError != null) {
-    stderr.writeln('Error: $validationError');
-    stderr.writeln('All paths must be within the current working directory.');
-    stderr.writeln('Run from the workspace root to access all folders.');
+  // Parse navigation options
+  final navArgs = parseNavigationArgs(args, bareRoot: bareRoot);
+  final currentDir = Directory.current.path;
+  
+  // Resolve execution root based on navigation mode
+  String executionRoot;
+  try {
+    executionRoot = resolveExecutionRoot(navArgs, currentDir: currentDir);
+  } on ArgumentError catch (e) {
+    stderr.writeln('Error: ${e.message}');
     exit(1);
   }
+
+  final verbose = args['verbose'] as bool;
+  
+  // Apply defaults (--scan . --recursive --build-order) if no explicit navigation
+  final effectiveNavArgs = navArgs.withDefaults();
 
   // Handle --list mode: just list projects without processing
   final listOnly = args['list'] as bool;
   final showConfig = args['show'] as bool;
   if (listOnly) {
-    final projects = await _collectProjects(config);
-    final workspaceRoot = ProjectDiscovery.findWorkspaceRoot(Directory.current.path);
+    final projects = await _collectProjectsFromNavArgs(effectiveNavArgs, executionRoot, verbose);
+    final workspaceRoot = ProjectDiscovery.findWorkspaceRoot(executionRoot);
     if (projects.isEmpty) {
       print('No d4rtgen projects found.');
     } else {
@@ -188,8 +177,26 @@ Future<void> main(List<String> arguments) async {
     exit(0);
   }
 
+  // Handle --dump-config mode: print effective merged configuration as JSON (GEN-024)
+  final dumpConfig = args['dump-config'] as bool;
+  if (dumpConfig) {
+    final projects = await _collectProjectsFromNavArgs(effectiveNavArgs, executionRoot, verbose);
+    final workspaceRoot = ProjectDiscovery.findWorkspaceRoot(executionRoot);
+    if (projects.isEmpty) {
+      print('No d4rtgen projects found.');
+    } else {
+      for (final project in projects) {
+        final relativePath = p.relative(project, from: workspaceRoot);
+        print('# $relativePath');
+        _printEffectiveConfig(project);
+        print('');
+      }
+    }
+    exit(0);
+  }
+
   try {
-    final result = await _runWithConfig(config, basePath: Directory.current.path);
+    final result = await _runWithNavArgs(effectiveNavArgs, executionRoot, verbose);
 
     print('');
     print('=' * 70);
@@ -207,162 +214,66 @@ Future<void> main(List<String> arguments) async {
   }
 }
 
-/// Collect all projects that would be processed (for --list mode).
-Future<List<String>> _collectProjects(TomBuildConfig config) async {
-  final verbose = config.verbose;
+/// Collect all projects that would be processed using navigation args.
+Future<List<String>> _collectProjectsFromNavArgs(
+  WorkspaceNavigationArgs navArgs,
+  String basePath,
+  bool verbose,
+) async {
   final discovery = ProjectDiscovery(verbose: verbose);
 
-  if (config.config != null) {
-    // Single config file - return the directory containing it
-    final configPath = config.config!;
-    if (File(configPath).existsSync()) {
-      return [p.dirname(configPath)];
-    }
-    return [];
-  }
-  
   // Handle --project with patterns (comma-separated, globs, etc.)
-  if (config.project != null) {
+  if (navArgs.project != null) {
     return discovery.resolveProjectPatterns(
-      config.project!,
-      basePath: Directory.current.path,
-      projectFilter: _isD4rtProject,
-    );
-  }
-  
-  // Legacy --projects support (for backward compatibility)
-  if (config.projects.isNotEmpty) {
-    final projects = await discovery.resolveProjectPatterns(
-      config.projects.join(','),
-      basePath: Directory.current.path,
-      projectFilter: _isD4rtProject,
-    );
-    return _filterD4rtProjects(projects, config.exclude);
-  } 
-  
-  if (config.scan != null) {
-    final projects = await discovery.scanForProjects(
-      config.scan!,
-      recursive: config.recursive,
-      toolKey: _toolKey,
-      recursionExclude: config.recursionExclude,
-    );
-    return _filterD4rtProjects(projects, config.exclude);
-  }
-  
-  return [];
-}
-
-/// Run the generator with the given configuration.
-/// This is the main entry point that can be called recursively.
-/// [basePath] is the directory that constrains all paths in config.
-Future<ProcessingResult> _runWithConfig(TomBuildConfig config, {required String basePath}) async {
-  final result = ProcessingResult();
-  final verbose = config.verbose;
-
-  if (config.config != null) {
-    // Explicit config file specified (buildkit.yaml)
-    final configPath = config.config!;
-    if (!File(configPath).existsSync()) {
-      stderr.writeln('Error: Configuration file not found: $configPath');
-      result.addFailure();
-      return result;
-    }
-    try {
-      await _processConfigFile(configPath, verbose: verbose);
-      result.addSuccess();
-    } catch (e) {
-      stderr.writeln('Error processing $configPath: $e');
-      result.addFailure();
-    }
-  } else if (config.projects.isNotEmpty) {
-    // Process projects matching glob patterns
-    final discovery = ProjectDiscovery(verbose: verbose);
-    final allProjects = await discovery.resolveProjectPatterns(
-      config.projects.join(','),
+      navArgs.project!,
       basePath: basePath,
       projectFilter: _isD4rtProject,
     );
-    final projects = _filterD4rtProjects(allProjects, config.exclude);
+  }
 
-    if (projects.isEmpty) {
-      stderr.writeln('No projects found matching patterns: ${config.projects.join(", ")}');
-      return result;
-    }
+  // Scan directory for projects
+  if (navArgs.scan != null) {
+    final scanPath = p.isAbsolute(navArgs.scan!)
+        ? navArgs.scan!
+        : p.join(basePath, navArgs.scan!);
 
-    for (final projectPath in projects) {
-      final subResult = await _processProjectWithRecursion(
-        projectPath,
-        recursive: config.recursive,
-        recursionExclude: config.recursionExclude,
-        exclude: config.exclude,
-        verbose: verbose,
-      );
-      result.merge(subResult);
-    }
-  } else if (config.scan != null) {
-    // Scan directory for projects (finds all D4rt projects in directory)
-    final discovery = ProjectDiscovery(verbose: verbose);
-    final allProjects = await discovery.scanForProjects(
-      config.scan!,
-      recursive: config.recursive,
+    final projects = await discovery.scanForProjects(
+      scanPath,
+      recursive: navArgs.recursive,
       toolKey: _toolKey,
-      recursionExclude: config.recursionExclude,
+      recursionExclude: navArgs.recursionExclude,
     );
-    final projects = _filterD4rtProjects(allProjects, config.exclude);
+    return _filterD4rtProjects(projects, navArgs.exclude);
+  }
 
-    if (projects.isEmpty) {
-      stderr.writeln('No D4rt projects found in ${config.scan}');
-      return result;
-    }
+  // Default: process current directory if it's a D4rt project
+  if (_isD4rtProject(basePath)) {
+    return [basePath];
+  }
 
-    for (final projectPath in projects) {
-      // Check for project-local buildkit.yaml (takes precedence)
-      final projectConfig = TomBuildConfig.load(
-        dir: projectPath,
-        toolKey: _toolKey,
-      );
-      if (projectConfig != null) {
-        if (verbose) {
-          print('Found buildkit.yaml in $projectPath');
-        }
-        // Validate project config paths are contained within project
-        final projectValidationError = _validatePathContainment(projectConfig, projectPath);
-        if (projectValidationError != null) {
-          stderr.writeln('Error in $projectPath/buildkit.yaml: $projectValidationError');
-          result.addFailure();
-          continue;
-        }
-        // Process project directly using its buildkit.yaml configuration.
-        // Note: We call _processProjectDirect instead of _runWithConfig because
-        // the project-level config only contains toolOptions (e.g., modules,
-        // excludeClasses), not navigation fields. Calling _runWithConfig would
-        // skip all processing since no navigation fields are set.
-        try {
-          await _processProjectDirect(projectPath, verbose: verbose);
-          result.addSuccess();
-        } catch (e) {
-          stderr.writeln('Error processing $projectPath: $e');
-          result.addFailure();
-        }
-      } else {
-        // No project-local config, process directly
-        try {
-          await _processProjectDirect(projectPath, verbose: verbose);
-          result.addSuccess();
-        } catch (e) {
-          stderr.writeln('Error processing $projectPath: $e');
-          result.addFailure();
-        }
-      }
-    }
-  } else if (config.project != null) {
-    // Single project with optional recursion
+  return [];
+}
+
+/// Run the generator using navigation args.
+Future<ProcessingResult> _runWithNavArgs(
+  WorkspaceNavigationArgs navArgs,
+  String basePath,
+  bool verbose,
+) async {
+  final result = ProcessingResult();
+  final projects = await _collectProjectsFromNavArgs(navArgs, basePath, verbose);
+
+  if (projects.isEmpty) {
+    stderr.writeln('No D4rt projects found.');
+    return result;
+  }
+
+  for (final projectPath in projects) {
     final subResult = await _processProjectWithRecursion(
-      config.project!,
-      recursive: config.recursive,
-      recursionExclude: config.recursionExclude,
-      exclude: config.exclude,
+      projectPath,
+      recursive: navArgs.recursive,
+      recursionExclude: navArgs.recursionExclude,
+      exclude: navArgs.exclude,
       verbose: verbose,
     );
     result.merge(subResult);
@@ -626,22 +537,6 @@ Future<void> _generateBridges(
   }
 }
 
-/// Process a single configuration file (buildkit.yaml).
-Future<void> _processConfigFile(String configPath, {required bool verbose}) async {
-  if (verbose) {
-    print('Processing: $configPath');
-  }
-
-  final projectDir = p.dirname(configPath);
-  final config = BuildConfigLoader.loadFromTomBuildYaml(projectDir);
-
-  if (config == null) {
-    throw Exception('No d4rtgen configuration found in $configPath');
-  }
-
-  await _generateBridges(config, projectDir, verbose: verbose);
-}
-
 /// Generate barrel file that exports all bridge modules.
 Future<void> _generateBarrelFile(
   String barrelPath,
@@ -690,6 +585,26 @@ Future<void> _generateTestRunnerFile(
   await File(testRunnerPath).writeAsString(
     generateTestRunnerContent(config, testRunnerPath: normalizedTestRunnerPath),
   );
+}
+
+/// Print the effective merged configuration as JSON (--dump-config option).
+/// GEN-024: Provides transparency into the merged configuration.
+void _printEffectiveConfig(String projectPath) {
+  final config = BuildConfigLoader.loadFromTomBuildYaml(projectPath);
+  
+  if (config == null) {
+    print('  (no d4rtgen configuration found)');
+    return;
+  }
+  
+  // Convert to JSON and pretty-print
+  final jsonEncoder = JsonEncoder.withIndent('  ');
+  final jsonString = jsonEncoder.convert(config.toJson());
+  
+  // Print with proper indentation
+  for (final line in jsonString.split('\n')) {
+    print(line);
+  }
 }
 
 /// Print the buildkit.yaml d4rtgen section for a project (--show option).
@@ -776,18 +691,33 @@ void _printYamlNode(dynamic node, {int indent = 0}) {
   }
 }
 
-void _printUsage(ArgParser parser) {
-  print('D4rt Bridge Generator (d4rtgen)');
+void _printUsage(ArgParser? parser) {
+  // Print header
+  for (final line in getToolHelpHeader(
+    toolName: 'D4rtgen',
+    toolDescription: 'Generates D4rt bridges from configuration files',
+    usagePatterns: [
+      'd4rtgen [options]',
+      'dart run tom_d4rt_generator:d4rtgen [options]',
+      'd4rtgen help',
+      'd4rtgen version',
+    ],
+  )) {
+    print(line);
+  }
+
+  print('Tool Options:');
+  print('  -c, --config=<path>  Path to specific buildkit.yaml file');
+  print('  -v, --verbose        Show detailed output');
+  print('  -l, --list           List projects that would be processed (no action)');
+  print('      --show           With --list, show buildkit.yaml d4rtgen configuration');
+  print('  -h, --help           Show usage help');
   print('');
-  print('Generates D4rt bridges from buildkit.yaml configuration.');
+
+  // Print navigation options
+  printNavigationOptionsHelp();
   print('');
-  print('Usage:');
-  print('  d4rtgen [options]');
-  print('  dart run tom_d4rt_generator:d4rtgen [options]');
-  print('');
-  print('Options:');
-  print(parser.usage);
-  print('');
+
   print('Configuration File (buildkit.yaml):');
   print('  Each project must have a buildkit.yaml file with a d4rtgen: section.');
   print('  When recursing into subprojects, the tool uses each project\'s config.');
@@ -809,28 +739,11 @@ void _printUsage(ArgParser parser) {
   print('    - pubspec.yaml, AND');
   print('    - buildkit.yaml with a d4rtgen: section');
   print('');
-  print('Recursion Behavior:');
-  print('  With --recursive, the tool:');
-  print('  1. Processes the specified project(s)');
-  print('  2. Finds subprojects in subdirectories');
-  print('  3. For each subproject with buildkit.yaml, uses that config');
-  print('  4. Otherwise, processes directly');
-  print('');
-  print('Examples:');
-  print('  # Process current directory');
-  print('  d4rtgen');
-  print('');
-  print('  # Process project and all subprojects');
-  print('  d4rtgen --project=my_app --recursive');
-  print('');
-  print('  # Process with recursion exclusions');
-  print('  d4rtgen -p my_app -r --recursion-exclude="**/generated/**"');
-  print('');
-  print('  # Scan workspace for all D4rt projects');
-  print('  d4rtgen --scan=. --recursive');
-  print('');
-  print('  # Multiple exclusion patterns');
-  print('  d4rtgen -s . -r -x "**/test_*" -R "**/node_modules/**"');
+
+  // Print footer with examples
+  for (final line in getToolHelpFooter(toolName: 'd4rtgen')) {
+    print(line);
+  }
 }
 
 void _printVersion() {

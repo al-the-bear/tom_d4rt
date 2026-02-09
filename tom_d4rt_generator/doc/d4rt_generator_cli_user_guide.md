@@ -27,18 +27,63 @@ dart run tom_d4rt_generator:d4rtgen
 
 ## Command-Line Options
 
+### Tool-Specific Options
+
 | Option | Short | Description |
 |--------|-------|-------------|
 | `--version` | | Display the version of the D4rt Bridge Generator |
-| `--project=<pattern>` | `-p` | Project(s) to process (comma-separated, globs: `tom_*`, `./*`) |
 | `--config=<file>` | `-c` | Path to specific `d4rt_bridging.json` file |
-| `--scan=<dir>` | `-s` | Scan directory for all D4rt projects |
-| `--recursive` | `-r` | Recursively process subprojects within each project |
-| `--exclude=<glob>` | `-x` | Glob patterns for projects to exclude from processing |
-| `--recursion-exclude=<glob>` | `-R` | Glob patterns to exclude from recursive traversal |
 | `--verbose` | `-v` | Show detailed output during generation |
 | `--list` | `-l` | List projects that would be processed (no action) |
+| `--show` | | With `--list`, show buildkit.yaml d4rtgen configuration for each project |
 | `--help` | `-h` | Show usage help |
+
+### Workspace Navigation Options
+
+These options provide consistent workspace traversal behavior across all Tom build tools (d4rtgen, astgen, versioner, compiler, etc.).
+
+| Option | Short | Description |
+|--------|-------|-------------|
+| `--scan=<dir>` | `-s` | Scan directory for all D4rt projects |
+| `--recursive` | `-r` | Recursively process subprojects within each project |
+| `--build-order` | `-b` | Sort projects in dependency build order |
+| `--project=<pattern>` | `-p` | Project(s) to process (comma-separated, globs supported) |
+| `--root[=<path>]` | `-R` | Workspace root (bare: detected, path: specified workspace) |
+| `--workspace-recursion` | `-w` | Shell out to sub-workspaces instead of skipping |
+| `--inner-first-git` | `-i` | Scan git repos, process innermost (deepest) first |
+| `--outer-first-git` | `-o` | Scan git repos, process outermost (shallowest) first |
+| `--exclude=<glob>` | `-x` | Exclude patterns (path-based globs) |
+| `--exclude-projects=<pattern>` | | Exclude projects by name or path (e.g., `zom_*`) |
+| `--recursion-exclude=<glob>` | | Glob patterns to exclude from recursive traversal |
+
+### Workspace Root (`-R, --root`)
+
+The `-R` option enables workspace-wide processing from any subdirectory:
+
+```bash
+# Auto-detect workspace root (bare -R)
+d4rtgen -R -l
+
+# Specify workspace root explicitly
+d4rtgen -R /path/to/workspace
+
+# Run from workspace root with recursive scanning
+d4rtgen -R -r
+```
+
+When used without a path argument, the tool automatically detects the workspace root by looking for `tom_workspace.yaml`, `tom.code-workspace`, or `buildkit_master.yaml`.
+
+### Default Behavior
+
+When no explicit navigation options are provided, the tool applies these defaults:
+- `--scan .` (scan current directory)
+- `--recursive` (enabled)
+- `--build-order` (enabled)
+
+This means running `d4rtgen` without arguments is equivalent to:
+```bash
+d4rtgen --scan=. --recursive --build-order
+```
 
 ### Project Selection (`--project`)
 

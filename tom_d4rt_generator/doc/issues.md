@@ -53,6 +53,10 @@
 | [GEN-015](#gen-015) | Nested public classes collected by syntactic visitor | Low | Resolved |
 | [GEN-016](#gen-016) | Auxiliary imports may resolve wrong type on name collision | Medium | Resolved |
 | [GEN-002](#gen-002) | Recursive type bounds dispatched to only 3 hardcoded types | Low | Resolved |
+| [GEN-010](#gen-010) | Complex external packages list is hardcoded | Low | Resolved |
+| [GEN-012](#gen-012) | Type parameter substitution uses fragile regex text replacement | Medium | Resolved |
+| [GEN-045](#gen-045) | Barrel-level name collisions silently break bridging | Medium | Resolved |
+| [GEN-024](#gen-024) | Four config sources with complex precedence rules | Medium | Resolved |
 
 ### Won't Fix
 
@@ -65,22 +69,13 @@
 | [GEN-014](#gen-014) | Syntactic fallback: this.x params always typed as dynamic | Fundamental | By design |
 | [GEN-018](#gen-018) | Parameterized typedef expansion may produce incorrect types | Medium | Syntactic fallback |
 
-### Deferred
-
-| ID | Description | Complexity | Reason |
-|----|-------------|------------|--------|
-| [GEN-010](#gen-010) | Complex external packages list is hardcoded | Low | Resolved by GEN-017 |
-
 ### TODO (sorted by relevance)
 
 | ID | Description | Complexity | Relevance |
 |----|-------------|------------|-----------|
-| [GEN-045](#gen-045) | Barrel-level name collisions silently break bridging | Medium | Relevant |
-| [GEN-012](#gen-012) | Type parameter substitution uses fragile regex text replacement | Medium | Relevant |
 | [GEN-005](#gen-005) | Function types inside collections are unbridgeable | High | Not Important |
 | [GEN-022](#gen-022) | Main generator file is 8,490 lines — maintainability concern | High | Not Important |
 | [GEN-023](#gen-023) | Duplicated visitor logic between resolved and syntactic paths | High | Not Important |
-| [GEN-024](#gen-024) | Four config sources with complex precedence rules | Medium | Almost Irrelevant |
 
 ---
 
@@ -952,7 +947,15 @@ When a method has a type parameter with a recursive bound like `T extends Compar
 
 **Type parameter substitution uses fragile regex text replacement**
 
-**a) Problem:**
+**Status:** RESOLVED in v1.5.2
+
+**Resolution:** Replaced regex-based text replacement with structural type reconstruction for `FunctionType`. The fix uses `type.formalParameters` to iterate over all parameters, recursively substituting each parameter's type via the existing `_substituteTypeParameters()` method, then reconstructs the function signature string. This handles:
+- Required, optional positional, and named parameters
+- Required-named parameter marking
+- Nullable types in return and parameter positions
+- Nested function types (via recursion)
+
+**a) Problem (original):
 
 When substituting type parameters in function types (e.g., replacing `T` with `int` in `T Function(T)`), the generator uses two approaches:
 
@@ -1295,9 +1298,24 @@ This issue will remain open — it's an inherent limitation of depending on the 
 
 **Barrel-level name collisions silently break bridging**
 
-**Status: TODO**
+**Status:** RESOLVED in v1.5.2
 
-**a) Problem:**
+**Resolution:** Implemented explicit collision detection and warning for classes, enums, functions, and variables. When the generator detects duplicate names from different source files:
+1. Keeps the first occurrence and skips subsequent duplicates
+2. Emits a detailed warning identifying both source files
+3. Suggests using `excludeClasses`/`excludeEnums`/etc. or barrel `show`/`hide` clauses
+
+Example warning output:
+```
+⚠️  NAME COLLISION: Class "Animal" is defined in multiple source files:
+    1. package:dart_overview/mixins/basics/run_basics.dart (kept)
+    2. package:dart_overview/classes/inheritance/run_inheritance.dart (skipped)
+    Consider excluding one with excludeClasses, or using show/hide in barrel exports.
+```
+
+**Future enhancement:** Source-file-level import aliasing (per-source imports with unique prefixes) to bridge both colliding types rather than skipping one. This is not yet implemented.
+
+**a) Problem (original):
 
 When a barrel file exports two different classes with the same name from different source files, the Dart compiler raises a conflict error. This prevents the barrel from being used at all, and the types in conflict must be manually excluded.
 
@@ -1843,9 +1861,11 @@ Always log unmapped `dart:_*` libraries as warnings if the import-walk approach 
 
 **Complex external packages list is hardcoded**
 
-**Status:** DEFERRED (pending GEN-017)
+**Status:** RESOLVED in v1.5.2
 
-**Note:** This issue will be resolved as part of GEN-017 (Resolved-Type Import Propagation). The `_complexExternalPackages` list and `_checkExternalTypes()` method will be removed once resolved types can be auto-imported regardless of package origin.
+**Resolution:** GEN-017's Resolved-Type Import Propagation (`_globalTypeToUri` registry) makes the `_complexExternalPackages` list obsolete for type resolution purposes. Types from any external package are now auto-imported via the registry when the resolved analyzer provides their source URIs. The remaining `_checkExternalTypes()` method continues to warn about default values from complex external packages as a cosmetic advisory, but this does not affect correctness.
+
+**Note:** The `_complexExternalPackages` list and `_checkExternalTypes()` remain as a warning mechanism about types with complex default values but are no longer required for correct type resolution.
 
 **a) Problem:**
 
@@ -1995,7 +2015,35 @@ This is a defensive guard, not a practical concern for well-formed Dart code.
 
 **Four config sources with complex precedence rules**
 
-**a) Problem:**
+**Status:** RESOLVED in v1.5.2
+
+**Resolution:** Added `--dump-config` flag to the CLI that prints the effective merged configuration as JSON. This provides transparency into what configuration values are actually being used.
+
+Usage:
+```bash
+d4rtgen --dump-config
+```
+
+Example output:
+```json
+# xternal/tom_module_d4rt/tom_d4rt_dcli
+{
+  "name": "tom_d4rt_dcli",
+  "modules": [
+    {
+      "name": "dcli",
+      "barrelFiles": ["package:dcli/dcli.dart"],
+      "outputPath": "lib/src/bridges/dcli_bridges.b.dart",
+      ...
+    }
+  ],
+  ...
+}
+```
+
+**Future enhancement:** Source annotations for each value (`[cli]`, `[buildkit.yaml]`) are not yet implemented.
+
+**a) Problem (original):
 
 Configuration is loaded from four sources with the following precedence (highest first):
 
