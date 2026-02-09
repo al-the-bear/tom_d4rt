@@ -370,3 +370,18 @@ class SingletonPattern {
 
   String get message => 'I am the singleton';
 }
+
+/// GEN-042: Class with no explicit constructor.
+/// Dart provides an implicit default no-arg constructor.
+class ImplicitCtorClass {
+  String label = 'default';
+  int count = 0;
+
+  void increment() => count++;
+}
+
+/// GEN-042: Another class with only methods, no constructor.
+class CalculatorLike {
+  int add(int a, int b) => a + b;
+  int subtract(int a, int b) => a - b;
+}

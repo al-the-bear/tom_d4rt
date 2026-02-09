@@ -103,6 +103,27 @@ void main() {
       test('handles const constructors', () {
         expect(generatedCode, contains("name: 'ConstClass'"));
       });
+
+      test('GEN-042: generates constructor for implicit default constructor', () {
+        // ImplicitCtorClass has no explicit constructor declaration.
+        // The generator should detect the synthetic default constructor
+        // via ClassElement.unnamedConstructor.isSynthetic and emit a bridge.
+        expect(generatedCode, contains("name: 'ImplicitCtorClass'"));
+        // Verify the constructor map is not empty for this class
+        final implicitClassSection = _extractClassSection(generatedCode, 'ImplicitCtorClass');
+        expect(implicitClassSection, isNotNull, reason: 'ImplicitCtorClass should be in generated code');
+        expect(implicitClassSection, contains("'': (visitor, positional, named)"),
+            reason: 'Should have an unnamed constructor bridge');
+      });
+
+      test('GEN-042: generates constructor for methods-only class', () {
+        // CalculatorLike has only methods, no fields with initializers, no constructor.
+        expect(generatedCode, contains("name: 'CalculatorLike'"));
+        final calcSection = _extractClassSection(generatedCode, 'CalculatorLike');
+        expect(calcSection, isNotNull, reason: 'CalculatorLike should be in generated code');
+        expect(calcSection, contains("'': (visitor, positional, named)"),
+            reason: 'Should have an unnamed constructor bridge');
+      });
     });
 
     group('Getters and Setters', () {
@@ -400,3 +421,24 @@ void main() {
   });
 }
 
+/// Extracts the BridgedClass section for [className] from generated code.
+/// Returns the text from `BridgedClass(` up to the corresponding closing `)`,
+/// or null if not found.
+String? _extractClassSection(String code, String className) {
+  final marker = "name: '$className'";
+  final idx = code.indexOf(marker);
+  if (idx == -1) return null;
+  // Walk backwards to find 'BridgedClass('
+  final start = code.lastIndexOf('BridgedClass(', idx);
+  if (start == -1) return null;
+  // Walk forward from start, counting parens to find the matching close
+  var depth = 0;
+  for (var i = start; i < code.length; i++) {
+    if (code[i] == '(') depth++;
+    if (code[i] == ')') {
+      depth--;
+      if (depth == 0) return code.substring(start, i + 1);
+    }
+  }
+  return code.substring(start); // fallback
+}

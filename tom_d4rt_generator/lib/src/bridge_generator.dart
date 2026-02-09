@@ -7350,6 +7350,22 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       members.addAll(inheritedMembers);
     }
 
+    // GEN-042: Detect implicit default constructor via ClassElement.
+    // Dart provides a synthetic unnamed constructor when no explicit
+    // constructor is declared. The AST has no ConstructorDeclaration
+    // node for it, so we must check classElement.unnamedConstructor.
+    if (constructors.isEmpty &&
+        node.abstractKeyword == null &&
+        classElement != null) {
+      final unnamedCtor = classElement.unnamedConstructor;
+      if (unnamedCtor != null && unnamedCtor.isSynthetic) {
+        constructors.add(const ConstructorInfo(
+          name: null,
+          parameters: [],
+        ));
+      }
+    }
+
     // Parse generic type parameters and their bounds
     final typeParams = <String, String?>{};
     if (node.typeParameters != null) {
@@ -8290,6 +8306,16 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
         final fieldInfos = _parseField(member);
         members.addAll(fieldInfos);
       }
+    }
+
+    // GEN-042: For syntactic parsing, if no explicit constructors were found
+    // and the class is not abstract, assume an implicit default constructor.
+    // (Dart always provides one for non-abstract classes with no explicit ctors.)
+    if (constructors.isEmpty && node.abstractKeyword == null) {
+      constructors.add(const ConstructorInfo(
+        name: null,
+        parameters: [],
+      ));
     }
 
     // Parse generic type parameters and their bounds (syntactic only)

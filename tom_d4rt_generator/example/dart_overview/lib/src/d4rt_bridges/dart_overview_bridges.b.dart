@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-02-08T20:24:19.751489
+// Generated: 2026-02-09T01:49:41.624983
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -662,6 +662,9 @@ BridgedClass _createPersonBridge() {
     nativeType: $pkg.Person,
     name: 'Person',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.Person();
+      },
     },
     getters: {
       'name': (visitor, target) => D4.validateTarget<$pkg.Person>(target, 'Person').name,
@@ -679,6 +682,9 @@ BridgedClass _createPersonBridge() {
         t.greet();
         return null;
       },
+    },
+    constructorSignatures: {
+      '': 'Person()',
     },
     methodSignatures: {
       'greet': 'void greet()',
@@ -815,6 +821,9 @@ BridgedClass _createCalculatorBridge() {
     nativeType: $pkg.Calculator,
     name: 'Calculator',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.Calculator();
+      },
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
@@ -845,6 +854,9 @@ BridgedClass _createCalculatorBridge() {
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'divide');
         return t.divide(a, b);
       },
+    },
+    constructorSignatures: {
+      '': 'Calculator()',
     },
     methodSignatures: {
       'add': 'int add(int a, int b)',
@@ -1112,6 +1124,9 @@ BridgedClass _createStackBridge() {
     nativeType: $pkg.Stack,
     name: 'Stack',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.Stack();
+      },
     },
     getters: {
       'isEmpty': (visitor, target) => D4.validateTarget<$pkg.Stack>(target, 'Stack').isEmpty,
@@ -1138,6 +1153,9 @@ BridgedClass _createStackBridge() {
         return t.toString();
       },
     },
+    constructorSignatures: {
+      '': 'Stack()',
+    },
     methodSignatures: {
       'push': 'void push(T item)',
       'pop': 'T pop()',
@@ -1160,6 +1178,9 @@ BridgedClass _createQueueBridge() {
     nativeType: $pkg.Queue,
     name: 'Queue',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.Queue();
+      },
     },
     getters: {
       'front': (visitor, target) => D4.validateTarget<$pkg.Queue>(target, 'Queue').front,
@@ -1182,6 +1203,9 @@ BridgedClass _createQueueBridge() {
         final t = D4.validateTarget<$pkg.Queue>(target, 'Queue');
         return t.toString();
       },
+    },
+    constructorSignatures: {
+      '': 'Queue()',
     },
     methodSignatures: {
       'enqueue': 'void enqueue(T item)',
@@ -1332,12 +1356,18 @@ BridgedClass _createCarBridge() {
     nativeType: $pkg.Car,
     name: 'Car',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.Car();
+      },
     },
     methods: {
       'move': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Car>(target, 'Car');
         return t.move();
       },
+    },
+    constructorSignatures: {
+      '': 'Car()',
     },
     methodSignatures: {
       'move': 'String move()',
@@ -1354,12 +1384,18 @@ BridgedClass _createMotorcycleBridge() {
     nativeType: $pkg.Motorcycle,
     name: 'Motorcycle',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.Motorcycle();
+      },
     },
     methods: {
       'move': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Motorcycle>(target, 'Motorcycle');
         return t.move();
       },
+    },
+    constructorSignatures: {
+      '': 'Motorcycle()',
     },
     methodSignatures: {
       'move': 'String move()',
@@ -1450,12 +1486,18 @@ BridgedClass _createDataSourceBridge() {
     nativeType: $pkg.DataSource,
     name: 'DataSource',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.DataSource();
+      },
     },
     methods: {
       'fetch': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.DataSource>(target, 'DataSource');
         return t.fetch();
       },
+    },
+    constructorSignatures: {
+      '': 'DataSource()',
     },
     methodSignatures: {
       'fetch': 'String fetch()',
@@ -1472,12 +1514,18 @@ BridgedClass _createJsonDataSourceBridge() {
     nativeType: $pkg.JsonDataSource,
     name: 'JsonDataSource',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.JsonDataSource();
+      },
     },
     methods: {
       'fetch': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.JsonDataSource>(target, 'JsonDataSource');
         return t.fetch();
       },
+    },
+    constructorSignatures: {
+      '': 'JsonDataSource()',
     },
     methodSignatures: {
       'fetch': 'String fetch()',
@@ -1494,12 +1542,18 @@ BridgedClass _createXmlDataSourceBridge() {
     nativeType: $pkg.XmlDataSource,
     name: 'XmlDataSource',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.XmlDataSource();
+      },
     },
     methods: {
       'fetch': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.XmlDataSource>(target, 'XmlDataSource');
         return t.fetch();
       },
+    },
+    constructorSignatures: {
+      '': 'XmlDataSource()',
     },
     methodSignatures: {
       'fetch': 'String fetch()',
@@ -1555,6 +1609,12 @@ BridgedClass _createSealedShapeBridge() {
     nativeType: $pkg.SealedShape,
     name: 'SealedShape',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.SealedShape();
+      },
+    },
+    constructorSignatures: {
+      '': 'SealedShape()',
     },
   );
 }
@@ -1652,6 +1712,9 @@ BridgedClass _createLoggerMixinBridge() {
     nativeType: $pkg.LoggerMixin,
     name: 'LoggerMixin',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.LoggerMixin();
+      },
     },
     methods: {
       'log': (visitor, target, positional, named, typeArgs) {
@@ -1661,6 +1724,9 @@ BridgedClass _createLoggerMixinBridge() {
         t.log(message);
         return null;
       },
+    },
+    constructorSignatures: {
+      '': 'LoggerMixin()',
     },
     methodSignatures: {
       'log': 'void log(String message)',
@@ -1677,6 +1743,9 @@ BridgedClass _createLoggingServiceBridge() {
     nativeType: $pkg.LoggingService,
     name: 'LoggingService',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.LoggingService();
+      },
     },
     methods: {
       'performAction': (visitor, target, positional, named, typeArgs) {
@@ -1691,6 +1760,9 @@ BridgedClass _createLoggingServiceBridge() {
         t.log(message);
         return null;
       },
+    },
+    constructorSignatures: {
+      '': 'LoggingService()',
     },
     methodSignatures: {
       'performAction': 'void performAction()',
@@ -1731,6 +1803,9 @@ BridgedClass _createDerivedFromAbstractBaseBridge() {
     nativeType: $pkg.DerivedFromAbstractBase,
     name: 'DerivedFromAbstractBase',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.DerivedFromAbstractBase();
+      },
     },
     methods: {
       'doSomething': (visitor, target, positional, named, typeArgs) {
@@ -1738,6 +1813,9 @@ BridgedClass _createDerivedFromAbstractBaseBridge() {
         t.doSomething();
         return null;
       },
+    },
+    constructorSignatures: {
+      '': 'DerivedFromAbstractBase()',
     },
     methodSignatures: {
       'doSomething': 'void doSomething()',
@@ -1778,6 +1856,9 @@ BridgedClass _createRestApiClientBridge() {
     nativeType: $pkg.RestApiClient,
     name: 'RestApiClient',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.RestApiClient();
+      },
     },
     methods: {
       'request': (visitor, target, positional, named, typeArgs) {
@@ -1786,6 +1867,9 @@ BridgedClass _createRestApiClientBridge() {
         final endpoint = D4.getRequiredArg<String>(positional, 0, 'endpoint', 'request');
         return t.request(endpoint);
       },
+    },
+    constructorSignatures: {
+      '': 'RestApiClient()',
     },
     methodSignatures: {
       'request': 'String request(String endpoint)',
@@ -1802,6 +1886,9 @@ BridgedClass _createGraphqlApiClientBridge() {
     nativeType: $pkg.GraphqlApiClient,
     name: 'GraphqlApiClient',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.GraphqlApiClient();
+      },
     },
     methods: {
       'request': (visitor, target, positional, named, typeArgs) {
@@ -1810,6 +1897,9 @@ BridgedClass _createGraphqlApiClientBridge() {
         final endpoint = D4.getRequiredArg<String>(positional, 0, 'endpoint', 'request');
         return t.request(endpoint);
       },
+    },
+    constructorSignatures: {
+      '': 'GraphqlApiClient()',
     },
     methodSignatures: {
       'request': 'String request(String endpoint)',
@@ -1870,6 +1960,9 @@ BridgedClass _createSimplePointBridge() {
     nativeType: $pkg.SimplePoint,
     name: 'SimplePoint',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.SimplePoint();
+      },
     },
     getters: {
       'x': (visitor, target) => D4.validateTarget<$pkg.SimplePoint>(target, 'SimplePoint').x,
@@ -1880,6 +1973,9 @@ BridgedClass _createSimplePointBridge() {
         D4.validateTarget<$pkg.SimplePoint>(target, 'SimplePoint').x = value as int,
       'y': (visitor, target, value) => 
         D4.validateTarget<$pkg.SimplePoint>(target, 'SimplePoint').y = value as int,
+    },
+    constructorSignatures: {
+      '': 'SimplePoint()',
     },
     getterSignatures: {
       'x': 'int get x',
@@ -2406,6 +2502,9 @@ BridgedClass _createEmailNotificationServiceBridge() {
     nativeType: $pkg.EmailNotificationService,
     name: 'EmailNotificationService',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.EmailNotificationService();
+      },
     },
     methods: {
       'send': (visitor, target, positional, named, typeArgs) {
@@ -2415,6 +2514,9 @@ BridgedClass _createEmailNotificationServiceBridge() {
         t.send(message);
         return null;
       },
+    },
+    constructorSignatures: {
+      '': 'EmailNotificationService()',
     },
     methodSignatures: {
       'send': 'void send(String message)',
@@ -2431,6 +2533,9 @@ BridgedClass _createSmsNotificationServiceBridge() {
     nativeType: $pkg.SmsNotificationService,
     name: 'SmsNotificationService',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.SmsNotificationService();
+      },
     },
     methods: {
       'send': (visitor, target, positional, named, typeArgs) {
@@ -2440,6 +2545,9 @@ BridgedClass _createSmsNotificationServiceBridge() {
         t.send(message);
         return null;
       },
+    },
+    constructorSignatures: {
+      '': 'SmsNotificationService()',
     },
     methodSignatures: {
       'send': 'void send(String message)',
@@ -2533,6 +2641,9 @@ BridgedClass _createSmartThermostatBridge() {
     nativeType: $pkg.SmartThermostat,
     name: 'SmartThermostat',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.SmartThermostat();
+      },
     },
     methods: {
       'turnOn': (visitor, target, positional, named, typeArgs) {
@@ -2557,6 +2668,9 @@ BridgedClass _createSmartThermostatBridge() {
         t.connect();
         return null;
       },
+    },
+    constructorSignatures: {
+      '': 'SmartThermostat()',
     },
     methodSignatures: {
       'turnOn': 'void turnOn()',
@@ -2622,6 +2736,9 @@ BridgedClass _createRobotBridge() {
     nativeType: $pkg.Robot,
     name: 'Robot',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.Robot();
+      },
     },
     methods: {
       'move': (visitor, target, positional, named, typeArgs) {
@@ -2629,6 +2746,9 @@ BridgedClass _createRobotBridge() {
         t.move();
         return null;
       },
+    },
+    constructorSignatures: {
+      '': 'Robot()',
     },
     methodSignatures: {
       'move': 'void move()',
@@ -2645,6 +2765,9 @@ BridgedClass _createAdvancedRobotBridge() {
     nativeType: $pkg.AdvancedRobot,
     name: 'AdvancedRobot',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.AdvancedRobot();
+      },
     },
     methods: {
       'move': (visitor, target, positional, named, typeArgs) {
@@ -2662,6 +2785,9 @@ BridgedClass _createAdvancedRobotBridge() {
         t.connect();
         return null;
       },
+    },
+    constructorSignatures: {
+      '': 'AdvancedRobot()',
     },
     methodSignatures: {
       'move': 'void move()',
@@ -2754,6 +2880,9 @@ BridgedClass _createFlexibleObjectBridge() {
     nativeType: $pkg.FlexibleObject,
     name: 'FlexibleObject',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.FlexibleObject();
+      },
     },
     methods: {
       'noSuchMethod': (visitor, target, positional, named, typeArgs) {
@@ -2762,6 +2891,9 @@ BridgedClass _createFlexibleObjectBridge() {
         final invocation = D4.getRequiredArg<dynamic>(positional, 0, 'invocation', 'noSuchMethod');
         return t.noSuchMethod(invocation);
       },
+    },
+    constructorSignatures: {
+      '': 'FlexibleObject()',
     },
     methodSignatures: {
       'noSuchMethod': 'dynamic noSuchMethod(Invocation invocation)',
@@ -3120,6 +3252,9 @@ BridgedClass _createPrintableBridge() {
     nativeType: $pkg.Printable,
     name: 'Printable',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.Printable();
+      },
     },
     methods: {
       'printInfo': (visitor, target, positional, named, typeArgs) {
@@ -3127,6 +3262,9 @@ BridgedClass _createPrintableBridge() {
         t.printInfo();
         return null;
       },
+    },
+    constructorSignatures: {
+      '': 'Printable()',
     },
     methodSignatures: {
       'printInfo': 'void printInfo()',
@@ -3418,6 +3556,9 @@ BridgedClass _createCountableItemBridge() {
     nativeType: $pkg.CountableItem,
     name: 'CountableItem',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.CountableItem();
+      },
     },
     getters: {
       'count': (visitor, target) => D4.validateTarget<$pkg.CountableItem>(target, 'CountableItem').count,
@@ -3439,6 +3580,9 @@ BridgedClass _createCountableItemBridge() {
         return null;
       },
     },
+    constructorSignatures: {
+      '': 'CountableItem()',
+    },
     methodSignatures: {
       'increment': 'void increment()',
       'decrement': 'void decrement()',
@@ -3459,6 +3603,9 @@ BridgedClass _createConsoleLoggerBridge() {
     nativeType: $pkg.ConsoleLogger,
     name: 'ConsoleLogger',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.ConsoleLogger();
+      },
     },
     methods: {
       'log': (visitor, target, positional, named, typeArgs) {
@@ -3491,6 +3638,9 @@ BridgedClass _createConsoleLoggerBridge() {
         return null;
       },
     },
+    constructorSignatures: {
+      '': 'ConsoleLogger()',
+    },
     methodSignatures: {
       'log': 'void log(String level, String message)',
       'info': 'void info(String message)',
@@ -3509,6 +3659,9 @@ BridgedClass _createMultiMixedBridge() {
     nativeType: $pkg.MultiMixed,
     name: 'MultiMixed',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.MultiMixed();
+      },
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
@@ -3516,6 +3669,9 @@ BridgedClass _createMultiMixedBridge() {
         t.greet();
         return null;
       },
+    },
+    constructorSignatures: {
+      '': 'MultiMixed()',
     },
     methodSignatures: {
       'greet': 'void greet()',
@@ -3532,6 +3688,9 @@ BridgedClass _createHelperBridge() {
     nativeType: $pkg.Helper,
     name: 'Helper',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.Helper();
+      },
     },
     methods: {
       'help': (visitor, target, positional, named, typeArgs) {
@@ -3539,6 +3698,9 @@ BridgedClass _createHelperBridge() {
         t.help();
         return null;
       },
+    },
+    constructorSignatures: {
+      '': 'Helper()',
     },
     methodSignatures: {
       'help': 'void help()',
@@ -3555,6 +3717,9 @@ BridgedClass _createHelpfulServiceBridge() {
     nativeType: $pkg.HelpfulService,
     name: 'HelpfulService',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.HelpfulService();
+      },
     },
     methods: {
       'serve': (visitor, target, positional, named, typeArgs) {
@@ -3567,6 +3732,9 @@ BridgedClass _createHelpfulServiceBridge() {
         t.help();
         return null;
       },
+    },
+    constructorSignatures: {
+      '': 'HelpfulService()',
     },
     methodSignatures: {
       'serve': 'void serve()',
