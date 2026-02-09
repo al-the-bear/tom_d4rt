@@ -43,7 +43,7 @@ class GenerationResult {
 
 /// Generate D4rt bridges for a project.
 ///
-/// Generates bridges from a [BridgeConfig] or from a tom_build.yaml file path.
+/// Generates bridges from a [BridgeConfig] or from a buildkit.yaml file path.
 ///
 /// Either [config] or [configPath] must be provided.
 ///
@@ -62,7 +62,7 @@ class GenerationResult {
 /// Example using config file:
 /// ```dart
 /// final result = await generateBridges(
-///   configPath: '/path/to/project/tom_build.yaml',
+///   configPath: '/path/to/project/buildkit.yaml',
 /// );
 /// ```
 Future<GenerationResult> generateBridges({

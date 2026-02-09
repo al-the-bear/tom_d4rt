@@ -6,7 +6,7 @@
 /// ## Configuration Sources (in order of precedence)
 ///
 /// 1. Command-line arguments
-/// 2. `tom_build.yaml` (d4rtgen: section) in project directory
+/// 2. `buildkit.yaml` (d4rtgen: section) in project directory
 ///
 /// ## Usage
 ///
@@ -36,7 +36,7 @@ import 'package:tom_d4rt_generator/src/version.g.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 import 'package:yaml/yaml.dart';
 
-/// The tool key for d4rtgen in tom_build.yaml
+/// The tool key for d4rtgen in buildkit.yaml
 const _toolKey = 'd4rtgen';
 
 /// Validates path containment using tom_build_base's validatePathContainment.
@@ -66,7 +66,7 @@ Future<void> main(List<String> arguments) async {
         help: 'Project(s) to process (comma-separated, globs: tom_*_builder, ./*)')
     ..addOption('config',
         abbr: 'c',
-        help: 'Path to specific tom_build.yaml file')
+        help: 'Path to specific buildkit.yaml file')
     ..addOption('scan',
         abbr: 's',
         help: 'Scan directory for all D4rt projects')
@@ -89,7 +89,7 @@ Future<void> main(List<String> arguments) async {
         negatable: false,
         help: 'List projects that would be processed (no action)')
     ..addFlag('show',
-        help: 'With --list, show tom_build.yaml d4rtgen configuration for each project',
+        help: 'With --list, show buildkit.yaml d4rtgen configuration for each project',
         negatable: false)
     ..addFlag('help',
         abbr: 'h',
@@ -122,7 +122,7 @@ Future<void> main(List<String> arguments) async {
   // Build config from CLI args (using TomBuildConfig from tom_build_base)
   final cliConfig = TomBuildConfig(
     project: args['project'] as String?,
-    projects: const [], // --projects not exposed as CLI arg; only via tom_build.yaml
+    projects: const [], // --projects not exposed as CLI arg; only via buildkit.yaml
     config: args['config'] as String?,
     scan: args['scan'] as String?,
     recursive: args['recursive'] as bool,
@@ -134,13 +134,13 @@ Future<void> main(List<String> arguments) async {
   // Check if any meaningful option was provided
   TomBuildConfig config;
   if (!cliConfig.hasProjectOptions) {
-    // Try loading from tom_build.yaml in current directory
+    // Try loading from buildkit.yaml in current directory
     final yamlConfig = TomBuildConfig.load(
       dir: Directory.current.path,
       toolKey: _toolKey,
     );
     if (yamlConfig != null) {
-      print('Using configuration from tom_build.yaml (d4rtgen: section)');
+      print('Using configuration from buildkit.yaml (d4rtgen: section)');
       // Merge CLI flags (like --verbose) with yaml config
       config = yamlConfig.merge(cliConfig);
     } else {
@@ -261,7 +261,7 @@ Future<ProcessingResult> _runWithConfig(TomBuildConfig config, {required String 
   final verbose = config.verbose;
 
   if (config.config != null) {
-    // Explicit config file specified (tom_build.yaml)
+    // Explicit config file specified (buildkit.yaml)
     final configPath = config.config!;
     if (!File(configPath).existsSync()) {
       stderr.writeln('Error: Configuration file not found: $configPath');
@@ -317,23 +317,23 @@ Future<ProcessingResult> _runWithConfig(TomBuildConfig config, {required String 
     }
 
     for (final projectPath in projects) {
-      // Check for project-local tom_build.yaml (takes precedence)
+      // Check for project-local buildkit.yaml (takes precedence)
       final projectConfig = TomBuildConfig.load(
         dir: projectPath,
         toolKey: _toolKey,
       );
       if (projectConfig != null) {
         if (verbose) {
-          print('Found tom_build.yaml in $projectPath');
+          print('Found buildkit.yaml in $projectPath');
         }
         // Validate project config paths are contained within project
         final projectValidationError = _validatePathContainment(projectConfig, projectPath);
         if (projectValidationError != null) {
-          stderr.writeln('Error in $projectPath/tom_build.yaml: $projectValidationError');
+          stderr.writeln('Error in $projectPath/buildkit.yaml: $projectValidationError');
           result.addFailure();
           continue;
         }
-        // Process project directly using its tom_build.yaml configuration.
+        // Process project directly using its buildkit.yaml configuration.
         // Note: We call _processProjectDirect instead of _runWithConfig because
         // the project-level config only contains toolOptions (e.g., modules,
         // excludeClasses), not navigation fields. Calling _runWithConfig would
@@ -382,23 +382,23 @@ Future<ProcessingResult> _processProjectWithRecursion(
   final result = ProcessingResult();
   final normalizedPath = p.normalize(p.absolute(projectPath));
 
-  // Check if this project has its own tom_build.yaml
+  // Check if this project has its own buildkit.yaml
   final projectConfig = TomBuildConfig.load(
     dir: normalizedPath,
     toolKey: _toolKey,
   );
   if (projectConfig != null) {
     if (verbose) {
-      print('Found tom_build.yaml in $normalizedPath');
+      print('Found buildkit.yaml in $normalizedPath');
     }
     // Validate project config paths are contained within project
     final validationError = _validatePathContainment(projectConfig, normalizedPath);
     if (validationError != null) {
-      stderr.writeln('Error in $normalizedPath/tom_build.yaml: $validationError');
+      stderr.writeln('Error in $normalizedPath/buildkit.yaml: $validationError');
       result.addFailure();
       return result;
     }
-    // Process project directly using its tom_build.yaml configuration.
+    // Process project directly using its buildkit.yaml configuration.
     // Note: We call _processProjectDirect instead of _runWithConfig to avoid
     // infinite recursion. The project-level config contains toolOptions (modules,
     // excludeClasses, etc.) which _processProjectDirect reads via
@@ -435,7 +435,7 @@ Future<ProcessingResult> _processProjectWithRecursion(
     );
 
     for (final subproject in subprojects) {
-      // Each subproject might have its own tom_build.yaml
+      // Each subproject might have its own buildkit.yaml
       final subResult = await _processProjectWithRecursion(
         subproject,
         recursive: true, // Continue recursion
@@ -484,12 +484,12 @@ Future<List<String>> _findSubprojects(
 }
 
 /// Check if a directory is a D4rt project.
-/// A D4rt project has pubspec.yaml AND tom_build.yaml with a d4rtgen: section.
+/// A D4rt project has pubspec.yaml AND buildkit.yaml with a d4rtgen: section.
 bool _isD4rtProject(String dirPath) {
   final pubspecFile = File(p.join(dirPath, 'pubspec.yaml'));
   if (!pubspecFile.existsSync()) return false;
 
-  // Check for tom_build.yaml with d4rtgen: section
+  // Check for buildkit.yaml with d4rtgen: section
   return hasTomBuildConfig(dirPath, _toolKey);
 }
 
@@ -514,18 +514,18 @@ Future<void> _processProjectDirect(String projectPath, {required bool verbose}) 
     print('Processing project: $projectPath');
   }
 
-  // Load from tom_build.yaml d4rtgen: section
+  // Load from buildkit.yaml d4rtgen: section
   final config = BuildConfigLoader.loadFromTomBuildYaml(projectPath);
 
   if (config != null) {
     if (verbose) {
-      print('  Using configuration from tom_build.yaml');
+      print('  Using configuration from buildkit.yaml');
     }
     await _generateBridges(config, projectPath, verbose: verbose);
     return;
   }
 
-  throw Exception('No d4rtgen configuration found in $projectPath/tom_build.yaml');
+  throw Exception('No d4rtgen configuration found in $projectPath/buildkit.yaml');
 }
 
 /// Generate bridges from a BridgeConfig object.
@@ -626,7 +626,7 @@ Future<void> _generateBridges(
   }
 }
 
-/// Process a single configuration file (tom_build.yaml).
+/// Process a single configuration file (buildkit.yaml).
 Future<void> _processConfigFile(String configPath, {required bool verbose}) async {
   if (verbose) {
     print('Processing: $configPath');
@@ -692,27 +692,27 @@ Future<void> _generateTestRunnerFile(
   );
 }
 
-/// Print the tom_build.yaml d4rtgen section for a project (--show option).
+/// Print the buildkit.yaml d4rtgen section for a project (--show option).
 void _printBuildYamlSection(String projectPath, String workspaceRoot) {
-  final tomBuildYamlPath = p.join(projectPath, 'tom_build.yaml');
-  final tomBuildYamlFile = File(tomBuildYamlPath);
+  final buildkitYamlPath = p.join(projectPath, TomBuildConfig.projectFilename);
+  final buildkitYamlFile = File(buildkitYamlPath);
   
-  if (!tomBuildYamlFile.existsSync()) {
-    print('    (no tom_build.yaml)');
+  if (!buildkitYamlFile.existsSync()) {
+    print('    (no buildkit.yaml)');
     return;
   }
   
   try {
-    final content = tomBuildYamlFile.readAsStringSync();
+    final content = buildkitYamlFile.readAsStringSync();
     final rootYaml = loadYaml(content) as YamlMap?;
     if (rootYaml == null) {
-      print('    (empty tom_build.yaml)');
+      print('    (empty buildkit.yaml)');
       return;
     }
     
     final d4rtgenSection = rootYaml['d4rtgen'] as YamlMap?;
     if (d4rtgenSection == null) {
-      print('    (no d4rtgen section in tom_build.yaml)');
+      print('    (no d4rtgen section in buildkit.yaml)');
       return;
     }
     
@@ -720,7 +720,7 @@ void _printBuildYamlSection(String projectPath, String workspaceRoot) {
     print('    d4rtgen:');
     _printYamlNode(d4rtgenSection, indent: 6);
   } catch (e) {
-    print('    (error reading tom_build.yaml: $e)');
+    print('    (error reading buildkit.yaml: $e)');
   }
 }
 
@@ -779,7 +779,7 @@ void _printYamlNode(dynamic node, {int indent = 0}) {
 void _printUsage(ArgParser parser) {
   print('D4rt Bridge Generator (d4rtgen)');
   print('');
-  print('Generates D4rt bridges from tom_build.yaml configuration.');
+  print('Generates D4rt bridges from buildkit.yaml configuration.');
   print('');
   print('Usage:');
   print('  d4rtgen [options]');
@@ -788,11 +788,11 @@ void _printUsage(ArgParser parser) {
   print('Options:');
   print(parser.usage);
   print('');
-  print('Configuration File (tom_build.yaml):');
-  print('  Each project must have a tom_build.yaml file with a d4rtgen: section.');
+  print('Configuration File (buildkit.yaml):');
+  print('  Each project must have a buildkit.yaml file with a d4rtgen: section.');
   print('  When recursing into subprojects, the tool uses each project\'s config.');
   print('');
-  print('    # tom_build.yaml');
+  print('    # buildkit.yaml');
   print('    d4rtgen:');
   print('      name: my_project');
   print('      helpersImport: package:tom_d4rt/tom_d4rt.dart');
@@ -807,13 +807,13 @@ void _printUsage(ArgParser parser) {
   print('Project Detection:');
   print('  A D4rt project is a directory with:');
   print('    - pubspec.yaml, AND');
-  print('    - tom_build.yaml with a d4rtgen: section');
+  print('    - buildkit.yaml with a d4rtgen: section');
   print('');
   print('Recursion Behavior:');
   print('  With --recursive, the tool:');
   print('  1. Processes the specified project(s)');
   print('  2. Finds subprojects in subdirectories');
-  print('  3. For each subproject with tom_build.yaml, uses that config');
+  print('  3. For each subproject with buildkit.yaml, uses that config');
   print('  4. Otherwise, processes directly');
   print('');
   print('Examples:');

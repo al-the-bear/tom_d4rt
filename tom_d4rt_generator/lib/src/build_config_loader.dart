@@ -5,7 +5,7 @@
 /// Build configuration loader for D4rt bridge generator.
 ///
 /// Provides utilities for loading D4rt bridge configuration from
-/// tom_build.yaml files (d4rtgen: section).
+/// buildkit.yaml files (d4rtgen: section).
 library;
 
 import 'dart:io';
@@ -16,24 +16,24 @@ import 'package:yaml/yaml.dart';
 
 import 'bridge_config.dart';
 
-/// Loads D4rt bridge configuration from a tom_build.yaml file.
+/// Loads D4rt bridge configuration from a buildkit.yaml file.
 ///
-/// Reads the `d4rtgen:` section from the project's tom_build.yaml,
+/// Reads the `d4rtgen:` section from the project's buildkit.yaml,
 /// which contains the bridge configuration (modules, paths, etc.).
 class BuildConfigLoader {
-  /// Loads bridge configuration from a tom_build.yaml file.
+  /// Loads bridge configuration from a buildkit.yaml file.
   ///
-  /// The [projectPath] is the directory containing tom_build.yaml.
-  /// Returns null if tom_build.yaml doesn't exist or has no d4rtgen section.
+  /// The [projectPath] is the directory containing buildkit.yaml.
+  /// Returns null if buildkit.yaml doesn't exist or has no d4rtgen section.
   static BridgeConfig? loadFromTomBuildYaml(String projectPath) {
-    final tomBuildYamlPath = p.join(projectPath, 'tom_build.yaml');
-    final tomBuildYamlFile = File(tomBuildYamlPath);
+    final buildkitYamlPath = p.join(projectPath, TomBuildConfig.projectFilename);
+    final buildkitYamlFile = File(buildkitYamlPath);
 
-    if (!tomBuildYamlFile.existsSync()) {
+    if (!buildkitYamlFile.existsSync()) {
       return null;
     }
 
-    final content = tomBuildYamlFile.readAsStringSync();
+    final content = buildkitYamlFile.readAsStringSync();
     final yaml = loadYaml(content) as YamlMap?;
 
     if (yaml == null) return null;
