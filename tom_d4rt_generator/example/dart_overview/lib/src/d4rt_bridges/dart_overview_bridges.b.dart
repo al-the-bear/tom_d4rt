@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-02-09T13:30:17.077904
+// Generated: 2026-02-09T18:26:21.515710
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -89,6 +89,7 @@ class AllBridge {
       _createMultiplierBridge(),
       _createPrintableBridge(),
       _createSerializableBridge(),
+      _createSerializablePrintableBridge(),
       _createTrackableBridge(),
       _createTrackedItemBridge(),
       _createDataProcessorBridge(),
@@ -194,6 +195,7 @@ class AllBridge {
       'Multiplier': 'package:dart_overview/classes/test_support/run_test_support.dart',
       'Printable': 'package:dart_overview/classes/test_support/run_test_support.dart',
       'Serializable': 'package:dart_overview/classes/test_support/run_test_support.dart',
+      'SerializablePrintable': 'package:dart_overview/classes/test_support/run_test_support.dart',
       'Trackable': 'package:dart_overview/classes/test_support/run_test_support.dart',
       'TrackedItem': 'package:dart_overview/classes/test_support/run_test_support.dart',
       'DataProcessor': 'package:dart_overview/classes/test_support/run_test_support.dart',
@@ -2940,6 +2942,12 @@ BridgedClass _createCounterBridge() {
       'instanceCount': (visitor) => $pkg.Counter.instanceCount,
       'label': (visitor) => $pkg.Counter.label,
     },
+    staticSetters: {
+      'instanceCount': (visitor, value) => 
+        $pkg.Counter.instanceCount = value as int,
+      'label': (visitor, value) => 
+        $pkg.Counter.label = value as dynamic,
+    },
     constructorSignatures: {
       '': 'Counter()',
     },
@@ -3215,7 +3223,7 @@ BridgedClass _createNullableFieldsBridge() {
       'age': (visitor, target, value) => 
         D4.validateTarget<$pkg.NullableFields>(target, 'NullableFields').age = value as int?,
       'tags': (visitor, target, value) => 
-        D4.validateTarget<$pkg.NullableFields>(target, 'NullableFields').tags = value as List<String>,
+        D4.validateTarget<$pkg.NullableFields>(target, 'NullableFields').tags = value == null ? null : (value as List).cast<String>().toList(),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -3372,6 +3380,40 @@ BridgedClass _createSerializableBridge() {
       },
     },
     methodSignatures: {
+      'serialize': 'String serialize()',
+    },
+  );
+}
+
+// =============================================================================
+// SerializablePrintable Bridge
+// =============================================================================
+
+BridgedClass _createSerializablePrintableBridge() {
+  return BridgedClass(
+    nativeType: $pkg.SerializablePrintable,
+    name: 'SerializablePrintable',
+    constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.SerializablePrintable();
+      },
+    },
+    methods: {
+      'printInfo': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.SerializablePrintable>(target, 'SerializablePrintable');
+        t.printInfo();
+        return null;
+      },
+      'serialize': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.SerializablePrintable>(target, 'SerializablePrintable');
+        return t.serialize();
+      },
+    },
+    constructorSignatures: {
+      '': 'SerializablePrintable()',
+    },
+    methodSignatures: {
+      'printInfo': 'void printInfo()',
       'serialize': 'String serialize()',
     },
   );

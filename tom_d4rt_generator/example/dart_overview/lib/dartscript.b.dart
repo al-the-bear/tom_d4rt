@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for dart_overview
-// Generated: 2026-02-09T13:30:17.141177
+// Generated: 2026-02-09T18:26:21.572489
 
 /// D4rt Bridge Registration for dart_overview
 library;

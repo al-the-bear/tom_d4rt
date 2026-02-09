@@ -139,11 +139,78 @@ class D4 {
   ///
   /// Handles both wrapped (BridgedInstance) and unwrapped (native) objects.
   /// Throws ArgumentError if the type doesn't match.
+  ///
+  /// INTER-003: Supports int→double promotion
+  /// INTER-004: Supports collection type casting (List, Set, Map)
   static T extractBridgedArg<T>(Object? arg, String paramName) {
-    if (arg is BridgedInstance && arg.nativeObject is T) {
-      return arg.nativeObject as T;
-    } else if (arg is T) {
-      return arg;
+    // Unwrap BridgedInstance if needed
+    final unwrapped = arg is BridgedInstance ? arg.nativeObject : arg;
+
+    if (unwrapped is T) {
+      return unwrapped;
+    }
+
+    // INTER-003: int→double promotion
+    if (T == double && unwrapped is int) {
+      return unwrapped.toDouble() as T;
+    }
+
+    // INTER-004: Collection type casting
+    // List<Object?> → List<T>
+    if (unwrapped is List && T.toString().startsWith('List<')) {
+      try {
+        // Extract element type from T string (e.g., "List<int>" → "int")
+        final elementType = T.toString().substring(5, T.toString().length - 1);
+        if (elementType == 'int') {
+          return (unwrapped.cast<int>().toList()) as T;
+        } else if (elementType == 'double') {
+          return (unwrapped.map((e) => e is int ? e.toDouble() : e).cast<double>().toList()) as T;
+        } else if (elementType == 'String') {
+          return (unwrapped.cast<String>().toList()) as T;
+        } else if (elementType == 'num') {
+          return (unwrapped.cast<num>().toList()) as T;
+        } else if (elementType == 'bool') {
+          return (unwrapped.cast<bool>().toList()) as T;
+        } else if (elementType == 'Object' || elementType == 'dynamic') {
+          return (unwrapped.cast<Object>().toList()) as T;
+        }
+        // For other types, try direct casting
+        return unwrapped as T;
+      } catch (_) {
+        // Fall through to error
+      }
+    }
+
+    // Set<Object?> → Set<T>
+    if (unwrapped is Set && T.toString().startsWith('Set<')) {
+      try {
+        final elementType = T.toString().substring(4, T.toString().length - 1);
+        if (elementType == 'int') {
+          return (unwrapped.cast<int>().toSet()) as T;
+        } else if (elementType == 'double') {
+          return (unwrapped.map((e) => e is int ? e.toDouble() : e).cast<double>().toSet()) as T;
+        } else if (elementType == 'String') {
+          return (unwrapped.cast<String>().toSet()) as T;
+        } else if (elementType == 'num') {
+          return (unwrapped.cast<num>().toSet()) as T;
+        } else if (elementType == 'bool') {
+          return (unwrapped.cast<bool>().toSet()) as T;
+        } else if (elementType == 'Object' || elementType == 'dynamic') {
+          return (unwrapped.cast<Object>().toSet()) as T;
+        }
+        return unwrapped as T;
+      } catch (_) {
+        // Fall through to error
+      }
+    }
+
+    // Map casting support
+    if (unwrapped is Map && T.toString().startsWith('Map<')) {
+      try {
+        return unwrapped as T;
+      } catch (_) {
+        // Fall through to error
+      }
     }
 
     final actualType =

@@ -3060,6 +3060,33 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "'${bridgedClass.name}' is not callable (no default constructor bridge found).");
       }
     } else {
+      // INTER-001 FIX: Check for BridgedInstance with call() method
+      final bridgedResult = toBridgedInstance(calleeValue);
+      if (bridgedResult.$2) {
+        final bridgedInstance = bridgedResult.$1!;
+        final callMethodAdapter =
+            bridgedInstance.bridgedClass.findInstanceMethodAdapter('call');
+        if (callMethodAdapter != null) {
+          Logger.debug(
+              "[MethodInvoke] Found 'call' method on BridgedInstance (${bridgedInstance.bridgedClass.name}). Invoking...");
+          final (positionalArgs, namedArgs) =
+              _evaluateArguments(node.argumentList);
+          List<RuntimeType>? evaluatedTypeArguments;
+          final typeArgsNode = node.typeArguments;
+          if (typeArgsNode != null) {
+            evaluatedTypeArguments = typeArgsNode.arguments
+                .map((typeNode) => _resolveTypeAnnotation(typeNode))
+                .toList();
+          }
+          try {
+            return callMethodAdapter(this, bridgedInstance.nativeObject,
+                positionalArgs, namedArgs, evaluatedTypeArguments);
+          } on ReturnException catch (e) {
+            return e.value;
+          }
+        }
+      }
+
       // Callee is NOT a standard Callable or a BridgedClass constructor
       // Try Extension 'call' Method
       const methodName = 'call';
@@ -8147,8 +8174,28 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       } on ReturnException catch (e) {
         return e.value;
       }
-    } else {
-      // Try Extension 'call' Method
+    }
+
+    // INTER-001 FIX: Check if it's a BridgedInstance with a call() method
+    final bridgedResult = toBridgedInstance(calleeValue);
+    if (bridgedResult.$2) {
+      final bridgedInstance = bridgedResult.$1!;
+      final callMethodAdapter =
+          bridgedInstance.bridgedClass.findInstanceMethodAdapter('call');
+      if (callMethodAdapter != null) {
+        Logger.debug(
+            "[FuncExprInvoke] Found 'call' method on BridgedInstance (${bridgedInstance.bridgedClass.name}). Invoking...");
+        try {
+          return callMethodAdapter(this, bridgedInstance.nativeObject,
+              positionalArgs, namedArgs, evaluatedTypeArguments);
+        } on ReturnException catch (e) {
+          return e.value;
+        }
+      }
+    }
+
+    // Try Extension 'call' Method
+    {
       const methodName = 'call';
       try {
         final extensionMethod =

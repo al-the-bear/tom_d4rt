@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-02-09T11:03:55.001659
+// Generated: 2026-02-09T17:53:14.222803
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -325,7 +325,13 @@ class AllBridge {
         if (firstElem is DateTime) {
           return $pkg.sortItems<DateTime>((positional[0] as List).cast<DateTime>());
         }
-        throw ArgumentError('sortItems: Unsupported type for recursive bound. Supported types: num, String, DateTime. Got: ${sample.runtimeType}');
+        if (firstElem is Duration) {
+          return $pkg.sortItems<Duration>((positional[0] as List).cast<Duration>());
+        }
+        if (firstElem is BigInt) {
+          return $pkg.sortItems<BigInt>((positional[0] as List).cast<BigInt>());
+        }
+        throw ArgumentError('sortItems: Unsupported type for recursive bound. Supported types: num, String, DateTime, Duration, BigInt. Got: ${sample.runtimeType}');
       },
       'minValue': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'minValue');
@@ -339,7 +345,13 @@ class AllBridge {
         if (sample is DateTime) {
           return $pkg.minValue<DateTime>(positional[0] as DateTime, positional[1] as DateTime);
         }
-        throw ArgumentError('minValue: Unsupported type for recursive bound. Supported types: num, String, DateTime. Got: ${sample.runtimeType}');
+        if (sample is Duration) {
+          return $pkg.minValue<Duration>(positional[0] as Duration, positional[1] as Duration);
+        }
+        if (sample is BigInt) {
+          return $pkg.minValue<BigInt>(positional[0] as BigInt, positional[1] as BigInt);
+        }
+        throw ArgumentError('minValue: Unsupported type for recursive bound. Supported types: num, String, DateTime, Duration, BigInt. Got: ${sample.runtimeType}');
       },
       'maxValue': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'maxValue');
@@ -353,7 +365,13 @@ class AllBridge {
         if (sample is DateTime) {
           return $pkg.maxValue<DateTime>(positional[0] as DateTime, positional[1] as DateTime);
         }
-        throw ArgumentError('maxValue: Unsupported type for recursive bound. Supported types: num, String, DateTime. Got: ${sample.runtimeType}');
+        if (sample is Duration) {
+          return $pkg.maxValue<Duration>(positional[0] as Duration, positional[1] as Duration);
+        }
+        if (sample is BigInt) {
+          return $pkg.maxValue<BigInt>(positional[0] as BigInt, positional[1] as BigInt);
+        }
+        throw ArgumentError('maxValue: Unsupported type for recursive bound. Supported types: num, String, DateTime, Duration, BigInt. Got: ${sample.runtimeType}');
       },
       'delayedGreeting': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'delayedGreeting');
@@ -544,6 +562,10 @@ BridgedClass _createPersonBridge() {
       'createDefault': (visitor, positional, named, typeArgs) {
         return $pkg.Person.createDefault();
       },
+    },
+    staticSetters: {
+      'instanceCount': (visitor, value) => 
+        $pkg.Person.instanceCount = value as int,
     },
     constructorSignatures: {
       '': 'Person(String name, int age)',

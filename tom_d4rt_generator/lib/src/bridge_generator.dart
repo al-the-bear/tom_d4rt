@@ -4662,15 +4662,15 @@ class BridgeGenerator {
             "      '${setter.name}': $prefixedUserBridge.$setterOverride,",
           );
         } else {
-          // Use prefixed type for the cast
-          final prefixedSetterType = _getTypeArgument(
+          // GEN-057: Use _generateSetterCast for proper collection type handling
+          final castExpression = _generateSetterCast(
             setter.returnType,
             typeToUri: setter.returnTypeToUri,
             classTypeParams: cls.typeParameters,
           );
           buffer.writeln("      '${setter.name}': (visitor, target, value) => ");
           buffer.writeln(
-            "        D4.validateTarget<$prefixedName>(target, '${cls.name}').${setter.name} = value as $prefixedSetterType,",
+            "        D4.validateTarget<$prefixedName>(target, '${cls.name}').${setter.name} = $castExpression,",
           );
         }
       }
@@ -4798,6 +4798,25 @@ class BridgeGenerator {
           buffer.write(tempBuffer.toString());
         }
         // If false, static method is skipped (warning already added)
+      }
+      buffer.writeln('    },');
+    }
+
+    // Static setters use (visitor, value) signature for property assignment
+    final staticSetters = staticMembers.where((m) => m.isSetter).toList();
+    if (staticSetters.isNotEmpty) {
+      buffer.writeln('    staticSetters: {');
+      for (final setter in staticSetters) {
+        // GEN-057: Use _generateSetterCast for proper collection type handling
+        final castExpression = _generateSetterCast(
+          setter.returnType,
+          typeToUri: setter.returnTypeToUri,
+          classTypeParams: cls.typeParameters,
+        );
+        buffer.writeln("      '${setter.name}': (visitor, value) => ");
+        buffer.writeln(
+          "        $prefixedName.${setter.name} = $castExpression,",
+        );
       }
       buffer.writeln('    },');
     }
@@ -6231,6 +6250,95 @@ class BridgeGenerator {
       // Remove from in-progress set
       _typeResolutionInProgress.remove(cacheKey);
     }
+  }
+  
+  /// GEN-057: Generates a cast expression for setter values.
+  ///
+  /// For generic collection types like List<T> and Map<K,V>, the interpreter
+  /// creates generic List<Object?> and Map<Object?, Object?> at runtime.
+  /// Direct casting fails because Dart lists/maps are not covariant for casting.
+  ///
+  /// This method generates proper conversion expressions:
+  /// - `List<String>` → `(value as List).cast<String>().toList()`
+  /// - `List<String>?` → `value == null ? null : (value as List).cast<String>().toList()`
+  /// - `Map<String, int>` → `(value as Map).cast<String, int>()`
+  /// - Other types → `value as Type`
+  String _generateSetterCast(
+    String type, {
+    Map<String, String> typeToUri = const {},
+    Map<String, String?> classTypeParams = const {},
+  }) {
+    // Handle nullable types first
+    var baseType = type;
+    final isNullable = baseType.endsWith('?');
+    if (isNullable) {
+      baseType = baseType.substring(0, baseType.length - 1);
+    }
+    
+    // Check for List<T> pattern
+    if (baseType.startsWith('List<') && baseType.endsWith('>')) {
+      final elementType = baseType.substring(5, baseType.length - 1);
+      final prefixedElementType = _getTypeArgument(
+        elementType,
+        typeToUri: typeToUri,
+        classTypeParams: classTypeParams,
+      );
+      
+      if (isNullable) {
+        return 'value == null ? null : (value as List).cast<$prefixedElementType>().toList()';
+      } else {
+        return '(value as List).cast<$prefixedElementType>().toList()';
+      }
+    }
+    
+    // Check for Set<T> pattern
+    if (baseType.startsWith('Set<') && baseType.endsWith('>')) {
+      final elementType = baseType.substring(4, baseType.length - 1);
+      final prefixedElementType = _getTypeArgument(
+        elementType,
+        typeToUri: typeToUri,
+        classTypeParams: classTypeParams,
+      );
+      
+      if (isNullable) {
+        return 'value == null ? null : (value as Set).cast<$prefixedElementType>().toSet()';
+      } else {
+        return '(value as Set).cast<$prefixedElementType>().toSet()';
+      }
+    }
+    
+    // Check for Map<K, V> pattern
+    if (baseType.startsWith('Map<') && baseType.endsWith('>')) {
+      // Parse the key and value types from Map<K, V>
+      final inner = baseType.substring(4, baseType.length - 1);
+      final types = _splitFunctionParams(inner);
+      if (types.length == 2) {
+        final prefixedKeyType = _getTypeArgument(
+          types[0].trim(),
+          typeToUri: typeToUri,
+          classTypeParams: classTypeParams,
+        );
+        final prefixedValueType = _getTypeArgument(
+          types[1].trim(),
+          typeToUri: typeToUri,
+          classTypeParams: classTypeParams,
+        );
+        
+        if (isNullable) {
+          return 'value == null ? null : (value as Map).cast<$prefixedKeyType, $prefixedValueType>()';
+        } else {
+          return '(value as Map).cast<$prefixedKeyType, $prefixedValueType>()';
+        }
+      }
+    }
+    
+    // Default: use simple cast with prefixed type
+    final prefixedType = _getTypeArgument(
+      type,
+      typeToUri: typeToUri,
+      classTypeParams: classTypeParams,
+    );
+    return 'value as $prefixedType';
   }
   
   /// Internal implementation of type argument resolution.
@@ -8316,6 +8424,100 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     super.visitMixinDeclaration(node);
   }
 
+  /// GEN-055: Handle mixin application classes.
+  ///
+  /// Mixin application syntax `class Foo = Base with Mixin;` creates a class
+  /// that combines a base class with one or more mixins. These classes have
+  /// no body - all members come from the superclass and applied mixins.
+  @override
+  void visitClassTypeAlias(ClassTypeAlias node) {
+    final className = node.name.lexeme;
+
+    // Skip private classes if configured
+    if (skipPrivate && className.startsWith('_')) return;
+
+    // Skip classes marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return;
+
+    // Skip deprecated classes unless generateDeprecatedElements is enabled
+    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
+      skippedDeprecatedCount++;
+      return;
+    }
+
+    // Extract superclass name and URI
+    String? superclass;
+    String? superclassUri;
+    final superclassType = node.superclass.type;
+    superclass = node.superclass.name.lexeme;
+    if (superclassType is InterfaceType) {
+      final superclassElement = superclassType.element;
+      final library = superclassElement.library;
+      final uri = library.identifier;
+      // Only store package: URIs, not file: or dart: URIs
+      if (uri.startsWith('package:')) {
+        superclassUri = uri;
+      }
+    }
+
+    // Check abstract/sealed modifiers
+    final isAbstract = node.abstractKeyword != null;
+    final isSealed = node.sealedKeyword != null;
+
+    // Mixin application classes have no body - all members are inherited
+    final members = <MemberInfo>[];
+    final declaredMemberNames = <String>{}; // Empty - no declared members
+
+    // Collect inherited members from superclass and mixins
+    final classElement = node.declaredFragment?.element;
+    if (classElement != null) {
+      final inheritedMembers = _collectInheritedMembersFromElement(
+        classElement,
+        declaredMemberNames,
+      );
+      members.addAll(inheritedMembers);
+    }
+
+    // GEN-055: Mixin application classes have an implicit constructor
+    // that forwards to the superclass. For non-abstract classes,
+    // add a synthetic default constructor.
+    final constructors = <ConstructorInfo>[];
+    if (!isAbstract && !isSealed && classElement != null) {
+      final unnamedCtor = classElement.unnamedConstructor;
+      if (unnamedCtor != null && unnamedCtor.isSynthetic) {
+        constructors.add(const ConstructorInfo(
+          name: null,
+          parameters: [],
+        ));
+      }
+    }
+
+    // Parse generic type parameters and their bounds
+    final typeParams = <String, String?>{};
+    if (node.typeParameters != null) {
+      for (final typeParam in node.typeParameters!.typeParameters) {
+        final paramName = typeParam.name.lexeme;
+        final bound = typeParam.bound?.type?.element?.name;
+        typeParams[paramName] = bound;
+      }
+    }
+
+    classes.add(
+      _ParsedClass(
+        name: className,
+        superclass: superclass,
+        superclassUri: superclassUri,
+        isAbstract: isAbstract,
+        isSealed: isSealed,
+        constructors: constructors,
+        members: members,
+        typeParameters: typeParams,
+      ),
+    );
+
+    super.visitClassTypeAlias(node);
+  }
+
   /// Collects all import URIs from a type annotation, including generic type arguments.
   /// Returns a record with the set of URIs, a map from type name to URI, whether
   /// the type is a function type alias, and the function type info if applicable.
@@ -9395,6 +9597,70 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
     );
 
     super.visitMixinDeclaration(node);
+  }
+
+  /// GEN-055: Handle mixin application classes (syntactic path).
+  ///
+  /// Mixin application syntax `class Foo = Base with Mixin;` creates a class
+  /// that combines a base class with one or more mixins.
+  @override
+  void visitClassTypeAlias(ClassTypeAlias node) {
+    final className = node.name.lexeme;
+
+    // Skip private classes if configured
+    if (skipPrivate && className.startsWith('_')) return;
+
+    // Skip classes marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return;
+
+    // Skip deprecated classes unless generateDeprecatedElements is enabled
+    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
+      skippedDeprecatedCount++;
+      return;
+    }
+
+    // Extract superclass name from the mixin application
+    final superclass = node.superclass.name.lexeme;
+
+    // Check abstract/sealed modifiers
+    final isAbstract = node.abstractKeyword != null;
+    final isSealed = node.sealedKeyword != null;
+
+    // Mixin application classes have no body - for syntactic parsing,
+    // we just record the class and let runtime resolution handle members.
+    // Non-abstract mixin applications get an implicit default constructor.
+    final constructors = <ConstructorInfo>[];
+    if (!isAbstract && !isSealed) {
+      constructors.add(const ConstructorInfo(
+        name: null,
+        parameters: [],
+      ));
+    }
+
+    // Parse generic type parameters and their bounds (syntactic only)
+    final typeParams = <String, String?>{};
+    if (node.typeParameters != null) {
+      for (final typeParam in node.typeParameters!.typeParameters) {
+        final paramName = typeParam.name.lexeme;
+        // For syntactic parsing, get bound from token text
+        final bound = typeParam.bound?.toSource().replaceFirst('extends ', '');
+        typeParams[paramName] = bound;
+      }
+    }
+
+    classes.add(
+      _ParsedClass(
+        name: className,
+        superclass: superclass,
+        isAbstract: isAbstract,
+        isSealed: isSealed,
+        constructors: constructors,
+        members: const [], // Members resolved from supertypes at runtime
+        typeParameters: typeParams,
+      ),
+    );
+
+    super.visitClassTypeAlias(node);
   }
 
   /// Parses a constructor declaration.

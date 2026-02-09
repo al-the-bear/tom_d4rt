@@ -6,76 +6,70 @@
 
 ## Issue Index
 
-### Fixed (v1.5.0 and earlier)
-
-| ID | Description | Complexity | Status |
-|----|-------------|------------|--------|
-| [GEN-028](#gen-028) | CLI didn't pass export filtering params to generator | Medium | Fixed |
-| [GEN-029](#gen-029) | CLI path missing export info filtering for globals | Medium | Fixed |
-| [GEN-030](#gen-030) | Multi-barrel modules only registered under primary barrel | High | Fixed |
-| [GEN-031](#gen-031) | CLI `args['projects']` referenced undefined ArgParser option | Low | Fixed |
-| [GEN-032](#gen-032) | Test runner generation step missing from bin CLI path | Medium | Fixed |
-| [GEN-033](#gen-033) | Test runner init source included non-package `lib/` URIs | Medium | Fixed |
-| [GEN-034](#gen-034) | Test runner registration doubled with `lib/` paths | Medium | Fixed |
-| [GEN-035](#gen-035) | Test runner file detection missed `.d4rt` extension | Low | Fixed |
-| [GEN-036](#gen-036) | Example script `run_all_examples.dart` referenced wrong executable name | Low | Fixed |
-| [GEN-037](#gen-037) | Generated bridge files don't consistently use .b.dart extension | Medium | Fixed |
-| [GEN-038](#gen-038) | Test runner fails on first duplicate instead of reporting all | Low | Fixed |
-| [GEN-039](#gen-039) | Test runner config not supported in build.yaml | Low | Fixed |
-| [GEN-040](#gen-040) | Recursive bound error message references `_sample` instead of `sample` | Low | Fixed |
-| [GEN-043](#gen-043) | Generated user bridge references lack import prefix ($pkg.) | Medium | Fixed |
-
-### Fixed (v1.5.2)
-
-| ID | Description | Complexity | Status |
-|----|-------------|------------|--------|
-| [GEN-007](#gen-007) | Function type alias detection limited to 7 hardcoded names | Low | Resolved |
-| [GEN-008](#gen-008) | Private SDK library mapping is hardcoded and incomplete | Low | Resolved |
-| [GEN-009](#gen-009) | Generic type parameter detection uses hardcoded name set | Low | Resolved |
-| [GEN-011](#gen-011) | Global function/variable generation counts always report 0 | Low | Resolved |
-| [GEN-013](#gen-013) | Build runner reports approximate class count (files × 10) | Low | Resolved |
-| [GEN-017](#gen-017) | Missing barrel export silently downgrades to dynamic | Medium | Resolved |
-| [GEN-019](#gen-019) | Barrel preference heuristic may pick wrong barrel for re-exports | Medium | Resolved |
-| [GEN-020](#gen-020) | Global exclusions merge across modules — accidental cross-filtering | Medium | Resolved |
-| [GEN-021](#gen-021) | Builder-defining packages unconditionally skipped for bridging | Low | Resolved |
-| [GEN-025](#gen-025) | Record types with nested functions may have edge cases | Medium | Resolved |
-| [GEN-026](#gen-026) | 14 concrete types across projects silently downgraded to dynamic | Medium | Resolved |
-| [GEN-027](#gen-027) | InvalidType warnings indicate analyzer resolution failures | Medium | Resolved |
-| [GEN-041](#gen-041) | Enhanced enum fields not accessible via bridges at runtime | Medium | Resolved |
-| [GEN-042](#gen-042) | Classes with implicit default constructors are not bridged | Medium | Resolved |
-| [GEN-044](#gen-044) | Enum `.values` static getter not bridged | Low | Resolved |
-| [GEN-046](#gen-046) | GlobalsUserBridge overrides not applied at runtime | Medium | Resolved |
-| [GEN-047](#gen-047) | Extension declarations not bridged | High | Resolved |
-| [GEN-048](#gen-048) | Pure mixin declarations not bridged | Medium | Resolved |
-| [GEN-049](#gen-049) | Extension methods on bridged classes not resolved | High | Resolved |
-| [GEN-050](#gen-050) | Operator methods emit invalid syntax (`t.<`, `t.>`) | Medium | Resolved |
-| [GEN-051](#gen-051) | Sealed class constructors incorrectly instantiated | Medium | Resolved |
-| [GEN-015](#gen-015) | Nested public classes collected by syntactic visitor | Low | Resolved |
-| [GEN-016](#gen-016) | Auxiliary imports may resolve wrong type on name collision | Medium | Resolved |
-| [GEN-002](#gen-002) | Recursive type bounds dispatched to only 3 hardcoded types | Low | Resolved |
-| [GEN-010](#gen-010) | Complex external packages list is hardcoded | Low | Resolved |
-| [GEN-012](#gen-012) | Type parameter substitution uses fragile regex text replacement | Medium | Resolved |
-| [GEN-045](#gen-045) | Barrel-level name collisions silently break bridging | Medium | Resolved |
-| [GEN-024](#gen-024) | Four config sources with complex precedence rules | Medium | Resolved |
-
-### Won't Fix
-
-| ID | Description | Complexity | Reason |
-|----|-------------|------------|--------|
-| [GEN-001](#gen-001) | Generic methods lose type parameters (type erasure) | Fundamental | Dart limitation |
-| [GEN-003](#gen-003) | Complex default values cannot be represented in generated code | Fundamental | Analyzer limitation |
-| [GEN-004](#gen-004) | Combinatorial dispatch capped at 4 non-wrappable params | Medium | Performance tradeoff |
-| [GEN-006](#gen-006) | Syntactic fallback loses all resolved type information | Fundamental | By design |
-| [GEN-014](#gen-014) | Syntactic fallback: this.x params always typed as dynamic | Fundamental | By design |
-| [GEN-018](#gen-018) | Parameterized typedef expansion may produce incorrect types | Medium | Syntactic fallback |
-
-### TODO (sorted by relevance)
-
-| ID | Description | Complexity | Relevance |
-|----|-------------|------------|-----------|
-| [GEN-005](#gen-005) | Function types inside collections are unbridgeable | High | Not Important |
-| [GEN-022](#gen-022) | Main generator file is 8,490 lines — maintainability concern | High | Not Important |
-| [GEN-023](#gen-023) | Duplicated visitor logic between resolved and syntactic paths | High | Not Important |
+| ID | Description | Complexity | Reason | Status |
+|----|-------------|------------|--------|--------|
+| [GEN-002](#gen-002) | Recursive type bounds dispatched to only 3 hardcoded types | Low | — | Fixed (v1.5.2) |
+| [GEN-007](#gen-007) | Function type alias detection limited to 7 hardcoded names | Low | — | Fixed (v1.5.2) |
+| [GEN-008](#gen-008) | Private SDK library mapping is hardcoded and incomplete | Low | — | Fixed (v1.5.2) |
+| [GEN-009](#gen-009) | Generic type parameter detection uses hardcoded name set | Low | — | Fixed (v1.5.2) |
+| [GEN-010](#gen-010) | Complex external packages list is hardcoded | Low | — | Fixed (v1.5.2) |
+| [GEN-011](#gen-011) | Global function/variable generation counts always report 0 | Low | — | Fixed (v1.5.2) |
+| [GEN-012](#gen-012) | Type parameter substitution uses fragile regex text replacement | Medium | — | Fixed (v1.5.2) |
+| [GEN-013](#gen-013) | Build runner reports approximate class count (files × 10) | Low | — | Fixed (v1.5.2) |
+| [GEN-015](#gen-015) | Nested public classes collected by syntactic visitor | Low | — | Fixed (v1.5.2) |
+| [GEN-016](#gen-016) | Auxiliary imports may resolve wrong type on name collision | Medium | — | Fixed (v1.5.2) |
+| [GEN-017](#gen-017) | Missing barrel export silently downgrades to dynamic | Medium | — | Fixed (v1.5.2) |
+| [GEN-019](#gen-019) | Barrel preference heuristic may pick wrong barrel for re-exports | Medium | — | Fixed (v1.5.2) |
+| [GEN-020](#gen-020) | Global exclusions merge across modules — accidental cross-filtering | Medium | — | Fixed (v1.5.2) |
+| [GEN-021](#gen-021) | Builder-defining packages unconditionally skipped for bridging | Low | — | Fixed (v1.5.2) |
+| [GEN-024](#gen-024) | Four config sources with complex precedence rules | Medium | Added --dump-config | Fixed (v1.5.2) |
+| [GEN-025](#gen-025) | Record types with nested functions may have edge cases | Medium | — | Fixed (v1.5.2) |
+| [GEN-026](#gen-026) | 14 concrete types across projects silently downgraded to dynamic | Medium | — | Fixed (v1.5.2) |
+| [GEN-027](#gen-027) | InvalidType warnings indicate analyzer resolution failures | Medium | — | Fixed (v1.5.2) |
+| [GEN-028](#gen-028) | CLI didn't pass export filtering params to generator | Medium | — | Fixed (v1.5.0) |
+| [GEN-029](#gen-029) | CLI path missing export info filtering for globals | Medium | — | Fixed (v1.5.0) |
+| [GEN-030](#gen-030) | Multi-barrel modules only registered under primary barrel | High | — | Fixed (v1.5.0) |
+| [GEN-031](#gen-031) | CLI `args['projects']` referenced undefined ArgParser option | Low | — | Fixed (v1.5.0) |
+| [GEN-032](#gen-032) | Test runner generation step missing from bin CLI path | Medium | — | Fixed (v1.5.0) |
+| [GEN-033](#gen-033) | Test runner init source included non-package `lib/` URIs | Medium | — | Fixed (v1.5.0) |
+| [GEN-034](#gen-034) | Test runner registration doubled with `lib/` paths | Medium | — | Fixed (v1.5.0) |
+| [GEN-035](#gen-035) | Test runner file detection missed `.d4rt` extension | Low | — | Fixed (v1.5.0) |
+| [GEN-036](#gen-036) | Example script `run_all_examples.dart` referenced wrong executable name | Low | — | Fixed (v1.5.0) |
+| [GEN-037](#gen-037) | Generated bridge files don't consistently use .b.dart extension | Medium | — | Fixed (v1.5.0) |
+| [GEN-038](#gen-038) | Test runner fails on first duplicate instead of reporting all | Low | — | Fixed (v1.5.0) |
+| [GEN-039](#gen-039) | Test runner config not supported in build.yaml | Low | — | Fixed (v1.5.0) |
+| [GEN-040](#gen-040) | Recursive bound error message references `_sample` instead of `sample` | Low | — | Fixed (v1.5.0) |
+| [GEN-041](#gen-041) | Enhanced enum fields not accessible via bridges at runtime | Medium | — | Fixed (v1.5.2) |
+| [GEN-042](#gen-042) | Classes with implicit default constructors are not bridged | Medium | — | Fixed (v1.5.2) |
+| [GEN-043](#gen-043) | Generated user bridge references lack import prefix ($pkg.) | Medium | — | Fixed (v1.5.0) |
+| [GEN-044](#gen-044) | Enum `.values` static getter not bridged | Low | — | Fixed (v1.5.2) |
+| [GEN-045](#gen-045) | Barrel-level name collisions silently break bridging | Medium | Now emits warnings | Fixed (v1.5.2) |
+| [GEN-046](#gen-046) | GlobalsUserBridge overrides not applied at runtime | Medium | — | Fixed (v1.5.2) |
+| [GEN-047](#gen-047) | Extension declarations not bridged | High | — | Fixed (v1.5.2) |
+| [GEN-048](#gen-048) | Pure mixin declarations not bridged | Medium | — | Fixed (v1.5.2) |
+| [GEN-049](#gen-049) | Extension methods on bridged classes not resolved | High | — | Fixed (v1.5.2) |
+| [GEN-050](#gen-050) | Operator methods emit invalid syntax (`t.<`, `t.>`) | Medium | — | Fixed (v1.5.2) |
+| [GEN-051](#gen-051) | Sealed class constructors incorrectly instantiated | Medium | — | Fixed (v1.5.2) |
+| [GEN-005](#gen-005) | Function types inside collections are unbridgeable | High | Not Important | TODO |
+| [GEN-022](#gen-022) | Main generator file is 8,490 lines — maintainability concern | High | Not Important | TODO |
+| [GEN-023](#gen-023) | Duplicated visitor logic between resolved and syntactic paths | High | Depends on GEN-022 | TODO |
+| [GEN-052](#gen-052) | Late final fields have no setter adapter | Medium | One-time assignment | TODO |
+| [GEN-053](#gen-053) | Static setters not bridged | Medium | — | Fixed (v1.5.2) |
+| [GEN-054](#gen-054) | Callable class call() method not bridged | Medium | Interpreter issue (not generator) | Won't Fix |
+| [GEN-055](#gen-055) | Mixin application classes (class = with) not bridged | Medium | — | Fixed (v1.5.2) |
+| [GEN-056](#gen-056) | Top-level setter assignment fails | Medium | Interpreter issue (needs tom_d4rt API) | Won't Fix |
+| [GEN-057](#gen-057) | Typed List fields lose element type at runtime | Medium | — | Fixed (v1.5.2) |
+| [GEN-058](#gen-058) | Arithmetic/comparison operators fail on bridged instances | Medium | Interpreter issue (int-to-double promotion) | Won't Fix |
+| [GEN-059](#gen-059) | Async/generator methods not awaited correctly | Medium | Interpreter issue | TODO |
+| [GEN-060](#gen-060) | Record type parameters/returns not bridgeable | High | — | TODO |
+| [GEN-061](#gen-061) | Function-typed parameters require closure wrapping | High | Interpreter issue (collection type casting) | Won't Fix |
+| [GEN-062](#gen-062) | F-bounded polymorphism causes type resolution errors | High | Interpreter issue (BridgedInstance unwrapping) | Won't Fix |
+| [GEN-001](#gen-001) | Generic methods lose type parameters (type erasure) | Fundamental | Dart limitation | Won't Fix |
+| [GEN-003](#gen-003) | Complex default values cannot be represented in generated code | Fundamental | Analyzer limitation | Won't Fix |
+| [GEN-004](#gen-004) | Combinatorial dispatch capped at 4 non-wrappable params | Medium | Performance tradeoff | Won't Fix |
+| [GEN-006](#gen-006) | Syntactic fallback loses all resolved type information | Fundamental | By design | Won't Fix |
+| [GEN-014](#gen-014) | Syntactic fallback: this.x params always typed as dynamic | Fundamental | By design | Won't Fix |
+| [GEN-018](#gen-018) | Parameterized typedef expansion may produce incorrect types | Medium | Syntactic fallback | Won't Fix |
 
 ---
 
@@ -2396,6 +2390,368 @@ This causes 46+ test failures in the dart_overview package tests because the gen
 3. **Consider subtype bridging:** The subtypes of a sealed class (final, base, or regular classes) should still be bridged normally
 
 4. **Verification:** After fix, run `dart test` in `zom_workspaces/zom_analyzer_test/dart_overview` — all 46+ failures should be resolved
+
+---
+
+---
+
+### GEN-052
+
+**Late final fields have no setter adapter**
+
+**a) Problem:**
+
+When a class has a `late final` field, the generated bridge includes a getter but no setter. In Dart, `late final` fields can be assigned exactly once after construction, but the bridge doesn't expose this capability.
+
+**Example:**
+```dart
+class LateFieldDemo {
+  late final int id;  // Can be assigned once in Dart
+}
+
+// Test script fails:
+var lf = LateFieldDemo();
+lf.id = 99;  // Error: No setter adapter found
+```
+
+**Error from test:**
+```
+Runtime Error: Cannot assign to property 'id' on bridged instance of 'LateFieldDemo': No setter adapter found.
+```
+
+**b) Location:**
+`bridge_generator.dart` — field analysis and setter generation logic. The generator correctly skips setters for `final` fields, but doesn't distinguish between `late final` (one-time assignable) and regular `final` (compile-time constant).
+
+**c) General Strategy:**
+1. Detect `late final` fields separately from regular `final` fields
+2. Generate a special "one-shot" setter that tracks whether the field has been assigned
+3. Or document as a known limitation: use constructor parameters or `withValues()` factory instead
+
+**Affected tests:** CLS06
+
+---
+
+### GEN-053
+
+**Static setters not bridged**
+
+**a) Problem:**
+
+Static setters on classes are not generated in the bridge. The bridge generates `staticGetters` and `staticMethods` but misses `staticSetters`.
+
+**Example:**
+```dart
+class Counter {
+  static int _count = 0;
+  static int get count => _count;
+  static set count(int value) => _count = value;  // Not bridged
+}
+
+// Test script fails:
+Counter.count = 5;  // Error: no setter
+```
+
+**b) Location:**
+`bridge_generator.dart` — class bridge generation. The `BridgedClass` constructor has a `staticSetters` parameter, but the generator doesn't populate it.
+
+**c) General Strategy:**
+1. Add logic to collect static setters from `PropertyAccessorElement` where `isSetter && isStatic`
+2. Generate entries in the `staticSetters` map similar to instance setters
+3. Ensure proper type casting in the generated setter body
+
+**Affected tests:** CLS13
+
+---
+
+### GEN-054
+
+**Callable class call() method not bridged**
+
+**Status: Won't Fix (Not a Generator Issue)**
+
+Investigation confirmed the `call()` method IS correctly generated in the bridge. The problem is in `tom_d4rt`'s interpreter - when evaluating `instance(args)` syntax, it doesn't check for a `call()` method on bridged objects.
+
+**a) Problem:**
+
+Classes that implement `call()` to make instances callable are not properly bridged. The `call()` method exists as a regular method in the bridge (confirmed by inspection), but the interpreter doesn't invoke it when treating the instance as a function.
+
+**Example:**
+```dart
+class Multiplier {
+  final int factor;
+  int call(int value) => value * factor;
+}
+
+var mult = Multiplier(3);
+var result = mult(5);  // Fails: returns Multiplier(3) instead of 15
+```
+
+**b) Root Cause:**
+- The generator correctly generates `'call': (visitor, target, ...) { return t.call(value); }` in the methods map
+- The interpreter (`tom_d4rt/interpreter_visitor.dart`) doesn't check for `call()` method when evaluating `instance(args)` expressions
+
+**c) Resolution:**
+This is an interpreter issue in `tom_d4rt`, not `tom_d4rt_generator`. The fix needs to be in `interpreter_visitor.dart` to detect and invoke `call()` method on callable objects.
+
+**Affected tests:** CLS17
+
+---
+
+### GEN-055
+
+**Mixin application classes (class = with) not bridged**
+
+**Status: Fixed (v1.5.2)**
+
+**a) Problem:**
+
+Dart's mixin application syntax (`class Foo = Base with Mixin;`) creates a class that combines a base class with mixins. These classes were not collected by the generator's class visitor because they don't have a standard class body.
+
+**b) Solution:**
+
+Added `visitClassTypeAlias` method to both `_ResolvedClassVisitor` and `_ClassVisitor` to handle mixin application syntax. The visitor:
+1. Extracts the combined class name, superclass, and modifiers
+2. Collects inherited members from the superclass and all applied mixins using `_collectInheritedMembersFromElement`
+3. Generates an implicit default constructor for non-abstract mixin application classes
+
+**Affected tests:** TOP29
+
+---
+
+### GEN-056
+
+**Top-level setter assignment fails**
+
+**Status: Won't Fix (Requires Interpreter Changes)**
+
+This issue requires changes to `tom_d4rt` interpreter to support global setters. The generator cannot fix this alone.
+
+**a) Problem:**
+
+Top-level setters are registered only as global getters. Assignment to top-level setters fails because:
+1. No `registerGlobalSetter` API exists in the interpreter
+2. `GlobalGetter` class only supports reading, not writing
+3. The interpreter's assignment handler can't modify values from `GlobalGetter`
+
+**b) Required Changes in tom_d4rt:**
+1. Create `GlobalGetterSetter` class to wrap both getter and setter functions
+2. Add `registerGlobalSetter(name, setter, library)` API to D4rt class
+3. Update `Environment.assign()` to detect and call GlobalGetterSetter.setter
+4. Update `ModuleLoader` to handle library setters
+
+**c) Generator Changes (after interpreter support):**
+1. Detect top-level setters during global analysis
+2. Generate `registerGlobalSetter` calls for top-level setters
+
+**Affected tests:** TOP28
+
+---
+
+### GEN-057
+
+**Typed List fields lose element type at runtime**
+
+**Status: Fixed (v1.5.2)**
+
+**a) Problem:**
+
+When the interpreter creates list literals (e.g., `['dart', 'test']`), it produces `List<Object?>`. When assigning to a typed field like `List<String>?`, the direct cast `value as List<String>` fails because Dart lists are not covariant for casting.
+
+**b) Solution:**
+
+Added `_generateSetterCast()` helper method that generates proper collection-aware cast expressions:
+- For `List<T>`: `(value as List).cast<T>().toList()`
+- For `List<T>?`: `value == null ? null : (value as List).cast<T>().toList()`
+- For `Set<T>`: Uses `.cast<T>().toSet()`
+- For `Map<K,V>`: Uses `(value as Map).cast<K, V>()`
+
+Updated both instance setters and static setters to use `_generateSetterCast()` instead of direct type casts.
+
+**Affected tests:** CLS05
+
+---
+
+### GEN-058
+
+**Arithmetic/comparison operators fail on bridged instances**
+
+**a) Problem:**
+
+**Status: Won't Fix (Interpreter Type Coercion Issue)**
+
+Investigation revealed this is not an operator bridging issue but an **int-to-double type promotion** issue in `tom_d4rt`.
+
+**a) Problem:**
+
+When passing integer literals (e.g., `10`) to a constructor that expects `double`, the bridge's `D4.extractBridgedArg<double>` method fails because Dart doesn't consider `int` a subtype of `double` at runtime.
+
+**Error:**
+```
+Invalid parameter "value": expected double, got int
+```
+
+**b) Root Cause:**
+
+In `tom_d4rt/lib/src/generator/d4.dart`, the `extractBridgedArg<T>` method does strict type checking:
+```dart
+if (arg is T) {  // When T=double and arg is int, this is false
+  return arg;
+}
+```
+
+**c) Required Fix in tom_d4rt:**
+
+Add int-to-double promotion in `extractBridgedArg`:
+```dart
+// Handle int-to-double promotion (Dart implicit behavior)
+if (T == double && arg is int) {
+  return arg.toDouble() as T;
+}
+```
+
+**Affected tests:** OP05, OP06, OP07, OP08 (all use NumberWrapper which takes double)
+
+---
+
+### GEN-059
+
+**Async/generator methods not awaited correctly**
+
+**a) Problem:**
+
+Methods that return `Future<T>`, `Stream<T>`, or `Iterable<T>` (from async, async*, sync* functions) are not correctly awaited/iterated by the interpreter. The bridge generates the methods correctly, but the return values aren't handled properly.
+
+**Example:**
+```dart
+Future<String> fetchGreeting() async {
+  await Future.delayed(Duration(milliseconds: 10));
+  return 'Hello!';
+}
+
+var greeting = await fetchGreeting();  // May not await correctly
+```
+
+**b) Location:**
+- `tom_d4rt/interpreter_visitor.dart` — await expression handling
+- `tom_d4rt/interpreter_visitor.dart` — for-in loop handling (for sync*/async*)
+
+**c) General Strategy:**
+1. Ensure interpreter recognizes Future returns from bridged functions
+2. Properly await futures and unwrap values
+3. Handle Stream/Iterable returns for generator functions
+
+**Affected tests:** ASYNC01-08, TOP24
+
+Note: This is primarily an interpreter issue, not a generator issue.
+
+---
+
+### GEN-060
+
+**Record type parameters/returns not bridgeable**
+
+**a) Problem:**
+
+Functions that take record types as parameters or return record types fail at runtime. Dart records `(int, String)` or `({int x, int y})` are not understood by the bridge system.
+
+**Example:**
+```dart
+(int min, int max) findMinMax(List<int> numbers) {
+  return (numbers.reduce(min), numbers.reduce(max));
+}
+
+var result = findMinMax([3, 1, 4, 1, 5]);  // Fails
+print(result.$1);  // Can't access record fields
+```
+
+**b) Location:**
+- `bridge_generator.dart` — parameter type analysis
+- `tom_d4rt/interpreter_visitor.dart` — record expression handling
+
+**c) General Strategy:**
+1. Detect record types in function signatures
+2. Generate appropriate wrapper code to construct/destructure records
+3. Add interpreter support for record field access (`.$1`, `.fieldName`)
+
+**Affected tests:** TYPE01, TYPE02
+
+---
+
+### GEN-061
+
+**Function-typed parameters require closure wrapping**
+
+**Status: Won't Fix (Interpreter Collection Type Casting Issue)**
+
+Investigation revealed the PAR06 failure is not about function closure wrapping, but about collection type casting in method parameters - the same underlying issue as GEN-057 but in a different location.
+
+**a) Problem:**
+
+The interpreter creates list literals as `List<Object?>`. When passed to bridged functions expecting `List<int>`, the `D4.getRequiredArg<List<int>>` method fails with type mismatch.
+
+**Error:**
+```
+Invalid parameter "numbers": expected List<int>, got List<Object?>
+```
+
+**b) Root Cause:**
+
+In `tom_d4rt/lib/src/generator/d4.dart`, the `extractBridgedArg<T>` method does strict type checking without handling collection type casting:
+```dart
+if (arg is T) {  // When T=List<int> and arg is List<Object?>, this is false
+  return arg;
+}
+```
+
+**c) Required Fix in tom_d4rt:**
+
+Add collection type promotion in `extractBridgedArg` similar to GEN-057's fix:
+```dart
+// Handle List type casting
+if (T.toString().startsWith('List<') && arg is List) {
+  // Extract element type and cast
+  return (arg as List).cast<dynamic>().toList() as T;
+}
+```
+
+**Relationship to GEN-057:**
+- GEN-057 fixed collection casting for **setters** in generated bridges
+- GEN-061 needs the same fix for **method parameters** in the interpreter
+
+**Affected tests:** PAR06
+
+**Affected tests:** PAR06
+
+---
+
+### GEN-062
+
+**F-bounded polymorphism causes type resolution errors**
+
+**Status: Won't Fix (Interpreter BridgedInstance Unwrapping Issue)**
+
+Investigation revealed the test failure is not about type resolution during generation, but about **BridgedInstance unwrapping** when calling native Dart methods.
+
+**a) Problem:**
+
+When calling `list.sort()` on a list containing bridged objects, the elements are wrapped as `BridgedInstance<Object>`. Dart's `List.sort()` tries to cast them to `Comparable<dynamic>`, which fails.
+
+**Error:**
+```
+type 'BridgedInstance<Object>' is not a subtype of type 'Comparable<dynamic>' in type cast
+```
+
+**b) Root Cause:**
+
+The interpreter stores bridged objects as `BridgedInstance` wrappers. When native Dart methods are called (like `List.sort()`), these wrappers should be unwrapped to their native objects but they aren't.
+
+**c) Required Fix in tom_d4rt:**
+
+When calling native methods on collections containing bridged objects:
+1. Unwrap `BridgedInstance` objects to their `nativeObject` before the call
+2. Re-wrap results if needed for interpreter consumption
+
+**Affected tests:** GNRC07
 
 ---
 
