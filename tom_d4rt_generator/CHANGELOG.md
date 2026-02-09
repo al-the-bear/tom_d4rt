@@ -1,3 +1,16 @@
+## 1.5.1
+
+### Documentation
+- **Config filename standardization**: Updated all documentation references from `tom_build.yaml` to `buildkit.yaml`. All CLI help text, README, user guides, and code comments now use the current filename.
+
+### Internal
+- `d4rt_gen.dart`: CLI help text and print statements reference `buildkit.yaml`
+- `_printBuildYamlSection()`: Uses `TomBuildConfig.projectFilename` constant
+- `BuildConfigLoader`: Updated doc comments
+
+### Dependencies
+- Updated `tom_build_base` to `^1.3.2` (buildkit.yaml references)
+
 ## 1.5.0
 
 ### Features
@@ -23,7 +36,7 @@
 ## 1.4.0
 
 ### Features
-- **CLI: tom_build.yaml support**: The `d4rtgen` CLI now reads configuration from `tom_build.yaml` files (in addition to `build.yaml` and `d4rt_bridging.json`), using the shared `tom_build_base` infrastructure.
+- **CLI: buildkit.yaml support**: The `d4rtgen` CLI now reads configuration from `buildkit.yaml` files (in addition to `build.yaml` and `d4rt_bridging.json`), using the shared `tom_build_base` infrastructure.
 - **CLI: Multi-project and glob support**: `--project` option now accepts comma-separated lists and glob patterns (e.g., `--project=tom_*_builder,xternal/tom_module_*/*`).
 - **CLI: `--list` flag**: List discovered projects without generating bridges.
 - **CLI: ProjectDiscovery integration**: Proper scan vs recursive semantics — scans directories until a project boundary, recursive mode also looks inside projects for nested subprojects.
@@ -40,7 +53,7 @@
 
 ### Documentation
 - Added `doc/issues.md` with 30 documented issues (GEN-001 through GEN-030) including concrete source→bridge→problem examples.
-- Updated `doc/d4rt_generator_cli_user_guide.md` with `tom_build.yaml` configuration and multi-project/glob support.
+- Updated `doc/d4rt_generator_cli_user_guide.md` with `buildkit.yaml` configuration and multi-project/glob support.
 
 ## 1.3.0
 

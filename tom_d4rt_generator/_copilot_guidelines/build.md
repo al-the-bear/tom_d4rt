@@ -87,7 +87,7 @@ dart run bin/d4rt_gen.dart --scan=. -r --recursion-exclude="**/node_modules/**"
 
 **Important Path Rules:**
 - All paths must be within the current working directory
-- Project-local `tom_build.yaml` (dartgen: section) takes precedence over CLI options
+- Project-local `buildkit.yaml` (dartgen: section) takes precedence over CLI options
 - To access multiple directories, run from the workspace root
 
 ### Running Examples

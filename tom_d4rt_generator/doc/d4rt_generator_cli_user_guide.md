@@ -87,20 +87,20 @@ d4rtgen unknownarg
 
 The CLI reads configuration from multiple sources, in order of precedence:
 
-### 1. Project-Local tom_build.yaml (Highest Priority)
+### 1. Project-Local buildkit.yaml (Highest Priority)
 
-When processing a project (via `--scan`, `--project`, or `--recursive`), the tool checks for a `tom_build.yaml` with a `dartgen:` section in that project's directory. **Project-local config takes precedence over command-line options** for that specific project.
+When processing a project (via `--scan`, `--project`, or `--recursive`), the tool checks for a `buildkit.yaml` with a `dartgen:` section in that project's directory. **Project-local config takes precedence over command-line options** for that specific project.
 
 ### 2. Command-Line Arguments
 
 Command-line options apply when no project-local config exists.
 
-### 3. tom_build.yaml in Current Directory (Fallback)
+### 3. buildkit.yaml in Current Directory (Fallback)
 
-If no command-line options are provided, the CLI looks for `tom_build.yaml` in the current directory:
+If no command-line options are provided, the CLI looks for `buildkit.yaml` in the current directory:
 
 ```yaml
-# tom_build.yaml
+# buildkit.yaml
 dartgen:
   scan: .
   recursive: true
@@ -115,14 +115,14 @@ dartgen:
 
 This allows you to configure the CLI once and run `d4rtgen` without arguments.
 
-When processing subprojects with `--recursive` or `--scan`, the tool also looks for `tom_build.yaml` in each subproject directory. If found, the `dartgen:` settings are used for that specific subproject, allowing per-project customization.
+When processing subprojects with `--recursive` or `--scan`, the tool also looks for `buildkit.yaml` in each subproject directory. If found, the `dartgen:` settings are used for that specific subproject, allowing per-project customization.
 
 ## Path Containment Rules
 
 **All paths must be within the current working directory or project directory:**
 
 - Command-line options (`--project`, `--scan`, `--config`) can only reference paths within the current working directory
-- Project-local `tom_build.yaml` files can only reference paths within that project's directory
+- Project-local `buildkit.yaml` files can only reference paths within that project's directory
 - Patterns starting with `..` (parent directory references) are not allowed
 - To process projects across multiple directories, run from the workspace root
 
@@ -172,7 +172,7 @@ A directory is considered a D4rt project if it contains:
 - `pubspec.yaml`, AND
 - Either `build.yaml` (with `tom_d4rt_generator` or `d4rt_bridge_builder` config)
 - Or `d4rt_bridging.json`
-- Or `tom_build.yaml` with a `dartgen:` section
+- Or `buildkit.yaml` with a `dartgen:` section
 
 ## Usage Examples
 
@@ -236,12 +236,12 @@ d4rtgen --project=my_monorepo --recursive
 d4rtgen -p my_monorepo -r --recursion-exclude="**/node_modules/**" -R "**/build/**"
 ```
 
-### Using tom_build.yaml
+### Using buildkit.yaml
 
-Create a `tom_build.yaml` in your workspace root:
+Create a `buildkit.yaml` in your workspace root:
 
 ```yaml
-# tom_build.yaml
+# buildkit.yaml
 dartgen:
   scan: .
   recursive: true
@@ -264,10 +264,10 @@ d4rtgen
 
 ### Per-Project Configuration
 
-When recursing into subprojects, each subproject can have its own `tom_build.yaml`:
+When recursing into subprojects, each subproject can have its own `buildkit.yaml`:
 
 ```yaml
-# subproject/tom_build.yaml
+# subproject/buildkit.yaml
 dartgen:
   # This overrides the parent settings for this subproject
   recursive: false
@@ -327,7 +327,7 @@ Bridge generation complete:
 | Feature | d4rtgen CLI | build_runner |
 |---------|-------------|--------------|
 | **Speed** | Faster (no watcher overhead) | Slower startup |
-| **Configuration** | `tom_build.yaml`, `build.yaml`, or JSON | `build.yaml` only |
+| **Configuration** | `buildkit.yaml`, `build.yaml`, or JSON | `build.yaml` only |
 | **Batch Processing** | Yes (`--project='pattern'`, `--scan --recursive`) | Per-project only |
 | **Glob Patterns** | Yes (`--project='tom_*'`, `--exclude`) | No |
 | **Watch Mode** | No | Yes |

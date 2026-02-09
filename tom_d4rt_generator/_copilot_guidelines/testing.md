@@ -93,7 +93,7 @@ D4rtTester (test process)              Subprocess (generated test runner)
 |-----------|----------|---------|
 | `D4rtTester` | `lib/src/testing/d4rt_tester.dart` | Generates bridges in-memory, spawns subprocess, enforces timeout |
 | `D4rtTestResult` | `lib/src/testing/d4rt_test_result.dart` | Parses `###D4RT_TEST_RESULT###` JSON marker from subprocess stdout |
-| `BuildConfigLoader` | `lib/src/build_config_loader.dart` | Loads `BridgeConfig` from a project's `tom_build.yaml` |
+| `BuildConfigLoader` | `lib/src/build_config_loader.dart` | Loads `BridgeConfig` from a project's `buildkit.yaml` |
 | `d4rt_tester_test.dart` | `test/d4rt_tester_test.dart` | Main test file with groups for each example project |
 
 ---
@@ -103,7 +103,7 @@ D4rtTester (test process)              Subprocess (generated test runner)
 Each example project in `example/` is a standalone Dart project with:
 
 - `pubspec.yaml` — depends on `tom_d4rt` (path dependency)
-- `tom_build.yaml` — bridge generation config (`d4rtgen:` section)
+- `buildkit.yaml` — bridge generation config (`d4rtgen:` section)
 - `lib/` — source code to be bridged
 - `test/` — D4rt test scripts (not `package:test` tests — plain Dart scripts run by the interpreter)
 
@@ -441,7 +441,7 @@ Tests for known bugs (GEN-041, GEN-042) are expected to fail. The passing baseli
    - `pubspec.yaml` with `tom_d4rt` path dependency
    - `analysis_options.yaml` including the workspace root config
    - `lib/` with source code and barrel file
-   - `tom_build.yaml` with `d4rtgen:` section
+   - `buildkit.yaml` with `d4rtgen:` section
 
 2. **Generate bridges**:
    ```bash

@@ -13,7 +13,7 @@ This tool analyzes Dart source files and automatically generates bridge classes 
 - **Show/hide filtering**: Control which enums, functions, and variables are bridged
 - **Callback wrapping**: Automatic handling of function-type parameters
 - **UserBridge overrides**: Customize generated bridges with override classes
-- **CLI tool (`d4rtgen`)**: Generate bridges from the command line with `tom_build.yaml` or `build.yaml` configuration
+- **CLI tool (`d4rtgen`)**: Generate bridges from the command line with `buildkit.yaml` or `build.yaml` configuration
 - **build_runner integration**: Use as a standard build_runner builder
 
 ## Installation
@@ -76,7 +76,7 @@ MyPackageBridge.registerBridges(d4rt, 'package:my_package/my_package.dart');
 
 ## CLI Usage
 
-The `d4rtgen` CLI supports `tom_build.yaml`, `build.yaml`, and `d4rt_bridging.json` configuration:
+The `d4rtgen` CLI supports `buildkit.yaml`, `build.yaml`, and `d4rt_bridging.json` configuration:
 
 ```bash
 # Generate for a specific project

@@ -2,7 +2,7 @@
 /// projects and execute D4rt test scripts.
 ///
 /// Each test group:
-/// 1. Loads BridgeConfig from the example project's tom_build.yaml
+/// 1. Loads BridgeConfig from the example project's buildkit.yaml
 /// 2. Uses D4rtTester to generate bridges and a test runner
 /// 3. Executes a D4rt test script via the generated test runner
 /// 4. Asserts on success (no exceptions, no timeout, exit 0)
