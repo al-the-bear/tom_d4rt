@@ -618,6 +618,8 @@ final host = D4.getRequiredArg<dynamic>(positional, 1, 'host', 'Server');
 
 **Missing barrel export silently downgrades to dynamic**
 
+**Status:** RESOLVED
+
 **a) Problem:**
 
 When a type used in a method signature isn't exported from the module's barrel file, the generator logs a warning and replaces the type with `dynamic`:
@@ -668,6 +670,8 @@ This is the root mechanism behind GEN-026 (14 concrete types downgraded across p
 ### GEN-026
 
 **14 concrete types across projects silently downgraded to dynamic**
+
+**Status:** RESOLVED (same fix as GEN-017)
 
 **a) Problem:**
 
@@ -734,7 +738,7 @@ No per-type or per-package manual configuration needed.
 
 ### GEN-041
 
-**Status:** TODO  
+**Status:** RESOLVED  
 **Complexity:** Medium  
 **Title:** Enhanced enum fields not accessible via bridges at runtime
 
@@ -791,7 +795,7 @@ This is fully general — any enhanced enum's fields and methods are auto-discov
 
 ### GEN-042
 
-**Status:** TODO  
+**Status:** RESOLVED  
 **Complexity:** Medium  
 **Title:** Classes with implicit default constructors are not bridged
 
@@ -862,7 +866,7 @@ This is fully general — works for any class with an implicit default construct
 
 **Enum `.values` static getter not bridged**
 
-**Status: TODO**
+**Status: RESOLVED**
 
 **a) Problem:**
 
