@@ -11,7 +11,7 @@ dynamic execute(String source, {List<Object?>? args}) {
 }
 
 void main() {
-  test('Async nested loops: while containing for inside for', () async {
+  test('Async nested loops: while containing for inside for [2026-02-10 06:37]', () async {
     final source = '''
       Future<void> delay(int milliseconds) async {
         // Simulate async delay
@@ -56,7 +56,7 @@ void main() {
     expect(result, equals(12));
   });
 
-  test('Async nested loops with conditions and breaks', () async {
+  test('Async nested loops with conditions and breaks [2026-02-10 06:37]', () async {
     final source = '''
       Future<void> asyncPrint(String message) async {
         return Future.delayed(Duration(milliseconds: 5));
@@ -126,7 +126,7 @@ void main() {
     expect(result, equals('Complex test completed'));
   });
 
-  test('Async nested loops with exception handling', () async {
+  test('Async nested loops with exception handling [2026-02-10 06:37]', () async {
     final source = '''
       Future<int> riskyAsyncOperation(int value) async {
         await Future.delayed(Duration(milliseconds: 1));
@@ -190,7 +190,7 @@ void main() {
     expect(result, equals('Exception handling test completed successfully'));
   });
 
-  test('Async nested loops with Future.wait', () async {
+  test('Async nested loops with Future.wait [2026-02-10 06:37]', () async {
     final source = '''
       Future<String> asyncTask(String taskName, int delay) async {
         await Future.delayed(Duration(milliseconds: delay));
@@ -237,7 +237,7 @@ void main() {
     expect(result, equals(8));
   });
 
-  test('Async nested for-in loops with lists', () async {
+  test('Async nested for-in loops with lists [2026-02-10 06:37]', () async {
     final source = '''
       Future<String> processItem(String category, String item) async {
         await Future.delayed(Duration(milliseconds: 5));
@@ -278,7 +278,7 @@ void main() {
     expect(result, equals(9)); // 3 + 2 + 4 = 9 items total
   });
 
-  test('Async nested for-in loops with maps and complex data', () async {
+  test('Async nested for-in loops with maps and complex data [2026-02-10 06:37]', () async {
     final source = '''
       Future<Map<String, dynamic>> analyzeData(String department, Map<String, dynamic> employee) async {
         await Future.delayed(Duration(milliseconds: 3));
@@ -345,7 +345,7 @@ void main() {
     expect(result, equals(5)); // 2 + 2 + 1 = 5 employees total
   });
 
-  test('Async nested for-in loops with break and continue', () async {
+  test('Async nested for-in loops with break and continue [2026-02-10 06:37]', () async {
     final source = '''
       Future<bool> shouldSkipItem(String category, String item) async {
         await Future.delayed(Duration(milliseconds: 2));
@@ -404,7 +404,7 @@ void main() {
             5)); // start:item1, start:item2, middle:item3, middle:item4, middle:item5
   });
 
-  test('Async nested for-in loops with exception handling', () async {
+  test('Async nested for-in loops with exception handling [2026-02-10 06:37]', () async {
     final source = '''
       Future<String> riskyProcessing(String category, String item) async {
         await Future.delayed(Duration(milliseconds: 2));
@@ -473,7 +473,7 @@ void main() {
     expect(result, equals('Processed 8 items: 6 successful, 2 errors'));
   });
 
-  test('Async nested for-in loops with await for streams', () async {
+  test('Async nested for-in loops with await for streams [2026-02-10 06:37]', () async {
     final source = '''
       Future<Stream<String>> createAsyncStream(List<String> items) async {
         await Future.delayed(Duration(milliseconds: 5));
@@ -519,7 +519,7 @@ void main() {
     expect(result, equals(5)); // 3 items from stream1 + 2 items from stream2
   });
 
-  test('Simple async nested for-in loops', () async {
+  test('Simple async nested for-in loops [2026-02-10 06:37]', () async {
     final source = '''
       Future<int> simpleNestedForIn() async {
         int count = 0;
@@ -549,7 +549,7 @@ void main() {
     expect(result, equals(5)); // 2 + 3 = 5 items total
   });
 
-  test('Triple nested for-in loops with async operations', () async {
+  test('Triple nested for-in loops with async operations [2026-02-10 06:37]', () async {
     final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));
@@ -585,7 +585,7 @@ void main() {
     expect(result, equals(8)); // 2 * 2 * 2 = 8 combinations
   });
 
-  test('Nested loops with conditional break and continue', () async {
+  test('Nested loops with conditional break and continue [2026-02-10 06:37]', () async {
     final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));
@@ -635,7 +635,7 @@ void main() {
     expect(result, equals(11));
   });
 
-  test('Nested for-in with maps and async transformations', () async {
+  test('Nested for-in with maps and async transformations [2026-02-10 06:37]', () async {
     final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));
@@ -678,7 +678,7 @@ void main() {
     expect(result, equals(4)); // 2 users * 2 properties = 4
   });
 
-  test('Await for loop inside regular for-in loop', () async {
+  test('Await for loop inside regular for-in loop [2026-02-10 06:37]', () async {
     final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));
@@ -720,7 +720,7 @@ void main() {
     expect(result, equals(5)); // G1: 3 items, G2: 2 items = 5 total
   });
 
-  test('Mixed loop types with async: for-in inside while inside for', () async {
+  test('Mixed loop types with async: for-in inside while inside for [2026-02-10 06:37]', () async {
     final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));
@@ -759,7 +759,7 @@ void main() {
     expect(result, equals(8)); // 2 batches * 2 counters * 2 items = 8
   });
 
-  test('Nested loops with async/await in various positions', () async {
+  test('Nested loops with async/await in various positions [2026-02-10 06:37]', () async {
     final source = '''
       Future<int> asyncAdd(int a, int b) async {
         await Future.delayed(Duration(milliseconds: 5));
@@ -800,7 +800,7 @@ void main() {
     expect(result, equals(6)); // All combinations pass the > 5 check
   });
 
-  test('Nested for-in with list modifications and async operations', () async {
+  test('Nested for-in with list modifications and async operations [2026-02-10 06:37]', () async {
     final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));
@@ -846,7 +846,7 @@ void main() {
     expect(result, equals(9)); // 3 groups * 3 items = 9
   });
 
-  test('Deep nesting with 4 levels and mixed async operations', () async {
+  test('Deep nesting with 4 levels and mixed async operations [2026-02-10 06:37]', () async {
     final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));
@@ -885,7 +885,7 @@ void main() {
     expect(result, equals(16)); // 2^4 = 16 combinations
   });
 
-  test('Nested loops with early returns and exception handling', () async {
+  test('Nested loops with early returns and exception handling [2026-02-10 06:37]', () async {
     final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));
@@ -930,7 +930,7 @@ void main() {
     expect(result, equals(8)); // 9 total - 1 error = 8 successful
   });
 
-  test('Nested for-in with dynamic list generation', () async {
+  test('Nested for-in with dynamic list generation [2026-02-10 06:37]', () async {
     final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));

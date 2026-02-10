@@ -12,7 +12,7 @@ dynamic execute(String source, {List<Object?>? args}) {
 void main() {
   group('Enhanced Type System', () {
     group('Type Casting (as operator)', () {
-      test('Basic type casting with built-in types', () {
+      test('Basic type casting with built-in types [2026-02-10 06:37]', () {
         final code = '''
           main() {
             var i = 42;
@@ -37,7 +37,7 @@ void main() {
             equals([42, 3.14, 42, 3.14, "hello", "hello", null, "test"]));
       });
 
-      test('Failed type casting throws RuntimeError', () {
+      test('Failed type casting throws RuntimeError [2026-02-10 06:37]', () {
         final code = '''
           main() {
             var i = 42;
@@ -51,7 +51,7 @@ void main() {
                 contains("Cast failed with 'as'"))));
       });
 
-      test('Type casting with custom classes', () {
+      test('Type casting with custom classes [2026-02-10 06:37]', () {
         final code = '''
           class Animal {
             String name;
@@ -73,7 +73,7 @@ void main() {
         expect(execute(code), equals(["Rex", true, true]));
       });
 
-      test('Type casting with inheritance hierarchy', () {
+      test('Type casting with inheritance hierarchy [2026-02-10 06:37]', () {
         final code = '''
           class Shape {
             String getType() => "Shape";
@@ -102,7 +102,7 @@ void main() {
         expect(execute(code), equals(["Circle", true, true]));
       });
 
-      test('Invalid downcast should throw error', () {
+      test('Invalid downcast should throw error [2026-02-10 06:37]', () {
         final code = '''
           class Animal {}
           class Dog extends Animal {}
@@ -120,7 +120,7 @@ void main() {
         expect(result, isA<Object>()); // Currently permissive
       });
 
-      test('Type casting with interfaces', () {
+      test('Type casting with interfaces [2026-02-10 06:37]', () {
         final code = '''
           abstract class Flyable {
             void fly();
@@ -141,7 +141,7 @@ void main() {
         expect(execute(code), equals(true));
       });
 
-      test('Type casting with mixins', () {
+      test('Type casting with mixins [2026-02-10 06:37]', () {
         final code = '''
           mixin Swimmer {
             void swim() => print("Swimming");
@@ -162,7 +162,7 @@ void main() {
     });
 
     group('Enhanced Type Checking (is/is!)', () {
-      test('Type checking with complex inheritance', () {
+      test('Type checking with complex inheritance [2026-02-10 06:37]', () {
         final code = '''
           abstract class Vehicle {}
           
@@ -203,7 +203,7 @@ void main() {
             equals([true, true, true, true, true, true, true, true]));
       });
 
-      test('Type checking with generics', () {
+      test('Type checking with generics [2026-02-10 06:37]', () {
         final code = '''
           class Container<T> {
             T value;
@@ -228,7 +228,7 @@ void main() {
     });
 
     group('Type Error Messages', () {
-      test('Clear error message for type mismatch', () {
+      test('Clear error message for type mismatch [2026-02-10 06:37]', () {
         final code = '''
           String getName() {
             return 42; // Wrong type
@@ -248,7 +248,7 @@ void main() {
                     contains("String")))));
       });
 
-      test('Clear error message for invalid cast', () {
+      test('Clear error message for invalid cast [2026-02-10 06:37]', () {
         final code = '''
           main() {
             var value = "hello";
@@ -264,7 +264,7 @@ void main() {
     });
 
     group('Runtime Type Validation', () {
-      test('Generic type argument validation', () {
+      test('Generic type argument validation [2026-02-10 06:37]', () {
         final code = '''
           class TypedList<T> {
             List<T> _items = [];
@@ -308,7 +308,7 @@ void main() {
         expect(resultList[1], equals(["hello", "world"]));
       });
 
-      test('Method parameter type validation', () {
+      test('Method parameter type validation [2026-02-10 06:37]', () {
         final code = '''
           class Calculator {
             num add(num a, num b) {
@@ -345,7 +345,7 @@ void main() {
     });
 
     group('Advanced Type Features', () {
-      test('Nullable type handling', () {
+      test('Nullable type handling [2026-02-10 06:37]', () {
         final code = '''
           String? maybeString = null;
           
@@ -368,7 +368,7 @@ void main() {
         expect(execute(code), equals(["No value", "Value: hello", "No value"]));
       });
 
-      test('Type inference for local variables', () {
+      test('Type inference for local variables [2026-02-10 06:37]', () {
         final code = '''
           main() {
             var inferredInt = 42;           // Should infer int
@@ -388,7 +388,7 @@ void main() {
         expect(execute(code), equals([true, true, true, true]));
       });
 
-      test('Dynamic type behavior', () {
+      test('Dynamic type behavior [2026-02-10 06:37]', () {
         final code = '''
           dynamic processValue(dynamic value) {
             if (value is String) {
@@ -417,7 +417,7 @@ void main() {
     });
 
     group('Type System Edge Cases', () {
-      test('Null safety with type casting', () {
+      test('Null safety with type casting [2026-02-10 06:37]', () {
         final code = '''
           main() {
             String? nullableString = null;
@@ -436,7 +436,7 @@ void main() {
         expect(result, anyOf("Caught null cast error", null));
       });
 
-      test('Type checking with Object hierarchy', () {
+      test('Type checking with Object hierarchy [2026-02-10 06:37]', () {
         final code = '''
           main() {
             var stringValue = "hello";
@@ -457,7 +457,7 @@ void main() {
         expect(execute(code), equals([true, true, true, true, true, true]));
       });
 
-      test('Generic type bounds validation', () {
+      test('Generic type bounds validation [2026-02-10 06:37]', () {
         final code = '''
           class NumericContainer<T extends num> {
             T value;

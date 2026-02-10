@@ -62,58 +62,58 @@ void main() {
       generatedCode = await File(result.outputFiles.first).readAsString();
     });
 
-    test('detects simple enums', () {
+    test('detects simple enums [2026-02-10 06:37]', () {
       expect(generatedCode, contains("name: 'SimpleStatus'"));
       expect(generatedCode, contains("name: 'Color'"));
       expect(generatedCode, contains("name: 'Singleton'"));
     });
 
-    test('detects enums with members', () {
+    test('detects enums with members [2026-02-10 06:37]', () {
       expect(generatedCode, contains("name: 'Priority'"));
       expect(generatedCode, contains("name: 'HttpMethod'"));
       expect(generatedCode, contains("name: 'Planet'"));
     });
 
-    test('skips private enums', () {
+    test('skips private enums [2026-02-10 06:37]', () {
       expect(generatedCode, isNot(contains('_InternalState')));
     });
 
-    test('generates bridgedEnums method', () {
+    test('generates bridgedEnums method [2026-02-10 06:37]', () {
       expect(generatedCode, contains('static List<BridgedEnumDefinition> bridgedEnums()'));
     });
 
-    test('generates BridgedEnumDefinition with correct type parameter', () {
+    test('generates BridgedEnumDefinition with correct type parameter [2026-02-10 06:37]', () {
       // Types are prefixed with $pkg since source imports use that prefix
       expect(generatedCode, contains(r'BridgedEnumDefinition<$pkg.SimpleStatus>'));
       expect(generatedCode, contains(r'BridgedEnumDefinition<$pkg.Color>'));
       expect(generatedCode, contains(r'BridgedEnumDefinition<$pkg.Priority>'));
     });
 
-    test('generates enum values reference', () {
+    test('generates enum values reference [2026-02-10 06:37]', () {
       // Types are prefixed with $pkg since source imports use that prefix
       expect(generatedCode, contains(r'values: $pkg.SimpleStatus.values'));
       expect(generatedCode, contains(r'values: $pkg.Color.values'));
       expect(generatedCode, contains(r'values: $pkg.Priority.values'));
     });
 
-    test('generates registerBridgedEnum calls in registerBridges', () {
+    test('generates registerBridgedEnum calls in registerBridges [2026-02-10 06:37]', () {
       // The call includes sourceUri for deduplication support
       expect(generatedCode, contains('interpreter.registerBridgedEnum(enumDef, importPath, sourceUri:'));
     });
 
-    test('generates enumNames property', () {
+    test('generates enumNames property [2026-02-10 06:37]', () {
       expect(generatedCode, contains("static List<String> get enumNames"));
       expect(generatedCode, contains("'SimpleStatus'"));
       expect(generatedCode, contains("'Color'"));
       expect(generatedCode, contains("'Priority'"));
     });
 
-    test('generates class bridges that reference enums', () {
+    test('generates class bridges that reference enums [2026-02-10 06:37]', () {
       expect(generatedCode, contains('_createTaskBridge'));
       expect(generatedCode, contains('_createTaskManagerBridge'));
     });
 
-    test('GEN-041: generates getter adapters for enhanced enum fields', () {
+    test('GEN-041: generates getter adapters for enhanced enum fields [2026-02-10 06:37]', () {
       // Priority has computed getters: 'level' and 'isHighPriority'
       expect(generatedCode, contains("'level': (visitor, target) =>"));
       expect(generatedCode, contains(r'(target as $pkg.Priority).level'));
@@ -121,7 +121,7 @@ void main() {
       expect(generatedCode, contains(r'(target as $pkg.Priority).isHighPriority'));
     });
 
-    test('GEN-041: generates getter adapters for Planet fields', () {
+    test('GEN-041: generates getter adapters for Planet fields [2026-02-10 06:37]', () {
       // Planet has 'mass' and 'radius' final fields, plus 'surfaceGravity' computed getter
       expect(generatedCode, contains("'mass': (visitor, target) =>"));
       expect(generatedCode, contains("'radius': (visitor, target) =>"));
@@ -130,13 +130,13 @@ void main() {
       expect(generatedCode, contains("'surfaceGravity': (visitor, target) =>"));
     });
 
-    test('GEN-041: generates method adapters for enhanced enum methods', () {
+    test('GEN-041: generates method adapters for enhanced enum methods [2026-02-10 06:37]', () {
       // HttpMethod has 'canHaveBody()' and 'toUpperCase()'
       expect(generatedCode, contains("'canHaveBody':"));
       expect(generatedCode, contains("'toUpperCase':"));
     });
 
-    test('GEN-041: does NOT generate getters for simple enums', () {
+    test('GEN-041: does NOT generate getters for simple enums [2026-02-10 06:37]', () {
       // SimpleStatus has no custom fields — should have no getters: block
       // We need to check that there's no getters block right after SimpleStatus
       final simpleIdx = generatedCode.indexOf("name: 'SimpleStatus'");
@@ -152,7 +152,7 @@ void main() {
   });
 
   group('Enum Bridge Generation - Edge Cases', () {
-    test('handles file with no enums', () async {
+    test('handles file with no enums [2026-02-10 06:37]', () async {
       // Create a temp file with no enums
       final noEnumFile = File(p.join(tempOutputDir, 'no_enums.dart'));
       await noEnumFile.writeAsString('''
@@ -187,7 +187,7 @@ class SimpleClass {
       expect(code, isNot(contains('BridgedEnumDefinition(')));
     });
 
-    test('handles file with only private enums', () async {
+    test('handles file with only private enums [2026-02-10 06:37]', () async {
       // Create a temp file with only private enums
       final privateEnumFile = File(p.join(tempOutputDir, 'private_enums.dart'));
       await privateEnumFile.writeAsString('''
@@ -221,7 +221,7 @@ class PublicClass {
       expect(code, isNot(contains('_PrivateEnum')));
     });
 
-    test('handles single-value enum', () async {
+    test('handles single-value enum [2026-02-10 06:37]', () async {
       final singleValueFile = File(p.join(tempOutputDir, 'single_value.dart'));
       await singleValueFile.writeAsString('''
 enum SingletonEnum { instance }

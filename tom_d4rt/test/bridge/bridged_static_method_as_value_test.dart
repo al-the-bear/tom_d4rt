@@ -3,7 +3,7 @@ import '../interpreter_test.dart';
 
 void main() {
   group('Bridged Static Method as Value', () {
-    test('can pass bridged static method as value - int.parse', () {
+    test('can pass bridged static method as value - int.parse [2026-02-10 06:37]', () {
       const code = '''
 int main() {
   // Get the static method as a value
@@ -19,7 +19,7 @@ int main() {
       expect(result, equals(42));
     });
 
-    test('can pass bridged static method to higher-order function', () {
+    test('can pass bridged static method to higher-order function [2026-02-10 06:37]', () {
       const code = '''
 int applyToString(Function f, String s) {
   return f(s);
@@ -34,7 +34,7 @@ int main() {
       expect(result, equals(100));
     });
 
-    test('can store bridged static methods in collections', () {
+    test('can store bridged static methods in collections [2026-02-10 06:37]', () {
       const code = '''
 int main() {
   // Store static methods in a list
@@ -51,7 +51,7 @@ int main() {
       expect(result, equals(45)); // 42 + 3
     });
 
-    test('can map with bridged static method', () {
+    test('can map with bridged static method [2026-02-10 06:37]', () {
       const code = '''
 int main() {
   var strings = ['1', '2', '3'];
@@ -64,7 +64,7 @@ int main() {
       expect(result, equals(3));
     });
 
-    test('can use multiple bridged static methods', () {
+    test('can use multiple bridged static methods [2026-02-10 06:37]', () {
       const code = '''
 import 'dart:math';
 

@@ -50,6 +50,23 @@ class LibraryGetter {
   const LibraryGetter(this.name, this.getter, {this.sourceUri});
 }
 
+/// Wrapper class for library-scoped setters.
+/// Stores a setter name, its function, and optionally its canonical source URI
+/// for deduplication across re-exports.
+///
+/// Setters are paired with getters to enable full read-write access to
+/// top-level variables that use getter/setter pairs.
+class LibrarySetter {
+  final String name;
+  final void Function(Object? value) setter;
+  
+  /// The canonical source URI where this setter is defined.
+  /// See [LibraryVariable.sourceUri] for details.
+  final String? sourceUri;
+  
+  const LibrarySetter(this.name, this.setter, {this.sourceUri});
+}
+
 /// Wrapper class for library-scoped functions.
 /// Stores a native function with its canonical source URI for deduplication.
 class LibraryFunction {
@@ -154,6 +171,7 @@ class D4rt {
   final List<Map<String, LibraryFunction>> _libraryFunctions = [];
   final List<Map<String, LibraryVariable>> _libraryVariables = [];
   final List<Map<String, LibraryGetter>> _libraryGetters = [];
+  final List<Map<String, LibrarySetter>> _librarySetters = [];
 
   late ModuleLoader _moduleLoader;
   bool _hasExecutedOnce = false;
@@ -259,6 +277,30 @@ class D4rt {
     _libraryGetters.add({library: LibraryGetter(name, getter, sourceUri: sourceUri)});
   }
 
+  /// Registers a global setter for a top-level setter in a specific library.
+  ///
+  /// This enables assignment to top-level variables that have setter definitions.
+  /// The setter is paired with a corresponding getter (registered via
+  /// [registerGlobalGetter]) to enable full read-write access.
+  ///
+  /// [name] The name of the setter (without 'set' keyword).
+  /// [setter] A function that receives the assigned value and updates the native state.
+  /// [library] The library URI where this setter is defined.
+  /// [sourceUri] The canonical source URI where this setter is defined.
+  ///   Used for deduplication when the same setter is exported through multiple barrels.
+  ///
+  /// ## Example:
+  /// ```dart
+  /// int _counter = 0;
+  /// 
+  /// final interpreter = D4rt();
+  /// interpreter.registerGlobalGetter('counter', () => _counter, 'package:my_app/my_app.dart');
+  /// interpreter.registerGlobalSetter('counter', (v) => _counter = v as int, 'package:my_app/my_app.dart');
+  /// ```
+  void registerGlobalSetter(String name, void Function(Object?) setter, String library, {String? sourceUri}) {
+    _librarySetters.add({library: LibrarySetter(name, setter, sourceUri: sourceUri)});
+  }
+
   ModuleLoader _initModule(Map<String, String>? sources,
       {String? basePath, bool allowFileSystemImports = false,
       bool collectRegistrationErrors = false}) {
@@ -270,6 +312,7 @@ class D4rt {
       libraryFunctions: _libraryFunctions,
       libraryVariables: _libraryVariables,
       libraryGetters: _libraryGetters,
+      librarySetters: _librarySetters,
       bridgedExtensions: _bridgedExtensions,
       d4rt: this,
       collectRegistrationErrors: collectRegistrationErrors,

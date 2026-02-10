@@ -2787,6 +2787,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               throw RuntimeD4rtException(
                   "Bridged constructor adapter for '${bridgedClass.name}.$methodName' returned null unexpectedly.");
             }
+            
+            // Don't wrap Futures or Streams - they need to be usable directly
+            if (nativeObject is Future || nativeObject is Stream) {
+              Logger.debug(
+                  "[visitMethodInvocation]   Returning native ${nativeObject.runtimeType} directly (not wrapping)");
+              return nativeObject;
+            }
+            
             final bridgedInstance = BridgedInstance(bridgedClass, nativeObject);
             Logger.debug(
                 "[visitMethodInvocation]   Created BridgedInstance wrapping native: ${nativeObject.runtimeType}");
@@ -3041,6 +3049,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             throw RuntimeD4rtException(
                 "Default bridged constructor adapter for '${bridgedClass.name}' returned null.");
           }
+          
+          // Don't wrap Futures or Streams - they need to be usable directly
+          if (nativeObject is Future || nativeObject is Stream) {
+            Logger.debug(
+                "[visitMethodInvocation]   Returning native ${nativeObject.runtimeType} directly (not wrapping)");
+            return nativeObject;
+          }
+          
           final bridgedInstance = BridgedInstance(bridgedClass, nativeObject);
           Logger.debug(
               "[visitMethodInvocation]   Created BridgedInstance wrapping native: ${nativeObject.runtimeType}");
@@ -8013,6 +8029,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         if (nativeObject == null) {
           throw RuntimeD4rtException(
               "Bridged constructor adapter for '\$constructorName.$constructorLookupName' returned null unexpectedly.");
+        }
+
+        // Don't wrap Futures in BridgedInstance - they need to be awaitable directly
+        // Similarly, don't wrap Streams as they need direct subscription
+        if (nativeObject is Future || nativeObject is Stream) {
+          Logger.debug(
+              "[InstanceCreation]   Returning native ${nativeObject.runtimeType} directly (not wrapping)");
+          return nativeObject;
         }
 
         // Wrap the native object in BridgedInstance

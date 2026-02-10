@@ -3,7 +3,7 @@ import '../../interpreter_test.dart';
 
 void main() {
   group('Await in Function Arguments Tests', () {
-    test('await in positional arguments', () async {
+    test('await in positional arguments [2026-02-10 06:37]', () async {
       const source = '''
         Future<int> getValue() async {
           await Future.delayed(Duration(milliseconds: 5));
@@ -22,7 +22,7 @@ void main() {
       expect(await execute(source), equals(84));
     });
 
-    test('await in named arguments', () async {
+    test('await in named arguments [2026-02-10 06:37]', () async {
       const source = '''
         Future<String> getName() async {
           await Future.delayed(Duration(milliseconds: 5));
@@ -41,7 +41,7 @@ void main() {
       expect(await execute(source), equals("Hello, World!"));
     });
 
-    test('constructor with await in arguments', () async {
+    test('constructor with await in arguments [2026-02-10 06:37]', () async {
       const source = '''
         class Point {
           int x;
@@ -70,7 +70,7 @@ void main() {
     // Note: Le test suivant révèle une limitation actuelle de l'implémentation
     // pour les cas d'await imbriqués
 
-    test('nested await in function arguments - simplified', () async {
+    test('nested await in function arguments - simplified [2026-02-10 06:37]', () async {
       const source = '''
         Future<int> getNumber() async {
           await Future.delayed(Duration(milliseconds: 5));
@@ -91,7 +91,7 @@ void main() {
       expect(await execute(source), equals(15));
     });
 
-    test('await with exception handling in arguments', () async {
+    test('await with exception handling in arguments [2026-02-10 06:37]', () async {
       const source = '''
         Future<int> riskyFunction() async {
           await Future.delayed(Duration(milliseconds: 5));

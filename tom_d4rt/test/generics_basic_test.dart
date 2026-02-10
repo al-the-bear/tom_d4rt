@@ -3,7 +3,7 @@ import 'interpreter_test.dart';
 
 void main() {
   group('Basic Generic Support', () {
-    test('Simple class without generics should still work', () {
+    test('Simple class without generics should still work [2026-02-10 06:37]', () {
       final code = '''
         class Box {
           var value;
@@ -19,7 +19,7 @@ void main() {
       expect(execute(code), equals(42));
     });
 
-    test('Class with generic syntax should parse but work as dynamic', () {
+    test('Class with generic syntax should parse but work as dynamic [2026-02-10 06:37]', () {
       final code = '''
         class Box<T> {
           var value;
@@ -35,7 +35,7 @@ void main() {
       expect(execute(code), equals("hello"));
     });
 
-    test('Function with type parameter should parse and work', () {
+    test('Function with type parameter should parse and work [2026-02-10 06:37]', () {
       final code = '''
         T identity<T>(T value) {
           return value;
@@ -50,7 +50,7 @@ void main() {
       expect(execute(code), equals([42, "hello"]));
     });
 
-    test('Multiple type parameters should parse', () {
+    test('Multiple type parameters should parse [2026-02-10 06:37]', () {
       final code = '''
         class Pair<T, U> {
           var first;
@@ -68,7 +68,7 @@ void main() {
       expect(execute(code), equals([42, "hello"]));
     });
 
-    test('Type parameters with bounds should parse (but bounds ignored)', () {
+    test('Type parameters with bounds should parse (but bounds ignored) [2026-02-10 06:37]', () {
       final code = '''
         class Container<T extends Object> {
           var item;
@@ -84,7 +84,7 @@ void main() {
       expect(execute(code), equals("test"));
     });
 
-    test('Generic method should parse', () {
+    test('Generic method should parse [2026-02-10 06:37]', () {
       final code = '''
         class Utils {
           static T convert<T>(dynamic value) {
@@ -100,7 +100,7 @@ void main() {
       expect(execute(code), equals("converted"));
     });
 
-    test('Instantiation with explicit type arguments should parse', () {
+    test('Instantiation with explicit type arguments should parse [2026-02-10 06:37]', () {
       final code = '''
         class Box<T> {
           var value;
@@ -116,7 +116,7 @@ void main() {
       expect(execute(code), equals(42));
     });
 
-    test('Nested generics should parse', () {
+    test('Nested generics should parse [2026-02-10 06:37]', () {
       final code = '''
         class Wrapper<T> {
           var content;
@@ -134,7 +134,7 @@ void main() {
   });
 
   group('Advanced Generic Support', () {
-    test('Generic class with type-specific methods', () {
+    test('Generic class with type-specific methods [2026-02-10 06:37]', () {
       final code = '''
         class Repository<T> {
           List<T> items = [];
@@ -175,7 +175,7 @@ void main() {
       expect(execute(code), equals(["hello", "world", 2, 42, 100, 2]));
     });
 
-    test('Generic inheritance', () {
+    test('Generic inheritance [2026-02-10 06:37]', () {
       final code = '''
         class Container<T> {
           T? value;
@@ -206,7 +206,7 @@ void main() {
       expect(execute(code), equals([42, 42.0, 3.14, 3.14]));
     });
 
-    test('Multiple generic constraints', () {
+    test('Multiple generic constraints [2026-02-10 06:37]', () {
       final code = '''
         class Serializable<T extends Object> {
           T data;
@@ -237,7 +237,7 @@ void main() {
       expect(execute(code), equals(["test data", true, "test data"]));
     });
 
-    test('Generic factory constructors', () {
+    test('Generic factory constructors [2026-02-10 06:37]', () {
       final code = '''
         class Optional<T> {
           T? _value;
@@ -271,7 +271,7 @@ void main() {
       expect(execute(code), equals([true, "hello", false, null]));
     });
 
-    test('Complex generic collection operations', () {
+    test('Complex generic collection operations [2026-02-10 06:37]', () {
       final code = '''
         class GenericList<T> {
           List<T> _items = [];
@@ -312,7 +312,7 @@ void main() {
           ]));
     });
 
-    test('Generic mixin support', () {
+    test('Generic mixin support [2026-02-10 06:37]', () {
       final code = '''
         mixin Comparable<T> {
           int compare(T other);
@@ -356,7 +356,7 @@ void main() {
   });
 
   group('Generic Error Handling', () {
-    test('Type mismatch should be caught (when bounds checking implemented)',
+    test('Type mismatch should be caught (when bounds checking implemented) [2026-02-10 06:37]',
         () {
       final code = '''
         class NumberOnly<T extends num> {
@@ -377,7 +377,7 @@ void main() {
       expect(execute(code), equals(42));
     });
 
-    test('Null safety with generics', () {
+    test('Null safety with generics [2026-02-10 06:37]', () {
       final code = '''
         class SafeContainer<T> {
           T? _value;
@@ -409,7 +409,7 @@ void main() {
   });
 
   group('Advanced Type Checking and Error Handling', () {
-    test('Generic type constraints verification', () {
+    test('Generic type constraints verification [2026-02-10 06:37]', () {
       final code = '''
         class NumericContainer<T extends num> {
           T value;
@@ -438,7 +438,7 @@ void main() {
       expect(execute(code), equals([15, 5.0, true, true]));
     });
 
-    test('Generic collections with type safety tests', () {
+    test('Generic collections with type safety tests [2026-02-10 06:37]', () {
       final code = '''
         class TypeSafeList<T> {
           List<T> _items = [];
@@ -490,7 +490,7 @@ void main() {
           execute(code), equals(["hello", "String", true, 100, "int", true]));
     });
 
-    test('Generic method overloading and type resolution', () {
+    test('Generic method overloading and type resolution [2026-02-10 06:37]', () {
       final code = '''
         class Converter {
           static T convert<T>(dynamic value) {
@@ -533,7 +533,7 @@ void main() {
           ]));
     });
 
-    test('Generic exception handling and type errors', () {
+    test('Generic exception handling and type errors [2026-02-10 06:37]', () {
       final code = '''
         class Result<T, E> {
           final T? _value;
@@ -606,7 +606,7 @@ void main() {
           ]));
     });
 
-    test('Generic inheritance with type preservation', () {
+    test('Generic inheritance with type preservation [2026-02-10 06:37]', () {
       final code = '''
         abstract class Repository<T> {
           List<T> findAll();
@@ -668,7 +668,7 @@ void main() {
       expect(execute(code), equals([2, 2, "Alice", 30]));
     });
 
-    test('Complex generic type interactions', () {
+    test('Complex generic type interactions [2026-02-10 06:37]', () {
       final code = '''
         class Either<L, R> {
           final L? _left;
@@ -733,7 +733,7 @@ void main() {
           equals([true, 42, true, 84, "Error: Invalid number: abc"]));
     });
 
-    test('Generic type bounds with multiple constraints', () {
+    test('Generic type bounds with multiple constraints [2026-02-10 06:37]', () {
       final code = '''
         mixin Serializable {
           String toJson();
@@ -796,7 +796,7 @@ void main() {
           equals([2, '{"id": "1", "name": "Alice"}', "Alice", "1"]));
     });
 
-    test('Generic type variance and covariance simulation', () {
+    test('Generic type variance and covariance simulation [2026-02-10 06:37]', () {
       final code = '''
         class Animal {
           final String name;
@@ -866,7 +866,7 @@ void main() {
           ]));
     });
 
-    test('Static method resolution within class context', () {
+    test('Static method resolution within class context [2026-02-10 06:37]', () {
       final code = '''
         class Converter {
           static T convert<T>(dynamic value) {
@@ -928,7 +928,7 @@ void main() {
           ]));
     });
 
-    test('Dynamic bounds resolution with custom types from environment', () {
+    test('Dynamic bounds resolution with custom types from environment [2026-02-10 06:37]', () {
       final code = '''
         // Define a custom interface/class first
         abstract class Serializable {
@@ -977,7 +977,7 @@ void main() {
   });
 
   group('Type Error Detection and Validation', () {
-    test('Invalid type assignment should be detected', () {
+    test('Invalid type assignment should be detected [2026-02-10 06:37]', () {
       final code = '''
         class TypedContainer<T> {
           T value;
@@ -1013,7 +1013,7 @@ void main() {
               equals("ERROR: Should have failed")));
     });
 
-    test('Method call with wrong argument types should fail gracefully', () {
+    test('Method call with wrong argument types should fail gracefully [2026-02-10 06:37]', () {
       final code = '''
         class Calculator<T extends num> {
           T add(T a, T b) {
@@ -1043,7 +1043,7 @@ void main() {
       expect(execute(code), equals([15, 12]));
     });
 
-    test('Generic type constraint violations should be handled', () {
+    test('Generic type constraint violations should be handled [2026-02-10 06:37]', () {
       final code = '''
         // Simulate a constraint violation scenario
         class NumericProcessor<T extends num> {
@@ -1090,7 +1090,7 @@ void main() {
           ]));
     });
 
-    test('Null safety violations with generics', () {
+    test('Null safety violations with generics [2026-02-10 06:37]', () {
       final code = '''
         class NullableContainer<T> {
           T? _value;
@@ -1137,7 +1137,7 @@ void main() {
       expect(execute(code), equals(["Null check worked", "test", "test"]));
     });
 
-    test('Collection type mismatches should be detected', () {
+    test('Collection type mismatches should be detected [2026-02-10 06:37]', () {
       final code = '''
         class TypedList<T> {
           List<T> _items = [];
@@ -1201,7 +1201,7 @@ void main() {
       }
     });
 
-    test('Generic method type parameter misuse', () {
+    test('Generic method type parameter misuse [2026-02-10 06:37]', () {
       final code = '''
         class TypeConverter {
           static T convert<T>(dynamic value, Type targetType) {
@@ -1271,7 +1271,7 @@ void main() {
           ]));
     });
 
-    test('Inheritance type safety violations', () {
+    test('Inheritance type safety violations [2026-02-10 06:37]', () {
       final code = '''
         class Animal {
           String name;
@@ -1341,7 +1341,7 @@ void main() {
       expect(result, isA<List>());
     });
 
-    test('Complex generic constraint validation', () {
+    test('Complex generic constraint validation [2026-02-10 06:37]', () {
       final code = '''
         // Simulating a scenario where multiple constraints should be checked
         abstract class Drawable {
@@ -1436,7 +1436,7 @@ void main() {
       expect(execute(code), equals(["Validation passed", 2, 1, 11]));
     });
 
-    test('Runtime type validation with generics enforcement', () {
+    test('Runtime type validation with generics enforcement [2026-02-10 06:37]', () {
       final code = '''
         class TypeSafeContainer<T> {
           List<T> _items = [];
@@ -1493,7 +1493,7 @@ void main() {
       }
     });
 
-    test('Generic method parameter validation', () {
+    test('Generic method parameter validation [2026-02-10 06:37]', () {
       final code = '''
         class TypeValidator {
           static T validateAndReturn<T>(dynamic value, Type expectedType) {
@@ -1554,7 +1554,7 @@ void main() {
   });
 
   group('Type Bounds Checking Implementation', () {
-    test('Generic function with numeric bounds should enforce constraints', () {
+    test('Generic function with numeric bounds should enforce constraints [2026-02-10 06:37]', () {
       final code = '''
         T addOne<T extends num>(T value) {
           return value + 1;
@@ -1575,7 +1575,7 @@ void main() {
       expect(execute(code), equals([43, 4.140000000000001]));
     });
 
-    test('Generic function with Object bounds should allow most types', () {
+    test('Generic function with Object bounds should allow most types [2026-02-10 06:37]', () {
       final code = '''
         T identity<T extends Object>(T value) {
           return value;
@@ -1597,7 +1597,7 @@ void main() {
       expect(execute(code), equals(["hello", 42, true]));
     });
 
-    test('Generic class with bounded type parameters', () {
+    test('Generic class with bounded type parameters [2026-02-10 06:37]', () {
       final code = '''
         class NumericContainer<T extends num> {
           T value;
@@ -1632,7 +1632,7 @@ void main() {
       expect(execute(code), equals([15, true, 3.14, 5.0]));
     });
 
-    test('Multiple bounded type parameters', () {
+    test('Multiple bounded type parameters [2026-02-10 06:37]', () {
       final code = '''
         T process<T extends num, U extends Object>(T number, U object) {
           // T must be numeric, U can be any Object
@@ -1653,7 +1653,7 @@ void main() {
       expect(execute(code), equals([10, 7.5]));
     });
 
-    test('Bounds checking error detection', () {
+    test('Bounds checking error detection [2026-02-10 06:37]', () {
       final code = '''
         // This function should only accept numeric types
         T square<T extends num>(T value) {

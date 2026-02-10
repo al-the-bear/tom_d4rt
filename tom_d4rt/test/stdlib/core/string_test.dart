@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('String methods - comprehensive', () {
-    test('substring', () {
+    test('substring [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello world";
@@ -13,7 +13,7 @@ void main() {
       expect(execute(source), equals('hello'));
     });
 
-    test('toUpperCase', () {
+    test('toUpperCase [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello";
@@ -23,7 +23,7 @@ void main() {
       expect(execute(source), equals('HELLO'));
     });
 
-    test('toLowerCase', () {
+    test('toLowerCase [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "HELLO";
@@ -33,7 +33,7 @@ void main() {
       expect(execute(source), equals('hello'));
     });
 
-    test('contains', () {
+    test('contains [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello world";
@@ -43,7 +43,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('startsWith', () {
+    test('startsWith [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello world";
@@ -53,7 +53,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('endsWith', () {
+    test('endsWith [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello world";
@@ -63,7 +63,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('indexOf', () {
+    test('indexOf [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello world";
@@ -73,7 +73,7 @@ void main() {
       expect(execute(source), equals([6, -1]));
     });
 
-    test('lastIndexOf', () {
+    test('lastIndexOf [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello world world";
@@ -83,7 +83,7 @@ void main() {
       expect(execute(source), equals(12));
     });
 
-    test('trim', () {
+    test('trim [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "  hello world  ";
@@ -93,7 +93,7 @@ void main() {
       expect(execute(source), equals('hello world'));
     });
 
-    test('replaceAll', () {
+    test('replaceAll [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello world";
@@ -103,7 +103,7 @@ void main() {
       expect(execute(source), equals('hello dart'));
     });
 
-    test('split', () {
+    test('split [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello world";
@@ -113,7 +113,7 @@ void main() {
       expect(execute(source), equals(['hello', 'world']));
     });
 
-    test('padLeft', () {
+    test('padLeft [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello";
@@ -123,7 +123,7 @@ void main() {
       expect(execute(source), equals('-----hello'));
     });
 
-    test('padRight', () {
+    test('padRight [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello";
@@ -133,7 +133,7 @@ void main() {
       expect(execute(source), equals('hello-----'));
     });
 
-    test('replaceFirst', () {
+    test('replaceFirst [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello world";
@@ -143,7 +143,7 @@ void main() {
       expect(execute(source), equals('hello dart'));
     });
 
-    test('replaceRange', () {
+    test('replaceRange [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello world";
@@ -153,7 +153,7 @@ void main() {
       expect(execute(source), equals('hello dart'));
     });
 
-    test('codeUnitAt', () {
+    test('codeUnitAt [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello";
@@ -163,7 +163,7 @@ void main() {
       expect(execute(source), equals(104));
     });
 
-    test('toString', () {
+    test('toString [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello";
@@ -173,7 +173,7 @@ void main() {
       expect(execute(source), equals('hello'));
     });
 
-    test('compareTo', () {
+    test('compareTo [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello";
@@ -183,7 +183,7 @@ void main() {
       expect(execute(source), equals([0, -1]));
     });
 
-    test('isEmpty and isNotEmpty', () {
+    test('isEmpty and isNotEmpty [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "";
@@ -193,7 +193,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('length', () {
+    test('length [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello";
@@ -203,7 +203,7 @@ void main() {
       expect(execute(source), equals(5));
     });
 
-    test('codeUnits', () {
+    test('codeUnits [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello";
@@ -213,7 +213,7 @@ void main() {
       expect(execute(source), equals([104, 101, 108, 108, 111]));
     });
 
-    test('runes', () {
+    test('runes [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello";
@@ -223,7 +223,7 @@ void main() {
       expect(execute(source), equals([104, 101, 108, 108, 111]));
     });
 
-    test('replaceAllMapped', () {
+    test('replaceAllMapped [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello world";
@@ -233,7 +233,7 @@ void main() {
       expect(execute(source), equals('hello dart'));
     });
 
-    test('replaceFirstMapped', () {
+    test('replaceFirstMapped [2026-02-10 06:37]', () {
       const source = '''
       main() {
         String text = "hello world world";
@@ -243,7 +243,7 @@ void main() {
       expect(execute(source), equals('hello dart world'));
     });
 
-    test('fromCharCode', () {
+    test('fromCharCode [2026-02-10 06:37]', () {
       const source = '''
       main() {
         return String.fromCharCode(104);
@@ -252,7 +252,7 @@ void main() {
       expect(execute(source), equals('h'));
     });
 
-    test('fromCharCodes', () {
+    test('fromCharCodes [2026-02-10 06:37]', () {
       const source = '''
       main() {
         return String.fromCharCodes([104, 101, 108, 108, 111]);
@@ -261,7 +261,7 @@ void main() {
       expect(execute(source), equals('hello'));
     });
 
-    test('fromEnvironment', () {
+    test('fromEnvironment [2026-02-10 06:37]', () {
       const source = '''
       main() {
         return String.fromEnvironment("key", defaultValue: "default");

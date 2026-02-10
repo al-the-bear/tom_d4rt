@@ -2,27 +2,49 @@ import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/src/bridge/bridged_enum.dart';
 import 'package:tom_d4rt/src/utils/extensions/string.dart';
 
-/// A wrapper for lazy-evaluated global getters.
+/// A wrapper for lazy-evaluated global getters with optional setter support.
 ///
 /// When a [GlobalGetter] is stored in the environment and accessed via
 /// [Environment.get], the getter function is invoked and the result is
 /// returned. This enables lazy evaluation of global variables that may
 /// not be initialized at registration time.
 ///
+/// If a [setter] is provided, the [GlobalGetter] also supports assignment.
+/// When assigned to via [Environment.assign], the setter function is called
+/// instead of replacing the wrapper in the environment.
+///
 /// ## Example:
 /// ```dart
+/// // Read-only global getter
 /// environment.define('vscode', GlobalGetter(() => VSCode.instance));
-/// // Later when 'vscode' is accessed, the getter is called
+///
+/// // Global getter with setter support
+/// int _counter = 0;
+/// environment.define('counter', GlobalGetter(
+///   () => _counter,
+///   setter: (value) => _counter = value as int,
+/// ));
 /// ```
 class GlobalGetter {
   /// The getter function that returns the value when called.
   final Object? Function() getter;
 
+  /// Optional setter function for assignment support.
+  /// If null, assignment to this global is not supported.
+  final void Function(Object? value)? setter;
+
   /// Creates a new global getter wrapper.
-  GlobalGetter(this.getter);
+  ///
+  /// [getter] The function that returns the current value.
+  /// [setter] Optional function to handle assignment. If null, assignment
+  ///   will throw an error.
+  GlobalGetter(this.getter, {this.setter});
 
   /// Calls the getter and returns the result.
   Object? call() => getter();
+
+  /// Whether this global getter supports assignment.
+  bool get hasSetter => setter != null;
 }
 
 /// Represents the execution environment for interpreted code.
@@ -307,6 +329,22 @@ class Environment {
     Logger.debug(
         "[Env.assign] Attempting to assign '$name' = $value in env: $hashCode");
     if (_values.containsKey(name)) {
+      final existing = _values[name];
+      
+      // Handle GlobalGetter with setter - call the native setter instead of replacing
+      if (existing is GlobalGetter) {
+        if (existing.hasSetter) {
+          Logger.debug(" [Env.assign] Calling setter for GlobalGetter '$name'");
+          existing.setter!(value);
+          return value;
+        } else {
+          // GlobalGetter without setter - not assignable
+          throw RuntimeD4rtException(
+              "Cannot assign to read-only global getter '$name'. "
+              "This global only has a getter, not a setter.");
+        }
+      }
+      
       Logger.debug(" [Env.assign] Assigned '$name' locally in env: $hashCode");
       _values[name] = value;
       return value;
@@ -338,6 +376,17 @@ class Environment {
     return _values.containsKey(name);
   }
 
+  /// Gets the raw value for a variable if defined locally, without GlobalGetter unwrapping.
+  ///
+  /// This is useful when you need to access the GlobalGetter wrapper itself
+  /// rather than the value it returns. Returns null if not defined locally.
+  Object? getRawValueIfDefined(String name) {
+    if (_values.containsKey(name)) {
+      return _values[name];
+    }
+    return null;
+  }
+
   // Find the environment where a variable is defined
   Environment? findDefiningEnvironment(String name) {
     if (_values.containsKey(name)) {
@@ -364,7 +413,7 @@ class Environment {
     while (current != null) {
       // Check unnamed extensions
       for (final ext in current._unnamedExtensions) {
-        if (targetType.isSubtypeOf(ext.onType)) {
+        if (_matchesExtensionType(targetType, ext.onType)) {
           final member = ext.findMember(name);
           if (member != null) {
             Logger.debug(
@@ -378,7 +427,7 @@ class Environment {
       // Check named extensions (stored as values)
       for (final value in current._values.values) {
         if (value is InterpretedExtension) {
-          if (targetType.isSubtypeOf(value.onType)) {
+          if (_matchesExtensionType(targetType, value.onType)) {
             final member = value.findMember(name);
             if (member != null) {
               Logger.debug(
@@ -403,6 +452,31 @@ class Environment {
       current = current._enclosing;
     }
     return null; // Not found
+  }
+
+  /// Checks if a target type matches an extension's `on` type.
+  ///
+  /// This relaxes the matching for raw types (types without type arguments):
+  /// - If target type is `List` (no type args) and extension is on `List<T>`, allow match
+  /// - The extension itself handles type constraints at runtime
+  bool _matchesExtensionType(RuntimeType targetType, RuntimeType extensionOnType) {
+    // First try the normal subtype check
+    if (targetType.isSubtypeOf(extensionOnType)) {
+      return true;
+    }
+    
+    // Bug-98 fix: Relaxed matching for raw types
+    // If the target and extension have the same base type name, allow the match.
+    // This handles cases where:
+    // - Target is native List (no type parameterization available at runtime)  
+    // - Extension is on List<int> (has type parameter in declaration)
+    if (targetType.name == extensionOnType.name) {
+      Logger.debug(
+          "[_matchesExtensionType] Allowing same-name type match: ${targetType.name}");
+      return true;
+    }
+    
+    return false;
   }
 
   // Placeholder helper to get RuntimeType - needs actual implementation

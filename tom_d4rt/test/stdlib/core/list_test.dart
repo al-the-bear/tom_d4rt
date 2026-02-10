@@ -5,7 +5,7 @@ import '../../interpreter_test.dart';
 
 void main() {
   group('List stdlib tests', () {
-    test('List literal and basic properties', () {
+    test('List literal and basic properties [2026-02-10 06:37]', () {
       final result = execute(r'''
         main() {
           List<int> l1 = [1, 2, 3];
@@ -19,7 +19,7 @@ void main() {
       expect(result, equals([3, false, true, 0, true, false]));
     });
 
-    test('List index access [] and assignment []=', () {
+    test('List index access [] and assignment []= [2026-02-10 06:37]', () {
       final result = execute(r'''
         main() {
           List<String> l = ['a', 'b', 'c'];
@@ -37,7 +37,7 @@ void main() {
           ]));
     });
 
-    test('List add and addAll', () {
+    test('List add and addAll [2026-02-10 06:37]', () {
       final result = execute(r'''
         main() {
           List<int> l = [1];
@@ -49,7 +49,7 @@ void main() {
       expect(result, equals([1, 2, 3, 4]));
     });
 
-    test('List remove, removeAt, clear', () {
+    test('List remove, removeAt, clear [2026-02-10 06:37]', () {
       final result = execute(r'''
         main() {
           List<String> l = ['x', 'y', 'z', 'y'];
@@ -62,7 +62,7 @@ void main() {
       expect(result, equals([true, 'z', 0, []]));
     });
 
-    test('List contains, indexOf, lastIndexOf', () {
+    test('List contains, indexOf, lastIndexOf [2026-02-10 06:37]', () {
       final result = execute(r'''
         main() {
           List<int> l = [10, 20, 30, 20, 40];
@@ -78,7 +78,7 @@ void main() {
       expect(result, equals([true, false, 1, 3, -1]));
     });
 
-    test('List join', () {
+    test('List join [2026-02-10 06:37]', () {
       final result = execute(r'''
         main() {
           List<String> l = ['h', 'e', 'l', 'l', 'o'];
@@ -88,7 +88,7 @@ void main() {
       expect(result, equals('h-e-l-l-o'));
     });
 
-    test('List sublist', () {
+    test('List sublist [2026-02-10 06:37]', () {
       final result = execute(r'''
         main() {
           List<int> l = [0, 1, 2, 3, 4, 5];
@@ -104,7 +104,7 @@ void main() {
     });
 
     group('List methods', () {
-      test('insert', () {
+      test('insert [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 4];
@@ -115,7 +115,7 @@ void main() {
         expect(execute(source), equals([1, 2, 3, 4]));
       });
 
-      test('insertAll', () {
+      test('insertAll [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 4];
@@ -126,7 +126,7 @@ void main() {
         expect(execute(source), equals([1, 2, 3, 4]));
       });
 
-      test('setAll', () {
+      test('setAll [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3, 4];
@@ -137,7 +137,7 @@ void main() {
         expect(execute(source), equals([1, 5, 6, 4]));
       });
 
-      test('fillRange', () {
+      test('fillRange [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3, 4];
@@ -148,7 +148,7 @@ void main() {
         expect(execute(source), equals([1, 0, 0, 4]));
       });
 
-      test('replaceRange', () {
+      test('replaceRange [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3, 4];
@@ -159,7 +159,7 @@ void main() {
         expect(execute(source), equals([1, 5, 6, 4]));
       });
 
-      test('removeRange', () {
+      test('removeRange [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3, 4];
@@ -170,7 +170,7 @@ void main() {
         expect(execute(source), equals([1, 4]));
       });
 
-      test('retainWhere', () {
+      test('retainWhere [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3, 4];
@@ -181,7 +181,7 @@ void main() {
         expect(execute(source), equals([2, 4]));
       });
 
-      test('removeWhere', () {
+      test('removeWhere [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3, 4];
@@ -192,7 +192,7 @@ void main() {
         expect(execute(source), equals([1, 3]));
       });
 
-      test('sort', () {
+      test('sort [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [4, 2, 3, 1];
@@ -203,7 +203,7 @@ void main() {
         expect(execute(source), equals([1, 2, 3, 4]));
       });
 
-      test('shuffle', () {
+      test('shuffle [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3, 4];
@@ -217,7 +217,7 @@ void main() {
         expect(result, containsAll([1, 2, 3, 4]));
       });
 
-      test('reversed', () {
+      test('reversed [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3, 4];
@@ -227,7 +227,7 @@ void main() {
         expect(execute(source), equals([4, 3, 2, 1]));
       });
 
-      test('asMap', () {
+      test('asMap [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3];
@@ -239,7 +239,7 @@ void main() {
     });
 
     group('List methods - comprehensive', () {
-      test('add', () {
+      test('add [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2];
@@ -250,7 +250,7 @@ void main() {
         expect(execute(source), equals([1, 2, 3]));
       });
 
-      test('addAll', () {
+      test('addAll [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2];
@@ -261,7 +261,7 @@ void main() {
         expect(execute(source), equals([1, 2, 3, 4]));
       });
 
-      test('remove', () {
+      test('remove [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3];
@@ -272,7 +272,7 @@ void main() {
         expect(execute(source), equals([1, 3]));
       });
 
-      test('removeAt', () {
+      test('removeAt [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3];
@@ -283,7 +283,7 @@ void main() {
         expect(execute(source), equals([1, 3]));
       });
 
-      test('removeLast', () {
+      test('removeLast [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3];
@@ -294,7 +294,7 @@ void main() {
         expect(execute(source), equals([1, 2]));
       });
 
-      test('removeRange', () {
+      test('removeRange [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3, 4];
@@ -305,7 +305,7 @@ void main() {
         expect(execute(source), equals([1, 4]));
       });
 
-      test('retainWhere', () {
+      test('retainWhere [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3, 4];
@@ -316,7 +316,7 @@ void main() {
         expect(execute(source), equals([2, 4]));
       });
 
-      test('indexOf', () {
+      test('indexOf [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3, 2];
@@ -326,7 +326,7 @@ void main() {
         expect(execute(source), equals(1));
       });
 
-      test('lastIndexOf', () {
+      test('lastIndexOf [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3, 2];
@@ -336,7 +336,7 @@ void main() {
         expect(execute(source), equals(3));
       });
 
-      test('sublist', () {
+      test('sublist [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3, 4];
@@ -346,7 +346,7 @@ void main() {
         expect(execute(source), equals([2, 3]));
       });
 
-      test('contains', () {
+      test('contains [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3];
@@ -356,7 +356,7 @@ void main() {
         expect(execute(source), equals(true));
       });
 
-      test('length', () {
+      test('length [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3];
@@ -366,7 +366,7 @@ void main() {
         expect(execute(source), equals(3));
       });
 
-      test('isEmpty and isNotEmpty', () {
+      test('isEmpty and isNotEmpty [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [];
@@ -376,7 +376,7 @@ void main() {
         expect(execute(source), equals([true, false]));
       });
 
-      test('reverse', () {
+      test('reverse [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3];
@@ -386,7 +386,7 @@ void main() {
         expect(execute(source), equals([3, 2, 1]));
       });
 
-      test('sort', () {
+      test('sort [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [3, 1, 2];
@@ -397,7 +397,7 @@ void main() {
         expect(execute(source), equals([1, 2, 3]));
       });
 
-      test('shuffle', () {
+      test('shuffle [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3];
@@ -411,7 +411,7 @@ void main() {
         expect(result, containsAll([1, 2, 3]));
       });
 
-      test('expand', () {
+      test('expand [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3];
@@ -421,7 +421,7 @@ void main() {
         expect(execute(source), equals([1, 2, 2, 4, 3, 6]));
       });
 
-      test('forEach', () {
+      test('forEach [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3];
@@ -433,7 +433,7 @@ void main() {
         expect(execute(source), equals(6));
       });
 
-      test('map', () {
+      test('map [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3];
@@ -443,7 +443,7 @@ void main() {
         expect(execute(source), equals([2, 4, 6]));
       });
 
-      test('where', () {
+      test('where [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3, 4];
@@ -453,7 +453,7 @@ void main() {
         expect(execute(source), equals([2, 4]));
       });
 
-      test('reduce', () {
+      test('reduce [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3];
@@ -463,7 +463,7 @@ void main() {
         expect(execute(source), equals(6));
       });
 
-      test('fold', () {
+      test('fold [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3];
@@ -473,7 +473,7 @@ void main() {
         expect(execute(source), equals(6));
       });
 
-      test('join', () {
+      test('join [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3];
@@ -483,7 +483,7 @@ void main() {
         expect(execute(source), equals('1, 2, 3'));
       });
 
-      test('toSet', () {
+      test('toSet [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 2, 3];
@@ -495,7 +495,7 @@ void main() {
         expect(result, equals([1, 2, 3]));
       });
 
-      test('toList', () {
+      test('toList [2026-02-10 06:37]', () {
         const source = '''
        main() {
         List<int> numbers = [1, 2, 3];
@@ -514,7 +514,7 @@ void main() {
     });
 
     group('Iterable methods', () {
-      test('cast', () {
+      test('cast [2026-02-10 06:37]', () {
         const source = '''
        main() {
         Iterable<dynamic> numbers = [1, 2, 3];
@@ -525,7 +525,7 @@ void main() {
         expect(execute(source), equals([1, 2, 3]));
       });
 
-      test('followedBy', () {
+      test('followedBy [2026-02-10 06:37]', () {
         const source = '''
        main() {
         Iterable<int> numbers = [1, 2];
@@ -536,7 +536,7 @@ void main() {
         expect(execute(source), equals([1, 2, 3, 4]));
       });
 
-      test('elementAt', () {
+      test('elementAt [2026-02-10 06:37]', () {
         const source = '''
        main() {
         Iterable<int> numbers = [1, 2, 3];
@@ -548,7 +548,7 @@ void main() {
     });
 
     group('Set methods', () {
-      test('retainWhere', () {
+      test('retainWhere [2026-02-10 06:37]', () {
         const source = '''
        main() {
         Set<int> numbers = {1, 2, 3, 4};
@@ -561,7 +561,7 @@ void main() {
         expect(result, equals([2, 4]));
       });
 
-      test('removeWhere', () {
+      test('removeWhere [2026-02-10 06:37]', () {
         const source = '''
        main() {
         Set<int> numbers = {1, 2, 3, 4};
@@ -576,7 +576,7 @@ void main() {
     });
 
     group('Typed List operations with various element types', () {
-      test('addAll on List<String>', () {
+      test('addAll on List<String> [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<String> lines = ['line1', 'line2'];
@@ -587,7 +587,7 @@ void main() {
         expect(execute(source), equals(['line1', 'line2', 'line3', 'line4']));
       });
 
-      test('addAll on List<int>', () {
+      test('addAll on List<int> [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<int> nums = [1, 2];
@@ -598,7 +598,7 @@ void main() {
         expect(execute(source), equals([1, 2, 3, 4, 5]));
       });
 
-      test('insertAll on List<String>', () {
+      test('insertAll on List<String> [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<String> items = ['a', 'd'];
@@ -609,7 +609,7 @@ void main() {
         expect(execute(source), equals(['a', 'b', 'c', 'd']));
       });
 
-      test('insertAll on List<int>', () {
+      test('insertAll on List<int> [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<int> nums = [1, 5];
@@ -620,7 +620,7 @@ void main() {
         expect(execute(source), equals([1, 2, 3, 4, 5]));
       });
 
-      test('setAll on List<String>', () {
+      test('setAll on List<String> [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<String> items = ['a', 'b', 'c', 'd'];
@@ -631,7 +631,7 @@ void main() {
         expect(execute(source), equals(['a', 'X', 'Y', 'd']));
       });
 
-      test('setAll on List<int>', () {
+      test('setAll on List<int> [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<int> nums = [0, 0, 0, 0, 0];
@@ -642,7 +642,7 @@ void main() {
         expect(execute(source), equals([0, 0, 7, 8, 9]));
       });
 
-      test('replaceRange on List<String>', () {
+      test('replaceRange on List<String> [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<String> items = ['a', 'b', 'c', 'd', 'e'];
@@ -653,7 +653,7 @@ void main() {
         expect(execute(source), equals(['a', 'X', 'Y', 'e']));
       });
 
-      test('replaceRange on List<int>', () {
+      test('replaceRange on List<int> [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<int> nums = [1, 2, 3, 4, 5];
@@ -664,7 +664,7 @@ void main() {
         expect(execute(source), equals([1, 20, 30, 40, 4, 5]));
       });
 
-      test('replaceRange with empty replacement', () {
+      test('replaceRange with empty replacement [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<String> items = ['a', 'b', 'c', 'd'];
@@ -675,7 +675,7 @@ void main() {
         expect(execute(source), equals(['a', 'd']));
       });
 
-      test('replaceRange with single element', () {
+      test('replaceRange with single element [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<String> items = ['a', 'b', 'c'];
@@ -688,7 +688,7 @@ void main() {
     });
 
     group('Dart 3 extension getters', () {
-      test('firstOrNull on non-empty List<String>', () {
+      test('firstOrNull on non-empty List<String> [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<String> items = ['a', 'b', 'c'];
@@ -698,7 +698,7 @@ void main() {
         expect(execute(source), equals('a'));
       });
 
-      test('firstOrNull on empty List<String>', () {
+      test('firstOrNull on empty List<String> [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<String> items = [];
@@ -708,7 +708,7 @@ void main() {
         expect(execute(source), isNull);
       });
 
-      test('firstOrNull on List<int>', () {
+      test('firstOrNull on List<int> [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<int> nums = [10, 20, 30];
@@ -718,7 +718,7 @@ void main() {
         expect(execute(source), equals(10));
       });
 
-      test('lastOrNull on non-empty List<String>', () {
+      test('lastOrNull on non-empty List<String> [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<String> items = ['a', 'b', 'c'];
@@ -728,7 +728,7 @@ void main() {
         expect(execute(source), equals('c'));
       });
 
-      test('lastOrNull on empty List<int>', () {
+      test('lastOrNull on empty List<int> [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<int> nums = [];
@@ -738,7 +738,7 @@ void main() {
         expect(execute(source), isNull);
       });
 
-      test('singleOrNull on single-element list', () {
+      test('singleOrNull on single-element list [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<String> items = ['only'];
@@ -748,7 +748,7 @@ void main() {
         expect(execute(source), equals('only'));
       });
 
-      test('singleOrNull on empty list', () {
+      test('singleOrNull on empty list [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<int> nums = [];
@@ -758,7 +758,7 @@ void main() {
         expect(execute(source), isNull);
       });
 
-      test('singleOrNull on multi-element list', () {
+      test('singleOrNull on multi-element list [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<int> nums = [1, 2];
@@ -768,7 +768,7 @@ void main() {
         expect(execute(source), isNull);
       });
 
-      test('elementAtOrNull within bounds', () {
+      test('elementAtOrNull within bounds [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<String> items = ['a', 'b', 'c'];
@@ -778,7 +778,7 @@ void main() {
         expect(execute(source), equals('b'));
       });
 
-      test('elementAtOrNull out of bounds', () {
+      test('elementAtOrNull out of bounds [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<int> nums = [1, 2, 3];
@@ -788,7 +788,7 @@ void main() {
         expect(execute(source), isNull);
       });
 
-      test('elementAtOrNull negative index throws RangeError', () {
+      test('elementAtOrNull negative index throws RangeError [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<String> items = ['a', 'b'];
@@ -801,7 +801,7 @@ void main() {
     });
 
     group('Iterable extension getters on derived iterables', () {
-      test('firstOrNull on filtered iterable', () {
+      test('firstOrNull on filtered iterable [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<int> nums = [1, 2, 3, 4, 5];
@@ -812,7 +812,7 @@ void main() {
         expect(execute(source), equals(2));
       });
 
-      test('firstOrNull on empty filtered iterable', () {
+      test('firstOrNull on empty filtered iterable [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<int> nums = [1, 3, 5];
@@ -823,7 +823,7 @@ void main() {
         expect(execute(source), isNull);
       });
 
-      test('lastOrNull on mapped iterable', () {
+      test('lastOrNull on mapped iterable [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<int> nums = [1, 2, 3];
@@ -834,7 +834,7 @@ void main() {
         expect(execute(source), equals(6));
       });
 
-      test('singleOrNull on take(1)', () {
+      test('singleOrNull on take(1) [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<String> items = ['a', 'b', 'c'];
@@ -847,7 +847,7 @@ void main() {
     });
 
     group('Static constructors and methods', () {
-      test('List.filled', () {
+      test('List.filled [2026-02-10 06:37]', () {
         const source = '''
         main() {
           var nums = List.filled(5, 0);
@@ -857,7 +857,7 @@ void main() {
         expect(execute(source), equals([0, 0, 0, 0, 0]));
       });
 
-      test('List.generate', () {
+      test('List.generate [2026-02-10 06:37]', () {
         const source = '''
         main() {
           var nums = List.generate(5, (i) => i * 2);
@@ -867,7 +867,7 @@ void main() {
         expect(execute(source), equals([0, 2, 4, 6, 8]));
       });
 
-      test('List.from', () {
+      test('List.from [2026-02-10 06:37]', () {
         const source = '''
         main() {
           var original = [1, 2, 3];
@@ -879,7 +879,7 @@ void main() {
         expect(execute(source), equals([[1, 2, 3], [1, 2, 3, 4]]));
       });
 
-      test('List.of', () {
+      test('List.of [2026-02-10 06:37]', () {
         const source = '''
         main() {
           var original = [1, 2, 3];
@@ -890,7 +890,7 @@ void main() {
         expect(execute(source), equals([1, 2, 3]));
       });
 
-      test('List.empty growable', () {
+      test('List.empty growable [2026-02-10 06:37]', () {
         const source = '''
         main() {
           var empty = List.empty(growable: true);
@@ -901,7 +901,7 @@ void main() {
         expect(execute(source), equals([1]));
       });
 
-      test('List.empty non-growable', () {
+      test('List.empty non-growable [2026-02-10 06:37]', () {
         const source = '''
         main() {
           var empty = List.empty();
@@ -913,7 +913,7 @@ void main() {
     });
 
     group('Range operations', () {
-      test('getRange', () {
+      test('getRange [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<int> nums = [0, 1, 2, 3, 4, 5];
@@ -923,7 +923,7 @@ void main() {
         expect(execute(source), equals([2, 3, 4]));
       });
 
-      test('removeRange', () {
+      test('removeRange [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<int> nums = [0, 1, 2, 3, 4, 5];
@@ -934,7 +934,7 @@ void main() {
         expect(execute(source), equals([0, 1, 4, 5]));
       });
 
-      test('fillRange', () {
+      test('fillRange [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<int> nums = [0, 0, 0, 0, 0];
@@ -945,7 +945,7 @@ void main() {
         expect(execute(source), equals([0, 9, 9, 9, 0]));
       });
 
-      test('setRange', () {
+      test('setRange [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<int> target = [0, 0, 0, 0, 0];
@@ -959,7 +959,7 @@ void main() {
     });
 
     group('Mixed type operations', () {
-      test('List<dynamic> with mixed types', () {
+      test('List<dynamic> with mixed types [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<dynamic> mixed = [1, 'two', 3.0, true];
@@ -970,7 +970,7 @@ void main() {
         expect(execute(source), equals([1, 'two', 3.0, true, null, 'five']));
       });
 
-      test('List operations returning correct types', () {
+      test('List operations returning correct types [2026-02-10 06:37]', () {
         const source = '''
         main() {
           List<int> nums = [1, 2, 3, 4, 5];

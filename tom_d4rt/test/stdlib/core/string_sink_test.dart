@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('StringSink methods - comprehensive', () {
-    test('write', () {
+    test('write [2026-02-10 06:37]', () {
       const source = '''
       main() {
         StringBuffer buffer = StringBuffer();
@@ -14,7 +14,7 @@ void main() {
       expect(execute(source), equals('hello'));
     });
 
-    test('writeln', () {
+    test('writeln [2026-02-10 06:37]', () {
       const source = '''
       main() {
         StringBuffer buffer = StringBuffer();
@@ -26,7 +26,7 @@ void main() {
       expect(execute(source), equals('hello\nworld\n'));
     });
 
-    test('writeAll', () {
+    test('writeAll [2026-02-10 06:37]', () {
       const source = '''
       main() {
         StringBuffer buffer = StringBuffer();
@@ -37,7 +37,7 @@ void main() {
       expect(execute(source), equals('hello world'));
     });
 
-    test('writeCharCode', () {
+    test('writeCharCode [2026-02-10 06:37]', () {
       const source = '''
       main() {
         StringBuffer buffer = StringBuffer();

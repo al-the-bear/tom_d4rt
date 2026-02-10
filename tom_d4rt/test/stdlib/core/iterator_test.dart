@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('Iterator tests', () {
-    test('Iterator basic usage', () {
+    test('Iterator basic usage [2026-02-10 06:37]', () {
       const source = '''
       main() {
         List<int> numbers = [1, 2, 3, 4, 5];
@@ -18,7 +18,7 @@ void main() {
       expect(execute(source), equals([1, 2, 3, 4, 5]));
     });
 
-    test('Iterator with empty list', () {
+    test('Iterator with empty list [2026-02-10 06:37]', () {
       const source = '''
       main() {
         List<int> numbers = [];
@@ -29,7 +29,7 @@ void main() {
       expect(execute(source), equals(false));
     });
 
-    test('Iterator current without moveNext', () {
+    test('Iterator current without moveNext [2026-02-10 06:37]', () {
       const source = '''
       main() {
         List<int> numbers = [1, 2, 3];
@@ -40,7 +40,7 @@ void main() {
       expect(execute(source), isNull);
     });
 
-    test('Iterator moveNext after end', () {
+    test('Iterator moveNext after end [2026-02-10 06:37]', () {
       const source = '''
       main() {
         List<int> numbers = [1, 2, 3];
@@ -60,7 +60,7 @@ void main() {
           ]));
     });
 
-    test('Iterator with nested loops', () {
+    test('Iterator with nested loops [2026-02-10 06:37]', () {
       const source = '''
       main() {
         List<List<int>> matrix = [
@@ -81,7 +81,7 @@ void main() {
       expect(execute(source), equals([1, 2, 3, 4, 5, 6]));
     });
 
-    test('Iterator with custom iterable', () {
+    test('Iterator with custom iterable [2026-02-10 06:37]', () {
       const source = '''
       main() {
         Iterable<int> customIterable = Iterable.generate(5, (i) => i + 1);
@@ -96,7 +96,7 @@ void main() {
       expect(execute(source), equals([1, 2, 3, 4, 5]));
     });
 
-    test('Iterator with break in loop', () {
+    test('Iterator with break in loop [2026-02-10 06:37]', () {
       const source = '''
       main() {
         List<int> numbers = [1, 2, 3, 4, 5];
@@ -112,7 +112,7 @@ void main() {
       expect(execute(source), equals([1, 2]));
     });
 
-    test('Iterator with continue in loop', () {
+    test('Iterator with continue in loop [2026-02-10 06:37]', () {
       const source = '''
       main() {
         List<int> numbers = [1, 2, 3, 4, 5];

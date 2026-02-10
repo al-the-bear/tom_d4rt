@@ -25,7 +25,7 @@ void main() {
       );
     }
 
-    test('HashMap() constructor and basic properties', () {
+    test('HashMap() constructor and basic properties [2026-02-10 06:37]', () {
       final result = execute('''
         var map = HashMap();
         return [map.length, map.isEmpty, map.isNotEmpty];
@@ -33,7 +33,7 @@ void main() {
       expect(result, equals([0, true, false]));
     });
 
-    test('HashMap.from() constructor', () {
+    test('HashMap.from() constructor [2026-02-10 06:37]', () {
       final result = execute('''
         var map = HashMap.from({'a': 1, 'b': 2});
         return [map.length, map['a'], map['b']];
@@ -41,7 +41,7 @@ void main() {
       expect(result, equals([2, 1, 2]));
     });
 
-    test('HashMap.of() constructor', () {
+    test('HashMap.of() constructor [2026-02-10 06:37]', () {
       final result = execute('''
         var map = HashMap.of({'x': 10, 'y': 20});
         return [map.length, map['x'], map['y']];
@@ -49,7 +49,7 @@ void main() {
       expect(result, equals([2, 10, 20]));
     });
 
-    test('operator []= and []', () {
+    test('operator []= and [] [2026-02-10 06:37]', () {
       final result = execute('''
         var map = HashMap();
         map['key1'] = 'value1';
@@ -59,7 +59,7 @@ void main() {
       expect(result, equals(['value1', 'value2', null]));
     });
 
-    test('addAll() method', () {
+    test('addAll() method [2026-02-10 06:37]', () {
       final result = execute('''
         var map = HashMap();
         map.addAll({'c': 3, 'd': 4});
@@ -69,7 +69,7 @@ void main() {
       expect(result, equals([3, 3, 40, 5]));
     });
 
-    test('clear() method', () {
+    test('clear() method [2026-02-10 06:37]', () {
       final result = execute('''
         var map = HashMap.from({'a': 1});
         map.clear();
@@ -78,7 +78,7 @@ void main() {
       expect(result, equals(0));
     });
 
-    test('containsKey() and containsValue()', () {
+    test('containsKey() and containsValue() [2026-02-10 06:37]', () {
       final result = execute('''
         var map = HashMap.from({'a': 10, 'b': 20});
         return [
@@ -89,7 +89,7 @@ void main() {
       expect(result, equals([true, false, true, false]));
     });
 
-    test('remove() method', () {
+    test('remove() method [2026-02-10 06:37]', () {
       final result = execute('''
         var map = HashMap.from({'a': 1, 'b': 2, 'c': 3});
         var removedB = map.remove('b');
@@ -99,7 +99,7 @@ void main() {
       expect(result, equals([2, false, 2, null]));
     });
 
-    test('forEach() method', () {
+    test('forEach() method [2026-02-10 06:37]', () {
       final result = execute('''
         var map = HashMap.from({'a': 1, 'b': 2});
         var log = <String>[];
@@ -114,7 +114,7 @@ void main() {
               .having((l) => l, 'elements', unorderedEquals(['a:1', 'b:2'])));
     });
 
-    test('putIfAbsent() method', () {
+    test('putIfAbsent() method [2026-02-10 06:37]', () {
       final result = execute('''
         var map = HashMap.from({'a': 10});
         var r1 = map.putIfAbsent('a', () => 99); // Should return existing value
@@ -124,7 +124,7 @@ void main() {
       expect(result, equals([10, 20, 10, 20]));
     });
 
-    test('keys and values getters', () {
+    test('keys and values getters [2026-02-10 06:37]', () {
       final result = execute('''
         var map = HashMap.from({'one': 1, 'two': 2, 'three': 3});
         var k = map.keys.toList(); // Convert to list for stable order in test

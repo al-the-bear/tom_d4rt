@@ -10,7 +10,7 @@ import 'package:tom_d4rt/d4rt.dart';
 
 void main() {
   group('ScriptExecutionResult', () {
-    test('success creates successful result', () {
+    test('success creates successful result [2026-02-10 06:37]', () {
       final result = ScriptExecutionResult.success(42, 3);
 
       expect(result.success, isTrue);
@@ -20,7 +20,7 @@ void main() {
       expect(result.sourcesLoaded, equals(3));
     });
 
-    test('failure creates failed result', () {
+    test('failure creates failed result [2026-02-10 06:37]', () {
       final result = ScriptExecutionResult.failure(
         'Something went wrong',
         sourcesLoaded: 1,
@@ -32,7 +32,7 @@ void main() {
       expect(result.sourcesLoaded, equals(1));
     });
 
-    test('failure with stack trace', () {
+    test('failure with stack trace [2026-02-10 06:37]', () {
       final stackTrace = StackTrace.current;
       final result = ScriptExecutionResult.failure(
         'Error occurred',
@@ -59,7 +59,7 @@ void main() {
       }
     });
 
-    test('executes simple script file', () {
+    test('executes simple script file [2026-02-10 06:37]', () {
       final scriptFile = File('${tempDir.path}/simple.dart');
       scriptFile.writeAsStringSync('''
 void main() {
@@ -75,14 +75,14 @@ int getValue() => 42;
       expect(result.sourcesLoaded, greaterThanOrEqualTo(1));
     });
 
-    test('returns failure for non-existent file', () {
+    test('returns failure for non-existent file [2026-02-10 06:37]', () {
       final result = executeFile(d4rt, '${tempDir.path}/non_existent.dart');
 
       expect(result.success, isFalse);
       expect(result.error, contains('File not found'));
     });
 
-    test('executes script with main returning value', () {
+    test('executes script with main returning value [2026-02-10 06:37]', () {
       final scriptFile = File('${tempDir.path}/return_value.dart');
       scriptFile.writeAsStringSync('''
 main() {
@@ -96,7 +96,7 @@ main() {
       expect(result.result, equals(42));
     });
 
-    test('executes script with relative import', () {
+    test('executes script with relative import [2026-02-10 06:37]', () {
       // Create a helper file
       final helperFile = File('${tempDir.path}/helper.dart');
       helperFile.writeAsStringSync('''
@@ -120,7 +120,7 @@ main() {
       expect(result.sourcesLoaded, equals(2)); // main + helper
     });
 
-    test('handles nested imports', () {
+    test('handles nested imports [2026-02-10 06:37]', () {
       // Create base utility
       final utilsFile = File('${tempDir.path}/utils.dart');
       utilsFile.writeAsStringSync('''
@@ -152,7 +152,7 @@ main() {
       expect(result.sourcesLoaded, equals(3)); // main + math_lib + utils
     });
 
-    test('provides logging callback', () {
+    test('provides logging callback [2026-02-10 06:37]', () {
       final logs = <String>[];
 
       final scriptFile = File('${tempDir.path}/logged.dart');
@@ -186,7 +186,7 @@ main() => 'logged';
       }
     });
 
-    test('executes simple source code', () {
+    test('executes simple source code [2026-02-10 06:37]', () {
       const source = '''
 main() {
   return 100;
@@ -199,7 +199,7 @@ main() {
       expect(result.result, equals(100));
     });
 
-    test('resolves imports from basePath', () {
+    test('resolves imports from basePath [2026-02-10 06:37]', () {
       // Create a helper file in tempDir
       final helperFile = File('${tempDir.path}/helper.dart');
       helperFile.writeAsStringSync('''
@@ -221,7 +221,7 @@ main() {
       expect(result.result, equals('Hello, World!'));
     });
 
-    test('uses custom script name', () {
+    test('uses custom script name [2026-02-10 06:37]', () {
       const source = 'main() => "test";';
 
       final result = executeSource(
@@ -255,7 +255,7 @@ var existingValue = 'from-init';
       }
     });
 
-    test('continues execution in existing environment', () {
+    test('continues execution in existing environment [2026-02-10 06:37]', () {
       final scriptFile = File('${tempDir.path}/continued.dart');
       scriptFile.writeAsStringSync('''
 var newValue = existingValue;
@@ -269,7 +269,7 @@ var newValue = existingValue;
       expect(evalResult, equals('from-init'));
     });
 
-    test('adds declarations to global environment', () {
+    test('adds declarations to global environment [2026-02-10 06:37]', () {
       final scriptFile = File('${tempDir.path}/declarations.dart');
       scriptFile.writeAsStringSync('''
 int computeValue() => 42;
@@ -283,7 +283,7 @@ int computeValue() => 42;
       expect(evalResult, equals(42));
     });
 
-    test('returns failure for non-existent file', () {
+    test('returns failure for non-existent file [2026-02-10 06:37]', () {
       final result = executeFileContinued(
         d4rt,
         '${tempDir.path}/non_existent.dart',
@@ -307,7 +307,7 @@ int computeValue() => 42;
       }
     });
 
-    test('resolves relative imports', () {
+    test('resolves relative imports [2026-02-10 06:37]', () {
       // Create files
       final libFile = File('${tempDir.path}/lib.dart');
       libFile.writeAsStringSync('int libValue = 10;');
@@ -323,7 +323,7 @@ int computeValue() => 42;
       expect(sources.length, equals(2));
     });
 
-    test('handles circular imports gracefully', () {
+    test('handles circular imports gracefully [2026-02-10 06:37]', () {
       // Create files that import each other
       final aFile = File('${tempDir.path}/a.dart');
       aFile.writeAsStringSync("import 'b.dart';\nint aValue = 1;");
@@ -342,7 +342,7 @@ int computeValue() => 42;
       expect(sources.length, equals(3)); // main, a, b
     });
 
-    test('skips dart: and package: imports', () {
+    test('skips dart: and package: imports [2026-02-10 06:37]', () {
       const source = '''
 import 'dart:core';
 import 'dart:async';
@@ -360,7 +360,7 @@ main() {}
       expect(sources.containsKey(mainUri), isTrue);
     });
 
-    test('handles imports with double quotes', () {
+    test('handles imports with double quotes [2026-02-10 06:37]', () {
       final libFile = File('${tempDir.path}/double_quoted.dart');
       libFile.writeAsStringSync('int value = 5;');
 

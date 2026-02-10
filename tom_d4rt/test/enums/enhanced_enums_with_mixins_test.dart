@@ -4,7 +4,7 @@ import '../interpreter_test.dart';
 
 void main() {
   group('Enhanced Enums with Mixins', () {
-    test('Basic enum with single mixin', () {
+    test('Basic enum with single mixin [2026-02-10 06:37]', () {
       const source = '''
         mixin Printable {
           void printInfo() {
@@ -27,7 +27,7 @@ void main() {
       expect(result, equals('Status.running'));
     });
 
-    test('Enum with mixin providing properties', () {
+    test('Enum with mixin providing properties [2026-02-10 06:37]', () {
       const source = '''
         mixin Describable {
           String get description => 'A describable item';
@@ -47,7 +47,7 @@ void main() {
       expect(result, equals('A describable item'));
     });
 
-    test('Enum with multiple mixins', () {
+    test('Enum with multiple mixins [2026-02-10 06:37]', () {
       const source = '''
         mixin Loggable {
           void log(String msg) {
@@ -76,7 +76,7 @@ void main() {
       expect(result, equals('timestamp'));
     });
 
-    test('Enum with mixin and instance methods', () {
+    test('Enum with mixin and instance methods [2026-02-10 06:37]', () {
       const source = '''
         mixin Comparable {
           int compareTo(int other) {
@@ -102,7 +102,7 @@ void main() {
       expect(result, equals('Size: medium'));
     });
 
-    test('Enum with mixin and custom fields', () {
+    test('Enum with mixin and custom fields [2026-02-10 06:37]', () {
       const source = '''
         mixin Valuable {
           int getValue() {
@@ -127,7 +127,7 @@ void main() {
       expect(result, equals([1, 42]));
     });
 
-    test('Enum with mixin accessing enum properties', () {
+    test('Enum with mixin accessing enum properties [2026-02-10 06:37]', () {
       const source = '''
         mixin Indexed {
           String indexInfo() {
@@ -149,7 +149,7 @@ void main() {
       expect(result, equals('Index: 2'));
     });
 
-    test('Enum with mixin providing instance methods (static fields skipped)',
+    test('Enum with mixin providing instance methods (static fields skipped) [2026-02-10 06:37]',
         () {
       // Note: Static fields in mixins are a known limitation in d4rt
       // This test focuses on instance methods which are the primary use case for mixins
@@ -174,7 +174,7 @@ void main() {
       expect(result, equals(12345));
     });
 
-    test('Enum with mixin overriding toString', () {
+    test('Enum with mixin overriding toString [2026-02-10 06:37]', () {
       const source = '''
         mixin CustomString {
           String toString() {
@@ -197,7 +197,7 @@ void main() {
       expect(result, equals('Custom: north'));
     });
 
-    test('Enum with mixin and constructor', () {
+    test('Enum with mixin and constructor [2026-02-10 06:37]', () {
       const source = '''
         mixin Serializable {
           Map<String, dynamic> toJson() {
@@ -233,7 +233,7 @@ void main() {
           ]));
     });
 
-    test('Enum with regular mixin (not requiring on clause)', () {
+    test('Enum with regular mixin (not requiring on clause) [2026-02-10 06:37]', () {
       const source = '''
         mixin Formatter {
           String format(String text) {
@@ -255,7 +255,7 @@ void main() {
       expect(result, equals('Formatted: System failure'));
     });
 
-    test('Enum with mixin chain (mixin using another mixin)', () {
+    test('Enum with mixin chain (mixin using another mixin) [2026-02-10 06:37]', () {
       const source = '''
         mixin Base {
           String baseMethod() {
@@ -282,7 +282,7 @@ void main() {
       expect(result, equals('base extended'));
     });
 
-    test('Enum values list still works with mixins', () {
+    test('Enum values list still works with mixins [2026-02-10 06:37]', () {
       const source = '''
         mixin Helper {
           void help() {
@@ -313,7 +313,7 @@ void main() {
           ]));
     });
 
-    test('Enum with mixin and equality still works', () {
+    test('Enum with mixin and equality still works [2026-02-10 06:37]', () {
       const source = '''
         mixin Tagged {
           String tag() {
@@ -342,7 +342,7 @@ void main() {
       expect(result, equals([true, false, 'tagged']));
     });
 
-    test('Enum with mixin in switch statement', () {
+    test('Enum with mixin in switch statement [2026-02-10 06:37]', () {
       const source = '''
         mixin Scorable {
           int getScore() {
@@ -384,7 +384,7 @@ void main() {
       expect(result, equals(['Excellent', 100]));
     });
 
-    test('Enum with mixin accessing instance fields', () {
+    test('Enum with mixin accessing instance fields [2026-02-10 06:37]', () {
       const source = '''
         mixin Calculator {
           int calculate() {

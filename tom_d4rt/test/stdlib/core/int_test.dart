@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('int tests', () {
-    test('int.parse', () {
+    test('int.parse [2026-02-10 06:37]', () {
       const source = '''
       main() {
         int value1 = int.parse("123");
@@ -14,7 +14,7 @@ void main() {
       expect(execute(source), equals([123, -456]));
     });
 
-    test('int.tryParse', () {
+    test('int.tryParse [2026-02-10 06:37]', () {
       const source = '''
       main() {
         int? value1 = int.tryParse("123");
@@ -26,7 +26,7 @@ void main() {
       expect(execute(source), equals([123, -456, null]));
     });
 
-    test('int.toString', () {
+    test('int.toString [2026-02-10 06:37]', () {
       const source = '''
       main() {
         int value1 = 123;
@@ -37,7 +37,7 @@ void main() {
       expect(execute(source), equals(['123', '-456']));
     });
 
-    test('int.abs', () {
+    test('int.abs [2026-02-10 06:37]', () {
       const source = '''
       main() {
         int value = -123;
@@ -47,7 +47,7 @@ void main() {
       expect(execute(source), equals(123));
     });
 
-    test('int.bitLength and sign', () {
+    test('int.bitLength and sign [2026-02-10 06:37]', () {
       const source = '''
       main() {
         int value = 123;
@@ -57,7 +57,7 @@ void main() {
       expect(execute(source), equals([7, 1]));
     });
 
-    test('int.isEven and isOdd', () {
+    test('int.isEven and isOdd [2026-02-10 06:37]', () {
       const source = '''
       main() {
         int value1 = 123;
@@ -68,7 +68,7 @@ void main() {
       expect(execute(source), equals([true, true]));
     });
 
-    test('int.toRadixString', () {
+    test('int.toRadixString [2026-02-10 06:37]', () {
       const source = '''
       main() {
         int value = 255;
@@ -78,7 +78,7 @@ void main() {
       expect(execute(source), equals('ff'));
     });
 
-    test('int.toUnsigned and toSigned', () {
+    test('int.toUnsigned and toSigned [2026-02-10 06:37]', () {
       const source = '''
       main() {
         int value = 123456789;
@@ -88,7 +88,7 @@ void main() {
       expect(execute(source), equals([52501, -13035]));
     });
 
-    test('int.gcd', () {
+    test('int.gcd [2026-02-10 06:37]', () {
       const source = '''
       main() {
         int value1 = 48;
@@ -99,7 +99,7 @@ void main() {
       expect(execute(source), equals(6));
     });
 
-    test('int.modPow and modInverse', () {
+    test('int.modPow and modInverse [2026-02-10 06:37]', () {
       const source = '''
       main() {
         int base = 4;
@@ -111,7 +111,7 @@ void main() {
       expect(execute(source), equals([445, 373]));
     });
 
-    test('int.hashCode', () {
+    test('int.hashCode [2026-02-10 06:37]', () {
       const source = '''
       main() {
         int value = 123;
@@ -121,7 +121,7 @@ void main() {
       expect(execute(source), isA<int>());
     });
 
-    test('int.bitwise operations', () {
+    test('int.bitwise operations [2026-02-10 06:37]', () {
       const source = '''
       main() {
         int value1 = 5; // 0101

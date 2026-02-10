@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('num methods - comprehensive', () {
-    test('abs', () {
+    test('abs [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = -42.5;
@@ -13,7 +13,7 @@ void main() {
       expect(execute(source), equals(42.5));
     });
 
-    test('ceil', () {
+    test('ceil [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42.3;
@@ -23,7 +23,7 @@ void main() {
       expect(execute(source), equals(43));
     });
 
-    test('floor', () {
+    test('floor [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42.7;
@@ -33,7 +33,7 @@ void main() {
       expect(execute(source), equals(42));
     });
 
-    test('round', () {
+    test('round [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42.5;
@@ -43,7 +43,7 @@ void main() {
       expect(execute(source), equals(43));
     });
 
-    test('toInt', () {
+    test('toInt [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42.9;
@@ -53,7 +53,7 @@ void main() {
       expect(execute(source), equals(42));
     });
 
-    test('toDouble', () {
+    test('toDouble [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42;
@@ -63,7 +63,7 @@ void main() {
       expect(execute(source), equals(42.0));
     });
 
-    test('toString', () {
+    test('toString [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42.5;
@@ -73,7 +73,7 @@ void main() {
       expect(execute(source), equals('42.5'));
     });
 
-    test('isFinite', () {
+    test('isFinite [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42.5;
@@ -83,7 +83,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('isInfinite', () {
+    test('isInfinite [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = double.infinity;
@@ -93,7 +93,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('isNaN', () {
+    test('isNaN [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = double.nan;
@@ -103,7 +103,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('isNegative', () {
+    test('isNegative [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = -42.5;
@@ -113,7 +113,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('clamp', () {
+    test('clamp [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42.5;
@@ -123,7 +123,7 @@ void main() {
       expect(execute(source), equals([42.5, 43]));
     });
 
-    test('remainder', () {
+    test('remainder [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42.5;
@@ -133,7 +133,7 @@ void main() {
       expect(execute(source), equals(2.5));
     });
 
-    test('compareTo', () {
+    test('compareTo [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42.5;
@@ -143,7 +143,7 @@ void main() {
       expect(execute(source), equals([0, -1, 1]));
     });
 
-    test('sign', () {
+    test('sign [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = -42.5;
@@ -153,7 +153,7 @@ void main() {
       expect(execute(source), equals(-1.0));
     });
 
-    test('toStringAsFixed', () {
+    test('toStringAsFixed [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42.56789;
@@ -163,7 +163,7 @@ void main() {
       expect(execute(source), equals('42.57'));
     });
 
-    test('toStringAsExponential', () {
+    test('toStringAsExponential [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42.56789;
@@ -173,7 +173,7 @@ void main() {
       expect(execute(source), equals('4.26e+1'));
     });
 
-    test('toStringAsPrecision', () {
+    test('toStringAsPrecision [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42.56789;
@@ -183,7 +183,7 @@ void main() {
       expect(execute(source), equals('42.57'));
     });
 
-    test('truncate', () {
+    test('truncate [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42.9;
@@ -193,7 +193,7 @@ void main() {
       expect(execute(source), equals(42));
     });
 
-    test('truncateToDouble', () {
+    test('truncateToDouble [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42.9;
@@ -203,7 +203,7 @@ void main() {
       expect(execute(source), equals(42.0));
     });
 
-    test('ceilToDouble', () {
+    test('ceilToDouble [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42.3;
@@ -213,7 +213,7 @@ void main() {
       expect(execute(source), equals(43.0));
     });
 
-    test('floorToDouble', () {
+    test('floorToDouble [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42.7;
@@ -223,7 +223,7 @@ void main() {
       expect(execute(source), equals(42.0));
     });
 
-    test('roundToDouble', () {
+    test('roundToDouble [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = 42.5;
@@ -233,7 +233,7 @@ void main() {
       expect(execute(source), equals(43.0));
     });
 
-    test('parse', () {
+    test('parse [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num value = num.parse("42.5");
@@ -243,7 +243,7 @@ void main() {
       expect(execute(source), equals(42.5));
     });
 
-    test('tryParse', () {
+    test('tryParse [2026-02-10 06:37]', () {
       const source = '''
      main() {
         num? value = num.tryParse("42.5");

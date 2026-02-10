@@ -34,7 +34,7 @@ void main() {
           colorDefinition, 'package:test/color.dart');
     });
 
-    test('Register and access bridged enum value', () {
+    test('Register and access bridged enum value [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/color.dart';
         var color = BridgedColor.green;
@@ -47,7 +47,7 @@ void main() {
       expect(value, equals(NativeColor.green));
     });
 
-    test('Access standard property (.index) on bridged enum value', () {
+    test('Access standard property (.index) on bridged enum value [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/color.dart';
         main() { return BridgedColor.blue.index; }
@@ -56,7 +56,7 @@ void main() {
       expect(result, equals(2));
     });
 
-    test('Access toString() on bridged enum value via get', () {
+    test('Access toString() on bridged enum value via get [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/color.dart';
         main() {
@@ -69,7 +69,7 @@ void main() {
       expect(result, equals('BridgedColor.red'));
     });
 
-    test('Call toString() method on bridged enum value', () {
+    test('Call toString() method on bridged enum value [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/color.dart';
          main() {
@@ -81,7 +81,7 @@ void main() {
       expect(result, equals('BridgedColor.blue'));
     });
 
-    test('Compare bridged enum values', () {
+    test('Compare bridged enum values [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/color.dart';
         main() {
@@ -95,7 +95,7 @@ void main() {
       expect(result, equals([false, true, true]));
     });
 
-    test('GEN-044: Access .values static getter on bridged enum', () {
+    test('GEN-044: Access .values static getter on bridged enum [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/color.dart';
         main() {
@@ -107,7 +107,7 @@ void main() {
       expect(result, equals(3)); // red, green, blue
     });
 
-    test('GEN-044: Access .values and index into it', () {
+    test('GEN-044: Access .values and index into it [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/color.dart';
         main() {
@@ -118,7 +118,7 @@ void main() {
       expect(result, equals('red'));
     });
 
-    test('GEN-044: Iterate .values with for-in', () {
+    test('GEN-044: Iterate .values with for-in [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/color.dart';
         main() {
@@ -224,7 +224,7 @@ void main() {
           complexEnumDefinition, 'package:test/complex_enum.dart');
     });
 
-    test('Access complex enum value', () {
+    test('Access complex enum value [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/complex_enum.dart';
         main() { return MyComplexEnum.itemB; }
@@ -236,7 +236,7 @@ void main() {
       expect(bridgedValue, equals(ComplexEnum.itemB));
     });
 
-    test('Access field on complex enum value', () {
+    test('Access field on complex enum value [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/complex_enum.dart';
         main() {
@@ -248,7 +248,7 @@ void main() {
       expect(result, equals('Data A'));
     });
 
-    test('Access getter on complex enum value', () {
+    test('Access getter on complex enum value [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/complex_enum.dart';
         main() {
@@ -260,7 +260,7 @@ void main() {
       expect(result, equals('Data B-20'));
     });
 
-    test('Call method with argument on complex enum value', () {
+    test('Call method with argument on complex enum value [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/complex_enum.dart';
         main() {
@@ -272,7 +272,7 @@ void main() {
       expect(result, equals(50)); // 10 * 5
     });
 
-    test('Call method without argument on complex enum value', () {
+    test('Call method without argument on complex enum value [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/complex_enum.dart';
         main() {
@@ -285,7 +285,7 @@ void main() {
       expect(result, equals([true, false]));
     });
 
-    test('Call toString() method on complex enum value', () {
+    test('Call toString() method on complex enum value [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/complex_enum.dart';
          main() {
@@ -297,7 +297,7 @@ void main() {
       expect(result, equals('MyComplexEnum.itemA'));
     });
 
-    test('Compare complex bridged enum values', () {
+    test('Compare complex bridged enum values [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/complex_enum.dart';
         main() {
@@ -311,7 +311,7 @@ void main() {
       expect(result, equals([false, true, true]));
     });
 
-    test('Error on calling non-existent method', () {
+    test('Error on calling non-existent method [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/complex_enum.dart';
          main() {
@@ -325,7 +325,7 @@ void main() {
               contains('Method "nonExistentMethod" not found'))));
     });
 
-    test('Error on accessing non-existent property', () {
+    test('Error on accessing non-existent property [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/complex_enum.dart';
          main() {
@@ -339,7 +339,7 @@ void main() {
               contains('Property "nonExistentProp" not found'))));
     });
 
-    test('Error on calling method with wrong arguments', () {
+    test('Error on calling method with wrong arguments [2026-02-10 06:37]', () {
       final code = '''
         import 'package:test/complex_enum.dart';
          main() {

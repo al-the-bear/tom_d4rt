@@ -23,7 +23,7 @@ List<T> interpretSetAsSortedList<T extends Comparable>(String source) {
 
 void main() {
   group('Set methods - comprehensive', () {
-    test('add', () {
+    test('add [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2};
@@ -34,7 +34,7 @@ void main() {
       expect(interpretSetAsSortedList<int>(source), equals([1, 2, 3]));
     });
 
-    test('addAll', () {
+    test('addAll [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2};
@@ -45,7 +45,7 @@ void main() {
       expect(interpretSetAsSortedList<int>(source), equals([1, 2, 3, 4]));
     });
 
-    test('remove', () {
+    test('remove [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3};
@@ -56,7 +56,7 @@ void main() {
       expect(interpretSetAsSortedList<int>(source), equals([1, 3]));
     });
 
-    test('clear', () {
+    test('clear [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3};
@@ -67,7 +67,7 @@ void main() {
       expect(interpretSetAsSortedList<int>(source), isEmpty);
     });
 
-    test('contains', () {
+    test('contains [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3};
@@ -77,7 +77,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('length', () {
+    test('length [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3};
@@ -87,7 +87,7 @@ void main() {
       expect(execute(source), equals(3));
     });
 
-    test('isEmpty and isNotEmpty', () {
+    test('isEmpty and isNotEmpty [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {};
@@ -97,7 +97,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('union', () {
+    test('union [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2};
@@ -108,7 +108,7 @@ void main() {
       expect(interpretSetAsSortedList<int>(source), equals([1, 2, 3, 4]));
     });
 
-    test('intersection', () {
+    test('intersection [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3};
@@ -119,7 +119,7 @@ void main() {
       expect(interpretSetAsSortedList<int>(source), equals([2, 3]));
     });
 
-    test('difference', () {
+    test('difference [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3};
@@ -130,7 +130,7 @@ void main() {
       expect(interpretSetAsSortedList<int>(source), equals([1]));
     });
 
-    test('retainWhere', () {
+    test('retainWhere [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3, 4};
@@ -141,7 +141,7 @@ void main() {
       expect(interpretSetAsSortedList<int>(source), equals([2, 4]));
     });
 
-    test('removeWhere', () {
+    test('removeWhere [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3, 4};
@@ -152,7 +152,7 @@ void main() {
       expect(interpretSetAsSortedList<int>(source), equals([1, 3]));
     });
 
-    test('lookup', () {
+    test('lookup [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3};
@@ -162,7 +162,7 @@ void main() {
       expect(execute(source), equals(2));
     });
 
-    test('toList', () {
+    test('toList [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3};
@@ -174,7 +174,7 @@ void main() {
       expect(execute(source), equals([1, 2, 3]));
     });
 
-    test('toSet', () {
+    test('toSet [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3};
@@ -190,7 +190,7 @@ void main() {
       expect(newSet, equals([1, 2, 3, 4]));
     });
 
-    test('containsAll', () {
+    test('containsAll [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3};
@@ -200,7 +200,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('followedBy', () {
+    test('followedBy [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2};
@@ -211,7 +211,7 @@ void main() {
       expect(interpretSetAsSortedList<int>(source), equals([1, 2, 3, 4]));
     });
 
-    test('cast', () {
+    test('cast [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<dynamic> numbers = {1, 2, 3};
@@ -222,7 +222,7 @@ void main() {
       expect(interpretSetAsSortedList<int>(source), equals([1, 2, 3]));
     });
 
-    test('map', () {
+    test('map [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3};
@@ -232,7 +232,7 @@ void main() {
       expect(interpretSetAsSortedList<int>(source), equals([2, 4, 6]));
     });
 
-    test('where', () {
+    test('where [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3, 4};
@@ -242,7 +242,7 @@ void main() {
       expect(interpretSetAsSortedList<int>(source), equals([2, 4]));
     });
 
-    test('reduce', () {
+    test('reduce [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3};
@@ -252,7 +252,7 @@ void main() {
       expect(execute(source), equals(6));
     });
 
-    test('fold', () {
+    test('fold [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3};
@@ -262,7 +262,7 @@ void main() {
       expect(execute(source), equals(6));
     });
 
-    test('expand', () {
+    test('expand [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3};
@@ -272,7 +272,7 @@ void main() {
       expect(interpretSetAsSortedList<int>(source), equals([1, 2, 3, 4, 6]));
     });
 
-    test('take', () {
+    test('take [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3, 4, 5};
@@ -285,7 +285,7 @@ void main() {
       expect({1, 2, 3, 4, 5}.containsAll(result), isTrue);
     });
 
-    test('takeWhile', () {
+    test('takeWhile [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3, 4, 5};
@@ -298,7 +298,7 @@ void main() {
       expect(execute(source), isA<Set>());
     });
 
-    test('skip', () {
+    test('skip [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3, 4, 5};
@@ -311,7 +311,7 @@ void main() {
       expect({1, 2, 3, 4, 5}.containsAll(result), isTrue);
     });
 
-    test('skipWhile', () {
+    test('skipWhile [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3, 4, 5};
@@ -324,7 +324,7 @@ void main() {
       expect(execute(source), isA<Set>());
     });
 
-    test('first and last', () {
+    test('first and last [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3};
@@ -339,7 +339,7 @@ void main() {
       expect(execute(source), equals([true, true]));
     });
 
-    test('single', () {
+    test('single [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {42};
@@ -349,7 +349,7 @@ void main() {
       expect(execute(source), equals(42));
     });
 
-    test('elementAt', () {
+    test('elementAt [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {10, 20, 30};
@@ -361,7 +361,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('any', () {
+    test('any [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {1, 2, 3, 4};
@@ -371,7 +371,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('every', () {
+    test('every [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<int> numbers = {2, 4, 6};
@@ -381,7 +381,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('join', () {
+    test('join [2026-02-10 06:37]', () {
       const source = '''
      main() {
         Set<String> items = {'a', 'b', 'c'};

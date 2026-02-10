@@ -57,29 +57,29 @@ void main() {
       // print('Generated code:\n$generatedCode');
     });
 
-    test('discovers ImportedIntHelpers from import', () {
+    test('discovers ImportedIntHelpers from import [2026-02-10 06:37]', () {
       expect(generatedCode, contains("name: 'ImportedIntHelpers'"),
           reason: 'Should discover ImportedIntHelpers from imported file');
     });
 
-    test('discovers ImportedListHelpers from import', () {
+    test('discovers ImportedListHelpers from import [2026-02-10 06:37]', () {
       // Note: Generic extensions like List<T> may be skipped in initial implementation
       // This test documents the expected behavior
       expect(generatedCode, contains("name: 'ImportedListHelpers'"),
           reason: 'Should discover ImportedListHelpers from imported file');
     });
 
-    test('discovers doubled getter from ImportedIntHelpers', () {
+    test('discovers doubled getter from ImportedIntHelpers [2026-02-10 06:37]', () {
       expect(generatedCode, contains("'doubled'"),
           reason: 'Should include doubled getter from imported extension');
     });
 
-    test('discovers plus method from ImportedIntHelpers', () {
+    test('discovers plus method from ImportedIntHelpers [2026-02-10 06:37]', () {
       expect(generatedCode, contains("'plus'"),
           reason: 'Should include plus method from imported extension');
     });
 
-    test('does not duplicate extensions defined in source file', () {
+    test('does not duplicate extensions defined in source file [2026-02-10 06:37]', () {
       // Count occurrences of ImportedIntHelpers
       final matches = RegExp(r"name:\s*'ImportedIntHelpers'").allMatches(generatedCode);
       expect(matches.length, equals(1),

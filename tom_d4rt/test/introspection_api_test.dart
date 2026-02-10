@@ -13,7 +13,7 @@ void main() {
     });
 
     group('Function Analysis', () {
-      test('should detect simple function declarations', () {
+      test('should detect simple function declarations [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           void doNothing() {}
           int returnFive() => 5;
@@ -26,7 +26,7 @@ void main() {
         expect(result.contains('greet'), isTrue);
       });
 
-      test('should extract function parameters', () {
+      test('should extract function parameters [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           void process(int a, String b, {bool c = false, required double d}) {}
         ''');
@@ -37,7 +37,7 @@ void main() {
         expect(func.arity, greaterThanOrEqualTo(0));
       });
 
-      test('should extract function return types', () {
+      test('should extract function return types [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           int getInt() => 0;
           String getString() => "";
@@ -56,7 +56,7 @@ void main() {
         expect(doNothing.returnType, equals('void'));
       });
 
-      test('should detect async/generator functions', () {
+      test('should detect async/generator functions [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           Future<int> asyncFunc() async => 0;
           Stream<int> streamFunc() async* { yield 1; }
@@ -79,7 +79,7 @@ void main() {
         expect(iterableFunc.isGenerator, isTrue);
       });
 
-      test('should detect generic functions', () {
+      test('should detect generic functions [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           T identity<T>(T value) => value;
           Map<K, V> createMap<K, V>() => {};
@@ -90,7 +90,7 @@ void main() {
         expect(result.contains('createMap'), isTrue);
       });
 
-      test('should detect external functions', () {
+      test('should detect external functions [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           external void nativeFunction();
         ''');
@@ -101,7 +101,7 @@ void main() {
     });
 
     group('Class Analysis', () {
-      test('should detect simple class', () {
+      test('should detect simple class [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           class Person {
             String name;
@@ -115,7 +115,7 @@ void main() {
         expect(person.fields, containsAll(['name', 'age']));
       });
 
-      test('should detect class with all member types', () {
+      test('should detect class with all member types [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           class FullClass {
             // Fields
@@ -148,7 +148,7 @@ void main() {
             containsAll(['publicMethod', '_privateMethod', 'computed']));
       });
 
-      test('should detect abstract class', () {
+      test('should detect abstract class [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           abstract class Shape {
             double area();
@@ -162,7 +162,7 @@ void main() {
             result.classes.first.methods, containsAll(['area', 'perimeter']));
       });
 
-      test('should detect class inheritance', () {
+      test('should detect class inheritance [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           class Animal {}
           class Mammal extends Animal {}
@@ -178,7 +178,7 @@ void main() {
         expect(dog.superTypes, contains('Mammal'));
       });
 
-      test('should detect class implementing interfaces', () {
+      test('should detect class implementing interfaces [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           abstract class Runnable { void run(); }
           abstract class Jumpable { void jump(); }
@@ -193,7 +193,7 @@ void main() {
         expect(athlete.superTypes, containsAll(['Runnable', 'Jumpable']));
       });
 
-      test('should detect class with mixins', () {
+      test('should detect class with mixins [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           mixin Swimming {
             void swim() {}
@@ -210,7 +210,7 @@ void main() {
         expect(duck.superTypes, containsAll(['Swimming', 'Flying']));
       });
 
-      test('should detect generic class', () {
+      test('should detect generic class [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           class Container<T> {
             T? value;
@@ -230,7 +230,7 @@ void main() {
         expect(result.contains('Pair'), isTrue);
       });
 
-      test('should detect sealed/final/base class modifiers', () {
+      test('should detect sealed/final/base class modifiers [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           final class FinalClass {}
           base class BaseClass {}
@@ -245,7 +245,7 @@ void main() {
         expect(result.contains('SealedClass'), isTrue);
       });
 
-      test('should detect complex inheritance hierarchy', () {
+      test('should detect complex inheritance hierarchy [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           abstract class Entity {
             String id = "";
@@ -281,7 +281,7 @@ void main() {
         expect(user.superTypes, contains('BaseModel'));
       });
 
-      test('should detect nested classes', () {
+      test('should detect nested classes [2026-02-10 06:37]', () {
         // Dart doesn't support nested classes in the traditional sense,
         // but we can have class with factory that returns different implementations
         final result = d4rt.analyze(source: '''
@@ -297,7 +297,7 @@ void main() {
     });
 
     group('Enum Analysis', () {
-      test('should detect simple enum', () {
+      test('should detect simple enum [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           enum Color { red, green, blue }
         ''');
@@ -308,7 +308,7 @@ void main() {
         expect(colorEnum.values, containsAll(['red', 'green', 'blue']));
       });
 
-      test('should detect multiple enums', () {
+      test('should detect multiple enums [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           enum Status { pending, active, inactive, deleted }
           enum Priority { low, medium, high, critical }
@@ -325,7 +325,7 @@ void main() {
             containsAll(['low', 'medium', 'high', 'critical']));
       });
 
-      test('should detect enhanced enum with fields and methods', () {
+      test('should detect enhanced enum with fields and methods [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           enum Planet {
             mercury(3.303e+23, 2.4397e6),
@@ -347,7 +347,7 @@ void main() {
         expect(planet.values, containsAll(['mercury', 'venus', 'earth']));
       });
 
-      test('should detect enum implementing interface', () {
+      test('should detect enum implementing interface [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           abstract class Describable {
             String get description;
@@ -372,7 +372,7 @@ void main() {
     });
 
     group('Variable Analysis', () {
-      test('should detect top-level variables', () {
+      test('should detect top-level variables [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           var mutableVar = 10;
           final immutableVar = "constant";
@@ -387,7 +387,7 @@ void main() {
         expect(result.variables.any((v) => v.name == 'lateVar'), isTrue);
       });
 
-      test('should detect variable types', () {
+      test('should detect variable types [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           int explicitInt = 42;
           String explicitString = "hello";
@@ -404,7 +404,7 @@ void main() {
         expect(stringVar.declaredType, equals('String'));
       });
 
-      test('should detect const expressions', () {
+      test('should detect const expressions [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           const pi = 3.14159265359;
           const e = 2.71828;
@@ -417,7 +417,7 @@ void main() {
         expect(result.contains('tau'), isTrue);
       });
 
-      test('should detect complex type annotations', () {
+      test('should detect complex type annotations [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           List<Map<String, int>> complexList = [];
           Map<String, List<int>> nestedMap = {};
@@ -435,7 +435,7 @@ void main() {
     });
 
     group('Extension Analysis', () {
-      test('should detect simple extension', () {
+      test('should detect simple extension [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           extension StringExtension on String {
             String capitalize() {
@@ -451,7 +451,7 @@ void main() {
         expect(result.extensions.first.methods, contains('capitalize'));
       });
 
-      test('should detect multiple extensions', () {
+      test('should detect multiple extensions [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           extension IntExtension on int {
             bool get isEven => this % 2 == 0;
@@ -478,7 +478,7 @@ void main() {
             isTrue);
       });
 
-      test('should detect generic extension', () {
+      test('should detect generic extension [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           extension IterableExtension<T> on Iterable<T> {
             T? get firstOrNull => isEmpty ? null : first;
@@ -495,7 +495,7 @@ void main() {
         expect(result.extensions.first.name, equals('IterableExtension'));
       });
 
-      test('should detect unnamed extension', () {
+      test('should detect unnamed extension [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           extension on String {
             String reverse() => split('').reversed.join('');
@@ -509,7 +509,7 @@ void main() {
     });
 
     group('AnalysisResult API', () {
-      test('getByName should return correct declaration type', () {
+      test('getByName should return correct declaration type [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           class MyClass {}
           enum MyEnum { a, b }
@@ -525,7 +525,7 @@ void main() {
         expect(result.getByName('MyExtension'), isA<ExtensionInfo>());
       });
 
-      test('getByName should return null for non-existent names', () {
+      test('getByName should return null for non-existent names [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           class Existing {}
         ''');
@@ -535,7 +535,7 @@ void main() {
         expect(result.getByName('random_name_123'), isNull);
       });
 
-      test('contains should work correctly', () {
+      test('contains should work correctly [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           class ExistingClass {}
           void existingFunction() {}
@@ -546,7 +546,7 @@ void main() {
         expect(result.contains('NonExistent'), isFalse);
       });
 
-      test('all should iterate all types', () {
+      test('all should iterate all types [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           class C {}
           enum E { a }
@@ -559,7 +559,7 @@ void main() {
         expect(allNames, containsAll(['C', 'E', 'f', 'v', 'X']));
       });
 
-      test('should handle empty source', () {
+      test('should handle empty source [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '');
 
         expect(result.functions, isEmpty);
@@ -569,7 +569,7 @@ void main() {
         expect(result.extensions, isEmpty);
       });
 
-      test('should handle source with only comments', () {
+      test('should handle source with only comments [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           // This is a comment
           /* This is a 
@@ -581,7 +581,7 @@ void main() {
         expect(result.classes, isEmpty);
       });
 
-      test('should handle source with imports only', () {
+      test('should handle source with imports only [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           import 'dart:core';
           import 'dart:async';
@@ -593,7 +593,7 @@ void main() {
     });
 
     group('Complex scenarios', () {
-      test('should analyze full application structure', () {
+      test('should analyze full application structure [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           // Constants
           const String appName = "MyApp";
@@ -668,7 +668,7 @@ void main() {
         expect(result.functions.any((f) => f.name == 'isValidEmail'), isTrue);
       });
 
-      test('should handle code with syntax that might be tricky', () {
+      test('should handle code with syntax that might be tricky [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           // Function with many parameters
           void complexFunction(
@@ -701,7 +701,7 @@ void main() {
         expect(vector.fields, containsAll(['x', 'y']));
       });
 
-      test('should handle mixin declarations', () {
+      test('should handle mixin declarations [2026-02-10 06:37]', () {
         final result = d4rt.analyze(source: '''
           mixin Walkable {
             void walk() {}

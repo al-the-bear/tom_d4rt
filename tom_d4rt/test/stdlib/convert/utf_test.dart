@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('Utf8 tests', () {
-    test('Utf8Codec encode and decode', () {
+    test('Utf8Codec encode and decode [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -22,7 +22,7 @@ void main() {
           ]));
     });
 
-    test('Utf8Encoder convert', () {
+    test('Utf8Encoder convert [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -36,7 +36,7 @@ void main() {
           equals([69, 110, 99, 111, 100, 101, 32, 116, 104, 105, 115, 33]));
     });
 
-    test('Utf8Decoder convert', () {
+    test('Utf8Decoder convert [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {

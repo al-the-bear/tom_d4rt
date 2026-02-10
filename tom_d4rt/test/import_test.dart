@@ -145,7 +145,7 @@ void main() {
       },
     );
 
-    test('Import package simple (memory)', () {
+    test('Import package simple (memory) [2026-02-10 06:37]', () {
       final d4rt = D4rt();
       final mainlibrary = "d4rt-mem:/main_pkg_import.dart";
       final result = d4rt.execute(
@@ -158,7 +158,7 @@ void main() {
       );
     });
 
-    test('Import prefixed package (memory)', () {
+    test('Import prefixed package (memory) [2026-02-10 06:37]', () {
       final d4rt = D4rt();
       final mainlibrary = "d4rt-mem:/main_prefixed_pkg_import.dart";
       final result = d4rt.execute(
@@ -172,7 +172,7 @@ void main() {
       );
     });
 
-    test('Import dart:math (global functions)', () {
+    test('Import dart:math (global functions) [2026-02-10 06:37]', () {
       final d4rt = D4rt();
       final mainlibrary = "d4rt-mem:/main_dart_math_import.dart";
       final result = d4rt.execute(
@@ -183,7 +183,7 @@ void main() {
     });
 
     group('Combinators (show/hide)', () {
-      test('Import with "show" (no prefix) - access allowed symbols', () {
+      test('Import with "show" (no prefix) - access allowed symbols [2026-02-10 06:37]', () {
         final d4rt = D4rt();
         final result = d4rt.execute(
           library: "d4rt-mem:/main_import_show.dart",
@@ -211,7 +211,7 @@ void main() {
         },
       );
 
-      test('Import with "hide" (no prefix) - access allowed symbols', () {
+      test('Import with "hide" (no prefix) - access allowed symbols [2026-02-10 06:37]', () {
         final d4rt = D4rt();
         final result = d4rt.execute(
           library: "d4rt-mem:/main_import_hide.dart",
@@ -239,7 +239,7 @@ void main() {
         },
       );
 
-      test('Import prefixed with "show" - access allowed symbols', () {
+      test('Import prefixed with "show" - access allowed symbols [2026-02-10 06:37]', () {
         final d4rt = D4rt();
         final result = d4rt.execute(
             library: "d4rt-mem:/main_prefixed_import_show.dart",
@@ -268,7 +268,7 @@ void main() {
         },
       );
 
-      test('Import prefixed with "hide" - access allowed symbols', () {
+      test('Import prefixed with "hide" - access allowed symbols [2026-02-10 06:37]', () {
         final d4rt = D4rt();
         final result = d4rt.execute(
             library: "d4rt-mem:/main_prefixed_import_hide.dart",
@@ -297,7 +297,7 @@ void main() {
         },
       );
 
-      test('Import with "show" avoids name conflict with local definition', () {
+      test('Import with "show" avoids name conflict with local definition [2026-02-10 06:37]', () {
         final d4rt = D4rt();
         final result = d4rt.execute(
             library: "d4rt-mem:/main_import_conflict_show.dart",

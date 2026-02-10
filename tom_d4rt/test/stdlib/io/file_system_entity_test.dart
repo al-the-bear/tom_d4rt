@@ -4,7 +4,7 @@ import 'dart:io'; // Need dart:io for File, Directory, etc.
 
 void main() {
   group('FileSystemEntity methods - comprehensive', () {
-    test('existsSync', () {
+    test('existsSync [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -19,7 +19,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('deleteSync', () {
+    test('deleteSync [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -32,7 +32,7 @@ void main() {
       expect(execute(source), isFalse);
     });
 
-    test('renameSync', () {
+    test('renameSync [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -47,7 +47,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('absolute', () {
+    test('absolute [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -61,7 +61,7 @@ void main() {
       expect(execute(source), isA<String>());
     });
 
-    test('parent', () {
+    test('parent [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -76,7 +76,7 @@ void main() {
       expect(execute(source), equals(Directory.systemTemp.path));
     });
 
-    test('statSync', () {
+    test('statSync [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -90,7 +90,7 @@ void main() {
       expect(execute(source), equals('file'));
     });
 
-    test('resolveSymbolicLinksSync', () {
+    test('resolveSymbolicLinksSync [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {

@@ -59,120 +59,120 @@ void main() {
     });
 
     group('Reserved Word Parameters', () {
-      test('detects ReservedWordsClass', () {
+      test('detects ReservedWordsClass [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'ReservedWordsClass'"));
       });
 
-      test('handles reserved word parameter names safely', () {
+      test('handles reserved word parameter names safely [2026-02-10 06:37]', () {
         // The generator should handle parameters like class_, for_, in_
         expect(generatedCode, contains('_createReservedWordsClassBridge'));
       });
     });
 
     group('Nested Generic Types', () {
-      test('detects NestedGenericsClass', () {
+      test('detects NestedGenericsClass [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'NestedGenericsClass'"));
       });
 
-      test('detects Result<T, E> with multiple type params', () {
+      test('detects Result<T, E> with multiple type params [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'Result'"));
       });
 
-      test('generates methods with nested generics', () {
+      test('generates methods with nested generics [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'getItems':"));
         expect(generatedCode, contains("'addEntry':"));
       });
     });
 
     group('Default Values with Static References', () {
-      test('detects DefaultValuesClass', () {
+      test('detects DefaultValuesClass [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'DefaultValuesClass'"));
       });
 
-      test('constructor with static default values is bridged', () {
+      test('constructor with static default values is bridged [2026-02-10 06:37]', () {
         expect(generatedCode, contains('_createDefaultValuesClassBridge'));
       });
     });
 
     group('Function Type Parameters', () {
-      test('detects CallbackHolder', () {
+      test('detects CallbackHolder [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'CallbackHolder'"));
       });
 
-      test('detects FunctionParamsClass', () {
+      test('detects FunctionParamsClass [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'FunctionParamsClass'"));
       });
 
-      test('methods with function parameters may be bridged or skipped', () {
+      test('methods with function parameters may be bridged or skipped [2026-02-10 06:37]', () {
         // Function types are typically handled as dynamic
         expect(generatedCode, contains('FunctionParamsClass'));
       });
     });
 
     group('Operator Overloading', () {
-      test('detects Vector2D class', () {
+      test('detects Vector2D class [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'Vector2D'"));
       });
 
-      test('length getter is bridged', () {
+      test('length getter is bridged [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'length':"));
       });
 
-      test('toString is bridged', () {
+      test('toString is bridged [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'toString':"));
       });
     });
 
     group('Empty and Minimal Classes', () {
-      test('detects EmptyClass', () {
+      test('detects EmptyClass [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'EmptyClass'"));
       });
 
-      test('detects MinimalClass', () {
+      test('detects MinimalClass [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'MinimalClass'"));
       });
 
-      test('detects StaticOnlyClass', () {
+      test('detects StaticOnlyClass [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'StaticOnlyClass'"));
       });
 
-      test('empty class has default constructor', () {
+      test('empty class has default constructor [2026-02-10 06:37]', () {
         expect(generatedCode, contains('_createEmptyClassBridge'));
       });
     });
 
     group('Many Parameters Stress Test', () {
-      test('detects ManyParamsClass', () {
+      test('detects ManyParamsClass [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'ManyParamsClass'"));
       });
 
-      test('constructor with many params is bridged', () {
+      test('constructor with many params is bridged [2026-02-10 06:37]', () {
         expect(generatedCode, contains('_createManyParamsClassBridge'));
       });
     });
 
     group('Nullable Parameters', () {
-      test('detects NullableParamsClass', () {
+      test('detects NullableParamsClass [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'NullableParamsClass'"));
       });
 
-      test('nullable getters are bridged', () {
+      test('nullable getters are bridged [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'nullableString':"));
         expect(generatedCode, contains("'nullableInt':"));
       });
 
-      test('methods with nullable params are bridged', () {
+      test('methods with nullable params are bridged [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'format':"));
         expect(generatedCode, contains("'getFirstOrNull':"));
       });
     });
 
     group('Mixins', () {
-      test('detects LoggingClass', () {
+      test('detects LoggingClass [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'LoggingClass'"));
       });
 
-      test('LoggingClass has its own doWork method', () {
+      test('LoggingClass has its own doWork method [2026-02-10 06:37]', () {
         // Note: Mixin-provided methods may not be detected without full resolution
         // The class's own methods should still be bridged
         expect(generatedCode, contains("'doWork':"));
@@ -180,26 +180,26 @@ void main() {
     });
 
     group('Late Initialization', () {
-      test('detects LateInitClass', () {
+      test('detects LateInitClass [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'LateInitClass'"));
       });
 
-      test('late fields have getters and setters', () {
+      test('late fields have getters and setters [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'name':"));
         expect(generatedCode, contains("'id':"));
       });
 
-      test('initialize method is bridged', () {
+      test('initialize method is bridged [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'initialize':"));
       });
     });
 
     group('Covariant Parameters', () {
-      test('detects Cat class', () {
+      test('detects Cat class [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'Cat'"));
       });
 
-      test('overridden method with covariant param is bridged', () {
+      test('overridden method with covariant param is bridged [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'feed':"));
       });
     });
@@ -229,39 +229,39 @@ void main() {
       generatedCode = await File(outputFile).readAsString();
     });
 
-    test('Result class with multiple type parameters is bridged', () {
+    test('Result class with multiple type parameters is bridged [2026-02-10 06:37]', () {
       expect(generatedCode, contains("name: 'Result'"));
     });
 
-    test('empty class is bridged with constructor', () {
+    test('empty class is bridged with constructor [2026-02-10 06:37]', () {
       expect(generatedCode, contains("name: 'EmptyClass'"));
       expect(generatedCode, contains('_createEmptyClassBridge'));
     });
 
-    test('static-only class has static members', () {
+    test('static-only class has static members [2026-02-10 06:37]', () {
       expect(generatedCode, contains("name: 'StaticOnlyClass'"));
       expect(generatedCode, contains('staticGetters'));
       expect(generatedCode, contains('staticMethods'));
     });
 
-    test('class using mixin is bridged', () {
+    test('class using mixin is bridged [2026-02-10 06:37]', () {
       // Note: Mixin-provided methods may not be detected without full resolution
       expect(generatedCode, contains("name: 'LoggingClass'"));
     });
 
-    test('LoggingClass has its own method doWork bridged', () {
+    test('LoggingClass has its own method doWork bridged [2026-02-10 06:37]', () {
       // The class's own method should be bridged
       expect(generatedCode, contains("'doWork':"));
     });
 
-    test('concrete implementation Cat is bridged', () {
+    test('concrete implementation Cat is bridged [2026-02-10 06:37]', () {
       // Abstract Animal may be skipped, but concrete Cat should be bridged
       expect(generatedCode, contains("name: 'Cat'"));
     });
   });
 
   group('Combined Sources Generation', () {
-    test('generates from multiple source files', () async {
+    test('generates from multiple source files [2026-02-10 06:37]', () async {
       final generator = BridgeGenerator(
         workspacePath: testFixturesDir,
         skipPrivate: true,
@@ -296,7 +296,7 @@ void main() {
       expect(code, contains("name: 'SimpleStatus'"));
     });
 
-    test('handles empty source file gracefully', () async {
+    test('handles empty source file gracefully [2026-02-10 06:37]', () async {
       // Create a minimal temp file
       final emptyFile = File(p.join(tempOutputDir, 'empty_source.dart'));
       emptyFile.writeAsStringSync('library;\n// Empty file\n');
@@ -323,7 +323,7 @@ void main() {
   });
 
   group('Error Handling', () {
-    test('reports errors for invalid source paths', () async {
+    test('reports errors for invalid source paths [2026-02-10 06:37]', () async {
       final generator = BridgeGenerator(
         workspacePath: testFixturesDir,
         skipPrivate: true,
@@ -347,7 +347,7 @@ void main() {
   });
 
   group('Generator Options', () {
-    test('skipPrivate=true skips private members in output', () async {
+    test('skipPrivate=true skips private members in output [2026-02-10 06:37]', () async {
       final generator = BridgeGenerator(
         workspacePath: testFixturesDir,
         skipPrivate: true,
@@ -371,7 +371,7 @@ void main() {
       expect(code, isNot(contains('_PrivateClass')));
     });
 
-    test('skipPrivate=false includes private members in output', () async {
+    test('skipPrivate=false includes private members in output [2026-02-10 06:37]', () async {
       final generator = BridgeGenerator(
         workspacePath: testFixturesDir,
         skipPrivate: false,
@@ -395,7 +395,7 @@ void main() {
       expect(code, contains('_PrivateClass'));
     });
 
-    test('verbose mode does not affect output structure', () async {
+    test('verbose mode does not affect output structure [2026-02-10 06:37]', () async {
       final sourceFile = p.join(testFixturesDir, 'enum_test_source.dart');
 
       final verboseGenerator = BridgeGenerator(

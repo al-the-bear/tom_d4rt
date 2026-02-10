@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('Encoding tests', () {
-    test('utf8 encode and decode', () {
+    test('utf8 encode and decode [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -22,7 +22,7 @@ void main() {
           ]));
     });
 
-    test('ascii encode and decode', () {
+    test('ascii encode and decode [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -41,7 +41,7 @@ void main() {
           ]));
     });
 
-    test('latin1 encode and decode', () {
+    test('latin1 encode and decode [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -60,7 +60,7 @@ void main() {
           ]));
     });
 
-    test('utf8 decoder', () {
+    test('utf8 decoder [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -71,7 +71,7 @@ void main() {
       expect(execute(source), equals('Utf8Decoder'));
     });
 
-    test('ascii decoder', () {
+    test('ascii decoder [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -82,7 +82,7 @@ void main() {
       expect(execute(source), equals('AsciiDecoder'));
     });
 
-    test('latin1 decoder', () {
+    test('latin1 decoder [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -93,7 +93,7 @@ void main() {
       expect(execute(source), equals('Latin1Decoder'));
     });
 
-    test('utf8 encoder', () {
+    test('utf8 encoder [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -104,7 +104,7 @@ void main() {
       expect(execute(source), equals('Utf8Encoder'));
     });
 
-    test('ascii encoder', () {
+    test('ascii encoder [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -115,7 +115,7 @@ void main() {
       expect(execute(source), equals('AsciiEncoder'));
     });
 
-    test('latin1 encoder', () {
+    test('latin1 encoder [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {

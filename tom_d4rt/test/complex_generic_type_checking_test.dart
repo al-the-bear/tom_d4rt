@@ -3,7 +3,7 @@ import 'interpreter_test.dart';
 
 void main() {
   group('Complex Generic Type Checking', () {
-    test('simple generic List type checking', () {
+    test('simple generic List type checking [2026-02-10 06:37]', () {
       const code = '''
 int main() {
   var list = [1, 2, 3];
@@ -19,7 +19,7 @@ int main() {
       expect(result, equals(1));
     });
 
-    test('simple generic Map type checking', () {
+    test('simple generic Map type checking [2026-02-10 06:37]', () {
       const code = '''
 int main() {
   var map = {'a': 1, 'b': 2};
@@ -35,7 +35,7 @@ int main() {
       expect(result, equals(1));
     });
 
-    test('generic List<int> type checking', () {
+    test('generic List<int> type checking [2026-02-10 06:37]', () {
       const code = '''
 int main() {
   var list = [1, 2, 3];
@@ -51,7 +51,7 @@ int main() {
       expect(result, equals(1));
     });
 
-    test('generic Map<String, int> type checking', () {
+    test('generic Map<String, int> type checking [2026-02-10 06:37]', () {
       const code = '''
 int main() {
   var map = {'a': 1, 'b': 2};
@@ -67,7 +67,7 @@ int main() {
       expect(result, equals(1));
     });
 
-    test('nested generic Map<String, List<int>> type checking', () {
+    test('nested generic Map<String, List<int>> type checking [2026-02-10 06:37]', () {
       const code = '''
 int main() {
   var map = {
@@ -86,7 +86,7 @@ int main() {
       expect(result, equals(1));
     });
 
-    test('negative type check - List<String> is not List<int>', () {
+    test('negative type check - List<String> is not List<int> [2026-02-10 06:37]', () {
       const code = '''
 int main() {
   var list = ['a', 'b', 'c'];
@@ -102,7 +102,7 @@ int main() {
       expect(result, equals(1));
     });
 
-    test('complex nested generic List<Map<String, int>> type checking', () {
+    test('complex nested generic List<Map<String, int>> type checking [2026-02-10 06:37]', () {
       const code = '''
 int main() {
   var list = [
@@ -147,7 +147,7 @@ int main() {
       expect(result, equals(1));
     });
 
-    test('type checking with nullable generics', () {
+    test('type checking with nullable generics [2026-02-10 06:37]', () {
       const code = '''
 int main() {
   var list = [1, null, 3];
@@ -163,7 +163,7 @@ int main() {
       expect(result, equals(1));
     });
 
-    test('generic type mismatch detection', () {
+    test('generic type mismatch detection [2026-02-10 06:37]', () {
       const code = '''
 int main() {
   var mapOfStrings = {'a': 'hello', 'b': 'world'};

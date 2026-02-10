@@ -8,7 +8,7 @@ enum Status { pending, running, completed, failed }
 
 void main() {
   group('Enum Tests', () {
-    test('Enum Value Access', () {
+    test('Enum Value Access [2026-02-10 06:37]', () {
       const source = '''
         enum Color { red, green, blue }
         
@@ -22,7 +22,7 @@ void main() {
       expect(result.toString(), equals('Color.green'));
     });
 
-    test('Enum Index Access', () {
+    test('Enum Index Access [2026-02-10 06:37]', () {
       const source = '''
         enum Status { pending, running, completed, failed }
         
@@ -36,7 +36,7 @@ void main() {
       expect(result, equals([0, 2]));
     });
 
-    test('Enum Static Values List', () {
+    test('Enum Static Values List [2026-02-10 06:37]', () {
       const source = '''
         enum Color { red, green, blue }
         
@@ -52,7 +52,7 @@ void main() {
       // expect(result, isA<List>()); // ou isA<BridgedList>
     });
 
-    test('Enum Comparison', () {
+    test('Enum Comparison [2026-02-10 06:37]', () {
       const source = '''
         enum Status { pending, running, completed, failed }
         
@@ -73,7 +73,7 @@ void main() {
     });
 
     // Optionnel: Test avec switch (peut nécessiter plus de logique dans l'interpréteur)
-    test('Enum in Switch Statement', () {
+    test('Enum in Switch Statement [2026-02-10 06:37]', () {
       const source = '''
         enum Status { pending, running, completed, failed }
         
@@ -137,7 +137,7 @@ void main() {
     });
   });
   group('Enum Tests', () {
-    test('Basic enum declaration and usage', () {
+    test('Basic enum declaration and usage [2026-02-10 06:37]', () {
       const source = '''
         enum Direction {
           north,
@@ -154,7 +154,7 @@ void main() {
       expect(execute(source), equals('Direction.north'));
     });
 
-    test('Enum with index property', () {
+    test('Enum with index property [2026-02-10 06:37]', () {
       const source = '''
         enum Status {
           pending,
@@ -171,7 +171,7 @@ void main() {
       expect(execute(source), equals(1));
     });
 
-    test('Enum in switch statement', () {
+    test('Enum in switch statement [2026-02-10 06:37]', () {
       const source = '''
         enum TrafficLight {
           red,
@@ -198,7 +198,7 @@ void main() {
       expect(execute(source), equals('Slow down'));
     });
 
-    test('Enum with methods', () {
+    test('Enum with methods [2026-02-10 06:37]', () {
       const source = '''
         enum Planet {
           mercury(0.38),
@@ -227,7 +227,7 @@ void main() {
       expect(execute(source), equals([38.0, 234.0]));
     });
 
-    test('Enum with complex properties and methods', () {
+    test('Enum with complex properties and methods [2026-02-10 06:37]', () {
       const source = '''
         enum CardSuit {
           hearts('♥', 'red'),
@@ -274,7 +274,7 @@ void main() {
           equals(['♥', 'red', true, '♠', 'black', true, 'Hearts', 'Spades']));
     });
 
-    test('Enum with static methods', () {
+    test('Enum with static methods [2026-02-10 06:37]', () {
       const source = '''
         enum HttpStatus {
           ok(200),
@@ -309,7 +309,7 @@ void main() {
       expect(execute(source), equals([404, false, true, true, true]));
     });
 
-    test('Enum with complex pattern matching', () {
+    test('Enum with complex pattern matching [2026-02-10 06:37]', () {
       const source = '''
         enum Shape {
           circle(0),
@@ -359,7 +359,7 @@ void main() {
           ]));
     });
 
-    test('Enum with complex business logic', () {
+    test('Enum with complex business logic [2026-02-10 06:37]', () {
       const source = '''
         enum UserRole {
           guest(0, ['read']),
@@ -414,7 +414,7 @@ void main() {
           ]));
     });
 
-    test('Enum with complex state management', () {
+    test('Enum with complex state management [2026-02-10 06:37]', () {
       const source = '''
         enum GameState {
           initial,

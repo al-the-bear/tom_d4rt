@@ -3,7 +3,7 @@ import '../../interpreter_test.dart';
 
 void main() {
   group('Capability Tests', () {
-    test('should create and use capabilities', () {
+    test('should create and use capabilities [2026-02-10 06:37]', () {
       final code = '''
         import 'dart:isolate';
         
@@ -18,7 +18,7 @@ void main() {
     });
   });
   group('IsolateSpawnException Tests', () {
-    test('should create IsolateSpawnException with message', () {
+    test('should create IsolateSpawnException with message [2026-02-10 06:37]', () {
       final code = '''
         import 'dart:isolate';
         
@@ -32,7 +32,7 @@ void main() {
       expect(result, equals('Test error message'));
     });
 
-    test('should convert IsolateSpawnException to string', () {
+    test('should convert IsolateSpawnException to string [2026-02-10 06:37]', () {
       final code = '''
         import 'dart:isolate';
         
@@ -48,7 +48,7 @@ void main() {
   });
 
   group('Isolate Static Properties Tests', () {
-    test('should access current isolate', () {
+    test('should access current isolate [2026-02-10 06:37]', () {
       final code = '''
         import 'dart:isolate';
         
@@ -62,7 +62,7 @@ void main() {
       expect(result, contains('Isolate'));
     });
 
-    test('should access immediate constant', () {
+    test('should access immediate constant [2026-02-10 06:37]', () {
       final code = '''
         import 'dart:isolate';
         
@@ -75,7 +75,7 @@ void main() {
       expect(result, equals(0));
     });
 
-    test('should access beforeNextEvent constant', () {
+    test('should access beforeNextEvent constant [2026-02-10 06:37]', () {
       final code = '''
         import 'dart:isolate';
         
@@ -92,7 +92,7 @@ void main() {
   group('Isolate.run Tests', () {
     // Note: Ces tests sont simplifiés car Isolate.run nécessite un vrai isolate
     // et ne peut pas fonctionner correctement dans l'interpréteur D4rt
-    test('should have Isolate.run method available', () {
+    test('should have Isolate.run method available [2026-02-10 06:37]', () {
       final code = '''
         import 'dart:isolate';
         
@@ -108,7 +108,7 @@ void main() {
   });
 
   group('ReceivePort and SendPort Tests', () {
-    test('should create ReceivePort and access sendPort', () {
+    test('should create ReceivePort and access sendPort [2026-02-10 06:37]', () {
       final code = '''
         import 'dart:isolate';
         
@@ -124,7 +124,7 @@ void main() {
       expect(result, contains('SendPort'));
     });
 
-    test('should create ReceivePort with debug name', () {
+    test('should create ReceivePort with debug name [2026-02-10 06:37]', () {
       final code = '''
         import 'dart:isolate';
         
@@ -141,7 +141,7 @@ void main() {
     });
 
     // Tests simplifiés pour éviter les problèmes de message passing
-    test('should create ReceivePort from RawReceivePort', () {
+    test('should create ReceivePort from RawReceivePort [2026-02-10 06:37]', () {
       final code = '''
         import 'dart:isolate';
         
@@ -159,7 +159,7 @@ void main() {
   });
 
   group('RawReceivePort Tests', () {
-    test('should create RawReceivePort with handler', () {
+    test('should create RawReceivePort with handler [2026-02-10 06:37]', () {
       final code = '''
         import 'dart:isolate';
         
@@ -178,7 +178,7 @@ void main() {
       expect(result, equals('RawReceivePort test completed'));
     });
 
-    test('should create RawReceivePort with debug name', () {
+    test('should create RawReceivePort with debug name [2026-02-10 06:37]', () {
       final code = '''
         import 'dart:isolate';
         
@@ -197,7 +197,7 @@ void main() {
       expect(result, equals('RawReceivePort with debug name created'));
     });
 
-    test('should control keepIsolateAlive property', () {
+    test('should control keepIsolateAlive property [2026-02-10 06:37]', () {
       final code = '''
         import 'dart:isolate';
         
@@ -219,7 +219,7 @@ void main() {
   });
 
   group('RemoteError Tests', () {
-    test('should create RemoteError with description and stack', () async {
+    test('should create RemoteError with description and stack [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:isolate';
         
@@ -233,7 +233,7 @@ void main() {
       expect(result, equals('Test error description'));
     });
 
-    test('should access stackTrace from RemoteError', () async {
+    test('should access stackTrace from RemoteError [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:isolate';
         
@@ -249,7 +249,7 @@ void main() {
   });
 
   group('TransferableTypedData Tests', () {
-    test('should create TransferableTypedData from list', () async {
+    test('should create TransferableTypedData from list [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:isolate';
         import 'dart:typed_data';
@@ -265,7 +265,7 @@ void main() {
       expect(result, contains('TransferableTypedData'));
     });
 
-    test('should materialize TransferableTypedData', () async {
+    test('should materialize TransferableTypedData [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:isolate';
         import 'dart:typed_data';
@@ -285,7 +285,7 @@ void main() {
   });
 
   group('Isolate Control Tests', () {
-    test('should create Isolate with controlPort', () async {
+    test('should create Isolate with controlPort [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:isolate';
         
@@ -302,7 +302,7 @@ void main() {
       expect(result, contains('SendPort'));
     });
 
-    test('should create Isolate with capabilities', () async {
+    test('should create Isolate with capabilities [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:isolate';
         
@@ -331,7 +331,7 @@ void main() {
   });
 
   group('Isolate Package Resolution Tests', () {
-    test('should resolve package URI', () async {
+    test('should resolve package URI [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:isolate';
         
@@ -351,7 +351,7 @@ void main() {
       expect(result, anyOf(equals('null'), isA<String>()));
     });
 
-    test('should resolve package URI synchronously', () async {
+    test('should resolve package URI synchronously [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:isolate';
         
@@ -371,7 +371,7 @@ void main() {
       expect(result, anyOf(equals('null'), isA<String>()));
     });
 
-    test('should return non-package URI as-is', () async {
+    test('should return non-package URI as-is [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:isolate';
         
@@ -388,7 +388,7 @@ void main() {
   });
 
   group('Stream Operations on ReceivePort Tests', () {
-    test('should use map on ReceivePort', () async {
+    test('should use map on ReceivePort [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:isolate';
         import 'dart:async';
@@ -414,7 +414,7 @@ void main() {
       expect(result, equals('Mapped: Hello'));
     });
 
-    test('should use where on ReceivePort', () async {
+    test('should use where on ReceivePort [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:isolate';
         import 'dart:async';
@@ -442,7 +442,7 @@ void main() {
       expect(result, equals('invalid message'));
     });
 
-    test('should use take on ReceivePort', () async {
+    test('should use take on ReceivePort [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:isolate';
         import 'dart:async';

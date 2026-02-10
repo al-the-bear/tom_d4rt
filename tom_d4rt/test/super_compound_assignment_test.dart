@@ -5,7 +5,7 @@ import 'interpreter_test.dart';
 
 void main() {
   group('Compound Assignment on Super', () {
-    test('super.property += value works in interpreted classes', () {
+    test('super.property += value works in interpreted classes [2026-02-10 06:37]', () {
       final code = '''
         class Parent {
           int value = 10;
@@ -56,7 +56,7 @@ void main() {
       expect(result, equals(6));
     });
 
-    test('super.property with all compound operators', () {
+    test('super.property with all compound operators [2026-02-10 06:37]', () {
       final code = '''
         class Base {
           int number = 100;
@@ -92,7 +92,7 @@ void main() {
       expect(result['text'], equals('Hello World'));
     });
 
-    test('compound assignment on super with getters/setters', () {
+    test('compound assignment on super with getters/setters [2026-02-10 06:37]', () {
       final code = '''
         class Parent {
           int _value = 10;
@@ -120,7 +120,7 @@ void main() {
       expect(result, equals(20));
     });
 
-    test('nested super compound assignments', () {
+    test('nested super compound assignments [2026-02-10 06:37]', () {
       final code = '''
         class GrandParent {
           int value = 5;
@@ -150,7 +150,7 @@ void main() {
       expect(result, equals(30));
     });
 
-    test('super compound assignment with different types', () {
+    test('super compound assignment with different types [2026-02-10 06:37]', () {
       final code = '''
         class Base {
           double amount = 10.5;
@@ -183,7 +183,7 @@ void main() {
   });
 
   group('Compound Assignment on Bridged Super', () {
-    test('compound assignments on bridged super properties', () {
+    test('compound assignments on bridged super properties [2026-02-10 06:37]', () {
       final interpreter = D4rt();
 
       // Create a native Dart class to bridge
@@ -256,7 +256,7 @@ void main() {
       expect(result['text'], equals('Hello World'));
     });
 
-    test('compound assignments on bridged super with getter/setter', () {
+    test('compound assignments on bridged super with getter/setter [2026-02-10 06:37]', () {
       final interpreter = D4rt();
 
       // Create a bridged class with explicit getter/setter
@@ -308,7 +308,7 @@ void main() {
       expect(result, equals(100));
     });
 
-    test('all compound operators on bridged super', () {
+    test('all compound operators on bridged super [2026-02-10 06:37]', () {
       final interpreter = D4rt();
 
       final bridgedClass = BridgedClass(
@@ -360,7 +360,7 @@ void main() {
       expect(result, equals(5));
     });
 
-    test('nested inheritance with bridged super compound assignment', () {
+    test('nested inheritance with bridged super compound assignment [2026-02-10 06:37]', () {
       final interpreter = D4rt();
 
       final bridgedClass = BridgedClass(
@@ -417,7 +417,7 @@ void main() {
       expect(result, equals(30));
     });
 
-    test('compound assignment on bridged super with type conversions', () {
+    test('compound assignment on bridged super with type conversions [2026-02-10 06:37]', () {
       final interpreter = D4rt();
 
       final bridgedClass = BridgedClass(

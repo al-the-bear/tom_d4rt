@@ -56,60 +56,60 @@ void main() {
       // print('Generated code:\n$generatedCode');
     });
 
-    test('bridges Printable mixin', () {
+    test('bridges Printable mixin [2026-02-10 06:37]', () {
       expect(generatedCode, contains("'Printable'"),
           reason: 'Should bridge Printable mixin');
     });
 
-    test('bridges JsonSerializable mixin', () {
+    test('bridges JsonSerializable mixin [2026-02-10 06:37]', () {
       expect(generatedCode, contains("'JsonSerializable'"),
           reason: 'Should bridge JsonSerializable mixin');
     });
 
-    test('bridges Comparable mixin', () {
+    test('bridges Comparable mixin [2026-02-10 06:37]', () {
       expect(generatedCode, contains("'Comparable'"),
           reason: 'Should bridge generic Comparable mixin');
     });
 
-    test('bridges Nameable mixin', () {
+    test('bridges Nameable mixin [2026-02-10 06:37]', () {
       expect(generatedCode, contains("'Nameable'"),
           reason: 'Should bridge Nameable mixin with getter/setter');
     });
 
-    test('skips private _PrivateMixin', () {
+    test('skips private _PrivateMixin [2026-02-10 06:37]', () {
       expect(generatedCode, isNot(contains("'_PrivateMixin'")),
           reason: 'Should skip private mixin');
       expect(generatedCode, isNot(contains("'secretMethod'")),
           reason: 'Should not include private mixin methods');
     });
 
-    test('includes Printable.printFormatted method', () {
+    test('includes Printable.printFormatted method [2026-02-10 06:37]', () {
       expect(generatedCode, contains("'printFormatted'"),
           reason: 'Should include printFormatted method');
     });
 
-    test('includes Printable.displayString getter', () {
+    test('includes Printable.displayString getter [2026-02-10 06:37]', () {
       expect(generatedCode, contains("'displayString'"),
           reason: 'Should include displayString getter');
     });
 
-    test('includes JsonSerializable.toMap method', () {
+    test('includes JsonSerializable.toMap method [2026-02-10 06:37]', () {
       expect(generatedCode, contains("'toMap'"),
           reason: 'Should include toMap method');
     });
 
-    test('includes JsonSerializable.toJsonString method', () {
+    test('includes JsonSerializable.toJsonString method [2026-02-10 06:37]', () {
       expect(generatedCode, contains("'toJsonString'"),
           reason: 'Should include toJsonString method');
     });
 
-    test('includes Nameable.name getter', () {
+    test('includes Nameable.name getter [2026-02-10 06:37]', () {
       // The name getter from Nameable should be included
       expect(generatedCode, contains("'name'"),
           reason: 'Should include name getter');
     });
 
-    test('mixins are bridged as abstract (no constructors)', () {
+    test('mixins are bridged as abstract (no constructors) [2026-02-10 06:37]', () {
       // Mixins should not have constructor bridges since they can't be instantiated
       // Check that Printable does not have a default constructor
       // (This is implied by isAbstract: true in the _ParsedClass)
@@ -117,7 +117,7 @@ void main() {
       // The bridge should exist but without a callable constructor
     });
 
-    test('TestEntity class is also bridged', () {
+    test('TestEntity class is also bridged [2026-02-10 06:37]', () {
       expect(generatedCode, contains("'TestEntity'"),
           reason: 'Should also bridge the concrete class using mixins');
     });

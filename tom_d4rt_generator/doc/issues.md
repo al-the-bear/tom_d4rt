@@ -57,7 +57,7 @@
 | [GEN-053](#gen-053) | Static setters not bridged | Medium | — | Fixed (v1.5.2) |
 | [GEN-054](#gen-054) | Callable class call() method not bridged | Medium | Interpreter issue (not generator) | Won't Fix |
 | [GEN-055](#gen-055) | Mixin application classes (class = with) not bridged | Medium | — | Fixed (v1.5.2) |
-| [GEN-056](#gen-056) | Top-level setter assignment fails | Medium | Interpreter issue (needs tom_d4rt API) | Won't Fix |
+| [GEN-056](#gen-056) | Top-level setter assignment fails | Medium | INTER-002 fixed ✅ | TODO |
 | [GEN-057](#gen-057) | Typed List fields lose element type at runtime | Medium | — | Fixed (v1.5.2) |
 | [GEN-058](#gen-058) | Arithmetic/comparison operators fail on bridged instances | Medium | Interpreter issue (int-to-double promotion) | Won't Fix |
 | [GEN-059](#gen-059) | Async/generator methods not awaited correctly | Medium | Interpreter issue | TODO |
@@ -2522,24 +2522,26 @@ Added `visitClassTypeAlias` method to both `_ResolvedClassVisitor` and `_ClassVi
 
 **Top-level setter assignment fails**
 
-**Status: Won't Fix (Requires Interpreter Changes)**
+**Status: TODO (Interpreter Support Now Available)**
 
-This issue requires changes to `tom_d4rt` interpreter to support global setters. The generator cannot fix this alone.
+~~This issue requires changes to `tom_d4rt` interpreter to support global setters. The generator cannot fix this alone.~~
+
+**Update 2026-02-11:** The interpreter now supports `registerGlobalSetter` API via **INTER-002**. The generator can now be updated to use this API.
 
 **a) Problem:**
 
 Top-level setters are registered only as global getters. Assignment to top-level setters fails because:
-1. No `registerGlobalSetter` API exists in the interpreter
-2. `GlobalGetter` class only supports reading, not writing
-3. The interpreter's assignment handler can't modify values from `GlobalGetter`
+1. ~~No `registerGlobalSetter` API exists in the interpreter~~ ✅ Fixed in INTER-002
+2. ~~`GlobalGetter` class only supports reading, not writing~~ ✅ Fixed in INTER-002
+3. ~~The interpreter's assignment handler can't modify values from `GlobalGetter`~~ ✅ Fixed in INTER-002
 
-**b) Required Changes in tom_d4rt:**
-1. Create `GlobalGetterSetter` class to wrap both getter and setter functions
-2. Add `registerGlobalSetter(name, setter, library)` API to D4rt class
-3. Update `Environment.assign()` to detect and call GlobalGetterSetter.setter
-4. Update `ModuleLoader` to handle library setters
+**b) Required Changes in tom_d4rt:** ✅ COMPLETED (INTER-002)
+1. ~~Create `GlobalGetterSetter` class to wrap both getter and setter functions~~ ✅
+2. ~~Add `registerGlobalSetter(name, setter, library)` API to D4rt class~~ ✅
+3. ~~Update `Environment.assign()` to detect and call GlobalGetterSetter.setter~~ ✅
+4. ~~Update `ModuleLoader` to handle library setters~~ ✅
 
-**c) Generator Changes (after interpreter support):**
+**c) Generator Changes (ready to implement):**
 1. Detect top-level setters during global analysis
 2. Generate `registerGlobalSetter` calls for top-level setters
 

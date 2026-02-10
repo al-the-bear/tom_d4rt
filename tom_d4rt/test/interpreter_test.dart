@@ -41,7 +41,7 @@ Future<dynamic> executeAsync(String source, {List<Object?>? args}) async {
 
 void main() {
   group('Basic Interpreter', () {
-    test('Variable declaration and retrieval', () {
+    test('Variable declaration and retrieval [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var x = 10;
@@ -51,7 +51,7 @@ void main() {
       expect(execute(source), equals(10));
     });
 
-    test('Variable assignment', () {
+    test('Variable assignment [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var y = 5;
@@ -62,7 +62,7 @@ void main() {
       expect(execute(source), equals(20));
     });
 
-    test('Simple binary expression', () {
+    test('Simple binary expression [2026-02-10 06:37]', () {
       // Note: Top-level var declaration is handled before main
       final source = '''
         var z = 10 + 5 * 2; 
@@ -73,7 +73,7 @@ void main() {
       expect(execute(source), equals(20));
     });
 
-    test('Variable usage in expression', () {
+    test('Variable usage in expression [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var a = 7;
@@ -84,7 +84,7 @@ void main() {
       expect(execute(source), equals(4));
     });
 
-    test('Null handling', () {
+    test('Null handling [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var n = null; 
@@ -94,7 +94,7 @@ void main() {
       expect(execute(source), isNull);
     });
 
-    test('Null assignment', () {
+    test('Null assignment [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var val = 100;
@@ -105,7 +105,7 @@ void main() {
       expect(execute(source), isNull);
     });
 
-    test('Undefined variable (get)', () {
+    test('Undefined variable (get) [2026-02-10 06:37]', () {
       final code = '''
        main() {
            var x = nonDefini;
@@ -121,7 +121,7 @@ void main() {
           )));
     });
 
-    test('Undefined variable (assign)', () {
+    test('Undefined variable (assign) [2026-02-10 06:37]', () {
       final code = '''
        main() {
            nonDefini = 5;
@@ -137,7 +137,7 @@ void main() {
           )));
     });
 
-    test('String concatenation', () {
+    test('String concatenation [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var debut = "Bonjour";
@@ -148,7 +148,7 @@ void main() {
       expect(execute(source), equals('Bonjour monde'));
     });
 
-    test('Main function with arguments', () {
+    test('Main function with arguments [2026-02-10 06:37]', () {
       final source = '''
         main(List<String> args) {
           return args.length.toString() + ":" + args[0];
@@ -163,7 +163,7 @@ void main() {
       expect(result, equals('3:arg1')); // Length 3, first argument 'arg1'
     });
 
-    test('Main function without arguments called with args (should throw)', () {
+    test('Main function without arguments called with args (should throw) [2026-02-10 06:37]', () {
       final source = '''
         main() { // Ne prend pas d'arguments
           return 10;
@@ -212,7 +212,7 @@ void main() {
           )));
     });
 
-    test('Variable interne masque variable externe', () {
+    test('Variable interne masque variable externe [2026-02-10 06:37]', () {
       final source = '''
         var x = "outer";
         main() {
@@ -226,7 +226,7 @@ void main() {
       expect(execute(source), equals('inner'));
     });
 
-    test('Le bloc interne retourne la valeur correcte (via var)', () {
+    test('Le bloc interne retourne la valeur correcte (via var) [2026-02-10 06:37]', () {
       final source = '''
         main() {
            var x = "outer";
@@ -241,7 +241,7 @@ void main() {
       expect(execute(source), equals("inner"));
     });
 
-    test('Accès à variable externe depuis bloc interne', () {
+    test('Accès à variable externe depuis bloc interne [2026-02-10 06:37]', () {
       final source = '''
         var outer = 100;
         main() {
@@ -257,7 +257,7 @@ void main() {
   });
 
   group('Control Flow - If Statements', () {
-    test('if (true) executes then branch', () {
+    test('if (true) executes then branch [2026-02-10 06:37]', () {
       final source = '''
         main() {
           if (true) {
@@ -270,7 +270,7 @@ void main() {
       expect(execute(source), equals(1));
     });
 
-    test('if (false) executes else branch', () {
+    test('if (false) executes else branch [2026-02-10 06:37]', () {
       final source = '''
         main() {
           if (false) {
@@ -283,7 +283,7 @@ void main() {
       expect(execute(source), equals(0));
     });
 
-    test('if with expression condition (true)', () {
+    test('if with expression condition (true) [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var x = 10;
@@ -296,7 +296,7 @@ void main() {
       expect(execute(source), equals("oui"));
     });
 
-    test('if with expression condition (false)', () {
+    test('if with expression condition (false) [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var x = 3;
@@ -310,7 +310,7 @@ void main() {
       expect(execute(source), equals("non"));
     });
 
-    test('if without else (condition true)', () {
+    test('if without else (condition true) [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var x = 1;
@@ -323,7 +323,7 @@ void main() {
       expect(execute(source), equals(2));
     });
 
-    test('if without else (condition false)', () {
+    test('if without else (condition false) [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var x = 1;
@@ -336,7 +336,7 @@ void main() {
       expect(execute(source), equals(1));
     });
 
-    test('if condition must be boolean', () {
+    test('if condition must be boolean [2026-02-10 06:37]', () {
       final code = '''
        main() {
           if (1) { print("oops"); }
@@ -354,7 +354,7 @@ void main() {
   });
 
   group('Control Flow - While Loops', () {
-    test('simple while loop', () {
+    test('simple while loop [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var i = 0;
@@ -369,7 +369,7 @@ void main() {
       expect(execute(source), equals(3));
     });
 
-    test('while loop condition evaluated each time', () {
+    test('while loop condition evaluated each time [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var i = 0;
@@ -382,7 +382,7 @@ void main() {
       expect(execute(source), equals(1));
     });
 
-    test('while loop condition starting false', () {
+    test('while loop condition starting false [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var executed = false;
@@ -395,7 +395,7 @@ void main() {
       expect(execute(source), equals(false));
     });
 
-    test('while condition must be boolean', () {
+    test('while condition must be boolean [2026-02-10 06:37]', () {
       final code = '''
        main() {
           while (1) { print("oops"); }
@@ -414,7 +414,7 @@ void main() {
   });
 
   group('Control Flow - Do-While Loops', () {
-    test('simple do-while loop executes at least once', () {
+    test('simple do-while loop executes at least once [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var i = 5;
@@ -429,7 +429,7 @@ void main() {
       expect(execute(source), equals(true));
     });
 
-    test('do-while loop condition checking', () {
+    test('do-while loop condition checking [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var i = 0;
@@ -444,7 +444,7 @@ void main() {
       expect(execute(source), equals(3));
     });
 
-    test('do-while condition must be boolean', () {
+    test('do-while condition must be boolean [2026-02-10 06:37]', () {
       final code = '''
        main() {
           do { print("hello"); } while (null);
@@ -466,7 +466,7 @@ void main() {
   // Classes and Instances Tests
   // ==============================================
   group('Classes and Instances', () {
-    test('Simple class declaration and instantiation', () {
+    test('Simple class declaration and instantiation [2026-02-10 06:37]', () {
       final code = '''
         class Bag {}
         main() {
@@ -479,7 +479,7 @@ void main() {
       expect((result as InterpretedInstance).klass.name, equals('Bag'));
     });
 
-    test('Instance field access and assignment', () {
+    test('Instance field access and assignment [2026-02-10 06:37]', () {
       final code = '''
         class Box {}
         main() {
@@ -491,7 +491,7 @@ void main() {
       expect(execute(code), equals(123));
     });
 
-    test('Direct field initializer', () {
+    test('Direct field initializer [2026-02-10 06:37]', () {
       final code = '''
         class Thing {
           var x = 10;
@@ -504,7 +504,7 @@ void main() {
       expect(execute(code), equals(10));
     });
 
-    test('Another direct field initializer (string)', () {
+    test('Another direct field initializer (string) [2026-02-10 06:37]', () {
       final code = '''
         class Stuff {
           var name = "hello";
@@ -517,7 +517,7 @@ void main() {
       expect(execute(code), equals("hello"));
     });
 
-    test('Constructor with parameter and this.field initializer', () {
+    test('Constructor with parameter and this.field initializer [2026-02-10 06:37]', () {
       final code = '''
         class Points {
           var x;
@@ -531,7 +531,7 @@ void main() {
       expect(execute(code), equals(5));
     });
 
-    test('Simple method call', () {
+    test('Simple method call [2026-02-10 06:37]', () {
       final code = '''
         class Greeter {
           greet() { return "hello"; }
@@ -544,7 +544,7 @@ void main() {
       expect(execute(code), equals("hello"));
     });
 
-    test('Method using this to access/modify field', () {
+    test('Method using this to access/modify field [2026-02-10 06:37]', () {
       final code = '''
         class Counter {
           var count = 0;
@@ -564,7 +564,7 @@ void main() {
       expect(execute(code), equals(2));
     });
 
-    test('Method using this (verify return value of mutating method)', () {
+    test('Method using this (verify return value of mutating method) [2026-02-10 06:37]', () {
       final code = '''
         class Counter {
           var count = 0;
@@ -582,7 +582,7 @@ void main() {
       expect(execute(code), equals(2));
     });
 
-    test('Constructor initializer calculating value using this', () {
+    test('Constructor initializer calculating value using this [2026-02-10 06:37]', () {
       final code = '''
         class Rect {
           var w, h, area;
@@ -602,7 +602,7 @@ void main() {
 
     // NEW subgroup for static members
     group('Static Members', () {
-      test('Access initialized static field', () {
+      test('Access initialized static field [2026-02-10 06:37]', () {
         final code = '''
           class Config {
             static var url = "http://example.com";
@@ -614,7 +614,7 @@ void main() {
         expect(execute(code), equals("http://example.com"));
       });
 
-      test('Assign and read static field', () {
+      test('Assign and read static field [2026-02-10 06:37]', () {
         final code = '''
           class AppState {
             static var counter = 0;
@@ -627,7 +627,7 @@ void main() {
         expect(execute(code), equals(15));
       });
 
-      test('Call simple static method', () {
+      test('Call simple static method [2026-02-10 06:37]', () {
         final code = '''
           class Utils {
             static String identity(String s) {
@@ -641,7 +641,7 @@ void main() {
         expect(execute(code), equals("test"));
       });
 
-      test('Static method accesses static field', () {
+      test('Static method accesses static field [2026-02-10 06:37]', () {
         final code = '''
           class Logger {
             static var level = "INFO";
@@ -663,7 +663,7 @@ void main() {
 
     // NEW subgroup for Getters and Setters
     group('Getters and Setters', () {
-      test('Simple instance getter', () {
+      test('Simple instance getter [2026-02-10 06:37]', () {
         final code = '''
           class Circle {
             var radius = 5;
@@ -680,7 +680,7 @@ void main() {
         expect(execute(code), equals(10));
       });
 
-      test('Simple instance setter', () {
+      test('Simple instance setter [2026-02-10 06:37]', () {
         final code = '''
           class Square {
             var _side = 0; // Simulate private field
@@ -704,7 +704,7 @@ void main() {
         expect(execute(code), equals(10));
       });
 
-      test('Instance setter with validation', () {
+      test('Instance setter with validation [2026-02-10 06:37]', () {
         final code = '''
           class Square {
             var _side = 0; 
@@ -722,7 +722,7 @@ void main() {
         expect(execute(code), equals(0));
       });
 
-      test('Simple static getter', () {
+      test('Simple static getter [2026-02-10 06:37]', () {
         final code = '''
           class AppConfig {
             static var _baseUrl = "init";
@@ -736,7 +736,7 @@ void main() {
         expect(execute(code), equals("prod"));
       });
 
-      test('Simple static setter', () {
+      test('Simple static setter [2026-02-10 06:37]', () {
         final code = '''
           class Service {
              static var _status = "stopped";
@@ -761,7 +761,7 @@ void main() {
     }); // End Getters and Setters group
 
     group('Named Constructors', () {
-      test('Simple named constructor', () {
+      test('Simple named constructor [2026-02-10 06:37]', () {
         final code = '''
           class Points {
             num x, y;
@@ -779,7 +779,7 @@ void main() {
         expect(execute(code), equals([0, 0]));
       });
 
-      test('Named constructor with parameters', () {
+      test('Named constructor with parameters [2026-02-10 06:37]', () {
         final code = '''
           class Rect {
             num left, top, width, height;
@@ -799,7 +799,7 @@ void main() {
         expect(execute(code), equals([0, 5, 10, 10]));
       });
 
-      test('Named constructor using this.field initializer', () {
+      test('Named constructor using this.field initializer [2026-02-10 06:37]', () {
         final code = '''
           class Color {
             int red, green, blue;
@@ -814,7 +814,7 @@ void main() {
         expect(execute(code), equals([128, 128, 128]));
       });
 
-      test('Calling non-existent named constructor throws error', () {
+      test('Calling non-existent named constructor throws error [2026-02-10 06:37]', () {
         final code = '''
           class Foo { Foo(); }
          main() { var f = Foo.bar(); }
@@ -832,7 +832,7 @@ void main() {
     }); // End Named Constructors group
 
     group('Inheritance', () {
-      test('Simple inheritance - access inherited field', () {
+      test('Simple inheritance - access inherited field [2026-02-10 06:37]', () {
         final code = '''
           class Animal {
             var name = "Generic";
@@ -846,7 +846,7 @@ void main() {
         expect(execute(code), equals("Generic"));
       });
 
-      test('Simple inheritance - access inherited method', () {
+      test('Simple inheritance - access inherited method [2026-02-10 06:37]', () {
         final code = '''
           class Vehicle {
             String start() { return "Vroom"; }
@@ -860,7 +860,7 @@ void main() {
         expect(execute(code), equals("Vroom"));
       });
 
-      test('Overriding method', () {
+      test('Overriding method [2026-02-10 06:37]', () {
         final code = '''
           class Bird {
             String fly() { return "Flap flap"; }
@@ -877,7 +877,7 @@ void main() {
         expect(execute(code), equals("Waddle waddle"));
       });
 
-      test('Accessing overridden method via base type reference (polymorphism)',
+      test('Accessing overridden method via base type reference (polymorphism) [2026-02-10 06:37]',
           () {
         final code = '''
           class Shape {
@@ -895,7 +895,7 @@ void main() {
         expect(execute(code), equals("Drawing circle"));
       });
 
-      test('Inherited field initialization', () {
+      test('Inherited field initialization [2026-02-10 06:37]', () {
         final code = '''
           class Base {
              var a = 1;
@@ -911,7 +911,7 @@ void main() {
         expect(execute(code), equals([1, 2]));
       });
 
-      test('Inheritance chain', () {
+      test('Inheritance chain [2026-02-10 06:37]', () {
         final code = '''
           class A { String getA() { return "A"; } }
           class B extends A { String getB() { return "B"; } }
@@ -924,7 +924,7 @@ void main() {
         expect(execute(code), equals("ABC"));
       });
 
-      test('Extending undefined class throws error', () {
+      test('Extending undefined class throws error [2026-02-10 06:37]', () {
         final code = '''
            class Bad extends NonExistent {}
           main() {}
@@ -941,7 +941,7 @@ void main() {
     }); // End Inheritance group
 
     group('Super Calls', () {
-      test('super method call', () {
+      test('super method call [2026-02-10 06:37]', () {
         final code = '''
           class Parent {
             String greet() { return "Hello from Parent"; }
@@ -961,7 +961,7 @@ void main() {
         expect(execute(code), equals("Child says: Hello from Parent"));
       });
 
-      test('super getter call', () {
+      test('super getter call [2026-02-10 06:37]', () {
         final code = '''
           class Base {
             int _x = 10;
@@ -978,7 +978,7 @@ void main() {
         expect(execute(code), equals(20));
       });
 
-      test('super setter call (implicit via assignment)', () {
+      test('super setter call (implicit via assignment) [2026-02-10 06:37]', () {
         final code = '''
           class Base { 
             int _val = 0;
@@ -1003,7 +1003,7 @@ void main() {
         expect(execute(code), equals([5, 3]));
       });
 
-      test('super call on method defined in grandparent', () {
+      test('super call on method defined in grandparent [2026-02-10 06:37]', () {
         final code = '''
           class Grandparent { String identify() => "G"; }
           class Parent extends Grandparent { /* No identify */ }
@@ -1017,7 +1017,7 @@ void main() {
         expect(execute(code), equals("C->G"));
       });
 
-      test('super used outside instance method fails', () {
+      test('super used outside instance method fails [2026-02-10 06:37]', () {
         final code = '''
          main() { print(super.toString()); }
         ''';
@@ -1033,7 +1033,7 @@ void main() {
     }); // End Super Calls group
 
     group('Super Constructor Calls', () {
-      test('Implicit super() call', () {
+      test('Implicit super() call [2026-02-10 06:37]', () {
         final code = '''
           class Parent {
              var initialized = false;
@@ -1050,7 +1050,7 @@ void main() {
         expect(execute(code), isTrue);
       });
 
-      test('Explicit super() call with arguments', () {
+      test('Explicit super() call with arguments [2026-02-10 06:37]', () {
         final code = '''
           class Parent {
             var x, y;
@@ -1067,7 +1067,7 @@ void main() {
         expect(execute(code), equals([20, 6]));
       });
 
-      test('Explicit super.named() call', () {
+      test('Explicit super.named() call [2026-02-10 06:37]', () {
         final code = '''
           class Parent {
             var name;
@@ -1085,7 +1085,7 @@ void main() {
         expect(execute(code), equals("Test Child"));
       });
 
-      test('Field initializer runs before super constructor call', () {
+      test('Field initializer runs before super constructor call [2026-02-10 06:37]', () {
         final code = '''
           var log = [];
           class Parent {
@@ -1119,7 +1119,7 @@ void main() {
             ]));
       });
 
-      test('this.field initializer runs before super constructor call', () {
+      test('this.field initializer runs before super constructor call [2026-02-10 06:37]', () {
         final code = '''
            var log = [];
            class Parent {
@@ -1144,7 +1144,7 @@ void main() {
         expect(execute(code), equals(["Parent init called", "Child body: 10"]));
       });
 
-      test('Calling non-existent super constructor fails', () {
+      test('Calling non-existent super constructor fails [2026-02-10 06:37]', () {
         final code = '''
             class Parent { Parent.named(); }
             class Child extends Parent { Child() : super.unnamed(); }
@@ -1178,7 +1178,7 @@ void main() {
             )));
       });
 
-      test('Calling super() on class with no superclass fails', () {
+      test('Calling super() on class with no superclass fails [2026-02-10 06:37]', () {
         final code = '''
             class Orphan { Orphan() : super(); }
            main() { Orphan(); }
@@ -1196,7 +1196,7 @@ void main() {
   }); // End Classes and Instances group
 
   group('Abstract Classes and Methods', () {
-    test('Cannot instantiate abstract class', () {
+    test('Cannot instantiate abstract class [2026-02-10 06:37]', () {
       final code = '''
         abstract class Shape {
           Shape();
@@ -1216,7 +1216,7 @@ void main() {
           )));
     });
 
-    test('Concrete class must implement abstract method', () {
+    test('Concrete class must implement abstract method [2026-02-10 06:37]', () {
       final code = '''
         abstract class Vehicle {
           void move(); // Abstract method (no body)
@@ -1236,7 +1236,7 @@ void main() {
           )));
     });
 
-    test('Concrete class implements abstract method successfully', () {
+    test('Concrete class implements abstract method successfully [2026-02-10 06:37]', () {
       final code = '''
         // Ensure correct structure with main()
         List<String> log = [];
@@ -1265,7 +1265,7 @@ void main() {
       expect(result, equals("Car moving"));
     });
 
-    test('Abstract method cannot be declared in concrete class', () {
+    test('Abstract method cannot be declared in concrete class [2026-02-10 06:37]', () {
       final code = '''
         class MyClass {
           // Abstract methods only make sense in abstract classes and lack a body
@@ -1292,7 +1292,7 @@ void main() {
           )));
     });
 
-    test('Abstract method cannot have a body', () {
+    test('Abstract method cannot have a body [2026-02-10 06:37]', () {
       final codeWithError = '''
         abstract class MyAbstractClass {
           abstract void myMethod() { // Error intended for testing
@@ -1310,7 +1310,7 @@ void main() {
           )));
     });
 
-    test('Concrete class must implement abstract getter', () {
+    test('Concrete class must implement abstract getter [2026-02-10 06:37]', () {
       final code = '''
         abstract class Describable {
           String get description; // Abstract getter (no body)
@@ -1335,7 +1335,7 @@ void main() {
           )));
     });
 
-    test('Concrete class implements abstract getter successfully', () {
+    test('Concrete class implements abstract getter successfully [2026-02-10 06:37]', () {
       final code = '''
         // Ensure correct structure with main()
         List<String> log = [];
@@ -1358,7 +1358,7 @@ void main() {
       expect(result, equals('Item: Gadget'));
     });
 
-    test('Concrete class must implement abstract setter', () {
+    test('Concrete class must implement abstract setter [2026-02-10 06:37]', () {
       final code = '''
         List<String> log = [];
         abstract class Configurable {
@@ -1383,7 +1383,7 @@ void main() {
           )));
     });
 
-    test('Concrete class implements abstract setter successfully', () {
+    test('Concrete class implements abstract setter successfully [2026-02-10 06:37]', () {
       final code = '''
         // Ensure correct structure with main()
         abstract class Configurable {
@@ -1413,7 +1413,7 @@ void main() {
   });
 
   group('Interfaces', () {
-    test('Simple implements success', () {
+    test('Simple implements success [2026-02-10 06:37]', () {
       final code = '''
         abstract class Printable {
           String printInfo();
@@ -1435,7 +1435,7 @@ void main() {
       expect(execute(code), equals('Document: Test'));
     });
 
-    test('Missing interface method implementation fails', () {
+    test('Missing interface method implementation fails [2026-02-10 06:37]', () {
       final code = '''
         abstract class Runnable {
            void run();
@@ -1455,7 +1455,7 @@ void main() {
           )));
     });
 
-    test('Missing interface getter implementation fails', () {
+    test('Missing interface getter implementation fails [2026-02-10 06:37]', () {
       final code = '''
         abstract class Labeled {
            String get label;
@@ -1475,7 +1475,7 @@ void main() {
           )));
     });
 
-    test('Missing interface setter implementation fails', () {
+    test('Missing interface setter implementation fails [2026-02-10 06:37]', () {
       final code = '''
         abstract class Settable {
            set value(int v);
@@ -1495,7 +1495,7 @@ void main() {
           )));
     });
 
-    test('Multiple interfaces implementation success', () {
+    test('Multiple interfaces implementation success [2026-02-10 06:37]', () {
       final code = '''
           abstract class Clickable { void click(); }
           abstract class Draggable { void drag(); }
@@ -1526,7 +1526,7 @@ void main() {
       expect(execute(code), equals('File clicked, File dragged'));
     });
 
-    test('Missing implementation with multiple interfaces fails', () {
+    test('Missing implementation with multiple interfaces fails [2026-02-10 06:37]', () {
       final code = '''
           abstract class Clickable { void click(); }
           abstract class Draggable { void drag(); }
@@ -1552,7 +1552,7 @@ void main() {
           )));
     });
 
-    test('Implementing non-class fails', () {
+    test('Implementing non-class fails [2026-02-10 06:37]', () {
       final code = '''
           var notAClass = 1;
           class MyClass implements notAClass {} // Error
@@ -1567,7 +1567,7 @@ void main() {
           )));
     });
 
-    test('Implementing non-existent fails', () {
+    test('Implementing non-existent fails [2026-02-10 06:37]', () {
       final code = '''
           class MyClass implements NonExistent {} // Error
           main() {}
@@ -1581,7 +1581,7 @@ void main() {
           )));
     });
 
-    test('Abstract class implementing interface does not need implementation',
+    test('Abstract class implementing interface does not need implementation [2026-02-10 06:37]',
         () {
       final code = '''
           abstract class Doer { void doIt(); }
@@ -1620,7 +1620,7 @@ void main() {
           )));
     });
 
-    test('Implementation includes members from super-interfaces', () {
+    test('Implementation includes members from super-interfaces [2026-02-10 06:37]', () {
       final code = '''
           abstract class A { void methodA(); }
           abstract class B implements A { void methodB(); }
@@ -1645,7 +1645,7 @@ void main() {
   });
 
   group('Mixins', () {
-    test('Simple mixin application and method call', () {
+    test('Simple mixin application and method call [2026-02-10 06:37]', () {
       final code = '''
         // Declare mixin FIRST
         mixin Walker {
@@ -1662,7 +1662,7 @@ void main() {
       expect(execute(code), equals("Walking"));
     });
 
-    test('Accessing mixin field', () {
+    test('Accessing mixin field [2026-02-10 06:37]', () {
       final code = '''
         // Declare mixin FIRST
         mixin Data {
@@ -1679,7 +1679,7 @@ void main() {
       expect(execute(code), equals(10));
     });
 
-    test('Mixin overrides superclass method', () {
+    test('Mixin overrides superclass method [2026-02-10 06:37]', () {
       final code = '''
         // Declare Base and Mixin FIRST
         class Base {
@@ -1701,7 +1701,7 @@ void main() {
       expect(execute(code), equals("Mixin"));
     });
 
-    test('Class overrides mixin method', () {
+    test('Class overrides mixin method [2026-02-10 06:37]', () {
       final code = '''
         // Declare mixin FIRST
         mixin Greeter {
@@ -1720,7 +1720,7 @@ void main() {
       expect(execute(code), equals("Person Hello"));
     });
 
-    test('Multiple mixins resolution order (last wins)', () {
+    test('Multiple mixins resolution order (last wins) [2026-02-10 06:37]', () {
       final code = '''
         // Declare mixins FIRST
         mixin M1 { String value() => "M1"; }
@@ -1736,7 +1736,7 @@ void main() {
       expect(execute(code), equals("M2"));
     });
 
-    test('Applying non-mixin class fails', () {
+    test('Applying non-mixin class fails [2026-02-10 06:37]', () {
       final code = '''
         class NotAMixin { }
         class MyClass with NotAMixin { } // Error
@@ -1752,7 +1752,7 @@ void main() {
           )));
     });
 
-    test('Mixin cannot declare constructor', () {
+    test('Mixin cannot declare constructor [2026-02-10 06:37]', () {
       final code = '''
         mixin BadMixin {
            BadMixin() {} // Error
@@ -1770,7 +1770,7 @@ void main() {
   });
 
   group('Error Handling:', () {
-    test('try...finally executes finally block normally', () {
+    test('try...finally executes finally block normally [2026-02-10 06:37]', () {
       final code = '''
         var number = 0;
         main() {
@@ -1786,7 +1786,7 @@ void main() {
       expect(execute(code), equals(3));
     });
 
-    test('try...finally executes finally block after exception', () {
+    test('try...finally executes finally block after exception [2026-02-10 06:37]', () {
       final code = '''
         var number = 0;
         main() {
@@ -1814,7 +1814,7 @@ void main() {
       // expect(resultLog, equals([1, 2])); // Removed as not verifiable
     });
 
-    test('try...catch catches specific exception', () {
+    test('try...catch catches specific exception [2026-02-10 06:37]', () {
       final code = '''
         var number = 0;
         main() {
@@ -1832,7 +1832,7 @@ void main() {
       expect(execute(code), equals(3));
     });
 
-    test('try...catch...finally combination', () {
+    test('try...catch...finally combination [2026-02-10 06:37]', () {
       final code = '''
         var number = 0;
         main() {
@@ -1851,7 +1851,7 @@ void main() {
       expect(execute(code), equals(4));
     });
 
-    test('try...catch rethrows if no matching catch', () {
+    test('try...catch rethrows if no matching catch [2026-02-10 06:37]', () {
       final code = '''
         // Pour l'instant, notre catch attrape tout
         // Ce test sera plus pertinent avec `on Type`
@@ -1867,7 +1867,7 @@ void main() {
       expect(execute(code), equals("Caught: SpecificError"));
     });
 
-    test('Exception in catch block propagates', () {
+    test('Exception in catch block propagates [2026-02-10 06:37]', () {
       final code = '''
         main() {
           try {
@@ -1883,7 +1883,7 @@ void main() {
       );
     });
 
-    test('Exception in finally block propagates and overrides', () {
+    test('Exception in finally block propagates and overrides [2026-02-10 06:37]', () {
       final code = '''
         main() {
           try {
@@ -1899,7 +1899,7 @@ void main() {
       );
     });
 
-    test('Exception in finally block propagates even if try/catch handles', () {
+    test('Exception in finally block propagates even if try/catch handles [2026-02-10 06:37]', () {
       final code = '''
         main() {
           try {
@@ -1919,7 +1919,7 @@ void main() {
   }); // Fin groupe Error Handling
 
   group('Type Check Operator (is/is!):', () {
-    test('is with built-in types', () {
+    test('is with built-in types [2026-02-10 06:37]', () {
       final code = '''
         main() {
           var i = 10;
@@ -1943,7 +1943,7 @@ void main() {
           ]));
     });
 
-    test('is! negation with built-in types', () {
+    test('is! negation with built-in types [2026-02-10 06:37]', () {
       final code = '''
         main() {
           var i = 10;
@@ -1954,7 +1954,7 @@ void main() {
       expect(execute(code), equals([false, false, true, false]));
     });
 
-    test('is with simple user-defined class', () {
+    test('is with simple user-defined class [2026-02-10 06:37]', () {
       final code = '''
         class A {}
         main() {
@@ -1966,7 +1966,7 @@ void main() {
       expect(execute(code), equals([true, false, true]));
     });
 
-    test('is with inheritance', () {
+    test('is with inheritance [2026-02-10 06:37]', () {
       final code = '''
         class A {}
         class B extends A {}
@@ -1979,7 +1979,7 @@ void main() {
       expect(execute(code), equals([true, true, false, true]));
     });
 
-    test('is with interface implementation', () {
+    test('is with interface implementation [2026-02-10 06:37]', () {
       final code = '''
         abstract class I {}
         class A implements I {}
@@ -1992,7 +1992,7 @@ void main() {
       expect(execute(code), equals([true, true, false, true]));
     });
 
-    test('is with mixin application', () {
+    test('is with mixin application [2026-02-10 06:37]', () {
       final code = '''
         mixin M {}
         class A with M {}
@@ -2007,7 +2007,7 @@ void main() {
       expect(execute(code), equals([true, true, false, true]));
     });
 
-    test('is with complex hierarchy (extends, implements, with)', () {
+    test('is with complex hierarchy (extends, implements, with) [2026-02-10 06:37]', () {
       final code = '''
         abstract class Clickable {} 
         mixin Logger { void log(String msg){} }
@@ -2033,7 +2033,7 @@ void main() {
           execute(code), equals([true, true, true, true, false, true, true]));
     });
 
-    test('catch on Type (specific built-in)', () {
+    test('catch on Type (specific built-in) [2026-02-10 06:37]', () {
       final code = '''
         main() {
           var result = '';
@@ -2052,7 +2052,7 @@ void main() {
       expect(execute(code), equals('Caught String'));
     });
 
-    test('catch on Type (superclass)', () {
+    test('catch on Type (superclass) [2026-02-10 06:37]', () {
       final code = '''
         class MyError {}
         class SpecificError extends MyError {}
@@ -2075,7 +2075,7 @@ void main() {
       expect(execute(code), equals('Caught MyError'));
     });
 
-    test('catch on Type (interface)', () {
+    test('catch on Type (interface) [2026-02-10 06:37]', () {
       final code = '''
         abstract class IError {}
         class NetworkError implements IError {}
@@ -2094,7 +2094,7 @@ void main() {
       expect(execute(code), equals('Caught IError'));
     });
 
-    test('catch on Type (mixin)', () {
+    test('catch on Type (mixin) [2026-02-10 06:37]', () {
       final code = '''
         mixin ErrorMixin {}
         class AuthError with ErrorMixin {}
@@ -2113,7 +2113,7 @@ void main() {
       expect(execute(code), equals('Caught ErrorMixin'));
     });
 
-    test('catch on Type (no match, falls through to dynamic catch)', () {
+    test('catch on Type (no match, falls through to dynamic catch) [2026-02-10 06:37]', () {
       final code = '''
         main() {
           var result = 'Not caught';
@@ -2134,7 +2134,7 @@ void main() {
       expect(execute(code), 'Caught dynamic: true');
     });
 
-    test('catch stack trace variable', () {
+    test('catch stack trace variable [2026-02-10 06:37]', () {
       final code = '''
         main() {
           try {
@@ -2155,7 +2155,7 @@ void main() {
       expect(result, 'Failure');
     });
 
-    test('rethrow statement', () {
+    test('rethrow statement [2026-02-10 06:37]', () {
       final code = '''
         main() {
           try {
@@ -2174,7 +2174,7 @@ void main() {
       expect(execute(code), equals('Caught outer: Inner error'));
     });
 
-    test('rethrow outside catch fails', () {
+    test('rethrow outside catch fails [2026-02-10 06:37]', () {
       final code = '''
         main() {
           rethrow;
@@ -2188,7 +2188,7 @@ void main() {
   });
 
   group('Redirecting Constructors (this(...)):', () {
-    test('Simple redirection to unnamed constructor', () {
+    test('Simple redirection to unnamed constructor [2026-02-10 06:37]', () {
       final code = '''
         class Points {
           num x, y;
@@ -2203,7 +2203,7 @@ void main() {
       expect(execute(code), equals([0, 0]));
     });
 
-    test('Redirection to named constructor', () {
+    test('Redirection to named constructor [2026-02-10 06:37]', () {
       final code = '''
         class Rect {
           num left, top, width, height;
@@ -2223,7 +2223,7 @@ void main() {
       expect(execute(code), equals([0, 0, 10, 10, 0, 0, 20, 30]));
     });
 
-    test('Redirection with argument passing and calculation', () {
+    test('Redirection with argument passing and calculation [2026-02-10 06:37]', () {
       final code = '''
         class Circle {
           num x, y, radius;
@@ -2243,7 +2243,7 @@ void main() {
       expect(execute(code), equals([5, 6, 1, 0, 0, 20]));
     });
 
-    test('Redirecting constructor body is not executed', () {
+    test('Redirecting constructor body is not executed [2026-02-10 06:37]', () {
       final code = '''
         class Counter {
           int value = 0;
@@ -2261,7 +2261,7 @@ void main() {
       expect(execute(code), equals(50));
     });
 
-    test('Redirection chain (this -> this -> actual)', () {
+    test('Redirection chain (this -> this -> actual) [2026-02-10 06:37]', () {
       final code = '''
         class Chain {
           String trace = "";
@@ -2279,7 +2279,7 @@ void main() {
       expect(execute(code), equals("([Value])"));
     });
 
-    test('Redirecting to non-existent constructor fails', () {
+    test('Redirecting to non-existent constructor fails [2026-02-10 06:37]', () {
       final code = '''
         class Box {
           Box() {}
@@ -2300,7 +2300,7 @@ void main() {
   });
 
   group('Collections', () {
-    test('Map literal basic', () {
+    test('Map literal basic [2026-02-10 06:37]', () {
       final code = '''
         main() {
           var m = {'a': 1, 'b': true, 3: 'hello'};
@@ -2312,7 +2312,7 @@ void main() {
       expect(result, equals({'a': 1, 'b': true, 3: 'hello'}));
     });
 
-    test('Map literal with expressions', () {
+    test('Map literal with expressions [2026-02-10 06:37]', () {
       final code = '''
         main() {
           int x = 5;
@@ -2326,7 +2326,7 @@ void main() {
       expect(result, equals({'key': 10, 'next': 6}));
     });
 
-    test('Empty map literal', () {
+    test('Empty map literal [2026-02-10 06:37]', () {
       final code = '''
         main() {
           var m = {};
@@ -2338,7 +2338,7 @@ void main() {
       expect(result is Map, isTrue);
       expect(result, isEmpty);
     });
-    test('Set literal basic', () {
+    test('Set literal basic [2026-02-10 06:37]', () {
       final code = '''
           main() {
             var s = {1, 'hello', true, 1}; // Duplicate '1' should be ignored
@@ -2351,7 +2351,7 @@ void main() {
       expect(result, equals({1, 'hello', true}));
     });
 
-    test('Set literal with expressions', () {
+    test('Set literal with expressions [2026-02-10 06:37]', () {
       final code = '''
           main() {
             int x = 2;
@@ -2364,7 +2364,7 @@ void main() {
       expect(result, equals({2, 6, 'val-2'}));
     });
 
-    test('List spread operator (...)', () {
+    test('List spread operator (...) [2026-02-10 06:37]', () {
       final code = '''
           main() {
             List<int> l1 = [1, 2];
@@ -2377,7 +2377,7 @@ void main() {
       expect(result, equals([0, 1, 2, 3, 4, 5]));
     });
 
-    test('List null-aware spread operator (...?)', () {
+    test('List null-aware spread operator (...?) [2026-02-10 06:37]', () {
       final code = '''
           main() {
             List<int>? l1 = [1, 2];
@@ -2390,7 +2390,7 @@ void main() {
       expect(result, equals([0, 1, 2, 3]));
     });
 
-    test('List spread type error', () {
+    test('List spread type error [2026-02-10 06:37]', () {
       final code = '''
           main() {
             var notIterable = 123;
@@ -2403,7 +2403,7 @@ void main() {
               'Spread element in a List literal requires an Iterable'))); // Use contains and updated message
     });
 
-    test('Set spread operator (...)', () {
+    test('Set spread operator (...) [2026-02-10 06:37]', () {
       final code = '''
           main() {
             List<String> l1 = ['a', 'b'];
@@ -2417,7 +2417,7 @@ void main() {
       expect(result, equals({'x', 'a', 'b', 'c', 'y'}));
     });
 
-    test('Set null-aware spread operator (...?)', () {
+    test('Set null-aware spread operator (...?) [2026-02-10 06:37]', () {
       final code = '''
           main() {
             List<int>? l1 = [1, 2];
@@ -2431,7 +2431,7 @@ void main() {
       expect(result, equals({0, 1, 2, 3}));
     });
 
-    test('Set spread type error', () {
+    test('Set spread type error [2026-02-10 06:37]', () {
       final code = '''
           main() {
             var notIterable = 123;
@@ -2444,7 +2444,7 @@ void main() {
               'Spread element in a Set literal requires an Iterable'))); // Use contains
     });
 
-    test('Map spread operator (...)', () {
+    test('Map spread operator (...) [2026-02-10 06:37]', () {
       final code = '''
           main() {
             var m1 = {'a': 1, 'b': 2};
@@ -2458,7 +2458,7 @@ void main() {
       expect(result, equals({'x': 0, 'a': 1, 'b': 3, 'c': 4, 'y': 5}));
     });
 
-    test('Map null-aware spread operator (...?)', () {
+    test('Map null-aware spread operator (...?) [2026-02-10 06:37]', () {
       final code = '''
           main() {
             Map<String, int>? m1 = {'a': 1};
@@ -2472,7 +2472,7 @@ void main() {
       expect(result, equals({'x': 0, 'a': 1, 'y': 2}));
     });
 
-    test('Map spread type error', () {
+    test('Map spread type error [2026-02-10 06:37]', () {
       final code = '''
           main() {
             var notMap = [1, 2];
@@ -2484,7 +2484,7 @@ void main() {
       expect(result, equals({1, 2}));
     });
 
-    test('Map spread combined with entries', () {
+    test('Map spread combined with entries [2026-02-10 06:37]', () {
       final code = '''
           main() {
             var m1 = {'a': 1};
@@ -2497,7 +2497,7 @@ void main() {
     });
   });
   group('Collection Control-Flow Elements', () {
-    test('List with if (true)', () {
+    test('List with if (true) [2026-02-10 06:37]', () {
       final code = '''
           main() {
             bool include = true;
@@ -2507,7 +2507,7 @@ void main() {
       expect(execute(code), equals([1, 2, 3]));
     });
 
-    test('List with if (false)', () {
+    test('List with if (false) [2026-02-10 06:37]', () {
       final code = '''
           main() {
             bool include = false;
@@ -2517,7 +2517,7 @@ void main() {
       expect(execute(code), equals([1, 3]));
     });
 
-    test('List with if-else (true)', () {
+    test('List with if-else (true) [2026-02-10 06:37]', () {
       final code = '''
           main() {
             bool useTwo = true;
@@ -2527,7 +2527,7 @@ void main() {
       expect(execute(code), equals([1, 2, 3]));
     });
 
-    test('List with if-else (false)', () {
+    test('List with if-else (false) [2026-02-10 06:37]', () {
       final code = '''
           main() {
             bool useTwo = false;
@@ -2537,7 +2537,7 @@ void main() {
       expect(execute(code), equals([1, -1, 3]));
     });
 
-    test('List with simple for-in', () {
+    test('List with simple for-in [2026-02-10 06:37]', () {
       final code = '''
           main() {
             var items = [10, 20];
@@ -2547,7 +2547,7 @@ void main() {
       expect(execute(code), equals([0, 20, 40, 50]));
     });
 
-    test('List with nested if inside for', () {
+    test('List with nested if inside for [2026-02-10 06:37]', () {
       final code = '''
           main() {
             var nums = [1, 2, 3, 4];
@@ -2557,7 +2557,7 @@ void main() {
       expect(execute(code), equals([20, 40]));
     });
 
-    test('List with spread inside if', () {
+    test('List with spread inside if [2026-02-10 06:37]', () {
       final code = '''
           main() {
             bool addMore = true;
@@ -2568,7 +2568,7 @@ void main() {
       expect(execute(code), equals([1, 2, 3, 4, 5]));
     });
 
-    test('Set with if and for', () {
+    test('Set with if and for [2026-02-10 06:37]', () {
       final code = '''
           main() {
             bool addZero = false;
@@ -2582,7 +2582,7 @@ void main() {
           result, equals({1, 12, 13})); // 2+10=12, 3+10=13, 2+10=12 (ignored)
     });
 
-    test('Map with if and for', () {
+    test('Map with if and for [2026-02-10 06:37]', () {
       final code = '''
           main() {
             bool isAdmin = true;
@@ -2607,7 +2607,7 @@ void main() {
             'exit': 1
           }));
     });
-    test('Map for element must be MapEntry', () {
+    test('Map for element must be MapEntry [2026-02-10 06:37]', () {
       final code = '''
           main() {
             var items = [1, 2];
@@ -2623,7 +2623,7 @@ void main() {
               contains("Expected a MapLiteralEntry ('key: value')")));
     });
 
-    test('Map if element must be MapEntry', () {
+    test('Map if element must be MapEntry [2026-02-10 06:37]', () {
       final code = '''
           main() {
             bool addIt = true;
@@ -2639,7 +2639,7 @@ void main() {
               contains("Expected a MapLiteralEntry ('key: value')")));
     });
 
-    test('If condition not boolean fails', () {
+    test('If condition not boolean fails [2026-02-10 06:37]', () {
       final code = '''
           main() {
             return [if (1) 2];
@@ -2651,7 +2651,7 @@ void main() {
               contains("Condition in collection 'if' must be a boolean")));
     });
 
-    test('For iterable not iterable fails', () {
+    test('For iterable not iterable fails [2026-02-10 06:37]', () {
       final code = '''
           main() {
             var notIterable = 1;
@@ -2665,7 +2665,7 @@ void main() {
 
   // +++++ NOUVELLE SUITE DE TESTS POUR LES PONTS +++++
   group('Bridged Core Types Comprehensive', () {
-    test('StringBuffer constructor, write, length, isEmpty, clear', () {
+    test('StringBuffer constructor, write, length, isEmpty, clear [2026-02-10 06:37]', () {
       final result = execute('''
         main() {
           var sb = StringBuffer();
@@ -2683,7 +2683,7 @@ void main() {
       expect(result, equals([5, false, 11, 0, true]));
     });
 
-    test('int.parse static method', () {
+    test('int.parse static method [2026-02-10 06:37]', () {
       final result = execute('''
         main() {
           return int.parse('-123');
@@ -2692,7 +2692,7 @@ void main() {
       expect(result, equals(-123));
     });
 
-    test('int.parse static method - FormatException', () {
+    test('int.parse static method - FormatException [2026-02-10 06:37]', () {
       expect(
         () => execute('''
           main() {
@@ -2707,7 +2707,7 @@ void main() {
       );
     });
 
-    test('double.nan static getter', () {
+    test('double.nan static getter [2026-02-10 06:37]', () {
       final result = execute('''
         main() {
           return double.nan;
@@ -2716,7 +2716,7 @@ void main() {
       expect(result, isA<double>());
     });
 
-    test('double.infinity static getter', () {
+    test('double.infinity static getter [2026-02-10 06:37]', () {
       final result = execute('''
         main() {
           return double.infinity;
@@ -2725,7 +2725,7 @@ void main() {
       expect(result, equals(double.infinity));
     });
 
-    test('List.remove instance method', () {
+    test('List.remove instance method [2026-02-10 06:37]', () {
       final result = execute('''
         main() {
           var l = List.filled(3, 'a', growable: true);
@@ -2749,13 +2749,13 @@ void main() {
   });
 
   group('Interpreter Core Feature Tests', () {
-    test('ParenthesizedExpression', () {
+    test('ParenthesizedExpression [2026-02-10 06:37]', () {
       expect(execute('main() { return (1 + 2) * 3; }'), equals(9));
       expect(execute('main() { return (true); }'), isTrue);
       expect(execute('main() { var x = (5); return x; }'), equals(5));
     });
 
-    test('CascadeExpression', () {
+    test('CascadeExpression [2026-02-10 06:37]', () {
       const sourceList = '''
       main() {
         var list = [1, 2];
@@ -2803,7 +2803,7 @@ void main() {
       expect(execute(sourcePropAssign), equals(6));
     });
 
-    test('FunctionExpressionInvocation', () {
+    test('FunctionExpressionInvocation [2026-02-10 06:37]', () {
       expect(execute('main() { return (() => 10)(); }'), equals(10));
       expect(execute('main() { var f = (int x) => x * 2; return f(5); }'),
           equals(10));
@@ -2817,7 +2817,7 @@ void main() {
       expect(execute(sourceComplex), equals(7));
     });
 
-    test('FunctionReference (Tear-off)', () {
+    test('FunctionReference (Tear-off) [2026-02-10 06:37]', () {
       const sourceTopLevel = '''
          int add(int a, int b) => a + b;
          main() { var f = add; return f(5, 6); }
@@ -2837,7 +2837,7 @@ void main() {
       expect(execute(sourceInstance), equals('Hello World'));
     });
 
-    test('AssertStatement', () {
+    test('AssertStatement [2026-02-10 06:37]', () {
       expect(() => execute('main() { assert(true); }'), returnsNormally);
       expect(
           () => execute('main() { assert(false); }'),
@@ -2851,12 +2851,12 @@ void main() {
           returnsNormally);
     });
 
-    test('EmptyStatement', () {
+    test('EmptyStatement [2026-02-10 06:37]', () {
       expect(() => execute('main() { ;;; }'), returnsNormally);
       expect(execute('main() { int x=1; ; return x; }'), equals(1));
     });
 
-    test('NullAwareElement (?element)', () {
+    test('NullAwareElement (?element) [2026-02-10 06:37]', () {
       expect(execute('main() { int? x = 5; int? y; return [?x, ?y, 10]; }'),
           equals([5, 10]));
       expect(execute('main() { int? y; return [?y]; }'), equals([]));
@@ -2865,7 +2865,7 @@ void main() {
           equals({5, 10}));
     });
 
-    test('SetOrMapLiteral edge cases', () {
+    test('SetOrMapLiteral edge cases [2026-02-10 06:37]', () {
       // Spread only - Map
       expect(execute('main() { var m1 = {"a":1}; return {...m1}; }'),
           equals({'a': 1}));
@@ -2894,7 +2894,7 @@ void main() {
   });
 
   group('Pattern Matching - Variable Declarations', () {
-    test('Wildcard Pattern', () {
+    test('Wildcard Pattern [2026-02-10 06:37]', () {
       // Wildcard '_' ignores the value, but initializer is evaluated
       final source = '''
         var counter = 0;
@@ -2906,7 +2906,7 @@ void main() {
       expect(execute(source), equals(1));
     });
 
-    test('List Pattern - Simple', () {
+    test('List Pattern - Simple [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var [a, b] = [10, 20];
@@ -2916,7 +2916,7 @@ void main() {
       expect(execute(source), equals(30));
     });
 
-    test('List Pattern - Nested', () {
+    test('List Pattern - Nested [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var [x, [y, z]] = [1, [2, 3]];
@@ -2926,7 +2926,7 @@ void main() {
       expect(execute(source), equals(123));
     });
 
-    test('List Pattern - Wildcard', () {
+    test('List Pattern - Wildcard [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var [a, _, c] = [10, "ignore", 30];
@@ -2936,7 +2936,7 @@ void main() {
       expect(execute(source), equals(40));
     });
 
-    test('List Pattern - Mismatch Length', () {
+    test('List Pattern - Mismatch Length [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var [a, b] = [1]; // Too few elements
@@ -2948,7 +2948,7 @@ void main() {
               contains('List pattern expected 2 elements, but List has 1')));
     });
 
-    test('List Pattern - Mismatch Type', () {
+    test('List Pattern - Mismatch Type [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var [a] = "not a list";
@@ -2958,7 +2958,7 @@ void main() {
           throwsRuntimeError(contains('Expected a List, but got String')));
     });
 
-    test('Map Pattern - Simple', () {
+    test('Map Pattern - Simple [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var {'key1': val1, 'key2': val2} = {'key1': 'hello', 'key2': 5};
@@ -2968,7 +2968,7 @@ void main() {
       expect(execute(source), equals('hello10'));
     });
 
-    test('Map Pattern - Different Key Types', () {
+    test('Map Pattern - Different Key Types [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var map = {1: 'one', true: 'yes', 'k': 99};
@@ -2979,7 +2979,7 @@ void main() {
       expect(execute(source), equals('oneyes99'));
     });
 
-    test('Map Pattern - Missing Key', () {
+    test('Map Pattern - Missing Key [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var {'a': x, 'b': y} = {'a': 1}; // Missing key 'b'
@@ -2989,7 +2989,7 @@ void main() {
           throwsRuntimeError(contains("Map pattern key 'b' not found")));
     });
 
-    test('Map Pattern - Mismatch Type', () {
+    test('Map Pattern - Mismatch Type [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var {'a': x} = [1, 2]; // Not a map
@@ -2999,7 +2999,7 @@ void main() {
           throwsRuntimeError(contains('Expected a Map, but got List')));
     });
 
-    test('Record Pattern - Positional', () {
+    test('Record Pattern - Positional [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var (a, b) = (10, 'world');
@@ -3009,7 +3009,7 @@ void main() {
       expect(execute(source), equals('10world'));
     });
 
-    test('Record Pattern - Named', () {
+    test('Record Pattern - Named [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var (name: n, age: a) = (name: 'Bob', age: 42);
@@ -3019,7 +3019,7 @@ void main() {
       expect(execute(source), equals('Bob42'));
     });
 
-    test('Record Pattern - Positional Mismatch Count', () {
+    test('Record Pattern - Positional Mismatch Count [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var (a, b) = (1,); // Too few positional fields
@@ -3031,7 +3031,7 @@ void main() {
               'Record pattern expected at least 2 positional fields, but Record only has 1')));
     });
 
-    test('Record Pattern - Named Mismatch Name', () {
+    test('Record Pattern - Named Mismatch Name [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var (value: v) = (data: 100); // Wrong named field
@@ -3043,7 +3043,7 @@ void main() {
               "Record pattern named field 'value' not found in the record.")));
     });
 
-    test('Record Pattern - Mismatch Type', () {
+    test('Record Pattern - Mismatch Type [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var (a,) = 123; // Not a record
@@ -3055,7 +3055,7 @@ void main() {
               "Expected a Record, but got int"))); // Assuming InterpretedRecord is not int
     });
 
-    test('Combined Pattern - List of Records', () {
+    test('Combined Pattern - List of Records [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var [(val: x), (val: y)] = [(val: 5), (val: 10)];
@@ -3065,7 +3065,7 @@ void main() {
       expect(execute(source), equals(15));
     });
 
-    test('Combined Pattern - Record with List and Map', () {
+    test('Combined Pattern - Record with List and Map [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var (list: [a,b], map: {'k': c}) = (list: [1, 2], map: {'k': 3});
@@ -3076,7 +3076,7 @@ void main() {
     });
   });
 
-  test('Assignation par pattern (Record)', () {
+  test('Assignation par pattern (Record) [2026-02-10 06:37]', () {
     final source = '''
       main() {
         var a;
@@ -3091,7 +3091,7 @@ void main() {
   });
 
   group('Switch Expressions', () {
-    test('Basic constant match', () {
+    test('Basic constant match [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var value = 2;
@@ -3106,7 +3106,7 @@ void main() {
       expect(execute(source), equals("Two"));
     });
 
-    test('Default case match (_)', () {
+    test('Default case match (_) [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var value = 100;
@@ -3121,7 +3121,7 @@ void main() {
       expect(execute(source), equals("Other"));
     });
 
-    test('Non-exhaustive switch expression throws error', () {
+    test('Non-exhaustive switch expression throws error [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var value = 3; // Pas de cas pour 3
@@ -3139,7 +3139,7 @@ void main() {
               'Switch expression was not exhaustive for value: 3'))); // Message d'erreur attendu
     });
 
-    test('Pattern binding (Record)', () {
+    test('Pattern binding (Record) [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var record = (val: 10, name: 'rec');
@@ -3153,7 +3153,7 @@ void main() {
       expect(execute(source), equals("Value: 10, Name: rec"));
     });
 
-    test('Pattern binding (List)', () {
+    test('Pattern binding (List) [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var list = [1, 5];
@@ -3195,7 +3195,7 @@ void main() {
       expect(execute(source), equals("Other condition"));
     });
 
-    test('When clause must be boolean', () {
+    test('When clause must be boolean [2026-02-10 06:37]', () {
       final source = '''
         main() {
           var val = 1;
@@ -3233,7 +3233,7 @@ void main() {
           'package:test/dummy.dart');
     });
 
-    test('Correct return type (int)', () {
+    test('Correct return type (int) [2026-02-10 06:37]', () {
       final source = '''
         int getNumber() {
           return 10;
@@ -3243,7 +3243,7 @@ void main() {
       expect(execute(source), equals(10));
     });
 
-    test('Correct return type (String)', () {
+    test('Correct return type (String) [2026-02-10 06:37]', () {
       final source = '''
         String getText() {
           return "hello";
@@ -3253,7 +3253,7 @@ void main() {
       expect(execute(source), equals("hello"));
     });
 
-    test('Incorrect return type (String instead of int)', () {
+    test('Incorrect return type (String instead of int) [2026-02-10 06:37]', () {
       final source = '''
         int getNumber() {
           return "not a number"; // Error
@@ -3266,7 +3266,7 @@ void main() {
               "A value of type 'String' can't be returned from the function 'getNumber' because it has a return type of 'int'.")));
     });
 
-    test('Incorrect return type (int instead of String)', () {
+    test('Incorrect return type (int instead of String) [2026-02-10 06:37]', () {
       final source = '''
         String getText() {
           return 123; // Error
@@ -3279,7 +3279,7 @@ void main() {
               "A value of type 'int' can't be returned from the function 'getText' because it has a return type of 'String'.")));
     });
 
-    test('Correct return type (void, implicit)', () {
+    test('Correct return type (void, implicit) [2026-02-10 06:37]', () {
       final source = '''
         void doNothing() {
           // No return statement
@@ -3292,7 +3292,7 @@ void main() {
       expect(execute(source), equals('ok'));
     });
 
-    test('Correct return type (void, explicit null)', () {
+    test('Correct return type (void, explicit null) [2026-02-10 06:37]', () {
       final source = '''
         void doNothingExplicit() {
           return; // Equivalent to return null;
@@ -3305,7 +3305,7 @@ void main() {
       expect(execute(source), equals('ok'));
     });
 
-    test('Incorrect return type (non-null for void)', () {
+    test('Incorrect return type (non-null for void) [2026-02-10 06:37]', () {
       final source = '''
         void doNothingWrong() {
           return 5; // Error
@@ -3318,7 +3318,7 @@ void main() {
               "A value of type 'int' can't be returned from the function 'doNothingWrong' because it has a return type of 'void'.")));
     });
 
-    test('Correct return type (dynamic, any value)', () {
+    test('Correct return type (dynamic, any value) [2026-02-10 06:37]', () {
       final source = '''
         dynamic getAnything() {
           return true;
@@ -3336,7 +3336,7 @@ void main() {
       expect(execute(source2), isNull);
     });
 
-    test('Correct return type (Object, non-null)', () {
+    test('Correct return type (Object, non-null) [2026-02-10 06:37]', () {
       final source = '''
         Object getObject() {
           return [1, 2];
@@ -3346,7 +3346,7 @@ void main() {
       expect(execute(source), equals([1, 2]));
     });
 
-    test('Incorrect return type (null for Object)', () {
+    test('Incorrect return type (null for Object) [2026-02-10 06:37]', () {
       final source = '''
         Object getObjectWrong() {
           return null; // Error
@@ -3359,7 +3359,7 @@ void main() {
               "A value of type 'Null' can't be returned from the function 'getObjectWrong' because it has a return type of 'Object'.")));
     });
 
-    test('Correct return type (int? nullable, int value)', () {
+    test('Correct return type (int? nullable, int value) [2026-02-10 06:37]', () {
       final source = '''
         int? getNullableInt() {
           return 42;
@@ -3369,7 +3369,7 @@ void main() {
       expect(execute(source), equals(42));
     });
 
-    test('Correct return type (int? nullable, null value)', () {
+    test('Correct return type (int? nullable, null value) [2026-02-10 06:37]', () {
       final source = '''
         int? getNullableIntNull() {
           return null;
@@ -3379,7 +3379,7 @@ void main() {
       expect(execute(source), isNull);
     });
 
-    test('Incorrect return type (String for int?)', () {
+    test('Incorrect return type (String for int?) [2026-02-10 06:37]', () {
       final source = '''
         int? getNullableIntWrong() {
           return "nope"; // Error
@@ -3392,7 +3392,7 @@ void main() {
               "A value of type 'String' can't be returned from the function 'getNullableIntWrong' because it has a return type of 'int?'.")));
     });
 
-    test('Correct subtype (int for num)', () {
+    test('Correct subtype (int for num) [2026-02-10 06:37]', () {
       final source = '''
         num getNum() {
           return 5; // int is subtype of num
@@ -3402,7 +3402,7 @@ void main() {
       expect(execute(source), equals(5));
     });
 
-    test('Correct subtype (double for num)', () {
+    test('Correct subtype (double for num) [2026-02-10 06:37]', () {
       final source = '''
         num getNumFloat() {
           return 3.14; // double is subtype of num
@@ -3412,7 +3412,7 @@ void main() {
       expect(execute(source), equals(3.14));
     });
 
-    test('Incorrect subtype (String for num)', () {
+    test('Incorrect subtype (String for num) [2026-02-10 06:37]', () {
       final source = '''
         num getNumWrong() {
           return "text"; // Error
@@ -3425,7 +3425,7 @@ void main() {
               "A value of type 'String' can't be returned from the function 'getNumWrong' because it has a return type of 'num'.")));
     });
 
-    test('Correct return type (Bridged type)', () {
+    test('Correct return type (Bridged type) [2026-02-10 06:37]', () {
       // Requires DummyNative and its bridge definition
       final source = '''
         import 'package:test/dummy.dart';
@@ -3441,7 +3441,7 @@ void main() {
           equals('DummyNative method result'));
     });
 
-    test('Incorrect return type (int for Bridged type)', () {
+    test('Incorrect return type (int for Bridged type) [2026-02-10 06:37]', () {
       final source = '''
         import 'package:test/dummy.dart';
          Dummy getDummyWrong() {
@@ -3455,7 +3455,7 @@ void main() {
               "A value of type 'int' can't be returned from the function 'getDummyWrong' because it has a return type of 'Dummy'.")));
     });
 
-    test('Correct return type (null for Bridged type nullable)', () {
+    test('Correct return type (null for Bridged type nullable) [2026-02-10 06:37]', () {
       final source = '''
         import 'package:test/dummy.dart';
          Dummy? getNullableDummy() {

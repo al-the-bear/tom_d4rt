@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('IOSink methods - comprehensive', () {
-    test('IOSink write and writeln to file', () async {
+    test('IOSink write and writeln to file [2026-02-10 06:37]', () async {
       const source = '''
      import 'dart:io';
      main() async {
@@ -28,7 +28,7 @@ void main() {
       expect(result, equals('Hello World\nLine 2'));
     });
 
-    test('IOSink writeAll method', () async {
+    test('IOSink writeAll method [2026-02-10 06:37]', () async {
       const source = '''
      import 'dart:io';
      main() async {
@@ -50,7 +50,7 @@ void main() {
       expect(result, equals('A-B-C'));
     });
 
-    test('IOSink writeCharCode method', () async {
+    test('IOSink writeCharCode method [2026-02-10 06:37]', () async {
       const source = '''
      import 'dart:io';
      main() async {
@@ -74,7 +74,7 @@ void main() {
       expect(result, equals('ABC'));
     });
 
-    test('IOSink add method with bytes', () async {
+    test('IOSink add method with bytes [2026-02-10 06:37]', () async {
       const source = '''
      import 'dart:io';
      import 'dart:convert';
@@ -98,7 +98,7 @@ void main() {
       expect(result, equals('Hello Bytes'));
     });
 
-    test('IOSink addStream method', () async {
+    test('IOSink addStream method [2026-02-10 06:37]', () async {
       const source = '''
      import 'dart:io';
      import 'dart:convert';
@@ -130,7 +130,7 @@ void main() {
       expect(result, equals('Stream Content'));
     });
 
-    test('IOSink flush method', () async {
+    test('IOSink flush method [2026-02-10 06:37]', () async {
       const source = '''
      import 'dart:io';
      main() async {
@@ -154,7 +154,7 @@ void main() {
       expect(result, equals('Before flush After flush'));
     });
 
-    test('IOSink addError method', () async {
+    test('IOSink addError method [2026-02-10 06:37]', () async {
       const source = '''
      import 'dart:io';
      main() async {
@@ -188,7 +188,7 @@ void main() {
           ]));
     });
 
-    test('IOSink encoding parameter', () async {
+    test('IOSink encoding parameter [2026-02-10 06:37]', () async {
       const source = '''
      import 'dart:io';
      import 'dart:convert';
@@ -212,7 +212,7 @@ void main() {
       expect(result, equals('UTF8 Content: héllo'));
     });
 
-    test('IOSink done future', () async {
+    test('IOSink done future [2026-02-10 06:37]', () async {
       const source = '''
      import 'dart:io';
      main() async {

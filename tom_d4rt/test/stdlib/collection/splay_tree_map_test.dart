@@ -5,7 +5,7 @@ void main() {
   final d4rt = D4rt();
 
   group('SplayTreeMap Tests', () {
-    test('SplayTreeMap() constructor and basic properties, natural ordering',
+    test('SplayTreeMap() constructor and basic properties, natural ordering [2026-02-10 06:37]',
         () {
       final result = d4rt.execute(
         source: '''
@@ -28,7 +28,7 @@ void main() {
       expect(result[6], 3, reason: "lastKey");
     });
 
-    test('SplayTreeMap() with custom compare function (reverse order)', () {
+    test('SplayTreeMap() with custom compare function (reverse order) [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -48,7 +48,7 @@ void main() {
       expect(result[3], 1, reason: "lastKey (reverse)");
     });
 
-    test('SplayTreeMap.from() with natural ordering', () {
+    test('SplayTreeMap.from() with natural ordering [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -65,7 +65,7 @@ void main() {
           reason: "values from map");
     });
 
-    test('SplayTreeMap.from() with custom compare function', () {
+    test('SplayTreeMap.from() with custom compare function [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -84,7 +84,7 @@ void main() {
           reason: "values custom from map");
     });
 
-    test('SplayTreeMap.of() with natural ordering', () {
+    test('SplayTreeMap.of() with natural ordering [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -99,7 +99,7 @@ void main() {
       expect(result, orderedEquals([2, 5, 10]));
     });
 
-    test('[] and []= operators, sorted order maintained', () {
+    test('[] and []= operators, sorted order maintained [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -120,7 +120,7 @@ void main() {
       expect(result[3], 3, reason: "length after ops");
     });
 
-    test('addAll(), clear(), isEmpty, isNotEmpty', () {
+    test('addAll(), clear(), isEmpty, isNotEmpty [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -154,7 +154,7 @@ void main() {
       expect(result[7], true, reason: "isEmpty e2");
     });
 
-    test('containsKey(), containsValue()', () {
+    test('containsKey(), containsValue() [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -173,7 +173,7 @@ void main() {
       expect(result[3], false, reason: "containsValue v3");
     });
 
-    test('remove() and sorted order', () {
+    test('remove() and sorted order [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -195,7 +195,7 @@ void main() {
       expect(result[3], 2, reason: "length after remove");
     });
 
-    test('forEach() and entries are sorted', () {
+    test('forEach() and entries are sorted [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -226,7 +226,7 @@ void main() {
           reason: "entries values");
     });
 
-    test('putIfAbsent() and sorted order', () {
+    test('putIfAbsent() and sorted order [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -249,7 +249,7 @@ void main() {
           reason: "keys order after putIfAbsent");
     });
 
-    test('firstKey() / lastKey() on empty map throws error', () {
+    test('firstKey() / lastKey() on empty map throws error [2026-02-10 06:37]', () {
       expect(() => d4rt.execute(source: '''
           import 'dart:collection';
           main() { SplayTreeMap().firstKey(); }

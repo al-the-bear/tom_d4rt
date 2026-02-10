@@ -4,7 +4,7 @@ import '../interpreter_test.dart';
 
 void main() {
   group('Class Tests', () {
-    test('Basic class instantiation (implicit constructor)', () {
+    test('Basic class instantiation (implicit constructor) [2026-02-10 06:37]', () {
       const source = '''
         class Simple {
           int x = 10;
@@ -18,7 +18,7 @@ void main() {
       expect(execute(source), equals(10));
     });
 
-    test('Class instantiation (explicit default constructor)', () {
+    test('Class instantiation (explicit default constructor) [2026-02-10 06:37]', () {
       const source = '''
         class Simple {
           int x = 5;
@@ -35,7 +35,7 @@ void main() {
       expect(execute(source), equals(20));
     });
 
-    test('Field access and update', () {
+    test('Field access and update [2026-02-10 06:37]', () {
       const source = '''
         class Box {
           var content = 'initial';
@@ -52,7 +52,7 @@ void main() {
       expect(execute(source), equals(['initial', 'updated']));
     });
 
-    test('Instance method call (no parameters)', () {
+    test('Instance method call (no parameters) [2026-02-10 06:37]', () {
       const source = '''
         class Greeter {
           String greet() {
@@ -68,7 +68,7 @@ void main() {
       expect(execute(source), equals('Hello!'));
     });
 
-    test('Instance method call (with parameters)', () {
+    test('Instance method call (with parameters) [2026-02-10 06:37]', () {
       const source = '''
         class Adder {
           int add(int a, int b) {
@@ -84,7 +84,7 @@ void main() {
       expect(execute(source), equals(8));
     });
 
-    test('Instance method using instance fields', () {
+    test('Instance method using instance fields [2026-02-10 06:37]', () {
       const source = '''
         class Counter {
           int count = 0;
@@ -106,7 +106,7 @@ void main() {
       expect(execute(source), equals(2));
     });
 
-    test('Constructor with positional parameters', () {
+    test('Constructor with positional parameters [2026-02-10 06:37]', () {
       const source = '''
         class Points {
           int x, y;
@@ -139,7 +139,7 @@ void main() {
       expect(execute(source), equals([3, 4]));
     });
 
-    test('Named constructor', () {
+    test('Named constructor [2026-02-10 06:37]', () {
       const source = '''
         class Points {
           int x = 0, y = 0;
@@ -165,7 +165,7 @@ void main() {
     });
 
     group('Inheritance', () {
-      test('Basic inheritance: Accessing superclass members', () {
+      test('Basic inheritance: Accessing superclass members [2026-02-10 06:37]', () {
         const source = '''
           class Animal {
             String name = 'Generic';
@@ -185,7 +185,7 @@ void main() {
         expect(execute(source), equals(['Generic', '?']));
       });
 
-      test('Method overriding', () {
+      test('Method overriding [2026-02-10 06:37]', () {
         const source = '''
           class Animal {
             String sound() => '?';
@@ -203,7 +203,7 @@ void main() {
         expect(execute(source), equals('Meow'));
       });
 
-      test('Constructor with super call (implicit)', () {
+      test('Constructor with super call (implicit) [2026-02-10 06:37]', () {
         const source = '''
             class Base {
               String id;
@@ -223,7 +223,7 @@ void main() {
         expect(execute(source), equals('base_default'));
       });
 
-      test('Constructor with explicit super call', () {
+      test('Constructor with explicit super call [2026-02-10 06:37]', () {
         const source = '''
           class Base {
             int value;
@@ -245,7 +245,7 @@ void main() {
     });
 
     group('Getters and Setters', () {
-      test('Simple getter', () {
+      test('Simple getter [2026-02-10 06:37]', () {
         const source = '''
           class Box {
             int _content = 5;
@@ -259,7 +259,7 @@ void main() {
         expect(execute(source), equals(50));
       });
 
-      test('Simple setter', () {
+      test('Simple setter [2026-02-10 06:37]', () {
         const source = '''
           class Box {
             int _value = 0;
@@ -277,7 +277,7 @@ void main() {
         expect(execute(source), equals(11));
       });
 
-      test('Getter/Setter interaction', () {
+      test('Getter/Setter interaction [2026-02-10 06:37]', () {
         const source = '''
           class Circle {
             num radius = 0;
@@ -297,7 +297,7 @@ void main() {
         expect(execute(source), equals([5, 10, 78.5]));
       });
     });
-    test('Basic class with constructor', () {
+    test('Basic class with constructor [2026-02-10 06:37]', () {
       final result = execute('''
         class Person {
           String name;
@@ -316,7 +316,7 @@ void main() {
       expect(result, equals('Hello, I am Alice and I am 30 years old'));
     });
 
-    test('Class with named constructor', () {
+    test('Class with named constructor [2026-02-10 06:37]', () {
       final result = execute('''
         class Points {
           double x;
@@ -341,7 +341,7 @@ void main() {
       expect(result, equals([1, 2, 0, 0, 3, 4]));
     });
 
-    test('Class with getters and setters', () {
+    test('Class with getters and setters [2026-02-10 06:37]', () {
       final result = execute('''
         class Rectangles {
           double _width;
@@ -370,7 +370,7 @@ void main() {
       expect(result, equals([72, 36]));
     });
 
-    test('Class inheritance with method override', () {
+    test('Class inheritance with method override [2026-02-10 06:37]', () {
       final result = execute('''
         class Animal {
           String name;
@@ -403,7 +403,7 @@ void main() {
       expect(result, equals(['Woof!', 'Meow!']));
     });
 
-    test('Complex class hierarchy with abstract class', () {
+    test('Complex class hierarchy with abstract class [2026-02-10 06:37]', () {
       final result = execute('''
         abstract class Shape {
           Shape();
@@ -444,7 +444,7 @@ void main() {
       expect(result, equals([78.53975, 31.4159, 16, 16]));
     });
 
-    test('Class with mixin', () {
+    test('Class with mixin [2026-02-10 06:37]', () {
       final result = execute('''
         mixin Flyable {
           void fly() => print('Flying...');
@@ -469,7 +469,7 @@ void main() {
       ''');
       expect(result, equals(true));
     });
-    test('Named constructor with named parameters', () {
+    test('Named constructor with named parameters [2026-02-10 06:37]', () {
       const source = '''
         class Points {
           double? x;
@@ -494,7 +494,7 @@ void main() {
       expect(execute(source), equals([1, 2, 3, 4]));
     });
 
-    test('Complex class interaction', () {
+    test('Complex class interaction [2026-02-10 06:37]', () {
       final result = execute('''
         class BankAccount {
           String owner;
@@ -535,7 +535,7 @@ void main() {
       ''');
       expect(result, equals(1365));
     });
-    test('Simple', () {
+    test('Simple [2026-02-10 06:37]', () {
       final result = execute('''
         class BankAccount {
           String owner;
@@ -558,7 +558,7 @@ void main() {
     });
 
     group('Binary Operators', () {
-      test('Addition operator (+)', () {
+      test('Addition operator (+) [2026-02-10 06:37]', () {
         final result = execute('''
           class Money {
             final int cents;
@@ -583,7 +583,7 @@ void main() {
         expect(result, equals(300));
       });
 
-      test('Equality operator (==)', () {
+      test('Equality operator (==) [2026-02-10 06:37]', () {
         final result = execute('''
           class Point {
             final int x;
@@ -606,7 +606,7 @@ void main() {
         expect(result, equals([true, false]));
       });
 
-      test('Comparison operators (< and >)', () {
+      test('Comparison operators (< and >) [2026-02-10 06:37]', () {
         final result = execute('''
           class Temperature {
             final double celsius;
@@ -630,7 +630,7 @@ void main() {
         expect(result, equals([true, false]));
       });
 
-      test('Multiple operators on same class', () {
+      test('Multiple operators on same class [2026-02-10 06:37]', () {
         final result = execute('''
           class Vector {
             final double x;
@@ -675,7 +675,7 @@ void main() {
     });
 
     group('Index Operators', () {
-      test('Index operator ([])', () {
+      test('Index operator ([]) [2026-02-10 06:37]', () {
         final result = execute('''
           class NumberContainer {
             final List<int> numbers;
@@ -694,7 +694,7 @@ void main() {
         expect(result, equals([10, 20, 30]));
       });
 
-      test('Index assignment operator ([]=)', () {
+      test('Index assignment operator ([]=) [2026-02-10 06:37]', () {
         final result = execute('''
           class NumberContainer {
             final List<int> numbers;
@@ -718,7 +718,7 @@ void main() {
         expect(result, equals([10, 99, 30]));
       });
 
-      test('Compound assignment with index operators', () {
+      test('Compound assignment with index operators [2026-02-10 06:37]', () {
         final result = execute('''
           class NumberContainer {
             final List<int> numbers;
@@ -744,7 +744,7 @@ void main() {
         expect(result, equals([15, 40, 20]));
       });
 
-      test('String-keyed container with index operators', () {
+      test('String-keyed container with index operators [2026-02-10 06:37]', () {
         final result = execute('''
           class StringKeyedContainer {
             final Map<String, String> data = {};
@@ -769,7 +769,7 @@ void main() {
         expect(result, equals(['Alice', '30', 'not found']));
       });
 
-      test('Index operators with inheritance', () {
+      test('Index operators with inheritance [2026-02-10 06:37]', () {
         final result = execute('''
           class BaseContainer {
             final List<dynamic> items;
@@ -801,7 +801,7 @@ void main() {
     });
 
     group('Unary Operators', () {
-      test('Unary minus operator (-)', () {
+      test('Unary minus operator (-) [2026-02-10 06:37]', () {
         final result = execute('''
           class Vector {
             final double x;
@@ -822,7 +822,7 @@ void main() {
         expect(result, equals([-3.0, -4.0]));
       });
 
-      test('Bitwise NOT operator (~)', () {
+      test('Bitwise NOT operator (~) [2026-02-10 06:37]', () {
         final result = execute('''
           class BitMask {
             final int value;
@@ -842,7 +842,7 @@ void main() {
         expect(result, equals(~5)); // -6 in two's complement
       });
 
-      test('Multiple unary operators on same class', () {
+      test('Multiple unary operators on same class [2026-02-10 06:37]', () {
         final result = execute('''
           class SignedNumber {
             final int value;
@@ -868,7 +868,7 @@ void main() {
         expect(result, equals([-10, ~10])); // [-10, -11]
       });
 
-      test('Unary operators with inheritance', () {
+      test('Unary operators with inheritance [2026-02-10 06:37]', () {
         final result = execute('''
           class BaseNumber {
             final int value;
@@ -894,7 +894,7 @@ void main() {
         expect(result, equals(-42));
       });
 
-      test('Complex unary operator with custom logic', () {
+      test('Complex unary operator with custom logic [2026-02-10 06:37]', () {
         final result = execute('''
           class ComplexNumber {
             final double real;
@@ -915,7 +915,7 @@ void main() {
         expect(result, equals([-3.5, 2.1]));
       });
 
-      test('Unary operator precedence over extensions', () {
+      test('Unary operator precedence over extensions [2026-02-10 06:37]', () {
         final result = execute('''
           class CustomInt {
             final int value;
@@ -937,7 +937,7 @@ void main() {
     });
 
     group('Increment/Decrement Operators', () {
-      test('Prefix increment on property access (++obj.field)', () {
+      test('Prefix increment on property access (++obj.field) [2026-02-10 06:37]', () {
         final result = execute('''
           class Counter {
             int count = 10;
@@ -952,7 +952,7 @@ void main() {
         expect(result, equals([11, 11]));
       });
 
-      test('Postfix increment on property access (obj.field++)', () {
+      test('Postfix increment on property access (obj.field++) [2026-02-10 06:37]', () {
         final result = execute('''
           class Counter {
             int count = 5;
@@ -967,7 +967,7 @@ void main() {
         expect(result, equals([5, 6]));
       });
 
-      test('Prefix decrement on property access (--obj.field)', () {
+      test('Prefix decrement on property access (--obj.field) [2026-02-10 06:37]', () {
         final result = execute('''
           class Counter {
             int count = 20;
@@ -982,7 +982,7 @@ void main() {
         expect(result, equals([19, 19]));
       });
 
-      test('Postfix decrement on property access (obj.field--)', () {
+      test('Postfix decrement on property access (obj.field--) [2026-02-10 06:37]', () {
         final result = execute('''
           class Counter {
             int count = 15;
@@ -997,7 +997,7 @@ void main() {
         expect(result, equals([15, 14]));
       });
 
-      test('Prefix increment on index access (++array[i])', () {
+      test('Prefix increment on index access (++array[i]) [2026-02-10 06:37]', () {
         final result = execute('''
           main() {
             var list = [10, 20, 30];
@@ -1014,7 +1014,7 @@ void main() {
             ]));
       });
 
-      test('Postfix increment on index access (array[i]++)', () {
+      test('Postfix increment on index access (array[i]++) [2026-02-10 06:37]', () {
         final result = execute('''
           main() {
             var list = [5, 15, 25];
@@ -1031,7 +1031,7 @@ void main() {
             ]));
       });
 
-      test('Increment with custom class operators', () {
+      test('Increment with custom class operators [2026-02-10 06:37]', () {
         final result = execute('''
           class CustomNumber {
             int value;

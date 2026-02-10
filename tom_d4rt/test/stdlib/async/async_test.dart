@@ -3,7 +3,7 @@ import '../../interpreter_test.dart';
 
 void main() {
   group('Interpreted Async/Await Tests', () {
-    test('await Future.value', () async {
+    test('await Future.value [2026-02-10 06:37]', () async {
       const source = '''
         Future<int> main() async {
           int result = await Future.value(42);
@@ -13,7 +13,7 @@ void main() {
       expect(await execute(source), equals(42));
     });
 
-    test('await Future.delayed', () async {
+    test('await Future.delayed [2026-02-10 06:37]', () async {
       const source = '''
         Future<String> main() async {
           await Future.delayed(Duration(milliseconds: 10));
@@ -24,7 +24,7 @@ void main() {
       expect(await execute(source), equals("Done"));
     });
 
-    test('Assign await result to variable', () async {
+    test('Assign await result to variable [2026-02-10 06:37]', () async {
       const source = '''
         Future<int> fetchValue() async {
            await Future.delayed(Duration(milliseconds: 5));
@@ -39,7 +39,7 @@ void main() {
       expect(await execute(source), equals(105));
     });
 
-    test('Return await result directly', () async {
+    test('Return await result directly [2026-02-10 06:37]', () async {
       const source = '''
         Future<String> fetchMessage() async {
            await Future.delayed(Duration(milliseconds: 5));
@@ -53,7 +53,7 @@ void main() {
       expect(await execute(source), equals("Returned Message"));
     });
 
-    test('Multiple awaits in sequence', () async {
+    test('Multiple awaits in sequence [2026-02-10 06:37]', () async {
       const source = '''
         Future<int> step1() async {
            await Future.delayed(Duration(milliseconds: 5));
@@ -74,7 +74,7 @@ void main() {
       expect(await execute(source), equals(60));
     });
 
-    test('Nested async function calls', () async {
+    test('Nested async function calls [2026-02-10 06:37]', () async {
       const source = '''
          Future<int> inner() async {
            await Future.delayed(Duration(milliseconds: 1));
@@ -94,7 +94,7 @@ void main() {
       expect(await execute(source), equals(150));
     });
 
-    test('Sync code between awaits', () async {
+    test('Sync code between awaits [2026-02-10 06:37]', () async {
       const source = '''
         Future<String> part1() async { return "A"; }
         Future<String> part3() async { return "C"; }
@@ -109,7 +109,7 @@ void main() {
       expect(await execute(source), equals("ABC"));
     });
 
-    test('Return non-Future from async function', () async {
+    test('Return non-Future from async function [2026-02-10 06:37]', () async {
       const source = '''
         Future<int> getValue() async {
           // No await needed here
@@ -123,7 +123,7 @@ void main() {
       expect(await execute(source), equals(99));
     });
 
-    test('Interpreted Async/Await Tests await in if condition', () async {
+    test('Interpreted Async/Await Tests await in if condition [2026-02-10 06:37]', () async {
       final code = '''
         Future<bool> checkCondition() async {
           await Future.delayed(Duration(milliseconds: 1));
@@ -141,7 +141,7 @@ void main() {
       expect(result, 'Condition True');
     });
 
-    test('Interpreted Async/Await Tests await in for loop', () async {
+    test('Interpreted Async/Await Tests await in for loop [2026-02-10 06:37]', () async {
       final code = '''
         Future<int> processItem(int i) async {
           await Future.delayed(Duration(milliseconds: 1));
@@ -159,7 +159,7 @@ void main() {
       expect(result, 30);
     });
 
-    test('Interpreted Async/Await Tests await in try/catch (success)',
+    test('Interpreted Async/Await Tests await in try/catch (success) [2026-02-10 06:37]',
         () async {
       final code = '''
         Future<String> successfulFuture() async {
@@ -180,7 +180,7 @@ void main() {
       expect(result, 'Success');
     });
 
-    test('Interpreted Async/Await Tests await Future.error in try/catch',
+    test('Interpreted Async/Await Tests await Future.error in try/catch [2026-02-10 06:37]',
         () async {
       final code = '''
         Future<String> failingFuture() async {
@@ -202,7 +202,7 @@ void main() {
       expect(result, 'Caught: Future Failed');
     });
 
-    test('Interpreted Async/Await Tests await Future.error without try/catch',
+    test('Interpreted Async/Await Tests await Future.error without try/catch [2026-02-10 06:37]',
         () async {
       final code = '''
         Future<void> failingFuture() async {
@@ -222,7 +222,7 @@ void main() {
     });
   });
   group('Async Control Flow Tests', () {
-    test('async while loop with await in body', () async {
+    test('async while loop with await in body [2026-02-10 06:37]', () async {
       final result = await execute('''
         // Define a simple async function to introduce an await point
         Future<void> waitABit() async {
@@ -247,7 +247,7 @@ void main() {
       expect(result, equals(10));
     });
 
-    test('async while loop with await in condition', () async {
+    test('async while loop with await in condition [2026-02-10 06:37]', () async {
       final result = await execute('''
         // Helper async function for condition
         Future<bool> shouldContinue(int currentVal) async {
@@ -270,7 +270,7 @@ void main() {
       expect(result, equals(3));
     });
 
-    test('async do-while loop with await in body', () async {
+    test('async do-while loop with await in body [2026-02-10 06:37]', () async {
       final result = await execute('''
         Future<void> waitABit() async {
           await Future.value(null);
@@ -297,7 +297,7 @@ void main() {
       expect(result, equals(6));
     });
 
-    test('async do-while loop with await in condition', () async {
+    test('async do-while loop with await in condition [2026-02-10 06:37]', () async {
       final result = await execute('''
         Future<bool> shouldContinue(int currentVal) async {
           await Future.value(null); // Simulate async work
@@ -324,7 +324,7 @@ void main() {
       expect(result, equals(3));
     });
 
-    test('async for loop with await in body', () async {
+    test('async for loop with await in body [2026-02-10 06:37]', () async {
       final result = await execute('''
         Future<void> waitABit() async {
           await Future.value(null);
@@ -351,7 +351,7 @@ void main() {
       expect(result, equals(6));
     });
 
-    test('async for loop with await in initializer', () async {
+    test('async for loop with await in initializer [2026-02-10 06:37]', () async {
       final result = await execute('''
         Future<int> getStart() async {
           await Future.delayed(Duration(milliseconds: 1)); // Simulate async work
@@ -378,7 +378,7 @@ void main() {
       expect(result, equals(6));
     });
 
-    test('async for loop with await assignment in body', () async {
+    test('async for loop with await assignment in body [2026-02-10 06:37]', () async {
       final result = await execute(r'''
         Future<int> getValue(int iteration) async {
           await Future.delayed(Duration(milliseconds: 1));
@@ -407,7 +407,7 @@ void main() {
       expect(result, equals(23));
     });
 
-    test('async for loop with await in assignment operator', () async {
+    test('async for loop with await in assignment operator [2026-02-10 06:37]', () async {
       final result = await execute(r'''
         Future<int> getValue(int iteration) async {
           await Future.delayed(Duration(milliseconds: 1));
@@ -434,7 +434,7 @@ void main() {
       expect(result, equals(30));
     });
 
-    test('async for-in loop with await in body', () async {
+    test('async for-in loop with await in body [2026-02-10 06:37]', () async {
       final result = await execute('''
         Future<int> getValue(int iteration) async {
           await Future.delayed(Duration(milliseconds: 1)); // Simulate async work
@@ -464,7 +464,7 @@ void main() {
       );
     });
 
-    test('async try-catch-finally with await throwing error', () async {
+    test('async try-catch-finally with await throwing error [2026-02-10 06:37]', () async {
       final result = await execute('''
         Future<String> operationThatThrows() async {
           await Future.delayed(Duration(milliseconds: 1));
@@ -499,7 +499,7 @@ void main() {
       );
     });
 
-    test('async if statement with await in condition', () async {
+    test('async if statement with await in condition [2026-02-10 06:37]', () async {
       final result = await execute(r'''
         Future<bool> checkCondition(bool value) async {
           await Future.delayed(Duration(milliseconds: 1));
@@ -526,7 +526,7 @@ void main() {
       expect(result, equals('Second If False'));
     });
 
-    test('async try-catch with rethrow and await error', () async {
+    test('async try-catch with rethrow and await error [2026-02-10 06:37]', () async {
       final sourceCode = '''
         Future<String> operationThatThrows() async {
           await Future.delayed(Duration(milliseconds: 1));
@@ -559,7 +559,7 @@ void main() {
       );
     });
 
-    test('nested for-in loops with list processing', () async {
+    test('nested for-in loops with list processing [2026-02-10 06:37]', () async {
       const source = '''
       main() async {
         List resultList = [];
@@ -579,7 +579,7 @@ void main() {
       expect(await execute(source), equals([1, 2, 3, 4, 5, 6, 7, 8]));
     });
 
-    test('nested for loops with list processing using indexed access',
+    test('nested for loops with list processing using indexed access [2026-02-10 06:37]',
         () async {
       const source = '''
       main() async {

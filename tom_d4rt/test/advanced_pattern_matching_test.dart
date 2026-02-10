@@ -11,7 +11,7 @@ dynamic execute(String source, {List<Object?>? args}) {
 
 void main() {
   group('Advanced Pattern Matching Features', () {
-    test('List patterns with rest elements - multiple positions', () {
+    test('List patterns with rest elements - multiple positions [2026-02-10 06:37]', () {
       final code = '''
         main() {
           var results = [];
@@ -65,7 +65,7 @@ void main() {
           ]));
     });
 
-    test('Map patterns with rest elements', () {
+    test('Map patterns with rest elements [2026-02-10 06:37]', () {
       final code = '''
         main() {
           var map = {'name': 'John', 'age': 25, 'city': 'NYC', 'country': 'USA'};
@@ -88,7 +88,7 @@ void main() {
           ]));
     });
 
-    test('Nested pattern matching with rest elements', () {
+    test('Nested pattern matching with rest elements [2026-02-10 06:37]', () {
       final code = '''
         main() {
           var data = [
@@ -116,7 +116,7 @@ void main() {
           ]));
     });
 
-    test('Anonymous rest elements (no binding)', () {
+    test('Anonymous rest elements (no binding) [2026-02-10 06:37]', () {
       final code = '''
         main() {
           var list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -133,7 +133,7 @@ void main() {
       expect(result, equals([1, 2, 'has_more']));
     });
 
-    test('Map patterns with anonymous rest', () {
+    test('Map patterns with anonymous rest [2026-02-10 06:37]', () {
       final code = '''
         main() {
           var config = {
@@ -159,7 +159,7 @@ void main() {
       expect(result, equals(['enabled_with_timeout', 30]));
     });
 
-    test('Empty rest elements', () {
+    test('Empty rest elements [2026-02-10 06:37]', () {
       final code = '''
         main() {
           var results = [];
@@ -191,7 +191,7 @@ void main() {
           ]));
     });
 
-    test('Complex pattern matching with guards (when available)', () {
+    test('Complex pattern matching with guards (when available) [2026-02-10 06:37]', () {
       final code = '''
         main() {
           var data = [

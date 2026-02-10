@@ -3,7 +3,7 @@ import 'interpreter_test.dart' show executeAsync;
 
 void main() {
   group('Complex Await Assignments', () {
-    test('await with conditional expression (ternary)', () async {
+    test('await with conditional expression (ternary) [2026-02-10 06:37]', () async {
       const code = '''
 Future<int> getFuture(int value) async {
   return value;
@@ -22,7 +22,7 @@ int main() async {
       expect(result, equals(42));
     });
 
-    test('await with conditional expression - false branch', () async {
+    test('await with conditional expression - false branch [2026-02-10 06:37]', () async {
       const code = '''
 Future<int> getFuture(int value) async {
   return value;
@@ -40,7 +40,7 @@ int main() async {
       expect(result, equals(99));
     });
 
-    test('await with nested conditionals', () async {
+    test('await with nested conditionals [2026-02-10 06:37]', () async {
       const code = '''
 Future<int> getFuture(int value) async {
   return value;
@@ -61,7 +61,7 @@ int main() async {
       expect(result, equals(2));
     });
 
-    test('await with binary expression', () async {
+    test('await with binary expression [2026-02-10 06:37]', () async {
       const code = '''
 Future<int> getFuture(int value) async {
   return value;
@@ -81,7 +81,7 @@ int main() async {
       expect(result, equals(30));
     });
 
-    test('await in compound assignment with conditional', () async {
+    test('await in compound assignment with conditional [2026-02-10 06:37]', () async {
       const code = '''
 Future<int> getFuture(int value) async {
   return value;
@@ -101,7 +101,7 @@ int main() async {
       expect(result, equals(15));
     });
 
-    test('multiple await expressions in same statement', () async {
+    test('multiple await expressions in same statement [2026-02-10 06:37]', () async {
       const code = '''
 Future<int> getFuture(int value) async {
   return value;
@@ -120,7 +120,7 @@ int main() async {
       expect(result, equals(30));
     });
 
-    test('await with null-coalescing', () async {
+    test('await with null-coalescing [2026-02-10 06:37]', () async {
       const code = '''
 Future<int?> getNullableFuture(bool returnNull) async {
   return returnNull ? null : 42;
@@ -137,7 +137,7 @@ int main() async {
       expect(result, equals(42));
     });
 
-    test('await with null-coalescing - null case', () async {
+    test('await with null-coalescing - null case [2026-02-10 06:37]', () async {
       const code = '''
 Future<int?> getNullableFuture(bool returnNull) async {
   return returnNull ? null : 42;
@@ -154,7 +154,7 @@ int main() async {
       expect(result, equals(99));
     });
 
-    test('await in list literal', () async {
+    test('await in list literal [2026-02-10 06:37]', () async {
       const code = '''
 Future<int> getFuture(int value) async {
   return value;
@@ -175,7 +175,7 @@ int main() async {
       expect(result, equals(3));
     });
 
-    test('await in map literal', () async {
+    test('await in map literal [2026-02-10 06:37]', () async {
       const code = '''
 Future<String> getStringFuture(String value) async {
   return value;

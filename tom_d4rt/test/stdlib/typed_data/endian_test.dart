@@ -21,7 +21,7 @@ void main() {
   }
 
   group('Endian Tests', () {
-    test('Access Endian static getters', () {
+    test('Access Endian static getters [2026-02-10 06:37]', () {
       final result = executeTestScript('''
         return {
           'big': Endian.big,
@@ -38,7 +38,7 @@ void main() {
       expect(result['isBigEndianHost'], Endian.host == Endian.big);
     });
 
-    test('Endian values are distinct', () {
+    test('Endian values are distinct [2026-02-10 06:37]', () {
       final result = executeTestScript('''
         var isBigDifferentFromLittle = Endian.big != Endian.little;
         var isHostDifferentFromBigOrLittle = (Endian.host == Endian.big && Endian.host != Endian.little) || 

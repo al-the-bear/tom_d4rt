@@ -58,41 +58,41 @@ void main() {
     });
 
     group('Simple Classes', () {
-      test('detects SimpleClass', () {
+      test('detects SimpleClass [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'SimpleClass'"));
         // Types are now prefixed with $pkg. since source imports use a prefix
         expect(generatedCode, contains(r'nativeType: $pkg.SimpleClass'));
       });
 
-      test('detects OptionalPositionalClass', () {
+      test('detects OptionalPositionalClass [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'OptionalPositionalClass'"));
       });
 
-      test('detects NamedParamsClass', () {
+      test('detects NamedParamsClass [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'NamedParamsClass'"));
       });
 
-      test('skips private classes', () {
+      test('skips private classes [2026-02-10 06:37]', () {
         expect(generatedCode, isNot(contains('_PrivateClass')));
       });
     });
 
     group('Constructors', () {
-      test('generates default constructor', () {
+      test('generates default constructor [2026-02-10 06:37]', () {
         // Default constructor has empty name
         expect(generatedCode, contains("'': (visitor, positional, named)"));
       });
 
-      test('generates named constructors', () {
+      test('generates named constructors [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'fromType'"));
         expect(generatedCode, contains("'empty'"));
       });
 
-      test('generates factory constructors', () {
+      test('generates factory constructors [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'create'"));
       });
 
-      test('generates constructor parameter extraction', () {
+      test('generates constructor parameter extraction [2026-02-10 06:37]', () {
         // Positional parameter extraction pattern
         expect(
           generatedCode,
@@ -100,11 +100,11 @@ void main() {
         );
       });
 
-      test('handles const constructors', () {
+      test('handles const constructors [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'ConstClass'"));
       });
 
-      test('GEN-042: generates constructor for implicit default constructor', () {
+      test('GEN-042: generates constructor for implicit default constructor [2026-02-10 06:37]', () {
         // ImplicitCtorClass has no explicit constructor declaration.
         // The generator should detect the synthetic default constructor
         // via ClassElement.unnamedConstructor.isSynthetic and emit a bridge.
@@ -116,7 +116,7 @@ void main() {
             reason: 'Should have an unnamed constructor bridge');
       });
 
-      test('GEN-042: generates constructor for methods-only class', () {
+      test('GEN-042: generates constructor for methods-only class [2026-02-10 06:37]', () {
         // CalculatorLike has only methods, no fields with initializers, no constructor.
         expect(generatedCode, contains("name: 'CalculatorLike'"));
         final calcSection = _extractClassSection(generatedCode, 'CalculatorLike');
@@ -127,21 +127,21 @@ void main() {
     });
 
     group('Getters and Setters', () {
-      test('generates getters map', () {
+      test('generates getters map [2026-02-10 06:37]', () {
         expect(generatedCode, contains('getters: {'));
       });
 
-      test('generates instance getters', () {
+      test('generates instance getters [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'name':"));
         expect(generatedCode, contains("'displayName':"));
         expect(generatedCode, contains("'isEmpty':"));
       });
 
-      test('generates setters map', () {
+      test('generates setters map [2026-02-10 06:37]', () {
         expect(generatedCode, contains('setters: {'));
       });
 
-      test('generates target validation for getters', () {
+      test('generates target validation for getters [2026-02-10 06:37]', () {
         // Types are prefixed with $pkg since source imports use that prefix
         expect(
           generatedCode,
@@ -151,28 +151,28 @@ void main() {
     });
 
     group('Methods', () {
-      test('generates methods map', () {
+      test('generates methods map [2026-02-10 06:37]', () {
         expect(generatedCode, contains('methods: {'));
       });
 
-      test('generates void methods', () {
+      test('generates void methods [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'reset':"));
       });
 
-      test('generates methods with return values', () {
+      test('generates methods with return values [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'increment':"));
         expect(generatedCode, contains("'format':"));
       });
 
-      test('generates methods with optional parameters', () {
+      test('generates methods with optional parameters [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'formatWithSuffix':"));
       });
 
-      test('generates methods with named parameters', () {
+      test('generates methods with named parameters [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'formatCustom':"));
       });
 
-      test('generates method target validation', () {
+      test('generates method target validation [2026-02-10 06:37]', () {
         // Types are prefixed with $pkg since source imports use that prefix
         expect(
           generatedCode,
@@ -182,48 +182,48 @@ void main() {
     });
 
     group('Inheritance', () {
-      test('detects base class', () {
+      test('detects base class [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'BaseEntity'"));
       });
 
-      test('detects derived class', () {
+      test('detects derived class [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'DerivedEntity'"));
       });
 
-      test('detects multi-level inheritance', () {
+      test('detects multi-level inheritance [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'SpecialEntity'"));
       });
 
-      test('inherited getters are included', () {
+      test('inherited getters are included [2026-02-10 06:37]', () {
         // DerivedEntity should have 'lastModified' from BaseEntity
         // Check that createDerivedEntityBridge includes inherited members
         expect(generatedCode, contains('_createDerivedEntityBridge'));
       });
 
-      test('inherited methods are included', () {
+      test('inherited methods are included [2026-02-10 06:37]', () {
         // DerivedEntity should have 'touch' from BaseEntity
         expect(generatedCode, contains("'touch':"));
       });
 
-      test('overridden methods use child implementation', () {
+      test('overridden methods use child implementation [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'describe':"));
       });
     });
 
     group('Static Members', () {
-      test('generates static getters', () {
+      test('generates static getters [2026-02-10 06:37]', () {
         expect(generatedCode, contains('staticGetters: {'));
       });
 
-      test('generates static methods', () {
+      test('generates static methods [2026-02-10 06:37]', () {
         expect(generatedCode, contains('staticMethods: {'));
       });
 
-      test('static getter has correct signature', () {
+      test('static getter has correct signature [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'instanceCount': (visitor)"));
       });
 
-      test('static method has correct signature', () {
+      test('static method has correct signature [2026-02-10 06:37]', () {
         expect(
           generatedCode,
           contains("'resetCount': (visitor, positional, named, typeArgs)"),
@@ -232,18 +232,18 @@ void main() {
     });
 
     group('Abstract Classes', () {
-      test('abstract classes without constructors may be skipped', () {
+      test('abstract classes without constructors may be skipped [2026-02-10 06:37]', () {
         // Pure abstract classes (no constructors) are typically skipped
         // since they cannot be instantiated from D4rt scripts.
         // The concrete implementation should still be bridged.
         expect(generatedCode, contains("name: 'SimpleProcessor'"));
       });
 
-      test('detects concrete implementation SimpleProcessor', () {
+      test('detects concrete implementation SimpleProcessor [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'SimpleProcessor'"));
       });
 
-      test('SimpleProcessor has its own methods bridged', () {
+      test('SimpleProcessor has its own methods bridged [2026-02-10 06:37]', () {
         // SimpleProcessor has isReady getter and process method
         expect(generatedCode, contains("'isReady':"));
         expect(generatedCode, contains("'process':"));
@@ -251,19 +251,19 @@ void main() {
     });
 
     group('Generic Classes', () {
-      test('detects Container<T>', () {
+      test('detects Container<T> [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'Container'"));
       });
 
-      test('detects NumberContainer<T extends num>', () {
+      test('detects NumberContainer<T extends num> [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'NumberContainer'"));
       });
 
-      test('detects Pair<K, V>', () {
+      test('detects Pair<K, V> [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'Pair'"));
       });
 
-      test('generic class methods are bridged', () {
+      test('generic class methods are bridged [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'hasValue':"));
         expect(generatedCode, contains("'clear':"));
         expect(generatedCode, contains("'swap':"));
@@ -271,11 +271,11 @@ void main() {
     });
 
     group('Special Cases', () {
-      test('singleton pattern factory constructor', () {
+      test('singleton pattern factory constructor [2026-02-10 06:37]', () {
         expect(generatedCode, contains("name: 'SingletonPattern'"));
       });
 
-      test('classes with id field', () {
+      test('classes with id field [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'id':"));
       });
     });
@@ -317,40 +317,40 @@ void main() {
       });
     });
 
-    test('generates module bridge class with correct name', () {
+    test('generates module bridge class with correct name [2026-02-10 06:37]', () {
       expect(generatedCode, contains('class TestModuleBridge {'));
     });
 
-    test('generates bridgeClasses method', () {
+    test('generates bridgeClasses method [2026-02-10 06:37]', () {
       expect(
         generatedCode,
         contains('static List<BridgedClass> bridgeClasses()'),
       );
     });
 
-    test('generates registerBridges method', () {
+    test('generates registerBridges method [2026-02-10 06:37]', () {
       expect(
         generatedCode,
         contains('static void registerBridges(D4rt interpreter, String importPath)'),
       );
     });
 
-    test('generates getImportBlock method', () {
+    test('generates getImportBlock method [2026-02-10 06:37]', () {
       expect(generatedCode, contains('static String getImportBlock()'));
     });
 
-    test('includes header comment', () {
+    test('includes header comment [2026-02-10 06:37]', () {
       expect(
         generatedCode,
         contains('// D4rt Bridge - Generated file, do not edit'),
       );
     });
 
-    test('includes generation timestamp', () {
+    test('includes generation timestamp [2026-02-10 06:37]', () {
       expect(generatedCode, contains('// Generated:'));
     });
 
-    test('imports tom_d4rt package', () {
+    test('imports tom_d4rt package [2026-02-10 06:37]', () {
       expect(
         generatedCode,
         contains("import 'package:tom_d4rt/d4rt.dart'"),
@@ -393,28 +393,28 @@ void main() {
       });
     });
 
-    test('generic class Container<T> is bridged', () {
+    test('generic class Container<T> is bridged [2026-02-10 06:37]', () {
       expect(generatedCode, contains("name: 'Container'"));
       // Types are now prefixed with $pkg. since source imports use a prefix
       expect(generatedCode, contains(r'nativeType: $pkg.Container'));
     });
 
-    test('bounded generic NumberContainer<T extends num> is bridged', () {
+    test('bounded generic NumberContainer<T extends num> is bridged [2026-02-10 06:37]', () {
       expect(generatedCode, contains("name: 'NumberContainer'"));
     });
 
-    test('multi-param generic Pair<K, V> is bridged', () {
+    test('multi-param generic Pair<K, V> is bridged [2026-02-10 06:37]', () {
       expect(generatedCode, contains("name: 'Pair'"));
     });
 
-    test('inheritance is reflected in generated bridges', () {
+    test('inheritance is reflected in generated bridges [2026-02-10 06:37]', () {
       // DerivedEntity extends BaseEntity - both should be bridged
       expect(generatedCode, contains("name: 'BaseEntity'"));
       expect(generatedCode, contains("name: 'DerivedEntity'"));
       expect(generatedCode, contains("name: 'SpecialEntity'"));
     });
 
-    test('concrete implementation SimpleProcessor is bridged', () {
+    test('concrete implementation SimpleProcessor is bridged [2026-02-10 06:37]', () {
       // Pure abstract classes may not be bridged, but implementations should be
       expect(generatedCode, contains("name: 'SimpleProcessor'"));
     });

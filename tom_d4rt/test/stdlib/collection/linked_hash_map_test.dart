@@ -5,7 +5,7 @@ void main() {
   final d4rt = D4rt();
 
   group('LinkedHashMap Tests', () {
-    test('LinkedHashMap() constructor and basic properties', () {
+    test('LinkedHashMap() constructor and basic properties [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -22,7 +22,7 @@ void main() {
       expect(result[4], []);
     });
 
-    test('LinkedHashMap.from() constructor and insertion order', () {
+    test('LinkedHashMap.from() constructor and insertion order [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -43,7 +43,7 @@ void main() {
       expect((result[3] as List).last, 'd');
     });
 
-    test('LinkedHashMap.of() constructor', () {
+    test('LinkedHashMap.of() constructor [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -61,7 +61,7 @@ void main() {
       expect(result[2], orderedEquals([10, 20, 30, 40]));
     });
 
-    test('LinkedHashMap.identity() constructor', () {
+    test('LinkedHashMap.identity() constructor [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -76,7 +76,7 @@ void main() {
       expect(result, 2);
     });
 
-    test('[] and []= operators, insertion order preserved', () {
+    test('[] and []= operators, insertion order preserved [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -96,7 +96,7 @@ void main() {
       expect(result[3], 3);
     });
 
-    test('addAll(), clear(), isEmpty, isNotEmpty', () {
+    test('addAll(), clear(), isEmpty, isNotEmpty [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -132,7 +132,7 @@ void main() {
       expect(result[9], false);
     });
 
-    test('containsKey(), containsValue()', () {
+    test('containsKey(), containsValue() [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -151,7 +151,7 @@ void main() {
       expect(result[3], false); // containsValue v3
     });
 
-    test('remove() and insertion order', () {
+    test('remove() and insertion order [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -173,7 +173,7 @@ void main() {
       expect(result[3], 2);
     });
 
-    test('forEach() and entries', () {
+    test('forEach() and entries [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -202,7 +202,7 @@ void main() {
       expect(result[3], orderedEquals([1, 2, 3]));
     });
 
-    test('putIfAbsent()', () {
+    test('putIfAbsent() [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';

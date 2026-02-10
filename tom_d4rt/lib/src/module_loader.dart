@@ -38,6 +38,7 @@ class ModuleLoader {
   final List<Map<String, LibraryFunction>> libraryFunctions;
   final List<Map<String, LibraryVariable>> libraryVariables;
   final List<Map<String, LibraryGetter>> libraryGetters;
+  final List<Map<String, LibrarySetter>> librarySetters;
   final List<Map<String, LibraryExtension>> bridgedExtensions;
   
   // Track which globals have been registered and from which source library
@@ -45,6 +46,7 @@ class ModuleLoader {
   final Map<String, String> _registeredFunctions = {};
   final Map<String, String> _registeredVariables = {};
   final Map<String, String> _registeredGetters = {};
+  final Map<String, String> _registeredSetters = {};
   // Track registered classes and enums by sourceUri for deduplication
   final Map<String, String> _registeredClasses = {};
   final Map<String, String> _registeredEnums = {};
@@ -69,6 +71,7 @@ class ModuleLoader {
       this.libraryFunctions = const [],
       this.libraryVariables = const [],
       this.libraryGetters = const [],
+      this.librarySetters = const [],
       this.bridgedExtensions = const [],
       this.collectRegistrationErrors = false}) {
     Logger.debug(
@@ -418,7 +421,7 @@ class ModuleLoader {
     // Check if this URI has any bridged types or library-scoped globals registered
     final hasBridgedContent = bridgedClases.isNotEmpty || bridgedEnumDefinitions.isNotEmpty ||
         libraryFunctions.isNotEmpty || libraryVariables.isNotEmpty || libraryGetters.isNotEmpty ||
-        bridgedExtensions.isNotEmpty;
+        librarySetters.isNotEmpty || bridgedExtensions.isNotEmpty;
     
     if (hasBridgedContent) {
       // Track if this specific URI has any content registered
@@ -658,6 +661,73 @@ class ModuleLoader {
             Logger.error("registering library getter '$getterName': $e");
             registrationErrors
                 .add("Failed to register getter '$getterName': $e");
+          }
+        }
+      }
+
+      // Register library-scoped setters for this import
+      // Setters update existing GlobalGetters to include setter support
+      for (var entry in librarySetters) {
+        if (entry.containsKey(uriString)) {
+          hasContentForUri = true;
+          final libSetter = entry[uriString]!;
+          final setterName = libSetter.name;
+          
+          // Check show/hide filters first
+          if (!_shouldRegisterName(setterName, showNames: showNames, hideNames: hideNames)) {
+            Logger.debug(
+                " [execute] Skipping setter '$setterName' due to show/hide filter");
+            continue;
+          }
+          
+          // Use sourceUri for deduplication if available, otherwise fall back to import URI
+          final sourceUri = libSetter.sourceUri ?? uriString;
+          
+          // Check for duplicate registration
+          if (_registeredSetters.containsKey(setterName)) {
+            final existingSourceUri = _registeredSetters[setterName]!;
+            if (existingSourceUri == sourceUri) {
+              // Same setter from same canonical source - silently skip (re-export case)
+              Logger.debug(
+                  " [execute] Skipping duplicate setter '$setterName' from same source: $sourceUri");
+              continue;
+            } else {
+              // Different source - this is an actual duplicate, error
+              registrationErrors.add(
+                  "Duplicate setter '$setterName' exists from source '$existingSourceUri' and source '$sourceUri'. "
+                  "Use import show/hide clauses to resolve the conflict.");
+              continue;
+            }
+          }
+          
+          try {
+            // Find the corresponding getter and update it to include the setter
+            final existingValue = globalEnvironment.getRawValueIfDefined(setterName);
+            if (existingValue is GlobalGetter) {
+              // Replace GlobalGetter with one that includes the setter
+              globalEnvironment.define(setterName, GlobalGetter(
+                existingValue.getter,
+                setter: libSetter.setter,
+              ));
+              Logger.debug(
+                  " [execute] Added setter to existing getter: $setterName from $sourceUri");
+            } else {
+              // No getter yet - create a GlobalGetter that only has a setter
+              // This allows assignment to work, but reading will return null
+              Logger.warn(
+                  " [execute] Setter '$setterName' registered without corresponding getter");
+              globalEnvironment.define(setterName, GlobalGetter(
+                () => null, // No getter - reading returns null
+                setter: libSetter.setter,
+              ));
+            }
+            _registeredSetters[setterName] = sourceUri;
+            Logger.debug(
+                " [execute] Registered library setter: $setterName from $sourceUri");
+          } catch (e) {
+            Logger.error("registering library setter '$setterName': $e");
+            registrationErrors
+                .add("Failed to register setter '$setterName': $e");
           }
         }
       }

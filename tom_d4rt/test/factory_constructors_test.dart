@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'interpreter_test.dart';
 
 void main() {
-  test('Factory constructors should work correctly', () {
+  test('Factory constructors should work correctly [2026-02-10 06:37]', () {
     final source = '''
       class User {
         final String name;
@@ -29,7 +29,7 @@ void main() {
     expect(result, equals('John Doe'));
   });
 
-  test('Factory constructor with multiple parameters', () {
+  test('Factory constructor with multiple parameters [2026-02-10 06:37]', () {
     final source = '''
       class Person {
         final String firstName;
@@ -53,7 +53,7 @@ void main() {
     expect(result, equals('Jane Smith is 25 years old'));
   });
 
-  test('Factory constructor with validation', () {
+  test('Factory constructor with validation [2026-02-10 06:37]', () {
     final source = '''
       class Email {
         final String value;

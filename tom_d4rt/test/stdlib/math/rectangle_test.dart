@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('RectangleCore tests', () {
-    test('Rectangle properties', () {
+    test('Rectangle properties [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -14,7 +14,7 @@ void main() {
       expect(execute(source), equals([0, 0, 10, 20, 10, 20]));
     });
 
-    test('Rectangle containsPoint', () {
+    test('Rectangle containsPoint [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -25,7 +25,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('Rectangle containsRectangle', () {
+    test('Rectangle containsRectangle [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -38,7 +38,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('Rectangle intersects', () {
+    test('Rectangle intersects [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -51,7 +51,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('Rectangle intersection', () {
+    test('Rectangle intersection [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -74,7 +74,7 @@ void main() {
           ]));
     });
 
-    test('Rectangle toString', () {
+    test('Rectangle toString [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -85,7 +85,7 @@ void main() {
       expect(execute(source), equals('Rectangle (0, 0) 10 x 20'));
     });
 
-    test('Rectangle equality and hashCode', () {
+    test('Rectangle equality and hashCode [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:math';
       main() {

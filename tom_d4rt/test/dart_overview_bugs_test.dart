@@ -67,7 +67,7 @@ void main() {
 
   group('Open Bugs - Pending (SHOULD FAIL)', () {
     // Bug-79: Switch expression not exhaustive for sealed subclass with object pattern
-    test('Bug-79: Switch expression should match sealed subclass with object pattern', () {
+    test('Bug-79: Switch expression should match sealed subclass with object pattern [2026-02-10 06:37]', () {
       final result = execute('''
 sealed class Shape {}
 class Circle extends Shape {
@@ -96,7 +96,7 @@ double main() {
     });
 
     // Bug-80: Cascade on property access fails (..members.add)
-    test('Bug-80: Cascade should work on property access (..members.add)', () {
+    test('Bug-80: Cascade should work on property access (..members.add) [2026-02-10 06:37]', () {
       final result = execute('''
 class Team {
   String name = '';
@@ -116,7 +116,7 @@ List<String> main() {
 
     // Bug-81: LogicalAndPatternImpl - when guards with object patterns
     // The AST represents "pattern when condition" as LogicalAndPatternImpl
-    test('Bug-81: Pattern with when guard should work (LogicalAndPatternImpl)', () {
+    test('Bug-81: Pattern with when guard should work (LogicalAndPatternImpl) [2026-02-10 06:37]', () {
       final result = execute('''
 class Person {
   final String name;
@@ -136,7 +136,7 @@ String main() {
     });
 
     // Bug-82: Function.call method not found on InterpretedFunction
-    test('Bug-82: Function.call() should work on interpreted functions', () {
+    test('Bug-82: Function.call() should work on interpreted functions [2026-02-10 06:37]', () {
       final result = execute('''
 int main() {
   var fn = (int x) => x * 2;
@@ -147,7 +147,7 @@ int main() {
     });
 
     // Bug-83: Nullable function?.call() fails
-    test('Bug-83: Nullable function?.call() should work', () {
+    test('Bug-83: Nullable function?.call() should work [2026-02-10 06:37]', () {
       final result = execute('''
 String main() {
   void Function()? onClick;
@@ -161,7 +161,7 @@ String main() {
     });
 
     // Bug-84: Mixin abstract method satisfaction false positive
-    test('Bug-84: Mixin should satisfy abstract method from superclass', () {
+    test('Bug-84: Mixin should satisfy abstract method from superclass [2026-02-10 06:37]', () {
       final result = execute('''
 abstract class Movable {
   void move();
@@ -184,7 +184,7 @@ String main() {
     });
 
     // Bug-85: Cannot extend abstract final class in same library
-    test('Bug-85: Should extend abstract final class in same library', () {
+    test('Bug-85: Should extend abstract final class in same library [2026-02-10 06:37]', () {
       final result = execute('''
 abstract final class AbstractFinalClass {
   void doSomething();
@@ -205,7 +205,7 @@ String main() {
     });
 
     // Bug-86: runtimeType not accessible via PrefixedIdentifier
-    test('Bug-86: runtimeType should be accessible in string interpolation', () {
+    test('Bug-86: runtimeType should be accessible in string interpolation [2026-02-10 06:37]', () {
       final result = execute('''
 class Wrapper<T> {
   final T value;
@@ -221,7 +221,7 @@ String main() {
     });
 
     // Bug-87: Map for-in comprehension fails with MapLiteralEntry error
-    test('Bug-87: Map for-in comprehension should work', () {
+    test('Bug-87: Map for-in comprehension should work [2026-02-10 06:37]', () {
       final result = execute('''
 Map<int, String> main() {
   var items = ['a', 'b', 'c'];
@@ -232,7 +232,7 @@ Map<int, String> main() {
     });
 
     // Bug-88: Record pattern with :name shorthand - name lexeme is null
-    test('Bug-88: Record pattern with :name shorthand should work', () {
+    test('Bug-88: Record pattern with :name shorthand should work [2026-02-10 06:37]', () {
       final result = execute('''
 String main() {
   var (:name, :age) = (name: 'Charlie', age: 35);
@@ -243,7 +243,7 @@ String main() {
     });
 
     // Bug-89: Enum.values.byName (List.byName) not bridged
-    test('Bug-89: Enum.values.byName should find enum value', () {
+    test('Bug-89: Enum.values.byName should find enum value [2026-02-10 06:37]', () {
       final result = execute('''
 enum Color { red, green, blue }
 
@@ -256,7 +256,7 @@ String main() {
     });
 
     // Bug-90: Mixin on constraint abstract getter false positive
-    test('Bug-90: Mixin on constraint with getter should not require impl', () {
+    test('Bug-90: Mixin on constraint with getter should not require impl [2026-02-10 06:37]', () {
       final result = execute('''
 abstract class Named {
   String get name;
@@ -282,7 +282,7 @@ String main() {
 
     // Bug-91: Extensions on bridged types from imported file fails
     // Extension defined in same file works, but imported extension fails
-    test('Bug-91: Imported extensions on bridged types should work', () {
+    test('Bug-91: Imported extensions on bridged types should work [2026-02-10 06:37]', () {
       final result = executeMulti({
         'package:test/main.dart': '''
 import 'package:test/extensions.dart';
@@ -306,7 +306,7 @@ extension StringExtension on String {
 
     // Bug-92: await on Future factory constructor with callback
     // Future(() => ...) returns BridgedInstance<Object> instead of Future
-    test('Bug-92: await on Future factory constructor should work', () async {
+    test('Bug-92: await on Future factory constructor should work [2026-02-10 06:37]', () async {
       final result = await executeAsync('''
 Future<String> main() async {
   var computed = Future(() {
@@ -320,7 +320,7 @@ Future<String> main() async {
 
     // Bug-93: int not auto-promoted to double in return type
     // In Dart, int values are implicitly promoted to double when the return type is double
-    test('Bug-93: Int should be implicitly promoted to double return type', () {
+    test('Bug-93: Int should be implicitly promoted to double return type [2026-02-10 06:37]', () {
       final result = execute('''
 double foo(int x) {
   return x;
@@ -334,7 +334,7 @@ double main() {
 
     // Bug-94: Cascade index assignment on property fails
     // ..headers['Content-Type'] = 'application/json' should work
-    test('Bug-94: Cascade index assignment on property should work', () {
+    test('Bug-94: Cascade index assignment on property should work [2026-02-10 06:37]', () {
       final result = execute('''
 class Request {
   String url = '';
@@ -354,7 +354,7 @@ Map<String, String> main() {
 
     // Bug-95: List.forEach with native function tear-off fails
     // list.forEach(print) passes a native function reference that isn't InterpretedFunction
-    test('Bug-95: List.forEach with native function tear-off should work', () {
+    test('Bug-95: List.forEach with native function tear-off should work [2026-02-10 06:37]', () {
       expect(
         () => execute('''
 void main() {
@@ -368,7 +368,7 @@ void main() {
 
     // Bug-96: super.name constructor parameter forwarding fails
     // Child(super.name) should forward the argument to Parent(this.name)
-    test('Bug-96: super.name constructor parameter forwarding should work', () {
+    test('Bug-96: super.name constructor parameter forwarding should work [2026-02-10 06:37]', () {
       final result = execute('''
 class Parent {
   final String name;
@@ -388,7 +388,7 @@ String main() {
 
     // Bug-97: num not recognized as satisfying Comparable bound
     // num implements Comparable<num> in Dart, but D4rt rejects it
-    test('Bug-97: num should satisfy Comparable type bound', () {
+    test('Bug-97: num should satisfy Comparable type bound [2026-02-10 06:37]', () {
       final result = execute('''
 class Box<T extends Comparable<dynamic>> {
   T value;
@@ -405,7 +405,7 @@ int main() {
 
     // Bug-98: Extension getter on bridged List<int> not resolved
     // Extension methods defined on List<int> should work on native List instances
-    test('Bug-98: Extension getter on bridged List should work', () {
+    test('Bug-98: Extension getter on bridged List should work [2026-02-10 06:37]', () {
       final result = execute('''
 extension IntListExt on List<int> {
   int get sum => fold(0, (a, b) => a + b);
@@ -422,7 +422,7 @@ double main() {
 
     // Bug-99: Stream.handleError callback receives wrong number of arguments
     // handleError passes too many args to the error handler function
-    test('Bug-99: Stream handleError callback should receive correct args', () async {
+    test('Bug-99: Stream handleError callback should receive correct args [2026-02-10 06:37]', () async {
       final result = await executeAsync('''
 import 'dart:async';
 

@@ -12,7 +12,7 @@ dynamic execute(String source, {List<Object?>? args}) {
 
 void main() {
   group('Async Constructor Patterns', () {
-    test('Static async factory method pattern', () async {
+    test('Static async factory method pattern [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:async';
         
@@ -37,7 +37,7 @@ void main() {
       expect(result, equals("async-initialized"));
     });
 
-    test('Async service initialization pattern', () async {
+    test('Async service initialization pattern [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:async';
         
@@ -67,7 +67,7 @@ void main() {
       expect(result, equals(["config-for-production", true]));
     });
 
-    test('Database connection async creation pattern', () async {
+    test('Database connection async creation pattern [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:async';
         
@@ -108,7 +108,7 @@ void main() {
           equals(["localhost:5432", true, "validated-remote-validated"]));
     });
 
-    test('Factory constructor with complex async initialization', () async {
+    test('Factory constructor with complex async initialization [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:async';
         
@@ -170,7 +170,7 @@ void main() {
       expect(resultMap["modules"], equals(["auth", "database", "cache"]));
     });
 
-    test('Stream-based async constructor pattern', () async {
+    test('Stream-based async constructor pattern [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:async';
         
@@ -207,7 +207,7 @@ void main() {
           ]));
     });
 
-    test('Stream subscription async constructor pattern', () async {
+    test('Stream subscription async constructor pattern [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:async';
         
@@ -243,7 +243,7 @@ void main() {
           ]));
     });
 
-    test('Stream transformation async constructor pattern', () async {
+    test('Stream transformation async constructor pattern [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:async';
         
@@ -286,7 +286,7 @@ void main() {
           ]));
     });
 
-    test('Complex stream async constructor with error handling', () async {
+    test('Complex stream async constructor with error handling [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:async';
         
@@ -352,7 +352,7 @@ void main() {
           ]));
     });
 
-    test('Stream controller async constructor pattern', () async {
+    test('Stream controller async constructor pattern [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:async';
         
@@ -395,7 +395,7 @@ void main() {
       expect(result, equals(["initial1", "initial2", "added1"]));
     });
 
-    test('Stream subscription management async constructor pattern', () async {
+    test('Stream subscription management async constructor pattern [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:async';
         
@@ -453,7 +453,7 @@ void main() {
           ]));
     });
 
-    test('Stream periodic constructor pattern', () async {
+    test('Stream periodic constructor pattern [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:async';
         
@@ -492,7 +492,7 @@ void main() {
           ]));
     });
 
-    test('Stream broadcast async constructor pattern', () async {
+    test('Stream broadcast async constructor pattern [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:async';
         
@@ -541,7 +541,7 @@ void main() {
           ]));
     });
 
-    test('Stream from Future async constructor pattern', () async {
+    test('Stream from Future async constructor pattern [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:async';
         
@@ -576,7 +576,7 @@ void main() {
       expect(result, equals([3, "Collected 3 results"]));
     });
 
-    test('Async generator (async*) constructor pattern', () async {
+    test('Async generator (async*) constructor pattern [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:async';
         
@@ -615,7 +615,7 @@ void main() {
           ]));
     });
 
-    test('Sync generator (sync*) constructor pattern', () async {
+    test('Sync generator (sync*) constructor pattern [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:async';
         
@@ -655,7 +655,7 @@ void main() {
           ]));
     });
 
-    test('Generator with yield* constructor pattern', () async {
+    test('Generator with yield* constructor pattern [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:async';
         
@@ -707,7 +707,7 @@ void main() {
           ]));
     });
 
-    test('Await for loop with stream processing pattern', () async {
+    test('Await for loop with stream processing pattern [2026-02-10 06:37]', () async {
       final code = '''
         import 'dart:async';
         

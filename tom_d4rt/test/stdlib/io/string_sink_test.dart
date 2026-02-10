@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('StringSink methods - comprehensive', () {
-    test('StringSink write method with StringBuffer', () {
+    test('StringSink write method with StringBuffer [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:core';
      main() {
@@ -18,7 +18,7 @@ void main() {
       expect(result, equals('Hello World'));
     });
 
-    test('StringSink writeln method with StringBuffer', () {
+    test('StringSink writeln method with StringBuffer [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:core';
      main() {
@@ -33,7 +33,7 @@ void main() {
       expect(result, equals('Line 1\nLine 2\nLine 3'));
     });
 
-    test('StringSink writeln with no arguments', () {
+    test('StringSink writeln with no arguments [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:core';
      main() {
@@ -48,7 +48,7 @@ void main() {
       expect(result, equals('Before\nAfter'));
     });
 
-    test('StringSink writeAll method with list', () {
+    test('StringSink writeAll method with list [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:core';
      main() {
@@ -62,7 +62,7 @@ void main() {
       expect(result, equals('ABCD'));
     });
 
-    test('StringSink writeAll method with separator', () {
+    test('StringSink writeAll method with separator [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:core';
      main() {
@@ -76,7 +76,7 @@ void main() {
       expect(result, equals('Apple, Banana, Cherry'));
     });
 
-    test('StringSink writeCharCode method', () {
+    test('StringSink writeCharCode method [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:core';
      main() {
@@ -93,7 +93,7 @@ void main() {
       expect(result, equals('Hello'));
     });
 
-    test('StringSink write with different data types', () {
+    test('StringSink write with different data types [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:core';
      main() {
@@ -112,7 +112,7 @@ void main() {
       expect(result, equals('42 3.14 true null'));
     });
 
-    test('StringSink writeAll with mixed types', () {
+    test('StringSink writeAll with mixed types [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:core';
      main() {
@@ -126,7 +126,7 @@ void main() {
       expect(result, equals('1|2.5|text|true|null'));
     });
 
-    test('StringSink complex usage with multiple operations', () {
+    test('StringSink complex usage with multiple operations [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:core';
      main() {
@@ -165,7 +165,7 @@ void main() {
       expect(result, equals(expected));
     });
 
-    test('StringSink isEmpty and isNotEmpty properties', () {
+    test('StringSink isEmpty and isNotEmpty properties [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:core';
      main() {
@@ -184,7 +184,7 @@ void main() {
       expect(result, equals([true, false, false, true]));
     });
 
-    test('StringSink length property', () {
+    test('StringSink length property [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:core';
      main() {
@@ -204,7 +204,7 @@ void main() {
       expect(result, equals([0, 5, 11]));
     });
 
-    test('StringSink clear method', () {
+    test('StringSink clear method [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:core';
      main() {

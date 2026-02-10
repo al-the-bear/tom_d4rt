@@ -5,7 +5,7 @@ void main() {
   final d4rt = D4rt();
 
   group('ListQueue Tests', () {
-    test('ListQueue() constructor and basic properties', () {
+    test('ListQueue() constructor and basic properties [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -20,7 +20,7 @@ void main() {
       expect(result[2], false);
     });
 
-    test('ListQueue(initialCapacity) constructor', () {
+    test('ListQueue(initialCapacity) constructor [2026-02-10 06:37]', () {
       // Note: Testing initialCapacity is tricky without exposing internal details.
       // We mainly test that it doesn't crash and basic operations work.
       final result = d4rt.execute(
@@ -37,7 +37,7 @@ void main() {
       expect(result[1], 1);
     });
 
-    test('ListQueue.from() constructor', () {
+    test('ListQueue.from() constructor [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -54,7 +54,7 @@ void main() {
       expect(result[3], orderedEquals([1, 2, 3]), reason: "toList from list");
     });
 
-    test('add, addFirst, addLast, length, first, last', () {
+    test('add, addFirst, addLast, length, first, last [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -90,7 +90,7 @@ void main() {
       expect(result[9], orderedEquals([5, 10, 20]), reason: "toList check");
     });
 
-    test('removeFirst, removeLast', () {
+    test('removeFirst, removeLast [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -119,7 +119,7 @@ void main() {
       expect(result[8], orderedEquals([]), reason: "toList empty");
     });
 
-    test('removeFirst/removeLast on empty queue throws error', () {
+    test('removeFirst/removeLast on empty queue throws error [2026-02-10 06:37]', () {
       expect(
         () => d4rt.execute(source: '''
           import 'dart:collection';
@@ -144,7 +144,7 @@ void main() {
       );
     });
 
-    test('clear() and isEmpty', () {
+    test('clear() and isEmpty [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -161,7 +161,7 @@ void main() {
       expect(result[2], true, reason: "isEmpty after clear");
     });
 
-    test('remove() specific element', () {
+    test('remove() specific element [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -182,7 +182,7 @@ void main() {
       expect(result[4], 3, reason: "length after removes");
     });
 
-    test('addAll()', () {
+    test('addAll() [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -196,7 +196,7 @@ void main() {
       expect(result, orderedEquals([1, 2, 3, 4, 5]));
     });
 
-    test('forEach() and iterator', () {
+    test('forEach() and iterator [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -220,7 +220,7 @@ void main() {
           reason: "iteratorElements");
     });
 
-    test('single getter', () {
+    test('single getter [2026-02-10 06:37]', () {
       d4rt.execute(source: '''
           import 'dart:collection';
           main() {
@@ -247,7 +247,7 @@ void main() {
           reason: "single on multi-element queue");
     });
 
-    test('toList() growable', () {
+    test('toList() growable [2026-02-10 06:37]', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';

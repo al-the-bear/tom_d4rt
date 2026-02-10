@@ -243,7 +243,7 @@ void main() {
     });
 
     group('arithmetic operators', () {
-      test('operator + on bridged class', () {
+      test('operator + on bridged class [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/vector.dart';
           
@@ -258,7 +258,7 @@ void main() {
         expect(result, equals([4.0, 6.0]));
       });
 
-      test('operator - on bridged class', () {
+      test('operator - on bridged class [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/vector.dart';
           
@@ -273,7 +273,7 @@ void main() {
         expect(result, equals([3.0, 4.0]));
       });
 
-      test('operator * on bridged class', () {
+      test('operator * on bridged class [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/vector.dart';
           
@@ -287,7 +287,7 @@ void main() {
         expect(result, equals([4.0, 6.0]));
       });
 
-      test('operator / on bridged class', () {
+      test('operator / on bridged class [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/vector.dart';
           
@@ -301,7 +301,7 @@ void main() {
         expect(result, equals([3.0, 4.0]));
       });
 
-      test('chained operators', () {
+      test('chained operators [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/vector.dart';
           
@@ -319,7 +319,7 @@ void main() {
     });
 
     group('unary operators', () {
-      test('unary minus operator on bridged class', () {
+      test('unary minus operator on bridged class [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/vector.dart';
           
@@ -333,7 +333,7 @@ void main() {
         expect(result, equals([-3.0, -4.0]));
       });
 
-      test('bitwise not operator on bridged class', () {
+      test('bitwise not operator on bridged class [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/bitmask.dart';
           
@@ -347,7 +347,7 @@ void main() {
         expect(result, equals(-1));
       });
 
-      test('unary minus with expression', () {
+      test('unary minus with expression [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/vector.dart';
           
@@ -365,7 +365,7 @@ void main() {
     });
 
     group('index operator', () {
-      test('operator [] on bridged class', () {
+      test('operator [] on bridged class [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/vector.dart';
           
@@ -380,7 +380,7 @@ void main() {
     });
 
     group('bitwise operators', () {
-      test('operator & on bridged class', () {
+      test('operator & on bridged class [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/bitmask.dart';
           
@@ -395,7 +395,7 @@ void main() {
         expect(result, equals(0xF0));
       });
 
-      test('operator | on bridged class', () {
+      test('operator | on bridged class [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/bitmask.dart';
           
@@ -410,7 +410,7 @@ void main() {
         expect(result, equals(0xFF));
       });
 
-      test('operator ^ on bridged class', () {
+      test('operator ^ on bridged class [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/bitmask.dart';
           
@@ -425,7 +425,7 @@ void main() {
         expect(result, equals(0xF0));
       });
 
-      test('operator << on bridged class', () {
+      test('operator << on bridged class [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/bitmask.dart';
           
@@ -439,7 +439,7 @@ void main() {
         expect(result, equals(16));
       });
 
-      test('operator >> on bridged class', () {
+      test('operator >> on bridged class [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/bitmask.dart';
           
@@ -455,7 +455,7 @@ void main() {
     });
 
     group('comparison operators', () {
-      test('operator < on bridged class', () {
+      test('operator < on bridged class [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/comparable.dart';
           
@@ -469,7 +469,7 @@ void main() {
         expect(result, equals(true));
       });
 
-      test('operator > on bridged class', () {
+      test('operator > on bridged class [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/comparable.dart';
           
@@ -483,7 +483,7 @@ void main() {
         expect(result, equals(true));
       });
 
-      test('operator <= on bridged class', () {
+      test('operator <= on bridged class [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/comparable.dart';
           
@@ -498,7 +498,7 @@ void main() {
         expect(result, equals([true, true]));
       });
 
-      test('operator >= on bridged class', () {
+      test('operator >= on bridged class [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/comparable.dart';
           
@@ -513,7 +513,7 @@ void main() {
         expect(result, equals([true, true]));
       });
 
-      test('operator == on bridged class', () {
+      test('operator == on bridged class [2026-02-10 06:37]', () {
         final result = interpreter.execute(source: '''
           import 'package:test/comparable.dart';
           

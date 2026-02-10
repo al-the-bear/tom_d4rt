@@ -38,7 +38,7 @@ void main() {
     // GEN-028: CLI didn't pass export filtering params to generator
     // -----------------------------------------------------------------------
     group('GEN-028: export filtering params passed to generator', () {
-      test('excludeSourcePatterns filters source files correctly', () async {
+      test('excludeSourcePatterns filters source files correctly [2026-02-10 06:37]', () async {
         final result = await runGenerationTest(
           issueId: 'GEN-028',
           sourceFiles: {
@@ -73,7 +73,7 @@ export 'src/internal_helper.dart';
                 'InternalHelper should be excluded by excludeSourcePatterns');
       });
 
-      test('excludeClasses filters classes correctly', () async {
+      test('excludeClasses filters classes correctly [2026-02-10 06:37]', () async {
         final result = await runGenerationTest(
           issueId: 'GEN-028',
           sourceFiles: {
@@ -110,7 +110,7 @@ class AnotherIncluded {
     // GEN-029: CLI path missing export info filtering for globals
     // -----------------------------------------------------------------------
     group('GEN-029: global export filtering', () {
-      test('global functions are generated when exported', () async {
+      test('global functions are generated when exported [2026-02-10 06:37]', () async {
         final result = await runGenerationTest(
           issueId: 'GEN-029',
           sourceFiles: {
@@ -137,7 +137,7 @@ int addNumbers(int a, int b) => a + b;
     // GEN-030: Multi-barrel modules only registered under primary barrel
     // -----------------------------------------------------------------------
     group('GEN-030: multi-barrel registration', () {
-      test('generated bridge contains sourceUri for deduplication', () async {
+      test('generated bridge contains sourceUri for deduplication [2026-02-10 06:37]', () async {
         final result = await runGenerationTest(
           issueId: 'GEN-030',
           sourceFiles: {
@@ -173,7 +173,7 @@ class SharedClass {
     // GEN-001: Generic methods lose type parameters (type erasure)
     // -----------------------------------------------------------------------
     group('GEN-001: generic type erasure', () {
-      test('generic method type parameter is erased to dynamic', () async {
+      test('generic method type parameter is erased to dynamic [2026-02-10 06:37]', () async {
         final result = await runGenerationTest(
           issueId: 'GEN-001',
           sourceFiles: {
@@ -210,7 +210,7 @@ class TypedProcessor {
     // GEN-003: Complex default values cannot be represented
     // -----------------------------------------------------------------------
     group('GEN-003: complex default values', () {
-      test('non-wrappable defaults use combinatorial dispatch', () async {
+      test('non-wrappable defaults use combinatorial dispatch [2026-02-10 06:37]', () async {
         final result = await runGenerationTest(
           issueId: 'GEN-003',
           sourceFiles: {
@@ -254,7 +254,7 @@ class ConfigManager {
     // GEN-004: Combinatorial dispatch capped at 4 non-wrappable params
     // -----------------------------------------------------------------------
     group('GEN-004: combinatorial dispatch cap', () {
-      test('3 non-wrappable defaults generate combinatorial dispatch',
+      test('3 non-wrappable defaults generate combinatorial dispatch [2026-02-10 06:37]',
           () async {
         final result = await runGenerationTest(
           issueId: 'GEN-004',
@@ -296,7 +296,7 @@ class MultiDefault {
     // In a well-configured test environment, the resolved path is always used.
     // We verify the resolved path works correctly as the baseline.
     group('GEN-006: syntactic fallback', () {
-      test('resolved path produces typed parameters (not dynamic)', () async {
+      test('resolved path produces typed parameters (not dynamic) [2026-02-10 06:37]', () async {
         final result = await runGenerationTest(
           issueId: 'GEN-006',
           sourceFiles: {
@@ -336,7 +336,7 @@ class Server {
     // Same caveat as GEN-006 — this only affects the syntactic fallback path.
     // The resolved path handles this.x correctly.
     group('GEN-014: this.x parameter types', () {
-      test('resolved path correctly types this.x parameters', () async {
+      test('resolved path correctly types this.x parameters [2026-02-10 06:37]', () async {
         final result = await runGenerationTest(
           issueId: 'GEN-014',
           sourceFiles: {
@@ -382,7 +382,7 @@ class UserProfile {
     //        configurable via `recursiveBoundTypes` in buildkit.yaml
     // -----------------------------------------------------------------------
     group('GEN-002: recursive type bound dispatch', () {
-      test('dispatches to num, String, DateTime, Duration, BigInt for Comparable<T>', () async {
+      test('dispatches to num, String, DateTime, Duration, BigInt for Comparable<T> [2026-02-10 06:37]', () async {
         // NOTE: Recursive bound dispatch only works for GLOBAL functions,
         // not class methods. Class methods get type erasure (GEN-001).
         final result = await runGenerationTest(
@@ -419,7 +419,7 @@ T findMax<T extends Comparable<T>>(List<T> items) {
     // GEN-005: Function types inside collections are unbridgeable
     // -----------------------------------------------------------------------
     group('GEN-005: function types in collections', () {
-      test('List<Function> parameter triggers UnimplementedError', () async {
+      test('List<Function> parameter triggers UnimplementedError [2026-02-10 06:37]', () async {
         final result = await runGenerationTest(
           issueId: 'GEN-005',
           sourceFiles: {
@@ -460,7 +460,7 @@ class EventBus {
     // GEN-011: Global function/variable generation counts always report 0
     // -----------------------------------------------------------------------
     group('GEN-011: global counts always 0', () {
-      test('global functions are generated despite count being 0', () async {
+      test('global functions are generated despite count being 0 [2026-02-10 06:37]', () async {
         final result = await runGenerationTest(
           issueId: 'GEN-011',
           sourceFiles: {
@@ -491,7 +491,7 @@ const String appVersion = '1.0.0';
     // GEN-017: Missing barrel export silently downgrades to dynamic
     // -----------------------------------------------------------------------
     group('GEN-017: missing barrel export downgrade', () {
-      test('type not in barrel may fall back to dynamic', () async {
+      test('type not in barrel may fall back to dynamic [2026-02-10 06:37]', () async {
         final result = await runGenerationTest(
           issueId: 'GEN-017',
           sourceFiles: {

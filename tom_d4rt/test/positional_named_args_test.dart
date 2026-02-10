@@ -12,7 +12,7 @@ void main() {
     });
 
     group('Basic positional arguments', () {
-      test('should pass single positional argument', () {
+      test('should pass single positional argument [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             String echo(String value) => "Echo: \$value";
@@ -23,7 +23,7 @@ void main() {
         expect(result, equals('Echo: Hello'));
       });
 
-      test('should pass multiple positional arguments', () {
+      test('should pass multiple positional arguments [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             int calculate(int a, int b, int c) => a * b + c;
@@ -34,7 +34,7 @@ void main() {
         expect(result, equals(23)); // 5 * 4 + 3 = 23
       });
 
-      test('should handle positional arguments with different types', () {
+      test('should handle positional arguments with different types [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             String describe(String name, int age, double height, bool active) {
@@ -47,7 +47,7 @@ void main() {
         expect(result, equals('Alice, 30 years, 1.75m, active: true'));
       });
 
-      test('should handle null in positional arguments', () {
+      test('should handle null in positional arguments [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             String handleNull(String? value) {
@@ -62,7 +62,7 @@ void main() {
     });
 
     group('Basic named arguments', () {
-      test('should pass single named argument', () {
+      test('should pass single named argument [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             String greet({required String name}) => "Hello, \$name!";
@@ -73,7 +73,7 @@ void main() {
         expect(result, equals('Hello, World!'));
       });
 
-      test('should pass multiple named arguments', () {
+      test('should pass multiple named arguments [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             Map<String, dynamic> createUser({
@@ -90,7 +90,7 @@ void main() {
         expect(result, equals({'name': 'John', 'age': 25, 'role': 'admin'}));
       });
 
-      test('should use default values for omitted named arguments', () {
+      test('should use default values for omitted named arguments [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             String formatDate({
@@ -107,7 +107,7 @@ void main() {
         expect(result, equals('2024-1-1'));
       });
 
-      test('should handle named arguments with complex default values', () {
+      test('should handle named arguments with complex default values [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             List<int> generateRange({
@@ -130,7 +130,7 @@ void main() {
     });
 
     group('Mixed positional and named arguments', () {
-      test('should handle positional followed by named arguments', () {
+      test('should handle positional followed by named arguments [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             String format(String template, {String prefix = "", String suffix = ""}) {
@@ -144,7 +144,7 @@ void main() {
         expect(result, equals('[content]'));
       });
 
-      test('should handle multiple positional and multiple named arguments',
+      test('should handle multiple positional and multiple named arguments [2026-02-10 06:37]',
           () {
         final result = d4rt.execute(
           source: '''
@@ -174,7 +174,7 @@ void main() {
         );
       });
 
-      test('should handle complex business logic with mixed args', () {
+      test('should handle complex business logic with mixed args [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             Map<String, dynamic> processOrder(
@@ -223,7 +223,7 @@ void main() {
     });
 
     group('Complex data types as arguments', () {
-      test('should handle List argument', () {
+      test('should handle List argument [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             int sumList(List<int> numbers) {
@@ -240,7 +240,7 @@ void main() {
         expect(result, equals(55));
       });
 
-      test('should handle nested List argument', () {
+      test('should handle nested List argument [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             List<int> flatten(List<List<int>> matrix) {
@@ -265,7 +265,7 @@ void main() {
         expect(result, equals([1, 2, 3, 4, 5, 6, 7, 8, 9]));
       });
 
-      test('should handle Map argument', () {
+      test('should handle Map argument [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             List<String> getKeys(Map<String, dynamic> map) {
@@ -280,7 +280,7 @@ void main() {
         expect(result, containsAll(['a', 'b', 'c']));
       });
 
-      test('should handle deeply nested Map argument', () {
+      test('should handle deeply nested Map argument [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             dynamic getNestedValue(Map<String, dynamic> data, List<String> path) {
@@ -310,7 +310,7 @@ void main() {
         expect(result, equals('dark'));
       });
 
-      test('should handle function callback in list (as values)', () {
+      test('should handle function callback in list (as values) [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             List<int> mapNumbers(List<int> numbers, List<int> multipliers) {
@@ -349,7 +349,7 @@ void main() {
         expect(result, equals('Hello, Alice!'));
       });
 
-      test('should handle all optional parameters via named args', () {
+      test('should handle all optional parameters via named args [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             int power({int base = 2, int exponent = 2}) {
@@ -366,7 +366,7 @@ void main() {
         expect(result, equals(81)); // 3^4
       });
 
-      test('should handle no optional arguments provided', () {
+      test('should handle no optional arguments provided [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             String defaultGreeting({String name = "World"}) {
@@ -381,7 +381,7 @@ void main() {
     });
 
     group('Error handling', () {
-      test('should throw error when required positional argument is missing',
+      test('should throw error when required positional argument is missing [2026-02-10 06:37]',
           () {
         expect(
           () => d4rt.execute(
@@ -395,7 +395,7 @@ void main() {
         );
       });
 
-      test('should throw error when too many positional arguments provided',
+      test('should throw error when too many positional arguments provided [2026-02-10 06:37]',
           () {
         expect(
           () => d4rt.execute(
@@ -409,7 +409,7 @@ void main() {
         );
       });
 
-      test('should throw error when required named argument is missing', () {
+      test('should throw error when required named argument is missing [2026-02-10 06:37]', () {
         expect(
           () => d4rt.execute(
             source: '''
@@ -424,7 +424,7 @@ void main() {
         );
       });
 
-      test('should throw error when unknown named argument is provided', () {
+      test('should throw error when unknown named argument is provided [2026-02-10 06:37]', () {
         expect(
           () => d4rt.execute(
             source: '''
@@ -437,7 +437,7 @@ void main() {
         );
       });
 
-      test('should throw error when function does not exist', () {
+      test('should throw error when function does not exist [2026-02-10 06:37]', () {
         expect(
           () => d4rt.execute(
             source: '''
@@ -452,7 +452,7 @@ void main() {
     });
 
     group('Special cases', () {
-      test('should handle empty string argument', () {
+      test('should handle empty string argument [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             bool isEmpty(String value) => value.isEmpty;
@@ -463,7 +463,7 @@ void main() {
         expect(result, isTrue);
       });
 
-      test('should handle very long string argument', () {
+      test('should handle very long string argument [2026-02-10 06:37]', () {
         final longString = 'a' * 10000;
         final result = d4rt.execute(
           source: '''
@@ -475,7 +475,7 @@ void main() {
         expect(result, equals(10000));
       });
 
-      test('should handle negative numbers', () {
+      test('should handle negative numbers [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             int absolute(int value) => value < 0 ? -value : value;
@@ -486,7 +486,7 @@ void main() {
         expect(result, equals(42));
       });
 
-      test('should handle floating point precision', () {
+      test('should handle floating point precision [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             double sum(double a, double b) => a + b;
@@ -497,7 +497,7 @@ void main() {
         expect(result, closeTo(0.3, 0.0001));
       });
 
-      test('should handle unicode strings', () {
+      test('should handle unicode strings [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             String echo(String value) => value;
@@ -508,7 +508,7 @@ void main() {
         expect(result, equals('Hello 世界 🌍 مرحبا'));
       });
 
-      test('should handle recursive function with arguments', () {
+      test('should handle recursive function with arguments [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             int factorial(int n) {
@@ -522,7 +522,7 @@ void main() {
         expect(result, equals(3628800));
       });
 
-      test('should handle async function with arguments', () async {
+      test('should handle async function with arguments [2026-02-10 06:37]', () async {
         final result = await d4rt.execute(
           source: '''
             Future<int> asyncAdd(int a, int b) async {
@@ -537,7 +537,7 @@ void main() {
     });
 
     group('Interaction with classes', () {
-      test('should handle class creation and method calls with arguments', () {
+      test('should handle class creation and method calls with arguments [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             class Point {
@@ -559,7 +559,7 @@ void main() {
         expect(result, equals(25)); // 3^2 + 4^2 = 9 + 16 = 25
       });
 
-      test('should handle class with named constructor and arguments', () {
+      test('should handle class with named constructor and arguments [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             class Rectangle {
@@ -583,7 +583,7 @@ void main() {
         expect(result, equals(50)); // 5 * 10
       });
 
-      test('should handle static method call with arguments', () {
+      test('should handle static method call with arguments [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             class Calculator {
@@ -600,7 +600,7 @@ void main() {
         expect(result, equals(56));
       });
 
-      test('should handle class with getters and setters', () {
+      test('should handle class with getters and setters [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             class Counter {
@@ -627,7 +627,7 @@ void main() {
         expect(result, equals(15)); // 10 + 5
       });
 
-      test('should handle inheritance with arguments', () {
+      test('should handle inheritance with arguments [2026-02-10 06:37]', () {
         final result = d4rt.execute(
           source: '''
             class Animal {

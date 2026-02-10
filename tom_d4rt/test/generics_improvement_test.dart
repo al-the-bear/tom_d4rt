@@ -11,7 +11,7 @@ dynamic execute(String source, {List<Object?>? args}) {
 
 void main() {
   group('Improved Generics Validation', () {
-    test('Generic class constraint validation', () {
+    test('Generic class constraint validation [2026-02-10 06:37]', () {
       final validCode = '''
         class NumericContainer<T extends num> {
           T value;
@@ -52,7 +52,7 @@ void main() {
       );
     });
 
-    test('Generic function constraint validation', () {
+    test('Generic function constraint validation [2026-02-10 06:37]', () {
       final validCode = '''
         T addOne<T extends num>(T value) {
           return value + 1;
@@ -85,7 +85,7 @@ void main() {
       );
     });
 
-    test('Multiple type parameters with bounds', () {
+    test('Multiple type parameters with bounds [2026-02-10 06:37]', () {
       final validCode = '''
         class Pair<T extends num, U extends String> {
           T first;
@@ -124,7 +124,7 @@ void main() {
       );
     });
 
-    test('Nested generics constraint validation', () {
+    test('Nested generics constraint validation [2026-02-10 06:37]', () {
       final validCode = '''
         class Container<T extends num> {
           List<T> items = [];

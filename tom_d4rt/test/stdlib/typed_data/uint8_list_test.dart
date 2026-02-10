@@ -20,7 +20,7 @@ void main() {
   }
 
   group('Uint8List Tests', () {
-    test('Constructor Uint8List(length)', () {
+    test('Constructor Uint8List(length) [2026-02-10 06:37]', () {
       final result = executeTestScript('''
         var list = Uint8List(5);
         return {
@@ -34,7 +34,7 @@ void main() {
       expect(result['defaultValue'], 0);
     });
 
-    test('Constructor Uint8List.fromList()', () {
+    test('Constructor Uint8List.fromList() [2026-02-10 06:37]', () {
       final result = executeTestScript('''
         var source = [10, 20, 30];
         var list = Uint8List.fromList(source);
@@ -49,7 +49,7 @@ void main() {
       expect(result['val2'], 30);
     });
 
-    test('Uint8List operator [] and []=', () {
+    test('Uint8List operator [] and []= [2026-02-10 06:37]', () {
       final result = executeTestScript('''
         var list = Uint8List(3);
         list[0] = 255;
@@ -66,7 +66,7 @@ void main() {
       expect(result['val2'], 127);
     });
 
-    test('Uint8List sublist', () {
+    test('Uint8List sublist [2026-02-10 06:37]', () {
       final result = executeTestScript('''
         var list = Uint8List.fromList([0,1,2,3,4,5]);
         var sub = list.sublist(2, 5); // Elements at index 2, 3, 4
@@ -83,7 +83,7 @@ void main() {
       expect(result['originalLength'], 6);
     });
 
-    test('Uint8List buffer property', () {
+    test('Uint8List buffer property [2026-02-10 06:37]', () {
       final result = executeTestScript('''
         var list = Uint8List(7);
         var buffer = list.buffer;
@@ -94,14 +94,14 @@ void main() {
       expect(result['bufferLength'], 7);
     });
 
-    test('Uint8List.fromList with non-int values throws error', () {
+    test('Uint8List.fromList with non-int values throws error [2026-02-10 06:37]', () {
       expect(
         () => executeTestScript("var list = Uint8List.fromList([1, 'a', 3]);"),
         throwsA(isA<RuntimeD4rtException>()),
       );
     });
 
-    test('Index out of bounds for Uint8List[] and []=', () {
+    test('Index out of bounds for Uint8List[] and []= [2026-02-10 06:37]', () {
       expect(
         () => executeTestScript("var list = Uint8List(2); list[2] = 0;"),
         throwsA(isA<RuntimeD4rtException>()),

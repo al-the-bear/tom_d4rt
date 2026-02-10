@@ -49,7 +49,7 @@ void main() {
         );
       });
 
-      test('basic classes, constructors, enums', () async {
+      test('basic classes, constructors, enums [2026-02-10 06:37]', () async {
         final result = await tester.runScript(
           config,
           'test/d4rt_test_basics.dart',
@@ -58,7 +58,7 @@ void main() {
         expect(result.processOutput, contains('ALL_TESTS_PASSED'));
       });
 
-      test('GEN-041: enhanced enum fields', () async {
+      test('GEN-041: enhanced enum fields [2026-02-10 06:37]', () async {
         final result = await tester.runScript(
           config,
           'test/d4rt_test_enum_fields.dart',
@@ -83,7 +83,7 @@ void main() {
         );
       });
 
-      test('Calculator and Greeter classes', () async {
+      test('Calculator and Greeter classes [2026-02-10 06:37]', () async {
         final result = await tester.runScript(
           config,
           'test/d4rt_test_guide.dart',
@@ -108,7 +108,7 @@ void main() {
         );
       });
 
-      test('User, Product, Order models', () async {
+      test('User, Product, Order models [2026-02-10 06:37]', () async {
         final result = await tester.runScript(
           config,
           'test/d4rt_test_models.dart',
@@ -133,7 +133,7 @@ void main() {
         );
       });
 
-      test('MyList, globals, top-level functions', () async {
+      test('MyList, globals, top-level functions [2026-02-10 06:37]', () async {
         final result = await tester.runScript(
           config,
           'test/d4rt_test_overrides.dart',
@@ -142,7 +142,7 @@ void main() {
         expect(result.processOutput, contains('ALL_TESTS_PASSED'));
       });
 
-      test('UBR02: user bridge method override', () async {
+      test('UBR02: user bridge method override [2026-02-10 06:37]', () async {
         final result = await tester.runScript(
           config,
           'test/ubr02_method_override.dart',
@@ -151,7 +151,7 @@ void main() {
         expect(result.processOutput, contains('UBR02_PASSED'));
       });
 
-      test('UBR03: user bridge field/variable override', () async {
+      test('UBR03: user bridge field/variable override [2026-02-10 06:37]', () async {
         final result = await tester.runScript(
           config,
           'test/ubr03_field_override.dart',
@@ -176,7 +176,7 @@ void main() {
         );
       });
 
-      test('declarations, enums, generic classes', () async {
+      test('declarations, enums, generic classes [2026-02-10 06:37]', () async {
         final result = await tester.runScript(
           config,
           'test/d4rt_test_overview.dart',
@@ -185,7 +185,7 @@ void main() {
         expect(result.processOutput, contains('ALL_TESTS_PASSED'));
       });
 
-      test('GEN-042: implicit default constructors', () async {
+      test('GEN-042: implicit default constructors [2026-02-10 06:37]', () async {
         final result = await tester.runScript(
           config,
           'test/d4rt_test_implicit_ctors.dart',
@@ -197,7 +197,7 @@ void main() {
         );
       });
 
-      test('GEN-041: enhanced enum fields (dart_overview)', () async {
+      test('GEN-041: enhanced enum fields (dart_overview) [2026-02-10 06:37]', () async {
         final result = await tester.runScript(
           config,
           'test/d4rt_test_enhanced_enums.dart',
@@ -225,7 +225,7 @@ void main() {
         );
       });
 
-      test('Vector2D and Matrix2x2 via user bridges', () async {
+      test('Vector2D and Matrix2x2 via user bridges [2026-02-10 06:37]', () async {
         final result = await tester.runScript(
           config,
           'test/d4rt_test_user_bridges.dart',
@@ -271,7 +271,7 @@ void main() {
         );
       });
 
-      test('UBR01: user bridge class (basic)', () async {
+      test('UBR01: user bridge class (basic) [2026-02-10 06:37]', () async {
         final result = await tester.runScript(
           config,
           'test/ubr01_basic_class.dart',
@@ -280,7 +280,7 @@ void main() {
         expect(result.processOutput, contains('UBR01_PASSED'));
       });
 
-      test('UBR04: user bridge operator overrides', () async {
+      test('UBR04: user bridge operator overrides [2026-02-10 06:37]', () async {
         final result = await tester.runScript(
           config,
           'test/ubr04_operator.dart',
@@ -301,7 +301,7 @@ void main() {
         );
       });
 
-      test('UBR05: user bridge constructor', () async {
+      test('UBR05: user bridge constructor [2026-02-10 06:37]', () async {
         final result = await tester.runScript(
           config,
           'test/ubr05_constructor.dart',
@@ -310,7 +310,7 @@ void main() {
         expect(result.processOutput, contains('UBR05_PASSED'));
       });
 
-      test('UBR06: user bridge import prefix (GEN-043)', () async {
+      test('UBR06: user bridge import prefix (GEN-043) [2026-02-10 06:37]', () async {
         final result = await tester.runScript(
           config,
           'test/ubr06_import_prefix.dart',

@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('DateTime tests', () {
-    test('DateTime.now', () {
+    test('DateTime.now [2026-02-10 06:37]', () {
       const source = '''
       main() {
         DateTime now = DateTime.now();
@@ -20,7 +20,7 @@ void main() {
       expect(result[2], inInclusiveRange(1, 31));
     });
 
-    test('DateTime.parse', () {
+    test('DateTime.parse [2026-02-10 06:37]', () {
       const source = '''
       main() {
         DateTime date = DateTime.parse("2023-10-01T12:00:00Z");
@@ -30,7 +30,7 @@ void main() {
       expect(execute(source), equals([2023, 10, 1, 12, 0, 0]));
     });
 
-    test('DateTime.fromMillisecondsSinceEpoch', () {
+    test('DateTime.fromMillisecondsSinceEpoch [2026-02-10 06:37]', () {
       const source = '''
       main() {
         DateTime date = DateTime.fromMillisecondsSinceEpoch(1696156800000, isUtc: true);
@@ -40,7 +40,7 @@ void main() {
       expect(execute(source), equals([2023, 10, 1]));
     });
 
-    test('DateTime.utc', () {
+    test('DateTime.utc [2026-02-10 06:37]', () {
       const source = '''
       main() {
         DateTime date = DateTime.utc(2023, 10, 1, 12, 0, 0);
@@ -50,7 +50,7 @@ void main() {
       expect(execute(source), equals('2023-10-01T12:00:00.000Z'));
     });
 
-    test('DateTime.isBefore and isAfter', () {
+    test('DateTime.isBefore and isAfter [2026-02-10 06:37]', () {
       const source = '''
       main() {
         DateTime date1 = DateTime(2023, 10, 1);
@@ -61,7 +61,7 @@ void main() {
       expect(execute(source), equals([true, true]));
     });
 
-    test('DateTime.add and subtract', () {
+    test('DateTime.add and subtract [2026-02-10 06:37]', () {
       const source = '''
       main() {
         DateTime date = DateTime(2023, 10, 1);
@@ -73,7 +73,7 @@ void main() {
       expect(result[1], startsWith('2023-09-30T'));
     });
 
-    test('DateTime.difference', () {
+    test('DateTime.difference [2026-02-10 06:37]', () {
       const source = '''
       main() {
         DateTime date1 = DateTime(2023, 10, 2);
@@ -84,7 +84,7 @@ void main() {
       expect(execute(source), equals(1));
     });
 
-    test('DateTime.properties', () {
+    test('DateTime.properties [2026-02-10 06:37]', () {
       const source = '''
       main() {
         DateTime date = DateTime(2023, 10, 1, 12, 30, 45, 123, 456);
@@ -106,7 +106,7 @@ void main() {
           equals([2023, 10, 1, 12, 30, 45, 123, 456, 7, false]));
     });
 
-    test('DateTime.toUtc and toLocal', () {
+    test('DateTime.toUtc and toLocal [2026-02-10 06:37]', () {
       const source = '''
       main() {
         DateTime date = DateTime(2023, 10, 1, 12, 0, 0);

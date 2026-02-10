@@ -18,7 +18,7 @@ void main() {
       interpreter = D4rt();
     });
 
-    test('registering same function from same source twice is silently skipped', () {
+    test('registering same function from same source twice is silently skipped [2026-02-10 06:37]', () {
       // Register a function with source URI
       interpreter.registertopLevelFunction(
         'testFunc',
@@ -40,7 +40,7 @@ void main() {
       );
     });
 
-    test('registering different functions with same name throws error', () async {
+    test('registering different functions with same name throws error [2026-02-10 06:37]', () async {
       // Register a function with source URI
       interpreter.registertopLevelFunction(
         'conflictFunc',
@@ -63,7 +63,7 @@ void main() {
       expect(true, isTrue); // Registration itself succeeds
     });
 
-    test('registering same class from same source twice is silently skipped', () {
+    test('registering same class from same source twice is silently skipped [2026-02-10 06:37]', () {
       final bridgedClass = BridgedClass(
         nativeType: String,
         name: 'TestClass',
@@ -89,7 +89,7 @@ void main() {
       );
     });
 
-    test('registering same enum from same source twice is silently skipped', () {
+    test('registering same enum from same source twice is silently skipped [2026-02-10 06:37]', () {
       final enumDef = BridgedEnumDefinition<TestEnum>(
         name: 'TestEnum',
         values: TestEnum.values,
@@ -114,7 +114,7 @@ void main() {
       );
     });
 
-    test('registering same variable from same source twice is silently skipped', () {
+    test('registering same variable from same source twice is silently skipped [2026-02-10 06:37]', () {
       // Register a variable with source URI
       interpreter.registerGlobalVariable(
         'testVar',
@@ -136,7 +136,7 @@ void main() {
       );
     });
 
-    test('registering same getter from same source twice is silently skipped', () {
+    test('registering same getter from same source twice is silently skipped [2026-02-10 06:37]', () {
       // Register a getter with source URI
       interpreter.registerGlobalGetter(
         'testGetter',

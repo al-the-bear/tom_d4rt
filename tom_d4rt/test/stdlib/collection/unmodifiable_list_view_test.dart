@@ -36,7 +36,7 @@ void main() {
       ''';
     }
 
-    test('Constructor and basic getters', () {
+    test('Constructor and basic getters [2026-02-10 06:37]', () {
       final result = executeAndGetList(unmodifiableListViewSource('[1, 2, 3]',
           'return [unmodifiable.length, unmodifiable.isEmpty, unmodifiable.isNotEmpty, unmodifiable.first, unmodifiable.last, unmodifiable.singleWhere((e) => e == 2, orElse: () => -1 )];'));
       expect(result[0], 3);
@@ -47,13 +47,13 @@ void main() {
       expect(result[5], 2);
     });
 
-    test('[] operator (getter)', () {
+    test('[] operator (getter) [2026-02-10 06:37]', () {
       final result = executeAndGetResult(unmodifiableListViewSource(
           '["a", "b", "c"]', 'return unmodifiable[1];'));
       expect(result, 'b');
     });
 
-    test('Read-only iteration methods: forEach, map, where, any, every', () {
+    test('Read-only iteration methods: forEach, map, where, any, every [2026-02-10 06:37]', () {
       final result =
           executeAndGetList(unmodifiableListViewSource('[1, 2, 3, 4]', '''
           final forEachItems = [];
@@ -111,120 +111,120 @@ void main() {
           reason: "reversedItems");
     });
 
-    test('Attempt []= (setter)', () {
+    test('Attempt []= (setter) [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable[0] = 100;')));
     });
 
-    test('Attempt length = (setter)', () {
+    test('Attempt length = (setter) [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.length = 5;')));
     });
 
-    test('Attempt first = (setter)', () {
+    test('Attempt first = (setter) [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.first = 0;')));
     });
 
-    test('Attempt last = (setter)', () {
+    test('Attempt last = (setter) [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.last = 0;')));
     });
 
-    test('Attempt add()', () {
+    test('Attempt add() [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.add(4);')));
     });
 
-    test('Attempt addAll()', () {
+    test('Attempt addAll() [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3]', 'unmodifiable.addAll([4, 5]);')));
     });
 
-    test('Attempt clear()', () {
+    test('Attempt clear() [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.clear();')));
     });
 
-    test('Attempt insert()', () {
+    test('Attempt insert() [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3]', 'unmodifiable.insert(1, 10);')));
     });
 
-    test('Attempt insertAll()', () {
+    test('Attempt insertAll() [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3]', 'unmodifiable.insertAll(1, [10, 11]);')));
     });
 
-    test('Attempt remove()', () {
+    test('Attempt remove() [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.remove(2);')));
     });
 
-    test('Attempt removeAt()', () {
+    test('Attempt removeAt() [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3]', 'unmodifiable.removeAt(0);')));
     });
 
-    test('Attempt removeLast()', () {
+    test('Attempt removeLast() [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3]', 'unmodifiable.removeLast();')));
     });
 
-    test('Attempt removeRange()', () {
+    test('Attempt removeRange() [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3, 4]', 'unmodifiable.removeRange(1, 3);')));
     });
 
-    test('Attempt removeWhere()', () {
+    test('Attempt removeWhere() [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3, 4]', 'unmodifiable.removeWhere((e) => e % 2 == 0);')));
     });
 
-    test('Attempt replaceRange()', () {
+    test('Attempt replaceRange() [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3, 4]', 'unmodifiable.replaceRange(1, 3, [8, 9]);')));
     });
 
-    test('Attempt retainWhere()', () {
+    test('Attempt retainWhere() [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3, 4]', 'unmodifiable.retainWhere((e) => e % 2 == 0);')));
     });
 
-    test('Attempt fillRange()', () {
+    test('Attempt fillRange() [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3, 4]', 'unmodifiable.fillRange(1, 3, 9);')));
     });
 
-    test('Attempt setAll()', () {
+    test('Attempt setAll() [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3, 4]', 'unmodifiable.setAll(1, [8,9]);')));
     });
 
-    test('Attempt setRange()', () {
+    test('Attempt setRange() [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3, 4]', 'unmodifiable.setRange(1, 3, [8, 9, 10], 1);')));
     });
 
-    test('Attempt shuffle()', () {
+    test('Attempt shuffle() [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3, 4]', 'unmodifiable.shuffle();')));
     });
 
-    test('Attempt sort()', () {
+    test('Attempt sort() [2026-02-10 06:37]', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource('[3, 1, 2]', 'unmodifiable.sort();')));
     });

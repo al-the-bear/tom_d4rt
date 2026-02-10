@@ -61,86 +61,86 @@ void main() {
     });
 
     group('Simple Functions', () {
-      test('detects void function with no parameters', () {
+      test('detects void function with no parameters [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'resetState'"));
       });
 
-      test('detects function returning value', () {
+      test('detects function returning value [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'getRequestCount'"));
       });
 
-      test('detects function with single parameter', () {
+      test('detects function with single parameter [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'greet'"));
       });
 
-      test('detects function with multiple parameters', () {
+      test('detects function with multiple parameters [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'add'"));
       });
 
-      test('detects function returning boolean', () {
+      test('detects function returning boolean [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'isValidName'"));
       });
     });
 
     group('Functions with Optional Parameters', () {
-      test('detects function with optional positional parameter', () {
+      test('detects function with optional positional parameter [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'formatMessage'"));
       });
 
-      test('detects function with optional parameters and defaults', () {
+      test('detects function with optional parameters and defaults [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'buildUrl'"));
       });
 
-      test('detects function with named parameters', () {
+      test('detects function with named parameters [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'formatRecord'"));
       });
 
-      test('detects function with mixed parameters', () {
+      test('detects function with mixed parameters [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'createEntry'"));
       });
     });
 
     group('Functions with Complex Types', () {
-      test('detects function returning list', () {
+      test('detects function returning list [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'range'"));
       });
 
-      test('detects function taking list parameter', () {
+      test('detects function taking list parameter [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'sumList'"));
       });
 
-      test('detects function returning map', () {
+      test('detects function returning map [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'createConfig'"));
       });
 
-      test('detects function with nullable return', () {
+      test('detects function with nullable return [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'findMatch'"));
       });
     });
 
     group('Async Functions', () {
-      test('detects async function', () {
+      test('detects async function [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'fetchData'"));
       });
 
-      test('detects async function with parameters', () {
+      test('detects async function with parameters [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'computeAsync'"));
       });
     });
 
     group('Private Functions', () {
-      test('skips private functions', () {
+      test('skips private functions [2026-02-10 06:37]', () {
         expect(generatedCode, isNot(contains("'_internalHelper'")));
         expect(generatedCode, isNot(contains("'_calculateInternal'")));
       });
     });
 
     group('Error Handling Functions', () {
-      test('detects function that may throw', () {
+      test('detects function that may throw [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'divideStrict'"));
       });
 
-      test('detects function with try-catch', () {
+      test('detects function with try-catch [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'divideSafe'"));
       });
     });
@@ -173,47 +173,47 @@ void main() {
     });
 
     group('Constants', () {
-      test('detects string constant', () {
+      test('detects string constant [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'appName'"));
       });
 
-      test('detects int constant', () {
+      test('detects int constant [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'maxRetries'"));
       });
 
-      test('detects double constant', () {
+      test('detects double constant [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'defaultTimeout'"));
       });
 
-      test('detects bool constant', () {
+      test('detects bool constant [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'debugMode'"));
       });
     });
 
     group('Final Variables', () {
-      test('detects final string', () {
+      test('detects final string [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'version'"));
       });
 
-      test('detects final list', () {
+      test('detects final list [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'supportedFormats'"));
       });
 
-      test('detects final map', () {
+      test('detects final map [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'errorCodes'"));
       });
     });
 
     group('Mutable Variables', () {
-      test('detects mutable int', () {
+      test('detects mutable int [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'requestCount'"));
       });
 
-      test('detects mutable string', () {
+      test('detects mutable string [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'lastError'"));
       });
 
-      test('detects nullable mutable variable', () {
+      test('detects nullable mutable variable [2026-02-10 06:37]', () {
         expect(generatedCode, contains("'lastRunTime'"));
       });
     });
@@ -245,21 +245,21 @@ void main() {
       generatedCode = await File(outputFile).readAsString();
     });
 
-    test('generates globalFunctionNames list', () {
+    test('G-GB-1: generates globalFunctionNames list [2026-02-10 08:00]', () {
       expect(
         generatedCode,
         contains('static List<String> get globalFunctionNames'),
       );
     });
 
-    test('generates globalVariableNames list', () {
+    test('G-GB-2: generates globalVariableNames list [2026-02-10 08:00]', () {
       expect(
         generatedCode,
         contains('static List<String> get globalVariableNames'),
       );
     });
 
-    test('generates getGlobalInitializationScript method', () {
+    test('G-GB-3: generates getGlobalInitializationScript [2026-02-10 08:00]', () {
       expect(
         generatedCode,
         contains('static String getGlobalInitializationScript()'),
@@ -293,23 +293,23 @@ void main() {
       generatedCode = await File(outputFile).readAsString();
     });
 
-    test('function names are in globalFunctionNames list', () {
+    test('function names are in globalFunctionNames list [2026-02-10 06:37]', () {
       expect(generatedCode, contains("'greet'"));
       expect(generatedCode, contains("'add'"));
       expect(generatedCode, contains("'resetState'"));
     });
 
-    test('async functions are included', () {
+    test('async functions are included [2026-02-10 06:37]', () {
       expect(generatedCode, contains("'fetchData'"));
       expect(generatedCode, contains("'computeAsync'"));
     });
 
-    test('functions with named params are included', () {
+    test('functions with named params are included [2026-02-10 06:37]', () {
       expect(generatedCode, contains("'formatRecord'"));
       expect(generatedCode, contains("'createEntry'"));
     });
 
-    test('private functions are excluded', () {
+    test('private functions are excluded [2026-02-10 06:37]', () {
       expect(generatedCode, isNot(contains("'_internalHelper'")));
       expect(generatedCode, isNot(contains("'_calculateInternal'")));
     });
@@ -341,23 +341,23 @@ void main() {
       generatedCode = await File(outputFile).readAsString();
     });
 
-    test('constant names are in globalVariableNames list', () {
+    test('constant names are in globalVariableNames list [2026-02-10 06:37]', () {
       expect(generatedCode, contains("'appName'"));
       expect(generatedCode, contains("'maxRetries'"));
       expect(generatedCode, contains("'debugMode'"));
     });
 
-    test('final variables are included', () {
+    test('final variables are included [2026-02-10 06:37]', () {
       expect(generatedCode, contains("'version'"));
       expect(generatedCode, contains("'supportedFormats'"));
     });
 
-    test('mutable variables are included', () {
+    test('mutable variables are included [2026-02-10 06:37]', () {
       expect(generatedCode, contains("'requestCount'"));
       expect(generatedCode, contains("'lastError'"));
     });
 
-    test('initialization script contains variable getters', () {
+    test('G-GB-4: init script contains variable getters [2026-02-10 08:00]', () {
       // The getGlobalInitializationScript should contain getter definitions
       expect(generatedCode, contains('getGlobalInitializationScript'));
     });
@@ -390,7 +390,7 @@ void main() {
     });
 
     group('Regular Variables use registerGlobalVariable', () {
-      test('const variables use registerGlobalVariable', () {
+      test('G-GB-5: const vars use registerGlobalVariable [2026-02-10 08:00]', () {
         // Variable values are now prefixed with $pkg. since source imports use a prefix
         expect(
           generatedCode,
@@ -408,7 +408,7 @@ void main() {
         );
       });
 
-      test('final variables use registerGlobalVariable', () {
+      test('G-GB-6: final vars use registerGlobalVariable [2026-02-10 08:00]', () {
         expect(
           generatedCode,
           contains(r"interpreter.registerGlobalVariable('version', $pkg.version)"),
@@ -421,7 +421,7 @@ void main() {
         );
       });
 
-      test('mutable variables use registerGlobalVariable', () {
+      test('G-GB-7: mutable vars use registerGlobalVariable [2026-02-10 08:00]', () {
         expect(
           generatedCode,
           contains(
@@ -437,7 +437,7 @@ void main() {
     });
 
     group('Top-level Getters use registerGlobalGetter', () {
-      test('getter returning singleton uses registerGlobalGetter', () {
+      test('G-GB-8: getter singleton uses registerGlobalGetter [2026-02-10 08:00]', () {
         // Getter values are now prefixed with $pkg. since source imports use a prefix
         expect(
           generatedCode,
@@ -447,7 +447,7 @@ void main() {
         );
       });
 
-      test('getter returning computed value uses registerGlobalGetter', () {
+      test('G-GB-9: getter computed uses registerGlobalGetter [2026-02-10 08:00]', () {
         expect(
           generatedCode,
           contains(
@@ -456,7 +456,7 @@ void main() {
         );
       });
 
-      test('nullable getter uses registerGlobalGetter', () {
+      test('G-GB-10: nullable getter uses registerGlobalGetter [2026-02-10 08:00]', () {
         expect(
           generatedCode,
           contains(
@@ -465,7 +465,7 @@ void main() {
         );
       });
 
-      test('getter depending on mutable state uses registerGlobalGetter', () {
+      test('G-GB-11: mutable state getter registerGlobalGetter [2026-02-10 08:00]', () {
         expect(
           generatedCode,
           contains(
@@ -476,14 +476,14 @@ void main() {
     });
 
     group('Getter vs Variable Separation', () {
-      test('registerGlobalVariables method contains both types', () {
+      test('G-GB-12: registerGlobalVariables contains both [2026-02-10 08:00]', () {
         expect(
           generatedCode,
           contains('static void registerGlobalVariables(D4rt interpreter)'),
         );
       });
 
-      test('getters are NOT registered with registerGlobalVariable', () {
+      test('getters are NOT registered with registerGlobalVariable [2026-02-10 06:37]', () {
         // These should NOT be registered as regular variables
         expect(
           generatedCode,
@@ -502,7 +502,7 @@ void main() {
         );
       });
 
-      test('regular variables are NOT registered with registerGlobalGetter',
+      test('regular variables are NOT registered with registerGlobalGetter [2026-02-10 06:37]',
           () {
         // These should NOT be registered as getters
         expect(

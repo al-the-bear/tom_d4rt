@@ -361,9 +361,13 @@ class ListCore {
           },
           'sort': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              // Check if elements are InterpretedInstances that implement Comparable
               final list = target as List;
-              if (list.isNotEmpty && list.first is InterpretedInstance) {
+              if (list.isEmpty) return null;
+              
+              final first = list.first;
+              
+              // Check if elements are InterpretedInstances that implement Comparable
+              if (first is InterpretedInstance) {
                 // Use interpreted compareTo method
                 list.sort((a, b) {
                   if (a is InterpretedInstance && b is InterpretedInstance) {
@@ -382,6 +386,13 @@ class ListCore {
                   }
                   // Fall back to native Comparable
                   return (a as Comparable).compareTo(b);
+                });
+              } else if (first is BridgedInstance) {
+                // BridgedInstance - use native compareTo on unwrapped objects
+                list.sort((a, b) {
+                  final aObj = a is BridgedInstance ? a.nativeObject : a;
+                  final bObj = b is BridgedInstance ? b.nativeObject : b;
+                  return (aObj as Comparable).compareTo(bObj);
                 });
               } else {
                 list.sort();

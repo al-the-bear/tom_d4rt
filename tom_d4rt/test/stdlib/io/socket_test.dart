@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('Socket methods - comprehensive', () {
-    test('Socket.connect to localhost', () async {
+    test('Socket.connect to localhost [2026-02-10 06:37]', () async {
       const source = '''
      import 'dart:io';
      main() async {
@@ -22,7 +22,7 @@ void main() {
       expect(result, isA<bool>()); // Should return true or false
     });
 
-    test('InternetAddress.lookup functionality', () async {
+    test('InternetAddress.lookup functionality [2026-02-10 06:37]', () async {
       const source = '''
      import 'dart:io';
      main() async {
@@ -38,7 +38,7 @@ void main() {
       expect(result, isA<bool>());
     });
 
-    test('InternetAddress constants', () {
+    test('InternetAddress constants [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -59,7 +59,7 @@ void main() {
       expect(result, equals([true, true, true, true]));
     });
 
-    test('Socket server and client communication', () async {
+    test('Socket server and client communication [2026-02-10 06:37]', () async {
       const source = '''
      import 'dart:io';
 import 'dart:convert';
@@ -108,7 +108,7 @@ main() async {
       }
     });
 
-    test('Socket write and flush methods', () async {
+    test('Socket write and flush methods [2026-02-10 06:37]', () async {
       const source = '''
      import 'dart:io';
      import 'dart:convert';
@@ -148,7 +148,7 @@ main() async {
       }
     });
 
-    test('Socket add method with bytes', () async {
+    test('Socket add method with bytes [2026-02-10 06:37]', () async {
       const source = '''
      import 'dart:io';
      import 'dart:convert';
@@ -176,7 +176,7 @@ main() async {
       }
     });
 
-    test('InternetAddress tryParse method', () {
+    test('InternetAddress tryParse method [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -195,7 +195,7 @@ main() async {
       expect(result, equals([true, true, true]));
     });
 
-    test('InternetAddress type checking', () {
+    test('InternetAddress type checking [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {

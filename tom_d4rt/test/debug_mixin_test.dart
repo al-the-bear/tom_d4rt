@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
 
 void main() {
-  test('debug bridged mixin', () async {
+  test('debug bridged mixin [2026-02-10 06:37]', () async {
     final d4rt = D4rt();
     d4rt.setDebug(true);
 

@@ -8,7 +8,7 @@ Object? execute(String source) {
 
 void main() {
   group('Late keyword tests', () {
-    test('late variable declaration without initialization', () {
+    test('late variable declaration without initialization [2026-02-10 06:37]', () {
       final code = '''
         main() {
           late String name;
@@ -19,7 +19,7 @@ void main() {
       expect(execute(code), equals("Hello"));
     });
 
-    test('late variable with lazy initialization', () {
+    test('late variable with lazy initialization [2026-02-10 06:37]', () {
       final code = '''
         String expensiveComputation() {
           print("Computing...");
@@ -35,7 +35,7 @@ void main() {
       expect(execute(code), equals("Expensive result"));
     });
 
-    test('late final variable', () {
+    test('late final variable [2026-02-10 06:37]', () {
       final code = '''
         main() {
           late final String name;
@@ -46,7 +46,7 @@ void main() {
       expect(execute(code), equals("Hello"));
     });
 
-    test('late instance field', () {
+    test('late instance field [2026-02-10 06:37]', () {
       final code = '''
         class Person {
           late String name;
@@ -69,7 +69,7 @@ void main() {
       expect(execute(code), equals("Alice"));
     });
 
-    test('late static field', () {
+    test('late static field [2026-02-10 06:37]', () {
       final code = '''
         class Config {
           static late String appName;
@@ -87,7 +87,7 @@ void main() {
       expect(execute(code), equals("MyApp"));
     });
 
-    test('accessing uninitialized late variable should throw', () {
+    test('accessing uninitialized late variable should throw [2026-02-10 06:37]', () {
       final code = '''
         main() {
           late String name;
@@ -97,7 +97,7 @@ void main() {
       expect(() => execute(code), throwsA(isA<RuntimeD4rtException>()));
     });
 
-    test('late variable with lazy initialization only called once', () {
+    test('late variable with lazy initialization only called once [2026-02-10 06:37]', () {
       final code = '''
         int callCount = 0;
         
@@ -122,7 +122,7 @@ void main() {
       expect(result[2], equals(1)); // Only called once
     });
 
-    test('late final variable reassignment should throw', () {
+    test('late final variable reassignment should throw [2026-02-10 06:37]', () {
       final code = '''
         main() {
           late final String name;
@@ -134,7 +134,7 @@ void main() {
       expect(() => execute(code), throwsA(isA<LateInitializationError>()));
     });
 
-    test('late final variable with initializer reassignment should throw', () {
+    test('late final variable with initializer reassignment should throw [2026-02-10 06:37]', () {
       final code = '''
         main() {
           late final String name = "Initial";
@@ -146,7 +146,7 @@ void main() {
       expect(() => execute(code), throwsA(isA<LateInitializationError>()));
     });
 
-    test('late variable in constructor parameter', () {
+    test('late variable in constructor parameter [2026-02-10 06:37]', () {
       final code = '''
         class User {
           late String email;
@@ -168,7 +168,7 @@ void main() {
       expect(execute(code), equals("test@example.com"));
     });
 
-    test('late instance field with lazy initialization', () {
+    test('late instance field with lazy initialization [2026-02-10 06:37]', () {
       final code = '''
         class DataProcessor {
           late String processedData = computeData();
@@ -191,7 +191,7 @@ void main() {
       expect(execute(code), equals(true));
     });
 
-    test('late static field with lazy initialization', () {
+    test('late static field with lazy initialization [2026-02-10 06:37]', () {
       final code = '''
         class Settings {
           static late String config = loadConfig();
@@ -212,7 +212,7 @@ void main() {
       expect(execute(code), equals("default-config"));
     });
 
-    test('late variable with complex expression initializer', () {
+    test('late variable with complex expression initializer [2026-02-10 06:37]', () {
       final code = '''
         List<String> createList() {
           return ["a", "b", "c"];
@@ -226,7 +226,7 @@ void main() {
       expect(execute(code), equals(3));
     });
 
-    test('late variable with null value', () {
+    test('late variable with null value [2026-02-10 06:37]', () {
       final code = '''
         main() {
           late String? nullableString;
@@ -237,7 +237,7 @@ void main() {
       expect(execute(code), equals(null));
     });
 
-    test('late variable in function scope', () {
+    test('late variable in function scope [2026-02-10 06:37]', () {
       final code = '''
         String processInFunction() {
           late String result;
@@ -252,7 +252,7 @@ void main() {
       expect(execute(code), equals("function-scope"));
     });
 
-    test('late variable with conditional assignment', () {
+    test('late variable with conditional assignment [2026-02-10 06:37]', () {
       final code = '''
         main() {
           bool condition = true;
@@ -270,7 +270,7 @@ void main() {
       expect(execute(code), equals("condition-true"));
     });
 
-    test('multiple late variables in same declaration', () {
+    test('multiple late variables in same declaration [2026-02-10 06:37]', () {
       final code = '''
         main() {
           late String first, second;
@@ -284,7 +284,7 @@ void main() {
       expect(result[1], equals("two"));
     });
 
-    test('late variable with compound assignment', () {
+    test('late variable with compound assignment [2026-02-10 06:37]', () {
       final code = '''
         main() {
           late int counter = 5;
@@ -295,7 +295,7 @@ void main() {
       expect(execute(code), equals(15));
     });
 
-    test('late variable accessing other late variable', () {
+    test('late variable accessing other late variable [2026-02-10 06:37]', () {
       final code = '''
         main() {
           late String base = "hello";
@@ -306,7 +306,7 @@ void main() {
       expect(execute(code), equals("hello world"));
     });
 
-    test('late variable in loop', () {
+    test('late variable in loop [2026-02-10 06:37]', () {
       final code = '''
         main() {
           var results = <String>[];
@@ -321,7 +321,7 @@ void main() {
       expect(result, equals(["item-0", "item-1", "item-2"]));
     });
 
-    test('late variable with recursive initialization', () {
+    test('late variable with recursive initialization [2026-02-10 06:37]', () {
       final code = '''
         int fibonacci(int n) {
           if (n <= 1) return n;
@@ -336,7 +336,7 @@ void main() {
       expect(execute(code), equals(55));
     });
 
-    test('late static final field', () {
+    test('late static final field [2026-02-10 06:37]', () {
       final code = '''
         class Constants {
           static late final String appVersion = computeVersion();
@@ -357,7 +357,7 @@ void main() {
       expect(execute(code), equals("1.0.0"));
     });
 
-    test('late static final field reassignment should throw', () {
+    test('late static final field reassignment should throw [2026-02-10 06:37]', () {
       final code = '''
         class Constants {
           static late final String appVersion;
@@ -380,7 +380,7 @@ void main() {
       expect(() => execute(code), throwsA(isA<RuntimeD4rtException>()));
     });
 
-    test('late instance final field', () {
+    test('late instance final field [2026-02-10 06:37]', () {
       final code = '''
         class ImmutableData {
           late final String id;
@@ -402,7 +402,7 @@ void main() {
       expect(execute(code), equals("abc123"));
     });
 
-    test('late instance final field reassignment should throw', () {
+    test('late instance final field reassignment should throw [2026-02-10 06:37]', () {
       final code = '''
         class ImmutableData {
           late final String id;
@@ -434,7 +434,7 @@ void main() {
       expect(execute(code), equals("error-caught"));
     });
 
-    test('late variable with exception in initializer', () {
+    test('late variable with exception in initializer [2026-02-10 06:37]', () {
       final code = '''
         String throwingFunction() {
           throw "Initializer failed";
@@ -452,7 +452,7 @@ void main() {
       expect(execute(code), equals("caught-error"));
     });
 
-    test('late variable assignment in try-catch', () {
+    test('late variable assignment in try-catch [2026-02-10 06:37]', () {
       final code = '''
         main() {
           late String result;
@@ -469,7 +469,7 @@ void main() {
       expect(execute(code), equals("success"));
     });
 
-    test('late variable with getter/setter pattern', () {
+    test('late variable with getter/setter pattern [2026-02-10 06:37]', () {
       final code = '''
         class DataContainer {
           late String _data;
@@ -490,7 +490,7 @@ void main() {
       expect(execute(code), equals("HELLO"));
     });
 
-    test('late top-level variable', () {
+    test('late top-level variable [2026-02-10 06:37]', () {
       final code = '''
         late String globalConfig;
         
@@ -506,7 +506,7 @@ void main() {
       expect(execute(code), equals("global-value"));
     });
 
-    test('late top-level variable with initializer', () {
+    test('late top-level variable with initializer [2026-02-10 06:37]', () {
       final code = '''
         String computeGlobal() {
           return "computed-global";
@@ -521,7 +521,7 @@ void main() {
       expect(execute(code), equals("computed-global"));
     });
 
-    test('late variable circular dependency should work', () {
+    test('late variable circular dependency should work [2026-02-10 06:37]', () {
       final code = '''
         class CircularTest {
           static late String first = "First: " + getSecond();
@@ -543,7 +543,7 @@ void main() {
       expect(execute(code), equals("First: Second"));
     });
 
-    test('late variable with separate class access', () {
+    test('late variable with separate class access [2026-02-10 06:37]', () {
       final code = '''
         class Outer {
           static late String outerData = "outer";
@@ -568,7 +568,7 @@ void main() {
       expect(execute(code), equals("outer-inner"));
     });
 
-    test('late variable with async-like pattern', () {
+    test('late variable with async-like pattern [2026-02-10 06:37]', () {
       final code = '''
         String simulateAsync() {
           // Simulate some computation

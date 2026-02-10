@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('PointCore tests', () {
-    test('Point properties', () {
+    test('Point properties [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -14,7 +14,7 @@ void main() {
       expect(execute(source), equals([3, 4, 5.0]));
     });
 
-    test('Point distanceTo', () {
+    test('Point distanceTo [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -26,7 +26,7 @@ void main() {
       expect(execute(source), equals(5.0));
     });
 
-    test('Point squaredDistanceTo', () {
+    test('Point squaredDistanceTo [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -38,7 +38,7 @@ void main() {
       expect(execute(source), equals(25));
     });
 
-    test('Point toString', () {
+    test('Point toString [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -49,7 +49,7 @@ void main() {
       expect(execute(source), equals('Point(3, 4)'));
     });
 
-    test('Point equality and hashCode', () {
+    test('Point equality and hashCode [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:math';
       main() {

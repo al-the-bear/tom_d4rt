@@ -4,7 +4,7 @@ import '../interpreter_test.dart';
 
 void main() {
   group('Extension Getters and Setters', () {
-    test('Access extension getter', () {
+    test('Access extension getter [2026-02-10 06:37]', () {
       final code = '''
         extension NumExt on int {
           int get doubled => this * 2;
@@ -17,7 +17,7 @@ void main() {
       expect(execute(code), equals(10));
     });
 
-    test('Assign via extension setter', () {
+    test('Assign via extension setter [2026-02-10 06:37]', () {
       final code = '''
         class Counter {
           int value = 0;
@@ -37,7 +37,7 @@ void main() {
       expect(execute(code), equals(8));
     });
 
-    test('Access extension getter via implicit this', () {
+    test('Access extension getter via implicit this [2026-02-10 06:37]', () {
       final code = '''
         class MyValue {
           int _val;
@@ -58,7 +58,7 @@ void main() {
       expect(execute(code), equals(12));
     });
 
-    test('Assign via extension setter via implicit this', () {
+    test('Assign via extension setter via implicit this [2026-02-10 06:37]', () {
       final code = '''
         class MyValue {
           int _val;
@@ -86,7 +86,7 @@ void main() {
 
   // Add other groups for operators, index, call, etc. below
   group('Extension Binary Operators', () {
-    test('operator + on custom class', () {
+    test('operator + on custom class [2026-02-10 06:37]', () {
       final code = '''
         class Vector {
           num x, y;
@@ -108,7 +108,7 @@ void main() {
       expect(instance.get('y'), equals(6));
     });
 
-    test('operator - on custom class', () {
+    test('operator - on custom class [2026-02-10 06:37]', () {
       final code = '''
         class Vector {
           num x, y;
@@ -130,7 +130,7 @@ void main() {
       expect(instance.get('y'), equals(7));
     });
 
-    test('operator * (scalar) on custom class', () {
+    test('operator * (scalar) on custom class [2026-02-10 06:37]', () {
       final code = '''
         class Vector {
           num x, y;
@@ -151,7 +151,7 @@ void main() {
       expect(instance.get('y'), equals(-6));
     });
 
-    test('operator == on custom class (via extension)', () {
+    test('operator == on custom class (via extension) [2026-02-10 06:37]', () {
       final code = '''
         class Points {
           num x, y;
@@ -170,7 +170,7 @@ void main() {
       expect(execute(code), equals([true, false]));
     });
 
-    test('operator > on custom class', () {
+    test('operator > on custom class [2026-02-10 06:37]', () {
       final code = '''
         class Value {
           int val;
@@ -188,7 +188,7 @@ void main() {
       expect(execute(code), isTrue);
     });
 
-    test('Bitwise OR | on custom class', () {
+    test('Bitwise OR | on custom class [2026-02-10 06:37]', () {
       final code = '''
         class Flags {
           int value;
@@ -211,7 +211,7 @@ void main() {
   });
 
   group('Extension Compound Assignment', () {
-    test('+= calls extension operator +', () {
+    test('+= calls extension operator + [2026-02-10 06:37]', () {
       final code = '''
         class Value {
           int val;
@@ -229,7 +229,7 @@ void main() {
       expect(execute(code), equals(15));
     });
 
-    test('-= calls extension operator -', () {
+    test('-= calls extension operator - [2026-02-10 06:37]', () {
       final code = '''
         class Value {
           int val;
@@ -247,7 +247,7 @@ void main() {
       expect(execute(code), equals(7));
     });
 
-    test('*= calls extension operator *', () {
+    test('*= calls extension operator * [2026-02-10 06:37]', () {
       final code = '''
         class Value {
           int val;
@@ -267,7 +267,7 @@ void main() {
   });
 
   group('Extension Index Operators', () {
-    test('operator [] reads via extension', () {
+    test('operator [] reads via extension [2026-02-10 06:37]', () {
       final code = '''
         class MyList {
           List<int> _internal = [10, 20, 30];
@@ -283,7 +283,7 @@ void main() {
       expect(execute(code), equals(40));
     });
 
-    test('operator []= writes via extension', () {
+    test('operator []= writes via extension [2026-02-10 06:37]', () {
       final code = '''
         class MyList {
           List<int> _internal = [10, 20, 30];
@@ -306,7 +306,7 @@ void main() {
       expect(execute(code), equals(105));
     });
 
-    test('Compound assignment with index calls extension [] and []=', () {
+    test('Compound assignment with index calls extension [] and []= [2026-02-10 06:37]', () {
       final code = '''
         class MyList {
           List<int> _internal = [10, 20, 30];
@@ -330,7 +330,7 @@ void main() {
   });
 
   group('Extension Unary Operators', () {
-    test('operator unary - calls extension', () {
+    test('operator unary - calls extension [2026-02-10 06:37]', () {
       final code = '''
         class Value {
           int val;
@@ -348,7 +348,7 @@ void main() {
       expect(execute(code), equals(-5));
     });
 
-    test('operator ~ calls extension', () {
+    test('operator ~ calls extension [2026-02-10 06:37]', () {
       final code = '''
         class Bits {
           int value;
@@ -373,7 +373,7 @@ void main() {
   });
 
   group('Extension Call Operator', () {
-    test('call() via extension with positional args', () {
+    test('call() via extension with positional args [2026-02-10 06:37]', () {
       final code = '''
         extension StringCaller on String {
           String call(String suffix, int times) {
@@ -394,7 +394,7 @@ void main() {
       expect(execute(code), equals("Hello, worldHello, world"));
     });
 
-    test('call() via extension with named args', () {
+    test('call() via extension with named args [2026-02-10 06:37]', () {
       final code = '''
         class Adder {
           int base;
@@ -411,7 +411,7 @@ void main() {
       expect(execute(code), equals(15));
     });
 
-    test('call() via extension with mixed args', () {
+    test('call() via extension with mixed args [2026-02-10 06:37]', () {
       final code = '''
         class Greeter {
           String prefix;
@@ -430,7 +430,7 @@ void main() {
       expect(execute(code), equals("Hi Tester?!"));
     });
     group('Extension Tests', () {
-      test('Simple extension method on String', () {
+      test('Simple extension method on String [2026-02-10 06:37]', () {
         const source = '''
         extension SimpleStringExt on String {
           String exclaim() => this + '!';
@@ -443,7 +443,7 @@ void main() {
         expect(execute(source), equals('Hello!'));
       });
 
-      test('Extension method with parameters on String', () {
+      test('Extension method with parameters on String [2026-02-10 06:37]', () {
         const source = '''
         extension ParamStringExt on String {
           String repeat(int times) => this * times;
@@ -502,7 +502,7 @@ void main() {
         expect(execute(source), equals(['DATA_DONE', 'empty']));
       });
 
-      test('Simple extension method on int', () {
+      test('Simple extension method on int [2026-02-10 06:37]', () {
         const source = '''
         extension IntExt on int {
           int squared() => this * this;
@@ -515,7 +515,7 @@ void main() {
         expect(execute(source), equals(25));
       });
 
-      test('Extension method on List', () {
+      test('Extension method on List [2026-02-10 06:37]', () {
         const source = '''
         extension ListExt<T> on List<T> {
           T? secondOrNull() => length >= 2 ? this[1] : null;
@@ -531,7 +531,7 @@ void main() {
         expect(execute(source), equals([20, null, null]));
       });
 
-      test('Extension on interpreted class', () {
+      test('Extension on interpreted class [2026-02-10 06:37]', () {
         // NOTE: Accessing extension members on interpreted classes relies on
         // the instance being a context itself, which isn't the standard way.
         // Let's test calling an extension method that *internally* calls instance members.
@@ -567,7 +567,7 @@ void main() {
         expect(execute(source), equals([5, 15]));
       });
 
-      test('Instance member wins over extension member', () {
+      test('Instance member wins over extension member [2026-02-10 06:37]', () {
         // Test with String (native class)
         const source1 = '''
         extension StringExt on String {
@@ -602,7 +602,7 @@ void main() {
             reason: 'Instance members should override extension members');
       });
 
-      test('Correct extension selected based on type', () {
+      test('Correct extension selected based on type [2026-02-10 06:37]', () {
         const source = '''
         extension ExtString on String {
           String identify() => 'String Extension';
@@ -627,7 +627,7 @@ void main() {
             equals(['String Extension', 'Int Extension', 'List Extension']));
       });
 
-      test('Extension applies to subtype', () {
+      test('Extension applies to subtype [2026-02-10 06:37]', () {
         const source = '''
        class Base {}
        class Derived extends Base {}
@@ -646,7 +646,7 @@ void main() {
       });
     });
     group('Extension Tests', () {
-      test('Simple extension method on String', () {
+      test('Simple extension method on String [2026-02-10 06:37]', () {
         const source = '''
         extension SimpleStringExt on String {
           String exclaim() => this + '!';
@@ -659,7 +659,7 @@ void main() {
         expect(execute(source), equals('Hello!'));
       });
 
-      test('Extension method with parameters on String', () {
+      test('Extension method with parameters on String [2026-02-10 06:37]', () {
         const source = '''
         extension ParamStringExt on String {
           String repeat(int times) => this * times;
@@ -718,7 +718,7 @@ void main() {
         expect(execute(source), equals(['DATA_DONE', 'empty']));
       });
 
-      test('Simple extension method on int', () {
+      test('Simple extension method on int [2026-02-10 06:37]', () {
         const source = '''
         extension IntExt on int {
           int squared() => this * this;
@@ -731,7 +731,7 @@ void main() {
         expect(execute(source), equals(25));
       });
 
-      test('Extension method on List', () {
+      test('Extension method on List [2026-02-10 06:37]', () {
         const source = '''
         extension ListExt<T> on List<T> {
           T? secondOrNull() => length >= 2 ? this[1] : null;
@@ -747,7 +747,7 @@ void main() {
         expect(execute(source), equals([20, null, null]));
       });
 
-      test('Extension on interpreted class', () {
+      test('Extension on interpreted class [2026-02-10 06:37]', () {
         // NOTE: Accessing extension members on interpreted classes relies on
         // the instance being a context itself, which isn't the standard way.
         // Let's test calling an extension method that *internally* calls instance members.
@@ -783,7 +783,7 @@ void main() {
         expect(execute(source), equals([5, 15]));
       });
 
-      test('Instance member wins over extension member', () {
+      test('Instance member wins over extension member [2026-02-10 06:37]', () {
         // Test with String (native class)
         const source1 = '''
         extension StringExt on String {
@@ -818,7 +818,7 @@ void main() {
             reason: 'Instance members should override extension members');
       });
 
-      test('Correct extension selected based on type', () {
+      test('Correct extension selected based on type [2026-02-10 06:37]', () {
         const source = '''
         extension ExtString on String {
           String identify() => 'String Extension';
@@ -843,7 +843,7 @@ void main() {
             equals(['String Extension', 'Int Extension', 'List Extension']));
       });
 
-      test('Extension applies to subtype', () {
+      test('Extension applies to subtype [2026-02-10 06:37]', () {
         const source = '''
        class Base {}
        class Derived extends Base {}
@@ -861,7 +861,7 @@ void main() {
         expect(execute(source), equals('Hello from BaseExt'));
       });
     });
-    // test('call() on nullable type via extension', () {
+    // test('call() on nullable type via extension [2026-02-10 06:37]', () {
     //   final code = '''
     //     extension NullableIntCall on int? {
     //       String call(String ifNull) => this?.toString() ?? ifNull;
@@ -877,7 +877,7 @@ void main() {
   });
 
   group('Extension Access via Implicit This', () {
-    test('Extension getter and method access via implicit this', () {
+    test('Extension getter and method access via implicit this [2026-02-10 06:37]', () {
       const sourceClass = '''
         class MyCounter {
           int value = 5;

@@ -11,18 +11,18 @@ This document tracks **open interpreter issues** that require changes to `tom_d4
 | ID | Description | Relevance | Comment/Reason | Status |
 |----|-------------|-----------|----------------|--------|
 | [INTER-001](#inter-001) | Callable class call() method not invoked | Medium | Fixed in interpreter_visitor.dart | ✅ Fixed |
-| [INTER-002](#inter-002) | Top-level setter assignment fails | Medium | Missing `registerGlobalSetter` API | ⬜ TODO |
+| [INTER-002](#inter-002) | Top-level setter assignment fails | Medium | Added `registerGlobalSetter` API | ✅ Fixed |
 | [INTER-003](#inter-003) | Int-to-double promotion in `extractBridgedArg` | Medium | Fixed in d4.dart | ✅ Fixed |
 | [INTER-004](#inter-004) | Collection type casting in method parameters | Medium | Fixed in d4.dart | ✅ Fixed |
-| [INTER-005](#inter-005) | BridgedInstance unwrapping for native calls | Medium | Affects sorted collections | ⬜ TODO |
-| [Bug-92](#bug-92) | Future factory constructor returns BridgedInstance | Medium | Async bridging issue | ⬜ TODO |
+| [INTER-005](#inter-005) | BridgedInstance unwrapping for native calls | Medium | Handle BridgedInstance in sort() | ✅ Fixed |
+| [Bug-92](#bug-92) | Future factory constructor returns BridgedInstance | Medium | Return Future directly, skip wrapping | ✅ Fixed |
 | [Bug-93](#bug-93) | Int not promoted to double return type | Low | Fixed in interpreter_visitor.dart | ✅ Fixed |
 | [Bug-94](#bug-94) | Cascade index assignment on property fails | Medium | Fixed in interpreter_visitor.dart | ✅ Fixed |
 | [Bug-95](#bug-95) | List.forEach with native function tear-off fails | Medium | Fixed in stdlib/core/list.dart | ✅ Fixed |
 | [Bug-96](#bug-96) | super.name constructor parameter forwarding fails | Medium | Fixed in callable.dart | ✅ Fixed |
 | [Bug-97](#bug-97) | num not recognized as satisfying Comparable bound | Low | Fixed in runtime_types.dart | ✅ Fixed |
-| [Bug-98](#bug-98) | Extension getter on bridged List not resolved | Medium | Type parameterization matching | ⬜ TODO |
-| [Bug-99](#bug-99) | Stream.handleError callback receives wrong arg count | Low | May be fixed - needs verification | ⚠️ Verify |
+| [Bug-98](#bug-98) | Extension getter on bridged List not resolved | Medium | Relaxed type matching in findExtensionMember | ✅ Fixed |
+| [Bug-99](#bug-99) | Stream.handleError callback receives wrong arg count | Low | Verified fixed - arity check works | ✅ Fixed |
 | [Lim-3](#lim-3) | Isolate execution with interpreted code | Fundamental | Dart VM architecture | 🚫 Won't Fix |
 | [Bug-14](#bug-14) | Records with named fields or >9 positional fields | High | Dart language limitation | 🚫 Won't Fix |
 
@@ -102,10 +102,11 @@ if (target is BridgedInstance) {
 
 **Top-level setter assignment fails**
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Relevance:** Medium — Affects mutable global state  
 **Original ID:** GEN-056  
-**Complexity:** Medium
+**Complexity:** Medium  
+**Fixed:** 2026-02-09 — Added `registerGlobalSetter()` API and updated Environment.assign()
 
 #### Problem Description
 
@@ -367,10 +368,11 @@ static T extractBridgedArg<T>(dynamic arg, String paramName) {
 
 **BridgedInstance unwrapping for native calls**
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Relevance:** Medium — Affects native method calls with bridged objects  
 **Original ID:** GEN-062  
-**Complexity:** High
+**Complexity:** High  
+**Fixed:** 2026-02-09 — sort() now unwraps BridgedInstance elements before comparison
 
 #### Problem Description
 
@@ -499,9 +501,10 @@ class BridgedInstance<T> implements Comparable<dynamic> {
 
 **Future factory constructor returns BridgedInstance**
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Relevance:** Medium  
-**Complexity:** Medium
+**Complexity:** Medium  
+**Fixed:** 2026-02-09 — Constructor invocation now returns Future/Stream directly without wrapping
 
 #### Problem Description
 
@@ -793,9 +796,10 @@ if (bound.name == 'Comparable') {
 
 **Extension getter on bridged List not resolved**
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Relevance:** Medium  
-**Complexity:** Medium
+**Complexity:** Medium  
+**Fixed:** 2026-02-09 — Relaxed type matching in findExtensionMember for same-name types
 
 #### Problem Description
 
@@ -900,9 +904,10 @@ When the variable is declared, remember its declared type (including type argume
 
 **Stream.handleError callback receives wrong arg count**
 
-**Status:** ⚠️ Verify  
+**Status:** ✅ Fixed  
 **Relevance:** Low  
-**Complexity:** Low
+**Complexity:** Low  
+**Fixed:** 2026-02-09 — Verified working: arity check correctly passes 1 or 2 args based on callback signature
 
 #### Problem Description
 

@@ -10,7 +10,7 @@ import 'package:tom_d4rt/d4rt.dart';
 
 void main() {
   group('GlobalGetter Wrapper', () {
-    test('GlobalGetter can wrap a function', () {
+    test('GlobalGetter can wrap a function [2026-02-10 06:37]', () {
       var callCount = 0;
       final getter = GlobalGetter(() {
         callCount++;
@@ -22,7 +22,7 @@ void main() {
       expect(callCount, equals(1));
     });
 
-    test('GlobalGetter evaluates each time it is called', () {
+    test('GlobalGetter evaluates each time it is called [2026-02-10 06:37]', () {
       var counter = 0;
       final getter = GlobalGetter(() => ++counter);
 
@@ -31,7 +31,7 @@ void main() {
       expect(getter(), equals(3));
     });
 
-    test('GlobalGetter can return null', () {
+    test('GlobalGetter can return null [2026-02-10 06:37]', () {
       final getter = GlobalGetter(() => null);
       expect(getter(), isNull);
     });
@@ -44,7 +44,7 @@ void main() {
       environment = Environment();
     });
 
-    test('Environment.get unwraps GlobalGetter automatically', () {
+    test('Environment.get unwraps GlobalGetter automatically [2026-02-10 06:37]', () {
       var evaluationCount = 0;
       environment.define('lazyValue', GlobalGetter(() {
         evaluationCount++;
@@ -60,12 +60,12 @@ void main() {
       expect(evaluationCount, equals(2));
     });
 
-    test('Regular values are returned directly without wrapping', () {
+    test('Regular values are returned directly without wrapping [2026-02-10 06:37]', () {
       environment.define('regularValue', 42);
       expect(environment.get('regularValue'), equals(42));
     });
 
-    test('GlobalGetter reflects changes in underlying value', () {
+    test('GlobalGetter reflects changes in underlying value [2026-02-10 06:37]', () {
       var mutableValue = 'initial';
       environment.define('dynamicValue', GlobalGetter(() => mutableValue));
 
@@ -88,7 +88,7 @@ void main() {
       interpreter = D4rt();
     });
 
-    test('registerGlobalGetter makes getter accessible via import', () {
+    test('registerGlobalGetter makes getter accessible via import [2026-02-10 06:37]', () {
       var counter = 0;
       interpreter.registerGlobalGetter('counter', () => ++counter, testLib);
 
@@ -109,7 +109,7 @@ void main() {
       expect(result2, equals(2));
     });
 
-    test('registerGlobalGetter evaluates lazily not at registration', () {
+    test('registerGlobalGetter evaluates lazily not at registration [2026-02-10 06:37]', () {
       String? lateInitValue;
       interpreter.registerGlobalGetter('lateValue', () => lateInitValue, testLib);
 
@@ -136,7 +136,7 @@ void main() {
       expect(result, equals('initialized'));
     });
 
-    test('registerGlobalVariable vs registerGlobalGetter difference', () {
+    test('registerGlobalVariable vs registerGlobalGetter difference [2026-02-10 06:37]', () {
       var mutableSource = 'initial';
 
       // Regular variable captures value at registration time
@@ -168,7 +168,7 @@ void main() {
       expect(result, equals(['initial', 'changed']));
     });
 
-    test('getter returning object instance works correctly', () {
+    test('getter returning object instance works correctly [2026-02-10 06:37]', () {
       final instanceHolder = _InstanceHolder();
       interpreter.registerGlobalGetter('instance', () => instanceHolder.instance, testLib);
 
@@ -203,7 +203,7 @@ void main() {
       interpreter = D4rt();
     });
 
-    test('eval can access global getters via import', () {
+    test('eval can access global getters via import [2026-02-10 06:37]', () {
       var timestamp = DateTime(2024, 1, 1);
       interpreter.registerGlobalGetter('currentTime', () => timestamp, testLib);
 

@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('Json tests', () {
-    test('JsonCodec encode and decode', () {
+    test('JsonCodec encode and decode [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -19,7 +19,7 @@ void main() {
       expect(result[1], equals({"key": "value", "number": 42}));
     });
 
-    test('JsonEncoder convert', () {
+    test('JsonEncoder convert [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -32,7 +32,7 @@ void main() {
       expect(execute(source), equals('{"key":"value","number":42}'));
     });
 
-    test('JsonDecoder convert', () {
+    test('JsonDecoder convert [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -45,7 +45,7 @@ void main() {
       expect(execute(source), equals({"key": "value", "number": 42}));
     });
 
-    test('jsonEncode', () {
+    test('jsonEncode [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -57,7 +57,7 @@ void main() {
       expect(execute(source), equals('{"key":"value","number":42}'));
     });
 
-    test('jsonDecode', () {
+    test('jsonDecode [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -69,7 +69,7 @@ void main() {
       expect(execute(source), equals({"key": "value", "number": 42}));
     });
 
-    test('jsonEncode with toEncodable', () {
+    test('jsonEncode with toEncodable [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -87,7 +87,7 @@ void main() {
       expect(execute(source), contains('"date":"2023-01-01T00:00:00.000'));
     });
 
-    test('jsonDecode with reviver', () {
+    test('jsonDecode with reviver [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -108,7 +108,7 @@ void main() {
       expect((result['date'] as DateTime).year, equals(2023));
     });
 
-    test('JsonCodec with toEncodable and reviver', () {
+    test('JsonCodec with toEncodable and reviver [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {

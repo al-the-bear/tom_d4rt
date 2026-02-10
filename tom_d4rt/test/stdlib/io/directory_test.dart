@@ -4,7 +4,7 @@ import 'dart:io'; // Import dart:io
 
 void main() {
   group('Directory methods - comprehensive', () {
-    test('existsSync', () {
+    test('existsSync [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:io';
       main() {
@@ -23,7 +23,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('createSync', () {
+    test('createSync [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:io';
       main() {
@@ -43,7 +43,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('deleteSync', () {
+    test('deleteSync [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:io';
       main() {
@@ -61,7 +61,7 @@ void main() {
       expect(execute(source), isFalse);
     });
 
-    test('listSync', () {
+    test('listSync [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:io';
       main() {
@@ -87,7 +87,7 @@ void main() {
       expect((result[0] as String), endsWith('/test.txt'));
     });
 
-    test('renameSync', () {
+    test('renameSync [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:io';
       main() {
@@ -107,7 +107,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('absolute', () {
+    test('absolute [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:io';
       main() {
@@ -127,7 +127,7 @@ void main() {
       expect((result).startsWith('/'), isTrue);
     });
 
-    test('parent', () {
+    test('parent [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:io';
       main() {
@@ -147,7 +147,7 @@ void main() {
       expect(result, equals(Directory.systemTemp.path));
     });
 
-    test('resolveSymbolicLinksSync', () {
+    test('resolveSymbolicLinksSync [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:io';
       main() {

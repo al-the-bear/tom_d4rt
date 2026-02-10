@@ -3,7 +3,7 @@ import 'interpreter_test.dart' show execute;
 
 void main() {
   group('Const Expressions', () {
-    test('const List with simple values', () {
+    test('const List with simple values [2026-02-10 06:37]', () {
       const code = '''
 main() {
   const list = [1, 2, 3];
@@ -14,7 +14,7 @@ main() {
       expect(result, equals(3));
     });
 
-    test('const List with typed declaration', () {
+    test('const List with typed declaration [2026-02-10 06:37]', () {
       const code = '''
 main() {
   const List<int> numbers = [10, 20, 30];
@@ -25,7 +25,7 @@ main() {
       expect(result, equals(20));
     });
 
-    test('const Map with simple key-value pairs', () {
+    test('const Map with simple key-value pairs [2026-02-10 06:37]', () {
       const code = '''
 main() {
   const map = {'name': 'John', 'age': 30};
@@ -36,7 +36,7 @@ main() {
       expect(result, equals('John'));
     });
 
-    test('const Map with typed declaration', () {
+    test('const Map with typed declaration [2026-02-10 06:37]', () {
       const code = '''
 main() {
   const Map<String, int> scores = {'Alice': 95, 'Bob': 87};
@@ -47,7 +47,7 @@ main() {
       expect(result, equals(95));
     });
 
-    test('const Set with simple values', () {
+    test('const Set with simple values [2026-02-10 06:37]', () {
       const code = '''
 main() {
   const set = {1, 2, 3, 2, 1};
@@ -58,7 +58,7 @@ main() {
       expect(result, equals(3)); // Duplicates removed
     });
 
-    test('const Set with typed declaration', () {
+    test('const Set with typed declaration [2026-02-10 06:37]', () {
       const code = '''
 main() {
   const Set<String> fruits = {'apple', 'banana', 'orange'};
@@ -69,7 +69,7 @@ main() {
       expect(result, equals(true));
     });
 
-    test('const List with expressions', () {
+    test('const List with expressions [2026-02-10 06:37]', () {
       const code = '''
 main() {
   const list = [1 + 1, 2 * 3, 10 - 5];
@@ -80,7 +80,7 @@ main() {
       expect(result, equals(2 + 6 + 5)); // 13
     });
 
-    test('const nested List', () {
+    test('const nested List [2026-02-10 06:37]', () {
       const code = '''
 main() {
   const nested = [[1, 2], [3, 4], [5, 6]];
@@ -91,7 +91,7 @@ main() {
       expect(result, equals(3));
     });
 
-    test('const nested Map', () {
+    test('const nested Map [2026-02-10 06:37]', () {
       const code = '''
 main() {
   const data = {
@@ -105,7 +105,7 @@ main() {
       expect(result, equals('Alice'));
     });
 
-    test('const List with String concatenation', () {
+    test('const List with String concatenation [2026-02-10 06:37]', () {
       const code = '''
 main() {
   const list = ['Hello' + ' ' + 'World', 'Dart'];
@@ -116,7 +116,7 @@ main() {
       expect(result, equals('Hello World'));
     });
 
-    test('const empty collections', () {
+    test('const empty collections [2026-02-10 06:37]', () {
       const code = '''
 main() {
   const emptyList = <int>[];
@@ -130,7 +130,7 @@ main() {
       expect(result, equals(0));
     });
 
-    test('const with conditional expression', () {
+    test('const with conditional expression [2026-02-10 06:37]', () {
       const code = '''
 main() {
   const value = true ? 42 : 0;
@@ -141,7 +141,7 @@ main() {
       expect(result, equals(42));
     });
 
-    test('const List with const keyword on literal', () {
+    test('const List with const keyword on literal [2026-02-10 06:37]', () {
       const code = '''
 main() {
   // Test with const directly on the literal
@@ -153,7 +153,7 @@ main() {
       expect(result, equals(3));
     });
 
-    test('const Map with const keyword on literal', () {
+    test('const Map with const keyword on literal [2026-02-10 06:37]', () {
       const code = '''
 main() {
   final map = const {'key': 'value', 'key2': 'value2'};
@@ -164,7 +164,7 @@ main() {
       expect(result, equals(2));
     });
 
-    test('const Set with const keyword on literal', () {
+    test('const Set with const keyword on literal [2026-02-10 06:37]', () {
       const code = '''
 main() {
   final set = const {1, 2, 3};

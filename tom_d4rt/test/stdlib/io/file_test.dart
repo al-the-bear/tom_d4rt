@@ -4,7 +4,7 @@ import 'dart:io';
 
 void main() {
   group('File methods - comprehensive', () {
-    test('existsSync', () {
+    test('existsSync [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -19,7 +19,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('writeAsStringSync and readAsStringSync', () {
+    test('I-FILE-1: writeAsStringSync and readAsStringSync [2026-02-10 08:00]', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -33,7 +33,7 @@ void main() {
       expect(execute(source), equals('Hello, world!'));
     });
 
-    test('deleteSync', () {
+    test('deleteSync [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -46,7 +46,7 @@ void main() {
       expect(execute(source), isFalse);
     });
 
-    test('renameSync', () {
+    test('renameSync [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -61,7 +61,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('copySync', () {
+    test('copySync [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -77,7 +77,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('lengthSync', () {
+    test('lengthSync [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -91,7 +91,7 @@ void main() {
       expect(execute(source), equals(13));
     });
 
-    test('lastModifiedSync', () {
+    test('lastModifiedSync [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -105,7 +105,7 @@ void main() {
       expect(execute(source), isA<DateTime>());
     });
 
-    test('resolveSymbolicLinksSync', () {
+    test('resolveSymbolicLinksSync [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -119,7 +119,7 @@ void main() {
       expect(execute(source), isA<String>());
     });
 
-    test('absolute', () {
+    test('absolute [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -134,7 +134,7 @@ void main() {
       expect((execute(source) as String).contains('/test.txt'), isTrue);
     });
 
-    test('parent', () {
+    test('parent [2026-02-10 06:37]', () {
       const source = '''
      import 'dart:io';
      main() {

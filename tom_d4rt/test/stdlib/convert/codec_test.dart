@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('Codec tests', () {
-    test('Codec encode and decode', () {
+    test('Codec encode and decode [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -21,7 +21,7 @@ void main() {
           ]));
     });
 
-    test('Codec fuse', () {
+    test('Codec fuse [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -34,7 +34,7 @@ void main() {
       expect(execute(source), equals(['aGVsbG8=', 'hello']));
     });
 
-    test('Codec encoder and decoder', () {
+    test('Codec encoder and decoder [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:convert';
       main() {

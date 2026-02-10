@@ -4,7 +4,7 @@ import 'dart:math';
 
 void main() {
   group('MathCore tests', () {
-    test('Math constants', () {
+    test('Math constants [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -18,7 +18,7 @@ void main() {
       expect(result[3], closeTo(0.7071067811865476, 0.000000000000001));
     });
 
-    test('Math functions', () {
+    test('Math functions [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -49,7 +49,7 @@ void main() {
   });
 
   group('PointCore tests', () {
-    test('Point properties and methods', () {
+    test('Point properties and methods [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -62,7 +62,7 @@ void main() {
   });
 
   group('RectangleCore tests', () {
-    test('Rectangle properties and methods', () {
+    test('Rectangle properties and methods [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -100,7 +100,7 @@ void main() {
   });
 
   group('RandomCore tests', () {
-    test('Random methods', () {
+    test('Random methods [2026-02-10 06:37]', () {
       const source = '''
       import 'dart:math';
       main() {
