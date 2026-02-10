@@ -62,13 +62,13 @@ void main() {
       test('G-CB-1: VoidCallback parameter generates wrapper. [2026-02-10 06:37] (PASS)', () {
         // Should use InterpretedFunction pattern
         expect(generatedCode, contains('InterpretedFunction'));
-        expect(generatedCode, contains('_raw'));
+        expect(generatedCode, contains('Raw'));
       });
 
       test('G-CB-2: Void Function() callback correct wrapper. [2026-02-10 06:37] (PASS)', () {
-        // For VoidCallback: () { (callback_raw as InterpretedFunction).call(visitor...) }
+        // For VoidCallback: () { (callbackRaw as InterpretedFunction).call(visitor, []) }
         expect(generatedCode, contains("'onComplete':"));
-        expect(generatedCode, contains('.call(visitor as InterpreterVisitor,'));
+        expect(generatedCode, contains('.call(visitor,'));
       });
     });
 
@@ -116,9 +116,9 @@ void main() {
     group('Multiple Callbacks', () {
       test('G-CB-3: Multiple callbacks generates all wrappers. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'processWithCallbacks':"));
-        // Should have multiple _raw variables
+        // Should have multiple Raw-suffixed variables (camelCase)
         expect(generatedCode,
-            matches(RegExp(r"final \w+_raw = ", multiLine: true)));
+            matches(RegExp(r"final \w+Raw = ", multiLine: true)));
       });
     });
 

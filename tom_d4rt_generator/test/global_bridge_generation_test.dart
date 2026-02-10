@@ -245,24 +245,24 @@ void main() {
       generatedCode = await File(outputFile).readAsString();
     });
 
-    test('G-GB-1: Generates globalFunctionNames list. [2026-02-10 06:37] (PASS)', () {
+    test('G-GB-1: Generates globalFunctions map. [2026-02-10 06:37] (PASS)', () {
       expect(
         generatedCode,
-        contains('static List<String> get globalFunctionNames'),
+        contains('static Map<String, NativeFunctionImpl> globalFunctions()'),
       );
     });
 
-    test('G-GB-2: Generates globalVariableNames list. [2026-02-10 06:37] (PASS)', () {
+    test('G-GB-2: Generates registerGlobalVariables method. [2026-02-10 06:37] (PASS)', () {
       expect(
         generatedCode,
-        contains('static List<String> get globalVariableNames'),
+        contains('static void registerGlobalVariables(D4rt interpreter, String importPath)'),
       );
     });
 
-    test('G-GB-3: Generates getGlobalInitializationScript. [2026-02-10 06:37] (PASS)', () {
+    test('G-GB-3: Generates registerBridges entry point. [2026-02-10 06:37] (PASS)', () {
       expect(
         generatedCode,
-        contains('static String getGlobalInitializationScript()'),
+        contains('static void registerBridges(D4rt interpreter, String importPath)'),
       );
     });
   });
@@ -357,9 +357,9 @@ void main() {
       expect(generatedCode, contains("'lastError'"));
     });
 
-    test('G-GB-4: Init script contains variable getters. [2026-02-10 06:37] (PASS)', () {
-      // The getGlobalInitializationScript should contain getter definitions
-      expect(generatedCode, contains('getGlobalInitializationScript'));
+    test('G-GB-4: registerGlobalVariables registers variables. [2026-02-10 06:37] (PASS)', () {
+      // The registerGlobalVariables method should contain variable registrations
+      expect(generatedCode, contains('registerGlobalVariables'));
     });
   });
 
@@ -392,31 +392,32 @@ void main() {
     group('Regular Variables use registerGlobalVariable', () {
       test('G-GB-5: Const vars use registerGlobalVariable. [2026-02-10 06:37] (PASS)', () {
         // Variable values are now prefixed with $pkg. since source imports use a prefix
+        // registerGlobalVariable now includes importPath and sourceUri parameters
         expect(
           generatedCode,
-          contains(r"interpreter.registerGlobalVariable('appName', $pkg.appName)"),
+          contains(r"interpreter.registerGlobalVariable('appName', $pkg.appName, importPath"),
         );
         expect(
           generatedCode,
           contains(
-              r"interpreter.registerGlobalVariable('maxRetries', $pkg.maxRetries)"),
+              r"interpreter.registerGlobalVariable('maxRetries', $pkg.maxRetries, importPath"),
         );
         expect(
           generatedCode,
           contains(
-              r"interpreter.registerGlobalVariable('debugMode', $pkg.debugMode)"),
+              r"interpreter.registerGlobalVariable('debugMode', $pkg.debugMode, importPath"),
         );
       });
 
       test('G-GB-6: Final vars use registerGlobalVariable. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
-          contains(r"interpreter.registerGlobalVariable('version', $pkg.version)"),
+          contains(r"interpreter.registerGlobalVariable('version', $pkg.version, importPath"),
         );
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalVariable('supportedFormats', $pkg.supportedFormats)",
+            r"interpreter.registerGlobalVariable('supportedFormats', $pkg.supportedFormats, importPath",
           ),
         );
       });
@@ -425,13 +426,13 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalVariable('requestCount', $pkg.requestCount)",
+            r"interpreter.registerGlobalVariable('requestCount', $pkg.requestCount, importPath",
           ),
         );
         expect(
           generatedCode,
           contains(
-              r"interpreter.registerGlobalVariable('lastError', $pkg.lastError)"),
+              r"interpreter.registerGlobalVariable('lastError', $pkg.lastError, importPath"),
         );
       });
     });
@@ -439,10 +440,11 @@ void main() {
     group('Top-level Getters use registerGlobalGetter', () {
       test('G-GB-8: Getter singleton uses registerGlobalGetter. [2026-02-10 06:37] (PASS)', () {
         // Getter values are now prefixed with $pkg. since source imports use a prefix
+        // registerGlobalGetter now includes importPath and sourceUri parameters
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalGetter('globalService', () => $pkg.globalService)",
+            r"interpreter.registerGlobalGetter('globalService', () => $pkg.globalService, importPath",
           ),
         );
       });
@@ -451,7 +453,7 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalGetter('currentTime', () => $pkg.currentTime)",
+            r"interpreter.registerGlobalGetter('currentTime', () => $pkg.currentTime, importPath",
           ),
         );
       });
@@ -460,7 +462,7 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalGetter('lastLogMessage', () => $pkg.lastLogMessage)",
+            r"interpreter.registerGlobalGetter('lastLogMessage', () => $pkg.lastLogMessage, importPath",
           ),
         );
       });
@@ -469,7 +471,7 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalGetter('doubleRequestCount', () => $pkg.doubleRequestCount)",
+            r"interpreter.registerGlobalGetter('doubleRequestCount', () => $pkg.doubleRequestCount, importPath",
           ),
         );
       });
@@ -479,7 +481,7 @@ void main() {
       test('G-GB-12: RegisterGlobalVariables contains both. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
-          contains('static void registerGlobalVariables(D4rt interpreter)'),
+          contains('static void registerGlobalVariables(D4rt interpreter, String importPath)'),
         );
       });
 

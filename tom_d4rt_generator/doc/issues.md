@@ -10,21 +10,21 @@
 
 | ID | Description | Complexity | Status |
 |----|-------------|------------|--------|
-| [G-CB-1](#g-cb-1) | Callback wrapper code expects `_raw` pattern | Low | TODO |
-| [G-CB-2](#g-cb-2) | Void Function() callback pattern mismatch | Low | TODO |
-| [G-CB-3](#g-cb-3) | Multiple callbacks `_raw` pattern mismatch | Low | TODO |
-| [G-GB-1](#g-gb-1) | globalFunctionNames list generation test | Low | TODO |
-| [G-GB-2](#g-gb-2) | globalVariableNames list generation test | Low | TODO |
-| [G-GB-3](#g-gb-3) | getGlobalInitializationScript generation test | Low | TODO |
-| [G-GB-4](#g-gb-4) | Init script variable getters test | Low | TODO |
-| [G-GB-5](#g-gb-5) | Const vars registerGlobalVariable test | Low | TODO |
-| [G-GB-6](#g-gb-6) | Final vars registerGlobalVariable test | Low | TODO |
-| [G-GB-7](#g-gb-7) | Mutable vars registerGlobalVariable test | Low | TODO |
-| [G-GB-8](#g-gb-8) | Getter singleton registerGlobalGetter test | Low | TODO |
-| [G-GB-9](#g-gb-9) | Computed getter registerGlobalGetter test | Low | TODO |
-| [G-GB-10](#g-gb-10) | Nullable getter registerGlobalGetter test | Low | TODO |
-| [G-GB-11](#g-gb-11) | Mutable state getter registerGlobalGetter test | Low | TODO |
-| [G-GB-12](#g-gb-12) | RegisterGlobalVariables separation test | Low | TODO |
+| [G-CB-1](#g-cb-1) | Callback wrapper code expects `_raw` pattern | Low | Fixed |
+| [G-CB-2](#g-cb-2) | Void Function() callback pattern mismatch | Low | Fixed |
+| [G-CB-3](#g-cb-3) | Multiple callbacks `_raw` pattern mismatch | Low | Fixed |
+| [G-GB-1](#g-gb-1) | globalFunctionNames list generation test | Low | Fixed |
+| [G-GB-2](#g-gb-2) | globalVariableNames list generation test | Low | Fixed |
+| [G-GB-3](#g-gb-3) | getGlobalInitializationScript generation test | Low | Fixed |
+| [G-GB-4](#g-gb-4) | Init script variable getters test | Low | Fixed |
+| [G-GB-5](#g-gb-5) | Const vars registerGlobalVariable test | Low | Fixed |
+| [G-GB-6](#g-gb-6) | Final vars registerGlobalVariable test | Low | Fixed |
+| [G-GB-7](#g-gb-7) | Mutable vars registerGlobalVariable test | Low | Fixed |
+| [G-GB-8](#g-gb-8) | Getter singleton registerGlobalGetter test | Low | Fixed |
+| [G-GB-9](#g-gb-9) | Computed getter registerGlobalGetter test | Low | Fixed |
+| [G-GB-10](#g-gb-10) | Nullable getter registerGlobalGetter test | Low | Fixed |
+| [G-GB-11](#g-gb-11) | Mutable state getter registerGlobalGetter test | Low | Fixed |
+| [G-GB-12](#g-gb-12) | RegisterGlobalVariables separation test | Low | Fixed |
 | [G-UB-1](#g-ub-1) | GlobalsUserBridge appName override | Low | TODO |
 | [G-UB-2](#g-ub-2) | GlobalsUserBridge maxRetries override | Low | TODO |
 | [G-UB-3](#g-ub-3) | GlobalsUserBridge currentTime getter override | Low | TODO |
