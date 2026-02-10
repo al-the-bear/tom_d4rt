@@ -37,7 +37,7 @@ dependencies:
   tom_d4rt: ^1.6.1
 
 executables:
-  d4rtgen: d4rt_gen
+  d4rtgen: d4rtgen
 
 dev_dependencies:
   build_runner: ^2.4.0

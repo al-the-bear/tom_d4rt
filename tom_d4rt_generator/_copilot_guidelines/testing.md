@@ -616,17 +616,74 @@ Tests for known bugs (GEN-041, GEN-042) are expected to fail. The passing baseli
 
 ---
 
-## Test Results Tracking
+## Test Results Tracking with Testkit Baselines
 
-See `doc/test_results.md` for the test failure tracking table.
+Test results are tracked using **testkit baselines** in `doc/baseline_MMDD_HHMM.csv`. The most recent baseline file is the currently relevant one.
 
-### Purpose of test_results.md
+### Running Tests
 
-The test results file tracks:
-- Which tests are currently failing
-- Whether failures are expected (known limitations) or unexpected (bugs)
-- Progress over time via dated columns
-- Regressions when previously-passing tests fail
+Use `testkit` commands from the project root (e.g., `tom_d4rt_generator/`):
+
+```bash
+# Run all tests and compare against baseline
+testkit :test
+
+# Create a new baseline (after confirming test state is acceptable)
+testkit :baseline
+
+# Run tests with dart test directly (for targeted debugging)
+dart test --reporter compact
+```
+
+### Baseline CSV Format
+
+The baseline file has these columns:
+
+| Column | Description |
+|--------|-------------|
+| **ID** | Test ID (e.g., `G-TE-1`) extracted from the test name |
+| **Groups** | Test group hierarchy from the test file |
+| **Description** | Test description extracted from the test name |
+| **Baseline [MM-DD HH:MM]** | Result column(s): `OK/OK` = pass, `X/FAIL` = expected fail |
+
+When test descriptions follow the naming convention (`ID: description [date] (result)`), the columns parse correctly.
+
+### Result Values
+
+Format: `<current>/<baseline>` where `-` = SKIP, `X` = FAIL, `OK` = PASSED
+
+- `OK/OK` — Test passed now and in baseline
+- `OK/X` — Test passed now, failed in baseline (fix/improvement)
+- `X/OK` — Test failed now, passed in baseline (regression)
+- `X/X` — Test failed now and in baseline (expected or ongoing failure)
+- `-/OK` — Test skipped now, passed in baseline
+- `-/X` — Test skipped now, failed in baseline
+- `--/OK` — Test not run (filtered out), passed in baseline
+- `--/X` — Test not run (filtered out), failed in baseline
+
+### Testkit Commands
+
+| Command | Purpose |
+|---------|---------|
+| `testkit :test` | Run tests, add a new result column to the most recent baseline |
+| `testkit :baseline` | Create a fresh baseline file with current test results |
+
+### Passing Arguments to dart test
+
+Use `--test-args` to pass options to the underlying `dart test` command:
+
+```bash
+testkit :test --test-args="--name 'parser' --fail-fast --timeout 60s"
+```
+
+**Disallowed options:** `--reporter`, `--file-reporter`, `--pause-after-load`, `--debug` (run will fail if used).
+
+Testkit always uses `--reporter json` internally for parsing results.
+
+### Output Files
+
+- `doc/baseline_MMDD_HHMM.csv` — Baseline files (most recent is current)
+- `last_testrun.json` — Raw test output from last run (overwritten each time)
 
 ### Test ID Convention
 
@@ -665,21 +722,13 @@ test('G-TE-1: T.runtimeType bypasses type erasure [2026-02-10 08:00] (FAIL)', ()
 
 #### Benefits
 
-- **Traceability**: ID allows cross-referencing between test results and test code
+- **Traceability**: ID allows cross-referencing between baseline results and test code
 - **History**: Creation date shows when test was introduced
 - **Searchability**: Easy to find specific tests by ID in codebase
 
-### Maintaining the Table
-
-1. **After each test run**, add a new column with timestamp (YYYY-MM-DD HH:MM)
-2. Mark each test with ✅ (pass), ❌ (fail), or ⏭️ (skipped)
-3. Only list failed tests (tests that failed in any tracked run)
-4. Keep tests in table even if passing, until new baseline is created
-5. **Creating a baseline**: Delete all run columns, add single "Baseline" column
-
 ### Expected Failures
 
-Tests marked `Expected: fail` are known limitations:
+Tests marked `(FAIL)` in their name are known limitations:
 - `G-TE-*`: Type erasure (Dart limitation)
 - `G-TOP-12/13`: Enum edge cases (Dart limitation)
 - `G-GNRC-7`: F-bounded polymorphism (Dart limitation)
@@ -689,6 +738,6 @@ Tests marked `Expected: fail` are known limitations:
 
 ## Related Documentation
 
-- `doc/test_results.md` — Failure tracking table
+- `doc/baseline_*.csv` — Test result baselines (most recent is current)
 - `doc/issues.md` — Bug and issue documentation
 - `doc/test_coverage.md` — Feature coverage matrix

@@ -6,6 +6,7 @@ This folder contains project-specific guidelines for the `tom_d4rt_dcli` package
 
 | File | Description |
 |------|-------------|
+| [testing.md](testing.md) | Testing strategy and testkit baseline tracking |
 | [build.md](build.md) | Build, test, and publishing guidelines |
 
 ## Quick Reference

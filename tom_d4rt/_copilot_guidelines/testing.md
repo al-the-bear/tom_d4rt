@@ -91,53 +91,97 @@ test('I-LIM-3: Isolate.run interpreted closure [2026-02-10 08:00]', () {
 ### Benefits
 
 - Test output shows ID, description and date — easy to cross-reference
-- Unique IDs enable tracking in `doc/test_results.md`
+- Unique IDs enable tracking in baseline CSV files
 - Creation date helps understand test history
 
 ---
 
 ## Running Tests
 
+Use `testkit` commands from the project root (e.g., `tom_d4rt/`):
+
 ```bash
-# Run all tests
-cd tom_d4rt && dart test
+# Run all tests and compare against baseline
+testkit :test
 
-# Run with compact output
+# Create a new baseline (after confirming test state is acceptable)
+testkit :baseline
+
+# Run tests with dart test directly (for targeted debugging)
 dart test --reporter compact
-
-# Run specific test file
 dart test test/global_setter_test.dart
-
-# Run specific test by name
 dart test --name "Lim-3"
 ```
 
 ---
 
-## Test Results Tracking
+## Test Results Tracking with Testkit Baselines
 
-See `doc/test_results.md` for the test failure tracking table and keep it current for full runs of the tests. Don't update for limited testing during the test/fix cycle. However, before reporting back in a test/fix cycle a full run must be done and the table updated.
+Test results are tracked using **testkit baselines** in `doc/baseline_MMDD_HHMM.csv`. The most recent baseline file is the currently relevant one.
 
-### Purpose of test_results.md
+### Baseline CSV Format
 
-The test results file tracks:
-- Which tests are currently failing
-- Whether failures are expected (known limitations) or unexpected (regressions)
-- Progress over time via dated columns
+The baseline file has these columns:
 
-### Maintaining the Table
+| Column | Description |
+|--------|-------------|
+| **ID** | Test ID (e.g., `I-LIM-3`) extracted from the test name |
+| **Groups** | Test group hierarchy from the test file |
+| **Description** | Test description extracted from the test name |
+| **Baseline [MM-DD HH:MM]** | Result column(s): `OK/OK` = pass, `X/FAIL` = expected fail |
 
-1. **After each test run**, add a new column with timestamp (YYYY-MM-DD HH:MM)
-2. Mark each test with ✅ (pass), ❌ (fail), or ⏭️ (skipped)
-3. Only list failed tests (tests that failed in any tracked run)
-4. Keep tests in table even if passing, until new baseline is created
-5. **Creating a baseline**: Delete all run columns, add single "Baseline" column
+When test descriptions follow the naming convention (`ID: description [date] (result)`), the columns parse correctly.
+
+### Result Values
+
+Format: `<current>/<baseline>` where `-` = SKIP, `X` = FAIL, `OK` = PASSED
+
+- `OK/OK` — Test passed now and in baseline
+- `OK/X` — Test passed now, failed in baseline (fix/improvement)
+- `X/OK` — Test failed now, passed in baseline (regression)
+- `X/X` — Test failed now and in baseline (expected or ongoing failure)
+- `-/OK` — Test skipped now, passed in baseline
+- `-/X` — Test skipped now, failed in baseline
+- `--/OK` — Test not run (filtered out), passed in baseline
+- `--/X` — Test not run (filtered out), failed in baseline
+
+### Testkit Commands
+
+| Command | Purpose |
+|---------|---------|
+| `testkit :test` | Run tests, add a new result column to the most recent baseline |
+| `testkit :baseline` | Create a fresh baseline file with current test results |
+
+### Passing Arguments to dart test
+
+Use `--test-args` to pass options to the underlying `dart test` command:
+
+```bash
+testkit :test --test-args="--name 'parser' --fail-fast --timeout 60s"
+```
+
+**Disallowed options:** `--reporter`, `--file-reporter`, `--pause-after-load`, `--debug` (run will fail if used).
+
+Testkit always uses `--reporter json` internally for parsing results.
+
+### Output Files
+
+- `doc/baseline_MMDD_HHMM.csv` — Baseline files (most recent is current)
+- `last_testrun.json` — Raw test output from last run (overwritten each time)
+
+### Workflow
+
+1. **Before making changes**: Run `testkit :test` to verify current state
+2. **After fixing bugs**: Run `testkit :test` to see improved results
+3. **When baseline is stale**: Run `testkit :baseline` to create new reference point
 
 ### Expected Failures
 
-Tests marked `Expected: fail` are known limitations that we know about and will either solve later or leave open
+Tests marked `(FAIL)` in their name are known limitations:
 - `I-LIM-3`: Isolate.run can't use interpreted closures
 - `I-BUG-14a/b`: Records with named fields or >9 positional fields
+
+These will show as `X/FAIL` in baseline results, which is correct behavior.
 
 
 
@@ -181,12 +225,12 @@ When fixing a bug:
 1. Add test that reproduces the bug first (should fail)
 2. Fix the bug
 3. Verify test passes
-4. Add test ID to `doc/test_results.md` if it was a tracked failure
+4. Run `testkit :test` to verify the fix is captured in baseline
 
 ---
 
 ## Related Documentation
 
-- `doc/test_results.md` — Failure tracking table
+- `doc/baseline_*.csv` — Test result baselines (most recent is current)
 - `doc/issues.md` — Bug and issue documentation
 

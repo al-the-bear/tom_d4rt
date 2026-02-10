@@ -1,382 +1,383 @@
-ID,Groups,Description,Baseline [02-10 11:00]
-,CLI API Controller - Core Methods > defines,expandDefine parses define invocation,X/OK
-,CLI API Controller - Core Methods > code execution,eval with variables,OK/OK
-,VS Code Scripting API - VSCode Class,VSCode.isInitialized returns correct state,OK/OK
-,VS Code Scripting API - VSCode Class,VSCode.getVersion returns version string,OK/OK
-,VS Code Scripting API - VSCode Class,VSCode.getEnv returns environment info,OK/OK
-,VS Code Scripting API - VSCodeWorkspace,getWorkspaceFolders returns list,OK/OK
-,VS Code Scripting API - VSCodeWorkspace,getConfiguration returns configuration,OK/OK
-,VS Code Scripting API - VSCodeWindow,showInformationMessage displays message,OK/OK
-,VS Code Scripting API - VSCodeWindow,getActiveTextEditor returns editor info,OK/OK
-,VS Code Scripting API - VSCodeCommands,getCommands returns list of commands,OK/OK
-,VS Code Scripting API - VSCodeCommands,executeCommand can run basic command,OK/OK
-,VS Code Scripting API - VSCodeExtensions,getAll returns list of extensions,OK/OK
-,VS Code Scripting API - VSCodeExtensions,getExtension returns specific extension,OK/OK
-,stdin error handling,should exit 1 on empty stdin,OK/OK
-,stdin preprocessing — complete script,should execute complete script as-is,OK/OK
-,stdin preprocessing — main without imports,should use int return from main as exit code,OK/OK
-,stdin preprocessing — main without imports,should auto-prefix imports for bridge usage,OK/OK
-,stdin preprocessing — main without imports,should execute void main and exit 0,OK/OK
-,stdin preprocessing — bare statements,should auto-import dart:io,OK/OK
-,stdin preprocessing — bare statements,should auto-import dart:math (stdlib bridge),OK/OK
-,stdin preprocessing — bare statements,should use int return as exit code,OK/OK
-,stdin preprocessing — bare statements,should print output and exit 0,OK/OK
-,stdin shell script,test_stdin.sh passes all checks,OK/OK
-,Integration - State Persistence,file content modifications persist,OK/OK
-,Integration - State Persistence,directory modifications persist,OK/OK
-,ContextStack,initial state,OK/OK
-,CliState,cd changes directory,OK/OK
-,CLI API Controller - Core Methods > directory navigation,cd with absolute path,OK/OK
-,CLI API Controller - Core Methods > directory navigation,home returns to data directory,OK/OK
-,CliState,defines management,OK/OK
-,CliState,path resolution - relative paths,OK/OK
-,CliState,path resolution - absolute paths,OK/OK
-,CliState,path resolution - tilde expansion,OK/OK
-,ExecutionContext,multiline mode management,OK/OK
-,ContextStack,push and pop contexts,OK/OK
-,ContextStack,cannot pop root context,OK/OK
-,D4rtCliController,basic properties,OK/OK
-,D4rtCliController,directory navigation,OK/OK
-,D4rtCliController,ls lists directory contents,OK/OK
-,D4rtCliController,defines work correctly,OK/OK
-,CLI API Controller - Core Methods > properties,toolName returns configured name,OK/OK
-,CLI API Controller - Core Methods > properties,dataDirectory returns configured path,OK/OK
-,CLI API Controller - Core Methods > properties,d4rt returns interpreter instance,OK/OK
-,CLI API Controller - Core Methods > properties,configuration is available,OK/OK
-,CLI API Controller - Core Methods > properties,runtime provides access to process info,OK/OK
-,CLI API Controller - Core Methods > properties,currentSessionId is null when no session active,OK/OK
-,CLI API Controller - Core Methods > directory navigation,cwd returns current directory,OK/OK
-,D4rtCliController,eval executes expressions,OK/OK
-,D4rtCliController,multiline mode,OK/OK
-,CLI API Controller - Core Methods > directory navigation,cd changes to subdirectory,OK/OK
-,CLI API Controller - Core Methods > introspection,help returns help text,OK/OK
-,CLI API Controller - Core Methods > introspection,info without name returns tool info,OK/OK
-,D4rtCliController,processPrompt handles comments,OK/OK
-,CLI API Controller - Core Methods > directory navigation,cd with relative parent path,OK/OK
-,D4rtCliController,processPrompt handles empty lines,OK/OK
-,CLI API Controller - Core Methods > directory navigation,cd with tilde expansion,OK/OK
-,CLI API Controller - Core Methods > directory navigation,cd to nonexistent directory throws,OK/OK
-,D4rtCliController,execute runs code in fresh environment,OK/OK
-,ExecuteResult,success result,OK/OK
-,ExecuteResult,failure result,OK/OK
-,CliExceptions,CliException,OK/OK
-,CLI API Controller - Core Methods > directory navigation,ls lists files and directories,OK/OK
-,CliExceptions,CliFileNotFoundException,OK/OK
-,CliExceptions,DirectoryNotFoundException,OK/OK
-,CLI API Controller - Core Methods > directory navigation,ls with path argument,OK/OK
-,CliExceptions,ReplayException,OK/OK
-,CLI API Controller - Core Methods > directory navigation,ls nonexistent path throws,OK/OK
-,CLI API Controller - Core Methods > file listings,sessions lists session files,OK/OK
-,CLI API Controller - Core Methods > file listings,scripts lists script files,OK/OK
-,CLI API Controller - Core Methods > file listings,plays lists replay files,OK/OK
-,CLI API Controller - Core Methods > file listings,executes lists executable files,OK/OK
-,CLI API Controller - Core Methods > defines,define creates alias,OK/OK
-,CLI API Controller - Core Methods > defines,undefine removes alias,OK/OK
-,CLI API Controller - Core Methods > defines,undefine returns false for nonexistent,OK/OK
-,CLI API Controller - Core Methods > defines,invokeDefine expands template,OK/OK
-,CLI API Controller - Core Methods > defines,invokeDefine with positional args,OK/OK
-,CLI API Controller - Core Methods > defines,invokeDefine unknown returns null,OK/OK
-,VS Code Scripting API - Bridge Availability,VSCodeBridgeClient can connect when available,OK/OK
-,CLI API Controller - Core Methods > defines,loadDefines from file,OK/OK
-,CLI API Controller - Core Methods > defines,loadDefines returns -1 for missing file,OK/OK
-,CLI API Controller - Core Methods > introspection,info with package name,OK/OK
-,CLI API Controller - Core Methods > introspection,classes returns list,OK/OK
-,CLI API Controller - Core Methods > introspection,enums returns list,OK/OK
-,CLI API Controller - Core Methods > introspection,methods returns list,OK/OK
-,CLI API Controller - Core Methods > introspection,variables returns list,OK/OK
-,CLI API Controller - Core Methods > introspection,imports returns list,OK/OK
-,CLI API Controller - Core Methods > introspection,registeredClasses returns list,OK/OK
-,CLI API Controller - Core Methods > introspection,registeredEnums returns list,OK/OK
-,CLI API Controller - Core Methods > introspection,registeredMethods returns list,OK/OK
-,CLI API Controller - Core Methods > introspection,registeredVariables returns list,OK/OK
-,CLI API Controller - Core Methods > introspection,registeredImports returns list,OK/OK
-,CLI API Controller - Core Methods > introspection,showInit returns initialization source,OK/OK
-,CLI API Script Execution - State Modification > variable persistence,"define variable in script, verify exists",OK/OK
-,CLI API Controller - Core Methods > multiline mode,initially not in multiline mode,OK/OK
-,CLI API Controller - Core Methods > multiline mode,startScript enters script mode,OK/OK
-,CLI API Controller - Core Methods > multiline mode,startDefine enters define mode,OK/OK
-,CLI API Controller - Core Methods > multiline mode,startFile enters file mode,OK/OK
-,CLI API Script Execution - State Modification > variable persistence,modify variable in continued execution,OK/OK
-,CLI API Controller - Core Methods > multiline mode,startExecute enters execute mode,OK/OK
-,DCli Global Functions - File System Checks,exists() returns true for existing file,OK/OK
-,CLI API Controller - Core Methods > multiline mode,clearMultilineBuffer clears and exits mode,OK/OK
-,CLI API Script Execution - State Modification > variable persistence,variables persist across multiple evals,OK/OK
-,DCli Global Functions - File System Checks,exists() returns false for non-existent file,OK/OK
-,DCli Global Functions - File System Checks,exists() returns true for existing directory,OK/OK
-,CLI API Script Execution - State Modification > variable persistence,define multiple variables in one script,OK/OK
-,DCli Global Functions - File System Checks,isFile() returns true for files,OK/OK
-,CLI API Script Execution - State Modification > variable persistence,variable shadowing in new execution,OK/OK
-,DCli Global Functions - File System Checks,isFile() returns false for directories,OK/OK
-,DCli Global Functions - File System Checks,isFile() returns false for non-existent path,OK/OK
-,CLI API Controller - Core Methods > multiline mode,end executes multiline buffer,OK/OK
-,CLI API Script Execution - State Modification > function persistence,"define function, call it later",OK/OK
-,CLI API Controller - Core Methods > multiline mode,processPrompt accumulates in multiline mode,OK/OK
-,DCli Global Functions - File System Checks,isDirectory() returns true for directories,OK/OK
-,CLI API Script Execution - State Modification > function persistence,define multiple functions,OK/OK
-,CLI API Controller - Core Methods > multiline mode,starting mode when already in mode throws,OK/OK
-,DCli Global Functions - File System Checks,isDirectory() returns false for files,OK/OK
-,CLI API Controller - Core Methods > code execution,execute runs fresh program,OK/OK
-,DCli Global Functions - File System Checks,isDirectory() returns false for non-existent path,OK/OK
-,CLI API Controller - Core Methods > code execution,execute with error returns failure,OK/OK
-,CLI API Script Execution - State Modification > function persistence,recursive function,OK/OK
-,DCli Global Functions - File System Checks,isEmpty() returns true for empty directory,OK/OK
-,CLI API Script Execution - State Modification > function persistence,function using captured variable,OK/OK
-,DCli Global Functions - File System Checks,isEmpty() returns false for non-empty directory,OK/OK
-,CLI API Script Execution - State Modification > function persistence,higher-order function,OK/OK
-,CLI API Controller - Core Methods > code execution,executeContinued shares environment,OK/OK
-,CLI API Controller - Core Methods > code execution,eval evaluates expression,OK/OK
-,DCli Global Functions - File System Checks,isLink() returns false for regular files,OK/OK
-,VS Code Scripting API - Bridge Availability,VSCodeBridgeClient.isAvailable returns bool,OK/OK
-,parseSearchFilter,returns null for empty query,OK/OK
-,DCli Global Functions - File System Checks,isLink() returns true for symbolic links,OK/OK
-,parseSearchFilter,exact match is case-insensitive by default,OK/OK
-,parseSearchFilter,exact match can be case-sensitive with double quotes,OK/OK
-,CLI API Controller - Core Methods > code execution,executeFile runs file,OK/OK
-,parseSearchFilter,exact match can be case-sensitive with single quotes,OK/OK
-,parseSearchFilter,startsWith match is case-insensitive with trailing asterisk,OK/OK
-,CLI API Controller - Core Methods > code execution,executeFile throws for missing file,OK/OK
-,parseSearchFilter,startsWith match can be case-sensitive with quotes,OK/OK
-,DCli Global Functions - File Operations,touch() creates new file,OK/OK
-,parseSearchFilter,contains match is case-insensitive with surrounding asterisks,OK/OK
-,CLI API Controller - Core Methods > code execution,file runs in current environment,OK/OK
-,parseSearchFilter,contains match can be case-sensitive with quotes,OK/OK
-,parseSearchFilterDetails,exact match mode with no wildcards,OK/OK
-,CLI API Script Execution - State Modification > class persistence,"define class, create instance",OK/OK
-,parseSearchFilterDetails,case-sensitive exact match with quotes,OK/OK
-,CLI API Controller - Core Methods > code execution,script runs line by line,OK/OK
-,parseSearchFilterDetails,startsWith match mode with trailing asterisk,OK/OK
-,parseSearchFilterDetails,contains match mode with surrounding asterisks,OK/OK
-,CLI API Script Execution - State Modification > class persistence,class with constructor,OK/OK
-,DCli Global Functions - File Operations,touch() updates existing file timestamp,OK/OK
-,CLI API Controller - Core Methods > code execution,load replays with output,OK/OK
-,CLI API Script Execution - State Modification > class persistence,class with named constructor,OK/OK
-,DCli Global Functions - File Operations,delete() removes file,OK/OK
-,DCli Global Functions - File Operations,delete() with ask: false removes file silently,OK/OK
-,CLI API Controller - Core Methods > code execution,replay replays silently,OK/OK
-,CLI API Controller - Core Methods > file content loading,loadFile reads exec.dart file,OK/OK
-,DCli Global Functions - File Operations,copy() copies file to new location,OK/OK
-,CLI API Controller - Core Methods > file content loading,loadScript reads script.txt file,OK/OK
-,CLI API Script Execution - State Modification > class persistence,class inheritance,OK/OK
-,CLI API Controller - Core Methods > file content loading,loadReplay reads replay.txt file,OK/OK
-,DCli Global Functions - File Operations,copy() preserves original file,OK/OK
-,CLI API Script Execution - State Modification > class persistence,class with static members,OK/OK
-,CLI API Controller - Core Methods > file content loading,loadSession reads session.txt file,OK/OK
-,DCli Global Functions - File Operations,copy() with overwrite replaces existing file,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles empty lines,OK/OK
-,CLI API Script Execution - State Modification > define command,define persists function definition,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles comments,OK/OK
-,DCli Global Functions - File Operations,move() moves file to new location,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles help command,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles classes command,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles enums command,OK/OK
-,DCli Global Functions - File Operations,move() with overwrite replaces existing file,OK/OK
-,DCli Global Functions - File Operations,fileLength() returns correct file size,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles methods command,OK/OK
-,CLI API Script Execution - State Modification > define command,define persists class definition,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles variables command,OK/OK
-,DCli Global Functions - File Operations,fileLength() returns 0 for empty file,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles imports command,OK/OK
-,CLI API Script Execution - State Modification > multiline script execution,multiline script returns last expression,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles cwd command,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles cd command,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles home command,OK/OK
-,CLI API Script Execution - State Modification > multiline script execution,multiline file adds to environment,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles ls command,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles define command,OK/OK
-,CLI API Script Execution - State Modification > multiline script execution,multiline execute runs in fresh environment,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles undefine command,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles defines command,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles .start-script command,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles .start-define command,OK/OK
-,CLI API Script Execution - State Modification > file execution,execute file defines variables accessible later,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles .start-file command,OK/OK
-,DCli Global Functions - File Operations,lastModified() returns DateTime,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles .start-execute command,OK/OK
-,CLI API Script Execution - State Modification > file execution,.file command shares environment,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles .end command,OK/OK
-,CLI API Script Execution - State Modification > file execution,script file executes line by line,OK/OK
-,CLI API Controller - Core Methods > processPrompt,handles expression evaluation,OK/OK
-,DCli Global Functions - File Operations,setLastModifed() updates file timestamp,OK/OK
-,CLI API Controller - Core Methods > processPrompt,processPrompts handles multiple lines,OK/OK
-,CLI API Script Execution - State Modification > replay file execution,replay file executes commands,OK/OK
-,CLI API Controller - Core Methods > processPrompt,processPrompts continues on error when requested,OK/OK
-,DCli Global Functions - File Operations,stat() returns file information,OK/OK
-,CLI API Controller - Core Methods > other commands,clear does not throw,OK/OK
-,CLI API Script Execution - State Modification > replay file execution,load file shows output,OK/OK
-,CLI API Controller - Core Methods > other commands,sessions command,OK/OK
-,CLI API Controller - Core Methods > other commands,scripts command,OK/OK
-,CLI API Controller - Core Methods > other commands,plays command,OK/OK
-,DCli Global Functions - File Operations,calculateHash() returns hash string,OK/OK
-,CLI API Script Execution - State Modification > complex scenarios,build up state incrementally,OK/OK
-,CLI API Controller - Core Methods > other commands,executes command,OK/OK
-,CLI API Controller - Core Methods > other commands,registered-classes command,OK/OK
-,CLI API Controller - Core Methods > other commands,registered-enums command,OK/OK
-,CLI API Script Execution - State Modification > complex scenarios,use collections across executions,OK/OK
-,CLI API Controller - Core Methods > other commands,registered-methods command,OK/OK
-,CLI API Controller - Core Methods > other commands,registered-variables command,OK/OK
-,DCli Global Functions - File Operations,calculateHash() returns consistent hash for same content,OK/OK
-,CLI API Controller - Core Methods > other commands,registered-imports command,OK/OK
-,CLI API Controller - Core Methods > other commands,show-init command,OK/OK
-,CLI API Script Execution - State Modification > complex scenarios,async code execution,OK/OK
-,DCli Global Functions - File Operations,replace() replaces text in file,OK/OK
-,DCli Global Functions - File Operations,replace() replaces multiple occurrences,OK/OK
-,CLI API Script Execution - State Modification > complex scenarios,exception handling in scripts,OK/OK
-,DCli Global Functions - File Reading,read() returns Progress object,OK/OK
-,CLI API Script Execution - State Modification > complex scenarios,enum definition and use,OK/OK
-,DCli Global Functions - File Reading,head() returns Progress object,OK/OK
-,DCli Global Functions - File Reading,head() returns Progress with lines property,OK/OK
-,CLI API Script Execution - State Modification > complex scenarios,extension methods,OK/OK
-,DCli Global Functions - File Reading,tail() returns Progress object,OK/OK
-,CLI API Script Execution - State Modification > complex scenarios,typedef and function types,OK/OK
-,DCli Global Functions - File Reading,cat() outputs file content,OK/OK
-,DCli Global Functions - Directory Operations,createDir() creates directory,OK/OK
-,CLI API Script Execution - State Modification > complex scenarios,mixin usage,OK/OK
-,DCli Global Functions - Directory Operations,createDir() with recursive creates nested directories,OK/OK
-,DCli Global Functions - Directory Operations,createDir() creates parent directories when recursive,OK/OK
-,CLI API Script Execution - State Modification > complex scenarios,late variables,OK/OK
-,DCli Global Functions - Directory Operations,deleteDir() removes empty directory,OK/OK
-,CLI API Script Execution - State Modification > complex scenarios,null safety features,OK/OK
-,DCli Global Functions - Directory Operations,deleteDir() with recursive removes non-empty directory,OK/OK
-,DCli Global Functions - Directory Operations,moveDir() moves directory to new location,OK/OK
-,CLI API Script Execution - State Modification > complex scenarios,cascade operator,OK/OK
-,CLI API Script Execution - State Modification > complex scenarios,spread operator,OK/OK
-,DCli Global Functions - Directory Operations,copyTree() copies directory tree,OK/OK
-,DCli Global Functions - Directory Operations,copyTree() preserves file contents,OK/OK
-,DCli Global Functions - Directory Operations,createTempDir() creates temporary directory,OK/OK
-,DCli Global Functions - Directory Operations,createTempDir() with suffix parameter,OK/OK
-,CLI API Script Execution - State Modification > complex scenarios,collection if and for,OK/OK
-,CLI API Script Execution - State Modification > output capture,capture print output,OK/OK
-,DCli Global Functions - Find,find() returns FindProgress object,OK/OK
-,CLI API Script Execution - State Modification > output capture,capture multiple prints,OK/OK
-,DCli Global Functions - Find,find() with recursive: true parameter,OK/OK
-,CLI API Script Execution - State Modification > output capture,capture loop output,OK/OK
-,DCli Global Functions - Find,find() with recursive: false parameter,OK/OK
-,DCli Global Functions - Find,find() returns FindProgress object for type filtering,OK/OK
-,stdin error handling,should exit 2 on runtime error,OK/OK
-,DCli Global Functions - Find,find() supports caseSensitive parameter,OK/OK
-,DCli Global Functions - Symlinks,symlink() creates symbolic link,OK/OK
-,DCli Global Functions - Symlinks,symlink() link points to target,OK/OK
-,DCli Global Functions - Symlinks,resolveSymLink() resolves link to target,OK/OK
-,DCli Global Functions - Symlinks,deleteSymlink() removes link but keeps target,OK/OK
-,DCli Global Functions - Backup/Restore,backupFile() is callable with file path,OK/OK
-,DCli Global Functions - Backup/Restore,backupFile() supports ignoreMissing parameter,OK/OK
-,,TomD4rtDcliBridge registers without error,OK/OK
-,DCli Global Functions - Backup/Restore,restoreFile() is callable after backup,OK/OK
-,DCli Global Functions - Backup/Restore,restoreFile() with ignoreMissing handles missing backup,OK/OK
-,DCli Global Functions - Temp Files,createTempFilename() returns path string,OK/OK
-,DCli Global Functions - Temp Files,createTempFilename() with suffix adds suffix,OK/OK
-,DCli Global Functions - Temp Files,createTempFile() creates actual file,OK/OK
-,DCli Global Functions - Temp Files,createTempFile() with suffix adds suffix to filename,OK/OK
-,DCli Global Functions - Sleep,sleep() with milliseconds pauses execution,OK/OK
-,DCli Global Functions - Sleep,Interval.seconds enum value is available,OK/OK
-,DCli Global Functions - Sleep,Interval.milliseconds enum value is available,OK/OK
-,DCli Global Functions - Sleep,Interval.minutes enum value is available,OK/OK
-,DCli Global Functions - Which,which() finds dart executable,OK/OK
-,DCli Global Functions - Which,which() returns path when found,OK/OK
-,DCli Global Functions - Which,which() returns not found for nonexistent command,OK/OK
-,DCli Classes - DartSdk,DartSdk() constructor creates instance,OK/OK
-,DCli Classes - DartSdk,DartSdk.dartExeName returns dart,OK/OK
-,DCli Classes - DartSdk,DartSdk().pathToDartExe returns path,OK/OK
-,DCli Classes - DartSdk,DartSdk().version returns version string,OK/OK
-,DCli Classes - DartSdk,DartSdk().pathToSdk returns path,OK/OK
-,DCli Classes - Shell,Shell.current returns shell instance,OK/OK
-,DCli Classes - DCliPaths,DCliPaths() constructor creates instance,OK/OK
-,DCli Classes - DCliPaths,DCliPaths().pathToDCli returns path,OK/OK
-,DCli Classes - DartProject,DartProject.fromPath() with valid project,OK/OK
-,DCli Classes - DartProject,DartProject.fromPath().pathToProjectRoot returns path,OK/OK
-,DCli Classes - DartScript,DartScript.fromFile() parses script,OK/OK
-,DCli Classes - DartScript,DartScript.fromFile().pathToScript returns path,OK/OK
-,DCli Classes - FileSync,FileSync.tempFile() creates temp file,OK/OK
-,DCli Classes - FileSync,FileSync write and read,OK/OK
-,DCli Classes - FileSync,FileSync.append() adds to file,OK/OK
-,DCli Classes - NamedLock,NamedLock() constructor creates instance,OK/OK
-,DCli Classes - NamedLock,NamedLock.withLock() executes callback,OK/OK
-,DCli Classes - NamedLock,NamedLock.withLock() with timeout,OK/OK
-,DCli Classes - Progress,Progress.print() creates instance,OK/OK
-,DCli Classes - Progress,Progress.capture() creates instance,OK/OK
-,DCli Classes - Progress,Progress.devNull() creates instance,OK/OK
-,DCli Classes - ProcessDetails,ProcessDetails() constructor creates instance,OK/OK
-,DCli Classes - ProcessDetails,ProcessDetails.pid returns process ID,OK/OK
-,DCli Classes - ProcessDetails,ProcessDetails.name returns process name,OK/OK
-,DCli Classes - PubCache,PubCache() constructor creates instance,OK/OK
-,DCli Classes - PubCache,PubCache().pathTo returns path,OK/OK
-,DCli Classes - Settings,Settings() constructor creates instance,OK/OK
-,DCli Classes - Settings,Settings().isVerbose returns boolean,OK/OK
-,CLI API Classes - CliState,CliState constructor creates instance,OK/OK
-,CLI API Classes - CliState,CliState.cwd returns initial directory,OK/OK
-,CLI API Classes - CliState,CliState.dataDirectory returns data directory,OK/OK
-,CLI API Classes - ExecuteResult,ExecuteResult.success() creates success result,OK/OK
-,CLI API Classes - ExecuteResult,ExecuteResult.success() stores result value,OK/OK
-,CLI API Classes - ExecuteResult,ExecuteResult.success() has null error,OK/OK
-,CLI API Classes - ExecuteResult,ExecuteResult.failure() creates failure result,OK/OK
-,CLI API Classes - ExecuteResult,ExecuteResult.failure() stores error message,OK/OK
-,CLI API Classes - Exceptions,CliException constructor creates instance,OK/OK
-,CLI API Classes - Exceptions,CliException.message returns message,OK/OK
-,CLI API Classes - Exceptions,CliFileNotFoundException constructor creates instance,OK/OK
-,CLI API Classes - Exceptions,CliFileNotFoundException.path returns path,OK/OK
-,CLI API Classes - Exceptions,DirectoryNotFoundException constructor creates instance,OK/OK
-,CLI API Classes - Exceptions,DirectoryNotFoundException.path returns path,OK/OK
-,CLI API Classes - Exceptions,ExecutionException constructor creates instance,OK/OK
-,CLI API Classes - ExecutionContext,ExecutionContext constructor creates instance,OK/OK
-,CLI API Classes - ExecutionContext,ExecutionContext.workingDirectory returns directory,OK/OK
-,CLI API Classes - ExecutionContext,ExecutionContext.sourceFile returns source file,OK/OK
-,CLI API Classes - ExecutionContext,ExecutionContext.recordToSession returns flag,OK/OK
-,CLI API Classes - ExecutionContext,ExecutionContext.silent returns flag,OK/OK
-,CLI API Classes - ExecutionContext,ExecutionContext.isMultilineMode returns false initially,OK/OK
-,CLI API Classes - ContextStack,ContextStack constructor creates instance,OK/OK
-,CLI API Classes - ContextStack,ContextStack.cwd returns initial directory,OK/OK
-,CLI API Classes - ContextStack,ContextStack.depth returns 0 initially,OK/OK
-,CLI API Classes - ContextStack,ContextStack push increases depth,OK/OK
-,CLI API Classes - ContextStack,ContextStack push changes cwd,OK/OK
-,CLI API Classes - ContextStack,ContextStack pop decreases depth,OK/OK
-,CLI API Classes - ContextStack,ContextStack pop restores cwd,OK/OK
-,Enums - MultilineMode,MultilineMode.none is available,OK/OK
-,Enums - MultilineMode,MultilineMode.script is available,OK/OK
-,Enums - MultilineMode,MultilineMode.file is available,OK/OK
-,Enums - MultilineMode,MultilineMode.executeNew is available,OK/OK
-,Enums - MultilineMode,MultilineMode.define is available,OK/OK
-,Enums - MultilineMode,MultilineMode enum has multiple values,OK/OK
-,Enums - SymbolKind,SymbolKind.package is available,OK/OK
-,Enums - SymbolKind,SymbolKind.class_ is available,OK/OK
-,Enums - SymbolKind,SymbolKind.method is available,OK/OK
-,Enums - SymbolKind,SymbolKind.variable is available,OK/OK
-,Enums - SymbolKind,SymbolKind.enum_ is available,OK/OK
-,Enums - DCli Enums,FetchMethod.get is available,OK/OK
-,Enums - DCli Enums,FetchMethod.post is available,OK/OK
-,Enums - DCli Enums,FetchStatus.complete is available,OK/OK
-,Enums - DCli Enums,SortDirection.ascending is available,OK/OK
-,Enums - DCli Enums,SortDirection.descending is available,OK/OK
-,Enums - DCli Enums,Find.file is available,OK/OK
-,Enums - DCli Enums,Find.directory is available,OK/OK
-,Enums - DCli Enums,Find.link is available,OK/OK
-,Integration - Complex File Operations,"create, modify, and verify file",OK/OK
-,Integration - Complex File Operations,copy file tree and verify structure,OK/OK
-,Integration - Complex File Operations,find files and count results,OK/OK
-,Integration - Complex File Operations,"backup, modify, and restore file",OK/OK
-,Integration - Complex File Operations,"create temp directory, add files, clean up",OK/OK
-,Integration - Complex File Operations,use DartSdk and verify properties,OK/OK
-,Integration - Complex File Operations,use which to find multiple commands,OK/OK
-,Integration - Complex File Operations,create and use NamedLock with callback,OK/OK
-,Integration - Complex File Operations,chain file operations,OK/OK
-,Integration - Complex File Operations,create directory hierarchy and verify,OK/OK
-,Integration - Complex File Operations,symlink operations chain,OK/OK
-,Integration - Error Handling,exists returns false for nonexistent path,OK/OK
-,Integration - Error Handling,isFile returns false for nonexistent path,OK/OK
-,Integration - Error Handling,isDirectory returns false for nonexistent path,OK/OK
-,Integration - Error Handling,which returns not found for nonexistent command,OK/OK
-,Integration - Error Handling,createTempDir creates unique directories,OK/OK
-,Integration - Error Handling,createTempFile creates unique files,OK/OK
-,Integration - State Persistence,file modifications persist,OK/OK
-,,version is defined,OK/OK
-,VS Code Scripting API - Live Bridge Commands,script can get workspace folders through bridge,SKIP/OK
-,VS Code Scripting API - Live Bridge Commands,script can get VS Code version through bridge,SKIP/OK
-,VS Code Scripting API - D4rt Script Execution,can create MessageOptions from script,SKIP/OK
-,VS Code Scripting API - D4rt Script Execution,can create InputBoxOptions from script,SKIP/OK
-,VS Code Scripting API - D4rt Script Execution,can create QuickPickItem from script,SKIP/OK
-,VS Code Scripting API - D4rt Script Execution,can create Selection from script,SKIP/OK
-,VS Code Scripting API - D4rt Script Execution,can create Position and Range from script,SKIP/OK
-,VS Code Scripting API - D4rt Script Execution,can create WorkspaceFolder from script,SKIP/OK
-,VS Code Scripting API - D4rt Script Execution,can create VSCodeUri from script,SKIP/OK
-,VS Code Scripting API - D4rt Script Execution,can access VSCodeBridgeClient from script,SKIP/OK
-,VS Code Scripting API - D4rt Script Execution,can access VSCode class from script,SKIP/OK
-,VS Code Scripting API - Live Bridge Commands,script can get active editor through bridge,SKIP/OK
+ID,Groups,Description,Baseline [02-10 11:00],[02-10 13:28],[02-10 13:46]
+,CLI API Controller - Core Methods > defines,expandDefine parses define invocation,X/OK,X/OK,X/OK
+,CLI API Controller - Core Methods > code execution,eval with variables,OK/OK,OK/OK,OK/OK
+,VS Code Scripting API - VSCode Class,VSCode.isInitialized returns correct state,OK/OK,OK/OK,OK/OK
+,VS Code Scripting API - VSCode Class,VSCode.getVersion returns version string,OK/OK,OK/OK,OK/OK
+,VS Code Scripting API - VSCode Class,VSCode.getEnv returns environment info,OK/OK,OK/OK,OK/OK
+,VS Code Scripting API - VSCodeWorkspace,getWorkspaceFolders returns list,OK/OK,OK/OK,OK/OK
+,VS Code Scripting API - VSCodeWorkspace,getConfiguration returns configuration,OK/OK,OK/OK,OK/OK
+,VS Code Scripting API - VSCodeWindow,showInformationMessage displays message,OK/OK,OK/OK,OK/OK
+,VS Code Scripting API - VSCodeWindow,getActiveTextEditor returns editor info,OK/OK,OK/OK,OK/OK
+,VS Code Scripting API - VSCodeCommands,getCommands returns list of commands,OK/OK,OK/OK,OK/OK
+,VS Code Scripting API - VSCodeCommands,executeCommand can run basic command,OK/OK,OK/OK,OK/OK
+,VS Code Scripting API - VSCodeExtensions,getAll returns list of extensions,OK/OK,OK/OK,OK/OK
+,VS Code Scripting API - VSCodeExtensions,getExtension returns specific extension,OK/OK,OK/OK,OK/OK
+,stdin error handling,should exit 1 on empty stdin,OK/OK,OK/OK,OK/OK
+,stdin preprocessing — complete script,should execute complete script as-is,OK/OK,OK/OK,OK/OK
+,stdin preprocessing — main without imports,should use int return from main as exit code,OK/OK,OK/OK,OK/OK
+,stdin preprocessing — main without imports,should auto-prefix imports for bridge usage,OK/OK,OK/OK,OK/OK
+,stdin preprocessing — main without imports,should execute void main and exit 0,OK/OK,OK/OK,OK/OK
+,stdin preprocessing — bare statements,should auto-import dart:io,OK/OK,OK/OK,OK/OK
+,stdin preprocessing — bare statements,should auto-import dart:math (stdlib bridge),OK/OK,OK/OK,OK/OK
+,stdin preprocessing — bare statements,should use int return as exit code,OK/OK,OK/OK,OK/OK
+,stdin preprocessing — bare statements,should print output and exit 0,OK/OK,OK/OK,OK/OK
+,stdin shell script,test_stdin.sh passes all checks,OK/OK,OK/OK,OK/OK
+,Integration - State Persistence,file content modifications persist,OK/OK,OK/OK,OK/OK
+,Integration - State Persistence,directory modifications persist,OK/OK,OK/OK,OK/OK
+,ContextStack,initial state,OK/OK,OK/OK,OK/OK
+,CliState,cd changes directory,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > directory navigation,cd with absolute path,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > directory navigation,home returns to data directory,OK/OK,OK/OK,OK/OK
+,CliState,defines management,OK/OK,OK/OK,OK/OK
+,CliState,path resolution - relative paths,OK/OK,OK/OK,OK/OK
+,CliState,path resolution - absolute paths,OK/OK,OK/OK,OK/OK
+,CliState,path resolution - tilde expansion,OK/OK,OK/OK,OK/OK
+,ExecutionContext,multiline mode management,OK/OK,OK/OK,OK/OK
+,ContextStack,push and pop contexts,OK/OK,OK/OK,OK/OK
+,ContextStack,cannot pop root context,OK/OK,OK/OK,OK/OK
+,D4rtCliController,basic properties,OK/OK,OK/OK,OK/OK
+,D4rtCliController,directory navigation,OK/OK,OK/OK,OK/OK
+,D4rtCliController,ls lists directory contents,OK/OK,OK/OK,OK/OK
+,D4rtCliController,defines work correctly,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > properties,toolName returns configured name,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > properties,dataDirectory returns configured path,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > properties,d4rt returns interpreter instance,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > properties,configuration is available,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > properties,runtime provides access to process info,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > properties,currentSessionId is null when no session active,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > directory navigation,cwd returns current directory,OK/OK,OK/OK,OK/OK
+,D4rtCliController,eval executes expressions,OK/OK,OK/OK,OK/OK
+,D4rtCliController,multiline mode,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > directory navigation,cd changes to subdirectory,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > introspection,help returns help text,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > introspection,info without name returns tool info,OK/OK,OK/OK,OK/OK
+,D4rtCliController,processPrompt handles comments,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > directory navigation,cd with relative parent path,OK/OK,OK/OK,OK/OK
+,D4rtCliController,processPrompt handles empty lines,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > directory navigation,cd with tilde expansion,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > directory navigation,cd to nonexistent directory throws,OK/OK,OK/OK,OK/OK
+,D4rtCliController,execute runs code in fresh environment,OK/OK,OK/OK,OK/OK
+,ExecuteResult,success result,OK/OK,OK/OK,OK/OK
+,ExecuteResult,failure result,OK/OK,OK/OK,OK/OK
+,CliExceptions,CliException,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > directory navigation,ls lists files and directories,OK/OK,OK/OK,OK/OK
+,CliExceptions,CliFileNotFoundException,OK/OK,OK/OK,OK/OK
+,CliExceptions,DirectoryNotFoundException,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > directory navigation,ls with path argument,OK/OK,OK/OK,OK/OK
+,CliExceptions,ReplayException,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > directory navigation,ls nonexistent path throws,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > file listings,sessions lists session files,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > file listings,scripts lists script files,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > file listings,plays lists replay files,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > file listings,executes lists executable files,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > defines,define creates alias,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > defines,undefine removes alias,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > defines,undefine returns false for nonexistent,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > defines,invokeDefine expands template,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > defines,invokeDefine with positional args,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > defines,invokeDefine unknown returns null,OK/OK,OK/OK,OK/OK
+,VS Code Scripting API - Bridge Availability,VSCodeBridgeClient can connect when available,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > defines,loadDefines from file,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > defines,loadDefines returns -1 for missing file,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > introspection,info with package name,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > introspection,classes returns list,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > introspection,enums returns list,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > introspection,methods returns list,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > introspection,variables returns list,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > introspection,imports returns list,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > introspection,registeredClasses returns list,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > introspection,registeredEnums returns list,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > introspection,registeredMethods returns list,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > introspection,registeredVariables returns list,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > introspection,registeredImports returns list,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > introspection,showInit returns initialization source,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > variable persistence,"define variable in script, verify exists",OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > multiline mode,initially not in multiline mode,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > multiline mode,startScript enters script mode,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > multiline mode,startDefine enters define mode,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > multiline mode,startFile enters file mode,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > variable persistence,modify variable in continued execution,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > multiline mode,startExecute enters execute mode,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File System Checks,exists() returns true for existing file,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > multiline mode,clearMultilineBuffer clears and exits mode,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > variable persistence,variables persist across multiple evals,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File System Checks,exists() returns false for non-existent file,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File System Checks,exists() returns true for existing directory,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > variable persistence,define multiple variables in one script,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File System Checks,isFile() returns true for files,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > variable persistence,variable shadowing in new execution,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File System Checks,isFile() returns false for directories,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File System Checks,isFile() returns false for non-existent path,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > multiline mode,end executes multiline buffer,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > function persistence,"define function, call it later",OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > multiline mode,processPrompt accumulates in multiline mode,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File System Checks,isDirectory() returns true for directories,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > function persistence,define multiple functions,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > multiline mode,starting mode when already in mode throws,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File System Checks,isDirectory() returns false for files,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > code execution,execute runs fresh program,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File System Checks,isDirectory() returns false for non-existent path,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > code execution,execute with error returns failure,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > function persistence,recursive function,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File System Checks,isEmpty() returns true for empty directory,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > function persistence,function using captured variable,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File System Checks,isEmpty() returns false for non-empty directory,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > function persistence,higher-order function,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > code execution,executeContinued shares environment,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > code execution,eval evaluates expression,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File System Checks,isLink() returns false for regular files,OK/OK,OK/OK,OK/OK
+,VS Code Scripting API - Bridge Availability,VSCodeBridgeClient.isAvailable returns bool,OK/OK,OK/OK,OK/OK
+,parseSearchFilter,returns null for empty query,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File System Checks,isLink() returns true for symbolic links,OK/OK,OK/OK,OK/OK
+,parseSearchFilter,exact match is case-insensitive by default,OK/OK,OK/OK,OK/OK
+,parseSearchFilter,exact match can be case-sensitive with double quotes,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > code execution,executeFile runs file,OK/OK,OK/OK,OK/OK
+,parseSearchFilter,exact match can be case-sensitive with single quotes,OK/OK,OK/OK,OK/OK
+,parseSearchFilter,startsWith match is case-insensitive with trailing asterisk,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > code execution,executeFile throws for missing file,OK/OK,OK/OK,OK/OK
+,parseSearchFilter,startsWith match can be case-sensitive with quotes,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,touch() creates new file,OK/OK,OK/OK,OK/OK
+,parseSearchFilter,contains match is case-insensitive with surrounding asterisks,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > code execution,file runs in current environment,OK/OK,OK/OK,OK/OK
+,parseSearchFilter,contains match can be case-sensitive with quotes,OK/OK,OK/OK,OK/OK
+,parseSearchFilterDetails,exact match mode with no wildcards,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > class persistence,"define class, create instance",OK/OK,OK/OK,OK/OK
+,parseSearchFilterDetails,case-sensitive exact match with quotes,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > code execution,script runs line by line,OK/OK,OK/OK,OK/OK
+,parseSearchFilterDetails,startsWith match mode with trailing asterisk,OK/OK,OK/OK,OK/OK
+,parseSearchFilterDetails,contains match mode with surrounding asterisks,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > class persistence,class with constructor,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,touch() updates existing file timestamp,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > code execution,load replays with output,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > class persistence,class with named constructor,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,delete() removes file,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,delete() with ask: false removes file silently,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > code execution,replay replays silently,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > file content loading,loadFile reads exec.dart file,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,copy() copies file to new location,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > file content loading,loadScript reads script.txt file,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > class persistence,class inheritance,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > file content loading,loadReplay reads replay.txt file,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,copy() preserves original file,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > class persistence,class with static members,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > file content loading,loadSession reads session.txt file,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,copy() with overwrite replaces existing file,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles empty lines,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > define command,define persists function definition,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles comments,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,move() moves file to new location,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles help command,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles classes command,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles enums command,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,move() with overwrite replaces existing file,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,fileLength() returns correct file size,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles methods command,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > define command,define persists class definition,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles variables command,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,fileLength() returns 0 for empty file,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles imports command,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > multiline script execution,multiline script returns last expression,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles cwd command,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles cd command,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles home command,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > multiline script execution,multiline file adds to environment,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles ls command,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles define command,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > multiline script execution,multiline execute runs in fresh environment,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles undefine command,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles defines command,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles .start-script command,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles .start-define command,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > file execution,execute file defines variables accessible later,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles .start-file command,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,lastModified() returns DateTime,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles .start-execute command,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > file execution,.file command shares environment,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles .end command,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > file execution,script file executes line by line,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,handles expression evaluation,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,setLastModifed() updates file timestamp,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,processPrompts handles multiple lines,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > replay file execution,replay file executes commands,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > processPrompt,processPrompts continues on error when requested,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,stat() returns file information,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > other commands,clear does not throw,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > replay file execution,load file shows output,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > other commands,sessions command,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > other commands,scripts command,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > other commands,plays command,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,calculateHash() returns hash string,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > complex scenarios,build up state incrementally,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > other commands,executes command,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > other commands,registered-classes command,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > other commands,registered-enums command,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > complex scenarios,use collections across executions,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > other commands,registered-methods command,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > other commands,registered-variables command,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,calculateHash() returns consistent hash for same content,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > other commands,registered-imports command,OK/OK,OK/OK,OK/OK
+,CLI API Controller - Core Methods > other commands,show-init command,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > complex scenarios,async code execution,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,replace() replaces text in file,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Operations,replace() replaces multiple occurrences,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > complex scenarios,exception handling in scripts,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Reading,read() returns Progress object,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > complex scenarios,enum definition and use,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Reading,head() returns Progress object,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Reading,head() returns Progress with lines property,OK/OK,OK/OK,OK/OK
+,stdin error handling,should exit 2 on runtime error,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Reading,tail() returns Progress object,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > complex scenarios,typedef and function types,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - File Reading,cat() outputs file content,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Directory Operations,createDir() creates directory,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > complex scenarios,mixin usage,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Directory Operations,createDir() with recursive creates nested directories,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Directory Operations,createDir() creates parent directories when recursive,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > complex scenarios,late variables,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Directory Operations,deleteDir() removes empty directory,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > complex scenarios,null safety features,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Directory Operations,deleteDir() with recursive removes non-empty directory,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Directory Operations,moveDir() moves directory to new location,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > complex scenarios,cascade operator,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > complex scenarios,spread operator,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Directory Operations,copyTree() copies directory tree,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Directory Operations,copyTree() preserves file contents,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Directory Operations,createTempDir() creates temporary directory,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Directory Operations,createTempDir() with suffix parameter,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > complex scenarios,collection if and for,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > output capture,capture print output,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Find,find() returns FindProgress object,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > output capture,capture multiple prints,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Find,find() with recursive: true parameter,OK/OK,OK/OK,OK/OK
+,CLI API Script Execution - State Modification > output capture,capture loop output,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Find,find() with recursive: false parameter,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Find,find() returns FindProgress object for type filtering,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Echo/Print,echo() is callable,--/OK,--/OK,OK/OK
+,DCli Global Functions - Find,find() supports caseSensitive parameter,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Symlinks,symlink() creates symbolic link,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Symlinks,symlink() link points to target,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Symlinks,resolveSymLink() resolves link to target,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Symlinks,deleteSymlink() removes link but keeps target,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Backup/Restore,backupFile() is callable with file path,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Backup/Restore,backupFile() supports ignoreMissing parameter,OK/OK,OK/OK,OK/OK
+,,TomD4rtDcliBridge registers without error,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Backup/Restore,restoreFile() is callable after backup,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Backup/Restore,restoreFile() with ignoreMissing handles missing backup,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Temp Files,createTempFilename() returns path string,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Temp Files,createTempFilename() with suffix adds suffix,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Temp Files,createTempFile() creates actual file,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Temp Files,createTempFile() with suffix adds suffix to filename,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Sleep,sleep() with milliseconds pauses execution,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Sleep,Interval.seconds enum value is available,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Sleep,Interval.milliseconds enum value is available,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Sleep,Interval.minutes enum value is available,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Which,which() finds dart executable,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Which,which() returns path when found,OK/OK,OK/OK,OK/OK
+,DCli Global Functions - Which,which() returns not found for nonexistent command,OK/OK,OK/OK,OK/OK
+,DCli Classes - DartSdk,DartSdk() constructor creates instance,OK/OK,OK/OK,OK/OK
+,DCli Classes - DartSdk,DartSdk.dartExeName returns dart,OK/OK,OK/OK,OK/OK
+,DCli Classes - DartSdk,DartSdk().pathToDartExe returns path,OK/OK,OK/OK,OK/OK
+,DCli Classes - DartSdk,DartSdk().version returns version string,OK/OK,OK/OK,OK/OK
+,DCli Classes - DartSdk,DartSdk().pathToSdk returns path,OK/OK,OK/OK,OK/OK
+,DCli Classes - Shell,Shell.current returns shell instance,OK/OK,OK/OK,OK/OK
+,DCli Classes - DCliPaths,DCliPaths() constructor creates instance,OK/OK,OK/OK,OK/OK
+,DCli Classes - DCliPaths,DCliPaths().pathToDCli returns path,OK/OK,OK/OK,OK/OK
+,DCli Classes - DartProject,DartProject.fromPath() with valid project,OK/OK,OK/OK,OK/OK
+,DCli Classes - DartProject,DartProject.fromPath().pathToProjectRoot returns path,OK/OK,OK/OK,OK/OK
+,DCli Classes - DartScript,DartScript.fromFile() parses script,OK/OK,OK/OK,OK/OK
+,DCli Classes - DartScript,DartScript.fromFile().pathToScript returns path,OK/OK,OK/OK,OK/OK
+,DCli Classes - FileSync,FileSync.tempFile() creates temp file,OK/OK,OK/OK,OK/OK
+,DCli Classes - FileSync,FileSync write and read,OK/OK,OK/OK,OK/OK
+,DCli Classes - FileSync,FileSync.append() adds to file,OK/OK,OK/OK,OK/OK
+,DCli Classes - NamedLock,NamedLock() constructor creates instance,OK/OK,OK/OK,OK/OK
+,DCli Classes - NamedLock,NamedLock.withLock() executes callback,OK/OK,OK/OK,OK/OK
+,DCli Classes - NamedLock,NamedLock.withLock() with timeout,OK/OK,OK/OK,OK/OK
+,DCli Classes - Progress,Progress.print() creates instance,OK/OK,OK/OK,OK/OK
+,DCli Classes - Progress,Progress.capture() creates instance,OK/OK,OK/OK,OK/OK
+,DCli Classes - Progress,Progress.devNull() creates instance,OK/OK,OK/OK,OK/OK
+,DCli Classes - ProcessDetails,ProcessDetails() constructor creates instance,OK/OK,OK/OK,OK/OK
+,DCli Classes - ProcessDetails,ProcessDetails.pid returns process ID,OK/OK,OK/OK,OK/OK
+,DCli Classes - ProcessDetails,ProcessDetails.name returns process name,OK/OK,OK/OK,OK/OK
+,DCli Classes - PubCache,PubCache() constructor creates instance,OK/OK,OK/OK,OK/OK
+,DCli Classes - PubCache,PubCache().pathTo returns path,OK/OK,OK/OK,OK/OK
+,DCli Classes - Settings,Settings() constructor creates instance,OK/OK,OK/OK,OK/OK
+,DCli Classes - Settings,Settings().isVerbose returns boolean,OK/OK,OK/OK,OK/OK
+,CLI API Classes - CliState,CliState constructor creates instance,OK/OK,OK/OK,OK/OK
+,CLI API Classes - CliState,CliState.cwd returns initial directory,OK/OK,OK/OK,OK/OK
+,CLI API Classes - CliState,CliState.dataDirectory returns data directory,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ExecuteResult,ExecuteResult.success() creates success result,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ExecuteResult,ExecuteResult.success() stores result value,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ExecuteResult,ExecuteResult.success() has null error,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ExecuteResult,ExecuteResult.failure() creates failure result,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ExecuteResult,ExecuteResult.failure() stores error message,OK/OK,OK/OK,OK/OK
+,CLI API Classes - Exceptions,CliException constructor creates instance,OK/OK,OK/OK,OK/OK
+,CLI API Classes - Exceptions,CliException.message returns message,OK/OK,OK/OK,OK/OK
+,CLI API Classes - Exceptions,CliFileNotFoundException constructor creates instance,OK/OK,OK/OK,OK/OK
+,CLI API Classes - Exceptions,CliFileNotFoundException.path returns path,OK/OK,OK/OK,OK/OK
+,CLI API Classes - Exceptions,DirectoryNotFoundException constructor creates instance,OK/OK,OK/OK,OK/OK
+,CLI API Classes - Exceptions,DirectoryNotFoundException.path returns path,OK/OK,OK/OK,OK/OK
+,CLI API Classes - Exceptions,ExecutionException constructor creates instance,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ExecutionContext,ExecutionContext constructor creates instance,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ExecutionContext,ExecutionContext.workingDirectory returns directory,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ExecutionContext,ExecutionContext.sourceFile returns source file,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ExecutionContext,ExecutionContext.recordToSession returns flag,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ExecutionContext,ExecutionContext.silent returns flag,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ExecutionContext,ExecutionContext.isMultilineMode returns false initially,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ContextStack,ContextStack constructor creates instance,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ContextStack,ContextStack.cwd returns initial directory,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ContextStack,ContextStack.depth returns 0 initially,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ContextStack,ContextStack push increases depth,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ContextStack,ContextStack push changes cwd,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ContextStack,ContextStack pop decreases depth,OK/OK,OK/OK,OK/OK
+,CLI API Classes - ContextStack,ContextStack pop restores cwd,OK/OK,OK/OK,OK/OK
+,Enums - MultilineMode,MultilineMode.none is available,OK/OK,OK/OK,OK/OK
+,Enums - MultilineMode,MultilineMode.script is available,OK/OK,OK/OK,OK/OK
+,Enums - MultilineMode,MultilineMode.file is available,OK/OK,OK/OK,OK/OK
+,Enums - MultilineMode,MultilineMode.executeNew is available,OK/OK,OK/OK,OK/OK
+,Enums - MultilineMode,MultilineMode.define is available,OK/OK,OK/OK,OK/OK
+,Enums - MultilineMode,MultilineMode enum has multiple values,OK/OK,OK/OK,OK/OK
+,Enums - SymbolKind,SymbolKind.package is available,OK/OK,OK/OK,OK/OK
+,Enums - SymbolKind,SymbolKind.class_ is available,OK/OK,OK/OK,OK/OK
+,Enums - SymbolKind,SymbolKind.method is available,OK/OK,OK/OK,OK/OK
+,Enums - SymbolKind,SymbolKind.variable is available,OK/OK,OK/OK,OK/OK
+,Enums - SymbolKind,SymbolKind.enum_ is available,OK/OK,OK/OK,OK/OK
+,Enums - DCli Enums,FetchMethod.get is available,OK/OK,OK/OK,OK/OK
+,Enums - DCli Enums,FetchMethod.post is available,OK/OK,OK/OK,OK/OK
+,Enums - DCli Enums,FetchStatus.complete is available,OK/OK,OK/OK,OK/OK
+,Enums - DCli Enums,SortDirection.ascending is available,OK/OK,OK/OK,OK/OK
+,Enums - DCli Enums,SortDirection.descending is available,OK/OK,OK/OK,OK/OK
+,Enums - DCli Enums,Find.file is available,OK/OK,OK/OK,OK/OK
+,Enums - DCli Enums,Find.directory is available,OK/OK,OK/OK,OK/OK
+,Enums - DCli Enums,Find.link is available,OK/OK,OK/OK,OK/OK
+,Integration - Complex File Operations,"create, modify, and verify file",OK/OK,OK/OK,OK/OK
+,Integration - Complex File Operations,copy file tree and verify structure,OK/OK,OK/OK,OK/OK
+,Integration - Complex File Operations,find files and count results,OK/OK,OK/OK,OK/OK
+,Integration - Complex File Operations,"backup, modify, and restore file",OK/OK,OK/OK,OK/OK
+,Integration - Complex File Operations,"create temp directory, add files, clean up",OK/OK,OK/OK,OK/OK
+,Integration - Complex File Operations,use DartSdk and verify properties,OK/OK,OK/OK,OK/OK
+,Integration - Complex File Operations,use which to find multiple commands,OK/OK,OK/OK,OK/OK
+,Integration - Complex File Operations,create and use NamedLock with callback,OK/OK,OK/OK,OK/OK
+,Integration - Complex File Operations,chain file operations,OK/OK,OK/OK,OK/OK
+,Integration - Complex File Operations,create directory hierarchy and verify,OK/OK,OK/OK,OK/OK
+,Integration - Complex File Operations,symlink operations chain,OK/OK,OK/OK,OK/OK
+,Integration - Error Handling,exists returns false for nonexistent path,OK/OK,OK/OK,OK/OK
+,Integration - Error Handling,isFile returns false for nonexistent path,OK/OK,OK/OK,OK/OK
+,Integration - Error Handling,isDirectory returns false for nonexistent path,OK/OK,OK/OK,OK/OK
+,Integration - Error Handling,which returns not found for nonexistent command,OK/OK,OK/OK,OK/OK
+,Integration - Error Handling,createTempDir creates unique directories,OK/OK,OK/OK,OK/OK
+,Integration - Error Handling,createTempFile creates unique files,OK/OK,OK/OK,OK/OK
+,Integration - State Persistence,file modifications persist,OK/OK,OK/OK,OK/OK
+,,version is defined,OK/OK,OK/OK,OK/OK
+,VS Code Scripting API - Live Bridge Commands,script can get workspace folders through bridge,--/OK,-/OK,-/OK
+,VS Code Scripting API - Live Bridge Commands,script can get VS Code version through bridge,--/OK,-/OK,-/OK
+,VS Code Scripting API - D4rt Script Execution,can create MessageOptions from script,--/OK,-/OK,-/OK
+,VS Code Scripting API - D4rt Script Execution,can create InputBoxOptions from script,--/OK,-/OK,-/OK
+,VS Code Scripting API - D4rt Script Execution,can create QuickPickItem from script,--/OK,-/OK,-/OK
+,VS Code Scripting API - D4rt Script Execution,can create Selection from script,--/OK,-/OK,-/OK
+,VS Code Scripting API - D4rt Script Execution,can create Position and Range from script,--/OK,-/OK,-/OK
+,VS Code Scripting API - D4rt Script Execution,can create WorkspaceFolder from script,--/OK,-/OK,-/OK
+,VS Code Scripting API - D4rt Script Execution,can create VSCodeUri from script,--/OK,-/OK,-/OK
+,VS Code Scripting API - D4rt Script Execution,can access VSCodeBridgeClient from script,--/OK,-/OK,-/OK
+,VS Code Scripting API - D4rt Script Execution,can access VSCode class from script,--/OK,-/OK,-/OK
+,VS Code Scripting API - Live Bridge Commands,script can get active editor through bridge,--/OK,-/OK,-/OK
+,CLI API Script Execution - State Modification > complex scenarios,extension methods,OK/OK,OK/OK,--/OK
