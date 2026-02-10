@@ -1,8 +1,8 @@
 #!/usr/bin/env dart
 /// Generate bridges for all example projects.
 ///
-/// This script runs the D4rt bridge generator CLI (`bin/d4rt_gen.dart`) for
-/// each example project that has a `d4rt_bridging.json` configuration file.
+/// This script runs the D4rt bridge generator CLI (`bin/d4rtgen.dart`) for
+/// each example project that has a `buildkit.yaml` configuration file.
 ///
 /// Usage:
 ///   dart run example/generate_example_bridges.dart
@@ -23,7 +23,7 @@ class ExampleBridgeConfig {
   const ExampleBridgeConfig({
     required this.name,
     required this.directory,
-    this.configFile = 'd4rt_bridging.json',
+    this.configFile = 'buildkit.yaml',
   });
 }
 
@@ -82,7 +82,7 @@ Future<void> main(List<String> args) async {
   print('');
 
   // Verify the generator CLI exists
-  final generatorCli = p.join(packageRoot, 'bin', 'd4rt_gen.dart');
+  final generatorCli = p.join(packageRoot, 'bin', 'd4rtgen.dart');
   if (!File(generatorCli).existsSync()) {
     stderr.writeln('Error: Generator CLI not found at $generatorCli');
     exit(1);

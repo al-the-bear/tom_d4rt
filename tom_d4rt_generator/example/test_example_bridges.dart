@@ -6,7 +6,7 @@
 /// 1. Bridge regeneration (via `generate_example_bridges.dart`)
 /// 2. Script execution (`.d4rt` files via `execute()`)
 /// 3. Bridge registration validation (`--init-eval`)
-/// 4. Standalone example scripts (dart_overview, userbridge_user_guide)
+/// 4. Standalone example scripts (dart_overview)
 ///
 /// Usage:
 ///   dart run example/test_example_bridges.dart
@@ -69,6 +69,17 @@ const bridgeExamples = [
     scriptFiles: ['scripts/userbridge_override_example.d4rt'],
   ),
   ExampleTestConfig(
+    name: 'UserBridge User Guide',
+    directory: 'example/userbridge_user_guide',
+    testRunner: 'bin/d4rtrun.b.dart',
+    scriptFiles: [
+      'test/ubr01_basic_class.dart',
+      'test/ubr04_operator.dart',
+      'test/ubr05_constructor.dart',
+      'test/ubr06_import_prefix.dart',
+    ],
+  ),
+  ExampleTestConfig(
     name: 'Example Project',
     directory: 'example/example_project',
     testRunner: 'bin/d4rtrun.b.dart',
@@ -88,11 +99,6 @@ const standaloneExamples = [
     name: 'Dart Overview (D4rt)',
     directory: 'example/dart_overview',
     script: 'lib/run_overview_in_d4rt.dart',
-  ),
-  StandaloneExampleConfig(
-    name: 'UserBridge User Guide',
-    directory: 'example/userbridge_user_guide',
-    script: 'userbridge_example.dart',
   ),
 ];
 
