@@ -707,26 +707,33 @@ class InterpretedClass implements Callable, RuntimeType {
     return concreteMembers;
   }
   
-  /// Returns a set of all instance field names in this class.
+  /// Returns a set of all instance field names in this class and its superclass chain.
   /// Fields implicitly provide getters (and setters for non-final fields).
+  /// G-DOV2-6 FIX: Walk the superclass chain to find fields from parent classes.
   Set<String> getInstanceFieldNames() {
     final fieldNames = <String>{};
-    for (final fieldDecl in fieldDeclarations) {
-      if (!fieldDecl.isStatic) {
-        for (final variable in fieldDecl.fields.variables) {
-          fieldNames.add(variable.name.lexeme);
-        }
-      }
-    }
-    // Also include fields from mixins
-    for (final mixin in mixins) {
-      for (final fieldDecl in mixin.fieldDeclarations) {
+    InterpretedClass? current = this;
+    while (current != null) {
+      // Include fields from the current class
+      for (final fieldDecl in current.fieldDeclarations) {
         if (!fieldDecl.isStatic) {
           for (final variable in fieldDecl.fields.variables) {
             fieldNames.add(variable.name.lexeme);
           }
         }
       }
+      // Also include fields from mixins at this level
+      for (final mixin in current.mixins) {
+        for (final fieldDecl in mixin.fieldDeclarations) {
+          if (!fieldDecl.isStatic) {
+            for (final variable in fieldDecl.fields.variables) {
+              fieldNames.add(variable.name.lexeme);
+            }
+          }
+        }
+      }
+      // Move up the superclass chain
+      current = current.superclass;
     }
     return fieldNames;
   }

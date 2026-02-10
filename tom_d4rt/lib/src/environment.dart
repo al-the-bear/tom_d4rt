@@ -523,6 +523,10 @@ class Environment {
     if (value is BridgedInstance) {
       return value.bridgedClass; // BridgedClass is a RuntimeType
     }
+    // G-DOV2-7 FIX: Handle InterpretedEnumValue - return its parent enum as the type
+    if (value is InterpretedEnumValue) {
+      return value.parentEnum; // InterpretedEnum is a RuntimeType
+    }
     // Handle Dart primitive/core types by looking them up in the environment
     // Assumes core types (String, int, bool, List, Map, etc.) are registered as BridgedClass
     String? typeName;

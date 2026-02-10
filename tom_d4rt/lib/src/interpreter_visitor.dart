@@ -158,6 +158,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final typeNode = node.type;
     if (typeNode is NamedType) {
       final typeName = typeNode.name2.lexeme;
+      // G-DOV2-1 FIX: Handle nullable types (e.g., String?, int?)
+      // If the type is nullable (has a '?' suffix), then null is always allowed
+      final isNullable = typeNode.question != null;
+      if (isNullable && value == null) {
+        return value; // Null is valid for any nullable type
+      }
       switch (typeName) {
         case 'int':
           if (value is int) return value;
@@ -181,7 +187,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           if (value == null) return value;
           break;
         case 'Object':
-          if (value != null) return value;
+          // G-DOV2-1 FIX: For Object?, null is valid (handled above)
+          // For Object, any non-null value is valid
+          if (value != null || isNullable) return value;
           break;
         case 'dynamic':
           return value;
@@ -578,6 +586,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             final constructor = prefixValue.findConstructor('');
             if (constructor != null) return prefixValue;
           }
+          // G-DOV2-2 FIX: Handle named constructor tear-offs (Class.fromMap, etc.)
+          // Named constructors can be used as tear-offs when passed to higher-order functions
+          final namedConstructor = prefixValue.findConstructor(memberName);
+          if (namedConstructor != null) {
+            // Return a callable that will invoke this named constructor
+            return _NamedConstructorTearOff(prefixValue, namedConstructor, memberName);
+          }
           throw RuntimeD4rtException(
               "Undefined static member '$memberName' on class '${prefixValue.name}'.");
         }
@@ -749,6 +764,29 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         } on ReturnException catch (e) {
           // If get() executes a getter that throws ReturnException
           return e.value;
+        } on RuntimeD4rtException catch (e) {
+          // G-DOV2-7 FIX: Try extension lookup if direct access fails
+          if (e.message.contains("Undefined property '$memberName'")) {
+            Logger.debug(
+                "[PrefixedIdentifier] Direct access failed for '$memberName' on enum $prefixValue. Trying extension lookup...");
+            final extensionMember =
+                environment.findExtensionMember(prefixValue, memberName);
+            if (extensionMember is ExtensionMemberCallable) {
+              if (extensionMember.isGetter) {
+                Logger.debug(
+                    "[PrefixedIdentifier] Found extension getter '$memberName' for enum. Calling...");
+                return extensionMember.call(this, [prefixValue], {});
+              } else if (!extensionMember.isOperator &&
+                  !extensionMember.isSetter) {
+                Logger.debug(
+                    "[PrefixedIdentifier] Found extension method '$memberName' for enum. Returning tear-off.");
+                return extensionMember;
+              }
+            }
+          }
+          // Propagate error if extension lookup failed
+          throw RuntimeD4rtException(
+              "Error getting member '$memberName' from enum value '$prefixValue': ${e.message}");
         } catch (e) {
           // Propagate other errors from get()
           throw RuntimeD4rtException(
@@ -2656,7 +2694,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final namedConstructor = targetValue.findConstructor(methodName);
         if (namedConstructor != null) {
           // It's a named constructor call
-          if (targetValue.isAbstract) {
+          // G-DOV2-3 FIX: Check abstract AFTER finding constructor, skip if factory
+          if (targetValue.isAbstract && !namedConstructor.isFactory) {
             throw RuntimeD4rtException(
                 "Cannot instantiate abstract class '${targetValue.name}'.");
           }
@@ -7940,8 +7979,19 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       Logger.debug(
           "[InstanceCreation]   Type resolved to InterpretedClass: '$constructorName'");
 
-      // Check if the class is abstract
-      if (klass.isAbstract) {
+      // Find and call the constructor (interpreted)
+      final constructorLookupName =
+          namedConstructorPart ?? ''; // Use '' for default
+      final constructor = klass.findConstructor(constructorLookupName);
+
+      if (constructor == null) {
+        throw RuntimeD4rtException(
+            "Class '$constructorName' does not have a constructor named '$constructorLookupName'.");
+      }
+
+      // G-DOV2-3 FIX: Check if the class is abstract AFTER finding the constructor
+      // Factory constructors are allowed on abstract classes
+      if (klass.isAbstract && !constructor.isFactory) {
         throw RuntimeD4rtException(
             "Cannot instantiate abstract class '$constructorName'.");
       }
@@ -7953,16 +8003,6 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
       final (positionalArgs, namedArgs) =
           evaluationResult as (List<Object?>, Map<String, Object?>);
-
-      // Find and call the constructor (interpreted)
-      final constructorLookupName =
-          namedConstructorPart ?? ''; // Use '' for default
-      final constructor = klass.findConstructor(constructorLookupName);
-
-      if (constructor == null) {
-        throw RuntimeD4rtException(
-            "Class '$constructorName' does not have a constructor named '$constructorLookupName'.");
-      }
 
       try {
         // Evaluate the type arguments
@@ -9098,6 +9138,64 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           "[_matchAndBind] LogicalAndPattern: left matched, trying right operand ${pattern.rightOperand.runtimeType}");
       _matchAndBind(pattern.rightOperand, value, environment);
       Logger.debug("[_matchAndBind] LogicalAndPattern: both operands matched");
+    } else if (pattern is CastPattern) {
+      // G-DOV2-5 FIX: Handle cast patterns (var x as Type)
+      // The cast pattern matches if the value can be cast to the specified type,
+      // then binds the casted value to the sub-pattern
+      final targetType = pattern.type;
+      Logger.debug(
+          "[_matchAndBind] CastPattern: casting value to ${targetType.toSource()}");
+
+      // Try to perform the cast - reuse visitAsExpression logic
+      // Create a synthetic AsExpression node to evaluate the cast
+      bool castSucceeds = false;
+      if (targetType is NamedType) {
+        final typeName = targetType.name2.lexeme;
+        final isNullable = targetType.question != null;
+
+        // Check if the cast would succeed
+        if (isNullable && value == null) {
+          castSucceeds = true;
+        } else {
+          switch (typeName) {
+            case 'int':
+              castSucceeds = value is int;
+            case 'double':
+              castSucceeds = value is double;
+            case 'num':
+              castSucceeds = value is num;
+            case 'String':
+              castSucceeds = value is String;
+            case 'bool':
+              castSucceeds = value is bool;
+            case 'List':
+              castSucceeds = value is List;
+            case 'Map':
+              castSucceeds = value is Map;
+            case 'Set':
+              castSucceeds = value is Set;
+            case 'Object':
+              castSucceeds = value != null || isNullable;
+            case 'dynamic':
+              castSucceeds = true;
+            default:
+              // For custom types, be permissive
+              castSucceeds = true;
+          }
+        }
+      } else {
+        // For complex type annotations, be permissive
+        castSucceeds = true;
+      }
+
+      if (!castSucceeds) {
+        throw PatternMatchD4rtException(
+            "Cast pattern failed: value ${value?.runtimeType} cannot be cast to ${targetType.toSource()}");
+      }
+
+      // Cast succeeded, now match the sub-pattern
+      _matchAndBind(pattern.pattern, value, environment);
+      Logger.debug("[_matchAndBind] CastPattern: matched successfully");
     } else {
       throw UnimplementedD4rtException(
           "Pattern type not yet supported in _matchAndBind: ${pattern.runtimeType}");
@@ -9697,3 +9795,68 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     }
   }
 } // End of InterpreterVisitor class
+
+/// G-DOV2-2 FIX: A callable tear-off for named/factory constructors.
+///
+/// When a named constructor is accessed as a tear-off (e.g., `Settings.fromMap`
+/// passed to `map()`), this class wraps the constructor to make it callable
+/// with positional/named arguments as if it were a regular function.
+class _NamedConstructorTearOff implements Callable {
+  final InterpretedClass _klass;
+  final InterpretedFunction _constructor;
+  final String _constructorName;
+
+  _NamedConstructorTearOff(this._klass, this._constructor, this._constructorName);
+
+  @override
+  int get arity => _constructor.arity;
+
+  @override
+  Object? call(InterpreterVisitor visitor, List<Object?> positionalArguments,
+      [Map<String, Object?>? namedArguments, List<RuntimeType>? explicitTypeArguments]) {
+    Logger.debug(
+        "[_NamedConstructorTearOff] Invoking constructor '$_constructorName' on class '${_klass.name}'");
+
+    final namedArgs = namedArguments ?? {};
+
+    try {
+      // Handle factory constructors differently from regular constructors
+      if (_constructor.isFactory) {
+        // Factory constructors create and return their own instance
+        Logger.debug(
+            "[_NamedConstructorTearOff] Calling factory constructor '$_constructorName'");
+        final result = _constructor.call(
+            visitor, positionalArguments, namedArgs, explicitTypeArguments);
+        // Handle return from factory constructor
+        if (result is InterpretedInstance) {
+          return result;
+        }
+        return result;
+      } else {
+        // Regular constructors: create instance first, then call constructor
+        Logger.debug(
+            "[_NamedConstructorTearOff] Calling regular constructor '$_constructorName'");
+
+        // Create and initialize the fields
+        final instance =
+            _klass.createAndInitializeInstance(visitor, explicitTypeArguments);
+        // Bind 'this' and call the constructor logic
+        final boundConstructor = _constructor.bind(instance);
+        boundConstructor.call(
+            visitor, positionalArguments, namedArgs, explicitTypeArguments);
+        return instance;
+      }
+    } on ReturnException catch (e) {
+      // Handle return exceptions (applies to both factory and regular constructors)
+      return e.value;
+    } on RuntimeD4rtException {
+      rethrow;
+    } catch (e) {
+      throw RuntimeD4rtException(
+          "Error during named constructor '$_constructorName' for class '${_klass.name}': $e");
+    }
+  }
+
+  @override
+  String toString() => '${_klass.name}.$_constructorName';
+}

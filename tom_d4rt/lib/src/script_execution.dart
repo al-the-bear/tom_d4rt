@@ -79,11 +79,13 @@ ScriptExecutionResult executeFile(
   void Function(String)? log,
 }) {
   final file = File(filePath);
-  final fullPath = file.absolute.path;
-
+  
   if (!file.existsSync()) {
-    return ScriptExecutionResult.failure('File not found: $fullPath');
+    return ScriptExecutionResult.failure('File not found: $filePath');
   }
+  
+  // Use resolveSymbolicLinksSync to normalize path (removes ./ and ..)
+  final fullPath = file.resolveSymbolicLinksSync();
 
   try {
     final source = file.readAsStringSync();
@@ -134,11 +136,13 @@ ScriptExecutionResult executeFileContinued(
   void Function(String)? log,
 }) {
   final file = File(filePath);
-  final fullPath = file.absolute.path;
-
+  
   if (!file.existsSync()) {
-    return ScriptExecutionResult.failure('File not found: $fullPath');
+    return ScriptExecutionResult.failure('File not found: $filePath');
   }
+  
+  // Use resolveSymbolicLinksSync to normalize path (removes ./ and ..)
+  final fullPath = file.resolveSymbolicLinksSync();
 
   try {
     final source = file.readAsStringSync();

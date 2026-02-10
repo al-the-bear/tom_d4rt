@@ -1,12 +1,11 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 13 files
-// Generated: 2026-02-08T12:09:27.980332
+// Sources: 12 files
+// Generated: 2026-02-10T21:32:34.482385
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
-import 'dart:async';
 
 import 'package:tom_vscode_scripting_api/script_globals.dart' as $pkg;
 
@@ -114,10 +113,6 @@ class TomVscodeScriptingApiBridge {
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
-      BridgedEnumDefinition<$pkg.DiagnosticSeverity>(
-        name: 'DiagnosticSeverity',
-        values: $pkg.DiagnosticSeverity.values,
-      ),
     ];
   }
 
@@ -127,7 +122,18 @@ class TomVscodeScriptingApiBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
     return {
-      'DiagnosticSeverity': 'package:tom_vscode_scripting_api/src/vscode_types.dart',
+    };
+  }
+
+  /// Returns all bridged extension definitions.
+  static List<BridgedExtensionDefinition> bridgedExtensions() {
+    return [
+    ];
+  }
+
+  /// Returns a map of extension identifiers to their canonical source URIs.
+  static Map<String, String> extensionSourceUris() {
+    return {
     };
   }
 
@@ -141,42 +147,6 @@ class TomVscodeScriptingApiBridge {
     final classSources = classSourceUris();
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
-    }
-
-    // Register bridged enums with source URIs for deduplication
-    final enums = bridgedEnums();
-    final enumSources = enumSourceUris();
-    for (final enumDef in enums) {
-      interpreter.registerBridgedEnum(enumDef, importPath, sourceUri: enumSources[enumDef.name]);
-    }
-
-    // Register global variables
-    registerGlobalVariables(interpreter, importPath);
-  }
-
-  /// Registers all global variables with the interpreter.
-  ///
-  /// [importPath] is the package import path for library-scoped registration.
-  /// Collects all registration errors and throws a single exception
-  /// with all error details if any registrations fail.
-  static void registerGlobalVariables(D4rt interpreter, String importPath) {
-    final errors = <String>[];
-
-    try {
-      interpreter.registerGlobalVariable('defaultVSCodeBridgePort', $pkg.defaultVSCodeBridgePort, importPath, sourceUri: 'package:tom_vscode_scripting_api/src/vscode_bridge_client.dart');
-    } catch (e) {
-      errors.add('Failed to register variable "defaultVSCodeBridgePort": $e');
-    }
-    interpreter.registerGlobalGetter('vscode', () => $pkg.vscode, importPath, sourceUri: 'package:tom_vscode_scripting_api/script_globals.dart');
-    interpreter.registerGlobalGetter('window', () => $pkg.window, importPath, sourceUri: 'package:tom_vscode_scripting_api/script_globals.dart');
-    interpreter.registerGlobalGetter('workspace', () => $pkg.workspace, importPath, sourceUri: 'package:tom_vscode_scripting_api/script_globals.dart');
-    interpreter.registerGlobalGetter('commands', () => $pkg.commands, importPath, sourceUri: 'package:tom_vscode_scripting_api/script_globals.dart');
-    interpreter.registerGlobalGetter('extensions', () => $pkg.extensions, importPath, sourceUri: 'package:tom_vscode_scripting_api/script_globals.dart');
-    interpreter.registerGlobalGetter('lm', () => $pkg.lm, importPath, sourceUri: 'package:tom_vscode_scripting_api/script_globals.dart');
-    interpreter.registerGlobalGetter('chat', () => $pkg.chat, importPath, sourceUri: 'package:tom_vscode_scripting_api/script_globals.dart');
-
-    if (errors.isNotEmpty) {
-      throw StateError('Bridge registration errors (tom_vscode_scripting_api):\n${errors.join("\n")}');
     }
   }
 
@@ -202,7 +172,6 @@ class TomVscodeScriptingApiBridge {
   /// multiple barrels.
   static List<String> sourceLibraries() {
     return [
-      'package:tom_vscode_scripting_api/script_globals.dart',
       'package:tom_vscode_scripting_api/src/vscode.dart',
       'package:tom_vscode_scripting_api/src/vscode_adapter.dart',
       'package:tom_vscode_scripting_api/src/vscode_bridge_adapter.dart',
@@ -225,11 +194,6 @@ class TomVscodeScriptingApiBridge {
   static String getImportBlock() {
     return "import 'package:tom_vscode_scripting_api/script_globals.dart';";
   }
-
-  /// Returns a list of bridged enum names.
-  static List<String> get enumNames => [
-    'DiagnosticSeverity',
-  ];
 
 }
 
@@ -273,14 +237,14 @@ BridgedClass _createVSCodeBridgeResultBridge() {
     name: 'VSCodeBridgeResult',
     constructors: {
       '': (visitor, positional, named) {
-        final success = D4.getRequiredNamedArg<bool>(named, 'success', 'VSCodeBridgeResult');
+        final success = D4.getRequiredNamedArg<dynamic>(named, 'success', 'VSCodeBridgeResult');
         final value = D4.getOptionalNamedArg<dynamic>(named, 'value');
-        final output = D4.getNamedArgWithDefault<String>(named, 'output', '');
-        final error = D4.getOptionalNamedArg<String?>(named, 'error');
-        final stackTrace = D4.getOptionalNamedArg<String?>(named, 'stackTrace');
-        final exception = D4.getOptionalNamedArg<String?>(named, 'exception');
-        final exceptionStackTrace = D4.getOptionalNamedArg<String?>(named, 'exceptionStackTrace');
-        final duration = D4.getRequiredNamedArg<Duration>(named, 'duration', 'VSCodeBridgeResult');
+        final output = D4.getNamedArgWithDefault<dynamic>(named, 'output', '');
+        final error = D4.getOptionalNamedArg<dynamic>(named, 'error');
+        final stackTrace = D4.getOptionalNamedArg<dynamic>(named, 'stackTrace');
+        final exception = D4.getOptionalNamedArg<dynamic>(named, 'exception');
+        final exceptionStackTrace = D4.getOptionalNamedArg<dynamic>(named, 'exceptionStackTrace');
+        final duration = D4.getRequiredNamedArg<dynamic>(named, 'duration', 'VSCodeBridgeResult');
         return $pkg.VSCodeBridgeResult(success: success, value: value, output: output, error: error, stackTrace: stackTrace, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration);
       },
       'success': (visitor, positional, named) {
@@ -311,7 +275,7 @@ BridgedClass _createVSCodeBridgeResultBridge() {
       'hasException': (visitor, target) => D4.validateTarget<$pkg.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').hasException,
     },
     constructorSignatures: {
-      '': 'const VSCodeBridgeResult({required bool success, dynamic value, String output = \'\', String? error, String? stackTrace, String? exception, String? exceptionStackTrace, required Duration duration})',
+      '': 'const VSCodeBridgeResult({required dynamic success, dynamic value, dynamic output = \'\', dynamic error, dynamic stackTrace, dynamic exception, dynamic exceptionStackTrace, required dynamic duration})',
       'success': 'factory VSCodeBridgeResult.success({dynamic value, String output = \'\', String? exception, String? exceptionStackTrace, required Duration duration})',
       'failure': 'factory VSCodeBridgeResult.failure({required String error, String? stackTrace, String output = \'\', required Duration duration})',
     },
@@ -339,14 +303,14 @@ BridgedClass _createVSCodeBridgeClientBridge() {
     name: 'VSCodeBridgeClient',
     constructors: {
       '': (visitor, positional, named) {
-        final host = D4.getNamedArgWithDefault<String>(named, 'host', '127.0.0.1');
-        final connectTimeout = D4.getNamedArgWithDefault<Duration>(named, 'connectTimeout', const Duration(seconds: 5));
-        final requestTimeout = D4.getNamedArgWithDefault<Duration>(named, 'requestTimeout', const Duration(seconds: 30));
+        final host = D4.getNamedArgWithDefault<dynamic>(named, 'host', '127.0.0.1');
+        final connectTimeout = D4.getNamedArgWithDefault<dynamic>(named, 'connectTimeout', const Duration(seconds: 5));
+        final requestTimeout = D4.getNamedArgWithDefault<dynamic>(named, 'requestTimeout', const Duration(seconds: 30));
         if (!named.containsKey('port')) {
           return $pkg.VSCodeBridgeClient(host: host, connectTimeout: connectTimeout, requestTimeout: requestTimeout);
         }
         if (named.containsKey('port')) {
-          final port = D4.getRequiredNamedArg<int>(named, 'port', 'VSCodeBridgeClient');
+          final port = D4.getRequiredNamedArg<dynamic>(named, 'port', 'VSCodeBridgeClient');
           return $pkg.VSCodeBridgeClient(host: host, connectTimeout: connectTimeout, requestTimeout: requestTimeout, port: port);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -411,7 +375,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
       },
     },
     constructorSignatures: {
-      '': 'VSCodeBridgeClient({String host = \'127.0.0.1\', int port = defaultVSCodeBridgePort, Duration connectTimeout = const Duration(seconds: 5), Duration requestTimeout = const Duration(seconds: 30)})',
+      '': 'VSCodeBridgeClient({dynamic host = \'127.0.0.1\', dynamic port = defaultVSCodeBridgePort, dynamic connectTimeout = const Duration(seconds: 5), dynamic requestTimeout = const Duration(seconds: 30)})',
     },
     methodSignatures: {
       'connect': 'Future<bool> connect()',
@@ -445,7 +409,7 @@ BridgedClass _createVSCodeBridgeAdapterBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeBridgeAdapter');
-        final client = D4.getRequiredArg<$pkg.VSCodeBridgeClient>(positional, 0, 'client', 'VSCodeBridgeAdapter');
+        final client = D4.getRequiredArg<dynamic>(positional, 0, 'client', 'VSCodeBridgeAdapter');
         return $pkg.VSCodeBridgeAdapter(client);
       },
     },
@@ -472,7 +436,7 @@ BridgedClass _createVSCodeBridgeAdapterBridge() {
       },
     },
     constructorSignatures: {
-      '': 'VSCodeBridgeAdapter(VSCodeBridgeClient client)',
+      '': 'VSCodeBridgeAdapter(dynamic client)',
     },
     methodSignatures: {
       'sendRequest': 'Future<Map<String, dynamic>> sendRequest(String method, Map<String, dynamic> params, {String? scriptName, Duration timeout = const Duration(seconds: 60)})',
@@ -496,14 +460,14 @@ BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final host = D4.getNamedArgWithDefault<String>(named, 'host', '127.0.0.1');
-        final onStatusMessageRaw = named['onStatusMessage'];
-        final onErrorMessageRaw = named['onErrorMessage'];
+        final onStatusMessage = D4.getOptionalNamedArg<dynamic>(named, 'onStatusMessage');
+        final onErrorMessage = D4.getOptionalNamedArg<dynamic>(named, 'onErrorMessage');
         if (!named.containsKey('port')) {
-          return $pkg.LazyVSCodeBridgeAdapter(host: host, onStatusMessage: onStatusMessageRaw == null ? null : (String p0) { (onStatusMessageRaw as InterpretedFunction).call(visitor, [p0]); }, onErrorMessage: onErrorMessageRaw == null ? null : (String p0) { (onErrorMessageRaw as InterpretedFunction).call(visitor, [p0]); });
+          return $pkg.LazyVSCodeBridgeAdapter(host: host, onStatusMessage: onStatusMessage, onErrorMessage: onErrorMessage);
         }
         if (named.containsKey('port')) {
           final port = D4.getRequiredNamedArg<int>(named, 'port', 'LazyVSCodeBridgeAdapter');
-          return $pkg.LazyVSCodeBridgeAdapter(host: host, onStatusMessage: onStatusMessageRaw == null ? null : (String p0) { (onStatusMessageRaw as InterpretedFunction).call(visitor, [p0]); }, onErrorMessage: onErrorMessageRaw == null ? null : (String p0) { (onErrorMessageRaw as InterpretedFunction).call(visitor, [p0]); }, port: port);
+          return $pkg.LazyVSCodeBridgeAdapter(host: host, onStatusMessage: onStatusMessage, onErrorMessage: onErrorMessage, port: port);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -551,7 +515,7 @@ BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
       },
     },
     constructorSignatures: {
-      '': 'LazyVSCodeBridgeAdapter({String host = \'127.0.0.1\', int port = defaultVSCodeBridgePort, void Function(String)? onStatusMessage, void Function(String)? onErrorMessage})',
+      '': 'LazyVSCodeBridgeAdapter({String host = \'127.0.0.1\', int port = defaultVSCodeBridgePort, dynamic onStatusMessage, dynamic onErrorMessage})',
     },
     methodSignatures: {
       'setHostPort': 'Future<void> setHostPort(String host, int port)',
@@ -579,6 +543,9 @@ BridgedClass _createVSCodeBridge() {
     nativeType: $pkg.VSCode,
     name: 'VSCode',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.VSCode();
+      },
     },
     getters: {
       'workspace': (visitor, target) => D4.validateTarget<$pkg.VSCode>(target, 'VSCode').workspace,
@@ -631,6 +598,9 @@ BridgedClass _createVSCodeBridge() {
         return $pkg.VSCode.initialize(adapter);
       },
     },
+    constructorSignatures: {
+      '': 'VSCode()',
+    },
     methodSignatures: {
       'getVersion': 'Future<String> getVersion({int timeoutSeconds = 10})',
       'getEnv': 'Future<Map<String, dynamic>> getEnv({int timeoutSeconds = 10})',
@@ -668,7 +638,7 @@ BridgedClass _createVSCodeCommandsBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeCommands');
-        final adapter = D4.getRequiredArg<$pkg.VSCodeAdapter>(positional, 0, '_adapter', 'VSCodeCommands');
+        final adapter = D4.getRequiredArg<dynamic>(positional, 0, '_adapter', 'VSCodeCommands');
         return $pkg.VSCodeCommands(adapter);
       },
     },
@@ -697,7 +667,7 @@ BridgedClass _createVSCodeCommandsBridge() {
       },
     },
     constructorSignatures: {
-      '': 'VSCodeCommands(VSCodeAdapter _adapter)',
+      '': 'VSCodeCommands(dynamic _adapter)',
     },
     methodSignatures: {
       'executeCommand': 'Future<dynamic> executeCommand(String command, {List<dynamic>? args, int timeoutSeconds = 120})',
@@ -716,6 +686,9 @@ BridgedClass _createVSCodeCommonCommandsBridge() {
     nativeType: $pkg.VSCodeCommonCommands,
     name: 'VSCodeCommonCommands',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.VSCodeCommonCommands();
+      },
     },
     staticGetters: {
       'openFile': (visitor) => $pkg.VSCodeCommonCommands.openFile,
@@ -748,6 +721,9 @@ BridgedClass _createVSCodeCommonCommandsBridge() {
       'reloadWindow': (visitor) => $pkg.VSCodeCommonCommands.reloadWindow,
       'showExtensions': (visitor) => $pkg.VSCodeCommonCommands.showExtensions,
       'installExtension': (visitor) => $pkg.VSCodeCommonCommands.installExtension,
+    },
+    constructorSignatures: {
+      '': 'VSCodeCommonCommands()',
     },
     staticGetterSignatures: {
       'openFile': 'String get openFile',
@@ -794,15 +770,12 @@ BridgedClass _createExtensionBridge() {
     name: 'Extension',
     constructors: {
       '': (visitor, positional, named) {
-        final id = D4.getRequiredNamedArg<String>(named, 'id', 'Extension');
-        final extensionUri = D4.getRequiredNamedArg<String>(named, 'extensionUri', 'Extension');
-        final extensionPath = D4.getRequiredNamedArg<String>(named, 'extensionPath', 'Extension');
-        final isActive = D4.getRequiredNamedArg<bool>(named, 'isActive', 'Extension');
-        if (!named.containsKey('packageJSON') || named['packageJSON'] == null) {
-          throw ArgumentError('Extension: Missing required named argument "packageJSON"');
-        }
-        final packageJSON = D4.coerceMap<String, dynamic>(named['packageJSON'], 'packageJSON');
-        final extensionKind = D4.getOptionalNamedArg<String?>(named, 'extensionKind');
+        final id = D4.getRequiredNamedArg<dynamic>(named, 'id', 'Extension');
+        final extensionUri = D4.getRequiredNamedArg<dynamic>(named, 'extensionUri', 'Extension');
+        final extensionPath = D4.getRequiredNamedArg<dynamic>(named, 'extensionPath', 'Extension');
+        final isActive = D4.getRequiredNamedArg<dynamic>(named, 'isActive', 'Extension');
+        final packageJSON = D4.getRequiredNamedArg<dynamic>(named, 'packageJSON', 'Extension');
+        final extensionKind = D4.getOptionalNamedArg<dynamic>(named, 'extensionKind');
         return $pkg.Extension(id: id, extensionUri: extensionUri, extensionPath: extensionPath, isActive: isActive, packageJSON: packageJSON, extensionKind: extensionKind);
       },
       'fromJson': (visitor, positional, named) {
@@ -829,7 +802,7 @@ BridgedClass _createExtensionBridge() {
       },
     },
     constructorSignatures: {
-      '': 'Extension({required String id, required String extensionUri, required String extensionPath, required bool isActive, required Map<String, dynamic> packageJSON, String? extensionKind})',
+      '': 'Extension({required dynamic id, required dynamic extensionUri, required dynamic extensionPath, required dynamic isActive, required dynamic packageJSON, dynamic extensionKind})',
       'fromJson': 'factory Extension.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -857,7 +830,7 @@ BridgedClass _createVSCodeExtensionsBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeExtensions');
-        final adapter = D4.getRequiredArg<$pkg.VSCodeAdapter>(positional, 0, '_adapter', 'VSCodeExtensions');
+        final adapter = D4.getRequiredArg<dynamic>(positional, 0, '_adapter', 'VSCodeExtensions');
         return $pkg.VSCodeExtensions(adapter);
       },
     },
@@ -918,7 +891,7 @@ BridgedClass _createVSCodeExtensionsBridge() {
       },
     },
     constructorSignatures: {
-      '': 'VSCodeExtensions(VSCodeAdapter _adapter)',
+      '': 'VSCodeExtensions(dynamic _adapter)',
     },
     methodSignatures: {
       'getAll': 'Future<List<Extension>> getAll({int timeoutSeconds = 60})',
@@ -944,7 +917,7 @@ BridgedClass _createVSCodeLanguageModelBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeLanguageModel');
-        final adapter = D4.getRequiredArg<$pkg.VSCodeAdapter>(positional, 0, '_adapter', 'VSCodeLanguageModel');
+        final adapter = D4.getRequiredArg<dynamic>(positional, 0, '_adapter', 'VSCodeLanguageModel');
         return $pkg.VSCodeLanguageModel(adapter);
       },
     },
@@ -987,7 +960,7 @@ BridgedClass _createVSCodeLanguageModelBridge() {
       },
     },
     constructorSignatures: {
-      '': 'VSCodeLanguageModel(VSCodeAdapter _adapter)',
+      '': 'VSCodeLanguageModel(dynamic _adapter)',
     },
     methodSignatures: {
       'selectChatModels': 'Future<List<LanguageModelChat>> selectChatModels({String? vendor, String? family, String? id, String? version, int timeoutSeconds = 60})',
@@ -1008,12 +981,12 @@ BridgedClass _createLanguageModelChatBridge() {
     name: 'LanguageModelChat',
     constructors: {
       '': (visitor, positional, named) {
-        final id = D4.getRequiredNamedArg<String>(named, 'id', 'LanguageModelChat');
-        final vendor = D4.getRequiredNamedArg<String>(named, 'vendor', 'LanguageModelChat');
-        final family = D4.getRequiredNamedArg<String>(named, 'family', 'LanguageModelChat');
-        final version = D4.getRequiredNamedArg<String>(named, 'version', 'LanguageModelChat');
-        final name = D4.getRequiredNamedArg<String>(named, 'name', 'LanguageModelChat');
-        final maxInputTokens = D4.getRequiredNamedArg<int>(named, 'maxInputTokens', 'LanguageModelChat');
+        final id = D4.getRequiredNamedArg<dynamic>(named, 'id', 'LanguageModelChat');
+        final vendor = D4.getRequiredNamedArg<dynamic>(named, 'vendor', 'LanguageModelChat');
+        final family = D4.getRequiredNamedArg<dynamic>(named, 'family', 'LanguageModelChat');
+        final version = D4.getRequiredNamedArg<dynamic>(named, 'version', 'LanguageModelChat');
+        final name = D4.getRequiredNamedArg<dynamic>(named, 'name', 'LanguageModelChat');
+        final maxInputTokens = D4.getRequiredNamedArg<dynamic>(named, 'maxInputTokens', 'LanguageModelChat');
         return $pkg.LanguageModelChat(id: id, vendor: vendor, family: family, version: version, name: name, maxInputTokens: maxInputTokens);
       },
       'fromJson': (visitor, positional, named) {
@@ -1060,7 +1033,7 @@ BridgedClass _createLanguageModelChatBridge() {
       },
     },
     constructorSignatures: {
-      '': 'LanguageModelChat({required String id, required String vendor, required String family, required String version, required String name, required int maxInputTokens})',
+      '': 'LanguageModelChat({required dynamic id, required dynamic vendor, required dynamic family, required dynamic version, required dynamic name, required dynamic maxInputTokens})',
       'fromJson': 'factory LanguageModelChat.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -1089,9 +1062,9 @@ BridgedClass _createLanguageModelChatMessageBridge() {
     name: 'LanguageModelChatMessage',
     constructors: {
       '': (visitor, positional, named) {
-        final role = D4.getRequiredNamedArg<String>(named, 'role', 'LanguageModelChatMessage');
-        final content = D4.getRequiredNamedArg<String>(named, 'content', 'LanguageModelChatMessage');
-        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final role = D4.getRequiredNamedArg<dynamic>(named, 'role', 'LanguageModelChatMessage');
+        final content = D4.getRequiredNamedArg<dynamic>(named, 'content', 'LanguageModelChatMessage');
+        final name = D4.getOptionalNamedArg<dynamic>(named, 'name');
         return $pkg.LanguageModelChatMessage(role: role, content: content, name: name);
       },
       'user': (visitor, positional, named) {
@@ -1127,7 +1100,7 @@ BridgedClass _createLanguageModelChatMessageBridge() {
       },
     },
     constructorSignatures: {
-      '': 'LanguageModelChatMessage({required String role, required String content, String? name})',
+      '': 'LanguageModelChatMessage({required dynamic role, required dynamic content, dynamic name})',
       'user': 'factory LanguageModelChatMessage.user(String content, {String? name})',
       'assistant': 'factory LanguageModelChatMessage.assistant(String content, {String? name})',
       'fromJson': 'factory LanguageModelChatMessage.fromJson(Map<String, dynamic> json)',
@@ -1153,11 +1126,8 @@ BridgedClass _createLanguageModelChatResponseBridge() {
     name: 'LanguageModelChatResponse',
     constructors: {
       '': (visitor, positional, named) {
-        final text = D4.getRequiredNamedArg<String>(named, 'text', 'LanguageModelChatResponse');
-        if (!named.containsKey('streamParts') || named['streamParts'] == null) {
-          throw ArgumentError('LanguageModelChatResponse: Missing required named argument "streamParts"');
-        }
-        final streamParts = D4.coerceList<String>(named['streamParts'], 'streamParts');
+        final text = D4.getRequiredNamedArg<dynamic>(named, 'text', 'LanguageModelChatResponse');
+        final streamParts = D4.getRequiredNamedArg<dynamic>(named, 'streamParts', 'LanguageModelChatResponse');
         return $pkg.LanguageModelChatResponse(text: text, streamParts: streamParts);
       },
       'fromJson': (visitor, positional, named) {
@@ -1180,7 +1150,7 @@ BridgedClass _createLanguageModelChatResponseBridge() {
       },
     },
     constructorSignatures: {
-      '': 'LanguageModelChatResponse({required String text, required List<String> streamParts})',
+      '': 'LanguageModelChatResponse({required dynamic text, required dynamic streamParts})',
       'fromJson': 'factory LanguageModelChatResponse.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -1203,10 +1173,7 @@ BridgedClass _createLanguageModelToolResultBridge() {
     name: 'LanguageModelToolResult',
     constructors: {
       '': (visitor, positional, named) {
-        if (!named.containsKey('content') || named['content'] == null) {
-          throw ArgumentError('LanguageModelToolResult: Missing required named argument "content"');
-        }
-        final content = D4.coerceList<dynamic>(named['content'], 'content');
+        final content = D4.getRequiredNamedArg<dynamic>(named, 'content', 'LanguageModelToolResult');
         return $pkg.LanguageModelToolResult(content: content);
       },
       'fromJson': (visitor, positional, named) {
@@ -1228,7 +1195,7 @@ BridgedClass _createLanguageModelToolResultBridge() {
       },
     },
     constructorSignatures: {
-      '': 'LanguageModelToolResult({required List<dynamic> content})',
+      '': 'LanguageModelToolResult({required dynamic content})',
       'fromJson': 'factory LanguageModelToolResult.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -1250,12 +1217,9 @@ BridgedClass _createLanguageModelToolInformationBridge() {
     name: 'LanguageModelToolInformation',
     constructors: {
       '': (visitor, positional, named) {
-        final name = D4.getRequiredNamedArg<String>(named, 'name', 'LanguageModelToolInformation');
-        final description = D4.getRequiredNamedArg<String>(named, 'description', 'LanguageModelToolInformation');
-        if (!named.containsKey('inputSchema') || named['inputSchema'] == null) {
-          throw ArgumentError('LanguageModelToolInformation: Missing required named argument "inputSchema"');
-        }
-        final inputSchema = D4.coerceMap<String, dynamic>(named['inputSchema'], 'inputSchema');
+        final name = D4.getRequiredNamedArg<dynamic>(named, 'name', 'LanguageModelToolInformation');
+        final description = D4.getRequiredNamedArg<dynamic>(named, 'description', 'LanguageModelToolInformation');
+        final inputSchema = D4.getRequiredNamedArg<dynamic>(named, 'inputSchema', 'LanguageModelToolInformation');
         return $pkg.LanguageModelToolInformation(name: name, description: description, inputSchema: inputSchema);
       },
       'fromJson': (visitor, positional, named) {
@@ -1279,7 +1243,7 @@ BridgedClass _createLanguageModelToolInformationBridge() {
       },
     },
     constructorSignatures: {
-      '': 'LanguageModelToolInformation({required String name, required String description, required Map<String, dynamic> inputSchema})',
+      '': 'LanguageModelToolInformation({required dynamic name, required dynamic description, required dynamic inputSchema})',
       'fromJson': 'factory LanguageModelToolInformation.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -1304,7 +1268,7 @@ BridgedClass _createVSCodeWindowBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeWindow');
-        final adapter = D4.getRequiredArg<$pkg.VSCodeAdapter>(positional, 0, '_adapter', 'VSCodeWindow');
+        final adapter = D4.getRequiredArg<dynamic>(positional, 0, '_adapter', 'VSCodeWindow');
         return $pkg.VSCodeWindow(adapter);
       },
     },
@@ -1446,7 +1410,7 @@ BridgedClass _createVSCodeWindowBridge() {
       },
     },
     constructorSignatures: {
-      '': 'VSCodeWindow(VSCodeAdapter _adapter)',
+      '': 'VSCodeWindow(dynamic _adapter)',
     },
     methodSignatures: {
       'showInformationMessage': 'Future<String?> showInformationMessage(String message, {List<String>? items, MessageOptions? options, int timeoutSeconds = 5 * 60})',
@@ -1480,7 +1444,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeWorkspace');
-        final adapter = D4.getRequiredArg<$pkg.VSCodeAdapter>(positional, 0, '_adapter', 'VSCodeWorkspace');
+        final adapter = D4.getRequiredArg<dynamic>(positional, 0, '_adapter', 'VSCodeWorkspace');
         return $pkg.VSCodeWorkspace(adapter);
       },
     },
@@ -1581,7 +1545,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
       },
     },
     constructorSignatures: {
-      '': 'VSCodeWorkspace(VSCodeAdapter _adapter)',
+      '': 'VSCodeWorkspace(dynamic _adapter)',
     },
     methodSignatures: {
       'getWorkspaceFolders': 'Future<List<WorkspaceFolder>> getWorkspaceFolders({int timeoutSeconds = 30})',
@@ -1613,7 +1577,7 @@ BridgedClass _createVSCodeChatBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeChat');
-        final adapter = D4.getRequiredArg<$pkg.VSCodeAdapter>(positional, 0, '_adapter', 'VSCodeChat');
+        final adapter = D4.getRequiredArg<dynamic>(positional, 0, '_adapter', 'VSCodeChat');
         return $pkg.VSCodeChat(adapter);
       },
     },
@@ -1622,14 +1586,11 @@ BridgedClass _createVSCodeChatBridge() {
         final t = D4.validateTarget<$pkg.VSCodeChat>(target, 'VSCodeChat');
         D4.requireMinArgs(positional, 1, 'createChatParticipant');
         final id = D4.getRequiredArg<String>(positional, 0, 'id', 'createChatParticipant');
-        if (!named.containsKey('handler') || named['handler'] == null) {
-          throw ArgumentError('createChatParticipant: Missing required named argument "handler"');
-        }
-        final handlerRaw = named['handler'];
+        final handler = D4.getRequiredNamedArg<dynamic>(named, 'handler', 'createChatParticipant');
         final description = D4.getOptionalNamedArg<String?>(named, 'description');
         final fullName = D4.getOptionalNamedArg<String?>(named, 'fullName');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return t.createChatParticipant(id, handler: ($pkg.ChatRequest p0, $pkg.ChatContext p1, $pkg.ChatResponseStream p2) { return (handlerRaw as InterpretedFunction).call(visitor, [p0, p1, p2]) as Future<$pkg.ChatResult>; }, description: description, fullName: fullName, timeoutSeconds: timeoutSeconds);
+        return t.createChatParticipant(id, handler: handler, description: description, fullName: fullName, timeoutSeconds: timeoutSeconds);
       },
     },
     staticMethods: {
@@ -1643,7 +1604,7 @@ BridgedClass _createVSCodeChatBridge() {
       },
     },
     constructorSignatures: {
-      '': 'VSCodeChat(VSCodeAdapter _adapter)',
+      '': 'VSCodeChat(dynamic _adapter)',
     },
     methodSignatures: {
       'createChatParticipant': 'Future<ChatParticipant> createChatParticipant(String id, {required ChatRequestHandler handler, String? description, String? fullName, int timeoutSeconds = 300})',
@@ -1664,9 +1625,9 @@ BridgedClass _createChatParticipantBridge() {
     name: 'ChatParticipant',
     constructors: {
       '': (visitor, positional, named) {
-        final id = D4.getRequiredNamedArg<String>(named, 'id', 'ChatParticipant');
-        final description = D4.getOptionalNamedArg<String?>(named, 'description');
-        final fullName = D4.getOptionalNamedArg<String?>(named, 'fullName');
+        final id = D4.getRequiredNamedArg<dynamic>(named, 'id', 'ChatParticipant');
+        final description = D4.getOptionalNamedArg<dynamic>(named, 'description');
+        final fullName = D4.getOptionalNamedArg<dynamic>(named, 'fullName');
         return $pkg.ChatParticipant(id: id, description: description, fullName: fullName);
       },
       'fromJson': (visitor, positional, named) {
@@ -1690,7 +1651,7 @@ BridgedClass _createChatParticipantBridge() {
       },
     },
     constructorSignatures: {
-      '': 'ChatParticipant({required String id, String? description, String? fullName})',
+      '': 'ChatParticipant({required dynamic id, dynamic description, dynamic fullName})',
       'fromJson': 'factory ChatParticipant.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -1714,12 +1675,9 @@ BridgedClass _createChatRequestBridge() {
     name: 'ChatRequest',
     constructors: {
       '': (visitor, positional, named) {
-        final prompt = D4.getRequiredNamedArg<String>(named, 'prompt', 'ChatRequest');
-        final command = D4.getRequiredNamedArg<String>(named, 'command', 'ChatRequest');
-        if (!named.containsKey('references') || named['references'] == null) {
-          throw ArgumentError('ChatRequest: Missing required named argument "references"');
-        }
-        final references = D4.coerceList<$pkg.ChatPromptReference>(named['references'], 'references');
+        final prompt = D4.getRequiredNamedArg<dynamic>(named, 'prompt', 'ChatRequest');
+        final command = D4.getRequiredNamedArg<dynamic>(named, 'command', 'ChatRequest');
+        final references = D4.getRequiredNamedArg<dynamic>(named, 'references', 'ChatRequest');
         return $pkg.ChatRequest(prompt: prompt, command: command, references: references);
       },
       'fromJson': (visitor, positional, named) {
@@ -1743,7 +1701,7 @@ BridgedClass _createChatRequestBridge() {
       },
     },
     constructorSignatures: {
-      '': 'ChatRequest({required String prompt, required String command, required List<ChatPromptReference> references})',
+      '': 'ChatRequest({required dynamic prompt, required dynamic command, required dynamic references})',
       'fromJson': 'factory ChatRequest.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -1767,9 +1725,9 @@ BridgedClass _createChatPromptReferenceBridge() {
     name: 'ChatPromptReference',
     constructors: {
       '': (visitor, positional, named) {
-        final id = D4.getRequiredNamedArg<String>(named, 'id', 'ChatPromptReference');
+        final id = D4.getRequiredNamedArg<dynamic>(named, 'id', 'ChatPromptReference');
         final value = D4.getRequiredNamedArg<dynamic>(named, 'value', 'ChatPromptReference');
-        final modelDescription = D4.getOptionalNamedArg<String?>(named, 'modelDescription');
+        final modelDescription = D4.getOptionalNamedArg<dynamic>(named, 'modelDescription');
         return $pkg.ChatPromptReference(id: id, value: value, modelDescription: modelDescription);
       },
       'fromJson': (visitor, positional, named) {
@@ -1793,7 +1751,7 @@ BridgedClass _createChatPromptReferenceBridge() {
       },
     },
     constructorSignatures: {
-      '': 'ChatPromptReference({required String id, required dynamic value, String? modelDescription})',
+      '': 'ChatPromptReference({required dynamic id, required dynamic value, dynamic modelDescription})',
       'fromJson': 'factory ChatPromptReference.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -1817,10 +1775,7 @@ BridgedClass _createChatContextBridge() {
     name: 'ChatContext',
     constructors: {
       '': (visitor, positional, named) {
-        if (!named.containsKey('history') || named['history'] == null) {
-          throw ArgumentError('ChatContext: Missing required named argument "history"');
-        }
-        final history = D4.coerceList<dynamic>(named['history'], 'history');
+        final history = D4.getRequiredNamedArg<dynamic>(named, 'history', 'ChatContext');
         return $pkg.ChatContext(history: history);
       },
       'fromJson': (visitor, positional, named) {
@@ -1842,7 +1797,7 @@ BridgedClass _createChatContextBridge() {
       },
     },
     constructorSignatures: {
-      '': 'ChatContext({required List<dynamic> history})',
+      '': 'ChatContext({required dynamic history})',
       'fromJson': 'factory ChatContext.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -1864,8 +1819,8 @@ BridgedClass _createChatResultBridge() {
     name: 'ChatResult',
     constructors: {
       '': (visitor, positional, named) {
-        final metadata = D4.coerceMapOrNull<String, dynamic>(named['metadata'], 'metadata');
-        final errorDetails = D4.getOptionalNamedArg<$pkg.ChatErrorDetails?>(named, 'errorDetails');
+        final metadata = D4.getOptionalNamedArg<dynamic>(named, 'metadata');
+        final errorDetails = D4.getOptionalNamedArg<dynamic>(named, 'errorDetails');
         return $pkg.ChatResult(metadata: metadata, errorDetails: errorDetails);
       },
     },
@@ -1880,7 +1835,7 @@ BridgedClass _createChatResultBridge() {
       },
     },
     constructorSignatures: {
-      '': 'ChatResult({Map<String, dynamic>? metadata, ChatErrorDetails? errorDetails})',
+      '': 'ChatResult({dynamic metadata, dynamic errorDetails})',
     },
     methodSignatures: {
       'toJson': 'Map<String, dynamic> toJson()',
@@ -1902,8 +1857,8 @@ BridgedClass _createChatErrorDetailsBridge() {
     name: 'ChatErrorDetails',
     constructors: {
       '': (visitor, positional, named) {
-        final message = D4.getRequiredNamedArg<String>(named, 'message', 'ChatErrorDetails');
-        final responseIsFiltered = D4.getOptionalNamedArg<bool?>(named, 'responseIsFiltered');
+        final message = D4.getRequiredNamedArg<dynamic>(named, 'message', 'ChatErrorDetails');
+        final responseIsFiltered = D4.getOptionalNamedArg<dynamic>(named, 'responseIsFiltered');
         return $pkg.ChatErrorDetails(message: message, responseIsFiltered: responseIsFiltered);
       },
     },
@@ -1918,7 +1873,7 @@ BridgedClass _createChatErrorDetailsBridge() {
       },
     },
     constructorSignatures: {
-      '': 'ChatErrorDetails({required String message, bool? responseIsFiltered})',
+      '': 'ChatErrorDetails({required dynamic message, dynamic responseIsFiltered})',
     },
     methodSignatures: {
       'toJson': 'Map<String, dynamic> toJson()',
@@ -1941,8 +1896,8 @@ BridgedClass _createChatResponseStreamBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ChatResponseStream');
-        final adapter = D4.getRequiredArg<$pkg.VSCodeAdapter>(positional, 0, '_adapter', 'ChatResponseStream');
-        final streamId = D4.getRequiredArg<String>(positional, 1, '_streamId', 'ChatResponseStream');
+        final adapter = D4.getRequiredArg<dynamic>(positional, 0, '_adapter', 'ChatResponseStream');
+        final streamId = D4.getRequiredArg<dynamic>(positional, 1, '_streamId', 'ChatResponseStream');
         return $pkg.ChatResponseStream(adapter, streamId);
       },
     },
@@ -1999,7 +1954,7 @@ BridgedClass _createChatResponseStreamBridge() {
       },
     },
     constructorSignatures: {
-      '': 'ChatResponseStream(VSCodeAdapter _adapter, String _streamId)',
+      '': 'ChatResponseStream(dynamic _adapter, dynamic _streamId)',
     },
     methodSignatures: {
       'markdown': 'Future<void> markdown(String text)',
@@ -2022,9 +1977,19 @@ BridgedClass _createHelperLoggingBridge() {
     nativeType: $pkg.HelperLogging,
     name: 'HelperLogging',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.HelperLogging();
+      },
     },
     staticGetters: {
       'debugLogging': (visitor) => $pkg.HelperLogging.debugLogging,
+    },
+    staticSetters: {
+      'debugLogging': (visitor, value) => 
+        $pkg.HelperLogging.debugLogging = value as bool,
+    },
+    constructorSignatures: {
+      '': 'HelperLogging()',
     },
     staticGetterSignatures: {
       'debugLogging': 'bool get debugLogging',
@@ -2044,6 +2009,9 @@ BridgedClass _createVsCodeHelperBridge() {
     nativeType: $pkg.VsCodeHelper,
     name: 'VsCodeHelper',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.VsCodeHelper();
+      },
     },
     staticMethods: {
       'getVSCode': (visitor, positional, named, typeArgs) {
@@ -2464,6 +2432,9 @@ BridgedClass _createVsCodeHelperBridge() {
         return $pkg.VsCodeHelper.getBreakpoints(timeoutSeconds: timeoutSeconds);
       },
     },
+    constructorSignatures: {
+      '': 'VsCodeHelper()',
+    },
     staticMethodSignatures: {
       'getVSCode': 'VSCode getVSCode()',
       'setVSCode': 'void setVSCode(VSCode vscode)',
@@ -2545,6 +2516,9 @@ BridgedClass _createVsProgressBridge() {
     nativeType: $pkg.VsProgress,
     name: 'VsProgress',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.VsProgress();
+      },
     },
     getters: {
       'channelName': (visitor, target) => D4.validateTarget<$pkg.VsProgress>(target, 'VsProgress').channelName,
@@ -2574,6 +2548,9 @@ BridgedClass _createVsProgressBridge() {
         return $pkg.VsProgress.create(name);
       },
     },
+    constructorSignatures: {
+      '': 'VsProgress()',
+    },
     methodSignatures: {
       'report': 'Future<void> report(String message)',
       'complete': 'Future<void> complete()',
@@ -2597,6 +2574,9 @@ BridgedClass _createFileBatchBridge() {
     nativeType: $pkg.FileBatch,
     name: 'FileBatch',
     constructors: {
+      '': (visitor, positional, named) {
+        return $pkg.FileBatch();
+      },
     },
     getters: {
       'files': (visitor, target) => D4.validateTarget<$pkg.FileBatch>(target, 'FileBatch').files,
@@ -2630,6 +2610,9 @@ BridgedClass _createFileBatchBridge() {
         return $pkg.FileBatch.fromPattern(include: include, exclude: exclude, maxResults: maxResults);
       },
     },
+    constructorSignatures: {
+      '': 'FileBatch()',
+    },
     methodSignatures: {
       'process': 'Future<List<T>> process(Future<T> Function(String path, String content) processor)',
       'filter': 'Future<FileBatch> filter(bool Function(String path) predicate)',
@@ -2654,12 +2637,12 @@ BridgedClass _createVSCodeUriBridge() {
     name: 'VSCodeUri',
     constructors: {
       '': (visitor, positional, named) {
-        final scheme = D4.getRequiredNamedArg<String>(named, 'scheme', 'VSCodeUri');
-        final authority = D4.getNamedArgWithDefault<String>(named, 'authority', '');
-        final path = D4.getRequiredNamedArg<String>(named, 'path', 'VSCodeUri');
-        final query = D4.getNamedArgWithDefault<String>(named, 'query', '');
-        final fragment = D4.getNamedArgWithDefault<String>(named, 'fragment', '');
-        final fsPath = D4.getRequiredNamedArg<String>(named, 'fsPath', 'VSCodeUri');
+        final scheme = D4.getRequiredNamedArg<dynamic>(named, 'scheme', 'VSCodeUri');
+        final authority = D4.getNamedArgWithDefault<dynamic>(named, 'authority', '');
+        final path = D4.getRequiredNamedArg<dynamic>(named, 'path', 'VSCodeUri');
+        final query = D4.getNamedArgWithDefault<dynamic>(named, 'query', '');
+        final fragment = D4.getNamedArgWithDefault<dynamic>(named, 'fragment', '');
+        final fsPath = D4.getRequiredNamedArg<dynamic>(named, 'fsPath', 'VSCodeUri');
         return $pkg.VSCodeUri(scheme: scheme, authority: authority, path: path, query: query, fragment: fragment, fsPath: fsPath);
       },
       'file': (visitor, positional, named) {
@@ -2695,7 +2678,7 @@ BridgedClass _createVSCodeUriBridge() {
       },
     },
     constructorSignatures: {
-      '': 'VSCodeUri({required String scheme, String authority = \'\', required String path, String query = \'\', String fragment = \'\', required String fsPath})',
+      '': 'VSCodeUri({required dynamic scheme, dynamic authority = \'\', required dynamic path, dynamic query = \'\', dynamic fragment = \'\', required dynamic fsPath})',
       'file': 'factory VSCodeUri.file(String path)',
       'fromJson': 'factory VSCodeUri.fromJson(Map<String, dynamic> json)',
     },
@@ -2724,9 +2707,9 @@ BridgedClass _createWorkspaceFolderBridge() {
     name: 'WorkspaceFolder',
     constructors: {
       '': (visitor, positional, named) {
-        final uri = D4.getRequiredNamedArg<$pkg.VSCodeUri>(named, 'uri', 'WorkspaceFolder');
-        final name = D4.getRequiredNamedArg<String>(named, 'name', 'WorkspaceFolder');
-        final index = D4.getRequiredNamedArg<int>(named, 'index', 'WorkspaceFolder');
+        final uri = D4.getRequiredNamedArg<dynamic>(named, 'uri', 'WorkspaceFolder');
+        final name = D4.getRequiredNamedArg<dynamic>(named, 'name', 'WorkspaceFolder');
+        final index = D4.getRequiredNamedArg<dynamic>(named, 'index', 'WorkspaceFolder');
         return $pkg.WorkspaceFolder(uri: uri, name: name, index: index);
       },
       'fromJson': (visitor, positional, named) {
@@ -2750,7 +2733,7 @@ BridgedClass _createWorkspaceFolderBridge() {
       },
     },
     constructorSignatures: {
-      '': 'WorkspaceFolder({required VSCodeUri uri, required String name, required int index})',
+      '': 'WorkspaceFolder({required dynamic uri, required dynamic name, required dynamic index})',
       'fromJson': 'factory WorkspaceFolder.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -2774,14 +2757,14 @@ BridgedClass _createTextDocumentBridge() {
     name: 'TextDocument',
     constructors: {
       '': (visitor, positional, named) {
-        final uri = D4.getRequiredNamedArg<$pkg.VSCodeUri>(named, 'uri', 'TextDocument');
-        final fileName = D4.getRequiredNamedArg<String>(named, 'fileName', 'TextDocument');
-        final isUntitled = D4.getRequiredNamedArg<bool>(named, 'isUntitled', 'TextDocument');
-        final languageId = D4.getRequiredNamedArg<String>(named, 'languageId', 'TextDocument');
-        final version = D4.getRequiredNamedArg<int>(named, 'version', 'TextDocument');
-        final isDirty = D4.getRequiredNamedArg<bool>(named, 'isDirty', 'TextDocument');
-        final isClosed = D4.getRequiredNamedArg<bool>(named, 'isClosed', 'TextDocument');
-        final lineCount = D4.getRequiredNamedArg<int>(named, 'lineCount', 'TextDocument');
+        final uri = D4.getRequiredNamedArg<dynamic>(named, 'uri', 'TextDocument');
+        final fileName = D4.getRequiredNamedArg<dynamic>(named, 'fileName', 'TextDocument');
+        final isUntitled = D4.getRequiredNamedArg<dynamic>(named, 'isUntitled', 'TextDocument');
+        final languageId = D4.getRequiredNamedArg<dynamic>(named, 'languageId', 'TextDocument');
+        final version = D4.getRequiredNamedArg<dynamic>(named, 'version', 'TextDocument');
+        final isDirty = D4.getRequiredNamedArg<dynamic>(named, 'isDirty', 'TextDocument');
+        final isClosed = D4.getRequiredNamedArg<dynamic>(named, 'isClosed', 'TextDocument');
+        final lineCount = D4.getRequiredNamedArg<dynamic>(named, 'lineCount', 'TextDocument');
         return $pkg.TextDocument(uri: uri, fileName: fileName, isUntitled: isUntitled, languageId: languageId, version: version, isDirty: isDirty, isClosed: isClosed, lineCount: lineCount);
       },
       'fromJson': (visitor, positional, named) {
@@ -2810,7 +2793,7 @@ BridgedClass _createTextDocumentBridge() {
       },
     },
     constructorSignatures: {
-      '': 'TextDocument({required VSCodeUri uri, required String fileName, required bool isUntitled, required String languageId, required int version, required bool isDirty, required bool isClosed, required int lineCount})',
+      '': 'TextDocument({required dynamic uri, required dynamic fileName, required dynamic isUntitled, required dynamic languageId, required dynamic version, required dynamic isDirty, required dynamic isClosed, required dynamic lineCount})',
       'fromJson': 'factory TextDocument.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -2840,8 +2823,8 @@ BridgedClass _createPositionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Position');
-        final line = D4.getRequiredArg<int>(positional, 0, 'line', 'Position');
-        final character = D4.getRequiredArg<int>(positional, 1, 'character', 'Position');
+        final line = D4.getRequiredArg<dynamic>(positional, 0, 'line', 'Position');
+        final character = D4.getRequiredArg<dynamic>(positional, 1, 'character', 'Position');
         return $pkg.Position(line, character);
       },
       'fromJson': (visitor, positional, named) {
@@ -2864,7 +2847,7 @@ BridgedClass _createPositionBridge() {
       },
     },
     constructorSignatures: {
-      '': 'Position(int line, int character)',
+      '': 'Position(dynamic line, dynamic character)',
       'fromJson': 'factory Position.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -2888,8 +2871,8 @@ BridgedClass _createRangeBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Range');
-        final start = D4.getRequiredArg<$pkg.Position>(positional, 0, 'start', 'Range');
-        final end = D4.getRequiredArg<$pkg.Position>(positional, 1, 'end', 'Range');
+        final start = D4.getRequiredArg<dynamic>(positional, 0, 'start', 'Range');
+        final end = D4.getRequiredArg<dynamic>(positional, 1, 'end', 'Range');
         return $pkg.Range(start, end);
       },
       'fromJson': (visitor, positional, named) {
@@ -2912,7 +2895,7 @@ BridgedClass _createRangeBridge() {
       },
     },
     constructorSignatures: {
-      '': 'Range(Position start, Position end)',
+      '': 'Range(dynamic start, dynamic end)',
       'fromJson': 'factory Range.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -2936,9 +2919,9 @@ BridgedClass _createSelectionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Selection');
-        final anchor = D4.getRequiredArg<$pkg.Position>(positional, 0, 'anchor', 'Selection');
-        final active = D4.getRequiredArg<$pkg.Position>(positional, 1, 'active', 'Selection');
-        final isReversed = D4.getRequiredArg<bool>(positional, 2, 'isReversed', 'Selection');
+        final anchor = D4.getRequiredArg<dynamic>(positional, 0, 'anchor', 'Selection');
+        final active = D4.getRequiredArg<dynamic>(positional, 1, 'active', 'Selection');
+        final isReversed = D4.getRequiredArg<dynamic>(positional, 2, 'isReversed', 'Selection');
         return $pkg.Selection(anchor, active, isReversed);
       },
       'fromJson': (visitor, positional, named) {
@@ -2964,7 +2947,7 @@ BridgedClass _createSelectionBridge() {
       },
     },
     constructorSignatures: {
-      '': 'Selection(Position anchor, Position active, bool isReversed)',
+      '': 'Selection(dynamic anchor, dynamic active, dynamic isReversed)',
       'fromJson': 'factory Selection.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -2990,13 +2973,10 @@ BridgedClass _createTextEditorBridge() {
     name: 'TextEditor',
     constructors: {
       '': (visitor, positional, named) {
-        final document = D4.getRequiredNamedArg<$pkg.TextDocument>(named, 'document', 'TextEditor');
-        final selection = D4.getRequiredNamedArg<$pkg.Selection>(named, 'selection', 'TextEditor');
-        if (!named.containsKey('selections') || named['selections'] == null) {
-          throw ArgumentError('TextEditor: Missing required named argument "selections"');
-        }
-        final selections = D4.coerceList<$pkg.Selection>(named['selections'], 'selections');
-        final visibleRanges = D4.getOptionalNamedArg<$pkg.Range?>(named, 'visibleRanges');
+        final document = D4.getRequiredNamedArg<dynamic>(named, 'document', 'TextEditor');
+        final selection = D4.getRequiredNamedArg<dynamic>(named, 'selection', 'TextEditor');
+        final selections = D4.getRequiredNamedArg<dynamic>(named, 'selections', 'TextEditor');
+        final visibleRanges = D4.getOptionalNamedArg<dynamic>(named, 'visibleRanges');
         return $pkg.TextEditor(document: document, selection: selection, selections: selections, visibleRanges: visibleRanges);
       },
       'fromJson': (visitor, positional, named) {
@@ -3021,7 +3001,7 @@ BridgedClass _createTextEditorBridge() {
       },
     },
     constructorSignatures: {
-      '': 'TextEditor({required TextDocument document, required Selection selection, required List<Selection> selections, Range? visibleRanges})',
+      '': 'TextEditor({required dynamic document, required dynamic selection, required dynamic selections, dynamic visibleRanges})',
       'fromJson': 'factory TextEditor.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -3046,10 +3026,10 @@ BridgedClass _createQuickPickItemBridge() {
     name: 'QuickPickItem',
     constructors: {
       '': (visitor, positional, named) {
-        final label = D4.getRequiredNamedArg<String>(named, 'label', 'QuickPickItem');
-        final description = D4.getOptionalNamedArg<String?>(named, 'description');
-        final detail = D4.getOptionalNamedArg<String?>(named, 'detail');
-        final picked = D4.getNamedArgWithDefault<bool>(named, 'picked', false);
+        final label = D4.getRequiredNamedArg<dynamic>(named, 'label', 'QuickPickItem');
+        final description = D4.getOptionalNamedArg<dynamic>(named, 'description');
+        final detail = D4.getOptionalNamedArg<dynamic>(named, 'detail');
+        final picked = D4.getNamedArgWithDefault<dynamic>(named, 'picked', false);
         return $pkg.QuickPickItem(label: label, description: description, detail: detail, picked: picked);
       },
       'fromJson': (visitor, positional, named) {
@@ -3074,7 +3054,7 @@ BridgedClass _createQuickPickItemBridge() {
       },
     },
     constructorSignatures: {
-      '': 'QuickPickItem({required String label, String? description, String? detail, bool picked = false})',
+      '': 'QuickPickItem({required dynamic label, dynamic description, dynamic detail, dynamic picked = false})',
       'fromJson': 'factory QuickPickItem.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -3099,10 +3079,10 @@ BridgedClass _createInputBoxOptionsBridge() {
     name: 'InputBoxOptions',
     constructors: {
       '': (visitor, positional, named) {
-        final prompt = D4.getOptionalNamedArg<String?>(named, 'prompt');
-        final placeHolder = D4.getOptionalNamedArg<String?>(named, 'placeHolder');
-        final value = D4.getOptionalNamedArg<String?>(named, 'value');
-        final password = D4.getNamedArgWithDefault<bool>(named, 'password', false);
+        final prompt = D4.getOptionalNamedArg<dynamic>(named, 'prompt');
+        final placeHolder = D4.getOptionalNamedArg<dynamic>(named, 'placeHolder');
+        final value = D4.getOptionalNamedArg<dynamic>(named, 'value');
+        final password = D4.getNamedArgWithDefault<dynamic>(named, 'password', false);
         return $pkg.InputBoxOptions(prompt: prompt, placeHolder: placeHolder, value: value, password: password);
       },
     },
@@ -3119,7 +3099,7 @@ BridgedClass _createInputBoxOptionsBridge() {
       },
     },
     constructorSignatures: {
-      '': 'InputBoxOptions({String? prompt, String? placeHolder, String? value, bool password = false})',
+      '': 'InputBoxOptions({dynamic prompt, dynamic placeHolder, dynamic value, dynamic password = false})',
     },
     methodSignatures: {
       'toJson': 'Map<String, dynamic> toJson()',
@@ -3143,8 +3123,8 @@ BridgedClass _createMessageOptionsBridge() {
     name: 'MessageOptions',
     constructors: {
       '': (visitor, positional, named) {
-        final modal = D4.getNamedArgWithDefault<bool>(named, 'modal', false);
-        final detail = D4.getOptionalNamedArg<String?>(named, 'detail');
+        final modal = D4.getNamedArgWithDefault<dynamic>(named, 'modal', false);
+        final detail = D4.getOptionalNamedArg<dynamic>(named, 'detail');
         return $pkg.MessageOptions(modal: modal, detail: detail);
       },
     },
@@ -3159,7 +3139,7 @@ BridgedClass _createMessageOptionsBridge() {
       },
     },
     constructorSignatures: {
-      '': 'MessageOptions({bool modal = false, String? detail})',
+      '': 'MessageOptions({dynamic modal = false, dynamic detail})',
     },
     methodSignatures: {
       'toJson': 'Map<String, dynamic> toJson()',
@@ -3181,11 +3161,11 @@ BridgedClass _createTerminalOptionsBridge() {
     name: 'TerminalOptions',
     constructors: {
       '': (visitor, positional, named) {
-        final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final shellPath = D4.getOptionalNamedArg<String?>(named, 'shellPath');
-        final shellArgs = D4.coerceListOrNull<String>(named['shellArgs'], 'shellArgs');
-        final cwd = D4.getOptionalNamedArg<String?>(named, 'cwd');
-        final env = D4.coerceMapOrNull<String, String>(named['env'], 'env');
+        final name = D4.getOptionalNamedArg<dynamic>(named, 'name');
+        final shellPath = D4.getOptionalNamedArg<dynamic>(named, 'shellPath');
+        final shellArgs = D4.getOptionalNamedArg<dynamic>(named, 'shellArgs');
+        final cwd = D4.getOptionalNamedArg<dynamic>(named, 'cwd');
+        final env = D4.getOptionalNamedArg<dynamic>(named, 'env');
         return $pkg.TerminalOptions(name: name, shellPath: shellPath, shellArgs: shellArgs, cwd: cwd, env: env);
       },
     },
@@ -3203,7 +3183,7 @@ BridgedClass _createTerminalOptionsBridge() {
       },
     },
     constructorSignatures: {
-      '': 'TerminalOptions({String? name, String? shellPath, List<String>? shellArgs, String? cwd, Map<String, String>? env})',
+      '': 'TerminalOptions({dynamic name, dynamic shellPath, dynamic shellArgs, dynamic cwd, dynamic env})',
     },
     methodSignatures: {
       'toJson': 'Map<String, dynamic> toJson()',
@@ -3228,9 +3208,9 @@ BridgedClass _createFileSystemWatcherOptionsBridge() {
     name: 'FileSystemWatcherOptions',
     constructors: {
       '': (visitor, positional, named) {
-        final ignoreCreateEvents = D4.getNamedArgWithDefault<bool>(named, 'ignoreCreateEvents', false);
-        final ignoreChangeEvents = D4.getNamedArgWithDefault<bool>(named, 'ignoreChangeEvents', false);
-        final ignoreDeleteEvents = D4.getNamedArgWithDefault<bool>(named, 'ignoreDeleteEvents', false);
+        final ignoreCreateEvents = D4.getNamedArgWithDefault<dynamic>(named, 'ignoreCreateEvents', false);
+        final ignoreChangeEvents = D4.getNamedArgWithDefault<dynamic>(named, 'ignoreChangeEvents', false);
+        final ignoreDeleteEvents = D4.getNamedArgWithDefault<dynamic>(named, 'ignoreDeleteEvents', false);
         return $pkg.FileSystemWatcherOptions(ignoreCreateEvents: ignoreCreateEvents, ignoreChangeEvents: ignoreChangeEvents, ignoreDeleteEvents: ignoreDeleteEvents);
       },
     },
@@ -3246,7 +3226,7 @@ BridgedClass _createFileSystemWatcherOptionsBridge() {
       },
     },
     constructorSignatures: {
-      '': 'FileSystemWatcherOptions({bool ignoreCreateEvents = false, bool ignoreChangeEvents = false, bool ignoreDeleteEvents = false})',
+      '': 'FileSystemWatcherOptions({dynamic ignoreCreateEvents = false, dynamic ignoreChangeEvents = false, dynamic ignoreDeleteEvents = false})',
     },
     methodSignatures: {
       'toJson': 'Map<String, dynamic> toJson()',

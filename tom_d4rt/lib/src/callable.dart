@@ -951,18 +951,22 @@ class InterpretedFunction implements Callable {
       // Check if the type implements Comparable
       if (typeArg is BridgedClass) {
         try {
-          // Basic check for common comparable types
+          // G-DOV2-4 FIX: Add num to the list of comparable types
+          // num is the supertype of int and double and implements Comparable<num>
           return typeArg.nativeType == String ||
               typeArg.nativeType == int ||
               typeArg.nativeType == double ||
+              typeArg.nativeType == num ||
               typeArg.nativeType == DateTime;
         } catch (e) {
           return false;
         }
       }
+      // G-DOV2-4 FIX: Add num to the list of comparable types
       return typeArg.name == 'String' ||
           typeArg.name == 'int' ||
-          typeArg.name == 'double';
+          typeArg.name == 'double' ||
+          typeArg.name == 'num';
     }
 
     // Check if the type argument is a subtype of the bound

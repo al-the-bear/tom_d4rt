@@ -765,7 +765,8 @@ void main() {}
       exit(1);
     }
 
-    final fullPath = file.absolute.path;
+    // Use resolveSymbolicLinksSync to normalize path (removes ./ and ..)
+    final fullPath = file.resolveSymbolicLinksSync();
     print('Executing: $fullPath');
     print('');
 
@@ -938,7 +939,8 @@ $source
       exit(1);
     }
 
-    final fullPath = file.absolute.path;
+    // Use resolveSymbolicLinksSync to normalize path (removes ./ and ..)
+    final fullPath = file.resolveSymbolicLinksSync();
     print('Running replay: $fullPath');
     print('');
 
@@ -981,7 +983,8 @@ $source
       exit(1);
     }
 
-    final fullPath = file.absolute.path;
+    // Use resolveSymbolicLinksSync to normalize path (removes ./ and ..)
+    final fullPath = file.resolveSymbolicLinksSync();
     final outputBuffer = StringBuffer();
     
     void log(String message) {
@@ -2148,11 +2151,12 @@ Object? __repl_expr__() {
     bool silent = false,
   }) async {
     final file = File(filename);
-    final fullPath = file.absolute.path;
     if (!file.existsSync()) {
-      stderr.writeln('Error: File not found: $fullPath');
+      stderr.writeln('Error: File not found: $filename');
       return 0;
     }
+    // Use resolveSymbolicLinksSync to normalize path (removes ./ and ..)
+    final fullPath = file.resolveSymbolicLinksSync();
 
     final savedDirectory = state.currentDirectory;
     final fileDirectory = File(fullPath).parent.path;
@@ -2183,11 +2187,12 @@ Object? __repl_expr__() {
 
   Future<void> _executeFile(D4rt d4rt, String filename, {bool silent = false}) async {
     final file = File(filename);
-    final fullPath = file.absolute.path;
     if (!file.existsSync()) {
-      stderr.writeln('Error: File not found: $fullPath');
+      stderr.writeln('Error: File not found: $filename');
       return;
     }
+    // Use resolveSymbolicLinksSync to normalize path (removes ./ and ..)
+    final fullPath = file.resolveSymbolicLinksSync();
 
     try {
       if (!silent) {
@@ -2225,11 +2230,12 @@ Object? __repl_expr__() {
 
   Future<void> _executeFileNew(D4rt d4rt, String filename, {bool silent = false}) async {
     final file = File(filename);
-    final fullPath = file.absolute.path;
     if (!file.existsSync()) {
-      stderr.writeln('Error: File not found: $fullPath');
+      stderr.writeln('Error: File not found: $filename');
       return;
     }
+    // Use resolveSymbolicLinksSync to normalize path (removes ./ and ..)
+    final fullPath = file.resolveSymbolicLinksSync();
 
     try {
       if (!silent) {
@@ -2302,11 +2308,12 @@ Object? __repl_expr__() {
 
   Future<void> _loadScript(D4rt d4rt, String filename, {bool silent = false}) async {
     final file = File(filename);
-    final fullPath = file.absolute.path;
     if (!file.existsSync()) {
-      stderr.writeln('Error: File not found: $fullPath');
+      stderr.writeln('Error: File not found: $filename');
       return;
     }
+    // Use resolveSymbolicLinksSync to normalize path (removes ./ and ..)
+    final fullPath = file.resolveSymbolicLinksSync();
 
     try {
       final lines = await file.readAsLines();
