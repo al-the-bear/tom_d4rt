@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('num methods - comprehensive', () {
-    test('abs [2026-02-10 06:37]', () {
+    test('I-INT-58: Abs. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = -42.5;
@@ -13,7 +13,7 @@ void main() {
       expect(execute(source), equals(42.5));
     });
 
-    test('ceil [2026-02-10 06:37]', () {
+    test('I-INT-44: Ceil. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42.3;
@@ -23,7 +23,7 @@ void main() {
       expect(execute(source), equals(43));
     });
 
-    test('floor [2026-02-10 06:37]', () {
+    test('I-INT-54: Floor. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42.7;
@@ -33,7 +33,7 @@ void main() {
       expect(execute(source), equals(42));
     });
 
-    test('round [2026-02-10 06:37]', () {
+    test('I-INT-55: Round. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42.5;
@@ -43,7 +43,7 @@ void main() {
       expect(execute(source), equals(43));
     });
 
-    test('toInt [2026-02-10 06:37]', () {
+    test('I-INT-56: ToInt. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42.9;
@@ -53,7 +53,7 @@ void main() {
       expect(execute(source), equals(42));
     });
 
-    test('toDouble [2026-02-10 06:37]', () {
+    test('I-INT-57: ToDouble. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42;
@@ -63,7 +63,7 @@ void main() {
       expect(execute(source), equals(42.0));
     });
 
-    test('toString [2026-02-10 06:37]', () {
+    test('I-INT-59: ToString. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42.5;
@@ -73,7 +73,7 @@ void main() {
       expect(execute(source), equals('42.5'));
     });
 
-    test('isFinite [2026-02-10 06:37]', () {
+    test('I-INT-60: IsFinite. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42.5;
@@ -83,7 +83,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('isInfinite [2026-02-10 06:37]', () {
+    test('I-INT-61: IsInfinite. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = double.infinity;
@@ -93,7 +93,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('isNaN [2026-02-10 06:37]', () {
+    test('I-INT-62: IsNaN. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = double.nan;
@@ -103,7 +103,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('isNegative [2026-02-10 06:37]', () {
+    test('I-INT-38: IsNegative. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = -42.5;
@@ -113,7 +113,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('clamp [2026-02-10 06:37]', () {
+    test('I-INT-39: Clamp. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42.5;
@@ -123,7 +123,7 @@ void main() {
       expect(execute(source), equals([42.5, 43]));
     });
 
-    test('remainder [2026-02-10 06:37]', () {
+    test('I-INT-40: Remainder. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42.5;
@@ -133,7 +133,7 @@ void main() {
       expect(execute(source), equals(2.5));
     });
 
-    test('compareTo [2026-02-10 06:37]', () {
+    test('I-INT-41: CompareTo. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42.5;
@@ -143,7 +143,7 @@ void main() {
       expect(execute(source), equals([0, -1, 1]));
     });
 
-    test('sign [2026-02-10 06:37]', () {
+    test('I-INT-42: Sign. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = -42.5;
@@ -153,7 +153,7 @@ void main() {
       expect(execute(source), equals(-1.0));
     });
 
-    test('toStringAsFixed [2026-02-10 06:37]', () {
+    test('I-INT-43: ToStringAsFixed. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42.56789;
@@ -163,7 +163,7 @@ void main() {
       expect(execute(source), equals('42.57'));
     });
 
-    test('toStringAsExponential [2026-02-10 06:37]', () {
+    test('I-INT-45: ToStringAsExponential. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42.56789;
@@ -173,7 +173,7 @@ void main() {
       expect(execute(source), equals('4.26e+1'));
     });
 
-    test('toStringAsPrecision [2026-02-10 06:37]', () {
+    test('I-INT-46: ToStringAsPrecision. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42.56789;
@@ -183,7 +183,7 @@ void main() {
       expect(execute(source), equals('42.57'));
     });
 
-    test('truncate [2026-02-10 06:37]', () {
+    test('I-INT-47: Truncate. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42.9;
@@ -193,7 +193,7 @@ void main() {
       expect(execute(source), equals(42));
     });
 
-    test('truncateToDouble [2026-02-10 06:37]', () {
+    test('I-INT-48: TruncateToDouble. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42.9;
@@ -203,7 +203,7 @@ void main() {
       expect(execute(source), equals(42.0));
     });
 
-    test('ceilToDouble [2026-02-10 06:37]', () {
+    test('I-INT-49: CeilToDouble. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42.3;
@@ -213,7 +213,7 @@ void main() {
       expect(execute(source), equals(43.0));
     });
 
-    test('floorToDouble [2026-02-10 06:37]', () {
+    test('I-INT-50: FloorToDouble. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42.7;
@@ -223,7 +223,7 @@ void main() {
       expect(execute(source), equals(42.0));
     });
 
-    test('roundToDouble [2026-02-10 06:37]', () {
+    test('I-INT-51: RoundToDouble. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = 42.5;
@@ -233,7 +233,7 @@ void main() {
       expect(execute(source), equals(43.0));
     });
 
-    test('parse [2026-02-10 06:37]', () {
+    test('I-INT-52: Parse. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num value = num.parse("42.5");
@@ -243,7 +243,7 @@ void main() {
       expect(execute(source), equals(42.5));
     });
 
-    test('tryParse [2026-02-10 06:37]', () {
+    test('I-INT-53: TryParse. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         num? value = num.tryParse("42.5");

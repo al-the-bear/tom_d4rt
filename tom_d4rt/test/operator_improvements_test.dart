@@ -11,7 +11,7 @@ dynamic execute(String source, {List<Object?>? args}) {
 
 void main() {
   group('Operator Improvements', () {
-    test('Generic constraints validation works [2026-02-10 06:37]', () {
+    test('I-EXPR-36: Generic constraints validation works. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         class NumericContainer<T extends num> {
           T value;
@@ -32,7 +32,7 @@ void main() {
       expect(result, contains("SUCCESS"));
     });
 
-    test('Compound assignment operators work for bitwise operations [2026-02-10 06:37]', () {
+    test('I-EXPR-37: Compound assignment operators work for bitwise operations. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         main() {
           int a = 15;  // 1111 in binary
@@ -69,7 +69,7 @@ void main() {
       expect(result, equals("Bitwise compound assignments work"));
     });
 
-    test('New typed data types work [2026-02-10 06:37]', () {
+    test('I-EXPR-38: New typed data types work. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'dart:typed_data';
         
@@ -97,7 +97,7 @@ void main() {
       expect(result, equals("New typed data types work"));
     });
 
-    test('Complex operations with improved features [2026-02-10 06:37]', () {
+    test('I-EXPR-35: Complex operations with improved features. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'dart:typed_data';
         

@@ -9,7 +9,7 @@ void main() {
       d4rt = D4rt();
     });
 
-    test('complex null safety scenario with chaining and coalescing [2026-02-10 06:37]', () {
+    test('I-MISC-374: Complex null safety scenario with chaining and coalescing. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         class User {
           String? name;
@@ -55,7 +55,7 @@ void main() {
       expect(result, [null, null, '123 Main St', 'Unknown', '123 Main St']);
     });
 
-    test('null-aware method calls with complex return types [2026-02-10 06:37]', () {
+    test('I-MISC-378: Null-aware method calls with complex return types. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         class Calculator {
           int? getValue() => 42;
@@ -76,7 +76,7 @@ void main() {
 
       expect(result, [null, 42, null]);
     });
-    test('null-aware assignment with complex expressions [2026-02-10 06:37]', () {
+    test('I-MISC-379: Null-aware assignment with complex expressions. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         class Container {
           String? value = null;
@@ -102,7 +102,7 @@ void main() {
       expect(result, ['first', 'assigned', 'original']);
     });
 
-    test('spread null-aware with nested collections [2026-02-10 06:37]', () {
+    test('I-MISC-373: Spread null-aware with nested collections. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         main() {
           List<int>? nullList = null;
@@ -118,7 +118,7 @@ void main() {
       expect(result, [1, 2, 3, 4, 5, 6]);
     });
 
-    test('mixed null safety operators in single expression [2026-02-10 06:37]', () {
+    test('I-MISC-375: Mixed null safety operators in single expression. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         class Service {
           String? getData() => null;
@@ -138,7 +138,7 @@ void main() {
       expect(result, 'backup');
     });
 
-    test('null safety with method parameters and return values [2026-02-10 06:37]', () {
+    test('I-MISC-376: Null safety with method parameters and return values. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         class Processor {
           String? process(String? input) {
@@ -164,7 +164,7 @@ void main() {
       expect(result, [null, 'processed: test', 'default', 'processed: test']);
     });
 
-    test('null safety with collection operations [2026-02-10 06:37]', () {
+    test('I-MISC-377: Null safety with collection operations. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         main() {
           List<String>? names1 = null;

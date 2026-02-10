@@ -10,7 +10,7 @@ void main() {
       interpreter = D4rt();
     });
 
-    test('extension getter on List<int> works [2026-02-10 06:37]', () async {
+    test('I-COLL-1: Extension getter on List<int> works. [2026-02-10 06:37] (PASS)', () async {
       final result = await interpreter.execute(source: '''
         extension IntListExt on List<int> {
           int get sum => fold(0, (a, b) => a + b);
@@ -25,7 +25,7 @@ void main() {
       expect(result, equals(15));
     });
 
-    test('extension method on List<String> works [2026-02-10 06:37]', () async {
+    test('I-COLL-2: Extension method on List<String> works. [2026-02-10 06:37] (PASS)', () async {
       final result = await interpreter.execute(source: '''
         extension StringListExt on List<String> {
           String get joined => join(', ');
@@ -40,7 +40,7 @@ void main() {
       expect(result, equals('hello, world'));
     });
 
-    test('multiple extensions on same base type work [2026-02-10 06:37]', () async {
+    test('I-COLL-3: Multiple extensions on same base type work. [2026-02-10 06:37] (PASS)', () async {
       final result = await interpreter.execute(source: '''
         extension IntListSum on List<int> {
           int get sum => fold(0, (a, b) => a + b);
@@ -59,7 +59,7 @@ void main() {
       expect(result, equals([10, 24]));
     });
 
-    test('extension on List (unparameterized) works [2026-02-10 06:37]', () async {
+    test('I-COLL-4: Extension on List (unparameterized) works. [2026-02-10 06:37] (PASS)', () async {
       final result = await interpreter.execute(source: '''
         extension ListExt on List {
           int get len => length;
@@ -74,7 +74,7 @@ void main() {
       expect(result, equals(3));
     });
 
-    test('extension on Map<String, int> works [2026-02-10 06:37]', () async {
+    test('I-COLL-5: Extension on Map<String, int> works. [2026-02-10 06:37] (PASS)', () async {
       final result = await interpreter.execute(source: '''
         extension MapExt on Map<String, int> {
           int get sumValues => values.fold(0, (a, b) => a + b);
@@ -89,7 +89,7 @@ void main() {
       expect(result, equals(6));
     });
 
-    test('extension method with parameters on List works [2026-02-10 06:37]', () async {
+    test('I-COLL-6: Extension method with parameters on List works. [2026-02-10 06:37] (PASS)', () async {
       final result = await interpreter.execute(source: '''
         extension IntListExt on List<int> {
           int sumGreaterThan(int threshold) {

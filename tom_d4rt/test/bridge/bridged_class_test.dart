@@ -401,7 +401,7 @@ void main() {
           asyncProcessorDefinition, 'package:test/async_processor.dart');
     });
 
-    test('Call default constructor [2026-02-10 06:37]', () {
+    test('I-CLASS-7: Call default constructor. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
         main() {
@@ -412,7 +412,7 @@ void main() {
       expect(interpreter.execute(source: code), equals(10));
     });
 
-    test('Call default constructor with optional ID [2026-02-10 06:37]', () {
+    test('I-CLASS-8: Call default constructor with optional ID. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
         main() {
@@ -423,7 +423,7 @@ void main() {
       expect(interpreter.execute(source: code), equals('my-counter'));
     });
 
-    test('Call named constructor [2026-02-10 06:37]', () {
+    test('I-CLASS-9: Call named constructor. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
         main() {
@@ -434,7 +434,7 @@ void main() {
       expect(interpreter.execute(source: code), equals(['specific-id', 0]));
     });
 
-    test('Call named constructor with named argument [2026-02-10 06:37]', () {
+    test('I-CLASS-10: Call named constructor with named argument. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
         main() {
@@ -445,7 +445,7 @@ void main() {
       expect(interpreter.execute(source: code), equals(['other-id', 55]));
     });
 
-    test('Access static getter [2026-02-10 06:37]', () {
+    test('I-CLASS-11: Access static getter. [2026-02-10 06:37] (PASS)', () {
       NativeCounter.staticValue = 99; // Set native value directly
       final code = '''
         import 'package:test/counter.dart';
@@ -454,7 +454,7 @@ void main() {
       expect(interpreter.execute(source: code), equals(99));
     });
 
-    test('Use static setter [2026-02-10 06:37]', () {
+    test('I-CLASS-12: Use static setter. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
         main() {
@@ -467,7 +467,7 @@ void main() {
           NativeCounter.staticValue, equals(123)); // Verify native side effect
     });
 
-    test('Call static method [2026-02-10 06:37]', () {
+    test('I-CLASS-13: Call static method. [2026-02-10 06:37] (PASS)', () {
       NativeCounter.staticValue = 0; // Reset static counter
       final code = '''
         import 'package:test/counter.dart';
@@ -481,7 +481,7 @@ void main() {
           equals(['prefix1:static:1', 'prefix2:static:2', 2]));
     });
 
-    test('Access instance getter [2026-02-10 06:37]', () {
+    test('I-CLASS-14: Access instance getter. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
         main() {
@@ -493,7 +493,7 @@ void main() {
           equals([7, 'getter-test', 'Counter(getter-test):7']));
     });
 
-    test('Use instance setter [2026-02-10 06:37]', () {
+    test('I-CLASS-15: Use instance setter. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
          main() {
@@ -505,7 +505,7 @@ void main() {
       expect(interpreter.execute(source: code), equals(25));
     });
 
-    test('Call instance method (no args) [2026-02-10 06:37]', () {
+    test('I-CLASS-16: Call instance method (no args). [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
          main() {
@@ -517,7 +517,7 @@ void main() {
       expect(interpreter.execute(source: code), equals(101));
     });
 
-    test('Call instance method (with args) [2026-02-10 06:37]', () {
+    test('I-CLASS-17: Call instance method (with args). [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
          main() {
@@ -530,7 +530,7 @@ void main() {
       expect(interpreter.execute(source: code), equals([15, 18]));
     });
 
-    test('Pass bridged instance as argument [2026-02-10 06:37]', () {
+    test('I-CLASS-18: Pass bridged instance as argument. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
          main() {
@@ -544,7 +544,7 @@ void main() {
       expect(interpreter.execute(source: code), equals([true, false, false]));
     });
 
-    test('Error: Call non-existent constructor [2026-02-10 06:37]', () {
+    test('I-CLASS-19: Error: Call non-existent constructor. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
         main() { return Counter.nonExistent(); }
@@ -558,7 +558,7 @@ void main() {
                   "Bridged class 'Counter' has no constructor or static method named 'nonExistent'"))));
     });
 
-    test('Error: Call default constructor with wrong arg type [2026-02-10 06:37]', () {
+    test('I-CLASS-20: Error: Call default constructor with wrong arg type. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
         main() { return Counter('wrong'); }
@@ -572,7 +572,7 @@ void main() {
                   "Native error during default bridged constructor for 'Counter'"))));
     });
 
-    test('Error: Call named constructor with wrong arg type [2026-02-10 06:37]', () {
+    test('I-CLASS-21: Error: Call named constructor with wrong arg type. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
         main() { return Counter.withId(123); }
@@ -583,7 +583,7 @@ void main() {
               contains("Native error during bridged constructor"))));
     });
 
-    test('Error: Access non-existent static member [2026-02-10 06:37]', () {
+    test('I-CLASS-22: Error: Access non-existent static member. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
         main() { return Counter.nonExistentStatic; }
@@ -594,7 +594,7 @@ void main() {
               contains("Undefined static member 'nonExistentStatic'"))));
     });
 
-    test('Error: Call non-existent static method [2026-02-10 06:37]', () {
+    test('I-CLASS-23: Error: Call non-existent static method. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
         main() { return Counter.nonExistentStaticMethod(); }
@@ -608,7 +608,7 @@ void main() {
                   "Bridged class 'Counter' has no constructor or static method named 'nonExistentStaticMethod'"))));
     });
 
-    test('Error: Access non-existent instance member [2026-02-10 06:37]', () {
+    test('I-CLASS-24: Error: Access non-existent instance member. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
          main() {
@@ -626,7 +626,7 @@ void main() {
                   "Undefined property or method 'nonExistentMember' on bridged instance of 'Counter'"))));
     });
 
-    test('Error: Call non-existent instance method [2026-02-10 06:37]', () {
+    test('I-CLASS-25: Error: Call non-existent instance method. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
          main() {
@@ -643,7 +643,7 @@ void main() {
                   "Bridged class 'Counter' has no instance method named 'nonExistentMethod'"))));
     });
 
-    test('Error: Call instance method with wrong args [2026-02-10 06:37]', () {
+    test('I-CLASS-26: Error: Call instance method with wrong args. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
          main() {
@@ -657,7 +657,7 @@ void main() {
               contains("Native error during bridged method call 'add'"))));
     });
 
-    test('Error: Call method on disposed instance [2026-02-10 06:37]', () {
+    test('I-CLASS-27: Error: Call method on disposed instance. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/counter.dart';
          main() {
@@ -672,7 +672,7 @@ void main() {
               contains("Unexpected error: Bad state: Instance disposed"))));
     });
 
-    test('Dart class inheriting from bridged class [2026-02-10 06:37]', () {
+    test('I-CLASS-28: Dart class inheriting from bridged class. [2026-02-10 06:37] (PASS)', () {
       final source = '''
         import 'package:test/counter.dart';
         class Employee extends Counter {
@@ -735,7 +735,7 @@ void main() {
       expect(resultMap['emp2_info'], 'Employee emp2 in Tech, value: 25');
     });
 
-    test('Await bridged method returning Future<String> [2026-02-10 06:37]', () async {
+    test('I-CLASS-29: Await bridged method returning Future<String>. [2026-02-10 06:37] (PASS)', () async {
       final code = '''
         import 'package:test/async_processor.dart';
         main() async {
@@ -749,7 +749,7 @@ void main() {
       expect(result, equals('Processed (p1): hello'));
     });
 
-    test('Await bridged method returning Future<int> with args [2026-02-10 06:37]', () async {
+    test('I-CLASS-30: Await bridged method returning Future<int> with args. [2026-02-10 06:37] (PASS)', () async {
       final code = '''
         import 'package:test/async_processor.dart';
         main() async {
@@ -762,7 +762,7 @@ void main() {
       expect(result, equals(30));
     });
 
-    test('Await bridged method returning Future [2026-02-10 06:37]', () async {
+    test('I-CLASS-31: Await bridged method returning Future. [2026-02-10 06:37] (PASS)', () async {
       final code = '''
         import 'package:test/async_processor.dart';
         main() async {
@@ -776,7 +776,7 @@ void main() {
       // We can also check the console logs if necessary
     });
 
-    test('Await bridged method returning Future<BridgedInstance> [2026-02-10 06:37]', () async {
+    test('I-CLASS-32: Await bridged method returning Future<BridgedInstance>. [2026-02-10 06:37] (PASS)', () async {
       final code = '''
         import 'package:test/async_processor.dart';
         import 'package:test/counter.dart';
@@ -795,7 +795,7 @@ void main() {
       expect(result, equals(105));
     });
 
-    test('Try/catch await on bridged method returning Future.error [2026-02-10 06:37]', () async {
+    test('I-CLASS-33: Try/catch await on bridged method returning Future.error. [2026-02-10 06:37] (PASS)', () async {
       final code = '''
         import 'package:test/async_processor.dart';
          main() async {
@@ -818,7 +818,7 @@ void main() {
               'Caught: Exception: Failure from AsyncProcessor (p5): something went wrong'));
     });
 
-    test('Sync bridged method returning BridgedInstance [2026-02-10 06:37]', () {
+    test('I-CLASS-34: Sync bridged method returning BridgedInstance. [2026-02-10 06:37] (PASS)', () {
       final source = '''
         import 'package:test/async_processor.dart';
         import 'package:test/counter.dart';
@@ -840,7 +840,7 @@ void main() {
       expect(result, equals(210));
     });
 
-    test('Override bridged class methods [2026-02-10 06:37]', () {
+    test('I-CLASS-35: Override bridged class methods. [2026-02-10 06:37] (PASS)', () {
       final source = '''
         import 'package:test/counter.dart';
         // Interpreted class that inherits from the native bridged class 'Counter'
@@ -891,7 +891,7 @@ void main() {
       expect(result, equals([20, 50]));
     });
 
-    test('Call native methods on extracted native object [2026-02-10 06:37]', () {
+    test('I-CLASS-36: Call native methods on extracted native object. [2026-02-10 06:37] (PASS)', () {
       final source = '''
         import 'package:test/counter.dart';
         // Interpreted class inheriting from the bridged class
@@ -945,7 +945,7 @@ void main() {
           reason: 'Value should still be 12 after native add()');
     });
 
-    test('Invoke overridden methods via interpreter.invoke [2026-02-10 06:37]', () {
+    test('I-CLASS-37: Invoke overridden methods via interpreter.invoke. [2026-02-10 06:37] (PASS)', () {
       final source = '''
         import 'package:test/counter.dart';
         class OverridenCounter extends Counter {
@@ -1013,7 +1013,7 @@ void main() {
           reason: 'Value should remain 30 after overridden add(5)');
     });
 
-    test('invoke on simple interpreted instance method [2026-02-10 06:37]', () {
+    test('I-CLASS-1: Invoke on simple interpreted instance method. [2026-02-10 06:37] (PASS)', () {
       final source = '''
         import 'package:test/counter.dart';
         class Simple {
@@ -1038,7 +1038,7 @@ void main() {
       // Let's add a getter to verify
     });
 
-    test('invoke on simple interpreted instance getter [2026-02-10 06:37]', () {
+    test('I-CLASS-2: Invoke on simple interpreted instance getter. [2026-02-10 06:37] (PASS)', () {
       final source = '''
         import 'package:test/counter.dart';
         class Simple {
@@ -1062,7 +1062,7 @@ void main() {
       expect(result, equals('new_value'));
     });
 
-    test('invoke on overridden method with interpreted super call [2026-02-10 06:37]', () {
+    test('I-CLASS-3: Invoke on overridden method with interpreted super call. [2026-02-10 06:37] (PASS)', () {
       final source = '''
         class Base {
           String work(String input) => "Base:" + input;
@@ -1081,7 +1081,7 @@ void main() {
       expect(result, equals('Derived:Base:data'));
     });
 
-    test('invoke throws error for non-existent method/getter [2026-02-10 06:37]', () {
+    test('I-CLASS-4: Invoke throws error for non-existent method/getter. [2026-02-10 06:37] (PASS)', () {
       final source = '''
         class Empty {}
         main() => Empty();
@@ -1100,7 +1100,7 @@ void main() {
       );
     });
 
-    test('Invoke overridden methods on instance with extra field via invoke [2026-02-10 06:37]',
+    test('I-CLASS-5: Invoke overridden methods on instance with extra field via invoke. [2026-02-10 06:37] (PASS)',
         () {
       final source = '''
         import 'package:test/counter.dart';
@@ -1169,7 +1169,7 @@ void main() {
       expect(stockValue, equals('stockXYZ'),
           reason: "Stock value should be 'stockXYZ'");
     });
-    test('Invoke static method on instance with extra field via invoke [2026-02-10 06:37]', () {
+    test('I-CLASS-6: Invoke static method on instance with extra field via invoke. [2026-02-10 06:37] (PASS)', () {
       final source = '''
         import 'package:test/counter.dart';
         class OverridenCounter extends Counter {

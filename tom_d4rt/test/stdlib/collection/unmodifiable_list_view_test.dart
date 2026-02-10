@@ -36,7 +36,7 @@ void main() {
       ''';
     }
 
-    test('Constructor and basic getters [2026-02-10 06:37]', () {
+    test('I-COLL-105: Constructor and basic getters. [2026-02-10 06:37] (PASS)', () {
       final result = executeAndGetList(unmodifiableListViewSource('[1, 2, 3]',
           'return [unmodifiable.length, unmodifiable.isEmpty, unmodifiable.isNotEmpty, unmodifiable.first, unmodifiable.last, unmodifiable.singleWhere((e) => e == 2, orElse: () => -1 )];'));
       expect(result[0], 3);
@@ -47,13 +47,13 @@ void main() {
       expect(result[5], 2);
     });
 
-    test('[] operator (getter) [2026-02-10 06:37]', () {
+    test('I-COLL-106: [] operator (getter). [2026-02-10 06:37] (PASS)', () {
       final result = executeAndGetResult(unmodifiableListViewSource(
           '["a", "b", "c"]', 'return unmodifiable[1];'));
       expect(result, 'b');
     });
 
-    test('Read-only iteration methods: forEach, map, where, any, every [2026-02-10 06:37]', () {
+    test('I-COLL-107: Read-only iteration methods: forEach, map, where, any, every. [2026-02-10 06:37] (PASS)', () {
       final result =
           executeAndGetList(unmodifiableListViewSource('[1, 2, 3, 4]', '''
           final forEachItems = [];
@@ -111,120 +111,120 @@ void main() {
           reason: "reversedItems");
     });
 
-    test('Attempt []= (setter) [2026-02-10 06:37]', () {
+    test('I-COLL-84: Attempt []= (setter). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable[0] = 100;')));
     });
 
-    test('Attempt length = (setter) [2026-02-10 06:37]', () {
+    test('I-COLL-85: Attempt length = (setter). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.length = 5;')));
     });
 
-    test('Attempt first = (setter) [2026-02-10 06:37]', () {
+    test('I-COLL-86: Attempt first = (setter). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.first = 0;')));
     });
 
-    test('Attempt last = (setter) [2026-02-10 06:37]', () {
+    test('I-COLL-87: Attempt last = (setter). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.last = 0;')));
     });
 
-    test('Attempt add() [2026-02-10 06:37]', () {
+    test('I-COLL-88: Attempt add(). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.add(4);')));
     });
 
-    test('Attempt addAll() [2026-02-10 06:37]', () {
+    test('I-COLL-89: Attempt addAll(). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3]', 'unmodifiable.addAll([4, 5]);')));
     });
 
-    test('Attempt clear() [2026-02-10 06:37]', () {
+    test('I-COLL-90: Attempt clear(). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.clear();')));
     });
 
-    test('Attempt insert() [2026-02-10 06:37]', () {
+    test('I-COLL-91: Attempt insert(). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3]', 'unmodifiable.insert(1, 10);')));
     });
 
-    test('Attempt insertAll() [2026-02-10 06:37]', () {
+    test('I-COLL-92: Attempt insertAll(). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3]', 'unmodifiable.insertAll(1, [10, 11]);')));
     });
 
-    test('Attempt remove() [2026-02-10 06:37]', () {
+    test('I-COLL-93: Attempt remove(). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.remove(2);')));
     });
 
-    test('Attempt removeAt() [2026-02-10 06:37]', () {
+    test('I-COLL-94: Attempt removeAt(). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3]', 'unmodifiable.removeAt(0);')));
     });
 
-    test('Attempt removeLast() [2026-02-10 06:37]', () {
+    test('I-COLL-95: Attempt removeLast(). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3]', 'unmodifiable.removeLast();')));
     });
 
-    test('Attempt removeRange() [2026-02-10 06:37]', () {
+    test('I-COLL-96: Attempt removeRange(). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3, 4]', 'unmodifiable.removeRange(1, 3);')));
     });
 
-    test('Attempt removeWhere() [2026-02-10 06:37]', () {
+    test('I-COLL-97: Attempt removeWhere(). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3, 4]', 'unmodifiable.removeWhere((e) => e % 2 == 0);')));
     });
 
-    test('Attempt replaceRange() [2026-02-10 06:37]', () {
+    test('I-COLL-98: Attempt replaceRange(). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3, 4]', 'unmodifiable.replaceRange(1, 3, [8, 9]);')));
     });
 
-    test('Attempt retainWhere() [2026-02-10 06:37]', () {
+    test('I-COLL-99: Attempt retainWhere(). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3, 4]', 'unmodifiable.retainWhere((e) => e % 2 == 0);')));
     });
 
-    test('Attempt fillRange() [2026-02-10 06:37]', () {
+    test('I-COLL-100: Attempt fillRange(). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3, 4]', 'unmodifiable.fillRange(1, 3, 9);')));
     });
 
-    test('Attempt setAll() [2026-02-10 06:37]', () {
+    test('I-COLL-101: Attempt setAll(). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3, 4]', 'unmodifiable.setAll(1, [8,9]);')));
     });
 
-    test('Attempt setRange() [2026-02-10 06:37]', () {
+    test('I-COLL-102: Attempt setRange(). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3, 4]', 'unmodifiable.setRange(1, 3, [8, 9, 10], 1);')));
     });
 
-    test('Attempt shuffle() [2026-02-10 06:37]', () {
+    test('I-COLL-103: Attempt shuffle(). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource(
               '[1, 2, 3, 4]', 'unmodifiable.shuffle();')));
     });
 
-    test('Attempt sort() [2026-02-10 06:37]', () {
+    test('I-COLL-104: Attempt sort(). [2026-02-10 06:37] (PASS)', () {
       expectUnsupportedError(() => executeAndGetResult(
           unmodifiableListViewSource('[3, 1, 2]', 'unmodifiable.sort();')));
     });

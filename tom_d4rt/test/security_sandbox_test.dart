@@ -24,7 +24,7 @@ void main() {
   });
 
   group('Real File Operations - No Permission', () {
-    test('Reading a file fails without permission [2026-02-10 06:37]', () {
+    test('I-NET-8: Reading a file fails without permission. [2026-02-10 06:37] (PASS)', () {
       // Create a real file
       io.File('test.txt').writeAsStringSync('secret content');
 
@@ -42,7 +42,7 @@ void main() {
       );
     });
 
-    test('Writing a file fails without permission [2026-02-10 06:37]', () {
+    test('I-NET-13: Writing a file fails without permission. [2026-02-10 06:37] (PASS)', () {
       final interpreter = D4rt();
       expect(
         () => interpreter.execute(source: '''
@@ -58,7 +58,7 @@ void main() {
       expect(io.File('test_write.txt').existsSync(), isFalse);
     });
 
-    test('Deleting a file fails without permission [2026-02-10 06:37]', () {
+    test('I-NET-20: Deleting a file fails without permission. [2026-02-10 06:37] (PASS)', () {
       io.File('test.txt').writeAsStringSync('to be deleted');
 
       final interpreter = D4rt();
@@ -78,7 +78,7 @@ void main() {
   });
 
   group('Real File Operations - With Permission', () {
-    test('Reading a file succeeds with read permission [2026-02-10 06:37]', () {
+    test('I-NET-29: Reading a file succeeds with read permission. [2026-02-10 06:37] (PASS)', () {
       io.File('test.txt').writeAsStringSync('Hello from file!');
 
       final interpreter = D4rt();
@@ -95,7 +95,7 @@ void main() {
       expect(result, equals('Hello from file!'));
     });
 
-    test('Writing a file succeeds with write permission [2026-02-10 06:37]', () {
+    test('I-NET-30: Writing a file succeeds with write permission. [2026-02-10 06:37] (PASS)', () {
       final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.write);
 
@@ -112,7 +112,7 @@ void main() {
           equals('Generated content'));
     });
 
-    test('Complex file operations with full permission [2026-02-10 06:37]', () {
+    test('I-NET-1: Complex file operations with full permission. [2026-02-10 06:37] (PASS)', () {
       final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any);
 
@@ -140,7 +140,7 @@ void main() {
   });
 
   group('Real Directory Operations', () {
-    test('Listing directory contents with permission [2026-02-10 06:37]', () {
+    test('I-NET-2: Listing directory contents with permission. [2026-02-10 06:37] (PASS)', () {
       final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any);
 
@@ -164,7 +164,7 @@ void main() {
       io.File('test2.txt').deleteSync();
     });
 
-    test('Directory operations without permission fail [2026-02-10 06:37]', () {
+    test('I-NET-3: Directory operations without permission fail. [2026-02-10 06:37] (PASS)', () {
       final interpreter = D4rt();
 
       expect(
@@ -180,7 +180,7 @@ void main() {
   });
 
   group('Real Process Execution', () {
-    test('Running echo command with permission [2026-02-10 06:37]', () {
+    test('I-NET-4: Running echo command with permission. [2026-02-10 06:37] (PASS)', () {
       final interpreter = D4rt();
       interpreter.grant(ProcessRunPermission.any);
       interpreter.grant(FilesystemPermission.any);
@@ -196,7 +196,7 @@ void main() {
       expect(result, contains('Hello Process'));
     });
 
-    test('Process execution without permission fails [2026-02-10 06:37]', () {
+    test('I-NET-5: Process execution without permission fails. [2026-02-10 06:37] (PASS)', () {
       final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any); // IO needed but not process
 
@@ -214,7 +214,7 @@ void main() {
   });
 
   group('Complex Real-World Scenarios', () {
-    test('Config file processor with read/write permissions [2026-02-10 06:37]', () {
+    test('I-NET-6: Config file processor with read/write permissions. [2026-02-10 06:37] (PASS)', () {
       // Setup: Create a config file
       io.File('config.json')
           .writeAsStringSync('{"setting": "value", "count": 10}');
@@ -254,7 +254,7 @@ void main() {
       expect(fileContent, contains('lastModified'));
     });
 
-    test('Log file aggregator - read multiple files, write summary [2026-02-10 06:37]', () {
+    test('I-NET-7: Log file aggregator - read multiple files, write summary. [2026-02-10 06:37] (PASS)', () {
       // Setup: Create multiple log files
       io.File('log1.txt')
           .writeAsStringSync('ERROR: Connection failed\nINFO: Starting\n');
@@ -299,7 +299,7 @@ void main() {
       io.File('error_summary.txt').deleteSync();
     });
 
-    test('Data transformation pipeline [2026-02-10 06:37]', () {
+    test('I-NET-9: Data transformation pipeline. [2026-02-10 06:37] (PASS)', () {
       // Create input data
       io.File('input.txt')
           .writeAsStringSync('apple\nbanana\ncherry\napple\nbanana');
@@ -346,7 +346,7 @@ void main() {
       io.File('input.txt').deleteSync();
     });
 
-    test('File backup system [2026-02-10 06:37]', () {
+    test('I-NET-10: File backup system. [2026-02-10 06:37] (PASS)', () {
       // Create original file
       io.File('important.txt')
           .writeAsStringSync('Important data\nDo not lose!');
@@ -388,7 +388,7 @@ void main() {
   });
 
   group('Multi-Module Real Scenarios', () {
-    test('Module importing with file operations [2026-02-10 06:37]', () {
+    test('I-NET-11: Module importing with file operations. [2026-02-10 06:37] (PASS)', () {
       final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any);
 
@@ -422,7 +422,7 @@ void main() {
       expect(io.File('test.txt').readAsStringSync(), equals('Hello from main'));
     });
 
-    test('Complex data processing across modules [2026-02-10 06:37]', () {
+    test('I-NET-12: Complex data processing across modules. [2026-02-10 06:37] (PASS)', () {
       final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any);
 
@@ -484,7 +484,7 @@ void main() {
   });
 
   group('Permission Revocation - Real Impact', () {
-    test('Permission revocation prevents further operations [2026-02-10 06:37]', () {
+    test('I-NET-14: Permission revocation prevents further operations. [2026-02-10 06:37] (PASS)', () {
       final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any);
 
@@ -518,7 +518,7 @@ void main() {
   });
 
   group('Safe Operations Without Permissions', () {
-    test('Pure computation works without any permissions [2026-02-10 06:37]', () {
+    test('I-NET-15: Pure computation works without any permissions. [2026-02-10 06:37] (PASS)', () {
       final interpreter = D4rt();
 
       final result = interpreter.execute(source: '''
@@ -531,7 +531,7 @@ void main() {
       expect(result, equals(15));
     });
 
-    test('String processing works without permissions [2026-02-10 06:37]', () {
+    test('I-NET-16: String processing works without permissions. [2026-02-10 06:37] (PASS)', () {
       final interpreter = D4rt();
 
       final result = interpreter.execute(source: '''
@@ -544,7 +544,7 @@ void main() {
       expect(result, equals('HELLO-WORLD'));
     });
 
-    test('Complex data structures work without permissions [2026-02-10 06:37]', () {
+    test('I-NET-17: Complex data structures work without permissions. [2026-02-10 06:37] (PASS)', () {
       final interpreter = D4rt();
 
       final result = interpreter.execute(source: '''
@@ -574,7 +574,7 @@ void main() {
   });
 
   group('Network Permission Scenarios', () {
-    test('Network lookup requires permission [2026-02-10 06:37]', () {
+    test('I-NET-18: Network lookup requires permission. [2026-02-10 06:37] (PASS)', () {
       final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any);
       // No network permission
@@ -594,7 +594,7 @@ void main() {
 
   group('Error Handling in Sandboxed Environment', () {
     group('NetworkPermission - Real Tests', () {
-      test('Network fails without permission [2026-02-10 06:37]', () {
+      test('I-NET-19: Network fails without permission. [2026-02-10 06:37] (PASS)', () {
         final interpreter = D4rt();
         interpreter.grant(FilesystemPermission.any);
 
@@ -610,7 +610,7 @@ void main() {
         );
       });
 
-      test('Network succeeds with NetworkPermission.any [2026-02-10 06:37]', () async {
+      test('I-NET-21: Network succeeds with NetworkPermission.any. [2026-02-10 06:37] (PASS)', () async {
         final interpreter = D4rt();
         interpreter.grant(FilesystemPermission.any);
         interpreter.grant(NetworkPermission.any);
@@ -628,7 +628,7 @@ void main() {
     });
 
     group('ProcessRunPermission - Real Tests', () {
-      test('Process fails without permission [2026-02-10 06:37]', () {
+      test('I-NET-22: Process fails without permission. [2026-02-10 06:37] (PASS)', () {
         final interpreter = D4rt();
         interpreter.grant(FilesystemPermission.any);
 
@@ -644,7 +644,7 @@ void main() {
         );
       });
 
-      test('Echo with ProcessRunPermission.any [2026-02-10 06:37]', () {
+      test('I-NET-23: Echo with ProcessRunPermission.any. [2026-02-10 06:37] (PASS)', () {
         final interpreter = D4rt();
         interpreter.grant(FilesystemPermission.any);
         interpreter.grant(ProcessRunPermission.any);
@@ -661,7 +661,7 @@ void main() {
         expect(result, contains('World'));
       });
 
-      test('pwd command [2026-02-10 06:37]', () {
+      test('I-NET-24: Pwd command. [2026-02-10 06:37] (PASS)', () {
         final interpreter = D4rt();
         interpreter.grant(FilesystemPermission.any);
         interpreter.grant(ProcessRunPermission.any);
@@ -680,7 +680,7 @@ void main() {
     });
 
     group('DangerousPermission - Real Tests', () {
-      test('Platform access with DangerousPermission.any [2026-02-10 06:37]', () {
+      test('I-NET-25: Platform access with DangerousPermission.any. [2026-02-10 06:37] (PASS)', () {
         final interpreter = D4rt();
         interpreter.grant(FilesystemPermission.any);
         interpreter.grant(DangerousPermission.any);
@@ -695,7 +695,7 @@ void main() {
         expect(result, isIn(['macos', 'linux', 'windows', 'android', 'ios']));
       });
 
-      test('Environment variables [2026-02-10 06:37]', () {
+      test('I-NET-26: Environment variables. [2026-02-10 06:37] (PASS)', () {
         final interpreter = D4rt();
         interpreter.grant(FilesystemPermission.any);
         interpreter.grant(DangerousPermission.any);
@@ -711,7 +711,7 @@ void main() {
         expect(result, greaterThan(0));
       });
 
-      test('Platform numberOfProcessors [2026-02-10 06:37]', () {
+      test('I-NET-27: Platform numberOfProcessors. [2026-02-10 06:37] (PASS)', () {
         final interpreter = D4rt();
         interpreter.grant(FilesystemPermission.any);
         interpreter.grant(DangerousPermission.any);
@@ -726,7 +726,7 @@ void main() {
         expect(result, greaterThan(0));
       });
     });
-    test('File not found error propagates correctly [2026-02-10 06:37]', () {
+    test('I-NET-28: File not found error propagates correctly. [2026-02-10 06:37] (PASS)', () {
       final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any);
 

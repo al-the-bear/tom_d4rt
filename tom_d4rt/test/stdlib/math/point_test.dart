@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('PointCore tests', () {
-    test('Point properties [2026-02-10 06:37]', () {
+    test('I-INT-67: Point properties. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -14,7 +14,7 @@ void main() {
       expect(execute(source), equals([3, 4, 5.0]));
     });
 
-    test('Point distanceTo [2026-02-10 06:37]', () {
+    test('I-INT-63: Point distanceTo. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -26,7 +26,7 @@ void main() {
       expect(execute(source), equals(5.0));
     });
 
-    test('Point squaredDistanceTo [2026-02-10 06:37]', () {
+    test('I-INT-64: Point squaredDistanceTo. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -38,7 +38,7 @@ void main() {
       expect(execute(source), equals(25));
     });
 
-    test('Point toString [2026-02-10 06:37]', () {
+    test('I-INT-65: Point toString. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -49,7 +49,7 @@ void main() {
       expect(execute(source), equals('Point(3, 4)'));
     });
 
-    test('Point equality and hashCode [2026-02-10 06:37]', () {
+    test('I-INT-66: Point equality and hashCode. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:math';
       main() {

@@ -64,7 +64,7 @@ void main() {
       generatedCode = await File(result.outputFiles.first).readAsString();
     });
 
-    test('detects class extending D4UserBridge [2026-02-10 06:37]', () {
+    test('G-UB-22: Detects class extending D4UserBridge. [2026-02-10 06:37] (PASS)', () {
       // MyCollectionUserBridge should be detected as extending D4UserBridge
       expect(
         generator.userBridgeScanner.shouldExcludeClass('MyCollectionUserBridge'),
@@ -73,7 +73,7 @@ void main() {
       );
     });
 
-    test('identifies target class from annotation [2026-02-10 06:37]', () {
+    test('G-UB-23: Identifies target class from annotation. [2026-02-10 06:37] (PASS)', () {
       // Should map MyCollectionUserBridge to target class MyCollection via @D4rtUserBridge
       final userBridge =
           generator.userBridgeScanner.getUserBridgeFor(testLibraryPath, 'MyCollection');
@@ -83,14 +83,14 @@ void main() {
       expect(userBridge.userBridgeClassName, equals('MyCollectionUserBridge'));
     });
 
-    test('detects static nativeNames getter [2026-02-10 06:37]', () {
+    test('G-UB-24: Detects static nativeNames getter. [2026-02-10 06:37] (PASS)', () {
       final userBridge =
           generator.userBridgeScanner.getUserBridgeFor(testLibraryPath, 'MyCollection');
       expect(userBridge, isNotNull);
       expect(userBridge!.hasNativeNames, isTrue);
     });
 
-    test('detects static constructor override [2026-02-10 06:37]', () {
+    test('G-UB-25: Detects static constructor override. [2026-02-10 06:37] (PASS)', () {
       final userBridge =
           generator.userBridgeScanner.getUserBridgeFor(testLibraryPath, 'MyCollection');
       expect(userBridge, isNotNull);
@@ -100,7 +100,7 @@ void main() {
       expect(ctorOverride, equals('overrideConstructor'));
     });
 
-    test('detects static operator override [2026-02-10 06:37]', () {
+    test('G-UB-1: Detects static operator override. [2026-02-10 06:37] (PASS)', () {
       final userBridge =
           generator.userBridgeScanner.getUserBridgeFor(testLibraryPath, 'MyCollection');
       expect(userBridge, isNotNull);
@@ -110,7 +110,7 @@ void main() {
       expect(operatorOverride, equals('overrideOperatorIndex'));
     });
 
-    test('detects static getter override [2026-02-10 06:37]', () {
+    test('G-UB-2: Detects static getter override. [2026-02-10 06:37] (PASS)', () {
       final userBridge =
           generator.userBridgeScanner.getUserBridgeFor(testLibraryPath, 'MyCollection');
       expect(userBridge, isNotNull);
@@ -120,7 +120,7 @@ void main() {
       expect(getterOverride, equals('overrideGetterLength'));
     });
 
-    test('detects static method override [2026-02-10 06:37]', () {
+    test('G-UB-3: Detects static method override. [2026-02-10 06:37] (PASS)', () {
       final userBridge =
           generator.userBridgeScanner.getUserBridgeFor(testLibraryPath, 'MyCollection');
       expect(userBridge, isNotNull);
@@ -130,7 +130,7 @@ void main() {
       expect(methodOverride, equals('overrideMethodAdd'));
     });
 
-    test('detects static getter override for static member [2026-02-10 06:37]', () {
+    test('G-UB-4: Detects static getter override for static member. [2026-02-10 06:37] (PASS)', () {
       final userBridge =
           generator.userBridgeScanner.getUserBridgeFor(testLibraryPath, 'MyCollection');
       expect(userBridge, isNotNull);
@@ -141,7 +141,7 @@ void main() {
       expect(staticGetterOverride, equals('overrideStaticGetterDefaultCapacity'));
     });
 
-    test('class without UserBridge is not excluded [2026-02-10 06:37]', () {
+    test('G-UB-5: Class without UserBridge is not excluded. [2026-02-10 06:37] (PASS)', () {
       // SimpleClass has no UserBridge and should not be excluded
       expect(
         generator.userBridgeScanner.shouldExcludeClass('SimpleClass'),
@@ -155,7 +155,7 @@ void main() {
       );
     });
 
-    test('excludes UserBridge class from generated code [2026-02-10 06:37]', () {
+    test('G-UB-6: Excludes UserBridge class from generated code. [2026-02-10 06:37] (PASS)', () {
       // MyCollectionUserBridge should NOT appear in generated bridges
       expect(
         generatedCode,
@@ -164,7 +164,7 @@ void main() {
       );
     });
 
-    test('generates bridge for target class with overrides [2026-02-10 06:37]', () {
+    test('G-UB-7: Generates bridge for target class with overrides. [2026-02-10 06:37] (PASS)', () {
       // MyCollection should have a generated bridge
       expect(
         generatedCode,
@@ -173,7 +173,7 @@ void main() {
       );
     });
 
-    test('uses nativeNames from UserBridge [2026-02-10 06:37]', () {
+    test('G-UB-8: Uses nativeNames from UserBridge. [2026-02-10 06:37] (PASS)', () {
       expect(
         generatedCode,
         contains('MyCollectionUserBridge.nativeNames'),
@@ -181,7 +181,7 @@ void main() {
       );
     });
 
-    test('uses constructor override from UserBridge [2026-02-10 06:37]', () {
+    test('G-UB-9: Uses constructor override from UserBridge. [2026-02-10 06:37] (PASS)', () {
       expect(
         generatedCode,
         contains('MyCollectionUserBridge.overrideConstructor'),
@@ -189,7 +189,7 @@ void main() {
       );
     });
 
-    test('uses operator override from UserBridge [2026-02-10 06:37]', () {
+    test('G-UB-10: Uses operator override from UserBridge. [2026-02-10 06:37] (PASS)', () {
       // Verify the override is detected
       final userBridge =
           generator.userBridgeScanner.getUserBridgeFor(testLibraryPath, 'MyCollection');
@@ -207,7 +207,7 @@ void main() {
       );
     });
 
-    test('uses getter override from UserBridge [2026-02-10 06:37]', () {
+    test('G-UB-11: Uses getter override from UserBridge. [2026-02-10 06:37] (PASS)', () {
       expect(
         generatedCode,
         contains('MyCollectionUserBridge.overrideGetterLength'),
@@ -215,7 +215,7 @@ void main() {
       );
     });
 
-    test('uses method override from UserBridge [2026-02-10 06:37]', () {
+    test('G-UB-12: Uses method override from UserBridge. [2026-02-10 06:37] (PASS)', () {
       expect(
         generatedCode,
         contains('MyCollectionUserBridge.overrideMethodAdd'),
@@ -223,7 +223,7 @@ void main() {
       );
     });
 
-    test('uses static getter override from UserBridge [2026-02-10 06:37]', () {
+    test('G-UB-13: Uses static getter override from UserBridge. [2026-02-10 06:37] (PASS)', () {
       expect(
         generatedCode,
         contains('MyCollectionUserBridge.overrideStaticGetterDefaultCapacity'),
@@ -231,7 +231,7 @@ void main() {
       );
     });
 
-    test('generates non-overridden members normally [2026-02-10 06:37]', () {
+    test('G-UB-14: Generates non-overridden members normally. [2026-02-10 06:37] (PASS)', () {
       // isEmpty getter has no override - should be generated normally
       expect(
         generatedCode,
@@ -247,7 +247,7 @@ void main() {
       );
     });
 
-    test('generates SimpleClass normally (no UserBridge) [2026-02-10 06:37]', () {
+    test('G-UB-15: Generates SimpleClass normally (no UserBridge). [2026-02-10 06:37] (PASS)', () {
       // SimpleClass has no UserBridge - all members generated normally
       expect(
         generatedCode,
@@ -297,7 +297,7 @@ void main() {
     });
 
     group('Scanner Detection', () {
-      test('detects GlobalsUserBridge class [2026-02-10 06:37]', () {
+      test('G-UB-16: Detects GlobalsUserBridge class. [2026-02-10 06:37] (PASS)', () {
         final globalsInfo =
             generator.userBridgeScanner.getGlobalsUserBridgeFor(globalsLibraryPath);
         expect(globalsInfo, isNotNull);
@@ -305,7 +305,7 @@ void main() {
             globalsInfo!.userBridgeClassName, equals('GlobalsUserBridge'));
       });
 
-      test('excludes GlobalsUserBridge from bridge generation [2026-02-10 06:37]', () {
+      test('G-UB-17: Excludes GlobalsUserBridge from bridge generation. [2026-02-10 06:37] (PASS)', () {
         expect(
           generator.userBridgeScanner
               .shouldExcludeClass('GlobalsUserBridge'),
@@ -313,7 +313,7 @@ void main() {
         );
       });
 
-      test('detects global variable overrides [2026-02-10 06:37]', () {
+      test('G-UB-18: Detects global variable overrides. [2026-02-10 06:37] (PASS)', () {
         final globalsInfo =
             generator.userBridgeScanner.getGlobalsUserBridgeFor(globalsLibraryPath);
         expect(globalsInfo, isNotNull);
@@ -327,7 +327,7 @@ void main() {
         );
       });
 
-      test('detects global getter overrides [2026-02-10 06:37]', () {
+      test('G-UB-19: Detects global getter overrides. [2026-02-10 06:37] (PASS)', () {
         final globalsInfo =
             generator.userBridgeScanner.getGlobalsUserBridgeFor(globalsLibraryPath);
         expect(globalsInfo, isNotNull);
@@ -341,7 +341,7 @@ void main() {
         );
       });
 
-      test('detects global function overrides [2026-02-10 06:37]', () {
+      test('G-UB-20: Detects global function overrides. [2026-02-10 06:37] (PASS)', () {
         final globalsInfo =
             generator.userBridgeScanner.getGlobalsUserBridgeFor(globalsLibraryPath);
         expect(globalsInfo, isNotNull);
@@ -357,7 +357,7 @@ void main() {
     });
 
     group('Code Generation with Overrides', () {
-      test('G-UB-1: override for global variable appName [2026-02-10 08:00]', () {
+      test('G-UB-1: Override for global variable appName. [2026-02-10 06:37] (PASS)', () {
         // The generated code includes importPath and sourceUri parameters
         expect(
           generatedCode,
@@ -373,7 +373,7 @@ void main() {
         );
       });
 
-      test('G-UB-2: override for global variable maxRetries [2026-02-10 08:00]', () {
+      test('G-UB-2: Override for global variable maxRetries. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
           contains(
@@ -388,7 +388,7 @@ void main() {
         );
       });
 
-      test('G-UB-3: override for global getter currentTime [2026-02-10 08:00]', () {
+      test('G-UB-3: Override for global getter currentTime. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
           contains(
@@ -403,7 +403,7 @@ void main() {
         );
       });
 
-      test('G-UB-4: override for global getter globalService [2026-02-10 08:00]', () {
+      test('G-UB-4: Override for global getter globalService. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
           contains(
@@ -418,21 +418,21 @@ void main() {
         );
       });
 
-      test('G-UB-5: override for global function greet [2026-02-10 08:00]', () {
+      test('G-UB-5: Override for global function greet. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
           contains("'greet': GlobalsUserBridge.overrideGlobalFunctionGreet,"),
         );
       });
 
-      test('G-UB-6: override for global function add [2026-02-10 08:00]', () {
+      test('G-UB-6: Override for global function add. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
           contains("'add': GlobalsUserBridge.overrideGlobalFunctionAdd,"),
         );
       });
 
-      test('non-overridden globals are generated normally [2026-02-10 06:37]', () {
+      test('G-UB-21: Non-overridden globals are generated normally. [2026-02-10 06:37] (PASS)', () {
         // Variable values are now prefixed with $pkg. since source imports use a prefix
         // The generated code now includes importPath and sourceUri parameters
         // debugMode is not overridden

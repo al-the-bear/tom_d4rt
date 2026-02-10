@@ -5,7 +5,7 @@ void main() {
   final d4rt = D4rt();
 
   group('HashSet Tests', () {
-    test('HashSet() constructor and basic properties [2026-02-10 06:37]', () {
+    test('I-COLL-30: HashSet() constructor and basic properties. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -20,7 +20,7 @@ void main() {
       expect(result[2], false);
     });
 
-    test('HashSet() constructor, add, length, contains [2026-02-10 06:37]', () {
+    test('I-COLL-27: HashSet() constructor, add, length, contains. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -42,7 +42,7 @@ void main() {
       expect(result[6], unorderedEquals([10, 20]), reason: "toList check");
     });
 
-    test('HashSet.from() constructor [2026-02-10 06:37]', () {
+    test('I-COLL-28: HashSet.from() constructor. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -60,7 +60,7 @@ void main() {
           reason: "toList from list with duplicates");
     });
 
-    test('clear() and isEmpty [2026-02-10 06:37]', () {
+    test('I-COLL-29: Clear() and isEmpty. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -77,7 +77,7 @@ void main() {
       expect(result[2], true, reason: "isEmpty after clear");
     });
 
-    test('addAll(), remove(), removeAll(), retainAll(), containsAll() [2026-02-10 06:37]', () {
+    test('I-COLL-31: AddAll(), remove(), removeAll(), retainAll(), containsAll(). [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -132,7 +132,7 @@ void main() {
       expect(result[12], unorderedEquals([3, 9]), reason: "set2 toList");
     });
 
-    test('first, last, single getters [2026-02-10 06:37]', () {
+    test('I-COLL-24: First, last, single getters. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -182,7 +182,7 @@ void main() {
       expect(result[8], true, reason: "single_empty_error");
     });
 
-    test('iterator basics and forEach [2026-02-10 06:37]', () {
+    test('I-COLL-25: Iterator basics and forEach. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -216,7 +216,7 @@ void main() {
       expect(result[2], false, reason: "emptyIterHasNext");
     });
 
-    test('toList() and toSet() [2026-02-10 06:37]', () {
+    test('I-COLL-26: ToList() and toSet(). [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';

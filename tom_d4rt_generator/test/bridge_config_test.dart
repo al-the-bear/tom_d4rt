@@ -10,7 +10,7 @@ import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 void main() {
   group('ModuleConfig', () {
     group('fromJson', () {
-      test('parses basic module config [2026-02-10 06:37]', () {
+      test('G-CFG-2: Parses basic module config. [2026-02-10 06:37] (PASS)', () {
         final json = {
           'name': 'test_module',
           'barrelFiles': ['lib/src/test.dart'],
@@ -24,7 +24,7 @@ void main() {
         expect(config.outputPath, equals('lib/src/bridges/test_bridges.dart'));
       });
 
-      test('parses excludeClasses [2026-02-10 06:37]', () {
+      test('G-CFG-11: Parses excludeClasses. [2026-02-10 06:37] (PASS)', () {
         final json = {
           'name': 'test',
           'barrelFiles': ['lib/test.dart'],
@@ -37,7 +37,7 @@ void main() {
         expect(config.excludeClasses, equals(['ExcludedClass', 'AnotherExcluded']));
       });
 
-      test('parses excludeEnums [2026-02-10 06:37]', () {
+      test('G-CFG-12: Parses excludeEnums. [2026-02-10 06:37] (PASS)', () {
         final json = {
           'name': 'test',
           'barrelFiles': ['lib/test.dart'],
@@ -50,7 +50,7 @@ void main() {
         expect(config.excludeEnums, equals(['EnumA', 'EnumB']));
       });
 
-      test('parses excludeFunctions [2026-02-10 06:37]', () {
+      test('G-CFG-13: Parses excludeFunctions. [2026-02-10 06:37] (PASS)', () {
         final json = {
           'name': 'test',
           'barrelFiles': ['lib/test.dart'],
@@ -63,7 +63,7 @@ void main() {
         expect(config.excludeFunctions, equals(['helperFunction', 'internalFunc']));
       });
 
-      test('parses excludeVariables [2026-02-10 06:37]', () {
+      test('G-CFG-14: Parses excludeVariables. [2026-02-10 06:37] (PASS)', () {
         final json = {
           'name': 'test',
           'barrelFiles': ['lib/test.dart'],
@@ -76,7 +76,7 @@ void main() {
         expect(config.excludeVariables, equals(['_privateVar', 'debugMode']));
       });
 
-      test('parses all exclude fields together [2026-02-10 06:37]', () {
+      test('G-CFG-15: Parses all exclude fields together. [2026-02-10 06:37] (PASS)', () {
         final json = {
           'name': 'comprehensive',
           'barrelFiles': ['lib/all.dart'],
@@ -95,7 +95,7 @@ void main() {
         expect(config.excludeVariables, equals(['var1']));
       });
 
-      test('defaults to empty lists when fields not provided [2026-02-10 06:37]', () {
+      test('G-CFG-16: Defaults to empty lists when fields not provided. [2026-02-10 06:37] (PASS)', () {
         final json = {
           'name': 'minimal',
           'barrelFiles': ['lib/minimal.dart'],
@@ -113,7 +113,7 @@ void main() {
     });
 
     group('toJson', () {
-      test('serializes basic config [2026-02-10 06:37]', () {
+      test('G-CFG-1: Serializes basic config. [2026-02-10 06:37] (PASS)', () {
         final config = ModuleConfig(
           name: 'test_module',
           barrelFiles: ['lib/test.dart'],
@@ -127,7 +127,7 @@ void main() {
         expect(json['outputPath'], equals('lib/bridges.dart'));
       });
 
-      test('serializes excludeClasses when non-empty [2026-02-10 06:37]', () {
+      test('G-CFG-3: Serializes excludeClasses when non-empty. [2026-02-10 06:37] (PASS)', () {
         final config = ModuleConfig(
           name: 'test',
           barrelFiles: ['lib/test.dart'],
@@ -140,7 +140,7 @@ void main() {
         expect(json['excludeClasses'], equals(['ClassA', 'ClassB']));
       });
 
-      test('serializes excludeEnums when non-empty [2026-02-10 06:37]', () {
+      test('G-CFG-4: Serializes excludeEnums when non-empty. [2026-02-10 06:37] (PASS)', () {
         final config = ModuleConfig(
           name: 'test',
           barrelFiles: ['lib/test.dart'],
@@ -153,7 +153,7 @@ void main() {
         expect(json['excludeEnums'], equals(['EnumA']));
       });
 
-      test('serializes excludeFunctions when non-empty [2026-02-10 06:37]', () {
+      test('G-CFG-5: Serializes excludeFunctions when non-empty. [2026-02-10 06:37] (PASS)', () {
         final config = ModuleConfig(
           name: 'test',
           barrelFiles: ['lib/test.dart'],
@@ -166,7 +166,7 @@ void main() {
         expect(json['excludeFunctions'], equals(['func1', 'func2']));
       });
 
-      test('serializes excludeVariables when non-empty [2026-02-10 06:37]', () {
+      test('G-CFG-6: Serializes excludeVariables when non-empty. [2026-02-10 06:37] (PASS)', () {
         final config = ModuleConfig(
           name: 'test',
           barrelFiles: ['lib/test.dart'],
@@ -179,7 +179,7 @@ void main() {
         expect(json['excludeVariables'], equals(['kConstant']));
       });
 
-      test('omits empty lists in serialization [2026-02-10 06:37]', () {
+      test('G-CFG-7: Omits empty lists in serialization. [2026-02-10 06:37] (PASS)', () {
         final config = ModuleConfig(
           name: 'minimal',
           barrelFiles: ['lib/minimal.dart'],
@@ -195,7 +195,7 @@ void main() {
         expect(json.containsKey('excludePatterns'), isFalse);
       });
 
-      test('round-trip preserves all fields [2026-02-10 06:37]', () {
+      test('G-CFG-8: Round-trip preserves all fields. [2026-02-10 06:37] (PASS)', () {
         final original = ModuleConfig(
           name: 'full_config',
           barrelFiles: ['lib/src/a.dart', 'lib/src/b.dart'],
@@ -226,7 +226,7 @@ void main() {
         expect(restored.followReExports, equals(original.followReExports));
       });
 
-      test('excludeSourcePatterns serialization and deserialization [2026-02-10 06:37]', () {
+      test('G-CFG-9: ExcludeSourcePatterns serialization and deserialization. [2026-02-10 06:37] (PASS)', () {
         final config = ModuleConfig(
           name: 'source_pattern_test',
           barrelFiles: ['lib/lib.dart'],
@@ -252,7 +252,7 @@ void main() {
   });
 
   group('BridgeConfig', () {
-    test('parses config with modules containing exclude fields [2026-02-10 06:37]', () {
+    test('G-CFG-10: Parses config with modules containing exclude fields. [2026-02-10 06:37] (PASS)', () {
       final json = {
         'name': 'test_project',
         'modules': [

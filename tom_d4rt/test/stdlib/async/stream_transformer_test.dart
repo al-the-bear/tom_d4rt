@@ -3,7 +3,7 @@ import '../../interpreter_test.dart' show executeAsync;
 
 void main() {
   group('StreamTransformer Tests', () {
-    test('StreamTransformer.fromHandlers with handleData [2026-02-10 06:37]', () async {
+    test('I-ASYNC-136: StreamTransformer.fromHandlers with handleData. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
 import 'dart:async';
 
@@ -39,7 +39,7 @@ main() async {
       expect(result, equals([2, 4, 6]));
     });
 
-    test('StreamTransformer.fromHandlers with handleError [2026-02-10 06:37]', () async {
+    test('I-ASYNC-135: StreamTransformer.fromHandlers with handleError. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
 import 'dart:async';
 
@@ -80,7 +80,7 @@ main() async {
       expect(result, equals(true));
     });
 
-    test('StreamTransformer.fromHandlers with handleDone [2026-02-10 06:37]', () async {
+    test('I-ASYNC-137: StreamTransformer.fromHandlers with handleDone. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
 import 'dart:async';
 
@@ -115,7 +115,7 @@ main() async {
       expect(result, equals(true));
     });
 
-    test('StreamTransformer.fromHandlers - filtering transformer [2026-02-10 06:37]', () async {
+    test('I-ASYNC-128: StreamTransformer.fromHandlers - filtering transformer. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
 import 'dart:async';
 
@@ -154,7 +154,7 @@ main() async {
       expect(result, equals([2, 4]));
     });
 
-    test('StreamTransformer.fromHandlers - mapping to different type [2026-02-10 06:37]',
+    test('I-ASYNC-129: StreamTransformer.fromHandlers - mapping to different type. [2026-02-10 06:37] (PASS)',
         () async {
       const code = '''
 import 'dart:async';
@@ -189,7 +189,7 @@ main() async {
       expect(result, equals(['Number: 1', 'Number: 2']));
     });
 
-    test('StreamTransformer.fromBind - custom stream binding [2026-02-10 06:37]', () async {
+    test('I-ASYNC-130: StreamTransformer.fromBind - custom stream binding. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
 import 'dart:async';
 
@@ -221,7 +221,7 @@ main() async {
       expect(result, equals([3, 6, 9]));
     });
 
-    test('StreamTransformer.fromBind with async operations [2026-02-10 06:37]', () async {
+    test('I-ASYNC-131: StreamTransformer.fromBind with async operations. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
 import 'dart:async';
 
@@ -255,7 +255,7 @@ main() async {
       expect(result, equals([11, 12]));
     });
 
-    test('Chained StreamTransformers [2026-02-10 06:37]', () async {
+    test('I-ASYNC-132: Chained StreamTransformers. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
 import 'dart:async';
 
@@ -299,7 +299,7 @@ main() async {
       expect(result, equals([12, 20]));
     });
 
-    test('StreamTransformer with multiple outputs per input [2026-02-10 06:37]', () async {
+    test('I-ASYNC-133: StreamTransformer with multiple outputs per input. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
 import 'dart:async';
 
@@ -335,7 +335,7 @@ main() async {
       expect(result, equals([2, 4, 3, 9]));
     });
 
-    test('StreamTransformer.cast [2026-02-10 06:37]', () async {
+    test('I-ASYNC-134: StreamTransformer.cast. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
 import 'dart:async';
 

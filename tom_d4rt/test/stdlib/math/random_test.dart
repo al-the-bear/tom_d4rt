@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('RandomCore tests', () {
-    test('Random.nextInt [2026-02-10 06:37]', () {
+    test('I-MISC-432: Random.nextInt. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -15,7 +15,7 @@ void main() {
       expect(execute(source), equals([87, 58, 4]));
     });
 
-    test('Random.nextDouble [2026-02-10 06:37]', () {
+    test('I-MISC-428: Random.nextDouble. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -30,7 +30,7 @@ void main() {
       expect(result[2], closeTo(0.661681, 0.000001));
     });
 
-    test('Random.nextBool [2026-02-10 06:37]', () {
+    test('I-MISC-429: Random.nextBool. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -42,7 +42,7 @@ void main() {
       expect(execute(source), equals([false, true, true]));
     });
 
-    test('Random with no seed [2026-02-10 06:37]', () {
+    test('I-MISC-430: Random with no seed. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -54,7 +54,7 @@ void main() {
       expect(execute(source), isA<int>());
     });
 
-    test('Random.toString [2026-02-10 06:37]', () {
+    test('I-MISC-431: Random.toString. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:math';
       main() {
@@ -67,7 +67,7 @@ void main() {
       expect((execute(source) as String).isNotEmpty, isTrue);
     });
 
-    test('Random.hashCode [2026-02-10 06:37]', () {
+    test('I-MISC-433: Random.hashCode. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:math';
       main() {

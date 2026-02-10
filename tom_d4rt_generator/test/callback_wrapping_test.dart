@@ -59,13 +59,13 @@ void main() {
     });
 
     group('Simple Void Callbacks', () {
-      test('G-CB-1: VoidCallback parameter generates wrapper [2026-02-10 08:00]', () {
+      test('G-CB-1: VoidCallback parameter generates wrapper. [2026-02-10 06:37] (PASS)', () {
         // Should use InterpretedFunction pattern
         expect(generatedCode, contains('InterpretedFunction'));
         expect(generatedCode, contains('_raw'));
       });
 
-      test('G-CB-2: void Function() callback correct wrapper [2026-02-10 08:00]', () {
+      test('G-CB-2: Void Function() callback correct wrapper. [2026-02-10 06:37] (PASS)', () {
         // For VoidCallback: () { (callback_raw as InterpretedFunction).call(visitor...) }
         expect(generatedCode, contains("'onComplete':"));
         expect(generatedCode, contains('.call(visitor as InterpreterVisitor,'));
@@ -73,13 +73,13 @@ void main() {
     });
 
     group('Callbacks with Parameters', () {
-      test('void Function(int) generates wrapper with parameter [2026-02-10 06:37]', () {
+      test('G-CB-9: Void Function(int) generates wrapper with parameter. [2026-02-10 06:37] (PASS)', () {
         // Should have: (int p0) { callback_raw.call(visitor, [p0]); }
         expect(generatedCode, contains("'onProgress':"));
         expect(generatedCode, contains('[p0]'));
       });
 
-      test('void Function(int, String) generates wrapper with multiple params [2026-02-10 06:37]',
+      test('G-CB-10: Void Function(int, String) generates wrapper with multiple params. [2026-02-10 06:37] (PASS)',
           () {
         // Should have: (int p0, String p1) { callback_raw.call(visitor, [p0, p1]); }
         expect(generatedCode, contains("'onItemProcessed':"));
@@ -88,33 +88,33 @@ void main() {
     });
 
     group('Callbacks with Return Values', () {
-      test('bool Function(int) generates wrapper with return [2026-02-10 06:37]', () {
+      test('G-CB-11: Bool Function(int) generates wrapper with return. [2026-02-10 06:37] (PASS)', () {
         // Should have: (int p0) { return callback_raw.call(visitor, [p0]) as bool; }
         expect(generatedCode, contains("'filter':"));
         expect(generatedCode, contains('as bool'));
       });
 
-      test('String Function(String) generates wrapper with return [2026-02-10 06:37]', () {
+      test('G-CB-12: String Function(String) generates wrapper with return. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'transform':"));
         expect(generatedCode, contains('as String'));
       });
     });
 
     group('Nullable Callbacks', () {
-      test('nullable callback generates null check wrapper [2026-02-10 06:37]', () {
+      test('G-CB-1: Nullable callback generates null check wrapper. [2026-02-10 06:37] (PASS)', () {
         // Should have: callback_raw == null ? null : (...)
         expect(generatedCode, contains('== null ? null :'));
       });
     });
 
     group('Named Function Parameters', () {
-      test('named callback parameter generates wrapper [2026-02-10 06:37]', () {
+      test('G-CB-2: Named callback parameter generates wrapper. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'doWorkWithCallback':"));
       });
     });
 
     group('Multiple Callbacks', () {
-      test('G-CB-3: multiple callbacks generates all wrappers [2026-02-10 08:00]', () {
+      test('G-CB-3: Multiple callbacks generates all wrappers. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'processWithCallbacks':"));
         // Should have multiple _raw variables
         expect(generatedCode,
@@ -122,7 +122,7 @@ void main() {
       });
     });
 
-    test('generated code compiles without errors [2026-02-10 06:37]', () async {
+    test('G-CB-3: Generated code compiles without errors. [2026-02-10 06:37] (PASS)', () async {
       // Run dart analyze on the generated code
       // ignore: unused_local_variable
       final _ = await Process.run(
@@ -141,7 +141,7 @@ void main() {
     });
 
     group('Custom Typedef Resolution', () {
-      test('custom typedef callback is resolved from source file [2026-02-10 06:37]', () {
+      test('G-CB-4: Custom typedef callback is resolved from source file. [2026-02-10 06:37] (PASS)', () {
         // The callback_test_source.dart defines ProgressCallback typedef
         // The generator should extract function type info from resolved type
         expect(
@@ -157,7 +157,7 @@ void main() {
         );
       });
 
-      test('custom typedef with string parameter generates correct wrapper [2026-02-10 06:37]', () {
+      test('G-CB-5: Custom typedef with string parameter generates correct wrapper. [2026-02-10 06:37] (PASS)', () {
         // VoidCallback typedef is used in onComplete method
         expect(
           generatedCode,
@@ -172,7 +172,7 @@ void main() {
         );
       });
 
-      test('typedef with multiple parameters generates correct wrapper [2026-02-10 06:37]', () {
+      test('G-CB-6: Typedef with multiple parameters generates correct wrapper. [2026-02-10 06:37] (PASS)', () {
         // ItemProcessor = void Function(int index, String item)
         expect(
           generatedCode,
@@ -187,7 +187,7 @@ void main() {
         );
       });
 
-      test('typedef with return value generates correct wrapper [2026-02-10 06:37]', () {
+      test('G-CB-7: Typedef with return value generates correct wrapper. [2026-02-10 06:37] (PASS)', () {
         // FilterPredicate = bool Function(int value)
         expect(
           generatedCode,
@@ -205,7 +205,7 @@ void main() {
   });
 
   group('Warnings', () {
-    test('no function type warnings for bridgeable callbacks [2026-02-10 06:37]', () async {
+    test('G-CB-8: No function type warnings for bridgeable callbacks. [2026-02-10 06:37] (PASS)', () async {
       final generator = BridgeGenerator(
         workspacePath: testFixturesDir,
         skipPrivate: true,

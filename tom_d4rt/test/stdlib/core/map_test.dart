@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('Map methods - comprehensive', () {
-    test('addAll [2026-02-10 06:37]', () {
+    test('I-COLL-238: AddAll. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> map = {1: 'one'};
@@ -14,7 +14,7 @@ void main() {
       expect(execute(source), equals({1: 'one', 2: 'two', 3: 'three'}));
     });
 
-    test('clear [2026-02-10 06:37]', () {
+    test('I-COLL-200: Clear. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> map = {1: 'one', 2: 'two'};
@@ -25,7 +25,7 @@ void main() {
       expect(execute(source), equals({}));
     });
 
-    test('containsKey [2026-02-10 06:37]', () {
+    test('I-COLL-210: ContainsKey. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> map = {1: 'one', 2: 'two'};
@@ -35,7 +35,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('containsValue [2026-02-10 06:37]', () {
+    test('I-COLL-218: ContainsValue. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> map = {1: 'one', 2: 'two'};
@@ -45,7 +45,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('remove [2026-02-10 06:37]', () {
+    test('I-COLL-227: Remove. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> map = {1: 'one', 2: 'two'};
@@ -56,7 +56,7 @@ void main() {
       expect(execute(source), equals({2: 'two'}));
     });
 
-    test('length [2026-02-10 06:37]', () {
+    test('I-COLL-236: Length. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> map = {1: 'one', 2: 'two'};
@@ -66,7 +66,7 @@ void main() {
       expect(execute(source), equals(2));
     });
 
-    test('isEmpty and isNotEmpty [2026-02-10 06:37]', () {
+    test('I-COLL-246: IsEmpty and isNotEmpty. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> map = {};
@@ -76,7 +76,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('keys and values [2026-02-10 06:37]', () {
+    test('I-COLL-247: Keys and values. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> map = {1: 'one', 2: 'two'};
@@ -91,7 +91,7 @@ void main() {
           ]));
     });
 
-    test('update [2026-02-10 06:37]', () {
+    test('I-COLL-248: Update. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> map = {1: 'one', 2: 'two'};
@@ -102,7 +102,7 @@ void main() {
       expect(execute(source), equals({1: 'ONE', 2: 'two'}));
     });
 
-    test('putIfAbsent [2026-02-10 06:37]', () {
+    test('I-COLL-194: PutIfAbsent. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> map = {1: 'one'};
@@ -113,7 +113,7 @@ void main() {
       expect(execute(source), equals({1: 'one', 2: 'two'}));
     });
 
-    test('addEntries [2026-02-10 06:37]', () {
+    test('I-COLL-195: AddEntries. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> map = {1: 'one'};
@@ -124,7 +124,7 @@ void main() {
       expect(execute(source), equals({1: 'one', 2: 'two', 3: 'three'}));
     });
 
-    test('updateAll [2026-02-10 06:37]', () {
+    test('I-COLL-196: UpdateAll. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> map = {1: 'one', 2: 'two'};
@@ -135,7 +135,7 @@ void main() {
       expect(execute(source), equals({1: 'ONE', 2: 'TWO'}));
     });
 
-    test('removeWhere [2026-02-10 06:37]', () {
+    test('I-COLL-197: RemoveWhere. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> map = {1: 'one', 2: 'two', 3: 'three'};
@@ -146,7 +146,7 @@ void main() {
       expect(execute(source), equals({1: 'one', 3: 'three'}));
     });
 
-    test('map [2026-02-10 06:37]', () {
+    test('I-COLL-198: Map. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> map = {1: 'one', 2: 'two'};
@@ -157,7 +157,7 @@ void main() {
       expect(execute(source), equals({'one': 1, 'two': 2}));
     });
 
-    test('entries [2026-02-10 06:37]', () {
+    test('I-COLL-199: Entries. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> map = {1: 'one', 2: 'two'};
@@ -174,7 +174,7 @@ void main() {
           ]));
     });
 
-    test('cast [2026-02-10 06:37]', () {
+    test('I-COLL-201: Cast. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<dynamic, dynamic> map = {1: 'one', 2: 'two'};
@@ -185,7 +185,7 @@ void main() {
       expect(execute(source), equals({1: 'one', 2: 'two'}));
     });
 
-    test('forEach [2026-02-10 06:37]', () {
+    test('I-COLL-202: ForEach. [2026-02-10 06:37] (PASS)', () {
       final source = '''
      main() {
         Map<int, String> map = {1: 'one', 2: 'two'};
@@ -200,7 +200,7 @@ void main() {
       expect(execute(source), equals('1:one;2:two;'));
     });
 
-    test('from [2026-02-10 06:37]', () {
+    test('I-COLL-203: From. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> original = {1: 'one', 2: 'two'};
@@ -217,7 +217,7 @@ void main() {
           ]));
     });
 
-    test('fromEntries [2026-02-10 06:37]', () {
+    test('I-COLL-204: FromEntries. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         List<MapEntry<int, String>> entries = [MapEntry(1, 'one'), MapEntry(2, 'two')];
@@ -228,7 +228,7 @@ void main() {
       expect(execute(source), equals({1: 'one', 2: 'two'}));
     });
 
-    test('fromIterable [2026-02-10 06:37]', () {
+    test('I-COLL-205: FromIterable. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         List<int> numbers = [1, 2, 3];
@@ -240,7 +240,7 @@ void main() {
           execute(source), equals({1: 'Value 1', 2: 'Value 2', 3: 'Value 3'}));
     });
 
-    test('fromIterables [2026-02-10 06:37]', () {
+    test('I-COLL-206: FromIterables. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         List<int> keys = [1, 2, 3];
@@ -252,7 +252,7 @@ void main() {
       expect(execute(source), equals({1: 'one', 2: 'two', 3: 'three'}));
     });
 
-    test('identity [2026-02-10 06:37]', () {
+    test('I-COLL-207: Identity. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> map = Map.identity();
@@ -263,7 +263,7 @@ void main() {
       expect(execute(source), equals({1: 'one'}));
     });
 
-    test('unmodifiable [2026-02-10 06:37]', () {
+    test('I-COLL-208: Unmodifiable. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      main() {
         Map<int, String> original = {1: 'one', 2: 'two'};
@@ -276,7 +276,7 @@ void main() {
   });
 
   group('Map with various key and value types', () {
-    test('Map<String, int> [2026-02-10 06:37]', () {
+    test('I-COLL-209: Map<String, int>. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String, int> ages = {'Alice': 30, 'Bob': 25};
@@ -289,7 +289,7 @@ void main() {
           equals({'Alice': 30, 'Bob': 25, 'Charlie': 35, 'Dave': 40, 'Eve': 28}));
     });
 
-    test('Map<String, String> [2026-02-10 06:37]', () {
+    test('I-COLL-211: Map<String, String>. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String, String> translations = {'hello': 'hola', 'world': 'mundo'};
@@ -301,7 +301,7 @@ void main() {
           equals({'hello': 'hola', 'world': 'mundo', 'goodbye': 'adios'}));
     });
 
-    test('Map<int, List<String>> [2026-02-10 06:37]', () {
+    test('I-COLL-212: Map<int, List<String>>. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<int, List<String>> groups = {
@@ -315,7 +315,7 @@ void main() {
       expect(execute(source), equals(['c', 'd', 'e']));
     });
 
-    test('Map<String, Map<String, int>> [2026-02-10 06:37]', () {
+    test('I-COLL-213: Map<String, Map<String, int>>. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String, Map<String, int>> nested = {
@@ -328,7 +328,7 @@ void main() {
       expect(execute(source), equals({'math': 90, 'english': 85, 'science': 95}));
     });
 
-    test('Map<dynamic, dynamic> with mixed types [2026-02-10 06:37]', () {
+    test('I-COLL-214: Map<dynamic, dynamic> with mixed types. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<dynamic, dynamic> mixed = {
@@ -345,7 +345,7 @@ void main() {
   });
 
   group('Map update operations', () {
-    test('update existing key [2026-02-10 06:37]', () {
+    test('I-COLL-215: Update existing key. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String, int> counts = {'a': 1, 'b': 2};
@@ -356,7 +356,7 @@ void main() {
       expect(execute(source), equals({'a': 11, 'b': 2}));
     });
 
-    test('update with ifAbsent [2026-02-10 06:37]', () {
+    test('I-COLL-216: Update with ifAbsent. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String, int> counts = {'a': 1};
@@ -367,7 +367,7 @@ void main() {
       expect(execute(source), equals({'a': 1, 'b': 100}));
     });
 
-    test('updateAll transforms all values [2026-02-10 06:37]', () {
+    test('I-COLL-217: UpdateAll transforms all values. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String, int> prices = {'apple': 100, 'banana': 50, 'orange': 75};
@@ -378,7 +378,7 @@ void main() {
       expect(execute(source), equals({'apple': 200, 'banana': 100, 'orange': 150}));
     });
 
-    test('putIfAbsent does not overwrite existing [2026-02-10 06:37]', () {
+    test('I-COLL-219: PutIfAbsent does not overwrite existing. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String, int> map = {'a': 1};
@@ -392,7 +392,7 @@ void main() {
   });
 
   group('Map removal operations', () {
-    test('remove returns removed value [2026-02-10 06:37]', () {
+    test('I-COLL-220: Remove returns removed value. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String, int> map = {'a': 1, 'b': 2, 'c': 3};
@@ -403,7 +403,7 @@ void main() {
       expect(execute(source), equals([2, {'a': 1, 'c': 3}]));
     });
 
-    test('remove non-existent key returns null [2026-02-10 06:37]', () {
+    test('I-COLL-221: Remove non-existent key returns null. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String, int> map = {'a': 1};
@@ -414,7 +414,7 @@ void main() {
       expect(execute(source), isNull);
     });
 
-    test('removeWhere with complex condition [2026-02-10 06:37]', () {
+    test('I-COLL-222: RemoveWhere with complex condition. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String, int> scores = {'Alice': 85, 'Bob': 45, 'Charlie': 92, 'Dave': 38};
@@ -425,7 +425,7 @@ void main() {
       expect(execute(source), equals({'Alice': 85, 'Charlie': 92}));
     });
 
-    test('clear empties the map [2026-02-10 06:37]', () {
+    test('I-COLL-223: Clear empties the map. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<int, String> map = {1: 'one', 2: 'two', 3: 'three'};
@@ -438,7 +438,7 @@ void main() {
   });
 
   group('Map iteration and transformation', () {
-    test('forEach iterates all entries [2026-02-10 06:37]', () {
+    test('I-COLL-224: ForEach iterates all entries. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String, int> map = {'a': 1, 'b': 2, 'c': 3};
@@ -452,7 +452,7 @@ void main() {
       expect(execute(source), equals(6));
     });
 
-    test('map transforms to new map [2026-02-10 06:37]', () {
+    test('I-COLL-225: Map transforms to new map. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<int, String> original = {1: 'one', 2: 'two', 3: 'three'};
@@ -463,7 +463,7 @@ void main() {
       expect(execute(source), equals({10: 'ONE', 20: 'TWO', 30: 'THREE'}));
     });
 
-    test('entries allows manual iteration [2026-02-10 06:37]', () {
+    test('I-COLL-226: Entries allows manual iteration. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String, int> map = {'x': 10, 'y': 20};
@@ -478,7 +478,7 @@ void main() {
       expect(execute(source), equals(['x=10', 'y=20']));
     });
 
-    test('keys and values as iterables [2026-02-10 06:37]', () {
+    test('I-COLL-228: Keys and values as iterables. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<int, String> map = {1: 'a', 2: 'b', 3: 'c'};
@@ -499,7 +499,7 @@ void main() {
   });
 
   group('Map containment checks', () {
-    test('containsKey with various key types [2026-02-10 06:37]', () {
+    test('I-COLL-229: ContainsKey with various key types. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<dynamic, String> map = {1: 'int', 'two': 'string', true: 'bool'};
@@ -515,7 +515,7 @@ void main() {
       expect(execute(source), equals([true, true, true, false, false]));
     });
 
-    test('containsValue with various value types [2026-02-10 06:37]', () {
+    test('I-COLL-230: ContainsValue with various value types. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String, dynamic> map = {'a': 1, 'b': 'hello', 'c': true, 'd': null};
@@ -533,7 +533,7 @@ void main() {
   });
 
   group('MapEntry operations', () {
-    test('MapEntry creation and access [2026-02-10 06:37]', () {
+    test('I-COLL-231: MapEntry creation and access. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         var entry = MapEntry('key', 42);
@@ -543,7 +543,7 @@ void main() {
       expect(execute(source), equals(['key', 42]));
     });
 
-    test('MapEntry in list [2026-02-10 06:37]', () {
+    test('I-COLL-232: MapEntry in list. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         List<MapEntry<String, int>> entries = [
@@ -557,7 +557,7 @@ void main() {
       expect(execute(source), equals([1, 2, 3]));
     });
 
-    test('Map.fromEntries with generated entries [2026-02-10 06:37]', () {
+    test('I-COLL-233: Map.fromEntries with generated entries. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         var entries = [1, 2, 3].map((n) => MapEntry(n, n * n));
@@ -567,7 +567,7 @@ void main() {
       expect(execute(source), equals({1: 1, 2: 4, 3: 9}));
     });
 
-    test('addEntries appends multiple entries [2026-02-10 06:37]', () {
+    test('I-COLL-234: AddEntries appends multiple entries. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String, int> map = {'a': 1};
@@ -581,7 +581,7 @@ void main() {
   });
 
   group('Map static constructors', () {
-    test('Map.from creates mutable copy [2026-02-10 06:37]', () {
+    test('I-COLL-235: Map.from creates mutable copy. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         var original = {'a': 1, 'b': 2};
@@ -593,7 +593,7 @@ void main() {
       expect(execute(source), equals([2, 3]));
     });
 
-    test('Map.of creates mutable copy [2026-02-10 06:37]', () {
+    test('I-COLL-237: Map.of creates mutable copy. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         var original = {1: 'one'};
@@ -605,7 +605,7 @@ void main() {
       expect(execute(source), equals([{1: 'one'}, {1: 'one', 2: 'two'}]));
     });
 
-    test('Map.fromIterable with custom key/value [2026-02-10 06:37]', () {
+    test('I-COLL-239: Map.fromIterable with custom key/value. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         var words = ['cat', 'dog', 'elephant'];
@@ -620,7 +620,7 @@ void main() {
       expect(execute(source), equals({'cat': 3, 'dog': 3, 'elephant': 8}));
     });
 
-    test('Map.fromIterables pairs keys and values [2026-02-10 06:37]', () {
+    test('I-COLL-240: Map.fromIterables pairs keys and values. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         var keys = ['a', 'b', 'c'];
@@ -631,7 +631,7 @@ void main() {
       expect(execute(source), equals({'a': 1, 'b': 2, 'c': 3}));
     });
 
-    test('Map.identity creates identity map [2026-02-10 06:37]', () {
+    test('I-COLL-241: Map.identity creates identity map. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         var map = Map.identity();
@@ -645,7 +645,7 @@ void main() {
   });
 
   group('Map edge cases', () {
-    test('empty map properties [2026-02-10 06:37]', () {
+    test('I-COLL-242: Empty map properties. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String, int> empty = {};
@@ -661,7 +661,7 @@ void main() {
       expect(execute(source), equals([true, false, 0, true, true]));
     });
 
-    test('single entry map [2026-02-10 06:37]', () {
+    test('I-COLL-243: Single entry map. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String, int> single = {'only': 1};
@@ -676,7 +676,7 @@ void main() {
       expect(execute(source), equals(['only', 1, 'only', 1]));
     });
 
-    test('null key and value [2026-02-10 06:37]', () {
+    test('I-COLL-244: Null key and value. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String?, int?> map = {null: null, 'key': 42};
@@ -686,7 +686,7 @@ void main() {
       expect(execute(source), equals([null, 42, true, true]));
     });
 
-    test('overwriting existing key [2026-02-10 06:37]', () {
+    test('I-COLL-245: Overwriting existing key. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         Map<String, int> map = {'a': 1};

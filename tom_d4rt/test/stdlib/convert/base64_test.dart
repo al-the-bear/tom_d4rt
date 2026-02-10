@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('Base64 methods - comprehensive', () {
-    test('Base64Codec encode [2026-02-10 06:37]', () {
+    test('I-MISC-399: Base64Codec encode. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -14,7 +14,7 @@ void main() {
       expect(execute(source), equals('aGVsbG8='));
     });
 
-    test('Base64Codec decode [2026-02-10 06:37]', () {
+    test('I-MISC-395: Base64Codec decode. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -25,7 +25,7 @@ void main() {
       expect(execute(source), equals([104, 101, 108, 108, 111]));
     });
 
-    test('Base64Encoder convert [2026-02-10 06:37]', () {
+    test('I-MISC-396: Base64Encoder convert. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -36,7 +36,7 @@ void main() {
       expect(execute(source), equals('aGVsbG8='));
     });
 
-    test('Base64Decoder convert [2026-02-10 06:37]', () {
+    test('I-MISC-397: Base64Decoder convert. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:convert';
       main() {
@@ -47,7 +47,7 @@ void main() {
       expect(execute(source), equals([104, 101, 108, 108, 111]));
     });
 
-    test('Base64Codec normalize [2026-02-10 06:37]', () {
+    test('I-MISC-398: Base64Codec normalize. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:convert';
       main() {

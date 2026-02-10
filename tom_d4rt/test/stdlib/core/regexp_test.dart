@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('RegExp methods - comprehensive', () {
-    test('hasMatch [2026-02-10 06:37]', () {
+    test('I-REGEX-7: HasMatch. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         RegExp regex = RegExp(r'^hello');
@@ -13,7 +13,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('allMatches [2026-02-10 06:37]', () {
+    test('I-REGEX-3: AllMatches. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         RegExp regex = RegExp(r'\\d+');
@@ -28,7 +28,7 @@ void main() {
       expect(execute(source), equals(['123', '456']));
     });
 
-    test('stringMatch [2026-02-10 06:37]', () {
+    test('I-REGEX-4: StringMatch. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         RegExp regex = RegExp(r'world');
@@ -38,7 +38,7 @@ void main() {
       expect(execute(source), equals(['world', null]));
     });
 
-    test('matchAsPrefix [2026-02-10 06:37]', () {
+    test('I-REGEX-5: MatchAsPrefix. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         RegExp regex = RegExp(r'hello');
@@ -48,7 +48,7 @@ void main() {
       expect(execute(source), equals(['hello', null]));
     });
 
-    test('isCaseSensitive [2026-02-10 06:37]', () {
+    test('I-REGEX-6: IsCaseSensitive. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         RegExp regex = RegExp(r'hello', caseSensitive: false);
@@ -58,7 +58,7 @@ void main() {
       expect(execute(source), isFalse);
     });
 
-    test('isDotAll [2026-02-10 06:37]', () {
+    test('I-REGEX-8: IsDotAll. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         RegExp regex = RegExp(r'hello', dotAll: true);
@@ -68,7 +68,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('isMultiLine [2026-02-10 06:37]', () {
+    test('I-REGEX-9: IsMultiLine. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         RegExp regex = RegExp(r'hello', multiLine: true);
@@ -78,7 +78,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('isUnicode [2026-02-10 06:37]', () {
+    test('I-REGEX-10: IsUnicode. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         RegExp regex = RegExp(r'hello', unicode: true);
@@ -88,7 +88,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('pattern [2026-02-10 06:37]', () {
+    test('I-REGEX-11: Pattern. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         RegExp regex = RegExp(r'hello');
@@ -98,7 +98,7 @@ void main() {
       expect(execute(source), equals('hello'));
     });
 
-    test('toString [2026-02-10 06:37]', () {
+    test('I-REGEX-1: ToString. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         RegExp regex = RegExp(r'hello');
@@ -109,7 +109,7 @@ void main() {
       expect(execute(source), contains('pattern=hello'));
     });
 
-    test('escape [2026-02-10 06:37]', () {
+    test('I-REGEX-2: Escape. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         String escaped = RegExp.escape('hello.world');

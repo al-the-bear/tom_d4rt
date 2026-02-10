@@ -10,7 +10,7 @@ void main() {
       interpreter = D4rt();
     });
 
-    test('handleError with single-arg callback works [2026-02-10 06:37]', () async {
+    test('I-ASYNC-138: HandleError with single-arg callback works. [2026-02-10 06:37] (PASS)', () async {
       final result = await interpreter.execute(source: '''
         import 'dart:async';
 
@@ -39,7 +39,7 @@ void main() {
       expect(list, contains('Value: 3'));
     });
 
-    test('handleError with two-arg callback works [2026-02-10 06:37]', () async {
+    test('I-ASYNC-139: HandleError with two-arg callback works. [2026-02-10 06:37] (PASS)', () async {
       final result = await interpreter.execute(source: '''
         import 'dart:async';
 
@@ -65,7 +65,7 @@ void main() {
       expect(result, contains('Value: 3'));
     });
 
-    test('handleError with test function works [2026-02-10 06:37]', () async {
+    test('I-ASYNC-140: HandleError with test function works. [2026-02-10 06:37] (PASS)', () async {
       final result = await interpreter.execute(source: '''
         import 'dart:async';
 

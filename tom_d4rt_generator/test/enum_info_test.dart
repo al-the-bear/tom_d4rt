@@ -4,7 +4,7 @@ import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 
 void main() {
   group('EnumInfo', () {
-    test('creates simple enum info [2026-02-10 06:37]', () {
+    test('G-ENM-20: Creates simple enum info. [2026-02-10 06:37] (PASS)', () {
       final info = EnumInfo(
         name: 'Status',
         values: ['pending', 'active', 'completed'],
@@ -17,7 +17,7 @@ void main() {
       expect(info.hasMembers, isFalse);
     });
 
-    test('creates enum info with members [2026-02-10 06:37]', () {
+    test('G-ENM-17: Creates enum info with members. [2026-02-10 06:37] (PASS)', () {
       final info = EnumInfo(
         name: 'Color',
         values: ['red', 'green', 'blue'],
@@ -29,7 +29,7 @@ void main() {
       expect(info.hasMembers, isTrue);
     });
 
-    test('creates enum info with single value [2026-02-10 06:37]', () {
+    test('G-ENM-18: Creates enum info with single value. [2026-02-10 06:37] (PASS)', () {
       final info = EnumInfo(
         name: 'Singleton',
         values: ['instance'],
@@ -40,7 +40,7 @@ void main() {
       expect(info.values.first, equals('instance'));
     });
 
-    test('handles empty source file [2026-02-10 06:37]', () {
+    test('G-ENM-19: Handles empty source file. [2026-02-10 06:37] (PASS)', () {
       final info = EnumInfo(
         name: 'Test',
         values: ['a', 'b'],

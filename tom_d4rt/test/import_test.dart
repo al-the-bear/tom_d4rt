@@ -145,7 +145,7 @@ void main() {
       },
     );
 
-    test('Import package simple (memory) [2026-02-10 06:37]', () {
+    test('I-IMPORT-1: Import package simple (memory). [2026-02-10 06:37] (PASS)', () {
       final d4rt = D4rt();
       final mainlibrary = "d4rt-mem:/main_pkg_import.dart";
       final result = d4rt.execute(
@@ -158,7 +158,7 @@ void main() {
       );
     });
 
-    test('Import prefixed package (memory) [2026-02-10 06:37]', () {
+    test('I-IMPORT-2: Import prefixed package (memory). [2026-02-10 06:37] (PASS)', () {
       final d4rt = D4rt();
       final mainlibrary = "d4rt-mem:/main_prefixed_pkg_import.dart";
       final result = d4rt.execute(
@@ -172,7 +172,7 @@ void main() {
       );
     });
 
-    test('Import dart:math (global functions) [2026-02-10 06:37]', () {
+    test('I-IMPORT-3: Import dart:math (global functions). [2026-02-10 06:37] (PASS)', () {
       final d4rt = D4rt();
       final mainlibrary = "d4rt-mem:/main_dart_math_import.dart";
       final result = d4rt.execute(

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 /// Test fixture: Pure mixin declarations for GEN-048 testing.
 ///
 /// This file contains pure `mixin` declarations (not `mixin class`)

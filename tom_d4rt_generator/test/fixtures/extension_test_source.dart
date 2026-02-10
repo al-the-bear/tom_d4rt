@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 /// Test fixtures for extension bridge generation (GEN-047)
 
 /// A simple extension on String with a getter

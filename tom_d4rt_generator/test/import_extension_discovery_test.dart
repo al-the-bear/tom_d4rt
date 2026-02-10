@@ -57,29 +57,29 @@ void main() {
       // print('Generated code:\n$generatedCode');
     });
 
-    test('discovers ImportedIntHelpers from import [2026-02-10 06:37]', () {
+    test('G-EXT-14: Discovers ImportedIntHelpers from import. [2026-02-10 06:37] (PASS)', () {
       expect(generatedCode, contains("name: 'ImportedIntHelpers'"),
           reason: 'Should discover ImportedIntHelpers from imported file');
     });
 
-    test('discovers ImportedListHelpers from import [2026-02-10 06:37]', () {
+    test('G-EXT-15: Discovers ImportedListHelpers from import. [2026-02-10 06:37] (PASS)', () {
       // Note: Generic extensions like List<T> may be skipped in initial implementation
       // This test documents the expected behavior
       expect(generatedCode, contains("name: 'ImportedListHelpers'"),
           reason: 'Should discover ImportedListHelpers from imported file');
     });
 
-    test('discovers doubled getter from ImportedIntHelpers [2026-02-10 06:37]', () {
+    test('G-EXT-16: Discovers doubled getter from ImportedIntHelpers. [2026-02-10 06:37] (PASS)', () {
       expect(generatedCode, contains("'doubled'"),
           reason: 'Should include doubled getter from imported extension');
     });
 
-    test('discovers plus method from ImportedIntHelpers [2026-02-10 06:37]', () {
+    test('G-EXT-17: Discovers plus method from ImportedIntHelpers. [2026-02-10 06:37] (PASS)', () {
       expect(generatedCode, contains("'plus'"),
           reason: 'Should include plus method from imported extension');
     });
 
-    test('does not duplicate extensions defined in source file [2026-02-10 06:37]', () {
+    test('G-EXT-18: Does not duplicate extensions defined in source file. [2026-02-10 06:37] (PASS)', () {
       // Count occurrences of ImportedIntHelpers
       final matches = RegExp(r"name:\s*'ImportedIntHelpers'").allMatches(generatedCode);
       expect(matches.length, equals(1),

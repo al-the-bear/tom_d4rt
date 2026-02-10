@@ -4,7 +4,7 @@ import 'dart:io'; // Import dart:io
 
 void main() {
   group('Directory methods - comprehensive', () {
-    test('existsSync [2026-02-10 06:37]', () {
+    test('I-FILE-142: ExistsSync. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:io';
       main() {
@@ -23,7 +23,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('createSync [2026-02-10 06:37]', () {
+    test('I-FILE-139: CreateSync. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:io';
       main() {
@@ -43,7 +43,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('deleteSync [2026-02-10 06:37]', () {
+    test('I-FILE-140: DeleteSync. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:io';
       main() {
@@ -61,7 +61,7 @@ void main() {
       expect(execute(source), isFalse);
     });
 
-    test('listSync [2026-02-10 06:37]', () {
+    test('I-FILE-141: ListSync. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:io';
       main() {
@@ -87,7 +87,7 @@ void main() {
       expect((result[0] as String), endsWith('/test.txt'));
     });
 
-    test('renameSync [2026-02-10 06:37]', () {
+    test('I-FILE-143: RenameSync. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:io';
       main() {
@@ -107,7 +107,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('absolute [2026-02-10 06:37]', () {
+    test('I-FILE-136: Absolute. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:io';
       main() {
@@ -127,7 +127,7 @@ void main() {
       expect((result).startsWith('/'), isTrue);
     });
 
-    test('parent [2026-02-10 06:37]', () {
+    test('I-FILE-137: Parent. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:io';
       main() {
@@ -147,7 +147,7 @@ void main() {
       expect(result, equals(Directory.systemTemp.path));
     });
 
-    test('resolveSymbolicLinksSync [2026-02-10 06:37]', () {
+    test('I-FILE-138: ResolveSymbolicLinksSync. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       import 'dart:io';
       main() {

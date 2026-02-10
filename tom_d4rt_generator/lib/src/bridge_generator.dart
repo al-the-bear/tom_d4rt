@@ -33,12 +33,6 @@ const _binaryOperators = {
   '&', '|', '^', '<<', '>>', '>>>',
 };
 
-/// Set of Dart index operator symbols.
-const _indexOperators = {'[]', '[]='};
-
-/// Set of Dart unary operator symbols.
-const _unaryOperators = {'~'};
-
 /// Generates the appropriate code for calling an operator.
 /// 
 /// For binary operators like `<`, generates `(t as dynamic) < positional[0]`.

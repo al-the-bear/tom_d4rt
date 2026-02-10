@@ -25,7 +25,7 @@ void main() {
       );
     }
 
-    test('Queue() constructor and basic properties [2026-02-10 06:37]', () {
+    test('I-COLL-65: Queue() constructor and basic properties. [2026-02-10 06:37] (PASS)', () {
       final result = execute('''
         var q = Queue();
         return [q.length, q.isEmpty, q.isNotEmpty];
@@ -33,7 +33,7 @@ void main() {
       expect(result, equals([0, true, false]));
     });
 
-    test('Queue.from() constructor with an iterable [2026-02-10 06:37]', () {
+    test('I-COLL-66: Queue.from() constructor with an iterable. [2026-02-10 06:37] (PASS)', () {
       final result = execute('''
         var q = Queue.from([1, 2, 3]);
         return [q.length, q.first, q.last];
@@ -41,7 +41,7 @@ void main() {
       expect(result, equals([3, 1, 3]));
     });
 
-    test('Queue.from() with empty iterable [2026-02-10 06:37]', () {
+    test('I-COLL-67: Queue.from() with empty iterable. [2026-02-10 06:37] (PASS)', () {
       final result = execute('''
         var q = Queue.from([]);
         return q.length;
@@ -49,7 +49,7 @@ void main() {
       expect(result, equals(0));
     });
 
-    test('add() and removeFirst() methods [2026-02-10 06:37]', () {
+    test('I-COLL-68: Add() and removeFirst() methods. [2026-02-10 06:37] (PASS)', () {
       final result = execute('''
         var q = Queue();
         q.add(10);
@@ -61,7 +61,7 @@ void main() {
       expect(result, equals([10, 20, 0]));
     });
 
-    test('removeFirst() on empty queue throws [2026-02-10 06:37]', () {
+    test('I-COLL-69: RemoveFirst() on empty queue throws. [2026-02-10 06:37] (PASS)', () {
       expect(
         () => execute('''
           var q = Queue();
@@ -75,7 +75,7 @@ void main() {
       );
     });
 
-    test('first and last getters [2026-02-10 06:37]', () {
+    test('I-COLL-70: First and last getters. [2026-02-10 06:37] (PASS)', () {
       final result = execute('''
         var q = Queue.from(['a', 'b', 'c']);
         return [q.first, q.last];
@@ -83,7 +83,7 @@ void main() {
       expect(result, equals(['a', 'c']));
     });
 
-    test('first getter on empty queue throws [2026-02-10 06:37]', () {
+    test('I-COLL-71: First getter on empty queue throws. [2026-02-10 06:37] (PASS)', () {
       expect(
         () => execute('''
           var q = Queue();
@@ -97,7 +97,7 @@ void main() {
       );
     });
 
-    test('last getter on empty queue throws [2026-02-10 06:37]', () {
+    test('I-COLL-62: Last getter on empty queue throws. [2026-02-10 06:37] (PASS)', () {
       expect(
         () => execute('''
           var q = Queue();
@@ -111,7 +111,7 @@ void main() {
       );
     });
 
-    test('clear() method [2026-02-10 06:37]', () {
+    test('I-COLL-63: Clear() method. [2026-02-10 06:37] (PASS)', () {
       final result = execute('''
         var q = Queue.from([1, 2, 3]);
         q.clear();
@@ -120,7 +120,7 @@ void main() {
       expect(result, equals(0));
     });
 
-    test('contains() method [2026-02-10 06:37]', () {
+    test('I-COLL-64: Contains() method. [2026-02-10 06:37] (PASS)', () {
       final result = execute('''
         var q = Queue.from([10, 20, 30]);
         return [q.contains(20), q.contains(40)];

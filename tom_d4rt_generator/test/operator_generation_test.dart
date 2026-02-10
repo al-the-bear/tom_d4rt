@@ -51,7 +51,7 @@ void main() {
       generatedCode = await File(result.outputFiles.first).readAsString();
     });
 
-    test('generates bridges for arithmetic operators [2026-02-10 06:37]', () {
+    test('G-OP-2: Generates bridges for arithmetic operators. [2026-02-10 06:37] (PASS)', () {
       // Check that Vector2 operators are present (now with typeArgs)
       expect(generatedCode, contains("'+': (visitor, target, positional, named, typeArgs)"));
       expect(generatedCode, contains("'-': (visitor, target, positional, named, typeArgs)"));
@@ -64,7 +64,7 @@ void main() {
       expect(generatedCode, contains('return -t;')); // Unary negation
     });
 
-    test('generates bridges for index operators [2026-02-10 06:37]', () {
+    test('G-OP-3: Generates bridges for index operators. [2026-02-10 06:37] (PASS)', () {
       expect(generatedCode, contains("'[]': (visitor, target, positional, named, typeArgs)"));
       expect(generatedCode, contains("'[]=': (visitor, target, positional, named, typeArgs)"));
       // New format uses D4.getRequiredArg to extract typed index and value
@@ -72,7 +72,7 @@ void main() {
       expect(generatedCode, contains('t[index] = value;'));
     });
 
-    test('generates bridges for bitwise operators [2026-02-10 06:37]', () {
+    test('G-OP-4: Generates bridges for bitwise operators. [2026-02-10 06:37] (PASS)', () {
       expect(generatedCode, contains("'&': (visitor, target, positional, named, typeArgs)"));
       expect(generatedCode, contains("'|': (visitor, target, positional, named, typeArgs)"));
       expect(generatedCode, contains("'^': (visitor, target, positional, named, typeArgs)"));
@@ -88,7 +88,7 @@ void main() {
       expect(generatedCode, contains('return t >> other;'));
     });
 
-    test('generates bridges for comparison operators [2026-02-10 06:37]', () {
+    test('G-OP-5: Generates bridges for comparison operators. [2026-02-10 06:37] (PASS)', () {
       expect(generatedCode, contains("'<': (visitor, target, positional, named, typeArgs)"));
       expect(generatedCode, contains("'>': (visitor, target, positional, named, typeArgs)"));
       expect(generatedCode, contains("'<=': (visitor, target, positional, named, typeArgs)"));
@@ -102,7 +102,7 @@ void main() {
       expect(generatedCode, contains('return t == other;'));
     });
 
-    test('operators are placed in methods map [2026-02-10 06:37]', () {
+    test('G-OP-1: Operators are placed in methods map. [2026-02-10 06:37] (PASS)', () {
       // Both methods and operators should be in the same methods: block
       expect(generatedCode, contains('methods: {'));
       // MixedClass has both add method and + operator (now with typeArgs)

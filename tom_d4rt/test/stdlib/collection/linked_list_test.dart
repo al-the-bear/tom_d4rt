@@ -21,7 +21,7 @@ void main() {
   }
 
   group('LinkedList and LinkedListEntry Tests', () {
-    test('Create LinkedList, add entries, check properties [2026-02-10 06:37]', () {
+    test('I-COLL-47: Create LinkedList, add entries, check properties. [2026-02-10 06:37] (PASS)', () {
       final result = executeTestScript('''
         var list = LinkedList();
         var entry1 = LinkedListEntry('apple');
@@ -55,7 +55,7 @@ void main() {
       expect(result['entry2PrevIsEntry1'], true);
     });
 
-    test('LinkedListEntry unlink [2026-02-10 06:37]', () {
+    test('I-COLL-48: LinkedListEntry unlink. [2026-02-10 06:37] (PASS)', () {
       final result = executeTestScript('''
         var list = LinkedList();
         var entry1 = LinkedListEntry('a');
@@ -80,7 +80,7 @@ void main() {
       expect(result['entry1NextIsNull'], true);
     });
 
-    test('LinkedList remove entry [2026-02-10 06:37]', () {
+    test('I-COLL-49: LinkedList remove entry. [2026-02-10 06:37] (PASS)', () {
       final result = executeTestScript('''
         var list = LinkedList();
         var entry1 = LinkedListEntry(1);
@@ -111,7 +111,7 @@ void main() {
       expect(result['entry3PrevIsEntry1'], true);
     });
 
-    test('LinkedList removeFirst [2026-02-10 06:37]', () {
+    test('I-COLL-42: LinkedList removeFirst. [2026-02-10 06:37] (PASS)', () {
       final result = executeTestScript('''
         var list = LinkedList();
         var entry1 = LinkedListEntry('x');
@@ -136,7 +136,7 @@ void main() {
       expect(result['entry1ListIsNull'], true);
     });
 
-    test('LinkedList clear [2026-02-10 06:37]', () {
+    test('I-COLL-43: LinkedList clear. [2026-02-10 06:37] (PASS)', () {
       final result = executeTestScript('''
         var list = LinkedList();
         var entry1 = LinkedListEntry(100);
@@ -154,7 +154,7 @@ void main() {
       expect(result['entry1ListIsNull'], true);
     });
 
-    test('Accessing first/last on empty list throws error [2026-02-10 06:37]', () {
+    test('I-COLL-44: Accessing first/last on empty list throws error. [2026-02-10 06:37] (PASS)', () {
       expect(
         () => executeTestScript('var list = LinkedList(); return list.first;'),
         throwsA(isA<RuntimeD4rtException>()),
@@ -165,14 +165,14 @@ void main() {
       );
     });
 
-    test('removeFirst on empty list throws error [2026-02-10 06:37]', () {
+    test('I-COLL-45: RemoveFirst on empty list throws error. [2026-02-10 06:37] (PASS)', () {
       expect(
         () => executeTestScript('var list = LinkedList(); list.removeFirst();'),
         throwsA(isA<RuntimeD4rtException>()),
       );
     });
 
-    test('Unlink entry not in a list throws error [2026-02-10 06:37]', () {
+    test('I-COLL-46: Unlink entry not in a list throws error. [2026-02-10 06:37] (PASS)', () {
       // Unlinking an entry that was never added
       expect(
         () => executeTestScript(

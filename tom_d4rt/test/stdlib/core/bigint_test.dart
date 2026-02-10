@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('BigInt tests', () {
-    test('BigInt.parse [2026-02-10 06:37]', () {
+    test('I-INT-11: BigInt.parse. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         BigInt bigInt = BigInt.parse("123456789012345678901234567890");
@@ -13,7 +13,7 @@ void main() {
       expect(execute(source), equals('123456789012345678901234567890'));
     });
 
-    test('BigInt.tryParse [2026-02-10 06:37]', () {
+    test('I-INT-6: BigInt.tryParse. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         BigInt? bigInt = BigInt.tryParse("123456789012345678901234567890");
@@ -23,7 +23,7 @@ void main() {
       expect(execute(source), equals('123456789012345678901234567890'));
     });
 
-    test('BigInt.add and subtract [2026-02-10 06:37]', () {
+    test('I-INT-8: BigInt.add and subtract. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         BigInt bigInt1 = BigInt.parse("100000000000000000000000000000");
@@ -39,7 +39,7 @@ void main() {
           ]));
     });
 
-    test('BigInt.multiply and divide [2026-02-10 06:37]', () {
+    test('I-INT-9: BigInt.multiply and divide. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         BigInt bigInt1 = BigInt.parse("100000000000000000000000000000");
@@ -55,7 +55,7 @@ void main() {
           ]));
     });
 
-    test('BigInt.modulo and remainder [2026-02-10 06:37]', () {
+    test('I-INT-10: BigInt.modulo and remainder. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         BigInt bigInt1 = BigInt.parse("100000000000000000000000000001");
@@ -66,7 +66,7 @@ void main() {
       expect(execute(source), equals(['1', '1']));
     });
 
-    test('BigInt.abs and negate [2026-02-10 06:37]', () {
+    test('I-INT-12: BigInt.abs and negate. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         BigInt bigInt = BigInt.parse("-123456789012345678901234567890");
@@ -81,7 +81,7 @@ void main() {
           ]));
     });
 
-    test('BigInt.compareTo [2026-02-10 06:37]', () {
+    test('I-INT-13: BigInt.compareTo. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         BigInt bigInt1 = BigInt.parse("100000000000000000000000000000");
@@ -92,7 +92,7 @@ void main() {
       expect(execute(source), equals([-1, 1, 0]));
     });
 
-    test('BigInt.bitLength and sign [2026-02-10 06:37]', () {
+    test('I-INT-14: BigInt.bitLength and sign. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         BigInt bigInt = BigInt.parse("123456789012345678901234567890");
@@ -104,7 +104,7 @@ void main() {
       expect(result[1], equals(1)); // sign is 1 for positive
     });
 
-    test('BigInt.toRadixString [2026-02-10 06:37]', () {
+    test('I-INT-1: BigInt.toRadixString. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         BigInt bigInt = BigInt.parse("255");
@@ -114,7 +114,7 @@ void main() {
       expect(execute(source), equals('ff'));
     });
 
-    test('BigInt.pow [2026-02-10 06:37]', () {
+    test('I-INT-2: BigInt.pow. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         BigInt bigInt = BigInt.parse("2");
@@ -124,7 +124,7 @@ void main() {
       expect(execute(source), equals('1024'));
     });
 
-    test('BigInt.toUnsigned and toSigned [2026-02-10 06:37]', () {
+    test('I-INT-3: BigInt.toUnsigned and toSigned. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         BigInt bigInt = BigInt.parse("123456789012345678901234567890");
@@ -136,7 +136,7 @@ void main() {
       expect(result[1], isA<String>());
     });
 
-    test('BigInt.isEven and isOdd [2026-02-10 06:37]', () {
+    test('I-INT-4: BigInt.isEven and isOdd. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         BigInt bigInt1 = BigInt.parse("123456789012345678901234567890");
@@ -147,7 +147,7 @@ void main() {
       expect(execute(source), equals([true, true]));
     });
 
-    test('BigInt.gcd [2026-02-10 06:37]', () {
+    test('I-INT-5: BigInt.gcd. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         BigInt bigInt1 = BigInt.parse("48");
@@ -158,7 +158,7 @@ void main() {
       expect(execute(source), equals('6'));
     });
 
-    test('BigInt.modPow and modInverse [2026-02-10 06:37]', () {
+    test('I-INT-7: BigInt.modPow and modInverse. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         BigInt base = BigInt.parse("4");

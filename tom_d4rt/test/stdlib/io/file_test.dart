@@ -4,7 +4,7 @@ import 'dart:io';
 
 void main() {
   group('File methods - comprehensive', () {
-    test('existsSync [2026-02-10 06:37]', () {
+    test('I-FILE-157: ExistsSync. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -19,7 +19,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('I-FILE-1: writeAsStringSync and readAsStringSync [2026-02-10 08:00]', () {
+    test('I-FILE-1: WriteAsStringSync and readAsStringSync. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -33,7 +33,7 @@ void main() {
       expect(execute(source), equals('Hello, world!'));
     });
 
-    test('deleteSync [2026-02-10 06:37]', () {
+    test('I-FILE-154: DeleteSync. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -46,7 +46,7 @@ void main() {
       expect(execute(source), isFalse);
     });
 
-    test('renameSync [2026-02-10 06:37]', () {
+    test('I-FILE-155: RenameSync. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -61,7 +61,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('copySync [2026-02-10 06:37]', () {
+    test('I-FILE-156: CopySync. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -77,7 +77,7 @@ void main() {
       expect(execute(source), isTrue);
     });
 
-    test('lengthSync [2026-02-10 06:37]', () {
+    test('I-FILE-158: LengthSync. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -91,7 +91,7 @@ void main() {
       expect(execute(source), equals(13));
     });
 
-    test('lastModifiedSync [2026-02-10 06:37]', () {
+    test('I-FILE-159: LastModifiedSync. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -105,7 +105,7 @@ void main() {
       expect(execute(source), isA<DateTime>());
     });
 
-    test('resolveSymbolicLinksSync [2026-02-10 06:37]', () {
+    test('I-FILE-151: ResolveSymbolicLinksSync. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -119,7 +119,7 @@ void main() {
       expect(execute(source), isA<String>());
     });
 
-    test('absolute [2026-02-10 06:37]', () {
+    test('I-FILE-152: Absolute. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -134,7 +134,7 @@ void main() {
       expect((execute(source) as String).contains('/test.txt'), isTrue);
     });
 
-    test('parent [2026-02-10 06:37]', () {
+    test('I-FILE-153: Parent. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      import 'dart:io';
      main() {

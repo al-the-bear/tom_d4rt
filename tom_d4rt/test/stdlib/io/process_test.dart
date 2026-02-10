@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('Process methods - comprehensive', () {
-    test('Process.run with echo command [2026-02-10 06:37]', () async {
+    test('I-FILE-176: Process.run with echo command. [2026-02-10 06:37] (PASS)', () async {
       const source = '''
      import 'dart:io';
      main() async {
@@ -16,7 +16,7 @@ void main() {
       expect(result[1], equals('Hello World')); // Output should match
     });
 
-    test('Process.runSync with echo command [2026-02-10 06:37]', () {
+    test('I-FILE-173: Process.runSync with echo command. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -29,7 +29,7 @@ void main() {
       expect(result[1], equals('Hello Sync'));
     });
 
-    test('Process.start basic functionality [2026-02-10 06:37]', () async {
+    test('I-FILE-174: Process.start basic functionality. [2026-02-10 06:37] (PASS)', () async {
       const source = '''
      import 'dart:io';
      main() async {
@@ -43,7 +43,7 @@ void main() {
       expect(result[1], equals(0)); // Exit code should be 0
     });
 
-    test('Process.killPid functionality [2026-02-10 06:37]', () async {
+    test('I-FILE-175: Process.killPid functionality. [2026-02-10 06:37] (PASS)', () async {
       const source = '''
      import 'dart:io';
      main() async {
@@ -59,7 +59,7 @@ void main() {
       expect(result, isA<bool>());
     });
 
-    test('ProcessResult properties [2026-02-10 06:37]', () {
+    test('I-FILE-177: ProcessResult properties. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -79,7 +79,7 @@ void main() {
       expect(result[3], isTrue); // stderr should exist
     });
 
-    test('Process with environment variables [2026-02-10 06:37]', () async {
+    test('I-FILE-178: Process with environment variables. [2026-02-10 06:37] (PASS)', () async {
       const source = '''
      import 'dart:io';
      main() async {
@@ -99,7 +99,7 @@ void main() {
       }
     });
 
-    test('Process.run with working directory [2026-02-10 06:37]', () async {
+    test('I-FILE-169: Process.run with working directory. [2026-02-10 06:37] (PASS)', () async {
       const source = '''
      import 'dart:io';
      main() async {
@@ -119,7 +119,7 @@ void main() {
       }
     });
 
-    test('ProcessSignal constants availability [2026-02-10 06:37]', () {
+    test('I-FILE-170: ProcessSignal constants availability. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -136,7 +136,7 @@ void main() {
       expect(result[2], isTrue);
     });
 
-    test('ProcessStartMode constants availability [2026-02-10 06:37]', () {
+    test('I-FILE-171: ProcessStartMode constants availability. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      import 'dart:io';
      main() {
@@ -153,7 +153,7 @@ void main() {
       expect(result[2], isTrue);
     });
 
-    test('Process stdin/stdout/stderr streams [2026-02-10 06:37]', () async {
+    test('I-FILE-172: Process stdin/stdout/stderr streams. [2026-02-10 06:37] (PASS)', () async {
       const source = '''
      import 'dart:io';
      import 'dart:convert';

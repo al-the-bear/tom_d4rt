@@ -11,7 +11,7 @@ void main() {
       _registerAllMixins(d4rt);
     });
 
-    test('complex data processing with multiple mixins [2026-02-10 06:37]', () async {
+    test('I-BRIDGE-12: Complex data processing with multiple mixins. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
         import 'package:mixins/events.dart';
         import 'package:mixins/validation.dart';
@@ -121,7 +121,7 @@ void main() {
           equals(1)); // Only valid data should be processed
     });
 
-    test('math operations with bridged mixin [2026-02-10 06:37]', () async {
+    test('I-BRIDGE-11: Math operations with bridged mixin. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
         import 'package:mixins/math.dart';
         
@@ -168,7 +168,7 @@ void main() {
       expect(resultMap['ninety_degrees'], closeTo(pi / 2, 0.001));
     });
 
-    test('validation mixin functionality [2026-02-10 06:37]', () async {
+    test('I-BRIDGE-13: Validation mixin functionality. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
         import 'package:mixins/validation.dart';
         
@@ -241,7 +241,7 @@ void main() {
       expect(invalidTest['errors'], isNotEmpty);
     });
 
-    test('cache mixin functionality [2026-02-10 06:37]', () async {
+    test('I-BRIDGE-14: Cache mixin functionality. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
         import 'package:mixins/cache.dart';
         
@@ -297,7 +297,7 @@ void main() {
       expect(resultMap['get_missing'], isNull);
     });
 
-    test('event mixin functionality [2026-02-10 06:37]', () async {
+    test('I-BRIDGE-15: Event mixin functionality. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
         import 'package:mixins/events.dart';
         

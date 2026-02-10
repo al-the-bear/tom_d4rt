@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('double tests', () {
-    test('double.parse [2026-02-10 06:37]', () {
+    test('I-INT-21: Double.parse. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         double value1 = double.parse("123.45");
@@ -14,7 +14,7 @@ void main() {
       expect(execute(source), equals([123.45, -678.9]));
     });
 
-    test('double.tryParse [2026-02-10 06:37]', () {
+    test('I-INT-17: Double.tryParse. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         double? value1 = double.tryParse("123.45");
@@ -26,7 +26,7 @@ void main() {
       expect(execute(source), equals([123.45, -678.9, null]));
     });
 
-    test('double.toString [2026-02-10 06:37]', () {
+    test('I-INT-18: Double.toString. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         double value1 = 123.45;
@@ -37,7 +37,7 @@ void main() {
       expect(execute(source), equals(['123.45', '-678.9']));
     });
 
-    test('double.abs [2026-02-10 06:37]', () {
+    test('I-INT-19: Double.abs. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         double value = -123.45;
@@ -47,7 +47,7 @@ void main() {
       expect(execute(source), equals(123.45));
     });
 
-    test('double.ceil, floor, round, and truncate [2026-02-10 06:37]', () {
+    test('I-INT-20: Double.ceil, floor, round, and truncate. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         double value = 123.45;
@@ -57,7 +57,7 @@ void main() {
       expect(execute(source), equals([124, 123, 123, 123]));
     });
 
-    test('double.toInt and toDouble [2026-02-10 06:37]', () {
+    test('I-INT-22: Double.toInt and toDouble. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         double value = 123.45;
@@ -67,7 +67,7 @@ void main() {
       expect(execute(source), equals([123, 123.45]));
     });
 
-    test('double.isFinite, isInfinite, isNaN, and isNegative [2026-02-10 06:37]', () {
+    test('I-INT-23: Double.isFinite, isInfinite, isNaN, and isNegative. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         double value1 = 123.45;
@@ -79,7 +79,7 @@ void main() {
       expect(execute(source), equals([true, true, true, true]));
     });
 
-    test('double.clamp [2026-02-10 06:37]', () {
+    test('I-INT-24: Double.clamp. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         double value = 123.45;
@@ -89,7 +89,7 @@ void main() {
       expect(execute(source), equals([123.45, 130.0]));
     });
 
-    test('double.remainder [2026-02-10 06:37]', () {
+    test('I-INT-25: Double.remainder. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         double value = 123.45;
@@ -111,7 +111,7 @@ void main() {
       expect(execute(source), equals(['123.46', '1.23e+2', '123.5']));
     });
 
-    test('double.hashCode [2026-02-10 06:37]', () {
+    test('I-INT-15: Double.hashCode. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         double value = 123.45;
@@ -121,7 +121,7 @@ void main() {
       expect(execute(source), isA<int>());
     });
 
-    test('double static properties [2026-02-10 06:37]', () {
+    test('I-INT-16: Double static properties. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         return [double.maxFinite, double.minPositive, double.infinity, double.negativeInfinity, double.nan];

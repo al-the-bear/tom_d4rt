@@ -11,7 +11,7 @@ dynamic execute(String source, {List<Object?>? args}) {
 
 void main() {
   group('Pattern Matching Improvements', () {
-    test('Rest elements in list patterns [2026-02-10 06:37]', () {
+    test('I-PAT-8: Rest elements in list patterns. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         main() {
           var list = [1, 2, 3, 4, 5];
@@ -34,7 +34,7 @@ void main() {
           ]));
     });
 
-    test('Rest elements in map patterns [2026-02-10 06:37]', () {
+    test('I-PAT-9: Rest elements in map patterns. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         main() {
           var map = {'a': 1, 'b': 2, 'c': 3};
@@ -57,7 +57,7 @@ void main() {
           ]));
     });
 
-    test('Object patterns with complex matching [2026-02-10 06:37]', () {
+    test('I-PAT-10: Object patterns with complex matching. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         class Point {
           num x, y;

@@ -44,7 +44,7 @@ void main() {
       );
     });
 
-    test('can use bridged class as mixin [2026-02-10 06:37]', () async {
+    test('I-BRIDGE-4: Can use bridged class as mixin. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
         import 'package:test/mixin.dart';
         
@@ -72,7 +72,7 @@ void main() {
       expect(result, equals('Mixin called with: test input'));
     });
 
-    test('can access bridged mixin properties [2026-02-10 06:37]', () async {
+    test('I-BRIDGE-5: Can access bridged mixin properties. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
         import 'package:test/mixin.dart';
         
@@ -98,7 +98,7 @@ void main() {
       expect(result, equals('from bridged mixin'));
     });
 
-    test('can call bridged mixin methods with multiple arguments [2026-02-10 06:37]', () async {
+    test('I-BRIDGE-1: Can call bridged mixin methods with multiple arguments. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
         import 'package:test/mixin.dart';
         
@@ -124,7 +124,7 @@ void main() {
       expect(result, equals(8));
     });
 
-    test('bridged mixin combined with interpreted mixin [2026-02-10 06:37]', () async {
+    test('I-BRIDGE-2: Bridged mixin combined with interpreted mixin. [2026-02-10 06:37] (PASS)', () async {
       const code = '''
         import 'package:test/mixin.dart';
         
@@ -154,7 +154,7 @@ void main() {
       expect(result, equals(['from bridged mixin', 'from local mixin']));
     });
 
-    test('throws error when bridged class not marked as mixin [2026-02-10 06:37]', () async {
+    test('I-BRIDGE-3: Throws error when bridged class not marked as mixin. [2026-02-10 06:37] (PASS)', () async {
       // Register a class without canBeUsedAsMixin=true
       d4rt.registerBridgedClass(
         BridgedClass(

@@ -5,7 +5,7 @@ void main() {
   final d4rt = D4rt();
 
   group('ListQueue Tests', () {
-    test('ListQueue() constructor and basic properties [2026-02-10 06:37]', () {
+    test('I-COLL-60: ListQueue() constructor and basic properties. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -20,7 +20,7 @@ void main() {
       expect(result[2], false);
     });
 
-    test('ListQueue(initialCapacity) constructor [2026-02-10 06:37]', () {
+    test('I-COLL-56: ListQueue(initialCapacity) constructor. [2026-02-10 06:37] (PASS)', () {
       // Note: Testing initialCapacity is tricky without exposing internal details.
       // We mainly test that it doesn't crash and basic operations work.
       final result = d4rt.execute(
@@ -37,7 +37,7 @@ void main() {
       expect(result[1], 1);
     });
 
-    test('ListQueue.from() constructor [2026-02-10 06:37]', () {
+    test('I-COLL-58: ListQueue.from() constructor. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -54,7 +54,7 @@ void main() {
       expect(result[3], orderedEquals([1, 2, 3]), reason: "toList from list");
     });
 
-    test('add, addFirst, addLast, length, first, last [2026-02-10 06:37]', () {
+    test('I-COLL-59: Add, addFirst, addLast, length, first, last. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -90,7 +90,7 @@ void main() {
       expect(result[9], orderedEquals([5, 10, 20]), reason: "toList check");
     });
 
-    test('removeFirst, removeLast [2026-02-10 06:37]', () {
+    test('I-COLL-61: RemoveFirst, removeLast. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -119,7 +119,7 @@ void main() {
       expect(result[8], orderedEquals([]), reason: "toList empty");
     });
 
-    test('removeFirst/removeLast on empty queue throws error [2026-02-10 06:37]', () {
+    test('I-COLL-50: RemoveFirst/removeLast on empty queue throws error. [2026-02-10 06:37] (PASS)', () {
       expect(
         () => d4rt.execute(source: '''
           import 'dart:collection';
@@ -144,7 +144,7 @@ void main() {
       );
     });
 
-    test('clear() and isEmpty [2026-02-10 06:37]', () {
+    test('I-COLL-51: Clear() and isEmpty. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -161,7 +161,7 @@ void main() {
       expect(result[2], true, reason: "isEmpty after clear");
     });
 
-    test('remove() specific element [2026-02-10 06:37]', () {
+    test('I-COLL-52: Remove() specific element. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -182,7 +182,7 @@ void main() {
       expect(result[4], 3, reason: "length after removes");
     });
 
-    test('addAll() [2026-02-10 06:37]', () {
+    test('I-COLL-53: AddAll(). [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -196,7 +196,7 @@ void main() {
       expect(result, orderedEquals([1, 2, 3, 4, 5]));
     });
 
-    test('forEach() and iterator [2026-02-10 06:37]', () {
+    test('I-COLL-54: ForEach() and iterator. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -220,7 +220,7 @@ void main() {
           reason: "iteratorElements");
     });
 
-    test('single getter [2026-02-10 06:37]', () {
+    test('I-COLL-55: Single getter. [2026-02-10 06:37] (PASS)', () {
       d4rt.execute(source: '''
           import 'dart:collection';
           main() {
@@ -247,7 +247,7 @@ void main() {
           reason: "single on multi-element queue");
     });
 
-    test('toList() growable [2026-02-10 06:37]', () {
+    test('I-COLL-57: ToList() growable. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';

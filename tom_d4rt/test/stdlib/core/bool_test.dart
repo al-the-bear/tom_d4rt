@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('bool tests', () {
-    test('bool.parse [2026-02-10 06:37]', () {
+    test('I-BOOL-5: Bool.parse. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         bool value1 = bool.parse("true");
@@ -14,7 +14,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('bool.tryParse [2026-02-10 06:37]', () {
+    test('I-BOOL-1: Bool.tryParse. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         bool? value1 = bool.tryParse("true");
@@ -26,7 +26,7 @@ void main() {
       expect(execute(source), equals([true, false, null]));
     });
 
-    test('bool.toString [2026-02-10 06:37]', () {
+    test('I-BOOL-2: Bool.toString. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         bool value1 = true;
@@ -37,7 +37,7 @@ void main() {
       expect(execute(source), equals(['true', 'false']));
     });
 
-    test('bool.hashCode [2026-02-10 06:37]', () {
+    test('I-BOOL-3: Bool.hashCode. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         bool value1 = true;
@@ -51,7 +51,7 @@ void main() {
       expect(result[0], isNot(equals(result[1])));
     });
 
-    test('bool logical operators [2026-02-10 06:37]', () {
+    test('I-BOOL-4: Bool logical operators. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         bool value1 = true;
@@ -62,7 +62,7 @@ void main() {
       expect(execute(source), equals([false, true, false]));
     });
 
-    test('bool equality [2026-02-10 06:37]', () {
+    test('I-BOOL-6: Bool equality. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         bool value1 = true;
@@ -73,7 +73,7 @@ void main() {
       expect(execute(source), equals([false, true]));
     });
 
-    test('bool.parse with caseSensitive [2026-02-10 06:37]', () {
+    test('I-BOOL-7: Bool.parse with caseSensitive. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         bool value1 = bool.parse("TRUE", caseSensitive: false);
@@ -84,7 +84,7 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('bool.tryParse with caseSensitive [2026-02-10 06:37]', () {
+    test('I-BOOL-8: Bool.tryParse with caseSensitive. [2026-02-10 06:37] (PASS)', () {
       const source = '''
       main() {
         bool? value1 = bool.tryParse("TRUE", caseSensitive: false);

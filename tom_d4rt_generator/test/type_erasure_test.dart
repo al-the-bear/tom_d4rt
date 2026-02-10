@@ -58,7 +58,7 @@ void main() {
     });
 
     group('Instance Methods with Type Parameters', () {
-      test('unbounded type param uses dynamic [2026-02-10 06:37]', () {
+      test('G-TE-12: Unbounded type param uses dynamic. [2026-02-10 06:37] (PASS)', () {
         // identity<T> should use dynamic since T has no bound
         expect(
           generatedCode,
@@ -67,7 +67,7 @@ void main() {
         );
       });
 
-      test('G-TE-1: bounded type param uses bound type [2026-02-10 08:00]', () {
+      test('G-TE-1: Bounded type param uses bound type. [2026-02-10 06:37] (FAIL)', () {
         // findFirst<E extends BaseEntity> should use BaseEntity
         expect(
           generatedCode,
@@ -76,7 +76,7 @@ void main() {
         );
       });
 
-      test('multiple bounded type params use their bounds [2026-02-10 06:37]', () {
+      test('G-TE-13: Multiple bounded type params use their bounds. [2026-02-10 06:37] (PASS)', () {
         // createMap<K extends Comparable, V extends BaseEntity>
         expect(
           generatedCode,
@@ -92,7 +92,7 @@ void main() {
     });
 
     group('Static Methods with Type Parameters', () {
-      test('static method with bounded type param uses bound [2026-02-10 06:37]', () {
+      test('G-TE-14: Static method with bounded type param uses bound. [2026-02-10 06:37] (PASS)', () {
         // filterEntities<E extends BaseEntity>
         expect(
           generatedCode,
@@ -101,7 +101,7 @@ void main() {
         );
       });
 
-      test('G-TE-2: static castFrom uses constrained types [2026-02-10 08:00]', () {
+      test('G-TE-2: Static castFrom uses constrained types. [2026-02-10 06:37] (FAIL)', () {
         // castFrom<S extends Observable, E extends Observable>(ObservableList<S>)
         expect(
           generatedCode,
@@ -118,7 +118,7 @@ void main() {
     });
 
     group('Global Functions with Type Parameters', () {
-      test('global function with unbounded param uses dynamic [2026-02-10 06:37]', () {
+      test('G-TE-1: Global function with unbounded param uses dynamic. [2026-02-10 06:37] (PASS)', () {
         // globalIdentity<T>(T value)
         expect(
           generatedCode,
@@ -127,7 +127,7 @@ void main() {
         );
       });
 
-      test('global function with bounded param uses bound [2026-02-10 06:37]', () {
+      test('G-TE-2: Global function with bounded param uses bound. [2026-02-10 06:37] (PASS)', () {
         // findEntity<E extends BaseEntity>(List<E> entities, ...)
         expect(
           generatedCode,
@@ -136,7 +136,7 @@ void main() {
         );
       });
 
-      test('global function with multiple bounds uses correct types [2026-02-10 06:37]', () {
+      test('G-TE-3: Global function with multiple bounds uses correct types. [2026-02-10 06:37] (PASS)', () {
         // buildEntityMap<K extends Comparable, V extends BaseEntity>
         expect(
           generatedCode,
@@ -147,7 +147,7 @@ void main() {
     });
 
     group('Generic Class with Method Type Parameters', () {
-      test('method type params do not conflict with class type params [2026-02-10 06:37]', () {
+      test('G-TE-4: Method type params do not conflict with class type params. [2026-02-10 06:37] (PASS)', () {
         // Container<T extends BaseEntity> has method mapFirst<R extends Comparable>
         expect(
           generatedCode,
@@ -156,7 +156,7 @@ void main() {
         );
       });
 
-      test('static method in generic class uses its own type params [2026-02-10 06:37]', () {
+      test('G-TE-5: Static method in generic class uses its own type params. [2026-02-10 06:37] (PASS)', () {
         // Container.createEmpty<E extends BaseEntity>()
         expect(
           generatedCode,
@@ -167,7 +167,7 @@ void main() {
     });
 
     group('MemberInfo Properties', () {
-      test('MemberInfo has methodTypeParameters field [2026-02-10 06:37]', () {
+      test('G-TE-6: MemberInfo has methodTypeParameters field. [2026-02-10 06:37] (PASS)', () {
         // This is a compile-time test - if MemberInfo doesn't have the field,
         // the generator wouldn't compile
         final info = MemberInfo(
@@ -183,7 +183,7 @@ void main() {
     });
 
     group('GlobalFunctionInfo Properties', () {
-      test('GlobalFunctionInfo has typeParameters field [2026-02-10 06:37]', () {
+      test('G-TE-7: GlobalFunctionInfo has typeParameters field. [2026-02-10 06:37] (PASS)', () {
         // This is a compile-time test
         final info = GlobalFunctionInfo(
           name: 'test',
@@ -199,7 +199,7 @@ void main() {
     });
 
     group('Recursive Type Bounds', () {
-      test('recursive type bound T extends Comparable<T> is handled without stack overflow [2026-02-10 06:37]', () {
+      test('G-TE-8: Recursive type bound T extends Comparable<T> is handled without stack overflow. [2026-02-10 06:37] (PASS)', () {
         // sortItems<T extends Comparable<T>> should compile without issues
         expect(
           generatedCode,
@@ -208,7 +208,7 @@ void main() {
         );
       });
 
-      test('recursive type bound uses base type Comparable for erasure [2026-02-10 06:37]', () {
+      test('G-TE-9: Recursive type bound uses base type Comparable for erasure. [2026-02-10 06:37] (PASS)', () {
         // minValue<T extends Comparable<T>> - T should be erased to Comparable
         expect(
           generatedCode,
@@ -222,7 +222,7 @@ void main() {
         );
       });
 
-      test('class with recursive type bound parameter is bridged [2026-02-10 06:37]', () {
+      test('G-TE-10: Class with recursive type bound parameter is bridged. [2026-02-10 06:37] (PASS)', () {
         // SortableContainer<E extends Comparable<E>>
         expect(
           generatedCode,
@@ -231,7 +231,7 @@ void main() {
         );
       });
 
-      test('methods on class with recursive bound are included [2026-02-10 06:37]', () {
+      test('G-TE-11: Methods on class with recursive bound are included. [2026-02-10 06:37] (PASS)', () {
         // SortableContainer.sorted() and minimum()
         expect(
           generatedCode,

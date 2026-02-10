@@ -9,7 +9,7 @@ void main() {
       d4rt = D4rt();
     });
 
-    test('nullable types are supported [2026-02-10 06:37]', () {
+    test('I-MISC-382: Nullable types are supported. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         main() {
           String? nullableString = null;
@@ -23,7 +23,7 @@ void main() {
       expect(result, 'null_detected');
     });
 
-    test('null assertion operator (!) works [2026-02-10 06:37]', () {
+    test('I-MISC-389: Null assertion operator (!) works. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         main() {
           String? nullableString = 'hello';
@@ -35,7 +35,7 @@ void main() {
       expect(result, 'hello');
     });
 
-    test('null assertion operator (!) throws on null values [2026-02-10 06:37]', () {
+    test('I-MISC-390: Null assertion operator (!) throws on null values. [2026-02-10 06:37] (PASS)', () {
       expect(() => d4rt.execute(source: '''
         main() {
           String? nullableString = null;
@@ -45,7 +45,7 @@ void main() {
       '''), throwsA(isA<RuntimeD4rtException>()));
     });
 
-    test('null-aware access operator (?.) returns null for null values [2026-02-10 06:37]', () {
+    test('I-MISC-391: Null-aware access operator (?.) returns null for null values. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         class Person {
           String name = 'John';
@@ -61,7 +61,7 @@ void main() {
       expect(result, null);
     });
 
-    test('null-aware access operator (?.) works for non-null values [2026-02-10 06:37]', () {
+    test('I-MISC-392: Null-aware access operator (?.) works for non-null values. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         class Person {
           String name = 'John';
@@ -77,7 +77,7 @@ void main() {
       expect(result, 'John');
     });
 
-    test('null coalescing operator (??) chooses right side for null left [2026-02-10 06:37]', () {
+    test('I-MISC-393: Null coalescing operator (??) chooses right side for null left. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         main() {
           String? maybeValue = null;
@@ -89,7 +89,7 @@ void main() {
       expect(result, 'default');
     });
 
-    test('null coalescing operator (??) chooses left side for non-null left [2026-02-10 06:37]',
+    test('I-MISC-394: Null coalescing operator (??) chooses left side for non-null left. [2026-02-10 06:37] (PASS)',
         () {
       final result = d4rt.execute(source: '''
         main() {
@@ -102,7 +102,7 @@ void main() {
       expect(result, 'actual');
     });
 
-    test('null-aware assignment operator (??=) assigns if null [2026-02-10 06:37]', () {
+    test('I-MISC-380: Null-aware assignment operator (??=) assigns if null. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         main() {
           String? value = null;
@@ -114,7 +114,7 @@ void main() {
       expect(result, 'assigned');
     });
 
-    test('null-aware assignment operator (??=) does not assign if not null [2026-02-10 06:37]',
+    test('I-MISC-381: Null-aware assignment operator (??=) does not assign if not null. [2026-02-10 06:37] (PASS)',
         () {
       final result = d4rt.execute(source: '''
         main() {
@@ -127,7 +127,7 @@ void main() {
       expect(result, 'original');
     });
 
-    test('null-aware method call (?.) returns null for null receiver [2026-02-10 06:37]', () {
+    test('I-MISC-383: Null-aware method call (?.) returns null for null receiver. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         class Person {
           String getName() => 'John';
@@ -143,7 +143,7 @@ void main() {
       expect(result, null);
     });
 
-    test('null-aware method call (?.) works for non-null receiver [2026-02-10 06:37]', () {
+    test('I-MISC-384: Null-aware method call (?.) works for non-null receiver. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         class Person {
           String getName() => 'John';
@@ -159,7 +159,7 @@ void main() {
       expect(result, 'John');
     });
 
-    test('spread null-aware operator (...?) skips null collections [2026-02-10 06:37]', () {
+    test('I-MISC-385: Spread null-aware operator (...?) skips null collections. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         main() {
           List<int>? nullList = null;
@@ -171,7 +171,7 @@ void main() {
       expect(result, [1, 2, 3]);
     });
 
-    test('spread null-aware operator (...?) includes non-null collections [2026-02-10 06:37]', () {
+    test('I-MISC-386: Spread null-aware operator (...?) includes non-null collections. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         main() {
           List<int>? nonNullList = [10, 20];
@@ -183,7 +183,7 @@ void main() {
       expect(result, [1, 2, 10, 20, 3]);
     });
 
-    test('chained null-aware access works correctly [2026-02-10 06:37]', () {
+    test('I-MISC-387: Chained null-aware access works correctly. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         class Address {
           String street = 'Main St';
@@ -203,7 +203,7 @@ void main() {
       expect(result, null);
     });
 
-    test('mixed null safety operators work together [2026-02-10 06:37]', () {
+    test('I-MISC-388: Mixed null safety operators work together. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(source: '''
         class Config {
           String? getValue() => null;

@@ -50,7 +50,7 @@ void main() {
     // ── Top-Level Exportables ──────────────────────────────────────
 
     group('TOP: Top-Level Exportables', () {
-      test('TOP01: concrete class [2026-02-10 06:37]', () async {
+      test('G-COV-42: TOP01: concrete class. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top01_concrete_class.dart',
@@ -59,7 +59,7 @@ void main() {
         expect(result.processOutput, contains('TOP01_PASSED'));
       });
 
-      test('TOP02: abstract class [2026-02-10 06:37]', () async {
+      test('G-COV-51: TOP02: abstract class. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top02_abstract_class.dart',
@@ -68,7 +68,7 @@ void main() {
         expect(result.processOutput, contains('TOP02_PASSED'));
       });
 
-      test('TOP03: sealed class [2026-02-10 06:37]', () async {
+      test('G-COV-60: TOP03: sealed class. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top03_sealed_class.dart',
@@ -77,7 +77,7 @@ void main() {
         expect(result.processOutput, contains('TOP03_PASSED'));
       });
 
-      test('TOP04: base class [2026-02-10 06:37]', () async {
+      test('G-COV-68: TOP04: base class. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top04_base_class.dart',
@@ -86,7 +86,7 @@ void main() {
         expect(result.processOutput, contains('TOP04_PASSED'));
       });
 
-      test('TOP05: interface class [2026-02-10 06:37]', () async {
+      test('G-COV-69: TOP05: interface class. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top05_interface_class.dart',
@@ -95,7 +95,7 @@ void main() {
         expect(result.processOutput, contains('TOP05_PASSED'));
       });
 
-      test('TOP06: final class [2026-02-10 06:37]', () async {
+      test('G-COV-74: TOP06: final class. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top06_final_class.dart',
@@ -104,7 +104,7 @@ void main() {
         expect(result.processOutput, contains('TOP06_PASSED'));
       });
 
-      test('TOP07: mixin class [2026-02-10 06:37]', () async {
+      test('G-COV-1: TOP07: mixin class. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top07_mixin_class.dart',
@@ -113,7 +113,7 @@ void main() {
         expect(result.processOutput, contains('TOP07_PASSED'));
       });
 
-      test('TOP08: simple enum (GEN-044: .values not bridged) [2026-02-10 06:37]', () async {
+      test('G-COV-2: TOP08: simple enum (GEN-044: .values not bridged). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top08_simple_enum.dart',
@@ -122,7 +122,7 @@ void main() {
         expect(result.processOutput, contains('TOP08_PASSED'));
       });
 
-      test('TOP09: enhanced enum fields [2026-02-10 06:37]', () async {
+      test('G-COV-3: TOP09: enhanced enum fields. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top09_enhanced_enum_fields.dart',
@@ -131,7 +131,7 @@ void main() {
         expect(result.processOutput, contains('TOP09_PASSED'));
       });
 
-      test('TOP10: enhanced enum methods [2026-02-10 06:37]', () async {
+      test('G-COV-4: TOP10: enhanced enum methods. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top10_enhanced_enum_methods.dart',
@@ -140,7 +140,7 @@ void main() {
         expect(result.processOutput, contains('TOP10_PASSED'));
       });
 
-      test('TOP11: enhanced enum implements [2026-02-10 06:37]', () async {
+      test('G-COV-5: TOP11: enhanced enum implements. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top11_enhanced_enum_implements.dart',
@@ -149,7 +149,7 @@ void main() {
         expect(result.processOutput, contains('TOP11_PASSED'));
       });
 
-      test('G-TOP-12: enhanced enum with mixin [2026-02-10 08:00]', () async {
+      test('G-TOP-12: Enhanced enum with mixin. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top12_enhanced_enum_mixin.dart',
@@ -158,7 +158,7 @@ void main() {
         expect(result.processOutput, contains('TOP12_PASSED'));
       });
 
-      test('TOP14: mixin [2026-02-10 06:37]', () async {
+      test('G-COV-6: TOP14: mixin. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top14_mixin.dart',
@@ -167,7 +167,7 @@ void main() {
         expect(result.processOutput, contains('TOP14_PASSED'));
       });
 
-      test('G-TOP-13: generic enum N/A Dart limit [2026-02-10 08:00]', () async {
+      test('G-TOP-13: Generic enum N/A Dart limit. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top13_generic_enum.dart',
@@ -176,7 +176,7 @@ void main() {
         expect(result.processOutput, contains('TOP13_PASSED'));
       });
 
-      test('TOP15: base mixin [2026-02-10 06:37]', () async {
+      test('G-COV-7: TOP15: base mixin. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top15_base_mixin.dart',
@@ -185,7 +185,7 @@ void main() {
         expect(result.processOutput, contains('TOP15_PASSED'));
       });
 
-      test('TOP16: named extension (not supported) [2026-02-10 06:37]', () async {
+      test('G-COV-8: TOP16: named extension (not supported). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top16_named_extension.dart',
@@ -194,7 +194,7 @@ void main() {
         expect(result.processOutput, contains('TOP16_PASSED'));
       });
 
-      test('TOP17: anonymous extension (not supported) [2026-02-10 06:37]', () async {
+      test('G-COV-9: TOP17: anonymous extension (not supported). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top17_anonymous_extension.dart',
@@ -203,7 +203,7 @@ void main() {
         expect(result.processOutput, contains('TOP17_PASSED'));
       });
 
-      test('TOP18: extension type (not supported) [2026-02-10 06:37]', () async {
+      test('G-COV-10: TOP18: extension type (not supported). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top18_extension_type.dart',
@@ -212,7 +212,7 @@ void main() {
         expect(result.processOutput, contains('TOP18_PASSED'));
       });
 
-      test('G-TOP-19: typedef function not needed [2026-02-10 08:00]', () async {
+      test('G-TOP-19: Typedef function not needed. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top19_typedef_function.dart',
@@ -221,7 +221,7 @@ void main() {
         expect(result.processOutput, contains('TOP19_PASSED'));
       });
 
-      test('TOP20: typedef (type alias, not needed) [2026-02-10 06:37]', () async {
+      test('G-COV-11: TOP20: typedef (type alias, not needed). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top20_typedef_type_alias.dart',
@@ -230,7 +230,7 @@ void main() {
         expect(result.processOutput, contains('TOP20_PASSED'));
       });
 
-      test('TOP21: typedef (generic, not needed) [2026-02-10 06:37]', () async {
+      test('G-COV-12: TOP21: typedef (generic, not needed). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top21_typedef_generic.dart',
@@ -239,7 +239,7 @@ void main() {
         expect(result.processOutput, contains('TOP21_PASSED'));
       });
 
-      test('TOP22: top-level function [2026-02-10 06:37]', () async {
+      test('G-COV-13: TOP22: top-level function. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top22_toplevel_function.dart',
@@ -248,7 +248,7 @@ void main() {
         expect(result.processOutput, contains('TOP22_PASSED'));
       });
 
-      test('TOP25: top-level variable [2026-02-10 06:37]', () async {
+      test('G-COV-14: TOP25: top-level variable. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top25_toplevel_variable.dart',
@@ -257,7 +257,7 @@ void main() {
         expect(result.processOutput, contains('TOP25_PASSED'));
       });
 
-      test('TOP26: top-level const [2026-02-10 06:37]', () async {
+      test('G-COV-15: TOP26: top-level const. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top26_toplevel_const.dart',
@@ -266,7 +266,7 @@ void main() {
         expect(result.processOutput, contains('TOP26_PASSED'));
       });
 
-      test('TOP27: top-level getter [2026-02-10 06:37]', () async {
+      test('G-COV-16: TOP27: top-level getter. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top27_toplevel_getter.dart',
@@ -275,7 +275,7 @@ void main() {
         expect(result.processOutput, contains('TOP27_PASSED'));
       });
 
-      test('TOP23: top-level generic function [2026-02-10 06:37]', () async {
+      test('G-COV-17: TOP23: top-level generic function. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top23_toplevel_generic_function.dart',
@@ -284,7 +284,7 @@ void main() {
         expect(result.processOutput, contains('TOP23_PASSED'));
       });
 
-      test('G-TOP-24: top-level async function [2026-02-10 08:00]', () async {
+      test('G-TOP-24: Top-level async function. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top24_async_function.dart',
@@ -293,7 +293,7 @@ void main() {
         expect(result.processOutput, contains('TOP24_PASSED'));
       });
 
-      test('G-TOP-28: top-level setter [2026-02-10 08:00]', () async {
+      test('G-TOP-28: Top-level setter. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top28_toplevel_setter.dart',
@@ -302,7 +302,7 @@ void main() {
         expect(result.processOutput, contains('TOP28_PASSED'));
       });
 
-      test('TOP29: mixin application (class = with) [2026-02-10 06:37]', () async {
+      test('G-COV-18: TOP29: mixin application (class = with). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/top29_mixin_application.dart',
@@ -315,7 +315,7 @@ void main() {
     // ── Class Members ──────────────────────────────────────────────
 
     group('CLS: Class Members', () {
-      test('CLS01: instance field getter [2026-02-10 06:37]', () async {
+      test('G-COV-19: CLS01: instance field getter. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls01_field_getter.dart',
@@ -324,7 +324,7 @@ void main() {
         expect(result.processOutput, contains('CLS01_PASSED'));
       });
 
-      test('CLS02: instance field setter [2026-02-10 06:37]', () async {
+      test('G-COV-20: CLS02: instance field setter. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls02_field_setter.dart',
@@ -333,7 +333,7 @@ void main() {
         expect(result.processOutput, contains('CLS02_PASSED'));
       });
 
-      test('CLS03: final field [2026-02-10 06:37]', () async {
+      test('G-COV-21: CLS03: final field. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls03_final_field.dart',
@@ -342,7 +342,7 @@ void main() {
         expect(result.processOutput, contains('CLS03_PASSED'));
       });
 
-      test('CLS04: private field with public getter [2026-02-10 06:37]', () async {
+      test('G-COV-22: CLS04: private field with public getter. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls04_private_field_getter.dart',
@@ -351,7 +351,7 @@ void main() {
         expect(result.processOutput, contains('CLS04_PASSED'));
       });
 
-      test('CLS07: static field (mutable) [2026-02-10 06:37]', () async {
+      test('G-COV-23: CLS07: static field (mutable). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls07_static_field.dart',
@@ -360,7 +360,7 @@ void main() {
         expect(result.processOutput, contains('CLS07_PASSED'));
       });
 
-      test('CLS08: static const field (not in barrel) [2026-02-10 06:37]', () async {
+      test('G-COV-24: CLS08: static const field (not in barrel). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls08_static_const.dart',
@@ -369,7 +369,7 @@ void main() {
         expect(result.processOutput, contains('CLS08_PASSED'));
       });
 
-      test('CLS09: computed getter [2026-02-10 06:37]', () async {
+      test('G-COV-25: CLS09: computed getter. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls09_computed_getter.dart',
@@ -378,7 +378,7 @@ void main() {
         expect(result.processOutput, contains('CLS09_PASSED'));
       });
 
-      test('CLS10: explicit setter [2026-02-10 06:37]', () async {
+      test('G-COV-26: CLS10: explicit setter. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls10_explicit_setter.dart',
@@ -387,7 +387,7 @@ void main() {
         expect(result.processOutput, contains('CLS10_PASSED'));
       });
 
-      test('CLS11: static method [2026-02-10 06:37]', () async {
+      test('G-COV-27: CLS11: static method. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls11_static_method.dart',
@@ -396,7 +396,7 @@ void main() {
         expect(result.processOutput, contains('CLS11_PASSED'));
       });
 
-      test('CLS14: instance method [2026-02-10 06:37]', () async {
+      test('G-COV-28: CLS14: instance method. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls14_instance_method.dart',
@@ -405,7 +405,7 @@ void main() {
         expect(result.processOutput, contains('CLS14_PASSED'));
       });
 
-      test('CLS15: abstract method [2026-02-10 06:37]', () async {
+      test('G-COV-29: CLS15: abstract method. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls15_abstract_method.dart',
@@ -414,7 +414,7 @@ void main() {
         expect(result.processOutput, contains('CLS15_PASSED'));
       });
 
-      test('CLS16: toString override [2026-02-10 06:37]', () async {
+      test('G-COV-30: CLS16: toString override. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls16_tostring.dart',
@@ -423,7 +423,7 @@ void main() {
         expect(result.processOutput, contains('CLS16_PASSED'));
       });
 
-      test('CLS05: nullable instance field [2026-02-10 06:37]', () async {
+      test('G-COV-31: CLS05: nullable instance field. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls05_nullable_field.dart',
@@ -432,7 +432,7 @@ void main() {
         expect(result.processOutput, contains('CLS05_PASSED'));
       });
 
-      test('G-CLS-6: late field [2026-02-10 08:00]', () async {
+      test('G-CLS-6: Late field. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls06_late_field.dart',
@@ -441,7 +441,7 @@ void main() {
         expect(result.processOutput, contains('CLS06_PASSED'));
       });
 
-      test('CLS12: static getter [2026-02-10 06:37]', () async {
+      test('G-COV-32: CLS12: static getter. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls12_static_getter.dart',
@@ -450,7 +450,7 @@ void main() {
         expect(result.processOutput, contains('CLS12_PASSED'));
       });
 
-      test('CLS13: static setter [2026-02-10 06:37]', () async {
+      test('G-COV-33: CLS13: static setter. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls13_static_setter.dart',
@@ -459,7 +459,7 @@ void main() {
         expect(result.processOutput, contains('CLS13_PASSED'));
       });
 
-      test('CLS17: call() method (callable class) [2026-02-10 06:37]', () async {
+      test('G-COV-34: CLS17: call() method (callable class). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls17_call_method.dart',
@@ -472,7 +472,7 @@ void main() {
     // ── Constructors ───────────────────────────────────────────────
 
     group('CTOR: Constructors', () {
-      test('CTOR01: unnamed constructor [2026-02-10 06:37]', () async {
+      test('G-COV-35: CTOR01: unnamed constructor. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/ctor01_unnamed.dart',
@@ -481,7 +481,7 @@ void main() {
         expect(result.processOutput, contains('CTOR01_PASSED'));
       });
 
-      test('CTOR02: implicit default constructor (GEN-042) [2026-02-10 06:37]', () async {
+      test('G-COV-36: CTOR02: implicit default constructor (GEN-042). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/ctor02_implicit_default.dart',
@@ -490,7 +490,7 @@ void main() {
         expect(result.processOutput, contains('CTOR02_PASSED'));
       });
 
-      test('CTOR03: named constructor [2026-02-10 06:37]', () async {
+      test('G-COV-37: CTOR03: named constructor. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/ctor03_named.dart',
@@ -499,7 +499,7 @@ void main() {
         expect(result.processOutput, contains('CTOR03_PASSED'));
       });
 
-      test('CTOR04: factory-like constructor (fromMap) [2026-02-10 06:37]', () async {
+      test('G-COV-38: CTOR04: factory-like constructor (fromMap). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/ctor04_factory.dart',
@@ -508,7 +508,7 @@ void main() {
         expect(result.processOutput, contains('CTOR04_PASSED'));
       });
 
-      test('CTOR05: const constructor [2026-02-10 06:37]', () async {
+      test('G-COV-39: CTOR05: const constructor. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/ctor05_const.dart',
@@ -517,7 +517,7 @@ void main() {
         expect(result.processOutput, contains('CTOR05_PASSED'));
       });
 
-      test('CTOR06: redirecting constructor [2026-02-10 06:37]', () async {
+      test('G-COV-40: CTOR06: redirecting constructor. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/ctor06_redirecting.dart',
@@ -526,7 +526,7 @@ void main() {
         expect(result.processOutput, contains('CTOR06_PASSED'));
       });
 
-      test('CTOR07: private constructor + factory [2026-02-10 06:37]', () async {
+      test('G-COV-41: CTOR07: private constructor + factory. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/ctor07_private.dart',
@@ -535,7 +535,7 @@ void main() {
         expect(result.processOutput, contains('CTOR07_PASSED'));
       });
 
-      test('CTOR08: super parameters [2026-02-10 06:37]', () async {
+      test('G-COV-43: CTOR08: super parameters. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/ctor08_super_params.dart',
@@ -548,7 +548,7 @@ void main() {
     // ── Parameters ─────────────────────────────────────────────────
 
     group('PAR: Parameters', () {
-      test('PAR01: required positional [2026-02-10 06:37]', () async {
+      test('G-COV-44: PAR01: required positional. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/par01_required_positional.dart',
@@ -557,7 +557,7 @@ void main() {
         expect(result.processOutput, contains('PAR01_PASSED'));
       });
 
-      test('PAR02: optional positional [2026-02-10 06:37]', () async {
+      test('G-COV-45: PAR02: optional positional. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/par02_optional_positional.dart',
@@ -566,7 +566,7 @@ void main() {
         expect(result.processOutput, contains('PAR02_PASSED'));
       });
 
-      test('PAR03: named parameters (not in barrel) [2026-02-10 06:37]', () async {
+      test('G-COV-46: PAR03: named parameters (not in barrel). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/par03_named_params.dart',
@@ -575,7 +575,7 @@ void main() {
         expect(result.processOutput, contains('PAR03_PASSED'));
       });
 
-      test('PAR04: required named [2026-02-10 06:37]', () async {
+      test('G-COV-47: PAR04: required named. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/par04_required_named.dart',
@@ -584,7 +584,7 @@ void main() {
         expect(result.processOutput, contains('PAR04_PASSED'));
       });
 
-      test('PAR05: default values [2026-02-10 06:37]', () async {
+      test('G-COV-48: PAR05: default values. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/par05_default_values.dart',
@@ -593,7 +593,7 @@ void main() {
         expect(result.processOutput, contains('PAR05_PASSED'));
       });
 
-      test('G-PAR-6: function-typed parameter [2026-02-10 08:00]', () async {
+      test('G-PAR-6: Function-typed parameter. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/par06_function_typed_param.dart',
@@ -606,7 +606,7 @@ void main() {
     // ── Generics ───────────────────────────────────────────────────
 
     group('GNRC: Generics', () {
-      test('GNRC01: single type parameter [2026-02-10 06:37]', () async {
+      test('G-COV-49: GNRC01: single type parameter. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/gnrc01_single_type_param.dart',
@@ -615,7 +615,7 @@ void main() {
         expect(result.processOutput, contains('GNRC01_PASSED'));
       });
 
-      test('GNRC02: two type parameters [2026-02-10 06:37]', () async {
+      test('G-COV-50: GNRC02: two type parameters. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/gnrc02_two_type_params.dart',
@@ -624,7 +624,7 @@ void main() {
         expect(result.processOutput, contains('GNRC02_PASSED'));
       });
 
-      test('GNRC04: generic method [2026-02-10 06:37]', () async {
+      test('G-COV-52: GNRC04: generic method. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/gnrc04_generic_method.dart',
@@ -633,7 +633,7 @@ void main() {
         expect(result.processOutput, contains('GNRC04_PASSED'));
       });
 
-      test('GNRC06: generic collection (Stack/Queue, GEN-042) [2026-02-10 06:37]', () async {
+      test('G-COV-53: GNRC06: generic collection (Stack/Queue, GEN-042). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/gnrc06_generic_collection.dart',
@@ -642,7 +642,7 @@ void main() {
         expect(result.processOutput, contains('GNRC06_PASSED'));
       });
 
-      test('GNRC03: upper bound constraint [2026-02-10 06:37]', () async {
+      test('G-COV-54: GNRC03: upper bound constraint. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/gnrc03_upper_bound.dart',
@@ -651,7 +651,7 @@ void main() {
         expect(result.processOutput, contains('GNRC03_PASSED'));
       });
 
-      test('GNRC05: generic static factory [2026-02-10 06:37]', () async {
+      test('G-COV-55: GNRC05: generic static factory. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/gnrc05_generic_static_factory.dart',
@@ -660,7 +660,7 @@ void main() {
         expect(result.processOutput, contains('GNRC05_PASSED'));
       });
 
-      test('G-GNRC-7: F-bounded polymorphism [2026-02-10 08:00]', () async {
+      test('G-GNRC-7: F-bounded polymorphism. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/gnrc07_fbounded_polymorphism.dart',
@@ -673,7 +673,7 @@ void main() {
     // ── Inheritance ────────────────────────────────────────────────
 
     group('INH: Inheritance', () {
-      test('INH01: single-level extends [2026-02-10 06:37]', () async {
+      test('G-COV-56: INH01: single-level extends. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/inh01_single_extends.dart',
@@ -682,7 +682,7 @@ void main() {
         expect(result.processOutput, contains('INH01_PASSED'));
       });
 
-      test('INH02: multi-level extends [2026-02-10 06:37]', () async {
+      test('G-COV-57: INH02: multi-level extends. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/inh02_multi_extends.dart',
@@ -691,7 +691,7 @@ void main() {
         expect(result.processOutput, contains('INH02_PASSED'));
       });
 
-      test('INH03: implements (interface) [2026-02-10 06:37]', () async {
+      test('G-COV-58: INH03: implements (interface). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/inh03_implements.dart',
@@ -700,7 +700,7 @@ void main() {
         expect(result.processOutput, contains('INH03_PASSED'));
       });
 
-      test('INH04: mixin with [2026-02-10 06:37]', () async {
+      test('G-COV-59: INH04: mixin with. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/inh04_mixin_with.dart',
@@ -709,7 +709,7 @@ void main() {
         expect(result.processOutput, contains('INH04_PASSED'));
       });
 
-      test('INH05: super constructor call [2026-02-10 06:37]', () async {
+      test('G-COV-61: INH05: super constructor call. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/inh05_super_ctor.dart',
@@ -718,7 +718,7 @@ void main() {
         expect(result.processOutput, contains('INH05_PASSED'));
       });
 
-      test('INH06: method override [2026-02-10 06:37]', () async {
+      test('G-COV-62: INH06: method override. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/inh06_method_override.dart',
@@ -747,7 +747,7 @@ void main() {
     // ── Operators ──────────────────────────────────────────────────
 
     group('OP: Operators', () {
-      test('OP05: operator / (divide) [2026-02-10 06:37]', () async {
+      test('G-COV-63: OP05: operator / (divide). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/op05_operator_divide.dart',
@@ -756,7 +756,7 @@ void main() {
         expect(result.processOutput, contains('OP05_PASSED'));
       });
 
-      test('OP06: operator ~/ (integer divide) [2026-02-10 06:37]', () async {
+      test('G-COV-64: OP06: operator ~/ (integer divide). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/op06_operator_integer_divide.dart',
@@ -765,7 +765,7 @@ void main() {
         expect(result.processOutput, contains('OP06_PASSED'));
       });
 
-      test('OP07: operator % (modulo) [2026-02-10 06:37]', () async {
+      test('G-COV-65: OP07: operator % (modulo). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/op07_operator_modulo.dart',
@@ -774,7 +774,7 @@ void main() {
         expect(result.processOutput, contains('OP07_PASSED'));
       });
 
-      test('G-OP-8: operator == equality [2026-02-10 08:00]', () async {
+      test('G-OP-8: Operator == equality. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/op08_operator_equals.dart',
@@ -783,7 +783,7 @@ void main() {
         expect(result.processOutput, contains('OP08_PASSED'));
       });
 
-      test('OP09: comparison operators (compareTo) [2026-02-10 06:37]', () async {
+      test('G-COV-66: OP09: comparison operators (compareTo). [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/op09_comparison_operators.dart',
@@ -792,7 +792,7 @@ void main() {
         expect(result.processOutput, contains('OP09_PASSED'));
       });
 
-      test('OP12: bitwise operators [2026-02-10 06:37]', () async {
+      test('G-COV-67: OP12: bitwise operators. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/op12_bitwise_operators.dart',
@@ -805,7 +805,7 @@ void main() {
     // ── Async ──────────────────────────────────────────────────────
 
     group('ASYNC: Async Features', () {
-      test('G-ASYNC-1: async function Future [2026-02-10 08:00]', () async {
+      test('G-ASYNC-1: Async function Future. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/async01_async_function.dart',
@@ -814,7 +814,7 @@ void main() {
         expect(result.processOutput, contains('ASYNC01_PASSED'));
       });
 
-      test('G-ASYNC-2: async* generator Stream [2026-02-10 08:00]', () async {
+      test('G-ASYNC-2: Async* generator Stream. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/async02_async_generator.dart',
@@ -823,7 +823,7 @@ void main() {
         expect(result.processOutput, contains('ASYNC02_PASSED'));
       });
 
-      test('G-ASYNC-3: sync* generator Iterable [2026-02-10 08:00]', () async {
+      test('G-ASYNC-3: Sync* generator Iterable. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/async03_sync_generator.dart',
@@ -832,7 +832,7 @@ void main() {
         expect(result.processOutput, contains('ASYNC03_PASSED'));
       });
 
-      test('G-ASYNC-4: callback parameter Function [2026-02-10 08:00]', () async {
+      test('G-ASYNC-4: Callback parameter Function. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/async04_callback_param.dart',
@@ -841,7 +841,7 @@ void main() {
         expect(result.processOutput, contains('ASYNC04_PASSED'));
       });
 
-      test('G-ASYNC-5: instance async method Future [2026-02-10 08:00]', () async {
+      test('G-ASYNC-5: Instance async method Future. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/async05_instance_async_method.dart',
@@ -850,7 +850,7 @@ void main() {
         expect(result.processOutput, contains('ASYNC05_PASSED'));
       });
 
-      test('G-ASYNC-6: instance sync* method Iterable [2026-02-10 08:00]', () async {
+      test('G-ASYNC-6: Instance sync* method Iterable. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/async06_instance_sync_generator.dart',
@@ -859,7 +859,7 @@ void main() {
         expect(result.processOutput, contains('ASYNC06_PASSED'));
       });
 
-      test('G-ASYNC-7: instance async* method Stream [2026-02-10 08:00]', () async {
+      test('G-ASYNC-7: Instance async* method Stream. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/async07_instance_async_generator.dart',
@@ -868,7 +868,7 @@ void main() {
         expect(result.processOutput, contains('ASYNC07_PASSED'));
       });
 
-      test('G-ASYNC-8: static sync*/async* method [2026-02-10 08:00]', () async {
+      test('G-ASYNC-8: Static sync*/async* method. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/async08_static_generators.dart',
@@ -881,7 +881,7 @@ void main() {
     // ── Types ──────────────────────────────────────────────────────
 
     group('TYPE: Type Features', () {
-      test('G-TYPE-1: record parameter [2026-02-10 08:00]', () async {
+      test('G-TYPE-1: Record parameter. [2026-02-10 06:37] (FAIL)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/type01_record_param.dart',
@@ -890,7 +890,7 @@ void main() {
         expect(result.processOutput, contains('TYPE01_PASSED'));
       });
 
-      test('G-TYPE-2: record return type [2026-02-10 08:00]', () async {
+      test('G-TYPE-2: Record return type. [2026-02-10 06:37] (FAIL)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/type02_record_return.dart',
@@ -899,7 +899,7 @@ void main() {
         expect(result.processOutput, contains('TYPE02_PASSED'));
       });
 
-      test('TYPE03: nullable parameter [2026-02-10 06:37]', () async {
+      test('G-COV-70: TYPE03: nullable parameter. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/type03_nullable_param.dart',
@@ -908,7 +908,7 @@ void main() {
         expect(result.processOutput, contains('TYPE03_PASSED'));
       });
 
-      test('TYPE04: nullable return type [2026-02-10 06:37]', () async {
+      test('G-COV-71: TYPE04: nullable return type. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/type04_nullable_return.dart',
@@ -917,7 +917,7 @@ void main() {
         expect(result.processOutput, contains('TYPE04_PASSED'));
       });
 
-      test('TYPE05: dynamic type [2026-02-10 06:37]', () async {
+      test('G-COV-72: TYPE05: dynamic type. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/type05_dynamic.dart',
@@ -930,7 +930,7 @@ void main() {
     // ── Visibility ─────────────────────────────────────────────────
 
     group('VIS: Visibility', () {
-      test('VIS03: show/hide combinators [2026-02-10 06:37]', () async {
+      test('G-COV-73: VIS03: show/hide combinators. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/vis03_show_hide.dart',

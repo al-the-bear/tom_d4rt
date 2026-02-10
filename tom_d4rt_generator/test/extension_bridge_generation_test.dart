@@ -83,73 +83,73 @@ void main() {
       generatedCode = await File(result.outputFiles.first).readAsString();
     });
 
-    test('generates bridgedExtensions() method [2026-02-10 06:37]', () {
+    test('G-EXT-10: Generates bridgedExtensions() method. [2026-02-10 06:37] (PASS)', () {
       expect(generatedCode, contains('static List<BridgedExtensionDefinition> bridgedExtensions()'));
     });
 
-    test('generates extensionSourceUris() method [2026-02-10 06:37]', () {
+    test('G-EXT-11: Generates extensionSourceUris() method. [2026-02-10 06:37] (PASS)', () {
       expect(generatedCode, contains('static Map<String, String> extensionSourceUris()'));
     });
     
-    test('generates StringHelpers extension [2026-02-10 06:37]', () {
+    test('G-EXT-12: Generates StringHelpers extension. [2026-02-10 06:37] (PASS)', () {
       expect(generatedCode, contains("name: 'StringHelpers'"));
       expect(generatedCode, contains("onTypeName: 'String'"));
     });
 
-    test('generates isPalindrome getter for StringHelpers [2026-02-10 06:37]', () {
+    test('G-EXT-13: Generates isPalindrome getter for StringHelpers. [2026-02-10 06:37] (PASS)', () {
       final section = _extractSection(generatedCode, 'bridgedExtensions');
       expect(section, isNotNull);
       expect(section, contains("'isPalindrome'"));
     });
 
-    test('generates reversed getter for StringHelpers [2026-02-10 06:37]', () {
+    test('G-EXT-1: Generates reversed getter for StringHelpers. [2026-02-10 06:37] (PASS)', () {
       final section = _extractSection(generatedCode, 'bridgedExtensions');
       expect(section, isNotNull);
       expect(section, contains("'reversed'"));
     });
 
-    test('generates repeat method for StringHelpers [2026-02-10 06:37]', () {
+    test('G-EXT-2: Generates repeat method for StringHelpers. [2026-02-10 06:37] (PASS)', () {
       final section = _extractSection(generatedCode, 'bridgedExtensions');
       expect(section, isNotNull);
       expect(section, contains("'repeat'"));
     });
 
-    test('generates surround method for StringHelpers [2026-02-10 06:37]', () {
+    test('G-EXT-3: Generates surround method for StringHelpers. [2026-02-10 06:37] (PASS)', () {
       final section = _extractSection(generatedCode, 'bridgedExtensions');
       expect(section, isNotNull);
       expect(section, contains("'surround'"));
     });
 
-    test('generates DateTimeHelpers extension [2026-02-10 06:37]', () {
+    test('G-EXT-4: Generates DateTimeHelpers extension. [2026-02-10 06:37] (PASS)', () {
       expect(generatedCode, contains("name: 'DateTimeHelpers'"));
       expect(generatedCode, contains("onTypeName: 'DateTime'"));
     });
 
-    test('generates PointExtensions extension [2026-02-10 06:37]', () {
+    test('G-EXT-5: Generates PointExtensions extension. [2026-02-10 06:37] (PASS)', () {
       expect(generatedCode, contains("name: 'PointExtensions'"));
       expect(generatedCode, contains("onTypeName: 'Point'"));
     });
 
-    test('generates magnitude getter for PointExtensions [2026-02-10 06:37]', () {
+    test('G-EXT-6: Generates magnitude getter for PointExtensions. [2026-02-10 06:37] (PASS)', () {
       final section = _extractSection(generatedCode, 'bridgedExtensions');
       expect(section, isNotNull);
       expect(section, contains("'magnitude'"));
     });
 
-    test('generates add method for PointExtensions [2026-02-10 06:37]', () {
+    test('G-EXT-7: Generates add method for PointExtensions. [2026-02-10 06:37] (PASS)', () {
       final section = _extractSection(generatedCode, 'bridgedExtensions');
       expect(section, isNotNull);
       // Check for method with name 'add' - could be in methods map
       expect(section, contains("'add'"));
     });
 
-    test('skips private extensions [2026-02-10 06:37]', () {
+    test('G-EXT-8: Skips private extensions. [2026-02-10 06:37] (PASS)', () {
       // _PrivateExtension should not be generated
       expect(generatedCode, isNot(contains("'_PrivateExtension'")));
       expect(generatedCode, isNot(contains("'secret'")));
     });
 
-    test('registers extensions in registerBridges() [2026-02-10 06:37]', () {
+    test('G-EXT-9: Registers extensions in registerBridges(). [2026-02-10 06:37] (PASS)', () {
       expect(generatedCode, contains('final extensions = bridgedExtensions()'));
       expect(generatedCode, contains('interpreter.registerBridgedExtension'));
     });

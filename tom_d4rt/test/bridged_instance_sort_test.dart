@@ -58,7 +58,7 @@ void main() {
           sortableItemBridge, 'package:test/sortable.dart');
     });
 
-    test('sorting a list of BridgedInstance Comparable elements [2026-02-10 06:37]', () async {
+    test('I-BRIDGE-20: Sorting a list of BridgedInstance Comparable elements. [2026-02-10 06:37] (PASS)', () async {
       final result = await interpreter.execute(source: '''
         import 'package:test/sortable.dart';
 
@@ -76,7 +76,7 @@ void main() {
       expect(result, equals([1, 2, 3]));
     });
 
-    test('sorting preserves wrapper after sort [2026-02-10 06:37]', () async {
+    test('I-BRIDGE-21: Sorting preserves wrapper after sort. [2026-02-10 06:37] (PASS)', () async {
       final result = await interpreter.execute(source: '''
         import 'package:test/sortable.dart';
 
@@ -94,7 +94,7 @@ void main() {
       expect(result, equals('first'));
     });
 
-    test('sorting with custom comparator still works [2026-02-10 06:37]', () async {
+    test('I-BRIDGE-22: Sorting with custom comparator still works. [2026-02-10 06:37] (PASS)', () async {
       final result = await interpreter.execute(source: '''
         import 'package:test/sortable.dart';
 
@@ -113,7 +113,7 @@ void main() {
       expect(result, equals([3, 2, 1]));
     });
 
-    test('sorting empty list does not throw [2026-02-10 06:37]', () async {
+    test('I-BRIDGE-16: Sorting empty list does not throw. [2026-02-10 06:37] (PASS)', () async {
       final result = await interpreter.execute(source: '''
         import 'package:test/sortable.dart';
 
@@ -127,7 +127,7 @@ void main() {
       expect(result, equals(0));
     });
 
-    test('sorting single element list works [2026-02-10 06:37]', () async {
+    test('I-BRIDGE-17: Sorting single element list works. [2026-02-10 06:37] (PASS)', () async {
       final result = await interpreter.execute(source: '''
         import 'package:test/sortable.dart';
 
@@ -141,7 +141,7 @@ void main() {
       expect(result, equals(42));
     });
 
-    test('sorting mixed list with integers still works [2026-02-10 06:37]', () async {
+    test('I-BRIDGE-18: Sorting mixed list with integers still works. [2026-02-10 06:37] (PASS)', () async {
       // Test that native int sorting still works
       final result = await interpreter.execute(source: '''
         List<int> main() {
@@ -154,7 +154,7 @@ void main() {
       expect(result, equals([1, 2, 3]));
     });
 
-    test('sorting with strings still works [2026-02-10 06:37]', () async {
+    test('I-BRIDGE-19: Sorting with strings still works. [2026-02-10 06:37] (PASS)', () async {
       final result = await interpreter.execute(source: '''
         List<String> main() {
           var items = ['banana', 'apple', 'cherry'];

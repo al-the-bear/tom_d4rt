@@ -3,7 +3,7 @@ import 'package:tom_d4rt/d4rt.dart';
 
 void main() {
   group('Export Tests', () {
-    test('Simple export: main imports B, B exports A [2026-02-10 06:37]', () {
+    test('I-MISC-43: Simple export: main imports B, B exports A. [2026-02-10 06:37] (PASS)', () {
       final Map<String, String> sources = {
         "d4rt-mem:/lib_A.dart": """
         String funcA() {
@@ -38,7 +38,7 @@ void main() {
               "Hello from funcA in lib_A | Variable A | Hello from funcB in lib_B"));
     });
 
-    test('Export with show: main imports B, B exports A show funcA, funcCommon [2026-02-10 06:37]',
+    test('I-MISC-42: Export with show: main imports B, B exports A show funcA, funcCommon. [2026-02-10 06:37] (PASS)',
         () {
       final Map<String, String> sources = {
         "d4rt-mem:/lib_A_common.dart": """
@@ -83,7 +83,7 @@ void main() {
       );
     });
 
-    test('Export with hide: main imports B, B exports A hide varA [2026-02-10 06:37]', () {
+    test('I-MISC-44: Export with hide: main imports B, B exports A hide varA. [2026-02-10 06:37] (PASS)', () {
       final Map<String, String> sources = {
         "d4rt-mem:/lib_A_common.dart": """
         String funcA() { return "funcA_val"; }
@@ -201,7 +201,7 @@ void main() {
       );
     });
 
-    test('Export conflict: local declaration vs. exported symbol [2026-02-10 06:37]', () {
+    test('I-MISC-40: Export conflict: local declaration vs. exported symbol. [2026-02-10 06:37] (PASS)', () {
       final Map<String, String> sources = {
         "d4rt-mem:/lib_Other_conflict.dart": """
       String commonName() { return "Hello from Other commonName"; }
@@ -230,7 +230,7 @@ void main() {
       );
     });
 
-    test('Export conflict: two different exports define the same symbol [2026-02-10 06:37]', () {
+    test('I-MISC-41: Export conflict: two different exports define the same symbol. [2026-02-10 06:37] (PASS)', () {
       final Map<String, String> sources = {
         "d4rt-mem:/lib_X.dart": """
       String conflictingSymbol() { return "from lib_X"; }

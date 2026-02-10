@@ -5,7 +5,7 @@ void main() {
   final d4rt = D4rt();
 
   group('SplayTreeMap Tests', () {
-    test('SplayTreeMap() constructor and basic properties, natural ordering [2026-02-10 06:37]',
+    test('I-COLL-82: SplayTreeMap() constructor and basic properties, natural ordering. [2026-02-10 06:37] (PASS)',
         () {
       final result = d4rt.execute(
         source: '''
@@ -28,7 +28,7 @@ void main() {
       expect(result[6], 3, reason: "lastKey");
     });
 
-    test('SplayTreeMap() with custom compare function (reverse order) [2026-02-10 06:37]', () {
+    test('I-COLL-79: SplayTreeMap() with custom compare function (reverse order). [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -48,7 +48,7 @@ void main() {
       expect(result[3], 1, reason: "lastKey (reverse)");
     });
 
-    test('SplayTreeMap.from() with natural ordering [2026-02-10 06:37]', () {
+    test('I-COLL-80: SplayTreeMap.from() with natural ordering. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -65,7 +65,7 @@ void main() {
           reason: "values from map");
     });
 
-    test('SplayTreeMap.from() with custom compare function [2026-02-10 06:37]', () {
+    test('I-COLL-81: SplayTreeMap.from() with custom compare function. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -84,7 +84,7 @@ void main() {
           reason: "values custom from map");
     });
 
-    test('SplayTreeMap.of() with natural ordering [2026-02-10 06:37]', () {
+    test('I-COLL-83: SplayTreeMap.of() with natural ordering. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -99,7 +99,7 @@ void main() {
       expect(result, orderedEquals([2, 5, 10]));
     });
 
-    test('[] and []= operators, sorted order maintained [2026-02-10 06:37]', () {
+    test('I-COLL-72: [] and []= operators, sorted order maintained. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -120,7 +120,7 @@ void main() {
       expect(result[3], 3, reason: "length after ops");
     });
 
-    test('addAll(), clear(), isEmpty, isNotEmpty [2026-02-10 06:37]', () {
+    test('I-COLL-73: AddAll(), clear(), isEmpty, isNotEmpty. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -154,7 +154,7 @@ void main() {
       expect(result[7], true, reason: "isEmpty e2");
     });
 
-    test('containsKey(), containsValue() [2026-02-10 06:37]', () {
+    test('I-COLL-74: ContainsKey(), containsValue(). [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -173,7 +173,7 @@ void main() {
       expect(result[3], false, reason: "containsValue v3");
     });
 
-    test('remove() and sorted order [2026-02-10 06:37]', () {
+    test('I-COLL-75: Remove() and sorted order. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -195,7 +195,7 @@ void main() {
       expect(result[3], 2, reason: "length after remove");
     });
 
-    test('forEach() and entries are sorted [2026-02-10 06:37]', () {
+    test('I-COLL-76: ForEach() and entries are sorted. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -226,7 +226,7 @@ void main() {
           reason: "entries values");
     });
 
-    test('putIfAbsent() and sorted order [2026-02-10 06:37]', () {
+    test('I-COLL-77: PutIfAbsent() and sorted order. [2026-02-10 06:37] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'dart:collection';
@@ -249,7 +249,7 @@ void main() {
           reason: "keys order after putIfAbsent");
     });
 
-    test('firstKey() / lastKey() on empty map throws error [2026-02-10 06:37]', () {
+    test('I-COLL-78: FirstKey() / lastKey() on empty map throws error. [2026-02-10 06:37] (PASS)', () {
       expect(() => d4rt.execute(source: '''
           import 'dart:collection';
           main() { SplayTreeMap().firstKey(); }

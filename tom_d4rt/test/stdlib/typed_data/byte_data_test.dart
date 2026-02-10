@@ -21,7 +21,7 @@ void main() {
   }
 
   group('ByteData Tests', () {
-    test('Constructor ByteData(length) and basic properties [2026-02-10 06:37]', () {
+    test('I-TYPE-78: Constructor ByteData(length) and basic properties. [2026-02-10 06:37] (PASS)', () {
       final result = executeTestScript('''
         var bd = new ByteData(10);
         return {
@@ -33,7 +33,7 @@ void main() {
       expect(result['elementSize'], 1);
     });
 
-    test('ByteData getInt8 and setInt8 [2026-02-10 06:37]', () {
+    test('I-TYPE-79: ByteData getInt8 and setInt8. [2026-02-10 06:37] (PASS)', () {
       final result = executeTestScript('''
         var bd = new ByteData(2);
         bd.setInt8(0, -5); // Max negative for int8 is -128
@@ -47,7 +47,7 @@ void main() {
       expect(result['val1'], 127);
     });
 
-    test('ByteData getUint16 and setUint16 (default Endian.big) [2026-02-10 06:37]', () {
+    test('I-TYPE-80: ByteData getUint16 and setUint16 (default Endian.big). [2026-02-10 06:37] (PASS)', () {
       final result = executeTestScript('''
         var bd = new ByteData(4);
         // Default Endian.big: MSB first
@@ -73,7 +73,7 @@ void main() {
       expect(result['byte3'], 0x12);
     });
 
-    test('ByteData getUint16 and setUint16 with explicit Endian [2026-02-10 06:37]', () {
+    test('I-TYPE-81: ByteData getUint16 and setUint16 with explicit Endian. [2026-02-10 06:37] (PASS)', () {
       final result = executeTestScript('''
         var bd = new ByteData(2);
         bd.setUint16(0, 0x1234, Endian.little);
@@ -96,7 +96,7 @@ void main() {
       expect(result['byte1'], 0x12);
     });
 
-    test('ByteData buffer property [2026-02-10 06:37]', () {
+    test('I-TYPE-82: ByteData buffer property. [2026-02-10 06:37] (PASS)', () {
       final result = executeTestScript('''
         var bd = new ByteData(3);
         var buffer = bd.buffer;
@@ -107,7 +107,7 @@ void main() {
       expect(result['bufferLength'], 3);
     });
 
-    test('Offset out of bounds throws error [2026-02-10 06:37]', () {
+    test('I-TYPE-77: Offset out of bounds throws error. [2026-02-10 06:37] (PASS)', () {
       expect(
         () => executeTestScript("var bd = new ByteData(1); bd.getInt8(1);"),
         throwsA(isA<RuntimeD4rtException>()),

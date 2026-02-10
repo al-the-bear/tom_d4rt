@@ -4,7 +4,7 @@ import '../interpreter_test.dart';
 
 void main() {
   group('Static Extension Members', () {
-    test('Static method in extension [2026-02-10 06:37]', () {
+    test('I-EXT-59: Static method in extension. [2026-02-10 06:37] (PASS)', () {
       const source = '''
         extension StringUtils on String {
           static String join(List<String> parts, String separator) {
@@ -25,7 +25,7 @@ void main() {
       expect(result, equals('a-b-c'));
     });
 
-    test('Static getter in extension [2026-02-10 06:37]', () {
+    test('I-EXT-55: Static getter in extension. [2026-02-10 06:37] (PASS)', () {
       const source = '''
         extension MathConstants on double {
           static double get pi => 3.14159;
@@ -39,7 +39,7 @@ void main() {
       expect(result, equals(3.14159));
     });
 
-    test('Static field in extension [2026-02-10 06:37]', () {
+    test('I-EXT-57: Static field in extension. [2026-02-10 06:37] (PASS)', () {
       const source = '''
         extension Counter on int {
           static int count = 0;
@@ -53,7 +53,7 @@ void main() {
       expect(result, equals(0));
     });
 
-    test('Static setter in extension [2026-02-10 06:37]', () {
+    test('I-EXT-58: Static setter in extension. [2026-02-10 06:37] (PASS)', () {
       const source = '''
         class Config {
           static String _mode = 'default';
@@ -76,7 +76,7 @@ void main() {
       expect(result, equals('production'));
     });
 
-    test('Multiple static members in extension [2026-02-10 06:37]', () {
+    test('I-EXT-60: Multiple static members in extension. [2026-02-10 06:37] (PASS)', () {
       const source = '''
         extension ListUtils on List {
           static int maxSize = 100;
@@ -106,7 +106,7 @@ void main() {
           ]));
     });
 
-    test('Static method calling another static method [2026-02-10 06:37]', () {
+    test('I-EXT-46: Static method calling another static method. [2026-02-10 06:37] (PASS)', () {
       const source = '''
         extension Calculator on num {
           static int add(int a, int b) {
@@ -130,7 +130,7 @@ void main() {
       expect(result, equals(14)); // (3 + 4) * 2
     });
 
-    test('Static field modification [2026-02-10 06:37]', () {
+    test('I-EXT-47: Static field modification. [2026-02-10 06:37] (PASS)', () {
       const source = '''
         extension AppState on String {
           static String currentUser = 'guest';
@@ -147,7 +147,7 @@ void main() {
       expect(result, equals(['guest', 'admin']));
     });
 
-    test('Static method with type parameters [2026-02-10 06:37]', () {
+    test('I-EXT-48: Static method with type parameters. [2026-02-10 06:37] (PASS)', () {
       const source = '''
         extension TypedUtils on Object {
           static T identity<T>(T value) {
@@ -165,7 +165,7 @@ void main() {
       expect(result, equals(['hello', 42]));
     });
 
-    test('Static getter returning computed value [2026-02-10 06:37]', () {
+    test('I-EXT-49: Static getter returning computed value. [2026-02-10 06:37] (PASS)', () {
       const source = '''
         extension TimeUtils on DateTime {
           static int callCount = 0;
@@ -186,7 +186,7 @@ void main() {
       expect(result, equals(3));
     });
 
-    test('Mix of static and instance members [2026-02-10 06:37]', () {
+    test('I-EXT-50: Mix of static and instance members. [2026-02-10 06:37] (PASS)', () {
       const source = '''
         extension StringExt on String {
           static String prefix = 'PREFIX: ';
@@ -205,7 +205,7 @@ void main() {
       expect(result, equals('PREFIX: test'));
     });
 
-    test('Static method with multiple parameters [2026-02-10 06:37]', () {
+    test('I-EXT-51: Static method with multiple parameters. [2026-02-10 06:37] (PASS)', () {
       const source = '''
         extension MathOps on int {
           static int sum(int a, int b, int c) {
@@ -227,7 +227,7 @@ void main() {
       expect(result, equals([6, 24]));
     });
 
-    test('Static field accessed from instance method [2026-02-10 06:37]', () {
+    test('I-EXT-52: Static field accessed from instance method. [2026-02-10 06:37] (PASS)', () {
       const source = '''
         extension NumberExt on int {
           static int multiplier = 10;
@@ -245,7 +245,7 @@ void main() {
       expect(result, equals(50));
     });
 
-    test('Multiple extensions with static members on same type [2026-02-10 06:37]', () {
+    test('I-EXT-53: Multiple extensions with static members on same type. [2026-02-10 06:37] (PASS)', () {
       const source = '''
         extension ExtA on String {
           static String prefix = 'A: ';
@@ -263,7 +263,7 @@ void main() {
       expect(result, equals(['A: ', 'B: ']));
     });
 
-    test('Static method returning function [2026-02-10 06:37]', () {
+    test('I-EXT-54: Static method returning function. [2026-02-10 06:37] (PASS)', () {
       const source = '''
         extension FunctionUtils on Function {
           static Function makeAdder(int x) {
@@ -280,7 +280,7 @@ void main() {
       expect(result, equals(15));
     });
 
-    test('Unnamed extension with static members [2026-02-10 06:37]', () {
+    test('I-EXT-56: Unnamed extension with static members. [2026-02-10 06:37] (PASS)', () {
       const source = '''
         extension on int {
           static int defaultValue = 999;
