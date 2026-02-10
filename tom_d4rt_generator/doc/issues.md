@@ -25,12 +25,12 @@
 | [G-GB-10](#g-gb-10) | Nullable getter registerGlobalGetter test | Low | Fixed |
 | [G-GB-11](#g-gb-11) | Mutable state getter registerGlobalGetter test | Low | Fixed |
 | [G-GB-12](#g-gb-12) | RegisterGlobalVariables separation test | Low | Fixed |
-| [G-UB-1](#g-ub-1) | GlobalsUserBridge appName override | Low | TODO |
-| [G-UB-2](#g-ub-2) | GlobalsUserBridge maxRetries override | Low | TODO |
-| [G-UB-3](#g-ub-3) | GlobalsUserBridge currentTime getter override | Low | TODO |
-| [G-UB-4](#g-ub-4) | GlobalsUserBridge globalService getter override | Low | TODO |
-| [G-UB-5](#g-ub-5) | GlobalsUserBridge greet function override | Low | TODO |
-| [G-UB-6](#g-ub-6) | GlobalsUserBridge add function override | Low | TODO |
+| [G-UB-1](#g-ub-1) | GlobalsUserBridge appName override | Low | Fixed |
+| [G-UB-2](#g-ub-2) | GlobalsUserBridge maxRetries override | Low | Fixed |
+| [G-UB-3](#g-ub-3) | GlobalsUserBridge currentTime getter override | Low | Fixed |
+| [G-UB-4](#g-ub-4) | GlobalsUserBridge globalService getter override | Low | Fixed |
+| [G-UB-5](#g-ub-5) | GlobalsUserBridge greet function override | Low | Fixed |
+| [G-UB-6](#g-ub-6) | GlobalsUserBridge add function override | Low | Fixed |
 | [G-ASYNC-1](#g-async-1) | Async function Future e2e test | Medium | Fixable |
 | [G-ASYNC-2](#g-async-2) | Async* generator Stream e2e test | Medium | Fixable |
 | [G-ASYNC-3](#g-async-3) | Sync* generator Iterable e2e test | Medium | Fixable |

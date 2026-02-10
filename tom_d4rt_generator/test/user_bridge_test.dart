@@ -362,13 +362,13 @@ void main() {
         expect(
           generatedCode,
           contains(
-            "GlobalsUserBridge.overrideGlobalVariableAppName()",
+            r"$pkg.GlobalsUserBridge.overrideGlobalVariableAppName()",
           ),
         );
         expect(
           generatedCode,
           contains(
-            "interpreter.registerGlobalVariable('appName', GlobalsUserBridge.overrideGlobalVariableAppName(), importPath",
+            r"interpreter.registerGlobalVariable('appName', $pkg.GlobalsUserBridge.overrideGlobalVariableAppName(), importPath",
           ),
         );
       });
@@ -377,13 +377,13 @@ void main() {
         expect(
           generatedCode,
           contains(
-            "GlobalsUserBridge.overrideGlobalVariableMaxRetries()",
+            r"$pkg.GlobalsUserBridge.overrideGlobalVariableMaxRetries()",
           ),
         );
         expect(
           generatedCode,
           contains(
-            "interpreter.registerGlobalVariable('maxRetries', GlobalsUserBridge.overrideGlobalVariableMaxRetries(), importPath",
+            r"interpreter.registerGlobalVariable('maxRetries', $pkg.GlobalsUserBridge.overrideGlobalVariableMaxRetries(), importPath",
           ),
         );
       });
@@ -392,13 +392,13 @@ void main() {
         expect(
           generatedCode,
           contains(
-            "GlobalsUserBridge.overrideGlobalGetterCurrentTime()",
+            r"$pkg.GlobalsUserBridge.overrideGlobalGetterCurrentTime()",
           ),
         );
         expect(
           generatedCode,
           contains(
-            "interpreter.registerGlobalGetter('currentTime', GlobalsUserBridge.overrideGlobalGetterCurrentTime(), importPath",
+            r"interpreter.registerGlobalGetter('currentTime', $pkg.GlobalsUserBridge.overrideGlobalGetterCurrentTime(), importPath",
           ),
         );
       });
@@ -407,13 +407,13 @@ void main() {
         expect(
           generatedCode,
           contains(
-            "GlobalsUserBridge.overrideGlobalGetterGlobalService()",
+            r"$pkg.GlobalsUserBridge.overrideGlobalGetterGlobalService()",
           ),
         );
         expect(
           generatedCode,
           contains(
-            "interpreter.registerGlobalGetter('globalService', GlobalsUserBridge.overrideGlobalGetterGlobalService(), importPath",
+            r"interpreter.registerGlobalGetter('globalService', $pkg.GlobalsUserBridge.overrideGlobalGetterGlobalService(), importPath",
           ),
         );
       });
@@ -421,14 +421,14 @@ void main() {
       test('G-UB-5: Override for global function greet. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
-          contains("'greet': GlobalsUserBridge.overrideGlobalFunctionGreet,"),
+          contains(r"'greet': $pkg.GlobalsUserBridge.overrideGlobalFunctionGreet,"),
         );
       });
 
       test('G-UB-6: Override for global function add. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
-          contains("'add': GlobalsUserBridge.overrideGlobalFunctionAdd,"),
+          contains(r"'add': $pkg.GlobalsUserBridge.overrideGlobalFunctionAdd,"),
         );
       });
 
