@@ -220,6 +220,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       for (final stringLiteral in node.strings) {
         if (stringLiteral is SimpleStringLiteral) {
           buffer.write(stringLiteral.value);
+        } else if (stringLiteral is StringInterpolation) {
+          // G-DOV-1/2 FIX: Handle StringInterpolation children within AdjacentStrings
+          buffer.write(visitStringInterpolation(stringLiteral));
         } else {
           // Recursively handle nested adjacent strings or other string types
           final value = visitStringLiteral(stringLiteral);
@@ -568,6 +571,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             return staticMember;
           }
         } else {
+          // G-DOV-5 FIX: Handle constructor tear-offs (Class.new)
+          // Return the class itself as it implements Callable and its call()
+          // method properly creates an instance and calls the constructor.
+          if (memberName == 'new') {
+            final constructor = prefixValue.findConstructor('');
+            if (constructor != null) return prefixValue;
+          }
           throw RuntimeD4rtException(
               "Undefined static member '$memberName' on class '${prefixValue.name}'.");
         }
@@ -3185,6 +3195,23 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       if (isNullAware) {
         return null;
       }
+      // G-DOV-10/11 FIX: Try extension lookup on nullable types before throwing
+      final extensionMember = environment.findExtensionMember(target, propertyName, visitor: this);
+      if (extensionMember != null) {
+        if (extensionMember is InterpretedFunction && extensionMember.isGetter) {
+          // Execute extension getter with 'this' bound to null
+          final extensionEnv = Environment(enclosing: environment);
+          extensionEnv.define('this', null);
+          final prevEnv = environment;
+          environment = extensionEnv;
+          try {
+            return extensionMember.call(this, [], {});
+          } finally {
+            environment = prevEnv;
+          }
+        }
+        return extensionMember;
+      }
       throw RuntimeD4rtException(
           "Cannot access property '$propertyName' on null. Use '?.' for null-aware access.");
     }
@@ -4082,54 +4109,62 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   // Execute for-in loop with a list of items (reused logic from _executeForIn)
   void _executeForInWithItems(
       AstNode loopVariableOrIdentifier, List<Object?> items, Statement body) {
-    // Don't create a new environment - use the current one to preserve access to local variables
-    String variableName;
-    if (loopVariableOrIdentifier is DeclaredIdentifier) {
-      variableName = loopVariableOrIdentifier.name.lexeme;
-      // Define the loop variable in the current environment
-      environment.define(variableName, null);
-    } else if (loopVariableOrIdentifier is SimpleIdentifier) {
-      variableName = loopVariableOrIdentifier.name;
-      try {
-        environment.get(variableName); // Check existence
-      } catch (e) {
-        throw RuntimeD4rtException(
-            "Variable '$variableName' for for-in loop is not defined.");
-      }
-    } else {
-      throw StateD4rtException(
-          'Unexpected for-in loop variable type: ${loopVariableOrIdentifier.runtimeType}');
-    }
-
-    // Iterate over the items
-    for (final element in items) {
-      // Assign current element to the loop variable
-      environment.assign(variableName, element);
-
-      // Execute the body
-      try {
-        body.accept<Object?>(this);
-      } on BreakException catch (e) {
-        Logger.debug(
-            "[AwaitForIn] Caught BreakException (label: ${e.label}) with current labels: $_currentStatementLabels");
-        if (e.label == null || _currentStatementLabels.contains(e.label)) {
-          Logger.debug("[AwaitForIn] Breaking loop.");
-          break; // Exit the for-in loop
-        } else {
-          Logger.debug("[AwaitForIn] Rethrowing outer break...");
-          rethrow;
+    // G-DOV-12 FIX: Create a dedicated loop environment (like _executeForIn does)
+    // to ensure the loop variable is properly scoped and accessible.
+    final loopEnvironment = Environment(enclosing: environment);
+    final previousEnvironment = environment;
+    environment = loopEnvironment;
+    try {
+      String variableName;
+      if (loopVariableOrIdentifier is DeclaredIdentifier) {
+        variableName = loopVariableOrIdentifier.name.lexeme;
+        // Define the loop variable in the loop environment
+        environment.define(variableName, null);
+      } else if (loopVariableOrIdentifier is SimpleIdentifier) {
+        variableName = loopVariableOrIdentifier.name;
+        try {
+          environment.get(variableName); // Check existence in enclosing scope
+        } catch (e) {
+          throw RuntimeD4rtException(
+              "Variable '$variableName' for for-in loop is not defined.");
         }
-      } on ContinueException catch (e) {
-        Logger.debug(
-            "[AwaitForIn] Caught ContinueException (label: ${e.label}) with current labels: $_currentStatementLabels");
-        if (e.label == null || _currentStatementLabels.contains(e.label)) {
-          Logger.debug("[AwaitForIn] Continuing loop.");
-          continue; // Go to the next element
-        } else {
-          Logger.debug("[AwaitForIn] Rethrowing outer continue...");
-          rethrow;
+      } else {
+        throw StateD4rtException(
+            'Unexpected for-in loop variable type: ${loopVariableOrIdentifier.runtimeType}');
+      }
+
+      // Iterate over the items
+      for (final element in items) {
+        // Assign current element to the loop variable
+        environment.assign(variableName, element);
+
+        // Execute the body
+        try {
+          body.accept<Object?>(this);
+        } on BreakException catch (e) {
+          Logger.debug(
+              "[AwaitForIn] Caught BreakException (label: ${e.label}) with current labels: $_currentStatementLabels");
+          if (e.label == null || _currentStatementLabels.contains(e.label)) {
+            Logger.debug("[AwaitForIn] Breaking loop.");
+            break; // Exit the for-in loop
+          } else {
+            Logger.debug("[AwaitForIn] Rethrowing outer break...");
+            rethrow;
+          }
+        } on ContinueException catch (e) {
+          Logger.debug(
+              "[AwaitForIn] Caught ContinueException (label: ${e.label}) with current labels: $_currentStatementLabels");
+          if (e.label == null || _currentStatementLabels.contains(e.label)) {
+            Logger.debug("[AwaitForIn] Continuing loop.");
+            continue; // Go to the next element
+          } else {
+            Logger.debug("[AwaitForIn] Rethrowing outer continue...");
+            rethrow;
+          }
         }
       }
+    } finally {
+      environment = previousEnvironment;
     }
   }
 
@@ -6514,7 +6549,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // Check for unimplemented abstract members
     if (!klass.isAbstract) {
       final inheritedAbstract = klass.getAbstractInheritedMembers();
-      final concreteMembers = klass.getConcreteMembers();
+      // G-DOV-6/7 FIX: Use getAllConcreteMembers() to walk the full superclass chain
+      // (not just this class + mixins), so grandparent concrete implementations are found.
+      final concreteMembers = klass.getAllConcreteMembers();
       final fieldNames = klass.getInstanceFieldNames(); // Fields also satisfy abstract getters
       for (final abstractName in inheritedAbstract.keys) {
         // Check if the abstract member is satisfied by a concrete method/getter/setter OR a field
@@ -8384,19 +8421,63 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 _matchAndBind(pattern, switchValue, tempEnvironment);
                 // If we get here, the pattern matched
                 matched = true;
-                execute = true;
-                // Copy any bound variables to the current environment
-                // In a full implementation, we might want to handle variable scoping more carefully
-                for (final name in tempEnvironment.values.keys) {
-                  try {
-                    final value = tempEnvironment.get(name);
-                    environment.define(name, value);
-                  } catch (e) {
-                    // Variable might already exist or other issue, ignore for now
-                  }
-                }
+                // G-DOV-8 FIX: Execute pattern case body in the pattern's own scope
+                // and do NOT fall through to subsequent cases (Dart 3 semantics).
                 Logger.debug(
                     "[Switch] Matched pattern case: ${pattern.runtimeType}");
+                
+                // Check guard clause (when)
+                if (member.guardedPattern.whenClause != null) {
+                  final prevEnv = environment;
+                  environment = tempEnvironment;
+                  try {
+                    final guardResult = member.guardedPattern.whenClause!.expression.accept<Object?>(this);
+                    if (guardResult != true) {
+                      environment = prevEnv;
+                      // Guard failed, pattern doesn't match - reset matched so other cases can try
+                      matched = false;
+                      Logger.debug("[Switch] Guard clause failed, skipping case");
+                      statementsToExecute = member.statements;
+                      continue; // Skip to next case member
+                    }
+                  } catch (e) {
+                    environment = prevEnv;
+                    rethrow;
+                  }
+                  environment = prevEnv;
+                }
+                
+                // Execute statements in the pattern environment
+                final prevEnv = environment;
+                environment = tempEnvironment;
+                try {
+                  for (final statement in member.statements) {
+                    statement.accept<Object?>(this);
+                  }
+                } on BreakException catch (e) {
+                  environment = prevEnv;
+                  if (e.label == null || _currentStatementLabels.contains(e.label)) {
+                    break; // Exit the loop over members
+                  } else {
+                    rethrow;
+                  }
+                } on ContinueException catch (e) {
+                  environment = prevEnv;
+                  if (e.label != null && labelToIndex.containsKey(e.label)) {
+                    startIndex = labelToIndex[e.label]!;
+                    matched = true;
+                    execute = true;
+                    throw ContinueSwitchLabel();
+                  } else {
+                    rethrow;
+                  }
+                } catch (e) {
+                  environment = prevEnv;
+                  rethrow;
+                }
+                environment = prevEnv;
+                // Pattern cases do not fall through - break out
+                break;
               } on PatternMatchD4rtException catch (e) {
                 Logger.debug(
                     "[Switch] Pattern ${pattern.runtimeType} did not match: ${e.message}");
@@ -8952,6 +9033,44 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
 
       Logger.debug("[_matchAndBind] Object pattern matched successfully.");
+    } else if (pattern is RelationalPattern) {
+      // G-DOV-3/4 FIX: Handle relational patterns (>= x, <= x, > x, < x, == x, != x)
+      final operand = pattern.operand.accept<Object?>(this);
+      final operator = pattern.operator.type;
+      Logger.debug(
+          "[_matchAndBind] RelationalPattern: comparing $value $operator $operand");
+      bool matches = false;
+      if (value is Comparable && operand is Comparable) {
+        final cmp = value.compareTo(operand);
+        switch (operator) {
+          case TokenType.LT:
+            matches = cmp < 0;
+          case TokenType.LT_EQ:
+            matches = cmp <= 0;
+          case TokenType.GT:
+            matches = cmp > 0;
+          case TokenType.GT_EQ:
+            matches = cmp >= 0;
+          case TokenType.EQ_EQ:
+            matches = value == operand;
+          case TokenType.BANG_EQ:
+            matches = value != operand;
+          default:
+            throw UnimplementedD4rtException(
+                "Relational pattern operator not supported: $operator");
+        }
+      } else if (operator == TokenType.EQ_EQ) {
+        matches = value == operand;
+      } else if (operator == TokenType.BANG_EQ) {
+        matches = value != operand;
+      } else {
+        throw PatternMatchD4rtException(
+            "Cannot compare $value ($operator) with $operand - not both Comparable");
+      }
+      if (!matches) {
+        throw PatternMatchD4rtException(
+            "Relational pattern $operator $operand did not match value $value");
+      }
     } else if (pattern is LogicalOrPattern) {
       // Lim-8, Bug-13, Bug-68 FIX: Handle Logical OR patterns (pattern1 || pattern2)
       // Try matching the left operand first, if that fails, try the right operand
@@ -8969,6 +9088,16 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         Logger.debug("[_matchAndBind] LogicalOrPattern: right operand matched");
         // If right also throws, the exception propagates up
       }
+    } else if (pattern is LogicalAndPattern) {
+      // G-DOV-3/4 FIX: Handle Logical AND patterns (pattern1 && pattern2)
+      // Both operands must match for the pattern to match
+      Logger.debug(
+          "[_matchAndBind] LogicalAndPattern: trying left operand ${pattern.leftOperand.runtimeType}");
+      _matchAndBind(pattern.leftOperand, value, environment);
+      Logger.debug(
+          "[_matchAndBind] LogicalAndPattern: left matched, trying right operand ${pattern.rightOperand.runtimeType}");
+      _matchAndBind(pattern.rightOperand, value, environment);
+      Logger.debug("[_matchAndBind] LogicalAndPattern: both operands matched");
     } else {
       throw UnimplementedD4rtException(
           "Pattern type not yet supported in _matchAndBind: ${pattern.runtimeType}");
@@ -9109,8 +9238,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
     // Resolve the type name from the AST node
     String onTypeName;
+    bool isOnNullableType = false; // G-DOV-10/11: Track nullable on-type
     if (onTypeNode is NamedType) {
       onTypeName = onTypeNode.name2.lexeme;
+      isOnNullableType = onTypeNode.question != null; // Check for 'T?' syntax
     } else {
       Logger.warn(
           "[visitExtensionDeclaration] Unsupported 'on' type node for resolution: ${onTypeNode.runtimeType}. Skipping extension.");
@@ -9247,6 +9378,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final interpretedExtension = InterpretedExtension(
       name: extensionName,
       onType: onRuntimeType,
+      isOnNullableType: isOnNullableType, // G-DOV-10/11: Pass nullable flag
       members: members,
       staticMethods: staticMethods,
       staticGetters: staticGetters,

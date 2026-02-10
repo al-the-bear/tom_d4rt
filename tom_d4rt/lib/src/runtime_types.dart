@@ -361,6 +361,28 @@ class InterpretedClass implements Callable, RuntimeType {
           return false;
         }
       }
+      // G-DOV-9 FIX: Also check InterpretedClass interfaces for Comparable
+      if (typeArg is InterpretedClass) {
+        // Check directly implemented interfaces (InterpretedClass)
+        for (final iface in typeArg.interfaces) {
+          if (iface.name == 'Comparable') return true;
+        }
+        // Check bridged interfaces (e.g., Comparable from Dart core)
+        for (final iface in typeArg.bridgedInterfaces) {
+          if (iface.name == 'Comparable') return true;
+        }
+        // Also check the superclass chain for Comparable interface
+        InterpretedClass? current = typeArg.superclass;
+        while (current != null) {
+          for (final iface in current.interfaces) {
+            if (iface.name == 'Comparable') return true;
+          }
+          for (final iface in current.bridgedInterfaces) {
+            if (iface.name == 'Comparable') return true;
+          }
+          current = current.superclass;
+        }
+      }
       return typeArg.name == 'String' ||
           typeArg.name == 'int' ||
           typeArg.name == 'double' ||
@@ -817,6 +839,24 @@ class InterpretedClass implements Callable, RuntimeType {
     final concreteMembers = <String, InterpretedFunction>{};
     InterpretedClass? current = this;
     while (current != null) {
+      // G-DOV-6/7 FIX: Also include concrete members from mixins at each level
+      for (final mixin in current.mixins) {
+        mixin.methods.forEach((name, func) {
+          if (!func.isAbstract) {
+            concreteMembers.putIfAbsent(name, () => func);
+          }
+        });
+        mixin.getters.forEach((name, func) {
+          if (!func.isAbstract) {
+            concreteMembers.putIfAbsent(name, () => func);
+          }
+        });
+        mixin.setters.forEach((name, func) {
+          if (!func.isAbstract) {
+            concreteMembers.putIfAbsent(name, () => func);
+          }
+        });
+      }
       // Add concrete members from the current class, avoiding overwrites from subclasses
       current.methods.forEach((name, func) {
         if (!func.isAbstract) {
@@ -1724,6 +1764,7 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
 class InterpretedExtension {
   final String? name; // Optional name of the extension
   final RuntimeType onType; // The type the extension applies to
+  final bool isOnNullableType; // G-DOV-10/11: Whether the extension is on T? (nullable)
   final Map<String, Callable>
       members; // Instance methods, getters, setters, operators
 
@@ -1736,6 +1777,7 @@ class InterpretedExtension {
   InterpretedExtension({
     this.name,
     required this.onType,
+    this.isOnNullableType = false,
     required this.members,
     Map<String, Callable>? staticMethods,
     Map<String, Callable>? staticGetters,

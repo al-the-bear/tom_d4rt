@@ -406,6 +406,10 @@ class Environment {
   // Method to find applicable extension members (Placeholder)
   Callable? findExtensionMember(Object? target, String name,
       {InterpreterVisitor? visitor}) {
+    // G-DOV-10/11 FIX: Handle null targets by searching extensions on nullable types
+    if (target == null) {
+      return _findNullableExtensionMember(name);
+    }
     final targetType = getRuntimeType(target); // Helper to get RuntimeType
     if (targetType == null) return null;
     // Search current environment and enclosing ones
@@ -452,6 +456,38 @@ class Environment {
       current = current._enclosing;
     }
     return null; // Not found
+  }
+
+  /// G-DOV-10/11 FIX: Find extension members for null targets by checking
+  /// extensions declared with nullable on-types (e.g., `extension on String?`).
+  Callable? _findNullableExtensionMember(String name) {
+    Environment? current = this;
+    while (current != null) {
+      // Check unnamed extensions with nullable on-type
+      for (final ext in current._unnamedExtensions) {
+        if (ext.isOnNullableType) {
+          final member = ext.findMember(name);
+          if (member != null) {
+            Logger.debug(
+                "[Environment] Found nullable extension member '$name' in unnamed ext on ${ext.onType.name}?");
+            return member;
+          }
+        }
+      }
+      // Check named extensions with nullable on-type
+      for (final value in current._values.values) {
+        if (value is InterpretedExtension && value.isOnNullableType) {
+          final member = value.findMember(name);
+          if (member != null) {
+            Logger.debug(
+                "[Environment] Found nullable extension member '$name' in named ext '${value.name}' on ${value.onType.name}?");
+            return member;
+          }
+        }
+      }
+      current = current._enclosing;
+    }
+    return null;
   }
 
   /// Checks if a target type matches an extension's `on` type.

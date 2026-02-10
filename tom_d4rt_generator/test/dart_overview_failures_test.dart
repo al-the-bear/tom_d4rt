@@ -343,14 +343,29 @@ void main() {
           '[2026-02-10 12:00] (FAIL)', () async {
         // D4rt throws: "Assigning to undefined variable 'number'"
         // because the loop variable declaration in await-for is not
-        // properly handled. Only manifests when running the full area file.
-        final result = _executeArea('async');
-        if (result.result is Future) {
-          await result.result;
+        // properly scoped in the state machine.
+        final result = _execute(r'''
+          import 'dart:async';
+
+          Future<List<int>> collectStream() async {
+            var results = <int>[];
+            var numberStream = Stream.fromIterable([1, 2, 3, 4, 5]);
+            await for (var number in numberStream) {
+              results.add(number);
+            }
+            return results;
+          }
+
+          main() async {
+            return await collectStream();
+          }
+        ''');
+        if (result is Future) {
+          final resolved = await result;
+          expect(resolved, equals([1, 2, 3, 4, 5]));
+        } else {
+          expect(result, equals([1, 2, 3, 4, 5]));
         }
-        expect(result.success, isTrue,
-            reason: 'async area should execute without errors: '
-                '${result.error}');
       });
     });
   });

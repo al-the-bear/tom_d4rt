@@ -1450,8 +1450,16 @@ class InterpretedFunction implements Callable {
                 }
 
                 if (parts is ForEachPartsWithDeclaration) {
-                  visitor.environment
-                      .assign(parts.loopVariable.name.lexeme, currentItem);
+                  // G-DOV-12 FIX: Use define-then-assign pattern to handle cases
+                  // where the loop environment might not have the variable defined yet
+                  // (e.g., after async resumption with environment changes).
+                  final varName = parts.loopVariable.name.lexeme;
+                  try {
+                    visitor.environment.assign(varName, currentItem);
+                  } on RuntimeD4rtException {
+                    // Variable not found in scope chain — define it in current env
+                    visitor.environment.define(varName, currentItem);
+                  }
                 } else if (parts is ForEachPartsWithIdentifier) {
                   visitor.environment
                       .assign(parts.identifier.name, currentItem);
