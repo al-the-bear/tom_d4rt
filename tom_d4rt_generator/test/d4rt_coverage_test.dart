@@ -728,19 +728,26 @@ void main() {
       });
 
       test(
-        'GEN-045: barrel name collision (constrained mixin blocked)',
+        'GEN-045: barrel name collision (constrained mixin blocked). [2026-02-10] (FAILS)',
         () async {
+          // GEN-045: Bird/Eagle/Penguin excluded from barrel due to
+          // Animal name collision between mixins/basics and classes/inheritance.
+          // The generator needs name-collision detection or import aliasing support.
+          // This test confirms the issue still exists.
           final result = await tester.runScriptOnly(
             config,
             'test/gen045_barrel_name_collision.dart',
           );
-          _expectSuccess(result, 'GEN-045');
-          expect(result.processOutput, contains('TOP15_PASSED'));
+          // The test script currently outputs BLOCKED because the types aren't in barrel.
+          // When import aliasing is implemented and types are bridged, it should output PASSED.
+          expect(
+            result.processOutput.contains('GEN045_BLOCKED'),
+            isTrue,
+            reason: 'GEN-045: Expected BLOCKED message due to barrel name collision. '
+                'If this test starts failing (no BLOCKED message), '
+                'implement the actual test with Bird/Eagle/Penguin.',
+          );
         },
-        skip: 'GEN-045: Bird/Eagle/Penguin excluded from barrel due to '
-            'Animal name collision between mixins/basics and '
-            'classes/inheritance. The generator needs name-collision '
-            'detection or import aliasing support.',
       );
     });
 
