@@ -736,6 +736,71 @@ Tests marked `(FAIL)` in their name are known limitations:
 
 ---
 
+## Pre-Release Integration Test
+
+Before releasing a new version of `tom_d4rt_generator`, you **must** run the generator against `tom_d4rt_dcli` and verify the generated bridges compile cleanly.
+
+### Why tom_d4rt_dcli?
+
+`tom_d4rt_dcli` is the production D4rt bridge package that bridges the DCli shell scripting library and VS Code scripting APIs. It exercises:
+
+- **Multiple modules** (cli_api, tom_vscode_scripting_api, dcli, tom_chattools)
+- **External package bridging** (dcli, dcli_core)
+- **Complex exclusion patterns** (skipReExports, excludePatterns, excludeSourcePatterns)
+- **Real-world API surfaces** with hundreds of classes, functions, and types
+- **Barrel file generation** and test runner generation
+
+If the generator produces valid bridges for `tom_d4rt_dcli`, it is likely to work correctly for other projects.
+
+### Integration Test Procedure
+
+1. **Navigate to tom_d4rt_dcli**:
+   ```bash
+   cd xternal/tom_module_d4rt/tom_d4rt_dcli
+   ```
+
+2. **Ensure dependencies are current**:
+   ```bash
+   dart pub get
+   ```
+
+3. **Run the generator**:
+   ```bash
+   dart run tom_d4rt_generator:d4rtgen --verbose
+   ```
+   
+   Expected output: `✓ Complete` with no errors.
+
+4. **Verify generated code compiles**:
+   ```bash
+   dart analyze lib/
+   dart analyze bin/
+   ```
+   
+   Expected output: `No issues found!` for both directories.
+
+### Automated Check
+
+The following command sequence performs the full integration test:
+
+```bash
+cd xternal/tom_module_d4rt/tom_d4rt_dcli && \
+dart pub get && \
+dart run tom_d4rt_generator:d4rtgen && \
+dart analyze lib/ && \
+dart analyze bin/
+```
+
+All commands must succeed for the release to proceed.
+
+### What to Do If It Fails
+
+1. **Generator crash**: Debug the crash in the generator code, fix, and retry
+2. **Analyzer errors in generated code**: The generator produced invalid Dart — fix the generator templates
+3. **Warnings**: Some warnings (like missing exports) may be acceptable if intentional; compile errors are not
+
+---
+
 ## Related Documentation
 
 - `doc/baseline_*.csv` — Test result baselines (most recent is current)

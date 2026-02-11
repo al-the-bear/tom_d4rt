@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-02-11T05:38:33.920401
+// Generated: 2026-02-11T16:04:28.808630
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -512,13 +512,25 @@ class AllBridge {
       'transform': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'transform');
         final numbers = D4.getRequiredArg<List<int>>(positional, 0, 'numbers', 'transform');
-        final transformer = D4.getRequiredArg<int Function(int)>(positional, 1, 'transformer', 'transform');
+        if (positional.length <= 1) {
+          throw ArgumentError('transform: Missing required argument "transformer" at position 1');
+        }
+        final transformerRaw = positional[1];
+        final transformer = (int p0) { return (transformerRaw as InterpretedFunction).call(visitor, [p0]) as int; };
         return $pkg.transform(numbers, transformer);
       },
       'fetchData': (visitor, positional, named, typeArgs) {
         final url = D4.getRequiredNamedArg<String>(named, 'url', 'fetchData');
-        final onSuccess = D4.getRequiredNamedArg<void Function(String)>(named, 'onSuccess', 'fetchData');
-        final onError = D4.getRequiredNamedArg<void Function(String)>(named, 'onError', 'fetchData');
+        final onSuccessRaw = named['onSuccess'];
+        if (onSuccessRaw == null) {
+          throw ArgumentError('fetchData: Missing required named argument "onSuccess"');
+        }
+        final onSuccess = (String p0) { (onSuccessRaw as InterpretedFunction).call(visitor, [p0]); };
+        final onErrorRaw = named['onError'];
+        if (onErrorRaw == null) {
+          throw ArgumentError('fetchData: Missing required named argument "onError"');
+        }
+        final onError = (String p0) { (onErrorRaw as InterpretedFunction).call(visitor, [p0]); };
         return $pkg.fetchData(url: url, onSuccess: onSuccess, onError: onError);
       },
       'log': (visitor, positional, named, typeArgs) {

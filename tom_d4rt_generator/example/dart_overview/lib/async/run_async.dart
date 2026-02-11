@@ -3,11 +3,13 @@
 /// This script executes all examples in the async area:
 /// - futures
 /// - streams
-/// - isolates
+/// - isolates (skipped in D4rt - see run_isolates_no_d4rt.dart)
 
 import 'futures/run_futures.dart' as futures;
 import 'streams/run_streams.dart' as streams;
-import 'isolates/run_isolates.dart' as isolates;
+// NOTE: Isolates are not supported in D4rt
+// See: isolates/run_isolates_no_d4rt.dart for explanation
+// import 'isolates/run_isolates.dart' as isolates;
 
 Future<void> main() async {
   final separator = '=' * 70;
@@ -32,15 +34,19 @@ Future<void> main() async {
   print('');
   await streams.main();
 
-  print('');
-  print(separator);
-  print('  3. ISOLATES');
-  print(separator);
-  print('');
-  await isolates.main();
+  // NOTE: Isolates are not supported in D4rt
+  // Isolates require sending closures to separate execution contexts,
+  // but D4rt interpreted functions capture interpreter state which
+  // cannot be sent across isolate boundaries.
+  // print('');
+  // print(separator);
+  // print('  3. ISOLATES');
+  // print(separator);
+  // print('');
+  // await isolates.main();
 
   print('');
   print(separator);
-  print('  All async demos completed!');
+  print('  Async demos completed! (Isolates skipped - not supported in D4rt)');
   print(separator);
 }

@@ -1,0 +1,11 @@
+name: dcli_scripting_guide_examples
+description: Examples from the DCli Scripting Guide
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  dcli: ^8.4.2
+  path: ^1.9.0

@@ -23,9 +23,9 @@ dependencies:
   tom_chattools:
   
   # External packages for CLI
-  dcli: ^4.0.1
-  dcli_core: ^4.0.7
-  dcli_terminal: ^4.0.3
+  dcli: ^8.4.2
+  dcli_core: ^8.2.8
+  dcli_terminal: ^8.4.2
   dart_console: ^4.1.2
   console_markdown: ^0.0.3
   marked: ^0.2.5

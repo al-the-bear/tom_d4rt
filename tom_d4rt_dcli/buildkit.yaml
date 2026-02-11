@@ -24,9 +24,6 @@ d4rtgen:
       barrelImport: package:tom_d4rt_dcli/tom_d4rt_cli_api.dart
       outputPath: lib/src/bridges/cli_api_bridges.b.dart
       followAllReExports: false
-      excludeSourcePatterns:
-        # CliState.sessionFile uses RandomAccessFile from dart:io which can't be bridged
-        - "package:tom_d4rt_dcli/src/api/cli_state.dart#CliState"
     - name: tom_vscode_scripting_api
       barrelFiles:
         - package:tom_vscode_scripting_api/script_globals.dart
@@ -35,10 +32,6 @@ d4rtgen:
       excludePatterns:
         - "**/*_bridge.dart"
         - "**/*_generated.dart"
-      excludeSourcePatterns:
-        # Classes with private/factory constructors that can't be bridged
-        - "package:tom_vscode_scripting_api/src/vscode.dart#VSCode"
-        - "package:tom_vscode_scripting_api/src/vscode_helper.dart#VsCodeHelper,VsProgress,FileBatch"
     - name: dcli
       barrelFiles:
         - package:dcli/dcli.dart
@@ -52,14 +45,15 @@ d4rtgen:
         - "**/*_bridge.dart"
         - "**/*_generated.dart"
       excludeSourcePatterns:
+        # Column class uses ColumnComparator which is not exported from barrel
+        - "package:dcli/src/util/file_sort.dart#Column"
+        # Extensions on types not exported from barrel (Platform is from dart:io, Digest from crypto)
+        - "package:dcli_core/src/util/platform.dart#PlatformEx"
+        - "package:dcli/src/util/digest_helper.dart#DigestHelper"
         # Settings and utilities
         - "package:dcli_core/src/settings.dart#Settings,verbose"
         - "package:dcli_core/src/util/file.dart#FileNotFoundException,NotAFileException,withOpenFile,symlink,deleteSymlink,resolveSymLink,stat,createTempFilename,createTempFile,fileLength,calculateHash,withTempFileAsync"
         - "package:dcli_core/src/util/limited_stream_controller.dart"
-        # Classes with factory/named constructors only - can't be bridged
-        - "package:dcli/src/functions/fetch.dart#FetchProgress"
-        # Format.row uses TableAlignment which can't be properly typed
-        - "package:dcli_terminal/src/format.dart#Format"
         # Functions - exclude internal dcli_core functions and classes not re-exported from dcli barrel
         - "package:dcli_core/src/functions/backup.dart#backupFile,restoreFile,withFileProtectionAsync"
         - "package:dcli_core/src/functions/cat.dart#cat,Cat"

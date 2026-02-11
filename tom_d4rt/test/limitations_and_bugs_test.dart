@@ -68,9 +68,15 @@ void main() {
   // ============================================================
 
   group('Open Bugs - Won\'t Fix (SHOULD FAIL)', () {
-    test('I-LIM-3: Isolate.run interpreted closure. [2026-02-10 06:37] (FAIL)', () async {
-      // Fundamental limitation: Interpreted closures cannot be serialized
-      // and passed to isolates. This is an architectural constraint.
+    // Isolate.run has LIMITED SUPPORT in D4rt:
+    // - Uses Future.microtask internally (same isolate, async execution)
+    // - Returns correct results
+    // - But NO true parallelism (code runs in same isolate)
+    //
+    // This test PASSES because the result is correct (42).
+    // The limitation is that execution is not truly parallel.
+    // See doc/d4rt_limitations.md Lim-3 for details.
+    test('I-LIM-3: Isolate.run limited support - returns correct result. [2026-02-11] (PASS)', () async {
       const source = '''
 import 'dart:isolate';
 Future<int> main() async {
@@ -80,6 +86,8 @@ Future<int> main() async {
   return result;
 }
 ''';
+      // D4rt's Isolate.run uses Future.microtask - returns correct result
+      // but execution is NOT parallel (limitation: no true isolate spawning)
       final result = await executeAsync(source);
       expect(result, equals(42));
     });

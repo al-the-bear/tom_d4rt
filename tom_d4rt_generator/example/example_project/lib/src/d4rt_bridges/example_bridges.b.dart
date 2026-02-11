@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-02-11T05:37:11.139968
+// Generated: 2026-02-11T16:03:21.051437
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -290,25 +290,41 @@ class AllBridge {
       'findWhere': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'findWhere');
         final items = D4.getRequiredArg<List<dynamic>>(positional, 0, 'items', 'findWhere');
-        final predicate = D4.getRequiredArg<bool Function(dynamic)>(positional, 1, 'predicate', 'findWhere');
+        if (positional.length <= 1) {
+          throw ArgumentError('findWhere: Missing required argument "predicate" at position 1');
+        }
+        final predicateRaw = positional[1];
+        final predicate = (dynamic p0) { return (predicateRaw as InterpretedFunction).call(visitor, [p0]) as bool; };
         return $pkg.findWhere<dynamic>(items, predicate);
       },
       'mapList': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'mapList');
         final items = D4.getRequiredArg<List<dynamic>>(positional, 0, 'items', 'mapList');
-        final mapper = D4.getRequiredArg<dynamic Function(dynamic)>(positional, 1, 'mapper', 'mapList');
+        if (positional.length <= 1) {
+          throw ArgumentError('mapList: Missing required argument "mapper" at position 1');
+        }
+        final mapperRaw = positional[1];
+        final mapper = (dynamic p0) { return (mapperRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; };
         return $pkg.mapList<dynamic, dynamic>(items, mapper);
       },
       'filterList': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'filterList');
         final items = D4.getRequiredArg<List<dynamic>>(positional, 0, 'items', 'filterList');
-        final predicate = D4.getRequiredArg<bool Function(dynamic)>(positional, 1, 'predicate', 'filterList');
+        if (positional.length <= 1) {
+          throw ArgumentError('filterList: Missing required argument "predicate" at position 1');
+        }
+        final predicateRaw = positional[1];
+        final predicate = (dynamic p0) { return (predicateRaw as InterpretedFunction).call(visitor, [p0]) as bool; };
         return $pkg.filterList<dynamic>(items, predicate);
       },
       'reduceList': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'reduceList');
         final items = D4.getRequiredArg<List<dynamic>>(positional, 0, 'items', 'reduceList');
-        final combiner = D4.getRequiredArg<dynamic Function(dynamic, dynamic)>(positional, 1, 'combiner', 'reduceList');
+        if (positional.length <= 1) {
+          throw ArgumentError('reduceList: Missing required argument "combiner" at position 1');
+        }
+        final combinerRaw = positional[1];
+        final combiner = (dynamic p0, dynamic p1) { return (combinerRaw as InterpretedFunction).call(visitor, [p0, p1]) as dynamic; };
         return $pkg.reduceList<dynamic>(items, combiner);
       },
       'sortItems': (visitor, positional, named, typeArgs) {
@@ -387,7 +403,11 @@ class AllBridge {
       'processAsync': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'processAsync');
         final items = D4.getRequiredArg<List<dynamic>>(positional, 0, 'items', 'processAsync');
-        final processor = D4.getRequiredArg<Future<dynamic> Function(dynamic)>(positional, 1, 'processor', 'processAsync');
+        if (positional.length <= 1) {
+          throw ArgumentError('processAsync: Missing required argument "processor" at position 1');
+        }
+        final processorRaw = positional[1];
+        final processor = (dynamic p0) { return (processorRaw as InterpretedFunction).call(visitor, [p0]) as Future<dynamic>; };
         return $pkg.processAsync<dynamic, dynamic>(items, processor);
       },
       'incrementCounter': (visitor, positional, named, typeArgs) {

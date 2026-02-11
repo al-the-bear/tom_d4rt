@@ -1,0 +1,9 @@
+include: package:lints/recommended.yaml
+
+analyzer:
+  errors:
+    # Generated bridge files may have parameter name mismatches
+    avoid_renaming_method_parameters: ignore
+  exclude:
+    - '**/*.g.dart'
+    - '**/*.b.dart'

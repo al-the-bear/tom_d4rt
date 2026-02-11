@@ -97,12 +97,13 @@ Combined list of all limitations and bugs, sorted by status (Fixed → TODO → 
 | Bug-97 | [num not recognized as satisfying Comparable bound](#bug-97-num-not-recognized-as-satisfying-comparable-bound) — `dart_overview_bugs_test: Bug-97` | Low | ✅ Fixed |
 | Bug-98 | [Extension getter on bridged List not resolved](#bug-98-extension-getter-on-bridged-list-not-resolved) — `dart_overview_bugs_test: Bug-98` | Medium | ✅ Fixed |
 | Bug-99 | [Stream.handleError callback receives wrong argument count](#bug-99-streamhandleerror-callback-receives-wrong-argument-count) — `dart_overview_bugs_test: Bug-99` | Low | ✅ Fixed |
-| Lim-3 | [Isolate execution with interpreted code](#lim-3-isolate-execution-with-interpreted-code) — `limitations_and_bugs_test: Lim-3` (1) | Fundamental | 🚫 Won't Fix |
+| Lim-3 | [Isolate execution with interpreted code](#lim-3-isolate-execution-with-interpreted-code) — `limitations_and_bugs_test: Lim-3` (1) | Fundamental | ⚠️ Limited |
 | Bug-14 | [Records with named fields or >9 positional fields return InterpretedRecord](#bug-14-records-with-named-fields-or-9-positional-fields) — `limitations_and_bugs_test: Bug-14` (2) | High | 🚫 Won't Fix |
 
 **Status Legend:**
 - ⬜ TODO - Not yet fixed
 - ✅ Fixed - Confirmed working
+- ⚠️ Limited - Works with limitations (see description)
 - 🚫 Won't Fix - Fundamental limitation or too complex
 
 ---
@@ -186,33 +187,45 @@ Fixed in 2026-02-06:
 
 ### Lim-3: Isolate Execution with Interpreted Code
 
-**Status:** 🚫 Won't Fix (Fundamental)  
-**Fixable:** ❌ No  
+**Status:** ⚠️ Limited Support  
+**Fixable:** ❌ No (fundamental limitation)  
 **Complexity:** Fundamental architectural limitation
 
-#### Problem Description
+#### Current Implementation
 
-Interpreted closures cannot be passed to `Isolate.run()` or other isolate APIs because they cannot be serialized and sent across isolate boundaries.
+D4rt provides **limited support** for `Isolate.run()` - it uses `Future.microtask()` internally
+to execute the computation asynchronously in the **same isolate**. This means:
+
+- ✅ **Correct results** - The computation returns the expected value
+- ✅ **Async semantics** - Code using `await Isolate.run()` works correctly
+- ❌ **No parallelism** - Execution is NOT in a separate isolate
+- ❌ **No CPU isolation** - Heavy computation blocks the main isolate
 
 ```dart
+// This works in D4rt, but runs in the same isolate (no parallelism)
 final result = await Isolate.run(() {
-  return expensiveCalculation();  // ❌ Cannot run in isolate
+  return expensiveCalculation();  // ⚠️ Runs async, not parallel
 });
 ```
 
-#### Where is the Problem?
+#### Why True Isolates Cannot Work
+
+Interpreted closures cannot be passed to real `Isolate.run()` because they
+cannot be serialized and sent across isolate boundaries.
 
 - **Location:** Dart VM architecture
 - **Root Cause:** Isolates communicate via message passing. Interpreted closures contain:
   - References to AST nodes (not serializable)
   - References to `Environment` scopes
   - References to `InterpreterVisitor` state
+  - Non-sendable objects like `Completer` instances
 
-#### Workarounds
+#### Workarounds for True Parallelism
 
 1. Move isolate-heavy computation to bridged (compiled) Dart classes
 2. Design scripts for single-threaded execution
 3. Use external processes instead of isolates
+4. Compile D4rt scripts to native Dart for production use
 
 ---
 

@@ -369,7 +369,12 @@ class ExtensionInfo {
   final List<String> setterNames;
 
   /// Instance method names defined in this extension.
+  /// @deprecated Use [methods] instead for full parameter info.
   final List<String> methodNames;
+  
+  /// Full method info including parameters (for callback wrapping).
+  /// GEN-052: Extension methods need parameter info for proper callback wrapping.
+  final List<MemberInfo> methods;
 
   const ExtensionInfo({
     this.name,
@@ -378,6 +383,7 @@ class ExtensionInfo {
     this.getterNames = const [],
     this.setterNames = const [],
     this.methodNames = const [],
+    this.methods = const [],
   });
 }
 
@@ -2161,6 +2167,20 @@ class BridgeGenerator {
         }).toList();
       }
 
+      // Filter out extensions matching source URI patterns
+      var filteredExtensions = globals.extensions;
+      if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
+        filteredExtensions = filteredExtensions.where((e) {
+          final sourceUri = _getPackageUri(e.sourceFile);
+          final extName = e.name ?? e.onTypeName;
+          if (_matchesSourceExclusion(sourceUri, extName, excludeSourcePatterns)) {
+            _recordSkip('extension', extName, 'source URI excluded by pattern: $sourceUri');
+            return false;
+          }
+          return true;
+        }).toList();
+      }
+
       // Generate single output file using already-parsed globals
       final code = _generateBridgeFile(
         bridgeableClasses,
@@ -2171,7 +2191,7 @@ class BridgeGenerator {
         globalFunctions: filteredFunctions,
         globalVariables: filteredVariables,
         enums: filteredEnums,
-        extensions: globals.extensions,
+        extensions: filteredExtensions,
         importShowClause: importShowClause,
         importHideClause: importHideClause,
       );
@@ -2506,6 +2526,20 @@ class BridgeGenerator {
       }).toList();
     }
 
+    // Filter out extensions matching source URI patterns
+    var filteredExtensions = globals.extensions;
+    if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
+      filteredExtensions = filteredExtensions.where((e) {
+        final sourceUri = _getPackageUri(e.sourceFile);
+        final extName = e.name ?? e.onTypeName;
+        if (_matchesSourceExclusion(sourceUri, extName, excludeSourcePatterns)) {
+          _recordSkip('extension', extName, 'source URI excluded by pattern: $sourceUri');
+          return false;
+        }
+        return true;
+      }).toList();
+    }
+
     // Generate single output file content
     final code = _generateBridgeFile(
       bridgeableClasses,
@@ -2516,7 +2550,7 @@ class BridgeGenerator {
       globalFunctions: filteredFunctions,
       globalVariables: filteredVariables,
       enums: filteredEnums,
-      extensions: globals.extensions,
+      extensions: filteredExtensions,
       importShowClause: importShowClause,
       importHideClause: importHideClause,
     );
@@ -3893,7 +3927,11 @@ class BridgeGenerator {
     buffer.writeln('  static List<BridgedExtensionDefinition> bridgedExtensions() {');
     buffer.writeln('    return [');
     for (final ext in extensions) {
-      final onTypePrefixed = _getPrefixedClassName(ext.onTypeName, ext.sourceFile);
+      // For extension onType, built-in types should NOT be prefixed
+      // (the extension is defined in user package but extends a built-in type)
+      final onTypePrefixed = _isBuiltInType(ext.onTypeName) 
+          ? ext.onTypeName 
+          : _getPrefixedClassName(ext.onTypeName, ext.sourceFile);
       buffer.writeln('      BridgedExtensionDefinition(');
       if (ext.name != null) {
         buffer.writeln("        name: '${ext.name}',");
@@ -3920,19 +3958,34 @@ class BridgeGenerator {
 
       // Method adapters
       // GEN-050: Handle operators with proper syntax (not dot notation)
+      // GEN-052: Use full method info for proper callback wrapping
       if (ext.methodNames.isNotEmpty) {
         buffer.writeln('        methods: {');
-        for (final method in ext.methodNames) {
-          buffer.writeln("          '$method': (visitor, target, positional, named, typeArgs) {");
+        
+        // Build a map from method name to MemberInfo for quick lookup
+        final methodInfoMap = <String, MemberInfo>{};
+        for (final m in ext.methods) {
+          methodInfoMap[m.name] = m;
+        }
+        
+        for (final methodName in ext.methodNames) {
+          buffer.writeln("          '$methodName': (visitor, target, positional, named, typeArgs) {");
           buffer.writeln('            final t = target as $onTypePrefixed;');
           
           // Check if this is an operator - use operator syntax instead of Function.apply
-          final operatorCall = _generateOperatorCall(method, 't');
+          final operatorCall = _generateOperatorCall(methodName, 't');
           if (operatorCall != null) {
             buffer.writeln('            $operatorCall');
           } else {
-            // Regular method - use Function.apply for flexibility
-            buffer.writeln("            return Function.apply(t.$method, positional, named.map((k, v) => MapEntry(Symbol(k), v)));");
+            // GEN-052: Check if method has function-typed parameters that need wrapping
+            final methodInfo = methodInfoMap[methodName];
+            if (methodInfo != null && _hasCallbackParameter(methodInfo)) {
+              // Generate proper callback wrapping (handles both simple and default-value cases)
+              _generateExtensionMethodBody(buffer, ext, methodInfo, onTypePrefixed);
+            } else {
+              // No callbacks - use Function.apply for flexibility
+              buffer.writeln("            return Function.apply(t.$methodName, positional, named.map((k, v) => MapEntry(Symbol(k), v)));");
+            }
           }
           buffer.writeln('          },');
         }
@@ -4151,14 +4204,21 @@ class BridgeGenerator {
         // Check for named unwrappable defaults for combinatorial fallback
         final nonWrappableDefaults = <ParameterInfo>[];
         for (final p in func.parameters) {
-          if (p.isNamed &&
-              p.defaultValue != null &&
-              !_isWrappableDefault(
+          if (p.isNamed && p.defaultValue != null) {
+            // Check if this is a function-typed parameter with a non-nullable type
+            // These need combinatorial dispatch because we can't pass null to a non-nullable param
+            final funcInfo = p.functionTypeInfo;
+            if (funcInfo != null && !p.type.endsWith('?')) {
+              // Function-typed parameters with defaults and non-nullable types
+              // must use combinatorial dispatch - we can't pass null
+              nonWrappableDefaults.add(p);
+            } else if (!_isWrappableDefault(
                 p.defaultValue!,
                 typeToUri: p.typeToUri,
                 sourceFilePath: func.sourceFile,
               )) {
-            nonWrappableDefaults.add(p);
+              nonWrappableDefaults.add(p);
+            }
           }
         }
         final useCombinatorial =
@@ -4182,6 +4242,36 @@ class BridgeGenerator {
               continue;
             }
             final localName = _sanitizeLocalVarName(param.name);
+            
+            // Check if this is a function-typed parameter that needs wrapping
+            final funcInfo = param.functionTypeInfo;
+            if (funcInfo != null) {
+              // Generate callback wrapper for InterpretedFunction
+              final rawVarName = '${localName}Raw';
+              if (param.isRequired) {
+                argDeclarations.add("        final $rawVarName = named['${param.name}'];");
+                argDeclarations.add("        if ($rawVarName == null) {");
+                argDeclarations.add("          throw ArgumentError('${func.name}: Missing required named argument \"${param.name}\"');");
+                argDeclarations.add("        }");
+              } else {
+                argDeclarations.add("        final $rawVarName = named['${param.name}'];");
+              }
+              
+              // Generate wrapper expression
+              final isNullable = param.type.endsWith('?') || !param.isRequired;
+              final wrapperExpr = _generateFunctionWrapper(
+                callbackVarName: rawVarName,
+                funcInfo: funcInfo,
+                isNullable: isNullable,
+                typeToUri: param.typeToUri,
+                classTypeParams: funcTypeParams,
+                sourceFilePath: func.sourceFile,
+              );
+              argDeclarations.add("        final $localName = $wrapperExpr;");
+              callArgs.add('${param.name}: $localName');
+              continue;
+            }
+            
             if (param.isRequired) {
               argDeclarations.add("        final $localName = D4.getRequiredNamedArg<$resolvedType>(named, '${param.name}', '${func.name}');");
             } else if (param.defaultValue != null) {
@@ -4209,6 +4299,37 @@ class BridgeGenerator {
           } else {
             // Positional parameter
             final localName = _sanitizeLocalVarName(param.name);
+            
+            // Check if this is a function-typed parameter that needs wrapping
+            final funcInfo = param.functionTypeInfo;
+            if (funcInfo != null) {
+              // Generate callback wrapper for InterpretedFunction
+              final rawVarName = '${localName}Raw';
+              if (param.isRequired) {
+                argDeclarations.add("        if (${_lengthCheckLessThanOrEqual('positional', positionalIndex)}) {");
+                argDeclarations.add("          throw ArgumentError('${func.name}: Missing required argument \"${param.name}\" at position $positionalIndex');");
+                argDeclarations.add("        }");
+                argDeclarations.add("        final $rawVarName = positional[$positionalIndex];");
+              } else {
+                argDeclarations.add("        final $rawVarName = ${_lengthCheckGreaterThan('positional', positionalIndex)} ? positional[$positionalIndex] : null;");
+              }
+              
+              // Generate wrapper expression
+              final isNullable = param.type.endsWith('?') || !param.isRequired;
+              final wrapperExpr = _generateFunctionWrapper(
+                callbackVarName: rawVarName,
+                funcInfo: funcInfo,
+                isNullable: isNullable,
+                typeToUri: param.typeToUri,
+                classTypeParams: funcTypeParams,
+                sourceFilePath: func.sourceFile,
+              );
+              argDeclarations.add("        final $localName = $wrapperExpr;");
+              callArgs.add(localName);
+              positionalIndex++;
+              continue;
+            }
+            
             if (param.isRequired) {
               // Required positional - use D4.getRequiredArg
               argDeclarations.add("        final $localName = D4.getRequiredArg<$resolvedType>(positional, $positionalIndex, '${param.name}', '${func.name}');");
@@ -4276,6 +4397,7 @@ class BridgeGenerator {
             func.name,
             isVoid: isVoid,
             typeParams: funcTypeParams,
+            sourceFilePath: func.sourceFile,
           );
         } else {
           buffer.writeln('        return $prefixedFuncName$typeArgsStr(${callArgs.join(', ')});');
@@ -4482,6 +4604,7 @@ class BridgeGenerator {
     final uri = _getPackageUri(sourceFile);
     final prefix = _importPrefixes[uri];
     if (prefix != null) {
+      // Empty prefix means dart: library or no prefix needed
       return prefix.isEmpty ? className : '$prefix.$className';
     }
     // If no prefix found, try alternative URI formats
@@ -4495,6 +4618,7 @@ class BridgeGenerator {
     final uri = _getPackageUri(sourceFile);
     final prefix = _importPrefixes[uri];
     if (prefix != null) {
+      // Empty prefix means dart: library or no prefix needed
       return prefix.isEmpty ? funcName : '$prefix.$funcName';
     }
     // Fallback to $pkg for global functions/variables from the source package
@@ -4504,22 +4628,28 @@ class BridgeGenerator {
 
   /// Converts a source file path to a package URI.
   String _getPackageUri(String sourceFile) {
+    // Handle file:// URIs by converting to normal path
+    var normalizedPath = sourceFile;
+    if (sourceFile.startsWith('file://')) {
+      normalizedPath = Uri.parse(sourceFile).toFilePath();
+    }
+    
     // Convert path like /path/to/package/lib/src/foo/bar.dart
     // to package:package_name/src/foo/bar.dart
-    final libIndex = sourceFile.indexOf('/lib/');
+    final libIndex = normalizedPath.indexOf('/lib/');
     if (libIndex != -1) {
-      final pkgName = _getPackageNameFromPath(sourceFile) ?? packageName;
+      final pkgName = _getPackageNameFromPath(normalizedPath) ?? packageName;
       if (pkgName != null) {
-        final relativePath = sourceFile.substring(libIndex + 5); // Skip '/lib/'
+        final relativePath = normalizedPath.substring(libIndex + 5); // Skip '/lib/'
         return 'package:$pkgName/$relativePath';
       }
     }
     
     // Also handle test files: /path/to/package/test/fixtures/foo.dart
     // becomes package:package_name/foo.dart (using just filename for tests)
-    final testIndex = sourceFile.indexOf('/test/');
+    final testIndex = normalizedPath.indexOf('/test/');
     if (testIndex != -1 && packageName != null) {
-      final fileName = sourceFile.split('/').last;
+      final fileName = normalizedPath.split('/').last;
       return 'package:$packageName/$fileName';
     }
     
@@ -4973,6 +5103,7 @@ class BridgeGenerator {
     String contextName, {
     bool isVoid = false,
     Map<String, String?> typeParams = const {},
+    String? sourceFilePath,
   }) {
     final count = unwrappableParams.length;
     final limit = 1 << count;
@@ -4996,13 +5127,34 @@ class BridgeGenerator {
         if ((i & (1 << j)) != 0) {
           final param = unwrappableParams[j];
           final localName = _sanitizeLocalVarName(param.name);
-          final resolvedType = _getTypeArgument(
-            param.type,
-            typeToUri: param.typeToUri,
-            classTypeParams: typeParams,
-          );
-          buffer.writeln(
-              "          final $localName = D4.getRequiredNamedArg<$resolvedType>(named, '${param.name}', '$contextName');");
+          
+          // Check if this is a function-typed parameter that needs special handling
+          final funcInfo = param.functionTypeInfo;
+          if (funcInfo != null) {
+            // For function-typed parameters, extract raw value and wrap it
+            final rawVarName = '${localName}Raw';
+            buffer.writeln(
+                "          final $rawVarName = named['${param.name}'];");
+            // Generate wrapper - param is present so not nullable
+            final wrapperExpr = _generateFunctionWrapper(
+              callbackVarName: rawVarName,
+              funcInfo: funcInfo,
+              isNullable: false,
+              typeToUri: param.typeToUri,
+              classTypeParams: typeParams,
+              sourceFilePath: sourceFilePath,
+            );
+            buffer.writeln("          final $localName = $wrapperExpr;");
+          } else {
+            // Standard extraction for non-function types
+            final resolvedType = _getTypeArgument(
+              param.type,
+              typeToUri: param.typeToUri,
+              classTypeParams: typeParams,
+            );
+            buffer.writeln(
+                "          final $localName = D4.getRequiredNamedArg<$resolvedType>(named, '${param.name}', '$contextName');");
+          }
         }
       }
 
@@ -5072,13 +5224,20 @@ class BridgeGenerator {
     // Check for named unwrappable defaults for combinatorial fallback
     final nonWrappableDefaults = <ParameterInfo>[];
     for (final p in namedParams) {
-      if (p.defaultValue != null &&
-          !_isWrappableDefault(
+      if (p.defaultValue != null) {
+        // Check if this is a function-typed parameter with a non-nullable type
+        final funcInfo = p.functionTypeInfo;
+        if (funcInfo != null && !p.type.endsWith('?')) {
+          // Function-typed parameters with defaults and non-nullable types
+          // must use combinatorial dispatch - we can't pass null
+          nonWrappableDefaults.add(p);
+        } else if (!_isWrappableDefault(
             p.defaultValue!,
             typeToUri: p.typeToUri,
             sourceFilePath: cls.sourceFile,
           )) {
-        nonWrappableDefaults.add(p);
+          nonWrappableDefaults.add(p);
+        }
       }
     }
     final useCombinatorial =
@@ -5129,11 +5288,445 @@ class BridgeGenerator {
         nonWrappableDefaults,
         cls.name,
         typeParams: cls.typeParameters,
+        sourceFilePath: cls.sourceFile,
       );
     } else {
       buffer.writeln('        return $ctorCall(${args.join(', ')});');
     }
     return true;
+  }
+
+  /// GEN-052: Get the unprefixed type name for lookup in known type maps.
+  /// E.g., "core.LineAction" -> "LineAction", "$pkg.VoidCallback" -> "VoidCallback"
+  String _getUnprefixedTypeName(String typeName) {
+    final dotIndex = typeName.lastIndexOf('.');
+    if (dotIndex != -1) {
+      return typeName.substring(dotIndex + 1).replaceAll('?', '');
+    }
+    return typeName.replaceAll('?', '');
+  }
+
+  /// GEN-052: Check if a method has any function-typed parameters that need wrapping.
+  bool _hasCallbackParameter(MemberInfo method) {
+    for (final param in method.parameters) {
+      // Check for explicit function type info
+      if (param.functionTypeInfo != null) return true;
+      
+      // Check for function typedef patterns
+      var baseType = param.type;
+      if (baseType.endsWith('?')) {
+        baseType = baseType.substring(0, baseType.length - 1);
+      }
+      if (_isFunctionTypeName(baseType)) return true;
+    }
+    return false;
+  }
+  
+  /// GEN-052: Generate extension method body with proper callback wrapping.
+  /// Uses hybrid approach with Function.apply when named params have non-nullable function defaults.
+  void _generateExtensionMethodBody(
+    StringBuffer buffer,
+    ExtensionInfo ext,
+    MemberInfo method,
+    String prefixedTypeName,
+  ) {
+    final positionalParams = method.parameters
+        .where((p) => !p.isNamed)
+        .toList();
+    final namedParams = method.parameters.where((p) => p.isNamed).toList();
+    
+    // Required positional args validation
+    final requiredCount = positionalParams.where((p) => p.isRequired).length;
+    if (requiredCount > 0) {
+      buffer.writeln(
+        "            D4.requireMinArgs(positional, $requiredCount, '${method.name}');",
+      );
+    }
+    
+    // Check if method has any named non-nullable function params with defaults
+    // These require the hybrid approach with selective named arg inclusion
+    final hasProblematicNamedDefaults = namedParams.any((param) {
+      if (param.isRequired) return false;
+      if (param.defaultValue == null) return false;
+      if (param.type.endsWith('?')) return false; // nullable is fine
+      
+      // Check if it's a function type
+      if (param.functionTypeInfo != null) return true;
+      var baseType = param.type;
+      if (_isFunctionTypeName(baseType)) return true;
+      return false;
+    });
+    
+    // Map to store custom call expressions for function-type parameters
+    final callExpressions = <String, String>{};
+    
+    final sourceUri = _getPackageUri(ext.sourceFile);
+    
+    if (hasProblematicNamedDefaults) {
+      // Hybrid approach: wrap callbacks explicitly, use Function.apply for selective named args
+      _generateHybridExtensionMethodBody(buffer, ext, method, positionalParams, namedParams, sourceUri);
+    } else {
+      // Standard approach: direct method call with all params
+      _generateDirectExtensionMethodBody(buffer, ext, method, positionalParams, namedParams, sourceUri, callExpressions);
+    }
+  }
+  
+  /// GEN-052: Generate hybrid method body using Function.apply for selective named arg inclusion.
+  void _generateHybridExtensionMethodBody(
+    StringBuffer buffer,
+    ExtensionInfo ext,
+    MemberInfo method,
+    List<ParameterInfo> positionalParams,
+    List<ParameterInfo> namedParams,
+    String sourceUri,
+  ) {
+    // Generate wrapper variables for positional function params
+    final positionalArgs = <String>[];
+    for (var i = 0; i < positionalParams.length; i++) {
+      final param = positionalParams[i];
+      final localName = _getSafeLocalName(param.name);
+      
+      FunctionTypeInfo? funcInfo = param.functionTypeInfo;
+      if (funcInfo == null) {
+        var baseType = param.type;
+        if (baseType.endsWith('?')) baseType = baseType.substring(0, baseType.length - 1);
+        if (_isFunctionTypeName(baseType)) {
+          final lookupName = _getUnprefixedTypeName(baseType);
+          funcInfo = _knownFunctionTypeAliasInfo[lookupName] ?? _parseFunctionType(baseType);
+        }
+      }
+      
+      if (funcInfo != null) {
+        // Function type - generate wrapper
+        final rawVarName = '${localName}Raw';
+        if (param.isRequired) {
+          buffer.writeln("            if (positional.length <= $i) {");
+          buffer.writeln("              throw ArgumentError('${method.name}: Missing required argument \"${param.name}\" at position $i');");
+          buffer.writeln("            }");
+          buffer.writeln("            final $rawVarName = positional[$i];");
+        } else {
+          buffer.writeln("            final $rawVarName = positional.length > $i ? positional[$i] : null;");
+        }
+        
+        final isNullable = param.type.endsWith('?') || !param.isRequired;
+        
+        // Generate wrapper function variable
+        final paramTypes = funcInfo.positionalParamTypes;
+        final paramNames = <String>[];
+        for (var j = 0; j < paramTypes.length; j++) {
+          paramNames.add('p$j');
+        }
+        final typedParams = <String>[];
+        for (var j = 0; j < paramTypes.length; j++) {
+          typedParams.add('${paramTypes[j]} p$j');
+        }
+        
+        if (isNullable) {
+          buffer.writeln("            dynamic $localName;");
+          buffer.writeln("            if ($rawVarName != null) {");
+          buffer.writeln("              $localName = (${typedParams.join(', ')}) { ($rawVarName as InterpretedFunction).call(visitor, [${paramNames.join(', ')}]); };");
+          buffer.writeln("            }");
+        } else {
+          buffer.writeln("            final $localName = (${typedParams.join(', ')}) { ($rawVarName as InterpretedFunction).call(visitor, [${paramNames.join(', ')}]); };");
+        }
+        positionalArgs.add(localName);
+      } else {
+        // Non-function type - extract value
+        final typeArg = _getTypeArgument(param.type, typeToUri: param.typeToUri, sourceFilePath: ext.sourceFile);
+        if (param.isRequired) {
+          buffer.writeln("            final $localName = D4.getRequiredArg<$typeArg>(positional, $i, '${param.name}', '${method.name}');");
+        } else {
+          buffer.writeln("            final $localName = D4.getOptionalArg<$typeArg>(positional, $i);");
+        }
+        positionalArgs.add(localName);
+      }
+    }
+    
+    // Generate wrapped named args Map with conditional inclusion
+    buffer.writeln("            final wrappedNamed = <Symbol, dynamic>{};");
+    
+    for (final param in namedParams) {
+      final localName = _getSafeLocalName(param.name);
+      
+      FunctionTypeInfo? funcInfo = param.functionTypeInfo;
+      if (funcInfo == null) {
+        var baseType = param.type;
+        if (baseType.endsWith('?')) baseType = baseType.substring(0, baseType.length - 1);
+        if (_isFunctionTypeName(baseType)) {
+          final lookupName = _getUnprefixedTypeName(baseType);
+          funcInfo = _knownFunctionTypeAliasInfo[lookupName] ?? _parseFunctionType(baseType);
+        }
+      }
+      
+      if (funcInfo != null) {
+        // Function type - conditionally include wrapped callback
+        final rawVarName = '${localName}Raw';
+        buffer.writeln("            final $rawVarName = named['${param.name}'];");
+        buffer.writeln("            if ($rawVarName != null) {");
+        
+        final paramTypesNamed = funcInfo.positionalParamTypes;
+        final paramNamesNamed = <String>[];
+        for (var j = 0; j < paramTypesNamed.length; j++) {
+          paramNamesNamed.add('p$j');
+        }
+        final typedParamsNamed = <String>[];
+        for (var j = 0; j < paramTypesNamed.length; j++) {
+          typedParamsNamed.add('${paramTypesNamed[j]} p$j');
+        }
+        
+        buffer.writeln("              wrappedNamed[#${param.name}] = (${typedParamsNamed.join(', ')}) { ($rawVarName as InterpretedFunction).call(visitor, [${paramNamesNamed.join(', ')}]); };");
+        buffer.writeln("            }");
+      } else {
+        // Non-function type - include if provided
+        buffer.writeln("            if (named.containsKey('${param.name}')) {");
+        buffer.writeln("              wrappedNamed[#${param.name}] = named['${param.name}'];");
+        buffer.writeln("            }");
+      }
+    }
+    
+    // Call using Function.apply
+    final isVoid = method.returnType == 'void';
+    if (isVoid) {
+      buffer.writeln("            Function.apply(t.${method.name}, [${positionalArgs.join(', ')}], wrappedNamed);");
+      buffer.writeln("            return null;");
+    } else {
+      buffer.writeln("            return Function.apply(t.${method.name}, [${positionalArgs.join(', ')}], wrappedNamed);");
+    }
+  }
+  
+  /// GEN-052: Generate direct method body with explicit params (no Function.apply).
+  void _generateDirectExtensionMethodBody(
+    StringBuffer buffer,
+    ExtensionInfo ext,
+    MemberInfo method,
+    List<ParameterInfo> positionalParams,
+    List<ParameterInfo> namedParams,
+    String sourceUri,
+    Map<String, String> callExpressions,
+  ) {
+    // Extract positional parameters
+    for (var i = 0; i < positionalParams.length; i++) {
+      final param = positionalParams[i];
+      _generateExtensionPositionalParam(
+        buffer,
+        param,
+        i,
+        method.name,
+        sourceUri: sourceUri,
+        sourceFilePath: ext.sourceFile,
+        callExpressions: callExpressions,
+      );
+    }
+    
+    // Extract named parameters
+    for (final param in namedParams) {
+      _generateExtensionNamedParam(
+        buffer,
+        param,
+        method.name,
+        sourceUri: sourceUri,
+        sourceFilePath: ext.sourceFile,
+        callExpressions: callExpressions,
+      );
+    }
+    
+    // Build method call arguments
+    final args = <String>[];
+    for (final param in positionalParams) {
+      final callExpr = callExpressions[param.name];
+      args.add(callExpr ?? _getSafeLocalName(param.name));
+    }
+    for (final param in namedParams) {
+      final callExpr = callExpressions[param.name];
+      final argValue = callExpr ?? _getSafeLocalName(param.name);
+      args.add('${param.name}: $argValue');
+    }
+    
+    final isVoid = method.returnType == 'void';
+    if (isVoid) {
+      buffer.writeln('            t.${method.name}(${args.join(', ')});');
+      buffer.writeln('            return null;');
+    } else {
+      buffer.writeln('            return t.${method.name}(${args.join(', ')});');
+    }
+  }
+  
+  /// GEN-052: Generate positional parameter extraction for extension methods.
+  void _generateExtensionPositionalParam(
+    StringBuffer buffer,
+    ParameterInfo param,
+    int index,
+    String contextName, {
+    String? sourceUri,
+    String? sourceFilePath,
+    Map<String, String>? callExpressions,
+  }) {
+    final isNullable = param.type.endsWith('?');
+    final localName = _getSafeLocalName(param.name);
+    
+    // Check if the parameter is a function type that needs wrapping
+    FunctionTypeInfo? funcInfo = param.functionTypeInfo;
+    
+    if (funcInfo == null) {
+      var baseType = param.type;
+      if (baseType.endsWith('?')) {
+        baseType = baseType.substring(0, baseType.length - 1);
+      }
+      if (_isFunctionTypeName(baseType)) {
+        final lookupName = _getUnprefixedTypeName(baseType);
+        funcInfo = _knownFunctionTypeAliasInfo[lookupName];
+        funcInfo ??= _parseFunctionType(baseType);
+      }
+    }
+    
+    if (funcInfo != null) {
+      // Function type - generate wrapper
+      final rawVarName = '${localName}Raw';
+      if (param.isRequired) {
+        buffer.writeln("            if (positional.length <= $index) {");
+        buffer.writeln(
+          "              throw ArgumentError('$contextName: Missing required argument \"${param.name}\" at position $index');",
+        );
+        buffer.writeln("            }");
+        buffer.writeln("            final $rawVarName = positional[$index];");
+      } else {
+        buffer.writeln(
+          "            final $rawVarName = positional.length > $index ? positional[$index] : null;",
+        );
+      }
+      
+      final wrapperExpr = _generateFunctionWrapper(
+        callbackVarName: rawVarName,
+        funcInfo: funcInfo,
+        isNullable: isNullable || !param.isRequired,
+        typeToUri: param.typeToUri,
+        sourceFilePath: sourceFilePath,
+      );
+      
+      if (callExpressions != null) {
+        callExpressions[param.name] = wrapperExpr;
+      }
+    } else {
+      // Non-function type - simple extraction
+      final typeArg = _getTypeArgument(
+        param.type,
+        typeToUri: param.typeToUri,
+        sourceFilePath: sourceFilePath,
+      );
+      if (param.isRequired) {
+        buffer.writeln(
+          "            final $localName = D4.getRequiredArg<$typeArg>(positional, $index, '${param.name}', '$contextName');",
+        );
+      } else if (param.defaultValue != null) {
+        if (_isWrappableDefault(
+          param.defaultValue!,
+          typeToUri: param.typeToUri,
+          sourceFilePath: sourceFilePath,
+        )) {
+          final typedDefault = _getTypedDefaultValue(
+            param.defaultValue!,
+            param.type,
+            typeToUri: param.typeToUri,
+            sourceFilePath: sourceFilePath,
+          );
+          buffer.writeln(
+            "            final $localName = D4.getArgWithDefault<$typeArg>(positional, $index, $typedDefault);",
+          );
+        } else {
+          // Non-wrappable default - require explicit value
+          buffer.writeln(
+            "            final $localName = D4.getRequiredArg<$typeArg>(positional, $index, '${param.name}', '$contextName');",
+          );
+        }
+      } else {
+        buffer.writeln(
+          "            final $localName = D4.getOptionalArg<$typeArg>(positional, $index);",
+        );
+      }
+    }
+  }
+  
+  /// GEN-052: Generate named parameter extraction for extension methods.
+  void _generateExtensionNamedParam(
+    StringBuffer buffer,
+    ParameterInfo param,
+    String contextName, {
+    String? sourceUri,
+    String? sourceFilePath,
+    Map<String, String>? callExpressions,
+  }) {
+    final isNullable = param.type.endsWith('?');
+    final localName = _getSafeLocalName(param.name);
+    
+    // Check if the parameter is a function type that needs wrapping
+    FunctionTypeInfo? funcInfo = param.functionTypeInfo;
+    
+    if (funcInfo == null) {
+      var baseType = param.type;
+      if (baseType.endsWith('?')) {
+        baseType = baseType.substring(0, baseType.length - 1);
+      }
+      if (_isFunctionTypeName(baseType)) {
+        final lookupName = _getUnprefixedTypeName(baseType);
+        funcInfo = _knownFunctionTypeAliasInfo[lookupName];
+        funcInfo ??= _parseFunctionType(baseType);
+      }
+    }
+    
+    if (funcInfo != null) {
+      // Function type - generate wrapper
+      final rawVarName = '${localName}Raw';
+      buffer.writeln("            final $rawVarName = named['${param.name}'];");
+      
+      final wrapperExpr = _generateFunctionWrapper(
+        callbackVarName: rawVarName,
+        funcInfo: funcInfo,
+        isNullable: isNullable || !param.isRequired,
+        typeToUri: param.typeToUri,
+        sourceFilePath: sourceFilePath,
+      );
+      
+      if (callExpressions != null) {
+        callExpressions[param.name] = wrapperExpr;
+      }
+    } else {
+      // Non-function type - simple extraction
+      final typeArg = _getTypeArgument(
+        param.type,
+        typeToUri: param.typeToUri,
+        sourceFilePath: sourceFilePath,
+      );
+      if (param.isRequired) {
+        buffer.writeln(
+          "            final $localName = D4.getRequiredNamedArg<$typeArg>(named, '${param.name}', '$contextName');",
+        );
+      } else if (param.defaultValue != null) {
+        if (_isWrappableDefault(
+          param.defaultValue!,
+          typeToUri: param.typeToUri,
+          sourceFilePath: sourceFilePath,
+        )) {
+          final typedDefault = _getTypedDefaultValue(
+            param.defaultValue!,
+            param.type,
+            typeToUri: param.typeToUri,
+            sourceFilePath: sourceFilePath,
+          );
+          buffer.writeln(
+            "            final $localName = D4.getNamedArgWithDefault<$typeArg>(named, '${param.name}', $typedDefault);",
+          );
+        } else {
+          // Non-wrappable default - make optional
+          buffer.writeln(
+            "            final $localName = D4.getOptionalNamedArg<$typeArg?>(named, '${param.name}');",
+          );
+        }
+      } else {
+        buffer.writeln(
+          "            final $localName = D4.getOptionalNamedArg<$typeArg?>(named, '${param.name}');",
+        );
+      }
+    }
   }
 
   /// Generates method body code.
@@ -5194,13 +5787,20 @@ class BridgeGenerator {
     // Check for named unwrappable defaults for combinatorial fallback
     final nonWrappableDefaults = <ParameterInfo>[];
     for (final p in namedParams) {
-      if (p.defaultValue != null &&
-          !_isWrappableDefault(
+      if (p.defaultValue != null) {
+        // Check if this is a function-typed parameter with a non-nullable type
+        final funcInfo = p.functionTypeInfo;
+        if (funcInfo != null && !p.type.endsWith('?')) {
+          // Function-typed parameters with defaults and non-nullable types
+          // must use combinatorial dispatch - we can't pass null
+          nonWrappableDefaults.add(p);
+        } else if (!_isWrappableDefault(
             p.defaultValue!,
             typeToUri: p.typeToUri,
             sourceFilePath: cls.sourceFile,
           )) {
-        nonWrappableDefaults.add(p);
+          nonWrappableDefaults.add(p);
+        }
       }
     }
     final useCombinatorial =
@@ -5250,6 +5850,7 @@ class BridgeGenerator {
         method.name,
         isVoid: isVoid,
         typeParams: effectiveTypeParams,
+        sourceFilePath: cls.sourceFile,
       );
     } else {
       if (isVoid) {
@@ -5539,6 +6140,7 @@ class BridgeGenerator {
         method.name,
         isVoid: isVoid,
         typeParams: effectiveTypeParams,
+        sourceFilePath: cls.sourceFile,
       );
     } else {
       buffer.writeln(
@@ -5755,7 +6357,8 @@ class BridgeGenerator {
       }
       if (_isFunctionTypeName(baseType)) {
         // Get function type info - try known aliases first, then parse
-        funcInfo = _knownFunctionTypeAliasInfo[baseType.replaceAll('?', '')];
+        final lookupName = _getUnprefixedTypeName(baseType);
+        funcInfo = _knownFunctionTypeAliasInfo[lookupName];
         funcInfo ??= _parseFunctionType(baseType);
       }
     }
@@ -6032,7 +6635,8 @@ class BridgeGenerator {
       }
       if (_isFunctionTypeName(baseType)) {
         // Get function type info - try known aliases first, then parse
-        funcInfo = _knownFunctionTypeAliasInfo[baseType.replaceAll('?', '')];
+        final lookupName = _getUnprefixedTypeName(baseType);
+        funcInfo = _knownFunctionTypeAliasInfo[lookupName];
         funcInfo ??= _parseFunctionType(baseType);
       }
     }
@@ -7219,6 +7823,10 @@ class BridgeGenerator {
     'D4rtEvaluator', // Future<dynamic> Function(...)
     'NativeFunctionImpl', // Object? Function(...)
     
+    // DCli types
+    'LineAction', // void Function(String line)
+    'CancelableLineAction', // bool Function(String line)
+    
     // Dart core types
     'Comparator', // int Function(T, T)
     
@@ -7274,6 +7882,14 @@ class BridgeGenerator {
     // Check known function type aliases
     if (_knownFunctionTypeAliases.contains(typeName)) {
       return true;
+    }
+    // Check for prefixed versions (e.g., core.LineAction, $pkg.VoidCallback)
+    final dotIndex = typeName.lastIndexOf('.');
+    if (dotIndex != -1) {
+      final unprefixedName = typeName.substring(dotIndex + 1);
+      if (_knownFunctionTypeAliases.contains(unprefixedName)) {
+        return true;
+      }
     }
     // Also check for inline function types
     if (typeName.contains('Function(') || typeName.contains(') Function')) {
@@ -7497,6 +8113,9 @@ class BridgeGenerator {
     'ValueChanged': FunctionTypeInfo(returnType: 'void', positionalParamTypes: ['T']),
     'ValueGetter': FunctionTypeInfo(returnType: 'T'),
     'ValueSetter': FunctionTypeInfo(returnType: 'void', positionalParamTypes: ['T']),
+    // DCli function types
+    'LineAction': FunctionTypeInfo(returnType: 'void', positionalParamTypes: ['String']),
+    'CancelableLineAction': FunctionTypeInfo(returnType: 'bool', positionalParamTypes: ['String']),
   };
 
   /// Extracts FunctionTypeInfo from a resolved DartType.
@@ -8071,6 +8690,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     final getterNames = <String>[];
     final setterNames = <String>[];
     final methodNames = <String>[];
+    // GEN-052: Collect full method info for proper callback wrapping
+    final methods = <MemberInfo>[];
 
     for (final member in node.members) {
       if (member is MethodDeclaration) {
@@ -8087,6 +8708,12 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         } else if (!member.isStatic) {
           // Instance methods only
           methodNames.add(memberName);
+          
+          // GEN-052: Parse full method info including parameters
+          final methodInfo = _parseExtensionMethod(member);
+          if (methodInfo != null) {
+            methods.add(methodInfo);
+          }
         }
         // Static methods are not extension members in the Dart sense
       }
@@ -8105,11 +8732,56 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         getterNames: getterNames,
         setterNames: setterNames,
         methodNames: methodNames,
+        methods: methods,
       ),
     );
 
     // Don't call super — we don't want the visitor to descend into
     // extension members and try to parse them as top-level functions
+  }
+  
+  /// GEN-052: Parse an extension method declaration to get full parameter info.
+  /// Similar to _parseMethod but for extension methods.
+  MemberInfo? _parseExtensionMethod(MethodDeclaration node) {
+    final name = node.name.lexeme;
+
+    if (skipPrivate && name.startsWith('_')) return null;
+
+    // Skip methods marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return null;
+
+    // Track if method has type parameters (will use type erasure)
+    final hasTypeParameters = node.typeParameters != null &&
+        node.typeParameters!.typeParameters.isNotEmpty;
+
+    // Extract method type parameters and their bounds for type erasure
+    final methodTypeParams = <String, String?>{};
+    if (hasTypeParameters) {
+      for (final typeParam in node.typeParameters!.typeParameters) {
+        final paramName = typeParam.name.lexeme;
+        final bound = typeParam.bound?.toSource().replaceFirst('extends ', '');
+        methodTypeParams[paramName] = bound;
+      }
+    }
+
+    final returnType = node.returnType?.toSource() ?? 'dynamic';
+    final typeInfo = _collectTypeInfo(node.returnType);
+
+    List<ParameterInfo> parameters = [];
+    if (node.parameters != null) {
+      parameters = _parseParameters(node.parameters!);
+    }
+
+    return MemberInfo(
+      name: name,
+      returnType: returnType,
+      returnTypeImportUris: typeInfo.uris,
+      returnTypeToUri: typeInfo.typeToUri,
+      isMethod: true,
+      parameters: parameters,
+      hasTypeParameters: hasTypeParameters,
+      methodTypeParameters: methodTypeParams,
+    );
   }
 
   @override
@@ -9023,6 +9695,9 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           ? _substituteTypeParameters(p.type, typeSubstitution)
           : p.type.getDisplayString();
 
+      // Extract function type info for callback wrapping
+      final funcTypeInfo = BridgeGenerator.extractFunctionTypeInfoFromDartType(p.type);
+
       return ParameterInfo(
         name: p.name ?? '',
         type: paramType,
@@ -9031,6 +9706,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         defaultValue: p.hasDefaultValue ? p.defaultValueCode : null,
         typeImportUris: paramTypeImportUris,
         typeToUri: paramTypeToUri,
+        functionTypeInfo: funcTypeInfo,
       );
     }).toList();
 
