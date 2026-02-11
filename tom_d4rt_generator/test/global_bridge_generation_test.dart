@@ -101,46 +101,46 @@ void main() {
     });
 
     group('Functions with Complex Types', () {
-      test('G-GB-1: Detects function returning list. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-1b: Detects function returning list. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'range'"));
       });
 
-      test('G-GB-2: Detects function taking list parameter. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-2b: Detects function taking list parameter. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'sumList'"));
       });
 
-      test('G-GB-3: Detects function returning map. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-3b: Detects function returning map. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'createConfig'"));
       });
 
-      test('G-GB-4: Detects function with nullable return. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-4b: Detects function with nullable return. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'findMatch'"));
       });
     });
 
     group('Async Functions', () {
-      test('G-GB-5: Detects async function. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-5b: Detects async function. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'fetchData'"));
       });
 
-      test('G-GB-6: Detects async function with parameters. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-6b: Detects async function with parameters. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'computeAsync'"));
       });
     });
 
     group('Private Functions', () {
-      test('G-GB-7: Skips private functions. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-7b: Skips private functions. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, isNot(contains("'_internalHelper'")));
         expect(generatedCode, isNot(contains("'_calculateInternal'")));
       });
     });
 
     group('Error Handling Functions', () {
-      test('G-GB-8: Detects function that may throw. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-8a: Detects function that may throw. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'divideStrict'"));
       });
 
-      test('G-GB-9: Detects function with try-catch. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-9b: Detects function with try-catch. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'divideSafe'"));
       });
     });
@@ -173,15 +173,15 @@ void main() {
     });
 
     group('Constants', () {
-      test('G-GB-10: Detects string constant. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-10a: Detects string constant. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'appName'"));
       });
 
-      test('G-GB-11: Detects int constant. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-11a: Detects int constant. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'maxRetries'"));
       });
 
-      test('G-GB-12: Detects double constant. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-12a: Detects double constant. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'defaultTimeout'"));
       });
 
@@ -245,21 +245,21 @@ void main() {
       generatedCode = await File(outputFile).readAsString();
     });
 
-    test('G-GB-1: Generates globalFunctions map. [2026-02-10 06:37] (PASS)', () {
+    test('G-GB-1a: Generates globalFunctions map. [2026-02-10 06:37] (PASS)', () {
       expect(
         generatedCode,
         contains('static Map<String, NativeFunctionImpl> globalFunctions()'),
       );
     });
 
-    test('G-GB-2: Generates registerGlobalVariables method. [2026-02-10 06:37] (PASS)', () {
+    test('G-GB-2a: Generates registerGlobalVariables method. [2026-02-10 06:37] (PASS)', () {
       expect(
         generatedCode,
         contains('static void registerGlobalVariables(D4rt interpreter, String importPath)'),
       );
     });
 
-    test('G-GB-3: Generates registerBridges entry point. [2026-02-10 06:37] (PASS)', () {
+    test('G-GB-3a: Generates registerBridges entry point. [2026-02-10 06:37] (PASS)', () {
       expect(
         generatedCode,
         contains('static void registerBridges(D4rt interpreter, String importPath)'),
@@ -357,7 +357,7 @@ void main() {
       expect(generatedCode, contains("'lastError'"));
     });
 
-    test('G-GB-4: registerGlobalVariables registers variables. [2026-02-10 06:37] (PASS)', () {
+    test('G-GB-4a: registerGlobalVariables registers variables. [2026-02-10 06:37] (PASS)', () {
       // The registerGlobalVariables method should contain variable registrations
       expect(generatedCode, contains('registerGlobalVariables'));
     });
@@ -390,7 +390,7 @@ void main() {
     });
 
     group('Regular Variables use registerGlobalVariable', () {
-      test('G-GB-5: Const vars use registerGlobalVariable. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-5a: Const vars use registerGlobalVariable. [2026-02-10 06:37] (PASS)', () {
         // Variable values are now prefixed with $pkg. since source imports use a prefix
         // registerGlobalVariable now includes importPath and sourceUri parameters
         expect(
@@ -409,7 +409,7 @@ void main() {
         );
       });
 
-      test('G-GB-6: Final vars use registerGlobalVariable. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-6a: Final vars use registerGlobalVariable. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
           contains(r"interpreter.registerGlobalVariable('version', $pkg.version, importPath"),
@@ -422,7 +422,7 @@ void main() {
         );
       });
 
-      test('G-GB-7: Mutable vars use registerGlobalVariable. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-7a: Mutable vars use registerGlobalVariable. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
           contains(
@@ -438,7 +438,7 @@ void main() {
     });
 
     group('Top-level Getters use registerGlobalGetter', () {
-      test('G-GB-8: Getter singleton uses registerGlobalGetter. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-8b: Getter singleton uses registerGlobalGetter. [2026-02-10 06:37] (PASS)', () {
         // Getter values are now prefixed with $pkg. since source imports use a prefix
         // registerGlobalGetter now includes importPath and sourceUri parameters
         expect(
@@ -449,7 +449,7 @@ void main() {
         );
       });
 
-      test('G-GB-9: Getter computed uses registerGlobalGetter. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-9a: Getter computed uses registerGlobalGetter. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
           contains(
@@ -458,7 +458,7 @@ void main() {
         );
       });
 
-      test('G-GB-10: Nullable getter uses registerGlobalGetter. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-10b: Nullable getter uses registerGlobalGetter. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
           contains(
@@ -467,7 +467,7 @@ void main() {
         );
       });
 
-      test('G-GB-11: Mutable state getter registerGlobalGetter. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-11b: Mutable state getter registerGlobalGetter. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
           contains(
@@ -478,7 +478,7 @@ void main() {
     });
 
     group('Getter vs Variable Separation', () {
-      test('G-GB-12: RegisterGlobalVariables contains both. [2026-02-10 06:37] (PASS)', () {
+      test('G-GB-12b: RegisterGlobalVariables contains both. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
           contains('static void registerGlobalVariables(D4rt interpreter, String importPath)'),

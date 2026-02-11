@@ -49,7 +49,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:glob/glob.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_build_base/tom_build_base.dart';
 import 'package:tom_d4rt_generator/src/build_config_loader.dart';
@@ -214,44 +213,26 @@ Future<void> main(List<String> arguments) async {
   }
 }
 
-/// Collect all projects that would be processed using navigation args.
+/// Collect all projects that would be processed using ProjectNavigator.
 Future<List<String>> _collectProjectsFromNavArgs(
   WorkspaceNavigationArgs navArgs,
   String basePath,
   bool verbose,
 ) async {
-  final discovery = ProjectDiscovery(verbose: verbose);
-
-  // Handle --project with patterns (comma-separated, globs, etc.)
-  if (navArgs.project != null) {
-    return discovery.resolveProjectPatterns(
-      navArgs.project!,
-      basePath: basePath,
+  final navigator = ProjectNavigator(
+    verbose: verbose,
+    config: NavigationConfig(
+      usePathExclude: true,
+      useNameExclude: true,
+      useRecursionExclude: true,
+      useSkipFiles: true,
+      useMasterConfigDefaults: false, // Uses withDefaults() instead
       projectFilter: _isD4rtProject,
-    );
-  }
+    ),
+  );
 
-  // Scan directory for projects
-  if (navArgs.scan != null) {
-    final scanPath = p.isAbsolute(navArgs.scan!)
-        ? navArgs.scan!
-        : p.join(basePath, navArgs.scan!);
-
-    final projects = await discovery.scanForProjects(
-      scanPath,
-      recursive: navArgs.recursive,
-      toolKey: _toolKey,
-      recursionExclude: navArgs.recursionExclude,
-    );
-    return _filterD4rtProjects(projects, navArgs.exclude);
-  }
-
-  // Default: process current directory if it's a D4rt project
-  if (_isD4rtProject(basePath)) {
-    return [basePath];
-  }
-
-  return [];
+  final result = await navigator.navigate(navArgs, basePath: basePath);
+  return result.paths;
 }
 
 /// Run the generator using navigation args.
@@ -361,37 +342,48 @@ Future<ProcessingResult> _processProjectWithRecursion(
   return result;
 }
 
-/// Find subprojects within a project directory using ProjectDiscovery.
+/// Find subprojects within a project directory using ProjectNavigator.
 Future<List<String>> _findSubprojects(
   String projectPath, {
   required List<String> recursionExclude,
   required List<String> exclude,
   required bool verbose,
 }) async {
-  final discovery = ProjectDiscovery(verbose: verbose);
-  final allProjects = await discovery.scanForProjects(
-    projectPath,
-    recursive: true,
-    toolKey: _toolKey,
-    recursionExclude: recursionExclude,
+  final navigator = ProjectNavigator(
+    verbose: verbose,
+    config: NavigationConfig(
+      usePathExclude: true,
+      useRecursionExclude: true,
+      useSkipFiles: true,
+      useMasterConfigDefaults: false,
+      projectFilter: _isD4rtProject,
+    ),
   );
+
+  // Create nav args for recursive scan from this project
+  final navArgs = WorkspaceNavigationArgs(
+    scan: '.',
+    recursive: true,
+    recursionExclude: recursionExclude,
+    exclude: exclude,
+  );
+
+  final result = await navigator.navigate(navArgs, basePath: projectPath);
 
   // Remove the root project itself — we only want subprojects
   final normalizedRoot = p.normalize(p.absolute(projectPath));
-  final subprojects = allProjects
+  final subprojects = result.paths
       .where((path) => p.normalize(p.absolute(path)) != normalizedRoot)
       .toList();
 
-  final filtered = _filterD4rtProjects(subprojects, exclude);
-
-  if (verbose && filtered.isNotEmpty) {
-    print('Found ${filtered.length} subproject(s) in $projectPath:');
-    for (final sub in filtered) {
+  if (verbose && subprojects.isNotEmpty) {
+    print('Found ${subprojects.length} subproject(s) in $projectPath:');
+    for (final sub in subprojects) {
       print('  - ${p.relative(sub, from: projectPath)}');
     }
   }
 
-  return filtered;
+  return subprojects;
 }
 
 /// Check if a directory is a D4rt project.
@@ -402,21 +394,6 @@ bool _isD4rtProject(String dirPath) {
 
   // Check for buildkit.yaml with d4rtgen: section
   return hasTomBuildConfig(dirPath, _toolKey);
-}
-
-/// Filter a project list to only D4rt projects and apply exclusion patterns.
-List<String> _filterD4rtProjects(List<String> projects, List<String> exclude) {
-  var filtered = projects.where(_isD4rtProject).toList();
-  if (exclude.isEmpty) return filtered;
-
-  final globs = exclude.map((pattern) => Glob(pattern)).toList();
-  return filtered.where((project) {
-    final dirName = p.basename(project);
-    for (final glob in globs) {
-      if (glob.matches(project) || glob.matches(dirName)) return false;
-    }
-    return true;
-  }).toList();
 }
 
 /// Process a single project directory directly (no recursion).

@@ -59,13 +59,13 @@ void main() {
     });
 
     group('Simple Void Callbacks', () {
-      test('G-CB-1: VoidCallback parameter generates wrapper. [2026-02-10 06:37] (PASS)', () {
+      test('G-CB-1a: VoidCallback parameter generates wrapper. [2026-02-10 06:37] (PASS)', () {
         // Should use InterpretedFunction pattern
         expect(generatedCode, contains('InterpretedFunction'));
         expect(generatedCode, contains('Raw'));
       });
 
-      test('G-CB-2: Void Function() callback correct wrapper. [2026-02-10 06:37] (PASS)', () {
+      test('G-CB-2a: Void Function() callback correct wrapper. [2026-02-10 06:37] (PASS)', () {
         // For VoidCallback: () { (callbackRaw as InterpretedFunction).call(visitor, []) }
         expect(generatedCode, contains("'onComplete':"));
         expect(generatedCode, contains('.call(visitor,'));
@@ -101,20 +101,20 @@ void main() {
     });
 
     group('Nullable Callbacks', () {
-      test('G-CB-1: Nullable callback generates null check wrapper. [2026-02-10 06:37] (PASS)', () {
+      test('G-CB-1b: Nullable callback generates null check wrapper. [2026-02-10 06:37] (PASS)', () {
         // Should have: callback_raw == null ? null : (...)
         expect(generatedCode, contains('== null ? null :'));
       });
     });
 
     group('Named Function Parameters', () {
-      test('G-CB-2: Named callback parameter generates wrapper. [2026-02-10 06:37] (PASS)', () {
+      test('G-CB-2b: Named callback parameter generates wrapper. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'doWorkWithCallback':"));
       });
     });
 
     group('Multiple Callbacks', () {
-      test('G-CB-3: Multiple callbacks generates all wrappers. [2026-02-10 06:37] (PASS)', () {
+      test('G-CB-3a: Multiple callbacks generates all wrappers. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'processWithCallbacks':"));
         // Should have multiple Raw-suffixed variables (camelCase)
         expect(generatedCode,
@@ -122,7 +122,7 @@ void main() {
       });
     });
 
-    test('G-CB-3: Generated code compiles without errors. [2026-02-10 06:37] (PASS)', () async {
+    test('G-CB-3b: Generated code compiles without errors. [2026-02-10 06:37] (PASS)', () async {
       // Run dart analyze on the generated code
       // ignore: unused_local_variable
       final _ = await Process.run(

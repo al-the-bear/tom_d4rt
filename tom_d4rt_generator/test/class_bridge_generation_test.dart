@@ -137,7 +137,7 @@ void main() {
         expect(generatedCode, contains("'isEmpty':"));
       });
 
-      test('G-CLS-6: Generates setters map. [2026-02-10 06:37] (PASS)', () {
+      test('G-CLS-6a: Generates setters map. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains('setters: {'));
       });
 

@@ -432,7 +432,7 @@ void main() {
         expect(result.processOutput, contains('CLS05_PASSED'));
       });
 
-      test('G-CLS-6: Late field. [2026-02-10 06:37] (PASS)', () async {
+      test('G-CLS-6b: Late field. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           'test/cls06_late_field.dart',

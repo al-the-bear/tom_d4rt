@@ -67,7 +67,7 @@ void main() {
         );
       });
 
-      test('G-TE-1: Bounded type param uses bound type. [2026-02-10 06:37] (FAIL)', () {
+      test('G-TE-1a: Bounded type param uses bound type. [2026-02-10 06:37] (FAIL)', () {
         // findFirst<E extends BaseEntity> should use BaseEntity
         expect(
           generatedCode,
@@ -101,7 +101,7 @@ void main() {
         );
       });
 
-      test('G-TE-2: Static castFrom uses constrained types. [2026-02-10 06:37] (FAIL)', () {
+      test('G-TE-2a: Static castFrom uses constrained types. [2026-02-10 06:37] (FAIL)', () {
         // castFrom<S extends Observable, E extends Observable>(ObservableList<S>)
         expect(
           generatedCode,
@@ -118,7 +118,7 @@ void main() {
     });
 
     group('Global Functions with Type Parameters', () {
-      test('G-TE-1: Global function with unbounded param uses dynamic. [2026-02-10 06:37] (PASS)', () {
+      test('G-TE-1b: Global function with unbounded param uses dynamic. [2026-02-10 06:37] (PASS)', () {
         // globalIdentity<T>(T value)
         expect(
           generatedCode,
@@ -127,7 +127,7 @@ void main() {
         );
       });
 
-      test('G-TE-2: Global function with bounded param uses bound. [2026-02-10 06:37] (PASS)', () {
+      test('G-TE-2b: Global function with bounded param uses bound. [2026-02-10 06:37] (PASS)', () {
         // findEntity<E extends BaseEntity>(List<E> entities, ...)
         expect(
           generatedCode,
