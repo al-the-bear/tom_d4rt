@@ -9536,6 +9536,20 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final getters = <String, InterpretedFunction>{};
     final methods = <String, InterpretedFunction>{};
 
+    // G-DOV3-1 FIX: Create the extension type first so we can pass it as owner
+    // to the methods/getters (needed for bind() to work)
+    final extensionType = InterpretedExtensionType(
+      typeName,
+      representationFieldName,
+      representationType,
+      environment,
+      getters,  // Will be populated below
+      methods,  // Will be populated below
+    );
+
+    // Define it in the environment early so methods can reference the type
+    environment.define(typeName, extensionType);
+
     for (final member in node.members) {
       if (member is MethodDeclaration) {
         final methodName = member.name.lexeme;
@@ -9549,10 +9563,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
 
         // Create the interpreted function using the method constructor
-        // Extension type methods need access to the representation value
-        // We pass null for owner initially - extension types are special
+        // G-DOV3-1 FIX: Pass extension type as owner so bind() works
         final interpretedMethod =
-            InterpretedFunction.method(member, environment, null);
+            InterpretedFunction.method(member, environment, extensionType);
 
         if (isGetter) {
           getters[methodName] = interpretedMethod;
@@ -9566,18 +9579,6 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
     }
 
-    // Create the extension type
-    final extensionType = InterpretedExtensionType(
-      typeName,
-      representationFieldName,
-      representationType,
-      environment,
-      getters,
-      methods,
-    );
-
-    // Define it in the environment
-    environment.define(typeName, extensionType);
     Logger.debug(
         "[visitExtensionTypeDeclaration] Defined extension type '$typeName' in environment.");
 

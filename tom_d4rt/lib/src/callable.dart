@@ -349,6 +349,16 @@ class InterpretedFunction implements Callable {
       }
     }
 
+    // G-DOV3-1 FIX: Handle extension type instances - define the representation field
+    // so that `value` (or whatever the field is named) is accessible in the getter/method body
+    if (instance is InterpretedExtensionTypeInstance &&
+        ownerType is InterpretedExtensionType) {
+      final extType = ownerType as InterpretedExtensionType;
+      // Define the representation field name (e.g., 'value') to point to the wrapped value
+      boundEnvironment.define(
+          extType.representationFieldName, instance.representationValue);
+    }
+
     // Create a new function *instance* that uses the bound environment
     // Need to ensure all relevant properties (isGetter, isSetter, etc.) are copied.
     final boundFunction = InterpretedFunction._internal(

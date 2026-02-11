@@ -56,9 +56,18 @@ class IsolateIsolate {
               throw RuntimeD4rtException(
                   'Isolate.run requires a Function for computation.');
             }
-            final debugName = namedArgs.get<String?>('debugName');
-            return Isolate.run(() => computation.call(visitor, []),
-                debugName: debugName);
+            // G-DOV3-2 FIX: Interpreted functions cannot be sent to real isolates
+            // because they capture interpreter state (Environment, etc.) which
+            // contains non-sendable objects like Completers.
+            //
+            // Instead of spawning a real isolate, we execute the computation
+            // asynchronously in the current isolate. This provides the same
+            // async semantics without true parallelism.
+            //
+            // For true parallel execution, users should:
+            // 1. Use D4rt's native bridge to call real Dart code in isolates
+            // 2. Or compile their D4rt script to native Dart first
+            return Future.microtask(() => computation.call(visitor, []));
           },
           'spawn': (visitor, positionalArgs, namedArgs, _) {
             final entryPoint = positionalArgs[0];

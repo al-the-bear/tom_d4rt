@@ -1993,13 +1993,17 @@ class InterpretedExtensionType implements Callable, RuntimeType {
 }
 
 /// An instance of an extension type
-class InterpretedExtensionTypeInstance {
+class InterpretedExtensionTypeInstance implements RuntimeValue {
   final InterpretedExtensionType extensionType;
   final Object? representationValue;
 
   InterpretedExtensionTypeInstance(this.extensionType, this.representationValue);
 
+  @override
+  RuntimeType get valueType => extensionType;
+
   /// Get a property (field or getter) on this extension type instance
+  @override
   Object? get(String propertyName, [InterpreterVisitor? visitor]) {
     // Check if accessing the representation field
     if (propertyName == extensionType.representationFieldName) {
@@ -2009,7 +2013,16 @@ class InterpretedExtensionTypeInstance {
     // Check for getters defined on the extension type
     final getter = extensionType.getters[propertyName];
     if (getter != null && visitor != null) {
-      return getter.call(visitor, [representationValue], {});
+      // G-DOV3-1 FIX: Bind 'this' to the extension type instance, then call with empty args
+      // Getters take no arguments - they access 'this' via the bound environment
+      return getter.bind(this).call(visitor, [], {});
+    }
+
+    // Check for methods defined on the extension type
+    final method = extensionType.methods[propertyName];
+    if (method != null) {
+      // Return the bound method for later invocation
+      return method.bind(this);
     }
 
     throw RuntimeD4rtException(
@@ -2018,4 +2031,10 @@ class InterpretedExtensionTypeInstance {
 
   @override
   String toString() => '<instance of ${extensionType.name}>';
+
+  @override
+  void set(String name, Object? value) {
+    throw RuntimeD4rtException(
+        "Extension type '${extensionType.name}' does not support setting properties");
+  }
 }
