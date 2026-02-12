@@ -122,7 +122,7 @@ int main() {
     });
 
     test(
-        'triple nested generic Map<String, List<Map<String, int>>> type checking',
+        'I-TYPE-92: Triple nested generic Map<String, List<Map<String, int>>> type checking. [2026-02-12] (PASS)',
         () {
       const code = '''
 int main() {

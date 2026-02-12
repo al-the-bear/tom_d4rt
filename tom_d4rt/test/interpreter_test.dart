@@ -180,7 +180,7 @@ void main() {
     });
 
     test(
-        'Main function with arguments called without args (should pass empty list)',
+        'I-MISC-452: Main function with arguments called without args (should pass empty list). [2026-02-12] (PASS)',
         () {
       final source = '''
         main(List<String> args) { // Prend des arguments
@@ -193,7 +193,7 @@ void main() {
   });
 
   group('Gestion des portées (Scopes)', () {
-    test('Variable interne au bloc non accessible à l\'extérieur', () {
+    test('I-MISC-453: Variable interne au bloc non accessible à l\'extérieur. [2026-02-12] (PASS)', () {
       final code = '''
        main() {
           {
@@ -1161,7 +1161,7 @@ void main() {
       });
 
       test(
-          'Implicit super() call fails if no default constructor in superclass',
+          'I-MISC-454: Implicit super() call fails if no default constructor in superclass. [2026-02-12] (PASS)',
           () {
         final code = '''
             class Parent { Parent.named(); }
@@ -1596,7 +1596,7 @@ void main() {
     });
 
     test(
-        'Concrete class extending abstract class implementing interface must implement',
+        'I-MISC-455: Concrete class extending abstract class implementing interface must implement. [2026-02-12] (PASS)',
         () {
       final code = '''
           abstract class Doer { void doIt(); }
@@ -3167,7 +3167,7 @@ void main() {
       expect(execute(source), equals(6));
     });
 
-    test('Case with \'when\' clause (true)', () {
+    test('I-MISC-456: Case with \'when\' clause (true). [2026-02-12] (PASS)', () {
       final source = '''
         main() {
           var point = (x: 10, y: 5);
@@ -3181,7 +3181,7 @@ void main() {
       expect(execute(source), equals("X > Y"));
     });
 
-    test('Case with \'when\' clause (false)', () {
+    test('I-MISC-457: Case with \'when\' clause (false). [2026-02-12] (PASS)', () {
       final source = '''
         main() {
           var point = (x: 3, y: 8);

@@ -124,7 +124,7 @@ void main() {
       expect(execute(source), equals([10, 20]));
     });
 
-    test('Constructor using \'this.fieldName\' syntax', () {
+    test('I-CLASS-85: Constructor using \'this.fieldName\' syntax. [2026-02-12] (PASS)', () {
       const source = '''
         class Points {
           int x, y;

@@ -129,7 +129,7 @@ void main() {
     };
 
     test(
-      'Import local simple file (memory) - check all symbols of the common lib',
+      'I-IMPORT-9: Import local simple file (memory) - check all symbols of the common lib. [2026-02-12] (PASS)',
       () {
         final d4rt = D4rt();
         final mainlibrary = "d4rt-mem:/main_source.dart";
@@ -183,7 +183,7 @@ void main() {
     });
 
     group('Combinators (show/hide)', () {
-      test('Import with "show" (no prefix) - access allowed symbols [2026-02-10 06:37]', () {
+      test('I-IMPORT-4: Import with "show" (no prefix) - access allowed symbols. [2026-02-10 06:37] (PASS)', () {
         final d4rt = D4rt();
         final result = d4rt.execute(
           library: "d4rt-mem:/main_import_show.dart",
@@ -193,7 +193,7 @@ void main() {
       });
 
       test(
-        'Import with "show" (no prefix) - check that the hidden symbol is not accessible',
+        'I-IMPORT-10: Import with "show" (no prefix) - check that the hidden symbol is not accessible. [2026-02-12] (PASS)',
         () {
           final d4rt = D4rt();
           expect(
@@ -211,7 +211,7 @@ void main() {
         },
       );
 
-      test('Import with "hide" (no prefix) - access allowed symbols [2026-02-10 06:37]', () {
+      test('I-IMPORT-5: Import with "hide" (no prefix) - access allowed symbols. [2026-02-10 06:37] (PASS)', () {
         final d4rt = D4rt();
         final result = d4rt.execute(
           library: "d4rt-mem:/main_import_hide.dart",
@@ -221,7 +221,7 @@ void main() {
       });
 
       test(
-        'Import with "hide" (no prefix) - check that the hidden symbol is not accessible',
+        'I-IMPORT-11: Import with "hide" (no prefix) - check that the hidden symbol is not accessible. [2026-02-12] (PASS)',
         () {
           final d4rt = D4rt();
           expect(
@@ -239,7 +239,7 @@ void main() {
         },
       );
 
-      test('Import prefixed with "show" - access allowed symbols [2026-02-10 06:37]', () {
+      test('I-IMPORT-6: Import prefixed with "show" - access allowed symbols. [2026-02-10 06:37] (PASS)', () {
         final d4rt = D4rt();
         final result = d4rt.execute(
             library: "d4rt-mem:/main_prefixed_import_show.dart",
@@ -248,7 +248,7 @@ void main() {
       });
 
       test(
-        'Import prefixed with "show" - check that the hidden symbol is not accessible',
+        'I-IMPORT-12: Import prefixed with "show" - check that the hidden symbol is not accessible. [2026-02-12] (PASS)',
         () {
           final d4rt = D4rt();
           expect(
@@ -268,7 +268,7 @@ void main() {
         },
       );
 
-      test('Import prefixed with "hide" - access allowed symbols [2026-02-10 06:37]', () {
+      test('I-IMPORT-8: Import prefixed with "hide" - access allowed symbols. [2026-02-10 06:37] (PASS)', () {
         final d4rt = D4rt();
         final result = d4rt.execute(
             library: "d4rt-mem:/main_prefixed_import_hide.dart",
@@ -277,7 +277,7 @@ void main() {
       });
 
       test(
-        'Import prefixed with "hide" - check that the hidden symbol is not accessible',
+        'I-IMPORT-13: Import prefixed with "hide" - check that the hidden symbol is not accessible. [2026-02-12] (PASS)',
         () {
           final d4rt = D4rt();
           expect(
@@ -297,7 +297,7 @@ void main() {
         },
       );
 
-      test('Import with "show" avoids name conflict with local definition [2026-02-10 06:37]', () {
+      test('I-IMPORT-7: Import with "show" avoids name conflict with local definition. [2026-02-10 06:37] (PASS)', () {
         final d4rt = D4rt();
         final result = d4rt.execute(
             library: "d4rt-mem:/main_import_conflict_show.dart",
@@ -306,7 +306,7 @@ void main() {
       });
 
       test(
-        'Import with "hide" avoids name conflict and allows access to other imported symbols',
+        'I-IMPORT-14: Import with "hide" avoids name conflict and allows access to other imported symbols. [2026-02-12] (PASS)',
         () {
           final d4rt = D4rt();
           final result = d4rt.execute(

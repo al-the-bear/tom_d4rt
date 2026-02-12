@@ -333,7 +333,7 @@ void main() {
 
     group('Optional positional arguments', () {
       test(
-          'should handle optional positional arguments with defaults via named args',
+          'I-MISC-451: Optional positional arguments with defaults via named args. [2026-02-12] (PASS)',
           () {
         // Note: Optional positional parameters [...] are best handled via named args
         // or by using required positional parameters

@@ -456,7 +456,7 @@ void main() {
         expect(execute(source), equals('HoHoHo'));
       });
 
-      test('Extension method using \'this\' property (isEmpty)', () {
+      test('I-EXT-61: Extension method using \'this\' property (isEmpty). [2026-02-12] (PASS)', () {
         const source = '''
         extension CheckEmptyExt on String {
           bool isNotEmptyOrNull() => !isEmpty; // Accesses 'this.isEmpty'
@@ -471,7 +471,7 @@ void main() {
         expect(execute(source), equals([true, false]));
       });
 
-      test('Extension method using \'this\' method (toUpperCase)', () {
+      test('I-EXT-62: Extension method using \'this\' method (toUpperCase). [2026-02-12] (PASS)', () {
         const source = '''
         extension ShoutExt on String {
           String shout() => toUpperCase() + '!!!'; // Calls 'this.toUpperCase()'
@@ -484,7 +484,7 @@ void main() {
         expect(execute(source), equals('WHISPER!!!'));
       });
 
-      test('Extension method using multiple \'this\' members', () {
+      test('I-EXT-63: Extension method using multiple \'this\' members. [2026-02-12] (PASS)', () {
         const source = '''
         extension ComplexStringExt on String {
           String process(String suffix) {
@@ -672,7 +672,7 @@ void main() {
         expect(execute(source), equals('HoHoHo'));
       });
 
-      test('Extension method using \'this\' property (isEmpty)', () {
+      test('I-EXT-64: Extension method using \'this\' property (isEmpty). [2026-02-12] (PASS)', () {
         const source = '''
         extension CheckEmptyExt on String {
           bool isNotEmptyOrNull() => !isEmpty; // Accesses 'this.isEmpty'
@@ -687,7 +687,7 @@ void main() {
         expect(execute(source), equals([true, false]));
       });
 
-      test('Extension method using \'this\' method (toUpperCase)', () {
+      test('I-EXT-65: Extension method using \'this\' method (toUpperCase). [2026-02-12] (PASS)', () {
         const source = '''
         extension ShoutExt on String {
           String shout() => toUpperCase() + '!!!'; // Calls 'this.toUpperCase()'
@@ -700,7 +700,7 @@ void main() {
         expect(execute(source), equals('WHISPER!!!'));
       });
 
-      test('Extension method using multiple \'this\' members', () {
+      test('I-EXT-66: Extension method using multiple \'this\' members. [2026-02-12] (PASS)', () {
         const source = '''
         extension ComplexStringExt on String {
           String process(String suffix) {

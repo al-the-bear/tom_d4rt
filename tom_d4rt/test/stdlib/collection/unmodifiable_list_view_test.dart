@@ -76,7 +76,7 @@ void main() {
     });
 
     test(
-        'Other read-only methods: contains, indexOf, lastIndexOf, join, getRange, sublist, toList, toSet, cast, iterator, reversed',
+        'I-COLL-282: Other read-only methods: contains, indexOf, lastIndexOf, join, getRange, sublist, toList, toSet, cast, iterator, reversed. [2026-02-12] (PASS)',
         () {
       final result =
           executeAndGetList(unmodifiableListViewSource('[10, 20, 30, 20]', '''

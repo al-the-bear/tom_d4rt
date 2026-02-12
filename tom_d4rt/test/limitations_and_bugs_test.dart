@@ -416,7 +416,7 @@ bool main() {
     });
 
     test(
-      'Bug-47: Future.doWhile should work',
+      'I-FILE-187: Bug-47: Future.doWhile should work. [2026-02-12] (PASS)',
       () async {
         const source = '''
 Future<int> main() async {
@@ -1045,7 +1045,7 @@ Future<String> main() async {
     });
 
     test(
-      'Lim-4/Bug-43: Infinite sync* generators with take() should work',
+      'I-FILE-188: Lim-4/Bug-43: Infinite sync* generators with take() should work. [2026-02-12] (PASS)',
       () {
         // Fixed: Lazy sync* generator implementation using native Dart sync*
         // to produce values on demand. Infinite generators now work with take().

@@ -1,6 +1,6 @@
 # D4rt Bridge Generator — Known Issues & Limitations
 
-> Last updated: 2026-02-10
+> Last updated: 2026-02-12
 > 
 > Generated from test baseline analysis comparing tom_d4rt and tom_d4rt_generator test results.
 
@@ -31,22 +31,22 @@
 | [G-UB-4](#g-ub-4) | GlobalsUserBridge globalService getter override | Low | Fixed |
 | [G-UB-5](#g-ub-5) | GlobalsUserBridge greet function override | Low | Fixed |
 | [G-UB-6](#g-ub-6) | GlobalsUserBridge add function override | Low | Fixed |
-| [G-ASYNC-1](#g-async-1) | Async function Future e2e test | Medium | Fixable |
-| [G-ASYNC-2](#g-async-2) | Async* generator Stream e2e test | Medium | Fixable |
-| [G-ASYNC-3](#g-async-3) | Sync* generator Iterable e2e test | Medium | Fixable |
-| [G-ASYNC-4](#g-async-4) | Callback parameter Function e2e test | Medium | Fixable |
-| [G-ASYNC-5](#g-async-5) | Instance async method Future e2e test | Medium | Fixable |
-| [G-ASYNC-6](#g-async-6) | Instance sync* method Iterable e2e test | Medium | Fixable |
-| [G-ASYNC-7](#g-async-7) | Instance async* method Stream e2e test | Medium | Fixable |
-| [G-ASYNC-8](#g-async-8) | Static sync*/async* method e2e test | Medium | Fixable |
-| [G-COV-7](#g-cov-7) | TOP15: base mixin e2e test | Medium | Fixable |
-| [G-COV-42](#g-cov-42) | TOP01: concrete class e2e test | Medium | Fixable |
-| [G-TOP-12](#g-top-12) | Enhanced enum with mixin e2e test | Medium | Fixable |
-| [G-TOP-13](#g-top-13) | Generic enum N/A Dart limitation test | Low | Fixable |
-| [G-TOP-19](#g-top-19) | Typedef function not needed test | Low | Fixable |
-| [G-TOP-24](#g-top-24) | Top-level async function e2e test | Medium | Fixable |
-| [G-TOP-28](#g-top-28) | Top-level setter e2e test | Medium | Fixable |
-| [G-CLS-6](#g-cls-6) | Late field e2e test | Medium | Fixable |
+| [G-ASYNC-1](#g-async-1) | Async function Future e2e test | Medium | Fixed |
+| [G-ASYNC-2](#g-async-2) | Async* generator Stream e2e test | Medium | Fixed |
+| [G-ASYNC-3](#g-async-3) | Sync* generator Iterable e2e test | Medium | Fixed |
+| [G-ASYNC-4](#g-async-4) | Callback parameter Function e2e test | Medium | Fixed |
+| [G-ASYNC-5](#g-async-5) | Instance async method Future e2e test | Medium | Fixed |
+| [G-ASYNC-6](#g-async-6) | Instance sync* method Iterable e2e test | Medium | Fixed |
+| [G-ASYNC-7](#g-async-7) | Instance async* method Stream e2e test | Medium | Fixed |
+| [G-ASYNC-8](#g-async-8) | Static sync*/async* method e2e test | Medium | Fixed |
+| [G-COV-7](#g-cov-7) | TOP15: base mixin e2e test | Medium | Fixed |
+| [G-COV-42](#g-cov-42) | TOP01: concrete class e2e test | Medium | Fixed |
+| [G-TOP-12](#g-top-12) | Enhanced enum with mixin e2e test | Medium | Fixed |
+| [G-TOP-13](#g-top-13) | Generic enum N/A Dart limitation test | Low | Fixed |
+| [G-TOP-19](#g-top-19) | Typedef function not needed test | Low | Fixed |
+| [G-TOP-24](#g-top-24) | Top-level async function e2e test | Medium | Fixed |
+| [G-TOP-28](#g-top-28) | Top-level setter e2e test | Medium | Fixed |
+| [G-CLS-6](#g-cls-6) | Late field e2e test | Medium | Fixed |
 | [G-PAR-6](#g-par-6) | Function-typed parameter | High | Won't Fix |
 | [G-GNRC-7](#g-gnrc-7) | F-bounded polymorphism | High | Won't Fix |
 | [G-OP-8](#g-op-8) | Operator == equality | Medium | Won't Fix |
@@ -418,13 +418,15 @@ Same as G-UB-5.
 
 ---
 
-### E2E Coverage Tests — Potentially Fixable
+### E2E Coverage Tests — Fixed
 
-These tests run D4rt scripts using generated bridges. With tom_d4rt interpreter fixes applied, many of these may now pass. Status "Fixable" means they should be re-tested.
+These tests run D4rt scripts using generated bridges. All 16 e2e coverage tests now pass after tom_d4rt interpreter fixes were applied (async/await, sync*/async* generators, callbacks, enum handling, late fields, setters).
 
 ---
 
 #### G-ASYNC-1
+
+**Status: Fixed**
 
 **Async function Future e2e test**
 
@@ -446,6 +448,8 @@ E2E test for async functions returning Future fails. This was blocked by interpr
 
 #### G-ASYNC-2
 
+**Status: Fixed**
+
 **Async* generator Stream e2e test**
 
 **a) Problem:**
@@ -460,6 +464,8 @@ Same as G-ASYNC-1 — re-test with latest interpreter.
 ---
 
 #### G-ASYNC-3
+
+**Status: Fixed**
 
 **Sync* generator Iterable e2e test**
 
@@ -476,6 +482,8 @@ Same as G-ASYNC-1.
 
 #### G-ASYNC-4
 
+**Status: Fixed**
+
 **Callback parameter Function e2e test**
 
 **a) Problem:**
@@ -490,6 +498,8 @@ Same as G-ASYNC-1.
 ---
 
 #### G-ASYNC-5
+
+**Status: Fixed**
 
 **Instance async method Future e2e test**
 
@@ -506,6 +516,8 @@ Same as G-ASYNC-1.
 
 #### G-ASYNC-6
 
+**Status: Fixed**
+
 **Instance sync* method Iterable e2e test**
 
 **a) Problem:**
@@ -520,6 +532,8 @@ Same as G-ASYNC-1.
 ---
 
 #### G-ASYNC-7
+
+**Status: Fixed**
 
 **Instance async* method Stream e2e test**
 
@@ -536,6 +550,8 @@ Same as G-ASYNC-1.
 
 #### G-ASYNC-8
 
+**Status: Fixed**
+
 **Static sync*/async* method e2e test**
 
 **a) Problem:**
@@ -550,6 +566,8 @@ Same as G-ASYNC-1.
 ---
 
 #### G-COV-7
+
+**Status: Fixed**
 
 **TOP15: base mixin e2e test**
 
@@ -566,6 +584,8 @@ Re-test with latest interpreter.
 
 #### G-COV-42
 
+**Status: Fixed**
+
 **TOP01: concrete class e2e test**
 
 **a) Problem:**
@@ -580,6 +600,8 @@ Re-run test suite to update baseline.
 ---
 
 #### G-TOP-12
+
+**Status: Fixed**
 
 **Enhanced enum with mixin e2e test**
 
@@ -596,6 +618,8 @@ Re-test with latest interpreter.
 
 #### G-TOP-13
 
+**Status: Fixed**
+
 **Generic enum N/A Dart limitation test**
 
 **a) Problem:**
@@ -610,6 +634,8 @@ Verify test correctly handles the limitation.
 ---
 
 #### G-TOP-19
+
+**Status: Fixed**
 
 **Typedef function not needed test**
 
@@ -626,6 +652,8 @@ Re-test.
 
 #### G-TOP-24
 
+**Status: Fixed**
+
 **Top-level async function e2e test**
 
 **a) Problem:**
@@ -641,6 +669,8 @@ Same as G-ASYNC-1.
 
 #### G-TOP-28
 
+**Status: Fixed**
+
 **Top-level setter e2e test**
 
 **a) Problem:**
@@ -655,6 +685,8 @@ Re-test — interpreter setter handling may be fixed.
 ---
 
 #### G-CLS-6
+
+**Status: Fixed**
 
 **Late field e2e test**
 
@@ -839,14 +871,15 @@ Same fundamental Dart limitation as G-TE-1.
 
 | Status | Count | Description |
 |--------|-------|-------------|
-| TODO | 21 | Code generation pattern tests needing investigation |
-| Fixable | 16 | E2E tests that may pass with tom_d4rt fixes |
+| Fixed | 21 | Code generation pattern tests |
+| Fixed | 16 | E2E coverage tests (resolved with tom_d4rt interpreter fixes) |
 | Won't Fix | 7 | Fundamental interpreter/Dart limitations |
 
-**Recommended next steps:**
-1. Re-run e2e test suite to update baseline after tom_d4rt fixes
-2. Investigate code generation pattern tests (G-CB-*, G-GB-*, G-UB-*) to determine if tests or generator need updating
-3. Update this document after re-testing
+**Current status (2026-02-12):**
+- All 37 fixable issues have been resolved (21 code gen + 16 e2e)
+- 7 Won't Fix issues remain as known limitations (G-PAR-6, G-GNRC-7, G-OP-8, G-TYPE-1, G-TYPE-2, G-TE-1, G-TE-2)
+- tom_d4rt_generator: 90 passed, 4 failed (all Won't Fix)
+- tom_d4rt: 1675 passed, 2 failed
 
 ---
 

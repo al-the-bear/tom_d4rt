@@ -100,7 +100,7 @@ void main() {
     });
 
     test(
-        'double.toStringAsFixed, toStringAsExponential, and toStringAsPrecision',
+        'I-INT-68: double.toStringAsFixed, toStringAsExponential, and toStringAsPrecision. [2026-02-12] (PASS)',
         () {
       const source = '''
       main() {

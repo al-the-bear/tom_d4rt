@@ -128,7 +128,7 @@ void main() {
     });
 
     test(
-        'Chained export: main imports E, E exports D (show c1,c2), D exports C (c1,c2,c3) -> E hides c2 from D',
+        'I-IMPORT-15: Chained export: main imports E, E exports D (show c1,c2), D exports C (c1,c2,c3) -> E hides c2 from D. [2026-02-12] (PASS)',
         () {
       final Map<String, String> sources = {
         "d4rt-mem:/lib_C.dart": """
