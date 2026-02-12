@@ -5,7 +5,11 @@ class IteratorCore {
         nativeType: Iterator,
         name: 'Iterator',
         typeParameterCount: 1,
-        nativeNames: ['_ListQueueIterator', '_HashSetIterator'],
+        nativeNames: [
+          '_ListQueueIterator',
+          '_HashSetIterator',
+          '_LazySyncGeneratorIterator', // D4rt sync* generator iterator
+        ],
         methods: {
           'moveNext': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Iterator).moveNext();

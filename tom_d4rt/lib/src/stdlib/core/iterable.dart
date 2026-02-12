@@ -15,7 +15,8 @@ class IterableCore {
           '_SplayTreeKeyIterable',
           '_SplayTreeValueIterable',
           '_AllMatchesIterable',
-          '_SyncGeneratorIterable',
+          '_SyncGeneratorIterable', // D4rt interpreter sync* generator
+          '_SyncStarIterable', // Dart SDK sync* generator (from bridged code)
         ],
         staticMethods: {
           'generate': (visitor, positionalArgs, namedArgs, _) {

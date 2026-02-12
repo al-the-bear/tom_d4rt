@@ -1,22 +1,24 @@
 /// D4rt test execution with in-memory bridge generation and subprocess runner.
 ///
 /// Generates bridges using the bridge generator directly in-memory, then
-/// spawns the generated test runner in a subprocess to execute D4rt scripts
-/// with all bridges registered. Captures output and exceptions via structured
-/// JSON and enforces a configurable timeout.
+/// compiles the test runner to a native binary and uses it to execute D4rt
+/// scripts with all bridges registered. Captures output and exceptions via
+/// structured JSON and enforces a configurable timeout.
 ///
 /// ## Architecture
 ///
 /// ```
-/// D4rtTester (test process)              Subprocess (generated test runner)
+/// D4rtTester (test process)              Subprocess (compiled d4 binary)
 /// ───────────────────────                ──────────────────────────────────
-/// 1. generateBridges(config)
+/// 1. delete bin/d4 (verify regeneration)
+///
+/// 2. generateBridges(config)
 ///    → bridge files + test runner
 ///    (in-memory, same process)
 ///
-/// 2. Process.start('dart',
-///    ['run', 'bin/d4rtrun.b.dart',
-///     '--test', scriptFile])             → _runTestScript(scriptFile)
+/// 3. dart compile exe bin/d4rtrun.b.dart -o bin/d4
+///
+/// 4. bin/d4 --test scriptFile            → _runTestScript(scriptFile)
 ///                                            │
 ///                                            ├─ runZonedGuarded(
 ///                                            │    () { d4rt.execute(source) },
@@ -27,9 +29,9 @@
 ///    ← stdout: ###D4RT_TEST_RESULT###    ← _emitTestResult(output, exceptions)
 ///      {"output":"...","exceptions":[]}
 ///
-/// 3. timeout? → process.kill()
+/// 5. timeout? → process.kill()
 ///
-/// 4. D4rtTestResult.fromTestProcess()
+/// 6. D4rtTestResult.fromTestProcess()
 ///      → .success / .timedOut / .exceptions / .processOutput
 /// ```
 ///
@@ -40,16 +42,17 @@
 ///
 /// final config = BridgeConfig.fromJson({...});
 ///
-/// // Run a script file with bridge generation
-/// final result = await tester.runScript(config, 'scripts/test_types.dart');
-/// expect(result.success, isTrue);
+/// // Prepare bridges and compile binary once in setUpAll
+/// setUpAll(() async {
+///   final ok = await tester.prepareBridges(config);
+///   expect(ok, isTrue);
+/// });
 ///
-/// // Evaluate with init script
-/// final evalResult = await tester.runEval(
-///   config,
-///   'scripts/init.dart',
-///   'scripts/eval_test.dart',
-/// );
+/// // Run scripts using the compiled binary
+/// test('feature X', () async {
+///   final result = await tester.runScriptOnly(config, 'test/x.dart');
+///   expect(result.success, isTrue);
+/// });
 /// ```
 library;
 
@@ -95,26 +98,39 @@ class D4rtTester {
   /// The test runner filename (without `.dart` extension).
   ///
   /// The bridge generator produces `bin/<runnerExecutable>.dart` which is
-  /// invoked as `dart run bin/<runnerExecutable>.dart --test ...`.
+  /// compiled to [compiledBinaryName].
   /// Default: `'d4rtrun.b'`.
   final String runnerExecutable;
+
+  /// The compiled binary name (without path).
+  ///
+  /// The test runner is compiled to `bin/<compiledBinaryName>` and used
+  /// for all script executions. Default: `'d4'`.
+  final String compiledBinaryName;
 
   D4rtTester({
     required this.projectPath,
     this.defaultTimeout = const Duration(seconds: 3),
     this.runnerExecutable = 'd4rtrun.b',
+    this.compiledBinaryName = 'd4',
   });
+
+  /// Path to the compiled binary.
+  String get _binaryPath => p.join(projectPath, 'bin', compiledBinaryName);
 
   /// Generate bridges once for a project without running any script.
   ///
-  /// Use this in `setUpAll` to generate bridges once, then call
-  /// [runScriptOnly] for each test script to avoid re-generating
-  /// bridges on every test invocation.
+  /// This method:
+  /// 1. **Deletes** the existing binary to verify regeneration
+  /// 2. **Generates** bridges using the in-memory generator
+  /// 3. **Compiles** the test runner to a native binary
   ///
-  /// Returns `true` if generation succeeded, `false` otherwise.
-  /// On failure, the generation errors are stored and can be retrieved
-  /// from subsequent [runScriptOnly] calls (which will return a failed
-  /// result immediately).
+  /// Use this in `setUpAll` to prepare once, then call [runScriptOnly]
+  /// for each test script.
+  ///
+  /// Returns `true` if generation and compilation succeeded, `false` otherwise.
+  /// On failure, the errors are stored and can be retrieved from subsequent
+  /// [runScriptOnly] calls (which will return a failed result immediately).
   ///
   /// Example:
   /// ```dart
@@ -129,10 +145,43 @@ class D4rtTester {
   /// });
   /// ```
   Future<bool> prepareBridges(BridgeConfig config) async {
+    // Step 1: Delete existing binary to verify it gets regenerated
+    final binaryFile = File(_binaryPath);
+    if (binaryFile.existsSync()) {
+      binaryFile.deleteSync();
+    }
+
+    // Step 2: Generate bridges
     final genResult = await _generateBridges(config);
-    _lastGenerationErrors =
-        genResult.isSuccess ? null : genResult.errors;
-    return genResult.isSuccess;
+    if (!genResult.isSuccess) {
+      _lastGenerationErrors = genResult.errors;
+      return false;
+    }
+
+    // Step 3: Compile the test runner to a native binary
+    final runnerPath = _resolveRunnerPath(config);
+    final compileResult = await Process.run(
+      'dart',
+      ['compile', 'exe', runnerPath, '-o', _binaryPath],
+      workingDirectory: projectPath,
+    );
+
+    if (compileResult.exitCode != 0) {
+      _lastGenerationErrors = [
+        'Failed to compile test runner:',
+        compileResult.stderr.toString(),
+      ];
+      return false;
+    }
+
+    // Verify binary was created
+    if (!File(_binaryPath).existsSync()) {
+      _lastGenerationErrors = ['Compiled binary not found at $_binaryPath'];
+      return false;
+    }
+
+    _lastGenerationErrors = null;
+    return true;
   }
 
   /// Run a D4rt script file **without** regenerating bridges.
@@ -141,8 +190,7 @@ class D4rtTester {
   /// were not prepared (or preparation failed), returns a failed
   /// [D4rtTestResult] with an appropriate error message.
   ///
-  /// This is much faster than [runScript] when running many test scripts
-  /// against the same generated bridges.
+  /// Uses the compiled binary for execution (much faster than dart run).
   Future<D4rtTestResult> runScriptOnly(
     BridgeConfig config,
     String scriptFile, {
@@ -156,9 +204,8 @@ class D4rtTester {
       );
     }
 
-    final runnerPath = _resolveRunnerPath(config);
-    return _runProcess(
-      ['run', runnerPath, '--test', scriptFile],
+    return _runBinary(
+      ['--test', scriptFile],
       timeout ?? defaultTimeout,
     );
   }
@@ -170,7 +217,7 @@ class D4rtTester {
   ///
   /// 1. Runs the bridge generator in-memory with [config], producing bridge
   ///    files and the test runner into [projectPath].
-  /// 2. Spawns the test runner in a subprocess with `--test <scriptFile>`.
+  /// 2. Compiles and runs the test runner with `--test <scriptFile>`.
   /// 3. Returns a [D4rtTestResult] with captured output, exceptions, and
   ///    timeout status.
   ///
@@ -195,20 +242,19 @@ class D4rtTester {
     String scriptFile, {
     Duration? timeout,
   }) async {
-    // Step 1: Generate bridges in-memory
-    final genResult = await _generateBridges(config);
-    if (!genResult.isSuccess) {
+    // Generate and compile bridges
+    final ok = await prepareBridges(config);
+    if (!ok) {
       return D4rtTestResult(
         timedOut: false,
-        exceptions: genResult.errors,
+        exceptions: _lastGenerationErrors!,
         exitCode: -1,
       );
     }
 
-    // Step 2: Spawn test runner subprocess
-    final runnerPath = _resolveRunnerPath(config);
-    return _runProcess(
-      ['run', runnerPath, '--test', scriptFile],
+    // Run using compiled binary
+    return _runBinary(
+      ['--test', scriptFile],
       timeout ?? defaultTimeout,
     );
   }
@@ -216,7 +262,7 @@ class D4rtTester {
   /// Generate bridges and evaluate an expression file, capturing results.
   ///
   /// 1. Runs the bridge generator in-memory with [config].
-  /// 2. Spawns the test runner with `--test-eval <initScriptFile> <expressionFile>`.
+  /// 2. Compiles and runs the test runner with `--test-eval <initScriptFile> <expressionFile>`.
   ///    The init script sets up the D4rt environment (imports, variables),
   ///    then the expression file is evaluated using `eval()`.
   /// 3. Returns a [D4rtTestResult].
@@ -238,20 +284,19 @@ class D4rtTester {
     String expressionFile, {
     Duration? timeout,
   }) async {
-    // Step 1: Generate bridges in-memory
-    final genResult = await _generateBridges(config);
-    if (!genResult.isSuccess) {
+    // Generate and compile bridges
+    final ok = await prepareBridges(config);
+    if (!ok) {
       return D4rtTestResult(
         timedOut: false,
-        exceptions: genResult.errors,
+        exceptions: _lastGenerationErrors!,
         exitCode: -1,
       );
     }
 
-    // Step 2: Spawn test runner subprocess
-    final runnerPath = _resolveRunnerPath(config);
-    return _runProcess(
-      ['run', runnerPath, '--test-eval', initScriptFile, expressionFile],
+    // Run using compiled binary
+    return _runBinary(
+      ['--test-eval', initScriptFile, expressionFile],
       timeout ?? defaultTimeout,
     );
   }
@@ -287,18 +332,18 @@ class D4rtTester {
     return p.join(projectPath, runnerFile);
   }
 
-  /// Spawn the test runner process with timeout handling.
+  /// Run the compiled binary with arguments and timeout handling.
   ///
-  /// Starts `dart run <runnerPath> <args>` in [projectPath], collects
+  /// Executes `bin/<compiledBinaryName> <args>` in [projectPath], collects
   /// stdout/stderr, and enforces [timeout]. If the process exceeds the
   /// timeout, it is killed with SIGKILL and [D4rtTestResult.timedOut]
   /// is set to `true`.
-  Future<D4rtTestResult> _runProcess(
+  Future<D4rtTestResult> _runBinary(
     List<String> args,
     Duration timeout,
   ) async {
     final process = await Process.start(
-      'dart',
+      _binaryPath,
       args,
       workingDirectory: projectPath,
     );

@@ -36,8 +36,7 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 final _overviewDir = p.join(
   Directory.current.path,
   'example',
-  'dart_overview',
-  'lib',
+  'd4', 'lib', 'src', 'dart_overview',
 );
 
 /// Execute a D4rt source string and return the result.

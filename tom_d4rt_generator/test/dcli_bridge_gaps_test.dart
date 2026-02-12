@@ -315,7 +315,7 @@ void main() {
       // 1. Bridge the dcli package's find() wrapper instead of dcli_core's find()
       // 2. Use the higher-level DCli APIs that don't require explicit progress callbacks
       
-      test('DCL-FIND-001: dcli_core.find requires progress callback (by design) [2026-02-11] (OK)',
+      test('DCL-FIND-001: dcli_core.find requires progress callback (by design) [2026-02-11] (PASS)',
           () {
         // This verifies the expected behavior: the generator correctly bridges
         // dcli_core.find() which has a required progress parameter.

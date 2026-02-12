@@ -52,6 +52,7 @@ import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_build_base/tom_build_base.dart';
 import 'package:tom_d4rt_generator/src/build_config_loader.dart';
+import 'package:tom_d4rt_generator/src/d4rtgen_logging.dart';
 import 'package:tom_d4rt_generator/src/version.g.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 import 'package:yaml/yaml.dart';
@@ -71,6 +72,13 @@ String? _validatePathContainment(TomBuildConfig config, String basePath) {
 }
 
 Future<void> main(List<String> arguments) async {
+  // Log CLI invocation for debugging test runs
+  logD4rtgenInvocation(
+    source: 'CLI',
+    details: 'args: ${arguments.join(" ")}, cwd: ${Directory.current.path}',
+    includeStackTrace: true,
+  );
+
   // Check for help command first (before parsing)
   if (isHelpCommand(arguments)) {
     _printUsage(null);

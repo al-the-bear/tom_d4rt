@@ -1217,6 +1217,26 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
         return left == right;
       case '!=':
+        // Special handling for BridgedEnumValue comparison
+        if (leftOperandValue is BridgedEnumValue &&
+            rightOperandValue is BridgedEnumValue) {
+          return leftOperandValue != rightOperandValue;
+        }
+
+        // Special handling for mixed native enum and BridgedEnumValue comparison
+        if ((leftOperandValue is BridgedEnumValue &&
+                rightOperandValue is Enum) ||
+            (leftOperandValue is Enum &&
+                rightOperandValue is BridgedEnumValue)) {
+          final leftNative = leftOperandValue is BridgedEnumValue
+              ? leftOperandValue.nativeValue
+              : leftOperandValue;
+          final rightNative = rightOperandValue is BridgedEnumValue
+              ? rightOperandValue.nativeValue
+              : rightOperandValue;
+          return leftNative != rightNative;
+        }
+
         return left != right;
       case '<':
         return left as dynamic < right;

@@ -1,5 +1,5 @@
-name: dcli_scripting_guide_examples
-description: Examples from the DCli Scripting Guide
+name: d4_test_scripts
+description: D4rt test scripts for tom_d4rt_generator testing.
 version: 1.0.0
 publish_to: none
 
@@ -7,5 +7,14 @@ environment:
   sdk: ^3.10.4
 
 dependencies:
-  dcli: ^8.4.2
+  d4_example:
+    path: ../d4
+  tom_d4rt:
+    path: ../../../tom_d4rt
   path: ^1.9.0
+  dcli: ^8.4.2
+  dcli_core: ^8.2.8
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.0

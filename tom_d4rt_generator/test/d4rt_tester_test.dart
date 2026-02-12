@@ -1,11 +1,14 @@
-/// End-to-end tests using D4rtTester to generate bridges for example
-/// projects and execute D4rt test scripts.
+/// End-to-end tests using D4rtTester to generate bridges for the unified
+/// d4 example project and execute D4rt test scripts.
 ///
-/// Each test group:
-/// 1. Loads BridgeConfig from the example project's buildkit.yaml
-/// 2. Uses D4rtTester to generate bridges and a test runner
-/// 3. Executes a D4rt test script via the generated test runner
-/// 4. Asserts on success (no exceptions, no timeout, exit 0)
+/// All tests share a single D4rtTester instance pointing at the d4 project
+/// which contains all bridged classes. Test scripts are in d4_test_scripts/bin/
+/// organized by original source project (example_project, user_guide, etc.).
+///
+/// Test flow:
+/// 1. In setUpAll: Load BridgeConfig from d4/buildkit.yaml, generate bridges once
+/// 2. Each test: Execute a script from d4_test_scripts/bin/{category}/xxx.dart
+/// 3. Assert on success (no exceptions, no timeout, exit 0)
 ///
 /// These tests exercise the full pipeline: config loading → bridge
 /// generation → test runner code generation → subprocess execution
@@ -24,44 +27,48 @@ import 'package:tom_d4rt_generator/src/testing/d4rt_test_result.dart';
 import 'package:tom_d4rt_generator/src/testing/d4rt_tester.dart';
 
 /// Root path of the tom_d4rt_generator package.
-///
-/// `dart test` sets the working directory to the package root, so
-/// [Directory.current] is reliable here.
 final String _generatorRoot = Directory.current.path;
 
 /// Path to the example projects folder.
 final String _exampleRoot = p.join(_generatorRoot, 'example');
 
+/// Path to the d4 project (bridge host).
+final String _d4Project = p.join(_exampleRoot, 'd4');
+
 void main() {
+  late D4rtTester tester;
+  late BridgeConfig config;
+
+  setUpAll(() async {
+    // Load config from d4 project
+    config = BuildConfigLoader.loadFromTomBuildYaml(_d4Project)!;
+    tester = D4rtTester(
+      projectPath: _d4Project,
+      defaultTimeout: const Duration(seconds: 30),
+    );
+
+    // Generate bridges once for all tests
+    final ok = await tester.prepareBridges(config);
+    expect(ok, isTrue, reason: 'Bridge generation failed for d4');
+  });
+
   group('D4rtTester end-to-end', () {
     // ── example_project ──────────────────────────────────────────────
 
     group('example_project', () {
-      late D4rtTester tester;
-      late BridgeConfig config;
-
-      setUpAll(() {
-        final projectPath = p.join(_exampleRoot, 'example_project');
-        config = BuildConfigLoader.loadFromTomBuildYaml(projectPath)!;
-        tester = D4rtTester(
-          projectPath: projectPath,
-          defaultTimeout: const Duration(seconds: 30),
-        );
-      });
-
       test('G-TST-13: Basic classes, constructors, enums. [2026-02-10 06:37] (PASS)', () async {
-        final result = await tester.runScript(
+        final result = await tester.runScriptOnly(
           config,
-          'test/d4rt_test_basics.dart',
+          '../d4_test_scripts/bin/example_project/d4rt_test_basics.dart',
         );
         _expectSuccess(result, 'example_project');
         expect(result.processOutput, contains('ALL_TESTS_PASSED'));
       });
 
       test('G-TST-14: Enhanced enum fields. [2026-02-10 06:37] (PASS)', () async {
-        final result = await tester.runScript(
+        final result = await tester.runScriptOnly(
           config,
-          'test/d4rt_test_enum_fields.dart',
+          '../d4_test_scripts/bin/example_project/d4rt_test_enum_fields.dart',
         );
         _expectSuccess(result, 'example_project/enum_fields');
         expect(result.processOutput, contains('ALL_ENUM_FIELD_TESTS_PASSED'));
@@ -71,22 +78,10 @@ void main() {
     // ── user_guide ───────────────────────────────────────────────────
 
     group('user_guide', () {
-      late D4rtTester tester;
-      late BridgeConfig config;
-
-      setUpAll(() {
-        final projectPath = p.join(_exampleRoot, 'user_guide');
-        config = BuildConfigLoader.loadFromTomBuildYaml(projectPath)!;
-        tester = D4rtTester(
-          projectPath: projectPath,
-          defaultTimeout: const Duration(seconds: 30),
-        );
-      });
-
       test('G-TST-15: Calculator and Greeter classes. [2026-02-10 06:37] (PASS)', () async {
-        final result = await tester.runScript(
+        final result = await tester.runScriptOnly(
           config,
-          'test/d4rt_test_guide.dart',
+          '../d4_test_scripts/bin/user_guide/d4rt_test_guide.dart',
         );
         _expectSuccess(result, 'user_guide');
         expect(result.processOutput, contains('ALL_TESTS_PASSED'));
@@ -96,22 +91,10 @@ void main() {
     // ── user_reference ───────────────────────────────────────────────
 
     group('user_reference', () {
-      late D4rtTester tester;
-      late BridgeConfig config;
-
-      setUpAll(() {
-        final projectPath = p.join(_exampleRoot, 'user_reference');
-        config = BuildConfigLoader.loadFromTomBuildYaml(projectPath)!;
-        tester = D4rtTester(
-          projectPath: projectPath,
-          defaultTimeout: const Duration(seconds: 30),
-        );
-      });
-
       test('G-TST-1: User, Product, Order models. [2026-02-10 06:37] (PASS)', () async {
-        final result = await tester.runScript(
+        final result = await tester.runScriptOnly(
           config,
-          'test/d4rt_test_models.dart',
+          '../d4_test_scripts/bin/user_reference/d4rt_test_models.dart',
         );
         _expectSuccess(result, 'user_reference');
         expect(result.processOutput, contains('ALL_TESTS_PASSED'));
@@ -121,40 +104,28 @@ void main() {
     // ── userbridge_override ──────────────────────────────────────────
 
     group('userbridge_override', () {
-      late D4rtTester tester;
-      late BridgeConfig config;
-
-      setUpAll(() {
-        final projectPath = p.join(_exampleRoot, 'userbridge_override');
-        config = BuildConfigLoader.loadFromTomBuildYaml(projectPath)!;
-        tester = D4rtTester(
-          projectPath: projectPath,
-          defaultTimeout: const Duration(seconds: 30),
-        );
-      });
-
       test('G-TST-2: MyList, globals, top-level functions. [2026-02-10 06:37] (PASS)', () async {
-        final result = await tester.runScript(
+        final result = await tester.runScriptOnly(
           config,
-          'test/d4rt_test_overrides.dart',
+          '../d4_test_scripts/bin/userbridge_override/d4rt_test_overrides.dart',
         );
         _expectSuccess(result, 'userbridge_override');
         expect(result.processOutput, contains('ALL_TESTS_PASSED'));
       });
 
       test('G-TST-3: UBR02: user bridge method override. [2026-02-10 06:37] (PASS)', () async {
-        final result = await tester.runScript(
+        final result = await tester.runScriptOnly(
           config,
-          'test/ubr02_method_override.dart',
+          '../d4_test_scripts/bin/userbridge_override/ubr02_method_override.dart',
         );
         _expectSuccess(result, 'UBR02');
         expect(result.processOutput, contains('UBR02_PASSED'));
       });
 
       test('G-TST-4: UBR03: user bridge field/variable override. [2026-02-10 06:37] (PASS)', () async {
-        final result = await tester.runScript(
+        final result = await tester.runScriptOnly(
           config,
-          'test/ubr03_field_override.dart',
+          '../d4_test_scripts/bin/userbridge_override/ubr03_field_override.dart',
         );
         _expectSuccess(result, 'UBR03');
         expect(result.processOutput, contains('UBR03_PASSED'));
@@ -164,31 +135,19 @@ void main() {
     // ── dart_overview ────────────────────────────────────────────────
 
     group('dart_overview', () {
-      late D4rtTester tester;
-      late BridgeConfig config;
-
-      setUpAll(() {
-        final projectPath = p.join(_exampleRoot, 'dart_overview');
-        config = BuildConfigLoader.loadFromTomBuildYaml(projectPath)!;
-        tester = D4rtTester(
-          projectPath: projectPath,
-          defaultTimeout: const Duration(seconds: 30),
-        );
-      });
-
       test('G-TST-5: Declarations, enums, generic classes. [2026-02-10 06:37] (PASS)', () async {
-        final result = await tester.runScript(
+        final result = await tester.runScriptOnly(
           config,
-          'test/d4rt_test_overview.dart',
+          '../d4_test_scripts/bin/dart_overview/d4rt_test_overview.dart',
         );
         _expectSuccess(result, 'dart_overview');
         expect(result.processOutput, contains('ALL_TESTS_PASSED'));
       });
 
       test('G-TST-6: Implicit default constructors. [2026-02-10 06:37] (PASS)', () async {
-        final result = await tester.runScript(
+        final result = await tester.runScriptOnly(
           config,
-          'test/d4rt_test_implicit_ctors.dart',
+          '../d4_test_scripts/bin/dart_overview/d4rt_test_implicit_ctors.dart',
         );
         _expectSuccess(result, 'dart_overview/implicit_ctors');
         expect(
@@ -198,9 +157,9 @@ void main() {
       });
 
       test('G-TST-7: Enhanced enum fields (dart_overview). [2026-02-10 06:37] (PASS)', () async {
-        final result = await tester.runScript(
+        final result = await tester.runScriptOnly(
           config,
-          'test/d4rt_test_enhanced_enums.dart',
+          '../d4_test_scripts/bin/dart_overview/d4rt_test_enhanced_enums.dart',
         );
         _expectSuccess(result, 'dart_overview/enhanced_enums');
         expect(
@@ -213,22 +172,10 @@ void main() {
     // ── userbridge_user_guide ────────────────────────────────────────
 
     group('userbridge_user_guide', () {
-      late D4rtTester tester;
-      late BridgeConfig config;
-
-      setUpAll(() {
-        final projectPath = p.join(_exampleRoot, 'userbridge_user_guide');
-        config = BuildConfigLoader.loadFromTomBuildYaml(projectPath)!;
-        tester = D4rtTester(
-          projectPath: projectPath,
-          defaultTimeout: const Duration(seconds: 30),
-        );
-      });
-
       test('G-TST-8: Vector2D and Matrix2x2 via user bridges. [2026-02-10 06:37] (PASS)', () async {
-        final result = await tester.runScript(
+        final result = await tester.runScriptOnly(
           config,
-          'test/d4rt_test_user_bridges.dart',
+          '../d4_test_scripts/bin/userbridge_user_guide/d4rt_test_user_bridges.dart',
         );
         _expectSuccess(result, 'userbridge_user_guide');
         expect(result.processOutput, contains('ALL_TESTS_PASSED'));
@@ -272,18 +219,18 @@ void main() {
       });
 
       test('G-TST-9: UBR01: user bridge class (basic). [2026-02-10 06:37] (PASS)', () async {
-        final result = await tester.runScript(
+        final result = await tester.runScriptOnly(
           config,
-          'test/ubr01_basic_class.dart',
+          '../d4_test_scripts/bin/userbridge_user_guide/ubr01_basic_class.dart',
         );
         _expectSuccess(result, 'UBR01');
         expect(result.processOutput, contains('UBR01_PASSED'));
       });
 
       test('G-TST-10: UBR04: user bridge operator overrides. [2026-02-10 06:37] (PASS)', () async {
-        final result = await tester.runScript(
+        final result = await tester.runScriptOnly(
           config,
-          'test/ubr04_operator.dart',
+          '../d4_test_scripts/bin/userbridge_user_guide/ubr04_operator.dart',
         );
         _expectSuccess(result, 'UBR04');
         expect(result.processOutput, contains('UBR04_PASSED'));
@@ -302,18 +249,18 @@ void main() {
       });
 
       test('G-TST-11: UBR05: user bridge constructor. [2026-02-10 06:37] (PASS)', () async {
-        final result = await tester.runScript(
+        final result = await tester.runScriptOnly(
           config,
-          'test/ubr05_constructor.dart',
+          '../d4_test_scripts/bin/userbridge_user_guide/ubr05_constructor.dart',
         );
         _expectSuccess(result, 'UBR05');
         expect(result.processOutput, contains('UBR05_PASSED'));
       });
 
       test('G-TST-12: UBR06: user bridge import prefix (GEN-043). [2026-02-10 06:37] (PASS)', () async {
-        final result = await tester.runScript(
+        final result = await tester.runScriptOnly(
           config,
-          'test/ubr06_import_prefix.dart',
+          '../d4_test_scripts/bin/userbridge_user_guide/ubr06_import_prefix.dart',
         );
         _expectSuccess(result, 'UBR06');
         expect(result.processOutput, contains('UBR06_PASSED'));

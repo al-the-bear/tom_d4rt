@@ -304,6 +304,8 @@ class GlobalVariableInfo {
   final bool isFinal;
   final bool isConst;
   final bool isGetter;
+  /// GEN-054: Whether this getter has a corresponding setter.
+  final bool hasSetter;
   final String sourceFile;
 
   const GlobalVariableInfo({
@@ -312,8 +314,22 @@ class GlobalVariableInfo {
     required this.isFinal,
     required this.isConst,
     this.isGetter = false,
+    this.hasSetter = false,
     required this.sourceFile,
   });
+
+  /// Creates a copy with updated hasSetter value.
+  GlobalVariableInfo copyWith({bool? hasSetter}) {
+    return GlobalVariableInfo(
+      name: name,
+      type: type,
+      isFinal: isFinal,
+      isConst: isConst,
+      isGetter: isGetter,
+      hasSetter: hasSetter ?? this.hasSetter,
+      sourceFile: sourceFile,
+    );
+  }
 }
 
 /// Information about an enum for bridging.
@@ -1895,7 +1911,24 @@ class BridgeGenerator {
 
     // Parse globals (functions, variables, enums) from all source files early
     // so we can check if there's anything to generate
-    final globals = await _parseGlobals(sourceFiles);
+    final globalsRaw = await _parseGlobals(sourceFiles);
+    
+    // GEN-054: Mark variables that have corresponding setters.
+    final variablesWithSetters = globalsRaw.variables.map((v) {
+      if (v.isGetter && globalsRaw.setterNames.contains(v.name)) {
+        return v.copyWith(hasSetter: true);
+      }
+      return v;
+    }).toList();
+    
+    // Create updated globals record with setter-aware variables
+    final globals = (
+      functions: globalsRaw.functions,
+      variables: variablesWithSetters,
+      enums: globalsRaw.enums,
+      extensions: globalsRaw.extensions,
+      setterNames: globalsRaw.setterNames,
+    );
 
     // Build the set of exported type names from ALL filtered classes (including abstract)
     // and exported enums. This is used to detect when a type is used but not
@@ -2350,7 +2383,24 @@ class BridgeGenerator {
 
     // Parse globals (functions, variables, enums) from all source files early
     // so we can check if there's anything to generate
-    final globals = await _parseGlobals(sourceFiles);
+    final globalsRaw = await _parseGlobals(sourceFiles);
+    
+    // GEN-054: Mark variables that have corresponding setters.
+    final variablesWithSetters = globalsRaw.variables.map((v) {
+      if (v.isGetter && globalsRaw.setterNames.contains(v.name)) {
+        return v.copyWith(hasSetter: true);
+      }
+      return v;
+    }).toList();
+    
+    // Create updated globals record with setter-aware variables
+    final globals = (
+      functions: globalsRaw.functions,
+      variables: variablesWithSetters,
+      enums: globalsRaw.enums,
+      extensions: globalsRaw.extensions,
+      setterNames: globalsRaw.setterNames,
+    );
 
     // Build the set of exported type names from ALL filtered classes (including abstract)
     // and exported enums. This is used to detect when a type is used but not
@@ -2909,17 +2959,20 @@ class BridgeGenerator {
 
   /// Parses global functions, variables, and enums from a list of source files.
   ///
-  /// Returns a record with lists of global functions, variables, and enums.
+  /// Returns a record with lists of global functions, variables, enums,
+  /// and a set of setter names for GEN-054 getter/setter matching.
   Future<({
     List<GlobalFunctionInfo> functions,
     List<GlobalVariableInfo> variables,
     List<EnumInfo> enums,
     List<ExtensionInfo> extensions,
+    Set<String> setterNames,
   })> _parseGlobals(List<String> sourceFiles) async {
     final functions = <GlobalFunctionInfo>[];
     final variables = <GlobalVariableInfo>[];
     final enums = <EnumInfo>[];
     final extensions = <ExtensionInfo>[];
+    final setterNames = <String>{};
 
     for (final filePath in sourceFiles) {
       final absolutePath = p.isAbsolute(filePath)
@@ -2951,6 +3004,8 @@ class BridgeGenerator {
           variables.addAll(visitor.globalVariables);
           enums.addAll(visitor.enums);
           extensions.addAll(visitor.extensions);
+          // GEN-054: Collect setter names from this file
+          setterNames.addAll(visitor.globalSetterNames);
           
           // GEN-049: Collect extensions from imported libraries
           final importedExtensions = _collectExtensionsFromImports(result, normalizedPath);
@@ -2971,7 +3026,7 @@ class BridgeGenerator {
       }
     }
 
-    return (functions: functions, variables: variables, enums: enums, extensions: extensions);
+    return (functions: functions, variables: variables, enums: enums, extensions: extensions, setterNames: setterNames);
   }
 
   /// Checks if a class name matches a pattern.
@@ -4134,6 +4189,15 @@ class BridgeGenerator {
         } else {
           buffer.writeln(
             "    interpreter.registerGlobalGetter('${variable.name}', () => $prefixedGetterName, importPath, sourceUri: '$sourceUri');",
+          );
+        }
+        
+        // GEN-054: Also register the setter if this getter has a corresponding setter.
+        if (variable.hasSetter) {
+          // Get prefixed type name for proper import reference
+          final prefixedTypeName = _getPrefixedClassName(variable.type, variable.sourceFile);
+          buffer.writeln(
+            "    interpreter.registerGlobalSetter('${variable.name}', (v) => $prefixedGetterName = v as $prefixedTypeName, importPath, sourceUri: '$sourceUri');",
           );
         }
       }
@@ -8456,6 +8520,9 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
   final List<EnumInfo> enums = [];
   final List<ExtensionInfo> extensions = [];
   
+  /// GEN-054: Track setter names to match with getters later.
+  final Set<String> globalSetterNames = {};
+  
   /// Counter for skipped deprecated elements (for reporting).
   int skippedDeprecatedCount = 0;
   
@@ -8644,6 +8711,39 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         if (methodName == null) continue;
         methodNames.add(methodName);
       }
+
+      // GEN-053: Also collect methods and getters from mixin supertypes.
+      // Enums can use mixins (e.g., `enum LogLevel with LoggableMixin`),
+      // and we need to include their methods in the bridge definition.
+      for (final supertype in enumElement.allSupertypes) {
+        final supertypeElement = supertype.element;
+
+        // Skip Enum and Object base types
+        if (supertypeElement.name == 'Enum' || supertypeElement.name == 'Object') continue;
+
+        // Collect getters from mixin
+        for (final getter in supertypeElement.getters) {
+          if (getter.isStatic) continue;
+          if (getter.isSynthetic) continue;
+          final getterName = getter.name;
+          if (getterName == null) continue;
+          if (getterName.startsWith('_')) continue;
+          if (builtInNames.contains(getterName)) continue;
+          if (getterNames.contains(getterName)) continue;
+          getterNames.add(getterName);
+        }
+
+        // Collect methods from mixin
+        for (final method in supertypeElement.methods) {
+          if (method.isStatic) continue;
+          if (method.isSynthetic) continue;
+          final methodName = method.name;
+          if (methodName == null) continue;
+          if (methodName.startsWith('_')) continue;
+          if (methodNames.contains(methodName)) continue;
+          methodNames.add(methodName);
+        }
+      }
     }
 
     enums.add(
@@ -8819,8 +8919,13 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       return;
     }
 
-    // Skip setters (they don't make sense as standalone globals)
-    if (node.isSetter) return;
+    // GEN-054: Collect setters to match with getters later.
+    // Setters are collected by name; the actual setter generation happens
+    // when we find a matching getter.
+    if (node.isSetter) {
+      globalSetterNames.add(name);
+      return;
+    }
 
     final returnType = node.returnType?.toSource() ?? 'dynamic';
     final params = node.functionExpression.parameters;
@@ -9824,6 +9929,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       final type = node.fields.type?.toSource() ?? 'dynamic';
       final isFinal = node.fields.isFinal;
       final isConst = node.fields.isConst;
+      final isLate = node.fields.isLate;
 
       // Add getter
       results.add(
@@ -9837,8 +9943,13 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         ),
       );
 
-      // Add setter if not final/const
-      if (!isFinal && !isConst) {
+      // Add setter if not const, and either:
+      // - not final (mutable field), OR
+      // - late final WITHOUT initializer (can be set once from outside)
+      // late final fields WITH initializers (e.g. late final x = expr) are
+      // computed lazily and have no external setter.
+      final hasInitializer = variable.initializer != null;
+      if (!isConst && (!isFinal || (isLate && !hasInitializer))) {
         results.add(
           MemberInfo(
             name: name,
@@ -10407,6 +10518,7 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
       final type = node.fields.type?.toSource() ?? 'dynamic';
       final isFinal = node.fields.isFinal;
       final isConst = node.fields.isConst;
+      final isLate = node.fields.isLate;
 
       // Add getter
       results.add(
@@ -10418,8 +10530,11 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
         ),
       );
 
-      // Add setter if not final/const
-      if (!isFinal && !isConst) {
+      // Add setter if not const, and either:
+      // - not final (mutable field), OR
+      // - late final WITHOUT initializer (can be set once from outside)
+      final hasInitializer = variable.initializer != null;
+      if (!isConst && (!isFinal || (isLate && !hasInitializer))) {
         results.add(
           MemberInfo(
             name: name,

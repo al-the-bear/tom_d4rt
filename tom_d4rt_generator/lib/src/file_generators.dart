@@ -300,6 +300,21 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   buffer.writeln('}');
   buffer.writeln();
 
+  // D4 invocation logging function
+  buffer.writeln('/// Logs D4 invocations to a debug file.');
+  buffer.writeln("const String _d4InvocationsLogPath = '/Users/alexiskyaw/Desktop/Code/tom2/d4_invocations.log';");
+  buffer.writeln();
+  buffer.writeln('void _logD4Invocation(String mode, String input) {');
+  buffer.writeln('  final timestamp = DateTime.now().toIso8601String();');
+  buffer.writeln("  final logLine = '\$timestamp | \$mode | \$input\\n';");
+  buffer.writeln('  try {');
+  buffer.writeln("    File(_d4InvocationsLogPath).writeAsStringSync(logLine, mode: FileMode.append);");
+  buffer.writeln('  } catch (_) {');
+  buffer.writeln('    // Ignore logging failures');
+  buffer.writeln('  }');
+  buffer.writeln('}');
+  buffer.writeln();
+
   // Main function
   buffer.writeln('Future<void> main(List<String> args) async {');
   buffer.writeln('  if (args.isEmpty) {');
@@ -367,6 +382,7 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   // _runFile — execute a script file
   buffer.writeln('/// Run a D4rt script file using execute().');
   buffer.writeln('void _runFile(String filePath) {');
+  buffer.writeln("  _logD4Invocation('FILE', filePath);");
   buffer.writeln('  final file = File(filePath);');
   buffer.writeln('  if (!file.existsSync()) {');
   buffer.writeln("    stderr.writeln('Error: File not found: \$filePath');");
@@ -399,6 +415,7 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   // _runExpression — eval an expression
   buffer.writeln('/// Evaluate an expression using eval().');
   buffer.writeln('void _runExpression(String expression) {');
+  buffer.writeln("  _logD4Invocation('EXPR', expression);");
   buffer.writeln('  final d4rt = D4rt();');
   buffer.writeln('  _registerBridges(d4rt);');
   buffer.writeln('  d4rt.grant(FilesystemPermission.any);');
@@ -423,6 +440,7 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   // _runEvalFile — eval a file's content
   buffer.writeln('/// Evaluate file content using eval().');
   buffer.writeln('void _runEvalFile(String filePath) {');
+  buffer.writeln("  _logD4Invocation('EVAL-FILE', filePath);");
   buffer.writeln('  final file = File(filePath);');
   buffer.writeln('  if (!file.existsSync()) {');
   buffer.writeln("    stderr.writeln('Error: File not found: \$filePath');");
@@ -486,6 +504,7 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   buffer.writeln('/// output and unhandled exceptions. Results are output as JSON.');
   buffer.writeln('/// Properly awaits async main() functions.');
   buffer.writeln('Future<void> _runTestScript(String filePath) async {');
+  buffer.writeln("  _logD4Invocation('TEST', filePath);");
   buffer.writeln('  final file = File(filePath);');
   buffer.writeln('  if (!file.existsSync()) {');
   buffer.writeln("    _emitTestResult('', ['File not found: \$filePath']);");
@@ -540,6 +559,7 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   buffer.writeln('/// Initializes with [initFilePath], then evaluates [evalFilePath].');
   buffer.writeln('/// Properly awaits async init scripts.');
   buffer.writeln('Future<void> _runTestEval(String initFilePath, String evalFilePath) async {');
+  buffer.writeln("  _logD4Invocation('TEST-EVAL', '\$initFilePath | \$evalFilePath');");
   buffer.writeln('  final initFile = File(initFilePath);');
   buffer.writeln('  final evalFile = File(evalFilePath);');
   buffer.writeln('  if (!initFile.existsSync()) {');

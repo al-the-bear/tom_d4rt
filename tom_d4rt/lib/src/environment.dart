@@ -325,6 +325,18 @@ class Environment {
     throw RuntimeD4rtException("Undefined variable: $name");
   }
 
+  /// Unwraps bridge wrappers for setter assignment.
+  /// 
+  /// GEN-054: BridgedEnumValue wraps native enum values during interpretation.
+  /// When assigning to a native setter, we need to unwrap back to the native value.
+  Object? _unwrapForSetter(Object? value) {
+    if (value is BridgedEnumValue) {
+      return value.nativeValue;
+    }
+    // Add other unwrapping cases here as needed
+    return value;
+  }
+
   Object? assign(String name, Object? value) {
     Logger.debug(
         "[Env.assign] Attempting to assign '$name' = $value in env: $hashCode");
@@ -335,7 +347,10 @@ class Environment {
       if (existing is GlobalGetter) {
         if (existing.hasSetter) {
           Logger.debug(" [Env.assign] Calling setter for GlobalGetter '$name'");
-          existing.setter!(value);
+          // Unwrap BridgedEnumValue to its native value before calling the setter.
+          // GEN-054: This ensures bridged enum values can be assigned to native setters.
+          final unwrappedValue = _unwrapForSetter(value);
+          existing.setter!(unwrappedValue);
           return value;
         } else {
           // GlobalGetter without setter - not assignable

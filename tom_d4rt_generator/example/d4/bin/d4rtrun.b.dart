@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for d4_example
-// Generated: 2026-02-11T16:24:01.788199
+// Generated: 2026-02-12T23:07:29.252041
 //
 // Usage:
 //   dart run bin/d4rtrun.b.dart <script.dart|.d4rt>  Run a D4rt script file
@@ -16,12 +16,24 @@ import 'dart:io';
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:d4_example/src/d4rt_bridges/core_extensions.b.dart' as core_extensions_bridges;
+import 'package:d4_example/src/d4rt_bridges/example_project.b.dart' as example_project_bridges;
+import 'package:d4_example/src/d4rt_bridges/user_guide.b.dart' as user_guide_bridges;
+import 'package:d4_example/src/d4rt_bridges/user_reference.b.dart' as user_reference_bridges;
+import 'package:d4_example/src/d4rt_bridges/userbridge_override.b.dart' as userbridge_override_bridges;
+import 'package:d4_example/src/d4rt_bridges/userbridge_user_guide.b.dart' as userbridge_user_guide_bridges;
+import 'package:d4_example/src/d4rt_bridges/dart_overview.b.dart' as dart_overview_bridges;
 import 'package:d4_example/src/d4rt_bridges/path_bridges.b.dart' as path_bridges;
 import 'package:d4_example/src/d4rt_bridges/dcli_bridges.b.dart' as dcli_bridges;
 
 /// Init script source that imports all bridged modules.
 const String _initSource = '''
 import 'package:d4_example/test_extensions.dart';
+import 'package:d4_example/example_project.dart';
+import 'package:d4_example/user_guide.dart';
+import 'package:d4_example/user_reference.dart';
+import 'package:d4_example/userbridge_override.dart';
+import 'package:d4_example/userbridge_user_guide.dart';
+import 'package:d4_example/dart_overview.dart';
 import 'package:path/path.dart';
 import 'package:dcli/dcli.dart';
 import 'package:dcli_core/dcli_core.dart';
@@ -35,6 +47,30 @@ void _registerBridges(D4rt d4rt) {
     d4rt,
     'package:d4_example/test_extensions.dart',
   );
+  example_project_bridges.ExampleProjectBridge.registerBridges(
+    d4rt,
+    'package:d4_example/example_project.dart',
+  );
+  user_guide_bridges.UserGuideBridge.registerBridges(
+    d4rt,
+    'package:d4_example/user_guide.dart',
+  );
+  user_reference_bridges.UserReferenceBridge.registerBridges(
+    d4rt,
+    'package:d4_example/user_reference.dart',
+  );
+  userbridge_override_bridges.UserbridgeOverrideBridge.registerBridges(
+    d4rt,
+    'package:d4_example/userbridge_override.dart',
+  );
+  userbridge_user_guide_bridges.UserbridgeUserGuideBridge.registerBridges(
+    d4rt,
+    'package:d4_example/userbridge_user_guide.dart',
+  );
+  dart_overview_bridges.DartOverviewBridge.registerBridges(
+    d4rt,
+    'package:d4_example/dart_overview.dart',
+  );
   path_bridges.PathBridge.registerBridges(
     d4rt,
     'package:path/path.dart',
@@ -47,6 +83,19 @@ void _registerBridges(D4rt d4rt) {
     d4rt,
     'package:dcli_core/dcli_core.dart',
   );
+}
+
+/// Logs D4 invocations to a debug file.
+const String _d4InvocationsLogPath = '/Users/alexiskyaw/Desktop/Code/tom2/d4_invocations.log';
+
+void _logD4Invocation(String mode, String input) {
+  final timestamp = DateTime.now().toIso8601String();
+  final logLine = '$timestamp | $mode | $input\n';
+  try {
+    File(_d4InvocationsLogPath).writeAsStringSync(logLine, mode: FileMode.append);
+  } catch (_) {
+    // Ignore logging failures
+  }
 }
 
 Future<void> main(List<String> args) async {
@@ -103,6 +152,7 @@ Future<void> main(List<String> args) async {
 
 /// Run a D4rt script file using execute().
 void _runFile(String filePath) {
+  _logD4Invocation('FILE', filePath);
   final file = File(filePath);
   if (!file.existsSync()) {
     stderr.writeln('Error: File not found: $filePath');
@@ -133,6 +183,7 @@ void _runFile(String filePath) {
 
 /// Evaluate an expression using eval().
 void _runExpression(String expression) {
+  _logD4Invocation('EXPR', expression);
   final d4rt = D4rt();
   _registerBridges(d4rt);
   d4rt.grant(FilesystemPermission.any);
@@ -155,6 +206,7 @@ void _runExpression(String expression) {
 
 /// Evaluate file content using eval().
 void _runEvalFile(String filePath) {
+  _logD4Invocation('EVAL-FILE', filePath);
   final file = File(filePath);
   if (!file.existsSync()) {
     stderr.writeln('Error: File not found: $filePath');
@@ -214,6 +266,7 @@ void _runInitEval() {
 /// output and unhandled exceptions. Results are output as JSON.
 /// Properly awaits async main() functions.
 Future<void> _runTestScript(String filePath) async {
+  _logD4Invocation('TEST', filePath);
   final file = File(filePath);
   if (!file.existsSync()) {
     _emitTestResult('', ['File not found: $filePath']);
@@ -266,6 +319,7 @@ Future<void> _runTestScript(String filePath) async {
 /// Initializes with [initFilePath], then evaluates [evalFilePath].
 /// Properly awaits async init scripts.
 Future<void> _runTestEval(String initFilePath, String evalFilePath) async {
+  _logD4Invocation('TEST-EVAL', '$initFilePath | $evalFilePath');
   final initFile = File(initFilePath);
   final evalFile = File(evalFilePath);
   if (!initFile.existsSync()) {

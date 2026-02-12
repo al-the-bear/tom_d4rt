@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-02-11T19:20:46.276429
+// Generated: 2026-02-12T22:51:44.119299
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -265,6 +265,12 @@ class AllBridge {
         getters: {
           'severity': (visitor, target) => (target as $pkg.LogLevel).severity,
         },
+        methods: {
+          'shouldLog': (visitor, target, positional, named, typeArgs) {
+            final t = target as $pkg.LogLevel;
+            return Function.apply(t.shouldLog, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
+          },
+        },
       ),
       BridgedEnumDefinition<$pkg.Priority>(
         name: 'Priority',
@@ -423,6 +429,7 @@ class AllBridge {
     interpreter.registerGlobalGetter('connectionCount', () => $pkg.connectionCount, importPath, sourceUri: 'package:dart_overview/globals/basics/run_basics.dart');
     interpreter.registerGlobalGetter('cachedValue', () => $pkg.cachedValue, importPath, sourceUri: 'package:dart_overview/globals/basics/run_basics.dart');
     interpreter.registerGlobalGetter('logLevel', () => $pkg.logLevel, importPath, sourceUri: 'package:dart_overview/globals/basics/run_basics.dart');
+    interpreter.registerGlobalSetter('logLevel', (v) => $pkg.logLevel = v as $pkg.LogSeverity, importPath, sourceUri: 'package:dart_overview/globals/basics/run_basics.dart');
 
     if (errors.isNotEmpty) {
       throw StateError('Bridge registration errors (all):\n${errors.join("\n")}');
@@ -3288,6 +3295,8 @@ BridgedClass _createLateFieldDemoBridge() {
     setters: {
       'config': (visitor, target, value) => 
         D4.validateTarget<$pkg.LateFieldDemo>(target, 'LateFieldDemo').config = value as String,
+      'id': (visitor, target, value) => 
+        D4.validateTarget<$pkg.LateFieldDemo>(target, 'LateFieldDemo').id = value as int,
     },
     constructorSignatures: {
       '': 'LateFieldDemo()',
@@ -3299,6 +3308,7 @@ BridgedClass _createLateFieldDemoBridge() {
     },
     setterSignatures: {
       'config': 'set config(dynamic value)',
+      'id': 'set id(dynamic value)',
     },
   );
 }

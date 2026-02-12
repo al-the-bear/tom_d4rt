@@ -10,6 +10,7 @@ import 'package:path/path.dart' as p;
 import 'bridge_config.dart';
 import 'bridge_generator.dart';
 import 'build_config_loader.dart';
+import 'd4rtgen_logging.dart';
 import 'file_generators.dart';
 
 /// Result of a bridge generation operation.
@@ -85,6 +86,13 @@ Future<GenerationResult> generateBridges({
   if (bridgeConfig == null) {
     throw ArgumentError('No d4rtgen configuration found in $projectDir');
   }
+
+  // Log invocation at project level (once per generateBridges call)
+  logD4rtgenInvocation(
+    source: 'API',
+    details: 'project: ${bridgeConfig.name}, modules: ${bridgeConfig.modules.length}, projectDir: $projectDir',
+    includeStackTrace: true,
+  );
   
   var totalClasses = 0;
   final outputFiles = <String>[];
