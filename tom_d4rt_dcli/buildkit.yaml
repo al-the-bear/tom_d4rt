@@ -45,8 +45,6 @@ d4rtgen:
         - "**/*_bridge.dart"
         - "**/*_generated.dart"
       excludeSourcePatterns:
-        # Column class uses ColumnComparator which is not exported from barrel
-        - "package:dcli/src/util/file_sort.dart#Column"
         # Extensions on types not exported from barrel (Platform is from dart:io, Digest from crypto)
         - "package:dcli_core/src/util/platform.dart#PlatformEx"
         - "package:dcli/src/util/digest_helper.dart#DigestHelper"

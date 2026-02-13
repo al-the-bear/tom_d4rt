@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-02-13T17:23:43.460084
+// Generated: 2026-02-13T20:22:46.997156
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -9,6 +9,7 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 import 'dart:async';
 
 import 'package:d4_example/example_project.dart' as $pkg;
+import 'package:d4_example/src/example_project/callback_classes.dart' as $aux_d4_example;
 
 /// Bridge class for example_project module.
 class ExampleProjectBridge {
@@ -731,29 +732,29 @@ BridgedClass _createMathUtilsBridge() {
 
 BridgedClass _createResultBridge() {
   return BridgedClass(
-    nativeType: $pkg.Result,
+    nativeType: $aux_d4_example.Result,
     name: 'Result',
     constructors: {
       'success': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Result');
         final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'Result');
-        return $pkg.Result.success(value);
+        return $aux_d4_example.Result.success(value);
       },
       'failure': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Result');
         final error = D4.getRequiredArg<String?>(positional, 0, 'error', 'Result');
-        return $pkg.Result.failure(error);
+        return $aux_d4_example.Result.failure(error);
       },
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$pkg.Result>(target, 'Result').value,
-      'error': (visitor, target) => D4.validateTarget<$pkg.Result>(target, 'Result').error,
-      'isSuccess': (visitor, target) => D4.validateTarget<$pkg.Result>(target, 'Result').isSuccess,
-      'isFailure': (visitor, target) => D4.validateTarget<$pkg.Result>(target, 'Result').isFailure,
+      'value': (visitor, target) => D4.validateTarget<$aux_d4_example.Result>(target, 'Result').value,
+      'error': (visitor, target) => D4.validateTarget<$aux_d4_example.Result>(target, 'Result').error,
+      'isSuccess': (visitor, target) => D4.validateTarget<$aux_d4_example.Result>(target, 'Result').isSuccess,
+      'isFailure': (visitor, target) => D4.validateTarget<$aux_d4_example.Result>(target, 'Result').isFailure,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Result>(target, 'Result');
+        final t = D4.validateTarget<$aux_d4_example.Result>(target, 'Result');
         return t.toString();
       },
     },
@@ -779,16 +780,16 @@ BridgedClass _createResultBridge() {
 
 BridgedClass _createTaskSchedulerBridge() {
   return BridgedClass(
-    nativeType: $pkg.TaskScheduler,
+    nativeType: $aux_d4_example.TaskScheduler,
     name: 'TaskScheduler',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.TaskScheduler();
+        return $aux_d4_example.TaskScheduler();
       },
     },
     methods: {
       'addTask': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TaskScheduler>(target, 'TaskScheduler');
+        final t = D4.validateTarget<$aux_d4_example.TaskScheduler>(target, 'TaskScheduler');
         D4.requireMinArgs(positional, 1, 'addTask');
         if (positional.isEmpty) {
           throw ArgumentError('addTask: Missing required argument "task" at position 0');
@@ -798,12 +799,12 @@ BridgedClass _createTaskSchedulerBridge() {
         return null;
       },
       'runAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TaskScheduler>(target, 'TaskScheduler');
+        final t = D4.validateTarget<$aux_d4_example.TaskScheduler>(target, 'TaskScheduler');
         t.runAll();
         return null;
       },
       'runWithHandler': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TaskScheduler>(target, 'TaskScheduler');
+        final t = D4.validateTarget<$aux_d4_example.TaskScheduler>(target, 'TaskScheduler');
         D4.requireMinArgs(positional, 3, 'runWithHandler');
         if (positional.isEmpty) {
           throw ArgumentError('runWithHandler: Missing required argument "task" at position 0');
@@ -821,7 +822,7 @@ BridgedClass _createTaskSchedulerBridge() {
         return null;
       },
       'mapValues': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TaskScheduler>(target, 'TaskScheduler');
+        final t = D4.validateTarget<$aux_d4_example.TaskScheduler>(target, 'TaskScheduler');
         D4.requireMinArgs(positional, 2, 'mapValues');
         if (positional.isEmpty) {
           throw ArgumentError('mapValues: Missing required argument "values" at position 0');
@@ -834,7 +835,7 @@ BridgedClass _createTaskSchedulerBridge() {
         return t.mapValues(values, (dynamic p0) { return (mapperRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; });
       },
       'filterValues': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TaskScheduler>(target, 'TaskScheduler');
+        final t = D4.validateTarget<$aux_d4_example.TaskScheduler>(target, 'TaskScheduler');
         D4.requireMinArgs(positional, 2, 'filterValues');
         if (positional.isEmpty) {
           throw ArgumentError('filterValues: Missing required argument "values" at position 0');
@@ -847,7 +848,7 @@ BridgedClass _createTaskSchedulerBridge() {
         return t.filterValues(values, (dynamic p0) { return (predicateRaw as InterpretedFunction).call(visitor, [p0]) as bool; });
       },
       'reduceValues': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TaskScheduler>(target, 'TaskScheduler');
+        final t = D4.validateTarget<$aux_d4_example.TaskScheduler>(target, 'TaskScheduler');
         D4.requireMinArgs(positional, 2, 'reduceValues');
         if (positional.isEmpty) {
           throw ArgumentError('reduceValues: Missing required argument "values" at position 0');
@@ -869,7 +870,7 @@ BridgedClass _createTaskSchedulerBridge() {
         }
         final generatorRaw = positional[1];
         final generator = (int p0) { return (generatorRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; };
-        return $pkg.TaskScheduler.generate(count, generator);
+        return $aux_d4_example.TaskScheduler.generate(count, generator);
       },
     },
     constructorSignatures: {
@@ -895,32 +896,32 @@ BridgedClass _createTaskSchedulerBridge() {
 
 BridgedClass _createAsyncServiceBridge() {
   return BridgedClass(
-    nativeType: $pkg.AsyncService,
+    nativeType: $aux_d4_example.AsyncService,
     name: 'AsyncService',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AsyncService');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'AsyncService');
         final delayMs = D4.getOptionalArgWithDefault<int>(positional, 1, '_delayMs', 10);
-        return $pkg.AsyncService(name, delayMs);
+        return $aux_d4_example.AsyncService(name, delayMs);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.AsyncService>(target, 'AsyncService').name,
+      'name': (visitor, target) => D4.validateTarget<$aux_d4_example.AsyncService>(target, 'AsyncService').name,
     },
     methods: {
       'fetchData': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.AsyncService>(target, 'AsyncService');
+        final t = D4.validateTarget<$aux_d4_example.AsyncService>(target, 'AsyncService');
         return t.fetchData();
       },
       'fetchById': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.AsyncService>(target, 'AsyncService');
+        final t = D4.validateTarget<$aux_d4_example.AsyncService>(target, 'AsyncService');
         D4.requireMinArgs(positional, 1, 'fetchById');
         final id = D4.getRequiredArg<String>(positional, 0, 'id', 'fetchById');
         return t.fetchById(id);
       },
       'fetchWithProgress': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.AsyncService>(target, 'AsyncService');
+        final t = D4.validateTarget<$aux_d4_example.AsyncService>(target, 'AsyncService');
         D4.requireMinArgs(positional, 1, 'fetchWithProgress');
         if (positional.isEmpty) {
           throw ArgumentError('fetchWithProgress: Missing required argument "onProgress" at position 0');
@@ -929,7 +930,7 @@ BridgedClass _createAsyncServiceBridge() {
         return t.fetchWithProgress((int p0) { (onProgressRaw as InterpretedFunction).call(visitor, [p0]); });
       },
       'tryFetch': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.AsyncService>(target, 'AsyncService');
+        final t = D4.validateTarget<$aux_d4_example.AsyncService>(target, 'AsyncService');
         D4.requireMinArgs(positional, 1, 'tryFetch');
         final id = D4.getRequiredArg<String>(positional, 0, 'id', 'tryFetch');
         return t.tryFetch(id);
@@ -939,7 +940,7 @@ BridgedClass _createAsyncServiceBridge() {
       'create': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'create');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'create');
-        return $pkg.AsyncService.create(name);
+        return $aux_d4_example.AsyncService.create(name);
       },
     },
     constructorSignatures: {
@@ -966,16 +967,16 @@ BridgedClass _createAsyncServiceBridge() {
 
 BridgedClass _createEventEmitterBridge() {
   return BridgedClass(
-    nativeType: $pkg.EventEmitter,
+    nativeType: $aux_d4_example.EventEmitter,
     name: 'EventEmitter',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.EventEmitter();
+        return $aux_d4_example.EventEmitter();
       },
     },
     methods: {
       'on': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$aux_d4_example.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 2, 'on');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'on');
         if (positional.length <= 1) {
@@ -986,14 +987,14 @@ BridgedClass _createEventEmitterBridge() {
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$aux_d4_example.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 1, 'emit');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'emit');
         t.emit(event);
         return null;
       },
       'off': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$aux_d4_example.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 2, 'off');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'off');
         if (positional.length <= 1) {
@@ -1004,7 +1005,7 @@ BridgedClass _createEventEmitterBridge() {
         return null;
       },
       'once': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$aux_d4_example.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 2, 'once');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'once');
         if (positional.length <= 1) {
@@ -1015,7 +1016,7 @@ BridgedClass _createEventEmitterBridge() {
         return null;
       },
       'listenerCount': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$aux_d4_example.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 1, 'listenerCount');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'listenerCount');
         return t.listenerCount(event);

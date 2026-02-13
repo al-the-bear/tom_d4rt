@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-02-13T17:24:03.302510
+// Generated: 2026-02-13T20:22:57.756437
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -9,6 +9,7 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 import 'dart:async';
 
 import 'package:d4_example/dart_overview.dart' as $pkg;
+import 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart' as $aux_d4_example;
 
 /// Bridge class for dart_overview module.
 class DartOverviewBridge {
@@ -3638,13 +3639,13 @@ BridgedClass _createStatisticsBridge() {
 
 BridgedClass _createMusicalBridge() {
   return BridgedClass(
-    nativeType: $pkg.Musical,
+    nativeType: $aux_d4_example.Musical,
     name: 'Musical',
     constructors: {
     },
     methods: {
       'playInstrument': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Musical>(target, 'Musical');
+        final t = D4.validateTarget<$aux_d4_example.Musical>(target, 'Musical');
         t.playInstrument();
         return null;
       },
@@ -3661,13 +3662,13 @@ BridgedClass _createMusicalBridge() {
 
 BridgedClass _createDancingBridge() {
   return BridgedClass(
-    nativeType: $pkg.Dancing,
+    nativeType: $aux_d4_example.Dancing,
     name: 'Dancing',
     constructors: {
     },
     methods: {
       'dance': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Dancing>(target, 'Dancing');
+        final t = D4.validateTarget<$aux_d4_example.Dancing>(target, 'Dancing');
         t.dance();
         return null;
       },
@@ -3684,21 +3685,21 @@ BridgedClass _createDancingBridge() {
 
 BridgedClass _createMusicianBridge() {
   return BridgedClass(
-    nativeType: $pkg.Musician,
+    nativeType: $aux_d4_example.Musician,
     name: 'Musician',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Musician');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Musician');
-        return $pkg.Musician(name);
+        return $aux_d4_example.Musician(name);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.Musician>(target, 'Musician').name,
+      'name': (visitor, target) => D4.validateTarget<$aux_d4_example.Musician>(target, 'Musician').name,
     },
     methods: {
       'playInstrument': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Musician>(target, 'Musician');
+        final t = D4.validateTarget<$aux_d4_example.Musician>(target, 'Musician');
         t.playInstrument();
         return null;
       },
@@ -3721,21 +3722,21 @@ BridgedClass _createMusicianBridge() {
 
 BridgedClass _createProfessionalDancerBridge() {
   return BridgedClass(
-    nativeType: $pkg.ProfessionalDancer,
+    nativeType: $aux_d4_example.ProfessionalDancer,
     name: 'ProfessionalDancer',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ProfessionalDancer');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'ProfessionalDancer');
-        return $pkg.ProfessionalDancer(name);
+        return $aux_d4_example.ProfessionalDancer(name);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.ProfessionalDancer>(target, 'ProfessionalDancer').name,
+      'name': (visitor, target) => D4.validateTarget<$aux_d4_example.ProfessionalDancer>(target, 'ProfessionalDancer').name,
     },
     methods: {
       'dance': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ProfessionalDancer>(target, 'ProfessionalDancer');
+        final t = D4.validateTarget<$aux_d4_example.ProfessionalDancer>(target, 'ProfessionalDancer');
         t.dance();
         return null;
       },
@@ -3758,31 +3759,31 @@ BridgedClass _createProfessionalDancerBridge() {
 
 BridgedClass _createEntertainerBridge() {
   return BridgedClass(
-    nativeType: $pkg.Entertainer,
+    nativeType: $aux_d4_example.Entertainer,
     name: 'Entertainer',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Entertainer');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Entertainer');
-        return $pkg.Entertainer(name);
+        return $aux_d4_example.Entertainer(name);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.Entertainer>(target, 'Entertainer').name,
+      'name': (visitor, target) => D4.validateTarget<$aux_d4_example.Entertainer>(target, 'Entertainer').name,
     },
     methods: {
       'perform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Entertainer>(target, 'Entertainer');
+        final t = D4.validateTarget<$aux_d4_example.Entertainer>(target, 'Entertainer');
         t.perform();
         return null;
       },
       'playInstrument': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Entertainer>(target, 'Entertainer');
+        final t = D4.validateTarget<$aux_d4_example.Entertainer>(target, 'Entertainer');
         t.playInstrument();
         return null;
       },
       'dance': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Entertainer>(target, 'Entertainer');
+        final t = D4.validateTarget<$aux_d4_example.Entertainer>(target, 'Entertainer');
         t.dance();
         return null;
       },
@@ -3807,29 +3808,29 @@ BridgedClass _createEntertainerBridge() {
 
 BridgedClass _createCountableItemBridge() {
   return BridgedClass(
-    nativeType: $pkg.CountableItem,
+    nativeType: $aux_d4_example.CountableItem,
     name: 'CountableItem',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.CountableItem();
+        return $aux_d4_example.CountableItem();
       },
     },
     getters: {
-      'count': (visitor, target) => D4.validateTarget<$pkg.CountableItem>(target, 'CountableItem').count,
+      'count': (visitor, target) => D4.validateTarget<$aux_d4_example.CountableItem>(target, 'CountableItem').count,
     },
     methods: {
       'increment': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.CountableItem>(target, 'CountableItem');
+        final t = D4.validateTarget<$aux_d4_example.CountableItem>(target, 'CountableItem');
         t.increment();
         return null;
       },
       'decrement': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.CountableItem>(target, 'CountableItem');
+        final t = D4.validateTarget<$aux_d4_example.CountableItem>(target, 'CountableItem');
         t.decrement();
         return null;
       },
       'reset': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.CountableItem>(target, 'CountableItem');
+        final t = D4.validateTarget<$aux_d4_example.CountableItem>(target, 'CountableItem');
         t.reset();
         return null;
       },
@@ -3854,13 +3855,13 @@ BridgedClass _createCountableItemBridge() {
 
 BridgedClass _createLoggingBridge() {
   return BridgedClass(
-    nativeType: $pkg.Logging,
+    nativeType: $aux_d4_example.Logging,
     name: 'Logging',
     constructors: {
     },
     methods: {
       'log': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Logging>(target, 'Logging');
+        final t = D4.validateTarget<$aux_d4_example.Logging>(target, 'Logging');
         D4.requireMinArgs(positional, 2, 'log');
         final level = D4.getRequiredArg<String>(positional, 0, 'level', 'log');
         final message = D4.getRequiredArg<String>(positional, 1, 'message', 'log');
@@ -3868,21 +3869,21 @@ BridgedClass _createLoggingBridge() {
         return null;
       },
       'info': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Logging>(target, 'Logging');
+        final t = D4.validateTarget<$aux_d4_example.Logging>(target, 'Logging');
         D4.requireMinArgs(positional, 1, 'info');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'info');
         t.info(message);
         return null;
       },
       'warning': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Logging>(target, 'Logging');
+        final t = D4.validateTarget<$aux_d4_example.Logging>(target, 'Logging');
         D4.requireMinArgs(positional, 1, 'warning');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'warning');
         t.warning(message);
         return null;
       },
       'error': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Logging>(target, 'Logging');
+        final t = D4.validateTarget<$aux_d4_example.Logging>(target, 'Logging');
         D4.requireMinArgs(positional, 1, 'error');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'error');
         t.error(message);
@@ -3904,16 +3905,16 @@ BridgedClass _createLoggingBridge() {
 
 BridgedClass _createConsoleLoggerBridge() {
   return BridgedClass(
-    nativeType: $pkg.ConsoleLogger,
+    nativeType: $aux_d4_example.ConsoleLogger,
     name: 'ConsoleLogger',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.ConsoleLogger();
+        return $aux_d4_example.ConsoleLogger();
       },
     },
     methods: {
       'log': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ConsoleLogger>(target, 'ConsoleLogger');
+        final t = D4.validateTarget<$aux_d4_example.ConsoleLogger>(target, 'ConsoleLogger');
         D4.requireMinArgs(positional, 2, 'log');
         final level = D4.getRequiredArg<String>(positional, 0, 'level', 'log');
         final message = D4.getRequiredArg<String>(positional, 1, 'message', 'log');
@@ -3921,21 +3922,21 @@ BridgedClass _createConsoleLoggerBridge() {
         return null;
       },
       'info': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ConsoleLogger>(target, 'ConsoleLogger');
+        final t = D4.validateTarget<$aux_d4_example.ConsoleLogger>(target, 'ConsoleLogger');
         D4.requireMinArgs(positional, 1, 'info');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'info');
         t.info(message);
         return null;
       },
       'warning': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ConsoleLogger>(target, 'ConsoleLogger');
+        final t = D4.validateTarget<$aux_d4_example.ConsoleLogger>(target, 'ConsoleLogger');
         D4.requireMinArgs(positional, 1, 'warning');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'warning');
         t.warning(message);
         return null;
       },
       'error': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ConsoleLogger>(target, 'ConsoleLogger');
+        final t = D4.validateTarget<$aux_d4_example.ConsoleLogger>(target, 'ConsoleLogger');
         D4.requireMinArgs(positional, 1, 'error');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'error');
         t.error(message);
@@ -3960,13 +3961,13 @@ BridgedClass _createConsoleLoggerBridge() {
 
 BridgedClass _createGreeter1Bridge() {
   return BridgedClass(
-    nativeType: $pkg.Greeter1,
+    nativeType: $aux_d4_example.Greeter1,
     name: 'Greeter1',
     constructors: {
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Greeter1>(target, 'Greeter1');
+        final t = D4.validateTarget<$aux_d4_example.Greeter1>(target, 'Greeter1');
         t.greet();
         return null;
       },
@@ -3983,13 +3984,13 @@ BridgedClass _createGreeter1Bridge() {
 
 BridgedClass _createGreeter2Bridge() {
   return BridgedClass(
-    nativeType: $pkg.Greeter2,
+    nativeType: $aux_d4_example.Greeter2,
     name: 'Greeter2',
     constructors: {
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Greeter2>(target, 'Greeter2');
+        final t = D4.validateTarget<$aux_d4_example.Greeter2>(target, 'Greeter2');
         t.greet();
         return null;
       },
@@ -4006,16 +4007,16 @@ BridgedClass _createGreeter2Bridge() {
 
 BridgedClass _createMultiMixedBridge() {
   return BridgedClass(
-    nativeType: $pkg.MultiMixed,
+    nativeType: $aux_d4_example.MultiMixed,
     name: 'MultiMixed',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.MultiMixed();
+        return $aux_d4_example.MultiMixed();
       },
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.MultiMixed>(target, 'MultiMixed');
+        final t = D4.validateTarget<$aux_d4_example.MultiMixed>(target, 'MultiMixed');
         t.greet();
         return null;
       },
@@ -4035,16 +4036,16 @@ BridgedClass _createMultiMixedBridge() {
 
 BridgedClass _createHelperBridge() {
   return BridgedClass(
-    nativeType: $pkg.Helper,
+    nativeType: $aux_d4_example.Helper,
     name: 'Helper',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.Helper();
+        return $aux_d4_example.Helper();
       },
     },
     methods: {
       'help': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Helper>(target, 'Helper');
+        final t = D4.validateTarget<$aux_d4_example.Helper>(target, 'Helper');
         t.help();
         return null;
       },
@@ -4064,21 +4065,21 @@ BridgedClass _createHelperBridge() {
 
 BridgedClass _createHelpfulServiceBridge() {
   return BridgedClass(
-    nativeType: $pkg.HelpfulService,
+    nativeType: $aux_d4_example.HelpfulService,
     name: 'HelpfulService',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.HelpfulService();
+        return $aux_d4_example.HelpfulService();
       },
     },
     methods: {
       'serve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.HelpfulService>(target, 'HelpfulService');
+        final t = D4.validateTarget<$aux_d4_example.HelpfulService>(target, 'HelpfulService');
         t.serve();
         return null;
       },
       'help': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.HelpfulService>(target, 'HelpfulService');
+        final t = D4.validateTarget<$aux_d4_example.HelpfulService>(target, 'HelpfulService');
         t.help();
         return null;
       },
@@ -4099,13 +4100,13 @@ BridgedClass _createHelpfulServiceBridge() {
 
 BridgedClass _createEventEmitterBridge() {
   return BridgedClass(
-    nativeType: $pkg.EventEmitter,
+    nativeType: $aux_d4_example.EventEmitter,
     name: 'EventEmitter',
     constructors: {
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$aux_d4_example.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
           throw ArgumentError('addListener: Missing required argument "listener" at position 0');
@@ -4115,7 +4116,7 @@ BridgedClass _createEventEmitterBridge() {
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$aux_d4_example.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
           throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
@@ -4125,7 +4126,7 @@ BridgedClass _createEventEmitterBridge() {
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$aux_d4_example.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 1, 'emit');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'emit');
         t.emit(event);
@@ -4146,26 +4147,26 @@ BridgedClass _createEventEmitterBridge() {
 
 BridgedClass _createButtonBridge() {
   return BridgedClass(
-    nativeType: $pkg.Button,
+    nativeType: $aux_d4_example.Button,
     name: 'Button',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Button');
         final label = D4.getRequiredArg<String>(positional, 0, 'label', 'Button');
-        return $pkg.Button(label);
+        return $aux_d4_example.Button(label);
       },
     },
     getters: {
-      'label': (visitor, target) => D4.validateTarget<$pkg.Button>(target, 'Button').label,
+      'label': (visitor, target) => D4.validateTarget<$aux_d4_example.Button>(target, 'Button').label,
     },
     methods: {
       'click': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Button>(target, 'Button');
+        final t = D4.validateTarget<$aux_d4_example.Button>(target, 'Button');
         t.click();
         return null;
       },
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Button>(target, 'Button');
+        final t = D4.validateTarget<$aux_d4_example.Button>(target, 'Button');
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
           throw ArgumentError('addListener: Missing required argument "listener" at position 0');
@@ -4175,7 +4176,7 @@ BridgedClass _createButtonBridge() {
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Button>(target, 'Button');
+        final t = D4.validateTarget<$aux_d4_example.Button>(target, 'Button');
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
           throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
@@ -4185,7 +4186,7 @@ BridgedClass _createButtonBridge() {
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Button>(target, 'Button');
+        final t = D4.validateTarget<$aux_d4_example.Button>(target, 'Button');
         D4.requireMinArgs(positional, 1, 'emit');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'emit');
         t.emit(event);
@@ -4213,18 +4214,18 @@ BridgedClass _createButtonBridge() {
 
 BridgedClass _createComparableMixinBridge() {
   return BridgedClass(
-    nativeType: $pkg.ComparableMixin,
+    nativeType: $aux_d4_example.ComparableMixin,
     name: 'ComparableMixin',
     constructors: {
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$pkg.ComparableMixin>(target, 'ComparableMixin').value,
+      'value': (visitor, target) => D4.validateTarget<$aux_d4_example.ComparableMixin>(target, 'ComparableMixin').value,
     },
     methods: {
       'compareTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ComparableMixin>(target, 'ComparableMixin');
+        final t = D4.validateTarget<$aux_d4_example.ComparableMixin>(target, 'ComparableMixin');
         D4.requireMinArgs(positional, 1, 'compareTo');
-        final other = D4.getRequiredArg<$pkg.SortableItem>(positional, 0, 'other', 'compareTo');
+        final other = D4.getRequiredArg<$aux_d4_example.SortableItem>(positional, 0, 'other', 'compareTo');
         return t.compareTo(other);
       },
     },
@@ -4243,23 +4244,23 @@ BridgedClass _createComparableMixinBridge() {
 
 BridgedClass _createSortableItemBridge() {
   return BridgedClass(
-    nativeType: $pkg.SortableItem,
+    nativeType: $aux_d4_example.SortableItem,
     name: 'SortableItem',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SortableItem');
         final value = D4.getRequiredArg<int>(positional, 0, 'value', 'SortableItem');
-        return $pkg.SortableItem(value);
+        return $aux_d4_example.SortableItem(value);
       },
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$pkg.SortableItem>(target, 'SortableItem').value,
+      'value': (visitor, target) => D4.validateTarget<$aux_d4_example.SortableItem>(target, 'SortableItem').value,
     },
     methods: {
       'compareTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.SortableItem>(target, 'SortableItem');
+        final t = D4.validateTarget<$aux_d4_example.SortableItem>(target, 'SortableItem');
         D4.requireMinArgs(positional, 1, 'compareTo');
-        final other = D4.getRequiredArg<$pkg.SortableItem>(positional, 0, 'other', 'compareTo');
+        final other = D4.getRequiredArg<$aux_d4_example.SortableItem>(positional, 0, 'other', 'compareTo');
         return t.compareTo(other);
       },
     },
@@ -4281,17 +4282,17 @@ BridgedClass _createSortableItemBridge() {
 
 BridgedClass _createJsonSerializableBridge() {
   return BridgedClass(
-    nativeType: $pkg.JsonSerializable,
+    nativeType: $aux_d4_example.JsonSerializable,
     name: 'JsonSerializable',
     constructors: {
     },
     methods: {
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.JsonSerializable>(target, 'JsonSerializable');
+        final t = D4.validateTarget<$aux_d4_example.JsonSerializable>(target, 'JsonSerializable');
         return t.toJsonMap();
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.JsonSerializable>(target, 'JsonSerializable');
+        final t = D4.validateTarget<$aux_d4_example.JsonSerializable>(target, 'JsonSerializable');
         return t.toJson();
       },
     },

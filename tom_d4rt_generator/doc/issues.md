@@ -16,6 +16,60 @@
 | [G-DCLI-11](#g-dcli-11) | find().forEach() fails - wrong function resolved | Medium | Generator | Open |
 | [G-DCLI-12](#g-dcli-12) | CopyException not caught in try/catch blocks | Medium | Interpreter | Open |
 | [G-DCLI-14](#g-dcli-14) | Shell pipe execution with runInShell: true broken | Medium | Interpreter | Open |
+| [GEN-055](#gen-055) | Return types not collected from API surface | Medium | Generator | **FIXED** |
+| [GEN-056](#gen-056) | Extension on-type not resolvable at runtime | Medium | Interpreter | Open |
+
+---
+
+## Resolved Issues
+
+### GEN-055
+
+**Return types not collected from API surface**
+
+**Status:** FIXED (2026-02-13)
+
+**a) Problem:**
+
+Types returned by bridged functions (e.g., `FindProgress` from `find()`) were not being collected and bridged because they weren't in the barrel's show clause.
+
+**b) Root Cause:**
+
+`_collectAuxiliaryImportsFromTypes()` only processed parameter types, not return types.
+
+**c) Resolution:**
+
+Added `_collectApiSurfaceTypeDependencies()` helper to collect return types and parameter types from kept functions. Also added `_forceCreateAuxiliaryPrefix()` to create direct imports bypassing barrel prefix.
+
+---
+
+## Open Issues
+
+### GEN-056
+
+**Extension on-type not resolvable at runtime**
+
+**a) Problem:**
+
+Extensions on types from external libraries (e.g., `extension PlatformEx on Platform`) cannot be used because the interpreter cannot resolve the on-type at runtime.
+
+**Error:**
+```
+Could not resolve type 'Platform' for extension 'PlatformEx'.
+```
+
+**b) Root Cause:**
+
+The bridge generator correctly collects the extension and its on-type URI (e.g., `dart:io` for `Platform`), but the runtime interpreter's module_loader cannot resolve the on-type from the `onTypeName` string. The interpreter needs to be updated to handle built-in types like `Platform` from `dart:io`.
+
+**c) Location:**
+- Interpreter: `tom_d4rt/lib/src/module_loader.dart` — extension registration
+- Related: Type resolution in `BridgedExtensionDefinition`
+
+**d) Resolution Strategy:**
+1. Update interpreter's extension registration to handle `dart:*` types
+2. For `Platform` and other common `dart:io` types, pre-register them
+3. Or: Add a type registry that maps type names to their sources
 
 ---
 

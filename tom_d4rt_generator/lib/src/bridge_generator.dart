@@ -269,6 +269,10 @@ class ExportInfo {
 class GlobalFunctionInfo {
   final String name;
   final String returnType;
+  /// Import URIs needed for the return type.
+  final Set<String> returnTypeImportUris;
+  /// Map of type name to import URI for resolving return type.
+  final Map<String, String> returnTypeToUri;
   final List<ParameterInfo> parameters;
   final String sourceFile;
   /// Whether the function has type parameters (generics).
@@ -279,6 +283,8 @@ class GlobalFunctionInfo {
   const GlobalFunctionInfo({
     required this.name,
     required this.returnType,
+    this.returnTypeImportUris = const {},
+    this.returnTypeToUri = const {},
     required this.parameters,
     required this.sourceFile,
     this.hasTypeParameters = false,
@@ -352,6 +358,10 @@ class RecursiveBoundType {
 class GlobalVariableInfo {
   final String name;
   final String type;
+  /// Import URIs needed for the type.
+  final Set<String> typeImportUris;
+  /// Map of type name to import URI for resolving type.
+  final Map<String, String> typeToUri;
   final bool isFinal;
   final bool isConst;
   final bool isGetter;
@@ -362,6 +372,8 @@ class GlobalVariableInfo {
   const GlobalVariableInfo({
     required this.name,
     required this.type,
+    this.typeImportUris = const {},
+    this.typeToUri = const {},
     required this.isFinal,
     required this.isConst,
     this.isGetter = false,
@@ -374,6 +386,8 @@ class GlobalVariableInfo {
     return GlobalVariableInfo(
       name: name,
       type: type,
+      typeImportUris: typeImportUris,
+      typeToUri: typeToUri,
       isFinal: isFinal,
       isConst: isConst,
       isGetter: isGetter,
@@ -425,6 +439,10 @@ class ExtensionInfo {
 
   /// The name of the type this extension applies to (e.g., 'String', 'DateTime').
   final String onTypeName;
+  
+  /// The source URI for the on-type (e.g., 'dart:io' for Platform).
+  /// Used to create auxiliary imports when the on-type isn't exported from the barrel.
+  final String? onTypeUri;
 
   /// The source file containing this extension.
   final String sourceFile;
@@ -446,6 +464,7 @@ class ExtensionInfo {
   const ExtensionInfo({
     this.name,
     required this.onTypeName,
+    this.onTypeUri,
     required this.sourceFile,
     this.getterNames = const [],
     this.setterNames = const [],
@@ -2395,6 +2414,46 @@ class BridgeGenerator {
         }).toList();
       }
 
+      // GEN-055: Collect API surface type dependencies from kept functions
+      // Classes that are return types or parameter types of bridged functions
+      // must also be bridged, even if not explicitly exported from the barrel
+      final apiSurfaceDependencies = _collectApiSurfaceTypeDependencies(
+        filteredFunctions,
+        filteredVariables,
+      );
+      if (apiSurfaceDependencies.isNotEmpty) {
+        final existingClassNames = filteredClasses.map((c) => c.name).toSet();
+        final existingBridgeableNames = bridgeableClasses.map((c) => c.name).toSet();
+        for (final typeName in apiSurfaceDependencies) {
+          // Skip if already included
+          if (existingClassNames.contains(typeName)) continue;
+          
+          // Find matching class in allClasses
+          final matchingClass = allClasses
+              .where((c) => c.name == typeName)
+              .firstOrNull;
+          if (matchingClass != null) {
+            // Add to filteredClasses and bridgeableClasses
+            filteredClasses.add(matchingClass);
+            existingClassNames.add(typeName);
+            
+            // Add to bridgeableClasses if not already there (for concrete classes)
+            if (!existingBridgeableNames.contains(typeName)) {
+              bridgeableClasses.add(matchingClass);
+              existingBridgeableNames.add(typeName);
+            }
+            
+            // Note: Do NOT add to _exportedTypeNames - these types are not exported from
+            // the barrel, so _collectAuxiliaryImportsFromTypes will generate auxiliary
+            // imports for them when processing the functions that use them.
+            
+            if (verbose) {
+              print('GEN-055: Added "$typeName" as API surface dependency');
+            }
+          }
+        }
+      }
+
       // Generate single output file using already-parsed globals
       final code = _generateBridgeFile(
         bridgeableClasses,
@@ -2769,6 +2828,48 @@ class BridgeGenerator {
         }
         return true;
       }).toList();
+    }
+
+    // GEN-055: Collect types that are API surface dependencies (return types, parameter types)
+    // Even if a class is filtered out by show/hide clauses, it must be included if it's
+    // used as a return type or parameter type of a kept function.
+    final apiSurfaceTypes = _collectApiSurfaceTypeDependencies(filteredFunctions, filteredVariables);
+    for (final typeName in apiSurfaceTypes) {
+      // Check if this type is already in our bridgeable classes
+      final alreadyBridgeable = bridgeableClasses.any((c) => c.name == typeName);
+      if (!alreadyBridgeable) {
+        // Check if this type exists in our filtered classes
+        final existsInFiltered = filteredClasses.any((c) => c.name == typeName);
+        if (!existsInFiltered) {
+          // Look for this class in the original collected classes
+          final originalClass = allClasses.cast<ClassInfo?>().firstWhere(
+            (c) => c?.name == typeName,
+            orElse: () => null,
+          );
+          if (originalClass != null && !seenClassNames.contains(originalClass.name)) {
+            filteredClasses.add(originalClass);
+            bridgeableClasses.add(originalClass);
+            seenClassNames.add(originalClass.name);
+            // Note: Do NOT add to _exportedTypeNames - these types are not exported from
+            // the barrel, so _collectAuxiliaryImportsFromTypes will generate auxiliary
+            // imports for them when processing the functions that use them.
+            if (verbose) {
+              // ignore: avoid_print
+              print("GEN-055: Added '$typeName' as API surface dependency (return type or parameter type of kept function)");
+            }
+          }
+        } else {
+          // Class is in filteredClasses but not bridgeable (shouldn't happen in this method, but handle it)
+          final cls = filteredClasses.firstWhere((c) => c.name == typeName);
+          if (!bridgeableClasses.contains(cls)) {
+            bridgeableClasses.add(cls);
+            if (verbose) {
+              // ignore: avoid_print
+              print("GEN-055: Added '$typeName' to bridgeable classes (API surface dependency)");
+            }
+          }
+        }
+      }
     }
 
     // Generate single output file content
@@ -3399,6 +3500,87 @@ class BridgeGenerator {
     }
   }
 
+  /// GEN-055: Collects type names used in the API surface of bridged functions/variables.
+  /// 
+  /// When a function returns a non-built-in type or takes one as a parameter,
+  /// that type must also be bridged even if not explicitly exported from the barrel.
+  /// 
+  /// Example: dcli's find() returns FindProgress, but the barrel only exports
+  /// `show Find, find`. We need to add FindProgress as an API surface dependency.
+  Set<String> _collectApiSurfaceTypeDependencies(
+    List<GlobalFunctionInfo> functions,
+    List<GlobalVariableInfo> variables,
+  ) {
+    final dependencies = <String>{};
+    
+    // Built-in types that don't need bridging
+    const builtInTypes = {
+      'void', 'dynamic', 'Object', 'Null',
+      'bool', 'int', 'double', 'num', 'String',
+      'List', 'Set', 'Map', 'Iterable', 'Iterator',
+      'Future', 'FutureOr', 'Stream',
+      'Function', 'Symbol', 'Type', 'Record',
+      'Duration', 'DateTime', 'BigInt', 'Uri',
+      'Comparable', 'Pattern', 'Match', 'RegExp',
+      'Exception', 'Error', 'StackTrace',
+      'Sink', 'StringSink', 'StringBuffer',
+      'Encoding', 'Codec', 'Converter',
+      'File', 'Directory', 'FileSystemEntity', 'FileStat', 'FileSystemEntityType',
+      'Process', 'ProcessResult', 'ProcessSignal',
+      'Platform', 'Stdin', 'Stdout', 'IOSink',
+      'Digest', // from crypto
+    };
+    
+    void collectFromType(String typeString) {
+      if (typeString.isEmpty) return;
+      
+      // Strip nullability suffix
+      var type = typeString;
+      if (type.endsWith('?')) {
+        type = type.substring(0, type.length - 1);
+      }
+      
+      // Extract base type (handle generics like List<MyClass>)
+      final baseType = _extractBaseType(type);
+      
+      // Skip built-in types
+      if (builtInTypes.contains(baseType)) return;
+      
+      // Skip private types
+      if (baseType.startsWith('_')) return;
+      
+      // Skip lowercase names (likely type parameters like T, E)
+      if (baseType.isNotEmpty && baseType[0].toLowerCase() == baseType[0]) return;
+      
+      dependencies.add(baseType);
+      
+      // Also process generic type arguments
+      final ltIndex = type.indexOf('<');
+      if (ltIndex > 0 && type.endsWith('>')) {
+        final argsStr = type.substring(ltIndex + 1, type.length - 1);
+        // Simple split on comma (doesn't handle nested generics perfectly but good enough)
+        for (final arg in argsStr.split(',')) {
+          collectFromType(arg.trim());
+        }
+      }
+    }
+    
+    // Collect from function return types and parameters
+    for (final func in functions) {
+      collectFromType(func.returnType);
+      for (final param in func.parameters) {
+        collectFromType(param.type);
+      }
+    }
+    
+    // Collect from variable types
+    for (final variable in variables) {
+      collectFromType(variable.type);
+    }
+    
+    return dependencies;
+  }
+
   /// Records a warning for a type that is used but not exported from the barrel file.
   /// 
   /// [context] describes where the type was used.
@@ -3525,6 +3707,44 @@ class BridgeGenerator {
     return prefix;
   }
   
+  /// Forces creation of an auxiliary prefix for a URI, overriding any existing
+  /// mapping in _importPrefixes.
+  /// 
+  /// Used when a type is NOT exported from the barrel (e.g., FindProgress isn't
+  /// in dcli's `show Find, find` clause), but the source file URI is already
+  /// mapped to $pkg. In this case, $pkg.FindProgress won't work, so we need
+  /// a direct import of the source file.
+  String _forceCreateAuxiliaryPrefix(String uri) {
+    // Check if we already have an auxiliary prefix for this URI
+    if (_auxiliaryPrefixes.containsKey(uri)) {
+      return _auxiliaryPrefixes[uri]!;
+    }
+    
+    // Generate a new auxiliary prefix
+    String baseName;
+    if (uri.startsWith('package:')) {
+      final parts = uri.substring(8).split('/');
+      baseName = parts.first.replaceAll('-', '_');
+    } else {
+      baseName = 'aux';
+    }
+    
+    // Make the prefix unique
+    var prefix = '\$aux_$baseName';
+    var counter = 1;
+    while (_auxiliaryPrefixes.values.contains(prefix) ||
+        _importPrefixes.values.contains(prefix)) {
+      counter++;
+      prefix = '\$aux_${baseName}_$counter';
+    }
+    
+    _auxiliaryPrefixes[uri] = prefix;
+    // Note: Don't update _importPrefixes here - the import-writing loop will
+    // do that when it writes the import statement. Updating it here would cause
+    // the loop to skip writing the import because it checks containsKey().
+    return prefix;
+  }
+  
   /// Collects imports from a resolved library and stores type-to-URI mappings.
   /// 
   /// This allows us to resolve types used in default values, parameters, etc.
@@ -3631,11 +3851,16 @@ class BridgeGenerator {
           if (seenExtensions.contains(extKey)) continue;
           seenExtensions.add(extKey);
           
-          // Get the extended type name
+          // Get the extended type name and URI
           final extendedType = extElement.extendedType;
           String? onTypeName;
+          String? onTypeUri;
           if (extendedType is InterfaceType) {
             onTypeName = extendedType.element.name;
+            // Get the source URI for the on-type
+            final typeElement = extendedType.element;
+            final typeSource = typeElement.firstFragment.libraryFragment.source;
+            onTypeUri = typeSource.uri.toString();
           } else {
             // For complex types, try to get a string representation
             final typeStr = extendedType.getDisplayString();
@@ -3688,6 +3913,7 @@ class BridgeGenerator {
           collectedExtensions.add(ExtensionInfo(
             name: extName,
             onTypeName: onTypeName,
+            onTypeUri: onTypeUri,
             sourceFile: extSourceUri,
             getterNames: getterNames,
             setterNames: setterNames,
@@ -3740,6 +3966,171 @@ class BridgeGenerator {
         processParams(member.parameters, cls.sourceFile);
       }
     }
+  }
+
+  /// Pre-collect auxiliary imports needed for parameter types.
+  ///
+  /// This must be called BEFORE generating class bridges so that all necessary
+  /// imports are written to the file header. Types that aren't exported from
+  /// the barrel but are used in constructors, methods, or functions need
+  /// auxiliary imports from their source files.
+  void _collectAuxiliaryImportsFromTypes({
+    required List<ClassInfo> classes,
+    required List<GlobalFunctionInfo> globalFunctions,
+    required List<GlobalVariableInfo> globalVariables,
+    required List<ExtensionInfo> extensions,
+  }) {
+    void processTypeName(String typeName, Map<String, String> typeToUri, String sourceFile) {
+      // Strip nullable suffix and generics
+      var cleanType = typeName;
+      if (cleanType.endsWith('?')) {
+        cleanType = cleanType.substring(0, cleanType.length - 1);
+      }
+      // Handle generic types like List<T>, Map<K, V>
+      if (cleanType.contains('<')) {
+        final baseType = cleanType.substring(0, cleanType.indexOf('<'));
+        final innerTypes = cleanType.substring(cleanType.indexOf('<') + 1, cleanType.lastIndexOf('>'));
+        // Process base type
+        processTypeName(baseType, typeToUri, sourceFile);
+        // Process inner type arguments (split on comma, but be careful with nested generics)
+        _splitTypeArguments(innerTypes).forEach((arg) {
+          processTypeName(arg.trim(), typeToUri, sourceFile);
+        });
+        return;
+      }
+
+      // Skip built-in types
+      if (_isBuiltInType(cleanType)) return;
+      
+      // Skip if already exported from barrel
+      if (_isTypeExported(cleanType)) return;
+      
+      // Check typeToUri first (type info from the specific member)
+      var uri = typeToUri[cleanType];
+      if (uri != null) {
+        if (!uri.startsWith('dart:')) {
+          // Convert file:// to package: if needed
+          if (uri.startsWith('file://') || uri.startsWith('file:')) {
+            final filePath = Uri.parse(uri).toFilePath();
+            uri = _getPackageUri(filePath);
+          }
+          if (uri.startsWith('package:')) {
+            _addAuxiliaryImport(uri, cleanType);
+            // GEN-055 FIX: If the type is not exported from the barrel, we need
+            // to create a DIRECT import for its source file, not use $pkg.
+            // The URI might already be in _importPrefixes (mapped to $pkg),
+            // but since the type isn't exported, $pkg won't work - we need
+            // a direct auxiliary import.
+            // Force-create an auxiliary prefix, bypassing the _importPrefixes check
+            _forceCreateAuxiliaryPrefix(uri);
+          }
+        }
+        return;
+      }
+      
+      // Fall back to global type registry
+      uri = _globalTypeToUri[cleanType];
+      if (uri != null) {
+        if (!uri.startsWith('dart:')) {
+          // Convert file:// to package: if needed
+          if (uri.startsWith('file://') || uri.startsWith('file:')) {
+            final filePath = Uri.parse(uri).toFilePath();
+            uri = _getPackageUri(filePath);
+          }
+          if (uri.startsWith('package:')) {
+            _addAuxiliaryImport(uri, cleanType);
+            // GEN-055 FIX: Force-create auxiliary prefix for non-exported types
+            _forceCreateAuxiliaryPrefix(uri);
+          }
+        }
+        return;
+      }
+      
+      // Try to resolve from source file imports
+      final auxUri = _resolveTypeFromSourceImports(cleanType, sourceFile);
+      if (auxUri != null) {
+        _addAuxiliaryImport(auxUri, cleanType);
+        // GEN-055 FIX: Force-create auxiliary prefix for non-exported types
+        _forceCreateAuxiliaryPrefix(auxUri);
+      }
+    }
+
+    void processParams(Iterable<ParameterInfo> params, String sourceFile) {
+      for (final param in params) {
+        processTypeName(param.type, param.typeToUri, sourceFile);
+      }
+    }
+
+    // Process global functions
+    for (final func in globalFunctions) {
+      processTypeName(func.returnType, func.returnTypeToUri, func.sourceFile);
+      processParams(func.parameters, func.sourceFile);
+    }
+
+    // Process global variables
+    for (final v in globalVariables) {
+      processTypeName(v.type, v.typeToUri, v.sourceFile);
+    }
+
+    // Process classes
+    for (final cls in classes) {
+      // GEN-056: Process superclass/mixin constraint types
+      if (cls.superclass != null && cls.superclassUri != null) {
+        final superTypeToUri = {cls.superclass!: cls.superclassUri!};
+        processTypeName(cls.superclass!, superTypeToUri, cls.sourceFile);
+      }
+      // Process generic type parameter bounds
+      for (final entry in cls.typeParameters.entries) {
+        if (entry.value != null) {
+          // Type bound exists - try to process it
+          processTypeName(entry.value!, {}, cls.sourceFile);
+        }
+      }
+      // Constructors
+      for (final ctor in cls.constructors) {
+        processParams(ctor.parameters, cls.sourceFile);
+      }
+      // Members (methods, getters, setters)
+      for (final member in cls.members) {
+        processTypeName(member.returnType, member.returnTypeToUri, cls.sourceFile);
+        processParams(member.parameters, cls.sourceFile);
+      }
+    }
+
+    // Process extensions
+    for (final ext in extensions) {
+      // Extension "on" type - use the onTypeUri if available
+      final onTypeToUri = ext.onTypeUri != null 
+          ? {ext.onTypeName: ext.onTypeUri!} 
+          : <String, String>{};
+      processTypeName(ext.onTypeName, onTypeToUri, ext.sourceFile);
+      // Extension methods
+      for (final method in ext.methods) {
+        processTypeName(method.returnType, method.returnTypeToUri, ext.sourceFile);
+        processParams(method.parameters, ext.sourceFile);
+      }
+    }
+  }
+
+  /// Splits type arguments handling nested generics.
+  /// E.g., "String, Map<String, int>" -> ["String", "Map<String, int>"]
+  List<String> _splitTypeArguments(String args) {
+    final result = <String>[];
+    var depth = 0;
+    var start = 0;
+    for (var i = 0; i < args.length; i++) {
+      final c = args[i];
+      if (c == '<') depth++;
+      else if (c == '>') depth--;
+      else if (c == ',' && depth == 0) {
+        result.add(args.substring(start, i).trim());
+        start = i + 1;
+      }
+    }
+    if (start < args.length) {
+      result.add(args.substring(start).trim());
+    }
+    return result;
   }
 
   /// Escapes a string for use in generated code.
@@ -4042,21 +4433,35 @@ class BridgeGenerator {
       }
     }
     
-    // Collect and emit auxiliary imports needed for defaults
+    // Collect and emit auxiliary imports needed for defaults and types
     _collectAuxiliaryImportsFromDefaults(
       classes: classes,
       globalFunctions: globalFunctions,
       globalVariables: globalVariables,
     );
+    
+    // Also collect auxiliary imports from parameter types (types not exported by barrel)
+    _collectAuxiliaryImportsFromTypes(
+      classes: classes,
+      globalFunctions: globalFunctions,
+      globalVariables: globalVariables,
+      extensions: extensions,
+    );
 
     if (_auxiliaryPrefixes.isNotEmpty) {
       for (final uri in _auxiliaryPrefixes.keys.toList()..sort()) {
-        if (_importPrefixes.containsKey(uri)) {
+        final auxPrefix = _auxiliaryPrefixes[uri]!;
+        // Check if this URI has a different prefix in _importPrefixes
+        // If the prefix is the same, the import was already written
+        // If different (e.g., $pkg vs $aux_dcli), we need to write the auxiliary import
+        // to override the barrel import for types not exported from the barrel
+        final existingPrefix = _importPrefixes[uri];
+        if (existingPrefix != null && existingPrefix == auxPrefix) {
           continue;
         }
-        final prefix = _auxiliaryPrefixes[uri]!;
-        _importPrefixes[uri] = prefix;
-        buffer.writeln("import '$uri' as $prefix;");
+        // Update _importPrefixes to use the auxiliary prefix
+        _importPrefixes[uri] = auxPrefix;
+        buffer.writeln("import '$uri' as $auxPrefix;");
       }
     }
     buffer.writeln();
@@ -9171,6 +9576,17 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     if (onTypeName.contains('<')) {
       return;
     }
+    
+    // GEN-056: Extract the on-type URI from the resolved type
+    String? onTypeUri;
+    final extendedDartType = onClause.extendedType.type;
+    if (extendedDartType is InterfaceType) {
+      final element = extendedDartType.element;
+      final library = element.library;
+      onTypeUri = library.identifier;
+      // Also register in the global type registry so processTypeName can find it
+      globalTypeToUri[onTypeName] = onTypeUri;
+    }
 
     // Collect getters, setters, and methods from the extension's members
     final getterNames = <String>[];
@@ -9214,6 +9630,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       ExtensionInfo(
         name: extName,
         onTypeName: onTypeName,
+        onTypeUri: onTypeUri,
         sourceFile: currentSourceFile ?? '',
         getterNames: getterNames,
         setterNames: setterNames,
@@ -9292,10 +9709,13 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     // Handle top-level getters as global variables
     if (node.isGetter) {
       final returnType = node.returnType?.toSource() ?? 'dynamic';
+      final typeInfo = _collectTypeInfo(node.returnType);
       globalVariables.add(
         GlobalVariableInfo(
           name: name,
           type: returnType,
+          typeImportUris: typeInfo.uris,
+          typeToUri: typeInfo.typeToUri,
           isFinal: false,
           isConst: false,
           isGetter: true,
@@ -9314,6 +9734,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     }
 
     final returnType = node.returnType?.toSource() ?? 'dynamic';
+    final returnTypeInfo = _collectTypeInfo(node.returnType);
     final params = node.functionExpression.parameters;
     final parameters =
         params != null ? _parseParameters(params) : <ParameterInfo>[];
@@ -9336,6 +9757,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       GlobalFunctionInfo(
         name: name,
         returnType: returnType,
+        returnTypeImportUris: returnTypeInfo.uris,
+        returnTypeToUri: returnTypeInfo.typeToUri,
         parameters: parameters,
         sourceFile: currentSourceFile ?? '',
         hasTypeParameters: hasTypeParameters,
@@ -9364,6 +9787,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       if (skipPrivate && name.startsWith('_')) continue;
 
       final type = node.variables.type?.toSource() ?? 'dynamic';
+      final typeInfo = _collectTypeInfo(node.variables.type);
       final isFinal = node.variables.isFinal;
       final isConst = node.variables.isConst;
 
@@ -9371,6 +9795,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         GlobalVariableInfo(
           name: name,
           type: type,
+          typeImportUris: typeInfo.uris,
+          typeToUri: typeInfo.typeToUri,
           isFinal: isFinal,
           isConst: isConst,
           sourceFile: currentSourceFile ?? '',
@@ -9469,7 +9895,21 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     if (node.typeParameters != null) {
       for (final typeParam in node.typeParameters!.typeParameters) {
         final paramName = typeParam.name.lexeme;
-        final bound = typeParam.bound?.type?.element?.name;
+        final boundType = typeParam.bound?.type;
+        String? bound;
+        if (boundType != null && boundType is InterfaceType) {
+          bound = boundType.element.name;
+          // GEN-056: Register the bound type in the global registry
+          if (bound != null) {
+            final library = boundType.element.library;
+            final uri = library.identifier;
+            if (!uri.startsWith('dart:')) {
+              globalTypeToUri[bound] = uri;
+            }
+          }
+        } else if (boundType != null) {
+          bound = boundType.element?.name;
+        }
         typeParams[paramName] = bound;
       }
     }
@@ -9528,6 +9968,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         // Only store package: URIs, not file: or dart: URIs
         if (uri.startsWith('package:')) {
           superclassUri = uri;
+          // GEN-056: Also register in the global type registry so processTypeName can find it
+          globalTypeToUri[superclass] = uri;
         }
       }
     }
@@ -9560,7 +10002,21 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     if (node.typeParameters != null) {
       for (final typeParam in node.typeParameters!.typeParameters) {
         final paramName = typeParam.name.lexeme;
-        final bound = typeParam.bound?.type?.element?.name;
+        final boundType = typeParam.bound?.type;
+        String? bound;
+        if (boundType != null && boundType is InterfaceType) {
+          bound = boundType.element.name;
+          // GEN-056: Register the bound type in the global registry
+          if (bound != null) {
+            final library = boundType.element.library;
+            final uri = library.identifier;
+            if (!uri.startsWith('dart:')) {
+              globalTypeToUri[bound] = uri;
+            }
+          }
+        } else if (boundType != null) {
+          bound = boundType.element?.name;
+        }
         typeParams[paramName] = bound;
       }
     }
@@ -9654,7 +10110,21 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     if (node.typeParameters != null) {
       for (final typeParam in node.typeParameters!.typeParameters) {
         final paramName = typeParam.name.lexeme;
-        final bound = typeParam.bound?.type?.element?.name;
+        final boundType = typeParam.bound?.type;
+        String? bound;
+        if (boundType != null && boundType is InterfaceType) {
+          bound = boundType.element.name;
+          // GEN-056: Register the bound type in the global registry
+          if (bound != null) {
+            final library = boundType.element.library;
+            final uri = library.identifier;
+            if (!uri.startsWith('dart:')) {
+              globalTypeToUri[bound] = uri;
+            }
+          }
+        } else if (boundType != null) {
+          bound = boundType.element?.name;
+        }
         typeParams[paramName] = bound;
       }
     }
