@@ -1,3 +1,8 @@
+## 1.7.0
+
+### Bug Fixes
+- **G-GNRC-7**: Fixed `runtimeType` comparison with type identifiers. When comparing `runtimeType` (which returns a native `Type`) against type identifiers like `int` (which resolve to `BridgedClass`), the interpreter now correctly compares via `BridgedClass.nativeType`. This fixes F-bounded polymorphism tests involving `Comparable<T>` sort operations.
+
 ## 1.6.1
 
 ### Documentation

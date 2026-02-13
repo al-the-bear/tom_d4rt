@@ -1,3 +1,21 @@
+## 1.6.0
+
+### Features
+- **Record type support (G-TYPE-1, G-TYPE-2)**: Full support for Dart records as function parameters and return types. The generator emits inline conversion code:
+  - Parameters: `InterpretedRecord` → native Dart record at call sites
+  - Returns: Native Dart record → `InterpretedRecord` for interpreter access
+  - New helpers: `_isRecordType()`, `_parseRecordType()`, `_generateRecordParamExtraction()`, `_generateRecordReturnWrapper()`
+
+### Bug Fixes
+- **G-TE-1**: Added `sourceFilePath` parameter to global function type resolution. Type bounds in generic parameters now resolve correctly for global functions.
+- **G-TE-2**: Fixed type erasure test expectations — import prefixes for non-barrel-exported types now correctly use auxiliary prefixes.
+- **G-OP-8**: Fixed barrel export collision — `Point` class now exports from `run_static_object_methods.dart` (which has `operator ==`, `hashCode`, `toString`) instead of `run_constructors.dart`.
+- **GEN-045**: Barrel name collision for constrained mixins resolved as side effect of G-OP-8 fix.
+
+### Tests
+- All 431 tests now pass (was 430 pass, 1 fail)
+- Full dart_overview coverage suite validated
+
 ## 1.5.2
 
 ### Bug Fixes
