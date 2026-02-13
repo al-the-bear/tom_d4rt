@@ -1,3 +1,8 @@
+## 1.6.1
+
+### Bug Fixes
+- **SDK path detection**: Compiled d4rtgen binaries now correctly locate the Dart SDK. The analyzer's default SDK detection fails for compiled binaries because `Platform.resolvedExecutable` returns the binary path instead of the Dart executable. Added `_getSdkPath()` method that checks `DART_SDK` environment variable first, then derives SDK from `dart` in PATH (handles Flutter's embedded SDK structure).
+
 ## 1.6.0
 
 ### Features

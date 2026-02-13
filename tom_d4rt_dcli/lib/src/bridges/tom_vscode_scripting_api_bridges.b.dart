@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 12 files
-// Generated: 2026-02-11T13:53:26.012160
+// Generated: 2026-02-13T14:13:03.289101
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -556,6 +556,20 @@ BridgedClass _createVSCodeBridge() {
       'chat': (visitor, target) => D4.validateTarget<$pkg.VSCode>(target, 'VSCode').chat,
       'adapter': (visitor, target) => D4.validateTarget<$pkg.VSCode>(target, 'VSCode').adapter,
     },
+    setters: {
+      'workspace': (visitor, target, value) => 
+        D4.validateTarget<$pkg.VSCode>(target, 'VSCode').workspace = value as dynamic,
+      'window': (visitor, target, value) => 
+        D4.validateTarget<$pkg.VSCode>(target, 'VSCode').window = value as dynamic,
+      'commands': (visitor, target, value) => 
+        D4.validateTarget<$pkg.VSCode>(target, 'VSCode').commands = value as dynamic,
+      'extensions': (visitor, target, value) => 
+        D4.validateTarget<$pkg.VSCode>(target, 'VSCode').extensions = value as dynamic,
+      'lm': (visitor, target, value) => 
+        D4.validateTarget<$pkg.VSCode>(target, 'VSCode').lm = value as dynamic,
+      'chat': (visitor, target, value) => 
+        D4.validateTarget<$pkg.VSCode>(target, 'VSCode').chat = value as dynamic,
+    },
     methods: {
       'getVersion': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.VSCode>(target, 'VSCode');
@@ -616,6 +630,14 @@ BridgedClass _createVSCodeBridge() {
       'lm': 'VSCodeLanguageModel get lm',
       'chat': 'VSCodeChat get chat',
       'adapter': 'VSCodeAdapter get adapter',
+    },
+    setterSignatures: {
+      'workspace': 'set workspace(dynamic value)',
+      'window': 'set window(dynamic value)',
+      'commands': 'set commands(dynamic value)',
+      'extensions': 'set extensions(dynamic value)',
+      'lm': 'set lm(dynamic value)',
+      'chat': 'set chat(dynamic value)',
     },
     staticMethodSignatures: {
       'initialize': 'void initialize(VSCodeAdapter adapter)',

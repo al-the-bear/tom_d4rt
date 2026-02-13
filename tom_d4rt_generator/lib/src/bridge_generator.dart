@@ -948,6 +948,63 @@ class BridgeGenerator {
     'BigInt',
   ];
 
+  /// Cached SDK path for analysis contexts.
+  String? _cachedSdkPath;
+
+  /// Gets the Dart SDK path for analysis contexts.
+  /// 
+  /// Resolution order:
+  /// 1. `DART_SDK` environment variable (recommended for compiled binaries)
+  /// 2. Derive from `dart` executable in PATH
+  /// 3. Fall back to null (let analyzer use Platform.resolvedExecutable)
+  /// 
+  /// When running d4rtgen as a compiled binary (e.g., from ~/.tom/bin/),
+  /// the analyzer's default SDK detection fails because it derives the SDK
+  /// path from the executable location. Set `DART_SDK` to fix this.
+  String? _getSdkPath() {
+    if (_cachedSdkPath != null) return _cachedSdkPath;
+    
+    // 1. Check DART_SDK environment variable
+    final dartSdkEnv = Platform.environment['DART_SDK'];
+    if (dartSdkEnv != null && dartSdkEnv.isNotEmpty) {
+      final sdkDir = Directory(dartSdkEnv);
+      if (sdkDir.existsSync()) {
+        _cachedSdkPath = dartSdkEnv;
+        return _cachedSdkPath;
+      }
+    }
+    
+    // 2. Try to find dart in PATH and derive SDK path
+    try {
+      final result = Process.runSync('which', ['dart']);
+      if (result.exitCode == 0) {
+        final dartPath = (result.stdout as String).trim();
+        if (dartPath.isNotEmpty) {
+          // dart is typically at <sdk>/bin/dart or <flutter>/bin/dart
+          // For Flutter, dart-sdk is at <flutter>/bin/cache/dart-sdk
+          var sdkPath = p.dirname(p.dirname(dartPath));
+          
+          // Check if this is a Flutter installation
+          final flutterDartSdk = p.join(sdkPath, 'cache', 'dart-sdk');
+          if (Directory(flutterDartSdk).existsSync()) {
+            sdkPath = flutterDartSdk;
+          }
+          
+          // Verify it looks like an SDK (has lib/_internal)
+          if (Directory(p.join(sdkPath, 'lib', '_internal')).existsSync()) {
+            _cachedSdkPath = sdkPath;
+            return _cachedSdkPath;
+          }
+        }
+      }
+    } catch (_) {
+      // Ignore errors from which command
+    }
+    
+    // 3. Return null - let analyzer use its default (may fail for compiled binaries)
+    return null;
+  }
+
   /// Gets or creates the analysis context collection.
   /// 
   /// For cross-package bridge generation, the context needs to include
@@ -960,6 +1017,7 @@ class BridgeGenerator {
         : p.normalize(p.join(Directory.current.path, workspacePath));
     return _analysisContext ??= AnalysisContextCollection(
       includedPaths: [absoluteWorkspacePath],
+      sdkPath: _getSdkPath(),
     );
   }
 
@@ -1004,6 +1062,7 @@ class BridgeGenerator {
     if (!_packageAnalysisContexts.containsKey(packageRoot)) {
       _packageAnalysisContexts[packageRoot] = AnalysisContextCollection(
         includedPaths: [packageRoot],
+        sdkPath: _getSdkPath(),
       );
     }
     
