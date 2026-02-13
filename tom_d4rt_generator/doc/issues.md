@@ -1,6 +1,6 @@
 # D4rt Bridge Generator — Known Issues & Limitations
 
-> Last updated: 2026-02-13
+> Last updated: 2026-02-14
 > 
 > Identified from DCli scripting guide e2e test failures.
 
@@ -17,7 +17,7 @@
 | [G-DCLI-12](#g-dcli-12) | CopyException not caught in try/catch blocks | Medium | Interpreter | Open |
 | [G-DCLI-14](#g-dcli-14) | Shell pipe execution with runInShell: true broken | Medium | Interpreter | Open |
 | [GEN-055](#gen-055) | Return types not collected from API surface | Medium | Generator | **FIXED** |
-| [GEN-056](#gen-056) | Extension on-type not resolvable at runtime | Medium | Interpreter | Open |
+| [GEN-056](#gen-056) | Extension on-type not resolvable at runtime | Medium | Interpreter | **FIXED** |
 
 ---
 
@@ -43,15 +43,15 @@ Added `_collectApiSurfaceTypeDependencies()` helper to collect return types and 
 
 ---
 
-## Open Issues
-
 ### GEN-056
 
 **Extension on-type not resolvable at runtime**
 
+**Status:** FIXED (2026-02-14)
+
 **a) Problem:**
 
-Extensions on types from external libraries (e.g., `extension PlatformEx on Platform`) cannot be used because the interpreter cannot resolve the on-type at runtime.
+Extensions on types from external libraries (e.g., `extension PlatformEx on Platform`) cannot be used because the interpreter cannot resolve the on-type at runtime. When a bridged package (e.g., DCli) defines an extension on a type from a different module (e.g., `Platform` from `dart:io`), and the user script doesn't explicitly import that module, the on-type resolution fails.
 
 **Error:**
 ```
@@ -60,18 +60,22 @@ Could not resolve type 'Platform' for extension 'PlatformEx'.
 
 **b) Root Cause:**
 
-The bridge generator correctly collects the extension and its on-type URI (e.g., `dart:io` for `Platform`), but the runtime interpreter's module_loader cannot resolve the on-type from the `onTypeName` string. The interpreter needs to be updated to handle built-in types like `Platform` from `dart:io`.
+The module_loader's extension registration code tried `globalEnvironment.get(onTypeName)` to find the RuntimeType for the extension's on-type. But stdlib types (like `Platform` from `dart:io`) are only loaded when their module is explicitly imported. Bridge packages that depend on stdlib types transitively (as DCli depends on dart:io) couldn't resolve their extension on-types.
 
-**c) Location:**
-- Interpreter: `tom_d4rt/lib/src/module_loader.dart` — extension registration
-- Related: Type resolution in `BridgedExtensionDefinition`
+**c) Resolution:**
 
-**d) Resolution Strategy:**
-1. Update interpreter's extension registration to handle `dart:*` types
-2. For `Platform` and other common `dart:io` types, pre-register them
-3. Or: Add a type registry that maps type names to their sources
+Added `_resolveTypeForExtension()` fallback method to ModuleLoader that:
+1. Searches all registered BridgedClass definitions from `bridgedClases` list
+2. Auto-loads known stdlib modules (dart:io, dart:math, dart:convert, dart:collection, dart:typed_data) until the type is found
+
+This mirrors real Dart behavior where transitive dependencies are automatically available.
+
+**d) Tests:**
+- `tom_d4rt/test/bridge/extension_on_stdlib_type_test.dart` — 5 test cases covering stdlib types, bridge-to-bridge types, and unknown types
 
 ---
+
+## Open Issues
 
 ## Issue Details
 

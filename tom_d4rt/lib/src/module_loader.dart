@@ -65,6 +65,11 @@ class ModuleLoader {
   /// to see all registration issues at once.
   final List<String> accumulatedRegistrationErrors = [];
 
+  /// Set of stdlib module paths that have been auto-loaded for extension
+  /// on-type resolution. Prevents redundant loading and avoids re-registration
+  /// warnings when a module is later explicitly imported.
+  final Set<String> _autoLoadedStdlibs = {};
+
   ModuleLoader(this.globalEnvironment, this.sources,
       this.bridgedEnumDefinitions, this.bridgedClases,
       {this.d4rt,
@@ -780,8 +785,15 @@ class ModuleLoader {
                 onType = typeObj;
               }
             } on RuntimeD4rtException {
-              // Type not found yet — will be logged below
+              // Type not found yet — try fallbacks
             }
+            
+            // GEN-056 FIX: If the type isn't found in the environment, try
+            // resolving it from registered bridge classes and stdlib modules.
+            // This handles cases where a bridge extension targets a type from
+            // a different package or stdlib (e.g., PlatformEx on Platform from
+            // dart:io) that hasn't been explicitly imported by the script.
+            onType ??= _resolveTypeForExtension(definition.onTypeName);
             
             if (onType == null) {
               Logger.warn(
@@ -835,6 +847,68 @@ class ModuleLoader {
     throw SourceCodeD4rtException(
         "Module source not preloaded for URI: $uriString, and not a recognized Dart standard library.",
         uriString);
+  }
+
+  /// GEN-056 FIX: Resolve a RuntimeType for an extension's on-type by
+  /// searching registered bridge classes and auto-loading stdlib modules.
+  ///
+  /// This handles cases where:
+  /// 1. An extension targets a type from another bridge package that may
+  ///    already be registered (e.g., MyClassExt on MyClass from pkg_a)
+  /// 2. An extension targets a stdlib type (e.g., PlatformEx on Platform
+  ///    from dart:io) that hasn't been explicitly imported by the script
+  ///
+  /// Returns the RuntimeType if found, or null if the type cannot be resolved.
+  RuntimeType? _resolveTypeForExtension(String typeName) {
+    // Fallback 1: Search all registered BridgedClass definitions.
+    // These are bridge classes registered with the interpreter (via
+    // registerBridgedClass) that may not yet be loaded into the environment.
+    for (final classMap in bridgedClases) {
+      for (final libClass in classMap.values) {
+        if (libClass.bridgedClass.name == typeName) {
+          // Register the class in globalEnvironment so it's available
+          // for extension type matching
+          globalEnvironment.defineBridge(libClass.bridgedClass);
+          Logger.debug(
+              "[ModuleLoader] Resolved extension on-type '$typeName' from registered bridge class");
+          return libClass.bridgedClass;
+        }
+      }
+    }
+
+    // Fallback 2: Try auto-loading known stdlib modules.
+    // Bridge packages may depend on stdlib types (e.g., DCli uses Platform
+    // from dart:io). In real Dart, these would be transitively available.
+    // We auto-load stdlib modules to find the type.
+    final stdlibRegistrars = <String, void Function()>{
+      'io': () => StdlibIo.register(globalEnvironment),
+      'math': () => MathStdlib.register(globalEnvironment),
+      'convert': () => ConvertStdlib.register(globalEnvironment),
+      'collection': () => CollectionStdlib.register(globalEnvironment),
+      'typed_data': () => TypedDataStdlib.register(globalEnvironment),
+    };
+
+    for (final entry in stdlibRegistrars.entries) {
+      if (_autoLoadedStdlibs.contains(entry.key)) continue;
+      
+      // Load the stdlib module
+      entry.value();
+      _autoLoadedStdlibs.add(entry.key);
+      
+      // Check if the type is now available
+      try {
+        final typeObj = globalEnvironment.get(typeName);
+        if (typeObj is RuntimeType) {
+          Logger.debug(
+              "[ModuleLoader] Auto-loaded stdlib '${entry.key}' to resolve extension on-type '$typeName'");
+          return typeObj;
+        }
+      } on RuntimeD4rtException {
+        // Not in this module, try next
+      }
+    }
+
+    return null; // Type not found anywhere
   }
 
   CompilationUnit _parseSource(Uri uri, String sourceCode) {
