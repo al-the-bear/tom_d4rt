@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-02-12T22:51:44.119299
+// Generated: 2026-02-13T16:56:26.523532
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -563,23 +563,30 @@ class AllBridge {
       'findMinMax': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'findMinMax');
         final numbers = D4.getRequiredArg<List<int>>(positional, 0, 'numbers', 'findMinMax');
-        return $pkg.findMinMax(numbers);
+        final $result = $pkg.findMinMax(numbers);
+        return InterpretedRecord([], {'min': $result.min, 'max': $result.max});
       },
       'swap': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'swap');
-        final pair = D4.getRequiredArg<(int, int)>(positional, 0, 'pair', 'swap');
-        return $pkg.swap(pair);
+        final pair$raw = positional[0];
+        final pair = pair$raw is InterpretedRecord
+            ? (pair$raw.positionalFields[0] as int, pair$raw.positionalFields[1] as int)
+            : pair$raw as (int, int);
+        final $result = $pkg.swap(pair);
+        return InterpretedRecord([$result.$1, $result.$2], {});
       },
       'parseUserString': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'parseUserString');
         final input = D4.getRequiredArg<String>(positional, 0, 'input', 'parseUserString');
-        return $pkg.parseUserString(input);
+        final $result = $pkg.parseUserString(input);
+        return InterpretedRecord([$result.$1, $result.$2], {});
       },
       'divideWithRemainder': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'divideWithRemainder');
         final dividend = D4.getRequiredArg<int>(positional, 0, 'dividend', 'divideWithRemainder');
         final divisor = D4.getRequiredArg<int>(positional, 1, 'divisor', 'divideWithRemainder');
-        return $pkg.divideWithRemainder(dividend, divisor);
+        final $result = $pkg.divideWithRemainder(dividend, divisor);
+        return InterpretedRecord([], {'quotient': $result.quotient, 'remainder': $result.remainder});
       },
       'countTo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'countTo');

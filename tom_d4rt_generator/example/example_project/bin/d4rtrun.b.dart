@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for d4rt_generator_example
-// Generated: 2026-02-11T19:19:46.559253
+// Generated: 2026-02-13T16:56:27.080665
 //
 // Usage:
 //   dart run bin/d4rtrun.b.dart <script.dart|.d4rt>  Run a D4rt script file
@@ -30,6 +30,19 @@ void _registerBridges(D4rt d4rt) {
     d4rt,
     'package:d4rt_generator_example/test_classes.dart',
   );
+}
+
+/// Logs D4 invocations to a debug file.
+const String _d4InvocationsLogPath = '/Users/alexiskyaw/Desktop/Code/tom2/d4_invocations.log';
+
+void _logD4Invocation(String mode, String input) {
+  final timestamp = DateTime.now().toIso8601String();
+  final logLine = '$timestamp | $mode | $input\n';
+  try {
+    File(_d4InvocationsLogPath).writeAsStringSync(logLine, mode: FileMode.append);
+  } catch (_) {
+    // Ignore logging failures
+  }
 }
 
 Future<void> main(List<String> args) async {
@@ -86,6 +99,7 @@ Future<void> main(List<String> args) async {
 
 /// Run a D4rt script file using execute().
 void _runFile(String filePath) {
+  _logD4Invocation('FILE', filePath);
   final file = File(filePath);
   if (!file.existsSync()) {
     stderr.writeln('Error: File not found: $filePath');
@@ -95,7 +109,12 @@ void _runFile(String filePath) {
   final source = file.readAsStringSync();
   final d4rt = D4rt();
   _registerBridges(d4rt);
+  // Grant all permissions for full access
   d4rt.grant(FilesystemPermission.any);
+  d4rt.grant(NetworkPermission.any);
+  d4rt.grant(ProcessRunPermission.any);
+  d4rt.grant(IsolatePermission.any);
+  d4rt.grant(DangerousPermission.any);
 
   try {
     final result = d4rt.execute(
@@ -116,9 +135,15 @@ void _runFile(String filePath) {
 
 /// Evaluate an expression using eval().
 void _runExpression(String expression) {
+  _logD4Invocation('EXPR', expression);
   final d4rt = D4rt();
   _registerBridges(d4rt);
+  // Grant all permissions for full access
   d4rt.grant(FilesystemPermission.any);
+  d4rt.grant(NetworkPermission.any);
+  d4rt.grant(ProcessRunPermission.any);
+  d4rt.grant(IsolatePermission.any);
+  d4rt.grant(DangerousPermission.any);
 
   // Initialize the interpreter with the import script
   d4rt.execute(source: _initSource);
@@ -138,6 +163,7 @@ void _runExpression(String expression) {
 
 /// Evaluate file content using eval().
 void _runEvalFile(String filePath) {
+  _logD4Invocation('EVAL-FILE', filePath);
   final file = File(filePath);
   if (!file.existsSync()) {
     stderr.writeln('Error: File not found: $filePath');
@@ -147,7 +173,12 @@ void _runEvalFile(String filePath) {
   final source = file.readAsStringSync();
   final d4rt = D4rt();
   _registerBridges(d4rt);
+  // Grant all permissions for full access
   d4rt.grant(FilesystemPermission.any);
+  d4rt.grant(NetworkPermission.any);
+  d4rt.grant(ProcessRunPermission.any);
+  d4rt.grant(IsolatePermission.any);
+  d4rt.grant(DangerousPermission.any);
 
   // Initialize the interpreter with the import script
   d4rt.execute(source: _initSource);
@@ -197,6 +228,7 @@ void _runInitEval() {
 /// output and unhandled exceptions. Results are output as JSON.
 /// Properly awaits async main() functions.
 Future<void> _runTestScript(String filePath) async {
+  _logD4Invocation('TEST', filePath);
   final file = File(filePath);
   if (!file.existsSync()) {
     _emitTestResult('', ['File not found: $filePath']);
@@ -213,7 +245,12 @@ Future<void> _runTestScript(String filePath) async {
       try {
         final d4rt = D4rt();
         _registerBridges(d4rt);
+        // Grant all permissions for full access
         d4rt.grant(FilesystemPermission.any);
+        d4rt.grant(NetworkPermission.any);
+        d4rt.grant(ProcessRunPermission.any);
+        d4rt.grant(IsolatePermission.any);
+        d4rt.grant(DangerousPermission.any);
         final result = d4rt.execute(
           source: source,
           basePath: File(filePath).parent.path,
@@ -249,6 +286,7 @@ Future<void> _runTestScript(String filePath) async {
 /// Initializes with [initFilePath], then evaluates [evalFilePath].
 /// Properly awaits async init scripts.
 Future<void> _runTestEval(String initFilePath, String evalFilePath) async {
+  _logD4Invocation('TEST-EVAL', '$initFilePath | $evalFilePath');
   final initFile = File(initFilePath);
   final evalFile = File(evalFilePath);
   if (!initFile.existsSync()) {
@@ -271,7 +309,12 @@ Future<void> _runTestEval(String initFilePath, String evalFilePath) async {
       try {
         final d4rt = D4rt();
         _registerBridges(d4rt);
+        // Grant all permissions for full access
         d4rt.grant(FilesystemPermission.any);
+        d4rt.grant(NetworkPermission.any);
+        d4rt.grant(ProcessRunPermission.any);
+        d4rt.grant(IsolatePermission.any);
+        d4rt.grant(DangerousPermission.any);
         // Initialize with the init script
         final initResult = d4rt.execute(
           source: initSource,

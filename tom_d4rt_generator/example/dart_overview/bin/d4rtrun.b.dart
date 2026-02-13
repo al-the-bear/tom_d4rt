@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for dart_overview
-// Generated: 2026-02-12T22:51:44.179996
+// Generated: 2026-02-13T16:56:26.551815
 //
 // Usage:
 //   dart run bin/d4rtrun.b.dart <script.dart|.d4rt>  Run a D4rt script file
@@ -109,7 +109,12 @@ void _runFile(String filePath) {
   final source = file.readAsStringSync();
   final d4rt = D4rt();
   _registerBridges(d4rt);
+  // Grant all permissions for full access
   d4rt.grant(FilesystemPermission.any);
+  d4rt.grant(NetworkPermission.any);
+  d4rt.grant(ProcessRunPermission.any);
+  d4rt.grant(IsolatePermission.any);
+  d4rt.grant(DangerousPermission.any);
 
   try {
     final result = d4rt.execute(
@@ -133,7 +138,12 @@ void _runExpression(String expression) {
   _logD4Invocation('EXPR', expression);
   final d4rt = D4rt();
   _registerBridges(d4rt);
+  // Grant all permissions for full access
   d4rt.grant(FilesystemPermission.any);
+  d4rt.grant(NetworkPermission.any);
+  d4rt.grant(ProcessRunPermission.any);
+  d4rt.grant(IsolatePermission.any);
+  d4rt.grant(DangerousPermission.any);
 
   // Initialize the interpreter with the import script
   d4rt.execute(source: _initSource);
@@ -163,7 +173,12 @@ void _runEvalFile(String filePath) {
   final source = file.readAsStringSync();
   final d4rt = D4rt();
   _registerBridges(d4rt);
+  // Grant all permissions for full access
   d4rt.grant(FilesystemPermission.any);
+  d4rt.grant(NetworkPermission.any);
+  d4rt.grant(ProcessRunPermission.any);
+  d4rt.grant(IsolatePermission.any);
+  d4rt.grant(DangerousPermission.any);
 
   // Initialize the interpreter with the import script
   d4rt.execute(source: _initSource);
@@ -230,7 +245,12 @@ Future<void> _runTestScript(String filePath) async {
       try {
         final d4rt = D4rt();
         _registerBridges(d4rt);
+        // Grant all permissions for full access
         d4rt.grant(FilesystemPermission.any);
+        d4rt.grant(NetworkPermission.any);
+        d4rt.grant(ProcessRunPermission.any);
+        d4rt.grant(IsolatePermission.any);
+        d4rt.grant(DangerousPermission.any);
         final result = d4rt.execute(
           source: source,
           basePath: File(filePath).parent.path,
@@ -289,7 +309,12 @@ Future<void> _runTestEval(String initFilePath, String evalFilePath) async {
       try {
         final d4rt = D4rt();
         _registerBridges(d4rt);
+        // Grant all permissions for full access
         d4rt.grant(FilesystemPermission.any);
+        d4rt.grant(NetworkPermission.any);
+        d4rt.grant(ProcessRunPermission.any);
+        d4rt.grant(IsolatePermission.any);
+        d4rt.grant(DangerousPermission.any);
         // Initialize with the init script
         final initResult = d4rt.execute(
           source: initSource,

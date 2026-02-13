@@ -185,13 +185,64 @@ class ExportInfo {
     this.barrelUri,
   });
 
-  /// Create a copy with a different barrelUri.
-  ExportInfo copyWith({String? barrelUri}) {
+  /// Create a copy with a different barrelUri and/or merged clauses.
+  ExportInfo copyWith({
+    String? barrelUri,
+    List<String>? hideClause,
+    List<String>? showClause,
+  }) {
     return ExportInfo(
       sourcePath: sourcePath,
-      hideClause: hideClause,
-      showClause: showClause,
+      hideClause: hideClause ?? this.hideClause,
+      showClause: showClause ?? this.showClause,
       barrelUri: barrelUri ?? this.barrelUri,
+    );
+  }
+
+  /// Merge this ExportInfo's show/hide clauses with parent clauses.
+  /// 
+  /// The resulting show clause is the intersection of both show clauses.
+  /// The resulting hide clause is the union of both hide clauses.
+  /// If parent has a show clause and this has a hide clause, the show clause
+  /// takes precedence (only symbols in show are visible, minus any hidden).
+  ExportInfo mergeWithParent({
+    List<String>? parentShowClause,
+    List<String>? parentHideClause,
+  }) {
+    List<String>? mergedShow;
+    List<String>? mergedHide;
+
+    // Merge show clauses - result is intersection
+    if (parentShowClause != null && showClause != null) {
+      // Intersection: only symbols that appear in BOTH
+      mergedShow = showClause!.where((s) => parentShowClause.contains(s)).toList();
+    } else if (parentShowClause != null) {
+      mergedShow = parentShowClause;
+    } else if (showClause != null) {
+      mergedShow = showClause;
+    }
+
+    // Merge hide clauses - result is union  
+    if (parentHideClause != null && hideClause != null) {
+      // Union: symbols hidden by either
+      mergedHide = {...parentHideClause, ...hideClause!}.toList();
+    } else if (parentHideClause != null) {
+      mergedHide = parentHideClause;
+    } else if (hideClause != null) {
+      mergedHide = hideClause;
+    }
+
+    // If both show and hide exist, apply hide to show
+    if (mergedShow != null && mergedHide != null) {
+      mergedShow = mergedShow.where((s) => !mergedHide!.contains(s)).toList();
+      mergedHide = null; // show clause already incorporates hides
+    }
+
+    return ExportInfo(
+      sourcePath: sourcePath,
+      showClause: mergedShow,
+      hideClause: mergedHide,
+      barrelUri: barrelUri,
     );
   }
 
@@ -1225,6 +1276,26 @@ class BridgeGenerator {
     return versionMatch?.group(1) ?? dirName;
   }
 
+  /// Merges two show clauses.
+  /// If both are non-null, returns their intersection (only symbols in both).
+  /// If one is null, returns the other.
+  List<String>? _mergeShowClauses(List<String>? parent, List<String>? child) {
+    if (parent == null) return child;
+    if (child == null) return parent;
+    // Intersection - only symbols that appear in both
+    return child.where((s) => parent.contains(s)).toList();
+  }
+
+  /// Merges two hide clauses.
+  /// If both are non-null, returns their union (symbols hidden by either).
+  /// If one is null, returns the other.
+  List<String>? _mergeHideClauses(List<String>? parent, List<String>? child) {
+    if (parent == null) return child;
+    if (child == null) return parent;
+    // Union - symbols hidden by either
+    return {...parent, ...child}.toList();
+  }
+
   /// Checks if a file path matches any of the glob patterns.
   ///
   /// [filePath] - The file path to check
@@ -1415,6 +1486,8 @@ class BridgeGenerator {
   /// [followReExports] - List of external package names to follow when [followAllReExports] is false.
   /// [originBarrelUri] - The top-level barrel URI that originated this export chain.
   ///   Used to track which barrel file each source file came from.
+  /// [parentShowClause] - Show clause from parent export, to be merged with nested exports.
+  /// [parentHideClause] - Hide clause from parent export, to be merged with nested exports.
   ///
   /// Returns a map of source file paths to their export info (hide/show clauses and barrel origin).
   Future<Map<String, ExportInfo>> parseExportFiles(
@@ -1425,6 +1498,8 @@ class BridgeGenerator {
     List<String>? followReExports,
     bool isTopLevel = true,
     String? originBarrelUri,
+    List<String>? parentShowClause,
+    List<String>? parentHideClause,
   }) async {
     visited ??= <String>{};
     skipReExports ??= const [];
@@ -1537,6 +1612,27 @@ class BridgeGenerator {
         if (exportFile.existsSync()) {
           final exportContent = await exportFile.readAsString();
           if (exportPattern.hasMatch(exportContent)) {
+            // Parse the current export's show/hide clause
+            List<String>? currentShowClause;
+            List<String>? currentHideClause;
+            if (hideShow?.startsWith('show') == true) {
+              currentShowClause = hideShow!
+                  .substring(5)
+                  .split(',')
+                  .map((s) => s.trim())
+                  .toList();
+            } else if (hideShow?.startsWith('hide') == true) {
+              currentHideClause = hideShow!
+                  .substring(5)
+                  .split(',')
+                  .map((s) => s.trim())
+                  .toList();
+            }
+
+            // Merge current clause with parent clause for propagation
+            final mergedShowClause = _mergeShowClauses(parentShowClause, currentShowClause);
+            final mergedHideClause = _mergeHideClauses(parentHideClause, currentHideClause);
+
             // This file is a barrel - recursively parse it
             final nestedExports = await parseExportFiles([
               absolutePath,
@@ -1547,18 +1643,27 @@ class BridgeGenerator {
             followReExports: followReExports,
             isTopLevel: false,
             originBarrelUri: currentBarrelUri,
+            parentShowClause: mergedShowClause,
+            parentHideClause: mergedHideClause,
             );
-            // Only add nested exports if they're more permissive or don't exist yet
+            // Add nested exports with parent clauses applied
             for (final entry in nestedExports.entries) {
               final existingNested = exports[entry.key];
+              
+              // Merge the nested export with parent show/hide clauses
+              final mergedEntry = entry.value.mergeWithParent(
+                parentShowClause: parentShowClause,
+                parentHideClause: parentHideClause,
+              );
+              
               final isExistingNestedMorePermissive = existingNested != null && 
                   existingNested.showClause == null && 
                   existingNested.hideClause == null;
               if (!isExistingNestedMorePermissive) {
                 // Preserve the barrel URI from the nested export, or use current if not set
-                exports[entry.key] = entry.value.barrelUri != null 
-                    ? entry.value 
-                    : entry.value.copyWith(barrelUri: currentBarrelUri);
+                exports[entry.key] = mergedEntry.barrelUri != null 
+                    ? mergedEntry 
+                    : mergedEntry.copyWith(barrelUri: currentBarrelUri);
               }
             }
           }
@@ -1596,22 +1701,39 @@ class BridgeGenerator {
               (!isExistingMorePermissive && !existingIsSamePackage);
               
           if (shouldOverride) {
+            // Parse current export's show/hide clause
+            List<String>? currentHide;
+            List<String>? currentShow;
+            if (hideShow?.startsWith('hide') == true) {
+              currentHide = hideShow!
+                    .substring(5)
+                    .split(',')
+                    .map((s) => s.trim())
+                    .toList();
+            } else if (hideShow?.startsWith('show') == true) {
+              currentShow = hideShow!
+                    .substring(5)
+                    .split(',')
+                    .map((s) => s.trim())
+                    .toList();
+            }
+
+            // Merge with parent clauses
+            final mergedShow = _mergeShowClauses(parentShowClause, currentShow);
+            final mergedHide = _mergeHideClauses(parentHideClause, currentHide);
+
+            // If both show and hide exist, apply hide to show
+            List<String>? finalShow = mergedShow;
+            List<String>? finalHide = mergedHide;
+            if (finalShow != null && finalHide != null) {
+              finalShow = finalShow.where((s) => !finalHide!.contains(s)).toList();
+              finalHide = null;
+            }
+
             exports[absolutePath] = ExportInfo(
               sourcePath: absolutePath,
-              hideClause: hideShow?.startsWith('hide') == true
-                  ? hideShow!
-                        .substring(5)
-                        .split(',')
-                        .map((s) => s.trim())
-                        .toList()
-                  : null,
-              showClause: hideShow?.startsWith('show') == true
-                  ? hideShow!
-                        .substring(5)
-                        .split(',')
-                        .map((s) => s.trim())
-                        .toList()
-                  : null,
+              hideClause: finalHide,
+              showClause: finalShow,
               barrelUri: currentBarrelUri,
             );
           }
