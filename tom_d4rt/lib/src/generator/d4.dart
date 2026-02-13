@@ -6,7 +6,10 @@
 library;
 
 import '../bridge/bridged_types.dart';
+import '../bridge/bridged_enum.dart';
+import '../callable.dart';
 import '../exceptions.dart';
+import '../interpreter_visitor.dart';
 
 /// D4 - Static helper class for D4rt bridge code generation.
 ///
@@ -66,6 +69,9 @@ class D4 {
       return value.map<T>((e) {
         if (e is BridgedInstance) {
           return e.nativeObject as T;
+        }
+        if (e is BridgedEnumValue) {
+          return e.nativeValue as T;
         }
         return e as T;
       }).toList();
@@ -143,8 +149,9 @@ class D4 {
   /// INTER-003: Supports int→double promotion
   /// INTER-004: Supports collection type casting (List, Set, Map)
   static T extractBridgedArg<T>(Object? arg, String paramName) {
-    // Unwrap BridgedInstance if needed
-    final unwrapped = arg is BridgedInstance ? arg.nativeObject : arg;
+    // Unwrap BridgedInstance or BridgedEnumValue if needed
+    final unwrapped = arg is BridgedInstance ? arg.nativeObject :
+                      arg is BridgedEnumValue ? arg.nativeValue : arg;
 
     if (unwrapped is T) {
       return unwrapped;
@@ -425,6 +432,37 @@ class D4 {
       );
     }
     return extractBridgedArg<T>(named[paramName], paramName);
+  }
+
+  // ==========================================================================
+  // Callback Invocation
+  // ==========================================================================
+
+  /// Call an interpreter callback that may be either an InterpretedFunction
+  /// or a NativeFunction.
+  ///
+  /// G-DCLI-07 FIX: When bridge code needs to invoke a callback parameter
+  /// (e.g., `forEach(print)`), the callback may be a NativeFunction (like `print`)
+  /// or an InterpretedFunction (user-defined lambda). This method handles both.
+  ///
+  /// Returns the result of calling the callback.
+  static Object? callInterpreterCallback(
+    InterpreterVisitor visitor,
+    Object? callback,
+    List<Object?> args, [
+    Map<String, Object?> namedArgs = const {},
+  ]) {
+    if (callback is InterpretedFunction) {
+      return callback.call(visitor, args, namedArgs);
+    } else if (callback is NativeFunction) {
+      return callback.call(visitor, args, namedArgs);
+    } else if (callback is Callable) {
+      return callback.call(visitor, args, namedArgs);
+    } else {
+      throw ArgumentD4rtException(
+        'Expected a callable function, got ${callback?.runtimeType}',
+      );
+    }
   }
 }
 

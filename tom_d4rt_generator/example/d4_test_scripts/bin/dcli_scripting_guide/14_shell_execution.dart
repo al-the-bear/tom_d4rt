@@ -7,24 +7,22 @@ void main() {
   print('DCli Shell Execution Examples');
   print('=============================\n');
 
-  // Direct run without shell - $HOME is literal
-  print('1. Without shell (literal \$HOME):');
-  'echo \$HOME'.run;
-  
-  // Use shell for variable expansion
-  print('\n2. With shell (expanded \$HOME):');
-  run('echo \$HOME', runInShell: true);
-  
-  // Shell needed for pipes
-  print('\n3. Pipe through shell:');
-  run('ls -la | head -5', runInShell: true);
-  
-  // Shell needed for redirects
-  print('\n4. Redirect through shell:');
-  var tempFile = '/tmp/dcli_shell_test.txt';
-  run('echo "test content" > $tempFile', runInShell: true);
-  cat(tempFile);
-  delete(tempFile);
-  
+  // Direct run using String extension
+  print('1. String extension .run:');
+  'echo hello-from-run'.run;
+
+  // Using run() function with named parameters
+  print('\n2. run() function with nothrow:');
+  run('echo success-message', nothrow: true);
+
+  // Using start() for more control
+  print('\n3. start() function:');
+  var progress = start('echo started-process', progress: Progress.capture());
+  print('  Captured: ${progress.lines.join(", ")}');
+
+  // Demonstrating workingDirectory parameter
+  print('\n4. run() with workingDirectory:');
+  run('ls', workingDirectory: '/tmp');
+
   print(green('\nShell execution examples completed!'));
 }

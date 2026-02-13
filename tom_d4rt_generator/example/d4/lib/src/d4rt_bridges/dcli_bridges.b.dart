@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 70 files
-// Generated: 2026-02-13T23:16:41.635866
+// Generated: 2026-02-13T23:31:39.068351
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -26,6 +26,7 @@ import 'package:dcli/src/shell/shell.dart' as $aux_dcli_8;
 import 'package:dcli/src/util/file_sort.dart' as $aux_dcli_9;
 import 'package:dcli/src/util/parser.dart' as $aux_dcli_10;
 import 'package:dcli_core/src/util/line_action.dart' as $aux_dcli_core;
+import 'package:dcli_core/src/functions/which.dart' as $aux_dcli_core_which;
 
 /// Bridge class for dcli module.
 class DcliBridge {
@@ -94,6 +95,7 @@ class DcliBridge {
       _createFindProgressBridge(),
       _createHeadProgressBridge(),
       _createTailProgressBridge(),
+      _createWhichBridge(),
     ];
   }
 
@@ -118,6 +120,7 @@ class DcliBridge {
       'DCliException': 'package:dcli_core/src/util/dcli_exception.dart',
       'RunException': 'package:dcli_core/src/util/run_exception.dart',
       'StackList': 'package:dcli_core/src/util/stack_list.dart',
+      'Which': 'package:dcli_core/src/functions/which.dart',
       'Ansi': 'package:dcli_terminal/src/ansi.dart',
       'AnsiColor': 'package:dcli_terminal/src/ansi_color.dart',
       'Format': 'package:dcli_terminal/src/format.dart',
@@ -744,7 +747,7 @@ class DcliBridge {
           return $aux_dcli_4.find(pattern, caseSensitive: caseSensitive, recursive: recursive, includeHidden: includeHidden, workingDirectory: workingDirectory, progress: progress);
         }
         if (named.containsKey('types')) {
-          final types = D4.getRequiredNamedArg<List<FileSystemEntityType>>(named, 'types', 'find');
+          final types = D4.coerceList<FileSystemEntityType>(named['types'], 'types');
           return $aux_dcli_4.find(pattern, caseSensitive: caseSensitive, recursive: recursive, includeHidden: includeHidden, workingDirectory: workingDirectory, progress: progress, types: types);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -3355,7 +3358,7 @@ BridgedClass _createProgressBridge() {
           throw ArgumentError('forEach: Missing required argument "print" at position 0');
         }
         final printRaw = positional[0];
-        t.forEach((String p0) { (printRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.forEach((String p0) { D4.callInterpreterCallback(visitor, printRaw, [p0]); });
         return null;
       },
       'toParagraph': (visitor, target, positional, named, typeArgs) {
@@ -5843,7 +5846,7 @@ BridgedClass _createFindProgressBridge() {
           throw ArgumentError('forEach: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
-        t.forEach((String p0) { (actionRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.forEach((String p0) { D4.callInterpreterCallback(visitor, actionRaw, [p0]); });
         return null;
       },
       'toList': (visitor, target, positional, named, typeArgs) {
@@ -5896,7 +5899,7 @@ BridgedClass _createHeadProgressBridge() {
           throw ArgumentError('forEach: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
-        t.forEach((String p0) { (actionRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.forEach((String p0) { D4.callInterpreterCallback(visitor, actionRaw, [p0]); });
         return null;
       },
       'toList': (visitor, target, positional, named, typeArgs) {
@@ -5939,7 +5942,7 @@ BridgedClass _createTailProgressBridge() {
           throw ArgumentError('forEach: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
-        t.forEach((String p0) { (actionRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.forEach((String p0) { D4.callInterpreterCallback(visitor, actionRaw, [p0]); });
         return null;
       },
       'toList': (visitor, target, positional, named, typeArgs) {
@@ -5958,6 +5961,32 @@ BridgedClass _createTailProgressBridge() {
     setterSignatures: {
       'pathTo': 'set pathTo(dynamic value)',
       'lines': 'set lines(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// Which Bridge
+// =============================================================================
+
+BridgedClass _createWhichBridge() {
+  return BridgedClass(
+    nativeType: $aux_dcli_core_which.Which,
+    name: 'Which',
+    constructors: {},
+    getters: {
+      'path': (visitor, target) => D4.validateTarget<$aux_dcli_core_which.Which>(target, 'Which').path,
+      'paths': (visitor, target) => D4.validateTarget<$aux_dcli_core_which.Which>(target, 'Which').paths,
+      'found': (visitor, target) => D4.validateTarget<$aux_dcli_core_which.Which>(target, 'Which').found,
+      'notfound': (visitor, target) => D4.validateTarget<$aux_dcli_core_which.Which>(target, 'Which').notfound,
+    },
+    setters: {},
+    methods: {},
+    getterSignatures: {
+      'path': 'String? get path',
+      'paths': 'List<String> get paths',
+      'found': 'bool get found',
+      'notfound': 'bool get notfound',
     },
   );
 }

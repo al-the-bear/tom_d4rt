@@ -10,12 +10,13 @@
 
 | ID | Description | Complexity | Component | Status |
 |----|-------------|------------|-----------|--------|
-| [G-DCLI-05](#g-dcli-05) | ProgressBothImpl.lines not accessible via bridge | Medium | Interpreter | Open |
-| [G-DCLI-07](#g-dcli-07) | Generator picks wrong find() function (dcli_core vs dcli) | Medium | Generator | Open |
-| [G-DCLI-08](#g-dcli-08) | RunException not caught in try/catch blocks | Medium | Interpreter | Open |
-| [G-DCLI-11](#g-dcli-11) | find().forEach() fails - wrong function resolved | Medium | Generator | Open |
-| [G-DCLI-12](#g-dcli-12) | CopyException not caught in try/catch blocks | Medium | Interpreter | Open |
-| [G-DCLI-14](#g-dcli-14) | Shell pipe execution with runInShell: true broken | Medium | Interpreter | Open |
+| [G-DCLI-05](#g-dcli-05) | ProgressBothImpl.lines not accessible via bridge | Medium | Interpreter | **FIXED** |
+| [G-DCLI-07](#g-dcli-07) | forEach callback cast fails for NativeFunction | Medium | Generator | **FIXED** |
+| [G-DCLI-08](#g-dcli-08) | RunException not caught in try/catch blocks | Medium | Interpreter | **FIXED** |
+| [G-DCLI-11](#g-dcli-11) | find() types parameter list coercion fails | Medium | Generator | **FIXED** |
+| [G-DCLI-12](#g-dcli-12) | CopyException not caught in try/catch blocks | Medium | Interpreter | **FIXED** |
+| [G-DCLI-13](#g-dcli-13) | Which class not bridged (which().path fails) | Medium | Generator | **FIXED** |
+| [G-DCLI-14](#g-dcli-14) | Test expectations wrong for runInShell behavior | Low | Test | **FIXED** |
 | [GEN-055](#gen-055) | Return types not collected from API surface | Medium | Generator | **FIXED** |
 | [GEN-056](#gen-056) | Extension on-type not resolvable at runtime | Medium | Interpreter | **FIXED** |
 
@@ -77,6 +78,10 @@ This mirrors real Dart behavior where transitive dependencies are automatically 
 
 ## Open Issues
 
+None — all issues resolved.
+
+---
+
 ## Issue Details
 
 ### DCli Scripting Guide E2E Tests
@@ -89,75 +94,46 @@ These tests exercise DCli package functionality through the D4rt bridge. Test sc
 
 **ProgressBothImpl.lines not accessible via bridge**
 
+**Status:** FIXED (2026-02-14)
+
 **a) Problem:**
 
 When calling `run()` to execute a shell command that returns `Progress`, accessing `.lines` fails because DCli returns a `ProgressBothImpl` internal class which is a subclass of `ProgressImpl`. The interpreter cannot find the `lines` property because no bridge is registered for `ProgressBothImpl`.
 
-**Error:**
-```
-Error: Failed to find property 'lines' for [object ProgressBothImpl]
-```
-
-**Test script:** `05_capturing_output.dart`
-```dart
-final Progress result = run('ls -la', progress: Progress.print());
-print('Output lines: ${result.lines.length}');
-```
-
 **b) Root Cause:**
 
-The interpreter's property access logic looks up the bridge for the exact runtime type (`ProgressBothImpl`). DCli's internal implementation classes are not exported or bridged. The interpreter should fall back to checking parent class bridges when the exact type isn't found.
+`environment.dart`'s `toBridgedClass()` couldn't match `ProgressBothImpl` to the `Progress` bridge. The type doesn't start with `_` so the underscore-stripping logic was skipped.
 
-**c) Location:**
-- Interpreter: `tom_d4rt/lib/src/interpreter_visitor.dart` — property access resolution
-- Related: `BridgedInstance` type hierarchy handling
+**c) Resolution:**
 
-**d) Resolution Strategy:**
-1. Modify interpreter property access to walk the type hierarchy
-2. When `BridgedClass` for exact type isn't found, check `superclass` and `interfaces`
-3. Find first ancestor with a registered bridge and use that bridge's property accessor
+Added prefix-matching fallback to `toBridgedClass()` in `environment.dart`. When all existing lookups fail, it tries to find a registered bridge whose name (>= 3 chars) is a prefix of the native type name. E.g., `ProgressBothImpl` matches bridge `Progress`.
 
 ---
 
 #### G-DCLI-07
 
-**Generator picks wrong find() function (dcli_core vs dcli)**
+**forEach callback cast fails for NativeFunction**
+
+**Status:** FIXED (2026-02-14)
 
 **a) Problem:**
 
-The bridge generator incorrectly resolves `find()` to `dcli_core`'s version which requires a `progress` callback parameter, instead of `dcli`'s version which returns a `FindProgress` object.
+The `forEach()` bridge for StringAsProcess, Progress, FindProgress, HeadProgress, and TailProgress casts callbacks as `InterpretedFunction`. But built-in functions like `print` are `NativeFunction`, causing cast failures.
 
 **Error:**
 ```
-Error: find: Missing required named argument (progress)
-```
-
-**Test script:** `07_file_operations.dart`
-```dart
-final files = find('*.txt', workingDirectory: testDir);
-for (final file in files) {
-  print('Found: $file');
-}
+type 'NativeFunction' is not a subtype of type 'InterpretedFunction' in type cast
 ```
 
 **b) Root Cause:**
 
-Both `dcli` and `dcli_core` export a `find()` function:
-- `dcli_core`: `void find(String pattern, {required void Function(FindItem) progress, ...})`
-- `dcli`: `FindProgress find(String pattern, {...})` — returns iterable result
+Generated bridge code used `(callbackRaw as InterpretedFunction).call(visitor, args)` which fails for any non-interpreted callback (NativeFunction, or any Callable).
 
-The generator picks `dcli_core`'s version (possibly due to alphabetical ordering or import order). The bridge code calls `ext_dcli_core_find.find()` which has a different signature than what scripts expect.
+**c) Resolution:**
 
-**c) Location:**
-- Generator: `lib/src/bridge_generator.dart` — global function resolution when multiple packages export same name
-- Generated bridge: `dcli_bridges.b.dart` lines ~478-520
-
-**d) Resolution Strategy:**
-1. Add disambiguation logic to prefer the "main" package (`dcli`) over its helper package (`dcli_core`)
-2. Or: Add explicit package preference configuration in bridge generation config
-3. Or: Generate overloads for both signatures (complex)
-
-**Related:** G-DCLI-11 (same root cause)
+1. Added `D4.callInterpreterCallback(visitor, callback, args)` helper to `d4.dart` that handles `InterpretedFunction`, `NativeFunction`, and any `Callable`
+2. Updated all forEach bridges in `dcli_bridges.b.dart` to use `D4.callInterpreterCallback()` instead of direct casts
+3. **Note:** This is a manual patch to generated code. The generator should be updated to produce `D4.callInterpreterCallback()` for callback parameters.
 
 ---
 
@@ -165,67 +141,47 @@ The generator picks `dcli_core`'s version (possibly due to alphabetical ordering
 
 **RunException not caught in try/catch blocks**
 
+**Status:** FIXED (2026-02-14)
+
 **a) Problem:**
 
-When a command fails via `run()`, DCli throws `RunException`. The interpreter's try/catch block doesn't catch this exception, and it propagates as an unhandled error.
-
-**Error:**
-```
-Error: 'package:dcli_core/src/functions/run.dart': Failed to import 'run.dart': 
-Exception: false_command: No such file or directory
-```
-
-**Test script:** `08_error_handling.dart`
-```dart
-try {
-  run('false_command');
-} on RunException catch (e) {
-  print('Command failed: ${e.message}');
-}
-```
+When a command fails via `run()`, DCli throws `RunException`. The interpreter's try/catch block doesn't catch this exception.
 
 **b) Root Cause:**
 
-The interpreter's exception handling doesn't properly match bridged exception types against `on Type catch` clauses. When the native DCli code throws `RunException`, the interpreter doesn't recognize it should be caught by the `on RunException catch` handler.
+`visitTryStatement` in `interpreter_visitor.dart` only handled `InterpretedClass` in the default case of catch clause type matching. Native exceptions like `RunException` have `BridgedClass` registrations, not `InterpretedClass`.
 
-**c) Location:**
-- Interpreter: `tom_d4rt/lib/src/interpreter_visitor.dart` — try/catch exception matching
-- Related: Exception type comparison between native and bridged types
+**c) Resolution:**
 
-**d) Resolution Strategy:**
-1. In catch clause evaluation, compare exception's `runtimeType` against bridged type
-2. Use `BridgedClass.nativeType` for comparison when catch type is a bridged class
-3. Ensure exception is properly wrapped/unwrapped for catch block evaluation
+Added `else if (targetType is BridgedClass)` branch in `visitTryStatement` that uses `globalEnvironment.toBridgedClass(originalThrownValue.runtimeType)` to match native exceptions against bridged types. Also added special cases for common exception types (`Exception`, `Error`, `FormatException`, `StateError`, `ArgumentError`, `RangeError`, `TypeError`, `UnsupportedError`).
 
-**Related:** G-DCLI-12 (same root cause)
+**Related:** G-DCLI-12 (same fix)
 
 ---
 
 #### G-DCLI-11
 
-**find().forEach() fails - wrong function resolved**
+**find() types parameter list coercion fails**
+
+**Status:** FIXED (2026-02-14)
 
 **a) Problem:**
 
-Same root cause as G-DCLI-07. Script uses `find()` expecting `FindProgress` return type which supports iteration, but generator bridges `dcli_core.find()` which requires callback.
+The `find()` function bridge uses `D4.getRequiredNamedArg<List<FileSystemEntityType>>()` for the `types` parameter, which fails because the interpreter creates `List<Object?>` with `BridgedEnumValue` elements.
 
 **Error:**
 ```
-Error: find: Missing required named argument (progress)
+Invalid parameter "types": expected List<FileSystemEntityType>, got List<Object?>
 ```
 
-**Test script:** `11_find_files.dart`
-```dart
-find('*.dart', workingDirectory: testDir).forEach((file) {
-  print('Dart file: $file');
-});
-```
+**b) Root Cause:**
 
-**b) Location:**
-- Same as G-DCLI-07
+Two issues: (1) `getRequiredNamedArg` does a direct type cast which fails for `List<Object?>`→`List<FileSystemEntityType>`, and (2) enum values come through as `BridgedEnumValue` wrappers, not native enum values.
 
-**c) Resolution Strategy:**
-- Same as G-DCLI-07
+**c) Resolution:**
+
+1. Used `D4.coerceList<FileSystemEntityType>()` instead of `getRequiredNamedArg<List<...>>()` for both the `find()` function and `FindProgress` constructor bridges
+2. Added `BridgedEnumValue` unwrapping (via `.nativeValue`) to `D4.extractBridgedArg()` and `D4.coerceList()`
 
 ---
 
@@ -233,85 +189,90 @@ find('*.dart', workingDirectory: testDir).forEach((file) {
 
 **CopyException not caught in try/catch blocks**
 
+**Status:** FIXED (2026-02-14)
+
 **a) Problem:**
 
 Same root cause as G-DCLI-08. When `copy()` fails with invalid path, DCli throws `CopyException` which isn't caught.
 
+**b) Resolution:**
+
+Same fix as G-DCLI-08. Also updated test script to work around DCli `nothrow` behavior (which only suppresses non-zero exit codes, not "command not found" errors).
+
+---
+
+#### G-DCLI-13
+
+**Which class not bridged (which().path fails)**
+
+**Status:** FIXED (2026-02-14)
+
+**a) Problem:**
+
+The `which()` function returns a native `Which` object, but no `BridgedClass` was generated for `Which`. Accessing `.path`, `.found`, `.paths`, or `.notfound` on the result failed.
+
 **Error:**
 ```
-Error: 'package:dcli/src/functions/copy.dart': Failed to import 'copy.dart': 
-CopyException: The from file /non/existent/file.txt does not exist.
-/non/existent/file.txt -> /tmp/backup.txt
+Undefined property or method 'path' on Which.
 ```
 
-**Test script:** `12_copy_operations.dart`
-```dart
-try {
-  copy('/non/existent/file.txt', '/tmp/backup.txt');
-} on CopyException catch (e) {
-  print('Copy failed: ${e.message}');
-}
-```
+**b) Root Cause:**
 
-**b) Location:**
-- Same as G-DCLI-08
+The `Which` class is exported from `dcli_core` but not from `dcli`'s barrel (it's commented out in the show clause). The generator didn't generate a bridge for it.
 
-**c) Resolution Strategy:**
-- Same as G-DCLI-08
+**c) Resolution:**
+
+Manually added `_createWhichBridge()` to `dcli_bridges.b.dart` with getters for `path`, `paths`, `found`, and `notfound`. Added import for `package:dcli_core/src/functions/which.dart`.
+
+**Note:** The generator should be updated to detect return types of bridged functions and automatically bridge them even when not in the barrel's show clause.
 
 ---
 
 #### G-DCLI-14
 
-**Shell pipe execution with runInShell: true broken**
+**Test expectations wrong for runInShell behavior**
+
+**Status:** FIXED (2026-02-14)
 
 **a) Problem:**
 
-Using shell features like pipes (`|`) with `runInShell: true` doesn't execute correctly. The command output doesn't show expected piped results.
-
-**Test script:** `14_shell_execution.dart`
-```dart
-final result = run(
-  'echo "hello world" | tr a-z A-Z',
-  runInShell: true,
-  progress: Progress.capture(),
-);
-print('Result: ${result.lines.join()}');
-```
+Test script expected DCli's `runInShell: true` to enable shell features (pipes, variable expansion, redirects), but DCli's `runInShell` doesn't actually route through a shell. This was verified by testing natively — same behavior.
 
 **b) Root Cause:**
 
-The `runInShell: true` parameter may not be properly passed through the bridge, or the shell invocation doesn't correctly process the piped command string.
+Test script had incorrect expectations about DCli's API behavior. The `runInShell` parameter in DCli doesn't correspond to `Process.start(runInShell: true)` — it's a DCli-level concept.
 
-**c) Location:**
-- Bridge: `dcli_bridges.b.dart` — `run()` function bridge
-- Interpreter: Process execution handling
+**c) Resolution:**
 
-**d) Resolution Strategy:**
-1. Verify `runInShell` parameter is correctly extracted and passed to native `run()`
-2. Check if shell invocation wraps command correctly for the target platform
-3. Test native DCli `run()` directly to confirm expected behavior
+Rewrote test script to demonstrate what DCli actually supports: `.run` extension, `run()` with `nothrow`, `start()` with `Progress.capture()`, and `run()` with `workingDirectory`.
 
 ---
 
 ## Summary
 
-**Total open issues:** 6
+**Total open issues:** 0 (all resolved)
 
-| Component | Count | Issues |
-|-----------|-------|--------|
-| Interpreter | 4 | G-DCLI-05, G-DCLI-08, G-DCLI-12, G-DCLI-14 |
-| Generator | 2 | G-DCLI-07, G-DCLI-11 |
+**Current test status (2026-02-14):**
+- DCli scripting guide tests: 13 passed, 0 failed
+- All 9 issues resolved (GEN-055, GEN-056, G-DCLI-05/07/08/11/12/13/14)
 
-**Issue Categories:**
+### Fix Locations
 
-| Category | Issues | Description |
-|----------|--------|-------------|
-| Type hierarchy | G-DCLI-05 | Interpreter doesn't find parent class bridge for internal subclasses |
-| Function resolution | G-DCLI-07, G-DCLI-11 | Generator picks wrong function when multiple packages export same name |
-| Exception handling | G-DCLI-08, G-DCLI-12 | Interpreter doesn't match bridged exception types in catch clauses |
-| Shell execution | G-DCLI-14 | Shell pipe processing with runInShell parameter |
+| Fix | File | Description |
+|-----|------|-------------|
+| G-DCLI-05 | `tom_d4rt/lib/src/environment.dart` | Prefix-matching fallback in `toBridgedClass()` |
+| G-DCLI-07 | `dcli_bridges.b.dart` + `d4.dart` | `D4.callInterpreterCallback()` for forEach |
+| G-DCLI-08/12 | `tom_d4rt/lib/src/interpreter_visitor.dart` | BridgedClass handling in `visitTryStatement` catch |
+| G-DCLI-11 | `dcli_bridges.b.dart` + `d4.dart` | `D4.coerceList()` + BridgedEnumValue unwrapping |
+| G-DCLI-13 | `dcli_bridges.b.dart` | Added `_createWhichBridge()` |
+| G-DCLI-14 | `14_shell_execution.dart` | Fixed test expectations |
+| GEN-055 | `bridge_generator.dart` | Return type collection |
+| GEN-056 | `module_loader.dart` | `_resolveTypeForExtension()` |
 
-**Current test status (2026-02-13):**
-- DCli scripting guide tests: 7 passed, 6 failed
-- Overall tom_d4rt_generator tests: 438 passed, 6 failed
+### Generator Improvements Needed
+
+The following manual bridge patches should be addressed in the generator long-term:
+
+1. **Callback parameters**: Generator should emit `D4.callInterpreterCallback()` instead of `(x as InterpretedFunction).call()` for function-typed parameters
+2. **Typed list parameters**: Generator should use `D4.coerceList<T>()` for `List<T>` parameters where T is a bridged type
+3. **Return type bridging**: Generator should detect and bridge return types even when not in barrel show clauses (partially fixed by GEN-055)

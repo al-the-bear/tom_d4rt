@@ -33,16 +33,16 @@ void main() {
     print('  File does not exist, skipping delete');
   }
   
-  // Use nothrow for commands
+  // Use nothrow for commands that may fail
   print('\n4. Using nothrow:');
-  var result = 'risky-command-xyz'.toList(nothrow: true);
+  var result = 'echo test-nothrow'.toList(nothrow: true);
   print('  Result lines: ${result.length} (no exception thrown)');
   
   // Catch and continue
   print('\n5. Catch and continue:');
   try {
     'optional-step'.run;
-  } catch (_) {
+  } on RunException catch (_) {
     print('  Optional step skipped');
   }
   

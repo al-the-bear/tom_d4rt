@@ -190,6 +190,27 @@ class Environment {
                   false))
           ?.value;
 
+      // G-DCLI-05 FIX: Handle non-underscore implementation types like
+      // ProgressBothImpl, where the class name contains the bridge name.
+      // Check if any registered bridge name is a prefix of the native type name.
+      // e.g., "ProgressBothImpl" contains bridge name "Progress"
+      if (bridgedClass == null) {
+        bridgedClass = current._bridgedClassesLookupByType.entries
+            .firstWhereOrNull((e) {
+              final bridgeName = e.value.name;
+              // Only match if the bridge name is a substantial prefix (>= 3 chars)
+              // and the native type name starts with it followed by more chars
+              return bridgeName.length >= 3 &&
+                  nativeTypeName.startsWith(bridgeName) &&
+                  nativeTypeName.length > bridgeName.length;
+            })
+            ?.value;
+        if (bridgedClass != null) {
+          Logger.debug(
+              "[Environment] Matched native type '$nativeTypeName' to bridge '${bridgedClass.name}' via prefix matching");
+        }
+      }
+
       if (bridgedClass != null) {
         return bridgedClass;
       }

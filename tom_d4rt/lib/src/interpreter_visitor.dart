@@ -7460,6 +7460,32 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               case 'void': // Cannot catch on void
                 typeMatch = false;
                 break;
+              case 'Exception':
+                // Match any native Exception subtype
+                typeMatch = originalThrownValue is Exception;
+                break;
+              case 'Error':
+                // Match any native Error subtype
+                typeMatch = originalThrownValue is Error;
+                break;
+              case 'FormatException':
+                typeMatch = originalThrownValue is FormatException;
+                break;
+              case 'StateError':
+                typeMatch = originalThrownValue is StateError;
+                break;
+              case 'ArgumentError':
+                typeMatch = originalThrownValue is ArgumentError;
+                break;
+              case 'RangeError':
+                typeMatch = originalThrownValue is RangeError;
+                break;
+              case 'TypeError':
+                typeMatch = originalThrownValue is TypeError;
+                break;
+              case 'UnsupportedError':
+                typeMatch = originalThrownValue is UnsupportedError;
+                break;
               default:
                 // User-defined type
                 try {
@@ -7477,8 +7503,33 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                       Logger.debug(
                           "[TryStatement]   Thrown value is native (${originalThrownValue?.runtimeType}), cannot match user class '$targetCatchTypeName'.");
                     }
+                  } else if (targetType is BridgedClass) {
+                    // G-DCLI-08/12 FIX: Handle native exceptions matched against bridged types
+                    // When a native exception (e.g., RunException, CopyException) is thrown
+                    // and caught with 'on RunException catch (e)', we need to match the
+                    // native exception's type against the BridgedClass.
+                    if (originalThrownValue != null) {
+                      try {
+                        final thrownBridge = globalEnvironment.toBridgedClass(
+                            originalThrownValue.runtimeType);
+                        // Check if the thrown value's bridge matches the catch type
+                        typeMatch = thrownBridge.nativeType == targetType.nativeType ||
+                            thrownBridge.name == targetType.name;
+                        Logger.debug(
+                            "[TryStatement]   Checking native thrown '${thrownBridge.name}' against bridged class '$targetCatchTypeName'. Result: $typeMatch");
+                      } catch (_) {
+                        // Thrown value has no bridge - try runtime type name match
+                        final thrownTypeName = originalThrownValue.runtimeType.toString();
+                        typeMatch = thrownTypeName == targetType.name ||
+                            thrownTypeName.startsWith('${targetType.name}<');
+                        Logger.debug(
+                            "[TryStatement]   No bridge for thrown type '$thrownTypeName'. Name match against '$targetCatchTypeName': $typeMatch");
+                      }
+                    } else {
+                      typeMatch = false;
+                    }
                   } else {
-                    // Target type name resolved, but it's not an InterpretedClass
+                    // Target type name resolved, but it's not an InterpretedClass or BridgedClass
                     typeMatch = false;
                     Logger.warn(
                         "[TryStatement] Catch clause type '$targetCatchTypeName' not found or not a class/mixin.");

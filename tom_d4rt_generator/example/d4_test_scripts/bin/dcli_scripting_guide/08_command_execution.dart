@@ -23,8 +23,17 @@ void main() {
     print('Command failed with exit code: ${e.exitCode}');
   }
   
-  // Ignore errors
-  'might-not-exist'.toList(nothrow: true);
+  // Ignore errors with nothrow
+  // Note: nothrow only suppresses non-zero exit codes, not command-not-found errors
+  var lines = 'echo hello'.toList(nothrow: true);
+  print('Captured ${lines.length} line(s)');
+  
+  // Handle command-not-found gracefully
+  try {
+    'might-not-exist'.run;
+  } on RunException catch (e) {
+    print('Expected error: ${e.reason}');
+  }
   
   print(green('\nCommand execution examples completed!'));
 }
