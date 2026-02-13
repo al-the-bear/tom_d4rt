@@ -25,7 +25,7 @@ export 'class_modifiers/modifiers/run_modifiers.dart' show
 
 // ── Constructors (named, factory, const, redirecting, private, super params) ──
 export 'classes/constructors/run_constructors.dart' show
-    SimplePoint, Point, RectangleArea, PositiveNumber, Vector, Color,
+    SimplePoint, RectangleArea, PositiveNumber, Vector, Color,
     Logger, CircleShape, SquareShape, Database, PersonBase, Employee, Manager;
 
 // ── Inheritance (extends, implements, multi-level, method override) ──
@@ -37,7 +37,7 @@ export 'classes/inheritance/run_inheritance.dart' show
 
 // ── Static methods and object methods ──
 export 'classes/static_object_methods/run_static_object_methods.dart' show
-    MathUtils, Counter, FlexibleObject, SortablePerson;
+    MathUtils, Counter, Point, FlexibleObject, SortablePerson;
 
 // ── Top-level functions ──
 export 'functions/declarations/run_declarations.dart' show

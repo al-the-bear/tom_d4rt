@@ -4297,6 +4297,7 @@ class BridgeGenerator {
             param.type,
             typeToUri: param.typeToUri,
             classTypeParams: funcTypeParams,
+            sourceFilePath: func.sourceFile,
           );
 
           if (param.isNamed) {

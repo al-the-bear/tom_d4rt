@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-02-13T00:23:26.715283
+// Generated: 2026-02-13T11:32:17.979001
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -53,7 +53,6 @@ class DartOverviewBridge {
       _createAbstractFinalClassBridge(),
       _createSingletonHolderBridge(),
       _createSimplePointBridge(),
-      _createPointBridge(),
       _createRectangleAreaBridge(),
       _createPositiveNumberBridge(),
       _createVectorBridge(),
@@ -80,6 +79,7 @@ class DartOverviewBridge {
       _createAdvancedRobotBridge(),
       _createMathUtilsBridge(),
       _createCounterBridge(),
+      _createPointBridge(),
       _createFlexibleObjectBridge(),
       _createSortablePersonBridge(),
       _createNumberWrapperBridge(),
@@ -159,7 +159,6 @@ class DartOverviewBridge {
       'AbstractFinalClass': 'package:d4_example/src/dart_overview/class_modifiers/modifiers/run_modifiers.dart',
       'SingletonHolder': 'package:d4_example/src/dart_overview/class_modifiers/modifiers/run_modifiers.dart',
       'SimplePoint': 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart',
-      'Point': 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart',
       'RectangleArea': 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart',
       'PositiveNumber': 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart',
       'Vector': 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart',
@@ -186,6 +185,7 @@ class DartOverviewBridge {
       'AdvancedRobot': 'package:d4_example/src/dart_overview/classes/inheritance/run_inheritance.dart',
       'MathUtils': 'package:d4_example/src/dart_overview/classes/static_object_methods/run_static_object_methods.dart',
       'Counter': 'package:d4_example/src/dart_overview/classes/static_object_methods/run_static_object_methods.dart',
+      'Point': 'package:d4_example/src/dart_overview/classes/static_object_methods/run_static_object_methods.dart',
       'FlexibleObject': 'package:d4_example/src/dart_overview/classes/static_object_methods/run_static_object_methods.dart',
       'SortablePerson': 'package:d4_example/src/dart_overview/classes/static_object_methods/run_static_object_methods.dart',
       'NumberWrapper': 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart',
@@ -2093,49 +2093,6 @@ BridgedClass _createSimplePointBridge() {
 }
 
 // =============================================================================
-// Point Bridge
-// =============================================================================
-
-BridgedClass _createPointBridge() {
-  return BridgedClass(
-    nativeType: $pkg.Point,
-    name: 'Point',
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 2, 'Point');
-        final x = D4.getRequiredArg<int>(positional, 0, 'x', 'Point');
-        final y = D4.getRequiredArg<int>(positional, 1, 'y', 'Point');
-        return $pkg.Point(x, y);
-      },
-      'origin': (visitor, positional, named) {
-        return $pkg.Point.origin();
-      },
-      'fromJson': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Point');
-        if (positional.isEmpty) {
-          throw ArgumentError('Point: Missing required argument "json" at position 0');
-        }
-        final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.Point.fromJson(json);
-      },
-    },
-    getters: {
-      'x': (visitor, target) => D4.validateTarget<$pkg.Point>(target, 'Point').x,
-      'y': (visitor, target) => D4.validateTarget<$pkg.Point>(target, 'Point').y,
-    },
-    constructorSignatures: {
-      '': 'Point(int x, int y)',
-      'origin': 'Point.origin()',
-      'fromJson': 'Point.fromJson(Map<String, dynamic> json)',
-    },
-    getterSignatures: {
-      'x': 'int get x',
-      'y': 'int get y',
-    },
-  );
-}
-
-// =============================================================================
 // RectangleArea Bridge
 // =============================================================================
 
@@ -2977,6 +2934,52 @@ BridgedClass _createCounterBridge() {
     staticSetterSignatures: {
       'instanceCount': 'set instanceCount(dynamic value)',
       'label': 'set label(String value)',
+    },
+  );
+}
+
+// =============================================================================
+// Point Bridge
+// =============================================================================
+
+BridgedClass _createPointBridge() {
+  return BridgedClass(
+    nativeType: $pkg.Point,
+    name: 'Point',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'Point');
+        final x = D4.getRequiredArg<int>(positional, 0, 'x', 'Point');
+        final y = D4.getRequiredArg<int>(positional, 1, 'y', 'Point');
+        return $pkg.Point(x, y);
+      },
+    },
+    getters: {
+      'x': (visitor, target) => D4.validateTarget<$pkg.Point>(target, 'Point').x,
+      'y': (visitor, target) => D4.validateTarget<$pkg.Point>(target, 'Point').y,
+      'hashCode': (visitor, target) => D4.validateTarget<$pkg.Point>(target, 'Point').hashCode,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.Point>(target, 'Point');
+        return t.toString();
+      },
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.Point>(target, 'Point');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'Point(int x, int y)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'x': 'int get x',
+      'y': 'int get y',
+      'hashCode': 'int get hashCode',
     },
   );
 }
