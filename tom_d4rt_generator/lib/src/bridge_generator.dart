@@ -4397,7 +4397,22 @@ class BridgeGenerator {
             
             if (param.isRequired) {
               // Required positional - use D4.getRequiredArg
-              argDeclarations.add("        final $localName = D4.getRequiredArg<$resolvedType>(positional, $positionalIndex, '${param.name}', '${func.name}');");
+              if (_isRecordType(resolvedType)) {
+                // Record parameters need InterpretedRecord→native conversion
+                final recordLines = _generateRecordParamExtraction(
+                  localName: localName,
+                  resolvedType: resolvedType,
+                  positionalIndex: positionalIndex,
+                  paramName: param.name,
+                  funcName: func.name,
+                  indent: '      ',
+                );
+                for (final line in recordLines) {
+                  argDeclarations.add(line);
+                }
+              } else {
+                argDeclarations.add("        final $localName = D4.getRequiredArg<$resolvedType>(positional, $positionalIndex, '${param.name}', '${func.name}');");
+              }
               callArgs.add(localName);
             } else if (param.defaultValue != null) {
               // Optional positional with default
@@ -4465,7 +4480,18 @@ class BridgeGenerator {
             sourceFilePath: func.sourceFile,
           );
         } else {
-          buffer.writeln('        return $prefixedFuncName$typeArgsStr(${callArgs.join(', ')});');
+          final callExpr = '$prefixedFuncName$typeArgsStr(${callArgs.join(', ')})';
+          if (_isRecordType(func.returnType)) {
+            // Record return types need native→InterpretedRecord conversion
+            buffer.write(_generateRecordReturnWrapper(
+              callExpr: callExpr,
+              returnType: func.returnType,
+              indent: '      ',
+            ));
+            buffer.writeln();
+          } else {
+            buffer.writeln('        return $callExpr;');
+          }
         }
         buffer.writeln('      },');
       }
@@ -7490,6 +7516,184 @@ class BridgeGenerator {
           return arg;
         })
         .join(', ');
+  }
+
+  /// Checks if a resolved type string represents a Dart record type.
+  /// Record types start with `(` and end with `)`, e.g., `(int, int)` or `({int min, int max})`.
+  bool _isRecordType(String type) {
+    if (type.isEmpty) return false;
+    final trimmed = type.trim();
+    return trimmed.startsWith('(') && trimmed.endsWith(')') && !trimmed.contains('=>');
+  }
+
+  /// Parses a record type string into positional field types and named field entries.
+  /// Returns a record with (positionalTypes: List<String>, namedFields: Map<String, String>).
+  /// 
+  /// Example:
+  /// - `(int, int)` → positional: ['int', 'int'], named: {}
+  /// - `({int min, int max})` → positional: [], named: {'min': 'int', 'max': 'int'}
+  /// - `(String, {int count})` → positional: ['String'], named: {'count': 'int'}
+  ({List<String> positionalTypes, Map<String, String> namedFields}) _parseRecordType(String type) {
+    final inner = type.substring(1, type.length - 1).trim();
+    if (inner.isEmpty) return (positionalTypes: [], namedFields: {});
+
+    final positionalTypes = <String>[];
+    final namedFields = <String, String>{};
+
+    // Check if the entire content is a named field group
+    if (inner.startsWith('{') && inner.endsWith('}')) {
+      final namedContent = inner.substring(1, inner.length - 1).trim();
+      _parseNamedFieldsInto(namedContent, namedFields);
+      return (positionalTypes: positionalTypes, namedFields: namedFields);
+    }
+
+    // Parse fields with depth tracking for nested types
+    final fields = <String>[];
+    var depth = 0;
+    var genericDepth = 0;
+    var braceDepth = 0;
+    var start = 0;
+
+    for (var i = 0; i < inner.length; i++) {
+      final char = inner[i];
+      if (char == '(') depth++;
+      else if (char == ')') depth--;
+      else if (char == '<') genericDepth++;
+      else if (char == '>') genericDepth--;
+      else if (char == '{') braceDepth++;
+      else if (char == '}') braceDepth--;
+      else if (char == ',' && depth == 0 && genericDepth == 0 && braceDepth == 0) {
+        fields.add(inner.substring(start, i).trim());
+        start = i + 1;
+      }
+    }
+    fields.add(inner.substring(start).trim());
+
+    for (final field in fields) {
+      if (field.startsWith('{') && field.endsWith('}')) {
+        // Named field group
+        final namedContent = field.substring(1, field.length - 1).trim();
+        _parseNamedFieldsInto(namedContent, namedFields);
+      } else {
+        // Positional field — just a type
+        positionalTypes.add(field.trim());
+      }
+    }
+
+    return (positionalTypes: positionalTypes, namedFields: namedFields);
+  }
+
+  /// Parses comma-separated named fields like "int min, int max" into a map.
+  void _parseNamedFieldsInto(String content, Map<String, String> namedFields) {
+    if (content.isEmpty) return;
+
+    final fields = <String>[];
+    var depth = 0;
+    var genericDepth = 0;
+    var start = 0;
+
+    for (var i = 0; i < content.length; i++) {
+      final char = content[i];
+      if (char == '(') depth++;
+      else if (char == ')') depth--;
+      else if (char == '<') genericDepth++;
+      else if (char == '>') genericDepth--;
+      else if (char == ',' && depth == 0 && genericDepth == 0) {
+        fields.add(content.substring(start, i).trim());
+        start = i + 1;
+      }
+    }
+    fields.add(content.substring(start).trim());
+
+    for (final field in fields) {
+      final spaceIndex = field.lastIndexOf(' ');
+      if (spaceIndex > 0) {
+        final typePart = field.substring(0, spaceIndex).trim();
+        final namePart = field.substring(spaceIndex + 1).trim();
+        namedFields[namePart] = typePart;
+      }
+    }
+  }
+
+  /// Generates parameter extraction code for a record-typed parameter.
+  /// Converts `InterpretedRecord` from the interpreter to a native Dart record.
+  ///
+  /// Example output for `(int, int)` parameter:
+  /// ```
+  ///   final pair\$raw = positional[0];
+  ///   final pair = pair\$raw is InterpretedRecord
+  ///       ? (pair\$raw.positionalFields[0] as int, pair\$raw.positionalFields[1] as int)
+  ///       : pair\$raw as (int, int);
+  /// ```
+  List<String> _generateRecordParamExtraction({
+    required String localName,
+    required String resolvedType,
+    required int positionalIndex,
+    required String paramName,
+    required String funcName,
+    required String indent,
+  }) {
+    final lines = <String>[];
+    final rawName = '${localName}\$raw';
+    final parsed = _parseRecordType(resolvedType);
+
+    lines.add('$indent  final $rawName = positional[$positionalIndex];');
+
+    // Build the InterpretedRecord→native record conversion expression
+    final parts = <String>[];
+
+    // Positional fields
+    for (var i = 0; i < parsed.positionalTypes.length; i++) {
+      parts.add('$rawName.positionalFields[$i] as ${parsed.positionalTypes[i]}');
+    }
+
+    // Named fields
+    for (final entry in parsed.namedFields.entries) {
+      parts.add("${entry.key}: $rawName.namedFields['${entry.key}'] as ${entry.value}");
+    }
+
+    final recordLiteral = '(${parts.join(', ')})';
+    lines.add('$indent  final $localName = $rawName is InterpretedRecord');
+    lines.add('$indent      ? $recordLiteral');
+    lines.add('$indent      : $rawName as $resolvedType;');
+
+    return lines;
+  }
+
+  /// Generates return code that converts a native Dart record to `InterpretedRecord`.
+  ///
+  /// Example output for `({int min, int max})` return type:
+  /// ```
+  ///   final \$result = \$pkg.findMinMax(numbers);
+  ///   return InterpretedRecord([], {'min': \$result.min, 'max': \$result.max});
+  /// ```
+  String _generateRecordReturnWrapper({
+    required String callExpr,
+    required String returnType,
+    required String indent,
+  }) {
+    final parsed = _parseRecordType(returnType);
+    final lines = StringBuffer();
+
+    lines.writeln('$indent  final \$result = $callExpr;');
+
+    // Build the InterpretedRecord construction
+    final positionalArgs = <String>[];
+    for (var i = 0; i < parsed.positionalTypes.length; i++) {
+      positionalArgs.add('\$result.\$${i + 1}');
+    }
+
+    final namedArgs = <String>[];
+    for (final name in parsed.namedFields.keys) {
+      namedArgs.add("'$name': \$result.$name");
+    }
+
+    final positionalStr = '[${positionalArgs.join(', ')}]';
+    final namedStr = namedArgs.isEmpty ? '{}' : '{${namedArgs.join(', ')}}';
+
+    lines.write('$indent  return InterpretedRecord($positionalStr, $namedStr);');
+
+    return lines.toString();
   }
 
   /// Resolves record types like (ParsedHeadline, int, int) or (String name, int age)

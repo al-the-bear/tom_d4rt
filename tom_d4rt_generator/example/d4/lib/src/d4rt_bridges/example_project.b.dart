@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-02-13T11:32:02.869256
+// Generated: 2026-02-13T11:40:57.233382
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -280,7 +280,8 @@ class ExampleProjectBridge {
         D4.requireMinArgs(positional, 2, 'makePair');
         final first = D4.getRequiredArg<dynamic>(positional, 0, 'first', 'makePair');
         final second = D4.getRequiredArg<dynamic>(positional, 1, 'second', 'makePair');
-        return $pkg.makePair<dynamic, dynamic>(first, second);
+        final $result = $pkg.makePair<dynamic, dynamic>(first, second);
+        return InterpretedRecord([$result.$1, $result.$2], {});
       },
       'firstOrNull': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'firstOrNull');
