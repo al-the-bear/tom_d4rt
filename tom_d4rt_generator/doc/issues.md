@@ -47,13 +47,13 @@
 | [G-TOP-24](#g-top-24) | Top-level async function e2e test | Medium | Fixed |
 | [G-TOP-28](#g-top-28) | Top-level setter e2e test | Medium | Fixed |
 | [G-CLS-6](#g-cls-6) | Late field e2e test | Medium | Fixed |
-| [G-PAR-6](#g-par-6) | Function-typed parameter | High | Won't Fix |
-| [G-GNRC-7](#g-gnrc-7) | F-bounded polymorphism | High | Won't Fix |
-| [G-OP-8](#g-op-8) | Operator == equality | Medium | Won't Fix |
-| [G-TYPE-1](#g-type-1) | Record parameter type | High | Won't Fix |
-| [G-TYPE-2](#g-type-2) | Record return type | High | Won't Fix |
-| [G-TE-1](#g-te-1) | Bounded type param erasure | Fundamental | Won't Fix |
-| [G-TE-2](#g-te-2) | Static castFrom type erasure | Fundamental | Won't Fix |
+| [G-PAR-6](#g-par-6) | Function-typed parameter | High | TODO |
+| [G-GNRC-7](#g-gnrc-7) | F-bounded polymorphism | High | TODO |
+| [G-OP-8](#g-op-8) | Operator == equality | Medium | TODO |
+| [G-TYPE-1](#g-type-1) | Record parameter type | High | TODO |
+| [G-TYPE-2](#g-type-2) | Record return type | High | TODO |
+| [G-TE-1](#g-te-1) | Bounded type param erasure | Fundamental | TODO |
+| [G-TE-2](#g-te-2) | Static castFrom type erasure | Fundamental | TODO |
 
 ---
 
@@ -701,7 +701,7 @@ Re-test — late field handling may work now.
 
 ---
 
-### Known Limitations (Won't Fix)
+### Known Limitations (TODO — Under Review)
 
 These issues have fundamental limitations that prevent fixing without significant architectural changes or are blocked by Dart language constraints.
 
@@ -722,7 +722,7 @@ Invalid parameter "numbers": expected List<int>, got List<Object?>
 **b) Location:**
 - Interpreter: `tom_d4rt/lib/src/generator/d4.dart` — `extractBridgedArg<T>` method
 
-**c) Reason for Won't Fix:**
+**c) Reason (Under Review):**
 
 This requires deep changes to interpreter collection type handling. The same underlying issue affects multiple scenarios:
 - List parameters to bridged methods
@@ -748,7 +748,7 @@ type 'BridgedInstance<Object>' is not a subtype of type 'Comparable<dynamic>' in
 **b) Location:**
 - Interpreter: BridgedInstance unwrapping during native method calls
 
-**c) Reason for Won't Fix:**
+**c) Reason (Under Review):**
 
 Requires automatic unwrapping of BridgedInstance when calling native Dart methods on collections. This is complex and has edge cases.
 
@@ -767,7 +767,7 @@ Operator methods on bridged instances may not correctly handle int-to-double pro
 **b) Location:**
 - Interpreter: Operator resolution and type promotion logic
 
-**c) Reason for Won't Fix:**
+**c) Reason (Under Review):**
 
 Interpreter would need comprehensive type promotion rules matching Dart's behavior.
 
@@ -794,7 +794,7 @@ void processPoint(({int x, int y}) point) {
 - Generator: Parameter type analysis
 - Interpreter: Record expression handling
 
-**c) Reason for Won't Fix:**
+**c) Reason (Under Review):**
 
 Record types are a Dart 3.0 feature requiring substantial work to support:
 1. Record literal parsing in interpreter
@@ -820,7 +820,7 @@ Functions that return record types fail. The bridge can't properly wrap or unwra
 }
 ```
 
-**c) Reason for Won't Fix:**
+**c) Reason (Under Review):**
 
 Same as G-TYPE-1 — requires comprehensive record type support.
 
@@ -843,7 +843,7 @@ T clamp<T extends Comparable<T>>(T value, T min, T max) {
 }
 ```
 
-**c) Reason for Won't Fix:**
+**c) Reason (Under Review):**
 
 Dart language limitation. Generic type parameters are erased at runtime and not available for reflection.
 
@@ -859,7 +859,7 @@ Dart language limitation. Generic type parameters are erased at runtime and not 
 
 Static methods with constrained type parameters (like `List.castFrom<S, T>`) lose type information.
 
-**c) Reason for Won't Fix:**
+**c) Reason (Under Review):**
 
 Same fundamental Dart limitation as G-TE-1.
 
@@ -873,12 +873,12 @@ Same fundamental Dart limitation as G-TE-1.
 |--------|-------|-------------|
 | Fixed | 21 | Code generation pattern tests |
 | Fixed | 16 | E2E coverage tests (resolved with tom_d4rt interpreter fixes) |
-| Won't Fix | 7 | Fundamental interpreter/Dart limitations |
+| TODO | 7 | Fundamental interpreter/Dart limitations |
 
 **Current status (2026-02-12):**
 - All 37 fixable issues have been resolved (21 code gen + 16 e2e)
-- 7 Won't Fix issues remain as known limitations (G-PAR-6, G-GNRC-7, G-OP-8, G-TYPE-1, G-TYPE-2, G-TE-1, G-TE-2)
-- tom_d4rt_generator: 90 passed, 4 failed (all Won't Fix)
+- 7 TODO issues remain as known limitations (G-PAR-6, G-GNRC-7, G-OP-8, G-TYPE-1, G-TYPE-2, G-TE-1, G-TE-2)
+- tom_d4rt_generator: 90 passed, 4 failed (all TODO)
 - tom_d4rt: 1675 passed, 2 failed
 
 ---
