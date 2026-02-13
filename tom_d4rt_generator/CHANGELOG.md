@@ -1,3 +1,11 @@
+## 1.7.0
+
+### Bug Fixes
+- **G-DCLI-07/11: Show/hide clause propagation**: Fixed export parsing to properly propagate show/hide clauses when following re-exports. When a barrel file re-exports from another package with a `show` clause (e.g., `export 'package:dcli_core/dcli_core.dart' show FindItem`), nested exports now correctly filter symbols. This fixes cases where dcli's `find()` was incorrectly bridged from dcli_core (callback-based) instead of dcli's own version (returns `FindProgress`).
+  - Added `mergeWithParent()` method to `ExportInfo` for clause merging
+  - Added `parentShowClause`/`parentHideClause` parameters to `parseExportFiles()`
+  - Show clauses merge via intersection; hide clauses merge via union
+
 ## 1.6.1
 
 ### Bug Fixes
