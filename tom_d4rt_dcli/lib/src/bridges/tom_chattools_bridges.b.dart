@@ -1,11 +1,12 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-02-13T14:13:03.880232
+// Generated: 2026-02-13T14:17:09.458087
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
+import 'dart:async';
 
 import 'package:tom_chattools/tom_chattools.dart' as $pkg;
 
@@ -51,6 +52,22 @@ class TomChattoolsBridge {
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
+      BridgedEnumDefinition<$pkg.ChatMessageType>(
+        name: 'ChatMessageType',
+        values: $pkg.ChatMessageType.values,
+      ),
+      BridgedEnumDefinition<$pkg.ChatAttachmentType>(
+        name: 'ChatAttachmentType',
+        values: $pkg.ChatAttachmentType.values,
+      ),
+      BridgedEnumDefinition<$pkg.ChatResponseStatus>(
+        name: 'ChatResponseStatus',
+        values: $pkg.ChatResponseStatus.values,
+      ),
+      BridgedEnumDefinition<$pkg.ChatReceiverType>(
+        name: 'ChatReceiverType',
+        values: $pkg.ChatReceiverType.values,
+      ),
     ];
   }
 
@@ -60,6 +77,10 @@ class TomChattoolsBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
     return {
+      'ChatMessageType': 'package:tom_chattools/src/api/chat/chat_message.dart',
+      'ChatAttachmentType': 'package:tom_chattools/src/api/chat/chat_message.dart',
+      'ChatResponseStatus': 'package:tom_chattools/src/api/chat/chat_response.dart',
+      'ChatReceiverType': 'package:tom_chattools/src/api/chat/chat_receiver.dart',
     };
   }
 
@@ -85,6 +106,13 @@ class TomChattoolsBridge {
     final classSources = classSourceUris();
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    }
+
+    // Register bridged enums with source URIs for deduplication
+    final enums = bridgedEnums();
+    final enumSources = enumSourceUris();
+    for (final enumDef in enums) {
+      interpreter.registerBridgedEnum(enumDef, importPath, sourceUri: enumSources[enumDef.name]);
     }
   }
 
@@ -128,6 +156,14 @@ class TomChattoolsBridge {
     return "import 'package:tom_chattools/tom_chattools.dart';";
   }
 
+  /// Returns a list of bridged enum names.
+  static List<String> get enumNames => [
+    'ChatMessageType',
+    'ChatAttachmentType',
+    'ChatResponseStatus',
+    'ChatReceiverType',
+  ];
+
 }
 
 // =============================================================================
@@ -170,22 +206,18 @@ BridgedClass _createChatMessageBridge() {
     name: 'ChatMessage',
     constructors: {
       '': (visitor, positional, named) {
-        final id = D4.getRequiredNamedArg<dynamic>(named, 'id', 'ChatMessage');
-        final text = D4.getOptionalNamedArg<dynamic>(named, 'text');
-        final sender = D4.getRequiredNamedArg<dynamic>(named, 'sender', 'ChatMessage');
-        final timestamp = D4.getRequiredNamedArg<dynamic>(named, 'timestamp', 'ChatMessage');
-        final platformMessageId = D4.getOptionalNamedArg<dynamic>(named, 'platformMessageId');
-        final replyToMessageId = D4.getOptionalNamedArg<dynamic>(named, 'replyToMessageId');
-        final attachments = D4.getNamedArgWithDefault<dynamic>(named, 'attachments', const []);
-        final rawData = D4.getOptionalNamedArg<dynamic>(named, 'rawData');
-        if (!named.containsKey('type')) {
-          return $pkg.ChatMessage(id: id, text: text, sender: sender, timestamp: timestamp, platformMessageId: platformMessageId, replyToMessageId: replyToMessageId, attachments: attachments, rawData: rawData);
-        }
-        if (named.containsKey('type')) {
-          final type = D4.getRequiredNamedArg<dynamic>(named, 'type', 'ChatMessage');
-          return $pkg.ChatMessage(id: id, text: text, sender: sender, timestamp: timestamp, platformMessageId: platformMessageId, replyToMessageId: replyToMessageId, attachments: attachments, rawData: rawData, type: type);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final id = D4.getRequiredNamedArg<String>(named, 'id', 'ChatMessage');
+        final text = D4.getOptionalNamedArg<String?>(named, 'text');
+        final sender = D4.getRequiredNamedArg<$pkg.ChatSender>(named, 'sender', 'ChatMessage');
+        final timestamp = D4.getRequiredNamedArg<DateTime>(named, 'timestamp', 'ChatMessage');
+        final type = D4.getNamedArgWithDefault<$pkg.ChatMessageType>(named, 'type', $pkg.ChatMessageType.text);
+        final platformMessageId = D4.getOptionalNamedArg<String?>(named, 'platformMessageId');
+        final replyToMessageId = D4.getOptionalNamedArg<String?>(named, 'replyToMessageId');
+        final attachments = named.containsKey('attachments') && named['attachments'] != null
+            ? D4.coerceList<$pkg.ChatAttachment>(named['attachments'], 'attachments')
+            : const <$pkg.ChatAttachment>[];
+        final rawData = D4.coerceMapOrNull<String, dynamic>(named['rawData'], 'rawData');
+        return $pkg.ChatMessage(id: id, text: text, sender: sender, timestamp: timestamp, type: type, platformMessageId: platformMessageId, replyToMessageId: replyToMessageId, attachments: attachments, rawData: rawData);
       },
       'text': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatMessage');
@@ -211,7 +243,7 @@ BridgedClass _createChatMessageBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const ChatMessage({required dynamic id, dynamic text, required dynamic sender, required dynamic timestamp, dynamic type = ChatMessageType.text, dynamic platformMessageId, dynamic replyToMessageId, dynamic attachments = const [], dynamic rawData})',
+      '': 'const ChatMessage({required String id, String? text, required ChatSender sender, required DateTime timestamp, ChatMessageType type = ChatMessageType.text, String? platformMessageId, String? replyToMessageId, List<ChatAttachment> attachments = const [], Map<String, dynamic>? rawData})',
       'text': 'factory ChatMessage.text(String text)',
     },
     methodSignatures: {
@@ -241,10 +273,10 @@ BridgedClass _createChatSenderBridge() {
     name: 'ChatSender',
     constructors: {
       '': (visitor, positional, named) {
-        final id = D4.getRequiredNamedArg<dynamic>(named, 'id', 'ChatSender');
-        final name = D4.getOptionalNamedArg<dynamic>(named, 'name');
-        final username = D4.getOptionalNamedArg<dynamic>(named, 'username');
-        final isSelf = D4.getNamedArgWithDefault<dynamic>(named, 'isSelf', false);
+        final id = D4.getRequiredNamedArg<String>(named, 'id', 'ChatSender');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final username = D4.getOptionalNamedArg<String?>(named, 'username');
+        final isSelf = D4.getNamedArgWithDefault<bool>(named, 'isSelf', false);
         return $pkg.ChatSender(id: id, name: name, username: username, isSelf: isSelf);
       },
       'self': (visitor, positional, named) {
@@ -264,7 +296,7 @@ BridgedClass _createChatSenderBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const ChatSender({required dynamic id, dynamic name, dynamic username, dynamic isSelf = false})',
+      '': 'const ChatSender({required String id, String? name, String? username, bool isSelf = false})',
       'self': 'const ChatSender.self()',
     },
     methodSignatures: {
@@ -289,12 +321,12 @@ BridgedClass _createChatAttachmentBridge() {
     name: 'ChatAttachment',
     constructors: {
       '': (visitor, positional, named) {
-        final type = D4.getRequiredNamedArg<dynamic>(named, 'type', 'ChatAttachment');
-        final url = D4.getRequiredNamedArg<dynamic>(named, 'url', 'ChatAttachment');
-        final mimeType = D4.getOptionalNamedArg<dynamic>(named, 'mimeType');
-        final fileName = D4.getOptionalNamedArg<dynamic>(named, 'fileName');
-        final fileSize = D4.getOptionalNamedArg<dynamic>(named, 'fileSize');
-        final caption = D4.getOptionalNamedArg<dynamic>(named, 'caption');
+        final type = D4.getRequiredNamedArg<$pkg.ChatAttachmentType>(named, 'type', 'ChatAttachment');
+        final url = D4.getRequiredNamedArg<String>(named, 'url', 'ChatAttachment');
+        final mimeType = D4.getOptionalNamedArg<String?>(named, 'mimeType');
+        final fileName = D4.getOptionalNamedArg<String?>(named, 'fileName');
+        final fileSize = D4.getOptionalNamedArg<int?>(named, 'fileSize');
+        final caption = D4.getOptionalNamedArg<String?>(named, 'caption');
         return $pkg.ChatAttachment(type: type, url: url, mimeType: mimeType, fileName: fileName, fileSize: fileSize, caption: caption);
       },
     },
@@ -307,7 +339,7 @@ BridgedClass _createChatAttachmentBridge() {
       'caption': (visitor, target) => D4.validateTarget<$pkg.ChatAttachment>(target, 'ChatAttachment').caption,
     },
     constructorSignatures: {
-      '': 'const ChatAttachment({required dynamic type, required dynamic url, dynamic mimeType, dynamic fileName, dynamic fileSize, dynamic caption})',
+      '': 'const ChatAttachment({required ChatAttachmentType type, required String url, String? mimeType, String? fileName, int? fileSize, String? caption})',
     },
     getterSignatures: {
       'type': 'ChatAttachmentType get type',
@@ -330,20 +362,17 @@ BridgedClass _createChatResponseBridge() {
     name: 'ChatResponse',
     constructors: {
       '': (visitor, positional, named) {
-        final messages = D4.getRequiredNamedArg<dynamic>(named, 'messages', 'ChatResponse');
-        final success = D4.getNamedArgWithDefault<dynamic>(named, 'success', true);
-        final error = D4.getOptionalNamedArg<dynamic>(named, 'error');
-        final waitDuration = D4.getNamedArgWithDefault<dynamic>(named, 'waitDuration', Duration.zero);
-        final hasMore = D4.getNamedArgWithDefault<dynamic>(named, 'hasMore', false);
-        final metadata = D4.getOptionalNamedArg<dynamic>(named, 'metadata');
-        if (!named.containsKey('status')) {
-          return $pkg.ChatResponse(messages: messages, success: success, error: error, waitDuration: waitDuration, hasMore: hasMore, metadata: metadata);
+        if (!named.containsKey('messages') || named['messages'] == null) {
+          throw ArgumentError('ChatResponse: Missing required named argument "messages"');
         }
-        if (named.containsKey('status')) {
-          final status = D4.getRequiredNamedArg<dynamic>(named, 'status', 'ChatResponse');
-          return $pkg.ChatResponse(messages: messages, success: success, error: error, waitDuration: waitDuration, hasMore: hasMore, metadata: metadata, status: status);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final messages = D4.coerceList<$pkg.ChatMessage>(named['messages'], 'messages');
+        final success = D4.getNamedArgWithDefault<bool>(named, 'success', true);
+        final status = D4.getNamedArgWithDefault<$pkg.ChatResponseStatus>(named, 'status', $pkg.ChatResponseStatus.ok);
+        final error = D4.getOptionalNamedArg<String?>(named, 'error');
+        final waitDuration = D4.getNamedArgWithDefault<Duration>(named, 'waitDuration', Duration.zero);
+        final hasMore = D4.getNamedArgWithDefault<bool>(named, 'hasMore', false);
+        final metadata = D4.coerceMapOrNull<String, dynamic>(named['metadata'], 'metadata');
+        return $pkg.ChatResponse(messages: messages, success: success, status: status, error: error, waitDuration: waitDuration, hasMore: hasMore, metadata: metadata);
       },
       'empty': (visitor, positional, named) {
         return $pkg.ChatResponse.empty();
@@ -351,7 +380,7 @@ BridgedClass _createChatResponseBridge() {
       'error': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatResponse');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'ChatResponse');
-        final status = D4.getOptionalNamedArg<dynamic>(named, 'status');
+        final status = D4.getOptionalNamedArg<$pkg.ChatResponseStatus?>(named, 'status');
         return $pkg.ChatResponse.error(message, status: status);
       },
       'timeout': (visitor, positional, named) {
@@ -384,7 +413,7 @@ BridgedClass _createChatResponseBridge() {
       'ofType': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.ChatResponse>(target, 'ChatResponse');
         D4.requireMinArgs(positional, 1, 'ofType');
-        final type = D4.getRequiredArg<dynamic>(positional, 0, 'type', 'ofType');
+        final type = D4.getRequiredArg<$pkg.ChatMessageType>(positional, 0, 'type', 'ofType');
         return t.ofType(type);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -393,7 +422,7 @@ BridgedClass _createChatResponseBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const ChatResponse({required dynamic messages, dynamic success = true, dynamic status = ChatResponseStatus.ok, dynamic error, dynamic waitDuration = Duration.zero, dynamic hasMore = false, dynamic metadata})',
+      '': 'const ChatResponse({required List<ChatMessage> messages, bool success = true, ChatResponseStatus status = ChatResponseStatus.ok, String? error, Duration waitDuration = Duration.zero, bool hasMore = false, Map<String, dynamic>? metadata})',
       'empty': 'const ChatResponse.empty()',
       'error': 'factory ChatResponse.error(String message, {ChatResponseStatus? status})',
       'timeout': 'factory ChatResponse.timeout(Duration waitDuration)',
@@ -493,15 +522,15 @@ BridgedClass _createChatReceiverInfoBridge() {
     name: 'ChatReceiverInfo',
     constructors: {
       '': (visitor, positional, named) {
-        final id = D4.getRequiredNamedArg<dynamic>(named, 'id', 'ChatReceiverInfo');
-        final name = D4.getOptionalNamedArg<dynamic>(named, 'name');
-        final firstName = D4.getOptionalNamedArg<dynamic>(named, 'firstName');
-        final lastName = D4.getOptionalNamedArg<dynamic>(named, 'lastName');
-        final username = D4.getOptionalNamedArg<dynamic>(named, 'username');
-        final phone = D4.getOptionalNamedArg<dynamic>(named, 'phone');
-        final photoUrl = D4.getOptionalNamedArg<dynamic>(named, 'photoUrl');
-        final isBot = D4.getNamedArgWithDefault<dynamic>(named, 'isBot', false);
-        final rawData = D4.getOptionalNamedArg<dynamic>(named, 'rawData');
+        final id = D4.getRequiredNamedArg<String>(named, 'id', 'ChatReceiverInfo');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final firstName = D4.getOptionalNamedArg<String?>(named, 'firstName');
+        final lastName = D4.getOptionalNamedArg<String?>(named, 'lastName');
+        final username = D4.getOptionalNamedArg<String?>(named, 'username');
+        final phone = D4.getOptionalNamedArg<String?>(named, 'phone');
+        final photoUrl = D4.getOptionalNamedArg<String?>(named, 'photoUrl');
+        final isBot = D4.getNamedArgWithDefault<bool>(named, 'isBot', false);
+        final rawData = D4.coerceMapOrNull<String, dynamic>(named['rawData'], 'rawData');
         return $pkg.ChatReceiverInfo(id: id, name: name, firstName: firstName, lastName: lastName, username: username, phone: phone, photoUrl: photoUrl, isBot: isBot, rawData: rawData);
       },
     },
@@ -523,7 +552,7 @@ BridgedClass _createChatReceiverInfoBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const ChatReceiverInfo({required dynamic id, dynamic name, dynamic firstName, dynamic lastName, dynamic username, dynamic phone, dynamic photoUrl, dynamic isBot = false, dynamic rawData})',
+      '': 'const ChatReceiverInfo({required String id, String? name, String? firstName, String? lastName, String? username, String? phone, String? photoUrl, bool isBot = false, Map<String, dynamic>? rawData})',
     },
     methodSignatures: {
       'toString': 'String toString()',
@@ -553,9 +582,12 @@ BridgedClass _createChatSettingsBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatSettings');
-        final settings = D4.getRequiredArg<dynamic>(positional, 0, 'settings', 'ChatSettings');
-        final pollingTimeout = D4.getNamedArgWithDefault<dynamic>(named, 'pollingTimeout', const Duration(seconds: 2));
-        final usePolling = D4.getNamedArgWithDefault<dynamic>(named, 'usePolling', true);
+        if (positional.isEmpty) {
+          throw ArgumentError('ChatSettings: Missing required argument "settings" at position 0');
+        }
+        final settings = D4.coerceMap<String, String>(positional[0], 'settings');
+        final pollingTimeout = D4.getNamedArgWithDefault<Duration>(named, 'pollingTimeout', const Duration(seconds: 2));
+        final usePolling = D4.getNamedArgWithDefault<bool>(named, 'usePolling', true);
         return $pkg.ChatSettings(settings, pollingTimeout: pollingTimeout, usePolling: usePolling);
       },
       'telegram': (visitor, positional, named) {
@@ -591,7 +623,7 @@ BridgedClass _createChatSettingsBridge() {
       'signalPhone': (visitor) => $pkg.ChatSettings.signalPhone,
     },
     constructorSignatures: {
-      '': 'const ChatSettings(dynamic settings, {dynamic pollingTimeout = const Duration(seconds: 2), dynamic usePolling = true})',
+      '': 'const ChatSettings(Map<String, String> settings, {Duration pollingTimeout = const Duration(seconds: 2), bool usePolling = true})',
       'telegram': 'factory ChatSettings.telegram(String token, {Duration pollingTimeout = const Duration(seconds: 2), bool usePolling = true})',
     },
     methodSignatures: {
@@ -629,7 +661,7 @@ BridgedClass _createChatApiBridge() {
     },
     setters: {
       'settings': (visitor, target, value) => 
-        D4.validateTarget<$pkg.ChatApi>(target, 'ChatApi').settings = value as dynamic,
+        D4.validateTarget<$pkg.ChatApi>(target, 'ChatApi').settings = value as $pkg.ChatSettings,
     },
     methods: {
       'initialize': (visitor, target, positional, named, typeArgs) {
@@ -719,9 +751,9 @@ BridgedClass _createChatMessageFilterBridge() {
     name: 'ChatMessageFilter',
     constructors: {
       '': (visitor, positional, named) {
-        final from = D4.getOptionalNamedArg<dynamic>(named, 'from');
-        final types = D4.getOptionalNamedArg<dynamic>(named, 'types');
-        final after = D4.getOptionalNamedArg<dynamic>(named, 'after');
+        final from = D4.coerceListOrNull<$pkg.ChatReceiver>(named['from'], 'from');
+        final types = D4.coerceListOrNull<$pkg.ChatMessageType>(named['types'], 'types');
+        final after = D4.getOptionalNamedArg<DateTime?>(named, 'after');
         return $pkg.ChatMessageFilter(from: from, types: types, after: after);
       },
     },
@@ -731,7 +763,7 @@ BridgedClass _createChatMessageFilterBridge() {
       'after': (visitor, target) => D4.validateTarget<$pkg.ChatMessageFilter>(target, 'ChatMessageFilter').after,
     },
     constructorSignatures: {
-      '': 'const ChatMessageFilter({dynamic from, dynamic types, dynamic after})',
+      '': 'const ChatMessageFilter({List<ChatReceiver>? from, List<ChatMessageType>? types, DateTime? after})',
     },
     getterSignatures: {
       'from': 'List<ChatReceiver>? get from',
@@ -751,10 +783,10 @@ BridgedClass _createTelegramChatConfigBridge() {
     name: 'TelegramChatConfig',
     constructors: {
       '': (visitor, positional, named) {
-        final token = D4.getRequiredNamedArg<dynamic>(named, 'token', 'TelegramChatConfig');
-        final usePolling = D4.getNamedArgWithDefault<dynamic>(named, 'usePolling', true);
-        final pollingTimeout = D4.getNamedArgWithDefault<dynamic>(named, 'pollingTimeout', 2);
-        final allowedUpdates = D4.getOptionalNamedArg<dynamic>(named, 'allowedUpdates');
+        final token = D4.getRequiredNamedArg<String>(named, 'token', 'TelegramChatConfig');
+        final usePolling = D4.getNamedArgWithDefault<bool>(named, 'usePolling', true);
+        final pollingTimeout = D4.getNamedArgWithDefault<int>(named, 'pollingTimeout', 2);
+        final allowedUpdates = D4.coerceListOrNull<String>(named['allowedUpdates'], 'allowedUpdates');
         return $pkg.TelegramChatConfig(token: token, usePolling: usePolling, pollingTimeout: pollingTimeout, allowedUpdates: allowedUpdates);
       },
     },
@@ -774,7 +806,7 @@ BridgedClass _createTelegramChatConfigBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const TelegramChatConfig({required dynamic token, dynamic usePolling = true, dynamic pollingTimeout = 2, dynamic allowedUpdates})',
+      '': 'const TelegramChatConfig({required String token, bool usePolling = true, int pollingTimeout = 2, List<String>? allowedUpdates})',
     },
     methodSignatures: {
       'createApi': 'ChatApi createApi(ChatSettings settings)',

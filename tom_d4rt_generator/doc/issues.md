@@ -1,897 +1,259 @@
 # D4rt Bridge Generator — Known Issues & Limitations
 
-> Last updated: 2026-02-12
+> Last updated: 2026-02-13
 > 
-> Generated from test baseline analysis comparing tom_d4rt and tom_d4rt_generator test results.
+> Identified from DCli scripting guide e2e test failures.
 
 ---
 
 ## Issue Index
 
-| ID | Description | Complexity | Status |
-|----|-------------|------------|--------|
-| [G-CB-1](#g-cb-1) | Callback wrapper code expects `_raw` pattern | Low | Fixed |
-| [G-CB-2](#g-cb-2) | Void Function() callback pattern mismatch | Low | Fixed |
-| [G-CB-3](#g-cb-3) | Multiple callbacks `_raw` pattern mismatch | Low | Fixed |
-| [G-GB-1](#g-gb-1) | globalFunctionNames list generation test | Low | Fixed |
-| [G-GB-2](#g-gb-2) | globalVariableNames list generation test | Low | Fixed |
-| [G-GB-3](#g-gb-3) | getGlobalInitializationScript generation test | Low | Fixed |
-| [G-GB-4](#g-gb-4) | Init script variable getters test | Low | Fixed |
-| [G-GB-5](#g-gb-5) | Const vars registerGlobalVariable test | Low | Fixed |
-| [G-GB-6](#g-gb-6) | Final vars registerGlobalVariable test | Low | Fixed |
-| [G-GB-7](#g-gb-7) | Mutable vars registerGlobalVariable test | Low | Fixed |
-| [G-GB-8](#g-gb-8) | Getter singleton registerGlobalGetter test | Low | Fixed |
-| [G-GB-9](#g-gb-9) | Computed getter registerGlobalGetter test | Low | Fixed |
-| [G-GB-10](#g-gb-10) | Nullable getter registerGlobalGetter test | Low | Fixed |
-| [G-GB-11](#g-gb-11) | Mutable state getter registerGlobalGetter test | Low | Fixed |
-| [G-GB-12](#g-gb-12) | RegisterGlobalVariables separation test | Low | Fixed |
-| [G-UB-1](#g-ub-1) | GlobalsUserBridge appName override | Low | Fixed |
-| [G-UB-2](#g-ub-2) | GlobalsUserBridge maxRetries override | Low | Fixed |
-| [G-UB-3](#g-ub-3) | GlobalsUserBridge currentTime getter override | Low | Fixed |
-| [G-UB-4](#g-ub-4) | GlobalsUserBridge globalService getter override | Low | Fixed |
-| [G-UB-5](#g-ub-5) | GlobalsUserBridge greet function override | Low | Fixed |
-| [G-UB-6](#g-ub-6) | GlobalsUserBridge add function override | Low | Fixed |
-| [G-ASYNC-1](#g-async-1) | Async function Future e2e test | Medium | Fixed |
-| [G-ASYNC-2](#g-async-2) | Async* generator Stream e2e test | Medium | Fixed |
-| [G-ASYNC-3](#g-async-3) | Sync* generator Iterable e2e test | Medium | Fixed |
-| [G-ASYNC-4](#g-async-4) | Callback parameter Function e2e test | Medium | Fixed |
-| [G-ASYNC-5](#g-async-5) | Instance async method Future e2e test | Medium | Fixed |
-| [G-ASYNC-6](#g-async-6) | Instance sync* method Iterable e2e test | Medium | Fixed |
-| [G-ASYNC-7](#g-async-7) | Instance async* method Stream e2e test | Medium | Fixed |
-| [G-ASYNC-8](#g-async-8) | Static sync*/async* method e2e test | Medium | Fixed |
-| [G-COV-7](#g-cov-7) | TOP15: base mixin e2e test | Medium | Fixed |
-| [G-COV-42](#g-cov-42) | TOP01: concrete class e2e test | Medium | Fixed |
-| [G-TOP-12](#g-top-12) | Enhanced enum with mixin e2e test | Medium | Fixed |
-| [G-TOP-13](#g-top-13) | Generic enum N/A Dart limitation test | Low | Fixed |
-| [G-TOP-19](#g-top-19) | Typedef function not needed test | Low | Fixed |
-| [G-TOP-24](#g-top-24) | Top-level async function e2e test | Medium | Fixed |
-| [G-TOP-28](#g-top-28) | Top-level setter e2e test | Medium | Fixed |
-| [G-CLS-6](#g-cls-6) | Late field e2e test | Medium | Fixed |
-| [G-PAR-6](#g-par-6) | Function-typed parameter | High | Fixed (workaround sufficient) |
-| [G-GNRC-7](#g-gnrc-7) | F-bounded polymorphism | High | Fixed |
-| [G-OP-8](#g-op-8) | Operator == equality | Medium | Fixed |
-| [G-TYPE-1](#g-type-1) | Record parameter type | High | Fixed |
-| [G-TYPE-2](#g-type-2) | Record return type | High | Fixed |
-| [G-TE-1](#g-te-1) | Bounded type param erasure | Fundamental | Fixed |
-| [G-TE-2](#g-te-2) | Static castFrom type erasure | Fundamental | Fixed |
+| ID | Description | Complexity | Component | Status |
+|----|-------------|------------|-----------|--------|
+| [G-DCLI-05](#g-dcli-05) | ProgressBothImpl.lines not accessible via bridge | Medium | Interpreter | Open |
+| [G-DCLI-07](#g-dcli-07) | Generator picks wrong find() function (dcli_core vs dcli) | Medium | Generator | Open |
+| [G-DCLI-08](#g-dcli-08) | RunException not caught in try/catch blocks | Medium | Interpreter | Open |
+| [G-DCLI-11](#g-dcli-11) | find().forEach() fails - wrong function resolved | Medium | Generator | Open |
+| [G-DCLI-12](#g-dcli-12) | CopyException not caught in try/catch blocks | Medium | Interpreter | Open |
+| [G-DCLI-14](#g-dcli-14) | Shell pipe execution with runInShell: true broken | Medium | Interpreter | Open |
 
 ---
 
 ## Issue Details
 
-### Code Generation Pattern Tests
+### DCli Scripting Guide E2E Tests
 
-These tests verify specific patterns in generated bridge code. Failures indicate the generator's output structure changed but tests weren't updated, or there's a generator regression.
+These tests exercise DCli package functionality through the D4rt bridge. Test scripts are located in `example/d4_test_scripts/bin/dcli_scripting_guide/`.
 
 ---
 
-#### G-CB-1
+#### G-DCLI-05
 
-**Callback wrapper code expects `_raw` pattern**
+**ProgressBothImpl.lines not accessible via bridge**
 
 **a) Problem:**
 
-The test expects generated callback wrapper code to contain `_raw` variable naming pattern and `InterpretedFunction` references. The generated code no longer matches this expectation.
+When calling `run()` to execute a shell command that returns `Progress`, accessing `.lines` fails because DCli returns a `ProgressBothImpl` internal class which is a subclass of `ProgressImpl`. The interpreter cannot find the `lines` property because no bridge is registered for `ProgressBothImpl`.
 
-**Test expectation:**
+**Error:**
+```
+Error: Failed to find property 'lines' for [object ProgressBothImpl]
+```
+
+**Test script:** `05_capturing_output.dart`
 ```dart
-expect(generatedCode, contains('InterpretedFunction'));
-expect(generatedCode, contains('_raw'));
+final Progress result = run('ls -la', progress: Progress.print());
+print('Output lines: ${result.lines.length}');
 ```
 
-**b) Location:**
-- Test: `test/callback_wrapping_test.dart`
-- Generator: `lib/src/bridge_generator.dart` — callback wrapping code generation
+**b) Root Cause:**
 
-**c) Resolution Strategy:**
-1. Inspect current generated callback code to understand new pattern
-2. Either update tests to match new pattern, or restore expected pattern if regression
+The interpreter's property access logic looks up the bridge for the exact runtime type (`ProgressBothImpl`). DCli's internal implementation classes are not exported or bridged. The interpreter should fall back to checking parent class bridges when the exact type isn't found.
 
----
+**c) Location:**
+- Interpreter: `tom_d4rt/lib/src/interpreter_visitor.dart` — property access resolution
+- Related: `BridgedInstance` type hierarchy handling
 
-#### G-CB-2
-
-**Void Function() callback pattern mismatch**
-
-**a) Problem:**
-
-Test expects `'onComplete':` and `.call(visitor as InterpreterVisitor,` patterns in generated code for void callbacks.
-
-**b) Location:**
-- Test: `test/callback_wrapping_test.dart`
-- Generator: `lib/src/bridge_generator.dart`
-
-**c) Resolution Strategy:**
-Same as G-CB-1 — verify generated code matches expected callback invocation pattern.
+**d) Resolution Strategy:**
+1. Modify interpreter property access to walk the type hierarchy
+2. When `BridgedClass` for exact type isn't found, check `superclass` and `interfaces`
+3. Find first ancestor with a registered bridge and use that bridge's property accessor
 
 ---
 
-#### G-CB-3
+#### G-DCLI-07
 
-**Multiple callbacks `_raw` pattern mismatch**
-
-**a) Problem:**
-
-Test expects regex pattern `final \w+_raw =` for multiple callback parameters in generated code.
-
-**b) Location:**
-- Test: `test/callback_wrapping_test.dart`
-
-**c) Resolution Strategy:**
-Same as G-CB-1.
-
----
-
-#### G-GB-1
-
-**globalFunctionNames list generation test**
+**Generator picks wrong find() function (dcli_core vs dcli)**
 
 **a) Problem:**
 
-Test expects `static List<String> get globalFunctionNames` in generated bridge code. The test failure indicates this accessor may not be generated or has a different signature.
+The bridge generator incorrectly resolves `find()` to `dcli_core`'s version which requires a `progress` callback parameter, instead of `dcli`'s version which returns a `FindProgress` object.
 
-**Test expectation:**
+**Error:**
+```
+Error: find: Missing required named argument (progress)
+```
+
+**Test script:** `07_file_operations.dart`
 ```dart
-expect(generatedCode, contains('static List<String> get globalFunctionNames'));
+final files = find('*.txt', workingDirectory: testDir);
+for (final file in files) {
+  print('Found: $file');
+}
 ```
 
-**b) Location:**
-- Test: `test/global_bridge_generation_test.dart`
-- Generator: Global bridge structure generation section
+**b) Root Cause:**
 
-**c) Resolution Strategy:**
-1. Check if globalFunctionNames is still generated
-2. Update test or generator as needed
+Both `dcli` and `dcli_core` export a `find()` function:
+- `dcli_core`: `void find(String pattern, {required void Function(FindItem) progress, ...})`
+- `dcli`: `FindProgress find(String pattern, {...})` — returns iterable result
+
+The generator picks `dcli_core`'s version (possibly due to alphabetical ordering or import order). The bridge code calls `ext_dcli_core_find.find()` which has a different signature than what scripts expect.
+
+**c) Location:**
+- Generator: `lib/src/bridge_generator.dart` — global function resolution when multiple packages export same name
+- Generated bridge: `dcli_bridges.b.dart` lines ~478-520
+
+**d) Resolution Strategy:**
+1. Add disambiguation logic to prefer the "main" package (`dcli`) over its helper package (`dcli_core`)
+2. Or: Add explicit package preference configuration in bridge generation config
+3. Or: Generate overloads for both signatures (complex)
+
+**Related:** G-DCLI-11 (same root cause)
 
 ---
 
-#### G-GB-2
+#### G-DCLI-08
 
-**globalVariableNames list generation test**
+**RunException not caught in try/catch blocks**
 
 **a) Problem:**
 
-Test expects `static List<String> get globalVariableNames` in generated bridge code.
+When a command fails via `run()`, DCli throws `RunException`. The interpreter's try/catch block doesn't catch this exception, and it propagates as an unhandled error.
 
-**b) Location:**
-- Test: `test/global_bridge_generation_test.dart`
-
-**c) Resolution Strategy:**
-Same as G-GB-1.
-
----
-
-#### G-GB-3
-
-**getGlobalInitializationScript generation test**
-
-**a) Problem:**
-
-Test expects `static String getGlobalInitializationScript()` method in generated bridge.
-
-**b) Location:**
-- Test: `test/global_bridge_generation_test.dart`
-
-**c) Resolution Strategy:**
-Same as G-GB-1.
-
----
-
-#### G-GB-4
-
-**Init script variable getters test**
-
-**a) Problem:**
-
-Test verifies initialization script contains variable getter definitions.
-
-**b) Location:**
-- Test: `test/global_bridge_generation_test.dart`
-
-**c) Resolution Strategy:**
-Verify global initialization script content generation.
-
----
-
-#### G-GB-5
-
-**Const vars registerGlobalVariable test**
-
-**a) Problem:**
-
-Test verifies const variables use `registerGlobalVariable` registration pattern.
-
-**b) Location:**
-- Test: `test/global_bridge_generation_test.dart`
-
-**c) Resolution Strategy:**
-Check global variable registration code generation.
-
----
-
-#### G-GB-6
-
-**Final vars registerGlobalVariable test**
-
-**a) Problem:**
-
-Test verifies final variables use `registerGlobalVariable` pattern.
-
-**b) Location:**
-- Test: `test/global_bridge_generation_test.dart`
-
-**c) Resolution Strategy:**
-Same as G-GB-5.
-
----
-
-#### G-GB-7
-
-**Mutable vars registerGlobalVariable test**
-
-**a) Problem:**
-
-Test verifies mutable (var) variables use `registerGlobalVariable` pattern.
-
-**b) Location:**
-- Test: `test/global_bridge_generation_test.dart`
-
-**c) Resolution Strategy:**
-Same as G-GB-5.
-
----
-
-#### G-GB-8
-
-**Getter singleton registerGlobalGetter test**
-
-**a) Problem:**
-
-Test verifies top-level getters (singleton pattern) use `registerGlobalGetter` pattern.
-
-**b) Location:**
-- Test: `test/global_bridge_generation_test.dart`
-
-**c) Resolution Strategy:**
-Check getter vs variable registration differentiation.
-
----
-
-#### G-GB-9
-
-**Computed getter registerGlobalGetter test**
-
-**a) Problem:**
-
-Test verifies computed getters use `registerGlobalGetter` pattern.
-
-**b) Location:**
-- Test: `test/global_bridge_generation_test.dart`
-
-**c) Resolution Strategy:**
-Same as G-GB-8.
-
----
-
-#### G-GB-10
-
-**Nullable getter registerGlobalGetter test**
-
-**a) Problem:**
-
-Test verifies nullable getters use `registerGlobalGetter` pattern.
-
-**b) Location:**
-- Test: `test/global_bridge_generation_test.dart`
-
-**c) Resolution Strategy:**
-Same as G-GB-8.
-
----
-
-#### G-GB-11
-
-**Mutable state getter registerGlobalGetter test**
-
-**a) Problem:**
-
-Test verifies mutable state getters use `registerGlobalGetter` pattern.
-
-**b) Location:**
-- Test: `test/global_bridge_generation_test.dart`
-
-**c) Resolution Strategy:**
-Same as G-GB-8.
-
----
-
-#### G-GB-12
-
-**RegisterGlobalVariables separation test**
-
-**a) Problem:**
-
-Test verifies proper separation between variable and getter registration.
-
-**b) Location:**
-- Test: `test/global_bridge_generation_test.dart`
-
-**c) Resolution Strategy:**
-Verify registration logic properly categorizes globals.
-
----
-
-#### G-UB-1
-
-**GlobalsUserBridge appName override**
-
-**a) Problem:**
-
-Test verifies GlobalsUserBridge generates override for global variable `appName`.
-
-**b) Location:**
-- Test: `test/user_bridge_test.dart`
-- Generator: GlobalsUserBridge generation section
-
-**c) Resolution Strategy:**
-Check GlobalsUserBridge override generation for global variables.
-
----
-
-#### G-UB-2
-
-**GlobalsUserBridge maxRetries override**
-
-**a) Problem:**
-
-Test verifies GlobalsUserBridge generates override for global variable `maxRetries`.
-
-**b) Location:**
-- Test: `test/user_bridge_test.dart`
-
-**c) Resolution Strategy:**
-Same as G-UB-1.
-
----
-
-#### G-UB-3
-
-**GlobalsUserBridge currentTime getter override**
-
-**a) Problem:**
-
-Test verifies GlobalsUserBridge generates override for getter `currentTime`.
-
-**b) Location:**
-- Test: `test/user_bridge_test.dart`
-
-**c) Resolution Strategy:**
-Check GlobalsUserBridge override generation for getters.
-
----
-
-#### G-UB-4
-
-**GlobalsUserBridge globalService getter override**
-
-**a) Problem:**
-
-Test verifies GlobalsUserBridge generates override for getter `globalService`.
-
-**b) Location:**
-- Test: `test/user_bridge_test.dart`
-
-**c) Resolution Strategy:**
-Same as G-UB-3.
-
----
-
-#### G-UB-5
-
-**GlobalsUserBridge greet function override**
-
-**a) Problem:**
-
-Test verifies GlobalsUserBridge generates override for function `greet`.
-
-**b) Location:**
-- Test: `test/user_bridge_test.dart`
-
-**c) Resolution Strategy:**
-Check GlobalsUserBridge override generation for functions.
-
----
-
-#### G-UB-6
-
-**GlobalsUserBridge add function override**
-
-**a) Problem:**
-
-Test verifies GlobalsUserBridge generates override for function `add`.
-
-**b) Location:**
-- Test: `test/user_bridge_test.dart`
-
-**c) Resolution Strategy:**
-Same as G-UB-5.
-
----
-
-### E2E Coverage Tests — Fixed
-
-These tests run D4rt scripts using generated bridges. All 16 e2e coverage tests now pass after tom_d4rt interpreter fixes were applied (async/await, sync*/async* generators, callbacks, enum handling, late fields, setters).
-
----
-
-#### G-ASYNC-1
-
-**Status: Fixed**
-
-**Async function Future e2e test**
-
-**a) Problem:**
-
-E2E test for async functions returning Future fails. This was blocked by interpreter async handling issues that may now be fixed in tom_d4rt.
-
-**Test script:** `example/dart_overview/test/async01_async_function.dart`
-
-**b) Location:**
-- Test: `test/d4rt_coverage_test.dart`
-- Related interpreter code: `tom_d4rt` async/await handling
-
-**c) Resolution Strategy:**
-1. Re-run test with latest tom_d4rt
-2. If still failing, investigate interpreter async handling
-
----
-
-#### G-ASYNC-2
-
-**Status: Fixed**
-
-**Async* generator Stream e2e test**
-
-**a) Problem:**
-
-E2E test for async* generator methods returning Stream.
-
-**Test script:** `example/dart_overview/test/async02_async_generator.dart`
-
-**c) Resolution Strategy:**
-Same as G-ASYNC-1 — re-test with latest interpreter.
-
----
-
-#### G-ASYNC-3
-
-**Status: Fixed**
-
-**Sync* generator Iterable e2e test**
-
-**a) Problem:**
-
-E2E test for sync* generator methods returning Iterable.
-
-**Test script:** `example/dart_overview/test/async03_sync_generator.dart`
-
-**c) Resolution Strategy:**
-Same as G-ASYNC-1.
-
----
-
-#### G-ASYNC-4
-
-**Status: Fixed**
-
-**Callback parameter Function e2e test**
-
-**a) Problem:**
-
-E2E test for functions with callback parameters.
-
-**Test script:** `example/dart_overview/test/async04_callback_param.dart`
-
-**c) Resolution Strategy:**
-Same as G-ASYNC-1.
-
----
-
-#### G-ASYNC-5
-
-**Status: Fixed**
-
-**Instance async method Future e2e test**
-
-**a) Problem:**
-
-E2E test for instance methods that are async.
-
-**Test script:** `example/dart_overview/test/async05_instance_async_method.dart`
-
-**c) Resolution Strategy:**
-Same as G-ASYNC-1.
-
----
-
-#### G-ASYNC-6
-
-**Status: Fixed**
-
-**Instance sync* method Iterable e2e test**
-
-**a) Problem:**
-
-E2E test for instance methods that are sync* generators.
-
-**Test script:** `example/dart_overview/test/async06_instance_sync_generator.dart`
-
-**c) Resolution Strategy:**
-Same as G-ASYNC-1.
-
----
-
-#### G-ASYNC-7
-
-**Status: Fixed**
-
-**Instance async* method Stream e2e test**
-
-**a) Problem:**
-
-E2E test for instance methods that are async* generators.
-
-**Test script:** `example/dart_overview/test/async07_instance_async_generator.dart`
-
-**c) Resolution Strategy:**
-Same as G-ASYNC-1.
-
----
-
-#### G-ASYNC-8
-
-**Status: Fixed**
-
-**Static sync*/async* method e2e test**
-
-**a) Problem:**
-
-E2E test for static generator methods.
-
-**Test script:** `example/dart_overview/test/async08_static_generators.dart`
-
-**c) Resolution Strategy:**
-Same as G-ASYNC-1.
-
----
-
-#### G-COV-7
-
-**Status: Fixed**
-
-**TOP15: base mixin e2e test**
-
-**a) Problem:**
-
-E2E test for base mixin declarations.
-
-**Test script:** `example/dart_overview/test/top15_base_mixin.dart`
-
-**c) Resolution Strategy:**
-Re-test with latest interpreter.
-
----
-
-#### G-COV-42
-
-**Status: Fixed**
-
-**TOP01: concrete class e2e test**
-
-**a) Problem:**
-
-E2E test for basic concrete class bridging. Note: This test passed when manually run, suggesting the baseline may be outdated.
-
-**Test script:** `example/dart_overview/test/top01_concrete_class.dart`
-
-**c) Resolution Strategy:**
-Re-run test suite to update baseline.
-
----
-
-#### G-TOP-12
-
-**Status: Fixed**
-
-**Enhanced enum with mixin e2e test**
-
-**a) Problem:**
-
-E2E test for enhanced enums that use mixins.
-
-**Test script:** `example/dart_overview/test/top12_enhanced_enum_mixin.dart`
-
-**c) Resolution Strategy:**
-Re-test with latest interpreter.
-
----
-
-#### G-TOP-13
-
-**Status: Fixed**
-
-**Generic enum N/A Dart limitation test**
-
-**a) Problem:**
-
-Test for generic enum handling (Dart doesn't support generic enums, this tests the limitation is handled).
-
-**Test script:** `example/dart_overview/test/top13_generic_enum.dart`
-
-**c) Resolution Strategy:**
-Verify test correctly handles the limitation.
-
----
-
-#### G-TOP-19
-
-**Status: Fixed**
-
-**Typedef function not needed test**
-
-**a) Problem:**
-
-Test verifies function typedefs don't require bridging.
-
-**Test script:** `example/dart_overview/test/top19_typedef_function.dart`
-
-**c) Resolution Strategy:**
-Re-test.
-
----
-
-#### G-TOP-24
-
-**Status: Fixed**
-
-**Top-level async function e2e test**
-
-**a) Problem:**
-
-E2E test for top-level async functions. Related to G-ASYNC-1 interpreter issues.
-
-**Test script:** `example/dart_overview/test/top24_async_function.dart`
-
-**c) Resolution Strategy:**
-Same as G-ASYNC-1.
-
----
-
-#### G-TOP-28
-
-**Status: Fixed**
-
-**Top-level setter e2e test**
-
-**a) Problem:**
-
-E2E test for top-level setter assignment.
-
-**Test script:** `example/dart_overview/test/top28_toplevel_setter.dart`
-
-**c) Resolution Strategy:**
-Re-test — interpreter setter handling may be fixed.
-
----
-
-#### G-CLS-6
-
-**Status: Fixed**
-
-**Late field e2e test**
-
-**a) Problem:**
-
-E2E test for late field initialization.
-
-**Test script:** `example/dart_overview/test/cls06_late_field.dart`
-
-**c) Resolution Strategy:**
-Re-test — late field handling may work now.
-
----
-
-### Previously Known Limitations (Now Fixed)
-
-These issues were originally marked as "Won't Fix" fundamental limitations but have since been resolved through targeted fixes in the bridge generator, barrel exports, and interpreter.
-
----
-
-#### G-PAR-6
-
-**Function-typed parameter**
-
-**a) Problem:**
-
-The interpreter creates list literals as `List<Object?>`. When passed to bridged functions expecting `List<int>`, the `D4.getRequiredArg<List<int>>` method fails with type mismatch:
-
+**Error:**
 ```
-Invalid parameter "numbers": expected List<int>, got List<Object?>
+Error: 'package:dcli_core/src/functions/run.dart': Failed to import 'run.dart': 
+Exception: false_command: No such file or directory
 ```
 
-**b) Location:**
-- Interpreter: `tom_d4rt/lib/src/generator/d4.dart` — `extractBridgedArg<T>` method
-
-**c) Resolution:**
-
-The existing workaround in `extractBridgedArg` (string-based type introspection for primitive collection types) is sufficient for the test case. The test passes with the current `List.cast<int>()` fallback logic. Non-primitive element types remain a known limitation but are not tested.
-
-**Status: Fixed** (workaround sufficient for tested scenarios)
-
-**Related:** Same root cause as the former GEN-057, GEN-061.
-
----
-
-#### G-GNRC-7
-
-**F-bounded polymorphism**
-
-**a) Problem:**
-
-When calling `list.sort()` on a list containing bridged objects, elements are wrapped as `BridgedInstance<Object>`. Dart's `List.sort()` tries to cast them to `Comparable<dynamic>`, which fails:
-
-```
-type 'BridgedInstance<Object>' is not a subtype of type 'Comparable<dynamic>' in type cast
-```
-
-**b) Location:**
-- Interpreter: BridgedInstance unwrapping during native method calls
-
-**c) Resolution:**
-
-The root cause was that `runtimeType` returns a native Dart `Type` object, but type identifiers like `int` resolve to `BridgedClass` instances in the interpreter. Added special handling in `==` and `!=` binary operators in `interpreter_visitor.dart` to compare `Type` objects against `BridgedClass.nativeType`. The `list.sort()` part already worked correctly.
-
-**Status: Fixed** (commit `2b465f7`)
-
-**Related:** Former GEN-062.
-
----
-
-#### G-OP-8
-
-**Operator == equality**
-
-**a) Problem:**
-
-Operator methods on bridged instances may not correctly handle int-to-double promotion or other implicit type conversions that Dart performs automatically.
-
-**b) Location:**
-- Interpreter: Operator resolution and type promotion logic
-
-**c) Resolution:**
-
-The barrel file `dart_overview.dart` was exporting the wrong `Point` class — from `run_constructors.dart` (which had no `operator ==`) instead of from `run_static_object_methods.dart` (which implements `operator ==`, `hashCode`, and `toString`). Fixed by changing the barrel export.
-
-**Status: Fixed** (commit `f1ada31`)
-
-**Related:** Former GEN-058.
-
----
-
-#### G-TYPE-1
-
-**Record parameter type**
-
-**a) Problem:**
-
-Functions that take record types as parameters fail at runtime. Dart records `(int, String)` or `({int x, int y})` are not understood by the bridge system.
-
-**Example:**
+**Test script:** `08_error_handling.dart`
 ```dart
-void processPoint(({int x, int y}) point) {
-  print(point.x + point.y);
+try {
+  run('false_command');
+} on RunException catch (e) {
+  print('Command failed: ${e.message}');
+}
+```
+
+**b) Root Cause:**
+
+The interpreter's exception handling doesn't properly match bridged exception types against `on Type catch` clauses. When the native DCli code throws `RunException`, the interpreter doesn't recognize it should be caught by the `on RunException catch` handler.
+
+**c) Location:**
+- Interpreter: `tom_d4rt/lib/src/interpreter_visitor.dart` — try/catch exception matching
+- Related: Exception type comparison between native and bridged types
+
+**d) Resolution Strategy:**
+1. In catch clause evaluation, compare exception's `runtimeType` against bridged type
+2. Use `BridgedClass.nativeType` for comparison when catch type is a bridged class
+3. Ensure exception is properly wrapped/unwrapped for catch block evaluation
+
+**Related:** G-DCLI-12 (same root cause)
+
+---
+
+#### G-DCLI-11
+
+**find().forEach() fails - wrong function resolved**
+
+**a) Problem:**
+
+Same root cause as G-DCLI-07. Script uses `find()` expecting `FindProgress` return type which supports iteration, but generator bridges `dcli_core.find()` which requires callback.
+
+**Error:**
+```
+Error: find: Missing required named argument (progress)
+```
+
+**Test script:** `11_find_files.dart`
+```dart
+find('*.dart', workingDirectory: testDir).forEach((file) {
+  print('Dart file: $file');
+});
+```
+
+**b) Location:**
+- Same as G-DCLI-07
+
+**c) Resolution Strategy:**
+- Same as G-DCLI-07
+
+---
+
+#### G-DCLI-12
+
+**CopyException not caught in try/catch blocks**
+
+**a) Problem:**
+
+Same root cause as G-DCLI-08. When `copy()` fails with invalid path, DCli throws `CopyException` which isn't caught.
+
+**Error:**
+```
+Error: 'package:dcli/src/functions/copy.dart': Failed to import 'copy.dart': 
+CopyException: The from file /non/existent/file.txt does not exist.
+/non/existent/file.txt -> /tmp/backup.txt
+```
+
+**Test script:** `12_copy_operations.dart`
+```dart
+try {
+  copy('/non/existent/file.txt', '/tmp/backup.txt');
+} on CopyException catch (e) {
+  print('Copy failed: ${e.message}');
 }
 ```
 
 **b) Location:**
-- Generator: Parameter type analysis
-- Interpreter: Record expression handling
+- Same as G-DCLI-08
 
-**c) Resolution:**
-
-Added record type detection and conversion in the bridge generator. For record parameters, the generator now emits inline code to convert `InterpretedRecord` → native Dart record at call sites. New helper methods: `_isRecordType()`, `_parseRecordType()`, `_generateRecordParamExtraction()`, `_generateRecordReturnWrapper()`.
-
-**Status: Fixed** (commit `4a9e014`)
-
-**Related:** Former GEN-060.
+**c) Resolution Strategy:**
+- Same as G-DCLI-08
 
 ---
 
-#### G-TYPE-2
+#### G-DCLI-14
 
-**Record return type**
+**Shell pipe execution with runInShell: true broken**
 
 **a) Problem:**
 
-Functions that return record types fail. The bridge can't properly wrap or unwrap record values.
+Using shell features like pipes (`|`) with `runInShell: true` doesn't execute correctly. The command output doesn't show expected piped results.
 
-**Example:**
+**Test script:** `14_shell_execution.dart`
 ```dart
-(int min, int max) findMinMax(List<int> numbers) {
-  return (numbers.reduce(min), numbers.reduce(max));
-}
+final result = run(
+  'echo "hello world" | tr a-z A-Z',
+  runInShell: true,
+  progress: Progress.capture(),
+);
+print('Result: ${result.lines.join()}');
 ```
 
-**c) Resolution:**
+**b) Root Cause:**
 
-Same fix as G-TYPE-1 — the generator now wraps native record return values into `InterpretedRecord` using `_generateRecordReturnWrapper()`.
+The `runInShell: true` parameter may not be properly passed through the bridge, or the shell invocation doesn't correctly process the piped command string.
 
-**Status: Fixed** (commit `4a9e014`)
+**c) Location:**
+- Bridge: `dcli_bridges.b.dart` — `run()` function bridge
+- Interpreter: Process execution handling
 
----
-
-#### G-TE-1
-
-**Bounded type param erasure**
-
-**a) Problem:**
-
-Generic methods with bounded type parameters lose type information due to type erasure at runtime. The interpreter cannot determine the actual type parameter value.
-
-**Example:**
-```dart
-T clamp<T extends Comparable<T>>(T value, T min, T max) {
-  if (value.compareTo(min) < 0) return min;
-  if (value.compareTo(max) > 0) return max;
-  return value;
-}
-```
-
-**c) Resolution:**
-
-Two fixes: (1) Test expectation corrected — generator correctly uses `D4.coerceList<T>` for List-typed params, not `D4.getRequiredArg<List<T>>`. (2) Added `sourceFilePath: func.sourceFile` to `_getTypeArgument` call for global function params so type resolution finds types via source imports.
-
-**Status: Fixed** (commit `f1ada31`)
-
-**Related:** Former GEN-001.
-
----
-
-#### G-TE-2
-
-**Static castFrom type erasure**
-
-**a) Problem:**
-
-Static methods with constrained type parameters (like `List.castFrom<S, T>`) lose type information.
-
-**c) Resolution:**
-
-Test expectation corrected — the import prefix for test fixture types differs from the standard `$pkg` prefix. Same root fix as G-TE-1.
-
-**Status: Fixed** (commit `f1ada31`)
+**d) Resolution Strategy:**
+1. Verify `runInShell` parameter is correctly extracted and passed to native `run()`
+2. Check if shell invocation wraps command correctly for the target platform
+3. Test native DCli `run()` directly to confirm expected behavior
 
 ---
 
 ## Summary
 
-**Total issues:** 44
+**Total open issues:** 6
 
-| Status | Count | Description |
-|--------|-------|-------------|
-| Fixed | 21 | Code generation pattern tests |
-| Fixed | 16 | E2E coverage tests (resolved with tom_d4rt interpreter fixes) |
-| Fixed | 7 | Previously known limitations (resolved with targeted fixes) |
+| Component | Count | Issues |
+|-----------|-------|--------|
+| Interpreter | 4 | G-DCLI-05, G-DCLI-08, G-DCLI-12, G-DCLI-14 |
+| Generator | 2 | G-DCLI-07, G-DCLI-11 |
 
-**Current status (2026-02-13):**
-- All 44 issues have been resolved
-- tom_d4rt_generator: 431 passed, 0 failed
-- tom_d4rt: 1673 passed, 2 failed (pre-existing Won't Fix record limitations)
+**Issue Categories:**
 
----
+| Category | Issues | Description |
+|----------|--------|-------------|
+| Type hierarchy | G-DCLI-05 | Interpreter doesn't find parent class bridge for internal subclasses |
+| Function resolution | G-DCLI-07, G-DCLI-11 | Generator picks wrong function when multiple packages export same name |
+| Exception handling | G-DCLI-08, G-DCLI-12 | Interpreter doesn't match bridged exception types in catch clauses |
+| Shell execution | G-DCLI-14 | Shell pipe processing with runInShell parameter |
 
-## Prompt
-
-This document was generated by the request:
-
-> Please compare the test result of tom_d4rt and tom_d4rt_generator and determine which issues (failing tests that should succeed) should be fixable based on the current status of tom_d4rt. We fixed pretty much all issues in tom_d4rt earlier today. Create a fresh issues.md document for this result, with the format as the current one, but with the new test id as issue id and only with the failed test.
+**Current test status (2026-02-13):**
+- DCli scripting guide tests: 7 passed, 6 failed
+- Overall tom_d4rt_generator tests: 438 passed, 6 failed

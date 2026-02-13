@@ -1,12 +1,16 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 8 files
-// Generated: 2026-02-13T14:13:03.246562
+// Sources: 9 files
+// Generated: 2026-02-13T14:17:06.280555
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
+import 'dart:async';
+import 'dart:io';
 
+import 'package:tom_d4rt/src/introspection.dart' as ext_tom_d4rt_introspection;
+import 'package:tom_d4rt/src/d4rt_base.dart' as ext_tom_d4rt_d4rt_base;
 import 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart' as $pkg;
 
 /// Bridge class for cli_api module.
@@ -69,6 +73,14 @@ class CliApiBridge {
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
+      BridgedEnumDefinition<$pkg.SymbolKind>(
+        name: 'SymbolKind',
+        values: $pkg.SymbolKind.values,
+      ),
+      BridgedEnumDefinition<$pkg.MultilineMode>(
+        name: 'MultilineMode',
+        values: $pkg.MultilineMode.values,
+      ),
     ];
   }
 
@@ -78,6 +90,8 @@ class CliApiBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
     return {
+      'SymbolKind': 'package:tom_d4rt_dcli/src/api/cli_result_types.dart',
+      'MultilineMode': 'package:tom_d4rt_dcli/src/api/execution_context.dart',
     };
   }
 
@@ -104,21 +118,174 @@ class CliApiBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // Register bridged enums with source URIs for deduplication
+    final enums = bridgedEnums();
+    final enumSources = enumSourceUris();
+    for (final enumDef in enums) {
+      interpreter.registerBridgedEnum(enumDef, importPath, sourceUri: enumSources[enumDef.name]);
+    }
+
+    // Register global variables
+    registerGlobalVariables(interpreter, importPath);
+
+    // Register global functions with source URIs for deduplication
+    final funcs = globalFunctions();
+    final funcSources = globalFunctionSourceUris();
+    final funcSigs = globalFunctionSignatures();
+    for (final entry in funcs.entries) {
+      interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
+    }
+  }
+
+  /// Registers all global variables with the interpreter.
+  ///
+  /// [importPath] is the package import path for library-scoped registration.
+  /// Collects all registration errors and throws a single exception
+  /// with all error details if any registrations fail.
+  static void registerGlobalVariables(D4rt interpreter, String importPath) {
+    final errors = <String>[];
+
+    try {
+      interpreter.registerGlobalVariable('cliLibrary', $pkg.cliLibrary, importPath, sourceUri: 'package:tom_d4rt_dcli/src/api/cli_bridge.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "cliLibrary": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('cliGlobalHolder', $pkg.cliGlobalHolder, importPath, sourceUri: 'package:tom_d4rt_dcli/src/api/cli_bridge.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "cliGlobalHolder": $e');
+    }
+    interpreter.registerGlobalGetter('verificationFailures', () => $pkg.verificationFailures, importPath, sourceUri: 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart');
+
+    if (errors.isNotEmpty) {
+      throw StateError('Bridge registration errors (cli_api):\n${errors.join("\n")}');
+    }
   }
 
   /// Returns a map of global function names to their native implementations.
   static Map<String, NativeFunctionImpl> globalFunctions() {
-    return {};
+    return {
+      'registerCliBridge': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'registerCliBridge');
+        final d4rt = D4.getRequiredArg<ext_tom_d4rt_d4rt_base.D4rt>(positional, 0, 'd4rt', 'registerCliBridge');
+        return $pkg.registerCliBridge(d4rt);
+      },
+      'registerCliShortcuts': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'registerCliShortcuts');
+        final d4rt = D4.getRequiredArg<ext_tom_d4rt_d4rt_base.D4rt>(positional, 0, 'd4rt', 'registerCliShortcuts');
+        return $pkg.registerCliShortcuts(d4rt);
+      },
+      'clearVerificationFailures': (visitor, positional, named, typeArgs) {
+        return $pkg.clearVerificationFailures();
+      },
+      'verify': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'verify');
+        final condition = D4.getRequiredArg<bool>(positional, 0, 'condition', 'verify');
+        final errorMessage = D4.getRequiredArg<String>(positional, 1, 'errorMessage', 'verify');
+        return $pkg.verify(condition, errorMessage);
+      },
+      'verifyEquals': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'verifyEquals');
+        final actual = D4.getRequiredArg<Object?>(positional, 0, 'actual', 'verifyEquals');
+        final expected = D4.getRequiredArg<Object?>(positional, 1, 'expected', 'verifyEquals');
+        final message = positional.length > 2 ? positional[2] as String? : null;
+        return $pkg.verifyEquals(actual, expected, message);
+      },
+      'verifyNotNull': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'verifyNotNull');
+        final value = D4.getRequiredArg<Object?>(positional, 0, 'value', 'verifyNotNull');
+        final message = positional.length > 1 ? positional[1] as String? : null;
+        return $pkg.verifyNotNull(value, message);
+      },
+      'verifyNull': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'verifyNull');
+        final value = D4.getRequiredArg<Object?>(positional, 0, 'value', 'verifyNull');
+        final message = positional.length > 1 ? positional[1] as String? : null;
+        return $pkg.verifyNull(value, message);
+      },
+      'verifyContains': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'verifyContains');
+        final actual = D4.getRequiredArg<String>(positional, 0, 'actual', 'verifyContains');
+        final substring = D4.getRequiredArg<String>(positional, 1, 'substring', 'verifyContains');
+        final message = positional.length > 2 ? positional[2] as String? : null;
+        return $pkg.verifyContains(actual, substring, message);
+      },
+      'verifyMatches': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'verifyMatches');
+        final actual = D4.getRequiredArg<String>(positional, 0, 'actual', 'verifyMatches');
+        final pattern = D4.getRequiredArg<String>(positional, 1, 'pattern', 'verifyMatches');
+        final message = positional.length > 2 ? positional[2] as String? : null;
+        return $pkg.verifyMatches(actual, pattern, message);
+      },
+      'verifyNotEmpty': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'verifyNotEmpty');
+        final list = D4.getRequiredArg<List>(positional, 0, 'list', 'verifyNotEmpty');
+        final message = positional.length > 1 ? positional[1] as String? : null;
+        return $pkg.verifyNotEmpty(list, message);
+      },
+      'verifyLength': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'verifyLength');
+        final list = D4.getRequiredArg<List>(positional, 0, 'list', 'verifyLength');
+        final length = D4.getRequiredArg<int>(positional, 1, 'length', 'verifyLength');
+        final message = positional.length > 2 ? positional[2] as String? : null;
+        return $pkg.verifyLength(list, length, message);
+      },
+      'verifyThrows': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'verifyThrows');
+        if (positional.isEmpty) {
+          throw ArgumentError('verifyThrows: Missing required argument "fn" at position 0');
+        }
+        final fnRaw = positional[0];
+        final fn = () { (fnRaw as InterpretedFunction).call(visitor, []); };
+        final message = positional.length > 1 ? positional[1] as String? : null;
+        return $pkg.verifyThrows(fn, message);
+      },
+      'testSummary': (visitor, positional, named, typeArgs) {
+        return $pkg.testSummary();
+      },
+    };
   }
 
   /// Returns a map of global function names to their canonical source URIs.
+  ///
+  /// Used for deduplication when the same function is exported through
+  /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> globalFunctionSourceUris() {
-    return {};
+    return {
+      'registerCliBridge': 'package:tom_d4rt_dcli/src/api/cli_bridge.dart',
+      'registerCliShortcuts': 'package:tom_d4rt_dcli/src/api/cli_bridge.dart',
+      'clearVerificationFailures': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verify': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verifyEquals': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verifyNotNull': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verifyNull': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verifyContains': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verifyMatches': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verifyNotEmpty': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verifyLength': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'verifyThrows': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'testSummary': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+    };
   }
 
   /// Returns a map of global function names to their display signatures.
   static Map<String, String> globalFunctionSignatures() {
-    return {};
+    return {
+      'registerCliBridge': 'void registerCliBridge(D4rt d4rt)',
+      'registerCliShortcuts': 'void registerCliShortcuts(D4rt d4rt)',
+      'clearVerificationFailures': 'void clearVerificationFailures()',
+      'verify': 'bool verify(bool condition, String errorMessage)',
+      'verifyEquals': 'bool verifyEquals(Object? actual, Object? expected, [String? message])',
+      'verifyNotNull': 'bool verifyNotNull(Object? value, [String? message])',
+      'verifyNull': 'bool verifyNull(Object? value, [String? message])',
+      'verifyContains': 'bool verifyContains(String actual, String substring, [String? message])',
+      'verifyMatches': 'bool verifyMatches(String actual, String pattern, [String? message])',
+      'verifyNotEmpty': 'bool verifyNotEmpty(List list, [String? message])',
+      'verifyLength': 'bool verifyLength(List list, int length, [String? message])',
+      'verifyThrows': 'bool verifyThrows(void Function() fn, [String? message])',
+      'testSummary': 'bool testSummary()',
+    };
   }
 
   /// Returns the list of canonical source library URIs.
@@ -129,6 +296,7 @@ class CliApiBridge {
   static List<String> sourceLibraries() {
     return [
       'package:tom_d4rt_dcli/src/api/cli_api.dart',
+      'package:tom_d4rt_dcli/src/api/cli_bridge.dart',
       'package:tom_d4rt_dcli/src/api/cli_controller.dart',
       'package:tom_d4rt_dcli/src/api/cli_exceptions.dart',
       'package:tom_d4rt_dcli/src/api/cli_result_types.dart',
@@ -146,6 +314,12 @@ class CliApiBridge {
   static String getImportBlock() {
     return "import 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart';";
   }
+
+  /// Returns a list of bridged enum names.
+  static List<String> get enumNames => [
+    'SymbolKind',
+    'MultilineMode',
+  ];
 
 }
 
@@ -516,7 +690,7 @@ BridgedClass _createD4rtCliControllerBridge() {
     name: 'D4rtCliController',
     constructors: {
       '': (visitor, positional, named) {
-        final d4rt = D4.getRequiredNamedArg<dynamic>(named, 'd4rt', 'D4rtCliController');
+        final d4rt = D4.getRequiredNamedArg<ext_tom_d4rt_d4rt_base.D4rt>(named, 'd4rt', 'D4rtCliController');
         final state = D4.getRequiredNamedArg<$pkg.CliState>(named, 'state', 'D4rtCliController');
         final toolName = D4.getRequiredNamedArg<String>(named, 'toolName', 'D4rtCliController');
         final runtime = D4.getOptionalNamedArg<$pkg.CliRuntime?>(named, 'runtime');
@@ -929,9 +1103,9 @@ BridgedClass _createCliExceptionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CliException');
-        final message = D4.getRequiredArg<dynamic>(positional, 0, 'message', 'CliException');
-        final command = D4.getOptionalNamedArg<dynamic>(named, 'command');
-        final stackTrace = D4.getOptionalNamedArg<dynamic>(named, 'stackTrace');
+        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'CliException');
+        final command = D4.getOptionalNamedArg<String?>(named, 'command');
+        final stackTrace = D4.getOptionalNamedArg<StackTrace?>(named, 'stackTrace');
         return $pkg.CliException(message, command: command, stackTrace: stackTrace);
       },
     },
@@ -945,12 +1119,17 @@ BridgedClass _createCliExceptionBridge() {
         final t = D4.validateTarget<$pkg.CliException>(target, 'CliException');
         return t.toString();
       },
+      'revoke': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.CliException>(target, 'CliException');
+        return t.revoke();
+      },
     },
     constructorSignatures: {
-      '': 'CliException(dynamic message, {dynamic command, dynamic stackTrace})',
+      '': 'CliException(String message, {String? command, StackTrace? stackTrace})',
     },
     methodSignatures: {
       'toString': 'String toString()',
+      'revoke': 'bool revoke()',
     },
     getterSignatures: {
       'command': 'String? get command',
@@ -971,7 +1150,7 @@ BridgedClass _createCliFileNotFoundExceptionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CliFileNotFoundException');
-        final path = D4.getRequiredArg<dynamic>(positional, 0, 'path', 'CliFileNotFoundException');
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'CliFileNotFoundException');
         return $pkg.CliFileNotFoundException(path);
       },
     },
@@ -986,12 +1165,17 @@ BridgedClass _createCliFileNotFoundExceptionBridge() {
         final t = D4.validateTarget<$pkg.CliFileNotFoundException>(target, 'CliFileNotFoundException');
         return t.toString();
       },
+      'revoke': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.CliFileNotFoundException>(target, 'CliFileNotFoundException');
+        return t.revoke();
+      },
     },
     constructorSignatures: {
-      '': 'CliFileNotFoundException(dynamic path)',
+      '': 'CliFileNotFoundException(String path)',
     },
     methodSignatures: {
       'toString': 'String toString()',
+      'revoke': 'bool revoke()',
     },
     getterSignatures: {
       'command': 'String? get command',
@@ -1013,7 +1197,7 @@ BridgedClass _createDirectoryNotFoundExceptionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DirectoryNotFoundException');
-        final path = D4.getRequiredArg<dynamic>(positional, 0, 'path', 'DirectoryNotFoundException');
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'DirectoryNotFoundException');
         return $pkg.DirectoryNotFoundException(path);
       },
     },
@@ -1028,12 +1212,17 @@ BridgedClass _createDirectoryNotFoundExceptionBridge() {
         final t = D4.validateTarget<$pkg.DirectoryNotFoundException>(target, 'DirectoryNotFoundException');
         return t.toString();
       },
+      'revoke': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.DirectoryNotFoundException>(target, 'DirectoryNotFoundException');
+        return t.revoke();
+      },
     },
     constructorSignatures: {
-      '': 'DirectoryNotFoundException(dynamic path)',
+      '': 'DirectoryNotFoundException(String path)',
     },
     methodSignatures: {
       'toString': 'String toString()',
+      'revoke': 'bool revoke()',
     },
     getterSignatures: {
       'command': 'String? get command',
@@ -1055,9 +1244,9 @@ BridgedClass _createExecutionExceptionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ExecutionException');
-        final message = D4.getRequiredArg<dynamic>(positional, 0, 'message', 'ExecutionException');
-        final command = D4.getOptionalNamedArg<dynamic>(named, 'command');
-        final stackTrace = D4.getOptionalNamedArg<dynamic>(named, 'stackTrace');
+        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'ExecutionException');
+        final command = D4.getOptionalNamedArg<String?>(named, 'command');
+        final stackTrace = D4.getOptionalNamedArg<StackTrace?>(named, 'stackTrace');
         return $pkg.ExecutionException(message, command: command, stackTrace: stackTrace);
       },
     },
@@ -1071,12 +1260,17 @@ BridgedClass _createExecutionExceptionBridge() {
         final t = D4.validateTarget<$pkg.ExecutionException>(target, 'ExecutionException');
         return t.toString();
       },
+      'revoke': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ExecutionException>(target, 'ExecutionException');
+        return t.revoke();
+      },
     },
     constructorSignatures: {
-      '': 'ExecutionException(dynamic message, {dynamic command, dynamic stackTrace})',
+      '': 'ExecutionException(String message, {String? command, StackTrace? stackTrace})',
     },
     methodSignatures: {
       'toString': 'String toString()',
+      'revoke': 'bool revoke()',
     },
     getterSignatures: {
       'command': 'String? get command',
@@ -1097,9 +1291,9 @@ BridgedClass _createReplayExceptionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'ReplayException');
-        final file = D4.getRequiredArg<dynamic>(positional, 0, 'file', 'ReplayException');
-        final line = D4.getRequiredArg<dynamic>(positional, 1, 'line', 'ReplayException');
-        final cause = D4.getRequiredArg<dynamic>(positional, 2, 'cause', 'ReplayException');
+        final file = D4.getRequiredArg<String>(positional, 0, 'file', 'ReplayException');
+        final line = D4.getRequiredArg<int>(positional, 1, 'line', 'ReplayException');
+        final cause = D4.getRequiredArg<$pkg.CliException>(positional, 2, 'cause', 'ReplayException');
         return $pkg.ReplayException(file, line, cause);
       },
     },
@@ -1116,12 +1310,17 @@ BridgedClass _createReplayExceptionBridge() {
         final t = D4.validateTarget<$pkg.ReplayException>(target, 'ReplayException');
         return t.toString();
       },
+      'revoke': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.ReplayException>(target, 'ReplayException');
+        return t.revoke();
+      },
     },
     constructorSignatures: {
-      '': 'ReplayException(dynamic file, dynamic line, dynamic cause)',
+      '': 'ReplayException(String file, int line, CliException cause)',
     },
     methodSignatures: {
       'toString': 'String toString()',
+      'revoke': 'bool revoke()',
     },
     getterSignatures: {
       'command': 'String? get command',
@@ -1144,8 +1343,8 @@ BridgedClass _createInvalidMultilineModeExceptionBridge() {
     name: 'InvalidMultilineModeException',
     constructors: {
       '': (visitor, positional, named) {
-        final currentMode = D4.getRequiredNamedArg<dynamic>(named, 'currentMode', 'InvalidMultilineModeException');
-        final attemptedMethod = D4.getRequiredNamedArg<dynamic>(named, 'attemptedMethod', 'InvalidMultilineModeException');
+        final currentMode = D4.getRequiredNamedArg<String>(named, 'currentMode', 'InvalidMultilineModeException');
+        final attemptedMethod = D4.getRequiredNamedArg<String>(named, 'attemptedMethod', 'InvalidMultilineModeException');
         return $pkg.InvalidMultilineModeException(currentMode: currentMode, attemptedMethod: attemptedMethod);
       },
     },
@@ -1161,12 +1360,17 @@ BridgedClass _createInvalidMultilineModeExceptionBridge() {
         final t = D4.validateTarget<$pkg.InvalidMultilineModeException>(target, 'InvalidMultilineModeException');
         return t.toString();
       },
+      'revoke': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.InvalidMultilineModeException>(target, 'InvalidMultilineModeException');
+        return t.revoke();
+      },
     },
     constructorSignatures: {
-      '': 'InvalidMultilineModeException({required dynamic currentMode, required dynamic attemptedMethod})',
+      '': 'InvalidMultilineModeException({required String currentMode, required String attemptedMethod})',
     },
     methodSignatures: {
       'toString': 'String toString()',
+      'revoke': 'bool revoke()',
     },
     getterSignatures: {
       'command': 'String? get command',
@@ -1189,7 +1393,7 @@ BridgedClass _createMaxNestingDepthExceptionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MaxNestingDepthException');
-        final maxDepth = D4.getRequiredArg<dynamic>(positional, 0, 'maxDepth', 'MaxNestingDepthException');
+        final maxDepth = D4.getRequiredArg<int>(positional, 0, 'maxDepth', 'MaxNestingDepthException');
         return $pkg.MaxNestingDepthException(maxDepth);
       },
     },
@@ -1204,12 +1408,17 @@ BridgedClass _createMaxNestingDepthExceptionBridge() {
         final t = D4.validateTarget<$pkg.MaxNestingDepthException>(target, 'MaxNestingDepthException');
         return t.toString();
       },
+      'revoke': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.MaxNestingDepthException>(target, 'MaxNestingDepthException');
+        return t.revoke();
+      },
     },
     constructorSignatures: {
-      '': 'MaxNestingDepthException(dynamic maxDepth)',
+      '': 'MaxNestingDepthException(int maxDepth)',
     },
     methodSignatures: {
       'toString': 'String toString()',
+      'revoke': 'bool revoke()',
     },
     getterSignatures: {
       'command': 'String? get command',
@@ -1243,12 +1452,17 @@ BridgedClass _createCliNotInitializedExceptionBridge() {
         final t = D4.validateTarget<$pkg.CliNotInitializedException>(target, 'CliNotInitializedException');
         return t.toString();
       },
+      'revoke': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pkg.CliNotInitializedException>(target, 'CliNotInitializedException');
+        return t.revoke();
+      },
     },
     constructorSignatures: {
       '': 'CliNotInitializedException()',
     },
     methodSignatures: {
       'toString': 'String toString()',
+      'revoke': 'bool revoke()',
     },
     getterSignatures: {
       'command': 'String? get command',
@@ -1268,11 +1482,11 @@ BridgedClass _createExecuteResultBridge() {
     name: 'ExecuteResult',
     constructors: {
       '': (visitor, positional, named) {
-        final success = D4.getRequiredNamedArg<dynamic>(named, 'success', 'ExecuteResult');
+        final success = D4.getRequiredNamedArg<bool>(named, 'success', 'ExecuteResult');
         final result = D4.getOptionalNamedArg<dynamic>(named, 'result');
-        final error = D4.getOptionalNamedArg<dynamic>(named, 'error');
-        final stackTrace = D4.getOptionalNamedArg<dynamic>(named, 'stackTrace');
-        final sourcesLoaded = D4.getNamedArgWithDefault<dynamic>(named, 'sourcesLoaded', 1);
+        final error = D4.getOptionalNamedArg<String?>(named, 'error');
+        final stackTrace = D4.getOptionalNamedArg<StackTrace?>(named, 'stackTrace');
+        final sourcesLoaded = D4.getNamedArgWithDefault<int>(named, 'sourcesLoaded', 1);
         return $pkg.ExecuteResult(success: success, result: result, error: error, stackTrace: stackTrace, sourcesLoaded: sourcesLoaded);
       },
       'success': (visitor, positional, named) {
@@ -1282,8 +1496,8 @@ BridgedClass _createExecuteResultBridge() {
       },
       'failure': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ExecuteResult');
-        final error = D4.getRequiredArg<dynamic>(positional, 0, 'error', 'ExecuteResult');
-        final stackTrace = D4.getOptionalNamedArg<dynamic>(named, 'stackTrace');
+        final error = D4.getRequiredArg<String?>(positional, 0, 'error', 'ExecuteResult');
+        final stackTrace = D4.getOptionalNamedArg<StackTrace?>(named, 'stackTrace');
         return $pkg.ExecuteResult.failure(error, stackTrace: stackTrace);
       },
     },
@@ -1295,9 +1509,9 @@ BridgedClass _createExecuteResultBridge() {
       'sourcesLoaded': (visitor, target) => D4.validateTarget<$pkg.ExecuteResult>(target, 'ExecuteResult').sourcesLoaded,
     },
     constructorSignatures: {
-      '': 'const ExecuteResult({required dynamic success, dynamic result, dynamic error, dynamic stackTrace, dynamic sourcesLoaded = 1})',
+      '': 'const ExecuteResult({required bool success, dynamic result, String? error, StackTrace? stackTrace, int sourcesLoaded = 1})',
       'success': 'const ExecuteResult.success(dynamic result)',
-      'failure': 'ExecuteResult.failure(dynamic error, {dynamic stackTrace})',
+      'failure': 'ExecuteResult.failure(String? error, {StackTrace? stackTrace})',
     },
     getterSignatures: {
       'success': 'bool get success',
@@ -1319,11 +1533,19 @@ BridgedClass _createImportInfoBridge() {
     name: 'ImportInfo',
     constructors: {
       '': (visitor, positional, named) {
-        final path = D4.getRequiredNamedArg<dynamic>(named, 'path', 'ImportInfo');
-        final classes = D4.getNamedArgWithDefault<dynamic>(named, 'classes', const []);
-        final enums = D4.getNamedArgWithDefault<dynamic>(named, 'enums', const []);
-        final functions = D4.getNamedArgWithDefault<dynamic>(named, 'functions', const []);
-        final variables = D4.getNamedArgWithDefault<dynamic>(named, 'variables', const []);
+        final path = D4.getRequiredNamedArg<String>(named, 'path', 'ImportInfo');
+        final classes = named.containsKey('classes') && named['classes'] != null
+            ? D4.coerceList<String>(named['classes'], 'classes')
+            : const <String>[];
+        final enums = named.containsKey('enums') && named['enums'] != null
+            ? D4.coerceList<String>(named['enums'], 'enums')
+            : const <String>[];
+        final functions = named.containsKey('functions') && named['functions'] != null
+            ? D4.coerceList<String>(named['functions'], 'functions')
+            : const <String>[];
+        final variables = named.containsKey('variables') && named['variables'] != null
+            ? D4.coerceList<String>(named['variables'], 'variables')
+            : const <String>[];
         return $pkg.ImportInfo(path: path, classes: classes, enums: enums, functions: functions, variables: variables);
       },
     },
@@ -1341,7 +1563,7 @@ BridgedClass _createImportInfoBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const ImportInfo({required dynamic path, dynamic classes = const [], dynamic enums = const [], dynamic functions = const [], dynamic variables = const []})',
+      '': 'const ImportInfo({required String path, List<String> classes = const [], List<String> enums = const [], List<String> functions = const [], List<String> variables = const []})',
     },
     methodSignatures: {
       'toString': 'String toString()',
@@ -1366,10 +1588,12 @@ BridgedClass _createSymbolInfoBridge() {
     name: 'SymbolInfo',
     constructors: {
       '': (visitor, positional, named) {
-        final name = D4.getRequiredNamedArg<dynamic>(named, 'name', 'SymbolInfo');
-        final kind = D4.getRequiredNamedArg<dynamic>(named, 'kind', 'SymbolInfo');
-        final documentation = D4.getOptionalNamedArg<dynamic>(named, 'documentation');
-        final details = D4.getNamedArgWithDefault<dynamic>(named, 'details', const {});
+        final name = D4.getRequiredNamedArg<String>(named, 'name', 'SymbolInfo');
+        final kind = D4.getRequiredNamedArg<$pkg.SymbolKind>(named, 'kind', 'SymbolInfo');
+        final documentation = D4.getOptionalNamedArg<String?>(named, 'documentation');
+        final details = named.containsKey('details') && named['details'] != null
+            ? D4.coerceMap<String, dynamic>(named['details'], 'details')
+            : const <String, dynamic>{};
         return $pkg.SymbolInfo(name: name, kind: kind, documentation: documentation, details: details);
       },
     },
@@ -1386,7 +1610,7 @@ BridgedClass _createSymbolInfoBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const SymbolInfo({required dynamic name, required dynamic kind, dynamic documentation, dynamic details = const {}})',
+      '': 'const SymbolInfo({required String name, required SymbolKind kind, String? documentation, Map<String, dynamic> details = const {}})',
     },
     methodSignatures: {
       'toString': 'String toString()',
@@ -1540,7 +1764,7 @@ BridgedClass _createCliStateBridge() {
     name: 'CliState',
     constructors: {
       '': (visitor, positional, named) {
-        final dataDirectory = D4.getRequiredNamedArg<dynamic>(named, 'dataDirectory', 'CliState');
+        final dataDirectory = D4.getRequiredNamedArg<String>(named, 'dataDirectory', 'CliState');
         final initialDirectory = D4.getOptionalNamedArg<String?>(named, 'initialDirectory');
         return $pkg.CliState(dataDirectory: dataDirectory, initialDirectory: initialDirectory);
       },
@@ -1646,7 +1870,7 @@ BridgedClass _createCliStateBridge() {
       },
     },
     constructorSignatures: {
-      '': 'CliState({required dynamic dataDirectory, String? initialDirectory})',
+      '': 'CliState({required String dataDirectory, String? initialDirectory})',
     },
     methodSignatures: {
       'cd': 'String cd(String path)',
@@ -1694,7 +1918,7 @@ BridgedClass _createVerificationFailureBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VerificationFailure');
-        final message = D4.getRequiredArg<dynamic>(positional, 0, 'message', 'VerificationFailure');
+        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'VerificationFailure');
         return $pkg.VerificationFailure(message);
       },
     },
@@ -1708,7 +1932,7 @@ BridgedClass _createVerificationFailureBridge() {
       },
     },
     constructorSignatures: {
-      '': 'VerificationFailure(dynamic message)',
+      '': 'VerificationFailure(String message)',
     },
     methodSignatures: {
       'toString': 'String toString()',
@@ -1729,11 +1953,11 @@ BridgedClass _createExecutionContextBridge() {
     name: 'ExecutionContext',
     constructors: {
       '': (visitor, positional, named) {
-        final workingDirectory = D4.getRequiredNamedArg<dynamic>(named, 'workingDirectory', 'ExecutionContext');
-        final sourceFile = D4.getOptionalNamedArg<dynamic>(named, 'sourceFile');
-        final recordToSession = D4.getNamedArgWithDefault<dynamic>(named, 'recordToSession', true);
-        final silent = D4.getNamedArgWithDefault<dynamic>(named, 'silent', false);
-        final parent = D4.getOptionalNamedArg<dynamic>(named, 'parent');
+        final workingDirectory = D4.getRequiredNamedArg<String>(named, 'workingDirectory', 'ExecutionContext');
+        final sourceFile = D4.getOptionalNamedArg<String?>(named, 'sourceFile');
+        final recordToSession = D4.getNamedArgWithDefault<bool>(named, 'recordToSession', true);
+        final silent = D4.getNamedArgWithDefault<bool>(named, 'silent', false);
+        final parent = D4.getOptionalNamedArg<$pkg.ExecutionContext?>(named, 'parent');
         return $pkg.ExecutionContext(workingDirectory: workingDirectory, sourceFile: sourceFile, recordToSession: recordToSession, silent: silent, parent: parent);
       },
     },
@@ -1751,7 +1975,7 @@ BridgedClass _createExecutionContextBridge() {
     },
     setters: {
       'multilineMode': (visitor, target, value) => 
-        D4.validateTarget<$pkg.ExecutionContext>(target, 'ExecutionContext').multilineMode = value as dynamic,
+        D4.validateTarget<$pkg.ExecutionContext>(target, 'ExecutionContext').multilineMode = value as $pkg.MultilineMode,
     },
     methods: {
       'clearMultilineBuffer': (visitor, target, positional, named, typeArgs) {
@@ -1762,7 +1986,7 @@ BridgedClass _createExecutionContextBridge() {
       'startMultilineMode': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.ExecutionContext>(target, 'ExecutionContext');
         D4.requireMinArgs(positional, 1, 'startMultilineMode');
-        final mode = D4.getRequiredArg<dynamic>(positional, 0, 'mode', 'startMultilineMode');
+        final mode = D4.getRequiredArg<$pkg.MultilineMode>(positional, 0, 'mode', 'startMultilineMode');
         t.startMultilineMode(mode);
         return null;
       },
@@ -1783,7 +2007,7 @@ BridgedClass _createExecutionContextBridge() {
       },
     },
     constructorSignatures: {
-      '': 'ExecutionContext({required dynamic workingDirectory, dynamic sourceFile, dynamic recordToSession = true, dynamic silent = false, dynamic parent})',
+      '': 'ExecutionContext({required String workingDirectory, String? sourceFile, bool recordToSession = true, bool silent = false, ExecutionContext? parent})',
     },
     methodSignatures: {
       'clearMultilineBuffer': 'void clearMultilineBuffer()',
