@@ -1215,6 +1215,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           return result;
         }
 
+        // Special handling for Type vs BridgedClass comparison
+        // (e.g., value.runtimeType == int)
+        if (left is Type && right is BridgedClass) {
+          return left == right.nativeType;
+        }
+        if (left is BridgedClass && right is Type) {
+          return left.nativeType == right;
+        }
+
         return left == right;
       case '!=':
         // Special handling for BridgedEnumValue comparison
@@ -1235,6 +1244,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               ? rightOperandValue.nativeValue
               : rightOperandValue;
           return leftNative != rightNative;
+        }
+
+        // Special handling for Type vs BridgedClass comparison
+        // (e.g., value.runtimeType != int)
+        if (left is Type && right is BridgedClass) {
+          return left != right.nativeType;
+        }
+        if (left is BridgedClass && right is Type) {
+          return left.nativeType != right;
         }
 
         return left != right;
