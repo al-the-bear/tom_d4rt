@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 6 files
-// Generated: 2026-02-14T07:12:14.216590
+// Generated: 2026-02-14T08:38:26.989365
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -9,11 +9,11 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 
 import 'package:path/path.dart' as $path_1;
 import 'package:path/src/context.dart' as $path_2;
-import 'package:path/src/path_exception.dart' as $path_3;
-import 'package:path/src/path_map.dart' as $path_4;
-import 'package:path/src/path_set.dart' as $path_5;
-import 'package:path/src/style.dart' as $path_6;
-import 'package:path/src/internal_style.dart' as $aux_path;
+import 'package:path/src/internal_style.dart' as $path_3;
+import 'package:path/src/path_exception.dart' as $path_4;
+import 'package:path/src/path_map.dart' as $path_5;
+import 'package:path/src/path_set.dart' as $path_6;
+import 'package:path/src/style.dart' as $path_7;
 
 /// Bridge class for path module.
 class PathBridge {
@@ -382,7 +382,7 @@ BridgedClass _createContextBridge() {
     name: 'Context',
     constructors: {
       '': (visitor, positional, named) {
-        final style = D4.getOptionalNamedArg<$path_6.Style?>(named, 'style');
+        final style = D4.getOptionalNamedArg<$path_7.Style?>(named, 'style');
         final current = D4.getOptionalNamedArg<String?>(named, 'current');
         return $path_2.Context(style: style, current: current);
       },
@@ -608,25 +608,25 @@ BridgedClass _createContextBridge() {
 
 BridgedClass _createPathExceptionBridge() {
   return BridgedClass(
-    nativeType: $path_3.PathException,
+    nativeType: $path_4.PathException,
     name: 'PathException',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'PathException');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'PathException');
-        return $path_3.PathException(message);
+        return $path_4.PathException(message);
       },
     },
     getters: {
-      'message': (visitor, target) => D4.validateTarget<$path_3.PathException>(target, 'PathException').message,
+      'message': (visitor, target) => D4.validateTarget<$path_4.PathException>(target, 'PathException').message,
     },
     setters: {
       'message': (visitor, target, value) => 
-        D4.validateTarget<$path_3.PathException>(target, 'PathException').message = value as String,
+        D4.validateTarget<$path_4.PathException>(target, 'PathException').message = value as String,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_3.PathException>(target, 'PathException');
+        final t = D4.validateTarget<$path_4.PathException>(target, 'PathException');
         return t.toString();
       },
     },
@@ -651,12 +651,12 @@ BridgedClass _createPathExceptionBridge() {
 
 BridgedClass _createPathMapBridge() {
   return BridgedClass(
-    nativeType: $path_4.PathMap,
+    nativeType: $path_5.PathMap,
     name: 'PathMap',
     constructors: {
       '': (visitor, positional, named) {
         final context = D4.getOptionalNamedArg<$path_2.Context?>(named, 'context');
-        return $path_4.PathMap(context: context);
+        return $path_5.PathMap(context: context);
       },
       'of': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'PathMap');
@@ -665,24 +665,24 @@ BridgedClass _createPathMapBridge() {
         }
         final other = D4.coerceMap<String, dynamic>(positional[0], 'other');
         final context = D4.getOptionalNamedArg<$path_2.Context?>(named, 'context');
-        return $path_4.PathMap.of(other, context: context);
+        return $path_5.PathMap.of(other, context: context);
       },
     },
     getters: {
-      'isEmpty': (visitor, target) => D4.validateTarget<$path_4.PathMap>(target, 'PathMap').isEmpty,
-      'isNotEmpty': (visitor, target) => D4.validateTarget<$path_4.PathMap>(target, 'PathMap').isNotEmpty,
-      'length': (visitor, target) => D4.validateTarget<$path_4.PathMap>(target, 'PathMap').length,
-      'keys': (visitor, target) => D4.validateTarget<$path_4.PathMap>(target, 'PathMap').keys,
-      'values': (visitor, target) => D4.validateTarget<$path_4.PathMap>(target, 'PathMap').values,
-      'entries': (visitor, target) => D4.validateTarget<$path_4.PathMap>(target, 'PathMap').entries,
+      'isEmpty': (visitor, target) => D4.validateTarget<$path_5.PathMap>(target, 'PathMap').isEmpty,
+      'isNotEmpty': (visitor, target) => D4.validateTarget<$path_5.PathMap>(target, 'PathMap').isNotEmpty,
+      'length': (visitor, target) => D4.validateTarget<$path_5.PathMap>(target, 'PathMap').length,
+      'keys': (visitor, target) => D4.validateTarget<$path_5.PathMap>(target, 'PathMap').keys,
+      'values': (visitor, target) => D4.validateTarget<$path_5.PathMap>(target, 'PathMap').values,
+      'entries': (visitor, target) => D4.validateTarget<$path_5.PathMap>(target, 'PathMap').entries,
     },
     methods: {
       'cast': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_4.PathMap>(target, 'PathMap');
+        final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
         return t.cast();
       },
       'addAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_4.PathMap>(target, 'PathMap');
+        final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
         D4.requireMinArgs(positional, 1, 'addAll');
         if (positional.isEmpty) {
           throw ArgumentError('addAll: Missing required argument "other" at position 0');
@@ -692,12 +692,12 @@ BridgedClass _createPathMapBridge() {
         return null;
       },
       'clear': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_4.PathMap>(target, 'PathMap');
+        final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
         t.clear();
         return null;
       },
       'putIfAbsent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_4.PathMap>(target, 'PathMap');
+        final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
         D4.requireMinArgs(positional, 2, 'putIfAbsent');
         final key = D4.getRequiredArg<String?>(positional, 0, 'key', 'putIfAbsent');
         if (positional.length <= 1) {
@@ -707,19 +707,19 @@ BridgedClass _createPathMapBridge() {
         return t.putIfAbsent(key, () { return D4.callInterpreterCallback(visitor, ifAbsentRaw, []) as dynamic; });
       },
       'containsKey': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_4.PathMap>(target, 'PathMap');
+        final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
         D4.requireMinArgs(positional, 1, 'containsKey');
         final key = D4.getRequiredArg<Object?>(positional, 0, 'key', 'containsKey');
         return t.containsKey(key);
       },
       'containsValue': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_4.PathMap>(target, 'PathMap');
+        final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
         D4.requireMinArgs(positional, 1, 'containsValue');
         final value = D4.getRequiredArg<Object?>(positional, 0, 'value', 'containsValue');
         return t.containsValue(value);
       },
       'forEach': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_4.PathMap>(target, 'PathMap');
+        final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
         D4.requireMinArgs(positional, 1, 'forEach');
         if (positional.isEmpty) {
           throw ArgumentError('forEach: Missing required argument "action" at position 0');
@@ -729,24 +729,24 @@ BridgedClass _createPathMapBridge() {
         return null;
       },
       'remove': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_4.PathMap>(target, 'PathMap');
+        final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
         D4.requireMinArgs(positional, 1, 'remove');
         final key = D4.getRequiredArg<Object?>(positional, 0, 'key', 'remove');
         return t.remove(key);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_4.PathMap>(target, 'PathMap');
+        final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
         return t.toString();
       },
       'addEntries': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_4.PathMap>(target, 'PathMap');
+        final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
         D4.requireMinArgs(positional, 1, 'addEntries');
         final entries = D4.getRequiredArg<Iterable<MapEntry<String?, dynamic>>>(positional, 0, 'entries', 'addEntries');
         t.addEntries(entries);
         return null;
       },
       'map': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_4.PathMap>(target, 'PathMap');
+        final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
         D4.requireMinArgs(positional, 1, 'map');
         if (positional.isEmpty) {
           throw ArgumentError('map: Missing required argument "transform" at position 0');
@@ -755,7 +755,7 @@ BridgedClass _createPathMapBridge() {
         return t.map((dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor, transformRaw, [p0, p1]) as MapEntry<dynamic, dynamic>; });
       },
       'update': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_4.PathMap>(target, 'PathMap');
+        final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
         D4.requireMinArgs(positional, 2, 'update');
         final key = D4.getRequiredArg<String?>(positional, 0, 'key', 'update');
         if (positional.length <= 1) {
@@ -766,7 +766,7 @@ BridgedClass _createPathMapBridge() {
         return t.update(key, (dynamic p0) { return D4.callInterpreterCallback(visitor, updateRaw, [p0]) as dynamic; }, ifAbsent: ifAbsentRaw == null ? null : () { return D4.callInterpreterCallback(visitor, ifAbsentRaw, []) as dynamic; });
       },
       'updateAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_4.PathMap>(target, 'PathMap');
+        final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
         D4.requireMinArgs(positional, 1, 'updateAll');
         if (positional.isEmpty) {
           throw ArgumentError('updateAll: Missing required argument "update" at position 0');
@@ -776,7 +776,7 @@ BridgedClass _createPathMapBridge() {
         return null;
       },
       'removeWhere': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_4.PathMap>(target, 'PathMap');
+        final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
         D4.requireMinArgs(positional, 1, 'removeWhere');
         if (positional.isEmpty) {
           throw ArgumentError('removeWhere: Missing required argument "test" at position 0');
@@ -786,12 +786,12 @@ BridgedClass _createPathMapBridge() {
         return null;
       },
       '[]': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_4.PathMap>(target, 'PathMap');
+        final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
         final index = D4.getRequiredArg<Object?>(positional, 0, 'index', 'operator[]');
         return t[index];
       },
       '[]=': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_4.PathMap>(target, 'PathMap');
+        final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
         final index = D4.getRequiredArg<String?>(positional, 0, 'index', 'operator[]=');
         final value = D4.getRequiredArg<dynamic>(positional, 1, 'value', 'operator[]=');
         t[index] = value;
@@ -835,97 +835,97 @@ BridgedClass _createPathMapBridge() {
 
 BridgedClass _createPathSetBridge() {
   return BridgedClass(
-    nativeType: $path_5.PathSet,
+    nativeType: $path_6.PathSet,
     name: 'PathSet',
     constructors: {
       '': (visitor, positional, named) {
         final context = D4.getOptionalNamedArg<$path_2.Context?>(named, 'context');
-        return $path_5.PathSet(context: context);
+        return $path_6.PathSet(context: context);
       },
       'of': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'PathSet');
         final other = D4.getRequiredArg<Iterable<String>>(positional, 0, 'other', 'PathSet');
         final context = D4.getOptionalNamedArg<$path_2.Context?>(named, 'context');
-        return $path_5.PathSet.of(other, context: context);
+        return $path_6.PathSet.of(other, context: context);
       },
     },
     getters: {
-      'iterator': (visitor, target) => D4.validateTarget<$path_5.PathSet>(target, 'PathSet').iterator,
-      'length': (visitor, target) => D4.validateTarget<$path_5.PathSet>(target, 'PathSet').length,
-      'isEmpty': (visitor, target) => D4.validateTarget<$path_5.PathSet>(target, 'PathSet').isEmpty,
-      'isNotEmpty': (visitor, target) => D4.validateTarget<$path_5.PathSet>(target, 'PathSet').isNotEmpty,
-      'first': (visitor, target) => D4.validateTarget<$path_5.PathSet>(target, 'PathSet').first,
-      'last': (visitor, target) => D4.validateTarget<$path_5.PathSet>(target, 'PathSet').last,
-      'single': (visitor, target) => D4.validateTarget<$path_5.PathSet>(target, 'PathSet').single,
+      'iterator': (visitor, target) => D4.validateTarget<$path_6.PathSet>(target, 'PathSet').iterator,
+      'length': (visitor, target) => D4.validateTarget<$path_6.PathSet>(target, 'PathSet').length,
+      'isEmpty': (visitor, target) => D4.validateTarget<$path_6.PathSet>(target, 'PathSet').isEmpty,
+      'isNotEmpty': (visitor, target) => D4.validateTarget<$path_6.PathSet>(target, 'PathSet').isNotEmpty,
+      'first': (visitor, target) => D4.validateTarget<$path_6.PathSet>(target, 'PathSet').first,
+      'last': (visitor, target) => D4.validateTarget<$path_6.PathSet>(target, 'PathSet').last,
+      'single': (visitor, target) => D4.validateTarget<$path_6.PathSet>(target, 'PathSet').single,
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'add');
         final value = D4.getRequiredArg<String?>(positional, 0, 'value', 'add');
         return t.add(value);
       },
       'addAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'addAll');
         final elements = D4.getRequiredArg<Iterable<String?>>(positional, 0, 'elements', 'addAll');
         t.addAll(elements);
         return null;
       },
       'cast': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         return t.cast();
       },
       'clear': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         t.clear();
         return null;
       },
       'contains': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'contains');
         final element = D4.getRequiredArg<Object?>(positional, 0, 'element', 'contains');
         return t.contains(element);
       },
       'containsAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'containsAll');
         final other = D4.getRequiredArg<Iterable<Object?>>(positional, 0, 'other', 'containsAll');
         return t.containsAll(other);
       },
       'difference': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'difference');
         final other = D4.getRequiredArg<Set<Object?>>(positional, 0, 'other', 'difference');
         return t.difference(other);
       },
       'intersection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'intersection');
         final other = D4.getRequiredArg<Set<Object?>>(positional, 0, 'other', 'intersection');
         return t.intersection(other);
       },
       'lookup': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'lookup');
         final element = D4.getRequiredArg<Object?>(positional, 0, 'element', 'lookup');
         return t.lookup(element);
       },
       'remove': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'remove');
         final value = D4.getRequiredArg<Object?>(positional, 0, 'value', 'remove');
         return t.remove(value);
       },
       'removeAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'removeAll');
         final elements = D4.getRequiredArg<Iterable<Object?>>(positional, 0, 'elements', 'removeAll');
         t.removeAll(elements);
         return null;
       },
       'removeWhere': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'removeWhere');
         if (positional.isEmpty) {
           throw ArgumentError('removeWhere: Missing required argument "test" at position 0');
@@ -935,14 +935,14 @@ BridgedClass _createPathSetBridge() {
         return null;
       },
       'retainAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'retainAll');
         final elements = D4.getRequiredArg<Iterable<Object?>>(positional, 0, 'elements', 'retainAll');
         t.retainAll(elements);
         return null;
       },
       'retainWhere': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'retainWhere');
         if (positional.isEmpty) {
           throw ArgumentError('retainWhere: Missing required argument "test" at position 0');
@@ -952,23 +952,23 @@ BridgedClass _createPathSetBridge() {
         return null;
       },
       'union': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'union');
         final other = D4.getRequiredArg<Set<String?>>(positional, 0, 'other', 'union');
         return t.union(other);
       },
       'toSet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         return t.toSet();
       },
       'followedBy': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'followedBy');
         final other = D4.getRequiredArg<Iterable<String?>>(positional, 0, 'other', 'followedBy');
         return t.followedBy(other);
       },
       'map': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'map');
         if (positional.isEmpty) {
           throw ArgumentError('map: Missing required argument "toElement" at position 0');
@@ -977,7 +977,7 @@ BridgedClass _createPathSetBridge() {
         return t.map((dynamic p0) { return D4.callInterpreterCallback(visitor, toElementRaw, [p0]) as dynamic; });
       },
       'where': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'where');
         if (positional.isEmpty) {
           throw ArgumentError('where: Missing required argument "test" at position 0');
@@ -986,11 +986,11 @@ BridgedClass _createPathSetBridge() {
         return t.where((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; });
       },
       'whereType': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         return t.whereType();
       },
       'expand': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'expand');
         if (positional.isEmpty) {
           throw ArgumentError('expand: Missing required argument "toElements" at position 0');
@@ -999,7 +999,7 @@ BridgedClass _createPathSetBridge() {
         return t.expand((dynamic p0) { return D4.callInterpreterCallback(visitor, toElementsRaw, [p0]) as Iterable<dynamic>; });
       },
       'forEach': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'forEach');
         if (positional.isEmpty) {
           throw ArgumentError('forEach: Missing required argument "action" at position 0');
@@ -1009,7 +1009,7 @@ BridgedClass _createPathSetBridge() {
         return null;
       },
       'reduce': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'reduce');
         if (positional.isEmpty) {
           throw ArgumentError('reduce: Missing required argument "combine" at position 0');
@@ -1018,7 +1018,7 @@ BridgedClass _createPathSetBridge() {
         return t.reduce((dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor, combineRaw, [p0, p1]) as dynamic; });
       },
       'fold': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 2, 'fold');
         final initialValue = D4.getRequiredArg<dynamic>(positional, 0, 'initialValue', 'fold');
         if (positional.length <= 1) {
@@ -1028,7 +1028,7 @@ BridgedClass _createPathSetBridge() {
         return t.fold(initialValue, (dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor, combineRaw, [p0, p1]) as dynamic; });
       },
       'every': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'every');
         if (positional.isEmpty) {
           throw ArgumentError('every: Missing required argument "test" at position 0');
@@ -1037,12 +1037,12 @@ BridgedClass _createPathSetBridge() {
         return t.every((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; });
       },
       'join': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         final separator = D4.getOptionalArgWithDefault<String>(positional, 0, 'separator', "");
         return t.join(separator);
       },
       'any': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'any');
         if (positional.isEmpty) {
           throw ArgumentError('any: Missing required argument "test" at position 0');
@@ -1051,18 +1051,18 @@ BridgedClass _createPathSetBridge() {
         return t.any((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; });
       },
       'toList': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         final growable = D4.getNamedArgWithDefault<bool>(named, 'growable', true);
         return t.toList(growable: growable);
       },
       'take': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'take');
         final count = D4.getRequiredArg<int>(positional, 0, 'count', 'take');
         return t.take(count);
       },
       'takeWhile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'takeWhile');
         if (positional.isEmpty) {
           throw ArgumentError('takeWhile: Missing required argument "test" at position 0');
@@ -1071,13 +1071,13 @@ BridgedClass _createPathSetBridge() {
         return t.takeWhile((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; });
       },
       'skip': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'skip');
         final count = D4.getRequiredArg<int>(positional, 0, 'count', 'skip');
         return t.skip(count);
       },
       'skipWhile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'skipWhile');
         if (positional.isEmpty) {
           throw ArgumentError('skipWhile: Missing required argument "test" at position 0');
@@ -1086,7 +1086,7 @@ BridgedClass _createPathSetBridge() {
         return t.skipWhile((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; });
       },
       'firstWhere': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'firstWhere');
         if (positional.isEmpty) {
           throw ArgumentError('firstWhere: Missing required argument "test" at position 0');
@@ -1096,7 +1096,7 @@ BridgedClass _createPathSetBridge() {
         return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'lastWhere');
         if (positional.isEmpty) {
           throw ArgumentError('lastWhere: Missing required argument "test" at position 0');
@@ -1106,7 +1106,7 @@ BridgedClass _createPathSetBridge() {
         return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'singleWhere');
         if (positional.isEmpty) {
           throw ArgumentError('singleWhere: Missing required argument "test" at position 0');
@@ -1116,13 +1116,13 @@ BridgedClass _createPathSetBridge() {
         return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         D4.requireMinArgs(positional, 1, 'elementAt');
         final index = D4.getRequiredArg<int>(positional, 0, 'index', 'elementAt');
         return t.elementAt(index);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_5.PathSet>(target, 'PathSet');
+        final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
         return t.toString();
       },
     },
@@ -1187,60 +1187,60 @@ BridgedClass _createPathSetBridge() {
 
 BridgedClass _createStyleBridge() {
   return BridgedClass(
-    nativeType: $path_6.Style,
+    nativeType: $path_7.Style,
     name: 'Style',
     constructors: {
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$path_6.Style>(target, 'Style').name,
-      'context': (visitor, target) => D4.validateTarget<$path_6.Style>(target, 'Style').context,
-      'separator': (visitor, target) => D4.validateTarget<$path_6.Style>(target, 'Style').separator,
-      'separatorPattern': (visitor, target) => D4.validateTarget<$path_6.Style>(target, 'Style').separatorPattern,
-      'needsSeparatorPattern': (visitor, target) => D4.validateTarget<$path_6.Style>(target, 'Style').needsSeparatorPattern,
-      'rootPattern': (visitor, target) => D4.validateTarget<$path_6.Style>(target, 'Style').rootPattern,
-      'relativeRootPattern': (visitor, target) => D4.validateTarget<$path_6.Style>(target, 'Style').relativeRootPattern,
+      'name': (visitor, target) => D4.validateTarget<$path_7.Style>(target, 'Style').name,
+      'context': (visitor, target) => D4.validateTarget<$path_7.Style>(target, 'Style').context,
+      'separator': (visitor, target) => D4.validateTarget<$path_7.Style>(target, 'Style').separator,
+      'separatorPattern': (visitor, target) => D4.validateTarget<$path_7.Style>(target, 'Style').separatorPattern,
+      'needsSeparatorPattern': (visitor, target) => D4.validateTarget<$path_7.Style>(target, 'Style').needsSeparatorPattern,
+      'rootPattern': (visitor, target) => D4.validateTarget<$path_7.Style>(target, 'Style').rootPattern,
+      'relativeRootPattern': (visitor, target) => D4.validateTarget<$path_7.Style>(target, 'Style').relativeRootPattern,
     },
     methods: {
       'getRoot': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_6.Style>(target, 'Style');
+        final t = D4.validateTarget<$path_7.Style>(target, 'Style');
         D4.requireMinArgs(positional, 1, 'getRoot');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'getRoot');
         return t.getRoot(path);
       },
       'getRelativeRoot': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_6.Style>(target, 'Style');
+        final t = D4.validateTarget<$path_7.Style>(target, 'Style');
         D4.requireMinArgs(positional, 1, 'getRelativeRoot');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'getRelativeRoot');
         return t.getRelativeRoot(path);
       },
       'pathFromUri': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_6.Style>(target, 'Style');
+        final t = D4.validateTarget<$path_7.Style>(target, 'Style');
         D4.requireMinArgs(positional, 1, 'pathFromUri');
         final uri = D4.getRequiredArg<Uri>(positional, 0, 'uri', 'pathFromUri');
         return t.pathFromUri(uri);
       },
       'relativePathToUri': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_6.Style>(target, 'Style');
+        final t = D4.validateTarget<$path_7.Style>(target, 'Style');
         D4.requireMinArgs(positional, 1, 'relativePathToUri');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'relativePathToUri');
         return t.relativePathToUri(path);
       },
       'absolutePathToUri': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_6.Style>(target, 'Style');
+        final t = D4.validateTarget<$path_7.Style>(target, 'Style');
         D4.requireMinArgs(positional, 1, 'absolutePathToUri');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'absolutePathToUri');
         return t.absolutePathToUri(path);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$path_6.Style>(target, 'Style');
+        final t = D4.validateTarget<$path_7.Style>(target, 'Style');
         return t.toString();
       },
     },
     staticGetters: {
-      'posix': (visitor) => $path_6.Style.posix,
-      'windows': (visitor) => $path_6.Style.windows,
-      'url': (visitor) => $path_6.Style.url,
-      'platform': (visitor) => $path_6.Style.platform,
+      'posix': (visitor) => $path_7.Style.posix,
+      'windows': (visitor) => $path_7.Style.windows,
+      'url': (visitor) => $path_7.Style.url,
+      'platform': (visitor) => $path_7.Style.platform,
     },
     methodSignatures: {
       'getRoot': 'String? getRoot(String path)',

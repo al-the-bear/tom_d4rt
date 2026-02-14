@@ -2423,11 +2423,17 @@ class BridgeGenerator {
         }).toList();
       }
 
+      // GEN-057: Post-process global functions to fix up missing return type URIs
+      // This handles cases where return types like `core.Which` were InvalidType
+      // during AST parsing, but the type was found in a different source file.
+      final fixedFunctions = _fixupReturnTypeUris(filteredFunctions);
+
       // GEN-055: Collect API surface type dependencies from kept functions
       // Classes that are return types or parameter types of bridged functions
       // must also be bridged, even if not explicitly exported from the barrel
+      // Use fixedFunctions to get correct return type URIs
       final apiSurfaceDependencies = _collectApiSurfaceTypeDependencies(
-        filteredFunctions,
+        fixedFunctions,
         filteredVariables,
       );
       if (apiSurfaceDependencies.isNotEmpty) {
@@ -2438,9 +2444,37 @@ class BridgeGenerator {
           if (existingClassNames.contains(typeName)) continue;
           
           // Find matching class in allClasses
-          final matchingClass = allClasses
+          var matchingClass = allClasses
               .where((c) => c.name == typeName)
               .firstOrNull;
+          
+          // GEN-057: If not found in allClasses, try to parse from source file
+          // using the URI from _globalTypeToUri
+          if (matchingClass == null) {
+            final typeUri = _globalTypeToUri[typeName];
+            if (typeUri != null && typeUri.startsWith('package:')) {
+              final sourceFile = _resolvePackageUriToFile(typeUri);
+              if (sourceFile != null && File(sourceFile).existsSync()) {
+                try {
+                  // Parse the class from the source file
+                  final classes = await parseFile(sourceFile);
+                  final parsed = classes.where((c) => c.name == typeName).firstOrNull;
+                  if (parsed != null) {
+                    matchingClass = parsed;
+                    allClasses.add(parsed);
+                    if (verbose) {
+                      print('GEN-057: Parsed class "$typeName" from external file: $typeUri');
+                    }
+                  }
+                } catch (e) {
+                  if (verbose) {
+                    print('Warning: Failed to parse "$typeName" from $typeUri: $e');
+                  }
+                }
+              }
+            }
+          }
+          
           if (matchingClass != null) {
             // Add to filteredClasses and bridgeableClasses
             filteredClasses.add(matchingClass);
@@ -2470,7 +2504,7 @@ class BridgeGenerator {
         moduleName,
         allClasses: filteredClasses,
         externalClassLookup: externalClassLookup.isNotEmpty ? externalClassLookup : null,
-        globalFunctions: filteredFunctions,
+        globalFunctions: fixedFunctions,
         globalVariables: filteredVariables,
         enums: filteredEnums,
         extensions: filteredExtensions,
@@ -2839,10 +2873,16 @@ class BridgeGenerator {
       }).toList();
     }
 
+    // GEN-057: Post-process global functions to fix up missing return type URIs
+    // This handles cases where return types like `core.Which` were InvalidType
+    // during AST parsing, but the type was found in a different source file.
+    final fixedFunctions = _fixupReturnTypeUris(filteredFunctions);
+
     // GEN-055: Collect types that are API surface dependencies (return types, parameter types)
     // Even if a class is filtered out by show/hide clauses, it must be included if it's
     // used as a return type or parameter type of a kept function.
-    final apiSurfaceTypes = _collectApiSurfaceTypeDependencies(filteredFunctions, filteredVariables);
+    // Use fixedFunctions to get correct return type URIs
+    final apiSurfaceTypes = _collectApiSurfaceTypeDependencies(fixedFunctions, filteredVariables);
     for (final typeName in apiSurfaceTypes) {
       // Check if this type is already in our bridgeable classes
       final alreadyBridgeable = bridgeableClasses.any((c) => c.name == typeName);
@@ -2888,7 +2928,7 @@ class BridgeGenerator {
       moduleName,
       allClasses: filteredClasses,
       externalClassLookup: externalClassLookup.isNotEmpty ? externalClassLookup : null,
-      globalFunctions: filteredFunctions,
+      globalFunctions: fixedFunctions,
       globalVariables: filteredVariables,
       enums: filteredEnums,
       extensions: filteredExtensions,
@@ -2902,7 +2942,7 @@ class BridgeGenerator {
 
     return BridgeGeneratorResult(
       classesGenerated: bridgeableClasses.length,
-      globalFunctionsGenerated: filteredFunctions.length,
+      globalFunctionsGenerated: fixedFunctions.length,
       globalVariablesGenerated: filteredVariables.length,
       outputFiles: outputFiles,
       errors: errors,
@@ -3568,7 +3608,12 @@ class BridgeGenerator {
       }
       
       // Extract base type (handle generics like List<MyClass>)
-      final baseType = _extractBaseType(type);
+      var baseType = _extractBaseType(type);
+      
+      // GEN-057: Strip import prefix (e.g., core.Which -> Which)
+      if (baseType.contains('.')) {
+        baseType = baseType.split('.').last;
+      }
       
       // Skip built-in types
       if (builtInTypes.contains(baseType)) return;
@@ -4523,10 +4568,18 @@ class BridgeGenerator {
         }
       }
     }
+    
+    // Add external type imports (return types, parameter types from resolved AST)
+    // These must be included even for covered packages because the specific source
+    // file defining the return type class might not be in allSourceFiles.
+    // For example: `which()` returns `Which` from dcli_core, but dcli_core's
+    // `which.dart` source file isn't in allSourceFiles (since `which` is a function,
+    // not a class being bridged).
     for (final uri in externalImports) {
       if (!uri.startsWith('package:')) continue;
-      final pkg = _extractPackageFromUri(uri);
-      if (pkg != null && !coveredPackages.contains(pkg)) {
+      // Always add external type URIs — they're return types and parameter types
+      // that must be accessible for proper type casting in generated code.
+      if (!allImportUris.contains(uri)) {
         allImportUris.add(uri);
       }
     }
@@ -9484,8 +9537,12 @@ class BridgeGenerator {
       }
     }
     
-    // Also collect from global functions (parameter types only - return type URI not tracked)
+    // Also collect from global functions (return types AND parameter types)
     for (final func in globalFunctions) {
+      // Return type imports
+      imports.addAll(func.returnTypeImportUris);
+      imports.addAll(func.returnTypeToUri.values);
+      // Parameter type imports
       for (final param in func.parameters) {
         imports.addAll(param.typeImportUris);
         imports.addAll(param.typeToUri.values);
@@ -9493,6 +9550,50 @@ class BridgeGenerator {
     }
 
     return imports;
+  }
+
+  /// GEN-057: Post-processes global functions to fix up missing return type URIs.
+  /// 
+  /// When parsing files with prefixed return types (e.g., `core.Which`), the analyzer
+  /// may return InvalidType because the import prefix resolution wasn't available.
+  /// This method looks up the unprefixed type name in `_globalTypeToUri` (populated
+  /// during parsing of all files) and creates fixed-up GlobalFunctionInfo objects.
+  /// 
+  /// Returns a new list of GlobalFunctionInfo with resolved return type URIs.
+  List<GlobalFunctionInfo> _fixupReturnTypeUris(List<GlobalFunctionInfo> functions) {
+    return functions.map((func) {
+      // If return type URIs are already populated, keep as-is
+      if (func.returnTypeImportUris.isNotEmpty) return func;
+      
+      // Try to resolve the return type from _globalTypeToUri
+      final returnType = func.returnType;
+      final rawTypeName = returnType.contains('.') 
+          ? returnType.split('.').last 
+          : returnType;
+      
+      // Skip void, dynamic, and built-in types
+      if (rawTypeName == 'void' || 
+          rawTypeName == 'dynamic' || 
+          rawTypeName == 'Never' ||
+          _isBuiltInType(rawTypeName)) {
+        return func;
+      }
+      
+      final uri = _globalTypeToUri[rawTypeName];
+      if (uri == null) return func;
+      
+      // Create a new GlobalFunctionInfo with the fixed-up return type URIs
+      return GlobalFunctionInfo(
+        name: func.name,
+        returnType: func.returnType,
+        returnTypeImportUris: {uri},
+        returnTypeToUri: {rawTypeName: uri},
+        parameters: func.parameters,
+        sourceFile: func.sourceFile,
+        hasTypeParameters: func.hasTypeParameters,
+        typeParameters: func.typeParameters,
+      );
+    }).toList();
   }
 
   /// Generates a display signature string for a constructor.
@@ -10014,7 +10115,27 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     }
 
     final returnType = node.returnType?.toSource() ?? 'dynamic';
-    final returnTypeInfo = _collectTypeInfo(node.returnType);
+    var returnTypeInfo = _collectTypeInfo(node.returnType);
+    
+    // GEN-057: Handle InvalidType for prefixed return types like `core.Which`
+    // When the analyzer returns InvalidType, try to resolve the type name 
+    // from globalTypeToUri which may have been populated when parsing the
+    // original source file where the type is defined.
+    if (returnTypeInfo.uris.isEmpty && node.returnType?.type is InvalidType) {
+      final rawTypeName = returnType.contains('.') 
+          ? returnType.split('.').last 
+          : returnType;
+      final uri = globalTypeToUri[rawTypeName];
+      if (uri != null) {
+        returnTypeInfo = (
+          uris: {uri},
+          typeToUri: {rawTypeName: uri},
+          isFunctionTypeAlias: false,
+          functionTypeInfo: null,
+        );
+      }
+    }
+    
     final params = node.functionExpression.parameters;
     final parameters =
         params != null ? _parseParameters(params) : <ParameterInfo>[];
