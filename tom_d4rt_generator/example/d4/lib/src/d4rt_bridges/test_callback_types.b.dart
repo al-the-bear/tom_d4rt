@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_generator/example/d4/lib/test_callback_types.dart
-// Generated: 2026-02-14T21:33:02.627408
+// Generated: 2026-02-14T22:55:55.224599
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
