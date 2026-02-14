@@ -8,7 +8,7 @@ void main() {
       const source = '''
      import 'dart:io';
      main() {
-        File file = File(Directory.systemTemp.path + "/test.txt");
+        File file = File(Directory.systemTemp.path + "/test_148.txt");
         file.writeAsStringSync("Hello, world!");
         var exists1 = file.existsSync();
         file.deleteSync();
@@ -23,7 +23,7 @@ void main() {
       const source = '''
      import 'dart:io';
      main() {
-        File file = File(Directory.systemTemp.path + "/test.txt");
+        File file = File(Directory.systemTemp.path + "/test_144.txt");
         file.writeAsStringSync("Hello, world!");
         file.deleteSync();
         return file.existsSync();
@@ -36,7 +36,7 @@ void main() {
       const source = '''
      import 'dart:io';
      main() {
-        File file = File(Directory.systemTemp.path + "/test.txt");
+        File file = File(Directory.systemTemp.path + "/test_145.txt");
         file.writeAsStringSync("Hello, world!");
         File renamedFile = file.renameSync(file.path + "_renamed");
         var exists = renamedFile.existsSync();
@@ -51,7 +51,7 @@ void main() {
       const source = '''
      import 'dart:io';
      main() {
-        File file = File(Directory.systemTemp.path + "/test.txt");
+        File file = File(Directory.systemTemp.path + "/test_146.txt");
         file.writeAsStringSync("Hello, world!");
         var path = file.absolute.path;
         file.deleteSync();
@@ -65,7 +65,7 @@ void main() {
       const source = '''
      import 'dart:io';
      main() {
-        File file = File(Directory.systemTemp.path + "/test.txt");
+        File file = File(Directory.systemTemp.path + "/test_147.txt");
         file.writeAsStringSync("Hello, world!");
         var path = file.parent.path;
         file.deleteSync();
@@ -80,7 +80,7 @@ void main() {
       const source = '''
      import 'dart:io';
      main() {
-        File file = File(Directory.systemTemp.path + "/test.txt");
+        File file = File(Directory.systemTemp.path + "/test_149.txt");
         file.writeAsStringSync("Hello, world!");
         var type = file.statSync().type;
         file.deleteSync();
@@ -94,7 +94,7 @@ void main() {
       const source = '''
      import 'dart:io';
      main() {
-        File file = File(Directory.systemTemp.path + "/test.txt");
+        File file = File(Directory.systemTemp.path + "/test_150.txt");
         file.writeAsStringSync("Hello, world!");
         var path = file.resolveSymbolicLinksSync();
         file.deleteSync();
