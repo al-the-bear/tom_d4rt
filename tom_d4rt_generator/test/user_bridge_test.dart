@@ -362,13 +362,13 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"$pkg.GlobalsUserBridge.overrideGlobalVariableAppName()",
+            r"$test_package_1.GlobalsUserBridge.overrideGlobalVariableAppName()",
           ),
         );
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalVariable('appName', $pkg.GlobalsUserBridge.overrideGlobalVariableAppName(), importPath",
+            r"interpreter.registerGlobalVariable('appName', $test_package_1.GlobalsUserBridge.overrideGlobalVariableAppName(), importPath",
           ),
         );
       });
@@ -377,13 +377,13 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"$pkg.GlobalsUserBridge.overrideGlobalVariableMaxRetries()",
+            r"$test_package_1.GlobalsUserBridge.overrideGlobalVariableMaxRetries()",
           ),
         );
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalVariable('maxRetries', $pkg.GlobalsUserBridge.overrideGlobalVariableMaxRetries(), importPath",
+            r"interpreter.registerGlobalVariable('maxRetries', $test_package_1.GlobalsUserBridge.overrideGlobalVariableMaxRetries(), importPath",
           ),
         );
       });
@@ -392,13 +392,13 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"$pkg.GlobalsUserBridge.overrideGlobalGetterCurrentTime()",
+            r"$test_package_1.GlobalsUserBridge.overrideGlobalGetterCurrentTime()",
           ),
         );
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalGetter('currentTime', $pkg.GlobalsUserBridge.overrideGlobalGetterCurrentTime(), importPath",
+            r"interpreter.registerGlobalGetter('currentTime', $test_package_1.GlobalsUserBridge.overrideGlobalGetterCurrentTime(), importPath",
           ),
         );
       });
@@ -407,13 +407,13 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"$pkg.GlobalsUserBridge.overrideGlobalGetterGlobalService()",
+            r"$test_package_1.GlobalsUserBridge.overrideGlobalGetterGlobalService()",
           ),
         );
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalGetter('globalService', $pkg.GlobalsUserBridge.overrideGlobalGetterGlobalService(), importPath",
+            r"interpreter.registerGlobalGetter('globalService', $test_package_1.GlobalsUserBridge.overrideGlobalGetterGlobalService(), importPath",
           ),
         );
       });
@@ -421,31 +421,31 @@ void main() {
       test('G-UB-5a: Override for global function greet. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
-          contains(r"'greet': $pkg.GlobalsUserBridge.overrideGlobalFunctionGreet,"),
+          contains(r"'greet': $test_package_1.GlobalsUserBridge.overrideGlobalFunctionGreet,"),
         );
       });
 
       test('G-UB-6b: Override for global function add. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
-          contains(r"'add': $pkg.GlobalsUserBridge.overrideGlobalFunctionAdd,"),
+          contains(r"'add': $test_package_1.GlobalsUserBridge.overrideGlobalFunctionAdd,"),
         );
       });
 
       test('G-UB-21: Non-overridden globals are generated normally. [2026-02-10 06:37] (PASS)', () {
-        // Variable values are now prefixed with $pkg. since source imports use a prefix
+        // Variable values are prefixed with $<pkgname>_<N> since source imports use direct import aliases
         // The generated code now includes importPath and sourceUri parameters
         // debugMode is not overridden
         expect(
           generatedCode,
           contains(
-              r"interpreter.registerGlobalVariable('debugMode', $pkg.debugMode, importPath"),
+              r"interpreter.registerGlobalVariable('debugMode', $test_package_1.debugMode, importPath"),
         );
         // version is not overridden
         expect(
           generatedCode,
           contains(
-              r"interpreter.registerGlobalVariable('version', $pkg.version, importPath"),
+              r"interpreter.registerGlobalVariable('version', $test_package_1.version, importPath"),
         );
         // resetState function is not overridden
         expect(

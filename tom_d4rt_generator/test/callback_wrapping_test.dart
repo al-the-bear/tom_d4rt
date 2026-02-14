@@ -60,15 +60,15 @@ void main() {
 
     group('Simple Void Callbacks', () {
       test('G-CB-1a: VoidCallback parameter generates wrapper. [2026-02-10 06:37] (PASS)', () {
-        // Should use InterpretedFunction pattern
-        expect(generatedCode, contains('InterpretedFunction'));
+        // Should use D4.callInterpreterCallback pattern
+        expect(generatedCode, contains('D4.callInterpreterCallback'));
         expect(generatedCode, contains('Raw'));
       });
 
       test('G-CB-2a: Void Function() callback correct wrapper. [2026-02-10 06:37] (PASS)', () {
-        // For VoidCallback: () { (callbackRaw as InterpretedFunction).call(visitor, []) }
+        // For VoidCallback: () { D4.callInterpreterCallback(visitor, onCompleteRaw, []); }
         expect(generatedCode, contains("'onComplete':"));
-        expect(generatedCode, contains('.call(visitor,'));
+        expect(generatedCode, contains('D4.callInterpreterCallback(visitor,'));
       });
     });
 

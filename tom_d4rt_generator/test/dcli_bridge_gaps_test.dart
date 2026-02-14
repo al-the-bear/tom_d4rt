@@ -182,17 +182,18 @@ void main() {
       test('DCL-CLS-002: Class forEach callback uses InterpretedFunction [2026-02-11] (PASS)',
           () {
         // The generated code should have callback wrapping for class methods
+        // using D4.callInterpreterCallback which handles both InterpretedFunction and NativeFunction
         expect(
           generatedCode,
-          contains('InterpretedFunction'),
-          reason: 'Should use InterpretedFunction for callbacks',
+          contains('D4.callInterpreterCallback'),
+          reason: 'Should use D4.callInterpreterCallback for callbacks',
         );
         
         // Should have the wrapper pattern
         expect(
           generatedCode,
-          contains('.call(visitor,'),
-          reason: 'Should call InterpretedFunction with visitor',
+          contains('D4.callInterpreterCallback(visitor,'),
+          reason: 'Should call D4.callInterpreterCallback with visitor',
         );
       });
     });

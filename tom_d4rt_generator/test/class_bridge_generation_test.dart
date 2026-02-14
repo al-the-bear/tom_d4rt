@@ -60,8 +60,8 @@ void main() {
     group('Simple Classes', () {
       test('G-CLS-45: Detects SimpleClass. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("name: 'SimpleClass'"));
-        // Types are now prefixed with $pkg. since source imports use a prefix
-        expect(generatedCode, contains(r'nativeType: $pkg.SimpleClass'));
+        // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
+        expect(generatedCode, contains(r'nativeType: $test_package_1.SimpleClass'));
       });
 
       test('G-CLS-46: Detects OptionalPositionalClass. [2026-02-10 06:37] (PASS)', () {
@@ -142,10 +142,10 @@ void main() {
       });
 
       test('G-CLS-7: Generates target validation for getters. [2026-02-10 06:37] (PASS)', () {
-        // Types are prefixed with $pkg since source imports use that prefix
+        // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
         expect(
           generatedCode,
-          contains(r'D4.validateTarget<$pkg.PropertyClass>'),
+          contains(r'D4.validateTarget<$test_package_1.PropertyClass>'),
         );
       });
     });
@@ -173,10 +173,10 @@ void main() {
       });
 
       test('G-CLS-13: Generates method target validation. [2026-02-10 06:37] (PASS)', () {
-        // Types are prefixed with $pkg since source imports use that prefix
+        // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
         expect(
           generatedCode,
-          contains(r"D4.validateTarget<$pkg.MethodClass>(target, 'MethodClass')"),
+          contains(r"D4.validateTarget<$test_package_1.MethodClass>(target, 'MethodClass')"),
         );
       });
     });
@@ -395,8 +395,8 @@ void main() {
 
     test('G-CLS-40: Generic class Container<T> is bridged. [2026-02-10 06:37] (PASS)', () {
       expect(generatedCode, contains("name: 'Container'"));
-      // Types are now prefixed with $pkg. since source imports use a prefix
-      expect(generatedCode, contains(r'nativeType: $pkg.Container'));
+      // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
+      expect(generatedCode, contains(r'nativeType: $test_package_1.Container'));
     });
 
     test('G-CLS-41: Bounded generic NumberContainer<T extends num> is bridged. [2026-02-10 06:37] (PASS)', () {

@@ -83,17 +83,17 @@ void main() {
     });
 
     test('G-ENM-14: Generates BridgedEnumDefinition with correct type parameter. [2026-02-10 06:37] (PASS)', () {
-      // Types are prefixed with $pkg since source imports use that prefix
-      expect(generatedCode, contains(r'BridgedEnumDefinition<$pkg.SimpleStatus>'));
-      expect(generatedCode, contains(r'BridgedEnumDefinition<$pkg.Color>'));
-      expect(generatedCode, contains(r'BridgedEnumDefinition<$pkg.Priority>'));
+      // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
+      expect(generatedCode, contains(r'BridgedEnumDefinition<$test_package_1.SimpleStatus>'));
+      expect(generatedCode, contains(r'BridgedEnumDefinition<$test_package_1.Color>'));
+      expect(generatedCode, contains(r'BridgedEnumDefinition<$test_package_1.Priority>'));
     });
 
     test('G-ENM-15: Generates enum values reference. [2026-02-10 06:37] (PASS)', () {
-      // Types are prefixed with $pkg since source imports use that prefix
-      expect(generatedCode, contains(r'values: $pkg.SimpleStatus.values'));
-      expect(generatedCode, contains(r'values: $pkg.Color.values'));
-      expect(generatedCode, contains(r'values: $pkg.Priority.values'));
+      // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
+      expect(generatedCode, contains(r'values: $test_package_1.SimpleStatus.values'));
+      expect(generatedCode, contains(r'values: $test_package_1.Color.values'));
+      expect(generatedCode, contains(r'values: $test_package_1.Priority.values'));
     });
 
     test('G-ENM-16: Generates registerBridgedEnum calls in registerBridges. [2026-02-10 06:37] (PASS)', () {
@@ -116,17 +116,17 @@ void main() {
     test('G-ENM-3: Generates getter adapters for enhanced enum fields. [2026-02-10 06:37] (PASS)', () {
       // Priority has computed getters: 'level' and 'isHighPriority'
       expect(generatedCode, contains("'level': (visitor, target) =>"));
-      expect(generatedCode, contains(r'(target as $pkg.Priority).level'));
+      expect(generatedCode, contains(r'(target as $test_package_1.Priority).level'));
       expect(generatedCode, contains("'isHighPriority': (visitor, target) =>"));
-      expect(generatedCode, contains(r'(target as $pkg.Priority).isHighPriority'));
+      expect(generatedCode, contains(r'(target as $test_package_1.Priority).isHighPriority'));
     });
 
     test('G-ENM-4: Generates getter adapters for Planet fields. [2026-02-10 06:37] (PASS)', () {
       // Planet has 'mass' and 'radius' final fields, plus 'surfaceGravity' computed getter
       expect(generatedCode, contains("'mass': (visitor, target) =>"));
       expect(generatedCode, contains("'radius': (visitor, target) =>"));
-      expect(generatedCode, contains(r'(target as $pkg.Planet).mass'));
-      expect(generatedCode, contains(r'(target as $pkg.Planet).radius'));
+      expect(generatedCode, contains(r'(target as $test_package_1.Planet).mass'));
+      expect(generatedCode, contains(r'(target as $test_package_1.Planet).radius'));
       expect(generatedCode, contains("'surfaceGravity': (visitor, target) =>"));
     });
 
@@ -252,8 +252,8 @@ class DummyClass {
       final code = await File(result.outputFiles.first).readAsString();
       
       expect(code, contains("name: 'SingletonEnum'"));
-      // Types are prefixed with $pkg since source imports use that prefix
-      expect(code, contains(r'values: $pkg.SingletonEnum.values'));
+      // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
+      expect(code, contains(r'values: $test_package_1.SingletonEnum.values'));
     });
   });
 }
