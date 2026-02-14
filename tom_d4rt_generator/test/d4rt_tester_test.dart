@@ -49,7 +49,11 @@ void main() {
 
     // Generate bridges once for all tests
     final ok = await tester.prepareBridges(config);
-    expect(ok, isTrue, reason: 'Bridge generation failed for d4');
+    if (!ok) {
+      // ignore: avoid_print
+      print('BRIDGE ERRORS: ${tester.lastGenerationErrors}');
+    }
+    expect(ok, isTrue, reason: 'Bridge generation failed for d4: ${tester.lastGenerationErrors}');
   });
 
   group('D4rtTester end-to-end', () {

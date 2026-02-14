@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 70 files
-// Generated: 2026-02-14T12:15:46.004279
+// Generated: 2026-02-15T00:34:20.839462
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -280,13 +280,6 @@ class DcliBridge {
         },
       ),
       BridgedExtensionDefinition(
-        name: 'PlatformEx',
-        onTypeName: 'Platform',
-        getters: {
-          'eol': (visitor, target) => (target as Platform).eol,
-        },
-      ),
-      BridgedExtensionDefinition(
         name: 'StringAsProcess',
         onTypeName: 'String',
         getters: {
@@ -356,7 +349,6 @@ class DcliBridge {
   /// Returns a map of extension identifiers to their canonical source URIs.
   static Map<String, String> extensionSourceUris() {
     return {
-      'PlatformEx': 'package:dcli_core/src/util/platform.dart',
       'PlatformEx': 'package:dcli_core/src/util/platform.dart',
       'StringAsProcess': 'package:dcli/src/util/string_as_process.dart',
     };
@@ -1334,7 +1326,7 @@ BridgedClass _createCatExceptionBridge() {
       },
     },
     constructorSignatures: {
-      '': 'CatException(String message, [InvalidType stacktrace])',
+      '': 'CatException(String message, [dynamic stacktrace])',
     },
     methodSignatures: {
       'toString': 'String toString()',
@@ -1543,7 +1535,7 @@ BridgedClass _createDCliFunctionExceptionBridge() {
       },
     },
     constructorSignatures: {
-      '': 'DCliFunctionException(String message, [InvalidType stackTrace])',
+      '': 'DCliFunctionException(String message, [dynamic stackTrace])',
     },
     methodSignatures: {
       'toString': 'String toString()',
@@ -2065,7 +2057,7 @@ BridgedClass _createDCliExceptionBridge() {
     constructorSignatures: {
       '': 'DCliException(String message, [Trace? stackTrace])',
       'fromJson': 'factory DCliException.fromJson(String jsonStr)',
-      'from': 'DCliException.from(Object? cause, InvalidType stackTrace)',
+      'from': 'DCliException.from(Object? cause, dynamic stackTrace)',
       'fromException': 'DCliException.fromException(Object? cause)',
     },
     methodSignatures: {

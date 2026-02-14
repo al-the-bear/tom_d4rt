@@ -19,6 +19,9 @@
 | [G-DCLI-14](#g-dcli-14) | Test expectations wrong for runInShell behavior | Low | Test | **FIXED** |
 | [GEN-055](#gen-055) | Return types not collected from API surface | Medium | Generator | **FIXED** |
 | [GEN-056](#gen-056) | Extension on-type not resolvable at runtime | Medium | Interpreter | **FIXED** |
+| [GEN-065](#gen-065) | Super/field formals resolve to literal "InvalidType" | Medium | Generator | **OPEN** |
+| [GEN-066](#gen-066) | Transitive dep types not replaced with dynamic | Medium | Generator | **OPEN** |
+| [GEN-067](#gen-067) | Type erasure tests expect wrong import prefix | Low | Tests | **OPEN** |
 
 ---
 
@@ -248,12 +251,150 @@ Rewrote test script to demonstrate what DCli actually supports: `.run` extension
 
 ---
 
+## Open Issues
+
+### GEN-065
+
+**Super/field formal parameters resolve to literal "InvalidType"**
+
+**Status:** FIXED (2026-02-15)
+
+**a) Problem:**
+
+When a constructor uses `super.paramName` or `this.paramName` syntax without an explicit type annotation, the Dart analyzer may return `InvalidType` for the resolved type. The generator then calls `getDisplayString()` on this, producing the literal string `"InvalidType"` in the generated code.
+
+**b) Observed In:**
+
+- `CatException(super.message, [super.stacktrace])` → generates `D4.getOptionalArg<$dcli_core_1.InvalidType>(...)`
+- `DCliFunctionException(super.message, [super.stackTrace])` → same issue
+- `DCliException.from(this.cause, this.stackTrace)` → `InvalidType` for `this.stackTrace` field formal
+- Callback parameter types (shelf's `hijack`, mysql_client's connection params)
+
+**c) Root Cause:**
+
+Multiple code paths could produce `InvalidType`:
+1. `SuperFormalParameter` and `FieldFormalParameter` handlers without `InvalidType` guard
+2. Callback parameter types from `funcInfo.positionalParamTypes` used directly without resolution
+3. Any code path through `_resolveTypeArgument` that receives `InvalidType`
+
+**d) Fix Applied:**
+
+- Added comprehensive `InvalidType` guard at TOP of `_resolveTypeArgument`: `if (baseType == 'InvalidType' || baseType.contains('InvalidType')) return 'dynamic'`
+- Added defense-in-depth `InvalidType` checks in callback `typedParams` generation (2 locations)
+- This catches ALL code paths: constructors, callbacks, type arguments, parameter types
+
+---
+
+### GEN-066
+
+**Transitive dependency types not replaced with dynamic**
+
+**Status:** FIXED (2026-02-15)
+
+**a) Problem:**
+
+Types from transitive dependencies (e.g., `Trace` from `package:stack_trace`, `SettingsYaml` from `package:settings_yaml`, `RSAPublicKey` from `package:pointycastle`) that are used as parameter or return types but not exported from the barrel file are emitted with import prefixes that don't actually export those types.
+
+**b) Observed In:**
+
+- `DCliException(this.message, [Trace? stackTrace])` → generates `$dcli_core_17.Trace?` but that import doesn't export `Trace`
+- `RSAPublicKey`, `RSAPrivateKey`, `SecureRandom` from pointycastle used in tom_crypto
+
+**c) Root Cause:**
+
+Multiple sub-issues:
+1. Import regex only matched single-quoted imports; `rsa_encryption.dart` uses double quotes
+2. `_barrelExportsType` only followed 1 level of exports; pointycastle has 2-level chain
+3. `SecureRandom` defined via `part` directives not scanned
+
+**d) Fixes Applied:**
+
+- Updated import regex in `_resolveTypeByImportTextScan` to match both `'` and `"` quotes
+- Updated export regex in `_barrelExportsType` similarly
+- Made `_barrelExportsType` recursive with `maxDepth=3`
+- Added `part` file scanning in `_barrelExportsType`
+
+---
+
+### GEN-067
+
+**Type erasure tests expect wrong import prefix for bounded generics**
+
+**Status:** FIXED (2026-02-15)
+
+**a) Problem:**
+
+Three type_erasure_test.dart tests failed because bounded generic type parameters resolved through auxiliary imports instead of existing direct imports.
+
+**c) Root Cause:**
+
+`_globalTypeToUri` returned `file://` URIs but `_importPrefixes` keys used `package:` URIs. The mismatch caused `_getOrCreateAuxiliaryPrefix` to create unnecessary auxiliary prefixes.
+
+**d) Fix Applied (GEN-068):**
+
+Normalized `file://` URIs to `package:` URIs in the `_globalTypeToUri` code path before checking `_importPrefixes`. Types now correctly resolve to existing import prefixes.
+
+---
+
+### GEN-068
+
+**Global URI normalization: file:// vs package:// mismatch creates unnecessary auxiliary imports**
+
+**Status:** FIXED (2026-02-15)
+
+**a) Problem:**
+
+When the generator resolved types through `_globalTypeToUri`, the returned URIs were `file://` format from the analyzer, but `_importPrefixes` keys used `package:` format. The mismatch caused unnecessary `$aux_*` prefixes (e.g., `$aux_tom_core_kernel`) even when the type's file was already imported with a numbered prefix (e.g., `$tom_core_kernel_28`).
+
+**b) Sub-issue (GEN-068b):**
+
+`_resolveTypeFromSourceImports` sometimes returned barrel URIs (e.g., `package:tom_core_kernel/tom_core_kernel.dart`) which had no prefix in `_importPrefixes`. Before creating an auxiliary prefix, the code now checks `_globalTypeToUri` for the actual source file URI that may already be imported.
+
+**c) Fix Applied:**
+
+- Normalize `file://` → `package:` URI via `Uri.parse(globalUri).toFilePath()` → `_getPackageUri(localPath)` before checking `_importPrefixes`
+- When `_resolveTypeFromSourceImports` returns a URI not in `_importPrefixes`, check `_globalTypeToUri` for a more specific URI that's already imported
+- Check `_importPrefixes[resolvedGlobalUri]` BEFORE creating auxiliary imports
+
+---
+
+### GEN-069
+
+**Exported types in record types with empty typeToUri resolve to dynamic**
+
+**Status:** FIXED (2026-02-15)
+
+**a) Problem:**
+
+Types used inside record type fields (e.g., `ParsedHeadline` in `List<(ParsedHeadline, int, int)>`) resolved to `dynamic` when:
+- `typeToUri` was empty (analyzer didn't provide type→URI mappings for the method)
+- The type was defined in the same file as `sourceFilePath`
+- `_isTypeExported()` returned true, causing the sourceFilePath prefix block to be skipped
+
+**b) Observed In:**
+
+`MarkdownParser.calculateMaxDepth(List<(ParsedHeadline, int, int)> headlines)` → generated `D4.coerceList<(dynamic, int startLine, int endLine)>` instead of `D4.coerceList<($tom_build_4.ParsedHeadline, int startLine, int endLine)>`
+
+**c) Root Cause:**
+
+For exported types, the code skipped the sourceFilePath prefix (assuming sourceFilePath points to the using class, not the type's file). But when the type is defined in the SAME file as the using class, sourceFilePath IS correct. The secondary fallback `sourceFilePath.startsWith(workspacePath)` also failed because `workspacePath` was relative (`.`) while `sourceFilePath` was absolute.
+
+**d) Fix Applied:**
+
+Added unconditional last-resort check of `_importPrefixes[_getPackageUri(sourceFilePath)]` before falling through to `dynamic`. This catches types defined in the same file as the method being bridged.
+
+---
+
 ## Summary
 
-**Total open issues:** 0 (all resolved)
+**Total open issues:** 0
 
-**Current test status (2026-02-14):**
+**Total fixed issues:** 15 (GEN-055 through GEN-069, G-DCLI-05/07/08/11/12/13/14)
+
+**Current test status (2026-02-15):**
+- D4rt generator tests: 461 passed, 0 failed
 - DCli scripting guide tests: 13 passed, 0 failed
+- All bridge files compile clean (0 errors in dcli, tom_core_kernel, tom_core_server, tom_build bridges)
 - All 9 issues resolved (GEN-055, GEN-056, G-DCLI-05/07/08/11/12/13/14)
 
 ### Fix Locations
@@ -268,6 +409,12 @@ Rewrote test script to demonstrate what DCli actually supports: `.run` extension
 | G-DCLI-14 | `14_shell_execution.dart` | Fixed test expectations |
 | GEN-055 | `bridge_generator.dart` | Return type collection |
 | GEN-056 | `module_loader.dart` | `_resolveTypeForExtension()` |
+| GEN-065 | `bridge_generator.dart` | Comprehensive `InvalidType` guard in `_resolveTypeArgument` + callback typedParams |
+| GEN-066 | `bridge_generator.dart` | Double-quote import regex, recursive `_barrelExportsType` with part scanning |
+| GEN-067 | `bridge_generator.dart` + `type_erasure_test.dart` | Fixed by GEN-068 URI normalization |
+| GEN-068 | `bridge_generator.dart` | `file://` → `package:` URI normalization in `_globalTypeToUri` path |
+| GEN-068b | `bridge_generator.dart` | Barrel URI fallback through `_globalTypeToUri` in `_resolveTypeFromSourceImports` path |
+| GEN-069 | `bridge_generator.dart` | Last-resort sourceFilePath prefix for exported types in record types |
 
 ### Generator Improvements Needed
 

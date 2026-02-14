@@ -3874,7 +3874,8 @@ class BridgeGenerator {
   String? _resolveTypeByImportTextScan(String typeName, String sourceFile) {
     try {
       final content = File(sourceFile).readAsStringSync();
-      final importRegex = RegExp(r"import\s+'(package:[^']+)'\s*");
+      // Match both single and double-quoted imports (Dart allows either)
+      final importRegex = RegExp(r"""import\s+['"]([^'"]+)['"]\s*""");
       for (final match in importRegex.allMatches(content)) {
         final importUri = match.group(1)!;
         if (importUri.startsWith('dart:')) continue;
@@ -3924,15 +3925,28 @@ class BridgeGenerator {
   }
   
   /// Checks if a barrel file defines or exports a given type name.
-  /// Follows one level of exports (sufficient for most packages).
-  bool _barrelExportsType(String filePath, String typeName) {
+  /// Follows export chains recursively up to [maxDepth] levels deep.
+  /// Also checks `part` files which are syntactically part of the library.
+  bool _barrelExportsType(String filePath, String typeName, [int maxDepth = 3]) {
+    if (maxDepth <= 0) return false;
     try {
       final content = File(filePath).readAsStringSync();
       // Check if type is directly defined in this file
       if (_fileDefinesType(content, typeName)) return true;
       
-      // Check exported files (one level deep)
-      final exportRegex = RegExp(r"export\s+'([^']+)'\s*");
+      // Check part files (they are part of the same library unit)
+      final partRegex = RegExp(r"""part\s+['"]([^'"]+)['"]\s*;""");
+      for (final partMatch in partRegex.allMatches(content)) {
+        final partRef = partMatch.group(1)!;
+        final partFilePath = p.normalize(p.join(p.dirname(filePath), partRef));
+        if (File(partFilePath).existsSync()) {
+          final partContent = File(partFilePath).readAsStringSync();
+          if (_fileDefinesType(partContent, typeName)) return true;
+        }
+      }
+      
+      // Check exported files recursively (reduced depth)
+      final exportRegex = RegExp(r"""export\s+['"]([^'"]+)['"]\s*""");
       for (final exportMatch in exportRegex.allMatches(content)) {
         final exportRef = exportMatch.group(1)!;
         String? exportFilePath;
@@ -3942,8 +3956,7 @@ class BridgeGenerator {
           exportFilePath = p.normalize(p.join(p.dirname(filePath), exportRef));
         }
         if (exportFilePath != null && File(exportFilePath).existsSync()) {
-          final exportContent = File(exportFilePath).readAsStringSync();
-          if (_fileDefinesType(exportContent, typeName)) return true;
+          if (_barrelExportsType(exportFilePath, typeName, maxDepth - 1)) return true;
         }
       }
     } catch (_) {}
@@ -6939,7 +6952,9 @@ class BridgeGenerator {
         }
         final typedParams = <String>[];
         for (var j = 0; j < paramTypes.length; j++) {
-          typedParams.add('${paramTypes[j]} p$j');
+          // GEN-065: Replace InvalidType with dynamic for callback parameter types
+          final pType = paramTypes[j].contains('InvalidType') ? 'dynamic' : paramTypes[j];
+          typedParams.add('$pType p$j');
         }
         
         if (isNullable) {
@@ -6992,7 +7007,9 @@ class BridgeGenerator {
         }
         final typedParamsNamed = <String>[];
         for (var j = 0; j < paramTypesNamed.length; j++) {
-          typedParamsNamed.add('${paramTypesNamed[j]} p$j');
+          // GEN-065: Replace InvalidType with dynamic for callback parameter types
+          final pType = paramTypesNamed[j].contains('InvalidType') ? 'dynamic' : paramTypesNamed[j];
+          typedParamsNamed.add('$pType p$j');
         }
         
         buffer.writeln("              wrappedNamed[#${param.name}] = (${typedParamsNamed.join(', ')}) { D4.callInterpreterCallback(visitor, $rawVarName, [${paramNamesNamed.join(', ')}]); };");
@@ -8489,6 +8506,14 @@ class BridgeGenerator {
       isNullable = true;
     }
 
+    // GEN-065: Guard against InvalidType from the Dart analyzer.
+    // When the analyzer can't resolve a type (e.g., super/field formals without
+    // explicit type annotations, callback params from unresolvable deps),
+    // getDisplayString() returns literal "InvalidType". Use dynamic instead.
+    if (baseType == 'InvalidType' || baseType.contains('InvalidType')) {
+      return 'dynamic';
+    }
+
     // Handle inline function types (e.g., Object? Function(Object?))
     // Parse and resolve types within the function signature with proper prefixes
     if (baseType.contains('Function(') || baseType.contains(') Function')) {
@@ -8667,6 +8692,39 @@ class BridgeGenerator {
       if (sourceFilePath != null) {
         final auxUri = _resolveTypeFromSourceImports(unprefixedType, sourceFilePath);
         if (auxUri != null) {
+          // GEN-068b: When _resolveTypeFromSourceImports returns a barrel URI
+          // (e.g., package:tom_core_kernel/tom_core_kernel.dart), it may not have
+          // a prefix in _importPrefixes. Before creating an auxiliary prefix for
+          // the barrel, check if the type's actual source file is already imported
+          // via _globalTypeToUri → _importPrefixes lookup.
+          final existingAuxPrefix = _importPrefixes[auxUri];
+          if (existingAuxPrefix != null && existingAuxPrefix.isNotEmpty) {
+            final result = '$existingAuxPrefix.$unprefixedType';
+            return isNullable ? '$result?' : result;
+          }
+          // auxUri is not directly imported — check _globalTypeToUri for a more
+          // specific URI (the actual source file) that may already be imported.
+          final globalUri = _globalTypeToUri[unprefixedType];
+          if (globalUri != null) {
+            var resolvedGlobalUri = globalUri;
+            if (globalUri.startsWith('file://') || globalUri.startsWith('file:///')) {
+              final localPath = Uri.parse(globalUri).toFilePath();
+              final packageUri = _getPackageUri(localPath);
+              if (packageUri.startsWith('package:')) {
+                resolvedGlobalUri = packageUri;
+              }
+            } else if (!globalUri.startsWith('package:') && !globalUri.startsWith('dart:')) {
+              final packageUri = _getPackageUri(globalUri);
+              if (packageUri.startsWith('package:')) {
+                resolvedGlobalUri = packageUri;
+              }
+            }
+            final globalPrefix = _importPrefixes[resolvedGlobalUri];
+            if (globalPrefix != null && globalPrefix.isNotEmpty) {
+              final result = '$globalPrefix.$unprefixedType';
+              return isNullable ? '$result?' : result;
+            }
+          }
           _addAuxiliaryImport(auxUri, unprefixedType);
           final prefix = _getOrCreateAuxiliaryPrefix(auxUri);
           final result = '$prefix.$unprefixedType';
@@ -8687,8 +8745,28 @@ class BridgeGenerator {
           final result = unprefixedType;
           return isNullable ? '$result?' : result;
         }
-        _addAuxiliaryImport(globalUri, unprefixedType);
-        final prefix = _getOrCreateAuxiliaryPrefix(globalUri);
+        // Normalize file:// URIs to package: URIs so they match _importPrefixes keys
+        var resolvedGlobalUri = globalUri;
+        if (globalUri.startsWith('file://') || globalUri.startsWith('file:///')) {
+          final localPath = Uri.parse(globalUri).toFilePath();
+          final packageUri = _getPackageUri(localPath);
+          if (packageUri.startsWith('package:')) {
+            resolvedGlobalUri = packageUri;
+          }
+        } else if (!globalUri.startsWith('package:') && !globalUri.startsWith('dart:')) {
+          final packageUri = _getPackageUri(globalUri);
+          if (packageUri.startsWith('package:')) {
+            resolvedGlobalUri = packageUri;
+          }
+        }
+        // Check if there's already a direct import prefix for this URI
+        final existingPrefix = _importPrefixes[resolvedGlobalUri];
+        if (existingPrefix != null && existingPrefix.isNotEmpty) {
+          final result = '$existingPrefix.$unprefixedType';
+          return isNullable ? '$result?' : result;
+        }
+        _addAuxiliaryImport(resolvedGlobalUri, unprefixedType);
+        final prefix = _getOrCreateAuxiliaryPrefix(resolvedGlobalUri);
         final result = '$prefix.$unprefixedType';
         return isNullable ? '$result?' : result;
       }
@@ -8702,6 +8780,25 @@ class BridgeGenerator {
         // Exported types should have been resolved by typeToUri, _resolveTypeFromSourceImports,
         // or _globalTypeToUri above. If we get here, the type genuinely can't be found.
         if (sourceUri.startsWith('package:') && !_isTypeExported(unprefixedType)) {
+          // GEN-066: Before using the source file's prefix, try textual import scanning
+          // to find if the type is from a transitive dependency. This catches types like
+          // Trace (from package:stack_trace) and SettingsYaml (from package:settings_yaml)
+          // that the analyzer couldn't resolve because they're transitive deps.
+          final textUri = _resolveTypeByImportTextScan(unprefixedType, sourceFilePath);
+          if (textUri != null) {
+            // Found the type in a transitive dependency import.
+            // Check if we can import it (has a prefix registered or can create auxiliary).
+            final textPrefix = _importPrefixes[textUri];
+            if (textPrefix != null && textPrefix.isNotEmpty) {
+              final result = '$textPrefix.$unprefixedType';
+              return isNullable ? '$result?' : result;
+            }
+            // The type is from a transitive dependency — we can try to use auxiliary imports,
+            // but if the package is not a direct dependency, the import won't compile.
+            // Use dynamic instead to be safe.
+            _recordMissingExport('type from transitive dependency (using dynamic)', '$unprefixedType (from $textUri, used in $sourceFilePath)');
+            return 'dynamic';
+          }
           // Non-exported type, possibly defined in the source file itself
           final srcPrefix = _importPrefixes[sourceUri];
           if (srcPrefix != null && srcPrefix.isNotEmpty) {
@@ -8711,10 +8808,23 @@ class BridgeGenerator {
         }
         if (sourceFilePath.startsWith(workspacePath)) {
           // Try to use source file's prefix from _importPrefixes
-          final sourceUri = _getPackageUri(sourceFilePath);
-          final srcPrefix = _importPrefixes[sourceUri];
-          if (srcPrefix != null && srcPrefix.isNotEmpty) {
-            final result = '$srcPrefix.$unprefixedType';
+          final sourceUri2 = _getPackageUri(sourceFilePath);
+          final srcPrefix2 = _importPrefixes[sourceUri2];
+          if (srcPrefix2 != null && srcPrefix2.isNotEmpty) {
+            final result = '$srcPrefix2.$unprefixedType';
+            return isNullable ? '$result?' : result;
+          }
+        }
+        // GEN-069: Last resort for exported types defined in the same file as sourceFilePath.
+        // When _isTypeExported is true, the block above is skipped because the comment assumes
+        // sourceFilePath points to the USING class's file, not the type's definition file.
+        // But for types defined in the same file (e.g., ParsedHeadline in markdown_parser.dart),
+        // sourceFilePath IS the correct file. Try the sourceFilePath prefix unconditionally.
+        {
+          final lastResortUri = _getPackageUri(sourceFilePath);
+          final lastResortPrefix = _importPrefixes[lastResortUri];
+          if (lastResortPrefix != null && lastResortPrefix.isNotEmpty) {
+            final result = '$lastResortPrefix.$unprefixedType';
             return isNullable ? '$result?' : result;
           }
         }
@@ -11886,7 +11996,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
             functionTypeInfo = typeInfo.functionTypeInfo;
           } else {
             final resolvedType = innerParam.declaredFragment?.element.type;
-            if (resolvedType != null) {
+            // GEN-065: Guard against InvalidType from unresolvable field formals
+            if (resolvedType != null && resolvedType is! InvalidType) {
               type = resolvedType.getDisplayString();
               typeImportUris = <String>{};
               typeToUri = <String, String>{};
@@ -11914,7 +12025,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
             functionTypeInfo = typeInfo.functionTypeInfo;
           } else {
             final resolvedType = innerParam.declaredFragment?.element.type;
-            if (resolvedType != null) {
+            // GEN-065: Guard against InvalidType from unresolvable super formals
+            if (resolvedType != null && resolvedType is! InvalidType) {
               type = resolvedType.getDisplayString();
               typeImportUris = <String>{};
               typeToUri = <String, String>{};
@@ -11956,7 +12068,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           functionTypeInfo = typeInfo.functionTypeInfo;
         } else {
           final resolvedType = param.declaredFragment?.element.type;
-          if (resolvedType != null) {
+          // GEN-065: Guard against InvalidType from unresolvable field formals
+          if (resolvedType != null && resolvedType is! InvalidType) {
             type = resolvedType.getDisplayString();
             typeImportUris = <String>{};
             typeToUri = <String, String>{};
@@ -11986,7 +12099,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           functionTypeInfo = typeInfo.functionTypeInfo;
         } else {
           final resolvedType = param.declaredFragment?.element.type;
-          if (resolvedType != null) {
+          // GEN-065: Guard against InvalidType from unresolvable super formals
+          if (resolvedType != null && resolvedType is! InvalidType) {
             type = resolvedType.getDisplayString();
             typeImportUris = <String>{};
             typeToUri = <String, String>{};

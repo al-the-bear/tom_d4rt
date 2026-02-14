@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 71 files
-// Generated: 2026-02-14T22:55:53.797627
+// Sources: 70 files
+// Generated: 2026-02-15T00:34:29.495762
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -10,7 +10,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:crypto/src/digest.dart' as $crypto_1;
+import 'package:crypto/crypto.dart' as $crypto_1;
 import 'package:dcli/src/functions/ask.dart' as $dcli_1;
 import 'package:dcli/src/functions/backup.dart' as $dcli_2;
 import 'package:dcli/src/functions/confirm.dart' as $dcli_3;
@@ -88,7 +88,6 @@ class DcliBridge {
   /// Returns all bridge class definitions.
   static List<BridgedClass> bridgeClasses() {
     return [
-      _createDigestBridge(),
       _createCatExceptionBridge(),
       _createCopyExceptionBridge(),
       _createCreateDirExceptionBridge(),
@@ -160,7 +159,6 @@ class DcliBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> classSourceUris() {
     return {
-      'Digest': 'package:crypto/src/digest.dart',
       'CatException': 'package:dcli_core/src/functions/cat.dart',
       'CopyException': 'package:dcli_core/src/functions/copy.dart',
       'CreateDirException': 'package:dcli_core/src/functions/create_dir.dart',
@@ -282,16 +280,6 @@ class DcliBridge {
         },
       ),
       BridgedExtensionDefinition(
-        name: 'DigestHelper',
-        onTypeName: 'Digest',
-        methods: {
-          'hexEncode': (visitor, target, positional, named, typeArgs) {
-            final t = target as $crypto_1.Digest;
-            return Function.apply(t.hexEncode, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
-          },
-        },
-      ),
-      BridgedExtensionDefinition(
         name: 'StringAsProcess',
         onTypeName: 'String',
         getters: {
@@ -362,7 +350,6 @@ class DcliBridge {
   static Map<String, String> extensionSourceUris() {
     return {
       'PlatformEx': 'package:dcli_core/src/util/platform.dart',
-      'DigestHelper': 'package:dcli/src/util/digest_helper.dart',
       'StringAsProcess': 'package:dcli/src/util/string_as_process.dart',
     };
   }
@@ -1187,7 +1174,6 @@ class DcliBridge {
   /// multiple barrels.
   static List<String> sourceLibraries() {
     return [
-      'package:crypto/src/digest.dart',
       'package:dcli/src/functions/ask.dart',
       'package:dcli/src/functions/backup.dart',
       'package:dcli/src/functions/confirm.dart',
@@ -1265,7 +1251,6 @@ class DcliBridge {
   static String getImportBlock() {
     final imports = StringBuffer();
     imports.writeln("import 'package:dcli/dcli.dart';");
-    imports.writeln("import 'package:crypto/crypto.dart';");
     imports.writeln("import 'package:dcli_core/dcli_core.dart';");
     imports.writeln("import 'package:dcli_terminal/dcli_terminal.dart';");
     return imports.toString();
@@ -1279,7 +1264,6 @@ class DcliBridge {
   /// so that module resolution finds content for those URIs.
   static List<String> subPackageBarrels() {
     return [
-      'package:crypto/crypto.dart',
       'package:dcli_core/dcli_core.dart',
       'package:dcli_terminal/dcli_terminal.dart',
     ];
@@ -1298,52 +1282,6 @@ class DcliBridge {
 }
 
 // =============================================================================
-// Digest Bridge
-// =============================================================================
-
-BridgedClass _createDigestBridge() {
-  return BridgedClass(
-    nativeType: $crypto_1.Digest,
-    name: 'Digest',
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Digest');
-        if (positional.isEmpty) {
-          throw ArgumentError('Digest: Missing required argument "bytes" at position 0');
-        }
-        final bytes = D4.coerceList<int>(positional[0], 'bytes');
-        return $crypto_1.Digest(bytes);
-      },
-    },
-    getters: {
-      'bytes': (visitor, target) => D4.validateTarget<$crypto_1.Digest>(target, 'Digest').bytes,
-      'hashCode': (visitor, target) => D4.validateTarget<$crypto_1.Digest>(target, 'Digest').hashCode,
-    },
-    methods: {
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$crypto_1.Digest>(target, 'Digest');
-        return t.toString();
-      },
-      '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$crypto_1.Digest>(target, 'Digest');
-        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
-        return t == other;
-      },
-    },
-    constructorSignatures: {
-      '': 'Digest(List<int> bytes)',
-    },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'bytes': 'List<int> get bytes',
-      'hashCode': 'int get hashCode',
-    },
-  );
-}
-
-// =============================================================================
 // CatException Bridge
 // =============================================================================
 
@@ -1355,7 +1293,7 @@ BridgedClass _createCatExceptionBridge() {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CatException');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'CatException');
-        final stacktrace = D4.getOptionalArg<$dcli_core_1.InvalidType>(positional, 1, 'stacktrace');
+        final stacktrace = D4.getOptionalArg<dynamic>(positional, 1, 'stacktrace');
         return $dcli_core_1.CatException(message, stacktrace);
       },
     },
@@ -1388,7 +1326,7 @@ BridgedClass _createCatExceptionBridge() {
       },
     },
     constructorSignatures: {
-      '': 'CatException(String message, [InvalidType stacktrace])',
+      '': 'CatException(String message, [dynamic stacktrace])',
     },
     methodSignatures: {
       'toString': 'String toString()',
@@ -1564,7 +1502,7 @@ BridgedClass _createDCliFunctionExceptionBridge() {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DCliFunctionException');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'DCliFunctionException');
-        final stackTrace = D4.getOptionalArg<$dcli_core_5.InvalidType>(positional, 1, 'stackTrace');
+        final stackTrace = D4.getOptionalArg<dynamic>(positional, 1, 'stackTrace');
         return $dcli_core_5.DCliFunctionException(message, stackTrace);
       },
     },
@@ -1597,7 +1535,7 @@ BridgedClass _createDCliFunctionExceptionBridge() {
       },
     },
     constructorSignatures: {
-      '': 'DCliFunctionException(String message, [InvalidType stackTrace])',
+      '': 'DCliFunctionException(String message, [dynamic stackTrace])',
     },
     methodSignatures: {
       'toString': 'String toString()',
@@ -2068,7 +2006,7 @@ BridgedClass _createDCliExceptionBridge() {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DCliException');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'DCliException');
-        final stackTrace = D4.getOptionalArg<$dcli_core_17.Trace?>(positional, 1, 'stackTrace');
+        final stackTrace = D4.getOptionalArg<dynamic>(positional, 1, 'stackTrace');
         return $dcli_core_17.DCliException(message, stackTrace);
       },
       'fromJson': (visitor, positional, named) {
@@ -2079,7 +2017,7 @@ BridgedClass _createDCliExceptionBridge() {
       'from': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'DCliException');
         final cause = D4.getRequiredArg<Object?>(positional, 0, 'cause', 'DCliException');
-        final stackTrace = D4.getRequiredArg<$dcli_core_17.InvalidType>(positional, 1, 'stackTrace', 'DCliException');
+        final stackTrace = D4.getRequiredArg<dynamic>(positional, 1, 'stackTrace', 'DCliException');
         return $dcli_core_17.DCliException.from(cause, stackTrace);
       },
       'fromException': (visitor, positional, named) {
@@ -2119,7 +2057,7 @@ BridgedClass _createDCliExceptionBridge() {
     constructorSignatures: {
       '': 'DCliException(String message, [Trace? stackTrace])',
       'fromJson': 'factory DCliException.fromJson(String jsonStr)',
-      'from': 'DCliException.from(Object? cause, InvalidType stackTrace)',
+      'from': 'DCliException.from(Object? cause, dynamic stackTrace)',
       'fromException': 'DCliException.fromException(Object? cause)',
     },
     methodSignatures: {
@@ -2153,7 +2091,7 @@ BridgedClass _createRunExceptionBridge() {
         final cmdLine = D4.getRequiredArg<String>(positional, 0, 'cmdLine', 'RunException');
         final exitCode = D4.getRequiredArg<int?>(positional, 1, 'exitCode', 'RunException');
         final reason = D4.getRequiredArg<String>(positional, 2, 'reason', 'RunException');
-        final stackTrace = D4.getOptionalNamedArg<$dcli_core_22.Trace?>(named, 'stackTrace');
+        final stackTrace = D4.getOptionalNamedArg<dynamic>(named, 'stackTrace');
         return $dcli_core_22.RunException(cmdLine, exitCode, reason, stackTrace: stackTrace);
       },
       'fromJson': (visitor, positional, named) {
@@ -2178,7 +2116,7 @@ BridgedClass _createRunExceptionBridge() {
         final args = D4.coerceList<String?>(positional[1], 'args');
         final exitCode = D4.getRequiredArg<int?>(positional, 2, 'exitCode', 'RunException');
         final reason = D4.getRequiredArg<String>(positional, 3, 'reason', 'RunException');
-        final stackTrace = D4.getOptionalNamedArg<$dcli_core_22.Trace?>(named, 'stackTrace');
+        final stackTrace = D4.getOptionalNamedArg<dynamic>(named, 'stackTrace');
         return $dcli_core_22.RunException.withArgs(cmd, args, exitCode, reason, stackTrace: stackTrace);
       },
       'fromException': (visitor, positional, named) {
@@ -2189,7 +2127,7 @@ BridgedClass _createRunExceptionBridge() {
           throw ArgumentError('RunException: Missing required argument "args" at position 2');
         }
         final args = D4.coerceList<String?>(positional[2], 'args');
-        final stackTrace = D4.getOptionalNamedArg<$dcli_core_22.Trace?>(named, 'stackTrace');
+        final stackTrace = D4.getOptionalNamedArg<dynamic>(named, 'stackTrace');
         return $dcli_core_22.RunException.fromException(exception, cmd, args, stackTrace: stackTrace);
       },
     },
@@ -3535,7 +3473,7 @@ BridgedClass _createResourcesBridge() {
       'getExcludedPaths': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dcli_20.Resources>(target, 'Resources');
         D4.requireMinArgs(positional, 3, 'getExcludedPaths');
-        final yaml = D4.getRequiredArg<$dcli_20.SettingsYaml>(positional, 0, 'yaml', 'getExcludedPaths');
+        final yaml = D4.getRequiredArg<dynamic>(positional, 0, 'yaml', 'getExcludedPaths');
         final path = D4.getRequiredArg<String>(positional, 1, 'path', 'getExcludedPaths');
         final index = D4.getRequiredArg<int>(positional, 2, 'index', 'getExcludedPaths');
         return t.getExcludedPaths(yaml, path, index);

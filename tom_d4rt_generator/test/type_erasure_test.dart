@@ -67,10 +67,10 @@ void main() {
         );
       });
 
-      test('G-TE-1a: Bounded type param uses bound type. [2026-02-10 06:37] (FAIL)', () {
+      test('G-TE-1a: Bounded type param uses bound type. [2026-02-10 06:37] (PASS)', () {
         // findFirst<E extends BaseEntity> should use BaseEntity
         // The generator correctly uses coerceList for List-typed parameters (not getRequiredArg)
-        // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
+        // Bounded type params now correctly resolve to existing import prefixes
         expect(
           generatedCode,
           contains(r"D4.coerceList<$test_package_1.BaseEntity>"),
@@ -85,7 +85,7 @@ void main() {
           contains(r"List<Comparable>"),
           reason: 'K extends Comparable should become Comparable',
         );
-        // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
+        // Bounded type params now correctly resolve to existing import prefixes
         expect(
           generatedCode,
           contains(r"List<$test_package_1.BaseEntity>"),
@@ -104,7 +104,7 @@ void main() {
         );
       });
 
-      test('G-TE-2a: Static castFrom uses constrained types. [2026-02-10 06:37] (FAIL)', () {
+      test('G-TE-2a: Static castFrom uses constrained types. [2026-02-10 06:37] (PASS)', () {
         // castFrom<S extends Observable, E extends Observable>(ObservableList<S>)
         expect(
           generatedCode,
@@ -112,7 +112,7 @@ void main() {
           reason: 'Static method castFrom should be bridged',
         );
         // Should use Observable as the bound for S in the parameter type
-        // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
+        // Bounded type params now correctly resolve to existing import prefixes
         expect(
           generatedCode,
           contains(r"ObservableList<$test_package_1.Observable>"),
