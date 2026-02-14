@@ -1038,48 +1038,126 @@ class BridgeGenerator {
   /// Cached SDK path for analysis contexts.
   String? _cachedSdkPath;
 
+  /// Validates that a path looks like a Dart SDK (has lib/_internal).
+  bool _isValidSdkPath(String sdkPath) {
+    return Directory(p.join(sdkPath, 'lib', '_internal')).existsSync();
+  }
+
+  /// Tries to resolve a Dart SDK from a dart executable path.
+  /// 
+  /// The dart binary can be at:
+  /// - `<sdk>/bin/dart` (standalone Dart SDK)
+  /// - `<flutter>/bin/dart` (Flutter wrapper → real SDK at `<flutter>/bin/cache/dart-sdk`)
+  /// - A symlink to either of the above
+  String? _resolveSdkFromDartPath(String dartPath) {
+    // Resolve symlinks to get the real path
+    try {
+      final resolved = File(dartPath).resolveSymbolicLinksSync();
+      dartPath = resolved;
+    } catch (_) {
+      // If symlink resolution fails, continue with the original path
+    }
+
+    // dart is at <something>/bin/dart → parent of bin/ is the candidate
+    var candidate = p.dirname(p.dirname(dartPath));
+
+    // Direct SDK: <sdk>/bin/dart → candidate is <sdk>
+    if (_isValidSdkPath(candidate)) return candidate;
+
+    // Flutter SDK: <flutter>/bin/cache/dart-sdk/bin/dart → candidate is dart-sdk
+    // But if dart is at <flutter>/bin/dart (wrapper), the real SDK is in cache
+    final flutterCacheSdk = p.join(candidate, 'cache', 'dart-sdk');
+    if (_isValidSdkPath(flutterCacheSdk)) return flutterCacheSdk;
+
+    // Maybe the resolved path is already inside cache/dart-sdk/bin/
+    // e.g. <flutter>/bin/cache/dart-sdk/bin/dart
+    if (candidate.endsWith('dart-sdk') && _isValidSdkPath(candidate)) {
+      return candidate;
+    }
+
+    return null;
+  }
+
   /// Gets the Dart SDK path for analysis contexts.
   /// 
   /// Resolution order:
-  /// 1. `DART_SDK` environment variable (recommended for compiled binaries)
-  /// 2. Derive from `dart` executable in PATH
-  /// 3. Fall back to null (let analyzer use Platform.resolvedExecutable)
+  /// 1. `DART_SDK` environment variable
+  /// 2. `DART_HOME` environment variable
+  /// 3. `Platform.resolvedExecutable` (works when running via `dart run`)
+  /// 4. `dart` executable in PATH (resolve symlinks)
+  /// 5. `flutter` executable in PATH → derive `bin/cache/dart-sdk`
+  /// 6. Fall back to null (let analyzer use its default)
   /// 
   /// When running d4rtgen as a compiled binary (e.g., from ~/.tom/bin/),
   /// the analyzer's default SDK detection fails because it derives the SDK
-  /// path from the executable location. Set `DART_SDK` to fix this.
+  /// path from the executable location. Steps 1-5 handle this automatically.
   String? _getSdkPath() {
     if (_cachedSdkPath != null) return _cachedSdkPath;
     
     // 1. Check DART_SDK environment variable
     final dartSdkEnv = Platform.environment['DART_SDK'];
     if (dartSdkEnv != null && dartSdkEnv.isNotEmpty) {
-      final sdkDir = Directory(dartSdkEnv);
-      if (sdkDir.existsSync()) {
+      if (_isValidSdkPath(dartSdkEnv)) {
         _cachedSdkPath = dartSdkEnv;
         return _cachedSdkPath;
       }
     }
+
+    // 2. Check DART_HOME environment variable
+    final dartHomeEnv = Platform.environment['DART_HOME'];
+    if (dartHomeEnv != null && dartHomeEnv.isNotEmpty) {
+      if (_isValidSdkPath(dartHomeEnv)) {
+        _cachedSdkPath = dartHomeEnv;
+        return _cachedSdkPath;
+      }
+    }
+
+    // 3. Try Platform.resolvedExecutable — when running via `dart run`,
+    //    this points to the actual dart binary inside the SDK.
+    //    For compiled binaries, this points to the binary itself (e.g., ~/.tom/bin/d4rtgen).
+    try {
+      final resolvedExe = Platform.resolvedExecutable;
+      final sdk = _resolveSdkFromDartPath(resolvedExe);
+      if (sdk != null) {
+        _cachedSdkPath = sdk;
+        return _cachedSdkPath;
+      }
+    } catch (_) {
+      // Platform.resolvedExecutable can throw in some environments
+    }
     
-    // 2. Try to find dart in PATH and derive SDK path
+    // 4. Try to find dart in PATH and derive SDK path (resolve symlinks)
     try {
       final result = Process.runSync('which', ['dart']);
       if (result.exitCode == 0) {
         final dartPath = (result.stdout as String).trim();
         if (dartPath.isNotEmpty) {
-          // dart is typically at <sdk>/bin/dart or <flutter>/bin/dart
-          // For Flutter, dart-sdk is at <flutter>/bin/cache/dart-sdk
-          var sdkPath = p.dirname(p.dirname(dartPath));
-          
-          // Check if this is a Flutter installation
-          final flutterDartSdk = p.join(sdkPath, 'cache', 'dart-sdk');
-          if (Directory(flutterDartSdk).existsSync()) {
-            sdkPath = flutterDartSdk;
+          final sdk = _resolveSdkFromDartPath(dartPath);
+          if (sdk != null) {
+            _cachedSdkPath = sdk;
+            return _cachedSdkPath;
           }
-          
-          // Verify it looks like an SDK (has lib/_internal)
-          if (Directory(p.join(sdkPath, 'lib', '_internal')).existsSync()) {
-            _cachedSdkPath = sdkPath;
+        }
+      }
+    } catch (_) {
+      // Ignore errors from which command
+    }
+
+    // 5. Try to find flutter in PATH → <flutter>/bin/cache/dart-sdk
+    try {
+      final result = Process.runSync('which', ['flutter']);
+      if (result.exitCode == 0) {
+        var flutterPath = (result.stdout as String).trim();
+        if (flutterPath.isNotEmpty) {
+          // Resolve symlinks
+          try {
+            flutterPath = File(flutterPath).resolveSymbolicLinksSync();
+          } catch (_) {}
+          // flutter is at <flutter>/bin/flutter → parent of bin/ is flutter root
+          final flutterRoot = p.dirname(p.dirname(flutterPath));
+          final dartSdk = p.join(flutterRoot, 'bin', 'cache', 'dart-sdk');
+          if (_isValidSdkPath(dartSdk)) {
+            _cachedSdkPath = dartSdk;
             return _cachedSdkPath;
           }
         }
@@ -1088,7 +1166,7 @@ class BridgeGenerator {
       // Ignore errors from which command
     }
     
-    // 3. Return null - let analyzer use its default (may fail for compiled binaries)
+    // 6. Return null - let analyzer use its default (may fail for compiled binaries)
     return null;
   }
 
@@ -2435,6 +2513,23 @@ class BridgeGenerator {
         }).toList();
       }
 
+      // GEN-064: Filter out duplicate extensions (keep first occurrence)
+      // Extensions can appear multiple times when imported through different
+      // barrel re-exports. Deduplicate by name+sourceFile.
+      {
+        final seenExtensions = <String>{};
+        filteredExtensions = filteredExtensions.where((e) {
+          final key = '${e.name ?? '<unnamed>'}|${_getPackageUri(e.sourceFile)}';
+          if (seenExtensions.contains(key)) {
+            final extName = e.name ?? e.onTypeName;
+            _recordSkip('extension', extName, 'duplicate (already seen from another import)');
+            return false;
+          }
+          seenExtensions.add(key);
+          return true;
+        }).toList();
+      }
+
       // GEN-057: Post-process global functions to fix up missing return type URIs
       // This handles cases where return types like `core.Which` were InvalidType
       // during AST parsing, but the type was found in a different source file.
@@ -2881,6 +2976,23 @@ class BridgeGenerator {
           _recordSkip('extension', extName, 'source URI excluded by pattern: $sourceUri');
           return false;
         }
+        return true;
+      }).toList();
+    }
+
+    // GEN-064: Filter out duplicate extensions (keep first occurrence)
+    // Extensions can appear multiple times when imported through different
+    // barrel re-exports. Deduplicate by name+sourceFile.
+    {
+      final seenExtensions = <String>{};
+      filteredExtensions = filteredExtensions.where((e) {
+        final key = '${e.name ?? '<unnamed>'}|${_getPackageUri(e.sourceFile)}';
+        if (seenExtensions.contains(key)) {
+          final extName = e.name ?? e.onTypeName;
+          _recordSkip('extension', extName, 'duplicate (already seen from another import)');
+          return false;
+        }
+        seenExtensions.add(key);
         return true;
       }).toList();
     }
@@ -4392,8 +4504,12 @@ class BridgeGenerator {
       if (_isTypeExported(cleanType)) {
         var typeUri = typeToUri[cleanType] ?? _globalTypeToUri[cleanType];
         if (typeUri != null) {
+          // Normalize URI to package: format
           if (typeUri.startsWith('file://') || typeUri.startsWith('file:')) {
             typeUri = _getPackageUri(Uri.parse(typeUri).toFilePath());
+          } else if (!typeUri.startsWith('package:') && !typeUri.startsWith('dart:')) {
+            // Bare file path — convert to package: URI
+            typeUri = _getPackageUri(typeUri);
           }
           // If the source file IS already imported, skip — the existing prefix works
           if (typeUri.startsWith('package:') && _importPrefixes.containsKey(typeUri)) {
@@ -4412,10 +4528,13 @@ class BridgeGenerator {
       var uri = typeToUri[cleanType];
       if (uri != null) {
         if (!uri.startsWith('dart:')) {
-          // Convert file:// to package: if needed
+          // Normalize URI to package: format
           if (uri.startsWith('file://') || uri.startsWith('file:')) {
             final filePath = Uri.parse(uri).toFilePath();
             uri = _getPackageUri(filePath);
+          } else if (!uri.startsWith('package:')) {
+            // Bare file path — convert to package: URI
+            uri = _getPackageUri(uri);
           }
           if (uri.startsWith('package:')) {
             _addAuxiliaryImport(uri, cleanType);
@@ -4435,10 +4554,13 @@ class BridgeGenerator {
       uri = _globalTypeToUri[cleanType];
       if (uri != null) {
         if (!uri.startsWith('dart:')) {
-          // Convert file:// to package: if needed
+          // Normalize URI to package: format
           if (uri.startsWith('file://') || uri.startsWith('file:')) {
             final filePath = Uri.parse(uri).toFilePath();
             uri = _getPackageUri(filePath);
+          } else if (!uri.startsWith('package:')) {
+            // Bare file path — convert to package: URI
+            uri = _getPackageUri(uri);
           }
           if (uri.startsWith('package:')) {
             _addAuxiliaryImport(uri, cleanType);
@@ -4673,6 +4795,11 @@ class BridgeGenerator {
     // Imports
     buffer.writeln("import 'package:tom_d4rt/d4rt.dart';");
     buffer.writeln("import '$helpersImport';");
+
+    // Register unprefixed imports in _importPrefixes so type resolution
+    // can find types from these packages (they're imported without prefix)
+    _importPrefixes['package:tom_d4rt/d4rt.dart'] = '';
+    _importPrefixes['package:tom_d4rt/tom_d4rt.dart'] = '';
 
     // Separate SDK imports (dart:*) from external package imports
     // Map private SDK libraries to their public equivalents
@@ -8209,10 +8336,23 @@ class BridgeGenerator {
   }) {
     // Create a cache key that includes the context
     // IMPORTANT: Include both keys AND values to distinguish E:null from E:Identifiable
+    // IMPORTANT: Include typeToUri for the base type name, since different callers
+    // may provide different typeToUri maps (e.g., one member has the URI, another doesn't),
+    // and the resolution result depends critically on this URI.
     final typeParamsKey = classTypeParams.entries
         .map((e) => '${e.key}=${e.value ?? 'null'}')
         .join(',');
-    final cacheKey = '$type|$typeParamsKey|${sourceFilePath ?? ''}';
+    // Extract the base type name (strip nullable suffix) to look up in typeToUri
+    var _cacheBaseType = type;
+    if (_cacheBaseType.endsWith('?')) {
+      _cacheBaseType = _cacheBaseType.substring(0, _cacheBaseType.length - 1);
+    }
+    // Strip any prefix (e.g., "pkg.Type" -> "Type")
+    if (_cacheBaseType.contains('.') && !_cacheBaseType.contains('<')) {
+      _cacheBaseType = _cacheBaseType.split('.').last;
+    }
+    final _typeUriKey = typeToUri[_cacheBaseType] ?? '';
+    final cacheKey = '$type|$typeParamsKey|${sourceFilePath ?? ''}|$_typeUriKey';
     
     // Check cache first
     if (_typeResolutionCache.containsKey(cacheKey)) {
@@ -8492,10 +8632,23 @@ class BridgeGenerator {
         return isNullable ? '$result?' : result;
       } else {
         // GEN-055b: URI exists in typeToUri but no prefix was registered.
-        // Try auxiliary import mechanism first (may have been pre-collected).
-        if (uri.startsWith('package:')) {
-          final auxPrefix = _getOrCreateAuxiliaryPrefix(uri);
-          if (_importPrefixes.containsKey(uri) || _auxiliaryPrefixes.containsKey(uri)) {
+        // Normalize to package: URI first (typeToUri may contain bare file paths).
+        var resolvedUri = uri;
+        if (uri.startsWith('file://') || uri.startsWith('file:///')) {
+          resolvedUri = _getPackageUri(Uri.parse(uri).toFilePath());
+        } else if (!uri.startsWith('package:') && !uri.startsWith('dart:')) {
+          resolvedUri = _getPackageUri(uri);
+        }
+        // Try to find an existing import prefix for the normalized URI
+        if (resolvedUri.startsWith('package:')) {
+          final pkgPrefix = _importPrefixes[resolvedUri];
+          if (pkgPrefix != null && pkgPrefix.isNotEmpty) {
+            final result = '$pkgPrefix.$unprefixedType';
+            return isNullable ? '$result?' : result;
+          }
+          // Try auxiliary import mechanism (may have been pre-collected)
+          final auxPrefix = _getOrCreateAuxiliaryPrefix(resolvedUri);
+          if (_auxiliaryPrefixes.containsKey(resolvedUri)) {
             final result = '$auxPrefix.$unprefixedType';
             return isNullable ? '$result?' : result;
           }
@@ -8542,11 +8695,19 @@ class BridgeGenerator {
 
       if (sourceFilePath != null) {
         final sourceUri = _getPackageUri(sourceFilePath);
-        if (sourceUri.startsWith('package:') && _isTypeExported(unprefixedType)) {
-          _addAuxiliaryImport(sourceUri, unprefixedType);
-          final prefix = _getOrCreateAuxiliaryPrefix(sourceUri);
-          final result = '$prefix.$unprefixedType';
-          return isNullable ? '$result?' : result;
+        // Only use sourceFilePath prefix if the type is NOT exported from the barrel.
+        // For exported types, sourceFilePath is the USING class's file, not the file
+        // that defines the type. Using it would give a wrong prefix (e.g., $tom_build_cli_4
+        // for a type defined in bridge_configuration.dart/$tom_build_cli_1).
+        // Exported types should have been resolved by typeToUri, _resolveTypeFromSourceImports,
+        // or _globalTypeToUri above. If we get here, the type genuinely can't be found.
+        if (sourceUri.startsWith('package:') && !_isTypeExported(unprefixedType)) {
+          // Non-exported type, possibly defined in the source file itself
+          final srcPrefix = _importPrefixes[sourceUri];
+          if (srcPrefix != null && srcPrefix.isNotEmpty) {
+            final result = '$srcPrefix.$unprefixedType';
+            return isNullable ? '$result?' : result;
+          }
         }
         if (sourceFilePath.startsWith(workspacePath)) {
           // Try to use source file's prefix from _importPrefixes
