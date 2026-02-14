@@ -1,13 +1,26 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 12 files
-// Generated: 2026-02-13T17:59:18.906455
+// Sources: 13 files
+// Generated: 2026-02-14T12:15:41.030355
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
+import 'dart:async';
 
-import 'package:tom_vscode_scripting_api/script_globals.dart' as $pkg;
+import 'package:tom_vscode_scripting_api/script_globals.dart' as $tom_vscode_scripting_api_1;
+import 'package:tom_vscode_scripting_api/src/vscode.dart' as $tom_vscode_scripting_api_2;
+import 'package:tom_vscode_scripting_api/src/vscode_adapter.dart' as $tom_vscode_scripting_api_3;
+import 'package:tom_vscode_scripting_api/src/vscode_bridge_adapter.dart' as $tom_vscode_scripting_api_4;
+import 'package:tom_vscode_scripting_api/src/vscode_bridge_client.dart' as $tom_vscode_scripting_api_5;
+import 'package:tom_vscode_scripting_api/src/vscode_chat.dart' as $tom_vscode_scripting_api_6;
+import 'package:tom_vscode_scripting_api/src/vscode_commands.dart' as $tom_vscode_scripting_api_7;
+import 'package:tom_vscode_scripting_api/src/vscode_extensions.dart' as $tom_vscode_scripting_api_8;
+import 'package:tom_vscode_scripting_api/src/vscode_helper.dart' as $tom_vscode_scripting_api_9;
+import 'package:tom_vscode_scripting_api/src/vscode_lm.dart' as $tom_vscode_scripting_api_10;
+import 'package:tom_vscode_scripting_api/src/vscode_types.dart' as $tom_vscode_scripting_api_11;
+import 'package:tom_vscode_scripting_api/src/vscode_window.dart' as $tom_vscode_scripting_api_12;
+import 'package:tom_vscode_scripting_api/src/vscode_workspace.dart' as $tom_vscode_scripting_api_13;
 
 /// Bridge class for tom_vscode_scripting_api module.
 class TomVscodeScriptingApiBridge {
@@ -113,6 +126,13 @@ class TomVscodeScriptingApiBridge {
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
+      BridgedEnumDefinition<$tom_vscode_scripting_api_11.DiagnosticSeverity>(
+        name: 'DiagnosticSeverity',
+        values: $tom_vscode_scripting_api_11.DiagnosticSeverity.values,
+        getters: {
+          'value': (visitor, target) => (target as $tom_vscode_scripting_api_11.DiagnosticSeverity).value,
+        },
+      ),
     ];
   }
 
@@ -122,6 +142,7 @@ class TomVscodeScriptingApiBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
     return {
+      'DiagnosticSeverity': 'package:tom_vscode_scripting_api/src/vscode_types.dart',
     };
   }
 
@@ -148,6 +169,42 @@ class TomVscodeScriptingApiBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // Register bridged enums with source URIs for deduplication
+    final enums = bridgedEnums();
+    final enumSources = enumSourceUris();
+    for (final enumDef in enums) {
+      interpreter.registerBridgedEnum(enumDef, importPath, sourceUri: enumSources[enumDef.name]);
+    }
+
+    // Register global variables
+    registerGlobalVariables(interpreter, importPath);
+  }
+
+  /// Registers all global variables with the interpreter.
+  ///
+  /// [importPath] is the package import path for library-scoped registration.
+  /// Collects all registration errors and throws a single exception
+  /// with all error details if any registrations fail.
+  static void registerGlobalVariables(D4rt interpreter, String importPath) {
+    final errors = <String>[];
+
+    try {
+      interpreter.registerGlobalVariable('defaultVSCodeBridgePort', $tom_vscode_scripting_api_5.defaultVSCodeBridgePort, importPath, sourceUri: 'package:tom_vscode_scripting_api/src/vscode_bridge_client.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "defaultVSCodeBridgePort": $e');
+    }
+    interpreter.registerGlobalGetter('vscode', () => $tom_vscode_scripting_api_1.vscode, importPath, sourceUri: 'package:tom_vscode_scripting_api/script_globals.dart');
+    interpreter.registerGlobalGetter('window', () => $tom_vscode_scripting_api_1.window, importPath, sourceUri: 'package:tom_vscode_scripting_api/script_globals.dart');
+    interpreter.registerGlobalGetter('workspace', () => $tom_vscode_scripting_api_1.workspace, importPath, sourceUri: 'package:tom_vscode_scripting_api/script_globals.dart');
+    interpreter.registerGlobalGetter('commands', () => $tom_vscode_scripting_api_1.commands, importPath, sourceUri: 'package:tom_vscode_scripting_api/script_globals.dart');
+    interpreter.registerGlobalGetter('extensions', () => $tom_vscode_scripting_api_1.extensions, importPath, sourceUri: 'package:tom_vscode_scripting_api/script_globals.dart');
+    interpreter.registerGlobalGetter('lm', () => $tom_vscode_scripting_api_1.lm, importPath, sourceUri: 'package:tom_vscode_scripting_api/script_globals.dart');
+    interpreter.registerGlobalGetter('chat', () => $tom_vscode_scripting_api_1.chat, importPath, sourceUri: 'package:tom_vscode_scripting_api/script_globals.dart');
+
+    if (errors.isNotEmpty) {
+      throw StateError('Bridge registration errors (tom_vscode_scripting_api):\n${errors.join("\n")}');
+    }
   }
 
   /// Returns a map of global function names to their native implementations.
@@ -172,6 +229,7 @@ class TomVscodeScriptingApiBridge {
   /// multiple barrels.
   static List<String> sourceLibraries() {
     return [
+      'package:tom_vscode_scripting_api/script_globals.dart',
       'package:tom_vscode_scripting_api/src/vscode.dart',
       'package:tom_vscode_scripting_api/src/vscode_adapter.dart',
       'package:tom_vscode_scripting_api/src/vscode_bridge_adapter.dart',
@@ -195,6 +253,21 @@ class TomVscodeScriptingApiBridge {
     return "import 'package:tom_vscode_scripting_api/script_globals.dart';";
   }
 
+  /// Returns barrel import URIs for sub-packages discovered through re-exports.
+  ///
+  /// When a module follows re-exports into sub-packages (e.g., dcli re-exports
+  /// dcli_core), D4rt scripts may import those sub-packages directly.
+  /// These barrels need to be registered with the interpreter separately
+  /// so that module resolution finds content for those URIs.
+  static List<String> subPackageBarrels() {
+    return [];
+  }
+
+  /// Returns a list of bridged enum names.
+  static List<String> get enumNames => [
+    'DiagnosticSeverity',
+  ];
+
 }
 
 // =============================================================================
@@ -203,13 +276,13 @@ class TomVscodeScriptingApiBridge {
 
 BridgedClass _createVSCodeAdapterBridge() {
   return BridgedClass(
-    nativeType: $pkg.VSCodeAdapter,
+    nativeType: $tom_vscode_scripting_api_3.VSCodeAdapter,
     name: 'VSCodeAdapter',
     constructors: {
     },
     methods: {
       'sendRequest': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeAdapter>(target, 'VSCodeAdapter');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_3.VSCodeAdapter>(target, 'VSCodeAdapter');
         D4.requireMinArgs(positional, 2, 'sendRequest');
         final method = D4.getRequiredArg<String>(positional, 0, 'method', 'sendRequest');
         if (positional.length <= 1) {
@@ -233,19 +306,19 @@ BridgedClass _createVSCodeAdapterBridge() {
 
 BridgedClass _createVSCodeBridgeResultBridge() {
   return BridgedClass(
-    nativeType: $pkg.VSCodeBridgeResult,
+    nativeType: $tom_vscode_scripting_api_5.VSCodeBridgeResult,
     name: 'VSCodeBridgeResult',
     constructors: {
       '': (visitor, positional, named) {
-        final success = D4.getRequiredNamedArg<dynamic>(named, 'success', 'VSCodeBridgeResult');
+        final success = D4.getRequiredNamedArg<bool>(named, 'success', 'VSCodeBridgeResult');
         final value = D4.getOptionalNamedArg<dynamic>(named, 'value');
-        final output = D4.getNamedArgWithDefault<dynamic>(named, 'output', '');
-        final error = D4.getOptionalNamedArg<dynamic>(named, 'error');
-        final stackTrace = D4.getOptionalNamedArg<dynamic>(named, 'stackTrace');
-        final exception = D4.getOptionalNamedArg<dynamic>(named, 'exception');
-        final exceptionStackTrace = D4.getOptionalNamedArg<dynamic>(named, 'exceptionStackTrace');
-        final duration = D4.getRequiredNamedArg<dynamic>(named, 'duration', 'VSCodeBridgeResult');
-        return $pkg.VSCodeBridgeResult(success: success, value: value, output: output, error: error, stackTrace: stackTrace, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration);
+        final output = D4.getNamedArgWithDefault<String>(named, 'output', '');
+        final error = D4.getOptionalNamedArg<String?>(named, 'error');
+        final stackTrace = D4.getOptionalNamedArg<String?>(named, 'stackTrace');
+        final exception = D4.getOptionalNamedArg<String?>(named, 'exception');
+        final exceptionStackTrace = D4.getOptionalNamedArg<String?>(named, 'exceptionStackTrace');
+        final duration = D4.getRequiredNamedArg<Duration>(named, 'duration', 'VSCodeBridgeResult');
+        return $tom_vscode_scripting_api_5.VSCodeBridgeResult(success: success, value: value, output: output, error: error, stackTrace: stackTrace, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration);
       },
       'success': (visitor, positional, named) {
         final value = D4.getOptionalNamedArg<dynamic>(named, 'value');
@@ -253,29 +326,29 @@ BridgedClass _createVSCodeBridgeResultBridge() {
         final exception = D4.getOptionalNamedArg<String?>(named, 'exception');
         final exceptionStackTrace = D4.getOptionalNamedArg<String?>(named, 'exceptionStackTrace');
         final duration = D4.getRequiredNamedArg<Duration>(named, 'duration', 'VSCodeBridgeResult');
-        return $pkg.VSCodeBridgeResult.success(value: value, output: output, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration);
+        return $tom_vscode_scripting_api_5.VSCodeBridgeResult.success(value: value, output: output, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration);
       },
       'failure': (visitor, positional, named) {
         final error = D4.getRequiredNamedArg<String>(named, 'error', 'VSCodeBridgeResult');
         final stackTrace = D4.getOptionalNamedArg<String?>(named, 'stackTrace');
         final output = D4.getNamedArgWithDefault<String>(named, 'output', '');
         final duration = D4.getRequiredNamedArg<Duration>(named, 'duration', 'VSCodeBridgeResult');
-        return $pkg.VSCodeBridgeResult.failure(error: error, stackTrace: stackTrace, output: output, duration: duration);
+        return $tom_vscode_scripting_api_5.VSCodeBridgeResult.failure(error: error, stackTrace: stackTrace, output: output, duration: duration);
       },
     },
     getters: {
-      'success': (visitor, target) => D4.validateTarget<$pkg.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').success,
-      'value': (visitor, target) => D4.validateTarget<$pkg.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').value,
-      'output': (visitor, target) => D4.validateTarget<$pkg.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').output,
-      'error': (visitor, target) => D4.validateTarget<$pkg.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').error,
-      'stackTrace': (visitor, target) => D4.validateTarget<$pkg.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').stackTrace,
-      'exception': (visitor, target) => D4.validateTarget<$pkg.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').exception,
-      'exceptionStackTrace': (visitor, target) => D4.validateTarget<$pkg.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').exceptionStackTrace,
-      'duration': (visitor, target) => D4.validateTarget<$pkg.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').duration,
-      'hasException': (visitor, target) => D4.validateTarget<$pkg.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').hasException,
+      'success': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').success,
+      'value': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').value,
+      'output': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').output,
+      'error': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').error,
+      'stackTrace': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').stackTrace,
+      'exception': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').exception,
+      'exceptionStackTrace': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').exceptionStackTrace,
+      'duration': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').duration,
+      'hasException': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeResult>(target, 'VSCodeBridgeResult').hasException,
     },
     constructorSignatures: {
-      '': 'const VSCodeBridgeResult({required dynamic success, dynamic value, dynamic output = \'\', dynamic error, dynamic stackTrace, dynamic exception, dynamic exceptionStackTrace, required dynamic duration})',
+      '': 'const VSCodeBridgeResult({required bool success, dynamic value, String output = \'\', String? error, String? stackTrace, String? exception, String? exceptionStackTrace, required Duration duration})',
       'success': 'factory VSCodeBridgeResult.success({dynamic value, String output = \'\', String? exception, String? exceptionStackTrace, required Duration duration})',
       'failure': 'factory VSCodeBridgeResult.failure({required String error, String? stackTrace, String output = \'\', required Duration duration})',
     },
@@ -299,41 +372,41 @@ BridgedClass _createVSCodeBridgeResultBridge() {
 
 BridgedClass _createVSCodeBridgeClientBridge() {
   return BridgedClass(
-    nativeType: $pkg.VSCodeBridgeClient,
+    nativeType: $tom_vscode_scripting_api_5.VSCodeBridgeClient,
     name: 'VSCodeBridgeClient',
     constructors: {
       '': (visitor, positional, named) {
-        final host = D4.getNamedArgWithDefault<dynamic>(named, 'host', '127.0.0.1');
-        final connectTimeout = D4.getNamedArgWithDefault<dynamic>(named, 'connectTimeout', const Duration(seconds: 5));
-        final requestTimeout = D4.getNamedArgWithDefault<dynamic>(named, 'requestTimeout', const Duration(seconds: 30));
+        final host = D4.getNamedArgWithDefault<String>(named, 'host', '127.0.0.1');
+        final connectTimeout = D4.getNamedArgWithDefault<Duration>(named, 'connectTimeout', const Duration(seconds: 5));
+        final requestTimeout = D4.getNamedArgWithDefault<Duration>(named, 'requestTimeout', const Duration(seconds: 30));
         if (!named.containsKey('port')) {
-          return $pkg.VSCodeBridgeClient(host: host, connectTimeout: connectTimeout, requestTimeout: requestTimeout);
+          return $tom_vscode_scripting_api_5.VSCodeBridgeClient(host: host, connectTimeout: connectTimeout, requestTimeout: requestTimeout);
         }
         if (named.containsKey('port')) {
-          final port = D4.getRequiredNamedArg<dynamic>(named, 'port', 'VSCodeBridgeClient');
-          return $pkg.VSCodeBridgeClient(host: host, connectTimeout: connectTimeout, requestTimeout: requestTimeout, port: port);
+          final port = D4.getRequiredNamedArg<int>(named, 'port', 'VSCodeBridgeClient');
+          return $tom_vscode_scripting_api_5.VSCodeBridgeClient(host: host, connectTimeout: connectTimeout, requestTimeout: requestTimeout, port: port);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
-      'host': (visitor, target) => D4.validateTarget<$pkg.VSCodeBridgeClient>(target, 'VSCodeBridgeClient').host,
-      'port': (visitor, target) => D4.validateTarget<$pkg.VSCodeBridgeClient>(target, 'VSCodeBridgeClient').port,
-      'connectTimeout': (visitor, target) => D4.validateTarget<$pkg.VSCodeBridgeClient>(target, 'VSCodeBridgeClient').connectTimeout,
-      'requestTimeout': (visitor, target) => D4.validateTarget<$pkg.VSCodeBridgeClient>(target, 'VSCodeBridgeClient').requestTimeout,
-      'isConnected': (visitor, target) => D4.validateTarget<$pkg.VSCodeBridgeClient>(target, 'VSCodeBridgeClient').isConnected,
+      'host': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeClient>(target, 'VSCodeBridgeClient').host,
+      'port': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeClient>(target, 'VSCodeBridgeClient').port,
+      'connectTimeout': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeClient>(target, 'VSCodeBridgeClient').connectTimeout,
+      'requestTimeout': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeClient>(target, 'VSCodeBridgeClient').requestTimeout,
+      'isConnected': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeClient>(target, 'VSCodeBridgeClient').isConnected,
     },
     methods: {
       'connect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeBridgeClient>(target, 'VSCodeBridgeClient');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeClient>(target, 'VSCodeBridgeClient');
         return t.connect();
       },
       'disconnect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeBridgeClient>(target, 'VSCodeBridgeClient');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeClient>(target, 'VSCodeBridgeClient');
         return t.disconnect();
       },
       'sendRequest': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeBridgeClient>(target, 'VSCodeBridgeClient');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeClient>(target, 'VSCodeBridgeClient');
         D4.requireMinArgs(positional, 2, 'sendRequest');
         final method = D4.getRequiredArg<String>(positional, 0, 'method', 'sendRequest');
         if (positional.length <= 1) {
@@ -343,19 +416,19 @@ BridgedClass _createVSCodeBridgeClientBridge() {
         return t.sendRequest(method, params);
       },
       'executeExpression': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeBridgeClient>(target, 'VSCodeBridgeClient');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeClient>(target, 'VSCodeBridgeClient');
         D4.requireMinArgs(positional, 1, 'executeExpression');
         final expression = D4.getRequiredArg<String>(positional, 0, 'expression', 'executeExpression');
         return t.executeExpression(expression);
       },
       'executeScriptFile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeBridgeClient>(target, 'VSCodeBridgeClient');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeClient>(target, 'VSCodeBridgeClient');
         D4.requireMinArgs(positional, 1, 'executeScriptFile');
         final filePath = D4.getRequiredArg<String>(positional, 0, 'filePath', 'executeScriptFile');
         return t.executeScriptFile(filePath);
       },
       'executeScript': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeBridgeClient>(target, 'VSCodeBridgeClient');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_5.VSCodeBridgeClient>(target, 'VSCodeBridgeClient');
         D4.requireMinArgs(positional, 1, 'executeScript');
         final code = D4.getRequiredArg<String>(positional, 0, 'code', 'executeScript');
         return t.executeScript(code);
@@ -365,17 +438,17 @@ BridgedClass _createVSCodeBridgeClientBridge() {
       'isAvailable': (visitor, positional, named, typeArgs) {
         final host = D4.getNamedArgWithDefault<String>(named, 'host', '127.0.0.1');
         if (!named.containsKey('port')) {
-          return $pkg.VSCodeBridgeClient.isAvailable(host: host);
+          return $tom_vscode_scripting_api_5.VSCodeBridgeClient.isAvailable(host: host);
         }
         if (named.containsKey('port')) {
           final port = D4.getRequiredNamedArg<int>(named, 'port', 'isAvailable');
-          return $pkg.VSCodeBridgeClient.isAvailable(host: host, port: port);
+          return $tom_vscode_scripting_api_5.VSCodeBridgeClient.isAvailable(host: host, port: port);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     constructorSignatures: {
-      '': 'VSCodeBridgeClient({dynamic host = \'127.0.0.1\', dynamic port = defaultVSCodeBridgePort, dynamic connectTimeout = const Duration(seconds: 5), dynamic requestTimeout = const Duration(seconds: 30)})',
+      '': 'VSCodeBridgeClient({String host = \'127.0.0.1\', int port = defaultVSCodeBridgePort, Duration connectTimeout = const Duration(seconds: 5), Duration requestTimeout = const Duration(seconds: 30)})',
     },
     methodSignatures: {
       'connect': 'Future<bool> connect()',
@@ -404,22 +477,22 @@ BridgedClass _createVSCodeBridgeClientBridge() {
 
 BridgedClass _createVSCodeBridgeAdapterBridge() {
   return BridgedClass(
-    nativeType: $pkg.VSCodeBridgeAdapter,
+    nativeType: $tom_vscode_scripting_api_4.VSCodeBridgeAdapter,
     name: 'VSCodeBridgeAdapter',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeBridgeAdapter');
-        final client = D4.getRequiredArg<dynamic>(positional, 0, 'client', 'VSCodeBridgeAdapter');
-        return $pkg.VSCodeBridgeAdapter(client);
+        final client = D4.getRequiredArg<$tom_vscode_scripting_api_5.VSCodeBridgeClient>(positional, 0, 'client', 'VSCodeBridgeAdapter');
+        return $tom_vscode_scripting_api_4.VSCodeBridgeAdapter(client);
       },
     },
     getters: {
-      'client': (visitor, target) => D4.validateTarget<$pkg.VSCodeBridgeAdapter>(target, 'VSCodeBridgeAdapter').client,
-      'isConnected': (visitor, target) => D4.validateTarget<$pkg.VSCodeBridgeAdapter>(target, 'VSCodeBridgeAdapter').isConnected,
+      'client': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_4.VSCodeBridgeAdapter>(target, 'VSCodeBridgeAdapter').client,
+      'isConnected': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_4.VSCodeBridgeAdapter>(target, 'VSCodeBridgeAdapter').isConnected,
     },
     methods: {
       'sendRequest': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeBridgeAdapter>(target, 'VSCodeBridgeAdapter');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_4.VSCodeBridgeAdapter>(target, 'VSCodeBridgeAdapter');
         D4.requireMinArgs(positional, 2, 'sendRequest');
         final method = D4.getRequiredArg<String>(positional, 0, 'method', 'sendRequest');
         if (positional.length <= 1) {
@@ -431,12 +504,12 @@ BridgedClass _createVSCodeBridgeAdapterBridge() {
         return t.sendRequest(method, params, scriptName: scriptName, timeout: timeout);
       },
       'disconnect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeBridgeAdapter>(target, 'VSCodeBridgeAdapter');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_4.VSCodeBridgeAdapter>(target, 'VSCodeBridgeAdapter');
         return t.disconnect();
       },
     },
     constructorSignatures: {
-      '': 'VSCodeBridgeAdapter(dynamic client)',
+      '': 'VSCodeBridgeAdapter(VSCodeBridgeClient client)',
     },
     methodSignatures: {
       'sendRequest': 'Future<Map<String, dynamic>> sendRequest(String method, Map<String, dynamic> params, {String? scriptName, Duration timeout = const Duration(seconds: 60)})',
@@ -455,54 +528,54 @@ BridgedClass _createVSCodeBridgeAdapterBridge() {
 
 BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
   return BridgedClass(
-    nativeType: $pkg.LazyVSCodeBridgeAdapter,
+    nativeType: $tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter,
     name: 'LazyVSCodeBridgeAdapter',
     constructors: {
       '': (visitor, positional, named) {
         final host = D4.getNamedArgWithDefault<String>(named, 'host', '127.0.0.1');
-        final onStatusMessage = D4.getOptionalNamedArg<dynamic>(named, 'onStatusMessage');
-        final onErrorMessage = D4.getOptionalNamedArg<dynamic>(named, 'onErrorMessage');
+        final onStatusMessageRaw = named['onStatusMessage'];
+        final onErrorMessageRaw = named['onErrorMessage'];
         if (!named.containsKey('port')) {
-          return $pkg.LazyVSCodeBridgeAdapter(host: host, onStatusMessage: onStatusMessage, onErrorMessage: onErrorMessage);
+          return $tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter(host: host, onStatusMessage: onStatusMessageRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor, onStatusMessageRaw, [p0]); }, onErrorMessage: onErrorMessageRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor, onErrorMessageRaw, [p0]); });
         }
         if (named.containsKey('port')) {
           final port = D4.getRequiredNamedArg<int>(named, 'port', 'LazyVSCodeBridgeAdapter');
-          return $pkg.LazyVSCodeBridgeAdapter(host: host, onStatusMessage: onStatusMessage, onErrorMessage: onErrorMessage, port: port);
+          return $tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter(host: host, onStatusMessage: onStatusMessageRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor, onStatusMessageRaw, [p0]); }, onErrorMessage: onErrorMessageRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor, onErrorMessageRaw, [p0]); }, port: port);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
-      'onStatusMessage': (visitor, target) => D4.validateTarget<$pkg.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter').onStatusMessage,
-      'onErrorMessage': (visitor, target) => D4.validateTarget<$pkg.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter').onErrorMessage,
-      'host': (visitor, target) => D4.validateTarget<$pkg.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter').host,
-      'port': (visitor, target) => D4.validateTarget<$pkg.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter').port,
-      'isConnected': (visitor, target) => D4.validateTarget<$pkg.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter').isConnected,
+      'onStatusMessage': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter').onStatusMessage,
+      'onErrorMessage': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter').onErrorMessage,
+      'host': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter').host,
+      'port': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter').port,
+      'isConnected': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter').isConnected,
     },
     methods: {
       'setHostPort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter');
         D4.requireMinArgs(positional, 2, 'setHostPort');
         final host = D4.getRequiredArg<String>(positional, 0, 'host', 'setHostPort');
         final port = D4.getRequiredArg<int>(positional, 1, 'port', 'setHostPort');
         return t.setHostPort(host, port);
       },
       'setPort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter');
         D4.requireMinArgs(positional, 1, 'setPort');
         final port = D4.getRequiredArg<int>(positional, 0, 'port', 'setPort');
         return t.setPort(port);
       },
       'connect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter');
         return t.connect();
       },
       'disconnect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter');
         return t.disconnect();
       },
       'sendRequest': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter>(target, 'LazyVSCodeBridgeAdapter');
         D4.requireMinArgs(positional, 2, 'sendRequest');
         final method = D4.getRequiredArg<String>(positional, 0, 'method', 'sendRequest');
         if (positional.length <= 1) {
@@ -515,7 +588,7 @@ BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
       },
     },
     constructorSignatures: {
-      '': 'LazyVSCodeBridgeAdapter({String host = \'127.0.0.1\', int port = defaultVSCodeBridgePort, dynamic onStatusMessage, dynamic onErrorMessage})',
+      '': 'LazyVSCodeBridgeAdapter({String host = \'127.0.0.1\', int port = defaultVSCodeBridgePort, void Function(String)? onStatusMessage, void Function(String)? onErrorMessage})',
     },
     methodSignatures: {
       'setHostPort': 'Future<void> setHostPort(String host, int port)',
@@ -540,80 +613,74 @@ BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
 
 BridgedClass _createVSCodeBridge() {
   return BridgedClass(
-    nativeType: $pkg.VSCode,
+    nativeType: $tom_vscode_scripting_api_2.VSCode,
     name: 'VSCode',
     constructors: {
-      '': (visitor, positional, named) {
-        return $pkg.VSCode();
-      },
     },
     getters: {
-      'workspace': (visitor, target) => D4.validateTarget<$pkg.VSCode>(target, 'VSCode').workspace,
-      'window': (visitor, target) => D4.validateTarget<$pkg.VSCode>(target, 'VSCode').window,
-      'commands': (visitor, target) => D4.validateTarget<$pkg.VSCode>(target, 'VSCode').commands,
-      'extensions': (visitor, target) => D4.validateTarget<$pkg.VSCode>(target, 'VSCode').extensions,
-      'lm': (visitor, target) => D4.validateTarget<$pkg.VSCode>(target, 'VSCode').lm,
-      'chat': (visitor, target) => D4.validateTarget<$pkg.VSCode>(target, 'VSCode').chat,
-      'adapter': (visitor, target) => D4.validateTarget<$pkg.VSCode>(target, 'VSCode').adapter,
+      'workspace': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').workspace,
+      'window': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').window,
+      'commands': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').commands,
+      'extensions': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').extensions,
+      'lm': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').lm,
+      'chat': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').chat,
+      'adapter': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').adapter,
     },
     setters: {
       'workspace': (visitor, target, value) => 
-        D4.validateTarget<$pkg.VSCode>(target, 'VSCode').workspace = value as dynamic,
+        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').workspace = value as $tom_vscode_scripting_api_13.VSCodeWorkspace,
       'window': (visitor, target, value) => 
-        D4.validateTarget<$pkg.VSCode>(target, 'VSCode').window = value as dynamic,
+        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').window = value as $tom_vscode_scripting_api_12.VSCodeWindow,
       'commands': (visitor, target, value) => 
-        D4.validateTarget<$pkg.VSCode>(target, 'VSCode').commands = value as dynamic,
+        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').commands = value as $tom_vscode_scripting_api_7.VSCodeCommands,
       'extensions': (visitor, target, value) => 
-        D4.validateTarget<$pkg.VSCode>(target, 'VSCode').extensions = value as dynamic,
+        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').extensions = value as $tom_vscode_scripting_api_8.VSCodeExtensions,
       'lm': (visitor, target, value) => 
-        D4.validateTarget<$pkg.VSCode>(target, 'VSCode').lm = value as dynamic,
+        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').lm = value as $tom_vscode_scripting_api_10.VSCodeLanguageModel,
       'chat': (visitor, target, value) => 
-        D4.validateTarget<$pkg.VSCode>(target, 'VSCode').chat = value as dynamic,
+        D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode').chat = value as $tom_vscode_scripting_api_6.VSCodeChat,
     },
     methods: {
       'getVersion': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCode>(target, 'VSCode');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 10);
         return t.getVersion(timeoutSeconds: timeoutSeconds);
       },
       'getEnv': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCode>(target, 'VSCode');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 10);
         return t.getEnv(timeoutSeconds: timeoutSeconds);
       },
       'openExternal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCode>(target, 'VSCode');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode');
         D4.requireMinArgs(positional, 1, 'openExternal');
         final uri = D4.getRequiredArg<String>(positional, 0, 'uri', 'openExternal');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 30);
         return t.openExternal(uri, timeoutSeconds: timeoutSeconds);
       },
       'copyToClipboard': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCode>(target, 'VSCode');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode');
         D4.requireMinArgs(positional, 1, 'copyToClipboard');
         final text = D4.getRequiredArg<String>(positional, 0, 'text', 'copyToClipboard');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 10);
         return t.copyToClipboard(text, timeoutSeconds: timeoutSeconds);
       },
       'readFromClipboard': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCode>(target, 'VSCode');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_2.VSCode>(target, 'VSCode');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 10);
         return t.readFromClipboard(timeoutSeconds: timeoutSeconds);
       },
     },
     staticGetters: {
-      'instance': (visitor) => $pkg.VSCode.instance,
-      'isInitialized': (visitor) => $pkg.VSCode.isInitialized,
+      'instance': (visitor) => $tom_vscode_scripting_api_2.VSCode.instance,
+      'isInitialized': (visitor) => $tom_vscode_scripting_api_2.VSCode.isInitialized,
     },
     staticMethods: {
       'initialize': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'initialize');
-        final adapter = D4.getRequiredArg<$pkg.VSCodeAdapter>(positional, 0, 'adapter', 'initialize');
-        return $pkg.VSCode.initialize(adapter);
+        final adapter = D4.getRequiredArg<$tom_vscode_scripting_api_3.VSCodeAdapter>(positional, 0, 'adapter', 'initialize');
+        return $tom_vscode_scripting_api_2.VSCode.initialize(adapter);
       },
-    },
-    constructorSignatures: {
-      '': 'VSCode()',
     },
     methodSignatures: {
       'getVersion': 'Future<String> getVersion({int timeoutSeconds = 10})',
@@ -655,18 +722,18 @@ BridgedClass _createVSCodeBridge() {
 
 BridgedClass _createVSCodeCommandsBridge() {
   return BridgedClass(
-    nativeType: $pkg.VSCodeCommands,
+    nativeType: $tom_vscode_scripting_api_7.VSCodeCommands,
     name: 'VSCodeCommands',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeCommands');
-        final adapter = D4.getRequiredArg<dynamic>(positional, 0, '_adapter', 'VSCodeCommands');
-        return $pkg.VSCodeCommands(adapter);
+        final adapter = D4.getRequiredArg<$tom_vscode_scripting_api_3.VSCodeAdapter>(positional, 0, '_adapter', 'VSCodeCommands');
+        return $tom_vscode_scripting_api_7.VSCodeCommands(adapter);
       },
     },
     methods: {
       'executeCommand': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeCommands>(target, 'VSCodeCommands');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_7.VSCodeCommands>(target, 'VSCodeCommands');
         D4.requireMinArgs(positional, 1, 'executeCommand');
         final command = D4.getRequiredArg<String>(positional, 0, 'command', 'executeCommand');
         final args = D4.coerceListOrNull<dynamic>(named['args'], 'args');
@@ -674,13 +741,13 @@ BridgedClass _createVSCodeCommandsBridge() {
         return t.executeCommand(command, args: args, timeoutSeconds: timeoutSeconds);
       },
       'getCommands': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeCommands>(target, 'VSCodeCommands');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_7.VSCodeCommands>(target, 'VSCodeCommands');
         final filterInternal = D4.getNamedArgWithDefault<bool>(named, 'filterInternal', false);
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
         return t.getCommands(filterInternal: filterInternal, timeoutSeconds: timeoutSeconds);
       },
       'registerCommand': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeCommands>(target, 'VSCodeCommands');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_7.VSCodeCommands>(target, 'VSCodeCommands');
         D4.requireMinArgs(positional, 2, 'registerCommand');
         final command = D4.getRequiredArg<String>(positional, 0, 'command', 'registerCommand');
         final handlerScript = D4.getRequiredArg<String>(positional, 1, 'handlerScript', 'registerCommand');
@@ -689,7 +756,7 @@ BridgedClass _createVSCodeCommandsBridge() {
       },
     },
     constructorSignatures: {
-      '': 'VSCodeCommands(dynamic _adapter)',
+      '': 'VSCodeCommands(VSCodeAdapter _adapter)',
     },
     methodSignatures: {
       'executeCommand': 'Future<dynamic> executeCommand(String command, {List<dynamic>? args, int timeoutSeconds = 120})',
@@ -705,44 +772,44 @@ BridgedClass _createVSCodeCommandsBridge() {
 
 BridgedClass _createVSCodeCommonCommandsBridge() {
   return BridgedClass(
-    nativeType: $pkg.VSCodeCommonCommands,
+    nativeType: $tom_vscode_scripting_api_7.VSCodeCommonCommands,
     name: 'VSCodeCommonCommands',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.VSCodeCommonCommands();
+        return $tom_vscode_scripting_api_7.VSCodeCommonCommands();
       },
     },
     staticGetters: {
-      'openFile': (visitor) => $pkg.VSCodeCommonCommands.openFile,
-      'openFolder': (visitor) => $pkg.VSCodeCommonCommands.openFolder,
-      'newUntitledFile': (visitor) => $pkg.VSCodeCommonCommands.newUntitledFile,
-      'saveFile': (visitor) => $pkg.VSCodeCommonCommands.saveFile,
-      'saveAllFiles': (visitor) => $pkg.VSCodeCommonCommands.saveAllFiles,
-      'closeActiveEditor': (visitor) => $pkg.VSCodeCommonCommands.closeActiveEditor,
-      'showCommands': (visitor) => $pkg.VSCodeCommonCommands.showCommands,
-      'quickOpen': (visitor) => $pkg.VSCodeCommonCommands.quickOpen,
-      'goToFile': (visitor) => $pkg.VSCodeCommonCommands.goToFile,
-      'goToSymbol': (visitor) => $pkg.VSCodeCommonCommands.goToSymbol,
-      'goToLine': (visitor) => $pkg.VSCodeCommonCommands.goToLine,
-      'findInFiles': (visitor) => $pkg.VSCodeCommonCommands.findInFiles,
-      'replaceInFiles': (visitor) => $pkg.VSCodeCommonCommands.replaceInFiles,
-      'toggleTerminal': (visitor) => $pkg.VSCodeCommonCommands.toggleTerminal,
-      'newTerminal': (visitor) => $pkg.VSCodeCommonCommands.newTerminal,
-      'toggleSidebar': (visitor) => $pkg.VSCodeCommonCommands.toggleSidebar,
-      'togglePanel': (visitor) => $pkg.VSCodeCommonCommands.togglePanel,
-      'formatDocument': (visitor) => $pkg.VSCodeCommonCommands.formatDocument,
-      'organizeImports': (visitor) => $pkg.VSCodeCommonCommands.organizeImports,
-      'renameSymbol': (visitor) => $pkg.VSCodeCommonCommands.renameSymbol,
-      'goToDefinition': (visitor) => $pkg.VSCodeCommonCommands.goToDefinition,
-      'goToReferences': (visitor) => $pkg.VSCodeCommonCommands.goToReferences,
-      'showHover': (visitor) => $pkg.VSCodeCommonCommands.showHover,
-      'commentLine': (visitor) => $pkg.VSCodeCommonCommands.commentLine,
-      'copyLineDown': (visitor) => $pkg.VSCodeCommonCommands.copyLineDown,
-      'moveLineDown': (visitor) => $pkg.VSCodeCommonCommands.moveLineDown,
-      'deleteLine': (visitor) => $pkg.VSCodeCommonCommands.deleteLine,
-      'reloadWindow': (visitor) => $pkg.VSCodeCommonCommands.reloadWindow,
-      'showExtensions': (visitor) => $pkg.VSCodeCommonCommands.showExtensions,
-      'installExtension': (visitor) => $pkg.VSCodeCommonCommands.installExtension,
+      'openFile': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.openFile,
+      'openFolder': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.openFolder,
+      'newUntitledFile': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.newUntitledFile,
+      'saveFile': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.saveFile,
+      'saveAllFiles': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.saveAllFiles,
+      'closeActiveEditor': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.closeActiveEditor,
+      'showCommands': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.showCommands,
+      'quickOpen': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.quickOpen,
+      'goToFile': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.goToFile,
+      'goToSymbol': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.goToSymbol,
+      'goToLine': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.goToLine,
+      'findInFiles': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.findInFiles,
+      'replaceInFiles': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.replaceInFiles,
+      'toggleTerminal': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.toggleTerminal,
+      'newTerminal': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.newTerminal,
+      'toggleSidebar': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.toggleSidebar,
+      'togglePanel': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.togglePanel,
+      'formatDocument': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.formatDocument,
+      'organizeImports': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.organizeImports,
+      'renameSymbol': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.renameSymbol,
+      'goToDefinition': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.goToDefinition,
+      'goToReferences': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.goToReferences,
+      'showHover': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.showHover,
+      'commentLine': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.commentLine,
+      'copyLineDown': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.copyLineDown,
+      'moveLineDown': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.moveLineDown,
+      'deleteLine': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.deleteLine,
+      'reloadWindow': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.reloadWindow,
+      'showExtensions': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.showExtensions,
+      'installExtension': (visitor) => $tom_vscode_scripting_api_7.VSCodeCommonCommands.installExtension,
     },
     constructorSignatures: {
       '': 'VSCodeCommonCommands()',
@@ -788,17 +855,20 @@ BridgedClass _createVSCodeCommonCommandsBridge() {
 
 BridgedClass _createExtensionBridge() {
   return BridgedClass(
-    nativeType: $pkg.Extension,
+    nativeType: $tom_vscode_scripting_api_8.Extension,
     name: 'Extension',
     constructors: {
       '': (visitor, positional, named) {
-        final id = D4.getRequiredNamedArg<dynamic>(named, 'id', 'Extension');
-        final extensionUri = D4.getRequiredNamedArg<dynamic>(named, 'extensionUri', 'Extension');
-        final extensionPath = D4.getRequiredNamedArg<dynamic>(named, 'extensionPath', 'Extension');
-        final isActive = D4.getRequiredNamedArg<dynamic>(named, 'isActive', 'Extension');
-        final packageJSON = D4.getRequiredNamedArg<dynamic>(named, 'packageJSON', 'Extension');
-        final extensionKind = D4.getOptionalNamedArg<dynamic>(named, 'extensionKind');
-        return $pkg.Extension(id: id, extensionUri: extensionUri, extensionPath: extensionPath, isActive: isActive, packageJSON: packageJSON, extensionKind: extensionKind);
+        final id = D4.getRequiredNamedArg<String>(named, 'id', 'Extension');
+        final extensionUri = D4.getRequiredNamedArg<String>(named, 'extensionUri', 'Extension');
+        final extensionPath = D4.getRequiredNamedArg<String>(named, 'extensionPath', 'Extension');
+        final isActive = D4.getRequiredNamedArg<bool>(named, 'isActive', 'Extension');
+        if (!named.containsKey('packageJSON') || named['packageJSON'] == null) {
+          throw ArgumentError('Extension: Missing required named argument "packageJSON"');
+        }
+        final packageJSON = D4.coerceMap<String, dynamic>(named['packageJSON'], 'packageJSON');
+        final extensionKind = D4.getOptionalNamedArg<String?>(named, 'extensionKind');
+        return $tom_vscode_scripting_api_8.Extension(id: id, extensionUri: extensionUri, extensionPath: extensionPath, isActive: isActive, packageJSON: packageJSON, extensionKind: extensionKind);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Extension');
@@ -806,25 +876,25 @@ BridgedClass _createExtensionBridge() {
           throw ArgumentError('Extension: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.Extension.fromJson(json);
+        return $tom_vscode_scripting_api_8.Extension.fromJson(json);
       },
     },
     getters: {
-      'id': (visitor, target) => D4.validateTarget<$pkg.Extension>(target, 'Extension').id,
-      'extensionUri': (visitor, target) => D4.validateTarget<$pkg.Extension>(target, 'Extension').extensionUri,
-      'extensionPath': (visitor, target) => D4.validateTarget<$pkg.Extension>(target, 'Extension').extensionPath,
-      'isActive': (visitor, target) => D4.validateTarget<$pkg.Extension>(target, 'Extension').isActive,
-      'packageJSON': (visitor, target) => D4.validateTarget<$pkg.Extension>(target, 'Extension').packageJSON,
-      'extensionKind': (visitor, target) => D4.validateTarget<$pkg.Extension>(target, 'Extension').extensionKind,
+      'id': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_8.Extension>(target, 'Extension').id,
+      'extensionUri': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_8.Extension>(target, 'Extension').extensionUri,
+      'extensionPath': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_8.Extension>(target, 'Extension').extensionPath,
+      'isActive': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_8.Extension>(target, 'Extension').isActive,
+      'packageJSON': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_8.Extension>(target, 'Extension').packageJSON,
+      'extensionKind': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_8.Extension>(target, 'Extension').extensionKind,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Extension>(target, 'Extension');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_8.Extension>(target, 'Extension');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'Extension({required dynamic id, required dynamic extensionUri, required dynamic extensionPath, required dynamic isActive, required dynamic packageJSON, dynamic extensionKind})',
+      '': 'Extension({required String id, required String extensionUri, required String extensionPath, required bool isActive, required Map<String, dynamic> packageJSON, String? extensionKind})',
       'fromJson': 'factory Extension.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -847,65 +917,65 @@ BridgedClass _createExtensionBridge() {
 
 BridgedClass _createVSCodeExtensionsBridge() {
   return BridgedClass(
-    nativeType: $pkg.VSCodeExtensions,
+    nativeType: $tom_vscode_scripting_api_8.VSCodeExtensions,
     name: 'VSCodeExtensions',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeExtensions');
-        final adapter = D4.getRequiredArg<dynamic>(positional, 0, '_adapter', 'VSCodeExtensions');
-        return $pkg.VSCodeExtensions(adapter);
+        final adapter = D4.getRequiredArg<$tom_vscode_scripting_api_3.VSCodeAdapter>(positional, 0, '_adapter', 'VSCodeExtensions');
+        return $tom_vscode_scripting_api_8.VSCodeExtensions(adapter);
       },
     },
     methods: {
       'getAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeExtensions>(target, 'VSCodeExtensions');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_8.VSCodeExtensions>(target, 'VSCodeExtensions');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
         return t.getAll(timeoutSeconds: timeoutSeconds);
       },
       'getExtension': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeExtensions>(target, 'VSCodeExtensions');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_8.VSCodeExtensions>(target, 'VSCodeExtensions');
         D4.requireMinArgs(positional, 1, 'getExtension');
         final extensionId = D4.getRequiredArg<String>(positional, 0, 'extensionId', 'getExtension');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
         return t.getExtension(extensionId, timeoutSeconds: timeoutSeconds);
       },
       'isInstalled': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeExtensions>(target, 'VSCodeExtensions');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_8.VSCodeExtensions>(target, 'VSCodeExtensions');
         D4.requireMinArgs(positional, 1, 'isInstalled');
         final extensionId = D4.getRequiredArg<String>(positional, 0, 'extensionId', 'isInstalled');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
         return t.isInstalled(extensionId, timeoutSeconds: timeoutSeconds);
       },
       'getExtensionExports': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeExtensions>(target, 'VSCodeExtensions');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_8.VSCodeExtensions>(target, 'VSCodeExtensions');
         D4.requireMinArgs(positional, 1, 'getExtensionExports');
         final extensionId = D4.getRequiredArg<String>(positional, 0, 'extensionId', 'getExtensionExports');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 120);
         return t.getExtensionExports(extensionId, timeoutSeconds: timeoutSeconds);
       },
       'activateExtension': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeExtensions>(target, 'VSCodeExtensions');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_8.VSCodeExtensions>(target, 'VSCodeExtensions');
         D4.requireMinArgs(positional, 1, 'activateExtension');
         final extensionId = D4.getRequiredArg<String>(positional, 0, 'extensionId', 'activateExtension');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 180);
         return t.activateExtension(extensionId, timeoutSeconds: timeoutSeconds);
       },
       'getExtensionVersion': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeExtensions>(target, 'VSCodeExtensions');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_8.VSCodeExtensions>(target, 'VSCodeExtensions');
         D4.requireMinArgs(positional, 1, 'getExtensionVersion');
         final extensionId = D4.getRequiredArg<String>(positional, 0, 'extensionId', 'getExtensionVersion');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
         return t.getExtensionVersion(extensionId, timeoutSeconds: timeoutSeconds);
       },
       'getExtensionDisplayName': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeExtensions>(target, 'VSCodeExtensions');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_8.VSCodeExtensions>(target, 'VSCodeExtensions');
         D4.requireMinArgs(positional, 1, 'getExtensionDisplayName');
         final extensionId = D4.getRequiredArg<String>(positional, 0, 'extensionId', 'getExtensionDisplayName');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
         return t.getExtensionDisplayName(extensionId, timeoutSeconds: timeoutSeconds);
       },
       'getExtensionDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeExtensions>(target, 'VSCodeExtensions');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_8.VSCodeExtensions>(target, 'VSCodeExtensions');
         D4.requireMinArgs(positional, 1, 'getExtensionDescription');
         final extensionId = D4.getRequiredArg<String>(positional, 0, 'extensionId', 'getExtensionDescription');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
@@ -913,7 +983,7 @@ BridgedClass _createVSCodeExtensionsBridge() {
       },
     },
     constructorSignatures: {
-      '': 'VSCodeExtensions(dynamic _adapter)',
+      '': 'VSCodeExtensions(VSCodeAdapter _adapter)',
     },
     methodSignatures: {
       'getAll': 'Future<List<Extension>> getAll({int timeoutSeconds = 60})',
@@ -934,18 +1004,18 @@ BridgedClass _createVSCodeExtensionsBridge() {
 
 BridgedClass _createVSCodeLanguageModelBridge() {
   return BridgedClass(
-    nativeType: $pkg.VSCodeLanguageModel,
+    nativeType: $tom_vscode_scripting_api_10.VSCodeLanguageModel,
     name: 'VSCodeLanguageModel',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeLanguageModel');
-        final adapter = D4.getRequiredArg<dynamic>(positional, 0, '_adapter', 'VSCodeLanguageModel');
-        return $pkg.VSCodeLanguageModel(adapter);
+        final adapter = D4.getRequiredArg<$tom_vscode_scripting_api_3.VSCodeAdapter>(positional, 0, '_adapter', 'VSCodeLanguageModel');
+        return $tom_vscode_scripting_api_10.VSCodeLanguageModel(adapter);
       },
     },
     methods: {
       'selectChatModels': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeLanguageModel>(target, 'VSCodeLanguageModel');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_10.VSCodeLanguageModel>(target, 'VSCodeLanguageModel');
         final vendor = D4.getOptionalNamedArg<String?>(named, 'vendor');
         final family = D4.getOptionalNamedArg<String?>(named, 'family');
         final id = D4.getOptionalNamedArg<String?>(named, 'id');
@@ -954,7 +1024,7 @@ BridgedClass _createVSCodeLanguageModelBridge() {
         return t.selectChatModels(vendor: vendor, family: family, id: id, version: version, timeoutSeconds: timeoutSeconds);
       },
       'invokeTool': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeLanguageModel>(target, 'VSCodeLanguageModel');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_10.VSCodeLanguageModel>(target, 'VSCodeLanguageModel');
         D4.requireMinArgs(positional, 2, 'invokeTool');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'invokeTool');
         if (positional.length <= 1) {
@@ -965,7 +1035,7 @@ BridgedClass _createVSCodeLanguageModelBridge() {
         return t.invokeTool(name, options, timeoutSeconds: timeoutSeconds);
       },
       'registerTool': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeLanguageModel>(target, 'VSCodeLanguageModel');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_10.VSCodeLanguageModel>(target, 'VSCodeLanguageModel');
         D4.requireMinArgs(positional, 2, 'registerTool');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'registerTool');
         if (positional.length <= 1) {
@@ -976,13 +1046,13 @@ BridgedClass _createVSCodeLanguageModelBridge() {
         return t.registerTool(name, tool, timeoutSeconds: timeoutSeconds);
       },
       'getTools': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeLanguageModel>(target, 'VSCodeLanguageModel');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_10.VSCodeLanguageModel>(target, 'VSCodeLanguageModel');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
         return t.getTools(timeoutSeconds: timeoutSeconds);
       },
     },
     constructorSignatures: {
-      '': 'VSCodeLanguageModel(dynamic _adapter)',
+      '': 'VSCodeLanguageModel(VSCodeAdapter _adapter)',
     },
     methodSignatures: {
       'selectChatModels': 'Future<List<LanguageModelChat>> selectChatModels({String? vendor, String? family, String? id, String? version, int timeoutSeconds = 60})',
@@ -999,17 +1069,17 @@ BridgedClass _createVSCodeLanguageModelBridge() {
 
 BridgedClass _createLanguageModelChatBridge() {
   return BridgedClass(
-    nativeType: $pkg.LanguageModelChat,
+    nativeType: $tom_vscode_scripting_api_10.LanguageModelChat,
     name: 'LanguageModelChat',
     constructors: {
       '': (visitor, positional, named) {
-        final id = D4.getRequiredNamedArg<dynamic>(named, 'id', 'LanguageModelChat');
-        final vendor = D4.getRequiredNamedArg<dynamic>(named, 'vendor', 'LanguageModelChat');
-        final family = D4.getRequiredNamedArg<dynamic>(named, 'family', 'LanguageModelChat');
-        final version = D4.getRequiredNamedArg<dynamic>(named, 'version', 'LanguageModelChat');
-        final name = D4.getRequiredNamedArg<dynamic>(named, 'name', 'LanguageModelChat');
-        final maxInputTokens = D4.getRequiredNamedArg<dynamic>(named, 'maxInputTokens', 'LanguageModelChat');
-        return $pkg.LanguageModelChat(id: id, vendor: vendor, family: family, version: version, name: name, maxInputTokens: maxInputTokens);
+        final id = D4.getRequiredNamedArg<String>(named, 'id', 'LanguageModelChat');
+        final vendor = D4.getRequiredNamedArg<String>(named, 'vendor', 'LanguageModelChat');
+        final family = D4.getRequiredNamedArg<String>(named, 'family', 'LanguageModelChat');
+        final version = D4.getRequiredNamedArg<String>(named, 'version', 'LanguageModelChat');
+        final name = D4.getRequiredNamedArg<String>(named, 'name', 'LanguageModelChat');
+        final maxInputTokens = D4.getRequiredNamedArg<int>(named, 'maxInputTokens', 'LanguageModelChat');
+        return $tom_vscode_scripting_api_10.LanguageModelChat(id: id, vendor: vendor, family: family, version: version, name: name, maxInputTokens: maxInputTokens);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LanguageModelChat');
@@ -1017,45 +1087,45 @@ BridgedClass _createLanguageModelChatBridge() {
           throw ArgumentError('LanguageModelChat: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.LanguageModelChat.fromJson(json);
+        return $tom_vscode_scripting_api_10.LanguageModelChat.fromJson(json);
       },
     },
     getters: {
-      'id': (visitor, target) => D4.validateTarget<$pkg.LanguageModelChat>(target, 'LanguageModelChat').id,
-      'vendor': (visitor, target) => D4.validateTarget<$pkg.LanguageModelChat>(target, 'LanguageModelChat').vendor,
-      'family': (visitor, target) => D4.validateTarget<$pkg.LanguageModelChat>(target, 'LanguageModelChat').family,
-      'version': (visitor, target) => D4.validateTarget<$pkg.LanguageModelChat>(target, 'LanguageModelChat').version,
-      'name': (visitor, target) => D4.validateTarget<$pkg.LanguageModelChat>(target, 'LanguageModelChat').name,
-      'maxInputTokens': (visitor, target) => D4.validateTarget<$pkg.LanguageModelChat>(target, 'LanguageModelChat').maxInputTokens,
+      'id': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelChat>(target, 'LanguageModelChat').id,
+      'vendor': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelChat>(target, 'LanguageModelChat').vendor,
+      'family': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelChat>(target, 'LanguageModelChat').family,
+      'version': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelChat>(target, 'LanguageModelChat').version,
+      'name': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelChat>(target, 'LanguageModelChat').name,
+      'maxInputTokens': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelChat>(target, 'LanguageModelChat').maxInputTokens,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.LanguageModelChat>(target, 'LanguageModelChat');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelChat>(target, 'LanguageModelChat');
         return t.toJson();
       },
       'sendRequest': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.LanguageModelChat>(target, 'LanguageModelChat');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelChat>(target, 'LanguageModelChat');
         D4.requireMinArgs(positional, 2, 'sendRequest');
-        final adapter = D4.getRequiredArg<$pkg.VSCodeAdapter>(positional, 0, 'adapter', 'sendRequest');
+        final adapter = D4.getRequiredArg<$tom_vscode_scripting_api_3.VSCodeAdapter>(positional, 0, 'adapter', 'sendRequest');
         if (positional.length <= 1) {
           throw ArgumentError('sendRequest: Missing required argument "messages" at position 1');
         }
-        final messages = D4.coerceList<$pkg.LanguageModelChatMessage>(positional[1], 'messages');
+        final messages = D4.coerceList<$tom_vscode_scripting_api_10.LanguageModelChatMessage>(positional[1], 'messages');
         final modelOptions = D4.coerceMapOrNull<String, dynamic>(named['modelOptions'], 'modelOptions');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
         return t.sendRequest(adapter, messages, modelOptions: modelOptions, timeoutSeconds: timeoutSeconds);
       },
       'countTokens': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.LanguageModelChat>(target, 'LanguageModelChat');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelChat>(target, 'LanguageModelChat');
         D4.requireMinArgs(positional, 2, 'countTokens');
-        final adapter = D4.getRequiredArg<$pkg.VSCodeAdapter>(positional, 0, 'adapter', 'countTokens');
+        final adapter = D4.getRequiredArg<$tom_vscode_scripting_api_3.VSCodeAdapter>(positional, 0, 'adapter', 'countTokens');
         final text = D4.getRequiredArg<String>(positional, 1, 'text', 'countTokens');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 120);
         return t.countTokens(adapter, text, timeoutSeconds: timeoutSeconds);
       },
     },
     constructorSignatures: {
-      '': 'LanguageModelChat({required dynamic id, required dynamic vendor, required dynamic family, required dynamic version, required dynamic name, required dynamic maxInputTokens})',
+      '': 'LanguageModelChat({required String id, required String vendor, required String family, required String version, required String name, required int maxInputTokens})',
       'fromJson': 'factory LanguageModelChat.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -1080,26 +1150,26 @@ BridgedClass _createLanguageModelChatBridge() {
 
 BridgedClass _createLanguageModelChatMessageBridge() {
   return BridgedClass(
-    nativeType: $pkg.LanguageModelChatMessage,
+    nativeType: $tom_vscode_scripting_api_10.LanguageModelChatMessage,
     name: 'LanguageModelChatMessage',
     constructors: {
       '': (visitor, positional, named) {
-        final role = D4.getRequiredNamedArg<dynamic>(named, 'role', 'LanguageModelChatMessage');
-        final content = D4.getRequiredNamedArg<dynamic>(named, 'content', 'LanguageModelChatMessage');
-        final name = D4.getOptionalNamedArg<dynamic>(named, 'name');
-        return $pkg.LanguageModelChatMessage(role: role, content: content, name: name);
+        final role = D4.getRequiredNamedArg<String>(named, 'role', 'LanguageModelChatMessage');
+        final content = D4.getRequiredNamedArg<String>(named, 'content', 'LanguageModelChatMessage');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        return $tom_vscode_scripting_api_10.LanguageModelChatMessage(role: role, content: content, name: name);
       },
       'user': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LanguageModelChatMessage');
         final content = D4.getRequiredArg<String>(positional, 0, 'content', 'LanguageModelChatMessage');
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        return $pkg.LanguageModelChatMessage.user(content, name: name);
+        return $tom_vscode_scripting_api_10.LanguageModelChatMessage.user(content, name: name);
       },
       'assistant': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LanguageModelChatMessage');
         final content = D4.getRequiredArg<String>(positional, 0, 'content', 'LanguageModelChatMessage');
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        return $pkg.LanguageModelChatMessage.assistant(content, name: name);
+        return $tom_vscode_scripting_api_10.LanguageModelChatMessage.assistant(content, name: name);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LanguageModelChatMessage');
@@ -1107,22 +1177,22 @@ BridgedClass _createLanguageModelChatMessageBridge() {
           throw ArgumentError('LanguageModelChatMessage: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.LanguageModelChatMessage.fromJson(json);
+        return $tom_vscode_scripting_api_10.LanguageModelChatMessage.fromJson(json);
       },
     },
     getters: {
-      'role': (visitor, target) => D4.validateTarget<$pkg.LanguageModelChatMessage>(target, 'LanguageModelChatMessage').role,
-      'content': (visitor, target) => D4.validateTarget<$pkg.LanguageModelChatMessage>(target, 'LanguageModelChatMessage').content,
-      'name': (visitor, target) => D4.validateTarget<$pkg.LanguageModelChatMessage>(target, 'LanguageModelChatMessage').name,
+      'role': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelChatMessage>(target, 'LanguageModelChatMessage').role,
+      'content': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelChatMessage>(target, 'LanguageModelChatMessage').content,
+      'name': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelChatMessage>(target, 'LanguageModelChatMessage').name,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.LanguageModelChatMessage>(target, 'LanguageModelChatMessage');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelChatMessage>(target, 'LanguageModelChatMessage');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'LanguageModelChatMessage({required dynamic role, required dynamic content, dynamic name})',
+      '': 'LanguageModelChatMessage({required String role, required String content, String? name})',
       'user': 'factory LanguageModelChatMessage.user(String content, {String? name})',
       'assistant': 'factory LanguageModelChatMessage.assistant(String content, {String? name})',
       'fromJson': 'factory LanguageModelChatMessage.fromJson(Map<String, dynamic> json)',
@@ -1144,13 +1214,16 @@ BridgedClass _createLanguageModelChatMessageBridge() {
 
 BridgedClass _createLanguageModelChatResponseBridge() {
   return BridgedClass(
-    nativeType: $pkg.LanguageModelChatResponse,
+    nativeType: $tom_vscode_scripting_api_10.LanguageModelChatResponse,
     name: 'LanguageModelChatResponse',
     constructors: {
       '': (visitor, positional, named) {
-        final text = D4.getRequiredNamedArg<dynamic>(named, 'text', 'LanguageModelChatResponse');
-        final streamParts = D4.getRequiredNamedArg<dynamic>(named, 'streamParts', 'LanguageModelChatResponse');
-        return $pkg.LanguageModelChatResponse(text: text, streamParts: streamParts);
+        final text = D4.getRequiredNamedArg<String>(named, 'text', 'LanguageModelChatResponse');
+        if (!named.containsKey('streamParts') || named['streamParts'] == null) {
+          throw ArgumentError('LanguageModelChatResponse: Missing required named argument "streamParts"');
+        }
+        final streamParts = D4.coerceList<String>(named['streamParts'], 'streamParts');
+        return $tom_vscode_scripting_api_10.LanguageModelChatResponse(text: text, streamParts: streamParts);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LanguageModelChatResponse');
@@ -1158,21 +1231,21 @@ BridgedClass _createLanguageModelChatResponseBridge() {
           throw ArgumentError('LanguageModelChatResponse: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.LanguageModelChatResponse.fromJson(json);
+        return $tom_vscode_scripting_api_10.LanguageModelChatResponse.fromJson(json);
       },
     },
     getters: {
-      'text': (visitor, target) => D4.validateTarget<$pkg.LanguageModelChatResponse>(target, 'LanguageModelChatResponse').text,
-      'streamParts': (visitor, target) => D4.validateTarget<$pkg.LanguageModelChatResponse>(target, 'LanguageModelChatResponse').streamParts,
+      'text': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelChatResponse>(target, 'LanguageModelChatResponse').text,
+      'streamParts': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelChatResponse>(target, 'LanguageModelChatResponse').streamParts,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.LanguageModelChatResponse>(target, 'LanguageModelChatResponse');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelChatResponse>(target, 'LanguageModelChatResponse');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'LanguageModelChatResponse({required dynamic text, required dynamic streamParts})',
+      '': 'LanguageModelChatResponse({required String text, required List<String> streamParts})',
       'fromJson': 'factory LanguageModelChatResponse.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -1191,12 +1264,15 @@ BridgedClass _createLanguageModelChatResponseBridge() {
 
 BridgedClass _createLanguageModelToolResultBridge() {
   return BridgedClass(
-    nativeType: $pkg.LanguageModelToolResult,
+    nativeType: $tom_vscode_scripting_api_10.LanguageModelToolResult,
     name: 'LanguageModelToolResult',
     constructors: {
       '': (visitor, positional, named) {
-        final content = D4.getRequiredNamedArg<dynamic>(named, 'content', 'LanguageModelToolResult');
-        return $pkg.LanguageModelToolResult(content: content);
+        if (!named.containsKey('content') || named['content'] == null) {
+          throw ArgumentError('LanguageModelToolResult: Missing required named argument "content"');
+        }
+        final content = D4.coerceList<dynamic>(named['content'], 'content');
+        return $tom_vscode_scripting_api_10.LanguageModelToolResult(content: content);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LanguageModelToolResult');
@@ -1204,20 +1280,20 @@ BridgedClass _createLanguageModelToolResultBridge() {
           throw ArgumentError('LanguageModelToolResult: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.LanguageModelToolResult.fromJson(json);
+        return $tom_vscode_scripting_api_10.LanguageModelToolResult.fromJson(json);
       },
     },
     getters: {
-      'content': (visitor, target) => D4.validateTarget<$pkg.LanguageModelToolResult>(target, 'LanguageModelToolResult').content,
+      'content': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelToolResult>(target, 'LanguageModelToolResult').content,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.LanguageModelToolResult>(target, 'LanguageModelToolResult');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelToolResult>(target, 'LanguageModelToolResult');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'LanguageModelToolResult({required dynamic content})',
+      '': 'LanguageModelToolResult({required List<dynamic> content})',
       'fromJson': 'factory LanguageModelToolResult.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -1235,14 +1311,17 @@ BridgedClass _createLanguageModelToolResultBridge() {
 
 BridgedClass _createLanguageModelToolInformationBridge() {
   return BridgedClass(
-    nativeType: $pkg.LanguageModelToolInformation,
+    nativeType: $tom_vscode_scripting_api_10.LanguageModelToolInformation,
     name: 'LanguageModelToolInformation',
     constructors: {
       '': (visitor, positional, named) {
-        final name = D4.getRequiredNamedArg<dynamic>(named, 'name', 'LanguageModelToolInformation');
-        final description = D4.getRequiredNamedArg<dynamic>(named, 'description', 'LanguageModelToolInformation');
-        final inputSchema = D4.getRequiredNamedArg<dynamic>(named, 'inputSchema', 'LanguageModelToolInformation');
-        return $pkg.LanguageModelToolInformation(name: name, description: description, inputSchema: inputSchema);
+        final name = D4.getRequiredNamedArg<String>(named, 'name', 'LanguageModelToolInformation');
+        final description = D4.getRequiredNamedArg<String>(named, 'description', 'LanguageModelToolInformation');
+        if (!named.containsKey('inputSchema') || named['inputSchema'] == null) {
+          throw ArgumentError('LanguageModelToolInformation: Missing required named argument "inputSchema"');
+        }
+        final inputSchema = D4.coerceMap<String, dynamic>(named['inputSchema'], 'inputSchema');
+        return $tom_vscode_scripting_api_10.LanguageModelToolInformation(name: name, description: description, inputSchema: inputSchema);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LanguageModelToolInformation');
@@ -1250,22 +1329,22 @@ BridgedClass _createLanguageModelToolInformationBridge() {
           throw ArgumentError('LanguageModelToolInformation: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.LanguageModelToolInformation.fromJson(json);
+        return $tom_vscode_scripting_api_10.LanguageModelToolInformation.fromJson(json);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.LanguageModelToolInformation>(target, 'LanguageModelToolInformation').name,
-      'description': (visitor, target) => D4.validateTarget<$pkg.LanguageModelToolInformation>(target, 'LanguageModelToolInformation').description,
-      'inputSchema': (visitor, target) => D4.validateTarget<$pkg.LanguageModelToolInformation>(target, 'LanguageModelToolInformation').inputSchema,
+      'name': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelToolInformation>(target, 'LanguageModelToolInformation').name,
+      'description': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelToolInformation>(target, 'LanguageModelToolInformation').description,
+      'inputSchema': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelToolInformation>(target, 'LanguageModelToolInformation').inputSchema,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.LanguageModelToolInformation>(target, 'LanguageModelToolInformation');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_10.LanguageModelToolInformation>(target, 'LanguageModelToolInformation');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'LanguageModelToolInformation({required dynamic name, required dynamic description, required dynamic inputSchema})',
+      '': 'LanguageModelToolInformation({required String name, required String description, required Map<String, dynamic> inputSchema})',
       'fromJson': 'factory LanguageModelToolInformation.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -1285,45 +1364,45 @@ BridgedClass _createLanguageModelToolInformationBridge() {
 
 BridgedClass _createVSCodeWindowBridge() {
   return BridgedClass(
-    nativeType: $pkg.VSCodeWindow,
+    nativeType: $tom_vscode_scripting_api_12.VSCodeWindow,
     name: 'VSCodeWindow',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeWindow');
-        final adapter = D4.getRequiredArg<dynamic>(positional, 0, '_adapter', 'VSCodeWindow');
-        return $pkg.VSCodeWindow(adapter);
+        final adapter = D4.getRequiredArg<$tom_vscode_scripting_api_3.VSCodeAdapter>(positional, 0, '_adapter', 'VSCodeWindow');
+        return $tom_vscode_scripting_api_12.VSCodeWindow(adapter);
       },
     },
     methods: {
       'showInformationMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWindow>(target, 'VSCodeWindow');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_12.VSCodeWindow>(target, 'VSCodeWindow');
         D4.requireMinArgs(positional, 1, 'showInformationMessage');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'showInformationMessage');
         final items = D4.coerceListOrNull<String>(named['items'], 'items');
-        final options = D4.getOptionalNamedArg<$pkg.MessageOptions?>(named, 'options');
+        final options = D4.getOptionalNamedArg<$tom_vscode_scripting_api_11.MessageOptions?>(named, 'options');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 5 * 60);
         return t.showInformationMessage(message, items: items, options: options, timeoutSeconds: timeoutSeconds);
       },
       'showWarningMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWindow>(target, 'VSCodeWindow');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_12.VSCodeWindow>(target, 'VSCodeWindow');
         D4.requireMinArgs(positional, 1, 'showWarningMessage');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'showWarningMessage');
         final items = D4.coerceListOrNull<String>(named['items'], 'items');
-        final options = D4.getOptionalNamedArg<$pkg.MessageOptions?>(named, 'options');
+        final options = D4.getOptionalNamedArg<$tom_vscode_scripting_api_11.MessageOptions?>(named, 'options');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 5 * 60);
         return t.showWarningMessage(message, items: items, options: options, timeoutSeconds: timeoutSeconds);
       },
       'showErrorMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWindow>(target, 'VSCodeWindow');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_12.VSCodeWindow>(target, 'VSCodeWindow');
         D4.requireMinArgs(positional, 1, 'showErrorMessage');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'showErrorMessage');
         final items = D4.coerceListOrNull<String>(named['items'], 'items');
-        final options = D4.getOptionalNamedArg<$pkg.MessageOptions?>(named, 'options');
+        final options = D4.getOptionalNamedArg<$tom_vscode_scripting_api_11.MessageOptions?>(named, 'options');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 5 * 60);
         return t.showErrorMessage(message, items: items, options: options, timeoutSeconds: timeoutSeconds);
       },
       'showQuickPick': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWindow>(target, 'VSCodeWindow');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_12.VSCodeWindow>(target, 'VSCodeWindow');
         D4.requireMinArgs(positional, 1, 'showQuickPick');
         if (positional.isEmpty) {
           throw ArgumentError('showQuickPick: Missing required argument "items" at position 0');
@@ -1337,7 +1416,7 @@ BridgedClass _createVSCodeWindowBridge() {
         return t.showQuickPick(items, placeHolder: placeHolder, canPickMany: canPickMany, timeoutSeconds: timeoutSeconds, fallbackValueOnTimeout: fallbackValueOnTimeout, failOnTimeout: failOnTimeout);
       },
       'showInputBox': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWindow>(target, 'VSCodeWindow');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_12.VSCodeWindow>(target, 'VSCodeWindow');
         final prompt = D4.getOptionalNamedArg<String?>(named, 'prompt');
         final placeHolder = D4.getOptionalNamedArg<String?>(named, 'placeHolder');
         final value = D4.getOptionalNamedArg<String?>(named, 'value');
@@ -1348,25 +1427,25 @@ BridgedClass _createVSCodeWindowBridge() {
         return t.showInputBox(prompt: prompt, placeHolder: placeHolder, value: value, password: password, timeoutSeconds: timeoutSeconds, fallbackValueOnTimeout: fallbackValueOnTimeout, failOnTimeout: failOnTimeout);
       },
       'getActiveTextEditor': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWindow>(target, 'VSCodeWindow');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_12.VSCodeWindow>(target, 'VSCodeWindow');
         return t.getActiveTextEditor();
       },
       'showTextDocument': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWindow>(target, 'VSCodeWindow');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_12.VSCodeWindow>(target, 'VSCodeWindow');
         D4.requireMinArgs(positional, 1, 'showTextDocument');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'showTextDocument');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 10 * 60);
         return t.showTextDocument(path, timeoutSeconds: timeoutSeconds);
       },
       'createOutputChannel': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWindow>(target, 'VSCodeWindow');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_12.VSCodeWindow>(target, 'VSCodeWindow');
         D4.requireMinArgs(positional, 1, 'createOutputChannel');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'createOutputChannel');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 30);
         return t.createOutputChannel(name, timeoutSeconds: timeoutSeconds);
       },
       'appendToOutputChannel': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWindow>(target, 'VSCodeWindow');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_12.VSCodeWindow>(target, 'VSCodeWindow');
         D4.requireMinArgs(positional, 2, 'appendToOutputChannel');
         final channelName = D4.getRequiredArg<String>(positional, 0, 'channelName', 'appendToOutputChannel');
         final text = D4.getRequiredArg<String>(positional, 1, 'text', 'appendToOutputChannel');
@@ -1374,14 +1453,14 @@ BridgedClass _createVSCodeWindowBridge() {
         return t.appendToOutputChannel(channelName, text, timeoutSeconds: timeoutSeconds);
       },
       'showOutputChannel': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWindow>(target, 'VSCodeWindow');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_12.VSCodeWindow>(target, 'VSCodeWindow');
         D4.requireMinArgs(positional, 1, 'showOutputChannel');
         final channelName = D4.getRequiredArg<String>(positional, 0, 'channelName', 'showOutputChannel');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 30);
         return t.showOutputChannel(channelName, timeoutSeconds: timeoutSeconds);
       },
       'createTerminal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWindow>(target, 'VSCodeWindow');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_12.VSCodeWindow>(target, 'VSCodeWindow');
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
         final shellPath = D4.getOptionalNamedArg<String?>(named, 'shellPath');
         final shellArgs = D4.coerceListOrNull<String>(named['shellArgs'], 'shellArgs');
@@ -1389,7 +1468,7 @@ BridgedClass _createVSCodeWindowBridge() {
         return t.createTerminal(name: name, shellPath: shellPath, shellArgs: shellArgs, timeoutSeconds: timeoutSeconds);
       },
       'sendTextToTerminal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWindow>(target, 'VSCodeWindow');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_12.VSCodeWindow>(target, 'VSCodeWindow');
         D4.requireMinArgs(positional, 2, 'sendTextToTerminal');
         final terminalName = D4.getRequiredArg<String>(positional, 0, 'terminalName', 'sendTextToTerminal');
         final text = D4.getRequiredArg<String>(positional, 1, 'text', 'sendTextToTerminal');
@@ -1397,14 +1476,14 @@ BridgedClass _createVSCodeWindowBridge() {
         return t.sendTextToTerminal(terminalName, text, timeoutSeconds: timeoutSeconds);
       },
       'showTerminal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWindow>(target, 'VSCodeWindow');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_12.VSCodeWindow>(target, 'VSCodeWindow');
         D4.requireMinArgs(positional, 1, 'showTerminal');
         final terminalName = D4.getRequiredArg<String>(positional, 0, 'terminalName', 'showTerminal');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 120);
         return t.showTerminal(terminalName, timeoutSeconds: timeoutSeconds);
       },
       'setStatusBarMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWindow>(target, 'VSCodeWindow');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_12.VSCodeWindow>(target, 'VSCodeWindow');
         D4.requireMinArgs(positional, 1, 'setStatusBarMessage');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'setStatusBarMessage');
         final timeout = D4.getOptionalNamedArg<int?>(named, 'timeout');
@@ -1412,7 +1491,7 @@ BridgedClass _createVSCodeWindowBridge() {
         return t.setStatusBarMessage(message, timeout: timeout, timeoutSeconds: timeoutSeconds);
       },
       'showSaveDialog': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWindow>(target, 'VSCodeWindow');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_12.VSCodeWindow>(target, 'VSCodeWindow');
         final defaultUri = D4.getOptionalNamedArg<String?>(named, 'defaultUri');
         final filters = D4.coerceMapOrNull<String, List<String>>(named['filters'], 'filters');
         final title = D4.getOptionalNamedArg<String?>(named, 'title');
@@ -1420,7 +1499,7 @@ BridgedClass _createVSCodeWindowBridge() {
         return t.showSaveDialog(defaultUri: defaultUri, filters: filters, title: title, timeoutSeconds: timeoutSeconds);
       },
       'showOpenDialog': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWindow>(target, 'VSCodeWindow');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_12.VSCodeWindow>(target, 'VSCodeWindow');
         final canSelectFiles = D4.getNamedArgWithDefault<bool>(named, 'canSelectFiles', true);
         final canSelectFolders = D4.getNamedArgWithDefault<bool>(named, 'canSelectFolders', false);
         final canSelectMany = D4.getNamedArgWithDefault<bool>(named, 'canSelectMany', false);
@@ -1432,7 +1511,7 @@ BridgedClass _createVSCodeWindowBridge() {
       },
     },
     constructorSignatures: {
-      '': 'VSCodeWindow(dynamic _adapter)',
+      '': 'VSCodeWindow(VSCodeAdapter _adapter)',
     },
     methodSignatures: {
       'showInformationMessage': 'Future<String?> showInformationMessage(String message, {List<String>? items, MessageOptions? options, int timeoutSeconds = 5 * 60})',
@@ -1461,44 +1540,44 @@ BridgedClass _createVSCodeWindowBridge() {
 
 BridgedClass _createVSCodeWorkspaceBridge() {
   return BridgedClass(
-    nativeType: $pkg.VSCodeWorkspace,
+    nativeType: $tom_vscode_scripting_api_13.VSCodeWorkspace,
     name: 'VSCodeWorkspace',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeWorkspace');
-        final adapter = D4.getRequiredArg<dynamic>(positional, 0, '_adapter', 'VSCodeWorkspace');
-        return $pkg.VSCodeWorkspace(adapter);
+        final adapter = D4.getRequiredArg<$tom_vscode_scripting_api_3.VSCodeAdapter>(positional, 0, '_adapter', 'VSCodeWorkspace');
+        return $tom_vscode_scripting_api_13.VSCodeWorkspace(adapter);
       },
     },
     methods: {
       'getWorkspaceFolders': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWorkspace>(target, 'VSCodeWorkspace');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_13.VSCodeWorkspace>(target, 'VSCodeWorkspace');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 30);
         return t.getWorkspaceFolders(timeoutSeconds: timeoutSeconds);
       },
       'getWorkspaceFolder': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWorkspace>(target, 'VSCodeWorkspace');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_13.VSCodeWorkspace>(target, 'VSCodeWorkspace');
         D4.requireMinArgs(positional, 1, 'getWorkspaceFolder');
-        final uri = D4.getRequiredArg<$pkg.VSCodeUri>(positional, 0, 'uri', 'getWorkspaceFolder');
+        final uri = D4.getRequiredArg<$tom_vscode_scripting_api_11.VSCodeUri>(positional, 0, 'uri', 'getWorkspaceFolder');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 30);
         return t.getWorkspaceFolder(uri, timeoutSeconds: timeoutSeconds);
       },
       'openTextDocument': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWorkspace>(target, 'VSCodeWorkspace');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_13.VSCodeWorkspace>(target, 'VSCodeWorkspace');
         D4.requireMinArgs(positional, 1, 'openTextDocument');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'openTextDocument');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
         return t.openTextDocument(path, timeoutSeconds: timeoutSeconds);
       },
       'saveTextDocument': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWorkspace>(target, 'VSCodeWorkspace');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_13.VSCodeWorkspace>(target, 'VSCodeWorkspace');
         D4.requireMinArgs(positional, 1, 'saveTextDocument');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'saveTextDocument');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
         return t.saveTextDocument(path, timeoutSeconds: timeoutSeconds);
       },
       'findFiles': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWorkspace>(target, 'VSCodeWorkspace');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_13.VSCodeWorkspace>(target, 'VSCodeWorkspace');
         D4.requireMinArgs(positional, 1, 'findFiles');
         final include = D4.getRequiredArg<String>(positional, 0, 'include', 'findFiles');
         final exclude = D4.getOptionalNamedArg<String?>(named, 'exclude');
@@ -1507,7 +1586,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
         return t.findFiles(include, exclude: exclude, maxResults: maxResults, timeoutSeconds: timeoutSeconds);
       },
       'findFilePaths': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWorkspace>(target, 'VSCodeWorkspace');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_13.VSCodeWorkspace>(target, 'VSCodeWorkspace');
         final include = D4.getRequiredNamedArg<String>(named, 'include', 'findFilePaths');
         final exclude = D4.getOptionalNamedArg<String?>(named, 'exclude');
         final maxResults = D4.getOptionalNamedArg<int?>(named, 'maxResults');
@@ -1515,7 +1594,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
         return t.findFilePaths(include: include, exclude: exclude, maxResults: maxResults, timeoutSeconds: timeoutSeconds);
       },
       'getConfiguration': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWorkspace>(target, 'VSCodeWorkspace');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_13.VSCodeWorkspace>(target, 'VSCodeWorkspace');
         D4.requireMinArgs(positional, 1, 'getConfiguration');
         final section = D4.getRequiredArg<String>(positional, 0, 'section', 'getConfiguration');
         final scope = D4.getOptionalNamedArg<String?>(named, 'scope');
@@ -1523,7 +1602,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
         return t.getConfiguration(section, scope: scope, timeoutSeconds: timeoutSeconds);
       },
       'updateConfiguration': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWorkspace>(target, 'VSCodeWorkspace');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_13.VSCodeWorkspace>(target, 'VSCodeWorkspace');
         D4.requireMinArgs(positional, 3, 'updateConfiguration');
         final section = D4.getRequiredArg<String>(positional, 0, 'section', 'updateConfiguration');
         final key = D4.getRequiredArg<String>(positional, 1, 'key', 'updateConfiguration');
@@ -1533,41 +1612,41 @@ BridgedClass _createVSCodeWorkspaceBridge() {
         return t.updateConfiguration(section, key, value, global: global, timeoutSeconds: timeoutSeconds);
       },
       'getRootPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWorkspace>(target, 'VSCodeWorkspace');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_13.VSCodeWorkspace>(target, 'VSCodeWorkspace');
         return t.getRootPath();
       },
       'getWorkspaceName': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWorkspace>(target, 'VSCodeWorkspace');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_13.VSCodeWorkspace>(target, 'VSCodeWorkspace');
         return t.getWorkspaceName();
       },
       'readFile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWorkspace>(target, 'VSCodeWorkspace');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_13.VSCodeWorkspace>(target, 'VSCodeWorkspace');
         D4.requireMinArgs(positional, 1, 'readFile');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'readFile');
         return t.readFile(path);
       },
       'writeFile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWorkspace>(target, 'VSCodeWorkspace');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_13.VSCodeWorkspace>(target, 'VSCodeWorkspace');
         D4.requireMinArgs(positional, 2, 'writeFile');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'writeFile');
         final content = D4.getRequiredArg<String>(positional, 1, 'content', 'writeFile');
         return t.writeFile(path, content);
       },
       'deleteFile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWorkspace>(target, 'VSCodeWorkspace');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_13.VSCodeWorkspace>(target, 'VSCodeWorkspace');
         D4.requireMinArgs(positional, 1, 'deleteFile');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'deleteFile');
         return t.deleteFile(path);
       },
       'fileExists': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeWorkspace>(target, 'VSCodeWorkspace');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_13.VSCodeWorkspace>(target, 'VSCodeWorkspace');
         D4.requireMinArgs(positional, 1, 'fileExists');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'fileExists');
         return t.fileExists(path);
       },
     },
     constructorSignatures: {
-      '': 'VSCodeWorkspace(dynamic _adapter)',
+      '': 'VSCodeWorkspace(VSCodeAdapter _adapter)',
     },
     methodSignatures: {
       'getWorkspaceFolders': 'Future<List<WorkspaceFolder>> getWorkspaceFolders({int timeoutSeconds = 30})',
@@ -1594,25 +1673,28 @@ BridgedClass _createVSCodeWorkspaceBridge() {
 
 BridgedClass _createVSCodeChatBridge() {
   return BridgedClass(
-    nativeType: $pkg.VSCodeChat,
+    nativeType: $tom_vscode_scripting_api_6.VSCodeChat,
     name: 'VSCodeChat',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeChat');
-        final adapter = D4.getRequiredArg<dynamic>(positional, 0, '_adapter', 'VSCodeChat');
-        return $pkg.VSCodeChat(adapter);
+        final adapter = D4.getRequiredArg<$tom_vscode_scripting_api_3.VSCodeAdapter>(positional, 0, '_adapter', 'VSCodeChat');
+        return $tom_vscode_scripting_api_6.VSCodeChat(adapter);
       },
     },
     methods: {
       'createChatParticipant': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeChat>(target, 'VSCodeChat');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_6.VSCodeChat>(target, 'VSCodeChat');
         D4.requireMinArgs(positional, 1, 'createChatParticipant');
         final id = D4.getRequiredArg<String>(positional, 0, 'id', 'createChatParticipant');
-        final handler = D4.getRequiredNamedArg<dynamic>(named, 'handler', 'createChatParticipant');
+        if (!named.containsKey('handler') || named['handler'] == null) {
+          throw ArgumentError('createChatParticipant: Missing required named argument "handler"');
+        }
+        final handlerRaw = named['handler'];
         final description = D4.getOptionalNamedArg<String?>(named, 'description');
         final fullName = D4.getOptionalNamedArg<String?>(named, 'fullName');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return t.createChatParticipant(id, handler: handler, description: description, fullName: fullName, timeoutSeconds: timeoutSeconds);
+        return t.createChatParticipant(id, handler: ($tom_vscode_scripting_api_6.ChatRequest p0, $tom_vscode_scripting_api_6.ChatContext p1, $tom_vscode_scripting_api_6.ChatResponseStream p2) { return D4.callInterpreterCallback(visitor, handlerRaw, [p0, p1, p2]) as Future<$tom_vscode_scripting_api_6.ChatResult>; }, description: description, fullName: fullName, timeoutSeconds: timeoutSeconds);
       },
     },
     staticMethods: {
@@ -1622,11 +1704,11 @@ BridgedClass _createVSCodeChatBridge() {
           throw ArgumentError('handleChatRequest: Missing required argument "params" at position 0');
         }
         final params = D4.coerceMap<String, dynamic>(positional[0], 'params');
-        return $pkg.VSCodeChat.handleChatRequest(params);
+        return $tom_vscode_scripting_api_6.VSCodeChat.handleChatRequest(params);
       },
     },
     constructorSignatures: {
-      '': 'VSCodeChat(dynamic _adapter)',
+      '': 'VSCodeChat(VSCodeAdapter _adapter)',
     },
     methodSignatures: {
       'createChatParticipant': 'Future<ChatParticipant> createChatParticipant(String id, {required ChatRequestHandler handler, String? description, String? fullName, int timeoutSeconds = 300})',
@@ -1643,14 +1725,14 @@ BridgedClass _createVSCodeChatBridge() {
 
 BridgedClass _createChatParticipantBridge() {
   return BridgedClass(
-    nativeType: $pkg.ChatParticipant,
+    nativeType: $tom_vscode_scripting_api_6.ChatParticipant,
     name: 'ChatParticipant',
     constructors: {
       '': (visitor, positional, named) {
-        final id = D4.getRequiredNamedArg<dynamic>(named, 'id', 'ChatParticipant');
-        final description = D4.getOptionalNamedArg<dynamic>(named, 'description');
-        final fullName = D4.getOptionalNamedArg<dynamic>(named, 'fullName');
-        return $pkg.ChatParticipant(id: id, description: description, fullName: fullName);
+        final id = D4.getRequiredNamedArg<String>(named, 'id', 'ChatParticipant');
+        final description = D4.getOptionalNamedArg<String?>(named, 'description');
+        final fullName = D4.getOptionalNamedArg<String?>(named, 'fullName');
+        return $tom_vscode_scripting_api_6.ChatParticipant(id: id, description: description, fullName: fullName);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatParticipant');
@@ -1658,22 +1740,22 @@ BridgedClass _createChatParticipantBridge() {
           throw ArgumentError('ChatParticipant: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.ChatParticipant.fromJson(json);
+        return $tom_vscode_scripting_api_6.ChatParticipant.fromJson(json);
       },
     },
     getters: {
-      'id': (visitor, target) => D4.validateTarget<$pkg.ChatParticipant>(target, 'ChatParticipant').id,
-      'description': (visitor, target) => D4.validateTarget<$pkg.ChatParticipant>(target, 'ChatParticipant').description,
-      'fullName': (visitor, target) => D4.validateTarget<$pkg.ChatParticipant>(target, 'ChatParticipant').fullName,
+      'id': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_6.ChatParticipant>(target, 'ChatParticipant').id,
+      'description': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_6.ChatParticipant>(target, 'ChatParticipant').description,
+      'fullName': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_6.ChatParticipant>(target, 'ChatParticipant').fullName,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ChatParticipant>(target, 'ChatParticipant');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_6.ChatParticipant>(target, 'ChatParticipant');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'ChatParticipant({required dynamic id, dynamic description, dynamic fullName})',
+      '': 'ChatParticipant({required String id, String? description, String? fullName})',
       'fromJson': 'factory ChatParticipant.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -1693,14 +1775,17 @@ BridgedClass _createChatParticipantBridge() {
 
 BridgedClass _createChatRequestBridge() {
   return BridgedClass(
-    nativeType: $pkg.ChatRequest,
+    nativeType: $tom_vscode_scripting_api_6.ChatRequest,
     name: 'ChatRequest',
     constructors: {
       '': (visitor, positional, named) {
-        final prompt = D4.getRequiredNamedArg<dynamic>(named, 'prompt', 'ChatRequest');
-        final command = D4.getRequiredNamedArg<dynamic>(named, 'command', 'ChatRequest');
-        final references = D4.getRequiredNamedArg<dynamic>(named, 'references', 'ChatRequest');
-        return $pkg.ChatRequest(prompt: prompt, command: command, references: references);
+        final prompt = D4.getRequiredNamedArg<String>(named, 'prompt', 'ChatRequest');
+        final command = D4.getRequiredNamedArg<String>(named, 'command', 'ChatRequest');
+        if (!named.containsKey('references') || named['references'] == null) {
+          throw ArgumentError('ChatRequest: Missing required named argument "references"');
+        }
+        final references = D4.coerceList<$tom_vscode_scripting_api_6.ChatPromptReference>(named['references'], 'references');
+        return $tom_vscode_scripting_api_6.ChatRequest(prompt: prompt, command: command, references: references);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatRequest');
@@ -1708,22 +1793,22 @@ BridgedClass _createChatRequestBridge() {
           throw ArgumentError('ChatRequest: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.ChatRequest.fromJson(json);
+        return $tom_vscode_scripting_api_6.ChatRequest.fromJson(json);
       },
     },
     getters: {
-      'prompt': (visitor, target) => D4.validateTarget<$pkg.ChatRequest>(target, 'ChatRequest').prompt,
-      'command': (visitor, target) => D4.validateTarget<$pkg.ChatRequest>(target, 'ChatRequest').command,
-      'references': (visitor, target) => D4.validateTarget<$pkg.ChatRequest>(target, 'ChatRequest').references,
+      'prompt': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_6.ChatRequest>(target, 'ChatRequest').prompt,
+      'command': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_6.ChatRequest>(target, 'ChatRequest').command,
+      'references': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_6.ChatRequest>(target, 'ChatRequest').references,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ChatRequest>(target, 'ChatRequest');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_6.ChatRequest>(target, 'ChatRequest');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'ChatRequest({required dynamic prompt, required dynamic command, required dynamic references})',
+      '': 'ChatRequest({required String prompt, required String command, required List<ChatPromptReference> references})',
       'fromJson': 'factory ChatRequest.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -1743,14 +1828,14 @@ BridgedClass _createChatRequestBridge() {
 
 BridgedClass _createChatPromptReferenceBridge() {
   return BridgedClass(
-    nativeType: $pkg.ChatPromptReference,
+    nativeType: $tom_vscode_scripting_api_6.ChatPromptReference,
     name: 'ChatPromptReference',
     constructors: {
       '': (visitor, positional, named) {
-        final id = D4.getRequiredNamedArg<dynamic>(named, 'id', 'ChatPromptReference');
+        final id = D4.getRequiredNamedArg<String>(named, 'id', 'ChatPromptReference');
         final value = D4.getRequiredNamedArg<dynamic>(named, 'value', 'ChatPromptReference');
-        final modelDescription = D4.getOptionalNamedArg<dynamic>(named, 'modelDescription');
-        return $pkg.ChatPromptReference(id: id, value: value, modelDescription: modelDescription);
+        final modelDescription = D4.getOptionalNamedArg<String?>(named, 'modelDescription');
+        return $tom_vscode_scripting_api_6.ChatPromptReference(id: id, value: value, modelDescription: modelDescription);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatPromptReference');
@@ -1758,22 +1843,22 @@ BridgedClass _createChatPromptReferenceBridge() {
           throw ArgumentError('ChatPromptReference: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.ChatPromptReference.fromJson(json);
+        return $tom_vscode_scripting_api_6.ChatPromptReference.fromJson(json);
       },
     },
     getters: {
-      'id': (visitor, target) => D4.validateTarget<$pkg.ChatPromptReference>(target, 'ChatPromptReference').id,
-      'value': (visitor, target) => D4.validateTarget<$pkg.ChatPromptReference>(target, 'ChatPromptReference').value,
-      'modelDescription': (visitor, target) => D4.validateTarget<$pkg.ChatPromptReference>(target, 'ChatPromptReference').modelDescription,
+      'id': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_6.ChatPromptReference>(target, 'ChatPromptReference').id,
+      'value': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_6.ChatPromptReference>(target, 'ChatPromptReference').value,
+      'modelDescription': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_6.ChatPromptReference>(target, 'ChatPromptReference').modelDescription,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ChatPromptReference>(target, 'ChatPromptReference');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_6.ChatPromptReference>(target, 'ChatPromptReference');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'ChatPromptReference({required dynamic id, required dynamic value, dynamic modelDescription})',
+      '': 'ChatPromptReference({required String id, required dynamic value, String? modelDescription})',
       'fromJson': 'factory ChatPromptReference.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -1793,12 +1878,15 @@ BridgedClass _createChatPromptReferenceBridge() {
 
 BridgedClass _createChatContextBridge() {
   return BridgedClass(
-    nativeType: $pkg.ChatContext,
+    nativeType: $tom_vscode_scripting_api_6.ChatContext,
     name: 'ChatContext',
     constructors: {
       '': (visitor, positional, named) {
-        final history = D4.getRequiredNamedArg<dynamic>(named, 'history', 'ChatContext');
-        return $pkg.ChatContext(history: history);
+        if (!named.containsKey('history') || named['history'] == null) {
+          throw ArgumentError('ChatContext: Missing required named argument "history"');
+        }
+        final history = D4.coerceList<dynamic>(named['history'], 'history');
+        return $tom_vscode_scripting_api_6.ChatContext(history: history);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatContext');
@@ -1806,20 +1894,20 @@ BridgedClass _createChatContextBridge() {
           throw ArgumentError('ChatContext: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.ChatContext.fromJson(json);
+        return $tom_vscode_scripting_api_6.ChatContext.fromJson(json);
       },
     },
     getters: {
-      'history': (visitor, target) => D4.validateTarget<$pkg.ChatContext>(target, 'ChatContext').history,
+      'history': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_6.ChatContext>(target, 'ChatContext').history,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ChatContext>(target, 'ChatContext');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_6.ChatContext>(target, 'ChatContext');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'ChatContext({required dynamic history})',
+      '': 'ChatContext({required List<dynamic> history})',
       'fromJson': 'factory ChatContext.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -1837,27 +1925,27 @@ BridgedClass _createChatContextBridge() {
 
 BridgedClass _createChatResultBridge() {
   return BridgedClass(
-    nativeType: $pkg.ChatResult,
+    nativeType: $tom_vscode_scripting_api_6.ChatResult,
     name: 'ChatResult',
     constructors: {
       '': (visitor, positional, named) {
-        final metadata = D4.getOptionalNamedArg<dynamic>(named, 'metadata');
-        final errorDetails = D4.getOptionalNamedArg<dynamic>(named, 'errorDetails');
-        return $pkg.ChatResult(metadata: metadata, errorDetails: errorDetails);
+        final metadata = D4.coerceMapOrNull<String, dynamic>(named['metadata'], 'metadata');
+        final errorDetails = D4.getOptionalNamedArg<$tom_vscode_scripting_api_6.ChatErrorDetails?>(named, 'errorDetails');
+        return $tom_vscode_scripting_api_6.ChatResult(metadata: metadata, errorDetails: errorDetails);
       },
     },
     getters: {
-      'metadata': (visitor, target) => D4.validateTarget<$pkg.ChatResult>(target, 'ChatResult').metadata,
-      'errorDetails': (visitor, target) => D4.validateTarget<$pkg.ChatResult>(target, 'ChatResult').errorDetails,
+      'metadata': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_6.ChatResult>(target, 'ChatResult').metadata,
+      'errorDetails': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_6.ChatResult>(target, 'ChatResult').errorDetails,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ChatResult>(target, 'ChatResult');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_6.ChatResult>(target, 'ChatResult');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'ChatResult({dynamic metadata, dynamic errorDetails})',
+      '': 'ChatResult({Map<String, dynamic>? metadata, ChatErrorDetails? errorDetails})',
     },
     methodSignatures: {
       'toJson': 'Map<String, dynamic> toJson()',
@@ -1875,27 +1963,27 @@ BridgedClass _createChatResultBridge() {
 
 BridgedClass _createChatErrorDetailsBridge() {
   return BridgedClass(
-    nativeType: $pkg.ChatErrorDetails,
+    nativeType: $tom_vscode_scripting_api_6.ChatErrorDetails,
     name: 'ChatErrorDetails',
     constructors: {
       '': (visitor, positional, named) {
-        final message = D4.getRequiredNamedArg<dynamic>(named, 'message', 'ChatErrorDetails');
-        final responseIsFiltered = D4.getOptionalNamedArg<dynamic>(named, 'responseIsFiltered');
-        return $pkg.ChatErrorDetails(message: message, responseIsFiltered: responseIsFiltered);
+        final message = D4.getRequiredNamedArg<String>(named, 'message', 'ChatErrorDetails');
+        final responseIsFiltered = D4.getOptionalNamedArg<bool?>(named, 'responseIsFiltered');
+        return $tom_vscode_scripting_api_6.ChatErrorDetails(message: message, responseIsFiltered: responseIsFiltered);
       },
     },
     getters: {
-      'message': (visitor, target) => D4.validateTarget<$pkg.ChatErrorDetails>(target, 'ChatErrorDetails').message,
-      'responseIsFiltered': (visitor, target) => D4.validateTarget<$pkg.ChatErrorDetails>(target, 'ChatErrorDetails').responseIsFiltered,
+      'message': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_6.ChatErrorDetails>(target, 'ChatErrorDetails').message,
+      'responseIsFiltered': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_6.ChatErrorDetails>(target, 'ChatErrorDetails').responseIsFiltered,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ChatErrorDetails>(target, 'ChatErrorDetails');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_6.ChatErrorDetails>(target, 'ChatErrorDetails');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'ChatErrorDetails({required dynamic message, dynamic responseIsFiltered})',
+      '': 'ChatErrorDetails({required String message, bool? responseIsFiltered})',
     },
     methodSignatures: {
       'toJson': 'Map<String, dynamic> toJson()',
@@ -1913,32 +2001,32 @@ BridgedClass _createChatErrorDetailsBridge() {
 
 BridgedClass _createChatResponseStreamBridge() {
   return BridgedClass(
-    nativeType: $pkg.ChatResponseStream,
+    nativeType: $tom_vscode_scripting_api_6.ChatResponseStream,
     name: 'ChatResponseStream',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ChatResponseStream');
-        final adapter = D4.getRequiredArg<dynamic>(positional, 0, '_adapter', 'ChatResponseStream');
-        final streamId = D4.getRequiredArg<dynamic>(positional, 1, '_streamId', 'ChatResponseStream');
-        return $pkg.ChatResponseStream(adapter, streamId);
+        final adapter = D4.getRequiredArg<$tom_vscode_scripting_api_3.VSCodeAdapter>(positional, 0, '_adapter', 'ChatResponseStream');
+        final streamId = D4.getRequiredArg<String>(positional, 1, '_streamId', 'ChatResponseStream');
+        return $tom_vscode_scripting_api_6.ChatResponseStream(adapter, streamId);
       },
     },
     methods: {
       'markdown': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ChatResponseStream>(target, 'ChatResponseStream');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_6.ChatResponseStream>(target, 'ChatResponseStream');
         D4.requireMinArgs(positional, 1, 'markdown');
         final text = D4.getRequiredArg<String>(positional, 0, 'text', 'markdown');
         return t.markdown(text);
       },
       'anchor': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ChatResponseStream>(target, 'ChatResponseStream');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_6.ChatResponseStream>(target, 'ChatResponseStream');
         D4.requireMinArgs(positional, 1, 'anchor');
         final uri = D4.getRequiredArg<String>(positional, 0, 'uri', 'anchor');
         final title = D4.getOptionalNamedArg<String?>(named, 'title');
         return t.anchor(uri, title: title);
       },
       'button': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ChatResponseStream>(target, 'ChatResponseStream');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_6.ChatResponseStream>(target, 'ChatResponseStream');
         D4.requireMinArgs(positional, 1, 'button');
         final command = D4.getRequiredArg<String>(positional, 0, 'command', 'button');
         final title = D4.getOptionalNamedArg<String?>(named, 'title');
@@ -1946,7 +2034,7 @@ BridgedClass _createChatResponseStreamBridge() {
         return t.button(command, title: title, arguments: arguments);
       },
       'filetree': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ChatResponseStream>(target, 'ChatResponseStream');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_6.ChatResponseStream>(target, 'ChatResponseStream');
         D4.requireMinArgs(positional, 1, 'filetree');
         if (positional.isEmpty) {
           throw ArgumentError('filetree: Missing required argument "files" at position 0');
@@ -1956,27 +2044,27 @@ BridgedClass _createChatResponseStreamBridge() {
         return t.filetree(files, baseUri: baseUri);
       },
       'progress': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ChatResponseStream>(target, 'ChatResponseStream');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_6.ChatResponseStream>(target, 'ChatResponseStream');
         D4.requireMinArgs(positional, 1, 'progress');
         final value = D4.getRequiredArg<String>(positional, 0, 'value', 'progress');
         return t.progress(value);
       },
       'reference': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ChatResponseStream>(target, 'ChatResponseStream');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_6.ChatResponseStream>(target, 'ChatResponseStream');
         D4.requireMinArgs(positional, 1, 'reference');
         final uri = D4.getRequiredArg<String>(positional, 0, 'uri', 'reference');
         final title = D4.getOptionalNamedArg<String?>(named, 'title');
         return t.reference(uri, title: title);
       },
       'error': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ChatResponseStream>(target, 'ChatResponseStream');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_6.ChatResponseStream>(target, 'ChatResponseStream');
         D4.requireMinArgs(positional, 1, 'error');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'error');
         return t.error(message);
       },
     },
     constructorSignatures: {
-      '': 'ChatResponseStream(dynamic _adapter, dynamic _streamId)',
+      '': 'ChatResponseStream(VSCodeAdapter _adapter, String _streamId)',
     },
     methodSignatures: {
       'markdown': 'Future<void> markdown(String text)',
@@ -1996,19 +2084,19 @@ BridgedClass _createChatResponseStreamBridge() {
 
 BridgedClass _createHelperLoggingBridge() {
   return BridgedClass(
-    nativeType: $pkg.HelperLogging,
+    nativeType: $tom_vscode_scripting_api_9.HelperLogging,
     name: 'HelperLogging',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.HelperLogging();
+        return $tom_vscode_scripting_api_9.HelperLogging();
       },
     },
     staticGetters: {
-      'debugLogging': (visitor) => $pkg.HelperLogging.debugLogging,
+      'debugLogging': (visitor) => $tom_vscode_scripting_api_9.HelperLogging.debugLogging,
     },
     staticSetters: {
       'debugLogging': (visitor, value) => 
-        $pkg.HelperLogging.debugLogging = value as bool,
+        $tom_vscode_scripting_api_9.HelperLogging.debugLogging = value as bool,
     },
     constructorSignatures: {
       '': 'HelperLogging()',
@@ -2028,54 +2116,51 @@ BridgedClass _createHelperLoggingBridge() {
 
 BridgedClass _createVsCodeHelperBridge() {
   return BridgedClass(
-    nativeType: $pkg.VsCodeHelper,
+    nativeType: $tom_vscode_scripting_api_9.VsCodeHelper,
     name: 'VsCodeHelper',
     constructors: {
-      '': (visitor, positional, named) {
-        return $pkg.VsCodeHelper();
-      },
     },
     staticMethods: {
       'getVSCode': (visitor, positional, named, typeArgs) {
-        return $pkg.VsCodeHelper.getVSCode();
+        return $tom_vscode_scripting_api_9.VsCodeHelper.getVSCode();
       },
       'setVSCode': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setVSCode');
-        final vscode = D4.getRequiredArg<$pkg.VSCode>(positional, 0, 'vscode', 'setVSCode');
-        return $pkg.VsCodeHelper.setVSCode(vscode);
+        final vscode = D4.getRequiredArg<$tom_vscode_scripting_api_2.VSCode>(positional, 0, 'vscode', 'setVSCode');
+        return $tom_vscode_scripting_api_9.VsCodeHelper.setVSCode(vscode);
       },
       'initialize': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'initialize');
-        final adapter = D4.getRequiredArg<$pkg.VSCodeAdapter>(positional, 0, 'adapter', 'initialize');
-        return $pkg.VsCodeHelper.initialize(adapter);
+        final adapter = D4.getRequiredArg<$tom_vscode_scripting_api_3.VSCodeAdapter>(positional, 0, 'adapter', 'initialize');
+        return $tom_vscode_scripting_api_9.VsCodeHelper.initialize(adapter);
       },
       'getWindowId': (visitor, positional, named, typeArgs) {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 30);
-        return $pkg.VsCodeHelper.getWindowId(timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.getWindowId(timeoutSeconds: timeoutSeconds);
       },
       'generateTimestampId': (visitor, positional, named, typeArgs) {
-        return $pkg.VsCodeHelper.generateTimestampId();
+        return $tom_vscode_scripting_api_9.VsCodeHelper.generateTimestampId();
       },
       'showInfo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'showInfo');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'showInfo');
         final choices = D4.coerceListOrNull<String>(named['choices'], 'choices');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return $pkg.VsCodeHelper.showInfo(message, choices: choices, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.showInfo(message, choices: choices, timeoutSeconds: timeoutSeconds);
       },
       'showWarning': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'showWarning');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'showWarning');
         final choices = D4.coerceListOrNull<String>(named['choices'], 'choices');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return $pkg.VsCodeHelper.showWarning(message, choices: choices, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.showWarning(message, choices: choices, timeoutSeconds: timeoutSeconds);
       },
       'showError': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'showError');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'showError');
         final choices = D4.coerceListOrNull<String>(named['choices'], 'choices');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return $pkg.VsCodeHelper.showError(message, choices: choices, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.showError(message, choices: choices, timeoutSeconds: timeoutSeconds);
       },
       'quickPick': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'quickPick');
@@ -2088,7 +2173,7 @@ BridgedClass _createVsCodeHelperBridge() {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 1800);
         final fallbackValueOnTimeout = D4.getOptionalNamedArg<String?>(named, 'fallbackValueOnTimeout');
         final failOnTimeout = D4.getNamedArgWithDefault<bool>(named, 'failOnTimeout', false);
-        return $pkg.VsCodeHelper.quickPick(items, placeholder: placeholder, canPickMany: canPickMany, timeoutSeconds: timeoutSeconds, fallbackValueOnTimeout: fallbackValueOnTimeout, failOnTimeout: failOnTimeout);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.quickPick(items, placeholder: placeholder, canPickMany: canPickMany, timeoutSeconds: timeoutSeconds, fallbackValueOnTimeout: fallbackValueOnTimeout, failOnTimeout: failOnTimeout);
       },
       'inputBox': (visitor, positional, named, typeArgs) {
         final prompt = D4.getOptionalNamedArg<String?>(named, 'prompt');
@@ -2098,109 +2183,109 @@ BridgedClass _createVsCodeHelperBridge() {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 1800);
         final fallbackValueOnTimeout = D4.getOptionalNamedArg<String?>(named, 'fallbackValueOnTimeout');
         final failOnTimeout = D4.getNamedArgWithDefault<bool>(named, 'failOnTimeout', false);
-        return $pkg.VsCodeHelper.inputBox(prompt: prompt, placeholder: placeholder, defaultValue: defaultValue, password: password, timeoutSeconds: timeoutSeconds, fallbackValueOnTimeout: fallbackValueOnTimeout, failOnTimeout: failOnTimeout);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.inputBox(prompt: prompt, placeholder: placeholder, defaultValue: defaultValue, password: password, timeoutSeconds: timeoutSeconds, fallbackValueOnTimeout: fallbackValueOnTimeout, failOnTimeout: failOnTimeout);
       },
       'getWorkspaceRoot': (visitor, positional, named, typeArgs) {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 30);
-        return $pkg.VsCodeHelper.getWorkspaceRoot(timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.getWorkspaceRoot(timeoutSeconds: timeoutSeconds);
       },
       'getWorkspaceFolders': (visitor, positional, named, typeArgs) {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 30);
-        return $pkg.VsCodeHelper.getWorkspaceFolders(timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.getWorkspaceFolders(timeoutSeconds: timeoutSeconds);
       },
       'getActiveTextEditor': (visitor, positional, named, typeArgs) {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 30);
-        return $pkg.VsCodeHelper.getActiveTextEditor(timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.getActiveTextEditor(timeoutSeconds: timeoutSeconds);
       },
       'findFiles': (visitor, positional, named, typeArgs) {
         final include = D4.getRequiredNamedArg<String>(named, 'include', 'findFiles');
         final exclude = D4.getOptionalNamedArg<String?>(named, 'exclude');
         final maxResults = D4.getOptionalNamedArg<int?>(named, 'maxResults');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
-        return $pkg.VsCodeHelper.findFiles(include: include, exclude: exclude, maxResults: maxResults, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.findFiles(include: include, exclude: exclude, maxResults: maxResults, timeoutSeconds: timeoutSeconds);
       },
       'readFile': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'readFile');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'readFile');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
-        return $pkg.VsCodeHelper.readFile(path, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.readFile(path, timeoutSeconds: timeoutSeconds);
       },
       'writeFile': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'writeFile');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'writeFile');
         final content = D4.getRequiredArg<String>(positional, 1, 'content', 'writeFile');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
-        return $pkg.VsCodeHelper.writeFile(path, content, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.writeFile(path, content, timeoutSeconds: timeoutSeconds);
       },
       'createFile': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'createFile');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'createFile');
         final content = D4.getNamedArgWithDefault<String>(named, 'content', '');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
-        return $pkg.VsCodeHelper.createFile(path, content: content, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.createFile(path, content: content, timeoutSeconds: timeoutSeconds);
       },
       'deleteFile': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'deleteFile');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'deleteFile');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
-        return $pkg.VsCodeHelper.deleteFile(path, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.deleteFile(path, timeoutSeconds: timeoutSeconds);
       },
       'fileExists': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'fileExists');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'fileExists');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 30);
-        return $pkg.VsCodeHelper.fileExists(path, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.fileExists(path, timeoutSeconds: timeoutSeconds);
       },
       'executeCommand': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'executeCommand');
         final command = D4.getRequiredArg<String>(positional, 0, 'command', 'executeCommand');
         final args = D4.coerceListOrNull<dynamic>(named['args'], 'args');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 120);
-        return $pkg.VsCodeHelper.executeCommand(command, args: args, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.executeCommand(command, args: args, timeoutSeconds: timeoutSeconds);
       },
       'setStatus': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setStatus');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'setStatus');
         final timeout = D4.getOptionalNamedArg<int?>(named, 'timeout');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 120);
-        return $pkg.VsCodeHelper.setStatus(message, timeout: timeout, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.setStatus(message, timeout: timeout, timeoutSeconds: timeoutSeconds);
       },
       'createOutput': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'createOutput');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'createOutput');
         final initialContent = D4.getOptionalNamedArg<String?>(named, 'initialContent');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
-        return $pkg.VsCodeHelper.createOutput(name, initialContent: initialContent, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.createOutput(name, initialContent: initialContent, timeoutSeconds: timeoutSeconds);
       },
       'appendOutput': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'appendOutput');
         final channel = D4.getRequiredArg<String>(positional, 0, 'channel', 'appendOutput');
         final text = D4.getRequiredArg<String>(positional, 1, 'text', 'appendOutput');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
-        return $pkg.VsCodeHelper.appendOutput(channel, text, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.appendOutput(channel, text, timeoutSeconds: timeoutSeconds);
       },
       'copyToClipboard': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'copyToClipboard');
         final text = D4.getRequiredArg<String>(positional, 0, 'text', 'copyToClipboard');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 10);
-        return $pkg.VsCodeHelper.copyToClipboard(text, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.copyToClipboard(text, timeoutSeconds: timeoutSeconds);
       },
       'readClipboard': (visitor, positional, named, typeArgs) {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 10);
-        return $pkg.VsCodeHelper.readClipboard(timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.readClipboard(timeoutSeconds: timeoutSeconds);
       },
       'openFile': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'openFile');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'openFile');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 600);
-        return $pkg.VsCodeHelper.openFile(path, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.openFile(path, timeoutSeconds: timeoutSeconds);
       },
       'getConfig': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'getConfig');
         final section = D4.getRequiredArg<String>(positional, 0, 'section', 'getConfig');
         final key = D4.getOptionalNamedArg<String?>(named, 'key');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
-        return $pkg.VsCodeHelper.getConfig(section, key: key, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.getConfig(section, key: key, timeoutSeconds: timeoutSeconds);
       },
       'setConfig': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'setConfig');
@@ -2209,66 +2294,66 @@ BridgedClass _createVsCodeHelperBridge() {
         final value = D4.getRequiredArg<dynamic>(positional, 2, 'value', 'setConfig');
         final global = D4.getNamedArgWithDefault<bool>(named, 'global', true);
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
-        return $pkg.VsCodeHelper.setConfig(section, key, value, global: global, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.setConfig(section, key, value, global: global, timeoutSeconds: timeoutSeconds);
       },
       'runPubGet': (visitor, positional, named, typeArgs) {
         final workingDirectory = D4.getOptionalNamedArg<String?>(named, 'workingDirectory');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return $pkg.VsCodeHelper.runPubGet(workingDirectory: workingDirectory, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.runPubGet(workingDirectory: workingDirectory, timeoutSeconds: timeoutSeconds);
       },
       'runPubUpgrade': (visitor, positional, named, typeArgs) {
         final workingDirectory = D4.getOptionalNamedArg<String?>(named, 'workingDirectory');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return $pkg.VsCodeHelper.runPubUpgrade(workingDirectory: workingDirectory, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.runPubUpgrade(workingDirectory: workingDirectory, timeoutSeconds: timeoutSeconds);
       },
       'addDependency': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'addDependency');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'addDependency');
         final version = D4.getOptionalNamedArg<String?>(named, 'version');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 180);
-        return $pkg.VsCodeHelper.addDependency(name, version: version, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.addDependency(name, version: version, timeoutSeconds: timeoutSeconds);
       },
       'getDiagnostics': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'getDiagnostics');
         final uri = D4.getRequiredArg<String>(positional, 0, 'uri', 'getDiagnostics');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 120);
-        return $pkg.VsCodeHelper.getDiagnostics(uri, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.getDiagnostics(uri, timeoutSeconds: timeoutSeconds);
       },
       'formatDocument': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'formatDocument');
         final uri = D4.getRequiredArg<String>(positional, 0, 'uri', 'formatDocument');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 180);
-        return $pkg.VsCodeHelper.formatDocument(uri, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.formatDocument(uri, timeoutSeconds: timeoutSeconds);
       },
       'organizeImports': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'organizeImports');
         final uri = D4.getRequiredArg<String>(positional, 0, 'uri', 'organizeImports');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 180);
-        return $pkg.VsCodeHelper.organizeImports(uri, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.organizeImports(uri, timeoutSeconds: timeoutSeconds);
       },
       'hotReload': (visitor, positional, named, typeArgs) {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 180);
-        return $pkg.VsCodeHelper.hotReload(timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.hotReload(timeoutSeconds: timeoutSeconds);
       },
       'hotRestart': (visitor, positional, named, typeArgs) {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 240);
-        return $pkg.VsCodeHelper.hotRestart(timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.hotRestart(timeoutSeconds: timeoutSeconds);
       },
       'getFlutterDevices': (visitor, positional, named, typeArgs) {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 180);
-        return $pkg.VsCodeHelper.getFlutterDevices(timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.getFlutterDevices(timeoutSeconds: timeoutSeconds);
       },
       'runFlutterApp': (visitor, positional, named, typeArgs) {
         final deviceId = D4.getOptionalNamedArg<String?>(named, 'deviceId');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 420);
-        return $pkg.VsCodeHelper.runFlutterApp(deviceId: deviceId, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.runFlutterApp(deviceId: deviceId, timeoutSeconds: timeoutSeconds);
       },
       'askCopilot': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'askCopilot');
         final prompt = D4.getRequiredArg<String>(positional, 0, 'prompt', 'askCopilot');
         final context = D4.getOptionalNamedArg<String?>(named, 'context');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return $pkg.VsCodeHelper.askCopilot(prompt, context: context, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.askCopilot(prompt, context: context, timeoutSeconds: timeoutSeconds);
       },
       'askCopilotChat': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'askCopilotChat');
@@ -2277,7 +2362,7 @@ BridgedClass _createVsCodeHelperBridge() {
         final pollIntervalSeconds = D4.getNamedArgWithDefault<int>(named, 'pollIntervalSeconds', 10);
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 7200);
         final customResponseInstructions = D4.getNamedArgWithDefault<bool>(named, 'customResponseInstructions', false);
-        return $pkg.VsCodeHelper.askCopilotChat(prompt, requestId: requestId, pollIntervalSeconds: pollIntervalSeconds, timeoutSeconds: timeoutSeconds, customResponseInstructions: customResponseInstructions);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.askCopilotChat(prompt, requestId: requestId, pollIntervalSeconds: pollIntervalSeconds, timeoutSeconds: timeoutSeconds, customResponseInstructions: customResponseInstructions);
       },
       'askModel': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'askModel');
@@ -2286,50 +2371,50 @@ BridgedClass _createVsCodeHelperBridge() {
         final context = D4.getOptionalNamedArg<String?>(named, 'context');
         final vendor = D4.getNamedArgWithDefault<String>(named, 'vendor', 'copilot');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return $pkg.VsCodeHelper.askModel(modelId, prompt, context: context, vendor: vendor, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.askModel(modelId, prompt, context: context, vendor: vendor, timeoutSeconds: timeoutSeconds);
       },
       'getCopilotSuggestion': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'getCopilotSuggestion');
         final code = D4.getRequiredArg<String>(positional, 0, 'code', 'getCopilotSuggestion');
         final instruction = D4.getRequiredArg<String>(positional, 1, 'instruction', 'getCopilotSuggestion');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return $pkg.VsCodeHelper.getCopilotSuggestion(code, instruction, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.getCopilotSuggestion(code, instruction, timeoutSeconds: timeoutSeconds);
       },
       'explainCode': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'explainCode');
         final code = D4.getRequiredArg<String>(positional, 0, 'code', 'explainCode');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return $pkg.VsCodeHelper.explainCode(code, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.explainCode(code, timeoutSeconds: timeoutSeconds);
       },
       'reviewCode': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'reviewCode');
         final code = D4.getRequiredArg<String>(positional, 0, 'code', 'reviewCode');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return $pkg.VsCodeHelper.reviewCode(code, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.reviewCode(code, timeoutSeconds: timeoutSeconds);
       },
       'generateTests': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'generateTests');
         final code = D4.getRequiredArg<String>(positional, 0, 'code', 'generateTests');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return $pkg.VsCodeHelper.generateTests(code, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.generateTests(code, timeoutSeconds: timeoutSeconds);
       },
       'fixCode': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'fixCode');
         final code = D4.getRequiredArg<String>(positional, 0, 'code', 'fixCode');
         final error = D4.getRequiredArg<String>(positional, 1, 'error', 'fixCode');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return $pkg.VsCodeHelper.fixCode(code, error, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.fixCode(code, error, timeoutSeconds: timeoutSeconds);
       },
       'selectCopilotModel': (visitor, positional, named, typeArgs) {
         final family = D4.getOptionalNamedArg<String?>(named, 'family');
         final vendor = D4.getOptionalNamedArg<String?>(named, 'vendor');
         final id = D4.getOptionalNamedArg<String?>(named, 'id');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 120);
-        return $pkg.VsCodeHelper.selectCopilotModel(family: family, vendor: vendor, id: id, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.selectCopilotModel(family: family, vendor: vendor, id: id, timeoutSeconds: timeoutSeconds);
       },
       'getCopilotModels': (visitor, positional, named, typeArgs) {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 120);
-        return $pkg.VsCodeHelper.getCopilotModels(timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.getCopilotModels(timeoutSeconds: timeoutSeconds);
       },
       'replaceText': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 6, 'replaceText');
@@ -2340,7 +2425,7 @@ BridgedClass _createVsCodeHelperBridge() {
         final endChar = D4.getRequiredArg<int>(positional, 4, 'endChar', 'replaceText');
         final text = D4.getRequiredArg<String>(positional, 5, 'text', 'replaceText');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 180);
-        return $pkg.VsCodeHelper.replaceText(uri, startLine, startChar, endLine, endChar, text, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.replaceText(uri, startLine, startChar, endLine, endChar, text, timeoutSeconds: timeoutSeconds);
       },
       'insertSnippet': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 4, 'insertSnippet');
@@ -2349,7 +2434,7 @@ BridgedClass _createVsCodeHelperBridge() {
         final character = D4.getRequiredArg<int>(positional, 2, 'character', 'insertSnippet');
         final snippet = D4.getRequiredArg<String>(positional, 3, 'snippet', 'insertSnippet');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 180);
-        return $pkg.VsCodeHelper.insertSnippet(uri, line, character, snippet, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.insertSnippet(uri, line, character, snippet, timeoutSeconds: timeoutSeconds);
       },
       'applyWorkspaceEdit': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'applyWorkspaceEdit');
@@ -2358,11 +2443,11 @@ BridgedClass _createVsCodeHelperBridge() {
         }
         final edits = D4.coerceList<Map<String, dynamic>>(positional[0], 'edits');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 180);
-        return $pkg.VsCodeHelper.applyWorkspaceEdit(edits, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.applyWorkspaceEdit(edits, timeoutSeconds: timeoutSeconds);
       },
       'getSelection': (visitor, positional, named, typeArgs) {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
-        return $pkg.VsCodeHelper.getSelection(timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.getSelection(timeoutSeconds: timeoutSeconds);
       },
       'setSelection': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 4, 'setSelection');
@@ -2371,26 +2456,26 @@ BridgedClass _createVsCodeHelperBridge() {
         final endLine = D4.getRequiredArg<int>(positional, 2, 'endLine', 'setSelection');
         final endChar = D4.getRequiredArg<int>(positional, 3, 'endChar', 'setSelection');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 120);
-        return $pkg.VsCodeHelper.setSelection(startLine, startChar, endLine, endChar, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.setSelection(startLine, startChar, endLine, endChar, timeoutSeconds: timeoutSeconds);
       },
       'getCursorPosition': (visitor, positional, named, typeArgs) {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 60);
-        return $pkg.VsCodeHelper.getCursorPosition(timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.getCursorPosition(timeoutSeconds: timeoutSeconds);
       },
       'getProjectFiles': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'getProjectFiles');
         final pattern = D4.getRequiredArg<String>(positional, 0, 'pattern', 'getProjectFiles');
         final excludeTests = D4.getNamedArgWithDefault<bool>(named, 'excludeTests', true);
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 120);
-        return $pkg.VsCodeHelper.getProjectFiles(pattern, excludeTests: excludeTests, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.getProjectFiles(pattern, excludeTests: excludeTests, timeoutSeconds: timeoutSeconds);
       },
       'getGitRoot': (visitor, positional, named, typeArgs) {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 120);
-        return $pkg.VsCodeHelper.getGitRoot(timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.getGitRoot(timeoutSeconds: timeoutSeconds);
       },
       'getProjectType': (visitor, positional, named, typeArgs) {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 120);
-        return $pkg.VsCodeHelper.getProjectType(timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.getProjectType(timeoutSeconds: timeoutSeconds);
       },
       'searchInWorkspace': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'searchInWorkspace');
@@ -2400,7 +2485,7 @@ BridgedClass _createVsCodeHelperBridge() {
         final isRegex = D4.getNamedArgWithDefault<bool>(named, 'isRegex', false);
         final maxResults = D4.getOptionalNamedArg<int?>(named, 'maxResults');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 180);
-        return $pkg.VsCodeHelper.searchInWorkspace(query, includePattern: includePattern, excludePattern: excludePattern, isRegex: isRegex, maxResults: maxResults, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.searchInWorkspace(query, includePattern: includePattern, excludePattern: excludePattern, isRegex: isRegex, maxResults: maxResults, timeoutSeconds: timeoutSeconds);
       },
       'replaceInWorkspace': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'replaceInWorkspace');
@@ -2410,52 +2495,49 @@ BridgedClass _createVsCodeHelperBridge() {
         final excludePattern = D4.getOptionalNamedArg<String?>(named, 'excludePattern');
         final isRegex = D4.getNamedArgWithDefault<bool>(named, 'isRegex', false);
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 180);
-        return $pkg.VsCodeHelper.replaceInWorkspace(query, replacement, includePattern: includePattern, excludePattern: excludePattern, isRegex: isRegex, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.replaceInWorkspace(query, replacement, includePattern: includePattern, excludePattern: excludePattern, isRegex: isRegex, timeoutSeconds: timeoutSeconds);
       },
       'runTests': (visitor, positional, named, typeArgs) {
         final uri = D4.getOptionalNamedArg<String?>(named, 'uri');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 420);
-        return $pkg.VsCodeHelper.runTests(uri: uri, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.runTests(uri: uri, timeoutSeconds: timeoutSeconds);
       },
       'runTestsWithCoverage': (visitor, positional, named, typeArgs) {
         final uri = D4.getOptionalNamedArg<String?>(named, 'uri');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 600);
-        return $pkg.VsCodeHelper.runTestsWithCoverage(uri: uri, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.runTestsWithCoverage(uri: uri, timeoutSeconds: timeoutSeconds);
       },
       'getTestResults': (visitor, positional, named, typeArgs) {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 240);
-        return $pkg.VsCodeHelper.getTestResults(timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.getTestResults(timeoutSeconds: timeoutSeconds);
       },
       'startDebugging': (visitor, positional, named, typeArgs) {
         final config = D4.coerceMapOrNull<String, dynamic>(named['config'], 'config');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return $pkg.VsCodeHelper.startDebugging(config: config, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.startDebugging(config: config, timeoutSeconds: timeoutSeconds);
       },
       'stopDebugging': (visitor, positional, named, typeArgs) {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 180);
-        return $pkg.VsCodeHelper.stopDebugging(timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.stopDebugging(timeoutSeconds: timeoutSeconds);
       },
       'setBreakpoint': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'setBreakpoint');
         final uri = D4.getRequiredArg<String>(positional, 0, 'uri', 'setBreakpoint');
         final line = D4.getRequiredArg<int>(positional, 1, 'line', 'setBreakpoint');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 180);
-        return $pkg.VsCodeHelper.setBreakpoint(uri, line, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.setBreakpoint(uri, line, timeoutSeconds: timeoutSeconds);
       },
       'removeBreakpoint': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'removeBreakpoint');
         final uri = D4.getRequiredArg<String>(positional, 0, 'uri', 'removeBreakpoint');
         final line = D4.getRequiredArg<int>(positional, 1, 'line', 'removeBreakpoint');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 180);
-        return $pkg.VsCodeHelper.removeBreakpoint(uri, line, timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.removeBreakpoint(uri, line, timeoutSeconds: timeoutSeconds);
       },
       'getBreakpoints': (visitor, positional, named, typeArgs) {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 180);
-        return $pkg.VsCodeHelper.getBreakpoints(timeoutSeconds: timeoutSeconds);
+        return $tom_vscode_scripting_api_9.VsCodeHelper.getBreakpoints(timeoutSeconds: timeoutSeconds);
       },
-    },
-    constructorSignatures: {
-      '': 'VsCodeHelper()',
     },
     staticMethodSignatures: {
       'getVSCode': 'VSCode getVSCode()',
@@ -2535,29 +2617,26 @@ BridgedClass _createVsCodeHelperBridge() {
 
 BridgedClass _createVsProgressBridge() {
   return BridgedClass(
-    nativeType: $pkg.VsProgress,
+    nativeType: $tom_vscode_scripting_api_9.VsProgress,
     name: 'VsProgress',
     constructors: {
-      '': (visitor, positional, named) {
-        return $pkg.VsProgress();
-      },
     },
     getters: {
-      'channelName': (visitor, target) => D4.validateTarget<$pkg.VsProgress>(target, 'VsProgress').channelName,
+      'channelName': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_9.VsProgress>(target, 'VsProgress').channelName,
     },
     methods: {
       'report': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VsProgress>(target, 'VsProgress');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_9.VsProgress>(target, 'VsProgress');
         D4.requireMinArgs(positional, 1, 'report');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'report');
         return t.report(message);
       },
       'complete': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VsProgress>(target, 'VsProgress');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_9.VsProgress>(target, 'VsProgress');
         return t.complete();
       },
       'error': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VsProgress>(target, 'VsProgress');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_9.VsProgress>(target, 'VsProgress');
         D4.requireMinArgs(positional, 1, 'error');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'error');
         return t.error(message);
@@ -2567,11 +2646,8 @@ BridgedClass _createVsProgressBridge() {
       'create': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'create');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'create');
-        return $pkg.VsProgress.create(name);
+        return $tom_vscode_scripting_api_9.VsProgress.create(name);
       },
-    },
-    constructorSignatures: {
-      '': 'VsProgress()',
     },
     methodSignatures: {
       'report': 'Future<void> report(String message)',
@@ -2593,35 +2669,32 @@ BridgedClass _createVsProgressBridge() {
 
 BridgedClass _createFileBatchBridge() {
   return BridgedClass(
-    nativeType: $pkg.FileBatch,
+    nativeType: $tom_vscode_scripting_api_9.FileBatch,
     name: 'FileBatch',
     constructors: {
-      '': (visitor, positional, named) {
-        return $pkg.FileBatch();
-      },
     },
     getters: {
-      'files': (visitor, target) => D4.validateTarget<$pkg.FileBatch>(target, 'FileBatch').files,
-      'count': (visitor, target) => D4.validateTarget<$pkg.FileBatch>(target, 'FileBatch').count,
+      'files': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_9.FileBatch>(target, 'FileBatch').files,
+      'count': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_9.FileBatch>(target, 'FileBatch').count,
     },
     methods: {
       'process': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.FileBatch>(target, 'FileBatch');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_9.FileBatch>(target, 'FileBatch');
         D4.requireMinArgs(positional, 1, 'process');
         if (positional.isEmpty) {
           throw ArgumentError('process: Missing required argument "processor" at position 0');
         }
         final processorRaw = positional[0];
-        return t.process((String p0, String p1) { return (processorRaw as InterpretedFunction).call(visitor, [p0, p1]) as Future<dynamic>; });
+        return t.process((String p0, String p1) { return D4.callInterpreterCallback(visitor, processorRaw, [p0, p1]) as Future<dynamic>; });
       },
       'filter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.FileBatch>(target, 'FileBatch');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_9.FileBatch>(target, 'FileBatch');
         D4.requireMinArgs(positional, 1, 'filter');
         if (positional.isEmpty) {
           throw ArgumentError('filter: Missing required argument "predicate" at position 0');
         }
         final predicateRaw = positional[0];
-        return t.filter((String p0) { return (predicateRaw as InterpretedFunction).call(visitor, [p0]) as bool; });
+        return t.filter((String p0) { return D4.callInterpreterCallback(visitor, predicateRaw, [p0]) as bool; });
       },
     },
     staticMethods: {
@@ -2629,11 +2702,8 @@ BridgedClass _createFileBatchBridge() {
         final include = D4.getRequiredNamedArg<String>(named, 'include', 'fromPattern');
         final exclude = D4.getOptionalNamedArg<String?>(named, 'exclude');
         final maxResults = D4.getOptionalNamedArg<int?>(named, 'maxResults');
-        return $pkg.FileBatch.fromPattern(include: include, exclude: exclude, maxResults: maxResults);
+        return $tom_vscode_scripting_api_9.FileBatch.fromPattern(include: include, exclude: exclude, maxResults: maxResults);
       },
-    },
-    constructorSignatures: {
-      '': 'FileBatch()',
     },
     methodSignatures: {
       'process': 'Future<List<T>> process(Future<T> Function(String path, String content) processor)',
@@ -2655,22 +2725,22 @@ BridgedClass _createFileBatchBridge() {
 
 BridgedClass _createVSCodeUriBridge() {
   return BridgedClass(
-    nativeType: $pkg.VSCodeUri,
+    nativeType: $tom_vscode_scripting_api_11.VSCodeUri,
     name: 'VSCodeUri',
     constructors: {
       '': (visitor, positional, named) {
-        final scheme = D4.getRequiredNamedArg<dynamic>(named, 'scheme', 'VSCodeUri');
-        final authority = D4.getNamedArgWithDefault<dynamic>(named, 'authority', '');
-        final path = D4.getRequiredNamedArg<dynamic>(named, 'path', 'VSCodeUri');
-        final query = D4.getNamedArgWithDefault<dynamic>(named, 'query', '');
-        final fragment = D4.getNamedArgWithDefault<dynamic>(named, 'fragment', '');
-        final fsPath = D4.getRequiredNamedArg<dynamic>(named, 'fsPath', 'VSCodeUri');
-        return $pkg.VSCodeUri(scheme: scheme, authority: authority, path: path, query: query, fragment: fragment, fsPath: fsPath);
+        final scheme = D4.getRequiredNamedArg<String>(named, 'scheme', 'VSCodeUri');
+        final authority = D4.getNamedArgWithDefault<String>(named, 'authority', '');
+        final path = D4.getRequiredNamedArg<String>(named, 'path', 'VSCodeUri');
+        final query = D4.getNamedArgWithDefault<String>(named, 'query', '');
+        final fragment = D4.getNamedArgWithDefault<String>(named, 'fragment', '');
+        final fsPath = D4.getRequiredNamedArg<String>(named, 'fsPath', 'VSCodeUri');
+        return $tom_vscode_scripting_api_11.VSCodeUri(scheme: scheme, authority: authority, path: path, query: query, fragment: fragment, fsPath: fsPath);
       },
       'file': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeUri');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'VSCodeUri');
-        return $pkg.VSCodeUri.file(path);
+        return $tom_vscode_scripting_api_11.VSCodeUri.file(path);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeUri');
@@ -2678,29 +2748,29 @@ BridgedClass _createVSCodeUriBridge() {
           throw ArgumentError('VSCodeUri: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.VSCodeUri.fromJson(json);
+        return $tom_vscode_scripting_api_11.VSCodeUri.fromJson(json);
       },
     },
     getters: {
-      'scheme': (visitor, target) => D4.validateTarget<$pkg.VSCodeUri>(target, 'VSCodeUri').scheme,
-      'authority': (visitor, target) => D4.validateTarget<$pkg.VSCodeUri>(target, 'VSCodeUri').authority,
-      'path': (visitor, target) => D4.validateTarget<$pkg.VSCodeUri>(target, 'VSCodeUri').path,
-      'query': (visitor, target) => D4.validateTarget<$pkg.VSCodeUri>(target, 'VSCodeUri').query,
-      'fragment': (visitor, target) => D4.validateTarget<$pkg.VSCodeUri>(target, 'VSCodeUri').fragment,
-      'fsPath': (visitor, target) => D4.validateTarget<$pkg.VSCodeUri>(target, 'VSCodeUri').fsPath,
+      'scheme': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.VSCodeUri>(target, 'VSCodeUri').scheme,
+      'authority': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.VSCodeUri>(target, 'VSCodeUri').authority,
+      'path': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.VSCodeUri>(target, 'VSCodeUri').path,
+      'query': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.VSCodeUri>(target, 'VSCodeUri').query,
+      'fragment': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.VSCodeUri>(target, 'VSCodeUri').fragment,
+      'fsPath': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.VSCodeUri>(target, 'VSCodeUri').fsPath,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeUri>(target, 'VSCodeUri');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_11.VSCodeUri>(target, 'VSCodeUri');
         return t.toJson();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.VSCodeUri>(target, 'VSCodeUri');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_11.VSCodeUri>(target, 'VSCodeUri');
         return t.toString();
       },
     },
     constructorSignatures: {
-      '': 'VSCodeUri({required dynamic scheme, dynamic authority = \'\', required dynamic path, dynamic query = \'\', dynamic fragment = \'\', required dynamic fsPath})',
+      '': 'VSCodeUri({required String scheme, String authority = \'\', required String path, String query = \'\', String fragment = \'\', required String fsPath})',
       'file': 'factory VSCodeUri.file(String path)',
       'fromJson': 'factory VSCodeUri.fromJson(Map<String, dynamic> json)',
     },
@@ -2725,14 +2795,14 @@ BridgedClass _createVSCodeUriBridge() {
 
 BridgedClass _createWorkspaceFolderBridge() {
   return BridgedClass(
-    nativeType: $pkg.WorkspaceFolder,
+    nativeType: $tom_vscode_scripting_api_11.WorkspaceFolder,
     name: 'WorkspaceFolder',
     constructors: {
       '': (visitor, positional, named) {
-        final uri = D4.getRequiredNamedArg<dynamic>(named, 'uri', 'WorkspaceFolder');
-        final name = D4.getRequiredNamedArg<dynamic>(named, 'name', 'WorkspaceFolder');
-        final index = D4.getRequiredNamedArg<dynamic>(named, 'index', 'WorkspaceFolder');
-        return $pkg.WorkspaceFolder(uri: uri, name: name, index: index);
+        final uri = D4.getRequiredNamedArg<$tom_vscode_scripting_api_11.VSCodeUri>(named, 'uri', 'WorkspaceFolder');
+        final name = D4.getRequiredNamedArg<String>(named, 'name', 'WorkspaceFolder');
+        final index = D4.getRequiredNamedArg<int>(named, 'index', 'WorkspaceFolder');
+        return $tom_vscode_scripting_api_11.WorkspaceFolder(uri: uri, name: name, index: index);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'WorkspaceFolder');
@@ -2740,22 +2810,22 @@ BridgedClass _createWorkspaceFolderBridge() {
           throw ArgumentError('WorkspaceFolder: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.WorkspaceFolder.fromJson(json);
+        return $tom_vscode_scripting_api_11.WorkspaceFolder.fromJson(json);
       },
     },
     getters: {
-      'uri': (visitor, target) => D4.validateTarget<$pkg.WorkspaceFolder>(target, 'WorkspaceFolder').uri,
-      'name': (visitor, target) => D4.validateTarget<$pkg.WorkspaceFolder>(target, 'WorkspaceFolder').name,
-      'index': (visitor, target) => D4.validateTarget<$pkg.WorkspaceFolder>(target, 'WorkspaceFolder').index,
+      'uri': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.WorkspaceFolder>(target, 'WorkspaceFolder').uri,
+      'name': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.WorkspaceFolder>(target, 'WorkspaceFolder').name,
+      'index': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.WorkspaceFolder>(target, 'WorkspaceFolder').index,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.WorkspaceFolder>(target, 'WorkspaceFolder');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_11.WorkspaceFolder>(target, 'WorkspaceFolder');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'WorkspaceFolder({required dynamic uri, required dynamic name, required dynamic index})',
+      '': 'WorkspaceFolder({required VSCodeUri uri, required String name, required int index})',
       'fromJson': 'factory WorkspaceFolder.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -2775,19 +2845,19 @@ BridgedClass _createWorkspaceFolderBridge() {
 
 BridgedClass _createTextDocumentBridge() {
   return BridgedClass(
-    nativeType: $pkg.TextDocument,
+    nativeType: $tom_vscode_scripting_api_11.TextDocument,
     name: 'TextDocument',
     constructors: {
       '': (visitor, positional, named) {
-        final uri = D4.getRequiredNamedArg<dynamic>(named, 'uri', 'TextDocument');
-        final fileName = D4.getRequiredNamedArg<dynamic>(named, 'fileName', 'TextDocument');
-        final isUntitled = D4.getRequiredNamedArg<dynamic>(named, 'isUntitled', 'TextDocument');
-        final languageId = D4.getRequiredNamedArg<dynamic>(named, 'languageId', 'TextDocument');
-        final version = D4.getRequiredNamedArg<dynamic>(named, 'version', 'TextDocument');
-        final isDirty = D4.getRequiredNamedArg<dynamic>(named, 'isDirty', 'TextDocument');
-        final isClosed = D4.getRequiredNamedArg<dynamic>(named, 'isClosed', 'TextDocument');
-        final lineCount = D4.getRequiredNamedArg<dynamic>(named, 'lineCount', 'TextDocument');
-        return $pkg.TextDocument(uri: uri, fileName: fileName, isUntitled: isUntitled, languageId: languageId, version: version, isDirty: isDirty, isClosed: isClosed, lineCount: lineCount);
+        final uri = D4.getRequiredNamedArg<$tom_vscode_scripting_api_11.VSCodeUri>(named, 'uri', 'TextDocument');
+        final fileName = D4.getRequiredNamedArg<String>(named, 'fileName', 'TextDocument');
+        final isUntitled = D4.getRequiredNamedArg<bool>(named, 'isUntitled', 'TextDocument');
+        final languageId = D4.getRequiredNamedArg<String>(named, 'languageId', 'TextDocument');
+        final version = D4.getRequiredNamedArg<int>(named, 'version', 'TextDocument');
+        final isDirty = D4.getRequiredNamedArg<bool>(named, 'isDirty', 'TextDocument');
+        final isClosed = D4.getRequiredNamedArg<bool>(named, 'isClosed', 'TextDocument');
+        final lineCount = D4.getRequiredNamedArg<int>(named, 'lineCount', 'TextDocument');
+        return $tom_vscode_scripting_api_11.TextDocument(uri: uri, fileName: fileName, isUntitled: isUntitled, languageId: languageId, version: version, isDirty: isDirty, isClosed: isClosed, lineCount: lineCount);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TextDocument');
@@ -2795,27 +2865,27 @@ BridgedClass _createTextDocumentBridge() {
           throw ArgumentError('TextDocument: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.TextDocument.fromJson(json);
+        return $tom_vscode_scripting_api_11.TextDocument.fromJson(json);
       },
     },
     getters: {
-      'uri': (visitor, target) => D4.validateTarget<$pkg.TextDocument>(target, 'TextDocument').uri,
-      'fileName': (visitor, target) => D4.validateTarget<$pkg.TextDocument>(target, 'TextDocument').fileName,
-      'isUntitled': (visitor, target) => D4.validateTarget<$pkg.TextDocument>(target, 'TextDocument').isUntitled,
-      'languageId': (visitor, target) => D4.validateTarget<$pkg.TextDocument>(target, 'TextDocument').languageId,
-      'version': (visitor, target) => D4.validateTarget<$pkg.TextDocument>(target, 'TextDocument').version,
-      'isDirty': (visitor, target) => D4.validateTarget<$pkg.TextDocument>(target, 'TextDocument').isDirty,
-      'isClosed': (visitor, target) => D4.validateTarget<$pkg.TextDocument>(target, 'TextDocument').isClosed,
-      'lineCount': (visitor, target) => D4.validateTarget<$pkg.TextDocument>(target, 'TextDocument').lineCount,
+      'uri': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.TextDocument>(target, 'TextDocument').uri,
+      'fileName': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.TextDocument>(target, 'TextDocument').fileName,
+      'isUntitled': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.TextDocument>(target, 'TextDocument').isUntitled,
+      'languageId': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.TextDocument>(target, 'TextDocument').languageId,
+      'version': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.TextDocument>(target, 'TextDocument').version,
+      'isDirty': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.TextDocument>(target, 'TextDocument').isDirty,
+      'isClosed': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.TextDocument>(target, 'TextDocument').isClosed,
+      'lineCount': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.TextDocument>(target, 'TextDocument').lineCount,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TextDocument>(target, 'TextDocument');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_11.TextDocument>(target, 'TextDocument');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'TextDocument({required dynamic uri, required dynamic fileName, required dynamic isUntitled, required dynamic languageId, required dynamic version, required dynamic isDirty, required dynamic isClosed, required dynamic lineCount})',
+      '': 'TextDocument({required VSCodeUri uri, required String fileName, required bool isUntitled, required String languageId, required int version, required bool isDirty, required bool isClosed, required int lineCount})',
       'fromJson': 'factory TextDocument.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -2840,14 +2910,14 @@ BridgedClass _createTextDocumentBridge() {
 
 BridgedClass _createPositionBridge() {
   return BridgedClass(
-    nativeType: $pkg.Position,
+    nativeType: $tom_vscode_scripting_api_11.Position,
     name: 'Position',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Position');
-        final line = D4.getRequiredArg<dynamic>(positional, 0, 'line', 'Position');
-        final character = D4.getRequiredArg<dynamic>(positional, 1, 'character', 'Position');
-        return $pkg.Position(line, character);
+        final line = D4.getRequiredArg<int>(positional, 0, 'line', 'Position');
+        final character = D4.getRequiredArg<int>(positional, 1, 'character', 'Position');
+        return $tom_vscode_scripting_api_11.Position(line, character);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Position');
@@ -2855,21 +2925,21 @@ BridgedClass _createPositionBridge() {
           throw ArgumentError('Position: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.Position.fromJson(json);
+        return $tom_vscode_scripting_api_11.Position.fromJson(json);
       },
     },
     getters: {
-      'line': (visitor, target) => D4.validateTarget<$pkg.Position>(target, 'Position').line,
-      'character': (visitor, target) => D4.validateTarget<$pkg.Position>(target, 'Position').character,
+      'line': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.Position>(target, 'Position').line,
+      'character': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.Position>(target, 'Position').character,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Position>(target, 'Position');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_11.Position>(target, 'Position');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'Position(dynamic line, dynamic character)',
+      '': 'Position(int line, int character)',
       'fromJson': 'factory Position.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -2888,14 +2958,14 @@ BridgedClass _createPositionBridge() {
 
 BridgedClass _createRangeBridge() {
   return BridgedClass(
-    nativeType: $pkg.Range,
+    nativeType: $tom_vscode_scripting_api_11.Range,
     name: 'Range',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Range');
-        final start = D4.getRequiredArg<dynamic>(positional, 0, 'start', 'Range');
-        final end = D4.getRequiredArg<dynamic>(positional, 1, 'end', 'Range');
-        return $pkg.Range(start, end);
+        final start = D4.getRequiredArg<$tom_vscode_scripting_api_11.Position>(positional, 0, 'start', 'Range');
+        final end = D4.getRequiredArg<$tom_vscode_scripting_api_11.Position>(positional, 1, 'end', 'Range');
+        return $tom_vscode_scripting_api_11.Range(start, end);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Range');
@@ -2903,21 +2973,21 @@ BridgedClass _createRangeBridge() {
           throw ArgumentError('Range: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.Range.fromJson(json);
+        return $tom_vscode_scripting_api_11.Range.fromJson(json);
       },
     },
     getters: {
-      'start': (visitor, target) => D4.validateTarget<$pkg.Range>(target, 'Range').start,
-      'end': (visitor, target) => D4.validateTarget<$pkg.Range>(target, 'Range').end,
+      'start': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.Range>(target, 'Range').start,
+      'end': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.Range>(target, 'Range').end,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Range>(target, 'Range');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_11.Range>(target, 'Range');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'Range(dynamic start, dynamic end)',
+      '': 'Range(Position start, Position end)',
       'fromJson': 'factory Range.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -2936,15 +3006,15 @@ BridgedClass _createRangeBridge() {
 
 BridgedClass _createSelectionBridge() {
   return BridgedClass(
-    nativeType: $pkg.Selection,
+    nativeType: $tom_vscode_scripting_api_11.Selection,
     name: 'Selection',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Selection');
-        final anchor = D4.getRequiredArg<dynamic>(positional, 0, 'anchor', 'Selection');
-        final active = D4.getRequiredArg<dynamic>(positional, 1, 'active', 'Selection');
-        final isReversed = D4.getRequiredArg<dynamic>(positional, 2, 'isReversed', 'Selection');
-        return $pkg.Selection(anchor, active, isReversed);
+        final anchor = D4.getRequiredArg<$tom_vscode_scripting_api_11.Position>(positional, 0, 'anchor', 'Selection');
+        final active = D4.getRequiredArg<$tom_vscode_scripting_api_11.Position>(positional, 1, 'active', 'Selection');
+        final isReversed = D4.getRequiredArg<bool>(positional, 2, 'isReversed', 'Selection');
+        return $tom_vscode_scripting_api_11.Selection(anchor, active, isReversed);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Selection');
@@ -2952,24 +3022,24 @@ BridgedClass _createSelectionBridge() {
           throw ArgumentError('Selection: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.Selection.fromJson(json);
+        return $tom_vscode_scripting_api_11.Selection.fromJson(json);
       },
     },
     getters: {
-      'start': (visitor, target) => D4.validateTarget<$pkg.Selection>(target, 'Selection').start,
-      'end': (visitor, target) => D4.validateTarget<$pkg.Selection>(target, 'Selection').end,
-      'anchor': (visitor, target) => D4.validateTarget<$pkg.Selection>(target, 'Selection').anchor,
-      'active': (visitor, target) => D4.validateTarget<$pkg.Selection>(target, 'Selection').active,
-      'isReversed': (visitor, target) => D4.validateTarget<$pkg.Selection>(target, 'Selection').isReversed,
+      'start': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.Selection>(target, 'Selection').start,
+      'end': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.Selection>(target, 'Selection').end,
+      'anchor': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.Selection>(target, 'Selection').anchor,
+      'active': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.Selection>(target, 'Selection').active,
+      'isReversed': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.Selection>(target, 'Selection').isReversed,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Selection>(target, 'Selection');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_11.Selection>(target, 'Selection');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'Selection(dynamic anchor, dynamic active, dynamic isReversed)',
+      '': 'Selection(Position anchor, Position active, bool isReversed)',
       'fromJson': 'factory Selection.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -2991,15 +3061,18 @@ BridgedClass _createSelectionBridge() {
 
 BridgedClass _createTextEditorBridge() {
   return BridgedClass(
-    nativeType: $pkg.TextEditor,
+    nativeType: $tom_vscode_scripting_api_11.TextEditor,
     name: 'TextEditor',
     constructors: {
       '': (visitor, positional, named) {
-        final document = D4.getRequiredNamedArg<dynamic>(named, 'document', 'TextEditor');
-        final selection = D4.getRequiredNamedArg<dynamic>(named, 'selection', 'TextEditor');
-        final selections = D4.getRequiredNamedArg<dynamic>(named, 'selections', 'TextEditor');
-        final visibleRanges = D4.getOptionalNamedArg<dynamic>(named, 'visibleRanges');
-        return $pkg.TextEditor(document: document, selection: selection, selections: selections, visibleRanges: visibleRanges);
+        final document = D4.getRequiredNamedArg<$tom_vscode_scripting_api_11.TextDocument>(named, 'document', 'TextEditor');
+        final selection = D4.getRequiredNamedArg<$tom_vscode_scripting_api_11.Selection>(named, 'selection', 'TextEditor');
+        if (!named.containsKey('selections') || named['selections'] == null) {
+          throw ArgumentError('TextEditor: Missing required named argument "selections"');
+        }
+        final selections = D4.coerceList<$tom_vscode_scripting_api_11.Selection>(named['selections'], 'selections');
+        final visibleRanges = D4.getOptionalNamedArg<$tom_vscode_scripting_api_11.Range?>(named, 'visibleRanges');
+        return $tom_vscode_scripting_api_11.TextEditor(document: document, selection: selection, selections: selections, visibleRanges: visibleRanges);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TextEditor');
@@ -3007,23 +3080,23 @@ BridgedClass _createTextEditorBridge() {
           throw ArgumentError('TextEditor: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.TextEditor.fromJson(json);
+        return $tom_vscode_scripting_api_11.TextEditor.fromJson(json);
       },
     },
     getters: {
-      'document': (visitor, target) => D4.validateTarget<$pkg.TextEditor>(target, 'TextEditor').document,
-      'selection': (visitor, target) => D4.validateTarget<$pkg.TextEditor>(target, 'TextEditor').selection,
-      'selections': (visitor, target) => D4.validateTarget<$pkg.TextEditor>(target, 'TextEditor').selections,
-      'visibleRanges': (visitor, target) => D4.validateTarget<$pkg.TextEditor>(target, 'TextEditor').visibleRanges,
+      'document': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.TextEditor>(target, 'TextEditor').document,
+      'selection': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.TextEditor>(target, 'TextEditor').selection,
+      'selections': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.TextEditor>(target, 'TextEditor').selections,
+      'visibleRanges': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.TextEditor>(target, 'TextEditor').visibleRanges,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TextEditor>(target, 'TextEditor');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_11.TextEditor>(target, 'TextEditor');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'TextEditor({required dynamic document, required dynamic selection, required dynamic selections, dynamic visibleRanges})',
+      '': 'TextEditor({required TextDocument document, required Selection selection, required List<Selection> selections, Range? visibleRanges})',
       'fromJson': 'factory TextEditor.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -3044,15 +3117,15 @@ BridgedClass _createTextEditorBridge() {
 
 BridgedClass _createQuickPickItemBridge() {
   return BridgedClass(
-    nativeType: $pkg.QuickPickItem,
+    nativeType: $tom_vscode_scripting_api_11.QuickPickItem,
     name: 'QuickPickItem',
     constructors: {
       '': (visitor, positional, named) {
-        final label = D4.getRequiredNamedArg<dynamic>(named, 'label', 'QuickPickItem');
-        final description = D4.getOptionalNamedArg<dynamic>(named, 'description');
-        final detail = D4.getOptionalNamedArg<dynamic>(named, 'detail');
-        final picked = D4.getNamedArgWithDefault<dynamic>(named, 'picked', false);
-        return $pkg.QuickPickItem(label: label, description: description, detail: detail, picked: picked);
+        final label = D4.getRequiredNamedArg<String>(named, 'label', 'QuickPickItem');
+        final description = D4.getOptionalNamedArg<String?>(named, 'description');
+        final detail = D4.getOptionalNamedArg<String?>(named, 'detail');
+        final picked = D4.getNamedArgWithDefault<bool>(named, 'picked', false);
+        return $tom_vscode_scripting_api_11.QuickPickItem(label: label, description: description, detail: detail, picked: picked);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'QuickPickItem');
@@ -3060,23 +3133,23 @@ BridgedClass _createQuickPickItemBridge() {
           throw ArgumentError('QuickPickItem: Missing required argument "json" at position 0');
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $pkg.QuickPickItem.fromJson(json);
+        return $tom_vscode_scripting_api_11.QuickPickItem.fromJson(json);
       },
     },
     getters: {
-      'label': (visitor, target) => D4.validateTarget<$pkg.QuickPickItem>(target, 'QuickPickItem').label,
-      'description': (visitor, target) => D4.validateTarget<$pkg.QuickPickItem>(target, 'QuickPickItem').description,
-      'detail': (visitor, target) => D4.validateTarget<$pkg.QuickPickItem>(target, 'QuickPickItem').detail,
-      'picked': (visitor, target) => D4.validateTarget<$pkg.QuickPickItem>(target, 'QuickPickItem').picked,
+      'label': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.QuickPickItem>(target, 'QuickPickItem').label,
+      'description': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.QuickPickItem>(target, 'QuickPickItem').description,
+      'detail': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.QuickPickItem>(target, 'QuickPickItem').detail,
+      'picked': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.QuickPickItem>(target, 'QuickPickItem').picked,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.QuickPickItem>(target, 'QuickPickItem');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_11.QuickPickItem>(target, 'QuickPickItem');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'QuickPickItem({required dynamic label, dynamic description, dynamic detail, dynamic picked = false})',
+      '': 'QuickPickItem({required String label, String? description, String? detail, bool picked = false})',
       'fromJson': 'factory QuickPickItem.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
@@ -3097,31 +3170,31 @@ BridgedClass _createQuickPickItemBridge() {
 
 BridgedClass _createInputBoxOptionsBridge() {
   return BridgedClass(
-    nativeType: $pkg.InputBoxOptions,
+    nativeType: $tom_vscode_scripting_api_11.InputBoxOptions,
     name: 'InputBoxOptions',
     constructors: {
       '': (visitor, positional, named) {
-        final prompt = D4.getOptionalNamedArg<dynamic>(named, 'prompt');
-        final placeHolder = D4.getOptionalNamedArg<dynamic>(named, 'placeHolder');
-        final value = D4.getOptionalNamedArg<dynamic>(named, 'value');
-        final password = D4.getNamedArgWithDefault<dynamic>(named, 'password', false);
-        return $pkg.InputBoxOptions(prompt: prompt, placeHolder: placeHolder, value: value, password: password);
+        final prompt = D4.getOptionalNamedArg<String?>(named, 'prompt');
+        final placeHolder = D4.getOptionalNamedArg<String?>(named, 'placeHolder');
+        final value = D4.getOptionalNamedArg<String?>(named, 'value');
+        final password = D4.getNamedArgWithDefault<bool>(named, 'password', false);
+        return $tom_vscode_scripting_api_11.InputBoxOptions(prompt: prompt, placeHolder: placeHolder, value: value, password: password);
       },
     },
     getters: {
-      'prompt': (visitor, target) => D4.validateTarget<$pkg.InputBoxOptions>(target, 'InputBoxOptions').prompt,
-      'placeHolder': (visitor, target) => D4.validateTarget<$pkg.InputBoxOptions>(target, 'InputBoxOptions').placeHolder,
-      'value': (visitor, target) => D4.validateTarget<$pkg.InputBoxOptions>(target, 'InputBoxOptions').value,
-      'password': (visitor, target) => D4.validateTarget<$pkg.InputBoxOptions>(target, 'InputBoxOptions').password,
+      'prompt': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.InputBoxOptions>(target, 'InputBoxOptions').prompt,
+      'placeHolder': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.InputBoxOptions>(target, 'InputBoxOptions').placeHolder,
+      'value': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.InputBoxOptions>(target, 'InputBoxOptions').value,
+      'password': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.InputBoxOptions>(target, 'InputBoxOptions').password,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.InputBoxOptions>(target, 'InputBoxOptions');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_11.InputBoxOptions>(target, 'InputBoxOptions');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'InputBoxOptions({dynamic prompt, dynamic placeHolder, dynamic value, dynamic password = false})',
+      '': 'InputBoxOptions({String? prompt, String? placeHolder, String? value, bool password = false})',
     },
     methodSignatures: {
       'toJson': 'Map<String, dynamic> toJson()',
@@ -3141,27 +3214,27 @@ BridgedClass _createInputBoxOptionsBridge() {
 
 BridgedClass _createMessageOptionsBridge() {
   return BridgedClass(
-    nativeType: $pkg.MessageOptions,
+    nativeType: $tom_vscode_scripting_api_11.MessageOptions,
     name: 'MessageOptions',
     constructors: {
       '': (visitor, positional, named) {
-        final modal = D4.getNamedArgWithDefault<dynamic>(named, 'modal', false);
-        final detail = D4.getOptionalNamedArg<dynamic>(named, 'detail');
-        return $pkg.MessageOptions(modal: modal, detail: detail);
+        final modal = D4.getNamedArgWithDefault<bool>(named, 'modal', false);
+        final detail = D4.getOptionalNamedArg<String?>(named, 'detail');
+        return $tom_vscode_scripting_api_11.MessageOptions(modal: modal, detail: detail);
       },
     },
     getters: {
-      'modal': (visitor, target) => D4.validateTarget<$pkg.MessageOptions>(target, 'MessageOptions').modal,
-      'detail': (visitor, target) => D4.validateTarget<$pkg.MessageOptions>(target, 'MessageOptions').detail,
+      'modal': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.MessageOptions>(target, 'MessageOptions').modal,
+      'detail': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.MessageOptions>(target, 'MessageOptions').detail,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.MessageOptions>(target, 'MessageOptions');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_11.MessageOptions>(target, 'MessageOptions');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'MessageOptions({dynamic modal = false, dynamic detail})',
+      '': 'MessageOptions({bool modal = false, String? detail})',
     },
     methodSignatures: {
       'toJson': 'Map<String, dynamic> toJson()',
@@ -3179,33 +3252,33 @@ BridgedClass _createMessageOptionsBridge() {
 
 BridgedClass _createTerminalOptionsBridge() {
   return BridgedClass(
-    nativeType: $pkg.TerminalOptions,
+    nativeType: $tom_vscode_scripting_api_11.TerminalOptions,
     name: 'TerminalOptions',
     constructors: {
       '': (visitor, positional, named) {
-        final name = D4.getOptionalNamedArg<dynamic>(named, 'name');
-        final shellPath = D4.getOptionalNamedArg<dynamic>(named, 'shellPath');
-        final shellArgs = D4.getOptionalNamedArg<dynamic>(named, 'shellArgs');
-        final cwd = D4.getOptionalNamedArg<dynamic>(named, 'cwd');
-        final env = D4.getOptionalNamedArg<dynamic>(named, 'env');
-        return $pkg.TerminalOptions(name: name, shellPath: shellPath, shellArgs: shellArgs, cwd: cwd, env: env);
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final shellPath = D4.getOptionalNamedArg<String?>(named, 'shellPath');
+        final shellArgs = D4.coerceListOrNull<String>(named['shellArgs'], 'shellArgs');
+        final cwd = D4.getOptionalNamedArg<String?>(named, 'cwd');
+        final env = D4.coerceMapOrNull<String, String>(named['env'], 'env');
+        return $tom_vscode_scripting_api_11.TerminalOptions(name: name, shellPath: shellPath, shellArgs: shellArgs, cwd: cwd, env: env);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.TerminalOptions>(target, 'TerminalOptions').name,
-      'shellPath': (visitor, target) => D4.validateTarget<$pkg.TerminalOptions>(target, 'TerminalOptions').shellPath,
-      'shellArgs': (visitor, target) => D4.validateTarget<$pkg.TerminalOptions>(target, 'TerminalOptions').shellArgs,
-      'cwd': (visitor, target) => D4.validateTarget<$pkg.TerminalOptions>(target, 'TerminalOptions').cwd,
-      'env': (visitor, target) => D4.validateTarget<$pkg.TerminalOptions>(target, 'TerminalOptions').env,
+      'name': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.TerminalOptions>(target, 'TerminalOptions').name,
+      'shellPath': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.TerminalOptions>(target, 'TerminalOptions').shellPath,
+      'shellArgs': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.TerminalOptions>(target, 'TerminalOptions').shellArgs,
+      'cwd': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.TerminalOptions>(target, 'TerminalOptions').cwd,
+      'env': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.TerminalOptions>(target, 'TerminalOptions').env,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TerminalOptions>(target, 'TerminalOptions');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_11.TerminalOptions>(target, 'TerminalOptions');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'TerminalOptions({dynamic name, dynamic shellPath, dynamic shellArgs, dynamic cwd, dynamic env})',
+      '': 'TerminalOptions({String? name, String? shellPath, List<String>? shellArgs, String? cwd, Map<String, String>? env})',
     },
     methodSignatures: {
       'toJson': 'Map<String, dynamic> toJson()',
@@ -3226,29 +3299,29 @@ BridgedClass _createTerminalOptionsBridge() {
 
 BridgedClass _createFileSystemWatcherOptionsBridge() {
   return BridgedClass(
-    nativeType: $pkg.FileSystemWatcherOptions,
+    nativeType: $tom_vscode_scripting_api_11.FileSystemWatcherOptions,
     name: 'FileSystemWatcherOptions',
     constructors: {
       '': (visitor, positional, named) {
-        final ignoreCreateEvents = D4.getNamedArgWithDefault<dynamic>(named, 'ignoreCreateEvents', false);
-        final ignoreChangeEvents = D4.getNamedArgWithDefault<dynamic>(named, 'ignoreChangeEvents', false);
-        final ignoreDeleteEvents = D4.getNamedArgWithDefault<dynamic>(named, 'ignoreDeleteEvents', false);
-        return $pkg.FileSystemWatcherOptions(ignoreCreateEvents: ignoreCreateEvents, ignoreChangeEvents: ignoreChangeEvents, ignoreDeleteEvents: ignoreDeleteEvents);
+        final ignoreCreateEvents = D4.getNamedArgWithDefault<bool>(named, 'ignoreCreateEvents', false);
+        final ignoreChangeEvents = D4.getNamedArgWithDefault<bool>(named, 'ignoreChangeEvents', false);
+        final ignoreDeleteEvents = D4.getNamedArgWithDefault<bool>(named, 'ignoreDeleteEvents', false);
+        return $tom_vscode_scripting_api_11.FileSystemWatcherOptions(ignoreCreateEvents: ignoreCreateEvents, ignoreChangeEvents: ignoreChangeEvents, ignoreDeleteEvents: ignoreDeleteEvents);
       },
     },
     getters: {
-      'ignoreCreateEvents': (visitor, target) => D4.validateTarget<$pkg.FileSystemWatcherOptions>(target, 'FileSystemWatcherOptions').ignoreCreateEvents,
-      'ignoreChangeEvents': (visitor, target) => D4.validateTarget<$pkg.FileSystemWatcherOptions>(target, 'FileSystemWatcherOptions').ignoreChangeEvents,
-      'ignoreDeleteEvents': (visitor, target) => D4.validateTarget<$pkg.FileSystemWatcherOptions>(target, 'FileSystemWatcherOptions').ignoreDeleteEvents,
+      'ignoreCreateEvents': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.FileSystemWatcherOptions>(target, 'FileSystemWatcherOptions').ignoreCreateEvents,
+      'ignoreChangeEvents': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.FileSystemWatcherOptions>(target, 'FileSystemWatcherOptions').ignoreChangeEvents,
+      'ignoreDeleteEvents': (visitor, target) => D4.validateTarget<$tom_vscode_scripting_api_11.FileSystemWatcherOptions>(target, 'FileSystemWatcherOptions').ignoreDeleteEvents,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.FileSystemWatcherOptions>(target, 'FileSystemWatcherOptions');
+        final t = D4.validateTarget<$tom_vscode_scripting_api_11.FileSystemWatcherOptions>(target, 'FileSystemWatcherOptions');
         return t.toJson();
       },
     },
     constructorSignatures: {
-      '': 'FileSystemWatcherOptions({dynamic ignoreCreateEvents = false, dynamic ignoreChangeEvents = false, dynamic ignoreDeleteEvents = false})',
+      '': 'FileSystemWatcherOptions({bool ignoreCreateEvents = false, bool ignoreChangeEvents = false, bool ignoreDeleteEvents = false})',
     },
     methodSignatures: {
       'toJson': 'Map<String, dynamic> toJson()',

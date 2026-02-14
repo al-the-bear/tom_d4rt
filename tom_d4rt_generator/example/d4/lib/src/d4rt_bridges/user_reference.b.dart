@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-02-14T10:17:11.829099
+// Generated: 2026-02-14T12:14:30.711951
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -113,6 +113,16 @@ class UserReferenceBridge {
   /// bridged classes available to scripts.
   static String getImportBlock() {
     return "import 'package:d4_example/user_reference.dart';";
+  }
+
+  /// Returns barrel import URIs for sub-packages discovered through re-exports.
+  ///
+  /// When a module follows re-exports into sub-packages (e.g., dcli re-exports
+  /// dcli_core), D4rt scripts may import those sub-packages directly.
+  /// These barrels need to be registered with the interpreter separately
+  /// so that module resolution finds content for those URIs.
+  static List<String> subPackageBarrels() {
+    return [];
   }
 
 }

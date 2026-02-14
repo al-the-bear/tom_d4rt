@@ -1,0 +1,8 @@
+# Tom Repository Configuration
+# This file identifies the repository for git traversal commands
+
+repository_id: D4
+name: d4rt
+description: >-
+  D4rt interpreter, DCli REPL, bridge generator, and VS Code scripting API.
+github: al-the-bear/tom_module_d4rt

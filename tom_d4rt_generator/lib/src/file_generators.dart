@@ -156,6 +156,17 @@ String generateDartscriptFileContent(BridgeConfig config, {String? dartscriptPat
         buffer.writeln('    );');
       }
     }
+    
+    // GEN-030: Also register under sub-package barrel URIs discovered through
+    // followAllReExports. When a module re-exports sub-packages (e.g., dcli
+    // re-exports dcli_core), D4rt scripts may import those sub-packages directly.
+    // The bridge's subPackageBarrels() method returns these discovered URIs.
+    final prefix = '${module.name}_bridges';
+    final bridgeClass = '${capitalizedModuleName}Bridge';
+    buffer.writeln('    // Register under sub-package barrels for direct imports');
+    buffer.writeln('    for (final barrel in $prefix.$bridgeClass.subPackageBarrels()) {');
+    buffer.writeln('      $prefix.$bridgeClass.registerBridges(d4rt, barrel);');
+    buffer.writeln('    }');
   }
 
   buffer.writeln('  }');

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 71 files
-// Generated: 2026-02-14T10:17:39.154581
+// Generated: 2026-02-14T12:14:52.948868
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -1271,7 +1271,26 @@ class DcliBridge {
   /// Use this in your D4rt initialization script to make all
   /// bridged classes available to scripts.
   static String getImportBlock() {
-    return "import 'package:dcli/dcli.dart';";
+    final imports = StringBuffer();
+    imports.writeln("import 'package:dcli/dcli.dart';");
+    imports.writeln("import 'package:crypto/crypto.dart';");
+    imports.writeln("import 'package:dcli_core/dcli_core.dart';");
+    imports.writeln("import 'package:dcli_terminal/dcli_terminal.dart';");
+    return imports.toString();
+  }
+
+  /// Returns barrel import URIs for sub-packages discovered through re-exports.
+  ///
+  /// When a module follows re-exports into sub-packages (e.g., dcli re-exports
+  /// dcli_core), D4rt scripts may import those sub-packages directly.
+  /// These barrels need to be registered with the interpreter separately
+  /// so that module resolution finds content for those URIs.
+  static List<String> subPackageBarrels() {
+    return [
+      'package:crypto/crypto.dart',
+      'package:dcli_core/dcli_core.dart',
+      'package:dcli_terminal/dcli_terminal.dart',
+    ];
   }
 
   /// Returns a list of bridged enum names.
@@ -6049,7 +6068,7 @@ BridgedClass _createWhichBridge() {
     },
     setters: {
       'progress': (visitor, target, value) => 
-        D4.validateTarget<$dcli_core_15.Which>(target, 'Which').progress = value as Stream<String>,
+        D4.validateTarget<$dcli_core_15.Which>(target, 'Which').progress = value as Stream<String>?,
     },
     constructorSignatures: {
       '': 'Which()',

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for tom_d4rt_dcli
-// Generated: 2026-02-13T17:59:20.628412
+// Generated: 2026-02-14T12:15:49.802022
 //
 // Usage:
 //   dart run bin/d4rtrun.b.dart <script.dart|.d4rt>  Run a D4rt script file
@@ -18,6 +18,7 @@ import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt_dcli/src/bridges/cli_api_bridges.b.dart' as cli_api_bridges;
 import 'package:tom_d4rt_dcli/src/bridges/tom_vscode_scripting_api_bridges.b.dart' as tom_vscode_scripting_api_bridges;
 import 'package:tom_d4rt_dcli/src/bridges/dcli_bridges.b.dart' as dcli_bridges;
+import 'package:tom_d4rt_dcli/src/bridges/path_bridges.b.dart' as path_bridges;
 import 'package:tom_d4rt_dcli/src/bridges/tom_chattools_bridges.b.dart' as tom_chattools_bridges;
 
 /// Init script source that imports all bridged modules.
@@ -25,7 +26,7 @@ const String _initSource = '''
 import 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart';
 import 'package:tom_vscode_scripting_api/script_globals.dart';
 import 'package:dcli/dcli.dart';
-import 'package:dcli_core/dcli_core.dart';
+import 'package:path/path.dart';
 import 'package:tom_chattools/tom_chattools.dart';
 
 void main() {}
@@ -45,9 +46,9 @@ void _registerBridges(D4rt d4rt) {
     d4rt,
     'package:dcli/dcli.dart',
   );
-  dcli_bridges.DcliBridge.registerBridges(
+  path_bridges.PathBridge.registerBridges(
     d4rt,
-    'package:dcli_core/dcli_core.dart',
+    'package:path/path.dart',
   );
   tom_chattools_bridges.TomChattoolsBridge.registerBridges(
     d4rt,

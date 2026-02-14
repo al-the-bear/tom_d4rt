@@ -4736,10 +4736,24 @@ class BridgeGenerator {
     buffer.writeln();
 
     // GEN-047: Generate bridgedExtensions() method
+    // GEN-059: Filter extensions whose target type (onTypeName) is not resolvable.
+    // If an extension targets a type from a skipped package (e.g., Digest from crypto),
+    // including it would cause a registration error at runtime.
+    final bridgedTypeNames = <String>{
+      ...classes.map((c) => c.name),
+      ...enums.map((e) => e.name),
+    };
+    final resolvableExtensions = extensions.where((ext) {
+      if (_isBuiltInType(ext.onTypeName)) return true;
+      if (bridgedTypeNames.contains(ext.onTypeName)) return true;
+      // Type is neither built-in nor bridged — skip it
+      return false;
+    }).toList();
+
     buffer.writeln('  /// Returns all bridged extension definitions.');
     buffer.writeln('  static List<BridgedExtensionDefinition> bridgedExtensions() {');
     buffer.writeln('    return [');
-    for (final ext in extensions) {
+    for (final ext in resolvableExtensions) {
       // For extension onType, built-in types should NOT be prefixed
       // (the extension is defined in user package but extends a built-in type)
       // For non-built-in types, resolve using the TYPE's URI (not the extension's source file)
@@ -4817,7 +4831,7 @@ class BridgeGenerator {
     buffer.writeln('  /// Returns a map of extension identifiers to their canonical source URIs.');
     buffer.writeln('  static Map<String, String> extensionSourceUris() {');
     buffer.writeln('    return {');
-    for (final ext in extensions) {
+    for (final ext in resolvableExtensions) {
       final sourceUri = _getPackageUri(ext.sourceFile);
       final key = ext.name ?? '<unnamed>@${ext.onTypeName}';
       buffer.writeln("      '$key': '$sourceUri',");
@@ -4876,7 +4890,7 @@ class BridgeGenerator {
       buffer.writeln('    }');
     }
     // GEN-047: Register bridged extensions
-    if (extensions.isNotEmpty) {
+    if (resolvableExtensions.isNotEmpty) {
       buffer.writeln();
       buffer.writeln('    // Register bridged extensions with source URIs for deduplication');
       buffer.writeln('    final extensions = bridgedExtensions();');
@@ -5380,18 +5394,63 @@ class BridgeGenerator {
     }
     
     if (importBlockUri != null) {
+      // Pre-compute the set of sub-packages that have actual bridged content.
+      // Used by both getImportBlock() and subPackageBarrels() to avoid including
+      // packages that are only referenced for types but have no bridged content
+      // (e.g., crypto when skipReExports includes it).
+      final primaryPackage = _extractPackageFromUri(importBlockUri);
+      final contentPackages = <String>{};
+      for (final uri in allSourceUris) {
+        if (!uri.startsWith('package:')) continue;
+        final pkg = _extractPackageFromUri(uri);
+        if (pkg != null && pkg != primaryPackage) {
+          contentPackages.add(pkg);
+        }
+      }
+      // Also include extensions' source packages
+      for (final ext in extensions) {
+        final uri = _getPackageUri(ext.sourceFile);
+        if (!uri.startsWith('package:')) continue;
+        final pkg = _extractPackageFromUri(uri);
+        if (pkg != null && pkg != primaryPackage) {
+          contentPackages.add(pkg);
+        }
+      }
+
       buffer.writeln('  /// Returns the import statement needed for D4rt scripts.');
       buffer.writeln('  ///');
       buffer.writeln('  /// Use this in your D4rt initialization script to make all');
       buffer.writeln('  /// bridged classes available to scripts.');
       buffer.writeln('  static String getImportBlock() {');
       
+      // Collect sub-package barrel imports, filtered to only those with content.
+      final subPackageBarrels = <String>{};
+      for (final uri in _importPrefixes.keys) {
+        if (!uri.startsWith('package:')) continue;
+        final pkg = _extractPackageFromUri(uri);
+        if (pkg != null && pkg != primaryPackage && contentPackages.contains(pkg)) {
+          subPackageBarrels.add('package:$pkg/$pkg.dart');
+        }
+      }
+      for (final uri in _auxiliaryImports.keys) {
+        if (!uri.startsWith('package:')) continue;
+        final pkg = _extractPackageFromUri(uri);
+        if (pkg != null && pkg != primaryPackage && contentPackages.contains(pkg)) {
+          subPackageBarrels.add('package:$pkg/$pkg.dart');
+        }
+      }
+      
       // Check if we have additional barrel imports beyond the primary one
       final additionalBarrels = sourceImports
           .where((si) => si != importBlockUri && si.startsWith('package:'))
           .toList();
       
-      if (additionalBarrels.isEmpty) {
+      // Merge additionalBarrels with sub-package barrels
+      final allExtraBarrels = <String>{...additionalBarrels, ...subPackageBarrels}
+          .where((b) => b != importBlockUri)
+          .toList()..sort();
+      
+      if (allExtraBarrels.isEmpty) {
         // Single barrel - return single import statement
         // Build import statement with optional show/hide clauses
         if (importShowClause.isNotEmpty) {
@@ -5416,11 +5475,37 @@ class BridgeGenerator {
         } else {
           buffer.writeln("    imports.writeln(\"import '$importBlockUri';\");");
         }
-        // Additional barrels without show/hide (they provide supplementary types)
-        for (final barrel in additionalBarrels) {
+        // Additional barrels (sub-packages and explicit barrels)
+        for (final barrel in allExtraBarrels) {
           buffer.writeln("    imports.writeln(\"import '$barrel';\");");
         }
         buffer.writeln("    return imports.toString();");
+      }
+      buffer.writeln('  }');
+      buffer.writeln();
+      
+      // Generate subPackageBarrels() method - returns barrel URIs for sub-packages
+      // that have actual bridged content. Reuses the contentPackages set
+      // computed above for consistency with getImportBlock().
+      final sortedContentBarrels = contentPackages
+          .map((pkg) => 'package:$pkg/$pkg.dart')
+          .toList()..sort();
+      
+      buffer.writeln('  /// Returns barrel import URIs for sub-packages discovered through re-exports.');
+      buffer.writeln('  ///');
+      buffer.writeln('  /// When a module follows re-exports into sub-packages (e.g., dcli re-exports');
+      buffer.writeln('  /// dcli_core), D4rt scripts may import those sub-packages directly.');
+      buffer.writeln('  /// These barrels need to be registered with the interpreter separately');
+      buffer.writeln('  /// so that module resolution finds content for those URIs.');
+      buffer.writeln('  static List<String> subPackageBarrels() {');
+      if (sortedContentBarrels.isNotEmpty) {
+        buffer.writeln('    return [');
+        for (final barrel in sortedContentBarrels) {
+          buffer.writeln("      '$barrel',");
+        }
+        buffer.writeln('    ];');
+      } else {
+        buffer.writeln('    return [];');
       }
       buffer.writeln('  }');
       buffer.writeln();
@@ -8011,12 +8096,13 @@ class BridgeGenerator {
 
     // Handle generic types with type arguments like List<T>, Map<K, V>
     if (baseType.contains('<')) {
-      return _resolveGenericTypeWithPrefixes(
+      final result = _resolveGenericTypeWithPrefixes(
         baseType,
         typeToUri,
         classTypeParams: classTypeParams,
         sourceFilePath: sourceFilePath,
       );
+      return isNullable ? '$result?' : result;
     }
 
     // Strip any existing prefix from source (e.g., jwt.JWTKey -> JWTKey)

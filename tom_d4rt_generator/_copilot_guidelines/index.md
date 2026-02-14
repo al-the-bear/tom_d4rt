@@ -1,9 +1,23 @@
-````markdown
-# D4rt Generator Project Guidelines - Index
+# D4rt Generator Project Guidelines
 
-This folder contains project-specific guidelines for the `tom_d4rt_generator` package.
+**Project:** `tom_d4rt_generator`  
+**Type:** CLI Tool
 
-## Files
+## Global Guidelines
+
+| Document | Purpose |
+|----------|---------|
+| [Documentation Guidelines](/_copilot_guidelines/documentation_guidelines.md) | Where to place user docs vs development docs |
+
+## Dart Guidelines
+
+| Document | Purpose |
+|----------|---------|
+| [Coding Guidelines](/_copilot_guidelines/dart/coding_guidelines.md) | Naming conventions, error handling, patterns |
+| [Unit Tests](/_copilot_guidelines/dart/unit_tests.md) | Test structure, matchers, mocking patterns |
+| [Examples](/_copilot_guidelines/dart/examples.md) | Example file creation guidelines |
+
+## Project-Specific Guidelines
 
 | File | Description |
 |------|-------------|
@@ -17,7 +31,6 @@ This folder contains project-specific guidelines for the `tom_d4rt_generator` pa
 
 ## Quick Reference
 
-**Package:** `tom_d4rt_generator`  
 **Purpose:** Bridge code generator for D4rt interpreter
 
 **Key Components:**
@@ -43,5 +56,3 @@ This is a **code generator package**, not an interpreter. Key differences from t
 - Uses analyzer package to parse Dart source
 - Configuration-driven via JSON or build.yaml
 - Examples demonstrate generated output, not script execution
-
-````
