@@ -15,8 +15,9 @@ class PartOfTestService {
   PartOfTestService({this.callback, required this.data});
   
   void execute() {
-    if (callback != null) {
-      callback!.onData(data);
+    final cb = callback;
+    if (cb != null) {
+      cb.onData?.call(data);
     }
   }
 }

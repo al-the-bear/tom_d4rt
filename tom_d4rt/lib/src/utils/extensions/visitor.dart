@@ -20,6 +20,12 @@ extension InterpreterVisitorExtension on InterpreterVisitor {
     try {
       return (globalEnvironment.toBridgedInstance(nativeObject), true);
     } catch (e) {
+      // Revoke the error since we're handling it gracefully by returning false
+      // This prevents spurious "BridgedClass not registered" errors when
+      // the target is an internal D4rt type (BridgedEnum, BridgedClass, etc.)
+      if (e is D4rtException) {
+        e.revoke();
+      }
       return (null, false);
     }
   }

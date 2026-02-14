@@ -439,6 +439,16 @@ class ExtensionInfo {
 
   /// The name of the type this extension applies to (e.g., 'String', 'DateTime').
   final String onTypeName;
+
+  /// GEN-063: The full type name including generic arguments.
+  /// For `extension on List<CommandResult>`, onTypeName is 'List' but
+  /// onTypeFullName is 'List<CommandResult>'. Used for proper casting.
+  final String? onTypeFullName;
+  
+  /// GEN-063: Source URIs for type arguments in the on-type.
+  /// Maps type arg name to its source URI for prefix resolution during generation.
+  /// e.g., {'CommandResult': 'package:tom_build_cli/src/...'} for List<CommandResult>
+  final Map<String, String> onTypeArgUris;
   
   /// The source URI for the on-type (e.g., 'dart:io' for Platform).
   /// Used to create auxiliary imports when the on-type isn't exported from the barrel.
@@ -464,6 +474,8 @@ class ExtensionInfo {
   const ExtensionInfo({
     this.name,
     required this.onTypeName,
+    this.onTypeFullName,
+    this.onTypeArgUris = const {},
     this.onTypeUri,
     required this.sourceFile,
     this.getterNames = const [],
@@ -4193,13 +4205,32 @@ class BridgeGenerator {
           // Get the extended type name and URI
           final extendedType = extElement.extendedType;
           String? onTypeName;
+          String? onTypeFullName;
           String? onTypeUri;
+          final onTypeArgUris = <String, String>{};
           if (extendedType is InterfaceType) {
             onTypeName = extendedType.element.name;
+            // GEN-063: Capture full type including generic arguments
+            // e.g., List<CommandResult> instead of just List
+            final displayType = extendedType.getDisplayString();
+            if (displayType != onTypeName) {
+              onTypeFullName = displayType;
+            }
             // Get the source URI for the on-type
             final typeElement = extendedType.element;
             final typeSource = typeElement.firstFragment.libraryFragment.source;
             onTypeUri = typeSource.uri.toString();
+            // GEN-063: Collect type argument URIs for prefix resolution
+            for (final typeArg in extendedType.typeArguments) {
+              if (typeArg is InterfaceType) {
+                final argElement = typeArg.element;
+                final argName = argElement.name;
+                if (argName != null) {
+                  final argUri = argElement.firstFragment.libraryFragment.source.uri.toString();
+                  onTypeArgUris[argName] = argUri;
+                }
+              }
+            }
           } else {
             // For complex types, try to get a string representation
             final typeStr = extendedType.getDisplayString();
@@ -4252,6 +4283,8 @@ class BridgeGenerator {
           collectedExtensions.add(ExtensionInfo(
             name: extName,
             onTypeName: onTypeName,
+            onTypeFullName: onTypeFullName,
+            onTypeArgUris: onTypeArgUris,
             onTypeUri: onTypeUri,
             sourceFile: extSourceUri,
             getterNames: getterNames,
@@ -4464,6 +4497,10 @@ class BridgeGenerator {
           ? {ext.onTypeName: ext.onTypeUri!} 
           : <String, String>{};
       processTypeName(ext.onTypeName, onTypeToUri, ext.sourceFile);
+      // GEN-063: Process type arguments of generic on-types (e.g., CommandResult in List<CommandResult>)
+      for (final entry in ext.onTypeArgUris.entries) {
+        processTypeName(entry.key, {entry.key: entry.value}, ext.sourceFile);
+      }
       // Extension methods
       for (final method in ext.methods) {
         processTypeName(method.returnType, method.returnTypeToUri, ext.sourceFile);
@@ -4984,6 +5021,8 @@ class BridgeGenerator {
       final onTypePrefixed = _isBuiltInType(ext.onTypeName) 
           ? ext.onTypeName 
           : _resolveExtensionOnType(ext);
+      // GEN-063: Use full generic type for cast (e.g., List<CommandResult> not just List)
+      final onTypeCast = _resolveExtensionCastType(ext, onTypePrefixed);
       buffer.writeln('      BridgedExtensionDefinition(');
       if (ext.name != null) {
         buffer.writeln("        name: '${ext.name}',");
@@ -4994,7 +5033,7 @@ class BridgeGenerator {
       if (ext.getterNames.isNotEmpty) {
         buffer.writeln('        getters: {');
         for (final getter in ext.getterNames) {
-          buffer.writeln("          '$getter': (visitor, target) => (target as $onTypePrefixed).$getter,");
+          buffer.writeln("          '$getter': (visitor, target) => (target as $onTypeCast).$getter,");
         }
         buffer.writeln('        },');
       }
@@ -5003,7 +5042,7 @@ class BridgeGenerator {
       if (ext.setterNames.isNotEmpty) {
         buffer.writeln('        setters: {');
         for (final setter in ext.setterNames) {
-          buffer.writeln("          '$setter': (visitor, target, value) => (target as $onTypePrefixed).$setter = value,");
+          buffer.writeln("          '$setter': (visitor, target, value) => (target as $onTypeCast).$setter = value,");
         }
         buffer.writeln('        },');
       }
@@ -5022,7 +5061,7 @@ class BridgeGenerator {
         
         for (final methodName in ext.methodNames) {
           buffer.writeln("          '$methodName': (visitor, target, positional, named, typeArgs) {");
-          buffer.writeln('            final t = target as $onTypePrefixed;');
+          buffer.writeln('            final t = target as $onTypeCast;');
           
           // Check if this is an operator - use operator syntax instead of Function.apply
           final operatorCall = _generateOperatorCall(methodName, 't');
@@ -5903,6 +5942,49 @@ class BridgeGenerator {
     }
     // 5. Fall back to extension's source file (same package case)
     return _getPrefixedClassName(ext.onTypeName, ext.sourceFile);
+  }
+
+  /// GEN-063: Resolves the full cast type for an extension, including generic args.
+  ///
+  /// For `extension on List<CommandResult>`, returns `List<_i3.CommandResult>`
+  /// where `_i3` is the import prefix for CommandResult's package.
+  /// Falls back to [onTypePrefixed] if no generic args.
+  String _resolveExtensionCastType(ExtensionInfo ext, String onTypePrefixed) {
+    if (ext.onTypeFullName == null || ext.onTypeArgUris.isEmpty) {
+      return onTypePrefixed;
+    }
+    
+    // Resolve each type argument with its import prefix
+    final resolvedArgs = <String>[];
+    for (final entry in ext.onTypeArgUris.entries) {
+      final argName = entry.key;
+      final argUri = entry.value;
+      // Try to find import prefix for this type argument
+      if (_isBuiltInType(argName)) {
+        resolvedArgs.add(argName);
+      } else {
+        final prefix = _importPrefixes[argUri];
+        if (prefix != null && prefix.isNotEmpty) {
+          resolvedArgs.add('$prefix.$argName');
+        } else {
+          // Try global type registry
+          final globalUri = _globalTypeToUri[argName];
+          if (globalUri != null) {
+            final gPrefix = _importPrefixes[globalUri];
+            if (gPrefix != null && gPrefix.isNotEmpty) {
+              resolvedArgs.add('$gPrefix.$argName');
+            } else {
+              resolvedArgs.add(argName);
+            }
+          } else {
+            resolvedArgs.add(argName);
+          }
+        }
+      }
+    }
+    
+    if (resolvedArgs.isEmpty) return onTypePrefixed;
+    return '$onTypePrefixed<${resolvedArgs.join(', ')}>';
   }
 
   /// Converts a source file path to a package URI.
@@ -9686,12 +9768,19 @@ class BridgeGenerator {
     for (var i = 0; i < funcInfo.positionalParamTypes.length; i++) {
       final rawParamType = funcInfo.positionalParamTypes[i];
       // Prefix the parameter type using _getTypeArgument
-      final paramType = _getTypeArgument(
+      var paramType = _getTypeArgument(
         rawParamType,
         typeToUri: typeToUri,
         classTypeParams: classTypeParams,
         sourceFilePath: sourceFilePath,
       );
+      // GEN-062 fix: When a callback parameter is itself a function type with
+      // unresolved types (becomes Function(dynamic)), use just 'Function' instead.
+      // This avoids contravariance issues: Function(dynamic) is NOT compatible
+      // with Function(SpecificType), but Function is compatible with all function types.
+      if (paramType.contains('Function(') && paramType.contains('dynamic')) {
+        paramType = 'Function';
+      }
       final paramName = 'p$i';
       paramList.add('$paramType $paramName');
       argList.add(paramName);
@@ -9750,10 +9839,10 @@ class BridgeGenerator {
     } else {
       // GEN-061 fix: FutureOr<dynamic> is not assignable to FutureOr<T> where T is bounded.
       // When the return type is FutureOr<dynamic> (from unresolved type parameter), 
-      // use FutureOr<Object?> which is assignable to any FutureOr<T>.
+      // use FutureOr<Object> which is assignable to FutureOr<T> where T defaults to Object.
       var effectiveReturnType = prefixedReturnType;
       if (prefixedReturnType == 'FutureOr<dynamic>') {
-        effectiveReturnType = 'FutureOr<Object?>';
+        effectiveReturnType = 'FutureOr<Object>';
       }
       final nullableReturnType = _makeNullable(effectiveReturnType);
       final returnCast = funcInfo.returnTypeNullable 
