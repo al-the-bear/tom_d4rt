@@ -393,31 +393,32 @@ void main() {
       test('G-GB-5a: Const vars use registerGlobalVariable. [2026-02-10 06:37] (PASS)', () {
         // Variable values are prefixed with $<pkgname>_<N> since source imports use direct import aliases
         // registerGlobalVariable now includes importPath and sourceUri parameters
+        // globals come from global_test_source.dart which is the 2nd import → $test_package_2
         expect(
           generatedCode,
-          contains(r"interpreter.registerGlobalVariable('appName', $test_package_1.appName, importPath"),
+          contains(r"interpreter.registerGlobalVariable('appName', $test_package_2.appName, importPath"),
         );
         expect(
           generatedCode,
           contains(
-              r"interpreter.registerGlobalVariable('maxRetries', $test_package_1.maxRetries, importPath"),
+              r"interpreter.registerGlobalVariable('maxRetries', $test_package_2.maxRetries, importPath"),
         );
         expect(
           generatedCode,
           contains(
-              r"interpreter.registerGlobalVariable('debugMode', $test_package_1.debugMode, importPath"),
+              r"interpreter.registerGlobalVariable('debugMode', $test_package_2.debugMode, importPath"),
         );
       });
 
       test('G-GB-6a: Final vars use registerGlobalVariable. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
-          contains(r"interpreter.registerGlobalVariable('version', $test_package_1.version, importPath"),
+          contains(r"interpreter.registerGlobalVariable('version', $test_package_2.version, importPath"),
         );
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalVariable('supportedFormats', $test_package_1.supportedFormats, importPath",
+            r"interpreter.registerGlobalVariable('supportedFormats', $test_package_2.supportedFormats, importPath",
           ),
         );
       });
@@ -426,13 +427,13 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalVariable('requestCount', $test_package_1.requestCount, importPath",
+            r"interpreter.registerGlobalVariable('requestCount', $test_package_2.requestCount, importPath",
           ),
         );
         expect(
           generatedCode,
           contains(
-              r"interpreter.registerGlobalVariable('lastError', $test_package_1.lastError, importPath"),
+              r"interpreter.registerGlobalVariable('lastError', $test_package_2.lastError, importPath"),
         );
       });
     });
@@ -441,10 +442,11 @@ void main() {
       test('G-GB-8b: Getter singleton uses registerGlobalGetter. [2026-02-10 06:37] (PASS)', () {
         // Getter values are prefixed with $<pkgname>_<N> since source imports use direct import aliases
         // registerGlobalGetter now includes importPath and sourceUri parameters
+        // getters come from global_test_source.dart which is the 2nd import → $test_package_2
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalGetter('globalService', () => $test_package_1.globalService, importPath",
+            r"interpreter.registerGlobalGetter('globalService', () => $test_package_2.globalService, importPath",
           ),
         );
       });
@@ -453,7 +455,7 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalGetter('currentTime', () => $test_package_1.currentTime, importPath",
+            r"interpreter.registerGlobalGetter('currentTime', () => $test_package_2.currentTime, importPath",
           ),
         );
       });
@@ -462,7 +464,7 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalGetter('lastLogMessage', () => $test_package_1.lastLogMessage, importPath",
+            r"interpreter.registerGlobalGetter('lastLogMessage', () => $test_package_2.lastLogMessage, importPath",
           ),
         );
       });
@@ -471,7 +473,7 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalGetter('doubleRequestCount', () => $test_package_1.doubleRequestCount, importPath",
+            r"interpreter.registerGlobalGetter('doubleRequestCount', () => $test_package_2.doubleRequestCount, importPath",
           ),
         );
       });

@@ -359,16 +359,17 @@ void main() {
     group('Code Generation with Overrides', () {
       test('G-UB-1b: Override for global variable appName. [2026-02-10 06:37] (PASS)', () {
         // The generated code includes importPath and sourceUri parameters
+        // GlobalsUserBridge is from globals_user_bridge.dart → 3rd import → $test_package_3
         expect(
           generatedCode,
           contains(
-            r"$test_package_1.GlobalsUserBridge.overrideGlobalVariableAppName()",
+            r"$test_package_3.GlobalsUserBridge.overrideGlobalVariableAppName()",
           ),
         );
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalVariable('appName', $test_package_1.GlobalsUserBridge.overrideGlobalVariableAppName(), importPath",
+            r"interpreter.registerGlobalVariable('appName', $test_package_3.GlobalsUserBridge.overrideGlobalVariableAppName(), importPath",
           ),
         );
       });
@@ -377,13 +378,13 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"$test_package_1.GlobalsUserBridge.overrideGlobalVariableMaxRetries()",
+            r"$test_package_3.GlobalsUserBridge.overrideGlobalVariableMaxRetries()",
           ),
         );
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalVariable('maxRetries', $test_package_1.GlobalsUserBridge.overrideGlobalVariableMaxRetries(), importPath",
+            r"interpreter.registerGlobalVariable('maxRetries', $test_package_3.GlobalsUserBridge.overrideGlobalVariableMaxRetries(), importPath",
           ),
         );
       });
@@ -392,13 +393,13 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"$test_package_1.GlobalsUserBridge.overrideGlobalGetterCurrentTime()",
+            r"$test_package_3.GlobalsUserBridge.overrideGlobalGetterCurrentTime()",
           ),
         );
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalGetter('currentTime', $test_package_1.GlobalsUserBridge.overrideGlobalGetterCurrentTime(), importPath",
+            r"interpreter.registerGlobalGetter('currentTime', $test_package_3.GlobalsUserBridge.overrideGlobalGetterCurrentTime(), importPath",
           ),
         );
       });
@@ -407,13 +408,13 @@ void main() {
         expect(
           generatedCode,
           contains(
-            r"$test_package_1.GlobalsUserBridge.overrideGlobalGetterGlobalService()",
+            r"$test_package_3.GlobalsUserBridge.overrideGlobalGetterGlobalService()",
           ),
         );
         expect(
           generatedCode,
           contains(
-            r"interpreter.registerGlobalGetter('globalService', $test_package_1.GlobalsUserBridge.overrideGlobalGetterGlobalService(), importPath",
+            r"interpreter.registerGlobalGetter('globalService', $test_package_3.GlobalsUserBridge.overrideGlobalGetterGlobalService(), importPath",
           ),
         );
       });
@@ -421,31 +422,32 @@ void main() {
       test('G-UB-5a: Override for global function greet. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
-          contains(r"'greet': $test_package_1.GlobalsUserBridge.overrideGlobalFunctionGreet,"),
+          contains(r"'greet': $test_package_3.GlobalsUserBridge.overrideGlobalFunctionGreet,"),
         );
       });
 
       test('G-UB-6b: Override for global function add. [2026-02-10 06:37] (PASS)', () {
         expect(
           generatedCode,
-          contains(r"'add': $test_package_1.GlobalsUserBridge.overrideGlobalFunctionAdd,"),
+          contains(r"'add': $test_package_3.GlobalsUserBridge.overrideGlobalFunctionAdd,"),
         );
       });
 
       test('G-UB-21: Non-overridden globals are generated normally. [2026-02-10 06:37] (PASS)', () {
         // Variable values are prefixed with $<pkgname>_<N> since source imports use direct import aliases
         // The generated code now includes importPath and sourceUri parameters
+        // Non-overridden globals come from global_test_source.dart → 2nd import → $test_package_2
         // debugMode is not overridden
         expect(
           generatedCode,
           contains(
-              r"interpreter.registerGlobalVariable('debugMode', $test_package_1.debugMode, importPath"),
+              r"interpreter.registerGlobalVariable('debugMode', $test_package_2.debugMode, importPath"),
         );
         // version is not overridden
         expect(
           generatedCode,
           contains(
-              r"interpreter.registerGlobalVariable('version', $test_package_1.version, importPath"),
+              r"interpreter.registerGlobalVariable('version', $test_package_2.version, importPath"),
         );
         // resetState function is not overridden
         expect(

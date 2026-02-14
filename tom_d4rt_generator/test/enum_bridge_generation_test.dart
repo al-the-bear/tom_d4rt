@@ -252,8 +252,8 @@ class DummyClass {
       final code = await File(result.outputFiles.first).readAsString();
       
       expect(code, contains("name: 'SingletonEnum'"));
-      // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
-      expect(code, contains(r'values: $test_package_1.SingletonEnum.values'));
+      // Edge case: temp dir source files don't generate package imports, so no prefix
+      expect(code, contains('values: SingletonEnum.values'));
     });
   });
 }
