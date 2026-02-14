@@ -1,13 +1,13 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_generator/example/d4/lib/test_extensions.dart
-// Generated: 2026-02-14T00:56:04.756055
+// Generated: 2026-02-14T07:12:02.623816
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 
-import 'package:d4_example/test_extensions.dart' as $pkg;
+import 'package:d4_example/test_extensions.dart' as $d4_example_1;
 
 /// Bridge class for core_extensions module.
 class CoreExtensionsBridge {
@@ -130,14 +130,14 @@ class CoreExtensionsBridge {
         }
         final transformRaw = positional[1];
         final transform = (dynamic p0) { return D4.callInterpreterCallback(visitor, transformRaw, [p0]) as dynamic; };
-        return $pkg.processItems<dynamic, dynamic>(items, transform);
+        return $d4_example_1.processItems<dynamic, dynamic>(items, transform);
       },
       'filterItems': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'filterItems');
         final items = D4.getRequiredArg<List<dynamic>>(positional, 0, 'items', 'filterItems');
         final predicateRaw = named['predicate'];
         final predicate = predicateRaw == null ? null : (dynamic p0) { return D4.callInterpreterCallback(visitor, predicateRaw, [p0]) as bool; };
-        return $pkg.filterItems<dynamic>(items, predicate: predicate);
+        return $d4_example_1.filterItems<dynamic>(items, predicate: predicate);
       },
       'promptUser': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'promptUser');
@@ -146,7 +146,7 @@ class CoreExtensionsBridge {
         final customPrompt = customPromptRaw == null ? null : (String p0, String? p1, bool p2) { return D4.callInterpreterCallback(visitor, customPromptRaw, [p0, p1, p2]) as String; };
         final defaultValue = D4.getOptionalNamedArg<String?>(named, 'defaultValue');
         final required = D4.getNamedArgWithDefault<bool>(named, 'required', true);
-        return $pkg.promptUser(message, customPrompt: customPrompt, defaultValue: defaultValue, required: required);
+        return $d4_example_1.promptUser(message, customPrompt: customPrompt, defaultValue: defaultValue, required: required);
       },
     };
   }
@@ -199,7 +199,7 @@ class CoreExtensionsBridge {
 
 BridgedClass _createItemProcessorBridge() {
   return BridgedClass(
-    nativeType: $pkg.ItemProcessor,
+    nativeType: $d4_example_1.ItemProcessor,
     name: 'ItemProcessor',
     constructors: {
       '': (visitor, positional, named) {
@@ -208,24 +208,24 @@ BridgedClass _createItemProcessorBridge() {
           throw ArgumentError('ItemProcessor: Missing required argument "transform" at position 0');
         }
         final transformRaw = positional[0];
-        return $pkg.ItemProcessor((dynamic p0) { return D4.callInterpreterCallback(visitor, transformRaw, [p0]) as dynamic; });
+        return $d4_example_1.ItemProcessor((dynamic p0) { return D4.callInterpreterCallback(visitor, transformRaw, [p0]) as dynamic; });
       },
       'identity': (visitor, positional, named) {
-        return $pkg.ItemProcessor.identity();
+        return $d4_example_1.ItemProcessor.identity();
       },
     },
     getters: {
-      'transform': (visitor, target) => D4.validateTarget<$pkg.ItemProcessor>(target, 'ItemProcessor').transform,
+      'transform': (visitor, target) => D4.validateTarget<$d4_example_1.ItemProcessor>(target, 'ItemProcessor').transform,
     },
     methods: {
       'process': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ItemProcessor>(target, 'ItemProcessor');
+        final t = D4.validateTarget<$d4_example_1.ItemProcessor>(target, 'ItemProcessor');
         D4.requireMinArgs(positional, 1, 'process');
         final item = D4.getRequiredArg<dynamic>(positional, 0, 'item', 'process');
         return t.process(item);
       },
       'processAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ItemProcessor>(target, 'ItemProcessor');
+        final t = D4.validateTarget<$d4_example_1.ItemProcessor>(target, 'ItemProcessor');
         D4.requireMinArgs(positional, 1, 'processAll');
         if (positional.isEmpty) {
           throw ArgumentError('processAll: Missing required argument "items" at position 0');
@@ -254,32 +254,32 @@ BridgedClass _createItemProcessorBridge() {
 
 BridgedClass _createTestPointBridge() {
   return BridgedClass(
-    nativeType: $pkg.TestPoint,
+    nativeType: $d4_example_1.TestPoint,
     name: 'TestPoint',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'TestPoint');
         final x = D4.getRequiredArg<int>(positional, 0, 'x', 'TestPoint');
         final y = D4.getRequiredArg<int>(positional, 1, 'y', 'TestPoint');
-        return $pkg.TestPoint(x, y);
+        return $d4_example_1.TestPoint(x, y);
       },
       'origin': (visitor, positional, named) {
-        return $pkg.TestPoint.origin();
+        return $d4_example_1.TestPoint.origin();
       },
     },
     getters: {
-      'x': (visitor, target) => D4.validateTarget<$pkg.TestPoint>(target, 'TestPoint').x,
-      'y': (visitor, target) => D4.validateTarget<$pkg.TestPoint>(target, 'TestPoint').y,
-      'distanceFromOrigin': (visitor, target) => D4.validateTarget<$pkg.TestPoint>(target, 'TestPoint').distanceFromOrigin,
+      'x': (visitor, target) => D4.validateTarget<$d4_example_1.TestPoint>(target, 'TestPoint').x,
+      'y': (visitor, target) => D4.validateTarget<$d4_example_1.TestPoint>(target, 'TestPoint').y,
+      'distanceFromOrigin': (visitor, target) => D4.validateTarget<$d4_example_1.TestPoint>(target, 'TestPoint').distanceFromOrigin,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TestPoint>(target, 'TestPoint');
+        final t = D4.validateTarget<$d4_example_1.TestPoint>(target, 'TestPoint');
         return t.toString();
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TestPoint>(target, 'TestPoint');
-        final other = D4.getRequiredArg<$pkg.TestPoint>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$d4_example_1.TestPoint>(target, 'TestPoint');
+        final other = D4.getRequiredArg<$d4_example_1.TestPoint>(positional, 0, 'other', 'operator+');
         return t + other;
       },
     },

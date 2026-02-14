@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-02-14T00:56:21.460162
+// Generated: 2026-02-14T07:12:13.448634
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -8,8 +8,22 @@ import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 import 'dart:async';
 
-import 'package:d4_example/dart_overview.dart' as $pkg;
-import 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart' as $aux_d4_example;
+import 'package:d4_example/src/dart_overview/class_modifiers/modifiers/run_modifiers.dart' as $d4_example_1;
+import 'package:d4_example/src/dart_overview/classes/constructors/run_constructors.dart' as $d4_example_2;
+import 'package:d4_example/src/dart_overview/classes/declarations/run_declarations.dart' as $d4_example_3;
+import 'package:d4_example/src/dart_overview/classes/inheritance/run_inheritance.dart' as $d4_example_4;
+import 'package:d4_example/src/dart_overview/classes/static_object_methods/run_static_object_methods.dart' as $d4_example_5;
+import 'package:d4_example/src/dart_overview/classes/test_support/run_test_support.dart' as $d4_example_6;
+import 'package:d4_example/src/dart_overview/enums/basics/run_basics.dart' as $d4_example_7;
+import 'package:d4_example/src/dart_overview/functions/declarations/run_declarations.dart' as $d4_example_8;
+import 'package:d4_example/src/dart_overview/functions/generators/run_generators.dart' as $d4_example_9;
+import 'package:d4_example/src/dart_overview/functions/parameters/run_parameters.dart' as $d4_example_10;
+import 'package:d4_example/src/dart_overview/generics/generic_classes/run_generic_classes.dart' as $d4_example_11;
+import 'package:d4_example/src/dart_overview/generics/type_bounds/run_type_bounds.dart' as $d4_example_12;
+import 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart' as $d4_example_13;
+import 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart' as $d4_example_14;
+import 'package:d4_example/src/dart_overview/records/basics/run_basics.dart' as $d4_example_15;
+import 'package:d4_example/src/dart_overview/run_dart_overview.dart' as $d4_example_16;
 
 /// Bridge class for dart_overview module.
 class DartOverviewBridge {
@@ -225,65 +239,65 @@ class DartOverviewBridge {
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
-      BridgedEnumDefinition<$pkg.Day>(
+      BridgedEnumDefinition<$d4_example_7.Day>(
         name: 'Day',
-        values: $pkg.Day.values,
+        values: $d4_example_7.Day.values,
       ),
-      BridgedEnumDefinition<$pkg.Season>(
+      BridgedEnumDefinition<$d4_example_7.Season>(
         name: 'Season',
-        values: $pkg.Season.values,
+        values: $d4_example_7.Season.values,
         getters: {
-          'months': (visitor, target) => (target as $pkg.Season).months,
-          'avgTemperature': (visitor, target) => (target as $pkg.Season).avgTemperature,
+          'months': (visitor, target) => (target as $d4_example_7.Season).months,
+          'avgTemperature': (visitor, target) => (target as $d4_example_7.Season).avgTemperature,
         },
       ),
-      BridgedEnumDefinition<$pkg.HttpStatus>(
+      BridgedEnumDefinition<$d4_example_7.HttpStatus>(
         name: 'HttpStatus',
-        values: $pkg.HttpStatus.values,
+        values: $d4_example_7.HttpStatus.values,
         getters: {
-          'code': (visitor, target) => (target as $pkg.HttpStatus).code,
-          'message': (visitor, target) => (target as $pkg.HttpStatus).message,
-          'isSuccess': (visitor, target) => (target as $pkg.HttpStatus).isSuccess,
-          'isError': (visitor, target) => (target as $pkg.HttpStatus).isError,
+          'code': (visitor, target) => (target as $d4_example_7.HttpStatus).code,
+          'message': (visitor, target) => (target as $d4_example_7.HttpStatus).message,
+          'isSuccess': (visitor, target) => (target as $d4_example_7.HttpStatus).isSuccess,
+          'isError': (visitor, target) => (target as $d4_example_7.HttpStatus).isError,
         },
       ),
-      BridgedEnumDefinition<$pkg.Operation>(
+      BridgedEnumDefinition<$d4_example_7.Operation>(
         name: 'Operation',
-        values: $pkg.Operation.values,
+        values: $d4_example_7.Operation.values,
         getters: {
-          'symbol': (visitor, target) => (target as $pkg.Operation).symbol,
+          'symbol': (visitor, target) => (target as $d4_example_7.Operation).symbol,
         },
         methods: {
           'execute': (visitor, target, positional, named, typeArgs) {
-            final t = target as $pkg.Operation;
+            final t = target as $d4_example_7.Operation;
             return Function.apply(t.execute, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
           },
         },
       ),
-      BridgedEnumDefinition<$pkg.LogLevel>(
+      BridgedEnumDefinition<$d4_example_7.LogLevel>(
         name: 'LogLevel',
-        values: $pkg.LogLevel.values,
+        values: $d4_example_7.LogLevel.values,
         getters: {
-          'severity': (visitor, target) => (target as $pkg.LogLevel).severity,
+          'severity': (visitor, target) => (target as $d4_example_7.LogLevel).severity,
         },
         methods: {
           'shouldLog': (visitor, target, positional, named, typeArgs) {
-            final t = target as $pkg.LogLevel;
+            final t = target as $d4_example_7.LogLevel;
             return Function.apply(t.shouldLog, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
           },
         },
       ),
-      BridgedEnumDefinition<$pkg.Priority>(
+      BridgedEnumDefinition<$d4_example_7.Priority>(
         name: 'Priority',
-        values: $pkg.Priority.values,
+        values: $d4_example_7.Priority.values,
       ),
-      BridgedEnumDefinition<$pkg.Role>(
+      BridgedEnumDefinition<$d4_example_7.Role>(
         name: 'Role',
-        values: $pkg.Role.values,
+        values: $d4_example_7.Role.values,
       ),
-      BridgedEnumDefinition<$pkg.LogSeverity>(
+      BridgedEnumDefinition<$d4_example_13.LogSeverity>(
         name: 'LogSeverity',
-        values: $pkg.LogSeverity.values,
+        values: $d4_example_13.LogSeverity.values,
       ),
     ];
   }
@@ -357,80 +371,80 @@ class DartOverviewBridge {
     final errors = <String>[];
 
     try {
-      interpreter.registerGlobalVariable('globalCounter', $pkg.globalCounter, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+      interpreter.registerGlobalVariable('globalCounter', $d4_example_13.globalCounter, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
     } catch (e) {
       errors.add('Failed to register variable "globalCounter": $e');
     }
     try {
-      interpreter.registerGlobalVariable('appName', $pkg.appName, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+      interpreter.registerGlobalVariable('appName', $d4_example_13.appName, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
     } catch (e) {
       errors.add('Failed to register variable "appName": $e');
     }
     try {
-      interpreter.registerGlobalVariable('maxRetries', $pkg.maxRetries, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+      interpreter.registerGlobalVariable('maxRetries', $d4_example_13.maxRetries, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
     } catch (e) {
       errors.add('Failed to register variable "maxRetries": $e');
     }
     try {
-      interpreter.registerGlobalVariable('currentUser', $pkg.currentUser, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+      interpreter.registerGlobalVariable('currentUser', $d4_example_13.currentUser, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
     } catch (e) {
       errors.add('Failed to register variable "currentUser": $e');
     }
     try {
-      interpreter.registerGlobalVariable('lastProcessedId', $pkg.lastProcessedId, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+      interpreter.registerGlobalVariable('lastProcessedId', $d4_example_13.lastProcessedId, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
     } catch (e) {
       errors.add('Failed to register variable "lastProcessedId": $e');
     }
     try {
-      interpreter.registerGlobalVariable('appStartTime', $pkg.appStartTime, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+      interpreter.registerGlobalVariable('appStartTime', $d4_example_13.appStartTime, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
     } catch (e) {
       errors.add('Failed to register variable "appStartTime": $e');
     }
     try {
-      interpreter.registerGlobalVariable('sessionId', $pkg.sessionId, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+      interpreter.registerGlobalVariable('sessionId', $d4_example_13.sessionId, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
     } catch (e) {
       errors.add('Failed to register variable "sessionId": $e');
     }
     try {
-      interpreter.registerGlobalVariable('apiUrl', $pkg.apiUrl, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+      interpreter.registerGlobalVariable('apiUrl', $d4_example_13.apiUrl, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
     } catch (e) {
       errors.add('Failed to register variable "apiUrl": $e');
     }
     try {
-      interpreter.registerGlobalVariable('maxConnections', $pkg.maxConnections, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+      interpreter.registerGlobalVariable('maxConnections', $d4_example_13.maxConnections, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
     } catch (e) {
       errors.add('Failed to register variable "maxConnections": $e');
     }
     try {
-      interpreter.registerGlobalVariable('defaultTimeout', $pkg.defaultTimeout, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+      interpreter.registerGlobalVariable('defaultTimeout', $d4_example_13.defaultTimeout, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
     } catch (e) {
       errors.add('Failed to register variable "defaultTimeout": $e');
     }
     try {
-      interpreter.registerGlobalVariable('validStatuses', $pkg.validStatuses, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+      interpreter.registerGlobalVariable('validStatuses', $d4_example_13.validStatuses, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
     } catch (e) {
       errors.add('Failed to register variable "validStatuses": $e');
     }
     try {
-      interpreter.registerGlobalVariable('priorities', $pkg.priorities, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+      interpreter.registerGlobalVariable('priorities', $d4_example_13.priorities, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
     } catch (e) {
       errors.add('Failed to register variable "priorities": $e');
     }
     try {
-      interpreter.registerGlobalVariable('reservedIds', $pkg.reservedIds, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+      interpreter.registerGlobalVariable('reservedIds', $d4_example_13.reservedIds, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
     } catch (e) {
       errors.add('Failed to register variable "reservedIds": $e');
     }
     try {
-      interpreter.registerGlobalVariable('lazyConfig', $pkg.lazyConfig, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+      interpreter.registerGlobalVariable('lazyConfig', $d4_example_13.lazyConfig, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
     } catch (e) {
       errors.add('Failed to register variable "lazyConfig": $e');
     }
-    interpreter.registerGlobalGetter('now', () => $pkg.now, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
-    interpreter.registerGlobalGetter('connectionCount', () => $pkg.connectionCount, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
-    interpreter.registerGlobalGetter('cachedValue', () => $pkg.cachedValue, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
-    interpreter.registerGlobalGetter('logLevel', () => $pkg.logLevel, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
-    interpreter.registerGlobalSetter('logLevel', (v) => $pkg.logLevel = v as $pkg.LogSeverity, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+    interpreter.registerGlobalGetter('now', () => $d4_example_13.now, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+    interpreter.registerGlobalGetter('connectionCount', () => $d4_example_13.connectionCount, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+    interpreter.registerGlobalGetter('cachedValue', () => $d4_example_13.cachedValue, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+    interpreter.registerGlobalGetter('logLevel', () => $d4_example_13.logLevel, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
+    interpreter.registerGlobalSetter('logLevel', (v) => $d4_example_13.logLevel = v as $d4_example_13.LogSeverity, importPath, sourceUri: 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart');
 
     if (errors.isNotEmpty) {
       throw StateError('Bridge registration errors (dart_overview):\n${errors.join("\n")}');
@@ -441,65 +455,65 @@ class DartOverviewBridge {
   static Map<String, NativeFunctionImpl> globalFunctions() {
     return {
       'main': (visitor, positional, named, typeArgs) {
-        return $pkg.main();
+        return $d4_example_16.main();
       },
       'multiply': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'multiply');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'multiply');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'multiply');
-        return $pkg.multiply(a, b);
+        return $d4_example_8.multiply(a, b);
       },
       'printSeparator': (visitor, positional, named, typeArgs) {
-        return $pkg.printSeparator();
+        return $d4_example_8.printSeparator();
       },
       'square': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'square');
         final n = D4.getRequiredArg<int>(positional, 0, 'n', 'square');
-        return $pkg.square(n);
+        return $d4_example_8.square(n);
       },
       'cube': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'cube');
         final n = D4.getRequiredArg<int>(positional, 0, 'n', 'cube');
-        return $pkg.cube(n);
+        return $d4_example_8.cube(n);
       },
       'isEven': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'isEven');
         final n = D4.getRequiredArg<int>(positional, 0, 'n', 'isEven');
-        return $pkg.isEven(n);
+        return $d4_example_8.isEven(n);
       },
       'getNumbers': (visitor, positional, named, typeArgs) {
-        return $pkg.getNumbers();
+        return $d4_example_8.getNumbers();
       },
       'createUser': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'createUser');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'createUser');
         final age = D4.getRequiredArg<int>(positional, 1, 'age', 'createUser');
-        return $pkg.createUser(name, age);
+        return $d4_example_8.createUser(name, age);
       },
       'inferredReturn': (visitor, positional, named, typeArgs) {
-        return $pkg.inferredReturn();
+        return $d4_example_8.inferredReturn();
       },
       'dynamicReturn': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'dynamicReturn');
         final choice = D4.getRequiredArg<int>(positional, 0, 'choice', 'dynamicReturn');
-        return $pkg.dynamicReturn(choice);
+        return $d4_example_8.dynamicReturn(choice);
       },
       'describe': (visitor, positional, named, typeArgs) {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'describe');
         final age = D4.getOptionalNamedArg<int?>(named, 'age');
         final city = D4.getOptionalNamedArg<String?>(named, 'city');
-        return $pkg.describe(name: name, age: age, city: city);
+        return $d4_example_10.describe(name: name, age: age, city: city);
       },
       'sayHello': (visitor, positional, named, typeArgs) {
         final name = D4.getOptionalArgWithDefault<String>(positional, 0, 'name', 'World');
         final greeting = D4.getOptionalArgWithDefault<String>(positional, 1, 'greeting', 'Hello');
-        return $pkg.sayHello(name, greeting);
+        return $d4_example_10.sayHello(name, greeting);
       },
       'power': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'power');
         final base = D4.getRequiredArg<int>(positional, 0, 'base', 'power');
         final exponent = D4.getOptionalArgWithDefault<int>(positional, 1, 'exponent', 2);
-        return $pkg.power(base, exponent);
+        return $d4_example_10.power(base, exponent);
       },
       'makeRequest': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'makeRequest');
@@ -507,7 +521,7 @@ class DartOverviewBridge {
         final method = D4.getNamedArgWithDefault<String>(named, 'method', 'GET');
         final timeout = D4.getNamedArgWithDefault<int>(named, 'timeout', 30);
         final headers = D4.getOptionalNamedArg<Map<String, String>?>(named, 'headers');
-        return $pkg.makeRequest(url, method: method, timeout: timeout, headers: headers);
+        return $d4_example_10.makeRequest(url, method: method, timeout: timeout, headers: headers);
       },
       'processOrder': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'processOrder');
@@ -515,7 +529,7 @@ class DartOverviewBridge {
         final product = D4.getRequiredArg<String>(positional, 1, 'product', 'processOrder');
         final quantity = D4.getRequiredNamedArg<int>(named, 'quantity', 'processOrder');
         final priority = D4.getNamedArgWithDefault<String>(named, 'priority', 'normal');
-        return $pkg.processOrder(orderId, product, quantity: quantity, priority: priority);
+        return $d4_example_10.processOrder(orderId, product, quantity: quantity, priority: priority);
       },
       'transform': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'transform');
@@ -525,7 +539,7 @@ class DartOverviewBridge {
         }
         final transformerRaw = positional[1];
         final transformer = (int p0) { return D4.callInterpreterCallback(visitor, transformerRaw, [p0]) as int; };
-        return $pkg.transform(numbers, transformer);
+        return $d4_example_10.transform(numbers, transformer);
       },
       'fetchData': (visitor, positional, named, typeArgs) {
         final url = D4.getRequiredNamedArg<String>(named, 'url', 'fetchData');
@@ -539,32 +553,32 @@ class DartOverviewBridge {
           throw ArgumentError('fetchData: Missing required named argument "onError"');
         }
         final onError = (String p0) { D4.callInterpreterCallback(visitor, onErrorRaw, [p0]); };
-        return $pkg.fetchData(url: url, onSuccess: onSuccess, onError: onError);
+        return $d4_example_10.fetchData(url: url, onSuccess: onSuccess, onError: onError);
       },
       'log': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'log');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'log');
-        return $pkg.log(message);
+        return $d4_example_13.log(message);
       },
       'firstOrNull': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'firstOrNull');
         final items = D4.getRequiredArg<List<dynamic>>(positional, 0, 'items', 'firstOrNull');
-        return $pkg.firstOrNull<dynamic>(items);
+        return $d4_example_13.firstOrNull<dynamic>(items);
       },
       'fetchGreeting': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'fetchGreeting');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'fetchGreeting');
-        return $pkg.fetchGreeting(name);
+        return $d4_example_6.fetchGreeting(name);
       },
       'computeSum': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'computeSum');
         final numbers = D4.getRequiredArg<List<int>>(positional, 0, 'numbers', 'computeSum');
-        return $pkg.computeSum(numbers);
+        return $d4_example_6.computeSum(numbers);
       },
       'findMinMax': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'findMinMax');
         final numbers = D4.getRequiredArg<List<int>>(positional, 0, 'numbers', 'findMinMax');
-        final $result = $pkg.findMinMax(numbers);
+        final $result = $d4_example_15.findMinMax(numbers);
         return InterpretedRecord([], {'min': $result.min, 'max': $result.max});
       },
       'swap': (visitor, positional, named, typeArgs) {
@@ -573,44 +587,44 @@ class DartOverviewBridge {
         final pair = pair$raw is InterpretedRecord
             ? (pair$raw.positionalFields[0] as int, pair$raw.positionalFields[1] as int)
             : pair$raw as (int, int);
-        final $result = $pkg.swap(pair);
+        final $result = $d4_example_15.swap(pair);
         return InterpretedRecord([$result.$1, $result.$2], {});
       },
       'parseUserString': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'parseUserString');
         final input = D4.getRequiredArg<String>(positional, 0, 'input', 'parseUserString');
-        final $result = $pkg.parseUserString(input);
+        final $result = $d4_example_15.parseUserString(input);
         return InterpretedRecord([$result.$1, $result.$2], {});
       },
       'divideWithRemainder': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'divideWithRemainder');
         final dividend = D4.getRequiredArg<int>(positional, 0, 'dividend', 'divideWithRemainder');
         final divisor = D4.getRequiredArg<int>(positional, 1, 'divisor', 'divideWithRemainder');
-        final $result = $pkg.divideWithRemainder(dividend, divisor);
+        final $result = $d4_example_15.divideWithRemainder(dividend, divisor);
         return InterpretedRecord([], {'quotient': $result.quotient, 'remainder': $result.remainder});
       },
       'countTo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'countTo');
         final max = D4.getRequiredArg<int>(positional, 0, 'max', 'countTo');
-        return $pkg.countTo(max);
+        return $d4_example_9.countTo(max);
       },
       'range': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'range');
         final start = D4.getRequiredArg<int>(positional, 0, 'start', 'range');
         final end = D4.getRequiredArg<int>(positional, 1, 'end', 'range');
         final step = D4.getOptionalArgWithDefault<int>(positional, 2, 'step', 1);
-        return $pkg.range(start, end, step);
+        return $d4_example_9.range(start, end, step);
       },
       'naturalNumbers': (visitor, positional, named, typeArgs) {
-        return $pkg.naturalNumbers();
+        return $d4_example_9.naturalNumbers();
       },
       'fibonacci': (visitor, positional, named, typeArgs) {
-        return $pkg.fibonacci();
+        return $d4_example_9.fibonacci();
       },
       'countAsyncTo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'countAsyncTo');
         final max = D4.getRequiredArg<int>(positional, 0, 'max', 'countAsyncTo');
-        return $pkg.countAsyncTo(max);
+        return $d4_example_9.countAsyncTo(max);
       },
     };
   }
@@ -744,26 +758,26 @@ class DartOverviewBridge {
 
 BridgedClass _createPersonBridge() {
   return BridgedClass(
-    nativeType: $pkg.Person,
+    nativeType: $d4_example_3.Person,
     name: 'Person',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.Person();
+        return $d4_example_3.Person();
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.Person>(target, 'Person').name,
-      'age': (visitor, target) => D4.validateTarget<$pkg.Person>(target, 'Person').age,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_3.Person>(target, 'Person').name,
+      'age': (visitor, target) => D4.validateTarget<$d4_example_3.Person>(target, 'Person').age,
     },
     setters: {
       'name': (visitor, target, value) => 
-        D4.validateTarget<$pkg.Person>(target, 'Person').name = value as String,
+        D4.validateTarget<$d4_example_3.Person>(target, 'Person').name = value as String,
       'age': (visitor, target, value) => 
-        D4.validateTarget<$pkg.Person>(target, 'Person').age = value as int,
+        D4.validateTarget<$d4_example_3.Person>(target, 'Person').age = value as int,
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Person>(target, 'Person');
+        final t = D4.validateTarget<$d4_example_3.Person>(target, 'Person');
         t.greet();
         return null;
       },
@@ -791,29 +805,29 @@ BridgedClass _createPersonBridge() {
 
 BridgedClass _createDogBridge() {
   return BridgedClass(
-    nativeType: $pkg.Dog,
+    nativeType: $d4_example_3.Dog,
     name: 'Dog',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Dog');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Dog');
         final age = D4.getRequiredArg<int>(positional, 1, 'age', 'Dog');
-        return $pkg.Dog(name, age);
+        return $d4_example_3.Dog(name, age);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.Dog>(target, 'Dog').name,
-      'age': (visitor, target) => D4.validateTarget<$pkg.Dog>(target, 'Dog').age,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_3.Dog>(target, 'Dog').name,
+      'age': (visitor, target) => D4.validateTarget<$d4_example_3.Dog>(target, 'Dog').age,
     },
     setters: {
       'name': (visitor, target, value) => 
-        D4.validateTarget<$pkg.Dog>(target, 'Dog').name = value as String,
+        D4.validateTarget<$d4_example_3.Dog>(target, 'Dog').name = value as String,
       'age': (visitor, target, value) => 
-        D4.validateTarget<$pkg.Dog>(target, 'Dog').age = value as int,
+        D4.validateTarget<$d4_example_3.Dog>(target, 'Dog').age = value as int,
     },
     methods: {
       'bark': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Dog>(target, 'Dog');
+        final t = D4.validateTarget<$d4_example_3.Dog>(target, 'Dog');
         t.bark();
         return null;
       },
@@ -841,17 +855,17 @@ BridgedClass _createDogBridge() {
 
 BridgedClass _createUserBridge() {
   return BridgedClass(
-    nativeType: $pkg.User,
+    nativeType: $d4_example_3.User,
     name: 'User',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'User');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'User');
         final email = D4.getRequiredArg<String>(positional, 1, 'email', 'User');
-        return $pkg.User(name, email);
+        return $d4_example_3.User(name, email);
       },
       'guest': (visitor, positional, named) {
-        return $pkg.User.guest();
+        return $d4_example_3.User.guest();
       },
       'fromMap': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'User');
@@ -859,22 +873,22 @@ BridgedClass _createUserBridge() {
           throw ArgumentError('User: Missing required argument "map" at position 0');
         }
         final map = D4.coerceMap<String, dynamic>(positional[0], 'map');
-        return $pkg.User.fromMap(map);
+        return $d4_example_3.User.fromMap(map);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.User>(target, 'User').name,
-      'email': (visitor, target) => D4.validateTarget<$pkg.User>(target, 'User').email,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_3.User>(target, 'User').name,
+      'email': (visitor, target) => D4.validateTarget<$d4_example_3.User>(target, 'User').email,
     },
     setters: {
       'name': (visitor, target, value) => 
-        D4.validateTarget<$pkg.User>(target, 'User').name = value as String,
+        D4.validateTarget<$d4_example_3.User>(target, 'User').name = value as String,
       'email': (visitor, target, value) => 
-        D4.validateTarget<$pkg.User>(target, 'User').email = value as String,
+        D4.validateTarget<$d4_example_3.User>(target, 'User').email = value as String,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.User>(target, 'User');
+        final t = D4.validateTarget<$d4_example_3.User>(target, 'User');
         return t.toString();
       },
     },
@@ -903,37 +917,37 @@ BridgedClass _createUserBridge() {
 
 BridgedClass _createCalculatorBridge() {
   return BridgedClass(
-    nativeType: $pkg.Calculator,
+    nativeType: $d4_example_3.Calculator,
     name: 'Calculator',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.Calculator();
+        return $d4_example_3.Calculator();
       },
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Calculator>(target, 'Calculator');
+        final t = D4.validateTarget<$d4_example_3.Calculator>(target, 'Calculator');
         D4.requireMinArgs(positional, 2, 'add');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'add');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'add');
         return t.add(a, b);
       },
       'subtract': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Calculator>(target, 'Calculator');
+        final t = D4.validateTarget<$d4_example_3.Calculator>(target, 'Calculator');
         D4.requireMinArgs(positional, 2, 'subtract');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'subtract');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'subtract');
         return t.subtract(a, b);
       },
       'multiply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Calculator>(target, 'Calculator');
+        final t = D4.validateTarget<$d4_example_3.Calculator>(target, 'Calculator');
         D4.requireMinArgs(positional, 2, 'multiply');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'multiply');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'multiply');
         return t.multiply(a, b);
       },
       'divide': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Calculator>(target, 'Calculator');
+        final t = D4.validateTarget<$d4_example_3.Calculator>(target, 'Calculator');
         D4.requireMinArgs(positional, 2, 'divide');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'divide');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'divide');
@@ -958,29 +972,29 @@ BridgedClass _createCalculatorBridge() {
 
 BridgedClass _createRectangleBridge() {
   return BridgedClass(
-    nativeType: $pkg.Rectangle,
+    nativeType: $d4_example_3.Rectangle,
     name: 'Rectangle',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Rectangle');
         final width = D4.getRequiredArg<double>(positional, 0, 'width', 'Rectangle');
         final height = D4.getRequiredArg<double>(positional, 1, 'height', 'Rectangle');
-        return $pkg.Rectangle(width, height);
+        return $d4_example_3.Rectangle(width, height);
       },
     },
     getters: {
-      'width': (visitor, target) => D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').width,
-      'height': (visitor, target) => D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').height,
-      'area': (visitor, target) => D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').area,
-      'perimeter': (visitor, target) => D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').perimeter,
+      'width': (visitor, target) => D4.validateTarget<$d4_example_3.Rectangle>(target, 'Rectangle').width,
+      'height': (visitor, target) => D4.validateTarget<$d4_example_3.Rectangle>(target, 'Rectangle').height,
+      'area': (visitor, target) => D4.validateTarget<$d4_example_3.Rectangle>(target, 'Rectangle').area,
+      'perimeter': (visitor, target) => D4.validateTarget<$d4_example_3.Rectangle>(target, 'Rectangle').perimeter,
     },
     setters: {
       'width': (visitor, target, value) => 
-        D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').width = value as double,
+        D4.validateTarget<$d4_example_3.Rectangle>(target, 'Rectangle').width = value as double,
       'height': (visitor, target, value) => 
-        D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').height = value as double,
+        D4.validateTarget<$d4_example_3.Rectangle>(target, 'Rectangle').height = value as double,
       'scale': (visitor, target, value) => 
-        D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').scale = value as dynamic,
+        D4.validateTarget<$d4_example_3.Rectangle>(target, 'Rectangle').scale = value as dynamic,
     },
     constructorSignatures: {
       '': 'Rectangle(double width, double height)',
@@ -1005,30 +1019,30 @@ BridgedClass _createRectangleBridge() {
 
 BridgedClass _createBankAccountBridge() {
   return BridgedClass(
-    nativeType: $pkg.BankAccount,
+    nativeType: $d4_example_3.BankAccount,
     name: 'BankAccount',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'BankAccount');
         final accountNumber = D4.getRequiredArg<String>(positional, 0, 'accountNumber', 'BankAccount');
         final balance = D4.getRequiredArg<double>(positional, 1, '_balance', 'BankAccount');
-        return $pkg.BankAccount(accountNumber, balance);
+        return $d4_example_3.BankAccount(accountNumber, balance);
       },
     },
     getters: {
-      'accountNumber': (visitor, target) => D4.validateTarget<$pkg.BankAccount>(target, 'BankAccount').accountNumber,
-      'balance': (visitor, target) => D4.validateTarget<$pkg.BankAccount>(target, 'BankAccount').balance,
+      'accountNumber': (visitor, target) => D4.validateTarget<$d4_example_3.BankAccount>(target, 'BankAccount').accountNumber,
+      'balance': (visitor, target) => D4.validateTarget<$d4_example_3.BankAccount>(target, 'BankAccount').balance,
     },
     methods: {
       'deposit': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.BankAccount>(target, 'BankAccount');
+        final t = D4.validateTarget<$d4_example_3.BankAccount>(target, 'BankAccount');
         D4.requireMinArgs(positional, 1, 'deposit');
         final amount = D4.getRequiredArg<double>(positional, 0, 'amount', 'deposit');
         t.deposit(amount);
         return null;
       },
       'withdraw': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.BankAccount>(target, 'BankAccount');
+        final t = D4.validateTarget<$d4_example_3.BankAccount>(target, 'BankAccount');
         D4.requireMinArgs(positional, 1, 'withdraw');
         final amount = D4.getRequiredArg<double>(positional, 0, 'amount', 'withdraw');
         return t.withdraw(amount);
@@ -1054,20 +1068,20 @@ BridgedClass _createBankAccountBridge() {
 
 BridgedClass _createCircleBridge() {
   return BridgedClass(
-    nativeType: $pkg.Circle,
+    nativeType: $d4_example_3.Circle,
     name: 'Circle',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Circle');
         final radius = D4.getRequiredArg<double>(positional, 0, 'radius', 'Circle');
-        return $pkg.Circle(radius);
+        return $d4_example_3.Circle(radius);
       },
     },
     getters: {
-      'radius': (visitor, target) => D4.validateTarget<$pkg.Circle>(target, 'Circle').radius,
-      'diameter': (visitor, target) => D4.validateTarget<$pkg.Circle>(target, 'Circle').diameter,
-      'circumference': (visitor, target) => D4.validateTarget<$pkg.Circle>(target, 'Circle').circumference,
-      'circleArea': (visitor, target) => D4.validateTarget<$pkg.Circle>(target, 'Circle').circleArea,
+      'radius': (visitor, target) => D4.validateTarget<$d4_example_3.Circle>(target, 'Circle').radius,
+      'diameter': (visitor, target) => D4.validateTarget<$d4_example_3.Circle>(target, 'Circle').diameter,
+      'circumference': (visitor, target) => D4.validateTarget<$d4_example_3.Circle>(target, 'Circle').circumference,
+      'circleArea': (visitor, target) => D4.validateTarget<$d4_example_3.Circle>(target, 'Circle').circleArea,
     },
     constructorSignatures: {
       '': 'Circle(double radius)',
@@ -1087,17 +1101,17 @@ BridgedClass _createCircleBridge() {
 
 BridgedClass _createBoxBridge() {
   return BridgedClass(
-    nativeType: $pkg.Box,
+    nativeType: $d4_example_11.Box,
     name: 'Box',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Box');
         final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'Box');
-        return $pkg.Box(value);
+        return $d4_example_11.Box(value);
       },
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$pkg.Box>(target, 'Box').value,
+      'value': (visitor, target) => D4.validateTarget<$d4_example_11.Box>(target, 'Box').value,
     },
     constructorSignatures: {
       '': 'Box(T value)',
@@ -1114,25 +1128,25 @@ BridgedClass _createBoxBridge() {
 
 BridgedClass _createWrapperBridge() {
   return BridgedClass(
-    nativeType: $pkg.Wrapper,
+    nativeType: $d4_example_11.Wrapper,
     name: 'Wrapper',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Wrapper');
         final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'Wrapper');
-        return $pkg.Wrapper(value);
+        return $d4_example_11.Wrapper(value);
       },
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$pkg.Wrapper>(target, 'Wrapper').value,
+      'value': (visitor, target) => D4.validateTarget<$d4_example_11.Wrapper>(target, 'Wrapper').value,
     },
     setters: {
       'value': (visitor, target, value) => 
-        D4.validateTarget<$pkg.Wrapper>(target, 'Wrapper').value = value as dynamic,
+        D4.validateTarget<$d4_example_11.Wrapper>(target, 'Wrapper').value = value as dynamic,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Wrapper>(target, 'Wrapper');
+        final t = D4.validateTarget<$d4_example_11.Wrapper>(target, 'Wrapper');
         D4.requireMinArgs(positional, 1, 'transform');
         if (positional.isEmpty) {
           throw ArgumentError('transform: Missing required argument "f" at position 0');
@@ -1162,27 +1176,27 @@ BridgedClass _createWrapperBridge() {
 
 BridgedClass _createPairBridge() {
   return BridgedClass(
-    nativeType: $pkg.Pair,
+    nativeType: $d4_example_11.Pair,
     name: 'Pair',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Pair');
         final first = D4.getRequiredArg<dynamic>(positional, 0, 'first', 'Pair');
         final second = D4.getRequiredArg<dynamic>(positional, 1, 'second', 'Pair');
-        return $pkg.Pair(first, second);
+        return $d4_example_11.Pair(first, second);
       },
     },
     getters: {
-      'first': (visitor, target) => D4.validateTarget<$pkg.Pair>(target, 'Pair').first,
-      'second': (visitor, target) => D4.validateTarget<$pkg.Pair>(target, 'Pair').second,
+      'first': (visitor, target) => D4.validateTarget<$d4_example_11.Pair>(target, 'Pair').first,
+      'second': (visitor, target) => D4.validateTarget<$d4_example_11.Pair>(target, 'Pair').second,
     },
     methods: {
       'swap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Pair>(target, 'Pair');
+        final t = D4.validateTarget<$d4_example_11.Pair>(target, 'Pair');
         return t.swap();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Pair>(target, 'Pair');
+        final t = D4.validateTarget<$d4_example_11.Pair>(target, 'Pair');
         return t.toString();
       },
     },
@@ -1206,35 +1220,35 @@ BridgedClass _createPairBridge() {
 
 BridgedClass _createStackBridge() {
   return BridgedClass(
-    nativeType: $pkg.Stack,
+    nativeType: $d4_example_11.Stack,
     name: 'Stack',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.Stack();
+        return $d4_example_11.Stack();
       },
     },
     getters: {
-      'isEmpty': (visitor, target) => D4.validateTarget<$pkg.Stack>(target, 'Stack').isEmpty,
-      'length': (visitor, target) => D4.validateTarget<$pkg.Stack>(target, 'Stack').length,
+      'isEmpty': (visitor, target) => D4.validateTarget<$d4_example_11.Stack>(target, 'Stack').isEmpty,
+      'length': (visitor, target) => D4.validateTarget<$d4_example_11.Stack>(target, 'Stack').length,
     },
     methods: {
       'push': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Stack>(target, 'Stack');
+        final t = D4.validateTarget<$d4_example_11.Stack>(target, 'Stack');
         D4.requireMinArgs(positional, 1, 'push');
         final item = D4.getRequiredArg<dynamic>(positional, 0, 'item', 'push');
         t.push(item);
         return null;
       },
       'pop': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Stack>(target, 'Stack');
+        final t = D4.validateTarget<$d4_example_11.Stack>(target, 'Stack');
         return t.pop();
       },
       'peek': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Stack>(target, 'Stack');
+        final t = D4.validateTarget<$d4_example_11.Stack>(target, 'Stack');
         return t.peek();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Stack>(target, 'Stack');
+        final t = D4.validateTarget<$d4_example_11.Stack>(target, 'Stack');
         return t.toString();
       },
     },
@@ -1260,32 +1274,32 @@ BridgedClass _createStackBridge() {
 
 BridgedClass _createQueueBridge() {
   return BridgedClass(
-    nativeType: $pkg.Queue,
+    nativeType: $d4_example_11.Queue,
     name: 'Queue',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.Queue();
+        return $d4_example_11.Queue();
       },
     },
     getters: {
-      'front': (visitor, target) => D4.validateTarget<$pkg.Queue>(target, 'Queue').front,
-      'isEmpty': (visitor, target) => D4.validateTarget<$pkg.Queue>(target, 'Queue').isEmpty,
-      'length': (visitor, target) => D4.validateTarget<$pkg.Queue>(target, 'Queue').length,
+      'front': (visitor, target) => D4.validateTarget<$d4_example_11.Queue>(target, 'Queue').front,
+      'isEmpty': (visitor, target) => D4.validateTarget<$d4_example_11.Queue>(target, 'Queue').isEmpty,
+      'length': (visitor, target) => D4.validateTarget<$d4_example_11.Queue>(target, 'Queue').length,
     },
     methods: {
       'enqueue': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Queue>(target, 'Queue');
+        final t = D4.validateTarget<$d4_example_11.Queue>(target, 'Queue');
         D4.requireMinArgs(positional, 1, 'enqueue');
         final item = D4.getRequiredArg<dynamic>(positional, 0, 'item', 'enqueue');
         t.enqueue(item);
         return null;
       },
       'dequeue': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Queue>(target, 'Queue');
+        final t = D4.validateTarget<$d4_example_11.Queue>(target, 'Queue');
         return t.dequeue();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Queue>(target, 'Queue');
+        final t = D4.validateTarget<$d4_example_11.Queue>(target, 'Queue');
         return t.toString();
       },
     },
@@ -1311,31 +1325,31 @@ BridgedClass _createQueueBridge() {
 
 BridgedClass _createMaybeBridge() {
   return BridgedClass(
-    nativeType: $pkg.Maybe,
+    nativeType: $d4_example_11.Maybe,
     name: 'Maybe',
     constructors: {
       'some': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Maybe');
         final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'Maybe');
-        return $pkg.Maybe.some(value);
+        return $d4_example_11.Maybe.some(value);
       },
       'none': (visitor, positional, named) {
-        return $pkg.Maybe.none();
+        return $d4_example_11.Maybe.none();
       },
     },
     getters: {
-      'hasValue': (visitor, target) => D4.validateTarget<$pkg.Maybe>(target, 'Maybe').hasValue,
-      'value': (visitor, target) => D4.validateTarget<$pkg.Maybe>(target, 'Maybe').value,
+      'hasValue': (visitor, target) => D4.validateTarget<$d4_example_11.Maybe>(target, 'Maybe').hasValue,
+      'value': (visitor, target) => D4.validateTarget<$d4_example_11.Maybe>(target, 'Maybe').value,
     },
     methods: {
       'getOrElse': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Maybe>(target, 'Maybe');
+        final t = D4.validateTarget<$d4_example_11.Maybe>(target, 'Maybe');
         D4.requireMinArgs(positional, 1, 'getOrElse');
         final defaultValue = D4.getRequiredArg<dynamic>(positional, 0, 'defaultValue', 'getOrElse');
         return t.getOrElse(defaultValue);
       },
       'map': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Maybe>(target, 'Maybe');
+        final t = D4.validateTarget<$d4_example_11.Maybe>(target, 'Maybe');
         D4.requireMinArgs(positional, 1, 'map');
         if (positional.isEmpty) {
           throw ArgumentError('map: Missing required argument "f" at position 0');
@@ -1365,26 +1379,26 @@ BridgedClass _createMaybeBridge() {
 
 BridgedClass _createResultBridge() {
   return BridgedClass(
-    nativeType: $pkg.Result,
+    nativeType: $d4_example_11.Result,
     name: 'Result',
     constructors: {
       'success': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Result');
         final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'Result');
-        return $pkg.Result.success(value);
+        return $d4_example_11.Result.success(value);
       },
       'failure': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Result');
         final error = D4.getRequiredArg<dynamic>(positional, 0, 'error', 'Result');
-        return $pkg.Result.failure(error);
+        return $d4_example_11.Result.failure(error);
       },
     },
     getters: {
-      'isSuccess': (visitor, target) => D4.validateTarget<$pkg.Result>(target, 'Result').isSuccess,
+      'isSuccess': (visitor, target) => D4.validateTarget<$d4_example_11.Result>(target, 'Result').isSuccess,
     },
     methods: {
       'fold': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Result>(target, 'Result');
+        final t = D4.validateTarget<$d4_example_11.Result>(target, 'Result');
         D4.requireMinArgs(positional, 2, 'fold');
         if (positional.isEmpty) {
           throw ArgumentError('fold: Missing required argument "onSuccess" at position 0');
@@ -1416,18 +1430,18 @@ BridgedClass _createResultBridge() {
 
 BridgedClass _createLoggableMixinBridge() {
   return BridgedClass(
-    nativeType: $pkg.LoggableMixin,
+    nativeType: $d4_example_7.LoggableMixin,
     name: 'LoggableMixin',
     constructors: {
     },
     getters: {
-      'severity': (visitor, target) => D4.validateTarget<$pkg.LoggableMixin>(target, 'LoggableMixin').severity,
+      'severity': (visitor, target) => D4.validateTarget<$d4_example_7.LoggableMixin>(target, 'LoggableMixin').severity,
     },
     methods: {
       'shouldLog': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.LoggableMixin>(target, 'LoggableMixin');
+        final t = D4.validateTarget<$d4_example_7.LoggableMixin>(target, 'LoggableMixin');
         D4.requireMinArgs(positional, 1, 'shouldLog');
-        final minLevel = D4.getRequiredArg<$pkg.LogLevel>(positional, 0, 'minLevel', 'shouldLog');
+        final minLevel = D4.getRequiredArg<$d4_example_7.LogLevel>(positional, 0, 'minLevel', 'shouldLog');
         return t.shouldLog(minLevel);
       },
     },
@@ -1446,13 +1460,13 @@ BridgedClass _createLoggableMixinBridge() {
 
 BridgedClass _createVehicleBridge() {
   return BridgedClass(
-    nativeType: $pkg.Vehicle,
+    nativeType: $d4_example_1.Vehicle,
     name: 'Vehicle',
     constructors: {
     },
     methods: {
       'move': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Vehicle>(target, 'Vehicle');
+        final t = D4.validateTarget<$d4_example_1.Vehicle>(target, 'Vehicle');
         return t.move();
       },
     },
@@ -1468,16 +1482,16 @@ BridgedClass _createVehicleBridge() {
 
 BridgedClass _createCarBridge() {
   return BridgedClass(
-    nativeType: $pkg.Car,
+    nativeType: $d4_example_1.Car,
     name: 'Car',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.Car();
+        return $d4_example_1.Car();
       },
     },
     methods: {
       'move': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Car>(target, 'Car');
+        final t = D4.validateTarget<$d4_example_1.Car>(target, 'Car');
         return t.move();
       },
     },
@@ -1496,16 +1510,16 @@ BridgedClass _createCarBridge() {
 
 BridgedClass _createMotorcycleBridge() {
   return BridgedClass(
-    nativeType: $pkg.Motorcycle,
+    nativeType: $d4_example_1.Motorcycle,
     name: 'Motorcycle',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.Motorcycle();
+        return $d4_example_1.Motorcycle();
       },
     },
     methods: {
       'move': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Motorcycle>(target, 'Motorcycle');
+        final t = D4.validateTarget<$d4_example_1.Motorcycle>(target, 'Motorcycle');
         return t.move();
       },
     },
@@ -1524,21 +1538,21 @@ BridgedClass _createMotorcycleBridge() {
 
 BridgedClass _createBaseAnimalBridge() {
   return BridgedClass(
-    nativeType: $pkg.BaseAnimal,
+    nativeType: $d4_example_1.BaseAnimal,
     name: 'BaseAnimal',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BaseAnimal');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'BaseAnimal');
-        return $pkg.BaseAnimal(name);
+        return $d4_example_1.BaseAnimal(name);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.BaseAnimal>(target, 'BaseAnimal').name,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_1.BaseAnimal>(target, 'BaseAnimal').name,
     },
     methods: {
       'eat': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.BaseAnimal>(target, 'BaseAnimal');
+        final t = D4.validateTarget<$d4_example_1.BaseAnimal>(target, 'BaseAnimal');
         t.eat();
         return null;
       },
@@ -1561,21 +1575,21 @@ BridgedClass _createBaseAnimalBridge() {
 
 BridgedClass _createDogAnimalBridge() {
   return BridgedClass(
-    nativeType: $pkg.DogAnimal,
+    nativeType: $d4_example_1.DogAnimal,
     name: 'DogAnimal',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DogAnimal');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'DogAnimal');
-        return $pkg.DogAnimal(name);
+        return $d4_example_1.DogAnimal(name);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.DogAnimal>(target, 'DogAnimal').name,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_1.DogAnimal>(target, 'DogAnimal').name,
     },
     methods: {
       'eat': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.DogAnimal>(target, 'DogAnimal');
+        final t = D4.validateTarget<$d4_example_1.DogAnimal>(target, 'DogAnimal');
         t.eat();
         return null;
       },
@@ -1598,16 +1612,16 @@ BridgedClass _createDogAnimalBridge() {
 
 BridgedClass _createDataSourceBridge() {
   return BridgedClass(
-    nativeType: $pkg.DataSource,
+    nativeType: $d4_example_1.DataSource,
     name: 'DataSource',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.DataSource();
+        return $d4_example_1.DataSource();
       },
     },
     methods: {
       'fetch': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.DataSource>(target, 'DataSource');
+        final t = D4.validateTarget<$d4_example_1.DataSource>(target, 'DataSource');
         return t.fetch();
       },
     },
@@ -1626,16 +1640,16 @@ BridgedClass _createDataSourceBridge() {
 
 BridgedClass _createJsonDataSourceBridge() {
   return BridgedClass(
-    nativeType: $pkg.JsonDataSource,
+    nativeType: $d4_example_1.JsonDataSource,
     name: 'JsonDataSource',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.JsonDataSource();
+        return $d4_example_1.JsonDataSource();
       },
     },
     methods: {
       'fetch': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.JsonDataSource>(target, 'JsonDataSource');
+        final t = D4.validateTarget<$d4_example_1.JsonDataSource>(target, 'JsonDataSource');
         return t.fetch();
       },
     },
@@ -1654,16 +1668,16 @@ BridgedClass _createJsonDataSourceBridge() {
 
 BridgedClass _createXmlDataSourceBridge() {
   return BridgedClass(
-    nativeType: $pkg.XmlDataSource,
+    nativeType: $d4_example_1.XmlDataSource,
     name: 'XmlDataSource',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.XmlDataSource();
+        return $d4_example_1.XmlDataSource();
       },
     },
     methods: {
       'fetch': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.XmlDataSource>(target, 'XmlDataSource');
+        final t = D4.validateTarget<$d4_example_1.XmlDataSource>(target, 'XmlDataSource');
         return t.fetch();
       },
     },
@@ -1682,23 +1696,23 @@ BridgedClass _createXmlDataSourceBridge() {
 
 BridgedClass _createAppConfigBridge() {
   return BridgedClass(
-    nativeType: $pkg.AppConfig,
+    nativeType: $d4_example_1.AppConfig,
     name: 'AppConfig',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'AppConfig');
         final environment = D4.getRequiredArg<String>(positional, 0, 'environment', 'AppConfig');
         final debug = D4.getRequiredArg<bool>(positional, 1, 'debug', 'AppConfig');
-        return $pkg.AppConfig(environment, debug);
+        return $d4_example_1.AppConfig(environment, debug);
       },
     },
     getters: {
-      'environment': (visitor, target) => D4.validateTarget<$pkg.AppConfig>(target, 'AppConfig').environment,
-      'debug': (visitor, target) => D4.validateTarget<$pkg.AppConfig>(target, 'AppConfig').debug,
+      'environment': (visitor, target) => D4.validateTarget<$d4_example_1.AppConfig>(target, 'AppConfig').environment,
+      'debug': (visitor, target) => D4.validateTarget<$d4_example_1.AppConfig>(target, 'AppConfig').debug,
     },
     methods: {
       'getSetting': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.AppConfig>(target, 'AppConfig');
+        final t = D4.validateTarget<$d4_example_1.AppConfig>(target, 'AppConfig');
         return t.getSetting();
       },
     },
@@ -1721,7 +1735,7 @@ BridgedClass _createAppConfigBridge() {
 
 BridgedClass _createSealedShapeBridge() {
   return BridgedClass(
-    nativeType: $pkg.SealedShape,
+    nativeType: $d4_example_1.SealedShape,
     name: 'SealedShape',
     constructors: {
     },
@@ -1737,17 +1751,17 @@ BridgedClass _createSealedShapeBridge() {
 
 BridgedClass _createSealedCircleBridge() {
   return BridgedClass(
-    nativeType: $pkg.SealedCircle,
+    nativeType: $d4_example_1.SealedCircle,
     name: 'SealedCircle',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SealedCircle');
         final radius = D4.getRequiredArg<double>(positional, 0, 'radius', 'SealedCircle');
-        return $pkg.SealedCircle(radius);
+        return $d4_example_1.SealedCircle(radius);
       },
     },
     getters: {
-      'radius': (visitor, target) => D4.validateTarget<$pkg.SealedCircle>(target, 'SealedCircle').radius,
+      'radius': (visitor, target) => D4.validateTarget<$d4_example_1.SealedCircle>(target, 'SealedCircle').radius,
     },
     constructorSignatures: {
       '': 'SealedCircle(double radius)',
@@ -1764,17 +1778,17 @@ BridgedClass _createSealedCircleBridge() {
 
 BridgedClass _createSealedSquareBridge() {
   return BridgedClass(
-    nativeType: $pkg.SealedSquare,
+    nativeType: $d4_example_1.SealedSquare,
     name: 'SealedSquare',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SealedSquare');
         final side = D4.getRequiredArg<double>(positional, 0, 'side', 'SealedSquare');
-        return $pkg.SealedSquare(side);
+        return $d4_example_1.SealedSquare(side);
       },
     },
     getters: {
-      'side': (visitor, target) => D4.validateTarget<$pkg.SealedSquare>(target, 'SealedSquare').side,
+      'side': (visitor, target) => D4.validateTarget<$d4_example_1.SealedSquare>(target, 'SealedSquare').side,
     },
     constructorSignatures: {
       '': 'SealedSquare(double side)',
@@ -1791,19 +1805,19 @@ BridgedClass _createSealedSquareBridge() {
 
 BridgedClass _createSealedTriangleBridge() {
   return BridgedClass(
-    nativeType: $pkg.SealedTriangle,
+    nativeType: $d4_example_1.SealedTriangle,
     name: 'SealedTriangle',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SealedTriangle');
         final base = D4.getRequiredArg<double>(positional, 0, 'base', 'SealedTriangle');
         final height = D4.getRequiredArg<double>(positional, 1, 'height', 'SealedTriangle');
-        return $pkg.SealedTriangle(base, height);
+        return $d4_example_1.SealedTriangle(base, height);
       },
     },
     getters: {
-      'base': (visitor, target) => D4.validateTarget<$pkg.SealedTriangle>(target, 'SealedTriangle').base,
-      'height': (visitor, target) => D4.validateTarget<$pkg.SealedTriangle>(target, 'SealedTriangle').height,
+      'base': (visitor, target) => D4.validateTarget<$d4_example_1.SealedTriangle>(target, 'SealedTriangle').base,
+      'height': (visitor, target) => D4.validateTarget<$d4_example_1.SealedTriangle>(target, 'SealedTriangle').height,
     },
     constructorSignatures: {
       '': 'SealedTriangle(double base, double height)',
@@ -1821,16 +1835,16 @@ BridgedClass _createSealedTriangleBridge() {
 
 BridgedClass _createLoggerMixinBridge() {
   return BridgedClass(
-    nativeType: $pkg.LoggerMixin,
+    nativeType: $d4_example_1.LoggerMixin,
     name: 'LoggerMixin',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.LoggerMixin();
+        return $d4_example_1.LoggerMixin();
       },
     },
     methods: {
       'log': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.LoggerMixin>(target, 'LoggerMixin');
+        final t = D4.validateTarget<$d4_example_1.LoggerMixin>(target, 'LoggerMixin');
         D4.requireMinArgs(positional, 1, 'log');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'log');
         t.log(message);
@@ -1852,21 +1866,21 @@ BridgedClass _createLoggerMixinBridge() {
 
 BridgedClass _createLoggingServiceBridge() {
   return BridgedClass(
-    nativeType: $pkg.LoggingService,
+    nativeType: $d4_example_1.LoggingService,
     name: 'LoggingService',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.LoggingService();
+        return $d4_example_1.LoggingService();
       },
     },
     methods: {
       'performAction': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.LoggingService>(target, 'LoggingService');
+        final t = D4.validateTarget<$d4_example_1.LoggingService>(target, 'LoggingService');
         t.performAction();
         return null;
       },
       'log': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.LoggingService>(target, 'LoggingService');
+        final t = D4.validateTarget<$d4_example_1.LoggingService>(target, 'LoggingService');
         D4.requireMinArgs(positional, 1, 'log');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'log');
         t.log(message);
@@ -1889,13 +1903,13 @@ BridgedClass _createLoggingServiceBridge() {
 
 BridgedClass _createAbstractBaseClassBridge() {
   return BridgedClass(
-    nativeType: $pkg.AbstractBaseClass,
+    nativeType: $d4_example_1.AbstractBaseClass,
     name: 'AbstractBaseClass',
     constructors: {
     },
     methods: {
       'doSomething': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.AbstractBaseClass>(target, 'AbstractBaseClass');
+        final t = D4.validateTarget<$d4_example_1.AbstractBaseClass>(target, 'AbstractBaseClass');
         t.doSomething();
         return null;
       },
@@ -1912,16 +1926,16 @@ BridgedClass _createAbstractBaseClassBridge() {
 
 BridgedClass _createDerivedFromAbstractBaseBridge() {
   return BridgedClass(
-    nativeType: $pkg.DerivedFromAbstractBase,
+    nativeType: $d4_example_1.DerivedFromAbstractBase,
     name: 'DerivedFromAbstractBase',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.DerivedFromAbstractBase();
+        return $d4_example_1.DerivedFromAbstractBase();
       },
     },
     methods: {
       'doSomething': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.DerivedFromAbstractBase>(target, 'DerivedFromAbstractBase');
+        final t = D4.validateTarget<$d4_example_1.DerivedFromAbstractBase>(target, 'DerivedFromAbstractBase');
         t.doSomething();
         return null;
       },
@@ -1941,13 +1955,13 @@ BridgedClass _createDerivedFromAbstractBaseBridge() {
 
 BridgedClass _createApiClientBridge() {
   return BridgedClass(
-    nativeType: $pkg.ApiClient,
+    nativeType: $d4_example_1.ApiClient,
     name: 'ApiClient',
     constructors: {
     },
     methods: {
       'request': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ApiClient>(target, 'ApiClient');
+        final t = D4.validateTarget<$d4_example_1.ApiClient>(target, 'ApiClient');
         D4.requireMinArgs(positional, 1, 'request');
         final endpoint = D4.getRequiredArg<String>(positional, 0, 'endpoint', 'request');
         return t.request(endpoint);
@@ -1965,16 +1979,16 @@ BridgedClass _createApiClientBridge() {
 
 BridgedClass _createRestApiClientBridge() {
   return BridgedClass(
-    nativeType: $pkg.RestApiClient,
+    nativeType: $d4_example_1.RestApiClient,
     name: 'RestApiClient',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.RestApiClient();
+        return $d4_example_1.RestApiClient();
       },
     },
     methods: {
       'request': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.RestApiClient>(target, 'RestApiClient');
+        final t = D4.validateTarget<$d4_example_1.RestApiClient>(target, 'RestApiClient');
         D4.requireMinArgs(positional, 1, 'request');
         final endpoint = D4.getRequiredArg<String>(positional, 0, 'endpoint', 'request');
         return t.request(endpoint);
@@ -1995,16 +2009,16 @@ BridgedClass _createRestApiClientBridge() {
 
 BridgedClass _createGraphqlApiClientBridge() {
   return BridgedClass(
-    nativeType: $pkg.GraphqlApiClient,
+    nativeType: $d4_example_1.GraphqlApiClient,
     name: 'GraphqlApiClient',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.GraphqlApiClient();
+        return $d4_example_1.GraphqlApiClient();
       },
     },
     methods: {
       'request': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.GraphqlApiClient>(target, 'GraphqlApiClient');
+        final t = D4.validateTarget<$d4_example_1.GraphqlApiClient>(target, 'GraphqlApiClient');
         D4.requireMinArgs(positional, 1, 'request');
         final endpoint = D4.getRequiredArg<String>(positional, 0, 'endpoint', 'request');
         return t.request(endpoint);
@@ -2025,12 +2039,12 @@ BridgedClass _createGraphqlApiClientBridge() {
 
 BridgedClass _createAbstractFinalClassBridge() {
   return BridgedClass(
-    nativeType: $pkg.AbstractFinalClass,
+    nativeType: $d4_example_1.AbstractFinalClass,
     name: 'AbstractFinalClass',
     constructors: {
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$pkg.AbstractFinalClass>(target, 'AbstractFinalClass').value,
+      'value': (visitor, target) => D4.validateTarget<$d4_example_1.AbstractFinalClass>(target, 'AbstractFinalClass').value,
     },
     getterSignatures: {
       'value': 'int get value',
@@ -2044,15 +2058,15 @@ BridgedClass _createAbstractFinalClassBridge() {
 
 BridgedClass _createSingletonHolderBridge() {
   return BridgedClass(
-    nativeType: $pkg.SingletonHolder,
+    nativeType: $d4_example_1.SingletonHolder,
     name: 'SingletonHolder',
     constructors: {
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$pkg.SingletonHolder>(target, 'SingletonHolder').value,
+      'value': (visitor, target) => D4.validateTarget<$d4_example_1.SingletonHolder>(target, 'SingletonHolder').value,
     },
     staticGetters: {
-      'instance': (visitor) => $pkg.SingletonHolder.instance,
+      'instance': (visitor) => $d4_example_1.SingletonHolder.instance,
     },
     getterSignatures: {
       'value': 'int get value',
@@ -2069,22 +2083,22 @@ BridgedClass _createSingletonHolderBridge() {
 
 BridgedClass _createSimplePointBridge() {
   return BridgedClass(
-    nativeType: $pkg.SimplePoint,
+    nativeType: $d4_example_2.SimplePoint,
     name: 'SimplePoint',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.SimplePoint();
+        return $d4_example_2.SimplePoint();
       },
     },
     getters: {
-      'x': (visitor, target) => D4.validateTarget<$pkg.SimplePoint>(target, 'SimplePoint').x,
-      'y': (visitor, target) => D4.validateTarget<$pkg.SimplePoint>(target, 'SimplePoint').y,
+      'x': (visitor, target) => D4.validateTarget<$d4_example_2.SimplePoint>(target, 'SimplePoint').x,
+      'y': (visitor, target) => D4.validateTarget<$d4_example_2.SimplePoint>(target, 'SimplePoint').y,
     },
     setters: {
       'x': (visitor, target, value) => 
-        D4.validateTarget<$pkg.SimplePoint>(target, 'SimplePoint').x = value as int,
+        D4.validateTarget<$d4_example_2.SimplePoint>(target, 'SimplePoint').x = value as int,
       'y': (visitor, target, value) => 
-        D4.validateTarget<$pkg.SimplePoint>(target, 'SimplePoint').y = value as int,
+        D4.validateTarget<$d4_example_2.SimplePoint>(target, 'SimplePoint').y = value as int,
     },
     constructorSignatures: {
       '': 'SimplePoint()',
@@ -2106,20 +2120,20 @@ BridgedClass _createSimplePointBridge() {
 
 BridgedClass _createRectangleAreaBridge() {
   return BridgedClass(
-    nativeType: $pkg.RectangleArea,
+    nativeType: $d4_example_2.RectangleArea,
     name: 'RectangleArea',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'RectangleArea');
         final width = D4.getRequiredArg<int>(positional, 0, 'width', 'RectangleArea');
         final height = D4.getRequiredArg<int>(positional, 1, 'height', 'RectangleArea');
-        return $pkg.RectangleArea(width, height);
+        return $d4_example_2.RectangleArea(width, height);
       },
     },
     getters: {
-      'width': (visitor, target) => D4.validateTarget<$pkg.RectangleArea>(target, 'RectangleArea').width,
-      'height': (visitor, target) => D4.validateTarget<$pkg.RectangleArea>(target, 'RectangleArea').height,
-      'area': (visitor, target) => D4.validateTarget<$pkg.RectangleArea>(target, 'RectangleArea').area,
+      'width': (visitor, target) => D4.validateTarget<$d4_example_2.RectangleArea>(target, 'RectangleArea').width,
+      'height': (visitor, target) => D4.validateTarget<$d4_example_2.RectangleArea>(target, 'RectangleArea').height,
+      'area': (visitor, target) => D4.validateTarget<$d4_example_2.RectangleArea>(target, 'RectangleArea').area,
     },
     constructorSignatures: {
       '': 'RectangleArea(int width, int height)',
@@ -2138,17 +2152,17 @@ BridgedClass _createRectangleAreaBridge() {
 
 BridgedClass _createPositiveNumberBridge() {
   return BridgedClass(
-    nativeType: $pkg.PositiveNumber,
+    nativeType: $d4_example_2.PositiveNumber,
     name: 'PositiveNumber',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'PositiveNumber');
         final value = D4.getRequiredArg<int>(positional, 0, 'value', 'PositiveNumber');
-        return $pkg.PositiveNumber(value);
+        return $d4_example_2.PositiveNumber(value);
       },
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$pkg.PositiveNumber>(target, 'PositiveNumber').value,
+      'value': (visitor, target) => D4.validateTarget<$d4_example_2.PositiveNumber>(target, 'PositiveNumber').value,
     },
     constructorSignatures: {
       '': 'PositiveNumber(int value)',
@@ -2165,25 +2179,25 @@ BridgedClass _createPositiveNumberBridge() {
 
 BridgedClass _createVectorBridge() {
   return BridgedClass(
-    nativeType: $pkg.Vector,
+    nativeType: $d4_example_2.Vector,
     name: 'Vector',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Vector');
         final x = D4.getRequiredArg<double>(positional, 0, 'x', 'Vector');
         final y = D4.getRequiredArg<double>(positional, 1, 'y', 'Vector');
-        return $pkg.Vector(x, y);
+        return $d4_example_2.Vector(x, y);
       },
       'zero': (visitor, positional, named) {
-        return $pkg.Vector.zero();
+        return $d4_example_2.Vector.zero();
       },
       'unit': (visitor, positional, named) {
-        return $pkg.Vector.unit();
+        return $d4_example_2.Vector.unit();
       },
     },
     getters: {
-      'x': (visitor, target) => D4.validateTarget<$pkg.Vector>(target, 'Vector').x,
-      'y': (visitor, target) => D4.validateTarget<$pkg.Vector>(target, 'Vector').y,
+      'x': (visitor, target) => D4.validateTarget<$d4_example_2.Vector>(target, 'Vector').x,
+      'y': (visitor, target) => D4.validateTarget<$d4_example_2.Vector>(target, 'Vector').y,
     },
     constructorSignatures: {
       '': 'Vector(double x, double y)',
@@ -2203,7 +2217,7 @@ BridgedClass _createVectorBridge() {
 
 BridgedClass _createColorBridge() {
   return BridgedClass(
-    nativeType: $pkg.Color,
+    nativeType: $d4_example_2.Color,
     name: 'Color',
     constructors: {
       '': (visitor, positional, named) {
@@ -2211,18 +2225,18 @@ BridgedClass _createColorBridge() {
         final r = D4.getRequiredArg<int>(positional, 0, 'r', 'Color');
         final g = D4.getRequiredArg<int>(positional, 1, 'g', 'Color');
         final b = D4.getRequiredArg<int>(positional, 2, 'b', 'Color');
-        return $pkg.Color(r, g, b);
+        return $d4_example_2.Color(r, g, b);
       },
     },
     getters: {
-      'r': (visitor, target) => D4.validateTarget<$pkg.Color>(target, 'Color').r,
-      'g': (visitor, target) => D4.validateTarget<$pkg.Color>(target, 'Color').g,
-      'b': (visitor, target) => D4.validateTarget<$pkg.Color>(target, 'Color').b,
+      'r': (visitor, target) => D4.validateTarget<$d4_example_2.Color>(target, 'Color').r,
+      'g': (visitor, target) => D4.validateTarget<$d4_example_2.Color>(target, 'Color').g,
+      'b': (visitor, target) => D4.validateTarget<$d4_example_2.Color>(target, 'Color').b,
     },
     staticGetters: {
-      'red': (visitor) => $pkg.Color.red,
-      'green': (visitor) => $pkg.Color.green,
-      'blue': (visitor) => $pkg.Color.blue,
+      'red': (visitor) => $d4_example_2.Color.red,
+      'green': (visitor) => $d4_example_2.Color.green,
+      'blue': (visitor) => $d4_example_2.Color.blue,
     },
     constructorSignatures: {
       '': 'const Color(int r, int g, int b)',
@@ -2246,17 +2260,17 @@ BridgedClass _createColorBridge() {
 
 BridgedClass _createLoggerBridge() {
   return BridgedClass(
-    nativeType: $pkg.Logger,
+    nativeType: $d4_example_2.Logger,
     name: 'Logger',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Logger');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Logger');
-        return $pkg.Logger(name);
+        return $d4_example_2.Logger(name);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.Logger>(target, 'Logger').name,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_2.Logger>(target, 'Logger').name,
     },
     constructorSignatures: {
       '': 'factory Logger(String name)',
@@ -2273,18 +2287,18 @@ BridgedClass _createLoggerBridge() {
 
 BridgedClass _createCircleShapeBridge() {
   return BridgedClass(
-    nativeType: $pkg.CircleShape,
+    nativeType: $d4_example_2.CircleShape,
     name: 'CircleShape',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CircleShape');
         final radius = D4.getRequiredArg<double>(positional, 0, 'radius', 'CircleShape');
-        return $pkg.CircleShape(radius);
+        return $d4_example_2.CircleShape(radius);
       },
     },
     getters: {
-      'radius': (visitor, target) => D4.validateTarget<$pkg.CircleShape>(target, 'CircleShape').radius,
-      'area': (visitor, target) => D4.validateTarget<$pkg.CircleShape>(target, 'CircleShape').area,
+      'radius': (visitor, target) => D4.validateTarget<$d4_example_2.CircleShape>(target, 'CircleShape').radius,
+      'area': (visitor, target) => D4.validateTarget<$d4_example_2.CircleShape>(target, 'CircleShape').area,
     },
     constructorSignatures: {
       '': 'CircleShape(double radius)',
@@ -2302,18 +2316,18 @@ BridgedClass _createCircleShapeBridge() {
 
 BridgedClass _createSquareShapeBridge() {
   return BridgedClass(
-    nativeType: $pkg.SquareShape,
+    nativeType: $d4_example_2.SquareShape,
     name: 'SquareShape',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SquareShape');
         final side = D4.getRequiredArg<double>(positional, 0, 'side', 'SquareShape');
-        return $pkg.SquareShape(side);
+        return $d4_example_2.SquareShape(side);
       },
     },
     getters: {
-      'side': (visitor, target) => D4.validateTarget<$pkg.SquareShape>(target, 'SquareShape').side,
-      'area': (visitor, target) => D4.validateTarget<$pkg.SquareShape>(target, 'SquareShape').area,
+      'side': (visitor, target) => D4.validateTarget<$d4_example_2.SquareShape>(target, 'SquareShape').side,
+      'area': (visitor, target) => D4.validateTarget<$d4_example_2.SquareShape>(target, 'SquareShape').area,
     },
     constructorSignatures: {
       '': 'SquareShape(double side)',
@@ -2331,15 +2345,15 @@ BridgedClass _createSquareShapeBridge() {
 
 BridgedClass _createDatabaseBridge() {
   return BridgedClass(
-    nativeType: $pkg.Database,
+    nativeType: $d4_example_2.Database,
     name: 'Database',
     constructors: {
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.Database>(target, 'Database').name,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_2.Database>(target, 'Database').name,
     },
     staticGetters: {
-      'instance': (visitor) => $pkg.Database.instance,
+      'instance': (visitor) => $d4_example_2.Database.instance,
     },
     getterSignatures: {
       'name': 'String get name',
@@ -2356,19 +2370,19 @@ BridgedClass _createDatabaseBridge() {
 
 BridgedClass _createPersonBaseBridge() {
   return BridgedClass(
-    nativeType: $pkg.PersonBase,
+    nativeType: $d4_example_2.PersonBase,
     name: 'PersonBase',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'PersonBase');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'PersonBase');
         final age = D4.getRequiredArg<int>(positional, 1, 'age', 'PersonBase');
-        return $pkg.PersonBase(name, age);
+        return $d4_example_2.PersonBase(name, age);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.PersonBase>(target, 'PersonBase').name,
-      'age': (visitor, target) => D4.validateTarget<$pkg.PersonBase>(target, 'PersonBase').age,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_2.PersonBase>(target, 'PersonBase').name,
+      'age': (visitor, target) => D4.validateTarget<$d4_example_2.PersonBase>(target, 'PersonBase').age,
     },
     constructorSignatures: {
       '': 'PersonBase(String name, int age)',
@@ -2386,7 +2400,7 @@ BridgedClass _createPersonBaseBridge() {
 
 BridgedClass _createEmployeeBridge() {
   return BridgedClass(
-    nativeType: $pkg.Employee,
+    nativeType: $d4_example_2.Employee,
     name: 'Employee',
     constructors: {
       '': (visitor, positional, named) {
@@ -2394,13 +2408,13 @@ BridgedClass _createEmployeeBridge() {
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Employee');
         final age = D4.getRequiredArg<int>(positional, 1, 'age', 'Employee');
         final department = D4.getRequiredArg<String>(positional, 2, 'department', 'Employee');
-        return $pkg.Employee(name, age, department);
+        return $d4_example_2.Employee(name, age, department);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.Employee>(target, 'Employee').name,
-      'age': (visitor, target) => D4.validateTarget<$pkg.Employee>(target, 'Employee').age,
-      'department': (visitor, target) => D4.validateTarget<$pkg.Employee>(target, 'Employee').department,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_2.Employee>(target, 'Employee').name,
+      'age': (visitor, target) => D4.validateTarget<$d4_example_2.Employee>(target, 'Employee').age,
+      'department': (visitor, target) => D4.validateTarget<$d4_example_2.Employee>(target, 'Employee').department,
     },
     constructorSignatures: {
       '': 'Employee(String name, int age, String department)',
@@ -2419,7 +2433,7 @@ BridgedClass _createEmployeeBridge() {
 
 BridgedClass _createManagerBridge() {
   return BridgedClass(
-    nativeType: $pkg.Manager,
+    nativeType: $d4_example_2.Manager,
     name: 'Manager',
     constructors: {
       '': (visitor, positional, named) {
@@ -2428,13 +2442,13 @@ BridgedClass _createManagerBridge() {
         final age = D4.getRequiredArg<int>(positional, 1, 'age', 'Manager');
         final department = D4.getRequiredArg<String>(positional, 2, 'department', 'Manager');
         final teamSize = D4.getRequiredArg<int>(positional, 3, 'teamSize', 'Manager');
-        return $pkg.Manager(name, age, department, teamSize);
+        return $d4_example_2.Manager(name, age, department, teamSize);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.Manager>(target, 'Manager').name,
-      'age': (visitor, target) => D4.validateTarget<$pkg.Manager>(target, 'Manager').age,
-      'teamSize': (visitor, target) => D4.validateTarget<$pkg.Manager>(target, 'Manager').teamSize,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_2.Manager>(target, 'Manager').name,
+      'age': (visitor, target) => D4.validateTarget<$d4_example_2.Manager>(target, 'Manager').age,
+      'teamSize': (visitor, target) => D4.validateTarget<$d4_example_2.Manager>(target, 'Manager').teamSize,
     },
     constructorSignatures: {
       '': 'Manager(String name, int age, String department, int teamSize)',
@@ -2453,26 +2467,26 @@ BridgedClass _createManagerBridge() {
 
 BridgedClass _createAnimalBridge() {
   return BridgedClass(
-    nativeType: $pkg.Animal,
+    nativeType: $d4_example_4.Animal,
     name: 'Animal',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Animal');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Animal');
-        return $pkg.Animal(name);
+        return $d4_example_4.Animal(name);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.Animal>(target, 'Animal').name,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_4.Animal>(target, 'Animal').name,
     },
     methods: {
       'eat': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Animal>(target, 'Animal');
+        final t = D4.validateTarget<$d4_example_4.Animal>(target, 'Animal');
         t.eat();
         return null;
       },
       'speak': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Animal>(target, 'Animal');
+        final t = D4.validateTarget<$d4_example_4.Animal>(target, 'Animal');
         return t.speak();
       },
     },
@@ -2495,30 +2509,30 @@ BridgedClass _createAnimalBridge() {
 
 BridgedClass _createCatBridge() {
   return BridgedClass(
-    nativeType: $pkg.Cat,
+    nativeType: $d4_example_4.Cat,
     name: 'Cat',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Cat');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Cat');
-        return $pkg.Cat(name);
+        return $d4_example_4.Cat(name);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.Cat>(target, 'Cat').name,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_4.Cat>(target, 'Cat').name,
     },
     methods: {
       'eat': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Cat>(target, 'Cat');
+        final t = D4.validateTarget<$d4_example_4.Cat>(target, 'Cat');
         t.eat();
         return null;
       },
       'speak': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Cat>(target, 'Cat');
+        final t = D4.validateTarget<$d4_example_4.Cat>(target, 'Cat');
         return t.speak();
       },
       'meow': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Cat>(target, 'Cat');
+        final t = D4.validateTarget<$d4_example_4.Cat>(target, 'Cat');
         t.meow();
         return null;
       },
@@ -2543,13 +2557,13 @@ BridgedClass _createCatBridge() {
 
 BridgedClass _createNotificationServiceBridge() {
   return BridgedClass(
-    nativeType: $pkg.NotificationService,
+    nativeType: $d4_example_4.NotificationService,
     name: 'NotificationService',
     constructors: {
     },
     methods: {
       'send': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.NotificationService>(target, 'NotificationService');
+        final t = D4.validateTarget<$d4_example_4.NotificationService>(target, 'NotificationService');
         D4.requireMinArgs(positional, 1, 'send');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'send');
         t.send(message);
@@ -2568,16 +2582,16 @@ BridgedClass _createNotificationServiceBridge() {
 
 BridgedClass _createEmailNotificationServiceBridge() {
   return BridgedClass(
-    nativeType: $pkg.EmailNotificationService,
+    nativeType: $d4_example_4.EmailNotificationService,
     name: 'EmailNotificationService',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.EmailNotificationService();
+        return $d4_example_4.EmailNotificationService();
       },
     },
     methods: {
       'send': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EmailNotificationService>(target, 'EmailNotificationService');
+        final t = D4.validateTarget<$d4_example_4.EmailNotificationService>(target, 'EmailNotificationService');
         D4.requireMinArgs(positional, 1, 'send');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'send');
         t.send(message);
@@ -2599,16 +2613,16 @@ BridgedClass _createEmailNotificationServiceBridge() {
 
 BridgedClass _createSmsNotificationServiceBridge() {
   return BridgedClass(
-    nativeType: $pkg.SmsNotificationService,
+    nativeType: $d4_example_4.SmsNotificationService,
     name: 'SmsNotificationService',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.SmsNotificationService();
+        return $d4_example_4.SmsNotificationService();
       },
     },
     methods: {
       'send': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.SmsNotificationService>(target, 'SmsNotificationService');
+        final t = D4.validateTarget<$d4_example_4.SmsNotificationService>(target, 'SmsNotificationService');
         D4.requireMinArgs(positional, 1, 'send');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'send');
         t.send(message);
@@ -2630,18 +2644,18 @@ BridgedClass _createSmsNotificationServiceBridge() {
 
 BridgedClass _createSwitchableBridge() {
   return BridgedClass(
-    nativeType: $pkg.Switchable,
+    nativeType: $d4_example_4.Switchable,
     name: 'Switchable',
     constructors: {
     },
     methods: {
       'turnOn': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Switchable>(target, 'Switchable');
+        final t = D4.validateTarget<$d4_example_4.Switchable>(target, 'Switchable');
         t.turnOn();
         return null;
       },
       'turnOff': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Switchable>(target, 'Switchable');
+        final t = D4.validateTarget<$d4_example_4.Switchable>(target, 'Switchable');
         t.turnOff();
         return null;
       },
@@ -2659,13 +2673,13 @@ BridgedClass _createSwitchableBridge() {
 
 BridgedClass _createTemperatureControlBridge() {
   return BridgedClass(
-    nativeType: $pkg.TemperatureControl,
+    nativeType: $d4_example_4.TemperatureControl,
     name: 'TemperatureControl',
     constructors: {
     },
     methods: {
       'setTemperature': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TemperatureControl>(target, 'TemperatureControl');
+        final t = D4.validateTarget<$d4_example_4.TemperatureControl>(target, 'TemperatureControl');
         D4.requireMinArgs(positional, 1, 'setTemperature');
         final temp = D4.getRequiredArg<int>(positional, 0, 'temp', 'setTemperature');
         t.setTemperature(temp);
@@ -2684,13 +2698,13 @@ BridgedClass _createTemperatureControlBridge() {
 
 BridgedClass _createConnectableBridge() {
   return BridgedClass(
-    nativeType: $pkg.Connectable,
+    nativeType: $d4_example_4.Connectable,
     name: 'Connectable',
     constructors: {
     },
     methods: {
       'connect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Connectable>(target, 'Connectable');
+        final t = D4.validateTarget<$d4_example_4.Connectable>(target, 'Connectable');
         t.connect();
         return null;
       },
@@ -2707,33 +2721,33 @@ BridgedClass _createConnectableBridge() {
 
 BridgedClass _createSmartThermostatBridge() {
   return BridgedClass(
-    nativeType: $pkg.SmartThermostat,
+    nativeType: $d4_example_4.SmartThermostat,
     name: 'SmartThermostat',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.SmartThermostat();
+        return $d4_example_4.SmartThermostat();
       },
     },
     methods: {
       'turnOn': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.SmartThermostat>(target, 'SmartThermostat');
+        final t = D4.validateTarget<$d4_example_4.SmartThermostat>(target, 'SmartThermostat');
         t.turnOn();
         return null;
       },
       'turnOff': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.SmartThermostat>(target, 'SmartThermostat');
+        final t = D4.validateTarget<$d4_example_4.SmartThermostat>(target, 'SmartThermostat');
         t.turnOff();
         return null;
       },
       'setTemperature': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.SmartThermostat>(target, 'SmartThermostat');
+        final t = D4.validateTarget<$d4_example_4.SmartThermostat>(target, 'SmartThermostat');
         D4.requireMinArgs(positional, 1, 'setTemperature');
         final temp = D4.getRequiredArg<int>(positional, 0, 'temp', 'setTemperature');
         t.setTemperature(temp);
         return null;
       },
       'connect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.SmartThermostat>(target, 'SmartThermostat');
+        final t = D4.validateTarget<$d4_example_4.SmartThermostat>(target, 'SmartThermostat');
         t.connect();
         return null;
       },
@@ -2756,13 +2770,13 @@ BridgedClass _createSmartThermostatBridge() {
 
 BridgedClass _createMachineBridge() {
   return BridgedClass(
-    nativeType: $pkg.Machine,
+    nativeType: $d4_example_4.Machine,
     name: 'Machine',
     constructors: {
     },
     methods: {
       'move': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Machine>(target, 'Machine');
+        final t = D4.validateTarget<$d4_example_4.Machine>(target, 'Machine');
         t.move();
         return null;
       },
@@ -2779,13 +2793,13 @@ BridgedClass _createMachineBridge() {
 
 BridgedClass _createSpeakableBridge() {
   return BridgedClass(
-    nativeType: $pkg.Speakable,
+    nativeType: $d4_example_4.Speakable,
     name: 'Speakable',
     constructors: {
     },
     methods: {
       'speak': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Speakable>(target, 'Speakable');
+        final t = D4.validateTarget<$d4_example_4.Speakable>(target, 'Speakable');
         t.speak();
         return null;
       },
@@ -2802,16 +2816,16 @@ BridgedClass _createSpeakableBridge() {
 
 BridgedClass _createRobotBridge() {
   return BridgedClass(
-    nativeType: $pkg.Robot,
+    nativeType: $d4_example_4.Robot,
     name: 'Robot',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.Robot();
+        return $d4_example_4.Robot();
       },
     },
     methods: {
       'move': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Robot>(target, 'Robot');
+        final t = D4.validateTarget<$d4_example_4.Robot>(target, 'Robot');
         t.move();
         return null;
       },
@@ -2831,26 +2845,26 @@ BridgedClass _createRobotBridge() {
 
 BridgedClass _createAdvancedRobotBridge() {
   return BridgedClass(
-    nativeType: $pkg.AdvancedRobot,
+    nativeType: $d4_example_4.AdvancedRobot,
     name: 'AdvancedRobot',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.AdvancedRobot();
+        return $d4_example_4.AdvancedRobot();
       },
     },
     methods: {
       'move': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.AdvancedRobot>(target, 'AdvancedRobot');
+        final t = D4.validateTarget<$d4_example_4.AdvancedRobot>(target, 'AdvancedRobot');
         t.move();
         return null;
       },
       'speak': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.AdvancedRobot>(target, 'AdvancedRobot');
+        final t = D4.validateTarget<$d4_example_4.AdvancedRobot>(target, 'AdvancedRobot');
         t.speak();
         return null;
       },
       'connect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.AdvancedRobot>(target, 'AdvancedRobot');
+        final t = D4.validateTarget<$d4_example_4.AdvancedRobot>(target, 'AdvancedRobot');
         t.connect();
         return null;
       },
@@ -2872,29 +2886,29 @@ BridgedClass _createAdvancedRobotBridge() {
 
 BridgedClass _createMathUtilsBridge() {
   return BridgedClass(
-    nativeType: $pkg.MathUtils,
+    nativeType: $d4_example_5.MathUtils,
     name: 'MathUtils',
     constructors: {
     },
     staticGetters: {
-      'pi': (visitor) => $pkg.MathUtils.pi,
-      'e': (visitor) => $pkg.MathUtils.e,
+      'pi': (visitor) => $d4_example_5.MathUtils.pi,
+      'e': (visitor) => $d4_example_5.MathUtils.e,
     },
     staticMethods: {
       'square': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'square');
         final n = D4.getRequiredArg<int>(positional, 0, 'n', 'square');
-        return $pkg.MathUtils.square(n);
+        return $d4_example_5.MathUtils.square(n);
       },
       'cube': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'cube');
         final n = D4.getRequiredArg<int>(positional, 0, 'n', 'cube');
-        return $pkg.MathUtils.cube(n);
+        return $d4_example_5.MathUtils.cube(n);
       },
       'isEven': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'isEven');
         final n = D4.getRequiredArg<int>(positional, 0, 'n', 'isEven');
-        return $pkg.MathUtils.isEven(n);
+        return $d4_example_5.MathUtils.isEven(n);
       },
     },
     staticMethodSignatures: {
@@ -2915,22 +2929,22 @@ BridgedClass _createMathUtilsBridge() {
 
 BridgedClass _createCounterBridge() {
   return BridgedClass(
-    nativeType: $pkg.Counter,
+    nativeType: $d4_example_5.Counter,
     name: 'Counter',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.Counter();
+        return $d4_example_5.Counter();
       },
     },
     staticGetters: {
-      'instanceCount': (visitor) => $pkg.Counter.instanceCount,
-      'label': (visitor) => $pkg.Counter.label,
+      'instanceCount': (visitor) => $d4_example_5.Counter.instanceCount,
+      'label': (visitor) => $d4_example_5.Counter.label,
     },
     staticSetters: {
       'instanceCount': (visitor, value) => 
-        $pkg.Counter.instanceCount = value as int,
+        $d4_example_5.Counter.instanceCount = value as int,
       'label': (visitor, value) => 
-        $pkg.Counter.label = value as dynamic,
+        $d4_example_5.Counter.label = value as dynamic,
     },
     constructorSignatures: {
       '': 'Counter()',
@@ -2952,28 +2966,28 @@ BridgedClass _createCounterBridge() {
 
 BridgedClass _createPointBridge() {
   return BridgedClass(
-    nativeType: $pkg.Point,
+    nativeType: $d4_example_5.Point,
     name: 'Point',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Point');
         final x = D4.getRequiredArg<int>(positional, 0, 'x', 'Point');
         final y = D4.getRequiredArg<int>(positional, 1, 'y', 'Point');
-        return $pkg.Point(x, y);
+        return $d4_example_5.Point(x, y);
       },
     },
     getters: {
-      'x': (visitor, target) => D4.validateTarget<$pkg.Point>(target, 'Point').x,
-      'y': (visitor, target) => D4.validateTarget<$pkg.Point>(target, 'Point').y,
-      'hashCode': (visitor, target) => D4.validateTarget<$pkg.Point>(target, 'Point').hashCode,
+      'x': (visitor, target) => D4.validateTarget<$d4_example_5.Point>(target, 'Point').x,
+      'y': (visitor, target) => D4.validateTarget<$d4_example_5.Point>(target, 'Point').y,
+      'hashCode': (visitor, target) => D4.validateTarget<$d4_example_5.Point>(target, 'Point').hashCode,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Point>(target, 'Point');
+        final t = D4.validateTarget<$d4_example_5.Point>(target, 'Point');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Point>(target, 'Point');
+        final t = D4.validateTarget<$d4_example_5.Point>(target, 'Point');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2998,18 +3012,18 @@ BridgedClass _createPointBridge() {
 
 BridgedClass _createFlexibleObjectBridge() {
   return BridgedClass(
-    nativeType: $pkg.FlexibleObject,
+    nativeType: $d4_example_5.FlexibleObject,
     name: 'FlexibleObject',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.FlexibleObject();
+        return $d4_example_5.FlexibleObject();
       },
     },
     methods: {
       'noSuchMethod': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.FlexibleObject>(target, 'FlexibleObject');
+        final t = D4.validateTarget<$d4_example_5.FlexibleObject>(target, 'FlexibleObject');
         D4.requireMinArgs(positional, 1, 'noSuchMethod');
-        final invocation = D4.getRequiredArg<dynamic>(positional, 0, 'invocation', 'noSuchMethod');
+        final invocation = D4.getRequiredArg<Invocation>(positional, 0, 'invocation', 'noSuchMethod');
         return t.noSuchMethod(invocation);
       },
     },
@@ -3028,29 +3042,29 @@ BridgedClass _createFlexibleObjectBridge() {
 
 BridgedClass _createSortablePersonBridge() {
   return BridgedClass(
-    nativeType: $pkg.SortablePerson,
+    nativeType: $d4_example_5.SortablePerson,
     name: 'SortablePerson',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SortablePerson');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'SortablePerson');
         final age = D4.getRequiredArg<int>(positional, 1, 'age', 'SortablePerson');
-        return $pkg.SortablePerson(name, age);
+        return $d4_example_5.SortablePerson(name, age);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.SortablePerson>(target, 'SortablePerson').name,
-      'age': (visitor, target) => D4.validateTarget<$pkg.SortablePerson>(target, 'SortablePerson').age,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_5.SortablePerson>(target, 'SortablePerson').name,
+      'age': (visitor, target) => D4.validateTarget<$d4_example_5.SortablePerson>(target, 'SortablePerson').age,
     },
     methods: {
       'compareTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.SortablePerson>(target, 'SortablePerson');
+        final t = D4.validateTarget<$d4_example_5.SortablePerson>(target, 'SortablePerson');
         D4.requireMinArgs(positional, 1, 'compareTo');
-        final other = D4.getRequiredArg<$pkg.SortablePerson>(positional, 0, 'other', 'compareTo');
+        final other = D4.getRequiredArg<$d4_example_5.SortablePerson>(positional, 0, 'other', 'compareTo');
         return t.compareTo(other);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.SortablePerson>(target, 'SortablePerson');
+        final t = D4.validateTarget<$d4_example_5.SortablePerson>(target, 'SortablePerson');
         return t.toString();
       },
     },
@@ -3074,62 +3088,62 @@ BridgedClass _createSortablePersonBridge() {
 
 BridgedClass _createNumberWrapperBridge() {
   return BridgedClass(
-    nativeType: $pkg.NumberWrapper,
+    nativeType: $d4_example_6.NumberWrapper,
     name: 'NumberWrapper',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'NumberWrapper');
         final value = D4.getRequiredArg<double>(positional, 0, 'value', 'NumberWrapper');
-        return $pkg.NumberWrapper(value);
+        return $d4_example_6.NumberWrapper(value);
       },
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper').value,
-      'hashCode': (visitor, target) => D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper').hashCode,
+      'value': (visitor, target) => D4.validateTarget<$d4_example_6.NumberWrapper>(target, 'NumberWrapper').value,
+      'hashCode': (visitor, target) => D4.validateTarget<$d4_example_6.NumberWrapper>(target, 'NumberWrapper').hashCode,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper');
+        final t = D4.validateTarget<$d4_example_6.NumberWrapper>(target, 'NumberWrapper');
         return t.toString();
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper');
-        final other = D4.getRequiredArg<$pkg.NumberWrapper>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$d4_example_6.NumberWrapper>(target, 'NumberWrapper');
+        final other = D4.getRequiredArg<$d4_example_6.NumberWrapper>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper');
+        final t = D4.validateTarget<$d4_example_6.NumberWrapper>(target, 'NumberWrapper');
         if (positional.isEmpty) {
           // Unary operator
           return -t;
         } else {
           // Binary operator
-          final other = D4.getRequiredArg<$pkg.NumberWrapper>(positional, 0, 'other', 'operator-');
+          final other = D4.getRequiredArg<$d4_example_6.NumberWrapper>(positional, 0, 'other', 'operator-');
           return t - other;
         }
       },
       '*': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper');
-        final other = D4.getRequiredArg<$pkg.NumberWrapper>(positional, 0, 'other', 'operator*');
+        final t = D4.validateTarget<$d4_example_6.NumberWrapper>(target, 'NumberWrapper');
+        final other = D4.getRequiredArg<$d4_example_6.NumberWrapper>(positional, 0, 'other', 'operator*');
         return t * other;
       },
       '/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper');
-        final other = D4.getRequiredArg<$pkg.NumberWrapper>(positional, 0, 'other', 'operator/');
+        final t = D4.validateTarget<$d4_example_6.NumberWrapper>(target, 'NumberWrapper');
+        final other = D4.getRequiredArg<$d4_example_6.NumberWrapper>(positional, 0, 'other', 'operator/');
         return t / other;
       },
       '~/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper');
-        final other = D4.getRequiredArg<$pkg.NumberWrapper>(positional, 0, 'other', 'operator~/');
+        final t = D4.validateTarget<$d4_example_6.NumberWrapper>(target, 'NumberWrapper');
+        final other = D4.getRequiredArg<$d4_example_6.NumberWrapper>(positional, 0, 'other', 'operator~/');
         return t ~/ other;
       },
       '%': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper');
-        final other = D4.getRequiredArg<$pkg.NumberWrapper>(positional, 0, 'other', 'operator%');
+        final t = D4.validateTarget<$d4_example_6.NumberWrapper>(target, 'NumberWrapper');
+        final other = D4.getRequiredArg<$d4_example_6.NumberWrapper>(positional, 0, 'other', 'operator%');
         return t % other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.NumberWrapper>(target, 'NumberWrapper');
+        final t = D4.validateTarget<$d4_example_6.NumberWrapper>(target, 'NumberWrapper');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3153,61 +3167,61 @@ BridgedClass _createNumberWrapperBridge() {
 
 BridgedClass _createBitFlagsBridge() {
   return BridgedClass(
-    nativeType: $pkg.BitFlags,
+    nativeType: $d4_example_6.BitFlags,
     name: 'BitFlags',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BitFlags');
         final bits = D4.getRequiredArg<int>(positional, 0, 'bits', 'BitFlags');
-        return $pkg.BitFlags(bits);
+        return $d4_example_6.BitFlags(bits);
       },
     },
     getters: {
-      'bits': (visitor, target) => D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags').bits,
-      'hashCode': (visitor, target) => D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags').hashCode,
+      'bits': (visitor, target) => D4.validateTarget<$d4_example_6.BitFlags>(target, 'BitFlags').bits,
+      'hashCode': (visitor, target) => D4.validateTarget<$d4_example_6.BitFlags>(target, 'BitFlags').hashCode,
     },
     methods: {
       'hasFlag': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
+        final t = D4.validateTarget<$d4_example_6.BitFlags>(target, 'BitFlags');
         D4.requireMinArgs(positional, 1, 'hasFlag');
         final flag = D4.getRequiredArg<int>(positional, 0, 'flag', 'hasFlag');
         return t.hasFlag(flag);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
+        final t = D4.validateTarget<$d4_example_6.BitFlags>(target, 'BitFlags');
         return t.toString();
       },
       '&': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
-        final other = D4.getRequiredArg<$pkg.BitFlags>(positional, 0, 'other', 'operator&');
+        final t = D4.validateTarget<$d4_example_6.BitFlags>(target, 'BitFlags');
+        final other = D4.getRequiredArg<$d4_example_6.BitFlags>(positional, 0, 'other', 'operator&');
         return t & other;
       },
       '|': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
-        final other = D4.getRequiredArg<$pkg.BitFlags>(positional, 0, 'other', 'operator|');
+        final t = D4.validateTarget<$d4_example_6.BitFlags>(target, 'BitFlags');
+        final other = D4.getRequiredArg<$d4_example_6.BitFlags>(positional, 0, 'other', 'operator|');
         return t | other;
       },
       '^': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
-        final other = D4.getRequiredArg<$pkg.BitFlags>(positional, 0, 'other', 'operator^');
+        final t = D4.validateTarget<$d4_example_6.BitFlags>(target, 'BitFlags');
+        final other = D4.getRequiredArg<$d4_example_6.BitFlags>(positional, 0, 'other', 'operator^');
         return t ^ other;
       },
       '~': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
+        final t = D4.validateTarget<$d4_example_6.BitFlags>(target, 'BitFlags');
         return ~t;
       },
       '<<': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
+        final t = D4.validateTarget<$d4_example_6.BitFlags>(target, 'BitFlags');
         final other = D4.getRequiredArg<int>(positional, 0, 'other', 'operator<<');
         return t << other;
       },
       '>>': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
+        final t = D4.validateTarget<$d4_example_6.BitFlags>(target, 'BitFlags');
         final other = D4.getRequiredArg<int>(positional, 0, 'other', 'operator>>');
         return t >> other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.BitFlags>(target, 'BitFlags');
+        final t = D4.validateTarget<$d4_example_6.BitFlags>(target, 'BitFlags');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3232,32 +3246,32 @@ BridgedClass _createBitFlagsBridge() {
 
 BridgedClass _createNullableFieldsBridge() {
   return BridgedClass(
-    nativeType: $pkg.NullableFields,
+    nativeType: $d4_example_6.NullableFields,
     name: 'NullableFields',
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
         final age = D4.getOptionalNamedArg<int?>(named, 'age');
         final tags = D4.coerceListOrNull<String>(named['tags'], 'tags');
-        return $pkg.NullableFields(name: name, age: age, tags: tags);
+        return $d4_example_6.NullableFields(name: name, age: age, tags: tags);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.NullableFields>(target, 'NullableFields').name,
-      'age': (visitor, target) => D4.validateTarget<$pkg.NullableFields>(target, 'NullableFields').age,
-      'tags': (visitor, target) => D4.validateTarget<$pkg.NullableFields>(target, 'NullableFields').tags,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_6.NullableFields>(target, 'NullableFields').name,
+      'age': (visitor, target) => D4.validateTarget<$d4_example_6.NullableFields>(target, 'NullableFields').age,
+      'tags': (visitor, target) => D4.validateTarget<$d4_example_6.NullableFields>(target, 'NullableFields').tags,
     },
     setters: {
       'name': (visitor, target, value) => 
-        D4.validateTarget<$pkg.NullableFields>(target, 'NullableFields').name = value as String?,
+        D4.validateTarget<$d4_example_6.NullableFields>(target, 'NullableFields').name = value as String?,
       'age': (visitor, target, value) => 
-        D4.validateTarget<$pkg.NullableFields>(target, 'NullableFields').age = value as int?,
+        D4.validateTarget<$d4_example_6.NullableFields>(target, 'NullableFields').age = value as int?,
       'tags': (visitor, target, value) => 
-        D4.validateTarget<$pkg.NullableFields>(target, 'NullableFields').tags = value == null ? null : (value as List).cast<String>().toList(),
+        D4.validateTarget<$d4_example_6.NullableFields>(target, 'NullableFields').tags = value == null ? null : (value as List).cast<String>().toList(),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.NullableFields>(target, 'NullableFields');
+        final t = D4.validateTarget<$d4_example_6.NullableFields>(target, 'NullableFields');
         return t.toString();
       },
     },
@@ -3286,28 +3300,28 @@ BridgedClass _createNullableFieldsBridge() {
 
 BridgedClass _createLateFieldDemoBridge() {
   return BridgedClass(
-    nativeType: $pkg.LateFieldDemo,
+    nativeType: $d4_example_6.LateFieldDemo,
     name: 'LateFieldDemo',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.LateFieldDemo();
+        return $d4_example_6.LateFieldDemo();
       },
       'withValues': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'LateFieldDemo');
         final config = D4.getRequiredArg<String>(positional, 0, 'config', 'LateFieldDemo');
         final id = D4.getRequiredArg<int>(positional, 1, 'id', 'LateFieldDemo');
-        return $pkg.LateFieldDemo.withValues(config, id);
+        return $d4_example_6.LateFieldDemo.withValues(config, id);
       },
     },
     getters: {
-      'config': (visitor, target) => D4.validateTarget<$pkg.LateFieldDemo>(target, 'LateFieldDemo').config,
-      'id': (visitor, target) => D4.validateTarget<$pkg.LateFieldDemo>(target, 'LateFieldDemo').id,
+      'config': (visitor, target) => D4.validateTarget<$d4_example_6.LateFieldDemo>(target, 'LateFieldDemo').config,
+      'id': (visitor, target) => D4.validateTarget<$d4_example_6.LateFieldDemo>(target, 'LateFieldDemo').id,
     },
     setters: {
       'config': (visitor, target, value) => 
-        D4.validateTarget<$pkg.LateFieldDemo>(target, 'LateFieldDemo').config = value as String,
+        D4.validateTarget<$d4_example_6.LateFieldDemo>(target, 'LateFieldDemo').config = value as String,
       'id': (visitor, target, value) => 
-        D4.validateTarget<$pkg.LateFieldDemo>(target, 'LateFieldDemo').id = value as int,
+        D4.validateTarget<$d4_example_6.LateFieldDemo>(target, 'LateFieldDemo').id = value as int,
     },
     constructorSignatures: {
       '': 'LateFieldDemo()',
@@ -3330,27 +3344,27 @@ BridgedClass _createLateFieldDemoBridge() {
 
 BridgedClass _createMultiplierBridge() {
   return BridgedClass(
-    nativeType: $pkg.Multiplier,
+    nativeType: $d4_example_6.Multiplier,
     name: 'Multiplier',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Multiplier');
         final factor = D4.getRequiredArg<int>(positional, 0, 'factor', 'Multiplier');
-        return $pkg.Multiplier(factor);
+        return $d4_example_6.Multiplier(factor);
       },
     },
     getters: {
-      'factor': (visitor, target) => D4.validateTarget<$pkg.Multiplier>(target, 'Multiplier').factor,
+      'factor': (visitor, target) => D4.validateTarget<$d4_example_6.Multiplier>(target, 'Multiplier').factor,
     },
     methods: {
       'call': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Multiplier>(target, 'Multiplier');
+        final t = D4.validateTarget<$d4_example_6.Multiplier>(target, 'Multiplier');
         D4.requireMinArgs(positional, 1, 'call');
         final value = D4.getRequiredArg<int>(positional, 0, 'value', 'call');
         return t.call(value);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Multiplier>(target, 'Multiplier');
+        final t = D4.validateTarget<$d4_example_6.Multiplier>(target, 'Multiplier');
         return t.toString();
       },
     },
@@ -3373,16 +3387,16 @@ BridgedClass _createMultiplierBridge() {
 
 BridgedClass _createPrintableBridge() {
   return BridgedClass(
-    nativeType: $pkg.Printable,
+    nativeType: $d4_example_6.Printable,
     name: 'Printable',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.Printable();
+        return $d4_example_6.Printable();
       },
     },
     methods: {
       'printInfo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Printable>(target, 'Printable');
+        final t = D4.validateTarget<$d4_example_6.Printable>(target, 'Printable');
         t.printInfo();
         return null;
       },
@@ -3402,13 +3416,13 @@ BridgedClass _createPrintableBridge() {
 
 BridgedClass _createSerializableBridge() {
   return BridgedClass(
-    nativeType: $pkg.Serializable,
+    nativeType: $d4_example_6.Serializable,
     name: 'Serializable',
     constructors: {
     },
     methods: {
       'serialize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Serializable>(target, 'Serializable');
+        final t = D4.validateTarget<$d4_example_6.Serializable>(target, 'Serializable');
         return t.serialize();
       },
     },
@@ -3424,21 +3438,21 @@ BridgedClass _createSerializableBridge() {
 
 BridgedClass _createSerializablePrintableBridge() {
   return BridgedClass(
-    nativeType: $pkg.SerializablePrintable,
+    nativeType: $d4_example_6.SerializablePrintable,
     name: 'SerializablePrintable',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.SerializablePrintable();
+        return $d4_example_6.SerializablePrintable();
       },
     },
     methods: {
       'printInfo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.SerializablePrintable>(target, 'SerializablePrintable');
+        final t = D4.validateTarget<$d4_example_6.SerializablePrintable>(target, 'SerializablePrintable');
         t.printInfo();
         return null;
       },
       'serialize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.SerializablePrintable>(target, 'SerializablePrintable');
+        final t = D4.validateTarget<$d4_example_6.SerializablePrintable>(target, 'SerializablePrintable');
         return t.serialize();
       },
     },
@@ -3458,16 +3472,16 @@ BridgedClass _createSerializablePrintableBridge() {
 
 BridgedClass _createTrackableBridge() {
   return BridgedClass(
-    nativeType: $pkg.Trackable,
+    nativeType: $d4_example_6.Trackable,
     name: 'Trackable',
     constructors: {
     },
     getters: {
-      'trackCount': (visitor, target) => D4.validateTarget<$pkg.Trackable>(target, 'Trackable').trackCount,
+      'trackCount': (visitor, target) => D4.validateTarget<$d4_example_6.Trackable>(target, 'Trackable').trackCount,
     },
     methods: {
       'track': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Trackable>(target, 'Trackable');
+        final t = D4.validateTarget<$d4_example_6.Trackable>(target, 'Trackable');
         t.track();
         return null;
       },
@@ -3487,26 +3501,26 @@ BridgedClass _createTrackableBridge() {
 
 BridgedClass _createTrackedItemBridge() {
   return BridgedClass(
-    nativeType: $pkg.TrackedItem,
+    nativeType: $d4_example_6.TrackedItem,
     name: 'TrackedItem',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TrackedItem');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'TrackedItem');
-        return $pkg.TrackedItem(name);
+        return $d4_example_6.TrackedItem(name);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.TrackedItem>(target, 'TrackedItem').name,
-      'trackCount': (visitor, target) => D4.validateTarget<$pkg.TrackedItem>(target, 'TrackedItem').trackCount,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_6.TrackedItem>(target, 'TrackedItem').name,
+      'trackCount': (visitor, target) => D4.validateTarget<$d4_example_6.TrackedItem>(target, 'TrackedItem').trackCount,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TrackedItem>(target, 'TrackedItem');
+        final t = D4.validateTarget<$d4_example_6.TrackedItem>(target, 'TrackedItem');
         return t.toString();
       },
       'track': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TrackedItem>(target, 'TrackedItem');
+        final t = D4.validateTarget<$d4_example_6.TrackedItem>(target, 'TrackedItem');
         t.track();
         return null;
       },
@@ -3531,34 +3545,34 @@ BridgedClass _createTrackedItemBridge() {
 
 BridgedClass _createDataProcessorBridge() {
   return BridgedClass(
-    nativeType: $pkg.DataProcessor,
+    nativeType: $d4_example_6.DataProcessor,
     name: 'DataProcessor',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DataProcessor');
         final prefix = D4.getRequiredArg<String>(positional, 0, 'prefix', 'DataProcessor');
-        return $pkg.DataProcessor(prefix);
+        return $d4_example_6.DataProcessor(prefix);
       },
     },
     getters: {
-      'prefix': (visitor, target) => D4.validateTarget<$pkg.DataProcessor>(target, 'DataProcessor').prefix,
+      'prefix': (visitor, target) => D4.validateTarget<$d4_example_6.DataProcessor>(target, 'DataProcessor').prefix,
     },
     methods: {
       'processAsync': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.DataProcessor>(target, 'DataProcessor');
+        final t = D4.validateTarget<$d4_example_6.DataProcessor>(target, 'DataProcessor');
         D4.requireMinArgs(positional, 1, 'processAsync');
         final input = D4.getRequiredArg<String>(positional, 0, 'input', 'processAsync');
         return t.processAsync(input);
       },
       'generateRange': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.DataProcessor>(target, 'DataProcessor');
+        final t = D4.validateTarget<$d4_example_6.DataProcessor>(target, 'DataProcessor');
         D4.requireMinArgs(positional, 2, 'generateRange');
         final start = D4.getRequiredArg<int>(positional, 0, 'start', 'generateRange');
         final end = D4.getRequiredArg<int>(positional, 1, 'end', 'generateRange');
         return t.generateRange(start, end);
       },
       'streamItems': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.DataProcessor>(target, 'DataProcessor');
+        final t = D4.validateTarget<$d4_example_6.DataProcessor>(target, 'DataProcessor');
         D4.requireMinArgs(positional, 1, 'streamItems');
         if (positional.isEmpty) {
           throw ArgumentError('streamItems: Missing required argument "items" at position 0');
@@ -3571,12 +3585,12 @@ BridgedClass _createDataProcessorBridge() {
       'staticRange': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'staticRange');
         final count = D4.getRequiredArg<int>(positional, 0, 'count', 'staticRange');
-        return $pkg.DataProcessor.staticRange(count);
+        return $d4_example_6.DataProcessor.staticRange(count);
       },
       'staticCountdown': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'staticCountdown');
         final from = D4.getRequiredArg<int>(positional, 0, 'from', 'staticCountdown');
-        return $pkg.DataProcessor.staticCountdown(from);
+        return $d4_example_6.DataProcessor.staticCountdown(from);
       },
     },
     constructorSignatures: {
@@ -3603,7 +3617,7 @@ BridgedClass _createDataProcessorBridge() {
 
 BridgedClass _createStatisticsBridge() {
   return BridgedClass(
-    nativeType: $pkg.Statistics,
+    nativeType: $d4_example_12.Statistics,
     name: 'Statistics',
     constructors: {
       '': (visitor, positional, named) {
@@ -3612,14 +3626,14 @@ BridgedClass _createStatisticsBridge() {
           throw ArgumentError('Statistics: Missing required argument "values" at position 0');
         }
         final values = D4.coerceList<num>(positional[0], 'values');
-        return $pkg.Statistics(values);
+        return $d4_example_12.Statistics(values);
       },
     },
     getters: {
-      'values': (visitor, target) => D4.validateTarget<$pkg.Statistics>(target, 'Statistics').values,
-      'min': (visitor, target) => D4.validateTarget<$pkg.Statistics>(target, 'Statistics').min,
-      'max': (visitor, target) => D4.validateTarget<$pkg.Statistics>(target, 'Statistics').max,
-      'average': (visitor, target) => D4.validateTarget<$pkg.Statistics>(target, 'Statistics').average,
+      'values': (visitor, target) => D4.validateTarget<$d4_example_12.Statistics>(target, 'Statistics').values,
+      'min': (visitor, target) => D4.validateTarget<$d4_example_12.Statistics>(target, 'Statistics').min,
+      'max': (visitor, target) => D4.validateTarget<$d4_example_12.Statistics>(target, 'Statistics').max,
+      'average': (visitor, target) => D4.validateTarget<$d4_example_12.Statistics>(target, 'Statistics').average,
     },
     constructorSignatures: {
       '': 'Statistics(List<T> values)',
@@ -3639,13 +3653,13 @@ BridgedClass _createStatisticsBridge() {
 
 BridgedClass _createMusicalBridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.Musical,
+    nativeType: $d4_example_14.Musical,
     name: 'Musical',
     constructors: {
     },
     methods: {
       'playInstrument': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.Musical>(target, 'Musical');
+        final t = D4.validateTarget<$d4_example_14.Musical>(target, 'Musical');
         t.playInstrument();
         return null;
       },
@@ -3662,13 +3676,13 @@ BridgedClass _createMusicalBridge() {
 
 BridgedClass _createDancingBridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.Dancing,
+    nativeType: $d4_example_14.Dancing,
     name: 'Dancing',
     constructors: {
     },
     methods: {
       'dance': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.Dancing>(target, 'Dancing');
+        final t = D4.validateTarget<$d4_example_14.Dancing>(target, 'Dancing');
         t.dance();
         return null;
       },
@@ -3685,21 +3699,21 @@ BridgedClass _createDancingBridge() {
 
 BridgedClass _createMusicianBridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.Musician,
+    nativeType: $d4_example_14.Musician,
     name: 'Musician',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Musician');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Musician');
-        return $aux_d4_example.Musician(name);
+        return $d4_example_14.Musician(name);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$aux_d4_example.Musician>(target, 'Musician').name,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_14.Musician>(target, 'Musician').name,
     },
     methods: {
       'playInstrument': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.Musician>(target, 'Musician');
+        final t = D4.validateTarget<$d4_example_14.Musician>(target, 'Musician');
         t.playInstrument();
         return null;
       },
@@ -3722,21 +3736,21 @@ BridgedClass _createMusicianBridge() {
 
 BridgedClass _createProfessionalDancerBridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.ProfessionalDancer,
+    nativeType: $d4_example_14.ProfessionalDancer,
     name: 'ProfessionalDancer',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ProfessionalDancer');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'ProfessionalDancer');
-        return $aux_d4_example.ProfessionalDancer(name);
+        return $d4_example_14.ProfessionalDancer(name);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$aux_d4_example.ProfessionalDancer>(target, 'ProfessionalDancer').name,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_14.ProfessionalDancer>(target, 'ProfessionalDancer').name,
     },
     methods: {
       'dance': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.ProfessionalDancer>(target, 'ProfessionalDancer');
+        final t = D4.validateTarget<$d4_example_14.ProfessionalDancer>(target, 'ProfessionalDancer');
         t.dance();
         return null;
       },
@@ -3759,31 +3773,31 @@ BridgedClass _createProfessionalDancerBridge() {
 
 BridgedClass _createEntertainerBridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.Entertainer,
+    nativeType: $d4_example_14.Entertainer,
     name: 'Entertainer',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Entertainer');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Entertainer');
-        return $aux_d4_example.Entertainer(name);
+        return $d4_example_14.Entertainer(name);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$aux_d4_example.Entertainer>(target, 'Entertainer').name,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_14.Entertainer>(target, 'Entertainer').name,
     },
     methods: {
       'perform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.Entertainer>(target, 'Entertainer');
+        final t = D4.validateTarget<$d4_example_14.Entertainer>(target, 'Entertainer');
         t.perform();
         return null;
       },
       'playInstrument': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.Entertainer>(target, 'Entertainer');
+        final t = D4.validateTarget<$d4_example_14.Entertainer>(target, 'Entertainer');
         t.playInstrument();
         return null;
       },
       'dance': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.Entertainer>(target, 'Entertainer');
+        final t = D4.validateTarget<$d4_example_14.Entertainer>(target, 'Entertainer');
         t.dance();
         return null;
       },
@@ -3808,29 +3822,29 @@ BridgedClass _createEntertainerBridge() {
 
 BridgedClass _createCountableItemBridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.CountableItem,
+    nativeType: $d4_example_14.CountableItem,
     name: 'CountableItem',
     constructors: {
       '': (visitor, positional, named) {
-        return $aux_d4_example.CountableItem();
+        return $d4_example_14.CountableItem();
       },
     },
     getters: {
-      'count': (visitor, target) => D4.validateTarget<$aux_d4_example.CountableItem>(target, 'CountableItem').count,
+      'count': (visitor, target) => D4.validateTarget<$d4_example_14.CountableItem>(target, 'CountableItem').count,
     },
     methods: {
       'increment': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.CountableItem>(target, 'CountableItem');
+        final t = D4.validateTarget<$d4_example_14.CountableItem>(target, 'CountableItem');
         t.increment();
         return null;
       },
       'decrement': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.CountableItem>(target, 'CountableItem');
+        final t = D4.validateTarget<$d4_example_14.CountableItem>(target, 'CountableItem');
         t.decrement();
         return null;
       },
       'reset': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.CountableItem>(target, 'CountableItem');
+        final t = D4.validateTarget<$d4_example_14.CountableItem>(target, 'CountableItem');
         t.reset();
         return null;
       },
@@ -3855,13 +3869,13 @@ BridgedClass _createCountableItemBridge() {
 
 BridgedClass _createLoggingBridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.Logging,
+    nativeType: $d4_example_14.Logging,
     name: 'Logging',
     constructors: {
     },
     methods: {
       'log': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.Logging>(target, 'Logging');
+        final t = D4.validateTarget<$d4_example_14.Logging>(target, 'Logging');
         D4.requireMinArgs(positional, 2, 'log');
         final level = D4.getRequiredArg<String>(positional, 0, 'level', 'log');
         final message = D4.getRequiredArg<String>(positional, 1, 'message', 'log');
@@ -3869,21 +3883,21 @@ BridgedClass _createLoggingBridge() {
         return null;
       },
       'info': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.Logging>(target, 'Logging');
+        final t = D4.validateTarget<$d4_example_14.Logging>(target, 'Logging');
         D4.requireMinArgs(positional, 1, 'info');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'info');
         t.info(message);
         return null;
       },
       'warning': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.Logging>(target, 'Logging');
+        final t = D4.validateTarget<$d4_example_14.Logging>(target, 'Logging');
         D4.requireMinArgs(positional, 1, 'warning');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'warning');
         t.warning(message);
         return null;
       },
       'error': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.Logging>(target, 'Logging');
+        final t = D4.validateTarget<$d4_example_14.Logging>(target, 'Logging');
         D4.requireMinArgs(positional, 1, 'error');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'error');
         t.error(message);
@@ -3905,16 +3919,16 @@ BridgedClass _createLoggingBridge() {
 
 BridgedClass _createConsoleLoggerBridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.ConsoleLogger,
+    nativeType: $d4_example_14.ConsoleLogger,
     name: 'ConsoleLogger',
     constructors: {
       '': (visitor, positional, named) {
-        return $aux_d4_example.ConsoleLogger();
+        return $d4_example_14.ConsoleLogger();
       },
     },
     methods: {
       'log': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.ConsoleLogger>(target, 'ConsoleLogger');
+        final t = D4.validateTarget<$d4_example_14.ConsoleLogger>(target, 'ConsoleLogger');
         D4.requireMinArgs(positional, 2, 'log');
         final level = D4.getRequiredArg<String>(positional, 0, 'level', 'log');
         final message = D4.getRequiredArg<String>(positional, 1, 'message', 'log');
@@ -3922,21 +3936,21 @@ BridgedClass _createConsoleLoggerBridge() {
         return null;
       },
       'info': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.ConsoleLogger>(target, 'ConsoleLogger');
+        final t = D4.validateTarget<$d4_example_14.ConsoleLogger>(target, 'ConsoleLogger');
         D4.requireMinArgs(positional, 1, 'info');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'info');
         t.info(message);
         return null;
       },
       'warning': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.ConsoleLogger>(target, 'ConsoleLogger');
+        final t = D4.validateTarget<$d4_example_14.ConsoleLogger>(target, 'ConsoleLogger');
         D4.requireMinArgs(positional, 1, 'warning');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'warning');
         t.warning(message);
         return null;
       },
       'error': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.ConsoleLogger>(target, 'ConsoleLogger');
+        final t = D4.validateTarget<$d4_example_14.ConsoleLogger>(target, 'ConsoleLogger');
         D4.requireMinArgs(positional, 1, 'error');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'error');
         t.error(message);
@@ -3961,13 +3975,13 @@ BridgedClass _createConsoleLoggerBridge() {
 
 BridgedClass _createGreeter1Bridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.Greeter1,
+    nativeType: $d4_example_14.Greeter1,
     name: 'Greeter1',
     constructors: {
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.Greeter1>(target, 'Greeter1');
+        final t = D4.validateTarget<$d4_example_14.Greeter1>(target, 'Greeter1');
         t.greet();
         return null;
       },
@@ -3984,13 +3998,13 @@ BridgedClass _createGreeter1Bridge() {
 
 BridgedClass _createGreeter2Bridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.Greeter2,
+    nativeType: $d4_example_14.Greeter2,
     name: 'Greeter2',
     constructors: {
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.Greeter2>(target, 'Greeter2');
+        final t = D4.validateTarget<$d4_example_14.Greeter2>(target, 'Greeter2');
         t.greet();
         return null;
       },
@@ -4007,16 +4021,16 @@ BridgedClass _createGreeter2Bridge() {
 
 BridgedClass _createMultiMixedBridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.MultiMixed,
+    nativeType: $d4_example_14.MultiMixed,
     name: 'MultiMixed',
     constructors: {
       '': (visitor, positional, named) {
-        return $aux_d4_example.MultiMixed();
+        return $d4_example_14.MultiMixed();
       },
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.MultiMixed>(target, 'MultiMixed');
+        final t = D4.validateTarget<$d4_example_14.MultiMixed>(target, 'MultiMixed');
         t.greet();
         return null;
       },
@@ -4036,16 +4050,16 @@ BridgedClass _createMultiMixedBridge() {
 
 BridgedClass _createHelperBridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.Helper,
+    nativeType: $d4_example_14.Helper,
     name: 'Helper',
     constructors: {
       '': (visitor, positional, named) {
-        return $aux_d4_example.Helper();
+        return $d4_example_14.Helper();
       },
     },
     methods: {
       'help': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.Helper>(target, 'Helper');
+        final t = D4.validateTarget<$d4_example_14.Helper>(target, 'Helper');
         t.help();
         return null;
       },
@@ -4065,21 +4079,21 @@ BridgedClass _createHelperBridge() {
 
 BridgedClass _createHelpfulServiceBridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.HelpfulService,
+    nativeType: $d4_example_14.HelpfulService,
     name: 'HelpfulService',
     constructors: {
       '': (visitor, positional, named) {
-        return $aux_d4_example.HelpfulService();
+        return $d4_example_14.HelpfulService();
       },
     },
     methods: {
       'serve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.HelpfulService>(target, 'HelpfulService');
+        final t = D4.validateTarget<$d4_example_14.HelpfulService>(target, 'HelpfulService');
         t.serve();
         return null;
       },
       'help': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.HelpfulService>(target, 'HelpfulService');
+        final t = D4.validateTarget<$d4_example_14.HelpfulService>(target, 'HelpfulService');
         t.help();
         return null;
       },
@@ -4100,13 +4114,13 @@ BridgedClass _createHelpfulServiceBridge() {
 
 BridgedClass _createEventEmitterBridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.EventEmitter,
+    nativeType: $d4_example_14.EventEmitter,
     name: 'EventEmitter',
     constructors: {
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$d4_example_14.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
           throw ArgumentError('addListener: Missing required argument "listener" at position 0');
@@ -4116,7 +4130,7 @@ BridgedClass _createEventEmitterBridge() {
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$d4_example_14.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
           throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
@@ -4126,7 +4140,7 @@ BridgedClass _createEventEmitterBridge() {
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$d4_example_14.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 1, 'emit');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'emit');
         t.emit(event);
@@ -4147,26 +4161,26 @@ BridgedClass _createEventEmitterBridge() {
 
 BridgedClass _createButtonBridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.Button,
+    nativeType: $d4_example_14.Button,
     name: 'Button',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Button');
         final label = D4.getRequiredArg<String>(positional, 0, 'label', 'Button');
-        return $aux_d4_example.Button(label);
+        return $d4_example_14.Button(label);
       },
     },
     getters: {
-      'label': (visitor, target) => D4.validateTarget<$aux_d4_example.Button>(target, 'Button').label,
+      'label': (visitor, target) => D4.validateTarget<$d4_example_14.Button>(target, 'Button').label,
     },
     methods: {
       'click': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.Button>(target, 'Button');
+        final t = D4.validateTarget<$d4_example_14.Button>(target, 'Button');
         t.click();
         return null;
       },
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.Button>(target, 'Button');
+        final t = D4.validateTarget<$d4_example_14.Button>(target, 'Button');
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
           throw ArgumentError('addListener: Missing required argument "listener" at position 0');
@@ -4176,7 +4190,7 @@ BridgedClass _createButtonBridge() {
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.Button>(target, 'Button');
+        final t = D4.validateTarget<$d4_example_14.Button>(target, 'Button');
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
           throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
@@ -4186,7 +4200,7 @@ BridgedClass _createButtonBridge() {
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.Button>(target, 'Button');
+        final t = D4.validateTarget<$d4_example_14.Button>(target, 'Button');
         D4.requireMinArgs(positional, 1, 'emit');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'emit');
         t.emit(event);
@@ -4214,18 +4228,18 @@ BridgedClass _createButtonBridge() {
 
 BridgedClass _createComparableMixinBridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.ComparableMixin,
+    nativeType: $d4_example_14.ComparableMixin,
     name: 'ComparableMixin',
     constructors: {
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$aux_d4_example.ComparableMixin>(target, 'ComparableMixin').value,
+      'value': (visitor, target) => D4.validateTarget<$d4_example_14.ComparableMixin>(target, 'ComparableMixin').value,
     },
     methods: {
       'compareTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.ComparableMixin>(target, 'ComparableMixin');
+        final t = D4.validateTarget<$d4_example_14.ComparableMixin>(target, 'ComparableMixin');
         D4.requireMinArgs(positional, 1, 'compareTo');
-        final other = D4.getRequiredArg<$aux_d4_example.SortableItem>(positional, 0, 'other', 'compareTo');
+        final other = D4.getRequiredArg<$d4_example_14.SortableItem>(positional, 0, 'other', 'compareTo');
         return t.compareTo(other);
       },
     },
@@ -4244,23 +4258,23 @@ BridgedClass _createComparableMixinBridge() {
 
 BridgedClass _createSortableItemBridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.SortableItem,
+    nativeType: $d4_example_14.SortableItem,
     name: 'SortableItem',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SortableItem');
         final value = D4.getRequiredArg<int>(positional, 0, 'value', 'SortableItem');
-        return $aux_d4_example.SortableItem(value);
+        return $d4_example_14.SortableItem(value);
       },
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$aux_d4_example.SortableItem>(target, 'SortableItem').value,
+      'value': (visitor, target) => D4.validateTarget<$d4_example_14.SortableItem>(target, 'SortableItem').value,
     },
     methods: {
       'compareTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.SortableItem>(target, 'SortableItem');
+        final t = D4.validateTarget<$d4_example_14.SortableItem>(target, 'SortableItem');
         D4.requireMinArgs(positional, 1, 'compareTo');
-        final other = D4.getRequiredArg<$aux_d4_example.SortableItem>(positional, 0, 'other', 'compareTo');
+        final other = D4.getRequiredArg<$d4_example_14.SortableItem>(positional, 0, 'other', 'compareTo');
         return t.compareTo(other);
       },
     },
@@ -4282,17 +4296,17 @@ BridgedClass _createSortableItemBridge() {
 
 BridgedClass _createJsonSerializableBridge() {
   return BridgedClass(
-    nativeType: $aux_d4_example.JsonSerializable,
+    nativeType: $d4_example_14.JsonSerializable,
     name: 'JsonSerializable',
     constructors: {
     },
     methods: {
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.JsonSerializable>(target, 'JsonSerializable');
+        final t = D4.validateTarget<$d4_example_14.JsonSerializable>(target, 'JsonSerializable');
         return t.toJsonMap();
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$aux_d4_example.JsonSerializable>(target, 'JsonSerializable');
+        final t = D4.validateTarget<$d4_example_14.JsonSerializable>(target, 'JsonSerializable');
         return t.toJson();
       },
     },

@@ -960,6 +960,11 @@ class BridgeGenerator {
   /// so that types the analyzer fully resolves are never silently downgraded.
   final Map<String, String> _globalTypeToUri = {};
 
+  /// Maps part-of file URIs to their parent library URIs.
+  /// When a source file has `part of ...;`, it can't be imported directly.
+  /// Types/functions from part-of files are accessible via the parent library.
+  Map<String, String> _partOfToParent = {};
+
   /// Packages to follow for external type dependencies.
   /// Format: package names without 'package:' prefix (e.g., ['tom_core_kernel', 'tom_core_server'])
   List<String> followPackages = [];
@@ -1100,15 +1105,19 @@ class BridgeGenerator {
   /// This is essential for cross-package bridge generation where source files
   /// may come from different packages (e.g., generating bridges for tom_core_kernel
   /// from within tom_dartscript_bridges).
+  /// 
+  /// Prefers the main workspace context because it has the project's full
+  /// package_config.json which resolves all transitive dependencies. This is
+  /// critical for .pub-cache files that import other packages (e.g., dcli's
+  /// digest_helper.dart importing package:crypto).
   AnalysisContextCollection _getAnalysisContextFor(String filePath) {
-    // Try the main workspace context first
-    final absoluteWorkspacePath = p.isAbsolute(workspacePath)
-        ? workspacePath
-        : p.normalize(p.join(Directory.current.path, workspacePath));
-    
-    // Check if the file is within the workspace
-    if (filePath.startsWith(absoluteWorkspacePath)) {
-      return _getAnalysisContext();
+    // Try the main workspace context first — it has full dependency resolution
+    final mainContext = _getAnalysisContext();
+    try {
+      mainContext.contextFor(filePath);
+      return mainContext;
+    } catch (_) {
+      // File not reachable from main context, fall through to per-package context
     }
     
     // Find the package root for this file
@@ -3441,13 +3450,31 @@ class BridgeGenerator {
         }
       }
 
-      // If the type isn't exported, treat as non-wrappable
-      if (!_isTypeExported(className)) {
-        return null;
+      // Try global type registry for the correct prefix
+      final globalUri = _globalTypeToUri[className];
+      if (globalUri != null) {
+        final globalPrefix = _importPrefixes[globalUri];
+        if (globalPrefix != null && globalPrefix.isNotEmpty) {
+          return '$globalPrefix.$defaultValue';
+        }
       }
-
-      // Fallback: assume it's from the source library
-      return '\$pkg.$defaultValue';
+      // Try source URI if available
+      if (sourceUri != null) {
+        final srcPrefix = _importPrefixes[sourceUri];
+        if (srcPrefix != null && srcPrefix.isNotEmpty) {
+          return '$srcPrefix.$defaultValue';
+        }
+        // Check if source URI is a part-of file mapping to a parent library
+        final parentUri = _partOfToParent[sourceUri];
+        if (parentUri != null) {
+          final parentPrefix = _importPrefixes[parentUri];
+          if (parentPrefix != null && parentPrefix.isNotEmpty) {
+            return '$parentPrefix.$defaultValue';
+          }
+        }
+      }
+      // Cannot determine prefix — non-wrappable (triggers combinatorial dispatch)
+      return null;
     }
 
     // 4. Simple Lists/Sets (heuristic: no internal function calls/parentheses)
@@ -3646,6 +3673,13 @@ class BridgeGenerator {
       }
     }
     
+    // Check if its URI is in _importPrefixes (direct source import)
+    // This covers types not exported from barrels but imported from source files
+    final uri = _globalTypeToUri[typeName];
+    if (uri != null && _importPrefixes.containsKey(uri)) {
+      return true;
+    }
+    
     return false;
   }
   
@@ -3661,6 +3695,99 @@ class BridgeGenerator {
     final imports = _sourceFileImports[normalizedPath] ?? _sourceFileImports[sourceFile];
     if (imports == null) return null;
     return imports[typeName];
+  }
+
+  /// Resolves a type name by textually scanning the source file's import directives
+  /// and checking imported barrels for the type definition.
+  /// 
+  /// This is a fallback for when the analyzer can't resolve the type (InvalidType),
+  /// typically because .pub-cache packages lack package_config.json for transitive deps.
+  String? _resolveTypeByImportTextScan(String typeName, String sourceFile) {
+    try {
+      final content = File(sourceFile).readAsStringSync();
+      final importRegex = RegExp(r"import\s+'(package:[^']+)'\s*");
+      for (final match in importRegex.allMatches(content)) {
+        final importUri = match.group(1)!;
+        if (importUri.startsWith('dart:')) continue;
+        
+        final filePath = _resolvePackageUriToFile(importUri);
+        if (filePath == null || !File(filePath).existsSync()) continue;
+        
+        // Check if type is defined or exported from this barrel
+        if (_barrelExportsType(filePath, typeName)) {
+          return importUri;
+        }
+      }
+    } catch (_) {}
+    return null;
+  }
+  
+  /// Resolves a package: URI to a file system path using package_config.json.
+  String? _resolvePackageUriToFile(String packageUri) {
+    if (!packageUri.startsWith('package:')) return null;
+    final withoutScheme = packageUri.substring(8);
+    final slashIndex = withoutScheme.indexOf('/');
+    if (slashIndex < 0) return null;
+    final packageName = withoutScheme.substring(0, slashIndex);
+    final relativePath = withoutScheme.substring(slashIndex + 1);
+    
+    final configFile = File('$workspacePath/.dart_tool/package_config.json');
+    if (!configFile.existsSync()) return null;
+    try {
+      final content = configFile.readAsStringSync();
+      final json = jsonDecode(content) as Map<String, dynamic>;
+      final packages = json['packages'] as List<dynamic>?;
+      if (packages != null) {
+        for (final pkg in packages) {
+          if (pkg['name'] == packageName) {
+            var rootUri = pkg['rootUri'] as String;
+            if (rootUri.startsWith('../')) {
+              rootUri = p.normalize(p.join(workspacePath, '.dart_tool', rootUri));
+            } else if (rootUri.startsWith('file://')) {
+              rootUri = Uri.parse(rootUri).toFilePath();
+            }
+            return p.join(rootUri, 'lib', relativePath);
+          }
+        }
+      }
+    } catch (_) {}
+    return null;
+  }
+  
+  /// Checks if a barrel file defines or exports a given type name.
+  /// Follows one level of exports (sufficient for most packages).
+  bool _barrelExportsType(String filePath, String typeName) {
+    try {
+      final content = File(filePath).readAsStringSync();
+      // Check if type is directly defined in this file
+      if (_fileDefinesType(content, typeName)) return true;
+      
+      // Check exported files (one level deep)
+      final exportRegex = RegExp(r"export\s+'([^']+)'\s*");
+      for (final exportMatch in exportRegex.allMatches(content)) {
+        final exportRef = exportMatch.group(1)!;
+        String? exportFilePath;
+        if (exportRef.startsWith('package:')) {
+          exportFilePath = _resolvePackageUriToFile(exportRef);
+        } else {
+          exportFilePath = p.normalize(p.join(p.dirname(filePath), exportRef));
+        }
+        if (exportFilePath != null && File(exportFilePath).existsSync()) {
+          final exportContent = File(exportFilePath).readAsStringSync();
+          if (_fileDefinesType(exportContent, typeName)) return true;
+        }
+      }
+    } catch (_) {}
+    return false;
+  }
+  
+  /// Checks if file content defines a type (class, mixin, typedef, enum) with the given name.
+  bool _fileDefinesType(String content, String typeName) {
+    return RegExp(
+      r'(?:abstract\s+)?(?:class|mixin|typedef|enum|extension\s+type)\s+'
+      + RegExp.escape(typeName)
+      + r'[\s<{=]',
+    ).hasMatch(content);
   }
   
   /// Adds a type to the auxiliary imports, tracking which URI provides it.
@@ -4283,174 +4410,160 @@ class BridgeGenerator {
     }
     buffer.writeln();
     
-    // Configure the main package prefix
-    const sourcePrefix = r'$pkg';
+    // === Direct Source File Import Strategy ===
+    // Instead of importing from barrel files, import directly from each source file.
+    // This avoids issues with types not exported from barrels (e.g., Which from dcli_core).
+    // Barrel files are used only for discovery (finding which files to bridge).
+    // See generator_strategies.md for the full design rationale.
     
-    // Determine the current package name from config or deduce from first source file
-    final currentPackageName = packageName ?? _getPackageNameFromPath(sourceFile);
-    final currentPackageImportPrefix = currentPackageName != null 
-        ? 'package:$currentPackageName/' 
-        : null;
+    // Collect all unique package: URIs we need to import
+    final allImportUris = <String>{};
     
-    // Determine the source package names (may be different for cross-package generation)
-    // Check both sourceImports (new) and sourceImport (legacy)
-    final sourcePackagePrefixes = <String>{};
-    for (final si in sourceImports) {
-      if (si.startsWith('package:')) {
-        final parsed = _parsePackageUri(si);
-        if (parsed != null) {
-          sourcePackagePrefixes.add('package:${parsed.$1}/');
-        }
-      }
-    }
-    // Also check legacy sourceImport
-    if (sourceImport != null && sourceImport!.startsWith('package:')) {
-      final parsed = _parsePackageUri(sourceImport!);
-      if (parsed != null) {
-        sourcePackagePrefixes.add('package:${parsed.$1}/');
-      }
-    }
-
-    // Map non-SDK imports
-    // When we have multiple barrels, defer source package mapping to barrel-specific logic
-    final hasMultipleBarrels = sourceImports.length > 1;
-    for (final uri in externalImports) {
-      if (uri.startsWith('dart:')) continue;
-      
-      // Check if this URI belongs to the current package or source package(s)
-      bool isSourcePackage = false;
-      if (currentPackageImportPrefix != null) {
-        isSourcePackage = uri.startsWith(currentPackageImportPrefix);
-      }
-      // Also treat source package imports as source package (for cross-package generation)
-      if (!isSourcePackage) {
-        for (final prefix in sourcePackagePrefixes) {
-          if (uri.startsWith(prefix)) {
-            isSourcePackage = true;
-            break;
-          }
-        }
-      }
-      
-      if (isSourcePackage) {
-        // When we have multiple barrels from different packages, don't default all to $pkg
-        // The barrel-specific mapping below will assign the correct prefix
-        if (!hasMultipleBarrels) {
-          // Single barrel: map to source prefix (assuming barrel export)
-          _importPrefixes[uri] = sourcePrefix;
-        }
-        // For multiple barrels, defer to barrel-specific mapping below
-      } else {
-        // External package import -> generate unique prefix and add import
-        // Check if we already have a prefix for this URI to avoid duplicates
-        if (!_importPrefixes.containsKey(uri)) {
-          final prefix = _generateUniqueImportPrefix(uri);
-          _importPrefixes[uri] = prefix;
-          buffer.writeln("import '$uri' as $prefix;");
-        }
-      }
-    }
+    // Track which packages are covered by source files (from barrel exports)
+    final coveredPackages = <String>{};
     
-    // Import the package barrel file(s)
-    // Support multiple barrel files with unique prefixes
-    final effectiveSourceImports = sourceImports.isNotEmpty 
-        ? sourceImports 
-        : (sourceImport != null ? [sourceImport!] : <String>[]);
+    // Clear part-of mapping for this generation run
+    _partOfToParent = {};
     
-    // Map barrel URI -> prefix
-    final barrelPrefixes = <String, String>{};
-    var barrelIndex = 0;
-    
-    for (final barrel in effectiveSourceImports) {
-      String? barrelImportPath;
-      String? barrelPackageName;
-      
-      if (barrel.startsWith('package:')) {
-        barrelImportPath = barrel;
-        final parsed = _parsePackageUri(barrel);
-        if (parsed != null) {
-          barrelPackageName = parsed.$1;
-        }
-      } else if (packageName != null) {
-        barrelImportPath = 'package:$packageName/$barrel';
-        barrelPackageName = packageName;
-      }
-      
-      if (barrelImportPath != null) {
-        // Generate unique prefix for this barrel
-        final prefix = barrelIndex == 0 ? r'$pkg' : '\$pkg${barrelIndex + 1}';
-        barrelIndex++;
-        
-        buffer.writeln("import '$barrelImportPath' as $prefix;");
-        barrelPrefixes[barrelImportPath] = prefix;
-        _importPrefixes[barrelImportPath] = prefix;
-        
-        // If the source package is different from the current package,
-        // also map any imports from the source package to this prefix
-        if (barrelPackageName != null && barrelPackageName != packageName) {
-          final sourcePackagePrefix = 'package:$barrelPackageName/';
-          for (final uri in externalImports) {
-            if (uri.startsWith(sourcePackagePrefix) && 
-                !_importPrefixes.containsKey(uri)) {
-              _importPrefixes[uri] = prefix;
+    // From bridged symbols (their source files) — guaranteed proper libraries from barrel parsing
+    for (final srcFile in allSourceFiles) {
+      // Skip 'part of' files — they can't be imported directly.
+      // Types from part-of files are accessible via their parent library's import.
+      try {
+        final content = File(srcFile).readAsStringSync();
+        final firstLines = content.split('\n').take(30).toList();
+        final partOfLine = firstLines.firstWhere(
+          (line) {
+            final trimmed = line.trimLeft();
+            return trimmed.startsWith('part of ') || trimmed == 'part of;';
+          },
+          orElse: () => '',
+        );
+        if (partOfLine.isNotEmpty) {
+          // Record the mapping from this part file to its parent library
+          final partUri = _getPackageUri(srcFile);
+          final trimmed = partOfLine.trimLeft();
+          String? parentUri;
+          
+          if (trimmed.contains("'")) {
+            // URI form: part of 'relative_path.dart';
+            final start = trimmed.indexOf("'") + 1;
+            final end = trimmed.indexOf("'", start);
+            if (end > start) {
+              final relativePath = trimmed.substring(start, end);
+              final parentPath = p.normalize(p.join(p.dirname(srcFile), relativePath));
+              parentUri = _getPackageUri(parentPath);
+            }
+          } else {
+            // Library name form: part of library_name;
+            final match = RegExp(r'part\s+of\s+([\w.]+)\s*;').firstMatch(trimmed);
+            if (match != null) {
+              final libName = match.group(1)!;
+              // Try to find the parent library file in the same directory
+              // Convention: library_name → library_name.dart (use last segment for dotted names)
+              final simpleName = libName.contains('.') ? libName.split('.').last : libName;
+              final parentPath = p.join(p.dirname(srcFile), '$simpleName.dart');
+              if (File(parentPath).existsSync()) {
+                parentUri = _getPackageUri(parentPath);
+              }
             }
           }
+          
+          if (parentUri != null && partUri != parentUri) {
+            _partOfToParent[partUri] = parentUri;
+          }
+          continue;
         }
+      } catch (_) {
+        // If we can't read the file, try importing it anyway
+      }
+      
+      final uri = _getPackageUri(srcFile);
+      if (uri.startsWith('package:')) {
+        allImportUris.add(uri);
+        final pkg = _extractPackageFromUri(uri);
+        if (pkg != null) coveredPackages.add(pkg);
       }
     }
     
-    // Map source files to their barrel's prefix using sourceFileToBarrel
-    // Check _dynamicSourceFileToBarrel first (built from exportInfo), then sourceFileToBarrel
-    // BUT: don't overwrite prefixes already set by the barrel package prefix loop above
+    // Include user bridge source files — these are skipped from bridge generation
+    // but referenced in generated code via override methods.
+    for (final entry in _userBridgeScanner.userBridges.values) {
+      final uri = _getPackageUri(entry.sourceFile);
+      if (uri.startsWith('package:')) {
+        allImportUris.add(uri);
+      }
+    }
+    for (final entry in _userBridgeScanner.globalsUserBridges.values) {
+      final uri = _getPackageUri(entry.sourceFile);
+      if (uri.startsWith('package:')) {
+        allImportUris.add(uri);
+      }
+    }
+    
+    // From type dependencies: only add URIs from packages NOT already covered
+    // by source files. This avoids importing 'part of' files from covered packages.
+    // Also include extension on-type URIs — types from other packages that extensions work on.
+    for (final ext in extensions) {
+      var typeUri = ext.onTypeUri;
+      // If onTypeUri is null (type couldn't be resolved by analyzer, e.g., InvalidType),
+      // try to find it from the source file's import map or global type registry.
+      if (typeUri == null && !_isBuiltInType(ext.onTypeName)) {
+        typeUri = _resolveTypeFromSourceImports(ext.onTypeName, ext.sourceFile);
+        typeUri ??= _globalTypeToUri[ext.onTypeName];
+        // Last resort: textually scan source file imports and check barrels
+        typeUri ??= _resolveTypeByImportTextScan(ext.onTypeName, ext.sourceFile);
+      }
+      if (typeUri != null && !typeUri.startsWith('dart:')) {
+        if (typeUri.startsWith('package:')) {
+          final pkg = _extractPackageFromUri(typeUri);
+          if (pkg != null && !coveredPackages.contains(pkg)) {
+            allImportUris.add(typeUri);
+          }
+        }
+      }
+    }
+    for (final uri in externalImports) {
+      if (!uri.startsWith('package:')) continue;
+      final pkg = _extractPackageFromUri(uri);
+      if (pkg != null && !coveredPackages.contains(pkg)) {
+        allImportUris.add(uri);
+      }
+    }
+    
+    // Assign $<pkgname>_<counter> prefixes and write import statements
+    final packageCounters = <String, int>{};
+    for (final uri in allImportUris.toList()..sort()) {
+      final parsed = _parsePackageUri(uri);
+      final pkgName = parsed?.$1 ?? 'pkg';
+      final sanitized = pkgName.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_');
+      
+      final counter = (packageCounters[sanitized] ?? 0) + 1;
+      packageCounters[sanitized] = counter;
+      
+      final prefix = '\$${sanitized}_$counter';
+      _importPrefixes[uri] = prefix;
+      buffer.writeln("import '$uri' as $prefix;");
+    }
+    
+    // Also map absolute file paths to their URI prefix
+    // (some code paths pass absolute paths instead of package URIs)
     for (final srcFile in allSourceFiles) {
-      final srcUri = _getPackageUri(srcFile);
-      
-      // Skip if already mapped by the barrel package prefix loop
-      if (_importPrefixes.containsKey(srcUri)) {
-        continue;
-      }
-      
-      // Check if we have explicit barrel mapping for this source file
-      // Priority: _dynamicSourceFileToBarrel > sourceFileToBarrel
-      final barrelUri = _dynamicSourceFileToBarrel[srcFile] ?? sourceFileToBarrel[srcFile];
-      if (barrelUri != null && barrelPrefixes.containsKey(barrelUri)) {
-        _importPrefixes[srcUri] = barrelPrefixes[barrelUri]!;
-        _importPrefixes[srcFile] = barrelPrefixes[barrelUri]!;
-      } else if (barrelPrefixes.isNotEmpty) {
-        // Default to first barrel's prefix if no explicit mapping
-        final defaultPrefix = barrelPrefixes.values.first;
-        if (!_importPrefixes.containsKey(srcUri)) {
-          _importPrefixes[srcUri] = defaultPrefix;
-        }
-        if (!_importPrefixes.containsKey(srcFile)) {
-          _importPrefixes[srcFile] = defaultPrefix;
-        }
+      final uri = _getPackageUri(srcFile);
+      if (_importPrefixes.containsKey(uri) && !_importPrefixes.containsKey(srcFile)) {
+        _importPrefixes[srcFile] = _importPrefixes[uri]!;
       }
     }
     
-    // Fallback: If no barrels specified, import each source file directly
-    if (effectiveSourceImports.isEmpty) {
-      for (final srcFile in allSourceFiles) {
-        final detectedPackageName = packageName ?? _getPackageNameFromPath(srcFile);
-        if (detectedPackageName != null) {
-          final srcImportPath = 'package:$detectedPackageName/${_getRelativeImport(srcFile)}';
-          buffer.writeln("import '$srcImportPath' as $sourcePrefix;");
-          _importPrefixes[srcImportPath] = sourcePrefix;
-          _importPrefixes[_getPackageUri(srcFile)] = sourcePrefix;
-        } else {
-          buffer.writeln("import '${p.basename(srcFile)}' as $sourcePrefix;");
-        }
-      }
-    }
-    
-    // Collect and emit auxiliary imports needed for defaults and types
+    // Collect any additional imports needed for defaults and types not yet covered.
+    // This acts as a safety net — with direct source imports, most URIs are already
+    // in _importPrefixes, so these calls should produce few or no auxiliary imports.
     _collectAuxiliaryImportsFromDefaults(
       classes: classes,
       globalFunctions: globalFunctions,
       globalVariables: globalVariables,
     );
     
-    // Also collect auxiliary imports from parameter types (types not exported by barrel)
     _collectAuxiliaryImportsFromTypes(
       classes: classes,
       globalFunctions: globalFunctions,
@@ -4461,15 +4574,11 @@ class BridgeGenerator {
     if (_auxiliaryPrefixes.isNotEmpty) {
       for (final uri in _auxiliaryPrefixes.keys.toList()..sort()) {
         final auxPrefix = _auxiliaryPrefixes[uri]!;
-        // Check if this URI has a different prefix in _importPrefixes
-        // If the prefix is the same, the import was already written
-        // If different (e.g., $pkg vs $aux_dcli), we need to write the auxiliary import
-        // to override the barrel import for types not exported from the barrel
         final existingPrefix = _importPrefixes[uri];
-        if (existingPrefix != null && existingPrefix == auxPrefix) {
+        // Skip if URI already imported (with any prefix) — no need for auxiliary
+        if (existingPrefix != null) {
           continue;
         }
-        // Update _importPrefixes to use the auxiliary prefix
         _importPrefixes[uri] = auxPrefix;
         buffer.writeln("import '$uri' as $auxPrefix;");
       }
@@ -4580,9 +4689,11 @@ class BridgeGenerator {
     for (final ext in extensions) {
       // For extension onType, built-in types should NOT be prefixed
       // (the extension is defined in user package but extends a built-in type)
+      // For non-built-in types, resolve using the TYPE's URI (not the extension's source file)
+      // because the on-type may come from a different package (e.g., Digest from crypto).
       final onTypePrefixed = _isBuiltInType(ext.onTypeName) 
           ? ext.onTypeName 
-          : _getPrefixedClassName(ext.onTypeName, ext.sourceFile);
+          : _resolveExtensionOnType(ext);
       buffer.writeln('      BridgedExtensionDefinition(');
       if (ext.name != null) {
         buffer.writeln("        name: '${ext.name}',");
@@ -5313,36 +5424,44 @@ class BridgeGenerator {
         .join();
   }
 
-  /// Gets relative import path from a source file.
-  String _getRelativeImport(String filePath) {
-    // Extract path after lib/
-    final libIndex = filePath.indexOf('/lib/');
-    if (libIndex >= 0) {
-      return filePath.substring(libIndex + 5);
-    }
-    return p.basename(filePath);
-  }
-
   /// Gets the prefixed class name if the source file has a prefix, otherwise returns the plain name.
   String _getPrefixedClassName(String className, String sourceFile) {
     // Convert source file path to package URI
     final uri = _getPackageUri(sourceFile);
-    
-    // GEN-055: First check auxiliary prefixes for non-exported types
-    // These are classes added as API surface dependencies that aren't exported from barrel
-    final auxPrefix = _auxiliaryPrefixes[uri];
-    if (auxPrefix != null) {
-      return '$auxPrefix.$className';
-    }
     
     final prefix = _importPrefixes[uri];
     if (prefix != null) {
       // Empty prefix means dart: library or no prefix needed
       return prefix.isEmpty ? className : '$prefix.$className';
     }
-    // If no prefix found, try alternative URI formats
-    // Fall back to $pkg for source package types
-    return '\$pkg.$className';
+    // Check if this is a part-of file that maps to a parent library
+    final parentUri = _partOfToParent[uri];
+    if (parentUri != null) {
+      final parentPrefix = _importPrefixes[parentUri];
+      if (parentPrefix != null) {
+        return parentPrefix.isEmpty ? className : '$parentPrefix.$className';
+      }
+    }
+    // Try global type registry as fallback
+    final globalUri = _globalTypeToUri[className];
+    if (globalUri != null) {
+      final globalPrefix = _importPrefixes[globalUri];
+      if (globalPrefix != null) {
+        return globalPrefix.isEmpty ? className : '$globalPrefix.$className';
+      }
+    }
+    // Last resort: find any import from the same package
+    final pkgName = _extractPackageFromUri(uri);
+    if (pkgName != null) {
+      for (final entry in _importPrefixes.entries) {
+        if (entry.key.startsWith('package:$pkgName/') && entry.value.isNotEmpty) {
+          return '${entry.value}.$className';
+        }
+      }
+    }
+    // If no prefix found, log warning and return bare name
+    _recordMissingExport('class prefix resolution', '$className (no prefix for $uri)');
+    return className;
   }
 
   /// Gets the prefixed function name if the source file has a prefix, otherwise returns the plain name.
@@ -5354,9 +5473,75 @@ class BridgeGenerator {
       // Empty prefix means dart: library or no prefix needed
       return prefix.isEmpty ? funcName : '$prefix.$funcName';
     }
-    // Fallback to $pkg for global functions/variables from the source package
-    // This handles cases where the URI format might not match exactly
-    return '\$pkg.$funcName';
+    // Check if this is a part-of file that maps to a parent library
+    final parentUri = _partOfToParent[uri];
+    if (parentUri != null) {
+      final parentPrefix = _importPrefixes[parentUri];
+      if (parentPrefix != null) {
+        return parentPrefix.isEmpty ? funcName : '$parentPrefix.$funcName';
+      }
+    }
+    // Try global type registry as fallback
+    final globalUri = _globalTypeToUri[funcName];
+    if (globalUri != null) {
+      final globalPrefix = _importPrefixes[globalUri];
+      if (globalPrefix != null) {
+        return globalPrefix.isEmpty ? funcName : '$globalPrefix.$funcName';
+      }
+    }
+    // Last resort: find any import from the same package
+    final pkgName = _extractPackageFromUri(uri);
+    if (pkgName != null) {
+      for (final entry in _importPrefixes.entries) {
+        if (entry.key.startsWith('package:$pkgName/') && entry.value.isNotEmpty) {
+          return '${entry.value}.$funcName';
+        }
+      }
+    }
+    // If no prefix found, log warning and return bare name
+    _recordMissingExport('function prefix resolution', '$funcName (no prefix for $uri)');
+    return funcName;
+  }
+
+  /// Resolves the prefixed type name for an extension's on-type.
+  /// 
+  /// Extensions may work on types from a different package than the extension itself.
+  /// For example, DigestHelper (from dcli) extends Digest (from crypto).
+  /// This method resolves using the TYPE's URI, not the extension's source file.
+  String _resolveExtensionOnType(ExtensionInfo ext) {
+    // 1. Try the on-type URI directly (most precise — from the resolved AST)
+    if (ext.onTypeUri != null) {
+      final prefix = _importPrefixes[ext.onTypeUri!];
+      if (prefix != null) {
+        return prefix.isEmpty ? ext.onTypeName : '$prefix.${ext.onTypeName}';
+      }
+    }
+    // 2. Try global type registry (populated during barrel parsing)
+    final globalUri = _globalTypeToUri[ext.onTypeName];
+    if (globalUri != null) {
+      final prefix = _importPrefixes[globalUri];
+      if (prefix != null) {
+        return prefix.isEmpty ? ext.onTypeName : '$prefix.${ext.onTypeName}';
+      }
+    }
+    // 3. Try source file imports (for types the analyzer couldn't fully resolve)
+    final sourceUri = _resolveTypeFromSourceImports(ext.onTypeName, ext.sourceFile);
+    if (sourceUri != null) {
+      final prefix = _importPrefixes[sourceUri];
+      if (prefix != null) {
+        return prefix.isEmpty ? ext.onTypeName : '$prefix.${ext.onTypeName}';
+      }
+    }
+    // 4. Try text-based import scan (for types from unresolvable transitive deps)
+    final textUri = _resolveTypeByImportTextScan(ext.onTypeName, ext.sourceFile);
+    if (textUri != null) {
+      final prefix = _importPrefixes[textUri];
+      if (prefix != null) {
+        return prefix.isEmpty ? ext.onTypeName : '$prefix.${ext.onTypeName}';
+      }
+    }
+    // 5. Fall back to extension's source file (same package case)
+    return _getPrefixedClassName(ext.onTypeName, ext.sourceFile);
   }
 
   /// Converts a source file path to a package URI.
@@ -7799,24 +7984,24 @@ class BridgeGenerator {
         return isNullable ? '$result?' : result;
       }
       
-      // Local file:// URIs are from the current package - use $pkg prefix
+      // Local file:// URIs - convert to package: and use its prefix from _importPrefixes
       if (uri.startsWith('file://') || uri.startsWith('file:///')) {
-        if (!_isTypeExported(unprefixedType)) {
-          // GEN-017: Convert file URI to package URI and use auxiliary import
-          // instead of silently falling back to dynamic
-          final localPath = Uri.parse(uri).toFilePath();
-          final packageUri = _getPackageUri(localPath);
-          if (packageUri.startsWith('package:')) {
-            _addAuxiliaryImport(packageUri, unprefixedType);
-            final auxPrefix = _getOrCreateAuxiliaryPrefix(packageUri);
-            final result = '$auxPrefix.$unprefixedType';
+        final localPath = Uri.parse(uri).toFilePath();
+        final packageUri = _getPackageUri(localPath);
+        if (packageUri.startsWith('package:')) {
+          final pkgPrefix = _importPrefixes[packageUri];
+          if (pkgPrefix != null && pkgPrefix.isNotEmpty) {
+            final result = '$pkgPrefix.$unprefixedType';
             return isNullable ? '$result?' : result;
           }
-          _recordMissingExport('type argument (local file, not exported)', unprefixedType);
-          return 'dynamic';
+          // Not in direct imports — try auxiliary
+          _addAuxiliaryImport(packageUri, unprefixedType);
+          final auxPrefix = _getOrCreateAuxiliaryPrefix(packageUri);
+          final result = '$auxPrefix.$unprefixedType';
+          return isNullable ? '$result?' : result;
         }
-        final result = '\$pkg.$unprefixedType';
-        return isNullable ? '$result?' : result;
+        _recordMissingExport('type argument (local file, could not resolve)', unprefixedType);
+        return 'dynamic';
       }
       
       final prefix = _importPrefixes[uri];
@@ -7825,28 +8010,17 @@ class BridgeGenerator {
           final result = unprefixedType;
           return isNullable ? '$result?' : result;
         }
-        // If prefix is $pkg, we need to check if the type is exported from the barrel
-        // External package types (non-$pkg prefix) are always accessible
-        if (prefix == r'$pkg' && !_isTypeExported(unprefixedType)) {
-          // Type is hidden from barrel - check if it's a typedef we can expand
-          if (_typedefExpansions.containsKey(unprefixedType)) {
-            final expanded = _typedefExpansions[unprefixedType]!;
-            // Resolve types within the expanded function type
-            final resolved = _resolveInlineFunctionType(
-              expanded,
-              typeToUri: typeToUri,
-              classTypeParams: classTypeParams,
-              sourceFilePath: sourceFilePath,
-            );
-            return isNullable ? '$resolved?' : resolved;
-          }
-          // GEN-017: Use auxiliary import for non-barrel-exported types.
-          // The type is from the same package but not re-exported from the barrel,
-          // so import it directly from its source file via auxiliary import.
-          _addAuxiliaryImport(uri, unprefixedType);
-          final auxPrefix = _getOrCreateAuxiliaryPrefix(uri);
-          final result = '$auxPrefix.$unprefixedType';
-          return isNullable ? '$result?' : result;
+        // With direct source imports, the type is accessible via its prefix.
+        // Only expand typedefs if the type is not otherwise importable.
+        if (!_isTypeExported(unprefixedType) && _typedefExpansions.containsKey(unprefixedType)) {
+          final expanded = _typedefExpansions[unprefixedType]!;
+          final resolved = _resolveInlineFunctionType(
+            expanded,
+            typeToUri: typeToUri,
+            classTypeParams: classTypeParams,
+            sourceFilePath: sourceFilePath,
+          );
+          return isNullable ? '$resolved?' : resolved;
         }
         final result = '$prefix.$unprefixedType';
         return isNullable ? '$result?' : result;
@@ -7882,9 +8056,14 @@ class BridgeGenerator {
           final result = '$prefix.$unprefixedType';
           return isNullable ? '$result?' : result;
         }
-        if (sourceFilePath.startsWith(workspacePath) && _isTypeExported(unprefixedType)) {
-          final result = '\$pkg.$unprefixedType';
-          return isNullable ? '$result?' : result;
+        if (sourceFilePath.startsWith(workspacePath)) {
+          // Try to use source file's prefix from _importPrefixes
+          final sourceUri = _getPackageUri(sourceFilePath);
+          final srcPrefix = _importPrefixes[sourceUri];
+          if (srcPrefix != null && srcPrefix.isNotEmpty) {
+            final result = '$srcPrefix.$unprefixedType';
+            return isNullable ? '$result?' : result;
+          }
         }
       }
       // Type is not exported or has no URI info - check if it's a typedef we can expand
@@ -7933,7 +8112,9 @@ class BridgeGenerator {
       'Type', 'Symbol', 'Null', 'Never', 'Duration', 'DateTime', 'Uri',
       'BigInt', 'Comparable', 'Pattern', 'Match', 'RegExp', 'Runes',
       'StringBuffer', 'StringSink', 'Sink', 'Error', 'Exception', 'StackTrace',
-      'Record', 'FutureOr', 'MapEntry',
+      'Record', 'FutureOr', 'MapEntry', 'Invocation', 'FormatException',
+      'StateError', 'ArgumentError', 'RangeError', 'UnsupportedError',
+      'ConcurrentModificationError', 'OutOfMemoryError', 'StackOverflowError',
       // dart:typed_data types
       'Uint8List', 'Int8List', 'Uint8ClampedList', 'Int16List', 'Uint16List',
       'Int32List', 'Uint32List', 'Int64List', 'Uint64List', 'Float32List',
@@ -7981,8 +8162,16 @@ class BridgeGenerator {
       if (baseUri.startsWith('dart:')) {
         prefixedBase = baseType;
       } else if (baseUri.startsWith('file://') || baseUri.startsWith('file:///')) {
-        // Local file:// URIs are from the current package - use $pkg prefix
-        prefixedBase = '\$pkg.$baseType';
+        // Local file:// URIs - convert to package: and use _importPrefixes
+        final localPath = Uri.parse(baseUri).toFilePath();
+        final packageUri = _getPackageUri(localPath);
+        final pkgPrefix = _importPrefixes[packageUri];
+        if (pkgPrefix != null && pkgPrefix.isNotEmpty) {
+          prefixedBase = '$pkgPrefix.$baseType';
+        } else if (packageUri.startsWith('package:')) {
+          _addAuxiliaryImport(packageUri, baseType);
+          prefixedBase = '${_getOrCreateAuxiliaryPrefix(packageUri)}.$baseType';
+        }
       } else {
         final prefix = _importPrefixes[baseUri];
         if (prefix != null) {
@@ -8037,7 +8226,25 @@ class BridgeGenerator {
           }
           // Type not exported, use dynamic for the whole generic type
         }
-        prefixedBase = '\$pkg.$baseType';
+        // Type is available but maybe not via barrel - look up prefix from global type registry
+        if (prefixedBase == baseType) {
+          final gUri = _globalTypeToUri[baseType];
+          if (gUri != null) {
+            final gPrefix = _importPrefixes[gUri];
+            if (gPrefix != null && gPrefix.isNotEmpty) {
+              prefixedBase = '$gPrefix.$baseType';
+            } else {
+              _addAuxiliaryImport(gUri, baseType);
+              prefixedBase = '${_getOrCreateAuxiliaryPrefix(gUri)}.$baseType';
+            }
+          } else if (sourceFilePath != null) {
+            final sourceUri = _getPackageUri(sourceFilePath);
+            final srcPrefix = _importPrefixes[sourceUri];
+            if (srcPrefix != null && srcPrefix.isNotEmpty) {
+              prefixedBase = '$srcPrefix.$baseType';
+            }
+          }
+        }
       }
     }
 
@@ -8112,21 +8319,21 @@ class BridgeGenerator {
             if (uri.startsWith('dart:')) {
               return arg;
             }
-            // Local file:// URIs are from the current package - use $pkg prefix
+            // Local file:// URIs - convert to package: and use _importPrefixes
             if (uri.startsWith('file://') || uri.startsWith('file:///')) {
-              if (!_isTypeExported(baseArg)) {
-                // GEN-017: Convert file URI to package URI and use auxiliary import
-                final localPath = Uri.parse(uri).toFilePath();
-                final packageUri = _getPackageUri(localPath);
-                if (packageUri.startsWith('package:')) {
-                  _addAuxiliaryImport(packageUri, baseArg);
-                  final auxPrefix = _getOrCreateAuxiliaryPrefix(packageUri);
-                  return '$auxPrefix.$baseArg';
+              final localPath = Uri.parse(uri).toFilePath();
+              final packageUri = _getPackageUri(localPath);
+              if (packageUri.startsWith('package:')) {
+                final pkgPrefix = _importPrefixes[packageUri];
+                if (pkgPrefix != null && pkgPrefix.isNotEmpty) {
+                  return '$pkgPrefix.$baseArg';
                 }
-                _recordMissingExport('type argument (local file, not exported)', baseArg);
-                return 'dynamic';
+                _addAuxiliaryImport(packageUri, baseArg);
+                final auxPrefix = _getOrCreateAuxiliaryPrefix(packageUri);
+                return '$auxPrefix.$baseArg';
               }
-              return '\$pkg.$baseArg';
+              _recordMissingExport('type argument (local file, could not resolve)', baseArg);
+              return 'dynamic';
             }
             final prefix = _importPrefixes[uri];
             if (prefix != null) {
@@ -8151,8 +8358,13 @@ class BridgeGenerator {
                 final prefix = _getOrCreateAuxiliaryPrefix(sourceUri);
                 return '$prefix.$baseArg';
               }
-              if (sourceFilePath.startsWith(workspacePath) && _isTypeExported(baseArg)) {
-                return '\$pkg.$baseArg';
+              if (sourceFilePath.startsWith(workspacePath)) {
+                // Try source file's prefix from _importPrefixes
+                final sourceUri = _getPackageUri(sourceFilePath);
+                final srcPrefix = _importPrefixes[sourceUri];
+                if (srcPrefix != null && srcPrefix.isNotEmpty) {
+                  return '$srcPrefix.$baseArg';
+                }
               }
             }
             // GEN-017: Check global type registry before falling to dynamic

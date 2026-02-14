@@ -1,13 +1,16 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-02-14T00:56:20.223356
+// Generated: 2026-02-14T07:12:12.490115
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 
-import 'package:d4_example/userbridge_user_guide.dart' as $pkg;
+import 'package:d4_example/src/userbridge_user_guide/matrix2x2.dart' as $d4_example_1;
+import 'package:d4_example/src/userbridge_user_guide/matrix2x2_user_bridge.dart' as $d4_example_2;
+import 'package:d4_example/src/userbridge_user_guide/vector2d.dart' as $d4_example_3;
+import 'package:d4_example/src/userbridge_user_guide/vector2d_user_bridge.dart' as $d4_example_4;
 
 /// Bridge class for userbridge_user_guide module.
 class UserbridgeUserGuideBridge {
@@ -113,43 +116,43 @@ class UserbridgeUserGuideBridge {
 
 BridgedClass _createVector2DBridge() {
   return BridgedClass(
-    nativeType: $pkg.Vector2D,
+    nativeType: $d4_example_3.Vector2D,
     name: 'Vector2D',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Vector2D');
         final x = D4.getRequiredArg<double>(positional, 0, 'x', 'Vector2D');
         final y = D4.getRequiredArg<double>(positional, 1, 'y', 'Vector2D');
-        return $pkg.Vector2D(x, y);
+        return $d4_example_3.Vector2D(x, y);
       },
       'zero': (visitor, positional, named) {
-        return $pkg.Vector2D.zero();
+        return $d4_example_3.Vector2D.zero();
       },
     },
     getters: {
-      'x': (visitor, target) => D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D').x,
-      'y': (visitor, target) => D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D').y,
-      'hashCode': (visitor, target) => D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D').hashCode,
-      'magnitude': (visitor, target) => D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D').magnitude,
-      'normalized': (visitor, target) => D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D').normalized,
+      'x': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').x,
+      'y': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').y,
+      'hashCode': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').hashCode,
+      'magnitude': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').magnitude,
+      'normalized': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').normalized,
     },
     methods: {
-      'dot': $pkg.Vector2DUserBridge.overrideMethodDot,
+      'dot': $d4_example_4.Vector2DUserBridge.overrideMethodDot,
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D');
         D4.requireMinArgs(positional, 1, 'scale');
         final factor = D4.getRequiredArg<double>(positional, 0, 'factor', 'scale');
         return t.scale(factor);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D');
         return t.toString();
       },
-      '+': $pkg.Vector2DUserBridge.overrideOperatorPlus,
-      '-': $pkg.Vector2DUserBridge.overrideOperatorMinus,
-      '*': $pkg.Vector2DUserBridge.overrideOperatorMultiply,
+      '+': $d4_example_4.Vector2DUserBridge.overrideOperatorPlus,
+      '-': $d4_example_4.Vector2DUserBridge.overrideOperatorMinus,
+      '*': $d4_example_4.Vector2DUserBridge.overrideOperatorMultiply,
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -179,7 +182,7 @@ BridgedClass _createVector2DBridge() {
 
 BridgedClass _createMatrix2x2Bridge() {
   return BridgedClass(
-    nativeType: $pkg.Matrix2x2,
+    nativeType: $d4_example_1.Matrix2x2,
     name: 'Matrix2x2',
     constructors: {
       '': (visitor, positional, named) {
@@ -188,29 +191,29 @@ BridgedClass _createMatrix2x2Bridge() {
         final b = D4.getRequiredArg<double>(positional, 1, 'b', 'Matrix2x2');
         final c = D4.getRequiredArg<double>(positional, 2, 'c', 'Matrix2x2');
         final d = D4.getRequiredArg<double>(positional, 3, 'd', 'Matrix2x2');
-        return $pkg.Matrix2x2(a, b, c, d);
+        return $d4_example_1.Matrix2x2(a, b, c, d);
       },
       'identity': (visitor, positional, named) {
-        return $pkg.Matrix2x2.identity();
+        return $d4_example_1.Matrix2x2.identity();
       },
     },
     getters: {
-      'determinant': (visitor, target) => D4.validateTarget<$pkg.Matrix2x2>(target, 'Matrix2x2').determinant,
-      'trace': (visitor, target) => D4.validateTarget<$pkg.Matrix2x2>(target, 'Matrix2x2').trace,
+      'determinant': (visitor, target) => D4.validateTarget<$d4_example_1.Matrix2x2>(target, 'Matrix2x2').determinant,
+      'trace': (visitor, target) => D4.validateTarget<$d4_example_1.Matrix2x2>(target, 'Matrix2x2').trace,
     },
     methods: {
       'row': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Matrix2x2>(target, 'Matrix2x2');
+        final t = D4.validateTarget<$d4_example_1.Matrix2x2>(target, 'Matrix2x2');
         D4.requireMinArgs(positional, 1, 'row');
         final index = D4.getRequiredArg<int>(positional, 0, 'index', 'row');
         return t.row(index);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Matrix2x2>(target, 'Matrix2x2');
+        final t = D4.validateTarget<$d4_example_1.Matrix2x2>(target, 'Matrix2x2');
         return t.toString();
       },
-      '[]': $pkg.Matrix2x2UserBridge.overrideOperatorIndex,
-      '[]=': $pkg.Matrix2x2UserBridge.overrideOperatorIndexAssign,
+      '[]': $d4_example_2.Matrix2x2UserBridge.overrideOperatorIndex,
+      '[]=': $d4_example_2.Matrix2x2UserBridge.overrideOperatorIndexAssign,
     },
     constructorSignatures: {
       '': 'Matrix2x2(double a, double b, double c, double d)',

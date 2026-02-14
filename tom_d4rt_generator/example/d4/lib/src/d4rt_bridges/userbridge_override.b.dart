@@ -1,13 +1,16 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-02-14T00:56:15.677065
+// Generated: 2026-02-14T07:12:09.171310
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 
-import 'package:d4_example/userbridge_override.dart' as $pkg;
+import 'package:d4_example/src/userbridge_override/globals.dart' as $d4_example_1;
+import 'package:d4_example/src/userbridge_override/globals_user_bridge.dart' as $d4_example_2;
+import 'package:d4_example/src/userbridge_override/my_list.dart' as $d4_example_3;
+import 'package:d4_example/src/userbridge_override/my_list_user_bridge.dart' as $d4_example_4;
 
 /// Bridge class for userbridge_override module.
 class UserbridgeOverrideBridge {
@@ -88,21 +91,21 @@ class UserbridgeOverrideBridge {
     final errors = <String>[];
 
     try {
-      interpreter.registerGlobalVariable('appName', $pkg.GlobalsUserBridge.overrideGlobalVariableAppName(), importPath, sourceUri: 'package:d4_example/src/userbridge_override/globals.dart');
+      interpreter.registerGlobalVariable('appName', $d4_example_2.GlobalsUserBridge.overrideGlobalVariableAppName(), importPath, sourceUri: 'package:d4_example/src/userbridge_override/globals.dart');
     } catch (e) {
       errors.add('Failed to register variable "appName": $e');
     }
     try {
-      interpreter.registerGlobalVariable('maxRetries', $pkg.GlobalsUserBridge.overrideGlobalVariableMaxRetries(), importPath, sourceUri: 'package:d4_example/src/userbridge_override/globals.dart');
+      interpreter.registerGlobalVariable('maxRetries', $d4_example_2.GlobalsUserBridge.overrideGlobalVariableMaxRetries(), importPath, sourceUri: 'package:d4_example/src/userbridge_override/globals.dart');
     } catch (e) {
       errors.add('Failed to register variable "maxRetries": $e');
     }
     try {
-      interpreter.registerGlobalVariable('version', $pkg.version, importPath, sourceUri: 'package:d4_example/src/userbridge_override/globals.dart');
+      interpreter.registerGlobalVariable('version', $d4_example_1.version, importPath, sourceUri: 'package:d4_example/src/userbridge_override/globals.dart');
     } catch (e) {
       errors.add('Failed to register variable "version": $e');
     }
-    interpreter.registerGlobalGetter('currentTime', $pkg.GlobalsUserBridge.overrideGlobalGetterCurrentTime(), importPath, sourceUri: 'package:d4_example/src/userbridge_override/globals.dart');
+    interpreter.registerGlobalGetter('currentTime', $d4_example_2.GlobalsUserBridge.overrideGlobalGetterCurrentTime(), importPath, sourceUri: 'package:d4_example/src/userbridge_override/globals.dart');
 
     if (errors.isNotEmpty) {
       throw StateError('Bridge registration errors (userbridge_override):\n${errors.join("\n")}');
@@ -112,8 +115,8 @@ class UserbridgeOverrideBridge {
   /// Returns a map of global function names to their native implementations.
   static Map<String, NativeFunctionImpl> globalFunctions() {
     return {
-      'greet': $pkg.GlobalsUserBridge.overrideGlobalFunctionGreet,
-      'calculate': $pkg.GlobalsUserBridge.overrideGlobalFunctionCalculate,
+      'greet': $d4_example_2.GlobalsUserBridge.overrideGlobalFunctionGreet,
+      'calculate': $d4_example_2.GlobalsUserBridge.overrideGlobalFunctionCalculate,
     };
   }
 
@@ -164,42 +167,42 @@ class UserbridgeOverrideBridge {
 
 BridgedClass _createMyListBridge() {
   return BridgedClass(
-    nativeType: $pkg.MyList,
+    nativeType: $d4_example_3.MyList,
     name: 'MyList',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.MyList();
+        return $d4_example_3.MyList();
       },
     },
     getters: {
-      'length': (visitor, target) => D4.validateTarget<$pkg.MyList>(target, 'MyList').length,
-      'isEmpty': (visitor, target) => D4.validateTarget<$pkg.MyList>(target, 'MyList').isEmpty,
+      'length': (visitor, target) => D4.validateTarget<$d4_example_3.MyList>(target, 'MyList').length,
+      'isEmpty': (visitor, target) => D4.validateTarget<$d4_example_3.MyList>(target, 'MyList').isEmpty,
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.MyList>(target, 'MyList');
+        final t = D4.validateTarget<$d4_example_3.MyList>(target, 'MyList');
         D4.requireMinArgs(positional, 1, 'add');
         final item = D4.getRequiredArg<dynamic>(positional, 0, 'item', 'add');
         t.add(item);
         return null;
       },
       'remove': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.MyList>(target, 'MyList');
+        final t = D4.validateTarget<$d4_example_3.MyList>(target, 'MyList');
         D4.requireMinArgs(positional, 1, 'remove');
         final item = D4.getRequiredArg<dynamic>(positional, 0, 'item', 'remove');
         return t.remove(item);
       },
       'clear': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.MyList>(target, 'MyList');
+        final t = D4.validateTarget<$d4_example_3.MyList>(target, 'MyList');
         t.clear();
         return null;
       },
-      '[]': $pkg.MyListUserBridge.overrideOperatorIndex,
-      '[]=': $pkg.MyListUserBridge.overrideOperatorIndexAssign,
+      '[]': $d4_example_4.MyListUserBridge.overrideOperatorIndex,
+      '[]=': $d4_example_4.MyListUserBridge.overrideOperatorIndexAssign,
     },
     staticMethods: {
       'empty': (visitor, positional, named, typeArgs) {
-        return $pkg.MyList.empty();
+        return $d4_example_3.MyList.empty();
       },
       'from': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'from');
@@ -207,7 +210,7 @@ BridgedClass _createMyListBridge() {
           throw ArgumentError('from: Missing required argument "items" at position 0');
         }
         final items = D4.coerceList<dynamic>(positional[0], 'items');
-        return $pkg.MyList.from(items);
+        return $d4_example_3.MyList.from(items);
       },
     },
     constructorSignatures: {

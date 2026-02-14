@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-02-14T00:56:09.009311
+// Generated: 2026-02-14T07:12:04.678778
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -8,7 +8,8 @@ import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 import 'dart:async';
 
-import 'package:d4_example/user_reference.dart' as $pkg;
+import 'package:d4_example/src/user_reference/data_models.dart' as $d4_example_1;
+import 'package:d4_example/src/user_reference/services.dart' as $d4_example_2;
 
 /// Bridge class for user_reference module.
 class UserReferenceBridge {
@@ -122,14 +123,14 @@ class UserReferenceBridge {
 
 BridgedClass _createUserBridge() {
   return BridgedClass(
-    nativeType: $pkg.User,
+    nativeType: $d4_example_1.User,
     name: 'User',
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<int>(named, 'id', 'User');
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'User');
         final email = D4.getOptionalNamedArg<String?>(named, 'email');
-        return $pkg.User(id: id, name: name, email: email);
+        return $d4_example_1.User(id: id, name: name, email: email);
       },
       'fromMap': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'User');
@@ -137,27 +138,27 @@ BridgedClass _createUserBridge() {
           throw ArgumentError('User: Missing required argument "map" at position 0');
         }
         final map = D4.coerceMap<String, dynamic>(positional[0], 'map');
-        return $pkg.User.fromMap(map);
+        return $d4_example_1.User.fromMap(map);
       },
     },
     getters: {
-      'id': (visitor, target) => D4.validateTarget<$pkg.User>(target, 'User').id,
-      'name': (visitor, target) => D4.validateTarget<$pkg.User>(target, 'User').name,
-      'email': (visitor, target) => D4.validateTarget<$pkg.User>(target, 'User').email,
+      'id': (visitor, target) => D4.validateTarget<$d4_example_1.User>(target, 'User').id,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_1.User>(target, 'User').name,
+      'email': (visitor, target) => D4.validateTarget<$d4_example_1.User>(target, 'User').email,
     },
     setters: {
       'name': (visitor, target, value) => 
-        D4.validateTarget<$pkg.User>(target, 'User').name = value as String,
+        D4.validateTarget<$d4_example_1.User>(target, 'User').name = value as String,
       'email': (visitor, target, value) => 
-        D4.validateTarget<$pkg.User>(target, 'User').email = value as String?,
+        D4.validateTarget<$d4_example_1.User>(target, 'User').email = value as String?,
     },
     methods: {
       'toMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.User>(target, 'User');
+        final t = D4.validateTarget<$d4_example_1.User>(target, 'User');
         return t.toMap();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.User>(target, 'User');
+        final t = D4.validateTarget<$d4_example_1.User>(target, 'User');
         return t.toString();
       },
     },
@@ -187,7 +188,7 @@ BridgedClass _createUserBridge() {
 
 BridgedClass _createProductBridge() {
   return BridgedClass(
-    nativeType: $pkg.Product,
+    nativeType: $d4_example_1.Product,
     name: 'Product',
     constructors: {
       '': (visitor, positional, named) {
@@ -195,32 +196,32 @@ BridgedClass _createProductBridge() {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'Product');
         final priceInCents = D4.getNamedArgWithDefault<int>(named, 'priceInCents', 0);
         final quantity = D4.getNamedArgWithDefault<int>(named, 'quantity', 0);
-        return $pkg.Product(sku: sku, name: name, priceInCents: priceInCents, quantity: quantity);
+        return $d4_example_1.Product(sku: sku, name: name, priceInCents: priceInCents, quantity: quantity);
       },
     },
     getters: {
-      'sku': (visitor, target) => D4.validateTarget<$pkg.Product>(target, 'Product').sku,
-      'name': (visitor, target) => D4.validateTarget<$pkg.Product>(target, 'Product').name,
-      'priceInCents': (visitor, target) => D4.validateTarget<$pkg.Product>(target, 'Product').priceInCents,
-      'quantity': (visitor, target) => D4.validateTarget<$pkg.Product>(target, 'Product').quantity,
-      'formattedPrice': (visitor, target) => D4.validateTarget<$pkg.Product>(target, 'Product').formattedPrice,
-      'isInStock': (visitor, target) => D4.validateTarget<$pkg.Product>(target, 'Product').isInStock,
+      'sku': (visitor, target) => D4.validateTarget<$d4_example_1.Product>(target, 'Product').sku,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_1.Product>(target, 'Product').name,
+      'priceInCents': (visitor, target) => D4.validateTarget<$d4_example_1.Product>(target, 'Product').priceInCents,
+      'quantity': (visitor, target) => D4.validateTarget<$d4_example_1.Product>(target, 'Product').quantity,
+      'formattedPrice': (visitor, target) => D4.validateTarget<$d4_example_1.Product>(target, 'Product').formattedPrice,
+      'isInStock': (visitor, target) => D4.validateTarget<$d4_example_1.Product>(target, 'Product').isInStock,
     },
     setters: {
       'priceInCents': (visitor, target, value) => 
-        D4.validateTarget<$pkg.Product>(target, 'Product').priceInCents = value as int,
+        D4.validateTarget<$d4_example_1.Product>(target, 'Product').priceInCents = value as int,
       'quantity': (visitor, target, value) => 
-        D4.validateTarget<$pkg.Product>(target, 'Product').quantity = value as int,
+        D4.validateTarget<$d4_example_1.Product>(target, 'Product').quantity = value as int,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Product>(target, 'Product');
+        final t = D4.validateTarget<$d4_example_1.Product>(target, 'Product');
         return t.toString();
       },
     },
     staticMethods: {
       'placeholder': (visitor, positional, named, typeArgs) {
-        return $pkg.Product.placeholder();
+        return $d4_example_1.Product.placeholder();
       },
     },
     constructorSignatures: {
@@ -253,36 +254,36 @@ BridgedClass _createProductBridge() {
 
 BridgedClass _createOrderBridge() {
   return BridgedClass(
-    nativeType: $pkg.Order,
+    nativeType: $d4_example_1.Order,
     name: 'Order',
     constructors: {
       '': (visitor, positional, named) {
         final orderId = D4.getRequiredNamedArg<String>(named, 'orderId', 'Order');
-        final customer = D4.getRequiredNamedArg<$pkg.User>(named, 'customer', 'Order');
-        final items = D4.coerceListOrNull<$pkg.Product>(named['items'], 'items');
+        final customer = D4.getRequiredNamedArg<$d4_example_1.User>(named, 'customer', 'Order');
+        final items = D4.coerceListOrNull<$d4_example_1.Product>(named['items'], 'items');
         final createdAt = D4.getOptionalNamedArg<DateTime?>(named, 'createdAt');
-        return $pkg.Order(orderId: orderId, customer: customer, items: items, createdAt: createdAt);
+        return $d4_example_1.Order(orderId: orderId, customer: customer, items: items, createdAt: createdAt);
       },
     },
     getters: {
-      'orderId': (visitor, target) => D4.validateTarget<$pkg.Order>(target, 'Order').orderId,
-      'customer': (visitor, target) => D4.validateTarget<$pkg.Order>(target, 'Order').customer,
-      'items': (visitor, target) => D4.validateTarget<$pkg.Order>(target, 'Order').items,
-      'createdAt': (visitor, target) => D4.validateTarget<$pkg.Order>(target, 'Order').createdAt,
-      'itemCount': (visitor, target) => D4.validateTarget<$pkg.Order>(target, 'Order').itemCount,
-      'totalPriceInCents': (visitor, target) => D4.validateTarget<$pkg.Order>(target, 'Order').totalPriceInCents,
-      'formattedTotal': (visitor, target) => D4.validateTarget<$pkg.Order>(target, 'Order').formattedTotal,
+      'orderId': (visitor, target) => D4.validateTarget<$d4_example_1.Order>(target, 'Order').orderId,
+      'customer': (visitor, target) => D4.validateTarget<$d4_example_1.Order>(target, 'Order').customer,
+      'items': (visitor, target) => D4.validateTarget<$d4_example_1.Order>(target, 'Order').items,
+      'createdAt': (visitor, target) => D4.validateTarget<$d4_example_1.Order>(target, 'Order').createdAt,
+      'itemCount': (visitor, target) => D4.validateTarget<$d4_example_1.Order>(target, 'Order').itemCount,
+      'totalPriceInCents': (visitor, target) => D4.validateTarget<$d4_example_1.Order>(target, 'Order').totalPriceInCents,
+      'formattedTotal': (visitor, target) => D4.validateTarget<$d4_example_1.Order>(target, 'Order').formattedTotal,
     },
     methods: {
       'addItem': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Order>(target, 'Order');
+        final t = D4.validateTarget<$d4_example_1.Order>(target, 'Order');
         D4.requireMinArgs(positional, 1, 'addItem');
-        final product = D4.getRequiredArg<$pkg.Product>(positional, 0, 'product', 'addItem');
+        final product = D4.getRequiredArg<$d4_example_1.Product>(positional, 0, 'product', 'addItem');
         t.addItem(product);
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Order>(target, 'Order');
+        final t = D4.validateTarget<$d4_example_1.Order>(target, 'Order');
         return t.toString();
       },
     },
@@ -311,47 +312,47 @@ BridgedClass _createOrderBridge() {
 
 BridgedClass _createUserServiceBridge() {
   return BridgedClass(
-    nativeType: $pkg.UserService,
+    nativeType: $d4_example_2.UserService,
     name: 'UserService',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.UserService();
+        return $d4_example_2.UserService();
       },
     },
     getters: {
-      'users': (visitor, target) => D4.validateTarget<$pkg.UserService>(target, 'UserService').users,
+      'users': (visitor, target) => D4.validateTarget<$d4_example_2.UserService>(target, 'UserService').users,
     },
     methods: {
       'getUserById': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.UserService>(target, 'UserService');
+        final t = D4.validateTarget<$d4_example_2.UserService>(target, 'UserService');
         D4.requireMinArgs(positional, 1, 'getUserById');
         final id = D4.getRequiredArg<int>(positional, 0, 'id', 'getUserById');
         return t.getUserById(id);
       },
       'addUser': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.UserService>(target, 'UserService');
+        final t = D4.validateTarget<$d4_example_2.UserService>(target, 'UserService');
         D4.requireMinArgs(positional, 1, 'addUser');
-        final user = D4.getRequiredArg<$pkg.User>(positional, 0, 'user', 'addUser');
+        final user = D4.getRequiredArg<$d4_example_1.User>(positional, 0, 'user', 'addUser');
         t.addUser(user);
         return null;
       },
       'removeUser': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.UserService>(target, 'UserService');
+        final t = D4.validateTarget<$d4_example_2.UserService>(target, 'UserService');
         D4.requireMinArgs(positional, 1, 'removeUser');
         final id = D4.getRequiredArg<int>(positional, 0, 'id', 'removeUser');
         return t.removeUser(id);
       },
       'findUsers': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.UserService>(target, 'UserService');
+        final t = D4.validateTarget<$d4_example_2.UserService>(target, 'UserService');
         D4.requireMinArgs(positional, 1, 'findUsers');
         if (positional.isEmpty) {
           throw ArgumentError('findUsers: Missing required argument "predicate" at position 0');
         }
         final predicateRaw = positional[0];
-        return t.findUsers(($pkg.User p0) { return D4.callInterpreterCallback(visitor, predicateRaw, [p0]) as bool; });
+        return t.findUsers(($d4_example_1.User p0) { return D4.callInterpreterCallback(visitor, predicateRaw, [p0]) as bool; });
       },
       'fetchUser': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.UserService>(target, 'UserService');
+        final t = D4.validateTarget<$d4_example_2.UserService>(target, 'UserService');
         D4.requireMinArgs(positional, 1, 'fetchUser');
         final id = D4.getRequiredArg<int>(positional, 0, 'id', 'fetchUser');
         return t.fetchUser(id);
@@ -379,42 +380,42 @@ BridgedClass _createUserServiceBridge() {
 
 BridgedClass _createProductServiceBridge() {
   return BridgedClass(
-    nativeType: $pkg.ProductService,
+    nativeType: $d4_example_2.ProductService,
     name: 'ProductService',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.ProductService();
+        return $d4_example_2.ProductService();
       },
     },
     getters: {
-      'products': (visitor, target) => D4.validateTarget<$pkg.ProductService>(target, 'ProductService').products,
+      'products': (visitor, target) => D4.validateTarget<$d4_example_2.ProductService>(target, 'ProductService').products,
     },
     methods: {
       'setProduct': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ProductService>(target, 'ProductService');
+        final t = D4.validateTarget<$d4_example_2.ProductService>(target, 'ProductService');
         D4.requireMinArgs(positional, 1, 'setProduct');
-        final product = D4.getRequiredArg<$pkg.Product>(positional, 0, 'product', 'setProduct');
+        final product = D4.getRequiredArg<$d4_example_1.Product>(positional, 0, 'product', 'setProduct');
         t.setProduct(product);
         return null;
       },
       'getProduct': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ProductService>(target, 'ProductService');
+        final t = D4.validateTarget<$d4_example_2.ProductService>(target, 'ProductService');
         D4.requireMinArgs(positional, 1, 'getProduct');
         final sku = D4.getRequiredArg<String>(positional, 0, 'sku', 'getProduct');
         return t.getProduct(sku);
       },
       'removeProduct': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ProductService>(target, 'ProductService');
+        final t = D4.validateTarget<$d4_example_2.ProductService>(target, 'ProductService');
         D4.requireMinArgs(positional, 1, 'removeProduct');
         final sku = D4.getRequiredArg<String>(positional, 0, 'sku', 'removeProduct');
         return t.removeProduct(sku);
       },
       'getInStockProducts': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ProductService>(target, 'ProductService');
+        final t = D4.validateTarget<$d4_example_2.ProductService>(target, 'ProductService');
         return t.getInStockProducts();
       },
       'calculateInventoryValue': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ProductService>(target, 'ProductService');
+        final t = D4.validateTarget<$d4_example_2.ProductService>(target, 'ProductService');
         return t.calculateInventoryValue();
       },
     },
@@ -440,16 +441,16 @@ BridgedClass _createProductServiceBridge() {
 
 BridgedClass _createEventEmitterBridge() {
   return BridgedClass(
-    nativeType: $pkg.EventEmitter,
+    nativeType: $d4_example_2.EventEmitter,
     name: 'EventEmitter',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.EventEmitter();
+        return $d4_example_2.EventEmitter();
       },
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$d4_example_2.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
           throw ArgumentError('addListener: Missing required argument "listener" at position 0');
@@ -459,7 +460,7 @@ BridgedClass _createEventEmitterBridge() {
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$d4_example_2.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
           throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
@@ -469,14 +470,14 @@ BridgedClass _createEventEmitterBridge() {
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$d4_example_2.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 1, 'emit');
         final event = D4.getRequiredArg<dynamic>(positional, 0, 'event', 'emit');
         t.emit(event);
         return null;
       },
       'clearListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$d4_example_2.EventEmitter>(target, 'EventEmitter');
         t.clearListeners();
         return null;
       },

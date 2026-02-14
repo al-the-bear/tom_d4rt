@@ -104,9 +104,9 @@ Future<GenerationResult> generateBridges({
       // Determine sourceImport: use barrelImport if provided, otherwise first barrel file
       final sourceImport = module.barrelImport ?? module.barrelFiles.first;
       
-      // Build list of all barrel imports - $pkg, $pkg2, etc. 
-      // If there are multiple barrelFiles (e.g., dcli.dart and dcli_core.dart),
-      // each gets its own import prefix.
+      // Build list of barrel imports for getImportBlock() generation.
+      // The barrel imports are used by D4rt scripts (not by the bridge code itself,
+      // which imports directly from source files).
       final sourceImports = module.barrelFiles
           .where((f) => f.startsWith('package:'))
           .toList();
