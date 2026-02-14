@@ -4160,8 +4160,15 @@ class BridgeGenerator {
       }
       // Handle generic types like List<T>, Map<K, V>
       if (cleanType.contains('<')) {
-        final baseType = cleanType.substring(0, cleanType.indexOf('<'));
-        final innerTypes = cleanType.substring(cleanType.indexOf('<') + 1, cleanType.lastIndexOf('>'));
+        final ltIndex = cleanType.indexOf('<');
+        final gtIndex = cleanType.lastIndexOf('>');
+        // Safety check: ensure we have valid < > pair
+        if (gtIndex <= ltIndex) {
+          // Malformed generic type, skip processing
+          return;
+        }
+        final baseType = cleanType.substring(0, ltIndex);
+        final innerTypes = cleanType.substring(ltIndex + 1, gtIndex);
         // Process base type
         processTypeName(baseType, typeToUri, sourceFile);
         // Process inner type arguments (split on comma, but be careful with nested generics)

@@ -307,8 +307,9 @@ Future<ProcessingResult> _processProjectWithRecursion(
     try {
       await _processProjectDirect(normalizedPath, verbose: verbose);
       result.addSuccess();
-    } catch (e) {
+    } catch (e, st) {
       stderr.writeln('Error processing $normalizedPath: $e');
+      stderr.writeln(st);
       result.addFailure();
     }
     return result;
@@ -319,8 +320,9 @@ Future<ProcessingResult> _processProjectWithRecursion(
     try {
       await _processProjectDirect(normalizedPath, verbose: verbose);
       result.addSuccess();
-    } catch (e) {
+    } catch (e, st) {
       stderr.writeln('Error processing $normalizedPath: $e');
+      stderr.writeln(st);
       result.addFailure();
     }
   }
@@ -732,7 +734,5 @@ void _printUsage(ArgParser? parser) {
 }
 
 void _printVersion() {
-  print('D4rt Bridge Generator ${D4rtGenVersionInfo.versionShort}');
-  print('Git: ${D4rtGenVersionInfo.gitCommit}');
-  print('Built: ${D4rtGenVersionInfo.buildTime}');
+  print('D4rt Bridge Generator ${D4rtGenVersionInfo.versionLong}');
 }

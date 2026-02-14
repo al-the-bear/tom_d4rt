@@ -1,448 +1,448 @@
-ID,Groups,Description,Baseline [02-11 19:27],[02-12 11:20],[02-12 15:44],[02-12 16:49],[02-12 18:31],[02-12 20:16],[02-12 23:25],[02-13 13:32],[02-13 17:24],[02-14 08:38],[02-14 10:18]
-G-TYPE-1,dart_overview coverage > TYPE: Type Features,Record parameter. [2026-02-10 06:37] (FAIL),X/X,X/X,X/X,X/X,X/X,X/X,X/X,OK/X,--/X,OK/X,OK/X
-G-TE-2a,Type Parameter Erasure > Static Methods with Type Parameters,Static castFrom uses constrained types. [2026-02-10 06:37] (FAIL),X/X,X/X,X/X,X/X,X/X,X/X,X/X,OK/X,OK/X,X/X,OK/X
-G-TE-1a,Type Parameter Erasure > Instance Methods with Type Parameters,Bounded type param uses bound type. [2026-02-10 06:37] (FAIL),X/X,X/X,X/X,X/X,X/X,X/X,X/X,OK/X,OK/X,X/X,OK/X
-G-TYPE-2,dart_overview coverage > TYPE: Type Features,Record return type. [2026-02-10 06:37] (FAIL),X/X,X/X,X/X,X/X,X/X,X/X,X/X,OK/X,--/X,OK/X,OK/X
-G-DOV-8,DOV: Dart Overview Interpreter Failures > Switch Case Pattern Variable Scoping,Sealed class switch statement pattern variable scoping. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV-11,DOV: Dart Overview Interpreter Failures > Extensions on Nullable Types,Extension on nullable String. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV-4,DOV: Dart Overview Interpreter Failures > LogicalAndPattern in switch/case,LogicalAnd pattern in if-case statement. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV-1,DOV: Dart Overview Interpreter Failures > String Interpolation in Adjacent Strings,Adjacent strings with interpolation. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV-2,DOV: Dart Overview Interpreter Failures > String Interpolation in Adjacent Strings,Multi-line adjacent string with multiple interpolations. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV-3,DOV: Dart Overview Interpreter Failures > LogicalAndPattern in switch/case,Relational AND pattern in switch expression. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV-5,DOV: Dart Overview Interpreter Failures > Constructor Tear-offs,Constructor tear-off with Class.new. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV-6,DOV: Dart Overview Interpreter Failures > Abstract Method Inheritance Chain,Grandchild class inherits abstract method override. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV-7,DOV: Dart Overview Interpreter Failures > Abstract Method Inheritance Chain,Mixin chain with abstract method inherited from parent. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV-12,DOV: Dart Overview Interpreter Failures > Await-for Loop Variable Declaration,await for with var declaration in stream loop. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV-10,DOV: Dart Overview Interpreter Failures > Extensions on Nullable Types,Extension method on nullable List type (on List<T>?). [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV-9,DOV: Dart Overview Interpreter Failures > Generic Type Bound Checking,User class implementing Comparable satisfies bound. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV2-6,Dart Overview Failures Round 2,super.name forwarding through mixin chain [2026-02-10 21:30] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV2-3,Dart Overview Failures Round 2,Factory constructor on abstract class [2026-02-10 21:30] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV2-4,Dart Overview Failures Round 2,Function-level type parameter bound (Comparable) [2026-02-10 21:30] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV2-5,Dart Overview Failures Round 2,CastPatternImpl not implemented [2026-02-10 21:30] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV2-7,Dart Overview Failures Round 2,Extension on enum type resolution [2026-02-10 21:30] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV2-2,Dart Overview Failures Round 2,Factory constructor tear-off (Class.fromMap) [2026-02-10 21:30] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DOV2-1,Dart Overview Failures Round 2,Cast to nullable type (as String?) [2026-02-10 21:30] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-DCL-EXT-004,DCli Bridge Gaps > Extension Callback Wrapping,Extension callback should use InterpretedFunction wrapper [2026-02-11] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DCLI-14,D4rtTester end-to-end > dcli_scripting_guide,Shell execution. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X
-G-DOV3-1,Dart Overview Failures Round 3,Extension type getter access [2026-02-10] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-G-DCLI-11,D4rtTester end-to-end > dcli_scripting_guide,Find function. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X
-G-DCLI-10,D4rtTester end-to-end > dcli_scripting_guide,Temporary files. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X
-G-DCLI-08,D4rtTester end-to-end > dcli_scripting_guide,Command execution. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X
-G-DCLI-07,D4rtTester end-to-end > dcli_scripting_guide,Basic file operations. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X
-G-DCLI-13,D4rtTester end-to-end > dcli_scripting_guide,Cross-platform. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X
-G-DCLI-06,D4rtTester end-to-end > dcli_scripting_guide,Environment variables. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X
-G-DCLI-05,D4rtTester end-to-end > dcli_scripting_guide,Progress class. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X
-G-DCLI-04,D4rtTester end-to-end > dcli_scripting_guide,File write/append. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X
-G-DCLI-03,D4rtTester end-to-end > dcli_scripting_guide,Color output functions. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X
-G-DCLI-02,D4rtTester end-to-end > dcli_scripting_guide,StringAsProcess extension. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X
-G-DCLI-01,D4rtTester end-to-end > dcli_scripting_guide,Hello world. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X
-DCL-EXT-003,DCli Bridge Gaps > Extension Callback Wrapping,Extension method callback should wrap InterpretedFunction [2026-02-11] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
-GEN-045,dart_overview coverage > INH: Inheritance,barrel name collision (constrained mixin blocked). [2026-02-10] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X,--/X,OK/X,OK/X
-G-DCLI-12,D4rtTester end-to-end > dcli_scripting_guide,Error handling. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X
-G-TE-7,Type Parameter Erasure > GlobalFunctionInfo Properties,GlobalFunctionInfo has typeParameters field. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-5a,Global Getter vs Variable Registration > Regular Variables use registerGlobalVariable,Const vars use registerGlobalVariable. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-GB-6a,Global Getter vs Variable Registration > Regular Variables use registerGlobalVariable,Final vars use registerGlobalVariable. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-GB-7a,Global Getter vs Variable Registration > Regular Variables use registerGlobalVariable,Mutable vars use registerGlobalVariable. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-GB-8b,Global Getter vs Variable Registration > Top-level Getters use registerGlobalGetter,Getter singleton uses registerGlobalGetter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-GB-9a,Global Getter vs Variable Registration > Top-level Getters use registerGlobalGetter,Getter computed uses registerGlobalGetter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-GB-10b,Global Getter vs Variable Registration > Top-level Getters use registerGlobalGetter,Nullable getter uses registerGlobalGetter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-GB-11b,Global Getter vs Variable Registration > Top-level Getters use registerGlobalGetter,Mutable state getter registerGlobalGetter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-UB-2b,GlobalsUserBridge > Code Generation with Overrides,Override for global variable maxRetries. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-UB-3a,GlobalsUserBridge > Code Generation with Overrides,Override for global getter currentTime. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-UB-4a,GlobalsUserBridge > Code Generation with Overrides,Override for global getter globalService. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-UB-5a,GlobalsUserBridge > Code Generation with Overrides,Override for global function greet. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-UB-21,GlobalsUserBridge > Code Generation with Overrides,Non-overridden globals are generated normally. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-UB-6b,GlobalsUserBridge > Code Generation with Overrides,Override for global function add. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-MIX-1,GEN-048: Pure Mixin Bridging,Includes JsonSerializable.toJsonString method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-COV-70,dart_overview coverage > TYPE: Type Features,TYPE03: nullable parameter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-ASYNC-7,dart_overview coverage > ASYNC: Async Features,Instance async* method Stream. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-ENM-9,Enum Bridge Generation - Edge Cases,Handles single-value enum. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-TE-13,Type Parameter Erasure > Instance Methods with Type Parameters,Multiple bounded type params use their bounds. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-ENM-14,Enum Bridge Generation,Generates BridgedEnumDefinition with correct type parameter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-ENM-15,Enum Bridge Generation,Generates enum values reference. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-ENM-3,Enum Bridge Generation,Generates getter adapters for enhanced enum fields. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-ENM-4,Enum Bridge Generation,Generates getter adapters for Planet fields. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-CLS-45,Class Bridge Generation > Simple Classes,Detects SimpleClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-CLS-7,Class Bridge Generation > Getters and Setters,Generates target validation for getters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-CLS-13,Class Bridge Generation > Methods,Generates method target validation. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-CLS-40,Class Properties Verification,Generic class Container<T> is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-CB-1a,Callback Wrapping Generation > Simple Void Callbacks,VoidCallback parameter generates wrapper. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-CB-2a,Callback Wrapping Generation > Simple Void Callbacks,Void Function() callback correct wrapper. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-CB-9,Callback Wrapping Generation > Callbacks with Parameters,Void Function(int) generates wrapper with parameter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-50,Class Bridge Generation > Constructors,Generates named constructors. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-51,Class Bridge Generation > Constructors,Generates factory constructors. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-52,Class Bridge Generation > Constructors,Generates constructor parameter extraction. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-1,Class Bridge Generation > Constructors,Handles const constructors. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-2,Class Bridge Generation > Constructors,Generates constructor for implicit default constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-3,Class Bridge Generation > Constructors,Generates constructor for methods-only class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-4,Class Bridge Generation > Getters and Setters,Generates getters map. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-5,Class Bridge Generation > Getters and Setters,Generates instance getters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-6a,Class Bridge Generation > Getters and Setters,Generates setters map. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-TE-1b,Type Parameter Erasure > Global Functions with Type Parameters,Global function with unbounded param uses dynamic. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-8,Class Bridge Generation > Methods,Generates methods map. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-9,Class Bridge Generation > Methods,Generates void methods. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-10,Class Bridge Generation > Methods,Generates methods with return values. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-11,Class Bridge Generation > Methods,Generates methods with optional parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-12,Class Bridge Generation > Methods,Generates methods with named parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-TE-2b,Type Parameter Erasure > Global Functions with Type Parameters,Global function with bounded param uses bound. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-14,Class Bridge Generation > Inheritance,Detects base class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-15,Class Bridge Generation > Inheritance,Detects derived class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-16,Class Bridge Generation > Inheritance,Detects multi-level inheritance. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-17,Class Bridge Generation > Inheritance,Inherited getters are included. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-18,Class Bridge Generation > Inheritance,Inherited methods are included. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-19,Class Bridge Generation > Inheritance,Overridden methods use child implementation. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-OP-2,Operator Generation,Generates bridges for arithmetic operators. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-20,Class Bridge Generation > Static Members,Generates static getters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-OP-3,Operator Generation,Generates bridges for index operators. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-21,Class Bridge Generation > Static Members,Generates static methods. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-OP-4,Operator Generation,Generates bridges for bitwise operators. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-22,Class Bridge Generation > Static Members,Static getter has correct signature. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-OP-5,Operator Generation,Generates bridges for comparison operators. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-23,Class Bridge Generation > Static Members,Static method has correct signature. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-OP-1,Operator Generation,Operators are placed in methods map. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-24,Class Bridge Generation > Abstract Classes,Abstract classes without constructors may be skipped. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-25,Class Bridge Generation > Abstract Classes,Detects concrete implementation SimpleProcessor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-26,Class Bridge Generation > Abstract Classes,SimpleProcessor has its own methods bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-27,Class Bridge Generation > Generic Classes,Detects Container<T>. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-28,Class Bridge Generation > Generic Classes,Detects NumberContainer<T extends num>. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-29,Class Bridge Generation > Generic Classes,"Detects Pair<K, V>. [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-30,Class Bridge Generation > Generic Classes,Generic class methods are bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-31,Class Bridge Generation > Special Cases,Singleton pattern factory constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-32,Class Bridge Generation > Special Cases,Classes with id field. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CFG-2,ModuleConfig > fromJson,Parses basic module config. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CFG-11,ModuleConfig > fromJson,Parses excludeClasses. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CFG-12,ModuleConfig > fromJson,Parses excludeEnums. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CFG-13,ModuleConfig > fromJson,Parses excludeFunctions. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CFG-14,ModuleConfig > fromJson,Parses excludeVariables. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CFG-15,ModuleConfig > fromJson,Parses all exclude fields together. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CFG-16,ModuleConfig > fromJson,Defaults to empty lists when fields not provided. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CFG-1,ModuleConfig > toJson,Serializes basic config. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CFG-3,ModuleConfig > toJson,Serializes excludeClasses when non-empty. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CFG-5,ModuleConfig > toJson,Serializes excludeFunctions when non-empty. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CFG-6,ModuleConfig > toJson,Serializes excludeVariables when non-empty. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CFG-7,ModuleConfig > toJson,Omits empty lists in serialization. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CFG-8,ModuleConfig > toJson,Round-trip preserves all fields. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CFG-9,ModuleConfig > toJson,ExcludeSourcePatterns serialization and deserialization. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CFG-10,BridgeConfig,Parses config with modules containing exclude fields. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-ENM-7,Enum Bridge Generation - Edge Cases,Handles file with no enums. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-33,Bridge Structure,Generates module bridge class with correct name. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-34,Bridge Structure,Generates bridgeClasses method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-35,Bridge Structure,Generates registerBridges method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-36,Bridge Structure,Generates getImportBlock method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-37,Bridge Structure,Includes header comment. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-38,Bridge Structure,Includes generation timestamp. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-39,Bridge Structure,Imports tom_d4rt package. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-ENM-8,Enum Bridge Generation - Edge Cases,Handles file with only private enums. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-TE-3,Type Parameter Erasure > Global Functions with Type Parameters,Global function with multiple bounds uses correct types. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-41,Class Properties Verification,Bounded generic NumberContainer<T extends num> is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-42,Class Properties Verification,"Multi-param generic Pair<K, V> is bridged. [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-43,Class Properties Verification,Inheritance is reflected in generated bridges. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-44,Class Properties Verification,Concrete implementation SimpleProcessor is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-TE-4,Type Parameter Erasure > Generic Class with Method Type Parameters,Method type params do not conflict with class type params. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-13,Extension Bridge Generation,Generates isPalindrome getter for StringHelpers. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-1,Extension Bridge Generation,Generates reversed getter for StringHelpers. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-2,Extension Bridge Generation,Generates repeat method for StringHelpers. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-3,Extension Bridge Generation,Generates surround method for StringHelpers. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-4,Extension Bridge Generation,Generates DateTimeHelpers extension. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-5,Extension Bridge Generation,Generates PointExtensions extension. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-6,Extension Bridge Generation,Generates magnitude getter for PointExtensions. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-TE-5,Type Parameter Erasure > Generic Class with Method Type Parameters,Static method in generic class uses its own type params. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-TE-6,Type Parameter Erasure > MemberInfo Properties,MemberInfo has methodTypeParameters field. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-1b,GlobalsUserBridge > Code Generation with Overrides,Override for global variable appName. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-G-CB-10,Callback Wrapping Generation > Callbacks with Parameters,"Void Function(int, String) generates wrapper with multiple params. [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CB-11,Callback Wrapping Generation > Callbacks with Return Values,Bool Function(int) generates wrapper with return. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CB-12,Callback Wrapping Generation > Callbacks with Return Values,String Function(String) generates wrapper with return. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CB-1b,Callback Wrapping Generation > Nullable Callbacks,Nullable callback generates null check wrapper. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CB-2b,Callback Wrapping Generation > Named Function Parameters,Named callback parameter generates wrapper. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CB-3a,Callback Wrapping Generation > Multiple Callbacks,Multiple callbacks generates all wrappers. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CB-3b,Callback Wrapping Generation,Generated code compiles without errors. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CB-4,Callback Wrapping Generation > Custom Typedef Resolution,Custom typedef callback is resolved from source file. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CB-5,Callback Wrapping Generation > Custom Typedef Resolution,Custom typedef with string parameter generates correct wrapper. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CB-6,Callback Wrapping Generation > Custom Typedef Resolution,Typedef with multiple parameters generates correct wrapper. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CB-7,Callback Wrapping Generation > Custom Typedef Resolution,Typedef with return value generates correct wrapper. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-29,Global Function Detection > Simple Functions,Detects void function with no parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-30,Global Function Detection > Simple Functions,Detects function returning value. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-31,Global Function Detection > Simple Functions,Detects function with single parameter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-32,Global Function Detection > Simple Functions,Detects function with multiple parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-33,Global Function Detection > Simple Functions,Detects function returning boolean. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-34,Global Function Detection > Functions with Optional Parameters,Detects function with optional positional parameter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-35,Global Function Detection > Functions with Optional Parameters,Detects function with optional parameters and defaults. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-36,Global Function Detection > Functions with Optional Parameters,Detects function with named parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-37,Global Function Detection > Functions with Optional Parameters,Detects function with mixed parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-1b,Global Function Detection > Functions with Complex Types,Detects function returning list. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-2b,Global Function Detection > Functions with Complex Types,Detects function taking list parameter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-3b,Global Function Detection > Functions with Complex Types,Detects function returning map. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-4b,Global Function Detection > Functions with Complex Types,Detects function with nullable return. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-5b,Global Function Detection > Async Functions,Detects async function. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-6b,Global Function Detection > Async Functions,Detects async function with parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-7b,Global Function Detection > Private Functions,Skips private functions. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-8a,Global Function Detection > Error Handling Functions,Detects function that may throw. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-9b,Global Function Detection > Error Handling Functions,Detects function with try-catch. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CB-8,Warnings,No function type warnings for bridgeable callbacks. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-7,Extension Bridge Generation,Generates add method for PointExtensions. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-8,Extension Bridge Generation,Skips private extensions. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-9,Extension Bridge Generation,Registers extensions in registerBridges(). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-MIX-5,GEN-048: Pure Mixin Bridging,Bridges Printable mixin. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-MIX-6,GEN-048: Pure Mixin Bridging,Bridges JsonSerializable mixin. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-TE-12,Type Parameter Erasure > Instance Methods with Type Parameters,Unbounded type param uses dynamic. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-10a,Global Variable Detection > Constants,Detects string constant. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-11a,Global Variable Detection > Constants,Detects int constant. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-MIX-7,GEN-048: Pure Mixin Bridging,Bridges Comparable mixin. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CFG-4,ModuleConfig > toJson,Serializes excludeEnums when non-empty. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-14,Global Variable Detection > Final Variables,Detects final string. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-15,Global Variable Detection > Final Variables,Detects final list. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-16,Global Variable Detection > Final Variables,Detects final map. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-17,Global Variable Detection > Mutable Variables,Detects mutable int. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-18,Global Variable Detection > Mutable Variables,Detects mutable string. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-19,Global Variable Detection > Mutable Variables,Detects nullable mutable variable. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-MIX-8,GEN-048: Pure Mixin Bridging,Bridges Nameable mixin. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-MIX-9,GEN-048: Pure Mixin Bridging,Skips private _PrivateMixin. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-MIX-10,GEN-048: Pure Mixin Bridging,Includes Printable.printFormatted method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-MIX-11,GEN-048: Pure Mixin Bridging,Includes Printable.displayString getter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-MIX-12,GEN-048: Pure Mixin Bridging,Includes JsonSerializable.toMap method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-1a,Global Bridge Structure,Generates globalFunctions map. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-2a,Global Bridge Structure,Generates registerGlobalVariables method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-3a,Global Bridge Structure,Generates registerBridges entry point. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-34,Edge Cases Generation > Reserved Word Parameters,Detects ReservedWordsClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-35,Edge Cases Generation > Reserved Word Parameters,Handles reserved word parameter names safely. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-36,Edge Cases Generation > Nested Generic Types,Detects NestedGenericsClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-37,Edge Cases Generation > Nested Generic Types,"Detects Result<T, E> with multiple type params. [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-38,Edge Cases Generation > Nested Generic Types,Generates methods with nested generics. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-39,Edge Cases Generation > Default Values with Static References,Detects DefaultValuesClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-40,Edge Cases Generation > Default Values with Static References,Constructor with static default values is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-41,Edge Cases Generation > Function Type Parameters,Detects CallbackHolder. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-1,Edge Cases Generation > Function Type Parameters,Detects FunctionParamsClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-2,Edge Cases Generation > Function Type Parameters,Methods with function parameters may be bridged or skipped. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-3,Edge Cases Generation > Operator Overloading,Detects Vector2D class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-4,Edge Cases Generation > Operator Overloading,Length getter is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-5,Edge Cases Generation > Operator Overloading,ToString is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-6,Edge Cases Generation > Empty and Minimal Classes,Detects EmptyClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-7,Edge Cases Generation > Empty and Minimal Classes,Detects MinimalClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-8,Edge Cases Generation > Empty and Minimal Classes,Detects StaticOnlyClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-9,Edge Cases Generation > Empty and Minimal Classes,Empty class has default constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-10,Edge Cases Generation > Many Parameters Stress Test,Detects ManyParamsClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-11,Edge Cases Generation > Many Parameters Stress Test,Constructor with many params is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-12,Edge Cases Generation > Nullable Parameters,Detects NullableParamsClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-13,Edge Cases Generation > Nullable Parameters,Nullable getters are bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-14,Edge Cases Generation > Nullable Parameters,Methods with nullable params are bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-15,Edge Cases Generation > Mixins,Detects LoggingClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-16,Edge Cases Generation > Mixins,LoggingClass has its own doWork method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-17,Edge Cases Generation > Late Initialization,Detects LateInitClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-18,Edge Cases Generation > Late Initialization,Late fields have getters and setters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-19,Edge Cases Generation > Late Initialization,Initialize method is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-20,Edge Cases Generation > Covariant Parameters,Detects Cat class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-21,Edge Cases Generation > Covariant Parameters,Overridden method with covariant param is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-20,Function Signature Verification,Function names are in globalFunctionNames list. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-21,Function Signature Verification,Async functions are included. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-22,Function Signature Verification,Functions with named params are included. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-23,Function Signature Verification,Private functions are excluded. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-22,Edge Case Class Verification,Result class with multiple type parameters is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-23,Edge Case Class Verification,Empty class is bridged with constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-24,Edge Case Class Verification,Static-only class has static members. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-25,Edge Case Class Verification,Class using mixin is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-26,Edge Case Class Verification,LoggingClass has its own method doWork bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-27,Edge Case Class Verification,Concrete implementation Cat is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-24,Variable Signature Verification,Constant names are in globalVariableNames list. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-25,Variable Signature Verification,Final variables are included. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-26,Variable Signature Verification,Mutable variables are included. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-4a,Variable Signature Verification,registerGlobalVariables registers variables. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-TE-8,Type Parameter Erasure > Recursive Type Bounds,Recursive type bound T extends Comparable<T> is handled without stack overflow. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-TE-9,Type Parameter Erasure > Recursive Type Bounds,Recursive type bound uses base type Comparable for erasure. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-TE-10,Type Parameter Erasure > Recursive Type Bounds,Class with recursive type bound parameter is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-TE-11,Type Parameter Erasure > Recursive Type Bounds,Methods on class with recursive bound are included. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-ENM-19,EnumInfo,Handles empty source file. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-14,GEN-049: Extension Discovery from Imports,Discovers ImportedIntHelpers from import. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-15,GEN-049: Extension Discovery from Imports,Discovers ImportedListHelpers from import. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-28,Combined Sources Generation,Generates from multiple source files. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-12b,Global Getter vs Variable Registration > Getter vs Variable Separation,RegisterGlobalVariables contains both. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-27,Global Getter vs Variable Registration > Getter vs Variable Separation,Getters are NOT registered with registerGlobalVariable. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-28,Global Getter vs Variable Registration > Getter vs Variable Separation,Regular variables are NOT registered with registerGlobalGetter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-29,Combined Sources Generation,Handles empty source file gracefully. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-31,Generator Options,SkipPrivate=true skips private members in output. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-32,Generator Options,SkipPrivate=false includes private members in output. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-33,Generator Options,Verbose mode does not affect output structure. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-22,UserBridgeScanner,Detects class extending D4UserBridge. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-23,UserBridgeScanner,Identifies target class from annotation. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-24,UserBridgeScanner,Detects static nativeNames getter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-25,UserBridgeScanner,Detects static constructor override. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-1a,UserBridgeScanner,Detects static operator override. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-2a,UserBridgeScanner,Detects static getter override. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-3b,UserBridgeScanner,Detects static method override. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-4b,UserBridgeScanner,Detects static getter override for static member. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-5b,UserBridgeScanner,Class without UserBridge is not excluded. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-6a,UserBridgeScanner,Excludes UserBridge class from generated code. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-7,UserBridgeScanner,Generates bridge for target class with overrides. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-8,UserBridgeScanner,Uses nativeNames from UserBridge. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-9,UserBridgeScanner,Uses constructor override from UserBridge. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-10,UserBridgeScanner,Uses operator override from UserBridge. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-11,UserBridgeScanner,Uses getter override from UserBridge. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-12,UserBridgeScanner,Uses method override from UserBridge. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-13,UserBridgeScanner,Uses static getter override from UserBridge. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-14,UserBridgeScanner,Generates non-overridden members normally. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-15,UserBridgeScanner,Generates SimpleClass normally (no UserBridge). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-16,GlobalsUserBridge > Scanner Detection,Detects GlobalsUserBridge class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-17,GlobalsUserBridge > Scanner Detection,Excludes GlobalsUserBridge from bridge generation. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-18,GlobalsUserBridge > Scanner Detection,Detects global variable overrides. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-19,GlobalsUserBridge > Scanner Detection,Detects global getter overrides. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-UB-20,GlobalsUserBridge > Scanner Detection,Detects global function overrides. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-16,GEN-049: Extension Discovery from Imports,Discovers doubled getter from ImportedIntHelpers. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-17,GEN-049: Extension Discovery from Imports,Discovers plus method from ImportedIntHelpers. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-18,GEN-049: Extension Discovery from Imports,Does not duplicate extensions defined in source file. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-10,Extension Bridge Generation,Generates bridgedExtensions() method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-11,Extension Bridge Generation,Generates extensionSourceUris() method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-MIX-3,GEN-048: Pure Mixin Bridging,Mixins are bridged as abstract (no constructors). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-MIX-4,GEN-048: Pure Mixin Bridging,TestEntity class is also bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-ENM-17,EnumInfo,Creates enum info with members. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EXT-12,Extension Bridge Generation,Generates StringHelpers extension. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-13,Global Variable Detection > Constants,Detects bool constant. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-MIX-2,GEN-048: Pure Mixin Bridging,Includes Nameable.name getter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-ASYNC-5,dart_overview coverage > ASYNC: Async Features,Instance async method Future. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-ENM-11,Enum Bridge Generation,Detects enums with members. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-ENM-12,Enum Bridge Generation,Skips private enums. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-ENM-13,Enum Bridge Generation,Generates bridgedEnums method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-GB-12a,Global Variable Detection > Constants,Detects double constant. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-ENM-20,EnumInfo,Creates simple enum info. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-ENM-16,Enum Bridge Generation,Generates registerBridgedEnum calls in registerBridges. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-ENM-1,Enum Bridge Generation,Generates enumNames property. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-ENM-2,Enum Bridge Generation,Generates class bridges that reference enums. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-EDGE-30,Error Handling,Reports errors for invalid source paths. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-TE-14,Type Parameter Erasure > Static Methods with Type Parameters,Static method with bounded type param uses bound. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-ENM-5,Enum Bridge Generation,Generates method adapters for enhanced enum methods. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-ENM-6,Enum Bridge Generation,Does NOT generate getters for simple enums. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-ENM-18,EnumInfo,Creates enum info with single value. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-CLS-46,Class Bridge Generation > Simple Classes,Detects OptionalPositionalClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-COV-62,dart_overview coverage > INH: Inheritance,INH06: method override. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-CLS-6b,dart_overview coverage > CLS: Class Members,Late field. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-GNRC-7,dart_overview coverage > GNRC: Generics,F-bounded polymorphism. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-ASYNC-8,dart_overview coverage > ASYNC: Async Features,Static sync*/async* method. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-CLS-47,Class Bridge Generation > Simple Classes,Detects NamedParamsClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-TOP-12,dart_overview coverage > TOP: Top-Level Exportables,Enhanced enum with mixin. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-ASYNC-6,dart_overview coverage > ASYNC: Async Features,Instance sync* method Iterable. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-ASYNC-3,dart_overview coverage > ASYNC: Async Features,Sync* generator Iterable. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TOP-28,dart_overview coverage > TOP: Top-Level Exportables,Top-level setter. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-72,dart_overview coverage > TYPE: Type Features,TYPE05: dynamic type. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-71,dart_overview coverage > TYPE: Type Features,TYPE04: nullable return type. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-42,dart_overview coverage > TOP: Top-Level Exportables,TOP01: concrete class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TST-14,D4rtTester end-to-end > example_project,Enhanced enum fields. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TST-15,D4rtTester end-to-end > user_guide,Calculator and Greeter classes. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-51,dart_overview coverage > TOP: Top-Level Exportables,TOP02: abstract class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TST-1,D4rtTester end-to-end > user_reference,"User, Product, Order models. [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-60,dart_overview coverage > TOP: Top-Level Exportables,TOP03: sealed class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-68,dart_overview coverage > TOP: Top-Level Exportables,TOP04: base class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TST-2,D4rtTester end-to-end > userbridge_override,"MyList, globals, top-level functions. [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-69,dart_overview coverage > TOP: Top-Level Exportables,TOP05: interface class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-74,dart_overview coverage > TOP: Top-Level Exportables,TOP06: final class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TST-3,D4rtTester end-to-end > userbridge_override,UBR02: user bridge method override. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-1,dart_overview coverage > TOP: Top-Level Exportables,TOP07: mixin class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-2,dart_overview coverage > TOP: Top-Level Exportables,TOP08: simple enum (GEN-044: .values not bridged). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TST-4,D4rtTester end-to-end > userbridge_override,UBR03: user bridge field/variable override. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-3,dart_overview coverage > TOP: Top-Level Exportables,TOP09: enhanced enum fields. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TST-5,D4rtTester end-to-end > dart_overview,"Declarations, enums, generic classes. [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-4,dart_overview coverage > TOP: Top-Level Exportables,TOP10: enhanced enum methods. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TST-6,D4rtTester end-to-end > dart_overview,Implicit default constructors. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-5,dart_overview coverage > TOP: Top-Level Exportables,TOP11: enhanced enum implements. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-CLS-48,Class Bridge Generation > Simple Classes,Skips private classes. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-TST-7,D4rtTester end-to-end > dart_overview,Enhanced enum fields (dart_overview). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-6,dart_overview coverage > TOP: Top-Level Exportables,TOP14: mixin. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TST-8,D4rtTester end-to-end > userbridge_user_guide,Vector2D and Matrix2x2 via user bridges. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-73,dart_overview coverage > VIS: Visibility,VIS03: show/hide combinators. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-7,dart_overview coverage > TOP: Top-Level Exportables,TOP15: base mixin. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TST-9,D4rtTester end-to-end > userbridge_user_guide,UBR01: user bridge class (basic). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-8,dart_overview coverage > TOP: Top-Level Exportables,TOP16: named extension (not supported). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-9,dart_overview coverage > TOP: Top-Level Exportables,TOP17: anonymous extension (not supported). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TST-10,D4rtTester end-to-end > userbridge_user_guide,UBR04: user bridge operator overrides. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-10,dart_overview coverage > TOP: Top-Level Exportables,TOP18: extension type (not supported). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TST-11,D4rtTester end-to-end > userbridge_user_guide,UBR05: user bridge constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TOP-19,dart_overview coverage > TOP: Top-Level Exportables,Typedef function not needed. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-11,dart_overview coverage > TOP: Top-Level Exportables,"TOP20: typedef (type alias, not needed). [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TST-12,D4rtTester end-to-end > userbridge_user_guide,UBR06: user bridge import prefix (GEN-043). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-12,dart_overview coverage > TOP: Top-Level Exportables,"TOP21: typedef (generic, not needed). [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-13,dart_overview coverage > TOP: Top-Level Exportables,TOP22: top-level function. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-56,dart_overview coverage > INH: Inheritance,INH01: single-level extends. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-15,dart_overview coverage > TOP: Top-Level Exportables,TOP26: top-level const. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-16,dart_overview coverage > TOP: Top-Level Exportables,TOP27: top-level getter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-17,dart_overview coverage > TOP: Top-Level Exportables,TOP23: top-level generic function. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TOP-24,dart_overview coverage > TOP: Top-Level Exportables,Top-level async function. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TST-13,D4rtTester end-to-end > example_project,"Basic classes, constructors, enums. [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-18,dart_overview coverage > TOP: Top-Level Exportables,TOP29: mixin application (class = with). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-19,dart_overview coverage > CLS: Class Members,CLS01: instance field getter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-20,dart_overview coverage > CLS: Class Members,CLS02: instance field setter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-21,dart_overview coverage > CLS: Class Members,CLS03: final field. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-22,dart_overview coverage > CLS: Class Members,CLS04: private field with public getter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-23,dart_overview coverage > CLS: Class Members,CLS07: static field (mutable). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-24,dart_overview coverage > CLS: Class Members,CLS08: static const field (not in barrel). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-25,dart_overview coverage > CLS: Class Members,CLS09: computed getter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-26,dart_overview coverage > CLS: Class Members,CLS10: explicit setter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-27,dart_overview coverage > CLS: Class Members,CLS11: static method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-28,dart_overview coverage > CLS: Class Members,CLS14: instance method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-29,dart_overview coverage > CLS: Class Members,CLS15: abstract method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-30,dart_overview coverage > CLS: Class Members,CLS16: toString override. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-31,dart_overview coverage > CLS: Class Members,CLS05: nullable instance field. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-OP-8,dart_overview coverage > OP: Operators,Operator == equality. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-32,dart_overview coverage > CLS: Class Members,CLS12: static getter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-33,dart_overview coverage > CLS: Class Members,CLS13: static setter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-34,dart_overview coverage > CLS: Class Members,CLS17: call() method (callable class). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-35,dart_overview coverage > CTOR: Constructors,CTOR01: unnamed constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-36,dart_overview coverage > CTOR: Constructors,CTOR02: implicit default constructor (GEN-042). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-37,dart_overview coverage > CTOR: Constructors,CTOR03: named constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-38,dart_overview coverage > CTOR: Constructors,CTOR04: factory-like constructor (fromMap). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-39,dart_overview coverage > CTOR: Constructors,CTOR05: const constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-40,dart_overview coverage > CTOR: Constructors,CTOR06: redirecting constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-41,dart_overview coverage > CTOR: Constructors,CTOR07: private constructor + factory. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-43,dart_overview coverage > CTOR: Constructors,CTOR08: super parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-44,dart_overview coverage > PAR: Parameters,PAR01: required positional. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-45,dart_overview coverage > PAR: Parameters,PAR02: optional positional. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-46,dart_overview coverage > PAR: Parameters,PAR03: named parameters (not in barrel). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-47,dart_overview coverage > PAR: Parameters,PAR04: required named. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-48,dart_overview coverage > PAR: Parameters,PAR05: default values. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-PAR-6,dart_overview coverage > PAR: Parameters,Function-typed parameter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-49,dart_overview coverage > GNRC: Generics,GNRC01: single type parameter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-50,dart_overview coverage > GNRC: Generics,GNRC02: two type parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-52,dart_overview coverage > GNRC: Generics,GNRC04: generic method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-53,dart_overview coverage > GNRC: Generics,"GNRC06: generic collection (Stack/Queue, GEN-042). [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-54,dart_overview coverage > GNRC: Generics,GNRC03: upper bound constraint. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-55,dart_overview coverage > GNRC: Generics,GNRC05: generic static factory. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-CLS-49,Class Bridge Generation > Constructors,Generates default constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-G-COV-14,dart_overview coverage > TOP: Top-Level Exportables,TOP25: top-level variable. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-TOP-13,dart_overview coverage > TOP: Top-Level Exportables,Generic enum N/A Dart limit. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-57,dart_overview coverage > INH: Inheritance,INH02: multi-level extends. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-58,dart_overview coverage > INH: Inheritance,INH03: implements (interface). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-59,dart_overview coverage > INH: Inheritance,INH04: mixin with. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-61,dart_overview coverage > INH: Inheritance,INH05: super constructor call. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-63,dart_overview coverage > OP: Operators,OP05: operator / (divide). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-64,dart_overview coverage > OP: Operators,OP06: operator ~/ (integer divide). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-65,dart_overview coverage > OP: Operators,OP07: operator % (modulo). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-66,dart_overview coverage > OP: Operators,OP09: comparison operators (compareTo). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-COV-67,dart_overview coverage > OP: Operators,OP12: bitwise operators. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-ASYNC-1,dart_overview coverage > ASYNC: Async Features,Async function Future. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-ASYNC-2,dart_overview coverage > ASYNC: Async Features,Async* generator Stream. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-ASYNC-4,dart_overview coverage > ASYNC: Async Features,Callback parameter Function. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK
-G-ENM-10,Enum Bridge Generation,Detects simple enums. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-DCL-CLS-002,DCli Bridge Gaps > Class Method Callback Wrapping,Class forEach callback uses InterpretedFunction [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-D4-20,D4 Example Project - Core Type Extensions,TestPoint class uses $pkg prefix. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-D4-30,D4 Example Project - Core Type Extensions,ItemProcessor class with callback constructor is generated. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK
-D4-21,D4 Example Project - Core Type Extensions,processItems function with callback is generated. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-DCL-FND-001,DCli Bridge Gaps > FindProgress Class,FindProgress should be bridged [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-DCL-SUB-004,DCli Bridge Gaps > Abstract Class Bridge,Private _ProgressImpl should NOT be bridged [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-DCL-SUB-003,DCli Bridge Gaps > Abstract Class Bridge,Progress bridge should have forEach method [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-DCL-SUB-001,DCli Bridge Gaps > Abstract Class Bridge,Progress abstract class should be bridged [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-D4-15,D4 Example Project - Core Type Extensions,IntExtension generates clampTo method. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-DCL-OPT-003,DCli Bridge Gaps > Optional Parameter Detection,runCommand onLine should handle null callback [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-DCL-OPT-002,DCli Bridge Gaps > Optional Parameter Detection,find() progress should NOT use getRequiredNamedArg [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-DCL-OPT-001,DCli Bridge Gaps > Optional Parameter Detection,find() progress parameter should be optional [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-D4-13,D4 Example Project - Core Type Extensions,StringExtension generates methods. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-DCL-CLS-001,DCli Bridge Gaps > Class Method Callback Wrapping,ProcessRunner forEach should wrap callback [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-D4-12,D4 Example Project - Core Type Extensions,StringExtension generates getters. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-D4-11,D4 Example Project - Core Type Extensions,IntExtension does not use $pkg prefix. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-DCL-EXT-002,DCli Bridge Gaps > Extension Callback Wrapping,Extension forEach method should be generated [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-DCL-EXT-001,DCli Bridge Gaps > Extension Callback Wrapping,Extension on String should be generated [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-D4-10,D4 Example Project - Core Type Extensions,StringExtension does not use $pkg prefix. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-D4-23,D4 Example Project - Core Type Extensions,promptUser function with nullable callback is generated. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-DCL-FND-002,DCli Bridge Gaps > FindProgress Class,FindProgress forEach should wrap callback [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-D4-22,D4 Example Project - Core Type Extensions,filterItems function with optional callback is generated. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-DCL-SUB-002,DCli Bridge Gaps > Abstract Class Bridge,Progress bridge should have lines getter [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-DCL-FIND-001,DCli Bridge Gaps > Find Function,dcli_core.find requires progress callback (by design) [2026-02-11],--/OK,--/OK,--/OK,--/OK,--/OK,--/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-D4-14,D4 Example Project - Core Type Extensions,IntExtension generates factorial getter. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
-DCL-FIND-001,DCli Bridge Gaps > Find Function,dcli_core.find requires progress callback (by design) [2026-02-11] (OK),OK/OK,--/OK,--/OK,--/OK,--/OK,OK/OK,--/OK,--/OK,--/OK,--/OK,--/OK
-GEN-045,dart_overview coverage > INH: Inheritance,barrel name collision (constrained mixin blocked). [2026-02-10],OK/OK,--/OK,--/OK,--/OK,--/OK,OK/OK,--/OK,--/OK,--/OK,--/OK,--/OK
-,,(setUpAll),--/OK,--/OK,--/OK,--/OK,--/OK,--/OK,--/OK,--/OK,X/OK,--/OK,--/OK
+ID,Groups,Description,Baseline [02-11 19:27],[02-12 11:20],[02-12 15:44],[02-12 16:49],[02-12 18:31],[02-12 20:16],[02-12 23:25],[02-13 13:32],[02-13 17:24],[02-14 08:38],[02-14 10:18],[02-14 12:44]
+G-TYPE-1,dart_overview coverage > TYPE: Type Features,Record parameter. [2026-02-10 06:37] (FAIL),X/X,X/X,X/X,X/X,X/X,X/X,X/X,OK/X,--/X,OK/X,OK/X,OK/X
+G-TE-2a,Type Parameter Erasure > Static Methods with Type Parameters,Static castFrom uses constrained types. [2026-02-10 06:37] (FAIL),X/X,X/X,X/X,X/X,X/X,X/X,X/X,OK/X,OK/X,X/X,OK/X,OK/X
+G-TE-1a,Type Parameter Erasure > Instance Methods with Type Parameters,Bounded type param uses bound type. [2026-02-10 06:37] (FAIL),X/X,X/X,X/X,X/X,X/X,X/X,X/X,OK/X,OK/X,X/X,OK/X,OK/X
+G-TYPE-2,dart_overview coverage > TYPE: Type Features,Record return type. [2026-02-10 06:37] (FAIL),X/X,X/X,X/X,X/X,X/X,X/X,X/X,OK/X,--/X,OK/X,OK/X,OK/X
+G-DOV-12,DOV: Dart Overview Interpreter Failures > Await-for Loop Variable Declaration,await for with var declaration in stream loop. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV-11,DOV: Dart Overview Interpreter Failures > Extensions on Nullable Types,Extension on nullable String. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV-4,DOV: Dart Overview Interpreter Failures > LogicalAndPattern in switch/case,LogicalAnd pattern in if-case statement. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV-1,DOV: Dart Overview Interpreter Failures > String Interpolation in Adjacent Strings,Adjacent strings with interpolation. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV-2,DOV: Dart Overview Interpreter Failures > String Interpolation in Adjacent Strings,Multi-line adjacent string with multiple interpolations. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV-3,DOV: Dart Overview Interpreter Failures > LogicalAndPattern in switch/case,Relational AND pattern in switch expression. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV-5,DOV: Dart Overview Interpreter Failures > Constructor Tear-offs,Constructor tear-off with Class.new. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV-6,DOV: Dart Overview Interpreter Failures > Abstract Method Inheritance Chain,Grandchild class inherits abstract method override. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV-7,DOV: Dart Overview Interpreter Failures > Abstract Method Inheritance Chain,Mixin chain with abstract method inherited from parent. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV-8,DOV: Dart Overview Interpreter Failures > Switch Case Pattern Variable Scoping,Sealed class switch statement pattern variable scoping. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV-10,DOV: Dart Overview Interpreter Failures > Extensions on Nullable Types,Extension method on nullable List type (on List<T>?). [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV-9,DOV: Dart Overview Interpreter Failures > Generic Type Bound Checking,User class implementing Comparable satisfies bound. [2026-02-10 12:00] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV2-6,Dart Overview Failures Round 2,super.name forwarding through mixin chain [2026-02-10 21:30] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV2-3,Dart Overview Failures Round 2,Factory constructor on abstract class [2026-02-10 21:30] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV2-4,Dart Overview Failures Round 2,Function-level type parameter bound (Comparable) [2026-02-10 21:30] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV2-5,Dart Overview Failures Round 2,CastPatternImpl not implemented [2026-02-10 21:30] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV2-7,Dart Overview Failures Round 2,Extension on enum type resolution [2026-02-10 21:30] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV2-2,Dart Overview Failures Round 2,Factory constructor tear-off (Class.fromMap) [2026-02-10 21:30] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DOV2-1,Dart Overview Failures Round 2,Cast to nullable type (as String?) [2026-02-10 21:30] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+DCL-EXT-004,DCli Bridge Gaps > Extension Callback Wrapping,Extension callback should use InterpretedFunction wrapper [2026-02-11] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-DCLI-14,D4rtTester end-to-end > dcli_scripting_guide,Shell execution. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X,OK/X
+G-DCLI-12,D4rtTester end-to-end > dcli_scripting_guide,Error handling. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X,OK/X
+G-DCLI-11,D4rtTester end-to-end > dcli_scripting_guide,Find function. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X,OK/X
+G-DCLI-10,D4rtTester end-to-end > dcli_scripting_guide,Temporary files. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X,OK/X
+G-DCLI-08,D4rtTester end-to-end > dcli_scripting_guide,Command execution. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X,OK/X
+G-DCLI-07,D4rtTester end-to-end > dcli_scripting_guide,Basic file operations. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X,OK/X
+G-DCLI-13,D4rtTester end-to-end > dcli_scripting_guide,Cross-platform. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X,OK/X
+G-DCLI-06,D4rtTester end-to-end > dcli_scripting_guide,Environment variables. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X,OK/X
+G-DCLI-05,D4rtTester end-to-end > dcli_scripting_guide,Progress class. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X,OK/X
+G-DCLI-04,D4rtTester end-to-end > dcli_scripting_guide,File write/append. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X,OK/X
+G-DCLI-03,D4rtTester end-to-end > dcli_scripting_guide,Color output functions. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X,OK/X
+G-DCLI-02,D4rtTester end-to-end > dcli_scripting_guide,StringAsProcess extension. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X,OK/X
+G-DCLI-01,D4rtTester end-to-end > dcli_scripting_guide,Hello world. [2026-02-13] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X,OK/X
+DCL-EXT-003,DCli Bridge Gaps > Extension Callback Wrapping,Extension method callback should wrap InterpretedFunction [2026-02-11] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+GEN-045,dart_overview coverage > INH: Inheritance,barrel name collision (constrained mixin blocked). [2026-02-10] (FAIL),--/X,--/X,--/X,--/X,--/X,--/X,OK/X,OK/X,--/X,OK/X,OK/X,OK/X
+G-DOV3-1,Dart Overview Failures Round 3,Extension type getter access [2026-02-10] (FAIL),OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X,OK/X
+G-UB-1b,GlobalsUserBridge > Code Generation with Overrides,Override for global variable appName. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-GB-5a,Global Getter vs Variable Registration > Regular Variables use registerGlobalVariable,Const vars use registerGlobalVariable. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-GB-6a,Global Getter vs Variable Registration > Regular Variables use registerGlobalVariable,Final vars use registerGlobalVariable. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-GB-7a,Global Getter vs Variable Registration > Regular Variables use registerGlobalVariable,Mutable vars use registerGlobalVariable. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-GB-8b,Global Getter vs Variable Registration > Top-level Getters use registerGlobalGetter,Getter singleton uses registerGlobalGetter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-GB-9a,Global Getter vs Variable Registration > Top-level Getters use registerGlobalGetter,Getter computed uses registerGlobalGetter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-GB-10b,Global Getter vs Variable Registration > Top-level Getters use registerGlobalGetter,Nullable getter uses registerGlobalGetter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-GB-11b,Global Getter vs Variable Registration > Top-level Getters use registerGlobalGetter,Mutable state getter registerGlobalGetter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-UB-2b,GlobalsUserBridge > Code Generation with Overrides,Override for global variable maxRetries. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-UB-3a,GlobalsUserBridge > Code Generation with Overrides,Override for global getter currentTime. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-UB-4a,GlobalsUserBridge > Code Generation with Overrides,Override for global getter globalService. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-UB-5a,GlobalsUserBridge > Code Generation with Overrides,Override for global function greet. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-UB-21,GlobalsUserBridge > Code Generation with Overrides,Non-overridden globals are generated normally. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-UB-6b,GlobalsUserBridge > Code Generation with Overrides,Override for global function add. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-MIX-1,GEN-048: Pure Mixin Bridging,Includes JsonSerializable.toJsonString method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-COV-70,dart_overview coverage > TYPE: Type Features,TYPE03: nullable parameter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-ASYNC-7,dart_overview coverage > ASYNC: Async Features,Instance async* method Stream. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-ENM-9,Enum Bridge Generation - Edge Cases,Handles single-value enum. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-TE-13,Type Parameter Erasure > Instance Methods with Type Parameters,Multiple bounded type params use their bounds. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-ENM-14,Enum Bridge Generation,Generates BridgedEnumDefinition with correct type parameter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-ENM-15,Enum Bridge Generation,Generates enum values reference. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-ENM-3,Enum Bridge Generation,Generates getter adapters for enhanced enum fields. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-ENM-4,Enum Bridge Generation,Generates getter adapters for Planet fields. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-CLS-45,Class Bridge Generation > Simple Classes,Detects SimpleClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-CLS-7,Class Bridge Generation > Getters and Setters,Generates target validation for getters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-CLS-13,Class Bridge Generation > Methods,Generates method target validation. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-CLS-40,Class Properties Verification,Generic class Container<T> is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-CB-1a,Callback Wrapping Generation > Simple Void Callbacks,VoidCallback parameter generates wrapper. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-CB-2a,Callback Wrapping Generation > Simple Void Callbacks,Void Function() callback correct wrapper. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+G-CB-9,Callback Wrapping Generation > Callbacks with Parameters,Void Function(int) generates wrapper with parameter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-50,Class Bridge Generation > Constructors,Generates named constructors. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-51,Class Bridge Generation > Constructors,Generates factory constructors. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-52,Class Bridge Generation > Constructors,Generates constructor parameter extraction. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-1,Class Bridge Generation > Constructors,Handles const constructors. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-2,Class Bridge Generation > Constructors,Generates constructor for implicit default constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-3,Class Bridge Generation > Constructors,Generates constructor for methods-only class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-4,Class Bridge Generation > Getters and Setters,Generates getters map. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-5,Class Bridge Generation > Getters and Setters,Generates instance getters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-6a,Class Bridge Generation > Getters and Setters,Generates setters map. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-TE-1b,Type Parameter Erasure > Global Functions with Type Parameters,Global function with unbounded param uses dynamic. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-8,Class Bridge Generation > Methods,Generates methods map. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-9,Class Bridge Generation > Methods,Generates void methods. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-10,Class Bridge Generation > Methods,Generates methods with return values. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-11,Class Bridge Generation > Methods,Generates methods with optional parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-12,Class Bridge Generation > Methods,Generates methods with named parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-TE-2b,Type Parameter Erasure > Global Functions with Type Parameters,Global function with bounded param uses bound. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-14,Class Bridge Generation > Inheritance,Detects base class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-15,Class Bridge Generation > Inheritance,Detects derived class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-16,Class Bridge Generation > Inheritance,Detects multi-level inheritance. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-17,Class Bridge Generation > Inheritance,Inherited getters are included. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-18,Class Bridge Generation > Inheritance,Inherited methods are included. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-19,Class Bridge Generation > Inheritance,Overridden methods use child implementation. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-OP-2,Operator Generation,Generates bridges for arithmetic operators. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-20,Class Bridge Generation > Static Members,Generates static getters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-OP-3,Operator Generation,Generates bridges for index operators. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-21,Class Bridge Generation > Static Members,Generates static methods. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-OP-4,Operator Generation,Generates bridges for bitwise operators. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-22,Class Bridge Generation > Static Members,Static getter has correct signature. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-OP-5,Operator Generation,Generates bridges for comparison operators. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-23,Class Bridge Generation > Static Members,Static method has correct signature. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-OP-1,Operator Generation,Operators are placed in methods map. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-24,Class Bridge Generation > Abstract Classes,Abstract classes without constructors may be skipped. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-25,Class Bridge Generation > Abstract Classes,Detects concrete implementation SimpleProcessor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-26,Class Bridge Generation > Abstract Classes,SimpleProcessor has its own methods bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-27,Class Bridge Generation > Generic Classes,Detects Container<T>. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-28,Class Bridge Generation > Generic Classes,Detects NumberContainer<T extends num>. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-29,Class Bridge Generation > Generic Classes,"Detects Pair<K, V>. [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-30,Class Bridge Generation > Generic Classes,Generic class methods are bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-31,Class Bridge Generation > Special Cases,Singleton pattern factory constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-32,Class Bridge Generation > Special Cases,Classes with id field. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CFG-2,ModuleConfig > fromJson,Parses basic module config. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CFG-11,ModuleConfig > fromJson,Parses excludeClasses. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CFG-12,ModuleConfig > fromJson,Parses excludeEnums. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CFG-13,ModuleConfig > fromJson,Parses excludeFunctions. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CFG-14,ModuleConfig > fromJson,Parses excludeVariables. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CFG-15,ModuleConfig > fromJson,Parses all exclude fields together. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CFG-16,ModuleConfig > fromJson,Defaults to empty lists when fields not provided. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CFG-1,ModuleConfig > toJson,Serializes basic config. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CFG-3,ModuleConfig > toJson,Serializes excludeClasses when non-empty. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CFG-5,ModuleConfig > toJson,Serializes excludeFunctions when non-empty. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CFG-6,ModuleConfig > toJson,Serializes excludeVariables when non-empty. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CFG-7,ModuleConfig > toJson,Omits empty lists in serialization. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CFG-8,ModuleConfig > toJson,Round-trip preserves all fields. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CFG-9,ModuleConfig > toJson,ExcludeSourcePatterns serialization and deserialization. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CFG-10,BridgeConfig,Parses config with modules containing exclude fields. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-ENM-7,Enum Bridge Generation - Edge Cases,Handles file with no enums. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-33,Bridge Structure,Generates module bridge class with correct name. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-34,Bridge Structure,Generates bridgeClasses method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-35,Bridge Structure,Generates registerBridges method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-36,Bridge Structure,Generates getImportBlock method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-37,Bridge Structure,Includes header comment. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-38,Bridge Structure,Includes generation timestamp. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-39,Bridge Structure,Imports tom_d4rt package. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-ENM-8,Enum Bridge Generation - Edge Cases,Handles file with only private enums. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-TE-3,Type Parameter Erasure > Global Functions with Type Parameters,Global function with multiple bounds uses correct types. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-41,Class Properties Verification,Bounded generic NumberContainer<T extends num> is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-42,Class Properties Verification,"Multi-param generic Pair<K, V> is bridged. [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-43,Class Properties Verification,Inheritance is reflected in generated bridges. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-44,Class Properties Verification,Concrete implementation SimpleProcessor is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-TE-4,Type Parameter Erasure > Generic Class with Method Type Parameters,Method type params do not conflict with class type params. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-13,Extension Bridge Generation,Generates isPalindrome getter for StringHelpers. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-1,Extension Bridge Generation,Generates reversed getter for StringHelpers. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-2,Extension Bridge Generation,Generates repeat method for StringHelpers. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-3,Extension Bridge Generation,Generates surround method for StringHelpers. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-4,Extension Bridge Generation,Generates DateTimeHelpers extension. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-5,Extension Bridge Generation,Generates PointExtensions extension. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-6,Extension Bridge Generation,Generates magnitude getter for PointExtensions. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-TE-5,Type Parameter Erasure > Generic Class with Method Type Parameters,Static method in generic class uses its own type params. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-TE-6,Type Parameter Erasure > MemberInfo Properties,MemberInfo has methodTypeParameters field. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-TE-7,Type Parameter Erasure > GlobalFunctionInfo Properties,GlobalFunctionInfo has typeParameters field. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CB-10,Callback Wrapping Generation > Callbacks with Parameters,"Void Function(int, String) generates wrapper with multiple params. [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CB-11,Callback Wrapping Generation > Callbacks with Return Values,Bool Function(int) generates wrapper with return. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CB-12,Callback Wrapping Generation > Callbacks with Return Values,String Function(String) generates wrapper with return. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CB-1b,Callback Wrapping Generation > Nullable Callbacks,Nullable callback generates null check wrapper. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CB-2b,Callback Wrapping Generation > Named Function Parameters,Named callback parameter generates wrapper. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CB-3a,Callback Wrapping Generation > Multiple Callbacks,Multiple callbacks generates all wrappers. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CB-3b,Callback Wrapping Generation,Generated code compiles without errors. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CB-4,Callback Wrapping Generation > Custom Typedef Resolution,Custom typedef callback is resolved from source file. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CB-5,Callback Wrapping Generation > Custom Typedef Resolution,Custom typedef with string parameter generates correct wrapper. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CB-6,Callback Wrapping Generation > Custom Typedef Resolution,Typedef with multiple parameters generates correct wrapper. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CB-7,Callback Wrapping Generation > Custom Typedef Resolution,Typedef with return value generates correct wrapper. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-29,Global Function Detection > Simple Functions,Detects void function with no parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-30,Global Function Detection > Simple Functions,Detects function returning value. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-31,Global Function Detection > Simple Functions,Detects function with single parameter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-32,Global Function Detection > Simple Functions,Detects function with multiple parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-33,Global Function Detection > Simple Functions,Detects function returning boolean. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-34,Global Function Detection > Functions with Optional Parameters,Detects function with optional positional parameter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-35,Global Function Detection > Functions with Optional Parameters,Detects function with optional parameters and defaults. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-36,Global Function Detection > Functions with Optional Parameters,Detects function with named parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-37,Global Function Detection > Functions with Optional Parameters,Detects function with mixed parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-1b,Global Function Detection > Functions with Complex Types,Detects function returning list. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-2b,Global Function Detection > Functions with Complex Types,Detects function taking list parameter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-3b,Global Function Detection > Functions with Complex Types,Detects function returning map. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-4b,Global Function Detection > Functions with Complex Types,Detects function with nullable return. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-5b,Global Function Detection > Async Functions,Detects async function. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-6b,Global Function Detection > Async Functions,Detects async function with parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-7b,Global Function Detection > Private Functions,Skips private functions. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-8a,Global Function Detection > Error Handling Functions,Detects function that may throw. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-9b,Global Function Detection > Error Handling Functions,Detects function with try-catch. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CB-8,Warnings,No function type warnings for bridgeable callbacks. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-7,Extension Bridge Generation,Generates add method for PointExtensions. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-8,Extension Bridge Generation,Skips private extensions. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-9,Extension Bridge Generation,Registers extensions in registerBridges(). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-MIX-5,GEN-048: Pure Mixin Bridging,Bridges Printable mixin. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-MIX-6,GEN-048: Pure Mixin Bridging,Bridges JsonSerializable mixin. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-TE-12,Type Parameter Erasure > Instance Methods with Type Parameters,Unbounded type param uses dynamic. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-10a,Global Variable Detection > Constants,Detects string constant. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-11a,Global Variable Detection > Constants,Detects int constant. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-MIX-7,GEN-048: Pure Mixin Bridging,Bridges Comparable mixin. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CFG-4,ModuleConfig > toJson,Serializes excludeEnums when non-empty. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-14,Global Variable Detection > Final Variables,Detects final string. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-15,Global Variable Detection > Final Variables,Detects final list. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-16,Global Variable Detection > Final Variables,Detects final map. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-17,Global Variable Detection > Mutable Variables,Detects mutable int. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-18,Global Variable Detection > Mutable Variables,Detects mutable string. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-19,Global Variable Detection > Mutable Variables,Detects nullable mutable variable. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-MIX-8,GEN-048: Pure Mixin Bridging,Bridges Nameable mixin. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-MIX-9,GEN-048: Pure Mixin Bridging,Skips private _PrivateMixin. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-MIX-10,GEN-048: Pure Mixin Bridging,Includes Printable.printFormatted method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-MIX-11,GEN-048: Pure Mixin Bridging,Includes Printable.displayString getter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-MIX-12,GEN-048: Pure Mixin Bridging,Includes JsonSerializable.toMap method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-1a,Global Bridge Structure,Generates globalFunctions map. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-2a,Global Bridge Structure,Generates registerGlobalVariables method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-3a,Global Bridge Structure,Generates registerBridges entry point. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-34,Edge Cases Generation > Reserved Word Parameters,Detects ReservedWordsClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-35,Edge Cases Generation > Reserved Word Parameters,Handles reserved word parameter names safely. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-36,Edge Cases Generation > Nested Generic Types,Detects NestedGenericsClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-37,Edge Cases Generation > Nested Generic Types,"Detects Result<T, E> with multiple type params. [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-38,Edge Cases Generation > Nested Generic Types,Generates methods with nested generics. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-39,Edge Cases Generation > Default Values with Static References,Detects DefaultValuesClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-40,Edge Cases Generation > Default Values with Static References,Constructor with static default values is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-41,Edge Cases Generation > Function Type Parameters,Detects CallbackHolder. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-1,Edge Cases Generation > Function Type Parameters,Detects FunctionParamsClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-2,Edge Cases Generation > Function Type Parameters,Methods with function parameters may be bridged or skipped. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-3,Edge Cases Generation > Operator Overloading,Detects Vector2D class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-4,Edge Cases Generation > Operator Overloading,Length getter is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-5,Edge Cases Generation > Operator Overloading,ToString is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-6,Edge Cases Generation > Empty and Minimal Classes,Detects EmptyClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-7,Edge Cases Generation > Empty and Minimal Classes,Detects MinimalClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-8,Edge Cases Generation > Empty and Minimal Classes,Detects StaticOnlyClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-9,Edge Cases Generation > Empty and Minimal Classes,Empty class has default constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-10,Edge Cases Generation > Many Parameters Stress Test,Detects ManyParamsClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-11,Edge Cases Generation > Many Parameters Stress Test,Constructor with many params is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-12,Edge Cases Generation > Nullable Parameters,Detects NullableParamsClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-13,Edge Cases Generation > Nullable Parameters,Nullable getters are bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-14,Edge Cases Generation > Nullable Parameters,Methods with nullable params are bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-15,Edge Cases Generation > Mixins,Detects LoggingClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-16,Edge Cases Generation > Mixins,LoggingClass has its own doWork method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-17,Edge Cases Generation > Late Initialization,Detects LateInitClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-18,Edge Cases Generation > Late Initialization,Late fields have getters and setters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-19,Edge Cases Generation > Late Initialization,Initialize method is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-20,Edge Cases Generation > Covariant Parameters,Detects Cat class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-21,Edge Cases Generation > Covariant Parameters,Overridden method with covariant param is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-20,Function Signature Verification,Function names are in globalFunctionNames list. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-21,Function Signature Verification,Async functions are included. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-22,Function Signature Verification,Functions with named params are included. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-23,Function Signature Verification,Private functions are excluded. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-22,Edge Case Class Verification,Result class with multiple type parameters is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-23,Edge Case Class Verification,Empty class is bridged with constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-24,Edge Case Class Verification,Static-only class has static members. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-25,Edge Case Class Verification,Class using mixin is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-26,Edge Case Class Verification,LoggingClass has its own method doWork bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-27,Edge Case Class Verification,Concrete implementation Cat is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-24,Variable Signature Verification,Constant names are in globalVariableNames list. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-25,Variable Signature Verification,Final variables are included. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-26,Variable Signature Verification,Mutable variables are included. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-4a,Variable Signature Verification,registerGlobalVariables registers variables. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-TE-8,Type Parameter Erasure > Recursive Type Bounds,Recursive type bound T extends Comparable<T> is handled without stack overflow. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-TE-9,Type Parameter Erasure > Recursive Type Bounds,Recursive type bound uses base type Comparable for erasure. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-TE-10,Type Parameter Erasure > Recursive Type Bounds,Class with recursive type bound parameter is bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-TE-11,Type Parameter Erasure > Recursive Type Bounds,Methods on class with recursive bound are included. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-ENM-19,EnumInfo,Handles empty source file. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-14,GEN-049: Extension Discovery from Imports,Discovers ImportedIntHelpers from import. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-15,GEN-049: Extension Discovery from Imports,Discovers ImportedListHelpers from import. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-28,Combined Sources Generation,Generates from multiple source files. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-12b,Global Getter vs Variable Registration > Getter vs Variable Separation,RegisterGlobalVariables contains both. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-27,Global Getter vs Variable Registration > Getter vs Variable Separation,Getters are NOT registered with registerGlobalVariable. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-28,Global Getter vs Variable Registration > Getter vs Variable Separation,Regular variables are NOT registered with registerGlobalGetter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-29,Combined Sources Generation,Handles empty source file gracefully. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-31,Generator Options,SkipPrivate=true skips private members in output. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-32,Generator Options,SkipPrivate=false includes private members in output. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-33,Generator Options,Verbose mode does not affect output structure. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-22,UserBridgeScanner,Detects class extending D4UserBridge. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-23,UserBridgeScanner,Identifies target class from annotation. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-24,UserBridgeScanner,Detects static nativeNames getter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-25,UserBridgeScanner,Detects static constructor override. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-1a,UserBridgeScanner,Detects static operator override. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-2a,UserBridgeScanner,Detects static getter override. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-3b,UserBridgeScanner,Detects static method override. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-4b,UserBridgeScanner,Detects static getter override for static member. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-5b,UserBridgeScanner,Class without UserBridge is not excluded. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-6a,UserBridgeScanner,Excludes UserBridge class from generated code. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-7,UserBridgeScanner,Generates bridge for target class with overrides. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-8,UserBridgeScanner,Uses nativeNames from UserBridge. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-9,UserBridgeScanner,Uses constructor override from UserBridge. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-10,UserBridgeScanner,Uses operator override from UserBridge. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-11,UserBridgeScanner,Uses getter override from UserBridge. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-12,UserBridgeScanner,Uses method override from UserBridge. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-13,UserBridgeScanner,Uses static getter override from UserBridge. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-14,UserBridgeScanner,Generates non-overridden members normally. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-15,UserBridgeScanner,Generates SimpleClass normally (no UserBridge). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-16,GlobalsUserBridge > Scanner Detection,Detects GlobalsUserBridge class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-17,GlobalsUserBridge > Scanner Detection,Excludes GlobalsUserBridge from bridge generation. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-18,GlobalsUserBridge > Scanner Detection,Detects global variable overrides. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-19,GlobalsUserBridge > Scanner Detection,Detects global getter overrides. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-UB-20,GlobalsUserBridge > Scanner Detection,Detects global function overrides. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-16,GEN-049: Extension Discovery from Imports,Discovers doubled getter from ImportedIntHelpers. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-17,GEN-049: Extension Discovery from Imports,Discovers plus method from ImportedIntHelpers. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-18,GEN-049: Extension Discovery from Imports,Does not duplicate extensions defined in source file. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-10,Extension Bridge Generation,Generates bridgedExtensions() method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-11,Extension Bridge Generation,Generates extensionSourceUris() method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-MIX-3,GEN-048: Pure Mixin Bridging,Mixins are bridged as abstract (no constructors). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-MIX-4,GEN-048: Pure Mixin Bridging,TestEntity class is also bridged. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-ENM-17,EnumInfo,Creates enum info with members. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EXT-12,Extension Bridge Generation,Generates StringHelpers extension. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-13,Global Variable Detection > Constants,Detects bool constant. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-MIX-2,GEN-048: Pure Mixin Bridging,Includes Nameable.name getter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-ENM-10,Enum Bridge Generation,Detects simple enums. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-ENM-11,Enum Bridge Generation,Detects enums with members. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-ENM-12,Enum Bridge Generation,Skips private enums. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-ENM-13,Enum Bridge Generation,Generates bridgedEnums method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-GB-12a,Global Variable Detection > Constants,Detects double constant. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-ENM-20,EnumInfo,Creates simple enum info. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-ENM-16,Enum Bridge Generation,Generates registerBridgedEnum calls in registerBridges. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-ENM-1,Enum Bridge Generation,Generates enumNames property. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-ENM-2,Enum Bridge Generation,Generates class bridges that reference enums. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-EDGE-30,Error Handling,Reports errors for invalid source paths. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-TE-14,Type Parameter Erasure > Static Methods with Type Parameters,Static method with bounded type param uses bound. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-ENM-5,Enum Bridge Generation,Generates method adapters for enhanced enum methods. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-ENM-6,Enum Bridge Generation,Does NOT generate getters for simple enums. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-ENM-18,EnumInfo,Creates enum info with single value. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-CLS-46,Class Bridge Generation > Simple Classes,Detects OptionalPositionalClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-COV-62,dart_overview coverage > INH: Inheritance,INH06: method override. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-CLS-6b,dart_overview coverage > CLS: Class Members,Late field. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-GNRC-7,dart_overview coverage > GNRC: Generics,F-bounded polymorphism. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-ASYNC-8,dart_overview coverage > ASYNC: Async Features,Static sync*/async* method. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-CLS-47,Class Bridge Generation > Simple Classes,Detects NamedParamsClass. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-TOP-12,dart_overview coverage > TOP: Top-Level Exportables,Enhanced enum with mixin. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-ASYNC-6,dart_overview coverage > ASYNC: Async Features,Instance sync* method Iterable. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-ASYNC-3,dart_overview coverage > ASYNC: Async Features,Sync* generator Iterable. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TOP-28,dart_overview coverage > TOP: Top-Level Exportables,Top-level setter. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-72,dart_overview coverage > TYPE: Type Features,TYPE05: dynamic type. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-71,dart_overview coverage > TYPE: Type Features,TYPE04: nullable return type. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-42,dart_overview coverage > TOP: Top-Level Exportables,TOP01: concrete class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TST-14,D4rtTester end-to-end > example_project,Enhanced enum fields. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TST-15,D4rtTester end-to-end > user_guide,Calculator and Greeter classes. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-51,dart_overview coverage > TOP: Top-Level Exportables,TOP02: abstract class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TST-1,D4rtTester end-to-end > user_reference,"User, Product, Order models. [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-60,dart_overview coverage > TOP: Top-Level Exportables,TOP03: sealed class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-68,dart_overview coverage > TOP: Top-Level Exportables,TOP04: base class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TST-2,D4rtTester end-to-end > userbridge_override,"MyList, globals, top-level functions. [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-69,dart_overview coverage > TOP: Top-Level Exportables,TOP05: interface class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-74,dart_overview coverage > TOP: Top-Level Exportables,TOP06: final class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TST-3,D4rtTester end-to-end > userbridge_override,UBR02: user bridge method override. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-1,dart_overview coverage > TOP: Top-Level Exportables,TOP07: mixin class. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-2,dart_overview coverage > TOP: Top-Level Exportables,TOP08: simple enum (GEN-044: .values not bridged). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TST-4,D4rtTester end-to-end > userbridge_override,UBR03: user bridge field/variable override. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-3,dart_overview coverage > TOP: Top-Level Exportables,TOP09: enhanced enum fields. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TST-5,D4rtTester end-to-end > dart_overview,"Declarations, enums, generic classes. [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-4,dart_overview coverage > TOP: Top-Level Exportables,TOP10: enhanced enum methods. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TST-6,D4rtTester end-to-end > dart_overview,Implicit default constructors. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-5,dart_overview coverage > TOP: Top-Level Exportables,TOP11: enhanced enum implements. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-CLS-48,Class Bridge Generation > Simple Classes,Skips private classes. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-TST-7,D4rtTester end-to-end > dart_overview,Enhanced enum fields (dart_overview). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-6,dart_overview coverage > TOP: Top-Level Exportables,TOP14: mixin. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TST-8,D4rtTester end-to-end > userbridge_user_guide,Vector2D and Matrix2x2 via user bridges. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-73,dart_overview coverage > VIS: Visibility,VIS03: show/hide combinators. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-7,dart_overview coverage > TOP: Top-Level Exportables,TOP15: base mixin. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TST-9,D4rtTester end-to-end > userbridge_user_guide,UBR01: user bridge class (basic). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-8,dart_overview coverage > TOP: Top-Level Exportables,TOP16: named extension (not supported). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-9,dart_overview coverage > TOP: Top-Level Exportables,TOP17: anonymous extension (not supported). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TST-10,D4rtTester end-to-end > userbridge_user_guide,UBR04: user bridge operator overrides. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-10,dart_overview coverage > TOP: Top-Level Exportables,TOP18: extension type (not supported). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TST-11,D4rtTester end-to-end > userbridge_user_guide,UBR05: user bridge constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TOP-19,dart_overview coverage > TOP: Top-Level Exportables,Typedef function not needed. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-11,dart_overview coverage > TOP: Top-Level Exportables,"TOP20: typedef (type alias, not needed). [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TST-12,D4rtTester end-to-end > userbridge_user_guide,UBR06: user bridge import prefix (GEN-043). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-12,dart_overview coverage > TOP: Top-Level Exportables,"TOP21: typedef (generic, not needed). [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-13,dart_overview coverage > TOP: Top-Level Exportables,TOP22: top-level function. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-56,dart_overview coverage > INH: Inheritance,INH01: single-level extends. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-15,dart_overview coverage > TOP: Top-Level Exportables,TOP26: top-level const. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-16,dart_overview coverage > TOP: Top-Level Exportables,TOP27: top-level getter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-17,dart_overview coverage > TOP: Top-Level Exportables,TOP23: top-level generic function. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TOP-24,dart_overview coverage > TOP: Top-Level Exportables,Top-level async function. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TST-13,D4rtTester end-to-end > example_project,"Basic classes, constructors, enums. [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-18,dart_overview coverage > TOP: Top-Level Exportables,TOP29: mixin application (class = with). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-19,dart_overview coverage > CLS: Class Members,CLS01: instance field getter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-20,dart_overview coverage > CLS: Class Members,CLS02: instance field setter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-21,dart_overview coverage > CLS: Class Members,CLS03: final field. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-22,dart_overview coverage > CLS: Class Members,CLS04: private field with public getter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-23,dart_overview coverage > CLS: Class Members,CLS07: static field (mutable). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-24,dart_overview coverage > CLS: Class Members,CLS08: static const field (not in barrel). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-25,dart_overview coverage > CLS: Class Members,CLS09: computed getter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-26,dart_overview coverage > CLS: Class Members,CLS10: explicit setter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-27,dart_overview coverage > CLS: Class Members,CLS11: static method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-28,dart_overview coverage > CLS: Class Members,CLS14: instance method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-29,dart_overview coverage > CLS: Class Members,CLS15: abstract method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-30,dart_overview coverage > CLS: Class Members,CLS16: toString override. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-31,dart_overview coverage > CLS: Class Members,CLS05: nullable instance field. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-OP-8,dart_overview coverage > OP: Operators,Operator == equality. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-32,dart_overview coverage > CLS: Class Members,CLS12: static getter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-33,dart_overview coverage > CLS: Class Members,CLS13: static setter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-34,dart_overview coverage > CLS: Class Members,CLS17: call() method (callable class). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-35,dart_overview coverage > CTOR: Constructors,CTOR01: unnamed constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-36,dart_overview coverage > CTOR: Constructors,CTOR02: implicit default constructor (GEN-042). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-37,dart_overview coverage > CTOR: Constructors,CTOR03: named constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-38,dart_overview coverage > CTOR: Constructors,CTOR04: factory-like constructor (fromMap). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-39,dart_overview coverage > CTOR: Constructors,CTOR05: const constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-40,dart_overview coverage > CTOR: Constructors,CTOR06: redirecting constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-41,dart_overview coverage > CTOR: Constructors,CTOR07: private constructor + factory. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-43,dart_overview coverage > CTOR: Constructors,CTOR08: super parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-44,dart_overview coverage > PAR: Parameters,PAR01: required positional. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-45,dart_overview coverage > PAR: Parameters,PAR02: optional positional. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-46,dart_overview coverage > PAR: Parameters,PAR03: named parameters (not in barrel). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-47,dart_overview coverage > PAR: Parameters,PAR04: required named. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-48,dart_overview coverage > PAR: Parameters,PAR05: default values. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-PAR-6,dart_overview coverage > PAR: Parameters,Function-typed parameter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-49,dart_overview coverage > GNRC: Generics,GNRC01: single type parameter. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-50,dart_overview coverage > GNRC: Generics,GNRC02: two type parameters. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-52,dart_overview coverage > GNRC: Generics,GNRC04: generic method. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-53,dart_overview coverage > GNRC: Generics,"GNRC06: generic collection (Stack/Queue, GEN-042). [2026-02-10 06:37]",OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-54,dart_overview coverage > GNRC: Generics,GNRC03: upper bound constraint. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-55,dart_overview coverage > GNRC: Generics,GNRC05: generic static factory. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-CLS-49,Class Bridge Generation > Constructors,Generates default constructor. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+G-COV-14,dart_overview coverage > TOP: Top-Level Exportables,TOP25: top-level variable. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-TOP-13,dart_overview coverage > TOP: Top-Level Exportables,Generic enum N/A Dart limit. [2026-02-10 06:37],X/OK,X/OK,X/OK,X/OK,X/OK,X/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-57,dart_overview coverage > INH: Inheritance,INH02: multi-level extends. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-58,dart_overview coverage > INH: Inheritance,INH03: implements (interface). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-59,dart_overview coverage > INH: Inheritance,INH04: mixin with. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-61,dart_overview coverage > INH: Inheritance,INH05: super constructor call. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-63,dart_overview coverage > OP: Operators,OP05: operator / (divide). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-64,dart_overview coverage > OP: Operators,OP06: operator ~/ (integer divide). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-65,dart_overview coverage > OP: Operators,OP07: operator % (modulo). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-66,dart_overview coverage > OP: Operators,OP09: comparison operators (compareTo). [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-COV-67,dart_overview coverage > OP: Operators,OP12: bitwise operators. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-ASYNC-1,dart_overview coverage > ASYNC: Async Features,Async function Future. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-ASYNC-2,dart_overview coverage > ASYNC: Async Features,Async* generator Stream. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-ASYNC-4,dart_overview coverage > ASYNC: Async Features,Callback parameter Function. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+G-ASYNC-5,dart_overview coverage > ASYNC: Async Features,Instance async method Future. [2026-02-10 06:37],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,--/OK,OK/OK,OK/OK,OK/OK
+DCL-CLS-002,DCli Bridge Gaps > Class Method Callback Wrapping,Class forEach callback uses InterpretedFunction [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+D4-20,D4 Example Project - Core Type Extensions,TestPoint class uses $pkg prefix. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+D4-30,D4 Example Project - Core Type Extensions,ItemProcessor class with callback constructor is generated. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,X/OK,OK/OK,OK/OK
+D4-21,D4 Example Project - Core Type Extensions,processItems function with callback is generated. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+DCL-FND-001,DCli Bridge Gaps > FindProgress Class,FindProgress should be bridged [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+DCL-SUB-004,DCli Bridge Gaps > Abstract Class Bridge,Private _ProgressImpl should NOT be bridged [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+DCL-SUB-003,DCli Bridge Gaps > Abstract Class Bridge,Progress bridge should have forEach method [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+DCL-SUB-001,DCli Bridge Gaps > Abstract Class Bridge,Progress abstract class should be bridged [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+D4-15,D4 Example Project - Core Type Extensions,IntExtension generates clampTo method. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+DCL-OPT-003,DCli Bridge Gaps > Optional Parameter Detection,runCommand onLine should handle null callback [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+DCL-OPT-002,DCli Bridge Gaps > Optional Parameter Detection,find() progress should NOT use getRequiredNamedArg [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+DCL-OPT-001,DCli Bridge Gaps > Optional Parameter Detection,find() progress parameter should be optional [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+D4-13,D4 Example Project - Core Type Extensions,StringExtension generates methods. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+DCL-CLS-001,DCli Bridge Gaps > Class Method Callback Wrapping,ProcessRunner forEach should wrap callback [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+D4-12,D4 Example Project - Core Type Extensions,StringExtension generates getters. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+D4-11,D4 Example Project - Core Type Extensions,IntExtension does not use $pkg prefix. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+DCL-EXT-002,DCli Bridge Gaps > Extension Callback Wrapping,Extension forEach method should be generated [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+DCL-EXT-001,DCli Bridge Gaps > Extension Callback Wrapping,Extension on String should be generated [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+D4-10,D4 Example Project - Core Type Extensions,StringExtension does not use $pkg prefix. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+D4-23,D4 Example Project - Core Type Extensions,promptUser function with nullable callback is generated. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+DCL-FND-002,DCli Bridge Gaps > FindProgress Class,FindProgress forEach should wrap callback [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+D4-22,D4 Example Project - Core Type Extensions,filterItems function with optional callback is generated. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+DCL-SUB-002,DCli Bridge Gaps > Abstract Class Bridge,Progress bridge should have lines getter [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+DCL-FIND-001,DCli Bridge Gaps > Find Function,dcli_core.find requires progress callback (by design) [2026-02-11],--/OK,--/OK,--/OK,--/OK,--/OK,--/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+D4-14,D4 Example Project - Core Type Extensions,IntExtension generates factorial getter. [2026-02-11],OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK,OK/OK
+DCL-FIND-001,DCli Bridge Gaps > Find Function,dcli_core.find requires progress callback (by design) [2026-02-11] (OK),OK/OK,--/OK,--/OK,--/OK,--/OK,OK/OK,--/OK,--/OK,--/OK,--/OK,--/OK,--/OK
+GEN-045,dart_overview coverage > INH: Inheritance,barrel name collision (constrained mixin blocked). [2026-02-10],OK/OK,--/OK,--/OK,--/OK,--/OK,OK/OK,--/OK,--/OK,--/OK,--/OK,--/OK,--/OK
+,,(setUpAll),--/OK,--/OK,--/OK,--/OK,--/OK,--/OK,--/OK,--/OK,X/OK,--/OK,--/OK,--/OK

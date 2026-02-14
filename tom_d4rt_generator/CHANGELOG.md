@@ -1,3 +1,16 @@
+## 1.8.2
+
+### Republish
+- Republish with all 1.8.1 fixes (previous publish failed to complete)
+
+## 1.8.1
+
+### Bug Fixes
+- **GEN-058**: Fixed nullable generic type resolution — types like `List<RuntimeType>?` now correctly retain the `?` suffix when resolved through `_resolveGenericTypeWithPrefixes`
+- **GEN-059**: Fixed extension filtering — extensions whose target type (`onTypeName`) isn't among bridged classes/enums or built-in types are now filtered out before generation, preventing runtime errors for unresolvable extension targets
+- **Multi-barrel registration**: Added `subPackageBarrels()` static method to bridge classes and registration loop in dartscript.b.dart. This enables imports like `import 'package:dcli_core/dcli_core.dart'` to work when the primary package is `dcli` — the module loader now finds content under sub-package URIs
+- **Content-based barrel filtering**: `getImportBlock()` and `subPackageBarrels()` now use content-based filtering (derived from actual bridged class/enum/function/extension source URIs) instead of type-reference-based filtering. This prevents including packages that are only type-referenced but not bridged (e.g., crypto with skipReExports)
+
 ## 1.8.0
 
 ### Architecture

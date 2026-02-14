@@ -129,11 +129,17 @@ class ModuleConfig {
   });
 
   factory ModuleConfig.fromJson(Map<String, dynamic> json) {
+    final barrelImport = json['barrelImport'] as String?;
+    final barrelFilesList = json['barrelFiles'] as List?;
+    // Default barrelFiles to [barrelImport] if not provided
+    final barrelFiles = barrelFilesList?.cast<String>() ?? 
+        (barrelImport != null ? [barrelImport] : <String>[]);
+    
     return ModuleConfig(
       name: json['name'] as String,
-      barrelFiles: (json['barrelFiles'] as List).cast<String>(),
+      barrelFiles: barrelFiles,
       outputPath: json['outputPath'] as String,
-      barrelImport: json['barrelImport'] as String?,
+      barrelImport: barrelImport,
       excludePatterns: (json['excludePatterns'] as List?)?.cast<String>() ?? [],
       excludeClasses: (json['excludeClasses'] as List?)?.cast<String>() ?? [],
       excludeEnums: (json['excludeEnums'] as List?)?.cast<String>() ?? [],
