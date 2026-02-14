@@ -1,3 +1,18 @@
+## 1.8.0
+
+### Architecture
+- **Direct source file imports**: Generator now imports source files directly (`import 'package:<pkg>/<path>.dart' as $<pkgname>_<N>`) instead of relying solely on barrel exports. This resolves issues with types not being accessible through barrel files and eliminates prefix collisions across packages.
+
+### Bug Fixes
+- **GEN-055/056**: Fixed type dependency resolution and extension on-type URI resolution for cross-package types
+- **GEN-057**: Fixed return type bridging and prefix stripping in API surface dependencies — return types now correctly use the source file's own import alias
+- **Part-of files**: Fixed prefix resolution for `part of` files and extensions whose on-type comes from a different package
+- **G-DCLI-05/07/08/11/12/13/14**: All DCli bridge issues resolved — show/hide clause propagation, callback bridging, and DCli-specific type handling
+
+### Tests
+- Updated 46 test expectations to match new direct source import generation patterns (`$<pkgname>_<N>` prefixes and `D4.callInterpreterCallback`)
+- All 444 tests pass
+
 ## 1.7.0
 
 ### Bug Fixes

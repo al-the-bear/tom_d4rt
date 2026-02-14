@@ -1,3 +1,13 @@
+## 1.8.1
+
+### Bug Fixes
+- **GEN-056**: Fixed extension on-type resolution for stdlib and bridge types in the interpreter
+- **G-DCLI-05/07/08/11/12/13/14**: All DCli bridge issues resolved — proper handling of DCli-specific bridged methods and types
+
+### Tests
+- **Flaky file IO tests**: Fixed race condition where all file IO tests (I-FILE-144 through I-FILE-159) shared a hardcoded `/tmp/test.txt` path. Under concurrent execution, one test's `deleteSync()` would remove the file while another was still using it. Each test now uses a unique filename (`/test_{ID}.txt`).
+- 1680 tests pass (2 known I-BUG-14a/14b intentional failures excluded)
+
 ## 1.7.0
 
 ### Bug Fixes
