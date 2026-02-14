@@ -18,6 +18,10 @@
 | [Unit Tests](/_copilot_guidelines/dart/unit_tests.md) | Test structure, matchers, mocking patterns |
 | [Examples](/_copilot_guidelines/dart/examples.md) | Example file creation guidelines |
 
+## Publishing
+
+This package is published to pub.dev. See [Project Republishing](/_copilot_guidelines/dart/project_republishing.md) for the complete publishing workflow.
+
 ## Project-Specific Guidelines
 
 None - this project follows standard guidelines.

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for d4_example
-// Generated: 2026-02-14T12:48:55.941638
+// Generated: 2026-02-14T13:25:02.722216
 //
 // Usage:
 //   dart run bin/d4rtrun.b.dart <script.dart|.d4rt>  Run a D4rt script file
@@ -24,6 +24,8 @@ import 'package:d4_example/src/d4rt_bridges/userbridge_user_guide.b.dart' as use
 import 'package:d4_example/src/d4rt_bridges/dart_overview.b.dart' as dart_overview_bridges;
 import 'package:d4_example/src/d4rt_bridges/path_bridges.b.dart' as path_bridges;
 import 'package:d4_example/src/d4rt_bridges/dcli_bridges.b.dart' as dcli_bridges;
+import 'package:d4_example/src/d4rt_bridges/test_part_of_files.b.dart' as test_part_of_files_bridges;
+import 'package:d4_example/src/d4rt_bridges/test_callback_types.b.dart' as test_callback_types_bridges;
 
 /// Init script source that imports all bridged modules.
 const String _initSource = '''
@@ -36,6 +38,8 @@ import 'package:d4_example/userbridge_user_guide.dart';
 import 'package:d4_example/dart_overview.dart';
 import 'package:path/path.dart';
 import 'package:dcli/dcli.dart';
+import 'package:d4_example/test_part_of_files.dart';
+import 'package:d4_example/test_callback_types.dart';
 
 void main() {}
 ''';
@@ -77,6 +81,14 @@ void _registerBridges(D4rt d4rt) {
   dcli_bridges.DcliBridge.registerBridges(
     d4rt,
     'package:dcli/dcli.dart',
+  );
+  test_part_of_files_bridges.TestPartOfFilesBridge.registerBridges(
+    d4rt,
+    'package:d4_example/test_part_of_files.dart',
+  );
+  test_callback_types_bridges.TestCallbackTypesBridge.registerBridges(
+    d4rt,
+    'package:d4_example/test_callback_types.dart',
   );
 }
 

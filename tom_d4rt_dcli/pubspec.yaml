@@ -1,6 +1,6 @@
 name: tom_d4rt_dcli
 description: Base D4rt CLI with dcli bridges. Extensible foundation for D4rt tools.
-version: 1.0.0
+version: 1.1.0
 repository: https://github.com/al-the-bear/tom_module_d4rt
 homepage: https://github.com/al-the-bear/tom_module_d4rt/tree/main/tom_d4rt_dcli
 topics:
@@ -14,7 +14,7 @@ environment:
 
 dependencies:
   # D4rt runtime
-  tom_d4rt: ^1.7.0
+  tom_d4rt: ^1.8.1
   
   # VS Code scripting API (for bridge support)
   tom_vscode_scripting_api: ^1.0.1

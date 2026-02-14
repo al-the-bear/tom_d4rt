@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for d4_example
-// Generated: 2026-02-14T12:48:55.939375
+// Generated: 2026-02-14T13:25:02.719460
 
 /// D4rt Bridge Registration for d4_example
 library;
@@ -15,6 +15,8 @@ import 'src/d4rt_bridges/userbridge_user_guide.b.dart' as userbridge_user_guide_
 import 'src/d4rt_bridges/dart_overview.b.dart' as dart_overview_bridges;
 import 'src/d4rt_bridges/path_bridges.b.dart' as path_bridges;
 import 'src/d4rt_bridges/dcli_bridges.b.dart' as dcli_bridges;
+import 'src/d4rt_bridges/test_part_of_files.b.dart' as test_part_of_files_bridges;
+import 'src/d4rt_bridges/test_callback_types.b.dart' as test_callback_types_bridges;
 
 /// Combined bridge registration for d4_example.
 class D4ExampleBridges {
@@ -122,6 +124,22 @@ class D4ExampleBridges {
     for (final barrel in dcli_bridges.DcliBridge.subPackageBarrels()) {
       dcli_bridges.DcliBridge.registerBridges(d4rt, barrel);
     }
+    test_part_of_files_bridges.TestPartOfFilesBridge.registerBridges(
+      d4rt,
+      'package:d4_example/test_part_of_files.dart',
+    );
+    // Register under sub-package barrels for direct imports
+    for (final barrel in test_part_of_files_bridges.TestPartOfFilesBridge.subPackageBarrels()) {
+      test_part_of_files_bridges.TestPartOfFilesBridge.registerBridges(d4rt, barrel);
+    }
+    test_callback_types_bridges.TestCallbackTypesBridge.registerBridges(
+      d4rt,
+      'package:d4_example/test_callback_types.dart',
+    );
+    // Register under sub-package barrels for direct imports
+    for (final barrel in test_callback_types_bridges.TestCallbackTypesBridge.subPackageBarrels()) {
+      test_callback_types_bridges.TestCallbackTypesBridge.registerBridges(d4rt, barrel);
+    }
   }
 
   /// Get import block for all modules.
@@ -136,6 +154,8 @@ class D4ExampleBridges {
     buffer.writeln(dart_overview_bridges.DartOverviewBridge.getImportBlock());
     buffer.writeln(path_bridges.PathBridge.getImportBlock());
     buffer.writeln(dcli_bridges.DcliBridge.getImportBlock());
+    buffer.writeln(test_part_of_files_bridges.TestPartOfFilesBridge.getImportBlock());
+    buffer.writeln(test_callback_types_bridges.TestCallbackTypesBridge.getImportBlock());
     return buffer.toString();
   }
 }

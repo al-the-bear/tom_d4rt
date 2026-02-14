@@ -88,6 +88,20 @@ d4rtgen:
         - "**/*_bridge.dart"
         - "**/*_generated.dart"
 
+    # ========== Bug reproduction test modules ==========
+    
+    # GEN-060: Part-of files imported directly bug
+    # The generator must import the parent library, not part files
+    - name: test_part_of_files
+      barrelImport: package:d4_example/test_part_of_files.dart
+      outputPath: lib/src/d4rt_bridges/test_part_of_files.b.dart
+    
+    # GEN-061: FutureOr<Object> callback return type bug
+    # The generator must handle FutureOr<Object> callbacks correctly
+    - name: test_callback_types
+      barrelImport: package:d4_example/test_callback_types.dart
+      outputPath: lib/src/d4rt_bridges/test_callback_types.b.dart
+
 
 compiler:
   compiles:

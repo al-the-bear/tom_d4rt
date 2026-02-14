@@ -3837,7 +3837,9 @@ class BridgeGenerator {
   
   /// Adds a type to the auxiliary imports, tracking which URI provides it.
   void _addAuxiliaryImport(String importUri, String typeName) {
-    _auxiliaryImports.putIfAbsent(importUri, () => {}).add(typeName);
+    // GEN-060 FIX: Resolve part-of files to their parent library
+    final resolvedUri = _resolvePartOfToParent(importUri);
+    _auxiliaryImports.putIfAbsent(resolvedUri, () => {}).add(typeName);
   }
   
   /// Gets or creates a prefix for an auxiliary import URI.
@@ -3845,22 +3847,25 @@ class BridgeGenerator {
   /// Auxiliary imports are imports that aren't part of the barrel exports
   /// but are needed for default values, parameter types, etc.
   String _getOrCreateAuxiliaryPrefix(String uri) {
+    // GEN-060 FIX: Resolve part-of files to their parent library
+    final resolvedUri = _resolvePartOfToParent(uri);
+    
     // Check if we already have a prefix for this URI
-    if (_importPrefixes.containsKey(uri)) {
-      final prefix = _importPrefixes[uri]!;
+    if (_importPrefixes.containsKey(resolvedUri)) {
+      final prefix = _importPrefixes[resolvedUri]!;
       return prefix.isEmpty ? '\$aux' : prefix;
     }
     
     // Check if we already have an auxiliary prefix for this URI
-    if (_auxiliaryPrefixes.containsKey(uri)) {
-      return _auxiliaryPrefixes[uri]!;
+    if (_auxiliaryPrefixes.containsKey(resolvedUri)) {
+      return _auxiliaryPrefixes[resolvedUri]!;
     }
     
     // Generate a new auxiliary prefix
     // Extract package name from URI for readability
     String baseName;
-    if (uri.startsWith('package:')) {
-      final parts = uri.substring(8).split('/');
+    if (resolvedUri.startsWith('package:')) {
+      final parts = resolvedUri.substring(8).split('/');
       baseName = parts.first.replaceAll('-', '_');
     } else {
       baseName = 'aux';
@@ -3875,7 +3880,7 @@ class BridgeGenerator {
       prefix = '\$aux_${baseName}_$counter';
     }
     
-    _auxiliaryPrefixes[uri] = prefix;
+    _auxiliaryPrefixes[resolvedUri] = prefix;
     return prefix;
   }
   
@@ -3887,15 +3892,18 @@ class BridgeGenerator {
   /// mapped to $pkg. In this case, $pkg.FindProgress won't work, so we need
   /// a direct import of the source file.
   String _forceCreateAuxiliaryPrefix(String uri) {
+    // GEN-060 FIX: Detect if URI points to a 'part of' file and resolve to parent
+    final resolvedUri = _resolvePartOfToParent(uri);
+    
     // Check if we already have an auxiliary prefix for this URI
-    if (_auxiliaryPrefixes.containsKey(uri)) {
-      return _auxiliaryPrefixes[uri]!;
+    if (_auxiliaryPrefixes.containsKey(resolvedUri)) {
+      return _auxiliaryPrefixes[resolvedUri]!;
     }
     
     // Generate a new auxiliary prefix
     String baseName;
-    if (uri.startsWith('package:')) {
-      final parts = uri.substring(8).split('/');
+    if (resolvedUri.startsWith('package:')) {
+      final parts = resolvedUri.substring(8).split('/');
       baseName = parts.first.replaceAll('-', '_');
     } else {
       baseName = 'aux';
@@ -3910,11 +3918,170 @@ class BridgeGenerator {
       prefix = '\$aux_${baseName}_$counter';
     }
     
-    _auxiliaryPrefixes[uri] = prefix;
+    _auxiliaryPrefixes[resolvedUri] = prefix;
     // Note: Don't update _importPrefixes here - the import-writing loop will
     // do that when it writes the import statement. Updating it here would cause
     // the loop to skip writing the import because it checks containsKey().
     return prefix;
+  }
+  
+  /// Resolves a 'part of' file URI to its parent library URI.
+  /// 
+  /// If the URI points to a file with 'part of ...' directive, returns the
+  /// parent library URI. Otherwise returns the original URI unchanged.
+  String _resolvePartOfToParent(String uri) {
+    // DEBUG
+    if (uri.contains('call_callback')) {
+      print('  [PARTOF] Resolving: $uri');
+    }
+    
+    // Check cached mapping first
+    final cached = _partOfToParent[uri];
+    if (cached != null) {
+      if (uri.contains('call_callback')) print('  [PARTOF] Cache hit: $cached');
+      return cached;
+    }
+    
+    // Only check package: URIs
+    if (!uri.startsWith('package:')) return uri;
+    
+    // Try to find the file and check for 'part of'
+    try {
+      final filePath = _getFilePathForPackageUri(uri);
+      if (filePath == null) {
+        if (uri.contains('call_callback')) print('  [PARTOF] File not found for: $uri');
+        return uri;
+      }
+      
+      final file = File(filePath);
+      if (!file.existsSync()) {
+        if (uri.contains('call_callback')) print('  [PARTOF] File does not exist: $filePath');
+        return uri;
+      }
+      
+      if (uri.contains('call_callback')) print('  [PARTOF] Found file: $filePath');
+      
+      final content = file.readAsStringSync();
+      final firstLines = content.split('\n').take(30).toList();
+      final partOfLine = firstLines.firstWhere(
+        (line) {
+          final trimmed = line.trimLeft();
+          return trimmed.startsWith('part of ') || trimmed == 'part of;';
+        },
+        orElse: () => '',
+      );
+      
+      if (partOfLine.isEmpty) return uri;
+      
+      // Found 'part of' - resolve parent library
+      final trimmed = partOfLine.trimLeft();
+      String? parentUri;
+      
+      if (trimmed.contains("'")) {
+        // URI form: part of 'relative_path.dart';
+        final start = trimmed.indexOf("'") + 1;
+        final end = trimmed.indexOf("'", start);
+        if (end > start) {
+          final relativePath = trimmed.substring(start, end);
+          final parentPath = p.normalize(p.join(p.dirname(filePath), relativePath));
+          parentUri = _getPackageUri(parentPath);
+        }
+      } else {
+        // Library name form: part of library_name;
+        final match = RegExp(r'part\s+of\s+([\w.]+)\s*;').firstMatch(trimmed);
+        if (match != null) {
+          final libName = match.group(1)!;
+          final simpleName = libName.contains('.') ? libName.split('.').last : libName;
+          final parentPath = p.join(p.dirname(filePath), '$simpleName.dart');
+          if (File(parentPath).existsSync()) {
+            parentUri = _getPackageUri(parentPath);
+          }
+        }
+      }
+      
+      if (parentUri != null && parentUri != uri) {
+        // Cache the mapping
+        _partOfToParent[uri] = parentUri;
+        return parentUri;
+      }
+    } catch (_) {
+      // If we can't read the file, return original URI
+    }
+    
+    return uri;
+  }
+  
+  /// Converts a package: URI to a file path if possible.
+  String? _getFilePathForPackageUri(String uri) {
+    if (!uri.startsWith('package:')) return null;
+    
+    // Parse package URI: package:pkg_name/path/to/file.dart
+    final withoutScheme = uri.substring(8);
+    final slashIndex = withoutScheme.indexOf('/');
+    if (slashIndex < 0) return null;
+    
+    final pkgName = withoutScheme.substring(0, slashIndex);
+    final pkgPath = withoutScheme.substring(slashIndex + 1);
+    
+    // Detect workspace root by looking for tom_workspace.yaml or tom.code-workspace
+    var wsRoot = workspacePath;
+    var current = Directory(workspacePath);
+    while (current.path != current.parent.path) {
+      if (File(p.join(current.path, 'tom_workspace.yaml')).existsSync() ||
+          File(p.join(current.path, 'tom.code-workspace')).existsSync()) {
+        wsRoot = current.path;
+        break;
+      }
+      current = current.parent;
+    }
+    
+    // Search common workspace locations for the package
+    final searchDirs = <String>[
+      wsRoot,
+      p.join(wsRoot, 'core'),
+      p.join(wsRoot, 'dartscript'),
+      p.join(wsRoot, 'cloud'),
+      p.join(wsRoot, 'uam'),
+      p.join(wsRoot, 'sqm'),
+      p.join(wsRoot, 'devops'),
+    ];
+    
+    // Add xternal sub-directories (packages are nested inside sub-workspace dirs)
+    final xternalDir = Directory(p.join(wsRoot, 'xternal'));
+    if (xternalDir.existsSync()) {
+      for (final entry in xternalDir.listSync()) {
+        if (entry is Directory) {
+          searchDirs.add(entry.path);
+        }
+      }
+    }
+    
+    // Search for the package
+    for (final searchDir in searchDirs) {
+      final candidatePath = p.join(searchDir, pkgName, 'lib', pkgPath);
+      if (File(candidatePath).existsSync()) {
+        return candidatePath;
+      }
+    }
+    
+    // Also check .pub-cache for external packages
+    final homeDir = Platform.environment['HOME'] ?? '';
+    if (homeDir.isNotEmpty) {
+      final pubCacheDir = Directory(p.join(homeDir, '.pub-cache', 'hosted', 'pub.dev'));
+      if (pubCacheDir.existsSync()) {
+        // Find package directory (matches pkg_name-version pattern)
+        for (final entry in pubCacheDir.listSync()) {
+          if (entry is Directory && p.basename(entry.path).startsWith('$pkgName-')) {
+            final candidatePath = p.join(entry.path, 'lib', pkgPath);
+            if (File(candidatePath).existsSync()) {
+              return candidatePath;
+            }
+          }
+        }
+      }
+    }
+    
+    return null;
   }
   
   /// Collects imports from a resolved library and stores type-to-URI mappings.
@@ -4153,17 +4320,21 @@ class BridgeGenerator {
     required List<ExtensionInfo> extensions,
   }) {
     void processTypeName(String typeName, Map<String, String> typeToUri, String sourceFile) {
-      // Strip nullable suffix and generics
+      // Strip nullable suffix, but only if it's not inside generics
+      // e.g., "String?" -> "String", but "Map<K,V>?" -> "Map<K,V>" (not "Map<K,V")
       var cleanType = typeName;
-      if (cleanType.endsWith('?')) {
+      if (cleanType.endsWith('?') && !cleanType.endsWith('>?')) {
+        cleanType = cleanType.substring(0, cleanType.length - 1);
+      } else if (cleanType.endsWith('>?')) {
+        // Strip outer nullable from generic type: "List<T>?" -> "List<T>"
         cleanType = cleanType.substring(0, cleanType.length - 1);
       }
       // Handle generic types like List<T>, Map<K, V>
       if (cleanType.contains('<')) {
         final ltIndex = cleanType.indexOf('<');
         final gtIndex = cleanType.lastIndexOf('>');
-        // Safety check: ensure we have valid < > pair
-        if (gtIndex <= ltIndex) {
+        // Safety check: ensure we have valid < > pair and gtIndex is found
+        if (gtIndex == -1 || gtIndex <= ltIndex) {
           // Malformed generic type, skip processing
           return;
         }
@@ -4479,10 +4650,31 @@ class BridgeGenerator {
     
     // From bridged symbols (their source files) — guaranteed proper libraries from barrel parsing
     for (final srcFile in allSourceFiles) {
+      // GEN-060 FIX: If srcFile is a package URI, resolve it to file path first
+      String? actualPath = srcFile;
+      if (srcFile.startsWith('package:')) {
+        actualPath = _getFilePathForPackageUri(srcFile);
+        if (actualPath == null) {
+          // Can't resolve to file path, check if it should be skipped via URI resolution
+          final resolvedUri = _resolvePartOfToParent(srcFile);
+          if (resolvedUri != srcFile) {
+            // It's a part-of file, skip adding to allImportUris
+            continue;
+          }
+          // Not a part-of file (or couldn't detect), add to imports
+          if (!allImportUris.contains(srcFile)) {
+            allImportUris.add(srcFile);
+            final pkg = _extractPackageFromUri(srcFile);
+            if (pkg != null) coveredPackages.add(pkg);
+          }
+          continue;
+        }
+      }
+      
       // Skip 'part of' files — they can't be imported directly.
       // Types from part-of files are accessible via their parent library's import.
       try {
-        final content = File(srcFile).readAsStringSync();
+        final content = File(actualPath).readAsStringSync();
         final firstLines = content.split('\n').take(30).toList();
         final partOfLine = firstLines.firstWhere(
           (line) {
@@ -4493,7 +4685,7 @@ class BridgeGenerator {
         );
         if (partOfLine.isNotEmpty) {
           // Record the mapping from this part file to its parent library
-          final partUri = _getPackageUri(srcFile);
+          final partUri = srcFile.startsWith('package:') ? srcFile : _getPackageUri(srcFile);
           final trimmed = partOfLine.trimLeft();
           String? parentUri;
           
@@ -4503,7 +4695,7 @@ class BridgeGenerator {
             final end = trimmed.indexOf("'", start);
             if (end > start) {
               final relativePath = trimmed.substring(start, end);
-              final parentPath = p.normalize(p.join(p.dirname(srcFile), relativePath));
+              final parentPath = p.normalize(p.join(p.dirname(actualPath), relativePath));
               parentUri = _getPackageUri(parentPath);
             }
           } else {
@@ -4514,7 +4706,7 @@ class BridgeGenerator {
               // Try to find the parent library file in the same directory
               // Convention: library_name → library_name.dart (use last segment for dotted names)
               final simpleName = libName.contains('.') ? libName.split('.').last : libName;
-              final parentPath = p.join(p.dirname(srcFile), '$simpleName.dart');
+              final parentPath = p.join(p.dirname(actualPath), '$simpleName.dart');
               if (File(parentPath).existsSync()) {
                 parentUri = _getPackageUri(parentPath);
               }
@@ -4530,7 +4722,7 @@ class BridgeGenerator {
         // If we can't read the file, try importing it anyway
       }
       
-      final uri = _getPackageUri(srcFile);
+      final uri = srcFile.startsWith('package:') ? srcFile : _getPackageUri(srcFile);
       if (uri.startsWith('package:')) {
         allImportUris.add(uri);
         final pkg = _extractPackageFromUri(uri);
@@ -4582,8 +4774,18 @@ class BridgeGenerator {
     // For example: `which()` returns `Which` from dcli_core, but dcli_core's
     // `which.dart` source file isn't in allSourceFiles (since `which` is a function,
     // not a class being bridged).
-    for (final uri in externalImports) {
+    for (var uri in externalImports) {
       if (!uri.startsWith('package:')) continue;
+      // GEN-060 DEBUG: Check if this is the call_callback URI
+      if (uri.contains('call_callback')) {
+        print('  [EXTIMPORT] Processing: $uri');
+      }
+      // GEN-060 FIX: Resolve part-of files to their parent library
+      final resolvedUri = _resolvePartOfToParent(uri);
+      if (resolvedUri != uri && uri.contains('call_callback')) {
+        print('  [EXTIMPORT] Resolved to: $resolvedUri');
+      }
+      uri = resolvedUri;
       // Always add external type URIs — they're return types and parameter types
       // that must be accessible for proper type casting in generated code.
       if (!allImportUris.contains(uri)) {
@@ -4594,6 +4796,10 @@ class BridgeGenerator {
     // Assign $<pkgname>_<counter> prefixes and write import statements
     final packageCounters = <String, int>{};
     for (final uri in allImportUris.toList()..sort()) {
+      // GEN-060 DEBUG
+      if (uri.contains('call_callback')) {
+        print('  [WRITEIMPORT] Writing import for: $uri');
+      }
       final parsed = _parsePackageUri(uri);
       final pkgName = parsed?.$1 ?? 'pkg';
       final sanitized = pkgName.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_');
@@ -4634,13 +4840,23 @@ class BridgeGenerator {
     if (_auxiliaryPrefixes.isNotEmpty) {
       for (final uri in _auxiliaryPrefixes.keys.toList()..sort()) {
         final auxPrefix = _auxiliaryPrefixes[uri]!;
-        final existingPrefix = _importPrefixes[uri];
+        // GEN-060 FIX: If the URI is a 'part of' file, use its parent library instead
+        var importUri = uri;
+        final parentUri = _partOfToParent[uri];
+        if (parentUri != null) {
+          importUri = parentUri;
+          // Check if parent is already imported
+          if (_importPrefixes.containsKey(parentUri)) {
+            continue;
+          }
+        }
+        final existingPrefix = _importPrefixes[importUri];
         // Skip if URI already imported (with any prefix) — no need for auxiliary
         if (existingPrefix != null) {
           continue;
         }
-        _importPrefixes[uri] = auxPrefix;
-        buffer.writeln("import '$uri' as $auxPrefix;");
+        _importPrefixes[importUri] = auxPrefix;
+        buffer.writeln("import '$importUri' as $auxPrefix;");
       }
     }
     buffer.writeln();
@@ -8096,7 +8312,9 @@ class BridgeGenerator {
     }
 
     // Handle generic type parameters (T, R, E, K, V, S, etc.) that aren't in classTypeParams
-    // Use dynamic as fallback
+    // Use dynamic as fallback - allows implicit casts for flexibility.
+    // NOTE: For callback return types specifically, the calling code should handle
+    // the FutureOr<T> vs FutureOr<dynamic> issue separately (see GEN-061).
     if (_isGenericTypeParameter(baseType)) {
       return 'dynamic';
     }
@@ -9530,10 +9748,17 @@ class BridgeGenerator {
     if (funcInfo.isVoid) {
       wrapperBody = '{ $callExpr; }';
     } else {
-      final nullableReturnType = _makeNullable(prefixedReturnType);
+      // GEN-061 fix: FutureOr<dynamic> is not assignable to FutureOr<T> where T is bounded.
+      // When the return type is FutureOr<dynamic> (from unresolved type parameter), 
+      // use FutureOr<Object?> which is assignable to any FutureOr<T>.
+      var effectiveReturnType = prefixedReturnType;
+      if (prefixedReturnType == 'FutureOr<dynamic>') {
+        effectiveReturnType = 'FutureOr<Object?>';
+      }
+      final nullableReturnType = _makeNullable(effectiveReturnType);
       final returnCast = funcInfo.returnTypeNullable 
           ? 'as $nullableReturnType' 
-          : 'as $prefixedReturnType';
+          : 'as $effectiveReturnType';
       wrapperBody = '{ return $callExpr $returnCast; }';
     }
 
