@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_generator/example/d4/lib/test_callback_types.dart
-// Generated: 2026-02-14T13:25:02.715636
+// Generated: 2026-02-14T21:33:02.627408
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -138,7 +138,7 @@ BridgedClass _createGenericCallbackServiceBridge() {
           throw ArgumentError('withConnection: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.withConnection((dynamic p0) { return D4.callInterpreterCallback(visitor, callbackRaw, [p0]) as FutureOr<dynamic>; });
+        return t.withConnection((dynamic p0) { return D4.callInterpreterCallback(visitor, callbackRaw, [p0]) as FutureOr<Object>; });
       },
       'transactional': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_1.GenericCallbackService>(target, 'GenericCallbackService');
@@ -147,7 +147,7 @@ BridgedClass _createGenericCallbackServiceBridge() {
           throw ArgumentError('transactional: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.transactional((String p0) { return D4.callInterpreterCallback(visitor, callbackRaw, [p0]) as FutureOr<dynamic>; });
+        return t.transactional((String p0) { return D4.callInterpreterCallback(visitor, callbackRaw, [p0]) as FutureOr<Object>; });
       },
       'withBoundedType': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_1.GenericCallbackService>(target, 'GenericCallbackService');

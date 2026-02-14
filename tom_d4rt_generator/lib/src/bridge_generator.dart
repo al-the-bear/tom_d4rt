@@ -4385,8 +4385,28 @@ class BridgeGenerator {
       // Skip built-in types
       if (_isBuiltInType(cleanType)) return;
       
-      // Skip if already exported from barrel
-      if (_isTypeExported(cleanType)) return;
+      // GEN-055b: If the type is exported from the barrel, check if its actual
+      // source URI has an import prefix. If not, add an auxiliary import.
+      // The barrel may re-export the type, but typeToUri points to the original
+      // source file which might not have its own import line.
+      if (_isTypeExported(cleanType)) {
+        var typeUri = typeToUri[cleanType] ?? _globalTypeToUri[cleanType];
+        if (typeUri != null) {
+          if (typeUri.startsWith('file://') || typeUri.startsWith('file:')) {
+            typeUri = _getPackageUri(Uri.parse(typeUri).toFilePath());
+          }
+          // If the source file IS already imported, skip — the existing prefix works
+          if (typeUri.startsWith('package:') && _importPrefixes.containsKey(typeUri)) {
+            return;
+          }
+          // Source file NOT imported — add auxiliary import for it
+          if (typeUri.startsWith('package:') && !typeUri.startsWith('dart:')) {
+            _addAuxiliaryImport(typeUri, cleanType);
+            _forceCreateAuxiliaryPrefix(typeUri);
+          }
+        }
+        return;
+      }
       
       // Check typeToUri first (type info from the specific member)
       var uri = typeToUri[cleanType];
@@ -8471,9 +8491,16 @@ class BridgeGenerator {
         final result = '$prefix.$unprefixedType';
         return isNullable ? '$result?' : result;
       } else {
-        // URI exists in typeToUri but no prefix was registered - this means the import
-        // wasn't collected. Generate a unique prefix on-the-fly and record the missing import.
-        // This handles external package types that weren't added to externalImports.
+        // GEN-055b: URI exists in typeToUri but no prefix was registered.
+        // Try auxiliary import mechanism first (may have been pre-collected).
+        if (uri.startsWith('package:')) {
+          final auxPrefix = _getOrCreateAuxiliaryPrefix(uri);
+          if (_importPrefixes.containsKey(uri) || _auxiliaryPrefixes.containsKey(uri)) {
+            final result = '$auxPrefix.$unprefixedType';
+            return isNullable ? '$result?' : result;
+          }
+        }
+        // Fallback: generate a unique prefix on-the-fly (late import).
         final prefix = _generateUniqueImportPrefix(uri);
         _importPrefixes[uri] = prefix;
         _recordMissingExport('missing import for type', '$unprefixedType (added import for $uri as $prefix)');
@@ -8492,6 +8519,25 @@ class BridgeGenerator {
           final result = '$prefix.$unprefixedType';
           return isNullable ? '$result?' : result;
         }
+      }
+
+      // GEN-055: Check global type registry BEFORE source file fallback.
+      // Types may have been resolved by the analyzer for other members but are
+      // not in this member's typeToUri. The global registry captures all type→URI
+      // mappings seen across all source files. This must be checked before the
+      // source file path fallback, which would incorrectly use the declaring
+      // class's file prefix for types that are actually defined elsewhere.
+      final globalUri = _globalTypeToUri[unprefixedType];
+      if (globalUri != null) {
+        if (globalUri.startsWith('dart:')) {
+          // SDK type — use without prefix
+          final result = unprefixedType;
+          return isNullable ? '$result?' : result;
+        }
+        _addAuxiliaryImport(globalUri, unprefixedType);
+        final prefix = _getOrCreateAuxiliaryPrefix(globalUri);
+        final result = '$prefix.$unprefixedType';
+        return isNullable ? '$result?' : result;
       }
 
       if (sourceFilePath != null) {
@@ -8523,22 +8569,6 @@ class BridgeGenerator {
           sourceFilePath: sourceFilePath,
         );
         return isNullable ? '$resolved?' : resolved;
-      }
-      // GEN-017: Check global type registry as penultimate fallback.
-      // Types may have been resolved by the analyzer for other members but are
-      // not in this member's typeToUri. The global registry captures all type→URI
-      // mappings seen across all source files.
-      final globalUri = _globalTypeToUri[unprefixedType];
-      if (globalUri != null) {
-        if (globalUri.startsWith('dart:')) {
-          // SDK type — use without prefix
-          final result = unprefixedType;
-          return isNullable ? '$result?' : result;
-        }
-        _addAuxiliaryImport(globalUri, unprefixedType);
-        final prefix = _getOrCreateAuxiliaryPrefix(globalUri);
-        final result = '$prefix.$unprefixedType';
-        return isNullable ? '$result?' : result;
       }
       _recordMissingExport('type argument (not exported, using dynamic)', unprefixedType);
       return 'dynamic';
@@ -8623,10 +8653,21 @@ class BridgeGenerator {
         if (prefix != null) {
           prefixedBase = prefix.isEmpty ? baseType : '$prefix.$baseType';
         } else {
-          // URI exists but no prefix - generate one on-the-fly
-          final prefix = _generateUniqueImportPrefix(baseUri);
-          _importPrefixes[baseUri] = prefix;
-          prefixedBase = '$prefix.$baseType';
+          // GEN-055b: URI exists but no prefix. Try auxiliary import first.
+          if (baseUri.startsWith('package:')) {
+            final auxPrefix = _getOrCreateAuxiliaryPrefix(baseUri);
+            if (_importPrefixes.containsKey(baseUri) || _auxiliaryPrefixes.containsKey(baseUri)) {
+              prefixedBase = '$auxPrefix.$baseType';
+            } else {
+              final prefix = _generateUniqueImportPrefix(baseUri);
+              _importPrefixes[baseUri] = prefix;
+              prefixedBase = '$prefix.$baseType';
+            }
+          } else {
+            final prefix = _generateUniqueImportPrefix(baseUri);
+            _importPrefixes[baseUri] = prefix;
+            prefixedBase = '$prefix.$baseType';
+          }
         }
       }
     } else if (!_isBuiltInType(baseType)) {
@@ -8785,6 +8826,13 @@ class BridgeGenerator {
             if (prefix != null) {
               return prefix.isEmpty ? baseArg : '$prefix.$baseArg';
             }
+            // GEN-055b: URI exists but no import prefix. Try auxiliary prefix.
+            if (uri.startsWith('package:')) {
+              final auxPrefix = _getOrCreateAuxiliaryPrefix(uri);
+              if (_auxiliaryPrefixes.containsKey(uri)) {
+                return '$auxPrefix.$baseArg';
+              }
+            }
           }
           // Try auxiliary imports if available
           if (sourceFilePath != null) {
@@ -8797,6 +8845,16 @@ class BridgeGenerator {
           }
           // Non-built-in type without URI info
           if (!_isBuiltInType(baseArg)) {
+            // GEN-055: Check global type registry BEFORE source file fallback
+            final globalUri = _globalTypeToUri[baseArg];
+            if (globalUri != null) {
+              if (globalUri.startsWith('dart:')) {
+                return arg;
+              }
+              _addAuxiliaryImport(globalUri, baseArg);
+              final auxPrefix = _getOrCreateAuxiliaryPrefix(globalUri);
+              return '$auxPrefix.$baseArg';
+            }
             if (sourceFilePath != null) {
               final sourceUri = _getPackageUri(sourceFilePath);
               if (sourceUri.startsWith('package:') && _isTypeExported(baseArg)) {
@@ -8812,16 +8870,6 @@ class BridgeGenerator {
                   return '$srcPrefix.$baseArg';
                 }
               }
-            }
-            // GEN-017: Check global type registry before falling to dynamic
-            final globalUri = _globalTypeToUri[baseArg];
-            if (globalUri != null) {
-              if (globalUri.startsWith('dart:')) {
-                return arg;
-              }
-              _addAuxiliaryImport(globalUri, baseArg);
-              final auxPrefix = _getOrCreateAuxiliaryPrefix(globalUri);
-              return '$auxPrefix.$baseArg';
             }
             _recordMissingExport('type argument (not exported, using dynamic)', baseArg);
             return 'dynamic';
