@@ -4074,6 +4074,16 @@ class BridgeGenerator {
 
     // Process classes
     for (final cls in classes) {
+      // GEN-055: For classes added as API surface dependencies, ensure their source file
+      // has an auxiliary import prefix. These classes aren't exported from the barrel,
+      // so $pkg.ClassName won't work - we need a direct import.
+      if (!_exportedTypeNames.contains(cls.name)) {
+        final classUri = _getPackageUri(cls.sourceFile);
+        if (classUri.startsWith('package:') && !classUri.startsWith('dart:')) {
+          _addAuxiliaryImport(classUri, cls.name);
+          _forceCreateAuxiliaryPrefix(classUri);
+        }
+      }
       // GEN-056: Process superclass/mixin constraint types
       if (cls.superclass != null && cls.superclassUri != null) {
         final superTypeToUri = {cls.superclass!: cls.superclassUri!};
@@ -4923,6 +4933,44 @@ class BridgeGenerator {
               continue;
             }
             
+            // Check for List types - need coercion (handles BridgedEnumValue unwrapping)
+            if (_isListType(param.type)) {
+              final elementType = _getListElementType(
+                param.type,
+                typeToUri: param.typeToUri,
+                classTypeParams: funcTypeParams,
+                sourceFilePath: func.sourceFile,
+              );
+              final isNullable = param.type.endsWith('?');
+              final coerceMethod = isNullable ? 'D4.coerceListOrNull' : 'D4.coerceList';
+              
+              if (param.isRequired) {
+                argDeclarations.add("        if (!named.containsKey('${param.name}') || named['${param.name}'] == null) {");
+                argDeclarations.add("          throw ArgumentError('${func.name}: Missing required named argument \"${param.name}\"');");
+                argDeclarations.add("        }");
+                argDeclarations.add("        final $localName = $coerceMethod<$elementType>(named['${param.name}'], '${param.name}');");
+              } else if (param.defaultValue != null) {
+                final prefixedDefault = _prefixDefaultValue(
+                  param.defaultValue!,
+                  _getPackageUri(func.sourceFile),
+                  typeToUri: param.typeToUri,
+                  sourceFilePath: func.sourceFile,
+                );
+                if (prefixedDefault != null) {
+                  argDeclarations.add("        final $localName = named.containsKey('${param.name}') && named['${param.name}'] != null");
+                  argDeclarations.add("            ? $coerceMethod<$elementType>(named['${param.name}'], '${param.name}')");
+                  argDeclarations.add("            : $prefixedDefault;");
+                } else {
+                  argDeclarations.add("        // TODO: Non-wrappable default: ${param.defaultValue}");
+                  argDeclarations.add("        final $localName = $coerceMethod<$elementType>(named['${param.name}'], '${param.name}');");
+                }
+              } else {
+                argDeclarations.add("        final $localName = D4.coerceListOrNull<$elementType>(named['${param.name}'], '${param.name}');");
+              }
+              callArgs.add('${param.name}: $localName');
+              continue;
+            }
+            
             if (param.isRequired) {
               argDeclarations.add("        final $localName = D4.getRequiredNamedArg<$resolvedType>(named, '${param.name}', '${func.name}');");
             } else if (param.defaultValue != null) {
@@ -5279,6 +5327,14 @@ class BridgeGenerator {
   String _getPrefixedClassName(String className, String sourceFile) {
     // Convert source file path to package URI
     final uri = _getPackageUri(sourceFile);
+    
+    // GEN-055: First check auxiliary prefixes for non-exported types
+    // These are classes added as API surface dependencies that aren't exported from barrel
+    final auxPrefix = _auxiliaryPrefixes[uri];
+    if (auxPrefix != null) {
+      return '$auxPrefix.$className';
+    }
+    
     final prefix = _importPrefixes[uri];
     if (prefix != null) {
       // Empty prefix means dart: library or no prefix needed
@@ -5824,13 +5880,26 @@ class BridgeGenerator {
             buffer.writeln("          final $localName = $wrapperExpr;");
           } else {
             // Standard extraction for non-function types
-            final resolvedType = _getTypeArgument(
-              param.type,
-              typeToUri: param.typeToUri,
-              classTypeParams: typeParams,
-            );
-            buffer.writeln(
-                "          final $localName = D4.getRequiredNamedArg<$resolvedType>(named, '${param.name}', '$contextName');");
+            // Check for List types - need coercion (handles BridgedEnumValue unwrapping)
+            if (_isListType(param.type)) {
+              final elementType = _getListElementType(
+                param.type,
+                typeToUri: param.typeToUri,
+                classTypeParams: typeParams,
+                sourceFilePath: sourceFilePath,
+              );
+              final coerceMethod = 'D4.coerceList';
+              buffer.writeln(
+                  "          final $localName = $coerceMethod<$elementType>(named['${param.name}'], '${param.name}');");
+            } else {
+              final resolvedType = _getTypeArgument(
+                param.type,
+                typeToUri: param.typeToUri,
+                classTypeParams: typeParams,
+              );
+              buffer.writeln(
+                  "          final $localName = D4.getRequiredNamedArg<$resolvedType>(named, '${param.name}', '$contextName');");
+            }
           }
         }
       }
@@ -6101,10 +6170,10 @@ class BridgeGenerator {
         if (isNullable) {
           buffer.writeln("            dynamic $localName;");
           buffer.writeln("            if ($rawVarName != null) {");
-          buffer.writeln("              $localName = (${typedParams.join(', ')}) { ($rawVarName as InterpretedFunction).call(visitor, [${paramNames.join(', ')}]); };");
+          buffer.writeln("              $localName = (${typedParams.join(', ')}) { D4.callInterpreterCallback(visitor, $rawVarName, [${paramNames.join(', ')}]); };");
           buffer.writeln("            }");
         } else {
-          buffer.writeln("            final $localName = (${typedParams.join(', ')}) { ($rawVarName as InterpretedFunction).call(visitor, [${paramNames.join(', ')}]); };");
+          buffer.writeln("            final $localName = (${typedParams.join(', ')}) { D4.callInterpreterCallback(visitor, $rawVarName, [${paramNames.join(', ')}]); };");
         }
         positionalArgs.add(localName);
       } else {
@@ -6151,7 +6220,7 @@ class BridgeGenerator {
           typedParamsNamed.add('${paramTypesNamed[j]} p$j');
         }
         
-        buffer.writeln("              wrappedNamed[#${param.name}] = (${typedParamsNamed.join(', ')}) { ($rawVarName as InterpretedFunction).call(visitor, [${paramNamesNamed.join(', ')}]); };");
+        buffer.writeln("              wrappedNamed[#${param.name}] = (${typedParamsNamed.join(', ')}) { D4.callInterpreterCallback(visitor, $rawVarName, [${paramNamesNamed.join(', ')}]); };");
         buffer.writeln("            }");
       } else {
         // Non-function type - include if provided
@@ -9083,14 +9152,13 @@ class BridgeGenerator {
       namedArgsStr = '{$namedArgEntries}';
     }
 
-    // Build the call expression
-    // Note: The cast to InterpretedFunction is required because named args are Object?
-    // The ignore comment suppresses false positive unnecessary_cast warnings
+    // Build the call expression using D4.callInterpreterCallback
+    // This handles both InterpretedFunction and NativeFunction (e.g., print)
     String callExpr;
     if (funcInfo.namedParamTypes.isEmpty) {
-      callExpr = '($callbackVarName as InterpretedFunction).call(visitor, $argsStr)';
+      callExpr = 'D4.callInterpreterCallback(visitor, $callbackVarName, $argsStr)';
     } else {
-      callExpr = '($callbackVarName as InterpretedFunction).call(visitor, $argsStr, $namedArgsStr)';
+      callExpr = 'D4.callInterpreterCallback(visitor, $callbackVarName, $argsStr, $namedArgsStr)';
     }
 
     // Build the wrapper body - prefix return type

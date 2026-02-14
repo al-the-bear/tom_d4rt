@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-02-13T23:31:23.931947
+// Generated: 2026-02-14T00:56:09.009311
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -348,7 +348,7 @@ BridgedClass _createUserServiceBridge() {
           throw ArgumentError('findUsers: Missing required argument "predicate" at position 0');
         }
         final predicateRaw = positional[0];
-        return t.findUsers(($pkg.User p0) { return (predicateRaw as InterpretedFunction).call(visitor, [p0]) as bool; });
+        return t.findUsers(($pkg.User p0) { return D4.callInterpreterCallback(visitor, predicateRaw, [p0]) as bool; });
       },
       'fetchUser': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.UserService>(target, 'UserService');
@@ -455,7 +455,7 @@ BridgedClass _createEventEmitterBridge() {
           throw ArgumentError('addListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.addListener((dynamic p0) { (listenerRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.addListener((dynamic p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
@@ -465,7 +465,7 @@ BridgedClass _createEventEmitterBridge() {
           throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.removeListener((dynamic p0) { (listenerRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.removeListener((dynamic p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {

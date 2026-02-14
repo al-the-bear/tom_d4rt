@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-02-13T16:56:26.523532
+// Generated: 2026-02-14T00:51:08.475173
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -9,6 +9,7 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 import 'dart:async';
 
 import 'package:dart_overview/dart_overview.dart' as $pkg;
+import 'package:dart_overview/mixins/basics/run_basics.dart' as $aux_dart_overview;
 
 /// Bridge class for all module.
 class AllBridge {
@@ -523,7 +524,7 @@ class AllBridge {
           throw ArgumentError('transform: Missing required argument "transformer" at position 1');
         }
         final transformerRaw = positional[1];
-        final transformer = (int p0) { return (transformerRaw as InterpretedFunction).call(visitor, [p0]) as int; };
+        final transformer = (int p0) { return D4.callInterpreterCallback(visitor, transformerRaw, [p0]) as int; };
         return $pkg.transform(numbers, transformer);
       },
       'fetchData': (visitor, positional, named, typeArgs) {
@@ -532,12 +533,12 @@ class AllBridge {
         if (onSuccessRaw == null) {
           throw ArgumentError('fetchData: Missing required named argument "onSuccess"');
         }
-        final onSuccess = (String p0) { (onSuccessRaw as InterpretedFunction).call(visitor, [p0]); };
+        final onSuccess = (String p0) { D4.callInterpreterCallback(visitor, onSuccessRaw, [p0]); };
         final onErrorRaw = named['onError'];
         if (onErrorRaw == null) {
           throw ArgumentError('fetchData: Missing required named argument "onError"');
         }
-        final onError = (String p0) { (onErrorRaw as InterpretedFunction).call(visitor, [p0]); };
+        final onError = (String p0) { D4.callInterpreterCallback(visitor, onErrorRaw, [p0]); };
         return $pkg.fetchData(url: url, onSuccess: onSuccess, onError: onError);
       },
       'log': (visitor, positional, named, typeArgs) {
@@ -1137,7 +1138,7 @@ BridgedClass _createWrapperBridge() {
           throw ArgumentError('transform: Missing required argument "f" at position 0');
         }
         final fRaw = positional[0];
-        return t.transform((dynamic p0) { return (fRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; });
+        return t.transform((dynamic p0) { return D4.callInterpreterCallback(visitor, fRaw, [p0]) as dynamic; });
       },
     },
     constructorSignatures: {
@@ -1340,7 +1341,7 @@ BridgedClass _createMaybeBridge() {
           throw ArgumentError('map: Missing required argument "f" at position 0');
         }
         final fRaw = positional[0];
-        return t.map((dynamic p0) { return (fRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; });
+        return t.map((dynamic p0) { return D4.callInterpreterCallback(visitor, fRaw, [p0]) as dynamic; });
       },
     },
     constructorSignatures: {
@@ -1393,7 +1394,7 @@ BridgedClass _createResultBridge() {
           throw ArgumentError('fold: Missing required argument "onFailure" at position 1');
         }
         final onFailureRaw = positional[1];
-        return t.fold((dynamic p0) { return (onSuccessRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; }, (dynamic p0) { return (onFailureRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; });
+        return t.fold((dynamic p0) { return D4.callInterpreterCallback(visitor, onSuccessRaw, [p0]) as dynamic; }, (dynamic p0) { return D4.callInterpreterCallback(visitor, onFailureRaw, [p0]) as dynamic; });
       },
     },
     constructorSignatures: {
@@ -3635,13 +3636,13 @@ BridgedClass _createStatisticsBridge() {
 
 BridgedClass _createMusicalBridge() {
   return BridgedClass(
-    nativeType: $pkg.Musical,
+    nativeType: $aux_dart_overview.Musical,
     name: 'Musical',
     constructors: {
     },
     methods: {
       'playInstrument': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Musical>(target, 'Musical');
+        final t = D4.validateTarget<$aux_dart_overview.Musical>(target, 'Musical');
         t.playInstrument();
         return null;
       },
@@ -3658,13 +3659,13 @@ BridgedClass _createMusicalBridge() {
 
 BridgedClass _createDancingBridge() {
   return BridgedClass(
-    nativeType: $pkg.Dancing,
+    nativeType: $aux_dart_overview.Dancing,
     name: 'Dancing',
     constructors: {
     },
     methods: {
       'dance': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Dancing>(target, 'Dancing');
+        final t = D4.validateTarget<$aux_dart_overview.Dancing>(target, 'Dancing');
         t.dance();
         return null;
       },
@@ -3681,21 +3682,21 @@ BridgedClass _createDancingBridge() {
 
 BridgedClass _createMusicianBridge() {
   return BridgedClass(
-    nativeType: $pkg.Musician,
+    nativeType: $aux_dart_overview.Musician,
     name: 'Musician',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Musician');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Musician');
-        return $pkg.Musician(name);
+        return $aux_dart_overview.Musician(name);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.Musician>(target, 'Musician').name,
+      'name': (visitor, target) => D4.validateTarget<$aux_dart_overview.Musician>(target, 'Musician').name,
     },
     methods: {
       'playInstrument': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Musician>(target, 'Musician');
+        final t = D4.validateTarget<$aux_dart_overview.Musician>(target, 'Musician');
         t.playInstrument();
         return null;
       },
@@ -3718,21 +3719,21 @@ BridgedClass _createMusicianBridge() {
 
 BridgedClass _createProfessionalDancerBridge() {
   return BridgedClass(
-    nativeType: $pkg.ProfessionalDancer,
+    nativeType: $aux_dart_overview.ProfessionalDancer,
     name: 'ProfessionalDancer',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ProfessionalDancer');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'ProfessionalDancer');
-        return $pkg.ProfessionalDancer(name);
+        return $aux_dart_overview.ProfessionalDancer(name);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.ProfessionalDancer>(target, 'ProfessionalDancer').name,
+      'name': (visitor, target) => D4.validateTarget<$aux_dart_overview.ProfessionalDancer>(target, 'ProfessionalDancer').name,
     },
     methods: {
       'dance': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ProfessionalDancer>(target, 'ProfessionalDancer');
+        final t = D4.validateTarget<$aux_dart_overview.ProfessionalDancer>(target, 'ProfessionalDancer');
         t.dance();
         return null;
       },
@@ -3755,31 +3756,31 @@ BridgedClass _createProfessionalDancerBridge() {
 
 BridgedClass _createEntertainerBridge() {
   return BridgedClass(
-    nativeType: $pkg.Entertainer,
+    nativeType: $aux_dart_overview.Entertainer,
     name: 'Entertainer',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Entertainer');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Entertainer');
-        return $pkg.Entertainer(name);
+        return $aux_dart_overview.Entertainer(name);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.Entertainer>(target, 'Entertainer').name,
+      'name': (visitor, target) => D4.validateTarget<$aux_dart_overview.Entertainer>(target, 'Entertainer').name,
     },
     methods: {
       'perform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Entertainer>(target, 'Entertainer');
+        final t = D4.validateTarget<$aux_dart_overview.Entertainer>(target, 'Entertainer');
         t.perform();
         return null;
       },
       'playInstrument': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Entertainer>(target, 'Entertainer');
+        final t = D4.validateTarget<$aux_dart_overview.Entertainer>(target, 'Entertainer');
         t.playInstrument();
         return null;
       },
       'dance': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Entertainer>(target, 'Entertainer');
+        final t = D4.validateTarget<$aux_dart_overview.Entertainer>(target, 'Entertainer');
         t.dance();
         return null;
       },
@@ -3804,29 +3805,29 @@ BridgedClass _createEntertainerBridge() {
 
 BridgedClass _createCountableItemBridge() {
   return BridgedClass(
-    nativeType: $pkg.CountableItem,
+    nativeType: $aux_dart_overview.CountableItem,
     name: 'CountableItem',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.CountableItem();
+        return $aux_dart_overview.CountableItem();
       },
     },
     getters: {
-      'count': (visitor, target) => D4.validateTarget<$pkg.CountableItem>(target, 'CountableItem').count,
+      'count': (visitor, target) => D4.validateTarget<$aux_dart_overview.CountableItem>(target, 'CountableItem').count,
     },
     methods: {
       'increment': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.CountableItem>(target, 'CountableItem');
+        final t = D4.validateTarget<$aux_dart_overview.CountableItem>(target, 'CountableItem');
         t.increment();
         return null;
       },
       'decrement': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.CountableItem>(target, 'CountableItem');
+        final t = D4.validateTarget<$aux_dart_overview.CountableItem>(target, 'CountableItem');
         t.decrement();
         return null;
       },
       'reset': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.CountableItem>(target, 'CountableItem');
+        final t = D4.validateTarget<$aux_dart_overview.CountableItem>(target, 'CountableItem');
         t.reset();
         return null;
       },
@@ -3851,13 +3852,13 @@ BridgedClass _createCountableItemBridge() {
 
 BridgedClass _createLoggingBridge() {
   return BridgedClass(
-    nativeType: $pkg.Logging,
+    nativeType: $aux_dart_overview.Logging,
     name: 'Logging',
     constructors: {
     },
     methods: {
       'log': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Logging>(target, 'Logging');
+        final t = D4.validateTarget<$aux_dart_overview.Logging>(target, 'Logging');
         D4.requireMinArgs(positional, 2, 'log');
         final level = D4.getRequiredArg<String>(positional, 0, 'level', 'log');
         final message = D4.getRequiredArg<String>(positional, 1, 'message', 'log');
@@ -3865,21 +3866,21 @@ BridgedClass _createLoggingBridge() {
         return null;
       },
       'info': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Logging>(target, 'Logging');
+        final t = D4.validateTarget<$aux_dart_overview.Logging>(target, 'Logging');
         D4.requireMinArgs(positional, 1, 'info');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'info');
         t.info(message);
         return null;
       },
       'warning': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Logging>(target, 'Logging');
+        final t = D4.validateTarget<$aux_dart_overview.Logging>(target, 'Logging');
         D4.requireMinArgs(positional, 1, 'warning');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'warning');
         t.warning(message);
         return null;
       },
       'error': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Logging>(target, 'Logging');
+        final t = D4.validateTarget<$aux_dart_overview.Logging>(target, 'Logging');
         D4.requireMinArgs(positional, 1, 'error');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'error');
         t.error(message);
@@ -3901,16 +3902,16 @@ BridgedClass _createLoggingBridge() {
 
 BridgedClass _createConsoleLoggerBridge() {
   return BridgedClass(
-    nativeType: $pkg.ConsoleLogger,
+    nativeType: $aux_dart_overview.ConsoleLogger,
     name: 'ConsoleLogger',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.ConsoleLogger();
+        return $aux_dart_overview.ConsoleLogger();
       },
     },
     methods: {
       'log': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ConsoleLogger>(target, 'ConsoleLogger');
+        final t = D4.validateTarget<$aux_dart_overview.ConsoleLogger>(target, 'ConsoleLogger');
         D4.requireMinArgs(positional, 2, 'log');
         final level = D4.getRequiredArg<String>(positional, 0, 'level', 'log');
         final message = D4.getRequiredArg<String>(positional, 1, 'message', 'log');
@@ -3918,21 +3919,21 @@ BridgedClass _createConsoleLoggerBridge() {
         return null;
       },
       'info': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ConsoleLogger>(target, 'ConsoleLogger');
+        final t = D4.validateTarget<$aux_dart_overview.ConsoleLogger>(target, 'ConsoleLogger');
         D4.requireMinArgs(positional, 1, 'info');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'info');
         t.info(message);
         return null;
       },
       'warning': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ConsoleLogger>(target, 'ConsoleLogger');
+        final t = D4.validateTarget<$aux_dart_overview.ConsoleLogger>(target, 'ConsoleLogger');
         D4.requireMinArgs(positional, 1, 'warning');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'warning');
         t.warning(message);
         return null;
       },
       'error': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ConsoleLogger>(target, 'ConsoleLogger');
+        final t = D4.validateTarget<$aux_dart_overview.ConsoleLogger>(target, 'ConsoleLogger');
         D4.requireMinArgs(positional, 1, 'error');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'error');
         t.error(message);
@@ -3957,13 +3958,13 @@ BridgedClass _createConsoleLoggerBridge() {
 
 BridgedClass _createGreeter1Bridge() {
   return BridgedClass(
-    nativeType: $pkg.Greeter1,
+    nativeType: $aux_dart_overview.Greeter1,
     name: 'Greeter1',
     constructors: {
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Greeter1>(target, 'Greeter1');
+        final t = D4.validateTarget<$aux_dart_overview.Greeter1>(target, 'Greeter1');
         t.greet();
         return null;
       },
@@ -3980,13 +3981,13 @@ BridgedClass _createGreeter1Bridge() {
 
 BridgedClass _createGreeter2Bridge() {
   return BridgedClass(
-    nativeType: $pkg.Greeter2,
+    nativeType: $aux_dart_overview.Greeter2,
     name: 'Greeter2',
     constructors: {
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Greeter2>(target, 'Greeter2');
+        final t = D4.validateTarget<$aux_dart_overview.Greeter2>(target, 'Greeter2');
         t.greet();
         return null;
       },
@@ -4003,16 +4004,16 @@ BridgedClass _createGreeter2Bridge() {
 
 BridgedClass _createMultiMixedBridge() {
   return BridgedClass(
-    nativeType: $pkg.MultiMixed,
+    nativeType: $aux_dart_overview.MultiMixed,
     name: 'MultiMixed',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.MultiMixed();
+        return $aux_dart_overview.MultiMixed();
       },
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.MultiMixed>(target, 'MultiMixed');
+        final t = D4.validateTarget<$aux_dart_overview.MultiMixed>(target, 'MultiMixed');
         t.greet();
         return null;
       },
@@ -4032,16 +4033,16 @@ BridgedClass _createMultiMixedBridge() {
 
 BridgedClass _createHelperBridge() {
   return BridgedClass(
-    nativeType: $pkg.Helper,
+    nativeType: $aux_dart_overview.Helper,
     name: 'Helper',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.Helper();
+        return $aux_dart_overview.Helper();
       },
     },
     methods: {
       'help': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Helper>(target, 'Helper');
+        final t = D4.validateTarget<$aux_dart_overview.Helper>(target, 'Helper');
         t.help();
         return null;
       },
@@ -4061,21 +4062,21 @@ BridgedClass _createHelperBridge() {
 
 BridgedClass _createHelpfulServiceBridge() {
   return BridgedClass(
-    nativeType: $pkg.HelpfulService,
+    nativeType: $aux_dart_overview.HelpfulService,
     name: 'HelpfulService',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.HelpfulService();
+        return $aux_dart_overview.HelpfulService();
       },
     },
     methods: {
       'serve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.HelpfulService>(target, 'HelpfulService');
+        final t = D4.validateTarget<$aux_dart_overview.HelpfulService>(target, 'HelpfulService');
         t.serve();
         return null;
       },
       'help': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.HelpfulService>(target, 'HelpfulService');
+        final t = D4.validateTarget<$aux_dart_overview.HelpfulService>(target, 'HelpfulService');
         t.help();
         return null;
       },
@@ -4096,33 +4097,33 @@ BridgedClass _createHelpfulServiceBridge() {
 
 BridgedClass _createEventEmitterBridge() {
   return BridgedClass(
-    nativeType: $pkg.EventEmitter,
+    nativeType: $aux_dart_overview.EventEmitter,
     name: 'EventEmitter',
     constructors: {
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$aux_dart_overview.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
           throw ArgumentError('addListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.addListener((String p0) { (listenerRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.addListener((String p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$aux_dart_overview.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
           throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.removeListener((String p0) { (listenerRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.removeListener((String p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$aux_dart_overview.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 1, 'emit');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'emit');
         t.emit(event);
@@ -4143,46 +4144,46 @@ BridgedClass _createEventEmitterBridge() {
 
 BridgedClass _createButtonBridge() {
   return BridgedClass(
-    nativeType: $pkg.Button,
+    nativeType: $aux_dart_overview.Button,
     name: 'Button',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Button');
         final label = D4.getRequiredArg<String>(positional, 0, 'label', 'Button');
-        return $pkg.Button(label);
+        return $aux_dart_overview.Button(label);
       },
     },
     getters: {
-      'label': (visitor, target) => D4.validateTarget<$pkg.Button>(target, 'Button').label,
+      'label': (visitor, target) => D4.validateTarget<$aux_dart_overview.Button>(target, 'Button').label,
     },
     methods: {
       'click': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Button>(target, 'Button');
+        final t = D4.validateTarget<$aux_dart_overview.Button>(target, 'Button');
         t.click();
         return null;
       },
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Button>(target, 'Button');
+        final t = D4.validateTarget<$aux_dart_overview.Button>(target, 'Button');
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
           throw ArgumentError('addListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.addListener((String p0) { (listenerRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.addListener((String p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Button>(target, 'Button');
+        final t = D4.validateTarget<$aux_dart_overview.Button>(target, 'Button');
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
           throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.removeListener((String p0) { (listenerRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.removeListener((String p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Button>(target, 'Button');
+        final t = D4.validateTarget<$aux_dart_overview.Button>(target, 'Button');
         D4.requireMinArgs(positional, 1, 'emit');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'emit');
         t.emit(event);
@@ -4210,18 +4211,18 @@ BridgedClass _createButtonBridge() {
 
 BridgedClass _createComparableMixinBridge() {
   return BridgedClass(
-    nativeType: $pkg.ComparableMixin,
+    nativeType: $aux_dart_overview.ComparableMixin,
     name: 'ComparableMixin',
     constructors: {
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$pkg.ComparableMixin>(target, 'ComparableMixin').value,
+      'value': (visitor, target) => D4.validateTarget<$aux_dart_overview.ComparableMixin>(target, 'ComparableMixin').value,
     },
     methods: {
       'compareTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ComparableMixin>(target, 'ComparableMixin');
+        final t = D4.validateTarget<$aux_dart_overview.ComparableMixin>(target, 'ComparableMixin');
         D4.requireMinArgs(positional, 1, 'compareTo');
-        final other = D4.getRequiredArg<$pkg.SortableItem>(positional, 0, 'other', 'compareTo');
+        final other = D4.getRequiredArg<$aux_dart_overview.SortableItem>(positional, 0, 'other', 'compareTo');
         return t.compareTo(other);
       },
     },
@@ -4240,23 +4241,23 @@ BridgedClass _createComparableMixinBridge() {
 
 BridgedClass _createSortableItemBridge() {
   return BridgedClass(
-    nativeType: $pkg.SortableItem,
+    nativeType: $aux_dart_overview.SortableItem,
     name: 'SortableItem',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SortableItem');
         final value = D4.getRequiredArg<int>(positional, 0, 'value', 'SortableItem');
-        return $pkg.SortableItem(value);
+        return $aux_dart_overview.SortableItem(value);
       },
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$pkg.SortableItem>(target, 'SortableItem').value,
+      'value': (visitor, target) => D4.validateTarget<$aux_dart_overview.SortableItem>(target, 'SortableItem').value,
     },
     methods: {
       'compareTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.SortableItem>(target, 'SortableItem');
+        final t = D4.validateTarget<$aux_dart_overview.SortableItem>(target, 'SortableItem');
         D4.requireMinArgs(positional, 1, 'compareTo');
-        final other = D4.getRequiredArg<$pkg.SortableItem>(positional, 0, 'other', 'compareTo');
+        final other = D4.getRequiredArg<$aux_dart_overview.SortableItem>(positional, 0, 'other', 'compareTo');
         return t.compareTo(other);
       },
     },
@@ -4278,17 +4279,17 @@ BridgedClass _createSortableItemBridge() {
 
 BridgedClass _createJsonSerializableBridge() {
   return BridgedClass(
-    nativeType: $pkg.JsonSerializable,
+    nativeType: $aux_dart_overview.JsonSerializable,
     name: 'JsonSerializable',
     constructors: {
     },
     methods: {
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.JsonSerializable>(target, 'JsonSerializable');
+        final t = D4.validateTarget<$aux_dart_overview.JsonSerializable>(target, 'JsonSerializable');
         return t.toJsonMap();
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.JsonSerializable>(target, 'JsonSerializable');
+        final t = D4.validateTarget<$aux_dart_overview.JsonSerializable>(target, 'JsonSerializable');
         return t.toJson();
       },
     },

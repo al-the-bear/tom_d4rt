@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-02-13T16:56:27.061205
+// Generated: 2026-02-14T00:51:09.142402
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -9,6 +9,7 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 import 'dart:async';
 
 import 'package:d4rt_generator_example/test_classes.dart' as $pkg;
+import 'package:d4rt_generator_example/test_classes/callback_classes.dart' as $aux_d4rt_generator_example;
 
 /// Bridge class for all module.
 class AllBridge {
@@ -295,7 +296,7 @@ class AllBridge {
           throw ArgumentError('findWhere: Missing required argument "predicate" at position 1');
         }
         final predicateRaw = positional[1];
-        final predicate = (dynamic p0) { return (predicateRaw as InterpretedFunction).call(visitor, [p0]) as bool; };
+        final predicate = (dynamic p0) { return D4.callInterpreterCallback(visitor, predicateRaw, [p0]) as bool; };
         return $pkg.findWhere<dynamic>(items, predicate);
       },
       'mapList': (visitor, positional, named, typeArgs) {
@@ -305,7 +306,7 @@ class AllBridge {
           throw ArgumentError('mapList: Missing required argument "mapper" at position 1');
         }
         final mapperRaw = positional[1];
-        final mapper = (dynamic p0) { return (mapperRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; };
+        final mapper = (dynamic p0) { return D4.callInterpreterCallback(visitor, mapperRaw, [p0]) as dynamic; };
         return $pkg.mapList<dynamic, dynamic>(items, mapper);
       },
       'filterList': (visitor, positional, named, typeArgs) {
@@ -315,7 +316,7 @@ class AllBridge {
           throw ArgumentError('filterList: Missing required argument "predicate" at position 1');
         }
         final predicateRaw = positional[1];
-        final predicate = (dynamic p0) { return (predicateRaw as InterpretedFunction).call(visitor, [p0]) as bool; };
+        final predicate = (dynamic p0) { return D4.callInterpreterCallback(visitor, predicateRaw, [p0]) as bool; };
         return $pkg.filterList<dynamic>(items, predicate);
       },
       'reduceList': (visitor, positional, named, typeArgs) {
@@ -325,7 +326,7 @@ class AllBridge {
           throw ArgumentError('reduceList: Missing required argument "combiner" at position 1');
         }
         final combinerRaw = positional[1];
-        final combiner = (dynamic p0, dynamic p1) { return (combinerRaw as InterpretedFunction).call(visitor, [p0, p1]) as dynamic; };
+        final combiner = (dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor, combinerRaw, [p0, p1]) as dynamic; };
         return $pkg.reduceList<dynamic>(items, combiner);
       },
       'sortItems': (visitor, positional, named, typeArgs) {
@@ -408,7 +409,7 @@ class AllBridge {
           throw ArgumentError('processAsync: Missing required argument "processor" at position 1');
         }
         final processorRaw = positional[1];
-        final processor = (dynamic p0) { return (processorRaw as InterpretedFunction).call(visitor, [p0]) as Future<dynamic>; };
+        final processor = (dynamic p0) { return D4.callInterpreterCallback(visitor, processorRaw, [p0]) as Future<dynamic>; };
         return $pkg.processAsync<dynamic, dynamic>(items, processor);
       },
       'incrementCounter': (visitor, positional, named, typeArgs) {
@@ -731,29 +732,29 @@ BridgedClass _createMathUtilsBridge() {
 
 BridgedClass _createResultBridge() {
   return BridgedClass(
-    nativeType: $pkg.Result,
+    nativeType: $aux_d4rt_generator_example.Result,
     name: 'Result',
     constructors: {
       'success': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Result');
         final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'Result');
-        return $pkg.Result.success(value);
+        return $aux_d4rt_generator_example.Result.success(value);
       },
       'failure': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Result');
         final error = D4.getRequiredArg<String?>(positional, 0, 'error', 'Result');
-        return $pkg.Result.failure(error);
+        return $aux_d4rt_generator_example.Result.failure(error);
       },
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$pkg.Result>(target, 'Result').value,
-      'error': (visitor, target) => D4.validateTarget<$pkg.Result>(target, 'Result').error,
-      'isSuccess': (visitor, target) => D4.validateTarget<$pkg.Result>(target, 'Result').isSuccess,
-      'isFailure': (visitor, target) => D4.validateTarget<$pkg.Result>(target, 'Result').isFailure,
+      'value': (visitor, target) => D4.validateTarget<$aux_d4rt_generator_example.Result>(target, 'Result').value,
+      'error': (visitor, target) => D4.validateTarget<$aux_d4rt_generator_example.Result>(target, 'Result').error,
+      'isSuccess': (visitor, target) => D4.validateTarget<$aux_d4rt_generator_example.Result>(target, 'Result').isSuccess,
+      'isFailure': (visitor, target) => D4.validateTarget<$aux_d4rt_generator_example.Result>(target, 'Result').isFailure,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.Result>(target, 'Result');
+        final t = D4.validateTarget<$aux_d4rt_generator_example.Result>(target, 'Result');
         return t.toString();
       },
     },
@@ -779,31 +780,31 @@ BridgedClass _createResultBridge() {
 
 BridgedClass _createTaskSchedulerBridge() {
   return BridgedClass(
-    nativeType: $pkg.TaskScheduler,
+    nativeType: $aux_d4rt_generator_example.TaskScheduler,
     name: 'TaskScheduler',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.TaskScheduler();
+        return $aux_d4rt_generator_example.TaskScheduler();
       },
     },
     methods: {
       'addTask': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TaskScheduler>(target, 'TaskScheduler');
+        final t = D4.validateTarget<$aux_d4rt_generator_example.TaskScheduler>(target, 'TaskScheduler');
         D4.requireMinArgs(positional, 1, 'addTask');
         if (positional.isEmpty) {
           throw ArgumentError('addTask: Missing required argument "task" at position 0');
         }
         final taskRaw = positional[0];
-        t.addTask(() { (taskRaw as InterpretedFunction).call(visitor, []); });
+        t.addTask(() { D4.callInterpreterCallback(visitor, taskRaw, []); });
         return null;
       },
       'runAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TaskScheduler>(target, 'TaskScheduler');
+        final t = D4.validateTarget<$aux_d4rt_generator_example.TaskScheduler>(target, 'TaskScheduler');
         t.runAll();
         return null;
       },
       'runWithHandler': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TaskScheduler>(target, 'TaskScheduler');
+        final t = D4.validateTarget<$aux_d4rt_generator_example.TaskScheduler>(target, 'TaskScheduler');
         D4.requireMinArgs(positional, 3, 'runWithHandler');
         if (positional.isEmpty) {
           throw ArgumentError('runWithHandler: Missing required argument "task" at position 0');
@@ -817,11 +818,11 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('runWithHandler: Missing required argument "onError" at position 2');
         }
         final onErrorRaw = positional[2];
-        t.runWithHandler(() { return (taskRaw as InterpretedFunction).call(visitor, []) as dynamic; }, (dynamic p0) { (onSuccessRaw as InterpretedFunction).call(visitor, [p0]); }, (Object p0) { (onErrorRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.runWithHandler(() { return D4.callInterpreterCallback(visitor, taskRaw, []) as dynamic; }, (dynamic p0) { D4.callInterpreterCallback(visitor, onSuccessRaw, [p0]); }, (Object p0) { D4.callInterpreterCallback(visitor, onErrorRaw, [p0]); });
         return null;
       },
       'mapValues': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TaskScheduler>(target, 'TaskScheduler');
+        final t = D4.validateTarget<$aux_d4rt_generator_example.TaskScheduler>(target, 'TaskScheduler');
         D4.requireMinArgs(positional, 2, 'mapValues');
         if (positional.isEmpty) {
           throw ArgumentError('mapValues: Missing required argument "values" at position 0');
@@ -831,10 +832,10 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('mapValues: Missing required argument "mapper" at position 1');
         }
         final mapperRaw = positional[1];
-        return t.mapValues(values, (dynamic p0) { return (mapperRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; });
+        return t.mapValues(values, (dynamic p0) { return D4.callInterpreterCallback(visitor, mapperRaw, [p0]) as dynamic; });
       },
       'filterValues': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TaskScheduler>(target, 'TaskScheduler');
+        final t = D4.validateTarget<$aux_d4rt_generator_example.TaskScheduler>(target, 'TaskScheduler');
         D4.requireMinArgs(positional, 2, 'filterValues');
         if (positional.isEmpty) {
           throw ArgumentError('filterValues: Missing required argument "values" at position 0');
@@ -844,10 +845,10 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('filterValues: Missing required argument "predicate" at position 1');
         }
         final predicateRaw = positional[1];
-        return t.filterValues(values, (dynamic p0) { return (predicateRaw as InterpretedFunction).call(visitor, [p0]) as bool; });
+        return t.filterValues(values, (dynamic p0) { return D4.callInterpreterCallback(visitor, predicateRaw, [p0]) as bool; });
       },
       'reduceValues': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.TaskScheduler>(target, 'TaskScheduler');
+        final t = D4.validateTarget<$aux_d4rt_generator_example.TaskScheduler>(target, 'TaskScheduler');
         D4.requireMinArgs(positional, 2, 'reduceValues');
         if (positional.isEmpty) {
           throw ArgumentError('reduceValues: Missing required argument "values" at position 0');
@@ -857,7 +858,7 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('reduceValues: Missing required argument "combiner" at position 1');
         }
         final combinerRaw = positional[1];
-        return t.reduceValues(values, (dynamic p0, dynamic p1) { return (combinerRaw as InterpretedFunction).call(visitor, [p0, p1]) as dynamic; });
+        return t.reduceValues(values, (dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor, combinerRaw, [p0, p1]) as dynamic; });
       },
     },
     staticMethods: {
@@ -868,8 +869,8 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('generate: Missing required argument "generator" at position 1');
         }
         final generatorRaw = positional[1];
-        final generator = (int p0) { return (generatorRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; };
-        return $pkg.TaskScheduler.generate(count, generator);
+        final generator = (int p0) { return D4.callInterpreterCallback(visitor, generatorRaw, [p0]) as dynamic; };
+        return $aux_d4rt_generator_example.TaskScheduler.generate(count, generator);
       },
     },
     constructorSignatures: {
@@ -895,41 +896,41 @@ BridgedClass _createTaskSchedulerBridge() {
 
 BridgedClass _createAsyncServiceBridge() {
   return BridgedClass(
-    nativeType: $pkg.AsyncService,
+    nativeType: $aux_d4rt_generator_example.AsyncService,
     name: 'AsyncService',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AsyncService');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'AsyncService');
         final delayMs = D4.getOptionalArgWithDefault<int>(positional, 1, '_delayMs', 10);
-        return $pkg.AsyncService(name, delayMs);
+        return $aux_d4rt_generator_example.AsyncService(name, delayMs);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.AsyncService>(target, 'AsyncService').name,
+      'name': (visitor, target) => D4.validateTarget<$aux_d4rt_generator_example.AsyncService>(target, 'AsyncService').name,
     },
     methods: {
       'fetchData': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.AsyncService>(target, 'AsyncService');
+        final t = D4.validateTarget<$aux_d4rt_generator_example.AsyncService>(target, 'AsyncService');
         return t.fetchData();
       },
       'fetchById': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.AsyncService>(target, 'AsyncService');
+        final t = D4.validateTarget<$aux_d4rt_generator_example.AsyncService>(target, 'AsyncService');
         D4.requireMinArgs(positional, 1, 'fetchById');
         final id = D4.getRequiredArg<String>(positional, 0, 'id', 'fetchById');
         return t.fetchById(id);
       },
       'fetchWithProgress': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.AsyncService>(target, 'AsyncService');
+        final t = D4.validateTarget<$aux_d4rt_generator_example.AsyncService>(target, 'AsyncService');
         D4.requireMinArgs(positional, 1, 'fetchWithProgress');
         if (positional.isEmpty) {
           throw ArgumentError('fetchWithProgress: Missing required argument "onProgress" at position 0');
         }
         final onProgressRaw = positional[0];
-        return t.fetchWithProgress((int p0) { (onProgressRaw as InterpretedFunction).call(visitor, [p0]); });
+        return t.fetchWithProgress((int p0) { D4.callInterpreterCallback(visitor, onProgressRaw, [p0]); });
       },
       'tryFetch': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.AsyncService>(target, 'AsyncService');
+        final t = D4.validateTarget<$aux_d4rt_generator_example.AsyncService>(target, 'AsyncService');
         D4.requireMinArgs(positional, 1, 'tryFetch');
         final id = D4.getRequiredArg<String>(positional, 0, 'id', 'tryFetch');
         return t.tryFetch(id);
@@ -939,7 +940,7 @@ BridgedClass _createAsyncServiceBridge() {
       'create': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'create');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'create');
-        return $pkg.AsyncService.create(name);
+        return $aux_d4rt_generator_example.AsyncService.create(name);
       },
     },
     constructorSignatures: {
@@ -966,56 +967,56 @@ BridgedClass _createAsyncServiceBridge() {
 
 BridgedClass _createEventEmitterBridge() {
   return BridgedClass(
-    nativeType: $pkg.EventEmitter,
+    nativeType: $aux_d4rt_generator_example.EventEmitter,
     name: 'EventEmitter',
     constructors: {
       '': (visitor, positional, named) {
-        return $pkg.EventEmitter();
+        return $aux_d4rt_generator_example.EventEmitter();
       },
     },
     methods: {
       'on': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$aux_d4rt_generator_example.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 2, 'on');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'on');
         if (positional.length <= 1) {
           throw ArgumentError('on: Missing required argument "callback" at position 1');
         }
         final callbackRaw = positional[1];
-        t.on(event, (String p0) { (callbackRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.on(event, (String p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); });
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$aux_d4rt_generator_example.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 1, 'emit');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'emit');
         t.emit(event);
         return null;
       },
       'off': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$aux_d4rt_generator_example.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 2, 'off');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'off');
         if (positional.length <= 1) {
           throw ArgumentError('off: Missing required argument "callback" at position 1');
         }
         final callbackRaw = positional[1];
-        t.off(event, (String p0) { (callbackRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.off(event, (String p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); });
         return null;
       },
       'once': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$aux_d4rt_generator_example.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 2, 'once');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'once');
         if (positional.length <= 1) {
           throw ArgumentError('once: Missing required argument "callback" at position 1');
         }
         final callbackRaw = positional[1];
-        t.once(event, (String p0) { (callbackRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.once(event, (String p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); });
         return null;
       },
       'listenerCount': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.EventEmitter>(target, 'EventEmitter');
+        final t = D4.validateTarget<$aux_d4rt_generator_example.EventEmitter>(target, 'EventEmitter');
         D4.requireMinArgs(positional, 1, 'listenerCount');
         final event = D4.getRequiredArg<String>(positional, 0, 'event', 'listenerCount');
         return t.listenerCount(event);
@@ -1127,7 +1128,7 @@ BridgedClass _createBoxBridge() {
           throw ArgumentError('transform: Missing required argument "transformer" at position 0');
         }
         final transformerRaw = positional[0];
-        return t.transform((dynamic p0) { return (transformerRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; });
+        return t.transform((dynamic p0) { return D4.callInterpreterCallback(visitor, transformerRaw, [p0]) as dynamic; });
       },
     },
     staticMethods: {
@@ -1204,7 +1205,7 @@ BridgedClass _createRepositoryBridge() {
           throw ArgumentError('findWhere: Missing required argument "predicate" at position 0');
         }
         final predicateRaw = positional[0];
-        return t.findWhere(($pkg.Identifiable p0) { return (predicateRaw as InterpretedFunction).call(visitor, [p0]) as bool; });
+        return t.findWhere(($pkg.Identifiable p0) { return D4.callInterpreterCallback(visitor, predicateRaw, [p0]) as bool; });
       },
       'mapAll': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Repository>(target, 'Repository');
@@ -1213,7 +1214,7 @@ BridgedClass _createRepositoryBridge() {
           throw ArgumentError('mapAll: Missing required argument "mapper" at position 0');
         }
         final mapperRaw = positional[0];
-        return t.mapAll(($pkg.Identifiable p0) { return (mapperRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; });
+        return t.mapAll(($pkg.Identifiable p0) { return D4.callInterpreterCallback(visitor, mapperRaw, [p0]) as dynamic; });
       },
     },
     staticMethods: {
@@ -1281,7 +1282,7 @@ BridgedClass _createPairBridge() {
           throw ArgumentError('mapBoth: Missing required argument "mapSecond" at position 1');
         }
         final mapSecondRaw = positional[1];
-        return t.mapBoth((dynamic p0) { return (mapFirstRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; }, (dynamic p0) { return (mapSecondRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; });
+        return t.mapBoth((dynamic p0) { return D4.callInterpreterCallback(visitor, mapFirstRaw, [p0]) as dynamic; }, (dynamic p0) { return D4.callInterpreterCallback(visitor, mapSecondRaw, [p0]) as dynamic; });
       },
       'withFirst': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Pair>(target, 'Pair');

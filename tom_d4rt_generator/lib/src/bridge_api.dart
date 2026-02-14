@@ -103,11 +103,19 @@ Future<GenerationResult> generateBridges({
     for (final module in bridgeConfig.modules) {
       // Determine sourceImport: use barrelImport if provided, otherwise first barrel file
       final sourceImport = module.barrelImport ?? module.barrelFiles.first;
+      
+      // Build list of all barrel imports - $pkg, $pkg2, etc. 
+      // If there are multiple barrelFiles (e.g., dcli.dart and dcli_core.dart),
+      // each gets its own import prefix.
+      final sourceImports = module.barrelFiles
+          .where((f) => f.startsWith('package:'))
+          .toList();
 
       final generator = BridgeGenerator(
         workspacePath: projectDir,
         packageName: bridgeConfig.name,
         sourceImport: sourceImport,
+        sourceImports: sourceImports,
         helpersImport: bridgeConfig.helpersImport ?? 
             'package:tom_d4rt/tom_d4rt.dart',
         recursiveBoundTypes: bridgeConfig.recursiveBoundTypes.isNotEmpty

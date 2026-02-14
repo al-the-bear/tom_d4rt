@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-02-13T23:31:33.936502
+// Generated: 2026-02-14T00:56:21.460162
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -524,7 +524,7 @@ class DartOverviewBridge {
           throw ArgumentError('transform: Missing required argument "transformer" at position 1');
         }
         final transformerRaw = positional[1];
-        final transformer = (int p0) { return (transformerRaw as InterpretedFunction).call(visitor, [p0]) as int; };
+        final transformer = (int p0) { return D4.callInterpreterCallback(visitor, transformerRaw, [p0]) as int; };
         return $pkg.transform(numbers, transformer);
       },
       'fetchData': (visitor, positional, named, typeArgs) {
@@ -533,12 +533,12 @@ class DartOverviewBridge {
         if (onSuccessRaw == null) {
           throw ArgumentError('fetchData: Missing required named argument "onSuccess"');
         }
-        final onSuccess = (String p0) { (onSuccessRaw as InterpretedFunction).call(visitor, [p0]); };
+        final onSuccess = (String p0) { D4.callInterpreterCallback(visitor, onSuccessRaw, [p0]); };
         final onErrorRaw = named['onError'];
         if (onErrorRaw == null) {
           throw ArgumentError('fetchData: Missing required named argument "onError"');
         }
-        final onError = (String p0) { (onErrorRaw as InterpretedFunction).call(visitor, [p0]); };
+        final onError = (String p0) { D4.callInterpreterCallback(visitor, onErrorRaw, [p0]); };
         return $pkg.fetchData(url: url, onSuccess: onSuccess, onError: onError);
       },
       'log': (visitor, positional, named, typeArgs) {
@@ -1138,7 +1138,7 @@ BridgedClass _createWrapperBridge() {
           throw ArgumentError('transform: Missing required argument "f" at position 0');
         }
         final fRaw = positional[0];
-        return t.transform((dynamic p0) { return (fRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; });
+        return t.transform((dynamic p0) { return D4.callInterpreterCallback(visitor, fRaw, [p0]) as dynamic; });
       },
     },
     constructorSignatures: {
@@ -1341,7 +1341,7 @@ BridgedClass _createMaybeBridge() {
           throw ArgumentError('map: Missing required argument "f" at position 0');
         }
         final fRaw = positional[0];
-        return t.map((dynamic p0) { return (fRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; });
+        return t.map((dynamic p0) { return D4.callInterpreterCallback(visitor, fRaw, [p0]) as dynamic; });
       },
     },
     constructorSignatures: {
@@ -1394,7 +1394,7 @@ BridgedClass _createResultBridge() {
           throw ArgumentError('fold: Missing required argument "onFailure" at position 1');
         }
         final onFailureRaw = positional[1];
-        return t.fold((dynamic p0) { return (onSuccessRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; }, (dynamic p0) { return (onFailureRaw as InterpretedFunction).call(visitor, [p0]) as dynamic; });
+        return t.fold((dynamic p0) { return D4.callInterpreterCallback(visitor, onSuccessRaw, [p0]) as dynamic; }, (dynamic p0) { return D4.callInterpreterCallback(visitor, onFailureRaw, [p0]) as dynamic; });
       },
     },
     constructorSignatures: {
@@ -4112,7 +4112,7 @@ BridgedClass _createEventEmitterBridge() {
           throw ArgumentError('addListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.addListener((String p0) { (listenerRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.addListener((String p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
@@ -4122,7 +4122,7 @@ BridgedClass _createEventEmitterBridge() {
           throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.removeListener((String p0) { (listenerRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.removeListener((String p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {
@@ -4172,7 +4172,7 @@ BridgedClass _createButtonBridge() {
           throw ArgumentError('addListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.addListener((String p0) { (listenerRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.addListener((String p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
@@ -4182,7 +4182,7 @@ BridgedClass _createButtonBridge() {
           throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
         }
         final listenerRaw = positional[0];
-        t.removeListener((String p0) { (listenerRaw as InterpretedFunction).call(visitor, [p0]); });
+        t.removeListener((String p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
         return null;
       },
       'emit': (visitor, target, positional, named, typeArgs) {

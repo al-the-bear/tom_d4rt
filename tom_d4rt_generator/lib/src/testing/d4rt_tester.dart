@@ -212,6 +212,10 @@ class D4rtTester {
 
   /// Errors from the last [prepareBridges] call, or `null` if successful.
   List<String>? _lastGenerationErrors;
+  
+  /// Public accessor for errors from the last [prepareBridges] call.
+  /// Returns `null` if generation was successful.
+  List<String>? get lastGenerationErrors => _lastGenerationErrors;
 
   /// Generate bridges and run a D4rt script file, capturing results.
   ///

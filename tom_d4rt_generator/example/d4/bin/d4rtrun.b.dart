@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for d4_example
-// Generated: 2026-02-13T23:31:39.123073
+// Generated: 2026-02-14T00:56:26.840556
 //
 // Usage:
 //   dart run bin/d4rtrun.b.dart <script.dart|.d4rt>  Run a D4rt script file
@@ -36,6 +36,7 @@ import 'package:d4_example/userbridge_user_guide.dart';
 import 'package:d4_example/dart_overview.dart';
 import 'package:path/path.dart';
 import 'package:dcli/dcli.dart';
+import 'package:dcli_core/dcli_core.dart';
 
 void main() {}
 ''';
@@ -77,6 +78,10 @@ void _registerBridges(D4rt d4rt) {
   dcli_bridges.DcliBridge.registerBridges(
     d4rt,
     'package:dcli/dcli.dart',
+  );
+  dcli_bridges.DcliBridge.registerBridges(
+    d4rt,
+    'package:dcli_core/dcli_core.dart',
   );
 }
 
