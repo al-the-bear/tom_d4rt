@@ -1635,7 +1635,9 @@ class BridgeGenerator {
       // during recursive export chain from another barrel. This ensures each
       // top-level barrel gets its own barrelUri assigned correctly.
       // Only skip for recursive (non-top-level) calls to prevent infinite loops.
-      if (!isTopLevel && visited.contains(normalizedPath)) continue;
+      if (!isTopLevel && visited.contains(normalizedPath)) {
+        continue;
+      }
       visited.add(normalizedPath);
 
       final file = File(normalizedPath);
@@ -1774,11 +1776,28 @@ class BridgeGenerator {
                 parentHideClause: parentHideClause,
               );
               
-              final isExistingNestedMorePermissive = existingNested != null && 
-                  existingNested.showClause == null && 
-                  existingNested.hideClause == null;
-              if (!isExistingNestedMorePermissive) {
-                // Preserve the barrel URI from the nested export, or use current if not set
+              if (existingNested == null) {
+                // No existing entry - set directly
+                exports[entry.key] = mergedEntry.barrelUri != null 
+                    ? mergedEntry 
+                    : mergedEntry.copyWith(barrelUri: currentBarrelUri);
+              } else if (existingNested.showClause == null && 
+                         existingNested.hideClause == null) {
+                // Existing is fully permissive (no restrictions) - keep it
+              } else if (mergedEntry.showClause != null && 
+                         existingNested.showClause != null) {
+                // GEN-070: Multiple export chains to the same source file are
+                // additive in Dart. Union the show clauses so symbols visible
+                // through ANY chain are included.
+                final unionShow = {
+                  ...existingNested.showClause!, 
+                  ...mergedEntry.showClause!,
+                }.toList();
+                exports[entry.key] = existingNested.copyWith(
+                  showClause: unionShow,
+                );
+              } else {
+                // Default: new entry overrides (e.g., new entry is more permissive)
                 exports[entry.key] = mergedEntry.barrelUri != null 
                     ? mergedEntry 
                     : mergedEntry.copyWith(barrelUri: currentBarrelUri);
@@ -1848,6 +1867,13 @@ class BridgeGenerator {
               finalHide = null;
             }
 
+            // GEN-070: If existing entry has a show clause and we have one too,
+            // union them (multiple export chains are additive in Dart).
+            if (existingInfo != null && existingInfo.showClause != null && 
+                finalShow != null) {
+              finalShow = {...existingInfo.showClause!, ...finalShow}.toList();
+            }
+
             exports[absolutePath] = ExportInfo(
               sourcePath: absolutePath,
               hideClause: finalHide,
@@ -1856,6 +1882,16 @@ class BridgeGenerator {
             );
           }
         }
+      }
+
+      // GEN-070: Remove from visited after processing completes.
+      // This converts the visited set from "ever visited" to a recursion-stack,
+      // preventing cycles (A->B->A) but allowing the same barrel to be reached
+      // through different export chains with different show/hide clauses.
+      // Top-level barrels skip the visited check anyway, so only remove for
+      // non-top-level (recursive) calls.
+      if (!isTopLevel) {
+        visited.remove(normalizedPath);
       }
     }
 
