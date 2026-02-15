@@ -1,3 +1,21 @@
+## 1.8.3
+
+### Architecture
+- **v2 ToolRunner migration**: Refactored d4rtgen CLI to use v2 ToolRunner framework (`D4rtgenTool`, `D4rtgenExecutor`) for better code organization and testability
+
+### Bug Fixes
+- **GEN-064**: Fixed duplicate extension keys in generated bridge files — extensions are now deduplicated by fully qualified key before generation
+- **GEN-065**: Fixed type resolution for cross-file references — types defined in one file but used in another now correctly resolve prefixes
+- **GEN-066**: Fixed extension target resolution when the target type is parameterized with types from other files
+- **GEN-067**: Fixed resolution of types in generic bounds that reference cross-file definitions
+- **GEN-068**: Fixed method return type resolution when the return type is from a different source file than the method declaration
+- **GEN-069**: Fixed parameter type resolution for callbacks and function types that reference cross-file types
+
+### Tests
+- Added `cross_file_type_resolution_test.dart` with 132 lines of new test coverage
+- Added `d4rtgen_traversal_test.dart` with 236 lines validating v2 traversal logic
+- All 461 tests pass
+
 ## 1.8.2
 
 ### Republish
