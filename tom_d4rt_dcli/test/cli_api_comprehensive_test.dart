@@ -324,7 +324,7 @@ void main() {
 
       test('expandDefine parses define invocation', () {
         ctx.controller.define('test', 'expanded');
-        final result = ctx.controller.expandDefine('\$test');
+        final result = ctx.controller.expandDefine('@test');
         expect(result, 'expanded');
       });
 

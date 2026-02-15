@@ -9,6 +9,7 @@ import 'package:tom_d4rt/d4rt.dart';
 import 'src/bridges/cli_api_bridges.b.dart' as cli_api_bridges;
 import 'src/bridges/tom_vscode_scripting_api_bridges.b.dart' as tom_vscode_scripting_api_bridges;
 import 'src/bridges/dcli_bridges.b.dart' as dcli_bridges;
+import 'src/bridges/dcli_missing_bridges.dart' as dcli_missing;
 import 'src/bridges/path_bridges.b.dart' as path_bridges;
 import 'src/bridges/tom_chattools_bridges.b.dart' as tom_chattools_bridges;
 
@@ -38,9 +39,12 @@ class TomD4rtDcliBridge {
       d4rt,
       'package:dcli/dcli.dart',
     );
+    // Register missing dcli bridges (lastModified, setLastModifed, symlink, Find)
+    dcli_missing.DcliMissingBridges.register(d4rt, 'package:dcli/dcli.dart');
     // Register under sub-package barrels for direct imports
     for (final barrel in dcli_bridges.DcliBridge.subPackageBarrels()) {
       dcli_bridges.DcliBridge.registerBridges(d4rt, barrel);
+      dcli_missing.DcliMissingBridges.register(d4rt, barrel);
     }
     path_bridges.PathBridge.registerBridges(
       d4rt,
