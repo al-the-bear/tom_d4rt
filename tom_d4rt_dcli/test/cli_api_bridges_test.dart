@@ -805,25 +805,25 @@ void main() {
       await ctx.tearDown();
     });
 
-    test('symlink() creates symbolic link (@Deprecated in dcli 8.4.2, FAIL expected)', () async {
+    test('createSymLink() creates symbolic link', () async {
       ctx.createFile('link_target.txt', 'target');
       final targetPath = '${ctx.tempDir.path}/link_target.txt';
       final linkPath = '${ctx.tempDir.path}/link.txt';
       await ctx.run('''
 void main() {
-  symlink('$targetPath', '$linkPath');
+  createSymLink(targetPath: '$targetPath', linkPath: '$linkPath');
 }
 ''');
       expect(Link(linkPath).existsSync(), true);
     });
 
-    test('symlink() link points to target (@Deprecated in dcli 8.4.2, FAIL expected)', () async {
+    test('createSymLink() link points to target', () async {
       ctx.createFile('sym_target.txt', 'target content');
       final targetPath = '${ctx.tempDir.path}/sym_target.txt';
       final linkPath = '${ctx.tempDir.path}/sym_link.txt';
       await ctx.run('''
 void main() {
-  symlink('$targetPath', '$linkPath');
+  createSymLink(targetPath: '$targetPath', linkPath: '$linkPath');
 }
 ''');
       expect(File(linkPath).readAsStringSync(), 'target content');
@@ -2538,14 +2538,14 @@ void main() {
       expect(Directory('${ctx.tempDir.path}/a/b/c/d/e').existsSync(), true);
     });
 
-    test('symlink operations chain (@Deprecated in dcli 8.4.2, FAIL expected)', () async {
+    test('createSymLink + resolveSymLink + deleteSymlink chain', () async {
       ctx.createFile('sym_original.txt', 'original');
       final origPath = '${ctx.tempDir.path}/sym_original.txt';
       final linkPath = '${ctx.tempDir.path}/sym_link.txt';
       
       await ctx.run('''
 void main() {
-  symlink('$origPath', '$linkPath');
+  createSymLink(targetPath: '$origPath', linkPath: '$linkPath');
 }
 ''');
       
