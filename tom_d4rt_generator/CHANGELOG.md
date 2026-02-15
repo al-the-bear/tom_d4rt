@@ -1,3 +1,12 @@
+## 1.8.4
+
+### Bug Fixes
+- **GEN-070**: Fixed barrel export bug for multi-chain re-exports — when a symbol is exported through multiple barrel chains (e.g., `Find` class via direct dcli_core export AND indirect find.dart re-export), the show clauses are now unioned instead of the second chain being blocked by the visited set
+
+### Tests
+- Added `gen070_reexport_show_test.dart` with 3 tests for multi-chain re-export scenarios
+- All 464 tests pass
+
 ## 1.8.3
 
 ### Architecture

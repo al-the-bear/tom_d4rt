@@ -1,3 +1,14 @@
+## 1.1.2
+
+### Bug Fixes
+- **GEN-070 follow-up**: `Find` class now properly bridged via generator fix (multi-chain barrel re-export)
+- Removed `dcli_missing_bridges.dart` supplementary bridge (no longer needed)
+- Removed `lastModified`/`setLastModifed` tests (not exported from dcli barrel)
+- Replaced deprecated `symlink()` tests with `createSymLink()` tests
+
+### Tests
+- All 389 tests pass, 0 failures, 0 skips
+
 ## 1.1.1
 
 ### Bug Fixes
