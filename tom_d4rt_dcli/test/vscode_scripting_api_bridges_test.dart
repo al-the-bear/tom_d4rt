@@ -14,9 +14,7 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
-// Import VS Code scripting API and its bridge directly
-import 'package:tom_d4rt_dcli/src/bridges/tom_vscode_scripting_api_bridges.b.dart';
-import 'package:tom_d4rt_dcli/src/bridges/cli_api_bridges.b.dart';
+import 'package:tom_d4rt_dcli/dartscript.b.dart';
 import 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart';
 import 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart';
 
@@ -68,9 +66,8 @@ class VSCodeTestContext {
     d4rt.grant(NetworkPermission.any);
     d4rt.grant(ProcessRunPermission.any);
     
-    // Register individual bridges (avoiding dcli bridges which have issues)
-    CliApiBridge.registerBridges(d4rt, 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart');
-    TomVscodeScriptingApiBridge.registerBridges(d4rt, 'package:tom_vscode_scripting_api/script_globals.dart');
+    // Register full bridges including dcli
+    TomD4rtDcliBridge.register(d4rt);
 
     state = CliState(
       dataDirectory: tempDir.path,
@@ -109,7 +106,7 @@ class VSCodeTestContext {
   Future<ExecuteResult> exec(String code) async {
     output.clear();
     return withCapture(output, () => controller.execute('''
-import 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart';
+import 'package:tom_vscode_scripting_api/script_globals.dart';
 
 $code
 '''));
@@ -357,59 +354,249 @@ void main() {
     });
   });
 
-  // NOTE: D4rt Script Execution tests are skipped because they require the full
-  // TomD4rtDcliBridge.register() which includes dcli bridges. The dcli bridges
-  // currently have errors due to dcli package API changes.
-  // Once dcli bridges are fixed, these tests should be enabled.
+  // D4rt Script Execution tests - execute VS Code API calls through the
+  // D4rt interpreter with full bridge registration including dcli.
   group('VS Code Scripting API - D4rt Script Execution', () {
+    late VSCodeTestContext ctx;
+
+    setUp(() async {
+      ctx = VSCodeTestContext();
+      await ctx.setUp();
+    });
+
+    tearDown(() async {
+      await ctx.tearDown();
+    });
+
     test('can access VSCode class from script', () async {
-      // Test body placeholder - see skip reason
-    }, skip: 'Requires full bridge registration including dcli');
+      if (!ctx.bridgeAvailable) {
+        print('Skipping: VS Code bridge not available');
+        return;
+      }
+      final result = await ctx.exec('''
+void main() {
+  print(VSCode.isInitialized);
+}
+''');
+      if (!result.success) {
+        print('ERROR: ${result.error}');
+        print('STACK: ${result.stackTrace}');
+        print('OUTPUT: ${ctx.output.stdoutText}');
+      }
+      expect(result.success, true);
+      expect(ctx.output.stdoutText.trim(), 'true');
+    });
 
     test('can access VSCodeBridgeClient from script', () async {
-      // Test body placeholder - see skip reason
-    }, skip: 'Requires full bridge registration including dcli');
+      if (!ctx.bridgeAvailable) {
+        print('Skipping: VS Code bridge not available');
+        return;
+      }
+      final result = await ctx.exec('''
+void main() async {
+  var available = await VSCodeBridgeClient.isAvailable();
+  print(available);
+}
+''');
+      expect(result.success, true);
+      expect(ctx.output.stdoutText.trim(), 'true');
+    });
 
     test('can create VSCodeUri from script', () async {
-      // Test body placeholder - see skip reason
-    }, skip: 'Requires full bridge registration including dcli');
+      if (!ctx.bridgeAvailable) {
+        print('Skipping: VS Code bridge not available');
+        return;
+      }
+      final result = await ctx.exec('''
+void main() {
+  var uri = VSCodeUri(scheme: 'file', path: '/tmp/test.txt', fsPath: '/tmp/test.txt');
+  print(uri.scheme);
+  print(uri.path);
+}
+''');
+      expect(result.success, true);
+      final lines = ctx.output.stdoutText.trim().split('\n');
+      expect(lines[0], 'file');
+      expect(lines[1], '/tmp/test.txt');
+    });
 
     test('can create WorkspaceFolder from script', () async {
-      // Test body placeholder - see skip reason
-    }, skip: 'Requires full bridge registration including dcli');
+      if (!ctx.bridgeAvailable) {
+        print('Skipping: VS Code bridge not available');
+        return;
+      }
+      final result = await ctx.exec('''
+void main() {
+  var uri = VSCodeUri(scheme: 'file', path: '/tmp/workspace', fsPath: '/tmp/workspace');
+  var folder = WorkspaceFolder(uri: uri, name: 'test', index: 0);
+  print(folder.name);
+  print(folder.index);
+}
+''');
+      expect(result.success, true);
+      final lines = ctx.output.stdoutText.trim().split('\n');
+      expect(lines[0], 'test');
+      expect(lines[1], '0');
+    });
 
     test('can create Position and Range from script', () async {
-      // Test body placeholder - see skip reason
-    }, skip: 'Requires full bridge registration including dcli');
+      if (!ctx.bridgeAvailable) {
+        print('Skipping: VS Code bridge not available');
+        return;
+      }
+      final result = await ctx.exec('''
+void main() {
+  var start = Position(1, 5);
+  var end = Position(3, 10);
+  var range = Range(start, end);
+  print(range.start.line);
+  print(range.end.character);
+}
+''');
+      expect(result.success, true);
+      final lines = ctx.output.stdoutText.trim().split('\n');
+      expect(lines[0], '1');
+      expect(lines[1], '10');
+    });
 
     test('can create Selection from script', () async {
-      // Test body placeholder - see skip reason
-    }, skip: 'Requires full bridge registration including dcli');
+      if (!ctx.bridgeAvailable) {
+        print('Skipping: VS Code bridge not available');
+        return;
+      }
+      final result = await ctx.exec('''
+void main() {
+  var anchor = Position(0, 0);
+  var active = Position(5, 3);
+  var sel = Selection(anchor, active, false);
+  print(sel.anchor.line);
+  print(sel.active.character);
+}
+''');
+      expect(result.success, true);
+      final lines = ctx.output.stdoutText.trim().split('\n');
+      expect(lines[0], '0');
+      expect(lines[1], '3');
+    });
 
     test('can create QuickPickItem from script', () async {
-      // Test body placeholder - see skip reason
-    }, skip: 'Requires full bridge registration including dcli');
+      if (!ctx.bridgeAvailable) {
+        print('Skipping: VS Code bridge not available');
+        return;
+      }
+      final result = await ctx.exec('''
+void main() {
+  var item = QuickPickItem(label: 'Test Item', description: 'A test');
+  print(item.label);
+  print(item.description);
+}
+''');
+      expect(result.success, true);
+      final lines = ctx.output.stdoutText.trim().split('\n');
+      expect(lines[0], 'Test Item');
+      expect(lines[1], 'A test');
+    });
 
     test('can create InputBoxOptions from script', () async {
-      // Test body placeholder - see skip reason
-    }, skip: 'Requires full bridge registration including dcli');
+      if (!ctx.bridgeAvailable) {
+        print('Skipping: VS Code bridge not available');
+        return;
+      }
+      final result = await ctx.exec('''
+void main() {
+  var opts = InputBoxOptions(prompt: 'Enter value', placeHolder: 'e.g. hello');
+  print(opts.prompt);
+  print(opts.placeHolder);
+}
+''');
+      expect(result.success, true);
+      final lines = ctx.output.stdoutText.trim().split('\n');
+      expect(lines[0], 'Enter value');
+      expect(lines[1], 'e.g. hello');
+    });
 
     test('can create MessageOptions from script', () async {
-      // Test body placeholder - see skip reason
-    }, skip: 'Requires full bridge registration including dcli');
+      if (!ctx.bridgeAvailable) {
+        print('Skipping: VS Code bridge not available');
+        return;
+      }
+      final result = await ctx.exec('''
+void main() {
+  var opts = MessageOptions(modal: true);
+  print(opts.modal);
+}
+''');
+      expect(result.success, true);
+      expect(ctx.output.stdoutText.trim(), 'true');
+    });
   });
 
   group('VS Code Scripting API - Live Bridge Commands', () {
+    late VSCodeTestContext ctx;
+
+    setUp(() async {
+      ctx = VSCodeTestContext();
+      await ctx.setUp();
+    });
+
+    tearDown(() async {
+      await ctx.tearDown();
+    });
+
     test('script can get VS Code version through bridge', () async {
-      // Test body placeholder - see skip reason
-    }, skip: 'Requires full bridge registration including dcli');
+      if (!ctx.bridgeAvailable) {
+        print('Skipping: VS Code bridge not available');
+        return;
+      }
+      final result = await ctx.exec('''
+void main() async {
+  var version = await VSCode.instance.getVersion();
+  print(version);
+}
+''');
+      expect(result.success, true);
+      expect(ctx.output.stdoutText.trim(), isNotEmpty);
+      print('Version from script: ${ctx.output.stdoutText.trim()}');
+    });
 
     test('script can get workspace folders through bridge', () async {
-      // Test body placeholder - see skip reason
-    }, skip: 'Requires full bridge registration including dcli');
+      if (!ctx.bridgeAvailable) {
+        print('Skipping: VS Code bridge not available');
+        return;
+      }
+      final result = await ctx.exec('''
+void main() async {
+  var folders = await VSCode.instance.workspace.getWorkspaceFolders();
+  print(folders.length);
+  if (folders.isNotEmpty) {
+    print(folders.first.name);
+  }
+}
+''');
+      expect(result.success, true);
+      final lines = ctx.output.stdoutText.trim().split('\n');
+      expect(int.tryParse(lines[0]), isNotNull);
+      print('Folders from script: ${ctx.output.stdoutText.trim()}');
+    });
 
     test('script can get active editor through bridge', () async {
-      // Test body placeholder - see skip reason
-    }, skip: 'Requires full bridge registration including dcli');
+      if (!ctx.bridgeAvailable) {
+        print('Skipping: VS Code bridge not available');
+        return;
+      }
+      final result = await ctx.exec('''
+void main() async {
+  var editor = await VSCode.instance.window.getActiveTextEditor();
+  if (editor != null) {
+    print(editor.document.fileName);
+  } else {
+    print('no editor');
+  }
+}
+''');
+      expect(result.success, true);
+      expect(ctx.output.stdoutText.trim(), isNotEmpty);
+      print('Editor from script: ${ctx.output.stdoutText.trim()}');
+    });
   });
 }

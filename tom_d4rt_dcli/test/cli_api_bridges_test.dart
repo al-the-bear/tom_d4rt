@@ -1482,28 +1482,60 @@ void main() {
       expect(out.trim(), 'true');
     });
 
-    test('NamedLock.withLock() executes callback', () async {
-      // withLock returns a Future<T>, need to await it
-      final out = await ctx.runAndCapture('''
+    test('NamedLock.withLock() executes callback (deprecated in dcli 8.4.2, throws UnsupportedError)', () async {
+      // withLock is deprecated in dcli 8.4.2 — throws UnsupportedError('Use withLockAsync')
+      expect(
+        () => ctx.runAndCapture('''
 void main() async {
   var lock = NamedLock(name: 'test_lock_callback');
   var result = await lock.withLock(() => 'completed');
   print(result);
 }
-''');
-      expect(out.trim(), 'completed');
+'''),
+        throwsA(isA<Exception>()),
+      );
     });
 
-    test('NamedLock.withLock() with timeout', () async {
-      // Timeout is set in constructor, not withLock
-      final out = await ctx.runAndCapture('''
+    test('NamedLock.withLock() with timeout (deprecated in dcli 8.4.2, throws UnsupportedError)', () async {
+      // withLock is deprecated in dcli 8.4.2 — throws UnsupportedError('Use withLockAsync')
+      expect(
+        () => ctx.runAndCapture('''
 void main() async {
   var lock = NamedLock(name: 'timeout_test_lock', timeout: Duration(seconds: 5));
   var result = await lock.withLock(() => 42);
   print(result);
 }
+'''),
+        throwsA(isA<Exception>()),
+      );
+    });
+
+    test('NamedLock.withLockAsync() executes callback', () async {
+      final out = await ctx.runAndCapture('''
+void main() async {
+  var lock = NamedLock(name: 'test_lock_async_callback');
+  await lock.withLockAsync(() async {
+    print('inside async lock');
+  });
+  print('done');
+}
 ''');
-      expect(out.trim(), '42');
+      expect(out, contains('inside async lock'));
+      expect(out, contains('done'));
+    });
+
+    test('NamedLock.withLockAsync() with timeout', () async {
+      final out = await ctx.runAndCapture('''
+void main() async {
+  var lock = NamedLock(name: 'timeout_async_lock', timeout: Duration(seconds: 5));
+  await lock.withLockAsync(() async {
+    print('locked with timeout');
+  });
+  print('completed');
+}
+''');
+      expect(out, contains('locked with timeout'));
+      expect(out, contains('completed'));
     });
   });
 
@@ -2458,9 +2490,11 @@ void main() {
       expect(out, contains('nonexistent: false'));
     });
 
-    test('create and use NamedLock with callback', () async {
+    test('create and use NamedLock with callback (deprecated in dcli 8.4.2, throws UnsupportedError)', () async {
+      // withLock is deprecated in dcli 8.4.2 — throws UnsupportedError('Use withLockAsync')
       final lockPath = '${ctx.tempDir.path}/lock_integration';
-      final out = await ctx.runAndCapture('''
+      expect(
+        () => ctx.runAndCapture('''
 void main() {
   var lock = NamedLock(name: 'integration', lockPath: '$lockPath');
   lock.withLock(() {
@@ -2468,8 +2502,23 @@ void main() {
   });
   print('done');
 }
+'''),
+        throwsA(isA<Exception>()),
+      );
+    });
+
+    test('create and use NamedLock with withLockAsync', () async {
+      final lockPath = '${ctx.tempDir.path}/lock_integration_async';
+      final out = await ctx.runAndCapture('''
+void main() async {
+  var lock = NamedLock(name: 'integration_async', lockPath: '$lockPath');
+  await lock.withLockAsync(() async {
+    print('inside async lock');
+  });
+  print('done');
+}
 ''');
-      expect(out, contains('inside lock'));
+      expect(out, contains('inside async lock'));
       expect(out, contains('done'));
     });
 
