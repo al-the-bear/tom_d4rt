@@ -805,7 +805,7 @@ void main() {
       await ctx.tearDown();
     });
 
-    test('symlink() creates symbolic link', () async {
+    test('symlink() creates symbolic link (@Deprecated in dcli 8.4.2, FAIL expected)', () async {
       ctx.createFile('link_target.txt', 'target');
       final targetPath = '${ctx.tempDir.path}/link_target.txt';
       final linkPath = '${ctx.tempDir.path}/link.txt';
@@ -817,7 +817,7 @@ void main() {
       expect(Link(linkPath).existsSync(), true);
     });
 
-    test('symlink() link points to target', () async {
+    test('symlink() link points to target (@Deprecated in dcli 8.4.2, FAIL expected)', () async {
       ctx.createFile('sym_target.txt', 'target content');
       final targetPath = '${ctx.tempDir.path}/sym_target.txt';
       final linkPath = '${ctx.tempDir.path}/sym_link.txt';
@@ -2538,7 +2538,7 @@ void main() {
       expect(Directory('${ctx.tempDir.path}/a/b/c/d/e').existsSync(), true);
     });
 
-    test('symlink operations chain', () async {
+    test('symlink operations chain (@Deprecated in dcli 8.4.2, FAIL expected)', () async {
       ctx.createFile('sym_original.txt', 'original');
       final origPath = '${ctx.tempDir.path}/sym_original.txt';
       final linkPath = '${ctx.tempDir.path}/sym_link.txt';
