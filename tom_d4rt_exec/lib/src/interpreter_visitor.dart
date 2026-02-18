@@ -111,7 +111,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   @override
   Object? visitPatternVariableDeclarationStatement(
       SPatternVariableDeclarationStatement node) {
-    final patternDecl = node.declaration as SPatternVariableDeclaration;
+    final patternDecl = node.declaration;
     final pattern = patternDecl.pattern;
     final initializer = patternDecl.expression;
 
@@ -3741,10 +3741,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final caseClause = node.caseClause;
     if (caseClause != null) {
       // This is an if-case statement: if (expr case Pattern when guard) { ... }
-      final cc = caseClause as SCaseClause;
-      final gp = cc.guardedPattern as SGuardedPattern;
+      final cc = caseClause;
+      final gp = cc.guardedPattern;
       final pattern = gp.pattern;
-      final guard = (gp.whenClause as SWhenClause?)?.expression;
+      final guard = gp.whenClause?.expression;
 
       // Create a temporary environment for pattern variable bindings
       final caseEnvironment = Environment(enclosing: environment);
@@ -8464,7 +8464,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitConstructorReference(SConstructorReference node) {
-    final cName = node.constructorName as SConstructorName;
+    final cName = node.constructorName;
     final typeNode = cName.type;
     final constructorId = cName.name; // Null for default
     final constructorLookupName = constructorId?.name ?? '';
@@ -8573,7 +8573,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               statementsToExecute = member.statements;
             } else if (member is SSwitchPatternCase) {
               // Try explicit cast to potentially help the linter
-              final gp = member.guardedPattern as SGuardedPattern;
+              final gp = member.guardedPattern;
               final pattern = gp.pattern;
               if (pattern is SConstantPattern) {
                 // This handles 'case <constant>:'
@@ -8604,7 +8604,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                         "[Switch] Matched pattern case: ${pattern.runtimeType}");
 
                     // Check guard clause (when)
-                    final gpWhenClause = gp.whenClause as SWhenClause?;
+                    final gpWhenClause = gp.whenClause;
                     if (gpWhenClause != null) {
                       final prevEnv = environment;
                       environment = tempEnvironment;
@@ -8939,6 +8939,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       for (int i = 0; i < pattern.elements.length; i++) {
         final element = pattern.elements[i];
 
+        // ignore: unnecessary_type_check
         if (element is SMapPatternEntry) {
           final keyPatternExpr = element.key;
           final valuePattern = element.value;
@@ -9044,7 +9045,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
         // Use the corrected access path
         // For shorthand syntax (:name), field name comes from the pattern itself
-        String? fieldName = (fieldNode.name as SPatternFieldName?)?.name;
+        String? fieldName = fieldNode.name?.name;
         if (fieldName == null) {
           // Shorthand syntax: (:name) - name comes from the pattern
           final fieldSubPattern = fieldNode.pattern;
@@ -9077,7 +9078,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // Success: function completes normally
     } else if (pattern is SObjectPattern) {
       // Handles: ClassName(field1: pattern1, field2: pattern2)
-      final objTypeName = (pattern.type as SNamedType).name!.name;
+      final objTypeName = pattern.type.name!.name;
       Logger.debug(
           '[_matchAndBind] Matching object pattern $objTypeName against value ${value?.runtimeType}');
 
@@ -9160,9 +9161,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
       // Match each field pattern
       for (final field in pattern.fields) {
-        final pf = field as SPatternField;
-        final SPatternFieldName? fieldName = pf.name as SPatternFieldName?;
-        final SAstNode fieldPattern = pf.pattern;
+        final pf = field;
+        final fieldName = pf.name;
+        final fieldPattern = pf.pattern;
 
         // Get the field name string - handle shorthand syntax (:fieldName)
         String fieldNameStr;
@@ -9384,10 +9385,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final originalEnvironment = environment; // Backup current environment
 
     for (final caseExpr in node.cases) {
-      final switchCase = caseExpr as SSwitchExpressionCase;
-      final switchGp = switchCase.guardedPattern as SGuardedPattern;
+      final switchCase = caseExpr;
+      final switchGp = switchCase.guardedPattern;
       final pattern = switchGp.pattern;
-      final guard = (switchGp.whenClause as SWhenClause?)?.expression;
+      final guard = switchGp.whenClause?.expression;
       final body = switchCase.expression;
 
       // Create a temporary environment for this case's pattern variables
@@ -9639,7 +9640,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         "[visitExtensionTypeDeclaration] Declaring extension type: $typeName");
 
     // Get the representation field name and type
-    final representation = node.representation as SRepresentationDeclaration;
+    final representation = node.representation;
     final representationFieldName = representation.fieldName;
     final representationTypeNode = representation.fieldType;
 
