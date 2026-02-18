@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+part 'ast_categories.dart';
 part 'ast_declarations.dart';
 part 'ast_statements.dart';
 part 'ast_expressions.dart';
