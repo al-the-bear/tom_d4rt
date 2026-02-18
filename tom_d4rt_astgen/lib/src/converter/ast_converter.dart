@@ -45,25 +45,40 @@ class AstConverter {
     if (node == null) return null;
 
     // Declarations
-    if (node is analyzer.FunctionDeclaration) return _convertFunctionDeclaration(node);
-    if (node is analyzer.MethodDeclaration) return _convertMethodDeclaration(node);
-    if (node is analyzer.ClassDeclaration) return _convertClassDeclaration(node);
-    if (node is analyzer.MixinDeclaration) return _convertMixinDeclaration(node);
+    if (node is analyzer.FunctionDeclaration)
+      return _convertFunctionDeclaration(node);
+    if (node is analyzer.MethodDeclaration)
+      return _convertMethodDeclaration(node);
+    if (node is analyzer.ClassDeclaration)
+      return _convertClassDeclaration(node);
+    if (node is analyzer.MixinDeclaration)
+      return _convertMixinDeclaration(node);
     if (node is analyzer.EnumDeclaration) return _convertEnumDeclaration(node);
-    if (node is analyzer.ExtensionDeclaration) return _convertExtensionDeclaration(node);
-    if (node is analyzer.VariableDeclaration) return _convertVariableDeclaration(node);
-    if (node is analyzer.VariableDeclarationList) return _convertVariableDeclarationList(node);
-    if (node is analyzer.FieldDeclaration) return _convertFieldDeclaration(node);
-    if (node is analyzer.ConstructorDeclaration) return _convertConstructorDeclaration(node);
-    if (node is analyzer.TopLevelVariableDeclaration) return _convertTopLevelVariableDeclaration(node);
-    if (node is analyzer.FunctionTypeAlias) return _convertFunctionTypeAlias(node);
-    if (node is analyzer.GenericTypeAlias) return _convertGenericTypeAlias(node);
-    if (node is analyzer.EnumConstantDeclaration) return _convertEnumConstantDeclaration(node);
+    if (node is analyzer.ExtensionDeclaration)
+      return _convertExtensionDeclaration(node);
+    if (node is analyzer.VariableDeclaration)
+      return _convertVariableDeclaration(node);
+    if (node is analyzer.VariableDeclarationList)
+      return _convertVariableDeclarationList(node);
+    if (node is analyzer.FieldDeclaration)
+      return _convertFieldDeclaration(node);
+    if (node is analyzer.ConstructorDeclaration)
+      return _convertConstructorDeclaration(node);
+    if (node is analyzer.TopLevelVariableDeclaration)
+      return _convertTopLevelVariableDeclaration(node);
+    if (node is analyzer.FunctionTypeAlias)
+      return _convertFunctionTypeAlias(node);
+    if (node is analyzer.GenericTypeAlias)
+      return _convertGenericTypeAlias(node);
+    if (node is analyzer.EnumConstantDeclaration)
+      return _convertEnumConstantDeclaration(node);
 
     // Statements
     if (node is analyzer.Block) return _convertBlock(node);
-    if (node is analyzer.VariableDeclarationStatement) return _convertVariableDeclarationStatement(node);
-    if (node is analyzer.ExpressionStatement) return _convertExpressionStatement(node);
+    if (node is analyzer.VariableDeclarationStatement)
+      return _convertVariableDeclarationStatement(node);
+    if (node is analyzer.ExpressionStatement)
+      return _convertExpressionStatement(node);
     if (node is analyzer.ReturnStatement) return _convertReturnStatement(node);
     if (node is analyzer.IfStatement) return _convertIfStatement(node);
     if (node is analyzer.ForStatement) return _convertForStatement(node);
@@ -72,35 +87,51 @@ class AstConverter {
     if (node is analyzer.SwitchStatement) return _convertSwitchStatement(node);
     if (node is analyzer.TryStatement) return _convertTryStatement(node);
     if (node is analyzer.BreakStatement) return _convertBreakStatement(node);
-    if (node is analyzer.ContinueStatement) return _convertContinueStatement(node);
+    if (node is analyzer.ContinueStatement)
+      return _convertContinueStatement(node);
     if (node is analyzer.AssertStatement) return _convertAssertStatement(node);
     if (node is analyzer.YieldStatement) return _convertYieldStatement(node);
-    if (node is analyzer.LabeledStatement) return _convertLabeledStatement(node);
+    if (node is analyzer.LabeledStatement)
+      return _convertLabeledStatement(node);
     if (node is analyzer.EmptyStatement) return _convertEmptyStatement(node);
 
     // Expressions
-    if (node is analyzer.SimpleIdentifier) return _convertSimpleIdentifier(node);
-    if (node is analyzer.PrefixedIdentifier) return _convertPrefixedIdentifier(node);
-    if (node is analyzer.BinaryExpression) return _convertBinaryExpression(node);
-    if (node is analyzer.PrefixExpression) return _convertPrefixExpression(node);
-    if (node is analyzer.PostfixExpression) return _convertPostfixExpression(node);
-    if (node is analyzer.ConditionalExpression) return _convertConditionalExpression(node);
-    if (node is analyzer.AssignmentExpression) return _convertAssignmentExpression(node);
-    if (node is analyzer.MethodInvocation) return _convertMethodInvocation(node);
-    if (node is analyzer.FunctionExpressionInvocation) return _convertFunctionExpressionInvocation(node);
+    if (node is analyzer.SimpleIdentifier)
+      return _convertSimpleIdentifier(node);
+    if (node is analyzer.PrefixedIdentifier)
+      return _convertPrefixedIdentifier(node);
+    if (node is analyzer.BinaryExpression)
+      return _convertBinaryExpression(node);
+    if (node is analyzer.PrefixExpression)
+      return _convertPrefixExpression(node);
+    if (node is analyzer.PostfixExpression)
+      return _convertPostfixExpression(node);
+    if (node is analyzer.ConditionalExpression)
+      return _convertConditionalExpression(node);
+    if (node is analyzer.AssignmentExpression)
+      return _convertAssignmentExpression(node);
+    if (node is analyzer.MethodInvocation)
+      return _convertMethodInvocation(node);
+    if (node is analyzer.FunctionExpressionInvocation)
+      return _convertFunctionExpressionInvocation(node);
     if (node is analyzer.IndexExpression) return _convertIndexExpression(node);
     if (node is analyzer.PropertyAccess) return _convertPropertyAccess(node);
-    if (node is analyzer.ParenthesizedExpression) return _convertParenthesizedExpression(node);
-    if (node is analyzer.FunctionExpression) return _convertFunctionExpression(node);
-    if (node is analyzer.InstanceCreationExpression) return _convertInstanceCreationExpression(node);
+    if (node is analyzer.ParenthesizedExpression)
+      return _convertParenthesizedExpression(node);
+    if (node is analyzer.FunctionExpression)
+      return _convertFunctionExpression(node);
+    if (node is analyzer.InstanceCreationExpression)
+      return _convertInstanceCreationExpression(node);
     if (node is analyzer.ThisExpression) return _convertThisExpression(node);
     if (node is analyzer.SuperExpression) return _convertSuperExpression(node);
     if (node is analyzer.ThrowExpression) return _convertThrowExpression(node);
     if (node is analyzer.AwaitExpression) return _convertAwaitExpression(node);
     if (node is analyzer.AsExpression) return _convertAsExpression(node);
     if (node is analyzer.IsExpression) return _convertIsExpression(node);
-    if (node is analyzer.CascadeExpression) return _convertCascadeExpression(node);
-    if (node is analyzer.RethrowExpression) return _convertRethrowExpression(node);
+    if (node is analyzer.CascadeExpression)
+      return _convertCascadeExpression(node);
+    if (node is analyzer.RethrowExpression)
+      return _convertRethrowExpression(node);
     if (node is analyzer.NamedExpression) return _convertNamedExpression(node);
     if (node is analyzer.SpreadElement) return _convertSpreadElement(node);
     if (node is analyzer.IfElement) return _convertIfElement(node);
@@ -110,8 +141,10 @@ class AstConverter {
     if (node is analyzer.IntegerLiteral) return _convertIntegerLiteral(node);
     if (node is analyzer.DoubleLiteral) return _convertDoubleLiteral(node);
     if (node is analyzer.BooleanLiteral) return _convertBooleanLiteral(node);
-    if (node is analyzer.SimpleStringLiteral) return _convertSimpleStringLiteral(node);
-    if (node is analyzer.StringInterpolation) return _convertStringInterpolation(node);
+    if (node is analyzer.SimpleStringLiteral)
+      return _convertSimpleStringLiteral(node);
+    if (node is analyzer.StringInterpolation)
+      return _convertStringInterpolation(node);
     if (node is analyzer.AdjacentStrings) return _convertAdjacentStrings(node);
     if (node is analyzer.NullLiteral) return _convertNullLiteral(node);
     if (node is analyzer.ListLiteral) return _convertListLiteral(node);
@@ -122,32 +155,47 @@ class AstConverter {
 
     // Types
     if (node is analyzer.NamedType) return _convertNamedType(node);
-    if (node is analyzer.GenericFunctionType) return _convertGenericFunctionType(node);
-    if (node is analyzer.TypeArgumentList) return _convertTypeArgumentList(node);
-    if (node is analyzer.TypeParameterList) return _convertTypeParameterList(node);
+    if (node is analyzer.GenericFunctionType)
+      return _convertGenericFunctionType(node);
+    if (node is analyzer.TypeArgumentList)
+      return _convertTypeArgumentList(node);
+    if (node is analyzer.TypeParameterList)
+      return _convertTypeParameterList(node);
     if (node is analyzer.TypeParameter) return _convertTypeParameter(node);
-    if (node is analyzer.RecordTypeAnnotation) return _convertRecordTypeAnnotation(node);
+    if (node is analyzer.RecordTypeAnnotation)
+      return _convertRecordTypeAnnotation(node);
 
     // Parameters
-    if (node is analyzer.FormalParameterList) return _convertFormalParameterList(node);
-    if (node is analyzer.SimpleFormalParameter) return _convertSimpleFormalParameter(node);
-    if (node is analyzer.DefaultFormalParameter) return _convertDefaultFormalParameter(node);
-    if (node is analyzer.FieldFormalParameter) return _convertFieldFormalParameter(node);
-    if (node is analyzer.FunctionTypedFormalParameter) return _convertFunctionTypedFormalParameter(node);
-    if (node is analyzer.SuperFormalParameter) return _convertSuperFormalParameter(node);
+    if (node is analyzer.FormalParameterList)
+      return _convertFormalParameterList(node);
+    if (node is analyzer.SimpleFormalParameter)
+      return _convertSimpleFormalParameter(node);
+    if (node is analyzer.DefaultFormalParameter)
+      return _convertDefaultFormalParameter(node);
+    if (node is analyzer.FieldFormalParameter)
+      return _convertFieldFormalParameter(node);
+    if (node is analyzer.FunctionTypedFormalParameter)
+      return _convertFunctionTypedFormalParameter(node);
+    if (node is analyzer.SuperFormalParameter)
+      return _convertSuperFormalParameter(node);
 
     // Function bodies
-    if (node is analyzer.BlockFunctionBody) return _convertBlockFunctionBody(node);
-    if (node is analyzer.ExpressionFunctionBody) return _convertExpressionFunctionBody(node);
-    if (node is analyzer.EmptyFunctionBody) return _convertEmptyFunctionBody(node);
-    if (node is analyzer.NativeFunctionBody) return _convertNativeFunctionBody(node);
+    if (node is analyzer.BlockFunctionBody)
+      return _convertBlockFunctionBody(node);
+    if (node is analyzer.ExpressionFunctionBody)
+      return _convertExpressionFunctionBody(node);
+    if (node is analyzer.EmptyFunctionBody)
+      return _convertEmptyFunctionBody(node);
+    if (node is analyzer.NativeFunctionBody)
+      return _convertNativeFunctionBody(node);
 
     // Directives
     if (node is analyzer.ImportDirective) return _convertImportDirective(node);
     if (node is analyzer.ExportDirective) return _convertExportDirective(node);
     if (node is analyzer.PartDirective) return _convertPartDirective(node);
     if (node is analyzer.PartOfDirective) return _convertPartOfDirective(node);
-    if (node is analyzer.LibraryDirective) return _convertLibraryDirective(node);
+    if (node is analyzer.LibraryDirective)
+      return _convertLibraryDirective(node);
 
     // Misc
     if (node is analyzer.ArgumentList) return _convertArgumentList(node);
@@ -155,22 +203,32 @@ class AstConverter {
     if (node is analyzer.Comment) return _convertComment(node);
     if (node is analyzer.Label) return _convertLabel(node);
     if (node is analyzer.ExtendsClause) return _convertExtendsClause(node);
-    if (node is analyzer.ImplementsClause) return _convertImplementsClause(node);
+    if (node is analyzer.ImplementsClause)
+      return _convertImplementsClause(node);
     if (node is analyzer.WithClause) return _convertWithClause(node);
     if (node is analyzer.ConstructorName) return _convertConstructorName(node);
-    if (node is analyzer.SuperConstructorInvocation) return _convertSuperConstructorInvocation(node);
-    if (node is analyzer.RedirectingConstructorInvocation) return _convertRedirectingConstructorInvocation(node);
-    if (node is analyzer.ConstructorFieldInitializer) return _convertConstructorFieldInitializer(node);
-    if (node is analyzer.AssertInitializer) return _convertAssertInitializer(node);
+    if (node is analyzer.SuperConstructorInvocation)
+      return _convertSuperConstructorInvocation(node);
+    if (node is analyzer.RedirectingConstructorInvocation)
+      return _convertRedirectingConstructorInvocation(node);
+    if (node is analyzer.ConstructorFieldInitializer)
+      return _convertConstructorFieldInitializer(node);
+    if (node is analyzer.AssertInitializer)
+      return _convertAssertInitializer(node);
     if (node is analyzer.ShowCombinator) return _convertShowCombinator(node);
     if (node is analyzer.HideCombinator) return _convertHideCombinator(node);
 
     // For parts
-    if (node is analyzer.ForPartsWithDeclarations) return _convertForPartsWithDeclarations(node);
-    if (node is analyzer.ForPartsWithExpression) return _convertForPartsWithExpression(node);
-    if (node is analyzer.ForEachPartsWithDeclaration) return _convertForEachPartsWithDeclaration(node);
-    if (node is analyzer.ForEachPartsWithIdentifier) return _convertForEachPartsWithIdentifier(node);
-    if (node is analyzer.DeclaredIdentifier) return _convertDeclaredIdentifier(node);
+    if (node is analyzer.ForPartsWithDeclarations)
+      return _convertForPartsWithDeclarations(node);
+    if (node is analyzer.ForPartsWithExpression)
+      return _convertForPartsWithExpression(node);
+    if (node is analyzer.ForEachPartsWithDeclaration)
+      return _convertForEachPartsWithDeclaration(node);
+    if (node is analyzer.ForEachPartsWithIdentifier)
+      return _convertForEachPartsWithIdentifier(node);
+    if (node is analyzer.DeclaredIdentifier)
+      return _convertDeclaredIdentifier(node);
 
     // Switch parts
     if (node is analyzer.SwitchCase) return _convertSwitchCase(node);
@@ -180,13 +238,18 @@ class AstConverter {
     if (node is analyzer.CatchClause) return _convertCatchClause(node);
 
     // Interpolation parts
-    if (node is analyzer.InterpolationExpression) return _convertInterpolationExpression(node);
-    if (node is analyzer.InterpolationString) return _convertInterpolationString(node);
+    if (node is analyzer.InterpolationExpression)
+      return _convertInterpolationExpression(node);
+    if (node is analyzer.InterpolationString)
+      return _convertInterpolationString(node);
 
     // Switch expressions and pattern cases
-    if (node is analyzer.SwitchExpression) return _convertSwitchExpression(node);
-    if (node is analyzer.SwitchExpressionCase) return _convertSwitchExpressionCase(node);
-    if (node is analyzer.SwitchPatternCase) return _convertSwitchPatternCase(node);
+    if (node is analyzer.SwitchExpression)
+      return _convertSwitchExpression(node);
+    if (node is analyzer.SwitchExpressionCase)
+      return _convertSwitchExpressionCase(node);
+    if (node is analyzer.SwitchPatternCase)
+      return _convertSwitchPatternCase(node);
 
     // Guard / When / CaseClause
     if (node is analyzer.GuardedPattern) return _convertGuardedPattern(node);
@@ -196,8 +259,10 @@ class AstConverter {
     // Patterns - value patterns
     if (node is analyzer.ConstantPattern) return _convertConstantPattern(node);
     if (node is analyzer.WildcardPattern) return _convertWildcardPattern(node);
-    if (node is analyzer.DeclaredVariablePattern) return _convertDeclaredVariablePattern(node);
-    if (node is analyzer.AssignedVariablePattern) return _convertAssignedVariablePattern(node);
+    if (node is analyzer.DeclaredVariablePattern)
+      return _convertDeclaredVariablePattern(node);
+    if (node is analyzer.AssignedVariablePattern)
+      return _convertAssignedVariablePattern(node);
 
     // Patterns - composite patterns
     if (node is analyzer.ObjectPattern) return _convertObjectPattern(node);
@@ -206,30 +271,45 @@ class AstConverter {
     if (node is analyzer.MapPatternEntry) return _convertMapPatternEntry(node);
     if (node is analyzer.RecordPattern) return _convertRecordPattern(node);
     if (node is analyzer.PatternField) return _convertPatternField(node);
-    if (node is analyzer.PatternFieldName) return _convertPatternFieldName(node);
+    if (node is analyzer.PatternFieldName)
+      return _convertPatternFieldName(node);
 
     // Patterns - logical & postfix patterns
-    if (node is analyzer.LogicalOrPattern) return _convertLogicalOrPattern(node);
-    if (node is analyzer.LogicalAndPattern) return _convertLogicalAndPattern(node);
+    if (node is analyzer.LogicalOrPattern)
+      return _convertLogicalOrPattern(node);
+    if (node is analyzer.LogicalAndPattern)
+      return _convertLogicalAndPattern(node);
     if (node is analyzer.CastPattern) return _convertCastPattern(node);
-    if (node is analyzer.RelationalPattern) return _convertRelationalPattern(node);
-    if (node is analyzer.NullCheckPattern) return _convertNullCheckPattern(node);
-    if (node is analyzer.NullAssertPattern) return _convertNullAssertPattern(node);
-    if (node is analyzer.ParenthesizedPattern) return _convertParenthesizedPattern(node);
-    if (node is analyzer.RestPatternElement) return _convertRestPatternElement(node);
+    if (node is analyzer.RelationalPattern)
+      return _convertRelationalPattern(node);
+    if (node is analyzer.NullCheckPattern)
+      return _convertNullCheckPattern(node);
+    if (node is analyzer.NullAssertPattern)
+      return _convertNullAssertPattern(node);
+    if (node is analyzer.ParenthesizedPattern)
+      return _convertParenthesizedPattern(node);
+    if (node is analyzer.RestPatternElement)
+      return _convertRestPatternElement(node);
 
     // Pattern statements / expressions
-    if (node is analyzer.PatternAssignment) return _convertPatternAssignment(node);
-    if (node is analyzer.PatternVariableDeclaration) return _convertPatternVariableDeclaration(node);
-    if (node is analyzer.PatternVariableDeclarationStatement) return _convertPatternVariableDeclarationStatement(node);
+    if (node is analyzer.PatternAssignment)
+      return _convertPatternAssignment(node);
+    if (node is analyzer.PatternVariableDeclaration)
+      return _convertPatternVariableDeclaration(node);
+    if (node is analyzer.PatternVariableDeclarationStatement)
+      return _convertPatternVariableDeclarationStatement(node);
 
     // References
-    if (node is analyzer.FunctionReference) return _convertFunctionReference(node);
-    if (node is analyzer.ConstructorReference) return _convertConstructorReference(node);
+    if (node is analyzer.FunctionReference)
+      return _convertFunctionReference(node);
+    if (node is analyzer.ConstructorReference)
+      return _convertConstructorReference(node);
 
     // Extension types
-    if (node is analyzer.ExtensionTypeDeclaration) return _convertExtensionTypeDeclaration(node);
-    if (node is analyzer.RepresentationDeclaration) return _convertRepresentationDeclaration(node);
+    if (node is analyzer.ExtensionTypeDeclaration)
+      return _convertExtensionTypeDeclaration(node);
+    if (node is analyzer.RepresentationDeclaration)
+      return _convertRepresentationDeclaration(node);
 
     // Unknown node type - return a placeholder
     return _SUnknownNode(
@@ -257,7 +337,9 @@ class AstConverter {
   // Declaration converters
   // ============================================================================
 
-  SFunctionDeclaration _convertFunctionDeclaration(analyzer.FunctionDeclaration node) {
+  SFunctionDeclaration _convertFunctionDeclaration(
+    analyzer.FunctionDeclaration node,
+  ) {
     return SFunctionDeclaration(
       offset: node.offset,
       length: node.length,
@@ -267,12 +349,17 @@ class AstConverter {
       isGetter: node.isGetter,
       isSetter: node.isSetter,
       isExternal: node.externalKeyword != null,
-      typeParameters: convert(node.functionExpression.typeParameters) as STypeParameterList?,
-      functionExpression: convert(node.functionExpression) as SFunctionExpression?,
+      typeParameters:
+          convert(node.functionExpression.typeParameters)
+              as STypeParameterList?,
+      functionExpression:
+          convert(node.functionExpression) as SFunctionExpression?,
     );
   }
 
-  SMethodDeclaration _convertMethodDeclaration(analyzer.MethodDeclaration node) {
+  SMethodDeclaration _convertMethodDeclaration(
+    analyzer.MethodDeclaration node,
+  ) {
     return SMethodDeclaration(
       offset: node.offset,
       length: node.length,
@@ -338,7 +425,9 @@ class AstConverter {
     );
   }
 
-  SExtensionDeclaration _convertExtensionDeclaration(analyzer.ExtensionDeclaration node) {
+  SExtensionDeclaration _convertExtensionDeclaration(
+    analyzer.ExtensionDeclaration node,
+  ) {
     return SExtensionDeclaration(
       offset: node.offset,
       length: node.length,
@@ -350,7 +439,9 @@ class AstConverter {
     );
   }
 
-  SVariableDeclaration _convertVariableDeclaration(analyzer.VariableDeclaration node) {
+  SVariableDeclaration _convertVariableDeclaration(
+    analyzer.VariableDeclaration node,
+  ) {
     return SVariableDeclaration(
       offset: node.offset,
       length: node.length,
@@ -359,7 +450,9 @@ class AstConverter {
     );
   }
 
-  SVariableDeclarationList _convertVariableDeclarationList(analyzer.VariableDeclarationList node) {
+  SVariableDeclarationList _convertVariableDeclarationList(
+    analyzer.VariableDeclarationList node,
+  ) {
     return SVariableDeclarationList(
       offset: node.offset,
       length: node.length,
@@ -385,7 +478,9 @@ class AstConverter {
     );
   }
 
-  SConstructorDeclaration _convertConstructorDeclaration(analyzer.ConstructorDeclaration node) {
+  SConstructorDeclaration _convertConstructorDeclaration(
+    analyzer.ConstructorDeclaration node,
+  ) {
     return SConstructorDeclaration(
       offset: node.offset,
       length: node.length,
@@ -395,13 +490,16 @@ class AstConverter {
       isFactory: node.factoryKeyword != null,
       isExternal: node.externalKeyword != null,
       parameters: convert(node.parameters) as SFormalParameterList?,
-      redirectedConstructor: convert(node.redirectedConstructor) as SConstructorName?,
+      redirectedConstructor:
+          convert(node.redirectedConstructor) as SConstructorName?,
       initializers: _convertNodes(node.initializers),
       body: convert(node.body),
     );
   }
 
-  STopLevelVariableDeclaration _convertTopLevelVariableDeclaration(analyzer.TopLevelVariableDeclaration node) {
+  STopLevelVariableDeclaration _convertTopLevelVariableDeclaration(
+    analyzer.TopLevelVariableDeclaration node,
+  ) {
     return STopLevelVariableDeclaration(
       offset: node.offset,
       length: node.length,
@@ -411,7 +509,9 @@ class AstConverter {
     );
   }
 
-  STypedefDeclaration _convertFunctionTypeAlias(analyzer.FunctionTypeAlias node) {
+  STypedefDeclaration _convertFunctionTypeAlias(
+    analyzer.FunctionTypeAlias node,
+  ) {
     return STypedefDeclaration(
       offset: node.offset,
       length: node.length,
@@ -433,7 +533,9 @@ class AstConverter {
     );
   }
 
-  SEnumConstantDeclaration _convertEnumConstantDeclaration(analyzer.EnumConstantDeclaration node) {
+  SEnumConstantDeclaration _convertEnumConstantDeclaration(
+    analyzer.EnumConstantDeclaration node,
+  ) {
     return SEnumConstantDeclaration(
       offset: node.offset,
       length: node.length,
@@ -455,7 +557,9 @@ class AstConverter {
     );
   }
 
-  SVariableDeclarationStatement _convertVariableDeclarationStatement(analyzer.VariableDeclarationStatement node) {
+  SVariableDeclarationStatement _convertVariableDeclarationStatement(
+    analyzer.VariableDeclarationStatement node,
+  ) {
     return SVariableDeclarationStatement(
       offset: node.offset,
       length: node.length,
@@ -463,7 +567,9 @@ class AstConverter {
     );
   }
 
-  SExpressionStatement _convertExpressionStatement(analyzer.ExpressionStatement node) {
+  SExpressionStatement _convertExpressionStatement(
+    analyzer.ExpressionStatement node,
+  ) {
     return SExpressionStatement(
       offset: node.offset,
       length: node.length,
@@ -499,7 +605,9 @@ class AstConverter {
     );
   }
 
-  SForPartsWithDeclarations _convertForPartsWithDeclarations(analyzer.ForPartsWithDeclarations node) {
+  SForPartsWithDeclarations _convertForPartsWithDeclarations(
+    analyzer.ForPartsWithDeclarations node,
+  ) {
     return SForPartsWithDeclarations(
       offset: node.offset,
       length: node.length,
@@ -509,7 +617,9 @@ class AstConverter {
     );
   }
 
-  SForPartsWithExpression _convertForPartsWithExpression(analyzer.ForPartsWithExpression node) {
+  SForPartsWithExpression _convertForPartsWithExpression(
+    analyzer.ForPartsWithExpression node,
+  ) {
     return SForPartsWithExpression(
       offset: node.offset,
       length: node.length,
@@ -519,7 +629,9 @@ class AstConverter {
     );
   }
 
-  SForEachPartsWithDeclaration _convertForEachPartsWithDeclaration(analyzer.ForEachPartsWithDeclaration node) {
+  SForEachPartsWithDeclaration _convertForEachPartsWithDeclaration(
+    analyzer.ForEachPartsWithDeclaration node,
+  ) {
     return SForEachPartsWithDeclaration(
       offset: node.offset,
       length: node.length,
@@ -528,7 +640,9 @@ class AstConverter {
     );
   }
 
-  SForEachPartsWithIdentifier _convertForEachPartsWithIdentifier(analyzer.ForEachPartsWithIdentifier node) {
+  SForEachPartsWithIdentifier _convertForEachPartsWithIdentifier(
+    analyzer.ForEachPartsWithIdentifier node,
+  ) {
     return SForEachPartsWithIdentifier(
       offset: node.offset,
       length: node.length,
@@ -537,7 +651,9 @@ class AstConverter {
     );
   }
 
-  SDeclaredIdentifier _convertDeclaredIdentifier(analyzer.DeclaredIdentifier node) {
+  SDeclaredIdentifier _convertDeclaredIdentifier(
+    analyzer.DeclaredIdentifier node,
+  ) {
     return SDeclaredIdentifier(
       offset: node.offset,
       length: node.length,
@@ -631,15 +747,21 @@ class AstConverter {
     return SBreakStatement(
       offset: node.offset,
       length: node.length,
-      label: node.label != null ? convert(node.label!) as SSimpleIdentifier? : null,
+      label: node.label != null
+          ? convert(node.label!) as SSimpleIdentifier?
+          : null,
     );
   }
 
-  SContinueStatement _convertContinueStatement(analyzer.ContinueStatement node) {
+  SContinueStatement _convertContinueStatement(
+    analyzer.ContinueStatement node,
+  ) {
     return SContinueStatement(
       offset: node.offset,
       length: node.length,
-      label: node.label != null ? convert(node.label!) as SSimpleIdentifier? : null,
+      label: node.label != null
+          ? convert(node.label!) as SSimpleIdentifier?
+          : null,
     );
   }
 
@@ -671,10 +793,7 @@ class AstConverter {
   }
 
   SEmptyStatement _convertEmptyStatement(analyzer.EmptyStatement node) {
-    return SEmptyStatement(
-      offset: node.offset,
-      length: node.length,
-    );
+    return SEmptyStatement(offset: node.offset, length: node.length);
   }
 
   // ============================================================================
@@ -690,7 +809,9 @@ class AstConverter {
     );
   }
 
-  SPrefixedIdentifier _convertPrefixedIdentifier(analyzer.PrefixedIdentifier node) {
+  SPrefixedIdentifier _convertPrefixedIdentifier(
+    analyzer.PrefixedIdentifier node,
+  ) {
     return SPrefixedIdentifier(
       offset: node.offset,
       length: node.length,
@@ -718,7 +839,9 @@ class AstConverter {
     );
   }
 
-  SPostfixExpression _convertPostfixExpression(analyzer.PostfixExpression node) {
+  SPostfixExpression _convertPostfixExpression(
+    analyzer.PostfixExpression node,
+  ) {
     return SPostfixExpression(
       offset: node.offset,
       length: node.length,
@@ -727,7 +850,9 @@ class AstConverter {
     );
   }
 
-  SConditionalExpression _convertConditionalExpression(analyzer.ConditionalExpression node) {
+  SConditionalExpression _convertConditionalExpression(
+    analyzer.ConditionalExpression node,
+  ) {
     return SConditionalExpression(
       offset: node.offset,
       length: node.length,
@@ -737,7 +862,9 @@ class AstConverter {
     );
   }
 
-  SAssignmentExpression _convertAssignmentExpression(analyzer.AssignmentExpression node) {
+  SAssignmentExpression _convertAssignmentExpression(
+    analyzer.AssignmentExpression node,
+  ) {
     return SAssignmentExpression(
       offset: node.offset,
       length: node.length,
@@ -759,7 +886,9 @@ class AstConverter {
     );
   }
 
-  SFunctionExpressionInvocation _convertFunctionExpressionInvocation(analyzer.FunctionExpressionInvocation node) {
+  SFunctionExpressionInvocation _convertFunctionExpressionInvocation(
+    analyzer.FunctionExpressionInvocation node,
+  ) {
     return SFunctionExpressionInvocation(
       offset: node.offset,
       length: node.length,
@@ -789,7 +918,9 @@ class AstConverter {
     );
   }
 
-  SParenthesizedExpression _convertParenthesizedExpression(analyzer.ParenthesizedExpression node) {
+  SParenthesizedExpression _convertParenthesizedExpression(
+    analyzer.ParenthesizedExpression node,
+  ) {
     return SParenthesizedExpression(
       offset: node.offset,
       length: node.length,
@@ -797,7 +928,9 @@ class AstConverter {
     );
   }
 
-  SFunctionExpression _convertFunctionExpression(analyzer.FunctionExpression node) {
+  SFunctionExpression _convertFunctionExpression(
+    analyzer.FunctionExpression node,
+  ) {
     return SFunctionExpression(
       offset: node.offset,
       length: node.length,
@@ -807,7 +940,9 @@ class AstConverter {
     );
   }
 
-  SInstanceCreationExpression _convertInstanceCreationExpression(analyzer.InstanceCreationExpression node) {
+  SInstanceCreationExpression _convertInstanceCreationExpression(
+    analyzer.InstanceCreationExpression node,
+  ) {
     return SInstanceCreationExpression(
       offset: node.offset,
       length: node.length,
@@ -818,17 +953,11 @@ class AstConverter {
   }
 
   SThisExpression _convertThisExpression(analyzer.ThisExpression node) {
-    return SThisExpression(
-      offset: node.offset,
-      length: node.length,
-    );
+    return SThisExpression(offset: node.offset, length: node.length);
   }
 
   SSuperExpression _convertSuperExpression(analyzer.SuperExpression node) {
-    return SSuperExpression(
-      offset: node.offset,
-      length: node.length,
-    );
+    return SSuperExpression(offset: node.offset, length: node.length);
   }
 
   SThrowExpression _convertThrowExpression(analyzer.ThrowExpression node) {
@@ -866,7 +995,9 @@ class AstConverter {
     );
   }
 
-  SCascadeExpression _convertCascadeExpression(analyzer.CascadeExpression node) {
+  SCascadeExpression _convertCascadeExpression(
+    analyzer.CascadeExpression node,
+  ) {
     return SCascadeExpression(
       offset: node.offset,
       length: node.length,
@@ -875,11 +1006,10 @@ class AstConverter {
     );
   }
 
-  SRethrowExpression _convertRethrowExpression(analyzer.RethrowExpression node) {
-    return SRethrowExpression(
-      offset: node.offset,
-      length: node.length,
-    );
+  SRethrowExpression _convertRethrowExpression(
+    analyzer.RethrowExpression node,
+  ) {
+    return SRethrowExpression(offset: node.offset, length: node.length);
   }
 
   SNamedExpression _convertNamedExpression(analyzer.NamedExpression node) {
@@ -947,7 +1077,9 @@ class AstConverter {
     );
   }
 
-  SSimpleStringLiteral _convertSimpleStringLiteral(analyzer.SimpleStringLiteral node) {
+  SSimpleStringLiteral _convertSimpleStringLiteral(
+    analyzer.SimpleStringLiteral node,
+  ) {
     return SSimpleStringLiteral(
       offset: node.offset,
       length: node.length,
@@ -957,7 +1089,9 @@ class AstConverter {
     );
   }
 
-  SStringInterpolation _convertStringInterpolation(analyzer.StringInterpolation node) {
+  SStringInterpolation _convertStringInterpolation(
+    analyzer.StringInterpolation node,
+  ) {
     return SStringInterpolation(
       offset: node.offset,
       length: node.length,
@@ -965,7 +1099,9 @@ class AstConverter {
     );
   }
 
-  SInterpolationExpression _convertInterpolationExpression(analyzer.InterpolationExpression node) {
+  SInterpolationExpression _convertInterpolationExpression(
+    analyzer.InterpolationExpression node,
+  ) {
     return SInterpolationExpression(
       offset: node.offset,
       length: node.length,
@@ -973,7 +1109,9 @@ class AstConverter {
     );
   }
 
-  SInterpolationString _convertInterpolationString(analyzer.InterpolationString node) {
+  SInterpolationString _convertInterpolationString(
+    analyzer.InterpolationString node,
+  ) {
     return SInterpolationString(
       offset: node.offset,
       length: node.length,
@@ -990,10 +1128,7 @@ class AstConverter {
   }
 
   SNullLiteral _convertNullLiteral(analyzer.NullLiteral node) {
-    return SNullLiteral(
-      offset: node.offset,
-      length: node.length,
-    );
+    return SNullLiteral(offset: node.offset, length: node.length);
   }
 
   SListLiteral _convertListLiteral(analyzer.ListLiteral node) {
@@ -1062,7 +1197,9 @@ class AstConverter {
     );
   }
 
-  SGenericFunctionType _convertGenericFunctionType(analyzer.GenericFunctionType node) {
+  SGenericFunctionType _convertGenericFunctionType(
+    analyzer.GenericFunctionType node,
+  ) {
     return SGenericFunctionType(
       offset: node.offset,
       length: node.length,
@@ -1081,7 +1218,9 @@ class AstConverter {
     );
   }
 
-  STypeParameterList _convertTypeParameterList(analyzer.TypeParameterList node) {
+  STypeParameterList _convertTypeParameterList(
+    analyzer.TypeParameterList node,
+  ) {
     return STypeParameterList(
       offset: node.offset,
       length: node.length,
@@ -1098,17 +1237,19 @@ class AstConverter {
     );
   }
 
-  SRecordTypeAnnotation _convertRecordTypeAnnotation(analyzer.RecordTypeAnnotation node) {
+  SRecordTypeAnnotation _convertRecordTypeAnnotation(
+    analyzer.RecordTypeAnnotation node,
+  ) {
     final positionalFields = <SAstNode>[];
     final namedFields = <SAstNode>[];
-    
+
     for (final field in node.positionalFields) {
       final converted = convert(field);
       if (converted != null) {
         positionalFields.add(converted);
       }
     }
-    
+
     if (node.namedFields != null) {
       for (final field in node.namedFields!.fields) {
         final converted = convert(field);
@@ -1131,7 +1272,9 @@ class AstConverter {
   // Parameter converters
   // ============================================================================
 
-  SFormalParameterList _convertFormalParameterList(analyzer.FormalParameterList node) {
+  SFormalParameterList _convertFormalParameterList(
+    analyzer.FormalParameterList node,
+  ) {
     return SFormalParameterList(
       offset: node.offset,
       length: node.length,
@@ -1139,7 +1282,9 @@ class AstConverter {
     );
   }
 
-  SSimpleFormalParameter _convertSimpleFormalParameter(analyzer.SimpleFormalParameter node) {
+  SSimpleFormalParameter _convertSimpleFormalParameter(
+    analyzer.SimpleFormalParameter node,
+  ) {
     return SSimpleFormalParameter(
       offset: node.offset,
       length: node.length,
@@ -1152,7 +1297,9 @@ class AstConverter {
     );
   }
 
-  SDefaultFormalParameter _convertDefaultFormalParameter(analyzer.DefaultFormalParameter node) {
+  SDefaultFormalParameter _convertDefaultFormalParameter(
+    analyzer.DefaultFormalParameter node,
+  ) {
     return SDefaultFormalParameter(
       offset: node.offset,
       length: node.length,
@@ -1162,7 +1309,9 @@ class AstConverter {
     );
   }
 
-  SFieldFormalParameter _convertFieldFormalParameter(analyzer.FieldFormalParameter node) {
+  SFieldFormalParameter _convertFieldFormalParameter(
+    analyzer.FieldFormalParameter node,
+  ) {
     return SFieldFormalParameter(
       offset: node.offset,
       length: node.length,
@@ -1175,7 +1324,9 @@ class AstConverter {
     );
   }
 
-  SFunctionTypedFormalParameter _convertFunctionTypedFormalParameter(analyzer.FunctionTypedFormalParameter node) {
+  SFunctionTypedFormalParameter _convertFunctionTypedFormalParameter(
+    analyzer.FunctionTypedFormalParameter node,
+  ) {
     return SFunctionTypedFormalParameter(
       offset: node.offset,
       length: node.length,
@@ -1188,7 +1339,9 @@ class AstConverter {
     );
   }
 
-  SSuperFormalParameter _convertSuperFormalParameter(analyzer.SuperFormalParameter node) {
+  SSuperFormalParameter _convertSuperFormalParameter(
+    analyzer.SuperFormalParameter node,
+  ) {
     return SSuperFormalParameter(
       offset: node.offset,
       length: node.length,
@@ -1204,7 +1357,9 @@ class AstConverter {
   // Function body converters
   // ============================================================================
 
-  SBlockFunctionBody _convertBlockFunctionBody(analyzer.BlockFunctionBody node) {
+  SBlockFunctionBody _convertBlockFunctionBody(
+    analyzer.BlockFunctionBody node,
+  ) {
     return SBlockFunctionBody(
       offset: node.offset,
       length: node.length,
@@ -1214,7 +1369,9 @@ class AstConverter {
     );
   }
 
-  SExpressionFunctionBody _convertExpressionFunctionBody(analyzer.ExpressionFunctionBody node) {
+  SExpressionFunctionBody _convertExpressionFunctionBody(
+    analyzer.ExpressionFunctionBody node,
+  ) {
     return SExpressionFunctionBody(
       offset: node.offset,
       length: node.length,
@@ -1223,14 +1380,15 @@ class AstConverter {
     );
   }
 
-  SEmptyFunctionBody _convertEmptyFunctionBody(analyzer.EmptyFunctionBody node) {
-    return SEmptyFunctionBody(
-      offset: node.offset,
-      length: node.length,
-    );
+  SEmptyFunctionBody _convertEmptyFunctionBody(
+    analyzer.EmptyFunctionBody node,
+  ) {
+    return SEmptyFunctionBody(offset: node.offset, length: node.length);
   }
 
-  SNativeFunctionBody _convertNativeFunctionBody(analyzer.NativeFunctionBody node) {
+  SNativeFunctionBody _convertNativeFunctionBody(
+    analyzer.NativeFunctionBody node,
+  ) {
     return SNativeFunctionBody(
       offset: node.offset,
       length: node.length,
@@ -1248,7 +1406,9 @@ class AstConverter {
       length: node.length,
       metadata: _convertAnnotations(node.metadata),
       uri: convert(node.uri),
-      prefix: node.prefix != null ? _convertSimpleIdentifier(node.prefix!) : null,
+      prefix: node.prefix != null
+          ? _convertSimpleIdentifier(node.prefix!)
+          : null,
       isDeferred: node.deferredKeyword != null,
       combinators: _convertCombinators(node.combinators),
     );
@@ -1401,7 +1561,9 @@ class AstConverter {
     return SOnClause(
       offset: node.offset,
       length: node.length,
-      superclassConstraints: _convertNodes(node.superclassConstraints).cast<SNamedType>(),
+      superclassConstraints: _convertNodes(
+        node.superclassConstraints,
+      ).cast<SNamedType>(),
     );
   }
 
@@ -1410,11 +1572,15 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       type: convert(node.type) as SNamedType?,
-      name: node.name != null ? convert(node.name!) as SSimpleIdentifier? : null,
+      name: node.name != null
+          ? convert(node.name!) as SSimpleIdentifier?
+          : null,
     );
   }
 
-  SSuperConstructorInvocation _convertSuperConstructorInvocation(analyzer.SuperConstructorInvocation node) {
+  SSuperConstructorInvocation _convertSuperConstructorInvocation(
+    analyzer.SuperConstructorInvocation node,
+  ) {
     return SSuperConstructorInvocation(
       offset: node.offset,
       length: node.length,
@@ -1425,7 +1591,9 @@ class AstConverter {
     );
   }
 
-  SRedirectingConstructorInvocation _convertRedirectingConstructorInvocation(analyzer.RedirectingConstructorInvocation node) {
+  SRedirectingConstructorInvocation _convertRedirectingConstructorInvocation(
+    analyzer.RedirectingConstructorInvocation node,
+  ) {
     return SRedirectingConstructorInvocation(
       offset: node.offset,
       length: node.length,
@@ -1436,7 +1604,9 @@ class AstConverter {
     );
   }
 
-  SConstructorFieldInitializer _convertConstructorFieldInitializer(analyzer.ConstructorFieldInitializer node) {
+  SConstructorFieldInitializer _convertConstructorFieldInitializer(
+    analyzer.ConstructorFieldInitializer node,
+  ) {
     return SConstructorFieldInitializer(
       offset: node.offset,
       length: node.length,
@@ -1445,7 +1615,9 @@ class AstConverter {
     );
   }
 
-  SAssertInitializer _convertAssertInitializer(analyzer.AssertInitializer node) {
+  SAssertInitializer _convertAssertInitializer(
+    analyzer.AssertInitializer node,
+  ) {
     return SAssertInitializer(
       offset: node.offset,
       length: node.length,
@@ -1467,7 +1639,9 @@ class AstConverter {
     );
   }
 
-  SSwitchExpressionCase _convertSwitchExpressionCase(analyzer.SwitchExpressionCase node) {
+  SSwitchExpressionCase _convertSwitchExpressionCase(
+    analyzer.SwitchExpressionCase node,
+  ) {
     return SSwitchExpressionCase(
       offset: node.offset,
       length: node.length,
@@ -1476,7 +1650,9 @@ class AstConverter {
     );
   }
 
-  SSwitchPatternCase _convertSwitchPatternCase(analyzer.SwitchPatternCase node) {
+  SSwitchPatternCase _convertSwitchPatternCase(
+    analyzer.SwitchPatternCase node,
+  ) {
     return SSwitchPatternCase(
       offset: node.offset,
       length: node.length,
@@ -1538,7 +1714,9 @@ class AstConverter {
     );
   }
 
-  SDeclaredVariablePattern _convertDeclaredVariablePattern(analyzer.DeclaredVariablePattern node) {
+  SDeclaredVariablePattern _convertDeclaredVariablePattern(
+    analyzer.DeclaredVariablePattern node,
+  ) {
     return SDeclaredVariablePattern(
       offset: node.offset,
       length: node.length,
@@ -1548,7 +1726,9 @@ class AstConverter {
     );
   }
 
-  SAssignedVariablePattern _convertAssignedVariablePattern(analyzer.AssignedVariablePattern node) {
+  SAssignedVariablePattern _convertAssignedVariablePattern(
+    analyzer.AssignedVariablePattern node,
+  ) {
     return SAssignedVariablePattern(
       offset: node.offset,
       length: node.length,
@@ -1635,7 +1815,9 @@ class AstConverter {
     );
   }
 
-  SLogicalAndPattern _convertLogicalAndPattern(analyzer.LogicalAndPattern node) {
+  SLogicalAndPattern _convertLogicalAndPattern(
+    analyzer.LogicalAndPattern node,
+  ) {
     return SLogicalAndPattern(
       offset: node.offset,
       length: node.length,
@@ -1654,7 +1836,9 @@ class AstConverter {
     );
   }
 
-  SRelationalPattern _convertRelationalPattern(analyzer.RelationalPattern node) {
+  SRelationalPattern _convertRelationalPattern(
+    analyzer.RelationalPattern node,
+  ) {
     return SRelationalPattern(
       offset: node.offset,
       length: node.length,
@@ -1672,7 +1856,9 @@ class AstConverter {
     );
   }
 
-  SNullAssertPattern _convertNullAssertPattern(analyzer.NullAssertPattern node) {
+  SNullAssertPattern _convertNullAssertPattern(
+    analyzer.NullAssertPattern node,
+  ) {
     return SNullAssertPattern(
       offset: node.offset,
       length: node.length,
@@ -1681,7 +1867,9 @@ class AstConverter {
     );
   }
 
-  SParenthesizedPattern _convertParenthesizedPattern(analyzer.ParenthesizedPattern node) {
+  SParenthesizedPattern _convertParenthesizedPattern(
+    analyzer.ParenthesizedPattern node,
+  ) {
     return SParenthesizedPattern(
       offset: node.offset,
       length: node.length,
@@ -1689,7 +1877,9 @@ class AstConverter {
     );
   }
 
-  SRestPatternElement _convertRestPatternElement(analyzer.RestPatternElement node) {
+  SRestPatternElement _convertRestPatternElement(
+    analyzer.RestPatternElement node,
+  ) {
     return SRestPatternElement(
       offset: node.offset,
       length: node.length,
@@ -1701,7 +1891,9 @@ class AstConverter {
   // Pattern statement / expression converters
   // ============================================================================
 
-  SPatternAssignment _convertPatternAssignment(analyzer.PatternAssignment node) {
+  SPatternAssignment _convertPatternAssignment(
+    analyzer.PatternAssignment node,
+  ) {
     return SPatternAssignment(
       offset: node.offset,
       length: node.length,
@@ -1710,7 +1902,9 @@ class AstConverter {
     );
   }
 
-  SPatternVariableDeclaration _convertPatternVariableDeclaration(analyzer.PatternVariableDeclaration node) {
+  SPatternVariableDeclaration _convertPatternVariableDeclaration(
+    analyzer.PatternVariableDeclaration node,
+  ) {
     return SPatternVariableDeclaration(
       offset: node.offset,
       length: node.length,
@@ -1720,7 +1914,10 @@ class AstConverter {
     );
   }
 
-  SPatternVariableDeclarationStatement _convertPatternVariableDeclarationStatement(analyzer.PatternVariableDeclarationStatement node) {
+  SPatternVariableDeclarationStatement
+  _convertPatternVariableDeclarationStatement(
+    analyzer.PatternVariableDeclarationStatement node,
+  ) {
     return SPatternVariableDeclarationStatement(
       offset: node.offset,
       length: node.length,
@@ -1732,7 +1929,9 @@ class AstConverter {
   // Reference converters
   // ============================================================================
 
-  SFunctionReference _convertFunctionReference(analyzer.FunctionReference node) {
+  SFunctionReference _convertFunctionReference(
+    analyzer.FunctionReference node,
+  ) {
     return SFunctionReference(
       offset: node.offset,
       length: node.length,
@@ -1741,7 +1940,9 @@ class AstConverter {
     );
   }
 
-  SConstructorReference _convertConstructorReference(analyzer.ConstructorReference node) {
+  SConstructorReference _convertConstructorReference(
+    analyzer.ConstructorReference node,
+  ) {
     return SConstructorReference(
       offset: node.offset,
       length: node.length,
@@ -1753,7 +1954,9 @@ class AstConverter {
   // Extension type converters
   // ============================================================================
 
-  SExtensionTypeDeclaration _convertExtensionTypeDeclaration(analyzer.ExtensionTypeDeclaration node) {
+  SExtensionTypeDeclaration _convertExtensionTypeDeclaration(
+    analyzer.ExtensionTypeDeclaration node,
+  ) {
     return SExtensionTypeDeclaration(
       offset: node.offset,
       length: node.length,
@@ -1767,7 +1970,9 @@ class AstConverter {
     );
   }
 
-  SRepresentationDeclaration _convertRepresentationDeclaration(analyzer.RepresentationDeclaration node) {
+  SRepresentationDeclaration _convertRepresentationDeclaration(
+    analyzer.RepresentationDeclaration node,
+  ) {
     return SRepresentationDeclaration(
       offset: node.offset,
       length: node.length,
@@ -1793,7 +1998,9 @@ class AstConverter {
   }
 
   /// Convert annotations/metadata
-  List<SAnnotation> _convertAnnotations(analyzer.NodeList<analyzer.Annotation> metadata) {
+  List<SAnnotation> _convertAnnotations(
+    analyzer.NodeList<analyzer.Annotation> metadata,
+  ) {
     final result = <SAnnotation>[];
     for (final annotation in metadata) {
       result.add(_convertAnnotation(annotation));
@@ -1802,7 +2009,9 @@ class AstConverter {
   }
 
   /// Convert combinators
-  List<SAstNode> _convertCombinators(analyzer.NodeList<analyzer.Combinator> combinators) {
+  List<SAstNode> _convertCombinators(
+    analyzer.NodeList<analyzer.Combinator> combinators,
+  ) {
     final result = <SAstNode>[];
     for (final combinator in combinators) {
       final converted = convert(combinator);
@@ -1833,11 +2042,11 @@ class _SUnknownNode extends SAstNode {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'originalType': originalType,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'originalType': originalType,
+  };
 
   @override
   T? accept<T>(SAstVisitor<T> visitor) => null;

@@ -135,7 +135,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   }
 
   @override
-  Object? visitVariableDeclarationStatement(SVariableDeclarationStatement node) {
+  Object? visitVariableDeclarationStatement(
+      SVariableDeclarationStatement node) {
     // Simply visit the declaration list. The list visitor handles definition.
     return node.variables!.accept<Object?>(this);
     // return null; // Statements usually return null unless they are Return/Throw/etc.
@@ -421,8 +422,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                 Logger.debug(
                     "[SSimpleIdentifier] Found extension method '$name' via implicit 'this'. Returning callable.");
                 // Return a bound instance instead of the raw method.
-                return BoundExtensionCallable(
-                    thisInstance, extensionMember);
+                return BoundExtensionCallable(thisInstance, extensionMember);
               }
               // Operators/setters are generally not accessible directly via a simple identifier
             }
@@ -493,7 +493,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       return environment.get('this');
     } on RuntimeD4rtException {
       // This should ideally not happen if called within a valid method/constructor context
-      throw RuntimeD4rtException("Keyword 'this' used outside of an instance context.");
+      throw RuntimeD4rtException(
+          "Keyword 'this' used outside of an instance context.");
     }
   }
 
@@ -586,7 +587,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           final namedConstructor = prefixValue.findConstructor(memberName);
           if (namedConstructor != null) {
             // Return a callable that will invoke this named constructor
-            return _NamedConstructorTearOff(prefixValue, namedConstructor, memberName);
+            return _NamedConstructorTearOff(
+                prefixValue, namedConstructor, memberName);
           }
           throw RuntimeD4rtException(
               "Undefined static member '$memberName' on class '${prefixValue.name}'.");
@@ -815,8 +817,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           } else if (!extensionMember.isOperator && !extensionMember.isSetter) {
             Logger.debug(
                 "[SPrefixedIdentifier] Found extension method '$memberName' for ${bridgedInstance.bridgedClass.name}. Returning callable.");
-            return BoundExtensionCallable(
-                bridgedInstance, extensionMember);
+            return BoundExtensionCallable(bridgedInstance, extensionMember);
           }
         }
       } on RuntimeD4rtException catch (findError) {
@@ -831,7 +832,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       final record = prefixValue;
       Logger.debug(
           "[SPrefixedIdentifier] Access on InterpretedRecord: .$memberName");
-      
+
       // Check for Object methods (hashCode, runtimeType, toString)
       switch (memberName) {
         case 'hashCode':
@@ -839,7 +840,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         case 'runtimeType':
           return record.runtimeType;
       }
-      
+
       // Check if it's a positional field access ($1, $2, ...)
       if (memberName.startsWith('\$') && memberName.length > 1) {
         try {
@@ -1064,7 +1065,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           if (right == 0) throw RuntimeD4rtException("Modulo by zero.");
           return left % right;
         case '~/':
-          if (right == 0) throw RuntimeD4rtException("Integer division by zero.");
+          if (right == 0)
+            throw RuntimeD4rtException("Integer division by zero.");
           return left ~/ right;
         default:
           break;
@@ -1408,7 +1410,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         } on ReturnException catch (e) {
           return e.value;
         } catch (e) {
-          throw RuntimeD4rtException("Error executing extension operator '[]': $e");
+          throw RuntimeD4rtException(
+              "Error executing extension operator '[]': $e");
         }
       }
       Logger.debug(
@@ -2317,7 +2320,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             } on ReturnException catch (_) {
               return finalValueToAssign; // []= should not return a value, but assignment expression returns assigned value
             } catch (e) {
-              throw RuntimeD4rtException("Error executing class operator '[]=': $e");
+              throw RuntimeD4rtException(
+                  "Error executing class operator '[]=': $e");
             }
           } else {
             // No class operator found, try extensions
@@ -2521,25 +2525,29 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                 // No suitable extension found - check for noSuchMethod
                 Logger.debug(
                     "[SMethodInvocation] Extension method '$methodName' not found or not applicable. Checking for noSuchMethod...");
-                
+
                 // Bug-78 FIX: Check for noSuchMethod before throwing error
-                final noSuchMethod = targetValue.klass.findInstanceMethod('noSuchMethod');
+                final noSuchMethod =
+                    targetValue.klass.findInstanceMethod('noSuchMethod');
                 if (noSuchMethod != null) {
                   Logger.debug(
                       "[SMethodInvocation] Found noSuchMethod on ${targetValue.klass.name}. Invoking...");
-                  
+
                   // Evaluate arguments for the noSuchMethod call
-                  final evaluationResult = _evaluateArgumentsAsync(node.argumentList);
+                  final evaluationResult =
+                      _evaluateArgumentsAsync(node.argumentList);
                   if (evaluationResult is AsyncSuspensionRequest) {
                     return evaluationResult;
                   }
                   final (positionalArgs, namedArgs) =
                       evaluationResult as (List<Object?>, Map<String, Object?>);
-                  
+
                   // Create an Invocation.method for this method call
-                  final namedArgsSymbol = namedArgs.map((key, value) => MapEntry(Symbol(key), value));
-                  final invocation = Invocation.method(Symbol(methodName), positionalArgs, namedArgsSymbol);
-                  
+                  final namedArgsSymbol = namedArgs
+                      .map((key, value) => MapEntry(Symbol(key), value));
+                  final invocation = Invocation.method(
+                      Symbol(methodName), positionalArgs, namedArgsSymbol);
+
                   final boundNoSuchMethod = noSuchMethod.bind(targetValue);
                   try {
                     return boundNoSuchMethod.call(this, [invocation], {});
@@ -2547,7 +2555,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                     return returnExc.value;
                   }
                 }
-                
+
                 throw RuntimeD4rtException(
                     "Instance of '${targetValue.klass.name}' has no method named '$methodName' and no suitable extension method found. Original error: (${e.message})");
               }
@@ -2555,25 +2563,29 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               // Error during the findExtensionMember call itself
               Logger.debug(
                   "[SMethodInvocation] Error during extension lookup for '$methodName': ${findError.message}. Checking for noSuchMethod...");
-              
+
               // Bug-78 FIX: Check for noSuchMethod before throwing error
-              final noSuchMethod = targetValue.klass.findInstanceMethod('noSuchMethod');
+              final noSuchMethod =
+                  targetValue.klass.findInstanceMethod('noSuchMethod');
               if (noSuchMethod != null) {
                 Logger.debug(
                     "[SMethodInvocation] Found noSuchMethod on ${targetValue.klass.name}. Invoking...");
-                
+
                 // Evaluate arguments for the noSuchMethod call
-                final evaluationResult = _evaluateArgumentsAsync(node.argumentList);
+                final evaluationResult =
+                    _evaluateArgumentsAsync(node.argumentList);
                 if (evaluationResult is AsyncSuspensionRequest) {
                   return evaluationResult;
                 }
                 final (positionalArgs, namedArgs) =
                     evaluationResult as (List<Object?>, Map<String, Object?>);
-                
+
                 // Create an Invocation.method for this method call
-                final namedArgsSymbol = namedArgs.map((key, value) => MapEntry(Symbol(key), value));
-                final invocation = Invocation.method(Symbol(methodName), positionalArgs, namedArgsSymbol);
-                
+                final namedArgsSymbol =
+                    namedArgs.map((key, value) => MapEntry(Symbol(key), value));
+                final invocation = Invocation.method(
+                    Symbol(methodName), positionalArgs, namedArgsSymbol);
+
                 final boundNoSuchMethod = noSuchMethod.bind(targetValue);
                 try {
                   return boundNoSuchMethod.call(this, [invocation], {});
@@ -2581,7 +2593,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                   return returnExc.value;
                 }
               }
-              
+
               throw RuntimeD4rtException(
                   "Instance of '${targetValue.klass.name}' has no method named '$methodName'. Error during extension lookup: ${findError.message}. Original error: (${e.message})");
             }
@@ -2677,8 +2689,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
           try {
             // Call the adapter with the native object
-            return adapter(
-                this, bridgedInstance.nativeObject, positionalArgs, namedArgs, null);
+            return adapter(this, bridgedInstance.nativeObject, positionalArgs,
+                namedArgs, null);
           } on ReturnException catch (e) {
             // Native calls shouldn't throw ReturnException directly, but handle defensively
             return e.value;
@@ -2869,14 +2881,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               throw RuntimeD4rtException(
                   "Bridged constructor adapter for '${bridgedClass.name}.$methodName' returned null unexpectedly.");
             }
-            
+
             // Don't wrap Futures or Streams - they need to be usable directly
             if (nativeObject is Future || nativeObject is Stream) {
               Logger.debug(
                   "[visitMethodInvocation]   Returning native ${nativeObject.runtimeType} directly (not wrapping)");
               return nativeObject;
             }
-            
+
             final bridgedInstance = BridgedInstance(bridgedClass, nativeObject);
             Logger.debug(
                 "[visitMethodInvocation]   Created BridgedInstance wrapping native: ${nativeObject.runtimeType}");
@@ -2916,8 +2928,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             }
 
             try {
-              final result =
-                  staticMethodAdapter(this, positionalArgs, namedArgs, evaluatedTypeArguments);
+              final result = staticMethodAdapter(
+                  this, positionalArgs, namedArgs, evaluatedTypeArguments);
 
               return result;
             } on RuntimeD4rtException catch (e) {
@@ -2993,8 +3005,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
           // Call the adapter with the native object as target
           try {
-            return methodAdapter(
-                this, nativeSuperObject, positionalArgs, namedArgs, evaluatedTypeArguments);
+            return methodAdapter(this, nativeSuperObject, positionalArgs,
+                namedArgs, evaluatedTypeArguments);
           } catch (e, s) {
             Logger.error(
                 "Native exception during super call to bridged method '${bridgedSuper.name}.$methodName': $e\n$s");
@@ -3026,7 +3038,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         }
 
         try {
-          return targetValue.call(this, positionalArgs, namedArgs, evaluatedTypeArguments);
+          return targetValue.call(
+              this, positionalArgs, namedArgs, evaluatedTypeArguments);
         } on ReturnException catch (e) {
           return e.value;
         }
@@ -3131,14 +3144,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             throw RuntimeD4rtException(
                 "Default bridged constructor adapter for '${bridgedClass.name}' returned null.");
           }
-          
+
           // Don't wrap Futures or Streams - they need to be usable directly
           if (nativeObject is Future || nativeObject is Stream) {
             Logger.debug(
                 "[visitMethodInvocation]   Returning native ${nativeObject.runtimeType} directly (not wrapping)");
             return nativeObject;
           }
-          
+
           final bridgedInstance = BridgedInstance(bridgedClass, nativeObject);
           Logger.debug(
               "[visitMethodInvocation]   Created BridgedInstance wrapping native: ${nativeObject.runtimeType}");
@@ -3223,7 +3236,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           } on ReturnException catch (e) {
             return e.value;
           } catch (e) {
-            throw RuntimeD4rtException("Error executing extension method 'call': $e");
+            throw RuntimeD4rtException(
+                "Error executing extension method 'call': $e");
           }
         }
         Logger.debug(
@@ -3268,9 +3282,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         return null;
       }
       // G-DOV-10/11 FIX: Try extension lookup on nullable types before throwing
-      final extensionMember = environment.findExtensionMember(target, propertyName, visitor: this);
+      final extensionMember =
+          environment.findExtensionMember(target, propertyName, visitor: this);
       if (extensionMember != null) {
-        if (extensionMember is InterpretedFunction && extensionMember.isGetter) {
+        if (extensionMember is InterpretedFunction &&
+            extensionMember.isGetter) {
           // Execute extension getter with 'this' bound to null
           final extensionEnv = Environment(enclosing: environment);
           extensionEnv.define('this', null);
@@ -3945,7 +3961,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
     } else {
       // Should not happen with valid Dart code
-      throw StateD4rtException('Unknown ForLoopParts type: ${loopParts.runtimeType}');
+      throw StateD4rtException(
+          'Unknown ForLoopParts type: ${loopParts.runtimeType}');
     }
 
     return null; // For loops don't produce a value
@@ -4381,8 +4398,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     // Lim-4/Bug-43 FIX: If we're in a lazy sync* context, throw suspension to pause
     if (isLazySyncGeneratorContext) {
-      throw SyncGeneratorYieldSuspension(value,
-          isYieldStar: node.isStar);
+      throw SyncGeneratorYieldSuspension(value, isYieldStar: node.isStar);
     }
 
     // Fallback for other contexts
@@ -4492,14 +4508,17 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           actualTarget = targetValue[propertyName];
         } else if (toBridgedInstance(targetValue).$2) {
           final bridgedInstance = toBridgedInstance(targetValue).$1!;
-          final getter = bridgedInstance.bridgedClass.findInstanceGetterAdapter(propertyName);
+          final getter = bridgedInstance.bridgedClass
+              .findInstanceGetterAdapter(propertyName);
           if (getter != null) {
             actualTarget = getter(this, bridgedInstance.nativeObject);
           } else {
-            throw RuntimeD4rtException("Property '$propertyName' not found on ${bridgedInstance.bridgedClass.name} in cascade.");
+            throw RuntimeD4rtException(
+                "Property '$propertyName' not found on ${bridgedInstance.bridgedClass.name} in cascade.");
           }
         } else {
-          throw RuntimeD4rtException("Cannot access property '$propertyName' on ${targetValue.runtimeType} in cascade.");
+          throw RuntimeD4rtException(
+              "Cannot access property '$propertyName' on ${targetValue.runtimeType} in cascade.");
         }
       } else if (nodeTarget is SIndexExpression) {
         // This is like ..[index].method(...)
@@ -4509,7 +4528,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         } else if (targetValue is Map) {
           actualTarget = targetValue[indexValue];
         } else {
-          throw RuntimeD4rtException("Index access not supported on ${targetValue.runtimeType} in cascade.");
+          throw RuntimeD4rtException(
+              "Index access not supported on ${targetValue.runtimeType} in cascade.");
         }
       } else {
         // For other target types, evaluate normally
@@ -4518,7 +4538,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
 
     if (actualTarget == null) {
-      Logger.debug("[Cascade] Actual target is null after property resolution, skipping.");
+      Logger.debug(
+          "[Cascade] Actual target is null after property resolution, skipping.");
       return;
     }
 
@@ -4537,7 +4558,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       final adapter =
           bridgedInstance.bridgedClass.findInstanceMethodAdapter(methodName);
       if (adapter != null) {
-        adapter(this, bridgedInstance.nativeObject, positionalArgs, namedArgs, evaluatedTypeArguments);
+        adapter(this, bridgedInstance.nativeObject, positionalArgs, namedArgs,
+            evaluatedTypeArguments);
       } else {
         throw RuntimeD4rtException(
             "Bridged instance method '$methodName' not found in cascade.");
@@ -4556,7 +4578,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       final adapter =
           bridgedInstance.bridgedClass.findInstanceMethodAdapter(methodName);
       if (adapter != null) {
-        adapter(this, bridgedInstance.nativeObject, positionalArgs, namedArgs, evaluatedTypeArguments);
+        adapter(this, bridgedInstance.nativeObject, positionalArgs, namedArgs,
+            evaluatedTypeArguments);
       } else {
         throw RuntimeD4rtException(
             "Bridged instance method '$methodName' not found in cascade.");
@@ -4569,7 +4592,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   }
 
   /// Helper to invoke List methods directly
-  Object? _invokeListMethod(List list, String methodName, List<Object?> positionalArgs, Map<String, Object?> namedArgs) {
+  Object? _invokeListMethod(List list, String methodName,
+      List<Object?> positionalArgs, Map<String, Object?> namedArgs) {
     switch (methodName) {
       case 'add':
         list.add(positionalArgs.first);
@@ -4593,12 +4617,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         list.insertAll(positionalArgs[0] as int, positionalArgs[1] as Iterable);
         return null;
       default:
-        throw RuntimeD4rtException("List method '$methodName' not supported in cascade context.");
+        throw RuntimeD4rtException(
+            "List method '$methodName' not supported in cascade context.");
     }
   }
 
   /// Helper to invoke Map methods directly
-  Object? _invokeMapMethod(Map map, String methodName, List<Object?> positionalArgs, Map<String, Object?> namedArgs) {
+  Object? _invokeMapMethod(Map map, String methodName,
+      List<Object?> positionalArgs, Map<String, Object?> namedArgs) {
     switch (methodName) {
       case 'addAll':
         map.addAll(positionalArgs.first as Map);
@@ -4611,12 +4637,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       case 'putIfAbsent':
         return map.putIfAbsent(positionalArgs[0], () => positionalArgs[1]);
       default:
-        throw RuntimeD4rtException("Map method '$methodName' not supported in cascade context.");
+        throw RuntimeD4rtException(
+            "Map method '$methodName' not supported in cascade context.");
     }
   }
 
   /// Helper to invoke Set methods directly
-  Object? _invokeSetMethod(Set set, String methodName, List<Object?> positionalArgs, Map<String, Object?> namedArgs) {
+  Object? _invokeSetMethod(Set set, String methodName,
+      List<Object?> positionalArgs, Map<String, Object?> namedArgs) {
     switch (methodName) {
       case 'add':
         return set.add(positionalArgs.first);
@@ -4629,7 +4657,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         set.clear();
         return null;
       default:
-        throw RuntimeD4rtException("Set method '$methodName' not supported in cascade context.");
+        throw RuntimeD4rtException(
+            "Set method '$methodName' not supported in cascade context.");
     }
   }
 
@@ -4679,7 +4708,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     if (targetValue is List) {
       if (indexValue is int) {
         if (indexValue < 0 || indexValue >= targetValue.length) {
-          throw RuntimeD4rtException('Index out of range in cascade: $indexValue');
+          throw RuntimeD4rtException(
+              'Index out of range in cascade: $indexValue');
         }
         return targetValue[indexValue];
       } else {
@@ -4773,8 +4803,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           indexTarget = targetValue.get(propName);
         } else if (toBridgedInstance(targetValue).$2) {
           final bridgedInstance = toBridgedInstance(targetValue).$1!;
-          final getter = bridgedInstance.bridgedClass
-              .findInstanceGetterAdapter(propName);
+          final getter =
+              bridgedInstance.bridgedClass.findInstanceGetterAdapter(propName);
           if (getter != null) {
             indexTarget = getter(this, bridgedInstance.nativeObject);
           }
@@ -4789,7 +4819,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // Compound assignment
         Object? currentValue;
         if (indexTarget is List) {
-          if (indexValue is! int) throw RuntimeD4rtException('List index must be int.');
+          if (indexValue is! int)
+            throw RuntimeD4rtException('List index must be int.');
           if (indexValue < 0 || indexValue >= indexTarget.length) {
             throw RuntimeD4rtException('Index out of range.');
           }
@@ -4805,7 +4836,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
       // Set the value
       if (indexTarget is List) {
-        if (indexValue is! int) throw RuntimeD4rtException('List index must be int.');
+        if (indexValue is! int)
+          throw RuntimeD4rtException('List index must be int.');
         if (indexValue < 0 || indexValue >= indexTarget.length) {
           throw RuntimeD4rtException('Index out of range.');
         }
@@ -4889,7 +4921,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         collection[key] = value;
       } else {
         // Should not happen if isMap is true
-        throw StateD4rtException("Internal error: Expected Map for map literal.");
+        throw StateD4rtException(
+            "Internal error: Expected Map for map literal.");
       }
     } else if (element is SSpreadElement) {
       final expressionValue = element.expression!.accept<Object?>(this);
@@ -4996,7 +5029,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
             for (final item in iterableValue) {
               environment.assign(variableName, item);
-              _processCollectionElement(element.body!, collection, isMap: isMap);
+              _processCollectionElement(element.body!, collection,
+                  isMap: isMap);
             }
           } finally {
             environment = previousEnvironment;
@@ -5094,7 +5128,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // Use the .declaration constructor
     final returnType = node.returnType;
     final body0 = node.functionExpression!.body;
-    bool isAsync = (body0 is SBlockFunctionBody) ? body0.isAsync : (body0 is SExpressionFunctionBody) ? body0.isAsync : false;
+    bool isAsync = (body0 is SBlockFunctionBody)
+        ? body0.isAsync
+        : (body0 is SExpressionFunctionBody)
+            ? body0.isAsync
+            : false;
     bool isNullable = false;
     if (returnType is SNamedType) {
       isNullable = returnType.toString().contains('?');
@@ -5187,7 +5225,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
         if (eDecl is SFunctionDeclaration) {
           functionName = eDecl.name!.name;
-          currentCallable = environment.get(functionName) as InterpretedFunction?;
+          currentCallable =
+              environment.get(functionName) as InterpretedFunction?;
         } else if (eDecl is SFunctionExpression) {
           // For anonymous functions (closures), use currentFunction from visitor
           currentCallable = currentFunction;
@@ -5259,7 +5298,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               // 1. The function is async (currentCallable.isAsync)
               // 2. The return value is a Future
               // 3. The declared type matches the Future's inner type (or is void)
-              if (currentCallable != null && currentCallable.isAsync && returnValue is Future) {
+              if (currentCallable != null &&
+                  currentCallable.isAsync &&
+                  returnValue is Future) {
                 // Allow returning Future from async function - Dart awaits it
                 showError = false;
               }
@@ -5272,7 +5313,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               }
 
               if (showError) {
-                final declaredTypeName = isNullable ? '${declaredType.name}?' : declaredType.name;
+                final declaredTypeName =
+                    isNullable ? '${declaredType.name}?' : declaredType.name;
                 throw RuntimeD4rtException(
                     "A value of type '${valueRuntimeType.name}' can't be returned from the function '$functionName' because it has a return type of '$declaredTypeName'.");
               }
@@ -5352,7 +5394,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             } on ReturnException catch (e) {
               return e.value;
             } catch (e) {
-              throw RuntimeD4rtException("Error executing class operator '-': $e");
+              throw RuntimeD4rtException(
+                  "Error executing class operator '-': $e");
             }
           }
           // No class operator found, try extensions
@@ -5362,8 +5405,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         if (toBridgedInstance(operandValue).$2) {
           final bridgedInstance = toBridgedInstance(operandValue).$1!;
           final bridgedClass = bridgedInstance.bridgedClass;
-          final methodAdapter =
-              bridgedClass.findInstanceMethodAdapter('-');
+          final methodAdapter = bridgedClass.findInstanceMethodAdapter('-');
           if (methodAdapter != null) {
             Logger.debug(
                 "[PrefixExpr] Found bridged unary operator '-' for ${bridgedClass.name}. Calling adapter...");
@@ -5394,7 +5436,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             } on ReturnException catch (e) {
               return e.value;
             } catch (e) {
-              throw RuntimeD4rtException("Error executing extension operator '-': $e");
+              throw RuntimeD4rtException(
+                  "Error executing extension operator '-': $e");
             }
           }
         } on RuntimeD4rtException catch (findError) {
@@ -5423,7 +5466,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             } on ReturnException catch (e) {
               return e.value;
             } catch (e) {
-              throw RuntimeD4rtException("Error executing class operator '~': $e");
+              throw RuntimeD4rtException(
+                  "Error executing class operator '~': $e");
             }
           }
           // No class operator found, try extensions
@@ -5433,8 +5477,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         if (toBridgedInstance(operandValue).$2) {
           final bridgedInstance = toBridgedInstance(operandValue).$1!;
           final bridgedClass = bridgedInstance.bridgedClass;
-          final methodAdapter =
-              bridgedClass.findInstanceMethodAdapter('~');
+          final methodAdapter = bridgedClass.findInstanceMethodAdapter('~');
           if (methodAdapter != null) {
             Logger.debug(
                 "[PrefixExpr] Found bridged unary operator '~' for ${bridgedClass.name}. Calling adapter...");
@@ -5466,7 +5509,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             } on ReturnException catch (e) {
               return e.value;
             } catch (e) {
-              throw RuntimeD4rtException("Error executing extension operator '~': $e");
+              throw RuntimeD4rtException(
+                  "Error executing extension operator '~': $e");
             }
           }
         } on RuntimeD4rtException catch (findError) {
@@ -5494,9 +5538,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           final currentValue = assignOperand;
 
           if (currentValue is num) {
-            final newValue = operatorType == '++'
-                ? currentValue + 1
-                : currentValue - 1;
+            final newValue =
+                operatorType == '++' ? currentValue + 1 : currentValue - 1;
             // Assign the new value back to the variable
             environment.assign(variableName, newValue);
             // Return the *new* value
@@ -5507,8 +5550,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             if (operatorMethod != null) {
               try {
                 // For ++x, we create appropriate operand and call x + operand
-                final operand = _createIncrementOperand(
-                    currentValue, operatorType == '++');
+                final operand =
+                    _createIncrementOperand(currentValue, operatorType == '++');
                 // Note: For --, we could either call x + (-1) or x - 1
                 // Let's use + with -1 for consistency
                 final newValue =
@@ -5550,9 +5593,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             // Calculate new value
             Object? newValue;
             if (currentValue is num) {
-              newValue = operatorType == '++'
-                  ? currentValue + 1
-                  : currentValue - 1;
+              newValue =
+                  operatorType == '++' ? currentValue + 1 : currentValue - 1;
             } else if (currentValue is InterpretedInstance) {
               // Use custom + operator with literal 1
               final operatorMethod = currentValue.findOperator('+');
@@ -5606,9 +5648,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             // Calculate new value
             Object? newValue;
             if (currentValue is num) {
-              newValue = operatorType == '++'
-                  ? currentValue + 1
-                  : currentValue - 1;
+              newValue =
+                  operatorType == '++' ? currentValue + 1 : currentValue - 1;
             } else if (currentValue is InterpretedInstance) {
               // Use custom + operator with literal 1
               final operatorMethod = currentValue.findOperator('+');
@@ -5665,9 +5706,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             // Calculate new value
             Object? newValue;
             if (currentValue is num) {
-              newValue = operatorType == '++'
-                  ? currentValue + 1
-                  : currentValue - 1;
+              newValue =
+                  operatorType == '++' ? currentValue + 1 : currentValue - 1;
             } else {
               throw RuntimeD4rtException(
                   "Cannot increment/decrement static property '$propertyName' of type '${currentValue?.runtimeType}': Expected number.");
@@ -5728,16 +5768,15 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           // Calculate new value
           Object? newValue;
           if (currentValue is num) {
-            newValue = operatorType == '++'
-                ? currentValue + 1
-                : currentValue - 1;
+            newValue =
+                operatorType == '++' ? currentValue + 1 : currentValue - 1;
           } else if (currentValue is InterpretedInstance) {
             // Use custom + operator with literal 1
             final operatorMethod = currentValue.findOperator('+');
             if (operatorMethod != null) {
               try {
-                final operand = _createIncrementOperand(
-                    currentValue, operatorType == '++');
+                final operand =
+                    _createIncrementOperand(currentValue, operatorType == '++');
                 newValue =
                     operatorMethod.bind(currentValue).call(this, [operand], {});
               } on ReturnException catch (e) {
@@ -5876,9 +5915,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           bridgedInstance.$2 ? bridgedInstance.$1!.nativeObject : operandValue;
 
       if (currentValue is num) {
-        final newValue = operatorType == '++'
-            ? currentValue + 1
-            : currentValue - 1;
+        final newValue =
+            operatorType == '++' ? currentValue + 1 : currentValue - 1;
 
         // Assign back to correct target (lexical or instance)
         if (isInstanceField && thisInstance != null) {
@@ -5901,8 +5939,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         if (operatorMethod != null) {
           try {
             // For x++, we create a literal 1 and call x + 1
-            final operand = _createIncrementOperand(
-                currentValue, operatorType == '++');
+            final operand =
+                _createIncrementOperand(currentValue, operatorType == '++');
             Object? newValue =
                 operatorMethod.bind(operandValue).call(this, [operand], {});
 
@@ -5967,17 +6005,15 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // Calculate new value
         Object? newValue;
         if (currentValue is num) {
-          newValue = operatorType == '++'
-              ? currentValue + 1
-              : currentValue - 1;
+          newValue = operatorType == '++' ? currentValue + 1 : currentValue - 1;
         } else if (currentValue is InterpretedInstance) {
           // Use custom + operator with literal 1
           final operatorMethod = currentValue.findOperator('+');
           if (operatorMethod != null) {
             try {
               // For x++, we create a literal 1 and call x + 1
-              final operand = _createIncrementOperand(
-                  currentValue, operatorType == '++');
+              final operand =
+                  _createIncrementOperand(currentValue, operatorType == '++');
               newValue =
                   operatorMethod.bind(currentValue).call(this, [operand], {});
             } on ReturnException catch (e) {
@@ -6023,17 +6059,15 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // Calculate new value
         Object? newValue;
         if (currentValue is num) {
-          newValue = operatorType == '++'
-              ? currentValue + 1
-              : currentValue - 1;
+          newValue = operatorType == '++' ? currentValue + 1 : currentValue - 1;
         } else if (currentValue is InterpretedInstance) {
           // Use custom + operator with literal 1
           final operatorMethod = currentValue.findOperator('+');
           if (operatorMethod != null) {
             try {
               // For x++, we create a literal 1 and call x + 1
-              final operand = _createIncrementOperand(
-                  currentValue, operatorType == '++');
+              final operand =
+                  _createIncrementOperand(currentValue, operatorType == '++');
               newValue =
                   operatorMethod.bind(currentValue).call(this, [operand], {});
             } on ReturnException catch (e) {
@@ -6082,9 +6116,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // Calculate new value
         Object? newValue;
         if (currentValue is num) {
-          newValue = operatorType == '++'
-              ? currentValue + 1
-              : currentValue - 1;
+          newValue = operatorType == '++' ? currentValue + 1 : currentValue - 1;
         } else {
           throw RuntimeD4rtException(
               "Cannot increment/decrement static property '$propertyName' of type '${currentValue?.runtimeType}': Expected number.");
@@ -6147,16 +6179,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // Calculate new value
       Object? newValue;
       if (currentValue is num) {
-        newValue = operatorType == '++'
-            ? currentValue + 1
-            : currentValue - 1;
+        newValue = operatorType == '++' ? currentValue + 1 : currentValue - 1;
       } else if (currentValue is InterpretedInstance) {
         // Use custom + operator with literal 1
         final operatorMethod = currentValue.findOperator('+');
         if (operatorMethod != null) {
           try {
-            final operand = _createIncrementOperand(
-                currentValue, operatorType == '++');
+            final operand =
+                _createIncrementOperand(currentValue, operatorType == '++');
             newValue =
                 operatorMethod.bind(currentValue).call(this, [operand], {});
           } on ReturnException catch (e) {
@@ -6235,7 +6265,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   Object? visitSuperExpression(SSuperExpression node) {
     if (currentFunction == null || currentFunction?.ownerType == null) {
       // Use ownerType
-      throw RuntimeD4rtException("'super' can only be used within an instance method.");
+      throw RuntimeD4rtException(
+          "'super' can only be used within an instance method.");
     }
     final ownerType = currentFunction!.ownerType!; // Use ownerType
     // Need to ensure ownerType is actually a class for super access
@@ -6267,10 +6298,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         }
       } else {
         // Should not happen if currentFunction is set correctly
-        throw RuntimeD4rtException("Cannot find 'this' instance when using 'super'.");
+        throw RuntimeD4rtException(
+            "Cannot find 'this' instance when using 'super'.");
       }
     } on RuntimeD4rtException {
-      throw RuntimeD4rtException("Cannot find 'this' instance when using 'super'.");
+      throw RuntimeD4rtException(
+          "Cannot find 'this' instance when using 'super'.");
     }
   }
 
@@ -6345,7 +6378,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // Add checks for final and interface modifiers
         // Note: sealed and interface classes CAN be extended within the same library/file,
         // and in D4rt all interpreted code is considered the same library
-        // 
+        //
         // For 'final' classes:
         // - A 'final' class cannot be extended outside its library
         // - An 'abstract final' class CAN be extended within the same library (needs implementation)
@@ -6618,10 +6651,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // G-DOV-6/7 FIX: Use getAllConcreteMembers() to walk the full superclass chain
       // (not just this class + mixins), so grandparent concrete implementations are found.
       final concreteMembers = klass.getAllConcreteMembers();
-      final fieldNames = klass.getInstanceFieldNames(); // Fields also satisfy abstract getters
+      final fieldNames =
+          klass.getInstanceFieldNames(); // Fields also satisfy abstract getters
       for (final abstractName in inheritedAbstract.keys) {
         // Check if the abstract member is satisfied by a concrete method/getter/setter OR a field
-        if (!concreteMembers.containsKey(abstractName) && !fieldNames.contains(abstractName)) {
+        if (!concreteMembers.containsKey(abstractName) &&
+            !fieldNames.contains(abstractName)) {
           final abstractMember = inheritedAbstract[abstractName]!;
           String memberType = "method";
           if (abstractMember.isGetter) memberType = "getter";
@@ -7499,16 +7534,18 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                     // native exception's type against the BridgedClass.
                     if (originalThrownValue != null) {
                       try {
-                        final thrownBridge = globalEnvironment.toBridgedClass(
-                            originalThrownValue.runtimeType);
+                        final thrownBridge = globalEnvironment
+                            .toBridgedClass(originalThrownValue.runtimeType);
                         // Check if the thrown value's bridge matches the catch type
-                        typeMatch = thrownBridge.nativeType == targetType.nativeType ||
-                            thrownBridge.name == targetType.name;
+                        typeMatch =
+                            thrownBridge.nativeType == targetType.nativeType ||
+                                thrownBridge.name == targetType.name;
                         Logger.debug(
                             "[STryStatement]   Checking native thrown '${thrownBridge.name}' against bridged class '$targetCatchTypeName'. Result: $typeMatch");
                       } catch (_) {
                         // Thrown value has no bridge - try runtime type name match
-                        final thrownTypeName = originalThrownValue.runtimeType.toString();
+                        final thrownTypeName =
+                            originalThrownValue.runtimeType.toString();
                         typeMatch = thrownTypeName == targetType.name ||
                             thrownTypeName.startsWith('${targetType.name}<');
                         Logger.debug(
@@ -7542,8 +7579,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           Logger.debug(
               "[STryStatement] Found matching catch clause${targetCatchTypeName != null ? ' for type $targetCatchTypeName' : ''}.");
           final exceptionParameterName = clause.exceptionParameter?.name;
-          final stackTraceParameterName =
-              clause.stackTraceParameter?.name;
+          final stackTraceParameterName = clause.stackTraceParameter?.name;
 
           // Create an environment for the catch block
           environment =
@@ -7610,7 +7646,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             Logger.debug(
                 "[STryStatement] Caught unexpected non-InternalInterpreterException in CATCH: $nativeError");
             // Wrap it as InternalInterpreterException to propagate
-            caughtInternalException = InternalInterpreterD4rtException(nativeError);
+            caughtInternalException =
+                InternalInterpreterD4rtException(nativeError);
             caughtStackTrace = nativeStack;
             returnValue = null;
           } finally {
@@ -7700,7 +7737,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     if (asyncState == null) {
       if (!_isInCatchBlock ||
           _originalCaughtInternalExceptionForRethrow == null) {
-        throw RuntimeD4rtException("'rethrow' can only be used within a catch block.");
+        throw RuntimeD4rtException(
+            "'rethrow' can only be used within a catch block.");
       }
       Logger.debug(
           "[Rethrow] Rethrowing original internal exception: ${_originalCaughtInternalExceptionForRethrow!.originalThrownValue}");
@@ -7708,12 +7746,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       throw _originalCaughtInternalExceptionForRethrow!;
     }
     if (!asyncState.isHandlingErrorForRethrow) {
-      throw RuntimeD4rtException("'rethrow' can only be used within a catch block.");
+      throw RuntimeD4rtException(
+          "'rethrow' can only be used within a catch block.");
     }
     final originalError = asyncState.originalErrorForRethrow;
     if (originalError == null) {
       // Should not happen if isHandlingErrorForRethrow is true, but safety check
-      throw StateD4rtException("Internal error: Inconsistent state for rethrow.");
+      throw StateD4rtException(
+          "Internal error: Inconsistent state for rethrow.");
     }
     Logger.debug(
         "[Rethrow] Rethrowing original internal exception: ${originalError.originalThrownValue}");
@@ -7921,7 +7961,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           }
         } else if (firstEffectiveElement != null &&
             _isMapLiteralElement(firstEffectiveElement)) {
-          isMap = true; // Confirmation if first non-spread was entry (or contains one)
+          isMap =
+              true; // Confirmation if first non-spread was entry (or contains one)
         } else {
           isMap = false; // If first non-spread was Expression, it's a Set
         }
@@ -8236,7 +8277,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         }
 
         if (namedArgs.containsKey(name)) {
-          throw RuntimeD4rtException("Named argument '$name' provided more than once.");
+          throw RuntimeD4rtException(
+              "Named argument '$name' provided more than once.");
         }
         final bridgedInstance = toBridgedInstance(value);
         namedArgs[name] = _bridgeInterpreterValueToNative(
@@ -8296,7 +8338,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         }
 
         if (namedArgs.containsKey(name)) {
-          throw RuntimeD4rtException("Named argument '$name' provided more than once.");
+          throw RuntimeD4rtException(
+              "Named argument '$name' provided more than once.");
         }
         final bridgedInstance = toBridgedInstance(value);
         namedArgs[name] = _bridgeInterpreterValueToNative(
@@ -8328,7 +8371,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   // Add SFunctionExpressionInvocation handler
   @override
-  Object? visitFunctionExpressionInvocation(SFunctionExpressionInvocation node) {
+  Object? visitFunctionExpressionInvocation(
+      SFunctionExpressionInvocation node) {
     // 1. Evaluate the function expression itself.
     // This should result in a Callable (like InterpretedFunction or NativeFunction).
     final calleeValue = node.function!.accept<Object?>(this);
@@ -8400,7 +8444,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           } on ReturnException catch (e) {
             return e.value;
           } catch (e) {
-            throw RuntimeD4rtException("Error executing extension method 'call': $e");
+            throw RuntimeD4rtException(
+                "Error executing extension method 'call': $e");
           }
         }
         Logger.debug(
@@ -8494,7 +8539,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         labels = member.labels;
       }
       for (final label in labels) {
-        final labelName = (label is SLabel) ? label.label?.name : (label as SAstNode).toString();
+        final labelName = (label is SLabel)
+            ? label.label?.name
+            : (label as SAstNode).toString();
         if (labelName != null) labelToIndex[labelName] = i;
       }
     }
@@ -8525,145 +8572,152 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               }
               statementsToExecute = member.statements;
             } else if (member is SSwitchPatternCase) {
-          // Try explicit cast to potentially help the linter
-          final gp = member.guardedPattern as SGuardedPattern;
-          final pattern = gp.pattern;
-          if (pattern is SConstantPattern) {
-            // This handles 'case <constant>:'
-            if (!matched) {
-              // Access expression from the SConstantPattern
-              final caseValue = pattern.expression.accept<Object?>(this);
-              Logger.debug(
-                  "[Switch] Checking pattern case value: $caseValue against $switchValue");
-              if (switchValue == caseValue) {
-                matched = true;
-                execute = true; // Start executing
-                Logger.debug("[Switch] Matched pattern case: $caseValue");
-              }
-            }
-            statementsToExecute = member.statements;
-          } else {
-            // Handle other pattern types using our improved _matchAndBind function
-            if (!matched) {
-              // Create a temporary environment for pattern matching in switch
-              final tempEnvironment = Environment(enclosing: environment);
-              try {
-                _matchAndBind(pattern, switchValue, tempEnvironment);
-                // If we get here, the pattern matched
-                matched = true;
-                // G-DOV-8 FIX: Execute pattern case body in the pattern's own scope
-                // and do NOT fall through to subsequent cases (Dart 3 semantics).
-                Logger.debug(
-                    "[Switch] Matched pattern case: ${pattern.runtimeType}");
-                
-                // Check guard clause (when)
-                final gpWhenClause = gp.whenClause as SWhenClause?;
-                if (gpWhenClause != null) {
-                  final prevEnv = environment;
-                  environment = tempEnvironment;
-                  try {
-                    final guardResult = gpWhenClause.expression.accept<Object?>(this);
-                    if (guardResult != true) {
-                      environment = prevEnv;
-                      // Guard failed, pattern doesn't match - reset matched so other cases can try
-                      matched = false;
-                      Logger.debug("[Switch] Guard clause failed, skipping case");
-                      statementsToExecute = member.statements;
-                      continue; // Skip to next case member
-                    }
-                  } catch (e) {
-                    environment = prevEnv;
-                    rethrow;
-                  }
-                  environment = prevEnv;
-                }
-                
-                // Execute statements in the pattern environment
-                final prevEnv = environment;
-                environment = tempEnvironment;
-                try {
-                  for (final statement in member.statements) {
-                    statement.accept<Object?>(this);
-                  }
-                } on BreakException catch (e) {
-                  environment = prevEnv;
-                  if (e.label == null || _currentStatementLabels.contains(e.label)) {
-                    break; // Exit the loop over members
-                  } else {
-                    rethrow;
-                  }
-                } on ContinueException catch (e) {
-                  environment = prevEnv;
-                  if (e.label != null && labelToIndex.containsKey(e.label)) {
-                    startIndex = labelToIndex[e.label]!;
+              // Try explicit cast to potentially help the linter
+              final gp = member.guardedPattern as SGuardedPattern;
+              final pattern = gp.pattern;
+              if (pattern is SConstantPattern) {
+                // This handles 'case <constant>:'
+                if (!matched) {
+                  // Access expression from the SConstantPattern
+                  final caseValue = pattern.expression.accept<Object?>(this);
+                  Logger.debug(
+                      "[Switch] Checking pattern case value: $caseValue against $switchValue");
+                  if (switchValue == caseValue) {
                     matched = true;
-                    execute = true;
-                    throw ContinueSwitchLabel();
-                  } else {
-                    rethrow;
+                    execute = true; // Start executing
+                    Logger.debug("[Switch] Matched pattern case: $caseValue");
                   }
-                } catch (e) {
-                  environment = prevEnv;
+                }
+                statementsToExecute = member.statements;
+              } else {
+                // Handle other pattern types using our improved _matchAndBind function
+                if (!matched) {
+                  // Create a temporary environment for pattern matching in switch
+                  final tempEnvironment = Environment(enclosing: environment);
+                  try {
+                    _matchAndBind(pattern, switchValue, tempEnvironment);
+                    // If we get here, the pattern matched
+                    matched = true;
+                    // G-DOV-8 FIX: Execute pattern case body in the pattern's own scope
+                    // and do NOT fall through to subsequent cases (Dart 3 semantics).
+                    Logger.debug(
+                        "[Switch] Matched pattern case: ${pattern.runtimeType}");
+
+                    // Check guard clause (when)
+                    final gpWhenClause = gp.whenClause as SWhenClause?;
+                    if (gpWhenClause != null) {
+                      final prevEnv = environment;
+                      environment = tempEnvironment;
+                      try {
+                        final guardResult =
+                            gpWhenClause.expression.accept<Object?>(this);
+                        if (guardResult != true) {
+                          environment = prevEnv;
+                          // Guard failed, pattern doesn't match - reset matched so other cases can try
+                          matched = false;
+                          Logger.debug(
+                              "[Switch] Guard clause failed, skipping case");
+                          statementsToExecute = member.statements;
+                          continue; // Skip to next case member
+                        }
+                      } catch (e) {
+                        environment = prevEnv;
+                        rethrow;
+                      }
+                      environment = prevEnv;
+                    }
+
+                    // Execute statements in the pattern environment
+                    final prevEnv = environment;
+                    environment = tempEnvironment;
+                    try {
+                      for (final statement in member.statements) {
+                        statement.accept<Object?>(this);
+                      }
+                    } on BreakException catch (e) {
+                      environment = prevEnv;
+                      if (e.label == null ||
+                          _currentStatementLabels.contains(e.label)) {
+                        break; // Exit the loop over members
+                      } else {
+                        rethrow;
+                      }
+                    } on ContinueException catch (e) {
+                      environment = prevEnv;
+                      if (e.label != null &&
+                          labelToIndex.containsKey(e.label)) {
+                        startIndex = labelToIndex[e.label]!;
+                        matched = true;
+                        execute = true;
+                        throw ContinueSwitchLabel();
+                      } else {
+                        rethrow;
+                      }
+                    } catch (e) {
+                      environment = prevEnv;
+                      rethrow;
+                    }
+                    environment = prevEnv;
+                    // Pattern cases do not fall through - break out
+                    break;
+                  } on PatternMatchD4rtException catch (e) {
+                    Logger.debug(
+                        "[Switch] Pattern ${pattern.runtimeType} did not match: ${e.message}");
+                    // Pattern didn't match, continue to next case
+                  }
+                }
+                statementsToExecute = member.statements;
+              }
+            } else if (member is SSwitchDefault) {
+              Logger.debug("[Switch] Reached default case.");
+              if (!matched || execute) {
+                // Execute default if no match OR fallthrough
+                execute = true;
+              }
+              statementsToExecute = member.statements;
+            } else {
+              throw StateD4rtException(
+                  'Unknown switch member type: ${member.runtimeType}');
+            }
+
+            // Execute statements if needed (either matched this round or fell through)
+            if (execute) {
+              Logger.debug(
+                  "[Switch] Executing statements for matched/fallthrough/default...");
+              try {
+                for (final statement in statementsToExecute) {
+                  statement.accept<Object?>(this);
+                }
+                // Fall-through continues if no break
+              } on BreakException catch (e) {
+                Logger.debug(
+                    "[Switch] Caught BreakException (label: ${e.label}) with current labels: $_currentStatementLabels");
+                if (e.label == null ||
+                    _currentStatementLabels.contains(e.label)) {
+                  // Unlabeled break OR labeled break targeting this switch.
+                  Logger.debug("[Switch] Breaking switch.");
+                  execute = false; // Stop execution after this block
+                  break; // Exit the loop over members
+                } else {
+                  // Labeled break targeting an outer construct.
+                  Logger.debug("[Switch] Rethrowing outer break...");
                   rethrow;
                 }
-                environment = prevEnv;
-                // Pattern cases do not fall through - break out
-                break;
-              } on PatternMatchD4rtException catch (e) {
-                Logger.debug(
-                    "[Switch] Pattern ${pattern.runtimeType} did not match: ${e.message}");
-                // Pattern didn't match, continue to next case
+              } on ContinueException catch (e) {
+                if (e.label != null && labelToIndex.containsKey(e.label)) {
+                  // Continue to a labeled case in this switch
+                  Logger.debug("[Switch] Continue to labeled case: ${e.label}");
+                  startIndex = labelToIndex[e.label]!;
+                  matched =
+                      true; // Mark as matched so we execute the target case
+                  execute = true;
+                  throw ContinueSwitchLabel(); // Signal to restart from target index
+                } else {
+                  // 'continue' without a label or with unknown label
+                  throw RuntimeD4rtException(
+                      "'continue' is not valid inside a switch case/default block without a loop target.");
+                }
               }
-            }
-            statementsToExecute = member.statements;
-          }
-        } else if (member is SSwitchDefault) {
-          Logger.debug("[Switch] Reached default case.");
-          if (!matched || execute) {
-            // Execute default if no match OR fallthrough
-            execute = true;
-          }
-          statementsToExecute = member.statements;
-        } else {
-          throw StateD4rtException('Unknown switch member type: ${member.runtimeType}');
-        }
-
-        // Execute statements if needed (either matched this round or fell through)
-        if (execute) {
-          Logger.debug(
-              "[Switch] Executing statements for matched/fallthrough/default...");
-          try {
-            for (final statement in statementsToExecute) {
-              statement.accept<Object?>(this);
-            }
-            // Fall-through continues if no break
-          } on BreakException catch (e) {
-            Logger.debug(
-                "[Switch] Caught BreakException (label: ${e.label}) with current labels: $_currentStatementLabels");
-            if (e.label == null || _currentStatementLabels.contains(e.label)) {
-              // Unlabeled break OR labeled break targeting this switch.
-              Logger.debug("[Switch] Breaking switch.");
-              execute = false; // Stop execution after this block
-              break; // Exit the loop over members
-            } else {
-              // Labeled break targeting an outer construct.
-              Logger.debug("[Switch] Rethrowing outer break...");
-              rethrow;
-            }
-          } on ContinueException catch (e) {
-            if (e.label != null && labelToIndex.containsKey(e.label)) {
-              // Continue to a labeled case in this switch
-              Logger.debug("[Switch] Continue to labeled case: ${e.label}");
-              startIndex = labelToIndex[e.label]!;
-              matched = true;  // Mark as matched so we execute the target case
-              execute = true;
-              throw ContinueSwitchLabel(); // Signal to restart from target index
-            } else {
-              // 'continue' without a label or with unknown label
-              throw RuntimeD4rtException(
-                  "'continue' is not valid inside a switch case/default block without a loop target.");
-            }
-          }
             }
           }
           // Normal completion - exit the while(true) loop
@@ -8692,7 +8746,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     // Initial check: Are we in an async function?
     if (!currentAsyncState!.function.isAsync) {
-      throw RuntimeD4rtException("'await' can only be used inside an async function.");
+      throw RuntimeD4rtException(
+          "'await' can only be used inside an async function.");
     }
 
     // Check if we are in invocation resumption mode
@@ -8747,8 +8802,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   /// Attempts to match the [pattern] against the [value].
   /// If successful, binds any variables declared in the pattern within the [environment].
   /// Throws [PatternMatchD4rtException] on failure.
-  void _matchAndBind(
-      SAstNode pattern, Object? value, Environment environment) {
+  void _matchAndBind(SAstNode pattern, Object? value, Environment environment) {
     Logger.debug(
         "[_matchAndBind] Matching pattern ${pattern.runtimeType} against value ${value?.runtimeType}");
 
@@ -8937,10 +8991,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             'Expected a Record, but got ${value?.runtimeType}'); // Corrected message
       }
 
-      final positionalPatternFields =
-          pattern.fields.cast<SPatternField>().where((f) => f.name == null).toList();
-      final namedPatternFieldsNodes =
-          pattern.fields.cast<SPatternField>().where((f) => f.name != null).toList();
+      final positionalPatternFields = pattern.fields
+          .cast<SPatternField>()
+          .where((f) => f.name == null)
+          .toList();
+      final namedPatternFieldsNodes = pattern.fields
+          .cast<SPatternField>()
+          .where((f) => f.name != null)
+          .toList();
 
       Logger.debug(
           '[_matchAndBind]   Pattern positional fields count: ${positionalPatternFields.length}');
@@ -9191,7 +9249,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         Logger.debug(
             "[_matchAndBind] SLogicalOrPattern: left failed, trying right operand ${pattern.rightOperand.runtimeType}");
         _matchAndBind(pattern.rightOperand, value, environment);
-        Logger.debug("[_matchAndBind] SLogicalOrPattern: right operand matched");
+        Logger.debug(
+            "[_matchAndBind] SLogicalOrPattern: right operand matched");
         // If right also throws, the exception propagates up
       }
     } else if (pattern is SLogicalAndPattern) {
@@ -9476,8 +9535,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     for (final member in node.members) {
       if (member is SMethodDeclaration) {
-        final methodName = member
-            .name!.name; // Operator names like '+', '[]' are also lexemes
+        final methodName =
+            member.name!.name; // Operator names like '+', '[]' are also lexemes
 
         if (member.isStatic) {
           // Handle static methods, getters, and setters
@@ -9611,8 +9670,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       representationFieldName,
       representationType,
       environment,
-      getters,  // Will be populated below
-      methods,  // Will be populated below
+      getters, // Will be populated below
+      methods, // Will be populated below
     );
 
     // Define it in the environment early so methods can reference the type
@@ -9791,7 +9850,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     final prefixIdentifier = node.prefix; // Get the prefix identifier
     final prefixName = prefixIdentifier?.name;
-    
+
     // Extract the show/hide combinators from the import directive BEFORE loading
     Set<String>? showNames;
     Set<String>? hideNames;
@@ -9809,12 +9868,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             "[visitImportDirective] Combinator: hide ${combinator.hiddenNames.map((id) => id.name).join(', ')}");
       }
     }
-    
+
     Logger.debug(
         "[visitImportDirective] Loading module for resolved URI: $resolvedUri (prefix: $prefixName, show: $showNames, hide: $hideNames)");
 
     // Pass show/hide to loadModule so bridged content respects the filters
-    LoadedModule loadedModule = moduleLoader.loadModule(resolvedUri, showNames: showNames, hideNames: hideNames);
+    LoadedModule loadedModule = moduleLoader.loadModule(resolvedUri,
+        showNames: showNames, hideNames: hideNames);
 
     if (prefixName != null) {
       Logger.debug(
@@ -9875,14 +9935,16 @@ class _NamedConstructorTearOff implements Callable {
   final InterpretedFunction _constructor;
   final String _constructorName;
 
-  _NamedConstructorTearOff(this._klass, this._constructor, this._constructorName);
+  _NamedConstructorTearOff(
+      this._klass, this._constructor, this._constructorName);
 
   @override
   int get arity => _constructor.arity;
 
   @override
   Object? call(InterpreterVisitor visitor, List<Object?> positionalArguments,
-      [Map<String, Object?>? namedArguments, List<RuntimeType>? explicitTypeArguments]) {
+      [Map<String, Object?>? namedArguments,
+      List<RuntimeType>? explicitTypeArguments]) {
     Logger.debug(
         "[_NamedConstructorTearOff] Invoking constructor '$_constructorName' on class '${_klass.name}'");
 

@@ -48,8 +48,7 @@ abstract class SAstVisitor<T> {
   T? visitPostfixExpression(SPostfixExpression node) => visitNode(node);
 
   /// Visit a [SConditionalExpression].
-  T? visitConditionalExpression(SConditionalExpression node) =>
-      visitNode(node);
+  T? visitConditionalExpression(SConditionalExpression node) => visitNode(node);
 
   /// Visit a [SAssignmentExpression].
   T? visitAssignmentExpression(SAssignmentExpression node) => visitNode(node);
@@ -215,8 +214,8 @@ abstract class SAstVisitor<T> {
 
   /// Visit a [SPatternVariableDeclarationStatement].
   T? visitPatternVariableDeclarationStatement(
-          SPatternVariableDeclarationStatement node) =>
-      visitNode(node);
+    SPatternVariableDeclarationStatement node,
+  ) => visitNode(node);
 
   // --------------------------------------------------------------------------
   // Declarations
@@ -302,8 +301,7 @@ abstract class SAstVisitor<T> {
   // --------------------------------------------------------------------------
 
   /// Visit a [SSimpleFormalParameter].
-  T? visitSimpleFormalParameter(SSimpleFormalParameter node) =>
-      visitNode(node);
+  T? visitSimpleFormalParameter(SSimpleFormalParameter node) => visitNode(node);
 
   /// Visit a [SDefaultFormalParameter].
   T? visitDefaultFormalParameter(SDefaultFormalParameter node) =>
@@ -376,8 +374,8 @@ abstract class SAstVisitor<T> {
 
   /// Visit a [SRedirectingConstructorInvocation].
   T? visitRedirectingConstructorInvocation(
-          SRedirectingConstructorInvocation node) =>
-      visitNode(node);
+    SRedirectingConstructorInvocation node,
+  ) => visitNode(node);
 
   /// Visit a [SConstructorFieldInitializer].
   T? visitConstructorFieldInitializer(SConstructorFieldInitializer node) =>
@@ -628,8 +626,7 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
   T? visitSimpleIdentifier(SSimpleIdentifier node) => visitExpression(node);
 
   @override
-  T? visitPrefixedIdentifier(SPrefixedIdentifier node) =>
-      visitExpression(node);
+  T? visitPrefixedIdentifier(SPrefixedIdentifier node) => visitExpression(node);
 
   @override
   T? visitBinaryExpression(SBinaryExpression node) => visitExpression(node);
@@ -666,8 +663,7 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
       visitExpression(node);
 
   @override
-  T? visitFunctionExpression(SFunctionExpression node) =>
-      visitExpression(node);
+  T? visitFunctionExpression(SFunctionExpression node) => visitExpression(node);
 
   @override
   T? visitInstanceCreationExpression(SInstanceCreationExpression node) =>
@@ -733,12 +729,10 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
   T? visitBooleanLiteral(SBooleanLiteral node) => visitLiteral(node);
 
   @override
-  T? visitSimpleStringLiteral(SSimpleStringLiteral node) =>
-      visitLiteral(node);
+  T? visitSimpleStringLiteral(SSimpleStringLiteral node) => visitLiteral(node);
 
   @override
-  T? visitStringInterpolation(SStringInterpolation node) =>
-      visitLiteral(node);
+  T? visitStringInterpolation(SStringInterpolation node) => visitLiteral(node);
 
   @override
   T? visitAdjacentStrings(SAdjacentStrings node) => visitLiteral(node);
@@ -814,8 +808,8 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
 
   @override
   T? visitPatternVariableDeclarationStatement(
-          SPatternVariableDeclarationStatement node) =>
-      visitStatement(node);
+    SPatternVariableDeclarationStatement node,
+  ) => visitStatement(node);
 
   // --------------------------------------------------------------------------
   // Declarations → visitDeclaration
@@ -826,8 +820,7 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
       visitDeclaration(node);
 
   @override
-  T? visitMethodDeclaration(SMethodDeclaration node) =>
-      visitDeclaration(node);
+  T? visitMethodDeclaration(SMethodDeclaration node) => visitDeclaration(node);
 
   @override
   T? visitClassDeclaration(SClassDeclaration node) => visitDeclaration(node);
@@ -932,16 +925,14 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
   // --------------------------------------------------------------------------
 
   @override
-  T? visitBlockFunctionBody(SBlockFunctionBody node) =>
-      visitFunctionBody(node);
+  T? visitBlockFunctionBody(SBlockFunctionBody node) => visitFunctionBody(node);
 
   @override
   T? visitExpressionFunctionBody(SExpressionFunctionBody node) =>
       visitFunctionBody(node);
 
   @override
-  T? visitEmptyFunctionBody(SEmptyFunctionBody node) =>
-      visitFunctionBody(node);
+  T? visitEmptyFunctionBody(SEmptyFunctionBody node) => visitFunctionBody(node);
 
   @override
   T? visitNativeFunctionBody(SNativeFunctionBody node) =>
@@ -987,8 +978,8 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
 
   @override
   T? visitRedirectingConstructorInvocation(
-          SRedirectingConstructorInvocation node) =>
-      visitConstructorInitializer(node);
+    SRedirectingConstructorInvocation node,
+  ) => visitConstructorInitializer(node);
 
   @override
   T? visitConstructorFieldInitializer(SConstructorFieldInitializer node) =>

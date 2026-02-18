@@ -27,7 +27,7 @@ class ModuleLoader {
   final D4rt? d4rt; // Reference to D4rt instance for permission checking
   Uri?
       currentlibrary; // Keep for the initial relative URI resolution in _fetchModuleSource and for relative imports
-  
+
   // Library-scoped globals (registered with library path) - added when import is processed
   // LibraryFunction wrapper includes sourceUri for deduplication across re-exports
   final List<Map<String, LibraryFunction>> libraryFunctions;
@@ -35,7 +35,7 @@ class ModuleLoader {
   final List<Map<String, LibraryGetter>> libraryGetters;
   final List<Map<String, LibrarySetter>> librarySetters;
   final List<Map<String, LibraryExtension>> bridgedExtensions;
-  
+
   // Track which globals have been registered and from which source library
   // Maps global name -> canonical source library URI (not import barrel URI)
   final Map<String, String> _registeredFunctions = {};
@@ -52,7 +52,7 @@ class ModuleLoader {
   /// Use this with [accumulatedRegistrationErrors] to validate all bridge
   /// registrations in a single run without aborting on the first error.
   bool collectRegistrationErrors;
-  
+
   /// Accumulated registration errors when [collectRegistrationErrors] is true.
   ///
   /// These errors are collected across all import processing rather than
@@ -69,7 +69,8 @@ class ModuleLoader {
   /// When provided, this is used to convert raw source strings into
   /// [SCompilationUnit] nodes. When null, the module loader can only
   /// work with pre-parsed AST input.
-  final SCompilationUnit Function(String sourceCode, Uri uri)? parseSourceCallback;
+  final SCompilationUnit Function(String sourceCode, Uri uri)?
+      parseSourceCallback;
 
   ModuleLoader(this.globalEnvironment, this.sources,
       this.bridgedEnumDefinitions, this.bridgedClases,
@@ -94,19 +95,22 @@ class ModuleLoader {
     // Define dangerous modules that require permissions
     if (uriString == 'dart:io') {
       if (!d4rt!.checkPermission({'type': 'filesystem'})) {
-        throw RuntimeD4rtException('Access to dart:io requires FilesystemPermission. '
+        throw RuntimeD4rtException(
+            'Access to dart:io requires FilesystemPermission. '
             'Use d4rt.grant(FilesystemPermission.any) to allow filesystem access.');
       }
     } else if (uriString == 'dart:isolate') {
       if (!d4rt!.checkPermission({'type': 'isolate'})) {
-        throw RuntimeD4rtException('Access to dart:isolate requires IsolatePermission. '
+        throw RuntimeD4rtException(
+            'Access to dart:isolate requires IsolatePermission. '
             'Use d4rt.grant(IsolatePermission.any) to allow isolate operations.');
       }
     }
     // Add more dangerous modules as needed
   }
 
-  LoadedModule loadModule(Uri uri, {Set<String>? showNames, Set<String>? hideNames}) {
+  LoadedModule loadModule(Uri uri,
+      {Set<String>? showNames, Set<String>? hideNames}) {
     // Check permissions for dangerous modules
     _checkModulePermissions(uri);
 
@@ -125,8 +129,9 @@ class ModuleLoader {
     }
     Logger.debug(
         "[ModuleLoader loadModule for $uri] Loading module: ${uri.toString()}");
-    String sourceCode = _fetchModuleSource(
-        uri, showNames: showNames, hideNames: hideNames); // Pass show/hide to filter bridged registrations
+    String sourceCode = _fetchModuleSource(uri,
+        showNames: showNames,
+        hideNames: hideNames); // Pass show/hide to filter bridged registrations
     SCompilationUnit ast = _parseSource(uri, sourceCode);
 
     Environment moduleEnvironment = Environment(enclosing: globalEnvironment);
@@ -137,7 +142,9 @@ class ModuleLoader {
         "[ModuleLoader loadModule for $uri] Processing import directives first...");
     for (final directive in ast.directives) {
       if (directive is SImportDirective) {
-        final importedUriString = (directive.uri is SSimpleStringLiteral) ? (directive.uri as SSimpleStringLiteral).value : null;
+        final importedUriString = (directive.uri is SSimpleStringLiteral)
+            ? (directive.uri as SSimpleStringLiteral).value
+            : null;
         if (importedUriString == null) {
           Logger.warn(
               "[ModuleLoader loadModule for $uri] Import directive with null URI string in ${uri.toString()}");
@@ -221,7 +228,7 @@ class ModuleLoader {
 
     Logger.debug(
         "[ModuleLoader loadModule for $uri] Executing InterpreterVisitor pass for initializers...");
-    
+
     // First, process enum declarations to populate enum values
     // This must happen before top-level variable declarations in case
     // const variables reference enum values
@@ -230,23 +237,24 @@ class ModuleLoader {
         declaration.accept(moduleInterpreter);
       }
     }
-    
+
     // Process class and mixin declarations to populate their members (methods, constructors, etc.)
     // The DeclarationVisitor only creates placeholders with empty constructor maps.
     // Bug-59: Without this, imported classes have no constructors available!
     for (final declaration in ast.declarations) {
-      if (declaration is SClassDeclaration || declaration is SMixinDeclaration) {
+      if (declaration is SClassDeclaration ||
+          declaration is SMixinDeclaration) {
         declaration.accept(moduleInterpreter);
       }
     }
-    
+
     // Process function declarations to populate interpreted functions properly
     for (final declaration in ast.declarations) {
       if (declaration is SFunctionDeclaration) {
         declaration.accept(moduleInterpreter);
       }
     }
-    
+
     // Bug-91: Process extension declarations to populate extension methods
     // Extensions need to be processed by the interpreter to be available for imported modules
     for (final declaration in ast.declarations) {
@@ -254,7 +262,7 @@ class ModuleLoader {
         declaration.accept(moduleInterpreter);
       }
     }
-    
+
     // Then process top-level variable declarations
     for (final declaration in ast.declarations) {
       // We only care about the evaluation of STopLevelVariableDeclaration for their initializers.
@@ -280,7 +288,9 @@ class ModuleLoader {
         "[ModuleLoader loadModule for $uri] Processing export directives for ${uri.toString()}...");
     for (final directive in ast.directives) {
       if (directive is SExportDirective) {
-        final exportedUriString = (directive.uri is SSimpleStringLiteral) ? (directive.uri as SSimpleStringLiteral).value : null;
+        final exportedUriString = (directive.uri is SSimpleStringLiteral)
+            ? (directive.uri as SSimpleStringLiteral).value
+            : null;
         if (exportedUriString == null) {
           Logger.warn(
               "[ModuleLoader loadModule for $uri] Export directive with null URI string in ${uri.toString()}");
@@ -355,7 +365,8 @@ class ModuleLoader {
   }
 
   /// Helper to check if a name should be registered based on show/hide filters.
-  bool _shouldRegisterName(String name, {Set<String>? showNames, Set<String>? hideNames}) {
+  bool _shouldRegisterName(String name,
+      {Set<String>? showNames, Set<String>? hideNames}) {
     // If hideNames is specified and contains this name, skip it
     if (hideNames != null && hideNames.contains(name)) {
       return false;
@@ -367,7 +378,8 @@ class ModuleLoader {
     return true;
   }
 
-  String _fetchModuleSource(Uri uri, {Set<String>? showNames, Set<String>? hideNames}) {
+  String _fetchModuleSource(Uri uri,
+      {Set<String>? showNames, Set<String>? hideNames}) {
     final uriString = uri.toString();
     Logger.debug(
         "[ModuleLoader] Récupération de la source pour: $uriString depuis sources. (show: $showNames, hide: $hideNames)");
@@ -426,32 +438,37 @@ class ModuleLoader {
       }
     }
     // Check if this URI has any bridged types or library-scoped globals registered
-    final hasBridgedContent = bridgedClases.isNotEmpty || bridgedEnumDefinitions.isNotEmpty ||
-        libraryFunctions.isNotEmpty || libraryVariables.isNotEmpty || libraryGetters.isNotEmpty ||
-        librarySetters.isNotEmpty || bridgedExtensions.isNotEmpty;
-    
+    final hasBridgedContent = bridgedClases.isNotEmpty ||
+        bridgedEnumDefinitions.isNotEmpty ||
+        libraryFunctions.isNotEmpty ||
+        libraryVariables.isNotEmpty ||
+        libraryGetters.isNotEmpty ||
+        librarySetters.isNotEmpty ||
+        bridgedExtensions.isNotEmpty;
+
     if (hasBridgedContent) {
       // Track if this specific URI has any content registered
       bool hasContentForUri = false;
       final registrationErrors = <String>[];
-      
+
       for (var bridgedEnumDefinition in bridgedEnumDefinitions) {
         if (bridgedEnumDefinition.containsKey(uriString)) {
           hasContentForUri = true;
           final libEnum = bridgedEnumDefinition[uriString]!;
           final definition = libEnum.enumDefinition;
           final enumName = definition.name;
-          
+
           // Check show/hide filters
-          if (!_shouldRegisterName(enumName, showNames: showNames, hideNames: hideNames)) {
+          if (!_shouldRegisterName(enumName,
+              showNames: showNames, hideNames: hideNames)) {
             Logger.debug(
                 " [execute] Skipping enum '$enumName' due to show/hide filter");
             continue;
           }
-          
+
           // Use sourceUri for deduplication if available, otherwise fall back to import URI
           final sourceUri = libEnum.sourceUri ?? uriString;
-          
+
           if (_registeredEnums.containsKey(enumName)) {
             final existingSourceUri = _registeredEnums[enumName]!;
             if (existingSourceUri == sourceUri) {
@@ -467,9 +484,9 @@ class ModuleLoader {
               continue;
             }
           }
-          
+
           _registeredEnums[enumName] = sourceUri;
-          
+
           try {
             final bridgedEnum = definition.buildBridgedEnum();
             globalEnvironment.defineBridgedEnum(bridgedEnum);
@@ -477,8 +494,8 @@ class ModuleLoader {
                 " [execute] Registered bridged enum: $enumName from $sourceUri");
           } catch (e) {
             Logger.error("registering bridged enum '$enumName': $e");
-            registrationErrors.add(
-                "Failed to register bridged enum '$enumName': $e");
+            registrationErrors
+                .add("Failed to register bridged enum '$enumName': $e");
           }
         }
       }
@@ -489,17 +506,18 @@ class ModuleLoader {
           final libClass = bridgedClass[uriString]!;
           final definition = libClass.bridgedClass;
           final className = definition.name;
-          
+
           // Check show/hide filters
-          if (!_shouldRegisterName(className, showNames: showNames, hideNames: hideNames)) {
+          if (!_shouldRegisterName(className,
+              showNames: showNames, hideNames: hideNames)) {
             Logger.debug(
                 " [execute] Skipping class '$className' due to show/hide filter");
             continue;
           }
-          
+
           // Use sourceUri for deduplication if available, otherwise fall back to import URI
           final sourceUri = libClass.sourceUri ?? uriString;
-          
+
           if (_registeredClasses.containsKey(className)) {
             final existingSourceUri = _registeredClasses[className]!;
             if (existingSourceUri == sourceUri) {
@@ -515,17 +533,17 @@ class ModuleLoader {
               continue;
             }
           }
-          
+
           _registeredClasses[className] = sourceUri;
-          
+
           try {
             globalEnvironment.defineBridge(definition);
             Logger.debug(
                 " [execute] Registered bridged class: $className from $sourceUri");
           } catch (e) {
             Logger.error("registering bridged class '$className': $e");
-            registrationErrors.add(
-                "Failed to register bridged class '$className': $e");
+            registrationErrors
+                .add("Failed to register bridged class '$className': $e");
           }
         }
       }
@@ -537,17 +555,18 @@ class ModuleLoader {
           final libFunc = entry[uriString]!;
           final nativeFunc = libFunc.function;
           final funcName = nativeFunc.name;
-          
+
           // Check show/hide filters first
-          if (!_shouldRegisterName(funcName, showNames: showNames, hideNames: hideNames)) {
+          if (!_shouldRegisterName(funcName,
+              showNames: showNames, hideNames: hideNames)) {
             Logger.debug(
                 " [execute] Skipping function '$funcName' due to show/hide filter");
             continue;
           }
-          
+
           // Use sourceUri for deduplication if available, otherwise fall back to import URI
           final sourceUri = libFunc.sourceUri ?? uriString;
-          
+
           // Check for duplicate registration
           if (_registeredFunctions.containsKey(funcName)) {
             final existingSourceUri = _registeredFunctions[funcName]!;
@@ -564,7 +583,7 @@ class ModuleLoader {
               continue;
             }
           }
-          
+
           try {
             globalEnvironment.define(funcName, nativeFunc);
             _registeredFunctions[funcName] = sourceUri;
@@ -584,17 +603,18 @@ class ModuleLoader {
           hasContentForUri = true;
           final libVar = entry[uriString]!;
           final varName = libVar.name;
-          
+
           // Check show/hide filters first
-          if (!_shouldRegisterName(varName, showNames: showNames, hideNames: hideNames)) {
+          if (!_shouldRegisterName(varName,
+              showNames: showNames, hideNames: hideNames)) {
             Logger.debug(
                 " [execute] Skipping variable '$varName' due to show/hide filter");
             continue;
           }
-          
+
           // Use sourceUri for deduplication if available, otherwise fall back to import URI
           final sourceUri = libVar.sourceUri ?? uriString;
-          
+
           // Check for duplicate registration
           if (_registeredVariables.containsKey(varName)) {
             final existingSourceUri = _registeredVariables[varName]!;
@@ -611,7 +631,7 @@ class ModuleLoader {
               continue;
             }
           }
-          
+
           try {
             globalEnvironment.define(varName, libVar.value);
             _registeredVariables[varName] = sourceUri;
@@ -631,17 +651,18 @@ class ModuleLoader {
           hasContentForUri = true;
           final libGetter = entry[uriString]!;
           final getterName = libGetter.name;
-          
+
           // Check show/hide filters first
-          if (!_shouldRegisterName(getterName, showNames: showNames, hideNames: hideNames)) {
+          if (!_shouldRegisterName(getterName,
+              showNames: showNames, hideNames: hideNames)) {
             Logger.debug(
                 " [execute] Skipping getter '$getterName' due to show/hide filter");
             continue;
           }
-          
+
           // Use sourceUri for deduplication if available, otherwise fall back to import URI
           final sourceUri = libGetter.sourceUri ?? uriString;
-          
+
           // Check for duplicate registration
           if (_registeredGetters.containsKey(getterName)) {
             final existingSourceUri = _registeredGetters[getterName]!;
@@ -658,9 +679,10 @@ class ModuleLoader {
               continue;
             }
           }
-          
+
           try {
-            globalEnvironment.define(getterName, GlobalGetter(libGetter.getter));
+            globalEnvironment.define(
+                getterName, GlobalGetter(libGetter.getter));
             _registeredGetters[getterName] = sourceUri;
             Logger.debug(
                 " [execute] Registered library getter: $getterName from $sourceUri");
@@ -679,17 +701,18 @@ class ModuleLoader {
           hasContentForUri = true;
           final libSetter = entry[uriString]!;
           final setterName = libSetter.name;
-          
+
           // Check show/hide filters first
-          if (!_shouldRegisterName(setterName, showNames: showNames, hideNames: hideNames)) {
+          if (!_shouldRegisterName(setterName,
+              showNames: showNames, hideNames: hideNames)) {
             Logger.debug(
                 " [execute] Skipping setter '$setterName' due to show/hide filter");
             continue;
           }
-          
+
           // Use sourceUri for deduplication if available, otherwise fall back to import URI
           final sourceUri = libSetter.sourceUri ?? uriString;
-          
+
           // Check for duplicate registration
           if (_registeredSetters.containsKey(setterName)) {
             final existingSourceUri = _registeredSetters[setterName]!;
@@ -706,16 +729,19 @@ class ModuleLoader {
               continue;
             }
           }
-          
+
           try {
             // Find the corresponding getter and update it to include the setter
-            final existingValue = globalEnvironment.getRawValueIfDefined(setterName);
+            final existingValue =
+                globalEnvironment.getRawValueIfDefined(setterName);
             if (existingValue is GlobalGetter) {
               // Replace GlobalGetter with one that includes the setter
-              globalEnvironment.define(setterName, GlobalGetter(
-                existingValue.getter,
-                setter: libSetter.setter,
-              ));
+              globalEnvironment.define(
+                  setterName,
+                  GlobalGetter(
+                    existingValue.getter,
+                    setter: libSetter.setter,
+                  ));
               Logger.debug(
                   " [execute] Added setter to existing getter: $setterName from $sourceUri");
             } else {
@@ -723,10 +749,12 @@ class ModuleLoader {
               // This allows assignment to work, but reading will return null
               Logger.warn(
                   " [execute] Setter '$setterName' registered without corresponding getter");
-              globalEnvironment.define(setterName, GlobalGetter(
-                () => null, // No getter - reading returns null
-                setter: libSetter.setter,
-              ));
+              globalEnvironment.define(
+                  setterName,
+                  GlobalGetter(
+                    () => null, // No getter - reading returns null
+                    setter: libSetter.setter,
+                  ));
             }
             _registeredSetters[setterName] = sourceUri;
             Logger.debug(
@@ -746,23 +774,24 @@ class ModuleLoader {
           final libExt = entry[uriString]!;
           final definition = libExt.extensionDefinition;
           final extName = definition.name ?? '<unnamed>';
-          
+
           // Named extensions are subject to show/hide filters;
           // unnamed extensions are always registered since they cannot be hidden by name.
           if (definition.name != null &&
-              !_shouldRegisterName(definition.name!, showNames: showNames, hideNames: hideNames)) {
+              !_shouldRegisterName(definition.name!,
+                  showNames: showNames, hideNames: hideNames)) {
             Logger.debug(
                 " [execute] Skipping extension '$extName' due to show/hide filter");
             continue;
           }
-          
+
           // Use sourceUri for deduplication if available, otherwise fall back to import URI
           final sourceUri = libExt.sourceUri ?? uriString;
-          
+
           // Use a deduplication key that combines name + onType to allow
           // extensions with different target types but same name.
           final deduplicationKey = '$extName@${definition.onTypeName}';
-          
+
           if (_registeredExtensions.containsKey(deduplicationKey)) {
             final existingSourceUri = _registeredExtensions[deduplicationKey]!;
             if (existingSourceUri == sourceUri) {
@@ -775,9 +804,9 @@ class ModuleLoader {
               continue;
             }
           }
-          
+
           _registeredExtensions[deduplicationKey] = sourceUri;
-          
+
           try {
             // Resolve the onType from the environment
             RuntimeType? onType;
@@ -789,14 +818,14 @@ class ModuleLoader {
             } on RuntimeD4rtException {
               // Type not found yet — try fallbacks
             }
-            
+
             // GEN-056 FIX: If the type isn't found in the environment, try
             // resolving it from registered bridge classes and stdlib modules.
             // This handles cases where a bridge extension targets a type from
             // a different package or stdlib (e.g., PlatformEx on Platform from
             // dart:io) that hasn't been explicitly imported by the script.
             onType ??= _resolveTypeForExtension(definition.onTypeName);
-            
+
             if (onType == null) {
               Logger.warn(
                   " [execute] Could not resolve type '${definition.onTypeName}' for extension '$extName'. "
@@ -805,9 +834,9 @@ class ModuleLoader {
                   "Could not resolve type '${definition.onTypeName}' for extension '$extName'.");
               continue;
             }
-            
+
             final interpretedExt = definition.buildInterpretedExtension(onType);
-            
+
             // Named extensions are defined by name; unnamed are added as unnamed extensions
             if (definition.name != null) {
               globalEnvironment.define(definition.name!, interpretedExt);
@@ -892,11 +921,11 @@ class ModuleLoader {
 
     for (final entry in stdlibRegistrars.entries) {
       if (_autoLoadedStdlibs.contains(entry.key)) continue;
-      
+
       // Load the stdlib module
       entry.value();
       _autoLoadedStdlibs.add(entry.key);
-      
+
       // Check if the type is now available
       try {
         final typeObj = globalEnvironment.get(typeName);
@@ -916,8 +945,7 @@ class ModuleLoader {
   SCompilationUnit _parseSource(Uri uri, String sourceCode) {
     Logger.debug("[ModuleLoader] Parsing source for module: ${uri.toString()}");
     if (parseSourceCallback == null) {
-      throw StateError(
-          'ModuleLoader: no parseSourceCallback provided. '
+      throw StateError('ModuleLoader: no parseSourceCallback provided. '
           'Cannot parse source code for module ${uri.toString()}. '
           'Provide a parseSourceCallback to the ModuleLoader constructor.');
     }

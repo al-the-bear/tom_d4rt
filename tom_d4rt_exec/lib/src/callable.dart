@@ -98,7 +98,8 @@ class InterpretedFunction implements Callable {
 
   // Helper to extract loop variable name from a SDeclaredIdentifier or SSimpleIdentifier
   static String _loopVarName(SAstNode? loopVariable) {
-    if (loopVariable is SDeclaredIdentifier) return loopVariable.identifier?.name ?? '';
+    if (loopVariable is SDeclaredIdentifier)
+      return loopVariable.identifier?.name ?? '';
     if (loopVariable is SSimpleIdentifier) return loopVariable.name;
     return '';
   }
@@ -233,11 +234,14 @@ class InterpretedFunction implements Callable {
           isSetter: declaration.isSetter, // Pass setter flag
           ownerType: null, // Not defined within a class/enum
           isAbstract: false, // Non-method functions cannot be abstract
-          isAsync: _isBodyAsync(declaration.functionExpression?.body), // Pass async flag
-          isGenerator: _isBodyGenerator(declaration.functionExpression?.body), // Pass generator flag
+          isAsync: _isBodyAsync(
+              declaration.functionExpression?.body), // Pass async flag
+          isGenerator: _isBodyGenerator(
+              declaration.functionExpression?.body), // Pass generator flag
           isAsyncGenerator:
               _isBodyAsync(declaration.functionExpression?.body) &&
-                  _isBodyGenerator(declaration.functionExpression?.body), // Pass async generator flag
+                  _isBodyGenerator(declaration
+                      .functionExpression?.body), // Pass async generator flag
           declaredReturnType: declaredReturnType,
           isNullable: isNullable,
           typeParameterNames: _extractTypeParameterNames(
@@ -276,7 +280,8 @@ class InterpretedFunction implements Callable {
           ownerType: owner, // Pass the owner type (class or enum)
           isAbstract: declaration.isAbstract, // Set the abstract flag
           isAsync: _isBodyAsync(declaration.body), // Pass async flag
-          isGenerator: _isBodyGenerator(declaration.body), // Pass generator flag
+          isGenerator:
+              _isBodyGenerator(declaration.body), // Pass generator flag
           isAsyncGenerator: _isBodyAsync(declaration.body) &&
               _isBodyGenerator(declaration.body), // Pass async generator flag
           typeParameterNames:
@@ -289,16 +294,17 @@ class InterpretedFunction implements Callable {
   InterpretedFunction.constructor(SConstructorDeclaration declaration,
       Environment closure, RuntimeType? owner)
       : this._internal(
-          declaration.parameters, declaration.body ?? SEmptyFunctionBody(offset: 0, length: 0), closure,
+          declaration.parameters,
+          declaration.body ?? SEmptyFunctionBody(offset: 0, length: 0), closure,
           declaration.name?.name ?? '', // Use '' for unnamed constructor
-          isInitializer: !declaration.isFactory, // Factory constructors are not initializers
+          isInitializer: !declaration
+              .isFactory, // Factory constructors are not initializers
           constructorInitializers:
               declaration.initializers, // Pass to renamed param
           ownerType: owner, // Pass the owner type (class or enum)
           isAbstract: false, // Constructors cannot be abstract
           isAsync: false, // Constructors cannot be async
-          isFactory:
-              declaration.isFactory, // Detect factory constructors
+          isFactory: declaration.isFactory, // Detect factory constructors
           // Constructors don't have their own type parameters - they inherit from their class
           typeParameterNames: const [],
           typeParameterBounds: const {},
@@ -311,12 +317,15 @@ class InterpretedFunction implements Callable {
     final params = _parameters?.parameters;
     if (params == null) return 0;
     return params
-        .where((p) => p is SSimpleFormalParameter || p is SFieldFormalParameter || p is SFunctionTypedFormalParameter || p is SSuperFormalParameter)
+        .where((p) =>
+            p is SSimpleFormalParameter ||
+            p is SFieldFormalParameter ||
+            p is SFunctionTypedFormalParameter ||
+            p is SSuperFormalParameter)
         .where((p) {
-          if (p is SSimpleFormalParameter) return p.isPositional && p.isRequired;
-          return true; // Other NormalFormalParameter-like types are required positional by default
-        })
-        .length;
+      if (p is SSimpleFormalParameter) return p.isPositional && p.isRequired;
+      return true; // Other NormalFormalParameter-like types are required positional by default
+    }).length;
   }
 
   // Calculate total positional parameters (required + optional)
@@ -326,8 +335,10 @@ class InterpretedFunction implements Callable {
     return params.where((p) {
       if (p is SSimpleFormalParameter) return p.isPositional;
       if (p is SDefaultFormalParameter) return p.isPositional;
-      if (p is SFieldFormalParameter) return true; // this.x params are positional
-      if (p is SSuperFormalParameter) return true; // super.x params are positional
+      if (p is SFieldFormalParameter)
+        return true; // this.x params are positional
+      if (p is SSuperFormalParameter)
+        return true; // super.x params are positional
       if (p is SFunctionTypedFormalParameter) return true;
       return false;
     }).length;
@@ -401,7 +412,8 @@ class InterpretedFunction implements Callable {
   Callable bind(RuntimeValue instance) {
     if (ownerType == null) {
       // Check ownerType instead of definingClass
-      throw RuntimeD4rtException("Cannot bind 'this' to a non-method function.");
+      throw RuntimeD4rtException(
+          "Cannot bind 'this' to a non-method function.");
     }
     // Create a new environment that encloses the original function closure,
     // but defines 'this' locally.
@@ -583,7 +595,8 @@ class InterpretedFunction implements Callable {
         if (actualParam is SSimpleFormalParameter) {
           paramName = actualParam.name?.name;
           isRequired = actualParam.isPositional && actualParam.isRequired;
-          isOptionalPositional = actualParam.isPositional && !actualParam.isRequired;
+          isOptionalPositional =
+              actualParam.isPositional && !actualParam.isRequired;
           isNamed = actualParam.isNamed;
           isRequiredNamed = actualParam.isNamed && actualParam.isRequired;
         } else if (actualParam is SFieldFormalParameter) {
@@ -610,7 +623,8 @@ class InterpretedFunction implements Callable {
             isOptionalPositional = false;
             // Check if required named - SDefaultFormalParameter doesn't have isRequired,
             // but inner SSimpleFormalParameter does
-            if (actualParam is SSimpleFormalParameter && actualParam.isRequired) {
+            if (actualParam is SSimpleFormalParameter &&
+                actualParam.isRequired) {
               isRequiredNamed = true;
             }
           } else if (param.isPositional) {
@@ -619,7 +633,8 @@ class InterpretedFunction implements Callable {
           }
         }
 
-        if (paramName == null) throw StateD4rtException("Parameter missing name");
+        if (paramName == null)
+          throw StateD4rtException("Parameter missing name");
         processedParamNames.add(paramName);
 
         // Find corresponding argument and value
@@ -905,7 +920,8 @@ class InterpretedFunction implements Callable {
                 // Evaluate message if provided
                 String? messageValue;
                 if (initializer.message != null) {
-                  final msgResult = initializer.message!.accept<Object?>(visitor);
+                  final msgResult =
+                      initializer.message!.accept<Object?>(visitor);
                   if (msgResult is AsyncSuspensionRequest) {
                     throw RuntimeD4rtException(
                         "Dart language does not allow 'await' expressions in constructor assert initializers.");
@@ -934,9 +950,9 @@ class InterpretedFunction implements Callable {
         if (defaultSuperConstructor != null) {
           // Call the default super constructor, bound to the *current* instance
           // NOTE: Default super constructor call CANNOT suspend
-          final defaultSuperResult =
-              defaultSuperConstructor.bind(thisValue).call(
-                  visitor, superPositionalForwards, superNamedForwards);
+          final defaultSuperResult = defaultSuperConstructor
+              .bind(thisValue)
+              .call(visitor, superPositionalForwards, superNamedForwards);
           if (defaultSuperResult is AsyncSuspensionRequest) {
             // Should not happen as constructors are not async
             throw StateD4rtException(
@@ -947,7 +963,7 @@ class InterpretedFunction implements Callable {
           throw RuntimeD4rtException(
               "Implicit call to superclass '${superClass.name}' default constructor failed: No default constructor found.");
         }
-        // If superclass has NO explicit constructors, it uses the implicit default 
+        // If superclass has NO explicit constructors, it uses the implicit default
         // constructor which does nothing - no need to call it explicitly
       }
     }
@@ -1411,17 +1427,20 @@ class InterpretedFunction implements Callable {
           // If the condition was suspended, lastResult contains AsyncSuspensionRequest
           // and will be handled by the suspension logic below.
         } else if (currentNode is SForStatement &&
-            (currentNode.forLoopParts is SForEachPartsWithDeclaration || currentNode.forLoopParts is SForEachPartsWithIdentifier)) {
+            (currentNode.forLoopParts is SForEachPartsWithDeclaration ||
+                currentNode.forLoopParts is SForEachPartsWithIdentifier)) {
           final forNode = currentNode;
           final parts = forNode.forLoopParts!;
           // Extract the iterable from the parts (both types have it)
-          final SAstNode? partsIterable = (parts is SForEachPartsWithDeclaration)
-              ? parts.iterable
-              : (parts as SForEachPartsWithIdentifier).iterable;
+          final SAstNode? partsIterable =
+              (parts is SForEachPartsWithDeclaration)
+                  ? parts.iterable
+                  : (parts as SForEachPartsWithIdentifier).iterable;
 
           // Check if this is an await for loop
-          final bool isAwaitFor = (parts is SForEachPartsWithDeclaration && parts.isAwait) ||
-              (parts is SForEachPartsWithIdentifier && parts.isAwait);
+          final bool isAwaitFor =
+              (parts is SForEachPartsWithDeclaration && parts.isAwait) ||
+                  (parts is SForEachPartsWithIdentifier && parts.isAwait);
           if (isAwaitFor) {
             // This is an await for loop - handle it natively in the state machine
             Logger.debug(
@@ -1521,7 +1540,9 @@ class InterpretedFunction implements Callable {
                     ? currentState.loopEnvironmentStack.last
                     : currentState.environment;
                 final awaitForEnv = Environment(enclosing: parentEnv);
-                final loopVarName = (loopVariable is SDeclaredIdentifier) ? loopVariable.identifier?.name ?? '' : '';
+                final loopVarName = (loopVariable is SDeclaredIdentifier)
+                    ? loopVariable.identifier?.name ?? ''
+                    : '';
                 awaitForEnv.define(loopVarName, null);
 
                 // Add to the loop environment stack
@@ -2766,11 +2787,12 @@ class InterpretedFunction implements Callable {
       // Note: awaitExpression might be null if context couldn't be refined.
       // We assume the *first* variable in the list if awaitExpression is null or not found directly.
       // This might be fragile if multiple variables have initializers.
-      SVariableDeclaration? targetVar = varList.variables.firstWhereOrNull((v) =>
-          v.initializer == awaitExpression ||
-          (v.initializer is SParenthesizedExpression &&
-              (v.initializer as SParenthesizedExpression).expression ==
-                  awaitExpression));
+      SVariableDeclaration? targetVar = varList.variables.firstWhereOrNull(
+          (v) =>
+              v.initializer == awaitExpression ||
+              (v.initializer is SParenthesizedExpression &&
+                  (v.initializer as SParenthesizedExpression).expression ==
+                      awaitExpression));
       targetVar ??= varList.variables.first; // Fallback to first
       if (targetVar.initializer is SPropertyAccess) {
         final propertyAccess = targetVar.initializer as SPropertyAccess;
@@ -3052,7 +3074,7 @@ class InterpretedFunction implements Callable {
     // Handles both direct await (return await f();) and nested await (return 'Value: ${await f()}';)
     else if (awaitContextNode is SReturnStatement) {
       final returnNode = awaitContextNode;
-      
+
       if (awaitExpression != null && returnNode.expression == awaitExpression) {
         // Direct await: return await f();
         // The result is already in lastAwaitResult, just trigger a return with it
@@ -3068,16 +3090,16 @@ class InterpretedFunction implements Callable {
         // Need to re-evaluate the return expression with resumption mode enabled
         Logger.debug(
             "[_determineNextNodeAfterAwait] Resuming SReturnStatement with nested await. Re-evaluating expression...");
-        
+
         try {
           // Temporarily restore the async state to enable await processing
           final previousAsyncState = visitor.currentAsyncState;
           visitor.currentAsyncState = state;
-          
+
           // Enable invocation resumption mode so await expressions return the resolved value
           final previousResumptionMode = state.isInvocationResumptionMode;
           state.isInvocationResumptionMode = true;
-          
+
           // Re-evaluate just the return expression
           final expression = returnNode.expression;
           if (expression == null) {
@@ -3086,19 +3108,19 @@ class InterpretedFunction implements Callable {
             visitor.currentAsyncState = previousAsyncState;
             return null;
           }
-          
+
           final result = expression.accept<Object?>(visitor);
-          
+
           // Restore the previous modes
           state.isInvocationResumptionMode = previousResumptionMode;
           visitor.currentAsyncState = previousAsyncState;
-          
+
           if (result is AsyncSuspensionRequest) {
             Logger.debug(
                 "[_determineNextNodeAfterAwait] Another await encountered during return expression continuation.");
             return awaitContextNode; // Stay on the same node to handle the next await
           }
-          
+
           // The expression completed successfully - store result for return
           Logger.debug(
               "[_determineNextNodeAfterAwait] Return expression completed with result: $result");
@@ -3137,7 +3159,8 @@ class InterpretedFunction implements Callable {
 
       // Determine the next node BEFORE making the assignment (because _findNext may depend on the parent)
       SAstNode parentStatement = assignmentNode;
-      final SAstNode? nextNode = _findNextSequentialNode(visitor, parentStatement);
+      final SAstNode? nextNode =
+          _findNextSequentialNode(visitor, parentStatement);
 
       if (operatorType == '=') {
         if (lhs is SSimpleIdentifier) {
@@ -3411,8 +3434,7 @@ class InterpretedFunction implements Callable {
           SAstNode? current = nodeThatContainedAwait;
           while (current != null &&
               !(_parentOf(current) is SAstNode &&
-                  _parentOf(current) ==
-                      currentUpdaters.firstOrNull)) {
+                  _parentOf(current) == currentUpdaters.firstOrNull)) {
             current = _parentOf(current);
           }
           if (current != null) {
@@ -3518,9 +3540,11 @@ class InterpretedFunction implements Callable {
     // Handle await for loops specifically
     if (awaitContextNode is SForStatement &&
         ((awaitContextNode.forLoopParts is SForEachPartsWithDeclaration &&
-                (awaitContextNode.forLoopParts as SForEachPartsWithDeclaration).isAwait) ||
+                (awaitContextNode.forLoopParts as SForEachPartsWithDeclaration)
+                    .isAwait) ||
             (awaitContextNode.forLoopParts is SForEachPartsWithIdentifier &&
-                (awaitContextNode.forLoopParts as SForEachPartsWithIdentifier).isAwait))) {
+                (awaitContextNode.forLoopParts as SForEachPartsWithIdentifier)
+                    .isAwait))) {
       Logger.debug(
           "[_determineNextNodeAfterAwait] Handling await for loop suspension.");
 
@@ -3544,7 +3568,8 @@ class InterpretedFunction implements Callable {
         state.currentAwaitForList = items;
         state.currentAwaitForIndex = 0;
 
-        final parts = awaitContextNode.forLoopParts as SForEachPartsWithDeclaration;
+        final parts =
+            awaitContextNode.forLoopParts as SForEachPartsWithDeclaration;
         final loopVariable = parts.loopVariable;
         visitor.environment.define(_loopVarName(loopVariable), null);
 
@@ -3732,32 +3757,28 @@ class InterpretedFunction implements Callable {
       parent = _parentOf(currentSearchNode);
 
       // Handle the end of the body (single statement) of a While loop
-      if (parent is SWhileStatement &&
-          parent.body == currentSearchNode) {
+      if (parent is SWhileStatement && parent.body == currentSearchNode) {
         Logger.debug(
             " [_findNextSequentialNode] End of While body (single statement). Returning SWhileStatement node.");
         return parent;
       }
 
       // Handle the end of the body (single statement) of a DoWhile loop
-      if (parent is SDoStatement &&
-          parent.body == currentSearchNode) {
+      if (parent is SDoStatement && parent.body == currentSearchNode) {
         Logger.debug(
             " [_findNextSequentialNode] End of DoWhile body (single statement). Returning SDoStatement node.");
         return parent;
       }
 
       // Handle the end of the body (single statement) of a standard For loop or For-In loop
-      if (parent is SForStatement &&
-          parent.body == currentSearchNode) {
+      if (parent is SForStatement && parent.body == currentSearchNode) {
         Logger.debug(
             " [_findNextSequentialNode] End of standard For/For-In body (single statement). Returning SForStatement node.");
         return parent;
       }
 
       // Handle the end of the 'then' branch (single statement) of an SIfStatement
-      if (parent is SIfStatement &&
-          parent.thenStatement == currentSearchNode) {
+      if (parent is SIfStatement && parent.thenStatement == currentSearchNode) {
         // If there is an 'else' branch, do nothing (execution stops here for this branch)
         // If there is NO 'else' branch, find the node AFTER the SIfStatement.
         if (parent.elseStatement == null) {
@@ -3773,8 +3794,7 @@ class InterpretedFunction implements Callable {
       }
 
       // Handle the end of the 'else' branch (single statement) of an SIfStatement
-      if (parent is SIfStatement &&
-          parent.elseStatement == currentSearchNode) {
+      if (parent is SIfStatement && parent.elseStatement == currentSearchNode) {
         // After the 'else', we always look for the node AFTER the entire SIfStatement.
         Logger.debug(
             " [_findNextSequentialNode] End of If 'else' (single statement). Finding node after SIfStatement.");
@@ -3790,7 +3810,10 @@ class InterpretedFunction implements Callable {
         Logger.debug(
             " [_findNextSequentialNode] Ascending into a SBlock. Re-evaluating block logic for the parent SBlock.");
         return _findNextSequentialNode(visitor, parent);
-      } else if (parent is SBlockFunctionBody || parent is SExpressionFunctionBody || parent is SEmptyFunctionBody || parent is SCompilationUnit) {
+      } else if (parent is SBlockFunctionBody ||
+          parent is SExpressionFunctionBody ||
+          parent is SEmptyFunctionBody ||
+          parent is SCompilationUnit) {
         // Reached the limit of the function or file
         Logger.debug(
             " [_findNextSequentialNode] Reached FunctionBody or SCompilationUnit. Returning null.");
@@ -4127,7 +4150,8 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
       if (!redirected && bodyToExecute is SBlockFunctionBody) {
         // Execute the block - yields will throw SyncGeneratorYieldSuspension
         // which we catch and convert to native yields
-        yield* _executeBlockWithYieldSuspension(bodyToExecute.block!.statements);
+        yield* _executeBlockWithYieldSuspension(
+            bodyToExecute.block!.statements);
       } else if (bodyToExecute is SExpressionFunctionBody) {
         try {
           bodyToExecute.expression!.accept<Object?>(visitor);
@@ -4154,8 +4178,7 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
 
   /// Execute a block, catching SyncGeneratorYieldSuspension to yield values lazily.
   /// This is the key to making infinite generators work.
-  Iterable<Object?> _executeBlockWithYieldSuspension(
-      List<SAstNode> statements,
+  Iterable<Object?> _executeBlockWithYieldSuspension(List<SAstNode> statements,
       {Set<String>? labels}) sync* {
     for (final statement in statements) {
       yield* _executeStatementWithYieldSuspension(statement, labels: labels);
@@ -4197,7 +4220,7 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
   }
 
   /// Execute a while loop lazily, yielding at each yield point
-    Iterable<Object?> _executeWhileWithYieldSuspension(SWhileStatement node,
+  Iterable<Object?> _executeWhileWithYieldSuspension(SWhileStatement node,
       {Set<String>? labels}) sync* {
     while (true) {
       // Evaluate condition
@@ -4248,23 +4271,24 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
     final loopParts = node.forLoopParts;
 
     if (loopParts is SForPartsWithDeclarations) {
-        yield* _executeClassicForWithYieldSuspension(loopParts.variables,
+      yield* _executeClassicForWithYieldSuspension(loopParts.variables,
           loopParts.condition, loopParts.updaters, node.body!,
           labels: labels);
     } else if (loopParts is SForPartsWithExpression) {
-        yield* _executeClassicForWithYieldSuspension(loopParts.initialization,
+      yield* _executeClassicForWithYieldSuspension(loopParts.initialization,
           loopParts.condition, loopParts.updaters, node.body!,
           labels: labels);
     } else if (loopParts is SForEachPartsWithDeclaration) {
-        yield* _executeForInWithYieldSuspension(
+      yield* _executeForInWithYieldSuspension(
           loopParts.loopVariable!, loopParts.iterable!, node.body!,
           labels: labels);
     } else if (loopParts is SForEachPartsWithIdentifier) {
-        yield* _executeForInWithYieldSuspension(
+      yield* _executeForInWithYieldSuspension(
           loopParts.identifier!, loopParts.iterable!, node.body!,
           labels: labels);
     } else {
-      throw StateD4rtException('Unknown ForLoopParts type: ${loopParts.runtimeType}');
+      throw StateD4rtException(
+          'Unknown ForLoopParts type: ${loopParts.runtimeType}');
     }
   }
 
@@ -4302,26 +4326,25 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
       }
 
       // Execute body with yield suspension handling
-        try {
-          if (body is SBlock) {
-            yield* _executeBlockWithYieldSuspension(body.statements,
-                labels: labels);
-          } else {
-            yield* _executeStatementWithYieldSuspension(body,
-                labels: labels);
-          }
-        } on BreakException catch (e) {
-          if (e.label == null || (labels != null && labels.contains(e.label))) {
-            break;
-          }
-          rethrow;
-        } on ContinueException catch (e) {
-          if (e.label == null || (labels != null && labels.contains(e.label))) {
-            // Fall through to updaters
-          } else {
-            rethrow;
-          }
+      try {
+        if (body is SBlock) {
+          yield* _executeBlockWithYieldSuspension(body.statements,
+              labels: labels);
+        } else {
+          yield* _executeStatementWithYieldSuspension(body, labels: labels);
         }
+      } on BreakException catch (e) {
+        if (e.label == null || (labels != null && labels.contains(e.label))) {
+          break;
+        }
+        rethrow;
+      } on ContinueException catch (e) {
+        if (e.label == null || (labels != null && labels.contains(e.label))) {
+          // Fall through to updaters
+        } else {
+          rethrow;
+        }
+      }
 
       // Execute updaters
       if (updaters != null) {
@@ -4333,8 +4356,8 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
   }
 
   /// Execute a for-in loop lazily
-    Iterable<Object?> _executeForInWithYieldSuspension(SAstNode loopVariable,
-      SAstNode iterableExpr, SAstNode body,
+  Iterable<Object?> _executeForInWithYieldSuspension(
+      SAstNode loopVariable, SAstNode iterableExpr, SAstNode body,
       {Set<String>? labels}) sync* {
     final iterable = iterableExpr.accept<Object?>(visitor);
     if (iterable is! Iterable) {
@@ -4345,7 +4368,8 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
     for (final element in iterable) {
       // Define loop variable
       if (loopVariable is SDeclaredIdentifier) {
-        visitor.environment.define(InterpretedFunction._loopVarName(loopVariable), element);
+        visitor.environment
+            .define(InterpretedFunction._loopVarName(loopVariable), element);
       } else if (loopVariable is SSimpleIdentifier) {
         visitor.environment.assign(loopVariable.name, element);
       }
@@ -4355,8 +4379,7 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
           yield* _executeBlockWithYieldSuspension(body.statements,
               labels: labels);
         } else {
-          yield* _executeStatementWithYieldSuspension(body,
-              labels: labels);
+          yield* _executeStatementWithYieldSuspension(body, labels: labels);
         }
       } on BreakException catch (e) {
         if (e.label == null || (labels != null && labels.contains(e.label))) {
@@ -4446,8 +4469,8 @@ class BridgedMethodCallable implements Callable {
       List<RuntimeType>? typeArguments]) {
     try {
       // Call the adapter with the native object of the instance and the arguments
-      return _adapter(
-          visitor, _instance.nativeObject, positionalArguments, namedArguments, typeArguments);
+      return _adapter(visitor, _instance.nativeObject, positionalArguments,
+          namedArguments, typeArguments);
     } on ArgumentError catch (e) {
       // Convert native ArgumentError to RuntimeError
       throw RuntimeD4rtException(
@@ -4488,7 +4511,8 @@ class BridgedStaticMethodCallable implements Callable {
       List<RuntimeType>? typeArguments]) {
     try {
       // Call the adapter with the visitor and arguments
-      return _adapter(visitor, positionalArguments, namedArguments, typeArguments);
+      return _adapter(
+          visitor, positionalArguments, namedArguments, typeArguments);
     } on ArgumentError catch (e) {
       // Convert native ArgumentError to RuntimeError
       throw RuntimeD4rtException(
@@ -4613,7 +4637,8 @@ class InterpretedExtensionMethod implements ExtensionMemberCallable {
         if (actualParam is SSimpleFormalParameter) {
           paramName = actualParam.name?.name;
           isRequired = !actualParam.isNamed && !actualParam.isPositional;
-          isOptionalPositional = actualParam.isPositional && !actualParam.isRequired;
+          isOptionalPositional =
+              actualParam.isPositional && !actualParam.isRequired;
           isNamed = actualParam.isNamed;
           isRequiredNamed = actualParam.isNamed && actualParam.isRequired;
         } else {
@@ -4665,8 +4690,11 @@ class InterpretedExtensionMethod implements ExtensionMemberCallable {
       }
 
       // Final argument checks (copied from InterpretedFunction)
-      final int totalPositionalDeclared =
-          params.where((p) => (p is SSimpleFormalParameter && p.isPositional) || (p is SDefaultFormalParameter && p.isPositional)).length;
+      final int totalPositionalDeclared = params
+          .where((p) =>
+              (p is SSimpleFormalParameter && p.isPositional) ||
+              (p is SDefaultFormalParameter && p.isPositional))
+          .length;
       if (positionalArgIndex < positionalArguments.length) {
         throw RuntimeD4rtException(
             "Too many positional arguments for extension method '${declaration.name!.name}'. Expected at most $totalPositionalDeclared, got ${positionalArguments.length}.");

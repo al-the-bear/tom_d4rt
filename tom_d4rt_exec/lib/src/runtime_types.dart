@@ -294,7 +294,8 @@ class InterpretedClass implements Callable, RuntimeType {
       }
       return fieldValue;
     }
-    throw RuntimeD4rtException("Undefined static field '$name' on class '$this.name'.");
+    throw RuntimeD4rtException(
+        "Undefined static field '$name' on class '$this.name'.");
   }
 
   void setStaticField(String name, Object? value) {
@@ -610,7 +611,7 @@ class InterpretedClass implements Callable, RuntimeType {
           // Call the default super constructor, bound to the instance
           defaultSuperConstructor.bind(instance).call(visitor, [], {});
         }
-        // If superclass has no explicit constructor either, that's fine - 
+        // If superclass has no explicit constructor either, that's fine -
         // the superclass's createAndInitializeInstance will handle field initialization.
         // No error needed here.
       }
@@ -667,7 +668,7 @@ class InterpretedClass implements Callable, RuntimeType {
   /// Also includes instance fields (which implicitly provide getters).
   Map<String, InterpretedFunction> getConcreteMembers() {
     final concreteMembers = <String, InterpretedFunction>{};
-    
+
     // Include concrete members from applied mixins (in order of application)
     for (final mixin in mixins) {
       mixin.methods.forEach((name, func) {
@@ -686,7 +687,7 @@ class InterpretedClass implements Callable, RuntimeType {
         }
       });
     }
-    
+
     // Include concrete members from this class (override mixin members if same name)
     methods.forEach((name, func) {
       if (!func.isAbstract) {
@@ -705,7 +706,7 @@ class InterpretedClass implements Callable, RuntimeType {
     });
     return concreteMembers;
   }
-  
+
   /// Returns a set of all instance field names in this class and its superclass chain.
   /// Fields implicitly provide getters (and setters for non-final fields).
   /// G-DOV2-6 FIX: Walk the superclass chain to find fields from parent classes.
@@ -1770,7 +1771,8 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
 class InterpretedExtension {
   final String? name; // Optional name of the extension
   final RuntimeType onType; // The type the extension applies to
-  final bool isOnNullableType; // G-DOV-10/11: Whether the extension is on T? (nullable)
+  final bool
+      isOnNullableType; // G-DOV-10/11: Whether the extension is on T? (nullable)
   final Map<String, Callable>
       members; // Instance methods, getters, setters, operators
 
@@ -1854,7 +1856,8 @@ class BridgedSuperMethodCallable implements Callable {
       List<RuntimeType>? typeArguments]) {
     try {
       // Call the adapter, passing the stored native super object as the target
-      return adapter(visitor, superObject, positionalArguments, namedArguments, typeArguments);
+      return adapter(visitor, superObject, positionalArguments, namedArguments,
+          typeArguments);
     } on ArgumentError catch (e) {
       throw RuntimeD4rtException(
           "Invalid arguments for bridged superclass method '$bridgedClassName.$methodName': ${e.message}");
@@ -1893,7 +1896,8 @@ class BridgedMixinMethodCallable implements Callable {
       // or handle the call differently since the adapter expects a native object
       // but we have an interpreted instance. For now, we'll pass the instance directly
       // and let the adapter handle the conversion.
-      return adapter(visitor, instance, positionalArguments, namedArguments, typeArguments);
+      return adapter(visitor, instance, positionalArguments, namedArguments,
+          typeArguments);
     } catch (e, s) {
       Logger.error(
           "[BridgedMixinMethodCallable] Native exception during call to '$bridgedMixinName.$methodName': $e\n$s");
@@ -1927,7 +1931,8 @@ class BridgedEnumMixinMethodCallable implements Callable {
       List<RuntimeType>? typeArguments]) {
     try {
       // Pass the enum value as the target for the adapter
-      return adapter(visitor, enumValue, positionalArguments, namedArguments, typeArguments);
+      return adapter(visitor, enumValue, positionalArguments, namedArguments,
+          typeArguments);
     } catch (e, s) {
       Logger.error(
           "[BridgedEnumMixinMethodCallable] Native exception during call to '$bridgedMixinName.$methodName': $e\n$s");
@@ -1963,7 +1968,8 @@ class InterpretedExtensionType implements Callable, RuntimeType {
   );
 
   @override
-  int get arity => 1; // Extension types take one positional argument (the wrapped value)
+  int get arity =>
+      1; // Extension types take one positional argument (the wrapped value)
 
   /// Call creates an instance wrapping the representation value
   @override
@@ -1996,7 +2002,8 @@ class InterpretedExtensionTypeInstance implements RuntimeValue {
   final InterpretedExtensionType extensionType;
   final Object? representationValue;
 
-  InterpretedExtensionTypeInstance(this.extensionType, this.representationValue);
+  InterpretedExtensionTypeInstance(
+      this.extensionType, this.representationValue);
 
   @override
   RuntimeType get valueType => extensionType;

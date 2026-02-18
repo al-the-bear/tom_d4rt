@@ -211,7 +211,8 @@ class DeclarationVisitor extends GeneralizingSAstVisitor<void> {
           BridgedClass(nativeType: Object, name: 'unknown_type_placeholder');
     }
 
-    bool isNullable = (returnTypeNode is SNamedType) && returnTypeNode.isNullable;
+    bool isNullable =
+        (returnTypeNode is SNamedType) && returnTypeNode.isNullable;
 
     final function = InterpretedFunction.declaration(
         node,

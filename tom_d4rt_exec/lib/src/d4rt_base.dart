@@ -20,15 +20,15 @@ import 'package:tom_d4rt_exec/src/introspection.dart';
 class LibraryVariable {
   final String name;
   final Object? value;
-  
+
   /// The canonical source URI where this variable is defined.
-  /// 
+  ///
   /// Used for deduplication: when the same variable is exported through
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server both
   /// re-export tom_basics), we need to recognize they're the same element.
   /// Format: `package:pkg_name/path/to/source.dart`
   final String? sourceUri;
-  
+
   const LibraryVariable(this.name, this.value, {this.sourceUri});
 }
 
@@ -38,11 +38,11 @@ class LibraryVariable {
 class LibraryGetter {
   final String name;
   final Object? Function() getter;
-  
+
   /// The canonical source URI where this getter is defined.
   /// See [LibraryVariable.sourceUri] for details.
   final String? sourceUri;
-  
+
   const LibraryGetter(this.name, this.getter, {this.sourceUri});
 }
 
@@ -55,11 +55,11 @@ class LibraryGetter {
 class LibrarySetter {
   final String name;
   final void Function(Object? value) setter;
-  
+
   /// The canonical source URI where this setter is defined.
   /// See [LibraryVariable.sourceUri] for details.
   final String? sourceUri;
-  
+
   const LibrarySetter(this.name, this.setter, {this.sourceUri});
 }
 
@@ -67,16 +67,16 @@ class LibrarySetter {
 /// Stores a native function with its canonical source URI for deduplication.
 class LibraryFunction {
   final NativeFunction function;
-  
+
   /// The canonical source URI where this function is defined.
   /// See [LibraryVariable.sourceUri] for details.
   final String? sourceUri;
 
   /// The full signature of the function as a display string.
   final String? signature;
-  
+
   const LibraryFunction(this.function, {this.sourceUri, this.signature});
-  
+
   /// Convenience getter for the function name.
   String get name => function.name;
 }
@@ -85,13 +85,13 @@ class LibraryFunction {
 /// Stores a bridged class with its canonical source URI for deduplication.
 class LibraryClass {
   final BridgedClass bridgedClass;
-  
+
   /// The canonical source URI where this class is defined.
   /// See [LibraryVariable.sourceUri] for details.
   final String? sourceUri;
-  
+
   const LibraryClass(this.bridgedClass, {this.sourceUri});
-  
+
   /// Convenience getter for the class name.
   String get name => bridgedClass.name;
 }
@@ -100,13 +100,13 @@ class LibraryClass {
 /// Stores a bridged enum with its canonical source URI for deduplication.
 class LibraryEnum {
   final BridgedEnumDefinition enumDefinition;
-  
+
   /// The canonical source URI where this enum is defined.
   /// See [LibraryVariable.sourceUri] for details.
   final String? sourceUri;
-  
+
   const LibraryEnum(this.enumDefinition, {this.sourceUri});
-  
+
   /// Convenience getter for the enum name.
   String get name => enumDefinition.name;
 }
@@ -115,13 +115,13 @@ class LibraryEnum {
 /// Stores a bridged extension definition with its canonical source URI.
 class LibraryExtension {
   final BridgedExtensionDefinition extensionDefinition;
-  
+
   /// The canonical source URI where this extension is defined.
   /// See [LibraryVariable.sourceUri] for details.
   final String? sourceUri;
-  
+
   const LibraryExtension(this.extensionDefinition, {this.sourceUri});
-  
+
   /// Convenience getter for the extension name.
   String? get name => extensionDefinition.name;
 }
@@ -158,13 +158,14 @@ class D4rt {
   /// Callback for parsing source code into an SAstNode tree.
   /// Must be provided before calling [execute] or other methods that
   /// require source code parsing. Typically backed by tom_d4rt_astgen.
-  final SCompilationUnit Function(String sourceCode, {String? path})? parseSourceCallback;
+  final SCompilationUnit Function(String sourceCode, {String? path})?
+      parseSourceCallback;
 
   /// Gets the current interpreter visitor instance.
   ///
   /// Returns null if no execution is currently in progress.
   InterpreterVisitor? get visitor => _visitor;
-  
+
   // Library-scoped globals (registered with library path) - added when import is processed
   // Structure matches classes/enums: List of {libraryPath: definition}
   // For functions: use LibraryFunction wrapper that includes sourceUri for deduplication
@@ -189,8 +190,7 @@ class D4rt {
   /// Throws [StateError] if no [parseSourceCallback] is registered.
   SCompilationUnit _parseSourceToAst(String sourceCode, {String? path}) {
     if (parseSourceCallback == null) {
-      throw StateError(
-          'D4rt: no parseSourceCallback provided. '
+      throw StateError('D4rt: no parseSourceCallback provided. '
           'Cannot parse source code. '
           'Provide a parseSourceCallback to the D4rt constructor.');
     }
@@ -203,7 +203,8 @@ class D4rt {
   /// [library] The library identifier where this enum should be available.
   /// [sourceUri] The canonical source URI where this enum is defined.
   ///   Used for deduplication when the same enum is exported through multiple barrels.
-  void registerBridgedEnum(BridgedEnumDefinition definition, String library, {String? sourceUri}) {
+  void registerBridgedEnum(BridgedEnumDefinition definition, String library,
+      {String? sourceUri}) {
     final libEnum = LibraryEnum(definition, sourceUri: sourceUri);
     _bridgedEnumDefinitions.add({library: libEnum});
   }
@@ -218,7 +219,8 @@ class D4rt {
   /// [library] The library identifier where this class should be available.
   /// [sourceUri] The canonical source URI where this class is defined.
   ///   Used for deduplication when the same class is exported through multiple barrels.
-  void registerBridgedClass(BridgedClass definition, String library, {String? sourceUri}) {
+  void registerBridgedClass(BridgedClass definition, String library,
+      {String? sourceUri}) {
     final libClass = LibraryClass(definition, sourceUri: sourceUri);
     _bridgedClases.add({library: libClass});
     _bridgedDefLookupByType[definition.nativeType] = definition;
@@ -233,7 +235,9 @@ class D4rt {
   /// [definition] The extension definition containing methods, getters, and the target type name.
   /// [library] The library identifier where this extension should be available.
   /// [sourceUri] The canonical source URI where this extension is defined.
-  void registerBridgedExtension(BridgedExtensionDefinition definition, String library, {String? sourceUri}) {
+  void registerBridgedExtension(
+      BridgedExtensionDefinition definition, String library,
+      {String? sourceUri}) {
     final libExt = LibraryExtension(definition, sourceUri: sourceUri);
     _bridgedExtensions.add({library: libExt});
   }
@@ -247,9 +251,12 @@ class D4rt {
   /// [sourceUri] The canonical source URI where this function is defined.
   ///   Used for deduplication when the same function is exported through multiple barrels.
   /// [signature] The full signature of the function as a display string.
-  void registertopLevelFunction(String? name, NativeFunctionImpl function, String library, {String? sourceUri, String? signature}) {
+  void registertopLevelFunction(
+      String? name, NativeFunctionImpl function, String library,
+      {String? sourceUri, String? signature}) {
     final nativeFunc = NativeFunction(function, name: name, arity: 0);
-    final libFunc = LibraryFunction(nativeFunc, sourceUri: sourceUri, signature: signature);
+    final libFunc =
+        LibraryFunction(nativeFunc, sourceUri: sourceUri, signature: signature);
     _libraryFunctions.add({library: libFunc});
   }
 
@@ -271,8 +278,10 @@ class D4rt {
   /// interpreter.registerGlobalVariable('config', {'debug': true}, 'package:my_app/my_app.dart');
   /// interpreter.registerGlobalVariable('appName', 'MyApp', 'package:my_app/my_app.dart');
   /// ```
-  void registerGlobalVariable(String name, Object? value, String library, {String? sourceUri}) {
-    _libraryVariables.add({library: LibraryVariable(name, value, sourceUri: sourceUri)});
+  void registerGlobalVariable(String name, Object? value, String library,
+      {String? sourceUri}) {
+    _libraryVariables
+        .add({library: LibraryVariable(name, value, sourceUri: sourceUri)});
   }
 
   /// Registers a global getter for use in interpreted code.
@@ -294,8 +303,11 @@ class D4rt {
   /// final interpreter = D4rt();
   /// interpreter.registerGlobalGetter('currentTime', () => DateTime.now(), 'package:my_app/my_app.dart');
   /// ```
-  void registerGlobalGetter(String name, Object? Function() getter, String library, {String? sourceUri}) {
-    _libraryGetters.add({library: LibraryGetter(name, getter, sourceUri: sourceUri)});
+  void registerGlobalGetter(
+      String name, Object? Function() getter, String library,
+      {String? sourceUri}) {
+    _libraryGetters
+        .add({library: LibraryGetter(name, getter, sourceUri: sourceUri)});
   }
 
   /// Registers a global setter for a top-level setter in a specific library.
@@ -313,17 +325,21 @@ class D4rt {
   /// ## Example:
   /// ```dart
   /// int _counter = 0;
-  /// 
+  ///
   /// final interpreter = D4rt();
   /// interpreter.registerGlobalGetter('counter', () => _counter, 'package:my_app/my_app.dart');
   /// interpreter.registerGlobalSetter('counter', (v) => _counter = v as int, 'package:my_app/my_app.dart');
   /// ```
-  void registerGlobalSetter(String name, void Function(Object?) setter, String library, {String? sourceUri}) {
-    _librarySetters.add({library: LibrarySetter(name, setter, sourceUri: sourceUri)});
+  void registerGlobalSetter(
+      String name, void Function(Object?) setter, String library,
+      {String? sourceUri}) {
+    _librarySetters
+        .add({library: LibrarySetter(name, setter, sourceUri: sourceUri)});
   }
 
   ModuleLoader _initModule(Map<String, String>? sources,
-      {String? basePath, bool allowFileSystemImports = false,
+      {String? basePath,
+      bool allowFileSystemImports = false,
       bool collectRegistrationErrors = false}) {
     final moduleLoader = ModuleLoader(
       Environment(),
@@ -399,7 +415,7 @@ class D4rt {
         name: 'main',
       );
     } catch (e) {
-      // If there are non-registration errors (e.g., parse errors), 
+      // If there are non-registration errors (e.g., parse errors),
       // add them to the accumulated list
       if (_moduleLoader.accumulatedRegistrationErrors.isEmpty) {
         return ['Unexpected error during validation: $e'];
@@ -569,8 +585,7 @@ class D4rt {
     // Build global variables list from library-scoped variables
     final globalVariables = <GlobalVariableInfo>[];
     for (final entry in _libraryVariables) {
-      for (final MapEntry(key: libraryUri, value: variable)
-          in entry.entries) {
+      for (final MapEntry(key: libraryUri, value: variable) in entry.entries) {
         globalVariables.add(GlobalVariableInfo(
           name: variable.name,
           valueType: variable.value?.runtimeType.toString() ?? 'Null',
@@ -820,7 +835,8 @@ class D4rt {
           'continuedExecute() requires an existing execution context. Call execute() first.');
     }
 
-    Logger.debug("[D4rt.continuedExecute] Continuing execution in existing context. library: $library");
+    Logger.debug(
+        "[D4rt.continuedExecute] Continuing execution in existing context. library: $library");
 
     // Parse the source (reuses existing module loader for library resolution)
     final compilationUnit = _parseSource(source: source, library: library);
@@ -879,7 +895,8 @@ class D4rt {
       Logger.debug(
           "[D4rt._parseSource] Parsing the provided source string directly (no source URI).");
       final unit = _parseSourceToAst(source);
-      Logger.debug("[D4rt._parseSource] Direct source string parsed successfully.");
+      Logger.debug(
+          "[D4rt._parseSource] Direct source string parsed successfully.");
       return unit;
     }
   }
@@ -921,9 +938,11 @@ class D4rt {
       }
       Logger.debug("[_executeInEnvironment] Finished processing directives.");
 
-      Logger.debug("[_executeInEnvironment] Processing ALL declarations sequentially");
+      Logger.debug(
+          "[_executeInEnvironment] Processing ALL declarations sequentially");
 
-      Logger.debug("[_executeInEnvironment] Top-level declarations for Pass 2:");
+      Logger.debug(
+          "[_executeInEnvironment] Top-level declarations for Pass 2:");
       for (final declaration in compilationUnit.declarations) {
         Logger.debug("[_executeInEnvironment]   - ${declaration.runtimeType}");
       }
@@ -1041,7 +1060,8 @@ class D4rt {
     }
     _moduleLoader = _initModule(sources,
         basePath: basePath, allowFileSystemImports: allowFileSystemImports);
-    Logger.debug("[D4rt._executeClassic] Starting execution. library: $library");
+    Logger.debug(
+        "[D4rt._executeClassic] Starting execution. library: $library");
     SCompilationUnit compilationUnit;
 
     if (library != null) {
@@ -1082,12 +1102,13 @@ class D4rt {
       Logger.debug(
           "[D4rt._executeClassic] Executing the provided source string directly (no source URI).");
       compilationUnit = _parseSourceToAst(source);
-      Logger.debug("[D4rt._executeClassic] Direct source string parsed successfully.");
+      Logger.debug(
+          "[D4rt._executeClassic] Direct source string parsed successfully.");
     }
 
     // Library-scoped globals are registered via ModuleLoader when imports are processed
     final Environment executionEnvironment = _moduleLoader.globalEnvironment;
-    
+
     Logger.debug("[_executeClassic] Starting Pass 1: Declaration");
     final declarationVisitor = DeclarationVisitor(executionEnvironment);
     for (final declaration in compilationUnit.declarations) {
@@ -1116,7 +1137,8 @@ class D4rt {
       }
       Logger.debug(" [_executeClassic] Finished processing directives.");
 
-      Logger.debug(" [_executeClassic] Processing ALL declarations sequentially");
+      Logger.debug(
+          " [_executeClassic] Processing ALL declarations sequentially");
 
       Logger.debug(" [_executeClassic] Top-level declarations for Pass 2:");
       for (final declaration in compilationUnit.declarations) {
@@ -1244,7 +1266,7 @@ class D4rt {
     _moduleLoader = _initModule(sources);
 
     final compilationUnit = _parseSourceToAst(source);
-    
+
     // Library-scoped globals are registered via ModuleLoader when imports are processed
     final Environment executionEnvironment = _moduleLoader.globalEnvironment;
 
@@ -1522,8 +1544,8 @@ class D4rt {
             bridgedSuperclass.findStaticMethodAdapter(name);
         if (staticMethodAdapter != null) {
           return _tryFunction(() {
-            return staticMethodAdapter.call(
-                _visitor!, interpreterPositionalArgs, interpreterNamedArgs, null);
+            return staticMethodAdapter.call(_visitor!,
+                interpreterPositionalArgs, interpreterNamedArgs, null);
           }, "Error invoking bridged static method '$name' on superclass '${bridgedSuperclass.name}'");
         }
 
@@ -1646,9 +1668,28 @@ class D4rt {
           case 7:
             return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6]);
           case 8:
-            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7]);
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7]
+            );
           case 9:
-            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8]);
+            return (
+              pos[0],
+              pos[1],
+              pos[2],
+              pos[3],
+              pos[4],
+              pos[5],
+              pos[6],
+              pos[7],
+              pos[8]
+            );
           default:
             // More than 9 positional fields - return InterpretedRecord with unwrapped values
             return InterpretedRecord(pos, {});
@@ -1683,7 +1724,8 @@ class D4rt {
       if (e is ReturnException) {
         return _bridgeInterpreterValueToNative(e.value);
       }
-      if (e is InternalInterpreterD4rtException && e.originalThrownValue != null) {
+      if (e is InternalInterpreterD4rtException &&
+          e.originalThrownValue != null) {
         throw e.originalThrownValue!;
       }
       throw "$error : $e";
