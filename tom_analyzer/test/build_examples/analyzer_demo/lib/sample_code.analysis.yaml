@@ -1,0 +1,5144 @@
+id: analysis_1
+timestamp: "2026-02-06T09:14:40.382742"
+dartSdkVersion: unknown
+analyzerVersion: 8.x
+schemaVersion: "1.0"
+rootPackageId: pkg_1
+packages:
+  -
+    id: pkg_1
+    name: analyzer_demo
+    version: "1.0.0"
+    rootPath: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_basics/tom_analyzer/test/build_examples/analyzer_demo
+    isRoot: true
+    libraries:
+      - lib_1
+      - lib_3
+    dependencies:
+
+    devDependencies:
+libraries:
+  -
+    id: lib_1
+    name: ""
+    uri: "file:///Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_basics/tom_analyzer/test/build_examples/analyzer_demo/bin/verify.dart"
+    packageId: pkg_1
+    mainSourceFileId: file_2
+    partFileIds:
+
+    documentation: |
+      /// Verification script that reads the generated analysis YAML
+      /// and prints statistics to prove the analyzer ran correctly.
+    annotations:
+
+    isDeprecated: false
+    classes:
+
+    enums:
+
+    mixins:
+
+    extensions:
+
+    extensionTypes:
+
+    typeAliases:
+
+    functions:
+      -
+        id: function_1
+        name: main
+        qualifiedName: "file:///Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_basics/tom_analyzer/test/build_examples/analyzer_demo/bin/verify.dart.main"
+        libraryId: lib_1
+        sourceFileId: file_2
+        location:
+          line: 0
+          column: 0
+          offset: 193
+          length: 4
+        documentation: null
+        annotations:
+
+        isDeprecated: false
+        returnType:
+          id: type_1
+          name: void
+          qualifiedName: void
+          typeArguments:
+
+          isNullable: false
+          isDynamic: false
+          isVoid: true
+          isFunction: false
+          functionType: null
+          definitionLibraryId: null
+          isTypeParameter: false
+          typeParameterBound: null
+          resolvedElementId: null
+        typeParameters:
+
+        parameters:
+
+        isAsync: false
+        isGenerator: false
+        isExternal: false
+        isStatic: true
+    variables:
+
+    getters:
+
+    setters:
+
+    imports:
+
+    exports:
+  -
+    id: lib_3
+    name: ""
+    uri: "package:analyzer_demo/sample_code.dart"
+    packageId: pkg_1
+    mainSourceFileId: file_4
+    partFileIds:
+
+    documentation: |
+      /// Sample code library for demonstrating tom_analyzer.
+      ///
+      /// Contains various Dart constructs for analysis:
+      /// - Classes (abstract, concrete, with generics)
+      /// - Enums (simple and enhanced)
+      /// - Mixins
+      /// - Extensions
+      /// - Functions and methods
+    annotations:
+
+    isDeprecated: false
+    classes:
+      -
+        id: class_1
+        name: Entity
+        qualifiedName: "package:analyzer_demo/sample_code.dart.Entity"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 1852
+          length: 6
+        documentation: /// Base class for all entities with an ID.
+        annotations:
+
+        isDeprecated: false
+        isAbstract: true
+        isSealed: false
+        isFinal: false
+        isBase: false
+        isInterface: false
+        isMixin: false
+        superclass:
+          id: type_2
+          name: Object
+          qualifiedName: "dart:core.Object"
+          typeArguments:
+
+          isNullable: false
+          isDynamic: false
+          isVoid: false
+          isFunction: false
+          functionType: null
+          definitionLibraryId: null
+          isTypeParameter: false
+          typeParameterBound: null
+          resolvedElementId: null
+        interfaces:
+
+        mixins:
+
+        typeParameters:
+          -
+            id: typeParam_1
+            name: T
+            bound: null
+            defaultType: null
+            variance: null
+        constructors:
+          -
+            id: ctor_1
+            name: new
+            qualifiedName: "package:analyzer_demo/sample_code.dart.Entity"
+            declaringTypeId: class_1
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 6
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            parameters:
+
+            isAsync: false
+            isExternal: false
+            isStatic: false
+            isConst: false
+            isFactory: false
+            redirectedConstructor: null
+            superConstructorInvocation: Object
+        methods:
+
+        fields:
+          -
+            id: field_1
+            name: id
+            qualifiedName: "package:analyzer_demo/sample_code.dart.id"
+            declaringTypeId: class_1
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 2
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_3
+              name: T
+              qualifiedName: T
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: true
+              typeParameterBound:
+                id: type_4
+                name: dynamic
+                qualifiedName: dynamic
+                typeArguments:
+
+                isNullable: false
+                isDynamic: true
+                isVoid: false
+                isFunction: false
+                functionType: null
+                definitionLibraryId: null
+                isTypeParameter: false
+                typeParameterBound: null
+                resolvedElementId: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_2
+            name: createdAt
+            qualifiedName: "package:analyzer_demo/sample_code.dart.createdAt"
+            declaringTypeId: class_1
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 9
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_5
+              name: DateTime
+              qualifiedName: "dart:core.DateTime"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_3
+            name: updatedAt
+            qualifiedName: "package:analyzer_demo/sample_code.dart.updatedAt"
+            declaringTypeId: class_1
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 9
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_6
+              name: DateTime
+              qualifiedName: "dart:core.DateTime"
+              typeArguments:
+
+              isNullable: true
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+        getters:
+
+        setters:
+      -
+        id: class_2
+        name: Repository
+        qualifiedName: "package:analyzer_demo/sample_code.dart.Repository"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 2085
+          length: 10
+        documentation: /// Interface for repositories.
+        annotations:
+
+        isDeprecated: false
+        isAbstract: true
+        isSealed: false
+        isFinal: false
+        isBase: false
+        isInterface: false
+        isMixin: false
+        superclass:
+          id: type_7
+          name: Object
+          qualifiedName: "dart:core.Object"
+          typeArguments:
+
+          isNullable: false
+          isDynamic: false
+          isVoid: false
+          isFunction: false
+          functionType: null
+          definitionLibraryId: null
+          isTypeParameter: false
+          typeParameterBound: null
+          resolvedElementId: null
+        interfaces:
+
+        mixins:
+
+        typeParameters:
+          -
+            id: typeParam_2
+            name: T
+            bound:
+              id: type_8
+              name: Entity
+              qualifiedName: "package:analyzer_demo/sample_code.dart.Entity"
+              typeArguments:
+                -
+                  id: type_9
+                  name: dynamic
+                  qualifiedName: dynamic
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: true
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: class_1
+            defaultType: null
+            variance: null
+        constructors:
+          -
+            id: ctor_2
+            name: new
+            qualifiedName: "package:analyzer_demo/sample_code.dart.Repository"
+            declaringTypeId: class_2
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 10
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            parameters:
+
+            isAsync: false
+            isExternal: false
+            isStatic: false
+            isConst: false
+            isFactory: false
+            redirectedConstructor: null
+            superConstructorInvocation: Object
+        methods:
+          -
+            id: method_1
+            name: findById
+            qualifiedName: "package:analyzer_demo/sample_code.dart.findById"
+            declaringTypeId: class_2
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 2166
+              length: 8
+            documentation: /// Find an entity by ID.
+            annotations:
+
+            isDeprecated: false
+            returnType:
+              id: type_10
+              name: Future
+              qualifiedName: "dart:async.Future"
+              typeArguments:
+                -
+                  id: type_11
+                  name: T?
+                  qualifiedName: T?
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: true
+                  typeParameterBound:
+                    id: type_12
+                    name: Entity
+                    qualifiedName: "package:analyzer_demo/sample_code.dart.Entity"
+                    typeArguments:
+                      -
+                        id: type_13
+                        name: dynamic
+                        qualifiedName: dynamic
+                        typeArguments:
+
+                        isNullable: false
+                        isDynamic: true
+                        isVoid: false
+                        isFunction: false
+                        functionType: null
+                        definitionLibraryId: null
+                        isTypeParameter: false
+                        typeParameterBound: null
+                        resolvedElementId: null
+                    isNullable: false
+                    isDynamic: false
+                    isVoid: false
+                    isFunction: false
+                    functionType: null
+                    definitionLibraryId: null
+                    isTypeParameter: false
+                    typeParameterBound: null
+                    resolvedElementId: class_1
+                  resolvedElementId: null
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            typeParameters:
+
+            parameters:
+              -
+                id: param_1
+                name: id
+                type:
+                  id: type_14
+                  name: dynamic
+                  qualifiedName: dynamic
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: true
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: false
+                isPositional: true
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+            isAsync: false
+            isGenerator: false
+            isExternal: false
+            isStatic: false
+            isAbstract: true
+            isOperator: false
+          -
+            id: method_2
+            name: findAll
+            qualifiedName: "package:analyzer_demo/sample_code.dart.findAll"
+            declaringTypeId: class_2
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 2232
+              length: 7
+            documentation: /// Find all entities.
+            annotations:
+
+            isDeprecated: false
+            returnType:
+              id: type_15
+              name: Future
+              qualifiedName: "dart:async.Future"
+              typeArguments:
+                -
+                  id: type_16
+                  name: List
+                  qualifiedName: "dart:core.List"
+                  typeArguments:
+                    -
+                      id: type_17
+                      name: T
+                      qualifiedName: T
+                      typeArguments:
+
+                      isNullable: false
+                      isDynamic: false
+                      isVoid: false
+                      isFunction: false
+                      functionType: null
+                      definitionLibraryId: null
+                      isTypeParameter: true
+                      typeParameterBound:
+                        id: type_18
+                        name: Entity
+                        qualifiedName: "package:analyzer_demo/sample_code.dart.Entity"
+                        typeArguments:
+                          -
+                            id: type_19
+                            name: dynamic
+                            qualifiedName: dynamic
+                            typeArguments:
+
+                            isNullable: false
+                            isDynamic: true
+                            isVoid: false
+                            isFunction: false
+                            functionType: null
+                            definitionLibraryId: null
+                            isTypeParameter: false
+                            typeParameterBound: null
+                            resolvedElementId: null
+                        isNullable: false
+                        isDynamic: false
+                        isVoid: false
+                        isFunction: false
+                        functionType: null
+                        definitionLibraryId: null
+                        isTypeParameter: false
+                        typeParameterBound: null
+                        resolvedElementId: class_1
+                      resolvedElementId: null
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            typeParameters:
+
+            parameters:
+
+            isAsync: false
+            isGenerator: false
+            isExternal: false
+            isStatic: false
+            isAbstract: true
+            isOperator: false
+          -
+            id: method_3
+            name: save
+            qualifiedName: "package:analyzer_demo/sample_code.dart.save"
+            declaringTypeId: class_2
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 2278
+              length: 4
+            documentation: /// Save an entity.
+            annotations:
+
+            isDeprecated: false
+            returnType:
+              id: type_20
+              name: Future
+              qualifiedName: "dart:async.Future"
+              typeArguments:
+                -
+                  id: type_21
+                  name: T
+                  qualifiedName: T
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: true
+                  typeParameterBound:
+                    id: type_22
+                    name: Entity
+                    qualifiedName: "package:analyzer_demo/sample_code.dart.Entity"
+                    typeArguments:
+                      -
+                        id: type_23
+                        name: dynamic
+                        qualifiedName: dynamic
+                        typeArguments:
+
+                        isNullable: false
+                        isDynamic: true
+                        isVoid: false
+                        isFunction: false
+                        functionType: null
+                        definitionLibraryId: null
+                        isTypeParameter: false
+                        typeParameterBound: null
+                        resolvedElementId: null
+                    isNullable: false
+                    isDynamic: false
+                    isVoid: false
+                    isFunction: false
+                    functionType: null
+                    definitionLibraryId: null
+                    isTypeParameter: false
+                    typeParameterBound: null
+                    resolvedElementId: class_1
+                  resolvedElementId: null
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            typeParameters:
+
+            parameters:
+              -
+                id: param_2
+                name: entity
+                type:
+                  id: type_24
+                  name: T
+                  qualifiedName: T
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: true
+                  typeParameterBound:
+                    id: type_25
+                    name: Entity
+                    qualifiedName: "package:analyzer_demo/sample_code.dart.Entity"
+                    typeArguments:
+                      -
+                        id: type_26
+                        name: dynamic
+                        qualifiedName: dynamic
+                        typeArguments:
+
+                        isNullable: false
+                        isDynamic: true
+                        isVoid: false
+                        isFunction: false
+                        functionType: null
+                        definitionLibraryId: null
+                        isTypeParameter: false
+                        typeParameterBound: null
+                        resolvedElementId: null
+                    isNullable: false
+                    isDynamic: false
+                    isVoid: false
+                    isFunction: false
+                    functionType: null
+                    definitionLibraryId: null
+                    isTypeParameter: false
+                    typeParameterBound: null
+                    resolvedElementId: class_1
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: false
+                isPositional: true
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+            isAsync: false
+            isGenerator: false
+            isExternal: false
+            isStatic: false
+            isAbstract: true
+            isOperator: false
+          -
+            id: method_4
+            name: delete
+            qualifiedName: "package:analyzer_demo/sample_code.dart.delete"
+            declaringTypeId: class_2
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 2334
+              length: 6
+            documentation: /// Delete an entity.
+            annotations:
+
+            isDeprecated: false
+            returnType:
+              id: type_27
+              name: Future
+              qualifiedName: "dart:async.Future"
+              typeArguments:
+                -
+                  id: type_28
+                  name: void
+                  qualifiedName: void
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: true
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            typeParameters:
+
+            parameters:
+              -
+                id: param_3
+                name: entity
+                type:
+                  id: type_29
+                  name: T
+                  qualifiedName: T
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: true
+                  typeParameterBound:
+                    id: type_30
+                    name: Entity
+                    qualifiedName: "package:analyzer_demo/sample_code.dart.Entity"
+                    typeArguments:
+                      -
+                        id: type_31
+                        name: dynamic
+                        qualifiedName: dynamic
+                        typeArguments:
+
+                        isNullable: false
+                        isDynamic: true
+                        isVoid: false
+                        isFunction: false
+                        functionType: null
+                        definitionLibraryId: null
+                        isTypeParameter: false
+                        typeParameterBound: null
+                        resolvedElementId: null
+                    isNullable: false
+                    isDynamic: false
+                    isVoid: false
+                    isFunction: false
+                    functionType: null
+                    definitionLibraryId: null
+                    isTypeParameter: false
+                    typeParameterBound: null
+                    resolvedElementId: class_1
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: false
+                isPositional: true
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+            isAsync: false
+            isGenerator: false
+            isExternal: false
+            isStatic: false
+            isAbstract: true
+            isOperator: false
+        fields:
+
+        getters:
+
+        setters:
+      -
+        id: class_3
+        name: User
+        qualifiedName: "package:analyzer_demo/sample_code.dart.User"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 2568
+          length: 4
+        documentation: /// A user in the system.
+        annotations:
+
+        isDeprecated: false
+        isAbstract: false
+        isSealed: false
+        isFinal: false
+        isBase: false
+        isInterface: false
+        isMixin: false
+        superclass:
+          id: type_32
+          name: Object
+          qualifiedName: "dart:core.Object"
+          typeArguments:
+
+          isNullable: false
+          isDynamic: false
+          isVoid: false
+          isFunction: false
+          functionType: null
+          definitionLibraryId: null
+          isTypeParameter: false
+          typeParameterBound: null
+          resolvedElementId: null
+        interfaces:
+          -
+            id: type_33
+            name: Entity
+            qualifiedName: "package:analyzer_demo/sample_code.dart.Entity"
+            typeArguments:
+              -
+                id: type_34
+                name: String
+                qualifiedName: "dart:core.String"
+                typeArguments:
+
+                isNullable: false
+                isDynamic: false
+                isVoid: false
+                isFunction: false
+                functionType: null
+                definitionLibraryId: null
+                isTypeParameter: false
+                typeParameterBound: null
+                resolvedElementId: null
+            isNullable: false
+            isDynamic: false
+            isVoid: false
+            isFunction: false
+            functionType: null
+            definitionLibraryId: null
+            isTypeParameter: false
+            typeParameterBound: null
+            resolvedElementId: class_1
+        mixins:
+          -
+            id: type_35
+            name: Validatable
+            qualifiedName: "package:analyzer_demo/sample_code.dart.Validatable"
+            typeArguments:
+
+            isNullable: false
+            isDynamic: false
+            isVoid: false
+            isFunction: false
+            functionType: null
+            definitionLibraryId: null
+            isTypeParameter: false
+            typeParameterBound: null
+            resolvedElementId: mixin_1
+          -
+            id: type_36
+            name: Serializable
+            qualifiedName: "package:analyzer_demo/sample_code.dart.Serializable"
+            typeArguments:
+
+            isNullable: false
+            isDynamic: false
+            isVoid: false
+            isFunction: false
+            functionType: null
+            definitionLibraryId: null
+            isTypeParameter: false
+            typeParameterBound: null
+            resolvedElementId: mixin_2
+        typeParameters:
+
+        constructors:
+          -
+            id: ctor_3
+            name: new
+            qualifiedName: "package:analyzer_demo/sample_code.dart.User"
+            declaringTypeId: class_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 4
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            parameters:
+              -
+                id: param_4
+                name: id
+                type:
+                  id: type_37
+                  name: String
+                  qualifiedName: "dart:core.String"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: true
+                isPositional: false
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+              -
+                id: param_5
+                name: email
+                type:
+                  id: type_38
+                  name: String
+                  qualifiedName: "dart:core.String"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: true
+                isPositional: false
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+              -
+                id: param_6
+                name: name
+                type:
+                  id: type_39
+                  name: String
+                  qualifiedName: "dart:core.String"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: true
+                isPositional: false
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+              -
+                id: param_7
+                name: createdAt
+                type:
+                  id: type_40
+                  name: DateTime
+                  qualifiedName: "dart:core.DateTime"
+                  typeArguments:
+
+                  isNullable: true
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: false
+                isNamed: true
+                isPositional: false
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+              -
+                id: param_8
+                name: updatedAt
+                type:
+                  id: type_41
+                  name: DateTime
+                  qualifiedName: "dart:core.DateTime"
+                  typeArguments:
+
+                  isNullable: true
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: false
+                isNamed: true
+                isPositional: false
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+            isAsync: false
+            isExternal: false
+            isStatic: false
+            isConst: false
+            isFactory: false
+            redirectedConstructor: null
+            superConstructorInvocation: Object
+        methods:
+          -
+            id: method_5
+            name: hasRole
+            qualifiedName: "package:analyzer_demo/sample_code.dart.hasRole"
+            declaringTypeId: class_3
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 3119
+              length: 7
+            documentation: /// Check if user has a specific role.
+            annotations:
+
+            isDeprecated: false
+            returnType:
+              id: type_42
+              name: bool
+              qualifiedName: "dart:core.bool"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            typeParameters:
+
+            parameters:
+              -
+                id: param_9
+                name: role
+                type:
+                  id: type_43
+                  name: String
+                  qualifiedName: "dart:core.String"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: false
+                isPositional: true
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+            isAsync: false
+            isGenerator: false
+            isExternal: false
+            isStatic: false
+            isAbstract: false
+            isOperator: false
+          -
+            id: method_6
+            name: addRole
+            qualifiedName: "package:analyzer_demo/sample_code.dart.addRole"
+            declaringTypeId: class_3
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 3203
+              length: 7
+            documentation: /// Add a role to the user.
+            annotations:
+
+            isDeprecated: false
+            returnType:
+              id: type_44
+              name: void
+              qualifiedName: void
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: true
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            typeParameters:
+
+            parameters:
+              -
+                id: param_10
+                name: role
+                type:
+                  id: type_45
+                  name: String
+                  qualifiedName: "dart:core.String"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: false
+                isPositional: true
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+            isAsync: false
+            isGenerator: false
+            isExternal: false
+            isStatic: false
+            isAbstract: false
+            isOperator: false
+          -
+            id: method_7
+            name: validate
+            qualifiedName: "package:analyzer_demo/sample_code.dart.validate"
+            declaringTypeId: class_3
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 3346
+              length: 8
+            documentation: null
+            annotations:
+              -
+                name: override
+                qualifiedName: "dart:core.override"
+                constructorName: null
+                namedArguments:
+
+                positionalArguments:
+            isDeprecated: false
+            returnType:
+              id: type_46
+              name: bool
+              qualifiedName: "dart:core.bool"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            typeParameters:
+
+            parameters:
+
+            isAsync: false
+            isGenerator: false
+            isExternal: false
+            isStatic: false
+            isAbstract: false
+            isOperator: false
+          -
+            id: method_8
+            name: toJson
+            qualifiedName: "package:analyzer_demo/sample_code.dart.toJson"
+            declaringTypeId: class_3
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 3693
+              length: 6
+            documentation: null
+            annotations:
+              -
+                name: override
+                qualifiedName: "dart:core.override"
+                constructorName: null
+                namedArguments:
+
+                positionalArguments:
+            isDeprecated: false
+            returnType:
+              id: type_47
+              name: Map
+              qualifiedName: "dart:core.Map"
+              typeArguments:
+                -
+                  id: type_48
+                  name: String
+                  qualifiedName: "dart:core.String"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                -
+                  id: type_49
+                  name: dynamic
+                  qualifiedName: dynamic
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: true
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            typeParameters:
+
+            parameters:
+
+            isAsync: false
+            isGenerator: false
+            isExternal: false
+            isStatic: false
+            isAbstract: false
+            isOperator: false
+        fields:
+          -
+            id: field_4
+            name: id
+            qualifiedName: "package:analyzer_demo/sample_code.dart.id"
+            declaringTypeId: class_3
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 2833
+              length: 2
+            documentation: null
+            annotations:
+              -
+                name: override
+                qualifiedName: "dart:core.override"
+                constructorName: null
+                namedArguments:
+
+                positionalArguments:
+            isDeprecated: false
+            type:
+              id: type_50
+              name: String
+              qualifiedName: "dart:core.String"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: true
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_5
+            name: createdAt
+            qualifiedName: "package:analyzer_demo/sample_code.dart.createdAt"
+            declaringTypeId: class_3
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 2867
+              length: 9
+            documentation: null
+            annotations:
+              -
+                name: override
+                qualifiedName: "dart:core.override"
+                constructorName: null
+                namedArguments:
+
+                positionalArguments:
+            isDeprecated: false
+            type:
+              id: type_51
+              name: DateTime
+              qualifiedName: "dart:core.DateTime"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: true
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_6
+            name: updatedAt
+            qualifiedName: "package:analyzer_demo/sample_code.dart.updatedAt"
+            declaringTypeId: class_3
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 2903
+              length: 9
+            documentation: null
+            annotations:
+              -
+                name: override
+                qualifiedName: "dart:core.override"
+                constructorName: null
+                namedArguments:
+
+                positionalArguments:
+            isDeprecated: false
+            type:
+              id: type_52
+              name: DateTime
+              qualifiedName: "dart:core.DateTime"
+              typeArguments:
+
+              isNullable: true
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: true
+          -
+            id: field_7
+            name: email
+            qualifiedName: "package:analyzer_demo/sample_code.dart.email"
+            declaringTypeId: class_3
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 2962
+              length: 5
+            documentation: "/// The user's email address."
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_53
+              name: String
+              qualifiedName: "dart:core.String"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: true
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_8
+            name: name
+            qualifiedName: "package:analyzer_demo/sample_code.dart.name"
+            declaringTypeId: class_3
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 3010
+              length: 4
+            documentation: "/// The user's display name."
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_54
+              name: String
+              qualifiedName: "dart:core.String"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: true
+          -
+            id: field_9
+            name: roles
+            qualifiedName: "package:analyzer_demo/sample_code.dart.roles"
+            declaringTypeId: class_3
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 3058
+              length: 5
+            documentation: "/// User's roles."
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_55
+              name: List
+              qualifiedName: "dart:core.List"
+              typeArguments:
+                -
+                  id: type_56
+                  name: String
+                  qualifiedName: "dart:core.String"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: true
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: true
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_10
+            name: validationErrors
+            qualifiedName: "package:analyzer_demo/sample_code.dart.validationErrors"
+            declaringTypeId: class_3
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 16
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_57
+              name: List
+              qualifiedName: "dart:core.List"
+              typeArguments:
+                -
+                  id: type_58
+                  name: String
+                  qualifiedName: "dart:core.String"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+        getters:
+
+        setters:
+      -
+        id: class_4
+        name: Task
+        qualifiedName: "package:analyzer_demo/sample_code.dart.Task"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 3940
+          length: 4
+        documentation: /// A task with priority.
+        annotations:
+
+        isDeprecated: false
+        isAbstract: false
+        isSealed: false
+        isFinal: false
+        isBase: false
+        isInterface: false
+        isMixin: false
+        superclass:
+          id: type_59
+          name: Object
+          qualifiedName: "dart:core.Object"
+          typeArguments:
+
+          isNullable: false
+          isDynamic: false
+          isVoid: false
+          isFunction: false
+          functionType: null
+          definitionLibraryId: null
+          isTypeParameter: false
+          typeParameterBound: null
+          resolvedElementId: null
+        interfaces:
+          -
+            id: type_60
+            name: Entity
+            qualifiedName: "package:analyzer_demo/sample_code.dart.Entity"
+            typeArguments:
+              -
+                id: type_61
+                name: int
+                qualifiedName: "dart:core.int"
+                typeArguments:
+
+                isNullable: false
+                isDynamic: false
+                isVoid: false
+                isFunction: false
+                functionType: null
+                definitionLibraryId: null
+                isTypeParameter: false
+                typeParameterBound: null
+                resolvedElementId: null
+            isNullable: false
+            isDynamic: false
+            isVoid: false
+            isFunction: false
+            functionType: null
+            definitionLibraryId: null
+            isTypeParameter: false
+            typeParameterBound: null
+            resolvedElementId: class_1
+        mixins:
+          -
+            id: type_62
+            name: Validatable
+            qualifiedName: "package:analyzer_demo/sample_code.dart.Validatable"
+            typeArguments:
+
+            isNullable: false
+            isDynamic: false
+            isVoid: false
+            isFunction: false
+            functionType: null
+            definitionLibraryId: null
+            isTypeParameter: false
+            typeParameterBound: null
+            resolvedElementId: mixin_1
+        typeParameters:
+
+        constructors:
+          -
+            id: ctor_4
+            name: new
+            qualifiedName: "package:analyzer_demo/sample_code.dart.Task"
+            declaringTypeId: class_4
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 4
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            parameters:
+              -
+                id: param_11
+                name: id
+                type:
+                  id: type_63
+                  name: int
+                  qualifiedName: "dart:core.int"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: true
+                isPositional: false
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+              -
+                id: param_12
+                name: title
+                type:
+                  id: type_64
+                  name: String
+                  qualifiedName: "dart:core.String"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: true
+                isPositional: false
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+              -
+                id: param_13
+                name: description
+                type:
+                  id: type_65
+                  name: String
+                  qualifiedName: "dart:core.String"
+                  typeArguments:
+
+                  isNullable: true
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: false
+                isNamed: true
+                isPositional: false
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+              -
+                id: param_14
+                name: priority
+                type:
+                  id: type_66
+                  name: Priority
+                  qualifiedName: "package:analyzer_demo/sample_code.dart.Priority"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: enum_2
+                isRequired: false
+                isNamed: true
+                isPositional: false
+                hasDefaultValue: true
+                defaultValue: Priority.medium
+                documentation: null
+                annotations:
+              -
+                id: param_15
+                name: createdAt
+                type:
+                  id: type_67
+                  name: DateTime
+                  qualifiedName: "dart:core.DateTime"
+                  typeArguments:
+
+                  isNullable: true
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: false
+                isNamed: true
+                isPositional: false
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+              -
+                id: param_16
+                name: updatedAt
+                type:
+                  id: type_68
+                  name: DateTime
+                  qualifiedName: "dart:core.DateTime"
+                  typeArguments:
+
+                  isNullable: true
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: false
+                isNamed: true
+                isPositional: false
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+              -
+                id: param_17
+                name: dueDate
+                type:
+                  id: type_69
+                  name: DateTime
+                  qualifiedName: "dart:core.DateTime"
+                  typeArguments:
+
+                  isNullable: true
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: false
+                isNamed: true
+                isPositional: false
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+            isAsync: false
+            isExternal: false
+            isStatic: false
+            isConst: false
+            isFactory: false
+            redirectedConstructor: null
+            superConstructorInvocation: Object
+        methods:
+          -
+            id: method_9
+            name: complete
+            qualifiedName: "package:analyzer_demo/sample_code.dart.complete"
+            declaringTypeId: class_4
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 4603
+              length: 8
+            documentation: /// Mark the task as complete.
+            annotations:
+
+            isDeprecated: false
+            returnType:
+              id: type_70
+              name: void
+              qualifiedName: void
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: true
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            typeParameters:
+
+            parameters:
+
+            isAsync: false
+            isGenerator: false
+            isExternal: false
+            isStatic: false
+            isAbstract: false
+            isOperator: false
+          -
+            id: method_10
+            name: validate
+            qualifiedName: "package:analyzer_demo/sample_code.dart.validate"
+            declaringTypeId: class_4
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 4832
+              length: 8
+            documentation: null
+            annotations:
+              -
+                name: override
+                qualifiedName: "dart:core.override"
+                constructorName: null
+                namedArguments:
+
+                positionalArguments:
+            isDeprecated: false
+            returnType:
+              id: type_71
+              name: bool
+              qualifiedName: "dart:core.bool"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            typeParameters:
+
+            parameters:
+
+            isAsync: false
+            isGenerator: false
+            isExternal: false
+            isStatic: false
+            isAbstract: false
+            isOperator: false
+        fields:
+          -
+            id: field_11
+            name: id
+            qualifiedName: "package:analyzer_demo/sample_code.dart.id"
+            declaringTypeId: class_4
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 4238
+              length: 2
+            documentation: null
+            annotations:
+              -
+                name: override
+                qualifiedName: "dart:core.override"
+                constructorName: null
+                namedArguments:
+
+                positionalArguments:
+            isDeprecated: false
+            type:
+              id: type_72
+              name: int
+              qualifiedName: "dart:core.int"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: true
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_12
+            name: createdAt
+            qualifiedName: "package:analyzer_demo/sample_code.dart.createdAt"
+            declaringTypeId: class_4
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 4272
+              length: 9
+            documentation: null
+            annotations:
+              -
+                name: override
+                qualifiedName: "dart:core.override"
+                constructorName: null
+                namedArguments:
+
+                positionalArguments:
+            isDeprecated: false
+            type:
+              id: type_73
+              name: DateTime
+              qualifiedName: "dart:core.DateTime"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: true
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_13
+            name: updatedAt
+            qualifiedName: "package:analyzer_demo/sample_code.dart.updatedAt"
+            declaringTypeId: class_4
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 4308
+              length: 9
+            documentation: null
+            annotations:
+              -
+                name: override
+                qualifiedName: "dart:core.override"
+                constructorName: null
+                namedArguments:
+
+                positionalArguments:
+            isDeprecated: false
+            type:
+              id: type_74
+              name: DateTime
+              qualifiedName: "dart:core.DateTime"
+              typeArguments:
+
+              isNullable: true
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: true
+          -
+            id: field_14
+            name: title
+            qualifiedName: "package:analyzer_demo/sample_code.dart.title"
+            declaringTypeId: class_4
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 4347
+              length: 5
+            documentation: /// Task title.
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_75
+              name: String
+              qualifiedName: "dart:core.String"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: true
+          -
+            id: field_15
+            name: description
+            qualifiedName: "package:analyzer_demo/sample_code.dart.description"
+            declaringTypeId: class_4
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 4393
+              length: 11
+            documentation: /// Optional description.
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_76
+              name: String
+              qualifiedName: "dart:core.String"
+              typeArguments:
+
+              isNullable: true
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: true
+          -
+            id: field_16
+            name: priority
+            qualifiedName: "package:analyzer_demo/sample_code.dart.priority"
+            declaringTypeId: class_4
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 4439
+              length: 8
+            documentation: /// Task priority.
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_77
+              name: Priority
+              qualifiedName: "package:analyzer_demo/sample_code.dart.Priority"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: enum_2
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: true
+          -
+            id: field_17
+            name: dueDate
+            qualifiedName: "package:analyzer_demo/sample_code.dart.dueDate"
+            declaringTypeId: class_4
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 4487
+              length: 7
+            documentation: /// Optional due date.
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_78
+              name: DateTime
+              qualifiedName: "dart:core.DateTime"
+              typeArguments:
+
+              isNullable: true
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: true
+          -
+            id: field_18
+            name: isCompleted
+            qualifiedName: "package:analyzer_demo/sample_code.dart.isCompleted"
+            declaringTypeId: class_4
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 4541
+              length: 11
+            documentation: /// Whether the task is completed.
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_79
+              name: bool
+              qualifiedName: "dart:core.bool"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: true
+            hasGetter: true
+            hasSetter: true
+          -
+            id: field_19
+            name: isOverdue
+            qualifiedName: "package:analyzer_demo/sample_code.dart.isOverdue"
+            declaringTypeId: class_4
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 9
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_80
+              name: bool
+              qualifiedName: "dart:core.bool"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_20
+            name: validationErrors
+            qualifiedName: "package:analyzer_demo/sample_code.dart.validationErrors"
+            declaringTypeId: class_4
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 16
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_81
+              name: List
+              qualifiedName: "dart:core.List"
+              typeArguments:
+                -
+                  id: type_82
+                  name: String
+                  qualifiedName: "dart:core.String"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+        getters:
+
+        setters:
+      -
+        id: class_5
+        name: Result
+        qualifiedName: "package:analyzer_demo/sample_code.dart.Result"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 5084
+          length: 6
+        documentation: /// Generic result wrapper.
+        annotations:
+
+        isDeprecated: false
+        isAbstract: false
+        isSealed: false
+        isFinal: false
+        isBase: false
+        isInterface: false
+        isMixin: false
+        superclass:
+          id: type_83
+          name: Object
+          qualifiedName: "dart:core.Object"
+          typeArguments:
+
+          isNullable: false
+          isDynamic: false
+          isVoid: false
+          isFunction: false
+          functionType: null
+          definitionLibraryId: null
+          isTypeParameter: false
+          typeParameterBound: null
+          resolvedElementId: null
+        interfaces:
+
+        mixins:
+
+        typeParameters:
+          -
+            id: typeParam_3
+            name: T
+            bound: null
+            defaultType: null
+            variance: null
+          -
+            id: typeParam_4
+            name: "E"
+            bound: null
+            defaultType: null
+            variance: null
+        constructors:
+          -
+            id: ctor_5
+            name: success
+            qualifiedName: "package:analyzer_demo/sample_code.dart.Result.success"
+            declaringTypeId: class_5
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 5108
+              length: 14
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            parameters:
+              -
+                id: param_18
+                name: _value
+                type:
+                  id: type_84
+                  name: T?
+                  qualifiedName: T?
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: true
+                  typeParameterBound:
+                    id: type_85
+                    name: dynamic
+                    qualifiedName: dynamic
+                    typeArguments:
+
+                    isNullable: false
+                    isDynamic: true
+                    isVoid: false
+                    isFunction: false
+                    functionType: null
+                    definitionLibraryId: null
+                    isTypeParameter: false
+                    typeParameterBound: null
+                    resolvedElementId: null
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: false
+                isPositional: true
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+            isAsync: false
+            isExternal: false
+            isStatic: false
+            isConst: false
+            isFactory: false
+            redirectedConstructor: null
+            superConstructorInvocation: Object
+          -
+            id: ctor_6
+            name: failure
+            qualifiedName: "package:analyzer_demo/sample_code.dart.Result.failure"
+            declaringTypeId: class_5
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 5155
+              length: 14
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            parameters:
+              -
+                id: param_19
+                name: _error
+                type:
+                  id: type_86
+                  name: E?
+                  qualifiedName: E?
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: true
+                  typeParameterBound:
+                    id: type_87
+                    name: dynamic
+                    qualifiedName: dynamic
+                    typeArguments:
+
+                    isNullable: false
+                    isDynamic: true
+                    isVoid: false
+                    isFunction: false
+                    functionType: null
+                    definitionLibraryId: null
+                    isTypeParameter: false
+                    typeParameterBound: null
+                    resolvedElementId: null
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: false
+                isPositional: true
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+            isAsync: false
+            isExternal: false
+            isStatic: false
+            isConst: false
+            isFactory: false
+            redirectedConstructor: null
+            superConstructorInvocation: Object
+        methods:
+          -
+            id: method_11
+            name: map
+            qualifiedName: "package:analyzer_demo/sample_code.dart.map"
+            declaringTypeId: class_5
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 5737
+              length: 3
+            documentation: /// Map the success value.
+            annotations:
+
+            isDeprecated: false
+            returnType:
+              id: type_88
+              name: Result
+              qualifiedName: "package:analyzer_demo/sample_code.dart.Result"
+              typeArguments:
+                -
+                  id: type_89
+                  name: U
+                  qualifiedName: U
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: true
+                  typeParameterBound:
+                    id: type_90
+                    name: dynamic
+                    qualifiedName: dynamic
+                    typeArguments:
+
+                    isNullable: false
+                    isDynamic: true
+                    isVoid: false
+                    isFunction: false
+                    functionType: null
+                    definitionLibraryId: null
+                    isTypeParameter: false
+                    typeParameterBound: null
+                    resolvedElementId: null
+                  resolvedElementId: null
+                -
+                  id: type_91
+                  name: "E"
+                  qualifiedName: "E"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: true
+                  typeParameterBound:
+                    id: type_92
+                    name: dynamic
+                    qualifiedName: dynamic
+                    typeArguments:
+
+                    isNullable: false
+                    isDynamic: true
+                    isVoid: false
+                    isFunction: false
+                    functionType: null
+                    definitionLibraryId: null
+                    isTypeParameter: false
+                    typeParameterBound: null
+                    resolvedElementId: null
+                  resolvedElementId: null
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: class_5
+            typeParameters:
+              -
+                id: typeParam_5
+                name: U
+                bound: null
+                defaultType: null
+                variance: null
+            parameters:
+              -
+                id: param_20
+                name: transform
+                type:
+                  id: type_93
+                  name: U Function(T)
+                  qualifiedName: U Function(T)
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: true
+                  functionType:
+                    id: functionType_1
+                    returnType:
+                      id: type_94
+                      name: U
+                      qualifiedName: U
+                      typeArguments:
+
+                      isNullable: false
+                      isDynamic: false
+                      isVoid: false
+                      isFunction: false
+                      functionType: null
+                      definitionLibraryId: null
+                      isTypeParameter: true
+                      typeParameterBound:
+                        id: type_95
+                        name: dynamic
+                        qualifiedName: dynamic
+                        typeArguments:
+
+                        isNullable: false
+                        isDynamic: true
+                        isVoid: false
+                        isFunction: false
+                        functionType: null
+                        definitionLibraryId: null
+                        isTypeParameter: false
+                        typeParameterBound: null
+                        resolvedElementId: null
+                      resolvedElementId: null
+                    typeParameters:
+
+                    parameters:
+                      -
+                        id: param_21
+                        name: "<unnamed>"
+                        type:
+                          id: type_96
+                          name: T
+                          qualifiedName: T
+                          typeArguments:
+
+                          isNullable: false
+                          isDynamic: false
+                          isVoid: false
+                          isFunction: false
+                          functionType: null
+                          definitionLibraryId: null
+                          isTypeParameter: true
+                          typeParameterBound:
+                            id: type_97
+                            name: dynamic
+                            qualifiedName: dynamic
+                            typeArguments:
+
+                            isNullable: false
+                            isDynamic: true
+                            isVoid: false
+                            isFunction: false
+                            functionType: null
+                            definitionLibraryId: null
+                            isTypeParameter: false
+                            typeParameterBound: null
+                            resolvedElementId: null
+                          resolvedElementId: null
+                        isRequired: true
+                        isNamed: false
+                        isPositional: true
+                        hasDefaultValue: false
+                        defaultValue: null
+                        documentation: null
+                        annotations:
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: false
+                isPositional: true
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+            isAsync: false
+            isGenerator: false
+            isExternal: false
+            isStatic: false
+            isAbstract: false
+            isOperator: false
+        fields:
+          -
+            id: field_21
+            name: _value
+            qualifiedName: "package:analyzer_demo/sample_code.dart._value"
+            declaringTypeId: class_5
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 5205
+              length: 6
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_98
+              name: T?
+              qualifiedName: T?
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: true
+              typeParameterBound:
+                id: type_99
+                name: dynamic
+                qualifiedName: dynamic
+                typeArguments:
+
+                isNullable: false
+                isDynamic: true
+                isVoid: false
+                isFunction: false
+                functionType: null
+                definitionLibraryId: null
+                isTypeParameter: false
+                typeParameterBound: null
+                resolvedElementId: null
+              resolvedElementId: null
+            isFinal: true
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_22
+            name: _error
+            qualifiedName: "package:analyzer_demo/sample_code.dart._error"
+            declaringTypeId: class_5
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 5224
+              length: 6
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_100
+              name: E?
+              qualifiedName: E?
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: true
+              typeParameterBound:
+                id: type_101
+                name: dynamic
+                qualifiedName: dynamic
+                typeArguments:
+
+                isNullable: false
+                isDynamic: true
+                isVoid: false
+                isFunction: false
+                functionType: null
+                definitionLibraryId: null
+                isTypeParameter: false
+                typeParameterBound: null
+                resolvedElementId: null
+              resolvedElementId: null
+            isFinal: true
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_23
+            name: isSuccess
+            qualifiedName: "package:analyzer_demo/sample_code.dart.isSuccess"
+            declaringTypeId: class_5
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 9
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_102
+              name: bool
+              qualifiedName: "dart:core.bool"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_24
+            name: isFailure
+            qualifiedName: "package:analyzer_demo/sample_code.dart.isFailure"
+            declaringTypeId: class_5
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 9
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_103
+              name: bool
+              qualifiedName: "dart:core.bool"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_25
+            name: value
+            qualifiedName: "package:analyzer_demo/sample_code.dart.value"
+            declaringTypeId: class_5
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 5
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_104
+              name: T
+              qualifiedName: T
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: true
+              typeParameterBound:
+                id: type_105
+                name: dynamic
+                qualifiedName: dynamic
+                typeArguments:
+
+                isNullable: false
+                isDynamic: true
+                isVoid: false
+                isFunction: false
+                functionType: null
+                definitionLibraryId: null
+                isTypeParameter: false
+                typeParameterBound: null
+                resolvedElementId: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_26
+            name: error
+            qualifiedName: "package:analyzer_demo/sample_code.dart.error"
+            declaringTypeId: class_5
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 5
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_106
+              name: "E"
+              qualifiedName: "E"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: true
+              typeParameterBound:
+                id: type_107
+                name: dynamic
+                qualifiedName: dynamic
+                typeArguments:
+
+                isNullable: false
+                isDynamic: true
+                isVoid: false
+                isFunction: false
+                functionType: null
+                definitionLibraryId: null
+                isTypeParameter: false
+                typeParameterBound: null
+                resolvedElementId: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+        getters:
+
+        setters:
+    enums:
+      -
+        id: enum_1
+        name: Weekday
+        qualifiedName: "package:analyzer_demo/sample_code.dart.Weekday"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 477
+          length: 7
+        documentation: /// Simple enum for days of the week.
+        annotations:
+
+        isDeprecated: false
+        values:
+          -
+            id: enumValue_1
+            name: monday
+            parentEnumId: enum_1
+            index: 0
+            documentation: null
+            annotations:
+          -
+            id: enumValue_2
+            name: tuesday
+            parentEnumId: enum_1
+            index: 1
+            documentation: null
+            annotations:
+          -
+            id: enumValue_3
+            name: wednesday
+            parentEnumId: enum_1
+            index: 2
+            documentation: null
+            annotations:
+          -
+            id: enumValue_4
+            name: thursday
+            parentEnumId: enum_1
+            index: 3
+            documentation: null
+            annotations:
+          -
+            id: enumValue_5
+            name: friday
+            parentEnumId: enum_1
+            index: 4
+            documentation: null
+            annotations:
+          -
+            id: enumValue_6
+            name: saturday
+            parentEnumId: enum_1
+            index: 5
+            documentation: null
+            annotations:
+          -
+            id: enumValue_7
+            name: sunday
+            parentEnumId: enum_1
+            index: 6
+            documentation: null
+            annotations:
+        interfaces:
+
+        mixins:
+
+        fields:
+          -
+            id: field_27
+            name: values
+            qualifiedName: "package:analyzer_demo/sample_code.dart.values"
+            declaringTypeId: enum_1
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 6
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_108
+              name: List
+              qualifiedName: "dart:core.List"
+              typeArguments:
+                -
+                  id: type_109
+                  name: Weekday
+                  qualifiedName: "package:analyzer_demo/sample_code.dart.Weekday"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: enum_1
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: true
+            isLate: false
+            isStatic: true
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_28
+            name: isWeekend
+            qualifiedName: "package:analyzer_demo/sample_code.dart.isWeekend"
+            declaringTypeId: enum_1
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 9
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_110
+              name: bool
+              qualifiedName: "dart:core.bool"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+        methods:
+
+        getters:
+
+        setters:
+
+        constructors:
+          -
+            id: ctor_7
+            name: new
+            qualifiedName: "package:analyzer_demo/sample_code.dart.Weekday"
+            declaringTypeId: enum_1
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 7
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            parameters:
+
+            isAsync: false
+            isExternal: false
+            isStatic: false
+            isConst: true
+            isFactory: false
+            redirectedConstructor: null
+            superConstructorInvocation: null
+      -
+        id: enum_2
+        name: Priority
+        qualifiedName: "package:analyzer_demo/sample_code.dart.Priority"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 703
+          length: 8
+        documentation: /// Enhanced enum with values.
+        annotations:
+
+        isDeprecated: false
+        values:
+          -
+            id: enumValue_8
+            name: low
+            parentEnumId: enum_2
+            index: 0
+            documentation: null
+            annotations:
+          -
+            id: enumValue_9
+            name: medium
+            parentEnumId: enum_2
+            index: 1
+            documentation: null
+            annotations:
+          -
+            id: enumValue_10
+            name: high
+            parentEnumId: enum_2
+            index: 2
+            documentation: null
+            annotations:
+          -
+            id: enumValue_11
+            name: critical
+            parentEnumId: enum_2
+            index: 3
+            documentation: null
+            annotations:
+        interfaces:
+
+        mixins:
+
+        fields:
+          -
+            id: field_29
+            name: values
+            qualifiedName: "package:analyzer_demo/sample_code.dart.values"
+            declaringTypeId: enum_2
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 6
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_111
+              name: List
+              qualifiedName: "dart:core.List"
+              typeArguments:
+                -
+                  id: type_112
+                  name: Priority
+                  qualifiedName: "package:analyzer_demo/sample_code.dart.Priority"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: enum_2
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: true
+            isLate: false
+            isStatic: true
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_30
+            name: level
+            qualifiedName: "package:analyzer_demo/sample_code.dart.level"
+            declaringTypeId: enum_2
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 898
+              length: 5
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_113
+              name: int
+              qualifiedName: "dart:core.int"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: true
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_31
+            name: description
+            qualifiedName: "package:analyzer_demo/sample_code.dart.description"
+            declaringTypeId: enum_2
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 920
+              length: 11
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_114
+              name: String
+              qualifiedName: "dart:core.String"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: true
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_32
+            name: isUrgent
+            qualifiedName: "package:analyzer_demo/sample_code.dart.isUrgent"
+            declaringTypeId: enum_2
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 8
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_115
+              name: bool
+              qualifiedName: "dart:core.bool"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+        methods:
+
+        getters:
+
+        setters:
+
+        constructors:
+          -
+            id: ctor_8
+            name: new
+            qualifiedName: "package:analyzer_demo/sample_code.dart.Priority"
+            declaringTypeId: enum_2
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 8
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            parameters:
+              -
+                id: param_22
+                name: level
+                type:
+                  id: type_116
+                  name: int
+                  qualifiedName: "dart:core.int"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: false
+                isPositional: true
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+              -
+                id: param_23
+                name: description
+                type:
+                  id: type_117
+                  name: String
+                  qualifiedName: "dart:core.String"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: false
+                isPositional: true
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+            isAsync: false
+            isExternal: false
+            isStatic: false
+            isConst: true
+            isFactory: false
+            redirectedConstructor: null
+            superConstructorInvocation: null
+    mixins:
+      -
+        id: mixin_1
+        name: Validatable
+        qualifiedName: "package:analyzer_demo/sample_code.dart.Validatable"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 1234
+          length: 11
+        documentation: /// Mixin for objects that can be validated.
+        annotations:
+
+        isDeprecated: false
+        onTypes:
+          -
+            id: type_118
+            name: Object
+            qualifiedName: "dart:core.Object"
+            typeArguments:
+
+            isNullable: false
+            isDynamic: false
+            isVoid: false
+            isFunction: false
+            functionType: null
+            definitionLibraryId: null
+            isTypeParameter: false
+            typeParameterBound: null
+            resolvedElementId: null
+        implementsTypes:
+
+        typeParameters:
+
+        methods:
+          -
+            id: method_12
+            name: validate
+            qualifiedName: "package:analyzer_demo/sample_code.dart.validate"
+            declaringTypeId: mixin_1
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 1283
+              length: 8
+            documentation: /// Validate this object.
+            annotations:
+
+            isDeprecated: false
+            returnType:
+              id: type_119
+              name: bool
+              qualifiedName: "dart:core.bool"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            typeParameters:
+
+            parameters:
+
+            isAsync: false
+            isGenerator: false
+            isExternal: false
+            isStatic: false
+            isAbstract: true
+            isOperator: false
+        fields:
+          -
+            id: field_33
+            name: validationErrors
+            qualifiedName: "package:analyzer_demo/sample_code.dart.validationErrors"
+            declaringTypeId: mixin_1
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 16
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_120
+              name: List
+              qualifiedName: "dart:core.List"
+              typeArguments:
+                -
+                  id: type_121
+                  name: String
+                  qualifiedName: "dart:core.String"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+        getters:
+
+        setters:
+      -
+        id: mixin_2
+        name: Serializable
+        qualifiedName: "package:analyzer_demo/sample_code.dart.Serializable"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 1417
+          length: 12
+        documentation: /// Mixin for objects that can be serialized.
+        annotations:
+
+        isDeprecated: false
+        onTypes:
+          -
+            id: type_122
+            name: Object
+            qualifiedName: "dart:core.Object"
+            typeArguments:
+
+            isNullable: false
+            isDynamic: false
+            isVoid: false
+            isFunction: false
+            functionType: null
+            definitionLibraryId: null
+            isTypeParameter: false
+            typeParameterBound: null
+            resolvedElementId: null
+        implementsTypes:
+
+        typeParameters:
+
+        methods:
+          -
+            id: method_13
+            name: toJson
+            qualifiedName: "package:analyzer_demo/sample_code.dart.toJson"
+            declaringTypeId: mixin_2
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 1482
+              length: 6
+            documentation: /// Convert to JSON map.
+            annotations:
+
+            isDeprecated: false
+            returnType:
+              id: type_123
+              name: Map
+              qualifiedName: "dart:core.Map"
+              typeArguments:
+                -
+                  id: type_124
+                  name: String
+                  qualifiedName: "dart:core.String"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                -
+                  id: type_125
+                  name: dynamic
+                  qualifiedName: dynamic
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: true
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            typeParameters:
+
+            parameters:
+
+            isAsync: false
+            isGenerator: false
+            isExternal: false
+            isStatic: false
+            isAbstract: true
+            isOperator: false
+          -
+            id: method_14
+            name: fromJson
+            qualifiedName: "package:analyzer_demo/sample_code.dart.fromJson"
+            declaringTypeId: mixin_2
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 1532
+              length: 8
+            documentation: /// Create from JSON map.
+            annotations:
+
+            isDeprecated: false
+            returnType:
+              id: type_126
+              name: T
+              qualifiedName: T
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: true
+              typeParameterBound:
+                id: type_127
+                name: dynamic
+                qualifiedName: dynamic
+                typeArguments:
+
+                isNullable: false
+                isDynamic: true
+                isVoid: false
+                isFunction: false
+                functionType: null
+                definitionLibraryId: null
+                isTypeParameter: false
+                typeParameterBound: null
+                resolvedElementId: null
+              resolvedElementId: null
+            typeParameters:
+              -
+                id: typeParam_6
+                name: T
+                bound: null
+                defaultType: null
+                variance: null
+            parameters:
+              -
+                id: param_24
+                name: json
+                type:
+                  id: type_128
+                  name: Map
+                  qualifiedName: "dart:core.Map"
+                  typeArguments:
+                    -
+                      id: type_129
+                      name: String
+                      qualifiedName: "dart:core.String"
+                      typeArguments:
+
+                      isNullable: false
+                      isDynamic: false
+                      isVoid: false
+                      isFunction: false
+                      functionType: null
+                      definitionLibraryId: null
+                      isTypeParameter: false
+                      typeParameterBound: null
+                      resolvedElementId: null
+                    -
+                      id: type_130
+                      name: dynamic
+                      qualifiedName: dynamic
+                      typeArguments:
+
+                      isNullable: false
+                      isDynamic: true
+                      isVoid: false
+                      isFunction: false
+                      functionType: null
+                      definitionLibraryId: null
+                      isTypeParameter: false
+                      typeParameterBound: null
+                      resolvedElementId: null
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: false
+                isPositional: true
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+            isAsync: false
+            isGenerator: false
+            isExternal: false
+            isStatic: true
+            isAbstract: false
+            isOperator: false
+        fields:
+
+        getters:
+
+        setters:
+    extensions:
+      -
+        id: extension_1
+        name: StringExtensions
+        qualifiedName: "package:analyzer_demo/sample_code.dart.StringExtensions"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 6097
+          length: 16
+        documentation: /// Extensions on String.
+        annotations:
+
+        isDeprecated: false
+        extendedType:
+          id: type_131
+          name: String
+          qualifiedName: "dart:core.String"
+          typeArguments:
+
+          isNullable: false
+          isDynamic: false
+          isVoid: false
+          isFunction: false
+          functionType: null
+          definitionLibraryId: null
+          isTypeParameter: false
+          typeParameterBound: null
+          resolvedElementId: null
+        typeParameters:
+
+        methods:
+          -
+            id: method_15
+            name: capitalize
+            qualifiedName: "package:analyzer_demo/sample_code.dart.capitalize"
+            declaringTypeId: extension_1
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 6170
+              length: 10
+            documentation: /// Capitalize the first letter.
+            annotations:
+
+            isDeprecated: false
+            returnType:
+              id: type_132
+              name: String
+              qualifiedName: "dart:core.String"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            typeParameters:
+
+            parameters:
+
+            isAsync: false
+            isGenerator: false
+            isExternal: false
+            isStatic: false
+            isAbstract: false
+            isOperator: false
+          -
+            id: method_16
+            name: toTitleCase
+            qualifiedName: "package:analyzer_demo/sample_code.dart.toTitleCase"
+            declaringTypeId: extension_1
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 6312
+              length: 11
+            documentation: /// Convert to title case.
+            annotations:
+
+            isDeprecated: false
+            returnType:
+              id: type_133
+              name: String
+              qualifiedName: "dart:core.String"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            typeParameters:
+
+            parameters:
+
+            isAsync: false
+            isGenerator: false
+            isExternal: false
+            isStatic: false
+            isAbstract: false
+            isOperator: false
+        fields:
+          -
+            id: field_34
+            name: isValidEmail
+            qualifiedName: "package:analyzer_demo/sample_code.dart.isValidEmail"
+            declaringTypeId: extension_1
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 12
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_134
+              name: bool
+              qualifiedName: "dart:core.bool"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+        getters:
+
+        setters:
+      -
+        id: extension_2
+        name: ListExtensions
+        qualifiedName: "package:analyzer_demo/sample_code.dart.ListExtensions"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 6535
+          length: 14
+        documentation: /// Extensions on List.
+        annotations:
+
+        isDeprecated: false
+        extendedType:
+          id: type_135
+          name: List
+          qualifiedName: "dart:core.List"
+          typeArguments:
+            -
+              id: type_136
+              name: T
+              qualifiedName: T
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: true
+              typeParameterBound:
+                id: type_137
+                name: dynamic
+                qualifiedName: dynamic
+                typeArguments:
+
+                isNullable: false
+                isDynamic: true
+                isVoid: false
+                isFunction: false
+                functionType: null
+                definitionLibraryId: null
+                isTypeParameter: false
+                typeParameterBound: null
+                resolvedElementId: null
+              resolvedElementId: null
+          isNullable: false
+          isDynamic: false
+          isVoid: false
+          isFunction: false
+          functionType: null
+          definitionLibraryId: null
+          isTypeParameter: false
+          typeParameterBound: null
+          resolvedElementId: null
+        typeParameters:
+          -
+            id: typeParam_7
+            name: T
+            bound: null
+            defaultType: null
+            variance: null
+        methods:
+          -
+            id: method_17
+            name: chunked
+            qualifiedName: "package:analyzer_demo/sample_code.dart.chunked"
+            declaringTypeId: extension_2
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 6784
+              length: 7
+            documentation: /// Chunk the list into smaller lists.
+            annotations:
+
+            isDeprecated: false
+            returnType:
+              id: type_138
+              name: List
+              qualifiedName: "dart:core.List"
+              typeArguments:
+                -
+                  id: type_139
+                  name: List
+                  qualifiedName: "dart:core.List"
+                  typeArguments:
+                    -
+                      id: type_140
+                      name: T
+                      qualifiedName: T
+                      typeArguments:
+
+                      isNullable: false
+                      isDynamic: false
+                      isVoid: false
+                      isFunction: false
+                      functionType: null
+                      definitionLibraryId: null
+                      isTypeParameter: true
+                      typeParameterBound:
+                        id: type_141
+                        name: dynamic
+                        qualifiedName: dynamic
+                        typeArguments:
+
+                        isNullable: false
+                        isDynamic: true
+                        isVoid: false
+                        isFunction: false
+                        functionType: null
+                        definitionLibraryId: null
+                        isTypeParameter: false
+                        typeParameterBound: null
+                        resolvedElementId: null
+                      resolvedElementId: null
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            typeParameters:
+
+            parameters:
+              -
+                id: param_25
+                name: size
+                type:
+                  id: type_142
+                  name: int
+                  qualifiedName: "dart:core.int"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: false
+                isPositional: true
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+            isAsync: false
+            isGenerator: false
+            isExternal: false
+            isStatic: false
+            isAbstract: false
+            isOperator: false
+        fields:
+          -
+            id: field_35
+            name: firstOrNull
+            qualifiedName: "package:analyzer_demo/sample_code.dart.firstOrNull"
+            declaringTypeId: extension_2
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 11
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_143
+              name: T?
+              qualifiedName: T?
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: true
+              typeParameterBound:
+                id: type_144
+                name: dynamic
+                qualifiedName: dynamic
+                typeArguments:
+
+                isNullable: false
+                isDynamic: true
+                isVoid: false
+                isFunction: false
+                functionType: null
+                definitionLibraryId: null
+                isTypeParameter: false
+                typeParameterBound: null
+                resolvedElementId: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+          -
+            id: field_36
+            name: lastOrNull
+            qualifiedName: "package:analyzer_demo/sample_code.dart.lastOrNull"
+            declaringTypeId: extension_2
+            owningLibraryId: lib_3
+            sourceFileId: file_4
+            location:
+              line: 0
+              column: 0
+              offset: 0
+              length: 10
+            documentation: null
+            annotations:
+
+            isDeprecated: false
+            type:
+              id: type_145
+              name: T?
+              qualifiedName: T?
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: true
+              typeParameterBound:
+                id: type_146
+                name: dynamic
+                qualifiedName: dynamic
+                typeArguments:
+
+                isNullable: false
+                isDynamic: true
+                isVoid: false
+                isFunction: false
+                functionType: null
+                definitionLibraryId: null
+                isTypeParameter: false
+                typeParameterBound: null
+                resolvedElementId: null
+              resolvedElementId: null
+            isFinal: false
+            isConst: false
+            isLate: false
+            isStatic: false
+            hasInitializer: false
+            hasGetter: true
+            hasSetter: false
+        getters:
+
+        setters:
+    extensionTypes:
+
+    typeAliases:
+      -
+        id: typedef_1
+        name: JsonObject
+        qualifiedName: "package:analyzer_demo/sample_code.dart.JsonObject"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 7923
+          length: 10
+        documentation: /// Type alias for JSON objects.
+        annotations:
+
+        isDeprecated: false
+        aliasedType:
+          id: type_147
+          name: Map
+          qualifiedName: "dart:core.Map"
+          typeArguments:
+            -
+              id: type_148
+              name: String
+              qualifiedName: "dart:core.String"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            -
+              id: type_149
+              name: dynamic
+              qualifiedName: dynamic
+              typeArguments:
+
+              isNullable: false
+              isDynamic: true
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+          isNullable: false
+          isDynamic: false
+          isVoid: false
+          isFunction: false
+          functionType: null
+          definitionLibraryId: null
+          isTypeParameter: false
+          typeParameterBound: null
+          resolvedElementId: null
+        typeParameters:
+      -
+        id: typedef_2
+        name: AsyncResult
+        qualifiedName: "package:analyzer_demo/sample_code.dart.AsyncResult"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 8000
+          length: 11
+        documentation: /// Type alias for async result.
+        annotations:
+
+        isDeprecated: false
+        aliasedType:
+          id: type_150
+          name: Future
+          qualifiedName: "dart:async.Future"
+          typeArguments:
+            -
+              id: type_151
+              name: Result
+              qualifiedName: "package:analyzer_demo/sample_code.dart.Result"
+              typeArguments:
+                -
+                  id: type_152
+                  name: T
+                  qualifiedName: T
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: true
+                  typeParameterBound:
+                    id: type_153
+                    name: dynamic
+                    qualifiedName: dynamic
+                    typeArguments:
+
+                    isNullable: false
+                    isDynamic: true
+                    isVoid: false
+                    isFunction: false
+                    functionType: null
+                    definitionLibraryId: null
+                    isTypeParameter: false
+                    typeParameterBound: null
+                    resolvedElementId: null
+                  resolvedElementId: null
+                -
+                  id: type_154
+                  name: Exception
+                  qualifiedName: "dart:core.Exception"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: class_5
+          isNullable: false
+          isDynamic: false
+          isVoid: false
+          isFunction: false
+          functionType: null
+          definitionLibraryId: null
+          isTypeParameter: false
+          typeParameterBound: null
+          resolvedElementId: null
+        typeParameters:
+          -
+            id: typeParam_8
+            name: T
+            bound: null
+            defaultType: null
+            variance: null
+      -
+        id: typedef_3
+        name: EntityFactory
+        qualifiedName: "package:analyzer_demo/sample_code.dart.EntityFactory"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 8091
+          length: 13
+        documentation: /// Type alias for entity factory.
+        annotations:
+
+        isDeprecated: false
+        aliasedType:
+          id: type_155
+          name: "T Function(Map<String, dynamic>)"
+          qualifiedName: "T Function(Map<String, dynamic>)"
+          typeArguments:
+
+          isNullable: false
+          isDynamic: false
+          isVoid: false
+          isFunction: true
+          functionType:
+            id: functionType_2
+            returnType:
+              id: type_156
+              name: T
+              qualifiedName: T
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: true
+              typeParameterBound:
+                id: type_157
+                name: Entity
+                qualifiedName: "package:analyzer_demo/sample_code.dart.Entity"
+                typeArguments:
+                  -
+                    id: type_158
+                    name: dynamic
+                    qualifiedName: dynamic
+                    typeArguments:
+
+                    isNullable: false
+                    isDynamic: true
+                    isVoid: false
+                    isFunction: false
+                    functionType: null
+                    definitionLibraryId: null
+                    isTypeParameter: false
+                    typeParameterBound: null
+                    resolvedElementId: null
+                isNullable: false
+                isDynamic: false
+                isVoid: false
+                isFunction: false
+                functionType: null
+                definitionLibraryId: null
+                isTypeParameter: false
+                typeParameterBound: null
+                resolvedElementId: class_1
+              resolvedElementId: null
+            typeParameters:
+
+            parameters:
+              -
+                id: param_26
+                name: json
+                type:
+                  id: type_159
+                  name: Map
+                  qualifiedName: "dart:core.Map"
+                  typeArguments:
+                    -
+                      id: type_160
+                      name: String
+                      qualifiedName: "dart:core.String"
+                      typeArguments:
+
+                      isNullable: false
+                      isDynamic: false
+                      isVoid: false
+                      isFunction: false
+                      functionType: null
+                      definitionLibraryId: null
+                      isTypeParameter: false
+                      typeParameterBound: null
+                      resolvedElementId: null
+                    -
+                      id: type_161
+                      name: dynamic
+                      qualifiedName: dynamic
+                      typeArguments:
+
+                      isNullable: false
+                      isDynamic: true
+                      isVoid: false
+                      isFunction: false
+                      functionType: null
+                      definitionLibraryId: null
+                      isTypeParameter: false
+                      typeParameterBound: null
+                      resolvedElementId: null
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                isRequired: true
+                isNamed: false
+                isPositional: true
+                hasDefaultValue: false
+                defaultValue: null
+                documentation: null
+                annotations:
+          definitionLibraryId: null
+          isTypeParameter: false
+          typeParameterBound: null
+          resolvedElementId: null
+        typeParameters:
+          -
+            id: typeParam_9
+            name: T
+            bound:
+              id: type_162
+              name: Entity
+              qualifiedName: "package:analyzer_demo/sample_code.dart.Entity"
+              typeArguments:
+                -
+                  id: type_163
+                  name: dynamic
+                  qualifiedName: dynamic
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: true
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: class_1
+            defaultType: null
+            variance: null
+    functions:
+      -
+        id: function_2
+        name: generateId
+        qualifiedName: "package:analyzer_demo/sample_code.dart.generateId"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 7197
+          length: 10
+        documentation: /// Create a unique ID.
+        annotations:
+
+        isDeprecated: false
+        returnType:
+          id: type_164
+          name: String
+          qualifiedName: "dart:core.String"
+          typeArguments:
+
+          isNullable: false
+          isDynamic: false
+          isVoid: false
+          isFunction: false
+          functionType: null
+          definitionLibraryId: null
+          isTypeParameter: false
+          typeParameterBound: null
+          resolvedElementId: null
+        typeParameters:
+
+        parameters:
+
+        isAsync: false
+        isGenerator: false
+        isExternal: false
+        isStatic: true
+      -
+        id: function_3
+        name: sum
+        qualifiedName: "package:analyzer_demo/sample_code.dart.sum"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 7319
+          length: 3
+        documentation: /// Calculate the sum of a list of numbers.
+        annotations:
+
+        isDeprecated: false
+        returnType:
+          id: type_165
+          name: num
+          qualifiedName: "dart:core.num"
+          typeArguments:
+
+          isNullable: false
+          isDynamic: false
+          isVoid: false
+          isFunction: false
+          functionType: null
+          definitionLibraryId: null
+          isTypeParameter: false
+          typeParameterBound: null
+          resolvedElementId: null
+        typeParameters:
+
+        parameters:
+          -
+            id: param_27
+            name: numbers
+            type:
+              id: type_166
+              name: List
+              qualifiedName: "dart:core.List"
+              typeArguments:
+                -
+                  id: type_167
+                  name: num
+                  qualifiedName: "dart:core.num"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isRequired: true
+            isNamed: false
+            isPositional: true
+            hasDefaultValue: false
+            defaultValue: null
+            documentation: null
+            annotations:
+        isAsync: false
+        isGenerator: false
+        isExternal: false
+        isStatic: true
+      -
+        id: function_4
+        name: average
+        qualifiedName: "package:analyzer_demo/sample_code.dart.average"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 7435
+          length: 7
+        documentation: /// Calculate the average of a list of numbers.
+        annotations:
+
+        isDeprecated: false
+        returnType:
+          id: type_168
+          name: double
+          qualifiedName: "dart:core.double"
+          typeArguments:
+
+          isNullable: false
+          isDynamic: false
+          isVoid: false
+          isFunction: false
+          functionType: null
+          definitionLibraryId: null
+          isTypeParameter: false
+          typeParameterBound: null
+          resolvedElementId: null
+        typeParameters:
+
+        parameters:
+          -
+            id: param_28
+            name: numbers
+            type:
+              id: type_169
+              name: List
+              qualifiedName: "dart:core.List"
+              typeArguments:
+                -
+                  id: type_170
+                  name: num
+                  qualifiedName: "dart:core.num"
+                  typeArguments:
+
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isRequired: true
+            isNamed: false
+            isPositional: true
+            hasDefaultValue: false
+            defaultValue: null
+            documentation: null
+            annotations:
+        isAsync: false
+        isGenerator: false
+        isExternal: false
+        isStatic: true
+      -
+        id: function_5
+        name: debounce
+        qualifiedName: "package:analyzer_demo/sample_code.dart.debounce"
+        libraryId: lib_3
+        sourceFileId: file_4
+        location:
+          line: 0
+          column: 0
+          offset: 7580
+          length: 8
+        documentation: /// Debounce a function call.
+        annotations:
+
+        isDeprecated: false
+        returnType:
+          id: type_171
+          name: Future
+          qualifiedName: "dart:async.Future"
+          typeArguments:
+            -
+              id: type_172
+              name: T
+              qualifiedName: T
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: true
+              typeParameterBound:
+                id: type_173
+                name: dynamic
+                qualifiedName: dynamic
+                typeArguments:
+
+                isNullable: false
+                isDynamic: true
+                isVoid: false
+                isFunction: false
+                functionType: null
+                definitionLibraryId: null
+                isTypeParameter: false
+                typeParameterBound: null
+                resolvedElementId: null
+              resolvedElementId: null
+          isNullable: false
+          isDynamic: false
+          isVoid: false
+          isFunction: false
+          functionType: null
+          definitionLibraryId: null
+          isTypeParameter: false
+          typeParameterBound: null
+          resolvedElementId: null
+        typeParameters:
+          -
+            id: typeParam_10
+            name: T
+            bound: null
+            defaultType: null
+            variance: null
+        parameters:
+          -
+            id: param_29
+            name: delay
+            type:
+              id: type_174
+              name: Duration
+              qualifiedName: "dart:core.Duration"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: false
+              functionType: null
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isRequired: true
+            isNamed: false
+            isPositional: true
+            hasDefaultValue: false
+            defaultValue: null
+            documentation: null
+            annotations:
+          -
+            id: param_30
+            name: action
+            type:
+              id: type_175
+              name: "Future<T> Function()"
+              qualifiedName: "Future<T> Function()"
+              typeArguments:
+
+              isNullable: false
+              isDynamic: false
+              isVoid: false
+              isFunction: true
+              functionType:
+                id: functionType_3
+                returnType:
+                  id: type_176
+                  name: Future
+                  qualifiedName: "dart:async.Future"
+                  typeArguments:
+                    -
+                      id: type_177
+                      name: T
+                      qualifiedName: T
+                      typeArguments:
+
+                      isNullable: false
+                      isDynamic: false
+                      isVoid: false
+                      isFunction: false
+                      functionType: null
+                      definitionLibraryId: null
+                      isTypeParameter: true
+                      typeParameterBound:
+                        id: type_178
+                        name: dynamic
+                        qualifiedName: dynamic
+                        typeArguments:
+
+                        isNullable: false
+                        isDynamic: true
+                        isVoid: false
+                        isFunction: false
+                        functionType: null
+                        definitionLibraryId: null
+                        isTypeParameter: false
+                        typeParameterBound: null
+                        resolvedElementId: null
+                      resolvedElementId: null
+                  isNullable: false
+                  isDynamic: false
+                  isVoid: false
+                  isFunction: false
+                  functionType: null
+                  definitionLibraryId: null
+                  isTypeParameter: false
+                  typeParameterBound: null
+                  resolvedElementId: null
+                typeParameters:
+
+                parameters:
+              definitionLibraryId: null
+              isTypeParameter: false
+              typeParameterBound: null
+              resolvedElementId: null
+            isRequired: true
+            isNamed: false
+            isPositional: true
+            hasDefaultValue: false
+            defaultValue: null
+            documentation: null
+            annotations:
+        isAsync: true
+        isGenerator: false
+        isExternal: false
+        isStatic: true
+    variables:
+
+    getters:
+
+    setters:
+
+    imports:
+
+    exports:
+files:
+  -
+    id: file_2
+    path: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_basics/tom_analyzer/test/build_examples/analyzer_demo/bin/verify.dart
+    packageId: pkg_1
+    libraryId: lib_2
+    isPart: false
+    partOfDirective: null
+    lines: 184
+    contentHash: b8f8ec915ad4f0f539de0bbf188fad4212556cf0130bfd4e0ff991552f91c2d1
+    modified: "2026-02-06T09:14:06.000"
+  -
+    id: file_4
+    path: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_basics/tom_analyzer/test/build_examples/analyzer_demo/lib/sample_code.dart
+    packageId: pkg_1
+    libraryId: lib_4
+    isPart: false
+    partOfDirective: null
+    lines: 340
+    contentHash: 7ea2f8adfdff3e12803d284605808cf919c367454dc2fc2ee0c5b4f4b2f6b743
+    modified: "2026-02-06T09:14:12.000"
+errors:
+
+metadata:
+  barrelPath: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_basics/tom_analyzer/test/build_examples/analyzer_demo/lib/sample_code.dart

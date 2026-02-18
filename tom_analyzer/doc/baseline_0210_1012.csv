@@ -1,0 +1,168 @@
+ID,Groups,Description,Baseline [02-10 10:12],[02-10 13:57],[02-10 14:06]
+,TomAnalyzer > core kernel analysis json,should contain all analyzer elements from core kernel,X/OK,X/OK,X/OK
+,ReflectionGenerator - Code Generation Integration > generateFromResult with empty result,generates bit flag constants,X/OK,X/OK,X/OK
+,TomAnalyzer > self analysis json,should contain all analyzer elements from the package,X/OK,X/OK,X/OK
+,ReflectionGenerator - Code Generation Integration > generator state management,generator resets state between calls,OK/OK,OK/OK,OK/OK
+,,FunctionInfo is static by default,OK/OK,OK/OK,OK/OK
+,,LibraryInfo aggregates type declarations,OK/OK,OK/OK,OK/OK
+,,FieldInfo can be instance member,OK/OK,OK/OK,OK/OK
+,,ImportInfo and ExportInfo track libraries,OK/OK,OK/OK,OK/OK
+,,SourceLocation holds offsets,OK/OK,OK/OK,OK/OK
+,,AnnotationInfo captures arguments,OK/OK,OK/OK,OK/OK
+,,ArgumentValue stringifies null,OK/OK,OK/OK,OK/OK
+,,TypeParameterInfo stores variance,OK/OK,OK/OK,OK/OK
+,,ParameterInfo tracks required flags,OK/OK,OK/OK,OK/OK
+,,sealed element switch is exhaustive,OK/OK,OK/OK,OK/OK
+,,ElementNotFoundException formats message,OK/OK,OK/OK,OK/OK
+,,AmbiguousElementException formats candidates,OK/OK,OK/OK,OK/OK
+,,analysis result navigates object graph,OK/OK,OK/OK,OK/OK
+,,ClassInfo exposes static members,OK/OK,OK/OK,OK/OK
+,,EnumInfo contains values,OK/OK,OK/OK,OK/OK
+,,ExtensionInfo captures extended type,OK/OK,OK/OK,OK/OK
+,,query APIs find elements,OK/OK,OK/OK,OK/OK
+,,getClassOrThrow throws not found,OK/OK,OK/OK,OK/OK
+,,getClassOrThrow throws on ambiguous,OK/OK,OK/OK,OK/OK
+,,generic findElementsWithAnnotation finds classes,OK/OK,OK/OK,OK/OK
+,,type declarations extend base hierarchy,OK/OK,OK/OK,OK/OK
+,,executables extend executable element,OK/OK,OK/OK,OK/OK
+,,variables extend variable element,OK/OK,OK/OK,OK/OK
+,,container elements extend base element,OK/OK,OK/OK,OK/OK
+,,TypeReference resolves as class,OK/OK,OK/OK,OK/OK
+,,TypeReference matchResolved selects branch,OK/OK,OK/OK,OK/OK
+,,TypeReference unresolved branch returns default,OK/OK,OK/OK,OK/OK
+,,creates analyzer instance,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Code Generation Integration > generateFromResult with empty result,generates valid Dart code structure,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Code Generation Integration > generateFromResult with empty result,generates runtime import,OK/OK,OK/OK,OK/OK
+,,ConstructorInfo uses declaring type library,OK/OK,OK/OK,OK/OK
+,GlobMatcher,matches exact string,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Code Generation Integration > generateFromResult with empty result,generates initialization function,OK/OK,OK/OK,OK/OK
+,GlobMatcher,matches with * wildcard,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Code Generation Integration > generateFromResult with empty result,generates reflectionApi variable,OK/OK,OK/OK,OK/OK
+,GlobMatcher,matches with ** wildcard,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Code Generation Integration > generateFromResult with empty result,generates reflection data structure,OK/OK,OK/OK,OK/OK
+,GlobMatcher,matches with ? wildcard,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Code Generation Integration > code structure validation,generated code has proper Dart syntax markers,OK/OK,OK/OK,OK/OK
+,GlobMatcher,matches dart SDK packages,OK/OK,OK/OK,OK/OK
+,GlobMatcher,escapes regex special characters,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Code Generation Integration > code structure validation,generated code has balanced braces,OK/OK,OK/OK,OK/OK
+,GlobMatcher,handles prefix wildcards,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Code Generation Integration > code structure validation,generated code has balanced parentheses,OK/OK,OK/OK,OK/OK
+,AnnotationPattern,parses short name,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Code Generation Integration > code structure validation,generated code has balanced brackets,OK/OK,OK/OK,OK/OK
+,AnnotationPattern,parses qualified name with package URI,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Code Generation Integration > invokers array generation,empty result generates empty invokers,OK/OK,OK/OK,OK/OK
+,AnnotationPattern,parses short name with hash,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Code Generation Integration > package structure generation,empty result generates minimal package structure,OK/OK,OK/OK,OK/OK
+,AnnotationPattern,parses annotation with field matchers,OK/OK,OK/OK,OK/OK
+,AnnotationPattern,parses @ prefix annotation,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Performance Tests > analysis performance,analyzes small fixture in reasonable time,X/OK,X/OK,OK/OK
+,FilterMatcher > matchesPackage,matches exact package,OK/OK,OK/OK,OK/OK
+,FilterMatcher > matchesPackage,matches wildcard packages,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Code Generation Integration > generator state management,generator can be reused,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Code Generation Integration > output configuration,getOutputPath returns configured output,OK/OK,OK/OK,OK/OK
+,FilterMatcher > matchesPackage,returns false when no packages specified,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Code Generation Integration > output configuration,getOutputPath returns default when not configured,OK/OK,OK/OK,OK/OK
+,FilterMatcher > matchesPath,matches glob patterns,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Code Generation Integration > import generation,runtime import uses correct alias,OK/OK,OK/OK,OK/OK
+,FilterMatcher > matchesTypeName,matches type patterns,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Code Generation Integration > declarations section,empty result has declarations structure,OK/OK,OK/OK,OK/OK
+,FilterMatcher > matchesElement,matches exact element identifiers,OK/OK,OK/OK,OK/OK
+,FilterMatcher > hasSelectors,returns false when no selectors,OK/OK,OK/OK,OK/OK
+,FilterMatcher > hasSelectors,returns true when has packages,OK/OK,OK/OK,OK/OK
+,FilterMatcher > hasSelectors,returns true when has annotations,OK/OK,OK/OK,OK/OK
+,FilterMatcher > isInclude,reflects filter type,OK/OK,OK/OK,OK/OK
+,DefaultsMatcher,detects excluded packages,OK/OK,OK/OK,OK/OK
+,DefaultsMatcher,detects included packages,OK/OK,OK/OK,OK/OK
+,InclusionResolver,creates from config,OK/OK,OK/OK,OK/OK
+,InclusionResolver,defaults matcher is accessible,OK/OK,OK/OK,OK/OK
+,InclusionResolver,filters are ordered,OK/OK,OK/OK,OK/OK
+,ReflectionConfig > fromMap,parses minimal configuration,OK/OK,OK/OK,OK/OK
+,ReflectionConfig > fromMap,parses complete configuration,OK/OK,OK/OK,OK/OK
+,ReflectionConfig > fromMap,handles empty configuration,OK/OK,OK/OK,OK/OK
+,ReflectionConfig > getOutputPathFor,derives output from entry point,OK/OK,OK/OK,OK/OK
+,ReflectionConfig > getOutputPathFor,derives output from entry point when no output specified,OK/OK,OK/OK,OK/OK
+,ReflectionConfig > getOutputPathFor,handles entry point with .dart extension,OK/OK,OK/OK,OK/OK
+,ReflectionConfig > getOutputPathFor,handles entry point without .dart extension,OK/OK,OK/OK,OK/OK
+,ReflectionConfig > shouldCombineOutput,returns false for single entry point,OK/OK,OK/OK,OK/OK
+,ReflectionConfig > hasMultipleEntryPoints,returns true for multiple entry points,OK/OK,OK/OK,OK/OK
+,ReflectionConfig > hasMultipleEntryPoints,returns false for empty entry points,OK/OK,OK/OK,OK/OK
+,ReflectionConfig > shouldCombineOutput,returns true when output is specified with multiple entries,OK/OK,OK/OK,OK/OK
+,ReflectionConfig > shouldCombineOutput,returns false when no output specified,OK/OK,OK/OK,OK/OK
+,ReflectionDefaults,parses from map,OK/OK,OK/OK,OK/OK
+,ReflectionDefaults,handles empty map,OK/OK,OK/OK,OK/OK
+,ReflectionFilter,parses include filter,OK/OK,OK/OK,OK/OK
+,ReflectionFilter,parses exclude filter,OK/OK,OK/OK,OK/OK
+,ReflectionFilter,parses element identifiers,OK/OK,OK/OK,OK/OK
+,ReflectionFilter,handles hasSelectors,OK/OK,OK/OK,OK/OK
+,DependencyConfig,parses superclass config,OK/OK,OK/OK,OK/OK
+,DependencyConfig,parses interface config,OK/OK,OK/OK,OK/OK
+,DependencyConfig,parses mixin config,OK/OK,OK/OK,OK/OK
+,CoverageConfig,defaults are correct,OK/OK,OK/OK,OK/OK
+,CoverageConfig,parses instance members config,OK/OK,OK/OK,OK/OK
+,CoverageConfig,parses constructors config,OK/OK,OK/OK,OK/OK
+,CoverageConfig,parses top level config,OK/OK,OK/OK,OK/OK
+,CoverageConfig,parses static members config,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator > constructor,creates generator with config,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator > fromMap factory,creates generator from minimal map,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator > fromMap factory,creates generator with entry points,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator > fromMap factory,creates generator with output path,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator > fromMap factory,creates generator with filters,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator > config access,config returns the configuration,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator > config access,config has expected default values,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Performance Tests > generator efficiency,reusing generator is efficient,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator > configuration integration,generator respects defaults.includePackages config,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator > configuration integration,generator respects dependency_config,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator > multiple entry points,generator accepts multiple entry points,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator > multiple entry points,generator accepts glob patterns in entry points,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator > filter combinations,generator with include filters,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator > filter combinations,generator with exclude filters,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator > filter combinations,generator with mixed filters,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator > complex configuration,generator with full configuration,OK/OK,OK/OK,OK/OK
+,ReflectionAnalysisResult,empty result has zero counts,OK/OK,OK/OK,OK/OK
+,ReflectionAnalysisResult,typeCount sums all type categories,OK/OK,OK/OK,OK/OK
+,ReflectionAnalysisResult,globalMemberCount sums functions and variables,OK/OK,OK/OK,OK/OK
+,ReflectionAnalysisResult,packageLibraries is empty by default,OK/OK,OK/OK,OK/OK
+,ReflectionAnalysisResult,libraryTypes is empty by default,OK/OK,OK/OK,OK/OK
+,EntryPointAnalyzer,creates with config,OK/OK,OK/OK,OK/OK
+,EntryPointAnalyzer,returns empty result for empty entry points,OK/OK,OK/OK,OK/OK
+,EntryPointAnalyzer,creates inclusion resolver from config,OK/OK,OK/OK,OK/OK
+,EntryPointAnalyzer configuration,respects exclude_packages in defaults,OK/OK,OK/OK,OK/OK
+,EntryPointAnalyzer configuration,respects include_packages in defaults,OK/OK,OK/OK,OK/OK
+,EntryPointAnalyzer configuration,applies filters in order,OK/OK,OK/OK,OK/OK
+,EntryPointAnalyzer configuration,uses dependency config,OK/OK,OK/OK,OK/OK
+,EntryPointAnalyzer path handling,handles relative paths,OK/OK,OK/OK,OK/OK
+,EntryPointAnalyzer path handling,handles absolute paths,OK/OK,OK/OK,OK/OK
+,,SetterInfo exposes parameter list,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > sample_models.dart analysis,discovers User class,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > sample_models.dart analysis,discovers TrackedUser class,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > sample_models.dart analysis,discovers Entity abstract class,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > sample_models.dart analysis,discovers Repository generic class,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > sample_models.dart analysis,discovers Trackable mixin,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > sample_models.dart analysis,discovers UserRole enum,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > sample_models.dart analysis,discovers StringUtils extension,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > sample_models.dart analysis,discovers greet global function,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > sample_models.dart analysis,discovers appVersion global variable,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > sample_models.dart analysis,discovers requestCounter global variable,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > sample_models.dart analysis,result has correct type count,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > sample_models.dart analysis,result has correct global member count,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > code generation from sample_models,generated code imports the fixture library,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > code generation from sample_models,generated code contains User type reference,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > code generation from sample_models,generated code contains UserRole type reference,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > code generation from sample_models,generated code contains Trackable type reference,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > code generation from sample_models,generated code has constructor invokers,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > code generation from sample_models,generated code has method references,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > code generation from sample_models,generated code is syntactically valid,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > code generation from sample_models,generated code length is reasonable,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > multiple entry points,generator handles single entry point,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Performance Tests > analysis performance,analysis time scales reasonably with type count,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > multiple entry points,generator returns empty for non-existent entry point,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Performance Tests > code generation performance,generates code in reasonable time for small fixture,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > library metadata,result contains library types mapping,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Performance Tests > code generation performance,generated code size is proportional to type count,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - End-to-End Tests > library metadata,result contains classes from entry point,OK/OK,OK/OK,OK/OK
+,,LibraryInfo exposes source files,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Performance Tests > large codebase performance (UAM Server),analyzes aa_server_start.dart entry point,OK/OK,OK/OK,OK/OK
+,,VariableInfo is static by default,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Performance Tests > large codebase performance (UAM Server),generates code for aa_server_start.dart,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator - Performance Tests > large codebase performance (UAM Server),memory usage is reasonable,OK/OK,OK/OK,OK/OK
+,ReflectionGenerator > configuration integration,generator respects defaults.excludePackages config,OK/OK,OK/OK,OK/OK

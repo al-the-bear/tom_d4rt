@@ -1,0 +1,16 @@
+builders:
+  tom_analyzer:
+    import: "package:tom_analyzer/src/builder/analyzer_builder.dart"
+    builder_factories: ["tomAnalyzerBuilder"]
+    build_extensions: {".dart": [".analysis.yaml"]}
+    auto_apply: dependents
+    build_to: source
+    defaults:
+      options:
+        output_format: yaml
+  tom_analyzer_reflection:
+    import: "package:tom_analyzer/src/builder/reflection_builder.dart"
+    builder_factories: ["tomAnalyzerReflectionBuilder"]
+    build_extensions: {".dart": [".r.dart"]}
+    auto_apply: dependents
+    build_to: source

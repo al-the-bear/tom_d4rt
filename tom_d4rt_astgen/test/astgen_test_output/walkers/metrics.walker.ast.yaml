@@ -1,0 +1,1857 @@
+nodeType: CompilationUnit
+offset: 0
+length: 1622
+directives:
+  -
+    nodeType: LibraryDirective
+    offset: 0
+    length: 46
+    metadata: []
+  -
+    nodeType: ImportDirective
+    offset: 48
+    length: 17
+    metadata: []
+    uri:
+      nodeType: SimpleStringLiteral
+      offset: 55
+      length: 9
+      value: "dart:io"
+      isRaw: false
+      isMultiline: false
+      isSingleQuoted: true
+    combinators: []
+    isDeferred: false
+declarations:
+  -
+    nodeType: FunctionDeclaration
+    offset: 67
+    length: 156
+    name:
+      nodeType: SimpleIdentifier
+      offset: 72
+      length: 4
+      name: main
+      inDeclarationContext: true
+    metadata: []
+    returnType:
+      nodeType: NamedType
+      offset: 67
+      length: 4
+      name:
+        nodeType: SimpleIdentifier
+        offset: 67
+        length: 4
+        name: void
+        inDeclarationContext: true
+      isNullable: false
+    isGetter: false
+    isSetter: false
+    isExternal: false
+    functionExpression:
+      nodeType: FunctionExpression
+      offset: 76
+      length: 147
+      parameters:
+        nodeType: FormalParameterList
+        offset: 76
+        length: 19
+        parameters:
+          -
+            nodeType: SimpleFormalParameter
+            offset: 77
+            length: 17
+            name:
+              nodeType: SimpleIdentifier
+              offset: 90
+              length: 4
+              name: args
+              inDeclarationContext: true
+            type:
+              nodeType: NamedType
+              offset: 77
+              length: 12
+              name:
+                nodeType: SimpleIdentifier
+                offset: 77
+                length: 4
+                name: List
+                inDeclarationContext: true
+              typeArguments:
+                nodeType: TypeArgumentList
+                offset: 81
+                length: 8
+                arguments:
+                  -
+                    nodeType: NamedType
+                    offset: 82
+                    length: 6
+                    name:
+                      nodeType: SimpleIdentifier
+                      offset: 82
+                      length: 6
+                      name: String
+                      inDeclarationContext: true
+                    isNullable: false
+              isNullable: false
+            metadata: []
+            isConst: false
+            isFinal: false
+            isRequired: false
+            isCovariant: false
+            isPositional: true
+            isNamed: false
+      body:
+        nodeType: BlockFunctionBody
+        offset: 96
+        length: 127
+        block:
+          nodeType: Block
+          offset: 102
+          length: 121
+          statements:
+            -
+              nodeType: VariableDeclarationStatement
+              offset: 106
+              length: 47
+              variables:
+                nodeType: VariableDeclarationList
+                offset: 106
+                length: 46
+                variables:
+                  -
+                    nodeType: VariableDeclaration
+                    offset: 112
+                    length: 40
+                    name:
+                      nodeType: SimpleIdentifier
+                      offset: 112
+                      length: 4
+                      name: path
+                      inDeclarationContext: true
+                    metadata: []
+                    initializer:
+                      nodeType: ConditionalExpression
+                      offset: 119
+                      length: 33
+                      condition:
+                        nodeType: PrefixedIdentifier
+                        offset: 119
+                        length: 15
+                        prefix:
+                          nodeType: SimpleIdentifier
+                          offset: 119
+                          length: 4
+                          name: args
+                          inDeclarationContext: false
+                        identifier:
+                          nodeType: SimpleIdentifier
+                          offset: 124
+                          length: 10
+                          name: isNotEmpty
+                          inDeclarationContext: false
+                      thenExpression:
+                        nodeType: IndexExpression
+                        offset: 137
+                        length: 7
+                        target:
+                          nodeType: SimpleIdentifier
+                          offset: 137
+                          length: 4
+                          name: args
+                          inDeclarationContext: false
+                        index:
+                          nodeType: IntegerLiteral
+                          offset: 142
+                          length: 1
+                          value: 0
+                        isCascaded: false
+                        isNullAware: false
+                      elseExpression:
+                        nodeType: SimpleStringLiteral
+                        offset: 147
+                        length: 5
+                        value: lib
+                        isRaw: false
+                        isMultiline: false
+                        isSingleQuoted: true
+                    isConst: false
+                    isFinal: false
+                    isLate: false
+                isConst: false
+                isFinal: true
+                isLate: false
+                metadata: []
+            -
+              nodeType: VariableDeclarationStatement
+              offset: 156
+              length: 35
+              variables:
+                nodeType: VariableDeclarationList
+                offset: 156
+                length: 34
+                variables:
+                  -
+                    nodeType: VariableDeclaration
+                    offset: 162
+                    length: 28
+                    name:
+                      nodeType: SimpleIdentifier
+                      offset: 162
+                      length: 6
+                      name: walker
+                      inDeclarationContext: true
+                    metadata: []
+                    initializer:
+                      nodeType: MethodInvocation
+                      offset: 171
+                      length: 19
+                      methodName:
+                        nodeType: SimpleIdentifier
+                        offset: 171
+                        length: 17
+                        name: CodeMetricsWalker
+                        inDeclarationContext: false
+                      argumentList:
+                        nodeType: ArgumentList
+                        offset: 188
+                        length: 2
+                        arguments: []
+                    isConst: false
+                    isFinal: false
+                    isLate: false
+                isConst: false
+                isFinal: true
+                isLate: false
+                metadata: []
+            -
+              nodeType: ExpressionStatement
+              offset: 194
+              length: 27
+              expression:
+                nodeType: AwaitExpression
+                offset: 194
+                length: 26
+                expression:
+                  nodeType: MethodInvocation
+                  offset: 200
+                  length: 20
+                  target:
+                    nodeType: SimpleIdentifier
+                    offset: 200
+                    length: 6
+                    name: walker
+                    inDeclarationContext: false
+                  operator: .
+                  methodName:
+                    nodeType: SimpleIdentifier
+                    offset: 207
+                    length: 7
+                    name: analyze
+                    inDeclarationContext: false
+                  argumentList:
+                    nodeType: ArgumentList
+                    offset: 214
+                    length: 6
+                    arguments:
+                      -
+                        nodeType: SimpleIdentifier
+                        offset: 215
+                        length: 4
+                        name: path
+                        inDeclarationContext: false
+        isAsync: true
+        isGenerator: false
+  -
+    nodeType: ClassDeclaration
+    offset: 225
+    length: 1025
+    name:
+      nodeType: SimpleIdentifier
+      offset: 231
+      length: 17
+      name: CodeMetricsWalker
+      inDeclarationContext: true
+    metadata: []
+    isAbstract: false
+    isSealed: false
+    isBase: false
+    isInterface: false
+    isFinal: false
+    isMixin: false
+    members:
+      -
+        nodeType: FieldDeclaration
+        offset: 253
+        length: 19
+        metadata: []
+        isStatic: false
+        isAbstract: false
+        isCovariant: false
+        isExternal: false
+        fields:
+          nodeType: VariableDeclarationList
+          offset: 253
+          length: 18
+          type:
+            nodeType: NamedType
+            offset: 253
+            length: 3
+            name:
+              nodeType: SimpleIdentifier
+              offset: 253
+              length: 3
+              name: int
+              inDeclarationContext: true
+            isNullable: false
+          variables:
+            -
+              nodeType: VariableDeclaration
+              offset: 257
+              length: 14
+              name:
+                nodeType: SimpleIdentifier
+                offset: 257
+                length: 10
+                name: totalLines
+                inDeclarationContext: true
+              metadata: []
+              initializer:
+                nodeType: IntegerLiteral
+                offset: 270
+                length: 1
+                value: 0
+              isConst: false
+              isFinal: false
+              isLate: false
+          isConst: false
+          isFinal: false
+          isLate: false
+          metadata: []
+      -
+        nodeType: FieldDeclaration
+        offset: 275
+        length: 18
+        metadata: []
+        isStatic: false
+        isAbstract: false
+        isCovariant: false
+        isExternal: false
+        fields:
+          nodeType: VariableDeclarationList
+          offset: 275
+          length: 17
+          type:
+            nodeType: NamedType
+            offset: 275
+            length: 3
+            name:
+              nodeType: SimpleIdentifier
+              offset: 275
+              length: 3
+              name: int
+              inDeclarationContext: true
+            isNullable: false
+          variables:
+            -
+              nodeType: VariableDeclaration
+              offset: 279
+              length: 13
+              name:
+                nodeType: SimpleIdentifier
+                offset: 279
+                length: 9
+                name: codeLines
+                inDeclarationContext: true
+              metadata: []
+              initializer:
+                nodeType: IntegerLiteral
+                offset: 291
+                length: 1
+                value: 0
+              isConst: false
+              isFinal: false
+              isLate: false
+          isConst: false
+          isFinal: false
+          isLate: false
+          metadata: []
+      -
+        nodeType: FieldDeclaration
+        offset: 296
+        length: 21
+        metadata: []
+        isStatic: false
+        isAbstract: false
+        isCovariant: false
+        isExternal: false
+        fields:
+          nodeType: VariableDeclarationList
+          offset: 296
+          length: 20
+          type:
+            nodeType: NamedType
+            offset: 296
+            length: 3
+            name:
+              nodeType: SimpleIdentifier
+              offset: 296
+              length: 3
+              name: int
+              inDeclarationContext: true
+            isNullable: false
+          variables:
+            -
+              nodeType: VariableDeclaration
+              offset: 300
+              length: 16
+              name:
+                nodeType: SimpleIdentifier
+                offset: 300
+                length: 12
+                name: commentLines
+                inDeclarationContext: true
+              metadata: []
+              initializer:
+                nodeType: IntegerLiteral
+                offset: 315
+                length: 1
+                value: 0
+              isConst: false
+              isFinal: false
+              isLate: false
+          isConst: false
+          isFinal: false
+          isLate: false
+          metadata: []
+      -
+        nodeType: FieldDeclaration
+        offset: 320
+        length: 19
+        metadata: []
+        isStatic: false
+        isAbstract: false
+        isCovariant: false
+        isExternal: false
+        fields:
+          nodeType: VariableDeclarationList
+          offset: 320
+          length: 18
+          type:
+            nodeType: NamedType
+            offset: 320
+            length: 3
+            name:
+              nodeType: SimpleIdentifier
+              offset: 320
+              length: 3
+              name: int
+              inDeclarationContext: true
+            isNullable: false
+          variables:
+            -
+              nodeType: VariableDeclaration
+              offset: 324
+              length: 14
+              name:
+                nodeType: SimpleIdentifier
+                offset: 324
+                length: 10
+                name: blankLines
+                inDeclarationContext: true
+              metadata: []
+              initializer:
+                nodeType: IntegerLiteral
+                offset: 337
+                length: 1
+                value: 0
+              isConst: false
+              isFinal: false
+              isLate: false
+          isConst: false
+          isFinal: false
+          isLate: false
+          metadata: []
+      -
+        nodeType: MethodDeclaration
+        offset: 345
+        length: 458
+        name:
+          nodeType: SimpleIdentifier
+          offset: 358
+          length: 7
+          name: analyze
+          inDeclarationContext: true
+        metadata: []
+        returnType:
+          nodeType: NamedType
+          offset: 345
+          length: 12
+          name:
+            nodeType: SimpleIdentifier
+            offset: 345
+            length: 6
+            name: Future
+            inDeclarationContext: true
+          typeArguments:
+            nodeType: TypeArgumentList
+            offset: 351
+            length: 6
+            arguments:
+              -
+                nodeType: NamedType
+                offset: 352
+                length: 4
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 352
+                  length: 4
+                  name: void
+                  inDeclarationContext: true
+                isNullable: false
+          isNullable: false
+        isStatic: false
+        isAbstract: false
+        isExternal: false
+        isGetter: false
+        isSetter: false
+        isOperator: false
+        parameters:
+          nodeType: FormalParameterList
+          offset: 365
+          length: 13
+          parameters:
+            -
+              nodeType: SimpleFormalParameter
+              offset: 366
+              length: 11
+              name:
+                nodeType: SimpleIdentifier
+                offset: 373
+                length: 4
+                name: path
+                inDeclarationContext: true
+              type:
+                nodeType: NamedType
+                offset: 366
+                length: 6
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 366
+                  length: 6
+                  name: String
+                  inDeclarationContext: true
+                isNullable: false
+              metadata: []
+              isConst: false
+              isFinal: false
+              isRequired: false
+              isCovariant: false
+              isPositional: true
+              isNamed: false
+        body:
+          nodeType: BlockFunctionBody
+          offset: 379
+          length: 424
+          block:
+            nodeType: Block
+            offset: 385
+            length: 418
+            statements:
+              -
+                nodeType: VariableDeclarationStatement
+                offset: 391
+                length: 28
+                variables:
+                  nodeType: VariableDeclarationList
+                  offset: 391
+                  length: 27
+                  variables:
+                    -
+                      nodeType: VariableDeclaration
+                      offset: 397
+                      length: 21
+                      name:
+                        nodeType: SimpleIdentifier
+                        offset: 397
+                        length: 3
+                        name: dir
+                        inDeclarationContext: true
+                      metadata: []
+                      initializer:
+                        nodeType: MethodInvocation
+                        offset: 403
+                        length: 15
+                        methodName:
+                          nodeType: SimpleIdentifier
+                          offset: 403
+                          length: 9
+                          name: Directory
+                          inDeclarationContext: false
+                        argumentList:
+                          nodeType: ArgumentList
+                          offset: 412
+                          length: 6
+                          arguments:
+                            -
+                              nodeType: SimpleIdentifier
+                              offset: 413
+                              length: 4
+                              name: path
+                              inDeclarationContext: false
+                      isConst: false
+                      isFinal: false
+                      isLate: false
+                  isConst: false
+                  isFinal: true
+                  isLate: false
+                  metadata: []
+              -
+                nodeType: ForStatement
+                offset: 429
+                length: 171
+                forLoopParts:
+                  nodeType: ForEachPartsWithDeclaration
+                  offset: 440
+                  length: 41
+                  loopVariable:
+                    nodeType: DeclaredIdentifier
+                    offset: 440
+                    length: 12
+                    metadata: []
+                    identifier:
+                      nodeType: SimpleIdentifier
+                      offset: 446
+                      length: 6
+                      name: entity
+                      inDeclarationContext: true
+                    isFinal: true
+                    isConst: false
+                  iterable:
+                    nodeType: MethodInvocation
+                    offset: 456
+                    length: 25
+                    target:
+                      nodeType: SimpleIdentifier
+                      offset: 456
+                      length: 3
+                      name: dir
+                      inDeclarationContext: false
+                    operator: .
+                    methodName:
+                      nodeType: SimpleIdentifier
+                      offset: 460
+                      length: 4
+                      name: list
+                      inDeclarationContext: false
+                    argumentList:
+                      nodeType: ArgumentList
+                      offset: 464
+                      length: 17
+                      arguments:
+                        -
+                          nodeType: NamedExpression
+                          offset: 465
+                          length: 15
+                          name:
+                            nodeType: Label
+                            offset: 465
+                            length: 10
+                            label:
+                              nodeType: SimpleIdentifier
+                              offset: 465
+                              length: 9
+                              name: recursive
+                              inDeclarationContext: false
+                          expression:
+                            nodeType: BooleanLiteral
+                            offset: 476
+                            length: 4
+                            value: true
+                  isAwait: false
+                body:
+                  nodeType: Block
+                  offset: 483
+                  length: 117
+                  statements:
+                    -
+                      nodeType: IfStatement
+                      offset: 491
+                      length: 103
+                      condition:
+                        nodeType: BinaryExpression
+                        offset: 495
+                        length: 47
+                        leftOperand:
+                          nodeType: IsExpression
+                          offset: 495
+                          length: 14
+                          expression:
+                            nodeType: SimpleIdentifier
+                            offset: 495
+                            length: 6
+                            name: entity
+                            inDeclarationContext: false
+                          isNot: false
+                          type:
+                            nodeType: NamedType
+                            offset: 505
+                            length: 4
+                            name:
+                              nodeType: SimpleIdentifier
+                              offset: 505
+                              length: 4
+                              name: File
+                              inDeclarationContext: true
+                            isNullable: false
+                        operator: &&
+                        rightOperand:
+                          nodeType: MethodInvocation
+                          offset: 513
+                          length: 29
+                          target:
+                            nodeType: PrefixedIdentifier
+                            offset: 513
+                            length: 11
+                            prefix:
+                              nodeType: SimpleIdentifier
+                              offset: 513
+                              length: 6
+                              name: entity
+                              inDeclarationContext: false
+                            identifier:
+                              nodeType: SimpleIdentifier
+                              offset: 520
+                              length: 4
+                              name: path
+                              inDeclarationContext: false
+                          operator: .
+                          methodName:
+                            nodeType: SimpleIdentifier
+                            offset: 525
+                            length: 8
+                            name: endsWith
+                            inDeclarationContext: false
+                          argumentList:
+                            nodeType: ArgumentList
+                            offset: 533
+                            length: 9
+                            arguments:
+                              -
+                                nodeType: SimpleStringLiteral
+                                offset: 534
+                                length: 7
+                                value: .dart
+                                isRaw: false
+                                isMultiline: false
+                                isSingleQuoted: true
+                      thenStatement:
+                        nodeType: Block
+                        offset: 544
+                        length: 50
+                        statements:
+                          -
+                            nodeType: ExpressionStatement
+                            offset: 554
+                            length: 32
+                            expression:
+                              nodeType: AwaitExpression
+                              offset: 554
+                              length: 31
+                              expression:
+                                nodeType: MethodInvocation
+                                offset: 560
+                                length: 25
+                                methodName:
+                                  nodeType: SimpleIdentifier
+                                  offset: 560
+                                  length: 12
+                                  name: _analyzeFile
+                                  inDeclarationContext: false
+                                argumentList:
+                                  nodeType: ArgumentList
+                                  offset: 572
+                                  length: 13
+                                  arguments:
+                                    -
+                                      nodeType: PrefixedIdentifier
+                                      offset: 573
+                                      length: 11
+                                      prefix:
+                                        nodeType: SimpleIdentifier
+                                        offset: 573
+                                        length: 6
+                                        name: entity
+                                        inDeclarationContext: false
+                                      identifier:
+                                        nodeType: SimpleIdentifier
+                                        offset: 580
+                                        length: 4
+                                        name: path
+                                        inDeclarationContext: false
+              -
+                nodeType: ExpressionStatement
+                offset: 610
+                length: 23
+                expression:
+                  nodeType: MethodInvocation
+                  offset: 610
+                  length: 22
+                  methodName:
+                    nodeType: SimpleIdentifier
+                    offset: 610
+                    length: 5
+                    name: print
+                    inDeclarationContext: false
+                  argumentList:
+                    nodeType: ArgumentList
+                    offset: 615
+                    length: 17
+                    arguments:
+                      -
+                        nodeType: SimpleStringLiteral
+                        offset: 616
+                        length: 15
+                        value: "Code Metrics:"
+                        isRaw: false
+                        isMultiline: false
+                        isSingleQuoted: true
+              -
+                nodeType: ExpressionStatement
+                offset: 638
+                length: 36
+                expression:
+                  nodeType: MethodInvocation
+                  offset: 638
+                  length: 35
+                  methodName:
+                    nodeType: SimpleIdentifier
+                    offset: 638
+                    length: 5
+                    name: print
+                    inDeclarationContext: false
+                  argumentList:
+                    nodeType: ArgumentList
+                    offset: 643
+                    length: 30
+                    arguments:
+                      -
+                        nodeType: StringInterpolation
+                        offset: 644
+                        length: 28
+                        elements:
+                          -
+                            nodeType: InterpolationString
+                            offset: 644
+                            length: 16
+                            value: "  Total lines: "
+                          -
+                            nodeType: InterpolationExpression
+                            offset: 660
+                            length: 11
+                            expression:
+                              nodeType: SimpleIdentifier
+                              offset: 661
+                              length: 10
+                              name: totalLines
+                              inDeclarationContext: false
+                          -
+                            nodeType: InterpolationString
+                            offset: 671
+                            length: 1
+                            value: 
+                        isMultiline: false
+                        isRaw: false
+              -
+                nodeType: ExpressionStatement
+                offset: 679
+                length: 34
+                expression:
+                  nodeType: MethodInvocation
+                  offset: 679
+                  length: 33
+                  methodName:
+                    nodeType: SimpleIdentifier
+                    offset: 679
+                    length: 5
+                    name: print
+                    inDeclarationContext: false
+                  argumentList:
+                    nodeType: ArgumentList
+                    offset: 684
+                    length: 28
+                    arguments:
+                      -
+                        nodeType: StringInterpolation
+                        offset: 685
+                        length: 26
+                        elements:
+                          -
+                            nodeType: InterpolationString
+                            offset: 685
+                            length: 15
+                            value: "  Code lines: "
+                          -
+                            nodeType: InterpolationExpression
+                            offset: 700
+                            length: 10
+                            expression:
+                              nodeType: SimpleIdentifier
+                              offset: 701
+                              length: 9
+                              name: codeLines
+                              inDeclarationContext: false
+                          -
+                            nodeType: InterpolationString
+                            offset: 710
+                            length: 1
+                            value: 
+                        isMultiline: false
+                        isRaw: false
+              -
+                nodeType: ExpressionStatement
+                offset: 718
+                length: 40
+                expression:
+                  nodeType: MethodInvocation
+                  offset: 718
+                  length: 39
+                  methodName:
+                    nodeType: SimpleIdentifier
+                    offset: 718
+                    length: 5
+                    name: print
+                    inDeclarationContext: false
+                  argumentList:
+                    nodeType: ArgumentList
+                    offset: 723
+                    length: 34
+                    arguments:
+                      -
+                        nodeType: StringInterpolation
+                        offset: 724
+                        length: 32
+                        elements:
+                          -
+                            nodeType: InterpolationString
+                            offset: 724
+                            length: 18
+                            value: "  Comment lines: "
+                          -
+                            nodeType: InterpolationExpression
+                            offset: 742
+                            length: 13
+                            expression:
+                              nodeType: SimpleIdentifier
+                              offset: 743
+                              length: 12
+                              name: commentLines
+                              inDeclarationContext: false
+                          -
+                            nodeType: InterpolationString
+                            offset: 755
+                            length: 1
+                            value: 
+                        isMultiline: false
+                        isRaw: false
+              -
+                nodeType: ExpressionStatement
+                offset: 763
+                length: 36
+                expression:
+                  nodeType: MethodInvocation
+                  offset: 763
+                  length: 35
+                  methodName:
+                    nodeType: SimpleIdentifier
+                    offset: 763
+                    length: 5
+                    name: print
+                    inDeclarationContext: false
+                  argumentList:
+                    nodeType: ArgumentList
+                    offset: 768
+                    length: 30
+                    arguments:
+                      -
+                        nodeType: StringInterpolation
+                        offset: 769
+                        length: 28
+                        elements:
+                          -
+                            nodeType: InterpolationString
+                            offset: 769
+                            length: 16
+                            value: "  Blank lines: "
+                          -
+                            nodeType: InterpolationExpression
+                            offset: 785
+                            length: 11
+                            expression:
+                              nodeType: SimpleIdentifier
+                              offset: 786
+                              length: 10
+                              name: blankLines
+                              inDeclarationContext: false
+                          -
+                            nodeType: InterpolationString
+                            offset: 796
+                            length: 1
+                            value: 
+                        isMultiline: false
+                        isRaw: false
+          isAsync: true
+          isGenerator: false
+      -
+        nodeType: MethodDeclaration
+        offset: 809
+        length: 439
+        name:
+          nodeType: SimpleIdentifier
+          offset: 822
+          length: 12
+          name: _analyzeFile
+          inDeclarationContext: true
+        metadata: []
+        returnType:
+          nodeType: NamedType
+          offset: 809
+          length: 12
+          name:
+            nodeType: SimpleIdentifier
+            offset: 809
+            length: 6
+            name: Future
+            inDeclarationContext: true
+          typeArguments:
+            nodeType: TypeArgumentList
+            offset: 815
+            length: 6
+            arguments:
+              -
+                nodeType: NamedType
+                offset: 816
+                length: 4
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 816
+                  length: 4
+                  name: void
+                  inDeclarationContext: true
+                isNullable: false
+          isNullable: false
+        isStatic: false
+        isAbstract: false
+        isExternal: false
+        isGetter: false
+        isSetter: false
+        isOperator: false
+        parameters:
+          nodeType: FormalParameterList
+          offset: 834
+          length: 13
+          parameters:
+            -
+              nodeType: SimpleFormalParameter
+              offset: 835
+              length: 11
+              name:
+                nodeType: SimpleIdentifier
+                offset: 842
+                length: 4
+                name: path
+                inDeclarationContext: true
+              type:
+                nodeType: NamedType
+                offset: 835
+                length: 6
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 835
+                  length: 6
+                  name: String
+                  inDeclarationContext: true
+                isNullable: false
+              metadata: []
+              isConst: false
+              isFinal: false
+              isRequired: false
+              isCovariant: false
+              isPositional: true
+              isNamed: false
+        body:
+          nodeType: BlockFunctionBody
+          offset: 848
+          length: 400
+          block:
+            nodeType: Block
+            offset: 854
+            length: 394
+            statements:
+              -
+                nodeType: VariableDeclarationStatement
+                offset: 860
+                length: 48
+                variables:
+                  nodeType: VariableDeclarationList
+                  offset: 860
+                  length: 47
+                  variables:
+                    -
+                      nodeType: VariableDeclaration
+                      offset: 866
+                      length: 41
+                      name:
+                        nodeType: SimpleIdentifier
+                        offset: 866
+                        length: 7
+                        name: content
+                        inDeclarationContext: true
+                      metadata: []
+                      initializer:
+                        nodeType: AwaitExpression
+                        offset: 876
+                        length: 31
+                        expression:
+                          nodeType: MethodInvocation
+                          offset: 882
+                          length: 25
+                          target:
+                            nodeType: MethodInvocation
+                            offset: 882
+                            length: 10
+                            methodName:
+                              nodeType: SimpleIdentifier
+                              offset: 882
+                              length: 4
+                              name: File
+                              inDeclarationContext: false
+                            argumentList:
+                              nodeType: ArgumentList
+                              offset: 886
+                              length: 6
+                              arguments:
+                                -
+                                  nodeType: SimpleIdentifier
+                                  offset: 887
+                                  length: 4
+                                  name: path
+                                  inDeclarationContext: false
+                          operator: .
+                          methodName:
+                            nodeType: SimpleIdentifier
+                            offset: 893
+                            length: 12
+                            name: readAsString
+                            inDeclarationContext: false
+                          argumentList:
+                            nodeType: ArgumentList
+                            offset: 905
+                            length: 2
+                            arguments: []
+                      isConst: false
+                      isFinal: false
+                      isLate: false
+                  isConst: false
+                  isFinal: true
+                  isLate: false
+                  metadata: []
+              -
+                nodeType: VariableDeclarationStatement
+                offset: 913
+                length: 34
+                variables:
+                  nodeType: VariableDeclarationList
+                  offset: 913
+                  length: 33
+                  variables:
+                    -
+                      nodeType: VariableDeclaration
+                      offset: 919
+                      length: 27
+                      name:
+                        nodeType: SimpleIdentifier
+                        offset: 919
+                        length: 5
+                        name: lines
+                        inDeclarationContext: true
+                      metadata: []
+                      initializer:
+                        nodeType: MethodInvocation
+                        offset: 927
+                        length: 19
+                        target:
+                          nodeType: SimpleIdentifier
+                          offset: 927
+                          length: 7
+                          name: content
+                          inDeclarationContext: false
+                        operator: .
+                        methodName:
+                          nodeType: SimpleIdentifier
+                          offset: 935
+                          length: 5
+                          name: split
+                          inDeclarationContext: false
+                        argumentList:
+                          nodeType: ArgumentList
+                          offset: 940
+                          length: 6
+                          arguments:
+                            -
+                              nodeType: SimpleStringLiteral
+                              offset: 941
+                              length: 4
+                              value: "\n"
+                              isRaw: false
+                              isMultiline: false
+                              isSingleQuoted: true
+                      isConst: false
+                      isFinal: false
+                      isLate: false
+                  isConst: false
+                  isFinal: true
+                  isLate: false
+                  metadata: []
+              -
+                nodeType: ForStatement
+                offset: 957
+                length: 287
+                forLoopParts:
+                  nodeType: ForEachPartsWithDeclaration
+                  offset: 962
+                  length: 19
+                  loopVariable:
+                    nodeType: DeclaredIdentifier
+                    offset: 962
+                    length: 10
+                    metadata: []
+                    identifier:
+                      nodeType: SimpleIdentifier
+                      offset: 968
+                      length: 4
+                      name: line
+                      inDeclarationContext: true
+                    isFinal: true
+                    isConst: false
+                  iterable:
+                    nodeType: SimpleIdentifier
+                    offset: 976
+                    length: 5
+                    name: lines
+                    inDeclarationContext: false
+                  isAwait: false
+                body:
+                  nodeType: Block
+                  offset: 983
+                  length: 261
+                  statements:
+                    -
+                      nodeType: ExpressionStatement
+                      offset: 991
+                      length: 13
+                      expression:
+                        nodeType: PostfixExpression
+                        offset: 991
+                        length: 12
+                        operand:
+                          nodeType: SimpleIdentifier
+                          offset: 991
+                          length: 10
+                          name: totalLines
+                          inDeclarationContext: false
+                        operator: ++
+                    -
+                      nodeType: VariableDeclarationStatement
+                      offset: 1018
+                      length: 28
+                      variables:
+                        nodeType: VariableDeclarationList
+                        offset: 1018
+                        length: 27
+                        variables:
+                          -
+                            nodeType: VariableDeclaration
+                            offset: 1024
+                            length: 21
+                            name:
+                              nodeType: SimpleIdentifier
+                              offset: 1024
+                              length: 7
+                              name: trimmed
+                              inDeclarationContext: true
+                            metadata: []
+                            initializer:
+                              nodeType: MethodInvocation
+                              offset: 1034
+                              length: 11
+                              target:
+                                nodeType: SimpleIdentifier
+                                offset: 1034
+                                length: 4
+                                name: line
+                                inDeclarationContext: false
+                              operator: .
+                              methodName:
+                                nodeType: SimpleIdentifier
+                                offset: 1039
+                                length: 4
+                                name: trim
+                                inDeclarationContext: false
+                              argumentList:
+                                nodeType: ArgumentList
+                                offset: 1043
+                                length: 2
+                                arguments: []
+                            isConst: false
+                            isFinal: false
+                            isLate: false
+                        isConst: false
+                        isFinal: true
+                        isLate: false
+                        metadata: []
+                    -
+                      nodeType: IfStatement
+                      offset: 1053
+                      length: 185
+                      condition:
+                        nodeType: PrefixedIdentifier
+                        offset: 1057
+                        length: 15
+                        prefix:
+                          nodeType: SimpleIdentifier
+                          offset: 1057
+                          length: 7
+                          name: trimmed
+                          inDeclarationContext: false
+                        identifier:
+                          nodeType: SimpleIdentifier
+                          offset: 1065
+                          length: 7
+                          name: isEmpty
+                          inDeclarationContext: false
+                      thenStatement:
+                        nodeType: Block
+                        offset: 1074
+                        length: 31
+                        statements:
+                          -
+                            nodeType: ExpressionStatement
+                            offset: 1084
+                            length: 13
+                            expression:
+                              nodeType: PostfixExpression
+                              offset: 1084
+                              length: 12
+                              operand:
+                                nodeType: SimpleIdentifier
+                                offset: 1084
+                                length: 10
+                                name: blankLines
+                                inDeclarationContext: false
+                              operator: ++
+                      elseStatement:
+                        nodeType: IfStatement
+                        offset: 1111
+                        length: 127
+                        condition:
+                          nodeType: BinaryExpression
+                          offset: 1115
+                          length: 52
+                          leftOperand:
+                            nodeType: MethodInvocation
+                            offset: 1115
+                            length: 24
+                            target:
+                              nodeType: SimpleIdentifier
+                              offset: 1115
+                              length: 7
+                              name: trimmed
+                              inDeclarationContext: false
+                            operator: .
+                            methodName:
+                              nodeType: SimpleIdentifier
+                              offset: 1123
+                              length: 10
+                              name: startsWith
+                              inDeclarationContext: false
+                            argumentList:
+                              nodeType: ArgumentList
+                              offset: 1133
+                              length: 6
+                              arguments:
+                                -
+                                  nodeType: SimpleStringLiteral
+                                  offset: 1134
+                                  length: 4
+                                  value: //
+                                  isRaw: false
+                                  isMultiline: false
+                                  isSingleQuoted: true
+                          operator: ||
+                          rightOperand:
+                            nodeType: MethodInvocation
+                            offset: 1143
+                            length: 24
+                            target:
+                              nodeType: SimpleIdentifier
+                              offset: 1143
+                              length: 7
+                              name: trimmed
+                              inDeclarationContext: false
+                            operator: .
+                            methodName:
+                              nodeType: SimpleIdentifier
+                              offset: 1151
+                              length: 10
+                              name: startsWith
+                              inDeclarationContext: false
+                            argumentList:
+                              nodeType: ArgumentList
+                              offset: 1161
+                              length: 6
+                              arguments:
+                                -
+                                  nodeType: SimpleStringLiteral
+                                  offset: 1162
+                                  length: 4
+                                  value: /*
+                                  isRaw: false
+                                  isMultiline: false
+                                  isSingleQuoted: true
+                        thenStatement:
+                          nodeType: Block
+                          offset: 1169
+                          length: 33
+                          statements:
+                            -
+                              nodeType: ExpressionStatement
+                              offset: 1179
+                              length: 15
+                              expression:
+                                nodeType: PostfixExpression
+                                offset: 1179
+                                length: 14
+                                operand:
+                                  nodeType: SimpleIdentifier
+                                  offset: 1179
+                                  length: 12
+                                  name: commentLines
+                                  inDeclarationContext: false
+                                operator: ++
+                        elseStatement:
+                          nodeType: Block
+                          offset: 1208
+                          length: 30
+                          statements:
+                            -
+                              nodeType: ExpressionStatement
+                              offset: 1218
+                              length: 12
+                              expression:
+                                nodeType: PostfixExpression
+                                offset: 1218
+                                length: 11
+                                operand:
+                                  nodeType: SimpleIdentifier
+                                  offset: 1218
+                                  length: 9
+                                  name: codeLines
+                                  inDeclarationContext: false
+                                operator: ++
+          isAsync: true
+          isGenerator: false
+  -
+    nodeType: ClassDeclaration
+    offset: 1252
+    length: 369
+    name:
+      nodeType: SimpleIdentifier
+      offset: 1258
+      length: 11
+      name: CodeMetrics
+      inDeclarationContext: true
+    metadata: []
+    isAbstract: false
+    isSealed: false
+    isBase: false
+    isInterface: false
+    isFinal: false
+    isMixin: false
+    members:
+      -
+        nodeType: FieldDeclaration
+        offset: 1274
+        length: 16
+        metadata: []
+        isStatic: false
+        isAbstract: false
+        isCovariant: false
+        isExternal: false
+        fields:
+          nodeType: VariableDeclarationList
+          offset: 1274
+          length: 15
+          type:
+            nodeType: NamedType
+            offset: 1280
+            length: 3
+            name:
+              nodeType: SimpleIdentifier
+              offset: 1280
+              length: 3
+              name: int
+              inDeclarationContext: true
+            isNullable: false
+          variables:
+            -
+              nodeType: VariableDeclaration
+              offset: 1284
+              length: 5
+              name:
+                nodeType: SimpleIdentifier
+                offset: 1284
+                length: 5
+                name: lines
+                inDeclarationContext: true
+              metadata: []
+              isConst: false
+              isFinal: false
+              isLate: false
+          isConst: false
+          isFinal: true
+          isLate: false
+          metadata: []
+      -
+        nodeType: FieldDeclaration
+        offset: 1293
+        length: 16
+        metadata: []
+        isStatic: false
+        isAbstract: false
+        isCovariant: false
+        isExternal: false
+        fields:
+          nodeType: VariableDeclarationList
+          offset: 1293
+          length: 15
+          type:
+            nodeType: NamedType
+            offset: 1299
+            length: 3
+            name:
+              nodeType: SimpleIdentifier
+              offset: 1299
+              length: 3
+              name: int
+              inDeclarationContext: true
+            isNullable: false
+          variables:
+            -
+              nodeType: VariableDeclaration
+              offset: 1303
+              length: 5
+              name:
+                nodeType: SimpleIdentifier
+                offset: 1303
+                length: 5
+                name: files
+                inDeclarationContext: true
+              metadata: []
+              isConst: false
+              isFinal: false
+              isLate: false
+          isConst: false
+          isFinal: true
+          isLate: false
+          metadata: []
+      -
+        nodeType: FieldDeclaration
+        offset: 1312
+        length: 33
+        metadata: []
+        isStatic: false
+        isAbstract: false
+        isCovariant: false
+        isExternal: false
+        fields:
+          nodeType: VariableDeclarationList
+          offset: 1312
+          length: 32
+          type:
+            nodeType: NamedType
+            offset: 1318
+            length: 6
+            name:
+              nodeType: SimpleIdentifier
+              offset: 1318
+              length: 6
+              name: double
+              inDeclarationContext: true
+            isNullable: false
+          variables:
+            -
+              nodeType: VariableDeclaration
+              offset: 1325
+              length: 19
+              name:
+                nodeType: SimpleIdentifier
+                offset: 1325
+                length: 19
+                name: averageLinesPerFile
+                inDeclarationContext: true
+              metadata: []
+              isConst: false
+              isFinal: false
+              isLate: false
+          isConst: false
+          isFinal: true
+          isLate: false
+          metadata: []
+      -
+        nodeType: ConstructorDeclaration
+        offset: 1351
+        length: 123
+        metadata: []
+        isFactory: false
+        isConst: false
+        isExternal: false
+        parameters:
+          nodeType: FormalParameterList
+          offset: 1362
+          length: 57
+          parameters:
+            -
+              nodeType: DefaultFormalParameter
+              offset: 1369
+              length: 19
+              parameter:
+                nodeType: FieldFormalParameter
+                offset: 1369
+                length: 19
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 1383
+                  length: 5
+                  name: lines
+                  inDeclarationContext: true
+                metadata: []
+                isConst: false
+                isFinal: false
+                isRequired: true
+              isPositional: true
+              isNamed: true
+            -
+              nodeType: DefaultFormalParameter
+              offset: 1394
+              length: 19
+              parameter:
+                nodeType: FieldFormalParameter
+                offset: 1394
+                length: 19
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 1408
+                  length: 5
+                  name: files
+                  inDeclarationContext: true
+                metadata: []
+                isConst: false
+                isFinal: false
+                isRequired: true
+              isPositional: true
+              isNamed: true
+        initializers:
+          -
+            nodeType: ConstructorFieldInitializer
+            offset: 1422
+            length: 51
+            fieldName:
+              nodeType: SimpleIdentifier
+              offset: 1422
+              length: 19
+              name: averageLinesPerFile
+              inDeclarationContext: false
+            expression:
+              nodeType: ConditionalExpression
+              offset: 1444
+              length: 29
+              condition:
+                nodeType: BinaryExpression
+                offset: 1444
+                length: 9
+                leftOperand:
+                  nodeType: SimpleIdentifier
+                  offset: 1444
+                  length: 5
+                  name: files
+                  inDeclarationContext: false
+                operator: >
+                rightOperand:
+                  nodeType: IntegerLiteral
+                  offset: 1452
+                  length: 1
+                  value: 0
+              thenExpression:
+                nodeType: BinaryExpression
+                offset: 1456
+                length: 13
+                leftOperand:
+                  nodeType: SimpleIdentifier
+                  offset: 1456
+                  length: 5
+                  name: lines
+                  inDeclarationContext: false
+                operator: /
+                rightOperand:
+                  nodeType: SimpleIdentifier
+                  offset: 1464
+                  length: 5
+                  name: files
+                  inDeclarationContext: false
+              elseExpression:
+                nodeType: IntegerLiteral
+                offset: 1472
+                length: 1
+                value: 0
+        body:
+          nodeType: EmptyFunctionBody
+          offset: 1473
+          length: 1
+      -
+        nodeType: MethodDeclaration
+        offset: 1480
+        length: 139
+        name:
+          nodeType: SimpleIdentifier
+          offset: 1499
+          length: 8
+          name: toString
+          inDeclarationContext: true
+        metadata:
+          -
+            nodeType: Annotation
+            offset: 1480
+            length: 9
+            name:
+              nodeType: SimpleIdentifier
+              offset: 1481
+              length: 8
+              name: override
+              inDeclarationContext: false
+        returnType:
+          nodeType: NamedType
+          offset: 1492
+          length: 6
+          name:
+            nodeType: SimpleIdentifier
+            offset: 1492
+            length: 6
+            name: String
+            inDeclarationContext: true
+          isNullable: false
+        isStatic: false
+        isAbstract: false
+        isExternal: false
+        isGetter: false
+        isSetter: false
+        isOperator: false
+        parameters:
+          nodeType: FormalParameterList
+          offset: 1507
+          length: 2
+          parameters: []
+        body:
+          nodeType: BlockFunctionBody
+          offset: 1510
+          length: 109
+          block:
+            nodeType: Block
+            offset: 1510
+            length: 109
+            statements:
+              -
+                nodeType: ReturnStatement
+                offset: 1516
+                length: 99
+                expression:
+                  nodeType: StringInterpolation
+                  offset: 1523
+                  length: 91
+                  elements:
+                    -
+                      nodeType: InterpolationString
+                      offset: 1523
+                      length: 20
+                      value: "CodeMetrics(lines: "
+                    -
+                      nodeType: InterpolationExpression
+                      offset: 1543
+                      length: 6
+                      expression:
+                        nodeType: SimpleIdentifier
+                        offset: 1544
+                        length: 5
+                        name: lines
+                        inDeclarationContext: false
+                    -
+                      nodeType: InterpolationString
+                      offset: 1549
+                      length: 9
+                      value: ", files: "
+                    -
+                      nodeType: InterpolationExpression
+                      offset: 1558
+                      length: 6
+                      expression:
+                        nodeType: SimpleIdentifier
+                        offset: 1559
+                        length: 5
+                        name: files
+                        inDeclarationContext: false
+                    -
+                      nodeType: InterpolationString
+                      offset: 1564
+                      length: 7
+                      value: ", avg: "
+                    -
+                      nodeType: InterpolationExpression
+                      offset: 1571
+                      length: 41
+                      expression:
+                        nodeType: MethodInvocation
+                        offset: 1573
+                        length: 38
+                        target:
+                          nodeType: SimpleIdentifier
+                          offset: 1573
+                          length: 19
+                          name: averageLinesPerFile
+                          inDeclarationContext: false
+                        operator: .
+                        methodName:
+                          nodeType: SimpleIdentifier
+                          offset: 1593
+                          length: 15
+                          name: toStringAsFixed
+                          inDeclarationContext: false
+                        argumentList:
+                          nodeType: ArgumentList
+                          offset: 1608
+                          length: 3
+                          arguments:
+                            -
+                              nodeType: IntegerLiteral
+                              offset: 1609
+                              length: 1
+                              value: 2
+                    -
+                      nodeType: InterpolationString
+                      offset: 1612
+                      length: 2
+                      value: )
+                  isMultiline: false
+                  isRaw: false
+          isAsync: false
+          isGenerator: false
+comments: []

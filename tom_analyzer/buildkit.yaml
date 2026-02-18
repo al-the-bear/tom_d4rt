@@ -1,0 +1,44 @@
+# Tom Build Configuration for tom_analyzer
+
+versioner:
+  variable-prefix: analyzer
+
+compiler:
+  compiles:
+    # tom_analyzer (analysis only)
+    # macOS ARM64 - compile for self + all Linux targets
+    - commandline:
+        - mkdir -p $HOME/.tom/bin/${target-platform-vs}
+        - dart compile exe ${file} --target-os=${target-os} -o $HOME/.tom/bin/${target-platform-vs}/analyzer
+      files: bin/tom_analyzer.dart
+      targets: [darwin-arm64, linux-x64, linux-arm64, linux-armhf]
+      platforms: [darwin-arm64]
+    
+    # Other platforms - compile for self only
+    - commandline:
+        - mkdir -p $HOME/.tom/bin/${target-platform-vs}
+        - dart compile exe ${file} -o $HOME/.tom/bin/${target-platform-vs}/analyzer
+      files: bin/tom_analyzer.dart
+      platforms: [darwin-x64, linux-*, win32-*]
+
+    # tom_reflector (reflection only)
+    # macOS ARM64 - compile for self + all Linux targets
+    - commandline:
+        - mkdir -p $HOME/.tom/bin/${target-platform-vs}
+        - dart compile exe ${file} --target-os=${target-os} -o $HOME/.tom/bin/${target-platform-vs}/reflector
+      files: bin/tom_reflector.dart
+      targets: [darwin-arm64, linux-x64, linux-arm64, linux-armhf]
+      platforms: [darwin-arm64]
+    
+    # Other platforms - compile for self only
+    - commandline:
+        - mkdir -p $HOME/.tom/bin/${target-platform-vs}
+        - dart compile exe ${file} -o $HOME/.tom/bin/${target-platform-vs}/reflector
+      files: bin/tom_reflector.dart
+      platforms: [darwin-x64, linux-*, win32-*]
+
+  postcompile:
+    # Make binaries executable on Unix-like systems
+    - commandline:
+        - chmod -R +x $HOME/.tom/bin/${current-platform-vs}/
+      platforms: [macos, linux]

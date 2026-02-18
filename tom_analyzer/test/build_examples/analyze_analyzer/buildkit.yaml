@@ -1,0 +1,11 @@
+# Buildkit configuration for tom_analyzer standalone analysis
+#
+# This buildkit.yaml configures the analyzer CLI tool to process entry points
+# and output structured YAML/JSON analysis results.
+
+tom_analyzer:
+  barrels:
+    - lib/main.dart
+  output_format: yaml
+  follow_re_exports: true
+  include_mode: all

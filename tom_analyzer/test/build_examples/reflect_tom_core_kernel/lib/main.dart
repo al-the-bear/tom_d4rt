@@ -1,0 +1,7 @@
+/// Reflection target for tom_core_kernel
+///
+/// This file exports tom_core_kernel and serves as the 
+/// entry point for reflection code generation.
+library;
+
+export 'package:tom_core_kernel/tom_core_kernel.dart';

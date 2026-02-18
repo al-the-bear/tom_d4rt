@@ -1,0 +1,11 @@
+# Buildkit configuration for tom_analyzer standalone tools
+#
+# This project uses both analysis and reflection.
+
+tom_analyzer:
+  barrels:
+    - lib/sample_code.dart
+
+tom_reflector:
+  barrels:
+    - lib/sample_code.dart

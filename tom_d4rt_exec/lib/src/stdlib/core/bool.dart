@@ -1,0 +1,52 @@
+import 'package:tom_d4rt_exec/d4rt.dart';
+
+class BoolCore {
+  static BridgedClass get definition => BridgedClass(
+        nativeType: bool,
+        name: 'bool',
+        typeParameterCount: 0,
+        constructors: {},
+        staticMethods: {
+          'fromEnvironment': (visitor, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
+              throw RuntimeD4rtException(
+                  'bool.fromEnvironment expects one String argument for the name.');
+            }
+            return bool.fromEnvironment(positionalArgs[0] as String,
+                defaultValue: namedArgs['defaultValue'] as bool? ?? false);
+          },
+          'hasEnvironment': (visitor, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
+              throw RuntimeD4rtException(
+                  'bool.hasEnvironment expects one String argument for the name.');
+            }
+            return bool.hasEnvironment(positionalArgs[0] as String);
+          },
+          'parse': (visitor, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
+              throw RuntimeD4rtException('bool.parse expects one String argument.');
+            }
+            final caseSensitive = namedArgs['caseSensitive'] as bool? ?? true;
+            return bool.parse(positionalArgs[0] as String,
+                caseSensitive: caseSensitive);
+          },
+          'tryParse': (visitor, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
+              throw RuntimeD4rtException('bool.tryParse expects one String argument.');
+            }
+            final caseSensitive = namedArgs['caseSensitive'] as bool? ?? true;
+            return bool.tryParse(positionalArgs[0] as String,
+                caseSensitive: caseSensitive);
+          },
+        },
+        methods: {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
+            return (target as bool).toString();
+          },
+        },
+        getters: {
+          'hashCode': (visitor, target) => (target as bool).hashCode,
+          'runtimeType': (visitor, target) => (target as bool).runtimeType,
+        },
+      );
+}

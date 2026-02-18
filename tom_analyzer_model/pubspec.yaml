@@ -1,0 +1,11 @@
+name: tom_analyzer_model
+description: Object model and serialization for tom_analyzer code analysis results.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  collection: ^1.18.0
+  yaml: ^3.1.2

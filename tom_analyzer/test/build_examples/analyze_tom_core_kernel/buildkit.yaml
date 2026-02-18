@@ -1,0 +1,7 @@
+# Buildkit configuration for tom_analyzer standalone analysis
+
+tom_analyzer:
+  barrels:
+    - lib/main.dart
+  output_format: yaml
+  follow_re_exports: true

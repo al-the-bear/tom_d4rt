@@ -1,0 +1,18 @@
+name: reflect_dart_overview
+description: Example of using tom_analyzer to generate reflection code for dart_overview.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  dart_overview:
+    path: ../../dart_overview
+  tom_analyzer:
+    path: ../../../
+
+dev_dependencies:
+  build_runner: ^2.10.4
+  build: ^4.0.3
+  lints: ^5.0.0

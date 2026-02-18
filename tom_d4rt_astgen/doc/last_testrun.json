@@ -1,0 +1,14 @@
+{"protocolVersion":"0.1.1","runnerVersion":"1.29.0","pid":66560,"type":"start","time":0}
+{"suite":{"id":0,"platform":"vm","path":"test/tom_d4rt_ast_test.dart"},"type":"suite","time":0}
+{"test":{"id":1,"name":"loading test/tom_d4rt_ast_test.dart","suiteID":0,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":2}
+{"count":1,"time":8,"type":"allSuites"}
+{"testID":1,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":648}
+{"group":{"id":2,"suiteID":0,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":3,"line":null,"column":null,"url":null},"type":"group","time":650}
+{"group":{"id":3,"suiteID":0,"parentID":2,"name":"AST Serialization","metadata":{"skip":false,"skipReason":null},"testCount":3,"line":8,"column":3,"url":"file:///Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_basics/tom_d4rt_astgen/test/tom_d4rt_ast_test.dart"},"type":"group","time":651}
+{"test":{"id":4,"name":"AST Serialization SSimpleIdentifier serialization round-trip","suiteID":0,"groupIDs":[2,3],"metadata":{"skip":false,"skipReason":null},"line":9,"column":5,"url":"file:///Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_basics/tom_d4rt_astgen/test/tom_d4rt_ast_test.dart"},"type":"testStart","time":651}
+{"testID":4,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":664}
+{"test":{"id":5,"name":"AST Serialization SIntegerLiteral serialization round-trip","suiteID":0,"groupIDs":[2,3],"metadata":{"skip":false,"skipReason":null},"line":25,"column":5,"url":"file:///Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_basics/tom_d4rt_astgen/test/tom_d4rt_ast_test.dart"},"type":"testStart","time":664}
+{"testID":5,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":665}
+{"test":{"id":6,"name":"AST Serialization Full Dart code round-trip serialization","suiteID":0,"groupIDs":[2,3],"metadata":{"skip":false,"skipReason":null},"line":39,"column":5,"url":"file:///Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_basics/tom_d4rt_astgen/test/tom_d4rt_ast_test.dart"},"type":"testStart","time":665}
+{"testID":6,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":751}
+{"success":true,"type":"done","time":756}

@@ -1,0 +1,212 @@
+Finding all annotations in tom_* packages...
+
+═══════════════════════════════════════════════════════════════════════════════
+ANNOTATIONS FOUND (7)
+═══════════════════════════════════════════════════════════════════════════════
+
+───────────────────────────────────────────────────────────────────────────────
+@override (588 usages)
+  Source: dart:core
+───────────────────────────────────────────────────────────────────────────────
+  field (13):
+    - ClassMirrorBase._reflector
+    - ClassMirrorBase.simpleName
+    - ClassMirrorBase.qualifiedName
+    - TypeVariableMirrorImpl.simpleName
+    - TypeVariableMirrorImpl.qualifiedName
+    - TypeVariableMirrorImpl._reflector
+    - LibraryMirrorImpl._reflector
+    - LibraryMirrorImpl.uri
+    - LibraryMirrorImpl.simpleName
+    - MethodMirrorImpl._reflector
+    ... and 3 more
+  getter (271):
+    - TomMimeType.hashCode
+    - TomException.logRepresentation
+    - TomList.first
+    - TomList.last
+    - TomList.length
+    - TomList.hashCode
+    - TomList.isEmpty
+    - TomList.isNotEmpty
+    - TomList.iterator
+    - TomList.single
+    ... and 261 more
+  method (302):
+    - ServerConfiguration.setValues
+    - ServerWorkerContext.initializeIsolate
+    - ServerLoggingWorkerContext.initializeIsolate
+    - TomBaseException.toString
+    - TomLogLevel.toString
+    - TomLogger.toString
+    - TomConsoleLogOutput.output
+    - TomFallbackPlatformUtils.getBrowserLocation
+    - TomFallbackPlatformUtils.getIsolateName
+    - TomFallbackPlatformUtils.httpClient
+    ... and 292 more
+  setter (2):
+    - Audience.length=
+    - Request.contentLength=
+
+───────────────────────────────────────────────────────────────────────────────
+@pragma (108 usages)
+  Source: dart:core
+───────────────────────────────────────────────────────────────────────────────
+  class (37):
+    - Object
+    - Object
+    - String
+    - bool
+    - Future
+    - Object
+    - Object
+    - String
+    - Object
+    - Object
+    ... and 27 more
+  constructor (30):
+    - Object.
+    - Future.value
+    - Future.value
+    - Object.
+    - Object.
+    - Future.value
+    - Future.value
+    - Invocation.method
+    - Invocation.genericMethod
+    - Invocation.getter
+    ... and 20 more
+  field (18):
+    - _Future._state
+    - _Future._resultOrListeners
+    - _Future._state
+    - _Future._resultOrListeners
+    - _FutureListener._nextListener
+    - _FutureListener.result
+    - _FutureListener.state
+    - _FutureListener.callback
+    - _FutureListener._nextListener
+    - _FutureListener.result
+    ... and 8 more
+  getter (2):
+    - ListBase.iterator
+    - ListBase.isEmpty
+  method (21):
+    - Object.noSuchMethod
+    - Object.noSuchMethod
+    - Object.noSuchMethod
+    - Object.noSuchMethod
+    - Object.noSuchMethod
+    - Object.noSuchMethod
+    - Error._throw
+    - _Future.timeout
+    - _Future.timeout
+    - _FutureListener.handleValue
+    ... and 11 more
+
+───────────────────────────────────────────────────────────────────────────────
+@Since (93 usages)
+  Source: dart:_internal
+───────────────────────────────────────────────────────────────────────────────
+  class (4):
+    - WeakReference
+    - TypedDataList
+    - TypedDataList
+    - TypedDataList
+  constructor (11):
+    - Future.syncValue
+    - DateTime.timestamp
+    - Future.syncValue
+    - Iterable.withIterator
+    - Iterable.withIterator
+    - Iterable.withIterator
+    - DateTime.timestamp
+    - Future.syncValue
+    - Uint8ClampedList.sublistView
+    - Uint8ClampedList.sublistView
+    ... and 1 more
+  getter (2):
+    - Isolate.packageConfigSync
+    - Isolate.packageConfigSync
+  method (76):
+    - Object.hash
+    - Object.hashAll
+    - Object.hashAllUnordered
+    - bool.parse
+    - bool.tryParse
+    - Object.hash
+    - Object.hashAll
+    - Object.hashAllUnordered
+    - Object.hash
+    - Object.hashAll
+    ... and 66 more
+
+───────────────────────────────────────────────────────────────────────────────
+@tomReflector (39 usages)
+  Source: package:tom_core_kernel/src/tombase/reflection/reflection.dart
+───────────────────────────────────────────────────────────────────────────────
+  class (39):
+    - ServerConfiguration
+    - PrintMessageResult
+    - PrintMessageRequest
+    - TomBean
+    - TomRemoteLogMessage
+    - TomRemoteLogResult
+    - TomRemoteLogServer
+    - TomAuthenticationMessage
+    - TomAuthenticationResult
+    - TomGetSettingsMessage
+    ... and 29 more
+
+───────────────────────────────────────────────────────────────────────────────
+@vmIsolateUnsendable (14 usages)
+  Source: dart:_internal
+───────────────────────────────────────────────────────────────────────────────
+  class (14):
+    - Future
+    - Future
+    - Completer
+    - Stream
+    - Stream
+    - Completer
+    - Zone
+    - Zone
+    - Timer
+    - Future
+    ... and 4 more
+
+───────────────────────────────────────────────────────────────────────────────
+@Deprecated (7 usages)
+  Source: dart:core
+───────────────────────────────────────────────────────────────────────────────
+  class (4):
+    - RegExp
+    - RegExpMatch
+    - RegExp
+    - RegExpMatch
+  getter (3):
+    - RSAPrivateKey.d
+    - RSAPrivateKey.pubExponent
+    - RSAPublicKey.e
+
+───────────────────────────────────────────────────────────────────────────────
+@mustCallSuper (1 usages)
+  Source: package:meta/meta.dart
+───────────────────────────────────────────────────────────────────────────────
+  method (1):
+    - BaseRequest.finalize
+
+═══════════════════════════════════════════════════════════════════════════════
+SUMMARY
+═══════════════════════════════════════════════════════════════════════════════
+Total annotations found: 7
+Total usages: 850
+
+Top 10 most used annotations:
+  @override: 588 usages
+  @pragma: 108 usages
+  @Since: 93 usages
+  @tomReflector: 39 usages
+  @vmIsolateUnsendable: 14 usages
+  @Deprecated: 7 usages
+  @mustCallSuper: 1 usages

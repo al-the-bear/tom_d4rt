@@ -1,0 +1,104 @@
+{
+  "type": "CompilationUnit",
+  "declarations": [
+    {
+      "type": "ClassDeclaration",
+      "name": "Person",
+      "documentationComment": "",
+      "abstractKeyword": null,
+      "extendsClause": null,
+      "implementsClause": null,
+      "withClause": null,
+      "typeParameters": null,
+      "members": [
+        {
+          "type": "FieldDeclaration",
+          "documentationComment": "",
+          "isStatic": false,
+          "fields": {
+            "type": "String",
+            "isFinal": true,
+            "isConst": false,
+            "isLate": false,
+            "variables": [
+              {
+                "name": "name",
+                "initializer": null
+              }
+            ]
+          }
+        },
+        {
+          "type": "FieldDeclaration",
+          "documentationComment": "",
+          "isStatic": false,
+          "fields": {
+            "type": "int",
+            "isFinal": false,
+            "isConst": false,
+            "isLate": false,
+            "variables": [
+              {
+                "name": "age",
+                "initializer": null
+              }
+            ]
+          }
+        },
+        {
+          "type": "ConstructorDeclaration",
+          "name": null,
+          "documentationComment": "",
+          "isConst": false,
+          "isFactory": false,
+          "parameters": {
+            "type": "FormalParameterList",
+            "parameters": [
+              {
+                "type": "FieldFormalParameterImpl",
+                "name": "name",
+                "source": "this.name"
+              },
+              {
+                "type": "DefaultFormalParameterImpl",
+                "name": "age",
+                "source": "this.age = 0"
+              }
+            ]
+          },
+          "initializers": [],
+          "redirectedConstructor": null,
+          "body": ";"
+        },
+        {
+          "type": "MethodDeclaration",
+          "name": "greet",
+          "documentationComment": "",
+          "returnType": "String",
+          "isStatic": false,
+          "isAbstract": false,
+          "isGetter": false,
+          "isSetter": false,
+          "isOperator": false,
+          "typeParameters": null,
+          "parameters": {
+            "type": "FormalParameterList",
+            "parameters": [
+              {
+                "type": "SimpleFormalParameterImpl",
+                "name": "other",
+                "source": "String other"
+              }
+            ]
+          },
+          "body": {
+            "type": "BlockFunctionBodyImpl",
+            "isAsynchronous": false,
+            "isGenerator": false,
+            "source": "{return 'Hello, $other! I am $name.';}"
+          }
+        }
+      ]
+    }
+  ]
+}

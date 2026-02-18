@@ -1,0 +1,566 @@
+// Serializable AST literals
+// ignore_for_file: constant_identifier_names
+
+part of 'ast_core.dart';
+
+// ============================================================================
+// Integer Literal
+// ============================================================================
+
+class SIntegerLiteral extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final int value;
+
+  SIntegerLiteral({
+    required this.offset,
+    required this.length,
+    required this.value,
+  });
+
+  @override
+  String get nodeType => 'IntegerLiteral';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        'value': value,
+      };
+
+  factory SIntegerLiteral.fromJson(Map<String, dynamic> json) {
+    return SIntegerLiteral(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      value: json['value'] as int,
+    );
+  }
+}
+
+// ============================================================================
+// Double Literal
+// ============================================================================
+
+class SDoubleLiteral extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final double value;
+
+  SDoubleLiteral({
+    required this.offset,
+    required this.length,
+    required this.value,
+  });
+
+  @override
+  String get nodeType => 'DoubleLiteral';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        'value': value,
+      };
+
+  factory SDoubleLiteral.fromJson(Map<String, dynamic> json) {
+    return SDoubleLiteral(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      value: (json['value'] as num).toDouble(),
+    );
+  }
+}
+
+// ============================================================================
+// Boolean Literal
+// ============================================================================
+
+class SBooleanLiteral extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final bool value;
+
+  SBooleanLiteral({
+    required this.offset,
+    required this.length,
+    required this.value,
+  });
+
+  @override
+  String get nodeType => 'BooleanLiteral';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        'value': value,
+      };
+
+  factory SBooleanLiteral.fromJson(Map<String, dynamic> json) {
+    return SBooleanLiteral(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      value: json['value'] as bool,
+    );
+  }
+}
+
+// ============================================================================
+// String Literals
+// ============================================================================
+
+class SSimpleStringLiteral extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final String value;
+  final bool isRaw;
+  final bool isMultiline;
+  final bool isSingleQuoted;
+
+  SSimpleStringLiteral({
+    required this.offset,
+    required this.length,
+    required this.value,
+    this.isRaw = false,
+    this.isMultiline = false,
+    this.isSingleQuoted = true,
+  });
+
+  @override
+  String get nodeType => 'SimpleStringLiteral';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        'value': value,
+        'isRaw': isRaw,
+        'isMultiline': isMultiline,
+        'isSingleQuoted': isSingleQuoted,
+      };
+
+  factory SSimpleStringLiteral.fromJson(Map<String, dynamic> json) {
+    return SSimpleStringLiteral(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      value: json['value'] as String,
+      isRaw: json['isRaw'] as bool? ?? false,
+      isMultiline: json['isMultiline'] as bool? ?? false,
+      isSingleQuoted: json['isSingleQuoted'] as bool? ?? true,
+    );
+  }
+}
+
+class SStringInterpolation extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final List<SAstNode> elements;
+  final bool isMultiline;
+  final bool isRaw;
+
+  SStringInterpolation({
+    required this.offset,
+    required this.length,
+    this.elements = const [],
+    this.isMultiline = false,
+    this.isRaw = false,
+  });
+
+  @override
+  String get nodeType => 'StringInterpolation';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        'elements': elements.map((e) => e.toJson()).toList(),
+        'isMultiline': isMultiline,
+        'isRaw': isRaw,
+      };
+
+  factory SStringInterpolation.fromJson(Map<String, dynamic> json) {
+    return SStringInterpolation(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      elements: SAstNodeFactory.listFromJson(json['elements'] as List?),
+      isMultiline: json['isMultiline'] as bool? ?? false,
+      isRaw: json['isRaw'] as bool? ?? false,
+    );
+  }
+}
+
+class SInterpolationExpression extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final SAstNode? expression;
+
+  SInterpolationExpression({
+    required this.offset,
+    required this.length,
+    this.expression,
+  });
+
+  @override
+  String get nodeType => 'InterpolationExpression';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        if (expression != null) 'expression': expression!.toJson(),
+      };
+
+  factory SInterpolationExpression.fromJson(Map<String, dynamic> json) {
+    return SInterpolationExpression(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      expression:
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
+    );
+  }
+}
+
+class SInterpolationString extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final String value;
+
+  SInterpolationString({
+    required this.offset,
+    required this.length,
+    required this.value,
+  });
+
+  @override
+  String get nodeType => 'InterpolationString';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        'value': value,
+      };
+
+  factory SInterpolationString.fromJson(Map<String, dynamic> json) {
+    return SInterpolationString(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      value: json['value'] as String,
+    );
+  }
+}
+
+class SAdjacentStrings extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final List<SAstNode> strings;
+
+  SAdjacentStrings({
+    required this.offset,
+    required this.length,
+    this.strings = const [],
+  });
+
+  @override
+  String get nodeType => 'AdjacentStrings';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        'strings': strings.map((s) => s.toJson()).toList(),
+      };
+
+  factory SAdjacentStrings.fromJson(Map<String, dynamic> json) {
+    return SAdjacentStrings(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      strings: SAstNodeFactory.listFromJson(json['strings'] as List?),
+    );
+  }
+}
+
+// ============================================================================
+// Null Literal
+// ============================================================================
+
+class SNullLiteral extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  SNullLiteral({
+    required this.offset,
+    required this.length,
+  });
+
+  @override
+  String get nodeType => 'NullLiteral';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+      };
+
+  factory SNullLiteral.fromJson(Map<String, dynamic> json) {
+    return SNullLiteral(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+    );
+  }
+}
+
+// ============================================================================
+// Collection Literals
+// ============================================================================
+
+class SListLiteral extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final STypeArgumentList? typeArguments;
+  final List<SAstNode> elements;
+  final bool isConst;
+
+  SListLiteral({
+    required this.offset,
+    required this.length,
+    this.typeArguments,
+    this.elements = const [],
+    this.isConst = false,
+  });
+
+  @override
+  String get nodeType => 'ListLiteral';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
+        'elements': elements.map((e) => e.toJson()).toList(),
+        'isConst': isConst,
+      };
+
+  factory SListLiteral.fromJson(Map<String, dynamic> json) {
+    return SListLiteral(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      typeArguments: json['typeArguments'] != null
+          ? STypeArgumentList.fromJson(
+              json['typeArguments'] as Map<String, dynamic>)
+          : null,
+      elements: SAstNodeFactory.listFromJson(json['elements'] as List?),
+      isConst: json['isConst'] as bool? ?? false,
+    );
+  }
+}
+
+class SSetOrMapLiteral extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final STypeArgumentList? typeArguments;
+  final List<SAstNode> elements;
+  final bool isConst;
+  final bool isMap;
+  final bool isSet;
+
+  SSetOrMapLiteral({
+    required this.offset,
+    required this.length,
+    this.typeArguments,
+    this.elements = const [],
+    this.isConst = false,
+    this.isMap = false,
+    this.isSet = false,
+  });
+
+  @override
+  String get nodeType => 'SetOrMapLiteral';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
+        'elements': elements.map((e) => e.toJson()).toList(),
+        'isConst': isConst,
+        'isMap': isMap,
+        'isSet': isSet,
+      };
+
+  factory SSetOrMapLiteral.fromJson(Map<String, dynamic> json) {
+    return SSetOrMapLiteral(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      typeArguments: json['typeArguments'] != null
+          ? STypeArgumentList.fromJson(
+              json['typeArguments'] as Map<String, dynamic>)
+          : null,
+      elements: SAstNodeFactory.listFromJson(json['elements'] as List?),
+      isConst: json['isConst'] as bool? ?? false,
+      isMap: json['isMap'] as bool? ?? false,
+      isSet: json['isSet'] as bool? ?? false,
+    );
+  }
+}
+
+class SMapLiteralEntry extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final SAstNode? key;
+  final SAstNode? value;
+
+  SMapLiteralEntry({
+    required this.offset,
+    required this.length,
+    this.key,
+    this.value,
+  });
+
+  @override
+  String get nodeType => 'MapLiteralEntry';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        if (key != null) 'key': key!.toJson(),
+        if (value != null) 'value': value!.toJson(),
+      };
+
+  factory SMapLiteralEntry.fromJson(Map<String, dynamic> json) {
+    return SMapLiteralEntry(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      key: SAstNodeFactory.fromJson(json['key'] as Map<String, dynamic>?),
+      value: SAstNodeFactory.fromJson(json['value'] as Map<String, dynamic>?),
+    );
+  }
+}
+
+// ============================================================================
+// Symbol Literal
+// ============================================================================
+
+class SSymbolLiteral extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final String value;
+
+  SSymbolLiteral({
+    required this.offset,
+    required this.length,
+    required this.value,
+  });
+
+  @override
+  String get nodeType => 'SymbolLiteral';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        'value': value,
+      };
+
+  factory SSymbolLiteral.fromJson(Map<String, dynamic> json) {
+    return SSymbolLiteral(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      value: json['value'] as String,
+    );
+  }
+}
+
+// ============================================================================
+// Record Literal
+// ============================================================================
+
+class SRecordLiteral extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final List<SAstNode> fields;
+  final bool isConst;
+
+  SRecordLiteral({
+    required this.offset,
+    required this.length,
+    this.fields = const [],
+    this.isConst = false,
+  });
+
+  @override
+  String get nodeType => 'RecordLiteral';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        'fields': fields.map((f) => f.toJson()).toList(),
+        'isConst': isConst,
+      };
+
+  factory SRecordLiteral.fromJson(Map<String, dynamic> json) {
+    return SRecordLiteral(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      fields: SAstNodeFactory.listFromJson(json['fields'] as List?),
+      isConst: json['isConst'] as bool? ?? false,
+    );
+  }
+}

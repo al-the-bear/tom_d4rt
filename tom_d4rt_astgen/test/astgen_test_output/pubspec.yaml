@@ -1,0 +1,7 @@
+name: astgen_test_output
+description: Output project for astgen testing
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.10.4

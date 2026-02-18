@@ -1,0 +1,26 @@
+name: tom_d4rt_astgen
+description: AST converter from Dart analyzer AST to serializable AST model.
+version: 0.1.0
+repository: https://github.com/al-the-bear/tom_module_basics
+publish_to: none
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  analyzer: ^8.0.0
+  args: ^2.4.2
+  glob: ^2.1.2
+  path: ^1.9.1
+  yaml: ^3.1.2
+  tom_d4rt_ast:
+    path: ../tom_d4rt_ast
+  tom_build_base:
+    path: ../tom_build_base
+
+dev_dependencies:
+  build_runner: ^2.4.14
+  tom_build_kit:
+    path: ../tom_build_kit
+  lints: ^6.0.0
+  test: ^1.25.6
