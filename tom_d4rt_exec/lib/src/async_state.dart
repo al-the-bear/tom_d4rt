@@ -17,7 +17,7 @@ class AsyncExecutionState {
   /// An identifier for the next block of code (state) to execute.
   /// This could be an integer index, an AST node reference, etc.
   /// (Needs further definition based on the state machine implementation).
-  AstNode? nextStateIdentifier;
+  SAstNode? nextStateIdentifier;
 
   /// The result value from the most recently completed Future (from await).
   Object? lastAwaitResult;
@@ -43,14 +43,14 @@ class AsyncExecutionState {
   /// Stack of initialization flags for nested loops
   final List<bool> loopInitializedStack = [];
 
-  /// Stack of ForStatement nodes corresponding to the environments
-  final List<ForStatement> loopNodeStack = [];
+  /// Stack of SForStatement nodes corresponding to the environments
+  final List<SForStatement> loopNodeStack = [];
 
-  /// Map of ForStatement -> Iterator for for-in loops
-  final Map<ForStatement, Iterator<Object?>?> forInIteratorMap = {};
+  /// Map of SForStatement -> Iterator for for-in loops
+  final Map<SForStatement, Iterator<Object?>?> forInIteratorMap = {};
 
-  /// Stack of loop nodes (ForStatement, WhileStatement, etc.) for break/continue.
-  final List<AstNode> loopStack = [];
+  /// Stack of loop nodes (SForStatement, SWhileStatement, etc.) for break/continue.
+  final List<SAstNode> loopStack = [];
 
   /// Flag to indicate that a `continue` is being handled for a `for` loop.
   bool isHandlingContinue = false;
@@ -62,7 +62,7 @@ class AsyncExecutionState {
   bool resumedFromInitializer = false;
 
   /// Track pending finally block to execute after try/catch
-  Block? pendingFinallyBlock;
+  SBlock? pendingFinallyBlock;
 
   /// Track the error currently being handled (either from await or sync throw)
   Object? currentError;
@@ -70,8 +70,8 @@ class AsyncExecutionState {
   /// Track the stack trace currently being handled (either from await or sync throw)
   StackTrace? currentStackTrace;
 
-  /// Track the TryStatement we are currently inside or handling
-  TryStatement? activeTryStatement;
+  /// Track the STryStatement we are currently inside or handling
+  STryStatement? activeTryStatement;
 
   /// Store return value if a return happens inside a try with a finally.
   Object? returnAfterFinally;
@@ -109,9 +109,9 @@ class AsyncExecutionState {
   /// Each level of nesting has its own index
   final List<int> awaitForIndexStack = [];
 
-  /// Stack of ForStatement nodes for nested await-for loops
+  /// Stack of SForStatement nodes for nested await-for loops
   /// Used to track which await-for loop we're in
-  final List<ForStatement> awaitForNodeStack = [];
+  final List<SForStatement> awaitForNodeStack = [];
 
   /// For async* generators: the stream controller to send yields to
   StreamController<Object?>? generatorStreamController;

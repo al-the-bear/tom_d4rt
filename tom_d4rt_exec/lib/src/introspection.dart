@@ -1,4 +1,3 @@
-import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 /// Represents information about a declaration in the executed code.
@@ -287,11 +286,11 @@ class IntrospectionResult {
 /// Helper class to build introspection results from an environment.
 class IntrospectionBuilder {
   /// Builds an IntrospectionResult from the given environment.
-  /// Optionally takes a CompilationUnit to extract additional metadata.
+  /// Optionally takes a SCompilationUnit to extract additional metadata.
   static IntrospectionResult buildFromEnvironment(
     Environment environment, {
     bool includeBuiltins = false,
-    CompilationUnit? compilationUnit,
+    SCompilationUnit? compilationUnit,
   }) {
     final functions = <FunctionInfo>[];
     final classes = <ClassInfo>[];
@@ -306,24 +305,24 @@ class IntrospectionBuilder {
     if (compilationUnit != null) {
       // Extract variable type annotations from AST
       for (final declaration in compilationUnit.declarations) {
-        if (declaration is TopLevelVariableDeclaration) {
-          final typeAnnotation = declaration.variables.type;
-          final typeName = typeAnnotation?.toSource();
-          for (final variable in declaration.variables.variables) {
+        if (declaration is STopLevelVariableDeclaration) {
+          final typeAnnotation = declaration.variables?.type;
+          final typeName = _typeNodeToString(typeAnnotation);
+          for (final variable in declaration.variables?.variables ?? []) {
             if (typeName != null) {
-              variableTypeMap[variable.name.lexeme] = typeName;
+              variableTypeMap[variable.name?.name ?? ''] = typeName;
             }
           }
-        } else if (declaration is ExtensionDeclaration) {
+        } else if (declaration is SExtensionDeclaration) {
           // Handle extensions (including unnamed ones) from AST
-          final extName = declaration.name?.lexeme ?? '';
-          final onTypeNode = declaration.onClause?.extendedType;
-          final onType = onTypeNode?.toSource() ?? 'unknown';
+          final extName = declaration.name?.name ?? '';
+          final onTypeNode = declaration.extendedType;
+          final onType = _typeNodeToString(onTypeNode) ?? 'unknown';
           final methodNames = <String>[];
 
           for (final member in declaration.members) {
-            if (member is MethodDeclaration) {
-              methodNames.add(member.name.lexeme);
+            if (member is SMethodDeclaration) {
+              methodNames.add(member.name?.name ?? '');
             }
           }
 
@@ -449,8 +448,8 @@ class IntrospectionBuilder {
 
     // Extract fields from fieldDeclarations
     for (final fieldDecl in klass.fieldDeclarations) {
-      for (final variable in fieldDecl.fields.variables) {
-        fields.add(variable.name.lexeme);
+      for (final variable in fieldDecl.fields?.variables ?? []) {
+        fields.add(variable.name?.name ?? '');
       }
     }
     // Include static fields
@@ -888,4 +887,22 @@ class EnvironmentVariableInfo {
         'valueType': valueType,
         'isNull': isNull,
       };
+}
+
+/// Converts an SAstNode type annotation to its source string representation.
+String? _typeNodeToString(SAstNode? node) {
+  if (node == null) return null;
+  if (node is SNamedType) {
+    final name = node.name?.name ?? '';
+    final typeArgs = node.typeArguments;
+    if (typeArgs != null && typeArgs.arguments.isNotEmpty) {
+      final args = typeArgs.arguments.map(_typeNodeToString).join(', ');
+      return '$name<$args>';
+    }
+    return node.isNullable ? '$name?' : name;
+  }
+  if (node is SGenericFunctionType) {
+    return 'Function';
+  }
+  return node.nodeType;
 }

@@ -1,7 +1,6 @@
 import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_exec/src/bridge/bridged_enum.dart';
 import 'package:tom_d4rt_exec/src/utils/logger/logger.dart';
-import 'package:pub_semver/pub_semver.dart';
 import 'package:tom_d4rt_exec/src/bridge/bridged_types.dart';
 import 'package:tom_d4rt_exec/src/runtime_types.dart';
 import 'package:tom_d4rt_exec/src/environment.dart';
@@ -156,6 +155,11 @@ class D4rt {
   final Map<Type, BridgedClass> _bridgedDefLookupByType = {};
   final Set<Permission> _grantedPermissions = {};
 
+  /// Callback for parsing source code into an SAstNode tree.
+  /// Must be provided before calling [execute] or other methods that
+  /// require source code parsing. Typically backed by tom_d4rt_astgen.
+  final SCompilationUnit Function(String sourceCode, {String? path})? parseSourceCallback;
+
   /// Gets the current interpreter visitor instance.
   ///
   /// Returns null if no execution is currently in progress.
@@ -172,6 +176,26 @@ class D4rt {
 
   late ModuleLoader _moduleLoader;
   bool _hasExecutedOnce = false;
+
+  /// Creates a D4rt interpreter instance.
+  ///
+  /// [parseSourceCallback] is required when the interpreter needs to parse
+  /// source code strings (e.g., for [execute] with `source:` parameter or
+  /// for module loading). Typically backed by tom_d4rt_astgen's AstConverter.
+  /// Can be null when working exclusively with pre-parsed [SCompilationUnit] trees.
+  D4rt({this.parseSourceCallback});
+
+  /// Parses source code to an [SCompilationUnit] using the registered callback.
+  /// Throws [StateError] if no [parseSourceCallback] is registered.
+  SCompilationUnit _parseSourceToAst(String sourceCode, {String? path}) {
+    if (parseSourceCallback == null) {
+      throw StateError(
+          'D4rt: no parseSourceCallback provided. '
+          'Cannot parse source code. '
+          'Provide a parseSourceCallback to the D4rt constructor.');
+    }
+    return parseSourceCallback!(sourceCode, path: path);
+  }
 
   /// Registers a bridged enum definition for use in interpreted code.
   ///
@@ -815,8 +839,8 @@ class D4rt {
     );
   }
 
-  /// Parse source code into a CompilationUnit.
-  CompilationUnit _parseSource({String? source, String? library}) {
+  /// Parse source code into a SCompilationUnit.
+  SCompilationUnit _parseSource({String? source, String? library}) {
     if (library != null) {
       Logger.debug(
           "[D4rt._parseSource] Attempting to load source via ModuleLoader for URI: $library");
@@ -854,44 +878,15 @@ class D4rt {
       }
       Logger.debug(
           "[D4rt._parseSource] Parsing the provided source string directly (no source URI).");
-      final result = parseString(
-        content: source,
-        throwIfDiagnostics: false,
-        featureSet: FeatureSet.fromEnableFlags2(
-          sdkLanguageVersion: Version(3, 10, 0),
-          flags: [
-            'non-nullable',
-            'null-aware-elements',
-            'triple-shift',
-            'spread-collections',
-            'control-flow-collections',
-            'extension-methods',
-            'extension-types',
-          'digit-separators',
-          ],
-        ),
-      );
-
-      final errors = result.errors
-          .where((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR)
-          .toList();
-      if (errors.isNotEmpty) {
-        final errorMessages = errors.map((e) {
-          final location = result.lineInfo.getLocation(e.offset);
-          return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
-        }).join("\n");
-        Logger.error("Parsing errors for the direct source:\n$errorMessages");
-        throw SourceCodeD4rtException(
-            'Fatal parsing errors for the direct source:\n$errorMessages', source);
-      }
+      final unit = _parseSourceToAst(source);
       Logger.debug("[D4rt._parseSource] Direct source string parsed successfully.");
-      return result.unit;
+      return unit;
     }
   }
 
-  /// Execute a parsed CompilationUnit in the given environment.
+  /// Execute a parsed SCompilationUnit in the given environment.
   dynamic _executeInEnvironment({
-    required CompilationUnit compilationUnit,
+    required SCompilationUnit compilationUnit,
     required Environment executionEnvironment,
     required String name,
     List<Object?>? positionalArgs,
@@ -915,9 +910,9 @@ class D4rt {
       Logger.debug(
           "[_executeInEnvironment] Processing directives (imports, exports, etc.)...");
       for (final directive in compilationUnit.directives) {
-        if (directive is ImportDirective) {
+        if (directive is SImportDirective) {
           Logger.debug(
-              "[_executeInEnvironment]   - Processing ImportDirective: ${directive.uri.stringValue}");
+              "[_executeInEnvironment]   - Processing SImportDirective: ${(directive.uri is SSimpleStringLiteral) ? (directive.uri as SSimpleStringLiteral).value : null}");
           _visitor!.visitImportDirective(directive);
         } else {
           Logger.debug(
@@ -1047,7 +1042,7 @@ class D4rt {
     _moduleLoader = _initModule(sources,
         basePath: basePath, allowFileSystemImports: allowFileSystemImports);
     Logger.debug("[D4rt._executeClassic] Starting execution. library: $library");
-    CompilationUnit compilationUnit;
+    SCompilationUnit compilationUnit;
 
     if (library != null) {
       Logger.debug(
@@ -1086,37 +1081,7 @@ class D4rt {
       }
       Logger.debug(
           "[D4rt._executeClassic] Executing the provided source string directly (no source URI).");
-      final result = parseString(
-        content: source,
-        throwIfDiagnostics: false,
-        featureSet: FeatureSet.fromEnableFlags2(
-          sdkLanguageVersion: Version(3, 10, 0),
-          flags: [
-            'non-nullable',
-            'null-aware-elements',
-            'triple-shift',
-            'spread-collections',
-            'control-flow-collections',
-            'extension-methods',
-            'extension-types',
-          'digit-separators',
-          ],
-        ),
-      );
-
-      final errors = result.errors
-          .where((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR)
-          .toList();
-      if (errors.isNotEmpty) {
-        final errorMessages = errors.map((e) {
-          final location = result.lineInfo.getLocation(e.offset);
-          return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
-        }).join("\n");
-        Logger.error("Parsing errors for the direct source:\n$errorMessages");
-        throw SourceCodeD4rtException(
-            'Fatal parsing errors for the direct source:\n$errorMessages', source);
-      }
-      compilationUnit = result.unit;
+      compilationUnit = _parseSourceToAst(source);
       Logger.debug("[D4rt._executeClassic] Direct source string parsed successfully.");
     }
 
@@ -1140,9 +1105,9 @@ class D4rt {
       Logger.debug(
           " [_executeClassic] Processing directives (imports, exports, etc.)...");
       for (final directive in compilationUnit.directives) {
-        if (directive is ImportDirective) {
+        if (directive is SImportDirective) {
           Logger.debug(
-              " [_executeClassic]   - Processing ImportDirective: ${directive.uri.stringValue}");
+              " [_executeClassic]   - Processing SImportDirective: ${(directive.uri is SSimpleStringLiteral) ? (directive.uri as SSimpleStringLiteral).value : null}");
           _visitor!.visitImportDirective(directive);
         } else {
           Logger.debug(
@@ -1278,36 +1243,7 @@ class D4rt {
 
     _moduleLoader = _initModule(sources);
 
-    final parseResult = parseString(
-      content: source,
-      throwIfDiagnostics: false,
-      featureSet: FeatureSet.fromEnableFlags2(
-        sdkLanguageVersion: Version(3, 10, 0),
-        flags: [
-          'non-nullable',
-          'null-aware-elements',
-          'triple-shift',
-          'spread-collections',
-          'control-flow-collections',
-          'extension-methods',
-          'extension-types',
-          'digit-separators',
-        ],
-      ),
-    );
-
-    final errors = parseResult.errors
-        .where((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR)
-        .toList();
-    if (errors.isNotEmpty) {
-      final errorMessages = errors.map((e) {
-        final location = parseResult.lineInfo.getLocation(e.offset);
-        return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
-      }).join("\n");
-      throw SourceCodeD4rtException('Parsing errors:\n$errorMessages', source);
-    }
-
-    final compilationUnit = parseResult.unit;
+    final compilationUnit = _parseSourceToAst(source);
     
     // Library-scoped globals are registered via ModuleLoader when imports are processed
     final Environment executionEnvironment = _moduleLoader.globalEnvironment;
@@ -1323,7 +1259,7 @@ class D4rt {
         globalEnvironment: executionEnvironment, moduleLoader: _moduleLoader);
 
     for (final directive in compilationUnit.directives) {
-      if (directive is ImportDirective) {
+      if (directive is SImportDirective) {
         _visitor!.visitImportDirective(directive);
       }
     }
@@ -1380,33 +1316,11 @@ class D4rt {
     final executionEnvironment = _moduleLoader.globalEnvironment;
 
     // First, try to parse as a top-level declaration (function, class, variable)
-    final declarationParseResult = parseString(
-      content: expression,
-      throwIfDiagnostics: false,
-      featureSet: FeatureSet.fromEnableFlags2(
-        sdkLanguageVersion: Version(3, 10, 0),
-        flags: [
-          'non-nullable',
-          'null-aware-elements',
-          'triple-shift',
-          'spread-collections',
-          'control-flow-collections',
-          'extension-methods',
-          'extension-types',
-          'digit-separators',
-        ],
-      ),
-    );
+    final declarationParseResult = _parseSourceToAst(expression);
 
-    // Check if it parses as valid declaration(s)
-    final declErrors = declarationParseResult.errors
-        .where((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR)
-        .toList();
-
-    if (declErrors.isEmpty &&
-        declarationParseResult.unit.declarations.isNotEmpty) {
+    if (declarationParseResult.declarations.isNotEmpty) {
       // It's a declaration - process it directly in the global environment
-      final compilationUnit = declarationParseResult.unit;
+      final compilationUnit = declarationParseResult;
 
       // Declaration pass
       final declarationVisitor = DeclarationVisitor(executionEnvironment);
@@ -1436,27 +1350,11 @@ class D4rt {
         }
       ''';
 
-      final parseResult = parseString(
-        content: wrappedSource,
-        throwIfDiagnostics: false,
-        featureSet: FeatureSet.fromEnableFlags2(
-          sdkLanguageVersion: Version(3, 10, 0),
-          flags: [
-            'non-nullable',
-            'null-aware-elements',
-            'triple-shift',
-            'spread-collections',
-            'control-flow-collections',
-            'extension-methods',
-            'extension-types',
-          'digit-separators',
-          ],
-        ),
-      );
+      final parseResult = _parseSourceToAst(wrappedSource);
 
-      if (parseResult.errors.isEmpty) {
+      {
         // Execute as expression with return value
-        final compilationUnit = parseResult.unit;
+        final compilationUnit = parseResult;
 
         final declarationVisitor = DeclarationVisitor(executionEnvironment);
         for (final declaration in compilationUnit.declarations) {
@@ -1501,26 +1399,10 @@ class D4rt {
       }
     ''';
 
-    final statementParseResult = parseString(
-      content: statementSource,
-      throwIfDiagnostics: false,
-      featureSet: FeatureSet.fromEnableFlags2(
-        sdkLanguageVersion: Version(3, 10, 0),
-        flags: [
-          'non-nullable',
-          'null-aware-elements',
-          'triple-shift',
-          'spread-collections',
-          'control-flow-collections',
-          'extension-methods',
-          'extension-types',
-          'digit-separators',
-        ],
-      ),
-    );
+    final statementParseResult = _parseSourceToAst(statementSource);
 
-    if (statementParseResult.errors.isEmpty) {
-      final compilationUnit = statementParseResult.unit;
+    {
+      final compilationUnit = statementParseResult;
 
       final declarationVisitor = DeclarationVisitor(executionEnvironment);
       for (final declaration in compilationUnit.declarations) {
@@ -1547,13 +1429,6 @@ class D4rt {
       Logger.debug("[D4rt.eval] Executed statement");
       return null;
     }
-
-    // All parsing attempts failed
-    final errorMessages = declErrors.map((e) {
-      final location = declarationParseResult.lineInfo.getLocation(e.offset);
-      return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
-    }).join("\n");
-    throw SourceCodeD4rtException('Failed to parse expression:\n$errorMessages', expression);
   }
 
   /// Invoke a property or method on the given instance.

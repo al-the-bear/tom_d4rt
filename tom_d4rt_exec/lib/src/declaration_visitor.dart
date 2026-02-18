@@ -1,4 +1,3 @@
-import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 /// Visitor for the first pass: Declares class and mixin placeholders.
@@ -7,14 +6,14 @@ import 'package:tom_d4rt_exec/d4rt.dart';
 /// `InterpretedClass` instances (placeholders) in the global environment for
 /// each class and mixin found. It does not resolve relationships (extends,
 /// implements, with) nor does it process members.
-class DeclarationVisitor extends GeneralizingAstVisitor<void> {
+class DeclarationVisitor extends GeneralizingSAstVisitor<void> {
   final Environment environment;
 
   DeclarationVisitor(this.environment);
 
   @override
-  void visitClassDeclaration(ClassDeclaration node) {
-    final className = node.name.lexeme;
+  void visitClassDeclaration(SClassDeclaration node) {
+    final className = node.name?.name ?? '';
     if (environment.isDefinedLocally(className)) {
       return;
     }
@@ -32,7 +31,7 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
 
       // Create temporary type parameter placeholders
       for (final typeParam in typeParameters.typeParameters) {
-        final paramName = typeParam.name.lexeme;
+        final paramName = typeParam.name?.name ?? '';
         final typeParamPlaceholder = TypeParameter(paramName);
         tempEnvironment.define(paramName, typeParamPlaceholder);
 
@@ -55,7 +54,7 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
       className, // name
       null, // superclass (initialized to null)
       environment, // classDefinitionEnvironment
-      <FieldDeclaration>[], // fieldDeclarations (initially empty)
+      <SFieldDeclaration>[], // fieldDeclarations (initially empty)
       <String, InterpretedFunction>{}, // methods
       <String, InterpretedFunction>{}, // getters
       <String, InterpretedFunction>{}, // setters
@@ -66,16 +65,16 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
       <String, InterpretedFunction>{}, // constructors
       <String, InterpretedFunction>{}, // operators
       // Named parameters
-      isAbstract: node.abstractKeyword != null,
-      isMixin: node.mixinKeyword != null, // 'mixin class' declaration
+      isAbstract: node.isAbstract,
+      isMixin: node.isMixin, // 'mixin class' declaration
       interfaces: [], // Initially empty
       onClauseTypes: [], // Initially empty
       mixins: [], // Initially empty
       // Read modifiers from AST node
-      isFinal: node.finalKeyword != null,
-      isInterface: node.interfaceKeyword != null,
-      isBase: node.baseKeyword != null,
-      isSealed: node.sealedKeyword != null,
+      isFinal: node.isFinal,
+      isInterface: node.isInterface,
+      isBase: node.isBase,
+      isSealed: node.isSealed,
       // Add type parameter information
       typeParameterNames: typeParameterNames,
       typeParameterBounds: typeParameterBounds,
@@ -86,8 +85,8 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
   }
 
   @override
-  void visitMixinDeclaration(MixinDeclaration node) {
-    final mixinName = node.name.lexeme;
+  void visitMixinDeclaration(SMixinDeclaration node) {
+    final mixinName = node.name?.name ?? '';
     if (environment.isDefinedLocally(mixinName)) {
       return;
     }
@@ -96,7 +95,7 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
       mixinName, // name
       null, // superclass (null for pure mixins)
       environment, // classDefinitionEnvironment
-      <FieldDeclaration>[], // fieldDeclarations (initially empty)
+      <SFieldDeclaration>[], // fieldDeclarations (initially empty)
       <String, InterpretedFunction>{}, // methods
       <String, InterpretedFunction>{}, // getters
       <String, InterpretedFunction>{}, // setters
@@ -119,14 +118,14 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
   }
 
   @override
-  void visitEnumDeclaration(EnumDeclaration node) {
-    final enumName = node.name.lexeme;
+  void visitEnumDeclaration(SEnumDeclaration node) {
+    final enumName = node.name?.name ?? '';
     if (environment.isDefinedLocally(enumName)) {
       return;
     }
 
     // Extract constant names - needed for ordering later
-    final valueNames = node.constants.map((c) => c.name.lexeme).toList();
+    final valueNames = node.constants.map((c) => c.name?.name ?? '').toList();
 
     // Create the placeholder enum runtime object, storing only names for now
     final enumPlaceholder =
@@ -142,8 +141,8 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
 
   // Ignore other declaration types in this pass
   @override
-  void visitFunctionDeclaration(FunctionDeclaration node) {
-    final functionName = node.name.lexeme;
+  void visitFunctionDeclaration(SFunctionDeclaration node) {
+    final functionName = node.name?.name ?? '';
     Logger.debug(
         "[DeclarationVisitor.visitFunctionDeclaration] Processing function: $functionName");
 
@@ -153,7 +152,7 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
 
     // Handle type parameters for generic functions
     Environment? tempEnvironment;
-    final typeParameters = node.functionExpression.typeParameters;
+    final typeParameters = node.functionExpression?.typeParameters;
 
     if (typeParameters != null) {
       Logger.debug(
@@ -164,7 +163,7 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
 
       // Create temporary type parameter placeholders
       for (final typeParam in typeParameters.typeParameters) {
-        final paramName = typeParam.name.lexeme;
+        final paramName = typeParam.name?.name ?? '';
 
         // Create a simple TypeParameter placeholder in the temp environment
         final typeParamPlaceholder = TypeParameter(paramName);
@@ -182,8 +181,8 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
     final returnTypeNode = node.returnType;
     RuntimeType declaredReturnType;
 
-    if (returnTypeNode is NamedType) {
-      final typeName = returnTypeNode.name2.lexeme;
+    if (returnTypeNode is SNamedType) {
+      final typeName = returnTypeNode.name?.name ?? '';
       Logger.debug(
           "[DeclarationVisitor.visitFunctionDeclaration]   Return type node name: $typeName");
 
@@ -212,7 +211,7 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
           BridgedClass(nativeType: Object, name: 'unknown_type_placeholder');
     }
 
-    bool isNullable = returnTypeNode?.question != null; // Check for 'A?'
+    bool isNullable = (returnTypeNode is SNamedType) && returnTypeNode.isNullable;
 
     final function = InterpretedFunction.declaration(
         node,
@@ -225,19 +224,20 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
   }
 
   @override
-  void visitTopLevelVariableDeclaration(TopLevelVariableDeclaration node) {
+  void visitTopLevelVariableDeclaration(STopLevelVariableDeclaration node) {
     // Does nothing for global variables in this pass (handled by InterpreterVisitor)
-    for (final variable in node.variables.variables) {
-      if (variable.name.lexeme == '_') {
+    for (final variable in node.variables?.variables ?? []) {
+      final varName = variable.name?.name ?? '';
+      if (varName == '_') {
         // Ignore wildcard variables
         continue;
       }
       // For now, just define the variable name with null.
       // The actual initialization will happen in InterpreterVisitor.
-      if (!environment.isDefinedLocally(variable.name.lexeme)) {
-        environment.define(variable.name.lexeme, null);
+      if (!environment.isDefinedLocally(varName)) {
+        environment.define(varName, null);
         Logger.debug(
-            "[DeclarationVisitor] Defined top-level variable placeholder '${variable.name.lexeme}' in env: ${environment.hashCode}");
+            "[DeclarationVisitor] Defined top-level variable placeholder '$varName' in env: ${environment.hashCode}");
       }
     }
   }

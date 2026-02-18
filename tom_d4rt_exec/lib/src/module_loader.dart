@@ -1,18 +1,16 @@
-import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/src/stdlib/convert.dart';
 import 'package:tom_d4rt_exec/src/stdlib/isolate.dart';
 import 'package:tom_d4rt_exec/src/stdlib/math.dart';
 import 'package:tom_d4rt_exec/src/stdlib/collection.dart';
 import 'package:tom_d4rt_exec/src/stdlib/typed_data.dart';
-import 'package:pub_semver/pub_semver.dart';
 import 'package:tom_d4rt_exec/src/stdlib/stdlib_io.dart'
     if (dart.library.html) 'package:tom_d4rt_exec/src/stdlib/stdlib_web.dart';
 
 // Represent an module of source code loaded and parsed.
 class LoadedModule {
   final Uri uri; // The canonical URI of the module
-  final CompilationUnit ast; // The AST of the module
+  final SCompilationUnit ast; // The AST of the module
   final Environment environment; // The environment of this module
   final Environment
       exportedEnvironment; // The environment of the exported symbols
@@ -67,6 +65,12 @@ class ModuleLoader {
   /// warnings when a module is later explicitly imported.
   final Set<String> _autoLoadedStdlibs = {};
 
+  /// Callback for parsing source code into an SAstNode tree.
+  /// When provided, this is used to convert raw source strings into
+  /// [SCompilationUnit] nodes. When null, the module loader can only
+  /// work with pre-parsed AST input.
+  final SCompilationUnit Function(String sourceCode, Uri uri)? parseSourceCallback;
+
   ModuleLoader(this.globalEnvironment, this.sources,
       this.bridgedEnumDefinitions, this.bridgedClases,
       {this.d4rt,
@@ -75,7 +79,8 @@ class ModuleLoader {
       this.libraryGetters = const [],
       this.librarySetters = const [],
       this.bridgedExtensions = const [],
-      this.collectRegistrationErrors = false}) {
+      this.collectRegistrationErrors = false,
+      this.parseSourceCallback}) {
     Logger.debug(
         "[ModuleLoader] Initialized with ${sources.length} preloaded sources.");
   }
@@ -122,7 +127,7 @@ class ModuleLoader {
         "[ModuleLoader loadModule for $uri] Loading module: ${uri.toString()}");
     String sourceCode = _fetchModuleSource(
         uri, showNames: showNames, hideNames: hideNames); // Pass show/hide to filter bridged registrations
-    CompilationUnit ast = _parseSource(uri, sourceCode);
+    SCompilationUnit ast = _parseSource(uri, sourceCode);
 
     Environment moduleEnvironment = Environment(enclosing: globalEnvironment);
 
@@ -131,8 +136,8 @@ class ModuleLoader {
     Logger.debug(
         "[ModuleLoader loadModule for $uri] Processing import directives first...");
     for (final directive in ast.directives) {
-      if (directive is ImportDirective) {
-        final importedUriString = directive.uri.stringValue;
+      if (directive is SImportDirective) {
+        final importedUriString = (directive.uri is SSimpleStringLiteral) ? (directive.uri as SSimpleStringLiteral).value : null;
         if (importedUriString == null) {
           Logger.warn(
               "[ModuleLoader loadModule for $uri] Import directive with null URI string in ${uri.toString()}");
@@ -152,12 +157,12 @@ class ModuleLoader {
           String? prefix = directive.prefix?.name;
 
           for (final combinator in directive.combinators) {
-            if (combinator is ShowCombinator) {
+            if (combinator is SShowCombinator) {
               showNames ??= {};
               showNames.addAll(combinator.shownNames.map((id) => id.name));
               Logger.debug(
                   "[ModuleLoader loadModule for $uri]   Import combinator: show ${combinator.shownNames.map((id) => id.name).join(', ')}");
-            } else if (combinator is HideCombinator) {
+            } else if (combinator is SHideCombinator) {
               hideNames ??= {};
               hideNames.addAll(combinator.hiddenNames.map((id) => id.name));
               Logger.debug(
@@ -221,7 +226,7 @@ class ModuleLoader {
     // This must happen before top-level variable declarations in case
     // const variables reference enum values
     for (final declaration in ast.declarations) {
-      if (declaration is EnumDeclaration) {
+      if (declaration is SEnumDeclaration) {
         declaration.accept(moduleInterpreter);
       }
     }
@@ -230,14 +235,14 @@ class ModuleLoader {
     // The DeclarationVisitor only creates placeholders with empty constructor maps.
     // Bug-59: Without this, imported classes have no constructors available!
     for (final declaration in ast.declarations) {
-      if (declaration is ClassDeclaration || declaration is MixinDeclaration) {
+      if (declaration is SClassDeclaration || declaration is SMixinDeclaration) {
         declaration.accept(moduleInterpreter);
       }
     }
     
     // Process function declarations to populate interpreted functions properly
     for (final declaration in ast.declarations) {
-      if (declaration is FunctionDeclaration) {
+      if (declaration is SFunctionDeclaration) {
         declaration.accept(moduleInterpreter);
       }
     }
@@ -245,15 +250,15 @@ class ModuleLoader {
     // Bug-91: Process extension declarations to populate extension methods
     // Extensions need to be processed by the interpreter to be available for imported modules
     for (final declaration in ast.declarations) {
-      if (declaration is ExtensionDeclaration) {
+      if (declaration is SExtensionDeclaration) {
         declaration.accept(moduleInterpreter);
       }
     }
     
     // Then process top-level variable declarations
     for (final declaration in ast.declarations) {
-      // We only care about the evaluation of TopLevelVariableDeclaration for their initializers.
-      if (declaration is TopLevelVariableDeclaration) {
+      // We only care about the evaluation of STopLevelVariableDeclaration for their initializers.
+      if (declaration is STopLevelVariableDeclaration) {
         declaration.accept(moduleInterpreter);
       }
     }
@@ -274,8 +279,8 @@ class ModuleLoader {
     Logger.debug(
         "[ModuleLoader loadModule for $uri] Processing export directives for ${uri.toString()}...");
     for (final directive in ast.directives) {
-      if (directive is ExportDirective) {
-        final exportedUriString = directive.uri.stringValue;
+      if (directive is SExportDirective) {
+        final exportedUriString = (directive.uri is SSimpleStringLiteral) ? (directive.uri as SSimpleStringLiteral).value : null;
         if (exportedUriString == null) {
           Logger.warn(
               "[ModuleLoader loadModule for $uri] Export directive with null URI string in ${uri.toString()}");
@@ -294,13 +299,13 @@ class ModuleLoader {
           Set<String>? hideNames;
 
           for (final combinator in directive.combinators) {
-            if (combinator is ShowCombinator) {
+            if (combinator is SShowCombinator) {
               showNames ??= {}; // Initialize if it's the first show combinator
               showNames.addAll(
                   combinator.shownNames.map((id) => id.name)); // Use id.name
               Logger.debug(
                   "[ModuleLoader loadModule for $uri]   Export combinator: show ${combinator.shownNames.map((id) => id.name).join(', ')}");
-            } else if (combinator is HideCombinator) {
+            } else if (combinator is SHideCombinator) {
               hideNames ??= {}; // Initialize if it's the first hide combinator
               hideNames.addAll(
                   combinator.hiddenNames.map((id) => id.name)); // Use id.name
@@ -323,7 +328,7 @@ class ModuleLoader {
           rethrow;
         }
       }
-      // Note: ImportDirective is now processed earlier, before declarations
+      // Note: SImportDirective is now processed earlier, before declarations
     }
     Logger.debug(
         "[ModuleLoader loadModule for $uri] Finished processing export directives for ${uri.toString()}.");
@@ -908,48 +913,17 @@ class ModuleLoader {
     return null; // Type not found anywhere
   }
 
-  CompilationUnit _parseSource(Uri uri, String sourceCode) {
+  SCompilationUnit _parseSource(Uri uri, String sourceCode) {
     Logger.debug("[ModuleLoader] Parsing source for module: ${uri.toString()}");
-    // Ensure the path passed to parseString is meaningful for errors.
-    // If the URI is opaque (ex: custom scheme), toFilePath may fail.
-    // Use uri.path or uri.toString() as a fallback.
-    String pathToReport =
-        uri.isScheme('file') ? uri.toFilePath() : uri.toString();
-
-    final result = parseString(
-      content: sourceCode,
-      throwIfDiagnostics: false,
-      path: pathToReport,
-      featureSet: FeatureSet.fromEnableFlags2(
-        sdkLanguageVersion: Version(3, 10, 0), // Dart 3.6 for digit-separators and null-aware-elements
-        flags: [
-          'non-nullable',
-          'null-aware-elements',
-          'triple-shift',
-          'spread-collections',
-          'control-flow-collections',
-          'extension-methods',
-          'extension-types',
-          'digit-separators',
-        ],
-      ),
-    );
-
-    final errors = result.errors
-        .where((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR)
-        .toList();
-    if (errors.isNotEmpty) {
-      final errorMessages = errors.map((e) {
-        final location = result.lineInfo.getLocation(e.offset);
-        return "- ${e.message} (ligne ${location.lineNumber}, colonne ${location.columnNumber})";
-      }).join("\\n");
-      Logger.error(
-          "[ModuleLoader] Parsing errors for $pathToReport:\n$errorMessages");
-      throw SourceCodeD4rtException(
-          "Parsing errors in module $pathToReport:\n$errorMessages", sourceCode);
+    if (parseSourceCallback == null) {
+      throw StateError(
+          'ModuleLoader: no parseSourceCallback provided. '
+          'Cannot parse source code for module ${uri.toString()}. '
+          'Provide a parseSourceCallback to the ModuleLoader constructor.');
     }
+    final result = parseSourceCallback!(sourceCode, uri);
     Logger.debug(
         "[ModuleLoader] Module ${uri.toString()} parsed successfully.");
-    return result.unit;
+    return result;
   }
 }

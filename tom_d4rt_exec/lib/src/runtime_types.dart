@@ -1,4 +1,3 @@
-import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'bridge/bridged_types.dart' as bridge;
 
@@ -8,7 +7,7 @@ class InterpretedClass implements Callable, RuntimeType {
   final String name;
   InterpretedClass? superclass;
   final Environment classDefinitionEnvironment;
-  final List<FieldDeclaration> fieldDeclarations;
+  final List<SFieldDeclaration> fieldDeclarations;
 
   // Separate maps for different member types
   final Map<String, InterpretedFunction> methods;
@@ -49,20 +48,20 @@ class InterpretedClass implements Callable, RuntimeType {
 
   // Helper methods to extract type parameter information from AST (similar to InterpretedFunction)
   static List<String> extractTypeParameterNames(
-      TypeParameterList? typeParameters) {
+      STypeParameterList? typeParameters) {
     if (typeParameters == null) return [];
     return typeParameters.typeParameters
-        .map((param) => param.name.lexeme)
+        .map((param) => param.name?.name ?? '')
         .toList();
   }
 
   static Map<String, RuntimeType?> extractTypeParameterBounds(
-      TypeParameterList? typeParameters, Environment? resolveEnvironment) {
+      STypeParameterList? typeParameters, Environment? resolveEnvironment) {
     final bounds = <String, RuntimeType?>{};
     if (typeParameters == null) return bounds;
 
     for (final typeParam in typeParameters.typeParameters) {
-      final paramName = typeParam.name.lexeme;
+      final paramName = typeParam.name?.name ?? '';
       RuntimeType? bound;
 
       if (typeParam.bound != null && resolveEnvironment != null) {
@@ -90,12 +89,12 @@ class InterpretedClass implements Callable, RuntimeType {
 
   // Helper method for dynamic type resolution
   static RuntimeType resolveTypeAnnotationDynamic(
-      TypeAnnotation typeNode, Environment env) {
-    if (typeNode is NamedType) {
-      final typeName = typeNode.name2.lexeme;
+      SAstNode typeNode, Environment env) {
+    if (typeNode is SNamedType) {
+      final typeName = typeNode.name?.name ?? '';
 
       Logger.debug(
-          "[InterpretedClass._resolveTypeAnnotationDynamic] Resolving NamedType: $typeName");
+          "[InterpretedClass._resolveTypeAnnotationDynamic] Resolving SNamedType: $typeName");
 
       final resolved = env.get(typeName);
       if (resolved is RuntimeType) {
@@ -185,7 +184,7 @@ class InterpretedClass implements Callable, RuntimeType {
         // We need to return something callable. Create a synthetic InterpretedFunction
         // that wraps the call to the bridge adapter.
         // This is complex because the adapter expects the native target directly.
-        // For now, return null, PropertyAccess visitor will handle it.
+        // For now, return null, SPropertyAccess visitor will handle it.
         return null; // Placeholder - Requires more complex handling
       }
     }
@@ -471,10 +470,10 @@ class InterpretedClass implements Callable, RuntimeType {
         // Initialize fields declared IN THIS CLASS
         for (final fieldDecl in klassInHierarchy.fieldDeclarations) {
           if (!fieldDecl.isStatic) {
-            for (final variable in fieldDecl.fields.variables) {
-              final fieldName = variable.name.lexeme;
-              final isLate = fieldDecl.fields.lateKeyword != null;
-              final isFinal = fieldDecl.fields.keyword?.lexeme == 'final';
+            for (final variable in fieldDecl.fields?.variables ?? []) {
+              final fieldName = variable.name?.name ?? '';
+              final isLate = fieldDecl.fields?.isLate ?? false;
+              final isFinal = fieldDecl.fields?.isFinal ?? false;
 
               if (isLate) {
                 // Handle late instance field
@@ -531,8 +530,8 @@ class InterpretedClass implements Callable, RuntimeType {
             visitor.environment = mixinFieldInitEnv;
             for (final fieldDecl in mixin.fieldDeclarations) {
               if (!fieldDecl.isStatic) {
-                for (final variable in fieldDecl.fields.variables) {
-                  final fieldName = variable.name.lexeme;
+                for (final variable in fieldDecl.fields?.variables ?? []) {
+                  final fieldName = variable.name?.name ?? '';
                   if (variable.initializer != null) {
                     final value =
                         variable.initializer!.accept<Object?>(visitor);
@@ -717,8 +716,8 @@ class InterpretedClass implements Callable, RuntimeType {
       // Include fields from the current class
       for (final fieldDecl in current.fieldDeclarations) {
         if (!fieldDecl.isStatic) {
-          for (final variable in fieldDecl.fields.variables) {
-            fieldNames.add(variable.name.lexeme);
+          for (final variable in fieldDecl.fields?.variables ?? []) {
+            fieldNames.add(variable.name?.name ?? '');
           }
         }
       }
@@ -726,8 +725,8 @@ class InterpretedClass implements Callable, RuntimeType {
       for (final mixin in current.mixins) {
         for (final fieldDecl in mixin.fieldDeclarations) {
           if (!fieldDecl.isStatic) {
-            for (final variable in fieldDecl.fields.variables) {
-              fieldNames.add(variable.name.lexeme);
+            for (final variable in fieldDecl.fields?.variables ?? []) {
+              fieldNames.add(variable.name?.name ?? '');
             }
           }
         }
@@ -1541,7 +1540,7 @@ class InterpretedEnum implements RuntimeType {
   final Map<String, Object?> staticFields = {};
   final Map<String, InterpretedFunction> constructors = {};
 
-  final List<FieldDeclaration> fieldDeclarations = [];
+  final List<SFieldDeclaration> fieldDeclarations = [];
 
   // Mixin support - similar to InterpretedClass
   List<InterpretedClass> mixins;
