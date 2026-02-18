@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/src/bridge/bridged_enum.dart';
 import 'package:tom_d4rt_exec/src/utils/extensions/string.dart';
@@ -94,8 +93,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitTopLevelVariableDeclaration(STopLevelVariableDeclaration node) {
-    for (final variable in node.variables.variables) {
-      if (variable.name.lexeme == '_') {
+    for (final variable in node.variables!.variables) {
+      if (variable.name!.name == '_') {
         // Evaluate initializer for potential side effects, but don't define
         variable.initializer?.accept<Object?>(this);
       } else {
@@ -103,7 +102,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         if (variable.initializer != null) {
           value = variable.initializer!.accept<Object?>(this);
         }
-        environment.define(variable.name.lexeme, value);
+        environment.define(variable.name!.name, value);
       }
     }
     return null;
@@ -112,7 +111,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   @override
   Object? visitPatternVariableDeclarationStatement(
       SPatternVariableDeclarationStatement node) {
-    final patternDecl = node.declaration;
+    final patternDecl = node.declaration as SPatternVariableDeclaration;
     final pattern = patternDecl.pattern;
     final initializer = patternDecl.expression;
 
@@ -138,7 +137,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   @override
   Object? visitVariableDeclarationStatement(SVariableDeclarationStatement node) {
     // Simply visit the declaration list. The list visitor handles definition.
-    return node.variables.accept<Object?>(this);
+    return node.variables!.accept<Object?>(this);
     // return null; // Statements usually return null unless they are Return/Throw/etc.
   }
 
@@ -146,18 +145,18 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitExpressionStatement(SExpressionStatement node) {
-    return node.expression.accept<Object?>(this);
+    return node.expression!.accept<Object?>(this);
   }
 
   @override
   Object? visitAsExpression(SAsExpression node) {
-    final value = node.expression.accept<Object?>(this);
+    final value = node.expression!.accept<Object?>(this);
     final typeNode = node.type;
     if (typeNode is SNamedType) {
-      final typeName = typeNode.name.lexeme;
+      final typeName = typeNode.name!.name;
       // G-DOV2-1 FIX: Handle nullable types (e.g., String?, int?)
       // If the type is nullable (has a '?' suffix), then null is always allowed
-      final isNullable = typeNode.question != null;
+      final isNullable = typeNode.isNullable;
       if (isNullable && value == null) {
         return value; // Null is valid for any nullable type
       }
@@ -197,7 +196,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
     }
     throw RuntimeD4rtException(
-        "Cast failed with 'as' : the value does not match the target type (${typeNode.toSource()})");
+        "Cast failed with 'as' : the value does not match the target type (${typeNode.toString()})");
   }
 
   @override
@@ -215,8 +214,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     return node.value;
   }
 
-  @override
-  Object? visitStringLiteral(StringLiteral node) {
+  Object? visitStringLiteral(SAstNode node) {
     if (node is SSimpleStringLiteral) {
       return node.value;
     } else if (node is SAdjacentStrings) {
@@ -530,17 +528,17 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitPrefixedIdentifier(SPrefixedIdentifier node) {
-    final prefixValue = node.prefix.accept<Object?>(this);
+    final prefixValue = node.prefix!.accept<Object?>(this);
     if (prefixValue is AsyncSuspensionRequest) {
       // Propagate the suspension so that the state machine resumes this node after resolution
       return prefixValue;
     }
-    final memberName = node.identifier.name;
+    final memberName = node.identifier!.name;
 
     // Handle the case where the prefix is an environment (prefixed import)
     if (prefixValue is Environment) {
       Logger.debug(
-          "[SPrefixedIdentifier] The prefix '${node.prefix.toSource()}' resolved to an Environment. Searching for '$memberName' in this environment.");
+          "[SPrefixedIdentifier] The prefix '${node.prefix.toString()}' resolved to an Environment. Searching for '$memberName' in this environment.");
       try {
         // The call to get() on the prefixed environment could return a function (which must be called if it's a getter)
         // or a direct value.
@@ -557,7 +555,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         return member; // Return the value/function directly
       } on RuntimeD4rtException catch (e) {
         throw RuntimeD4rtException(
-            "Erreur lors de la récupération du membre '$memberName' de l'import préfixé '${node.prefix.toSource()}': ${e.message}");
+            "Erreur lors de la récupération du membre '$memberName' de l'import préfixé '${node.prefix.toString()}': ${e.message}");
       }
     }
 
@@ -955,11 +953,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitBinaryExpression(SBinaryExpression node) {
-    final operator = node.operator.type;
+    final operator = node.operator;
 
     // Handle logical OR (||) with short-circuiting FIRST - don't evaluate right operand yet
     if (operator == '||') {
-      final leftValue = node.leftOperand.accept<Object?>(this);
+      final leftValue = node.leftOperand!.accept<Object?>(this);
       if (leftValue is AsyncSuspensionRequest) return leftValue;
       if (leftValue is! bool) {
         throw RuntimeD4rtException(
@@ -968,7 +966,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // If left is true, return true without evaluating right
       if (leftValue) return true;
       // Left is false, now evaluate right operand
-      final rightValue = node.rightOperand.accept<Object?>(this);
+      final rightValue = node.rightOperand!.accept<Object?>(this);
       if (rightValue is AsyncSuspensionRequest) return rightValue;
       if (rightValue is! bool) {
         throw RuntimeD4rtException(
@@ -979,7 +977,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     // Handle logical AND (&&) with short-circuiting SECOND - don't evaluate right operand yet
     if (operator == '&&') {
-      final leftValue = node.leftOperand.accept<Object?>(this);
+      final leftValue = node.leftOperand!.accept<Object?>(this);
       if (leftValue is AsyncSuspensionRequest) return leftValue;
       if (leftValue is! bool) {
         throw RuntimeD4rtException(
@@ -988,7 +986,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // If left is false, return false without evaluating right
       if (!leftValue) return false;
       // Left is true, now evaluate right operand
-      final rightValue = node.rightOperand.accept<Object?>(this);
+      final rightValue = node.rightOperand!.accept<Object?>(this);
       if (rightValue is AsyncSuspensionRequest) return rightValue;
       if (rightValue is! bool) {
         throw RuntimeD4rtException(
@@ -999,21 +997,21 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     // Handle null-coalescing (??) with short-circuiting - don't evaluate right operand yet
     if (operator == '??') {
-      final leftValue = node.leftOperand.accept<Object?>(this);
+      final leftValue = node.leftOperand!.accept<Object?>(this);
       if (leftValue is AsyncSuspensionRequest) return leftValue;
       // If left is not null, return it without evaluating right
       if (leftValue != null) return leftValue;
       // Left is null, evaluate right operand
-      final rightValue = node.rightOperand.accept<Object?>(this);
+      final rightValue = node.rightOperand!.accept<Object?>(this);
       if (rightValue is AsyncSuspensionRequest) return rightValue;
       return rightValue;
     }
 
     // For all other operators, evaluate both operands
-    final leftOperandValue = node.leftOperand.accept<Object?>(this);
-    final rightOperandValue = node.rightOperand.accept<Object?>(this);
+    final leftOperandValue = node.leftOperand!.accept<Object?>(this);
+    final rightOperandValue = node.rightOperand!.accept<Object?>(this);
 
-    Logger.debug("[SBinaryExpression DEBUG] Operator: ${operator.lexeme}");
+    Logger.debug("[SBinaryExpression DEBUG] Operator: $operator");
     Logger.debug("  Left operand type: ${leftOperandValue?.runtimeType}");
     Logger.debug("  Left operand value: $leftOperandValue");
     Logger.debug("  Right operand type: ${rightOperandValue?.runtimeType}");
@@ -1074,7 +1072,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
 
     // Moved this block BEFORE standard ==, !=, <, <=, >, >= checks
-    final operatorName = operator.lexeme;
+    final operatorName = operator;
 
     // Check for class operator methods FIRST (before extensions and built-in operators)
     if (leftOperandValue is InterpretedInstance) {
@@ -1167,7 +1165,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
     }
 
-    switch (operator.lexeme) {
+    switch (operator) {
       case '+':
         if (left is String && right is String) return left + right;
         if (left is BigInt && right is BigInt) return left + right;
@@ -1337,7 +1335,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       return null;
     }
 
-    final indexValue = index.accept<Object?>(this);
+    final indexValue = index!.accept<Object?>(this);
 
     if (targetValue is AsyncSuspensionRequest) return targetValue;
     if (indexValue is AsyncSuspensionRequest) return indexValue;
@@ -1428,7 +1426,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   Object? visitAssignmentExpression(SAssignmentExpression node) {
     final lhs = node.leftHandSide;
     // Evaluate RHS once, used by multiple branches below
-    Object? rhsValue = node.rightHandSide.accept<Object?>(this);
+    Object? rhsValue = node.rightHandSide!.accept<Object?>(this);
 
     // Handle suspension on the right-hand side
     if (rhsValue is AsyncSuspensionRequest) {
@@ -1440,7 +1438,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
     // END NEW
 
-    final operatorType = node.operator.type;
+    final operatorType = node.operator;
 
     // Case 1: Simple variable assignment (lexical or implicit this)
     if (lhs is SSimpleIdentifier) {
@@ -1622,7 +1620,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     else if (lhs is SPropertyAccess) {
       final targetExpression = lhs.target; // Keep expression for check below
       final targetValue = targetExpression?.accept<Object?>(this);
-      final propertyName = lhs.propertyName.name;
+      final propertyName = lhs.propertyName!.name;
       // rhsValue and operatorType already available from the top
 
       if (targetValue is BoundSuper) {
@@ -1960,8 +1958,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
     // Case 3: SPrefixedIdentifier assignment (prefix.identifier op= value)
     else if (lhs is SPrefixedIdentifier) {
-      final target = lhs.prefix.accept<Object?>(this);
-      final propertyName = lhs.identifier.name;
+      final target = lhs.prefix!.accept<Object?>(this);
+      final propertyName = lhs.identifier!.name;
       // rhsValue and operatorType already available from the top
 
       if (target is InterpretedInstance) {
@@ -2180,7 +2178,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     } else {
       if (lhs is SIndexExpression) {
         final targetValue = lhs.target?.accept<Object?>(this);
-        final indexValue = lhs.index.accept<Object?>(this);
+        final indexValue = lhs.index!.accept<Object?>(this);
 
         // Determine the value to actually assign
         Object? finalValueToAssign;
@@ -2427,16 +2425,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // Argument lists - declared here, evaluated later if needed
 
     // Determine if this is a conditional call by inspecting the source
-    final isNullAware = node.toSource().contains('?.');
+    final isNullAware = node.toString().contains('?.');
 
     if (node.target == null) {
       // Simple function call (or class constructor call)
-      calleeValue = node.methodName.accept<Object?>(this);
+      calleeValue = node.methodName!.accept<Object?>(this);
       targetValue = null; // No target
     } else {
       // Property/Method call on a target (instance or class)
       targetValue = node.target!.accept<Object?>(this);
-      final methodName = node.methodName.name;
+      final methodName = node.methodName!.name;
 
       // Null safety support: if the target is null and the call is null-aware, return null
       if (targetValue == null) {
@@ -2450,7 +2448,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // BLOCK FOR HANDLING PREFIXED IMPORTS
       if (targetValue is Environment) {
         Logger.debug(
-            "[SMethodInvocation] Target is an Environment (prefixed import '${node.target!.toSource()}'). Looking for method '$methodName' in this environment.");
+            "[SMethodInvocation] Target is an Environment (prefixed import '${node.target!.toString()}'). Looking for method '$methodName' in this environment.");
         try {
           calleeValue = targetValue.get(methodName);
           // The 'targetValue' for the call will be null because this is not an instance method on the environment itself,
@@ -2458,7 +2456,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           // Functions obtained in this way are already "autonomous" or correctly bound if they come from classes.
         } on RuntimeD4rtException catch (e) {
           throw RuntimeD4rtException(
-              "Method '$methodName' not found in imported module '${node.target!.toSource()}'. Error: ${e.message}");
+              "Method '$methodName' not found in imported module '${node.target!.toString()}'. Error: ${e.message}");
         }
         // calleeValue is now the function/method of the imported module.
         // The call logic will be handled in the final visitMethodInvocation.
@@ -2845,7 +2843,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       } else if (targetValue is BridgedClass) {
         // This is a method call on a bridged class (bridged constructor or static method)
         final bridgedClass = targetValue;
-        final methodName = node.methodName.name;
+        final methodName = node.methodName!.name;
         Logger.debug(
             "[visitMethodInvocation] Target is BridgedClass: '$methodName' on '${bridgedClass.name}'");
 
@@ -3239,7 +3237,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // Original Error: The expression evaluated did not yield a callable function or an object with a callable 'call' extension.
       String nameForError = "<unknown>";
       if (node.target == null) {
-        nameForError = node.methodName.name;
+        nameForError = node.methodName!.name;
       } else {
         nameForError = node.toString(); // Approximate representation
       }
@@ -3261,8 +3259,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
 
     // Determine if this is a conditional access by inspecting the source
-    final isNullAware = node.toSource().contains('?.');
-    final propertyName = node.propertyName.name;
+    final isNullAware = node.toString().contains('?.');
+    final propertyName = node.propertyName!.name;
 
     // Null safety support: if the target is null and the access is null-aware, return null
     if (target == null) {
@@ -3291,7 +3289,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
 
     Logger.debug(
-        "[SPropertyAccess: ${node.toSource()}] Target type: ${target.runtimeType}, Target value: ${target.toString()}");
+        "[SPropertyAccess: ${node.toString()}] Target type: ${target.runtimeType}, Target value: ${target.toString()}");
 
     if (target is InterpretedInstance) {
       // Standard Instance Access: Try direct first, then extension
@@ -3714,7 +3712,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   @override
   Object? visitIfStatement(SIfStatement node) {
     // Evaluate the expression
-    final expressionValue = node.expression.accept<Object?>(this);
+    final expressionValue = node.condition!.accept<Object?>(this);
 
     // If the evaluation returns an AsyncSuspensionRequest, return it immediately
     if (expressionValue is AsyncSuspensionRequest) {
@@ -3727,8 +3725,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final caseClause = node.caseClause;
     if (caseClause != null) {
       // This is an if-case statement: if (expr case Pattern when guard) { ... }
-      final pattern = caseClause.guardedPattern.pattern;
-      final guard = caseClause.guardedPattern.whenClause?.expression;
+      final cc = caseClause as SCaseClause;
+      final gp = cc.guardedPattern as SGuardedPattern;
+      final pattern = gp.pattern;
+      final guard = (gp.whenClause as SWhenClause?)?.expression;
 
       // Create a temporary environment for pattern variable bindings
       final caseEnvironment = Environment(enclosing: environment);
@@ -3762,7 +3762,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           final previousVisitorEnv = environment;
           try {
             environment = caseEnvironment; // Execute body in case scope
-            node.thenStatement.accept<Object?>(this);
+            node.thenStatement!.accept<Object?>(this);
           } finally {
             environment = previousVisitorEnv;
           }
@@ -3795,7 +3795,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
 
     if (conditionResult) {
-      node.thenStatement.accept<Object?>(this);
+      node.thenStatement!.accept<Object?>(this);
     } else if (node.elseStatement != null) {
       node.elseStatement!.accept<Object?>(this);
     }
@@ -3807,7 +3807,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   Object? visitWhileStatement(SWhileStatement node) {
     while (true) {
       // Handle condition being BridgedInstance<bool>
-      final conditionValue = node.condition.accept<Object?>(this);
+      final conditionValue = node.condition!.accept<Object?>(this);
       bool conditionResult;
       final bridgedInstance = toBridgedInstance(conditionValue);
       if (conditionValue is bool) {
@@ -3826,7 +3826,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
       try {
         // Condition is true, execute the body
-        node.body.accept<Object?>(this);
+        node.body!.accept<Object?>(this);
       } on BreakException catch (e) {
         Logger.debug(
             "[While] Caught BreakException (label: ${e.label}) with current labels: $_currentStatementLabels");
@@ -3862,7 +3862,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     do {
       try {
         // Execute the body first
-        node.body.accept<Object?>(this);
+        node.body!.accept<Object?>(this);
       } on BreakException catch (e) {
         Logger.debug(
             "[DoWhile] Caught BreakException (label: ${e.label}) with current labels: $_currentStatementLabels");
@@ -3888,7 +3888,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
       // Then evaluate the condition
       // Handle condition being BridgedInstance<bool>
-      final conditionValue = node.condition.accept<Object?>(this);
+      final conditionValue = node.condition!.accept<Object?>(this);
       Logger.debug("[DoWhile] Condition value: $conditionValue");
       bool conditionResult;
       final bridgedInstance = toBridgedInstance(conditionValue);
@@ -3918,30 +3918,30 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     if (loopParts is SForPartsWithDeclarations) {
       // Classic for loop: for (var i = 0; ... ; ...)
       _executeClassicFor(loopParts.variables, loopParts.condition,
-          loopParts.updaters, node.body);
+          loopParts.updaters, node.body!);
     } else if (loopParts is SForPartsWithExpression) {
       // Classic for loop: for (i = 0; ... ; ...)
       _executeClassicFor(loopParts.initialization, loopParts.condition,
-          loopParts.updaters, node.body);
+          loopParts.updaters, node.body!);
     } else if (loopParts is SForEachPartsWithDeclaration) {
       // For-in loop: for (var item in list) or await for (var item in stream)
-      if (node.awaitKeyword != null) {
+      if (loopParts.isAwait) {
         // await for loop - expect Stream
         return _executeAwaitForIn(
-            loopParts.loopVariable, loopParts.iterable, node.body);
+            loopParts.loopVariable!, loopParts.iterable!, node.body!);
       } else {
         // Regular for-in loop - expect Iterable
-        _executeForIn(loopParts.loopVariable, loopParts.iterable, node.body);
+        _executeForIn(loopParts.loopVariable!, loopParts.iterable!, node.body!);
       }
     } else if (loopParts is SForEachPartsWithIdentifier) {
       // For-in loop: for (item in list) or await for (item in stream)
-      if (node.awaitKeyword != null) {
+      if (loopParts.isAwait) {
         // await for loop - expect Stream
         return _executeAwaitForIn(
-            loopParts.identifier, loopParts.iterable, node.body);
+            loopParts.identifier!, loopParts.iterable!, node.body!);
       } else {
         // Regular for-in loop - expect Iterable
-        _executeForIn(loopParts.identifier, loopParts.iterable, node.body);
+        _executeForIn(loopParts.identifier!, loopParts.iterable!, node.body!);
       }
     } else {
       // Should not happen with valid Dart code
@@ -3952,8 +3952,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   }
 
   // Helper method to execute the logic of a classic for loop
-  void _executeClassicFor(SAstNode? initialization, Expression? condition,
-      List<SAstNode>? updaters, Statement body) {
+  void _executeClassicFor(SAstNode? initialization, SAstNode? condition,
+      List<SAstNode>? updaters, SAstNode body) {
     // 1. Create loop environment
     final loopEnvironment = Environment(enclosing: environment);
     final previousEnvironment = environment;
@@ -4039,7 +4039,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   // Helper method to execute the logic of a for-in loop (simplified)
   void _executeForIn(SAstNode loopVariableOrIdentifier,
-      Expression iterableExpression, Statement body) {
+      SAstNode iterableExpression, SAstNode body) {
     final expressionValue = iterableExpression.accept<Object?>(this);
 
     // Handle iterable being BridgedInstance<Iterable>
@@ -4068,7 +4068,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       try {
         String variableName;
         if (loopVariableOrIdentifier is SDeclaredIdentifier) {
-          variableName = loopVariableOrIdentifier.name.lexeme;
+          variableName = loopVariableOrIdentifier.identifier!.name;
           environment.define(variableName, null); // Define before loop
         } else if (loopVariableOrIdentifier is SSimpleIdentifier) {
           variableName = loopVariableOrIdentifier.name;
@@ -4126,7 +4126,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   // Helper method to execute the logic of an await for-in loop (for streams)
   Object? _executeAwaitForIn(SAstNode loopVariableOrIdentifier,
-      Expression iterableExpression, Statement body) {
+      SAstNode iterableExpression, SAstNode body) {
     final expressionValue = iterableExpression.accept<Object?>(this);
 
     // Handle stream being BridgedInstance<Stream>
@@ -4170,7 +4170,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   Future<Object?> _convertStreamAndProcessForIn(
       SAstNode loopVariableOrIdentifier,
       Stream<Object?> stream,
-      Statement body) async {
+      SAstNode body) async {
     // Convert stream to list
     final List<Object?> items = await stream.toList();
 
@@ -4182,7 +4182,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   // Execute for-in loop with a list of items (reused logic from _executeForIn)
   void _executeForInWithItems(
-      SAstNode loopVariableOrIdentifier, List<Object?> items, Statement body) {
+      SAstNode loopVariableOrIdentifier, List<Object?> items, SAstNode body) {
     // G-DOV-12 FIX: Create a dedicated loop environment (like _executeForIn does)
     // to ensure the loop variable is properly scoped and accessible.
     final loopEnvironment = Environment(enclosing: environment);
@@ -4191,7 +4191,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     try {
       String variableName;
       if (loopVariableOrIdentifier is SDeclaredIdentifier) {
-        variableName = loopVariableOrIdentifier.name.lexeme;
+        variableName = loopVariableOrIdentifier.identifier!.name;
         // Define the loop variable in the loop environment
         environment.define(variableName, null);
       } else if (loopVariableOrIdentifier is SSimpleIdentifier) {
@@ -4249,14 +4249,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // visitVariableDeclaration is NOT automatically called for node.variables
     // by the generalizing visitor when visiting the list itself.
     for (final variable in node.variables) {
-      if (variable.name.lexeme == '_') {
+      if (variable.name!.name == '_') {
         // Evaluate initializer for potential side effects, but don't define
         variable.initializer?.accept<Object?>(this);
       } else {
         // Check if this is a late variable
-        final isLate = node.lateKeyword != null;
-        final isFinal = node.keyword?.lexeme == 'final';
-        final variableName = variable.name.lexeme;
+        final isLate = node.isLate;
+        final isFinal = node.isFinal;
+        final variableName = variable.name!.name;
 
         if (isLate) {
           // Handle late variable
@@ -4341,15 +4341,15 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitYieldStatement(SYieldStatement node) {
-    final value = node.expression.accept<Object?>(this);
+    final value = node.expression!.accept<Object?>(this);
     Logger.debug(
-        "[SYieldStatement] Yielding value: $value (star: ${node.star != null})");
+        "[SYieldStatement] Yielding value: $value (star: ${node.isStar})");
 
     // If we're in an async* generator (with real async state), create a suspension
     if (currentAsyncState?.isGenerator == true) {
       final controller = currentAsyncState!.generatorStreamController!;
 
-      if (node.star != null) {
+      if (node.isStar) {
         // yield* - handle asynchronously
         return AsyncSuspensionRequest(
             _handleYieldStarAsync(value, controller), currentAsyncState!,
@@ -4365,7 +4365,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     // If we're in a sync* generator context, add directly to the values list
     if (syncGeneratorValues != null) {
-      if (node.star != null) {
+      if (node.isStar) {
         // yield* - expand iterable
         if (value is Iterable) {
           syncGeneratorValues!.addAll(value);
@@ -4382,11 +4382,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // Lim-4/Bug-43 FIX: If we're in a lazy sync* context, throw suspension to pause
     if (isLazySyncGeneratorContext) {
       throw SyncGeneratorYieldSuspension(value,
-          isYieldStar: node.star != null);
+          isYieldStar: node.isStar);
     }
 
     // Fallback for other contexts
-    return YieldValue(value, isYieldStar: node.star != null);
+    return YieldValue(value, isYieldStar: node.isStar);
   }
 
   // Handle yield* in async generator context asynchronously
@@ -4415,7 +4415,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
 
     // If this is a const list, return an unmodifiable version
-    if (node.constKeyword != null) {
+    if (node.isConst) {
       return List.unmodifiable(list);
     }
 
@@ -4424,13 +4424,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitParenthesizedExpression(SParenthesizedExpression node) {
-    return node.expression.accept<Object?>(this);
+    return node.expression!.accept<Object?>(this);
   }
 
   @override
   Object? visitCascadeExpression(SCascadeExpression node) {
     // 1. Evaluate the target expression ONCE.
-    final targetValue = node.target.accept<Object?>(this);
+    final targetValue = node.target!.accept<Object?>(this);
 
     // 2. Execute each cascade section ON THE ORIGINAL targetValue.
     for (final section in node.cascadeSections) {
@@ -4466,7 +4466,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       return;
     }
 
-    final methodName = node.methodName.name;
+    final methodName = node.methodName!.name;
     final (positionalArgs, namedArgs) = _evaluateArguments(node.argumentList);
     List<RuntimeType>? evaluatedTypeArguments;
     final typeArgsNode = node.typeArguments;
@@ -4485,7 +4485,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       final nodeTarget = node.target!;
       if (nodeTarget is SPropertyAccess) {
         // This is like ..members.add(...) - first get 'members' from cascade target
-        final propertyName = nodeTarget.propertyName.name;
+        final propertyName = nodeTarget.propertyName!.name;
         if (targetValue is InterpretedInstance) {
           actualTarget = targetValue.get(propertyName, visitor: this);
         } else if (targetValue is Map) {
@@ -4503,7 +4503,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         }
       } else if (nodeTarget is SIndexExpression) {
         // This is like ..[index].method(...)
-        final indexValue = nodeTarget.index.accept<Object?>(this);
+        final indexValue = nodeTarget.index!.accept<Object?>(this);
         if (targetValue is List && indexValue is int) {
           actualTarget = targetValue[indexValue];
         } else if (targetValue is Map) {
@@ -4641,7 +4641,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       return null;
     }
 
-    final propertyName = node.propertyName.name;
+    final propertyName = node.propertyName!.name;
     // Resolve property/getter ON targetValue
     if (targetValue is InterpretedInstance) {
       final member = targetValue.get(propertyName);
@@ -4674,7 +4674,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       return null;
     }
 
-    final indexValue = node.index.accept<Object?>(this);
+    final indexValue = node.index!.accept<Object?>(this);
     // Perform index access ON targetValue
     if (targetValue is List) {
       if (indexValue is int) {
@@ -4703,8 +4703,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       return;
     }
 
-    final rhsValue = node.rightHandSide.accept<Object?>(this);
-    final operatorType = node.operator.type;
+    final rhsValue = node.rightHandSide!.accept<Object?>(this);
+    final operatorType = node.operator;
     final lhs = node.leftHandSide;
 
     if (lhs is SSimpleIdentifier) {
@@ -4760,7 +4760,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // Index assignment in cascade. The SIndexExpression may target:
       // 1. The cascade target directly: ..[index] = value (lhs.target is null or SCascadeExpression)
       // 2. A property on the cascade target: ..property[index] = value (lhs.target is SPropertyAccess)
-      final indexValue = lhs.index.accept<Object?>(this);
+      final indexValue = lhs.index!.accept<Object?>(this);
 
       // Bug-94 FIX: Resolve the actual indexable target. If the SIndexExpression
       // has an explicit target (e.g. SPropertyAccess for ..headers['key']),
@@ -4768,7 +4768,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       Object? indexTarget = targetValue;
       final lhsTarget = lhs.target;
       if (lhsTarget != null && lhsTarget is SPropertyAccess) {
-        final propName = lhsTarget.propertyName.name;
+        final propName = lhsTarget.propertyName!.name;
         if (targetValue is InterpretedInstance) {
           indexTarget = targetValue.get(propName);
         } else if (toBridgedInstance(targetValue).$2) {
@@ -4819,7 +4819,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     } else if (lhs is SPropertyAccess) {
       // Cascade assignment like: target..property = value or target..property += value
       // Note: targetValue is the original cascade target, NOT lhs.target
-      final propertyName = lhs.propertyName.name;
+      final propertyName = lhs.propertyName!.name;
       Object? newValue;
 
       if (operatorType == '=') {
@@ -4876,33 +4876,23 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // Assignment in cascade doesn't produce a value to be used further.
   }
 
-  void _processCollectionElement(CollectionElement element, Object collection,
+  void _processCollectionElement(SAstNode element, Object collection,
       {required bool isMap}) {
-    if (element is Expression) {
-      final value = element.accept<Object?>(this);
-      if (isMap) {
-        throw RuntimeD4rtException(
-            "Expected a SMapLiteralEntry ('key: value') but got an expression in map literal.");
-      } else if (collection is List) {
-        collection.add(value);
-      } else if (collection is Set) {
-        collection.add(value);
-      }
-    } else if (element is SMapLiteralEntry) {
+    if (element is SMapLiteralEntry) {
       if (!isMap) {
         throw RuntimeD4rtException(
             "Unexpected SMapLiteralEntry ('key: value') in a non-map literal.");
       }
       if (collection is Map) {
-        final key = element.key.accept<Object?>(this);
-        final value = element.value.accept<Object?>(this);
+        final key = element.key!.accept<Object?>(this);
+        final value = element.value!.accept<Object?>(this);
         collection[key] = value;
       } else {
         // Should not happen if isMap is true
         throw StateD4rtException("Internal error: Expected Map for map literal.");
       }
     } else if (element is SSpreadElement) {
-      final expressionValue = element.expression.accept<Object?>(this);
+      final expressionValue = element.expression!.accept<Object?>(this);
       if (element.isNullAware && expressionValue == null) {
         // Null-aware spread with null value, do nothing
         return;
@@ -4954,7 +4944,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // else case handled by error throws above
       }
     } else if (element is SIfElement) {
-      final conditionValue = element.expression.accept<Object?>(this);
+      final conditionValue = element.condition!.accept<Object?>(this);
       bool conditionResult;
       final bridgedInstance = toBridgedInstance(conditionValue);
       if (conditionValue is bool) {
@@ -4968,7 +4958,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
 
       if (conditionResult) {
-        _processCollectionElement(element.thenElement, collection,
+        _processCollectionElement(element.thenElement!, collection,
             isMap: isMap);
       } else if (element.elseElement != null) {
         _processCollectionElement(element.elseElement!, collection,
@@ -4985,7 +4975,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             ? loopParts.loopVariable
             : (loopParts as SForEachPartsWithIdentifier).identifier;
 
-        final iterableValue = iterableExpression.accept<Object?>(this);
+        final iterableValue = iterableExpression!.accept<Object?>(this);
 
         if (iterableValue is Iterable) {
           final loopEnvironment = Environment(enclosing: environment);
@@ -4995,7 +4985,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           try {
             String variableName;
             if (loopVariableNode is SDeclaredIdentifier) {
-              variableName = loopVariableNode.name.lexeme;
+              variableName = loopVariableNode.identifier!.name;
               environment.define(variableName, null); // Define before loop
             } else if (loopVariableNode is SSimpleIdentifier) {
               variableName = loopVariableNode.name;
@@ -5006,7 +4996,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
             for (final item in iterableValue) {
               environment.assign(variableName, item);
-              _processCollectionElement(element.body, collection, isMap: isMap);
+              _processCollectionElement(element.body!, collection, isMap: isMap);
             }
           } finally {
             environment = previousEnvironment;
@@ -5018,7 +5008,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       } else if (loopParts is SForPartsWithDeclarations ||
           loopParts is SForPartsWithExpression) {
         SAstNode? initialization;
-        Expression? condition;
+        SAstNode? condition;
         List<SAstNode>? updaters;
         if (loopParts is SForPartsWithDeclarations) {
           initialization = loopParts.variables;
@@ -5054,7 +5044,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               }
             }
             if (!conditionResult) break;
-            _processCollectionElement(element.body, collection, isMap: isMap);
+            _processCollectionElement(element.body!, collection, isMap: isMap);
             if (updaters != null) {
               for (final updater in updaters) {
                 updater.accept<Object?>(this);
@@ -5068,9 +5058,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         throw UnimplementedD4rtException(
             'Unsupported for-loop type in collection literal: ${loopParts.runtimeType}');
       }
-    } else if (element is NullAwareElement) {
-      // Use element.expression as per analyzer AST definition
-      final value = element.value.accept<Object?>(this);
+    } else if (element.nodeType == 'NullAwareElement') {
+      // TODO: SNullAwareElement not yet in serialized AST - use nodeType check
+      // Use element.value as per analyzer AST definition
+      final value = (element as dynamic).value?.accept<Object?>(this);
       if (value != null) {
         if (collection is List) {
           collection.add(value);
@@ -5084,8 +5075,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
       // If value is null, do nothing.
     } else {
-      throw UnimplementedD4rtException(
-          'Collection element type not yet supported: ${element.runtimeType}');
+      // General expression element (not a specific collection element type)
+      final value = element.accept<Object?>(this);
+      if (isMap) {
+        throw RuntimeD4rtException(
+            "Expected a SMapLiteralEntry ('key: value') but got an expression in map literal.");
+      } else if (collection is List) {
+        collection.add(value);
+      } else if (collection is Set) {
+        collection.add(value);
+      }
     }
   }
 
@@ -5094,29 +5093,30 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // Create a function object that captures the current environment (closure)
     // Use the .declaration constructor
     final returnType = node.returnType;
-    bool isAsync = node.functionExpression.body.isAsynchronous;
+    final body0 = node.functionExpression!.body;
+    bool isAsync = (body0 is SBlockFunctionBody) ? body0.isAsync : (body0 is SExpressionFunctionBody) ? body0.isAsync : false;
     bool isNullable = false;
     if (returnType is SNamedType) {
-      isNullable = returnType.toSource().contains('?');
+      isNullable = returnType.toString().contains('?');
     }
 
     // Handle type parameters for generic functions
     Environment? tempEnvironment;
-    final typeParameters = node.functionExpression.typeParameters;
+    final typeParameters = node.functionExpression!.typeParameters;
 
     if (typeParameters != null) {
       Logger.debug(
-          "[InterpreterVisitor.visitFunctionDeclaration] Function '${node.name.lexeme}' has ${typeParameters.typeParameters.length} type parameters");
+          "[InterpreterVisitor.visitFunctionDeclaration] Function '${node.name!.name}' has ${typeParameters.typeParameters.length} type parameters");
 
       // Create a temporary environment for type resolution
       tempEnvironment = Environment(enclosing: environment);
 
       // Create temporary type parameter placeholders
       for (final typeParam in typeParameters.typeParameters) {
-        final paramName = typeParam.name.lexeme;
+        final paramName = typeParam.name!.name;
 
         // Create a simple STypeParameter placeholder in the temp environment
-        final typeParamPlaceholder = STypeParameter(paramName);
+        final typeParamPlaceholder = TypeParameter(paramName);
         tempEnvironment.define(paramName, typeParamPlaceholder);
 
         Logger.debug(
@@ -5136,7 +5136,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final function = InterpretedFunction.declaration(
         node, environment, declaredReturnType, isNullable);
     // Define the function in the current environment
-    environment.define(node.name.lexeme, function);
+    environment.define(node.name!.name, function);
     return null; // Declaration itself doesn't return a value
   }
 
@@ -5156,23 +5156,15 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // Bug-73, Bug-74 FIX: A SFunctionDeclaration contains a SFunctionExpression as its child,
     // so we need to find the SFunctionDeclaration (which has the name) rather than stopping
     // at the inner SFunctionExpression.
-    SAstNode? eDecl = node;
-    while (eDecl != null) {
-      if (eDecl is SFunctionDeclaration) {
-        // Named function - prefer this over SFunctionExpression
-        break;
-      }
-      if (eDecl is SFunctionExpression) {
-        // Check if parent is a SFunctionDeclaration - if so, use that instead
-        if (eDecl.parent is SFunctionDeclaration) {
-          eDecl = eDecl.parent;
-          break;
-        }
-        // Otherwise it's a true anonymous function (lambda, callback)
-        break;
-      }
-      eDecl = eDecl.parent;
+    SAstNode eDecl = node;
+    if (eDecl is SFunctionDeclaration) {
+      // Named function - prefer this over SFunctionExpression
+    } else if (eDecl is SFunctionExpression) {
+      // TODO: SAstNode has no parent reference in serialized AST
+      // Check if parent is a SFunctionDeclaration - if so, use that instead
+      // In the serialized AST we can't check parent, so just use the expression as-is
     }
+    // TODO: SAstNode has no parent reference in serialized AST - cannot walk up
 
     Object? returnValue;
     if (node.expression != null) {
@@ -5184,7 +5176,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       returnValue = null;
     }
 
-    if (eDecl != null && (eDecl is SFunctionDeclaration || eDecl is SFunctionExpression)) {
+    if (eDecl is SFunctionDeclaration || eDecl is SFunctionExpression) {
       bool isNullable = false;
       String functionName = '<anonymous>';
       RuntimeType? declaredType;
@@ -5194,7 +5186,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         InterpretedFunction? currentCallable;
 
         if (eDecl is SFunctionDeclaration) {
-          functionName = eDecl.name.lexeme;
+          functionName = eDecl.name!.name;
           currentCallable = environment.get(functionName) as InterpretedFunction?;
         } else if (eDecl is SFunctionExpression) {
           // For anonymous functions (closures), use currentFunction from visitor
@@ -5304,7 +5296,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitConditionalExpression(SConditionalExpression node) {
-    final conditionValue = node.condition.accept<Object?>(this);
+    final conditionValue = node.condition!.accept<Object?>(this);
     bool conditionResult;
     final bridgedInstance = toBridgedInstance(conditionValue);
     if (conditionValue is bool) {
@@ -5317,17 +5309,17 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
 
     if (conditionResult) {
-      return node.thenExpression.accept<Object?>(this);
+      return node.thenExpression!.accept<Object?>(this);
     } else {
-      return node.elseExpression.accept<Object?>(this);
+      return node.elseExpression!.accept<Object?>(this);
     }
   }
 
   @override
   Object? visitPrefixExpression(SPrefixExpression node) {
-    final operatorType = node.operator.type;
+    final operatorType = node.operator;
     final operandNode = node.operand;
-    final operandValue = operandNode.accept<Object?>(this);
+    final operandValue = operandNode!.accept<Object?>(this);
     final bridgedInstance = toBridgedInstance(operandValue);
     final operand =
         bridgedInstance.$2 ? bridgedInstance.$1!.nativeObject : operandValue;
@@ -5549,7 +5541,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         } else if (operandNode is SPropertyAccess) {
           // Handle property access like obj.field++
           final targetValue = operandNode.target?.accept<Object?>(this);
-          final propertyName = operandNode.propertyName.name;
+          final propertyName = operandNode.propertyName!.name;
 
           if (targetValue is InterpretedInstance) {
             // Get current value via getter or field
@@ -5604,8 +5596,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           }
         } else if (operandNode is SPrefixedIdentifier) {
           // Handle prefixed identifier like obj.field++ (parsed as SPrefixedIdentifier)
-          final targetValue = operandNode.prefix.accept<Object?>(this);
-          final propertyName = operandNode.identifier.name;
+          final targetValue = operandNode.prefix!.accept<Object?>(this);
+          final propertyName = operandNode.identifier!.name;
 
           if (targetValue is InterpretedInstance) {
             // Get current value via getter or field
@@ -5701,7 +5693,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         } else if (operandNode is SIndexExpression) {
           // Handle index access like ++array[i]
           final targetValue = operandNode.target?.accept<Object?>(this);
-          final indexValue = operandNode.index.accept<Object?>(this);
+          final indexValue = operandNode.index!.accept<Object?>(this);
 
           // Get current value via [] operator or direct access
           Object? currentValue;
@@ -5798,7 +5790,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         }
       default:
         // Check for class operators first for any other unary operators
-        final String operatorLexeme = node.operator.lexeme;
+        final String operatorLexeme = node.operator;
         if (operandValue is InterpretedInstance) {
           final operatorMethod = operandValue.findOperator(operatorLexeme);
           if (operatorMethod != null) {
@@ -5836,17 +5828,17 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           // Fall through if no generic extension op found
         }
         throw UnimplementedD4rtException(
-            'Unary prefix operator not handled: ${node.operator.lexeme} ($operatorType)');
+            'Unary prefix operator not handled: ${node.operator} ($operatorType)');
     }
   }
 
   @override
   Object? visitPostfixExpression(SPostfixExpression node) {
-    final operatorType = node.operator.type;
+    final operatorType = node.operator;
 
     // Support for the non-null assertion operator (!)
     if (operatorType == '!') {
-      final operandValue = node.operand.accept<Object?>(this);
+      final operandValue = node.operand!.accept<Object?>(this);
       if (operandValue == null) {
         throw RuntimeD4rtException(
             "Null check operator used on a null value at ${node.toString()}");
@@ -5965,7 +5957,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // Handle property access like obj.field++
       final propertyAccess = node.operand as SPropertyAccess;
       final targetValue = propertyAccess.target?.accept<Object?>(this);
-      final propertyName = propertyAccess.propertyName.name;
+      final propertyName = propertyAccess.propertyName!.name;
 
       if (targetValue is InterpretedInstance) {
         // Get current value via getter or field
@@ -6020,8 +6012,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     } else if (node.operand is SPrefixedIdentifier) {
       // Handle prefixed identifier like obj.field++ (parsed as SPrefixedIdentifier)
       final prefixedIdentifier = node.operand as SPrefixedIdentifier;
-      final targetValue = prefixedIdentifier.prefix.accept<Object?>(this);
-      final propertyName = prefixedIdentifier.identifier.name;
+      final targetValue = prefixedIdentifier.prefix!.accept<Object?>(this);
+      final propertyName = prefixedIdentifier.identifier!.name;
 
       if (targetValue is InterpretedInstance) {
         // Get current value via getter or field
@@ -6119,7 +6111,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // Handle index access like array[i]++
       final indexExpression = node.operand as SIndexExpression;
       final targetValue = indexExpression.target?.accept<Object?>(this);
-      final indexValue = indexExpression.index.accept<Object?>(this);
+      final indexValue = indexExpression.index!.accept<Object?>(this);
 
       // Get current value via [] operator or direct access
       Object? currentValue;
@@ -6224,7 +6216,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       if (element is SInterpolationString) {
         buffer.write(element.value);
       } else if (element is SInterpolationExpression) {
-        final value = element.expression.accept<Object?>(this);
+        final value = element.expression!.accept<Object?>(this);
         // If the value is an async suspension, propagate it upward
         if (value is AsyncSuspensionRequest) {
           return value;
@@ -6284,13 +6276,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitLabeledStatement(SLabeledStatement node) {
-    final labelNames = node.labels.map((l) => l.label.name).toSet();
+    final labelNames = node.labels.map((l) => l.label!.name).toSet();
     final oldLabels = _currentStatementLabels;
     _currentStatementLabels = labelNames;
     Logger.debug("[SLabeledStatement] Entering with labels: $labelNames");
 
     try {
-      return node.statement.accept<Object?>(this);
+      return node.statement!.accept<Object?>(this);
     } on BreakException catch (e) {
       Logger.debug(
           "[SLabeledStatement] Caught BreakException (label: ${e.label}) with current labels: $_currentStatementLabels");
@@ -6316,7 +6308,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitClassDeclaration(SClassDeclaration node) {
-    final className = node.name.lexeme;
+    final className = node.name!.name;
     Logger.debug(
         "[Visitor.visitClassDeclaration] START for '$className' in env: ${environment.hashCode}");
 
@@ -6335,7 +6327,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // Superclass lookup
     // InterpretedClass? superclass; // Keep this commented or remove
     if (node.extendsClause != null) {
-      final superclassName = node.extendsClause!.superclass.name.lexeme;
+      final superclassName = node.extendsClause!.superclass!.name!.name;
       Logger.debug(
           "[Visitor.visitClassDeclaration]   Trying to get superclass '$superclassName' from env: ${environment.hashCode}");
       Object? potentialSuperclass;
@@ -6390,7 +6382,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       Logger.debug(
           "[Visitor.visitClassDeclaration] Processing 'implements' clause for '$className' in env: ${environment.hashCode}");
       for (final interfaceType in node.implementsClause!.interfaces) {
-        final interfaceName = interfaceType.name.lexeme;
+        final interfaceName = interfaceType.name!.name;
         Logger.debug(
             "[Visitor.visitClassDeclaration]   Trying to get interface '$interfaceName' from env: ${environment.hashCode}");
         try {
@@ -6429,7 +6421,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       Logger.debug(
           "[Visitor.visitClassDeclaration] Processing 'with' clause for '$className' in env: ${environment.hashCode}");
       for (final mixinType in node.withClause!.mixinTypes) {
-        final mixinName = mixinType.name.lexeme;
+        final mixinName = mixinType.name!.name;
         Logger.debug(
             "[Visitor.visitClassDeclaration]   Trying to get mixin '$mixinName' from env: ${environment.hashCode}");
 
@@ -6486,7 +6478,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     for (final member in node.members) {
       if (member is SMethodDeclaration) {
-        final methodName = member.name.lexeme;
+        final methodName = member.name!.name;
         // Pass the ALREADY RETRIEVED klass object
         final function =
             InterpretedFunction.method(member, staticInitEnv, klass);
@@ -6534,7 +6526,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       } else if (member is SConstructorDeclaration) {
         final function =
             InterpretedFunction.constructor(member, staticInitEnv, klass);
-        final constructorName = member.name?.lexeme ?? '';
+        final constructorName = member.name?.name ?? '';
         klass.constructors[constructorName] = function;
       } else if (member is SFieldDeclaration) {
         // Defer static field processing - collect them for later
@@ -6550,13 +6542,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // Pass 1: Register all static field names in the class environment with null values
     final staticFieldDecls = <SVariableDeclaration>[];
     final staticFieldMeta =
-        <String, (bool isLate, bool isFinal, Expression? initializer)>{};
+        <String, (bool isLate, bool isFinal, SAstNode? initializer)>{};
     for (final member in node.members) {
       if (member is SFieldDeclaration && member.isStatic) {
-        final isLate = member.fields.lateKeyword != null;
-        final isFinal = member.fields.keyword?.lexeme == 'final';
-        for (final variable in member.fields.variables) {
-          final fieldName = variable.name.lexeme;
+        final isLate = member.fields!.isLate;
+        final isFinal = member.fields!.isFinal;
+        for (final variable in member.fields!.variables) {
+          final fieldName = variable.name!.name;
           staticFieldDecls.add(variable);
           staticFieldMeta[fieldName] = (isLate, isFinal, variable.initializer);
           // Pre-register all static fields so they can reference each other
@@ -6571,7 +6563,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     try {
       environment = staticFieldEvalEnv;
       for (final variable in staticFieldDecls) {
-        final fieldName = variable.name.lexeme;
+        final fieldName = variable.name!.name;
         final (isLate, isFinal, initializer) = staticFieldMeta[fieldName]!;
 
         if (isLate) {
@@ -6660,7 +6652,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   @override
   Object? visitAssertStatement(SAssertStatement node) {
     // Assertions are always enabled in this interpreter for now.
-    final conditionValue = node.condition.accept<Object?>(this);
+    final conditionValue = node.condition!.accept<Object?>(this);
 
     final bridgedInstance = toBridgedInstance(conditionValue);
     bool conditionResult;
@@ -6691,7 +6683,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   // Visit Mixin Declaration (Adjusted for Two-Pass)
   @override
   Object? visitMixinDeclaration(SMixinDeclaration node) {
-    final mixinName = node.name.lexeme;
+    final mixinName = node.name!.name;
     Logger.debug(
         "[Visitor.visitMixinDeclaration] START for '$mixinName' in env: ${environment.hashCode}");
 
@@ -6711,7 +6703,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     if (node.onClause != null) {
       mixinClass.onClauseTypes.clear(); // Clear existing before populating
       for (final typeNode in node.onClause!.superclassConstraints) {
-        final typeName = typeNode.name.lexeme;
+        final typeName = typeNode.name!.name;
         try {
           final potentialType = environment.get(typeName);
           if (potentialType is InterpretedClass) {
@@ -6742,7 +6734,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       environment = declarationEnv;
       for (final member in node.members) {
         if (member is SMethodDeclaration) {
-          final methodName = member.name.lexeme;
+          final methodName = member.name!.name;
           // Methods capture the GLOBAL environment via the mixinClass
           final function =
               InterpretedFunction.method(member, globalEnvironment, mixinClass);
@@ -6769,8 +6761,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           }
         } else if (member is SFieldDeclaration) {
           if (member.isStatic) {
-            for (final variable in member.fields.variables) {
-              mixinClass.staticFields[variable.name.lexeme] =
+            for (final variable in member.fields!.variables) {
+              mixinClass.staticFields[variable.name!.name] =
                   variable.initializer?.accept<Object?>(this);
             }
           } else {
@@ -6791,7 +6783,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitEnumDeclaration(SEnumDeclaration node) {
-    final enumName = node.name.lexeme;
+    final enumName = node.name!.name;
     Logger.debug(
         "[Visitor.visitEnumDeclaration] START (Pass 2) for '$enumName'");
 
@@ -6807,7 +6799,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       Logger.debug(
           "[Visitor.visitEnumDeclaration] Processing 'with' clause for '$enumName'");
       for (final mixinType in node.withClause!.mixinTypes) {
-        final mixinName = mixinType.name.lexeme;
+        final mixinName = mixinType.name!.name;
         Logger.debug(
             "[Visitor.visitEnumDeclaration]   Trying to get mixin '$mixinName'");
 
@@ -6855,7 +6847,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       environment = enumObj.declarationEnvironment;
       for (final member in node.members) {
         if (member is SMethodDeclaration) {
-          final methodName = member.name.lexeme;
+          final methodName = member.name!.name;
           // Methods capture the enum's declaration environment implicitly
           final function =
               InterpretedFunction.method(member, environment, enumObj);
@@ -6886,7 +6878,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                 "[Visitor.visitEnumDeclaration]   Processed instance method/getter/setter: $methodName");
           }
         } else if (member is SConstructorDeclaration) {
-          if (member.factoryKeyword != null) {
+          if (member.isFactory) {
             throw UnimplementedD4rtException(
                 "Factory constructors in enums are not yet supported.");
           }
@@ -6895,7 +6887,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                 "Redirecting constructors in enums are not yet supported.");
           }
           // Check if it's the default unnamed constructor or a named one
-          final constructorName = member.name?.lexeme ?? '';
+          final constructorName = member.name?.name ?? '';
           // Constructors also capture the enum's declaration environment
           final function =
               InterpretedFunction.constructor(member, environment, enumObj);
@@ -6908,14 +6900,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           // Only non-static fields are relevant for enum value instances
           if (!member.isStatic) {
             enumObj.fieldDeclarations.add(member);
-            for (final variable in member.fields.variables) {
+            for (final variable in member.fields!.variables) {
               Logger.debug(
-                  "[Visitor.visitEnumDeclaration]   Stored instance field declaration: ${variable.name.lexeme}");
+                  "[Visitor.visitEnumDeclaration]   Stored instance field declaration: ${variable.name!.name}");
             }
           } else {
             // Evaluate static fields immediately
-            for (final variable in member.fields.variables) {
-              final fieldName = variable.name.lexeme;
+            for (final variable in member.fields!.variables) {
+              final fieldName = variable.name!.name;
               Object? value;
               if (variable.initializer != null) {
                 value = variable.initializer!.accept<Object?>(this);
@@ -6939,7 +6931,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         "[Visitor.visitEnumDeclaration]   Instantiating enum values...");
     for (int i = 0; i < node.constants.length; i++) {
       final constantDecl = node.constants[i];
-      final valueName = constantDecl.name.lexeme;
+      final valueName = constantDecl.name!.name;
 
       if (enumObj.values.containsKey(valueName)) {
         Logger.warn(
@@ -6952,8 +6944,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
       // Initialize Instance Fields using Constructor
       final constructorInvocation = constantDecl.arguments;
-      final constructorName =
-          constructorInvocation?.constructorSelector?.name.name ?? '';
+      // TODO: constructorSelector not available in serialized AST SArgumentList
+      final constructorName = '';
       final constructorFunc = enumObj.constructors[constructorName];
 
       if (constructorFunc == null && constructorInvocation != null) {
@@ -6972,7 +6964,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             "[Visitor.visitEnumDeclaration]     Calling constructor '${constructorName.isEmpty ? enumName : '$enumName.$constructorName'}' for value '$valueName'");
         // Evaluate arguments for the constructor call
         final (positionalArgs, namedArgs) =
-            _evaluateArguments(constructorInvocation.argumentList);
+            _evaluateArguments(constructorInvocation);
 
         // Call the constructor function, binding `this` to the enumValueInstance.
         // The constructor's call method needs to handle field initialization.
@@ -7009,9 +7001,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         try {
           environment = fieldInitEnv;
           for (final fieldDecl in enumObj.fieldDeclarations) {
-            for (final variable in fieldDecl.fields.variables) {
+            for (final variable in fieldDecl.fields!.variables) {
               if (variable.initializer != null) {
-                final fieldName = variable.name.lexeme;
+                final fieldName = variable.name!.name;
                 final value = variable.initializer!.accept<Object?>(this);
                 enumValueInstance.setField(fieldName, value);
                 Logger.debug(
@@ -7047,7 +7039,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   // Helper function to compute compound assignment values
   Object? computeCompoundValue(
-      Object? currentValue, Object? rhsValue, TokenType operatorType) {
+      Object? currentValue, Object? rhsValue, String operatorType) {
     // Unwrap BridgedInstance if necessary
     final bridgedInstance = toBridgedInstance(currentValue);
     final left =
@@ -7196,7 +7188,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   }
 
   // Map compound assignment token to operator method name
-  String? _mapCompoundToOperatorName(TokenType compoundOp) {
+  String? _mapCompoundToOperatorName(String compoundOp) {
     switch (compoundOp) {
       case '+=':
         return '+';
@@ -7229,7 +7221,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   }
 
   /// Check if a List matches the expected generic type argument
-  bool _checkGenericListType(List list, TypeAnnotation elementTypeNode) {
+  bool _checkGenericListType(List list, SAstNode elementTypeNode) {
     // If list is empty, we can't verify element types
     if (list.isEmpty) {
       return true; // Accept empty lists for any type
@@ -7246,7 +7238,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   /// Check if a Map matches the expected generic type arguments
   bool _checkGenericMapType(
-      Map map, TypeAnnotation keyTypeNode, TypeAnnotation valueTypeNode) {
+      Map map, SAstNode keyTypeNode, SAstNode valueTypeNode) {
     // If map is empty, we can't verify key/value types
     if (map.isEmpty) {
       return true; // Accept empty maps for any type
@@ -7265,16 +7257,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   }
 
   /// Check if a value matches a type annotation
-  bool _checkValueMatchesType(Object? value, TypeAnnotation typeNode) {
+  bool _checkValueMatchesType(Object? value, SAstNode typeNode) {
     if (typeNode is! SNamedType) {
       // For now, only handle SNamedType
       return true;
     }
 
-    final typeName = typeNode.name.lexeme;
+    final typeName = typeNode.name!.name;
 
     // Handle nullable types
-    if (typeNode.question != null && value == null) {
+    if (typeNode.isNullable && value == null) {
       return true; // null matches nullable types
     }
 
@@ -7333,14 +7325,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
   }
 
-  @override
-  dynamic visitIdentifier(Identifier node) {
-    final value = environment.get(node.name);
+  dynamic visitIdentifier(SAstNode node) {
+    final identName = (node as SSimpleIdentifier).name;
+    final value = environment.get(identName);
     if (value == null) {
       // Log environment ID on failure
       Logger.debug(
-          "[visitIdentifier] Failed to find '${node.name}' in env: ${environment.hashCode}");
-      throw RuntimeD4rtException("Undefined variable: ${node.name}");
+          "[visitIdentifier] Failed to find '$identName' in env: ${environment.hashCode}");
+      throw RuntimeD4rtException("Undefined variable: $identName");
     }
     return value;
   }
@@ -7363,7 +7355,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     try {
       // 1. Execute the try block
       Logger.debug("[STryStatement] Entering try block");
-      tryResult = node.body.accept<Object?>(this);
+      tryResult = node.body!.accept<Object?>(this);
       returnValue = tryResult; // Default value if no exception
       Logger.debug("[STryStatement] Try block completed normally");
     } on ReturnException {
@@ -7417,7 +7409,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         } else {
           final typeNode = clause.exceptionType!;
           if (typeNode is SNamedType) {
-            targetCatchTypeName = typeNode.name.lexeme;
+            targetCatchTypeName = typeNode.name!.name;
             Logger.debug(
                 "[STryStatement] Checking catch clause for type: $targetCatchTypeName");
 
@@ -7549,9 +7541,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         if (typeMatch) {
           Logger.debug(
               "[STryStatement] Found matching catch clause${targetCatchTypeName != null ? ' for type $targetCatchTypeName' : ''}.");
-          final exceptionParameterName = clause.exceptionParameter?.name.lexeme;
+          final exceptionParameterName = clause.exceptionParameter?.name;
           final stackTraceParameterName =
-              clause.stackTraceParameter?.name.lexeme;
+              clause.stackTraceParameter?.name;
 
           // Create an environment for the catch block
           environment =
@@ -7581,7 +7573,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           //
           try {
             Logger.debug("[STryStatement] Entering catch block body");
-            returnValue = clause.body.accept<Object?>(this);
+            returnValue = clause.body!.accept<Object?>(this);
             Logger.debug("[STryStatement] Catch block completed normally");
             // The exception is handled, clear caughtInternalException to not rethrow it after finally
             caughtInternalException = null;
@@ -7692,7 +7684,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   @override
   Object? visitThrowExpression(SThrowExpression node) {
     // 1. Evaluate the expression that is thrown
-    final thrownValue = node.expression.accept<Object?>(this);
+    final thrownValue = node.expression!.accept<Object?>(this);
 
     // 2. Create and throw an InternalInterpreterException.
     final message = stringify(thrownValue); // Keep for debug log
@@ -7733,12 +7725,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitIsExpression(SIsExpression node) {
-    final expressionValue = node.expression.accept<Object?>(this);
+    final expressionValue = node.expression!.accept<Object?>(this);
     final typeNode = node.type;
     bool result = false;
 
     if (typeNode is SNamedType) {
-      final typeName = typeNode.name.lexeme;
+      final typeName = typeNode.name!.name;
 
       // Handle built-in types first
       switch (typeName) {
@@ -7842,7 +7834,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
 
     // Handle negation (is!)
-    if (node.notOperator != null) {
+    if (node.isNot) {
       return !result;
     } else {
       return result;
@@ -7851,13 +7843,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   /// Recursively check if a CollectionElement represents a map entry.
   /// This handles SForElement, SIfElement, and SMapLiteralEntry directly.
-  bool _isMapLiteralElement(CollectionElement element) {
+  bool _isMapLiteralElement(SAstNode element) {
     if (element is SMapLiteralEntry) {
       return true;
     } else if (element is SForElement) {
-      return _isMapLiteralElement(element.body);
+      return _isMapLiteralElement(element.body!);
     } else if (element is SIfElement) {
-      return _isMapLiteralElement(element.thenElement);
+      return _isMapLiteralElement(element.thenElement!);
     }
     return false;
   }
@@ -7878,7 +7870,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // No explicit types, infer from content
       isMap = false; // Default to Set if unsure initially
       bool onlySpreads = true;
-      CollectionElement? firstEffectiveElement;
+      SAstNode? firstEffectiveElement;
 
       for (final element in node.elements) {
         // Check if element (or its inner body) is a SMapLiteralEntry
@@ -7894,10 +7886,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           firstEffectiveElement = element;
           onlySpreads = false;
           // If it's an Expression, isMap remains false (it's a Set)
-          if (element is Expression) {
-            Logger.debug(
-                "[SSetOrMapLiteral] Determined isMap = false (found first non-spread Expression).");
-          }
+          Logger.debug(
+              "[SSetOrMapLiteral] Determined isMap = false (found first non-spread Expression).");
         }
         if (element is! SSpreadElement) {
           onlySpreads = false;
@@ -7916,7 +7906,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           Logger.debug(
               "[SSetOrMapLiteral] Only spreads found. Inferring type from first spread element.");
           final firstSpread = node.elements.first as SSpreadElement;
-          final spreadValue = firstSpread.expression.accept<Object?>(this);
+          final spreadValue = firstSpread.expression!.accept<Object?>(this);
           // Check if the evaluated spread value is a Map or looks like one
           final bridgedInstance = toBridgedInstance(spreadValue);
           if (spreadValue is Map ||
@@ -7956,7 +7946,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
 
     // If this is a const collection, return an unmodifiable version
-    if (node.constKeyword != null) {
+    if (node.isConst) {
       if (isMap) {
         return Map.unmodifiable(collection as Map<Object?, Object?>);
       } else {
@@ -7968,7 +7958,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   }
 
   // Resolve TypeAnnotation AST node to RuntimeType
-  RuntimeType _resolveTypeAnnotation(TypeAnnotation? typeNode,
+  RuntimeType _resolveTypeAnnotation(SAstNode? typeNode,
       {bool isAsync = false}) {
     return _resolveTypeAnnotationWithEnvironment(typeNode, environment,
         isAsync: isAsync);
@@ -7976,7 +7966,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   // Resolve TypeAnnotation AST node to RuntimeType using a specific environment
   RuntimeType _resolveTypeAnnotationWithEnvironment(
-      TypeAnnotation? typeNode, Environment env,
+      SAstNode? typeNode, Environment env,
       {bool isAsync = false}) {
     if (typeNode == null) {
       return BridgedClass(nativeType: dynamic, name: 'dynamic');
@@ -7984,16 +7974,17 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     if (typeNode is SNamedType) {
       String typeName = isAsync
           ? typeNode
-              .toSource()
+              .toString()
               .replaceAll('?', '')
               .substringAfter('<')
               .substringBeforeLast('>')
-          : typeNode.name.lexeme;
+          : typeNode.name!.name;
       if (typeName.contains('<') && typeName.contains('>')) {
         typeName = typeName.substring(0, typeName.indexOf('<'));
       }
       if (typeName == "void") {
-        return BridgedClass(nativeType: void, name: 'void');
+        // void is not a valid type literal expression; use Null as runtime placeholder
+        return BridgedClass(nativeType: Null, name: 'void');
       }
       Logger.debug("[ResolveType] Resolving SNamedType: $typeName");
       try {
@@ -8022,13 +8013,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // For now, return a placeholder that represents the Record type
       // D4rt uses Dart's native Record type at runtime
       Logger.debug(
-          "[ResolveType] Resolving SRecordTypeAnnotation: ${typeNode.toSource()}");
+          "[ResolveType] Resolving SRecordTypeAnnotation: ${typeNode.toString()}");
       return BridgedClass(nativeType: Record, name: 'Record');
     } else if (typeNode is SGenericFunctionType) {
       // Handle function type annotations like int Function(int) or void Function(String, int)
       // For runtime purposes, we treat all function types as the Function type
       Logger.debug(
-          "[ResolveType] Resolving SGenericFunctionType: ${typeNode.toSource()}");
+          "[ResolveType] Resolving SGenericFunctionType: ${typeNode.toString()}");
       return BridgedClass(nativeType: Function, name: 'Function');
     } else {
       Logger.error(
@@ -8040,11 +8031,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitInstanceCreationExpression(SInstanceCreationExpression node) {
-    final constructorNameNode = node.constructorName.type;
+    final constructorNameNode = node.constructorName!.type;
     final constructorName =
-        constructorNameNode.name.lexeme; // Name of the class
+        constructorNameNode!.name!.name; // Name of the class
     final namedConstructorPart = node
-        .constructorName.name?.name; // Name of the named constructor (or null)
+        .constructorName!.name?.name; // Name of the named constructor (or null)
 
     Logger.debug(
         "[InstanceCreation] Creating instance of '$constructorName'${namedConstructorPart != null ? '.$namedConstructorPart' : ''}");
@@ -8093,7 +8084,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       try {
         // Evaluate the type arguments
         List<RuntimeType>? evaluatedTypeArguments;
-        final typeArgsNode = node.constructorName.type.typeArguments;
+        final typeArgsNode = node.constructorName!.type!.typeArguments;
         if (typeArgsNode != null) {
           evaluatedTypeArguments = typeArgsNode.arguments
               .map((typeNode) => _resolveTypeAnnotation(typeNode))
@@ -8227,7 +8218,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   }
 
   (List<Object?>, Map<String, Object?>) _evaluateArguments(
-      ArgumentList argumentList) {
+      SArgumentList? argumentList) {
+    if (argumentList == null) return (<Object?>[], <String, Object?>{});
     List<Object?> positionalArgs = [];
     Map<String, Object?> namedArgs = {};
     bool namedArgsEncountered = false;
@@ -8235,8 +8227,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     for (final arg in argumentList.arguments) {
       if (arg is SNamedExpression) {
         namedArgsEncountered = true;
-        final name = arg.name.label.name;
-        final value = arg.expression.accept<Object?>(this);
+        final name = arg.name!.label!.name;
+        final value = arg.expression!.accept<Object?>(this);
 
         // Check for async suspension in named arguments
         if (value is AsyncSuspensionRequest) {
@@ -8284,7 +8276,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   /// Evaluates arguments for async function calls, handling await expressions.
   /// Returns either (List&lt;Object?&gt;, Map&lt;String, Object?&gt;) or AsyncSuspensionRequest.
-  Object? _evaluateArgumentsAsync(ArgumentList argumentList) {
+  Object? _evaluateArgumentsAsync(SArgumentList? argumentList) {
+    if (argumentList == null) return (<Object?>[], <String, Object?>{});
     List<Object?> positionalArgs = [];
     Map<String, Object?> namedArgs = {};
     bool namedArgsEncountered = false;
@@ -8292,8 +8285,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     for (final arg in argumentList.arguments) {
       if (arg is SNamedExpression) {
         namedArgsEncountered = true;
-        final name = arg.name.label.name;
-        final value = arg.expression.accept<Object?>(this);
+        final name = arg.name!.label!.name;
+        final value = arg.expression!.accept<Object?>(this);
 
         // Check for async suspension in named arguments
         if (value is AsyncSuspensionRequest) {
@@ -8338,7 +8331,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   Object? visitFunctionExpressionInvocation(SFunctionExpressionInvocation node) {
     // 1. Evaluate the function expression itself.
     // This should result in a Callable (like InterpretedFunction or NativeFunction).
-    final calleeValue = node.function.accept<Object?>(this);
+    final calleeValue = node.function!.accept<Object?>(this);
 
     // 2. Evaluate arguments (shared logic).
     final (positionalArgs, namedArgs) = _evaluateArguments(node.argumentList);
@@ -8426,12 +8419,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitConstructorReference(SConstructorReference node) {
-    final typeNode = node.constructorName.type;
-    final constructorId = node.constructorName.name; // Null for default
+    final cName = node.constructorName as SConstructorName;
+    final typeNode = cName.type;
+    final constructorId = cName.name; // Null for default
     final constructorLookupName = constructorId?.name ?? '';
 
     // Resolve the class type
-    final className = typeNode.name.lexeme;
+    final className = typeNode!.name!.name;
     Object? classValue;
     try {
       classValue = environment.get(className);
@@ -8482,7 +8476,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitSwitchStatement(SSwitchStatement node) {
-    final switchValue = node.expression.accept<Object?>(this);
+    final switchValue = node.expression!.accept<Object?>(this);
     final switchEnvironment = Environment(enclosing: environment);
     final previousEnvironment = environment;
     environment = switchEnvironment;
@@ -8491,8 +8485,17 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final Map<String, int> labelToIndex = {};
     for (int i = 0; i < node.members.length; i++) {
       final member = node.members[i];
-      for (final label in member.labels) {
-        labelToIndex[label.label.name] = i;
+      List<dynamic> labels = [];
+      if (member is SSwitchCase) {
+        labels = member.labels;
+      } else if (member is SSwitchDefault) {
+        labels = member.labels;
+      } else if (member is SSwitchPatternCase) {
+        labels = member.labels;
+      }
+      for (final label in labels) {
+        final labelName = (label is SLabel) ? label.label?.name : (label as SAstNode).toString();
+        if (labelName != null) labelToIndex[labelName] = i;
       }
     }
 
@@ -8511,7 +8514,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
             if (member is SSwitchCase) {
               if (!matched) {
-                final caseValue = member.expression.accept<Object?>(this);
+                final caseValue = member.expression!.accept<Object?>(this);
                 Logger.debug(
                     "[Switch] Checking legacy case value: $caseValue against $switchValue");
                 if (switchValue == caseValue) {
@@ -8523,7 +8526,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               statementsToExecute = member.statements;
             } else if (member is SSwitchPatternCase) {
           // Try explicit cast to potentially help the linter
-          final pattern = member.guardedPattern.pattern;
+          final gp = member.guardedPattern as SGuardedPattern;
+          final pattern = gp.pattern;
           if (pattern is SConstantPattern) {
             // This handles 'case <constant>:'
             if (!matched) {
@@ -8553,11 +8557,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                     "[Switch] Matched pattern case: ${pattern.runtimeType}");
                 
                 // Check guard clause (when)
-                if (member.guardedPattern.whenClause != null) {
+                final gpWhenClause = gp.whenClause as SWhenClause?;
+                if (gpWhenClause != null) {
                   final prevEnv = environment;
                   environment = tempEnvironment;
                   try {
-                    final guardResult = member.guardedPattern.whenClause!.expression.accept<Object?>(this);
+                    final guardResult = gpWhenClause.expression.accept<Object?>(this);
                     if (guardResult != true) {
                       environment = prevEnv;
                       // Guard failed, pattern doesn't match - reset matched so other cases can try
@@ -8698,7 +8703,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
 
     Logger.debug("[SAwaitExpression] Evaluating expression for await...");
-    final expressionValue = node.expression.accept<Object?>(this);
+    final expressionValue = node.expression!.accept<Object?>(this);
 
     // HANDLING NESTED SUSPENSIONS
     if (expressionValue is AsyncSuspensionRequest) {
@@ -8743,13 +8748,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   /// If successful, binds any variables declared in the pattern within the [environment].
   /// Throws [PatternMatchD4rtException] on failure.
   void _matchAndBind(
-      DartPattern pattern, Object? value, Environment environment) {
+      SAstNode pattern, Object? value, Environment environment) {
     Logger.debug(
         "[_matchAndBind] Matching pattern ${pattern.runtimeType} against value ${value?.runtimeType}");
 
     if (pattern is SDeclaredVariablePattern) {
       // Handles: var x, final T x, int x
-      final name = pattern.name.lexeme;
+      final name = pattern.name;
       if (name == '_') {
         // Wildcard name in declaration: match succeeds, no binding
         Logger.debug("[_matchAndBind] Wildcard (declared) match success.");
@@ -8763,7 +8768,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       return; // Match succeeds, no binding
     } else if (pattern is SAssignedVariablePattern) {
       // Handles assignment patterns like: (a, _) = record;
-      final name = pattern.name.lexeme;
+      final name = pattern.name;
       if (name == '_') {
         // Wildcard name in assignment: match succeeds, no binding
         Logger.debug("[_matchAndBind] Wildcard (assigned) match success.");
@@ -8814,17 +8819,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           final subValue = value[i];
 
           // Extract the actual pattern from the element wrapper
-          DartPattern subPattern;
-          if (element is DartPattern) {
-            subPattern = element;
-          } else {
-            throw StateD4rtException(
-                "Unexpected ListPatternElement type: ${element.runtimeType}");
-          }
-
           Logger.debug(
-              "[_matchAndBind]   Matching list element $i: ${subPattern.runtimeType} against ${subValue?.runtimeType}");
-          _matchAndBind(subPattern, subValue, environment);
+              "[_matchAndBind]   Matching list element $i: ${element.runtimeType} against ${subValue?.runtimeType}");
+          _matchAndBind(element, subValue, environment);
         }
       } else {
         // Has rest element: more complex matching
@@ -8844,17 +8841,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           final element = pattern.elements[i];
           final subValue = value[i];
 
-          DartPattern subPattern;
-          if (element is DartPattern) {
-            subPattern = element;
-          } else {
-            throw StateD4rtException(
-                "Unexpected ListPatternElement type before rest: ${element.runtimeType}");
-          }
-
           Logger.debug(
-              "[_matchAndBind]   Matching list element $i (before rest): ${subPattern.runtimeType} against ${subValue?.runtimeType}");
-          _matchAndBind(subPattern, subValue, environment);
+              "[_matchAndBind]   Matching list element $i (before rest): ${element.runtimeType} against ${subValue?.runtimeType}");
+          _matchAndBind(element, subValue, environment);
         }
 
         // Handle rest element
@@ -8877,17 +8866,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           final element = pattern.elements[patternIndex];
           final subValue = value[valueIndex];
 
-          DartPattern subPattern;
-          if (element is DartPattern) {
-            subPattern = element;
-          } else {
-            throw StateD4rtException(
-                "Unexpected ListPatternElement type after rest: ${element.runtimeType}");
-          }
-
           Logger.debug(
-              "[_matchAndBind]   Matching list element $valueIndex (after rest): ${subPattern.runtimeType} against ${subValue?.runtimeType}");
-          _matchAndBind(subPattern, subValue, environment);
+              "[_matchAndBind]   Matching list element $valueIndex (after rest): ${element.runtimeType} against ${subValue?.runtimeType}");
+          _matchAndBind(element, subValue, environment);
         }
       }
       Logger.debug("[_matchAndBind] List pattern matched successfully.");
@@ -8957,9 +8938,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
 
       final positionalPatternFields =
-          pattern.fields.where((f) => f.name == null).toList();
+          pattern.fields.cast<SPatternField>().where((f) => f.name == null).toList();
       final namedPatternFieldsNodes =
-          pattern.fields.where((f) => f.name != null).toList();
+          pattern.fields.cast<SPatternField>().where((f) => f.name != null).toList();
 
       Logger.debug(
           '[_matchAndBind]   Pattern positional fields count: ${positionalPatternFields.length}');
@@ -8998,18 +8979,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // Match named fields
       for (final fieldNode in namedPatternFieldsNodes) {
         // We know fieldNode has name != null here
-        // Assume fieldNode is RecordPatternField based on filtering
-        final fieldPatternNode = fieldNode;
+        // fieldNode is SPatternField from the cast above
 
         // Use the corrected access path
-        // For shorthand syntax (:name), fieldPatternNode.name.name is null
-        // and the name comes from the pattern itself (a SDeclaredVariablePattern)
-        String? fieldName = fieldPatternNode.name?.name?.lexeme;
+        // For shorthand syntax (:name), field name comes from the pattern itself
+        String? fieldName = (fieldNode.name as SPatternFieldName?)?.name;
         if (fieldName == null) {
           // Shorthand syntax: (:name) - name comes from the pattern
-          final fieldSubPattern = (fieldPatternNode as dynamic).pattern;
+          final fieldSubPattern = fieldNode.pattern;
           if (fieldSubPattern is SDeclaredVariablePattern) {
-            fieldName = fieldSubPattern.name.lexeme;
+            fieldName = fieldSubPattern.name;
           }
         }
         if (fieldName == null) {
@@ -9019,7 +8998,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         }
 
         Logger.debug(
-            'DEBUG [_matchAndBind]   Matching record named field \'$fieldName\': ${fieldPatternNode.pattern.runtimeType} against value type ${value.namedFields[fieldName]?.runtimeType ?? 'null'}');
+            'DEBUG [_matchAndBind]   Matching record named field \'$fieldName\': ${fieldNode.pattern.runtimeType} against value type ${value.namedFields[fieldName]?.runtimeType ?? 'null'}');
 
         if (!value.namedFields.containsKey(fieldName)) {
           throw PatternMatchD4rtException(
@@ -9028,8 +9007,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         final fieldValue = value.namedFields[fieldName];
 
         // Recursive match on the pattern inside the field
-        final fieldSubPattern = (fieldPatternNode as dynamic).pattern;
-        _matchAndBind(fieldSubPattern, fieldValue, environment);
+        _matchAndBind(fieldNode.pattern, fieldValue, environment);
         Logger.debug(
             'DEBUG [_matchAndBind]     Named field \'$fieldName\' match success.');
       }
@@ -9038,11 +9016,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // Success: function completes normally
     } else if (pattern is SObjectPattern) {
       // Handles: ClassName(field1: pattern1, field2: pattern2)
+      final objTypeName = (pattern.type as SNamedType).name!.name;
       Logger.debug(
-          '[_matchAndBind] Matching object pattern ${pattern.type.name.lexeme} against value ${value?.runtimeType}');
+          '[_matchAndBind] Matching object pattern $objTypeName against value ${value?.runtimeType}');
 
       // Get the expected type name
-      final expectedTypeName = pattern.type.name.lexeme;
+      final expectedTypeName = objTypeName;
 
       // Check if the value is of the expected type
       bool typeMatches = false;
@@ -9120,16 +9099,17 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
       // Match each field pattern
       for (final field in pattern.fields) {
-        final SPatternFieldName? fieldName = field.name;
-        final DartPattern fieldPattern = field.pattern;
+        final pf = field as SPatternField;
+        final SPatternFieldName? fieldName = pf.name as SPatternFieldName?;
+        final SAstNode fieldPattern = pf.pattern;
 
         // Get the field name string - handle shorthand syntax (:fieldName)
         String fieldNameStr;
         if (fieldName != null && fieldName.name != null) {
-          fieldNameStr = fieldName.name!.lexeme;
+          fieldNameStr = fieldName.name!;
         } else if (fieldPattern is SDeclaredVariablePattern) {
           // Shorthand syntax: (:fieldName) means field name is the variable name
-          fieldNameStr = fieldPattern.name.lexeme;
+          fieldNameStr = fieldPattern.name;
         } else {
           throw PatternMatchD4rtException(
               "Object pattern field name could not be determined");
@@ -9162,7 +9142,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     } else if (pattern is SRelationalPattern) {
       // G-DOV-3/4 FIX: Handle relational patterns (>= x, <= x, > x, < x, == x, != x)
       final operand = pattern.operand.accept<Object?>(this);
-      final operator = pattern.operator.type;
+      final operator = pattern.operator;
       Logger.debug(
           "[_matchAndBind] SRelationalPattern: comparing $value $operator $operand");
       bool matches = false;
@@ -9230,14 +9210,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // then binds the casted value to the sub-pattern
       final targetType = pattern.type;
       Logger.debug(
-          "[_matchAndBind] SCastPattern: casting value to ${targetType.toSource()}");
+          "[_matchAndBind] SCastPattern: casting value to ${targetType.toString()}");
 
       // Try to perform the cast - reuse visitAsExpression logic
       // Create a synthetic SAsExpression node to evaluate the cast
       bool castSucceeds = false;
       if (targetType is SNamedType) {
-        final typeName = targetType.name.lexeme;
-        final isNullable = targetType.question != null;
+        final typeName = targetType.name!.name;
+        final isNullable = targetType.isNullable;
 
         // Check if the cast would succeed
         if (isNullable && value == null) {
@@ -9276,7 +9256,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
       if (!castSucceeds) {
         throw PatternMatchD4rtException(
-            "Cast pattern failed: value ${value?.runtimeType} cannot be cast to ${targetType.toSource()}");
+            "Cast pattern failed: value ${value?.runtimeType} cannot be cast to ${targetType.toString()}");
       }
 
       // Cast succeeded, now match the sub-pattern
@@ -9295,8 +9275,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     for (final field in node.fields) {
       if (field is SNamedExpression) {
-        final name = field.name.label.name;
-        final value = field.expression.accept<Object?>(this);
+        final name = field.name!.label!.name;
+        final value = field.expression!.accept<Object?>(this);
         if (named.containsKey(name)) {
           throw RuntimeD4rtException(
               "Record literal field '$name' specified more than once.");
@@ -9342,9 +9322,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final originalEnvironment = environment; // Backup current environment
 
     for (final caseExpr in node.cases) {
-      final pattern = caseExpr.guardedPattern.pattern;
-      final guard = caseExpr.guardedPattern.whenClause?.expression;
-      final body = caseExpr.expression;
+      final switchCase = caseExpr as SSwitchExpressionCase;
+      final switchGp = switchCase.guardedPattern as SGuardedPattern;
+      final pattern = switchGp.pattern;
+      final guard = (switchGp.whenClause as SWhenClause?)?.expression;
+      final body = switchCase.expression;
 
       // Create a temporary environment for this case's pattern variables
       // Enclose the *original* environment where the switch expression is evaluated
@@ -9406,12 +9388,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitExtensionDeclaration(SExtensionDeclaration node) {
-    final extensionName = node.name?.lexeme;
+    final extensionName = node.name?.name;
     Logger.debug(
         "[visitExtensionDeclaration] Declaring extension: ${extensionName ?? '<unnamed>'}");
 
     // 1. Resolve the 'on' type
-    final onTypeNode = node.onClause?.extendedType;
+    final onTypeNode = node.extendedType;
     if (onTypeNode == null) {
       // This might happen for extension types, which are different.
       // For now, assume classic extensions always have an 'on' clause.
@@ -9424,8 +9406,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     String onTypeName;
     bool isOnNullableType = false; // G-DOV-10/11: Track nullable on-type
     if (onTypeNode is SNamedType) {
-      onTypeName = onTypeNode.name.lexeme;
-      isOnNullableType = onTypeNode.question != null; // Check for 'T?' syntax
+      onTypeName = onTypeNode.name!.name;
+      isOnNullableType = onTypeNode.isNullable; // Check for 'T?' syntax
     } else {
       Logger.warn(
           "[visitExtensionDeclaration] Unsupported 'on' type node for resolution: ${onTypeNode.runtimeType}. Skipping extension.");
@@ -9495,7 +9477,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     for (final member in node.members) {
       if (member is SMethodDeclaration) {
         final methodName = member
-            .name.lexeme; // Operator names like '+', '[]' are also lexemes
+            .name!.name; // Operator names like '+', '[]' are also lexemes
 
         if (member.isStatic) {
           // Handle static methods, getters, and setters
@@ -9535,8 +9517,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           continue; // Skip instance fields
         }
         // Handle static fields - store in the InterpretedExtension object
-        for (final variable in member.fields.variables) {
-          final fieldName = variable.name.lexeme;
+        for (final variable in member.fields!.variables) {
+          final fieldName = variable.name!.name;
           Object? value;
           if (variable.initializer != null) {
             // Evaluate static initializer immediately in the current environment
@@ -9590,22 +9572,22 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   /// Lim-1 FIX: Handle extension type declarations (Dart 3.3+)
   @override
   Object? visitExtensionTypeDeclaration(SExtensionTypeDeclaration node) {
-    final typeName = node.name.lexeme;
+    final typeName = node.name!.name;
     Logger.debug(
         "[visitExtensionTypeDeclaration] Declaring extension type: $typeName");
 
     // Get the representation field name and type
-    final representation = node.representation;
-    final representationFieldName = representation.fieldName.lexeme;
+    final representation = node.representation as SRepresentationDeclaration;
+    final representationFieldName = representation.fieldName;
     final representationTypeNode = representation.fieldType;
 
     Logger.debug(
-        "[visitExtensionTypeDeclaration] Representation field: $representationFieldName, type: ${representationTypeNode.toSource()}");
+        "[visitExtensionTypeDeclaration] Representation field: $representationFieldName, type: ${representationTypeNode.toString()}");
 
     // Resolve the representation type
     RuntimeType? representationType;
     if (representationTypeNode is SNamedType) {
-      final representationTypeName = representationTypeNode.name.lexeme;
+      final representationTypeName = representationTypeNode.name!.name;
       try {
         final typeValue = environment.get(representationTypeName);
         if (typeValue is RuntimeType) {
@@ -9638,7 +9620,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     for (final member in node.members) {
       if (member is SMethodDeclaration) {
-        final methodName = member.name.lexeme;
+        final methodName = member.name!.name;
         final isGetter = member.isGetter;
         final isSetter = member.isSetter;
         final isStatic = member.isStatic;
@@ -9774,7 +9756,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitImportDirective(SImportDirective node) {
-    final importUriString = node.uri.stringValue;
+    final importUriString = (node.uri as SSimpleStringLiteral?)?.value;
     if (importUriString == null) {
       Logger.warn(
           "[visitImportDirective] Import directive with null URI string.");
