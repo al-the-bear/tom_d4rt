@@ -1,5 +1,4 @@
-import 'package:analyzer/dart/ast/ast.dart' hide TypeParameter;
-import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 /// Visitor for the first pass: Declares class and mixin placeholders.

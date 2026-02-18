@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:analyzer/dart/ast/ast.dart';
+import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_exec/src/environment.dart';
 import 'package:tom_d4rt_exec/src/callable.dart';
 import 'package:tom_d4rt_exec/src/exceptions.dart';

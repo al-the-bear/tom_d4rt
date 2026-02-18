@@ -1,4 +1,4 @@
-import 'package:analyzer/dart/ast/ast.dart';
+import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 /// Represents information about a declaration in the executed code.

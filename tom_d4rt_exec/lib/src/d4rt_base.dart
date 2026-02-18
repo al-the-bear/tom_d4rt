@@ -1,12 +1,9 @@
-import 'package:analyzer/dart/analysis/features.dart';
-import 'package:analyzer/dart/analysis/utilities.dart';
-import 'package:analyzer/error/error.dart';
+import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_exec/src/bridge/bridged_enum.dart';
 import 'package:tom_d4rt_exec/src/utils/logger/logger.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:tom_d4rt_exec/src/bridge/bridged_types.dart';
 import 'package:tom_d4rt_exec/src/runtime_types.dart';
-import 'package:analyzer/dart/ast/ast.dart';
 import 'package:tom_d4rt_exec/src/environment.dart';
 import 'package:tom_d4rt_exec/src/interpreter_visitor.dart';
 import 'package:tom_d4rt_exec/src/module_loader.dart';

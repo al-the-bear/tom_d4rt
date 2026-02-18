@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'package:analyzer/dart/ast/ast.dart' hide TypeParameter;
-import 'package:analyzer/dart/ast/token.dart';
-import 'package:analyzer/dart/ast/visitor.dart';
-import 'package:analyzer/dart/element/type.dart';
+import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/src/bridge/bridged_enum.dart';
 import 'package:tom_d4rt_exec/src/utils/extensions/string.dart';

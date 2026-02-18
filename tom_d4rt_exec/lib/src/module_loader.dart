@@ -1,14 +1,11 @@
-import 'package:analyzer/dart/ast/ast.dart';
+import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
-import 'package:analyzer/dart/analysis/utilities.dart';
-import 'package:analyzer/dart/analysis/features.dart';
 import 'package:tom_d4rt_exec/src/stdlib/convert.dart';
 import 'package:tom_d4rt_exec/src/stdlib/isolate.dart';
 import 'package:tom_d4rt_exec/src/stdlib/math.dart';
 import 'package:tom_d4rt_exec/src/stdlib/collection.dart';
 import 'package:tom_d4rt_exec/src/stdlib/typed_data.dart';
 import 'package:pub_semver/pub_semver.dart';
-import 'package:analyzer/error/error.dart';
 import 'package:tom_d4rt_exec/src/stdlib/stdlib_io.dart'
     if (dart.library.html) 'package:tom_d4rt_exec/src/stdlib/stdlib_web.dart';
 

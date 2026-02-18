@@ -25,6 +25,7 @@
 /// ```
 library;
 
+export 'package:tom_d4rt_ast/ast.dart';
 export 'package:tom_d4rt_exec/src/bridge/bridged_types.dart';
 export 'package:tom_d4rt_exec/src/runtime_types.dart';
 export 'package:tom_d4rt_exec/src/callable.dart';
