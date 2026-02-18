@@ -39,6 +39,16 @@ class SArgumentList extends SAstNode {
       arguments: SAstNodeFactory.listFromJson(json['arguments'] as List?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitArgumentList(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in arguments) {
+      child.accept(visitor);
+    }
+  }
 }
 
 // ============================================================================
@@ -100,6 +110,17 @@ class SAnnotation extends SAstNode {
           : null,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitAnnotation(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    typeArguments?.accept(visitor);
+    constructorName?.accept(visitor);
+    arguments?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -142,6 +163,12 @@ class SComment extends SAstNode {
       commentType: json['commentType'] as String,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitComment(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }
 
 // ============================================================================
@@ -181,6 +208,14 @@ class SLabel extends SAstNode {
           ? SSimpleIdentifier.fromJson(json['label'] as Map<String, dynamic>)
           : null,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitLabel(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    label?.accept(visitor);
   }
 }
 
@@ -222,6 +257,14 @@ class SExtendsClause extends SAstNode {
           : null,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitExtendsClause(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    superclass?.accept(visitor);
+  }
 }
 
 class SImplementsClause extends SAstNode {
@@ -258,6 +301,16 @@ class SImplementsClause extends SAstNode {
               .toList() ??
           [],
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitImplementsClause(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in interfaces) {
+      child.accept(visitor);
+    }
   }
 }
 
@@ -296,6 +349,16 @@ class SWithClause extends SAstNode {
           [],
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitWithClause(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in mixinTypes) {
+      child.accept(visitor);
+    }
+  }
 }
 
 class SOnClause extends SAstNode {
@@ -333,6 +396,16 @@ class SOnClause extends SAstNode {
               .toList() ??
           [],
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitOnClause(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in superclassConstraints) {
+      child.accept(visitor);
+    }
   }
 }
 
@@ -380,6 +453,15 @@ class SConstructorName extends SAstNode {
           : null,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitConstructorName(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    type?.accept(visitor);
+    name?.accept(visitor);
+  }
 }
 
 class SSuperConstructorInvocation extends SAstNode {
@@ -423,6 +505,15 @@ class SSuperConstructorInvocation extends SAstNode {
           ? SArgumentList.fromJson(json['argumentList'] as Map<String, dynamic>)
           : null,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitSuperConstructorInvocation(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    constructorName?.accept(visitor);
+    argumentList?.accept(visitor);
   }
 }
 
@@ -468,6 +559,15 @@ class SRedirectingConstructorInvocation extends SAstNode {
           : null,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitRedirectingConstructorInvocation(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    constructorName?.accept(visitor);
+    argumentList?.accept(visitor);
+  }
 }
 
 class SConstructorFieldInitializer extends SAstNode {
@@ -510,6 +610,15 @@ class SConstructorFieldInitializer extends SAstNode {
           SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitConstructorFieldInitializer(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    fieldName?.accept(visitor);
+    expression?.accept(visitor);
+  }
 }
 
 class SAssertInitializer extends SAstNode {
@@ -549,5 +658,14 @@ class SAssertInitializer extends SAstNode {
       message:
           SAstNodeFactory.fromJson(json['message'] as Map<String, dynamic>?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitAssertInitializer(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    condition?.accept(visitor);
+    message?.accept(visitor);
   }
 }

@@ -57,6 +57,16 @@ class SNamedType extends SAstNode {
           json['importPrefix'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitNamedType(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    typeArguments?.accept(visitor);
+    importPrefix?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -114,6 +124,16 @@ class SGenericFunctionType extends SAstNode {
       isNullable: json['isNullable'] as bool? ?? false,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitGenericFunctionType(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    returnType?.accept(visitor);
+    typeParameters?.accept(visitor);
+    parameters?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -152,6 +172,16 @@ class STypeArgumentList extends SAstNode {
       arguments: SAstNodeFactory.listFromJson(json['arguments'] as List?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitTypeArgumentList(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in arguments) {
+      child.accept(visitor);
+    }
+  }
 }
 
 class STypeParameterList extends SAstNode {
@@ -188,6 +218,16 @@ class STypeParameterList extends SAstNode {
               .toList() ??
           [],
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitTypeParameterList(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in typeParameters) {
+      child.accept(visitor);
+    }
   }
 }
 
@@ -236,6 +276,18 @@ class STypeParameter extends SAstNode {
           [],
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitTypeParameter(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    bound?.accept(visitor);
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+  }
 }
 
 // ============================================================================
@@ -283,6 +335,19 @@ class SRecordTypeAnnotation extends SAstNode {
       isNullable: json['isNullable'] as bool? ?? false,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitRecordTypeAnnotation(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in positionalFields) {
+      child.accept(visitor);
+    }
+    for (final child in namedFields) {
+      child.accept(visitor);
+    }
+  }
 }
 
 // ============================================================================
@@ -320,6 +385,16 @@ class SFormalParameterList extends SAstNode {
       length: json['length'] as int,
       parameters: SAstNodeFactory.listFromJson(json['parameters'] as List?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitFormalParameterList(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in parameters) {
+      child.accept(visitor);
+    }
   }
 }
 
@@ -392,6 +467,18 @@ class SSimpleFormalParameter extends SAstNode {
       isNamed: json['isNamed'] as bool? ?? false,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitSimpleFormalParameter(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    type?.accept(visitor);
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+  }
 }
 
 class SDefaultFormalParameter extends SAstNode {
@@ -439,6 +526,15 @@ class SDefaultFormalParameter extends SAstNode {
       isPositional: json['isPositional'] as bool? ?? true,
       isNamed: json['isNamed'] as bool? ?? false,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitDefaultFormalParameter(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    parameter?.accept(visitor);
+    defaultValue?.accept(visitor);
   }
 }
 
@@ -506,6 +602,19 @@ class SFieldFormalParameter extends SAstNode {
       isRequired: json['isRequired'] as bool? ?? false,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitFieldFormalParameter(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    type?.accept(visitor);
+    parameters?.accept(visitor);
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+  }
 }
 
 class SFunctionTypedFormalParameter extends SAstNode {
@@ -572,6 +681,20 @@ class SFunctionTypedFormalParameter extends SAstNode {
       isRequired: json['isRequired'] as bool? ?? false,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitFunctionTypedFormalParameter(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    returnType?.accept(visitor);
+    typeParameters?.accept(visitor);
+    parameters?.accept(visitor);
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+  }
 }
 
 class SSuperFormalParameter extends SAstNode {
@@ -637,6 +760,20 @@ class SSuperFormalParameter extends SAstNode {
       isRequired: json['isRequired'] as bool? ?? false,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitSuperFormalParameter(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    type?.accept(visitor);
+    typeParameters?.accept(visitor);
+    parameters?.accept(visitor);
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+  }
 }
 
 // ============================================================================
@@ -685,6 +822,14 @@ class SBlockFunctionBody extends SAstNode {
       isGenerator: json['isGenerator'] as bool? ?? false,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitBlockFunctionBody(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    block?.accept(visitor);
+  }
 }
 
 class SExpressionFunctionBody extends SAstNode {
@@ -724,6 +869,14 @@ class SExpressionFunctionBody extends SAstNode {
       isAsync: json['isAsync'] as bool? ?? false,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitExpressionFunctionBody(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    expression?.accept(visitor);
+  }
 }
 
 class SEmptyFunctionBody extends SAstNode {
@@ -753,6 +906,12 @@ class SEmptyFunctionBody extends SAstNode {
       length: json['length'] as int,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitEmptyFunctionBody(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }
 
 class SNativeFunctionBody extends SAstNode {
@@ -787,5 +946,13 @@ class SNativeFunctionBody extends SAstNode {
       stringLiteral: SAstNodeFactory.fromJson(
           json['stringLiteral'] as Map<String, dynamic>?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitNativeFunctionBody(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    stringLiteral?.accept(visitor);
   }
 }

@@ -60,6 +60,21 @@ class SImportDirective extends SAstNode {
       isDeferred: json['isDeferred'] as bool? ?? false,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitImportDirective(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    uri?.accept(visitor);
+    prefix?.accept(visitor);
+    for (final child in combinators) {
+      child.accept(visitor);
+    }
+  }
 }
 
 // ============================================================================
@@ -109,6 +124,20 @@ class SExportDirective extends SAstNode {
       combinators: SAstNodeFactory.listFromJson(json['combinators'] as List?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitExportDirective(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    uri?.accept(visitor);
+    for (final child in combinators) {
+      child.accept(visitor);
+    }
+  }
 }
 
 // ============================================================================
@@ -153,6 +182,17 @@ class SPartDirective extends SAstNode {
           [],
       uri: SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitPartDirective(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    uri?.accept(visitor);
   }
 }
 
@@ -200,6 +240,18 @@ class SPartOfDirective extends SAstNode {
           SAstNodeFactory.fromJson(json['libraryName'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitPartOfDirective(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    uri?.accept(visitor);
+    libraryName?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -245,6 +297,17 @@ class SLibraryDirective extends SAstNode {
       name: SAstNodeFactory.fromJson(json['name'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitLibraryDirective(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    name?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -287,6 +350,16 @@ class SShowCombinator extends SAstNode {
           [],
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitShowCombinator(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in shownNames) {
+      child.accept(visitor);
+    }
+  }
 }
 
 class SHideCombinator extends SAstNode {
@@ -324,5 +397,15 @@ class SHideCombinator extends SAstNode {
               .toList() ??
           [],
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitHideCombinator(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in hiddenNames) {
+      child.accept(visitor);
+    }
   }
 }

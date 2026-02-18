@@ -46,6 +46,15 @@ class SGuardedPattern extends SAstNode {
           json['whenClause'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitGuardedPattern(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    pattern.accept(visitor);
+    whenClause?.accept(visitor);
+  }
 }
 
 /// A `when` clause that guards a pattern with a boolean expression.
@@ -82,6 +91,14 @@ class SWhenClause extends SAstNode {
           json['expression'] as Map<String, dynamic>?)!,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitWhenClause(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    expression.accept(visitor);
+  }
 }
 
 /// A `case` clause used in if-case statements.
@@ -117,6 +134,14 @@ class SCaseClause extends SAstNode {
       guardedPattern: SAstNodeFactory.fromJson(
           json['guardedPattern'] as Map<String, dynamic>?)!,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitCaseClause(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    guardedPattern.accept(visitor);
   }
 }
 
@@ -162,6 +187,14 @@ class SConstantPattern extends SAstNode {
           json['expression'] as Map<String, dynamic>?)!,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitConstantPattern(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    expression.accept(visitor);
+  }
 }
 
 /// A wildcard pattern `_`, optionally typed (e.g., `int _`, `var _`).
@@ -204,6 +237,14 @@ class SWildcardPattern extends SAstNode {
       name: json['name'] as String,
       type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitWildcardPattern(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    type?.accept(visitor);
   }
 }
 
@@ -252,6 +293,14 @@ class SDeclaredVariablePattern extends SAstNode {
       type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitDeclaredVariablePattern(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    type?.accept(visitor);
+  }
 }
 
 /// An assigned variable pattern that binds to an existing variable.
@@ -287,6 +336,12 @@ class SAssignedVariablePattern extends SAstNode {
       name: json['name'] as String,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitAssignedVariablePattern(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }
 
 // ============================================================================
@@ -330,6 +385,17 @@ class SObjectPattern extends SAstNode {
           json['type'] as Map<String, dynamic>?)!,
       fields: SAstNodeFactory.listFromJson(json['fields'] as List?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitObjectPattern(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    type.accept(visitor);
+    for (final child in fields) {
+      child.accept(visitor);
+    }
   }
 }
 
@@ -375,6 +441,17 @@ class SListPattern extends SAstNode {
       elements: SAstNodeFactory.listFromJson(json['elements'] as List?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitListPattern(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    typeArguments?.accept(visitor);
+    for (final child in elements) {
+      child.accept(visitor);
+    }
+  }
 }
 
 /// A map destructuring pattern (e.g., `{'key': valuePattern}`).
@@ -414,6 +491,17 @@ class SMapPattern extends SAstNode {
           json['typeArguments'] as Map<String, dynamic>?),
       elements: SAstNodeFactory.listFromJson(json['elements'] as List?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitMapPattern(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    typeArguments?.accept(visitor);
+    for (final child in elements) {
+      child.accept(visitor);
+    }
   }
 }
 
@@ -456,6 +544,15 @@ class SMapPatternEntry extends SAstNode {
           json['value'] as Map<String, dynamic>?)!,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitMapPatternEntry(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    key.accept(visitor);
+    value.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -494,6 +591,16 @@ class SRecordPattern extends SAstNode {
       length: json['length'] as int,
       fields: SAstNodeFactory.listFromJson(json['fields'] as List?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitRecordPattern(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in fields) {
+      child.accept(visitor);
+    }
   }
 }
 
@@ -536,6 +643,15 @@ class SPatternField extends SAstNode {
           json['pattern'] as Map<String, dynamic>?)!,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitPatternField(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    pattern.accept(visitor);
+  }
 }
 
 /// A field name identifier in a pattern field (null name for shorthand).
@@ -572,6 +688,12 @@ class SPatternFieldName extends SAstNode {
       name: json['name'] as String?,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitPatternFieldName(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }
 
 // ============================================================================
@@ -621,6 +743,15 @@ class SLogicalOrPattern extends SAstNode {
           json['rightOperand'] as Map<String, dynamic>?)!,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitLogicalOrPattern(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    leftOperand.accept(visitor);
+    rightOperand.accept(visitor);
+  }
 }
 
 /// A logical AND pattern (e.g., `pattern1 && pattern2`).
@@ -665,6 +796,15 @@ class SLogicalAndPattern extends SAstNode {
       rightOperand: SAstNodeFactory.fromJson(
           json['rightOperand'] as Map<String, dynamic>?)!,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitLogicalAndPattern(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    leftOperand.accept(visitor);
+    rightOperand.accept(visitor);
   }
 }
 
@@ -711,6 +851,15 @@ class SCastPattern extends SAstNode {
           json['type'] as Map<String, dynamic>?)!,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitCastPattern(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    pattern.accept(visitor);
+    type.accept(visitor);
+  }
 }
 
 /// A relational pattern (e.g., `< 5`, `>= 10`).
@@ -750,6 +899,14 @@ class SRelationalPattern extends SAstNode {
       operand: SAstNodeFactory.fromJson(
           json['operand'] as Map<String, dynamic>?)!,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitRelationalPattern(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    operand.accept(visitor);
   }
 }
 
@@ -795,6 +952,14 @@ class SNullCheckPattern extends SAstNode {
       operator: json['operator'] as String,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitNullCheckPattern(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    pattern.accept(visitor);
+  }
 }
 
 /// A null-assert pattern (e.g., `pattern!`).
@@ -834,6 +999,14 @@ class SNullAssertPattern extends SAstNode {
           json['pattern'] as Map<String, dynamic>?)!,
       operator: json['operator'] as String,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitNullAssertPattern(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    pattern.accept(visitor);
   }
 }
 
@@ -875,6 +1048,14 @@ class SParenthesizedPattern extends SAstNode {
           json['pattern'] as Map<String, dynamic>?)!,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitParenthesizedPattern(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    pattern.accept(visitor);
+  }
 }
 
 /// A rest element in a list or map pattern (e.g., `...subPattern`).
@@ -910,6 +1091,14 @@ class SRestPatternElement extends SAstNode {
       pattern:
           SAstNodeFactory.fromJson(json['pattern'] as Map<String, dynamic>?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitRestPatternElement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    pattern?.accept(visitor);
   }
 }
 
@@ -960,6 +1149,15 @@ class SPatternVariableDeclaration extends SAstNode {
           json['expression'] as Map<String, dynamic>?)!,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitPatternVariableDeclaration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    pattern.accept(visitor);
+    expression.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -1005,6 +1203,15 @@ class SSwitchExpressionCase extends SAstNode {
           json['expression'] as Map<String, dynamic>?)!,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitSwitchExpressionCase(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    guardedPattern.accept(visitor);
+    expression.accept(visitor);
+  }
 }
 
 /// A Dart 3.0 switch statement case with pattern matching.
@@ -1048,5 +1255,19 @@ class SSwitchPatternCase extends SAstNode {
           json['guardedPattern'] as Map<String, dynamic>?)!,
       statements: SAstNodeFactory.listFromJson(json['statements'] as List?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitSwitchPatternCase(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in labels) {
+      child.accept(visitor);
+    }
+    guardedPattern.accept(visitor);
+    for (final child in statements) {
+      child.accept(visitor);
+    }
   }
 }

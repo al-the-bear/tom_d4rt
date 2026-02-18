@@ -39,6 +39,12 @@ class SIntegerLiteral extends SAstNode {
       value: json['value'] as int,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitIntegerLiteral(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }
 
 // ============================================================================
@@ -77,6 +83,12 @@ class SDoubleLiteral extends SAstNode {
       value: (json['value'] as num).toDouble(),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitDoubleLiteral(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }
 
 // ============================================================================
@@ -115,6 +127,12 @@ class SBooleanLiteral extends SAstNode {
       value: json['value'] as bool,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitBooleanLiteral(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }
 
 // ============================================================================
@@ -165,6 +183,13 @@ class SSimpleStringLiteral extends SAstNode {
       isSingleQuoted: json['isSingleQuoted'] as bool? ?? true,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitSimpleStringLiteral(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }
 
 class SStringInterpolation extends SAstNode {
@@ -207,6 +232,17 @@ class SStringInterpolation extends SAstNode {
       isRaw: json['isRaw'] as bool? ?? false,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitStringInterpolation(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in elements) {
+      child.accept(visitor);
+    }
+  }
 }
 
 class SInterpolationExpression extends SAstNode {
@@ -242,6 +278,15 @@ class SInterpolationExpression extends SAstNode {
           SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitInterpolationExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    expression?.accept(visitor);
+  }
 }
 
 class SInterpolationString extends SAstNode {
@@ -276,6 +321,13 @@ class SInterpolationString extends SAstNode {
       value: json['value'] as String,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitInterpolationString(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }
 
 class SAdjacentStrings extends SAstNode {
@@ -310,6 +362,16 @@ class SAdjacentStrings extends SAstNode {
       strings: SAstNodeFactory.listFromJson(json['strings'] as List?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitAdjacentStrings(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in strings) {
+      child.accept(visitor);
+    }
+  }
 }
 
 // ============================================================================
@@ -343,6 +405,12 @@ class SNullLiteral extends SAstNode {
       length: json['length'] as int,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitNullLiteral(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }
 
 // ============================================================================
@@ -391,6 +459,17 @@ class SListLiteral extends SAstNode {
       elements: SAstNodeFactory.listFromJson(json['elements'] as List?),
       isConst: json['isConst'] as bool? ?? false,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitListLiteral(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    typeArguments?.accept(visitor);
+    for (final child in elements) {
+      child.accept(visitor);
+    }
   }
 }
 
@@ -445,6 +524,17 @@ class SSetOrMapLiteral extends SAstNode {
       isSet: json['isSet'] as bool? ?? false,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitSetOrMapLiteral(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    typeArguments?.accept(visitor);
+    for (final child in elements) {
+      child.accept(visitor);
+    }
+  }
 }
 
 class SMapLiteralEntry extends SAstNode {
@@ -482,6 +572,15 @@ class SMapLiteralEntry extends SAstNode {
       key: SAstNodeFactory.fromJson(json['key'] as Map<String, dynamic>?),
       value: SAstNodeFactory.fromJson(json['value'] as Map<String, dynamic>?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitMapLiteralEntry(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    key?.accept(visitor);
+    value?.accept(visitor);
   }
 }
 
@@ -521,6 +620,12 @@ class SSymbolLiteral extends SAstNode {
       value: json['value'] as String,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitSymbolLiteral(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }
 
 // ============================================================================
@@ -562,5 +667,15 @@ class SRecordLiteral extends SAstNode {
       fields: SAstNodeFactory.listFromJson(json['fields'] as List?),
       isConst: json['isConst'] as bool? ?? false,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitRecordLiteral(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in fields) {
+      child.accept(visitor);
+    }
   }
 }

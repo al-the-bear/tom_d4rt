@@ -390,9 +390,6 @@ abstract class SAstVisitor<T> {
   // Patterns
   // --------------------------------------------------------------------------
 
-  /// Visit a [SDartPattern].
-  T? visitDartPattern(SDartPattern node) => visitNode(node);
-
   /// Visit a [SConstantPattern].
   T? visitConstantPattern(SConstantPattern node) => visitNode(node);
 
@@ -1004,9 +1001,6 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
   // --------------------------------------------------------------------------
   // Patterns → visitPattern
   // --------------------------------------------------------------------------
-
-  @override
-  T? visitDartPattern(SDartPattern node) => visitPattern(node);
 
   @override
   T? visitConstantPattern(SConstantPattern node) => visitPattern(node);

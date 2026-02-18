@@ -39,6 +39,16 @@ class SBlock extends SAstNode {
       statements: SAstNodeFactory.listFromJson(json['statements'] as List?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitBlock(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in statements) {
+      child.accept(visitor);
+    }
+  }
 }
 
 // ============================================================================
@@ -80,6 +90,15 @@ class SVariableDeclarationStatement extends SAstNode {
           : null,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitVariableDeclarationStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    variables?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -119,6 +138,15 @@ class SExpressionStatement extends SAstNode {
           SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitExpressionStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    expression?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -157,6 +185,15 @@ class SReturnStatement extends SAstNode {
       expression:
           SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitReturnStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    expression?.accept(visitor);
   }
 }
 
@@ -214,6 +251,17 @@ class SIfStatement extends SAstNode {
           SAstNodeFactory.fromJson(json['caseClause'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitIfStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    condition?.accept(visitor);
+    thenStatement?.accept(visitor);
+    elseStatement?.accept(visitor);
+    caseClause?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -257,6 +305,15 @@ class SForStatement extends SAstNode {
           json['forLoopParts'] as Map<String, dynamic>?),
       body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitForStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    forLoopParts?.accept(visitor);
+    body?.accept(visitor);
   }
 }
 
@@ -305,6 +362,19 @@ class SForPartsWithDeclarations extends SAstNode {
       updaters: SAstNodeFactory.listFromJson(json['updaters'] as List?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitForPartsWithDeclarations(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    variables?.accept(visitor);
+    condition?.accept(visitor);
+    for (final child in updaters) {
+      child.accept(visitor);
+    }
+  }
 }
 
 /// For loop parts with an expression initializer
@@ -350,6 +420,19 @@ class SForPartsWithExpression extends SAstNode {
       updaters: SAstNodeFactory.listFromJson(json['updaters'] as List?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitForPartsWithExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    initialization?.accept(visitor);
+    condition?.accept(visitor);
+    for (final child in updaters) {
+      child.accept(visitor);
+    }
+  }
 }
 
 // ============================================================================
@@ -392,6 +475,16 @@ class SForEachStatement extends SAstNode {
           json['forLoopParts'] as Map<String, dynamic>?),
       body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitForEachStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    forLoopParts?.accept(visitor);
+    body?.accept(visitor);
   }
 }
 
@@ -437,6 +530,16 @@ class SForEachPartsWithDeclaration extends SAstNode {
           SAstNodeFactory.fromJson(json['iterable'] as Map<String, dynamic>?),
       isAwait: json['isAwait'] as bool? ?? false,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitForEachPartsWithDeclaration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    loopVariable?.accept(visitor);
+    iterable?.accept(visitor);
   }
 }
 
@@ -484,6 +587,16 @@ class SForEachPartsWithIdentifier extends SAstNode {
           SAstNodeFactory.fromJson(json['iterable'] as Map<String, dynamic>?),
       isAwait: json['isAwait'] as bool? ?? false,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitForEachPartsWithIdentifier(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    identifier?.accept(visitor);
+    iterable?.accept(visitor);
   }
 }
 
@@ -542,6 +655,19 @@ class SDeclaredIdentifier extends SAstNode {
       isConst: json['isConst'] as bool? ?? false,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitDeclaredIdentifier(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    type?.accept(visitor);
+    identifier?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -584,6 +710,15 @@ class SWhileStatement extends SAstNode {
           SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?),
       body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitWhileStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    condition?.accept(visitor);
+    body?.accept(visitor);
   }
 }
 
@@ -628,6 +763,15 @@ class SDoStatement extends SAstNode {
           SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitDoStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    body?.accept(visitor);
+    condition?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -670,6 +814,17 @@ class SSwitchStatement extends SAstNode {
           SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
       members: SAstNodeFactory.listFromJson(json['members'] as List?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitSwitchStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    expression?.accept(visitor);
+    for (final child in members) {
+      child.accept(visitor);
+    }
   }
 }
 
@@ -717,6 +872,20 @@ class SSwitchCase extends SAstNode {
       statements: SAstNodeFactory.listFromJson(json['statements'] as List?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitSwitchCase(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in labels) {
+      child.accept(visitor);
+    }
+    expression?.accept(visitor);
+    for (final child in statements) {
+      child.accept(visitor);
+    }
+  }
 }
 
 class SSwitchDefault extends SAstNode {
@@ -757,6 +926,19 @@ class SSwitchDefault extends SAstNode {
           [],
       statements: SAstNodeFactory.listFromJson(json['statements'] as List?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitSwitchDefault(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in labels) {
+      child.accept(visitor);
+    }
+    for (final child in statements) {
+      child.accept(visitor);
+    }
   }
 }
 
@@ -810,6 +992,18 @@ class STryStatement extends SAstNode {
           ? SBlock.fromJson(json['finallyBlock'] as Map<String, dynamic>)
           : null,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitTryStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    body?.accept(visitor);
+    for (final child in catchClauses) {
+      child.accept(visitor);
+    }
+    finallyBlock?.accept(visitor);
   }
 }
 
@@ -868,6 +1062,17 @@ class SCatchClause extends SAstNode {
           : null,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitCatchClause(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    exceptionType?.accept(visitor);
+    exceptionParameter?.accept(visitor);
+    stackTraceParameter?.accept(visitor);
+    body?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -908,6 +1113,14 @@ class SBreakStatement extends SAstNode {
           : null,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitBreakStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    label?.accept(visitor);
+  }
 }
 
 class SContinueStatement extends SAstNode {
@@ -943,6 +1156,15 @@ class SContinueStatement extends SAstNode {
           ? SSimpleIdentifier.fromJson(json['label'] as Map<String, dynamic>)
           : null,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitContinueStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    label?.accept(visitor);
   }
 }
 
@@ -988,6 +1210,15 @@ class SAssertStatement extends SAstNode {
           SAstNodeFactory.fromJson(json['message'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitAssertStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    condition?.accept(visitor);
+    message?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -1030,6 +1261,14 @@ class SYieldStatement extends SAstNode {
           SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
       isStar: json['isStar'] as bool? ?? false,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitYieldStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    expression?.accept(visitor);
   }
 }
 
@@ -1077,6 +1316,18 @@ class SLabeledStatement extends SAstNode {
           SAstNodeFactory.fromJson(json['statement'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitLabeledStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in labels) {
+      child.accept(visitor);
+    }
+    statement?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -1110,6 +1361,12 @@ class SEmptyStatement extends SAstNode {
       length: json['length'] as int,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitEmptyStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }
 
 // ============================================================================
@@ -1151,5 +1408,14 @@ class SPatternVariableDeclarationStatement extends SAstNode {
       declaration: SAstNodeFactory.fromJson(
           json['declaration'] as Map<String, dynamic>?)!,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitPatternVariableDeclarationStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    declaration.accept(visitor);
   }
 }
