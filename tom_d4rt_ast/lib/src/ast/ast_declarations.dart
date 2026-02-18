@@ -107,6 +107,20 @@ class SFunctionDeclaration extends SAstNode with SNamedDeclaration {
           : null,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitFunctionDeclaration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    returnType?.accept(visitor);
+    typeParameters?.accept(visitor);
+    functionExpression?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -210,6 +224,21 @@ class SMethodDeclaration extends SAstNode with SNamedDeclaration {
           : null,
       body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitMethodDeclaration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    returnType?.accept(visitor);
+    typeParameters?.accept(visitor);
+    parameters?.accept(visitor);
+    body?.accept(visitor);
   }
 }
 
@@ -327,6 +356,24 @@ class SClassDeclaration extends SAstNode with SNamedDeclaration {
       members: SAstNodeFactory.listFromJson(json['members'] as List?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitClassDeclaration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    typeParameters?.accept(visitor);
+    extendsClause?.accept(visitor);
+    implementsClause?.accept(visitor);
+    withClause?.accept(visitor);
+    for (final child in members) {
+      child.accept(visitor);
+    }
+  }
 }
 
 // ============================================================================
@@ -404,6 +451,23 @@ class SMixinDeclaration extends SAstNode with SNamedDeclaration {
           : null,
       members: SAstNodeFactory.listFromJson(json['members'] as List?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitMixinDeclaration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    typeParameters?.accept(visitor);
+    onClause?.accept(visitor);
+    implementsClause?.accept(visitor);
+    for (final child in members) {
+      child.accept(visitor);
+    }
   }
 }
 
@@ -487,6 +551,26 @@ class SEnumDeclaration extends SAstNode with SNamedDeclaration {
       members: SAstNodeFactory.listFromJson(json['members'] as List?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitEnumDeclaration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    typeParameters?.accept(visitor);
+    implementsClause?.accept(visitor);
+    withClause?.accept(visitor);
+    for (final child in constants) {
+      child.accept(visitor);
+    }
+    for (final child in members) {
+      child.accept(visitor);
+    }
+  }
 }
 
 class SEnumConstantDeclaration extends SAstNode with SNamedDeclaration {
@@ -544,6 +628,19 @@ class SEnumConstantDeclaration extends SAstNode with SNamedDeclaration {
           ? SArgumentList.fromJson(json['arguments'] as Map<String, dynamic>)
           : null,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitEnumConstantDeclaration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    typeArguments?.accept(visitor);
+    arguments?.accept(visitor);
   }
 }
 
@@ -609,6 +706,22 @@ class SExtensionDeclaration extends SAstNode with SNamedDeclaration {
           SAstNodeFactory.fromJson(json['extendedType'] as Map<String, dynamic>?),
       members: SAstNodeFactory.listFromJson(json['members'] as List?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitExtensionDeclaration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    typeParameters?.accept(visitor);
+    extendedType?.accept(visitor);
+    for (final child in members) {
+      child.accept(visitor);
+    }
   }
 }
 
@@ -683,6 +796,18 @@ class SVariableDeclaration extends SAstNode with SNamedDeclaration {
       isLate: json['isLate'] as bool? ?? false,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitVariableDeclaration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    initializer?.accept(visitor);
+  }
 }
 
 class SVariableDeclarationList extends SAstNode {
@@ -750,6 +875,20 @@ class SVariableDeclarationList extends SAstNode {
           [],
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitVariableDeclarationList(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    type?.accept(visitor);
+    for (final child in variables) {
+      child.accept(visitor);
+    }
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+  }
 }
 
 class SFieldDeclaration extends SAstNode {
@@ -810,6 +949,17 @@ class SFieldDeclaration extends SAstNode {
           : null,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitFieldDeclaration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    fields?.accept(visitor);
+  }
 }
 
 class STopLevelVariableDeclaration extends SAstNode {
@@ -857,6 +1007,17 @@ class STopLevelVariableDeclaration extends SAstNode {
               json['variables'] as Map<String, dynamic>)
           : null,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitTopLevelVariableDeclaration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    variables?.accept(visitor);
   }
 }
 
@@ -965,6 +1126,24 @@ class SConstructorDeclaration extends SAstNode with SNamedDeclaration {
       body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitConstructorDeclaration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    returnType?.accept(visitor);
+    parameters?.accept(visitor);
+    for (final child in initializers) {
+      child.accept(visitor);
+    }
+    redirectedConstructor?.accept(visitor);
+    body?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -1024,5 +1203,177 @@ class STypedefDeclaration extends SAstNode with SNamedDeclaration {
           : null,
       type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitTypedefDeclaration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    typeParameters?.accept(visitor);
+    type?.accept(visitor);
+  }
+}
+
+// ============================================================================
+// Extension Type Declaration
+// ============================================================================
+
+/// An extension type declaration: `extension type MyType(int value) implements int { ... }`
+class SExtensionTypeDeclaration extends SAstNode with SNamedDeclaration {
+  @override
+  final int offset;
+  @override
+  final int length;
+  @override
+  final SSimpleIdentifier? name;
+  @override
+  final List<SAnnotation> metadata;
+
+  /// Optional type parameters
+  final STypeParameterList? typeParameters;
+
+  /// The representation declaration (e.g., `int value`)
+  final SAstNode representation;
+
+  /// Optional implements clause
+  final SImplementsClause? implementsClause;
+
+  /// Members (methods, getters, etc.)
+  final List<SAstNode> members;
+
+  /// Whether declared with `const` keyword
+  final bool isConst;
+
+  SExtensionTypeDeclaration({
+    required this.offset,
+    required this.length,
+    this.name,
+    this.metadata = const [],
+    this.typeParameters,
+    required this.representation,
+    this.implementsClause,
+    this.members = const [],
+    this.isConst = false,
+  });
+
+  @override
+  String get nodeType => 'ExtensionTypeDeclaration';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        if (name != null) 'name': name!.toJson(),
+        'metadata': metadata.map((a) => a.toJson()).toList(),
+        if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
+        'representation': representation.toJson(),
+        if (implementsClause != null)
+          'implementsClause': implementsClause!.toJson(),
+        'members': members.map((m) => m.toJson()).toList(),
+        'isConst': isConst,
+      };
+
+  factory SExtensionTypeDeclaration.fromJson(Map<String, dynamic> json) {
+    return SExtensionTypeDeclaration(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      name: json['name'] != null
+          ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
+          : null,
+      metadata: (json['metadata'] as List?)
+              ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
+              .toList() ??
+          [],
+      typeParameters: json['typeParameters'] != null
+          ? STypeParameterList.fromJson(
+              json['typeParameters'] as Map<String, dynamic>)
+          : null,
+      representation: SAstNodeFactory.fromJson(
+          json['representation'] as Map<String, dynamic>?)!,
+      implementsClause: json['implementsClause'] != null
+          ? SImplementsClause.fromJson(
+              json['implementsClause'] as Map<String, dynamic>)
+          : null,
+      members: SAstNodeFactory.listFromJson(json['members'] as List?),
+      isConst: json['isConst'] as bool? ?? false,
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitExtensionTypeDeclaration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    typeParameters?.accept(visitor);
+    representation.accept(visitor);
+    implementsClause?.accept(visitor);
+    for (final child in members) {
+      child.accept(visitor);
+    }
+  }
+}
+
+// ============================================================================
+// Representation Declaration
+// ============================================================================
+
+/// The representation declaration of an extension type: `(int value)`
+class SRepresentationDeclaration extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  /// Name of the representation field
+  final String fieldName;
+
+  /// Type annotation of the representation field
+  final SAstNode fieldType;
+
+  SRepresentationDeclaration({
+    required this.offset,
+    required this.length,
+    required this.fieldName,
+    required this.fieldType,
+  });
+
+  @override
+  String get nodeType => 'RepresentationDeclaration';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        'fieldName': fieldName,
+        'fieldType': fieldType.toJson(),
+      };
+
+  factory SRepresentationDeclaration.fromJson(Map<String, dynamic> json) {
+    return SRepresentationDeclaration(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      fieldName: json['fieldName'] as String,
+      fieldType:
+          SAstNodeFactory.fromJson(json['fieldType'] as Map<String, dynamic>?)!,
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitRepresentationDeclaration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    fieldType.accept(visitor);
   }
 }

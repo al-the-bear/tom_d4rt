@@ -1111,3 +1111,45 @@ class SEmptyStatement extends SAstNode {
     );
   }
 }
+
+// ============================================================================
+// Pattern Variable Declaration Statement
+// ============================================================================
+
+/// A pattern variable declaration statement: `var (a, b) = expr;`
+class SPatternVariableDeclarationStatement extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  /// The pattern variable declaration
+  final SAstNode declaration;
+
+  SPatternVariableDeclarationStatement({
+    required this.offset,
+    required this.length,
+    required this.declaration,
+  });
+
+  @override
+  String get nodeType => 'PatternVariableDeclarationStatement';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        'declaration': declaration.toJson(),
+      };
+
+  factory SPatternVariableDeclarationStatement.fromJson(
+      Map<String, dynamic> json) {
+    return SPatternVariableDeclarationStatement(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      declaration: SAstNodeFactory.fromJson(
+          json['declaration'] as Map<String, dynamic>?)!,
+    );
+  }
+}

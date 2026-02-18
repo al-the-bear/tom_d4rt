@@ -47,6 +47,12 @@ class SSimpleIdentifier extends SAstNode {
   }
 
   @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitSimpleIdentifier(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
+
+  @override
   String toString() => 'SSimpleIdentifier($name)';
 }
 
@@ -90,6 +96,15 @@ class SPrefixedIdentifier extends SAstNode {
               json['identifier'] as Map<String, dynamic>)
           : null,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitPrefixedIdentifier(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    prefix?.accept(visitor);
+    identifier?.accept(visitor);
   }
 }
 
@@ -139,6 +154,15 @@ class SBinaryExpression extends SAstNode {
           json['rightOperand'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitBinaryExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    leftOperand?.accept(visitor);
+    rightOperand?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -182,6 +206,14 @@ class SPrefixExpression extends SAstNode {
           SAstNodeFactory.fromJson(json['operand'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitPrefixExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    operand?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -224,6 +256,14 @@ class SPostfixExpression extends SAstNode {
           SAstNodeFactory.fromJson(json['operand'] as Map<String, dynamic>?),
       operator: json['operator'] as String,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitPostfixExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    operand?.accept(visitor);
   }
 }
 
@@ -274,6 +314,16 @@ class SConditionalExpression extends SAstNode {
           json['elseExpression'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitConditionalExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    condition?.accept(visitor);
+    thenExpression?.accept(visitor);
+    elseExpression?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -321,6 +371,15 @@ class SAssignmentExpression extends SAstNode {
       rightHandSide: SAstNodeFactory.fromJson(
           json['rightHandSide'] as Map<String, dynamic>?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitAssignmentExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    leftHandSide?.accept(visitor);
+    rightHandSide?.accept(visitor);
   }
 }
 
@@ -385,6 +444,17 @@ class SMethodInvocation extends SAstNode {
           : null,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitMethodInvocation(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    target?.accept(visitor);
+    methodName?.accept(visitor);
+    typeArguments?.accept(visitor);
+    argumentList?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -437,6 +507,16 @@ class SFunctionExpressionInvocation extends SAstNode {
           : null,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitFunctionExpressionInvocation(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    function?.accept(visitor);
+    typeArguments?.accept(visitor);
+    argumentList?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -488,6 +568,15 @@ class SIndexExpression extends SAstNode {
       isNullAware: json['isNullAware'] as bool? ?? false,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitIndexExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    target?.accept(visitor);
+    index?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -538,6 +627,15 @@ class SPropertyAccess extends SAstNode {
           : null,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitPropertyAccess(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    target?.accept(visitor);
+    propertyName?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -576,6 +674,14 @@ class SParenthesizedExpression extends SAstNode {
       expression:
           SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitParenthesizedExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    expression?.accept(visitor);
   }
 }
 
@@ -629,6 +735,16 @@ class SFunctionExpression extends SAstNode {
       body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitFunctionExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    typeParameters?.accept(visitor);
+    parameters?.accept(visitor);
+    body?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -681,6 +797,15 @@ class SInstanceCreationExpression extends SAstNode {
           : null,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitInstanceCreationExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    constructorName?.accept(visitor);
+    argumentList?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -714,6 +839,12 @@ class SThisExpression extends SAstNode {
       length: json['length'] as int,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitThisExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }
 
 class SSuperExpression extends SAstNode {
@@ -743,6 +874,12 @@ class SSuperExpression extends SAstNode {
       length: json['length'] as int,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitSuperExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }
 
 // ============================================================================
@@ -782,6 +919,14 @@ class SThrowExpression extends SAstNode {
           SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitThrowExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    expression?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -820,6 +965,14 @@ class SAwaitExpression extends SAstNode {
       expression:
           SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitAwaitExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    expression?.accept(visitor);
   }
 }
 
@@ -864,6 +1017,15 @@ class SAsExpression extends SAstNode {
       type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitAsExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    expression?.accept(visitor);
+    type?.accept(visitor);
+  }
 }
 
 class SIsExpression extends SAstNode {
@@ -906,6 +1068,15 @@ class SIsExpression extends SAstNode {
       isNot: json['isNot'] as bool? ?? false,
       type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitIsExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    expression?.accept(visitor);
+    type?.accept(visitor);
   }
 }
 
@@ -956,6 +1127,17 @@ class SCascadeExpression extends SAstNode {
       isNullAware: json['isNullAware'] as bool? ?? false,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitCascadeExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    target?.accept(visitor);
+    for (final child in cascadeSections) {
+      child.accept(visitor);
+    }
+  }
 }
 
 // ============================================================================
@@ -989,6 +1171,12 @@ class SRethrowExpression extends SAstNode {
       length: json['length'] as int,
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitRethrowExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }
 
 // ============================================================================
@@ -1034,6 +1222,15 @@ class SNamedExpression extends SAstNode {
           SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitNamedExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    expression?.accept(visitor);
+  }
 }
 
 // ============================================================================
@@ -1076,6 +1273,14 @@ class SSpreadElement extends SAstNode {
           SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
       isNullAware: json['isNullAware'] as bool? ?? false,
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitSpreadElement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    expression?.accept(visitor);
   }
 }
 
@@ -1122,6 +1327,16 @@ class SIfElement extends SAstNode {
           json['elseElement'] as Map<String, dynamic>?),
     );
   }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitIfElement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    condition?.accept(visitor);
+    thenElement?.accept(visitor);
+    elseElement?.accept(visitor);
+  }
 }
 
 class SForElement extends SAstNode {
@@ -1160,5 +1375,235 @@ class SForElement extends SAstNode {
           json['forLoopParts'] as Map<String, dynamic>?),
       body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?),
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitForElement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    forLoopParts?.accept(visitor);
+    body?.accept(visitor);
+  }
+}
+
+// ============================================================================
+// Switch Expression
+// ============================================================================
+
+/// A switch expression: `switch (expr) { case1 => val1, ... }`
+class SSwitchExpression extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  /// The expression being switched on
+  final SAstNode expression;
+
+  /// The cases (list of [SSwitchExpressionCase])
+  final List<SAstNode> cases;
+
+  SSwitchExpression({
+    required this.offset,
+    required this.length,
+    required this.expression,
+    this.cases = const [],
+  });
+
+  @override
+  String get nodeType => 'SwitchExpression';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        'expression': expression.toJson(),
+        'cases': cases.map((c) => c.toJson()).toList(),
+      };
+
+  factory SSwitchExpression.fromJson(Map<String, dynamic> json) {
+    return SSwitchExpression(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      expression:
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)!,
+      cases: SAstNodeFactory.listFromJson(json['cases'] as List?),
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitSwitchExpression(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    expression.accept(visitor);
+    for (final child in cases) {
+      child.accept(visitor);
+    }
+  }
+}
+
+// ============================================================================
+// Function Reference
+// ============================================================================
+
+/// A function reference expression: `myFunc<int>` (tear-off with type args)
+class SFunctionReference extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  /// The function expression (identifier, property access, etc.)
+  final SAstNode function;
+
+  /// Optional explicit type arguments
+  final SAstNode? typeArguments;
+
+  SFunctionReference({
+    required this.offset,
+    required this.length,
+    required this.function,
+    this.typeArguments,
+  });
+
+  @override
+  String get nodeType => 'FunctionReference';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        'function': function.toJson(),
+        if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
+      };
+
+  factory SFunctionReference.fromJson(Map<String, dynamic> json) {
+    return SFunctionReference(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      function:
+          SAstNodeFactory.fromJson(json['function'] as Map<String, dynamic>?)!,
+      typeArguments: SAstNodeFactory.fromJson(
+          json['typeArguments'] as Map<String, dynamic>?),
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitFunctionReference(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    function.accept(visitor);
+    typeArguments?.accept(visitor);
+  }
+}
+
+// ============================================================================
+// Constructor Reference
+// ============================================================================
+
+/// A constructor reference expression: `MyClass.new` or `MyClass<T>.named`
+class SConstructorReference extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  /// The constructor name (includes type and optional named constructor)
+  final SAstNode constructorName;
+
+  SConstructorReference({
+    required this.offset,
+    required this.length,
+    required this.constructorName,
+  });
+
+  @override
+  String get nodeType => 'ConstructorReference';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        'constructorName': constructorName.toJson(),
+      };
+
+  factory SConstructorReference.fromJson(Map<String, dynamic> json) {
+    return SConstructorReference(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      constructorName: SAstNodeFactory.fromJson(
+          json['constructorName'] as Map<String, dynamic>?)!,
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitConstructorReference(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    constructorName.accept(visitor);
+  }
+}
+
+// ============================================================================
+// Pattern Assignment
+// ============================================================================
+
+/// A pattern assignment expression: `(a, b) = expr`
+class SPatternAssignment extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  /// The pattern (left side)
+  final SAstNode pattern;
+
+  /// The expression (right side)
+  final SAstNode expression;
+
+  SPatternAssignment({
+    required this.offset,
+    required this.length,
+    required this.pattern,
+    required this.expression,
+  });
+
+  @override
+  String get nodeType => 'PatternAssignment';
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'nodeType': nodeType,
+        'offset': offset,
+        'length': length,
+        'pattern': pattern.toJson(),
+        'expression': expression.toJson(),
+      };
+
+  factory SPatternAssignment.fromJson(Map<String, dynamic> json) {
+    return SPatternAssignment(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      pattern:
+          SAstNodeFactory.fromJson(json['pattern'] as Map<String, dynamic>?)!,
+      expression:
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)!,
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitPatternAssignment(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    pattern.accept(visitor);
+    expression.accept(visitor);
   }
 }

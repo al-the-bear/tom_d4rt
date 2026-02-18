@@ -11,6 +11,8 @@ part 'ast_literals.dart';
 part 'ast_types.dart';
 part 'ast_directives.dart';
 part 'ast_misc.dart';
+part 'ast_patterns.dart';
+part 'ast_visitor.dart';
 
 /// Base class for all serializable AST nodes
 abstract class SAstNode {
@@ -57,6 +59,12 @@ abstract class SAstNode {
 
   /// Get the end offset
   int get end => offset + length;
+
+  /// Accept a visitor and return the result.
+  T? accept<T>(SAstVisitor<T> visitor);
+
+  /// Visit all child nodes of this node.
+  void visitChildren(SAstVisitor visitor);
 }
 
 bool _diffJson(
@@ -250,6 +258,12 @@ class _SUnknownNode extends SAstNode {
 
   @override
   Map<String, dynamic> toJson() => _json;
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitNode(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }
 
 /// Register all node type factories
@@ -388,6 +402,52 @@ void _registerAllFactories() {
   SAstNodeFactory.register('ImplementsClause', SImplementsClause.fromJson);
   SAstNodeFactory.register('WithClause', SWithClause.fromJson);
   SAstNodeFactory.register('OnClause', SOnClause.fromJson);
+
+  // Patterns
+  SAstNodeFactory.register('GuardedPattern', SGuardedPattern.fromJson);
+  SAstNodeFactory.register('WhenClause', SWhenClause.fromJson);
+  SAstNodeFactory.register('CaseClause', SCaseClause.fromJson);
+  SAstNodeFactory.register('ConstantPattern', SConstantPattern.fromJson);
+  SAstNodeFactory.register('WildcardPattern', SWildcardPattern.fromJson);
+  SAstNodeFactory.register(
+      'DeclaredVariablePattern', SDeclaredVariablePattern.fromJson);
+  SAstNodeFactory.register(
+      'AssignedVariablePattern', SAssignedVariablePattern.fromJson);
+  SAstNodeFactory.register('ObjectPattern', SObjectPattern.fromJson);
+  SAstNodeFactory.register('ListPattern', SListPattern.fromJson);
+  SAstNodeFactory.register('MapPattern', SMapPattern.fromJson);
+  SAstNodeFactory.register('MapPatternEntry', SMapPatternEntry.fromJson);
+  SAstNodeFactory.register('RecordPattern', SRecordPattern.fromJson);
+  SAstNodeFactory.register('PatternField', SPatternField.fromJson);
+  SAstNodeFactory.register('PatternFieldName', SPatternFieldName.fromJson);
+  SAstNodeFactory.register('LogicalOrPattern', SLogicalOrPattern.fromJson);
+  SAstNodeFactory.register('LogicalAndPattern', SLogicalAndPattern.fromJson);
+  SAstNodeFactory.register('CastPattern', SCastPattern.fromJson);
+  SAstNodeFactory.register('RelationalPattern', SRelationalPattern.fromJson);
+  SAstNodeFactory.register('NullCheckPattern', SNullCheckPattern.fromJson);
+  SAstNodeFactory.register('NullAssertPattern', SNullAssertPattern.fromJson);
+  SAstNodeFactory.register(
+      'ParenthesizedPattern', SParenthesizedPattern.fromJson);
+  SAstNodeFactory.register('RestPatternElement', SRestPatternElement.fromJson);
+  SAstNodeFactory.register(
+      'PatternVariableDeclaration', SPatternVariableDeclaration.fromJson);
+  SAstNodeFactory.register('SwitchExpressionCase', SSwitchExpressionCase.fromJson);
+  SAstNodeFactory.register('SwitchPatternCase', SSwitchPatternCase.fromJson);
+
+  // Pattern statements/expressions (in other files)
+  SAstNodeFactory.register('PatternVariableDeclarationStatement',
+      SPatternVariableDeclarationStatement.fromJson);
+  SAstNodeFactory.register('SwitchExpression', SSwitchExpression.fromJson);
+  SAstNodeFactory.register('PatternAssignment', SPatternAssignment.fromJson);
+  SAstNodeFactory.register('FunctionReference', SFunctionReference.fromJson);
+  SAstNodeFactory.register(
+      'ConstructorReference', SConstructorReference.fromJson);
+
+  // New declarations
+  SAstNodeFactory.register(
+      'ExtensionTypeDeclaration', SExtensionTypeDeclaration.fromJson);
+  SAstNodeFactory.register(
+      'RepresentationDeclaration', SRepresentationDeclaration.fromJson);
 }
 
 // ============================================================================
@@ -448,5 +508,21 @@ class SCompilationUnit extends SAstNode {
               .toList() ??
           [],
     );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitCompilationUnit(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final directive in directives) {
+      directive.accept(visitor);
+    }
+    for (final declaration in declarations) {
+      declaration.accept(visitor);
+    }
+    for (final comment in comments) {
+      comment.accept(visitor);
+    }
   }
 }
