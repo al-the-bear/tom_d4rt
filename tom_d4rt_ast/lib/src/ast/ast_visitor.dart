@@ -724,8 +724,7 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
   T? visitSimpleIdentifier(SSimpleIdentifier node) => visitIdentifier(node);
 
   @override
-  T? visitPrefixedIdentifier(SPrefixedIdentifier node) =>
-      visitIdentifier(node);
+  T? visitPrefixedIdentifier(SPrefixedIdentifier node) => visitIdentifier(node);
 
   @override
   T? visitBinaryExpression(SBinaryExpression node) => visitExpression(node);

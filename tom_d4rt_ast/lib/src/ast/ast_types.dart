@@ -33,14 +33,14 @@ class SNamedType extends STypeAnnotation {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
-        'isNullable': isNullable,
-        if (importPrefix != null) 'importPrefix': importPrefix!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
+    'isNullable': isNullable,
+    if (importPrefix != null) 'importPrefix': importPrefix!.toJson(),
+  };
 
   factory SNamedType.fromJson(Map<String, dynamic> json) {
     return SNamedType(
@@ -51,11 +51,15 @@ class SNamedType extends STypeAnnotation {
           : null,
       typeArguments: json['typeArguments'] != null
           ? STypeArgumentList.fromJson(
-              json['typeArguments'] as Map<String, dynamic>)
+              json['typeArguments'] as Map<String, dynamic>,
+            )
           : null,
       isNullable: json['isNullable'] as bool? ?? false,
-      importPrefix: SAstNodeFactory.fromJson(
-          json['importPrefix'] as Map<String, dynamic>?) as SSimpleIdentifier?,
+      importPrefix:
+          SAstNodeFactory.fromJson(
+                json['importPrefix'] as Map<String, dynamic>?,
+              )
+              as SSimpleIdentifier?,
     );
   }
 
@@ -100,35 +104,39 @@ class SGenericFunctionType extends STypeAnnotation {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (returnType != null) 'returnType': returnType!.toJson(),
-        if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
-        if (parameters != null) 'parameters': parameters!.toJson(),
-        'isNullable': isNullable,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (returnType != null) 'returnType': returnType!.toJson(),
+    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
+    if (parameters != null) 'parameters': parameters!.toJson(),
+    'isNullable': isNullable,
+  };
 
   factory SGenericFunctionType.fromJson(Map<String, dynamic> json) {
     return SGenericFunctionType(
       offset: json['offset'] as int,
       length: json['length'] as int,
       returnType:
-          SAstNodeFactory.fromJson(json['returnType'] as Map<String, dynamic>?) as STypeAnnotation?,
+          SAstNodeFactory.fromJson(json['returnType'] as Map<String, dynamic>?)
+              as STypeAnnotation?,
       typeParameters: json['typeParameters'] != null
           ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>)
+              json['typeParameters'] as Map<String, dynamic>,
+            )
           : null,
       parameters: json['parameters'] != null
           ? SFormalParameterList.fromJson(
-              json['parameters'] as Map<String, dynamic>)
+              json['parameters'] as Map<String, dynamic>,
+            )
           : null,
       isNullable: json['isNullable'] as bool? ?? false,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitGenericFunctionType(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitGenericFunctionType(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -161,17 +169,19 @@ class STypeArgumentList extends SAstNode {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'arguments': arguments.map((a) => a.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'arguments': arguments.map((a) => a.toJson()).toList(),
+  };
 
   factory STypeArgumentList.fromJson(Map<String, dynamic> json) {
     return STypeArgumentList(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      arguments: SAstNodeFactory.listFromJson<STypeAnnotation>(json['arguments'] as List?),
+      arguments: SAstNodeFactory.listFromJson<STypeAnnotation>(
+        json['arguments'] as List?,
+      ),
     );
   }
 
@@ -205,17 +215,18 @@ class STypeParameterList extends SAstNode {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'typeParameters': typeParameters.map((t) => t.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'typeParameters': typeParameters.map((t) => t.toJson()).toList(),
+  };
 
   factory STypeParameterList.fromJson(Map<String, dynamic> json) {
     return STypeParameterList(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      typeParameters: (json['typeParameters'] as List?)
+      typeParameters:
+          (json['typeParameters'] as List?)
               ?.map((t) => STypeParameter.fromJson(t as Map<String, dynamic>))
               .toList() ??
           [],
@@ -257,13 +268,13 @@ class STypeParameter extends SDeclaration {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        if (bound != null) 'bound': bound!.toJson(),
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    if (bound != null) 'bound': bound!.toJson(),
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+  };
 
   factory STypeParameter.fromJson(Map<String, dynamic> json) {
     return STypeParameter(
@@ -272,8 +283,11 @@ class STypeParameter extends SDeclaration {
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      bound: SAstNodeFactory.fromJson(json['bound'] as Map<String, dynamic>?) as STypeAnnotation?,
-      metadata: (json['metadata'] as List?)
+      bound:
+          SAstNodeFactory.fromJson(json['bound'] as Map<String, dynamic>?)
+              as STypeAnnotation?,
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
@@ -321,27 +335,29 @@ class SRecordTypeAnnotation extends STypeAnnotation {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'positionalFields': positionalFields.map((f) => f.toJson()).toList(),
-        'namedFields': namedFields.map((f) => f.toJson()).toList(),
-        'isNullable': isNullable,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'positionalFields': positionalFields.map((f) => f.toJson()).toList(),
+    'namedFields': namedFields.map((f) => f.toJson()).toList(),
+    'isNullable': isNullable,
+  };
 
   factory SRecordTypeAnnotation.fromJson(Map<String, dynamic> json) {
     return SRecordTypeAnnotation(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      positionalFields:
-          SAstNodeFactory.listFromJson(json['positionalFields'] as List?),
+      positionalFields: SAstNodeFactory.listFromJson(
+        json['positionalFields'] as List?,
+      ),
       namedFields: SAstNodeFactory.listFromJson(json['namedFields'] as List?),
       isNullable: json['isNullable'] as bool? ?? false,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitRecordTypeAnnotation(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitRecordTypeAnnotation(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -377,22 +393,25 @@ class SFormalParameterList extends SAstNode {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'parameters': parameters.map((p) => p.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'parameters': parameters.map((p) => p.toJson()).toList(),
+  };
 
   factory SFormalParameterList.fromJson(Map<String, dynamic> json) {
     return SFormalParameterList(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      parameters: SAstNodeFactory.listFromJson<SFormalParameter>(json['parameters'] as List?),
+      parameters: SAstNodeFactory.listFromJson<SFormalParameter>(
+        json['parameters'] as List?,
+      ),
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitFormalParameterList(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitFormalParameterList(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -446,19 +465,19 @@ class SSimpleFormalParameter extends SNormalFormalParameter {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        if (type != null) 'type': type!.toJson(),
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        'isConst': isConst,
-        'isFinal': isFinal,
-        'isRequired': isRequired,
-        'isCovariant': isCovariant,
-        'isPositional': isPositional,
-        'isNamed': isNamed,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    if (type != null) 'type': type!.toJson(),
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    'isConst': isConst,
+    'isFinal': isFinal,
+    'isRequired': isRequired,
+    'isCovariant': isCovariant,
+    'isPositional': isPositional,
+    'isNamed': isNamed,
+  };
 
   factory SSimpleFormalParameter.fromJson(Map<String, dynamic> json) {
     return SSimpleFormalParameter(
@@ -467,8 +486,11 @@ class SSimpleFormalParameter extends SNormalFormalParameter {
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
-      metadata: (json['metadata'] as List?)
+      type:
+          SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?)
+              as STypeAnnotation?,
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
@@ -482,7 +504,8 @@ class SSimpleFormalParameter extends SNormalFormalParameter {
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitSimpleFormalParameter(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitSimpleFormalParameter(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -530,30 +553,35 @@ class SDefaultFormalParameter extends SFormalParameter {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (parameter != null) 'parameter': parameter!.toJson(),
-        if (defaultValue != null) 'defaultValue': defaultValue!.toJson(),
-        'isPositional': isPositional,
-        'isNamed': isNamed,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (parameter != null) 'parameter': parameter!.toJson(),
+    if (defaultValue != null) 'defaultValue': defaultValue!.toJson(),
+    'isPositional': isPositional,
+    'isNamed': isNamed,
+  };
 
   factory SDefaultFormalParameter.fromJson(Map<String, dynamic> json) {
     return SDefaultFormalParameter(
       offset: json['offset'] as int,
       length: json['length'] as int,
       parameter:
-          SAstNodeFactory.fromJson(json['parameter'] as Map<String, dynamic>?) as SNormalFormalParameter?,
-      defaultValue: SAstNodeFactory.fromJson(
-          json['defaultValue'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['parameter'] as Map<String, dynamic>?)
+              as SNormalFormalParameter?,
+      defaultValue:
+          SAstNodeFactory.fromJson(
+                json['defaultValue'] as Map<String, dynamic>?,
+              )
+              as SExpression?,
       isPositional: json['isPositional'] as bool? ?? true,
       isNamed: json['isNamed'] as bool? ?? false,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitDefaultFormalParameter(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitDefaultFormalParameter(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -606,17 +634,17 @@ class SFieldFormalParameter extends SNormalFormalParameter {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        if (type != null) 'type': type!.toJson(),
-        if (parameters != null) 'parameters': parameters!.toJson(),
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        'isConst': isConst,
-        'isFinal': isFinal,
-        'isRequired': isRequired,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    if (type != null) 'type': type!.toJson(),
+    if (parameters != null) 'parameters': parameters!.toJson(),
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    'isConst': isConst,
+    'isFinal': isFinal,
+    'isRequired': isRequired,
+  };
 
   factory SFieldFormalParameter.fromJson(Map<String, dynamic> json) {
     return SFieldFormalParameter(
@@ -625,12 +653,16 @@ class SFieldFormalParameter extends SNormalFormalParameter {
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
+      type:
+          SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?)
+              as STypeAnnotation?,
       parameters: json['parameters'] != null
           ? SFormalParameterList.fromJson(
-              json['parameters'] as Map<String, dynamic>)
+              json['parameters'] as Map<String, dynamic>,
+            )
           : null,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
@@ -641,7 +673,8 @@ class SFieldFormalParameter extends SNormalFormalParameter {
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitFieldFormalParameter(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitFieldFormalParameter(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -696,16 +729,16 @@ class SFunctionTypedFormalParameter extends SNormalFormalParameter {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        if (returnType != null) 'returnType': returnType!.toJson(),
-        if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
-        if (parameters != null) 'parameters': parameters!.toJson(),
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        'isRequired': isRequired,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    if (returnType != null) 'returnType': returnType!.toJson(),
+    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
+    if (parameters != null) 'parameters': parameters!.toJson(),
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    'isRequired': isRequired,
+  };
 
   factory SFunctionTypedFormalParameter.fromJson(Map<String, dynamic> json) {
     return SFunctionTypedFormalParameter(
@@ -715,16 +748,20 @@ class SFunctionTypedFormalParameter extends SNormalFormalParameter {
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
       returnType:
-          SAstNodeFactory.fromJson(json['returnType'] as Map<String, dynamic>?) as STypeAnnotation?,
+          SAstNodeFactory.fromJson(json['returnType'] as Map<String, dynamic>?)
+              as STypeAnnotation?,
       typeParameters: json['typeParameters'] != null
           ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>)
+              json['typeParameters'] as Map<String, dynamic>,
+            )
           : null,
       parameters: json['parameters'] != null
           ? SFormalParameterList.fromJson(
-              json['parameters'] as Map<String, dynamic>)
+              json['parameters'] as Map<String, dynamic>,
+            )
           : null,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
@@ -733,7 +770,8 @@ class SFunctionTypedFormalParameter extends SNormalFormalParameter {
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitFunctionTypedFormalParameter(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitFunctionTypedFormalParameter(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -789,16 +827,16 @@ class SSuperFormalParameter extends SNormalFormalParameter {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        if (type != null) 'type': type!.toJson(),
-        if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
-        if (parameters != null) 'parameters': parameters!.toJson(),
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        'isRequired': isRequired,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    if (type != null) 'type': type!.toJson(),
+    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
+    if (parameters != null) 'parameters': parameters!.toJson(),
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    'isRequired': isRequired,
+  };
 
   factory SSuperFormalParameter.fromJson(Map<String, dynamic> json) {
     return SSuperFormalParameter(
@@ -807,16 +845,21 @@ class SSuperFormalParameter extends SNormalFormalParameter {
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
+      type:
+          SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?)
+              as STypeAnnotation?,
       typeParameters: json['typeParameters'] != null
           ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>)
+              json['typeParameters'] as Map<String, dynamic>,
+            )
           : null,
       parameters: json['parameters'] != null
           ? SFormalParameterList.fromJson(
-              json['parameters'] as Map<String, dynamic>)
+              json['parameters'] as Map<String, dynamic>,
+            )
           : null,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
@@ -825,7 +868,8 @@ class SSuperFormalParameter extends SNormalFormalParameter {
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitSuperFormalParameter(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitSuperFormalParameter(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -870,13 +914,13 @@ class SBlockFunctionBody extends SFunctionBody {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (block != null) 'block': block!.toJson(),
-        'isAsync': isAsync,
-        'isGenerator': isGenerator,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (block != null) 'block': block!.toJson(),
+    'isAsync': isAsync,
+    'isGenerator': isGenerator,
+  };
 
   factory SBlockFunctionBody.fromJson(Map<String, dynamic> json) {
     return SBlockFunctionBody(
@@ -926,25 +970,27 @@ class SExpressionFunctionBody extends SFunctionBody {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (expression != null) 'expression': expression!.toJson(),
-        'isAsync': isAsync,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (expression != null) 'expression': expression!.toJson(),
+    'isAsync': isAsync,
+  };
 
   factory SExpressionFunctionBody.fromJson(Map<String, dynamic> json) {
     return SExpressionFunctionBody(
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
+              as SExpression?,
       isAsync: json['isAsync'] as bool? ?? false,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitExpressionFunctionBody(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitExpressionFunctionBody(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -964,20 +1010,17 @@ class SEmptyFunctionBody extends SFunctionBody {
   @override
   bool get isGenerator => false;
 
-  SEmptyFunctionBody({
-    required this.offset,
-    required this.length,
-  });
+  SEmptyFunctionBody({required this.offset, required this.length});
 
   @override
   String get nodeType => 'EmptyFunctionBody';
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+  };
 
   factory SEmptyFunctionBody.fromJson(Map<String, dynamic> json) {
     return SEmptyFunctionBody(
@@ -1018,18 +1061,21 @@ class SNativeFunctionBody extends SFunctionBody {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (stringLiteral != null) 'stringLiteral': stringLiteral!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (stringLiteral != null) 'stringLiteral': stringLiteral!.toJson(),
+  };
 
   factory SNativeFunctionBody.fromJson(Map<String, dynamic> json) {
     return SNativeFunctionBody(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      stringLiteral: SAstNodeFactory.fromJson(
-          json['stringLiteral'] as Map<String, dynamic>?) as SStringLiteral?,
+      stringLiteral:
+          SAstNodeFactory.fromJson(
+                json['stringLiteral'] as Map<String, dynamic>?,
+              )
+              as SStringLiteral?,
     );
   }
 

@@ -33,12 +33,12 @@ class SSimpleIdentifier extends SIdentifier {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'name': name,
-        'inDeclarationContext': inDeclarationContext,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'name': name,
+    'inDeclarationContext': inDeclarationContext,
+  };
 
   factory SSimpleIdentifier.fromJson(Map<String, dynamic> json) {
     return SSimpleIdentifier(
@@ -84,12 +84,12 @@ class SPrefixedIdentifier extends SIdentifier {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (prefix != null) 'prefix': prefix!.toJson(),
-        if (identifier != null) 'identifier': identifier!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (prefix != null) 'prefix': prefix!.toJson(),
+    if (identifier != null) 'identifier': identifier!.toJson(),
+  };
 
   factory SPrefixedIdentifier.fromJson(Map<String, dynamic> json) {
     return SPrefixedIdentifier(
@@ -100,7 +100,8 @@ class SPrefixedIdentifier extends SIdentifier {
           : null,
       identifier: json['identifier'] != null
           ? SSimpleIdentifier.fromJson(
-              json['identifier'] as Map<String, dynamic>)
+              json['identifier'] as Map<String, dynamic>,
+            )
           : null,
     );
   }
@@ -142,23 +143,27 @@ class SBinaryExpression extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (leftOperand != null) 'leftOperand': leftOperand!.toJson(),
-        'operator': operator,
-        if (rightOperand != null) 'rightOperand': rightOperand!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (leftOperand != null) 'leftOperand': leftOperand!.toJson(),
+    'operator': operator,
+    if (rightOperand != null) 'rightOperand': rightOperand!.toJson(),
+  };
 
   factory SBinaryExpression.fromJson(Map<String, dynamic> json) {
     return SBinaryExpression(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      leftOperand: SAstNodeFactory.fromJson(
-          json['leftOperand'] as Map<String, dynamic>?) as SExpression?,
+      leftOperand:
+          SAstNodeFactory.fromJson(json['leftOperand'] as Map<String, dynamic>?)
+              as SExpression?,
       operator: json['operator'] as String,
-      rightOperand: SAstNodeFactory.fromJson(
-          json['rightOperand'] as Map<String, dynamic>?) as SExpression?,
+      rightOperand:
+          SAstNodeFactory.fromJson(
+                json['rightOperand'] as Map<String, dynamic>?,
+              )
+              as SExpression?,
     );
   }
 
@@ -197,12 +202,12 @@ class SPrefixExpression extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'operator': operator,
-        if (operand != null) 'operand': operand!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'operator': operator,
+    if (operand != null) 'operand': operand!.toJson(),
+  };
 
   factory SPrefixExpression.fromJson(Map<String, dynamic> json) {
     return SPrefixExpression(
@@ -210,7 +215,8 @@ class SPrefixExpression extends SExpression {
       length: json['length'] as int,
       operator: json['operator'] as String,
       operand:
-          SAstNodeFactory.fromJson(json['operand'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['operand'] as Map<String, dynamic>?)
+              as SExpression?,
     );
   }
 
@@ -248,19 +254,20 @@ class SPostfixExpression extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (operand != null) 'operand': operand!.toJson(),
-        'operator': operator,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (operand != null) 'operand': operand!.toJson(),
+    'operator': operator,
+  };
 
   factory SPostfixExpression.fromJson(Map<String, dynamic> json) {
     return SPostfixExpression(
       offset: json['offset'] as int,
       length: json['length'] as int,
       operand:
-          SAstNodeFactory.fromJson(json['operand'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['operand'] as Map<String, dynamic>?)
+              as SExpression?,
       operator: json['operator'] as String,
     );
   }
@@ -301,29 +308,37 @@ class SConditionalExpression extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (condition != null) 'condition': condition!.toJson(),
-        if (thenExpression != null) 'thenExpression': thenExpression!.toJson(),
-        if (elseExpression != null) 'elseExpression': elseExpression!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (condition != null) 'condition': condition!.toJson(),
+    if (thenExpression != null) 'thenExpression': thenExpression!.toJson(),
+    if (elseExpression != null) 'elseExpression': elseExpression!.toJson(),
+  };
 
   factory SConditionalExpression.fromJson(Map<String, dynamic> json) {
     return SConditionalExpression(
       offset: json['offset'] as int,
       length: json['length'] as int,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
-      thenExpression: SAstNodeFactory.fromJson(
-          json['thenExpression'] as Map<String, dynamic>?) as SExpression?,
-      elseExpression: SAstNodeFactory.fromJson(
-          json['elseExpression'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?)
+              as SExpression?,
+      thenExpression:
+          SAstNodeFactory.fromJson(
+                json['thenExpression'] as Map<String, dynamic>?,
+              )
+              as SExpression?,
+      elseExpression:
+          SAstNodeFactory.fromJson(
+                json['elseExpression'] as Map<String, dynamic>?,
+              )
+              as SExpression?,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitConditionalExpression(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitConditionalExpression(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -360,28 +375,35 @@ class SAssignmentExpression extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (leftHandSide != null) 'leftHandSide': leftHandSide!.toJson(),
-        'operator': operator,
-        if (rightHandSide != null) 'rightHandSide': rightHandSide!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (leftHandSide != null) 'leftHandSide': leftHandSide!.toJson(),
+    'operator': operator,
+    if (rightHandSide != null) 'rightHandSide': rightHandSide!.toJson(),
+  };
 
   factory SAssignmentExpression.fromJson(Map<String, dynamic> json) {
     return SAssignmentExpression(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      leftHandSide: SAstNodeFactory.fromJson(
-          json['leftHandSide'] as Map<String, dynamic>?) as SExpression?,
+      leftHandSide:
+          SAstNodeFactory.fromJson(
+                json['leftHandSide'] as Map<String, dynamic>?,
+              )
+              as SExpression?,
       operator: json['operator'] as String,
-      rightHandSide: SAstNodeFactory.fromJson(
-          json['rightHandSide'] as Map<String, dynamic>?) as SExpression?,
+      rightHandSide:
+          SAstNodeFactory.fromJson(
+                json['rightHandSide'] as Map<String, dynamic>?,
+              )
+              as SExpression?,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitAssignmentExpression(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitAssignmentExpression(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -422,30 +444,33 @@ class SMethodInvocation extends SInvocationExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (target != null) 'target': target!.toJson(),
-        if (operator != null) 'operator': operator,
-        if (methodName != null) 'methodName': methodName!.toJson(),
-        if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
-        if (argumentList != null) 'argumentList': argumentList!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (target != null) 'target': target!.toJson(),
+    if (operator != null) 'operator': operator,
+    if (methodName != null) 'methodName': methodName!.toJson(),
+    if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
+    if (argumentList != null) 'argumentList': argumentList!.toJson(),
+  };
 
   factory SMethodInvocation.fromJson(Map<String, dynamic> json) {
     return SMethodInvocation(
       offset: json['offset'] as int,
       length: json['length'] as int,
       target:
-          SAstNodeFactory.fromJson(json['target'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['target'] as Map<String, dynamic>?)
+              as SExpression?,
       operator: json['operator'] as String?,
       methodName: json['methodName'] != null
           ? SSimpleIdentifier.fromJson(
-              json['methodName'] as Map<String, dynamic>)
+              json['methodName'] as Map<String, dynamic>,
+            )
           : null,
       typeArguments: json['typeArguments'] != null
           ? STypeArgumentList.fromJson(
-              json['typeArguments'] as Map<String, dynamic>)
+              json['typeArguments'] as Map<String, dynamic>,
+            )
           : null,
       argumentList: json['argumentList'] != null
           ? SArgumentList.fromJson(json['argumentList'] as Map<String, dynamic>)
@@ -493,23 +518,25 @@ class SFunctionExpressionInvocation extends SInvocationExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (function != null) 'function': function!.toJson(),
-        if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
-        if (argumentList != null) 'argumentList': argumentList!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (function != null) 'function': function!.toJson(),
+    if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
+    if (argumentList != null) 'argumentList': argumentList!.toJson(),
+  };
 
   factory SFunctionExpressionInvocation.fromJson(Map<String, dynamic> json) {
     return SFunctionExpressionInvocation(
       offset: json['offset'] as int,
       length: json['length'] as int,
       function:
-          SAstNodeFactory.fromJson(json['function'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['function'] as Map<String, dynamic>?)
+              as SExpression?,
       typeArguments: json['typeArguments'] != null
           ? STypeArgumentList.fromJson(
-              json['typeArguments'] as Map<String, dynamic>)
+              json['typeArguments'] as Map<String, dynamic>,
+            )
           : null,
       argumentList: json['argumentList'] != null
           ? SArgumentList.fromJson(json['argumentList'] as Map<String, dynamic>)
@@ -518,7 +545,8 @@ class SFunctionExpressionInvocation extends SInvocationExpression {
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitFunctionExpressionInvocation(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitFunctionExpressionInvocation(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -557,22 +585,25 @@ class SIndexExpression extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (target != null) 'target': target!.toJson(),
-        if (index != null) 'index': index!.toJson(),
-        'isCascaded': isCascaded,
-        'isNullAware': isNullAware,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (target != null) 'target': target!.toJson(),
+    if (index != null) 'index': index!.toJson(),
+    'isCascaded': isCascaded,
+    'isNullAware': isNullAware,
+  };
 
   factory SIndexExpression.fromJson(Map<String, dynamic> json) {
     return SIndexExpression(
       offset: json['offset'] as int,
       length: json['length'] as int,
       target:
-          SAstNodeFactory.fromJson(json['target'] as Map<String, dynamic>?) as SExpression?,
-      index: SAstNodeFactory.fromJson(json['index'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['target'] as Map<String, dynamic>?)
+              as SExpression?,
+      index:
+          SAstNodeFactory.fromJson(json['index'] as Map<String, dynamic>?)
+              as SExpression?,
       isCascaded: json['isCascaded'] as bool? ?? false,
       isNullAware: json['isNullAware'] as bool? ?? false,
     );
@@ -615,24 +646,26 @@ class SPropertyAccess extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (target != null) 'target': target!.toJson(),
-        if (operator != null) 'operator': operator,
-        if (propertyName != null) 'propertyName': propertyName!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (target != null) 'target': target!.toJson(),
+    if (operator != null) 'operator': operator,
+    if (propertyName != null) 'propertyName': propertyName!.toJson(),
+  };
 
   factory SPropertyAccess.fromJson(Map<String, dynamic> json) {
     return SPropertyAccess(
       offset: json['offset'] as int,
       length: json['length'] as int,
       target:
-          SAstNodeFactory.fromJson(json['target'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['target'] as Map<String, dynamic>?)
+              as SExpression?,
       operator: json['operator'] as String?,
       propertyName: json['propertyName'] != null
           ? SSimpleIdentifier.fromJson(
-              json['propertyName'] as Map<String, dynamic>)
+              json['propertyName'] as Map<String, dynamic>,
+            )
           : null,
     );
   }
@@ -670,23 +703,25 @@ class SParenthesizedExpression extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (expression != null) 'expression': expression!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (expression != null) 'expression': expression!.toJson(),
+  };
 
   factory SParenthesizedExpression.fromJson(Map<String, dynamic> json) {
     return SParenthesizedExpression(
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
+              as SExpression?,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitParenthesizedExpression(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitParenthesizedExpression(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -721,13 +756,13 @@ class SFunctionExpression extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
-        if (parameters != null) 'parameters': parameters!.toJson(),
-        if (body != null) 'body': body!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
+    if (parameters != null) 'parameters': parameters!.toJson(),
+    if (body != null) 'body': body!.toJson(),
+  };
 
   factory SFunctionExpression.fromJson(Map<String, dynamic> json) {
     return SFunctionExpression(
@@ -735,13 +770,17 @@ class SFunctionExpression extends SExpression {
       length: json['length'] as int,
       typeParameters: json['typeParameters'] != null
           ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>)
+              json['typeParameters'] as Map<String, dynamic>,
+            )
           : null,
       parameters: json['parameters'] != null
           ? SFormalParameterList.fromJson(
-              json['parameters'] as Map<String, dynamic>)
+              json['parameters'] as Map<String, dynamic>,
+            )
           : null,
-      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?) as SFunctionBody?,
+      body:
+          SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?)
+              as SFunctionBody?,
     );
   }
 
@@ -783,14 +822,13 @@ class SInstanceCreationExpression extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'isConst': isConst,
-        if (constructorName != null)
-          'constructorName': constructorName!.toJson(),
-        if (argumentList != null) 'argumentList': argumentList!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'isConst': isConst,
+    if (constructorName != null) 'constructorName': constructorName!.toJson(),
+    if (argumentList != null) 'argumentList': argumentList!.toJson(),
+  };
 
   factory SInstanceCreationExpression.fromJson(Map<String, dynamic> json) {
     return SInstanceCreationExpression(
@@ -799,7 +837,8 @@ class SInstanceCreationExpression extends SExpression {
       isConst: json['isConst'] as bool? ?? false,
       constructorName: json['constructorName'] != null
           ? SConstructorName.fromJson(
-              json['constructorName'] as Map<String, dynamic>)
+              json['constructorName'] as Map<String, dynamic>,
+            )
           : null,
       argumentList: json['argumentList'] != null
           ? SArgumentList.fromJson(json['argumentList'] as Map<String, dynamic>)
@@ -808,7 +847,8 @@ class SInstanceCreationExpression extends SExpression {
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitInstanceCreationExpression(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitInstanceCreationExpression(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -827,20 +867,17 @@ class SThisExpression extends SExpression {
   @override
   final int length;
 
-  SThisExpression({
-    required this.offset,
-    required this.length,
-  });
+  SThisExpression({required this.offset, required this.length});
 
   @override
   String get nodeType => 'ThisExpression';
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+  };
 
   factory SThisExpression.fromJson(Map<String, dynamic> json) {
     return SThisExpression(
@@ -862,20 +899,17 @@ class SSuperExpression extends SExpression {
   @override
   final int length;
 
-  SSuperExpression({
-    required this.offset,
-    required this.length,
-  });
+  SSuperExpression({required this.offset, required this.length});
 
   @override
   String get nodeType => 'SuperExpression';
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+  };
 
   factory SSuperExpression.fromJson(Map<String, dynamic> json) {
     return SSuperExpression(
@@ -914,18 +948,19 @@ class SThrowExpression extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (expression != null) 'expression': expression!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (expression != null) 'expression': expression!.toJson(),
+  };
 
   factory SThrowExpression.fromJson(Map<String, dynamic> json) {
     return SThrowExpression(
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
+              as SExpression?,
     );
   }
 
@@ -961,18 +996,19 @@ class SAwaitExpression extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (expression != null) 'expression': expression!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (expression != null) 'expression': expression!.toJson(),
+  };
 
   factory SAwaitExpression.fromJson(Map<String, dynamic> json) {
     return SAwaitExpression(
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
+              as SExpression?,
     );
   }
 
@@ -1010,20 +1046,23 @@ class SAsExpression extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (expression != null) 'expression': expression!.toJson(),
-        if (type != null) 'type': type!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (expression != null) 'expression': expression!.toJson(),
+    if (type != null) 'type': type!.toJson(),
+  };
 
   factory SAsExpression.fromJson(Map<String, dynamic> json) {
     return SAsExpression(
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
+              as SExpression?,
+      type:
+          SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?)
+              as STypeAnnotation?,
     );
   }
 
@@ -1060,22 +1099,25 @@ class SIsExpression extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (expression != null) 'expression': expression!.toJson(),
-        'isNot': isNot,
-        if (type != null) 'type': type!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (expression != null) 'expression': expression!.toJson(),
+    'isNot': isNot,
+    if (type != null) 'type': type!.toJson(),
+  };
 
   factory SIsExpression.fromJson(Map<String, dynamic> json) {
     return SIsExpression(
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
+              as SExpression?,
       isNot: json['isNot'] as bool? ?? false,
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
+      type:
+          SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?)
+              as STypeAnnotation?,
     );
   }
 
@@ -1116,23 +1158,24 @@ class SCascadeExpression extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (target != null) 'target': target!.toJson(),
-        'cascadeSections':
-            cascadeSections.map((c) => c.toJson()).toList(),
-        'isNullAware': isNullAware,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (target != null) 'target': target!.toJson(),
+    'cascadeSections': cascadeSections.map((c) => c.toJson()).toList(),
+    'isNullAware': isNullAware,
+  };
 
   factory SCascadeExpression.fromJson(Map<String, dynamic> json) {
     return SCascadeExpression(
       offset: json['offset'] as int,
       length: json['length'] as int,
       target:
-          SAstNodeFactory.fromJson(json['target'] as Map<String, dynamic>?) as SExpression?,
-      cascadeSections:
-          SAstNodeFactory.listFromJson<SExpression>(json['cascadeSections'] as List?),
+          SAstNodeFactory.fromJson(json['target'] as Map<String, dynamic>?)
+              as SExpression?,
+      cascadeSections: SAstNodeFactory.listFromJson<SExpression>(
+        json['cascadeSections'] as List?,
+      ),
       isNullAware: json['isNullAware'] as bool? ?? false,
     );
   }
@@ -1159,20 +1202,17 @@ class SRethrowExpression extends SExpression {
   @override
   final int length;
 
-  SRethrowExpression({
-    required this.offset,
-    required this.length,
-  });
+  SRethrowExpression({required this.offset, required this.length});
 
   @override
   String get nodeType => 'RethrowExpression';
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+  };
 
   factory SRethrowExpression.fromJson(Map<String, dynamic> json) {
     return SRethrowExpression(
@@ -1213,12 +1253,12 @@ class SNamedExpression extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        if (expression != null) 'expression': expression!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    if (expression != null) 'expression': expression!.toJson(),
+  };
 
   factory SNamedExpression.fromJson(Map<String, dynamic> json) {
     return SNamedExpression(
@@ -1228,7 +1268,8 @@ class SNamedExpression extends SExpression {
           ? SLabel.fromJson(json['name'] as Map<String, dynamic>)
           : null,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
+              as SExpression?,
     );
   }
 
@@ -1267,19 +1308,20 @@ class SSpreadElement extends SCollectionElement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (expression != null) 'expression': expression!.toJson(),
-        'isNullAware': isNullAware,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (expression != null) 'expression': expression!.toJson(),
+    'isNullAware': isNullAware,
+  };
 
   factory SSpreadElement.fromJson(Map<String, dynamic> json) {
     return SSpreadElement(
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
+              as SExpression?,
       isNullAware: json['isNullAware'] as bool? ?? false,
     );
   }
@@ -1316,24 +1358,27 @@ class SIfElement extends SCollectionElement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (condition != null) 'condition': condition!.toJson(),
-        if (thenElement != null) 'thenElement': thenElement!.toJson(),
-        if (elseElement != null) 'elseElement': elseElement!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (condition != null) 'condition': condition!.toJson(),
+    if (thenElement != null) 'thenElement': thenElement!.toJson(),
+    if (elseElement != null) 'elseElement': elseElement!.toJson(),
+  };
 
   factory SIfElement.fromJson(Map<String, dynamic> json) {
     return SIfElement(
       offset: json['offset'] as int,
       length: json['length'] as int,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
-      thenElement: SAstNodeFactory.fromJson(
-          json['thenElement'] as Map<String, dynamic>?) as SCollectionElement?,
-      elseElement: SAstNodeFactory.fromJson(
-          json['elseElement'] as Map<String, dynamic>?) as SCollectionElement?,
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?)
+              as SExpression?,
+      thenElement:
+          SAstNodeFactory.fromJson(json['thenElement'] as Map<String, dynamic>?)
+              as SCollectionElement?,
+      elseElement:
+          SAstNodeFactory.fromJson(json['elseElement'] as Map<String, dynamic>?)
+              as SCollectionElement?,
     );
   }
 
@@ -1369,20 +1414,25 @@ class SForElement extends SCollectionElement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (forLoopParts != null) 'forLoopParts': forLoopParts!.toJson(),
-        if (body != null) 'body': body!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (forLoopParts != null) 'forLoopParts': forLoopParts!.toJson(),
+    if (body != null) 'body': body!.toJson(),
+  };
 
   factory SForElement.fromJson(Map<String, dynamic> json) {
     return SForElement(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      forLoopParts: SAstNodeFactory.fromJson(
-          json['forLoopParts'] as Map<String, dynamic>?) as SForLoopParts?,
-      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?) as SCollectionElement?,
+      forLoopParts:
+          SAstNodeFactory.fromJson(
+                json['forLoopParts'] as Map<String, dynamic>?,
+              )
+              as SForLoopParts?,
+      body:
+          SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?)
+              as SCollectionElement?,
     );
   }
 
@@ -1425,20 +1475,23 @@ class SSwitchExpression extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'expression': expression.toJson(),
-        'cases': cases.map((c) => c.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'expression': expression.toJson(),
+    'cases': cases.map((c) => c.toJson()).toList(),
+  };
 
   factory SSwitchExpression.fromJson(Map<String, dynamic> json) {
     return SSwitchExpression(
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression,
-      cases: SAstNodeFactory.listFromJson<SSwitchExpressionCase>(json['cases'] as List?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
+              as SExpression,
+      cases: SAstNodeFactory.listFromJson<SSwitchExpressionCase>(
+        json['cases'] as List?,
+      ),
     );
   }
 
@@ -1483,21 +1536,25 @@ class SFunctionReference extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'function': function.toJson(),
-        if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'function': function.toJson(),
+    if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
+  };
 
   factory SFunctionReference.fromJson(Map<String, dynamic> json) {
     return SFunctionReference(
       offset: json['offset'] as int,
       length: json['length'] as int,
       function:
-          SAstNodeFactory.fromJson(json['function'] as Map<String, dynamic>?) as SExpression,
-      typeArguments: SAstNodeFactory.fromJson(
-          json['typeArguments'] as Map<String, dynamic>?) as STypeArgumentList?,
+          SAstNodeFactory.fromJson(json['function'] as Map<String, dynamic>?)
+              as SExpression,
+      typeArguments:
+          SAstNodeFactory.fromJson(
+                json['typeArguments'] as Map<String, dynamic>?,
+              )
+              as STypeArgumentList?,
     );
   }
 
@@ -1536,23 +1593,27 @@ class SConstructorReference extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'constructorName': constructorName.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'constructorName': constructorName.toJson(),
+  };
 
   factory SConstructorReference.fromJson(Map<String, dynamic> json) {
     return SConstructorReference(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      constructorName: SAstNodeFactory.fromJson(
-          json['constructorName'] as Map<String, dynamic>?) as SConstructorName,
+      constructorName:
+          SAstNodeFactory.fromJson(
+                json['constructorName'] as Map<String, dynamic>?,
+              )
+              as SConstructorName,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitConstructorReference(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitConstructorReference(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -1589,21 +1650,23 @@ class SPatternAssignment extends SExpression {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'pattern': pattern.toJson(),
-        'expression': expression.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'pattern': pattern.toJson(),
+    'expression': expression.toJson(),
+  };
 
   factory SPatternAssignment.fromJson(Map<String, dynamic> json) {
     return SPatternAssignment(
       offset: json['offset'] as int,
       length: json['length'] as int,
       pattern:
-          SAstNodeFactory.fromJson(json['pattern'] as Map<String, dynamic>?) as SDartPattern,
+          SAstNodeFactory.fromJson(json['pattern'] as Map<String, dynamic>?)
+              as SDartPattern,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression,
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
+              as SExpression,
     );
   }
 

@@ -1994,7 +1994,10 @@ class AstConverter {
 
   /// Convert a list of nodes and cast each to a specific type.
   List<T> _nodesAs<T extends SAstNode>(Iterable<analyzer.AstNode> nodes) {
-    return [for (final node in nodes) if (convert(node) case final T result) result];
+    return [
+      for (final node in nodes)
+        if (convert(node) case final T result) result,
+    ];
   }
 
   /// Convert a list of nodes

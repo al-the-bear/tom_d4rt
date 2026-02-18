@@ -26,11 +26,11 @@ class SIntegerLiteral extends SLiteral {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'value': value,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'value': value,
+  };
 
   factory SIntegerLiteral.fromJson(Map<String, dynamic> json) {
     return SIntegerLiteral(
@@ -70,11 +70,11 @@ class SDoubleLiteral extends SLiteral {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'value': value,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'value': value,
+  };
 
   factory SDoubleLiteral.fromJson(Map<String, dynamic> json) {
     return SDoubleLiteral(
@@ -114,11 +114,11 @@ class SBooleanLiteral extends SLiteral {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'value': value,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'value': value,
+  };
 
   factory SBooleanLiteral.fromJson(Map<String, dynamic> json) {
     return SBooleanLiteral(
@@ -166,14 +166,14 @@ class SSimpleStringLiteral extends SSingleStringLiteral {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'value': value,
-        'isRaw': isRaw,
-        'isMultiline': isMultiline,
-        'isSingleQuoted': isSingleQuoted,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'value': value,
+    'isRaw': isRaw,
+    'isMultiline': isMultiline,
+    'isSingleQuoted': isSingleQuoted,
+  };
 
   factory SSimpleStringLiteral.fromJson(Map<String, dynamic> json) {
     return SSimpleStringLiteral(
@@ -222,19 +222,21 @@ class SStringInterpolation extends SSingleStringLiteral {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'elements': elements.map((e) => e.toJson()).toList(),
-        'isMultiline': isMultiline,
-        'isRaw': isRaw,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'elements': elements.map((e) => e.toJson()).toList(),
+    'isMultiline': isMultiline,
+    'isRaw': isRaw,
+  };
 
   factory SStringInterpolation.fromJson(Map<String, dynamic> json) {
     return SStringInterpolation(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      elements: SAstNodeFactory.listFromJson<SInterpolationElement>(json['elements'] as List?),
+      elements: SAstNodeFactory.listFromJson<SInterpolationElement>(
+        json['elements'] as List?,
+      ),
       isMultiline: json['isMultiline'] as bool? ?? false,
       isRaw: json['isRaw'] as bool? ?? false,
     );
@@ -274,18 +276,19 @@ class SInterpolationExpression extends SInterpolationElement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (expression != null) 'expression': expression!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (expression != null) 'expression': expression!.toJson(),
+  };
 
   factory SInterpolationExpression.fromJson(Map<String, dynamic> json) {
     return SInterpolationExpression(
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
+              as SExpression?,
     );
   }
 
@@ -318,11 +321,11 @@ class SInterpolationString extends SInterpolationElement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'value': value,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'value': value,
+  };
 
   factory SInterpolationString.fromJson(Map<String, dynamic> json) {
     return SInterpolationString(
@@ -359,17 +362,19 @@ class SAdjacentStrings extends SStringLiteral {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'strings': strings.map((s) => s.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'strings': strings.map((s) => s.toJson()).toList(),
+  };
 
   factory SAdjacentStrings.fromJson(Map<String, dynamic> json) {
     return SAdjacentStrings(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      strings: SAstNodeFactory.listFromJson<SStringLiteral>(json['strings'] as List?),
+      strings: SAstNodeFactory.listFromJson<SStringLiteral>(
+        json['strings'] as List?,
+      ),
     );
   }
 
@@ -397,20 +402,17 @@ class SNullLiteral extends SLiteral {
   @override
   final int length;
 
-  SNullLiteral({
-    required this.offset,
-    required this.length,
-  });
+  SNullLiteral({required this.offset, required this.length});
 
   @override
   String get nodeType => 'NullLiteral';
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+  };
 
   factory SNullLiteral.fromJson(Map<String, dynamic> json) {
     return SNullLiteral(
@@ -455,13 +457,13 @@ class SListLiteral extends STypedLiteral {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
-        'elements': elements.map((e) => e.toJson()).toList(),
-        'isConst': isConst,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
+    'elements': elements.map((e) => e.toJson()).toList(),
+    'isConst': isConst,
+  };
 
   factory SListLiteral.fromJson(Map<String, dynamic> json) {
     return SListLiteral(
@@ -469,9 +471,12 @@ class SListLiteral extends STypedLiteral {
       length: json['length'] as int,
       typeArguments: json['typeArguments'] != null
           ? STypeArgumentList.fromJson(
-              json['typeArguments'] as Map<String, dynamic>)
+              json['typeArguments'] as Map<String, dynamic>,
+            )
           : null,
-      elements: SAstNodeFactory.listFromJson<SCollectionElement>(json['elements'] as List?),
+      elements: SAstNodeFactory.listFromJson<SCollectionElement>(
+        json['elements'] as List?,
+      ),
       isConst: json['isConst'] as bool? ?? false,
     );
   }
@@ -517,15 +522,15 @@ class SSetOrMapLiteral extends STypedLiteral {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
-        'elements': elements.map((e) => e.toJson()).toList(),
-        'isConst': isConst,
-        'isMap': isMap,
-        'isSet': isSet,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
+    'elements': elements.map((e) => e.toJson()).toList(),
+    'isConst': isConst,
+    'isMap': isMap,
+    'isSet': isSet,
+  };
 
   factory SSetOrMapLiteral.fromJson(Map<String, dynamic> json) {
     return SSetOrMapLiteral(
@@ -533,9 +538,12 @@ class SSetOrMapLiteral extends STypedLiteral {
       length: json['length'] as int,
       typeArguments: json['typeArguments'] != null
           ? STypeArgumentList.fromJson(
-              json['typeArguments'] as Map<String, dynamic>)
+              json['typeArguments'] as Map<String, dynamic>,
+            )
           : null,
-      elements: SAstNodeFactory.listFromJson<SCollectionElement>(json['elements'] as List?),
+      elements: SAstNodeFactory.listFromJson<SCollectionElement>(
+        json['elements'] as List?,
+      ),
       isConst: json['isConst'] as bool? ?? false,
       isMap: json['isMap'] as bool? ?? false,
       isSet: json['isSet'] as bool? ?? false,
@@ -575,19 +583,23 @@ class SMapLiteralEntry extends SCollectionElement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (key != null) 'key': key!.toJson(),
-        if (value != null) 'value': value!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (key != null) 'key': key!.toJson(),
+    if (value != null) 'value': value!.toJson(),
+  };
 
   factory SMapLiteralEntry.fromJson(Map<String, dynamic> json) {
     return SMapLiteralEntry(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      key: SAstNodeFactory.fromJson(json['key'] as Map<String, dynamic>?) as SExpression?,
-      value: SAstNodeFactory.fromJson(json['value'] as Map<String, dynamic>?) as SExpression?,
+      key:
+          SAstNodeFactory.fromJson(json['key'] as Map<String, dynamic>?)
+              as SExpression?,
+      value:
+          SAstNodeFactory.fromJson(json['value'] as Map<String, dynamic>?)
+              as SExpression?,
     );
   }
 
@@ -624,11 +636,11 @@ class SSymbolLiteral extends SLiteral {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'value': value,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'value': value,
+  };
 
   factory SSymbolLiteral.fromJson(Map<String, dynamic> json) {
     return SSymbolLiteral(
@@ -670,18 +682,20 @@ class SRecordLiteral extends SLiteral {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'fields': fields.map((f) => f.toJson()).toList(),
-        'isConst': isConst,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'fields': fields.map((f) => f.toJson()).toList(),
+    'isConst': isConst,
+  };
 
   factory SRecordLiteral.fromJson(Map<String, dynamic> json) {
     return SRecordLiteral(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      fields: SAstNodeFactory.listFromJson<SExpression>(json['fields'] as List?),
+      fields: SAstNodeFactory.listFromJson<SExpression>(
+        json['fields'] as List?,
+      ),
       isConst: json['isConst'] as bool? ?? false,
     );
   }

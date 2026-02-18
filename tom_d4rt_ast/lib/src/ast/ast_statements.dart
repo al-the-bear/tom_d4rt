@@ -26,17 +26,19 @@ class SBlock extends SStatement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'statements': statements.map((s) => s.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'statements': statements.map((s) => s.toJson()).toList(),
+  };
 
   factory SBlock.fromJson(Map<String, dynamic> json) {
     return SBlock(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      statements: SAstNodeFactory.listFromJson<SStatement>(json['statements'] as List?),
+      statements: SAstNodeFactory.listFromJson<SStatement>(
+        json['statements'] as List?,
+      ),
     );
   }
 
@@ -74,11 +76,11 @@ class SVariableDeclarationStatement extends SStatement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (variables != null) 'variables': variables!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (variables != null) 'variables': variables!.toJson(),
+  };
 
   factory SVariableDeclarationStatement.fromJson(Map<String, dynamic> json) {
     return SVariableDeclarationStatement(
@@ -86,7 +88,8 @@ class SVariableDeclarationStatement extends SStatement {
       length: json['length'] as int,
       variables: json['variables'] != null
           ? SVariableDeclarationList.fromJson(
-              json['variables'] as Map<String, dynamic>)
+              json['variables'] as Map<String, dynamic>,
+            )
           : null,
     );
   }
@@ -124,18 +127,19 @@ class SExpressionStatement extends SStatement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (expression != null) 'expression': expression!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (expression != null) 'expression': expression!.toJson(),
+  };
 
   factory SExpressionStatement.fromJson(Map<String, dynamic> json) {
     return SExpressionStatement(
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
+              as SExpression?,
     );
   }
 
@@ -172,24 +176,24 @@ class SReturnStatement extends SStatement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (expression != null) 'expression': expression!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (expression != null) 'expression': expression!.toJson(),
+  };
 
   factory SReturnStatement.fromJson(Map<String, dynamic> json) {
     return SReturnStatement(
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
+              as SExpression?,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) =>
-      visitor.visitReturnStatement(this);
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitReturnStatement(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -210,7 +214,7 @@ class SIfStatement extends SStatement {
   final SExpression? condition;
   final SStatement? thenStatement;
   final SStatement? elseStatement;
-  
+
   /// Whether this uses case pattern (if-case)
   final SCaseClause? caseClause;
 
@@ -228,27 +232,35 @@ class SIfStatement extends SStatement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (condition != null) 'condition': condition!.toJson(),
-        if (thenStatement != null) 'thenStatement': thenStatement!.toJson(),
-        if (elseStatement != null) 'elseStatement': elseStatement!.toJson(),
-        if (caseClause != null) 'caseClause': caseClause!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (condition != null) 'condition': condition!.toJson(),
+    if (thenStatement != null) 'thenStatement': thenStatement!.toJson(),
+    if (elseStatement != null) 'elseStatement': elseStatement!.toJson(),
+    if (caseClause != null) 'caseClause': caseClause!.toJson(),
+  };
 
   factory SIfStatement.fromJson(Map<String, dynamic> json) {
     return SIfStatement(
       offset: json['offset'] as int,
       length: json['length'] as int,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
-      thenStatement: SAstNodeFactory.fromJson(
-          json['thenStatement'] as Map<String, dynamic>?) as SStatement?,
-      elseStatement: SAstNodeFactory.fromJson(
-          json['elseStatement'] as Map<String, dynamic>?) as SStatement?,
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?)
+              as SExpression?,
+      thenStatement:
+          SAstNodeFactory.fromJson(
+                json['thenStatement'] as Map<String, dynamic>?,
+              )
+              as SStatement?,
+      elseStatement:
+          SAstNodeFactory.fromJson(
+                json['elseStatement'] as Map<String, dynamic>?,
+              )
+              as SStatement?,
       caseClause:
-          SAstNodeFactory.fromJson(json['caseClause'] as Map<String, dynamic>?) as SCaseClause?,
+          SAstNodeFactory.fromJson(json['caseClause'] as Map<String, dynamic>?)
+              as SCaseClause?,
     );
   }
 
@@ -290,20 +302,25 @@ class SForStatement extends SStatement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (forLoopParts != null) 'forLoopParts': forLoopParts!.toJson(),
-        if (body != null) 'body': body!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (forLoopParts != null) 'forLoopParts': forLoopParts!.toJson(),
+    if (body != null) 'body': body!.toJson(),
+  };
 
   factory SForStatement.fromJson(Map<String, dynamic> json) {
     return SForStatement(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      forLoopParts: SAstNodeFactory.fromJson(
-          json['forLoopParts'] as Map<String, dynamic>?) as SForLoopParts?,
-      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?) as SStatement?,
+      forLoopParts:
+          SAstNodeFactory.fromJson(
+                json['forLoopParts'] as Map<String, dynamic>?,
+              )
+              as SForLoopParts?,
+      body:
+          SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?)
+              as SStatement?,
     );
   }
 
@@ -341,13 +358,13 @@ class SForPartsWithDeclarations extends SForParts {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (variables != null) 'variables': variables!.toJson(),
-        if (condition != null) 'condition': condition!.toJson(),
-        'updaters': updaters.map((u) => u.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (variables != null) 'variables': variables!.toJson(),
+    if (condition != null) 'condition': condition!.toJson(),
+    'updaters': updaters.map((u) => u.toJson()).toList(),
+  };
 
   factory SForPartsWithDeclarations.fromJson(Map<String, dynamic> json) {
     return SForPartsWithDeclarations(
@@ -355,11 +372,15 @@ class SForPartsWithDeclarations extends SForParts {
       length: json['length'] as int,
       variables: json['variables'] != null
           ? SVariableDeclarationList.fromJson(
-              json['variables'] as Map<String, dynamic>)
+              json['variables'] as Map<String, dynamic>,
+            )
           : null,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
-      updaters: SAstNodeFactory.listFromJson<SExpression>(json['updaters'] as List?),
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?)
+              as SExpression?,
+      updaters: SAstNodeFactory.listFromJson<SExpression>(
+        json['updaters'] as List?,
+      ),
     );
   }
 
@@ -401,23 +422,29 @@ class SForPartsWithExpression extends SForParts {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (initialization != null) 'initialization': initialization!.toJson(),
-        if (condition != null) 'condition': condition!.toJson(),
-        'updaters': updaters.map((u) => u.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (initialization != null) 'initialization': initialization!.toJson(),
+    if (condition != null) 'condition': condition!.toJson(),
+    'updaters': updaters.map((u) => u.toJson()).toList(),
+  };
 
   factory SForPartsWithExpression.fromJson(Map<String, dynamic> json) {
     return SForPartsWithExpression(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      initialization: SAstNodeFactory.fromJson(
-          json['initialization'] as Map<String, dynamic>?) as SExpression?,
+      initialization:
+          SAstNodeFactory.fromJson(
+                json['initialization'] as Map<String, dynamic>?,
+              )
+              as SExpression?,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
-      updaters: SAstNodeFactory.listFromJson<SExpression>(json['updaters'] as List?),
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?)
+              as SExpression?,
+      updaters: SAstNodeFactory.listFromJson<SExpression>(
+        json['updaters'] as List?,
+      ),
     );
   }
 
@@ -460,26 +487,30 @@ class SForEachStatement extends SStatement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (forLoopParts != null) 'forLoopParts': forLoopParts!.toJson(),
-        if (body != null) 'body': body!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (forLoopParts != null) 'forLoopParts': forLoopParts!.toJson(),
+    if (body != null) 'body': body!.toJson(),
+  };
 
   factory SForEachStatement.fromJson(Map<String, dynamic> json) {
     return SForEachStatement(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      forLoopParts: SAstNodeFactory.fromJson(
-          json['forLoopParts'] as Map<String, dynamic>?) as SForLoopParts?,
-      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?) as SStatement?,
+      forLoopParts:
+          SAstNodeFactory.fromJson(
+                json['forLoopParts'] as Map<String, dynamic>?,
+              )
+              as SForLoopParts?,
+      body:
+          SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?)
+              as SStatement?,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) =>
-      visitor.visitForEachStatement(this);
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitForEachStatement(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -512,22 +543,26 @@ class SForEachPartsWithDeclaration extends SForEachParts {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (loopVariable != null) 'loopVariable': loopVariable!.toJson(),
-        if (iterable != null) 'iterable': iterable!.toJson(),
-        'isAwait': isAwait,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (loopVariable != null) 'loopVariable': loopVariable!.toJson(),
+    if (iterable != null) 'iterable': iterable!.toJson(),
+    'isAwait': isAwait,
+  };
 
   factory SForEachPartsWithDeclaration.fromJson(Map<String, dynamic> json) {
     return SForEachPartsWithDeclaration(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      loopVariable: SAstNodeFactory.fromJson(
-          json['loopVariable'] as Map<String, dynamic>?) as SDeclaredIdentifier?,
+      loopVariable:
+          SAstNodeFactory.fromJson(
+                json['loopVariable'] as Map<String, dynamic>?,
+              )
+              as SDeclaredIdentifier?,
       iterable:
-          SAstNodeFactory.fromJson(json['iterable'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['iterable'] as Map<String, dynamic>?)
+              as SExpression?,
       isAwait: json['isAwait'] as bool? ?? false,
     );
   }
@@ -567,13 +602,13 @@ class SForEachPartsWithIdentifier extends SForEachParts {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (identifier != null) 'identifier': identifier!.toJson(),
-        if (iterable != null) 'iterable': iterable!.toJson(),
-        'isAwait': isAwait,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (identifier != null) 'identifier': identifier!.toJson(),
+    if (iterable != null) 'iterable': iterable!.toJson(),
+    'isAwait': isAwait,
+  };
 
   factory SForEachPartsWithIdentifier.fromJson(Map<String, dynamic> json) {
     return SForEachPartsWithIdentifier(
@@ -581,10 +616,12 @@ class SForEachPartsWithIdentifier extends SForEachParts {
       length: json['length'] as int,
       identifier: json['identifier'] != null
           ? SSimpleIdentifier.fromJson(
-              json['identifier'] as Map<String, dynamic>)
+              json['identifier'] as Map<String, dynamic>,
+            )
           : null,
       iterable:
-          SAstNodeFactory.fromJson(json['iterable'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['iterable'] as Map<String, dynamic>?)
+              as SExpression?,
       isAwait: json['isAwait'] as bool? ?? false,
     );
   }
@@ -629,28 +666,32 @@ class SDeclaredIdentifier extends SDeclaration {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        if (type != null) 'type': type!.toJson(),
-        if (identifier != null) 'identifier': identifier!.toJson(),
-        'isFinal': isFinal,
-        'isConst': isConst,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    if (type != null) 'type': type!.toJson(),
+    if (identifier != null) 'identifier': identifier!.toJson(),
+    'isFinal': isFinal,
+    'isConst': isConst,
+  };
 
   factory SDeclaredIdentifier.fromJson(Map<String, dynamic> json) {
     return SDeclaredIdentifier(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
+      type:
+          SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?)
+              as STypeAnnotation?,
       identifier: json['identifier'] != null
           ? SSimpleIdentifier.fromJson(
-              json['identifier'] as Map<String, dynamic>)
+              json['identifier'] as Map<String, dynamic>,
+            )
           : null,
       isFinal: json['isFinal'] as bool? ?? false,
       isConst: json['isConst'] as bool? ?? false,
@@ -658,8 +699,7 @@ class SDeclaredIdentifier extends SDeclaration {
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) =>
-      visitor.visitDeclaredIdentifier(this);
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitDeclaredIdentifier(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -696,20 +736,23 @@ class SWhileStatement extends SStatement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (condition != null) 'condition': condition!.toJson(),
-        if (body != null) 'body': body!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (condition != null) 'condition': condition!.toJson(),
+    if (body != null) 'body': body!.toJson(),
+  };
 
   factory SWhileStatement.fromJson(Map<String, dynamic> json) {
     return SWhileStatement(
       offset: json['offset'] as int,
       length: json['length'] as int,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
-      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?) as SStatement?,
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?)
+              as SExpression?,
+      body:
+          SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?)
+              as SStatement?,
     );
   }
 
@@ -748,20 +791,23 @@ class SDoStatement extends SStatement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (body != null) 'body': body!.toJson(),
-        if (condition != null) 'condition': condition!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (body != null) 'body': body!.toJson(),
+    if (condition != null) 'condition': condition!.toJson(),
+  };
 
   factory SDoStatement.fromJson(Map<String, dynamic> json) {
     return SDoStatement(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?) as SStatement?,
+      body:
+          SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?)
+              as SStatement?,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?)
+              as SExpression?,
     );
   }
 
@@ -800,20 +846,23 @@ class SSwitchStatement extends SStatement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (expression != null) 'expression': expression!.toJson(),
-        'members': members.map((m) => m.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (expression != null) 'expression': expression!.toJson(),
+    'members': members.map((m) => m.toJson()).toList(),
+  };
 
   factory SSwitchStatement.fromJson(Map<String, dynamic> json) {
     return SSwitchStatement(
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
-      members: SAstNodeFactory.listFromJson<SSwitchMember>(json['members'] as List?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
+              as SExpression?,
+      members: SAstNodeFactory.listFromJson<SSwitchMember>(
+        json['members'] as List?,
+      ),
     );
   }
 
@@ -853,25 +902,29 @@ class SSwitchCase extends SSwitchMember {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'labels': labels.map((l) => l.toJson()).toList(),
-        if (expression != null) 'expression': expression!.toJson(),
-        'statements': statements.map((s) => s.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'labels': labels.map((l) => l.toJson()).toList(),
+    if (expression != null) 'expression': expression!.toJson(),
+    'statements': statements.map((s) => s.toJson()).toList(),
+  };
 
   factory SSwitchCase.fromJson(Map<String, dynamic> json) {
     return SSwitchCase(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      labels: (json['labels'] as List?)
+      labels:
+          (json['labels'] as List?)
               ?.map((l) => SLabel.fromJson(l as Map<String, dynamic>))
               .toList() ??
           [],
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
-      statements: SAstNodeFactory.listFromJson<SStatement>(json['statements'] as List?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
+              as SExpression?,
+      statements: SAstNodeFactory.listFromJson<SStatement>(
+        json['statements'] as List?,
+      ),
     );
   }
 
@@ -912,22 +965,25 @@ class SSwitchDefault extends SSwitchMember {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'labels': labels.map((l) => l.toJson()).toList(),
-        'statements': statements.map((s) => s.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'labels': labels.map((l) => l.toJson()).toList(),
+    'statements': statements.map((s) => s.toJson()).toList(),
+  };
 
   factory SSwitchDefault.fromJson(Map<String, dynamic> json) {
     return SSwitchDefault(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      labels: (json['labels'] as List?)
+      labels:
+          (json['labels'] as List?)
               ?.map((l) => SLabel.fromJson(l as Map<String, dynamic>))
               .toList() ??
           [],
-      statements: SAstNodeFactory.listFromJson<SStatement>(json['statements'] as List?),
+      statements: SAstNodeFactory.listFromJson<SStatement>(
+        json['statements'] as List?,
+      ),
     );
   }
 
@@ -972,13 +1028,13 @@ class STryStatement extends SStatement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (body != null) 'body': body!.toJson(),
-        'catchClauses': catchClauses.map((c) => c.toJson()).toList(),
-        if (finallyBlock != null) 'finallyBlock': finallyBlock!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (body != null) 'body': body!.toJson(),
+    'catchClauses': catchClauses.map((c) => c.toJson()).toList(),
+    if (finallyBlock != null) 'finallyBlock': finallyBlock!.toJson(),
+  };
 
   factory STryStatement.fromJson(Map<String, dynamic> json) {
     return STryStatement(
@@ -987,7 +1043,8 @@ class STryStatement extends SStatement {
       body: json['body'] != null
           ? SBlock.fromJson(json['body'] as Map<String, dynamic>)
           : null,
-      catchClauses: (json['catchClauses'] as List?)
+      catchClauses:
+          (json['catchClauses'] as List?)
               ?.map((c) => SCatchClause.fromJson(c as Map<String, dynamic>))
               .toList() ??
           [],
@@ -1035,30 +1092,35 @@ class SCatchClause extends SAstNode {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (exceptionType != null) 'exceptionType': exceptionType!.toJson(),
-        if (exceptionParameter != null)
-          'exceptionParameter': exceptionParameter!.toJson(),
-        if (stackTraceParameter != null)
-          'stackTraceParameter': stackTraceParameter!.toJson(),
-        if (body != null) 'body': body!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (exceptionType != null) 'exceptionType': exceptionType!.toJson(),
+    if (exceptionParameter != null)
+      'exceptionParameter': exceptionParameter!.toJson(),
+    if (stackTraceParameter != null)
+      'stackTraceParameter': stackTraceParameter!.toJson(),
+    if (body != null) 'body': body!.toJson(),
+  };
 
   factory SCatchClause.fromJson(Map<String, dynamic> json) {
     return SCatchClause(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      exceptionType: SAstNodeFactory.fromJson(
-          json['exceptionType'] as Map<String, dynamic>?) as STypeAnnotation?,
+      exceptionType:
+          SAstNodeFactory.fromJson(
+                json['exceptionType'] as Map<String, dynamic>?,
+              )
+              as STypeAnnotation?,
       exceptionParameter: json['exceptionParameter'] != null
           ? SSimpleIdentifier.fromJson(
-              json['exceptionParameter'] as Map<String, dynamic>)
+              json['exceptionParameter'] as Map<String, dynamic>,
+            )
           : null,
       stackTraceParameter: json['stackTraceParameter'] != null
           ? SSimpleIdentifier.fromJson(
-              json['stackTraceParameter'] as Map<String, dynamic>)
+              json['stackTraceParameter'] as Map<String, dynamic>,
+            )
           : null,
       body: json['body'] != null
           ? SBlock.fromJson(json['body'] as Map<String, dynamic>)
@@ -1090,22 +1152,18 @@ class SBreakStatement extends SStatement {
 
   final SSimpleIdentifier? label;
 
-  SBreakStatement({
-    required this.offset,
-    required this.length,
-    this.label,
-  });
+  SBreakStatement({required this.offset, required this.length, this.label});
 
   @override
   String get nodeType => 'BreakStatement';
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (label != null) 'label': label!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (label != null) 'label': label!.toJson(),
+  };
 
   factory SBreakStatement.fromJson(Map<String, dynamic> json) {
     return SBreakStatement(
@@ -1134,22 +1192,18 @@ class SContinueStatement extends SStatement {
 
   final SSimpleIdentifier? label;
 
-  SContinueStatement({
-    required this.offset,
-    required this.length,
-    this.label,
-  });
+  SContinueStatement({required this.offset, required this.length, this.label});
 
   @override
   String get nodeType => 'ContinueStatement';
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (label != null) 'label': label!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (label != null) 'label': label!.toJson(),
+  };
 
   factory SContinueStatement.fromJson(Map<String, dynamic> json) {
     return SContinueStatement(
@@ -1162,8 +1216,7 @@ class SContinueStatement extends SStatement {
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) =>
-      visitor.visitContinueStatement(this);
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitContinueStatement(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -1196,21 +1249,23 @@ class SAssertStatement extends SStatement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (condition != null) 'condition': condition!.toJson(),
-        if (message != null) 'message': message!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (condition != null) 'condition': condition!.toJson(),
+    if (message != null) 'message': message!.toJson(),
+  };
 
   factory SAssertStatement.fromJson(Map<String, dynamic> json) {
     return SAssertStatement(
       offset: json['offset'] as int,
       length: json['length'] as int,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?)
+              as SExpression?,
       message:
-          SAstNodeFactory.fromJson(json['message'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['message'] as Map<String, dynamic>?)
+              as SExpression?,
     );
   }
 
@@ -1249,19 +1304,20 @@ class SYieldStatement extends SStatement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (expression != null) 'expression': expression!.toJson(),
-        'isStar': isStar,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (expression != null) 'expression': expression!.toJson(),
+    'isStar': isStar,
+  };
 
   factory SYieldStatement.fromJson(Map<String, dynamic> json) {
     return SYieldStatement(
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
+              as SExpression?,
       isStar: json['isStar'] as bool? ?? false,
     );
   }
@@ -1300,29 +1356,30 @@ class SLabeledStatement extends SStatement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'labels': labels.map((l) => l.toJson()).toList(),
-        if (statement != null) 'statement': statement!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'labels': labels.map((l) => l.toJson()).toList(),
+    if (statement != null) 'statement': statement!.toJson(),
+  };
 
   factory SLabeledStatement.fromJson(Map<String, dynamic> json) {
     return SLabeledStatement(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      labels: (json['labels'] as List?)
+      labels:
+          (json['labels'] as List?)
               ?.map((l) => SLabel.fromJson(l as Map<String, dynamic>))
               .toList() ??
           [],
       statement:
-          SAstNodeFactory.fromJson(json['statement'] as Map<String, dynamic>?) as SStatement?,
+          SAstNodeFactory.fromJson(json['statement'] as Map<String, dynamic>?)
+              as SStatement?,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) =>
-      visitor.visitLabeledStatement(this);
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitLabeledStatement(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -1343,20 +1400,17 @@ class SEmptyStatement extends SStatement {
   @override
   final int length;
 
-  SEmptyStatement({
-    required this.offset,
-    required this.length,
-  });
+  SEmptyStatement({required this.offset, required this.length});
 
   @override
   String get nodeType => 'EmptyStatement';
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+  };
 
   factory SEmptyStatement.fromJson(Map<String, dynamic> json) {
     return SEmptyStatement(
@@ -1397,19 +1451,21 @@ class SPatternVariableDeclarationStatement extends SStatement {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'declaration': declaration.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'declaration': declaration.toJson(),
+  };
 
   factory SPatternVariableDeclarationStatement.fromJson(
-      Map<String, dynamic> json) {
+    Map<String, dynamic> json,
+  ) {
     return SPatternVariableDeclarationStatement(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      declaration: SAstNodeFactory.fromJson(
-          json['declaration'] as Map<String, dynamic>?) as SPatternVariableDeclaration,
+      declaration:
+          SAstNodeFactory.fromJson(json['declaration'] as Map<String, dynamic>?)
+              as SPatternVariableDeclaration,
     );
   }
 
