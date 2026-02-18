@@ -10,15 +10,15 @@ import 'package:tom_d4rt_ast/src/ast/ast_core.dart';
 class AstConverter {
   /// Convert a compilation unit
   SCompilationUnit convertCompilationUnit(analyzer.CompilationUnit unit) {
-    final directives = <SAstNode>[];
-    final declarations = <SAstNode>[];
+    final directives = <SDirective>[];
+    final declarations = <SDeclaration>[];
     final comments = <SComment>[];
 
     // Convert directives
     for (final directive in unit.directives) {
       final converted = convert(directive);
       if (converted != null) {
-        directives.add(converted);
+        directives.add(converted as SDirective);
       }
     }
 
@@ -26,7 +26,7 @@ class AstConverter {
     for (final declaration in unit.declarations) {
       final converted = convert(declaration);
       if (converted != null) {
-        declarations.add(converted);
+        declarations.add(converted as SDeclaration);
       }
     }
 
@@ -345,7 +345,7 @@ class AstConverter {
       length: node.length,
       name: _tokenToIdentifier(node.name),
       metadata: _convertAnnotations(node.metadata),
-      returnType: convert(node.returnType),
+      returnType: _as<STypeAnnotation>(node.returnType),
       isGetter: node.isGetter,
       isSetter: node.isSetter,
       isExternal: node.externalKeyword != null,
@@ -365,7 +365,7 @@ class AstConverter {
       length: node.length,
       name: _tokenToIdentifier(node.name),
       metadata: _convertAnnotations(node.metadata),
-      returnType: convert(node.returnType),
+      returnType: _as<STypeAnnotation>(node.returnType),
       isStatic: node.isStatic,
       isAbstract: node.isAbstract,
       isExternal: node.externalKeyword != null,
@@ -374,7 +374,7 @@ class AstConverter {
       isOperator: node.isOperator,
       typeParameters: convert(node.typeParameters) as STypeParameterList?,
       parameters: convert(node.parameters) as SFormalParameterList?,
-      body: convert(node.body),
+      body: _as<SFunctionBody>(node.body),
     );
   }
 
@@ -394,7 +394,7 @@ class AstConverter {
       extendsClause: convert(node.extendsClause) as SExtendsClause?,
       withClause: convert(node.withClause) as SWithClause?,
       implementsClause: convert(node.implementsClause) as SImplementsClause?,
-      members: _convertNodes(node.members),
+      members: _nodesAs<SClassMember>(node.members),
     );
   }
 
@@ -407,7 +407,7 @@ class AstConverter {
       typeParameters: convert(node.typeParameters) as STypeParameterList?,
       onClause: _convertOnClause(node.onClause),
       implementsClause: convert(node.implementsClause) as SImplementsClause?,
-      members: _convertNodes(node.members),
+      members: _nodesAs<SClassMember>(node.members),
     );
   }
 
@@ -421,7 +421,7 @@ class AstConverter {
       withClause: convert(node.withClause) as SWithClause?,
       implementsClause: convert(node.implementsClause) as SImplementsClause?,
       constants: _convertNodes(node.constants).cast<SEnumConstantDeclaration>(),
-      members: _convertNodes(node.members),
+      members: _nodesAs<SClassMember>(node.members),
     );
   }
 
@@ -434,8 +434,8 @@ class AstConverter {
       name: node.name != null ? _tokenToIdentifier(node.name!) : null,
       metadata: _convertAnnotations(node.metadata),
       typeParameters: convert(node.typeParameters) as STypeParameterList?,
-      extendedType: convert(node.onClause?.extendedType),
-      members: _convertNodes(node.members),
+      extendedType: _as<STypeAnnotation>(node.onClause?.extendedType),
+      members: _nodesAs<SClassMember>(node.members),
     );
   }
 
@@ -446,7 +446,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       name: _tokenToIdentifier(node.name),
-      initializer: convert(node.initializer),
+      initializer: _as<SExpression>(node.initializer),
     );
   }
 
@@ -460,7 +460,7 @@ class AstConverter {
       isLate: node.lateKeyword != null,
       isFinal: node.isFinal,
       isConst: node.isConst,
-      type: convert(node.type),
+      type: _as<STypeAnnotation>(node.type),
       variables: _convertNodes(node.variables).cast<SVariableDeclaration>(),
     );
   }
@@ -492,8 +492,8 @@ class AstConverter {
       parameters: convert(node.parameters) as SFormalParameterList?,
       redirectedConstructor:
           convert(node.redirectedConstructor) as SConstructorName?,
-      initializers: _convertNodes(node.initializers),
-      body: convert(node.body),
+      initializers: _nodesAs<SConstructorInitializer>(node.initializers),
+      body: _as<SFunctionBody>(node.body),
     );
   }
 
@@ -529,7 +529,7 @@ class AstConverter {
       name: _tokenToIdentifier(node.name),
       metadata: _convertAnnotations(node.metadata),
       typeParameters: convert(node.typeParameters) as STypeParameterList?,
-      type: convert(node.type),
+      type: _as<STypeAnnotation>(node.type),
     );
   }
 
@@ -553,7 +553,7 @@ class AstConverter {
     return SBlock(
       offset: node.offset,
       length: node.length,
-      statements: _convertNodes(node.statements),
+      statements: _nodesAs<SStatement>(node.statements),
     );
   }
 
@@ -573,7 +573,7 @@ class AstConverter {
     return SExpressionStatement(
       offset: node.offset,
       length: node.length,
-      expression: convert(node.expression),
+      expression: _as<SExpression>(node.expression),
     );
   }
 
@@ -581,7 +581,7 @@ class AstConverter {
     return SReturnStatement(
       offset: node.offset,
       length: node.length,
-      expression: convert(node.expression),
+      expression: _as<SExpression>(node.expression),
     );
   }
 
@@ -589,10 +589,10 @@ class AstConverter {
     return SIfStatement(
       offset: node.offset,
       length: node.length,
-      condition: convert(node.expression),
-      thenStatement: convert(node.thenStatement),
-      elseStatement: convert(node.elseStatement),
-      caseClause: convert(node.caseClause),
+      condition: _as<SExpression>(node.expression),
+      thenStatement: _as<SStatement>(node.thenStatement),
+      elseStatement: _as<SStatement>(node.elseStatement),
+      caseClause: _as<SCaseClause>(node.caseClause),
     );
   }
 
@@ -600,8 +600,8 @@ class AstConverter {
     return SForStatement(
       offset: node.offset,
       length: node.length,
-      forLoopParts: convert(node.forLoopParts),
-      body: convert(node.body),
+      forLoopParts: _as<SForLoopParts>(node.forLoopParts),
+      body: _as<SStatement>(node.body),
     );
   }
 
@@ -612,8 +612,8 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       variables: convert(node.variables) as SVariableDeclarationList?,
-      condition: convert(node.condition),
-      updaters: _convertNodes(node.updaters),
+      condition: _as<SExpression>(node.condition),
+      updaters: _nodesAs<SExpression>(node.updaters),
     );
   }
 
@@ -623,9 +623,9 @@ class AstConverter {
     return SForPartsWithExpression(
       offset: node.offset,
       length: node.length,
-      initialization: convert(node.initialization),
-      condition: convert(node.condition),
-      updaters: _convertNodes(node.updaters),
+      initialization: _as<SExpression>(node.initialization),
+      condition: _as<SExpression>(node.condition),
+      updaters: _nodesAs<SExpression>(node.updaters),
     );
   }
 
@@ -636,7 +636,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       loopVariable: convert(node.loopVariable) as SDeclaredIdentifier?,
-      iterable: convert(node.iterable),
+      iterable: _as<SExpression>(node.iterable),
     );
   }
 
@@ -647,7 +647,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       identifier: convert(node.identifier) as SSimpleIdentifier?,
-      iterable: convert(node.iterable),
+      iterable: _as<SExpression>(node.iterable),
     );
   }
 
@@ -660,7 +660,7 @@ class AstConverter {
       metadata: _convertAnnotations(node.metadata),
       isFinal: node.isFinal,
       isConst: node.isConst,
-      type: convert(node.type),
+      type: _as<STypeAnnotation>(node.type),
       identifier: _tokenToIdentifier(node.name),
     );
   }
@@ -669,8 +669,8 @@ class AstConverter {
     return SWhileStatement(
       offset: node.offset,
       length: node.length,
-      condition: convert(node.condition),
-      body: convert(node.body),
+      condition: _as<SExpression>(node.condition),
+      body: _as<SStatement>(node.body),
     );
   }
 
@@ -678,23 +678,23 @@ class AstConverter {
     return SDoStatement(
       offset: node.offset,
       length: node.length,
-      body: convert(node.body),
-      condition: convert(node.condition),
+      body: _as<SStatement>(node.body),
+      condition: _as<SExpression>(node.condition),
     );
   }
 
   SSwitchStatement _convertSwitchStatement(analyzer.SwitchStatement node) {
-    final members = <SAstNode>[];
+    final members = <SSwitchMember>[];
     for (final member in node.members) {
       final converted = convert(member);
       if (converted != null) {
-        members.add(converted);
+        members.add(converted as SSwitchMember);
       }
     }
     return SSwitchStatement(
       offset: node.offset,
       length: node.length,
-      expression: convert(node.expression),
+      expression: _as<SExpression>(node.expression),
       members: members,
     );
   }
@@ -704,8 +704,8 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       labels: _convertNodes(node.labels).cast<SLabel>(),
-      expression: convert(node.expression),
-      statements: _convertNodes(node.statements),
+      expression: _as<SExpression>(node.expression),
+      statements: _nodesAs<SStatement>(node.statements),
     );
   }
 
@@ -714,7 +714,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       labels: _convertNodes(node.labels).cast<SLabel>(),
-      statements: _convertNodes(node.statements),
+      statements: _nodesAs<SStatement>(node.statements),
     );
   }
 
@@ -732,7 +732,7 @@ class AstConverter {
     return SCatchClause(
       offset: node.offset,
       length: node.length,
-      exceptionType: convert(node.exceptionType),
+      exceptionType: _as<STypeAnnotation>(node.exceptionType),
       exceptionParameter: node.exceptionParameter != null
           ? _tokenToIdentifier(node.exceptionParameter!.name)
           : null,
@@ -769,8 +769,8 @@ class AstConverter {
     return SAssertStatement(
       offset: node.offset,
       length: node.length,
-      condition: convert(node.condition),
-      message: convert(node.message),
+      condition: _as<SExpression>(node.condition),
+      message: _as<SExpression>(node.message),
     );
   }
 
@@ -778,7 +778,7 @@ class AstConverter {
     return SYieldStatement(
       offset: node.offset,
       length: node.length,
-      expression: convert(node.expression),
+      expression: _as<SExpression>(node.expression),
       isStar: node.star != null,
     );
   }
@@ -788,7 +788,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       labels: _convertNodes(node.labels).cast<SLabel>(),
-      statement: convert(node.statement),
+      statement: _as<SStatement>(node.statement),
     );
   }
 
@@ -824,9 +824,9 @@ class AstConverter {
     return SBinaryExpression(
       offset: node.offset,
       length: node.length,
-      leftOperand: convert(node.leftOperand),
+      leftOperand: _as<SExpression>(node.leftOperand),
       operator: node.operator.lexeme,
-      rightOperand: convert(node.rightOperand),
+      rightOperand: _as<SExpression>(node.rightOperand),
     );
   }
 
@@ -835,7 +835,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       operator: node.operator.lexeme,
-      operand: convert(node.operand),
+      operand: _as<SExpression>(node.operand),
     );
   }
 
@@ -845,7 +845,7 @@ class AstConverter {
     return SPostfixExpression(
       offset: node.offset,
       length: node.length,
-      operand: convert(node.operand),
+      operand: _as<SExpression>(node.operand),
       operator: node.operator.lexeme,
     );
   }
@@ -856,9 +856,9 @@ class AstConverter {
     return SConditionalExpression(
       offset: node.offset,
       length: node.length,
-      condition: convert(node.condition),
-      thenExpression: convert(node.thenExpression),
-      elseExpression: convert(node.elseExpression),
+      condition: _as<SExpression>(node.condition),
+      thenExpression: _as<SExpression>(node.thenExpression),
+      elseExpression: _as<SExpression>(node.elseExpression),
     );
   }
 
@@ -868,9 +868,9 @@ class AstConverter {
     return SAssignmentExpression(
       offset: node.offset,
       length: node.length,
-      leftHandSide: convert(node.leftHandSide),
+      leftHandSide: _as<SExpression>(node.leftHandSide),
       operator: node.operator.lexeme,
-      rightHandSide: convert(node.rightHandSide),
+      rightHandSide: _as<SExpression>(node.rightHandSide),
     );
   }
 
@@ -878,7 +878,7 @@ class AstConverter {
     return SMethodInvocation(
       offset: node.offset,
       length: node.length,
-      target: convert(node.target),
+      target: _as<SExpression>(node.target),
       operator: node.operator?.lexeme,
       methodName: convert(node.methodName) as SSimpleIdentifier?,
       typeArguments: convert(node.typeArguments) as STypeArgumentList?,
@@ -892,7 +892,7 @@ class AstConverter {
     return SFunctionExpressionInvocation(
       offset: node.offset,
       length: node.length,
-      function: convert(node.function),
+      function: _as<SExpression>(node.function),
       typeArguments: convert(node.typeArguments) as STypeArgumentList?,
       argumentList: convert(node.argumentList) as SArgumentList?,
     );
@@ -902,8 +902,8 @@ class AstConverter {
     return SIndexExpression(
       offset: node.offset,
       length: node.length,
-      target: convert(node.target),
-      index: convert(node.index),
+      target: _as<SExpression>(node.target),
+      index: _as<SExpression>(node.index),
       isNullAware: node.period != null,
     );
   }
@@ -912,7 +912,7 @@ class AstConverter {
     return SPropertyAccess(
       offset: node.offset,
       length: node.length,
-      target: convert(node.target),
+      target: _as<SExpression>(node.target),
       operator: node.operator.lexeme,
       propertyName: convert(node.propertyName) as SSimpleIdentifier?,
     );
@@ -924,7 +924,7 @@ class AstConverter {
     return SParenthesizedExpression(
       offset: node.offset,
       length: node.length,
-      expression: convert(node.expression),
+      expression: _as<SExpression>(node.expression),
     );
   }
 
@@ -936,7 +936,7 @@ class AstConverter {
       length: node.length,
       typeParameters: convert(node.typeParameters) as STypeParameterList?,
       parameters: convert(node.parameters) as SFormalParameterList?,
-      body: convert(node.body),
+      body: _as<SFunctionBody>(node.body),
     );
   }
 
@@ -964,7 +964,7 @@ class AstConverter {
     return SThrowExpression(
       offset: node.offset,
       length: node.length,
-      expression: convert(node.expression),
+      expression: _as<SExpression>(node.expression),
     );
   }
 
@@ -972,7 +972,7 @@ class AstConverter {
     return SAwaitExpression(
       offset: node.offset,
       length: node.length,
-      expression: convert(node.expression),
+      expression: _as<SExpression>(node.expression),
     );
   }
 
@@ -980,8 +980,8 @@ class AstConverter {
     return SAsExpression(
       offset: node.offset,
       length: node.length,
-      expression: convert(node.expression),
-      type: convert(node.type),
+      expression: _as<SExpression>(node.expression),
+      type: _as<STypeAnnotation>(node.type),
     );
   }
 
@@ -989,9 +989,9 @@ class AstConverter {
     return SIsExpression(
       offset: node.offset,
       length: node.length,
-      expression: convert(node.expression),
+      expression: _as<SExpression>(node.expression),
       isNot: node.notOperator != null,
-      type: convert(node.type),
+      type: _as<STypeAnnotation>(node.type),
     );
   }
 
@@ -1001,8 +1001,8 @@ class AstConverter {
     return SCascadeExpression(
       offset: node.offset,
       length: node.length,
-      target: convert(node.target),
-      cascadeSections: _convertNodes(node.cascadeSections),
+      target: _as<SExpression>(node.target),
+      cascadeSections: _nodesAs<SExpression>(node.cascadeSections),
     );
   }
 
@@ -1017,7 +1017,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       name: convert(node.name) as SLabel?,
-      expression: convert(node.expression),
+      expression: _as<SExpression>(node.expression),
     );
   }
 
@@ -1026,7 +1026,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       isNullAware: node.spreadOperator.lexeme == '...?',
-      expression: convert(node.expression),
+      expression: _as<SExpression>(node.expression),
     );
   }
 
@@ -1034,9 +1034,9 @@ class AstConverter {
     return SIfElement(
       offset: node.offset,
       length: node.length,
-      condition: convert(node.expression),
-      thenElement: convert(node.thenElement),
-      elseElement: convert(node.elseElement),
+      condition: _as<SExpression>(node.expression),
+      thenElement: _as<SCollectionElement>(node.thenElement),
+      elseElement: _as<SCollectionElement>(node.elseElement),
     );
   }
 
@@ -1044,8 +1044,8 @@ class AstConverter {
     return SForElement(
       offset: node.offset,
       length: node.length,
-      forLoopParts: convert(node.forLoopParts),
-      body: convert(node.body),
+      forLoopParts: _as<SForLoopParts>(node.forLoopParts),
+      body: _as<SCollectionElement>(node.body),
     );
   }
 
@@ -1095,7 +1095,7 @@ class AstConverter {
     return SStringInterpolation(
       offset: node.offset,
       length: node.length,
-      elements: _convertNodes(node.elements),
+      elements: _nodesAs<SInterpolationElement>(node.elements),
     );
   }
 
@@ -1105,7 +1105,7 @@ class AstConverter {
     return SInterpolationExpression(
       offset: node.offset,
       length: node.length,
-      expression: convert(node.expression),
+      expression: _as<SExpression>(node.expression),
     );
   }
 
@@ -1123,7 +1123,7 @@ class AstConverter {
     return SAdjacentStrings(
       offset: node.offset,
       length: node.length,
-      strings: _convertNodes(node.strings),
+      strings: _nodesAs<SStringLiteral>(node.strings),
     );
   }
 
@@ -1137,7 +1137,7 @@ class AstConverter {
       length: node.length,
       isConst: node.constKeyword != null,
       typeArguments: convert(node.typeArguments) as STypeArgumentList?,
-      elements: _convertNodes(node.elements),
+      elements: _nodesAs<SCollectionElement>(node.elements),
     );
   }
 
@@ -1149,7 +1149,7 @@ class AstConverter {
       isMap: node.isMap,
       isSet: node.isSet,
       typeArguments: convert(node.typeArguments) as STypeArgumentList?,
-      elements: _convertNodes(node.elements),
+      elements: _nodesAs<SCollectionElement>(node.elements),
     );
   }
 
@@ -1157,8 +1157,8 @@ class AstConverter {
     return SMapLiteralEntry(
       offset: node.offset,
       length: node.length,
-      key: convert(node.key),
-      value: convert(node.value),
+      key: _as<SExpression>(node.key),
+      value: _as<SExpression>(node.value),
     );
   }
 
@@ -1176,7 +1176,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       isConst: node.constKeyword != null,
-      fields: _convertNodes(node.fields),
+      fields: _nodesAs<SExpression>(node.fields),
     );
   }
 
@@ -1203,7 +1203,7 @@ class AstConverter {
     return SGenericFunctionType(
       offset: node.offset,
       length: node.length,
-      returnType: convert(node.returnType),
+      returnType: _as<STypeAnnotation>(node.returnType),
       typeParameters: convert(node.typeParameters) as STypeParameterList?,
       parameters: convert(node.parameters) as SFormalParameterList?,
       isNullable: node.question != null,
@@ -1214,7 +1214,7 @@ class AstConverter {
     return STypeArgumentList(
       offset: node.offset,
       length: node.length,
-      arguments: _convertNodes(node.arguments),
+      arguments: _nodesAs<STypeAnnotation>(node.arguments),
     );
   }
 
@@ -1233,7 +1233,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       name: _tokenToIdentifier(node.name),
-      bound: convert(node.bound),
+      bound: _as<STypeAnnotation>(node.bound),
     );
   }
 
@@ -1278,7 +1278,7 @@ class AstConverter {
     return SFormalParameterList(
       offset: node.offset,
       length: node.length,
-      parameters: _convertNodes(node.parameters),
+      parameters: _nodesAs<SFormalParameter>(node.parameters),
     );
   }
 
@@ -1289,7 +1289,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       metadata: _convertAnnotations(node.metadata),
-      type: convert(node.type),
+      type: _as<STypeAnnotation>(node.type),
       name: node.name != null ? _tokenToIdentifier(node.name!) : null,
       isCovariant: node.covariantKeyword != null,
       isRequired: node.requiredKeyword != null,
@@ -1303,8 +1303,8 @@ class AstConverter {
     return SDefaultFormalParameter(
       offset: node.offset,
       length: node.length,
-      parameter: convert(node.parameter),
-      defaultValue: convert(node.defaultValue),
+      parameter: _as<SNormalFormalParameter>(node.parameter),
+      defaultValue: _as<SExpression>(node.defaultValue),
       isNamed: node.isNamed,
     );
   }
@@ -1316,7 +1316,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       metadata: _convertAnnotations(node.metadata),
-      type: convert(node.type),
+      type: _as<STypeAnnotation>(node.type),
       name: _tokenToIdentifier(node.name),
       parameters: convert(node.parameters) as SFormalParameterList?,
       isRequired: node.requiredKeyword != null,
@@ -1331,7 +1331,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       metadata: _convertAnnotations(node.metadata),
-      returnType: convert(node.returnType),
+      returnType: _as<STypeAnnotation>(node.returnType),
       name: _tokenToIdentifier(node.name),
       typeParameters: convert(node.typeParameters) as STypeParameterList?,
       parameters: convert(node.parameters) as SFormalParameterList?,
@@ -1346,7 +1346,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       metadata: _convertAnnotations(node.metadata),
-      type: convert(node.type),
+      type: _as<STypeAnnotation>(node.type),
       name: _tokenToIdentifier(node.name),
       typeParameters: convert(node.typeParameters) as STypeParameterList?,
       parameters: convert(node.parameters) as SFormalParameterList?,
@@ -1376,7 +1376,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       isAsync: node.isAsynchronous,
-      expression: convert(node.expression),
+      expression: _as<SExpression>(node.expression),
     );
   }
 
@@ -1405,12 +1405,12 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       metadata: _convertAnnotations(node.metadata),
-      uri: convert(node.uri),
+      uri: _as<SStringLiteral>(node.uri),
       prefix: node.prefix != null
           ? _convertSimpleIdentifier(node.prefix!)
           : null,
       isDeferred: node.deferredKeyword != null,
-      combinators: _convertCombinators(node.combinators),
+      combinators: _nodesAs<SCombinator>(node.combinators),
     );
   }
 
@@ -1419,8 +1419,8 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       metadata: _convertAnnotations(node.metadata),
-      uri: convert(node.uri),
-      combinators: _convertCombinators(node.combinators),
+      uri: _as<SStringLiteral>(node.uri),
+      combinators: _nodesAs<SCombinator>(node.combinators),
     );
   }
 
@@ -1429,7 +1429,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       metadata: _convertAnnotations(node.metadata),
-      uri: convert(node.uri),
+      uri: _as<SStringLiteral>(node.uri),
     );
   }
 
@@ -1438,8 +1438,8 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       metadata: _convertAnnotations(node.metadata),
-      libraryName: convert(node.libraryName),
-      uri: convert(node.uri),
+      libraryName: _as<SIdentifier>(node.libraryName),
+      uri: _as<SStringLiteral>(node.uri),
     );
   }
 
@@ -1449,7 +1449,7 @@ class AstConverter {
       length: node.length,
       metadata: _convertAnnotations(node.metadata),
       // ignore: deprecated_member_use
-      name: convert(node.name2),
+      name: _as<SIdentifier>(node.name2),
     );
   }
 
@@ -1477,7 +1477,7 @@ class AstConverter {
     return SArgumentList(
       offset: node.offset,
       length: node.length,
-      arguments: _convertNodes(node.arguments),
+      arguments: _nodesAs<SExpression>(node.arguments),
     );
   }
 
@@ -1611,7 +1611,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       fieldName: convert(node.fieldName) as SSimpleIdentifier?,
-      expression: convert(node.expression),
+      expression: _as<SExpression>(node.expression),
     );
   }
 
@@ -1621,8 +1621,8 @@ class AstConverter {
     return SAssertInitializer(
       offset: node.offset,
       length: node.length,
-      condition: convert(node.condition),
-      message: convert(node.message),
+      condition: _as<SExpression>(node.condition),
+      message: _as<SExpression>(node.message),
     );
   }
 
@@ -1634,8 +1634,8 @@ class AstConverter {
     return SSwitchExpression(
       offset: node.offset,
       length: node.length,
-      expression: convert(node.expression)!,
-      cases: _convertNodes(node.cases),
+      expression: _as<SExpression>(node.expression)!,
+      cases: _nodesAs<SSwitchExpressionCase>(node.cases),
     );
   }
 
@@ -1645,8 +1645,8 @@ class AstConverter {
     return SSwitchExpressionCase(
       offset: node.offset,
       length: node.length,
-      guardedPattern: convert(node.guardedPattern)!,
-      expression: convert(node.expression)!,
+      guardedPattern: _as<SGuardedPattern>(node.guardedPattern)!,
+      expression: _as<SExpression>(node.expression)!,
     );
   }
 
@@ -1657,8 +1657,8 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       labels: _convertNodes(node.labels).cast<SLabel>(),
-      guardedPattern: convert(node.guardedPattern)!,
-      statements: _convertNodes(node.statements),
+      guardedPattern: _as<SGuardedPattern>(node.guardedPattern)!,
+      statements: _nodesAs<SStatement>(node.statements),
     );
   }
 
@@ -1670,8 +1670,8 @@ class AstConverter {
     return SGuardedPattern(
       offset: node.offset,
       length: node.length,
-      pattern: convert(node.pattern)!,
-      whenClause: convert(node.whenClause),
+      pattern: _as<SDartPattern>(node.pattern)!,
+      whenClause: _as<SWhenClause>(node.whenClause),
     );
   }
 
@@ -1679,7 +1679,7 @@ class AstConverter {
     return SWhenClause(
       offset: node.offset,
       length: node.length,
-      expression: convert(node.expression)!,
+      expression: _as<SExpression>(node.expression)!,
     );
   }
 
@@ -1687,7 +1687,7 @@ class AstConverter {
     return SCaseClause(
       offset: node.offset,
       length: node.length,
-      guardedPattern: convert(node.guardedPattern)!,
+      guardedPattern: _as<SGuardedPattern>(node.guardedPattern)!,
     );
   }
 
@@ -1700,7 +1700,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       constKeyword: node.constKeyword?.lexeme,
-      expression: convert(node.expression)!,
+      expression: _as<SExpression>(node.expression)!,
     );
   }
 
@@ -1710,7 +1710,7 @@ class AstConverter {
       length: node.length,
       keyword: node.keyword?.lexeme,
       name: node.name.lexeme,
-      type: convert(node.type),
+      type: _as<STypeAnnotation>(node.type),
     );
   }
 
@@ -1722,7 +1722,7 @@ class AstConverter {
       length: node.length,
       keyword: node.keyword?.lexeme,
       name: node.name.lexeme,
-      type: convert(node.type),
+      type: _as<STypeAnnotation>(node.type),
     );
   }
 
@@ -1744,8 +1744,8 @@ class AstConverter {
     return SObjectPattern(
       offset: node.offset,
       length: node.length,
-      type: convert(node.type)!,
-      fields: _convertNodes(node.fields),
+      type: _as<SNamedType>(node.type)!,
+      fields: _nodesAs<SPatternField>(node.fields),
     );
   }
 
@@ -1753,8 +1753,8 @@ class AstConverter {
     return SListPattern(
       offset: node.offset,
       length: node.length,
-      typeArguments: convert(node.typeArguments),
-      elements: _convertNodes(node.elements),
+      typeArguments: _as<STypeArgumentList>(node.typeArguments),
+      elements: _nodesAs<SDartPattern>(node.elements),
     );
   }
 
@@ -1762,8 +1762,8 @@ class AstConverter {
     return SMapPattern(
       offset: node.offset,
       length: node.length,
-      typeArguments: convert(node.typeArguments),
-      elements: _convertNodes(node.elements),
+      typeArguments: _as<STypeArgumentList>(node.typeArguments),
+      elements: _nodesAs<SMapPatternEntry>(node.elements),
     );
   }
 
@@ -1771,8 +1771,8 @@ class AstConverter {
     return SMapPatternEntry(
       offset: node.offset,
       length: node.length,
-      key: convert(node.key)!,
-      value: convert(node.value)!,
+      key: _as<SExpression>(node.key)!,
+      value: _as<SDartPattern>(node.value)!,
     );
   }
 
@@ -1780,7 +1780,7 @@ class AstConverter {
     return SRecordPattern(
       offset: node.offset,
       length: node.length,
-      fields: _convertNodes(node.fields),
+      fields: _nodesAs<SPatternField>(node.fields),
     );
   }
 
@@ -1788,8 +1788,8 @@ class AstConverter {
     return SPatternField(
       offset: node.offset,
       length: node.length,
-      name: convert(node.name),
-      pattern: convert(node.pattern)!,
+      name: _as<SPatternFieldName>(node.name),
+      pattern: _as<SDartPattern>(node.pattern)!,
     );
   }
 
@@ -1809,9 +1809,9 @@ class AstConverter {
     return SLogicalOrPattern(
       offset: node.offset,
       length: node.length,
-      leftOperand: convert(node.leftOperand)!,
+      leftOperand: _as<SDartPattern>(node.leftOperand)!,
       operator: node.operator.lexeme,
-      rightOperand: convert(node.rightOperand)!,
+      rightOperand: _as<SDartPattern>(node.rightOperand)!,
     );
   }
 
@@ -1821,9 +1821,9 @@ class AstConverter {
     return SLogicalAndPattern(
       offset: node.offset,
       length: node.length,
-      leftOperand: convert(node.leftOperand)!,
+      leftOperand: _as<SDartPattern>(node.leftOperand)!,
       operator: node.operator.lexeme,
-      rightOperand: convert(node.rightOperand)!,
+      rightOperand: _as<SDartPattern>(node.rightOperand)!,
     );
   }
 
@@ -1831,8 +1831,8 @@ class AstConverter {
     return SCastPattern(
       offset: node.offset,
       length: node.length,
-      pattern: convert(node.pattern)!,
-      type: convert(node.type)!,
+      pattern: _as<SDartPattern>(node.pattern)!,
+      type: _as<SNamedType>(node.type)!,
     );
   }
 
@@ -1843,7 +1843,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       operator: node.operator.lexeme,
-      operand: convert(node.operand)!,
+      operand: _as<SExpression>(node.operand)!,
     );
   }
 
@@ -1851,7 +1851,7 @@ class AstConverter {
     return SNullCheckPattern(
       offset: node.offset,
       length: node.length,
-      pattern: convert(node.pattern)!,
+      pattern: _as<SDartPattern>(node.pattern)!,
       operator: node.operator.lexeme,
     );
   }
@@ -1862,7 +1862,7 @@ class AstConverter {
     return SNullAssertPattern(
       offset: node.offset,
       length: node.length,
-      pattern: convert(node.pattern)!,
+      pattern: _as<SDartPattern>(node.pattern)!,
       operator: node.operator.lexeme,
     );
   }
@@ -1873,7 +1873,7 @@ class AstConverter {
     return SParenthesizedPattern(
       offset: node.offset,
       length: node.length,
-      pattern: convert(node.pattern)!,
+      pattern: _as<SDartPattern>(node.pattern)!,
     );
   }
 
@@ -1883,7 +1883,7 @@ class AstConverter {
     return SRestPatternElement(
       offset: node.offset,
       length: node.length,
-      pattern: convert(node.pattern),
+      pattern: _as<SDartPattern>(node.pattern),
     );
   }
 
@@ -1897,8 +1897,8 @@ class AstConverter {
     return SPatternAssignment(
       offset: node.offset,
       length: node.length,
-      pattern: convert(node.pattern)!,
-      expression: convert(node.expression)!,
+      pattern: _as<SDartPattern>(node.pattern)!,
+      expression: _as<SExpression>(node.expression)!,
     );
   }
 
@@ -1909,8 +1909,8 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       keyword: node.keyword.lexeme,
-      pattern: convert(node.pattern)!,
-      expression: convert(node.expression)!,
+      pattern: _as<SDartPattern>(node.pattern)!,
+      expression: _as<SExpression>(node.expression)!,
     );
   }
 
@@ -1921,7 +1921,7 @@ class AstConverter {
     return SPatternVariableDeclarationStatement(
       offset: node.offset,
       length: node.length,
-      declaration: convert(node.declaration)!,
+      declaration: _as<SPatternVariableDeclaration>(node.declaration)!,
     );
   }
 
@@ -1935,8 +1935,8 @@ class AstConverter {
     return SFunctionReference(
       offset: node.offset,
       length: node.length,
-      function: convert(node.function)!,
-      typeArguments: convert(node.typeArguments),
+      function: _as<SExpression>(node.function)!,
+      typeArguments: _as<STypeArgumentList>(node.typeArguments),
     );
   }
 
@@ -1946,7 +1946,7 @@ class AstConverter {
     return SConstructorReference(
       offset: node.offset,
       length: node.length,
-      constructorName: convert(node.constructorName)!,
+      constructorName: _as<SConstructorName>(node.constructorName)!,
     );
   }
 
@@ -1963,9 +1963,9 @@ class AstConverter {
       name: _tokenToIdentifier(node.name),
       metadata: _convertAnnotations(node.metadata),
       typeParameters: convert(node.typeParameters) as STypeParameterList?,
-      representation: convert(node.representation)!,
+      representation: _as<SRepresentationDeclaration>(node.representation)!,
       implementsClause: convert(node.implementsClause) as SImplementsClause?,
-      members: _convertNodes(node.members),
+      members: _nodesAs<SClassMember>(node.members),
       isConst: node.constKeyword != null,
     );
   }
@@ -1977,13 +1977,25 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       fieldName: node.fieldName.lexeme,
-      fieldType: convert(node.fieldType)!,
+      fieldType: _as<STypeAnnotation>(node.fieldType)!,
     );
   }
 
   // ============================================================================
   // Helper methods
   // ============================================================================
+
+  // ============================================================================
+  // Typed conversion helpers
+  // ============================================================================
+
+  /// Convert and cast to a specific node type. Returns null if source is null.
+  T? _as<T extends SAstNode>(analyzer.AstNode? node) => convert(node) as T?;
+
+  /// Convert a list of nodes and cast each to a specific type.
+  List<T> _nodesAs<T extends SAstNode>(Iterable<analyzer.AstNode> nodes) {
+    return [for (final node in nodes) if (convert(node) case final T result) result];
+  }
 
   /// Convert a list of nodes
   List<SAstNode> _convertNodes(List<analyzer.AstNode> nodes) {
@@ -2004,20 +2016,6 @@ class AstConverter {
     final result = <SAnnotation>[];
     for (final annotation in metadata) {
       result.add(_convertAnnotation(annotation));
-    }
-    return result;
-  }
-
-  /// Convert combinators
-  List<SAstNode> _convertCombinators(
-    analyzer.NodeList<analyzer.Combinator> combinators,
-  ) {
-    final result = <SAstNode>[];
-    for (final combinator in combinators) {
-      final converted = convert(combinator);
-      if (converted != null) {
-        result.add(converted);
-      }
     }
     return result;
   }
