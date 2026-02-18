@@ -19,7 +19,7 @@ dependencies:
   tom_analyzer_model:
     path: ../tom_analyzer_model
   tom_build_base:
-    path: ../tom_build_base
+    path: ../../tom_module_basics/tom_build_base
   tom_d4rt_ast:
     path: ../tom_d4rt_ast
 
