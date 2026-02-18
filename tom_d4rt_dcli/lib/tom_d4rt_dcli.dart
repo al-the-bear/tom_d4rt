@@ -9,7 +9,7 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 import 'dartscript.b.dart';
 import 'src/cli/repl_base.dart';
 import 'src/cli/vscode_integration.dart';
-import 'src/version.g.dart';
+import 'src/version.versioner.dart';
 
 export 'dartscript.b.dart';
 export 'src/bot_mode/bot_mode.dart';
