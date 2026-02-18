@@ -78,7 +78,7 @@ abstract class SConstructorInitializer extends SAstNode {}
 /// Mirrors analyzer's `SwitchMember`.
 abstract class SSwitchMember extends SAstNode {
   /// The statements in this switch member.
-  List<SAstNode> get statements;
+  List<SStatement> get statements;
 }
 
 /// Base class for string interpolation elements.

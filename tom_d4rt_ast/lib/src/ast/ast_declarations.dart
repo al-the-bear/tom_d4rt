@@ -15,7 +15,7 @@ mixin SNamedDeclaration on SAstNode {
 
 /// Mixin for declarations with a function body
 mixin SFunctionBodyOwner on SAstNode {
-  SAstNode? get body; // BlockFunctionBody, ExpressionFunctionBody, etc.
+  SFunctionBody? get body; // BlockFunctionBody, ExpressionFunctionBody, etc.
 }
 
 // ============================================================================
@@ -34,7 +34,7 @@ class SFunctionDeclaration extends SNamedCompilationUnitMember with SNamedDeclar
   final List<SAnnotation> metadata;
 
   /// Return type annotation
-  final SAstNode? returnType;
+  final STypeAnnotation? returnType;
 
   /// Whether this is a getter
   final bool isGetter;
@@ -94,7 +94,7 @@ class SFunctionDeclaration extends SNamedCompilationUnitMember with SNamedDeclar
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      returnType: SAstNodeFactory.fromJson(json['returnType'] as Map<String, dynamic>?),
+      returnType: SAstNodeFactory.fromJson(json['returnType'] as Map<String, dynamic>?) as STypeAnnotation?,
       isGetter: json['isGetter'] as bool? ?? false,
       isSetter: json['isSetter'] as bool? ?? false,
       isExternal: json['isExternal'] as bool? ?? false,
@@ -140,7 +140,7 @@ class SMethodDeclaration extends SClassMember with SNamedDeclaration {
   final List<SAnnotation> metadata;
 
   /// Return type annotation
-  final SAstNode? returnType;
+  final STypeAnnotation? returnType;
 
   /// Method modifiers
   final bool isStatic;
@@ -157,7 +157,7 @@ class SMethodDeclaration extends SClassMember with SNamedDeclaration {
   final SFormalParameterList? parameters;
 
   /// Method body
-  final SAstNode? body;
+  final SFunctionBody? body;
 
   SMethodDeclaration({
     required this.offset,
@@ -209,7 +209,7 @@ class SMethodDeclaration extends SClassMember with SNamedDeclaration {
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      returnType: SAstNodeFactory.fromJson(json['returnType'] as Map<String, dynamic>?),
+      returnType: SAstNodeFactory.fromJson(json['returnType'] as Map<String, dynamic>?) as STypeAnnotation?,
       isStatic: json['isStatic'] as bool? ?? false,
       isAbstract: json['isAbstract'] as bool? ?? false,
       isExternal: json['isExternal'] as bool? ?? false,
@@ -224,7 +224,7 @@ class SMethodDeclaration extends SClassMember with SNamedDeclaration {
           ? SFormalParameterList.fromJson(
               json['parameters'] as Map<String, dynamic>)
           : null,
-      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?),
+      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?) as SFunctionBody?,
     );
   }
 
@@ -280,7 +280,7 @@ class SClassDeclaration extends SNamedCompilationUnitMember with SNamedDeclarati
   final SWithClause? withClause;
 
   /// Class members (fields, methods, constructors)
-  final List<SAstNode> members;
+  final List<SClassMember> members;
 
   SClassDeclaration({
     required this.offset,
@@ -356,7 +356,7 @@ class SClassDeclaration extends SNamedCompilationUnitMember with SNamedDeclarati
       withClause: json['withClause'] != null
           ? SWithClause.fromJson(json['withClause'] as Map<String, dynamic>)
           : null,
-      members: SAstNodeFactory.listFromJson(json['members'] as List?),
+      members: SAstNodeFactory.listFromJson<SClassMember>(json['members'] as List?),
     );
   }
 
@@ -398,7 +398,7 @@ class SMixinDeclaration extends SNamedCompilationUnitMember with SNamedDeclarati
   final STypeParameterList? typeParameters;
   final SOnClause? onClause;
   final SImplementsClause? implementsClause;
-  final List<SAstNode> members;
+  final List<SClassMember> members;
 
   SMixinDeclaration({
     required this.offset,
@@ -453,7 +453,7 @@ class SMixinDeclaration extends SNamedCompilationUnitMember with SNamedDeclarati
           ? SImplementsClause.fromJson(
               json['implementsClause'] as Map<String, dynamic>)
           : null,
-      members: SAstNodeFactory.listFromJson(json['members'] as List?),
+      members: SAstNodeFactory.listFromJson<SClassMember>(json['members'] as List?),
     );
   }
 
@@ -494,7 +494,7 @@ class SEnumDeclaration extends SNamedCompilationUnitMember with SNamedDeclaratio
   final SImplementsClause? implementsClause;
   final SWithClause? withClause;
   final List<SEnumConstantDeclaration> constants;
-  final List<SAstNode> members;
+  final List<SClassMember> members;
 
   SEnumDeclaration({
     required this.offset,
@@ -553,7 +553,7 @@ class SEnumDeclaration extends SNamedCompilationUnitMember with SNamedDeclaratio
                   SEnumConstantDeclaration.fromJson(c as Map<String, dynamic>))
               .toList() ??
           [],
-      members: SAstNodeFactory.listFromJson(json['members'] as List?),
+      members: SAstNodeFactory.listFromJson<SClassMember>(json['members'] as List?),
     );
   }
 
@@ -666,8 +666,8 @@ class SExtensionDeclaration extends SCompilationUnitMember with SNamedDeclaratio
   final List<SAnnotation> metadata;
 
   final STypeParameterList? typeParameters;
-  final SAstNode? extendedType;
-  final List<SAstNode> members;
+  final STypeAnnotation? extendedType;
+  final List<SClassMember> members;
 
   SExtensionDeclaration({
     required this.offset,
@@ -710,8 +710,8 @@ class SExtensionDeclaration extends SCompilationUnitMember with SNamedDeclaratio
               json['typeParameters'] as Map<String, dynamic>)
           : null,
       extendedType:
-          SAstNodeFactory.fromJson(json['extendedType'] as Map<String, dynamic>?),
-      members: SAstNodeFactory.listFromJson(json['members'] as List?),
+          SAstNodeFactory.fromJson(json['extendedType'] as Map<String, dynamic>?) as STypeAnnotation?,
+      members: SAstNodeFactory.listFromJson<SClassMember>(json['members'] as List?),
     );
   }
 
@@ -748,7 +748,7 @@ class SVariableDeclaration extends SDeclaration with SNamedDeclaration {
   final List<SAnnotation> metadata;
 
   /// Initializer expression
-  final SAstNode? initializer;
+  final SExpression? initializer;
 
   /// Whether declared with `const`
   final bool isConst;
@@ -798,7 +798,7 @@ class SVariableDeclaration extends SDeclaration with SNamedDeclaration {
               .toList() ??
           [],
       initializer:
-          SAstNodeFactory.fromJson(json['initializer'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['initializer'] as Map<String, dynamic>?) as SExpression?,
       isConst: json['isConst'] as bool? ?? false,
       isFinal: json['isFinal'] as bool? ?? false,
       isLate: json['isLate'] as bool? ?? false,
@@ -825,7 +825,7 @@ class SVariableDeclarationList extends SDeclaration {
   final int length;
 
   /// Type annotation
-  final SAstNode? type;
+  final STypeAnnotation? type;
 
   /// Variable declarations
   final List<SVariableDeclaration> variables;
@@ -869,7 +869,7 @@ class SVariableDeclarationList extends SDeclaration {
     return SVariableDeclarationList(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?),
+      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
       variables: (json['variables'] as List?)
               ?.map((v) =>
                   SVariableDeclaration.fromJson(v as Map<String, dynamic>))
@@ -1063,13 +1063,13 @@ class SConstructorDeclaration extends SClassMember with SNamedDeclaration {
   final SFormalParameterList? parameters;
 
   /// Initializers
-  final List<SAstNode> initializers;
+  final List<SConstructorInitializer> initializers;
 
   /// Redirect to another constructor
   final SConstructorName? redirectedConstructor;
 
   /// Function body
-  final SAstNode? body;
+  final SFunctionBody? body;
 
   SConstructorDeclaration({
     required this.offset,
@@ -1130,12 +1130,12 @@ class SConstructorDeclaration extends SClassMember with SNamedDeclaration {
               json['parameters'] as Map<String, dynamic>)
           : null,
       initializers:
-          SAstNodeFactory.listFromJson(json['initializers'] as List?),
+          SAstNodeFactory.listFromJson<SConstructorInitializer>(json['initializers'] as List?),
       redirectedConstructor: json['redirectedConstructor'] != null
           ? SConstructorName.fromJson(
               json['redirectedConstructor'] as Map<String, dynamic>)
           : null,
-      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?),
+      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?) as SFunctionBody?,
     );
   }
 
@@ -1174,7 +1174,7 @@ class STypedefDeclaration extends SNamedCompilationUnitMember with SNamedDeclara
   final List<SAnnotation> metadata;
 
   final STypeParameterList? typeParameters;
-  final SAstNode? type;
+  final STypeAnnotation? type;
 
   STypedefDeclaration({
     required this.offset,
@@ -1214,7 +1214,7 @@ class STypedefDeclaration extends SNamedCompilationUnitMember with SNamedDeclara
           ? STypeParameterList.fromJson(
               json['typeParameters'] as Map<String, dynamic>)
           : null,
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?),
+      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
     );
   }
 
@@ -1252,13 +1252,13 @@ class SExtensionTypeDeclaration extends SNamedCompilationUnitMember with SNamedD
   final STypeParameterList? typeParameters;
 
   /// The representation declaration (e.g., `int value`)
-  final SAstNode representation;
+  final SRepresentationDeclaration representation;
 
   /// Optional implements clause
   final SImplementsClause? implementsClause;
 
   /// Members (methods, getters, etc.)
-  final List<SAstNode> members;
+  final List<SClassMember> members;
 
   /// Whether declared with `const` keyword
   final bool isConst;
@@ -1309,12 +1309,12 @@ class SExtensionTypeDeclaration extends SNamedCompilationUnitMember with SNamedD
               json['typeParameters'] as Map<String, dynamic>)
           : null,
       representation: SAstNodeFactory.fromJson(
-          json['representation'] as Map<String, dynamic>?)!,
+          json['representation'] as Map<String, dynamic>?) as SRepresentationDeclaration,
       implementsClause: json['implementsClause'] != null
           ? SImplementsClause.fromJson(
               json['implementsClause'] as Map<String, dynamic>)
           : null,
-      members: SAstNodeFactory.listFromJson(json['members'] as List?),
+      members: SAstNodeFactory.listFromJson<SClassMember>(json['members'] as List?),
       isConst: json['isConst'] as bool? ?? false,
     );
   }
@@ -1352,7 +1352,7 @@ class SRepresentationDeclaration extends SAstNode {
   final String fieldName;
 
   /// Type annotation of the representation field
-  final SAstNode fieldType;
+  final STypeAnnotation fieldType;
 
   SRepresentationDeclaration({
     required this.offset,
@@ -1379,7 +1379,7 @@ class SRepresentationDeclaration extends SAstNode {
       length: json['length'] as int,
       fieldName: json['fieldName'] as String,
       fieldType:
-          SAstNodeFactory.fromJson(json['fieldType'] as Map<String, dynamic>?)!,
+          SAstNodeFactory.fromJson(json['fieldType'] as Map<String, dynamic>?) as STypeAnnotation,
     );
   }
 

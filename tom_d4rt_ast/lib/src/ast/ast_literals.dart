@@ -203,7 +203,7 @@ class SStringInterpolation extends SSingleStringLiteral {
   @override
   final int length;
 
-  final List<SAstNode> elements;
+  final List<SInterpolationElement> elements;
   @override
   final bool isMultiline;
   @override
@@ -234,7 +234,7 @@ class SStringInterpolation extends SSingleStringLiteral {
     return SStringInterpolation(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      elements: SAstNodeFactory.listFromJson(json['elements'] as List?),
+      elements: SAstNodeFactory.listFromJson<SInterpolationElement>(json['elements'] as List?),
       isMultiline: json['isMultiline'] as bool? ?? false,
       isRaw: json['isRaw'] as bool? ?? false,
     );
@@ -261,7 +261,7 @@ class SInterpolationExpression extends SInterpolationElement {
   @override
   final int length;
 
-  final SAstNode? expression;
+  final SExpression? expression;
 
   SInterpolationExpression({
     required this.offset,
@@ -285,7 +285,7 @@ class SInterpolationExpression extends SInterpolationElement {
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
     );
   }
 
@@ -346,7 +346,7 @@ class SAdjacentStrings extends SStringLiteral {
   @override
   final int length;
 
-  final List<SAstNode> strings;
+  final List<SStringLiteral> strings;
 
   SAdjacentStrings({
     required this.offset,
@@ -369,7 +369,7 @@ class SAdjacentStrings extends SStringLiteral {
     return SAdjacentStrings(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      strings: SAstNodeFactory.listFromJson(json['strings'] as List?),
+      strings: SAstNodeFactory.listFromJson<SStringLiteral>(json['strings'] as List?),
     );
   }
 
@@ -438,7 +438,7 @@ class SListLiteral extends STypedLiteral {
 
   @override
   final STypeArgumentList? typeArguments;
-  final List<SAstNode> elements;
+  final List<SCollectionElement> elements;
   @override
   final bool isConst;
 
@@ -471,7 +471,7 @@ class SListLiteral extends STypedLiteral {
           ? STypeArgumentList.fromJson(
               json['typeArguments'] as Map<String, dynamic>)
           : null,
-      elements: SAstNodeFactory.listFromJson(json['elements'] as List?),
+      elements: SAstNodeFactory.listFromJson<SCollectionElement>(json['elements'] as List?),
       isConst: json['isConst'] as bool? ?? false,
     );
   }
@@ -496,7 +496,7 @@ class SSetOrMapLiteral extends STypedLiteral {
 
   @override
   final STypeArgumentList? typeArguments;
-  final List<SAstNode> elements;
+  final List<SCollectionElement> elements;
   @override
   final bool isConst;
   final bool isMap;
@@ -535,7 +535,7 @@ class SSetOrMapLiteral extends STypedLiteral {
           ? STypeArgumentList.fromJson(
               json['typeArguments'] as Map<String, dynamic>)
           : null,
-      elements: SAstNodeFactory.listFromJson(json['elements'] as List?),
+      elements: SAstNodeFactory.listFromJson<SCollectionElement>(json['elements'] as List?),
       isConst: json['isConst'] as bool? ?? false,
       isMap: json['isMap'] as bool? ?? false,
       isSet: json['isSet'] as bool? ?? false,
@@ -560,8 +560,8 @@ class SMapLiteralEntry extends SCollectionElement {
   @override
   final int length;
 
-  final SAstNode? key;
-  final SAstNode? value;
+  final SExpression? key;
+  final SExpression? value;
 
   SMapLiteralEntry({
     required this.offset,
@@ -586,8 +586,8 @@ class SMapLiteralEntry extends SCollectionElement {
     return SMapLiteralEntry(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      key: SAstNodeFactory.fromJson(json['key'] as Map<String, dynamic>?),
-      value: SAstNodeFactory.fromJson(json['value'] as Map<String, dynamic>?),
+      key: SAstNodeFactory.fromJson(json['key'] as Map<String, dynamic>?) as SExpression?,
+      value: SAstNodeFactory.fromJson(json['value'] as Map<String, dynamic>?) as SExpression?,
     );
   }
 
@@ -655,7 +655,7 @@ class SRecordLiteral extends SLiteral {
   @override
   final int length;
 
-  final List<SAstNode> fields;
+  final List<SExpression> fields;
   final bool isConst;
 
   SRecordLiteral({
@@ -681,7 +681,7 @@ class SRecordLiteral extends SLiteral {
     return SRecordLiteral(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      fields: SAstNodeFactory.listFromJson(json['fields'] as List?),
+      fields: SAstNodeFactory.listFromJson<SExpression>(json['fields'] as List?),
       isConst: json['isConst'] as bool? ?? false,
     );
   }

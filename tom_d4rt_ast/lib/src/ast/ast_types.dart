@@ -17,7 +17,7 @@ class SNamedType extends STypeAnnotation {
   final STypeArgumentList? typeArguments;
   @override
   final bool isNullable;
-  final SAstNode? importPrefix;
+  final SSimpleIdentifier? importPrefix;
 
   SNamedType({
     required this.offset,
@@ -55,7 +55,7 @@ class SNamedType extends STypeAnnotation {
           : null,
       isNullable: json['isNullable'] as bool? ?? false,
       importPrefix: SAstNodeFactory.fromJson(
-          json['importPrefix'] as Map<String, dynamic>?),
+          json['importPrefix'] as Map<String, dynamic>?) as SSimpleIdentifier?,
     );
   }
 
@@ -80,7 +80,7 @@ class SGenericFunctionType extends STypeAnnotation {
   @override
   final int length;
 
-  final SAstNode? returnType;
+  final STypeAnnotation? returnType;
   final STypeParameterList? typeParameters;
   final SFormalParameterList? parameters;
   @override
@@ -114,7 +114,7 @@ class SGenericFunctionType extends STypeAnnotation {
       offset: json['offset'] as int,
       length: json['length'] as int,
       returnType:
-          SAstNodeFactory.fromJson(json['returnType'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['returnType'] as Map<String, dynamic>?) as STypeAnnotation?,
       typeParameters: json['typeParameters'] != null
           ? STypeParameterList.fromJson(
               json['typeParameters'] as Map<String, dynamic>)
@@ -148,7 +148,7 @@ class STypeArgumentList extends SAstNode {
   @override
   final int length;
 
-  final List<SAstNode> arguments;
+  final List<STypeAnnotation> arguments;
 
   STypeArgumentList({
     required this.offset,
@@ -171,7 +171,7 @@ class STypeArgumentList extends SAstNode {
     return STypeArgumentList(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      arguments: SAstNodeFactory.listFromJson(json['arguments'] as List?),
+      arguments: SAstNodeFactory.listFromJson<STypeAnnotation>(json['arguments'] as List?),
     );
   }
 
@@ -240,7 +240,7 @@ class STypeParameter extends SDeclaration {
   final int length;
 
   final SSimpleIdentifier? name;
-  final SAstNode? bound;
+  final STypeAnnotation? bound;
   @override
   final List<SAnnotation> metadata;
 
@@ -272,7 +272,7 @@ class STypeParameter extends SDeclaration {
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      bound: SAstNodeFactory.fromJson(json['bound'] as Map<String, dynamic>?),
+      bound: SAstNodeFactory.fromJson(json['bound'] as Map<String, dynamic>?) as STypeAnnotation?,
       metadata: (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
@@ -364,7 +364,7 @@ class SFormalParameterList extends SAstNode {
   @override
   final int length;
 
-  final List<SAstNode> parameters;
+  final List<SFormalParameter> parameters;
 
   SFormalParameterList({
     required this.offset,
@@ -387,7 +387,7 @@ class SFormalParameterList extends SAstNode {
     return SFormalParameterList(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      parameters: SAstNodeFactory.listFromJson(json['parameters'] as List?),
+      parameters: SAstNodeFactory.listFromJson<SFormalParameter>(json['parameters'] as List?),
     );
   }
 
@@ -409,7 +409,7 @@ class SSimpleFormalParameter extends SNormalFormalParameter {
   final int length;
 
   final SSimpleIdentifier? name;
-  final SAstNode? type;
+  final STypeAnnotation? type;
   final List<SAnnotation> metadata;
   final bool isConst;
   final bool isFinal;
@@ -467,7 +467,7 @@ class SSimpleFormalParameter extends SNormalFormalParameter {
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?),
+      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
       metadata: (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
@@ -500,8 +500,8 @@ class SDefaultFormalParameter extends SFormalParameter {
   @override
   final int length;
 
-  final SAstNode? parameter;
-  final SAstNode? defaultValue;
+  final SNormalFormalParameter? parameter;
+  final SExpression? defaultValue;
   @override
   final bool isPositional;
   @override
@@ -544,9 +544,9 @@ class SDefaultFormalParameter extends SFormalParameter {
       offset: json['offset'] as int,
       length: json['length'] as int,
       parameter:
-          SAstNodeFactory.fromJson(json['parameter'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['parameter'] as Map<String, dynamic>?) as SNormalFormalParameter?,
       defaultValue: SAstNodeFactory.fromJson(
-          json['defaultValue'] as Map<String, dynamic>?),
+          json['defaultValue'] as Map<String, dynamic>?) as SExpression?,
       isPositional: json['isPositional'] as bool? ?? true,
       isNamed: json['isNamed'] as bool? ?? false,
     );
@@ -569,7 +569,7 @@ class SFieldFormalParameter extends SNormalFormalParameter {
   final int length;
 
   final SSimpleIdentifier? name;
-  final SAstNode? type;
+  final STypeAnnotation? type;
   final SFormalParameterList? parameters;
   final List<SAnnotation> metadata;
   final bool isConst;
@@ -625,7 +625,7 @@ class SFieldFormalParameter extends SNormalFormalParameter {
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?),
+      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
       parameters: json['parameters'] != null
           ? SFormalParameterList.fromJson(
               json['parameters'] as Map<String, dynamic>)
@@ -661,7 +661,7 @@ class SFunctionTypedFormalParameter extends SNormalFormalParameter {
   final int length;
 
   final SSimpleIdentifier? name;
-  final SAstNode? returnType;
+  final STypeAnnotation? returnType;
   final STypeParameterList? typeParameters;
   final SFormalParameterList? parameters;
   final List<SAnnotation> metadata;
@@ -715,7 +715,7 @@ class SFunctionTypedFormalParameter extends SNormalFormalParameter {
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
       returnType:
-          SAstNodeFactory.fromJson(json['returnType'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['returnType'] as Map<String, dynamic>?) as STypeAnnotation?,
       typeParameters: json['typeParameters'] != null
           ? STypeParameterList.fromJson(
               json['typeParameters'] as Map<String, dynamic>)
@@ -754,7 +754,7 @@ class SSuperFormalParameter extends SNormalFormalParameter {
   final int length;
 
   final SSimpleIdentifier? name;
-  final SAstNode? type;
+  final STypeAnnotation? type;
   final STypeParameterList? typeParameters;
   final SFormalParameterList? parameters;
   final List<SAnnotation> metadata;
@@ -807,7 +807,7 @@ class SSuperFormalParameter extends SNormalFormalParameter {
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?),
+      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
       typeParameters: json['typeParameters'] != null
           ? STypeParameterList.fromJson(
               json['typeParameters'] as Map<String, dynamic>)
@@ -905,7 +905,7 @@ class SExpressionFunctionBody extends SFunctionBody {
   @override
   final int length;
 
-  final SAstNode? expression;
+  final SExpression? expression;
   final bool isAsync;
 
   @override
@@ -938,7 +938,7 @@ class SExpressionFunctionBody extends SFunctionBody {
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
       isAsync: json['isAsync'] as bool? ?? false,
     );
   }
@@ -999,7 +999,7 @@ class SNativeFunctionBody extends SFunctionBody {
   @override
   final int length;
 
-  final SAstNode? stringLiteral;
+  final SStringLiteral? stringLiteral;
 
   @override
   bool get isAsynchronous => false;
@@ -1029,7 +1029,7 @@ class SNativeFunctionBody extends SFunctionBody {
       offset: json['offset'] as int,
       length: json['length'] as int,
       stringLiteral: SAstNodeFactory.fromJson(
-          json['stringLiteral'] as Map<String, dynamic>?),
+          json['stringLiteral'] as Map<String, dynamic>?) as SStringLiteral?,
     );
   }
 

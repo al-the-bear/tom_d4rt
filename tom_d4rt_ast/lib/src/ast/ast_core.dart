@@ -466,10 +466,10 @@ class SCompilationUnit extends SAstNode {
   final String? scriptTag;
 
   /// Directives (imports, exports, parts, library)
-  final List<SAstNode> directives;
+  final List<SDirective> directives;
 
   /// Declarations (classes, functions, variables, etc.)
-  final List<SAstNode> declarations;
+  final List<SDeclaration> declarations;
 
   /// Comments in the file
   final List<SComment> comments;
@@ -502,8 +502,8 @@ class SCompilationUnit extends SAstNode {
       offset: json['offset'] as int,
       length: json['length'] as int,
       scriptTag: json['scriptTag'] as String?,
-      directives: SAstNodeFactory.listFromJson(json['directives'] as List?),
-      declarations: SAstNodeFactory.listFromJson(json['declarations'] as List?),
+      directives: SAstNodeFactory.listFromJson<SDirective>(json['directives'] as List?),
+      declarations: SAstNodeFactory.listFromJson<SDeclaration>(json['declarations'] as List?),
       comments: (json['comments'] as List?)
               ?.map((c) => SComment.fromJson(c as Map<String, dynamic>))
               .toList() ??

@@ -125,9 +125,9 @@ class SBinaryExpression extends SExpression {
   @override
   final int length;
 
-  final SAstNode? leftOperand;
+  final SExpression? leftOperand;
   final String operator;
-  final SAstNode? rightOperand;
+  final SExpression? rightOperand;
 
   SBinaryExpression({
     required this.offset,
@@ -155,10 +155,10 @@ class SBinaryExpression extends SExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       leftOperand: SAstNodeFactory.fromJson(
-          json['leftOperand'] as Map<String, dynamic>?),
+          json['leftOperand'] as Map<String, dynamic>?) as SExpression?,
       operator: json['operator'] as String,
       rightOperand: SAstNodeFactory.fromJson(
-          json['rightOperand'] as Map<String, dynamic>?),
+          json['rightOperand'] as Map<String, dynamic>?) as SExpression?,
     );
   }
 
@@ -183,7 +183,7 @@ class SPrefixExpression extends SExpression {
   final int length;
 
   final String operator;
-  final SAstNode? operand;
+  final SExpression? operand;
 
   SPrefixExpression({
     required this.offset,
@@ -210,7 +210,7 @@ class SPrefixExpression extends SExpression {
       length: json['length'] as int,
       operator: json['operator'] as String,
       operand:
-          SAstNodeFactory.fromJson(json['operand'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['operand'] as Map<String, dynamic>?) as SExpression?,
     );
   }
 
@@ -233,7 +233,7 @@ class SPostfixExpression extends SExpression {
   @override
   final int length;
 
-  final SAstNode? operand;
+  final SExpression? operand;
   final String operator;
 
   SPostfixExpression({
@@ -260,7 +260,7 @@ class SPostfixExpression extends SExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       operand:
-          SAstNodeFactory.fromJson(json['operand'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['operand'] as Map<String, dynamic>?) as SExpression?,
       operator: json['operator'] as String,
     );
   }
@@ -284,9 +284,9 @@ class SConditionalExpression extends SExpression {
   @override
   final int length;
 
-  final SAstNode? condition;
-  final SAstNode? thenExpression;
-  final SAstNode? elseExpression;
+  final SExpression? condition;
+  final SExpression? thenExpression;
+  final SExpression? elseExpression;
 
   SConditionalExpression({
     required this.offset,
@@ -314,11 +314,11 @@ class SConditionalExpression extends SExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
       thenExpression: SAstNodeFactory.fromJson(
-          json['thenExpression'] as Map<String, dynamic>?),
+          json['thenExpression'] as Map<String, dynamic>?) as SExpression?,
       elseExpression: SAstNodeFactory.fromJson(
-          json['elseExpression'] as Map<String, dynamic>?),
+          json['elseExpression'] as Map<String, dynamic>?) as SExpression?,
     );
   }
 
@@ -343,9 +343,9 @@ class SAssignmentExpression extends SExpression {
   @override
   final int length;
 
-  final SAstNode? leftHandSide;
+  final SExpression? leftHandSide;
   final String operator;
-  final SAstNode? rightHandSide;
+  final SExpression? rightHandSide;
 
   SAssignmentExpression({
     required this.offset,
@@ -373,10 +373,10 @@ class SAssignmentExpression extends SExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       leftHandSide: SAstNodeFactory.fromJson(
-          json['leftHandSide'] as Map<String, dynamic>?),
+          json['leftHandSide'] as Map<String, dynamic>?) as SExpression?,
       operator: json['operator'] as String,
       rightHandSide: SAstNodeFactory.fromJson(
-          json['rightHandSide'] as Map<String, dynamic>?),
+          json['rightHandSide'] as Map<String, dynamic>?) as SExpression?,
     );
   }
 
@@ -400,7 +400,7 @@ class SMethodInvocation extends SInvocationExpression {
   @override
   final int length;
 
-  final SAstNode? target;
+  final SExpression? target;
   final String? operator;
   final SSimpleIdentifier? methodName;
   final STypeArgumentList? typeArguments;
@@ -437,7 +437,7 @@ class SMethodInvocation extends SInvocationExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       target:
-          SAstNodeFactory.fromJson(json['target'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['target'] as Map<String, dynamic>?) as SExpression?,
       operator: json['operator'] as String?,
       methodName: json['methodName'] != null
           ? SSimpleIdentifier.fromJson(
@@ -475,7 +475,7 @@ class SFunctionExpressionInvocation extends SInvocationExpression {
   @override
   final int length;
 
-  final SAstNode? function;
+  final SExpression? function;
   final STypeArgumentList? typeArguments;
   @override
   final SArgumentList? argumentList;
@@ -506,7 +506,7 @@ class SFunctionExpressionInvocation extends SInvocationExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       function:
-          SAstNodeFactory.fromJson(json['function'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['function'] as Map<String, dynamic>?) as SExpression?,
       typeArguments: json['typeArguments'] != null
           ? STypeArgumentList.fromJson(
               json['typeArguments'] as Map<String, dynamic>)
@@ -538,8 +538,8 @@ class SIndexExpression extends SExpression {
   @override
   final int length;
 
-  final SAstNode? target;
-  final SAstNode? index;
+  final SExpression? target;
+  final SExpression? index;
   final bool isCascaded;
   final bool isNullAware;
 
@@ -571,8 +571,8 @@ class SIndexExpression extends SExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       target:
-          SAstNodeFactory.fromJson(json['target'] as Map<String, dynamic>?),
-      index: SAstNodeFactory.fromJson(json['index'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['target'] as Map<String, dynamic>?) as SExpression?,
+      index: SAstNodeFactory.fromJson(json['index'] as Map<String, dynamic>?) as SExpression?,
       isCascaded: json['isCascaded'] as bool? ?? false,
       isNullAware: json['isNullAware'] as bool? ?? false,
     );
@@ -598,7 +598,7 @@ class SPropertyAccess extends SExpression {
   @override
   final int length;
 
-  final SAstNode? target;
+  final SExpression? target;
   final String? operator;
   final SSimpleIdentifier? propertyName;
 
@@ -628,7 +628,7 @@ class SPropertyAccess extends SExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       target:
-          SAstNodeFactory.fromJson(json['target'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['target'] as Map<String, dynamic>?) as SExpression?,
       operator: json['operator'] as String?,
       propertyName: json['propertyName'] != null
           ? SSimpleIdentifier.fromJson(
@@ -657,7 +657,7 @@ class SParenthesizedExpression extends SExpression {
   @override
   final int length;
 
-  final SAstNode? expression;
+  final SExpression? expression;
 
   SParenthesizedExpression({
     required this.offset,
@@ -681,7 +681,7 @@ class SParenthesizedExpression extends SExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
     );
   }
 
@@ -706,7 +706,7 @@ class SFunctionExpression extends SExpression {
 
   final STypeParameterList? typeParameters;
   final SFormalParameterList? parameters;
-  final SAstNode? body;
+  final SFunctionBody? body;
 
   SFunctionExpression({
     required this.offset,
@@ -741,7 +741,7 @@ class SFunctionExpression extends SExpression {
           ? SFormalParameterList.fromJson(
               json['parameters'] as Map<String, dynamic>)
           : null,
-      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?),
+      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?) as SFunctionBody?,
     );
   }
 
@@ -901,7 +901,7 @@ class SThrowExpression extends SExpression {
   @override
   final int length;
 
-  final SAstNode? expression;
+  final SExpression? expression;
 
   SThrowExpression({
     required this.offset,
@@ -925,7 +925,7 @@ class SThrowExpression extends SExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
     );
   }
 
@@ -948,7 +948,7 @@ class SAwaitExpression extends SExpression {
   @override
   final int length;
 
-  final SAstNode? expression;
+  final SExpression? expression;
 
   SAwaitExpression({
     required this.offset,
@@ -972,7 +972,7 @@ class SAwaitExpression extends SExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
     );
   }
 
@@ -995,8 +995,8 @@ class SAsExpression extends SExpression {
   @override
   final int length;
 
-  final SAstNode? expression;
-  final SAstNode? type;
+  final SExpression? expression;
+  final STypeAnnotation? type;
 
   SAsExpression({
     required this.offset,
@@ -1022,8 +1022,8 @@ class SAsExpression extends SExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
+      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
     );
   }
 
@@ -1043,9 +1043,9 @@ class SIsExpression extends SExpression {
   @override
   final int length;
 
-  final SAstNode? expression;
+  final SExpression? expression;
   final bool isNot;
-  final SAstNode? type;
+  final STypeAnnotation? type;
 
   SIsExpression({
     required this.offset,
@@ -1073,9 +1073,9 @@ class SIsExpression extends SExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
       isNot: json['isNot'] as bool? ?? false,
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?),
+      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
     );
   }
 
@@ -1099,8 +1099,8 @@ class SCascadeExpression extends SExpression {
   @override
   final int length;
 
-  final SAstNode? target;
-  final List<SAstNode> cascadeSections;
+  final SExpression? target;
+  final List<SExpression> cascadeSections;
   final bool isNullAware;
 
   SCascadeExpression({
@@ -1130,9 +1130,9 @@ class SCascadeExpression extends SExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       target:
-          SAstNodeFactory.fromJson(json['target'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['target'] as Map<String, dynamic>?) as SExpression?,
       cascadeSections:
-          SAstNodeFactory.listFromJson(json['cascadeSections'] as List?),
+          SAstNodeFactory.listFromJson<SExpression>(json['cascadeSections'] as List?),
       isNullAware: json['isNullAware'] as bool? ?? false,
     );
   }
@@ -1199,7 +1199,7 @@ class SNamedExpression extends SExpression {
   final int length;
 
   final SLabel? name;
-  final SAstNode? expression;
+  final SExpression? expression;
 
   SNamedExpression({
     required this.offset,
@@ -1228,7 +1228,7 @@ class SNamedExpression extends SExpression {
           ? SLabel.fromJson(json['name'] as Map<String, dynamic>)
           : null,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
     );
   }
 
@@ -1252,7 +1252,7 @@ class SSpreadElement extends SCollectionElement {
   @override
   final int length;
 
-  final SAstNode? expression;
+  final SExpression? expression;
   final bool isNullAware;
 
   SSpreadElement({
@@ -1279,7 +1279,7 @@ class SSpreadElement extends SCollectionElement {
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
       isNullAware: json['isNullAware'] as bool? ?? false,
     );
   }
@@ -1299,9 +1299,9 @@ class SIfElement extends SCollectionElement {
   @override
   final int length;
 
-  final SAstNode? condition;
-  final SAstNode? thenElement;
-  final SAstNode? elseElement;
+  final SExpression? condition;
+  final SCollectionElement? thenElement;
+  final SCollectionElement? elseElement;
 
   SIfElement({
     required this.offset,
@@ -1329,11 +1329,11 @@ class SIfElement extends SCollectionElement {
       offset: json['offset'] as int,
       length: json['length'] as int,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
       thenElement: SAstNodeFactory.fromJson(
-          json['thenElement'] as Map<String, dynamic>?),
+          json['thenElement'] as Map<String, dynamic>?) as SCollectionElement?,
       elseElement: SAstNodeFactory.fromJson(
-          json['elseElement'] as Map<String, dynamic>?),
+          json['elseElement'] as Map<String, dynamic>?) as SCollectionElement?,
     );
   }
 
@@ -1354,8 +1354,8 @@ class SForElement extends SCollectionElement {
   @override
   final int length;
 
-  final SAstNode? forLoopParts;
-  final SAstNode? body;
+  final SForLoopParts? forLoopParts;
+  final SCollectionElement? body;
 
   SForElement({
     required this.offset,
@@ -1381,8 +1381,8 @@ class SForElement extends SCollectionElement {
       offset: json['offset'] as int,
       length: json['length'] as int,
       forLoopParts: SAstNodeFactory.fromJson(
-          json['forLoopParts'] as Map<String, dynamic>?),
-      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?),
+          json['forLoopParts'] as Map<String, dynamic>?) as SForLoopParts?,
+      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?) as SCollectionElement?,
     );
   }
 
@@ -1408,10 +1408,10 @@ class SSwitchExpression extends SExpression {
   final int length;
 
   /// The expression being switched on
-  final SAstNode expression;
+  final SExpression expression;
 
   /// The cases (list of [SSwitchExpressionCase])
-  final List<SAstNode> cases;
+  final List<SSwitchExpressionCase> cases;
 
   SSwitchExpression({
     required this.offset,
@@ -1437,8 +1437,8 @@ class SSwitchExpression extends SExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)!,
-      cases: SAstNodeFactory.listFromJson(json['cases'] as List?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression,
+      cases: SAstNodeFactory.listFromJson<SSwitchExpressionCase>(json['cases'] as List?),
     );
   }
 
@@ -1466,10 +1466,10 @@ class SFunctionReference extends SExpression {
   final int length;
 
   /// The function expression (identifier, property access, etc.)
-  final SAstNode function;
+  final SExpression function;
 
   /// Optional explicit type arguments
-  final SAstNode? typeArguments;
+  final STypeArgumentList? typeArguments;
 
   SFunctionReference({
     required this.offset,
@@ -1495,9 +1495,9 @@ class SFunctionReference extends SExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       function:
-          SAstNodeFactory.fromJson(json['function'] as Map<String, dynamic>?)!,
+          SAstNodeFactory.fromJson(json['function'] as Map<String, dynamic>?) as SExpression,
       typeArguments: SAstNodeFactory.fromJson(
-          json['typeArguments'] as Map<String, dynamic>?),
+          json['typeArguments'] as Map<String, dynamic>?) as STypeArgumentList?,
     );
   }
 
@@ -1523,7 +1523,7 @@ class SConstructorReference extends SExpression {
   final int length;
 
   /// The constructor name (includes type and optional named constructor)
-  final SAstNode constructorName;
+  final SConstructorName constructorName;
 
   SConstructorReference({
     required this.offset,
@@ -1547,7 +1547,7 @@ class SConstructorReference extends SExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       constructorName: SAstNodeFactory.fromJson(
-          json['constructorName'] as Map<String, dynamic>?)!,
+          json['constructorName'] as Map<String, dynamic>?) as SConstructorName,
     );
   }
 
@@ -1572,10 +1572,10 @@ class SPatternAssignment extends SExpression {
   final int length;
 
   /// The pattern (left side)
-  final SAstNode pattern;
+  final SDartPattern pattern;
 
   /// The expression (right side)
-  final SAstNode expression;
+  final SExpression expression;
 
   SPatternAssignment({
     required this.offset,
@@ -1601,9 +1601,9 @@ class SPatternAssignment extends SExpression {
       offset: json['offset'] as int,
       length: json['length'] as int,
       pattern:
-          SAstNodeFactory.fromJson(json['pattern'] as Map<String, dynamic>?)!,
+          SAstNodeFactory.fromJson(json['pattern'] as Map<String, dynamic>?) as SDartPattern,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)!,
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression,
     );
   }
 

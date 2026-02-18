@@ -15,9 +15,9 @@ class SImportDirective extends SNamespaceDirective {
 
   @override
   final List<SAnnotation> metadata;
-  final SAstNode? uri;
+  final SStringLiteral? uri;
   final SSimpleIdentifier? prefix;
-  final List<SAstNode> combinators;
+  final List<SCombinator> combinators;
   final bool isDeferred;
 
   SImportDirective({
@@ -53,11 +53,11 @@ class SImportDirective extends SNamespaceDirective {
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      uri: SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?),
+      uri: SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?) as SStringLiteral?,
       prefix: json['prefix'] != null
           ? SSimpleIdentifier.fromJson(json['prefix'] as Map<String, dynamic>)
           : null,
-      combinators: SAstNodeFactory.listFromJson(json['combinators'] as List?),
+      combinators: SAstNodeFactory.listFromJson<SCombinator>(json['combinators'] as List?),
       isDeferred: json['isDeferred'] as bool? ?? false,
     );
   }
@@ -90,8 +90,8 @@ class SExportDirective extends SNamespaceDirective {
 
   @override
   final List<SAnnotation> metadata;
-  final SAstNode? uri;
-  final List<SAstNode> combinators;
+  final SStringLiteral? uri;
+  final List<SCombinator> combinators;
 
   SExportDirective({
     required this.offset,
@@ -122,8 +122,8 @@ class SExportDirective extends SNamespaceDirective {
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      uri: SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?),
-      combinators: SAstNodeFactory.listFromJson(json['combinators'] as List?),
+      uri: SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?) as SStringLiteral?,
+      combinators: SAstNodeFactory.listFromJson<SCombinator>(json['combinators'] as List?),
     );
   }
 
@@ -154,7 +154,7 @@ class SPartDirective extends SUriBasedDirective {
 
   @override
   final List<SAnnotation> metadata;
-  final SAstNode? uri;
+  final SStringLiteral? uri;
 
   SPartDirective({
     required this.offset,
@@ -183,7 +183,7 @@ class SPartDirective extends SUriBasedDirective {
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      uri: SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?),
+      uri: SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?) as SStringLiteral?,
     );
   }
 
@@ -207,8 +207,8 @@ class SPartOfDirective extends SDirective {
 
   @override
   final List<SAnnotation> metadata;
-  final SAstNode? uri;
-  final SAstNode? libraryName;
+  final SStringLiteral? uri;
+  final SIdentifier? libraryName;
 
   SPartOfDirective({
     required this.offset,
@@ -239,9 +239,9 @@ class SPartOfDirective extends SDirective {
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      uri: SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?),
+      uri: SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?) as SStringLiteral?,
       libraryName:
-          SAstNodeFactory.fromJson(json['libraryName'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['libraryName'] as Map<String, dynamic>?) as SIdentifier?,
     );
   }
 
@@ -270,7 +270,7 @@ class SLibraryDirective extends SDirective {
 
   @override
   final List<SAnnotation> metadata;
-  final SAstNode? name;
+  final SIdentifier? name;
 
   SLibraryDirective({
     required this.offset,
@@ -299,7 +299,7 @@ class SLibraryDirective extends SDirective {
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      name: SAstNodeFactory.fromJson(json['name'] as Map<String, dynamic>?),
+      name: SAstNodeFactory.fromJson(json['name'] as Map<String, dynamic>?) as SIdentifier?,
     );
   }
 

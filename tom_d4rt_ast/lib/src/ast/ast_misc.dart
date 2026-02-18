@@ -13,7 +13,7 @@ class SArgumentList extends SAstNode {
   @override
   final int length;
 
-  final List<SAstNode> arguments;
+  final List<SExpression> arguments;
 
   SArgumentList({
     required this.offset,
@@ -36,7 +36,7 @@ class SArgumentList extends SAstNode {
     return SArgumentList(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      arguments: SAstNodeFactory.listFromJson(json['arguments'] as List?),
+      arguments: SAstNodeFactory.listFromJson<SExpression>(json['arguments'] as List?),
     );
   }
 
@@ -577,7 +577,7 @@ class SConstructorFieldInitializer extends SConstructorInitializer {
   final int length;
 
   final SSimpleIdentifier? fieldName;
-  final SAstNode? expression;
+  final SExpression? expression;
 
   SConstructorFieldInitializer({
     required this.offset,
@@ -607,7 +607,7 @@ class SConstructorFieldInitializer extends SConstructorInitializer {
               json['fieldName'] as Map<String, dynamic>)
           : null,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
     );
   }
 
@@ -627,8 +627,8 @@ class SAssertInitializer extends SConstructorInitializer {
   @override
   final int length;
 
-  final SAstNode? condition;
-  final SAstNode? message;
+  final SExpression? condition;
+  final SExpression? message;
 
   SAssertInitializer({
     required this.offset,
@@ -654,9 +654,9 @@ class SAssertInitializer extends SConstructorInitializer {
       offset: json['offset'] as int,
       length: json['length'] as int,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
       message:
-          SAstNodeFactory.fromJson(json['message'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['message'] as Map<String, dynamic>?) as SExpression?,
     );
   }
 

@@ -13,7 +13,7 @@ class SBlock extends SStatement {
   @override
   final int length;
 
-  final List<SAstNode> statements;
+  final List<SStatement> statements;
 
   SBlock({
     required this.offset,
@@ -36,7 +36,7 @@ class SBlock extends SStatement {
     return SBlock(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      statements: SAstNodeFactory.listFromJson(json['statements'] as List?),
+      statements: SAstNodeFactory.listFromJson<SStatement>(json['statements'] as List?),
     );
   }
 
@@ -111,7 +111,7 @@ class SExpressionStatement extends SStatement {
   @override
   final int length;
 
-  final SAstNode? expression;
+  final SExpression? expression;
 
   SExpressionStatement({
     required this.offset,
@@ -135,7 +135,7 @@ class SExpressionStatement extends SStatement {
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
     );
   }
 
@@ -159,7 +159,7 @@ class SReturnStatement extends SStatement {
   @override
   final int length;
 
-  final SAstNode? expression;
+  final SExpression? expression;
 
   SReturnStatement({
     required this.offset,
@@ -183,7 +183,7 @@ class SReturnStatement extends SStatement {
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
     );
   }
 
@@ -207,12 +207,12 @@ class SIfStatement extends SStatement {
   @override
   final int length;
 
-  final SAstNode? condition;
-  final SAstNode? thenStatement;
-  final SAstNode? elseStatement;
+  final SExpression? condition;
+  final SStatement? thenStatement;
+  final SStatement? elseStatement;
   
   /// Whether this uses case pattern (if-case)
-  final SAstNode? caseClause;
+  final SCaseClause? caseClause;
 
   SIfStatement({
     required this.offset,
@@ -242,13 +242,13 @@ class SIfStatement extends SStatement {
       offset: json['offset'] as int,
       length: json['length'] as int,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
       thenStatement: SAstNodeFactory.fromJson(
-          json['thenStatement'] as Map<String, dynamic>?),
+          json['thenStatement'] as Map<String, dynamic>?) as SStatement?,
       elseStatement: SAstNodeFactory.fromJson(
-          json['elseStatement'] as Map<String, dynamic>?),
+          json['elseStatement'] as Map<String, dynamic>?) as SStatement?,
       caseClause:
-          SAstNodeFactory.fromJson(json['caseClause'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['caseClause'] as Map<String, dynamic>?) as SCaseClause?,
     );
   }
 
@@ -275,8 +275,8 @@ class SForStatement extends SStatement {
   final int length;
 
   /// For loop parts (initialization, condition, updaters)
-  final SAstNode? forLoopParts;
-  final SAstNode? body;
+  final SForLoopParts? forLoopParts;
+  final SStatement? body;
 
   SForStatement({
     required this.offset,
@@ -302,8 +302,8 @@ class SForStatement extends SStatement {
       offset: json['offset'] as int,
       length: json['length'] as int,
       forLoopParts: SAstNodeFactory.fromJson(
-          json['forLoopParts'] as Map<String, dynamic>?),
-      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?),
+          json['forLoopParts'] as Map<String, dynamic>?) as SForLoopParts?,
+      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?) as SStatement?,
     );
   }
 
@@ -325,8 +325,8 @@ class SForPartsWithDeclarations extends SForParts {
   final int length;
 
   final SVariableDeclarationList? variables;
-  final SAstNode? condition;
-  final List<SAstNode> updaters;
+  final SExpression? condition;
+  final List<SExpression> updaters;
 
   SForPartsWithDeclarations({
     required this.offset,
@@ -358,8 +358,8 @@ class SForPartsWithDeclarations extends SForParts {
               json['variables'] as Map<String, dynamic>)
           : null,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?),
-      updaters: SAstNodeFactory.listFromJson(json['updaters'] as List?),
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
+      updaters: SAstNodeFactory.listFromJson<SExpression>(json['updaters'] as List?),
     );
   }
 
@@ -384,9 +384,9 @@ class SForPartsWithExpression extends SForParts {
   @override
   final int length;
 
-  final SAstNode? initialization;
-  final SAstNode? condition;
-  final List<SAstNode> updaters;
+  final SExpression? initialization;
+  final SExpression? condition;
+  final List<SExpression> updaters;
 
   SForPartsWithExpression({
     required this.offset,
@@ -414,10 +414,10 @@ class SForPartsWithExpression extends SForParts {
       offset: json['offset'] as int,
       length: json['length'] as int,
       initialization: SAstNodeFactory.fromJson(
-          json['initialization'] as Map<String, dynamic>?),
+          json['initialization'] as Map<String, dynamic>?) as SExpression?,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?),
-      updaters: SAstNodeFactory.listFromJson(json['updaters'] as List?),
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
+      updaters: SAstNodeFactory.listFromJson<SExpression>(json['updaters'] as List?),
     );
   }
 
@@ -445,8 +445,8 @@ class SForEachStatement extends SStatement {
   @override
   final int length;
 
-  final SAstNode? forLoopParts;
-  final SAstNode? body;
+  final SForLoopParts? forLoopParts;
+  final SStatement? body;
 
   SForEachStatement({
     required this.offset,
@@ -472,8 +472,8 @@ class SForEachStatement extends SStatement {
       offset: json['offset'] as int,
       length: json['length'] as int,
       forLoopParts: SAstNodeFactory.fromJson(
-          json['forLoopParts'] as Map<String, dynamic>?),
-      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?),
+          json['forLoopParts'] as Map<String, dynamic>?) as SForLoopParts?,
+      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?) as SStatement?,
     );
   }
 
@@ -495,8 +495,8 @@ class SForEachPartsWithDeclaration extends SForEachParts {
   @override
   final int length;
 
-  final SAstNode? loopVariable;
-  final SAstNode? iterable;
+  final SDeclaredIdentifier? loopVariable;
+  final SExpression? iterable;
   final bool isAwait;
 
   SForEachPartsWithDeclaration({
@@ -525,9 +525,9 @@ class SForEachPartsWithDeclaration extends SForEachParts {
       offset: json['offset'] as int,
       length: json['length'] as int,
       loopVariable: SAstNodeFactory.fromJson(
-          json['loopVariable'] as Map<String, dynamic>?),
+          json['loopVariable'] as Map<String, dynamic>?) as SDeclaredIdentifier?,
       iterable:
-          SAstNodeFactory.fromJson(json['iterable'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['iterable'] as Map<String, dynamic>?) as SExpression?,
       isAwait: json['isAwait'] as bool? ?? false,
     );
   }
@@ -551,7 +551,7 @@ class SForEachPartsWithIdentifier extends SForEachParts {
   final int length;
 
   final SSimpleIdentifier? identifier;
-  final SAstNode? iterable;
+  final SExpression? iterable;
   final bool isAwait;
 
   SForEachPartsWithIdentifier({
@@ -584,7 +584,7 @@ class SForEachPartsWithIdentifier extends SForEachParts {
               json['identifier'] as Map<String, dynamic>)
           : null,
       iterable:
-          SAstNodeFactory.fromJson(json['iterable'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['iterable'] as Map<String, dynamic>?) as SExpression?,
       isAwait: json['isAwait'] as bool? ?? false,
     );
   }
@@ -609,7 +609,7 @@ class SDeclaredIdentifier extends SDeclaration {
 
   @override
   final List<SAnnotation> metadata;
-  final SAstNode? type;
+  final STypeAnnotation? type;
   final SSimpleIdentifier? identifier;
   final bool isFinal;
   final bool isConst;
@@ -647,7 +647,7 @@ class SDeclaredIdentifier extends SDeclaration {
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?),
+      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
       identifier: json['identifier'] != null
           ? SSimpleIdentifier.fromJson(
               json['identifier'] as Map<String, dynamic>)
@@ -681,8 +681,8 @@ class SWhileStatement extends SStatement {
   @override
   final int length;
 
-  final SAstNode? condition;
-  final SAstNode? body;
+  final SExpression? condition;
+  final SStatement? body;
 
   SWhileStatement({
     required this.offset,
@@ -708,8 +708,8 @@ class SWhileStatement extends SStatement {
       offset: json['offset'] as int,
       length: json['length'] as int,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?),
-      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
+      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?) as SStatement?,
     );
   }
 
@@ -733,8 +733,8 @@ class SDoStatement extends SStatement {
   @override
   final int length;
 
-  final SAstNode? body;
-  final SAstNode? condition;
+  final SStatement? body;
+  final SExpression? condition;
 
   SDoStatement({
     required this.offset,
@@ -759,9 +759,9 @@ class SDoStatement extends SStatement {
     return SDoStatement(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?),
+      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?) as SStatement?,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
     );
   }
 
@@ -785,8 +785,8 @@ class SSwitchStatement extends SStatement {
   @override
   final int length;
 
-  final SAstNode? expression;
-  final List<SAstNode> members;
+  final SExpression? expression;
+  final List<SSwitchMember> members;
 
   SSwitchStatement({
     required this.offset,
@@ -812,8 +812,8 @@ class SSwitchStatement extends SStatement {
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
-      members: SAstNodeFactory.listFromJson(json['members'] as List?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
+      members: SAstNodeFactory.listFromJson<SSwitchMember>(json['members'] as List?),
     );
   }
 
@@ -836,9 +836,9 @@ class SSwitchCase extends SSwitchMember {
   final int length;
 
   final List<SLabel> labels;
-  final SAstNode? expression;
+  final SExpression? expression;
   @override
-  final List<SAstNode> statements;
+  final List<SStatement> statements;
 
   SSwitchCase({
     required this.offset,
@@ -870,8 +870,8 @@ class SSwitchCase extends SSwitchMember {
               .toList() ??
           [],
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
-      statements: SAstNodeFactory.listFromJson(json['statements'] as List?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
+      statements: SAstNodeFactory.listFromJson<SStatement>(json['statements'] as List?),
     );
   }
 
@@ -898,7 +898,7 @@ class SSwitchDefault extends SSwitchMember {
 
   final List<SLabel> labels;
   @override
-  final List<SAstNode> statements;
+  final List<SStatement> statements;
 
   SSwitchDefault({
     required this.offset,
@@ -927,7 +927,7 @@ class SSwitchDefault extends SSwitchMember {
               ?.map((l) => SLabel.fromJson(l as Map<String, dynamic>))
               .toList() ??
           [],
-      statements: SAstNodeFactory.listFromJson(json['statements'] as List?),
+      statements: SAstNodeFactory.listFromJson<SStatement>(json['statements'] as List?),
     );
   }
 
@@ -1016,7 +1016,7 @@ class SCatchClause extends SAstNode {
   @override
   final int length;
 
-  final SAstNode? exceptionType;
+  final STypeAnnotation? exceptionType;
   final SSimpleIdentifier? exceptionParameter;
   final SSimpleIdentifier? stackTraceParameter;
   final SBlock? body;
@@ -1051,7 +1051,7 @@ class SCatchClause extends SAstNode {
       offset: json['offset'] as int,
       length: json['length'] as int,
       exceptionType: SAstNodeFactory.fromJson(
-          json['exceptionType'] as Map<String, dynamic>?),
+          json['exceptionType'] as Map<String, dynamic>?) as STypeAnnotation?,
       exceptionParameter: json['exceptionParameter'] != null
           ? SSimpleIdentifier.fromJson(
               json['exceptionParameter'] as Map<String, dynamic>)
@@ -1181,8 +1181,8 @@ class SAssertStatement extends SStatement {
   @override
   final int length;
 
-  final SAstNode? condition;
-  final SAstNode? message;
+  final SExpression? condition;
+  final SExpression? message;
 
   SAssertStatement({
     required this.offset,
@@ -1208,9 +1208,9 @@ class SAssertStatement extends SStatement {
       offset: json['offset'] as int,
       length: json['length'] as int,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
       message:
-          SAstNodeFactory.fromJson(json['message'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['message'] as Map<String, dynamic>?) as SExpression?,
     );
   }
 
@@ -1234,7 +1234,7 @@ class SYieldStatement extends SStatement {
   @override
   final int length;
 
-  final SAstNode? expression;
+  final SExpression? expression;
   final bool isStar;
 
   SYieldStatement({
@@ -1261,7 +1261,7 @@ class SYieldStatement extends SStatement {
       offset: json['offset'] as int,
       length: json['length'] as int,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
       isStar: json['isStar'] as bool? ?? false,
     );
   }
@@ -1286,7 +1286,7 @@ class SLabeledStatement extends SStatement {
   final int length;
 
   final List<SLabel> labels;
-  final SAstNode? statement;
+  final SStatement? statement;
 
   SLabeledStatement({
     required this.offset,
@@ -1316,7 +1316,7 @@ class SLabeledStatement extends SStatement {
               .toList() ??
           [],
       statement:
-          SAstNodeFactory.fromJson(json['statement'] as Map<String, dynamic>?),
+          SAstNodeFactory.fromJson(json['statement'] as Map<String, dynamic>?) as SStatement?,
     );
   }
 
@@ -1384,7 +1384,7 @@ class SPatternVariableDeclarationStatement extends SStatement {
   final int length;
 
   /// The pattern variable declaration
-  final SAstNode declaration;
+  final SPatternVariableDeclaration declaration;
 
   SPatternVariableDeclarationStatement({
     required this.offset,
@@ -1409,7 +1409,7 @@ class SPatternVariableDeclarationStatement extends SStatement {
       offset: json['offset'] as int,
       length: json['length'] as int,
       declaration: SAstNodeFactory.fromJson(
-          json['declaration'] as Map<String, dynamic>?)!,
+          json['declaration'] as Map<String, dynamic>?) as SPatternVariableDeclaration,
     );
   }
 

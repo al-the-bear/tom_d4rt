@@ -14,8 +14,8 @@ class SGuardedPattern extends SAstNode {
   @override
   final int length;
 
-  final SAstNode pattern;
-  final SAstNode? whenClause;
+  final SDartPattern pattern;
+  final SWhenClause? whenClause;
 
   SGuardedPattern({
     required this.offset,
@@ -42,10 +42,10 @@ class SGuardedPattern extends SAstNode {
       length: json['length'] as int,
       pattern: SAstNodeFactory.fromJson(
         json['pattern'] as Map<String, dynamic>?,
-      )!,
+      ) as SDartPattern,
       whenClause: SAstNodeFactory.fromJson(
         json['whenClause'] as Map<String, dynamic>?,
-      ),
+      ) as SWhenClause?,
     );
   }
 
@@ -66,7 +66,7 @@ class SWhenClause extends SAstNode {
   @override
   final int length;
 
-  final SAstNode expression;
+  final SExpression expression;
 
   SWhenClause({
     required this.offset,
@@ -91,7 +91,7 @@ class SWhenClause extends SAstNode {
       length: json['length'] as int,
       expression: SAstNodeFactory.fromJson(
         json['expression'] as Map<String, dynamic>?,
-      )!,
+      ) as SExpression,
     );
   }
 
@@ -111,7 +111,7 @@ class SCaseClause extends SAstNode {
   @override
   final int length;
 
-  final SAstNode guardedPattern;
+  final SGuardedPattern guardedPattern;
 
   SCaseClause({
     required this.offset,
@@ -136,7 +136,7 @@ class SCaseClause extends SAstNode {
       length: json['length'] as int,
       guardedPattern: SAstNodeFactory.fromJson(
         json['guardedPattern'] as Map<String, dynamic>?,
-      )!,
+      ) as SGuardedPattern,
     );
   }
 
@@ -161,7 +161,7 @@ class SConstantPattern extends SDartPattern {
   final int length;
 
   final String? constKeyword;
-  final SAstNode expression;
+  final SExpression expression;
 
   SConstantPattern({
     required this.offset,
@@ -189,7 +189,7 @@ class SConstantPattern extends SDartPattern {
       constKeyword: json['constKeyword'] as String?,
       expression: SAstNodeFactory.fromJson(
         json['expression'] as Map<String, dynamic>?,
-      )!,
+      ) as SExpression,
     );
   }
 
@@ -211,7 +211,7 @@ class SWildcardPattern extends SVariablePattern {
 
   final String? keyword;
   final String name;
-  final SAstNode? type;
+  final STypeAnnotation? type;
 
   SWildcardPattern({
     required this.offset,
@@ -243,7 +243,7 @@ class SWildcardPattern extends SVariablePattern {
       length: json['length'] as int,
       keyword: json['keyword'] as String?,
       name: json['name'] as String,
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?),
+      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
     );
   }
 
@@ -269,7 +269,7 @@ class SDeclaredVariablePattern extends SVariablePattern {
 
   final String? keyword;
   final String name;
-  final SAstNode? type;
+  final STypeAnnotation? type;
 
   SDeclaredVariablePattern({
     required this.offset,
@@ -301,7 +301,7 @@ class SDeclaredVariablePattern extends SVariablePattern {
       length: json['length'] as int,
       keyword: json['keyword'] as String?,
       name: json['name'] as String,
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?),
+      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
     );
   }
 
@@ -371,8 +371,8 @@ class SObjectPattern extends SDartPattern {
   @override
   final int length;
 
-  final SAstNode type;
-  final List<SAstNode> fields;
+  final SNamedType type;
+  final List<SPatternField> fields;
 
   SObjectPattern({
     required this.offset,
@@ -397,8 +397,8 @@ class SObjectPattern extends SDartPattern {
     return SObjectPattern(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?)!,
-      fields: SAstNodeFactory.listFromJson(json['fields'] as List?),
+      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as SNamedType,
+      fields: SAstNodeFactory.listFromJson<SPatternField>(json['fields'] as List?),
     );
   }
 
@@ -425,7 +425,7 @@ class SListPattern extends SDartPattern {
   @override
   final int length;
 
-  final SAstNode? typeArguments;
+  final STypeArgumentList? typeArguments;
   final List<SAstNode> elements;
 
   SListPattern({
@@ -453,7 +453,7 @@ class SListPattern extends SDartPattern {
       length: json['length'] as int,
       typeArguments: SAstNodeFactory.fromJson(
         json['typeArguments'] as Map<String, dynamic>?,
-      ),
+      ) as STypeArgumentList?,
       elements: SAstNodeFactory.listFromJson(json['elements'] as List?),
     );
   }
@@ -477,8 +477,8 @@ class SMapPattern extends SDartPattern {
   @override
   final int length;
 
-  final SAstNode? typeArguments;
-  final List<SAstNode> elements;
+  final STypeArgumentList? typeArguments;
+  final List<SMapPatternEntry> elements;
 
   SMapPattern({
     required this.offset,
@@ -505,8 +505,8 @@ class SMapPattern extends SDartPattern {
       length: json['length'] as int,
       typeArguments: SAstNodeFactory.fromJson(
         json['typeArguments'] as Map<String, dynamic>?,
-      ),
-      elements: SAstNodeFactory.listFromJson(json['elements'] as List?),
+      ) as STypeArgumentList?,
+      elements: SAstNodeFactory.listFromJson<SMapPatternEntry>(json['elements'] as List?),
     );
   }
 
@@ -529,8 +529,8 @@ class SMapPatternEntry extends SAstNode {
   @override
   final int length;
 
-  final SAstNode key;
-  final SAstNode value;
+  final SExpression key;
+  final SDartPattern value;
 
   SMapPatternEntry({
     required this.offset,
@@ -555,8 +555,8 @@ class SMapPatternEntry extends SAstNode {
     return SMapPatternEntry(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      key: SAstNodeFactory.fromJson(json['key'] as Map<String, dynamic>?)!,
-      value: SAstNodeFactory.fromJson(json['value'] as Map<String, dynamic>?)!,
+      key: SAstNodeFactory.fromJson(json['key'] as Map<String, dynamic>?) as SExpression,
+      value: SAstNodeFactory.fromJson(json['value'] as Map<String, dynamic>?) as SDartPattern,
     );
   }
 
@@ -581,7 +581,7 @@ class SRecordPattern extends SDartPattern {
   @override
   final int length;
 
-  final List<SAstNode> fields;
+  final List<SPatternField> fields;
 
   SRecordPattern({
     required this.offset,
@@ -604,7 +604,7 @@ class SRecordPattern extends SDartPattern {
     return SRecordPattern(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      fields: SAstNodeFactory.listFromJson(json['fields'] as List?),
+      fields: SAstNodeFactory.listFromJson<SPatternField>(json['fields'] as List?),
     );
   }
 
@@ -627,8 +627,8 @@ class SPatternField extends SAstNode {
   final int length;
 
   /// The field name, or null for positional fields.
-  final SAstNode? name;
-  final SAstNode pattern;
+  final SPatternFieldName? name;
+  final SDartPattern pattern;
 
   SPatternField({
     required this.offset,
@@ -653,10 +653,10 @@ class SPatternField extends SAstNode {
     return SPatternField(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      name: SAstNodeFactory.fromJson(json['name'] as Map<String, dynamic>?),
+      name: SAstNodeFactory.fromJson(json['name'] as Map<String, dynamic>?) as SPatternFieldName?,
       pattern: SAstNodeFactory.fromJson(
         json['pattern'] as Map<String, dynamic>?,
-      )!,
+      ) as SDartPattern,
     );
   }
 
@@ -719,9 +719,9 @@ class SLogicalOrPattern extends SDartPattern {
   @override
   final int length;
 
-  final SAstNode leftOperand;
+  final SDartPattern leftOperand;
   final String operator;
-  final SAstNode rightOperand;
+  final SDartPattern rightOperand;
 
   SLogicalOrPattern({
     required this.offset,
@@ -750,11 +750,11 @@ class SLogicalOrPattern extends SDartPattern {
       length: json['length'] as int,
       leftOperand: SAstNodeFactory.fromJson(
         json['leftOperand'] as Map<String, dynamic>?,
-      )!,
+      ) as SDartPattern,
       operator: json['operator'] as String,
       rightOperand: SAstNodeFactory.fromJson(
         json['rightOperand'] as Map<String, dynamic>?,
-      )!,
+      ) as SDartPattern,
     );
   }
 
@@ -775,9 +775,9 @@ class SLogicalAndPattern extends SDartPattern {
   @override
   final int length;
 
-  final SAstNode leftOperand;
+  final SDartPattern leftOperand;
   final String operator;
-  final SAstNode rightOperand;
+  final SDartPattern rightOperand;
 
   SLogicalAndPattern({
     required this.offset,
@@ -806,11 +806,11 @@ class SLogicalAndPattern extends SDartPattern {
       length: json['length'] as int,
       leftOperand: SAstNodeFactory.fromJson(
         json['leftOperand'] as Map<String, dynamic>?,
-      )!,
+      ) as SDartPattern,
       operator: json['operator'] as String,
       rightOperand: SAstNodeFactory.fromJson(
         json['rightOperand'] as Map<String, dynamic>?,
-      )!,
+      ) as SDartPattern,
     );
   }
 
@@ -835,8 +835,8 @@ class SCastPattern extends SDartPattern {
   @override
   final int length;
 
-  final SAstNode pattern;
-  final SAstNode type;
+  final SDartPattern pattern;
+  final STypeAnnotation type;
 
   SCastPattern({
     required this.offset,
@@ -863,8 +863,8 @@ class SCastPattern extends SDartPattern {
       length: json['length'] as int,
       pattern: SAstNodeFactory.fromJson(
         json['pattern'] as Map<String, dynamic>?,
-      )!,
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?)!,
+      ) as SDartPattern,
+      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation,
     );
   }
 
@@ -886,7 +886,7 @@ class SRelationalPattern extends SDartPattern {
   final int length;
 
   final String operator;
-  final SAstNode operand;
+  final SExpression operand;
 
   SRelationalPattern({
     required this.offset,
@@ -914,7 +914,7 @@ class SRelationalPattern extends SDartPattern {
       operator: json['operator'] as String,
       operand: SAstNodeFactory.fromJson(
         json['operand'] as Map<String, dynamic>?,
-      )!,
+      ) as SExpression,
     );
   }
 
@@ -938,7 +938,7 @@ class SNullCheckPattern extends SDartPattern {
   @override
   final int length;
 
-  final SAstNode pattern;
+  final SDartPattern pattern;
   final String operator;
 
   SNullCheckPattern({
@@ -966,7 +966,7 @@ class SNullCheckPattern extends SDartPattern {
       length: json['length'] as int,
       pattern: SAstNodeFactory.fromJson(
         json['pattern'] as Map<String, dynamic>?,
-      )!,
+      ) as SDartPattern,
       operator: json['operator'] as String,
     );
   }
@@ -987,7 +987,7 @@ class SNullAssertPattern extends SDartPattern {
   @override
   final int length;
 
-  final SAstNode pattern;
+  final SDartPattern pattern;
   final String operator;
 
   SNullAssertPattern({
@@ -1015,7 +1015,7 @@ class SNullAssertPattern extends SDartPattern {
       length: json['length'] as int,
       pattern: SAstNodeFactory.fromJson(
         json['pattern'] as Map<String, dynamic>?,
-      )!,
+      ) as SDartPattern,
       operator: json['operator'] as String,
     );
   }
@@ -1040,7 +1040,7 @@ class SParenthesizedPattern extends SDartPattern {
   @override
   final int length;
 
-  final SAstNode pattern;
+  final SDartPattern pattern;
 
   SParenthesizedPattern({
     required this.offset,
@@ -1065,7 +1065,7 @@ class SParenthesizedPattern extends SDartPattern {
       length: json['length'] as int,
       pattern: SAstNodeFactory.fromJson(
         json['pattern'] as Map<String, dynamic>?,
-      )!,
+      ) as SDartPattern,
     );
   }
 
@@ -1086,7 +1086,7 @@ class SRestPatternElement extends SAstNode {
   @override
   final int length;
 
-  final SAstNode? pattern;
+  final SDartPattern? pattern;
 
   SRestPatternElement({
     required this.offset,
@@ -1111,7 +1111,7 @@ class SRestPatternElement extends SAstNode {
       length: json['length'] as int,
       pattern: SAstNodeFactory.fromJson(
         json['pattern'] as Map<String, dynamic>?,
-      ),
+      ) as SDartPattern?,
     );
   }
 
@@ -1139,8 +1139,8 @@ class SPatternVariableDeclaration extends SDeclaration {
   List<SAnnotation> get metadata => const [];
 
   final String keyword;
-  final SAstNode pattern;
-  final SAstNode expression;
+  final SDartPattern pattern;
+  final SExpression expression;
 
   SPatternVariableDeclaration({
     required this.offset,
@@ -1170,10 +1170,10 @@ class SPatternVariableDeclaration extends SDeclaration {
       keyword: json['keyword'] as String,
       pattern: SAstNodeFactory.fromJson(
         json['pattern'] as Map<String, dynamic>?,
-      )!,
+      ) as SDartPattern,
       expression: SAstNodeFactory.fromJson(
         json['expression'] as Map<String, dynamic>?,
-      )!,
+      ) as SExpression,
     );
   }
 
@@ -1199,8 +1199,8 @@ class SSwitchExpressionCase extends SAstNode {
   @override
   final int length;
 
-  final SAstNode guardedPattern;
-  final SAstNode expression;
+  final SGuardedPattern guardedPattern;
+  final SExpression expression;
 
   SSwitchExpressionCase({
     required this.offset,
@@ -1227,10 +1227,10 @@ class SSwitchExpressionCase extends SAstNode {
       length: json['length'] as int,
       guardedPattern: SAstNodeFactory.fromJson(
         json['guardedPattern'] as Map<String, dynamic>?,
-      )!,
+      ) as SGuardedPattern,
       expression: SAstNodeFactory.fromJson(
         json['expression'] as Map<String, dynamic>?,
-      )!,
+      ) as SExpression,
     );
   }
 
@@ -1252,10 +1252,10 @@ class SSwitchPatternCase extends SSwitchMember {
   @override
   final int length;
 
-  final List<SAstNode> labels;
-  final SAstNode guardedPattern;
+  final List<SLabel> labels;
+  final SGuardedPattern guardedPattern;
   @override
-  final List<SAstNode> statements;
+  final List<SStatement> statements;
 
   SSwitchPatternCase({
     required this.offset,
@@ -1282,11 +1282,11 @@ class SSwitchPatternCase extends SSwitchMember {
     return SSwitchPatternCase(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      labels: SAstNodeFactory.listFromJson(json['labels'] as List?),
+      labels: SAstNodeFactory.listFromJson<SLabel>(json['labels'] as List?),
       guardedPattern: SAstNodeFactory.fromJson(
         json['guardedPattern'] as Map<String, dynamic>?,
-      )!,
-      statements: SAstNodeFactory.listFromJson(json['statements'] as List?),
+      ) as SGuardedPattern,
+      statements: SAstNodeFactory.listFromJson<SStatement>(json['statements'] as List?),
     );
   }
 
