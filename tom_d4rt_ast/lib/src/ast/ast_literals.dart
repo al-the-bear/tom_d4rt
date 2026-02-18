@@ -7,7 +7,7 @@ part of 'ast_core.dart';
 // Integer Literal
 // ============================================================================
 
-class SIntegerLiteral extends SAstNode {
+class SIntegerLiteral extends SLiteral {
   @override
   final int offset;
   @override
@@ -51,7 +51,7 @@ class SIntegerLiteral extends SAstNode {
 // Double Literal
 // ============================================================================
 
-class SDoubleLiteral extends SAstNode {
+class SDoubleLiteral extends SLiteral {
   @override
   final int offset;
   @override
@@ -95,7 +95,7 @@ class SDoubleLiteral extends SAstNode {
 // Boolean Literal
 // ============================================================================
 
-class SBooleanLiteral extends SAstNode {
+class SBooleanLiteral extends SLiteral {
   @override
   final int offset;
   @override
@@ -139,14 +139,16 @@ class SBooleanLiteral extends SAstNode {
 // String Literals
 // ============================================================================
 
-class SSimpleStringLiteral extends SAstNode {
+class SSimpleStringLiteral extends SSingleStringLiteral {
   @override
   final int offset;
   @override
   final int length;
 
   final String value;
+  @override
   final bool isRaw;
+  @override
   final bool isMultiline;
   final bool isSingleQuoted;
 
@@ -185,6 +187,9 @@ class SSimpleStringLiteral extends SAstNode {
   }
 
   @override
+  String? get stringValue => value;
+
+  @override
   T? accept<T>(SAstVisitor<T> visitor) =>
       visitor.visitSimpleStringLiteral(this);
 
@@ -192,14 +197,16 @@ class SSimpleStringLiteral extends SAstNode {
   void visitChildren(SAstVisitor visitor) {}
 }
 
-class SStringInterpolation extends SAstNode {
+class SStringInterpolation extends SSingleStringLiteral {
   @override
   final int offset;
   @override
   final int length;
 
   final List<SAstNode> elements;
+  @override
   final bool isMultiline;
+  @override
   final bool isRaw;
 
   SStringInterpolation({
@@ -234,6 +241,9 @@ class SStringInterpolation extends SAstNode {
   }
 
   @override
+  String? get stringValue => null;
+
+  @override
   T? accept<T>(SAstVisitor<T> visitor) =>
       visitor.visitStringInterpolation(this);
 
@@ -245,7 +255,7 @@ class SStringInterpolation extends SAstNode {
   }
 }
 
-class SInterpolationExpression extends SAstNode {
+class SInterpolationExpression extends SInterpolationElement {
   @override
   final int offset;
   @override
@@ -289,7 +299,7 @@ class SInterpolationExpression extends SAstNode {
   }
 }
 
-class SInterpolationString extends SAstNode {
+class SInterpolationString extends SInterpolationElement {
   @override
   final int offset;
   @override
@@ -330,7 +340,7 @@ class SInterpolationString extends SAstNode {
   void visitChildren(SAstVisitor visitor) {}
 }
 
-class SAdjacentStrings extends SAstNode {
+class SAdjacentStrings extends SStringLiteral {
   @override
   final int offset;
   @override
@@ -364,6 +374,9 @@ class SAdjacentStrings extends SAstNode {
   }
 
   @override
+  String? get stringValue => null;
+
+  @override
   T? accept<T>(SAstVisitor<T> visitor) => visitor.visitAdjacentStrings(this);
 
   @override
@@ -378,7 +391,7 @@ class SAdjacentStrings extends SAstNode {
 // Null Literal
 // ============================================================================
 
-class SNullLiteral extends SAstNode {
+class SNullLiteral extends SLiteral {
   @override
   final int offset;
   @override
@@ -417,14 +430,16 @@ class SNullLiteral extends SAstNode {
 // Collection Literals
 // ============================================================================
 
-class SListLiteral extends SAstNode {
+class SListLiteral extends STypedLiteral {
   @override
   final int offset;
   @override
   final int length;
 
+  @override
   final STypeArgumentList? typeArguments;
   final List<SAstNode> elements;
+  @override
   final bool isConst;
 
   SListLiteral({
@@ -473,14 +488,16 @@ class SListLiteral extends SAstNode {
   }
 }
 
-class SSetOrMapLiteral extends SAstNode {
+class SSetOrMapLiteral extends STypedLiteral {
   @override
   final int offset;
   @override
   final int length;
 
+  @override
   final STypeArgumentList? typeArguments;
   final List<SAstNode> elements;
+  @override
   final bool isConst;
   final bool isMap;
   final bool isSet;
@@ -537,7 +554,7 @@ class SSetOrMapLiteral extends SAstNode {
   }
 }
 
-class SMapLiteralEntry extends SAstNode {
+class SMapLiteralEntry extends SCollectionElement {
   @override
   final int offset;
   @override
@@ -588,7 +605,7 @@ class SMapLiteralEntry extends SAstNode {
 // Symbol Literal
 // ============================================================================
 
-class SSymbolLiteral extends SAstNode {
+class SSymbolLiteral extends SLiteral {
   @override
   final int offset;
   @override
@@ -632,7 +649,7 @@ class SSymbolLiteral extends SAstNode {
 // Record Literal
 // ============================================================================
 
-class SRecordLiteral extends SAstNode {
+class SRecordLiteral extends SLiteral {
   @override
   final int offset;
   @override

@@ -7,12 +7,13 @@ part of 'ast_core.dart';
 // Import Directive
 // ============================================================================
 
-class SImportDirective extends SAstNode {
+class SImportDirective extends SNamespaceDirective {
   @override
   final int offset;
   @override
   final int length;
 
+  @override
   final List<SAnnotation> metadata;
   final SAstNode? uri;
   final SSimpleIdentifier? prefix;
@@ -81,12 +82,13 @@ class SImportDirective extends SAstNode {
 // Export Directive
 // ============================================================================
 
-class SExportDirective extends SAstNode {
+class SExportDirective extends SNamespaceDirective {
   @override
   final int offset;
   @override
   final int length;
 
+  @override
   final List<SAnnotation> metadata;
   final SAstNode? uri;
   final List<SAstNode> combinators;
@@ -144,12 +146,13 @@ class SExportDirective extends SAstNode {
 // Part Directives
 // ============================================================================
 
-class SPartDirective extends SAstNode {
+class SPartDirective extends SUriBasedDirective {
   @override
   final int offset;
   @override
   final int length;
 
+  @override
   final List<SAnnotation> metadata;
   final SAstNode? uri;
 
@@ -196,12 +199,13 @@ class SPartDirective extends SAstNode {
   }
 }
 
-class SPartOfDirective extends SAstNode {
+class SPartOfDirective extends SDirective {
   @override
   final int offset;
   @override
   final int length;
 
+  @override
   final List<SAnnotation> metadata;
   final SAstNode? uri;
   final SAstNode? libraryName;
@@ -258,12 +262,13 @@ class SPartOfDirective extends SAstNode {
 // Library Directive
 // ============================================================================
 
-class SLibraryDirective extends SAstNode {
+class SLibraryDirective extends SDirective {
   @override
   final int offset;
   @override
   final int length;
 
+  @override
   final List<SAnnotation> metadata;
   final SAstNode? name;
 
@@ -314,7 +319,7 @@ class SLibraryDirective extends SAstNode {
 // Show/Hide Combinators
 // ============================================================================
 
-class SShowCombinator extends SAstNode {
+class SShowCombinator extends SCombinator {
   @override
   final int offset;
   @override
@@ -362,7 +367,7 @@ class SShowCombinator extends SAstNode {
   }
 }
 
-class SHideCombinator extends SAstNode {
+class SHideCombinator extends SCombinator {
   @override
   final int offset;
   @override

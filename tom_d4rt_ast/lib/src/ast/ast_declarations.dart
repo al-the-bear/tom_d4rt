@@ -22,13 +22,14 @@ mixin SFunctionBodyOwner on SAstNode {
 // Function Declaration
 // ============================================================================
 
-class SFunctionDeclaration extends SAstNode with SNamedDeclaration {
+class SFunctionDeclaration extends SNamedCompilationUnitMember with SNamedDeclaration {
   @override
   final int offset;
   @override
   final int length;
   @override
   final SSimpleIdentifier? name;
+  @override
   @override
   final List<SAnnotation> metadata;
 
@@ -127,13 +128,14 @@ class SFunctionDeclaration extends SAstNode with SNamedDeclaration {
 // Method Declaration
 // ============================================================================
 
-class SMethodDeclaration extends SAstNode with SNamedDeclaration {
+class SMethodDeclaration extends SClassMember with SNamedDeclaration {
   @override
   final int offset;
   @override
   final int length;
   @override
   final SSimpleIdentifier? name;
+  @override
   @override
   final List<SAnnotation> metadata;
 
@@ -246,13 +248,14 @@ class SMethodDeclaration extends SAstNode with SNamedDeclaration {
 // Class Declaration
 // ============================================================================
 
-class SClassDeclaration extends SAstNode with SNamedDeclaration {
+class SClassDeclaration extends SNamedCompilationUnitMember with SNamedDeclaration {
   @override
   final int offset;
   @override
   final int length;
   @override
   final SSimpleIdentifier? name;
+  @override
   @override
   final List<SAnnotation> metadata;
 
@@ -380,13 +383,14 @@ class SClassDeclaration extends SAstNode with SNamedDeclaration {
 // Mixin Declaration
 // ============================================================================
 
-class SMixinDeclaration extends SAstNode with SNamedDeclaration {
+class SMixinDeclaration extends SNamedCompilationUnitMember with SNamedDeclaration {
   @override
   final int offset;
   @override
   final int length;
   @override
   final SSimpleIdentifier? name;
+  @override
   @override
   final List<SAnnotation> metadata;
 
@@ -475,13 +479,14 @@ class SMixinDeclaration extends SAstNode with SNamedDeclaration {
 // Enum Declaration
 // ============================================================================
 
-class SEnumDeclaration extends SAstNode with SNamedDeclaration {
+class SEnumDeclaration extends SNamedCompilationUnitMember with SNamedDeclaration {
   @override
   final int offset;
   @override
   final int length;
   @override
   final SSimpleIdentifier? name;
+  @override
   @override
   final List<SAnnotation> metadata;
 
@@ -573,13 +578,14 @@ class SEnumDeclaration extends SAstNode with SNamedDeclaration {
   }
 }
 
-class SEnumConstantDeclaration extends SAstNode with SNamedDeclaration {
+class SEnumConstantDeclaration extends SDeclaration with SNamedDeclaration {
   @override
   final int offset;
   @override
   final int length;
   @override
   final SSimpleIdentifier? name;
+  @override
   @override
   final List<SAnnotation> metadata;
 
@@ -648,13 +654,14 @@ class SEnumConstantDeclaration extends SAstNode with SNamedDeclaration {
 // Extension Declaration
 // ============================================================================
 
-class SExtensionDeclaration extends SAstNode with SNamedDeclaration {
+class SExtensionDeclaration extends SCompilationUnitMember with SNamedDeclaration {
   @override
   final int offset;
   @override
   final int length;
   @override
   final SSimpleIdentifier? name;
+  @override
   @override
   final List<SAnnotation> metadata;
 
@@ -729,13 +736,14 @@ class SExtensionDeclaration extends SAstNode with SNamedDeclaration {
 // Variable Declarations
 // ============================================================================
 
-class SVariableDeclaration extends SAstNode with SNamedDeclaration {
+class SVariableDeclaration extends SDeclaration with SNamedDeclaration {
   @override
   final int offset;
   @override
   final int length;
   @override
   final SSimpleIdentifier? name;
+  @override
   @override
   final List<SAnnotation> metadata;
 
@@ -810,7 +818,7 @@ class SVariableDeclaration extends SAstNode with SNamedDeclaration {
   }
 }
 
-class SVariableDeclarationList extends SAstNode {
+class SVariableDeclarationList extends SDeclaration {
   @override
   final int offset;
   @override
@@ -827,6 +835,7 @@ class SVariableDeclarationList extends SAstNode {
   final bool isFinal;
   final bool isLate;
 
+  @override
   final List<SAnnotation> metadata;
 
   SVariableDeclarationList({
@@ -891,12 +900,13 @@ class SVariableDeclarationList extends SAstNode {
   }
 }
 
-class SFieldDeclaration extends SAstNode {
+class SFieldDeclaration extends SClassMember {
   @override
   final int offset;
   @override
   final int length;
 
+  @override
   final List<SAnnotation> metadata;
   final bool isStatic;
   final bool isAbstract;
@@ -962,12 +972,13 @@ class SFieldDeclaration extends SAstNode {
   }
 }
 
-class STopLevelVariableDeclaration extends SAstNode {
+class STopLevelVariableDeclaration extends SCompilationUnitMember {
   @override
   final int offset;
   @override
   final int length;
 
+  @override
   final List<SAnnotation> metadata;
   final bool isExternal;
   final SVariableDeclarationList? variables;
@@ -1025,13 +1036,14 @@ class STopLevelVariableDeclaration extends SAstNode {
 // Constructor Declaration
 // ============================================================================
 
-class SConstructorDeclaration extends SAstNode with SNamedDeclaration {
+class SConstructorDeclaration extends SClassMember with SNamedDeclaration {
   @override
   final int offset;
   @override
   final int length;
   @override
   final SSimpleIdentifier? name;
+  @override
   @override
   final List<SAnnotation> metadata;
 
@@ -1150,13 +1162,14 @@ class SConstructorDeclaration extends SAstNode with SNamedDeclaration {
 // Typedef Declaration
 // ============================================================================
 
-class STypedefDeclaration extends SAstNode with SNamedDeclaration {
+class STypedefDeclaration extends SNamedCompilationUnitMember with SNamedDeclaration {
   @override
   final int offset;
   @override
   final int length;
   @override
   final SSimpleIdentifier? name;
+  @override
   @override
   final List<SAnnotation> metadata;
 
@@ -1224,13 +1237,14 @@ class STypedefDeclaration extends SAstNode with SNamedDeclaration {
 // ============================================================================
 
 /// An extension type declaration: `extension type MyType(int value) implements int { ... }`
-class SExtensionTypeDeclaration extends SAstNode with SNamedDeclaration {
+class SExtensionTypeDeclaration extends SNamedCompilationUnitMember with SNamedDeclaration {
   @override
   final int offset;
   @override
   final int length;
   @override
   final SSimpleIdentifier? name;
+  @override
   @override
   final List<SAnnotation> metadata;
 

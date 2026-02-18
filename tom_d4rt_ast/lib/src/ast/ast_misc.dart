@@ -464,7 +464,7 @@ class SConstructorName extends SAstNode {
   }
 }
 
-class SSuperConstructorInvocation extends SAstNode {
+class SSuperConstructorInvocation extends SConstructorInitializer {
   @override
   final int offset;
   @override
@@ -517,7 +517,7 @@ class SSuperConstructorInvocation extends SAstNode {
   }
 }
 
-class SRedirectingConstructorInvocation extends SAstNode {
+class SRedirectingConstructorInvocation extends SConstructorInitializer {
   @override
   final int offset;
   @override
@@ -570,7 +570,7 @@ class SRedirectingConstructorInvocation extends SAstNode {
   }
 }
 
-class SConstructorFieldInitializer extends SAstNode {
+class SConstructorFieldInitializer extends SConstructorInitializer {
   @override
   final int offset;
   @override
@@ -621,7 +621,7 @@ class SConstructorFieldInitializer extends SAstNode {
   }
 }
 
-class SAssertInitializer extends SAstNode {
+class SAssertInitializer extends SConstructorInitializer {
   @override
   final int offset;
   @override

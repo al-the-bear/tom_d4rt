@@ -78,7 +78,7 @@ abstract class SConstructorInitializer extends SAstNode {}
 /// Mirrors analyzer's `SwitchMember`.
 abstract class SSwitchMember extends SAstNode {
   /// The statements in this switch member.
-  List<SStatement> get statements;
+  List<SAstNode> get statements;
 }
 
 /// Base class for string interpolation elements.
@@ -160,7 +160,7 @@ abstract class SIdentifier extends SExpression {
 /// Mirrors analyzer's `InvocationExpression`.
 abstract class SInvocationExpression extends SExpression {
   /// The argument list.
-  SArgumentList get argumentList;
+  SArgumentList? get argumentList;
 }
 
 // ============================================================================

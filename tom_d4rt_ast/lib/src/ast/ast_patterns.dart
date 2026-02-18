@@ -154,7 +154,7 @@ class SCaseClause extends SAstNode {
 // ============================================================================
 
 /// A constant expression pattern (e.g., `case 42:`, `case const Foo():`).
-class SConstantPattern extends SAstNode {
+class SConstantPattern extends SDartPattern {
   @override
   final int offset;
   @override
@@ -203,7 +203,7 @@ class SConstantPattern extends SAstNode {
 }
 
 /// A wildcard pattern `_`, optionally typed (e.g., `int _`, `var _`).
-class SWildcardPattern extends SAstNode {
+class SWildcardPattern extends SVariablePattern {
   @override
   final int offset;
   @override
@@ -220,6 +220,9 @@ class SWildcardPattern extends SAstNode {
     required this.name,
     this.type,
   });
+
+  @override
+  String get variableName => name;
 
   @override
   String get nodeType => 'WildcardPattern';
@@ -258,7 +261,7 @@ class SWildcardPattern extends SAstNode {
 // ============================================================================
 
 /// A declared variable pattern (e.g., `var x`, `int x`, `final String name`).
-class SDeclaredVariablePattern extends SAstNode {
+class SDeclaredVariablePattern extends SVariablePattern {
   @override
   final int offset;
   @override
@@ -275,6 +278,9 @@ class SDeclaredVariablePattern extends SAstNode {
     required this.name,
     this.type,
   });
+
+  @override
+  String get variableName => name;
 
   @override
   String get nodeType => 'DeclaredVariablePattern';
@@ -310,7 +316,7 @@ class SDeclaredVariablePattern extends SAstNode {
 }
 
 /// An assigned variable pattern that binds to an existing variable.
-class SAssignedVariablePattern extends SAstNode {
+class SAssignedVariablePattern extends SVariablePattern {
   @override
   final int offset;
   @override
@@ -323,6 +329,9 @@ class SAssignedVariablePattern extends SAstNode {
     required this.length,
     required this.name,
   });
+
+  @override
+  String get variableName => name;
 
   @override
   String get nodeType => 'AssignedVariablePattern';
@@ -356,7 +365,7 @@ class SAssignedVariablePattern extends SAstNode {
 // ============================================================================
 
 /// An object destructuring pattern (e.g., `MyType(field: pattern)`).
-class SObjectPattern extends SAstNode {
+class SObjectPattern extends SDartPattern {
   @override
   final int offset;
   @override
@@ -410,7 +419,7 @@ class SObjectPattern extends SAstNode {
 // ============================================================================
 
 /// A list destructuring pattern (e.g., `[a, b, ...rest]`).
-class SListPattern extends SAstNode {
+class SListPattern extends SDartPattern {
   @override
   final int offset;
   @override
@@ -462,7 +471,7 @@ class SListPattern extends SAstNode {
 }
 
 /// A map destructuring pattern (e.g., `{'key': valuePattern}`).
-class SMapPattern extends SAstNode {
+class SMapPattern extends SDartPattern {
   @override
   final int offset;
   @override
@@ -566,7 +575,7 @@ class SMapPatternEntry extends SAstNode {
 // ============================================================================
 
 /// A record destructuring pattern (e.g., `(pattern, name: pattern)`).
-class SRecordPattern extends SAstNode {
+class SRecordPattern extends SDartPattern {
   @override
   final int offset;
   @override
@@ -704,7 +713,7 @@ class SPatternFieldName extends SAstNode {
 // ============================================================================
 
 /// A logical OR pattern (e.g., `pattern1 || pattern2`).
-class SLogicalOrPattern extends SAstNode {
+class SLogicalOrPattern extends SDartPattern {
   @override
   final int offset;
   @override
@@ -760,7 +769,7 @@ class SLogicalOrPattern extends SAstNode {
 }
 
 /// A logical AND pattern (e.g., `pattern1 && pattern2`).
-class SLogicalAndPattern extends SAstNode {
+class SLogicalAndPattern extends SDartPattern {
   @override
   final int offset;
   @override
@@ -820,7 +829,7 @@ class SLogicalAndPattern extends SAstNode {
 // ============================================================================
 
 /// A cast pattern (e.g., `pattern as Type`).
-class SCastPattern extends SAstNode {
+class SCastPattern extends SDartPattern {
   @override
   final int offset;
   @override
@@ -870,7 +879,7 @@ class SCastPattern extends SAstNode {
 }
 
 /// A relational pattern (e.g., `< 5`, `>= 10`).
-class SRelationalPattern extends SAstNode {
+class SRelationalPattern extends SDartPattern {
   @override
   final int offset;
   @override
@@ -923,7 +932,7 @@ class SRelationalPattern extends SAstNode {
 // ============================================================================
 
 /// A null-check pattern (e.g., `pattern?`).
-class SNullCheckPattern extends SAstNode {
+class SNullCheckPattern extends SDartPattern {
   @override
   final int offset;
   @override
@@ -972,7 +981,7 @@ class SNullCheckPattern extends SAstNode {
 }
 
 /// A null-assert pattern (e.g., `pattern!`).
-class SNullAssertPattern extends SAstNode {
+class SNullAssertPattern extends SDartPattern {
   @override
   final int offset;
   @override
@@ -1025,7 +1034,7 @@ class SNullAssertPattern extends SAstNode {
 // ============================================================================
 
 /// A parenthesized pattern (e.g., `(pattern)`).
-class SParenthesizedPattern extends SAstNode {
+class SParenthesizedPattern extends SDartPattern {
   @override
   final int offset;
   @override
@@ -1120,11 +1129,14 @@ class SRestPatternElement extends SAstNode {
 // ============================================================================
 
 /// A pattern variable declaration (e.g., `var (a, b) = expr`).
-class SPatternVariableDeclaration extends SAstNode {
+class SPatternVariableDeclaration extends SDeclaration {
   @override
   final int offset;
   @override
   final int length;
+
+  @override
+  List<SAnnotation> get metadata => const [];
 
   final String keyword;
   final SAstNode pattern;
@@ -1234,7 +1246,7 @@ class SSwitchExpressionCase extends SAstNode {
 }
 
 /// A Dart 3.0 switch statement case with pattern matching.
-class SSwitchPatternCase extends SAstNode {
+class SSwitchPatternCase extends SSwitchMember {
   @override
   final int offset;
   @override
@@ -1242,6 +1254,7 @@ class SSwitchPatternCase extends SAstNode {
 
   final List<SAstNode> labels;
   final SAstNode guardedPattern;
+  @override
   final List<SAstNode> statements;
 
   SSwitchPatternCase({

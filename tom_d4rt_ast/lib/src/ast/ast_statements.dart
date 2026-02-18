@@ -7,7 +7,7 @@ part of 'ast_core.dart';
 // Block
 // ============================================================================
 
-class SBlock extends SAstNode {
+class SBlock extends SStatement {
   @override
   final int offset;
   @override
@@ -55,7 +55,7 @@ class SBlock extends SAstNode {
 // Variable Declaration Statement
 // ============================================================================
 
-class SVariableDeclarationStatement extends SAstNode {
+class SVariableDeclarationStatement extends SStatement {
   @override
   final int offset;
   @override
@@ -105,7 +105,7 @@ class SVariableDeclarationStatement extends SAstNode {
 // Expression Statement
 // ============================================================================
 
-class SExpressionStatement extends SAstNode {
+class SExpressionStatement extends SStatement {
   @override
   final int offset;
   @override
@@ -153,7 +153,7 @@ class SExpressionStatement extends SAstNode {
 // Return Statement
 // ============================================================================
 
-class SReturnStatement extends SAstNode {
+class SReturnStatement extends SStatement {
   @override
   final int offset;
   @override
@@ -201,7 +201,7 @@ class SReturnStatement extends SAstNode {
 // If Statement
 // ============================================================================
 
-class SIfStatement extends SAstNode {
+class SIfStatement extends SStatement {
   @override
   final int offset;
   @override
@@ -268,7 +268,7 @@ class SIfStatement extends SAstNode {
 // For Statement
 // ============================================================================
 
-class SForStatement extends SAstNode {
+class SForStatement extends SStatement {
   @override
   final int offset;
   @override
@@ -318,7 +318,7 @@ class SForStatement extends SAstNode {
 }
 
 /// For loop parts for standard for loops
-class SForPartsWithDeclarations extends SAstNode {
+class SForPartsWithDeclarations extends SForParts {
   @override
   final int offset;
   @override
@@ -378,7 +378,7 @@ class SForPartsWithDeclarations extends SAstNode {
 }
 
 /// For loop parts with an expression initializer
-class SForPartsWithExpression extends SAstNode {
+class SForPartsWithExpression extends SForParts {
   @override
   final int offset;
   @override
@@ -439,7 +439,7 @@ class SForPartsWithExpression extends SAstNode {
 // For-Each Statement
 // ============================================================================
 
-class SForEachStatement extends SAstNode {
+class SForEachStatement extends SStatement {
   @override
   final int offset;
   @override
@@ -489,7 +489,7 @@ class SForEachStatement extends SAstNode {
 }
 
 /// For-each loop parts with a declaration
-class SForEachPartsWithDeclaration extends SAstNode {
+class SForEachPartsWithDeclaration extends SForEachParts {
   @override
   final int offset;
   @override
@@ -544,7 +544,7 @@ class SForEachPartsWithDeclaration extends SAstNode {
 }
 
 /// For-each loop parts with an identifier
-class SForEachPartsWithIdentifier extends SAstNode {
+class SForEachPartsWithIdentifier extends SForEachParts {
   @override
   final int offset;
   @override
@@ -601,12 +601,13 @@ class SForEachPartsWithIdentifier extends SAstNode {
 }
 
 /// Declared identifier in a for-each loop
-class SDeclaredIdentifier extends SAstNode {
+class SDeclaredIdentifier extends SDeclaration {
   @override
   final int offset;
   @override
   final int length;
 
+  @override
   final List<SAnnotation> metadata;
   final SAstNode? type;
   final SSimpleIdentifier? identifier;
@@ -674,7 +675,7 @@ class SDeclaredIdentifier extends SAstNode {
 // While Statement
 // ============================================================================
 
-class SWhileStatement extends SAstNode {
+class SWhileStatement extends SStatement {
   @override
   final int offset;
   @override
@@ -726,7 +727,7 @@ class SWhileStatement extends SAstNode {
 // Do Statement
 // ============================================================================
 
-class SDoStatement extends SAstNode {
+class SDoStatement extends SStatement {
   @override
   final int offset;
   @override
@@ -778,7 +779,7 @@ class SDoStatement extends SAstNode {
 // Switch Statement
 // ============================================================================
 
-class SSwitchStatement extends SAstNode {
+class SSwitchStatement extends SStatement {
   @override
   final int offset;
   @override
@@ -828,7 +829,7 @@ class SSwitchStatement extends SAstNode {
   }
 }
 
-class SSwitchCase extends SAstNode {
+class SSwitchCase extends SSwitchMember {
   @override
   final int offset;
   @override
@@ -836,6 +837,7 @@ class SSwitchCase extends SAstNode {
 
   final List<SLabel> labels;
   final SAstNode? expression;
+  @override
   final List<SAstNode> statements;
 
   SSwitchCase({
@@ -888,13 +890,14 @@ class SSwitchCase extends SAstNode {
   }
 }
 
-class SSwitchDefault extends SAstNode {
+class SSwitchDefault extends SSwitchMember {
   @override
   final int offset;
   @override
   final int length;
 
   final List<SLabel> labels;
+  @override
   final List<SAstNode> statements;
 
   SSwitchDefault({
@@ -946,7 +949,7 @@ class SSwitchDefault extends SAstNode {
 // Try Statement
 // ============================================================================
 
-class STryStatement extends SAstNode {
+class STryStatement extends SStatement {
   @override
   final int offset;
   @override
@@ -1079,7 +1082,7 @@ class SCatchClause extends SAstNode {
 // Break and Continue
 // ============================================================================
 
-class SBreakStatement extends SAstNode {
+class SBreakStatement extends SStatement {
   @override
   final int offset;
   @override
@@ -1123,7 +1126,7 @@ class SBreakStatement extends SAstNode {
   }
 }
 
-class SContinueStatement extends SAstNode {
+class SContinueStatement extends SStatement {
   @override
   final int offset;
   @override
@@ -1172,7 +1175,7 @@ class SContinueStatement extends SAstNode {
 // Assert Statement
 // ============================================================================
 
-class SAssertStatement extends SAstNode {
+class SAssertStatement extends SStatement {
   @override
   final int offset;
   @override
@@ -1225,7 +1228,7 @@ class SAssertStatement extends SAstNode {
 // Yield Statement
 // ============================================================================
 
-class SYieldStatement extends SAstNode {
+class SYieldStatement extends SStatement {
   @override
   final int offset;
   @override
@@ -1276,7 +1279,7 @@ class SYieldStatement extends SAstNode {
 // Labeled Statement
 // ============================================================================
 
-class SLabeledStatement extends SAstNode {
+class SLabeledStatement extends SStatement {
   @override
   final int offset;
   @override
@@ -1334,7 +1337,7 @@ class SLabeledStatement extends SAstNode {
 // Empty Statement
 // ============================================================================
 
-class SEmptyStatement extends SAstNode {
+class SEmptyStatement extends SStatement {
   @override
   final int offset;
   @override
@@ -1374,7 +1377,7 @@ class SEmptyStatement extends SAstNode {
 // ============================================================================
 
 /// A pattern variable declaration statement: `var (a, b) = expr;`
-class SPatternVariableDeclarationStatement extends SAstNode {
+class SPatternVariableDeclarationStatement extends SStatement {
   @override
   final int offset;
   @override

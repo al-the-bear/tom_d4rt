@@ -7,7 +7,7 @@ part of 'ast_core.dart';
 // Named Type
 // ============================================================================
 
-class SNamedType extends SAstNode {
+class SNamedType extends STypeAnnotation {
   @override
   final int offset;
   @override
@@ -15,6 +15,7 @@ class SNamedType extends SAstNode {
 
   final SSimpleIdentifier? name;
   final STypeArgumentList? typeArguments;
+  @override
   final bool isNullable;
   final SAstNode? importPrefix;
 
@@ -73,7 +74,7 @@ class SNamedType extends SAstNode {
 // Generic Function Type
 // ============================================================================
 
-class SGenericFunctionType extends SAstNode {
+class SGenericFunctionType extends STypeAnnotation {
   @override
   final int offset;
   @override
@@ -82,6 +83,7 @@ class SGenericFunctionType extends SAstNode {
   final SAstNode? returnType;
   final STypeParameterList? typeParameters;
   final SFormalParameterList? parameters;
+  @override
   final bool isNullable;
 
   SGenericFunctionType({
@@ -231,7 +233,7 @@ class STypeParameterList extends SAstNode {
   }
 }
 
-class STypeParameter extends SAstNode {
+class STypeParameter extends SDeclaration {
   @override
   final int offset;
   @override
@@ -239,6 +241,7 @@ class STypeParameter extends SAstNode {
 
   final SSimpleIdentifier? name;
   final SAstNode? bound;
+  @override
   final List<SAnnotation> metadata;
 
   STypeParameter({
@@ -294,7 +297,7 @@ class STypeParameter extends SAstNode {
 // Record Type
 // ============================================================================
 
-class SRecordTypeAnnotation extends SAstNode {
+class SRecordTypeAnnotation extends STypeAnnotation {
   @override
   final int offset;
   @override
@@ -302,6 +305,7 @@ class SRecordTypeAnnotation extends SAstNode {
 
   final List<SAstNode> positionalFields;
   final List<SAstNode> namedFields;
+  @override
   final bool isNullable;
 
   SRecordTypeAnnotation({
@@ -398,7 +402,7 @@ class SFormalParameterList extends SAstNode {
   }
 }
 
-class SSimpleFormalParameter extends SAstNode {
+class SSimpleFormalParameter extends SNormalFormalParameter {
   @override
   final int offset;
   @override
@@ -409,10 +413,19 @@ class SSimpleFormalParameter extends SAstNode {
   final List<SAnnotation> metadata;
   final bool isConst;
   final bool isFinal;
+  @override
   final bool isRequired;
   final bool isCovariant;
+  @override
   final bool isPositional;
+  @override
   final bool isNamed;
+
+  @override
+  bool get isOptional => !isRequired;
+
+  @override
+  String? get parameterName => name?.name;
 
   SSimpleFormalParameter({
     required this.offset,
@@ -481,7 +494,7 @@ class SSimpleFormalParameter extends SAstNode {
   }
 }
 
-class SDefaultFormalParameter extends SAstNode {
+class SDefaultFormalParameter extends SFormalParameter {
   @override
   final int offset;
   @override
@@ -489,8 +502,19 @@ class SDefaultFormalParameter extends SAstNode {
 
   final SAstNode? parameter;
   final SAstNode? defaultValue;
+  @override
   final bool isPositional;
+  @override
   final bool isNamed;
+
+  @override
+  bool get isOptional => true;
+
+  @override
+  bool get isRequired => false;
+
+  @override
+  String? get parameterName => null;
 
   SDefaultFormalParameter({
     required this.offset,
@@ -538,7 +562,7 @@ class SDefaultFormalParameter extends SAstNode {
   }
 }
 
-class SFieldFormalParameter extends SAstNode {
+class SFieldFormalParameter extends SNormalFormalParameter {
   @override
   final int offset;
   @override
@@ -550,7 +574,20 @@ class SFieldFormalParameter extends SAstNode {
   final List<SAnnotation> metadata;
   final bool isConst;
   final bool isFinal;
+  @override
   final bool isRequired;
+
+  @override
+  bool get isNamed => false;
+
+  @override
+  bool get isPositional => true;
+
+  @override
+  bool get isOptional => !isRequired;
+
+  @override
+  String? get parameterName => name?.name;
 
   SFieldFormalParameter({
     required this.offset,
@@ -617,7 +654,7 @@ class SFieldFormalParameter extends SAstNode {
   }
 }
 
-class SFunctionTypedFormalParameter extends SAstNode {
+class SFunctionTypedFormalParameter extends SNormalFormalParameter {
   @override
   final int offset;
   @override
@@ -628,7 +665,20 @@ class SFunctionTypedFormalParameter extends SAstNode {
   final STypeParameterList? typeParameters;
   final SFormalParameterList? parameters;
   final List<SAnnotation> metadata;
+  @override
   final bool isRequired;
+
+  @override
+  bool get isNamed => false;
+
+  @override
+  bool get isPositional => true;
+
+  @override
+  bool get isOptional => !isRequired;
+
+  @override
+  String? get parameterName => name?.name;
 
   SFunctionTypedFormalParameter({
     required this.offset,
@@ -697,7 +747,7 @@ class SFunctionTypedFormalParameter extends SAstNode {
   }
 }
 
-class SSuperFormalParameter extends SAstNode {
+class SSuperFormalParameter extends SNormalFormalParameter {
   @override
   final int offset;
   @override
@@ -708,7 +758,20 @@ class SSuperFormalParameter extends SAstNode {
   final STypeParameterList? typeParameters;
   final SFormalParameterList? parameters;
   final List<SAnnotation> metadata;
+  @override
   final bool isRequired;
+
+  @override
+  bool get isNamed => false;
+
+  @override
+  bool get isPositional => true;
+
+  @override
+  bool get isOptional => !isRequired;
+
+  @override
+  String? get parameterName => name?.name;
 
   SSuperFormalParameter({
     required this.offset,
@@ -780,7 +843,7 @@ class SSuperFormalParameter extends SAstNode {
 // Function Bodies
 // ============================================================================
 
-class SBlockFunctionBody extends SAstNode {
+class SBlockFunctionBody extends SFunctionBody {
   @override
   final int offset;
   @override
@@ -788,7 +851,11 @@ class SBlockFunctionBody extends SAstNode {
 
   final SBlock? block;
   final bool isAsync;
+  @override
   final bool isGenerator;
+
+  @override
+  bool get isAsynchronous => isAsync;
 
   SBlockFunctionBody({
     required this.offset,
@@ -832,7 +899,7 @@ class SBlockFunctionBody extends SAstNode {
   }
 }
 
-class SExpressionFunctionBody extends SAstNode {
+class SExpressionFunctionBody extends SFunctionBody {
   @override
   final int offset;
   @override
@@ -840,6 +907,12 @@ class SExpressionFunctionBody extends SAstNode {
 
   final SAstNode? expression;
   final bool isAsync;
+
+  @override
+  bool get isAsynchronous => isAsync;
+
+  @override
+  bool get isGenerator => false;
 
   SExpressionFunctionBody({
     required this.offset,
@@ -879,11 +952,17 @@ class SExpressionFunctionBody extends SAstNode {
   }
 }
 
-class SEmptyFunctionBody extends SAstNode {
+class SEmptyFunctionBody extends SFunctionBody {
   @override
   final int offset;
   @override
   final int length;
+
+  @override
+  bool get isAsynchronous => false;
+
+  @override
+  bool get isGenerator => false;
 
   SEmptyFunctionBody({
     required this.offset,
@@ -914,13 +993,19 @@ class SEmptyFunctionBody extends SAstNode {
   void visitChildren(SAstVisitor visitor) {}
 }
 
-class SNativeFunctionBody extends SAstNode {
+class SNativeFunctionBody extends SFunctionBody {
   @override
   final int offset;
   @override
   final int length;
 
   final SAstNode? stringLiteral;
+
+  @override
+  bool get isAsynchronous => false;
+
+  @override
+  bool get isGenerator => false;
 
   SNativeFunctionBody({
     required this.offset,

@@ -7,7 +7,7 @@ part of 'ast_core.dart';
 // Identifiers
 // ============================================================================
 
-class SSimpleIdentifier extends SAstNode {
+class SSimpleIdentifier extends SIdentifier {
   @override
   final int offset;
   @override
@@ -24,6 +24,9 @@ class SSimpleIdentifier extends SAstNode {
     required this.name,
     this.inDeclarationContext = false,
   });
+
+  @override
+  String get identifierName => name;
 
   @override
   String get nodeType => 'SimpleIdentifier';
@@ -56,7 +59,7 @@ class SSimpleIdentifier extends SAstNode {
   String toString() => 'SSimpleIdentifier($name)';
 }
 
-class SPrefixedIdentifier extends SAstNode {
+class SPrefixedIdentifier extends SIdentifier {
   @override
   final int offset;
   @override
@@ -71,6 +74,10 @@ class SPrefixedIdentifier extends SAstNode {
     this.prefix,
     this.identifier,
   });
+
+  @override
+  String get identifierName =>
+      '${prefix?.name ?? ''}.${identifier?.name ?? ''}';
 
   @override
   String get nodeType => 'PrefixedIdentifier';
@@ -112,7 +119,7 @@ class SPrefixedIdentifier extends SAstNode {
 // Binary Expression
 // ============================================================================
 
-class SBinaryExpression extends SAstNode {
+class SBinaryExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -169,7 +176,7 @@ class SBinaryExpression extends SAstNode {
 // Prefix Expression
 // ============================================================================
 
-class SPrefixExpression extends SAstNode {
+class SPrefixExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -220,7 +227,7 @@ class SPrefixExpression extends SAstNode {
 // Postfix Expression
 // ============================================================================
 
-class SPostfixExpression extends SAstNode {
+class SPostfixExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -271,7 +278,7 @@ class SPostfixExpression extends SAstNode {
 // Conditional Expression
 // ============================================================================
 
-class SConditionalExpression extends SAstNode {
+class SConditionalExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -330,7 +337,7 @@ class SConditionalExpression extends SAstNode {
 // Assignment Expression
 // ============================================================================
 
-class SAssignmentExpression extends SAstNode {
+class SAssignmentExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -387,7 +394,7 @@ class SAssignmentExpression extends SAstNode {
 // Method Invocation
 // ============================================================================
 
-class SMethodInvocation extends SAstNode {
+class SMethodInvocation extends SInvocationExpression {
   @override
   final int offset;
   @override
@@ -397,6 +404,7 @@ class SMethodInvocation extends SAstNode {
   final String? operator;
   final SSimpleIdentifier? methodName;
   final STypeArgumentList? typeArguments;
+  @override
   final SArgumentList? argumentList;
 
   SMethodInvocation({
@@ -461,7 +469,7 @@ class SMethodInvocation extends SAstNode {
 // Function Expression Invocation
 // ============================================================================
 
-class SFunctionExpressionInvocation extends SAstNode {
+class SFunctionExpressionInvocation extends SInvocationExpression {
   @override
   final int offset;
   @override
@@ -469,6 +477,7 @@ class SFunctionExpressionInvocation extends SAstNode {
 
   final SAstNode? function;
   final STypeArgumentList? typeArguments;
+  @override
   final SArgumentList? argumentList;
 
   SFunctionExpressionInvocation({
@@ -523,7 +532,7 @@ class SFunctionExpressionInvocation extends SAstNode {
 // Index Expression
 // ============================================================================
 
-class SIndexExpression extends SAstNode {
+class SIndexExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -583,7 +592,7 @@ class SIndexExpression extends SAstNode {
 // Property Access
 // ============================================================================
 
-class SPropertyAccess extends SAstNode {
+class SPropertyAccess extends SExpression {
   @override
   final int offset;
   @override
@@ -642,7 +651,7 @@ class SPropertyAccess extends SAstNode {
 // Parenthesized Expression
 // ============================================================================
 
-class SParenthesizedExpression extends SAstNode {
+class SParenthesizedExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -689,7 +698,7 @@ class SParenthesizedExpression extends SAstNode {
 // Function Expression
 // ============================================================================
 
-class SFunctionExpression extends SAstNode {
+class SFunctionExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -751,7 +760,7 @@ class SFunctionExpression extends SAstNode {
 // Instance Creation Expression
 // ============================================================================
 
-class SInstanceCreationExpression extends SAstNode {
+class SInstanceCreationExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -812,7 +821,7 @@ class SInstanceCreationExpression extends SAstNode {
 // This/Super Expressions
 // ============================================================================
 
-class SThisExpression extends SAstNode {
+class SThisExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -847,7 +856,7 @@ class SThisExpression extends SAstNode {
   void visitChildren(SAstVisitor visitor) {}
 }
 
-class SSuperExpression extends SAstNode {
+class SSuperExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -886,7 +895,7 @@ class SSuperExpression extends SAstNode {
 // Throw Expression
 // ============================================================================
 
-class SThrowExpression extends SAstNode {
+class SThrowExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -933,7 +942,7 @@ class SThrowExpression extends SAstNode {
 // Await Expression
 // ============================================================================
 
-class SAwaitExpression extends SAstNode {
+class SAwaitExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -980,7 +989,7 @@ class SAwaitExpression extends SAstNode {
 // Type Cast/Check Expressions
 // ============================================================================
 
-class SAsExpression extends SAstNode {
+class SAsExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -1028,7 +1037,7 @@ class SAsExpression extends SAstNode {
   }
 }
 
-class SIsExpression extends SAstNode {
+class SIsExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -1084,7 +1093,7 @@ class SIsExpression extends SAstNode {
 // Cascade Expression
 // ============================================================================
 
-class SCascadeExpression extends SAstNode {
+class SCascadeExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -1144,7 +1153,7 @@ class SCascadeExpression extends SAstNode {
 // Rethrow Expression
 // ============================================================================
 
-class SRethrowExpression extends SAstNode {
+class SRethrowExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -1183,7 +1192,7 @@ class SRethrowExpression extends SAstNode {
 // Named Expression
 // ============================================================================
 
-class SNamedExpression extends SAstNode {
+class SNamedExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -1237,7 +1246,7 @@ class SNamedExpression extends SAstNode {
 // Collection Elements (for list/set/map spread and control flow)
 // ============================================================================
 
-class SSpreadElement extends SAstNode {
+class SSpreadElement extends SCollectionElement {
   @override
   final int offset;
   @override
@@ -1284,7 +1293,7 @@ class SSpreadElement extends SAstNode {
   }
 }
 
-class SIfElement extends SAstNode {
+class SIfElement extends SCollectionElement {
   @override
   final int offset;
   @override
@@ -1339,7 +1348,7 @@ class SIfElement extends SAstNode {
   }
 }
 
-class SForElement extends SAstNode {
+class SForElement extends SCollectionElement {
   @override
   final int offset;
   @override
@@ -1392,7 +1401,7 @@ class SForElement extends SAstNode {
 // ============================================================================
 
 /// A switch expression: `switch (expr) { case1 => val1, ... }`
-class SSwitchExpression extends SAstNode {
+class SSwitchExpression extends SExpression {
   @override
   final int offset;
   @override
@@ -1450,7 +1459,7 @@ class SSwitchExpression extends SAstNode {
 // ============================================================================
 
 /// A function reference expression: `myFunc<int>` (tear-off with type args)
-class SFunctionReference extends SAstNode {
+class SFunctionReference extends SExpression {
   @override
   final int offset;
   @override
@@ -1507,7 +1516,7 @@ class SFunctionReference extends SAstNode {
 // ============================================================================
 
 /// A constructor reference expression: `MyClass.new` or `MyClass<T>.named`
-class SConstructorReference extends SAstNode {
+class SConstructorReference extends SExpression {
   @override
   final int offset;
   @override
@@ -1556,7 +1565,7 @@ class SConstructorReference extends SAstNode {
 // ============================================================================
 
 /// A pattern assignment expression: `(a, b) = expr`
-class SPatternAssignment extends SAstNode {
+class SPatternAssignment extends SExpression {
   @override
   final int offset;
   @override
