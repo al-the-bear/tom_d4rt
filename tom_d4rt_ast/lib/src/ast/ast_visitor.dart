@@ -553,80 +553,179 @@ abstract class SAstVisitor<T> {
 /// A visitor that adds category-level fallback methods between specific visit
 /// methods and [visitNode].
 ///
-/// The delegation chain for a concrete node is:
+/// The delegation chain for a concrete node mirrors the analyzer's type
+/// hierarchy. For example:
 ///
-///     visitSpecificNode → visitCategory → visitNode
+///     visitSimpleIdentifier → visitIdentifier → visitExpression
+///         → visitCollectionElement → visitNode
 ///
-/// For example, [visitBinaryExpression] delegates to [visitExpression], which
-/// delegates to [visitNode]. Override a category method to handle all nodes of
-/// that kind in one place.
+/// Override a category method to handle all nodes of that kind in one place.
 ///
-/// The category hierarchy:
+/// The full category hierarchy:
 /// ```
 /// visitNode
-/// ├── visitExpression
-/// │   └── visitLiteral
+/// ├── visitCollectionElement
+/// │   ├── visitExpression
+/// │   │   ├── visitIdentifier
+/// │   │   ├── visitInvocationExpression
+/// │   │   ├── visitLiteral
+/// │   │   │   ├── visitTypedLiteral
+/// │   │   │   └── visitStringLiteral
+/// │   │   │       └── visitSingleStringLiteral
+/// │   │   └── (other expressions)
+/// │   ├── visitMapLiteralEntry
+/// │   ├── visitSpreadElement
+/// │   ├── visitIfElement
+/// │   └── visitForElement
+/// ├── visitAnnotatedNode
+/// │   ├── visitDeclaration
+/// │   │   ├── visitClassMember
+/// │   │   ├── visitCompilationUnitMember
+/// │   │   │   └── visitNamedCompilationUnitMember
+/// │   │   └── (other declarations)
+/// │   └── visitDirective
+/// │       └── visitUriBasedDirective
+/// │           └── visitNamespaceDirective
 /// ├── visitStatement
-/// ├── visitDeclaration
-/// ├── visitDirective
-/// ├── visitPattern
-/// ├── visitTypeAnnotation
 /// ├── visitFormalParameter
+/// │   └── visitNormalFormalParameter
 /// ├── visitFunctionBody
-/// ├── visitForParts
+/// ├── visitTypeAnnotation
+/// ├── visitDartPattern
+/// │   └── visitVariablePattern
+/// ├── visitForLoopParts
+/// │   ├── visitForEachParts
+/// │   └── visitForParts
+/// ├── visitSwitchMember
 /// ├── visitCombinator
-/// └── visitConstructorInitializer
+/// ├── visitConstructorInitializer
+/// └── visitInterpolationElement
 /// ```
 class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
   // --------------------------------------------------------------------------
-  // Category-level fallbacks
+  // Category-level fallbacks — ordered by hierarchy depth
   // --------------------------------------------------------------------------
 
-  /// Category fallback for all expression nodes.
-  T? visitExpression(SAstNode node) => visitNode(node);
+  // --- Level 1: direct children of visitNode ---
 
-  /// Category fallback for all literal nodes (sub-category of expression).
-  T? visitLiteral(SAstNode node) => visitExpression(node);
+  /// Category fallback for all collection elements (expressions, spread,
+  /// if/for elements, map literal entries).
+  T? visitCollectionElement(SCollectionElement node) => visitNode(node);
+
+  /// Category fallback for all annotated nodes (declarations, directives).
+  T? visitAnnotatedNode(SAnnotatedNode node) => visitNode(node);
 
   /// Category fallback for all statement nodes.
-  T? visitStatement(SAstNode node) => visitNode(node);
-
-  /// Category fallback for all declaration nodes.
-  T? visitDeclaration(SAstNode node) => visitNode(node);
-
-  /// Category fallback for all directive nodes.
-  T? visitDirective(SAstNode node) => visitNode(node);
-
-  /// Category fallback for all pattern nodes.
-  T? visitPattern(SAstNode node) => visitNode(node);
-
-  /// Category fallback for all type annotation nodes.
-  T? visitTypeAnnotation(SAstNode node) => visitNode(node);
+  T? visitStatement(SStatement node) => visitNode(node);
 
   /// Category fallback for all formal parameter nodes.
-  T? visitFormalParameter(SAstNode node) => visitNode(node);
+  T? visitFormalParameter(SFormalParameter node) => visitNode(node);
 
   /// Category fallback for all function body nodes.
-  T? visitFunctionBody(SAstNode node) => visitNode(node);
+  T? visitFunctionBody(SFunctionBody node) => visitNode(node);
 
-  /// Category fallback for all for-parts nodes.
-  T? visitForParts(SAstNode node) => visitNode(node);
+  /// Category fallback for all type annotation nodes.
+  T? visitTypeAnnotation(STypeAnnotation node) => visitNode(node);
+
+  /// Category fallback for all Dart pattern nodes.
+  T? visitDartPattern(SDartPattern node) => visitNode(node);
+
+  /// Category fallback for all for-loop parts nodes.
+  T? visitForLoopParts(SForLoopParts node) => visitNode(node);
+
+  /// Category fallback for all switch member nodes (case/default).
+  T? visitSwitchMember(SSwitchMember node) => visitNode(node);
 
   /// Category fallback for all combinator nodes.
-  T? visitCombinator(SAstNode node) => visitNode(node);
+  T? visitCombinator(SCombinator node) => visitNode(node);
 
   /// Category fallback for all constructor initializer nodes.
-  T? visitConstructorInitializer(SAstNode node) => visitNode(node);
+  T? visitConstructorInitializer(SConstructorInitializer node) =>
+      visitNode(node);
+
+  /// Category fallback for all interpolation element nodes.
+  T? visitInterpolationElement(SInterpolationElement node) => visitNode(node);
+
+  // --- Level 2: sub-categories ---
+
+  /// Category fallback for all expression nodes.
+  T? visitExpression(SExpression node) => visitCollectionElement(node);
+
+  /// Category fallback for all declaration nodes.
+  T? visitDeclaration(SDeclaration node) => visitAnnotatedNode(node);
+
+  /// Category fallback for all directive nodes.
+  T? visitDirective(SDirective node) => visitAnnotatedNode(node);
+
+  /// Category fallback for normal (non-default) formal parameters.
+  T? visitNormalFormalParameter(SNormalFormalParameter node) =>
+      visitFormalParameter(node);
+
+  /// Category fallback for for-each parts.
+  T? visitForEachParts(SForEachParts node) => visitForLoopParts(node);
+
+  /// Category fallback for traditional for-parts.
+  T? visitForParts(SForParts node) => visitForLoopParts(node);
+
+  /// Category fallback for variable patterns.
+  T? visitVariablePattern(SVariablePattern node) => visitDartPattern(node);
+
+  /// Category fallback for URI-based directives (import, export, part).
+  T? visitUriBasedDirective(SUriBasedDirective node) => visitDirective(node);
+
+  // --- Level 3: deeper sub-categories ---
+
+  /// Category fallback for class members (methods, fields, constructors).
+  T? visitClassMember(SClassMember node) => visitDeclaration(node);
+
+  /// Category fallback for compilation unit members (top-level declarations).
+  T? visitCompilationUnitMember(SCompilationUnitMember node) =>
+      visitDeclaration(node);
+
+  /// Category fallback for all literal nodes.
+  T? visitLiteral(SLiteral node) => visitExpression(node);
+
+  /// Category fallback for identifier nodes.
+  T? visitIdentifier(SIdentifier node) => visitExpression(node);
+
+  /// Category fallback for invocation expression nodes.
+  T? visitInvocationExpression(SInvocationExpression node) =>
+      visitExpression(node);
+
+  /// Category fallback for namespace directives (import, export).
+  T? visitNamespaceDirective(SNamespaceDirective node) =>
+      visitUriBasedDirective(node);
+
+  // --- Level 4: deepest sub-categories ---
+
+  /// Category fallback for named compilation unit members.
+  T? visitNamedCompilationUnitMember(SNamedCompilationUnitMember node) =>
+      visitCompilationUnitMember(node);
+
+  /// Category fallback for typed literals (list, set/map).
+  T? visitTypedLiteral(STypedLiteral node) => visitLiteral(node);
+
+  /// Category fallback for string literals.
+  T? visitStringLiteral(SStringLiteral node) => visitLiteral(node);
+
+  /// Category fallback for single string literals (non-adjacent).
+  T? visitSingleStringLiteral(SSingleStringLiteral node) =>
+      visitStringLiteral(node);
+
+  // ==========================================================================
+  // Concrete node overrides — each delegates to its nearest category
+  // ==========================================================================
 
   // --------------------------------------------------------------------------
-  // Expressions → visitExpression
+  // Expressions → visitExpression (or sub-category)
   // --------------------------------------------------------------------------
 
   @override
-  T? visitSimpleIdentifier(SSimpleIdentifier node) => visitExpression(node);
+  T? visitSimpleIdentifier(SSimpleIdentifier node) => visitIdentifier(node);
 
   @override
-  T? visitPrefixedIdentifier(SPrefixedIdentifier node) => visitExpression(node);
+  T? visitPrefixedIdentifier(SPrefixedIdentifier node) =>
+      visitIdentifier(node);
 
   @override
   T? visitBinaryExpression(SBinaryExpression node) => visitExpression(node);
@@ -646,11 +745,12 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
       visitExpression(node);
 
   @override
-  T? visitMethodInvocation(SMethodInvocation node) => visitExpression(node);
+  T? visitMethodInvocation(SMethodInvocation node) =>
+      visitInvocationExpression(node);
 
   @override
   T? visitFunctionExpressionInvocation(SFunctionExpressionInvocation node) =>
-      visitExpression(node);
+      visitInvocationExpression(node);
 
   @override
   T? visitIndexExpression(SIndexExpression node) => visitExpression(node);
@@ -697,15 +797,6 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
   T? visitNamedExpression(SNamedExpression node) => visitExpression(node);
 
   @override
-  T? visitSpreadElement(SSpreadElement node) => visitExpression(node);
-
-  @override
-  T? visitIfElement(SIfElement node) => visitExpression(node);
-
-  @override
-  T? visitForElement(SForElement node) => visitExpression(node);
-
-  @override
   T? visitSwitchExpression(SSwitchExpression node) => visitExpression(node);
 
   @override
@@ -715,8 +806,28 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
   T? visitConstructorReference(SConstructorReference node) =>
       visitExpression(node);
 
+  @override
+  T? visitPatternAssignment(SPatternAssignment node) => visitExpression(node);
+
   // --------------------------------------------------------------------------
-  // Literals → visitLiteral → visitExpression
+  // Collection elements (non-expression) → visitCollectionElement
+  // --------------------------------------------------------------------------
+
+  @override
+  T? visitSpreadElement(SSpreadElement node) => visitCollectionElement(node);
+
+  @override
+  T? visitIfElement(SIfElement node) => visitCollectionElement(node);
+
+  @override
+  T? visitForElement(SForElement node) => visitCollectionElement(node);
+
+  @override
+  T? visitMapLiteralEntry(SMapLiteralEntry node) =>
+      visitCollectionElement(node);
+
+  // --------------------------------------------------------------------------
+  // Literals → visitLiteral (or sub-category) → visitExpression
   // --------------------------------------------------------------------------
 
   @override
@@ -729,28 +840,42 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
   T? visitBooleanLiteral(SBooleanLiteral node) => visitLiteral(node);
 
   @override
-  T? visitSimpleStringLiteral(SSimpleStringLiteral node) => visitLiteral(node);
+  T? visitSimpleStringLiteral(SSimpleStringLiteral node) =>
+      visitSingleStringLiteral(node);
 
   @override
-  T? visitStringInterpolation(SStringInterpolation node) => visitLiteral(node);
+  T? visitStringInterpolation(SStringInterpolation node) =>
+      visitSingleStringLiteral(node);
 
   @override
-  T? visitAdjacentStrings(SAdjacentStrings node) => visitLiteral(node);
+  T? visitAdjacentStrings(SAdjacentStrings node) => visitStringLiteral(node);
 
   @override
   T? visitNullLiteral(SNullLiteral node) => visitLiteral(node);
 
   @override
-  T? visitListLiteral(SListLiteral node) => visitLiteral(node);
+  T? visitListLiteral(SListLiteral node) => visitTypedLiteral(node);
 
   @override
-  T? visitSetOrMapLiteral(SSetOrMapLiteral node) => visitLiteral(node);
+  T? visitSetOrMapLiteral(SSetOrMapLiteral node) => visitTypedLiteral(node);
 
   @override
   T? visitSymbolLiteral(SSymbolLiteral node) => visitLiteral(node);
 
   @override
   T? visitRecordLiteral(SRecordLiteral node) => visitLiteral(node);
+
+  // --------------------------------------------------------------------------
+  // Interpolation elements → visitInterpolationElement
+  // --------------------------------------------------------------------------
+
+  @override
+  T? visitInterpolationExpression(SInterpolationExpression node) =>
+      visitInterpolationElement(node);
+
+  @override
+  T? visitInterpolationString(SInterpolationString node) =>
+      visitInterpolationElement(node);
 
   // --------------------------------------------------------------------------
   // Statements → visitStatement
@@ -811,69 +936,92 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
     SPatternVariableDeclarationStatement node,
   ) => visitStatement(node);
 
+  @override
+  T? visitForEachStatement(SForEachStatement node) => visitStatement(node);
+
   // --------------------------------------------------------------------------
-  // Declarations → visitDeclaration
+  // Declarations → visitDeclaration (or sub-category)
   // --------------------------------------------------------------------------
 
   @override
   T? visitFunctionDeclaration(SFunctionDeclaration node) =>
-      visitDeclaration(node);
+      visitNamedCompilationUnitMember(node);
 
   @override
-  T? visitMethodDeclaration(SMethodDeclaration node) => visitDeclaration(node);
+  T? visitMethodDeclaration(SMethodDeclaration node) => visitClassMember(node);
 
   @override
-  T? visitClassDeclaration(SClassDeclaration node) => visitDeclaration(node);
+  T? visitClassDeclaration(SClassDeclaration node) =>
+      visitNamedCompilationUnitMember(node);
 
   @override
-  T? visitMixinDeclaration(SMixinDeclaration node) => visitDeclaration(node);
+  T? visitMixinDeclaration(SMixinDeclaration node) =>
+      visitNamedCompilationUnitMember(node);
 
   @override
-  T? visitEnumDeclaration(SEnumDeclaration node) => visitDeclaration(node);
+  T? visitEnumDeclaration(SEnumDeclaration node) =>
+      visitNamedCompilationUnitMember(node);
 
   @override
   T? visitExtensionDeclaration(SExtensionDeclaration node) =>
-      visitDeclaration(node);
+      visitCompilationUnitMember(node);
+
+  @override
+  T? visitExtensionTypeDeclaration(SExtensionTypeDeclaration node) =>
+      visitNamedCompilationUnitMember(node);
 
   @override
   T? visitVariableDeclaration(SVariableDeclaration node) =>
       visitDeclaration(node);
 
   @override
-  T? visitFieldDeclaration(SFieldDeclaration node) => visitDeclaration(node);
+  T? visitVariableDeclarationList(SVariableDeclarationList node) =>
+      visitDeclaration(node);
+
+  @override
+  T? visitFieldDeclaration(SFieldDeclaration node) => visitClassMember(node);
 
   @override
   T? visitConstructorDeclaration(SConstructorDeclaration node) =>
-      visitDeclaration(node);
+      visitClassMember(node);
 
   @override
   T? visitTopLevelVariableDeclaration(STopLevelVariableDeclaration node) =>
-      visitDeclaration(node);
+      visitCompilationUnitMember(node);
 
   @override
   T? visitTypedefDeclaration(STypedefDeclaration node) =>
-      visitDeclaration(node);
+      visitNamedCompilationUnitMember(node);
 
   @override
   T? visitEnumConstantDeclaration(SEnumConstantDeclaration node) =>
       visitDeclaration(node);
 
   @override
-  T? visitExtensionTypeDeclaration(SExtensionTypeDeclaration node) =>
+  T? visitDeclaredIdentifier(SDeclaredIdentifier node) =>
+      visitDeclaration(node);
+
+  @override
+  T? visitTypeParameter(STypeParameter node) => visitDeclaration(node);
+
+  @override
+  T? visitPatternVariableDeclaration(SPatternVariableDeclaration node) =>
       visitDeclaration(node);
 
   // --------------------------------------------------------------------------
-  // Directives → visitDirective
+  // Directives → visitDirective (or sub-category)
   // --------------------------------------------------------------------------
 
   @override
-  T? visitImportDirective(SImportDirective node) => visitDirective(node);
+  T? visitImportDirective(SImportDirective node) =>
+      visitNamespaceDirective(node);
 
   @override
-  T? visitExportDirective(SExportDirective node) => visitDirective(node);
+  T? visitExportDirective(SExportDirective node) =>
+      visitNamespaceDirective(node);
 
   @override
-  T? visitPartDirective(SPartDirective node) => visitDirective(node);
+  T? visitPartDirective(SPartDirective node) => visitUriBasedDirective(node);
 
   @override
   T? visitPartOfDirective(SPartOfDirective node) => visitDirective(node);
@@ -897,12 +1045,12 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
       visitTypeAnnotation(node);
 
   // --------------------------------------------------------------------------
-  // Formal parameters → visitFormalParameter
+  // Formal parameters → visitFormalParameter (or sub-category)
   // --------------------------------------------------------------------------
 
   @override
   T? visitSimpleFormalParameter(SSimpleFormalParameter node) =>
-      visitFormalParameter(node);
+      visitNormalFormalParameter(node);
 
   @override
   T? visitDefaultFormalParameter(SDefaultFormalParameter node) =>
@@ -910,15 +1058,15 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
 
   @override
   T? visitFieldFormalParameter(SFieldFormalParameter node) =>
-      visitFormalParameter(node);
+      visitNormalFormalParameter(node);
 
   @override
   T? visitFunctionTypedFormalParameter(SFunctionTypedFormalParameter node) =>
-      visitFormalParameter(node);
+      visitNormalFormalParameter(node);
 
   @override
   T? visitSuperFormalParameter(SSuperFormalParameter node) =>
-      visitFormalParameter(node);
+      visitNormalFormalParameter(node);
 
   // --------------------------------------------------------------------------
   // Function bodies → visitFunctionBody
@@ -939,7 +1087,7 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
       visitFunctionBody(node);
 
   // --------------------------------------------------------------------------
-  // For parts → visitForParts
+  // For-loop parts → visitForLoopParts (or sub-category)
   // --------------------------------------------------------------------------
 
   @override
@@ -952,11 +1100,24 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
 
   @override
   T? visitForEachPartsWithDeclaration(SForEachPartsWithDeclaration node) =>
-      visitForParts(node);
+      visitForEachParts(node);
 
   @override
   T? visitForEachPartsWithIdentifier(SForEachPartsWithIdentifier node) =>
-      visitForParts(node);
+      visitForEachParts(node);
+
+  // --------------------------------------------------------------------------
+  // Switch members → visitSwitchMember
+  // --------------------------------------------------------------------------
+
+  @override
+  T? visitSwitchCase(SSwitchCase node) => visitSwitchMember(node);
+
+  @override
+  T? visitSwitchDefault(SSwitchDefault node) => visitSwitchMember(node);
+
+  @override
+  T? visitSwitchPatternCase(SSwitchPatternCase node) => visitSwitchMember(node);
 
   // --------------------------------------------------------------------------
   // Combinators → visitCombinator
@@ -990,81 +1151,54 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
       visitConstructorInitializer(node);
 
   // --------------------------------------------------------------------------
-  // Patterns → visitPattern
+  // Patterns → visitDartPattern (or sub-category)
   // --------------------------------------------------------------------------
 
   @override
-  T? visitConstantPattern(SConstantPattern node) => visitPattern(node);
+  T? visitConstantPattern(SConstantPattern node) => visitDartPattern(node);
 
   @override
-  T? visitWildcardPattern(SWildcardPattern node) => visitPattern(node);
+  T? visitWildcardPattern(SWildcardPattern node) => visitVariablePattern(node);
 
   @override
   T? visitDeclaredVariablePattern(SDeclaredVariablePattern node) =>
-      visitPattern(node);
+      visitVariablePattern(node);
 
   @override
   T? visitAssignedVariablePattern(SAssignedVariablePattern node) =>
-      visitPattern(node);
+      visitVariablePattern(node);
 
   @override
-  T? visitObjectPattern(SObjectPattern node) => visitPattern(node);
+  T? visitObjectPattern(SObjectPattern node) => visitDartPattern(node);
 
   @override
-  T? visitListPattern(SListPattern node) => visitPattern(node);
+  T? visitListPattern(SListPattern node) => visitDartPattern(node);
 
   @override
-  T? visitMapPattern(SMapPattern node) => visitPattern(node);
+  T? visitMapPattern(SMapPattern node) => visitDartPattern(node);
 
   @override
-  T? visitRecordPattern(SRecordPattern node) => visitPattern(node);
+  T? visitRecordPattern(SRecordPattern node) => visitDartPattern(node);
 
   @override
-  T? visitLogicalOrPattern(SLogicalOrPattern node) => visitPattern(node);
+  T? visitLogicalOrPattern(SLogicalOrPattern node) => visitDartPattern(node);
 
   @override
-  T? visitLogicalAndPattern(SLogicalAndPattern node) => visitPattern(node);
+  T? visitLogicalAndPattern(SLogicalAndPattern node) => visitDartPattern(node);
 
   @override
-  T? visitCastPattern(SCastPattern node) => visitPattern(node);
+  T? visitCastPattern(SCastPattern node) => visitDartPattern(node);
 
   @override
-  T? visitRelationalPattern(SRelationalPattern node) => visitPattern(node);
+  T? visitRelationalPattern(SRelationalPattern node) => visitDartPattern(node);
 
   @override
-  T? visitNullCheckPattern(SNullCheckPattern node) => visitPattern(node);
+  T? visitNullCheckPattern(SNullCheckPattern node) => visitDartPattern(node);
 
   @override
-  T? visitNullAssertPattern(SNullAssertPattern node) => visitPattern(node);
-
-  @override
-  T? visitRestPatternElement(SRestPatternElement node) => visitPattern(node);
-
-  @override
-  T? visitPatternAssignment(SPatternAssignment node) => visitPattern(node);
+  T? visitNullAssertPattern(SNullAssertPattern node) => visitDartPattern(node);
 
   @override
   T? visitParenthesizedPattern(SParenthesizedPattern node) =>
-      visitPattern(node);
-
-  // --------------------------------------------------------------------------
-  // Misc (no category — delegate to visitNode)
-  // --------------------------------------------------------------------------
-
-  @override
-  T? visitSwitchPatternCase(SSwitchPatternCase node) => visitNode(node);
-
-  @override
-  T? visitMapPatternEntry(SMapPatternEntry node) => visitNode(node);
-
-  @override
-  T? visitPatternField(SPatternField node) => visitNode(node);
-
-  @override
-  T? visitPatternVariableDeclaration(SPatternVariableDeclaration node) =>
-      visitNode(node);
-
-  @override
-  T? visitRepresentationDeclaration(SRepresentationDeclaration node) =>
-      visitNode(node);
+      visitDartPattern(node);
 }
