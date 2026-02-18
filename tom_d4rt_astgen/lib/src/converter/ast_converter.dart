@@ -183,6 +183,54 @@ class AstConverter {
     if (node is analyzer.InterpolationExpression) return _convertInterpolationExpression(node);
     if (node is analyzer.InterpolationString) return _convertInterpolationString(node);
 
+    // Switch expressions and pattern cases
+    if (node is analyzer.SwitchExpression) return _convertSwitchExpression(node);
+    if (node is analyzer.SwitchExpressionCase) return _convertSwitchExpressionCase(node);
+    if (node is analyzer.SwitchPatternCase) return _convertSwitchPatternCase(node);
+
+    // Guard / When / CaseClause
+    if (node is analyzer.GuardedPattern) return _convertGuardedPattern(node);
+    if (node is analyzer.WhenClause) return _convertWhenClause(node);
+    if (node is analyzer.CaseClause) return _convertCaseClause(node);
+
+    // Patterns - value patterns
+    if (node is analyzer.ConstantPattern) return _convertConstantPattern(node);
+    if (node is analyzer.WildcardPattern) return _convertWildcardPattern(node);
+    if (node is analyzer.DeclaredVariablePattern) return _convertDeclaredVariablePattern(node);
+    if (node is analyzer.AssignedVariablePattern) return _convertAssignedVariablePattern(node);
+
+    // Patterns - composite patterns
+    if (node is analyzer.ObjectPattern) return _convertObjectPattern(node);
+    if (node is analyzer.ListPattern) return _convertListPattern(node);
+    if (node is analyzer.MapPattern) return _convertMapPattern(node);
+    if (node is analyzer.MapPatternEntry) return _convertMapPatternEntry(node);
+    if (node is analyzer.RecordPattern) return _convertRecordPattern(node);
+    if (node is analyzer.PatternField) return _convertPatternField(node);
+    if (node is analyzer.PatternFieldName) return _convertPatternFieldName(node);
+
+    // Patterns - logical & postfix patterns
+    if (node is analyzer.LogicalOrPattern) return _convertLogicalOrPattern(node);
+    if (node is analyzer.LogicalAndPattern) return _convertLogicalAndPattern(node);
+    if (node is analyzer.CastPattern) return _convertCastPattern(node);
+    if (node is analyzer.RelationalPattern) return _convertRelationalPattern(node);
+    if (node is analyzer.NullCheckPattern) return _convertNullCheckPattern(node);
+    if (node is analyzer.NullAssertPattern) return _convertNullAssertPattern(node);
+    if (node is analyzer.ParenthesizedPattern) return _convertParenthesizedPattern(node);
+    if (node is analyzer.RestPatternElement) return _convertRestPatternElement(node);
+
+    // Pattern statements / expressions
+    if (node is analyzer.PatternAssignment) return _convertPatternAssignment(node);
+    if (node is analyzer.PatternVariableDeclaration) return _convertPatternVariableDeclaration(node);
+    if (node is analyzer.PatternVariableDeclarationStatement) return _convertPatternVariableDeclarationStatement(node);
+
+    // References
+    if (node is analyzer.FunctionReference) return _convertFunctionReference(node);
+    if (node is analyzer.ConstructorReference) return _convertConstructorReference(node);
+
+    // Extension types
+    if (node is analyzer.ExtensionTypeDeclaration) return _convertExtensionTypeDeclaration(node);
+    if (node is analyzer.RepresentationDeclaration) return _convertRepresentationDeclaration(node);
+
     // Unknown node type - return a placeholder
     return _SUnknownNode(
       offset: node.offset,
@@ -438,6 +486,7 @@ class AstConverter {
       condition: convert(node.expression),
       thenStatement: convert(node.thenStatement),
       elseStatement: convert(node.elseStatement),
+      caseClause: convert(node.caseClause),
     );
   }
 
@@ -1406,6 +1455,328 @@ class AstConverter {
   }
 
   // ============================================================================
+  // Switch expression & pattern case converters
+  // ============================================================================
+
+  SSwitchExpression _convertSwitchExpression(analyzer.SwitchExpression node) {
+    return SSwitchExpression(
+      offset: node.offset,
+      length: node.length,
+      expression: convert(node.expression)!,
+      cases: _convertNodes(node.cases),
+    );
+  }
+
+  SSwitchExpressionCase _convertSwitchExpressionCase(analyzer.SwitchExpressionCase node) {
+    return SSwitchExpressionCase(
+      offset: node.offset,
+      length: node.length,
+      guardedPattern: convert(node.guardedPattern)!,
+      expression: convert(node.expression)!,
+    );
+  }
+
+  SSwitchPatternCase _convertSwitchPatternCase(analyzer.SwitchPatternCase node) {
+    return SSwitchPatternCase(
+      offset: node.offset,
+      length: node.length,
+      labels: _convertNodes(node.labels).cast<SLabel>(),
+      guardedPattern: convert(node.guardedPattern)!,
+      statements: _convertNodes(node.statements),
+    );
+  }
+
+  // ============================================================================
+  // Guard / When / CaseClause converters
+  // ============================================================================
+
+  SGuardedPattern _convertGuardedPattern(analyzer.GuardedPattern node) {
+    return SGuardedPattern(
+      offset: node.offset,
+      length: node.length,
+      pattern: convert(node.pattern)!,
+      whenClause: convert(node.whenClause),
+    );
+  }
+
+  SWhenClause _convertWhenClause(analyzer.WhenClause node) {
+    return SWhenClause(
+      offset: node.offset,
+      length: node.length,
+      expression: convert(node.expression)!,
+    );
+  }
+
+  SCaseClause _convertCaseClause(analyzer.CaseClause node) {
+    return SCaseClause(
+      offset: node.offset,
+      length: node.length,
+      guardedPattern: convert(node.guardedPattern)!,
+    );
+  }
+
+  // ============================================================================
+  // Pattern converters - value patterns
+  // ============================================================================
+
+  SConstantPattern _convertConstantPattern(analyzer.ConstantPattern node) {
+    return SConstantPattern(
+      offset: node.offset,
+      length: node.length,
+      constKeyword: node.constKeyword?.lexeme,
+      expression: convert(node.expression)!,
+    );
+  }
+
+  SWildcardPattern _convertWildcardPattern(analyzer.WildcardPattern node) {
+    return SWildcardPattern(
+      offset: node.offset,
+      length: node.length,
+      keyword: node.keyword?.lexeme,
+      name: node.name.lexeme,
+      type: convert(node.type),
+    );
+  }
+
+  SDeclaredVariablePattern _convertDeclaredVariablePattern(analyzer.DeclaredVariablePattern node) {
+    return SDeclaredVariablePattern(
+      offset: node.offset,
+      length: node.length,
+      keyword: node.keyword?.lexeme,
+      name: node.name.lexeme,
+      type: convert(node.type),
+    );
+  }
+
+  SAssignedVariablePattern _convertAssignedVariablePattern(analyzer.AssignedVariablePattern node) {
+    return SAssignedVariablePattern(
+      offset: node.offset,
+      length: node.length,
+      name: node.name.lexeme,
+    );
+  }
+
+  // ============================================================================
+  // Pattern converters - composite patterns
+  // ============================================================================
+
+  SObjectPattern _convertObjectPattern(analyzer.ObjectPattern node) {
+    return SObjectPattern(
+      offset: node.offset,
+      length: node.length,
+      type: convert(node.type)!,
+      fields: _convertNodes(node.fields),
+    );
+  }
+
+  SListPattern _convertListPattern(analyzer.ListPattern node) {
+    return SListPattern(
+      offset: node.offset,
+      length: node.length,
+      typeArguments: convert(node.typeArguments),
+      elements: _convertNodes(node.elements),
+    );
+  }
+
+  SMapPattern _convertMapPattern(analyzer.MapPattern node) {
+    return SMapPattern(
+      offset: node.offset,
+      length: node.length,
+      typeArguments: convert(node.typeArguments),
+      elements: _convertNodes(node.elements),
+    );
+  }
+
+  SMapPatternEntry _convertMapPatternEntry(analyzer.MapPatternEntry node) {
+    return SMapPatternEntry(
+      offset: node.offset,
+      length: node.length,
+      key: convert(node.key)!,
+      value: convert(node.value)!,
+    );
+  }
+
+  SRecordPattern _convertRecordPattern(analyzer.RecordPattern node) {
+    return SRecordPattern(
+      offset: node.offset,
+      length: node.length,
+      fields: _convertNodes(node.fields),
+    );
+  }
+
+  SPatternField _convertPatternField(analyzer.PatternField node) {
+    return SPatternField(
+      offset: node.offset,
+      length: node.length,
+      name: convert(node.name),
+      pattern: convert(node.pattern)!,
+    );
+  }
+
+  SPatternFieldName _convertPatternFieldName(analyzer.PatternFieldName node) {
+    return SPatternFieldName(
+      offset: node.offset,
+      length: node.length,
+      name: node.name?.lexeme,
+    );
+  }
+
+  // ============================================================================
+  // Pattern converters - logical & postfix patterns
+  // ============================================================================
+
+  SLogicalOrPattern _convertLogicalOrPattern(analyzer.LogicalOrPattern node) {
+    return SLogicalOrPattern(
+      offset: node.offset,
+      length: node.length,
+      leftOperand: convert(node.leftOperand)!,
+      operator: node.operator.lexeme,
+      rightOperand: convert(node.rightOperand)!,
+    );
+  }
+
+  SLogicalAndPattern _convertLogicalAndPattern(analyzer.LogicalAndPattern node) {
+    return SLogicalAndPattern(
+      offset: node.offset,
+      length: node.length,
+      leftOperand: convert(node.leftOperand)!,
+      operator: node.operator.lexeme,
+      rightOperand: convert(node.rightOperand)!,
+    );
+  }
+
+  SCastPattern _convertCastPattern(analyzer.CastPattern node) {
+    return SCastPattern(
+      offset: node.offset,
+      length: node.length,
+      pattern: convert(node.pattern)!,
+      type: convert(node.type)!,
+    );
+  }
+
+  SRelationalPattern _convertRelationalPattern(analyzer.RelationalPattern node) {
+    return SRelationalPattern(
+      offset: node.offset,
+      length: node.length,
+      operator: node.operator.lexeme,
+      operand: convert(node.operand)!,
+    );
+  }
+
+  SNullCheckPattern _convertNullCheckPattern(analyzer.NullCheckPattern node) {
+    return SNullCheckPattern(
+      offset: node.offset,
+      length: node.length,
+      pattern: convert(node.pattern)!,
+      operator: node.operator.lexeme,
+    );
+  }
+
+  SNullAssertPattern _convertNullAssertPattern(analyzer.NullAssertPattern node) {
+    return SNullAssertPattern(
+      offset: node.offset,
+      length: node.length,
+      pattern: convert(node.pattern)!,
+      operator: node.operator.lexeme,
+    );
+  }
+
+  SParenthesizedPattern _convertParenthesizedPattern(analyzer.ParenthesizedPattern node) {
+    return SParenthesizedPattern(
+      offset: node.offset,
+      length: node.length,
+      pattern: convert(node.pattern)!,
+    );
+  }
+
+  SRestPatternElement _convertRestPatternElement(analyzer.RestPatternElement node) {
+    return SRestPatternElement(
+      offset: node.offset,
+      length: node.length,
+      pattern: convert(node.pattern),
+    );
+  }
+
+  // ============================================================================
+  // Pattern statement / expression converters
+  // ============================================================================
+
+  SPatternAssignment _convertPatternAssignment(analyzer.PatternAssignment node) {
+    return SPatternAssignment(
+      offset: node.offset,
+      length: node.length,
+      pattern: convert(node.pattern)!,
+      expression: convert(node.expression)!,
+    );
+  }
+
+  SPatternVariableDeclaration _convertPatternVariableDeclaration(analyzer.PatternVariableDeclaration node) {
+    return SPatternVariableDeclaration(
+      offset: node.offset,
+      length: node.length,
+      keyword: node.keyword.lexeme,
+      pattern: convert(node.pattern)!,
+      expression: convert(node.expression)!,
+    );
+  }
+
+  SPatternVariableDeclarationStatement _convertPatternVariableDeclarationStatement(analyzer.PatternVariableDeclarationStatement node) {
+    return SPatternVariableDeclarationStatement(
+      offset: node.offset,
+      length: node.length,
+      declaration: convert(node.declaration)!,
+    );
+  }
+
+  // ============================================================================
+  // Reference converters
+  // ============================================================================
+
+  SFunctionReference _convertFunctionReference(analyzer.FunctionReference node) {
+    return SFunctionReference(
+      offset: node.offset,
+      length: node.length,
+      function: convert(node.function)!,
+      typeArguments: convert(node.typeArguments),
+    );
+  }
+
+  SConstructorReference _convertConstructorReference(analyzer.ConstructorReference node) {
+    return SConstructorReference(
+      offset: node.offset,
+      length: node.length,
+      constructorName: convert(node.constructorName)!,
+    );
+  }
+
+  // ============================================================================
+  // Extension type converters
+  // ============================================================================
+
+  SExtensionTypeDeclaration _convertExtensionTypeDeclaration(analyzer.ExtensionTypeDeclaration node) {
+    return SExtensionTypeDeclaration(
+      offset: node.offset,
+      length: node.length,
+      name: _tokenToIdentifier(node.name),
+      metadata: _convertAnnotations(node.metadata),
+      typeParameters: convert(node.typeParameters) as STypeParameterList?,
+      representation: convert(node.representation)!,
+      implementsClause: convert(node.implementsClause) as SImplementsClause?,
+      members: _convertNodes(node.members),
+      isConst: node.constKeyword != null,
+    );
+  }
+
+  SRepresentationDeclaration _convertRepresentationDeclaration(analyzer.RepresentationDeclaration node) {
+    return SRepresentationDeclaration(
+      offset: node.offset,
+      length: node.length,
+      fieldName: node.fieldName.lexeme,
+      fieldType: convert(node.fieldType)!,
+    );
+  }
+
+  // ============================================================================
   // Helper methods
   // ============================================================================
 
@@ -1467,4 +1838,10 @@ class _SUnknownNode extends SAstNode {
         'length': length,
         'originalType': originalType,
       };
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => null;
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }
