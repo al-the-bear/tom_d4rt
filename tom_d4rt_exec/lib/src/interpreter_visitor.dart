@@ -8957,6 +8957,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           matchedKeys.add(keyToLookup);
         } else if (element is SRestPatternElement) {
           // Handle rest element
+          // Note: elements is List<SMapPatternEntry>, so promotion doesn't
+          // work for SRestPatternElement. Use explicit cast.
+          final restElem = element as SRestPatternElement;
           final remainingEntries = <Object?, Object?>{};
           for (final entry in value.entries) {
             if (!matchedKeys.contains(entry.key)) {
@@ -8964,11 +8967,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             }
           }
 
-          if (element.pattern != null) {
+          if (restElem.pattern != null) {
             // Rest element has a pattern (e.g., ...rest), bind the remaining map
             Logger.debug(
-                "[_matchAndBind]   Matching rest element: ${element.pattern!.runtimeType} against Map of ${remainingEntries.length} entries");
-            _matchAndBind(element.pattern!, remainingEntries, environment);
+                "[_matchAndBind]   Matching rest element: ${restElem.pattern!.runtimeType} against Map of ${remainingEntries.length} entries");
+            _matchAndBind(restElem.pattern!, remainingEntries, environment);
           }
           // If element.pattern is null, it's just "..." (anonymous rest), no binding needed
         } else {

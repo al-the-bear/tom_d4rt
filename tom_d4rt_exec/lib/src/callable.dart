@@ -2899,7 +2899,9 @@ class InterpretedFunction implements Callable {
             " [_determineNextNodeAfterAwait] Resumed from SExpressionStatement (SVariableDeclarationList). Defining variable.");
 
         // Cast expression to SVariableDeclarationList to access variables
-        final varList = expression;
+        // Note: SVariableDeclarationList extends SDeclaration, not SExpression,
+        // so the is-check above doesn't promote. Use explicit cast.
+        final varList = expression as SVariableDeclarationList;
 
         // Find the variable that had the await (assuming first with SAwaitExpression initializer)
         SVariableDeclaration? targetVar = varList.variables
@@ -3614,7 +3616,7 @@ class InterpretedFunction implements Callable {
     // Handle the end of an instruction in a block
     if (parent is SBlock) {
       final block = parent;
-      final index = block.statements.indexOf(currentNode);
+      final index = block.statements.indexOf(currentNode as SStatement);
       bool isLastStatement =
           (index != -1 && index == block.statements.length - 1);
 
