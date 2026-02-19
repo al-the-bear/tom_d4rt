@@ -8,7 +8,7 @@
 # tom_dcli_exec project directory.
 #
 # If dcli_binary_path is not provided, falls back to compiling
-# bin/dcli.dart into bin/dcli_exec (or reuses an existing binary).
+# bin/dclie.dart into bin/dclie (or reuses an existing binary).
 #
 # Exit codes:
 #   0 — all tests passed
@@ -120,11 +120,11 @@ cd "$PROJECT_ROOT"
 
 # Ensure we have a compiled binary for fast execution.
 if [ -z "$DCLI_BINARY" ]; then
-  DCLI_BINARY="$PROJECT_ROOT/bin/dcli_exec"
+  DCLI_BINARY="$PROJECT_ROOT/bin/dclie"
   if [ ! -x "$DCLI_BINARY" ] || \
-     [ "$PROJECT_ROOT/bin/dcli.dart" -nt "$DCLI_BINARY" ]; then
-    printf "${YELLOW}Compiling dcli_exec binary...${NC}\n"
-    dart compile exe "$PROJECT_ROOT/bin/dcli.dart" -o "$DCLI_BINARY" 2>&1
+     [ "$PROJECT_ROOT/bin/dclie.dart" -nt "$DCLI_BINARY" ]; then
+    printf "${YELLOW}Compiling dclie binary...${NC}\n"
+    dart compile exe "$PROJECT_ROOT/bin/dclie.dart" -o "$DCLI_BINARY" 2>&1
   fi
 fi
 DCLI_CMD="$DCLI_BINARY"

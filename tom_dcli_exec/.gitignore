@@ -3,4 +3,4 @@
 .dart_tool/
 
 # Compiled native binaries (rebuilt by tests / CI)
-bin/dcli_exec
+bin/dclie

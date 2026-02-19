@@ -50,7 +50,7 @@ A script is provided to run all replay tests in the `test/replay` directory:
 
 This script will:
 1. Find all `*.dcli` files in `test/replay`
-2. Run each test using the local `bin/dcli.dart`
+2. Run each test using the local `bin/dclie.dart`
 3. Store results in `test/results`
 4. Report overall PASSED/FAILED status
 

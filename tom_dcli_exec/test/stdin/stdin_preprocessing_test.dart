@@ -51,8 +51,8 @@ String _findProjectRoot() {
 
 /// Compile the dcli binary if it doesn't exist or is outdated.
 Future<String> _ensureDcliBinary() async {
-  final binaryPath = p.join(_projectRoot, 'bin', 'dcli_exec');
-  final sourcePath = p.join(_projectRoot, 'bin', 'dcli.dart');
+  final binaryPath = p.join(_projectRoot, 'bin', 'dclie');
+  final sourcePath = p.join(_projectRoot, 'bin', 'dclie.dart');
   final binary = File(binaryPath);
   final source = File(sourcePath);
 

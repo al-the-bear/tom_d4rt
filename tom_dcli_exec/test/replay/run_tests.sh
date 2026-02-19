@@ -38,7 +38,7 @@ for test_file in "$TEST_DIR"/*.dcli; do
         echo -n "Running $test_name... "
         
         # Run the test
-        if dart run "$PROJECT_DIR/bin/dcli.dart" -run-replay "$test_file" -test -output="$result_file" 2>&1; then
+        if dart run "$PROJECT_DIR/bin/dclie.dart" -run-replay "$test_file" -test -output="$result_file" 2>&1; then
             echo -e "${GREEN}PASSED${NC}"
             PASSED=$((PASSED + 1))
         else

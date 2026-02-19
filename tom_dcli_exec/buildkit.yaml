@@ -67,7 +67,7 @@ compiler:
     - commandline:
         - mkdir -p $HOME/.tom/bin/${target-platform-vs}
         - dart compile exe ${file} --target-os=${target-os} -o $HOME/.tom/bin/${target-platform-vs}/${file.name}
-      files: bin/dcli.dart
+      files: bin/dclie.dart
       targets: [darwin-arm64, linux-x64, linux-arm64, linux-armhf]
       platforms: [darwin-arm64]
     
@@ -75,7 +75,7 @@ compiler:
     - commandline:
         - mkdir -p $HOME/.tom/bin/${target-platform-vs}
         - dart compile exe ${file} -o $HOME/.tom/bin/${target-platform-vs}/${file.name}
-      files: bin/dcli.dart
+      files: bin/dclie.dart
       platforms: [darwin-x64, linux-*, win32-*]
 
   postcompile:

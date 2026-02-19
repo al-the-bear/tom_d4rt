@@ -35,7 +35,7 @@ If you need to build manually:
 
 3. **Compile the executable**:
    ```bash
-   dart compile exe bin/dcli.dart -o ~/.tom/bin/darwin-arm64/dcli
+   dart compile exe bin/dclie.dart -o ~/.tom/bin/darwin-arm64/dclie
    ```
 
 ### What Gets Generated

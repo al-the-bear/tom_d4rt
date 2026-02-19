@@ -67,8 +67,8 @@ dart run build_runner build --delete-conflicting-outputs
 echo ""
 
 # Compile
-echo "📦 Compiling dcli..."
-if dart compile exe bin/dcli.dart -o "$OUTPUT"; then
+echo "📦 Compiling dclie..."
+if dart compile exe bin/dclie.dart -o "$OUTPUT"; then
     echo "✅ Successfully compiled: $OUTPUT"
 else
     echo "❌ Compilation failed"
