@@ -1344,7 +1344,12 @@ class D4rt {
     // First, try to parse as a top-level declaration (function, class, variable)
     final declarationParseResult = _parseSourceToAst(expression);
 
-    if (declarationParseResult.declarations.isNotEmpty) {
+    // Only treat as declarations if there are no parse errors.
+    // The analyzer's error recovery may produce declarations from bare
+    // expressions (e.g., "true" → TopLevelVariableDeclaration), which would
+    // incorrectly return null instead of the expression's value.
+    if (!declarationParseResult.hasParseErrors &&
+        declarationParseResult.declarations.isNotEmpty) {
       // It's a declaration - process it directly in the global environment
       final compilationUnit = declarationParseResult;
 

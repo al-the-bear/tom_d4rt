@@ -1,3 +1,4 @@
+import 'test_helpers.dart';
 /// Test for INTER-005: BridgedInstance unwrapping for native calls (sort)
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
@@ -21,7 +22,7 @@ void main() {
     late D4rt interpreter;
 
     setUp(() {
-      interpreter = D4rt();
+      interpreter = D4rt(parseSourceCallback: parseSource);
 
       // Register the SortableItem bridged class
       final sortableItemBridge = BridgedClass(

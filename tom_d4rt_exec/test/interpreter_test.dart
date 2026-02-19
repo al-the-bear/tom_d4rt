@@ -3217,7 +3217,7 @@ void main() {
     late D4rt interpreter;
 
     setUp(() {
-      interpreter = D4rt();
+      interpreter = D4rt(parseSourceCallback: parseSource);
       interpreter.registerBridgedClass(
           BridgedClass(
             nativeType: DummyNative,

@@ -2,6 +2,7 @@
 ///
 /// Tests file-based script execution with import resolution.
 library;
+import 'test_helpers.dart';
 
 import 'dart:io';
 
@@ -49,7 +50,7 @@ void main() {
     late Directory tempDir;
 
     setUp(() {
-      d4rt = D4rt();
+      d4rt = D4rt(parseSourceCallback: parseSource);
       tempDir = Directory.systemTemp.createTempSync('d4rt_test_');
     });
 
@@ -176,7 +177,7 @@ main() => 'logged';
     late Directory tempDir;
 
     setUp(() {
-      d4rt = D4rt();
+      d4rt = D4rt(parseSourceCallback: parseSource);
       tempDir = Directory.systemTemp.createTempSync('d4rt_source_test_');
     });
 
@@ -240,7 +241,7 @@ main() {
     late Directory tempDir;
 
     setUp(() {
-      d4rt = D4rt();
+      d4rt = D4rt(parseSourceCallback: parseSource);
       // Initialize with a basic script first
       d4rt.execute(source: '''
 void main() {}

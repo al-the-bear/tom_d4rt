@@ -1,5 +1,6 @@
 /// Tests for global getter lazy evaluation support.
 library;
+import 'test_helpers.dart';
 
 /// These tests verify that:
 /// - GlobalGetter values are lazily evaluated at access time
@@ -85,7 +86,7 @@ void main() {
     const testLib = 'package:test_lib/test_lib.dart';
 
     setUp(() {
-      interpreter = D4rt();
+      interpreter = D4rt(parseSourceCallback: parseSource);
     });
 
     test('I-MISC-55: RegisterGlobalGetter makes getter accessible via import. [2026-02-10 06:37] (PASS)', () {
@@ -200,7 +201,7 @@ void main() {
     const testLib = 'package:test_lib/test_lib.dart';
 
     setUp(() {
-      interpreter = D4rt();
+      interpreter = D4rt(parseSourceCallback: parseSource);
     });
 
     test('I-MISC-49: Eval can access global getters via import. [2026-02-10 06:37] (PASS)', () {

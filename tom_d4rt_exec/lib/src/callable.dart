@@ -4638,7 +4638,7 @@ class InterpretedExtensionMethod implements ExtensionMemberCallable {
         }
         if (actualParam is SSimpleFormalParameter) {
           paramName = actualParam.name?.name;
-          isRequired = !actualParam.isNamed && !actualParam.isPositional;
+          isRequired = actualParam.isPositional && actualParam.isRequired;
           isOptionalPositional =
               actualParam.isPositional && !actualParam.isRequired;
           isNamed = actualParam.isNamed;

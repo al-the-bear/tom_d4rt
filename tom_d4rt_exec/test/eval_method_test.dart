@@ -1,3 +1,4 @@
+import 'test_helpers.dart';
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
@@ -8,7 +9,7 @@ void main() {
     late D4rt d4rt;
 
     setUp(() {
-      d4rt = D4rt();
+      d4rt = D4rt(parseSourceCallback: parseSource);
     });
 
     group('Basic expressions', () {
@@ -510,7 +511,7 @@ void main() {
 
     group('Error handling', () {
       test('I-MISC-26: Should throw error when called before execute. [2026-02-10 06:37] (PASS)', () {
-        final freshD4rt = D4rt();
+        final freshD4rt = D4rt(parseSourceCallback: parseSource);
 
         expect(
           () => freshD4rt.eval('1 + 1'),
@@ -632,8 +633,8 @@ void main() {
 
     group('Multiple D4rt instances', () {
       test('I-MISC-36: Eval contexts should be independent. [2026-02-10 06:37] (PASS)', () {
-        final d4rt1 = D4rt();
-        final d4rt2 = D4rt();
+        final d4rt1 = D4rt(parseSourceCallback: parseSource);
+        final d4rt2 = D4rt(parseSourceCallback: parseSource);
 
         d4rt1.execute(source: '''
           var x = 100;

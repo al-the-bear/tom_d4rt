@@ -8013,13 +8013,18 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       return BridgedClass(nativeType: dynamic, name: 'dynamic');
     }
     if (typeNode is SNamedType) {
-      String typeName = isAsync
-          ? typeNode
-              .toString()
-              .replaceAll('?', '')
-              .substringAfter('<')
-              .substringBeforeLast('>')
-          : typeNode.name!.name;
+      String typeName;
+      if (isAsync && typeNode.name?.name == 'Future' && typeNode.typeArguments != null) {
+        // For async functions with Future<T> return type, unwrap to T
+        final typeArgs = typeNode.typeArguments!.arguments;
+        if (typeArgs.isNotEmpty) {
+          // Recursively resolve the inner type argument
+          return _resolveTypeAnnotationWithEnvironment(typeArgs.first, env);
+        }
+        typeName = typeNode.name!.name;
+      } else {
+        typeName = typeNode.name?.name ?? 'dynamic';
+      }
       if (typeName.contains('<') && typeName.contains('>')) {
         typeName = typeName.substring(0, typeName.indexOf('<'));
       }

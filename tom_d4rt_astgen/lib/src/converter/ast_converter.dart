@@ -1292,7 +1292,9 @@ class AstConverter {
       type: _as<STypeAnnotation>(node.type),
       name: node.name != null ? _tokenToIdentifier(node.name!) : null,
       isCovariant: node.covariantKeyword != null,
-      isRequired: node.requiredKeyword != null,
+      isRequired: node.isRequired,
+      isPositional: node.isPositional,
+      isNamed: node.isNamed,
       isFinal: node.keyword?.lexeme == 'final',
     );
   }
@@ -1319,7 +1321,7 @@ class AstConverter {
       type: _as<STypeAnnotation>(node.type),
       name: _tokenToIdentifier(node.name),
       parameters: convert(node.parameters) as SFormalParameterList?,
-      isRequired: node.requiredKeyword != null,
+      isRequired: node.isRequired,
       isFinal: node.keyword?.lexeme == 'final',
     );
   }
@@ -1335,7 +1337,7 @@ class AstConverter {
       name: _tokenToIdentifier(node.name),
       typeParameters: convert(node.typeParameters) as STypeParameterList?,
       parameters: convert(node.parameters) as SFormalParameterList?,
-      isRequired: node.requiredKeyword != null,
+      isRequired: node.isRequired,
     );
   }
 

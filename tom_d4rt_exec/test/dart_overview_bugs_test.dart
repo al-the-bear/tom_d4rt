@@ -8,6 +8,7 @@
 /// These tests assert the CORRECT behavior. When the bug exists, tests FAIL.
 /// When the bug is fixed, tests PASS.
 library;
+import 'test_helpers.dart';
 
 import 'dart:async';
 
@@ -16,7 +17,7 @@ import 'package:tom_d4rt_exec/d4rt.dart';
 
 /// Execute D4rt code synchronously, returning the result or throwing.
 dynamic execute(String source) {
-  final d4rt = D4rt()..setDebug(false);
+  final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
   d4rt.grant(FilesystemPermission.any);
   d4rt.grant(NetworkPermission.any);
   d4rt.grant(ProcessRunPermission.any);
@@ -29,7 +30,7 @@ dynamic execute(String source) {
 
 /// Execute D4rt code with multiple source files.
 dynamic executeMulti(Map<String, String> sources, {String library = 'package:test/main.dart', bool debug = false}) {
-  final d4rt = D4rt()..setDebug(debug);
+  final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(debug);
   d4rt.grant(FilesystemPermission.any);
   d4rt.grant(NetworkPermission.any);
   d4rt.grant(ProcessRunPermission.any);
@@ -42,7 +43,7 @@ dynamic executeMulti(Map<String, String> sources, {String library = 'package:tes
 
 /// Execute D4rt code asynchronously.
 Future<dynamic> executeAsync(String source) async {
-  final d4rt = D4rt()..setDebug(false);
+  final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
   d4rt.grant(FilesystemPermission.any);
   d4rt.grant(NetworkPermission.any);
   d4rt.grant(ProcessRunPermission.any);

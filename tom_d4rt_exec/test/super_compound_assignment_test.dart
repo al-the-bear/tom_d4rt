@@ -1,3 +1,4 @@
+import 'test_helpers.dart';
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
@@ -184,7 +185,7 @@ void main() {
 
   group('Compound Assignment on Bridged Super', () {
     test('I-MISC-443: Compound assignments on bridged super properties. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt();
+      final interpreter = D4rt(parseSourceCallback: parseSource);
 
       // Create a native Dart class to bridge
       final bridgedClass = BridgedClass(
@@ -257,7 +258,7 @@ void main() {
     });
 
     test('I-MISC-444: Compound assignments on bridged super with getter/setter. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt();
+      final interpreter = D4rt(parseSourceCallback: parseSource);
 
       // Create a bridged class with explicit getter/setter
       final bridgedClass = BridgedClass(
@@ -309,7 +310,7 @@ void main() {
     });
 
     test('I-MISC-445: All compound operators on bridged super. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt();
+      final interpreter = D4rt(parseSourceCallback: parseSource);
 
       final bridgedClass = BridgedClass(
         nativeType: _TestNativeParent,
@@ -361,7 +362,7 @@ void main() {
     });
 
     test('I-MISC-446: Nested inheritance with bridged super compound assignment. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt();
+      final interpreter = D4rt(parseSourceCallback: parseSource);
 
       final bridgedClass = BridgedClass(
         nativeType: _TestNativeParent,
@@ -418,7 +419,7 @@ void main() {
     });
 
     test('I-MISC-447: Compound assignment on bridged super with type conversions. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt();
+      final interpreter = D4rt(parseSourceCallback: parseSource);
 
       final bridgedClass = BridgedClass(
         nativeType: _TestNativeParent,

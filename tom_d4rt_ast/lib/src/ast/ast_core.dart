@@ -593,6 +593,10 @@ class SCompilationUnit extends SAstNode {
   /// Comments in the file
   final List<SComment> comments;
 
+  /// Whether the source had parse errors (e.g., from error recovery).
+  /// Used by eval() to distinguish valid declarations from error recovery artifacts.
+  final bool hasParseErrors;
+
   SCompilationUnit({
     required this.offset,
     required this.length,
@@ -600,6 +604,7 @@ class SCompilationUnit extends SAstNode {
     this.directives = const [],
     this.declarations = const [],
     this.comments = const [],
+    this.hasParseErrors = false,
   });
 
   @override
@@ -614,6 +619,7 @@ class SCompilationUnit extends SAstNode {
     'directives': directives.map((d) => d.toJson()).toList(),
     'declarations': declarations.map((d) => d.toJson()).toList(),
     'comments': comments.map((c) => c.toJson()).toList(),
+    if (hasParseErrors) 'hasParseErrors': true,
   };
 
   factory SCompilationUnit.fromJson(Map<String, dynamic> json) {
@@ -632,6 +638,7 @@ class SCompilationUnit extends SAstNode {
               ?.map((c) => SComment.fromJson(c as Map<String, dynamic>))
               .toList() ??
           [],
+      hasParseErrors: json['hasParseErrors'] as bool? ?? false,
     );
   }
 

@@ -1,9 +1,10 @@
+import '../../test_helpers.dart';
 import 'dart:typed_data';
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 void main() {
-  final d4rt = D4rt();
+  final d4rt = D4rt(parseSourceCallback: parseSource);
   const String testLibPath = 'd4rt-mem:/endian_test.dart';
 
   dynamic executeTestScript(String scriptBody) {

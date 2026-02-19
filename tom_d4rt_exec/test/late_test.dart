@@ -1,8 +1,9 @@
+import 'test_helpers.dart';
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 Object? execute(String source) {
-  final interpreter = D4rt();
+  final interpreter = D4rt(parseSourceCallback: parseSource);
   return interpreter.execute(source: source);
 }
 

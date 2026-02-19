@@ -1,3 +1,4 @@
+import 'test_helpers.dart';
 /// Test for Bug-98: Extension getter on bridged List not resolved
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
@@ -7,7 +8,7 @@ void main() {
     late D4rt interpreter;
 
     setUp(() {
-      interpreter = D4rt();
+      interpreter = D4rt(parseSourceCallback: parseSource);
     });
 
     test('I-COLL-1: Extension getter on List<int> works. [2026-02-10 06:37] (PASS)', () async {

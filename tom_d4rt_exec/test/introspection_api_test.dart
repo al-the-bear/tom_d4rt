@@ -1,3 +1,4 @@
+import 'test_helpers.dart';
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
@@ -9,7 +10,7 @@ void main() {
     late D4rt d4rt;
 
     setUp(() {
-      d4rt = D4rt();
+      d4rt = D4rt(parseSourceCallback: parseSource);
     });
 
     group('Function Analysis', () {

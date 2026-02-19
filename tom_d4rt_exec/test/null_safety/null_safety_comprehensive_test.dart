@@ -1,3 +1,4 @@
+import '../test_helpers.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:test/test.dart';
 
@@ -6,7 +7,7 @@ void main() {
     late D4rt d4rt;
 
     setUp(() {
-      d4rt = D4rt();
+      d4rt = D4rt(parseSourceCallback: parseSource);
     });
 
     test('I-MISC-374: Complex null safety scenario with chaining and coalescing. [2026-02-10 06:37] (PASS)', () {

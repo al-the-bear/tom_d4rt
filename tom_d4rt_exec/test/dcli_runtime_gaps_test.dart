@@ -10,13 +10,14 @@
 /// - DCL-RT-EXC: Exception type matching in try-catch
 /// - DCL-RT-OPT: Optional callback parameter handling
 library;
+import 'test_helpers.dart';
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 /// Execute D4rt code synchronously, returning the result or throwing.
 dynamic execute(String source) {
-  final d4rt = D4rt()..setDebug(false);
+  final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
   return d4rt.execute(
     library: 'package:test/main.dart',
     sources: {'package:test/main.dart': source},
@@ -25,7 +26,7 @@ dynamic execute(String source) {
 
 /// Execute D4rt code expecting an error, returning the error message.
 String? executeExpectingError(String source) {
-  final d4rt = D4rt()..setDebug(false);
+  final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
   try {
     d4rt.execute(
       library: 'package:test/main.dart',

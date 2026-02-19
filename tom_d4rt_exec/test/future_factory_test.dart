@@ -1,3 +1,4 @@
+import 'test_helpers.dart';
 /// Test for Bug-92: Future factory constructor returns BridgedInstance
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
@@ -7,7 +8,7 @@ void main() {
     late D4rt interpreter;
 
     setUp(() {
-      interpreter = D4rt();
+      interpreter = D4rt(parseSourceCallback: parseSource);
     });
 
     test('I-ASYNC-48: Future(() => computation) returns awaitable value. [2026-02-10 06:37] (PASS)', () async {

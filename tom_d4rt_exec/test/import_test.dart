@@ -1,3 +1,4 @@
+import 'test_helpers.dart';
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
@@ -131,7 +132,7 @@ void main() {
     test(
       'I-IMPORT-9: Import local simple file (memory) - check all symbols of the common lib. [2026-02-12] (PASS)',
       () {
-        final d4rt = D4rt();
+        final d4rt = D4rt(parseSourceCallback: parseSource);
         final mainlibrary = "d4rt-mem:/main_source.dart";
         final result = d4rt.execute(
           library: mainlibrary,
@@ -146,7 +147,7 @@ void main() {
     );
 
     test('I-IMPORT-1: Import package simple (memory). [2026-02-10 06:37] (PASS)', () {
-      final d4rt = D4rt();
+      final d4rt = D4rt(parseSourceCallback: parseSource);
       final mainlibrary = "d4rt-mem:/main_pkg_import.dart";
       final result = d4rt.execute(
         library: mainlibrary,
@@ -159,7 +160,7 @@ void main() {
     });
 
     test('I-IMPORT-2: Import prefixed package (memory). [2026-02-10 06:37] (PASS)', () {
-      final d4rt = D4rt();
+      final d4rt = D4rt(parseSourceCallback: parseSource);
       final mainlibrary = "d4rt-mem:/main_prefixed_pkg_import.dart";
       final result = d4rt.execute(
         library: mainlibrary,
@@ -173,7 +174,7 @@ void main() {
     });
 
     test('I-IMPORT-3: Import dart:math (global functions). [2026-02-10 06:37] (PASS)', () {
-      final d4rt = D4rt();
+      final d4rt = D4rt(parseSourceCallback: parseSource);
       final mainlibrary = "d4rt-mem:/main_dart_math_import.dart";
       final result = d4rt.execute(
         library: mainlibrary,
@@ -184,7 +185,7 @@ void main() {
 
     group('Combinators (show/hide)', () {
       test('I-IMPORT-4: Import with "show" (no prefix) - access allowed symbols. [2026-02-10 06:37] (PASS)', () {
-        final d4rt = D4rt();
+        final d4rt = D4rt(parseSourceCallback: parseSource);
         final result = d4rt.execute(
           library: "d4rt-mem:/main_import_show.dart",
           sources: sources,
@@ -195,7 +196,7 @@ void main() {
       test(
         'I-IMPORT-10: Import with "show" (no prefix) - check that the hidden symbol is not accessible. [2026-02-12] (PASS)',
         () {
-          final d4rt = D4rt();
+          final d4rt = D4rt(parseSourceCallback: parseSource);
           expect(
             () => d4rt.execute(
                 library: "d4rt-mem:/main_import_show_check_hidden.dart",
@@ -212,7 +213,7 @@ void main() {
       );
 
       test('I-IMPORT-5: Import with "hide" (no prefix) - access allowed symbols. [2026-02-10 06:37] (PASS)', () {
-        final d4rt = D4rt();
+        final d4rt = D4rt(parseSourceCallback: parseSource);
         final result = d4rt.execute(
           library: "d4rt-mem:/main_import_hide.dart",
           sources: sources,
@@ -223,7 +224,7 @@ void main() {
       test(
         'I-IMPORT-11: Import with "hide" (no prefix) - check that the hidden symbol is not accessible. [2026-02-12] (PASS)',
         () {
-          final d4rt = D4rt();
+          final d4rt = D4rt(parseSourceCallback: parseSource);
           expect(
             () => d4rt.execute(
                 library: "d4rt-mem:/main_import_hide_check_hidden.dart",
@@ -240,7 +241,7 @@ void main() {
       );
 
       test('I-IMPORT-6: Import prefixed with "show" - access allowed symbols. [2026-02-10 06:37] (PASS)', () {
-        final d4rt = D4rt();
+        final d4rt = D4rt(parseSourceCallback: parseSource);
         final result = d4rt.execute(
             library: "d4rt-mem:/main_prefixed_import_show.dart",
             sources: sources);
@@ -250,7 +251,7 @@ void main() {
       test(
         'I-IMPORT-12: Import prefixed with "show" - check that the hidden symbol is not accessible. [2026-02-12] (PASS)',
         () {
-          final d4rt = D4rt();
+          final d4rt = D4rt(parseSourceCallback: parseSource);
           expect(
             () => d4rt.execute(
                 library:
@@ -269,7 +270,7 @@ void main() {
       );
 
       test('I-IMPORT-8: Import prefixed with "hide" - access allowed symbols. [2026-02-10 06:37] (PASS)', () {
-        final d4rt = D4rt();
+        final d4rt = D4rt(parseSourceCallback: parseSource);
         final result = d4rt.execute(
             library: "d4rt-mem:/main_prefixed_import_hide.dart",
             sources: sources);
@@ -279,7 +280,7 @@ void main() {
       test(
         'I-IMPORT-13: Import prefixed with "hide" - check that the hidden symbol is not accessible. [2026-02-12] (PASS)',
         () {
-          final d4rt = D4rt();
+          final d4rt = D4rt(parseSourceCallback: parseSource);
           expect(
             () => d4rt.execute(
                 library:
@@ -298,7 +299,7 @@ void main() {
       );
 
       test('I-IMPORT-7: Import with "show" avoids name conflict with local definition. [2026-02-10 06:37] (PASS)', () {
-        final d4rt = D4rt();
+        final d4rt = D4rt(parseSourceCallback: parseSource);
         final result = d4rt.execute(
             library: "d4rt-mem:/main_import_conflict_show.dart",
             sources: sources);
@@ -308,7 +309,7 @@ void main() {
       test(
         'I-IMPORT-14: Import with "hide" avoids name conflict and allows access to other imported symbols. [2026-02-12] (PASS)',
         () {
-          final d4rt = D4rt();
+          final d4rt = D4rt(parseSourceCallback: parseSource);
           final result = d4rt.execute(
               library: "d4rt-mem:/main_import_conflict_hide.dart",
               sources: sources);

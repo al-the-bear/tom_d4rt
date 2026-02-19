@@ -1,8 +1,9 @@
+import '../../test_helpers.dart';
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 void main() {
-  final d4rt = D4rt();
+  final d4rt = D4rt(parseSourceCallback: parseSource);
 
   group('LinkedHashMap Tests', () {
     test('I-COLL-40: LinkedHashMap() constructor and basic properties. [2026-02-10 06:37] (PASS)', () {

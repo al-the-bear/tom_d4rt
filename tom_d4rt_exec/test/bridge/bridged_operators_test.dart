@@ -1,3 +1,4 @@
+import '../test_helpers.dart';
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
@@ -85,7 +86,7 @@ void main() {
     late BridgedClass comparableBridge;
 
     setUp(() {
-      interpreter = D4rt();
+      interpreter = D4rt(parseSourceCallback: parseSource);
 
       vector2Bridge = BridgedClass(
         nativeType: Vector2,

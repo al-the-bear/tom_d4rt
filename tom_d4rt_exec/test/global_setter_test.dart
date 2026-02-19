@@ -1,3 +1,4 @@
+import 'test_helpers.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:test/test.dart';
 
@@ -17,7 +18,7 @@ void main() {
     setUp(() {
       _counter = 0;
       _name = 'initial';
-      d4rt = D4rt()..setDebug(false);
+      d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
       
       // Register counter getter and setter
       d4rt.registerGlobalGetter('counter', () => counter, 'package:test_lib/test_lib.dart');
@@ -102,7 +103,7 @@ void main() {
     });
 
     test('I-COLL-7: Read-only getter without setter throws on assignment. [2026-02-10 06:37] (PASS)', () {
-      final d4rtReadOnly = D4rt()..setDebug(false);
+      final d4rtReadOnly = D4rt(parseSourceCallback: parseSource)..setDebug(false);
       d4rtReadOnly.registerGlobalGetter('readOnly', () => 42, 'package:test_lib/test_lib.dart');
       // No setter registered
       

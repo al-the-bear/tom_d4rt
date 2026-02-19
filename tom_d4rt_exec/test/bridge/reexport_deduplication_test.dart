@@ -6,6 +6,7 @@
 /// both export elements from tom_basics), the runtime correctly identifies
 /// them as the same element and doesn't throw duplicate errors.
 library;
+import '../test_helpers.dart';
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
@@ -15,7 +16,7 @@ void main() {
     late D4rt interpreter;
 
     setUp(() {
-      interpreter = D4rt();
+      interpreter = D4rt(parseSourceCallback: parseSource);
     });
 
     test('I-FILE-3: Registering same function from same source twice is silently skipped. [2026-02-10 06:37] (PASS)', () {
