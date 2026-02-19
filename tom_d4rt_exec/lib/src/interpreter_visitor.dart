@@ -7507,6 +7507,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                     // and caught with 'on RunException catch (e)', we need to match the
                     // native exception's type against the BridgedClass.
                     if (originalThrownValue != null) {
+                      // Handle BridgedInstance (exceptions created by interpreter via bridged constructors)
+                      if (originalThrownValue is BridgedInstance) {
+                        typeMatch =
+                            originalThrownValue.bridgedClass.nativeType == targetType.nativeType ||
+                                originalThrownValue.bridgedClass.name == targetType.name;
+                        Logger.debug(
+                            "[STryStatement]   Checking BridgedInstance '${originalThrownValue.bridgedClass.name}' against bridged class '$targetCatchTypeName'. Result: $typeMatch");
+                      } else {
                       try {
                         final thrownBridge = globalEnvironment
                             .toBridgedClass(originalThrownValue.runtimeType);
@@ -7524,6 +7532,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                             thrownTypeName.startsWith('${targetType.name}<');
                         Logger.debug(
                             "[STryStatement]   No bridge for thrown type '$thrownTypeName'. Name match against '$targetCatchTypeName': $typeMatch");
+                      }
                       }
                     } else {
                       typeMatch = false;
@@ -7988,7 +7997,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
     if (typeNode is SNamedType) {
       String typeName;
-      if (isAsync && typeNode.name?.name == 'Future' && typeNode.typeArguments != null) {
+      if (isAsync &&
+          typeNode.name?.name == 'Future' &&
+          typeNode.typeArguments != null) {
         // For async functions with Future<T> return type, unwrap to T
         final typeArgs = typeNode.typeArguments!.arguments;
         if (typeArgs.isNotEmpty) {

@@ -300,7 +300,9 @@ class DcliBridge {
         methods: {
           'start': (visitor, target, positional, named, typeArgs) {
             final t = target as String;
-            return Function.apply(t.start, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
+            // Unwrap BridgedInstance values (e.g., Progress) to native objects
+            final unwrappedNamed = named.map((k, v) => MapEntry(Symbol(k), v is BridgedInstance ? v.nativeObject : v));
+            return Function.apply(t.start, positional, unwrappedNamed);
           },
           'forEach': (visitor, target, positional, named, typeArgs) {
             final t = target as String;
@@ -509,7 +511,8 @@ class DcliBridge {
         }
         final callbackRaw = positional[0];
         final callback = () { return D4.callInterpreterCallback(visitor, callbackRaw, []) as Future<dynamic>; };
-        final environment = D4.getRequiredNamedArg<Map<String, String>>(named, 'environment', 'withEnvironmentAsync');
+        final environmentRaw = D4.getRequiredNamedArg<Map>(named, 'environment', 'withEnvironmentAsync');
+        final environment = environmentRaw.cast<String, String>();
         return $dcli_core_9.withEnvironmentAsync<dynamic>(callback, environment: environment);
       },
       'isFile': (visitor, positional, named, typeArgs) {
@@ -3485,17 +3488,17 @@ BridgedClass _createProgressBridge() {
           return $dcli_18.Progress((String p0) { D4.callInterpreterCallback(visitor, stdoutRaw, [p0]); }, captureStdout: captureStdout, captureStderr: captureStderr);
         }
         if (named.containsKey('stderr') && !named.containsKey('encoding')) {
-          final stderr = D4.getRequiredNamedArg<dynamic>(named, 'stderr', 'Progress');
-          return $dcli_18.Progress((String p0) { D4.callInterpreterCallback(visitor, stdoutRaw, [p0]); }, captureStdout: captureStdout, captureStderr: captureStderr, stderr: stderr);
+          final stderrRaw = named['stderr'];
+          return $dcli_18.Progress((String p0) { D4.callInterpreterCallback(visitor, stdoutRaw, [p0]); }, captureStdout: captureStdout, captureStderr: captureStderr, stderr: (String p0) { D4.callInterpreterCallback(visitor, stderrRaw, [p0]); });
         }
         if (!named.containsKey('stderr') && named.containsKey('encoding')) {
           final encoding = D4.getRequiredNamedArg<Encoding>(named, 'encoding', 'Progress');
           return $dcli_18.Progress((String p0) { D4.callInterpreterCallback(visitor, stdoutRaw, [p0]); }, captureStdout: captureStdout, captureStderr: captureStderr, encoding: encoding);
         }
         if (named.containsKey('stderr') && named.containsKey('encoding')) {
-          final stderr = D4.getRequiredNamedArg<dynamic>(named, 'stderr', 'Progress');
+          final stderrRaw = named['stderr'];
           final encoding = D4.getRequiredNamedArg<Encoding>(named, 'encoding', 'Progress');
-          return $dcli_18.Progress((String p0) { D4.callInterpreterCallback(visitor, stdoutRaw, [p0]); }, captureStdout: captureStdout, captureStderr: captureStderr, stderr: stderr, encoding: encoding);
+          return $dcli_18.Progress((String p0) { D4.callInterpreterCallback(visitor, stdoutRaw, [p0]); }, captureStdout: captureStdout, captureStderr: captureStderr, stderr: (String p0) { D4.callInterpreterCallback(visitor, stderrRaw, [p0]); }, encoding: encoding);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },

@@ -35,10 +35,14 @@ String _findProjectRoot() {
     final parent = dir.parent;
     if (parent.path == dir.path) {
       // Last resort: try a well-known relative path from the workspace root
-      final fallback = Directory(p.join(
-        Directory.current.path,
-        'xternal', 'tom_module_d4rt', 'tom_dcli_exec',
-      ));
+      final fallback = Directory(
+        p.join(
+          Directory.current.path,
+          'xternal',
+          'tom_module_d4rt',
+          'tom_dcli_exec',
+        ),
+      );
       if (File(p.join(fallback.path, 'pubspec.yaml')).existsSync()) {
         return fallback.path;
       }
@@ -59,15 +63,15 @@ Future<String> _ensureDcliBinary() async {
   // Recompile if binary doesn't exist or source is newer.
   if (!binary.existsSync() ||
       source.lastModifiedSync().isAfter(binary.lastModifiedSync())) {
-    final result = await Process.run(
-      'dart',
-      ['compile', 'exe', sourcePath, '-o', binaryPath],
-      workingDirectory: _projectRoot,
-    );
+    final result = await Process.run('dart', [
+      'compile',
+      'exe',
+      sourcePath,
+      '-o',
+      binaryPath,
+    ], workingDirectory: _projectRoot);
     if (result.exitCode != 0) {
-      throw StateError(
-        'Failed to compile dcli_exec binary:\n${result.stderr}',
-      );
+      throw StateError('Failed to compile dcli_exec binary:\n${result.stderr}');
     }
   }
   return binaryPath;
@@ -77,11 +81,9 @@ Future<String> _ensureDcliBinary() async {
 Future<({String stdout, String stderr, int exitCode})> runDcliStdin(
   String input,
 ) async {
-  final process = await Process.start(
-    _dcliBinaryPath,
-    ['--stdin'],
-    workingDirectory: _projectRoot,
-  );
+  final process = await Process.start(_dcliBinaryPath, [
+    '--stdin',
+  ], workingDirectory: _projectRoot);
   process.stdin.writeln(input);
   await process.stdin.close();
 
@@ -105,13 +107,17 @@ void main() {
     test(
       'test_stdin.sh passes all checks',
       () async {
-        final scriptPath =
-            p.join(_projectRoot, 'test', 'stdin', 'test_stdin.sh');
-        final result = await Process.run(
-          'bash',
-          [scriptPath, _projectRoot, _dcliBinaryPath],
-          workingDirectory: _projectRoot,
+        final scriptPath = p.join(
+          _projectRoot,
+          'test',
+          'stdin',
+          'test_stdin.sh',
         );
+        final result = await Process.run('bash', [
+          scriptPath,
+          _projectRoot,
+          _dcliBinaryPath,
+        ], workingDirectory: _projectRoot);
 
         // Print full output so CI logs are useful on failure.
         if (result.stdout.toString().isNotEmpty) {
@@ -192,11 +198,9 @@ void main() {
 
   group('stdin error handling', () {
     test('should exit 1 on empty stdin', () async {
-      final process = await Process.start(
-        _dcliBinaryPath,
-        ['--stdin'],
-        workingDirectory: _projectRoot,
-      );
+      final process = await Process.start(_dcliBinaryPath, [
+        '--stdin',
+      ], workingDirectory: _projectRoot);
       // Close stdin immediately with no input
       await process.stdin.close();
       final exitCode = await process.exitCode;
