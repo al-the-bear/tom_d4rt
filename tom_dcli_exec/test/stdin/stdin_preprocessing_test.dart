@@ -4,11 +4,15 @@
 
 /// Stdin smart preprocessing integration tests.
 ///
-/// These tests exercise the `--stdin` flag end-to-end by spawning `dcli`
-/// as a subprocess and piping source code into it.  A companion shell script
-/// (`test/stdin/test_stdin.sh`) runs the full matrix; this Dart test both
-/// executes that script AND runs individual focused assertions directly
-/// via `Process.start`.
+/// These tests exercise the `--stdin` flag end-to-end by spawning a compiled
+/// `dcli_exec` binary as a subprocess and piping source code into it.
+/// A companion shell script (`test/stdin/test_stdin.sh`) runs the full matrix;
+/// this Dart test both executes that script AND runs individual focused
+/// assertions directly via `Process.start`.
+///
+/// The binary is compiled once via `dart compile exe` in `setUpAll` to avoid
+/// the 15s JIT overhead per invocation that caused the old `dart run` approach
+/// to hang.
 library;
 
 import 'dart:convert';
@@ -19,6 +23,9 @@ import 'package:test/test.dart';
 
 /// Project root for `tom_dcli_exec`.
 final _projectRoot = _findProjectRoot();
+
+/// Path to the compiled dcli_exec binary (set during setUpAll).
+late final String _dcliBinaryPath;
 
 String _findProjectRoot() {
   // When run via `dart test`, Platform.script is a data: URI, so we
@@ -42,13 +49,37 @@ String _findProjectRoot() {
   return dir.path;
 }
 
-/// Run `dcli --stdin` with the given [input] and return a result record.
+/// Compile the dcli binary if it doesn't exist or is outdated.
+Future<String> _ensureDcliBinary() async {
+  final binaryPath = p.join(_projectRoot, 'bin', 'dcli_exec');
+  final sourcePath = p.join(_projectRoot, 'bin', 'dcli.dart');
+  final binary = File(binaryPath);
+  final source = File(sourcePath);
+
+  // Recompile if binary doesn't exist or source is newer.
+  if (!binary.existsSync() ||
+      source.lastModifiedSync().isAfter(binary.lastModifiedSync())) {
+    final result = await Process.run(
+      'dart',
+      ['compile', 'exe', sourcePath, '-o', binaryPath],
+      workingDirectory: _projectRoot,
+    );
+    if (result.exitCode != 0) {
+      throw StateError(
+        'Failed to compile dcli_exec binary:\n${result.stderr}',
+      );
+    }
+  }
+  return binaryPath;
+}
+
+/// Run the compiled dcli_exec binary with `--stdin` and the given [input].
 Future<({String stdout, String stderr, int exitCode})> runDcliStdin(
   String input,
 ) async {
   final process = await Process.start(
-    'dart',
-    ['run', 'bin/dcli.dart', '--stdin'],
+    _dcliBinaryPath,
+    ['--stdin'],
     workingDirectory: _projectRoot,
   );
   process.stdin.writeln(input);
@@ -62,17 +93,23 @@ Future<({String stdout, String stderr, int exitCode})> runDcliStdin(
 }
 
 void main() {
-  // Give each spawned process plenty of time for JIT compile + bridges init.
-  const processTimeout = Timeout(Duration(seconds: 120));
+  // Give each spawned process plenty of time (binary is pre-compiled, so
+  // individual tests should be fast — the timeout is for safety).
+  const processTimeout = Timeout(Duration(seconds: 30));
+
+  setUpAll(() async {
+    _dcliBinaryPath = await _ensureDcliBinary();
+  });
 
   group('stdin shell script', () {
     test(
       'test_stdin.sh passes all checks',
       () async {
-        final scriptPath = p.join(_projectRoot, 'test', 'stdin', 'test_stdin.sh');
+        final scriptPath =
+            p.join(_projectRoot, 'test', 'stdin', 'test_stdin.sh');
         final result = await Process.run(
           'bash',
-          [scriptPath, _projectRoot],
+          [scriptPath, _projectRoot, _dcliBinaryPath],
           workingDirectory: _projectRoot,
         );
 
@@ -156,8 +193,8 @@ void main() {
   group('stdin error handling', () {
     test('should exit 1 on empty stdin', () async {
       final process = await Process.start(
-        'dart',
-        ['run', 'bin/dcli.dart', '--stdin'],
+        _dcliBinaryPath,
+        ['--stdin'],
         workingDirectory: _projectRoot,
       );
       // Close stdin immediately with no input

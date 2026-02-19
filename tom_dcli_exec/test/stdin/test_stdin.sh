@@ -2,10 +2,13 @@
 # test_stdin.sh — Integration tests for dcli --stdin smart preprocessing
 #
 # Usage:
-#   ./test_stdin.sh [project_root]
+#   ./test_stdin.sh [project_root] [dcli_binary_path]
 #
 # If project_root is not provided, the script assumes it is run from the
-# tom_d4rt_dcli project directory.
+# tom_dcli_exec project directory.
+#
+# If dcli_binary_path is not provided, falls back to compiling
+# bin/dcli.dart into bin/dcli_exec (or reuses an existing binary).
 #
 # Exit codes:
 #   0 — all tests passed
@@ -14,7 +17,7 @@
 set -euo pipefail
 
 PROJECT_ROOT="${1:-$(cd "$(dirname "$0")/../.." && pwd)}"
-DCLI_CMD="dart run bin/dcli.dart"
+DCLI_BINARY="${2:-}"
 PASS=0
 FAIL=0
 TOTAL=0
@@ -114,6 +117,17 @@ TMPDIR_TEST=$(mktemp -d)
 trap 'rm -rf "$TMPDIR_TEST"' EXIT
 
 cd "$PROJECT_ROOT"
+
+# Ensure we have a compiled binary for fast execution.
+if [ -z "$DCLI_BINARY" ]; then
+  DCLI_BINARY="$PROJECT_ROOT/bin/dcli_exec"
+  if [ ! -x "$DCLI_BINARY" ] || \
+     [ "$PROJECT_ROOT/bin/dcli.dart" -nt "$DCLI_BINARY" ]; then
+    printf "${YELLOW}Compiling dcli_exec binary...${NC}\n"
+    dart compile exe "$PROJECT_ROOT/bin/dcli.dart" -o "$DCLI_BINARY" 2>&1
+  fi
+fi
+DCLI_CMD="$DCLI_BINARY"
 
 printf "${CYAN}══════════════════════════════════════════════════════════════${NC}\n"
 printf "${CYAN}  dcli --stdin Smart Preprocessing Tests${NC}\n"
