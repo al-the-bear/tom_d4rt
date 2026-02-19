@@ -1335,6 +1335,54 @@ class SSpreadElement extends SCollectionElement {
   }
 }
 
+/// Represents a null-aware element in a collection literal (`?expr`).
+///
+/// When the expression evaluates to null, the element is not included
+/// in the collection. This is a Dart 3.x feature.
+class SNullAwareElement extends SCollectionElement {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final SExpression? value;
+
+  SNullAwareElement({
+    required this.offset,
+    required this.length,
+    this.value,
+  });
+
+  @override
+  String get nodeType => 'NullAwareElement';
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (value != null) 'value': value!.toJson(),
+  };
+
+  factory SNullAwareElement.fromJson(Map<String, dynamic> json) {
+    return SNullAwareElement(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      value:
+          SAstNodeFactory.fromJson(json['value'] as Map<String, dynamic>?)
+              as SExpression?,
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitNullAwareElement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    value?.accept(visitor);
+  }
+}
+
 class SIfElement extends SCollectionElement {
   @override
   final int offset;

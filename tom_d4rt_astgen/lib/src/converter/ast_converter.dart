@@ -134,6 +134,8 @@ class AstConverter {
       return _convertRethrowExpression(node);
     if (node is analyzer.NamedExpression) return _convertNamedExpression(node);
     if (node is analyzer.SpreadElement) return _convertSpreadElement(node);
+    if (node is analyzer.NullAwareElement)
+      return _convertNullAwareElement(node);
     if (node is analyzer.IfElement) return _convertIfElement(node);
     if (node is analyzer.ForElement) return _convertForElement(node);
 
@@ -597,10 +599,34 @@ class AstConverter {
   }
 
   SForStatement _convertForStatement(analyzer.ForStatement node) {
+    final isAwait = node.awaitKeyword != null;
+    SForLoopParts? forLoopParts = _as<SForLoopParts>(node.forLoopParts);
+
+    // Propagate await keyword from ForStatement to ForEachParts
+    if (isAwait && forLoopParts != null) {
+      if (forLoopParts is SForEachPartsWithDeclaration) {
+        forLoopParts = SForEachPartsWithDeclaration(
+          offset: forLoopParts.offset,
+          length: forLoopParts.length,
+          loopVariable: forLoopParts.loopVariable,
+          iterable: forLoopParts.iterable,
+          isAwait: true,
+        );
+      } else if (forLoopParts is SForEachPartsWithIdentifier) {
+        forLoopParts = SForEachPartsWithIdentifier(
+          offset: forLoopParts.offset,
+          length: forLoopParts.length,
+          identifier: forLoopParts.identifier,
+          iterable: forLoopParts.iterable,
+          isAwait: true,
+        );
+      }
+    }
+
     return SForStatement(
       offset: node.offset,
       length: node.length,
-      forLoopParts: _as<SForLoopParts>(node.forLoopParts),
+      forLoopParts: forLoopParts,
       body: _as<SStatement>(node.body),
     );
   }
@@ -904,7 +930,7 @@ class AstConverter {
       length: node.length,
       target: _as<SExpression>(node.target),
       index: _as<SExpression>(node.index),
-      isNullAware: node.period != null,
+      isNullAware: node.question != null,
     );
   }
 
@@ -1027,6 +1053,14 @@ class AstConverter {
       length: node.length,
       isNullAware: node.spreadOperator.lexeme == '...?',
       expression: _as<SExpression>(node.expression),
+    );
+  }
+
+  SNullAwareElement _convertNullAwareElement(analyzer.NullAwareElement node) {
+    return SNullAwareElement(
+      offset: node.offset,
+      length: node.length,
+      value: _as<SExpression>(node.value),
     );
   }
 
@@ -1756,7 +1790,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       typeArguments: _as<STypeArgumentList>(node.typeArguments),
-      elements: _nodesAs<SDartPattern>(node.elements),
+      elements: _nodesAs<SAstNode>(node.elements),
     );
   }
 
@@ -1765,7 +1799,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       typeArguments: _as<STypeArgumentList>(node.typeArguments),
-      elements: _nodesAs<SMapPatternEntry>(node.elements),
+      elements: _nodesAs<SAstNode>(node.elements),
     );
   }
 

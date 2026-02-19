@@ -107,6 +107,9 @@ abstract class SAstVisitor<T> {
   /// Visit a [SSpreadElement].
   T? visitSpreadElement(SSpreadElement node) => visitNode(node);
 
+  /// Visit a [SNullAwareElement].
+  T? visitNullAwareElement(SNullAwareElement node) => visitNode(node);
+
   /// Visit a [SIfElement].
   T? visitIfElement(SIfElement node) => visitNode(node);
 
@@ -814,6 +817,10 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
 
   @override
   T? visitSpreadElement(SSpreadElement node) => visitCollectionElement(node);
+
+  @override
+  T? visitNullAwareElement(SNullAwareElement node) =>
+      visitCollectionElement(node);
 
   @override
   T? visitIfElement(SIfElement node) => visitCollectionElement(node);

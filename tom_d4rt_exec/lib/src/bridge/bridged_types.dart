@@ -116,6 +116,9 @@ class BridgedClass implements RuntimeType {
 
   @override
   bool isSubtypeOf(RuntimeType other, {Object? value}) {
+    // Any concrete type is a subtype of a type parameter (T)
+    if (other is TypeParameter) return true;
+
     if (other is BridgedClass) {
       if (isSubtypeOfFunc != null) {
         return isSubtypeOfFunc!.call(other, value: value);
@@ -130,7 +133,23 @@ class BridgedClass implements RuntimeType {
         return isSubtype;
       }
 
-      return nativeType == other.nativeType;
+      if (nativeType == other.nativeType) return true;
+
+      // Common Dart type hierarchy relationships
+      // Object is a supertype of everything
+      if (other.name == 'Object') return true;
+      // List, Set implement Iterable
+      if (other.name == 'Iterable' &&
+          (name == 'List' || name == 'Set')) {
+        return true;
+      }
+      // int, double are subtypes of num
+      if (other.name == 'num' &&
+          (name == 'int' || name == 'double')) {
+        return true;
+      }
+
+      return false;
     }
 
     return false;

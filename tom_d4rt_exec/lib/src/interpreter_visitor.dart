@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/src/bridge/bridged_enum.dart';
-import 'package:tom_d4rt_exec/src/utils/extensions/string.dart';
 import 'package:tom_d4rt_exec/src/module_loader.dart';
 
 /// Main visitor that walks the AST and interprets the code.
@@ -2428,8 +2427,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     Object? targetValue; // Keep track of the target object/class
     // Argument lists - declared here, evaluated later if needed
 
-    // Determine if this is a conditional call by inspecting the source
-    final isNullAware = node.toString().contains('?.');
+    // Determine if this is a conditional call by checking the operator field
+    final isNullAware = node.operator == '?.';
 
     if (node.target == null) {
       // Simple function call (or class constructor call)
@@ -2459,8 +2458,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           // but a function retrieved from this environment.
           // Functions obtained in this way are already "autonomous" or correctly bound if they come from classes.
         } on RuntimeD4rtException catch (e) {
+          final moduleName = node.target is SSimpleIdentifier
+              ? (node.target as SSimpleIdentifier).name
+              : node.target.toString();
           throw RuntimeD4rtException(
-              "Method '$methodName' not found in imported module '${node.target!.toString()}'. Error: ${e.message}");
+              "Method '$methodName' not found in imported module '$moduleName'. Error: ${e.message}");
         }
         // calleeValue is now the function/method of the imported module.
         // The call logic will be handled in the final visitMethodInvocation.
@@ -3272,8 +3274,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       return target;
     }
 
-    // Determine if this is a conditional access by inspecting the source
-    final isNullAware = node.toString().contains('?.');
+    // Determine if this is a conditional access by checking the operator field
+    final isNullAware = node.operator == '?.';
     final propertyName = node.propertyName!.name;
 
     // Null safety support: if the target is null and the access is null-aware, return null
@@ -5092,10 +5094,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         throw UnimplementedD4rtException(
             'Unsupported for-loop type in collection literal: ${loopParts.runtimeType}');
       }
-    } else if (element.nodeType == 'NullAwareElement') {
-      // TODO: SNullAwareElement not yet in serialized AST - use nodeType check
-      // Use element.value as per analyzer AST definition
-      final value = (element as dynamic).value?.accept<Object?>(this);
+    } else if (element is SNullAwareElement) {
+      final value = element.value?.accept<Object?>(this);
       if (value != null) {
         if (collection is List) {
           collection.add(value);
@@ -5113,7 +5113,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       final value = element.accept<Object?>(this);
       if (isMap) {
         throw RuntimeD4rtException(
-            "Expected a SMapLiteralEntry ('key: value') but got an expression in map literal.");
+            "Expected a MapLiteralEntry ('key: value') but got an expression in map literal.");
       } else if (collection is List) {
         collection.add(value);
       } else if (collection is Set) {
@@ -5135,7 +5135,17 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             : false;
     bool isNullable = false;
     if (returnType is SNamedType) {
-      isNullable = returnType.toString().contains('?');
+      isNullable = returnType.isNullable;
+      // For async functions: Future<T?> → extract nullability from inner type T
+      if (isAsync && !isNullable && returnType.name?.name == 'Future') {
+        final typeArgs = returnType.typeArguments;
+        if (typeArgs != null && typeArgs.arguments.isNotEmpty) {
+          final innerType = typeArgs.arguments.first;
+          if (innerType is SNamedType) {
+            isNullable = innerType.isNullable;
+          }
+        }
+      }
     }
 
     // Handle type parameters for generic functions
@@ -5190,20 +5200,6 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitReturnStatement(SReturnStatement node) {
-    // Walk up the AST to find the enclosing function
-    // Bug-73, Bug-74 FIX: A SFunctionDeclaration contains a SFunctionExpression as its child,
-    // so we need to find the SFunctionDeclaration (which has the name) rather than stopping
-    // at the inner SFunctionExpression.
-    SAstNode eDecl = node;
-    if (eDecl is SFunctionDeclaration) {
-      // Named function - prefer this over SFunctionExpression
-    } else if (eDecl is SFunctionExpression) {
-      // TODO: SAstNode has no parent reference in serialized AST
-      // Check if parent is a SFunctionDeclaration - if so, use that instead
-      // In the serialized AST we can't check parent, so just use the expression as-is
-    }
-    // TODO: SAstNode has no parent reference in serialized AST - cannot walk up
-
     Object? returnValue;
     if (node.expression != null) {
       returnValue = node.expression!.accept<Object?>(this);
@@ -5214,74 +5210,55 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       returnValue = null;
     }
 
-    if (eDecl is SFunctionDeclaration || eDecl is SFunctionExpression) {
-      bool isNullable = false;
-      String functionName = '<anonymous>';
-      RuntimeType? declaredType;
+    // Use currentFunction (set by InterpretedFunction.call) to get the
+    // declared return type. SAstNode has no parent references, so we cannot
+    // walk up the AST to find the enclosing function declaration.
+    final currentCallable = currentFunction;
+    if (currentCallable != null) {
+      bool isNullable = currentCallable.isNullable;
+      String functionName = currentCallable.toString();
+      // Extract function name from the callable's toString, or use a default
+      // InterpretedFunction.toString returns '<fn name>'
+      final fnStr = currentCallable.toString();
+      if (fnStr.startsWith('<fn ') && fnStr.endsWith('>')) {
+        functionName = fnStr.substring(4, fnStr.length - 1);
+      }
+      RuntimeType? declaredType = currentCallable.declaredReturnType;
       RuntimeType? valueRuntimeType;
 
       try {
-        InterpretedFunction? currentCallable;
-
-        if (eDecl is SFunctionDeclaration) {
-          functionName = eDecl.name!.name;
-          currentCallable =
-              environment.get(functionName) as InterpretedFunction?;
-        } else if (eDecl is SFunctionExpression) {
-          // For anonymous functions (closures), use currentFunction from visitor
-          currentCallable = currentFunction;
+        // Special handling for async* generators: return without value should be allowed
+        if (currentCallable.isAsyncGenerator && returnValue == null) {
+          throw ReturnException(returnValue); // Exit generator cleanly
         }
 
-        if (currentCallable is InterpretedFunction) {
-          declaredType = currentCallable.declaredReturnType;
-          isNullable = currentCallable.isNullable;
-
-          // Special handling for async* generators: return without value should be allowed
-          if (currentCallable.isAsyncGenerator && returnValue == null) {
-            throw ReturnException(returnValue); // Exit generator cleanly
-          }
-        }
         valueRuntimeType = environment.getRuntimeType(returnValue);
-
-        String declaredTypeDetails = "N/A";
-        if (declaredType != null) {
-          declaredTypeDetails =
-              "Name: ${declaredType.name}, Hash: ${declaredType.hashCode}";
-          if (declaredType is BridgedClass) {
-            declaredTypeDetails +=
-                ", NativeType: ${declaredType.nativeType}, NativeHash: ${declaredType.nativeType.hashCode}";
-          }
-        }
-
-        String valueRuntimeTypeDetails = "N/A";
-        if (valueRuntimeType != null) {
-          valueRuntimeTypeDetails =
-              "Name: ${valueRuntimeType.name}, Hash: ${valueRuntimeType.hashCode}";
-          if (valueRuntimeType is BridgedClass) {
-            valueRuntimeTypeDetails +=
-                ", NativeType: ${valueRuntimeType.nativeType}, NativeHash: ${valueRuntimeType.nativeType.hashCode}";
-          }
-        }
 
         Logger.debug("[visitReturnStatement] Function: '$functionName'");
         Logger.debug(
-            "[visitReturnStatement]   Declared Type: $declaredTypeDetails");
+            "[visitReturnStatement]   Declared Type: ${declaredType?.name ?? 'N/A'}");
         Logger.debug(
-            "[visitReturnStatement]   Value Runtime Type: $valueRuntimeTypeDetails");
+            "[visitReturnStatement]   Value Runtime Type: ${valueRuntimeType?.name ?? 'N/A'}");
         Logger.debug(
             "[visitReturnStatement]   Return Value: $returnValue (Type: ${returnValue?.runtimeType})");
         Logger.debug(
             "[visitReturnStatement]   Is Declared Type Nullable: $isNullable");
 
-        if (declaredType != null && valueRuntimeType != null) {
-          Logger.debug(
-              "[visitReturnStatement]   declaredType.isSubtypeOf(valueRuntimeType) = ${declaredType.isSubtypeOf(valueRuntimeType)}");
+        // Check null return value against non-nullable declared type
+        if (returnValue == null &&
+            declaredType != null &&
+            !isNullable &&
+            declaredType.name != 'void' &&
+            declaredType.name != 'dynamic') {
+          final declaredTypeName = declaredType.name;
+          throw RuntimeD4rtException(
+              "A value of type 'Null' can't be returned from the function '$functionName' because it has a return type of '$declaredTypeName'.");
         }
 
         if (valueRuntimeType != null) {
           if (declaredType != null) {
             if (declaredType.name != "dynamic" &&
-                !declaredType.isSubtypeOf(valueRuntimeType,
+                !valueRuntimeType.isSubtypeOf(declaredType,
                     value: returnValue)) {
               bool showError = true;
               if (isNullable && returnValue == null) {
@@ -5294,19 +5271,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                 showError = false;
               }
               // Bug-73 FIX: In async functions, returning a Future<T> when declared type is T is allowed
-              // Dart automatically awaits the inner Future. Check if:
-              // 1. The function is async (currentCallable.isAsync)
-              // 2. The return value is a Future
-              // 3. The declared type matches the Future's inner type (or is void)
-              if (currentCallable != null &&
-                  currentCallable.isAsync &&
-                  returnValue is Future) {
-                // Allow returning Future from async function - Dart awaits it
+              if (currentCallable.isAsync && returnValue is Future) {
                 showError = false;
               }
 
-              // Bug-93 FIX: Dart implicitly promotes int to double when the
-              // declared return type is double and the value is an int.
+              // Bug-93 FIX: Dart implicitly promotes int to double
               if (declaredType.name == 'double' && returnValue is int) {
                 showError = false;
                 returnValue = returnValue.toDouble();
@@ -5322,7 +5291,6 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           }
         }
       } catch (e) {
-        // Log before rethrow for more context in case of unexpected error here
         Logger.error(
             "[visitReturnStatement] Error during type check for function '$functionName': $e");
         if (e is Error) {
@@ -8963,9 +8931,6 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           matchedKeys.add(keyToLookup);
         } else if (element is SRestPatternElement) {
           // Handle rest element
-          // Note: elements is List<SMapPatternEntry>, so promotion doesn't
-          // work for SRestPatternElement. Use explicit cast.
-          final restElem = element as SRestPatternElement;
           final remainingEntries = <Object?, Object?>{};
           for (final entry in value.entries) {
             if (!matchedKeys.contains(entry.key)) {
@@ -8973,11 +8938,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             }
           }
 
-          if (restElem.pattern != null) {
+          if (element.pattern != null) {
             // Rest element has a pattern (e.g., ...rest), bind the remaining map
             Logger.debug(
-                "[_matchAndBind]   Matching rest element: ${restElem.pattern!.runtimeType} against Map of ${remainingEntries.length} entries");
-            _matchAndBind(restElem.pattern!, remainingEntries, environment);
+                "[_matchAndBind]   Matching rest element: ${element.pattern!.runtimeType} against Map of ${remainingEntries.length} entries");
+            _matchAndBind(element.pattern!, remainingEntries, environment);
           }
           // If element.pattern is null, it's just "..." (anonymous rest), no binding needed
         } else {

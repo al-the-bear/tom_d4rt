@@ -214,6 +214,26 @@ class DeclarationVisitor extends GeneralizingSAstVisitor<void> {
     bool isNullable =
         (returnTypeNode is SNamedType) && returnTypeNode.isNullable;
 
+    // For async functions with Future<T?> return type, extract isNullable from inner type T
+    final body0 = node.functionExpression?.body;
+    bool isAsync = (body0 is SBlockFunctionBody)
+        ? body0.isAsync
+        : (body0 is SExpressionFunctionBody)
+            ? body0.isAsync
+            : false;
+    if (isAsync &&
+        !isNullable &&
+        returnTypeNode is SNamedType &&
+        returnTypeNode.name?.name == 'Future') {
+      final typeArgs = returnTypeNode.typeArguments;
+      if (typeArgs != null && typeArgs.arguments.isNotEmpty) {
+        final innerType = typeArgs.arguments.first;
+        if (innerType is SNamedType) {
+          isNullable = innerType.isNullable;
+        }
+      }
+    }
+
     final function = InterpretedFunction.declaration(
         node,
         environment, // The function captures the environment it's declared in

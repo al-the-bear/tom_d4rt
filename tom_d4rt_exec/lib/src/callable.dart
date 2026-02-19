@@ -106,12 +106,14 @@ class InterpretedFunction implements Callable {
 
   // Parent map for AST node navigation (SAstNode has no .parent property)
   // Built lazily from the function body.
-  static final Map<SAstNode, SAstNode?> _parentMap = {};
+  static final Map<SAstNode, SAstNode?> _parentMap = Map.identity();
 
   /// Build a parent reference map for the given AST tree root.
   /// Walks all children recursively and maps each child to its parent.
+  /// Builds additively — does not clear existing entries, so nested async
+  /// function calls preserve the outer function's parent map entries.
   static void _buildParentMap(SAstNode root) {
-    _parentMap.clear();
+    if (_parentMap.containsKey(root)) return; // Already built for this body
     _parentMap[root] = null;
     _walkChildren(root);
   }
@@ -120,8 +122,10 @@ class InterpretedFunction implements Callable {
     final collector = _ChildCollectorVisitor();
     parent.visitChildren(collector);
     for (final child in collector.children) {
-      _parentMap[child] = parent;
-      _walkChildren(child);
+      if (!_parentMap.containsKey(child)) {
+        _parentMap[child] = parent;
+        _walkChildren(child);
+      }
     }
   }
 
@@ -2493,14 +2497,15 @@ class InterpretedFunction implements Callable {
     // 1. Find an enclosing STryStatement
     STryStatement? enclosingTry =
         _findEnclosingTryStatement(nodeWhereErrorOccurred);
+    // Fallback: use state.activeTryStatement if parent-walk didn't find one
+    enclosingTry ??= currentTry;
 
     // If this is a rethrow and we found the same try statement, look for an outer one
     if (isRethrow && enclosingTry != null && enclosingTry == currentTry) {
       Logger.debug(
           " [_handleAsyncError] Rethrow detected - skipping current try/catch and looking for outer one");
       // Find the next enclosing try outside of the current one
-      // TODO: SAstNode has no .parent — use state.activeTryStatement as workaround
-      enclosingTry = null; // Cannot traverse parent chain without .parent
+      enclosingTry = _findEnclosingTryStatement(currentTry);
       // Reset the flag after handling
       state.isCurrentlyRethrowing = false;
     }
@@ -2600,9 +2605,12 @@ class InterpretedFunction implements Callable {
   }
 
   static STryStatement? _findEnclosingTryStatement(SAstNode? node) {
-    // TODO: SAstNode has no .parent — cannot traverse parent chain.
-    // This function is non-functional after migration from package:analyzer.
-    // The caller should use state.activeTryStatement as the fallback.
+    // Walk up the parent chain using _parentMap to find enclosing TryStatement
+    SAstNode? current = _parentOf(node);
+    while (current != null) {
+      if (current is STryStatement) return current;
+      current = _parentOf(current);
+    }
     return null;
   }
 

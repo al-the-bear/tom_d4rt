@@ -490,7 +490,7 @@ class SMapPattern extends SDartPattern {
   final int length;
 
   final STypeArgumentList? typeArguments;
-  final List<SMapPatternEntry> elements;
+  final List<SAstNode> elements;
 
   SMapPattern({
     required this.offset,
@@ -520,9 +520,7 @@ class SMapPattern extends SDartPattern {
                 json['typeArguments'] as Map<String, dynamic>?,
               )
               as STypeArgumentList?,
-      elements: SAstNodeFactory.listFromJson<SMapPatternEntry>(
-        json['elements'] as List?,
-      ),
+      elements: SAstNodeFactory.listFromJson(json['elements'] as List?),
     );
   }
 

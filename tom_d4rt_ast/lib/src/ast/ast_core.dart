@@ -57,7 +57,7 @@ abstract class SAstNode {
   bool operator ==(Object other) => equals(other);
 
   @override
-  int get hashCode => Object.hash(runtimeType, toJson().hashCode);
+  int get hashCode => Object.hash(runtimeType, offset, length);
 
   /// Get the end offset
   int get end => offset + length;
@@ -391,6 +391,7 @@ void _registerAllFactories() {
   SAstNodeFactory.register('RethrowExpression', SRethrowExpression.fromJson);
   SAstNodeFactory.register('NamedExpression', SNamedExpression.fromJson);
   SAstNodeFactory.register('SpreadElement', SSpreadElement.fromJson);
+  SAstNodeFactory.register('NullAwareElement', SNullAwareElement.fromJson);
   SAstNodeFactory.register('IfElement', SIfElement.fromJson);
   SAstNodeFactory.register('ForElement', SForElement.fromJson);
 
