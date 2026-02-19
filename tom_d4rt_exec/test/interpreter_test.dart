@@ -1,13 +1,15 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
+import 'test_helpers.dart';
+
 Matcher throwsRuntimeError(dynamic messageMatcher) {
   return throwsA(
       isA<RuntimeD4rtException>().having((e) => e.message, 'message', messageMatcher));
 }
 
 dynamic execute(String source, {List<Object?>? args}) {
-  final d4rt = D4rt()..setDebug(false);
+  final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
   // Grant all permissions for existing tests to maintain compatibility
   d4rt.grant(FilesystemPermission.any);
   d4rt.grant(NetworkPermission.any);
@@ -21,7 +23,7 @@ dynamic execute(String source, {List<Object?>? args}) {
 
 // Async version that awaits Future results for complex await tests
 Future<dynamic> executeAsync(String source, {List<Object?>? args}) async {
-  final d4rt = D4rt()..setDebug(false);
+  final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
   // Grant all permissions for existing tests to maintain compatibility
   d4rt.grant(FilesystemPermission.any);
   d4rt.grant(NetworkPermission.any);

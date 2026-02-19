@@ -353,6 +353,10 @@ class D4rt {
       bridgedExtensions: _bridgedExtensions,
       d4rt: this,
       collectRegistrationErrors: collectRegistrationErrors,
+      parseSourceCallback: parseSourceCallback != null
+          ? (sourceCode, uri) =>
+              parseSourceCallback!(sourceCode, path: uri.toString())
+          : null,
     );
     _visitor = InterpreterVisitor(
         globalEnvironment: moduleLoader.globalEnvironment,
