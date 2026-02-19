@@ -229,8 +229,15 @@ set -e
 assert_exit_code 1 "empty stdin exits 1"
 assert_stderr_contains "No input" "empty stdin error message"
 
-# Syntax error
+# Unclosed string — parser is lenient, treats as valid (prints partial)
 run_dcli_stdin 'void main() { print("unclosed }'
+assert_exit_code 0 "unclosed string is lenient (parser recovers)"
+
+# Actual syntax error — incomplete expression
+run_dcli_stdin 'void main() {
+  int x = 10 +;
+  print(x);
+}'
 assert_exit_code 2 "syntax error exits 2"
 
 # Runtime error (undefined variable)

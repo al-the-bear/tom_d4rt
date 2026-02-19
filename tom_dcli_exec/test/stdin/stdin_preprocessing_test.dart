@@ -209,6 +209,16 @@ void main() {
       expect(stderr, contains('No input'));
     }, timeout: processTimeout);
 
+    test('should exit 0 on unclosed string (parser is lenient)', () async {
+      final r = await runDcliStdin('void main() { print("unclosed }');
+      expect(r.exitCode, 0);
+    }, timeout: processTimeout);
+
+    test('should exit 2 on syntax error (incomplete expression)', () async {
+      final r = await runDcliStdin('void main() {\n  int x = 10 +;\n  print(x);\n}');
+      expect(r.exitCode, 2);
+    }, timeout: processTimeout);
+
     test('should exit 2 on runtime error', () async {
       final r = await runDcliStdin('print(undefinedVariable123);');
       expect(r.exitCode, 2);
