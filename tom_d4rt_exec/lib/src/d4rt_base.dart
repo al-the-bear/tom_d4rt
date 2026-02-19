@@ -771,6 +771,7 @@ class D4rt {
     }
 
     // Initialize a fresh module loader (resets global environment)
+    InterpretedFunction.clearParentMap();
     _moduleLoader = _initModule(sources,
         basePath: basePath, allowFileSystemImports: allowFileSystemImports);
 

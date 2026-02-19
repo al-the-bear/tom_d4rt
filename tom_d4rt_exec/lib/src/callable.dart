@@ -108,6 +108,12 @@ class InterpretedFunction implements Callable {
   // Built lazily from the function body.
   static final Map<SAstNode, SAstNode?> _parentMap = Map.identity();
 
+  /// Clear the parent map. Should be called at the start of each top-level
+  /// execution to prevent unbounded growth across multiple executions.
+  static void clearParentMap() {
+    _parentMap.clear();
+  }
+
   /// Build a parent reference map for the given AST tree root.
   /// Walks all children recursively and maps each child to its parent.
   /// Builds additively — does not clear existing entries, so nested async
