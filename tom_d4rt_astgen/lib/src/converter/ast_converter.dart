@@ -567,8 +567,9 @@ class AstConverter {
     return SFunctionDeclarationStatement(
       offset: node.offset,
       length: node.length,
-      functionDeclaration:
-          _convertFunctionDeclaration(node.functionDeclaration),
+      functionDeclaration: _convertFunctionDeclaration(
+        node.functionDeclaration,
+      ),
     );
   }
 

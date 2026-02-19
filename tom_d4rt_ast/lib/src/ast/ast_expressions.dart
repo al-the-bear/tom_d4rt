@@ -1347,11 +1347,7 @@ class SNullAwareElement extends SCollectionElement {
 
   final SExpression? value;
 
-  SNullAwareElement({
-    required this.offset,
-    required this.length,
-    this.value,
-  });
+  SNullAwareElement({required this.offset, required this.length, this.value});
 
   @override
   String get nodeType => 'NullAwareElement';

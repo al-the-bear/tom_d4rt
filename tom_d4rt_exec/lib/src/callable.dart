@@ -2645,8 +2645,8 @@ class InterpretedFunction implements Callable {
     if (nodeThatCausedSuspension is SAwaitExpression) {
       awaitExpression = nodeThatCausedSuspension;
       // Use _parentOf to get the parent as context (mirrors analyzer .parent)
-      awaitContextNode = _parentOf(nodeThatCausedSuspension) ??
-          nodeThatCausedSuspension;
+      awaitContextNode =
+          _parentOf(nodeThatCausedSuspension) ?? nodeThatCausedSuspension;
     } else if (nodeThatCausedSuspension is SExpressionStatement &&
         nodeThatCausedSuspension.expression is SAwaitExpression) {
       // Case where the await was directly the expression of an SExpressionStatement

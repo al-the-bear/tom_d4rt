@@ -170,8 +170,7 @@ abstract class SAstVisitor<T> {
   T? visitBlock(SBlock node) => visitNode(node);
 
   /// Visit a [SFunctionDeclarationStatement].
-  T? visitFunctionDeclarationStatement(
-          SFunctionDeclarationStatement node) =>
+  T? visitFunctionDeclarationStatement(SFunctionDeclarationStatement node) =>
       visitNode(node);
 
   /// Visit a [SVariableDeclarationStatement].
@@ -896,8 +895,7 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
   T? visitBlock(SBlock node) => visitStatement(node);
 
   @override
-  T? visitFunctionDeclarationStatement(
-          SFunctionDeclarationStatement node) =>
+  T? visitFunctionDeclarationStatement(SFunctionDeclarationStatement node) =>
       visitStatement(node);
 
   @override

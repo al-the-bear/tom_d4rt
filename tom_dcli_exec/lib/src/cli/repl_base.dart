@@ -29,7 +29,7 @@ export 'repl_state.dart';
 export 'result_formatting.dart';
 
 /// Base class for D4rt REPL tools.
-/// 
+///
 /// Extended tools should:
 /// 1. Override [toolName] and [toolVersion] for branding
 /// 2. Override [registerBridges] to add additional bridges
@@ -40,54 +40,56 @@ export 'result_formatting.dart';
 abstract class D4rtReplBase {
   /// CLI integration for the `cli` global variable.
   final _cliIntegration = CliReplIntegration();
-  
+
   /// The name of the tool (shown in prompt and help)
   String get toolName;
-  
+
   /// The version string for the tool
   String get toolVersion;
-  
+
   /// The file extension for replay files (e.g., 'dcli' for *.dcli files)
   /// Override in subclasses (e.g., 'd4rt' for *.d4rt files)
   String get toolExtension => toolName.toLowerCase();
-  
+
   /// Returns the list of file patterns to match when listing replay files.
   /// Override in subclasses to add tool-specific extensions (e.g., '.d4rt').
   /// Default returns ['.replay.txt', '.<toolExtension>'] (e.g., '.dcli')
   List<String> get replayFilePatterns => ['.replay.txt', '.$toolExtension'];
-  
+
   /// Formats replay file patterns for display in help text (e.g., "*.replay.txt, *.dcli")
-  String _formatReplayPatterns() => replayFilePatterns.map((p) => '*$p').join(', ');
-  
+  String _formatReplayPatterns() =>
+      replayFilePatterns.map((p) => '*$p').join(', ');
+
   /// The data directory for sessions, history, etc.
   /// Default is `~/.tom/<toolname>`. Override for custom location.
-  String get dataDirectory => '${Platform.environment['HOME']}/.tom/${toolName.toLowerCase()}';
-  
+  String get dataDirectory =>
+      '${Platform.environment['HOME']}/.tom/${toolName.toLowerCase()}';
+
   /// The short form of dataDirectory for display in help (e.g., `~/.tom/dcli`)
   String get dataDirectoryShort => '~/.tom/${toolName.toLowerCase()}';
-  
+
   /// The init source file name (e.g., dcli_init_source.dart)
   String get initSourceFileName => '${toolName.toLowerCase()}_init_source.dart';
-  
+
   /// Whether to include VS Code integration commands (override in extended tools)
   bool get hasVSCodeIntegration => false;
-  
+
   /// Register bridges with the D4rt interpreter.
   /// Extended tools should call super and add their bridges.
   void registerBridges(D4rt d4rt);
-  
+
   /// Get the import block for script initialization.
   /// Extended tools should call super and append their imports.
   String getImportBlock();
-  
+
   /// Get the bridges help section describing available bridges.
   /// If [d4rt] is provided, generates dynamic content from configuration.
   String getBridgesHelp([D4rt? d4rt]);
-  
+
   /// Get additional help sections for tool-specific features.
   /// Returns a list of help section strings.
   List<String> getAdditionalHelpSections() => [];
-  
+
   /// Handle additional tool-specific commands.
   /// Returns true if the command was handled, false to continue with default processing.
   Future<bool> handleAdditionalCommands(
@@ -96,7 +98,7 @@ abstract class D4rtReplBase {
     String line, {
     bool silent = false,
   }) async => false;
-  
+
   /// Handle additional multiline mode endings.
   /// Called when .end is entered for a multiline mode not handled by the base class.
   /// Returns true if the mode was handled, false otherwise.
@@ -107,18 +109,16 @@ abstract class D4rtReplBase {
     String code, {
     bool silent = false,
   }) async => false;
-  
+
   /// Called when starting the REPL, after printing the banner.
   /// Override to add tool-specific startup logic.
   Future<void> onReplStartup(D4rt d4rt, ReplState state) async {}
-  
+
   /// Create a new ReplState instance.
   /// Override to use a custom state class.
-  ReplState createReplState() => ReplState(
-    promptName: toolName.toLowerCase(),
-    dataDir: dataDirectory,
-  );
-  
+  ReplState createReplState() =>
+      ReplState(promptName: toolName.toLowerCase(), dataDir: dataDirectory);
+
   /// Get the version banner shown at startup and with --version.
   String getVersionBanner() {
     return '**$toolName** Interactive REPL <yellow>$toolVersion</yellow>';
@@ -177,17 +177,21 @@ abstract class D4rtReplBase {
   <yellow>cat script.dart | $name --stdin</yellow>        Pipe a complete script via stdin
   <yellow>echo 'return 5+6;' | $name --stdin</yellow>    Bare expression, exit code = result''';
   }
-  
+
   /// Print CLI usage information (for --help).
   void printUsage() {
     final name = toolName.toLowerCase();
     final ext = toolExtension;
     print('');
     print(getVersionBanner());
-    print('<cyan>─────────────────────────────────────────────────────────────</cyan>');
+    print(
+      '<cyan>─────────────────────────────────────────────────────────────</cyan>',
+    );
     print('');
     print('<cyan>**Usage**</cyan>');
-    print('  <yellow>$name</yellow> [options] [script.dart | replay.$ext | expression]');
+    print(
+      '  <yellow>$name</yellow> [options] [script.dart | replay.$ext | expression]',
+    );
     print('');
     print(getCliOptionsHelp());
     print('');
@@ -199,28 +203,37 @@ abstract class D4rtReplBase {
     print('');
     print(getFileConventionsHelp(toolName.toLowerCase(), dataDirectoryShort));
     print('');
-    print('<cyan>─────────────────────────────────────────────────────────────</cyan>');
+    print(
+      '<cyan>─────────────────────────────────────────────────────────────</cyan>',
+    );
     print('<cyan>**REPL Commands**</cyan>');
-    print('<cyan>─────────────────────────────────────────────────────────────</cyan>');
+    print(
+      '<cyan>─────────────────────────────────────────────────────────────</cyan>',
+    );
     print('');
     _printAllHelpSections();
     print('');
   }
-  
+
   /// Print all help sections for the REPL help command.
   void _printAllHelpSections([D4rt? d4rt]) {
     print(getCommonCommandsHelp());
     print('');
-    
+
     // Additional tool-specific sections (like VS Code integration)
     for (final section in getAdditionalHelpSections()) {
       print(section);
       print('');
     }
-    
+
     print(getDefinesHelp());
     print('');
-    print(getDirectoryCommandsHelp(dataDirectoryShort, replayPatterns: _formatReplayPatterns()));
+    print(
+      getDirectoryCommandsHelp(
+        dataDirectoryShort,
+        replayPatterns: _formatReplayPatterns(),
+      ),
+    );
     print('');
     print(getMultilineHelp());
     print('');
@@ -238,18 +251,22 @@ abstract class D4rtReplBase {
     print('');
     print(getBridgesHelp(d4rt));
   }
-  
+
   /// Prints detailed REPL help (for help command).
   void printReplHelp([D4rt? d4rt]) {
     print('');
     print('**$toolName REPL** - *Detailed Help*');
-    print('<cyan>─────────────────────────────────────────────────────────────</cyan>');
+    print(
+      '<cyan>─────────────────────────────────────────────────────────────</cyan>',
+    );
     print('');
     _printAllHelpSections(d4rt);
     print('');
-    print('<cyan>─────────────────────────────────────────────────────────────</cyan>');
+    print(
+      '<cyan>─────────────────────────────────────────────────────────────</cyan>',
+    );
   }
-  
+
   /// Main entry point for the REPL.
   Future<void> run(List<String> arguments) async {
     // Wrap all output in a zone that applies console_markdown formatting
@@ -268,23 +285,29 @@ abstract class D4rtReplBase {
       ),
     );
   }
-  
+
   /// Internal implementation of run, wrapped in console_markdown zone.
   Future<void> _runImpl(List<String> arguments) async {
     // Parse arguments
-    final help = arguments.contains('--help') || 
-                 arguments.contains('-help') || 
-                 arguments.contains('-h') ||
-                 arguments.contains('help');
-    final dumpConfig = arguments.contains('--dump-configuration') ||
+    final help =
+        arguments.contains('--help') ||
+        arguments.contains('-help') ||
+        arguments.contains('-h') ||
+        arguments.contains('help');
+    final dumpConfig =
+        arguments.contains('--dump-configuration') ||
         arguments.contains('-dump-configuration');
-    final version = arguments.contains('--version') || 
-                    arguments.contains('-version') ||
-                    arguments.contains('-v') ||
-                    arguments.contains('version');
+    final version =
+        arguments.contains('--version') ||
+        arguments.contains('-version') ||
+        arguments.contains('-v') ||
+        arguments.contains('version');
     final debug = arguments.contains('--debug') || arguments.contains('-debug');
-    final noInitSource = arguments.contains('-no-init-source') || arguments.contains('--no-init-source');
-    final testMode = arguments.contains('-test') || arguments.contains('--test');
+    final noInitSource =
+        arguments.contains('-no-init-source') ||
+        arguments.contains('--no-init-source');
+    final testMode =
+        arguments.contains('-test') || arguments.contains('--test');
 
     // Parse options
     String? sessionId;
@@ -294,37 +317,62 @@ abstract class D4rtReplBase {
     String? testOutputPath;
     String? botModeConfigFile;
     var replaceSession = false;
-    final listSessions = arguments.contains('-list-sessions') || arguments.contains('--list-sessions');
-    final botMode = arguments.contains('-bot-mode') || arguments.contains('--bot-mode');
-    final stdinMode = arguments.contains('-stdin') || arguments.contains('--stdin');
-    
+    final listSessions =
+        arguments.contains('-list-sessions') ||
+        arguments.contains('--list-sessions');
+    final botMode =
+        arguments.contains('-bot-mode') || arguments.contains('--bot-mode');
+    final stdinMode =
+        arguments.contains('-stdin') || arguments.contains('--stdin');
+
     // Known option arguments
     final knownOptions = <String>{
-      '--help', '-help', '-h', 'help',
-      '--version', '-version', '-v', 'version',
-      '--dump-configuration', '-dump-configuration',
-      '--debug', '-debug',
-      '-no-init-source', '--no-init-source',
-      '-list-sessions', '--list-sessions',
-      '-session', '--session',
-      '-replace-session', '--replace-session',
-      '-replay', '--replay',
-      '-run-replay', '--run-replay',
-      '-init-source', '--init-source',
-      '-test', '--test',
-      '-output', '--output',
-      '-bot-mode', '--bot-mode',
-      '-bot-config', '--bot-config',
-      '-stdin', '--stdin',
+      '--help',
+      '-help',
+      '-h',
+      'help',
+      '--version',
+      '-version',
+      '-v',
+      'version',
+      '--dump-configuration',
+      '-dump-configuration',
+      '--debug',
+      '-debug',
+      '-no-init-source',
+      '--no-init-source',
+      '-list-sessions',
+      '--list-sessions',
+      '-session',
+      '--session',
+      '-replace-session',
+      '--replace-session',
+      '-replay',
+      '--replay',
+      '-run-replay',
+      '--run-replay',
+      '-init-source',
+      '--init-source',
+      '-test',
+      '--test',
+      '-output',
+      '--output',
+      '-bot-mode',
+      '--bot-mode',
+      '-bot-config',
+      '--bot-config',
+      '-stdin',
+      '--stdin',
     };
-    
+
     for (var i = 0; i < arguments.length; i++) {
       if (arguments[i] == '-session' || arguments[i] == '--session') {
         if (i + 1 < arguments.length) {
           sessionId = arguments[i + 1];
         }
       }
-      if (arguments[i] == '-replace-session' || arguments[i] == '--replace-session') {
+      if (arguments[i] == '-replace-session' ||
+          arguments[i] == '--replace-session') {
         replaceSession = true;
         if (i + 1 < arguments.length) {
           sessionId = arguments[i + 1];
@@ -351,7 +399,8 @@ abstract class D4rtReplBase {
         }
       }
       // Also support -output=path format
-      if (arguments[i].startsWith('-output=') || arguments[i].startsWith('--output=')) {
+      if (arguments[i].startsWith('-output=') ||
+          arguments[i].startsWith('--output=')) {
         testOutputPath = arguments[i].split('=').skip(1).join('=');
       }
       if (arguments[i] == '-bot-config' || arguments[i] == '--bot-config') {
@@ -360,7 +409,8 @@ abstract class D4rtReplBase {
         }
       }
       // Also support -bot-config=path format
-      if (arguments[i].startsWith('-bot-config=') || arguments[i].startsWith('--bot-config=')) {
+      if (arguments[i].startsWith('-bot-config=') ||
+          arguments[i].startsWith('--bot-config=')) {
         botModeConfigFile = arguments[i].split('=').skip(1).join('=');
       }
     }
@@ -386,7 +436,7 @@ abstract class D4rtReplBase {
     String? script;
     String? expression;
     String? replayFileFromExtension;
-    
+
     if (nonOptionArgs.isNotEmpty) {
       final firstArg = nonOptionArgs.first;
       if (firstArg.endsWith('.dart')) {
@@ -411,7 +461,7 @@ abstract class D4rtReplBase {
 
     // Create D4rt interpreter with all permissions
     final d4rt = D4rt(parseSourceCallback: parseSource);
-    
+
     d4rt.grant(FilesystemPermission.any);
     d4rt.grant(NetworkPermission.any);
     d4rt.grant(ProcessRunPermission.any);
@@ -420,7 +470,7 @@ abstract class D4rtReplBase {
 
     // Register all bridges
     registerBridges(d4rt);
-    
+
     // Register CLI bridge for the `cli` global variable
     _cliIntegration.registerBridge(d4rt);
 
@@ -441,14 +491,15 @@ abstract class D4rtReplBase {
     }
 
     // Determine the init source to use
-    final defaultInitSource = '''
+    final defaultInitSource =
+        '''
 ${getImportBlock()}
 void main() {}
 ''';
 
     String initSource;
     String? initSourcePath;
-    
+
     if (customInitSource != null) {
       final customFile = File(customInitSource);
       if (!customFile.existsSync()) {
@@ -460,13 +511,15 @@ void main() {}
       print('Using init source: $initSourcePath');
     } else {
       final defaultInitFile = File('$dataDirectory/$initSourceFileName');
-      
+
       if (defaultInitFile.existsSync() && !noInitSource) {
         initSource = defaultInitFile.readAsStringSync();
         initSourcePath = defaultInitFile.path;
         print('Using init source: $initSourcePath');
       } else if (defaultInitFile.existsSync() && noInitSource) {
-        print('Init source found, but loading was suppressed. Using default init source instead.');
+        print(
+          'Init source found, but loading was suppressed. Using default init source instead.',
+        );
         initSource = defaultInitSource;
       } else {
         initSource = defaultInitSource;
@@ -518,13 +571,18 @@ void main() {}
       await _runReplayAndExit(d4rt, runReplayFile, initSource);
       return;
     }
-    
+
     // If a replay file was specified via extension (e.g., dcli myfile.dcli) with -test
     if (replayFileFromExtension != null && testMode) {
-      await _runReplayTestMode(d4rt, replayFileFromExtension, initSource, testOutputPath);
+      await _runReplayTestMode(
+        d4rt,
+        replayFileFromExtension,
+        initSource,
+        testOutputPath,
+      );
       return;
     }
-    
+
     // If a replay file was specified via extension (e.g., dcli myfile.dcli), execute it
     if (replayFileFromExtension != null) {
       await _runReplayAndExit(d4rt, replayFileFromExtension, initSource);
@@ -536,13 +594,13 @@ void main() {}
 
     // Interactive REPL mode
     await _runRepl(
-      d4rt, 
-      sessionId: sessionId, 
-      replaceSession: replaceSession, 
+      d4rt,
+      sessionId: sessionId,
+      replaceSession: replaceSession,
       replayFile: replayFile,
     );
   }
-  
+
   /// Dump the D4rt configuration
   void _dumpConfiguration(D4rt d4rt) {
     print('$toolName Configuration');
@@ -550,7 +608,7 @@ void main() {}
     print('');
 
     final config = d4rt.getConfiguration();
-    
+
     var totalClasses = 0;
     for (final import in config.imports) {
       totalClasses += import.classes.length;
@@ -559,7 +617,9 @@ void main() {}
     print('');
 
     for (final import in config.imports) {
-      print('Import: ${import.importPath} (${import.classes.length} classes, ${import.enums.length} enums)');
+      print(
+        'Import: ${import.importPath} (${import.classes.length} classes, ${import.enums.length} enums)',
+      );
       for (final cls in import.classes) {
         print('  - ${cls.name}');
       }
@@ -611,11 +671,13 @@ void main() {}
     // Determine config file location
     final configPath = configFile ?? '$dataDirectory/bot_config.yaml';
     final configFileObj = File(configPath);
-    
+
     if (!configFileObj.existsSync()) {
       stderr.writeln('Bot mode configuration file not found: $configPath');
       stderr.writeln('');
-      stderr.writeln('Create a configuration file with the following structure:');
+      stderr.writeln(
+        'Create a configuration file with the following structure:',
+      );
       stderr.writeln('''
 # Bot Mode Configuration
 bots:
@@ -641,7 +703,7 @@ polling:
 ''');
       exit(1);
     }
-    
+
     // Load configuration
     BotModeConfig config;
     try {
@@ -650,33 +712,39 @@ polling:
       stderr.writeln('Error loading bot configuration: $e');
       exit(1);
     }
-    
+
     // Initialize the init source for REPL execution
-    final defaultInitSource = '''
+    final defaultInitSource =
+        '''
 ${getImportBlock()}
 void main() {}
 ''';
-    
+
     d4rt.execute(source: defaultInitSource);
-    
+
     // Create ReplState for bot mode processing using the overridable method
     // This ensures subclasses can customize state initialization (e.g., VS Code integration)
     final state = createReplState();
     state.currentDirectory = Directory.current.path;
-    
+
     // Create execution callback that uses processInput with zone-based output capture
     Future<ExecutionResult> executeCommand(String command) async {
       final outputBuffer = StringBuffer();
-      
+
       // Strip ANSI escape codes
       String stripAnsi(String text) {
         return text.replaceAll(RegExp(r'\x1B\[[0-9;]*[a-zA-Z]'), '');
       }
-      
+
       // Create custom stdout/stderr that capture output (no markdown conversion - done by formatter)
       final capturedStdout = _CaptureStdout(outputBuffer, (s) => s, stripAnsi);
-      final capturedStderr = _CaptureStdout(outputBuffer, (s) => s, stripAnsi, isError: true);
-      
+      final capturedStderr = _CaptureStdout(
+        outputBuffer,
+        (s) => s,
+        stripAnsi,
+        isError: true,
+      );
+
       try {
         // Use IOOverrides to capture ALL stdout/stderr, including Console writes
         await IOOverrides.runZoned(
@@ -697,32 +765,41 @@ void main() {}
           stdout: () => capturedStdout,
           stderr: () => capturedStderr,
         );
-        
+
         final output = outputBuffer.toString().trim();
-        
+
         // DEBUG: Log captured output and check for color tags
         stdout.writeln('[executeCommand] command: "$command"');
-        stdout.writeln('[executeCommand] outputBuffer length: ${output.length}');
-        stdout.writeln('[executeCommand] has <cyan>: ${output.contains('<cyan>')}');
-        stdout.writeln('[executeCommand] has <yellow>: ${output.contains('<yellow>')}');
+        stdout.writeln(
+          '[executeCommand] outputBuffer length: ${output.length}',
+        );
+        stdout.writeln(
+          '[executeCommand] has <cyan>: ${output.contains('<cyan>')}',
+        );
+        stdout.writeln(
+          '[executeCommand] has <yellow>: ${output.contains('<yellow>')}',
+        );
         if (output.isNotEmpty) {
-          stdout.writeln('[executeCommand] first 300 chars: ${output.substring(0, output.length > 300 ? 300 : output.length)}');
+          stdout.writeln(
+            '[executeCommand] first 300 chars: ${output.substring(0, output.length > 300 ? 300 : output.length)}',
+          );
         }
-        
+
         // Detect formatted text commands (help, info) that should render markdown
-        final isFormattedText = command == 'help' || 
-                                command.startsWith('info ') ||
-                                command == 'classes' ||
-                                command == 'enums' ||
-                                command == 'methods' ||
-                                command == 'variables' ||
-                                command == 'defines' ||
-                                command.startsWith('classes ') ||
-                                command.startsWith('enums ') ||
-                                command.startsWith('methods ') ||
-                                command.startsWith('variables ') ||
-                                command.startsWith('defines ');
-        
+        final isFormattedText =
+            command == 'help' ||
+            command.startsWith('info ') ||
+            command == 'classes' ||
+            command == 'enums' ||
+            command == 'methods' ||
+            command == 'variables' ||
+            command == 'defines' ||
+            command.startsWith('classes ') ||
+            command.startsWith('enums ') ||
+            command.startsWith('methods ') ||
+            command.startsWith('variables ') ||
+            command.startsWith('defines ');
+
         return ExecutionResult(
           output: output,
           isError: false,
@@ -733,13 +810,15 @@ void main() {}
         final capturedOutput = outputBuffer.toString().trim();
         final errorMsg = stripAnsi(e.toString());
         return ExecutionResult(
-          output: capturedOutput.isNotEmpty ? '$capturedOutput\n\n❌ $errorMsg' : '',
+          output: capturedOutput.isNotEmpty
+              ? '$capturedOutput\n\n❌ $errorMsg'
+              : '',
           isError: true,
           errorMessage: errorMsg,
         );
       }
     }
-    
+
     // Create and start the bot server
     final server = TelegramBotServer(
       config: config,
@@ -747,7 +826,7 @@ void main() {}
       toolName: toolName,
       toolVersion: toolVersion,
     );
-    
+
     try {
       await server.start();
       await server.waitForShutdown();
@@ -757,7 +836,7 @@ void main() {}
       exit(1);
     }
   }
-  
+
   /// Execute a D4rt script file with import resolution.
   Future<void> _executeScript(D4rt d4rt, String scriptPath) async {
     final file = File(scriptPath);
@@ -772,12 +851,8 @@ void main() {}
     print('');
 
     try {
-      final result = executeFile(
-        d4rt,
-        fullPath,
-        log: (msg) => print('  $msg'),
-      );
-      
+      final result = executeFile(d4rt, fullPath, log: (msg) => print('  $msg'));
+
       if (result.success) {
         if (result.sourcesLoaded > 1) {
           print('(loaded ${result.sourcesLoaded} files)');
@@ -794,7 +869,8 @@ void main() {}
         exit(0);
       } else {
         stderr.writeln('Error: ${result.error}');
-        if (result.stackTrace != null && Platform.environment['DEBUG'] == 'true') {
+        if (result.stackTrace != null &&
+            Platform.environment['DEBUG'] == 'true') {
           stderr.writeln(result.stackTrace);
         }
         exit(1);
@@ -851,7 +927,6 @@ void main() {}
     final preprocessed = _preprocessStdinSource(source);
 
     try {
-
       // Execute the preprocessed source
       final result = d4rt.execute(source: preprocessed);
 
@@ -933,7 +1008,11 @@ $source
   }
 
   /// Execute a replay file and exit.
-  Future<void> _runReplayAndExit(D4rt d4rt, String replayPath, String initSource) async {
+  Future<void> _runReplayAndExit(
+    D4rt d4rt,
+    String replayPath,
+    String initSource,
+  ) async {
     final file = File(replayPath);
     if (!file.existsSync()) {
       stderr.writeln('Error: Replay file not found: $replayPath');
@@ -965,16 +1044,16 @@ $source
   }
 
   /// Execute a replay file in test mode, capturing output.
-  /// 
+  ///
   /// Test mode runs the replay file silently and captures all output.
   /// If [outputPath] is provided, output is written to that file.
   /// Otherwise, output is written to stdout.
-  /// 
+  ///
   /// The test mode also captures verification failures from [verify] calls.
   /// Exit code is 0 if all verifications pass, 1 if any fail.
   Future<void> _runReplayTestMode(
-    D4rt d4rt, 
-    String replayPath, 
+    D4rt d4rt,
+    String replayPath,
     String initSource,
     String? outputPath,
   ) async {
@@ -987,7 +1066,7 @@ $source
     // Use resolveSymbolicLinksSync to normalize path (removes ./ and ..)
     final fullPath = file.resolveSymbolicLinksSync();
     final outputBuffer = StringBuffer();
-    
+
     void log(String message) {
       outputBuffer.writeln(message);
     }
@@ -1007,7 +1086,7 @@ $source
 
     var hasErrors = false;
     var lineCount = 0;
-    
+
     try {
       // Run replay silently, capturing output
       lineCount = await _replayFile(d4rt, state, fullPath, silent: true);
@@ -1027,10 +1106,12 @@ $source
     if (ErrorReporter.hasErrors) {
       hasErrors = true;
       log('');
-      
+
       // Use detailed report if DEBUG mode is enabled, otherwise use short report
       if (Platform.environment['DEBUG'] == 'true') {
-        log('REPORTED ERRORS (${ErrorReporter.errors.length}) WITH STACK TRACES:');
+        log(
+          'REPORTED ERRORS (${ErrorReporter.errors.length}) WITH STACK TRACES:',
+        );
         log(ErrorReporter.report);
       } else {
         log('REPORTED ERRORS (${ErrorReporter.errors.length}):');
@@ -1089,25 +1170,27 @@ $source
     if (message == 'Undefined variable: this') {
       return true;
     }
-    if (message.startsWith('Cannot bridge native object: No registered bridged class found for native type Interpreted')) {
+    if (message.startsWith(
+      'Cannot bridge native object: No registered bridged class found for native type Interpreted',
+    )) {
       return true;
     }
     return false;
   }
-  
+
   /// Run the interactive REPL.
   Future<void> _runRepl(
     D4rt d4rt, {
-    String? sessionId, 
-    bool replaceSession = false, 
+    String? sessionId,
+    bool replaceSession = false,
     String? replayFile,
   }) async {
     final state = createReplState();
     state.currentSessionId = sessionId;
-    
+
     // Set the data directory for persistent storage (history, defines)
     setDataDirectory(state.dataDirectory);
-    
+
     // Verify the data directory exists or can be created
     final dataDir = Directory(state.dataDirectory);
     try {
@@ -1115,19 +1198,23 @@ $source
         dataDir.createSync(recursive: true);
       }
     } catch (e) {
-      stderr.writeln('Error: $dataDirectoryShort is not accessible and cannot be created.');
-      stderr.writeln('Please ensure you have write permissions to ${dataDir.parent.path}');
+      stderr.writeln(
+        'Error: $dataDirectoryShort is not accessible and cannot be created.',
+      );
+      stderr.writeln(
+        'Please ensure you have write permissions to ${dataDir.parent.path}',
+      );
       exit(1);
     }
-    
+
     // Load and truncate persistent history at startup
     truncateHistoryIfNeeded();
     final historyLines = loadHistory();
     state.console.loadHistoryIntoScrollback(historyLines);
-    
+
     // Load user-defined command aliases
     loadDefines();
-    
+
     // Print compact banner and quick reference
     print(getVersionBanner());
     print('');
@@ -1135,13 +1222,23 @@ $source
     print('  <yellow>**help**</yellow> for detailed commands');
     print('  <yellow>**info**</yellow> <name> for symbol details');
     print('  <yellow>**exit**</yellow>/<yellow>**quit**</yellow> to exit');
-    print('  <yellow>**.start-script**</yellow> / <yellow>**.end**</yellow> for multiline (or use \\ at line end)');
+    print(
+      '  <yellow>**.start-script**</yellow> / <yellow>**.end**</yellow> for multiline (or use \\ at line end)',
+    );
     print('');
     print('<cyan>**Essential Commands**</cyan>');
-    print('  <yellow>**classes**</yellow>/<yellow>**enums**</yellow>/<yellow>**methods**</yellow>/<yellow>**variables**</yellow> [q] - List symbols (q=filter, "q"=case, q*=starts)');
-    print('  <yellow>**ls**</yellow>/<yellow>**cd**</yellow>/<yellow>**cwd**</yellow> - Navigate directories');
-    print('  <yellow>**.file**</yellow>/<yellow>**execute**</yellow>/<yellow>**script**</yellow> - Run files');
-    print('  <yellow>**define**</yellow> <n>=<t> - Create aliases | <yellow>**\$<n>**</yellow> - Invoke alias');
+    print(
+      '  <yellow>**classes**</yellow>/<yellow>**enums**</yellow>/<yellow>**methods**</yellow>/<yellow>**variables**</yellow> [q] - List symbols (q=filter, "q"=case, q*=starts)',
+    );
+    print(
+      '  <yellow>**ls**</yellow>/<yellow>**cd**</yellow>/<yellow>**cwd**</yellow> - Navigate directories',
+    );
+    print(
+      '  <yellow>**.file**</yellow>/<yellow>**execute**</yellow>/<yellow>**script**</yellow> - Run files',
+    );
+    print(
+      '  <yellow>**define**</yellow> <n>=<t> - Create aliases | <yellow>**\$<n>**</yellow> - Invoke alias',
+    );
     print('');
 
     // Initialize CLI controller for the `cli` global variable
@@ -1156,7 +1253,12 @@ $source
       if (file.existsSync()) {
         print('Replaying file: $replayFile');
         try {
-          final replayedLines = await _replayFile(d4rt, state, replayFile, silent: true);
+          final replayedLines = await _replayFile(
+            d4rt,
+            state,
+            replayFile,
+            silent: true,
+          );
           print('Replayed $replayedLines lines.');
         } catch (e) {
           stderr.writeln('Warning: Failed to replay file: $e');
@@ -1173,9 +1275,9 @@ $source
       if (!sessionDir.existsSync()) {
         sessionDir.createSync(recursive: true);
       }
-      
+
       sessionFileHandle = File('${sessionDir.path}/$sessionId.session.txt');
-      
+
       // Check for old format and migrate if needed
       final oldFormatFile = File('${sessionDir.path}/$sessionId.txt');
       if (oldFormatFile.existsSync() && !sessionFileHandle.existsSync()) {
@@ -1193,7 +1295,12 @@ $source
       if (sessionFileHandle.existsSync()) {
         print('Replaying session...');
         try {
-          final replayedLines = await _replayFile(d4rt, state, sessionFileHandle.path, silent: true);
+          final replayedLines = await _replayFile(
+            d4rt,
+            state,
+            sessionFileHandle.path,
+            silent: true,
+          );
           print('Restored $replayedLines lines from session.');
         } catch (e) {
           if (e is D4rtException) {
@@ -1216,13 +1323,13 @@ $source
 
     // Set up signal handlers
     final signalSubscriptions = <StreamSubscription<ProcessSignal>>[];
-    
+
     void cleanShutdown(String signalName) {
       state.writeSuccess('Goodbye!');
       state.closeSession();
       exit(0);
     }
-    
+
     signalSubscriptions.add(
       ProcessSignal.sigint.watch().listen((_) {
         if (!state.interruptAwait()) {
@@ -1235,83 +1342,93 @@ $source
           state.writeMuted('(press ^C again to exit)');
           state.writePrompt();
         }
-      })
+      }),
     );
-    
+
     if (!Platform.isWindows) {
       signalSubscriptions.add(
-        ProcessSignal.sigterm.watch().listen((_) => cleanShutdown('SIGTERM'))
+        ProcessSignal.sigterm.watch().listen((_) => cleanShutdown('SIGTERM')),
       );
     }
 
-    await runZonedGuarded(() async {
-      try {
-        final continuationBuffer = StringBuffer();
-        
-        while (true) {
-          final inContinuation = continuationBuffer.isNotEmpty;
-          if (inContinuation) {
-            state.writeContinuationPrompt();
-          } else {
-            state.writePrompt(multiline: state.multilineMode != MultilineMode.none);
-          }
-          
-          String? input;
-          try {
-            input = state.console.readLine(cancelOnBreak: true);
-          } catch (e) {
-            state.writeError('Input error: $e');
-            print('');
-            state.writeError('Unable to read input. Exiting REPL.');
-            break;
-          }
+    await runZonedGuarded(
+      () async {
+        try {
+          final continuationBuffer = StringBuffer();
 
-          if (input == null ||
-              input.trim() == 'exit' ||
-              input.trim() == 'quit') {
-            state.writeSuccess('Goodbye!');
-            break;
-          }
-          
-          if (input.trimRight().endsWith('\\')) {
-            final lineWithoutBackslash = input.trimRight();
-            continuationBuffer.write(lineWithoutBackslash.substring(0, lineWithoutBackslash.length - 1));
-            continue;
-          }
-          
-          String fullInput;
-          if (continuationBuffer.isNotEmpty) {
-            continuationBuffer.write(input);
-            fullInput = continuationBuffer.toString();
-            continuationBuffer.clear();
-          } else {
-            fullInput = input;
-          }
+          while (true) {
+            final inContinuation = continuationBuffer.isNotEmpty;
+            if (inContinuation) {
+              state.writeContinuationPrompt();
+            } else {
+              state.writePrompt(
+                multiline: state.multilineMode != MultilineMode.none,
+              );
+            }
 
-          state.recordInput(fullInput);
-          appendToHistory(fullInput);
+            String? input;
+            try {
+              input = state.console.readLine(cancelOnBreak: true);
+            } catch (e) {
+              state.writeError('Input error: $e');
+              print('');
+              state.writeError('Unable to read input. Exiting REPL.');
+              break;
+            }
 
-          bool shouldContinue = true;
-          try {
-            shouldContinue = await processInput(d4rt, state, fullInput);
-          } catch (e, stackTrace) {
-            _handleReplError(state, e, stackTrace);
-            shouldContinue = true;
+            if (input == null ||
+                input.trim() == 'exit' ||
+                input.trim() == 'quit') {
+              state.writeSuccess('Goodbye!');
+              break;
+            }
+
+            if (input.trimRight().endsWith('\\')) {
+              final lineWithoutBackslash = input.trimRight();
+              continuationBuffer.write(
+                lineWithoutBackslash.substring(
+                  0,
+                  lineWithoutBackslash.length - 1,
+                ),
+              );
+              continue;
+            }
+
+            String fullInput;
+            if (continuationBuffer.isNotEmpty) {
+              continuationBuffer.write(input);
+              fullInput = continuationBuffer.toString();
+              continuationBuffer.clear();
+            } else {
+              fullInput = input;
+            }
+
+            state.recordInput(fullInput);
+            appendToHistory(fullInput);
+
+            bool shouldContinue = true;
+            try {
+              shouldContinue = await processInput(d4rt, state, fullInput);
+            } catch (e, stackTrace) {
+              _handleReplError(state, e, stackTrace);
+              shouldContinue = true;
+            }
+
+            if (!shouldContinue) {
+              break;
+            }
           }
-          
-          if (!shouldContinue) {
-            break;
+        } finally {
+          state.closeSession();
+          for (final sub in signalSubscriptions) {
+            sub.cancel();
           }
         }
-      } finally {
-        state.closeSession();
-        for (final sub in signalSubscriptions) {
-          sub.cancel();
-        }
-      }
-    }, (error, stackTrace) {
-      _handleReplError(state, error, stackTrace);
-    });
+      },
+      (error, stackTrace) {
+        _handleReplError(state, error, stackTrace);
+      },
+    );
 
     exit(0);
   }
@@ -1323,7 +1440,7 @@ $source
       state.writeMuted(stackTrace.toString());
     }
   }
-  
+
   /// Process a single line of input. Returns false if the REPL should exit.
   Future<bool> processInput(
     D4rt d4rt,
@@ -1358,7 +1475,7 @@ $source
     // Handle standard commands
     return _handleStandardCommands(d4rt, state, line, input, silent);
   }
-  
+
   /// Handle multiline input mode
   Future<bool> _handleMultilineInput(
     D4rt d4rt,
@@ -1409,16 +1526,20 @@ $source
             final containsAwait = RegExp(r'\bawait\b').hasMatch(code);
             dynamic result;
             if (containsAwait) {
-              final wrapperCode = '''
+              final wrapperCode =
+                  '''
 Future<Object?> __repl_multiline__() async {
 $code
 }
 ''';
               d4rt.eval(wrapperCode);
               final futureResult = d4rt.eval('__repl_multiline__()');
-              result = futureResult is Future ? await futureResult : futureResult;
+              result = futureResult is Future
+                  ? await futureResult
+                  : futureResult;
             } else {
-              final wrapperCode = '''
+              final wrapperCode =
+                  '''
 Object? __repl_multiline__() {
 $code
 }
@@ -1436,7 +1557,11 @@ $code
           default:
             // Allow derived classes to handle custom multiline modes
             final handled = await handleAdditionalMultilineEnd(
-              d4rt, state, currentMode, code, silent: silent,
+              d4rt,
+              state,
+              currentMode,
+              code,
+              silent: silent,
             );
             if (!handled && !silent) {
               state.writeWarning('Unknown multiline mode: $currentMode');
@@ -1452,7 +1577,7 @@ $code
     state.multilineBuffer.add(input);
     return true;
   }
-  
+
   /// Handle standard REPL commands
   Future<bool> _handleStandardCommands(
     D4rt d4rt,
@@ -1493,7 +1618,8 @@ $code
       if (count < 0) {
         if (!silent) state.writeError('File not found: $resolvedPath');
       } else {
-        if (!silent) state.writeSuccess('Loaded $count defines from: $resolvedPath');
+        if (!silent)
+          state.writeSuccess('Loaded $count defines from: $resolvedPath');
       }
       return true;
     }
@@ -1503,8 +1629,8 @@ $code
         final filter = line.length > 7 ? line.substring(7).trim() : '';
         final defines = getDefines();
         final matcher = _parseSearchFilter(filter);
-        final filtered = matcher == null 
-            ? defines.entries.toList() 
+        final filtered = matcher == null
+            ? defines.entries.toList()
             : defines.entries.where((e) => matcher(e.key)).toList();
         if (filtered.isEmpty) {
           if (matcher == null) {
@@ -1577,7 +1703,8 @@ $code
     }
 
     // Registered bridge commands
-    if (line == 'registered-classes' || line.startsWith('registered-classes ')) {
+    if (line == 'registered-classes' ||
+        line.startsWith('registered-classes ')) {
       if (!silent) {
         final filter = line.length > 18 ? line.substring(18).trim() : '';
         _printClasses(d4rt, state, filter);
@@ -1593,7 +1720,8 @@ $code
       return true;
     }
 
-    if (line == 'registered-methods' || line.startsWith('registered-methods ')) {
+    if (line == 'registered-methods' ||
+        line.startsWith('registered-methods ')) {
       if (!silent) {
         final filter = line.length > 18 ? line.substring(18).trim() : '';
         _printGlobalMethods(d4rt, state, filter);
@@ -1601,7 +1729,8 @@ $code
       return true;
     }
 
-    if (line == 'registered-variables' || line.startsWith('registered-variables ')) {
+    if (line == 'registered-variables' ||
+        line.startsWith('registered-variables ')) {
       if (!silent) {
         final filter = line.length > 20 ? line.substring(20).trim() : '';
         _printGlobalVariables(d4rt, state, filter);
@@ -1636,17 +1765,20 @@ $code
     }
 
     if (line == 'scripts') {
-      if (!silent) _listFilesByPattern(state, state.currentDirectory, '.script.txt');
+      if (!silent)
+        _listFilesByPattern(state, state.currentDirectory, '.script.txt');
       return true;
     }
 
     if (line == 'plays') {
-      if (!silent) _listFilesByPatterns(state, state.currentDirectory, replayFilePatterns);
+      if (!silent)
+        _listFilesByPatterns(state, state.currentDirectory, replayFilePatterns);
       return true;
     }
 
     if (line == 'executes') {
-      if (!silent) _listFilesByPattern(state, state.currentDirectory, '.exec.dart');
+      if (!silent)
+        _listFilesByPattern(state, state.currentDirectory, '.exec.dart');
       return true;
     }
 
@@ -1684,14 +1816,17 @@ $code
     if (line == '.start-define') {
       state.multilineMode = MultilineMode.define;
       if (!silent) {
-        print('(entering define mode - type .end to add to global environment)');
+        print(
+          '(entering define mode - type .end to add to global environment)',
+        );
       }
       return true;
     }
 
     if (line == '.start-script') {
       state.multilineMode = MultilineMode.script;
-      if (!silent) print('(entering script mode - type .end to run with return value)');
+      if (!silent)
+        print('(entering script mode - type .end to run with return value)');
       return true;
     }
 
@@ -1725,9 +1860,12 @@ $code
       await _executeFile(d4rt, filename, silent: silent);
       return true;
     }
-    
+
     // Inline execution commands - handle space, newline, or multiple newlines after command
-    final execMatch = RegExp(r'^exec[\s\n]+(.+)$', dotAll: true).firstMatch(line);
+    final execMatch = RegExp(
+      r'^exec[\s\n]+(.+)$',
+      dotAll: true,
+    ).firstMatch(line);
     if (execMatch != null) {
       final code = execMatch.group(1)!;
       if (code.trim().isEmpty) {
@@ -1737,7 +1875,7 @@ $code
       await _executeCodeInNewInstance(d4rt, state, code, silent: silent);
       return true;
     }
-    
+
     final expMatch = RegExp(r'^exp[\s\n]+(.+)$', dotAll: true).firstMatch(line);
     if (expMatch != null) {
       final expression = expMatch.group(1)!;
@@ -1812,12 +1950,15 @@ $code
     // Execute D4rt code
     return _executeCode(d4rt, state, line, silent);
   }
-  
+
   bool _handleDefineCommand(ReplState state, String line, bool silent) {
     final definition = line.substring(7);
     final eqIndex = definition.indexOf('=');
     if (eqIndex <= 0) {
-      if (!silent) state.writeError('Invalid define syntax. Use: define <name>=<template>');
+      if (!silent)
+        state.writeError(
+          'Invalid define syntax. Use: define <name>=<template>',
+        );
       return true;
     }
     final name = definition.substring(0, eqIndex).trim();
@@ -1827,43 +1968,55 @@ $code
       return true;
     }
     if (!RegExp(r'^[a-zA-Z_][a-zA-Z0-9_]*$').hasMatch(name)) {
-      if (!silent) state.writeError('Invalid define name: must be a valid identifier');
+      if (!silent)
+        state.writeError('Invalid define name: must be a valid identifier');
       return true;
     }
     setDefine(name, template);
     if (!silent) state.writeSuccess('Defined: \$$name');
     return true;
   }
-  
-  Future<bool> _handleSessionCommand(D4rt d4rt, ReplState state, String line, bool silent) async {
+
+  Future<bool> _handleSessionCommand(
+    D4rt d4rt,
+    ReplState state,
+    String line,
+    bool silent,
+  ) async {
     final sessionName = line.substring(9).trim();
     if (sessionName.isEmpty) {
       if (!silent) state.writeError('.session requires a session name');
       return true;
     }
-    
+
     state.closeSession();
     d4rt.execute(source: 'void main() {}');
-    
+
     state.currentSessionId = sessionName;
     final sessionDir = Directory(state.dataDirectory);
     if (!sessionDir.existsSync()) {
       sessionDir.createSync(recursive: true);
     }
     final sessionFile = File('${sessionDir.path}/$sessionName.session.txt');
-    
+
     if (sessionFile.existsSync()) {
       if (!silent) state.writeMuted('Switching to session: $sessionName');
       try {
-        final replayedLines = await _replayFile(d4rt, state, sessionFile.path, silent: true);
-        if (!silent) state.writeMuted('Restored $replayedLines lines from session.');
+        final replayedLines = await _replayFile(
+          d4rt,
+          state,
+          sessionFile.path,
+          silent: true,
+        );
+        if (!silent)
+          state.writeMuted('Restored $replayedLines lines from session.');
       } catch (e) {
         if (!silent) state.writeWarning('Failed to replay session: $e');
       }
     } else {
       if (!silent) state.writeMuted('Starting new session: $sessionName');
     }
-    
+
     try {
       state.sessionFile = sessionFile.openSync(mode: FileMode.append);
     } catch (e) {
@@ -1871,19 +2024,32 @@ $code
     }
     return true;
   }
-  
-  Future<bool> _handleResetCommand(D4rt d4rt, ReplState state, String line, bool silent) async {
+
+  Future<bool> _handleResetCommand(
+    D4rt d4rt,
+    ReplState state,
+    String line,
+    bool silent,
+  ) async {
     final name = line.length > 6 ? line.substring(7).trim() : '';
-    
+
     d4rt.execute(source: 'void main() {}');
     if (!silent) state.writeMuted('D4rt environment reset.');
-    
+
     if (name.isNotEmpty) {
       final sessionFile = File('${state.dataDirectory}/$name.session.txt');
       if (sessionFile.existsSync()) {
         try {
-          final replayedLines = await _replayFile(d4rt, state, sessionFile.path, silent: true);
-          if (!silent) state.writeMuted('Replayed $replayedLines lines from session: $name');
+          final replayedLines = await _replayFile(
+            d4rt,
+            state,
+            sessionFile.path,
+            silent: true,
+          );
+          if (!silent)
+            state.writeMuted(
+              'Replayed $replayedLines lines from session: $name',
+            );
         } catch (e) {
           if (e is D4rtException) {
             e.revoke();
@@ -1895,8 +2061,16 @@ $code
         final file = File(replayFilePath);
         if (file.existsSync()) {
           try {
-            final replayedLines = await _replayFile(d4rt, state, replayFilePath, silent: true);
-            if (!silent) state.writeMuted('Replayed $replayedLines lines from: $replayFilePath');
+            final replayedLines = await _replayFile(
+              d4rt,
+              state,
+              replayFilePath,
+              silent: true,
+            );
+            if (!silent)
+              state.writeMuted(
+                'Replayed $replayedLines lines from: $replayFilePath',
+              );
           } catch (e) {
             if (e is D4rtException) {
               e.revoke();
@@ -1910,37 +2084,47 @@ $code
     }
     return true;
   }
-  
-  Future<bool> _executeCode(D4rt d4rt, ReplState state, String line, bool silent) async {
+
+  Future<bool> _executeCode(
+    D4rt d4rt,
+    ReplState state,
+    String line,
+    bool silent,
+  ) async {
     try {
       dynamic result;
       var executed = false;
 
       if (!line.contains(';') ||
           line.endsWith(';') && !RegExp(r';\s*\S').hasMatch(line)) {
-        final expr = line.endsWith(';') ? line.substring(0, line.length - 1).trim() : line;
+        final expr = line.endsWith(';')
+            ? line.substring(0, line.length - 1).trim()
+            : line;
         if (expr.isNotEmpty) {
           try {
             // Disable error tracking during speculative expression parsing
             ErrorReporter.disableTracking();
-            
-            final hasAwait = expr.startsWith('await ') || expr.contains(' await ');
-            
-            final wrapperCode = hasAwait ? '''
+
+            final hasAwait =
+                expr.startsWith('await ') || expr.contains(' await ');
+
+            final wrapperCode = hasAwait
+                ? '''
 Future<Object?> __repl_expr__() async {
   return $expr;
 }
-''' : '''
+'''
+                : '''
 Object? __repl_expr__() {
   return $expr;
 }
 ''';
             d4rt.eval(wrapperCode);
             var rawResult = d4rt.eval('__repl_expr__()');
-            
+
             // Re-enable tracking before awaiting (in case the future throws)
             ErrorReporter.enableTracking();
-            
+
             if (rawResult is Future) {
               state.startAwait();
               try {
@@ -1957,7 +2141,7 @@ Object? __repl_expr__() {
           } catch (e) {
             // Re-enable tracking in case it was still disabled
             ErrorReporter.enableTracking();
-            
+
             // If expression parsing fails, we'll try as a statement next
             // Don't rethrow unless it's an await expression
             if (expr.startsWith('await ')) {
@@ -1993,10 +2177,14 @@ Object? __repl_expr__() {
 
     return true;
   }
-  
+
   // Helper methods
-  
-  String _resolveFilePath(ReplState state, String name, String defaultExtension) {
+
+  String _resolveFilePath(
+    ReplState state,
+    String name,
+    String defaultExtension,
+  ) {
     String path = name;
 
     if (!path.startsWith('/') && !path.startsWith('~')) {
@@ -2016,7 +2204,7 @@ Object? __repl_expr__() {
 
     return path;
   }
-  
+
   void _listSessionIds(ReplState state) {
     final sessionDir = Directory(state.dataDirectory);
     if (!sessionDir.existsSync()) {
@@ -2024,13 +2212,14 @@ Object? __repl_expr__() {
       return;
     }
 
-    final sessionIds = sessionDir
-        .listSync()
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.session.txt'))
-        .map((f) => f.uri.pathSegments.last.replaceAll('.session.txt', ''))
-        .toList()
-      ..sort();
+    final sessionIds =
+        sessionDir
+            .listSync()
+            .whereType<File>()
+            .where((f) => f.path.endsWith('.session.txt'))
+            .map((f) => f.uri.pathSegments.last.replaceAll('.session.txt', ''))
+            .toList()
+          ..sort();
 
     if (sessionIds.isEmpty) {
       print('No sessions found.');
@@ -2043,34 +2232,41 @@ Object? __repl_expr__() {
   void _listFilesByPattern(ReplState state, String dirPath, String suffix) {
     _listFilesByPatterns(state, dirPath, [suffix]);
   }
-  
-  void _listFilesByPatterns(ReplState state, String dirPath, List<String> suffixes) {
+
+  void _listFilesByPatterns(
+    ReplState state,
+    String dirPath,
+    List<String> suffixes,
+  ) {
     final dir = Directory(dirPath);
     if (!dir.existsSync()) {
       state.writeError('Directory not found: $dirPath');
       return;
     }
 
-    final names = dir
-        .listSync()
-        .whereType<File>()
-        .where((f) => suffixes.any((suffix) => f.path.endsWith(suffix)))
-        .map((f) {
-          final filename = f.uri.pathSegments.last;
-          // Remove any matching suffix to get the base name
-          for (final suffix in suffixes) {
-            if (filename.endsWith(suffix)) {
-              return filename.replaceAll(suffix, '');
-            }
-          }
-          return filename;
-        })
-        .toSet() // Remove duplicates if same base name with different extensions
-        .toList()
-      ..sort();
+    final names =
+        dir
+            .listSync()
+            .whereType<File>()
+            .where((f) => suffixes.any((suffix) => f.path.endsWith(suffix)))
+            .map((f) {
+              final filename = f.uri.pathSegments.last;
+              // Remove any matching suffix to get the base name
+              for (final suffix in suffixes) {
+                if (filename.endsWith(suffix)) {
+                  return filename.replaceAll(suffix, '');
+                }
+              }
+              return filename;
+            })
+            .toSet() // Remove duplicates if same base name with different extensions
+            .toList()
+          ..sort();
 
     if (names.isEmpty) {
-      state.writeMuted('No files matching ${suffixes.map((s) => '*$s').join(', ')} found.');
+      state.writeMuted(
+        'No files matching ${suffixes.map((s) => '*$s').join(', ')} found.',
+      );
       return;
     }
 
@@ -2084,8 +2280,7 @@ Object? __repl_expr__() {
       return;
     }
 
-    final entries = dir.listSync()
-      ..sort((a, b) => a.path.compareTo(b.path));
+    final entries = dir.listSync()..sort((a, b) => a.path.compareTo(b.path));
 
     if (entries.isEmpty) {
       state.writeMuted('Empty directory.');
@@ -2139,7 +2334,7 @@ Object? __repl_expr__() {
 
     final contents = file.readAsStringSync();
     final lineCount = contents.split('\n').length;
-    
+
     print('=== $fileType: $filename ($lineCount lines) ===');
     print(contents);
     print('=== End of $fileType ===');
@@ -2172,7 +2367,9 @@ Object? __repl_expr__() {
         await processInput(d4rt, state, line, silent: silent);
       } catch (e) {
         final lineNum = i + 1;
-        throw RuntimeD4rtException('Error on replay line $lineNum: "$line"\nDetails: $e');
+        throw RuntimeD4rtException(
+          'Error on replay line $lineNum: "$line"\nDetails: $e',
+        );
       }
       count++;
     }
@@ -2186,7 +2383,11 @@ Object? __repl_expr__() {
     return count;
   }
 
-  Future<void> _executeFile(D4rt d4rt, String filename, {bool silent = false}) async {
+  Future<void> _executeFile(
+    D4rt d4rt,
+    String filename, {
+    bool silent = false,
+  }) async {
     final file = File(filename);
     if (!file.existsSync()) {
       stderr.writeln('Error: File not found: $filename');
@@ -2229,7 +2430,11 @@ Object? __repl_expr__() {
     }
   }
 
-  Future<void> _executeFileNew(D4rt d4rt, String filename, {bool silent = false}) async {
+  Future<void> _executeFileNew(
+    D4rt d4rt,
+    String filename, {
+    bool silent = false,
+  }) async {
     final file = File(filename);
     if (!file.existsSync()) {
       stderr.writeln('Error: File not found: $filename');
@@ -2271,14 +2476,14 @@ Object? __repl_expr__() {
       stderr.writeln('<red>Error:</red> $e');
     }
   }
-  
+
   /// Execute code in a new D4rt instance (isolated from current REPL state).
   Future<void> _executeCodeInNewInstance(
-    D4rt d4rt, 
-    ReplState state, 
-    String code, 
-    {bool silent = false}
-  ) async {
+    D4rt d4rt,
+    ReplState state,
+    String code, {
+    bool silent = false,
+  }) async {
     try {
       // Create a fresh D4rt instance for isolated execution
       final freshD4rt = D4rt(parseSourceCallback: parseSource);
@@ -2288,12 +2493,12 @@ Object? __repl_expr__() {
       freshD4rt.grant(IsolatePermission.any);
       freshD4rt.grant(DangerousPermission.any);
       registerBridges(freshD4rt);
-      
+
       // Combine all imports (stdlib + registered bridges) with user code
       // This allows scripts to use all available classes without explicit imports
       final imports = getImportBlock();
       final fullSource = '$imports\n$code';
-      
+
       // Execute the complete program
       var result = freshD4rt.execute(source: fullSource);
       if (result is Future) {
@@ -2307,7 +2512,11 @@ Object? __repl_expr__() {
     }
   }
 
-  Future<void> _loadScript(D4rt d4rt, String filename, {bool silent = false}) async {
+  Future<void> _loadScript(
+    D4rt d4rt,
+    String filename, {
+    bool silent = false,
+  }) async {
     final file = File(filename);
     if (!file.existsSync()) {
       stderr.writeln('Error: File not found: $filename');
@@ -2341,9 +2550,9 @@ Object? __repl_expr__() {
       stderr.writeln('Error reading file: $e');
     }
   }
-  
+
   // Info and listing methods (stubs - implemented in extended class or kept simple)
-  
+
   /// Extract package name from import path.
   /// e.g., 'package:tom_core_kernel/tom_core_kernel.dart' -> 'tom_core_kernel'
   String _extractPackageName(String importPath) {
@@ -2353,99 +2562,109 @@ Object? __repl_expr__() {
     }
     return importPath.split('/').last.replaceAll('.dart', '');
   }
-  
+
   /// Get sorted list of unique package names from D4rt configuration.
   List<String> getPackageNames(D4rt d4rt) {
     final config = d4rt.getConfiguration();
-    final packages = config.imports
-        .map((i) => _extractPackageName(i.importPath))
-        .toSet()
-        .toList()
-      ..sort();
+    final packages =
+        config.imports
+            .map((i) => _extractPackageName(i.importPath))
+            .toSet()
+            .toList()
+          ..sort();
     return packages;
   }
-  
+
   /// Format package info for display (used by info command and bridges help).
-  void _printPackageInfo(D4rtConfiguration config, String packageName, ReplState state) {
+  void _printPackageInfo(
+    D4rtConfiguration config,
+    String packageName,
+    ReplState state,
+  ) {
     // Find matching import(s)
     final matchingImports = config.imports
         .where((i) => _extractPackageName(i.importPath) == packageName)
         .toList();
-    
+
     if (matchingImports.isEmpty) {
       state.writeMuted('No package found matching: $packageName');
       print('');
       print('Available packages:');
-      final packages = config.imports.map((i) => _extractPackageName(i.importPath)).toSet().toList()..sort();
+      final packages =
+          config.imports
+              .map((i) => _extractPackageName(i.importPath))
+              .toSet()
+              .toList()
+            ..sort();
       for (final pkg in packages) {
         print('  $pkg');
       }
       return;
     }
-    
+
     for (final import in matchingImports) {
       final pkgName = _extractPackageName(import.importPath);
       print('<white>**$pkgName**</white>');
-      
+
       // Classes
       if (import.classes.isNotEmpty) {
         final classNames = import.classes.map((c) => c.name).toList()..sort();
         print('  Classes: ${classNames.join(', ')}');
       }
-      
+
       // Enums
       if (import.enums.isNotEmpty) {
         final enumNames = import.enums.map((e) => e.name).toList()..sort();
         print('  Enums: ${enumNames.join(', ')}');
       }
-      
+
       // Global variables for this package
-      final pkgVars = config.globalVariables.where((v) => 
-        v.libraryUri.contains(pkgName)
-      ).toList();
+      final pkgVars = config.globalVariables
+          .where((v) => v.libraryUri.contains(pkgName))
+          .toList();
       if (pkgVars.isNotEmpty) {
         final varNames = pkgVars.map((v) => v.name).toList()..sort();
         print('  Variables: ${varNames.join(', ')}');
       }
-      
+
       // Global getters for this package
-      final pkgGetters = config.globalGetters.where((g) => 
-        g.libraryUri.contains(pkgName)
-      ).toList();
+      final pkgGetters = config.globalGetters
+          .where((g) => g.libraryUri.contains(pkgName))
+          .toList();
       if (pkgGetters.isNotEmpty) {
         final getterNames = pkgGetters.map((g) => g.name).toList()..sort();
         print('  Getters: ${getterNames.join(', ')}');
       }
-      
+
       // Global functions for this package
-      final pkgFuncs = config.globalFunctions.where((f) => 
-        f.libraryUri.contains(pkgName)
-      ).toList();
+      final pkgFuncs = config.globalFunctions
+          .where((f) => f.libraryUri.contains(pkgName))
+          .toList();
       if (pkgFuncs.isNotEmpty) {
         final funcNames = pkgFuncs.map((f) => f.name).toList()..sort();
         print('  Functions: ${funcNames.join(', ')}');
       }
-      
+
       print('');
     }
   }
-  
+
   /// Print all registered packages with their contents (for bridges help).
   void printAllPackagesInfo(D4rt d4rt) {
     final config = d4rt.getConfiguration();
-    
+
     // Group by package name
     final packageImports = <String, List<ImportConfiguration>>{};
     for (final import in config.imports) {
       final pkgName = _extractPackageName(import.importPath);
       packageImports.putIfAbsent(pkgName, () => []).add(import);
     }
-    
+
     final sortedPackages = packageImports.keys.toList()..sort();
     for (final pkgName in sortedPackages) {
       final imports = packageImports[pkgName]!;
       print('<white>**$pkgName**</white>');
-      
+
       // Collect all classes and enums from all imports for this package
       final allClasses = <String>[];
       final allEnums = <String>[];
@@ -2453,7 +2672,7 @@ Object? __repl_expr__() {
         allClasses.addAll(import.classes.map((c) => c.name));
         allEnums.addAll(import.enums.map((e) => e.name));
       }
-      
+
       if (allClasses.isNotEmpty) {
         allClasses.sort();
         print('  ${allClasses.join(', ')}');
@@ -2462,39 +2681,39 @@ Object? __repl_expr__() {
         allEnums.sort();
         print('  ${allEnums.join(', ')}');
       }
-      
+
       // Global variables for this package
-      final pkgVars = config.globalVariables.where((v) => 
-        v.libraryUri.contains(pkgName)
-      ).toList();
+      final pkgVars = config.globalVariables
+          .where((v) => v.libraryUri.contains(pkgName))
+          .toList();
       if (pkgVars.isNotEmpty) {
         final varNames = pkgVars.map((v) => v.name).toList()..sort();
         print('  ${varNames.join(', ')}');
       }
-      
-      // Global getters for this package  
-      final pkgGetters = config.globalGetters.where((g) => 
-        g.libraryUri.contains(pkgName)
-      ).toList();
+
+      // Global getters for this package
+      final pkgGetters = config.globalGetters
+          .where((g) => g.libraryUri.contains(pkgName))
+          .toList();
       if (pkgGetters.isNotEmpty) {
         final getterNames = pkgGetters.map((g) => g.name).toList()..sort();
         print('  ${getterNames.join(', ')}');
       }
-      
+
       // Global functions for this package
-      final pkgFuncs = config.globalFunctions.where((f) => 
-        f.libraryUri.contains(pkgName)
-      ).toList();
+      final pkgFuncs = config.globalFunctions
+          .where((f) => f.libraryUri.contains(pkgName))
+          .toList();
       if (pkgFuncs.isNotEmpty) {
         final funcNames = pkgFuncs.map((f) => '${f.name}()').toList()..sort();
         print('  ${funcNames.join(', ')}');
       }
     }
   }
-  
+
   /// Parses a search query for case-sensitivity and wildcard matching.
   /// Returns a function that can be used to match names.
-  /// 
+  ///
   /// Search syntax:
   /// - `query` - case-insensitive exact match
   /// - `"query"` or `'query'` - case-sensitive exact match
@@ -2502,19 +2721,21 @@ Object? __repl_expr__() {
   /// - `"query*"` - case-sensitive startsWith match
   /// - `*query*` - case-insensitive contains match
   /// - `"*query*"` - case-sensitive contains match
-  /// 
+  ///
   /// Returns null if query is empty (meaning show all).
   bool Function(String)? _parseSearchFilter(String query) {
     return parseSearchFilter(query);
   }
-  
+
   void _printInfo(D4rt d4rt, ReplState state, String line) {
     var query = line.length > 4 ? line.substring(4).trim() : '';
     final config = d4rt.getConfiguration();
 
     if (query.isEmpty) {
       print('Info Usage:');
-      print('  info <name>         - Show details for a class, enum, function, or variable');
+      print(
+        '  info <name>         - Show details for a class, enum, function, or variable',
+      );
       print('  info <package>      - Show all types from a package');
       print('  info <Class.member> - Show details for a class member');
       print('  info "Name"         - Case-sensitive search (with quotes)');
@@ -2524,13 +2745,18 @@ Object? __repl_expr__() {
       print('  info "*Name*"       - Case-sensitive contains search');
       print('');
       print('Available Packages:');
-      final packages = config.imports.map((i) => _extractPackageName(i.importPath)).toSet().toList()..sort();
+      final packages =
+          config.imports
+              .map((i) => _extractPackageName(i.importPath))
+              .toSet()
+              .toList()
+            ..sort();
       for (final pkg in packages) {
         print('  $pkg');
       }
       return;
     }
-    
+
     final filter = parseSearchFilterDetails(query);
     if (filter == null) {
       state.writeMuted('No match found for: $query');
@@ -2547,7 +2773,13 @@ Object? __repl_expr__() {
       if (parts.length == 2) {
         final className = parts[0];
         final memberName = parts[1];
-        if (_printClassMemberInfo(config, className, memberName, state, caseSensitive: filter.caseSensitive)) {
+        if (_printClassMemberInfo(
+          config,
+          className,
+          memberName,
+          state,
+          caseSensitive: filter.caseSensitive,
+        )) {
           return;
         }
       }
@@ -2555,11 +2787,12 @@ Object? __repl_expr__() {
 
     // Check if query matches a package name
     if (!filter.term.contains('.')) {
-      final packages = config.imports
-          .map((i) => _extractPackageName(i.importPath))
-          .toSet()
-          .toList()
-        ..sort();
+      final packages =
+          config.imports
+              .map((i) => _extractPackageName(i.importPath))
+              .toSet()
+              .toList()
+            ..sort();
       final matchedPackages = packages.where(matchName).toList();
       if (matchedPackages.isNotEmpty) {
         var printed = false;
@@ -2571,10 +2804,10 @@ Object? __repl_expr__() {
         return;
       }
     }
-    
+
     // Collect all matches to show them all, not just the first one
     var foundMatch = false;
-    
+
     // Check if query matches a global function (check FIRST for priority)
     for (final func in config.globalFunctions) {
       if (matchName(func.name)) {
@@ -2582,14 +2815,18 @@ Object? __repl_expr__() {
         print('');
         final pkgName = _extractPackageName(func.libraryUri);
         if (func.signature != null && func.signature!.isNotEmpty) {
-          print('<white>**${func.name}**</white> ($pkgName) function: ${func.signature}');
+          print(
+            '<white>**${func.name}**</white> ($pkgName) function: ${func.signature}',
+          );
         } else {
-          print('<white>**${func.name}**</white> ($pkgName) function: ${func.name}()');
+          print(
+            '<white>**${func.name}**</white> ($pkgName) function: ${func.name}()',
+          );
         }
         foundMatch = true;
       }
     }
-    
+
     // Check if query matches a class
     for (final import in config.imports) {
       for (final cls in import.classes) {
@@ -2600,53 +2837,61 @@ Object? __repl_expr__() {
         }
       }
     }
-    
+
     // Check if query matches an enum
     for (final import in config.imports) {
       for (final e in import.enums) {
         if (matchName(e.name)) {
           print('');
-          print('<white>**${e.name}**</white> (${_extractPackageName(import.importPath)})');
+          print(
+            '<white>**${e.name}**</white> (${_extractPackageName(import.importPath)})',
+          );
           print('  Values: ${e.values.join(', ')}');
           foundMatch = true;
         }
       }
     }
-    
+
     // Check if query matches a global variable
     for (final v in config.globalVariables) {
       if (matchName(v.name)) {
         print('');
         final pkgName = _extractPackageName(v.libraryUri);
-        print('<white>**${v.name}**</white> ($pkgName) variable: ${v.valueType}');
+        print(
+          '<white>**${v.name}**</white> ($pkgName) variable: ${v.valueType}',
+        );
         foundMatch = true;
       }
     }
-    
+
     // Check if query matches a global getter
     for (final g in config.globalGetters) {
       if (matchName(g.name)) {
         print('');
         final pkgName = _extractPackageName(g.libraryUri);
         if (g.returnType != null) {
-          print('<white>**${g.name}**</white> ($pkgName) getter: ${g.returnType}');
+          print(
+            '<white>**${g.name}**</white> ($pkgName) getter: ${g.returnType}',
+          );
         } else {
           print('<white>**${g.name}**</white> ($pkgName) getter');
         }
         foundMatch = true;
       }
     }
-    
+
     if (!foundMatch) {
       state.writeMuted('No match found for: $query');
       print('Try: classes, enums, methods, variables, or info <package-name>');
     }
   }
-  
+
   /// Prints detailed class information including signatures.
   void _printClassInfo(BridgedClassInfo cls, String importPath) {
-    print('<white>**${cls.name}**</white> (${_extractPackageName(importPath)})');
-    
+    print(
+      '<white>**${cls.name}**</white> (${_extractPackageName(importPath)})',
+    );
+
     if (cls.constructors.isNotEmpty) {
       print('  Constructors:');
       for (final c in cls.constructors) {
@@ -2675,25 +2920,36 @@ Object? __repl_expr__() {
       print('  Static Getters: ${cls.staticGetters.join(', ')}');
     }
   }
-  
+
   /// Prints info for a specific class member (Class.member pattern).
-  bool _printClassMemberInfo(D4rtConfiguration config, String className, String memberName, ReplState state, {bool caseSensitive = false}) {
-    bool matchClassName(String name) => caseSensitive ? name == className : name.toLowerCase() == className.toLowerCase();
-    bool matchMemberName(String name) => caseSensitive ? name == memberName : name.toLowerCase() == memberName.toLowerCase();
+  bool _printClassMemberInfo(
+    D4rtConfiguration config,
+    String className,
+    String memberName,
+    ReplState state, {
+    bool caseSensitive = false,
+  }) {
+    bool matchClassName(String name) => caseSensitive
+        ? name == className
+        : name.toLowerCase() == className.toLowerCase();
+    bool matchMemberName(String name) => caseSensitive
+        ? name == memberName
+        : name.toLowerCase() == memberName.toLowerCase();
     String? findMemberMatch(List<String> names) {
       for (final name in names) {
         if (matchMemberName(name)) return name;
       }
       return null;
     }
-    
+
     for (final import in config.imports) {
       for (final cls in import.classes) {
         if (matchClassName(cls.name)) {
           // Check constructors
           final constructorMatch = findMemberMatch(cls.constructors);
           final matchesClassName = matchMemberName(cls.name);
-          if (constructorMatch != null || (matchesClassName && cls.constructors.contains(''))) {
+          if (constructorMatch != null ||
+              (matchesClassName && cls.constructors.contains(''))) {
             final key = constructorMatch ?? '';
             final sig = cls.constructorSignatures[key];
             final displayName = key.isEmpty ? cls.name : '${cls.name}.$key';
@@ -2703,7 +2959,7 @@ Object? __repl_expr__() {
             }
             return true;
           }
-          
+
           // Check instance methods
           final methodMatch = findMemberMatch(cls.methods);
           if (methodMatch != null) {
@@ -2714,7 +2970,7 @@ Object? __repl_expr__() {
             }
             return true;
           }
-          
+
           // Check instance getters
           final getterMatch = findMemberMatch(cls.getters);
           if (getterMatch != null) {
@@ -2725,7 +2981,7 @@ Object? __repl_expr__() {
             }
             return true;
           }
-          
+
           // Check instance setters
           final setterMatch = findMemberMatch(cls.setters);
           if (setterMatch != null) {
@@ -2736,40 +2992,52 @@ Object? __repl_expr__() {
             }
             return true;
           }
-          
+
           // Check static methods
           final staticMethodMatch = findMemberMatch(cls.staticMethods);
           if (staticMethodMatch != null) {
             final sig = cls.staticMethodSignatures[staticMethodMatch];
-            print('<white>**${cls.name}.$staticMethodMatch**</white> (static method)');
+            print(
+              '<white>**${cls.name}.$staticMethodMatch**</white> (static method)',
+            );
             if (sig != null && sig.isNotEmpty) {
               print('  Signature: $sig');
             }
             return true;
           }
-          
+
           // Check static getters
           final staticGetterMatch = findMemberMatch(cls.staticGetters);
           if (staticGetterMatch != null) {
             final sig = cls.staticGetterSignatures[staticGetterMatch];
-            print('<white>**${cls.name}.$staticGetterMatch**</white> (static getter)');
+            print(
+              '<white>**${cls.name}.$staticGetterMatch**</white> (static getter)',
+            );
             if (sig != null && sig.isNotEmpty) {
               print('  Type: $sig');
             }
             return true;
           }
-          
+
           // Member not found, but class exists
-          state.writeMuted('Member \'$memberName\' not found in class \'${cls.name}\'');
-          print('Available members: ${[...cls.methods, ...cls.getters, ...cls.staticMethods, ...cls.staticGetters].join(', ')}');
+          state.writeMuted(
+            'Member \'$memberName\' not found in class \'${cls.name}\'',
+          );
+          print(
+            'Available members: ${[...cls.methods, ...cls.getters, ...cls.staticMethods, ...cls.staticGetters].join(', ')}',
+          );
           return true;
         }
       }
     }
     return false;
   }
-  
-  void _printEnvironmentClasses(D4rt d4rt, ReplState state, [String filter = '']) {
+
+  void _printEnvironmentClasses(
+    D4rt d4rt,
+    ReplState state, [
+    String filter = '',
+  ]) {
     final envState = d4rt.getEnvironmentState();
     if (envState == null) {
       state.writeMuted('No environment state available.');
@@ -2790,8 +3058,12 @@ Object? __repl_expr__() {
     }
     state.printTabulated(classes);
   }
-  
-  void _printEnvironmentEnums(D4rt d4rt, ReplState state, [String filter = '']) {
+
+  void _printEnvironmentEnums(
+    D4rt d4rt,
+    ReplState state, [
+    String filter = '',
+  ]) {
     final envState = d4rt.getEnvironmentState();
     if (envState == null) {
       state.writeMuted('No environment state available.');
@@ -2812,19 +3084,28 @@ Object? __repl_expr__() {
     }
     state.printTabulated(enums);
   }
-  
-  void _printEnvironmentMethods(D4rt d4rt, ReplState state, [String filter = '']) {
+
+  void _printEnvironmentMethods(
+    D4rt d4rt,
+    ReplState state, [
+    String filter = '',
+  ]) {
     final envState = d4rt.getEnvironmentState();
     if (envState == null) {
       state.writeMuted('No environment state available.');
       return;
     }
     // Filter for NativeFunction values (methods/functions)
-    var methods = envState.variables
-        .where((v) => v.valueType.contains('NativeFunction') || v.valueType.contains('Function'))
-        .map((v) => v.name)
-        .toList()
-      ..sort();
+    var methods =
+        envState.variables
+            .where(
+              (v) =>
+                  v.valueType.contains('NativeFunction') ||
+                  v.valueType.contains('Function'),
+            )
+            .map((v) => v.name)
+            .toList()
+          ..sort();
     final matcher = _parseSearchFilter(filter);
     if (matcher != null) {
       methods = methods.where(matcher).toList();
@@ -2839,8 +3120,12 @@ Object? __repl_expr__() {
     }
     state.printTabulated(methods);
   }
-  
-  void _printEnvironmentVariables(D4rt d4rt, ReplState state, [String filter = '']) {
+
+  void _printEnvironmentVariables(
+    D4rt d4rt,
+    ReplState state, [
+    String filter = '',
+  ]) {
     final envState = d4rt.getEnvironmentState();
     if (envState == null) {
       state.writeMuted('No environment state available.');
@@ -2848,16 +3133,21 @@ Object? __repl_expr__() {
     }
     // Filter out functions, show only non-function values
     var variables = envState.variables
-        .where((v) => !v.valueType.contains('NativeFunction') && !v.valueType.contains('Function'))
+        .where(
+          (v) =>
+              !v.valueType.contains('NativeFunction') &&
+              !v.valueType.contains('Function'),
+        )
         .toList();
     final matcher = _parseSearchFilter(filter);
     if (matcher != null) {
       variables = variables.where((v) => matcher(v.name)).toList();
     }
-    final formatted = variables
-        .map((v) => '${v.name}: ${v.valueType}${v.isNull ? " (null)" : ""}')
-        .toList()
-      ..sort();
+    final formatted =
+        variables
+            .map((v) => '${v.name}: ${v.valueType}${v.isNull ? " (null)" : ""}')
+            .toList()
+          ..sort();
     if (formatted.isEmpty) {
       if (matcher == null) {
         state.writeMuted('No variables defined in current environment.');
@@ -2870,22 +3160,22 @@ Object? __repl_expr__() {
       print('  $v');
     }
   }
-  
+
   void _printEnvironmentImports(D4rt d4rt, ReplState state) {
     final config = d4rt.getConfiguration();
-    
+
     if (config.imports.isEmpty) {
       state.writeMuted('No imports registered.');
       return;
     }
-    
+
     // Group by package name
     final packageImports = <String, List<String>>{};
     for (final import in config.imports) {
       final pkgName = _extractPackageName(import.importPath);
       packageImports.putIfAbsent(pkgName, () => []).add(import.importPath);
     }
-    
+
     print('Registered imports (${config.imports.length}):');
     final sortedPackages = packageImports.keys.toList()..sort();
     for (final pkgName in sortedPackages) {
@@ -2896,7 +3186,7 @@ Object? __repl_expr__() {
       }
     }
   }
-  
+
   void _printClasses(D4rt d4rt, ReplState state, [String filter = '']) {
     final config = d4rt.getConfiguration();
     var classes = <String>[];
@@ -2920,7 +3210,7 @@ Object? __repl_expr__() {
     classes.sort();
     state.printTabulated(classes);
   }
-  
+
   void _printEnums(D4rt d4rt, ReplState state, [String filter = '']) {
     final config = d4rt.getConfiguration();
     var enums = <String>[];
@@ -2944,7 +3234,7 @@ Object? __repl_expr__() {
     enums.sort();
     state.printTabulated(enums);
   }
-  
+
   void _printGlobalMethods(D4rt d4rt, ReplState state, [String filter = '']) {
     final config = d4rt.getConfiguration();
     var methods = config.globalFunctions.map((f) => f.name).toList()..sort();
@@ -2972,7 +3262,7 @@ Object? __repl_expr__() {
       state.printTabulated(getters);
     }
   }
-  
+
   void _printGlobalVariables(D4rt d4rt, ReplState state, [String filter = '']) {
     final config = d4rt.getConfiguration();
     var variables = config.globalVariables.map((v) => v.name).toList()..sort();
@@ -2991,7 +3281,7 @@ Object? __repl_expr__() {
     print('Global Variables: ${variables.length}');
     state.printTabulated(variables);
   }
-  
+
   void _printImports(D4rt d4rt, ReplState state) {
     final config = d4rt.getConfiguration();
     if (config.imports.isEmpty) {
@@ -2999,16 +3289,14 @@ Object? __repl_expr__() {
       return;
     }
     for (final import in config.imports) {
-      print('${import.importPath} (${import.classes.length} classes, ${import.enums.length} enums)');
+      print(
+        '${import.importPath} (${import.classes.length} classes, ${import.enums.length} enums)',
+      );
     }
   }
 }
 
-enum SearchMatchMode {
-  exact,
-  startsWith,
-  contains,
-}
+enum SearchMatchMode { exact, startsWith, contains }
 
 class SearchFilter {
   const SearchFilter({
@@ -3094,21 +3382,21 @@ bool Function(String)? parseSearchFilter(String query) {
 }
 
 /// Stdout/Stderr capture wrapper for bot mode output capture.
-/// 
+///
 /// Captures all writes to stdout/stderr and converts them to Telegram format.
 class _CaptureStdout implements Stdout {
   final StringBuffer _buffer;
   final String Function(String) _convertMarkdown;
   final String Function(String) _stripAnsi;
   final bool isError;
-  
+
   _CaptureStdout(
-    this._buffer, 
-    this._convertMarkdown, 
+    this._buffer,
+    this._convertMarkdown,
     this._stripAnsi, {
     this.isError = false,
   });
-  
+
   @override
   void write(Object? object) {
     final text = _convertMarkdown(_stripAnsi(object?.toString() ?? ''));
@@ -3118,7 +3406,7 @@ class _CaptureStdout implements Stdout {
       _buffer.write(text);
     }
   }
-  
+
   @override
   void writeln([Object? object = '']) {
     final text = _convertMarkdown(_stripAnsi(object?.toString() ?? ''));
@@ -3128,68 +3416,68 @@ class _CaptureStdout implements Stdout {
       _buffer.writeln(text);
     }
   }
-  
+
   @override
   void writeAll(Iterable objects, [String separator = '']) {
     write(objects.map((o) => o.toString()).join(separator));
   }
-  
+
   @override
   void writeCharCode(int charCode) {
     write(String.fromCharCode(charCode));
   }
-  
+
   @override
   void add(List<int> data) {
     write(String.fromCharCodes(data));
   }
-  
+
   @override
   void addError(Object error, [StackTrace? stackTrace]) {
     writeln('Error: $error');
   }
-  
+
   @override
   Future addStream(Stream<List<int>> stream) async {
     await for (final data in stream) {
       add(data);
     }
   }
-  
+
   @override
   Future close() async {}
-  
+
   @override
   Future get done => Future.value();
-  
+
   @override
   Future flush() async {}
-  
+
   // Stub implementations for remaining Stdout interface
   @override
   Encoding get encoding => utf8;
-  
+
   @override
   set encoding(Encoding encoding) {}
-  
+
   @override
   String get lineTerminator => '\n';
-  
+
   @override
   set lineTerminator(String lineTerminator) {}
-  
+
   @override
   bool get hasTerminal => false;
-  
+
   @override
   IOSink get nonBlocking => this;
-  
+
   @override
   bool get supportsAnsiEscapes => false;
-  
+
   @override
   int get terminalColumns => 80;
-  
+
   @override
   int get terminalLines => 24;
 }

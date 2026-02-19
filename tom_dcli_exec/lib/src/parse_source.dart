@@ -22,8 +22,9 @@ SCompilationUnit parseSource(String sourceCode, {String? path}) {
   final cu = AstConverter().convertCompilationUnit(result.unit);
   // Check for parse errors (not warnings/hints) so that eval() can distinguish
   // valid declarations from error-recovery artifacts.
-  final hasErrors = result.errors
-      .any((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR);
+  final hasErrors = result.errors.any(
+    (e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR,
+  );
   if (hasErrors) {
     return SCompilationUnit(
       offset: cu.offset,

@@ -1392,7 +1392,8 @@ void main() {
           throwsA(isA<Exception>().having(
             (e) => e.toString(),
             'toString()',
-            contains("Abstract methods can only be declared in abstract classes"),
+            contains(
+                "Abstract methods can only be declared in abstract classes"),
           )));
     });
 
@@ -1409,9 +1410,7 @@ void main() {
       // With serialized AST, the `abstract` keyword on method with body creates
       // a malformed AST through parser error recovery. The code may throw any
       // exception due to the damaged AST structure.
-      expect(
-          () => execute(codeWithError),
-          throwsA(isA<Exception>()));
+      expect(() => execute(codeWithError), throwsA(isA<Exception>()));
     });
 
     test(

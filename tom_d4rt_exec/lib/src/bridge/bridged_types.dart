@@ -139,13 +139,11 @@ class BridgedClass implements RuntimeType {
       // Object is a supertype of everything
       if (other.name == 'Object') return true;
       // List, Set implement Iterable
-      if (other.name == 'Iterable' &&
-          (name == 'List' || name == 'Set')) {
+      if (other.name == 'Iterable' && (name == 'List' || name == 'Set')) {
         return true;
       }
       // int, double are subtypes of num
-      if (other.name == 'num' &&
-          (name == 'int' || name == 'double')) {
+      if (other.name == 'num' && (name == 'int' || name == 'double')) {
         return true;
       }
 

@@ -138,7 +138,8 @@ class SFunctionDeclarationStatement extends SStatement {
       offset: json['offset'] as int,
       length: json['length'] as int,
       functionDeclaration: SFunctionDeclaration.fromJson(
-          json['functionDeclaration'] as Map<String, dynamic>),
+        json['functionDeclaration'] as Map<String, dynamic>,
+      ),
     );
   }
 
