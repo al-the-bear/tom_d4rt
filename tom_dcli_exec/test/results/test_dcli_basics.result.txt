@@ -1,0 +1,25 @@
+Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_dcli/test/replay/test_dcli_basics.dcli
+Started: 2026-02-05T15:35:16.988572
+
+Lines executed: 107
+
+REPORTED ERRORS (14):
+  - Runtime Error: Cannot bridge native object: No registered bridged class found for native type InterpretedFunction.
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Cannot bridge native object: No registered bridged class found for native type InterpretedFunction.
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Cannot bridge native object: No registered bridged class found for native type InterpretedFunction.
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+  - Runtime Error: Undefined variable: this
+
+(Set DEBUG=true environment variable to see stack traces)
+
+Result: FAILED
+Completed: 2026-02-05T15:35:17.370196

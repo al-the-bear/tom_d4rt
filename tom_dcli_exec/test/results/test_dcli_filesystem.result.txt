@@ -1,0 +1,19 @@
+Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_dcli/test/replay/test_dcli_filesystem.dcli
+Started: 2026-02-05T15:36:59.172663
+
+Lines executed: 54
+
+REPORTED ERRORS (4):
+  - SourceCodeException: Failed to parse expression:
+
+Problematic code: [import 'dart:io';]
+  - SourceCodeException: Failed to parse expression:
+
+Problematic code: [import 'dart:convert';]
+  - Runtime Error: Cannot bridge native object: No registered bridged class found for native type BridgedClass.
+  - Runtime Error: Cannot bridge native object: No registered bridged class found for native type BridgedClass.
+
+(Set DEBUG=true environment variable to see stack traces)
+
+Result: FAILED
+Completed: 2026-02-05T15:36:59.585997

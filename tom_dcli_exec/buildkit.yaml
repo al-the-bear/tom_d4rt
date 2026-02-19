@@ -1,0 +1,85 @@
+# Tom Build Configuration for tom_dcli_exec
+
+project_id: DCLIE
+name: dcli_exec
+
+versioner:
+  variable-prefix: dcli
+
+cleanup:
+  - '*.g.dart'
+  - '*.b.dart'
+
+d4rtgen:
+  name: tom_dcli_exec
+  helpersImport: package:tom_d4rt_exec/tom_d4rt_exec.dart
+  generateBarrel: true
+  barrelPath: lib/d4rt_bridges.b.dart
+  generateDartscript: true
+  dartscriptPath: lib/dartscript.b.dart
+  registrationClass: TomD4rtDcliBridge
+  generateTestRunner: true
+  testRunnerPath: bin/d4rtrun.b.dart
+  modules:
+    - name: cli_api
+      barrelFiles:
+        - package:tom_dcli_exec/tom_d4rt_cli_api.dart
+      barrelImport: package:tom_dcli_exec/tom_d4rt_cli_api.dart
+      outputPath: lib/src/bridges/cli_api_bridges.b.dart
+      followAllReExports: false
+    - name: tom_vscode_scripting_api
+      barrelFiles:
+        - package:tom_vscode_scripting_api/script_globals.dart
+      barrelImport: package:tom_vscode_scripting_api/script_globals.dart
+      outputPath: lib/src/bridges/tom_vscode_scripting_api_bridges.b.dart
+      excludePatterns:
+        - "**/*_bridge.dart"
+        - "**/*_generated.dart"
+    - name: dcli
+      barrelFiles:
+        - package:dcli/dcli.dart
+      barrelImport: package:dcli/dcli.dart
+      outputPath: lib/src/bridges/dcli_bridges.b.dart
+      followAllReExports: true
+      skipReExports:
+        - crypto
+      excludePatterns:
+        - "**/*_bridge.dart"
+        - "**/*_generated.dart"
+    - name: path
+      barrelFiles:
+        - package:path/path.dart
+      barrelImport: package:path/path.dart
+      outputPath: lib/src/bridges/path_bridges.b.dart
+    - name: tom_chattools
+      barrelFiles:
+        - package:tom_chattools/tom_chattools.dart
+      barrelImport: package:tom_chattools/tom_chattools.dart
+      outputPath: lib/src/bridges/tom_chattools_bridges.b.dart
+      followAllReExports: false
+      excludePatterns:
+        - "**/*_bridge.dart"
+        - "**/*_generated.dart"
+
+compiler:
+  compiles:
+    # macOS ARM64 - compile for self + all Linux targets
+    - commandline:
+        - mkdir -p $HOME/.tom/bin/${target-platform-vs}
+        - dart compile exe ${file} --target-os=${target-os} -o $HOME/.tom/bin/${target-platform-vs}/${file.name}
+      files: bin/dcli.dart
+      targets: [darwin-arm64, linux-x64, linux-arm64, linux-armhf]
+      platforms: [darwin-arm64]
+    
+    # Other platforms - compile for self only
+    - commandline:
+        - mkdir -p $HOME/.tom/bin/${target-platform-vs}
+        - dart compile exe ${file} -o $HOME/.tom/bin/${target-platform-vs}/${file.name}
+      files: bin/dcli.dart
+      platforms: [darwin-x64, linux-*, win32-*]
+
+  postcompile:
+    # Make binaries executable on Unix-like systems
+    - commandline:
+        - chmod -R +x $HOME/.tom/bin/${current-platform-vs}/
+      platforms: [macos, linux]

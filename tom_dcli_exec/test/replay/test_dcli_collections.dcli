@@ -1,0 +1,68 @@
+# DCli Test Suite - Part 3: Collections
+# Run with: dcli -run-replay test_dcli_collections.dcli -test
+# Tests: 20 verifications
+
+import 'dart:io';
+import 'dart:convert';
+
+# =============================================================================
+# Test: List Operations (8 tests)
+# =============================================================================
+
+var list = [1, 2, 3, 4, 5];
+verifyEquals(list.length, 5, 'List length');
+verifyEquals(list[0], 1, 'List first element');
+verifyEquals(list[4], 5, 'List last element');
+verifyEquals(list.first, 1, 'List first property');
+verifyEquals(list.last, 5, 'List last property');
+
+var listCopy = [...list];
+listCopy.add(6);
+verifyEquals(listCopy.length, 6, 'List add');
+
+var reversed = list.reversed.toList();
+verifyEquals(reversed[0], 5, 'List reversed');
+
+verify(list.contains(3), 'List contains');
+
+# =============================================================================
+# Test: List Transformations (4 tests)
+# =============================================================================
+
+var nums = [1, 2, 3, 4, 5];
+var doubled = nums.map((n) => n * 2).toList();
+verifyEquals(doubled[0], 2, 'List map first');
+verifyEquals(doubled[4], 10, 'List map last');
+
+var evens = nums.where((n) => n % 2 == 0).toList();
+verifyEquals(evens.length, 2, 'List where length');
+verifyEquals(evens[0], 2, 'List where first');
+
+# =============================================================================
+# Test: Map Operations (5 tests)
+# =============================================================================
+
+var map = {'name': 'DCli', 'version': '1.0', 'active': true};
+verifyEquals(map['name'], 'DCli', 'Map string value');
+verifyEquals(map['active'], true, 'Map bool value');
+verifyEquals(map.length, 3, 'Map length');
+verify(map.containsKey('name'), 'Map containsKey');
+verify(map.containsValue('DCli'), 'Map containsValue');
+
+# =============================================================================
+# Test: Set Operations (3 tests)
+# =============================================================================
+
+var set = {1, 2, 3, 2, 1};
+verifyEquals(set.length, 3, 'Set unique length');
+verify(set.contains(2), 'Set contains');
+
+var set2 = {3, 4, 5};
+var union = set.union(set2);
+verifyEquals(union.length, 5, 'Set union');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();
