@@ -5123,6 +5123,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   }
 
   @override
+  Object? visitFunctionDeclarationStatement(
+      SFunctionDeclarationStatement node) {
+    return visitFunctionDeclaration(node.functionDeclaration);
+  }
+
+  @override
   Object? visitFunctionDeclaration(SFunctionDeclaration node) {
     // Create a function object that captures the current environment (closure)
     // Use the .declaration constructor

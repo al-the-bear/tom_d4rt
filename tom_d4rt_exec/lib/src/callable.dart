@@ -2615,6 +2615,8 @@ class InterpretedFunction implements Callable {
     SAstNode? current = _parentOf(node);
     while (current != null) {
       if (current is STryStatement) return current;
+      // Do not search beyond the current function's limit
+      if (current is SFunctionBody) return null;
       current = _parentOf(current);
     }
     return null;
@@ -2642,8 +2644,9 @@ class InterpretedFunction implements Callable {
 
     if (nodeThatCausedSuspension is SAwaitExpression) {
       awaitExpression = nodeThatCausedSuspension;
-      // TODO: SAstNode has no .parent — use the node itself as context
-      awaitContextNode = nodeThatCausedSuspension;
+      // Use _parentOf to get the parent as context (mirrors analyzer .parent)
+      awaitContextNode = _parentOf(nodeThatCausedSuspension) ??
+          nodeThatCausedSuspension;
     } else if (nodeThatCausedSuspension is SExpressionStatement &&
         nodeThatCausedSuspension.expression is SAwaitExpression) {
       // Case where the await was directly the expression of an SExpressionStatement
@@ -2742,9 +2745,11 @@ class InterpretedFunction implements Callable {
         state.lastAwaitResult = result;
 
         // Now we need to handle the result based on the parent context
-        // TODO: SAstNode has no .parent — use awaitContextNode directly
+        // Walk up using _parentMap to find the enclosing Statement
         SAstNode? parentStatement = awaitContextNode;
-        // Cannot traverse .parent chain; treat the context node as the parent statement
+        while (parentStatement != null && parentStatement is! SStatement) {
+          parentStatement = _parentOf(parentStatement);
+        }
 
         if (parentStatement is SVariableDeclarationStatement) {
           // This is a variable declaration with the invocation as initializer
@@ -3174,9 +3179,13 @@ class InterpretedFunction implements Callable {
           " [_determineNextNodeAfterAwait] Resuming SAssignmentExpression (Operator: $operatorType). RHS resolved to: $resolvedRhs (${resolvedRhs?.runtimeType})");
 
       // Determine the next node BEFORE making the assignment (because _findNext may depend on the parent)
-      SAstNode parentStatement = assignmentNode;
-      final SAstNode? nextNode =
-          _findNextSequentialNode(visitor, parentStatement);
+      SAstNode? parentStatement = assignmentNode;
+      while (parentStatement != null && parentStatement is! SStatement) {
+        parentStatement = _parentOf(parentStatement);
+      }
+      final SAstNode? nextNode = (parentStatement is SStatement)
+          ? _findNextSequentialNode(visitor, parentStatement)
+          : null;
 
       if (operatorType == '=') {
         if (lhs is SSimpleIdentifier) {

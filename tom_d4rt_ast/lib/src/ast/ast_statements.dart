@@ -105,6 +105,54 @@ class SVariableDeclarationStatement extends SStatement {
 }
 
 // ============================================================================
+// Function Declaration Statement
+// ============================================================================
+
+class SFunctionDeclarationStatement extends SStatement {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final SFunctionDeclaration functionDeclaration;
+
+  SFunctionDeclarationStatement({
+    required this.offset,
+    required this.length,
+    required this.functionDeclaration,
+  });
+
+  @override
+  String get nodeType => 'FunctionDeclarationStatement';
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'functionDeclaration': functionDeclaration.toJson(),
+  };
+
+  factory SFunctionDeclarationStatement.fromJson(Map<String, dynamic> json) {
+    return SFunctionDeclarationStatement(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      functionDeclaration: SFunctionDeclaration.fromJson(
+          json['functionDeclaration'] as Map<String, dynamic>),
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitFunctionDeclarationStatement(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    functionDeclaration.accept(visitor);
+  }
+}
+
+// ============================================================================
 // Expression Statement
 // ============================================================================
 

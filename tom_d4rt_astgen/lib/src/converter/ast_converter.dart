@@ -75,6 +75,8 @@ class AstConverter {
 
     // Statements
     if (node is analyzer.Block) return _convertBlock(node);
+    if (node is analyzer.FunctionDeclarationStatement)
+      return _convertFunctionDeclarationStatement(node);
     if (node is analyzer.VariableDeclarationStatement)
       return _convertVariableDeclarationStatement(node);
     if (node is analyzer.ExpressionStatement)
@@ -556,6 +558,17 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       statements: _nodesAs<SStatement>(node.statements),
+    );
+  }
+
+  SFunctionDeclarationStatement _convertFunctionDeclarationStatement(
+    analyzer.FunctionDeclarationStatement node,
+  ) {
+    return SFunctionDeclarationStatement(
+      offset: node.offset,
+      length: node.length,
+      functionDeclaration:
+          _convertFunctionDeclaration(node.functionDeclaration),
     );
   }
 

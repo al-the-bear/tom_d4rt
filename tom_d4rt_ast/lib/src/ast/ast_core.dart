@@ -313,6 +313,10 @@ void _registerAllFactories() {
     SVariableDeclarationStatement.fromJson,
   );
   SAstNodeFactory.register(
+    'FunctionDeclarationStatement',
+    SFunctionDeclarationStatement.fromJson,
+  );
+  SAstNodeFactory.register(
     'ExpressionStatement',
     SExpressionStatement.fromJson,
   );
