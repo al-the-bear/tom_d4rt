@@ -1,109 +1,165 @@
-// Run All Examples
+#!/usr/bin/env dart
+// Run all bridge generator examples.
 //
-// This script runs all example files to verify they compile and execute correctly.
-// Run with: dart run example/run_all_examples.dart
+// This script generates bridges for each example project and runs them.
+//
+// Usage:
+//   dart run example/run_all_examples.dart
+//   dart run example/run_all_examples.dart --generate-only
+//   dart run example/run_all_examples.dart --run-only
 
 import 'dart:io';
 
-// Import all user_guide examples
-import 'user_guide/basic_execution_example.dart' as user_guide_basic;
-import 'user_guide/arguments_example.dart' as user_guide_args;
-import 'user_guide/eval_example.dart' as user_guide_eval;
-import 'user_guide/multi_file_example.dart' as user_guide_multi;
-import 'user_guide/permissions_example.dart' as user_guide_perms;
-import 'user_guide/continued_execution_example.dart' as user_guide_continued;
-import 'user_guide/async_example.dart' as user_guide_async;
+/// Example project configuration.
+class ExampleProject {
+  final String name;
+  final String directory;
+  final String configFile;
+  final String runScript;
 
-// Import all bridging_guide examples
-import 'bridging_guide/bridging_enums_example.dart' as bridge_enums;
-import 'bridging_guide/bridging_classes_example.dart' as bridge_classes;
-import 'bridging_guide/bridging_async_example.dart' as bridge_async;
-import 'bridging_guide/globals_example.dart' as bridge_globals;
+  const ExampleProject({
+    required this.name,
+    required this.directory,
+    required this.configFile,
+    required this.runScript,
+  });
+}
 
-// Import all readme examples
-import 'readme/quick_start_example.dart' as readme_quick;
-import 'readme/basic_execution_example.dart' as readme_basic;
-import 'readme/repl_example.dart' as readme_repl;
-import 'readme/bridging_example.dart' as readme_bridge;
-import 'readme/permissions_example.dart' as readme_perms;
+/// List of example projects.
+const examples = [
+  ExampleProject(
+    name: 'User Guide',
+    directory: 'example/user_guide',
+    configFile: 'd4rt_bridging.json',
+    runScript: 'bin/run_example.dart',
+  ),
+  ExampleProject(
+    name: 'UserBridge Override',
+    directory: 'example/userbridge_override',
+    configFile: 'd4rt_bridging.json',
+    runScript: 'bin/run_example.dart',
+  ),
+  ExampleProject(
+    name: 'User Reference',
+    directory: 'example/user_reference',
+    configFile: 'd4rt_bridging.json',
+    runScript: 'bin/run_example.dart',
+  ),
+];
 
-// Import standalone examples
-import 'd4rt_example.dart' as standalone_d4rt;
+Future<void> main(List<String> args) async {
+  final generateOnly = args.contains('--generate-only');
+  final runOnly = args.contains('--run-only');
 
-void main() async {
-  final examples = <String, Future<void> Function()>{
-    // User Guide examples
-    'user_guide/basic_execution_example': () async => user_guide_basic.main(),
-    'user_guide/arguments_example': () async => user_guide_args.main(),
-    'user_guide/eval_example': () async => user_guide_eval.main(),
-    'user_guide/multi_file_example': () async => user_guide_multi.main(),
-    'user_guide/permissions_example': () async => user_guide_perms.main(),
-    'user_guide/continued_execution_example': () async =>
-        user_guide_continued.main(),
-    'user_guide/async_example': () async {
-      user_guide_async.main();
-    },
+  print('╔══════════════════════════════════════════════════════════════╗');
+  print('║           D4rt Bridge Generator - Example Runner             ║');
+  print('╚══════════════════════════════════════════════════════════════╝');
+  print('');
 
-    // Bridging Guide examples
-    'bridging_guide/bridging_enums_example': () async => bridge_enums.main(),
-    'bridging_guide/bridging_classes_example': () async =>
-        bridge_classes.main(),
-    'bridging_guide/bridging_async_example': () async {
-      bridge_async.main();
-    },
-    'bridging_guide/globals_example': () async => bridge_globals.main(),
+  // Get the package root directory
+  final scriptPath = Platform.script.toFilePath();
+  final packageRoot = Directory(scriptPath).parent.parent.path;
 
-    // README examples
-    'readme/quick_start_example': () async => readme_quick.main(),
-    'readme/basic_execution_example': () async => readme_basic.main(),
-    'readme/repl_example': () async => readme_repl.main(),
-    'readme/bridging_example': () async => readme_bridge.main(),
-    'readme/permissions_example': () async => readme_perms.main(),
+  print('Package root: $packageRoot');
+  print('');
 
-    // Standalone examples
-    'd4rt_example': () async {
-      standalone_d4rt.main();
-    },
-  };
+  // Ensure we're in the right directory
+  Directory.current = Directory(packageRoot);
 
-  print('=' * 60);
-  print('Running all D4rt examples');
-  print('=' * 60);
+  var successCount = 0;
+  var failCount = 0;
 
-  var passed = 0;
-  var failed = 0;
-  final failures = <String, String>{};
+  for (final example in examples) {
+    print('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    print('Example: ${example.name}');
+    print('Directory: ${example.directory}');
+    print('');
 
-  for (final entry in examples.entries) {
-    final name = entry.key;
-    final runExample = entry.value;
-
-    stdout.write('\nRunning: $name... ');
-
-    try {
-      await runExample();
-      print('✓ PASSED');
-      passed++;
-    } catch (e, stack) {
-      print('✗ FAILED');
-      print('  Error: $e');
-      failures[name] = '$e\n$stack';
-      failed++;
+    final exampleDir = Directory('$packageRoot/${example.directory}');
+    if (!exampleDir.existsSync()) {
+      print('  ❌ Directory not found: ${exampleDir.path}');
+      failCount++;
+      continue;
     }
+
+    // Run pub get first
+    print('  📦 Running pub get...');
+    final pubGetResult = await Process.run(
+      'dart',
+      ['pub', 'get'],
+      workingDirectory: exampleDir.path,
+    );
+    if (pubGetResult.exitCode != 0) {
+      print('  ❌ pub get failed:');
+      print(pubGetResult.stderr);
+      failCount++;
+      continue;
+    }
+    print('  ✓ Dependencies resolved');
+
+    // Generate bridges (unless --run-only)
+    if (!runOnly) {
+      print('  🔧 Generating bridges...');
+      final generateResult = await Process.run(
+        'dart',
+        [
+          'run',
+          'tom_d4rt_generator:d4rtgen',
+          '--config',
+          example.configFile,
+        ],
+        workingDirectory: exampleDir.path,
+      );
+
+      if (generateResult.exitCode != 0) {
+        print('  ⚠️  Bridge generation had issues:');
+        print(generateResult.stderr);
+        // Continue anyway - the example might still run without bridges
+      } else {
+        print('  ✓ Bridges generated');
+      }
+    }
+
+    // Run the example (unless --generate-only)
+    if (!generateOnly) {
+      print('  🚀 Running example...');
+      final runResult = await Process.run(
+        'dart',
+        ['run', example.runScript],
+        workingDirectory: exampleDir.path,
+      );
+
+      if (runResult.exitCode != 0) {
+        print('  ❌ Example failed:');
+        print(runResult.stderr);
+        failCount++;
+      } else {
+        print('  ✓ Example completed successfully');
+        print('');
+        // Print example output indented
+        final output = runResult.stdout.toString().trim();
+        if (output.isNotEmpty) {
+          for (final line in output.split('\n')) {
+            print('    $line');
+          }
+        }
+        successCount++;
+      }
+    } else {
+      successCount++;
+    }
+
+    print('');
   }
 
-  print('\n${'=' * 60}');
-  print('Results: $passed passed, $failed failed');
-  print('=' * 60);
-
-  if (failures.isNotEmpty) {
-    print('\nFailures:');
-    for (final entry in failures.entries) {
-      print('\n--- ${entry.key} ---');
-      print(entry.value);
-    }
-    exit(1);
+  print('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  print('');
+  print('Summary:');
+  print('  ✓ Successful: $successCount');
+  if (failCount > 0) {
+    print('  ❌ Failed: $failCount');
   }
+  print('');
 
-  print('\nAll examples passed!');
+  exit(failCount > 0 ? 1 : 0);
 }

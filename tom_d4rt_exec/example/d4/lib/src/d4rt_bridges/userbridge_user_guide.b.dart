@@ -1,0 +1,242 @@
+// D4rt Bridge - Generated file, do not edit
+// Sources: 2 files
+// Generated: 2026-02-20T12:26:45.514553
+
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
+
+import 'package:tom_d4rt_exec/d4rt.dart';
+import 'package:tom_d4rt_exec/tom_d4rt.dart';
+
+import 'package:d4_example/src/userbridge_user_guide/matrix2x2.dart' as $d4_example_1;
+import 'package:d4_example/src/userbridge_user_guide/matrix2x2_user_bridge.dart' as $d4_example_2;
+import 'package:d4_example/src/userbridge_user_guide/vector2d.dart' as $d4_example_3;
+import 'package:d4_example/src/userbridge_user_guide/vector2d_user_bridge.dart' as $d4_example_4;
+
+/// Bridge class for userbridge_user_guide module.
+class UserbridgeUserGuideBridge {
+  /// Returns all bridge class definitions.
+  static List<BridgedClass> bridgeClasses() {
+    return [
+      _createVector2DBridge(),
+      _createMatrix2x2Bridge(),
+    ];
+  }
+
+  /// Returns a map of class names to their canonical source URIs.
+  ///
+  /// Used for deduplication when the same class is exported through
+  /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
+  static Map<String, String> classSourceUris() {
+    return {
+      'Vector2D': 'package:d4_example/src/userbridge_user_guide/vector2d.dart',
+      'Matrix2x2': 'package:d4_example/src/userbridge_user_guide/matrix2x2.dart',
+    };
+  }
+
+  /// Returns all bridged enum definitions.
+  static List<BridgedEnumDefinition> bridgedEnums() {
+    return [
+    ];
+  }
+
+  /// Returns a map of enum names to their canonical source URIs.
+  ///
+  /// Used for deduplication when the same enum is exported through
+  /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
+  static Map<String, String> enumSourceUris() {
+    return {
+    };
+  }
+
+  /// Returns all bridged extension definitions.
+  static List<BridgedExtensionDefinition> bridgedExtensions() {
+    return [
+    ];
+  }
+
+  /// Returns a map of extension identifiers to their canonical source URIs.
+  static Map<String, String> extensionSourceUris() {
+    return {
+    };
+  }
+
+  /// Registers all bridges with an interpreter.
+  ///
+  /// [importPath] is the package import path that D4rt scripts will use
+  /// to access these classes (e.g., 'package:tom_build/tom.dart').
+  static void registerBridges(D4rt interpreter, String importPath) {
+    // Register bridged classes with source URIs for deduplication
+    final classes = bridgeClasses();
+    final classSources = classSourceUris();
+    for (final bridge in classes) {
+      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    }
+  }
+
+  /// Returns a map of global function names to their native implementations.
+  static Map<String, NativeFunctionImpl> globalFunctions() {
+    return {};
+  }
+
+  /// Returns a map of global function names to their canonical source URIs.
+  static Map<String, String> globalFunctionSourceUris() {
+    return {};
+  }
+
+  /// Returns a map of global function names to their display signatures.
+  static Map<String, String> globalFunctionSignatures() {
+    return {};
+  }
+
+  /// Returns the list of canonical source library URIs.
+  ///
+  /// These are the actual source locations of all elements in this bridge,
+  /// used for deduplication when the same libraries are exported through
+  /// multiple barrels.
+  static List<String> sourceLibraries() {
+    return [
+      'package:d4_example/src/userbridge_user_guide/matrix2x2.dart',
+      'package:d4_example/src/userbridge_user_guide/vector2d.dart',
+    ];
+  }
+
+  /// Returns the import statement needed for D4rt scripts.
+  ///
+  /// Use this in your D4rt initialization script to make all
+  /// bridged classes available to scripts.
+  static String getImportBlock() {
+    return "import 'package:d4_example/userbridge_user_guide.dart';";
+  }
+
+  /// Returns barrel import URIs for sub-packages discovered through re-exports.
+  ///
+  /// When a module follows re-exports into sub-packages (e.g., dcli re-exports
+  /// dcli_core), D4rt scripts may import those sub-packages directly.
+  /// These barrels need to be registered with the interpreter separately
+  /// so that module resolution finds content for those URIs.
+  static List<String> subPackageBarrels() {
+    return [];
+  }
+
+}
+
+// =============================================================================
+// Vector2D Bridge
+// =============================================================================
+
+BridgedClass _createVector2DBridge() {
+  return BridgedClass(
+    nativeType: $d4_example_3.Vector2D,
+    name: 'Vector2D',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'Vector2D');
+        final x = D4.getRequiredArg<double>(positional, 0, 'x', 'Vector2D');
+        final y = D4.getRequiredArg<double>(positional, 1, 'y', 'Vector2D');
+        return $d4_example_3.Vector2D(x, y);
+      },
+      'zero': (visitor, positional, named) {
+        return $d4_example_3.Vector2D.zero();
+      },
+    },
+    getters: {
+      'x': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').x,
+      'y': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').y,
+      'hashCode': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').hashCode,
+      'magnitude': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').magnitude,
+      'normalized': (visitor, target) => D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D').normalized,
+    },
+    methods: {
+      'dot': $d4_example_4.Vector2DUserBridge.overrideMethodDot,
+      'scale': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D');
+        D4.requireMinArgs(positional, 1, 'scale');
+        final factor = D4.getRequiredArg<double>(positional, 0, 'factor', 'scale');
+        return t.scale(factor);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D');
+        return t.toString();
+      },
+      '+': $d4_example_4.Vector2DUserBridge.overrideOperatorPlus,
+      '-': $d4_example_4.Vector2DUserBridge.overrideOperatorMinus,
+      '*': $d4_example_4.Vector2DUserBridge.overrideOperatorMultiply,
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_3.Vector2D>(target, 'Vector2D');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'Vector2D(double x, double y)',
+      'zero': 'Vector2D.zero()',
+    },
+    methodSignatures: {
+      'dot': 'double dot(Vector2D other)',
+      'scale': 'Vector2D scale(double factor)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'x': 'double get x',
+      'y': 'double get y',
+      'hashCode': 'int get hashCode',
+      'magnitude': 'double get magnitude',
+      'normalized': 'Vector2D get normalized',
+    },
+  );
+}
+
+// =============================================================================
+// Matrix2x2 Bridge
+// =============================================================================
+
+BridgedClass _createMatrix2x2Bridge() {
+  return BridgedClass(
+    nativeType: $d4_example_1.Matrix2x2,
+    name: 'Matrix2x2',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 4, 'Matrix2x2');
+        final a = D4.getRequiredArg<double>(positional, 0, 'a', 'Matrix2x2');
+        final b = D4.getRequiredArg<double>(positional, 1, 'b', 'Matrix2x2');
+        final c = D4.getRequiredArg<double>(positional, 2, 'c', 'Matrix2x2');
+        final d = D4.getRequiredArg<double>(positional, 3, 'd', 'Matrix2x2');
+        return $d4_example_1.Matrix2x2(a, b, c, d);
+      },
+      'identity': (visitor, positional, named) {
+        return $d4_example_1.Matrix2x2.identity();
+      },
+    },
+    getters: {
+      'determinant': (visitor, target) => D4.validateTarget<$d4_example_1.Matrix2x2>(target, 'Matrix2x2').determinant,
+      'trace': (visitor, target) => D4.validateTarget<$d4_example_1.Matrix2x2>(target, 'Matrix2x2').trace,
+    },
+    methods: {
+      'row': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_1.Matrix2x2>(target, 'Matrix2x2');
+        D4.requireMinArgs(positional, 1, 'row');
+        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'row');
+        return t.row(index);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$d4_example_1.Matrix2x2>(target, 'Matrix2x2');
+        return t.toString();
+      },
+      '[]': $d4_example_2.Matrix2x2UserBridge.overrideOperatorIndex,
+      '[]=': $d4_example_2.Matrix2x2UserBridge.overrideOperatorIndexAssign,
+    },
+    constructorSignatures: {
+      '': 'Matrix2x2(double a, double b, double c, double d)',
+      'identity': 'Matrix2x2.identity()',
+    },
+    methodSignatures: {
+      'row': 'List<double> row(int index)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'determinant': 'double get determinant',
+      'trace': 'double get trace',
+    },
+  );
+}
+

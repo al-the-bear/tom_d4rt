@@ -1,0 +1,18 @@
+# Tom Build Configuration for userbridge_user_guide_example
+
+d4rtgen:
+  name: userbridge_user_guide_example
+  helpersImport: package:tom_d4rt/tom_d4rt.dart
+  generateBarrel: true
+  barrelPath: lib/d4rt_bridges.b.dart
+  generateDartscript: true
+  dartscriptPath: lib/dartscript.b.dart
+  registrationClass: UserbridgeUserGuideExampleBridges
+  generateTestRunner: true
+  testRunnerPath: bin/d4rtrun.b.dart
+  modules:
+    - name: all
+      barrelFiles:
+        - lib/userbridge_user_guide_example.dart
+      barrelImport: package:userbridge_user_guide_example/userbridge_user_guide_example.dart
+      outputPath: lib/src/d4rt_bridges/userbridge_user_guide_bridges.b.dart

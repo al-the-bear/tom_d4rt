@@ -1,0 +1,9 @@
+include: package:lints/recommended.yaml
+
+analyzer:
+  errors:
+    # Test scripts may reference bridge-generated code
+    avoid_renaming_method_parameters: ignore
+  exclude:
+    - '**/*.g.dart'
+    - '**/*.b.dart'

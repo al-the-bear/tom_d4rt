@@ -1,0 +1,43 @@
+// D4rt Script - Basic Classes Example
+// This script demonstrates basic class bridging features.
+
+import 'package:d4rt_generator_example/test_classes.dart';
+
+main() {
+  print('=== Basic Classes Example ===\n');
+
+  // 1. Create a Person using default constructor
+  var person = Person('Alice', 30);
+  print('Created person: ${person.greet()}');
+
+  // 2. Use named constructor
+  var guest = Person.guest();
+  print('Guest: ${guest.name}, age: ${guest.age}');
+
+  // 3. Use factory constructor
+  var parsed = Person.fromString('Bob:25');
+  print('Parsed: ${parsed.name}, age: ${parsed.age}');
+
+  // 4. Use greeting with named parameter
+  var greeting = person.greetWith(prefix: 'Hello');
+  print('Greeting: $greeting');
+
+  // 5. Static factory method
+  var defaultPerson = Person.createDefault();
+  print('Default person: ${defaultPerson.name}');
+
+  // 6. Calculator with optional positional parameter
+  var calc = Calculator(3);
+  print('\nCalculator (precision: ${calc.precision}):');
+  print('  add(2, 3) = ${calc.add(2, 3)}');
+  print('  addOptional(1, 2, 3) = ${calc.addOptional(1, 2, 3)}');
+  print('  calculate(value: 5.0, multiplier: 2.0) = ${calc.calculate(value: 5.0, multiplier: 2.0)}');
+
+  // 7. Static utility class
+  print('\nMathUtils:');
+  print('  pi = ${MathUtils.pi}');
+  print('  circleArea(2) = ${MathUtils.circleArea(2.0)}');
+  print('  square(5) = ${MathUtils.square(5.0)}');
+
+  return 'Basic example completed successfully!';
+}

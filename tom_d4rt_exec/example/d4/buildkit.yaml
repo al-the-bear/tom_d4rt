@@ -1,0 +1,112 @@
+# Tom Build Configuration for d4_example
+# This project contains all bridgeable test classes for D4rt testing.
+# Also includes DCli bridges for running d4_test_scripts.
+
+versioner:
+  variable-prefix: d4
+
+d4rtgen:
+  name: d4_example
+  helpersImport: package:tom_d4rt_exec/tom_d4rt.dart
+  d4rtImport: package:tom_d4rt_exec/d4rt.dart
+  generateBarrel: true
+  barrelPath: lib/d4rt_bridges.b.dart
+  generateDartscript: true
+  dartscriptPath: lib/dartscript.b.dart
+  registrationClass: D4ExampleBridges
+  generateTestRunner: true
+  testRunnerPath: bin/d4rtrun.b.dart
+  modules:
+    # ========== Core extensions (String, Platform, etc.) ==========
+    - name: core_extensions
+      barrelFiles:
+        - lib/test_extensions.dart
+      barrelImport: package:d4_example/test_extensions.dart
+      outputPath: lib/src/d4rt_bridges/core_extensions.b.dart
+
+    # ========== Example Project (basic classes, callbacks, enums, etc.) ==========
+    - name: example_project
+      barrelFiles:
+        - lib/example_project.dart
+      barrelImport: package:d4_example/example_project.dart
+      outputPath: lib/src/d4rt_bridges/example_project.b.dart
+
+    # ========== User Guide (calculator, greeter) ==========
+    - name: user_guide
+      barrelFiles:
+        - lib/user_guide.dart
+      barrelImport: package:d4_example/user_guide.dart
+      outputPath: lib/src/d4rt_bridges/user_guide.b.dart
+
+    # ========== User Reference (data models, services) ==========
+    - name: user_reference
+      barrelFiles:
+        - lib/user_reference.dart
+      barrelImport: package:d4_example/user_reference.dart
+      outputPath: lib/src/d4rt_bridges/user_reference.b.dart
+
+    # ========== User Bridge Override (globals, my_list with overrides) ==========
+    - name: userbridge_override
+      barrelFiles:
+        - lib/userbridge_override.dart
+      barrelImport: package:d4_example/userbridge_override.dart
+      outputPath: lib/src/d4rt_bridges/userbridge_override.b.dart
+
+    # ========== User Bridge User Guide (vector2d, matrix2x2 with user bridges) ==========
+    - name: userbridge_user_guide
+      barrelFiles:
+        - lib/userbridge_user_guide.dart
+      barrelImport: package:d4_example/userbridge_user_guide.dart
+      outputPath: lib/src/d4rt_bridges/userbridge_user_guide.b.dart
+
+    # ========== Dart Overview (comprehensive language demos) ==========
+    - name: dart_overview
+      barrelFiles:
+        - lib/dart_overview.dart
+      barrelImport: package:d4_example/dart_overview.dart
+      outputPath: lib/src/d4rt_bridges/dart_overview.b.dart
+      excludeClasses:
+        - MathOperation
+      excludePatterns:
+        - "run_dart_overview"
+        - "run_overview_in_d4rt"
+
+    # ========== External packages ==========
+    - name: path
+      barrelFiles:
+        - package:path/path.dart
+      barrelImport: package:path/path.dart
+      outputPath: lib/src/d4rt_bridges/path_bridges.b.dart
+    - name: dcli
+      barrelFiles:
+        - package:dcli/dcli.dart
+      barrelImport: package:dcli/dcli.dart
+      outputPath: lib/src/d4rt_bridges/dcli_bridges.b.dart
+      followAllReExports: true
+      skipReExports:
+        - crypto
+      excludePatterns:
+        - "**/*_bridge.dart"
+        - "**/*_generated.dart"
+
+    # ========== Bug reproduction test modules ==========
+    
+    # GEN-060: Part-of files imported directly bug
+    # The generator must import the parent library, not part files
+    - name: test_part_of_files
+      barrelImport: package:d4_example/test_part_of_files.dart
+      outputPath: lib/src/d4rt_bridges/test_part_of_files.b.dart
+    
+    # GEN-061: FutureOr<Object> callback return type bug
+    # The generator must handle FutureOr<Object> callbacks correctly
+    - name: test_callback_types
+      barrelImport: package:d4_example/test_callback_types.dart
+      outputPath: lib/src/d4rt_bridges/test_callback_types.b.dart
+
+
+compiler:
+  compiles:
+    - commandline:
+        - dart compile exe ${file} -o ${project-root}/bin/${file.name}
+      files: bin/d4.dart
+      platforms: [darwin-arm64, darwin-x64, linux-x64, linux-arm64]

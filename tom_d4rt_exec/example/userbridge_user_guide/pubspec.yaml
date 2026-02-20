@@ -1,0 +1,14 @@
+name: userbridge_user_guide_example
+description: Demonstrates D4UserBridge overrides for operators and complex parameters.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  tom_d4rt_exec:
+    path: ../../../tom_d4rt_exec
+
+dev_dependencies:
+  lints: ^5.0.0

@@ -8,7 +8,8 @@ environment:
 
 dependencies:
   path: ^1.9.0
-  tom_d4rt:
+  tom_d4rt_exec:
+    path: ../../../tom_d4rt_exec
 
 dev_dependencies:
   lints: ^5.0.0

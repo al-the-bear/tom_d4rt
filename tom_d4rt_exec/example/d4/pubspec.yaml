@@ -1,0 +1,21 @@
+name: d4_example
+description: D4rt example project for testing extension bridges on core types.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  tom_d4rt_exec:
+    path: ../../../tom_d4rt_exec
+  tom_d4rt_astgen:
+    path: ../../../tom_d4rt_astgen
+  analyzer: ^8.4.1
+  path: ^1.9.0
+  dcli: ^8.4.2
+  dcli_core: ^8.2.8
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.0

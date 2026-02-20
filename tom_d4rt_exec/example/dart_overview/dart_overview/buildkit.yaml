@@ -1,0 +1,22 @@
+# Tom Build Configuration for dart_overview
+
+d4rtgen:
+  name: dart_overview
+  helpersImport: package:tom_d4rt/tom_d4rt.dart
+  generateBarrel: true
+  barrelPath: lib/d4rt_bridges.b.dart
+  generateDartscript: true
+  dartscriptPath: lib/dartscript.b.dart
+  registrationClass: DartOverviewBridges
+  generateTestRunner: true
+  testRunnerPath: bin/d4rtrun.b.dart
+  modules:
+    - name: all
+      barrelFiles:
+        - lib/dart_overview.dart
+      barrelImport: package:dart_overview/dart_overview.dart
+      outputPath: lib/src/d4rt_bridges/dart_overview_bridges.b.dart
+      excludeClasses:
+        - MathOperation
+      excludePatterns:
+        - "run_dart_overview"
