@@ -1,0 +1,46 @@
+// Test script for d4 example project
+// Tests extension bridges on core types
+
+// Test String extensions
+var s = 'hello';
+print('String reversed: ${s.reversed}');
+print('Is blank: ${"".isBlank}');
+print('Is not blank: ${s.isNotBlank}');
+print('In parens: ${s.inParens}');
+print('Repeat: ${s.repeatWith(3, separator: "-")}');
+
+// Test int extensions
+var n = 5;
+print('Is even: ${4.isEven}');
+print('Is odd: ${5.isOdd}');
+print('Factorial of 5: ${n.factorial}');
+print('Clamp 10 to [0,5]: ${10.clampTo(0, 5)}');
+
+// Test List extensions
+var list = [1, 2, 3];
+print('First or null: ${list.firstOrNull}');
+print('Last or null: ${list.lastOrNull}');
+print('Is single: ${list.isSingle}');
+print('Empty list first or null: ${[].firstOrNull}');
+
+// Test TestPoint class
+var p1 = TestPoint(3, 4);
+var p2 = TestPoint(1, 1);
+print('TestPoint p1: $p1');
+print('TestPoint p2: $p2');
+print('p1 + p2: ${p1 + p2}');
+print('Distance from origin: ${p1.distanceFromOrigin}');
+
+// Test callback functions
+var items = [1, 2, 3, 4, 5];
+var doubled = processItems(items, (x) => x * 2);
+print('Doubled: $doubled');
+
+var evens = filterItems(items, predicate: (x) => x % 2 == 0);
+print('Evens: $evens');
+
+// Test promptUser (without actual prompting - just tests generation)
+var prompt = promptUser('Enter name', defaultValue: 'John', required: false);
+print('Prompt: $prompt');
+
+print('All tests passed!');

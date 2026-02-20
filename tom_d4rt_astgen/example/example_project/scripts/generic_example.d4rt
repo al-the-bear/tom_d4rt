@@ -1,0 +1,63 @@
+// D4rt Script - Generic Classes Example
+// This script demonstrates generic class and method bridging.
+
+import 'package:d4rt_generator_example/test_classes.dart';
+
+main() {
+  print('=== Generic Classes Example ===\n');
+
+  // 1. Generic Box
+  print('--- Box<T> ---');
+  var box = Box('Hello');
+  print('Box value: ${box.value}');
+  print('Is empty: ${box.isEmpty}');
+  
+  // Transform value with generic method
+  var length = box.transform((s) => s.length);
+  print('Transformed (length): $length');
+  
+  box.clear();
+  print('After clear, isEmpty: ${box.isEmpty}');
+
+  // 2. Box static methods
+  var filledBox = Box.filled(42);
+  print('Filled box: ${filledBox.value}');
+  print('Identity(100): ${Box.identity(100)}');
+
+  // 3. Repository with bounded type parameter
+  // Note: Repository needs explicit constructor() - using static factory instead
+  print('\n--- Repository<T extends Identifiable> ---');
+  var entities = [Entity('1', 'Alice'), Entity('2', 'Bob'), Entity('3', 'Charlie')];
+  var repo = Repository.fromList(entities);
+  
+  print('Repository count: ${repo.count}');
+  print('Get by id "2": ${repo.getById("2")}');
+  
+  // Find with predicate
+  var found = repo.findWhere((e) => e.name == 'Charlie');
+  print('Found Charlie: $found');
+  
+  // Map all items
+  var names = repo.mapAll((e) => e.name);
+  print('All names: $names');
+
+  // 4. Pair with two type parameters
+  print('\n--- Pair<K, V> ---');
+  var pair = Pair('key', 42);
+  print('Pair: ${pair.first}, ${pair.second}');
+  print('Swapped: ${pair.swap()}');
+  
+  var mapped = pair.mapBoth((k) => k.toUpperCase(), (v) => v * 2);
+  print('Mapped: ${mapped.first}, ${mapped.second}');
+
+  // 5. Transformer with generic methods
+  print('\n--- Transformer ---');
+  var transformer = Transformer();
+  print('Identity("hello"): ${transformer.identity("hello")}');
+  print('Singleton(42): ${transformer.singleton(42)}');
+  
+  var entity = Entity('E1', 'Test');
+  print('Id of entity: ${transformer.idOf(entity)}');
+
+  return 'Generic example completed successfully!';
+}

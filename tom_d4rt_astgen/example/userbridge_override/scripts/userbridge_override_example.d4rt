@@ -1,0 +1,53 @@
+// D4rt Script - UserBridge Override Example
+// This script demonstrates classes from userbridge_override_design.md
+// that require manual UserBridge overrides for operators and globals.
+
+import 'package:userbridge_override_example/userbridge_override_example.dart';
+
+main() {
+  print('=== UserBridge Override Example ===\n');
+
+  // 1. Create a MyList and use operator overloading
+  print('1. Using MyList with operator[] bridging:');
+  var list = MyList<String>();
+  list.add('first');
+  list.add('second');
+  list.add('third');
+  print('   list.length: ${list.length}');
+  print('   list.isEmpty: ${list.isEmpty}');
+  print('   list[0]: ${list[0]}');
+  print('   list[1]: ${list[1]}');
+  print('   list[2]: ${list[2]}');
+
+  // 2. Use static factory methods
+  print('\n2. Using static factory methods:');
+  var emptyList = MyList.empty<int>();
+  print('   MyList.empty() - isEmpty: ${emptyList.isEmpty}');
+  
+  // 3. Create a list from items
+  print('\n3. Creating list from items:');
+  var numbers = [10, 20, 30];
+  var numList = MyList.from<int>(numbers);
+  print('   MyList.from([10, 20, 30])');
+  print('   length: ${numList.length}');
+  print('   numList[0]: ${numList[0]}');
+
+  // 4. Use global constants
+  print('\n4. Using global constants:');
+  print('   appName: $appName');
+  print('   maxRetries: $maxRetries');
+  print('   version: $version');
+
+  // 5. Use global functions
+  print('\n5. Using global functions:');
+  print('   greet("D4rt"): ${greet("D4rt")}');
+  print('   calculate(5, 3): ${calculate(5, 3)}');
+  print('   calculate(10, 4, operation: "subtract"): ${calculate(10, 4, operation: "subtract")}');
+  print('   calculate(6, 7, operation: "multiply"): ${calculate(6, 7, operation: "multiply")}');
+
+  // 6. Use global getter
+  print('\n6. Using global getter:');
+  print('   currentTime: $currentTime');
+
+  return 'UserBridge Override example completed successfully!';
+}
