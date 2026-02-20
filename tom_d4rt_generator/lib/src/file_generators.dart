@@ -98,7 +98,7 @@ String generateDartscriptFileContent(BridgeConfig config, {String? dartscriptPat
   buffer.writeln('/// D4rt Bridge Registration for ${config.name}');
   buffer.writeln('library;');
   buffer.writeln();
-  buffer.writeln("import 'package:tom_d4rt/d4rt.dart';");
+  buffer.writeln("import '${config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart'}';");
 
   // Import external bridge packages
   for (var i = 0; i < config.importedBridges.length; i++) {
@@ -238,7 +238,7 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   buffer.writeln("import 'dart:convert';");
   buffer.writeln("import 'dart:io';");
   buffer.writeln();
-  buffer.writeln("import 'package:tom_d4rt/d4rt.dart';");
+  buffer.writeln("import '${config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart'}';");
 
   // Import external bridge packages
   for (var i = 0; i < config.importedBridges.length; i++) {

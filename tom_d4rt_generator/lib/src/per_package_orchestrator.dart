@@ -193,6 +193,7 @@ class PerPackageBridgeOrchestrator {
         packageName: config.name,
         sourceImport: sourceImport,
         helpersImport: config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
+        d4rtImport: config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart',
       );
 
       // Resolve barrel files and track which one is which
@@ -344,6 +345,7 @@ class PerPackageBridgeOrchestrator {
         sourceImports: sourceImports,
         sourceFileToBarrel: pkgInfo.sourceFileToBarrel,
         helpersImport: config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
+        d4rtImport: config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart',
         userBridgeScanner: _userBridgeScanner,
       );
       
@@ -401,6 +403,7 @@ class PerPackageBridgeOrchestrator {
         sourceImports: sourceImports,
         sourceFileToBarrel: pkgInfo.sourceFileToBarrel,
         helpersImport: config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
+        d4rtImport: config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart',
         userBridgeScanner: _userBridgeScanner,
       );
       
@@ -477,8 +480,8 @@ class PerPackageBridgeOrchestrator {
     buffer.writeln();
     buffer.writeln('// ignore_for_file: unused_import, deprecated_member_use');
     buffer.writeln();
-    buffer.writeln("import 'package:tom_d4rt/d4rt.dart';");
-    buffer.writeln("import 'package:tom_d4rt/tom_d4rt.dart';");
+    buffer.writeln("import '${config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart'}';");
+    buffer.writeln("import '${config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart'}';");
     buffer.writeln();
 
     // Import per-package files

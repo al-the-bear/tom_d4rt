@@ -881,6 +881,12 @@ class BridgeGenerator {
   /// Import path for helper functions.
   final String helpersImport;
 
+  /// Import path for the core D4rt runtime package.
+  ///
+  /// Defaults to `package:tom_d4rt/d4rt.dart`.
+  /// Override when using an alternative D4rt runtime like `package:tom_d4rt_exec/d4rt.dart`.
+  final String d4rtImport;
+
   /// Barrel file import path for source code (e.g., 'src/tom/tom.dart').
   /// If provided, this import is used in the generated file for accessing classes.
   /// @deprecated Use [sourceImports] instead for multiple barrel support.
@@ -1491,6 +1497,7 @@ class BridgeGenerator {
     required this.workspacePath,
     this.packageName,
     this.helpersImport = 'package:tom_d4rt/tom_d4rt.dart',
+    this.d4rtImport = 'package:tom_d4rt/d4rt.dart',
     this.sourceImport,
     this.sourceImports = const [],
     this.sourceFileToBarrel = const {},
@@ -4842,13 +4849,13 @@ class BridgeGenerator {
     buffer.writeln();
 
     // Imports
-    buffer.writeln("import 'package:tom_d4rt/d4rt.dart';");
+    buffer.writeln("import '$d4rtImport';");
     buffer.writeln("import '$helpersImport';");
 
     // Register unprefixed imports in _importPrefixes so type resolution
     // can find types from these packages (they're imported without prefix)
-    _importPrefixes['package:tom_d4rt/d4rt.dart'] = '';
-    _importPrefixes['package:tom_d4rt/tom_d4rt.dart'] = '';
+    _importPrefixes[d4rtImport] = '';
+    _importPrefixes[helpersImport] = '';
 
     // Separate SDK imports (dart:*) from external package imports
     // Map private SDK libraries to their public equivalents

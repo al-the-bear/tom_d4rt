@@ -213,6 +213,19 @@ class BridgeConfig {
   final String name;
   final List<ModuleConfig> modules;
   final String? helpersImport;
+
+  /// Import path for the core D4rt runtime package.
+  ///
+  /// Defaults to `package:tom_d4rt/d4rt.dart` when not specified.
+  /// Override this when using an alternative D4rt runtime package
+  /// such as `package:tom_d4rt_exec/d4rt.dart`.
+  ///
+  /// Example in buildkit.yaml:
+  /// ```yaml
+  /// d4rtgen:
+  ///   d4rtImport: package:tom_d4rt_exec/d4rt.dart
+  /// ```
+  final String? d4rtImport;
   final bool generateBarrel;
   final String? barrelPath;
   final bool generateDartscript;
@@ -278,6 +291,7 @@ class BridgeConfig {
     required this.name,
     required this.modules,
     this.helpersImport,
+    this.d4rtImport,
     this.generateBarrel = true,
     this.barrelPath,
     this.generateDartscript = true,
@@ -297,6 +311,7 @@ class BridgeConfig {
           .map((m) => ModuleConfig.fromJson(m as Map<String, dynamic>))
           .toList(),
       helpersImport: json['helpersImport'] as String?,
+      d4rtImport: json['d4rtImport'] as String?,
       generateBarrel: json['generateBarrel'] as bool? ?? true,
       barrelPath: json['barrelPath'] as String?,
       generateDartscript: json['generateDartscript'] as bool? ?? true,
@@ -359,6 +374,7 @@ class BridgeConfig {
       'name': name,
       'modules': modules.map((m) => m.toJson()).toList(),
       if (helpersImport != null) 'helpersImport': helpersImport,
+      if (d4rtImport != null) 'd4rtImport': d4rtImport,
       'generateBarrel': generateBarrel,
       if (barrelPath != null) 'barrelPath': barrelPath,
       'generateDartscript': generateDartscript,
@@ -379,6 +395,7 @@ class BridgeConfig {
     String? name,
     List<ModuleConfig>? modules,
     String? helpersImport,
+    String? d4rtImport,
     bool? generateBarrel,
     String? barrelPath,
     bool? generateDartscript,
@@ -394,6 +411,7 @@ class BridgeConfig {
       name: name ?? this.name,
       modules: modules ?? this.modules,
       helpersImport: helpersImport ?? this.helpersImport,
+      d4rtImport: d4rtImport ?? this.d4rtImport,
       generateBarrel: generateBarrel ?? this.generateBarrel,
       barrelPath: barrelPath ?? this.barrelPath,
       generateDartscript: generateDartscript ?? this.generateDartscript,
