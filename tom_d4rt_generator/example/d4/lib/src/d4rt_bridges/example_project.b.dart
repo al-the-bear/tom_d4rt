@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-02-15T12:44:01.585305
+// Generated: 2026-02-20T10:29:21.584325
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
