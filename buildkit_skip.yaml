@@ -1,0 +1,3 @@
+# Skip buildkit traversal for this module.
+# This module has its own workspace and should be processed separately.
+skip: true
