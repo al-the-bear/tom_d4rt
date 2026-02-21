@@ -32,6 +32,7 @@ final d4rtgenTool = ToolDefinition(
   description: 'Generates D4rt bridges from configuration files',
   version: D4rtGenVersionInfo.versionShort,
   mode: ToolMode.singleCommand,
+  worksWithNatures: {DartProjectFolder},
   features: const NavigationFeatures(
     projectTraversal: true,
     gitTraversal: false,
