@@ -39,6 +39,7 @@ final reflectorTool = ToolDefinition(
   description: 'Dart code reflection generation tool',
   version: AnalyzerVersionInfo.version,
   mode: ToolMode.singleCommand,
+  worksWithNatures: {DartProjectFolder},
   features: const NavigationFeatures(
     projectTraversal: true,
     gitTraversal: false,

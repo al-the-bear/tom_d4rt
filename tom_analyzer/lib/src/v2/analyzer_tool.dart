@@ -39,6 +39,7 @@ final analyzerTool = ToolDefinition(
   description: 'Dart code analysis tool',
   version: AnalyzerVersionInfo.version,
   mode: ToolMode.singleCommand,
+  worksWithNatures: {DartProjectFolder},
   features: const NavigationFeatures(
     projectTraversal: true,
     gitTraversal: false,
