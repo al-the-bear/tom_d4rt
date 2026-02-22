@@ -8,7 +8,6 @@
 /// These tests exercise the module_loader's type resolution fallback logic.
 @TestOn('vm')
 library extension_on_stdlib_type_test;
-import '../test_helpers.dart';
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
@@ -18,7 +17,7 @@ void main() {
     test(
         'GEN-056a: Extension on dart:io Platform resolves without explicit dart:io import. [2026-02-14] (PASS)',
         () {
-      final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
+      final d4rt = D4rt()..setDebug(false);
       d4rt.grant(FilesystemPermission.any);
 
       // Register a bridged extension on Platform (dart:io type)
@@ -50,7 +49,7 @@ void main() {
     test(
         'GEN-056b: Extension on dart:io Platform resolves with explicit dart:io import. [2026-02-14] (PASS)',
         () {
-      final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
+      final d4rt = D4rt()..setDebug(false);
       d4rt.grant(FilesystemPermission.any);
 
       // Register a bridged extension on Platform (dart:io type)
@@ -83,7 +82,7 @@ void main() {
     test(
         'GEN-056c: Extension on bridge class from another package resolves. [2026-02-14] (PASS)',
         () {
-      final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
+      final d4rt = D4rt()..setDebug(false);
 
       // Register a BridgedClass under package A
       final myClass = BridgedClass(
@@ -126,7 +125,7 @@ void main() {
     test(
         'GEN-056d: Extension on unknown type reports error. [2026-02-14] (PASS)',
         () {
-      final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
+      final d4rt = D4rt()..setDebug(false);
 
       // Register an extension on a type that doesn't exist anywhere
       d4rt.registerBridgedExtension(
@@ -155,7 +154,7 @@ void main() {
     test(
         'GEN-056e: Multiple extensions on different stdlib types resolve. [2026-02-14] (PASS)',
         () {
-      final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
+      final d4rt = D4rt()..setDebug(false);
       d4rt.grant(FilesystemPermission.any);
 
       // Extension on Platform (dart:io)

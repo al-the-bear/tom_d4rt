@@ -1,13 +1,12 @@
-import '../../test_helpers.dart';
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 void main() {
   group('dart:collection - Queue Tests', () {
-    D4rt d4rtInstance = D4rt(parseSourceCallback: parseSource);
+    D4rt d4rtInstance = D4rt();
 
     setUp(() {
-      d4rtInstance = D4rt(parseSourceCallback: parseSource);
+      d4rtInstance = D4rt();
     });
 
     dynamic execute(String mainFunctionBody, {List<Object?>? args}) {

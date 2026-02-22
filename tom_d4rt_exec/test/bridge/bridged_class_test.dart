@@ -1,5 +1,4 @@
-import '../test_helpers.dart';
-import 'package:tom_d4rt_exec/src/utils/extensions/interpreted_instance.dart';
+import 'package:tom_d4rt_ast/src/runtime/utils/extensions/interpreted_instance.dart';
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
@@ -109,7 +108,7 @@ void main() {
     late D4rt interpreter;
 
     setUp(() {
-      interpreter = D4rt(parseSourceCallback: parseSource);
+      interpreter = D4rt();
 
       // Reset the static counter before each test
       NativeCounter._staticCounter = 0;

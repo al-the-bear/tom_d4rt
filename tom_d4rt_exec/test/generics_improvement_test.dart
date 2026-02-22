@@ -1,9 +1,8 @@
-import 'test_helpers.dart';
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 dynamic execute(String source, {List<Object?>? args}) {
-  final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
+  final d4rt = D4rt()..setDebug(false);
   return d4rt.execute(
       library: 'package:test/main.dart',
       positionalArgs: args,

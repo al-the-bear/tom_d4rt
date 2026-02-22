@@ -1,4 +1,3 @@
-import 'test_helpers.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:test/test.dart';
 
@@ -17,7 +16,7 @@ void main() {
     late D4rt d4rt;
 
     setUp(() {
-      d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
+      d4rt = D4rt()..setDebug(false);
 
       // Register the LateFieldClass bridge
       d4rt.registerBridgedClass(BridgedClass(

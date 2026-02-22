@@ -1,4 +1,9 @@
+import 'package:analyzer/dart/analysis/features.dart';
+import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:analyzer/error/error.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
+import 'package:tom_d4rt_astgen/tom_d4rt_astgen.dart';
 import 'package:tom_d4rt_exec/src/module_loader.dart';
 
 /// The main D4rt interpreter class.
@@ -30,11 +35,8 @@ class D4rt {
   final Map<Type, BridgedClass> _bridgedDefLookupByType = {};
   final Set<Permission> _grantedPermissions = {};
 
-  /// Callback for parsing source code into an SAstNode tree.
-  /// Must be provided before calling [execute] or other methods that
-  /// require source code parsing. Typically backed by tom_d4rt_astgen.
-  final SCompilationUnit Function(String sourceCode, {String? path})?
-      parseSourceCallback;
+  /// Internal AST converter for parsing source code.
+  final AstConverter _converter = AstConverter();
 
   /// Gets the current interpreter visitor instance.
   ///
@@ -54,22 +56,48 @@ class D4rt {
   bool _hasExecutedOnce = false;
 
   /// Creates a D4rt interpreter instance.
-  ///
-  /// [parseSourceCallback] is required when the interpreter needs to parse
-  /// source code strings (e.g., for [execute] with `source:` parameter or
-  /// for module loading). Typically backed by tom_d4rt_astgen's AstConverter.
-  /// Can be null when working exclusively with pre-parsed [SCompilationUnit] trees.
-  D4rt({this.parseSourceCallback});
+  D4rt();
 
-  /// Parses source code to an [SCompilationUnit] using the registered callback.
-  /// Throws [StateError] if no [parseSourceCallback] is registered.
+  /// Parses source code to an [SCompilationUnit] using the internal converter.
   SCompilationUnit _parseSourceToAst(String sourceCode, {String? path}) {
-    if (parseSourceCallback == null) {
-      throw StateError('D4rt: no parseSourceCallback provided. '
-          'Cannot parse source code. '
-          'Provide a parseSourceCallback to the D4rt constructor.');
+    final result = parseString(
+      content: sourceCode,
+      path: path,
+      throwIfDiagnostics: false,
+      featureSet: FeatureSet.fromEnableFlags2(
+        sdkLanguageVersion: Version(3, 10, 0),
+        flags: [
+          'non-nullable',
+          'null-aware-elements',
+          'triple-shift',
+          'spread-collections',
+          'control-flow-collections',
+          'extension-methods',
+          'extension-types',
+          'digit-separators',
+        ],
+      ),
+    );
+
+    // Check for parse errors
+    final hasErrors = result.errors
+        .any((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR);
+
+    // Convert analyzer AST to serializable AST
+    final cu = _converter.convertCompilationUnit(result.unit);
+
+    if (hasErrors) {
+      return SCompilationUnit(
+        offset: cu.offset,
+        length: cu.length,
+        scriptTag: cu.scriptTag,
+        directives: cu.directives,
+        declarations: cu.declarations,
+        comments: cu.comments,
+        hasParseErrors: true,
+      );
     }
-    return parseSourceCallback!(sourceCode, path: path);
+    return cu;
   }
 
   /// Registers a bridged enum definition for use in interpreted code.
@@ -228,10 +256,8 @@ class D4rt {
       bridgedExtensions: _bridgedExtensions,
       d4rt: this,
       collectRegistrationErrors: collectRegistrationErrors,
-      parseSourceCallback: parseSourceCallback != null
-          ? (sourceCode, uri) =>
-              parseSourceCallback!(sourceCode, path: uri.toString())
-          : null,
+      parseSourceCallback: (sourceCode, uri) =>
+          _parseSourceToAst(sourceCode, path: uri.toString()),
     );
     _visitor = InterpreterVisitor(
         globalEnvironment: moduleLoader.globalEnvironment,

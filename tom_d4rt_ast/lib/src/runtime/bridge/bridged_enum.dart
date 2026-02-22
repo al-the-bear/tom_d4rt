@@ -114,10 +114,11 @@ class BridgedEnumValue implements RuntimeValue {
             // We could call the toString adapter if it exists, otherwise fallback
             try {
               // Try to call the toString adapter (which should not need args)
+              final env = Environment();
               return methodAdapter(
                   InterpreterVisitor(
-                      globalEnvironment: Environment(),
-                      moduleLoader: ModuleLoader(Environment(), {}, [], [])),
+                      globalEnvironment: env,
+                      moduleContext: NoOpModuleContext(globalEnvironment: env)),
                   nativeValue,
                   [],
                   {},
@@ -182,10 +183,11 @@ class BridgedEnumValue implements RuntimeValue {
     if (toStringAdapter != null) {
       try {
         // Call without specific visitor or argument here, as it's just for representation
+        final env = Environment();
         return toStringAdapter(
             InterpreterVisitor(
-                globalEnvironment: Environment(),
-                moduleLoader: ModuleLoader(Environment(), {}, [], [])),
+                globalEnvironment: env,
+                moduleContext: NoOpModuleContext(globalEnvironment: env)),
             nativeValue,
             [],
             {},

@@ -1,4 +1,3 @@
-import 'test_helpers.dart';
 /// Test for Bug-99: Stream.handleError callback receives wrong arg count
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
@@ -8,7 +7,7 @@ void main() {
     late D4rt interpreter;
 
     setUp(() {
-      interpreter = D4rt(parseSourceCallback: parseSource);
+      interpreter = D4rt();
     });
 
     test('I-ASYNC-138: HandleError with single-arg callback works. [2026-02-10 06:37] (PASS)', () async {

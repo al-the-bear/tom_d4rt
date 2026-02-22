@@ -21,7 +21,6 @@
 /// Run with: `dart test test/limitations_and_bugs_test.dart`
 library;
 
-import 'test_helpers.dart';
 
 import 'dart:async';
 
@@ -31,7 +30,7 @@ import 'package:tom_d4rt_exec/d4rt.dart';
 /// Execute D4rt code synchronously, returning the result or throwing.
 dynamic execute(String source,
     {Duration timeout = const Duration(seconds: 5)}) {
-  final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
+  final d4rt = D4rt()..setDebug(false);
   d4rt.grant(FilesystemPermission.any);
   d4rt.grant(NetworkPermission.any);
   d4rt.grant(ProcessRunPermission.any);
@@ -47,7 +46,7 @@ Future<dynamic> executeAsync(
   String source, {
   Duration timeout = const Duration(seconds: 5),
 }) async {
-  final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
+  final d4rt = D4rt()..setDebug(false);
   d4rt.grant(FilesystemPermission.any);
   d4rt.grant(NetworkPermission.any);
   d4rt.grant(ProcessRunPermission.any);
@@ -774,7 +773,7 @@ String? getString(String? s) => s;
       // Test using sources map with imports (like dart_overview)
       // This was the main bug - imported classes had empty constructor maps
       // Fixed by processing ClassDeclaration in ModuleLoader
-      final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
+      final d4rt = D4rt()..setDebug(false);
 
       const mainSource = '''
 import 'package:test/comparison.dart' as comparison;

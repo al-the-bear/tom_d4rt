@@ -1,9 +1,8 @@
-import '../../test_helpers.dart';
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 void main() {
-  final d4rt = D4rt(parseSourceCallback: parseSource);
+  final d4rt = D4rt();
   const String testLibPath = 'd4rt-mem:/linked_list_test.dart';
 
   dynamic executeTestScript(String scriptBody) {

@@ -1,10 +1,9 @@
-import 'test_helpers.dart';
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 void main() {
   test('I-BUG-22: Debug bridged mixin. [2026-02-10 06:37] (PASS)', () async {
-    final d4rt = D4rt(parseSourceCallback: parseSource);
+    final d4rt = D4rt();
     d4rt.setDebug(true);
 
     d4rt.registerBridgedClass(

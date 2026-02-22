@@ -1,4 +1,3 @@
-import 'test_helpers.dart';
 import 'dart:io' as io;
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:test/test.dart';
@@ -29,7 +28,7 @@ void main() {
       // Create a real file
       io.File('test.txt').writeAsStringSync('secret content');
 
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       expect(
         () => interpreter.execute(source: '''
           import 'dart:io';
@@ -44,7 +43,7 @@ void main() {
     });
 
     test('I-NET-13: Writing a file fails without permission. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       expect(
         () => interpreter.execute(source: '''
           import 'dart:io';
@@ -62,7 +61,7 @@ void main() {
     test('I-NET-20: Deleting a file fails without permission. [2026-02-10 06:37] (PASS)', () {
       io.File('test.txt').writeAsStringSync('to be deleted');
 
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       expect(
         () => interpreter.execute(source: '''
           import 'dart:io';
@@ -82,7 +81,7 @@ void main() {
     test('I-NET-29: Reading a file succeeds with read permission. [2026-02-10 06:37] (PASS)', () {
       io.File('test.txt').writeAsStringSync('Hello from file!');
 
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.read);
 
       final result = interpreter.execute(source: '''
@@ -97,7 +96,7 @@ void main() {
     });
 
     test('I-NET-30: Writing a file succeeds with write permission. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.write);
 
       interpreter.execute(source: '''
@@ -114,7 +113,7 @@ void main() {
     });
 
     test('I-NET-1: Complex file operations with full permission. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any);
 
       final result = interpreter.execute(source: '''
@@ -142,7 +141,7 @@ void main() {
 
   group('Real Directory Operations', () {
     test('I-NET-2: Listing directory contents with permission. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any);
 
       // Create some test files
@@ -166,7 +165,7 @@ void main() {
     });
 
     test('I-NET-3: Directory operations without permission fail. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
 
       expect(
         () => interpreter.execute(source: '''
@@ -182,7 +181,7 @@ void main() {
 
   group('Real Process Execution', () {
     test('I-NET-4: Running echo command with permission. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       interpreter.grant(ProcessRunPermission.any);
       interpreter.grant(FilesystemPermission.any);
 
@@ -198,7 +197,7 @@ void main() {
     });
 
     test('I-NET-5: Process execution without permission fails. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any); // IO needed but not process
 
       expect(
@@ -220,7 +219,7 @@ void main() {
       io.File('config.json')
           .writeAsStringSync('{"setting": "value", "count": 10}');
 
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.read);
       interpreter.grant(FilesystemPermission.write);
 
@@ -262,7 +261,7 @@ void main() {
       io.File('log2.txt')
           .writeAsStringSync('ERROR: Timeout\nWARN: Slow response\n');
 
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any);
 
       final result = interpreter.execute(source: '''
@@ -305,7 +304,7 @@ void main() {
       io.File('input.txt')
           .writeAsStringSync('apple\nbanana\ncherry\napple\nbanana');
 
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any);
 
       final result = interpreter.execute(source: '''
@@ -352,7 +351,7 @@ void main() {
       io.File('important.txt')
           .writeAsStringSync('Important data\nDo not lose!');
 
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any);
 
       interpreter.execute(source: '''
@@ -390,7 +389,7 @@ void main() {
 
   group('Multi-Module Real Scenarios', () {
     test('I-NET-11: Module importing with file operations. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any);
 
       final result = interpreter.execute(
@@ -424,7 +423,7 @@ void main() {
     });
 
     test('I-NET-12: Complex data processing across modules. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any);
 
       // Setup input data
@@ -486,7 +485,7 @@ void main() {
 
   group('Permission Revocation - Real Impact', () {
     test('I-NET-14: Permission revocation prevents further operations. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any);
 
       // First operation succeeds
@@ -520,7 +519,7 @@ void main() {
 
   group('Safe Operations Without Permissions', () {
     test('I-NET-15: Pure computation works without any permissions. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
 
       final result = interpreter.execute(source: '''
         int main() {
@@ -533,7 +532,7 @@ void main() {
     });
 
     test('I-NET-16: String processing works without permissions. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
 
       final result = interpreter.execute(source: '''
         String main() {
@@ -546,7 +545,7 @@ void main() {
     });
 
     test('I-NET-17: Complex data structures work without permissions. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
 
       final result = interpreter.execute(source: '''
         Map<String, dynamic> main() {
@@ -576,7 +575,7 @@ void main() {
 
   group('Network Permission Scenarios', () {
     test('I-NET-18: Network lookup requires permission. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any);
       // No network permission
 
@@ -596,7 +595,7 @@ void main() {
   group('Error Handling in Sandboxed Environment', () {
     group('NetworkPermission - Real Tests', () {
       test('I-NET-19: Network fails without permission. [2026-02-10 06:37] (PASS)', () {
-        final interpreter = D4rt(parseSourceCallback: parseSource);
+        final interpreter = D4rt();
         interpreter.grant(FilesystemPermission.any);
 
         expect(
@@ -612,7 +611,7 @@ void main() {
       });
 
       test('I-NET-21: Network succeeds with NetworkPermission.any. [2026-02-10 06:37] (PASS)', () async {
-        final interpreter = D4rt(parseSourceCallback: parseSource);
+        final interpreter = D4rt();
         interpreter.grant(FilesystemPermission.any);
         interpreter.grant(NetworkPermission.any);
 
@@ -630,7 +629,7 @@ void main() {
 
     group('ProcessRunPermission - Real Tests', () {
       test('I-NET-22: Process fails without permission. [2026-02-10 06:37] (PASS)', () {
-        final interpreter = D4rt(parseSourceCallback: parseSource);
+        final interpreter = D4rt();
         interpreter.grant(FilesystemPermission.any);
 
         expect(
@@ -646,7 +645,7 @@ void main() {
       });
 
       test('I-NET-23: Echo with ProcessRunPermission.any. [2026-02-10 06:37] (PASS)', () {
-        final interpreter = D4rt(parseSourceCallback: parseSource);
+        final interpreter = D4rt();
         interpreter.grant(FilesystemPermission.any);
         interpreter.grant(ProcessRunPermission.any);
 
@@ -663,7 +662,7 @@ void main() {
       });
 
       test('I-NET-24: Pwd command. [2026-02-10 06:37] (PASS)', () {
-        final interpreter = D4rt(parseSourceCallback: parseSource);
+        final interpreter = D4rt();
         interpreter.grant(FilesystemPermission.any);
         interpreter.grant(ProcessRunPermission.any);
 
@@ -682,7 +681,7 @@ void main() {
 
     group('DangerousPermission - Real Tests', () {
       test('I-NET-25: Platform access with DangerousPermission.any. [2026-02-10 06:37] (PASS)', () {
-        final interpreter = D4rt(parseSourceCallback: parseSource);
+        final interpreter = D4rt();
         interpreter.grant(FilesystemPermission.any);
         interpreter.grant(DangerousPermission.any);
 
@@ -697,7 +696,7 @@ void main() {
       });
 
       test('I-NET-26: Environment variables. [2026-02-10 06:37] (PASS)', () {
-        final interpreter = D4rt(parseSourceCallback: parseSource);
+        final interpreter = D4rt();
         interpreter.grant(FilesystemPermission.any);
         interpreter.grant(DangerousPermission.any);
 
@@ -713,7 +712,7 @@ void main() {
       });
 
       test('I-NET-27: Platform numberOfProcessors. [2026-02-10 06:37] (PASS)', () {
-        final interpreter = D4rt(parseSourceCallback: parseSource);
+        final interpreter = D4rt();
         interpreter.grant(FilesystemPermission.any);
         interpreter.grant(DangerousPermission.any);
 
@@ -728,7 +727,7 @@ void main() {
       });
     });
     test('I-NET-28: File not found error propagates correctly. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt(parseSourceCallback: parseSource);
+      final interpreter = D4rt();
       interpreter.grant(FilesystemPermission.any);
 
       expect(

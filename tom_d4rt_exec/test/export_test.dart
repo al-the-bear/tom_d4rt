@@ -1,4 +1,3 @@
-import 'test_helpers.dart';
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
@@ -27,7 +26,7 @@ void main() {
         """,
       };
 
-      final d4rt = D4rt(parseSourceCallback: parseSource);
+      final d4rt = D4rt();
 
       final result = d4rt.execute(
         library: "d4rt-mem:/main_export_test.dart",
@@ -62,7 +61,7 @@ void main() {
         }
         """,
       };
-      final d4rt = D4rt(parseSourceCallback: parseSource);
+      final d4rt = D4rt();
       final result = d4rt.execute(
         library: "d4rt-mem:/main_show_test.dart",
         sources: sources,
@@ -76,7 +75,7 @@ void main() {
         return varA;
       }
       """;
-      final d4rt2 = D4rt(parseSourceCallback: parseSource);
+      final d4rt2 = D4rt();
       expect(
         () => d4rt2.execute(library: mainVarAUriString, sources: sources),
         throwsA(isA<RuntimeD4rtException>().having(
@@ -106,7 +105,7 @@ void main() {
         }
         """,
       };
-      final d4rt = D4rt(parseSourceCallback: parseSource);
+      final d4rt = D4rt();
       final result = d4rt.execute(
         library: "d4rt-mem:/main_hide_test.dart",
         sources: sources,
@@ -120,7 +119,7 @@ void main() {
         return varA;
       }
       """;
-      final d4rt2 = D4rt(parseSourceCallback: parseSource);
+      final d4rt2 = D4rt();
       expect(
         () => d4rt2.execute(library: mainVarAUriString, sources: sources),
         throwsA(isA<RuntimeD4rtException>().having(
@@ -152,7 +151,7 @@ void main() {
         }
         """,
       };
-      final d4rt = D4rt(parseSourceCallback: parseSource);
+      final d4rt = D4rt();
       final result = d4rt.execute(
         library: "d4rt-mem:/main_chained_export_test.dart",
         sources: sources,
@@ -166,7 +165,7 @@ void main() {
         return c2();
       }
       """;
-      final d4rt2 = D4rt(parseSourceCallback: parseSource);
+      final d4rt2 = D4rt();
       expect(
         () => d4rt2.execute(library: mainC2UriString, sources: sources),
         throwsA(isA<RuntimeD4rtException>().having(
@@ -180,7 +179,7 @@ void main() {
         return c3();
       }
       """;
-      final d4rt3 = D4rt(parseSourceCallback: parseSource);
+      final d4rt3 = D4rt();
       expect(
         () => d4rt3.execute(library: mainC3UriString, sources: sources),
         throwsA(isA<RuntimeD4rtException>().having(
@@ -194,7 +193,7 @@ void main() {
         return d_only();
       }
       """;
-      final d4rt4 = D4rt(parseSourceCallback: parseSource);
+      final d4rt4 = D4rt();
       expect(
         () => d4rt4.execute(library: mainDOnlyUriString, sources: sources),
         throwsA(isA<RuntimeD4rtException>().having((e) => e.message, 'message',
@@ -217,7 +216,7 @@ void main() {
       """,
       };
 
-      final d4rt = D4rt(parseSourceCallback: parseSource);
+      final d4rt = D4rt();
       expect(
         () => d4rt.execute(
           library: "d4rt-mem:/main_local_export_conflict.dart",
@@ -248,7 +247,7 @@ void main() {
       }
       """,
       };
-      final d4rt = D4rt(parseSourceCallback: parseSource);
+      final d4rt = D4rt();
       expect(
         () => d4rt.execute(
           library: "d4rt-mem:/main_two_exports_conflict.dart",

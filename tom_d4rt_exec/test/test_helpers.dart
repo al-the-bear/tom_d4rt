@@ -1,7 +1,8 @@
 /// Shared test helpers for tom_d4rt_exec tests.
 ///
-/// Provides the [parseSource] callback that bridges the analyzer
-/// (via tom_d4rt_astgen) to the D4rt interpreter's [parseSourceCallback].
+/// Provides the [parseSource] callback for direct AST testing scenarios.
+/// Note: D4rt now handles parsing internally, so tests using D4rt() don't
+/// need this callback.
 import 'package:analyzer/dart/analysis/utilities.dart' as analyzer;
 import 'package:analyzer/error/error.dart' show ErrorSeverity;
 import 'package:tom_d4rt_astgen/tom_d4rt_astgen.dart';
@@ -9,7 +10,8 @@ import 'package:tom_d4rt_astgen/tom_d4rt_astgen.dart';
 /// Parse Dart source code into an [SCompilationUnit] using the analyzer
 /// and [AstConverter].
 ///
-/// This is the standard [parseSourceCallback] for D4rt in test environments.
+/// Useful for direct AST testing or when you need access to the parsed AST
+/// outside of D4rt.
 SCompilationUnit parseSource(String sourceCode, {String? path}) {
   final result = analyzer.parseString(
     content: sourceCode,

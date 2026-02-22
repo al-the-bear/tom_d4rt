@@ -30,7 +30,6 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
-import '../test_helpers.dart';
 import 'package:tom_d4rt_exec/tom_d4rt.dart';
 
 /// Path to the dart_overview example directory.
@@ -44,7 +43,7 @@ final _overviewDir = p.join(
 ///
 /// Throws on interpreter errors so tests can catch them.
 dynamic _execute(String source) {
-  final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
+  final d4rt = D4rt()..setDebug(false);
   return d4rt.execute(
     library: 'package:test/main.dart',
     sources: {'package:test/main.dart': source},
@@ -53,7 +52,7 @@ dynamic _execute(String source) {
 
 /// Execute an overview area script file and return the result.
 ScriptExecutionResult _executeArea(String area) {
-  final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
+  final d4rt = D4rt()..setDebug(false);
   d4rt.grant(FilesystemPermission.any);
   d4rt.grant(IsolatePermission.any);
   final runnerFile = p.join(_overviewDir, area, 'run_$area.dart');
