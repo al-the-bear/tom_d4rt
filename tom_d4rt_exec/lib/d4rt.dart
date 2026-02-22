@@ -25,28 +25,11 @@
 /// ```
 library;
 
+// Re-export all runtime components from tom_d4rt_ast
 export 'package:tom_d4rt_ast/ast.dart';
-export 'package:tom_d4rt_exec/src/bridge/bridged_types.dart';
-export 'package:tom_d4rt_exec/src/runtime_types.dart';
-export 'package:tom_d4rt_exec/src/callable.dart';
-export 'package:tom_d4rt_exec/src/declaration_visitor.dart';
-export 'package:tom_d4rt_exec/src/environment.dart';
-export 'package:tom_d4rt_exec/src/exceptions.dart';
-export 'package:tom_d4rt_exec/src/interpreter_visitor.dart';
-export 'package:tom_d4rt_exec/src/late_variable.dart';
-export 'package:tom_d4rt_exec/src/stdlib/stdlib.dart';
+export 'package:tom_d4rt_ast/runtime.dart' hide LoadedModule;
+
+// tom_d4rt_exec specific exports
 export 'src/d4rt_base.dart';
-export 'src/bridge/registration.dart' hide BridgedMethodCallable;
-export 'src/utils/extensions/map.dart';
-export 'src/utils/extensions/list.dart';
-export 'src/utils/extensions/visitor.dart';
-export 'src/utils/extensions/iterable.dart';
-export 'src/runtime_interfaces.dart';
-export 'package:tom_d4rt_exec/src/async_state.dart';
-export 'package:tom_d4rt_exec/src/utils/logger/logger.dart';
-export 'package:tom_d4rt_exec/src/security/permissions.dart';
-export 'package:tom_d4rt_exec/src/introspection.dart';
-export 'package:tom_d4rt_exec/src/generator/d4.dart';
-export 'package:tom_d4rt_exec/src/generator/d4rt_user_bridge_annotation.dart';
-export 'package:tom_d4rt_exec/src/bridge/library_mapping.dart';
-export 'package:tom_d4rt_exec/src/script_execution.dart';
+export 'src/module_loader.dart' show ModuleLoader, LoadedModule;
+export 'src/script_execution.dart';

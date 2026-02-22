@@ -1,13 +1,19 @@
-import 'package:tom_d4rt_exec/d4rt.dart';
-import 'package:tom_d4rt_exec/src/stdlib/convert.dart';
-import 'package:tom_d4rt_exec/src/stdlib/isolate.dart';
-import 'package:tom_d4rt_exec/src/stdlib/math.dart';
-import 'package:tom_d4rt_exec/src/stdlib/collection.dart';
-import 'package:tom_d4rt_exec/src/stdlib/typed_data.dart';
-import 'package:tom_d4rt_exec/src/stdlib/stdlib_io.dart'
-    if (dart.library.html) 'package:tom_d4rt_exec/src/stdlib/stdlib_web.dart';
+import 'package:tom_d4rt_ast/runtime.dart';
+import 'package:tom_d4rt_ast/src/runtime/module_context.dart' as context;
+import 'package:tom_d4rt_ast/src/runtime/stdlib/convert.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/isolate.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/math.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/collection.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/typed_data.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/stdlib_io.dart'
+    if (dart.library.html) 'package:tom_d4rt_ast/src/runtime/stdlib/stdlib_web.dart';
 
-// Represent an module of source code loaded and parsed.
+// Forward reference to D4rt - only used for permission checking
+// ignore: always_use_package_imports
+import 'd4rt_base.dart';
+
+// Represent a module of source code loaded and parsed.
+// This extends the basic LoadedModule with environment for internal caching.
 class LoadedModule {
   final Uri uri; // The canonical URI of the module
   final SCompilationUnit ast; // The AST of the module
@@ -16,17 +22,34 @@ class LoadedModule {
       exportedEnvironment; // The environment of the exported symbols
 
   LoadedModule(this.uri, this.ast, this.environment, this.exportedEnvironment);
+
+  /// Convert to the interface-compatible LoadedModule from tom_d4rt_ast
+  context.LoadedModule toContextLoadedModule() {
+    return context.LoadedModule(
+      ast: ast,
+      exportedEnvironment: exportedEnvironment,
+      uri: uri,
+    );
+  }
 }
 
-class ModuleLoader {
+class ModuleLoader implements context.ModuleContext {
+  @override
   final Environment globalEnvironment;
   final Map<String, String> sources;
   final Map<Uri, LoadedModule> _moduleCache = {};
   final List<Map<String, LibraryEnum>> bridgedEnumDefinitions;
   final List<Map<String, LibraryClass>> bridgedClases;
   final D4rt? d4rt; // Reference to D4rt instance for permission checking
-  Uri?
-      currentlibrary; // Keep for the initial relative URI resolution in _fetchModuleSource and for relative imports
+
+  /// The current library URI for relative import resolution.
+  Uri? _currentLibrary;
+
+  @override
+  Uri? get currentLibrary => _currentLibrary;
+
+  @override
+  set currentLibrary(Uri? uri) => _currentLibrary = uri;
 
   // Library-scoped globals (registered with library path) - added when import is processed
   // LibraryFunction wrapper includes sourceUri for deduplication across re-exports
@@ -86,6 +109,12 @@ class ModuleLoader {
         "[ModuleLoader] Initialized with ${sources.length} preloaded sources.");
   }
 
+  @override
+  bool checkPermission(dynamic operation) {
+    if (d4rt == null) return true; // Permissive when no D4rt instance
+    return d4rt!.checkPermission(operation);
+  }
+
   /// Checks if the given URI requires special permissions and verifies they are granted.
   void _checkModulePermissions(Uri uri) {
     if (d4rt == null) return; // No permission checking if no D4rt instance
@@ -109,22 +138,30 @@ class ModuleLoader {
     // Add more dangerous modules as needed
   }
 
-  LoadedModule loadModule(Uri uri,
+  @override
+  context.LoadedModule loadModule(Uri uri,
+      {Set<String>? showNames, Set<String>? hideNames}) {
+    return loadModuleInternal(uri, showNames: showNames, hideNames: hideNames)
+        .toContextLoadedModule();
+  }
+
+  /// Internal implementation that returns the full LoadedModule with environment.
+  LoadedModule loadModuleInternal(Uri uri,
       {Set<String>? showNames, Set<String>? hideNames}) {
     // Check permissions for dangerous modules
     _checkModulePermissions(uri);
 
     // Save the current source URI for resolving relative exports of this module
-    Uri? previouslibraryForRecursiveLoad = currentlibrary;
-    currentlibrary = uri;
+    Uri? previousLibraryForRecursiveLoad = currentLibrary;
+    currentLibrary = uri;
     Logger.debug(
-        "[ModuleLoader loadModule for $uri] Setting currentlibrary to: $uri (show: $showNames, hide: $hideNames)");
+        "[ModuleLoader loadModule for $uri] Setting currentLibrary to: $uri (show: $showNames, hide: $hideNames)");
 
     if (_moduleCache.containsKey(uri)) {
       Logger.debug(
           "[ModuleLoader loadModule for $uri] Module '${uri.toString()}' found in cache.");
       // Restore the source URI before returning for parent calls
-      currentlibrary = previouslibraryForRecursiveLoad;
+      currentLibrary = previousLibraryForRecursiveLoad;
       return _moduleCache[uri]!;
     }
     Logger.debug(
@@ -155,7 +192,7 @@ class ModuleLoader {
               importedUriString); // Resolve relative to the current module's URI
           Logger.debug(
               "[ModuleLoader loadModule for $uri]   Importing from ${uri.toString()}: URI '$importedUriString', resolved to '${resolvedImportUri.toString()}'");
-          LoadedModule importedModule = loadModule(
+          LoadedModule importedModule = loadModuleInternal(
               resolvedImportUri); // Recursive call - this will check permissions
 
           // Get the show/hide combinators and prefix
@@ -222,8 +259,8 @@ class ModuleLoader {
     InterpreterVisitor moduleInterpreter = InterpreterVisitor(
         globalEnvironment:
             moduleEnvironment, // Important: use the module's local environment as base
-        moduleLoader: this, // Pass the current loader
-        initiallibrary: uri // The URI of the module being interpreted
+        moduleContext: this, // Pass the current loader as ModuleContext
+        initialLibrary: uri // The URI of the module being interpreted
         );
 
     Logger.debug(
@@ -302,7 +339,7 @@ class ModuleLoader {
           Logger.debug(
               "[ModuleLoader loadModule for $uri]   Exporting from ${uri.toString()}: URI '$exportedUriString', resolved to '${resolvedExportUri.toString()}'");
           LoadedModule subModule =
-              loadModule(resolvedExportUri); // Recursive call
+              loadModuleInternal(resolvedExportUri); // Recursive call
 
           // Get the show/hide combinators
           Set<String>? showNames;
@@ -358,9 +395,9 @@ class ModuleLoader {
         "[ModuleLoader loadModule for $uri] Module '${uri.toString()}' chargé et mis en cache.");
 
     // Restore the source URI before returning
-    currentlibrary = previouslibraryForRecursiveLoad;
+    currentLibrary = previousLibraryForRecursiveLoad;
     Logger.debug(
-        "[ModuleLoader loadModule for $uri] Restored currentlibrary to: $currentlibrary");
+        "[ModuleLoader loadModule for $uri] Restored currentLibrary to: $currentLibrary");
     return loadedModule;
   }
 

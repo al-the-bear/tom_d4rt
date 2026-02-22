@@ -1,130 +1,5 @@
-import 'package:tom_d4rt_ast/ast.dart';
-import 'package:tom_d4rt_exec/src/bridge/bridged_enum.dart';
-import 'package:tom_d4rt_exec/src/utils/logger/logger.dart';
-import 'package:tom_d4rt_exec/src/bridge/bridged_types.dart';
-import 'package:tom_d4rt_exec/src/runtime_types.dart';
-import 'package:tom_d4rt_exec/src/environment.dart';
-import 'package:tom_d4rt_exec/src/interpreter_visitor.dart';
+import 'package:tom_d4rt_ast/runtime.dart';
 import 'package:tom_d4rt_exec/src/module_loader.dart';
-import 'package:tom_d4rt_exec/src/exceptions.dart';
-import 'package:tom_d4rt_exec/src/callable.dart';
-import 'package:tom_d4rt_exec/src/declaration_visitor.dart';
-import 'package:tom_d4rt_exec/src/stdlib/stdlib.dart';
-import 'package:tom_d4rt_exec/src/bridge/registration.dart';
-import 'package:tom_d4rt_exec/src/security/permissions.dart';
-import 'package:tom_d4rt_exec/src/introspection.dart';
-
-/// Wrapper class for library-scoped variables.
-/// Stores a variable name, its value, and optionally its canonical source URI
-/// for deduplication across re-exports.
-class LibraryVariable {
-  final String name;
-  final Object? value;
-
-  /// The canonical source URI where this variable is defined.
-  ///
-  /// Used for deduplication: when the same variable is exported through
-  /// multiple barrels (e.g., tom_core_kernel and tom_core_server both
-  /// re-export tom_basics), we need to recognize they're the same element.
-  /// Format: `package:pkg_name/path/to/source.dart`
-  final String? sourceUri;
-
-  const LibraryVariable(this.name, this.value, {this.sourceUri});
-}
-
-/// Wrapper class for library-scoped getters.
-/// Stores a getter name, its function, and optionally its canonical source URI
-/// for deduplication across re-exports.
-class LibraryGetter {
-  final String name;
-  final Object? Function() getter;
-
-  /// The canonical source URI where this getter is defined.
-  /// See [LibraryVariable.sourceUri] for details.
-  final String? sourceUri;
-
-  const LibraryGetter(this.name, this.getter, {this.sourceUri});
-}
-
-/// Wrapper class for library-scoped setters.
-/// Stores a setter name, its function, and optionally its canonical source URI
-/// for deduplication across re-exports.
-///
-/// Setters are paired with getters to enable full read-write access to
-/// top-level variables that use getter/setter pairs.
-class LibrarySetter {
-  final String name;
-  final void Function(Object? value) setter;
-
-  /// The canonical source URI where this setter is defined.
-  /// See [LibraryVariable.sourceUri] for details.
-  final String? sourceUri;
-
-  const LibrarySetter(this.name, this.setter, {this.sourceUri});
-}
-
-/// Wrapper class for library-scoped functions.
-/// Stores a native function with its canonical source URI for deduplication.
-class LibraryFunction {
-  final NativeFunction function;
-
-  /// The canonical source URI where this function is defined.
-  /// See [LibraryVariable.sourceUri] for details.
-  final String? sourceUri;
-
-  /// The full signature of the function as a display string.
-  final String? signature;
-
-  const LibraryFunction(this.function, {this.sourceUri, this.signature});
-
-  /// Convenience getter for the function name.
-  String get name => function.name;
-}
-
-/// Wrapper class for library-scoped bridged classes.
-/// Stores a bridged class with its canonical source URI for deduplication.
-class LibraryClass {
-  final BridgedClass bridgedClass;
-
-  /// The canonical source URI where this class is defined.
-  /// See [LibraryVariable.sourceUri] for details.
-  final String? sourceUri;
-
-  const LibraryClass(this.bridgedClass, {this.sourceUri});
-
-  /// Convenience getter for the class name.
-  String get name => bridgedClass.name;
-}
-
-/// Wrapper class for library-scoped bridged enums.
-/// Stores a bridged enum with its canonical source URI for deduplication.
-class LibraryEnum {
-  final BridgedEnumDefinition enumDefinition;
-
-  /// The canonical source URI where this enum is defined.
-  /// See [LibraryVariable.sourceUri] for details.
-  final String? sourceUri;
-
-  const LibraryEnum(this.enumDefinition, {this.sourceUri});
-
-  /// Convenience getter for the enum name.
-  String get name => enumDefinition.name;
-}
-
-/// Wrapper class for library-scoped bridged extensions.
-/// Stores a bridged extension definition with its canonical source URI.
-class LibraryExtension {
-  final BridgedExtensionDefinition extensionDefinition;
-
-  /// The canonical source URI where this extension is defined.
-  /// See [LibraryVariable.sourceUri] for details.
-  final String? sourceUri;
-
-  const LibraryExtension(this.extensionDefinition, {this.sourceUri});
-
-  /// Convenience getter for the extension name.
-  String? get name => extensionDefinition.name;
-}
 
 /// The main D4rt interpreter class.
 ///
@@ -360,7 +235,7 @@ class D4rt {
     );
     _visitor = InterpreterVisitor(
         globalEnvironment: moduleLoader.globalEnvironment,
-        moduleLoader: moduleLoader);
+        moduleContext: moduleLoader);
     Stdlib(moduleLoader.globalEnvironment).register();
     return moduleLoader;
   }
@@ -924,8 +799,8 @@ class D4rt {
 
     _visitor = InterpreterVisitor(
         globalEnvironment: executionEnvironment,
-        moduleLoader: _moduleLoader,
-        initiallibrary: library != null ? Uri.parse(library) : null);
+        moduleContext: _moduleLoader,
+        initialLibrary: library != null ? Uri.parse(library) : null);
     Object? functionResult;
     try {
       Logger.debug("[_executeInEnvironment] Starting Pass 2: Interpretation");
@@ -1123,8 +998,8 @@ class D4rt {
 
     _visitor = InterpreterVisitor(
         globalEnvironment: executionEnvironment,
-        moduleLoader: _moduleLoader,
-        initiallibrary: library != null ? Uri.parse(library) : null);
+        moduleContext: _moduleLoader,
+        initialLibrary: library != null ? Uri.parse(library) : null);
     Object? functionResult;
     try {
       Logger.debug(" [_executeClassic] Starting Pass 2: Interpretation");
@@ -1283,7 +1158,7 @@ class D4rt {
 
     // Pass 2: Process imports and interpret declarations (for variable values)
     _visitor = InterpreterVisitor(
-        globalEnvironment: executionEnvironment, moduleLoader: _moduleLoader);
+        globalEnvironment: executionEnvironment, moduleContext: _moduleLoader);
 
     for (final directive in compilationUnit.directives) {
       if (directive is SImportDirective) {

@@ -65,17 +65,13 @@ class AstgenTestSetup {
     final astConvertBinary = p.join(astgenRoot, 'bin', 'ast_convert');
     if (!File(astConvertBinary).existsSync()) {
       stderr.writeln('Compiling ast_convert binary...');
-      final compileAstConvert = await Process.run(
-        'dart',
-        [
-          'compile',
-          'exe',
-          p.join('bin', 'ast_convert.dart'),
-          '-o',
-          astConvertBinary,
-        ],
-        workingDirectory: astgenRoot,
-      );
+      final compileAstConvert = await Process.run('dart', [
+        'compile',
+        'exe',
+        p.join('bin', 'ast_convert.dart'),
+        '-o',
+        astConvertBinary,
+      ], workingDirectory: astgenRoot);
       if (compileAstConvert.exitCode != 0) {
         stderr.writeln('AST_CONVERT COMPILATION FAILED:');
         stderr.writeln(compileAstConvert.stdout);
@@ -114,19 +110,22 @@ class AstgenTestSetup {
 
     // Step 4: Inject parseSourceCallback into generated d4rtrun.b.dart
     // This callback shells out to ast_convert for source → AST JSON conversion
-    final runnerFile =
-        File(p.join(projectPath, 'bin', '${tester.runnerExecutable}.dart'));
+    final runnerFile = File(
+      p.join(projectPath, 'bin', '${tester.runnerExecutable}.dart'),
+    );
     if (runnerFile.existsSync()) {
       await _injectAstConvertCallback(runnerFile, astConvertBinary);
     }
 
     // Step 5: Compile the d4 binary
     final runnerPath = p.join('bin', '${tester.runnerExecutable}.dart');
-    final compileResult = await Process.run(
-      'dart',
-      ['compile', 'exe', runnerPath, '-o', binaryPath],
-      workingDirectory: projectPath,
-    );
+    final compileResult = await Process.run('dart', [
+      'compile',
+      'exe',
+      runnerPath,
+      '-o',
+      binaryPath,
+    ], workingDirectory: projectPath);
 
     if (compileResult.exitCode != 0) {
       stderr.writeln('D4 COMPILATION FAILED:');
@@ -215,7 +214,8 @@ import 'dart:convert';''';
     final escapedPath = astConvertBinaryPath.replaceAll(r'\', r'\\');
 
     // Append the parse source function at the end
-    content += '''
+    content +=
+        '''
 
 /// Path to the compiled ast_convert binary.
 /// Injected by AstgenTestSetup for tom_d4rt_astgen compatibility.
