@@ -82,23 +82,23 @@ class ImportResolution {
 
   /// Create an include resolution with source code.
   const ImportResolution.include(String source, {required String canonicalUri})
-      : this._(
-          action: ImportAction.include,
-          canonicalUri: canonicalUri,
-          value: source,
-        );
+    : this._(
+        action: ImportAction.include,
+        canonicalUri: canonicalUri,
+        value: source,
+      );
 
   /// Create a skip resolution.
   const ImportResolution.skip({required String canonicalUri})
-      : this._(action: ImportAction.skip, canonicalUri: canonicalUri);
+    : this._(action: ImportAction.skip, canonicalUri: canonicalUri);
 
   /// Create an error resolution.
   const ImportResolution.error(String message, {required String canonicalUri})
-      : this._(
-          action: ImportAction.error,
-          canonicalUri: canonicalUri,
-          value: message,
-        );
+    : this._(
+        action: ImportAction.error,
+        canonicalUri: canonicalUri,
+        value: message,
+      );
 }
 
 // =============================================================================
@@ -411,8 +411,9 @@ class AstBundler {
 
     if (uri.isScheme('package') && packageName != null) {
       // package:packageName/path → projectRoot/lib/path
-      final pathInPackage =
-          uri.pathSegments.skip(1).join(Platform.pathSeparator);
+      final pathInPackage = uri.pathSegments
+          .skip(1)
+          .join(Platform.pathSeparator);
       final root = fileSystemRoot ?? projectRoot;
       if (root != null) {
         filePath = p.join(root, 'lib', pathInPackage);
@@ -490,9 +491,7 @@ class AstBundler {
       final errors = parseResult.errors
           .map((e) => '  ${e.message} (offset ${e.offset})')
           .join('\n');
-      throw FormatException(
-        'Parse errors in ${path ?? "<source>"}:\n$errors',
-      );
+      throw FormatException('Parse errors in ${path ?? "<source>"}:\n$errors');
     }
 
     return _converter.convertCompilationUnit(parseResult.unit);

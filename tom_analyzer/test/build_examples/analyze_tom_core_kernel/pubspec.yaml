@@ -12,7 +12,7 @@ dependencies:
   tom_basics:
     path: ../../../../tom_basics
   tom_crypto:
-    path: ../../../../../tom_module_crypto/tom_crypto
+    path: ../../../../../tom_module_basics/tom_crypto
   tom_reflection:
     path: ../../../../../tom_module_reflection/tom_reflection
   tom_analyzer:
@@ -30,4 +30,4 @@ dependency_overrides:
   tom_reflection:
     path: ../../../../../tom_module_reflection/tom_reflection
   tom_crypto:
-    path: ../../../../../tom_module_crypto/tom_crypto
+    path: ../../../../../tom_module_basics/tom_crypto

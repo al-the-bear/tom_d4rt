@@ -12,4 +12,4 @@ dependency_overrides:
   tom_build_base:
     path: ../../tom_module_basics/tom_build_base
   tom_chattools:
-    path: ../../tom_module_communication/tom_chattools
+    path: ../../tom_module_basics/tom_chattools

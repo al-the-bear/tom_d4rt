@@ -18,7 +18,7 @@ void main(List<String> args) async {
     '$baseDir/core/tom_core_kernel/lib/tom_core_kernel.dart',
     '$baseDir/xternal/tom_module_reflection/tom_reflection/lib/tom_reflection.dart',
     '$baseDir/xternal/tom_module_basics/tom_basics/lib/tom_basics.dart',
-    '$baseDir/xternal/tom_module_crypto/tom_crypto/lib/tom_crypto.dart',
+    '$baseDir/xternal/tom_module_basics/tom_crypto/lib/tom_crypto.dart',
   ];
 
   if (!tabularMode) {
