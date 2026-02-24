@@ -136,6 +136,14 @@ class ImportResolution {
 /// // From a file
 /// final bundle = await bundler.createFromFile('bin/main.dart');
 /// ```
+
+/// Callback type for validating file system access during bundling.
+///
+/// Returns `true` if reading the file at [canonicalPath] is permitted.
+/// The path is always canonicalized (absolute, symlinks resolved) before
+/// being passed to this callback.
+typedef FileAccessValidator = bool Function(String canonicalPath);
+
 class AstBundler {
   /// Library URIs handled by native bridges at runtime (skipped during bundling).
   final Set<String> bridgedLibraries;
@@ -156,6 +164,17 @@ class AstBundler {
   /// Configuration for import resolution behavior.
   final AstBundlerConfig config;
 
+  /// Optional validator for file system access.
+  ///
+  /// When set, every file path resolved during bundling is passed through
+  /// this callback before being read. If the callback returns `false`,
+  /// the import is rejected with an error.
+  ///
+  /// When `null` (default), all file system access is unrestricted.
+  /// This is typically wired to the [FilesystemPermission] set on the
+  /// [D4rt] instance.
+  final FileAccessValidator? fileAccessValidator;
+
   /// The [AstConverter] used for parsing. Injected for testability.
   final AstConverter _converter;
 
@@ -166,6 +185,7 @@ class AstBundler {
   /// - [packageName] — the current package name (auto-detected from pubspec if null)
   /// - [projectRoot] — project root directory (auto-detected if null)
   /// - [config] — import resolution configuration
+  /// - [fileAccessValidator] — optional callback that gates file reads
   /// - [converter] — custom [AstConverter] (defaults to a new instance)
   AstBundler({
     this.bridgedLibraries = const {},
@@ -173,6 +193,7 @@ class AstBundler {
     this.packageName,
     this.projectRoot,
     this.config = const AstBundlerConfig(),
+    this.fileAccessValidator,
     AstConverter? converter,
   }) : _converter = converter ?? AstConverter();
 
@@ -412,10 +433,25 @@ class AstBundler {
       );
     }
 
-    final file = File(filePath);
+    // Canonicalize path for security checks — resolve '..' and '.' segments.
+    // File.absolute.path does NOT normalize '..'; Uri.normalizePath() does.
+    final absolutePath = File(filePath).absolute.path;
+    final canonicalPath = Uri.file(absolutePath).normalizePath().toFilePath();
+
+    // Check file access permission if a validator is configured
+    if (fileAccessValidator != null && !fileAccessValidator!(canonicalPath)) {
+      return ImportResolution.error(
+        'File access denied: $canonicalPath '
+        '(for import "$uriString"). '
+        'Grant a FilesystemPermission covering this path.',
+        canonicalUri: uriString,
+      );
+    }
+
+    final file = File(canonicalPath);
     if (!file.existsSync()) {
       return ImportResolution.error(
-        'Source file not found: $filePath (for import "$uriString").',
+        'Source file not found: $canonicalPath (for import "$uriString").',
         canonicalUri: uriString,
       );
     }

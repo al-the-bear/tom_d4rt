@@ -1005,4 +1005,182 @@ void main() {}
       expect(result, 77);
     });
   });
+
+  // =========================================================================
+  // Filesystem Permission Gating During Bundling
+  // =========================================================================
+  // When FilesystemPermissions are granted on a D4rt instance, the bundler
+  // should respect them and deny reads outside the allowed paths.
+  group('Filesystem permission gating during bundling', () {
+    late Directory tempDir;
+    late Directory allowedDir;
+    late Directory forbiddenDir;
+
+    setUp(() {
+      tempDir = Directory.systemTemp.createTempSync('d4rt_fsperm_');
+      allowedDir = Directory(p.join(tempDir.path, 'allowed'))..createSync();
+      forbiddenDir = Directory(p.join(tempDir.path, 'forbidden'))..createSync();
+
+      // Create files in both directories
+      File(p.join(allowedDir.path, 'main.dart')).writeAsStringSync('''
+import 'helper.dart';
+int main() => getValue();
+''');
+      File(p.join(allowedDir.path, 'helper.dart')).writeAsStringSync('''
+int getValue() => 42;
+''');
+      File(p.join(forbiddenDir.path, 'secret.dart')).writeAsStringSync('''
+String getSecret() => 'top-secret-data';
+''');
+    });
+
+    tearDown(() {
+      tempDir.deleteSync(recursive: true);
+    });
+
+    test('no permissions set → unrestricted (backward compat)', () async {
+      final d4rt = D4rt();
+      // No grant() calls — bundler should read freely
+      final bundle = await d4rt.createBundle(
+        p.join(allowedDir.path, 'main.dart'),
+        projectRoot: allowedDir.path,
+      );
+      expect(bundle.modules, hasLength(2));
+      final result = d4rt.executeBundle(bundle);
+      expect(result, 42);
+    });
+
+    test('FilesystemPermission.any → unrestricted', () async {
+      final d4rt = D4rt();
+      d4rt.grant(FilesystemPermission.any);
+
+      final bundle = await d4rt.createBundle(
+        p.join(allowedDir.path, 'main.dart'),
+        projectRoot: allowedDir.path,
+      );
+      expect(bundle.modules, hasLength(2));
+      final result = d4rt.executeBundle(bundle);
+      expect(result, 42);
+    });
+
+    test('FilesystemPermission.read → unrestricted reads', () async {
+      final d4rt = D4rt();
+      d4rt.grant(FilesystemPermission.read);
+
+      final bundle = await d4rt.createBundle(
+        p.join(allowedDir.path, 'main.dart'),
+        projectRoot: allowedDir.path,
+      );
+      expect(bundle.modules, hasLength(2));
+    });
+
+    test('readPath scoped to allowed dir → allows reads inside', () async {
+      final d4rt = D4rt();
+      d4rt.grant(FilesystemPermission.readPath(allowedDir.path));
+
+      final bundle = await d4rt.createBundle(
+        p.join(allowedDir.path, 'main.dart'),
+        projectRoot: allowedDir.path,
+      );
+      expect(bundle.modules, hasLength(2));
+      final result = d4rt.executeBundle(bundle);
+      expect(result, 42);
+    });
+
+    test('readPath scoped → denies import escaping to forbidden dir', () async {
+      // main.dart imports ../forbidden/secret.dart — path traversal
+      File(p.join(allowedDir.path, 'main.dart')).writeAsStringSync('''
+import '../forbidden/secret.dart';
+String main() => getSecret();
+''');
+
+      final d4rt = D4rt();
+      d4rt.grant(FilesystemPermission.readPath(allowedDir.path));
+
+      expect(
+        () => d4rt.createBundle(
+          p.join(allowedDir.path, 'main.dart'),
+          projectRoot: allowedDir.path,
+        ),
+        throwsA(isA<StateError>()),
+      );
+    });
+
+    test('absolute import to outside path is denied', () async {
+      final secretPath = p.join(forbiddenDir.path, 'secret.dart');
+      File(p.join(allowedDir.path, 'main.dart')).writeAsStringSync('''
+import '$secretPath';
+String main() => getSecret();
+''');
+
+      final d4rt = D4rt();
+      d4rt.grant(FilesystemPermission.readPath(allowedDir.path));
+
+      expect(
+        () => d4rt.createBundle(
+          p.join(allowedDir.path, 'main.dart'),
+          projectRoot: allowedDir.path,
+        ),
+        throwsA(isA<StateError>()),
+      );
+    });
+
+    test('multiple readPath grants are OR-combined', () async {
+      // Grant two separate directories
+      final d4rt = D4rt();
+      d4rt.grant(FilesystemPermission.readPath(allowedDir.path));
+      d4rt.grant(FilesystemPermission.readPath(forbiddenDir.path));
+
+      // Now importing from the "forbidden" dir should also work
+      final secretPath = p.join(forbiddenDir.path, 'secret.dart');
+      File(p.join(allowedDir.path, 'main.dart')).writeAsStringSync('''
+import '$secretPath';
+String main() => getSecret();
+''');
+
+      final bundle = await d4rt.createBundle(
+        p.join(allowedDir.path, 'main.dart'),
+        projectRoot: allowedDir.path,
+      );
+      expect(bundle.modules.length, greaterThanOrEqualTo(2));
+    });
+
+    test('createBundleFromSource with explicit sources bypasses file check',
+        () async {
+      // Explicit sources are not on disk, so the file access validator
+      // should not block them
+      final d4rt = D4rt();
+      d4rt.grant(FilesystemPermission.readPath('/nonexistent'));
+
+      final bundle = await d4rt.createBundleFromSource(
+        '''
+import 'package:util/helper.dart';
+int main() => add(1, 2);
+''',
+        explicitSources: {
+          'package:util/helper.dart': 'int add(int a, int b) => a + b;',
+        },
+      );
+      expect(bundle.modules, hasLength(2));
+    });
+
+    test('write-only permission does not allow bundler reads', () async {
+      final d4rt = D4rt();
+      d4rt.grant(FilesystemPermission.write);
+
+      // Write permission, not read — bundler needs read
+      File(p.join(allowedDir.path, 'main.dart')).writeAsStringSync('''
+import 'helper.dart';
+int main() => getValue();
+''');
+
+      expect(
+        () => d4rt.createBundle(
+          p.join(allowedDir.path, 'main.dart'),
+          projectRoot: allowedDir.path,
+        ),
+        throwsA(isA<StateError>()),
+      );
+    });
+  });
 }

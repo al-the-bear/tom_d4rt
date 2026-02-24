@@ -31,7 +31,7 @@ export 'package:tom_d4rt_ast/runtime.dart' hide LoadedModule;
 
 // Re-export bundler from tom_d4rt_astgen for bundle creation
 export 'package:tom_d4rt_astgen/src/bundler/ast_bundler.dart'
-    show AstBundler, AstBundlerConfig;
+    show AstBundler, AstBundlerConfig, FileAccessValidator;
 
 // tom_d4rt_exec specific exports
 export 'src/d4rt_base.dart';

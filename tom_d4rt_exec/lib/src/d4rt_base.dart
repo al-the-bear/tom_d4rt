@@ -1008,6 +1008,7 @@ class D4rt {
       bridgedLibraries: _bridgedLibraryUris,
       explicitSources: explicitSources ?? const {},
       config: bundlerConfig ?? const AstBundlerConfig(),
+      fileAccessValidator: _buildFileAccessValidator(),
     );
     return bundler.createFromSource(source, sourcePath: sourcePath);
   }
@@ -1048,8 +1049,43 @@ class D4rt {
       packageName: packageName,
       projectRoot: projectRoot,
       config: bundlerConfig ?? const AstBundlerConfig(),
+      fileAccessValidator: _buildFileAccessValidator(),
     );
     return bundler.createFromFile(entryPointPath);
+  }
+
+  /// Builds a [FileAccessValidator] from the granted [FilesystemPermission]s.
+  ///
+  /// Returns `null` (unrestricted) if no [FilesystemPermission]s have been
+  /// granted at all — this preserves backward compatibility: when no
+  /// permissions are configured, the bundler can read any file.
+  ///
+  /// When at least one [FilesystemPermission] is granted:
+  /// - [FilesystemPermission.read] or [FilesystemPermission.any] → allows all
+  /// - [FilesystemPermission.readPath(path)] → allows only under that path
+  /// - Multiple path-scoped permissions are OR-combined
+  FileAccessValidator? _buildFileAccessValidator() {
+    final fsPermissions = _grantedPermissions
+        .whereType<FilesystemPermission>()
+        .toList(growable: false);
+
+    // No filesystem permissions configured at all → unrestricted (backward compat)
+    if (fsPermissions.isEmpty) return null;
+
+    // Build the validator: at least one permission must approve the read
+    return (String canonicalPath) {
+      final operation = <String, dynamic>{
+        'type': 'filesystem',
+        'path': canonicalPath,
+        'read': true,
+        'write': false,
+        'execute': false,
+      };
+      for (final permission in fsPermissions) {
+        if (permission.allows(operation)) return true;
+      }
+      return false;
+    };
   }
 
   /// Executes a pre-made [AstBundle] using [D4rtRunner].
