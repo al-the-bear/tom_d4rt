@@ -13,7 +13,6 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/tom_d4rt_exec.dart';
-import 'package:tom_dcli_exec/src/parse_source.dart';
 import 'package:tom_dcli_exec/dartscript.b.dart';
 import 'package:tom_dcli_exec/tom_d4rt_cli_api.dart';
 
@@ -62,7 +61,7 @@ class TestCliController {
 
   Future<void> setUp({bool registerDcliBridges = true}) async {
     tempDir = Directory.systemTemp.createTempSync('cli_comprehensive_test_');
-    d4rt = D4rt(parseSourceCallback: parseSource);
+    d4rt = D4rt();
     d4rt.grant(FilesystemPermission.any);
     d4rt.grant(NetworkPermission.any);
     d4rt.grant(ProcessRunPermission.any);
@@ -77,11 +76,7 @@ class TestCliController {
       initialDirectory: tempDir.path,
     );
 
-    controller = D4rtCliController(
-      d4rt: d4rt,
-      state: state,
-      toolName: 'Test',
-    );
+    controller = D4rtCliController(d4rt: d4rt, state: state, toolName: 'Test');
   }
 
   Future<void> tearDown() async {
@@ -261,7 +256,9 @@ void main() {
         // sessions() looks in dataDirectory/sessions
         final sessionsDir = Directory('${ctx.tempDir.path}/sessions');
         sessionsDir.createSync();
-        File('${sessionsDir.path}/test.session.txt').writeAsStringSync('content');
+        File(
+          '${sessionsDir.path}/test.session.txt',
+        ).writeAsStringSync('content');
         final sessions = ctx.controller.sessions();
         expect(sessions, contains('test'));
       });
@@ -309,7 +306,10 @@ void main() {
 
       test('invokeDefine expands template', () {
         ctx.controller.define('echo', 'print("\$\$")');
-        final expanded = ctx.controller.invokeDefine('echo', ['hello', 'world']);
+        final expanded = ctx.controller.invokeDefine('echo', [
+          'hello',
+          'world',
+        ]);
         expect(expanded, 'print("hello world")');
       });
 
@@ -488,7 +488,10 @@ void main() {
 
       test('starting mode when already in mode throws', () {
         ctx.controller.startScript();
-        expect(() => ctx.controller.startDefine(), throwsA(isA<InvalidMultilineModeException>()));
+        expect(
+          () => ctx.controller.startDefine(),
+          throwsA(isA<InvalidMultilineModeException>()),
+        );
       });
     });
 
@@ -498,22 +501,30 @@ void main() {
 
     group('code execution', () {
       test('execute runs fresh program', () async {
-        final result = await ctx.controller.execute('void main() { print(42); }');
+        final result = await ctx.controller.execute(
+          'void main() { print(42); }',
+        );
         expect(result.success, true);
         expect(result.error, isNull);
       });
 
       test('execute with error returns failure', () async {
-        final result = await ctx.controller.execute('void main() { undefinedVar; }');
+        final result = await ctx.controller.execute(
+          'void main() { undefinedVar; }',
+        );
         expect(result.success, false);
         expect(result.error, isNotNull);
       });
 
       test('executeContinued shares environment', () async {
         // First execute establishes environment with a top-level variable
-        await ctx.controller.execute('var counter = 0; void main() { counter = 1; }');
+        await ctx.controller.execute(
+          'var counter = 0; void main() { counter = 1; }',
+        );
         // continuedExecute adds more top-level code
-        final result = await ctx.controller.executeContinued('var doubled = counter * 2; void main() {}');
+        final result = await ctx.controller.executeContinued(
+          'var doubled = counter * 2; void main() {}',
+        );
         expect(result.success, true);
       });
 
@@ -599,7 +610,9 @@ void main() {
         // loadSession looks for file in sessions subdirectory
         final sessionsDir = Directory('${ctx.tempDir.path}/sessions');
         sessionsDir.createSync();
-        File('${sessionsDir.path}/test.session.txt').writeAsStringSync('session content');
+        File(
+          '${sessionsDir.path}/test.session.txt',
+        ).writeAsStringSync('session content');
         final content = ctx.controller.loadSession('test');
         expect(content, 'session content');
       });
@@ -749,10 +762,11 @@ void main() {
 
       test('processPrompts continues on error when requested', () async {
         await ctx.controller.execute('void main() {}');
-        final results = await ctx.controller.processPrompts(
-          ['1 + 1', 'invalidSyntax(', '3 + 3'],
-          continueOnError: true,
-        );
+        final results = await ctx.controller.processPrompts([
+          '1 + 1',
+          'invalidSyntax(',
+          '3 + 3',
+        ], continueOnError: true);
         expect(results.length, 3);
         expect(results[0], 2);
         expect(results[2], 6);
@@ -804,7 +818,9 @@ void main() {
       });
 
       test('registered-variables command', () async {
-        final result = await ctx.controller.processPrompt('registered-variables');
+        final result = await ctx.controller.processPrompt(
+          'registered-variables',
+        );
         expect(result, isA<List<VariableInfo>>());
       });
 

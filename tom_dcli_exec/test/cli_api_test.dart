@@ -6,7 +6,6 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/tom_d4rt_exec.dart';
-import 'package:tom_dcli_exec/src/parse_source.dart';
 import 'package:tom_dcli_exec/tom_d4rt_cli_api.dart';
 
 void main() {
@@ -135,12 +134,14 @@ void main() {
     test('push and pop contexts', () {
       final stack = ContextStack('/root');
 
-      stack.push(ExecutionContext(
-        workingDirectory: '/nested',
-        sourceFile: 'test.d4rt',
-        recordToSession: false,
-        silent: true,
-      ));
+      stack.push(
+        ExecutionContext(
+          workingDirectory: '/nested',
+          sourceFile: 'test.d4rt',
+          recordToSession: false,
+          silent: true,
+        ),
+      );
 
       expect(stack.cwd, '/nested');
       expect(stack.silent, true);
@@ -165,7 +166,7 @@ void main() {
 
     setUp(() {
       tempDir = Directory.systemTemp.createTempSync('cli_controller_test_');
-      d4rt = D4rt(parseSourceCallback: parseSource);
+      d4rt = D4rt();
       d4rt.grant(FilesystemPermission.any);
 
       state = CliState(

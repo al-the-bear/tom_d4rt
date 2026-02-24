@@ -29,6 +29,10 @@ graph TB
         APP[User Code]
     end
     
+    subgraph "Flutter Application"
+        FAPP[Flutter App<br/>No analyzer available]
+    end
+    
     subgraph "tom_d4rt_exec"
         D4RT[D4rt Class<br/>Backward-compatible API]
         COORD[Coordinator]
@@ -54,6 +58,8 @@ graph TB
     end
     
     APP --> D4RT
+    FAPP --> RUNNER
+    FAPP --> BUNDLE
     D4RT --> COORD
     COORD --> BUND
     COORD --> RUNNER
@@ -72,6 +78,7 @@ graph TB
     style D4RT fill:#9cf,stroke:#333
     style RUNNER fill:#9f9,stroke:#333
     style BUNDLE fill:#ff9,stroke:#333
+    style FAPP fill:#c9f,stroke:#333
 ```
 
 ## Data Flow

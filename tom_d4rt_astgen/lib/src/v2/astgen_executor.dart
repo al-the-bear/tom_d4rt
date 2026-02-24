@@ -11,7 +11,7 @@ import 'package:glob/glob.dart';
 import 'package:glob/list_local_fs.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_build_base/tom_build_base.dart'
-    show TomBuildConfig, hasTomBuildConfig, ProjectDiscovery;
+    show TomBuildConfig, hasTomBuildConfig, findWorkspaceRoot;
 import 'package:tom_build_base/tom_build_base_v2.dart';
 import 'package:yaml/yaml.dart';
 
@@ -34,8 +34,7 @@ class AstgenExecutor extends CommandExecutor {
 
     // Handle --list mode
     if (args.listOnly) {
-      final workspaceRoot =
-          ProjectDiscovery.findWorkspaceRoot(context.executionRoot);
+      final workspaceRoot = findWorkspaceRoot(context.executionRoot);
       final relativePath = p.relative(context.path, from: workspaceRoot);
       print('  $relativePath');
 
@@ -46,8 +45,7 @@ class AstgenExecutor extends CommandExecutor {
     }
 
     // Show project being processed
-    final displayPath =
-        p.relative(context.path, from: context.executionRoot);
+    final displayPath = p.relative(context.path, from: context.executionRoot);
     print('  $displayPath');
 
     if (args.verbose) {
@@ -149,16 +147,20 @@ Future<bool> _processProject(
         if (conversionConfig.includeImports) {
           print('  Import depth: ${conversionConfig.importDepth}');
           print(
-              '  Include relative imports: ${conversionConfig.includeRelativeImports}');
+            '  Include relative imports: ${conversionConfig.includeRelativeImports}',
+          );
         }
       }
 
       // Resolve output directory
-      final resolvedOutput =
-          _resolveOutputPath(conversionConfig.output, verbose);
+      final resolvedOutput = _resolveOutputPath(
+        conversionConfig.output,
+        verbose,
+      );
       if (resolvedOutput == null) {
         print(
-            'Error: Failed to resolve output path: ${conversionConfig.output}');
+          'Error: Failed to resolve output path: ${conversionConfig.output}',
+        );
         errorCount++;
         continue;
       }
@@ -173,7 +175,8 @@ Future<bool> _processProject(
 
       if (files.isEmpty) {
         print(
-            'Warning: No files matched pattern: ${conversionConfig.entrypoints}');
+          'Warning: No files matched pattern: ${conversionConfig.entrypoints}',
+        );
         continue;
       }
 
@@ -190,18 +193,11 @@ Future<bool> _processProject(
         );
 
         if (verbose || dryRun) {
-          print(
-              '  ${dryRun ? '[DRY RUN] ' : ''}$relativePath -> $outputPath');
+          print('  ${dryRun ? '[DRY RUN] ' : ''}$relativePath -> $outputPath');
         }
 
         if (!dryRun) {
-          _convertFile(
-            file,
-            outputPath,
-            converter,
-            conversionConfig,
-            verbose,
-          );
+          _convertFile(file, outputPath, converter, conversionConfig, verbose);
           successCount++;
         }
       }
@@ -209,8 +205,7 @@ Future<bool> _processProject(
 
     // Summary for this project
     if (verbose) {
-      print(
-          '\n${dryRun ? 'Would convert' : 'Converted'} $totalFiles file(s)');
+      print('\n${dryRun ? 'Would convert' : 'Converted'} $totalFiles file(s)');
       if (!dryRun) {
         print('  Success: $successCount');
         if (errorCount > 0) {
@@ -273,10 +268,8 @@ List<_ConversionConfig>? _loadConfig(String configPath, bool verbose) {
       }
 
       // Parse options with defaults
-      final preserveStructure =
-          config['preserve_structure'] as bool? ?? false;
-      final includeSourcemap =
-          config['include_sourcemap'] as bool? ?? false;
+      final preserveStructure = config['preserve_structure'] as bool? ?? false;
+      final includeSourcemap = config['include_sourcemap'] as bool? ?? false;
       final includeImports = config['include_imports'] as bool? ?? false;
       final importDepth = config['import_depth'] as int? ?? 1;
       final includeRelativeImports =
@@ -292,22 +285,25 @@ List<_ConversionConfig>? _loadConfig(String configPath, bool verbose) {
         return null;
       }
 
-      configs.add(_ConversionConfig(
-        entrypoints: entrypoints,
-        exclude: exclude,
-        output: output,
-        root: root,
-        preserveStructure: preserveStructure,
-        includeSourcemap: includeSourcemap,
-        includeImports: includeImports,
-        importDepth: importDepth,
-        includeRelativeImports: includeRelativeImports,
-      ));
+      configs.add(
+        _ConversionConfig(
+          entrypoints: entrypoints,
+          exclude: exclude,
+          output: output,
+          root: root,
+          preserveStructure: preserveStructure,
+          includeSourcemap: includeSourcemap,
+          includeImports: includeImports,
+          importDepth: importDepth,
+          includeRelativeImports: includeRelativeImports,
+        ),
+      );
     }
 
     if (verbose) {
       print(
-          'Loaded ${configs.length} conversion configuration(s) from $configPath');
+        'Loaded ${configs.length} conversion configuration(s) from $configPath',
+      );
     }
 
     return configs;
@@ -318,7 +314,11 @@ List<_ConversionConfig>? _loadConfig(String configPath, bool verbose) {
 }
 
 List<String> _findFiles(
-    String pattern, List<String> excludePatterns, String root, bool verbose) {
+  String pattern,
+  List<String> excludePatterns,
+  String root,
+  bool verbose,
+) {
   final glob = Glob(pattern);
   final excludeGlobs = excludePatterns.map((p) => Glob(p)).toList();
   final files = <String>[];
@@ -396,10 +396,7 @@ String? _findProjectInWorkspace(String projectName, bool verbose) {
   final parent = currentDir.parent;
 
   // Search in parent and sibling directories
-  final searchDirs = [
-    parent,
-    ...parent.listSync().whereType<Directory>(),
-  ];
+  final searchDirs = [parent, ...parent.listSync().whereType<Directory>()];
 
   for (final dir in searchDirs) {
     // Check if this directory contains a project with the name
@@ -434,8 +431,7 @@ String? _findProjectInWorkspace(String projectName, bool verbose) {
 
             if (name == projectName) {
               if (verbose) {
-                print(
-                    '  Found project "$projectName" at: ${projectDir.path}');
+                print('  Found project "$projectName" at: ${projectDir.path}');
               }
               return projectDir.path;
             }
@@ -449,7 +445,11 @@ String? _findProjectInWorkspace(String projectName, bool verbose) {
 }
 
 String _getOutputPath(
-    String inputFile, String root, String outputDir, bool preserveStructure) {
+  String inputFile,
+  String root,
+  String outputDir,
+  bool preserveStructure,
+) {
   // Get basename and replace extension
   final basename = p.basenameWithoutExtension(inputFile);
   final outputFilename = '$basename.ast.yaml';
@@ -479,10 +479,7 @@ void _convertFile(
 ) {
   // Read and parse the Dart file
   final content = File(inputPath).readAsStringSync();
-  final parseResult = parseString(
-    content: content,
-    path: inputPath,
-  );
+  final parseResult = parseString(content: content, path: inputPath);
 
   // Check for parse errors - always fail on errors
   if (parseResult.errors.isNotEmpty) {
@@ -671,7 +668,5 @@ void _printYamlNode(dynamic node, {int indent = 0}) {
 
 /// Create executor map for the astgen tool.
 Map<String, CommandExecutor> createAstgenExecutors() {
-  return {
-    'default': AstgenExecutor(),
-  };
+  return {'default': AstgenExecutor()};
 }

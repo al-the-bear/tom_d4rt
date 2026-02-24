@@ -15,7 +15,6 @@ import 'package:console_markdown/console_markdown.dart';
 
 import '../api/cli_test_utils.dart';
 import '../bot_mode/bot_mode.dart';
-import '../parse_source.dart';
 import 'cli_integration.dart';
 import 'help_text.dart';
 import 'persistent_history.dart';
@@ -460,7 +459,7 @@ abstract class D4rtReplBase {
     }
 
     // Create D4rt interpreter with all permissions
-    final d4rt = D4rt(parseSourceCallback: parseSource);
+    final d4rt = D4rt();
 
     d4rt.grant(FilesystemPermission.any);
     d4rt.grant(NetworkPermission.any);
@@ -1506,7 +1505,7 @@ $source
           case MultilineMode.executeNew:
             // Create a fresh D4rt instance for isolated execution
             // This ensures the main REPL's environment (bridges, etc.) is preserved
-            final freshD4rt = D4rt(parseSourceCallback: parseSource);
+            final freshD4rt = D4rt();
             freshD4rt.grant(FilesystemPermission.any);
             freshD4rt.grant(NetworkPermission.any);
             freshD4rt.grant(ProcessRunPermission.any);
@@ -2486,7 +2485,7 @@ Object? __repl_expr__() {
   }) async {
     try {
       // Create a fresh D4rt instance for isolated execution
-      final freshD4rt = D4rt(parseSourceCallback: parseSource);
+      final freshD4rt = D4rt();
       freshD4rt.grant(FilesystemPermission.any);
       freshD4rt.grant(NetworkPermission.any);
       freshD4rt.grant(ProcessRunPermission.any);

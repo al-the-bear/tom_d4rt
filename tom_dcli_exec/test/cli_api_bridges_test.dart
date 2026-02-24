@@ -13,7 +13,6 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/tom_d4rt_exec.dart';
-import 'package:tom_dcli_exec/src/parse_source.dart';
 import 'package:tom_dcli_exec/dartscript.b.dart';
 import 'package:tom_dcli_exec/tom_d4rt_cli_api.dart';
 
@@ -50,7 +49,7 @@ class BridgeTestContext {
 
   Future<void> setUp() async {
     tempDir = Directory.systemTemp.createTempSync('cli_bridges_test_');
-    d4rt = D4rt(parseSourceCallback: parseSource);
+    d4rt = D4rt();
     d4rt.grant(FilesystemPermission.any);
     d4rt.grant(NetworkPermission.any);
     d4rt.grant(ProcessRunPermission.any);
@@ -61,11 +60,7 @@ class BridgeTestContext {
       initialDirectory: tempDir.path,
     );
 
-    controller = D4rtCliController(
-      d4rt: d4rt,
-      state: state,
-      toolName: 'Test',
-    );
+    controller = D4rtCliController(d4rt: d4rt, state: state, toolName: 'Test');
   }
 
   Future<void> tearDown() async {
@@ -77,13 +72,16 @@ class BridgeTestContext {
   /// Execute code with dcli import and capture output.
   Future<ExecuteResult> exec(String code) async {
     output.clear();
-    return withCapture(output, () => controller.execute('''
+    return withCapture(
+      output,
+      () => controller.execute('''
 import 'package:dcli_core/dcli_core.dart';
 import 'package:dcli/dcli.dart';
 import 'package:tom_dcli_exec/tom_d4rt_cli_api.dart';
 
 $code
-'''));
+'''),
+    );
   }
 
   /// Execute and verify success.
@@ -256,7 +254,9 @@ void main() {
 
     test('isLink() returns true for symbolic links', () async {
       ctx.createFile('link_target.txt', 'content');
-      Link('${ctx.tempDir.path}/link.txt').createSync('${ctx.tempDir.path}/link_target.txt');
+      Link(
+        '${ctx.tempDir.path}/link.txt',
+      ).createSync('${ctx.tempDir.path}/link_target.txt');
       final out = await ctx.runAndCapture('''
 void main() {
   print(isLink('${ctx.tempDir.path}/link.txt'));
@@ -302,7 +302,11 @@ void main() {
 }
 ''');
       final newModified = file.lastModifiedSync();
-      expect(newModified.isAfter(originalModified) || newModified == originalModified, true);
+      expect(
+        newModified.isAfter(originalModified) ||
+            newModified == originalModified,
+        true,
+      );
     });
 
     test('delete() removes file', () async {
@@ -648,11 +652,11 @@ void main() {
       File('${sourceDir.path}/file2.txt').writeAsStringSync('content2');
       ctx.createDir('source_tree/subdir');
       File('${sourceDir.path}/subdir/nested.txt').writeAsStringSync('nested');
-      
+
       // copyTree requires destination to exist
       final destPath = '${ctx.tempDir.path}/dest_tree';
       Directory(destPath).createSync();
-      
+
       await ctx.run('''
 void main() {
   copyTree('${sourceDir.path}', '$destPath');
@@ -667,11 +671,11 @@ void main() {
     test('copyTree() preserves file contents', () async {
       final sourceDir = ctx.createDir('copy_content');
       File('${sourceDir.path}/data.txt').writeAsStringSync('important data');
-      
+
       // copyTree requires destination to exist
       final destPath = '${ctx.tempDir.path}/copy_dest';
       Directory(destPath).createSync();
-      
+
       await ctx.run('''
 void main() {
   copyTree('${sourceDir.path}', '$destPath');
@@ -725,7 +729,7 @@ void main() {
       ctx.createFile('find_a.txt', 'a');
       ctx.createFile('find_b.txt', 'b');
       ctx.createFile('other.dat', 'c');
-      
+
       final out = await ctx.runAndCapture('''
 void main() {
   var result = find('*.txt', workingDirectory: '${ctx.tempDir.path}');
@@ -739,7 +743,7 @@ void main() {
       ctx.createDir('findtest/subdir');
       ctx.createFile('findtest/root.txt', 'root');
       ctx.createFile('findtest/subdir/nested.txt', 'nested');
-      
+
       final out = await ctx.runAndCapture('''
 void main() {
   var result = find('*.txt', workingDirectory: '${ctx.tempDir.path}/findtest', recursive: true);
@@ -753,7 +757,7 @@ void main() {
       ctx.createDir('findflat/subdir');
       ctx.createFile('findflat/root.txt', 'root');
       ctx.createFile('findflat/subdir/nested.txt', 'nested');
-      
+
       final out = await ctx.runAndCapture('''
 void main() {
   var result = find('*.txt', workingDirectory: '${ctx.tempDir.path}/findflat', recursive: false);
@@ -766,7 +770,7 @@ void main() {
     test('find() returns FindProgress object for type filtering', () async {
       ctx.createDir('findtype');
       ctx.createFile('findtype/file.txt', 'content');
-      
+
       final out = await ctx.runAndCapture('''
 void main() {
   var result = find('*.txt', workingDirectory: '${ctx.tempDir.path}/findtype');
@@ -779,7 +783,7 @@ void main() {
     test('find() supports caseSensitive parameter', () async {
       ctx.createDir('findcase');
       ctx.createFile('findcase/file.TXT', 'content');
-      
+
       final out = await ctx.runAndCapture('''
 void main() {
   var result = find('*.txt', workingDirectory: '${ctx.tempDir.path}/findcase', caseSensitive: false);
@@ -835,7 +839,7 @@ void main() {
       final targetPath = '${ctx.tempDir.path}/resolve_target.txt';
       final linkPath = '${ctx.tempDir.path}/resolve_link.txt';
       Link(linkPath).createSync(targetPath);
-      
+
       final out = await ctx.runAndCapture('''
 void main() {
   print(resolveSymLink('$linkPath'));
@@ -850,7 +854,7 @@ void main() {
       final targetPath = '${ctx.tempDir.path}/del_target.txt';
       final linkPath = '${ctx.tempDir.path}/del_link.txt';
       Link(linkPath).createSync(targetPath);
-      
+
       await ctx.run('''
 void main() {
   deleteSymlink('$linkPath');
@@ -1297,7 +1301,7 @@ version: 1.0.0
 environment:
   sdk: ^3.0.0
 ''');
-      
+
       final out = await ctx.runAndCapture('''
 void main() {
   var project = DartProject.fromPath('${projectDir.path}');
@@ -1315,7 +1319,7 @@ version: 1.0.0
 environment:
   sdk: ^3.0.0
 ''');
-      
+
       final out = await ctx.runAndCapture('''
 void main() {
   var project = DartProject.fromPath('${projectDir.path}');
@@ -1348,7 +1352,7 @@ void main() {
   print('Hello');
 }
 ''');
-      
+
       final out = await ctx.runAndCapture('''
 void main() {
   var script = DartScript.fromFile('${scriptFile.path}');
@@ -1360,7 +1364,7 @@ void main() {
 
     test('DartScript.fromFile().pathToScript returns path', () async {
       final scriptFile = ctx.createFile('path_script.dart', 'void main() {}');
-      
+
       final out = await ctx.runAndCapture('''
 void main() {
   var script = DartScript.fromFile('${scriptFile.path}');
@@ -1462,33 +1466,39 @@ void main() {
       expect(out.trim(), 'true');
     });
 
-    test('NamedLock.withLock() executes callback (deprecated in dcli 8.4.2, throws UnsupportedError)', () async {
-      // withLock is deprecated in dcli 8.4.2 — throws UnsupportedError('Use withLockAsync')
-      expect(
-        () => ctx.runAndCapture('''
+    test(
+      'NamedLock.withLock() executes callback (deprecated in dcli 8.4.2, throws UnsupportedError)',
+      () async {
+        // withLock is deprecated in dcli 8.4.2 — throws UnsupportedError('Use withLockAsync')
+        expect(
+          () => ctx.runAndCapture('''
 void main() async {
   var lock = NamedLock(name: 'test_lock_callback');
   var result = await lock.withLock(() => 'completed');
   print(result);
 }
 '''),
-        throwsA(isA<Exception>()),
-      );
-    });
+          throwsA(isA<Exception>()),
+        );
+      },
+    );
 
-    test('NamedLock.withLock() with timeout (deprecated in dcli 8.4.2, throws UnsupportedError)', () async {
-      // withLock is deprecated in dcli 8.4.2 — throws UnsupportedError('Use withLockAsync')
-      expect(
-        () => ctx.runAndCapture('''
+    test(
+      'NamedLock.withLock() with timeout (deprecated in dcli 8.4.2, throws UnsupportedError)',
+      () async {
+        // withLock is deprecated in dcli 8.4.2 — throws UnsupportedError('Use withLockAsync')
+        expect(
+          () => ctx.runAndCapture('''
 void main() async {
   var lock = NamedLock(name: 'timeout_test_lock', timeout: Duration(seconds: 5));
   var result = await lock.withLock(() => 42);
   print(result);
 }
 '''),
-        throwsA(isA<Exception>()),
-      );
-    });
+          throwsA(isA<Exception>()),
+        );
+      },
+    );
 
     test('NamedLock.withLockAsync() executes callback', () async {
       final out = await ctx.runAndCapture('''
@@ -2372,19 +2382,19 @@ void main() {
       ctx.createFile('src_tree/root.txt', 'root');
       ctx.createFile('src_tree/subdir1/a.txt', 'a');
       ctx.createFile('src_tree/subdir2/b.txt', 'b');
-      
+
       final srcPath = '${ctx.tempDir.path}/src_tree';
       final destPath = '${ctx.tempDir.path}/dest_tree';
-      
+
       // copyTree requires destination to exist
       Directory(destPath).createSync();
-      
+
       await ctx.run('''
 void main() {
   copyTree('$srcPath', '$destPath');
 }
 ''');
-      
+
       expect(Directory(destPath).existsSync(), true);
       expect(File('$destPath/root.txt').existsSync(), true);
       expect(File('$destPath/subdir1/a.txt').existsSync(), true);
@@ -2397,7 +2407,7 @@ void main() {
         ctx.createFile('find_complex/file$i.txt', 'content$i');
       }
       ctx.createFile('find_complex/other.dat', 'other');
-      
+
       // Note: forEach is not bridged on FindProgress, just verify find() returns non-null
       final out = await ctx.runAndCapture('''
 void main() {
@@ -2411,22 +2421,22 @@ void main() {
     test('backup, modify, and restore file', () async {
       ctx.createFile('restore_test.txt', 'original content');
       final path = '${ctx.tempDir.path}/restore_test.txt';
-      
+
       await ctx.run('''
 void main() {
   backupFile('$path');
 }
 ''');
-      
+
       File(path).writeAsStringSync('modified content');
       expect(File(path).readAsStringSync(), 'modified content');
-      
+
       await ctx.run('''
 void main() {
   restoreFile('$path');
 }
 ''');
-      
+
       expect(File(path).readAsStringSync(), 'original content');
     });
 
@@ -2470,11 +2480,13 @@ void main() {
       expect(out, contains('nonexistent: false'));
     });
 
-    test('create and use NamedLock with callback (deprecated in dcli 8.4.2, throws UnsupportedError)', () async {
-      // withLock is deprecated in dcli 8.4.2 — throws UnsupportedError('Use withLockAsync')
-      final lockPath = '${ctx.tempDir.path}/lock_integration';
-      expect(
-        () => ctx.runAndCapture('''
+    test(
+      'create and use NamedLock with callback (deprecated in dcli 8.4.2, throws UnsupportedError)',
+      () async {
+        // withLock is deprecated in dcli 8.4.2 — throws UnsupportedError('Use withLockAsync')
+        final lockPath = '${ctx.tempDir.path}/lock_integration';
+        expect(
+          () => ctx.runAndCapture('''
 void main() {
   var lock = NamedLock(name: 'integration', lockPath: '$lockPath');
   lock.withLock(() {
@@ -2483,9 +2495,10 @@ void main() {
   print('done');
 }
 '''),
-        throwsA(isA<Exception>()),
-      );
-    });
+          throwsA(isA<Exception>()),
+        );
+      },
+    );
 
     test('create and use NamedLock with withLockAsync', () async {
       final lockPath = '${ctx.tempDir.path}/lock_integration_async';
@@ -2506,7 +2519,7 @@ void main() async {
       final src = '${ctx.tempDir.path}/chain_src.txt';
       final mid = '${ctx.tempDir.path}/chain_mid.txt';
       final dest = '${ctx.tempDir.path}/chain_dest.txt';
-      
+
       await ctx.run('''
 void main() {
   // Create
@@ -2519,7 +2532,7 @@ void main() {
   delete('$src');
 }
 ''');
-      
+
       expect(File(src).existsSync(), false);
       expect(File(mid).existsSync(), false);
       expect(File(dest).existsSync(), true);
@@ -2531,7 +2544,7 @@ void main() {
   createDir('${ctx.tempDir.path}/a/b/c/d/e', recursive: true);
 }
 ''');
-      
+
       expect(Directory('${ctx.tempDir.path}/a').existsSync(), true);
       expect(Directory('${ctx.tempDir.path}/a/b').existsSync(), true);
       expect(Directory('${ctx.tempDir.path}/a/b/c').existsSync(), true);
@@ -2543,15 +2556,15 @@ void main() {
       ctx.createFile('sym_original.txt', 'original');
       final origPath = '${ctx.tempDir.path}/sym_original.txt';
       final linkPath = '${ctx.tempDir.path}/sym_link.txt';
-      
+
       await ctx.run('''
 void main() {
   createSymLink(targetPath: '$origPath', linkPath: '$linkPath');
 }
 ''');
-      
+
       expect(Link(linkPath).existsSync(), true);
-      
+
       final out = await ctx.runAndCapture('''
 void main() {
   print(resolveSymLink('$linkPath'));
@@ -2559,13 +2572,13 @@ void main() {
 ''');
       // macOS may add /private prefix
       expect(out.trim(), contains('sym_original.txt'));
-      
+
       await ctx.run('''
 void main() {
   deleteSymlink('$linkPath');
 }
 ''');
-      
+
       expect(Link(linkPath).existsSync(), false);
       expect(File(origPath).existsSync(), true);
     });
@@ -2669,14 +2682,14 @@ void main() {
 
     test('file modifications persist', () async {
       final path = '${ctx.tempDir.path}/persist.txt';
-      
+
       await ctx.run('''
 void main() {
   touch('$path', create: true);
 }
 ''');
       expect(File(path).existsSync(), true);
-      
+
       await ctx.run('''
 void main() {
   delete('$path');
@@ -2687,14 +2700,14 @@ void main() {
 
     test('directory modifications persist', () async {
       final path = '${ctx.tempDir.path}/persist_dir';
-      
+
       await ctx.run('''
 void main() {
   createDir('$path');
 }
 ''');
       expect(Directory(path).existsSync(), true);
-      
+
       await ctx.run('''
 void main() {
   deleteDir('$path');
@@ -2706,7 +2719,7 @@ void main() {
     test('file content modifications persist', () async {
       ctx.createFile('content_persist.txt', 'initial');
       final path = '${ctx.tempDir.path}/content_persist.txt';
-      
+
       await ctx.run('''
 void main() {
   replace('$path', 'initial', 'modified');

@@ -9,7 +9,7 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 import 'package:tom_build_base/tom_build_base.dart'
-    show TomBuildConfig, hasTomBuildConfig, ProjectDiscovery;
+    show TomBuildConfig, hasTomBuildConfig, findWorkspaceRoot;
 import 'package:tom_build_base/tom_build_base_v2.dart';
 import 'package:tom_d4rt_generator/src/build_config_loader.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
@@ -32,8 +32,7 @@ class D4rtgenExecutor extends CommandExecutor {
 
     // Handle --list mode
     if (args.listOnly) {
-      final workspaceRoot =
-          ProjectDiscovery.findWorkspaceRoot(context.executionRoot);
+      final workspaceRoot = findWorkspaceRoot(context.executionRoot);
       final relativePath = p.relative(context.path, from: workspaceRoot);
       print('  $relativePath');
 
@@ -45,8 +44,7 @@ class D4rtgenExecutor extends CommandExecutor {
 
     // Handle --dump-config mode
     if (args.dumpConfig) {
-      final workspaceRoot =
-          ProjectDiscovery.findWorkspaceRoot(context.executionRoot);
+      final workspaceRoot = findWorkspaceRoot(context.executionRoot);
       final relativePath = p.relative(context.path, from: workspaceRoot);
       print('# $relativePath');
       _printEffectiveConfig(context.path);
@@ -74,8 +72,10 @@ class D4rtgenExecutor extends CommandExecutor {
 // =============================================================================
 
 /// Process a single project directory directly.
-Future<void> _processProjectDirect(String projectPath,
-    {required bool verbose}) async {
+Future<void> _processProjectDirect(
+  String projectPath, {
+  required bool verbose,
+}) async {
   if (verbose) {
     print('Processing project: $projectPath');
   }
@@ -92,7 +92,8 @@ Future<void> _processProjectDirect(String projectPath,
   }
 
   throw Exception(
-      'No d4rtgen configuration found in $projectPath/buildkit.yaml');
+    'No d4rtgen configuration found in $projectPath/buildkit.yaml',
+  );
 }
 
 /// Generate bridges from a BridgeConfig object.
@@ -167,22 +168,28 @@ Future<void> _generateBridges(
 
   // Generate barrel file if requested
   if (config.generateBarrel && config.barrelPath != null) {
-    final barrelPath =
-        p.join(projectDir, ensureBDartExtension(config.barrelPath!));
+    final barrelPath = p.join(
+      projectDir,
+      ensureBDartExtension(config.barrelPath!),
+    );
     await _generateBarrelFile(barrelPath, config, verbose: verbose);
   }
 
   // Generate dartscript file if requested
   if (config.generateDartscript && config.dartscriptPath != null) {
-    final dartscriptPath =
-        p.join(projectDir, ensureBDartExtension(config.dartscriptPath!));
+    final dartscriptPath = p.join(
+      projectDir,
+      ensureBDartExtension(config.dartscriptPath!),
+    );
     await _generateDartscriptFile(dartscriptPath, config, verbose: verbose);
   }
 
   // Generate test runner file if requested
   if (config.generateTestRunner && config.testRunnerPath != null) {
-    final testRunnerPath =
-        p.join(projectDir, ensureBDartExtension(config.testRunnerPath!));
+    final testRunnerPath = p.join(
+      projectDir,
+      ensureBDartExtension(config.testRunnerPath!),
+    );
     await _generateTestRunnerFile(testRunnerPath, config, verbose: verbose);
   }
 
@@ -217,8 +224,10 @@ Future<void> _generateDartscriptFile(
       ? ensureBDartExtension(config.dartscriptPath!)
       : null;
   await File(dartscriptPath).writeAsString(
-    generateDartscriptFileContent(config,
-        dartscriptPath: normalizedDartscriptPath),
+    generateDartscriptFileContent(
+      config,
+      dartscriptPath: normalizedDartscriptPath,
+    ),
   );
 }
 
@@ -239,8 +248,7 @@ Future<void> _generateTestRunnerFile(
       ? ensureBDartExtension(config.testRunnerPath!)
       : null;
   await File(testRunnerPath).writeAsString(
-    generateTestRunnerContent(config,
-        testRunnerPath: normalizedTestRunnerPath),
+    generateTestRunnerContent(config, testRunnerPath: normalizedTestRunnerPath),
   );
 }
 
@@ -265,8 +273,7 @@ void _printEffectiveConfig(String projectPath) {
 
 /// Print the buildkit.yaml d4rtgen section for a project (--show option).
 void _printBuildYamlSection(String projectPath, String workspaceRoot) {
-  final buildkitYamlPath =
-      p.join(projectPath, TomBuildConfig.projectFilename);
+  final buildkitYamlPath = p.join(projectPath, TomBuildConfig.projectFilename);
   final buildkitYamlFile = File(buildkitYamlPath);
 
   if (!buildkitYamlFile.existsSync()) {
@@ -352,7 +359,5 @@ void _printYamlNode(dynamic node, {int indent = 0}) {
 
 /// Create executor map for the d4rtgen tool.
 Map<String, CommandExecutor> createD4rtgenExecutors() {
-  return {
-    'default': D4rtgenExecutor(),
-  };
+  return {'default': D4rtgenExecutor()};
 }

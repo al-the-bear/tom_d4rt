@@ -24,13 +24,12 @@ library;
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
-import '../test_helpers.dart';
 
 /// Execute a D4rt source string and return the result.
 ///
 /// Throws on interpreter errors so tests can catch them.
 dynamic _execute(String source) {
-  final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
+  final d4rt = D4rt()..setDebug(false);
   return d4rt.execute(
     library: 'package:test/main.dart',
     sources: {'package:test/main.dart': source},
@@ -48,9 +47,10 @@ void main() {
     // The interpreter does not properly handle casting to nullable types.
     // When casting a value to a nullable type like String?, the interpreter
     // treats it as a regular cast and fails because it expects an exact match.
-    test('G-DOV2-1: Cast to nullable type (as String?) [2026-02-10 21:30] (FAIL)',
-        () {
-      const source = '''
+    test(
+      'G-DOV2-1: Cast to nullable type (as String?) [2026-02-10 21:30] (FAIL)',
+      () {
+        const source = '''
 void main() {
   Object? nullableObj = 'I might be null';
   String? nullableStr = nullableObj as String?;
@@ -61,8 +61,9 @@ void main() {
   print('Cast null to String?: \$nullableStr');
 }
 ''';
-      expect(() => _execute(source), returnsNormally);
-    });
+        expect(() => _execute(source), returnsNormally);
+      },
+    );
 
     // =========================================================================
     // G-DOV2-2: Factory constructor tear-off (Class.fromMap)
@@ -73,9 +74,9 @@ void main() {
     // When using a factory constructor as a tear-off in map(), the interpreter
     // fails to resolve it as a static member / factory constructor.
     test(
-        'G-DOV2-2: Factory constructor tear-off (Class.fromMap) [2026-02-10 21:30] (FAIL)',
-        () {
-      const source = '''
+      'G-DOV2-2: Factory constructor tear-off (Class.fromMap) [2026-02-10 21:30] (FAIL)',
+      () {
+        const source = '''
 class Settings {
   final String name;
   Settings(this.name);
@@ -98,8 +99,9 @@ void main() {
   print('Created settings: \$settings');
 }
 ''';
-      expect(() => _execute(source), returnsNormally);
-    });
+        expect(() => _execute(source), returnsNormally);
+      },
+    );
 
     // =========================================================================
     // G-DOV2-3: Factory constructor on abstract class
@@ -112,9 +114,9 @@ void main() {
     // directly, rather than delegating to the factory which returns a concrete
     // subclass.
     test(
-        'G-DOV2-3: Factory constructor on abstract class [2026-02-10 21:30] (FAIL)',
-        () {
-      const source = '''
+      'G-DOV2-3: Factory constructor on abstract class [2026-02-10 21:30] (FAIL)',
+      () {
+        const source = '''
 abstract class Shape {
   double get area;
 
@@ -153,8 +155,9 @@ void main() {
   print('Square area: \${square.area}');
 }
 ''';
-      expect(() => _execute(source), returnsNormally);
-    });
+        expect(() => _execute(source), returnsNormally);
+      },
+    );
 
     // =========================================================================
     // G-DOV2-4: Function-level type parameter bound (Comparable)
@@ -167,9 +170,9 @@ void main() {
     // the interpreter does not recognize that num implements Comparable<num>.
     // This differs from the class-level check which was fixed in G-DOV-9.
     test(
-        'G-DOV2-4: Function-level type parameter bound (Comparable) [2026-02-10 21:30] (FAIL)',
-        () {
-      const source = '''
+      'G-DOV2-4: Function-level type parameter bound (Comparable) [2026-02-10 21:30] (FAIL)',
+      () {
+        const source = '''
 T clamp<T extends Comparable<T>>(T value, T min, T max) {
   if (value.compareTo(min) < 0) return min;
   if (value.compareTo(max) > 0) return max;
@@ -182,8 +185,9 @@ void main() {
   print('clamp(25, 10, 20): \${clamp<num>(25, 10, 20)}');
 }
 ''';
-      expect(() => _execute(source), returnsNormally);
-    });
+        expect(() => _execute(source), returnsNormally);
+      },
+    );
 
     // =========================================================================
     // G-DOV2-5: CastPatternImpl not implemented
@@ -193,9 +197,10 @@ void main() {
     //
     // The interpreter does not support cast patterns (var x as Type) in
     // pattern matching contexts like if-case statements.
-    test('G-DOV2-5: CastPatternImpl not implemented [2026-02-10 21:30] (FAIL)',
-        () {
-      const source = '''
+    test(
+      'G-DOV2-5: CastPatternImpl not implemented [2026-02-10 21:30] (FAIL)',
+      () {
+        const source = '''
 void main() {
   Object obj = [1, 2, 3];
   if (obj case var items as List<int>) {
@@ -203,8 +208,9 @@ void main() {
   }
 }
 ''';
-      expect(() => _execute(source), returnsNormally);
-    });
+        expect(() => _execute(source), returnsNormally);
+      },
+    );
 
     // =========================================================================
     // G-DOV2-6: super.name forwarding through mixin chain
@@ -217,9 +223,9 @@ void main() {
     // Eagle(super.name)), the interpreter doesn't properly recognize that the
     // 'name' getter is provided by the parent class Bird, not the mixin.
     test(
-        'G-DOV2-6: super.name forwarding through mixin chain [2026-02-10 21:30] (FAIL)',
-        () {
-      const source = '''
+      'G-DOV2-6: super.name forwarding through mixin chain [2026-02-10 21:30] (FAIL)',
+      () {
+        const source = '''
 abstract class Animal {
   String get name;
   void move();
@@ -258,8 +264,9 @@ void main() {
   eagle.fly();
 }
 ''';
-      expect(() => _execute(source), returnsNormally);
-    });
+        expect(() => _execute(source), returnsNormally);
+      },
+    );
 
     // =========================================================================
     // G-DOV2-7: Extension on enum type resolution
@@ -270,9 +277,9 @@ void main() {
     // The interpreter does not properly resolve extension methods/getters
     // defined on enum types.
     test(
-        'G-DOV2-7: Extension on enum type resolution [2026-02-10 21:30] (FAIL)',
-        () {
-      const source = '''
+      'G-DOV2-7: Extension on enum type resolution [2026-02-10 21:30] (FAIL)',
+      () {
+        const source = '''
 enum Status { active, inactive, pending }
 
 extension StatusExtension on Status {
@@ -294,7 +301,8 @@ void main() {
   print('isActive: \${status.isActive}');
 }
 ''';
-      expect(() => _execute(source), returnsNormally);
-    });
+        expect(() => _execute(source), returnsNormally);
+      },
+    );
   });
 }

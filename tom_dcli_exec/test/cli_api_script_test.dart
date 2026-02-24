@@ -12,7 +12,6 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/tom_d4rt_exec.dart';
-import 'package:tom_dcli_exec/src/parse_source.dart';
 import 'package:tom_dcli_exec/dartscript.b.dart';
 import 'package:tom_dcli_exec/tom_d4rt_cli_api.dart';
 
@@ -50,7 +49,7 @@ void main() {
 
     setUp(() {
       tempDir = Directory.systemTemp.createTempSync('cli_script_test_');
-      d4rt = D4rt(parseSourceCallback: parseSource);
+      d4rt = D4rt();
       d4rt.grant(FilesystemPermission.any);
       d4rt.grant(NetworkPermission.any);
       d4rt.grant(ProcessRunPermission.any);
@@ -66,7 +65,7 @@ void main() {
         state: state,
         toolName: 'Test',
       );
-      
+
       output = OutputCapture();
     });
 
@@ -120,7 +119,9 @@ void main() {
       test('variable shadowing in new execution', () async {
         await controller.execute('var x = 10; void main() {}');
         // Fresh execute replaces the environment
-        final result = await controller.execute('var x = 20; void main() { print(x); }');
+        final result = await controller.execute(
+          'var x = 20; void main() { print(x); }',
+        );
         expect(result.success, true);
         // After execute, x is now 20 in the new environment
         expect(await controller.eval('x'), 20);
@@ -290,7 +291,7 @@ void main() {
         controller.startDefine();
         await controller.processPrompt('int triple(int x) => x * 3;');
         await controller.end();
-        
+
         final result = await controller.eval('triple(4)');
         expect(result, 12);
       });
@@ -299,9 +300,11 @@ void main() {
         // First establish execution context
         await controller.execute('void main() {}');
         controller.startDefine();
-        await controller.processPrompt('class Box { int value; Box(this.value); }');
+        await controller.processPrompt(
+          'class Box { int value; Box(this.value); }',
+        );
         await controller.end();
-        
+
         final result = await controller.eval('Box(42).value');
         expect(result, 42);
       });
@@ -327,7 +330,7 @@ void main() {
         controller.startFile();
         await controller.processPrompt('var fromMultiline = 123;');
         await controller.end();
-        
+
         final result = await controller.eval('fromMultiline');
         expect(result, 123);
       });
@@ -364,7 +367,7 @@ void main() {
 
       test('.file command shares environment', () async {
         await controller.execute('var sharedVar = 100; void main() {}');
-        
+
         final file = File('${tempDir.path}/use_shared.dart');
         file.writeAsStringSync('var doubled = sharedVar * 2;');
 
@@ -418,12 +421,12 @@ void main() {
       test('build up state incrementally', () async {
         // Start with base
         await controller.execute('var state = <String, int>{}; void main() {}');
-        
+
         // Add items via eval
         await controller.eval("state['a'] = 1");
         await controller.eval("state['b'] = 2");
         await controller.eval("state['c'] = 3");
-        
+
         // Verify
         expect(await controller.eval('state.length'), 3);
         expect(await controller.eval("state['a']"), 1);
@@ -438,11 +441,11 @@ void main() {
           int sum() => items.fold(0, (a, b) => a + b);
           void main() {}
         ''');
-        
+
         await controller.eval('addItem(10)');
         await controller.eval('addItem(20)');
         await controller.eval('addItem(30)');
-        
+
         expect(await controller.eval('items.length'), 3);
         expect(await controller.eval('sum()'), 60);
       });
@@ -454,7 +457,7 @@ void main() {
           }
           void main() {}
         ''');
-        
+
         // D4rt eval automatically awaits Futures
         final result = await controller.eval('asyncAdd(5, 7)');
         expect(result, 12);
@@ -472,7 +475,7 @@ void main() {
           }
           void main() {}
         ''');
-        
+
         expect(await controller.eval('safeDiv(10, 2)'), '5.0');
         expect(await controller.eval('safeDiv(10, 0)'), contains('Error'));
       });
@@ -483,7 +486,7 @@ void main() {
           Status currentStatus = Status.pending;
           void main() {}
         ''');
-        
+
         expect(await controller.eval('currentStatus'), isNotNull);
         await controller.eval('currentStatus = Status.active');
         expect(await controller.eval('currentStatus == Status.active'), true);
@@ -497,7 +500,7 @@ void main() {
           }
           void main() {}
         ''');
-        
+
         expect(await controller.eval('5.doubled()'), 10);
         expect(await controller.eval('5.squared()'), 25);
       });
@@ -508,7 +511,7 @@ void main() {
           int apply(IntTransform fn, int value) => fn(value);
           void main() {}
         ''');
-        
+
         expect(await controller.eval('apply((x) => x + 10, 5)'), 15);
         expect(await controller.eval('apply((x) => x * 2, 7)'), 14);
       });
@@ -525,7 +528,7 @@ void main() {
           Duck duck = Duck();
           void main() {}
         ''');
-        
+
         expect(await controller.eval('duck.swim()'), 'swimming');
         expect(await controller.eval('duck.fly()'), 'flying');
       });
@@ -540,7 +543,7 @@ void main() {
           }
           void main() {}
         ''');
-        
+
         expect(await controller.eval('isInitialized'), false);
         await controller.eval('initValue()');
         expect(await controller.eval('isInitialized'), true);
@@ -553,7 +556,7 @@ void main() {
           String getWithDefault() => nullableString ?? 'default';
           void main() {}
         ''');
-        
+
         expect(await controller.eval('getWithDefault()'), 'default');
         await controller.eval("nullableString = 'set'");
         expect(await controller.eval('getWithDefault()'), 'set');
@@ -569,7 +572,7 @@ void main() {
           Builder b = Builder();
           void main() {}
         ''');
-        
+
         await controller.eval('b..add(1)..add(2)..add(3)');
         expect(await controller.eval('b.sum()'), 6);
       });
@@ -579,7 +582,7 @@ void main() {
           var list1 = [1, 2, 3];
           void main() {}
         ''');
-        
+
         final result = await controller.eval('[...list1, 4, 5]');
         expect(result, [1, 2, 3, 4, 5]);
       });
@@ -590,10 +593,10 @@ void main() {
           List<int> numbers = [1, 2, 3];
           void main() {}
         ''');
-        
+
         var result = await controller.eval('[1, 2, if (includeExtra) 3]');
         expect(result, [1, 2, 3]);
-        
+
         // For-in-collection uses map instead of for loop in eval
         result = await controller.eval('numbers.map((n) => n * 2).toList()');
         expect(result, [2, 4, 6]);

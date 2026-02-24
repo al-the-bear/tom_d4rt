@@ -17,7 +17,6 @@
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/tom_d4rt.dart';
-import '../test_helpers.dart';
 
 void main() {
   group('Dart Overview Failures Round 3', () {
@@ -48,7 +47,7 @@ void main() {
 
 /// Helper function to execute D4rt code
 Object? _execute(String source) {
-  final d4rt = D4rt(parseSourceCallback: parseSource)..setDebug(false);
+  final d4rt = D4rt()..setDebug(false);
   return d4rt.execute(
     library: 'package:test/main.dart',
     sources: {'package:test/main.dart': source},
