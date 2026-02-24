@@ -3,9 +3,3 @@ dependency_overrides:
     git:
       url: https://github.com/al-the-bear/native_semaphores.git
       ref: fork-fix
-  tom_d4rt:
-    path: ../tom_d4rt
-  tom_d4rt_generator:
-    path: ../tom_d4rt_generator
-  tom_chattools:
-    path: ../../tom_module_basics/tom_chattools

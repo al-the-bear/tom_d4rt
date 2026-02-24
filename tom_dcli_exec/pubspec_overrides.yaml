@@ -11,5 +11,3 @@ dependency_overrides:
     path: ../tom_d4rt_generator
   tom_build_base:
     path: ../../tom_module_basics/tom_build_base
-  tom_chattools:
-    path: ../../tom_module_basics/tom_chattools
