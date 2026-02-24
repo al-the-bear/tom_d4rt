@@ -1,3 +1,10 @@
+## 1.1.3
+
+### Maintenance
+
+- Renamed `version.g.dart` → `version.versioner.dart`.
+- Updated barrel import in `tom_d4rt_dcli.dart`.
+
 ## 1.1.2
 
 ### Bug Fixes

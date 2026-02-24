@@ -1,3 +1,18 @@
+## 1.8.5
+
+### Added
+
+- **`bridge_config.dart`** — New `d4rtImport` field on `BridgeConfig` to configure the D4rt runtime import path. Defaults to `package:tom_d4rt/d4rt.dart`. Enables generating bridges for alternative runtimes (e.g. `package:tom_d4rt_exec/d4rt.dart`).
+- **`d4rtgen_tool.dart`** — Added `worksWithNatures: {DartProjectFolder}` to tool definition.
+
+### Changed
+
+- **`bridge_generator.dart`** — Uses configurable `d4rtImport` instead of hardcoded `package:tom_d4rt/d4rt.dart` import.
+- **`file_generators.dart`** — Dartscript file generator uses `config.d4rtImport` for the runtime import.
+- **`per_package_orchestrator.dart`** — Minor formatting cleanup.
+- **`d4rtgen_executor.dart`** — Minor formatting cleanup.
+- Renamed `version.g.dart` → `version.versioner.dart`.
+
 ## 1.8.4
 
 ### Bug Fixes
