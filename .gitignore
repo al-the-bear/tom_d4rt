@@ -53,6 +53,9 @@ dist/
 out/
 target/
 bin/
+# Un-ignore test script bin/ dirs inside example projects
+!**/example/d4_test_scripts/bin/
+!**/example/d4_test_scripts/bin/**
 obj/
 
 # Coverage
