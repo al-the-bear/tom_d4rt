@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:tom_d4rt_ast/ast.dart';
+import 'package:tom_d4rt_ast/src/runtime/ast_bundle.dart';
+import 'package:tom_d4rt_ast/src/runtime/ast_module_loader.dart';
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart';
 import 'package:tom_d4rt_ast/src/runtime/bridge/registration.dart';
 import 'package:tom_d4rt_ast/src/runtime/callable.dart';
@@ -122,6 +124,33 @@ class D4rtRunner {
 
   /// Gets the current interpreter visitor instance.
   InterpreterVisitor? get visitor => _visitor;
+
+  // =========================================================================
+  // Bridge Data Access (for AstModuleLoader)
+  // =========================================================================
+
+  /// Registered bridged enum definitions keyed by library URI.
+  List<Map<String, LibraryEnum>> get bridgedEnumDefinitions =>
+      _bridgedEnumDefinitions;
+
+  /// Registered bridged class definitions keyed by library URI.
+  List<Map<String, LibraryClass>> get bridgedClasses => _bridgedClasses;
+
+  /// Registered bridged extension definitions keyed by library URI.
+  List<Map<String, LibraryExtension>> get bridgedExtensions =>
+      _bridgedExtensions;
+
+  /// Registered library functions keyed by library URI.
+  List<Map<String, LibraryFunction>> get libraryFunctions => _libraryFunctions;
+
+  /// Registered library variables keyed by library URI.
+  List<Map<String, LibraryVariable>> get libraryVariables => _libraryVariables;
+
+  /// Registered library getters keyed by library URI.
+  List<Map<String, LibraryGetter>> get libraryGetters => _libraryGetters;
+
+  /// Registered library setters keyed by library URI.
+  List<Map<String, LibrarySetter>> get librarySetters => _librarySetters;
 
   // =========================================================================
   // Bridge Registration
@@ -456,6 +485,67 @@ class D4rtRunner {
     );
   }
 
+  /// Execute an [AstBundle] with full import resolution.
+  ///
+  /// Unlike [execute], this method supports cross-module imports by creating
+  /// an [AstModuleLoader] that resolves imports from the bundle's module map.
+  ///
+  /// The entry point module is determined by:
+  /// 1. The [entryPoint] parameter (if provided)
+  /// 2. The bundle's [AstBundle.entryPointUri]
+  ///
+  /// ## Example
+  /// ```dart
+  /// final runner = D4rtRunner();
+  /// // register bridges...
+  /// final bundle = AstBundle.fromFile('app.d4rtbundle');
+  /// final result = runner.executeBundle(bundle);
+  /// ```
+  dynamic executeBundle(
+    AstBundle bundle, {
+    String? entryPoint,
+    String name = 'main',
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+  }) {
+    // Determine entry point URI
+    final entryUri = entryPoint ?? bundle.entryPointUri;
+    final entryAst = bundle.modules[entryUri];
+    if (entryAst == null) {
+      throw ArgumentD4rtException(
+        'Entry point "$entryUri" not found in bundle. '
+        'Available: ${bundle.modules.keys.join(", ")}',
+      );
+    }
+
+    // Initialize environment
+    InterpretedFunction.clearParentMap();
+    final executionEnvironment = _initEnvironment();
+
+    // Create AstModuleLoader for import resolution
+    final moduleLoader = AstModuleLoader(
+      modules: bundle.modules,
+      globalEnvironment: executionEnvironment,
+      runner: this,
+    );
+    moduleLoader.currentLibrary = Uri.parse(entryUri);
+
+    Logger.debug(
+      '[D4rtRunner.executeBundle] Entry point: $entryUri '
+      '(${bundle.modules.length} modules in bundle)',
+    );
+
+    // Execute with full module context
+    return _executeInEnvironment(
+      compilationUnit: entryAst,
+      executionEnvironment: executionEnvironment,
+      moduleContext: moduleLoader,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+    );
+  }
+
   /// Evaluate an expression in the current context.
   ///
   /// Requires a previous call to [execute] to establish the context.
@@ -500,14 +590,18 @@ class D4rtRunner {
     try {
       Logger.debug("[_executeInEnvironment] Starting Pass 2: Interpretation");
 
-      // Process directives (imports would fail with NoOpModuleContext)
+      // Process import directives through the module context
       for (final directive in compilationUnit.directives) {
         if (directive is SImportDirective) {
-          Logger.warn(
-            "[_executeInEnvironment] Import directive found but D4rtRunner doesn't support imports. "
-            "Use D4rt from tom_d4rt_exec for import support.",
-          );
-          // Don't process imports - they would fail anyway
+          if (moduleContext is NoOpModuleContext) {
+            Logger.warn(
+              "[_executeInEnvironment] Import directive found but "
+              "this execution context doesn't support imports. "
+              "Use executeBundle() or D4rt from tom_d4rt_exec.",
+            );
+          } else {
+            directive.accept<Object?>(_visitor!);
+          }
         }
       }
 

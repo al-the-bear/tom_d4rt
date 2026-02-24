@@ -48,6 +48,9 @@ export 'src/runtime/security/permissions.dart';
 // Module context abstraction
 export 'src/runtime/module_context.dart';
 
+// Module loader for AST bundles
+export 'src/runtime/ast_module_loader.dart';
+
 // Main runner API
 export 'src/runtime/d4rt_runner.dart';
 
