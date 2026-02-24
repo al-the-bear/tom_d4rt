@@ -1,5 +1,0 @@
-# Override to reconcile tom_build_base source conflict between
-# tom_d4rt_astgen (path) and tom_d4rt_generator (hosted).
-dependency_overrides:
-  tom_build_base:
-    path: ../../tom_module_basics/tom_build_base

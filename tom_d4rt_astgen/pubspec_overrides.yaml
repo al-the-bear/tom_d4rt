@@ -1,3 +1,0 @@
-dependency_overrides:
-  tom_build_base:
-    path: ../../tom_module_basics/tom_build_base

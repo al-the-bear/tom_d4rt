@@ -1,3 +1,9 @@
+## 1.8.6
+
+### Changed
+
+- Updated `tom_build_base` dependency from `^1.7.1` to `^2.5.2`.
+
 ## 1.8.5
 
 ### Added

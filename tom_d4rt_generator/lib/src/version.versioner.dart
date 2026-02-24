@@ -9,7 +9,7 @@ class D4rtGenVersionInfo {
   D4rtGenVersionInfo._();
 
   /// Package version from pubspec.yaml
-  static const String version = '1.8.4';
+  static const String version = '1.8.6';
 
   /// Build timestamp (ISO 8601 UTC format)
   static const String buildTime = '2026-02-19T19:52:55.469543Z';
