@@ -51,6 +51,9 @@ export 'src/runtime/module_context.dart';
 // Main runner API
 export 'src/runtime/d4rt_runner.dart';
 
+// Bundle format
+export 'src/runtime/ast_bundle.dart';
+
 // Introspection
 export 'src/runtime/introspection.dart';
 
