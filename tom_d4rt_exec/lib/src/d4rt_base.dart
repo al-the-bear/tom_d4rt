@@ -38,10 +38,29 @@ class D4rt {
   /// Internal AST converter for parsing source code.
   final AstConverter _converter = AstConverter();
 
+  /// Internal [D4rtRunner] for bundle-based execution.
+  ///
+  /// All bridge registrations and permissions are forwarded to this runner
+  /// so that [executeBundle] works correctly without re-registration.
+  final D4rtRunner _runner = D4rtRunner();
+
+  /// Tracks all library URIs that have bridged registrations.
+  ///
+  /// Updated on each bridge registration call. Used by [createBundle] and
+  /// [createBundleFromSource] to tell the [AstBundler] which imports should
+  /// be skipped (handled natively at runtime).
+  final Set<String> _bridgedLibraryUris = {};
+
   /// Gets the current interpreter visitor instance.
   ///
   /// Returns null if no execution is currently in progress.
   InterpreterVisitor? get visitor => _visitor;
+
+  /// The set of library URIs that have been registered as bridged.
+  ///
+  /// These URIs are skipped by [AstBundler] during import resolution
+  /// because they are handled by native bridges at runtime.
+  Set<String> get bridgedLibraryUris => Set.unmodifiable(_bridgedLibraryUris);
 
   // Library-scoped globals (registered with library path) - added when import is processed
   // Structure matches classes/enums: List of {libraryPath: definition}
@@ -110,6 +129,8 @@ class D4rt {
       {String? sourceUri}) {
     final libEnum = LibraryEnum(definition, sourceUri: sourceUri);
     _bridgedEnumDefinitions.add({library: libEnum});
+    _runner.registerBridgedEnum(definition, library, sourceUri: sourceUri);
+    _bridgedLibraryUris.add(library);
   }
 
   /// Registers a bridged class definition for use in interpreted code.
@@ -127,6 +148,8 @@ class D4rt {
     final libClass = LibraryClass(definition, sourceUri: sourceUri);
     _bridgedClases.add({library: libClass});
     _bridgedDefLookupByType[definition.nativeType] = definition;
+    _runner.registerBridgedClass(definition, library, sourceUri: sourceUri);
+    _bridgedLibraryUris.add(library);
   }
 
   /// Registers a bridged extension for use in interpreted code.
@@ -143,6 +166,8 @@ class D4rt {
       {String? sourceUri}) {
     final libExt = LibraryExtension(definition, sourceUri: sourceUri);
     _bridgedExtensions.add({library: libExt});
+    _runner.registerBridgedExtension(definition, library, sourceUri: sourceUri);
+    _bridgedLibraryUris.add(library);
   }
 
   /// Registers a top-level native function for use in interpreted code.
@@ -161,6 +186,9 @@ class D4rt {
     final libFunc =
         LibraryFunction(nativeFunc, sourceUri: sourceUri, signature: signature);
     _libraryFunctions.add({library: libFunc});
+    _runner.registerTopLevelFunction(name, function, library,
+        sourceUri: sourceUri, signature: signature);
+    _bridgedLibraryUris.add(library);
   }
 
   /// Registers a global variable for use in interpreted code.
@@ -185,6 +213,8 @@ class D4rt {
       {String? sourceUri}) {
     _libraryVariables
         .add({library: LibraryVariable(name, value, sourceUri: sourceUri)});
+    _runner.registerGlobalVariable(name, value, library, sourceUri: sourceUri);
+    _bridgedLibraryUris.add(library);
   }
 
   /// Registers a global getter for use in interpreted code.
@@ -211,6 +241,8 @@ class D4rt {
       {String? sourceUri}) {
     _libraryGetters
         .add({library: LibraryGetter(name, getter, sourceUri: sourceUri)});
+    _runner.registerGlobalGetter(name, getter, library, sourceUri: sourceUri);
+    _bridgedLibraryUris.add(library);
   }
 
   /// Registers a global setter for a top-level setter in a specific library.
@@ -238,6 +270,8 @@ class D4rt {
       {String? sourceUri}) {
     _librarySetters
         .add({library: LibrarySetter(name, setter, sourceUri: sourceUri)});
+    _runner.registerGlobalSetter(name, setter, library, sourceUri: sourceUri);
+    _bridgedLibraryUris.add(library);
   }
 
   ModuleLoader _initModule(Map<String, String>? sources,
@@ -355,6 +389,7 @@ class D4rt {
   /// ```
   void grant(Permission permission) {
     _grantedPermissions.add(permission);
+    _runner.grant(permission);
     Logger.debug("[D4rt.grant] Granted permission: ${permission.description}");
   }
 
@@ -363,6 +398,7 @@ class D4rt {
   /// [permission] The permission to revoke.
   void revoke(Permission permission) {
     _grantedPermissions.remove(permission);
+    _runner.revoke(permission);
     Logger.debug("[D4rt.revoke] Revoked permission: ${permission.description}");
   }
 
@@ -930,6 +966,132 @@ class D4rt {
     }
     _hasExecutedOnce = true;
     return resultValue;
+  }
+
+  // ===========================================================================
+  // Bundle API (Phase 4 — AstBundler → D4rtRunner)
+  // ===========================================================================
+
+  /// Creates a distributable [AstBundle] from a source code string.
+  ///
+  /// The source is parsed and all imports are recursively resolved:
+  /// - `dart:*` imports are skipped (stdlib, always available at runtime)
+  /// - Bridged library imports are skipped (handled by native bridges)
+  /// - Imports in [explicitSources] are included verbatim
+  /// - Relative and same-package imports are auto-included from disk
+  /// - Other `package:*` imports cause an error
+  ///
+  /// [source] The Dart source code to bundle.
+  /// [sourcePath] Logical path for the entry point (default: `'main.dart'`).
+  /// [explicitSources] Additional sources keyed by URI for imports not on disk.
+  /// [bundlerConfig] Configuration for import resolution behavior.
+  ///
+  /// ## Example
+  /// ```dart
+  /// final d4rt = D4rt();
+  /// d4rt.registerBridgedClass(myBridge, 'package:my_lib/my_lib.dart');
+  ///
+  /// final bundle = await d4rt.createBundleFromSource('''
+  ///   import 'package:my_lib/my_lib.dart';
+  ///   void main() => print('Hello');
+  /// ''');
+  ///
+  /// bundle.saveToFile('my_app.d4rtbundle');
+  /// ```
+  Future<AstBundle> createBundleFromSource(
+    String source, {
+    String sourcePath = 'main.dart',
+    Map<String, String>? explicitSources,
+    AstBundlerConfig? bundlerConfig,
+  }) async {
+    final bundler = AstBundler(
+      bridgedLibraries: _bridgedLibraryUris,
+      explicitSources: explicitSources ?? const {},
+      config: bundlerConfig ?? const AstBundlerConfig(),
+    );
+    return bundler.createFromSource(source, sourcePath: sourcePath);
+  }
+
+  /// Creates a distributable [AstBundle] from a file path.
+  ///
+  /// The file is read and all imports are recursively resolved using
+  /// the same rules as [createBundleFromSource]. The file system is
+  /// used to resolve relative and same-package imports.
+  ///
+  /// [entryPointPath] Path to the entry point Dart file.
+  /// [explicitSources] Additional sources keyed by URI for imports not on disk.
+  /// [packageName] The package name (auto-detected from pubspec.yaml if not given).
+  /// [projectRoot] The project root directory (auto-detected if not given).
+  /// [bundlerConfig] Configuration for import resolution behavior.
+  ///
+  /// ## Example
+  /// ```dart
+  /// final d4rt = D4rt();
+  /// d4rt.registerBridgedClass(myBridge, 'package:my_lib/my_lib.dart');
+  ///
+  /// final bundle = await d4rt.createBundle(
+  ///   'bin/my_app.dart',
+  ///   packageName: 'my_app',
+  /// );
+  /// bundle.saveToFile('my_app.d4rtbundle');
+  /// ```
+  Future<AstBundle> createBundle(
+    String entryPointPath, {
+    Map<String, String>? explicitSources,
+    String? packageName,
+    String? projectRoot,
+    AstBundlerConfig? bundlerConfig,
+  }) async {
+    final bundler = AstBundler(
+      bridgedLibraries: _bridgedLibraryUris,
+      explicitSources: explicitSources ?? const {},
+      packageName: packageName,
+      projectRoot: projectRoot,
+      config: bundlerConfig ?? const AstBundlerConfig(),
+    );
+    return bundler.createFromFile(entryPointPath);
+  }
+
+  /// Executes a pre-made [AstBundle] using [D4rtRunner].
+  ///
+  /// This method does **not** require the Dart analyzer at runtime — all
+  /// source code has already been parsed and bundled. The bundle is executed
+  /// through the internal [D4rtRunner] which has all registered bridges
+  /// and permissions.
+  ///
+  /// [bundle] The bundle to execute.
+  /// [entryPoint] Override the bundle's entry point URI.
+  /// [name] The function to call (default: `'main'`).
+  /// [positionalArgs] Positional arguments for the function.
+  /// [namedArgs] Named arguments for the function.
+  ///
+  /// ## Example
+  /// ```dart
+  /// // Load a pre-built bundle (no analyzer needed)
+  /// final bundle = AstBundle.fromFile('my_app.d4rtbundle');
+  ///
+  /// final d4rt = D4rt();
+  /// d4rt.registerBridgedClass(myBridge, 'package:my_lib/my_lib.dart');
+  /// final result = d4rt.executeBundle(bundle);
+  /// ```
+  dynamic executeBundle(
+    AstBundle bundle, {
+    String? entryPoint,
+    String name = 'main',
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+  }) {
+    Logger.debug(
+      '[D4rt.executeBundle] Delegating to D4rtRunner '
+      '(${bundle.modules.length} modules, entry: ${entryPoint ?? bundle.entryPointUri})',
+    );
+    return _runner.executeBundle(
+      bundle,
+      entryPoint: entryPoint,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+    );
   }
 
   // ============================================================================
