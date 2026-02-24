@@ -12,3 +12,5 @@ dev_dependencies:
   test: ^1.25.6
 dependencies:
   archive: ^4.0.9
+  tom_ast_model:
+    path: ../tom_ast_model

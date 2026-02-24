@@ -1,7 +1,8 @@
-/// Serializable AST model for Dart code interpretation without analyzer dependency.
+/// D4rt AST runtime — interpreter, execution environment, and AST model.
 ///
-/// This package provides pure serializable AST classes for Dart code.
-/// No dependency on the analyzer package.
+/// This package re-exports the AST model from `package:tom_ast_model`
+/// and adds the D4rt runtime: interpreter, environment, bridges, and
+/// standard library.
 library;
 
 export 'ast.dart';

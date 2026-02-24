@@ -4,7 +4,7 @@
 import 'package:analyzer/dart/ast/ast.dart' as analyzer;
 import 'package:analyzer/dart/ast/token.dart' as analyzer show Token;
 
-import 'package:tom_d4rt_ast/src/ast/ast_core.dart';
+import 'package:tom_ast_model/src/ast/ast_core.dart';
 
 /// Converts Dart analyzer AST nodes to serializable AST nodes
 class AstConverter {
