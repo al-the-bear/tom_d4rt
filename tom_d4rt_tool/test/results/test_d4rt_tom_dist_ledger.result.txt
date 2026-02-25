@@ -1,7 +1,0 @@
-Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/dartscript/tom_dartscript_bridges/test/replay/test_d4rt_tom_dist_ledger.d4rt
-Started: 2026-02-05T12:28:37.861839
-
-Lines executed: 70
-
-Result: PASSED
-Completed: 2026-02-05T12:28:37.870411

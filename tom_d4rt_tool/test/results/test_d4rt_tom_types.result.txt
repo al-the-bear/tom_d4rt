@@ -1,7 +1,0 @@
-Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/dartscript/tom_dartscript_bridges/test/replay/test_d4rt_tom_types.d4rt
-Started: 2026-02-05T12:28:38.248177
-
-Lines executed: 90
-
-Result: PASSED
-Completed: 2026-02-05T12:28:38.260800

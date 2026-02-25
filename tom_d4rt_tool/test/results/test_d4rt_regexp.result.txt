@@ -1,7 +1,0 @@
-Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/dartscript/tom_dartscript_bridges/test/replay/test_d4rt_regexp.d4rt
-Started: 2026-02-05T12:28:34.382653
-
-Lines executed: 81
-
-Result: PASSED
-Completed: 2026-02-05T12:28:34.397671

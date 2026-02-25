@@ -4,7 +4,7 @@ description: >-
   AST representation with JSON serialization — independent of the Dart
   analyzer and any interpreter runtime.
 version: 0.1.0
-repository: https://github.com/al-the-bear/tom_module_d4rt
+repository: https://github.com/al-the-bear/tom_d4rt
 publish_to: none
 
 environment:
