@@ -1,0 +1,298 @@
+# ==============================================================================
+# Comprehensive .gitignore for multi-language development
+# Languages: Dart, TypeScript, JavaScript, Python, Rust, Go
+# Includes: VS Code extension development, Flutter
+# ==============================================================================
+
+# ==============================================================================
+# GENERAL / CROSS-PLATFORM
+# ==============================================================================
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Editor/IDE
+*.swp
+*.swo
+*~
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+*.sublime-project
+*.sublime-workspace
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+tmp/
+temp/
+ztmp/
+
+# Build outputs (generic)
+build/
+dist/
+out/
+target/
+bin/
+obj/
+
+# Coverage
+coverage/
+*.lcov
+.nyc_output/
+htmlcov/
+.coverage
+.coverage.*
+
+# ==============================================================================
+# DART / FLUTTER
+# ==============================================================================
+
+# Dart tool
+.dart_tool/
+.packages
+pubspec.lock
+
+# Pub cache
+.pub-cache/
+.pub/
+
+# Flutter
+.flutter-plugins
+.flutter-plugins-dependencies
+**/generated_plugin_registrant.dart
+
+# Generated files
+*.g.dart
+*.freezed.dart
+*.gr.dart
+*.mocks.dart
+*.reflectable.dart
+reflectable.dart
+
+# Flutter build
+**/Flutter/ephemeral/
+**/Flutter/App.framework
+**/Flutter/Flutter.framework
+**/Flutter/Flutter.podspec
+**/Flutter/Generated.xcconfig
+**/Flutter/app.flx
+**/Flutter/app.zip
+**/Flutter/flutter_assets/
+**/Flutter/flutter_export_environment.sh
+**/Flutter/.last_build_id
+
+# Generated plugin registrants
+**/GeneratedPluginRegistrant.*
+**/generated_plugin_registrant.cc
+**/generated_plugin_registrant.h
+**/generated_plugins.cmake
+
+# API documentation (generated)
+**/doc/api/
+
+# Symbols
+app.*.symbols
+
+# Android
+.gradle/
+**/android/gradle-wrapper.jar
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/key.properties
+**/android/captures/
+*.jks
+*.keystore
+
+# iOS / macOS
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/DerivedData/
+**/ios/**/Pods/
+**/ios/**/.symlinks/
+**/ios/**/xcuserdata/
+**/ios/ServiceDefinitions.json
+**/macos/Pods/
+**/xcuserdata/
+Podfile.lock
+
+# ==============================================================================
+# TYPESCRIPT / JAVASCRIPT / NODE.JS
+# ==============================================================================
+
+# Dependencies
+node_modules/
+jspm_packages/
+bower_components/
+
+# Build outputs
+*.js.map
+*.d.ts.map
+*.tsbuildinfo
+
+# Package managers
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.yarn/
+.pnp.*
+
+# Caches
+.npm/
+.eslintcache
+.parcel-cache/
+.cache/
+.turbo/
+
+# VS Code Extension development
+*.vsix
+.vscode-test/
+out/
+
+# Webpack / bundlers
+.webpack/
+.next/
+.nuxt/
+
+# TypeScript
+*.tsbuildinfo
+
+# ==============================================================================
+# PYTHON
+# ==============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+.env/
+.python-version
+Pipfile.lock
+poetry.lock
+
+# Distribution / packaging
+*.egg
+*.egg-info/
+.eggs/
+*.whl
+MANIFEST
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage
+.pytest_cache/
+.tox/
+.nox/
+nosetests.xml
+pytest.xml
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# ==============================================================================
+# RUST
+# ==============================================================================
+
+# Build artifacts
+target/
+**/*.rs.bk
+
+# Cargo
+Cargo.lock
+*.rlib
+
+# Debug
+*.pdb
+
+# ==============================================================================
+# GO
+# ==============================================================================
+
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary
+*.test
+
+# Go workspace
+go.work
+go.work.sum
+
+# Vendor directory (optional)
+# vendor/
+
+# Go module cache (if local)
+/go/
+
+# ==============================================================================
+# PROJECT-SPECIFIC EXCLUSIONS
+# ==============================================================================
+
+# AI trail files (keep .gitkeep)
+_ai/**/trail/*
+!_ai/**/trail/.gitkeep
+
+# Chat replies
+_ai/chat_replies/
+
+# Legacy config files
+bk_master.yaml
+
+# Metadata backup
+.tom_metadata_backup/
+
+# Info files
+*.info
+
+# Local development folders (repo-specific - add as needed)
+# /some_local_folder/
