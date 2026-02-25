@@ -21,8 +21,6 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.4.14
-  tom_build_kit:
-    path: ../../devops/tom_build_kit
   tom_d4rt_generator:
     path: ../tom_d4rt_generator
   tom_d4rt_exec:
