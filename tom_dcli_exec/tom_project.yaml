@@ -1,0 +1,4 @@
+project_id: DCLIE
+name: dcli_exec
+description: >-
+  D4rt DCli integration using tom_d4rt_exec (analyzer-free mirror AST).

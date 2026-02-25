@@ -1,0 +1,28 @@
+/// Runs all mixins feature demonstrations
+///
+/// This script executes all examples in the mixins area:
+/// - basics
+
+import 'basics/run_basics.dart' as basics;
+
+void main() {
+  final separator = '=' * 70;
+
+  print('');
+  print(separator);
+  print('                           DART MIXINS');
+  print(separator);
+  print('');
+
+  print('');
+  print(separator);
+  print('  1. MIXIN BASICS');
+  print(separator);
+  print('');
+  basics.main();
+
+  print('');
+  print(separator);
+  print('  All mixins demos completed!');
+  print(separator);
+}

@@ -1,0 +1,109 @@
+# D4rt Test Suite - Part 2: TomCore HTTP Classes
+# Run with: d4rt -run-replay test_d4rt_tom_http.d4rt -test
+# Tests TomCore HTTP bridged classes: TomMimeType, TomHttpMethod
+
+
+# =============================================================================
+# Test: TomHttpMethod (6 tests)
+# =============================================================================
+
+var getMethod = TomHttpMethod.get;
+verifyNotNull(getMethod, 'GET method not null');
+verifyEquals(getMethod.name, 'GET', 'GET method name');
+
+var postMethod = TomHttpMethod.post;
+verifyEquals(postMethod.name, 'POST', 'POST method name');
+
+var putMethod = TomHttpMethod.put;
+verifyEquals(putMethod.name, 'PUT', 'PUT method name');
+
+var deleteMethod = TomHttpMethod.delete;
+verifyEquals(deleteMethod.name, 'DELETE', 'DELETE method name');
+
+var patchMethod = TomHttpMethod.patch;
+verifyEquals(patchMethod.name, 'PATCH', 'PATCH method name');
+
+# =============================================================================
+# Test: TomMimeType Static Values (8 tests)
+# =============================================================================
+
+# Using correct static getter names: json, html, plainText, xml, octetStream
+
+var jsonMime = TomMimeType.json;
+verifyNotNull(jsonMime, 'JSON mime type not null');
+verifyEquals(jsonMime.primaryType, 'application', 'JSON primary type');
+verifyEquals(jsonMime.subType, 'json', 'JSON sub type');
+
+var htmlMime = TomMimeType.html;
+verifyEquals(htmlMime.primaryType, 'text', 'HTML primary type');
+verifyEquals(htmlMime.subType, 'html', 'HTML sub type');
+
+var textMime = TomMimeType.plainText;
+verifyEquals(textMime.primaryType, 'text', 'Plain text primary type');
+verifyEquals(textMime.subType, 'plain', 'Plain text sub type');
+
+# =============================================================================
+# Test: TomMimeType Additional (6 tests)
+# =============================================================================
+
+var xmlMime = TomMimeType.xml;
+verifyEquals(xmlMime.primaryType, 'application', 'XML primary type');
+verifyEquals(xmlMime.subType, 'xml', 'XML sub type');
+
+var octetMime = TomMimeType.octetStream;
+verifyEquals(octetMime.primaryType, 'application', 'Octet stream primary type');
+verifyEquals(octetMime.subType, 'octet-stream', 'Octet stream sub type');
+
+var cssMime = TomMimeType.css;
+verifyEquals(cssMime.primaryType, 'text', 'CSS primary type');
+
+# =============================================================================
+# Test: TomMimeType Constructor and Parse (4 tests)
+# =============================================================================
+
+var customMime = TomMimeType('image', 'png');
+verifyNotNull(customMime, 'Custom mime type created');
+verifyEquals(customMime.primaryType, 'image', 'Custom primary type');
+verifyEquals(customMime.subType, 'png', 'Custom sub type');
+
+var parsedMime = TomMimeType.parse('text/csv');
+verifyEquals(parsedMime.subType, 'csv', 'Parsed mime subType');
+
+# =============================================================================
+# Test: TomMimeType Methods (4 tests)
+# =============================================================================
+
+var jsonText = TomMimeType.json.toString();
+verifyContains(jsonText, 'application/json', 'JSON toString contains type');
+
+var headerValue = TomMimeType.json.toHeaderValue();
+verifyContains(headerValue, 'application/json', 'Header value contains type');
+
+var isText1 = TomMimeType.plainText.isText;
+verify(isText1, 'Plain text isText is true');
+
+var isText2 = TomMimeType.octetStream.isText;
+verify(!isText2, 'Octet stream isText is false');
+
+# =============================================================================
+# Test: HTTP Method Comparison (4 tests)
+# =============================================================================
+
+var get1 = TomHttpMethod.get;
+var get2 = TomHttpMethod.get;
+verifyEquals(get1, get2, 'Same HTTP method equals');
+
+var post1 = TomHttpMethod.post;
+verify(get1 != post1, 'Different HTTP methods not equal');
+
+var methodCheck = getMethod == TomHttpMethod.get;
+verify(methodCheck, 'GET equals GET');
+
+var methodCheck2 = postMethod == TomHttpMethod.post;
+verify(methodCheck2, 'POST equals POST');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();

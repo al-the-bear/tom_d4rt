@@ -1,0 +1,7 @@
+Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/dartscript/tom_dartscript_bridges/test/replay/test_d4rt_dcli_classes.d4rt
+Started: 2026-02-05T12:28:34.237406
+
+Lines executed: 102
+
+Result: PASSED
+Completed: 2026-02-05T12:28:34.249598

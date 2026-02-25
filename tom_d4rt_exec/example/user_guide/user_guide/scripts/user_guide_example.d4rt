@@ -1,0 +1,39 @@
+// D4rt Script - User Guide Quick Start Example
+// This script demonstrates the classes from bridgegenerator_user_guide.md
+
+import 'package:user_guide_example/user_guide_example.dart';
+
+main() {
+  print('=== User Guide Quick Start Example ===\n');
+
+  // 1. Create a Greeter using default constructor
+  print('1. Creating a Greeter with custom greeting:');
+  var greeter = Greeter('Hello');
+  print('   Greeting: ${greeter.greeting}');
+  print('   greet("World"): ${greeter.greet("World")}');
+
+  // 2. Use named constructor
+  print('\n2. Using named constructor:');
+  var defaultGreeter = Greeter.defaultGreeting();
+  print('   Default greeting: ${defaultGreeter.greeting}');
+  print('   greet("D4rt"): ${defaultGreeter.greet("D4rt")}');
+
+  // 3. Greet multiple people
+  print('\n3. Greeting multiple people:');
+  var names = ['Alice', 'Bob', 'Charlie'];
+  print('   greetAll([Alice, Bob, Charlie]): ${greeter.greetAll(names)}');
+
+  // 4. Create a Calculator
+  print('\n4. Using Calculator:');
+  var calc = Calculator();
+  print('   add(2, 3) = ${calc.add(2, 3)}');
+  print('   subtract(10, 4) = ${calc.subtract(10, 4)}');
+  print('   multiply(6, 7) = ${calc.multiply(6, 7)}');
+  print('   divide(10.0, 3.0, precision: 2) = ${calc.divide(10.0, 3.0, precision: 2)}');
+
+  // 5. Use static method
+  print('\n5. Using static method:');
+  print('   Calculator.quickAdd(5, 7) = ${Calculator.quickAdd(5, 7)}');
+
+  return 'User Guide example completed successfully!';
+}

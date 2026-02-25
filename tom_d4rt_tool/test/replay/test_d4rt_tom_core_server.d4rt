@@ -1,0 +1,68 @@
+# D4rt Test Suite - Tom Core Server Classes
+# Run with: d4rt test_d4rt_tom_core_server.d4rt -test
+# Tests tom_core_server bridged classes
+
+
+# =============================================================================
+# Test: TomCacheEntry (8 tests)
+# =============================================================================
+
+var cacheEntry = TomCacheEntry({'name': 'John'});
+verifyNotNull(cacheEntry, 'TomCacheEntry created');
+
+var cacheEntry2 = TomCacheEntry('test data', DateTime.now().add(Duration(hours: 1)));
+verifyNotNull(cacheEntry2, 'CacheEntry with deletion time');
+
+# =============================================================================
+# Test: TomCacheManager (4 tests)
+# =============================================================================
+
+var cacheManager = TomCacheManager();
+verifyNotNull(cacheManager, 'TomCacheManager created');
+
+var cacheManager2 = TomCacheManager(true);
+verifyNotNull(cacheManager2, 'CacheManager with useInThisIsolate');
+
+# =============================================================================
+# Test: TomCacheException (4 tests)
+# =============================================================================
+
+var cacheEx = TomCacheException('CACHE_ERROR', 'Cache operation failed');
+verifyNotNull(cacheEx, 'TomCacheException created');
+verifyEquals(cacheEx.key, 'CACHE_ERROR', 'CacheException key');
+
+# =============================================================================
+# Test: LoginException (4 tests)
+# =============================================================================
+
+var loginEx = LoginException('LOGIN_FAILED', 'Invalid credentials');
+verifyNotNull(loginEx, 'LoginException created');
+verifyEquals(loginEx.key, 'LOGIN_FAILED', 'LoginException key');
+
+# =============================================================================
+# Test: TomAuthorizationCacheException (4 tests)
+# =============================================================================
+
+var authCacheEx = TomAuthorizationCacheException('AUTH_CACHE_ERROR', 'Authorization cache error');
+verifyNotNull(authCacheEx, 'TomAuthorizationCacheException created');
+verifyEquals(authCacheEx.key, 'AUTH_CACHE_ERROR', 'AuthCacheException key');
+
+# =============================================================================
+# Test: TomEnvFile (4 tests)
+# Note: TomEnvFile and TomYaml are utility classes with static methods
+# =============================================================================
+
+# TomEnvFile is a utility class - test static access
+verifyNotNull(TomEnvFile, 'TomEnvFile class exists');
+
+# TomYaml is a utility class - test static access
+verifyNotNull(TomYaml, 'TomYaml class exists');
+
+# TomArgs is a utility class - test static access
+verifyNotNull(TomArgs, 'TomArgs class exists');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();

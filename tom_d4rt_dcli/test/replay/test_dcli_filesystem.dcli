@@ -1,0 +1,54 @@
+# DCli Test Suite - Part 7: File System Operations
+# Run with: dcli -run-replay test_dcli_filesystem.dcli -test
+# Tests: 12 verifications
+
+import 'dart:io';
+import 'dart:convert';
+
+# =============================================================================
+# Test: Directory Operations (4 tests)
+# =============================================================================
+
+var cwd = Directory.current;
+verifyNotNull(cwd, 'Current directory not null');
+verify(cwd.existsSync(), 'Current directory exists');
+verifyNotNull(cwd.path, 'Current directory path not null');
+
+var tempDir = Directory.systemTemp;
+verify(tempDir.existsSync(), 'System temp exists');
+
+# =============================================================================
+# Test: File Write and Read (4 tests)
+# =============================================================================
+
+var testPath = '${Directory.systemTemp.path}/dcli_test_${DateTime.now().millisecondsSinceEpoch}.txt';
+var testFile = File(testPath);
+
+testFile.writeAsStringSync('Hello DCli Test');
+verify(testFile.existsSync(), 'Test file created');
+
+var content = testFile.readAsStringSync();
+verifyEquals(content, 'Hello DCli Test', 'File content matches');
+
+var stats = testFile.statSync();
+verify(stats.size > 0, 'File has content');
+
+# =============================================================================
+# Test: File Cleanup (4 tests)
+# =============================================================================
+
+testFile.deleteSync();
+verify(!testFile.existsSync(), 'File deleted');
+
+var dir = Directory('${Directory.systemTemp.path}/dcli_testdir_${DateTime.now().millisecondsSinceEpoch}');
+dir.createSync();
+verify(dir.existsSync(), 'Directory created');
+
+dir.deleteSync();
+verify(!dir.existsSync(), 'Directory deleted');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();

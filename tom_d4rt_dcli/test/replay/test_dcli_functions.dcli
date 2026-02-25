@@ -1,0 +1,71 @@
+# DCli Test Suite - Part 4: Functions and Closures
+# Run with: dcli -run-replay test_dcli_functions.dcli -test
+# Tests: 12 verifications
+
+import 'dart:io';
+import 'dart:math';
+
+# =============================================================================
+# Test: Define Functions with .start-define (4 tests)
+# =============================================================================
+
+.start-define
+int add(int a, int b) => a + b;
+
+int multiply(int a, int b) {
+  return a * b;
+}
+
+String greet(String name, {String prefix = 'Hello'}) {
+  return '$prefix, $name!';
+}
+
+int factorial(int n) {
+  if (n <= 1) return 1;
+  return n * factorial(n - 1);
+}
+.end
+
+verifyEquals(add(3, 4), 7, 'Simple function add');
+verifyEquals(multiply(6, 7), 42, 'Block function multiply');
+verifyEquals(greet('DCli'), 'Hello, DCli!', 'Named parameter default');
+verifyEquals(factorial(5), 120, 'Recursive function');
+
+# =============================================================================
+# Test: Lambda/Closure Functions (4 tests)
+# =============================================================================
+
+var square = (int n) => n * n;
+verifyEquals(square(5), 25, 'Lambda function');
+
+var adder = (int a) => (int b) => a + b;
+var add5 = adder(5);
+verifyEquals(add5(10), 15, 'Curried function');
+
+var numbers = [1, 2, 3, 4, 5];
+var sum = numbers.fold<int>(0, (acc, n) => acc + n);
+verifyEquals(sum, 15, 'Fold with lambda');
+
+var product = numbers.fold<int>(1, (acc, n) => acc * n);
+verifyEquals(product, 120, 'Fold product');
+
+# =============================================================================
+# Test: Higher-Order Functions (4 tests)
+# =============================================================================
+
+var items = [3, 1, 4, 1, 5, 9, 2, 6];
+var sorted = [...items]..sort();
+verifyEquals(sorted[0], 1, 'Sort ascending first');
+verifyEquals(sorted.last, 9, 'Sort ascending last');
+
+var filtered = items.where((n) => n > 3).toList();
+verifyEquals(filtered.length, 4, 'Filter count');
+
+var anyGreater = items.any((n) => n > 8);
+verify(anyGreater, 'Any matches predicate');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();

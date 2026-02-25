@@ -1,0 +1,64 @@
+# DCli Test Suite - Part 2: String Operations
+# Run with: dcli -run-replay test_dcli_strings.dcli -test
+# Tests: 15 verifications
+
+import 'dart:io';
+import 'dart:convert';
+
+# =============================================================================
+# Test: String Creation (3 tests)
+# =============================================================================
+
+var singleQuote = 'Hello World';
+var doubleQuote = "Hello World";
+verifyEquals(singleQuote, doubleQuote, 'Single and double quotes equal');
+
+var multiConcat = 'Hello' + ' ' + 'World';
+verifyEquals(multiConcat, 'Hello World', 'String concatenation');
+
+var interpolated = 'Value: ${40 + 2}';
+verifyEquals(interpolated, 'Value: 42', 'String interpolation');
+
+# =============================================================================
+# Test: String Methods (6 tests)
+# =============================================================================
+
+var testStr = '  Hello, World!  ';
+verifyEquals(testStr.trim(), 'Hello, World!', 'String trim');
+verifyEquals(testStr.trim().toUpperCase(), 'HELLO, WORLD!', 'String toUpperCase');
+verifyEquals(testStr.trim().toLowerCase(), 'hello, world!', 'String toLowerCase');
+
+var text = 'Hello, World!';
+verifyEquals(text.substring(0, 5), 'Hello', 'String substring');
+verifyEquals(text.indexOf('World'), 7, 'String indexOf');
+verify(text.contains('World'), 'String contains');
+
+# =============================================================================
+# Test: String Splitting and Joining (4 tests)
+# =============================================================================
+
+var csv = 'one,two,three,four';
+var parts = csv.split(',');
+verifyEquals(parts.length, 4, 'Split length');
+verifyEquals(parts[0], 'one', 'Split first element');
+verifyEquals(parts[3], 'four', 'Split last element');
+
+var joined = parts.join('-');
+verifyEquals(joined, 'one-two-three-four', 'Join with delimiter');
+
+# =============================================================================
+# Test: String Replacement (2 tests)
+# =============================================================================
+
+var original = 'Hello World';
+var replaced = original.replaceAll('World', 'DCli');
+verifyEquals(replaced, 'Hello DCli', 'replaceAll');
+
+var first = 'a-b-c-d'.replaceFirst('-', '_');
+verifyEquals(first, 'a_b-c-d', 'replaceFirst');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();

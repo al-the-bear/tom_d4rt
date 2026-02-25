@@ -1,0 +1,16 @@
+Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_dcli/test/replay/test_dcli_multiline.dcli
+Started: 2026-02-05T15:38:39.016348
+
+Lines executed: 83
+
+REPORTED ERRORS (1):
+  - SourceCodeException: Fatal parsing errors for the direct source:
+- Expected to find ')'. (line 2, column 16)
+- A function body must be provided. (line 2, column 56)
+Problematic code: [var testVar = 100;
+verify(testVar == 100, '.start-execute variable works');]
+
+(Set DEBUG=true environment variable to see stack traces)
+
+Result: FAILED
+Completed: 2026-02-05T15:38:39.404690

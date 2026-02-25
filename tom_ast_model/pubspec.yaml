@@ -1,0 +1,15 @@
+name: tom_ast_model
+description: >-
+  Serializable AST model for Dart source code. A complete, self-contained
+  AST representation with JSON serialization — independent of the Dart
+  analyzer and any interpreter runtime.
+version: 0.1.0
+repository: https://github.com/al-the-bear/tom_module_d4rt
+publish_to: none
+
+environment:
+  sdk: ^3.10.4
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.6

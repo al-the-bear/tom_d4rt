@@ -1,0 +1,76 @@
+// D4rt Script - Operators Example
+// This script demonstrates operator overloading bridging.
+
+import 'package:d4rt_generator_example/test_classes.dart';
+
+main() {
+  print('=== Operators Example ===\n');
+
+  // 1. Vector2D with arithmetic operators
+  print('--- Vector2D ---');
+  var v1 = Vector2D(3.0, 4.0);
+  var v2 = Vector2D(1.0, 2.0);
+  
+  print('v1 = $v1');
+  print('v2 = $v2');
+  print('v1 + v2 = ${v1 + v2}');
+  print('v1 - v2 = ${v1 - v2}');
+  print('v1 * 2 = ${v1 * 2.0}');
+  print('v1 / 2 = ${v1 / 2.0}');
+  // Unary negation
+  print('-v1 = ${-v1}');
+  print('v1 magnitude = ${v1.magnitude}');
+  print('v1 dot v2 = ${v1.dot(v2)}');
+  print('v1 == v1 = ${v1 == v1}');
+  print('v1 == v2 = ${v1 == v2}');
+
+  // Zero vector
+  var zero = Vector2D.zero();
+  print('Zero vector: $zero');
+
+  // 2. Matrix with index operators
+  print('\n--- Matrix ---');
+  var m = Matrix(2, 3);
+  m[0][0] = 1.0;
+  m[0][1] = 2.0;
+  m[0][2] = 3.0;
+  m[1][0] = 4.0;
+  m[1][1] = 5.0;
+  m[1][2] = 6.0;
+  
+  print('Matrix (2x3):');
+  print('  Row 0: ${m[0]}');
+  print('  Row 1: ${m[1]}');
+  print('  Element [1][2]: ${m.get(1, 2)}');
+
+  // Identity matrix
+  var identity = Matrix.identity(3);
+  print('Identity (3x3):');
+  print('  Row 0: ${identity[0]}');
+  print('  Row 1: ${identity[1]}');
+  print('  Row 2: ${identity[2]}');
+
+  // Scalar multiplication
+  var scaled = m * 2.0;
+  print('Matrix * 2:');
+  print('  Row 0: ${scaled[0]}');
+  print('  Row 1: ${scaled[1]}');
+
+  // 3. Dictionary with index operators
+  print('\n--- Dictionary ---');
+  var dict = Dictionary();
+  dict['name'] = 'Alice';
+  dict['age'] = 30;
+  dict['city'] = 'NYC';
+  
+  print('Dict["name"] = ${dict["name"]}');
+  print('Dict["age"] = ${dict["age"]}');
+  print('Dict length: ${dict.length}');
+  print('Keys: ${dict.keys}');
+  print('Contains "name": ${dict.containsKey("name")}');
+  
+  dict.remove('city');
+  print('After remove "city", length: ${dict.length}');
+
+  return 'Operators example completed successfully!';
+}

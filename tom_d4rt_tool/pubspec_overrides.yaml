@@ -1,0 +1,11 @@
+dependency_overrides:
+  tom_d4rt:
+    path: ../../xternal/tom_module_d4rt/tom_d4rt
+  tom_d4rt_dcli:
+    path: ../../xternal/tom_module_d4rt/tom_d4rt_dcli
+  tom_d4rt_generator:
+    path: ../../xternal/tom_module_d4rt/tom_d4rt_generator
+  runtime_native_semaphores:
+    git:
+      url: https://github.com/al-the-bear/native_semaphores.git
+      ref: fork-fix

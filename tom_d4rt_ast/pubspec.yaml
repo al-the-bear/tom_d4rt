@@ -1,0 +1,16 @@
+name: tom_d4rt_ast
+description: Serializable AST model for Dart code interpretation without analyzer dependency.
+version: 0.1.0
+repository: https://github.com/al-the-bear/tom_module_basics
+publish_to: none
+
+environment:
+  sdk: ^3.10.4
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.6
+dependencies:
+  archive: ^4.0.9
+  tom_ast_model:
+    path: ../tom_ast_model

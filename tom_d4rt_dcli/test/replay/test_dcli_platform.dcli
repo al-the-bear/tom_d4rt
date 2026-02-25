@@ -1,0 +1,47 @@
+# DCli Test Suite - Part 9: Platform and Environment
+# Run with: dcli -run-replay test_dcli_platform.dcli -test
+# Tests: 10 verifications
+
+import 'dart:io';
+
+# =============================================================================
+# Test: Platform Properties (5 tests)
+# =============================================================================
+
+var os = Platform.operatingSystem;
+verifyNotNull(os, 'OS not null');
+verify(os.length > 0, 'OS has value');
+
+var pathSep = Platform.pathSeparator;
+verify(pathSep == '/' || pathSep == '\\', 'Path separator valid');
+
+var version = Platform.version;
+verifyNotNull(version, 'Dart version not null');
+
+var numProcessors = Platform.numberOfProcessors;
+verify(numProcessors >= 1, 'At least one processor');
+
+# =============================================================================
+# Test: Environment Variables (3 tests)
+# =============================================================================
+
+var env = Platform.environment;
+verifyNotNull(env, 'Environment not null');
+verify(env.length > 0, 'Environment has entries');
+
+var home = Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
+verifyNotNull(home, 'Home directory exists');
+
+# =============================================================================
+# Test: Executable and Script (2 tests)
+# =============================================================================
+
+var executable = Platform.executable;
+verifyNotNull(executable, 'Executable path not null');
+verify(executable.length > 0, 'Executable path has value');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();

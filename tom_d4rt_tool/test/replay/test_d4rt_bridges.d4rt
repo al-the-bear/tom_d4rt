@@ -1,0 +1,112 @@
+# D4rt Bridge Tests - Tests for tom_dartscript_bridges functionality
+# Run with: d4rt -run-replay test_d4rt_bridges.d4rt -test
+# Tests the bridged types and functionality from Tom Framework
+
+
+# =============================================================================
+# Test: File System Bridges
+# =============================================================================
+
+# Get current directory
+var cwd = Directory.current.path;
+verifyNotNull(cwd, 'Current directory should not be null');
+verify(cwd.isNotEmpty, 'Current directory path should not be empty');
+
+# Check directory exists
+var currentDir = Directory.current;
+verify(currentDir.existsSync(), 'Current directory should exist');
+
+# =============================================================================
+# Test: JSON Encoding/Decoding
+# =============================================================================
+
+var data = {'name': 'test', 'value': 42, 'active': true};
+var jsonStr = jsonEncode(data);
+verifyContains(jsonStr, 'test', 'JSON should contain name');
+verifyContains(jsonStr, '42', 'JSON should contain value');
+
+var decoded = jsonDecode(jsonStr);
+verifyEquals(decoded['name'], 'test', 'Decoded name should match');
+verifyEquals(decoded['value'], 42, 'Decoded value should match');
+verifyEquals(decoded['active'], true, 'Decoded active should match');
+
+# =============================================================================
+# Test: List JSON Operations
+# =============================================================================
+
+var items = [1, 2, 3, 'hello', true];
+var itemsJson = jsonEncode(items);
+var decodedItems = jsonDecode(itemsJson);
+verifyEquals(decodedItems.length, 5, 'Decoded list should have 5 items');
+verifyEquals(decodedItems[3], 'hello', 'Decoded list element should match');
+
+# =============================================================================
+# Test: Platform Info
+# =============================================================================
+
+var pathSep = Platform.pathSeparator;
+verifyNotNull(pathSep, 'Path separator should not be null');
+verify(pathSep == '/' || pathSep == '\\', 'Path separator should be / or \\');
+
+var os = Platform.operatingSystem;
+verifyNotNull(os, 'Operating system should not be null');
+
+# =============================================================================
+# Test: Environment Variables
+# =============================================================================
+
+var home = Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
+verifyNotNull(home, 'Home directory should be in environment');
+
+# =============================================================================
+# Test: Temporary File Operations
+# =============================================================================
+
+var tempDir = Directory.systemTemp;
+verify(tempDir.existsSync(), 'System temp directory should exist');
+
+var testFilePath = '${tempDir.path}/d4rt_test_${DateTime.now().millisecondsSinceEpoch}.txt';
+var testFile = File(testFilePath);
+
+# Write JSON to file
+var testData = {'timestamp': DateTime.now().toIso8601String(), 'data': 'test'};
+testFile.writeAsStringSync(jsonEncode(testData));
+verify(testFile.existsSync(), 'Test file should be created');
+
+# Read and parse JSON from file
+var contents = testFile.readAsStringSync();
+var parsedData = jsonDecode(contents);
+verifyEquals(parsedData['data'], 'test', 'Parsed file data should match');
+
+# Clean up
+testFile.deleteSync();
+verify(!testFile.existsSync(), 'Test file should be deleted');
+
+# =============================================================================
+# Test: DateTime Operations
+# =============================================================================
+
+var now = DateTime.now();
+verifyNotNull(now, 'DateTime.now should not be null');
+verify(now.year >= 2026, 'Year should be 2026 or later');
+
+var isoString = now.toIso8601String();
+verifyNotNull(isoString, 'ISO string should not be null');
+verifyContains(isoString, '2026', 'ISO string should contain year');
+
+# =============================================================================
+# Test: Duration Operations
+# =============================================================================
+
+var duration = Duration(seconds: 90);
+verifyEquals(duration.inSeconds, 90, 'Duration should be 90 seconds');
+verifyEquals(duration.inMinutes, 1, 'Duration should be 1 minute');
+
+var duration2 = Duration(hours: 1, minutes: 30);
+verifyEquals(duration2.inMinutes, 90, 'Duration should be 90 minutes');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();

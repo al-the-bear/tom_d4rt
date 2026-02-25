@@ -1,0 +1,47 @@
+name: tom_dcli_exec
+description: Base D4rt CLI with dcli bridges using tom_d4rt_exec (analyzer-free). Extensible foundation for D4rt tools.
+version: 1.1.2
+publish_to: none
+repository: https://github.com/al-the-bear/tom_module_d4rt
+homepage: https://github.com/al-the-bear/tom_module_d4rt/tree/main/tom_dcli_exec
+topics:
+  - cli
+  - interpreter
+  - d4rt
+  - scripting
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  # D4rt runtime (analyzer-free mirror AST)
+  tom_d4rt_exec:
+    path: ../tom_d4rt_exec
+  # AST converter (analyzer → mirror AST) for parseSourceCallback
+  tom_d4rt_astgen:
+    path: ../tom_d4rt_astgen
+  # Analyzer needed by tom_d4rt_astgen for parsing
+  analyzer: ^8.4.1
+  
+  # VS Code scripting API (for bridge support)
+  tom_vscode_scripting_api: ^1.0.1
+  
+  # Chat tools for Telegram integration
+  tom_chattools: ^1.0.1
+  
+  # External packages for CLI
+  dcli: ^8.4.2
+  dcli_core: ^8.2.8
+  dcli_terminal: ^8.4.2
+  dart_console: ^4.1.2
+  console_markdown: ^0.0.3
+  marked: ^0.2.5
+  crypto: ^3.0.6
+  path: ^1.9.0
+  yaml: ^3.1.2
+
+dev_dependencies:
+  build_runner: ^2.4.15
+  lints: ^6.0.0
+  test: ^1.25.6
+  tom_d4rt_generator: ^1.6.1

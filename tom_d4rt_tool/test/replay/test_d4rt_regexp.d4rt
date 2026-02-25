@@ -1,0 +1,80 @@
+# D4rt Test Suite - Part 6: RegExp and Pattern Matching
+# Run with: d4rt -run-replay test_d4rt_regexp.d4rt -test
+# Tests regular expressions and pattern matching
+
+
+# =============================================================================
+# Test: RegExp Creation (5 tests)
+# =============================================================================
+
+var pattern = RegExp(r'\d+');
+verifyNotNull(pattern, 'RegExp created');
+
+var emailPattern = RegExp(r'^[\w-\.]+@[\w-\.]+\.\w+$');
+verifyNotNull(emailPattern, 'Email pattern created');
+
+var wordPattern = RegExp(r'\w+');
+verifyNotNull(wordPattern, 'Word pattern created');
+
+var casePattern = RegExp(r'test', caseSensitive: false);
+verifyNotNull(casePattern, 'Case insensitive pattern');
+
+var multiPattern = RegExp(r'^line', multiLine: true);
+verifyNotNull(multiPattern, 'Multiline pattern');
+
+# =============================================================================
+# Test: RegExp Matching (5 tests)
+# =============================================================================
+
+var text = 'The answer is 42';
+var hasMatch = pattern.hasMatch(text);
+verify(hasMatch, 'Pattern finds number');
+
+var noMatch = pattern.hasMatch('no numbers here');
+verify(!noMatch, 'Pattern finds no number');
+
+var email = 'test@example.com';
+verify(emailPattern.hasMatch(email), 'Valid email matches');
+
+var badEmail = 'not-an-email';
+verify(!emailPattern.hasMatch(badEmail), 'Invalid email no match');
+
+var mixed = 'Hello123World';
+verify(wordPattern.hasMatch(mixed), 'Word pattern matches');
+
+# =============================================================================
+# Test: RegExp First Match (5 tests)
+# =============================================================================
+
+var match = pattern.firstMatch('abc123def456');
+verifyNotNull(match, 'First match found');
+verifyEquals(match!.group(0), '123', 'First match is 123');
+
+var words = 'hello world test';
+var wordMatch = wordPattern.firstMatch(words);
+verifyEquals(wordMatch!.group(0), 'hello', 'First word is hello');
+
+var noMatchResult = pattern.firstMatch('no digits');
+verify(noMatchResult == null, 'No match returns null');
+
+# =============================================================================
+# Test: RegExp All Matches (5 tests)
+# =============================================================================
+
+var allNumbers = pattern.allMatches('a1b2c3d4e5');
+var matchList = allNumbers.toList();
+verifyEquals(matchList.length, 5, 'Found 5 numbers');
+verifyEquals(matchList[0].group(0), '1', 'First number is 1');
+verifyEquals(matchList[4].group(0), '5', 'Last number is 5');
+
+var allWords = wordPattern.allMatches('one two three');
+verifyEquals(allWords.length, 3, 'Found 3 words');
+
+var noMatches = pattern.allMatches('no numbers');
+verifyEquals(noMatches.length, 0, 'No matches found');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();

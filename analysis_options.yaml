@@ -1,0 +1,22 @@
+# Shared analysis options for the Tom workspace
+# Individual projects should include this file with:
+#   include: ../analysis_options.yaml
+
+analyzer:
+  exclude:
+    - "**/*_generated.dart"
+    - "**/*_bridges.dart"
+    - "**/*.reflection.dart"
+    - "**/*.b.dart"  # Generated bridge files
+    - "tom_d4rt_generator/example/dart_overview/**"
+
+linter:
+  rules:
+    unawaited_futures: true
+    discarded_futures: true
+    # Disabled - too many false positives, especially in test files
+    type_annotate_public_apis: false
+    # Disable file_names - we use numbered prefixes for ordering (e.g., 01_example.dart)
+    file_names: false
+    # Disable dangling_library_doc_comments - generated bridge files may have doc comments at top
+    dangling_library_doc_comments: false

@@ -1,0 +1,100 @@
+# D4rt Test Suite - DCli Classes
+# Run with: d4rt test_d4rt_dcli_classes.d4rt -test
+# Tests dcli bridged classes
+
+
+# =============================================================================
+# Test: DartSdk (8 tests)
+# =============================================================================
+
+var sdk = DartSdk();
+verifyNotNull(sdk, 'DartSdk created');
+verifyNotNull(sdk.pathToSdk, 'SDK path');
+verifyNotNull(sdk.version, 'SDK version');
+verifyContains(sdk.version, '.', 'SDK version has dots');
+
+# =============================================================================
+# Test: DCliPaths (4 tests)
+# =============================================================================
+
+var paths = DCliPaths();
+verifyNotNull(paths, 'DCliPaths created');
+
+# =============================================================================
+# Test: Env (6 tests)
+# =============================================================================
+
+var home = Env().HOME;
+verifyNotNull(home, 'HOME env var');
+
+# Test setting env var
+Env()['TEST_VAR'] = 'test_value';
+verifyEquals(Env()['TEST_VAR'], 'test_value', 'Set env var');
+
+# =============================================================================
+# Test: Shell (6 tests)
+# =============================================================================
+
+var shell = Shell.current;
+verifyNotNull(shell, 'Current shell');
+# verifyNotNull(shell.name, 'Shell name'); # FIXME: Shell.current returns specific shell implementation (e.g. ZshShell) which needs auto-bridging to Shell interface
+
+# =============================================================================
+# Test: Settings (4 tests)
+# =============================================================================
+
+var settings = Settings();
+verifyNotNull(settings, 'Settings created');
+
+# =============================================================================
+# Test: Progress (6 tests)
+# =============================================================================
+
+var progress = Progress.print();
+verifyNotNull(progress, 'Progress.print created');
+
+var devNull = Progress.devNull();
+verifyNotNull(devNull, 'Progress.devNull created');
+
+# =============================================================================
+# Test: Exception Classes (12 tests)
+# =============================================================================
+
+var askEx = AskValidatorException('Invalid input');
+verifyNotNull(askEx, 'AskValidatorException created');
+
+var shellEx = ShellException('Shell error', -1);
+verifyNotNull(shellEx, 'ShellException created');
+
+var fetchEx = FetchException('Fetch failed', 404);
+verifyNotNull(fetchEx, 'FetchException created');
+
+var readEx = ReadException('Read failed');
+verifyNotNull(readEx, 'ReadException created');
+
+# Note: CatException is in dcli_core, not dcli
+
+var copyEx = CopyException('Copy failed', '/src', '/dst');
+verifyNotNull(copyEx, 'CopyException created');
+
+# =============================================================================
+# Test: Enums (8 tests)
+# =============================================================================
+
+var fetchMethod = FetchMethod.get;
+verifyNotNull(fetchMethod, 'FetchMethod.get');
+
+var postMethod = FetchMethod.post;
+verifyNotNull(postMethod, 'FetchMethod.post');
+
+var fetchStatus = FetchStatus.complete;
+verifyNotNull(fetchStatus, 'FetchStatus.complete');
+
+var sortDir = SortDirection.ascending;
+verifyNotNull(sortDir, 'SortDirection.ascending');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();

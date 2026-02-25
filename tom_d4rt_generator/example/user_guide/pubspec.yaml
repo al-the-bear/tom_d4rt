@@ -1,0 +1,14 @@
+name: user_guide_example
+description: Example from bridgegenerator_user_guide.md - Quick Start section
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  tom_d4rt:
+  path: ^1.9.0
+
+dev_dependencies:
+  tom_d4rt_generator:

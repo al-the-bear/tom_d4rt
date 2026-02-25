@@ -1,0 +1,17 @@
+Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_dcli/test/replay/test_dcli_math.dcli
+Started: 2026-02-05T15:38:20.140210
+
+Lines executed: 46
+
+REPORTED ERRORS (2):
+  - SourceCodeException: Failed to parse expression:
+
+Problematic code: [import 'dart:io';]
+  - SourceCodeException: Failed to parse expression:
+
+Problematic code: [import 'dart:math';]
+
+(Set DEBUG=true environment variable to see stack traces)
+
+Result: FAILED
+Completed: 2026-02-05T15:38:20.427854

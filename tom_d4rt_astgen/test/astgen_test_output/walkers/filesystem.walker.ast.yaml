@@ -1,0 +1,1625 @@
+nodeType: CompilationUnit
+offset: 0
+length: 1341
+directives:
+  -
+    nodeType: LibraryDirective
+    offset: 0
+    length: 60
+    metadata: []
+  -
+    nodeType: ImportDirective
+    offset: 62
+    length: 17
+    metadata: []
+    uri:
+      nodeType: SimpleStringLiteral
+      offset: 69
+      length: 9
+      value: "dart:io"
+      isRaw: false
+      isMultiline: false
+      isSingleQuoted: true
+    combinators: []
+    isDeferred: false
+declarations:
+  -
+    nodeType: FunctionDeclaration
+    offset: 81
+    length: 150
+    name:
+      nodeType: SimpleIdentifier
+      offset: 86
+      length: 4
+      name: main
+      inDeclarationContext: true
+    metadata: []
+    returnType:
+      nodeType: NamedType
+      offset: 81
+      length: 4
+      name:
+        nodeType: SimpleIdentifier
+        offset: 81
+        length: 4
+        name: void
+        inDeclarationContext: true
+      isNullable: false
+    isGetter: false
+    isSetter: false
+    isExternal: false
+    functionExpression:
+      nodeType: FunctionExpression
+      offset: 90
+      length: 141
+      parameters:
+        nodeType: FormalParameterList
+        offset: 90
+        length: 19
+        parameters:
+          -
+            nodeType: SimpleFormalParameter
+            offset: 91
+            length: 17
+            name:
+              nodeType: SimpleIdentifier
+              offset: 104
+              length: 4
+              name: args
+              inDeclarationContext: true
+            type:
+              nodeType: NamedType
+              offset: 91
+              length: 12
+              name:
+                nodeType: SimpleIdentifier
+                offset: 91
+                length: 4
+                name: List
+                inDeclarationContext: true
+              typeArguments:
+                nodeType: TypeArgumentList
+                offset: 95
+                length: 8
+                arguments:
+                  -
+                    nodeType: NamedType
+                    offset: 96
+                    length: 6
+                    name:
+                      nodeType: SimpleIdentifier
+                      offset: 96
+                      length: 6
+                      name: String
+                      inDeclarationContext: true
+                    isNullable: false
+              isNullable: false
+            metadata: []
+            isConst: false
+            isFinal: false
+            isRequired: false
+            isCovariant: false
+            isPositional: true
+            isNamed: false
+      body:
+        nodeType: BlockFunctionBody
+        offset: 110
+        length: 121
+        block:
+          nodeType: Block
+          offset: 116
+          length: 115
+          statements:
+            -
+              nodeType: VariableDeclarationStatement
+              offset: 120
+              length: 45
+              variables:
+                nodeType: VariableDeclarationList
+                offset: 120
+                length: 44
+                variables:
+                  -
+                    nodeType: VariableDeclaration
+                    offset: 126
+                    length: 38
+                    name:
+                      nodeType: SimpleIdentifier
+                      offset: 126
+                      length: 4
+                      name: path
+                      inDeclarationContext: true
+                    metadata: []
+                    initializer:
+                      nodeType: ConditionalExpression
+                      offset: 133
+                      length: 31
+                      condition:
+                        nodeType: PrefixedIdentifier
+                        offset: 133
+                        length: 15
+                        prefix:
+                          nodeType: SimpleIdentifier
+                          offset: 133
+                          length: 4
+                          name: args
+                          inDeclarationContext: false
+                        identifier:
+                          nodeType: SimpleIdentifier
+                          offset: 138
+                          length: 10
+                          name: isNotEmpty
+                          inDeclarationContext: false
+                      thenExpression:
+                        nodeType: IndexExpression
+                        offset: 151
+                        length: 7
+                        target:
+                          nodeType: SimpleIdentifier
+                          offset: 151
+                          length: 4
+                          name: args
+                          inDeclarationContext: false
+                        index:
+                          nodeType: IntegerLiteral
+                          offset: 156
+                          length: 1
+                          value: 0
+                        isCascaded: false
+                        isNullAware: false
+                      elseExpression:
+                        nodeType: SimpleStringLiteral
+                        offset: 161
+                        length: 3
+                        value: .
+                        isRaw: false
+                        isMultiline: false
+                        isSingleQuoted: true
+                    isConst: false
+                    isFinal: false
+                    isLate: false
+                isConst: false
+                isFinal: true
+                isLate: false
+                metadata: []
+            -
+              nodeType: VariableDeclarationStatement
+              offset: 168
+              length: 34
+              variables:
+                nodeType: VariableDeclarationList
+                offset: 168
+                length: 33
+                variables:
+                  -
+                    nodeType: VariableDeclaration
+                    offset: 174
+                    length: 27
+                    name:
+                      nodeType: SimpleIdentifier
+                      offset: 174
+                      length: 6
+                      name: walker
+                      inDeclarationContext: true
+                    metadata: []
+                    initializer:
+                      nodeType: MethodInvocation
+                      offset: 183
+                      length: 18
+                      methodName:
+                        nodeType: SimpleIdentifier
+                        offset: 183
+                        length: 16
+                        name: FileSystemWalker
+                        inDeclarationContext: false
+                      argumentList:
+                        nodeType: ArgumentList
+                        offset: 199
+                        length: 2
+                        arguments: []
+                    isConst: false
+                    isFinal: false
+                    isLate: false
+                isConst: false
+                isFinal: true
+                isLate: false
+                metadata: []
+            -
+              nodeType: ExpressionStatement
+              offset: 205
+              length: 24
+              expression:
+                nodeType: AwaitExpression
+                offset: 205
+                length: 23
+                expression:
+                  nodeType: MethodInvocation
+                  offset: 211
+                  length: 17
+                  target:
+                    nodeType: SimpleIdentifier
+                    offset: 211
+                    length: 6
+                    name: walker
+                    inDeclarationContext: false
+                  operator: .
+                  methodName:
+                    nodeType: SimpleIdentifier
+                    offset: 218
+                    length: 4
+                    name: walk
+                    inDeclarationContext: false
+                  argumentList:
+                    nodeType: ArgumentList
+                    offset: 222
+                    length: 6
+                    arguments:
+                      -
+                        nodeType: SimpleIdentifier
+                        offset: 223
+                        length: 4
+                        name: path
+                        inDeclarationContext: false
+        isAsync: true
+        isGenerator: false
+  -
+    nodeType: ClassDeclaration
+    offset: 233
+    length: 933
+    name:
+      nodeType: SimpleIdentifier
+      offset: 239
+      length: 16
+      name: FileSystemWalker
+      inDeclarationContext: true
+    metadata: []
+    isAbstract: false
+    isSealed: false
+    isBase: false
+    isInterface: false
+    isFinal: false
+    isMixin: false
+    members:
+      -
+        nodeType: FieldDeclaration
+        offset: 260
+        length: 18
+        metadata: []
+        isStatic: false
+        isAbstract: false
+        isCovariant: false
+        isExternal: false
+        fields:
+          nodeType: VariableDeclarationList
+          offset: 260
+          length: 17
+          type:
+            nodeType: NamedType
+            offset: 260
+            length: 3
+            name:
+              nodeType: SimpleIdentifier
+              offset: 260
+              length: 3
+              name: int
+              inDeclarationContext: true
+            isNullable: false
+          variables:
+            -
+              nodeType: VariableDeclaration
+              offset: 264
+              length: 13
+              name:
+                nodeType: SimpleIdentifier
+                offset: 264
+                length: 9
+                name: fileCount
+                inDeclarationContext: true
+              metadata: []
+              initializer:
+                nodeType: IntegerLiteral
+                offset: 276
+                length: 1
+                value: 0
+              isConst: false
+              isFinal: false
+              isLate: false
+          isConst: false
+          isFinal: false
+          isLate: false
+          metadata: []
+      -
+        nodeType: FieldDeclaration
+        offset: 281
+        length: 17
+        metadata: []
+        isStatic: false
+        isAbstract: false
+        isCovariant: false
+        isExternal: false
+        fields:
+          nodeType: VariableDeclarationList
+          offset: 281
+          length: 16
+          type:
+            nodeType: NamedType
+            offset: 281
+            length: 3
+            name:
+              nodeType: SimpleIdentifier
+              offset: 281
+              length: 3
+              name: int
+              inDeclarationContext: true
+            isNullable: false
+          variables:
+            -
+              nodeType: VariableDeclaration
+              offset: 285
+              length: 12
+              name:
+                nodeType: SimpleIdentifier
+                offset: 285
+                length: 8
+                name: dirCount
+                inDeclarationContext: true
+              metadata: []
+              initializer:
+                nodeType: IntegerLiteral
+                offset: 296
+                length: 1
+                value: 0
+              isConst: false
+              isFinal: false
+              isLate: false
+          isConst: false
+          isFinal: false
+          isLate: false
+          metadata: []
+      -
+        nodeType: MethodDeclaration
+        offset: 304
+        length: 342
+        name:
+          nodeType: SimpleIdentifier
+          offset: 317
+          length: 4
+          name: walk
+          inDeclarationContext: true
+        metadata: []
+        returnType:
+          nodeType: NamedType
+          offset: 304
+          length: 12
+          name:
+            nodeType: SimpleIdentifier
+            offset: 304
+            length: 6
+            name: Future
+            inDeclarationContext: true
+          typeArguments:
+            nodeType: TypeArgumentList
+            offset: 310
+            length: 6
+            arguments:
+              -
+                nodeType: NamedType
+                offset: 311
+                length: 4
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 311
+                  length: 4
+                  name: void
+                  inDeclarationContext: true
+                isNullable: false
+          isNullable: false
+        isStatic: false
+        isAbstract: false
+        isExternal: false
+        isGetter: false
+        isSetter: false
+        isOperator: false
+        parameters:
+          nodeType: FormalParameterList
+          offset: 321
+          length: 13
+          parameters:
+            -
+              nodeType: SimpleFormalParameter
+              offset: 322
+              length: 11
+              name:
+                nodeType: SimpleIdentifier
+                offset: 329
+                length: 4
+                name: path
+                inDeclarationContext: true
+              type:
+                nodeType: NamedType
+                offset: 322
+                length: 6
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 322
+                  length: 6
+                  name: String
+                  inDeclarationContext: true
+                isNullable: false
+              metadata: []
+              isConst: false
+              isFinal: false
+              isRequired: false
+              isCovariant: false
+              isPositional: true
+              isNamed: false
+        body:
+          nodeType: BlockFunctionBody
+          offset: 335
+          length: 311
+          block:
+            nodeType: Block
+            offset: 341
+            length: 305
+            statements:
+              -
+                nodeType: VariableDeclarationStatement
+                offset: 347
+                length: 47
+                variables:
+                  nodeType: VariableDeclarationList
+                  offset: 347
+                  length: 46
+                  variables:
+                    -
+                      nodeType: VariableDeclaration
+                      offset: 353
+                      length: 40
+                      name:
+                        nodeType: SimpleIdentifier
+                        offset: 353
+                        length: 6
+                        name: entity
+                        inDeclarationContext: true
+                      metadata: []
+                      initializer:
+                        nodeType: MethodInvocation
+                        offset: 362
+                        length: 31
+                        target:
+                          nodeType: SimpleIdentifier
+                          offset: 362
+                          length: 16
+                          name: FileSystemEntity
+                          inDeclarationContext: false
+                        operator: .
+                        methodName:
+                          nodeType: SimpleIdentifier
+                          offset: 379
+                          length: 8
+                          name: typeSync
+                          inDeclarationContext: false
+                        argumentList:
+                          nodeType: ArgumentList
+                          offset: 387
+                          length: 6
+                          arguments:
+                            -
+                              nodeType: SimpleIdentifier
+                              offset: 388
+                              length: 4
+                              name: path
+                              inDeclarationContext: false
+                      isConst: false
+                      isFinal: false
+                      isLate: false
+                  isConst: false
+                  isFinal: true
+                  isLate: false
+                  metadata: []
+              -
+                nodeType: IfStatement
+                offset: 404
+                length: 170
+                condition:
+                  nodeType: BinaryExpression
+                  offset: 408
+                  length: 35
+                  leftOperand:
+                    nodeType: SimpleIdentifier
+                    offset: 408
+                    length: 6
+                    name: entity
+                    inDeclarationContext: false
+                  operator: ==
+                  rightOperand:
+                    nodeType: PrefixedIdentifier
+                    offset: 418
+                    length: 25
+                    prefix:
+                      nodeType: SimpleIdentifier
+                      offset: 418
+                      length: 20
+                      name: FileSystemEntityType
+                      inDeclarationContext: false
+                    identifier:
+                      nodeType: SimpleIdentifier
+                      offset: 439
+                      length: 4
+                      name: file
+                      inDeclarationContext: false
+                thenStatement:
+                  nodeType: Block
+                  offset: 445
+                  length: 33
+                  statements:
+                    -
+                      nodeType: ExpressionStatement
+                      offset: 453
+                      length: 19
+                      expression:
+                        nodeType: MethodInvocation
+                        offset: 453
+                        length: 18
+                        methodName:
+                          nodeType: SimpleIdentifier
+                          offset: 453
+                          length: 12
+                          name: _processFile
+                          inDeclarationContext: false
+                        argumentList:
+                          nodeType: ArgumentList
+                          offset: 465
+                          length: 6
+                          arguments:
+                            -
+                              nodeType: SimpleIdentifier
+                              offset: 466
+                              length: 4
+                              name: path
+                              inDeclarationContext: false
+                elseStatement:
+                  nodeType: IfStatement
+                  offset: 484
+                  length: 90
+                  condition:
+                    nodeType: BinaryExpression
+                    offset: 488
+                    length: 40
+                    leftOperand:
+                      nodeType: SimpleIdentifier
+                      offset: 488
+                      length: 6
+                      name: entity
+                      inDeclarationContext: false
+                    operator: ==
+                    rightOperand:
+                      nodeType: PrefixedIdentifier
+                      offset: 498
+                      length: 30
+                      prefix:
+                        nodeType: SimpleIdentifier
+                        offset: 498
+                        length: 20
+                        name: FileSystemEntityType
+                        inDeclarationContext: false
+                      identifier:
+                        nodeType: SimpleIdentifier
+                        offset: 519
+                        length: 9
+                        name: directory
+                        inDeclarationContext: false
+                  thenStatement:
+                    nodeType: Block
+                    offset: 530
+                    length: 44
+                    statements:
+                      -
+                        nodeType: ExpressionStatement
+                        offset: 538
+                        length: 30
+                        expression:
+                          nodeType: AwaitExpression
+                          offset: 538
+                          length: 29
+                          expression:
+                            nodeType: MethodInvocation
+                            offset: 544
+                            length: 23
+                            methodName:
+                              nodeType: SimpleIdentifier
+                              offset: 544
+                              length: 17
+                              name: _processDirectory
+                              inDeclarationContext: false
+                            argumentList:
+                              nodeType: ArgumentList
+                              offset: 561
+                              length: 6
+                              arguments:
+                                -
+                                  nodeType: SimpleIdentifier
+                                  offset: 562
+                                  length: 4
+                                  name: path
+                                  inDeclarationContext: false
+              -
+                nodeType: ExpressionStatement
+                offset: 584
+                length: 58
+                expression:
+                  nodeType: MethodInvocation
+                  offset: 584
+                  length: 57
+                  methodName:
+                    nodeType: SimpleIdentifier
+                    offset: 584
+                    length: 5
+                    name: print
+                    inDeclarationContext: false
+                  argumentList:
+                    nodeType: ArgumentList
+                    offset: 589
+                    length: 52
+                    arguments:
+                      -
+                        nodeType: StringInterpolation
+                        offset: 590
+                        length: 50
+                        elements:
+                          -
+                            nodeType: InterpolationString
+                            offset: 590
+                            length: 10
+                            value: "Summary: "
+                          -
+                            nodeType: InterpolationExpression
+                            offset: 600
+                            length: 10
+                            expression:
+                              nodeType: SimpleIdentifier
+                              offset: 601
+                              length: 9
+                              name: fileCount
+                              inDeclarationContext: false
+                          -
+                            nodeType: InterpolationString
+                            offset: 610
+                            length: 8
+                            value:  files, 
+                          -
+                            nodeType: InterpolationExpression
+                            offset: 618
+                            length: 9
+                            expression:
+                              nodeType: SimpleIdentifier
+                              offset: 619
+                              length: 8
+                              name: dirCount
+                              inDeclarationContext: false
+                          -
+                            nodeType: InterpolationString
+                            offset: 627
+                            length: 13
+                            value:  directories
+                        isMultiline: false
+                        isRaw: false
+          isAsync: true
+          isGenerator: false
+      -
+        nodeType: MethodDeclaration
+        offset: 652
+        length: 158
+        name:
+          nodeType: SimpleIdentifier
+          offset: 657
+          length: 12
+          name: _processFile
+          inDeclarationContext: true
+        metadata: []
+        returnType:
+          nodeType: NamedType
+          offset: 652
+          length: 4
+          name:
+            nodeType: SimpleIdentifier
+            offset: 652
+            length: 4
+            name: void
+            inDeclarationContext: true
+          isNullable: false
+        isStatic: false
+        isAbstract: false
+        isExternal: false
+        isGetter: false
+        isSetter: false
+        isOperator: false
+        parameters:
+          nodeType: FormalParameterList
+          offset: 669
+          length: 13
+          parameters:
+            -
+              nodeType: SimpleFormalParameter
+              offset: 670
+              length: 11
+              name:
+                nodeType: SimpleIdentifier
+                offset: 677
+                length: 4
+                name: path
+                inDeclarationContext: true
+              type:
+                nodeType: NamedType
+                offset: 670
+                length: 6
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 670
+                  length: 6
+                  name: String
+                  inDeclarationContext: true
+                isNullable: false
+              metadata: []
+              isConst: false
+              isFinal: false
+              isRequired: false
+              isCovariant: false
+              isPositional: true
+              isNamed: false
+        body:
+          nodeType: BlockFunctionBody
+          offset: 683
+          length: 127
+          block:
+            nodeType: Block
+            offset: 683
+            length: 127
+            statements:
+              -
+                nodeType: ExpressionStatement
+                offset: 689
+                length: 12
+                expression:
+                  nodeType: PostfixExpression
+                  offset: 689
+                  length: 11
+                  operand:
+                    nodeType: SimpleIdentifier
+                    offset: 689
+                    length: 9
+                    name: fileCount
+                    inDeclarationContext: false
+                  operator: ++
+              -
+                nodeType: VariableDeclarationStatement
+                offset: 706
+                length: 24
+                variables:
+                  nodeType: VariableDeclarationList
+                  offset: 706
+                  length: 23
+                  variables:
+                    -
+                      nodeType: VariableDeclaration
+                      offset: 712
+                      length: 17
+                      name:
+                        nodeType: SimpleIdentifier
+                        offset: 712
+                        length: 4
+                        name: file
+                        inDeclarationContext: true
+                      metadata: []
+                      initializer:
+                        nodeType: MethodInvocation
+                        offset: 719
+                        length: 10
+                        methodName:
+                          nodeType: SimpleIdentifier
+                          offset: 719
+                          length: 4
+                          name: File
+                          inDeclarationContext: false
+                        argumentList:
+                          nodeType: ArgumentList
+                          offset: 723
+                          length: 6
+                          arguments:
+                            -
+                              nodeType: SimpleIdentifier
+                              offset: 724
+                              length: 4
+                              name: path
+                              inDeclarationContext: false
+                      isConst: false
+                      isFinal: false
+                      isLate: false
+                  isConst: false
+                  isFinal: true
+                  isLate: false
+                  metadata: []
+              -
+                nodeType: VariableDeclarationStatement
+                offset: 735
+                length: 31
+                variables:
+                  nodeType: VariableDeclarationList
+                  offset: 735
+                  length: 30
+                  variables:
+                    -
+                      nodeType: VariableDeclaration
+                      offset: 741
+                      length: 24
+                      name:
+                        nodeType: SimpleIdentifier
+                        offset: 741
+                        length: 4
+                        name: size
+                        inDeclarationContext: true
+                      metadata: []
+                      initializer:
+                        nodeType: MethodInvocation
+                        offset: 748
+                        length: 17
+                        target:
+                          nodeType: SimpleIdentifier
+                          offset: 748
+                          length: 4
+                          name: file
+                          inDeclarationContext: false
+                        operator: .
+                        methodName:
+                          nodeType: SimpleIdentifier
+                          offset: 753
+                          length: 10
+                          name: lengthSync
+                          inDeclarationContext: false
+                        argumentList:
+                          nodeType: ArgumentList
+                          offset: 763
+                          length: 2
+                          arguments: []
+                      isConst: false
+                      isFinal: false
+                      isLate: false
+                  isConst: false
+                  isFinal: true
+                  isLate: false
+                  metadata: []
+              -
+                nodeType: ExpressionStatement
+                offset: 771
+                length: 35
+                expression:
+                  nodeType: MethodInvocation
+                  offset: 771
+                  length: 34
+                  methodName:
+                    nodeType: SimpleIdentifier
+                    offset: 771
+                    length: 5
+                    name: print
+                    inDeclarationContext: false
+                  argumentList:
+                    nodeType: ArgumentList
+                    offset: 776
+                    length: 29
+                    arguments:
+                      -
+                        nodeType: StringInterpolation
+                        offset: 777
+                        length: 27
+                        elements:
+                          -
+                            nodeType: InterpolationString
+                            offset: 777
+                            length: 7
+                            value: "File: "
+                          -
+                            nodeType: InterpolationExpression
+                            offset: 784
+                            length: 5
+                            expression:
+                              nodeType: SimpleIdentifier
+                              offset: 785
+                              length: 4
+                              name: path
+                              inDeclarationContext: false
+                          -
+                            nodeType: InterpolationString
+                            offset: 789
+                            length: 2
+                            value:  (
+                          -
+                            nodeType: InterpolationExpression
+                            offset: 791
+                            length: 5
+                            expression:
+                              nodeType: SimpleIdentifier
+                              offset: 792
+                              length: 4
+                              name: size
+                              inDeclarationContext: false
+                          -
+                            nodeType: InterpolationString
+                            offset: 796
+                            length: 8
+                            value:  bytes)
+                        isMultiline: false
+                        isRaw: false
+          isAsync: false
+          isGenerator: false
+      -
+        nodeType: MethodDeclaration
+        offset: 816
+        length: 348
+        name:
+          nodeType: SimpleIdentifier
+          offset: 829
+          length: 17
+          name: _processDirectory
+          inDeclarationContext: true
+        metadata: []
+        returnType:
+          nodeType: NamedType
+          offset: 816
+          length: 12
+          name:
+            nodeType: SimpleIdentifier
+            offset: 816
+            length: 6
+            name: Future
+            inDeclarationContext: true
+          typeArguments:
+            nodeType: TypeArgumentList
+            offset: 822
+            length: 6
+            arguments:
+              -
+                nodeType: NamedType
+                offset: 823
+                length: 4
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 823
+                  length: 4
+                  name: void
+                  inDeclarationContext: true
+                isNullable: false
+          isNullable: false
+        isStatic: false
+        isAbstract: false
+        isExternal: false
+        isGetter: false
+        isSetter: false
+        isOperator: false
+        parameters:
+          nodeType: FormalParameterList
+          offset: 846
+          length: 13
+          parameters:
+            -
+              nodeType: SimpleFormalParameter
+              offset: 847
+              length: 11
+              name:
+                nodeType: SimpleIdentifier
+                offset: 854
+                length: 4
+                name: path
+                inDeclarationContext: true
+              type:
+                nodeType: NamedType
+                offset: 847
+                length: 6
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 847
+                  length: 6
+                  name: String
+                  inDeclarationContext: true
+                isNullable: false
+              metadata: []
+              isConst: false
+              isFinal: false
+              isRequired: false
+              isCovariant: false
+              isPositional: true
+              isNamed: false
+        body:
+          nodeType: BlockFunctionBody
+          offset: 860
+          length: 304
+          block:
+            nodeType: Block
+            offset: 866
+            length: 298
+            statements:
+              -
+                nodeType: ExpressionStatement
+                offset: 872
+                length: 11
+                expression:
+                  nodeType: PostfixExpression
+                  offset: 872
+                  length: 10
+                  operand:
+                    nodeType: SimpleIdentifier
+                    offset: 872
+                    length: 8
+                    name: dirCount
+                    inDeclarationContext: false
+                  operator: ++
+              -
+                nodeType: ExpressionStatement
+                offset: 888
+                length: 26
+                expression:
+                  nodeType: MethodInvocation
+                  offset: 888
+                  length: 25
+                  methodName:
+                    nodeType: SimpleIdentifier
+                    offset: 888
+                    length: 5
+                    name: print
+                    inDeclarationContext: false
+                  argumentList:
+                    nodeType: ArgumentList
+                    offset: 893
+                    length: 20
+                    arguments:
+                      -
+                        nodeType: StringInterpolation
+                        offset: 894
+                        length: 18
+                        elements:
+                          -
+                            nodeType: InterpolationString
+                            offset: 894
+                            length: 12
+                            value: "Directory: "
+                          -
+                            nodeType: InterpolationExpression
+                            offset: 906
+                            length: 5
+                            expression:
+                              nodeType: SimpleIdentifier
+                              offset: 907
+                              length: 4
+                              name: path
+                              inDeclarationContext: false
+                          -
+                            nodeType: InterpolationString
+                            offset: 911
+                            length: 1
+                            value: 
+                        isMultiline: false
+                        isRaw: false
+              -
+                nodeType: VariableDeclarationStatement
+                offset: 924
+                length: 28
+                variables:
+                  nodeType: VariableDeclarationList
+                  offset: 924
+                  length: 27
+                  variables:
+                    -
+                      nodeType: VariableDeclaration
+                      offset: 930
+                      length: 21
+                      name:
+                        nodeType: SimpleIdentifier
+                        offset: 930
+                        length: 3
+                        name: dir
+                        inDeclarationContext: true
+                      metadata: []
+                      initializer:
+                        nodeType: MethodInvocation
+                        offset: 936
+                        length: 15
+                        methodName:
+                          nodeType: SimpleIdentifier
+                          offset: 936
+                          length: 9
+                          name: Directory
+                          inDeclarationContext: false
+                        argumentList:
+                          nodeType: ArgumentList
+                          offset: 945
+                          length: 6
+                          arguments:
+                            -
+                              nodeType: SimpleIdentifier
+                              offset: 946
+                              length: 4
+                              name: path
+                              inDeclarationContext: false
+                      isConst: false
+                      isFinal: false
+                      isLate: false
+                  isConst: false
+                  isFinal: true
+                  isLate: false
+                  metadata: []
+              -
+                nodeType: ForStatement
+                offset: 957
+                length: 203
+                forLoopParts:
+                  nodeType: ForEachPartsWithDeclaration
+                  offset: 968
+                  length: 26
+                  loopVariable:
+                    nodeType: DeclaredIdentifier
+                    offset: 968
+                    length: 12
+                    metadata: []
+                    identifier:
+                      nodeType: SimpleIdentifier
+                      offset: 974
+                      length: 6
+                      name: entity
+                      inDeclarationContext: true
+                    isFinal: true
+                    isConst: false
+                  iterable:
+                    nodeType: MethodInvocation
+                    offset: 984
+                    length: 10
+                    target:
+                      nodeType: SimpleIdentifier
+                      offset: 984
+                      length: 3
+                      name: dir
+                      inDeclarationContext: false
+                    operator: .
+                    methodName:
+                      nodeType: SimpleIdentifier
+                      offset: 988
+                      length: 4
+                      name: list
+                      inDeclarationContext: false
+                    argumentList:
+                      nodeType: ArgumentList
+                      offset: 992
+                      length: 2
+                      arguments: []
+                  isAwait: false
+                body:
+                  nodeType: Block
+                  offset: 996
+                  length: 164
+                  statements:
+                    -
+                      nodeType: IfStatement
+                      offset: 1004
+                      length: 150
+                      condition:
+                        nodeType: IsExpression
+                        offset: 1008
+                        length: 14
+                        expression:
+                          nodeType: SimpleIdentifier
+                          offset: 1008
+                          length: 6
+                          name: entity
+                          inDeclarationContext: false
+                        isNot: false
+                        type:
+                          nodeType: NamedType
+                          offset: 1018
+                          length: 4
+                          name:
+                            nodeType: SimpleIdentifier
+                            offset: 1018
+                            length: 4
+                            name: File
+                            inDeclarationContext: true
+                          isNullable: false
+                      thenStatement:
+                        nodeType: Block
+                        offset: 1024
+                        length: 44
+                        statements:
+                          -
+                            nodeType: ExpressionStatement
+                            offset: 1034
+                            length: 26
+                            expression:
+                              nodeType: MethodInvocation
+                              offset: 1034
+                              length: 25
+                              methodName:
+                                nodeType: SimpleIdentifier
+                                offset: 1034
+                                length: 12
+                                name: _processFile
+                                inDeclarationContext: false
+                              argumentList:
+                                nodeType: ArgumentList
+                                offset: 1046
+                                length: 13
+                                arguments:
+                                  -
+                                    nodeType: PrefixedIdentifier
+                                    offset: 1047
+                                    length: 11
+                                    prefix:
+                                      nodeType: SimpleIdentifier
+                                      offset: 1047
+                                      length: 6
+                                      name: entity
+                                      inDeclarationContext: false
+                                    identifier:
+                                      nodeType: SimpleIdentifier
+                                      offset: 1054
+                                      length: 4
+                                      name: path
+                                      inDeclarationContext: false
+                      elseStatement:
+                        nodeType: IfStatement
+                        offset: 1074
+                        length: 80
+                        condition:
+                          nodeType: IsExpression
+                          offset: 1078
+                          length: 19
+                          expression:
+                            nodeType: SimpleIdentifier
+                            offset: 1078
+                            length: 6
+                            name: entity
+                            inDeclarationContext: false
+                          isNot: false
+                          type:
+                            nodeType: NamedType
+                            offset: 1088
+                            length: 9
+                            name:
+                              nodeType: SimpleIdentifier
+                              offset: 1088
+                              length: 9
+                              name: Directory
+                              inDeclarationContext: true
+                            isNullable: false
+                        thenStatement:
+                          nodeType: Block
+                          offset: 1099
+                          length: 55
+                          statements:
+                            -
+                              nodeType: ExpressionStatement
+                              offset: 1109
+                              length: 37
+                              expression:
+                                nodeType: AwaitExpression
+                                offset: 1109
+                                length: 36
+                                expression:
+                                  nodeType: MethodInvocation
+                                  offset: 1115
+                                  length: 30
+                                  methodName:
+                                    nodeType: SimpleIdentifier
+                                    offset: 1115
+                                    length: 17
+                                    name: _processDirectory
+                                    inDeclarationContext: false
+                                  argumentList:
+                                    nodeType: ArgumentList
+                                    offset: 1132
+                                    length: 13
+                                    arguments:
+                                      -
+                                        nodeType: PrefixedIdentifier
+                                        offset: 1133
+                                        length: 11
+                                        prefix:
+                                          nodeType: SimpleIdentifier
+                                          offset: 1133
+                                          length: 6
+                                          name: entity
+                                          inDeclarationContext: false
+                                        identifier:
+                                          nodeType: SimpleIdentifier
+                                          offset: 1140
+                                          length: 4
+                                          name: path
+                                          inDeclarationContext: false
+          isAsync: true
+          isGenerator: false
+  -
+    nodeType: TypedefDeclaration
+    offset: 1168
+    length: 50
+    name:
+      nodeType: SimpleIdentifier
+      offset: 1176
+      length: 12
+      name: WalkCallback
+      inDeclarationContext: true
+    metadata: []
+    type:
+      nodeType: GenericFunctionType
+      offset: 1191
+      length: 26
+      returnType:
+        nodeType: NamedType
+        offset: 1191
+        length: 4
+        name:
+          nodeType: SimpleIdentifier
+          offset: 1191
+          length: 4
+          name: void
+          inDeclarationContext: true
+        isNullable: false
+      parameters:
+        nodeType: FormalParameterList
+        offset: 1204
+        length: 13
+        parameters:
+          -
+            nodeType: SimpleFormalParameter
+            offset: 1205
+            length: 11
+            name:
+              nodeType: SimpleIdentifier
+              offset: 1212
+              length: 4
+              name: path
+              inDeclarationContext: true
+            type:
+              nodeType: NamedType
+              offset: 1205
+              length: 6
+              name:
+                nodeType: SimpleIdentifier
+                offset: 1205
+                length: 6
+                name: String
+                inDeclarationContext: true
+              isNullable: false
+            metadata: []
+            isConst: false
+            isFinal: false
+            isRequired: false
+            isCovariant: false
+            isPositional: true
+            isNamed: false
+      isNullable: false
+  -
+    nodeType: ClassDeclaration
+    offset: 1220
+    length: 120
+    name:
+      nodeType: SimpleIdentifier
+      offset: 1235
+      length: 6
+      name: Walker
+      inDeclarationContext: true
+    metadata: []
+    isAbstract: true
+    isSealed: false
+    isBase: false
+    isInterface: false
+    isFinal: false
+    isMixin: false
+    members:
+      -
+        nodeType: MethodDeclaration
+        offset: 1246
+        length: 31
+        name:
+          nodeType: SimpleIdentifier
+          offset: 1259
+          length: 4
+          name: walk
+          inDeclarationContext: true
+        metadata: []
+        returnType:
+          nodeType: NamedType
+          offset: 1246
+          length: 12
+          name:
+            nodeType: SimpleIdentifier
+            offset: 1246
+            length: 6
+            name: Future
+            inDeclarationContext: true
+          typeArguments:
+            nodeType: TypeArgumentList
+            offset: 1252
+            length: 6
+            arguments:
+              -
+                nodeType: NamedType
+                offset: 1253
+                length: 4
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 1253
+                  length: 4
+                  name: void
+                  inDeclarationContext: true
+                isNullable: false
+          isNullable: false
+        isStatic: false
+        isAbstract: true
+        isExternal: false
+        isGetter: false
+        isSetter: false
+        isOperator: false
+        parameters:
+          nodeType: FormalParameterList
+          offset: 1263
+          length: 13
+          parameters:
+            -
+              nodeType: SimpleFormalParameter
+              offset: 1264
+              length: 11
+              name:
+                nodeType: SimpleIdentifier
+                offset: 1271
+                length: 4
+                name: path
+                inDeclarationContext: true
+              type:
+                nodeType: NamedType
+                offset: 1264
+                length: 6
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 1264
+                  length: 6
+                  name: String
+                  inDeclarationContext: true
+                isNullable: false
+              metadata: []
+              isConst: false
+              isFinal: false
+              isRequired: false
+              isCovariant: false
+              isPositional: true
+              isNamed: false
+        body:
+          nodeType: EmptyFunctionBody
+          offset: 1276
+          length: 1
+      -
+        nodeType: MethodDeclaration
+        offset: 1280
+        length: 25
+        name:
+          nodeType: SimpleIdentifier
+          offset: 1285
+          length: 6
+          name: onFile
+          inDeclarationContext: true
+        metadata: []
+        returnType:
+          nodeType: NamedType
+          offset: 1280
+          length: 4
+          name:
+            nodeType: SimpleIdentifier
+            offset: 1280
+            length: 4
+            name: void
+            inDeclarationContext: true
+          isNullable: false
+        isStatic: false
+        isAbstract: true
+        isExternal: false
+        isGetter: false
+        isSetter: false
+        isOperator: false
+        parameters:
+          nodeType: FormalParameterList
+          offset: 1291
+          length: 13
+          parameters:
+            -
+              nodeType: SimpleFormalParameter
+              offset: 1292
+              length: 11
+              name:
+                nodeType: SimpleIdentifier
+                offset: 1299
+                length: 4
+                name: path
+                inDeclarationContext: true
+              type:
+                nodeType: NamedType
+                offset: 1292
+                length: 6
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 1292
+                  length: 6
+                  name: String
+                  inDeclarationContext: true
+                isNullable: false
+              metadata: []
+              isConst: false
+              isFinal: false
+              isRequired: false
+              isCovariant: false
+              isPositional: true
+              isNamed: false
+        body:
+          nodeType: EmptyFunctionBody
+          offset: 1304
+          length: 1
+      -
+        nodeType: MethodDeclaration
+        offset: 1308
+        length: 30
+        name:
+          nodeType: SimpleIdentifier
+          offset: 1313
+          length: 11
+          name: onDirectory
+          inDeclarationContext: true
+        metadata: []
+        returnType:
+          nodeType: NamedType
+          offset: 1308
+          length: 4
+          name:
+            nodeType: SimpleIdentifier
+            offset: 1308
+            length: 4
+            name: void
+            inDeclarationContext: true
+          isNullable: false
+        isStatic: false
+        isAbstract: true
+        isExternal: false
+        isGetter: false
+        isSetter: false
+        isOperator: false
+        parameters:
+          nodeType: FormalParameterList
+          offset: 1324
+          length: 13
+          parameters:
+            -
+              nodeType: SimpleFormalParameter
+              offset: 1325
+              length: 11
+              name:
+                nodeType: SimpleIdentifier
+                offset: 1332
+                length: 4
+                name: path
+                inDeclarationContext: true
+              type:
+                nodeType: NamedType
+                offset: 1325
+                length: 6
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 1325
+                  length: 6
+                  name: String
+                  inDeclarationContext: true
+                isNullable: false
+              metadata: []
+              isConst: false
+              isFinal: false
+              isRequired: false
+              isCovariant: false
+              isPositional: true
+              isNamed: false
+        body:
+          nodeType: EmptyFunctionBody
+          offset: 1337
+          length: 1
+comments: []

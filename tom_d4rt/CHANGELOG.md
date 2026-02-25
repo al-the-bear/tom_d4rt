@@ -1,0 +1,332 @@
+## 1.8.2
+
+### Maintenance
+
+- Added `version.versioner.dart` build-time version info file.
+
+## 1.8.1
+
+### Bug Fixes
+- **GEN-056**: Fixed extension on-type resolution for stdlib and bridge types in the interpreter
+- **G-DCLI-05/07/08/11/12/13/14**: All DCli bridge issues resolved — proper handling of DCli-specific bridged methods and types
+
+### Tests
+- **Flaky file IO tests**: Fixed race condition where all file IO tests (I-FILE-144 through I-FILE-159) shared a hardcoded `/tmp/test.txt` path. Under concurrent execution, one test's `deleteSync()` would remove the file while another was still using it. Each test now uses a unique filename (`/test_{ID}.txt`).
+- 1680 tests pass (2 known I-BUG-14a/14b intentional failures excluded)
+
+## 1.7.0
+
+### Bug Fixes
+- **G-GNRC-7**: Fixed `runtimeType` comparison with type identifiers. When comparing `runtimeType` (which returns a native `Type`) against type identifiers like `int` (which resolve to `BridgedClass`), the interpreter now correctly compares via `BridgedClass.nativeType`. This fixes F-bounded polymorphism tests involving `Comparable<T>` sort operations.
+
+## 1.6.1
+
+### Documentation
+- **Advanced Bridging User Guide**: New comprehensive guide for the D4 helper class covering type coercion, argument extraction, target validation, and global function bridging
+- **Example suite**: Added 5 runnable examples demonstrating D4 class usage patterns:
+  - `d4_type_coercion_example.dart` - List and Map coercion
+  - `d4_argument_extraction_example.dart` - Positional and named arguments
+  - `d4_target_validation_example.dart` - Target validation and inheritance
+  - `d4_globals_example.dart` - Global functions and variables
+  - `d4_complete_bridge_example.dart` - Complete realistic example with enums, factories, and complex signatures
+
+## 1.6.0
+
+### Features
+- **Comprehensive Dart language coverage**: All 20 areas of the Dart language now pass the dart_overview test suite
+- **Extension types (Dart 3.3+)**: Full support for inline classes / extension types
+- **sync* generators**: Fixed infinite loop issues with sync* generators (lazy evaluation now works correctly)
+- **Improved extension support**: Extensions on bridged types and imported extensions now work correctly
+- **Enhanced pattern matching**: Full support for logical OR patterns, when guards, record patterns with named fields and shorthand syntax
+
+### Bug Fixes (99 total bugs tracked, 97 fixed)
+
+#### Interpreter Core
+- **Bug-93**: Int not implicitly promoted to double return type - fixed auto-promotion in return statements
+- **Bug-94**: Cascade index assignment on property (`..headers['key'] = value`) now works correctly
+- **Bug-96**: `super.name` constructor parameter forwarding now correctly passes values to super constructor
+- **Bug-97**: `num` now recognized as satisfying `Comparable<num>` type bound
+- **Bug-98**: Extension getters on bridged List resolved correctly, including accessing other extension members via implicit `this`
+- **Bug-99**: `Stream.handleError` callback arity detection - callbacks with 1 or 2 parameters both work correctly
+- **Bug-95**: `List.forEach` with native function tear-offs (like `print`) now works
+- **Bug-79-92**: Various fixes for switch expressions, cascades, patterns, and class modifiers
+
+#### Pattern Matching
+- **Bug-81**: Pattern with `when` guard now works (`case String s when s.isNotEmpty`)
+- **Bug-88**: Record pattern with `:name` shorthand syntax works
+- **Bug-66, Bug-67**: Record patterns with named fields and if-case with int patterns fixed
+
+#### Class System
+- **Bug-84, Bug-85**: Mixin abstract method satisfaction and extending abstract final classes
+- **Bug-72**: Bridged mixins properly resolved during class declaration
+- **Bug-51**: Mixing in bridged mixins works correctly
+
+#### Async/Stream
+- **Bug-44**: Async generators completion detection
+- **Bug-48**: `await for` stream iteration
+- **Bug-73, Bug-74**: Async nested loops and return type handling
+
+#### Standard Library
+- **Bug-89**: `Enum.values.byName` (via List.byName extension) bridged
+- **Bug-82, Bug-83**: Function.call and nullable function?.call() support
+- **Bug-65**: Map.from constructor bridged
+
+### Known Limitations (Won't Fix)
+- **Lim-3**: Isolate execution with interpreted closures - fundamental limitation due to Dart's isolate serialization requirements
+- **Bug-14**: Records with named fields or >9 positional fields return InterpretedRecord (Dart doesn't support dynamic record type creation)
+
+### Test Coverage
+- **1620 tests passing** (3 expected failures for "Won't Fix" limitations)
+- **21 dart_overview_bugs_test** tests all passing
+- All 20 Dart language areas demonstrated in dart_overview scripts
+
+### Documentation
+- Consolidated BRIDGING_GUIDE.md to single location in `doc/` folder
+- Moved dart_overview and d4rt_bugs test scripts to tom_d4rt/example folder
+- Updated documentation to reflect current capabilities
+
+---
+
+## 1.5.0
+
+### Features
+- **Script execution module**: New `ScriptExecutionResult` and file-based script execution with automatic import resolution
+- **Bridge deduplication**: Complete deduplication system with `sourceUri` tracking to prevent duplicate registrations across packages
+- **D4rtConfiguration enhancement**: Added library info support for better multi-package configurations
+- **Unary operator fix**: Fixed unary operators (e.g., `-x`) on bridged instances
+
+### Bug Fixes
+- Fixed typedef callback wrapping in bridge registration
+- Fixed type resolution for bridges with complex generics
+
+### Internal
+- Added shared script_execution module for D4rt-based CLI tools
+- Improved error aggregation for bridge registration failures
+
+## 1.4.0
+
+### Features
+- **Global getter lazy evaluation**: Added `GlobalGetter` wrapper class for lazy evaluation of top-level getters
+- **registerGlobalGetter method**: New D4rt method `registerGlobalGetter(name, getter)` for registering getters that are evaluated at access time rather than registration time
+- Essential for singleton patterns and values that may not be initialized at registration time
+
+### Documentation
+- Added "Global Variables and Getters" section to BRIDGING_GUIDE.md
+- Documented when to use `registerGlobalVariable` vs `registerGlobalGetter`
+
+## 1.3.1
+- **Repository reorganization**: Moved to tom_module_d4rt repository as part of modular workspace structure
+- Updated repository URL to https://github.com/al-the-bear/tom_module_d4rt
+
+## 1.3.0
+- **Operator bridging support**: BridgedInstance now supports all Dart operators
+  - Arithmetic: +, -, *, /, ~/, %
+  - Comparison: <, >, <=, >=, ==
+  - Bitwise: &, |, ^, ~, <<, >>, >>>
+  - Index: [], []=
+  - Unary: - (negation)
+- Added operator override documentation for UserBridge classes
+- Added bridged_operators_test.dart with comprehensive operator tests
+
+## 1.2.0
+- Added D4 bridge helpers class for generated bridge code
+  - Type coercion helpers (coerceList, coerceMap)
+  - Argument extraction helpers (getRequiredArg, getOptionalArg, etc.)
+  - Target validation for instance methods
+  - Argument count validation
+- D4 class moved from tom_dartscript_core to tom_d4rt
+
+## 1.1.0
+- Updated analyzer dependency to ^8.0.0 (from fixed 8.0.0)
+- Bridge generator improvements and cleanup
+
+## 1.0.4
+- Changed dependency of analyzer to version 8.0.0
+
+## 0.1.9
+- **feat:positionalArgs and namedArgs** - Pass arguments directly to functions via execute()
+  - Add `positionalArgs` parameter to D4rt.execute() for passing positional arguments
+  - Add `namedArgs` parameter to D4rt.execute() for passing named arguments
+  - Support complex data types (List, Map, nested structures) as arguments
+  - Support function callbacks and async functions as arguments
+  - Add 33 comprehensive test cases covering all argument passing patterns
+  - Add parameter introspection methods: `positionalParameterNames` and `namedParameterNames` getters
+
+- **feat: Introspection API** - Analyze code structure and get metadata at runtime
+  - Add `analyze()` method to D4rt for code analysis without execution
+  - Create IntrospectionResult with metadata about functions, classes, enums, variables, and extensions
+  - Extract function signatures including parameter names, types, and default values
+  - Extract class information: inheritance, mixins, interfaces, constructors, methods
+  - Extract enum values and variants
+  - Extract variable declarations and initializers
+  - Extract extension definitions and extended types
+  - Use AST-based analysis for accurate metadata extraction
+  - Add 38 comprehensive test cases covering all declaration types and complex scenarios
+
+- **feat: eval() method** - Dynamically execute code with current execution state
+  - Add `eval()` method to D4rt for dynamic code execution
+  - Preserve execution environment across eval calls
+  - Support access to previously defined variables and functions
+  - Support complex expressions and statements in eval
+  - Support async/await in eval expressions
+  - Add 39 comprehensive test cases covering expression evaluation and statement execution
+
+- **fix: Environment import handling** - Tolerate duplicate imports with identical values
+  - Allow re-importing the same symbol if the value is identical (same reference)
+  - Use `identical()` comparison for duplicate detection
+  - Support imports via multiple paths without conflict errors
+
+## 0.1.8
+- fix: security sandboxing with permission checks for file, process, and network operations; add platform access control
+
+## 0.1.7
+- **feat: Security sandboxing system** - Comprehensive permission-based security system to restrict dangerous operations
+  - Implement modular permission system with `FilesystemPermission`, `NetworkPermission`, `ProcessRunPermission`, `IsolatePermission`
+  - Block access to dangerous modules (`dart:io`, `dart:isolate`) by default unless explicitly granted
+  - Add `d4rt.grant()`, `d4rt.revoke()`, `d4rt.hasPermission()` methods for permission management
+  - Integrate permission checking into module loading and import directives
+  - Support fine-grained permissions (specific paths, commands, network hosts)
+  - Add comprehensive security tests to prevent malicious code execution
+  - Enable safe execution environment for untrusted code
+
+## 0.1.6
+- fix: Nested for-in loops in async contexts now work correctly
+- fix: Async nested for-in loops with await for streams works
+- feat: enhance async execution state to support nested await-for loops and improve iterator management; add comprehensive tests for complex async scenarios
+- **feat: Compound super operators** - Support for compound assignment operators on super properties (+=, -=, *=, /=, ~/=, %=, &=, |=, ^=, <<=, >>=, >>>=)
+  - Implement proper lookup and evaluation of super properties in compound assignments
+  - Support for both interpreted and bridged superclass properties
+  - Add 6 comprehensive test cases covering all operator types and nested inheritance
+- **feat: Bridged static methods as values** - Bridged static methods can now be treated as first-class function values
+  - Support for accessing bridged static methods as callable values (e.g., `int.parse`)
+  - Enable passing bridged static methods to higher-order functions
+  - Store bridged static methods in collections and variables
+  - Add 5 test cases for static method value usage patterns
+- **feat: Complex generic type checking** - Enhanced runtime type checking for generic collections with type parameters
+  - Support `is` operator with parameterized types (List<int>, Map<String, int>, etc.)
+  - Runtime validation of generic type constraints
+  - Proper handling of nested generic types and null safety
+  - Add 10 comprehensive test cases for various generic type checking scenarios
+- **feat: Complex await assignments** - Advanced await expression support in various contexts
+  - Support await in conditional expressions (ternary operator)
+  - Support await in list/map literals and collection operations
+  - Support await in compound assignments and complex expressions
+  - Support await in constructor arguments and method chains
+  - Add 10 test cases covering complex async assignment patterns
+- **feat: Stream transformers** - Complete implementation of StreamTransformer and stream manipulation
+  - Implement `StreamTransformer.fromHandlers` with handleData, handleError, handleDone
+  - Support stream transformation with custom logic
+  - Implement bidirectional stream transformers
+  - Support stream event handling and error propagation
+  - Add 10 comprehensive test cases for stream transformation patterns
+- **feat: Const expressions complexes** - Enhanced support for const expressions in various contexts
+  - Support const List and Map literals with type parameters
+  - Support const expressions in field initializers and default parameters
+  - Support nested const collections and complex const expressions
+  - Proper compile-time evaluation of const expressions
+  - Add 15 test cases covering const expression usage patterns
+- **feat: Feature #7 - Enhanced enums with mixins** - Enums can now use mixins to add functionality
+  - Support `enum Name with Mixin` syntax
+  - Mixins can add methods, getters, and properties to enum values
+  - Support multiple mixins on a single enum
+  - Full integration with enum values (index, name, toString)
+  - Add 15 comprehensive test cases for enum-mixin combinations
+- **feat: Extensions statiques** - Extensions can now declare static members (methods, getters, setters, fields)
+  - Implement static member storage in `InterpretedExtension` class
+  - Add static member access via `Extension.member` syntax
+  - Support static method calls, property access, and assignments
+  - Add support for prefix/postfix increment/decrement operators on static extension fields
+  - Add 15 comprehensive test cases covering all static extension member types
+- **feat: Enhance compound super assignments for bridged classes** - Full support for compound assignments on properties inherited from bridged superclasses
+  - Fix `visitAssignmentExpression` to handle bridged superclass getters/setters in compound `super` assignments
+  - Fix `InterpretedInstance.get()` to properly traverse bridged superclass hierarchy at each inheritance level
+  - Fix `InterpretedInstance.set()` to properly handle bridged superclass setters at each inheritance level
+  - Support nested inheritance chains (Interpreted → Interpreted → Bridged)
+  - Add 5 comprehensive test cases for bridged super compound assignments
+- **Total test count: 1269 tests passing** - All 8 planned features fully implemented with comprehensive test coverage
+
+## 0.1.5
+- feat: implement handling of factory constructors in InterpreterVisitor; add comprehensive tests for factory constructor behavior
+- feat: enhance async execution state and interpreter visitor to support break/continue handling; add comprehensive tests for nested async loops
+- feat: enhance async execution state and interpreter visitor to support async* generators; add comprehensive tests for generator behavior and control flow
+
+## 0.1.4
+- feat: add methods to find and retrieve bridged enum values in Environment and InterpreterVisitor; enhance handling of bridged enums in property access and binary expressions
+- feat: enhance documentation across multiple files; add examples and clarify class functionalities in D4rt interpreter
+## 0.1.3
+- Implement complete `late` variable support with lazy initialization and proper error handling
+- Add comprehensive late variable test coverage (33 test cases) including static fields, instance fields, final constraints, and error conditions
+- Add LateVariable class with proper uninitialized access detection and assignment validation
+- Enhance interpreter visitor to handle late variables in all contexts (local, static, instance)
+- Fix nullable variable handling in interpreted class instances
+- Add ComparableCore bridge to core standard library for better type comparison support
+- Update documentation and project description for better clarity
+
+## 0.1.2+1
+- update project description in pubspec.yaml
+- docs: minor updates to documentation in README.md
+
+## 0.1.2
+- Implement complete Isolate API with Capability, IsolateSpawnException, Isolate, SendPort, ReceivePort, RawReceivePort, RemoteError, and TransferableTypedData classes
+- Add comprehensive isolate communication and message passing support
+- Enhance async capabilities with Timer functionality and improved error handling
+- Add UnawaitedAsync and TimeoutExceptionAsync classes for better async error management
+- Implement additional HTTP methods and error handling in HttpClientIo
+- Add toString method to DirectoryIo for better debugging
+- Enhance FileSystemEntity with parentOf method and FileStat improvements
+- Add FileSystemEvent static getters and methods
+- Implement RawSocket and additional Socket classes for network programming
+- Enhance Stream and Socket classes with additional utility methods
+- Add IOSink, ProcessIo, and StringSink classes for improved I/O operations
+- Implement Comparable interface for better type comparison support
+- Add comprehensive test coverage for isolate, socket, and I/O functionality
+- Update core typed data classes (Uint8List, Int16List, Float32List) with enhanced functionality
+- Add list extension utilities for better collection manipulation
+
+## 0.1.1
+- Implement await for-in loop support for streams in interpreter
+- Enhance pattern matching with support for rest elements in lists and maps
+- Add support for await expressions in function and constructor arguments
+- BREAKING CHANGE: BridgedClassDefinition has been removed and replaced with BridgedClass
+
+## 0.1.0
+- Added runtime checks for generic type constraints.
+- Added support for compound bitwise assignment operators (&=, |=, etc.).
+- Introduced Int16List and Float32List in typed_data.
+
+## 0.0.9
+- full support (generic classes/functions, type constraints, runtime validation)
+- use BridgedClassDefinition for all Stdlib
+- Support adjacent string literals in interpreter
+- add operators support for InterpretedClass
+- more features
+
+## 0.0.8
+- expose visitor getter
+- add support for bridged mixins
+- enhance async execution state with nested loop support 
+
+## 0.0.7
+- fix: support null safety
+
+## 0.0.6
+- Update docs
+
+## 0.0.5
+- minor fix
+
+## 0.0.4
+- Add 'import/export' directive support, support for 'show' and 'hide' combinators 
+- Add some dart:collection & dart:typed_data
+- Support for ParenthesizedExpression property access in simpleIdentifier in async state
+
+## 0.0.3
+- Fix infinite loop when using rethrow in try catch in async state
+
+## 0.0.2
+- Support web
+- Fix return nativeValue for BridgedEnumValue to BridgedInstance argument
+
+## 0.0.1
+
+- Initial version.

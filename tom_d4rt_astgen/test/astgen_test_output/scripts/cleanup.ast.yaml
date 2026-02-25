@@ -1,0 +1,455 @@
+nodeType: CompilationUnit
+offset: 0
+length: 477
+directives:
+  -
+    nodeType: LibraryDirective
+    offset: 0
+    length: 50
+    metadata: []
+declarations:
+  -
+    nodeType: FunctionDeclaration
+    offset: 52
+    length: 116
+    name:
+      nodeType: SimpleIdentifier
+      offset: 57
+      length: 4
+      name: main
+      inDeclarationContext: true
+    metadata: []
+    returnType:
+      nodeType: NamedType
+      offset: 52
+      length: 4
+      name:
+        nodeType: SimpleIdentifier
+        offset: 52
+        length: 4
+        name: void
+        inDeclarationContext: true
+      isNullable: false
+    isGetter: false
+    isSetter: false
+    isExternal: false
+    functionExpression:
+      nodeType: FunctionExpression
+      offset: 61
+      length: 107
+      parameters:
+        nodeType: FormalParameterList
+        offset: 61
+        length: 2
+        parameters: []
+      body:
+        nodeType: BlockFunctionBody
+        offset: 64
+        length: 104
+        block:
+          nodeType: Block
+          offset: 70
+          length: 98
+          statements:
+            -
+              nodeType: ExpressionStatement
+              offset: 74
+              length: 35
+              expression:
+                nodeType: MethodInvocation
+                offset: 74
+                length: 34
+                methodName:
+                  nodeType: SimpleIdentifier
+                  offset: 74
+                  length: 5
+                  name: print
+                  inDeclarationContext: false
+                argumentList:
+                  nodeType: ArgumentList
+                  offset: 79
+                  length: 29
+                  arguments:
+                    -
+                      nodeType: SimpleStringLiteral
+                      offset: 80
+                      length: 27
+                      value: Running cleanup script...
+                      isRaw: false
+                      isMultiline: false
+                      isSingleQuoted: true
+            -
+              nodeType: VariableDeclarationStatement
+              offset: 115
+              length: 26
+              variables:
+                nodeType: VariableDeclarationList
+                offset: 115
+                length: 25
+                variables:
+                  -
+                    nodeType: VariableDeclaration
+                    offset: 121
+                    length: 19
+                    name:
+                      nodeType: SimpleIdentifier
+                      offset: 121
+                      length: 7
+                      name: cleaner
+                      inDeclarationContext: true
+                    metadata: []
+                    initializer:
+                      nodeType: MethodInvocation
+                      offset: 131
+                      length: 9
+                      methodName:
+                        nodeType: SimpleIdentifier
+                        offset: 131
+                        length: 7
+                        name: Cleaner
+                        inDeclarationContext: false
+                      argumentList:
+                        nodeType: ArgumentList
+                        offset: 138
+                        length: 2
+                        arguments: []
+                    isConst: false
+                    isFinal: false
+                    isLate: false
+                isConst: false
+                isFinal: true
+                isLate: false
+                metadata: []
+            -
+              nodeType: ExpressionStatement
+              offset: 144
+              length: 22
+              expression:
+                nodeType: AwaitExpression
+                offset: 144
+                length: 21
+                expression:
+                  nodeType: MethodInvocation
+                  offset: 150
+                  length: 15
+                  target:
+                    nodeType: SimpleIdentifier
+                    offset: 150
+                    length: 7
+                    name: cleaner
+                    inDeclarationContext: false
+                  operator: .
+                  methodName:
+                    nodeType: SimpleIdentifier
+                    offset: 158
+                    length: 5
+                    name: clean
+                    inDeclarationContext: false
+                  argumentList:
+                    nodeType: ArgumentList
+                    offset: 163
+                    length: 2
+                    arguments: []
+        isAsync: true
+        isGenerator: false
+  -
+    nodeType: ClassDeclaration
+    offset: 170
+    length: 306
+    name:
+      nodeType: SimpleIdentifier
+      offset: 176
+      length: 7
+      name: Cleaner
+      inDeclarationContext: true
+    metadata: []
+    isAbstract: false
+    isSealed: false
+    isBase: false
+    isInterface: false
+    isFinal: false
+    isMixin: false
+    members:
+      -
+        nodeType: FieldDeclaration
+        offset: 188
+        length: 75
+        metadata: []
+        isStatic: false
+        isAbstract: false
+        isCovariant: false
+        isExternal: false
+        fields:
+          nodeType: VariableDeclarationList
+          offset: 188
+          length: 74
+          type:
+            nodeType: NamedType
+            offset: 194
+            length: 12
+            name:
+              nodeType: SimpleIdentifier
+              offset: 194
+              length: 4
+              name: List
+              inDeclarationContext: true
+            typeArguments:
+              nodeType: TypeArgumentList
+              offset: 198
+              length: 8
+              arguments:
+                -
+                  nodeType: NamedType
+                  offset: 199
+                  length: 6
+                  name:
+                    nodeType: SimpleIdentifier
+                    offset: 199
+                    length: 6
+                    name: String
+                    inDeclarationContext: true
+                  isNullable: false
+            isNullable: false
+          variables:
+            -
+              nodeType: VariableDeclaration
+              offset: 207
+              length: 55
+              name:
+                nodeType: SimpleIdentifier
+                offset: 207
+                length: 8
+                name: patterns
+                inDeclarationContext: true
+              metadata: []
+              initializer:
+                nodeType: ListLiteral
+                offset: 218
+                length: 44
+                elements:
+                  -
+                    nodeType: SimpleStringLiteral
+                    offset: 224
+                    length: 7
+                    value: *.tmp
+                    isRaw: false
+                    isMultiline: false
+                    isSingleQuoted: true
+                  -
+                    nodeType: SimpleStringLiteral
+                    offset: 237
+                    length: 7
+                    value: *.log
+                    isRaw: false
+                    isMultiline: false
+                    isSingleQuoted: true
+                  -
+                    nodeType: SimpleStringLiteral
+                    offset: 250
+                    length: 7
+                    value: *.bak
+                    isRaw: false
+                    isMultiline: false
+                    isSingleQuoted: true
+                isConst: false
+              isConst: false
+              isFinal: false
+              isLate: false
+          isConst: false
+          isFinal: true
+          isLate: false
+          metadata: []
+      -
+        nodeType: MethodDeclaration
+        offset: 269
+        length: 205
+        name:
+          nodeType: SimpleIdentifier
+          offset: 282
+          length: 5
+          name: clean
+          inDeclarationContext: true
+        metadata: []
+        returnType:
+          nodeType: NamedType
+          offset: 269
+          length: 12
+          name:
+            nodeType: SimpleIdentifier
+            offset: 269
+            length: 6
+            name: Future
+            inDeclarationContext: true
+          typeArguments:
+            nodeType: TypeArgumentList
+            offset: 275
+            length: 6
+            arguments:
+              -
+                nodeType: NamedType
+                offset: 276
+                length: 4
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 276
+                  length: 4
+                  name: void
+                  inDeclarationContext: true
+                isNullable: false
+          isNullable: false
+        isStatic: false
+        isAbstract: false
+        isExternal: false
+        isGetter: false
+        isSetter: false
+        isOperator: false
+        parameters:
+          nodeType: FormalParameterList
+          offset: 287
+          length: 2
+          parameters: []
+        body:
+          nodeType: BlockFunctionBody
+          offset: 290
+          length: 184
+          block:
+            nodeType: Block
+            offset: 296
+            length: 178
+            statements:
+              -
+                nodeType: ExpressionStatement
+                offset: 302
+                length: 37
+                expression:
+                  nodeType: MethodInvocation
+                  offset: 302
+                  length: 36
+                  methodName:
+                    nodeType: SimpleIdentifier
+                    offset: 302
+                    length: 5
+                    name: print
+                    inDeclarationContext: false
+                  argumentList:
+                    nodeType: ArgumentList
+                    offset: 307
+                    length: 31
+                    arguments:
+                      -
+                        nodeType: SimpleStringLiteral
+                        offset: 308
+                        length: 29
+                        value: Cleaning temporary files...
+                        isRaw: false
+                        isMultiline: false
+                        isSingleQuoted: true
+              -
+                nodeType: ForStatement
+                offset: 349
+                length: 84
+                forLoopParts:
+                  nodeType: ForEachPartsWithDeclaration
+                  offset: 354
+                  length: 25
+                  loopVariable:
+                    nodeType: DeclaredIdentifier
+                    offset: 354
+                    length: 13
+                    metadata: []
+                    identifier:
+                      nodeType: SimpleIdentifier
+                      offset: 360
+                      length: 7
+                      name: pattern
+                      inDeclarationContext: true
+                    isFinal: true
+                    isConst: false
+                  iterable:
+                    nodeType: SimpleIdentifier
+                    offset: 371
+                    length: 8
+                    name: patterns
+                    inDeclarationContext: false
+                  isAwait: false
+                body:
+                  nodeType: Block
+                  offset: 381
+                  length: 52
+                  statements:
+                    -
+                      nodeType: ExpressionStatement
+                      offset: 389
+                      length: 38
+                      expression:
+                        nodeType: MethodInvocation
+                        offset: 389
+                        length: 37
+                        methodName:
+                          nodeType: SimpleIdentifier
+                          offset: 389
+                          length: 5
+                          name: print
+                          inDeclarationContext: false
+                        argumentList:
+                          nodeType: ArgumentList
+                          offset: 394
+                          length: 32
+                          arguments:
+                            -
+                              nodeType: StringInterpolation
+                              offset: 395
+                              length: 30
+                              elements:
+                                -
+                                  nodeType: InterpolationString
+                                  offset: 395
+                                  length: 15
+                                  value:   Looking for 
+                                -
+                                  nodeType: InterpolationExpression
+                                  offset: 410
+                                  length: 8
+                                  expression:
+                                    nodeType: SimpleIdentifier
+                                    offset: 411
+                                    length: 7
+                                    name: pattern
+                                    inDeclarationContext: false
+                                -
+                                  nodeType: InterpolationString
+                                  offset: 418
+                                  length: 7
+                                  value:  files
+                              isMultiline: false
+                              isRaw: false
+              -
+                nodeType: ExpressionStatement
+                offset: 443
+                length: 27
+                expression:
+                  nodeType: MethodInvocation
+                  offset: 443
+                  length: 26
+                  methodName:
+                    nodeType: SimpleIdentifier
+                    offset: 443
+                    length: 5
+                    name: print
+                    inDeclarationContext: false
+                  argumentList:
+                    nodeType: ArgumentList
+                    offset: 448
+                    length: 21
+                    arguments:
+                      -
+                        nodeType: SimpleStringLiteral
+                        offset: 449
+                        length: 19
+                        value: Cleanup complete!
+                        isRaw: false
+                        isMultiline: false
+                        isSingleQuoted: true
+          isAsync: true
+          isGenerator: false
+comments: []

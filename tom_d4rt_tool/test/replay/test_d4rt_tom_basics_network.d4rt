@@ -1,0 +1,31 @@
+# D4rt Test Suite - Tom Basics Network Classes
+# Run with: d4rt test_d4rt_tom_basics_network.d4rt -test
+# Tests tom_basics_network bridged classes
+
+
+# =============================================================================
+# Test: RetryConfig (4 tests)
+# Constructor: const RetryConfig({List<int> retryDelaysMs = ..., void Function(...)? onRetry})
+# =============================================================================
+
+var retryConfig = RetryConfig();
+verifyNotNull(retryConfig, 'RetryConfig created');
+verifyNotNull(retryConfig.retryDelaysMs, 'RetryConfig retryDelaysMs');
+
+var defaultConfig = RetryConfig.defaultConfig;
+verifyNotNull(defaultConfig, 'RetryConfig.defaultConfig static getter');
+
+# =============================================================================
+# Test: Classes Exist (4 tests)
+# =============================================================================
+
+verifyNotNull(RetryConfig, 'RetryConfig class exists');
+verifyNotNull(ServerDiscovery, 'ServerDiscovery class exists');
+verifyNotNull(DiscoveryFailedException, 'DiscoveryFailedException class exists');
+verifyNotNull(RetryExhaustedException, 'RetryExhaustedException class exists');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();

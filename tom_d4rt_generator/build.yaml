@@ -1,0 +1,42 @@
+# Build configuration for D4rt bridge generator
+#
+# This builder generates D4rt bridge files for DartScript integration.
+# Version generation is configured in buildkit.yaml.
+#
+# Configuration is specified in the consuming package's build.yaml under
+# targets.$default.builders.tom_d4rt_generator:d4rt_bridge_builder.options
+#
+# Example configuration:
+#
+# targets:
+#   $default:
+#     builders:
+#       tom_d4rt_generator:d4rt_bridge_builder:
+#         enabled: true
+#         options:
+#           name: my_package
+#           modules:
+#             - name: all
+#               barrelFiles:
+#                 - lib/my_package.dart
+#               outputPath: lib/src/d4rt_bridges/my_package_bridges.b.dart
+#               excludePatterns:
+#                 - _bridge.dart
+#               excludeClasses:
+#                 - SomeInternalClass
+#           helpersImport: package:tom_d4rt/tom_d4rt.dart
+#           generateBarrel: true
+#           barrelPath: lib/d4rt_bridges.b.dart
+#           generateDartscript: true
+#           dartscriptPath: lib/dartscript.b.dart
+#           registrationClass: MyPackageBridges
+
+builders:
+  # D4rt bridge builder
+  d4rt_bridge_builder:
+    import: "package:tom_d4rt_generator/builder.dart"
+    builder_factories: ["d4rtBridgeBuilder"]
+    build_extensions:
+      r"$lib$": ["d4rt_bridges.g.info"]
+    auto_apply: dependents
+    build_to: source

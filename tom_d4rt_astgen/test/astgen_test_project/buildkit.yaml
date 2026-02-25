@@ -1,0 +1,43 @@
+# Tom Build Configuration for AST Generator Test Project
+#
+# This file is used by the astgen tool to determine if this project
+# should be processed and contains conversion configurations.
+
+astgen:
+  # Project to process (. means current directory)
+  project: .
+
+  # Enable verbose output for debugging
+  verbose: false
+
+  convert:
+    # Test 1: Basic conversion with flat output
+    - entrypoints: lib/*.runner.dart
+      output: project:astgen_test_output/assets
+      root: .
+      preserve_structure: false
+      include_sourcemap: true
+
+    # Test 2: Nested files with preserved structure
+    - entrypoints: '**/*.runner.dart'
+      exclude:
+        - '**/*.g.dart'
+        - '**/*.test.dart'
+      output: project:astgen_test_output/assets/structured
+      root: lib
+      preserve_structure: true
+      include_sourcemap: true
+
+    # Test 3: Walker files with custom root
+    - entrypoints: bin/*.walker.dart
+      output: project:astgen_test_output/walkers
+      root: example/walkers
+      preserve_structure: false
+      include_sourcemap: false
+
+    # Test 4: Script files with relative output
+    - entrypoints: scripts/*.dart
+      output: ../astgen_test_output/scripts
+      root: tools
+      preserve_structure: false
+      include_sourcemap: false

@@ -1,0 +1,38 @@
+# D4rt Test Suite - Tom Distributed Ledger Classes
+# Run with: d4rt test_d4rt_tom_dist_ledger.d4rt -test
+# Tests tom_dist_ledger bridged classes
+
+
+# =============================================================================
+# Test: Enums
+# Note: Only testing enums that ARE bridged (HeartbeatErrorType, DLLogLevel)
+# FrameState and OperationState are NOT exported/bridged
+# =============================================================================
+
+var hbLedgerNotFound = HeartbeatErrorType.ledgerNotFound;
+verifyNotNull(hbLedgerNotFound, 'HeartbeatErrorType.ledgerNotFound');
+
+var hbLockFailed = HeartbeatErrorType.lockFailed;
+verifyNotNull(hbLockFailed, 'HeartbeatErrorType.lockFailed');
+
+var logDebug = DLLogLevel.debug;
+verifyNotNull(logDebug, 'DLLogLevel.debug');
+
+var logInfo = DLLogLevel.info;
+verifyNotNull(logInfo, 'DLLogLevel.info');
+
+# =============================================================================
+# Test: Classes Exist
+# Note: Only testing classes that ARE bridged
+# =============================================================================
+
+verifyNotNull(HeartbeatResult, 'HeartbeatResult class exists');
+verifyNotNull(HeartbeatError, 'HeartbeatError class exists');
+verifyNotNull(Operation, 'Operation class exists');
+verifyNotNull(Ledger, 'Ledger class exists');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();

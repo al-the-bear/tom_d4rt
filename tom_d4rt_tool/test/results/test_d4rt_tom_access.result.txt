@@ -1,0 +1,7 @@
+Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/dartscript/tom_dartscript_bridges/test/replay/test_d4rt_tom_access.d4rt
+Started: 2026-02-02T17:09:46.432296
+
+Lines executed: 75
+
+Result: PASSED
+Completed: 2026-02-02T17:09:46.443040

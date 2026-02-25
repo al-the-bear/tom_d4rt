@@ -1,0 +1,91 @@
+// D4rt Script - Callbacks Example
+// This script demonstrates callback and async bridging.
+
+import 'package:d4rt_generator_example/test_classes.dart';
+
+main() async {
+  print('=== Callbacks Example ===\n');
+
+  // 1. TaskScheduler with callbacks
+  print('--- TaskScheduler ---');
+  var scheduler = TaskScheduler();
+  
+  // Add simple tasks
+  var taskCount = 0;
+  scheduler.addTask(() { taskCount = taskCount + 1; });
+  scheduler.addTask(() { taskCount = taskCount + 1; });
+  scheduler.addTask(() { taskCount = taskCount + 1; });
+  
+  scheduler.runAll();
+  print('Tasks run: $taskCount');
+
+  // Map values
+  var numbers = [1, 2, 3, 4, 5];
+  var doubled = scheduler.mapValues(numbers, (n) => n * 2);
+  print('Doubled: $doubled');
+
+  // Filter values
+  var evens = scheduler.filterValues(numbers, (n) => n % 2 == 0);
+  print('Evens: $evens');
+
+  // Reduce values
+  var sum = scheduler.reduceValues(numbers, (a, b) => a + b);
+  print('Sum: $sum');
+
+  // Static generate
+  var squares = TaskScheduler.generate(5, (i) => i * i);
+  print('Squares: $squares');
+
+  // 2. AsyncService
+  print('\n--- AsyncService ---');
+  var service = AsyncService('TestService', 10);
+  
+  var data = await service.fetchData();
+  print('Fetched data: $data');
+  
+  var item = await service.fetchById('item-42');
+  print('Fetched by ID: $item');
+
+  // Try fetch with result
+  var success = await service.tryFetch('test-id');
+  print('Try fetch: $success');
+  
+  var failure = await service.tryFetch('');
+  print('Try fetch empty: $failure');
+
+  // 3. EventEmitter with typedef callbacks
+  print('\n--- EventEmitter ---');
+  var emitter = EventEmitter();
+  
+  var eventsReceived = [];
+  
+  // Register listener using typedef callback (EventCallback = void Function(String))
+  emitter.on('message', (event) { 
+    eventsReceived.add('on: $event');
+  });
+  
+  // Register another listener
+  emitter.on('message', (event) { 
+    eventsReceived.add('on2: $event');
+  });
+  
+  // Emit event
+  emitter.emit('message');
+  print('Events received after emit: $eventsReceived');
+  
+  // Check listener count
+  print('Listener count for message: ${emitter.listenerCount("message")}');
+  
+  // Register one-time listener
+  eventsReceived = [];
+  emitter.once('click', (event) {
+    eventsReceived.add('once: $event');
+  });
+  
+  emitter.emit('click');
+  emitter.emit('click'); // Should not trigger again
+  print('Events after once (should be 1): $eventsReceived');
+  print('Click listener count after once: ${emitter.listenerCount("click")}');
+
+  return 'Callbacks example completed successfully!';
+}

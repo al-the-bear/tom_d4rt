@@ -1,0 +1,5 @@
+// D4rt bridge generation marker
+// Generated: 2026-02-07T14:39:13.395148
+// Classes: 70
+// Modules: 4
+// Outputs: lib/src/d4rt_library_bridges/package_tom_d4rt_dcli_bridges.b.dart, lib/src/d4rt_library_bridges/package_tom_vscode_scripting_api_bridges.b.dart, lib/src/d4rt_library_bridges/package_dcli_bridges.b.dart, lib/src/d4rt_library_bridges/package_crypto_bridges.b.dart, lib/src/d4rt_library_bridges/package_dcli_core_bridges.b.dart, lib/src/d4rt_library_bridges/package_dcli_terminal_bridges.b.dart, lib/src/d4rt_library_bridges/package_tom_chattools_bridges.b.dart, lib/src/bridges/cli_api_bridges.b.dart, lib/src/bridges/tom_vscode_scripting_api_bridges.b.dart, lib/src/bridges/dcli_bridges.b.dart, lib/src/bridges/tom_chattools_bridges.b.dart, lib/d4rt_bridges.b.dart, lib/dartscript.b.dart, lib/src/d4rt_library_bridges/bridges_trigger.b.dart

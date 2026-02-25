@@ -1,0 +1,112 @@
+# DCli Test Suite - Part 5: Classes and Objects
+# Run with: dcli -run-replay test_dcli_classes.dcli -test
+# Tests: 12 verifications
+
+import 'dart:io';
+import 'dart:math';
+
+# =============================================================================
+# Test: Simple Class Definition (4 tests)
+# =============================================================================
+
+.start-define
+class Point {
+  final double x;
+  final double y;
+  
+  Point(this.x, this.y);
+  
+  double get magnitude => sqrt(x * x + y * y);
+  
+  Point operator +(Point other) => Point(x + other.x, y + other.y);
+  
+  @override
+  String toString() => 'Point($x, $y)';
+}
+.end
+
+var p1 = Point(3.0, 4.0);
+verifyEquals(p1.x, 3.0, 'Point x coordinate');
+verifyEquals(p1.y, 4.0, 'Point y coordinate');
+verifyEquals(p1.magnitude, 5.0, 'Point magnitude');
+verifyEquals(p1.toString(), 'Point(3.0, 4.0)', 'Point toString');
+
+# =============================================================================
+# Test: Class with Named Constructor (4 tests)
+# =============================================================================
+
+.start-define
+class Rectangle {
+  final double width;
+  final double height;
+  
+  Rectangle(this.width, this.height);
+  
+  Rectangle.square(double side) : width = side, height = side;
+  
+  double get area => width * height;
+  double get perimeter => 2 * (width + height);
+}
+.end
+
+var rect = Rectangle(10.0, 5.0);
+verifyEquals(rect.area, 50.0, 'Rectangle area');
+verifyEquals(rect.perimeter, 30.0, 'Rectangle perimeter');
+
+var square = Rectangle.square(4.0);
+verifyEquals(square.area, 16.0, 'Square area');
+verifyEquals(square.width, square.height, 'Square dimensions equal');
+
+# =============================================================================
+# Test: Class with Static Methods (4 tests)
+# =============================================================================
+
+.start-define
+class MathUtils {
+  static int gcd(int a, int b) {
+    while (b != 0) {
+      var t = b;
+      b = a % b;
+      a = t;
+    }
+    return a;
+  }
+  
+  static int lcm(int a, int b) => (a * b) ~/ gcd(a, b);
+  
+  static bool isPrime(int n) {
+    if (n < 2) return false;
+    var i = 2;
+    while (i * i <= n) {
+      if (n % i == 0) return false;
+      i++;
+    }
+    return true;
+  }
+  
+  static int fibonacci(int n) {
+    if (n <= 1) return n;
+    var a = 0;
+    var b = 1;
+    var i = 2;
+    while (i <= n) {
+      var c = a + b;
+      a = b;
+      b = c;
+      i++;
+    }
+    return b;
+  }
+}
+.end
+
+verifyEquals(MathUtils.gcd(48, 18), 6, 'GCD calculation');
+verifyEquals(MathUtils.lcm(4, 6), 12, 'LCM calculation');
+verify(MathUtils.isPrime(17), 'Prime check');
+verifyEquals(MathUtils.fibonacci(10), 55, 'Fibonacci');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();

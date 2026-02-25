@@ -1,0 +1,82 @@
+// D4rt Script - User Reference Example
+// This script demonstrates the data models and services patterns
+// from bridgegenerator_user_reference.md
+
+import 'package:user_reference_example/user_reference_example.dart';
+
+main() async {
+  print('=== User Reference Example ===\n');
+
+  // 1. Create User objects using named constructor
+  print('1. Creating User objects:');
+  var alice = User(id: 1, name: 'Alice', email: 'alice@example.com');
+  var bob = User(id: 2, name: 'Bob');
+  print('   alice: $alice');
+  print('   bob: $bob');
+
+  // 2. Use User.toMap() method
+  print('\n2. Serializing to map:');
+  var aliceMap = alice.toMap();
+  print('   alice.toMap(): $aliceMap');
+
+  // 3. Create Product objects
+  print('\n3. Creating Product objects:');
+  var widget = Product(
+    sku: 'WIDGET-001',
+    name: 'Super Widget',
+    priceInCents: 1999,
+    quantity: 50
+  );
+  var gadget = Product(
+    sku: 'GADGET-002',
+    name: 'Cool Gadget',
+    priceInCents: 2499,
+    quantity: 25
+  );
+  print('   widget: $widget');
+  print('   gadget: $gadget');
+  print('   widget.formattedPrice: ${widget.formattedPrice}');
+  print('   widget.isInStock: ${widget.isInStock}');
+
+  // 4. Use static factory method
+  print('\n4. Using static factory:');
+  var placeholder = Product.placeholder();
+  print('   Product.placeholder(): $placeholder');
+
+  // 5. Use UserService
+  print('\n5. Using UserService:');
+  var userService = UserService();
+  userService.addUser(alice);
+  userService.addUser(bob);
+  print('   Added 2 users');
+  print('   users.length: ${userService.users.length}');
+  var foundUser = userService.getUserById(1);
+  print('   getUserById(1): $foundUser');
+
+  // 6. Use async method
+  print('\n6. Using async method:');
+  var fetchedUser = await userService.fetchUser(2);
+  print('   await fetchUser(2): $fetchedUser');
+
+  // 7. Use ProductService
+  print('\n7. Using ProductService:');
+  var productService = ProductService();
+  productService.setProduct(widget);
+  productService.setProduct(gadget);
+  productService.setProduct(Product(sku: 'OUT-001', name: 'Out of Stock', priceInCents: 100, quantity: 0));
+  print('   Added 3 products');
+  var inStock = productService.getInStockProducts();
+  print('   getInStockProducts().length: ${inStock.length}');
+  var inventoryValue = productService.calculateInventoryValue();
+  print('   calculateInventoryValue(): $inventoryValue cents');
+
+  // 8. Create Order
+  print('\n8. Creating Order:');
+  var order = Order(orderId: 'ORD-001', customer: alice);
+  order.addItem(widget);
+  order.addItem(gadget);
+  print('   order: $order');
+  print('   order.itemCount: ${order.itemCount}');
+
+  return 'User Reference example completed successfully!';
+}

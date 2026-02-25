@@ -1,0 +1,7 @@
+Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/dartscript/tom_dartscript_bridges/test/replay/test_d4rt_tom_vscode.d4rt
+Started: 2026-02-05T12:28:38.328205
+
+Lines executed: 93
+
+Result: PASSED
+Completed: 2026-02-05T12:28:38.339522

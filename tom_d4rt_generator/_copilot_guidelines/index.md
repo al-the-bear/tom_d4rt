@@ -1,0 +1,62 @@
+# D4rt Generator Project Guidelines
+
+**Project:** `tom_d4rt_generator`  
+**Type:** CLI Tool
+
+## Global Guidelines
+
+| Document | Purpose |
+|----------|---------|
+| [Documentation Guidelines](/_copilot_guidelines/documentation_guidelines.md) | Where to place user docs vs development docs |
+
+## Dart Guidelines
+
+| Document | Purpose |
+|----------|---------|
+| [Coding Guidelines](/_copilot_guidelines/dart/coding_guidelines.md) | Naming conventions, error handling, patterns |
+| [Unit Tests](/_copilot_guidelines/dart/unit_tests.md) | Test structure, matchers, mocking patterns |
+| [Examples](/_copilot_guidelines/dart/examples.md) | Example file creation guidelines |
+
+## Publishing
+
+This package is published to pub.dev. See [Project Republishing](/_copilot_guidelines/dart/project_republishing.md) for the complete publishing workflow.
+
+## Project-Specific Guidelines
+
+| File | Description |
+|------|-------------|
+| [running_d4rtgen.md](running_d4rtgen.md) | How to run the d4rtgen CLI tool (SDK path configuration) |
+| [implementation_hints.md](implementation_hints.md) | tom_build_base integration and CLI infrastructure |
+| [generator_strategies.md](generator_strategies.md) | key concept for generator class/import/export traversal |
+| [example.md](example.md) | Guidelines for creating and maintaining example files |
+| [documentation.md](documentation.md) | Documentation standards for this package |
+| [build.md](build.md) | Build, test, and publishing guidelines |
+| [testing.md](testing.md) | D4rt bridge generator testing: D4rtTester infrastructure, test scripts, user bridge verification, issue tracking |
+
+## Quick Reference
+
+**Purpose:** Bridge code generator for D4rt interpreter
+
+**Key Components:**
+- `BridgeGenerator` - Core generator class that analyzes Dart source and produces BridgedClass implementations
+- `d4rt_generator` CLI - Command-line tool for generating bridges
+- `d4rt_bridging.json` - Configuration file format for bridge generation
+
+**Documentation:**
+- [User Guide](../doc/bridgegenerator_user_guide.md) - Complete usage documentation
+- [Configuration Reference](../doc/bridgegenerator_user_reference.md) - build.yaml options
+- [UserBridge Override Design](../doc/userbridge_override_design.md) - Override system
+- [README](../README.md) - Quick start guide
+
+## Related Packages
+
+- `tom_d4rt` - The interpreter that uses generated bridges (see `../tom_d4rt/_copilot_guidelines/`)
+- `tom_d4rt_dcli` - DCli integration for D4rt scripting
+
+## Project Type
+
+This is a **code generator package**, not an interpreter. Key differences from tom_d4rt:
+- Output is Dart source code (bridge files)
+- Uses analyzer package to parse Dart source
+- Configuration-driven via JSON or build.yaml
+- Examples demonstrate generated output, not script execution

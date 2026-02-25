@@ -1,0 +1,53 @@
+# DCli Test Suite - Part 1: Core Language Tests
+# Run with: dcli -run-replay test_dcli_core.dcli -test
+# Tests: 15 verifications
+
+import 'dart:io';
+import 'dart:convert';
+import 'dart:math';
+
+# =============================================================================
+# Test: Primitive Types (5 tests)
+# =============================================================================
+
+var intVal = 42;
+verifyEquals(intVal, 42, 'Integer literal');
+
+var doubleVal = 3.14159;
+verify(doubleVal > 3.14 && doubleVal < 3.15, 'Double literal');
+
+var boolTrue = true;
+var boolFalse = false;
+verify(boolTrue && !boolFalse, 'Boolean literals');
+
+var stringVal = 'Hello, DCli!';
+verifyEquals(stringVal.length, 12, 'String literal length');
+
+var nullVal = null;
+verify(nullVal == null, 'Null literal');
+
+# =============================================================================
+# Test: Arithmetic Operations (5 tests)
+# =============================================================================
+
+verifyEquals(10 + 20, 30, 'Addition');
+verifyEquals(50 - 25, 25, 'Subtraction');
+verifyEquals(6 * 7, 42, 'Multiplication');
+verifyEquals(100 ~/ 7, 14, 'Integer division');
+verifyEquals(17 % 5, 2, 'Modulo');
+
+# =============================================================================
+# Test: Comparison Operations (5 tests)
+# =============================================================================
+
+verify(10 > 5, 'Greater than');
+verify(5 < 10, 'Less than');
+verify(10 >= 10, 'Greater than or equal');
+verify(10 <= 10, 'Less than or equal');
+verify(42 == 42, 'Equality');
+
+# =============================================================================
+# Summary
+# =============================================================================
+
+testSummary();

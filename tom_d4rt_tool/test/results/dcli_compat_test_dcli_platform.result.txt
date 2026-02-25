@@ -1,0 +1,7 @@
+Test Mode: /Users/alexiskyaw/Desktop/Code/tom2/dartscript/tom_dartscript_bridges/../../xternal/tom_module_d4rt/tom_d4rt_dcli/test/replay/test_dcli_platform.dcli
+Started: 2026-02-05T12:28:39.525288
+
+Lines executed: 47
+
+Result: PASSED
+Completed: 2026-02-05T12:28:39.535203
