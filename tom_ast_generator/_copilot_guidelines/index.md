@@ -40,8 +40,8 @@
 ## Related Packages
 
 - [tom_build_base](../../tom_build_base/) — Shared CLI infrastructure (navigation, project discovery)
-- [tom_d4rt](../../../tom_module_d4rt/tom_d4rt/) — D4rt interpreter that uses AST files
-- [tom_d4rt_generator](../../../tom_module_d4rt/tom_d4rt_generator/) — Bridge generator
+- [tom_d4rt](../../tom_d4rt/) — D4rt interpreter that uses AST files
+- [tom_d4rt_generator](../../tom_d4rt_generator/) — Bridge generator
 
 ## Dependencies
 

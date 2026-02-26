@@ -9,7 +9,7 @@ The dcli CLI requires code generation before compilation. The build script handl
 Run the compile script from the project directory:
 
 ```bash
-cd xternal/tom_module_d4rt/tom_d4rt_dcli
+cd tom_ai/d4rt/tom_d4rt_dcli
 ./compile.sh
 ```
 
@@ -28,7 +28,7 @@ If you need to build manually:
 
 2. **Run build_runner** (regenerates bridge code):
    ```bash
-   cd xternal/tom_module_d4rt/tom_d4rt_dcli
+   cd tom_ai/d4rt/tom_d4rt_dcli
    dart pub get
    dart run build_runner build --delete-conflicting-outputs
    ```

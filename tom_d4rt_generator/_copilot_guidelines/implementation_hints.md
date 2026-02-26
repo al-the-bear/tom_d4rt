@@ -84,8 +84,8 @@ See the following documentation in `tom_build_base`:
 
 | Document | Description |
 |----------|-------------|
-| [cli_tools_navigation.md](../../../tom_module_basics/tom_build_base/doc/cli_tools_navigation.md) | Standard CLI commands, execution modes, navigation options |
-| [build_base_user_guide.md](../../../tom_module_basics/tom_build_base/doc/build_base_user_guide.md) | Configuration loading, project discovery, workspace mode |
+| [cli_tools_navigation.md](../../../basics/tom_build_base/doc/cli_tools_navigation.md) | Standard CLI commands, execution modes, navigation options |
+| [build_base_user_guide.md](../../../basics/tom_build_base/doc/build_base_user_guide.md) | Configuration loading, project discovery, workspace mode |
 
 ### Key Files in tom_build_base
 

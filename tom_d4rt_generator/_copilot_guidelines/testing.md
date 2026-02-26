@@ -571,7 +571,7 @@ Sequential numbering. Current issues file: `tom_d4rt_generator/doc/issues.md`.
 
 ```bash
 # Run all D4rtTester e2e tests
-cd xternal/tom_module_d4rt/tom_d4rt_generator
+cd tom_ai/d4rt/tom_d4rt_generator
 dart test test/d4rt_tester_test.dart
 
 # Run a specific group
@@ -756,7 +756,7 @@ If the generator produces valid bridges for `tom_d4rt_dcli`, it is likely to wor
 
 1. **Navigate to tom_d4rt_dcli**:
    ```bash
-   cd xternal/tom_module_d4rt/tom_d4rt_dcli
+   cd tom_ai/d4rt/tom_d4rt_dcli
    ```
 
 2. **Ensure dependencies are current**:
@@ -784,7 +784,7 @@ If the generator produces valid bridges for `tom_d4rt_dcli`, it is likely to wor
 The following command sequence performs the full integration test:
 
 ```bash
-cd xternal/tom_module_d4rt/tom_d4rt_dcli && \
+cd tom_ai/d4rt/tom_d4rt_dcli && \
 dart pub get && \
 dart run tom_d4rt_generator:d4rtgen && \
 dart analyze lib/ && \

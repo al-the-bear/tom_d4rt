@@ -91,8 +91,8 @@ dart pub publish
 
 # Update parent repo submodule reference
 cd ../../..
-git add xternal/tom_module_d4rt
-git commit -m "Update tom_module_d4rt submodule to vX.Y.Z"
+git add tom_ai/d4rt
+git commit -m "Update d4rt submodule to vX.Y.Z"
 ```
 
 ### Version Numbering
@@ -119,23 +119,23 @@ Ensure they are compatible:
 
 ### Submodule Workflow
 
-The `tom_d4rt` package is in a git submodule (`xternal/tom_module_d4rt`).
+The `tom_d4rt` package is in the `tom_ai/d4rt` directory.
 
 ```bash
-# Navigate to submodule
-cd xternal/tom_module_d4rt/tom_d4rt
+# Navigate to project
+cd tom_ai/d4rt/tom_d4rt
 
 # Make changes, commit
 git add .
 git commit -m "Description of changes"
 
-# Push submodule changes
+# Push changes
 git push
 
 # Update parent repo
 cd ../../..
-git add xternal/tom_module_d4rt
-git commit -m "Update tom_module_d4rt submodule"
+git add tom_ai/d4rt
+git commit -m "Update d4rt submodule"
 ```
 
 ### Analyzer Issues

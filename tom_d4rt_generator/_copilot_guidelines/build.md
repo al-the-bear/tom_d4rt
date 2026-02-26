@@ -145,8 +145,8 @@ dart pub publish
 
 # Update parent repo submodule reference
 cd ../../..
-git add xternal/tom_module_d4rt
-git commit -m "Update tom_module_d4rt submodule to vX.Y.Z"
+git add tom_ai/d4rt
+git commit -m "Update d4rt submodule to vX.Y.Z"
 ```
 
 ### Version Numbering
