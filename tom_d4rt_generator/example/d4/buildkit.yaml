@@ -106,6 +106,6 @@ d4rtgen:
 compiler:
   compiles:
     - commandline:
-        - dart compile exe %{file} -o %{project-root}/bin/%{file.name}
+        - dart compile exe %{file} -o %{folder}/bin/%{file.name}
       files: bin/d4.dart
       platforms: [darwin-arm64, darwin-x64, linux-x64, linux-arm64]
