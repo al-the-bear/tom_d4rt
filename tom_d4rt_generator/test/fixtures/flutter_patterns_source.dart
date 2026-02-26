@@ -8,6 +8,8 @@
 /// - RC-2: Callback parameters with non-nullable optional named params
 /// - RC-9: Type parameter upper bounds erased to dynamic
 /// - RC-4: dart: SDK type name clashes (e.g., dart:ui.Image vs Flutter Image)
+/// - RC-8.1: Optional positional callback should NOT be made nullable
+/// - RC-8.2: Callback return type should be preserved (not erased to dynamic)
 library;
 
 import 'dart:math';
@@ -217,4 +219,53 @@ class WidgetWithSdkType {
   final Random rng;
 
   WidgetWithSdkType({required this.position, required this.rng});
+}
+
+// =============================================================================
+// RC-8.1: Optional positional callback — non-nullable type shouldn't become nullable
+// =============================================================================
+
+void _noop() {}
+
+/// Simulates pattern where optional positional callback has non-nullable type
+/// with a default value. The generator must NOT emit `void Function()?` — the
+/// type is non-nullable even though the param is optional.
+class DecorationLike {
+  void createBoxPainter([void Function() onChanged = _noop]) {
+    onChanged();
+  }
+}
+// =============================================================================
+// RC-8.2: Callback return type preserved (not erased to dynamic)
+// =============================================================================
+
+/// Simulates dart:ui Codec — a concrete class used as callback return type.
+class CodecLike {
+  final int frameCount;
+  CodecLike(this.frameCount);
+}
+
+/// Callback that returns a Future of a concrete type.
+/// In Flutter: typedef ImageDecoderCallback = Future<Codec> Function(...)
+typedef CodecDecoderCallback = Future<CodecLike> Function(Object key);
+
+/// Uses a typedef callback with a concrete return type.
+/// The generator must preserve the return type in the cast:
+/// `as Future<CodecLike>` not `as Future<dynamic>`.
+class ImageDecoderLike {
+  Future<Object> load(Object key, CodecDecoderCallback decode) {
+    return decode(key);
+  }
+}
+
+// =============================================================================
+// RC-8.3+4: Nullability of generic type params in callbacks + contravariance
+// =============================================================================
+
+/// Simulates DragTarget<T extends Object>.builder(List<T?>, ...) pattern.
+/// When T is erased, List<T?> should become List<Object?> not List<Object>.
+class DragTargetLike<T extends Object> {
+  void build(void Function(List<T?> candidates, List<dynamic> rejected) builder) {
+    builder([], []);
+  }
 }

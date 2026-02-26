@@ -297,5 +297,79 @@ void main() {
         );
       });
     });
+
+    // =========================================================================
+    // RC-8.1: Optional positional callback made nullable
+    // =========================================================================
+    group('RC-8.1: Optional positional callback nullability', () {
+      test(
+          'G-FLP-15: Optional positional callback with non-nullable type stays non-nullable. [2026-02-26] (PASS)',
+          () {
+        expect(generatedCode, contains("name: 'DecorationLike'"));
+
+        // The generated wrapper for createBoxPainter's optional positional
+        // onChanged parameter must NOT be nullable (void Function()? → wrong).
+        // The API type is void Function() (non-nullable). Being optional
+        // means the param can be omitted, not that nulls are accepted.
+        //
+        // Bad: onChangedRaw == null ? null : (...) { ... }
+        // Good: (...) { ... }  (just the wrapper, non-nullable)
+        expect(
+          generatedCode,
+          isNot(contains(RegExp(r'onChangedRaw == null \? null'))),
+          reason:
+              'Optional positional with non-nullable function type should not generate null-check wrapper',
+        );
+      });
+    });
+
+    // =========================================================================
+    // RC-8.2: Callback return type preserved (not erased to dynamic)
+    // =========================================================================
+    group('RC-8.2: Callback return type preservation', () {
+      test(
+          'G-FLP-16: Typedef callback return type Future<ConcreteType> is preserved in cast. [2026-02-26] (PASS)',
+          () {
+        expect(generatedCode, contains("name: 'ImageDecoderLike'"));
+
+        // The CodecDecoderCallback typedef returns Future<CodecLike>.
+        // The generated wrapper must cast the return value to the concrete type:
+        //   as Future<$test_package_1.CodecLike>
+        // NOT: as Future<dynamic> or as Future<Object>
+        expect(
+          generatedCode,
+          contains(r'as Future<$test_package_1.CodecLike>'),
+          reason:
+              'Callback return type Future<CodecLike> should be preserved in the cast, not erased to dynamic',
+        );
+      });
+    });
+
+    // =========================================================================
+    // RC-8.3: Type parameter nullability preserved in callbacks
+    // =========================================================================
+    group('RC-8.3: Type parameter nullability in callbacks', () {
+      test(
+          'G-FLP-17: Callback with List<T?> where T extends Object resolves to List<Object?>. [2026-02-26] (PASS)',
+          () {
+        expect(generatedCode, contains("name: 'DragTargetLike'"));
+
+        // DragTargetLike<T extends Object>.build(void Function(List<T?>, List<dynamic>))
+        // When T is erased, List<T?> must become List<Object?> not List<Object>.
+        // T's bound is Object, so T? = Object?.
+        expect(
+          generatedCode,
+          contains('List<Object?>'),
+          reason:
+              'List<T?> where T extends Object should resolve to List<Object?>, not List<Object>',
+        );
+        expect(
+          generatedCode,
+          isNot(contains(RegExp(r'List<Object>[^?]'))),
+          reason:
+              'Should not have List<Object> without ? when the source type is List<T?>',
+        );
+      });
+    });
   });
 }

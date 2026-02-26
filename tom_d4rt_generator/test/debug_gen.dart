@@ -27,11 +27,19 @@ void main() async {
 
   final code = await File(result.outputFiles.first).readAsString();
 
-  // Search for ContainerLike to inspect type bounds  
+  // Print ContainerLike and LayoutBuilderLike sections for RC-9 analysis
   final lines = code.split('\n');
+  var printing = false;
   for (var i = 0; i < lines.length; i++) {
-    if (lines[i].contains('ContainerLike')) {
+    if (lines[i].contains('ContainerLike Bridge') || lines[i].contains('LayoutBuilderLike Bridge')) {
+      printing = true;
+    }
+    if (printing) {
       print('L${i + 1}: ${lines[i]}');
+      if (lines[i] == '}' && i > 560) {
+        printing = false;
+        print('---');
+      }
     }
   }
 

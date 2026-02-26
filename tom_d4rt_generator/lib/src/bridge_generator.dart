@@ -5673,8 +5673,10 @@ class BridgeGenerator {
                 argDeclarations.add("        final $rawVarName = named['${param.name}'];");
               }
               
-              // Generate wrapper expression
-              final isNullable = param.type.endsWith('?') || !param.isRequired;
+              // GEN-069: Nullability is based on the DECLARED TYPE, not optionality.
+              // Optional named params can be omitted, but when provided,
+              // non-nullable function types must stay non-nullable.
+              final isNullable = param.type.endsWith('?');
               final wrapperExpr = _generateFunctionWrapper(
                 callbackVarName: rawVarName,
                 funcInfo: funcInfo,
@@ -5768,8 +5770,12 @@ class BridgeGenerator {
                 argDeclarations.add("        final $rawVarName = ${_lengthCheckGreaterThan('positional', positionalIndex)} ? positional[$positionalIndex] : null;");
               }
               
-              // Generate wrapper expression
-              final isNullable = param.type.endsWith('?') || !param.isRequired;
+              // GEN-069: Nullability is based on the DECLARED TYPE, not optionality.
+              // Optional positional params can be omitted, but when provided,
+              // non-nullable function types (e.g., VoidCallback) must stay non-nullable.
+              // The null-check wrapper (raw == null ? null : ...) should only be used
+              // when the type itself is nullable (e.g., VoidCallback?).
+              final isNullable = param.type.endsWith('?');
               final wrapperExpr = _generateFunctionWrapper(
                 callbackVarName: rawVarName,
                 funcInfo: funcInfo,
@@ -7097,7 +7103,8 @@ class BridgeGenerator {
           buffer.writeln("            final $rawVarName = positional.length > $i ? positional[$i] : null;");
         }
         
-        final isNullable = param.type.endsWith('?') || !param.isRequired;
+        // GEN-069: Nullability is based on the DECLARED TYPE, not optionality.
+        final isNullable = param.type.endsWith('?');
         
         // Generate wrapper function variable
         final paramTypes = funcInfo.positionalParamTypes;
@@ -7288,10 +7295,11 @@ class BridgeGenerator {
         );
       }
       
+      // GEN-069: Nullability is based on the DECLARED TYPE, not optionality.
       final wrapperExpr = _generateFunctionWrapper(
         callbackVarName: rawVarName,
         funcInfo: funcInfo,
-        isNullable: isNullable || !param.isRequired,
+        isNullable: isNullable,
         typeToUri: param.typeToUri,
         sourceFilePath: sourceFilePath,
       );
@@ -7371,10 +7379,11 @@ class BridgeGenerator {
       final rawVarName = '${localName}Raw';
       buffer.writeln("            final $rawVarName = named['${param.name}'];");
       
+      // GEN-069: Nullability is based on the DECLARED TYPE, not optionality.
       final wrapperExpr = _generateFunctionWrapper(
         callbackVarName: rawVarName,
         funcInfo: funcInfo,
-        isNullable: isNullable || !param.isRequired,
+        isNullable: isNullable,
         typeToUri: param.typeToUri,
         sourceFilePath: sourceFilePath,
       );
@@ -8081,11 +8090,11 @@ class BridgeGenerator {
         );
       }
       
-      // Generate wrapper expression and store in callExpressions map
+      // GEN-069: Nullability is based on the DECLARED TYPE, not optionality.
       final wrapperExpr = _generateFunctionWrapper(
         callbackVarName: rawVarName,
         funcInfo: funcInfo,
-        isNullable: isNullable || !param.isRequired,
+        isNullable: isNullable,
         typeToUri: param.typeToUri,
         classTypeParams: classTypeParams,
         sourceFilePath: sourceFilePath,
@@ -8378,11 +8387,11 @@ class BridgeGenerator {
         );
       }
       
-      // Generate wrapper expression and store in callExpressions map
+      // GEN-069: Nullability is based on the DECLARED TYPE, not optionality.
       final wrapperExpr = _generateFunctionWrapper(
         callbackVarName: rawVarName,
         funcInfo: funcInfo,
-        isNullable: isNullable || !param.isRequired,
+        isNullable: isNullable,
         typeToUri: param.typeToUri,
         classTypeParams: classTypeParams,
         sourceFilePath: sourceFilePath,
@@ -9223,7 +9232,8 @@ class BridgeGenerator {
     // Resolve each argument with prefixes
     return args
         .map((arg) {
-          var baseArg = arg.endsWith('?')
+          final argIsNullable = arg.endsWith('?');
+          var baseArg = argIsNullable
               ? arg.substring(0, arg.length - 1)
               : arg;
           if (_isGenericTypeParameter(baseArg)) {
@@ -9231,12 +9241,19 @@ class BridgeGenerator {
             final bound = classTypeParams[baseArg];
             if (bound != null) {
               // Recursively resolve the bound type
-              return _getTypeArgument(
+              final resolved = _getTypeArgument(
                 bound,
                 typeToUri: typeToUri,
                 classTypeParams: classTypeParams,
                 sourceFilePath: sourceFilePath,
               );
+              // GEN-070: Preserve nullability suffix when resolving type params.
+              // If the original arg was T?, the resolved type should also be
+              // nullable (e.g., T? where T extends Object → Object?).
+              if (argIsNullable && !resolved.endsWith('?')) {
+                return '$resolved?';
+              }
+              return resolved;
             }
             return 'dynamic';
           }
