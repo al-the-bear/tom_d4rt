@@ -3611,15 +3611,126 @@ class BridgeGenerator {
     }
 
     // Typed empty collections like const <String>[] or const <String, int>{}
-    if (RegExp(r'^const\s*<[^>]+>\[\]$').hasMatch(defaultValue) ||
-        RegExp(r'^const\s*<[^>]+>\{\}$').hasMatch(defaultValue)) {
-      return defaultValue;
+    // GEN-066: Resolve type arguments through _getTypeArgument to apply correct prefixes.
+    // Source code may use prefixes like 'ui.StringAttribute' that don't exist in the bridge file.
+    final typedListMatch = RegExp(r'^const\s*<([^>]+)>\[\]$').firstMatch(defaultValue);
+    if (typedListMatch != null) {
+      final typeArg = typedListMatch.group(1)!.trim();
+      final resolvedType = _getTypeArgument(
+        typeArg,
+        typeToUri: typeToUri,
+        sourceFilePath: sourceFilePath,
+      );
+      return 'const <$resolvedType>[]';
+    }
+    final typedMapSetMatch = RegExp(r'^const\s*<([^>]+)>\{\}$').firstMatch(defaultValue);
+    if (typedMapSetMatch != null) {
+      final typeArgs = typedMapSetMatch.group(1)!.trim();
+      // For Map types like <String, int>, resolve each type argument
+      if (typeArgs.contains(',')) {
+        final parts = typeArgs.split(',').map((t) => t.trim());
+        final resolvedParts = parts.map((t) => _getTypeArgument(
+          t,
+          typeToUri: typeToUri,
+          sourceFilePath: sourceFilePath,
+        ));
+        return 'const <${resolvedParts.join(', ')}>{}';
+      }
+      final resolvedType = _getTypeArgument(
+        typeArgs,
+        typeToUri: typeToUri,
+        sourceFilePath: sourceFilePath,
+      );
+      return 'const <$resolvedType>{}';
     }
 
     // 2. Core Library Constants (Duration, DateTime)
     if (defaultValue.startsWith('const Duration(') || 
         defaultValue.startsWith('const DateTime(')) {
       return defaultValue;
+    }
+
+    // 2b. GEN-065: Const constructor calls: const ClassName(...) and const ClassName.named(...)
+    // Handles patterns like:
+    //   const Color(0xFF000000)     → const $prefix.Color(0xFF000000)
+    //   const EdgeInsets.all(0)     → const $prefix.EdgeInsets.all(0)
+    //   const BorderSide()         → const $prefix.BorderSide()
+    //   const Radius.circular(4.0) → const $prefix.Radius.circular(4.0)
+    final constCtorMatch = RegExp(r'^const\s+([A-Z]\w*)(\.\w+)?\s*\(').matchAsPrefix(defaultValue);
+    if (constCtorMatch != null) {
+      final className = constCtorMatch.group(1)!;
+
+      // Built-in types (e.g., Duration, DateTime) handled above — shouldn't reach here
+      // but check just in case
+      if (_isBuiltInType(className)) {
+        return defaultValue;
+      }
+
+      // Check if the args contain nested type references (e.g., other const constructors
+      // or ClassName.value patterns). We can safely prefix argument values that are
+      // just literals, but nested types would need recursive prefixing.
+      final argsStartIdx = defaultValue.indexOf('(');
+      final argsContent = defaultValue.substring(argsStartIdx + 1, defaultValue.length - 1).trim();
+      if (argsContent.isNotEmpty && RegExp(r'const\s+[A-Z]').hasMatch(argsContent)) {
+        // Nested const constructors — too complex, non-wrappable
+        return null;
+      }
+
+      // Resolve prefix for the class name (same logic as static access)
+      String? resolvedPrefix;
+
+      if (typeToUri.containsKey(className)) {
+        final uri = typeToUri[className];
+        if (uri != null) {
+          resolvedPrefix = _importPrefixes[uri];
+        }
+      }
+
+      if (resolvedPrefix == null && sourceFilePath != null) {
+        final auxiliaryUri = _resolveTypeFromSourceImports(className, sourceFilePath);
+        if (auxiliaryUri != null) {
+          _addAuxiliaryImport(auxiliaryUri, className);
+          resolvedPrefix = _getOrCreateAuxiliaryPrefix(auxiliaryUri);
+        }
+      }
+
+      if (resolvedPrefix == null) {
+        final globalUri = _globalTypeToUri[className];
+        if (globalUri != null) {
+          final globalPrefix = _importPrefixes[globalUri];
+          if (globalPrefix != null && globalPrefix.isNotEmpty) {
+            resolvedPrefix = globalPrefix;
+          }
+        }
+      }
+
+      if (resolvedPrefix == null && sourceUri != null) {
+        final srcPrefix = _importPrefixes[sourceUri];
+        if (srcPrefix != null && srcPrefix.isNotEmpty) {
+          resolvedPrefix = srcPrefix;
+        }
+        if (resolvedPrefix == null) {
+          final parentUri = _partOfToParent[sourceUri];
+          if (parentUri != null) {
+            final parentPrefix = _importPrefixes[parentUri];
+            if (parentPrefix != null && parentPrefix.isNotEmpty) {
+              resolvedPrefix = parentPrefix;
+            }
+          }
+        }
+      }
+
+      if (resolvedPrefix != null) {
+        // Replace the class name with the prefixed version
+        // 'const ClassName...' → 'const $prefix.ClassName...'
+        if (resolvedPrefix.isEmpty) {
+          return defaultValue;
+        }
+        return defaultValue.replaceFirst('const $className', 'const $resolvedPrefix.$className');
+      }
+
+      // Cannot determine prefix — non-wrappable
+      return null;
     }
 
     // 3. Static/Enum access (ClassName.value)
@@ -4865,9 +4976,10 @@ class BridgeGenerator {
         .whereType<String>() // Filter out nulls (skipped libraries)
         .toSet();
     
-    // Add SDK imports without prefixes
+    // Add SDK imports without prefixes (initially).
+    // GEN-068 deferred: After all package imports are assigned, we detect
+    // name clashes and selectively re-prefix clashing dart: imports.
     for (final importPath in sdkImports.toList()..sort()) {
-      // Map SDK imports to no prefix
       _importPrefixes[importPath] = ''; 
       buffer.writeln("import '$importPath';");
     }
@@ -7297,9 +7409,15 @@ class BridgeGenerator {
             "            final $localName = D4.getNamedArgWithDefault<$typeArg>(named, '${param.name}', $typedDefault);",
           );
         } else {
-          // Non-wrappable default - make optional
+          // GEN-064 fix: Non-wrappable default - use TODO helper with non-nullable type
+          // instead of making the type nullable (which causes compilation errors
+          // when passed to a non-nullable parameter).
+          _recordNonWrappableDefault(contextName, param.name, param.defaultValue!);
           buffer.writeln(
-            "            final $localName = D4.getOptionalNamedArg<$typeArg?>(named, '${param.name}');",
+            "            // TODO: Non-wrappable default: ${param.defaultValue}",
+          );
+          buffer.writeln(
+            "            final $localName = D4.getRequiredNamedArgTodoDefault<$typeArg>(named, '${param.name}', '$contextName', '${_escapeString(param.defaultValue!)}');",
           );
         }
       } else {
@@ -8046,6 +8164,12 @@ class BridgeGenerator {
       if (defaultValue == 'const []' || defaultValue == '[]') {
         return 'const <$elementType>[]';
       }
+      // GEN-066: Handle already-typed empty collections: const <TypeArg>[]
+      // Resolve the type arg through _getTypeArgument to apply correct prefixes.
+      final typedListMatch = RegExp(r'^const\s*<([^>]+)>\[\]$').firstMatch(defaultValue);
+      if (typedListMatch != null) {
+        return 'const <$elementType>[]';
+      }
     } else if (_isMapType(fullType)) {
       final (keyType, valueType) = _getMapTypeArgs(
         fullType,
@@ -8056,8 +8180,19 @@ class BridgeGenerator {
       if (defaultValue == 'const {}' || defaultValue == '{}') {
         return 'const <$keyType, $valueType>{}';
       }
+      // GEN-066: Handle already-typed empty maps: const <K, V>{}
+      final typedMapMatch = RegExp(r'^const\s*<[^>]+>\{\}$').firstMatch(defaultValue);
+      if (typedMapMatch != null) {
+        return 'const <$keyType, $valueType>{}';
+      }
     }
-    return defaultValue;
+    // For const constructor defaults, use the prefixed version
+    return _prefixDefaultValue(
+      defaultValue,
+      null,
+      typeToUri: typeToUri,
+      sourceFilePath: sourceFilePath,
+    ) ?? defaultValue;
   }
 
   /// Reserved parameter names in BridgedClass closures.
@@ -8652,7 +8787,7 @@ class BridgeGenerator {
     // Check if this type needs a prefix
     final uri = typeToUri[unprefixedType];
     if (uri != null) {
-      // Check if this is an SDK type (dart:*) - use without prefix
+      // Check if this is an SDK type (dart:*) — use without prefix
       if (uri.startsWith('dart:')) {
         final result = unprefixedType;
         return isNullable ? '$result?' : result;
@@ -8899,7 +9034,7 @@ class BridgeGenerator {
       // dart:core types
       'int', 'double', 'num', 'String', 'bool', 'void', 'dynamic', 'Object',
       'List', 'Map', 'Set', 'Iterable', 'Future', 'Stream', 'Function',
-      'Type', 'Symbol', 'Null', 'Never', 'Duration', 'DateTime', 'Uri',
+      'Type', 'Symbol', 'Null', 'Never', 'Duration', 'DateTime', 'Uri', 'Enum',
       'BigInt', 'Comparable', 'Pattern', 'Match', 'RegExp', 'Runes',
       'StringBuffer', 'StringSink', 'Sink', 'Error', 'Exception', 'StackTrace',
       'Record', 'FutureOr', 'MapEntry', 'Invocation', 'FormatException',
@@ -10100,6 +10235,24 @@ class BridgeGenerator {
     return null;
   }
 
+  /// Returns a default literal value for a non-nullable Dart type,
+  /// or null if no safe default can be determined.
+  ///
+  /// Used by [_generateFunctionWrapper] (GEN-063) to provide default values
+  /// for non-nullable, non-required named parameters in generated closures.
+  static String? _defaultLiteralForType(String type) {
+    // Strip any import prefix (e.g., $package_1.bool -> bool)
+    final base = type.contains('.') ? type.split('.').last : type;
+    return switch (base) {
+      'bool' => 'false',
+      'int' => '0',
+      'double' => '0.0',
+      'num' => '0',
+      'String' => "''",
+      _ => null,
+    };
+  }
+
   /// Generates a wrapper that converts an InterpretedFunction to a native function.
   ///
   /// Example output for `void Function(int, String)`:
@@ -10153,7 +10306,6 @@ class BridgeGenerator {
       final namedParams = <String>[];
       for (final entry in funcInfo.namedParamTypes.entries) {
         final isRequired = funcInfo.namedParamRequired[entry.key] ?? false;
-        final prefix = isRequired ? 'required ' : '';
         // Prefix the parameter type using _getTypeArgument
         final paramType = _getTypeArgument(
           entry.value,
@@ -10161,7 +10313,24 @@ class BridgeGenerator {
           classTypeParams: classTypeParams,
           sourceFilePath: sourceFilePath,
         );
-        namedParams.add('$prefix$paramType ${entry.key}');
+        // GEN-063 fix: Non-nullable, non-required named params in closures
+        // need either a default value or the `required` keyword.
+        // Without this, the generated closure is invalid Dart code.
+        if (isRequired) {
+          namedParams.add('required $paramType ${entry.key}');
+        } else if (paramType.endsWith('?')) {
+          // Nullable types can be optional without a default (defaults to null)
+          namedParams.add('$paramType ${entry.key}');
+        } else {
+          // Non-nullable, non-required: must provide a type-appropriate default
+          final defaultValue = _defaultLiteralForType(paramType);
+          if (defaultValue != null) {
+            namedParams.add('$paramType ${entry.key} = $defaultValue');
+          } else {
+            // Unknown non-nullable type: fall back to required (safest)
+            namedParams.add('required $paramType ${entry.key}');
+          }
+        }
       }
       paramList.add('{${namedParams.join(', ')}}');
       // Named args need to be passed as a map
@@ -10264,12 +10433,38 @@ class BridgeGenerator {
       sourceFilePath: sourceFilePath,
     );
     final rawValueType = argsStr.substring(splitIndex + 1).trim();
-    final valueType = _getTypeArgument(
+    var valueType = _getTypeArgument(
       rawValueType,
       typeToUri: typeToUri,
       classTypeParams: classTypeParams,
       sourceFilePath: sourceFilePath,
     );
+    // GEN-067 fix: When a map value type is a function type alias that was
+    // erased to 'dynamic' by _getTypeArgument(), try to expand the typedef
+    // to preserve the actual function type for the Map's type argument.
+    // Map<String, dynamic> is not assignable to Map<String, WidgetBuilder>.
+    if (valueType == 'dynamic') {
+      final cleanedValue = rawValueType.replaceAll('?', '');
+      if (_knownFunctionTypeAliases.contains(cleanedValue) ||
+          _isFunctionTypeName(cleanedValue)) {
+        // Try typedef expansion first
+        final expanded = _typedefExpansions[cleanedValue];
+        if (expanded != null) {
+          valueType = _getTypeArgument(
+            expanded,
+            typeToUri: typeToUri,
+            classTypeParams: classTypeParams,
+            sourceFilePath: sourceFilePath,
+          );
+          if (rawValueType.endsWith('?') && !valueType.endsWith('?')) {
+            valueType = '$valueType?';
+          }
+        } else {
+          // Fall back to 'Function' which is better than 'dynamic' for function types
+          valueType = rawValueType.endsWith('?') ? 'Function?' : 'Function';
+        }
+      }
+    }
     return (keyType, valueType);
   }
 
