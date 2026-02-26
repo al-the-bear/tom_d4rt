@@ -531,12 +531,17 @@ class FunctionTypeInfo {
   /// Whether named parameters are required (name -> isRequired)
   final Map<String, bool> namedParamRequired;
 
+  /// Function-level generic type parameters and their bounds.
+  /// Example for `T Function<T extends Object>(...)`: {'T': 'Object'}
+  final Map<String, String?> genericTypeParameters;
+
   const FunctionTypeInfo({
     required this.returnType,
     this.returnTypeNullable = false,
     this.positionalParamTypes = const [],
     this.namedParamTypes = const {},
     this.namedParamRequired = const {},
+    this.genericTypeParameters = const {},
   });
 
   /// Whether the function returns void
@@ -978,6 +983,11 @@ class BridgeGenerator {
   /// Prefixes assigned to auxiliary imports.
   /// Key is the import URI, value is the prefix to use.
   final Map<String, String> _auxiliaryPrefixes = {};
+
+  /// Sentinel bound value used for function-level generic parameters.
+  /// These params must be preserved as type variables (e.g., `T`) instead of
+  /// being resolved to `dynamic` or their upper bound.
+  static const String _functionGenericParamSentinel = '__D4RT_FUNC_GENERIC__';
 
   /// Map of source file path to its imports.
   /// Used to resolve types that aren't exported from the barrel but are used in defaults.
@@ -9476,6 +9486,9 @@ class BridgeGenerator {
     if (classTypeParams.containsKey(baseType)) {
       final bound = classTypeParams[baseType];
       if (bound != null) {
+        if (bound == _functionGenericParamSentinel) {
+          return isNullable ? '$baseType?' : baseType;
+        }
         // Check if the bound contains the same type parameter (recursive bound)
         // e.g., T extends Comparable<T> - we detect this by checking if the bound
         // mentions the same type parameter
@@ -10009,6 +10022,9 @@ class BridgeGenerator {
             // Use bound from class type parameters if available
             final bound = classTypeParams[baseArg];
             if (bound != null) {
+              if (bound == _functionGenericParamSentinel) {
+                return argIsNullable ? '$baseArg?' : baseArg;
+              }
               // Recursively resolve the bound type
               final resolved = _getTypeArgument(
                 bound,
@@ -10932,9 +10948,11 @@ class BridgeGenerator {
       funcType = funcType.substring(0, funcType.length - 1).trim();
     }
 
-    // Check for inline function type pattern: ReturnType Function(Params)
+    // Check for inline function type pattern:
+    // ReturnType Function(Params)
+    // ReturnType Function<T>(Params)
     final funcMatch = RegExp(
-      r'^(.+?)\s+Function\(([^)]*)\)$',
+      r'^(.+?)\s+Function(?:<([^>]+)>)?\((.*)\)$',
     ).firstMatch(funcType);
     if (funcMatch == null) {
       // Check known typedef aliases
@@ -10947,7 +10965,8 @@ class BridgeGenerator {
     }
 
     final returnTypeStr = funcMatch.group(1)!.trim();
-    final paramsStr = funcMatch.group(2)!.trim();
+    final genericTypeParamsStr = funcMatch.group(2)?.trim();
+    final paramsStr = funcMatch.group(3)!.trim();
 
     // Parse return type
     var returnType = returnTypeStr;
@@ -10961,6 +10980,23 @@ class BridgeGenerator {
     final positionalParamTypes = <String>[];
     final namedParamTypes = <String, String>{};
     final namedParamRequired = <String, bool>{};
+    final genericTypeParameters = <String, String?>{};
+
+    if (genericTypeParamsStr != null && genericTypeParamsStr.isNotEmpty) {
+      final genericParams = _splitFunctionParams(genericTypeParamsStr);
+      for (final rawParam in genericParams) {
+        final param = rawParam.trim();
+        if (param.isEmpty) continue;
+        final extendsIndex = param.indexOf(' extends ');
+        if (extendsIndex == -1) {
+          genericTypeParameters[param] = null;
+        } else {
+          final name = param.substring(0, extendsIndex).trim();
+          final bound = param.substring(extendsIndex + 9).trim();
+          genericTypeParameters[name] = bound;
+        }
+      }
+    }
 
     if (paramsStr.isNotEmpty) {
       // Split parameters, handling nested generics
@@ -11023,6 +11059,7 @@ class BridgeGenerator {
       positionalParamTypes: positionalParamTypes,
       namedParamTypes: namedParamTypes,
       namedParamRequired: namedParamRequired,
+      genericTypeParameters: genericTypeParameters,
     );
   }
 
@@ -11106,6 +11143,25 @@ class BridgeGenerator {
       final positionalParamTypes = <String>[];
       final namedParamTypes = <String, String>{};
       final namedParamRequired = <String, bool>{};
+      final genericTypeParameters = <String, String?>{};
+      final functionDisplay = dartType.getDisplayString();
+      final genericMatch = RegExp(r'Function<([^>]+)>\(').firstMatch(functionDisplay);
+      if (genericMatch != null) {
+        final genericParams = genericMatch.group(1)!
+            .split(',')
+            .map((s) => s.trim())
+            .where((s) => s.isNotEmpty);
+        for (final param in genericParams) {
+          final extendsIndex = param.indexOf(' extends ');
+          if (extendsIndex == -1) {
+            genericTypeParameters[param] = null;
+          } else {
+            final name = param.substring(0, extendsIndex).trim();
+            final bound = param.substring(extendsIndex + 9).trim();
+            genericTypeParameters[name] = bound;
+          }
+        }
+      }
 
       for (final param in dartType.formalParameters) {
         final paramType = param.type.getDisplayString();
@@ -11124,6 +11180,7 @@ class BridgeGenerator {
         positionalParamTypes: positionalParamTypes,
         namedParamTypes: namedParamTypes,
         namedParamRequired: namedParamRequired,
+        genericTypeParameters: genericTypeParameters,
       );
     }
 
@@ -11171,6 +11228,12 @@ class BridgeGenerator {
     Map<String, String?> classTypeParams = const {},
     String? sourceFilePath,
   }) {
+    final scopedTypeParams = <String, String?>{
+      ...classTypeParams,
+      for (final entry in funcInfo.genericTypeParameters.entries)
+        entry.key: _functionGenericParamSentinel,
+    };
+
     // Generate parameter list for the wrapper function
     final paramList = <String>[];
     final argList = <String>[];
@@ -11181,7 +11244,7 @@ class BridgeGenerator {
       var paramType = _getTypeArgument(
         rawParamType,
         typeToUri: typeToUri,
-        classTypeParams: classTypeParams,
+        classTypeParams: scopedTypeParams,
         sourceFilePath: sourceFilePath,
       );
       // GEN-062 fix: When a callback parameter is itself a function type with
@@ -11205,7 +11268,7 @@ class BridgeGenerator {
         final paramType = _getTypeArgument(
           entry.value,
           typeToUri: typeToUri,
-          classTypeParams: classTypeParams,
+          classTypeParams: scopedTypeParams,
           sourceFilePath: sourceFilePath,
         );
         // GEN-063 fix: Non-nullable, non-required named params in closures
@@ -11258,9 +11321,29 @@ class BridgeGenerator {
     final prefixedReturnType = _getTypeArgument(
       funcInfo.returnType,
       typeToUri: typeToUri,
-      classTypeParams: classTypeParams,
+      classTypeParams: scopedTypeParams,
       sourceFilePath: sourceFilePath,
     );
+
+    String genericTypeParamsDecl = '';
+    if (funcInfo.genericTypeParameters.isNotEmpty) {
+      final genericDeclParts = funcInfo.genericTypeParameters.entries
+          .map((entry) {
+            final bound = entry.value;
+            if (bound == null || bound.isEmpty) {
+              return entry.key;
+            }
+            final resolvedBound = _getTypeArgument(
+              bound,
+              typeToUri: typeToUri,
+              classTypeParams: scopedTypeParams,
+              sourceFilePath: sourceFilePath,
+            );
+            return '${entry.key} extends $resolvedBound';
+          })
+          .join(', ');
+      genericTypeParamsDecl = '<$genericDeclParts>';
+    }
     String wrapperBody;
     if (funcInfo.isVoid) {
       wrapperBody = '{ $callExpr; }';
@@ -11280,7 +11363,7 @@ class BridgeGenerator {
     }
 
     // Build complete wrapper
-    final wrapper = '($paramsStr) $wrapperBody';
+    final wrapper = '$genericTypeParamsDecl($paramsStr) $wrapperBody';
 
     if (isNullable) {
       return '$callbackVarName == null ? null : $wrapper';

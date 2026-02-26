@@ -10,9 +10,12 @@
 /// - RC-4: dart: SDK type name clashes (e.g., dart:ui.Image vs Flutter Image)
 /// - RC-8.1: Optional positional callback should NOT be made nullable
 /// - RC-8.2: Callback return type should be preserved (not erased to dynamic)
+/// - RC-6: Generic function types should preserve Function<T>(...) shape
 library;
 
 import 'dart:math';
+
+import 'flutter_patterns_external_types.dart';
 
 // ignore_for_file: unused_element
 
@@ -271,4 +274,38 @@ class DragTargetLike<T extends Object> {
   ) {
     builder([], []);
   }
+}
+
+// =============================================================================
+// RC-6: Generic function type support
+// =============================================================================
+
+/// Generic callback type similar to Flutter pageRouteBuilder signatures.
+typedef GenericRouteFactoryLike =
+    T Function<T>(String name, Object Function(String context) builder);
+
+/// Uses a generic function-typed callback. The generated wrapper must preserve
+/// function-level type parameters (`<T>`) instead of erasing them.
+class GenericRouteHostLike {
+  Object makeRoute(
+    String name,
+    GenericRouteFactoryLike routeFactory,
+    Object Function(String context) builder,
+  ) {
+    return routeFactory<Object>(name, builder);
+  }
+}
+
+// =============================================================================
+// RC-9b: Generic bounds from imported types (cross-file)
+// =============================================================================
+
+/// Tests that imported type bounds are preserved for generic parameters.
+/// In Flutter this mirrors patterns like `<S extends RenderObject>`.
+class ImportedBoundHostLike<T extends ExternalBoundLike> {
+  final T value;
+
+  ImportedBoundHostLike(this.value);
+
+  T getValue() => value;
 }

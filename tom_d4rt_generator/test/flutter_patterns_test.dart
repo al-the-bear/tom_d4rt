@@ -402,5 +402,54 @@ void main() {
         },
       );
     });
+
+    // =========================================================================
+    // RC-6: Generic function types in callback wrappers
+    // =========================================================================
+    group('RC-6: Generic function type callbacks', () {
+      test(
+        'G-FLP-18: Generic callback wrapper preserves function-level type params. [2026-02-26] (PASS)',
+        () {
+          expect(generatedCode, contains("name: 'GenericRouteHostLike'"));
+
+          // Generic function callback wrappers must preserve `<T>`.
+          // We should see `<T>(...)` in the generated wrapper expression,
+          // not an erased non-generic `( ... )` closure.
+          expect(
+            generatedCode,
+            contains(RegExp(r'<T>\s*\(')),
+            reason:
+                'Function<T>(...) callbacks should preserve function-level type parameters',
+          );
+        },
+      );
+    });
+
+    // =========================================================================
+    // RC-9b: Imported generic type bounds preserved (cross-file)
+    // =========================================================================
+    group('RC-9b: Imported generic bounds', () {
+      test(
+        'G-FLP-19: Imported bound type is preserved (not erased to dynamic). [2026-02-26] (PASS)',
+        () {
+          expect(generatedCode, contains("name: 'ImportedBoundHostLike'"));
+
+          // T extends ExternalBoundLike should resolve to ExternalBoundLike,
+          // not dynamic, in argument extraction/casts.
+          expect(
+            generatedCode,
+            contains('ExternalBoundLike'),
+            reason:
+                'Imported generic bound should be preserved in generated type arguments',
+          );
+          expect(
+            generatedCode,
+            isNot(contains("getRequiredArg<dynamic>(positional, 0, 'value'")),
+            reason:
+                'Bounded generic argument should not degrade to dynamic for constructor parameter',
+          );
+        },
+      );
+    });
   });
 }
