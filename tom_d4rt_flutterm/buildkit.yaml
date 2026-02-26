@@ -1,0 +1,34 @@
+# D4rt Bridge Generation Configuration for Flutter Material
+
+d4rtgen:
+  name: flutter_material_bridges
+  helpersImport: package:tom_d4rt_ast/tom_d4rt_ast.dart
+  generateBarrel: true
+  barrelPath: lib/src/bridges/flutter_bridges_barrel.b.dart
+  generateDartscript: true
+  dartscriptPath: lib/src/bridges/material_bridges.b.dart
+  registrationClass: FlutterMaterialBridges
+  generateTestRunner: true
+  testRunnerPath: test/bridge_test_runner.b.dart
+  modules:
+    - name: flutter_painting
+      barrelImport: package:flutter/painting.dart
+      outputPath: lib/src/bridges/painting_bridges.b.dart
+    - name: flutter_foundation
+      barrelImport: package:flutter/foundation.dart
+      outputPath: lib/src/bridges/foundation_bridges.b.dart
+      skipReExports:
+        - package:flutter/painting.dart
+    - name: flutter_widgets
+      barrelImport: package:flutter/widgets.dart
+      outputPath: lib/src/bridges/widgets_bridges.b.dart
+      skipReExports:
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+    - name: flutter_material
+      barrelImport: package:flutter/material.dart
+      outputPath: lib/src/bridges/material_widgets_bridges.b.dart
+      skipReExports:
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+        - package:flutter/widgets.dart
