@@ -5,3 +5,5 @@ class ExternalBoundLike {
   final int id;
   const ExternalBoundLike(this.id);
 }
+
+typedef ExternalBuilderLike = Object Function(String context);

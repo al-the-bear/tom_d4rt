@@ -451,5 +451,131 @@ void main() {
         },
       );
     });
+
+    // =========================================================================
+    // RC-8.4b: void callback parameter handling
+    // =========================================================================
+    group('RC-8.4b: void callback parameter handling', () {
+      test(
+        'G-FLP-20: Wrapper for Function(void) does not pass void param as value. [2026-02-26] (PASS)',
+        () {
+          expect(generatedCode, contains("name: 'VoidValueCallbackHostLike'"));
+          expect(
+            generatedCode,
+            isNot(
+              contains(
+                RegExp(r'\(\s*void\s+p0\s*\)\s*\{[^}]*\[\s*p0\s*\]'),
+              ),
+            ),
+            reason:
+                'void-typed callback params cannot be used as expression values in argument lists',
+          );
+        },
+      );
+    });
+
+    // =========================================================================
+    // RC-7b: Imported function typedef map values
+    // =========================================================================
+    group('RC-7b: Imported typedef in Map values', () {
+      test(
+        'G-FLP-21: Imported function typedef map values are not erased to dynamic. [2026-02-26] (PASS)',
+        () {
+          expect(generatedCode, contains("name: 'ImportedRoutesHostLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createImportedRoutesHostLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(contains('coerceMap<String, dynamic>')),
+            reason:
+                'Map<String, ExternalBuilderLike> should preserve function value type instead of dynamic',
+          );
+        },
+      );
+    });
+
+    // =========================================================================
+    // RC-8.5: Optional named callback with default should stay non-nullable
+    // =========================================================================
+    group('RC-8.5: Optional named callback defaults', () {
+      test(
+        'G-FLP-22: Optional named callback with default is not wrapped as nullable. [2026-02-26] (PASS)',
+        () {
+          expect(generatedCode, contains("name: 'NavigatorLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createNavigatorLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(contains('onGenerateInitialRoutesRaw == null ? null')),
+            reason:
+                'Non-nullable callback with a default should not become nullable wrapper',
+          );
+        },
+      );
+    });
+
+    // =========================================================================
+    // RC-6b: Generic callback with nested generic return type
+    // =========================================================================
+    group('RC-6b: Generic callback return type preservation', () {
+      test(
+        'G-FLP-23: Nullable generic callback keeps <T> and return cast PageRouteLike<T>. [2026-02-26] (PASS)',
+        () {
+          expect(generatedCode, contains("name: 'WidgetsAppLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createWidgetsAppLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            contains(RegExp(r'<T>\s*\(')),
+            reason: 'Generic function callback should preserve <T> in wrapper',
+          );
+          expect(
+            section,
+            contains(RegExp(r'as\s+\$test_package_1\.PageRouteLike<T>')),
+            reason:
+                'Generic return type should preserve T in cast, not degrade to dynamic',
+          );
+          expect(
+            section,
+            isNot(contains('PageRouteLike<dynamic>')),
+            reason:
+                'Generic return type must not be erased to PageRouteLike<dynamic>',
+          );
+        },
+      );
+    });
   });
 }

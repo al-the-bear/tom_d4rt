@@ -13,6 +13,7 @@
 /// - RC-6: Generic function types should preserve Function<T>(...) shape
 library;
 
+import 'dart:async';
 import 'dart:math';
 
 import 'flutter_patterns_external_types.dart';
@@ -308,4 +309,79 @@ class ImportedBoundHostLike<T extends ExternalBoundLike> {
   ImportedBoundHostLike(this.value);
 
   T getValue() => value;
+}
+
+// =============================================================================
+// RC-8.4b: `void` callback parameter should not be used as expression value
+// =============================================================================
+
+/// Mirrors Future<void>.then-like callback shape where the callback argument is
+/// typed `void`. Generated wrappers must not use that parameter as a value.
+typedef VoidValueCallbackLike = FutureOr<Object> Function(void value);
+
+class VoidValueCallbackHostLike {
+  final VoidValueCallbackLike onValue;
+
+  const VoidValueCallbackHostLike({required this.onValue});
+}
+
+// =============================================================================
+// RC-1c: Optional non-nullable bool parameters should not become bool?
+// =============================================================================
+
+class OptionalBoolHostLike {
+  final bool autofocus;
+  final bool includeSemantics;
+
+  const OptionalBoolHostLike({
+    this.autofocus = false,
+    this.includeSemantics = true,
+  });
+}
+
+// =============================================================================
+// RC-7b: Imported function typedef in Map values should not degrade to dynamic
+// =============================================================================
+
+class ImportedRoutesHostLike {
+  final Map<String, ExternalBuilderLike> routes;
+
+  const ImportedRoutesHostLike({this.routes = const {}});
+}
+
+// =============================================================================
+// RC-8.5: Optional named callback with default should remain non-nullable
+// =============================================================================
+
+List<String> _defaultInitialRoutes(int state, String name) => <String>[];
+
+typedef InitialRoutesCallbackLike = List<String> Function(int state, String name);
+
+class NavigatorLike {
+  final InitialRoutesCallbackLike onGenerateInitialRoutes;
+
+  const NavigatorLike({
+    this.onGenerateInitialRoutes = _defaultInitialRoutes,
+  });
+}
+
+// =============================================================================
+// RC-6b: Generic callback return type with nested generic argument
+// =============================================================================
+
+class PageRouteLike<T> {
+  final T value;
+  const PageRouteLike(this.value);
+}
+
+typedef GenericPageRouteBuilderLike =
+    PageRouteLike<T> Function<T>(
+      String settings,
+      Object Function(String context) builder,
+    );
+
+class WidgetsAppLike {
+  final GenericPageRouteBuilderLike? pageRouteBuilder;
+
+  const WidgetsAppLike({this.pageRouteBuilder});
 }
