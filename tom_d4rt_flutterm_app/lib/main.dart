@@ -56,14 +56,19 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
   void _log(String message) {
     debugPrint('[D4rtApp] $message');
     setState(() {
-      _logs.add('[${DateTime.now().toIso8601String().substring(11, 19)}] $message');
+      _logs.add(
+        '[${DateTime.now().toIso8601String().substring(11, 19)}] $message',
+      );
       if (_logs.length > 100) _logs.removeRange(0, _logs.length - 100);
     });
   }
 
   Future<void> _startServer() async {
     try {
-      _server = await HttpServer.bind(InternetAddress.loopbackIPv4, _serverPort);
+      _server = await HttpServer.bind(
+        InternetAddress.loopbackIPv4,
+        _serverPort,
+      );
       _log('HTTP server listening on http://localhost:$_serverPort');
       _server!.listen(_handleRequest);
     } catch (e) {
@@ -98,7 +103,10 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
       }
     } catch (e, st) {
       _log('Error handling $path: $e');
-      _respond(request, 500, {'error': e.toString(), 'stackTrace': st.toString()});
+      _respond(request, 500, {
+        'error': e.toString(),
+        'stackTrace': st.toString(),
+      });
     }
   }
 
@@ -118,7 +126,9 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
     _log('Executing bundle (name=$name, ${body.length} bytes)');
 
     try {
-      final bundle = AstBundle.fromJson(jsonDecode(body) as Map<String, dynamic>);
+      final bundle = AstBundle.fromJson(
+        jsonDecode(body) as Map<String, dynamic>,
+      );
       final result = await _d4rt.executeAsync<Object?>(bundle, name: name);
       _log('Execution result: $result (${result.runtimeType})');
       _respond(request, 200, {
@@ -147,7 +157,9 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
     _log('Building widget (${body.length} bytes)');
 
     try {
-      final bundle = AstBundle.fromJson(jsonDecode(body) as Map<String, dynamic>);
+      final bundle = AstBundle.fromJson(
+        jsonDecode(body) as Map<String, dynamic>,
+      );
 
       // Store the bundle and trigger a rebuild — the actual build happens
       // inside the Flutter build method where we have a valid BuildContext.
@@ -192,7 +204,11 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
     return const _WaitingDisplay();
   }
 
-  void _respond(HttpRequest request, int statusCode, Map<String, dynamic> body) {
+  void _respond(
+    HttpRequest request,
+    int statusCode,
+    Map<String, dynamic> body,
+  ) {
     request.response
       ..statusCode = statusCode
       ..headers.contentType = ContentType.json
@@ -223,7 +239,9 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
           // Server status bar
           Container(
             padding: const EdgeInsets.all(8),
-            color: _server != null ? Colors.green.shade100 : Colors.red.shade100,
+            color: _server != null
+                ? Colors.green.shade100
+                : Colors.red.shade100,
             child: Row(
               children: [
                 Icon(
@@ -267,10 +285,15 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.grey.shade800,
-                      borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(4),
+                      ),
                     ),
                     child: Row(
                       children: [
@@ -283,7 +306,10 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
                           onTap: () => setState(() => _logs.clear()),
                           child: const Text(
                             'Clear',
-                            style: TextStyle(color: Colors.white54, fontSize: 11),
+                            style: TextStyle(
+                              color: Colors.white54,
+                              fontSize: 11,
+                            ),
                           ),
                         ),
                       ],
@@ -299,7 +325,8 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
                         return Text(
                           log,
                           style: TextStyle(
-                            color: log.contains('error') || log.contains('Error')
+                            color:
+                                log.contains('error') || log.contains('Error')
                                 ? Colors.red.shade300
                                 : Colors.green.shade200,
                             fontSize: 11,
@@ -361,7 +388,9 @@ class _ErrorDisplay extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               'Build Error',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.red),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(color: Colors.red),
             ),
             const SizedBox(height: 8),
             Text(

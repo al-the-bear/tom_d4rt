@@ -31,7 +31,8 @@ void main() async {
   final lines = code.split('\n');
   var printing = false;
   for (var i = 0; i < lines.length; i++) {
-    if (lines[i].contains('ContainerLike Bridge') || lines[i].contains('LayoutBuilderLike Bridge')) {
+    if (lines[i].contains('ContainerLike Bridge') ||
+        lines[i].contains('LayoutBuilderLike Bridge')) {
       printing = true;
     }
     if (printing) {

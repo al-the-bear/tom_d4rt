@@ -158,12 +158,13 @@ class RouterLike {
 
 /// Typedef that simulates ImageDecoderCallback from Flutter.
 /// The `allowUpscaling` param is non-nullable bool but optional (has a default).
-typedef DecoderCallback = Future<Object> Function(
-  Object buffer, {
-  bool allowUpscaling,
-  int? cacheHeight,
-  int? cacheWidth,
-});
+typedef DecoderCallback =
+    Future<Object> Function(
+      Object buffer, {
+      bool allowUpscaling,
+      int? cacheHeight,
+      int? cacheWidth,
+    });
 
 /// Class that takes the callback as a parameter.
 class ImageProviderLike {
@@ -265,7 +266,9 @@ class ImageDecoderLike {
 /// Simulates DragTarget<T extends Object>.builder(List<T?>, ...) pattern.
 /// When T is erased, List<T?> should become List<Object?> not List<Object>.
 class DragTargetLike<T extends Object> {
-  void build(void Function(List<T?> candidates, List<dynamic> rejected) builder) {
+  void build(
+    void Function(List<T?> candidates, List<dynamic> rejected) builder,
+  ) {
     builder([], []);
   }
 }
