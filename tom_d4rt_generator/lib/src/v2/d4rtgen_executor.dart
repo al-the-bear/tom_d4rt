@@ -132,6 +132,7 @@ Future<void> _generateBridges(
       sourceImport: sourceImport,
       sourceImports: sourceImports,
       helpersImport: config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
+      d4rtImport: config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart',
       verbose: verbose,
     );
 

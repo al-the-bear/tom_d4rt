@@ -1,10 +1,10 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 26 files
-// Generated: 2026-02-26T16:02:14.604610
+// Generated: 2026-02-27T00:29:01.720254
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
-import 'package:tom_d4rt_exec/d4rt.dart';
+import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt_ast/tom_d4rt_ast.dart';
 import 'dart:async';
 import 'dart:developer';
@@ -2940,7 +2940,7 @@ BridgedClass _createObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -2950,7 +2950,7 @@ BridgedClass _createObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -2960,7 +2960,7 @@ BridgedClass _createObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -3204,7 +3204,7 @@ BridgedClass _createHashedObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -3214,7 +3214,7 @@ BridgedClass _createHashedObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -3224,7 +3224,7 @@ BridgedClass _createHashedObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 6 files
-// Generated: 2026-02-15T12:30:03.083166
+// Generated: 2026-02-27T00:28:50.525348
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -773,7 +773,7 @@ BridgedClass _createPathMapBridge() {
         }
         final updateRaw = positional[1];
         final ifAbsentRaw = named['ifAbsent'];
-        return t.update(key, (dynamic p0) { return D4.callInterpreterCallback(visitor, updateRaw, [p0]) as dynamic; }, ifAbsent: ifAbsentRaw == null ? null : () { return D4.callInterpreterCallback(visitor, ifAbsentRaw, []) as dynamic; });
+        return t.update(key, (dynamic p0) { return D4.callInterpreterCallback(visitor, updateRaw, [p0]) as dynamic; }, ifAbsent: () { return D4.callInterpreterCallback(visitor, ifAbsentRaw, []) as dynamic; });
       },
       'updateAll': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
@@ -1103,7 +1103,7 @@ BridgedClass _createPathSetBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
@@ -1113,7 +1113,7 @@ BridgedClass _createPathSetBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
@@ -1123,7 +1123,7 @@ BridgedClass _createPathSetBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');

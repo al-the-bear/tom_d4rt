@@ -1,4 +1,4 @@
-/// D4rt Bridges for tom_d4rt_dcli
+/// D4rt Bridges for tom_dcli_exec
 library;
 
 export 'src/bridges/cli_api_bridges.b.dart';

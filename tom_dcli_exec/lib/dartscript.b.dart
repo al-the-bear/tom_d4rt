@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
-// Dartscript registration for tom_d4rt_dcli
-// Generated: 2026-02-15T12:30:05.624625
+// Dartscript registration for tom_dcli_exec
+// Generated: 2026-02-27T00:31:20.982058
 
-/// D4rt Bridge Registration for tom_d4rt_dcli
+/// D4rt Bridge Registration for tom_dcli_exec
 library;
 
 import 'package:tom_d4rt_exec/d4rt.dart';
@@ -12,7 +12,7 @@ import 'src/bridges/dcli_bridges.b.dart' as dcli_bridges;
 import 'src/bridges/path_bridges.b.dart' as path_bridges;
 import 'src/bridges/tom_chattools_bridges.b.dart' as tom_chattools_bridges;
 
-/// Combined bridge registration for tom_d4rt_dcli.
+/// Combined bridge registration for tom_dcli_exec.
 class TomD4rtDcliBridge {
   /// Register all bridges with D4rt interpreter.
   static void register([D4rt? interpreter]) {

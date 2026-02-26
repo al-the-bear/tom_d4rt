@@ -13,6 +13,7 @@ cleanup:
 d4rtgen:
   name: tom_dcli_exec
   helpersImport: package:tom_d4rt_exec/tom_d4rt_exec.dart
+  d4rtImport: package:tom_d4rt_exec/d4rt.dart
   generateBarrel: true
   barrelPath: lib/d4rt_bridges.b.dart
   generateDartscript: true
