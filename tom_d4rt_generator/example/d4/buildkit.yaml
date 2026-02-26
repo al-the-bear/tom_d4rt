@@ -101,11 +101,3 @@ d4rtgen:
     - name: test_callback_types
       barrelImport: package:d4_example/test_callback_types.dart
       outputPath: lib/src/d4rt_bridges/test_callback_types.b.dart
-
-
-compiler:
-  compiles:
-    - commandline:
-        - dart compile exe %{file} -o %{folder}/bin/%{file.name}
-      files: bin/d4.dart
-      platforms: [darwin-arm64, darwin-x64, linux-x64, linux-arm64]

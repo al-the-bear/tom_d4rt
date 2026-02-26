@@ -1,0 +1,3 @@
+# Skip example projects during recursive buildkit scans.
+# These projects are for development/testing of the d4rt bridge generator
+# and should not be processed during workspace-wide pipeline runs.
