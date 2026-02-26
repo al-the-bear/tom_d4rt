@@ -20,8 +20,8 @@ dependencies:
   pub_semver: ^2.2.0
   tom_d4rt_ast:
     path: ../tom_d4rt_ast
-  tom_d4rt_astgen:
-    path: ../tom_d4rt_astgen
+  tom_ast_generator:
+    path: ../tom_ast_generator
 
 dev_dependencies:
   lints: ^6.0.0

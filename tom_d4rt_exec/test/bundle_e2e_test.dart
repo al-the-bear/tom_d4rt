@@ -1,7 +1,7 @@
 /// Phase 5: End-to-end tests for the AST bundle architecture.
 ///
 /// These tests exercise the full pipeline across all three packages:
-///   tom_d4rt_exec (D4rt) → tom_d4rt_astgen (AstBundler) →
+///   tom_d4rt_exec (D4rt) → tom_ast_generator (AstBundler) →
 ///   tom_d4rt_ast (AstBundle, D4rtRunner)
 ///
 /// Focus areas:

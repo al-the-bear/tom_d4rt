@@ -1,13 +1,13 @@
 /// Provides the [parseSource] callback for the dcli_exec tool.
 ///
-/// This bridges the analyzer (via tom_d4rt_astgen) to the D4rt interpreter's
+/// This bridges the analyzer (via tom_ast_generator) to the D4rt interpreter's
 /// [parseSourceCallback], enabling source code parsing without the interpreter
 /// depending directly on the analyzer package.
 library;
 
 import 'package:analyzer/dart/analysis/utilities.dart' as analyzer;
 import 'package:analyzer/error/error.dart' show DiagnosticSeverity;
-import 'package:tom_d4rt_astgen/tom_d4rt_astgen.dart';
+import 'package:tom_ast_generator/tom_ast_generator.dart';
 
 /// Parse Dart source code into an [SCompilationUnit] using the analyzer
 /// and [AstConverter].

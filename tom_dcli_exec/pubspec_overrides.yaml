@@ -5,7 +5,7 @@ dependency_overrides:
       ref: fork-fix
   tom_d4rt_exec:
     path: ../tom_d4rt_exec
-  tom_d4rt_astgen:
-    path: ../tom_d4rt_astgen
+  tom_ast_generator:
+    path: ../tom_ast_generator
   tom_d4rt_generator:
     path: ../tom_d4rt_generator

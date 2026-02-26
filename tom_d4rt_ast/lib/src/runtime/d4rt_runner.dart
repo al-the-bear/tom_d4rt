@@ -103,7 +103,7 @@ class LibraryExtension {
 /// ```
 ///
 /// For source code parsing and execution, use the D4rt class from
-/// tom_d4rt_exec which provides full integration with tom_d4rt_astgen.
+/// tom_d4rt_exec which provides full integration with tom_ast_generator.
 class D4rtRunner {
   final List<Map<String, LibraryEnum>> _bridgedEnumDefinitions = [];
   final List<Map<String, LibraryClass>> _bridgedClasses = [];
@@ -284,7 +284,7 @@ class D4rtRunner {
 
   /// Parses an AST from a JSON string.
   ///
-  /// The JSON should be in the format produced by tom_d4rt_astgen's
+  /// The JSON should be in the format produced by tom_ast_generator's
   /// AstConverter.toJson() method.
   SCompilationUnit parseJson(String jsonString) {
     final json = jsonDecode(jsonString);

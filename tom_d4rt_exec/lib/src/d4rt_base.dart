@@ -3,7 +3,7 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
-import 'package:tom_d4rt_astgen/tom_d4rt_astgen.dart';
+import 'package:tom_ast_generator/tom_ast_generator.dart';
 import 'package:tom_d4rt_exec/src/module_loader.dart';
 
 /// The main D4rt interpreter class.

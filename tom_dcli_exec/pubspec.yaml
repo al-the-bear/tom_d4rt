@@ -18,9 +18,9 @@ dependencies:
   tom_d4rt_exec:
     path: ../tom_d4rt_exec
   # AST converter (analyzer → mirror AST) for parseSourceCallback
-  tom_d4rt_astgen:
-    path: ../tom_d4rt_astgen
-  # Analyzer needed by tom_d4rt_astgen for parsing
+  tom_ast_generator:
+    path: ../tom_ast_generator
+  # Analyzer needed by tom_ast_generator for parsing
   analyzer: ^8.4.1
   
   # VS Code scripting API (for bridge support)

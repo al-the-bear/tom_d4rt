@@ -1,0 +1,897 @@
+sourcemap:
+  source_file: /Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_basics/tom_ast_generator/test/astgen_test_project/././lib/main.runner.dart
+  generated_at: "2026-02-06T11:21:06.823857"
+ast:
+  nodeType: CompilationUnit
+  offset: 0
+  length: 879
+  directives:
+    -
+      nodeType: LibraryDirective
+      offset: 0
+      length: 105
+      metadata: []
+  declarations:
+    -
+      nodeType: FunctionDeclaration
+      offset: 107
+      length: 156
+      name:
+        nodeType: SimpleIdentifier
+        offset: 112
+        length: 4
+        name: main
+        inDeclarationContext: true
+      metadata: []
+      returnType:
+        nodeType: NamedType
+        offset: 107
+        length: 4
+        name:
+          nodeType: SimpleIdentifier
+          offset: 107
+          length: 4
+          name: void
+          inDeclarationContext: true
+        isNullable: false
+      isGetter: false
+      isSetter: false
+      isExternal: false
+      functionExpression:
+        nodeType: FunctionExpression
+        offset: 116
+        length: 147
+        parameters:
+          nodeType: FormalParameterList
+          offset: 116
+          length: 2
+          parameters: []
+        body:
+          nodeType: BlockFunctionBody
+          offset: 119
+          length: 144
+          block:
+            nodeType: Block
+            offset: 119
+            length: 144
+            statements:
+              -
+                nodeType: ExpressionStatement
+                offset: 123
+                length: 33
+                expression:
+                  nodeType: MethodInvocation
+                  offset: 123
+                  length: 32
+                  methodName:
+                    nodeType: SimpleIdentifier
+                    offset: 123
+                    length: 5
+                    name: print
+                    inDeclarationContext: false
+                  argumentList:
+                    nodeType: ArgumentList
+                    offset: 128
+                    length: 27
+                    arguments:
+                      -
+                        nodeType: SimpleStringLiteral
+                        offset: 129
+                        length: 25
+                        value: Hello from main runner!
+                        isRaw: false
+                        isMultiline: false
+                        isSingleQuoted: true
+              -
+                nodeType: VariableDeclarationStatement
+                offset: 162
+                length: 32
+                variables:
+                  nodeType: VariableDeclarationList
+                  offset: 162
+                  length: 31
+                  variables:
+                    -
+                      nodeType: VariableDeclaration
+                      offset: 168
+                      length: 25
+                      name:
+                        nodeType: SimpleIdentifier
+                        offset: 168
+                        length: 10
+                        name: calculator
+                        inDeclarationContext: true
+                      metadata: []
+                      initializer:
+                        nodeType: MethodInvocation
+                        offset: 181
+                        length: 12
+                        methodName:
+                          nodeType: SimpleIdentifier
+                          offset: 181
+                          length: 10
+                          name: Calculator
+                          inDeclarationContext: false
+                        argumentList:
+                          nodeType: ArgumentList
+                          offset: 191
+                          length: 2
+                          arguments: []
+                      isConst: false
+                      isFinal: false
+                      isLate: false
+                  isConst: false
+                  isFinal: true
+                  isLate: false
+                  metadata: []
+              -
+                nodeType: VariableDeclarationStatement
+                offset: 197
+                length: 36
+                variables:
+                  nodeType: VariableDeclarationList
+                  offset: 197
+                  length: 35
+                  variables:
+                    -
+                      nodeType: VariableDeclaration
+                      offset: 203
+                      length: 29
+                      name:
+                        nodeType: SimpleIdentifier
+                        offset: 203
+                        length: 6
+                        name: result
+                        inDeclarationContext: true
+                      metadata: []
+                      initializer:
+                        nodeType: MethodInvocation
+                        offset: 212
+                        length: 20
+                        target:
+                          nodeType: SimpleIdentifier
+                          offset: 212
+                          length: 10
+                          name: calculator
+                          inDeclarationContext: false
+                        operator: .
+                        methodName:
+                          nodeType: SimpleIdentifier
+                          offset: 223
+                          length: 3
+                          name: add
+                          inDeclarationContext: false
+                        argumentList:
+                          nodeType: ArgumentList
+                          offset: 226
+                          length: 6
+                          arguments:
+                            -
+                              nodeType: IntegerLiteral
+                              offset: 227
+                              length: 1
+                              value: 5
+                            -
+                              nodeType: IntegerLiteral
+                              offset: 230
+                              length: 1
+                              value: 3
+                      isConst: false
+                      isFinal: false
+                      isLate: false
+                  isConst: false
+                  isFinal: true
+                  isLate: false
+                  metadata: []
+              -
+                nodeType: ExpressionStatement
+                offset: 236
+                length: 25
+                expression:
+                  nodeType: MethodInvocation
+                  offset: 236
+                  length: 24
+                  methodName:
+                    nodeType: SimpleIdentifier
+                    offset: 236
+                    length: 5
+                    name: print
+                    inDeclarationContext: false
+                  argumentList:
+                    nodeType: ArgumentList
+                    offset: 241
+                    length: 19
+                    arguments:
+                      -
+                        nodeType: StringInterpolation
+                        offset: 242
+                        length: 17
+                        elements:
+                          -
+                            nodeType: InterpolationString
+                            offset: 242
+                            length: 9
+                            value: 5 + 3 = 
+                          -
+                            nodeType: InterpolationExpression
+                            offset: 251
+                            length: 7
+                            expression:
+                              nodeType: SimpleIdentifier
+                              offset: 252
+                              length: 6
+                              name: result
+                              inDeclarationContext: false
+                          -
+                            nodeType: InterpolationString
+                            offset: 258
+                            length: 1
+                            value: 
+                        isMultiline: false
+                        isRaw: false
+          isAsync: false
+          isGenerator: false
+    -
+      nodeType: ClassDeclaration
+      offset: 265
+      length: 300
+      name:
+        nodeType: SimpleIdentifier
+        offset: 271
+        length: 10
+        name: Calculator
+        inDeclarationContext: true
+      metadata: []
+      isAbstract: false
+      isSealed: false
+      isBase: false
+      isInterface: false
+      isFinal: false
+      isMixin: false
+      members:
+        -
+          nodeType: MethodDeclaration
+          offset: 286
+          length: 31
+          name:
+            nodeType: SimpleIdentifier
+            offset: 290
+            length: 3
+            name: add
+            inDeclarationContext: true
+          metadata: []
+          returnType:
+            nodeType: NamedType
+            offset: 286
+            length: 3
+            name:
+              nodeType: SimpleIdentifier
+              offset: 286
+              length: 3
+              name: int
+              inDeclarationContext: true
+            isNullable: false
+          isStatic: false
+          isAbstract: false
+          isExternal: false
+          isGetter: false
+          isSetter: false
+          isOperator: false
+          parameters:
+            nodeType: FormalParameterList
+            offset: 293
+            length: 14
+            parameters:
+              -
+                nodeType: SimpleFormalParameter
+                offset: 294
+                length: 5
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 298
+                  length: 1
+                  name: a
+                  inDeclarationContext: true
+                type:
+                  nodeType: NamedType
+                  offset: 294
+                  length: 3
+                  name:
+                    nodeType: SimpleIdentifier
+                    offset: 294
+                    length: 3
+                    name: int
+                    inDeclarationContext: true
+                  isNullable: false
+                metadata: []
+                isConst: false
+                isFinal: false
+                isRequired: false
+                isCovariant: false
+                isPositional: true
+                isNamed: false
+              -
+                nodeType: SimpleFormalParameter
+                offset: 301
+                length: 5
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 305
+                  length: 1
+                  name: b
+                  inDeclarationContext: true
+                type:
+                  nodeType: NamedType
+                  offset: 301
+                  length: 3
+                  name:
+                    nodeType: SimpleIdentifier
+                    offset: 301
+                    length: 3
+                    name: int
+                    inDeclarationContext: true
+                  isNullable: false
+                metadata: []
+                isConst: false
+                isFinal: false
+                isRequired: false
+                isCovariant: false
+                isPositional: true
+                isNamed: false
+          body:
+            nodeType: ExpressionFunctionBody
+            offset: 308
+            length: 9
+            expression:
+              nodeType: BinaryExpression
+              offset: 311
+              length: 5
+              leftOperand:
+                nodeType: SimpleIdentifier
+                offset: 311
+                length: 1
+                name: a
+                inDeclarationContext: false
+              operator: +
+              rightOperand:
+                nodeType: SimpleIdentifier
+                offset: 315
+                length: 1
+                name: b
+                inDeclarationContext: false
+            isAsync: false
+        -
+          nodeType: MethodDeclaration
+          offset: 323
+          length: 36
+          name:
+            nodeType: SimpleIdentifier
+            offset: 327
+            length: 8
+            name: subtract
+            inDeclarationContext: true
+          metadata: []
+          returnType:
+            nodeType: NamedType
+            offset: 323
+            length: 3
+            name:
+              nodeType: SimpleIdentifier
+              offset: 323
+              length: 3
+              name: int
+              inDeclarationContext: true
+            isNullable: false
+          isStatic: false
+          isAbstract: false
+          isExternal: false
+          isGetter: false
+          isSetter: false
+          isOperator: false
+          parameters:
+            nodeType: FormalParameterList
+            offset: 335
+            length: 14
+            parameters:
+              -
+                nodeType: SimpleFormalParameter
+                offset: 336
+                length: 5
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 340
+                  length: 1
+                  name: a
+                  inDeclarationContext: true
+                type:
+                  nodeType: NamedType
+                  offset: 336
+                  length: 3
+                  name:
+                    nodeType: SimpleIdentifier
+                    offset: 336
+                    length: 3
+                    name: int
+                    inDeclarationContext: true
+                  isNullable: false
+                metadata: []
+                isConst: false
+                isFinal: false
+                isRequired: false
+                isCovariant: false
+                isPositional: true
+                isNamed: false
+              -
+                nodeType: SimpleFormalParameter
+                offset: 343
+                length: 5
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 347
+                  length: 1
+                  name: b
+                  inDeclarationContext: true
+                type:
+                  nodeType: NamedType
+                  offset: 343
+                  length: 3
+                  name:
+                    nodeType: SimpleIdentifier
+                    offset: 343
+                    length: 3
+                    name: int
+                    inDeclarationContext: true
+                  isNullable: false
+                metadata: []
+                isConst: false
+                isFinal: false
+                isRequired: false
+                isCovariant: false
+                isPositional: true
+                isNamed: false
+          body:
+            nodeType: ExpressionFunctionBody
+            offset: 350
+            length: 9
+            expression:
+              nodeType: BinaryExpression
+              offset: 353
+              length: 5
+              leftOperand:
+                nodeType: SimpleIdentifier
+                offset: 353
+                length: 1
+                name: a
+                inDeclarationContext: false
+              operator: -
+              rightOperand:
+                nodeType: SimpleIdentifier
+                offset: 357
+                length: 1
+                name: b
+                inDeclarationContext: false
+            isAsync: false
+        -
+          nodeType: MethodDeclaration
+          offset: 365
+          length: 59
+          name:
+            nodeType: SimpleIdentifier
+            offset: 372
+            length: 8
+            name: multiply
+            inDeclarationContext: true
+          metadata: []
+          returnType:
+            nodeType: NamedType
+            offset: 365
+            length: 6
+            name:
+              nodeType: SimpleIdentifier
+              offset: 365
+              length: 6
+              name: double
+              inDeclarationContext: true
+            isNullable: false
+          isStatic: false
+          isAbstract: false
+          isExternal: false
+          isGetter: false
+          isSetter: false
+          isOperator: false
+          parameters:
+            nodeType: FormalParameterList
+            offset: 380
+            length: 20
+            parameters:
+              -
+                nodeType: SimpleFormalParameter
+                offset: 381
+                length: 8
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 388
+                  length: 1
+                  name: a
+                  inDeclarationContext: true
+                type:
+                  nodeType: NamedType
+                  offset: 381
+                  length: 6
+                  name:
+                    nodeType: SimpleIdentifier
+                    offset: 381
+                    length: 6
+                    name: double
+                    inDeclarationContext: true
+                  isNullable: false
+                metadata: []
+                isConst: false
+                isFinal: false
+                isRequired: false
+                isCovariant: false
+                isPositional: true
+                isNamed: false
+              -
+                nodeType: SimpleFormalParameter
+                offset: 391
+                length: 8
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 398
+                  length: 1
+                  name: b
+                  inDeclarationContext: true
+                type:
+                  nodeType: NamedType
+                  offset: 391
+                  length: 6
+                  name:
+                    nodeType: SimpleIdentifier
+                    offset: 391
+                    length: 6
+                    name: double
+                    inDeclarationContext: true
+                  isNullable: false
+                metadata: []
+                isConst: false
+                isFinal: false
+                isRequired: false
+                isCovariant: false
+                isPositional: true
+                isNamed: false
+          body:
+            nodeType: BlockFunctionBody
+            offset: 401
+            length: 23
+            block:
+              nodeType: Block
+              offset: 401
+              length: 23
+              statements:
+                -
+                  nodeType: ReturnStatement
+                  offset: 407
+                  length: 13
+                  expression:
+                    nodeType: BinaryExpression
+                    offset: 414
+                    length: 5
+                    leftOperand:
+                      nodeType: SimpleIdentifier
+                      offset: 414
+                      length: 1
+                      name: a
+                      inDeclarationContext: false
+                    operator: *
+                    rightOperand:
+                      nodeType: SimpleIdentifier
+                      offset: 418
+                      length: 1
+                      name: b
+                      inDeclarationContext: false
+            isAsync: false
+            isGenerator: false
+        -
+          nodeType: MethodDeclaration
+          offset: 430
+          length: 133
+          name:
+            nodeType: SimpleIdentifier
+            offset: 437
+            length: 6
+            name: divide
+            inDeclarationContext: true
+          metadata: []
+          returnType:
+            nodeType: NamedType
+            offset: 430
+            length: 6
+            name:
+              nodeType: SimpleIdentifier
+              offset: 430
+              length: 6
+              name: double
+              inDeclarationContext: true
+            isNullable: false
+          isStatic: false
+          isAbstract: false
+          isExternal: false
+          isGetter: false
+          isSetter: false
+          isOperator: false
+          parameters:
+            nodeType: FormalParameterList
+            offset: 443
+            length: 20
+            parameters:
+              -
+                nodeType: SimpleFormalParameter
+                offset: 444
+                length: 8
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 451
+                  length: 1
+                  name: a
+                  inDeclarationContext: true
+                type:
+                  nodeType: NamedType
+                  offset: 444
+                  length: 6
+                  name:
+                    nodeType: SimpleIdentifier
+                    offset: 444
+                    length: 6
+                    name: double
+                    inDeclarationContext: true
+                  isNullable: false
+                metadata: []
+                isConst: false
+                isFinal: false
+                isRequired: false
+                isCovariant: false
+                isPositional: true
+                isNamed: false
+              -
+                nodeType: SimpleFormalParameter
+                offset: 454
+                length: 8
+                name:
+                  nodeType: SimpleIdentifier
+                  offset: 461
+                  length: 1
+                  name: b
+                  inDeclarationContext: true
+                type:
+                  nodeType: NamedType
+                  offset: 454
+                  length: 6
+                  name:
+                    nodeType: SimpleIdentifier
+                    offset: 454
+                    length: 6
+                    name: double
+                    inDeclarationContext: true
+                  isNullable: false
+                metadata: []
+                isConst: false
+                isFinal: false
+                isRequired: false
+                isCovariant: false
+                isPositional: true
+                isNamed: false
+          body:
+            nodeType: BlockFunctionBody
+            offset: 464
+            length: 99
+            block:
+              nodeType: Block
+              offset: 464
+              length: 99
+              statements:
+                -
+                  nodeType: IfStatement
+                  offset: 470
+                  length: 71
+                  condition:
+                    nodeType: BinaryExpression
+                    offset: 474
+                    length: 6
+                    leftOperand:
+                      nodeType: SimpleIdentifier
+                      offset: 474
+                      length: 1
+                      name: b
+                      inDeclarationContext: false
+                    operator: ==
+                    rightOperand:
+                      nodeType: IntegerLiteral
+                      offset: 479
+                      length: 1
+                      value: 0
+                  thenStatement:
+                    nodeType: Block
+                    offset: 482
+                    length: 59
+                    statements:
+                      -
+                        nodeType: ExpressionStatement
+                        offset: 490
+                        length: 45
+                        expression:
+                          nodeType: ThrowExpression
+                          offset: 490
+                          length: 44
+                          expression:
+                            nodeType: MethodInvocation
+                            offset: 496
+                            length: 38
+                            methodName:
+                              nodeType: SimpleIdentifier
+                              offset: 496
+                              length: 13
+                              name: ArgumentError
+                              inDeclarationContext: false
+                            argumentList:
+                              nodeType: ArgumentList
+                              offset: 509
+                              length: 25
+                              arguments:
+                                -
+                                  nodeType: SimpleStringLiteral
+                                  offset: 510
+                                  length: 23
+                                  value: Cannot divide by zero
+                                  isRaw: false
+                                  isMultiline: false
+                                  isSingleQuoted: true
+                -
+                  nodeType: ReturnStatement
+                  offset: 546
+                  length: 13
+                  expression:
+                    nodeType: BinaryExpression
+                    offset: 553
+                    length: 5
+                    leftOperand:
+                      nodeType: SimpleIdentifier
+                      offset: 553
+                      length: 1
+                      name: a
+                      inDeclarationContext: false
+                    operator: /
+                    rightOperand:
+                      nodeType: SimpleIdentifier
+                      offset: 557
+                      length: 1
+                      name: b
+                      inDeclarationContext: false
+            isAsync: false
+            isGenerator: false
+    -
+      nodeType: EnumDeclaration
+      offset: 567
+      length: 311
+      name:
+        nodeType: SimpleIdentifier
+        offset: 572
+        length: 9
+        name: Operation
+        inDeclarationContext: true
+      metadata: []
+      constants:
+        -
+          nodeType: EnumConstantDeclaration
+          offset: 586
+          length: 3
+          name:
+            nodeType: SimpleIdentifier
+            offset: 586
+            length: 3
+            name: add
+            inDeclarationContext: true
+          metadata: []
+        -
+          nodeType: EnumConstantDeclaration
+          offset: 593
+          length: 8
+          name:
+            nodeType: SimpleIdentifier
+            offset: 593
+            length: 8
+            name: subtract
+            inDeclarationContext: true
+          metadata: []
+        -
+          nodeType: EnumConstantDeclaration
+          offset: 605
+          length: 8
+          name:
+            nodeType: SimpleIdentifier
+            offset: 605
+            length: 8
+            name: multiply
+            inDeclarationContext: true
+          metadata: []
+        -
+          nodeType: EnumConstantDeclaration
+          offset: 617
+          length: 6
+          name:
+            nodeType: SimpleIdentifier
+            offset: 617
+            length: 6
+            name: divide
+            inDeclarationContext: true
+          metadata: []
+      members:
+        -
+          nodeType: MethodDeclaration
+          offset: 630
+          length: 246
+          name:
+            nodeType: SimpleIdentifier
+            offset: 641
+            length: 6
+            name: symbol
+            inDeclarationContext: true
+          metadata: []
+          returnType:
+            nodeType: NamedType
+            offset: 630
+            length: 6
+            name:
+              nodeType: SimpleIdentifier
+              offset: 630
+              length: 6
+              name: String
+              inDeclarationContext: true
+            isNullable: false
+          isStatic: false
+          isAbstract: false
+          isExternal: false
+          isGetter: true
+          isSetter: false
+          isOperator: false
+          body:
+            nodeType: BlockFunctionBody
+            offset: 648
+            length: 228
+            block:
+              nodeType: Block
+              offset: 648
+              length: 228
+              statements:
+                -
+                  nodeType: SwitchStatement
+                  offset: 654
+                  length: 218
+                  expression:
+                    nodeType: ThisExpression
+                    offset: 662
+                    length: 4
+                  members:
+                    -
+                      nodeType: Unknown
+                      offset: 676
+                      length: 39
+                      originalType: SwitchPatternCaseImpl
+                    -
+                      nodeType: Unknown
+                      offset: 722
+                      length: 44
+                      originalType: SwitchPatternCaseImpl
+                    -
+                      nodeType: Unknown
+                      offset: 773
+                      length: 44
+                      originalType: SwitchPatternCaseImpl
+                    -
+                      nodeType: Unknown
+                      offset: 824
+                      length: 42
+                      originalType: SwitchPatternCaseImpl
+            isAsync: false
+            isGenerator: false
+  comments: []

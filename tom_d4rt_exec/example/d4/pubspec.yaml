@@ -9,8 +9,8 @@ environment:
 dependencies:
   tom_d4rt_exec:
     path: ../../../tom_d4rt_exec
-  tom_d4rt_astgen:
-    path: ../../../tom_d4rt_astgen
+  tom_ast_generator:
+    path: ../../../tom_ast_generator
   analyzer: ^8.4.1
   path: ^1.9.0
   dcli: ^8.4.2

@@ -5,7 +5,7 @@
 /// need this callback.
 import 'package:analyzer/dart/analysis/utilities.dart' as analyzer;
 import 'package:analyzer/error/error.dart' show ErrorSeverity;
-import 'package:tom_d4rt_astgen/tom_d4rt_astgen.dart';
+import 'package:tom_ast_generator/tom_ast_generator.dart';
 
 /// Parse Dart source code into an [SCompilationUnit] using the analyzer
 /// and [AstConverter].
