@@ -244,10 +244,64 @@ class SlottedRenderObjectElementLike {
 
   RenderObjectLike updateRenderObject(
     SlottedMultiChildRenderObjectWidgetMixinLike<dynamic, RenderObjectLike>
-        widget,
+    widget,
     RenderObjectLike renderObject,
   ) {
     return widget.updateRenderObject(renderObject);
+  }
+}
+
+class ConstraintsLike {}
+
+class AbstractLayoutBuilderLike<C extends ConstraintsLike> {
+  final C constraints;
+
+  const AbstractLayoutBuilderLike(this.constraints);
+
+  C current() => constraints;
+}
+
+class LayoutHostLike {
+  final AbstractLayoutBuilderLike<ConstraintsLike> builder;
+
+  const LayoutHostLike({required this.builder});
+}
+
+abstract class AbstractLayoutBuilderGenericLike<C extends ConstraintsLike> {
+  const AbstractLayoutBuilderGenericLike();
+
+  bool updateShouldRebuild(
+    covariant AbstractLayoutBuilderGenericLike<C> oldWidget,
+  );
+}
+
+class ConcreteConstraintsLike extends ConstraintsLike {}
+
+class ConcreteLayoutBuilderLike
+    extends AbstractLayoutBuilderGenericLike<ConcreteConstraintsLike> {
+  const ConcreteLayoutBuilderLike();
+
+  @override
+  bool updateShouldRebuild(
+    covariant AbstractLayoutBuilderGenericLike<ConcreteConstraintsLike>
+    oldWidget,
+  ) {
+    return false;
+  }
+}
+
+class SlottedRenderObjectElementGenericLike<
+  ChildType,
+  R extends RenderObjectLike
+> {
+  const SlottedRenderObjectElementGenericLike();
+
+  void update(
+    SlottedMultiChildRenderObjectWidgetMixinLike<ChildType, R> widget,
+  ) {
+    widget.updateRenderObject(
+      widget.updateRenderObject(RenderObjectLike() as R),
+    );
   }
 }
 
@@ -263,6 +317,16 @@ class WidgetWithSdkType {
   final Random rng;
 
   WidgetWithSdkType({required this.position, required this.rng});
+}
+
+typedef PointFactoryLike = Point<double> Function();
+
+class PointFactoryHostLike {
+  final PointFactoryLike factory;
+
+  const PointFactoryHostLike({required this.factory});
+
+  Point<double> create() => factory();
 }
 
 // =============================================================================
@@ -422,4 +486,24 @@ class WidgetsAppLike {
   final GenericPageRouteBuilderLike? pageRouteBuilder;
 
   const WidgetsAppLike({this.pageRouteBuilder});
+}
+
+// =============================================================================
+// RC-8.6: Contravariance for nullable callback parameter types
+// =============================================================================
+
+typedef NullableObjectPredicateLike = bool Function(Object? value);
+
+class GestureMatcherLike {
+  final NullableObjectPredicateLike? accepts;
+
+  const GestureMatcherLike({this.accepts});
+
+  bool matches(Object? candidate, [NullableObjectPredicateLike? override]) {
+    final callback = override ?? accepts;
+    if (callback == null) {
+      return false;
+    }
+    return callback(candidate);
+  }
 }

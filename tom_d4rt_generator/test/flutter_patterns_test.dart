@@ -82,7 +82,10 @@ void main() {
       test(
         'G-FLP-27: nested static refs in const defaults are prefixed (Colors-like)',
         () {
-          expect(generatedCode, contains("name: 'WidgetWithNestedStaticConstDefault'"));
+          expect(
+            generatedCode,
+            contains("name: 'WidgetWithNestedStaticConstDefault'"),
+          );
 
           final sectionStart = generatedCode.indexOf(
             'BridgedClass _createWidgetWithNestedStaticConstDefaultBridge()',
@@ -246,7 +249,6 @@ void main() {
           );
         },
       );
-
     });
 
     // =========================================================================
@@ -586,6 +588,236 @@ void main() {
     });
 
     // =========================================================================
+    // RC-8.6: Contravariance — callback parameter nullability must be preserved
+    // =========================================================================
+    group('RC-8.6: Callback contravariance nullability', () {
+      test(
+        'G-FLP-28: Nullable callback arg Object? is preserved (not narrowed to Object). [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'GestureMatcherLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createGestureMatcherLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            contains('bool Function(Object?)'),
+            reason:
+                'Generated callback types must keep Object? parameter nullability',
+          );
+          expect(
+            section,
+            isNot(contains('bool Function(Object value)')),
+            reason:
+                'Narrowing Object? to Object breaks contravariant assignment compatibility',
+          );
+        },
+      );
+    });
+
+    // =========================================================================
+    // RC-9e: Generic upper bound num should not degrade to dynamic
+    // =========================================================================
+    group('RC-9e: Generic num bound preservation', () {
+      test(
+        'G-FLP-29: LayoutBuilderLike<T extends num> does not extract T as dynamic. [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'LayoutBuilderLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createLayoutBuilderLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(
+              contains("getRequiredArg<dynamic>(positional, 0, 'constraint'"),
+            ),
+            reason:
+                'Bounded type parameter T extends num should not be extracted as dynamic',
+          );
+          expect(
+            section,
+            contains("getRequiredArg<num>(positional, 0, 'constraint'"),
+            reason:
+                'Expected upper bound num to be used for constructor argument extraction',
+          );
+        },
+      );
+
+      test(
+        'G-FLP-31: AbstractLayoutBuilderLike<ConstraintsLike> is not degraded to dynamic. [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'LayoutHostLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createLayoutHostLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(contains('AbstractLayoutBuilderLike<dynamic>')),
+            reason:
+                'Concrete bounded generic argument should not be erased to dynamic',
+          );
+          expect(
+            section,
+            contains(
+              'AbstractLayoutBuilderLike<\$test_package_1.ConstraintsLike>',
+            ),
+            reason: 'Expected preserved bounded type argument ConstraintsLike',
+          );
+        },
+      );
+
+      test(
+        'G-FLP-32: AbstractLayoutBuilderGenericLike<C> method arg keeps bound type instead of dynamic. [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'ConcreteLayoutBuilderLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createConcreteLayoutBuilderLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(contains('AbstractLayoutBuilderGenericLike<dynamic>')),
+            reason:
+                'updateShouldRebuild oldWidget should preserve bounded generic argument',
+          );
+          expect(
+            section,
+            contains(
+              'AbstractLayoutBuilderGenericLike<\$test_package_1.ConcreteConstraintsLike>',
+            ),
+            reason:
+                'Expected preserved concrete bounded argument in method extraction',
+          );
+        },
+      );
+
+      test(
+        'G-FLP-34: AbstractLayoutBuilderGenericLike bridge self-type arg is not dynamic. [2026-02-27] (FAIL)',
+        () {
+          expect(
+            generatedCode,
+            contains("name: 'AbstractLayoutBuilderGenericLike'"),
+          );
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createAbstractLayoutBuilderGenericLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(contains('AbstractLayoutBuilderGenericLike<dynamic>')),
+            reason:
+                'Self-referential bounded generic parameter should keep bound type in abstract bridge methods',
+          );
+          expect(
+            section,
+            contains(
+              'AbstractLayoutBuilderGenericLike<\$test_package_1.ConstraintsLike>',
+            ),
+            reason: 'Expected bound-based type substitution instead of dynamic',
+          );
+        },
+      );
+
+      test(
+        'G-FLP-33: SlottedRenderObjectElementGenericLike keeps second arg bound R extends RenderObjectLike. [2026-02-27] (FAIL)',
+        () {
+          expect(
+            generatedCode,
+            contains("name: 'SlottedRenderObjectElementGenericLike'"),
+          );
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createSlottedRenderObjectElementGenericLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(
+              contains(
+                'SlottedMultiChildRenderObjectWidgetMixinLike<dynamic, dynamic>',
+              ),
+            ),
+            reason:
+                'Second generic arg should preserve RenderObjectLike bound, not degrade to dynamic',
+          );
+          expect(
+            section,
+            isNot(
+              contains(
+                'SlottedMultiChildRenderObjectWidgetMixinLike<\$test_package_1.ChildType,',
+              ),
+            ),
+            reason:
+                'Unresolved generic parameter ChildType must not be prefixed as a concrete source type',
+          );
+          expect(
+            section,
+            contains(
+              'SlottedMultiChildRenderObjectWidgetMixinLike<dynamic, \$test_package_1.RenderObjectLike>',
+            ),
+            reason:
+                'Expected first arg fallback to dynamic with second bound preserved as RenderObjectLike',
+          );
+        },
+      );
+    });
+
+    // =========================================================================
     // RC-6b: Generic callback with nested generic return type
     // =========================================================================
     group('RC-6b: Generic callback return type preservation', () {
@@ -650,7 +882,9 @@ void main() {
 
           expect(
             section,
-            isNot(contains("getRequiredArg<dynamic>(positional, 1, 'renderObject'")),
+            isNot(
+              contains("getRequiredArg<dynamic>(positional, 1, 'renderObject'"),
+            ),
             reason:
                 'Type parameter R has upper bound Object and should not be extracted as dynamic',
           );
@@ -660,7 +894,10 @@ void main() {
       test(
         'G-FLP-26: Slotted mixin-like bound R extends RenderObjectLike is not erased to dynamic. [2026-02-27] (FAIL)',
         () {
-          expect(generatedCode, contains("name: 'SlottedRenderObjectElementLike'"));
+          expect(
+            generatedCode,
+            contains("name: 'SlottedRenderObjectElementLike'"),
+          );
 
           final sectionStart = generatedCode.indexOf(
             'BridgedClass _createSlottedRenderObjectElementLikeBridge()',
@@ -676,13 +913,19 @@ void main() {
 
           expect(
             section,
-            isNot(contains('SlottedMultiChildRenderObjectWidgetMixinLike<dynamic, dynamic>')),
+            isNot(
+              contains(
+                'SlottedMultiChildRenderObjectWidgetMixinLike<dynamic, dynamic>',
+              ),
+            ),
             reason:
                 'Upper bound RenderObjectLike should be preserved instead of erasing second type argument to dynamic',
           );
           expect(
             section,
-            contains(r'SlottedMultiChildRenderObjectWidgetMixinLike<dynamic, $test_package_1.RenderObjectLike>'),
+            contains(
+              r'SlottedMultiChildRenderObjectWidgetMixinLike<dynamic, $test_package_1.RenderObjectLike>',
+            ),
             reason:
                 'Expected bound-preserved mixin-like type in generated bridge signatures',
           );
@@ -714,12 +957,40 @@ void main() {
           expect(
             section,
             contains(RegExp(r'\$dart_math(?:_\d+)?\.Point<double>')),
-            reason: 'Point should be namespaced with resolved dart:math import prefix',
+            reason:
+                'Point should be namespaced with resolved dart:math import prefix',
           );
           expect(
             section,
             contains(RegExp(r'\$dart_math(?:_\d+)?\.Random')),
-            reason: 'Random should be namespaced with resolved dart:math import prefix',
+            reason:
+                'Random should be namespaced with resolved dart:math import prefix',
+          );
+        },
+      );
+
+      test(
+        'G-FLP-30: Callback typedef return Point<double> is prefixed with dart:math alias. [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'PointFactoryHostLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createPointFactoryHostLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            contains(RegExp(r'as\s+\$dart_math(?:_\d+)?\.Point<double>')),
+            reason:
+                'Wrapper callback return cast should use resolved dart:math alias for Point<double>',
           );
         },
       );

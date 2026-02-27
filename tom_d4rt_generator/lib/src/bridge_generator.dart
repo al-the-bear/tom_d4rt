@@ -3942,9 +3942,9 @@ class BridgeGenerator {
         final prefixedCtor = resolvedPrefix.isEmpty
             ? defaultValue
             : defaultValue.replaceFirst(
-          'const $className',
-          'const $resolvedPrefix.$className',
-        );
+                'const $className',
+                'const $resolvedPrefix.$className',
+              );
 
         final withNestedStaticPrefixed = _prefixStaticAccessesInExpression(
           prefixedCtor,
@@ -3977,7 +3977,9 @@ class BridgeGenerator {
         sourceFilePath: sourceFilePath,
       );
       if (resolvedPrefix != null) {
-        return resolvedPrefix.isEmpty ? defaultValue : '$resolvedPrefix.$defaultValue';
+        return resolvedPrefix.isEmpty
+            ? defaultValue
+            : '$resolvedPrefix.$defaultValue';
       }
       // Cannot determine prefix — non-wrappable (triggers combinatorial dispatch)
       return null;
@@ -4023,7 +4025,10 @@ class BridgeGenerator {
     }
 
     if (sourceFilePath != null) {
-      final auxiliaryUri = _resolveTypeFromSourceImports(className, sourceFilePath);
+      final auxiliaryUri = _resolveTypeFromSourceImports(
+        className,
+        sourceFilePath,
+      );
       if (auxiliaryUri != null) {
         _addAuxiliaryImport(auxiliaryUri, className);
         return _getOrCreateAuxiliaryPrefix(auxiliaryUri);
@@ -4087,7 +4092,9 @@ class BridgeGenerator {
           return fullMatch;
         }
 
-        return resolvedPrefix.isEmpty ? fullMatch : '$resolvedPrefix.$fullMatch';
+        return resolvedPrefix.isEmpty
+            ? fullMatch
+            : '$resolvedPrefix.$fullMatch';
       },
     );
 
@@ -9473,6 +9480,12 @@ class BridgeGenerator {
       return 'dynamic';
     }
 
+    var normalizedTypeForParams = baseType;
+    if (normalizedTypeForParams.contains('.') &&
+        !normalizedTypeForParams.contains('<')) {
+      normalizedTypeForParams = normalizedTypeForParams.split('.').last;
+    }
+
     // Handle inline function types (e.g., Object? Function(Object?))
     // Parse and resolve types within the function signature with proper prefixes
     if (baseType.contains('Function(') || baseType.contains(') Function')) {
@@ -9503,20 +9516,23 @@ class BridgeGenerator {
 
     // Check if type is a class type parameter first (e.g., COL_TYPE, DART_TYPE, DBTYPE)
     // This handles both single-letter (T, E, K) and multi-character (COL_TYPE) type params
-    if (classTypeParams.containsKey(baseType)) {
-      final bound = classTypeParams[baseType];
+    if (classTypeParams.containsKey(normalizedTypeForParams)) {
+      final bound = classTypeParams[normalizedTypeForParams];
       if (bound != null) {
         if (bound == _functionGenericParamSentinel) {
-          return isNullable ? '$baseType?' : baseType;
+          return isNullable
+              ? '$normalizedTypeForParams?'
+              : normalizedTypeForParams;
         }
         // Check if the bound contains the same type parameter (recursive bound)
         // e.g., T extends Comparable<T> - we detect this by checking if the bound
         // mentions the same type parameter
-        if (_containsTypeParameter(bound, baseType)) {
+        if (_containsTypeParameter(bound, normalizedTypeForParams)) {
           // Recursive type bound - extract the base type from the bound
           // For "Comparable<T>", extract "Comparable" and use that
           final baseBound = _extractBaseType(bound);
-          if (baseBound != baseType && !_isGenericTypeParameter(baseBound)) {
+          if (baseBound != normalizedTypeForParams &&
+              !_isGenericTypeParameter(baseBound)) {
             // Use the base bound type with dynamic for its parameters
             return _getTypeArgument(
               baseBound,
@@ -9544,7 +9560,7 @@ class BridgeGenerator {
     // Use dynamic as fallback - allows implicit casts for flexibility.
     // NOTE: For callback return types specifically, the calling code should handle
     // the FutureOr<T> vs FutureOr<dynamic> issue separately (see GEN-061).
-    if (_isGenericTypeParameter(baseType)) {
+    if (_isGenericTypeParameter(normalizedTypeForParams)) {
       return 'dynamic';
     }
 
@@ -9577,8 +9593,8 @@ class BridgeGenerator {
       if (uri.startsWith('dart:')) {
         if (uri == 'dart:math' && !_isBuiltInType(unprefixedType)) {
           final existingSdkPrefix = _importPrefixes[uri];
-          final sdkPrefix = (existingSdkPrefix != null &&
-                  existingSdkPrefix.isNotEmpty)
+          final sdkPrefix =
+              (existingSdkPrefix != null && existingSdkPrefix.isNotEmpty)
               ? existingSdkPrefix
               : r'$dart_math';
           _importPrefixes[uri] = sdkPrefix;
@@ -9729,8 +9745,8 @@ class BridgeGenerator {
         if (globalUri.startsWith('dart:')) {
           if (globalUri == 'dart:math' && !_isBuiltInType(unprefixedType)) {
             final existingSdkPrefix = _importPrefixes[globalUri];
-            final sdkPrefix = (existingSdkPrefix != null &&
-                    existingSdkPrefix.isNotEmpty)
+            final sdkPrefix =
+                (existingSdkPrefix != null && existingSdkPrefix.isNotEmpty)
                 ? existingSdkPrefix
                 : r'$dart_math';
             _importPrefixes[globalUri] = sdkPrefix;
@@ -9914,8 +9930,8 @@ class BridgeGenerator {
       if (baseUri.startsWith('dart:')) {
         if (baseUri == 'dart:math' && !_isBuiltInType(baseType)) {
           final existingSdkPrefix = _importPrefixes[baseUri];
-          final sdkPrefix = (existingSdkPrefix != null &&
-                  existingSdkPrefix.isNotEmpty)
+          final sdkPrefix =
+              (existingSdkPrefix != null && existingSdkPrefix.isNotEmpty)
               ? existingSdkPrefix
               : r'$dart_math';
           _importPrefixes[baseUri] = sdkPrefix;
@@ -10067,7 +10083,8 @@ class BridgeGenerator {
         .map((arg) {
           final argIsNullable = arg.endsWith('?');
           var baseArg = argIsNullable ? arg.substring(0, arg.length - 1) : arg;
-          if (_isGenericTypeParameter(baseArg)) {
+          if (classTypeParams.containsKey(baseArg) ||
+              _isGenericTypeParameter(baseArg)) {
             // Use bound from class type parameters if available
             final bound = classTypeParams[baseArg];
             if (bound != null) {
