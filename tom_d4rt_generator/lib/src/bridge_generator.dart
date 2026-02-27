@@ -11145,9 +11145,12 @@ class BridgeGenerator {
       final namedParamRequired = <String, bool>{};
       final genericTypeParameters = <String, String?>{};
       final functionDisplay = dartType.getDisplayString();
-      final genericMatch = RegExp(r'Function<([^>]+)>\(').firstMatch(functionDisplay);
+      final genericMatch = RegExp(
+        r'Function<([^>]+)>\(',
+      ).firstMatch(functionDisplay);
       if (genericMatch != null) {
-        final genericParams = genericMatch.group(1)!
+        final genericParams = genericMatch
+            .group(1)!
             .split(',')
             .map((s) => s.trim())
             .where((s) => s.isNotEmpty);
@@ -11256,7 +11259,13 @@ class BridgeGenerator {
       }
       final paramName = 'p$i';
       paramList.add('$paramType $paramName');
-      argList.add(paramName);
+      final normalizedParamType = paramType.trim();
+      final normalizedRawParamType = rawParamType.trim();
+      if (normalizedParamType == 'void' || normalizedRawParamType == 'void') {
+        argList.add('null');
+      } else {
+        argList.add(paramName);
+      }
     }
 
     // Handle named parameters if any

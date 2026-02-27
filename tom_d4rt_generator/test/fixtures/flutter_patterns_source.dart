@@ -355,14 +355,13 @@ class ImportedRoutesHostLike {
 
 List<String> _defaultInitialRoutes(int state, String name) => <String>[];
 
-typedef InitialRoutesCallbackLike = List<String> Function(int state, String name);
+typedef InitialRoutesCallbackLike =
+    List<String> Function(int state, String name);
 
 class NavigatorLike {
   final InitialRoutesCallbackLike onGenerateInitialRoutes;
 
-  const NavigatorLike({
-    this.onGenerateInitialRoutes = _defaultInitialRoutes,
-  });
+  const NavigatorLike({this.onGenerateInitialRoutes = _defaultInitialRoutes});
 }
 
 // =============================================================================

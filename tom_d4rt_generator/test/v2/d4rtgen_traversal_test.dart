@@ -30,12 +30,15 @@ CommandContext createTestContext({
 }
 
 /// Create a temporary project directory with optional buildkit.yaml.
-Future<Directory> createTempProject({String? d4rtgenConfig}) async {
+Future<Directory> createTempProject({
+  String? d4rtgenConfig,
+  String packageName = 'test_project',
+}) async {
   final tempDir = await Directory.systemTemp.createTemp('d4rtgen_test_');
 
   // Create pubspec.yaml
   await File(p.join(tempDir.path, 'pubspec.yaml')).writeAsString('''
-name: test_project
+name: $packageName
 version: 1.0.0
 environment:
   sdk: ^3.0.0
@@ -43,8 +46,9 @@ environment:
 
   // Create buildkit.yaml if config provided
   if (d4rtgenConfig != null) {
-    await File(p.join(tempDir.path, 'buildkit.yaml'))
-        .writeAsString(d4rtgenConfig);
+    await File(
+      p.join(tempDir.path, 'buildkit.yaml'),
+    ).writeAsString(d4rtgenConfig);
   }
 
   return tempDir;
@@ -67,17 +71,18 @@ void main() {
     });
 
     test('D4G-TOOL-3: has expected global options', () {
-      final optionNames =
-          d4rtgenTool.globalOptions.map((o) => o.name).toList();
+      final optionNames = d4rtgenTool.globalOptions.map((o) => o.name).toList();
       expect(optionNames, contains('show'));
       expect(optionNames, contains('dump-config'));
     });
 
     test('D4G-TOOL-4: show and dump-config are flags', () {
-      final showOpt =
-          d4rtgenTool.globalOptions.firstWhere((o) => o.name == 'show');
-      final dumpOpt =
-          d4rtgenTool.globalOptions.firstWhere((o) => o.name == 'dump-config');
+      final showOpt = d4rtgenTool.globalOptions.firstWhere(
+        (o) => o.name == 'show',
+      );
+      final dumpOpt = d4rtgenTool.globalOptions.firstWhere(
+        (o) => o.name == 'dump-config',
+      );
       expect(showOpt.type, equals(OptionType.flag));
       expect(dumpOpt.type, equals(OptionType.flag));
     });
@@ -156,14 +161,70 @@ d4rtgen:
           executionRoot: tempDir.parent.path,
         );
 
-        final result =
-            await executor.execute(context, const CliArgs(listOnly: true));
+        final result = await executor.execute(
+          context,
+          const CliArgs(listOnly: true),
+        );
 
         expect(result.success, isTrue);
       } finally {
         await tempDir.delete(recursive: true);
       }
     });
+
+    test(
+      'D4G-EXE-5: test runner imports use pubspec package name, not d4rtgen name. [2026-02-27] (FAIL)',
+      () async {
+        final tempDir = await createTempProject(
+          packageName: 'actual_pkg_name',
+          d4rtgenConfig: '''
+d4rtgen:
+  name: logical_bridge_name
+  generateTestRunner: true
+  testRunnerPath: test/bridge_test_runner.b.dart
+  modules:
+    - name: core
+      barrelFiles:
+        - lib/core.dart
+      outputPath: lib/src/bridges/core_bridges.b.dart
+''',
+        );
+        try {
+          await Directory(p.join(tempDir.path, 'lib')).create(recursive: true);
+          await File(p.join(tempDir.path, 'lib/core.dart')).writeAsString('''
+class CoreType {
+  const CoreType();
+}
+''');
+
+          final executor = D4rtgenExecutor();
+          final context = createTestContext(
+            path: tempDir.path,
+            executionRoot: tempDir.parent.path,
+          );
+
+          final result = await executor.execute(context, const CliArgs());
+          expect(result.success, isTrue);
+
+          final runnerPath = p.join(
+            tempDir.path,
+            'test/bridge_test_runner.b.dart',
+          );
+          final runnerContent = await File(runnerPath).readAsString();
+
+          expect(
+            runnerContent,
+            contains(
+              "import 'package:actual_pkg_name/src/bridges/core_bridges.b.dart' as core_bridges;",
+            ),
+            reason:
+                'Generated test runner must import local bridges using pubspec package name',
+          );
+        } finally {
+          await tempDir.delete(recursive: true);
+        }
+      },
+    );
   });
 
   // ===========================================================================
@@ -207,8 +268,12 @@ d4rtgen:
 
       final tempDir = await Directory.systemTemp.createTemp('d4rtgen_list_');
       try {
-        final result = await runner
-            .run(['--list', '--scan', tempDir.path, '--not-recursive']);
+        final result = await runner.run([
+          '--list',
+          '--scan',
+          tempDir.path,
+          '--not-recursive',
+        ]);
         expect(result.success, isTrue);
       } finally {
         await tempDir.delete(recursive: true);
@@ -225,8 +290,12 @@ d4rtgen:
 
       final tempDir = await Directory.systemTemp.createTemp('d4rtgen_dump_');
       try {
-        final result = await runner
-            .run(['--dump-config', '--scan', tempDir.path, '--not-recursive']);
+        final result = await runner.run([
+          '--dump-config',
+          '--scan',
+          tempDir.path,
+          '--not-recursive',
+        ]);
         expect(result.success, isTrue);
       } finally {
         await tempDir.delete(recursive: true);

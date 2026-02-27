@@ -41,7 +41,11 @@ String ensureBDartExtension(String path) {
 /// When the output is under `lib/` and the importing file is outside `lib/`,
 /// returns a `package:` import to avoid `avoid_relative_lib_imports` lint.
 /// Otherwise returns a relative path.
-String _moduleImportPath(String outputPath, String fromDir, String packageName) {
+String _moduleImportPath(
+  String outputPath,
+  String fromDir,
+  String packageName,
+) {
   final normalizedOutput = ensureBDartExtension(outputPath);
   if (normalizedOutput.startsWith('lib/') && !fromDir.startsWith('lib')) {
     // Use package: import to avoid relative lib imports lint
@@ -80,13 +84,18 @@ String generateBarrelFileContent(BridgeConfig config) {
 /// from the dartscript file location to the module bridge files.
 ///
 /// Returns the file content as a string.
-String generateDartscriptFileContent(BridgeConfig config, {String? dartscriptPath}) {
+String generateDartscriptFileContent(
+  BridgeConfig config, {
+  String? dartscriptPath,
+  String? packageName,
+}) {
   final registrationClass = config.registrationClass ?? '${config.name}Bridges';
+  final effectivePackageName = packageName ?? config.name;
   final buffer = StringBuffer();
-  
+
   // Determine the directory containing the dartscript file
   // Used for calculating relative imports to module bridge files
-  final dartscriptDir = dartscriptPath != null 
+  final dartscriptDir = dartscriptPath != null
       ? p.dirname(dartscriptPath)
       : 'lib';
 
@@ -98,7 +107,9 @@ String generateDartscriptFileContent(BridgeConfig config, {String? dartscriptPat
   buffer.writeln('/// D4rt Bridge Registration for ${config.name}');
   buffer.writeln('library;');
   buffer.writeln();
-  buffer.writeln("import '${config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart'}';");
+  buffer.writeln(
+    "import '${config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart'}';",
+  );
 
   // Import external bridge packages
   for (var i = 0; i < config.importedBridges.length; i++) {
@@ -109,7 +120,11 @@ String generateDartscriptFileContent(BridgeConfig config, {String? dartscriptPat
   // Import local module bridges with correct relative paths
   for (final module in config.modules) {
     // Calculate relative path from dartscript directory to module output
-    final importPath = _moduleImportPath(module.outputPath, dartscriptDir, config.name);
+    final importPath = _moduleImportPath(
+      module.outputPath,
+      dartscriptDir,
+      effectivePackageName,
+    );
     buffer.writeln("import '$importPath' as ${module.name}_bridges;");
   }
 
@@ -140,31 +155,37 @@ String generateDartscriptFileContent(BridgeConfig config, {String? dartscriptPat
     // Use the source barrel import the classes were generated from
     final sourceImport = module.barrelImport ?? module.barrelFiles.first;
     buffer.writeln(
-        '    ${module.name}_bridges.${capitalizedModuleName}Bridge.registerBridges(');
+      '    ${module.name}_bridges.${capitalizedModuleName}Bridge.registerBridges(',
+    );
     buffer.writeln('      d4rt,');
     buffer.writeln("      '$sourceImport',");
     buffer.writeln('    );');
-    
+
     // When a module has multiple barrel files, also register under each
     // additional barrel import so that D4rt scripts can import from any of them.
     for (final barrelFile in module.barrelFiles) {
       if (barrelFile != sourceImport) {
         buffer.writeln(
-            '    ${module.name}_bridges.${capitalizedModuleName}Bridge.registerBridges(');
+          '    ${module.name}_bridges.${capitalizedModuleName}Bridge.registerBridges(',
+        );
         buffer.writeln('      d4rt,');
         buffer.writeln("      '$barrelFile',");
         buffer.writeln('    );');
       }
     }
-    
+
     // GEN-030: Also register under sub-package barrel URIs discovered through
     // followAllReExports. When a module re-exports sub-packages (e.g., dcli
     // re-exports dcli_core), D4rt scripts may import those sub-packages directly.
     // The bridge's subPackageBarrels() method returns these discovered URIs.
     final prefix = '${module.name}_bridges';
     final bridgeClass = '${capitalizedModuleName}Bridge';
-    buffer.writeln('    // Register under sub-package barrels for direct imports');
-    buffer.writeln('    for (final barrel in $prefix.$bridgeClass.subPackageBarrels()) {');
+    buffer.writeln(
+      '    // Register under sub-package barrels for direct imports',
+    );
+    buffer.writeln(
+      '    for (final barrel in $prefix.$bridgeClass.subPackageBarrels()) {',
+    );
     buffer.writeln('      $prefix.$bridgeClass.registerBridges(d4rt, barrel);');
     buffer.writeln('    }');
   }
@@ -181,14 +202,16 @@ String generateDartscriptFileContent(BridgeConfig config, {String? dartscriptPat
   for (var i = 0; i < config.importedBridges.length; i++) {
     final imported = config.importedBridges[i];
     buffer.writeln(
-        '    buffer.writeln(imported_$i.${imported.className}.getImportBlock());');
+      '    buffer.writeln(imported_$i.${imported.className}.getImportBlock());',
+    );
   }
 
   for (final module in config.modules) {
     // Use toPascalCase for consistent class naming with bridge generator
     final capitalizedModuleName = toPascalCase(module.name);
     buffer.writeln(
-        '    buffer.writeln(${module.name}_bridges.${capitalizedModuleName}Bridge.getImportBlock());');
+      '    buffer.writeln(${module.name}_bridges.${capitalizedModuleName}Bridge.getImportBlock());',
+    );
   }
 
   buffer.writeln('    return buffer.toString();');
@@ -211,8 +234,13 @@ String generateDartscriptFileContent(BridgeConfig config, {String? dartscriptPat
 /// All bridges are pre-registered before script execution.
 ///
 /// The [testRunnerPath] parameter is used to calculate correct relative imports.
-String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) {
+String generateTestRunnerContent(
+  BridgeConfig config, {
+  String? testRunnerPath,
+  String? packageName,
+}) {
   final buffer = StringBuffer();
+  final effectivePackageName = packageName ?? config.name;
 
   // Determine the directory containing the test runner
   final testRunnerDir = testRunnerPath != null
@@ -225,12 +253,24 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   buffer.writeln('// Generated: ${DateTime.now().toIso8601String()}');
   buffer.writeln('//');
   buffer.writeln('// Usage:');
-  buffer.writeln('//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} <script.dart|.d4rt>  Run a D4rt script file');
-  buffer.writeln('//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} "<expression>"      Evaluate an expression');
-  buffer.writeln('//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --eval-file <file>  Evaluate file content with eval()');
-  buffer.writeln('//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --init-eval         Validate bridge registrations');
-  buffer.writeln('//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --test <file>       Test script (structured JSON output)');
-  buffer.writeln('//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --test-eval <init> <expr>  Test eval (structured JSON output)');
+  buffer.writeln(
+    '//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} <script.dart|.d4rt>  Run a D4rt script file',
+  );
+  buffer.writeln(
+    '//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} "<expression>"      Evaluate an expression',
+  );
+  buffer.writeln(
+    '//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --eval-file <file>  Evaluate file content with eval()',
+  );
+  buffer.writeln(
+    '//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --init-eval         Validate bridge registrations',
+  );
+  buffer.writeln(
+    '//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --test <file>       Test script (structured JSON output)',
+  );
+  buffer.writeln(
+    '//   dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --test-eval <init> <expr>  Test eval (structured JSON output)',
+  );
   buffer.writeln();
 
   // Imports
@@ -238,7 +278,9 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   buffer.writeln("import 'dart:convert';");
   buffer.writeln("import 'dart:io';");
   buffer.writeln();
-  buffer.writeln("import '${config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart'}';");
+  buffer.writeln(
+    "import '${config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart'}';",
+  );
 
   // Import external bridge packages
   for (var i = 0; i < config.importedBridges.length; i++) {
@@ -248,7 +290,11 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
 
   // Import local module bridges with correct relative paths
   for (final module in config.modules) {
-    final importPath = _moduleImportPath(module.outputPath, testRunnerDir, config.name);
+    final importPath = _moduleImportPath(
+      module.outputPath,
+      testRunnerDir,
+      effectivePackageName,
+    );
     buffer.writeln("import '$importPath' as ${module.name}_bridges;");
   }
 
@@ -291,7 +337,8 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
     final capitalizedModuleName = toPascalCase(module.name);
     final sourceImport = module.barrelImport ?? module.barrelFiles.first;
     buffer.writeln(
-        '  ${module.name}_bridges.${capitalizedModuleName}Bridge.registerBridges(');
+      '  ${module.name}_bridges.${capitalizedModuleName}Bridge.registerBridges(',
+    );
     buffer.writeln('    d4rt,');
     buffer.writeln("    '$sourceImport',");
     buffer.writeln('  );');
@@ -300,7 +347,8 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
     for (final barrelFile in module.barrelFiles) {
       if (barrelFile != sourceImport && barrelFile.startsWith('package:')) {
         buffer.writeln(
-            '  ${module.name}_bridges.${capitalizedModuleName}Bridge.registerBridges(');
+          '  ${module.name}_bridges.${capitalizedModuleName}Bridge.registerBridges(',
+        );
         buffer.writeln('    d4rt,');
         buffer.writeln("    '$barrelFile',");
         buffer.writeln('  );');
@@ -313,13 +361,17 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
 
   // D4 invocation logging function
   buffer.writeln('/// Logs D4 invocations to a debug file.');
-  buffer.writeln("const String _d4InvocationsLogPath = '/Users/alexiskyaw/Desktop/Code/tom2/d4_invocations.log';");
+  buffer.writeln(
+    "const String _d4InvocationsLogPath = '/Users/alexiskyaw/Desktop/Code/tom2/d4_invocations.log';",
+  );
   buffer.writeln();
   buffer.writeln('void _logD4Invocation(String mode, String input) {');
   buffer.writeln('  final timestamp = DateTime.now().toIso8601String();');
   buffer.writeln("  final logLine = '\$timestamp | \$mode | \$input\\n';");
   buffer.writeln('  try {');
-  buffer.writeln("    File(_d4InvocationsLogPath).writeAsStringSync(logLine, mode: FileMode.append);");
+  buffer.writeln(
+    "    File(_d4InvocationsLogPath).writeAsStringSync(logLine, mode: FileMode.append);",
+  );
   buffer.writeln('  } catch (_) {');
   buffer.writeln('    // Ignore logging failures');
   buffer.writeln('  }');
@@ -330,12 +382,24 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   buffer.writeln('Future<void> main(List<String> args) async {');
   buffer.writeln('  if (args.isEmpty) {');
   buffer.writeln("    stderr.writeln('Usage:');");
-  buffer.writeln("    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} <script.dart|.d4rt>  Run a D4rt script file');");
-  buffer.writeln("    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} \"<expression>\"      Evaluate an expression');");
-  buffer.writeln("    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --eval-file <file>  Evaluate file content with eval()');");
-  buffer.writeln("    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --init-eval         Validate bridge registrations');");
-  buffer.writeln("    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --test <file>       Test script (structured JSON output)');");
-  buffer.writeln("    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --test-eval <init> <expr>  Test eval (structured JSON)');");
+  buffer.writeln(
+    "    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} <script.dart|.d4rt>  Run a D4rt script file');",
+  );
+  buffer.writeln(
+    "    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} \"<expression>\"      Evaluate an expression');",
+  );
+  buffer.writeln(
+    "    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --eval-file <file>  Evaluate file content with eval()');",
+  );
+  buffer.writeln(
+    "    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --init-eval         Validate bridge registrations');",
+  );
+  buffer.writeln(
+    "    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --test <file>       Test script (structured JSON output)');",
+  );
+  buffer.writeln(
+    "    stderr.writeln('  dart run ${testRunnerPath ?? 'bin/d4rtrun.b.dart'} --test-eval <init> <expr>  Test eval (structured JSON)');",
+  );
   buffer.writeln('    exit(1);');
   buffer.writeln('  }');
   buffer.writeln();
@@ -343,7 +407,9 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   // --test mode (structured output for D4rtTester)
   buffer.writeln("  if (args.first == '--test') {");
   buffer.writeln('    if (args.length < 2) {');
-  buffer.writeln("      stderr.writeln('Error: --test requires a script file path argument.');");
+  buffer.writeln(
+    "      stderr.writeln('Error: --test requires a script file path argument.');",
+  );
   buffer.writeln('      exit(1);');
   buffer.writeln('    }');
   buffer.writeln('    await _runTestScript(args[1]);');
@@ -354,7 +420,9 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   // --test-eval mode (structured output for D4rtTester)
   buffer.writeln("  if (args.first == '--test-eval') {");
   buffer.writeln('    if (args.length < 3) {');
-  buffer.writeln("      stderr.writeln('Error: --test-eval requires <init-file> and <expression-file> arguments.');");
+  buffer.writeln(
+    "      stderr.writeln('Error: --test-eval requires <init-file> and <expression-file> arguments.');",
+  );
   buffer.writeln('      exit(1);');
   buffer.writeln('    }');
   buffer.writeln('    await _runTestEval(args[1], args[2]);');
@@ -372,7 +440,9 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   // --eval-file mode
   buffer.writeln("  if (args.first == '--eval-file') {");
   buffer.writeln('    if (args.length < 2) {');
-  buffer.writeln("      stderr.writeln('Error: --eval-file requires a file path argument.');");
+  buffer.writeln(
+    "      stderr.writeln('Error: --eval-file requires a file path argument.');",
+  );
   buffer.writeln('      exit(1);');
   buffer.writeln('    }');
   buffer.writeln('    _runEvalFile(args[1]);');
@@ -382,7 +452,9 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
 
   // File or expression mode — detect by file extension or existence
   buffer.writeln('  final input = args.first;');
-  buffer.writeln("  if (input.endsWith('.dart') || input.endsWith('.d4rt') || File(input).existsSync()) {");
+  buffer.writeln(
+    "  if (input.endsWith('.dart') || input.endsWith('.d4rt') || File(input).existsSync()) {",
+  );
   buffer.writeln('    _runFile(input);');
   buffer.writeln('  } else {');
   buffer.writeln('    _runExpression(input);');
@@ -496,38 +568,56 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   buffer.writeln();
 
   // _runInitEval — validate bridge registrations
-  buffer.writeln('/// Validate bridge registrations by running the init script');
+  buffer.writeln(
+    '/// Validate bridge registrations by running the init script',
+  );
   buffer.writeln('/// and collecting all duplicate element errors.');
   buffer.writeln('void _runInitEval() {');
-  buffer.writeln("  print('Validating bridge registrations for ${config.name}...');");
+  buffer.writeln(
+    "  print('Validating bridge registrations for ${config.name}...');",
+  );
   buffer.writeln("  print('');");
   buffer.writeln();
   buffer.writeln('  final d4rt = D4rt();');
   buffer.writeln('  _registerBridges(d4rt);');
   buffer.writeln();
-  buffer.writeln('  final errors = d4rt.validateRegistrations(source: _initSource);');
+  buffer.writeln(
+    '  final errors = d4rt.validateRegistrations(source: _initSource);',
+  );
   buffer.writeln();
   buffer.writeln('  if (errors.isEmpty) {');
   buffer.writeln("    print('✓ All bridge registrations are valid.');");
   buffer.writeln("    print('  No duplicate elements found.');");
   buffer.writeln('  } else {');
-  buffer.writeln("    stderr.writeln('✗ Found \${errors.length} registration error(s):');");
+  buffer.writeln(
+    "    stderr.writeln('✗ Found \${errors.length} registration error(s):');",
+  );
   buffer.writeln("    stderr.writeln('');");
   buffer.writeln('    for (var i = 0; i < errors.length; i++) {');
   buffer.writeln("      stderr.writeln('  \${i + 1}. \${errors[i]}');");
   buffer.writeln('    }');
   buffer.writeln("    stderr.writeln('');");
-  buffer.writeln("    stderr.writeln('Fix these issues by using import show/hide clauses in your');");
-  buffer.writeln("    stderr.writeln('module configuration or by removing duplicate exports.');");
+  buffer.writeln(
+    "    stderr.writeln('Fix these issues by using import show/hide clauses in your');",
+  );
+  buffer.writeln(
+    "    stderr.writeln('module configuration or by removing duplicate exports.');",
+  );
   buffer.writeln('    exit(2);');
   buffer.writeln('  }');
   buffer.writeln('}');
   buffer.writeln();
 
   // _runTestScript — execute a script with structured output capture
-  buffer.writeln('/// Run a D4rt script in test mode with structured output capture.');
-  buffer.writeln('/// Uses runZonedGuarded with ZoneSpecification to capture all print()');
-  buffer.writeln('/// output and unhandled exceptions. Results are output as JSON.');
+  buffer.writeln(
+    '/// Run a D4rt script in test mode with structured output capture.',
+  );
+  buffer.writeln(
+    '/// Uses runZonedGuarded with ZoneSpecification to capture all print()',
+  );
+  buffer.writeln(
+    '/// output and unhandled exceptions. Results are output as JSON.',
+  );
   buffer.writeln('/// Properly awaits async main() functions.');
   buffer.writeln('Future<void> _runTestScript(String filePath) async {');
   buffer.writeln("  _logD4Invocation('TEST', filePath);");
@@ -580,25 +670,39 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   buffer.writeln('  );');
   buffer.writeln();
   buffer.writeln('  await completer.future;');
-  buffer.writeln('  _emitTestResult(capturedOutput.toString(), capturedExceptions);');
+  buffer.writeln(
+    '  _emitTestResult(capturedOutput.toString(), capturedExceptions);',
+  );
   buffer.writeln('  if (capturedExceptions.isNotEmpty) exit(2);');
   buffer.writeln('}');
   buffer.writeln();
 
   // _runTestEval — eval with init script and structured output capture
-  buffer.writeln('/// Evaluate file content in test mode with structured output capture.');
-  buffer.writeln('/// Initializes with [initFilePath], then evaluates [evalFilePath].');
+  buffer.writeln(
+    '/// Evaluate file content in test mode with structured output capture.',
+  );
+  buffer.writeln(
+    '/// Initializes with [initFilePath], then evaluates [evalFilePath].',
+  );
   buffer.writeln('/// Properly awaits async init scripts.');
-  buffer.writeln('Future<void> _runTestEval(String initFilePath, String evalFilePath) async {');
-  buffer.writeln("  _logD4Invocation('TEST-EVAL', '\$initFilePath | \$evalFilePath');");
+  buffer.writeln(
+    'Future<void> _runTestEval(String initFilePath, String evalFilePath) async {',
+  );
+  buffer.writeln(
+    "  _logD4Invocation('TEST-EVAL', '\$initFilePath | \$evalFilePath');",
+  );
   buffer.writeln('  final initFile = File(initFilePath);');
   buffer.writeln('  final evalFile = File(evalFilePath);');
   buffer.writeln('  if (!initFile.existsSync()) {');
-  buffer.writeln("    _emitTestResult('', ['Init file not found: \$initFilePath']);");
+  buffer.writeln(
+    "    _emitTestResult('', ['Init file not found: \$initFilePath']);",
+  );
   buffer.writeln('    exit(2);');
   buffer.writeln('  }');
   buffer.writeln('  if (!evalFile.existsSync()) {');
-  buffer.writeln("    _emitTestResult('', ['Eval file not found: \$evalFilePath']);");
+  buffer.writeln(
+    "    _emitTestResult('', ['Eval file not found: \$evalFilePath']);",
+  );
   buffer.writeln('    exit(2);');
   buffer.writeln('  }');
   buffer.writeln();
@@ -649,15 +753,23 @@ String generateTestRunnerContent(BridgeConfig config, {String? testRunnerPath}) 
   buffer.writeln('  );');
   buffer.writeln();
   buffer.writeln('  await completer.future;');
-  buffer.writeln('  _emitTestResult(capturedOutput.toString(), capturedExceptions);');
+  buffer.writeln(
+    '  _emitTestResult(capturedOutput.toString(), capturedExceptions);',
+  );
   buffer.writeln('  if (capturedExceptions.isNotEmpty) exit(2);');
   buffer.writeln('}');
   buffer.writeln();
 
   // _emitTestResult — output structured JSON for D4rtTester
-  buffer.writeln('/// Emit structured test result as JSON for D4rtTester to parse.');
-  buffer.writeln('/// Uses stdout.writeln directly to bypass any zone print overrides.');
-  buffer.writeln('void _emitTestResult(String output, List<String> exceptions) {');
+  buffer.writeln(
+    '/// Emit structured test result as JSON for D4rtTester to parse.',
+  );
+  buffer.writeln(
+    '/// Uses stdout.writeln directly to bypass any zone print overrides.',
+  );
+  buffer.writeln(
+    'void _emitTestResult(String output, List<String> exceptions) {',
+  );
   buffer.writeln('  final result = jsonEncode({');
   buffer.writeln("    'output': output,");
   buffer.writeln("    'exceptions': exceptions,");

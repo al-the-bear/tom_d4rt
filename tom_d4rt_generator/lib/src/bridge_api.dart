@@ -17,16 +17,16 @@ import 'file_generators.dart';
 class GenerationResult {
   /// Total number of classes generated across all modules.
   final int totalClasses;
-  
+
   /// Total number of modules processed.
   final int totalModules;
-  
+
   /// List of output files generated.
   final List<String> outputFiles;
-  
+
   /// Configuration used for generation.
   final BridgeConfig config;
-  
+
   /// Any errors encountered.
   final List<String> errors;
 
@@ -37,7 +37,7 @@ class GenerationResult {
     required this.config,
     this.errors = const [],
   });
-  
+
   /// Whether generation was successful (no errors).
   bool get isSuccess => errors.isEmpty;
 }
@@ -74,15 +74,17 @@ Future<GenerationResult> generateBridges({
   if (config == null && configPath == null) {
     throw ArgumentError('Either config or configPath must be provided');
   }
-  
+
   if (config != null && configPath != null) {
     throw ArgumentError('Only one of config or configPath should be provided');
   }
-  
+
   // Resolve project directory: explicit projectPath > configPath parent > cwd
-  final projectDir = projectPath ??
+  final projectDir =
+      projectPath ??
       (configPath != null ? p.dirname(configPath) : Directory.current.path);
-  final bridgeConfig = config ?? BuildConfigLoader.loadFromTomBuildYaml(projectDir);
+  final bridgeConfig =
+      config ?? BuildConfigLoader.loadFromTomBuildYaml(projectDir);
   if (bridgeConfig == null) {
     throw ArgumentError('No d4rtgen configuration found in $projectDir');
   }
@@ -90,20 +92,23 @@ Future<GenerationResult> generateBridges({
   // Log invocation at project level (once per generateBridges call)
   logD4rtgenInvocation(
     source: 'API',
-    details: 'project: ${bridgeConfig.name}, modules: ${bridgeConfig.modules.length}, projectDir: $projectDir',
+    details:
+        'project: ${bridgeConfig.name}, modules: ${bridgeConfig.modules.length}, projectDir: $projectDir',
     includeStackTrace: true,
   );
-  
+
   var totalClasses = 0;
   final outputFiles = <String>[];
   final errors = <String>[];
-  
+  final effectivePackageName =
+      BuildConfigLoader.getPackageName(projectDir) ?? bridgeConfig.name;
+
   try {
     // Generate bridges for each module
     for (final module in bridgeConfig.modules) {
       // Determine sourceImport: use barrelImport if provided, otherwise first barrel file
       final sourceImport = module.barrelImport ?? module.barrelFiles.first;
-      
+
       // Build list of barrel imports for getImportBlock() generation.
       // The barrel imports are used by D4rt scripts (not by the bridge code itself,
       // which imports directly from source files).
@@ -116,12 +121,12 @@ Future<GenerationResult> generateBridges({
         packageName: bridgeConfig.name,
         sourceImport: sourceImport,
         sourceImports: sourceImports,
-        helpersImport: bridgeConfig.helpersImport ?? 
-            'package:tom_d4rt/tom_d4rt.dart',
+        helpersImport:
+            bridgeConfig.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
         recursiveBoundTypes: bridgeConfig.recursiveBoundTypes.isNotEmpty
             ? bridgeConfig.recursiveBoundTypes
-                .map(RecursiveBoundType.fromString)
-                .toList()
+                  .map(RecursiveBoundType.fromString)
+                  .toList()
             : null, // Use defaults if not configured
       );
 
@@ -155,28 +160,47 @@ Future<GenerationResult> generateBridges({
 
     // Generate barrel file if requested
     if (bridgeConfig.generateBarrel && bridgeConfig.barrelPath != null) {
-      final barrelPath = p.join(projectDir, ensureBDartExtension(bridgeConfig.barrelPath!));
+      final barrelPath = p.join(
+        projectDir,
+        ensureBDartExtension(bridgeConfig.barrelPath!),
+      );
       await _generateBarrelFile(barrelPath, bridgeConfig);
       outputFiles.add(barrelPath);
     }
 
     // Generate dartscript file if requested
-    if (bridgeConfig.generateDartscript && bridgeConfig.dartscriptPath != null) {
-      final dartscriptPath = p.join(projectDir, ensureBDartExtension(bridgeConfig.dartscriptPath!));
-      await _generateDartscriptFile(dartscriptPath, bridgeConfig);
+    if (bridgeConfig.generateDartscript &&
+        bridgeConfig.dartscriptPath != null) {
+      final dartscriptPath = p.join(
+        projectDir,
+        ensureBDartExtension(bridgeConfig.dartscriptPath!),
+      );
+      await _generateDartscriptFile(
+        dartscriptPath,
+        bridgeConfig,
+        packageName: effectivePackageName,
+      );
       outputFiles.add(dartscriptPath);
     }
 
     // Generate test runner file if requested
-    if (bridgeConfig.generateTestRunner && bridgeConfig.testRunnerPath != null) {
-      final testRunnerPath = p.join(projectDir, ensureBDartExtension(bridgeConfig.testRunnerPath!));
-      await _generateTestRunnerFile(testRunnerPath, bridgeConfig);
+    if (bridgeConfig.generateTestRunner &&
+        bridgeConfig.testRunnerPath != null) {
+      final testRunnerPath = p.join(
+        projectDir,
+        ensureBDartExtension(bridgeConfig.testRunnerPath!),
+      );
+      await _generateTestRunnerFile(
+        testRunnerPath,
+        bridgeConfig,
+        packageName: effectivePackageName,
+      );
       outputFiles.add(testRunnerPath);
     }
   } catch (e) {
     errors.add(e.toString());
   }
-  
+
   return GenerationResult(
     totalClasses: totalClasses,
     totalModules: bridgeConfig.modules.length,
@@ -192,17 +216,29 @@ Future<void> _generateBarrelFile(String barrelPath, BridgeConfig config) async {
 }
 
 /// Generate dartscript file with combined bridge registration.
-Future<void> _generateDartscriptFile(String dartscriptPath, BridgeConfig config) async {
+Future<void> _generateDartscriptFile(
+  String dartscriptPath,
+  BridgeConfig config, {
+  required String packageName,
+}) async {
   final normalizedDartscriptPath = config.dartscriptPath != null
       ? ensureBDartExtension(config.dartscriptPath!)
       : null;
   await File(dartscriptPath).writeAsString(
-    generateDartscriptFileContent(config, dartscriptPath: normalizedDartscriptPath),
+    generateDartscriptFileContent(
+      config,
+      dartscriptPath: normalizedDartscriptPath,
+      packageName: packageName,
+    ),
   );
 }
 
 /// Generate test runner file for testing bridges.
-Future<void> _generateTestRunnerFile(String testRunnerPath, BridgeConfig config) async {
+Future<void> _generateTestRunnerFile(
+  String testRunnerPath,
+  BridgeConfig config, {
+  required String packageName,
+}) async {
   final dir = File(testRunnerPath).parent;
   if (!dir.existsSync()) {
     dir.createSync(recursive: true);
@@ -211,6 +247,10 @@ Future<void> _generateTestRunnerFile(String testRunnerPath, BridgeConfig config)
       ? ensureBDartExtension(config.testRunnerPath!)
       : null;
   await File(testRunnerPath).writeAsString(
-    generateTestRunnerContent(config, testRunnerPath: normalizedTestRunnerPath),
+    generateTestRunnerContent(
+      config,
+      testRunnerPath: normalizedTestRunnerPath,
+      packageName: packageName,
+    ),
   );
 }

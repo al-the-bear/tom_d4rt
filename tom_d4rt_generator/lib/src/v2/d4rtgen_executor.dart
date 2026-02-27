@@ -102,6 +102,9 @@ Future<void> _generateBridges(
   String projectDir, {
   required bool verbose,
 }) async {
+  final effectivePackageName =
+      BuildConfigLoader.getPackageName(projectDir) ?? config.name;
+
   if (verbose) {
     print('  Project: ${config.name}');
     print('  Modules: ${config.modules.length}');
@@ -182,7 +185,12 @@ Future<void> _generateBridges(
       projectDir,
       ensureBDartExtension(config.dartscriptPath!),
     );
-    await _generateDartscriptFile(dartscriptPath, config, verbose: verbose);
+    await _generateDartscriptFile(
+      dartscriptPath,
+      config,
+      packageName: effectivePackageName,
+      verbose: verbose,
+    );
   }
 
   // Generate test runner file if requested
@@ -191,7 +199,12 @@ Future<void> _generateBridges(
       projectDir,
       ensureBDartExtension(config.testRunnerPath!),
     );
-    await _generateTestRunnerFile(testRunnerPath, config, verbose: verbose);
+    await _generateTestRunnerFile(
+      testRunnerPath,
+      config,
+      packageName: effectivePackageName,
+      verbose: verbose,
+    );
   }
 
   if (verbose) {
@@ -216,6 +229,7 @@ Future<void> _generateBarrelFile(
 Future<void> _generateDartscriptFile(
   String dartscriptPath,
   BridgeConfig config, {
+  required String packageName,
   required bool verbose,
 }) async {
   if (verbose) {
@@ -228,6 +242,7 @@ Future<void> _generateDartscriptFile(
     generateDartscriptFileContent(
       config,
       dartscriptPath: normalizedDartscriptPath,
+      packageName: packageName,
     ),
   );
 }
@@ -236,6 +251,7 @@ Future<void> _generateDartscriptFile(
 Future<void> _generateTestRunnerFile(
   String testRunnerPath,
   BridgeConfig config, {
+  required String packageName,
   required bool verbose,
 }) async {
   if (verbose) {
@@ -249,7 +265,11 @@ Future<void> _generateTestRunnerFile(
       ? ensureBDartExtension(config.testRunnerPath!)
       : null;
   await File(testRunnerPath).writeAsString(
-    generateTestRunnerContent(config, testRunnerPath: normalizedTestRunnerPath),
+    generateTestRunnerContent(
+      config,
+      testRunnerPath: normalizedTestRunnerPath,
+      packageName: packageName,
+    ),
   );
 }
 

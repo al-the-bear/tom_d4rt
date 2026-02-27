@@ -434,16 +434,28 @@ void main() {
         () {
           expect(generatedCode, contains("name: 'ImportedBoundHostLike'"));
 
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createImportedBoundHostLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final bridgeSection = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
           // T extends ExternalBoundLike should resolve to ExternalBoundLike,
           // not dynamic, in argument extraction/casts.
           expect(
-            generatedCode,
+            bridgeSection,
             contains('ExternalBoundLike'),
             reason:
                 'Imported generic bound should be preserved in generated type arguments',
           );
           expect(
-            generatedCode,
+            bridgeSection,
             isNot(contains("getRequiredArg<dynamic>(positional, 0, 'value'")),
             reason:
                 'Bounded generic argument should not degrade to dynamic for constructor parameter',
@@ -460,12 +472,23 @@ void main() {
         'G-FLP-20: Wrapper for Function(void) does not pass void param as value. [2026-02-26] (PASS)',
         () {
           expect(generatedCode, contains("name: 'VoidValueCallbackHostLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createVoidValueCallbackHostLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final bridgeSection = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
           expect(
-            generatedCode,
+            bridgeSection,
             isNot(
-              contains(
-                RegExp(r'\(\s*void\s+p0\s*\)\s*\{[^}]*\[\s*p0\s*\]'),
-              ),
+              contains(RegExp(r'\(\s*void\s+p0\s*\)\s*\{[^}]*\[\s*p0\s*\]')),
             ),
             reason:
                 'void-typed callback params cannot be used as expression values in argument lists',
