@@ -80,6 +80,31 @@ void main() {
       );
 
       test(
+        'G-FLP-27: nested static refs in const defaults are prefixed (Colors-like)',
+        () {
+          expect(generatedCode, contains("name: 'WidgetWithNestedStaticConstDefault'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createWidgetWithNestedStaticConstDefaultBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final bridgeSection = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            bridgeSection,
+            contains(
+              r'const $test_package_1.BoxSideLike(width: $test_package_1.ScalarPaletteLike.thick)',
+            ),
+          );
+        },
+      );
+      test(
         'G-FLP-02: Enum used directly as parameter type is unprefixed. [2026-02-26] (PASS)',
         () {
           expect(generatedCode, contains("name: 'EnumHolder'"));
@@ -628,6 +653,38 @@ void main() {
             isNot(contains("getRequiredArg<dynamic>(positional, 1, 'renderObject'")),
             reason:
                 'Type parameter R has upper bound Object and should not be extracted as dynamic',
+          );
+        },
+      );
+
+      test(
+        'G-FLP-26: Slotted mixin-like bound R extends RenderObjectLike is not erased to dynamic. [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'SlottedRenderObjectElementLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createSlottedRenderObjectElementLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(contains('SlottedMultiChildRenderObjectWidgetMixinLike<dynamic, dynamic>')),
+            reason:
+                'Upper bound RenderObjectLike should be preserved instead of erasing second type argument to dynamic',
+          );
+          expect(
+            section,
+            contains(r'SlottedMultiChildRenderObjectWidgetMixinLike<dynamic, $test_package_1.RenderObjectLike>'),
+            reason:
+                'Expected bound-preserved mixin-like type in generated bridge signatures',
           );
         },
       );

@@ -63,6 +63,20 @@ class BoxSideLike {
   static const BoxSideLike none = BoxSideLike(width: 0);
 }
 
+/// Static constants used inside nested const-constructor defaults.
+class ScalarPaletteLike {
+  static const double thick = 3.0;
+}
+
+/// Reproduces defaults like `const BorderSide(color: Colors.white)`.
+class WidgetWithNestedStaticConstDefault {
+  final BoxSideLike side;
+
+  const WidgetWithNestedStaticConstDefault({
+    this.side = const BoxSideLike(width: ScalarPaletteLike.thick),
+  });
+}
+
 /// Class with non-wrappable const constructor defaults.
 /// These are the patterns that cause RC-1 nullable fallback.
 class WidgetWithDefaults {
@@ -210,6 +224,31 @@ class ContainerLike<T extends SimpleValue> {
   ContainerLike(this.item);
 
   T getItem() => item;
+}
+
+/// RC-9d: Slotted mixin-like generic bounds mirroring Flutter's
+/// SlottedMultiChildRenderObjectWidgetMixin<dynamic, RenderObject> pattern.
+class RenderObjectLike {}
+
+class SlottedMultiChildRenderObjectWidgetMixinLike<
+  ChildType,
+  R extends RenderObjectLike
+> {
+  const SlottedMultiChildRenderObjectWidgetMixinLike();
+
+  R updateRenderObject(R renderObject) => renderObject;
+}
+
+class SlottedRenderObjectElementLike {
+  const SlottedRenderObjectElementLike();
+
+  RenderObjectLike updateRenderObject(
+    SlottedMultiChildRenderObjectWidgetMixinLike<dynamic, RenderObjectLike>
+        widget,
+    RenderObjectLike renderObject,
+  ) {
+    return widget.updateRenderObject(renderObject);
+  }
 }
 
 // =============================================================================

@@ -3929,63 +3929,30 @@ class BridgeGenerator {
         return null;
       }
 
-      // Resolve prefix for the class name (same logic as static access)
-      String? resolvedPrefix;
-
-      if (typeToUri.containsKey(className)) {
-        final uri = typeToUri[className];
-        if (uri != null) {
-          resolvedPrefix = _importPrefixes[uri];
-        }
-      }
-
-      if (resolvedPrefix == null && sourceFilePath != null) {
-        final auxiliaryUri = _resolveTypeFromSourceImports(
-          className,
-          sourceFilePath,
-        );
-        if (auxiliaryUri != null) {
-          _addAuxiliaryImport(auxiliaryUri, className);
-          resolvedPrefix = _getOrCreateAuxiliaryPrefix(auxiliaryUri);
-        }
-      }
-
-      if (resolvedPrefix == null) {
-        final globalUri = _globalTypeToUri[className];
-        if (globalUri != null) {
-          final globalPrefix = _importPrefixes[globalUri];
-          if (globalPrefix != null && globalPrefix.isNotEmpty) {
-            resolvedPrefix = globalPrefix;
-          }
-        }
-      }
-
-      if (resolvedPrefix == null && sourceUri != null) {
-        final srcPrefix = _importPrefixes[sourceUri];
-        if (srcPrefix != null && srcPrefix.isNotEmpty) {
-          resolvedPrefix = srcPrefix;
-        }
-        if (resolvedPrefix == null) {
-          final parentUri = _partOfToParent[sourceUri];
-          if (parentUri != null) {
-            final parentPrefix = _importPrefixes[parentUri];
-            if (parentPrefix != null && parentPrefix.isNotEmpty) {
-              resolvedPrefix = parentPrefix;
-            }
-          }
-        }
-      }
+      final resolvedPrefix = _resolveDefaultTypePrefix(
+        className,
+        sourceUri,
+        typeToUri: typeToUri,
+        sourceFilePath: sourceFilePath,
+      );
 
       if (resolvedPrefix != null) {
         // Replace the class name with the prefixed version
         // 'const ClassName...' → 'const $prefix.ClassName...'
-        if (resolvedPrefix.isEmpty) {
-          return defaultValue;
-        }
-        return defaultValue.replaceFirst(
+        final prefixedCtor = resolvedPrefix.isEmpty
+            ? defaultValue
+            : defaultValue.replaceFirst(
           'const $className',
           'const $resolvedPrefix.$className',
         );
+
+        final withNestedStaticPrefixed = _prefixStaticAccessesInExpression(
+          prefixedCtor,
+          sourceUri,
+          typeToUri: typeToUri,
+          sourceFilePath: sourceFilePath,
+        );
+        return withNestedStaticPrefixed;
       }
 
       // Cannot determine prefix — non-wrappable
@@ -4003,55 +3970,14 @@ class BridgeGenerator {
         return defaultValue;
       }
 
-      // Check if we know where this class comes from (barrel exports)
-      if (typeToUri.containsKey(className)) {
-        final uri = typeToUri[className];
-        if (uri != null) {
-          final prefix = _importPrefixes[uri];
-          if (prefix != null) {
-            return prefix.isEmpty ? defaultValue : '$prefix.$defaultValue';
-          }
-        }
-      }
-
-      // Check auxiliary imports from the source file's imports
-      if (sourceFilePath != null) {
-        final auxiliaryUri = _resolveTypeFromSourceImports(
-          className,
-          sourceFilePath,
-        );
-        if (auxiliaryUri != null) {
-          // Add this as an auxiliary import
-          _addAuxiliaryImport(auxiliaryUri, className);
-
-          // Generate or get a prefix for this auxiliary import
-          final prefix = _getOrCreateAuxiliaryPrefix(auxiliaryUri);
-          return '$prefix.$defaultValue';
-        }
-      }
-
-      // Try global type registry for the correct prefix
-      final globalUri = _globalTypeToUri[className];
-      if (globalUri != null) {
-        final globalPrefix = _importPrefixes[globalUri];
-        if (globalPrefix != null && globalPrefix.isNotEmpty) {
-          return '$globalPrefix.$defaultValue';
-        }
-      }
-      // Try source URI if available
-      if (sourceUri != null) {
-        final srcPrefix = _importPrefixes[sourceUri];
-        if (srcPrefix != null && srcPrefix.isNotEmpty) {
-          return '$srcPrefix.$defaultValue';
-        }
-        // Check if source URI is a part-of file mapping to a parent library
-        final parentUri = _partOfToParent[sourceUri];
-        if (parentUri != null) {
-          final parentPrefix = _importPrefixes[parentUri];
-          if (parentPrefix != null && parentPrefix.isNotEmpty) {
-            return '$parentPrefix.$defaultValue';
-          }
-        }
+      final resolvedPrefix = _resolveDefaultTypePrefix(
+        className,
+        sourceUri,
+        typeToUri: typeToUri,
+        sourceFilePath: sourceFilePath,
+      );
+      if (resolvedPrefix != null) {
+        return resolvedPrefix.isEmpty ? defaultValue : '$resolvedPrefix.$defaultValue';
       }
       // Cannot determine prefix — non-wrappable (triggers combinatorial dispatch)
       return null;
@@ -4078,6 +4004,94 @@ class BridgeGenerator {
     // - Expressions with operators
     // - Any qualified identifiers (ClassName.member)
     return null;
+  }
+
+  String? _resolveDefaultTypePrefix(
+    String className,
+    String? sourceUri, {
+    Map<String, String> typeToUri = const {},
+    String? sourceFilePath,
+  }) {
+    if (typeToUri.containsKey(className)) {
+      final uri = typeToUri[className];
+      if (uri != null) {
+        final prefix = _importPrefixes[uri];
+        if (prefix != null) {
+          return prefix;
+        }
+      }
+    }
+
+    if (sourceFilePath != null) {
+      final auxiliaryUri = _resolveTypeFromSourceImports(className, sourceFilePath);
+      if (auxiliaryUri != null) {
+        _addAuxiliaryImport(auxiliaryUri, className);
+        return _getOrCreateAuxiliaryPrefix(auxiliaryUri);
+      }
+    }
+
+    final globalUri = _globalTypeToUri[className];
+    if (globalUri != null) {
+      final globalPrefix = _importPrefixes[globalUri];
+      if (globalPrefix != null) {
+        return globalPrefix;
+      }
+    }
+
+    if (sourceUri != null) {
+      final sourcePrefix = _importPrefixes[sourceUri];
+      if (sourcePrefix != null) {
+        return sourcePrefix;
+      }
+
+      final parentUri = _partOfToParent[sourceUri];
+      if (parentUri != null) {
+        final parentPrefix = _importPrefixes[parentUri];
+        if (parentPrefix != null) {
+          return parentPrefix;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  String? _prefixStaticAccessesInExpression(
+    String expression,
+    String? sourceUri, {
+    Map<String, String> typeToUri = const {},
+    String? sourceFilePath,
+  }) {
+    var unresolved = false;
+    final result = expression.replaceAllMapped(
+      RegExp(r'(?<![\w$\.])([A-Z]\w*)\.([a-z]\w*)(?!\s*\()'),
+      (match) {
+        final className = match.group(1)!;
+        final fullMatch = match.group(0)!;
+
+        if (_isBuiltInType(className)) {
+          return fullMatch;
+        }
+
+        final resolvedPrefix = _resolveDefaultTypePrefix(
+          className,
+          sourceUri,
+          typeToUri: typeToUri,
+          sourceFilePath: sourceFilePath,
+        );
+
+        if (resolvedPrefix == null) {
+          if (sourceUri != null) {
+            unresolved = true;
+          }
+          return fullMatch;
+        }
+
+        return resolvedPrefix.isEmpty ? fullMatch : '$resolvedPrefix.$fullMatch';
+      },
+    );
+
+    return unresolved ? null : result;
   }
 
   /// Checks if a default value is wrappable (can be used directly in bridge code).
