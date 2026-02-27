@@ -78,6 +78,28 @@ class WidgetWithNestedStaticConstDefault {
   });
 }
 
+const double _privateDefaultWidth = 2.5;
+const double touchSlopLike = 18.0;
+
+/// Reproduces Flutter defaults that reference private constants inside
+/// const-constructor arguments. These identifiers are not visible from the
+/// generated bridge library and must therefore be treated as non-wrappable.
+class WidgetWithPrivateConstArgDefault {
+  final BoxSideLike side;
+
+  const WidgetWithPrivateConstArgDefault({
+    this.side = const BoxSideLike(width: _privateDefaultWidth),
+  });
+}
+
+class WidgetWithIdentifierConstArgDefault {
+  final BoxSideLike side;
+
+  const WidgetWithIdentifierConstArgDefault({
+    this.side = const BoxSideLike(width: touchSlopLike),
+  });
+}
+
 /// Class with non-wrappable const constructor defaults.
 /// These are the patterns that cause RC-1 nullable fallback.
 class WidgetWithDefaults {
@@ -548,4 +570,32 @@ class GestureMatcherLike {
     }
     return callback(candidate);
   }
+}
+
+// =============================================================================
+// RC-1c: External-style defaults unavailable in analyzer metadata
+// =============================================================================
+
+class ExternalDefaultGapLike {
+  external factory ExternalDefaultGapLike({bool scrollable, int maxLines});
+}
+
+class ExternalWideDefaultGapLike {
+  external factory ExternalWideDefaultGapLike({
+    bool scrollable,
+    int maxLines,
+    double scale,
+    Duration duration,
+    String label,
+    SimpleValue offset,
+  });
+}
+
+typedef StateSetterLike = void Function(void Function());
+typedef StatefulBuilderLike = Object Function(String context, StateSetterLike setState);
+
+class StatefulBuilderHostLike {
+  final StatefulBuilderLike builder;
+
+  const StatefulBuilderHostLike({required this.builder});
 }

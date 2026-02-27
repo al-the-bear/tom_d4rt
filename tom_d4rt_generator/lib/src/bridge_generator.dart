@@ -3929,6 +3929,32 @@ class BridgeGenerator {
         return null;
       }
 
+      if (argsContent.isNotEmpty) {
+        final namedArgBareValues = RegExp(
+          r':\s*([a-z]\w*)(?!\s*[\.(])',
+        ).allMatches(argsContent);
+        for (final match in namedArgBareValues) {
+          final identifier = match.group(1)!;
+          if (identifier == 'true' ||
+              identifier == 'false' ||
+              identifier == 'null' ||
+              identifier == 'const') {
+            continue;
+          }
+          // Bare lowerCamel identifiers inside const-ctor args are usually
+          // top-level constants/functions from another source library and are
+          // not safe to emit directly in generated bridge libraries.
+          return null;
+        }
+      }
+
+      if (argsContent.isNotEmpty &&
+          RegExp(r'(^|[^\w])_[A-Za-z]\w*').hasMatch(argsContent)) {
+        // Private symbols are library-scoped and not accessible from
+        // generated bridge files, so defaults referencing them are non-wrappable.
+        return null;
+      }
+
       final resolvedPrefix = _resolveDefaultTypePrefix(
         className,
         sourceUri,
@@ -5354,6 +5380,21 @@ class BridgeGenerator {
         .whereType<String>() // Filter out nulls (skipped libraries)
         .toSet();
 
+    bool shouldAliasSdkImport(String sdkUri) {
+      if (sdkUri == 'dart:math') {
+        return true;
+      }
+      for (final entry in _globalTypeToUri.entries) {
+        final normalizedUri = mapPrivateSdkLibrary(entry.value);
+        if (normalizedUri == sdkUri &&
+            !_isBuiltInType(entry.key) &&
+            _exportedTypeNames.contains(entry.key)) {
+          return true;
+        }
+      }
+      return false;
+    }
+
     // Add SDK imports.
     // Keep most dart:* imports unprefixed, but honor precomputed aliases
     // for clash-prone symbols.
@@ -5361,6 +5402,12 @@ class BridgeGenerator {
       final sdkPrefix = _importPrefixes[importPath];
       if (sdkPrefix != null && sdkPrefix.isNotEmpty) {
         buffer.writeln("import '$importPath' as $sdkPrefix;");
+        buffer.writeln("import '$importPath';");
+      } else if (shouldAliasSdkImport(importPath)) {
+        final generatedPrefix = _generateImportPrefix(importPath);
+        _importPrefixes[importPath] = generatedPrefix;
+        buffer.writeln("import '$importPath' as $generatedPrefix;");
+        buffer.writeln("import '$importPath';");
       } else {
         _importPrefixes[importPath] = '';
         buffer.writeln("import '$importPath';");
@@ -6290,11 +6337,20 @@ class BridgeGenerator {
                 );
               }
             } else {
-              // Truly optional with no default - use nullable type
-              final nullableType = _makeNullable(resolvedType);
-              argDeclarations.add(
-                "        final $localName = D4.getOptionalNamedArg<$nullableType>(named, '${param.name}');",
-              );
+              if (param.type.endsWith('?')) {
+                // Truly optional nullable parameter with no default
+                final nullableType = _makeNullable(resolvedType);
+                argDeclarations.add(
+                  "        final $localName = D4.getOptionalNamedArg<$nullableType>(named, '${param.name}');",
+                );
+              } else {
+                // Non-nullable optional named parameter with unavailable default.
+                // This pattern appears in some external APIs where analyzer
+                // summaries don't expose default value code.
+                argDeclarations.add(
+                  "        final $localName = D4.getRequiredNamedArgTodoDefault<$resolvedType>(named, '${param.name}', '${func.name}', '<default unavailable>');",
+                );
+              }
             }
             callArgs.add('${param.name}: $localName');
           } else {
@@ -8153,9 +8209,15 @@ class BridgeGenerator {
           );
         }
       } else {
-        buffer.writeln(
-          "            final $localName = D4.getOptionalNamedArg<$typeArg?>(named, '${param.name}');",
-        );
+        if (param.type.endsWith('?')) {
+          buffer.writeln(
+            "            final $localName = D4.getOptionalNamedArg<$typeArg?>(named, '${param.name}');",
+          );
+        } else {
+          buffer.writeln(
+            "            final $localName = D4.getRequiredNamedArgTodoDefault<$typeArg>(named, '${param.name}', '$contextName', '<default unavailable>');",
+          );
+        }
       }
     }
   }
@@ -9247,10 +9309,10 @@ class BridgeGenerator {
 
     // Standard extraction for other types
     final helperMethod = param.isRequired
-        ? 'D4.getRequiredNamedArg'
-        : (param.defaultValue != null
-              ? 'D4.getNamedArgWithDefault'
-              : 'D4.getOptionalNamedArg');
+      ? 'D4.getRequiredNamedArg'
+      : (param.defaultValue != null
+          ? 'D4.getNamedArgWithDefault'
+          : 'D4.getOptionalNamedArg');
     final typeArg = _getTypeArgument(
       param.type,
       typeToUri: param.typeToUri,
@@ -9286,10 +9348,17 @@ class BridgeGenerator {
         );
       }
     } else {
-      buffer.writeln(
-        "        final $localName = $helperMethod<$typeArg>"
-        "(named, '${param.name}'${param.isRequired ? ", '$contextName'" : ''});",
-      );
+      if (!param.isRequired && !param.type.endsWith('?')) {
+        buffer.writeln(
+          "        final $localName = D4.getRequiredNamedArgTodoDefault<$typeArg>"
+          "(named, '${param.name}', '$contextName', '<default unavailable>');",
+        );
+      } else {
+        buffer.writeln(
+          "        final $localName = $helperMethod<$typeArg>"
+          "(named, '${param.name}'${param.isRequired ? ", '$contextName'" : ''});",
+        );
+      }
     }
     return true;
   }
@@ -10990,24 +11059,39 @@ class BridgeGenerator {
     // Resolve positional parameter types
     final resolvedPositional = <String>[];
     for (final paramType in funcInfo.positionalParamTypes) {
-      final resolved = _getTypeArgument(
-        paramType,
-        typeToUri: typeToUri,
-        classTypeParams: classTypeParams,
-        sourceFilePath: sourceFilePath,
-      );
+      final resolved = paramType.contains('Function(')
+          ? _resolveInlineFunctionType(
+              paramType,
+              typeToUri: typeToUri,
+              classTypeParams: classTypeParams,
+              sourceFilePath: sourceFilePath,
+            )
+          : _getTypeArgument(
+              paramType,
+              typeToUri: typeToUri,
+              classTypeParams: classTypeParams,
+              sourceFilePath: sourceFilePath,
+            );
       resolvedPositional.add(resolved);
     }
 
     // Resolve named parameter types
     final resolvedNamed = <String>[];
     for (final entry in funcInfo.namedParamTypes.entries) {
-      final resolved = _getTypeArgument(
-        entry.value,
-        typeToUri: typeToUri,
-        classTypeParams: classTypeParams,
-        sourceFilePath: sourceFilePath,
-      );
+      final namedType = entry.value;
+      final resolved = namedType.contains('Function(')
+          ? _resolveInlineFunctionType(
+              namedType,
+              typeToUri: typeToUri,
+              classTypeParams: classTypeParams,
+              sourceFilePath: sourceFilePath,
+            )
+          : _getTypeArgument(
+              namedType,
+              typeToUri: typeToUri,
+              classTypeParams: classTypeParams,
+              sourceFilePath: sourceFilePath,
+            );
       final isRequired = funcInfo.namedParamRequired[entry.key] ?? false;
       if (isRequired) {
         resolvedNamed.add('required $resolved ${entry.key}');

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 51 files
-// Generated: 2026-02-27T04:04:12.999415
+// Generated: 2026-02-27T07:29:27.868853
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -9,6 +9,7 @@ import 'package:tom_d4rt_ast/tom_d4rt_ast.dart';
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
+import 'dart:math' as $dart_math;
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui';
@@ -2127,22 +2128,22 @@ BridgedClass _createBorderRadiusGeometryBridge() {
         return $flutter_14.BorderRadiusGeometry.horizontal(left: left, right: right, start: start, end: end);
       },
       'only': (visitor, positional, named) {
-        final topLeft = D4.getOptionalNamedArg<Radius>(named, 'topLeft');
-        final topRight = D4.getOptionalNamedArg<Radius>(named, 'topRight');
-        final bottomLeft = D4.getOptionalNamedArg<Radius>(named, 'bottomLeft');
-        final bottomRight = D4.getOptionalNamedArg<Radius>(named, 'bottomRight');
+        final topLeft = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'topLeft', 'BorderRadiusGeometry', '<default unavailable>');
+        final topRight = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'topRight', 'BorderRadiusGeometry', '<default unavailable>');
+        final bottomLeft = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'bottomLeft', 'BorderRadiusGeometry', '<default unavailable>');
+        final bottomRight = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'bottomRight', 'BorderRadiusGeometry', '<default unavailable>');
         return $flutter_14.BorderRadiusGeometry.only(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight);
       },
       'directional': (visitor, positional, named) {
-        final topStart = D4.getOptionalNamedArg<Radius>(named, 'topStart');
-        final topEnd = D4.getOptionalNamedArg<Radius>(named, 'topEnd');
-        final bottomStart = D4.getOptionalNamedArg<Radius>(named, 'bottomStart');
-        final bottomEnd = D4.getOptionalNamedArg<Radius>(named, 'bottomEnd');
+        final topStart = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'topStart', 'BorderRadiusGeometry', '<default unavailable>');
+        final topEnd = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'topEnd', 'BorderRadiusGeometry', '<default unavailable>');
+        final bottomStart = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'bottomStart', 'BorderRadiusGeometry', '<default unavailable>');
+        final bottomEnd = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'bottomEnd', 'BorderRadiusGeometry', '<default unavailable>');
         return $flutter_14.BorderRadiusGeometry.directional(topStart: topStart, topEnd: topEnd, bottomStart: bottomStart, bottomEnd: bottomEnd);
       },
       'vertical': (visitor, positional, named) {
-        final top = D4.getOptionalNamedArg<Radius>(named, 'top');
-        final bottom = D4.getOptionalNamedArg<Radius>(named, 'bottom');
+        final top = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'top', 'BorderRadiusGeometry', '<default unavailable>');
+        final bottom = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'bottom', 'BorderRadiusGeometry', '<default unavailable>');
         return $flutter_14.BorderRadiusGeometry.vertical(top: top, bottom: bottom);
       },
     },
@@ -2937,10 +2938,10 @@ BridgedClass _createBoxBorderBridge() {
         return $flutter_16.BoxBorder.fromLTRB(top: top, right: right, bottom: bottom, left: left);
       },
       'all': (visitor, positional, named) {
-        final color = D4.getOptionalNamedArg<Color>(named, 'color');
-        final width = D4.getOptionalNamedArg<double>(named, 'width');
-        final style = D4.getOptionalNamedArg<$flutter_15.BorderStyle>(named, 'style');
-        final strokeAlign = D4.getOptionalNamedArg<double>(named, 'strokeAlign');
+        final color = D4.getRequiredNamedArgTodoDefault<Color>(named, 'color', 'BoxBorder', '<default unavailable>');
+        final width = D4.getRequiredNamedArgTodoDefault<double>(named, 'width', 'BoxBorder', '<default unavailable>');
+        final style = D4.getRequiredNamedArgTodoDefault<$flutter_15.BorderStyle>(named, 'style', 'BoxBorder', '<default unavailable>');
+        final strokeAlign = D4.getRequiredNamedArgTodoDefault<double>(named, 'strokeAlign', 'BoxBorder', '<default unavailable>');
         return $flutter_16.BoxBorder.all(color: color, width: width, style: style, strokeAlign: strokeAlign);
       },
       'fromBorderSide': (visitor, positional, named) {
@@ -2949,8 +2950,8 @@ BridgedClass _createBoxBorderBridge() {
         return $flutter_16.BoxBorder.fromBorderSide(side);
       },
       'symmetric': (visitor, positional, named) {
-        final vertical = D4.getOptionalNamedArg<$flutter_15.BorderSide>(named, 'vertical');
-        final horizontal = D4.getOptionalNamedArg<$flutter_15.BorderSide>(named, 'horizontal');
+        final vertical = D4.getRequiredNamedArgTodoDefault<$flutter_15.BorderSide>(named, 'vertical', 'BoxBorder', '<default unavailable>');
+        final horizontal = D4.getRequiredNamedArgTodoDefault<$flutter_15.BorderSide>(named, 'horizontal', 'BoxBorder', '<default unavailable>');
         return $flutter_16.BoxBorder.symmetric(vertical: vertical, horizontal: horizontal);
       },
       'fromSTEB': (visitor, positional, named) {
@@ -3622,12 +3623,18 @@ BridgedClass _createBoxShadowBridge() {
     name: 'BoxShadow',
     constructors: {
       '': (visitor, positional, named) {
-        final color = D4.getNamedArgWithDefault<Color>(named, 'color', const Color(_kColorDefault));
         final offset = D4.getNamedArgWithDefault<Offset>(named, 'offset', Offset.zero);
         final blurRadius = D4.getNamedArgWithDefault<double>(named, 'blurRadius', 0.0);
         final spreadRadius = D4.getNamedArgWithDefault<double>(named, 'spreadRadius', 0.0);
         final blurStyle = D4.getNamedArgWithDefault<BlurStyle>(named, 'blurStyle', BlurStyle.normal);
-        return $flutter_19.BoxShadow(color: color, offset: offset, blurRadius: blurRadius, spreadRadius: spreadRadius, blurStyle: blurStyle);
+        if (!named.containsKey('color')) {
+          return $flutter_19.BoxShadow(offset: offset, blurRadius: blurRadius, spreadRadius: spreadRadius, blurStyle: blurStyle);
+        }
+        if (named.containsKey('color')) {
+          final color = D4.getRequiredNamedArg<Color>(named, 'color', 'BoxShadow');
+          return $flutter_19.BoxShadow(offset: offset, blurRadius: blurRadius, spreadRadius: spreadRadius, blurStyle: blurStyle, color: color);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
@@ -4885,22 +4892,22 @@ BridgedClass _createEdgeInsetsGeometryBridge() {
         return $flutter_27.EdgeInsetsGeometry.all(value);
       },
       'only': (visitor, positional, named) {
-        final left = D4.getOptionalNamedArg<double>(named, 'left');
-        final right = D4.getOptionalNamedArg<double>(named, 'right');
-        final top = D4.getOptionalNamedArg<double>(named, 'top');
-        final bottom = D4.getOptionalNamedArg<double>(named, 'bottom');
+        final left = D4.getRequiredNamedArgTodoDefault<double>(named, 'left', 'EdgeInsetsGeometry', '<default unavailable>');
+        final right = D4.getRequiredNamedArgTodoDefault<double>(named, 'right', 'EdgeInsetsGeometry', '<default unavailable>');
+        final top = D4.getRequiredNamedArgTodoDefault<double>(named, 'top', 'EdgeInsetsGeometry', '<default unavailable>');
+        final bottom = D4.getRequiredNamedArgTodoDefault<double>(named, 'bottom', 'EdgeInsetsGeometry', '<default unavailable>');
         return $flutter_27.EdgeInsetsGeometry.only(left: left, right: right, top: top, bottom: bottom);
       },
       'directional': (visitor, positional, named) {
-        final start = D4.getOptionalNamedArg<double>(named, 'start');
-        final end = D4.getOptionalNamedArg<double>(named, 'end');
-        final top = D4.getOptionalNamedArg<double>(named, 'top');
-        final bottom = D4.getOptionalNamedArg<double>(named, 'bottom');
+        final start = D4.getRequiredNamedArgTodoDefault<double>(named, 'start', 'EdgeInsetsGeometry', '<default unavailable>');
+        final end = D4.getRequiredNamedArgTodoDefault<double>(named, 'end', 'EdgeInsetsGeometry', '<default unavailable>');
+        final top = D4.getRequiredNamedArgTodoDefault<double>(named, 'top', 'EdgeInsetsGeometry', '<default unavailable>');
+        final bottom = D4.getRequiredNamedArgTodoDefault<double>(named, 'bottom', 'EdgeInsetsGeometry', '<default unavailable>');
         return $flutter_27.EdgeInsetsGeometry.directional(start: start, end: end, top: top, bottom: bottom);
       },
       'symmetric': (visitor, positional, named) {
-        final vertical = D4.getOptionalNamedArg<double>(named, 'vertical');
-        final horizontal = D4.getOptionalNamedArg<double>(named, 'horizontal');
+        final vertical = D4.getRequiredNamedArgTodoDefault<double>(named, 'vertical', 'EdgeInsetsGeometry', '<default unavailable>');
+        final horizontal = D4.getRequiredNamedArgTodoDefault<double>(named, 'horizontal', 'EdgeInsetsGeometry', '<default unavailable>');
         return $flutter_27.EdgeInsetsGeometry.symmetric(vertical: vertical, horizontal: horizontal);
       },
       'fromLTRB': (visitor, positional, named) {
@@ -6869,9 +6876,9 @@ BridgedClass _createNetworkImageBridge() {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'NetworkImage');
         final url = D4.getRequiredArg<String>(positional, 0, 'url', 'NetworkImage');
-        final scale = D4.getOptionalNamedArg<double>(named, 'scale');
+        final scale = D4.getRequiredNamedArgTodoDefault<double>(named, 'scale', 'NetworkImage', '<default unavailable>');
         final headers = D4.coerceMapOrNull<String, String>(named['headers'], 'headers');
-        final webHtmlElementStrategy = D4.getOptionalNamedArg<$flutter_34.WebHtmlElementStrategy>(named, 'webHtmlElementStrategy');
+        final webHtmlElementStrategy = D4.getRequiredNamedArgTodoDefault<$flutter_34.WebHtmlElementStrategy>(named, 'webHtmlElementStrategy', 'NetworkImage', '<default unavailable>');
         return $flutter_34.NetworkImage(url, scale: scale, headers: headers, webHtmlElementStrategy: webHtmlElementStrategy);
       },
     },
@@ -12313,7 +12320,7 @@ BridgedClass _createVector3Bridge() {
         return $vector_math_1.Vector3.fromBuffer(buffer, offset);
       },
       'random': (visitor, positional, named) {
-        final rng = D4.getOptionalArg<Random?>(positional, 0, 'rng');
+        final rng = D4.getOptionalArg<$dart_math.Random?>(positional, 0, 'rng');
         return $vector_math_1.Vector3.random(rng);
       },
     },
@@ -13667,7 +13674,7 @@ BridgedClass _createVector2Bridge() {
         return $vector_math_1.Vector2.fromBuffer(buffer, offset);
       },
       'random': (visitor, positional, named) {
-        final rng = D4.getOptionalArg<Random?>(positional, 0, 'rng');
+        final rng = D4.getOptionalArg<$dart_math.Random?>(positional, 0, 'rng');
         return $vector_math_1.Vector2.random(rng);
       },
     },

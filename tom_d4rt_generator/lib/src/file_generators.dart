@@ -64,12 +64,16 @@ String generateBarrelFileContent(BridgeConfig config) {
   buffer.writeln('library;');
   buffer.writeln();
 
+  final barrelPath = config.barrelPath != null
+      ? ensureBDartExtension(config.barrelPath!)
+      : null;
+  final barrelDir = barrelPath != null ? p.dirname(barrelPath) : 'lib';
+
   for (final module in config.modules) {
     final normalizedOutput = ensureBDartExtension(module.outputPath);
-    final relativePath = normalizedOutput.startsWith('lib/')
-        ? normalizedOutput.substring(4)
-        : normalizedOutput;
-    buffer.writeln("export '$relativePath';");
+    final relativePath = p.relative(normalizedOutput, from: barrelDir);
+    final dartPath = p.posix.normalize(relativePath.replaceAll('\\', '/'));
+    buffer.writeln("export '$dartPath';");
   }
 
   return buffer.toString();

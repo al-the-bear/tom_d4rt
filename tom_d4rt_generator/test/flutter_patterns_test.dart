@@ -147,6 +147,78 @@ void main() {
       );
 
       test(
+        'G-FLP-38: Private const identifiers in defaults are not emitted directly. [2026-02-27] (FAIL)',
+        () {
+          expect(
+            generatedCode,
+            contains("name: 'WidgetWithPrivateConstArgDefault'"),
+          );
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createWidgetWithPrivateConstArgDefaultBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(
+              contains(
+                r"getNamedArgWithDefault<$test_package_1.BoxSideLike>(named, 'side', const $test_package_1.BoxSideLike(width: _privateDefaultWidth))",
+              ),
+            ),
+            reason:
+                'Private identifiers from source defaults are not visible in generated bridge library and must not be emitted directly',
+          );
+          expect(
+            section,
+            contains('return \$test_package_1.WidgetWithPrivateConstArgDefault();'),
+            reason:
+                'Private const arg defaults should use combinatorial fallback path (omitted named arg => constructor default)',
+          );
+        },
+      );
+
+      test(
+        'G-FLP-42: Bare identifier values in const-arg defaults are not emitted directly. [2026-02-27] (FAIL)',
+        () {
+          expect(
+            generatedCode,
+            contains("name: 'WidgetWithIdentifierConstArgDefault'"),
+          );
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createWidgetWithIdentifierConstArgDefaultBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(
+              contains(
+                r"getNamedArgWithDefault<$test_package_1.BoxSideLike>(named, 'side', const $test_package_1.BoxSideLike(width: touchSlopLike))",
+              ),
+            ),
+            reason:
+                'Bare identifier values inside const-ctor defaults are often unresolved across generated library boundaries and must not be emitted directly',
+          );
+        },
+      );
+
+      test(
         'G-FLP-04: const BoxSideLike() default uses non-nullable type. [2026-02-26] (FAIL)',
         () {
           expect(
@@ -1087,6 +1159,137 @@ void main() {
             contains(RegExp(r'\$dart_collection(?:_\d+)?\.Queue<int>')),
             reason:
                 'SDK Queue should be explicitly namespaced to avoid clashing with local Queue type',
+          );
+        },
+      );
+
+      test(
+        'G-FLP-40: SDK imports are aliased when prefixed SDK types are emitted. [2026-02-27] (FAIL)',
+        () {
+          expect(
+            generatedCode,
+            contains("import 'dart:collection' as \$dart_collection;"),
+            reason:
+                'When generated code uses \$dart_collection-prefixed symbols, import must carry matching alias',
+          );
+          expect(
+            generatedCode,
+            contains("import 'dart:math' as \$dart_math;"),
+            reason:
+                'When generated code uses \$dart_math-prefixed symbols, import must carry matching alias',
+          );
+        },
+      );
+    });
+
+    // =========================================================================
+    // RC-1c: External-style optional non-nullable params without visible defaults
+    // =========================================================================
+    group('RC-1c: External default gaps', () {
+      test(
+        'G-FLP-39: External non-nullable named params do not degrade to nullable extraction. [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'ExternalDefaultGapLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createExternalDefaultGapLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(contains("getOptionalNamedArg<bool?>(named, 'scrollable')")),
+            reason:
+                'Non-nullable optional bool should not be extracted as nullable bool?',
+          );
+          expect(
+            section,
+            isNot(contains("getOptionalNamedArg<int?>(named, 'maxLines')")),
+            reason:
+                'Non-nullable optional int should not be extracted as nullable int?',
+          );
+        },
+      );
+
+      test(
+        'G-FLP-41: Wide external non-nullable named params avoid nullable extraction. [2026-02-27] (FAIL)',
+        () {
+          expect(
+            generatedCode,
+            contains("name: 'ExternalWideDefaultGapLike'"),
+          );
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createExternalWideDefaultGapLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(contains('getOptionalNamedArg<bool?>')),
+            reason:
+                'Non-nullable bool should not be extracted through nullable helper',
+          );
+          expect(
+            section,
+            isNot(contains('getOptionalNamedArg<Duration?>')),
+            reason:
+                'Non-nullable Duration should not be extracted through nullable helper',
+          );
+          expect(
+            section,
+            contains('getRequiredNamedArgTodoDefault'),
+            reason:
+                'When defaults are unavailable, non-nullable optional params should use TODO-default helper path',
+          );
+        },
+      );
+
+      test(
+        'G-FLP-43: Nested callback typedef argument shape is preserved. [2026-02-27] (FAIL)',
+        () {
+          expect(
+            generatedCode,
+            contains("name: 'StatefulBuilderHostLike'"),
+          );
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createStatefulBuilderHostLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(contains('void Function(void)')),
+            reason:
+                'Nested callback typedefs must not degrade inner callback argument to void-typed value',
+          );
+          expect(
+            section,
+            contains('void Function(void Function())'),
+            reason:
+                'Expected preserved nested callback signature for StateSetterLike',
           );
         },
       );
