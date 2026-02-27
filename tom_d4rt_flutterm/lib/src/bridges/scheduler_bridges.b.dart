@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 6 files
-// Generated: 2026-02-27T14:31:35.262269
+// Generated: 2026-02-27T15:45:22.201358
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -8,6 +8,7 @@ import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_ast/tom_d4rt_ast.dart';
 import 'dart:async';
 import 'dart:developer';
+import 'dart:ui' as $dart_ui;
 import 'dart:ui';
 
 import 'package:flutter/src/foundation/diagnostics.dart' as $flutter_1;
@@ -16,7 +17,6 @@ import 'package:flutter/src/scheduler/debug.dart' as $flutter_3;
 import 'package:flutter/src/scheduler/priority.dart' as $flutter_4;
 import 'package:flutter/src/scheduler/service_extensions.dart' as $flutter_5;
 import 'package:flutter/src/scheduler/ticker.dart' as $flutter_6;
-import 'package:flutter/src/foundation/binding.dart' as $aux_flutter;
 
 /// Bridge class for flutter_scheduler module.
 class FlutterSchedulerBridge {
@@ -148,7 +148,7 @@ class FlutterSchedulerBridge {
       errors.add('Failed to register variable "debugTracePostFrameCallbacks": $e');
     }
     interpreter.registerGlobalGetter('timeDilation', () => $flutter_2.timeDilation, importPath, sourceUri: 'package:flutter/src/scheduler/binding.dart');
-    interpreter.registerGlobalSetter('timeDilation', (v) => $flutter_2.timeDilation = v as $flutter_2.double, importPath, sourceUri: 'package:flutter/src/scheduler/binding.dart');
+    interpreter.registerGlobalSetter('timeDilation', (v) => $flutter_2.timeDilation = v as double, importPath, sourceUri: 'package:flutter/src/scheduler/binding.dart');
 
     if (errors.isNotEmpty) {
       throw StateError('Bridge registration errors (flutter_scheduler):\n${errors.join("\n")}');
@@ -318,32 +318,34 @@ BridgedClass _createSchedulerBindingBridge() {
       'framesEnabled': (visitor, target) => D4.validateTarget<$flutter_2.SchedulerBinding>(target, 'SchedulerBinding').framesEnabled,
       'currentFrameTimeStamp': (visitor, target) => D4.validateTarget<$flutter_2.SchedulerBinding>(target, 'SchedulerBinding').currentFrameTimeStamp,
       'currentSystemFrameTimeStamp': (visitor, target) => D4.validateTarget<$flutter_2.SchedulerBinding>(target, 'SchedulerBinding').currentSystemFrameTimeStamp,
-      'window': (visitor, target) => D4.validateTarget<$flutter_2.SchedulerBinding>(target, 'SchedulerBinding').window,
-      'platformDispatcher': (visitor, target) => D4.validateTarget<$flutter_2.SchedulerBinding>(target, 'SchedulerBinding').platformDispatcher,
     },
     setters: {
       'schedulingStrategy': (visitor, target, value) => 
         D4.validateTarget<$flutter_2.SchedulerBinding>(target, 'SchedulerBinding').schedulingStrategy = value as $flutter_2.SchedulingStrategy,
     },
     methods: {
+      'initInstances': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_2.SchedulerBinding>(target, 'SchedulerBinding');
+        t.initInstances();
+        return null;
+      },
       'addTimingsCallback': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.SchedulerBinding>(target, 'SchedulerBinding');
         D4.requireMinArgs(positional, 1, 'addTimingsCallback');
-        if (positional.isEmpty) {
-          throw ArgumentError('addTimingsCallback: Missing required argument "callback" at position 0');
-        }
-        final callbackRaw = positional[0];
-        t.addTimingsCallback((List<FrameTiming> p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); });
+        final callback = D4.getRequiredArg<$flutter_2.TimingsCallback>(positional, 0, 'callback', 'addTimingsCallback');
+        t.addTimingsCallback(callback);
         return null;
       },
       'removeTimingsCallback': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.SchedulerBinding>(target, 'SchedulerBinding');
         D4.requireMinArgs(positional, 1, 'removeTimingsCallback');
-        if (positional.isEmpty) {
-          throw ArgumentError('removeTimingsCallback: Missing required argument "callback" at position 0');
-        }
-        final callbackRaw = positional[0];
-        t.removeTimingsCallback((List<FrameTiming> p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); });
+        final callback = D4.getRequiredArg<$flutter_2.TimingsCallback>(positional, 0, 'callback', 'removeTimingsCallback');
+        t.removeTimingsCallback(callback);
+        return null;
+      },
+      'initServiceExtensions': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_2.SchedulerBinding>(target, 'SchedulerBinding');
+        (t as dynamic).initServiceExtensions();
         return null;
       },
       'scheduleTask': (visitor, target, positional, named, typeArgs) {
@@ -357,6 +359,11 @@ BridgedClass _createSchedulerBindingBridge() {
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final flow = D4.getOptionalNamedArg<Flow?>(named, 'flow');
         return t.scheduleTask(() { return D4.callInterpreterCallback(visitor, taskRaw, []) as FutureOr<Object>; }, priority, debugLabel: debugLabel, flow: flow);
+      },
+      'unlocked': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_2.SchedulerBinding>(target, 'SchedulerBinding');
+        (t as dynamic).unlocked();
+        return null;
       },
       'scheduleFrameCallback': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.SchedulerBinding>(target, 'SchedulerBinding');
@@ -450,7 +457,7 @@ BridgedClass _createSchedulerBindingBridge() {
       'requestPerformanceMode': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.SchedulerBinding>(target, 'SchedulerBinding');
         D4.requireMinArgs(positional, 1, 'requestPerformanceMode');
-        final mode = D4.getRequiredArg<DartPerformanceMode>(positional, 0, 'mode', 'requestPerformanceMode');
+        final mode = D4.getRequiredArg<$flutter_2.DartPerformanceMode>(positional, 0, 'mode', 'requestPerformanceMode');
         return t.requestPerformanceMode(mode);
       },
       'debugGetRequestedPerformanceMode': (visitor, target, positional, named, typeArgs) {
@@ -462,20 +469,6 @@ BridgedClass _createSchedulerBindingBridge() {
         t.handleDrawFrame();
         return null;
       },
-      'debugCheckZone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.SchedulerBinding>(target, 'SchedulerBinding');
-        D4.requireMinArgs(positional, 1, 'debugCheckZone');
-        final entryPoint = D4.getRequiredArg<String>(positional, 0, 'entryPoint', 'debugCheckZone');
-        return t.debugCheckZone(entryPoint);
-      },
-      'reassembleApplication': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.SchedulerBinding>(target, 'SchedulerBinding');
-        return t.reassembleApplication();
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.SchedulerBinding>(target, 'SchedulerBinding');
-        return t.toString();
-      },
     },
     staticGetters: {
       'instance': (visitor) => $flutter_2.SchedulerBinding.instance,
@@ -486,9 +479,12 @@ BridgedClass _createSchedulerBindingBridge() {
       },
     },
     methodSignatures: {
+      'initInstances': 'void initInstances()',
       'addTimingsCallback': 'void addTimingsCallback(TimingsCallback callback)',
       'removeTimingsCallback': 'void removeTimingsCallback(TimingsCallback callback)',
+      'initServiceExtensions': 'void initServiceExtensions()',
       'scheduleTask': 'Future<T> scheduleTask(TaskCallback<T> task, Priority priority, {String? debugLabel, Flow? flow})',
+      'unlocked': 'void unlocked()',
       'scheduleFrameCallback': 'int scheduleFrameCallback(FrameCallback callback, {bool rescheduling = false, bool scheduleNewFrame = true})',
       'cancelFrameCallbackWithId': 'void cancelFrameCallbackWithId(int id)',
       'debugAssertNoTransientCallbacks': 'bool debugAssertNoTransientCallbacks(String reason)',
@@ -505,9 +501,6 @@ BridgedClass _createSchedulerBindingBridge() {
       'requestPerformanceMode': 'PerformanceModeRequestHandle? requestPerformanceMode(DartPerformanceMode mode)',
       'debugGetRequestedPerformanceMode': 'DartPerformanceMode? debugGetRequestedPerformanceMode()',
       'handleDrawFrame': 'void handleDrawFrame()',
-      'debugCheckZone': 'bool debugCheckZone(String entryPoint)',
-      'reassembleApplication': 'Future<void> reassembleApplication()',
-      'toString': 'String toString()',
     },
     getterSignatures: {
       'lifecycleState': 'AppLifecycleState? get lifecycleState',
@@ -519,8 +512,6 @@ BridgedClass _createSchedulerBindingBridge() {
       'framesEnabled': 'bool get framesEnabled',
       'currentFrameTimeStamp': 'Duration get currentFrameTimeStamp',
       'currentSystemFrameTimeStamp': 'Duration get currentSystemFrameTimeStamp',
-      'window': 'SingletonFlutterWindow get window',
-      'platformDispatcher': 'PlatformDispatcher get platformDispatcher',
     },
     setterSignatures: {
       'schedulingStrategy': 'set schedulingStrategy(dynamic value)',
@@ -709,12 +700,15 @@ BridgedClass _createTickerBridge() {
       },
     },
     getters: {
+      'forceFrames': (visitor, target) => D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker').forceFrames,
       'muted': (visitor, target) => D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker').muted,
       'isTicking': (visitor, target) => D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker').isTicking,
       'isActive': (visitor, target) => D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker').isActive,
       'debugLabel': (visitor, target) => D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker').debugLabel,
     },
     setters: {
+      'forceFrames': (visitor, target, value) => 
+        D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker').forceFrames = value as bool,
       'muted': (visitor, target, value) => 
         D4.validateTarget<$flutter_6.Ticker>(target, 'Ticker').muted = value as dynamic,
     },
@@ -765,12 +759,14 @@ BridgedClass _createTickerBridge() {
       'toString': 'String toString({bool debugIncludeStack = false})',
     },
     getterSignatures: {
+      'forceFrames': 'bool get forceFrames',
       'muted': 'bool get muted',
       'isTicking': 'bool get isTicking',
       'isActive': 'bool get isActive',
       'debugLabel': 'String? get debugLabel',
     },
     setterSignatures: {
+      'forceFrames': 'set forceFrames(dynamic value)',
       'muted': 'set muted(bool value)',
     },
   );

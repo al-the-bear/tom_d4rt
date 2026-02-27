@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 14 files
-// Generated: 2026-02-27T14:31:45.209897
+// Generated: 2026-02-27T15:45:28.731209
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -10,20 +10,18 @@ import 'dart:async';
 import 'dart:math' as $dart_math;
 import 'dart:math';
 import 'dart:typed_data';
+import 'dart:ui' as $dart_ui;
 import 'dart:ui';
 
-import 'package:flutter/src/foundation/basic_types.dart' as $flutter_1;
-import 'package:flutter/src/foundation/diagnostics.dart' as $flutter_2;
-import 'package:flutter/src/foundation/key.dart' as $flutter_3;
-import 'package:flutter/src/semantics/binding.dart' as $flutter_4;
-import 'package:flutter/src/semantics/debug.dart' as $flutter_5;
-import 'package:flutter/src/semantics/semantics.dart' as $flutter_6;
-import 'package:flutter/src/semantics/semantics_event.dart' as $flutter_7;
-import 'package:flutter/src/semantics/semantics_service.dart' as $flutter_8;
-import 'package:flutter/src/services/text_editing.dart' as $flutter_9;
+import 'package:flutter/src/foundation/diagnostics.dart' as $flutter_1;
+import 'package:flutter/src/foundation/key.dart' as $flutter_2;
+import 'package:flutter/src/semantics/binding.dart' as $flutter_3;
+import 'package:flutter/src/semantics/debug.dart' as $flutter_4;
+import 'package:flutter/src/semantics/semantics.dart' as $flutter_5;
+import 'package:flutter/src/semantics/semantics_event.dart' as $flutter_6;
+import 'package:flutter/src/semantics/semantics_service.dart' as $flutter_7;
+import 'package:flutter/src/services/text_editing.dart' as $flutter_8;
 import 'package:vector_math/vector_math_64.dart' as $vector_math_1;
-import 'package:flutter/src/foundation/binding.dart' as $aux_flutter;
-import 'package:flutter/src/foundation/change_notifier.dart' as $aux_flutter_3;
 
 /// Bridge class for flutter_semantics module.
 class FlutterSemanticsBridge {
@@ -97,17 +95,21 @@ class FlutterSemanticsBridge {
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
-      BridgedEnumDefinition<$flutter_2.DiagnosticLevel>(
+      BridgedEnumDefinition<$flutter_1.DiagnosticLevel>(
         name: 'DiagnosticLevel',
-        values: $flutter_2.DiagnosticLevel.values,
+        values: $flutter_1.DiagnosticLevel.values,
       ),
-      BridgedEnumDefinition<$flutter_2.DiagnosticsTreeStyle>(
+      BridgedEnumDefinition<$flutter_1.DiagnosticsTreeStyle>(
         name: 'DiagnosticsTreeStyle',
-        values: $flutter_2.DiagnosticsTreeStyle.values,
+        values: $flutter_1.DiagnosticsTreeStyle.values,
       ),
-      BridgedEnumDefinition<$flutter_6.DebugSemanticsDumpOrder>(
+      BridgedEnumDefinition<$flutter_5.AccessibilityFocusBlockType>(
+        name: 'AccessibilityFocusBlockType',
+        values: $flutter_5.AccessibilityFocusBlockType.values,
+      ),
+      BridgedEnumDefinition<$flutter_5.DebugSemanticsDumpOrder>(
         name: 'DebugSemanticsDumpOrder',
-        values: $flutter_6.DebugSemanticsDumpOrder.values,
+        values: $flutter_5.DebugSemanticsDumpOrder.values,
       ),
     ];
   }
@@ -120,6 +122,7 @@ class FlutterSemanticsBridge {
     return {
       'DiagnosticLevel': 'package:flutter/src/foundation/diagnostics.dart',
       'DiagnosticsTreeStyle': 'package:flutter/src/foundation/diagnostics.dart',
+      'AccessibilityFocusBlockType': 'package:flutter/src/semantics/semantics.dart',
       'DebugSemanticsDumpOrder': 'package:flutter/src/semantics/semantics.dart',
     };
   }
@@ -176,7 +179,7 @@ class FlutterSemanticsBridge {
     final errors = <String>[];
 
     try {
-      interpreter.registerGlobalVariable('debugSemanticsDisableAnimations', $flutter_5.debugSemanticsDisableAnimations, importPath, sourceUri: 'package:flutter/src/semantics/debug.dart');
+      interpreter.registerGlobalVariable('debugSemanticsDisableAnimations', $flutter_4.debugSemanticsDisableAnimations, importPath, sourceUri: 'package:flutter/src/semantics/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugSemanticsDisableAnimations": $e');
     }
@@ -435,7 +438,7 @@ class FlutterSemanticsBridge {
         return $vector_math_1.buildPlaneVectors(planeNormal, u, v);
       },
       'debugResetSemanticsIdCounter': (visitor, positional, named, typeArgs) {
-        return $flutter_6.debugResetSemanticsIdCounter();
+        return $flutter_5.debugResetSemanticsIdCounter();
       },
     };
   }
@@ -568,6 +571,7 @@ class FlutterSemanticsBridge {
   static List<String> get enumNames => [
     'DiagnosticLevel',
     'DiagnosticsTreeStyle',
+    'AccessibilityFocusBlockType',
     'DebugSemanticsDumpOrder',
   ];
 
@@ -579,21 +583,24 @@ class FlutterSemanticsBridge {
 
 BridgedClass _createSemanticsBindingBridge() {
   return BridgedClass(
-    nativeType: $flutter_4.SemanticsBinding,
+    nativeType: $flutter_3.SemanticsBinding,
     name: 'SemanticsBinding',
     constructors: {
     },
     getters: {
-      'semanticsEnabled': (visitor, target) => D4.validateTarget<$flutter_4.SemanticsBinding>(target, 'SemanticsBinding').semanticsEnabled,
-      'debugOutstandingSemanticsHandles': (visitor, target) => D4.validateTarget<$flutter_4.SemanticsBinding>(target, 'SemanticsBinding').debugOutstandingSemanticsHandles,
-      'accessibilityFeatures': (visitor, target) => D4.validateTarget<$flutter_4.SemanticsBinding>(target, 'SemanticsBinding').accessibilityFeatures,
-      'disableAnimations': (visitor, target) => D4.validateTarget<$flutter_4.SemanticsBinding>(target, 'SemanticsBinding').disableAnimations,
-      'window': (visitor, target) => D4.validateTarget<$flutter_4.SemanticsBinding>(target, 'SemanticsBinding').window,
-      'platformDispatcher': (visitor, target) => D4.validateTarget<$flutter_4.SemanticsBinding>(target, 'SemanticsBinding').platformDispatcher,
+      'semanticsEnabled': (visitor, target) => D4.validateTarget<$flutter_3.SemanticsBinding>(target, 'SemanticsBinding').semanticsEnabled,
+      'debugOutstandingSemanticsHandles': (visitor, target) => D4.validateTarget<$flutter_3.SemanticsBinding>(target, 'SemanticsBinding').debugOutstandingSemanticsHandles,
+      'accessibilityFeatures': (visitor, target) => D4.validateTarget<$flutter_3.SemanticsBinding>(target, 'SemanticsBinding').accessibilityFeatures,
+      'disableAnimations': (visitor, target) => D4.validateTarget<$flutter_3.SemanticsBinding>(target, 'SemanticsBinding').disableAnimations,
     },
     methods: {
+      'initInstances': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.SemanticsBinding>(target, 'SemanticsBinding');
+        t.initInstances();
+        return null;
+      },
       'addSemanticsEnabledListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.SemanticsBinding>(target, 'SemanticsBinding');
+        final t = D4.validateTarget<$flutter_3.SemanticsBinding>(target, 'SemanticsBinding');
         D4.requireMinArgs(positional, 1, 'addSemanticsEnabledListener');
         if (positional.isEmpty) {
           throw ArgumentError('addSemanticsEnabledListener: Missing required argument "listener" at position 0');
@@ -603,7 +610,7 @@ BridgedClass _createSemanticsBindingBridge() {
         return null;
       },
       'removeSemanticsEnabledListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.SemanticsBinding>(target, 'SemanticsBinding');
+        final t = D4.validateTarget<$flutter_3.SemanticsBinding>(target, 'SemanticsBinding');
         D4.requireMinArgs(positional, 1, 'removeSemanticsEnabledListener');
         if (positional.isEmpty) {
           throw ArgumentError('removeSemanticsEnabledListener: Missing required argument "listener" at position 0');
@@ -613,69 +620,45 @@ BridgedClass _createSemanticsBindingBridge() {
         return null;
       },
       'addSemanticsActionListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.SemanticsBinding>(target, 'SemanticsBinding');
+        final t = D4.validateTarget<$flutter_3.SemanticsBinding>(target, 'SemanticsBinding');
         D4.requireMinArgs(positional, 1, 'addSemanticsActionListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('addSemanticsActionListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.addSemanticsActionListener((SemanticsActionEvent p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
+        final listener = D4.getRequiredArg<$flutter_3.ValueSetter<dynamic>>(positional, 0, 'listener', 'addSemanticsActionListener');
+        t.addSemanticsActionListener(listener);
         return null;
       },
       'removeSemanticsActionListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.SemanticsBinding>(target, 'SemanticsBinding');
+        final t = D4.validateTarget<$flutter_3.SemanticsBinding>(target, 'SemanticsBinding');
         D4.requireMinArgs(positional, 1, 'removeSemanticsActionListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('removeSemanticsActionListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.removeSemanticsActionListener((SemanticsActionEvent p0) { D4.callInterpreterCallback(visitor, listenerRaw, [p0]); });
+        final listener = D4.getRequiredArg<$flutter_3.ValueSetter<dynamic>>(positional, 0, 'listener', 'removeSemanticsActionListener');
+        t.removeSemanticsActionListener(listener);
         return null;
       },
       'ensureSemantics': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.SemanticsBinding>(target, 'SemanticsBinding');
+        final t = D4.validateTarget<$flutter_3.SemanticsBinding>(target, 'SemanticsBinding');
         return t.ensureSemantics();
       },
       'createSemanticsUpdateBuilder': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.SemanticsBinding>(target, 'SemanticsBinding');
+        final t = D4.validateTarget<$flutter_3.SemanticsBinding>(target, 'SemanticsBinding');
         return t.createSemanticsUpdateBuilder();
-      },
-      'debugCheckZone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.SemanticsBinding>(target, 'SemanticsBinding');
-        D4.requireMinArgs(positional, 1, 'debugCheckZone');
-        final entryPoint = D4.getRequiredArg<String>(positional, 0, 'entryPoint', 'debugCheckZone');
-        return t.debugCheckZone(entryPoint);
-      },
-      'reassembleApplication': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.SemanticsBinding>(target, 'SemanticsBinding');
-        return t.reassembleApplication();
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.SemanticsBinding>(target, 'SemanticsBinding');
-        return t.toString();
       },
     },
     staticGetters: {
-      'instance': (visitor) => $flutter_4.SemanticsBinding.instance,
+      'instance': (visitor) => $flutter_3.SemanticsBinding.instance,
     },
     methodSignatures: {
+      'initInstances': 'void initInstances()',
       'addSemanticsEnabledListener': 'void addSemanticsEnabledListener(VoidCallback listener)',
       'removeSemanticsEnabledListener': 'void removeSemanticsEnabledListener(VoidCallback listener)',
       'addSemanticsActionListener': 'void addSemanticsActionListener(ValueSetter<ui.SemanticsActionEvent> listener)',
       'removeSemanticsActionListener': 'void removeSemanticsActionListener(ValueSetter<ui.SemanticsActionEvent> listener)',
       'ensureSemantics': 'SemanticsHandle ensureSemantics()',
       'createSemanticsUpdateBuilder': 'ui.SemanticsUpdateBuilder createSemanticsUpdateBuilder()',
-      'debugCheckZone': 'bool debugCheckZone(String entryPoint)',
-      'reassembleApplication': 'Future<void> reassembleApplication()',
-      'toString': 'String toString()',
     },
     getterSignatures: {
       'semanticsEnabled': 'bool get semanticsEnabled',
       'debugOutstandingSemanticsHandles': 'int get debugOutstandingSemanticsHandles',
       'accessibilityFeatures': 'ui.AccessibilityFeatures get accessibilityFeatures',
       'disableAnimations': 'bool get disableAnimations',
-      'window': 'SingletonFlutterWindow get window',
-      'platformDispatcher': 'PlatformDispatcher get platformDispatcher',
     },
     staticGetterSignatures: {
       'instance': 'SemanticsBinding get instance',
@@ -689,13 +672,13 @@ BridgedClass _createSemanticsBindingBridge() {
 
 BridgedClass _createSemanticsHandleBridge() {
   return BridgedClass(
-    nativeType: $flutter_4.SemanticsHandle,
+    nativeType: $flutter_3.SemanticsHandle,
     name: 'SemanticsHandle',
     constructors: {
     },
     methods: {
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.SemanticsHandle>(target, 'SemanticsHandle');
+        final t = D4.validateTarget<$flutter_3.SemanticsHandle>(target, 'SemanticsHandle');
         (t as dynamic).dispose();
         return null;
       },
@@ -712,79 +695,79 @@ BridgedClass _createSemanticsHandleBridge() {
 
 BridgedClass _createDiagnosticsNodeBridge() {
   return BridgedClass(
-    nativeType: $flutter_2.DiagnosticsNode,
+    nativeType: $flutter_1.DiagnosticsNode,
     name: 'DiagnosticsNode',
     constructors: {
       'message': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DiagnosticsNode');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'DiagnosticsNode');
-        final style = D4.getNamedArgWithDefault<$flutter_2.DiagnosticsTreeStyle>(named, 'style', $flutter_2.DiagnosticsTreeStyle.singleLine);
-        final level = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'level', $flutter_2.DiagnosticLevel.info);
+        final style = D4.getNamedArgWithDefault<$flutter_1.DiagnosticsTreeStyle>(named, 'style', $flutter_1.DiagnosticsTreeStyle.singleLine);
+        final level = D4.getNamedArgWithDefault<$flutter_1.DiagnosticLevel>(named, 'level', $flutter_1.DiagnosticLevel.info);
         final allowWrap = D4.getNamedArgWithDefault<bool>(named, 'allowWrap', true);
-        return $flutter_2.DiagnosticsNode.message(message, style: style, level: level, allowWrap: allowWrap);
+        return $flutter_1.DiagnosticsNode.message(message, style: style, level: level, allowWrap: allowWrap);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode').showSeparator,
-      'level': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode').level,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode').linePrefix,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode').emptyBodyDescription,
-      'value': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode').value,
-      'style': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode').style,
-      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode').allowWrap,
-      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode').allowNameWrap,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode').allowTruncate,
+      'name': (visitor, target) => D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode').showSeparator,
+      'level': (visitor, target) => D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode').level,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode').value,
+      'style': (visitor, target) => D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode').style,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode').allowTruncate,
     },
     methods: {
       'toDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_2.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_1.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
       },
       'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final t = D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode');
         D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_2.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_1.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final t = D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode');
         return t.getProperties();
       },
       'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final t = D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode');
         return t.getChildren();
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final t = D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode');
         return t.toTimelineArguments();
       },
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final t = D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_2.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_1.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final t = D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode');
         D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_2.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_1.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
         return t.toJsonMapIterative(delegate);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_2.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_1.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_1.DiagnosticLevel>(named, 'minLevel', $flutter_1.DiagnosticLevel.info);
         return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
       },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.DiagnosticsNode>(target, 'DiagnosticsNode');
+        final t = D4.validateTarget<$flutter_1.DiagnosticsNode>(target, 'DiagnosticsNode');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_2.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.debug);
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_1.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_1.DiagnosticLevel>(named, 'minLevel', $flutter_1.DiagnosticLevel.debug);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
@@ -795,10 +778,10 @@ BridgedClass _createDiagnosticsNodeBridge() {
         if (positional.isEmpty) {
           throw ArgumentError('toJsonList: Missing required argument "nodes" at position 0');
         }
-        final nodes = D4.coerceListOrNull<$flutter_2.DiagnosticsNode>(positional[0], 'nodes');
-        final parent = D4.getRequiredArg<$flutter_2.DiagnosticsNode?>(positional, 1, 'parent', 'toJsonList');
-        final delegate = D4.getRequiredArg<$flutter_2.DiagnosticsSerializationDelegate>(positional, 2, 'delegate', 'toJsonList');
-        return $flutter_2.DiagnosticsNode.toJsonList(nodes, parent, delegate);
+        final nodes = D4.coerceListOrNull<$flutter_1.DiagnosticsNode>(positional[0], 'nodes');
+        final parent = D4.getRequiredArg<$flutter_1.DiagnosticsNode?>(positional, 1, 'parent', 'toJsonList');
+        final delegate = D4.getRequiredArg<$flutter_1.DiagnosticsSerializationDelegate>(positional, 2, 'delegate', 'toJsonList');
+        return $flutter_1.DiagnosticsNode.toJsonList(nodes, parent, delegate);
       },
     },
     constructorSignatures: {
@@ -840,37 +823,37 @@ BridgedClass _createDiagnosticsNodeBridge() {
 
 BridgedClass _createDiagnosticPropertiesBuilderBridge() {
   return BridgedClass(
-    nativeType: $flutter_2.DiagnosticPropertiesBuilder,
+    nativeType: $flutter_1.DiagnosticPropertiesBuilder,
     name: 'DiagnosticPropertiesBuilder',
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_2.DiagnosticPropertiesBuilder();
+        return $flutter_1.DiagnosticPropertiesBuilder();
       },
       'fromProperties': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DiagnosticPropertiesBuilder');
         if (positional.isEmpty) {
           throw ArgumentError('DiagnosticPropertiesBuilder: Missing required argument "properties" at position 0');
         }
-        final properties = D4.coerceList<$flutter_2.DiagnosticsNode>(positional[0], 'properties');
-        return $flutter_2.DiagnosticPropertiesBuilder.fromProperties(properties);
+        final properties = D4.coerceList<$flutter_1.DiagnosticsNode>(positional[0], 'properties');
+        return $flutter_1.DiagnosticPropertiesBuilder.fromProperties(properties);
       },
     },
     getters: {
-      'properties': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').properties,
-      'defaultDiagnosticsTreeStyle': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').defaultDiagnosticsTreeStyle,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').emptyBodyDescription,
+      'properties': (visitor, target) => D4.validateTarget<$flutter_1.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').properties,
+      'defaultDiagnosticsTreeStyle': (visitor, target) => D4.validateTarget<$flutter_1.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').defaultDiagnosticsTreeStyle,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_1.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').emptyBodyDescription,
     },
     setters: {
       'defaultDiagnosticsTreeStyle': (visitor, target, value) => 
-        D4.validateTarget<$flutter_2.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').defaultDiagnosticsTreeStyle = value as $flutter_2.DiagnosticsTreeStyle,
+        D4.validateTarget<$flutter_1.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').defaultDiagnosticsTreeStyle = value as $flutter_1.DiagnosticsTreeStyle,
       'emptyBodyDescription': (visitor, target, value) => 
-        D4.validateTarget<$flutter_2.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').emptyBodyDescription = value as String?,
+        D4.validateTarget<$flutter_1.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder').emptyBodyDescription = value as String?,
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder');
+        final t = D4.validateTarget<$flutter_1.DiagnosticPropertiesBuilder>(target, 'DiagnosticPropertiesBuilder');
         D4.requireMinArgs(positional, 1, 'add');
-        final property = D4.getRequiredArg<$flutter_2.DiagnosticsNode>(positional, 0, 'property', 'add');
+        final property = D4.getRequiredArg<$flutter_1.DiagnosticsNode>(positional, 0, 'property', 'add');
         t.add(property);
         return null;
       },
@@ -900,13 +883,13 @@ BridgedClass _createDiagnosticPropertiesBuilderBridge() {
 
 BridgedClass _createKeyBridge() {
   return BridgedClass(
-    nativeType: $flutter_3.Key,
+    nativeType: $flutter_2.Key,
     name: 'Key',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Key');
         final value = D4.getRequiredArg<String>(positional, 0, 'value', 'Key');
-        return $flutter_3.Key(value);
+        return $flutter_2.Key(value);
       },
     },
     constructorSignatures: {
@@ -1899,94 +1882,83 @@ BridgedClass _createMatrix4Bridge() {
 
 BridgedClass _createTextSelectionBridge() {
   return BridgedClass(
-    nativeType: $flutter_9.TextSelection,
+    nativeType: $flutter_8.TextSelection,
     name: 'TextSelection',
     constructors: {
       '': (visitor, positional, named) {
         final baseOffset = D4.getRequiredNamedArg<int>(named, 'baseOffset', 'TextSelection');
         final extentOffset = D4.getRequiredNamedArg<int>(named, 'extentOffset', 'TextSelection');
-        final affinity = D4.getNamedArgWithDefault<TextAffinity>(named, 'affinity', TextAffinity.downstream);
         final isDirectional = D4.getNamedArgWithDefault<bool>(named, 'isDirectional', false);
-        return $flutter_9.TextSelection(baseOffset: baseOffset, extentOffset: extentOffset, affinity: affinity, isDirectional: isDirectional);
+        if (!named.containsKey('affinity')) {
+          return $flutter_8.TextSelection(baseOffset: baseOffset, extentOffset: extentOffset, isDirectional: isDirectional);
+        }
+        if (named.containsKey('affinity')) {
+          final affinity = D4.getRequiredNamedArg<dynamic>(named, 'affinity', 'TextSelection');
+          return $flutter_8.TextSelection(baseOffset: baseOffset, extentOffset: extentOffset, isDirectional: isDirectional, affinity: affinity);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'collapsed': (visitor, positional, named) {
         final offset = D4.getRequiredNamedArg<int>(named, 'offset', 'TextSelection');
-        final affinity = D4.getNamedArgWithDefault<TextAffinity>(named, 'affinity', TextAffinity.downstream);
-        return $flutter_9.TextSelection.collapsed(offset: offset, affinity: affinity);
+        if (!named.containsKey('affinity')) {
+          return $flutter_8.TextSelection.collapsed(offset: offset);
+        }
+        if (named.containsKey('affinity')) {
+          final affinity = D4.getRequiredNamedArg<dynamic>(named, 'affinity', 'TextSelection');
+          return $flutter_8.TextSelection.collapsed(offset: offset, affinity: affinity);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'fromPosition': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TextSelection');
-        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'TextSelection');
-        return $flutter_9.TextSelection.fromPosition(position);
+        final position = D4.getRequiredArg<$flutter_8.TextPosition>(positional, 0, 'position', 'TextSelection');
+        return $flutter_8.TextSelection.fromPosition(position);
       },
     },
     getters: {
-      'baseOffset': (visitor, target) => D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection').baseOffset,
-      'extentOffset': (visitor, target) => D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection').extentOffset,
-      'affinity': (visitor, target) => D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection').affinity,
-      'isDirectional': (visitor, target) => D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection').isDirectional,
-      'base': (visitor, target) => D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection').base,
-      'extent': (visitor, target) => D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection').extent,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection').hashCode,
-      'start': (visitor, target) => D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection').start,
-      'end': (visitor, target) => D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection').end,
-      'isValid': (visitor, target) => D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection').isValid,
-      'isCollapsed': (visitor, target) => D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection').isCollapsed,
-      'isNormalized': (visitor, target) => D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection').isNormalized,
+      'baseOffset': (visitor, target) => D4.validateTarget<$flutter_8.TextSelection>(target, 'TextSelection').baseOffset,
+      'extentOffset': (visitor, target) => D4.validateTarget<$flutter_8.TextSelection>(target, 'TextSelection').extentOffset,
+      'affinity': (visitor, target) => D4.validateTarget<$flutter_8.TextSelection>(target, 'TextSelection').affinity,
+      'isDirectional': (visitor, target) => D4.validateTarget<$flutter_8.TextSelection>(target, 'TextSelection').isDirectional,
+      'base': (visitor, target) => D4.validateTarget<$flutter_8.TextSelection>(target, 'TextSelection').base,
+      'extent': (visitor, target) => D4.validateTarget<$flutter_8.TextSelection>(target, 'TextSelection').extent,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_8.TextSelection>(target, 'TextSelection').hashCode,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection');
+        final t = D4.validateTarget<$flutter_8.TextSelection>(target, 'TextSelection');
         return t.toString();
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection');
+        final t = D4.validateTarget<$flutter_8.TextSelection>(target, 'TextSelection');
         final baseOffset = D4.getOptionalNamedArg<int?>(named, 'baseOffset');
         final extentOffset = D4.getOptionalNamedArg<int?>(named, 'extentOffset');
-        final affinity = D4.getOptionalNamedArg<TextAffinity?>(named, 'affinity');
+        final affinity = D4.getOptionalNamedArg<$flutter_8.TextAffinity?>(named, 'affinity');
         final isDirectional = D4.getOptionalNamedArg<bool?>(named, 'isDirectional');
         return t.copyWith(baseOffset: baseOffset, extentOffset: extentOffset, affinity: affinity, isDirectional: isDirectional);
       },
       'expandTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection');
+        final t = D4.validateTarget<$flutter_8.TextSelection>(target, 'TextSelection');
         D4.requireMinArgs(positional, 1, 'expandTo');
-        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'expandTo');
+        final position = D4.getRequiredArg<$flutter_8.TextPosition>(positional, 0, 'position', 'expandTo');
         final extentAtIndex = D4.getOptionalArgWithDefault<bool>(positional, 1, 'extentAtIndex', false);
         return t.expandTo(position, extentAtIndex);
       },
       'extendTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection');
+        final t = D4.validateTarget<$flutter_8.TextSelection>(target, 'TextSelection');
         D4.requireMinArgs(positional, 1, 'extendTo');
-        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'extendTo');
+        final position = D4.getRequiredArg<$flutter_8.TextPosition>(positional, 0, 'position', 'extendTo');
         return t.extendTo(position);
       },
-      'textBefore': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection');
-        D4.requireMinArgs(positional, 1, 'textBefore');
-        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'textBefore');
-        return t.textBefore(text);
-      },
-      'textAfter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection');
-        D4.requireMinArgs(positional, 1, 'textAfter');
-        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'textAfter');
-        return t.textAfter(text);
-      },
-      'textInside': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection');
-        D4.requireMinArgs(positional, 1, 'textInside');
-        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'textInside');
-        return t.textInside(text);
-      },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_9.TextSelection>(target, 'TextSelection');
+        final t = D4.validateTarget<$flutter_8.TextSelection>(target, 'TextSelection');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     constructorSignatures: {
-      '': 'const TextSelection({required int baseOffset, required int extentOffset, TextAffinity affinity = TextAffinity.downstream, bool isDirectional = false})',
-      'collapsed': 'const TextSelection.collapsed({required int offset, TextAffinity affinity = TextAffinity.downstream})',
+      '': 'const TextSelection({required int baseOffset, required int extentOffset, dynamic affinity = TextAffinity.downstream, bool isDirectional = false})',
+      'collapsed': 'const TextSelection.collapsed({required int offset, dynamic affinity = TextAffinity.downstream})',
       'fromPosition': 'TextSelection.fromPosition(TextPosition position)',
     },
     methodSignatures: {
@@ -1994,9 +1966,6 @@ BridgedClass _createTextSelectionBridge() {
       'copyWith': 'TextSelection copyWith({int? baseOffset, int? extentOffset, TextAffinity? affinity, bool? isDirectional})',
       'expandTo': 'TextSelection expandTo(TextPosition position, [bool extentAtIndex = false])',
       'extendTo': 'TextSelection extendTo(TextPosition position)',
-      'textBefore': 'String textBefore(String text)',
-      'textAfter': 'String textAfter(String text)',
-      'textInside': 'String textInside(String text)',
     },
     getterSignatures: {
       'baseOffset': 'int get baseOffset',
@@ -2006,11 +1975,6 @@ BridgedClass _createTextSelectionBridge() {
       'base': 'TextPosition get base',
       'extent': 'TextPosition get extent',
       'hashCode': 'int get hashCode',
-      'start': 'int get start',
-      'end': 'int get end',
-      'isValid': 'bool get isValid',
-      'isCollapsed': 'bool get isCollapsed',
-      'isNormalized': 'bool get isNormalized',
     },
   );
 }
@@ -2021,25 +1985,25 @@ BridgedClass _createTextSelectionBridge() {
 
 BridgedClass _createSemanticsEventBridge() {
   return BridgedClass(
-    nativeType: $flutter_7.SemanticsEvent,
+    nativeType: $flutter_6.SemanticsEvent,
     name: 'SemanticsEvent',
     constructors: {
     },
     getters: {
-      'type': (visitor, target) => D4.validateTarget<$flutter_7.SemanticsEvent>(target, 'SemanticsEvent').type,
+      'type': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsEvent>(target, 'SemanticsEvent').type,
     },
     methods: {
       'toMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.SemanticsEvent>(target, 'SemanticsEvent');
+        final t = D4.validateTarget<$flutter_6.SemanticsEvent>(target, 'SemanticsEvent');
         final nodeId = D4.getOptionalNamedArg<int?>(named, 'nodeId');
         return t.toMap(nodeId: nodeId);
       },
       'getDataMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.SemanticsEvent>(target, 'SemanticsEvent');
+        final t = D4.validateTarget<$flutter_6.SemanticsEvent>(target, 'SemanticsEvent');
         return t.getDataMap();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.SemanticsEvent>(target, 'SemanticsEvent');
+        final t = D4.validateTarget<$flutter_6.SemanticsEvent>(target, 'SemanticsEvent');
         return t.toString();
       },
     },
@@ -2060,21 +2024,21 @@ BridgedClass _createSemanticsEventBridge() {
 
 BridgedClass _createSemanticsTagBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.SemanticsTag,
+    nativeType: $flutter_5.SemanticsTag,
     name: 'SemanticsTag',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SemanticsTag');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'SemanticsTag');
-        return $flutter_6.SemanticsTag(name);
+        return $flutter_5.SemanticsTag(name);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsTag>(target, 'SemanticsTag').name,
+      'name': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsTag>(target, 'SemanticsTag').name,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsTag>(target, 'SemanticsTag');
+        final t = D4.validateTarget<$flutter_5.SemanticsTag>(target, 'SemanticsTag');
         return t.toString();
       },
     },
@@ -2096,13 +2060,13 @@ BridgedClass _createSemanticsTagBridge() {
 
 BridgedClass _createChildSemanticsConfigurationsResultBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.ChildSemanticsConfigurationsResult,
+    nativeType: $flutter_5.ChildSemanticsConfigurationsResult,
     name: 'ChildSemanticsConfigurationsResult',
     constructors: {
     },
     getters: {
-      'mergeUp': (visitor, target) => D4.validateTarget<$flutter_6.ChildSemanticsConfigurationsResult>(target, 'ChildSemanticsConfigurationsResult').mergeUp,
-      'siblingMergeGroups': (visitor, target) => D4.validateTarget<$flutter_6.ChildSemanticsConfigurationsResult>(target, 'ChildSemanticsConfigurationsResult').siblingMergeGroups,
+      'mergeUp': (visitor, target) => D4.validateTarget<$flutter_5.ChildSemanticsConfigurationsResult>(target, 'ChildSemanticsConfigurationsResult').mergeUp,
+      'siblingMergeGroups': (visitor, target) => D4.validateTarget<$flutter_5.ChildSemanticsConfigurationsResult>(target, 'ChildSemanticsConfigurationsResult').siblingMergeGroups,
     },
     getterSignatures: {
       'mergeUp': 'List<SemanticsConfiguration> get mergeUp',
@@ -2117,33 +2081,33 @@ BridgedClass _createChildSemanticsConfigurationsResultBridge() {
 
 BridgedClass _createChildSemanticsConfigurationsResultBuilderBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.ChildSemanticsConfigurationsResultBuilder,
+    nativeType: $flutter_5.ChildSemanticsConfigurationsResultBuilder,
     name: 'ChildSemanticsConfigurationsResultBuilder',
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_6.ChildSemanticsConfigurationsResultBuilder();
+        return $flutter_5.ChildSemanticsConfigurationsResultBuilder();
       },
     },
     methods: {
       'markAsMergeUp': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.ChildSemanticsConfigurationsResultBuilder>(target, 'ChildSemanticsConfigurationsResultBuilder');
+        final t = D4.validateTarget<$flutter_5.ChildSemanticsConfigurationsResultBuilder>(target, 'ChildSemanticsConfigurationsResultBuilder');
         D4.requireMinArgs(positional, 1, 'markAsMergeUp');
-        final config = D4.getRequiredArg<$flutter_6.SemanticsConfiguration>(positional, 0, 'config', 'markAsMergeUp');
+        final config = D4.getRequiredArg<$flutter_5.SemanticsConfiguration>(positional, 0, 'config', 'markAsMergeUp');
         t.markAsMergeUp(config);
         return null;
       },
       'markAsSiblingMergeGroup': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.ChildSemanticsConfigurationsResultBuilder>(target, 'ChildSemanticsConfigurationsResultBuilder');
+        final t = D4.validateTarget<$flutter_5.ChildSemanticsConfigurationsResultBuilder>(target, 'ChildSemanticsConfigurationsResultBuilder');
         D4.requireMinArgs(positional, 1, 'markAsSiblingMergeGroup');
         if (positional.isEmpty) {
           throw ArgumentError('markAsSiblingMergeGroup: Missing required argument "configs" at position 0');
         }
-        final configs = D4.coerceList<$flutter_6.SemanticsConfiguration>(positional[0], 'configs');
+        final configs = D4.coerceList<$flutter_5.SemanticsConfiguration>(positional[0], 'configs');
         t.markAsSiblingMergeGroup(configs);
         return null;
       },
       'build': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.ChildSemanticsConfigurationsResultBuilder>(target, 'ChildSemanticsConfigurationsResultBuilder');
+        final t = D4.validateTarget<$flutter_5.ChildSemanticsConfigurationsResultBuilder>(target, 'ChildSemanticsConfigurationsResultBuilder');
         return (t as dynamic).build();
       },
     },
@@ -2164,32 +2128,32 @@ BridgedClass _createChildSemanticsConfigurationsResultBuilderBridge() {
 
 BridgedClass _createCustomSemanticsActionBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.CustomSemanticsAction,
+    nativeType: $flutter_5.CustomSemanticsAction,
     name: 'CustomSemanticsAction',
     constructors: {
       '': (visitor, positional, named) {
         final label = D4.getRequiredNamedArg<String>(named, 'label', 'CustomSemanticsAction');
-        return $flutter_6.CustomSemanticsAction(label: label);
+        return $flutter_5.CustomSemanticsAction(label: label);
       },
       'overridingAction': (visitor, positional, named) {
         final hint = D4.getRequiredNamedArg<String>(named, 'hint', 'CustomSemanticsAction');
-        final action = D4.getRequiredNamedArg<SemanticsAction>(named, 'action', 'CustomSemanticsAction');
-        return $flutter_6.CustomSemanticsAction.overridingAction(hint: hint, action: action);
+        final action = D4.getRequiredNamedArg<$flutter_5.SemanticsAction>(named, 'action', 'CustomSemanticsAction');
+        return $flutter_5.CustomSemanticsAction.overridingAction(hint: hint, action: action);
       },
     },
     getters: {
-      'label': (visitor, target) => D4.validateTarget<$flutter_6.CustomSemanticsAction>(target, 'CustomSemanticsAction').label,
-      'hint': (visitor, target) => D4.validateTarget<$flutter_6.CustomSemanticsAction>(target, 'CustomSemanticsAction').hint,
-      'action': (visitor, target) => D4.validateTarget<$flutter_6.CustomSemanticsAction>(target, 'CustomSemanticsAction').action,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_6.CustomSemanticsAction>(target, 'CustomSemanticsAction').hashCode,
+      'label': (visitor, target) => D4.validateTarget<$flutter_5.CustomSemanticsAction>(target, 'CustomSemanticsAction').label,
+      'hint': (visitor, target) => D4.validateTarget<$flutter_5.CustomSemanticsAction>(target, 'CustomSemanticsAction').hint,
+      'action': (visitor, target) => D4.validateTarget<$flutter_5.CustomSemanticsAction>(target, 'CustomSemanticsAction').action,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_5.CustomSemanticsAction>(target, 'CustomSemanticsAction').hashCode,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.CustomSemanticsAction>(target, 'CustomSemanticsAction');
+        final t = D4.validateTarget<$flutter_5.CustomSemanticsAction>(target, 'CustomSemanticsAction');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.CustomSemanticsAction>(target, 'CustomSemanticsAction');
+        final t = D4.validateTarget<$flutter_5.CustomSemanticsAction>(target, 'CustomSemanticsAction');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2197,13 +2161,13 @@ BridgedClass _createCustomSemanticsActionBridge() {
     staticMethods: {
       'getIdentifier': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'getIdentifier');
-        final action = D4.getRequiredArg<$flutter_6.CustomSemanticsAction>(positional, 0, 'action', 'getIdentifier');
-        return $flutter_6.CustomSemanticsAction.getIdentifier(action);
+        final action = D4.getRequiredArg<$flutter_5.CustomSemanticsAction>(positional, 0, 'action', 'getIdentifier');
+        return $flutter_5.CustomSemanticsAction.getIdentifier(action);
       },
       'getAction': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'getAction');
         final id = D4.getRequiredArg<int>(positional, 0, 'id', 'getAction');
-        return $flutter_6.CustomSemanticsAction.getAction(id);
+        return $flutter_5.CustomSemanticsAction.getAction(id);
       },
     },
     constructorSignatures: {
@@ -2232,41 +2196,41 @@ BridgedClass _createCustomSemanticsActionBridge() {
 
 BridgedClass _createAttributedStringBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.AttributedString,
+    nativeType: $flutter_5.AttributedString,
     name: 'AttributedString',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AttributedString');
         final string = D4.getRequiredArg<String>(positional, 0, 'string', 'AttributedString');
         final attributes = named.containsKey('attributes') && named['attributes'] != null
-            ? D4.coerceList<StringAttribute>(named['attributes'], 'attributes')
-            : const <StringAttribute>[];
-        return $flutter_6.AttributedString(string, attributes: attributes);
+            ? D4.coerceList<dynamic>(named['attributes'], 'attributes')
+            : const <dynamic>[];
+        return $flutter_5.AttributedString(string, attributes: attributes);
       },
     },
     getters: {
-      'string': (visitor, target) => D4.validateTarget<$flutter_6.AttributedString>(target, 'AttributedString').string,
-      'attributes': (visitor, target) => D4.validateTarget<$flutter_6.AttributedString>(target, 'AttributedString').attributes,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_6.AttributedString>(target, 'AttributedString').hashCode,
+      'string': (visitor, target) => D4.validateTarget<$flutter_5.AttributedString>(target, 'AttributedString').string,
+      'attributes': (visitor, target) => D4.validateTarget<$flutter_5.AttributedString>(target, 'AttributedString').attributes,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_5.AttributedString>(target, 'AttributedString').hashCode,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AttributedString>(target, 'AttributedString');
+        final t = D4.validateTarget<$flutter_5.AttributedString>(target, 'AttributedString');
         return t.toString();
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AttributedString>(target, 'AttributedString');
-        final other = D4.getRequiredArg<$flutter_6.AttributedString>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_5.AttributedString>(target, 'AttributedString');
+        final other = D4.getRequiredArg<$flutter_5.AttributedString>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AttributedString>(target, 'AttributedString');
+        final t = D4.validateTarget<$flutter_5.AttributedString>(target, 'AttributedString');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     constructorSignatures: {
-      '': 'AttributedString(String string, {List<StringAttribute> attributes = const <StringAttribute>[]})',
+      '': 'AttributedString(String string, {List<InvalidType> attributes = const <StringAttribute>[]})',
     },
     methodSignatures: {
       'toString': 'String toString()',
@@ -2285,144 +2249,41 @@ BridgedClass _createAttributedStringBridge() {
 
 BridgedClass _createAttributedStringPropertyBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.AttributedStringProperty,
+    nativeType: $flutter_5.AttributedStringProperty,
     name: 'AttributedStringProperty',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'AttributedStringProperty');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'AttributedStringProperty');
-        final value = D4.getRequiredArg<$flutter_6.AttributedString?>(positional, 1, 'value', 'AttributedStringProperty');
-        final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
+        final value = D4.getRequiredArg<dynamic>(positional, 1, 'value', 'AttributedStringProperty');
+        final showName = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'showName', 'AttributedStringProperty', '<default unavailable>');
         final showWhenEmpty = D4.getNamedArgWithDefault<bool>(named, 'showWhenEmpty', false);
-        final level = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'level', $flutter_2.DiagnosticLevel.info);
-        final description = D4.getOptionalNamedArg<String?>(named, 'description');
-        if (!named.containsKey('defaultValue')) {
-          return $flutter_6.AttributedStringProperty(name, value, showName: showName, showWhenEmpty: showWhenEmpty, level: level, description: description);
-        }
-        if (named.containsKey('defaultValue')) {
-          final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'AttributedStringProperty');
-          return $flutter_6.AttributedStringProperty(name, value, showName: showName, showWhenEmpty: showWhenEmpty, level: level, description: description, defaultValue: defaultValue);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final defaultValue = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'defaultValue', 'AttributedStringProperty', '<default unavailable>');
+        final level = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'level', 'AttributedStringProperty', '<default unavailable>');
+        final description = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'description', 'AttributedStringProperty', '<default unavailable>');
+        return $flutter_5.AttributedStringProperty(name, value, showName: showName, showWhenEmpty: showWhenEmpty, defaultValue: defaultValue, level: level, description: description);
       },
     },
     getters: {
-      'showWhenEmpty': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').showWhenEmpty,
-      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').isInteresting,
-      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').expandableValue,
-      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').allowWrap,
-      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').allowNameWrap,
-      'ifNull': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').ifNull,
-      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').ifEmpty,
-      'tooltip': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').tooltip,
-      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').missingIfNull,
-      'propertyType': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').propertyType,
-      'value': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').value,
-      'exception': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').exception,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').defaultValue,
-      'level': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').level,
-      'name': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').showSeparator,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').linePrefix,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').emptyBodyDescription,
-      'style': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').style,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty').allowTruncate,
+      'showWhenEmpty': (visitor, target) => D4.validateTarget<$flutter_5.AttributedStringProperty>(target, 'AttributedStringProperty').showWhenEmpty,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_5.AttributedStringProperty>(target, 'AttributedStringProperty').isInteresting,
     },
     methods: {
       'valueToString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_2.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_5.AttributedStringProperty>(target, 'AttributedStringProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_1.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.valueToString(parentConfiguration: parentConfiguration);
-      },
-      'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty');
-        D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_2.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
-        return t.toJsonMap(delegate);
-      },
-      'toDescription': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_2.TextTreeConfiguration?>(named, 'parentConfiguration');
-        return t.toDescription(parentConfiguration: parentConfiguration);
-      },
-      'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty');
-        return t.getProperties();
-      },
-      'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty');
-        return t.getChildren();
-      },
-      'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty');
-        D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_2.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
-        return t.isFiltered(minLevel);
-      },
-      'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty');
-        return t.toTimelineArguments();
-      },
-      'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty');
-        D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
-        final delegate = D4.getRequiredArg<$flutter_2.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
-        return t.toJsonMapIterative(delegate);
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_2.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
-        return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
-      },
-      'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AttributedStringProperty>(target, 'AttributedStringProperty');
-        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
-        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_2.TextTreeConfiguration?>(named, 'parentConfiguration');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.debug);
-        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
-        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
     },
     constructorSignatures: {
-      '': 'AttributedStringProperty(String name, AttributedString? value, {bool showName = true, bool showWhenEmpty = false, Object? defaultValue = kNoDefaultValue, DiagnosticLevel level = DiagnosticLevel.info, String? description})',
+      '': 'AttributedStringProperty(String name, dynamic value, {dynamic showName, bool showWhenEmpty = false, dynamic defaultValue, dynamic level, dynamic description})',
     },
     methodSignatures: {
       'valueToString': 'String valueToString({TextTreeConfiguration? parentConfiguration})',
-      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
-      'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
-      'getProperties': 'List<DiagnosticsNode> getProperties()',
-      'getChildren': 'List<DiagnosticsNode> getChildren()',
-      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
-      'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
-      'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
-      'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
-      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
     },
     getterSignatures: {
       'showWhenEmpty': 'bool get showWhenEmpty',
       'isInteresting': 'bool get isInteresting',
-      'expandableValue': 'bool get expandableValue',
-      'allowWrap': 'bool get allowWrap',
-      'allowNameWrap': 'bool get allowNameWrap',
-      'ifNull': 'String? get ifNull',
-      'ifEmpty': 'String? get ifEmpty',
-      'tooltip': 'String? get tooltip',
-      'missingIfNull': 'bool get missingIfNull',
-      'propertyType': 'Type get propertyType',
-      'value': 'AttributedString get value',
-      'exception': 'Object? get exception',
-      'defaultValue': 'Object? get defaultValue',
-      'level': 'DiagnosticLevel get level',
-      'name': 'String? get name',
-      'showSeparator': 'bool get showSeparator',
-      'showName': 'bool get showName',
-      'linePrefix': 'String? get linePrefix',
-      'emptyBodyDescription': 'String? get emptyBodyDescription',
-      'style': 'DiagnosticsTreeStyle? get style',
-      'allowTruncate': 'bool get allowTruncate',
     },
   );
 }
@@ -2433,42 +2294,42 @@ BridgedClass _createAttributedStringPropertyBridge() {
 
 BridgedClass _createSemanticsLabelBuilderBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.SemanticsLabelBuilder,
+    nativeType: $flutter_5.SemanticsLabelBuilder,
     name: 'SemanticsLabelBuilder',
     constructors: {
       '': (visitor, positional, named) {
         final separator = D4.getNamedArgWithDefault<String>(named, 'separator', ' ');
-        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
-        return $flutter_6.SemanticsLabelBuilder(separator: separator, textDirection: textDirection);
+        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'SemanticsLabelBuilder', '<default unavailable>');
+        return $flutter_5.SemanticsLabelBuilder(separator: separator, textDirection: textDirection);
       },
     },
     getters: {
-      'separator': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsLabelBuilder>(target, 'SemanticsLabelBuilder').separator,
-      'textDirection': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsLabelBuilder>(target, 'SemanticsLabelBuilder').textDirection,
-      'isEmpty': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsLabelBuilder>(target, 'SemanticsLabelBuilder').isEmpty,
-      'length': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsLabelBuilder>(target, 'SemanticsLabelBuilder').length,
+      'separator': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsLabelBuilder>(target, 'SemanticsLabelBuilder').separator,
+      'textDirection': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsLabelBuilder>(target, 'SemanticsLabelBuilder').textDirection,
+      'isEmpty': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsLabelBuilder>(target, 'SemanticsLabelBuilder').isEmpty,
+      'length': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsLabelBuilder>(target, 'SemanticsLabelBuilder').length,
     },
     methods: {
       'addPart': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsLabelBuilder>(target, 'SemanticsLabelBuilder');
+        final t = D4.validateTarget<$flutter_5.SemanticsLabelBuilder>(target, 'SemanticsLabelBuilder');
         D4.requireMinArgs(positional, 1, 'addPart');
         final label = D4.getRequiredArg<String>(positional, 0, 'label', 'addPart');
-        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
+        final textDirection = D4.getOptionalNamedArg<$flutter_5.TextDirection?>(named, 'textDirection');
         t.addPart(label, textDirection: textDirection);
         return null;
       },
       'build': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsLabelBuilder>(target, 'SemanticsLabelBuilder');
+        final t = D4.validateTarget<$flutter_5.SemanticsLabelBuilder>(target, 'SemanticsLabelBuilder');
         return (t as dynamic).build();
       },
       'clear': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsLabelBuilder>(target, 'SemanticsLabelBuilder');
+        final t = D4.validateTarget<$flutter_5.SemanticsLabelBuilder>(target, 'SemanticsLabelBuilder');
         t.clear();
         return null;
       },
     },
     constructorSignatures: {
-      '': 'SemanticsLabelBuilder({String separator = \' \', TextDirection? textDirection})',
+      '': 'SemanticsLabelBuilder({String separator = \' \', dynamic textDirection})',
     },
     methodSignatures: {
       'addPart': 'void addPart(String label, {TextDirection? textDirection})',
@@ -2490,22 +2351,24 @@ BridgedClass _createSemanticsLabelBuilderBridge() {
 
 BridgedClass _createSemanticsDataBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.SemanticsData,
+    nativeType: $flutter_5.SemanticsData,
     name: 'SemanticsData',
     constructors: {
       '': (visitor, positional, named) {
-        final flagsCollection = D4.getRequiredNamedArg<SemanticsFlags>(named, 'flagsCollection', 'SemanticsData');
+        final flagsCollection = D4.getRequiredNamedArg<dynamic>(named, 'flagsCollection', 'SemanticsData');
         final actions = D4.getRequiredNamedArg<int>(named, 'actions', 'SemanticsData');
         final identifier = D4.getRequiredNamedArg<String>(named, 'identifier', 'SemanticsData');
-        final attributedLabel = D4.getRequiredNamedArg<$flutter_6.AttributedString>(named, 'attributedLabel', 'SemanticsData');
-        final attributedValue = D4.getRequiredNamedArg<$flutter_6.AttributedString>(named, 'attributedValue', 'SemanticsData');
-        final attributedIncreasedValue = D4.getRequiredNamedArg<$flutter_6.AttributedString>(named, 'attributedIncreasedValue', 'SemanticsData');
-        final attributedDecreasedValue = D4.getRequiredNamedArg<$flutter_6.AttributedString>(named, 'attributedDecreasedValue', 'SemanticsData');
-        final attributedHint = D4.getRequiredNamedArg<$flutter_6.AttributedString>(named, 'attributedHint', 'SemanticsData');
+        final traversalParentIdentifier = D4.getRequiredNamedArg<Object?>(named, 'traversalParentIdentifier', 'SemanticsData');
+        final traversalChildIdentifier = D4.getRequiredNamedArg<Object?>(named, 'traversalChildIdentifier', 'SemanticsData');
+        final attributedLabel = D4.getRequiredNamedArg<$flutter_5.AttributedString>(named, 'attributedLabel', 'SemanticsData');
+        final attributedValue = D4.getRequiredNamedArg<$flutter_5.AttributedString>(named, 'attributedValue', 'SemanticsData');
+        final attributedIncreasedValue = D4.getRequiredNamedArg<$flutter_5.AttributedString>(named, 'attributedIncreasedValue', 'SemanticsData');
+        final attributedDecreasedValue = D4.getRequiredNamedArg<$flutter_5.AttributedString>(named, 'attributedDecreasedValue', 'SemanticsData');
+        final attributedHint = D4.getRequiredNamedArg<$flutter_5.AttributedString>(named, 'attributedHint', 'SemanticsData');
         final tooltip = D4.getRequiredNamedArg<String>(named, 'tooltip', 'SemanticsData');
-        final textDirection = D4.getRequiredNamedArg<TextDirection?>(named, 'textDirection', 'SemanticsData');
-        final rect = D4.getRequiredNamedArg<Rect>(named, 'rect', 'SemanticsData');
-        final textSelection = D4.getRequiredNamedArg<$flutter_9.TextSelection?>(named, 'textSelection', 'SemanticsData');
+        final textDirection = D4.getRequiredNamedArg<dynamic>(named, 'textDirection', 'SemanticsData');
+        final rect = D4.getRequiredNamedArg<dynamic>(named, 'rect', 'SemanticsData');
+        final textSelection = D4.getRequiredNamedArg<dynamic>(named, 'textSelection', 'SemanticsData');
         final scrollIndex = D4.getRequiredNamedArg<int?>(named, 'scrollIndex', 'SemanticsData');
         final scrollChildCount = D4.getRequiredNamedArg<int?>(named, 'scrollChildCount', 'SemanticsData');
         final scrollPosition = D4.getRequiredNamedArg<double?>(named, 'scrollPosition', 'SemanticsData');
@@ -2516,105 +2379,110 @@ BridgedClass _createSemanticsDataBridge() {
         final currentValueLength = D4.getRequiredNamedArg<int?>(named, 'currentValueLength', 'SemanticsData');
         final headingLevel = D4.getRequiredNamedArg<int>(named, 'headingLevel', 'SemanticsData');
         final linkUrl = D4.getRequiredNamedArg<Uri?>(named, 'linkUrl', 'SemanticsData');
-        final role = D4.getRequiredNamedArg<SemanticsRole>(named, 'role', 'SemanticsData');
+        final role = D4.getRequiredNamedArg<dynamic>(named, 'role', 'SemanticsData');
         final controlsNodes = D4.getRequiredNamedArg<Set<String>?>(named, 'controlsNodes', 'SemanticsData');
-        final validationResult = D4.getRequiredNamedArg<SemanticsValidationResult>(named, 'validationResult', 'SemanticsData');
-        final inputType = D4.getRequiredNamedArg<SemanticsInputType>(named, 'inputType', 'SemanticsData');
-        final locale = D4.getRequiredNamedArg<Locale?>(named, 'locale', 'SemanticsData');
-        final tags = D4.getOptionalNamedArg<Set<$flutter_6.SemanticsTag>?>(named, 'tags');
-        final transform = D4.getOptionalNamedArg<$vector_math_1.Matrix4?>(named, 'transform');
+        final validationResult = D4.getRequiredNamedArg<dynamic>(named, 'validationResult', 'SemanticsData');
+        final hitTestBehavior = D4.getRequiredNamedArg<dynamic>(named, 'hitTestBehavior', 'SemanticsData');
+        final inputType = D4.getRequiredNamedArg<dynamic>(named, 'inputType', 'SemanticsData');
+        final locale = D4.getRequiredNamedArg<dynamic>(named, 'locale', 'SemanticsData');
+        final minValue = D4.getRequiredNamedArg<String?>(named, 'minValue', 'SemanticsData');
+        final maxValue = D4.getRequiredNamedArg<String?>(named, 'maxValue', 'SemanticsData');
+        final tags = D4.getOptionalNamedArg<Set<$flutter_5.SemanticsTag>?>(named, 'tags');
+        final transform = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'transform', 'SemanticsData', '<default unavailable>');
         final customSemanticsActionIds = D4.coerceListOrNull<int>(named['customSemanticsActionIds'], 'customSemanticsActionIds');
-        return $flutter_6.SemanticsData(flagsCollection: flagsCollection, actions: actions, identifier: identifier, attributedLabel: attributedLabel, attributedValue: attributedValue, attributedIncreasedValue: attributedIncreasedValue, attributedDecreasedValue: attributedDecreasedValue, attributedHint: attributedHint, tooltip: tooltip, textDirection: textDirection, rect: rect, textSelection: textSelection, scrollIndex: scrollIndex, scrollChildCount: scrollChildCount, scrollPosition: scrollPosition, scrollExtentMax: scrollExtentMax, scrollExtentMin: scrollExtentMin, platformViewId: platformViewId, maxValueLength: maxValueLength, currentValueLength: currentValueLength, headingLevel: headingLevel, linkUrl: linkUrl, role: role, controlsNodes: controlsNodes, validationResult: validationResult, inputType: inputType, locale: locale, tags: tags, transform: transform, customSemanticsActionIds: customSemanticsActionIds);
+        return $flutter_5.SemanticsData(flagsCollection: flagsCollection, actions: actions, identifier: identifier, traversalParentIdentifier: traversalParentIdentifier, traversalChildIdentifier: traversalChildIdentifier, attributedLabel: attributedLabel, attributedValue: attributedValue, attributedIncreasedValue: attributedIncreasedValue, attributedDecreasedValue: attributedDecreasedValue, attributedHint: attributedHint, tooltip: tooltip, textDirection: textDirection, rect: rect, textSelection: textSelection, scrollIndex: scrollIndex, scrollChildCount: scrollChildCount, scrollPosition: scrollPosition, scrollExtentMax: scrollExtentMax, scrollExtentMin: scrollExtentMin, platformViewId: platformViewId, maxValueLength: maxValueLength, currentValueLength: currentValueLength, headingLevel: headingLevel, linkUrl: linkUrl, role: role, controlsNodes: controlsNodes, validationResult: validationResult, hitTestBehavior: hitTestBehavior, inputType: inputType, locale: locale, minValue: minValue, maxValue: maxValue, tags: tags, transform: transform, customSemanticsActionIds: customSemanticsActionIds);
       },
     },
     getters: {
-      'flags': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').flags,
-      'flagsCollection': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').flagsCollection,
-      'actions': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').actions,
-      'identifier': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').identifier,
-      'label': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').label,
-      'attributedLabel': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').attributedLabel,
-      'value': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').value,
-      'attributedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').attributedValue,
-      'increasedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').increasedValue,
-      'attributedIncreasedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').attributedIncreasedValue,
-      'decreasedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').decreasedValue,
-      'attributedDecreasedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').attributedDecreasedValue,
-      'hint': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').hint,
-      'attributedHint': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').attributedHint,
-      'tooltip': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').tooltip,
-      'headingLevel': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').headingLevel,
-      'textDirection': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').textDirection,
-      'textSelection': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').textSelection,
-      'scrollChildCount': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').scrollChildCount,
-      'scrollIndex': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').scrollIndex,
-      'scrollPosition': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').scrollPosition,
-      'scrollExtentMax': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').scrollExtentMax,
-      'scrollExtentMin': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').scrollExtentMin,
-      'platformViewId': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').platformViewId,
-      'maxValueLength': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').maxValueLength,
-      'currentValueLength': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').currentValueLength,
-      'linkUrl': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').linkUrl,
-      'rect': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').rect,
-      'tags': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').tags,
-      'transform': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').transform,
-      'customSemanticsActionIds': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').customSemanticsActionIds,
-      'role': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').role,
-      'controlsNodes': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').controlsNodes,
-      'validationResult': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').validationResult,
-      'inputType': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').inputType,
-      'locale': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').locale,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData').hashCode,
+      'flags': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').flags,
+      'flagsCollection': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').flagsCollection,
+      'actions': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').actions,
+      'identifier': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').identifier,
+      'traversalParentIdentifier': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').traversalParentIdentifier,
+      'traversalChildIdentifier': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').traversalChildIdentifier,
+      'label': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').label,
+      'attributedLabel': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').attributedLabel,
+      'value': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').value,
+      'attributedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').attributedValue,
+      'increasedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').increasedValue,
+      'attributedIncreasedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').attributedIncreasedValue,
+      'decreasedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').decreasedValue,
+      'attributedDecreasedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').attributedDecreasedValue,
+      'hint': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').hint,
+      'attributedHint': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').attributedHint,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').tooltip,
+      'headingLevel': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').headingLevel,
+      'textDirection': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').textDirection,
+      'textSelection': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').textSelection,
+      'scrollChildCount': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').scrollChildCount,
+      'scrollIndex': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').scrollIndex,
+      'scrollPosition': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').scrollPosition,
+      'scrollExtentMax': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').scrollExtentMax,
+      'scrollExtentMin': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').scrollExtentMin,
+      'platformViewId': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').platformViewId,
+      'maxValueLength': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').maxValueLength,
+      'currentValueLength': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').currentValueLength,
+      'linkUrl': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').linkUrl,
+      'rect': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').rect,
+      'tags': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').tags,
+      'transform': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').transform,
+      'customSemanticsActionIds': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').customSemanticsActionIds,
+      'role': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').role,
+      'controlsNodes': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').controlsNodes,
+      'validationResult': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').validationResult,
+      'hitTestBehavior': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').hitTestBehavior,
+      'inputType': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').inputType,
+      'locale': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').locale,
+      'maxValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').maxValue,
+      'minValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').minValue,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData').hashCode,
     },
     methods: {
       'hasFlag': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData');
+        final t = D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData');
         D4.requireMinArgs(positional, 1, 'hasFlag');
-        final flag = D4.getRequiredArg<SemanticsFlag>(positional, 0, 'flag', 'hasFlag');
+        final flag = D4.getRequiredArg<$flutter_5.SemanticsFlag>(positional, 0, 'flag', 'hasFlag');
         return t.hasFlag(flag);
       },
       'hasAction': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData');
+        final t = D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData');
         D4.requireMinArgs(positional, 1, 'hasAction');
-        final action = D4.getRequiredArg<SemanticsAction>(positional, 0, 'action', 'hasAction');
+        final action = D4.getRequiredArg<$flutter_5.SemanticsAction>(positional, 0, 'action', 'hasAction');
         return t.hasAction(action);
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData');
+        final t = D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData');
         return t.toStringShort();
       },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
-        return t.toString(minLevel: minLevel);
-      },
-      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData');
-        final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
-        return t.toDiagnosticsNode(name: name, style: style);
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_1.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsData>(target, 'SemanticsData');
+        final t = D4.validateTarget<$flutter_5.SemanticsData>(target, 'SemanticsData');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     constructorSignatures: {
-      '': 'SemanticsData({required SemanticsFlags flagsCollection, required int actions, required String identifier, required AttributedString attributedLabel, required AttributedString attributedValue, required AttributedString attributedIncreasedValue, required AttributedString attributedDecreasedValue, required AttributedString attributedHint, required String tooltip, required TextDirection? textDirection, required Rect rect, required TextSelection? textSelection, required int? scrollIndex, required int? scrollChildCount, required double? scrollPosition, required double? scrollExtentMax, required double? scrollExtentMin, required int? platformViewId, required int? maxValueLength, required int? currentValueLength, required int headingLevel, required Uri? linkUrl, required SemanticsRole role, required Set<String>? controlsNodes, required SemanticsValidationResult validationResult, required SemanticsInputType inputType, required Locale? locale, Set<SemanticsTag>? tags, Matrix4? transform, List<int>? customSemanticsActionIds})',
+      '': 'SemanticsData({required dynamic flagsCollection, required int actions, required String identifier, required Object? traversalParentIdentifier, required Object? traversalChildIdentifier, required AttributedString attributedLabel, required AttributedString attributedValue, required AttributedString attributedIncreasedValue, required AttributedString attributedDecreasedValue, required AttributedString attributedHint, required String tooltip, required dynamic textDirection, required dynamic rect, required dynamic textSelection, required int? scrollIndex, required int? scrollChildCount, required double? scrollPosition, required double? scrollExtentMax, required double? scrollExtentMin, required int? platformViewId, required int? maxValueLength, required int? currentValueLength, required int headingLevel, required Uri? linkUrl, required dynamic role, required Set<String>? controlsNodes, required dynamic validationResult, required dynamic hitTestBehavior, required dynamic inputType, required dynamic locale, required String? minValue, required String? maxValue, Set<SemanticsTag>? tags, dynamic transform, List<int>? customSemanticsActionIds})',
     },
     methodSignatures: {
       'hasFlag': 'bool hasFlag(SemanticsFlag flag)',
       'hasAction': 'bool hasAction(SemanticsAction action)',
       'toStringShort': 'String toStringShort()',
-      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
-      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
     getterSignatures: {
       'flags': 'int get flags',
       'flagsCollection': 'SemanticsFlags get flagsCollection',
       'actions': 'int get actions',
       'identifier': 'String get identifier',
+      'traversalParentIdentifier': 'Object? get traversalParentIdentifier',
+      'traversalChildIdentifier': 'Object? get traversalChildIdentifier',
       'label': 'String get label',
       'attributedLabel': 'AttributedString get attributedLabel',
       'value': 'String get value',
@@ -2645,8 +2513,11 @@ BridgedClass _createSemanticsDataBridge() {
       'role': 'SemanticsRole get role',
       'controlsNodes': 'Set<String>? get controlsNodes',
       'validationResult': 'SemanticsValidationResult get validationResult',
+      'hitTestBehavior': 'ui.SemanticsHitTestBehavior get hitTestBehavior',
       'inputType': 'SemanticsInputType get inputType',
       'locale': 'Locale? get locale',
+      'maxValue': 'String? get maxValue',
+      'minValue': 'String? get minValue',
       'hashCode': 'int get hashCode',
     },
   );
@@ -2658,53 +2529,31 @@ BridgedClass _createSemanticsDataBridge() {
 
 BridgedClass _createSemanticsHintOverridesBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.SemanticsHintOverrides,
+    nativeType: $flutter_5.SemanticsHintOverrides,
     name: 'SemanticsHintOverrides',
     constructors: {
       '': (visitor, positional, named) {
         final onTapHint = D4.getOptionalNamedArg<String?>(named, 'onTapHint');
         final onLongPressHint = D4.getOptionalNamedArg<String?>(named, 'onLongPressHint');
-        return $flutter_6.SemanticsHintOverrides(onTapHint: onTapHint, onLongPressHint: onLongPressHint);
+        return $flutter_5.SemanticsHintOverrides(onTapHint: onTapHint, onLongPressHint: onLongPressHint);
       },
     },
     getters: {
-      'onTapHint': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsHintOverrides>(target, 'SemanticsHintOverrides').onTapHint,
-      'onLongPressHint': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsHintOverrides>(target, 'SemanticsHintOverrides').onLongPressHint,
-      'isNotEmpty': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsHintOverrides>(target, 'SemanticsHintOverrides').isNotEmpty,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsHintOverrides>(target, 'SemanticsHintOverrides').hashCode,
+      'onTapHint': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsHintOverrides>(target, 'SemanticsHintOverrides').onTapHint,
+      'onLongPressHint': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsHintOverrides>(target, 'SemanticsHintOverrides').onLongPressHint,
+      'isNotEmpty': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsHintOverrides>(target, 'SemanticsHintOverrides').isNotEmpty,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsHintOverrides>(target, 'SemanticsHintOverrides').hashCode,
     },
     methods: {
-      'toStringShallow': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsHintOverrides>(target, 'SemanticsHintOverrides');
-        final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.debug);
-        return t.toStringShallow(joiner: joiner, minLevel: minLevel);
-      },
-      'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsHintOverrides>(target, 'SemanticsHintOverrides');
-        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
-        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.debug);
-        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
-        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, wrapWidth: wrapWidth);
-      },
-      'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsHintOverrides>(target, 'SemanticsHintOverrides');
-        return t.toStringShort();
-      },
-      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsHintOverrides>(target, 'SemanticsHintOverrides');
-        final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
-        return t.toDiagnosticsNode(name: name, style: style);
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsHintOverrides>(target, 'SemanticsHintOverrides');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
-        return t.toString(minLevel: minLevel);
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.SemanticsHintOverrides>(target, 'SemanticsHintOverrides');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_1.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsHintOverrides>(target, 'SemanticsHintOverrides');
+        final t = D4.validateTarget<$flutter_5.SemanticsHintOverrides>(target, 'SemanticsHintOverrides');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2713,11 +2562,7 @@ BridgedClass _createSemanticsHintOverridesBridge() {
       '': 'const SemanticsHintOverrides({String? onTapHint, String? onLongPressHint})',
     },
     methodSignatures: {
-      'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
-      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
-      'toStringShort': 'String toStringShort()',
-      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
-      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
     getterSignatures: {
       'onTapHint': 'String? get onTapHint',
@@ -2734,7 +2579,7 @@ BridgedClass _createSemanticsHintOverridesBridge() {
 
 BridgedClass _createSemanticsPropertiesBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.SemanticsProperties,
+    nativeType: $flutter_5.SemanticsProperties,
     name: 'SemanticsProperties',
     constructors: {
       '': (visitor, positional, named) {
@@ -2755,6 +2600,7 @@ BridgedClass _createSemanticsPropertiesBridge() {
         final readOnly = D4.getOptionalNamedArg<bool?>(named, 'readOnly');
         final focusable = D4.getOptionalNamedArg<bool?>(named, 'focusable');
         final focused = D4.getOptionalNamedArg<bool?>(named, 'focused');
+        final accessibilityFocusBlockType = D4.getOptionalNamedArg<$flutter_5.AccessibilityFocusBlockType?>(named, 'accessibilityFocusBlockType');
         final inMutuallyExclusiveGroup = D4.getOptionalNamedArg<bool?>(named, 'inMutuallyExclusiveGroup');
         final hidden = D4.getOptionalNamedArg<bool?>(named, 'hidden');
         final obscured = D4.getOptionalNamedArg<bool?>(named, 'obscured');
@@ -2767,166 +2613,162 @@ BridgedClass _createSemanticsPropertiesBridge() {
         final maxValueLength = D4.getOptionalNamedArg<int?>(named, 'maxValueLength');
         final currentValueLength = D4.getOptionalNamedArg<int?>(named, 'currentValueLength');
         final identifier = D4.getOptionalNamedArg<String?>(named, 'identifier');
+        final traversalParentIdentifier = D4.getOptionalNamedArg<Object?>(named, 'traversalParentIdentifier');
+        final traversalChildIdentifier = D4.getOptionalNamedArg<Object?>(named, 'traversalChildIdentifier');
         final label = D4.getOptionalNamedArg<String?>(named, 'label');
-        final attributedLabel = D4.getOptionalNamedArg<$flutter_6.AttributedString?>(named, 'attributedLabel');
+        final attributedLabel = D4.getOptionalNamedArg<$flutter_5.AttributedString?>(named, 'attributedLabel');
         final value = D4.getOptionalNamedArg<String?>(named, 'value');
-        final attributedValue = D4.getOptionalNamedArg<$flutter_6.AttributedString?>(named, 'attributedValue');
+        final attributedValue = D4.getOptionalNamedArg<$flutter_5.AttributedString?>(named, 'attributedValue');
         final increasedValue = D4.getOptionalNamedArg<String?>(named, 'increasedValue');
-        final attributedIncreasedValue = D4.getOptionalNamedArg<$flutter_6.AttributedString?>(named, 'attributedIncreasedValue');
+        final attributedIncreasedValue = D4.getOptionalNamedArg<$flutter_5.AttributedString?>(named, 'attributedIncreasedValue');
         final decreasedValue = D4.getOptionalNamedArg<String?>(named, 'decreasedValue');
-        final attributedDecreasedValue = D4.getOptionalNamedArg<$flutter_6.AttributedString?>(named, 'attributedDecreasedValue');
+        final attributedDecreasedValue = D4.getOptionalNamedArg<$flutter_5.AttributedString?>(named, 'attributedDecreasedValue');
         final hint = D4.getOptionalNamedArg<String?>(named, 'hint');
         final tooltip = D4.getOptionalNamedArg<String?>(named, 'tooltip');
-        final attributedHint = D4.getOptionalNamedArg<$flutter_6.AttributedString?>(named, 'attributedHint');
-        final hintOverrides = D4.getOptionalNamedArg<$flutter_6.SemanticsHintOverrides?>(named, 'hintOverrides');
-        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
-        final sortKey = D4.getOptionalNamedArg<$flutter_6.SemanticsSortKey?>(named, 'sortKey');
-        final tagForChildren = D4.getOptionalNamedArg<$flutter_6.SemanticsTag?>(named, 'tagForChildren');
-        final role = D4.getOptionalNamedArg<SemanticsRole?>(named, 'role');
+        final attributedHint = D4.getOptionalNamedArg<$flutter_5.AttributedString?>(named, 'attributedHint');
+        final hintOverrides = D4.getOptionalNamedArg<$flutter_5.SemanticsHintOverrides?>(named, 'hintOverrides');
+        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'SemanticsProperties', '<default unavailable>');
+        final sortKey = D4.getOptionalNamedArg<$flutter_5.SemanticsSortKey?>(named, 'sortKey');
+        final tagForChildren = D4.getOptionalNamedArg<$flutter_5.SemanticsTag?>(named, 'tagForChildren');
+        final role = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'role', 'SemanticsProperties', '<default unavailable>');
         final controlsNodes = D4.getOptionalNamedArg<Set<String>?>(named, 'controlsNodes');
-        final inputType = D4.getOptionalNamedArg<SemanticsInputType?>(named, 'inputType');
-        final validationResult = D4.getNamedArgWithDefault<SemanticsValidationResult>(named, 'validationResult', SemanticsValidationResult.none);
-        final onTapRaw = named['onTap'];
-        final onLongPressRaw = named['onLongPress'];
-        final onScrollLeftRaw = named['onScrollLeft'];
-        final onScrollRightRaw = named['onScrollRight'];
-        final onScrollUpRaw = named['onScrollUp'];
-        final onScrollDownRaw = named['onScrollDown'];
-        final onIncreaseRaw = named['onIncrease'];
-        final onDecreaseRaw = named['onDecrease'];
-        final onCopyRaw = named['onCopy'];
-        final onCutRaw = named['onCut'];
-        final onPasteRaw = named['onPaste'];
+        final inputType = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'inputType', 'SemanticsProperties', '<default unavailable>');
+        final hitTestBehavior = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'hitTestBehavior', 'SemanticsProperties', '<default unavailable>');
+        final onTap = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onTap', 'SemanticsProperties', '<default unavailable>');
+        final onLongPress = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onLongPress', 'SemanticsProperties', '<default unavailable>');
+        final onScrollLeft = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onScrollLeft', 'SemanticsProperties', '<default unavailable>');
+        final onScrollRight = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onScrollRight', 'SemanticsProperties', '<default unavailable>');
+        final onScrollUp = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onScrollUp', 'SemanticsProperties', '<default unavailable>');
+        final onScrollDown = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onScrollDown', 'SemanticsProperties', '<default unavailable>');
+        final onIncrease = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onIncrease', 'SemanticsProperties', '<default unavailable>');
+        final onDecrease = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onDecrease', 'SemanticsProperties', '<default unavailable>');
+        final onCopy = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onCopy', 'SemanticsProperties', '<default unavailable>');
+        final onCut = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onCut', 'SemanticsProperties', '<default unavailable>');
+        final onPaste = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onPaste', 'SemanticsProperties', '<default unavailable>');
         final onMoveCursorForwardByCharacterRaw = named['onMoveCursorForwardByCharacter'];
         final onMoveCursorBackwardByCharacterRaw = named['onMoveCursorBackwardByCharacter'];
         final onMoveCursorForwardByWordRaw = named['onMoveCursorForwardByWord'];
         final onMoveCursorBackwardByWordRaw = named['onMoveCursorBackwardByWord'];
         final onSetSelectionRaw = named['onSetSelection'];
         final onSetTextRaw = named['onSetText'];
-        final onDidGainAccessibilityFocusRaw = named['onDidGainAccessibilityFocus'];
-        final onDidLoseAccessibilityFocusRaw = named['onDidLoseAccessibilityFocus'];
-        final onFocusRaw = named['onFocus'];
-        final onDismissRaw = named['onDismiss'];
-        final onExpandRaw = named['onExpand'];
-        final onCollapseRaw = named['onCollapse'];
-        final customSemanticsActions = D4.coerceMapOrNull<$flutter_6.CustomSemanticsAction, void Function()>(named['customSemanticsActions'], 'customSemanticsActions');
-        return $flutter_6.SemanticsProperties(enabled: enabled, checked: checked, mixed: mixed, expanded: expanded, selected: selected, toggled: toggled, button: button, link: link, linkUrl: linkUrl, header: header, headingLevel: headingLevel, textField: textField, slider: slider, keyboardKey: keyboardKey, readOnly: readOnly, focusable: focusable, focused: focused, inMutuallyExclusiveGroup: inMutuallyExclusiveGroup, hidden: hidden, obscured: obscured, multiline: multiline, scopesRoute: scopesRoute, namesRoute: namesRoute, image: image, liveRegion: liveRegion, isRequired: isRequired, maxValueLength: maxValueLength, currentValueLength: currentValueLength, identifier: identifier, label: label, attributedLabel: attributedLabel, value: value, attributedValue: attributedValue, increasedValue: increasedValue, attributedIncreasedValue: attributedIncreasedValue, decreasedValue: decreasedValue, attributedDecreasedValue: attributedDecreasedValue, hint: hint, tooltip: tooltip, attributedHint: attributedHint, hintOverrides: hintOverrides, textDirection: textDirection, sortKey: sortKey, tagForChildren: tagForChildren, role: role, controlsNodes: controlsNodes, inputType: inputType, validationResult: validationResult, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor, onTapRaw, []); }, onLongPress: onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor, onLongPressRaw, []); }, onScrollLeft: onScrollLeftRaw == null ? null : () { D4.callInterpreterCallback(visitor, onScrollLeftRaw, []); }, onScrollRight: onScrollRightRaw == null ? null : () { D4.callInterpreterCallback(visitor, onScrollRightRaw, []); }, onScrollUp: onScrollUpRaw == null ? null : () { D4.callInterpreterCallback(visitor, onScrollUpRaw, []); }, onScrollDown: onScrollDownRaw == null ? null : () { D4.callInterpreterCallback(visitor, onScrollDownRaw, []); }, onIncrease: onIncreaseRaw == null ? null : () { D4.callInterpreterCallback(visitor, onIncreaseRaw, []); }, onDecrease: onDecreaseRaw == null ? null : () { D4.callInterpreterCallback(visitor, onDecreaseRaw, []); }, onCopy: onCopyRaw == null ? null : () { D4.callInterpreterCallback(visitor, onCopyRaw, []); }, onCut: onCutRaw == null ? null : () { D4.callInterpreterCallback(visitor, onCutRaw, []); }, onPaste: onPasteRaw == null ? null : () { D4.callInterpreterCallback(visitor, onPasteRaw, []); }, onMoveCursorForwardByCharacter: onMoveCursorForwardByCharacterRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorForwardByCharacterRaw, [p0]); }, onMoveCursorBackwardByCharacter: onMoveCursorBackwardByCharacterRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorBackwardByCharacterRaw, [p0]); }, onMoveCursorForwardByWord: onMoveCursorForwardByWordRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorForwardByWordRaw, [p0]); }, onMoveCursorBackwardByWord: onMoveCursorBackwardByWordRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorBackwardByWordRaw, [p0]); }, onSetSelection: onSetSelectionRaw == null ? null : ($flutter_9.TextSelection p0) { D4.callInterpreterCallback(visitor, onSetSelectionRaw, [p0]); }, onSetText: onSetTextRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor, onSetTextRaw, [p0]); }, onDidGainAccessibilityFocus: onDidGainAccessibilityFocusRaw == null ? null : () { D4.callInterpreterCallback(visitor, onDidGainAccessibilityFocusRaw, []); }, onDidLoseAccessibilityFocus: onDidLoseAccessibilityFocusRaw == null ? null : () { D4.callInterpreterCallback(visitor, onDidLoseAccessibilityFocusRaw, []); }, onFocus: onFocusRaw == null ? null : () { D4.callInterpreterCallback(visitor, onFocusRaw, []); }, onDismiss: onDismissRaw == null ? null : () { D4.callInterpreterCallback(visitor, onDismissRaw, []); }, onExpand: onExpandRaw == null ? null : () { D4.callInterpreterCallback(visitor, onExpandRaw, []); }, onCollapse: onCollapseRaw == null ? null : () { D4.callInterpreterCallback(visitor, onCollapseRaw, []); }, customSemanticsActions: customSemanticsActions);
+        final onDidGainAccessibilityFocus = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onDidGainAccessibilityFocus', 'SemanticsProperties', '<default unavailable>');
+        final onDidLoseAccessibilityFocus = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onDidLoseAccessibilityFocus', 'SemanticsProperties', '<default unavailable>');
+        final onFocus = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onFocus', 'SemanticsProperties', '<default unavailable>');
+        final onDismiss = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onDismiss', 'SemanticsProperties', '<default unavailable>');
+        final onExpand = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onExpand', 'SemanticsProperties', '<default unavailable>');
+        final onCollapse = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onCollapse', 'SemanticsProperties', '<default unavailable>');
+        final customSemanticsActions = D4.coerceMapOrNull<$flutter_5.CustomSemanticsAction, dynamic>(named['customSemanticsActions'], 'customSemanticsActions');
+        final minValue = D4.getOptionalNamedArg<String?>(named, 'minValue');
+        final maxValue = D4.getOptionalNamedArg<String?>(named, 'maxValue');
+        if (!named.containsKey('validationResult')) {
+          return $flutter_5.SemanticsProperties(enabled: enabled, checked: checked, mixed: mixed, expanded: expanded, selected: selected, toggled: toggled, button: button, link: link, linkUrl: linkUrl, header: header, headingLevel: headingLevel, textField: textField, slider: slider, keyboardKey: keyboardKey, readOnly: readOnly, focusable: focusable, focused: focused, accessibilityFocusBlockType: accessibilityFocusBlockType, inMutuallyExclusiveGroup: inMutuallyExclusiveGroup, hidden: hidden, obscured: obscured, multiline: multiline, scopesRoute: scopesRoute, namesRoute: namesRoute, image: image, liveRegion: liveRegion, isRequired: isRequired, maxValueLength: maxValueLength, currentValueLength: currentValueLength, identifier: identifier, traversalParentIdentifier: traversalParentIdentifier, traversalChildIdentifier: traversalChildIdentifier, label: label, attributedLabel: attributedLabel, value: value, attributedValue: attributedValue, increasedValue: increasedValue, attributedIncreasedValue: attributedIncreasedValue, decreasedValue: decreasedValue, attributedDecreasedValue: attributedDecreasedValue, hint: hint, tooltip: tooltip, attributedHint: attributedHint, hintOverrides: hintOverrides, textDirection: textDirection, sortKey: sortKey, tagForChildren: tagForChildren, role: role, controlsNodes: controlsNodes, inputType: inputType, hitTestBehavior: hitTestBehavior, onTap: onTap, onLongPress: onLongPress, onScrollLeft: onScrollLeft, onScrollRight: onScrollRight, onScrollUp: onScrollUp, onScrollDown: onScrollDown, onIncrease: onIncrease, onDecrease: onDecrease, onCopy: onCopy, onCut: onCut, onPaste: onPaste, onMoveCursorForwardByCharacter: onMoveCursorForwardByCharacterRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorForwardByCharacterRaw, [p0]); }, onMoveCursorBackwardByCharacter: onMoveCursorBackwardByCharacterRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorBackwardByCharacterRaw, [p0]); }, onMoveCursorForwardByWord: onMoveCursorForwardByWordRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorForwardByWordRaw, [p0]); }, onMoveCursorBackwardByWord: onMoveCursorBackwardByWordRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorBackwardByWordRaw, [p0]); }, onSetSelection: onSetSelectionRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor, onSetSelectionRaw, [p0]); }, onSetText: onSetTextRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor, onSetTextRaw, [p0]); }, onDidGainAccessibilityFocus: onDidGainAccessibilityFocus, onDidLoseAccessibilityFocus: onDidLoseAccessibilityFocus, onFocus: onFocus, onDismiss: onDismiss, onExpand: onExpand, onCollapse: onCollapse, customSemanticsActions: customSemanticsActions, minValue: minValue, maxValue: maxValue);
+        }
+        if (named.containsKey('validationResult')) {
+          final validationResult = D4.getRequiredNamedArg<dynamic>(named, 'validationResult', 'SemanticsProperties');
+          return $flutter_5.SemanticsProperties(enabled: enabled, checked: checked, mixed: mixed, expanded: expanded, selected: selected, toggled: toggled, button: button, link: link, linkUrl: linkUrl, header: header, headingLevel: headingLevel, textField: textField, slider: slider, keyboardKey: keyboardKey, readOnly: readOnly, focusable: focusable, focused: focused, accessibilityFocusBlockType: accessibilityFocusBlockType, inMutuallyExclusiveGroup: inMutuallyExclusiveGroup, hidden: hidden, obscured: obscured, multiline: multiline, scopesRoute: scopesRoute, namesRoute: namesRoute, image: image, liveRegion: liveRegion, isRequired: isRequired, maxValueLength: maxValueLength, currentValueLength: currentValueLength, identifier: identifier, traversalParentIdentifier: traversalParentIdentifier, traversalChildIdentifier: traversalChildIdentifier, label: label, attributedLabel: attributedLabel, value: value, attributedValue: attributedValue, increasedValue: increasedValue, attributedIncreasedValue: attributedIncreasedValue, decreasedValue: decreasedValue, attributedDecreasedValue: attributedDecreasedValue, hint: hint, tooltip: tooltip, attributedHint: attributedHint, hintOverrides: hintOverrides, textDirection: textDirection, sortKey: sortKey, tagForChildren: tagForChildren, role: role, controlsNodes: controlsNodes, inputType: inputType, hitTestBehavior: hitTestBehavior, onTap: onTap, onLongPress: onLongPress, onScrollLeft: onScrollLeft, onScrollRight: onScrollRight, onScrollUp: onScrollUp, onScrollDown: onScrollDown, onIncrease: onIncrease, onDecrease: onDecrease, onCopy: onCopy, onCut: onCut, onPaste: onPaste, onMoveCursorForwardByCharacter: onMoveCursorForwardByCharacterRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorForwardByCharacterRaw, [p0]); }, onMoveCursorBackwardByCharacter: onMoveCursorBackwardByCharacterRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorBackwardByCharacterRaw, [p0]); }, onMoveCursorForwardByWord: onMoveCursorForwardByWordRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorForwardByWordRaw, [p0]); }, onMoveCursorBackwardByWord: onMoveCursorBackwardByWordRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorBackwardByWordRaw, [p0]); }, onSetSelection: onSetSelectionRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor, onSetSelectionRaw, [p0]); }, onSetText: onSetTextRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor, onSetTextRaw, [p0]); }, onDidGainAccessibilityFocus: onDidGainAccessibilityFocus, onDidLoseAccessibilityFocus: onDidLoseAccessibilityFocus, onFocus: onFocus, onDismiss: onDismiss, onExpand: onExpand, onCollapse: onCollapse, customSemanticsActions: customSemanticsActions, minValue: minValue, maxValue: maxValue, validationResult: validationResult);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
-      'enabled': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').enabled,
-      'checked': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').checked,
-      'mixed': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').mixed,
-      'expanded': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').expanded,
-      'toggled': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').toggled,
-      'selected': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').selected,
-      'button': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').button,
-      'link': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').link,
-      'header': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').header,
-      'textField': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').textField,
-      'slider': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').slider,
-      'keyboardKey': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').keyboardKey,
-      'readOnly': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').readOnly,
-      'focusable': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').focusable,
-      'focused': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').focused,
-      'inMutuallyExclusiveGroup': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').inMutuallyExclusiveGroup,
-      'hidden': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').hidden,
-      'obscured': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').obscured,
-      'multiline': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').multiline,
-      'scopesRoute': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').scopesRoute,
-      'namesRoute': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').namesRoute,
-      'image': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').image,
-      'liveRegion': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').liveRegion,
-      'isRequired': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').isRequired,
-      'maxValueLength': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').maxValueLength,
-      'currentValueLength': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').currentValueLength,
-      'identifier': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').identifier,
-      'label': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').label,
-      'attributedLabel': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').attributedLabel,
-      'value': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').value,
-      'attributedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').attributedValue,
-      'increasedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').increasedValue,
-      'attributedIncreasedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').attributedIncreasedValue,
-      'decreasedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').decreasedValue,
-      'attributedDecreasedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').attributedDecreasedValue,
-      'hint': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').hint,
-      'attributedHint': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').attributedHint,
-      'tooltip': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').tooltip,
-      'headingLevel': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').headingLevel,
-      'hintOverrides': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').hintOverrides,
-      'textDirection': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').textDirection,
-      'sortKey': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').sortKey,
-      'tagForChildren': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').tagForChildren,
-      'linkUrl': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').linkUrl,
-      'onTap': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onTap,
-      'onLongPress': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onLongPress,
-      'onScrollLeft': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onScrollLeft,
-      'onScrollRight': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onScrollRight,
-      'onScrollUp': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onScrollUp,
-      'onScrollDown': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onScrollDown,
-      'onIncrease': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onIncrease,
-      'onDecrease': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onDecrease,
-      'onCopy': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onCopy,
-      'onCut': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onCut,
-      'onPaste': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onPaste,
-      'onMoveCursorForwardByCharacter': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onMoveCursorForwardByCharacter,
-      'onMoveCursorBackwardByCharacter': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onMoveCursorBackwardByCharacter,
-      'onMoveCursorForwardByWord': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onMoveCursorForwardByWord,
-      'onMoveCursorBackwardByWord': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onMoveCursorBackwardByWord,
-      'onSetSelection': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onSetSelection,
-      'onSetText': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onSetText,
-      'onDidGainAccessibilityFocus': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onDidGainAccessibilityFocus,
-      'onDidLoseAccessibilityFocus': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onDidLoseAccessibilityFocus,
-      'onFocus': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onFocus,
-      'onDismiss': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onDismiss,
-      'onExpand': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onExpand,
-      'onCollapse': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').onCollapse,
-      'customSemanticsActions': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').customSemanticsActions,
-      'role': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').role,
-      'controlsNodes': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').controlsNodes,
-      'validationResult': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').validationResult,
-      'inputType': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties').inputType,
+      'enabled': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').enabled,
+      'checked': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').checked,
+      'mixed': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').mixed,
+      'expanded': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').expanded,
+      'toggled': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').toggled,
+      'selected': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').selected,
+      'button': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').button,
+      'link': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').link,
+      'header': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').header,
+      'textField': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').textField,
+      'slider': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').slider,
+      'keyboardKey': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').keyboardKey,
+      'readOnly': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').readOnly,
+      'focusable': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').focusable,
+      'focused': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').focused,
+      'accessibilityFocusBlockType': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').accessibilityFocusBlockType,
+      'inMutuallyExclusiveGroup': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').inMutuallyExclusiveGroup,
+      'hidden': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').hidden,
+      'obscured': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').obscured,
+      'multiline': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').multiline,
+      'scopesRoute': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').scopesRoute,
+      'namesRoute': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').namesRoute,
+      'image': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').image,
+      'liveRegion': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').liveRegion,
+      'isRequired': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').isRequired,
+      'maxValueLength': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').maxValueLength,
+      'currentValueLength': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').currentValueLength,
+      'identifier': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').identifier,
+      'traversalParentIdentifier': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').traversalParentIdentifier,
+      'traversalChildIdentifier': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').traversalChildIdentifier,
+      'label': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').label,
+      'attributedLabel': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').attributedLabel,
+      'value': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').value,
+      'attributedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').attributedValue,
+      'increasedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').increasedValue,
+      'attributedIncreasedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').attributedIncreasedValue,
+      'decreasedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').decreasedValue,
+      'attributedDecreasedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').attributedDecreasedValue,
+      'hint': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').hint,
+      'attributedHint': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').attributedHint,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').tooltip,
+      'headingLevel': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').headingLevel,
+      'hintOverrides': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').hintOverrides,
+      'textDirection': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').textDirection,
+      'sortKey': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').sortKey,
+      'tagForChildren': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').tagForChildren,
+      'linkUrl': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').linkUrl,
+      'onTap': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onTap,
+      'onLongPress': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onLongPress,
+      'onScrollLeft': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onScrollLeft,
+      'onScrollRight': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onScrollRight,
+      'onScrollUp': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onScrollUp,
+      'onScrollDown': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onScrollDown,
+      'onIncrease': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onIncrease,
+      'onDecrease': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onDecrease,
+      'onCopy': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onCopy,
+      'onCut': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onCut,
+      'onPaste': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onPaste,
+      'onMoveCursorForwardByCharacter': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onMoveCursorForwardByCharacter,
+      'onMoveCursorBackwardByCharacter': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onMoveCursorBackwardByCharacter,
+      'onMoveCursorForwardByWord': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onMoveCursorForwardByWord,
+      'onMoveCursorBackwardByWord': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onMoveCursorBackwardByWord,
+      'onSetSelection': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onSetSelection,
+      'onSetText': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onSetText,
+      'onDidGainAccessibilityFocus': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onDidGainAccessibilityFocus,
+      'onDidLoseAccessibilityFocus': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onDidLoseAccessibilityFocus,
+      'onFocus': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onFocus,
+      'onDismiss': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onDismiss,
+      'onExpand': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onExpand,
+      'onCollapse': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').onCollapse,
+      'customSemanticsActions': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').customSemanticsActions,
+      'role': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').role,
+      'controlsNodes': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').controlsNodes,
+      'validationResult': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').validationResult,
+      'hitTestBehavior': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').hitTestBehavior,
+      'inputType': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').inputType,
+      'maxValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').maxValue,
+      'minValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties').minValue,
     },
     methods: {
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_1.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties');
+        final t = D4.validateTarget<$flutter_5.SemanticsProperties>(target, 'SemanticsProperties');
         return t.toStringShort();
-      },
-      'toStringShallow': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties');
-        final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.debug);
-        return t.toStringShallow(joiner: joiner, minLevel: minLevel);
-      },
-      'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties');
-        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
-        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.debug);
-        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
-        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, wrapWidth: wrapWidth);
-      },
-      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties');
-        final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
-        return t.toDiagnosticsNode(name: name, style: style);
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsProperties>(target, 'SemanticsProperties');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
-        return t.toString(minLevel: minLevel);
       },
     },
     constructorSignatures: {
-      '': 'const SemanticsProperties({bool? enabled, bool? checked, bool? mixed, bool? expanded, bool? selected, bool? toggled, bool? button, bool? link, Uri? linkUrl, bool? header, int? headingLevel, bool? textField, bool? slider, bool? keyboardKey, bool? readOnly, bool? focusable, bool? focused, bool? inMutuallyExclusiveGroup, bool? hidden, bool? obscured, bool? multiline, bool? scopesRoute, bool? namesRoute, bool? image, bool? liveRegion, bool? isRequired, int? maxValueLength, int? currentValueLength, String? identifier, String? label, AttributedString? attributedLabel, String? value, AttributedString? attributedValue, String? increasedValue, AttributedString? attributedIncreasedValue, String? decreasedValue, AttributedString? attributedDecreasedValue, String? hint, String? tooltip, AttributedString? attributedHint, SemanticsHintOverrides? hintOverrides, TextDirection? textDirection, SemanticsSortKey? sortKey, SemanticsTag? tagForChildren, SemanticsRole? role, Set<String>? controlsNodes, SemanticsInputType? inputType, SemanticsValidationResult validationResult = SemanticsValidationResult.none, void Function()? onTap, void Function()? onLongPress, void Function()? onScrollLeft, void Function()? onScrollRight, void Function()? onScrollUp, void Function()? onScrollDown, void Function()? onIncrease, void Function()? onDecrease, void Function()? onCopy, void Function()? onCut, void Function()? onPaste, void Function(bool)? onMoveCursorForwardByCharacter, void Function(bool)? onMoveCursorBackwardByCharacter, void Function(bool)? onMoveCursorForwardByWord, void Function(bool)? onMoveCursorBackwardByWord, void Function(TextSelection)? onSetSelection, void Function(String)? onSetText, void Function()? onDidGainAccessibilityFocus, void Function()? onDidLoseAccessibilityFocus, void Function()? onFocus, void Function()? onDismiss, void Function()? onExpand, void Function()? onCollapse, Map<CustomSemanticsAction, void Function()>? customSemanticsActions})',
+      '': 'const SemanticsProperties({bool? enabled, bool? checked, bool? mixed, bool? expanded, bool? selected, bool? toggled, bool? button, bool? link, Uri? linkUrl, bool? header, int? headingLevel, bool? textField, bool? slider, bool? keyboardKey, bool? readOnly, bool? focusable, bool? focused, AccessibilityFocusBlockType? accessibilityFocusBlockType, bool? inMutuallyExclusiveGroup, bool? hidden, bool? obscured, bool? multiline, bool? scopesRoute, bool? namesRoute, bool? image, bool? liveRegion, bool? isRequired, int? maxValueLength, int? currentValueLength, String? identifier, Object? traversalParentIdentifier, Object? traversalChildIdentifier, String? label, AttributedString? attributedLabel, String? value, AttributedString? attributedValue, String? increasedValue, AttributedString? attributedIncreasedValue, String? decreasedValue, AttributedString? attributedDecreasedValue, String? hint, String? tooltip, AttributedString? attributedHint, SemanticsHintOverrides? hintOverrides, dynamic textDirection, SemanticsSortKey? sortKey, SemanticsTag? tagForChildren, dynamic role, Set<String>? controlsNodes, dynamic inputType, dynamic validationResult = SemanticsValidationResult.none, dynamic hitTestBehavior, dynamic onTap, dynamic onLongPress, dynamic onScrollLeft, dynamic onScrollRight, dynamic onScrollUp, dynamic onScrollDown, dynamic onIncrease, dynamic onDecrease, dynamic onCopy, dynamic onCut, dynamic onPaste, void Function(bool)? onMoveCursorForwardByCharacter, void Function(bool)? onMoveCursorBackwardByCharacter, void Function(bool)? onMoveCursorForwardByWord, void Function(bool)? onMoveCursorBackwardByWord, void Function(InvalidType)? onSetSelection, void Function(String)? onSetText, dynamic onDidGainAccessibilityFocus, dynamic onDidLoseAccessibilityFocus, dynamic onFocus, dynamic onDismiss, dynamic onExpand, dynamic onCollapse, Map<CustomSemanticsAction, InvalidType>? customSemanticsActions, String? minValue, String? maxValue})',
     },
     methodSignatures: {
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
       'toStringShort': 'String toStringShort()',
-      'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
-      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
-      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
-      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
     },
     getterSignatures: {
       'enabled': 'bool? get enabled',
@@ -2944,6 +2786,7 @@ BridgedClass _createSemanticsPropertiesBridge() {
       'readOnly': 'bool? get readOnly',
       'focusable': 'bool? get focusable',
       'focused': 'bool? get focused',
+      'accessibilityFocusBlockType': 'AccessibilityFocusBlockType? get accessibilityFocusBlockType',
       'inMutuallyExclusiveGroup': 'bool? get inMutuallyExclusiveGroup',
       'hidden': 'bool? get hidden',
       'obscured': 'bool? get obscured',
@@ -2956,6 +2799,8 @@ BridgedClass _createSemanticsPropertiesBridge() {
       'maxValueLength': 'int? get maxValueLength',
       'currentValueLength': 'int? get currentValueLength',
       'identifier': 'String? get identifier',
+      'traversalParentIdentifier': 'Object? get traversalParentIdentifier',
+      'traversalChildIdentifier': 'Object? get traversalChildIdentifier',
       'label': 'String? get label',
       'attributedLabel': 'AttributedString? get attributedLabel',
       'value': 'String? get value',
@@ -3000,7 +2845,10 @@ BridgedClass _createSemanticsPropertiesBridge() {
       'role': 'SemanticsRole? get role',
       'controlsNodes': 'Set<String>? get controlsNodes',
       'validationResult': 'SemanticsValidationResult get validationResult',
+      'hitTestBehavior': 'ui.SemanticsHitTestBehavior? get hitTestBehavior',
       'inputType': 'SemanticsInputType? get inputType',
+      'maxValue': 'String? get maxValue',
+      'minValue': 'String? get minValue',
     },
   );
 }
@@ -3011,185 +2859,184 @@ BridgedClass _createSemanticsPropertiesBridge() {
 
 BridgedClass _createSemanticsNodeBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.SemanticsNode,
+    nativeType: $flutter_5.SemanticsNode,
     name: 'SemanticsNode',
     constructors: {
       '': (visitor, positional, named) {
-        final key = D4.getOptionalNamedArg<$flutter_3.Key?>(named, 'key');
+        final key = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'key', 'SemanticsNode', '<default unavailable>');
         final showOnScreenRaw = named['showOnScreen'];
-        return $flutter_6.SemanticsNode(key: key, showOnScreen: showOnScreenRaw == null ? null : () { D4.callInterpreterCallback(visitor, showOnScreenRaw, []); });
+        return $flutter_5.SemanticsNode(key: key, showOnScreen: showOnScreenRaw == null ? null : () { D4.callInterpreterCallback(visitor, showOnScreenRaw, []); });
       },
       'root': (visitor, positional, named) {
-        final key = D4.getOptionalNamedArg<$flutter_3.Key?>(named, 'key');
+        final key = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'key', 'SemanticsNode', '<default unavailable>');
         final showOnScreenRaw = named['showOnScreen'];
-        final owner = D4.getRequiredNamedArg<$flutter_6.SemanticsOwner>(named, 'owner', 'SemanticsNode');
-        return $flutter_6.SemanticsNode.root(key: key, showOnScreen: showOnScreenRaw == null ? null : () { D4.callInterpreterCallback(visitor, showOnScreenRaw, []); }, owner: owner);
+        final owner = D4.getRequiredNamedArg<$flutter_5.SemanticsOwner>(named, 'owner', 'SemanticsNode');
+        return $flutter_5.SemanticsNode.root(key: key, showOnScreen: showOnScreenRaw == null ? null : () { D4.callInterpreterCallback(visitor, showOnScreenRaw, []); }, owner: owner);
       },
     },
     getters: {
-      'key': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').key,
-      'id': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').id,
-      'transform': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').transform,
-      'rect': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').rect,
-      'parentSemanticsClipRect': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').parentSemanticsClipRect,
-      'parentPaintClipRect': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').parentPaintClipRect,
-      'indexInParent': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').indexInParent,
-      'isInvisible': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').isInvisible,
-      'isMergedIntoParent': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').isMergedIntoParent,
-      'areUserActionsBlocked': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').areUserActionsBlocked,
-      'isPartOfNodeMerging': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').isPartOfNodeMerging,
-      'mergeAllDescendantsIntoThisNode': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').mergeAllDescendantsIntoThisNode,
-      'hasChildren': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').hasChildren,
-      'childrenCount': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').childrenCount,
-      'owner': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').owner,
-      'attached': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').attached,
-      'parent': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').parent,
-      'depth': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').depth,
-      'tags': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').tags,
-      'flagsCollection': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').flagsCollection,
-      'identifier': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').identifier,
-      'label': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').label,
-      'attributedLabel': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').attributedLabel,
-      'value': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').value,
-      'attributedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').attributedValue,
-      'increasedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').increasedValue,
-      'attributedIncreasedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').attributedIncreasedValue,
-      'decreasedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').decreasedValue,
-      'attributedDecreasedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').attributedDecreasedValue,
-      'hint': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').hint,
-      'attributedHint': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').attributedHint,
-      'tooltip': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').tooltip,
-      'hintOverrides': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').hintOverrides,
-      'textDirection': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').textDirection,
-      'sortKey': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').sortKey,
-      'textSelection': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').textSelection,
-      'isMultiline': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').isMultiline,
-      'scrollChildCount': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').scrollChildCount,
-      'scrollIndex': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').scrollIndex,
-      'scrollPosition': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').scrollPosition,
-      'scrollExtentMax': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').scrollExtentMax,
-      'scrollExtentMin': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').scrollExtentMin,
-      'platformViewId': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').platformViewId,
-      'maxValueLength': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').maxValueLength,
-      'currentValueLength': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').currentValueLength,
-      'headingLevel': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').headingLevel,
-      'linkUrl': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').linkUrl,
-      'role': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').role,
-      'controlsNodes': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').controlsNodes,
-      'validationResult': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').validationResult,
-      'inputType': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').inputType,
+      'key': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').key,
+      'id': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').id,
+      'transform': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').transform,
+      'rect': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').rect,
+      'parentSemanticsClipRect': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').parentSemanticsClipRect,
+      'parentPaintClipRect': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').parentPaintClipRect,
+      'indexInParent': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').indexInParent,
+      'isInvisible': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').isInvisible,
+      'isMergedIntoParent': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').isMergedIntoParent,
+      'areUserActionsBlocked': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').areUserActionsBlocked,
+      'isPartOfNodeMerging': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').isPartOfNodeMerging,
+      'mergeAllDescendantsIntoThisNode': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').mergeAllDescendantsIntoThisNode,
+      'hasChildren': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').hasChildren,
+      'childrenCount': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').childrenCount,
+      'childrenCountInTraversalOrder': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').childrenCountInTraversalOrder,
+      'owner': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').owner,
+      'attached': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').attached,
+      'parent': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').parent,
+      'traversalParent': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').traversalParent,
+      'depth': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').depth,
+      'tags': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').tags,
+      'flagsCollection': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').flagsCollection,
+      'identifier': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').identifier,
+      'traversalParentIdentifier': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').traversalParentIdentifier,
+      'traversalChildIdentifier': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').traversalChildIdentifier,
+      'label': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').label,
+      'attributedLabel': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').attributedLabel,
+      'value': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').value,
+      'attributedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').attributedValue,
+      'increasedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').increasedValue,
+      'attributedIncreasedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').attributedIncreasedValue,
+      'decreasedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').decreasedValue,
+      'attributedDecreasedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').attributedDecreasedValue,
+      'hint': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').hint,
+      'attributedHint': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').attributedHint,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').tooltip,
+      'hintOverrides': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').hintOverrides,
+      'textDirection': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').textDirection,
+      'sortKey': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').sortKey,
+      'textSelection': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').textSelection,
+      'isMultiline': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').isMultiline,
+      'scrollChildCount': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').scrollChildCount,
+      'scrollIndex': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').scrollIndex,
+      'scrollPosition': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').scrollPosition,
+      'scrollExtentMax': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').scrollExtentMax,
+      'scrollExtentMin': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').scrollExtentMin,
+      'platformViewId': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').platformViewId,
+      'maxValueLength': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').maxValueLength,
+      'currentValueLength': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').currentValueLength,
+      'headingLevel': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').headingLevel,
+      'linkUrl': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').linkUrl,
+      'role': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').role,
+      'controlsNodes': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').controlsNodes,
+      'minValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').minValue,
+      'maxValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').maxValue,
+      'validationResult': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').validationResult,
+      'hitTestBehavior': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').hitTestBehavior,
+      'inputType': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').inputType,
     },
     setters: {
       'transform': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').transform = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').transform = value as dynamic,
       'rect': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').rect = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').rect = value as dynamic,
       'parentSemanticsClipRect': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').parentSemanticsClipRect = value as Rect?,
+        D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').parentSemanticsClipRect = value as dynamic,
       'parentPaintClipRect': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').parentPaintClipRect = value as Rect?,
+        D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').parentPaintClipRect = value as dynamic,
       'indexInParent': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').indexInParent = value as int?,
+        D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').indexInParent = value as int?,
       'isMergedIntoParent': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').isMergedIntoParent = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').isMergedIntoParent = value as dynamic,
       'areUserActionsBlocked': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').areUserActionsBlocked = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').areUserActionsBlocked = value as dynamic,
+      'traversalParent': (visitor, target, value) => 
+        D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').traversalParent = value as dynamic,
       'tags': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode').tags = value == null ? null : (value as Set).cast<$flutter_6.SemanticsTag>().toSet(),
+        D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode').tags = value == null ? null : (value as Set).cast<$flutter_5.SemanticsTag>().toSet(),
     },
     methods: {
       'visitChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode');
+        final t = D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode');
         D4.requireMinArgs(positional, 1, 'visitChildren');
         if (positional.isEmpty) {
           throw ArgumentError('visitChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitChildren(($flutter_6.SemanticsNode p0) { return D4.callInterpreterCallback(visitor, visitor_Raw, [p0]) as bool; });
+        t.visitChildren(($flutter_5.SemanticsNode p0) { return D4.callInterpreterCallback(visitor, visitor_Raw, [p0]) as bool; });
         return null;
       },
       'isTagged': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode');
+        final t = D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode');
         D4.requireMinArgs(positional, 1, 'isTagged');
-        final tag = D4.getRequiredArg<$flutter_6.SemanticsTag>(positional, 0, 'tag', 'isTagged');
+        final tag = D4.getRequiredArg<$flutter_5.SemanticsTag>(positional, 0, 'tag', 'isTagged');
         return t.isTagged(tag);
       },
       'hasFlag': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode');
+        final t = D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode');
         D4.requireMinArgs(positional, 1, 'hasFlag');
-        final flag = D4.getRequiredArg<SemanticsFlag>(positional, 0, 'flag', 'hasFlag');
+        final flag = D4.getRequiredArg<$flutter_5.SemanticsFlag>(positional, 0, 'flag', 'hasFlag');
         return t.hasFlag(flag);
       },
       'updateWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode');
-        final config = D4.getRequiredNamedArg<$flutter_6.SemanticsConfiguration?>(named, 'config', 'updateWith');
-        final childrenInInversePaintOrder = D4.coerceListOrNull<$flutter_6.SemanticsNode>(named['childrenInInversePaintOrder'], 'childrenInInversePaintOrder');
+        final t = D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode');
+        final config = D4.getRequiredNamedArg<$flutter_5.SemanticsConfiguration?>(named, 'config', 'updateWith');
+        final childrenInInversePaintOrder = D4.coerceListOrNull<$flutter_5.SemanticsNode>(named['childrenInInversePaintOrder'], 'childrenInInversePaintOrder');
         t.updateWith(config: config, childrenInInversePaintOrder: childrenInInversePaintOrder);
         return null;
       },
       'getSemanticsData': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode');
+        final t = D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode');
         return t.getSemanticsData();
       },
       'sendEvent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode');
+        final t = D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode');
         D4.requireMinArgs(positional, 1, 'sendEvent');
-        final event = D4.getRequiredArg<$flutter_7.SemanticsEvent>(positional, 0, 'event', 'sendEvent');
+        final event = D4.getRequiredArg<$flutter_6.SemanticsEvent>(positional, 0, 'event', 'sendEvent');
         t.sendEvent(event);
         return null;
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode');
+        final t = D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode');
         return t.toStringShort();
       },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_1.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
       'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode');
+        final t = D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode');
         final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
         final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.debug);
-        final childOrder = D4.getNamedArgWithDefault<$flutter_6.DebugSemanticsDumpOrder>(named, 'childOrder', $flutter_6.DebugSemanticsDumpOrder.traversalOrder);
+        final minLevel = D4.getNamedArgWithDefault<$flutter_1.DiagnosticLevel>(named, 'minLevel', $flutter_1.DiagnosticLevel.debug);
+        final childOrder = D4.getNamedArgWithDefault<$flutter_5.DebugSemanticsDumpOrder>(named, 'childOrder', $flutter_5.DebugSemanticsDumpOrder.traversalOrder);
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, childOrder: childOrder, wrapWidth: wrapWidth);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode');
+        final t = D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode');
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final style = D4.getNamedArgWithDefault<$flutter_2.DiagnosticsTreeStyle?>(named, 'style', $flutter_2.DiagnosticsTreeStyle.sparse);
-        final childOrder = D4.getNamedArgWithDefault<$flutter_6.DebugSemanticsDumpOrder>(named, 'childOrder', $flutter_6.DebugSemanticsDumpOrder.traversalOrder);
+        final style = D4.getNamedArgWithDefault<$flutter_1.DiagnosticsTreeStyle?>(named, 'style', $flutter_1.DiagnosticsTreeStyle.sparse);
+        final childOrder = D4.getNamedArgWithDefault<$flutter_5.DebugSemanticsDumpOrder>(named, 'childOrder', $flutter_5.DebugSemanticsDumpOrder.traversalOrder);
         return t.toDiagnosticsNode(name: name, style: style, childOrder: childOrder);
       },
-      'debugListChildrenInOrder': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode');
-        D4.requireMinArgs(positional, 1, 'debugListChildrenInOrder');
-        final childOrder = D4.getRequiredArg<$flutter_6.DebugSemanticsDumpOrder>(positional, 0, 'childOrder', 'debugListChildrenInOrder');
-        return t.debugListChildrenInOrder(childOrder);
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
-        return t.toString(minLevel: minLevel);
-      },
-      'toStringShallow': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode');
-        final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.debug);
-        return t.toStringShallow(joiner: joiner, minLevel: minLevel);
-      },
       'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode');
-        return t.debugDescribeChildren();
+        final t = D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode');
+        final childOrder = D4.getNamedArgWithDefault<$flutter_5.DebugSemanticsDumpOrder>(named, 'childOrder', $flutter_5.DebugSemanticsDumpOrder.traversalOrder);
+        return t.debugDescribeChildren(childOrder: childOrder);
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsNode>(target, 'SemanticsNode');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_2.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
-        return null;
+      'debugListChildrenInOrder': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.SemanticsNode>(target, 'SemanticsNode');
+        D4.requireMinArgs(positional, 1, 'debugListChildrenInOrder');
+        final childOrder = D4.getRequiredArg<$flutter_5.DebugSemanticsDumpOrder>(positional, 0, 'childOrder', 'debugListChildrenInOrder');
+        return t.debugListChildrenInOrder(childOrder);
       },
     },
     constructorSignatures: {
-      '': 'SemanticsNode({Key? key, VoidCallback? showOnScreen})',
-      'root': 'SemanticsNode.root({Key? key, VoidCallback? showOnScreen, required SemanticsOwner owner})',
+      '': 'SemanticsNode({dynamic key, VoidCallback? showOnScreen})',
+      'root': 'SemanticsNode.root({dynamic key, VoidCallback? showOnScreen, required SemanticsOwner owner})',
     },
     methodSignatures: {
       'visitChildren': 'void visitChildren(SemanticsNodeVisitor visitor)',
@@ -3199,13 +3046,11 @@ BridgedClass _createSemanticsNodeBridge() {
       'getSemanticsData': 'SemanticsData getSemanticsData()',
       'sendEvent': 'void sendEvent(SemanticsEvent event)',
       'toStringShort': 'String toStringShort()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, DebugSemanticsDumpOrder childOrder = DebugSemanticsDumpOrder.traversalOrder, int wrapWidth = 65})',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style = DiagnosticsTreeStyle.sparse, DebugSemanticsDumpOrder childOrder = DebugSemanticsDumpOrder.traversalOrder})',
+      'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren({DebugSemanticsDumpOrder childOrder = DebugSemanticsDumpOrder.traversalOrder})',
       'debugListChildrenInOrder': 'List<SemanticsNode> debugListChildrenInOrder(DebugSemanticsDumpOrder childOrder)',
-      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
-      'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
-      'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
     getterSignatures: {
       'key': 'Key? get key',
@@ -3222,13 +3067,17 @@ BridgedClass _createSemanticsNodeBridge() {
       'mergeAllDescendantsIntoThisNode': 'bool get mergeAllDescendantsIntoThisNode',
       'hasChildren': 'bool get hasChildren',
       'childrenCount': 'int get childrenCount',
+      'childrenCountInTraversalOrder': 'int get childrenCountInTraversalOrder',
       'owner': 'SemanticsOwner? get owner',
       'attached': 'bool get attached',
       'parent': 'SemanticsNode? get parent',
+      'traversalParent': 'SemanticsNode? get traversalParent',
       'depth': 'int get depth',
       'tags': 'Set<SemanticsTag>? get tags',
       'flagsCollection': 'SemanticsFlags get flagsCollection',
       'identifier': 'String get identifier',
+      'traversalParentIdentifier': 'Object? get traversalParentIdentifier',
+      'traversalChildIdentifier': 'Object? get traversalChildIdentifier',
       'label': 'String get label',
       'attributedLabel': 'AttributedString get attributedLabel',
       'value': 'String get value',
@@ -3257,7 +3106,10 @@ BridgedClass _createSemanticsNodeBridge() {
       'linkUrl': 'Uri? get linkUrl',
       'role': 'SemanticsRole get role',
       'controlsNodes': 'Set<String>? get controlsNodes',
+      'minValue': 'String? get minValue',
+      'maxValue': 'String? get maxValue',
       'validationResult': 'SemanticsValidationResult get validationResult',
+      'hitTestBehavior': 'ui.SemanticsHitTestBehavior get hitTestBehavior',
       'inputType': 'SemanticsInputType get inputType',
     },
     setterSignatures: {
@@ -3268,6 +3120,7 @@ BridgedClass _createSemanticsNodeBridge() {
       'indexInParent': 'set indexInParent(dynamic value)',
       'isMergedIntoParent': 'set isMergedIntoParent(bool value)',
       'areUserActionsBlocked': 'set areUserActionsBlocked(bool value)',
+      'traversalParent': 'set traversalParent(SemanticsNode? value)',
       'tags': 'set tags(dynamic value)',
     },
   );
@@ -3279,7 +3132,7 @@ BridgedClass _createSemanticsNodeBridge() {
 
 BridgedClass _createSemanticsOwnerBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.SemanticsOwner,
+    nativeType: $flutter_5.SemanticsOwner,
     name: 'SemanticsOwner',
     constructors: {
       '': (visitor, positional, named) {
@@ -3287,69 +3140,49 @@ BridgedClass _createSemanticsOwnerBridge() {
           throw ArgumentError('SemanticsOwner: Missing required named argument "onSemanticsUpdate"');
         }
         final onSemanticsUpdateRaw = named['onSemanticsUpdate'];
-        return $flutter_6.SemanticsOwner(onSemanticsUpdate: (SemanticsUpdate p0) { D4.callInterpreterCallback(visitor, onSemanticsUpdateRaw, [p0]); });
+        return $flutter_5.SemanticsOwner(onSemanticsUpdate: (dynamic p0) { D4.callInterpreterCallback(visitor, onSemanticsUpdateRaw, [p0]); });
       },
     },
     getters: {
-      'onSemanticsUpdate': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsOwner>(target, 'SemanticsOwner').onSemanticsUpdate,
-      'rootSemanticsNode': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsOwner>(target, 'SemanticsOwner').rootSemanticsNode,
+      'onSemanticsUpdate': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsOwner>(target, 'SemanticsOwner').onSemanticsUpdate,
+      'rootSemanticsNode': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsOwner>(target, 'SemanticsOwner').rootSemanticsNode,
     },
     methods: {
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsOwner>(target, 'SemanticsOwner');
+        final t = D4.validateTarget<$flutter_5.SemanticsOwner>(target, 'SemanticsOwner');
         (t as dynamic).dispose();
         return null;
       },
       'sendSemanticsUpdate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsOwner>(target, 'SemanticsOwner');
+        final t = D4.validateTarget<$flutter_5.SemanticsOwner>(target, 'SemanticsOwner');
         t.sendSemanticsUpdate();
         return null;
       },
       'performAction': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsOwner>(target, 'SemanticsOwner');
+        final t = D4.validateTarget<$flutter_5.SemanticsOwner>(target, 'SemanticsOwner');
         D4.requireMinArgs(positional, 2, 'performAction');
         final id = D4.getRequiredArg<int>(positional, 0, 'id', 'performAction');
-        final action = D4.getRequiredArg<SemanticsAction>(positional, 1, 'action', 'performAction');
+        final action = D4.getRequiredArg<$flutter_5.SemanticsAction>(positional, 1, 'action', 'performAction');
         final args = D4.getOptionalArg<Object?>(positional, 2, 'args');
         t.performAction(id, action, args);
         return null;
       },
       'performActionAt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsOwner>(target, 'SemanticsOwner');
+        final t = D4.validateTarget<$flutter_5.SemanticsOwner>(target, 'SemanticsOwner');
         D4.requireMinArgs(positional, 2, 'performActionAt');
-        final position = D4.getRequiredArg<Offset>(positional, 0, 'position', 'performActionAt');
-        final action = D4.getRequiredArg<SemanticsAction>(positional, 1, 'action', 'performActionAt');
+        final position = D4.getRequiredArg<$flutter_5.Offset>(positional, 0, 'position', 'performActionAt');
+        final action = D4.getRequiredArg<$flutter_5.SemanticsAction>(positional, 1, 'action', 'performActionAt');
         final args = D4.getOptionalArg<Object?>(positional, 2, 'args');
         t.performActionAt(position, action, args);
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsOwner>(target, 'SemanticsOwner');
+        final t = D4.validateTarget<$flutter_5.SemanticsOwner>(target, 'SemanticsOwner');
         return t.toString();
-      },
-      'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsOwner>(target, 'SemanticsOwner');
-        D4.requireMinArgs(positional, 1, 'addListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
-        return null;
-      },
-      'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsOwner>(target, 'SemanticsOwner');
-        D4.requireMinArgs(positional, 1, 'removeListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
-        return null;
       },
     },
     constructorSignatures: {
-      '': 'SemanticsOwner({required void Function(SemanticsUpdate) onSemanticsUpdate})',
+      '': 'SemanticsOwner({required void Function(InvalidType) onSemanticsUpdate})',
     },
     methodSignatures: {
       'dispose': 'void dispose()',
@@ -3357,8 +3190,6 @@ BridgedClass _createSemanticsOwnerBridge() {
       'performAction': 'void performAction(int id, SemanticsAction action, [Object? args])',
       'performActionAt': 'void performActionAt(Offset position, SemanticsAction action, [Object? args])',
       'toString': 'String toString()',
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
     },
     getterSignatures: {
       'onSemanticsUpdate': 'SemanticsUpdateCallback get onSemanticsUpdate',
@@ -3373,324 +3204,342 @@ BridgedClass _createSemanticsOwnerBridge() {
 
 BridgedClass _createSemanticsConfigurationBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.SemanticsConfiguration,
+    nativeType: $flutter_5.SemanticsConfiguration,
     name: 'SemanticsConfiguration',
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_6.SemanticsConfiguration();
+        return $flutter_5.SemanticsConfiguration();
       },
     },
     getters: {
-      'isSemanticBoundary': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSemanticBoundary,
-      'localeForSubtree': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').localeForSubtree,
-      'locale': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').locale,
-      'isBlockingUserActions': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isBlockingUserActions,
-      'explicitChildNodes': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').explicitChildNodes,
-      'isBlockingSemanticsOfPreviouslyPaintedNodes': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isBlockingSemanticsOfPreviouslyPaintedNodes,
-      'hasBeenAnnotated': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').hasBeenAnnotated,
-      'onTap': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onTap,
-      'onLongPress': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onLongPress,
-      'onScrollLeft': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollLeft,
-      'onDismiss': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDismiss,
-      'onScrollRight': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollRight,
-      'onScrollUp': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollUp,
-      'onScrollDown': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollDown,
-      'onScrollToOffset': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollToOffset,
-      'onIncrease': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onIncrease,
-      'onDecrease': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDecrease,
-      'onCopy': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCopy,
-      'onCut': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCut,
-      'onPaste': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onPaste,
-      'onShowOnScreen': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onShowOnScreen,
-      'onMoveCursorForwardByCharacter': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorForwardByCharacter,
-      'onMoveCursorBackwardByCharacter': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorBackwardByCharacter,
-      'onMoveCursorForwardByWord': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorForwardByWord,
-      'onMoveCursorBackwardByWord': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorBackwardByWord,
-      'onSetSelection': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onSetSelection,
-      'onSetText': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onSetText,
-      'onDidGainAccessibilityFocus': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDidGainAccessibilityFocus,
-      'onDidLoseAccessibilityFocus': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDidLoseAccessibilityFocus,
-      'onFocus': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onFocus,
-      'onExpand': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onExpand,
-      'onCollapse': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCollapse,
-      'childConfigurationsDelegate': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').childConfigurationsDelegate,
-      'sortKey': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').sortKey,
-      'indexInParent': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').indexInParent,
-      'scrollChildCount': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollChildCount,
-      'scrollIndex': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollIndex,
-      'platformViewId': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').platformViewId,
-      'maxValueLength': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').maxValueLength,
-      'currentValueLength': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').currentValueLength,
-      'isMergingSemanticsOfDescendants': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isMergingSemanticsOfDescendants,
-      'customSemanticsActions': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').customSemanticsActions,
-      'identifier': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').identifier,
-      'role': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').role,
-      'label': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').label,
-      'attributedLabel': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedLabel,
-      'value': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').value,
-      'attributedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedValue,
-      'increasedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').increasedValue,
-      'attributedIncreasedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedIncreasedValue,
-      'decreasedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').decreasedValue,
-      'attributedDecreasedValue': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedDecreasedValue,
-      'hint': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').hint,
-      'attributedHint': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedHint,
-      'tooltip': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').tooltip,
-      'hintOverrides': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').hintOverrides,
-      'scopesRoute': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').scopesRoute,
-      'namesRoute': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').namesRoute,
-      'isImage': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isImage,
-      'liveRegion': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').liveRegion,
-      'textDirection': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').textDirection,
-      'isSelected': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSelected,
-      'isExpanded': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isExpanded,
-      'isEnabled': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isEnabled,
-      'isChecked': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isChecked,
-      'isCheckStateMixed': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isCheckStateMixed,
-      'isToggled': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isToggled,
-      'isInMutuallyExclusiveGroup': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isInMutuallyExclusiveGroup,
-      'isFocusable': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isFocusable,
-      'isFocused': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isFocused,
-      'isButton': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isButton,
-      'isLink': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isLink,
-      'linkUrl': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').linkUrl,
-      'isHeader': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isHeader,
-      'headingLevel': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').headingLevel,
-      'isSlider': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSlider,
-      'isKeyboardKey': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isKeyboardKey,
-      'isHidden': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isHidden,
-      'isTextField': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isTextField,
-      'isReadOnly': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isReadOnly,
-      'isObscured': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isObscured,
-      'isMultiline': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isMultiline,
-      'isRequired': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isRequired,
-      'hasImplicitScrolling': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').hasImplicitScrolling,
-      'textSelection': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').textSelection,
-      'scrollPosition': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollPosition,
-      'scrollExtentMax': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollExtentMax,
-      'scrollExtentMin': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollExtentMin,
-      'controlsNodes': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').controlsNodes,
-      'validationResult': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').validationResult,
-      'inputType': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').inputType,
-      'tagsForChildren': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').tagsForChildren,
+      'isSemanticBoundary': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSemanticBoundary,
+      'localeForSubtree': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').localeForSubtree,
+      'locale': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').locale,
+      'isBlockingUserActions': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isBlockingUserActions,
+      'explicitChildNodes': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').explicitChildNodes,
+      'isBlockingSemanticsOfPreviouslyPaintedNodes': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isBlockingSemanticsOfPreviouslyPaintedNodes,
+      'hasBeenAnnotated': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').hasBeenAnnotated,
+      'onTap': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onTap,
+      'onLongPress': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onLongPress,
+      'onScrollLeft': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollLeft,
+      'onDismiss': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDismiss,
+      'onScrollRight': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollRight,
+      'onScrollUp': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollUp,
+      'onScrollDown': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollDown,
+      'onScrollToOffset': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollToOffset,
+      'onIncrease': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onIncrease,
+      'onDecrease': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDecrease,
+      'onCopy': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCopy,
+      'onCut': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCut,
+      'onPaste': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onPaste,
+      'onShowOnScreen': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onShowOnScreen,
+      'onMoveCursorForwardByCharacter': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorForwardByCharacter,
+      'onMoveCursorBackwardByCharacter': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorBackwardByCharacter,
+      'onMoveCursorForwardByWord': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorForwardByWord,
+      'onMoveCursorBackwardByWord': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorBackwardByWord,
+      'onSetSelection': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onSetSelection,
+      'onSetText': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onSetText,
+      'onDidGainAccessibilityFocus': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDidGainAccessibilityFocus,
+      'onDidLoseAccessibilityFocus': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDidLoseAccessibilityFocus,
+      'onFocus': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onFocus,
+      'onExpand': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onExpand,
+      'onCollapse': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCollapse,
+      'childConfigurationsDelegate': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').childConfigurationsDelegate,
+      'sortKey': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').sortKey,
+      'indexInParent': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').indexInParent,
+      'scrollChildCount': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollChildCount,
+      'scrollIndex': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollIndex,
+      'platformViewId': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').platformViewId,
+      'maxValueLength': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').maxValueLength,
+      'currentValueLength': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').currentValueLength,
+      'isMergingSemanticsOfDescendants': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isMergingSemanticsOfDescendants,
+      'customSemanticsActions': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').customSemanticsActions,
+      'identifier': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').identifier,
+      'traversalParentIdentifier': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').traversalParentIdentifier,
+      'traversalChildIdentifier': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').traversalChildIdentifier,
+      'role': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').role,
+      'label': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').label,
+      'attributedLabel': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedLabel,
+      'value': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').value,
+      'attributedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedValue,
+      'increasedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').increasedValue,
+      'attributedIncreasedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedIncreasedValue,
+      'decreasedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').decreasedValue,
+      'attributedDecreasedValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedDecreasedValue,
+      'hint': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').hint,
+      'attributedHint': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedHint,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').tooltip,
+      'hintOverrides': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').hintOverrides,
+      'scopesRoute': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').scopesRoute,
+      'namesRoute': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').namesRoute,
+      'isImage': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isImage,
+      'liveRegion': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').liveRegion,
+      'textDirection': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').textDirection,
+      'isSelected': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSelected,
+      'isExpanded': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isExpanded,
+      'isEnabled': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isEnabled,
+      'isChecked': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isChecked,
+      'isCheckStateMixed': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isCheckStateMixed,
+      'isToggled': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isToggled,
+      'isInMutuallyExclusiveGroup': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isInMutuallyExclusiveGroup,
+      'isFocusable': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isFocusable,
+      'isFocused': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isFocused,
+      'accessibilityFocusBlockType': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').accessibilityFocusBlockType,
+      'isButton': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isButton,
+      'isLink': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isLink,
+      'linkUrl': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').linkUrl,
+      'isHeader': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isHeader,
+      'headingLevel': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').headingLevel,
+      'isSlider': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSlider,
+      'isKeyboardKey': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isKeyboardKey,
+      'isHidden': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isHidden,
+      'isTextField': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isTextField,
+      'isReadOnly': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isReadOnly,
+      'isObscured': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isObscured,
+      'isMultiline': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isMultiline,
+      'isRequired': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isRequired,
+      'hasImplicitScrolling': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').hasImplicitScrolling,
+      'textSelection': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').textSelection,
+      'scrollPosition': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollPosition,
+      'scrollExtentMax': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollExtentMax,
+      'scrollExtentMin': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollExtentMin,
+      'controlsNodes': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').controlsNodes,
+      'validationResult': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').validationResult,
+      'hitTestBehavior': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').hitTestBehavior,
+      'inputType': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').inputType,
+      'maxValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').maxValue,
+      'minValue': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').minValue,
+      'tagsForChildren': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').tagsForChildren,
     },
     setters: {
       'isSemanticBoundary': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSemanticBoundary = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSemanticBoundary = value as dynamic,
       'localeForSubtree': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').localeForSubtree = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').localeForSubtree = value as dynamic,
       'locale': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').locale = value as Locale?,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').locale = value as dynamic,
       'isBlockingUserActions': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isBlockingUserActions = value as bool,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isBlockingUserActions = value as bool,
       'explicitChildNodes': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').explicitChildNodes = value as bool,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').explicitChildNodes = value as bool,
       'isBlockingSemanticsOfPreviouslyPaintedNodes': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isBlockingSemanticsOfPreviouslyPaintedNodes = value as bool,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isBlockingSemanticsOfPreviouslyPaintedNodes = value as bool,
       'onTap': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onTap = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onTap = value as dynamic,
       'onLongPress': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onLongPress = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onLongPress = value as dynamic,
       'onScrollLeft': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollLeft = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollLeft = value as dynamic,
       'onDismiss': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDismiss = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDismiss = value as dynamic,
       'onScrollRight': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollRight = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollRight = value as dynamic,
       'onScrollUp': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollUp = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollUp = value as dynamic,
       'onScrollDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollDown = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollDown = value as dynamic,
       'onScrollToOffset': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollToOffset = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollToOffset = value as dynamic,
       'onIncrease': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onIncrease = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onIncrease = value as dynamic,
       'onDecrease': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDecrease = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDecrease = value as dynamic,
       'onCopy': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCopy = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCopy = value as dynamic,
       'onCut': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCut = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCut = value as dynamic,
       'onPaste': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onPaste = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onPaste = value as dynamic,
       'onShowOnScreen': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onShowOnScreen = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onShowOnScreen = value as dynamic,
       'onMoveCursorForwardByCharacter': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorForwardByCharacter = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorForwardByCharacter = value as dynamic,
       'onMoveCursorBackwardByCharacter': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorBackwardByCharacter = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorBackwardByCharacter = value as dynamic,
       'onMoveCursorForwardByWord': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorForwardByWord = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorForwardByWord = value as dynamic,
       'onMoveCursorBackwardByWord': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorBackwardByWord = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorBackwardByWord = value as dynamic,
       'onSetSelection': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onSetSelection = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onSetSelection = value as dynamic,
       'onSetText': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onSetText = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onSetText = value as dynamic,
       'onDidGainAccessibilityFocus': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDidGainAccessibilityFocus = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDidGainAccessibilityFocus = value as dynamic,
       'onDidLoseAccessibilityFocus': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDidLoseAccessibilityFocus = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDidLoseAccessibilityFocus = value as dynamic,
       'onFocus': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onFocus = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onFocus = value as dynamic,
       'onExpand': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onExpand = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onExpand = value as dynamic,
       'onCollapse': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCollapse = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCollapse = value as dynamic,
       'childConfigurationsDelegate': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').childConfigurationsDelegate = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').childConfigurationsDelegate = value as dynamic,
       'sortKey': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').sortKey = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').sortKey = value as dynamic,
       'indexInParent': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').indexInParent = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').indexInParent = value as dynamic,
       'scrollChildCount': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollChildCount = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollChildCount = value as dynamic,
       'scrollIndex': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollIndex = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollIndex = value as dynamic,
       'platformViewId': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').platformViewId = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').platformViewId = value as dynamic,
       'maxValueLength': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').maxValueLength = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').maxValueLength = value as dynamic,
       'currentValueLength': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').currentValueLength = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').currentValueLength = value as dynamic,
       'isMergingSemanticsOfDescendants': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isMergingSemanticsOfDescendants = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isMergingSemanticsOfDescendants = value as dynamic,
       'customSemanticsActions': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').customSemanticsActions = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').customSemanticsActions = value as dynamic,
       'identifier': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').identifier = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').identifier = value as dynamic,
+      'traversalParentIdentifier': (visitor, target, value) => 
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').traversalParentIdentifier = value as dynamic,
+      'traversalChildIdentifier': (visitor, target, value) => 
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').traversalChildIdentifier = value as dynamic,
       'role': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').role = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').role = value as dynamic,
       'label': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').label = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').label = value as dynamic,
       'attributedLabel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedLabel = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedLabel = value as dynamic,
       'value': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').value = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').value = value as dynamic,
       'attributedValue': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedValue = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedValue = value as dynamic,
       'increasedValue': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').increasedValue = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').increasedValue = value as dynamic,
       'attributedIncreasedValue': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedIncreasedValue = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedIncreasedValue = value as dynamic,
       'decreasedValue': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').decreasedValue = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').decreasedValue = value as dynamic,
       'attributedDecreasedValue': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedDecreasedValue = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedDecreasedValue = value as dynamic,
       'hint': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').hint = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').hint = value as dynamic,
       'attributedHint': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedHint = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').attributedHint = value as dynamic,
       'tooltip': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').tooltip = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').tooltip = value as dynamic,
       'hintOverrides': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').hintOverrides = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').hintOverrides = value as dynamic,
       'scopesRoute': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').scopesRoute = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').scopesRoute = value as dynamic,
       'namesRoute': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').namesRoute = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').namesRoute = value as dynamic,
       'isImage': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isImage = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isImage = value as dynamic,
       'liveRegion': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').liveRegion = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').liveRegion = value as dynamic,
       'textDirection': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').textDirection = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').textDirection = value as dynamic,
       'isSelected': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSelected = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSelected = value as dynamic,
       'isExpanded': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isExpanded = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isExpanded = value as dynamic,
       'isEnabled': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isEnabled = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isEnabled = value as dynamic,
       'isChecked': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isChecked = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isChecked = value as dynamic,
       'isCheckStateMixed': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isCheckStateMixed = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isCheckStateMixed = value as dynamic,
       'isToggled': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isToggled = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isToggled = value as dynamic,
       'isInMutuallyExclusiveGroup': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isInMutuallyExclusiveGroup = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isInMutuallyExclusiveGroup = value as dynamic,
       'isFocusable': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isFocusable = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isFocusable = value as dynamic,
       'isFocused': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isFocused = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isFocused = value as dynamic,
+      'accessibilityFocusBlockType': (visitor, target, value) => 
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').accessibilityFocusBlockType = value as dynamic,
       'isButton': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isButton = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isButton = value as dynamic,
       'isLink': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isLink = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isLink = value as dynamic,
       'linkUrl': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').linkUrl = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').linkUrl = value as dynamic,
       'isHeader': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isHeader = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isHeader = value as dynamic,
       'headingLevel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').headingLevel = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').headingLevel = value as dynamic,
       'isSlider': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSlider = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isSlider = value as dynamic,
       'isKeyboardKey': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isKeyboardKey = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isKeyboardKey = value as dynamic,
       'isHidden': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isHidden = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isHidden = value as dynamic,
       'isTextField': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isTextField = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isTextField = value as dynamic,
       'isReadOnly': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isReadOnly = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isReadOnly = value as dynamic,
       'isObscured': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isObscured = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isObscured = value as dynamic,
       'isMultiline': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isMultiline = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isMultiline = value as dynamic,
       'isRequired': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').isRequired = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').isRequired = value as dynamic,
       'hasImplicitScrolling': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').hasImplicitScrolling = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').hasImplicitScrolling = value as dynamic,
       'textSelection': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').textSelection = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').textSelection = value as dynamic,
       'scrollPosition': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollPosition = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollPosition = value as dynamic,
       'scrollExtentMax': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollExtentMax = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollExtentMax = value as dynamic,
       'scrollExtentMin': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollExtentMin = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').scrollExtentMin = value as dynamic,
       'controlsNodes': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').controlsNodes = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').controlsNodes = value as dynamic,
       'validationResult': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').validationResult = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').validationResult = value as dynamic,
+      'hitTestBehavior': (visitor, target, value) => 
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').hitTestBehavior = value as dynamic,
       'inputType': (visitor, target, value) => 
-        D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration').inputType = value as dynamic,
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').inputType = value as dynamic,
+      'maxValue': (visitor, target, value) => 
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').maxValue = value as dynamic,
+      'minValue': (visitor, target, value) => 
+        D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration').minValue = value as dynamic,
     },
     methods: {
       'getActionHandler': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration');
+        final t = D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration');
         D4.requireMinArgs(positional, 1, 'getActionHandler');
-        final action = D4.getRequiredArg<SemanticsAction>(positional, 0, 'action', 'getActionHandler');
+        final action = D4.getRequiredArg<$flutter_5.SemanticsAction>(positional, 0, 'action', 'getActionHandler');
         return t.getActionHandler(action);
       },
       'tagsChildrenWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration');
+        final t = D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration');
         D4.requireMinArgs(positional, 1, 'tagsChildrenWith');
-        final tag = D4.getRequiredArg<$flutter_6.SemanticsTag>(positional, 0, 'tag', 'tagsChildrenWith');
+        final tag = D4.getRequiredArg<$flutter_5.SemanticsTag>(positional, 0, 'tag', 'tagsChildrenWith');
         return t.tagsChildrenWith(tag);
       },
       'addTagForChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration');
+        final t = D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration');
         D4.requireMinArgs(positional, 1, 'addTagForChildren');
-        final tag = D4.getRequiredArg<$flutter_6.SemanticsTag>(positional, 0, 'tag', 'addTagForChildren');
+        final tag = D4.getRequiredArg<$flutter_5.SemanticsTag>(positional, 0, 'tag', 'addTagForChildren');
         t.addTagForChildren(tag);
         return null;
       },
       'isCompatibleWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration');
+        final t = D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration');
         D4.requireMinArgs(positional, 1, 'isCompatibleWith');
-        final other = D4.getRequiredArg<$flutter_6.SemanticsConfiguration?>(positional, 0, 'other', 'isCompatibleWith');
+        final other = D4.getRequiredArg<$flutter_5.SemanticsConfiguration?>(positional, 0, 'other', 'isCompatibleWith');
         return t.isCompatibleWith(other);
       },
       'absorb': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration');
+        final t = D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration');
         D4.requireMinArgs(positional, 1, 'absorb');
-        final child = D4.getRequiredArg<$flutter_6.SemanticsConfiguration>(positional, 0, 'child', 'absorb');
+        final child = D4.getRequiredArg<$flutter_5.SemanticsConfiguration>(positional, 0, 'child', 'absorb');
         t.absorb(child);
         return null;
       },
       'copy': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsConfiguration>(target, 'SemanticsConfiguration');
+        final t = D4.validateTarget<$flutter_5.SemanticsConfiguration>(target, 'SemanticsConfiguration');
         return t.copy();
       },
     },
@@ -3749,6 +3598,8 @@ BridgedClass _createSemanticsConfigurationBridge() {
       'isMergingSemanticsOfDescendants': 'bool get isMergingSemanticsOfDescendants',
       'customSemanticsActions': 'Map<CustomSemanticsAction, VoidCallback> get customSemanticsActions',
       'identifier': 'String get identifier',
+      'traversalParentIdentifier': 'Object? get traversalParentIdentifier',
+      'traversalChildIdentifier': 'Object? get traversalChildIdentifier',
       'role': 'SemanticsRole get role',
       'label': 'String get label',
       'attributedLabel': 'AttributedString get attributedLabel',
@@ -3776,6 +3627,7 @@ BridgedClass _createSemanticsConfigurationBridge() {
       'isInMutuallyExclusiveGroup': 'bool get isInMutuallyExclusiveGroup',
       'isFocusable': 'bool get isFocusable',
       'isFocused': 'bool? get isFocused',
+      'accessibilityFocusBlockType': 'AccessibilityFocusBlockType get accessibilityFocusBlockType',
       'isButton': 'bool get isButton',
       'isLink': 'bool get isLink',
       'linkUrl': 'Uri? get linkUrl',
@@ -3796,7 +3648,10 @@ BridgedClass _createSemanticsConfigurationBridge() {
       'scrollExtentMin': 'double? get scrollExtentMin',
       'controlsNodes': 'Set<String>? get controlsNodes',
       'validationResult': 'SemanticsValidationResult get validationResult',
+      'hitTestBehavior': 'ui.SemanticsHitTestBehavior get hitTestBehavior',
       'inputType': 'SemanticsInputType get inputType',
+      'maxValue': 'String? get maxValue',
+      'minValue': 'String? get minValue',
       'tagsForChildren': 'Iterable<SemanticsTag>? get tagsForChildren',
     },
     setterSignatures: {
@@ -3842,6 +3697,8 @@ BridgedClass _createSemanticsConfigurationBridge() {
       'isMergingSemanticsOfDescendants': 'set isMergingSemanticsOfDescendants(bool value)',
       'customSemanticsActions': 'set customSemanticsActions(Map<CustomSemanticsAction, VoidCallback> value)',
       'identifier': 'set identifier(String value)',
+      'traversalParentIdentifier': 'set traversalParentIdentifier(Object? value)',
+      'traversalChildIdentifier': 'set traversalChildIdentifier(Object? value)',
       'role': 'set role(SemanticsRole value)',
       'label': 'set label(String value)',
       'attributedLabel': 'set attributedLabel(AttributedString value)',
@@ -3869,6 +3726,7 @@ BridgedClass _createSemanticsConfigurationBridge() {
       'isInMutuallyExclusiveGroup': 'set isInMutuallyExclusiveGroup(bool value)',
       'isFocusable': 'set isFocusable(bool value)',
       'isFocused': 'set isFocused(bool? value)',
+      'accessibilityFocusBlockType': 'set accessibilityFocusBlockType(AccessibilityFocusBlockType value)',
       'isButton': 'set isButton(bool value)',
       'isLink': 'set isLink(bool value)',
       'linkUrl': 'set linkUrl(Uri? value)',
@@ -3889,7 +3747,10 @@ BridgedClass _createSemanticsConfigurationBridge() {
       'scrollExtentMin': 'set scrollExtentMin(double? value)',
       'controlsNodes': 'set controlsNodes(Set<String>? value)',
       'validationResult': 'set validationResult(SemanticsValidationResult value)',
+      'hitTestBehavior': 'set hitTestBehavior(ui.SemanticsHitTestBehavior value)',
       'inputType': 'set inputType(SemanticsInputType value)',
+      'maxValue': 'set maxValue(String? value)',
+      'minValue': 'set minValue(String? value)',
     },
   );
 }
@@ -3900,41 +3761,31 @@ BridgedClass _createSemanticsConfigurationBridge() {
 
 BridgedClass _createSemanticsSortKeyBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.SemanticsSortKey,
+    nativeType: $flutter_5.SemanticsSortKey,
     name: 'SemanticsSortKey',
     constructors: {
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_6.SemanticsSortKey>(target, 'SemanticsSortKey').name,
+      'name': (visitor, target) => D4.validateTarget<$flutter_5.SemanticsSortKey>(target, 'SemanticsSortKey').name,
     },
     methods: {
       'compareTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsSortKey>(target, 'SemanticsSortKey');
+        final t = D4.validateTarget<$flutter_5.SemanticsSortKey>(target, 'SemanticsSortKey');
         D4.requireMinArgs(positional, 1, 'compareTo');
-        final other = D4.getRequiredArg<$flutter_6.SemanticsSortKey>(positional, 0, 'other', 'compareTo');
+        final other = D4.getRequiredArg<$flutter_5.SemanticsSortKey>(positional, 0, 'other', 'compareTo');
         return t.compareTo(other);
       },
-      'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsSortKey>(target, 'SemanticsSortKey');
-        return t.toStringShort();
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsSortKey>(target, 'SemanticsSortKey');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
-        return t.toString(minLevel: minLevel);
-      },
-      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.SemanticsSortKey>(target, 'SemanticsSortKey');
-        final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
-        return t.toDiagnosticsNode(name: name, style: style);
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.SemanticsSortKey>(target, 'SemanticsSortKey');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_1.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
       },
     },
     methodSignatures: {
       'compareTo': 'int compareTo(SemanticsSortKey other)',
-      'toStringShort': 'String toStringShort()',
-      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
-      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
     getterSignatures: {
       'name': 'String? get name',
@@ -3948,46 +3799,31 @@ BridgedClass _createSemanticsSortKeyBridge() {
 
 BridgedClass _createOrdinalSortKeyBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.OrdinalSortKey,
+    nativeType: $flutter_5.OrdinalSortKey,
     name: 'OrdinalSortKey',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'OrdinalSortKey');
         final order = D4.getRequiredArg<double>(positional, 0, 'order', 'OrdinalSortKey');
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        return $flutter_6.OrdinalSortKey(order, name: name);
+        return $flutter_5.OrdinalSortKey(order, name: name);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$flutter_6.OrdinalSortKey>(target, 'OrdinalSortKey').name,
-      'order': (visitor, target) => D4.validateTarget<$flutter_6.OrdinalSortKey>(target, 'OrdinalSortKey').order,
+      'name': (visitor, target) => D4.validateTarget<$flutter_5.OrdinalSortKey>(target, 'OrdinalSortKey').name,
+      'order': (visitor, target) => D4.validateTarget<$flutter_5.OrdinalSortKey>(target, 'OrdinalSortKey').order,
     },
     methods: {
       'compareTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.OrdinalSortKey>(target, 'OrdinalSortKey');
+        final t = D4.validateTarget<$flutter_5.OrdinalSortKey>(target, 'OrdinalSortKey');
         D4.requireMinArgs(positional, 1, 'compareTo');
-        final other = D4.getRequiredArg<$flutter_6.SemanticsSortKey>(positional, 0, 'other', 'compareTo');
+        final other = D4.getRequiredArg<$flutter_5.SemanticsSortKey>(positional, 0, 'other', 'compareTo');
         return t.compareTo(other);
       },
-      'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.OrdinalSortKey>(target, 'OrdinalSortKey');
-        return t.toStringShort();
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.OrdinalSortKey>(target, 'OrdinalSortKey');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
-        return t.toString(minLevel: minLevel);
-      },
-      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.OrdinalSortKey>(target, 'OrdinalSortKey');
-        final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
-        return t.toDiagnosticsNode(name: name, style: style);
-      },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.OrdinalSortKey>(target, 'OrdinalSortKey');
+        final t = D4.validateTarget<$flutter_5.OrdinalSortKey>(target, 'OrdinalSortKey');
         D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_2.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_1.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
         (t as dynamic).debugFillProperties(properties);
         return null;
       },
@@ -3997,9 +3833,6 @@ BridgedClass _createOrdinalSortKeyBridge() {
     },
     methodSignatures: {
       'compareTo': 'int compareTo(SemanticsSortKey other)',
-      'toStringShort': 'String toStringShort()',
-      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
-      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
     getterSignatures: {
@@ -4015,7 +3848,7 @@ BridgedClass _createOrdinalSortKeyBridge() {
 
 BridgedClass _createSemanticsServiceBridge() {
   return BridgedClass(
-    nativeType: $flutter_8.SemanticsService,
+    nativeType: $flutter_7.SemanticsService,
     name: 'SemanticsService',
     constructors: {
     },
@@ -4023,22 +3856,22 @@ BridgedClass _createSemanticsServiceBridge() {
       'announce': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'announce');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'announce');
-        final textDirection = D4.getRequiredArg<TextDirection>(positional, 1, 'textDirection', 'announce');
-        final assertiveness = D4.getNamedArgWithDefault<$flutter_7.Assertiveness>(named, 'assertiveness', $flutter_7.Assertiveness.polite);
-        return $flutter_8.SemanticsService.announce(message, textDirection, assertiveness: assertiveness);
+        final textDirection = D4.getRequiredArg<$flutter_7.TextDirection>(positional, 1, 'textDirection', 'announce');
+        final assertiveness = D4.getNamedArgWithDefault<$flutter_6.Assertiveness>(named, 'assertiveness', $flutter_6.Assertiveness.polite);
+        return $flutter_7.SemanticsService.announce(message, textDirection, assertiveness: assertiveness);
       },
       'sendAnnouncement': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'sendAnnouncement');
-        final view = D4.getRequiredArg<FlutterView>(positional, 0, 'view', 'sendAnnouncement');
+        final view = D4.getRequiredArg<$flutter_7.FlutterView>(positional, 0, 'view', 'sendAnnouncement');
         final message = D4.getRequiredArg<String>(positional, 1, 'message', 'sendAnnouncement');
-        final textDirection = D4.getRequiredArg<TextDirection>(positional, 2, 'textDirection', 'sendAnnouncement');
-        final assertiveness = D4.getNamedArgWithDefault<$flutter_7.Assertiveness>(named, 'assertiveness', $flutter_7.Assertiveness.polite);
-        return $flutter_8.SemanticsService.sendAnnouncement(view, message, textDirection, assertiveness: assertiveness);
+        final textDirection = D4.getRequiredArg<$flutter_7.TextDirection>(positional, 2, 'textDirection', 'sendAnnouncement');
+        final assertiveness = D4.getNamedArgWithDefault<$flutter_6.Assertiveness>(named, 'assertiveness', $flutter_6.Assertiveness.polite);
+        return $flutter_7.SemanticsService.sendAnnouncement(view, message, textDirection, assertiveness: assertiveness);
       },
       'tooltip': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'tooltip');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'tooltip');
-        return $flutter_8.SemanticsService.tooltip(message);
+        return $flutter_7.SemanticsService.tooltip(message);
       },
     },
     staticMethodSignatures: {

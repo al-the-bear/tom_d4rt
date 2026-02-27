@@ -1,12 +1,13 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 11 files
-// Generated: 2026-02-27T14:31:24.863829
+// Generated: 2026-02-27T15:45:19.752740
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_ast/tom_d4rt_ast.dart';
 import 'dart:async';
+import 'dart:ui' as $dart_ui;
 import 'dart:ui';
 
 import 'package:flutter/src/animation/animation.dart' as $flutter_1;
@@ -17,12 +18,11 @@ import 'package:flutter/src/animation/curves.dart' as $flutter_5;
 import 'package:flutter/src/animation/listener_helpers.dart' as $flutter_6;
 import 'package:flutter/src/animation/tween.dart' as $flutter_7;
 import 'package:flutter/src/animation/tween_sequence.dart' as $flutter_8;
-import 'package:flutter/src/foundation/change_notifier.dart' as $flutter_9;
-import 'package:flutter/src/foundation/diagnostics.dart' as $flutter_10;
-import 'package:flutter/src/physics/simulation.dart' as $flutter_11;
-import 'package:flutter/src/physics/spring_simulation.dart' as $flutter_12;
-import 'package:flutter/src/physics/tolerance.dart' as $flutter_13;
-import 'package:flutter/src/scheduler/ticker.dart' as $flutter_14;
+import 'package:flutter/src/physics/simulation.dart' as $flutter_9;
+import 'package:flutter/src/physics/spring_simulation.dart' as $flutter_10;
+import 'package:flutter/src/physics/tolerance.dart' as $flutter_11;
+import 'package:flutter/src/scheduler/ticker.dart' as $flutter_12;
+import 'package:flutter/src/foundation/diagnostics.dart' as $aux_flutter;
 
 /// Bridge class for flutter_animation module.
 class FlutterAnimationBridge {
@@ -241,13 +241,13 @@ class FlutterAnimationBridge {
 
 BridgedClass _createTickerProviderBridge() {
   return BridgedClass(
-    nativeType: $flutter_14.TickerProvider,
+    nativeType: $flutter_12.TickerProvider,
     name: 'TickerProvider',
     constructors: {
     },
     methods: {
       'createTicker': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerProvider>(target, 'TickerProvider');
+        final t = D4.validateTarget<$flutter_12.TickerProvider>(target, 'TickerProvider');
         D4.requireMinArgs(positional, 1, 'createTicker');
         if (positional.isEmpty) {
           throw ArgumentError('createTicker: Missing required argument "onTick" at position 0');
@@ -268,19 +268,19 @@ BridgedClass _createTickerProviderBridge() {
 
 BridgedClass _createTickerFutureBridge() {
   return BridgedClass(
-    nativeType: $flutter_14.TickerFuture,
+    nativeType: $flutter_12.TickerFuture,
     name: 'TickerFuture',
     constructors: {
       'complete': (visitor, positional, named) {
-        return $flutter_14.TickerFuture.complete();
+        return $flutter_12.TickerFuture.complete();
       },
     },
     getters: {
-      'orCancel': (visitor, target) => D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture').orCancel,
+      'orCancel': (visitor, target) => D4.validateTarget<$flutter_12.TickerFuture>(target, 'TickerFuture').orCancel,
     },
     methods: {
       'whenCompleteOrCancel': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');
+        final t = D4.validateTarget<$flutter_12.TickerFuture>(target, 'TickerFuture');
         D4.requireMinArgs(positional, 1, 'whenCompleteOrCancel');
         if (positional.isEmpty) {
           throw ArgumentError('whenCompleteOrCancel: Missing required argument "callback" at position 0');
@@ -290,18 +290,18 @@ BridgedClass _createTickerFutureBridge() {
         return null;
       },
       'asStream': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');
+        final t = D4.validateTarget<$flutter_12.TickerFuture>(target, 'TickerFuture');
         return t.asStream();
       },
       'catchError': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');
+        final t = D4.validateTarget<$flutter_12.TickerFuture>(target, 'TickerFuture');
         D4.requireMinArgs(positional, 1, 'catchError');
         final onError = D4.getRequiredArg<Function>(positional, 0, 'onError', 'catchError');
         final testRaw = named['test'];
         return t.catchError(onError, test: testRaw == null ? null : (Object p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; });
       },
       'then': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');
+        final t = D4.validateTarget<$flutter_12.TickerFuture>(target, 'TickerFuture');
         D4.requireMinArgs(positional, 1, 'then');
         if (positional.isEmpty) {
           throw ArgumentError('then: Missing required argument "onValue" at position 0');
@@ -311,14 +311,14 @@ BridgedClass _createTickerFutureBridge() {
         return t.then((void p0) { return D4.callInterpreterCallback(visitor, onValueRaw, [null]) as FutureOr<Object>; }, onError: onError);
       },
       'timeout': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');
+        final t = D4.validateTarget<$flutter_12.TickerFuture>(target, 'TickerFuture');
         D4.requireMinArgs(positional, 1, 'timeout');
         final timeLimit = D4.getRequiredArg<Duration>(positional, 0, 'timeLimit', 'timeout');
         final onTimeoutRaw = named['onTimeout'];
         return t.timeout(timeLimit, onTimeout: onTimeoutRaw == null ? null : () { return D4.callInterpreterCallback(visitor, onTimeoutRaw, []) as FutureOr<void>; });
       },
       'whenComplete': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');
+        final t = D4.validateTarget<$flutter_12.TickerFuture>(target, 'TickerFuture');
         D4.requireMinArgs(positional, 1, 'whenComplete');
         if (positional.isEmpty) {
           throw ArgumentError('whenComplete: Missing required argument "action" at position 0');
@@ -327,7 +327,7 @@ BridgedClass _createTickerFutureBridge() {
         return t.whenComplete(() { return D4.callInterpreterCallback(visitor, actionRaw, []) as dynamic; });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');
+        final t = D4.validateTarget<$flutter_12.TickerFuture>(target, 'TickerFuture');
         return t.toString();
       },
     },
@@ -355,20 +355,20 @@ BridgedClass _createTickerFutureBridge() {
 
 BridgedClass _createTickerCanceledBridge() {
   return BridgedClass(
-    nativeType: $flutter_14.TickerCanceled,
+    nativeType: $flutter_12.TickerCanceled,
     name: 'TickerCanceled',
     constructors: {
       '': (visitor, positional, named) {
-        final ticker = D4.getOptionalArg<$flutter_14.Ticker?>(positional, 0, 'ticker');
-        return $flutter_14.TickerCanceled(ticker);
+        final ticker = D4.getOptionalArg<$flutter_12.Ticker?>(positional, 0, 'ticker');
+        return $flutter_12.TickerCanceled(ticker);
       },
     },
     getters: {
-      'ticker': (visitor, target) => D4.validateTarget<$flutter_14.TickerCanceled>(target, 'TickerCanceled').ticker,
+      'ticker': (visitor, target) => D4.validateTarget<$flutter_12.TickerCanceled>(target, 'TickerCanceled').ticker,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerCanceled>(target, 'TickerCanceled');
+        final t = D4.validateTarget<$flutter_12.TickerCanceled>(target, 'TickerCanceled');
         return t.toString();
       },
     },
@@ -395,7 +395,7 @@ BridgedClass _createAnimationBridge() {
     constructors: {
       'fromValueListenable': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Animation');
-        final listenable = D4.getRequiredArg<$flutter_9.ValueListenable<dynamic>>(positional, 0, 'listenable', 'Animation');
+        final listenable = D4.getRequiredArg<$flutter_1.ValueListenable<dynamic>>(positional, 0, 'listenable', 'Animation');
         final transformerRaw = named['transformer'];
         return $flutter_1.Animation.fromValueListenable(listenable, transformer: transformerRaw == null ? null : (dynamic p0) { return D4.callInterpreterCallback(visitor, transformerRaw, [p0]) as dynamic; });
       },
@@ -584,38 +584,38 @@ BridgedClass _createAnimatableBridge() {
 
 BridgedClass _createSimulationBridge() {
   return BridgedClass(
-    nativeType: $flutter_11.Simulation,
+    nativeType: $flutter_9.Simulation,
     name: 'Simulation',
     constructors: {
     },
     getters: {
-      'tolerance': (visitor, target) => D4.validateTarget<$flutter_11.Simulation>(target, 'Simulation').tolerance,
+      'tolerance': (visitor, target) => D4.validateTarget<$flutter_9.Simulation>(target, 'Simulation').tolerance,
     },
     setters: {
       'tolerance': (visitor, target, value) => 
-        D4.validateTarget<$flutter_11.Simulation>(target, 'Simulation').tolerance = value as $flutter_13.Tolerance,
+        D4.validateTarget<$flutter_9.Simulation>(target, 'Simulation').tolerance = value as $flutter_11.Tolerance,
     },
     methods: {
       'x': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.Simulation>(target, 'Simulation');
+        final t = D4.validateTarget<$flutter_9.Simulation>(target, 'Simulation');
         D4.requireMinArgs(positional, 1, 'x');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'x');
         return t.x(time);
       },
       'dx': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.Simulation>(target, 'Simulation');
+        final t = D4.validateTarget<$flutter_9.Simulation>(target, 'Simulation');
         D4.requireMinArgs(positional, 1, 'dx');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'dx');
         return t.dx(time);
       },
       'isDone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.Simulation>(target, 'Simulation');
+        final t = D4.validateTarget<$flutter_9.Simulation>(target, 'Simulation');
         D4.requireMinArgs(positional, 1, 'isDone');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'isDone');
         return t.isDone(time);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.Simulation>(target, 'Simulation');
+        final t = D4.validateTarget<$flutter_9.Simulation>(target, 'Simulation');
         return t.toString();
       },
     },
@@ -640,37 +640,37 @@ BridgedClass _createSimulationBridge() {
 
 BridgedClass _createSpringDescriptionBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.SpringDescription,
+    nativeType: $flutter_10.SpringDescription,
     name: 'SpringDescription',
     constructors: {
       '': (visitor, positional, named) {
         final mass = D4.getRequiredNamedArg<double>(named, 'mass', 'SpringDescription');
         final stiffness = D4.getRequiredNamedArg<double>(named, 'stiffness', 'SpringDescription');
         final damping = D4.getRequiredNamedArg<double>(named, 'damping', 'SpringDescription');
-        return $flutter_12.SpringDescription(mass: mass, stiffness: stiffness, damping: damping);
+        return $flutter_10.SpringDescription(mass: mass, stiffness: stiffness, damping: damping);
       },
       'withDampingRatio': (visitor, positional, named) {
         final mass = D4.getRequiredNamedArg<double>(named, 'mass', 'SpringDescription');
         final stiffness = D4.getRequiredNamedArg<double>(named, 'stiffness', 'SpringDescription');
         final ratio = D4.getNamedArgWithDefault<double>(named, 'ratio', 1.0);
-        return $flutter_12.SpringDescription.withDampingRatio(mass: mass, stiffness: stiffness, ratio: ratio);
+        return $flutter_10.SpringDescription.withDampingRatio(mass: mass, stiffness: stiffness, ratio: ratio);
       },
       'withDurationAndBounce': (visitor, positional, named) {
         final duration = D4.getNamedArgWithDefault<Duration>(named, 'duration', const Duration(milliseconds: 500));
         final bounce = D4.getNamedArgWithDefault<double>(named, 'bounce', 0.0);
-        return $flutter_12.SpringDescription.withDurationAndBounce(duration: duration, bounce: bounce);
+        return $flutter_10.SpringDescription.withDurationAndBounce(duration: duration, bounce: bounce);
       },
     },
     getters: {
-      'mass': (visitor, target) => D4.validateTarget<$flutter_12.SpringDescription>(target, 'SpringDescription').mass,
-      'stiffness': (visitor, target) => D4.validateTarget<$flutter_12.SpringDescription>(target, 'SpringDescription').stiffness,
-      'damping': (visitor, target) => D4.validateTarget<$flutter_12.SpringDescription>(target, 'SpringDescription').damping,
-      'duration': (visitor, target) => D4.validateTarget<$flutter_12.SpringDescription>(target, 'SpringDescription').duration,
-      'bounce': (visitor, target) => D4.validateTarget<$flutter_12.SpringDescription>(target, 'SpringDescription').bounce,
+      'mass': (visitor, target) => D4.validateTarget<$flutter_10.SpringDescription>(target, 'SpringDescription').mass,
+      'stiffness': (visitor, target) => D4.validateTarget<$flutter_10.SpringDescription>(target, 'SpringDescription').stiffness,
+      'damping': (visitor, target) => D4.validateTarget<$flutter_10.SpringDescription>(target, 'SpringDescription').damping,
+      'duration': (visitor, target) => D4.validateTarget<$flutter_10.SpringDescription>(target, 'SpringDescription').duration,
+      'bounce': (visitor, target) => D4.validateTarget<$flutter_10.SpringDescription>(target, 'SpringDescription').bounce,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.SpringDescription>(target, 'SpringDescription');
+        final t = D4.validateTarget<$flutter_10.SpringDescription>(target, 'SpringDescription');
         return t.toString();
       },
     },
@@ -709,7 +709,7 @@ BridgedClass _createAnimationControllerBridge() {
         final lowerBound = D4.getNamedArgWithDefault<double>(named, 'lowerBound', 0.0);
         final upperBound = D4.getNamedArgWithDefault<double>(named, 'upperBound', 1.0);
         final animationBehavior = D4.getNamedArgWithDefault<$flutter_2.AnimationBehavior>(named, 'animationBehavior', $flutter_2.AnimationBehavior.normal);
-        final vsync = D4.getRequiredNamedArg<$flutter_14.TickerProvider>(named, 'vsync', 'AnimationController');
+        final vsync = D4.getRequiredNamedArg<$flutter_2.TickerProvider>(named, 'vsync', 'AnimationController');
         return $flutter_2.AnimationController(value: value, duration: duration, reverseDuration: reverseDuration, debugLabel: debugLabel, lowerBound: lowerBound, upperBound: upperBound, animationBehavior: animationBehavior, vsync: vsync);
       },
       'unbounded': (visitor, positional, named) {
@@ -717,7 +717,7 @@ BridgedClass _createAnimationControllerBridge() {
         final duration = D4.getOptionalNamedArg<Duration?>(named, 'duration');
         final reverseDuration = D4.getOptionalNamedArg<Duration?>(named, 'reverseDuration');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
-        final vsync = D4.getRequiredNamedArg<$flutter_14.TickerProvider>(named, 'vsync', 'AnimationController');
+        final vsync = D4.getRequiredNamedArg<$flutter_2.TickerProvider>(named, 'vsync', 'AnimationController');
         final animationBehavior = D4.getNamedArgWithDefault<$flutter_2.AnimationBehavior>(named, 'animationBehavior', $flutter_2.AnimationBehavior.preserve);
         return $flutter_2.AnimationController.unbounded(value: value, duration: duration, reverseDuration: reverseDuration, debugLabel: debugLabel, vsync: vsync, animationBehavior: animationBehavior);
       },
@@ -751,21 +751,15 @@ BridgedClass _createAnimationControllerBridge() {
       'addListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
         D4.requireMinArgs(positional, 1, 'addListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'addListener');
+        t.addListener(listener);
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
         D4.requireMinArgs(positional, 1, 'removeListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'removeListener');
+        t.removeListener(listener);
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
@@ -805,7 +799,7 @@ BridgedClass _createAnimationControllerBridge() {
       'resync': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
         D4.requireMinArgs(positional, 1, 'resync');
-        final vsync = D4.getRequiredArg<$flutter_14.TickerProvider>(positional, 0, 'vsync', 'resync');
+        final vsync = D4.getRequiredArg<$flutter_2.TickerProvider>(positional, 0, 'vsync', 'resync');
         t.resync(vsync);
         return null;
       },
@@ -857,20 +851,20 @@ BridgedClass _createAnimationControllerBridge() {
       'fling': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
         final velocity = D4.getNamedArgWithDefault<double>(named, 'velocity', 1.0);
-        final springDescription = D4.getOptionalNamedArg<$flutter_12.SpringDescription?>(named, 'springDescription');
+        final springDescription = D4.getOptionalNamedArg<$flutter_10.SpringDescription?>(named, 'springDescription');
         final animationBehavior = D4.getOptionalNamedArg<$flutter_2.AnimationBehavior?>(named, 'animationBehavior');
         return t.fling(velocity: velocity, springDescription: springDescription, animationBehavior: animationBehavior);
       },
       'animateWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
         D4.requireMinArgs(positional, 1, 'animateWith');
-        final simulation = D4.getRequiredArg<$flutter_11.Simulation>(positional, 0, 'simulation', 'animateWith');
+        final simulation = D4.getRequiredArg<$flutter_9.Simulation>(positional, 0, 'simulation', 'animateWith');
         return t.animateWith(simulation);
       },
       'animateBackWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
         D4.requireMinArgs(positional, 1, 'animateBackWith');
-        final simulation = D4.getRequiredArg<$flutter_11.Simulation>(positional, 0, 'simulation', 'animateBackWith');
+        final simulation = D4.getRequiredArg<$flutter_9.Simulation>(positional, 0, 'simulation', 'animateBackWith');
         return t.animateBackWith(simulation);
       },
       'stop': (visitor, target, positional, named, typeArgs) {
@@ -890,8 +884,8 @@ BridgedClass _createAnimationControllerBridge() {
       'unbounded': 'AnimationController.unbounded({double value = 0.0, Duration? duration, Duration? reverseDuration, String? debugLabel, required TickerProvider vsync, AnimationBehavior animationBehavior = AnimationBehavior.preserve})',
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
+      'addListener': 'void addListener(InvalidType listener)',
+      'removeListener': 'void removeListener(InvalidType listener)',
       'addStatusListener': 'void addStatusListener(void Function(AnimationStatus) listener)',
       'removeStatusListener': 'void removeStatusListener(void Function(AnimationStatus) listener)',
       'drive': 'Animation<dynamic> drive(Animatable<dynamic> child)',
@@ -969,20 +963,12 @@ BridgedClass _createAnimationStyleBridge() {
         final reverseDuration = D4.getOptionalNamedArg<Duration?>(named, 'reverseDuration');
         return t.copyWith(curve: curve, duration: duration, reverseCurve: reverseCurve, reverseDuration: reverseDuration);
       },
-      'toStringShort': (visitor, target, positional, named, typeArgs) {
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle');
-        return t.toStringShort();
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_10.DiagnosticLevel>(named, 'minLevel', $flutter_10.DiagnosticLevel.info);
-        return t.toString(minLevel: minLevel);
-      },
-      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle');
-        final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final style = D4.getOptionalNamedArg<$flutter_10.DiagnosticsTreeStyle?>(named, 'style');
-        return t.toDiagnosticsNode(name: name, style: style);
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$aux_flutter.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle');
@@ -1007,9 +993,7 @@ BridgedClass _createAnimationStyleBridge() {
     },
     methodSignatures: {
       'copyWith': 'AnimationStyle copyWith({Curve? curve, Duration? duration, Curve? reverseCurve, Duration? reverseDuration})',
-      'toStringShort': 'String toStringShort()',
-      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
-      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
     getterSignatures: {
       'curve': 'Curve? get curve',
@@ -1230,21 +1214,15 @@ BridgedClass _createProxyAnimationBridge() {
       'addListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation');
         D4.requireMinArgs(positional, 1, 'addListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'addListener');
+        t.addListener(listener);
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation');
         D4.requireMinArgs(positional, 1, 'removeListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'removeListener');
+        t.removeListener(listener);
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
@@ -1286,8 +1264,8 @@ BridgedClass _createProxyAnimationBridge() {
       '': 'ProxyAnimation([Animation<double>? animation])',
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
+      'addListener': 'void addListener(InvalidType listener)',
+      'removeListener': 'void removeListener(InvalidType listener)',
       'addStatusListener': 'void addStatusListener(void Function(AnimationStatus) listener)',
       'removeStatusListener': 'void removeStatusListener(void Function(AnimationStatus) listener)',
       'drive': 'Animation<dynamic> drive(Animatable<dynamic> child)',
@@ -1456,21 +1434,15 @@ BridgedClass _createCurvedAnimationBridge() {
       'addListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation');
         D4.requireMinArgs(positional, 1, 'addListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'addListener');
+        t.addListener(listener);
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation');
         D4.requireMinArgs(positional, 1, 'removeListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'removeListener');
+        t.removeListener(listener);
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
@@ -1517,8 +1489,8 @@ BridgedClass _createCurvedAnimationBridge() {
       '': 'CurvedAnimation({required Animation<double> parent, required Curve curve, Curve? reverseCurve})',
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
+      'addListener': 'void addListener(InvalidType listener)',
+      'removeListener': 'void removeListener(InvalidType listener)',
       'addStatusListener': 'void addStatusListener(void Function(AnimationStatus status) listener)',
       'removeStatusListener': 'void removeStatusListener(void Function(AnimationStatus status) listener)',
       'drive': 'Animation<dynamic> drive(Animatable<dynamic> child)',
@@ -1559,8 +1531,8 @@ BridgedClass _createTrainHoppingAnimationBridge() {
         D4.requireMinArgs(positional, 2, 'TrainHoppingAnimation');
         final currentTrain = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, '_currentTrain', 'TrainHoppingAnimation');
         final nextTrain = D4.getRequiredArg<$flutter_1.Animation<double>?>(positional, 1, '_nextTrain', 'TrainHoppingAnimation');
-        final onSwitchedTrainRaw = named['onSwitchedTrain'];
-        return $flutter_4.TrainHoppingAnimation(currentTrain, nextTrain, onSwitchedTrain: onSwitchedTrainRaw == null ? null : () { D4.callInterpreterCallback(visitor, onSwitchedTrainRaw, []); });
+        final onSwitchedTrain = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onSwitchedTrain', 'TrainHoppingAnimation', '<default unavailable>');
+        return $flutter_4.TrainHoppingAnimation(currentTrain, nextTrain, onSwitchedTrain: onSwitchedTrain);
       },
     },
     getters: {
@@ -1581,21 +1553,15 @@ BridgedClass _createTrainHoppingAnimationBridge() {
       'addListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation');
         D4.requireMinArgs(positional, 1, 'addListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'addListener');
+        t.addListener(listener);
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation');
         D4.requireMinArgs(positional, 1, 'removeListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'removeListener');
+        t.removeListener(listener);
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
@@ -1639,11 +1605,11 @@ BridgedClass _createTrainHoppingAnimationBridge() {
       },
     },
     constructorSignatures: {
-      '': 'TrainHoppingAnimation(Animation<double> _currentTrain, Animation<double>? _nextTrain, {void Function()? onSwitchedTrain})',
+      '': 'TrainHoppingAnimation(Animation<double> _currentTrain, Animation<double>? _nextTrain, {dynamic onSwitchedTrain})',
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
+      'addListener': 'void addListener(InvalidType listener)',
+      'removeListener': 'void removeListener(InvalidType listener)',
       'addStatusListener': 'void addStatusListener(void Function(AnimationStatus) listener)',
       'removeStatusListener': 'void removeStatusListener(void Function(AnimationStatus) listener)',
       'drive': 'Animation<dynamic> drive(Animatable<dynamic> child)',
@@ -1692,21 +1658,15 @@ BridgedClass _createCompoundAnimationBridge() {
       'addListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation');
         D4.requireMinArgs(positional, 1, 'addListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'addListener');
+        t.addListener(listener);
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation');
         D4.requireMinArgs(positional, 1, 'removeListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'removeListener');
+        t.removeListener(listener);
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
@@ -1745,8 +1705,8 @@ BridgedClass _createCompoundAnimationBridge() {
       },
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
+      'addListener': 'void addListener(InvalidType listener)',
+      'removeListener': 'void removeListener(InvalidType listener)',
       'addStatusListener': 'void addStatusListener(void Function(AnimationStatus) listener)',
       'removeStatusListener': 'void removeStatusListener(void Function(AnimationStatus) listener)',
       'drive': 'Animation<dynamic> drive(Animatable<dynamic> child)',
@@ -1797,21 +1757,15 @@ BridgedClass _createAnimationMeanBridge() {
       'addListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean');
         D4.requireMinArgs(positional, 1, 'addListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'addListener');
+        t.addListener(listener);
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean');
         D4.requireMinArgs(positional, 1, 'removeListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'removeListener');
+        t.removeListener(listener);
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
@@ -1863,8 +1817,8 @@ BridgedClass _createAnimationMeanBridge() {
       '': 'AnimationMean({required Animation<double> left, required Animation<double> right})',
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
+      'addListener': 'void addListener(InvalidType listener)',
+      'removeListener': 'void removeListener(InvalidType listener)',
       'addStatusListener': 'void addStatusListener(void Function(AnimationStatus) listener)',
       'removeStatusListener': 'void removeStatusListener(void Function(AnimationStatus) listener)',
       'drive': 'Animation<dynamic> drive(Animatable<dynamic> child)',
@@ -1918,21 +1872,15 @@ BridgedClass _createAnimationMaxBridge() {
       'addListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax');
         D4.requireMinArgs(positional, 1, 'addListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'addListener');
+        t.addListener(listener);
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax');
         D4.requireMinArgs(positional, 1, 'removeListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'removeListener');
+        t.removeListener(listener);
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
@@ -1984,8 +1932,8 @@ BridgedClass _createAnimationMaxBridge() {
       '': 'AnimationMax(Animation<T> first, Animation<T> next)',
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
+      'addListener': 'void addListener(InvalidType listener)',
+      'removeListener': 'void removeListener(InvalidType listener)',
       'addStatusListener': 'void addStatusListener(void Function(AnimationStatus) listener)',
       'removeStatusListener': 'void removeStatusListener(void Function(AnimationStatus) listener)',
       'drive': 'Animation<dynamic> drive(Animatable<dynamic> child)',
@@ -2039,21 +1987,15 @@ BridgedClass _createAnimationMinBridge() {
       'addListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin');
         D4.requireMinArgs(positional, 1, 'addListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'addListener');
+        t.addListener(listener);
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin');
         D4.requireMinArgs(positional, 1, 'removeListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'removeListener');
+        t.removeListener(listener);
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
@@ -2105,8 +2047,8 @@ BridgedClass _createAnimationMinBridge() {
       '': 'AnimationMin(Animation<T> first, Animation<T> next)',
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
+      'addListener': 'void addListener(InvalidType listener)',
+      'removeListener': 'void removeListener(InvalidType listener)',
       'addStatusListener': 'void addStatusListener(void Function(AnimationStatus) listener)',
       'removeStatusListener': 'void removeStatusListener(void Function(AnimationStatus) listener)',
       'drive': 'Animation<dynamic> drive(Animatable<dynamic> child)',

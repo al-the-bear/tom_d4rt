@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 26 files
-// Generated: 2026-02-27T14:31:17.699129
+// Generated: 2026-02-27T15:45:17.562741
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -10,6 +10,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
+import 'dart:ui' as $dart_ui;
 import 'dart:ui';
 
 import 'package:flutter/src/foundation/annotations.dart' as $flutter_1;
@@ -2158,27 +2159,21 @@ BridgedClass _createValueListenableBridge() {
       'addListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.ValueListenable>(target, 'ValueListenable');
         D4.requireMinArgs(positional, 1, 'addListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'addListener');
+        t.addListener(listener);
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.ValueListenable>(target, 'ValueListenable');
         D4.requireMinArgs(positional, 1, 'removeListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'removeListener');
+        t.removeListener(listener);
         return null;
       },
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
+      'addListener': 'void addListener(InvalidType listener)',
+      'removeListener': 'void removeListener(InvalidType listener)',
     },
     getterSignatures: {
       'value': 'T get value',
@@ -2273,21 +2268,15 @@ BridgedClass _createValueNotifierBridge() {
       'addListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.ValueNotifier>(target, 'ValueNotifier');
         D4.requireMinArgs(positional, 1, 'addListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'addListener');
+        t.addListener(listener);
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.ValueNotifier>(target, 'ValueNotifier');
         D4.requireMinArgs(positional, 1, 'removeListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
+        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'removeListener');
+        t.removeListener(listener);
         return null;
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
@@ -2304,8 +2293,8 @@ BridgedClass _createValueNotifierBridge() {
       '': 'ValueNotifier(T _value)',
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
+      'addListener': 'void addListener(InvalidType listener)',
+      'removeListener': 'void removeListener(InvalidType listener)',
       'dispose': 'void dispose()',
       'toString': 'String toString()',
     },

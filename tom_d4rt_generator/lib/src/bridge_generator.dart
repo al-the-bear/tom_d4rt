@@ -5380,8 +5380,25 @@ class BridgeGenerator {
         .whereType<String>() // Filter out nulls (skipped libraries)
         .toSet();
 
+    // Flutter source APIs heavily rely on dart:ui core types (Color, Offset,
+    // TextPosition, ParagraphBuilder, etc.). Analyzer summaries don't always
+    // surface a stable dart:ui mapping for every such type, so ensure it is
+    // always imported for Flutter bridge generation.
+    final hasFlutterSources = allSourceFiles.any(
+      (file) =>
+          file.startsWith('package:flutter/') ||
+          file.contains('/flutter/') ||
+          file.contains('\\flutter\\'),
+    );
+    if (hasFlutterSources) {
+      sdkImports.add('dart:ui');
+    }
+
     bool shouldAliasSdkImport(String sdkUri) {
       if (sdkUri == 'dart:math') {
+        return true;
+      }
+      if (sdkUri == 'dart:ui') {
         return true;
       }
       for (final entry in _globalTypeToUri.entries) {
@@ -6073,13 +6090,15 @@ class BridgeGenerator {
 
         // GEN-054: Also register the setter if this getter has a corresponding setter.
         if (variable.hasSetter) {
-          // Get prefixed type name for proper import reference
-          final prefixedTypeName = _getPrefixedClassName(
+          // Resolve cast type with typeToUri-aware logic so primitives and SDK
+          // types don't get invalid prefixed casts (e.g. "$flutter_x.double").
+          final resolvedSetterType = _getTypeArgument(
             variable.type,
-            variable.sourceFile,
+            typeToUri: variable.typeToUri,
+            sourceFilePath: variable.sourceFile,
           );
           buffer.writeln(
-            "    interpreter.registerGlobalSetter('${variable.name}', (v) => $prefixedGetterName = v as $prefixedTypeName, importPath, sourceUri: '$sourceUri');",
+            "    interpreter.registerGlobalSetter('${variable.name}', (v) => $prefixedGetterName = v as $resolvedSetterType, importPath, sourceUri: '$sourceUri');",
           );
         }
       }
@@ -7466,6 +7485,7 @@ class BridgeGenerator {
       'initServiceExtensions',
       'initState',
       'receivedTransition',
+      'redepthChildren',
       'saveOffset',
       'setCanDrag',
       'setIgnorePointer',

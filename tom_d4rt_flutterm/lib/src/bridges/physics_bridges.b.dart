@@ -1,11 +1,13 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-02-27T14:31:28.500987
+// Generated: 2026-02-27T15:45:20.370667
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_ast/tom_d4rt_ast.dart';
+import 'dart:ui' as $dart_ui;
+import 'dart:ui';
 
 import 'package:flutter/src/physics/clamped_simulation.dart' as $flutter_1;
 import 'package:flutter/src/physics/friction_simulation.dart' as $flutter_2;
