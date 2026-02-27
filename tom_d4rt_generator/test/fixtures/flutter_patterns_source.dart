@@ -18,6 +18,7 @@ import 'dart:collection' as coll;
 import 'dart:math';
 
 import 'flutter_patterns_external_types.dart';
+import 'flutter_patterns_external_types.dart' as ext;
 
 // ignore_for_file: unused_element
 
@@ -430,6 +431,18 @@ class ImageDecoderLike {
   }
 }
 
+class FutureCodecHostLike {
+  final Future<CodecLike> codec;
+
+  const FutureCodecHostLike({required this.codec});
+}
+
+class PrefixedFutureExternalTypeHostLike {
+  final Future<ext.ExternalBoundLike> value;
+
+  const PrefixedFutureExternalTypeHostLike({required this.value});
+}
+
 // =============================================================================
 // RC-8.3+4: Nullability of generic type params in callbacks + contravariance
 // =============================================================================
@@ -598,4 +611,38 @@ class StatefulBuilderHostLike {
   final StatefulBuilderLike builder;
 
   const StatefulBuilderHostLike({required this.builder});
+}
+
+class ExternalStatefulBuilderHostLike {
+  final ExternalStatefulBuilderLike builder;
+
+  const ExternalStatefulBuilderHostLike({required this.builder});
+}
+
+class ExternalStatefulBuilderViaAliasHostLike {
+  final ExternalStatefulBuilderViaAliasLike builder;
+
+  const ExternalStatefulBuilderViaAliasHostLike({required this.builder});
+}
+
+class ExternalDragTargetLike<T extends Object> {
+  final ExternalNullablePredicateLike<T>? onWillAccept;
+
+  const ExternalDragTargetLike({this.onWillAccept});
+}
+
+class SlottedContainerRenderObjectMixinLike2<SlotType, R extends RenderObjectLike>
+    extends RenderObjectLike {}
+
+abstract class SlottedWidgetBaseLike2<ChildType extends RenderObjectLike> {
+  void updateRenderObject(ChildType renderObject);
+}
+
+class SlottedWidgetImplLike2 extends SlottedWidgetBaseLike2<
+    SlottedContainerRenderObjectMixinLike2<dynamic, RenderObjectLike>> {
+  @override
+  void updateRenderObject(
+    SlottedContainerRenderObjectMixinLike2<dynamic, RenderObjectLike>
+    renderObject,
+  ) {}
 }

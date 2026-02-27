@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 51 files
-// Generated: 2026-02-27T07:29:27.868853
+// Generated: 2026-02-27T08:05:18.616146
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
@@ -8072,7 +8072,7 @@ BridgedClass _createMultiFrameImageStreamCompleterBridge() {
     name: 'MultiFrameImageStreamCompleter',
     constructors: {
       '': (visitor, positional, named) {
-        final codec = D4.getRequiredNamedArg<Future<dynamic>>(named, 'codec', 'MultiFrameImageStreamCompleter');
+        final codec = D4.getRequiredNamedArg<Future<Codec>>(named, 'codec', 'MultiFrameImageStreamCompleter');
         final scale = D4.getRequiredNamedArg<double>(named, 'scale', 'MultiFrameImageStreamCompleter');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final chunkEvents = D4.getOptionalNamedArg<Stream<$flutter_36.ImageChunkEvent>?>(named, 'chunkEvents');

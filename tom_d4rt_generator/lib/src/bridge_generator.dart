@@ -9614,12 +9614,16 @@ class BridgeGenerator {
         }
         // Use the bound type (e.g., E -> TomObject)
         // Recursively resolve in case the bound itself needs prefixing
-        return _getTypeArgument(
+        final resolvedBound = _getTypeArgument(
           bound,
           typeToUri: typeToUri,
           classTypeParams: classTypeParams,
           sourceFilePath: sourceFilePath,
         );
+        if (isNullable && !resolvedBound.endsWith('?')) {
+          return '$resolvedBound?';
+        }
+        return resolvedBound;
       }
       return 'dynamic';
     }
@@ -10159,6 +10163,10 @@ class BridgeGenerator {
         .map((arg) {
           final argIsNullable = arg.endsWith('?');
           var baseArg = argIsNullable ? arg.substring(0, arg.length - 1) : arg;
+          var lookupArg = baseArg;
+          if (lookupArg.contains('.') && !lookupArg.contains('<')) {
+            lookupArg = lookupArg.split('.').last;
+          }
           if (classTypeParams.containsKey(baseArg) ||
               _isGenericTypeParameter(baseArg)) {
             // Use bound from class type parameters if available
@@ -10193,7 +10201,7 @@ class BridgeGenerator {
             );
           }
           // Check if this type needs a prefix
-          final uri = typeToUri[baseArg];
+          final uri = typeToUri[lookupArg] ?? typeToUri[baseArg];
           if (uri != null) {
             // SDK types need prefix only when clash-prone.
             if (uri.startsWith('dart:')) {
@@ -10207,9 +10215,9 @@ class BridgeGenerator {
                     ? existingSdkPrefix
                     : _generateImportPrefix(uri);
                 _importPrefixes[uri] = sdkPrefix;
-                return '$sdkPrefix.$baseArg';
+                return '$sdkPrefix.$lookupArg';
               }
-              return arg;
+              return argIsNullable ? '$lookupArg?' : lookupArg;
             }
             // Local file:// URIs - convert to package: and use _importPrefixes
             if (uri.startsWith('file://') || uri.startsWith('file:///')) {
@@ -10218,11 +10226,11 @@ class BridgeGenerator {
               if (packageUri.startsWith('package:')) {
                 final pkgPrefix = _importPrefixes[packageUri];
                 if (pkgPrefix != null && pkgPrefix.isNotEmpty) {
-                  return '$pkgPrefix.$baseArg';
+                  return '$pkgPrefix.$lookupArg';
                 }
-                _addAuxiliaryImport(packageUri, baseArg);
+                _addAuxiliaryImport(packageUri, lookupArg);
                 final auxPrefix = _getOrCreateAuxiliaryPrefix(packageUri);
-                return '$auxPrefix.$baseArg';
+                return '$auxPrefix.$lookupArg';
               }
               _recordMissingExport(
                 'type argument (local file, could not resolve)',
@@ -10232,13 +10240,13 @@ class BridgeGenerator {
             }
             final prefix = _importPrefixes[uri];
             if (prefix != null) {
-              return prefix.isEmpty ? baseArg : '$prefix.$baseArg';
+              return prefix.isEmpty ? lookupArg : '$prefix.$lookupArg';
             }
             // GEN-055b: URI exists but no import prefix. Try auxiliary prefix.
             if (uri.startsWith('package:')) {
               final auxPrefix = _getOrCreateAuxiliaryPrefix(uri);
               if (_auxiliaryPrefixes.containsKey(uri)) {
-                return '$auxPrefix.$baseArg';
+                return '$auxPrefix.$lookupArg';
               }
             }
           }
@@ -10249,21 +10257,21 @@ class BridgeGenerator {
               sourceFilePath,
             );
             if (auxUri != null) {
-              _addAuxiliaryImport(auxUri, baseArg);
+              _addAuxiliaryImport(auxUri, lookupArg);
               final prefix = _getOrCreateAuxiliaryPrefix(auxUri);
-              return '$prefix.$baseArg';
+              return '$prefix.$lookupArg';
             }
           }
           // Non-built-in type without URI info
-          if (!_isBuiltInType(baseArg)) {
+          if (!_isBuiltInType(lookupArg)) {
             // GEN-055: Check global type registry BEFORE source file fallback
-            final globalUri = _globalTypeToUri[baseArg];
+            final globalUri = _globalTypeToUri[lookupArg] ?? _globalTypeToUri[baseArg];
             if (globalUri != null) {
               if (globalUri.startsWith('dart:')) {
                 final shouldPrefixSdk =
-                    !_isBuiltInType(baseArg) &&
+                    !_isBuiltInType(lookupArg) &&
                     (globalUri == 'dart:math' ||
-                        _exportedTypeNames.contains(baseArg));
+                        _exportedTypeNames.contains(lookupArg));
                 if (shouldPrefixSdk) {
                   final existingSdkPrefix = _importPrefixes[globalUri];
                   final sdkPrefix =
@@ -10272,38 +10280,38 @@ class BridgeGenerator {
                       ? existingSdkPrefix
                       : _generateImportPrefix(globalUri);
                   _importPrefixes[globalUri] = sdkPrefix;
-                  return '$sdkPrefix.$baseArg';
+                  return '$sdkPrefix.$lookupArg';
                 }
-                return arg;
+                return argIsNullable ? '$lookupArg?' : lookupArg;
               }
-              _addAuxiliaryImport(globalUri, baseArg);
+              _addAuxiliaryImport(globalUri, lookupArg);
               final auxPrefix = _getOrCreateAuxiliaryPrefix(globalUri);
-              return '$auxPrefix.$baseArg';
+              return '$auxPrefix.$lookupArg';
             }
             if (sourceFilePath != null) {
               final sourceUri = _getPackageUri(sourceFilePath);
               if (sourceUri.startsWith('package:') &&
-                  _isTypeExported(baseArg)) {
-                _addAuxiliaryImport(sourceUri, baseArg);
+                  _isTypeExported(lookupArg)) {
+                _addAuxiliaryImport(sourceUri, lookupArg);
                 final prefix = _getOrCreateAuxiliaryPrefix(sourceUri);
-                return '$prefix.$baseArg';
+                return '$prefix.$lookupArg';
               }
               if (sourceFilePath.startsWith(workspacePath)) {
                 // Try source file's prefix from _importPrefixes
                 final sourceUri = _getPackageUri(sourceFilePath);
                 final srcPrefix = _importPrefixes[sourceUri];
                 if (srcPrefix != null && srcPrefix.isNotEmpty) {
-                  return '$srcPrefix.$baseArg';
+                  return '$srcPrefix.$lookupArg';
                 }
               }
             }
             _recordMissingExport(
               'type argument (not exported, using dynamic)',
-              baseArg,
+              lookupArg,
             );
             return 'dynamic';
           }
-          return arg;
+          return argIsNullable ? '$lookupArg?' : lookupArg;
         })
         .join(', ');
   }
@@ -11216,6 +11224,11 @@ class BridgeGenerator {
         } else {
           // Positional parameter: "Type" or "Type name"
           // We only need the type, so take everything except the last word if it looks like a name
+          final normalizedParam = param.replaceAll('?', '').trim();
+          if (_isFunctionTypeName(normalizedParam)) {
+            positionalParamTypes.add(param);
+            continue;
+          }
           final parts = param.split(RegExp(r'\s+'));
           if (parts.length == 1) {
             positionalParamTypes.add(parts[0]);

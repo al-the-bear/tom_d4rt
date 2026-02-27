@@ -473,6 +473,111 @@ void main() {
           );
         },
       );
+
+      test(
+        'G-FLP-47: Required named Future<ConcreteType> parameter is not degraded to Future<dynamic>. [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'FutureCodecHostLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createFutureCodecHostLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            contains(
+              "getRequiredNamedArg<Future<\$test_package_1.CodecLike>>(named, 'codec'",
+            ),
+            reason:
+                'Concrete Future<T> named args should keep T instead of collapsing to dynamic',
+          );
+          expect(
+            section,
+            isNot(contains("getRequiredNamedArg<Future<dynamic>>(named, 'codec'")),
+          );
+        },
+      );
+
+      test(
+        'G-FLP-48: Generic render-object subtype is preserved in updateRenderObject extraction. [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'SlottedWidgetImplLike2'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createSlottedWidgetImplLike2Bridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            contains(
+              'getRequiredArg<\$test_package_1.SlottedContainerRenderObjectMixinLike2<dynamic, \$test_package_1.RenderObjectLike>>(positional, 0, \'renderObject\'',
+            ),
+            reason:
+                'Concrete child type argument should be preserved instead of collapsing to RenderObjectLike base bound',
+          );
+          expect(
+            section,
+            isNot(
+              contains(
+                "getRequiredArg<\$test_package_1.RenderObjectLike>(positional, 0, 'renderObject'",
+              ),
+            ),
+          );
+        },
+      );
+
+      test(
+        'G-FLP-49: Prefixed generic type argument in Future<T> does not collapse to dynamic. [2026-02-27] (FAIL)',
+        () {
+          expect(
+            generatedCode,
+            contains("name: 'PrefixedFutureExternalTypeHostLike'"),
+          );
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createPrefixedFutureExternalTypeHostLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            contains('getRequiredNamedArg<Future<'),
+          );
+          expect(
+            section,
+            contains('ExternalBoundLike>>(named, \'value\''),
+            reason:
+                'Aliased/prefixed type arguments should resolve to their actual type instead of dynamic',
+          );
+          expect(
+            section,
+            isNot(contains("getRequiredNamedArg<Future<dynamic>>(named, 'value'")),
+          );
+        },
+      );
     });
 
     // =========================================================================
@@ -1290,6 +1395,108 @@ void main() {
             contains('void Function(void Function())'),
             reason:
                 'Expected preserved nested callback signature for StateSetterLike',
+          );
+        },
+      );
+
+      test(
+        'G-FLP-44: Imported nested callback typedef argument shape is preserved. [2026-02-27] (FAIL)',
+        () {
+          expect(
+            generatedCode,
+            contains("name: 'ExternalStatefulBuilderHostLike'"),
+          );
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createExternalStatefulBuilderHostLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(contains('void Function(void)')),
+            reason:
+                'Imported nested callback typedefs must not degrade inner callback argument to void-typed value',
+          );
+          expect(
+            section,
+            contains('void Function(void Function())'),
+            reason:
+                'Expected preserved imported nested callback signature for ExternalStateSetterLike',
+          );
+        },
+      );
+
+      test(
+        'G-FLP-45: Imported alias-of-alias nested callback typedef is preserved. [2026-02-27] (FAIL)',
+        () {
+          expect(
+            generatedCode,
+            contains("name: 'ExternalStatefulBuilderViaAliasHostLike'"),
+          );
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createExternalStatefulBuilderViaAliasHostLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(contains('void Function(void)')),
+            reason:
+                'Alias-of-alias nested callback typedefs must not collapse inner callback to void-typed value',
+          );
+          expect(
+            section,
+            contains('void Function(void Function())'),
+            reason:
+                'Expected preserved nested callback signature through typedef indirection (VoidCallback-like)',
+          );
+        },
+      );
+
+      test(
+        'G-FLP-46: Imported generic nullable predicate keeps T? parameter. [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'ExternalDragTargetLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createExternalDragTargetLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            contains('(Object? p0) {'),
+            reason:
+                'Imported generic predicate typedef should preserve nullable parameter in callback wrapper',
+          );
+          expect(
+            section,
+            isNot(contains('(Object p0) {')),
+            reason:
+                'Narrowing T? to T in callback parameters breaks contravariant assignment compatibility',
           );
         },
       );

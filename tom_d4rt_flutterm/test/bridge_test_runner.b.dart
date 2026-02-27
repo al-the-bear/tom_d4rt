@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for flutter_material_bridges
-// Generated: 2026-02-27T07:32:12.645674
+// Generated: 2026-02-27T08:08:27.892573
 //
 // Usage:
 //   dart run test/bridge_test_runner.b.dart <script.dart|.d4rt>  Run a D4rt script file
