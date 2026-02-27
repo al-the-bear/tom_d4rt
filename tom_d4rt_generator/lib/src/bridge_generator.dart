@@ -5355,12 +5355,11 @@ class BridgeGenerator {
         .toSet();
 
     // Add SDK imports.
-    // Keep most dart:* imports unprefixed, but alias dart:math to avoid
-    // clash-prone symbols like Point/Random in generated bridge type arguments.
+    // Keep most dart:* imports unprefixed, but honor precomputed aliases
+    // for clash-prone symbols.
     for (final importPath in sdkImports.toList()..sort()) {
-      if (importPath == 'dart:math') {
-        const sdkPrefix = r'$dart_math';
-        _importPrefixes[importPath] = sdkPrefix;
+      final sdkPrefix = _importPrefixes[importPath];
+      if (sdkPrefix != null && sdkPrefix.isNotEmpty) {
         buffer.writeln("import '$importPath' as $sdkPrefix;");
       } else {
         _importPrefixes[importPath] = '';
@@ -9588,15 +9587,16 @@ class BridgeGenerator {
     final uri = typeToUri[unprefixedType];
     if (uri != null) {
       // Check if this is an SDK type (dart:*).
-      // Currently only dart:math types are forced to use a prefix to avoid
-      // clash-prone names (Point/Random). Other SDK types remain unprefixed.
       if (uri.startsWith('dart:')) {
-        if (uri == 'dart:math' && !_isBuiltInType(unprefixedType)) {
+        final shouldPrefixSdk =
+            !_isBuiltInType(unprefixedType) &&
+            (uri == 'dart:math' || _exportedTypeNames.contains(unprefixedType));
+        if (shouldPrefixSdk) {
           final existingSdkPrefix = _importPrefixes[uri];
           final sdkPrefix =
               (existingSdkPrefix != null && existingSdkPrefix.isNotEmpty)
               ? existingSdkPrefix
-              : r'$dart_math';
+              : _generateImportPrefix(uri);
           _importPrefixes[uri] = sdkPrefix;
           final result = '$sdkPrefix.$unprefixedType';
           return isNullable ? '$result?' : result;
@@ -9743,12 +9743,16 @@ class BridgeGenerator {
       final globalUri = _globalTypeToUri[unprefixedType];
       if (globalUri != null) {
         if (globalUri.startsWith('dart:')) {
-          if (globalUri == 'dart:math' && !_isBuiltInType(unprefixedType)) {
+          final shouldPrefixSdk =
+              !_isBuiltInType(unprefixedType) &&
+              (globalUri == 'dart:math' ||
+                  _exportedTypeNames.contains(unprefixedType));
+          if (shouldPrefixSdk) {
             final existingSdkPrefix = _importPrefixes[globalUri];
             final sdkPrefix =
                 (existingSdkPrefix != null && existingSdkPrefix.isNotEmpty)
                 ? existingSdkPrefix
-                : r'$dart_math';
+                : _generateImportPrefix(globalUri);
             _importPrefixes[globalUri] = sdkPrefix;
             final result = '$sdkPrefix.$unprefixedType';
             return isNullable ? '$result?' : result;
@@ -9926,14 +9930,17 @@ class BridgeGenerator {
     String prefixedBase = baseType;
     final baseUri = typeToUri[baseType];
     if (baseUri != null) {
-      // SDK types: currently prefix clash-prone dart:math symbols only.
+      // SDK types: prefix when clash-prone.
       if (baseUri.startsWith('dart:')) {
-        if (baseUri == 'dart:math' && !_isBuiltInType(baseType)) {
+        final shouldPrefixSdk =
+            !_isBuiltInType(baseType) &&
+            (baseUri == 'dart:math' || _exportedTypeNames.contains(baseType));
+        if (shouldPrefixSdk) {
           final existingSdkPrefix = _importPrefixes[baseUri];
           final sdkPrefix =
               (existingSdkPrefix != null && existingSdkPrefix.isNotEmpty)
               ? existingSdkPrefix
-              : r'$dart_math';
+              : _generateImportPrefix(baseUri);
           _importPrefixes[baseUri] = sdkPrefix;
           prefixedBase = '$sdkPrefix.$baseType';
         } else {
@@ -10119,8 +10126,20 @@ class BridgeGenerator {
           // Check if this type needs a prefix
           final uri = typeToUri[baseArg];
           if (uri != null) {
-            // SDK types don't need prefix
+            // SDK types need prefix only when clash-prone.
             if (uri.startsWith('dart:')) {
+              final shouldPrefixSdk =
+                  !_isBuiltInType(baseArg) &&
+                  (uri == 'dart:math' || _exportedTypeNames.contains(baseArg));
+              if (shouldPrefixSdk) {
+                final existingSdkPrefix = _importPrefixes[uri];
+                final sdkPrefix =
+                    (existingSdkPrefix != null && existingSdkPrefix.isNotEmpty)
+                    ? existingSdkPrefix
+                    : _generateImportPrefix(uri);
+                _importPrefixes[uri] = sdkPrefix;
+                return '$sdkPrefix.$baseArg';
+              }
               return arg;
             }
             // Local file:// URIs - convert to package: and use _importPrefixes
@@ -10172,6 +10191,20 @@ class BridgeGenerator {
             final globalUri = _globalTypeToUri[baseArg];
             if (globalUri != null) {
               if (globalUri.startsWith('dart:')) {
+                final shouldPrefixSdk =
+                    !_isBuiltInType(baseArg) &&
+                    (globalUri == 'dart:math' ||
+                        _exportedTypeNames.contains(baseArg));
+                if (shouldPrefixSdk) {
+                  final existingSdkPrefix = _importPrefixes[globalUri];
+                  final sdkPrefix =
+                      (existingSdkPrefix != null &&
+                          existingSdkPrefix.isNotEmpty)
+                      ? existingSdkPrefix
+                      : _generateImportPrefix(globalUri);
+                  _importPrefixes[globalUri] = sdkPrefix;
+                  return '$sdkPrefix.$baseArg';
+                }
                 return arg;
               }
               _addAuxiliaryImport(globalUri, baseArg);

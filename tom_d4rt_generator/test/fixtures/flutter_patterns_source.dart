@@ -14,6 +14,7 @@
 library;
 
 import 'dart:async';
+import 'dart:collection' as coll;
 import 'dart:math';
 
 import 'flutter_patterns_external_types.dart';
@@ -267,6 +268,36 @@ class LayoutHostLike {
   const LayoutHostLike({required this.builder});
 }
 
+abstract class AbstractLayoutBuilderFamilyLike<
+  ConstraintType extends ConstraintsLike
+> {
+  const AbstractLayoutBuilderFamilyLike();
+
+  bool updateShouldRebuild(
+    covariant AbstractLayoutBuilderFamilyLike<ConstraintType> oldWidget,
+  ) {
+    return identical(this, oldWidget);
+  }
+}
+
+class ConstrainedLayoutBuilderLike<ConstraintType extends ConstraintsLike>
+    extends AbstractLayoutBuilderFamilyLike<ConstraintType> {
+  const ConstrainedLayoutBuilderLike();
+
+  @override
+  bool updateShouldRebuild(
+    covariant AbstractLayoutBuilderFamilyLike<ConstraintType> oldWidget,
+  ) {
+    return false;
+  }
+}
+
+class ConstrainedLayoutBuilderInheritedLike<
+  ConstraintType extends ConstraintsLike
+> extends AbstractLayoutBuilderFamilyLike<ConstraintType> {
+  const ConstrainedLayoutBuilderInheritedLike();
+}
+
 abstract class AbstractLayoutBuilderGenericLike<C extends ConstraintsLike> {
   const AbstractLayoutBuilderGenericLike();
 
@@ -327,6 +358,17 @@ class PointFactoryHostLike {
   const PointFactoryHostLike({required this.factory});
 
   Point<double> create() => factory();
+}
+
+class Queue {
+  final String id;
+  const Queue(this.id);
+}
+
+class QueueHostLike {
+  final coll.Queue<int> items;
+
+  const QueueHostLike({required this.items});
 }
 
 // =============================================================================

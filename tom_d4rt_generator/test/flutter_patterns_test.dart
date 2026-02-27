@@ -766,6 +766,76 @@ void main() {
       );
 
       test(
+        'G-FLP-35: ConstrainedLayoutBuilderLike inherited oldWidget arg is not dynamic. [2026-02-27] (FAIL)',
+        () {
+          expect(
+            generatedCode,
+            contains("name: 'ConstrainedLayoutBuilderLike'"),
+          );
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createConstrainedLayoutBuilderLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(contains('AbstractLayoutBuilderFamilyLike<dynamic>')),
+            reason:
+                'Inherited generic method argument should preserve class bound type instead of dynamic',
+          );
+          expect(
+            section,
+            contains('AbstractLayoutBuilderFamilyLike<\$test_package_1.ConstraintsLike>'),
+            reason:
+                'Expected oldWidget extraction to use bound ConstraintsLike for ConstraintType',
+          );
+        },
+      );
+
+      test(
+        'G-FLP-36: Inherited generic updateShouldRebuild oldWidget does not degrade to dynamic. [2026-02-27] (FAIL)',
+        () {
+          expect(
+            generatedCode,
+            contains("name: 'ConstrainedLayoutBuilderInheritedLike'"),
+          );
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createConstrainedLayoutBuilderInheritedLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(contains('AbstractLayoutBuilderFamilyLike<dynamic>')),
+            reason:
+                'Inherited generic method arg should preserve bound type instead of dynamic',
+          );
+          expect(
+            section,
+            contains('AbstractLayoutBuilderFamilyLike<\$test_package_1.ConstraintsLike>'),
+            reason:
+                'Expected bound-based substitution for inherited oldWidget argument type',
+          );
+        },
+      );
+
+      test(
         'G-FLP-33: SlottedRenderObjectElementGenericLike keeps second arg bound R extends RenderObjectLike. [2026-02-27] (FAIL)',
         () {
           expect(
@@ -991,6 +1061,32 @@ void main() {
             contains(RegExp(r'as\s+\$dart_math(?:_\d+)?\.Point<double>')),
             reason:
                 'Wrapper callback return cast should use resolved dart:math alias for Point<double>',
+          );
+        },
+      );
+
+      test(
+        'G-FLP-37: dart:collection Queue is prefixed when local Queue exists. [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'QueueHostLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createQueueHostLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            contains(RegExp(r'\$dart_collection(?:_\d+)?\.Queue<int>')),
+            reason:
+                'SDK Queue should be explicitly namespaced to avoid clashing with local Queue type',
           );
         },
       );

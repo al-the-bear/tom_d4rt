@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for flutter_material_bridges
-// Generated: 2026-02-27T00:31:13.259107
+// Generated: 2026-02-27T04:06:56.801261
 //
 // Usage:
 //   dart run test/bridge_test_runner.b.dart <script.dart|.d4rt>  Run a D4rt script file
@@ -15,10 +15,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:tom_d4rt/d4rt.dart';
-import 'package:flutter_material_bridges/src/bridges/painting_bridges.b.dart' as flutter_painting_bridges;
-import 'package:flutter_material_bridges/src/bridges/foundation_bridges.b.dart' as flutter_foundation_bridges;
-import 'package:flutter_material_bridges/src/bridges/widgets_bridges.b.dart' as flutter_widgets_bridges;
-import 'package:flutter_material_bridges/src/bridges/material_widgets_bridges.b.dart' as flutter_material_bridges;
+import 'package:tom_d4rt_flutterm/src/bridges/painting_bridges.b.dart' as flutter_painting_bridges;
+import 'package:tom_d4rt_flutterm/src/bridges/foundation_bridges.b.dart' as flutter_foundation_bridges;
+import 'package:tom_d4rt_flutterm/src/bridges/widgets_bridges.b.dart' as flutter_widgets_bridges;
+import 'package:tom_d4rt_flutterm/src/bridges/material_widgets_bridges.b.dart' as flutter_material_bridges;
 
 /// Init script source that imports all bridged modules.
 const String _initSource = '''

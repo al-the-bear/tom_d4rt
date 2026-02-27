@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/example/d4/lib/test_extensions.dart
-// Generated: 2026-02-27T06:12:48.055524
+// Generated: 2026-02-27T06:22:45.558594
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
