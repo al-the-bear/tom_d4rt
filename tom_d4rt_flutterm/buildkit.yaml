@@ -2,6 +2,7 @@
 
 d4rtgen:
   name: flutter_material_bridges
+  d4rtImport: package:tom_d4rt_exec/d4rt.dart
   helpersImport: package:tom_d4rt_ast/tom_d4rt_ast.dart
   generateBarrel: true
   barrelPath: lib/src/bridges/flutter_bridges_barrel.b.dart

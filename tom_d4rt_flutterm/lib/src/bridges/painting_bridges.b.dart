@@ -1,10 +1,10 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 51 files
-// Generated: 2026-02-27T08:05:18.616146
+// Generated: 2026-02-27T10:07:44.471966
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
 
-import 'package:tom_d4rt/d4rt.dart';
+import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_ast/tom_d4rt_ast.dart';
 import 'dart:async';
 import 'dart:developer';
@@ -1641,7 +1641,6 @@ BridgedClass _createPaintingBindingBridge() {
       'accessibilityFocus': (visitor, target) => D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').accessibilityFocus,
       'restorationManager': (visitor, target) => D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').restorationManager,
       'lifecycleState': (visitor, target) => D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').lifecycleState,
-      'schedulingStrategy': (visitor, target) => D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').schedulingStrategy,
       'transientCallbackCount': (visitor, target) => D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').transientCallbackCount,
       'endOfFrame': (visitor, target) => D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').endOfFrame,
       'hasScheduledFrame': (visitor, target) => D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').hasScheduledFrame,
@@ -1649,6 +1648,10 @@ BridgedClass _createPaintingBindingBridge() {
       'framesEnabled': (visitor, target) => D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').framesEnabled,
       'currentFrameTimeStamp': (visitor, target) => D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').currentFrameTimeStamp,
       'currentSystemFrameTimeStamp': (visitor, target) => D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').currentSystemFrameTimeStamp,
+    },
+    setters: {
+      'schedulingStrategy': (visitor, target, value) => 
+        D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').schedulingStrategy = value as bool Function({required dynamic scheduler}),
     },
     methods: {
       'initInstances': (visitor, target, positional, named, typeArgs) {
@@ -2082,7 +2085,6 @@ BridgedClass _createPaintingBindingBridge() {
       'accessibilityFocus': 'ValueNotifier<int?> get accessibilityFocus',
       'restorationManager': 'RestorationManager get restorationManager',
       'lifecycleState': 'AppLifecycleState? get lifecycleState',
-      'schedulingStrategy': 'bool Function({required int priority, required SchedulerBinding scheduler}) get schedulingStrategy',
       'transientCallbackCount': 'int get transientCallbackCount',
       'endOfFrame': 'Future<void> get endOfFrame',
       'hasScheduledFrame': 'bool get hasScheduledFrame',
@@ -2090,6 +2092,9 @@ BridgedClass _createPaintingBindingBridge() {
       'framesEnabled': 'bool get framesEnabled',
       'currentFrameTimeStamp': 'Duration get currentFrameTimeStamp',
       'currentSystemFrameTimeStamp': 'Duration get currentSystemFrameTimeStamp',
+    },
+    setterSignatures: {
+      'schedulingStrategy': 'set schedulingStrategy(bool Function({required int priority, required SchedulerBinding scheduler}) value)',
     },
     staticGetterSignatures: {
       'instance': 'PaintingBinding get instance',
@@ -7993,8 +7998,8 @@ BridgedClass _createOneFrameImageStreamCompleterBridge() {
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final description = D4.getRequiredArg<$flutter_5.DiagnosticPropertiesBuilder>(positional, 0, 'description', 'debugFillProperties');
-        t.debugFillProperties(description);
+        final properties = D4.getRequiredArg<$flutter_5.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        t.debugFillProperties(properties);
         return null;
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
@@ -8044,7 +8049,7 @@ BridgedClass _createOneFrameImageStreamCompleterBridge() {
       'addOnLastListenerRemovedCallback': 'void addOnLastListenerRemovedCallback(void Function() callback)',
       'removeOnLastListenerRemovedCallback': 'void removeOnLastListenerRemovedCallback(void Function() callback)',
       'reportError': 'void reportError({DiagnosticsNode? context, required Object exception, StackTrace? stack, Iterable<DiagnosticsNode> Function()? informationCollector, bool silent = false})',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder description)',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
       'toStringShort': 'String toStringShort()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
@@ -8155,8 +8160,8 @@ BridgedClass _createMultiFrameImageStreamCompleterBridge() {
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final description = D4.getRequiredArg<$flutter_5.DiagnosticPropertiesBuilder>(positional, 0, 'description', 'debugFillProperties');
-        t.debugFillProperties(description);
+        final properties = D4.getRequiredArg<$flutter_5.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        t.debugFillProperties(properties);
         return null;
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
@@ -8206,7 +8211,7 @@ BridgedClass _createMultiFrameImageStreamCompleterBridge() {
       'addOnLastListenerRemovedCallback': 'void addOnLastListenerRemovedCallback(void Function() callback)',
       'removeOnLastListenerRemovedCallback': 'void removeOnLastListenerRemovedCallback(void Function() callback)',
       'reportError': 'void reportError({DiagnosticsNode? context, required Object exception, StackTrace? stack, Iterable<DiagnosticsNode> Function()? informationCollector, bool silent = false})',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder description)',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
       'toStringShort': 'String toStringShort()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',

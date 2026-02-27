@@ -9596,20 +9596,9 @@ class BridgeGenerator {
         // e.g., T extends Comparable<T> - we detect this by checking if the bound
         // mentions the same type parameter
         if (_containsTypeParameter(bound, normalizedTypeForParams)) {
-          // Recursive type bound - extract the base type from the bound
-          // For "Comparable<T>", extract "Comparable" and use that
-          final baseBound = _extractBaseType(bound);
-          if (baseBound != normalizedTypeForParams &&
-              !_isGenericTypeParameter(baseBound)) {
-            // Use the base bound type with dynamic for its parameters
-            return _getTypeArgument(
-              baseBound,
-              typeToUri: typeToUri,
-              classTypeParams: classTypeParams,
-              sourceFilePath: sourceFilePath,
-            );
-          }
-          // Fallback to dynamic for truly recursive bounds
+          // Recursive bounds cannot be safely narrowed on raw generic bridge
+          // classes; using dynamic avoids invalid assignability (e.g. Flutter
+          // Slotted* renderObject parameters).
           return 'dynamic';
         }
         // Use the bound type (e.g., E -> TomObject)
@@ -12463,17 +12452,18 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         final boundType = typeParam.bound?.type;
         String? bound;
         if (boundType != null && boundType is InterfaceType) {
-          bound = boundType.element.name;
+          bound = boundType.getDisplayString();
           // GEN-056: Register the bound type in the global registry
-          if (bound != null) {
+          final boundElementName = boundType.element.name;
+          if (boundElementName != null) {
             final library = boundType.element.library;
             final uri = library.identifier;
             if (!uri.startsWith('dart:')) {
-              globalTypeToUri[bound] = uri;
+              globalTypeToUri[boundElementName] = uri;
             }
           }
         } else if (boundType != null) {
-          bound = boundType.element?.name;
+          bound = boundType.getDisplayString();
         }
         typeParams[paramName] = bound;
       }
@@ -12571,17 +12561,18 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         final boundType = typeParam.bound?.type;
         String? bound;
         if (boundType != null && boundType is InterfaceType) {
-          bound = boundType.element.name;
+          bound = boundType.getDisplayString();
           // GEN-056: Register the bound type in the global registry
-          if (bound != null) {
+          final boundElementName = boundType.element.name;
+          if (boundElementName != null) {
             final library = boundType.element.library;
             final uri = library.identifier;
             if (!uri.startsWith('dart:')) {
-              globalTypeToUri[bound] = uri;
+              globalTypeToUri[boundElementName] = uri;
             }
           }
         } else if (boundType != null) {
-          bound = boundType.element?.name;
+          bound = boundType.getDisplayString();
         }
         typeParams[paramName] = bound;
       }
@@ -12676,17 +12667,18 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         final boundType = typeParam.bound?.type;
         String? bound;
         if (boundType != null && boundType is InterfaceType) {
-          bound = boundType.element.name;
+          bound = boundType.getDisplayString();
           // GEN-056: Register the bound type in the global registry
-          if (bound != null) {
+          final boundElementName = boundType.element.name;
+          if (boundElementName != null) {
             final library = boundType.element.library;
             final uri = library.identifier;
             if (!uri.startsWith('dart:')) {
-              globalTypeToUri[bound] = uri;
+              globalTypeToUri[boundElementName] = uri;
             }
           }
         } else if (boundType != null) {
-          bound = boundType.element?.name;
+          bound = boundType.getDisplayString();
         }
         typeParams[paramName] = bound;
       }
@@ -12912,10 +12904,12 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
   ) {
     final result = <MemberInfo>[];
     final processedNames = Set<String>.from(declaredMemberNames);
+    final memberIndexByName = <String, int>{};
 
     // Iterate through all supertypes (includes superclass, mixins, and interfaces)
     for (final supertype in classElement.allSupertypes) {
       final supertypeElement = supertype.element;
+      final isMixinSupertype = supertypeElement is MixinElement;
 
       // Skip Object - its members are handled by the runtime
       if (supertypeElement.name == 'Object') continue;
@@ -12945,7 +12939,19 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         if (getterName.startsWith('_')) continue;
 
         // Skip if already processed (declared or inherited from a more specific type)
-        if (processedNames.contains(getterName)) continue;
+        if (processedNames.contains(getterName)) {
+          if (!isMixinSupertype) continue;
+          final existingIndex = memberIndexByName[getterName];
+          if (existingIndex == null) continue;
+          final memberInfo = _parseMemberFromGetterElement(
+            getter,
+            typeSubstitution,
+          );
+          if (memberInfo != null) {
+            result[existingIndex] = memberInfo;
+          }
+          continue;
+        }
 
         // Skip synthetic getters for enum values
         if (getter.isSynthetic && supertypeElement is EnumElement) continue;
@@ -12956,6 +12962,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         );
         if (memberInfo != null) {
           result.add(memberInfo);
+          memberIndexByName[getterName] = result.length - 1;
           processedNames.add(getterName);
         }
       }
@@ -12973,7 +12980,19 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         if (setterName.startsWith('_')) continue;
 
         // Skip if already processed
-        if (processedNames.contains(setterName)) continue;
+        if (processedNames.contains(setterName)) {
+          if (!isMixinSupertype) continue;
+          final existingIndex = memberIndexByName[setterName];
+          if (existingIndex == null) continue;
+          final memberInfo = _parseMemberFromSetterElement(
+            setter,
+            typeSubstitution,
+          );
+          if (memberInfo != null) {
+            result[existingIndex] = memberInfo;
+          }
+          continue;
+        }
 
         final memberInfo = _parseMemberFromSetterElement(
           setter,
@@ -12981,6 +13000,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         );
         if (memberInfo != null) {
           result.add(memberInfo);
+          memberIndexByName[setterName] = result.length - 1;
           processedNames.add(setterName);
         }
       }
@@ -12995,7 +13015,19 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         if (methodName == null || methodName.startsWith('_')) continue;
 
         // Skip if already processed
-        if (processedNames.contains(methodName)) continue;
+        if (processedNames.contains(methodName)) {
+          if (!isMixinSupertype) continue;
+          final existingIndex = memberIndexByName[methodName];
+          if (existingIndex == null) continue;
+          final memberInfo = _parseMemberFromMethodElement(
+            method,
+            typeSubstitution,
+          );
+          if (memberInfo != null) {
+            result[existingIndex] = memberInfo;
+          }
+          continue;
+        }
 
         // Skip operators - they're handled separately
         if (method.isOperator) continue;
@@ -13006,6 +13038,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         );
         if (memberInfo != null) {
           result.add(memberInfo);
+          memberIndexByName[methodName] = result.length - 1;
           processedNames.add(methodName);
         }
       }

@@ -646,3 +646,100 @@ class SlottedWidgetImplLike2 extends SlottedWidgetBaseLike2<
     renderObject,
   ) {}
 }
+
+class BaseRenderObjectWidgetLike {
+  void updateRenderObject(String context, RenderObjectLike renderObject) {}
+}
+
+mixin SlottedRenderObjectMixinOverrideLike<
+  SlotType,
+  ChildType extends RenderObjectLike
+> on BaseRenderObjectWidgetLike {
+  @override
+  void updateRenderObject(
+    String context,
+    SlottedContainerRenderObjectMixinLike2<SlotType, ChildType> renderObject,
+  ) {}
+}
+
+class SlottedInheritedPrecedenceWidgetLike extends BaseRenderObjectWidgetLike
+    with SlottedRenderObjectMixinOverrideLike<dynamic, RenderObjectLike> {}
+
+class SlottedContainerRenderObjectMixinRecursiveLike<
+  SlotType,
+  ChildType extends SlottedContainerRenderObjectMixinRecursiveLike<
+    SlotType,
+    ChildType
+  >
+> extends RenderObjectLike {}
+
+abstract class SlottedMultiChildRenderObjectWidgetRecursiveLike<
+  SlotType,
+  ChildType extends SlottedContainerRenderObjectMixinRecursiveLike<
+    SlotType,
+    ChildType
+  >
+> {
+  void updateRenderObject(String context, ChildType renderObject);
+}
+
+class ConcreteSlottedContainerRenderObjectLike
+    extends SlottedContainerRenderObjectMixinRecursiveLike<
+      dynamic,
+      ConcreteSlottedContainerRenderObjectLike
+    > {}
+
+class SlottedMultiChildRenderObjectWidgetRecursiveImplLike
+    extends SlottedMultiChildRenderObjectWidgetRecursiveLike<
+      dynamic,
+      ConcreteSlottedContainerRenderObjectLike
+    > {
+  @override
+  void updateRenderObject(
+    String context,
+    ConcreteSlottedContainerRenderObjectLike renderObject,
+  ) {}
+}
+
+abstract class SlottedMultiChildRenderObjectWidgetCovariantLike<
+  SlotType,
+  ChildType extends SlottedContainerRenderObjectMixinRecursiveLike<
+    SlotType,
+    ChildType
+  >
+> {
+  void updateRenderObject(
+    String context,
+    covariant SlottedContainerRenderObjectMixinRecursiveLike<
+      SlotType,
+      ChildType
+    > renderObject,
+  );
+}
+
+class SlottedMultiChildRenderObjectWidgetCovariantImplLike
+    extends SlottedMultiChildRenderObjectWidgetCovariantLike<
+      dynamic,
+      ConcreteSlottedContainerRenderObjectLike
+    > {
+  @override
+  void updateRenderObject(
+    String context,
+    covariant SlottedContainerRenderObjectMixinRecursiveLike<
+      dynamic,
+      ConcreteSlottedContainerRenderObjectLike
+    > renderObject,
+  ) {}
+}
+
+class RenderObject {}
+
+class RecursiveRenderObjectMixinLike<
+  ChildType extends RecursiveRenderObjectMixinLike<ChildType>
+> extends RenderObject {}
+
+abstract class RecursiveRenderObjectWidgetLike<
+  ChildType extends RecursiveRenderObjectMixinLike<ChildType>
+> {
+  void updateRenderObject(ChildType renderObject);
+}

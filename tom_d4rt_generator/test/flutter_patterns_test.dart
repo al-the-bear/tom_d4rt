@@ -578,6 +578,163 @@ void main() {
           );
         },
       );
+
+      test(
+        'G-FLP-50: Recursive slotted render-object generic uses concrete child type, not base RenderObjectLike. [2026-02-27] (FAIL)',
+        () {
+          expect(
+            generatedCode,
+            contains(
+              "name: 'SlottedMultiChildRenderObjectWidgetRecursiveImplLike'",
+            ),
+          );
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createSlottedMultiChildRenderObjectWidgetRecursiveImplLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            contains(
+              "getRequiredArg<\$test_package_1.ConcreteSlottedContainerRenderObjectLike>(positional, 1, 'renderObject'",
+            ),
+            reason:
+                'Concrete recursive child type should be preserved for updateRenderObject argument extraction',
+          );
+          expect(
+            section,
+            isNot(
+              contains(
+                "getRequiredArg<\$test_package_1.RenderObjectLike>(positional, 1, 'renderObject'",
+              ),
+            ),
+          );
+        },
+      );
+
+      test(
+        'G-FLP-51: Covariant slotted render-object parameter keeps mixin type, not base RenderObjectLike. [2026-02-27] (FAIL)',
+        () {
+          expect(
+            generatedCode,
+            contains(
+              "name: 'SlottedMultiChildRenderObjectWidgetCovariantImplLike'",
+            ),
+          );
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createSlottedMultiChildRenderObjectWidgetCovariantImplLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            contains(
+              "getRequiredArg<\$test_package_1.SlottedContainerRenderObjectMixinRecursiveLike<dynamic, \$test_package_1.ConcreteSlottedContainerRenderObjectLike>>(positional, 1, 'renderObject'",
+            ),
+            reason:
+                'Covariant self-bounded slotted parameter should keep concrete mixin type argument chain',
+          );
+          expect(
+            section,
+            isNot(
+              contains(
+                "getRequiredArg<\$test_package_1.RenderObjectLike>(positional, 1, 'renderObject'",
+              ),
+            ),
+          );
+        },
+      );
+
+      test(
+        'G-FLP-52: Raw recursive RenderObject-bound generic method arg uses dynamic extraction. [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'RecursiveRenderObjectWidgetLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createRecursiveRenderObjectWidgetLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            contains(
+              "getRequiredArg<dynamic>(positional, 0, 'renderObject', 'updateRenderObject')",
+            ),
+            reason:
+                'Raw recursive RenderObject-bound generics should avoid narrowing to RenderObject in bridge extraction',
+          );
+          expect(
+            section,
+            isNot(
+              contains(
+                "getRequiredArg<\$test_package_1.RenderObject>(positional, 0, 'renderObject', 'updateRenderObject')",
+              ),
+            ),
+          );
+        },
+      );
+
+      test(
+        'G-FLP-53: Inherited mixin method signature should win over broad superclass signature. [2026-02-27] (FAIL)',
+        () {
+          expect(
+            generatedCode,
+            contains("name: 'SlottedInheritedPrecedenceWidgetLike'"),
+          );
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createSlottedInheritedPrecedenceWidgetLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            contains(
+              "getRequiredArg<\$test_package_1.SlottedContainerRenderObjectMixinLike2<dynamic, \$test_package_1.RenderObjectLike>>(positional, 1, 'renderObject', 'updateRenderObject')",
+            ),
+            reason:
+                'Mixin override signature should be used instead of broad superclass RenderObjectLike parameter',
+          );
+          expect(
+            section,
+            isNot(
+              contains(
+                "getRequiredArg<\$test_package_1.RenderObjectLike>(positional, 1, 'renderObject', 'updateRenderObject')",
+              ),
+            ),
+          );
+        },
+      );
     });
 
     // =========================================================================
