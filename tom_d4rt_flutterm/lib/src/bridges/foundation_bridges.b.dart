@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 26 files
-// Generated: 2026-02-27T10:07:52.266209
+// Generated: 2026-02-27T12:13:22.645670
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_ast/tom_d4rt_ast.dart';
@@ -1121,7 +1121,6 @@ BridgedClass _createErrorDescriptionBridge() {
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_2.ErrorDescription>(target, 'ErrorDescription').emptyBodyDescription,
       'style': (visitor, target) => D4.validateTarget<$flutter_2.ErrorDescription>(target, 'ErrorDescription').style,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_2.ErrorDescription>(target, 'ErrorDescription').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_2.ErrorDescription>(target, 'ErrorDescription').textTreeConfiguration,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1216,7 +1215,6 @@ BridgedClass _createErrorDescriptionBridge() {
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'style': 'DiagnosticsTreeStyle? get style',
       'allowTruncate': 'bool get allowTruncate',
-      'textTreeConfiguration': 'TextTreeConfiguration? get textTreeConfiguration',
     },
   );
 }
@@ -1257,7 +1255,6 @@ BridgedClass _createErrorSummaryBridge() {
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSummary>(target, 'ErrorSummary').emptyBodyDescription,
       'style': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSummary>(target, 'ErrorSummary').style,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSummary>(target, 'ErrorSummary').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSummary>(target, 'ErrorSummary').textTreeConfiguration,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1352,7 +1349,6 @@ BridgedClass _createErrorSummaryBridge() {
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'style': 'DiagnosticsTreeStyle? get style',
       'allowTruncate': 'bool get allowTruncate',
-      'textTreeConfiguration': 'TextTreeConfiguration? get textTreeConfiguration',
     },
   );
 }
@@ -1393,7 +1389,6 @@ BridgedClass _createErrorHintBridge() {
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_2.ErrorHint>(target, 'ErrorHint').emptyBodyDescription,
       'style': (visitor, target) => D4.validateTarget<$flutter_2.ErrorHint>(target, 'ErrorHint').style,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_2.ErrorHint>(target, 'ErrorHint').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_2.ErrorHint>(target, 'ErrorHint').textTreeConfiguration,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1488,7 +1483,6 @@ BridgedClass _createErrorHintBridge() {
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'style': 'DiagnosticsTreeStyle? get style',
       'allowTruncate': 'bool get allowTruncate',
-      'textTreeConfiguration': 'TextTreeConfiguration? get textTreeConfiguration',
     },
   );
 }
@@ -1527,7 +1521,6 @@ BridgedClass _createErrorSpacerBridge() {
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').emptyBodyDescription,
       'style': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').style,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').allowTruncate,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').textTreeConfiguration,
     },
     methods: {
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
@@ -1622,7 +1615,6 @@ BridgedClass _createErrorSpacerBridge() {
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'style': 'DiagnosticsTreeStyle? get style',
       'allowTruncate': 'bool get allowTruncate',
-      'textTreeConfiguration': 'TextTreeConfiguration? get textTreeConfiguration',
     },
   );
 }
@@ -1673,13 +1665,6 @@ BridgedClass _createFlutterErrorDetailsBridge() {
         final t = D4.validateTarget<$flutter_2.FlutterErrorDetails>(target, 'FlutterErrorDetails');
         return t.exceptionAsString();
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.FlutterErrorDetails>(target, 'FlutterErrorDetails');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_12.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        t.debugFillProperties(properties);
-        return null;
-      },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.FlutterErrorDetails>(target, 'FlutterErrorDetails');
         return t.toStringShort();
@@ -1705,7 +1690,6 @@ BridgedClass _createFlutterErrorDetailsBridge() {
     methodSignatures: {
       'copyWith': 'FlutterErrorDetails copyWith({DiagnosticsNode? context, Object? exception, InformationCollector? informationCollector, String? library, bool? silent, StackTrace? stack, IterableFilter<String>? stackFilter})',
       'exceptionAsString': 'String exceptionAsString()',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
       'toStringShort': 'String toStringShort()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
@@ -1755,13 +1739,6 @@ BridgedClass _createFlutterErrorBridge() {
       'stackTrace': (visitor, target) => D4.validateTarget<$flutter_2.FlutterError>(target, 'FlutterError').stackTrace,
     },
     methods: {
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.FlutterError>(target, 'FlutterError');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_12.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        t.debugFillProperties(properties);
-        return null;
-      },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.FlutterError>(target, 'FlutterError');
         return t.toStringShort();
@@ -1794,6 +1771,13 @@ BridgedClass _createFlutterErrorBridge() {
       'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.FlutterError>(target, 'FlutterError');
         return t.debugDescribeChildren();
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_2.FlutterError>(target, 'FlutterError');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_12.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
       },
     },
     staticGetters: {
@@ -1841,13 +1825,13 @@ BridgedClass _createFlutterErrorBridge() {
       'fromParts': 'FlutterError.fromParts(List<DiagnosticsNode> diagnostics)',
     },
     methodSignatures: {
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
       'toStringShort': 'String toStringShort()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
     getterSignatures: {
       'diagnostics': 'List<DiagnosticsNode> get diagnostics',
@@ -1912,7 +1896,6 @@ BridgedClass _createDiagnosticsStackTraceBridge() {
       'style': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').style,
       'allowWrap': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').allowWrap,
       'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').allowNameWrap,
-      'textTreeConfiguration': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').textTreeConfiguration,
     },
     methods: {
       'getChildren': (visitor, target, positional, named, typeArgs) {
@@ -1993,7 +1976,6 @@ BridgedClass _createDiagnosticsStackTraceBridge() {
       'style': 'DiagnosticsTreeStyle? get style',
       'allowWrap': 'bool get allowWrap',
       'allowNameWrap': 'bool get allowNameWrap',
-      'textTreeConfiguration': 'TextTreeConfiguration? get textTreeConfiguration',
     },
   );
 }
@@ -2240,7 +2222,7 @@ BridgedClass _createChangeNotifierBridge() {
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.ChangeNotifier>(target, 'ChangeNotifier');
-        t.dispose();
+        (t as dynamic).dispose();
         return null;
       },
     },
@@ -2282,7 +2264,6 @@ BridgedClass _createValueNotifierBridge() {
     },
     getters: {
       'value': (visitor, target) => D4.validateTarget<$flutter_7.ValueNotifier>(target, 'ValueNotifier').value,
-      'hasListeners': (visitor, target) => D4.validateTarget<$flutter_7.ValueNotifier>(target, 'ValueNotifier').hasListeners,
     },
     setters: {
       'value': (visitor, target, value) => 
@@ -2311,17 +2292,12 @@ BridgedClass _createValueNotifierBridge() {
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.ValueNotifier>(target, 'ValueNotifier');
-        t.dispose();
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.ValueNotifier>(target, 'ValueNotifier');
         return t.toString();
-      },
-      'notifyListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ValueNotifier>(target, 'ValueNotifier');
-        t.notifyListeners();
-        return null;
       },
     },
     constructorSignatures: {
@@ -2332,11 +2308,9 @@ BridgedClass _createValueNotifierBridge() {
       'removeListener': 'void removeListener(void Function() listener)',
       'dispose': 'void dispose()',
       'toString': 'String toString()',
-      'notifyListeners': 'void notifyListeners()',
     },
     getterSignatures: {
       'value': 'T get value',
-      'hasListeners': 'bool get hasListeners',
     },
     setterSignatures: {
       'value': 'set value(T value)',

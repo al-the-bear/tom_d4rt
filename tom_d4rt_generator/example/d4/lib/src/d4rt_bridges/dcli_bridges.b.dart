@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 73 files
-// Generated: 2026-02-27T08:10:32.765588
+// Generated: 2026-02-27T12:12:31.852790
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -3143,15 +3143,6 @@ BridgedClass _createAskValidatorIPAddressBridge() {
     getters: {
       'version': (visitor, target) => D4.validateTarget<$dcli_1.AskValidatorIPAddress>(target, 'AskValidatorIPAddress').version,
     },
-    methods: {
-      'validate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_1.AskValidatorIPAddress>(target, 'AskValidatorIPAddress');
-        D4.requireMinArgs(positional, 1, 'validate');
-        final line = D4.getRequiredArg<String>(positional, 0, 'line', 'validate');
-        final customErrorMessage = D4.getOptionalNamedArg<String?>(named, 'customErrorMessage');
-        return t.validate(line, customErrorMessage: customErrorMessage);
-      },
-    },
     staticGetters: {
       'either': (visitor) => $dcli_1.AskValidatorIPAddress.either,
       'ipv4': (visitor) => $dcli_1.AskValidatorIPAddress.ipv4,
@@ -3159,9 +3150,6 @@ BridgedClass _createAskValidatorIPAddressBridge() {
     },
     constructorSignatures: {
       '': 'const AskValidatorIPAddress({int version = either})',
-    },
-    methodSignatures: {
-      'validate': 'String validate(String line, {String? customErrorMessage})',
     },
     getterSignatures: {
       'version': 'int get version',

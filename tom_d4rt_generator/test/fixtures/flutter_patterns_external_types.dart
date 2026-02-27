@@ -26,3 +26,10 @@ typedef ExternalStatefulBuilderViaAliasLike = Object Function(
 typedef ExternalNullablePredicateLike<T extends Object> = bool Function(
   T? value,
 );
+
+class ExternalSchedulerBindingLike {}
+
+typedef ExternalSchedulingStrategyLike = bool Function({
+  required int priority,
+  required ExternalSchedulerBindingLike scheduler,
+});

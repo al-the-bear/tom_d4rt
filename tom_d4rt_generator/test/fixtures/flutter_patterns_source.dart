@@ -16,6 +16,7 @@ library;
 import 'dart:async';
 import 'dart:collection' as coll;
 import 'dart:math';
+import 'package:meta/meta.dart';
 
 import 'flutter_patterns_external_types.dart';
 import 'flutter_patterns_external_types.dart' as ext;
@@ -648,7 +649,10 @@ class SlottedWidgetImplLike2 extends SlottedWidgetBaseLike2<
 }
 
 class BaseRenderObjectWidgetLike {
-  void updateRenderObject(String context, RenderObjectLike renderObject) {}
+  void updateRenderObject(
+    String context,
+    covariant RenderObjectLike renderObject,
+  ) {}
 }
 
 mixin SlottedRenderObjectMixinOverrideLike<
@@ -742,4 +746,59 @@ abstract class RecursiveRenderObjectWidgetLike<
   ChildType extends RecursiveRenderObjectMixinLike<ChildType>
 > {
   void updateRenderObject(ChildType renderObject);
+}
+
+typedef SchedulingStrategyLike =
+    bool Function({required int priority, required SchedulerBindingLike scheduler});
+
+class SchedulerBindingLike {
+  SchedulingStrategyLike schedulingStrategy = ({
+    required int priority,
+    required SchedulerBindingLike scheduler,
+  }) => true;
+}
+
+class ExternalSchedulingBaseLike {
+  ext.ExternalSchedulingStrategyLike schedulingStrategy = ({
+    required int priority,
+    required ext.ExternalSchedulerBindingLike scheduler,
+  }) => true;
+}
+
+class ExternalSchedulingInheritedLike extends ExternalSchedulingBaseLike {}
+
+class InlineSchedulingStrategyHostLike {
+  bool Function({
+    required int priority,
+    required ext.ExternalSchedulerBindingLike scheduler,
+  })
+  schedulingStrategy = ({
+    required int priority,
+    required ext.ExternalSchedulerBindingLike scheduler,
+  }) => true;
+}
+
+class ProtectedBaseLike {
+  @protected
+  int get textTreeConfigurationLike => 1;
+
+  @protected
+  void debugFillPropertiesLike(String properties) {}
+}
+
+class ProtectedDerivedLike extends ProtectedBaseLike {}
+
+class VisibleForOverridingHostLike {
+  @visibleForOverriding
+  void activateLike() {}
+}
+
+class ProtectedLifecycleBaseLike {
+  @protected
+  void lifecycleLike() {}
+}
+
+class ProtectedLifecycleOverrideLike extends ProtectedLifecycleBaseLike {
+  @override
+  void lifecycleLike() {}
 }

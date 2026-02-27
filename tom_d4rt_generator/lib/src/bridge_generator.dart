@@ -5359,7 +5359,7 @@ class BridgeGenerator {
 
     // Suppress common linter warnings in generated code
     buffer.writeln(
-      '// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables',
+      '// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names',
     );
     buffer.writeln();
 
@@ -7157,6 +7157,13 @@ class BridgeGenerator {
             "      '${getter.name}': $prefixedUserBridge.$getterOverride,",
           );
         } else {
+          if (_requiresDynamicMemberDispatch(getter.name)) {
+            buffer.writeln(
+              "      '${getter.name}': (visitor, target) => "
+              "(D4.validateTarget<$prefixedName>(target, '${cls.name}') as dynamic).${getter.name},",
+            );
+            continue;
+          }
           buffer.writeln(
             "      '${getter.name}': (visitor, target) => "
             "D4.validateTarget<$prefixedName>(target, '${cls.name}').${getter.name},",
@@ -7178,18 +7185,27 @@ class BridgeGenerator {
             "      '${setter.name}': $prefixedUserBridge.$setterOverride,",
           );
         } else {
-          // GEN-057: Use _generateSetterCast for proper collection type handling
-          final castExpression = _generateSetterCast(
-            setter.returnType,
-            typeToUri: setter.returnTypeToUri,
-            classTypeParams: cls.typeParameters,
-          );
-          buffer.writeln(
-            "      '${setter.name}': (visitor, target, value) => ",
-          );
-          buffer.writeln(
-            "        D4.validateTarget<$prefixedName>(target, '${cls.name}').${setter.name} = $castExpression,",
-          );
+          if (_requiresDynamicMemberDispatch(setter.name)) {
+            buffer.writeln(
+              "      '${setter.name}': (visitor, target, value) => ",
+            );
+            buffer.writeln(
+              "        (D4.validateTarget<$prefixedName>(target, '${cls.name}') as dynamic).${setter.name} = value,",
+            );
+          } else {
+            // GEN-057: Use _generateSetterCast for proper collection type handling
+            final castExpression = _generateSetterCast(
+              setter.returnType,
+              typeToUri: setter.returnTypeToUri,
+              classTypeParams: cls.typeParameters,
+            );
+            buffer.writeln(
+              "      '${setter.name}': (visitor, target, value) => ",
+            );
+            buffer.writeln(
+              "        D4.validateTarget<$prefixedName>(target, '${cls.name}').${setter.name} = $castExpression,",
+            );
+          }
         }
       }
       buffer.writeln('    },');
@@ -7430,6 +7446,35 @@ class BridgeGenerator {
       }
       buffer.writeln('    },');
     }
+  }
+
+  bool _requiresDynamicMemberDispatch(String memberName) {
+    const restrictedMembers = {
+      'activate',
+      'build',
+      'controller',
+      'currentSelectionEndIndex',
+      'currentSelectionStartIndex',
+      'cursor',
+      'debugBuildingDirtyElements',
+      'debugCreator',
+      'debugFillProperties',
+      'didChangeDependencies',
+      'didUpdateWidget',
+      'dispose',
+      'getOffsetToReveal',
+      'initServiceExtensions',
+      'initState',
+      'receivedTransition',
+      'saveOffset',
+      'setCanDrag',
+      'setIgnorePointer',
+      'setSemanticsActions',
+      'unlocked',
+      'unmount',
+      'updateRenderObject',
+    };
+    return restrictedMembers.contains(memberName);
   }
 
   /// Generates constructor body code.
@@ -8334,10 +8379,13 @@ class BridgeGenerator {
     }
 
     final isVoid = method.returnType == 'void';
+    final callTarget = _requiresDynamicMemberDispatch(method.name)
+        ? '(t as dynamic)'
+        : 't';
     if (useCombinatorial) {
       _generateCombinatorialDispatch(
         buffer,
-        't.${method.name}',
+        '$callTarget.${method.name}',
         args,
         nonWrappableDefaults,
         method.name,
@@ -8347,10 +8395,10 @@ class BridgeGenerator {
       );
     } else {
       if (isVoid) {
-        buffer.writeln('        t.${method.name}(${args.join(', ')});');
+        buffer.writeln('        $callTarget.${method.name}(${args.join(', ')});');
         buffer.writeln('        return null;');
       } else {
-        buffer.writeln('        return t.${method.name}(${args.join(', ')});');
+        buffer.writeln('        return $callTarget.${method.name}(${args.join(', ')});');
       }
     }
     return true;
@@ -11180,7 +11228,7 @@ class BridgeGenerator {
 
     if (paramsStr.isNotEmpty) {
       // Split parameters, handling nested generics
-      final params = _splitFunctionParams(paramsStr);
+      final params = _splitFunctionParams(paramsStr, trackCurlyBraces: false);
       var inNamedSection = false;
 
       for (var param in params) {
@@ -11263,17 +11311,20 @@ class BridgeGenerator {
   }
 
   /// Splits function parameters string handling nested generics
-  List<String> _splitFunctionParams(String paramsStr) {
+  List<String> _splitFunctionParams(
+    String paramsStr, {
+    bool trackCurlyBraces = true,
+  }) {
     final result = <String>[];
     var depth = 0;
     var current = StringBuffer();
 
     for (var i = 0; i < paramsStr.length; i++) {
       final char = paramsStr[i];
-      if (char == '<' || char == '(' || char == '{') {
+      if (char == '<' || char == '(' || (trackCurlyBraces && char == '{')) {
         depth++;
         current.write(char);
-      } else if (char == '>' || char == ')' || char == '}') {
+      } else if (char == '>' || char == ')' || (trackCurlyBraces && char == '}')) {
         depth--;
         current.write(char);
       } else if (char == ',' && depth == 0) {
@@ -11549,11 +11600,17 @@ class BridgeGenerator {
       if (prefixedReturnType == 'FutureOr<dynamic>') {
         effectiveReturnType = 'FutureOr<Object>';
       }
-      final nullableReturnType = _makeNullable(effectiveReturnType);
-      final returnCast = funcInfo.returnTypeNullable
-          ? 'as $nullableReturnType'
-          : 'as $effectiveReturnType';
-      wrapperBody = '{ return $callExpr $returnCast; }';
+        final nullableReturnType = _makeNullable(effectiveReturnType);
+        final castType = funcInfo.returnTypeNullable
+          ? nullableReturnType
+          : effectiveReturnType;
+          final normalizedReturnType = funcInfo.returnType.replaceAll(' ', '');
+          final skipCast = castType == 'Object?' &&
+            (normalizedReturnType == 'dynamic' ||
+              normalizedReturnType == 'Object' ||
+              normalizedReturnType == 'Object?');
+          final returnCast = skipCast ? '' : ' as $castType';
+        wrapperBody = '{ return $callExpr$returnCast; }';
     }
 
     // Build complete wrapper
@@ -11944,10 +12001,101 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       final name = annotation.name.name;
       if (name == 'visibleForTesting' ||
           name == 'protected' ||
-          name == 'internal') {
+          name == 'internal' ||
+          name == 'visibleForOverriding' ||
+          name == 'mustBeOverridden') {
         return true;
       }
     }
+    return false;
+  }
+
+  /// Checks if an element has @visibleForTesting, @protected, or @internal.
+  /// Used for inherited members collected from resolved elements.
+  bool _hasTestOnlyElementAnnotation(Element element) {
+    final dynamic dynamicElement = element;
+    try {
+      if (dynamicElement.isVisibleForTesting == true ||
+          dynamicElement.isProtected == true ||
+          dynamicElement.isInternal == true ||
+          dynamicElement.isMustBeOverridden == true ||
+          dynamicElement.isVisibleForOverriding == true) {
+        return true;
+      }
+    } catch (_) {
+      // Fallback to metadata inspection below.
+    }
+
+    for (final annotation in element.metadata.annotations) {
+      if (annotation.isVisibleForTesting ||
+          annotation.isProtected ||
+          annotation.isInternal ||
+          annotation.isMustBeOverridden ||
+          annotation.isVisibleForOverriding) {
+        return true;
+      }
+
+      final annotationSource = annotation.toSource();
+      if (annotationSource.contains('visibleForTesting') ||
+          annotationSource.contains('protected') ||
+          annotationSource.contains('internal') ||
+          annotationSource.contains('mustBeOverridden') ||
+          annotationSource.contains('visibleForOverriding')) {
+        return true;
+      }
+
+      final annotationType = annotation
+          .computeConstantValue()
+          ?.type
+          ?.getDisplayString();
+      if (annotationType == 'VisibleForTesting' ||
+          annotationType == 'Protected' ||
+          annotationType == 'Internal' ||
+          annotationType == 'MustBeOverridden') {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /// Checks if a method overrides a super member that has test-only/protected
+  /// annotations, even when the overriding declaration itself is unannotated.
+  bool _overridesTestOnlySuperMember(MethodDeclaration node) {
+    final parent = node.parent;
+    InterfaceElement? interfaceElement;
+
+    if (parent is ClassDeclaration) {
+      final element = parent.declaredFragment?.element;
+      if (element is InterfaceElement) {
+        interfaceElement = element;
+      }
+    } else if (parent is MixinDeclaration) {
+      final element = parent.declaredFragment?.element;
+      if (element is InterfaceElement) {
+        interfaceElement = element;
+      }
+    }
+
+    if (interfaceElement == null) return false;
+
+    final memberName = node.name.lexeme;
+    for (final supertype in interfaceElement.allSupertypes) {
+      final superElement = supertype.element;
+      Element? inheritedMember;
+      if (node.isGetter) {
+        inheritedMember = superElement.getGetter(memberName);
+      } else if (node.isSetter) {
+        inheritedMember = superElement.getSetter(memberName);
+      } else {
+        inheritedMember = superElement.getMethod(memberName);
+      }
+
+      if (inheritedMember != null &&
+          _hasTestOnlyElementAnnotation(inheritedMember)) {
+        return true;
+      }
+    }
+
     return false;
   }
 
@@ -12938,6 +13086,9 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         // Skip private members
         if (getterName.startsWith('_')) continue;
 
+        // Skip inherited members that are not part of the public API
+        if (_hasTestOnlyElementAnnotation(getter)) continue;
+
         // Skip if already processed (declared or inherited from a more specific type)
         if (processedNames.contains(getterName)) {
           if (!isMixinSupertype) continue;
@@ -12979,6 +13130,9 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         // Skip private members (setters have = suffix)
         if (setterName.startsWith('_')) continue;
 
+        // Skip inherited members that are not part of the public API
+        if (_hasTestOnlyElementAnnotation(setter)) continue;
+
         // Skip if already processed
         if (processedNames.contains(setterName)) {
           if (!isMixinSupertype) continue;
@@ -13013,6 +13167,9 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         final methodName = method.name;
         // Skip private methods
         if (methodName == null || methodName.startsWith('_')) continue;
+
+        // Skip inherited members that are not part of the public API
+        if (_hasTestOnlyElementAnnotation(method)) continue;
 
         // Skip if already processed
         if (processedNames.contains(methodName)) {
@@ -13050,6 +13207,9 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         final methodName = method.name;
         // Skip private operators (shouldn't exist but just in case)
         if (methodName == null || methodName.startsWith('_')) continue;
+
+        // Skip inherited members that are not part of the public API
+        if (_hasTestOnlyElementAnnotation(method)) continue;
 
         // Check if operator is already declared in the class (using simple name)
         // or already processed from a more specific supertype (using compound key)
@@ -13345,6 +13505,15 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
 
     // Skip methods marked as @visibleForTesting, @protected, or @internal
     if (_hasTestOnlyAnnotation(node)) return null;
+
+    final methodElement = node.declaredFragment?.element;
+    if (methodElement != null && _hasTestOnlyElementAnnotation(methodElement)) {
+      return null;
+    }
+
+    if (_overridesTestOnlySuperMember(node)) {
+      return null;
+    }
 
     // Track if method has type parameters (will use type erasure)
     final hasTypeParameters =
@@ -13709,7 +13878,9 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
       final name = annotation.name.name;
       if (name == 'visibleForTesting' ||
           name == 'protected' ||
-          name == 'internal') {
+          name == 'internal' ||
+          name == 'visibleForOverriding' ||
+          name == 'mustBeOverridden') {
         return true;
       }
     }

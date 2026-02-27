@@ -735,6 +735,105 @@ void main() {
           );
         },
       );
+
+      test(
+        'G-FLP-54: SchedulingStrategy-like function setter preserves all required named params. [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'InlineSchedulingStrategyHostLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createInlineSchedulingStrategyHostLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            contains(
+              RegExp(
+                r"schedulingStrategy\s*=\s*value as bool Function\(\{required int priority, required [^}]*ExternalSchedulerBindingLike scheduler\}\)",
+              ),
+            ),
+            reason:
+                'Function typedef-like setter cast should keep both required named params (priority and scheduler)',
+          );
+          expect(
+            section,
+            isNot(contains('value as bool Function({required dynamic scheduler})')),
+          );
+        },
+      );
+
+      test(
+        'G-FLP-55: Inherited @protected members are skipped from bridges. [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'ProtectedDerivedLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createProtectedDerivedLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(section, isNot(contains('textTreeConfigurationLike')));
+          expect(section, isNot(contains('debugFillPropertiesLike')));
+        },
+      );
+
+      test(
+        'G-FLP-56: Declared @visibleForOverriding members are skipped from bridges. [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'VisibleForOverridingHostLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createVisibleForOverridingHostLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(section, isNot(contains('activateLike')));
+        },
+      );
+
+      test(
+        'G-FLP-57: Overrides of @protected base members are skipped from bridges. [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'ProtectedLifecycleOverrideLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createProtectedLifecycleOverrideLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(section, isNot(contains('lifecycleLike')));
+        },
+      );
+
     });
 
     // =========================================================================
