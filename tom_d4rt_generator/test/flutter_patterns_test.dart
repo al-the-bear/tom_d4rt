@@ -221,6 +221,7 @@ void main() {
           );
         },
       );
+
     });
 
     // =========================================================================
@@ -596,6 +597,72 @@ void main() {
             isNot(contains('PageRouteLike<dynamic>')),
             reason:
                 'Generic return type must not be erased to PageRouteLike<dynamic>',
+          );
+        },
+      );
+    });
+
+    // =========================================================================
+    // RC-9c: Generic upper bounds should not degrade to dynamic
+    // =========================================================================
+    group('RC-9c: Generic upper bound preservation', () {
+      test(
+        'G-FLP-24: SlottedWidgetLike preserves R extends Object in constructor extraction. [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'SlottedWidgetLike'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createSlottedWidgetLikeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            isNot(contains("getRequiredArg<dynamic>(positional, 1, 'renderObject'")),
+            reason:
+                'Type parameter R has upper bound Object and should not be extracted as dynamic',
+          );
+        },
+      );
+    });
+
+    // =========================================================================
+    // RC-4b: SDK type names should be explicitly namespaced to avoid clashes
+    // =========================================================================
+    group('RC-4b: SDK type prefixing for clash-prone names', () {
+      test(
+        'G-FLP-25: WidgetWithSdkType uses prefixed dart:math types instead of bare Point/Random. [2026-02-27] (FAIL)',
+        () {
+          expect(generatedCode, contains("name: 'WidgetWithSdkType'"));
+
+          final sectionStart = generatedCode.indexOf(
+            'BridgedClass _createWidgetWithSdkTypeBridge()',
+          );
+          expect(sectionStart, greaterThanOrEqualTo(0));
+          final sectionEnd = generatedCode.indexOf(
+            'BridgedClass _create',
+            sectionStart + 1,
+          );
+          final section = sectionEnd == -1
+              ? generatedCode.substring(sectionStart)
+              : generatedCode.substring(sectionStart, sectionEnd);
+
+          expect(
+            section,
+            contains(RegExp(r'\$dart_math(?:_\d+)?\.Point<double>')),
+            reason: 'Point should be namespaced with resolved dart:math import prefix',
+          );
+          expect(
+            section,
+            contains(RegExp(r'\$dart_math(?:_\d+)?\.Random')),
+            reason: 'Random should be namespaced with resolved dart:math import prefix',
           );
         },
       );

@@ -5333,12 +5333,18 @@ class BridgeGenerator {
         .whereType<String>() // Filter out nulls (skipped libraries)
         .toSet();
 
-    // Add SDK imports without prefixes (initially).
-    // GEN-068 deferred: After all package imports are assigned, we detect
-    // name clashes and selectively re-prefix clashing dart: imports.
+    // Add SDK imports.
+    // Keep most dart:* imports unprefixed, but alias dart:math to avoid
+    // clash-prone symbols like Point/Random in generated bridge type arguments.
     for (final importPath in sdkImports.toList()..sort()) {
-      _importPrefixes[importPath] = '';
-      buffer.writeln("import '$importPath';");
+      if (importPath == 'dart:math') {
+        const sdkPrefix = r'$dart_math';
+        _importPrefixes[importPath] = sdkPrefix;
+        buffer.writeln("import '$importPath' as $sdkPrefix;");
+      } else {
+        _importPrefixes[importPath] = '';
+        buffer.writeln("import '$importPath';");
+      }
     }
     buffer.writeln();
 
@@ -9551,8 +9557,20 @@ class BridgeGenerator {
     // Check if this type needs a prefix
     final uri = typeToUri[unprefixedType];
     if (uri != null) {
-      // Check if this is an SDK type (dart:*) — use without prefix
+      // Check if this is an SDK type (dart:*).
+      // Currently only dart:math types are forced to use a prefix to avoid
+      // clash-prone names (Point/Random). Other SDK types remain unprefixed.
       if (uri.startsWith('dart:')) {
+        if (uri == 'dart:math' && !_isBuiltInType(unprefixedType)) {
+          final existingSdkPrefix = _importPrefixes[uri];
+          final sdkPrefix = (existingSdkPrefix != null &&
+                  existingSdkPrefix.isNotEmpty)
+              ? existingSdkPrefix
+              : r'$dart_math';
+          _importPrefixes[uri] = sdkPrefix;
+          final result = '$sdkPrefix.$unprefixedType';
+          return isNullable ? '$result?' : result;
+        }
         final result = unprefixedType;
         return isNullable ? '$result?' : result;
       }
@@ -9695,7 +9713,16 @@ class BridgeGenerator {
       final globalUri = _globalTypeToUri[unprefixedType];
       if (globalUri != null) {
         if (globalUri.startsWith('dart:')) {
-          // SDK type — use without prefix
+          if (globalUri == 'dart:math' && !_isBuiltInType(unprefixedType)) {
+            final existingSdkPrefix = _importPrefixes[globalUri];
+            final sdkPrefix = (existingSdkPrefix != null &&
+                    existingSdkPrefix.isNotEmpty)
+                ? existingSdkPrefix
+                : r'$dart_math';
+            _importPrefixes[globalUri] = sdkPrefix;
+            final result = '$sdkPrefix.$unprefixedType';
+            return isNullable ? '$result?' : result;
+          }
           final result = unprefixedType;
           return isNullable ? '$result?' : result;
         }
@@ -9846,8 +9873,6 @@ class BridgeGenerator {
       'JsonEncoder', 'Utf8Codec', 'Utf8Decoder', 'Utf8Encoder',
       'Base64Codec', 'Base64Decoder', 'Base64Encoder', 'AsciiCodec',
       'Latin1Codec', 'LineSplitter', 'HtmlEscape',
-      // dart:math types
-      'Random', 'Point', 'Rectangle', 'MutableRectangle',
       // dart:isolate types
       'Isolate', 'SendPort', 'ReceivePort', 'Capability',
     };
@@ -9871,9 +9896,19 @@ class BridgeGenerator {
     String prefixedBase = baseType;
     final baseUri = typeToUri[baseType];
     if (baseUri != null) {
-      // SDK types (dart:*) use no prefix
+      // SDK types: currently prefix clash-prone dart:math symbols only.
       if (baseUri.startsWith('dart:')) {
-        prefixedBase = baseType;
+        if (baseUri == 'dart:math' && !_isBuiltInType(baseType)) {
+          final existingSdkPrefix = _importPrefixes[baseUri];
+          final sdkPrefix = (existingSdkPrefix != null &&
+                  existingSdkPrefix.isNotEmpty)
+              ? existingSdkPrefix
+              : r'$dart_math';
+          _importPrefixes[baseUri] = sdkPrefix;
+          prefixedBase = '$sdkPrefix.$baseType';
+        } else {
+          prefixedBase = baseType;
+        }
       } else if (baseUri.startsWith('file://') ||
           baseUri.startsWith('file:///')) {
         // Local file:// URIs - convert to package: and use _importPrefixes
