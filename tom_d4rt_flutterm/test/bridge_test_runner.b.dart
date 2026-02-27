@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for flutter_material_bridges
-// Generated: 2026-02-27T13:47:06.814310
+// Generated: 2026-02-27T14:36:26.645437
 
 // ignore_for_file: avoid_print
 
@@ -20,15 +20,31 @@ import 'dart:io';
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_flutterm/src/bridges/painting_bridges.b.dart' as flutter_painting_bridges;
 import 'package:tom_d4rt_flutterm/src/bridges/foundation_bridges.b.dart' as flutter_foundation_bridges;
+import 'package:tom_d4rt_flutterm/src/bridges/animation_bridges.b.dart' as flutter_animation_bridges;
+import 'package:tom_d4rt_flutterm/src/bridges/physics_bridges.b.dart' as flutter_physics_bridges;
+import 'package:tom_d4rt_flutterm/src/bridges/scheduler_bridges.b.dart' as flutter_scheduler_bridges;
+import 'package:tom_d4rt_flutterm/src/bridges/semantics_bridges.b.dart' as flutter_semantics_bridges;
+import 'package:tom_d4rt_flutterm/src/bridges/services_bridges.b.dart' as flutter_services_bridges;
+import 'package:tom_d4rt_flutterm/src/bridges/gestures_bridges.b.dart' as flutter_gestures_bridges;
+import 'package:tom_d4rt_flutterm/src/bridges/rendering_bridges.b.dart' as flutter_rendering_bridges;
 import 'package:tom_d4rt_flutterm/src/bridges/widgets_bridges.b.dart' as flutter_widgets_bridges;
 import 'package:tom_d4rt_flutterm/src/bridges/material_widgets_bridges.b.dart' as flutter_material_bridges;
+import 'package:tom_d4rt_flutterm/src/bridges/cupertino_bridges.b.dart' as flutter_cupertino_bridges;
 
 /// Init script source that imports all bridged modules.
 const String _initSource = '''
 import 'package:flutter/painting.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/animation.dart';
+import 'package:flutter/physics.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter/semantics.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 void main() {}
 ''';
@@ -43,6 +59,34 @@ void _registerBridges(D4rt d4rt) {
     d4rt,
     'package:flutter/foundation.dart',
   );
+  flutter_animation_bridges.FlutterAnimationBridge.registerBridges(
+    d4rt,
+    'package:flutter/animation.dart',
+  );
+  flutter_physics_bridges.FlutterPhysicsBridge.registerBridges(
+    d4rt,
+    'package:flutter/physics.dart',
+  );
+  flutter_scheduler_bridges.FlutterSchedulerBridge.registerBridges(
+    d4rt,
+    'package:flutter/scheduler.dart',
+  );
+  flutter_semantics_bridges.FlutterSemanticsBridge.registerBridges(
+    d4rt,
+    'package:flutter/semantics.dart',
+  );
+  flutter_services_bridges.FlutterServicesBridge.registerBridges(
+    d4rt,
+    'package:flutter/services.dart',
+  );
+  flutter_gestures_bridges.FlutterGesturesBridge.registerBridges(
+    d4rt,
+    'package:flutter/gestures.dart',
+  );
+  flutter_rendering_bridges.FlutterRenderingBridge.registerBridges(
+    d4rt,
+    'package:flutter/rendering.dart',
+  );
   flutter_widgets_bridges.FlutterWidgetsBridge.registerBridges(
     d4rt,
     'package:flutter/widgets.dart',
@@ -50,6 +94,10 @@ void _registerBridges(D4rt d4rt) {
   flutter_material_bridges.FlutterMaterialBridge.registerBridges(
     d4rt,
     'package:flutter/material.dart',
+  );
+  flutter_cupertino_bridges.FlutterCupertinoBridge.registerBridges(
+    d4rt,
+    'package:flutter/cupertino.dart',
   );
 }
 

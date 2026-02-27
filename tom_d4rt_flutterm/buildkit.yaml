@@ -12,6 +12,7 @@ d4rtgen:
   generateTestRunner: true
   testRunnerPath: test/bridge_test_runner.b.dart
   modules:
+    # --- Layer 1: Base libraries ---
     - name: flutter_painting
       barrelImport: package:flutter/painting.dart
       outputPath: lib/src/bridges/painting_bridges.b.dart
@@ -20,16 +21,109 @@ d4rtgen:
       outputPath: lib/src/bridges/foundation_bridges.b.dart
       skipReExports:
         - package:flutter/painting.dart
+    - name: flutter_animation
+      barrelImport: package:flutter/animation.dart
+      outputPath: lib/src/bridges/animation_bridges.b.dart
+      skipReExports:
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+    - name: flutter_physics
+      barrelImport: package:flutter/physics.dart
+      outputPath: lib/src/bridges/physics_bridges.b.dart
+      skipReExports:
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+    - name: flutter_scheduler
+      barrelImport: package:flutter/scheduler.dart
+      outputPath: lib/src/bridges/scheduler_bridges.b.dart
+      skipReExports:
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+        - package:flutter/physics.dart
+    - name: flutter_semantics
+      barrelImport: package:flutter/semantics.dart
+      outputPath: lib/src/bridges/semantics_bridges.b.dart
+      skipReExports:
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+        - package:flutter/physics.dart
+        - package:flutter/scheduler.dart
+    - name: flutter_services
+      barrelImport: package:flutter/services.dart
+      outputPath: lib/src/bridges/services_bridges.b.dart
+      skipReExports:
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+        - package:flutter/physics.dart
+        - package:flutter/scheduler.dart
+        - package:flutter/semantics.dart
+    - name: flutter_gestures
+      barrelImport: package:flutter/gestures.dart
+      outputPath: lib/src/bridges/gestures_bridges.b.dart
+      skipReExports:
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+        - package:flutter/physics.dart
+        - package:flutter/scheduler.dart
+        - package:flutter/semantics.dart
+        - package:flutter/services.dart
+    - name: flutter_rendering
+      barrelImport: package:flutter/rendering.dart
+      outputPath: lib/src/bridges/rendering_bridges.b.dart
+      skipReExports:
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+        - package:flutter/physics.dart
+        - package:flutter/scheduler.dart
+        - package:flutter/semantics.dart
+        - package:flutter/services.dart
+        - package:flutter/gestures.dart
+    # --- Layer 2: High-level libraries ---
     - name: flutter_widgets
       barrelImport: package:flutter/widgets.dart
       outputPath: lib/src/bridges/widgets_bridges.b.dart
       skipReExports:
         - package:flutter/painting.dart
         - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+        - package:flutter/physics.dart
+        - package:flutter/scheduler.dart
+        - package:flutter/semantics.dart
+        - package:flutter/services.dart
+        - package:flutter/gestures.dart
+        - package:flutter/rendering.dart
     - name: flutter_material
       barrelImport: package:flutter/material.dart
       outputPath: lib/src/bridges/material_widgets_bridges.b.dart
       skipReExports:
         - package:flutter/painting.dart
         - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+        - package:flutter/physics.dart
+        - package:flutter/scheduler.dart
+        - package:flutter/semantics.dart
+        - package:flutter/services.dart
+        - package:flutter/gestures.dart
+        - package:flutter/rendering.dart
         - package:flutter/widgets.dart
+    - name: flutter_cupertino
+      barrelImport: package:flutter/cupertino.dart
+      outputPath: lib/src/bridges/cupertino_bridges.b.dart
+      skipReExports:
+        - package:flutter/painting.dart
+        - package:flutter/foundation.dart
+        - package:flutter/animation.dart
+        - package:flutter/physics.dart
+        - package:flutter/scheduler.dart
+        - package:flutter/semantics.dart
+        - package:flutter/services.dart
+        - package:flutter/gestures.dart
+        - package:flutter/rendering.dart
+        - package:flutter/widgets.dart
+        - package:flutter/material.dart
