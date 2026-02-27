@@ -255,6 +255,10 @@ String generateTestRunnerContent(
   buffer.writeln('// D4rt Bridge - Generated file, do not edit');
   buffer.writeln('// Test runner for ${config.name}');
   buffer.writeln('// Generated: ${DateTime.now().toIso8601String()}');
+  buffer.writeln();
+  // Suppress linter warnings common in generated test runners
+  buffer.writeln('// ignore_for_file: avoid_print');
+  buffer.writeln();
   buffer.writeln('//');
   buffer.writeln('// Usage:');
   buffer.writeln(

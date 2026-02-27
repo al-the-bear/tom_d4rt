@@ -318,7 +318,8 @@ class ConstrainedLayoutBuilderLike<ConstraintType extends ConstraintsLike>
 
 class ConstrainedLayoutBuilderInheritedLike<
   ConstraintType extends ConstraintsLike
-> extends AbstractLayoutBuilderFamilyLike<ConstraintType> {
+>
+    extends AbstractLayoutBuilderFamilyLike<ConstraintType> {
   const ConstrainedLayoutBuilderInheritedLike();
 }
 
@@ -606,7 +607,8 @@ class ExternalWideDefaultGapLike {
 }
 
 typedef StateSetterLike = void Function(void Function());
-typedef StatefulBuilderLike = Object Function(String context, StateSetterLike setState);
+typedef StatefulBuilderLike =
+    Object Function(String context, StateSetterLike setState);
 
 class StatefulBuilderHostLike {
   final StatefulBuilderLike builder;
@@ -632,15 +634,21 @@ class ExternalDragTargetLike<T extends Object> {
   const ExternalDragTargetLike({this.onWillAccept});
 }
 
-class SlottedContainerRenderObjectMixinLike2<SlotType, R extends RenderObjectLike>
+class SlottedContainerRenderObjectMixinLike2<
+  SlotType,
+  R extends RenderObjectLike
+>
     extends RenderObjectLike {}
 
 abstract class SlottedWidgetBaseLike2<ChildType extends RenderObjectLike> {
   void updateRenderObject(ChildType renderObject);
 }
 
-class SlottedWidgetImplLike2 extends SlottedWidgetBaseLike2<
-    SlottedContainerRenderObjectMixinLike2<dynamic, RenderObjectLike>> {
+class SlottedWidgetImplLike2
+    extends
+        SlottedWidgetBaseLike2<
+          SlottedContainerRenderObjectMixinLike2<dynamic, RenderObjectLike>
+        > {
   @override
   void updateRenderObject(
     SlottedContainerRenderObjectMixinLike2<dynamic, RenderObjectLike>
@@ -658,7 +666,8 @@ class BaseRenderObjectWidgetLike {
 mixin SlottedRenderObjectMixinOverrideLike<
   SlotType,
   ChildType extends RenderObjectLike
-> on BaseRenderObjectWidgetLike {
+>
+    on BaseRenderObjectWidgetLike {
   @override
   void updateRenderObject(
     String context,
@@ -675,7 +684,8 @@ class SlottedContainerRenderObjectMixinRecursiveLike<
     SlotType,
     ChildType
   >
-> extends RenderObjectLike {}
+>
+    extends RenderObjectLike {}
 
 abstract class SlottedMultiChildRenderObjectWidgetRecursiveLike<
   SlotType,
@@ -688,16 +698,18 @@ abstract class SlottedMultiChildRenderObjectWidgetRecursiveLike<
 }
 
 class ConcreteSlottedContainerRenderObjectLike
-    extends SlottedContainerRenderObjectMixinRecursiveLike<
-      dynamic,
-      ConcreteSlottedContainerRenderObjectLike
-    > {}
+    extends
+        SlottedContainerRenderObjectMixinRecursiveLike<
+          dynamic,
+          ConcreteSlottedContainerRenderObjectLike
+        > {}
 
 class SlottedMultiChildRenderObjectWidgetRecursiveImplLike
-    extends SlottedMultiChildRenderObjectWidgetRecursiveLike<
-      dynamic,
-      ConcreteSlottedContainerRenderObjectLike
-    > {
+    extends
+        SlottedMultiChildRenderObjectWidgetRecursiveLike<
+          dynamic,
+          ConcreteSlottedContainerRenderObjectLike
+        > {
   @override
   void updateRenderObject(
     String context,
@@ -717,22 +729,25 @@ abstract class SlottedMultiChildRenderObjectWidgetCovariantLike<
     covariant SlottedContainerRenderObjectMixinRecursiveLike<
       SlotType,
       ChildType
-    > renderObject,
+    >
+    renderObject,
   );
 }
 
 class SlottedMultiChildRenderObjectWidgetCovariantImplLike
-    extends SlottedMultiChildRenderObjectWidgetCovariantLike<
-      dynamic,
-      ConcreteSlottedContainerRenderObjectLike
-    > {
+    extends
+        SlottedMultiChildRenderObjectWidgetCovariantLike<
+          dynamic,
+          ConcreteSlottedContainerRenderObjectLike
+        > {
   @override
   void updateRenderObject(
     String context,
     covariant SlottedContainerRenderObjectMixinRecursiveLike<
       dynamic,
       ConcreteSlottedContainerRenderObjectLike
-    > renderObject,
+    >
+    renderObject,
   ) {}
 }
 
@@ -740,7 +755,8 @@ class RenderObject {}
 
 class RecursiveRenderObjectMixinLike<
   ChildType extends RecursiveRenderObjectMixinLike<ChildType>
-> extends RenderObject {}
+>
+    extends RenderObject {}
 
 abstract class RecursiveRenderObjectWidgetLike<
   ChildType extends RecursiveRenderObjectMixinLike<ChildType>
@@ -749,20 +765,23 @@ abstract class RecursiveRenderObjectWidgetLike<
 }
 
 typedef SchedulingStrategyLike =
-    bool Function({required int priority, required SchedulerBindingLike scheduler});
+    bool Function({
+      required int priority,
+      required SchedulerBindingLike scheduler,
+    });
 
 class SchedulerBindingLike {
-  SchedulingStrategyLike schedulingStrategy = ({
-    required int priority,
-    required SchedulerBindingLike scheduler,
-  }) => true;
+  SchedulingStrategyLike schedulingStrategy =
+      ({required int priority, required SchedulerBindingLike scheduler}) =>
+          true;
 }
 
 class ExternalSchedulingBaseLike {
-  ext.ExternalSchedulingStrategyLike schedulingStrategy = ({
-    required int priority,
-    required ext.ExternalSchedulerBindingLike scheduler,
-  }) => true;
+  ext.ExternalSchedulingStrategyLike schedulingStrategy =
+      ({
+        required int priority,
+        required ext.ExternalSchedulerBindingLike scheduler,
+      }) => true;
 }
 
 class ExternalSchedulingInheritedLike extends ExternalSchedulingBaseLike {}
@@ -772,10 +791,11 @@ class InlineSchedulingStrategyHostLike {
     required int priority,
     required ext.ExternalSchedulerBindingLike scheduler,
   })
-  schedulingStrategy = ({
-    required int priority,
-    required ext.ExternalSchedulerBindingLike scheduler,
-  }) => true;
+  schedulingStrategy =
+      ({
+        required int priority,
+        required ext.ExternalSchedulerBindingLike scheduler,
+      }) => true;
 }
 
 class ProtectedBaseLike {

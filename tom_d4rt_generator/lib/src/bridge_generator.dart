@@ -5359,7 +5359,7 @@ class BridgeGenerator {
 
     // Suppress common linter warnings in generated code
     buffer.writeln(
-      '// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names',
+      '// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls',
     );
     buffer.writeln();
 
@@ -8395,10 +8395,14 @@ class BridgeGenerator {
       );
     } else {
       if (isVoid) {
-        buffer.writeln('        $callTarget.${method.name}(${args.join(', ')});');
+        buffer.writeln(
+          '        $callTarget.${method.name}(${args.join(', ')});',
+        );
         buffer.writeln('        return null;');
       } else {
-        buffer.writeln('        return $callTarget.${method.name}(${args.join(', ')});');
+        buffer.writeln(
+          '        return $callTarget.${method.name}(${args.join(', ')});',
+        );
       }
     }
     return true;
@@ -9357,10 +9361,10 @@ class BridgeGenerator {
 
     // Standard extraction for other types
     final helperMethod = param.isRequired
-      ? 'D4.getRequiredNamedArg'
-      : (param.defaultValue != null
-          ? 'D4.getNamedArgWithDefault'
-          : 'D4.getOptionalNamedArg');
+        ? 'D4.getRequiredNamedArg'
+        : (param.defaultValue != null
+              ? 'D4.getNamedArgWithDefault'
+              : 'D4.getOptionalNamedArg');
     final typeArg = _getTypeArgument(
       param.type,
       typeToUri: param.typeToUri,
@@ -10302,7 +10306,8 @@ class BridgeGenerator {
           // Non-built-in type without URI info
           if (!_isBuiltInType(lookupArg)) {
             // GEN-055: Check global type registry BEFORE source file fallback
-            final globalUri = _globalTypeToUri[lookupArg] ?? _globalTypeToUri[baseArg];
+            final globalUri =
+                _globalTypeToUri[lookupArg] ?? _globalTypeToUri[baseArg];
             if (globalUri != null) {
               if (globalUri.startsWith('dart:')) {
                 final shouldPrefixSdk =
@@ -11324,7 +11329,9 @@ class BridgeGenerator {
       if (char == '<' || char == '(' || (trackCurlyBraces && char == '{')) {
         depth++;
         current.write(char);
-      } else if (char == '>' || char == ')' || (trackCurlyBraces && char == '}')) {
+      } else if (char == '>' ||
+          char == ')' ||
+          (trackCurlyBraces && char == '}')) {
         depth--;
         current.write(char);
       } else if (char == ',' && depth == 0) {
@@ -11600,17 +11607,18 @@ class BridgeGenerator {
       if (prefixedReturnType == 'FutureOr<dynamic>') {
         effectiveReturnType = 'FutureOr<Object>';
       }
-        final nullableReturnType = _makeNullable(effectiveReturnType);
-        final castType = funcInfo.returnTypeNullable
+      final nullableReturnType = _makeNullable(effectiveReturnType);
+      final castType = funcInfo.returnTypeNullable
           ? nullableReturnType
           : effectiveReturnType;
-          final normalizedReturnType = funcInfo.returnType.replaceAll(' ', '');
-          final skipCast = castType == 'Object?' &&
-            (normalizedReturnType == 'dynamic' ||
+      final normalizedReturnType = funcInfo.returnType.replaceAll(' ', '');
+      final skipCast =
+          castType == 'Object?' &&
+          (normalizedReturnType == 'dynamic' ||
               normalizedReturnType == 'Object' ||
               normalizedReturnType == 'Object?');
-          final returnCast = skipCast ? '' : ' as $castType';
-        wrapperBody = '{ return $callExpr$returnCast; }';
+      final returnCast = skipCast ? '' : ' as $castType';
+      wrapperBody = '{ return $callExpr$returnCast; }';
     }
 
     // Build complete wrapper

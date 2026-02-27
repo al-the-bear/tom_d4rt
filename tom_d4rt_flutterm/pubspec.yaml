@@ -18,6 +18,10 @@ dependencies:
   tom_ast_generator:
     path: ../tom_ast_generator
   archive: ^4.0.9
+  # Explicit transitive Flutter deps used in generated bridge code
+  characters: ^1.4.0
+  meta: ^1.17.0
+  vector_math: ^2.2.0
 
 dev_dependencies:
   flutter_test:

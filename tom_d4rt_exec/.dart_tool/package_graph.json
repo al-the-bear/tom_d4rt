@@ -9,8 +9,8 @@
       "dependencies": [
         "analyzer",
         "pub_semver",
-        "tom_d4rt_ast",
-        "tom_d4rt_astgen"
+        "tom_ast_generator",
+        "tom_d4rt_ast"
       ],
       "devDependencies": [
         "lints",
@@ -75,7 +75,7 @@
       "dependencies": []
     },
     {
-      "name": "tom_d4rt_astgen",
+      "name": "tom_ast_generator",
       "version": "0.1.0",
       "dependencies": [
         "analyzer",

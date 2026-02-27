@@ -178,7 +178,9 @@ void main() {
           );
           expect(
             section,
-            contains('return \$test_package_1.WidgetWithPrivateConstArgDefault();'),
+            contains(
+              'return \$test_package_1.WidgetWithPrivateConstArgDefault();',
+            ),
             reason:
                 'Private const arg defaults should use combinatorial fallback path (omitted named arg => constructor default)',
           );
@@ -501,7 +503,9 @@ void main() {
           );
           expect(
             section,
-            isNot(contains("getRequiredNamedArg<Future<dynamic>>(named, 'codec'")),
+            isNot(
+              contains("getRequiredNamedArg<Future<dynamic>>(named, 'codec'"),
+            ),
           );
         },
       );
@@ -562,10 +566,7 @@ void main() {
               ? generatedCode.substring(sectionStart)
               : generatedCode.substring(sectionStart, sectionEnd);
 
-          expect(
-            section,
-            contains('getRequiredNamedArg<Future<'),
-          );
+          expect(section, contains('getRequiredNamedArg<Future<'));
           expect(
             section,
             contains('ExternalBoundLike>>(named, \'value\''),
@@ -574,7 +575,9 @@ void main() {
           );
           expect(
             section,
-            isNot(contains("getRequiredNamedArg<Future<dynamic>>(named, 'value'")),
+            isNot(
+              contains("getRequiredNamedArg<Future<dynamic>>(named, 'value'"),
+            ),
           );
         },
       );
@@ -664,7 +667,10 @@ void main() {
       test(
         'G-FLP-52: Raw recursive RenderObject-bound generic method arg uses dynamic extraction. [2026-02-27] (FAIL)',
         () {
-          expect(generatedCode, contains("name: 'RecursiveRenderObjectWidgetLike'"));
+          expect(
+            generatedCode,
+            contains("name: 'RecursiveRenderObjectWidgetLike'"),
+          );
 
           final sectionStart = generatedCode.indexOf(
             'BridgedClass _createRecursiveRenderObjectWidgetLikeBridge()',
@@ -739,7 +745,10 @@ void main() {
       test(
         'G-FLP-54: SchedulingStrategy-like function setter preserves all required named params. [2026-02-27] (FAIL)',
         () {
-          expect(generatedCode, contains("name: 'InlineSchedulingStrategyHostLike'"));
+          expect(
+            generatedCode,
+            contains("name: 'InlineSchedulingStrategyHostLike'"),
+          );
 
           final sectionStart = generatedCode.indexOf(
             'BridgedClass _createInlineSchedulingStrategyHostLikeBridge()',
@@ -765,7 +774,9 @@ void main() {
           );
           expect(
             section,
-            isNot(contains('value as bool Function({required dynamic scheduler})')),
+            isNot(
+              contains('value as bool Function({required dynamic scheduler})'),
+            ),
           );
         },
       );
@@ -795,7 +806,10 @@ void main() {
       test(
         'G-FLP-56: Declared @visibleForOverriding members are skipped from bridges. [2026-02-27] (FAIL)',
         () {
-          expect(generatedCode, contains("name: 'VisibleForOverridingHostLike'"));
+          expect(
+            generatedCode,
+            contains("name: 'VisibleForOverridingHostLike'"),
+          );
 
           final sectionStart = generatedCode.indexOf(
             'BridgedClass _createVisibleForOverridingHostLikeBridge()',
@@ -816,7 +830,10 @@ void main() {
       test(
         'G-FLP-57: Overrides of @protected base members are skipped from bridges. [2026-02-27] (FAIL)',
         () {
-          expect(generatedCode, contains("name: 'ProtectedLifecycleOverrideLike'"));
+          expect(
+            generatedCode,
+            contains("name: 'ProtectedLifecycleOverrideLike'"),
+          );
 
           final sectionStart = generatedCode.indexOf(
             'BridgedClass _createProtectedLifecycleOverrideLikeBridge()',
@@ -833,7 +850,6 @@ void main() {
           expect(section, isNot(contains('lifecycleLike')));
         },
       );
-
     });
 
     // =========================================================================
@@ -1226,7 +1242,9 @@ void main() {
           );
           expect(
             section,
-            contains('AbstractLayoutBuilderFamilyLike<\$test_package_1.ConstraintsLike>'),
+            contains(
+              'AbstractLayoutBuilderFamilyLike<\$test_package_1.ConstraintsLike>',
+            ),
             reason:
                 'Expected oldWidget extraction to use bound ConstraintsLike for ConstraintType',
           );
@@ -1261,7 +1279,9 @@ void main() {
           );
           expect(
             section,
-            contains('AbstractLayoutBuilderFamilyLike<\$test_package_1.ConstraintsLike>'),
+            contains(
+              'AbstractLayoutBuilderFamilyLike<\$test_package_1.ConstraintsLike>',
+            ),
             reason:
                 'Expected bound-based substitution for inherited oldWidget argument type',
           );
@@ -1582,10 +1602,7 @@ void main() {
       test(
         'G-FLP-41: Wide external non-nullable named params avoid nullable extraction. [2026-02-27] (FAIL)',
         () {
-          expect(
-            generatedCode,
-            contains("name: 'ExternalWideDefaultGapLike'"),
-          );
+          expect(generatedCode, contains("name: 'ExternalWideDefaultGapLike'"));
 
           final sectionStart = generatedCode.indexOf(
             'BridgedClass _createExternalWideDefaultGapLikeBridge()',
@@ -1623,10 +1640,7 @@ void main() {
       test(
         'G-FLP-43: Nested callback typedef argument shape is preserved. [2026-02-27] (FAIL)',
         () {
-          expect(
-            generatedCode,
-            contains("name: 'StatefulBuilderHostLike'"),
-          );
+          expect(generatedCode, contains("name: 'StatefulBuilderHostLike'"));
 
           final sectionStart = generatedCode.indexOf(
             'BridgedClass _createStatefulBuilderHostLikeBridge()',

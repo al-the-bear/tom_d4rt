@@ -1,3 +1,16 @@
+## 1.8.7
+
+### Added
+
+- **`bridge_generator.dart`** — Dynamic member dispatch for ~24 Flutter access-restricted members (e.g. `initState`, `dispose`, `build`, `activate`) using `(t as dynamic).member` fallback to avoid compile errors in generated bridge code.
+- **`bridge_generator.dart`** — Protected override filtering: skips unannotated overrides of protected/visibleForTesting base methods.
+- **`bridge_generator.dart`** — Extended `ignore_for_file` directive with `implementation_imports`, `sort_child_properties_last`, `non_constant_identifier_names`, `avoid_function_literals_in_foreach_calls`.
+- **`file_generators.dart`** — Added `ignore_for_file: avoid_print` to generated test runner files.
+
+### Fixed
+
+- Callback wrapper return cast: only skips redundant `as Object?` cast when original return type is `dynamic`/`Object`/`Object?`, preventing type errors on typed callbacks.
+
 ## 1.8.6
 
 ### Changed

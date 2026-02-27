@@ -440,6 +440,12 @@
       "languageVersion": "3.7"
     },
     {
+      "name": "tom_ast_generator",
+      "rootUri": "../../tom_ast_generator",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
+    },
+    {
       "name": "tom_ast_model",
       "rootUri": "../../tom_ast_model",
       "packageUri": "lib/",
@@ -460,12 +466,6 @@
     {
       "name": "tom_d4rt_ast",
       "rootUri": "../../tom_d4rt_ast",
-      "packageUri": "lib/",
-      "languageVersion": "3.10"
-    },
-    {
-      "name": "tom_d4rt_astgen",
-      "rootUri": "../../tom_d4rt_astgen",
       "packageUri": "lib/",
       "languageVersion": "3.10"
     },

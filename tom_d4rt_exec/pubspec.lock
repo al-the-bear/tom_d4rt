@@ -585,6 +585,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.15"
+  tom_ast_generator:
+    dependency: "direct main"
+    description:
+      path: "../tom_ast_generator"
+      relative: true
+    source: path
+    version: "0.1.0"
   tom_ast_model:
     dependency: transitive
     description:
@@ -612,13 +619,6 @@ packages:
     dependency: "direct main"
     description:
       path: "../tom_d4rt_ast"
-      relative: true
-    source: path
-    version: "0.1.0"
-  tom_d4rt_astgen:
-    dependency: "direct main"
-    description:
-      path: "../tom_d4rt_astgen"
       relative: true
     source: path
     version: "0.1.0"

@@ -5,7 +5,7 @@
   "packages": [
     {
       "name": "tom_d4rt_generator",
-      "version": "1.8.6",
+      "version": "1.8.7",
       "dependencies": [
         "analyzer",
         "args",
@@ -19,6 +19,7 @@
       "devDependencies": [
         "build_runner",
         "lints",
+        "meta",
         "test"
       ]
     },
@@ -52,6 +53,11 @@
         "webkit_inspection_protocol",
         "yaml"
       ]
+    },
+    {
+      "name": "meta",
+      "version": "1.18.1",
+      "dependencies": []
     },
     {
       "name": "lints",
@@ -414,11 +420,6 @@
     {
       "name": "mime",
       "version": "2.0.0",
-      "dependencies": []
-    },
-    {
-      "name": "meta",
-      "version": "1.18.1",
       "dependencies": []
     },
     {
