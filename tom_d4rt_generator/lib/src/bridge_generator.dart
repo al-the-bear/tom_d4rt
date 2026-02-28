@@ -11,6 +11,9 @@ import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 // ignore: implementation_imports
 import 'package:analyzer/src/dart/analysis/analysis_context_collection.dart'
     show AnalysisContextCollectionImpl;
+// ignore: implementation_imports
+import 'package:analyzer/src/dart/element/inheritance_manager3.dart'
+    show InheritanceManager3, Name;
 import 'package:glob/glob.dart' as glob_pkg;
 import 'package:analyzer/dart/analysis/features.dart';
 import 'package:analyzer/dart/analysis/results.dart';
@@ -3662,6 +3665,9 @@ class BridgeGenerator {
             .toList();
       }
     } catch (e) {
+      if (filePath.contains('sliver') || filePath.contains('Sliver')) {
+        stderr.writeln('[DEBUG-PATH] RESOLVED FAILED for $filePath: $e');
+      }
       if (verbose) {
         print('Warning: Could not resolve $filePath: $e');
         print('Falling back to syntactic parsing...');
@@ -13100,6 +13106,12 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     final processedNames = Set<String>.from(declaredMemberNames);
     final memberIndexByName = <String, int>{};
 
+    // Use InheritanceManager3 to resolve covariant parameter overrides.
+    // getMember() returns the most-specific type for each method, correctly
+    // narrowing covariant parameter types (e.g., RenderBox instead of
+    // RenderObject). getInheritedMap() does NOT narrow covariant types.
+    final inheritanceManager = InheritanceManager3();
+
     // Iterate through all supertypes (includes superclass, mixins, and interfaces)
     for (final supertype in classElement.allSupertypes) {
       final supertypeElement = supertype.element;
@@ -13217,14 +13229,30 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         // Skip inherited members that are not part of the public API
         if (_hasTestOnlyElementAnnotation(method)) continue;
 
+        // Resolve to the most-specific override from the inheritance chain.
+        // getMember() correctly narrows covariant parameter types
+        // (e.g., RenderBox instead of RenderObject for overridden methods).
+        // It also resolves generic type substitutions, so skip manual
+        // typeSubstitution when using the resolved method.
+        MethodElement effectiveMethod = method;
+        Map<String, DartType>? effectiveSubstitution = typeSubstitution;
+        final resolved = inheritanceManager.getMember(
+          classElement,
+          Name(null, methodName),
+        );
+        if (resolved is MethodElement) {
+          effectiveMethod = resolved as MethodElement;
+          effectiveSubstitution = null;
+        }
+
         // Skip if already processed
         if (processedNames.contains(methodName)) {
           if (!isMixinSupertype) continue;
           final existingIndex = memberIndexByName[methodName];
           if (existingIndex == null) continue;
           final memberInfo = _parseMemberFromMethodElement(
-            method,
-            typeSubstitution,
+            effectiveMethod,
+            effectiveSubstitution,
           );
           if (memberInfo != null) {
             result[existingIndex] = memberInfo;
@@ -13236,8 +13264,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         if (method.isOperator) continue;
 
         final memberInfo = _parseMemberFromMethodElement(
-          method,
-          typeSubstitution,
+          effectiveMethod,
+          effectiveSubstitution,
         );
         if (memberInfo != null) {
           result.add(memberInfo);
