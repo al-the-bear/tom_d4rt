@@ -26,30 +26,23 @@ import 'bridges/material_bridges.b.dart';
 class FlutterD4rt {
   final D4rt _interpreter;
 
-  /// Whether bridges have been registered.
-  bool _bridgesRegistered = false;
-
-  /// Creates a new [FlutterD4rt] instance.
-  ///
-  /// Bridges are lazily registered on first [build] or [buildAsync] call.
-  FlutterD4rt() : _interpreter = D4rt();
+  /// Creates a new [FlutterD4rt] instance with Flutter bridges registered.
+  FlutterD4rt() : _interpreter = D4rt() {
+    FlutterMaterialBridges.register(_interpreter);
+  }
 
   /// Creates a [FlutterD4rt] wrapping an existing [D4rt] interpreter.
   ///
   /// Use this to add Flutter bridges to an interpreter that already has other
   /// bridges registered (e.g., tom_core_d4rt bridges).
-  FlutterD4rt.withInterpreter(this._interpreter);
+  ///
+  /// Bridges are registered immediately on construction.
+  FlutterD4rt.withInterpreter(this._interpreter) {
+    FlutterMaterialBridges.register(_interpreter);
+  }
 
   /// The underlying [D4rt] interpreter.
   D4rt get interpreter => _interpreter;
-
-  /// Ensures Flutter Material bridges are registered.
-  void _ensureBridges() {
-    if (!_bridgesRegistered) {
-      FlutterMaterialBridges.register(_interpreter);
-      _bridgesRegistered = true;
-    }
-  }
 
   /// Execute a D4rt bundle and extract the result as type [T].
   ///
@@ -69,12 +62,7 @@ class FlutterD4rt {
   ///
   /// final widget = d4rt.build<Widget>(bundle, context);
   /// ```
-  T build<T>(
-    AstBundle bundle, [
-    BuildContext? buildContext,
-  ]) {
-    _ensureBridges();
-
+  T build<T>(AstBundle bundle, [BuildContext? buildContext]) {
     final positionalArgs = <Object?>[];
     if (buildContext != null) {
       positionalArgs.add(buildContext);
@@ -96,8 +84,6 @@ class FlutterD4rt {
     AstBundle bundle, [
     BuildContext? buildContext,
   ]) async {
-    _ensureBridges();
-
     final positionalArgs = <Object?>[];
     if (buildContext != null) {
       positionalArgs.add(buildContext);
@@ -123,8 +109,6 @@ class FlutterD4rt {
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
   }) {
-    _ensureBridges();
-
     final result = _interpreter.executeBundle(
       bundle,
       name: name,
@@ -142,8 +126,6 @@ class FlutterD4rt {
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
   }) async {
-    _ensureBridges();
-
     final result = _interpreter.executeBundle(
       bundle,
       name: name,
@@ -174,9 +156,7 @@ class FlutterD4rt {
     }
     if (result is T) return result;
     if (result == null && null is T) return result as T;
-    throw FlutterD4rtException(
-      'Expected $T but got ${result.runtimeType}',
-    );
+    throw FlutterD4rtException('Expected $T but got ${result.runtimeType}');
   }
 }
 

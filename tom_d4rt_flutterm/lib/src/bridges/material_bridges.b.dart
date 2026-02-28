@@ -1,11 +1,12 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for flutter_material_bridges
-// Generated: 2026-02-28T12:34:26.764144
+// Generated: 2026-02-28T15:17:33.908116
 
 /// D4rt Bridge Registration for flutter_material_bridges
 library;
 
 import 'package:tom_d4rt_exec/d4rt.dart';
+import 'dart_ui_bridges.b.dart' as dart_ui_bridges;
 import 'painting_bridges.b.dart' as flutter_painting_bridges;
 import 'foundation_bridges.b.dart' as flutter_foundation_bridges;
 import 'animation_bridges.b.dart' as flutter_animation_bridges;
@@ -25,6 +26,14 @@ class FlutterMaterialBridges {
   static void register([D4rt? interpreter]) {
     final d4rt = interpreter ?? D4rt();
 
+    dart_ui_bridges.DartUiBridge.registerBridges(
+      d4rt,
+      'dart:ui',
+    );
+    // Register under sub-package barrels for direct imports
+    for (final barrel in dart_ui_bridges.DartUiBridge.subPackageBarrels()) {
+      dart_ui_bridges.DartUiBridge.registerBridges(d4rt, barrel);
+    }
     flutter_painting_bridges.FlutterPaintingBridge.registerBridges(
       d4rt,
       'package:flutter/painting.dart',
@@ -126,6 +135,7 @@ class FlutterMaterialBridges {
   /// Get import block for all modules.
   static String getImportBlock() {
     final buffer = StringBuffer();
+    buffer.writeln(dart_ui_bridges.DartUiBridge.getImportBlock());
     buffer.writeln(flutter_painting_bridges.FlutterPaintingBridge.getImportBlock());
     buffer.writeln(flutter_foundation_bridges.FlutterFoundationBridge.getImportBlock());
     buffer.writeln(flutter_animation_bridges.FlutterAnimationBridge.getImportBlock());

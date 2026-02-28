@@ -4,7 +4,9 @@
 /// that the generator correctly uses type bounds for type erasure.
 library;
 
+// Test fixtures intentionally use patterns that trigger lint warnings
 // ignore_for_file: unused_element
+// ignore_for_file: avoid_shadowing_type_parameters
 
 // =============================================================================
 // Base Types for Bounds

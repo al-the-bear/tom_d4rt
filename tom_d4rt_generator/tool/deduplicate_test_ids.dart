@@ -34,7 +34,7 @@ class TestIdEntry {
 
 void main(List<String> args) {
   final dryRun = args.contains('--dry-run');
-  
+
   if (dryRun) {
     print('🔍 DRY RUN - no files will be modified\n');
   }
@@ -61,13 +61,15 @@ void main(List<String> args) {
       if (match != null) {
         final id = match.group(1)!;
         final description = match.group(2)!.trim();
-        entries.add(TestIdEntry(
-          oldId: id,
-          file: file.path,
-          line: i + 1, // 1-indexed
-          description: description,
-          fullLine: line,
-        ));
+        entries.add(
+          TestIdEntry(
+            oldId: id,
+            file: file.path,
+            line: i + 1, // 1-indexed
+            description: description,
+            fullLine: line,
+          ),
+        );
       }
     }
   }
@@ -115,7 +117,7 @@ void main(List<String> args) {
   final csvFile = File('doc/test_ids.csv');
   final csvBuffer = StringBuffer();
   csvBuffer.writeln('old_id,new_id,file,line,description');
-  
+
   for (final entry in entries) {
     // Escape description for CSV (double quotes)
     final escapedDesc = entry.description.replaceAll('"', '""');
@@ -154,8 +156,11 @@ void main(List<String> args) {
       if (lineIndex >= 0 && lineIndex < lines.length) {
         final oldLine = lines[lineIndex];
         // Replace the ID in the line (with colon to be precise)
-        final newLine = oldLine.replaceFirst('${entry.oldId}:', '${entry.newId}:');
-        
+        final newLine = oldLine.replaceFirst(
+          '${entry.oldId}:',
+          '${entry.newId}:',
+        );
+
         if (oldLine != newLine) {
           lines[lineIndex] = newLine;
           modified = true;
@@ -171,7 +176,7 @@ void main(List<String> args) {
 
     if (modified) {
       if (!dryRun) {
-        file.writeAsStringSync(lines.join('\n') + '\n');
+        file.writeAsStringSync('${lines.join('\n')}\n');
       }
       filesModified++;
     }
@@ -182,7 +187,7 @@ void main(List<String> args) {
   print('   Duplicate IDs:  ${duplicateCount ~/ 2} (each appearing 2+ times)');
   print('   Files ${dryRun ? "would be " : ""}modified: $filesModified');
   print('   Replacements ${dryRun ? "would be " : ""}made: $replacementsMade');
-  
+
   if (!dryRun) {
     print('\n✅ Done! Run testkit :baseline to create a fresh baseline.');
   }

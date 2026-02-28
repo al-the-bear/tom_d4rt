@@ -1,6 +1,7 @@
 /// D4rt Bridges for flutter_material_bridges
 library;
 
+export 'dart_ui_bridges.b.dart';
 export 'painting_bridges.b.dart';
 export 'foundation_bridges.b.dart';
 export 'animation_bridges.b.dart';

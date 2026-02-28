@@ -104,6 +104,32 @@ class ModuleLoader {
     // Add more dangerous modules as needed
   }
 
+  /// Checks if there are bridges registered for a specific URI.
+  bool _hasBridgedContentForUri(String uriString) {
+    for (final entry in bridgedEnumDefinitions) {
+      if (entry.containsKey(uriString)) return true;
+    }
+    for (final entry in bridgedClases) {
+      if (entry.containsKey(uriString)) return true;
+    }
+    for (final entry in libraryFunctions) {
+      if (entry.containsKey(uriString)) return true;
+    }
+    for (final entry in libraryVariables) {
+      if (entry.containsKey(uriString)) return true;
+    }
+    for (final entry in libraryGetters) {
+      if (entry.containsKey(uriString)) return true;
+    }
+    for (final entry in librarySetters) {
+      if (entry.containsKey(uriString)) return true;
+    }
+    for (final entry in bridgedExtensions) {
+      if (entry.containsKey(uriString)) return true;
+    }
+    return false;
+  }
+
   LoadedModule loadModule(Uri uri, {Set<String>? showNames, Set<String>? hideNames}) {
     // Check permissions for dangerous modules
     _checkModulePermissions(uri);
@@ -417,10 +443,17 @@ class ModuleLoader {
             "[ModuleLoader] The Dart library '${uri.toString()}' is provided natively by Stdlib. Returning an empty module.");
         return ""; // Empty source to allow the import to succeed
       } else {
-        Logger.error(
-            "[ModuleLoader] Dart library '${uri.toString()}' not supported or recognized by Stdlib.");
-        throw SourceCodeD4rtException(
-            "Dart library '${uri.toString()}' not supported.");
+        // Not a known stdlib - check if there are bridges for this dart: URI
+        if (_hasBridgedContentForUri(uriString)) {
+          Logger.info(
+              "[ModuleLoader] Dart library '${uri.toString()}' has bridged content, falling through to bridge registration.");
+          // Fall through to bridged content handling below
+        } else {
+          Logger.error(
+              "[ModuleLoader] Dart library '${uri.toString()}' not supported or recognized by Stdlib.");
+          throw SourceCodeD4rtException(
+              "Dart library '${uri.toString()}' not supported.");
+        }
       }
     }
     // Check if this URI has any bridged types or library-scoped globals registered

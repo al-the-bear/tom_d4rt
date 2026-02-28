@@ -16,12 +16,13 @@
         "lints",
         "path",
         "test",
+        "tom_build_base",
         "tom_d4rt_generator"
       ]
     },
     {
       "name": "tom_d4rt_generator",
-      "version": "1.8.6",
+      "version": "1.8.8",
       "dependencies": [
         "analyzer",
         "args",
@@ -30,6 +31,18 @@
         "path",
         "tom_build_base",
         "tom_d4rt",
+        "yaml"
+      ]
+    },
+    {
+      "name": "tom_build_base",
+      "version": "2.5.5",
+      "dependencies": [
+        "args",
+        "console_markdown",
+        "dcli",
+        "glob",
+        "path",
         "yaml"
       ]
     },
@@ -130,18 +143,6 @@
       ]
     },
     {
-      "name": "tom_build_base",
-      "version": "2.5.2",
-      "dependencies": [
-        "args",
-        "console_markdown",
-        "dcli",
-        "glob",
-        "path",
-        "yaml"
-      ]
-    },
-    {
       "name": "yaml",
       "version": "3.1.3",
       "dependencies": [
@@ -177,6 +178,54 @@
       "name": "args",
       "version": "2.7.0",
       "dependencies": []
+    },
+    {
+      "name": "dcli",
+      "version": "8.4.2",
+      "dependencies": [
+        "archive",
+        "args",
+        "async",
+        "chunked_stream",
+        "collection",
+        "convert",
+        "crypto",
+        "csv",
+        "dart_console",
+        "dcli_common",
+        "dcli_core",
+        "dcli_terminal",
+        "equatable",
+        "ffi",
+        "file",
+        "glob",
+        "ini",
+        "logging",
+        "meta",
+        "mime",
+        "native_synchronization_temp",
+        "path",
+        "posix",
+        "pub_semver",
+        "pubspec_lock",
+        "pubspec_manager",
+        "scope",
+        "settings_yaml",
+        "stack_trace",
+        "system_info2",
+        "uuid",
+        "validators2",
+        "win32",
+        "yaml"
+      ]
+    },
+    {
+      "name": "console_markdown",
+      "version": "0.0.3",
+      "dependencies": [
+        "chalkdart",
+        "marked"
+      ]
     },
     {
       "name": "webkit_inspection_protocol",
@@ -442,54 +491,6 @@
       ]
     },
     {
-      "name": "dcli",
-      "version": "8.4.2",
-      "dependencies": [
-        "archive",
-        "args",
-        "async",
-        "chunked_stream",
-        "collection",
-        "convert",
-        "crypto",
-        "csv",
-        "dart_console",
-        "dcli_common",
-        "dcli_core",
-        "dcli_terminal",
-        "equatable",
-        "ffi",
-        "file",
-        "glob",
-        "ini",
-        "logging",
-        "meta",
-        "mime",
-        "native_synchronization_temp",
-        "path",
-        "posix",
-        "pub_semver",
-        "pubspec_lock",
-        "pubspec_manager",
-        "scope",
-        "settings_yaml",
-        "stack_trace",
-        "system_info2",
-        "uuid",
-        "validators2",
-        "win32",
-        "yaml"
-      ]
-    },
-    {
-      "name": "console_markdown",
-      "version": "0.0.3",
-      "dependencies": [
-        "chalkdart",
-        "marked"
-      ]
-    },
-    {
       "name": "string_scanner",
       "version": "1.4.1",
       "dependencies": [
@@ -508,84 +509,6 @@
       "name": "logging",
       "version": "1.3.0",
       "dependencies": []
-    },
-    {
-      "name": "web_socket",
-      "version": "1.0.1",
-      "dependencies": [
-        "web"
-      ]
-    },
-    {
-      "name": "web",
-      "version": "1.1.1",
-      "dependencies": []
-    },
-    {
-      "name": "vm_service",
-      "version": "15.0.2",
-      "dependencies": []
-    },
-    {
-      "name": "source_maps",
-      "version": "0.10.13",
-      "dependencies": [
-        "source_span"
-      ]
-    },
-    {
-      "name": "source_map_stack_trace",
-      "version": "2.1.2",
-      "dependencies": [
-        "path",
-        "source_maps",
-        "stack_trace"
-      ]
-    },
-    {
-      "name": "frontend_server_client",
-      "version": "4.0.0",
-      "dependencies": [
-        "async",
-        "path"
-      ]
-    },
-    {
-      "name": "term_glyph",
-      "version": "1.2.2",
-      "dependencies": []
-    },
-    {
-      "name": "mime",
-      "version": "2.0.0",
-      "dependencies": []
-    },
-    {
-      "name": "http_parser",
-      "version": "4.1.2",
-      "dependencies": [
-        "collection",
-        "source_span",
-        "string_scanner",
-        "typed_data"
-      ]
-    },
-    {
-      "name": "cli_config",
-      "version": "0.2.0",
-      "dependencies": [
-        "args",
-        "yaml"
-      ]
-    },
-    {
-      "name": "posix",
-      "version": "6.5.0",
-      "dependencies": [
-        "ffi",
-        "meta",
-        "path"
-      ]
     },
     {
       "name": "win32",
@@ -655,11 +578,25 @@
       ]
     },
     {
+      "name": "posix",
+      "version": "6.5.0",
+      "dependencies": [
+        "ffi",
+        "meta",
+        "path"
+      ]
+    },
+    {
       "name": "native_synchronization_temp",
       "version": "0.8.0",
       "dependencies": [
         "ffi"
       ]
+    },
+    {
+      "name": "mime",
+      "version": "2.0.0",
+      "dependencies": []
     },
     {
       "name": "ini",
@@ -745,6 +682,70 @@
       "version": "2.4.0",
       "dependencies": [
         "args"
+      ]
+    },
+    {
+      "name": "web_socket",
+      "version": "1.0.1",
+      "dependencies": [
+        "web"
+      ]
+    },
+    {
+      "name": "web",
+      "version": "1.1.1",
+      "dependencies": []
+    },
+    {
+      "name": "vm_service",
+      "version": "15.0.2",
+      "dependencies": []
+    },
+    {
+      "name": "source_maps",
+      "version": "0.10.13",
+      "dependencies": [
+        "source_span"
+      ]
+    },
+    {
+      "name": "source_map_stack_trace",
+      "version": "2.1.2",
+      "dependencies": [
+        "path",
+        "source_maps",
+        "stack_trace"
+      ]
+    },
+    {
+      "name": "frontend_server_client",
+      "version": "4.0.0",
+      "dependencies": [
+        "async",
+        "path"
+      ]
+    },
+    {
+      "name": "term_glyph",
+      "version": "1.2.2",
+      "dependencies": []
+    },
+    {
+      "name": "http_parser",
+      "version": "4.1.2",
+      "dependencies": [
+        "collection",
+        "source_span",
+        "string_scanner",
+        "typed_data"
+      ]
+    },
+    {
+      "name": "cli_config",
+      "version": "0.2.0",
+      "dependencies": [
+        "args",
+        "yaml"
       ]
     },
     {

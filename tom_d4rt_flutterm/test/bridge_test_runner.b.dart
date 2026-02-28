@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for flutter_material_bridges
-// Generated: 2026-02-28T12:34:26.766713
+// Generated: 2026-02-28T15:17:33.911578
 
 // ignore_for_file: avoid_print
 
@@ -18,6 +18,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:tom_d4rt_exec/d4rt.dart';
+import 'package:tom_d4rt_flutterm/src/bridges/dart_ui_bridges.b.dart' as dart_ui_bridges;
 import 'package:tom_d4rt_flutterm/src/bridges/painting_bridges.b.dart' as flutter_painting_bridges;
 import 'package:tom_d4rt_flutterm/src/bridges/foundation_bridges.b.dart' as flutter_foundation_bridges;
 import 'package:tom_d4rt_flutterm/src/bridges/animation_bridges.b.dart' as flutter_animation_bridges;
@@ -51,6 +52,10 @@ void main() {}
 
 /// Registers all bridges with the given D4rt interpreter.
 void _registerBridges(D4rt d4rt) {
+  dart_ui_bridges.DartUiBridge.registerBridges(
+    d4rt,
+    'dart:ui',
+  );
   flutter_painting_bridges.FlutterPaintingBridge.registerBridges(
     d4rt,
     'package:flutter/painting.dart',

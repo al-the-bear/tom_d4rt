@@ -1,3 +1,9 @@
+## 1.8.3
+
+### Features
+- Support extensible dart: library bridges - unknown dart: URIs now check for bridged content before throwing an error
+- Allows external packages to register bridges for dart:ui and other dart: libraries
+
 ## 1.8.2
 
 ### Maintenance

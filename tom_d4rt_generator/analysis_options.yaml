@@ -1,0 +1,23 @@
+# Dart analyzer configuration for tom_d4rt_generator
+#
+# This enables the 'recommended' set of lints from `package:lints`.
+
+include: package:lints/recommended.yaml
+
+linter:
+  rules:
+    # Library doc comments without library directive are fine in generated code
+    dangling_library_doc_comments: false
+    # File names like 01_hello.dart are intentional for ordered script examples
+    file_names: false
+    # Library names in test files are for test identification  
+    unnecessary_library_name: false
+
+analyzer:
+  errors:
+    # Ignore deprecated analyzer API warnings - upstream will migrate
+    deprecated_member_use: ignore
+  exclude:
+    # Example sub-projects have their own pubspec.yaml and analysis config.
+    # They must be analyzed individually, not from the parent package.
+    - example/**

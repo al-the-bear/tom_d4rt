@@ -21,6 +21,7 @@
 /// | 9 | extensions       | Extensions on nullable types (on T?)            |
 /// |10 | async            | await-for loop variable declaration             |
 // ignore_for_file: file_names
+// ignore_for_file: unintended_html_in_doc_comment
 @TestOn('vm')
 @Timeout(Duration(minutes: 2))
 library;

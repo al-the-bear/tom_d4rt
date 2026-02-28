@@ -600,13 +600,13 @@ packages:
     source: path
     version: "0.1.0"
   tom_build_base:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: tom_build_base
-      sha256: "2d97fb52aa88b0b0dd1e75c4b0563fef9796b41430b066ef9e7f73f4015e78ab"
+      sha256: "0c38e5154b2279d2ad45bef03df099bb4ba03712d8f65f12e24e8af45e7784ac"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.2"
+    version: "2.5.5"
   tom_d4rt:
     dependency: transitive
     description:
@@ -628,7 +628,7 @@ packages:
       path: "../tom_d4rt_generator"
       relative: true
     source: path
-    version: "1.8.6"
+    version: "1.8.8"
   typed_data:
     dependency: transitive
     description:

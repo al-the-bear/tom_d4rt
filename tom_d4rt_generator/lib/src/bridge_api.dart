@@ -130,10 +130,10 @@ Future<GenerationResult> generateBridges({
             : null, // Use defaults if not configured
       );
 
-      // Resolve barrel files - if they're package URIs, pass as-is; otherwise join with projectDir
+      // Resolve barrel files - if they're package: or dart: URIs, pass as-is; otherwise join with projectDir
       final barrelFiles = module.barrelFiles.map((f) {
-        if (f.startsWith('package:')) {
-          return f; // Package URI - generator will resolve it
+        if (f.startsWith('package:') || f.startsWith('dart:')) {
+          return f; // Package or dart URI - generator will resolve it
         }
         return p.join(projectDir, f);
       }).toList();

@@ -99,9 +99,13 @@ class AstModuleLoader implements ModuleContext {
       '(show: $showNames, hide: $hideNames)',
     );
 
-    // 2. Handle dart:* stdlib modules
+    // 2. Handle dart:* stdlib modules (may return null if has bridged content)
     if (uri.isScheme('dart')) {
-      return _loadStdlibModule(uri);
+      final stdlibModule = _loadStdlibModule(uri);
+      if (stdlibModule != null) {
+        return stdlibModule;
+      }
+      // Fall through to bridged library handling
     }
 
     // 3. Handle bridged library URIs
@@ -146,36 +150,50 @@ class AstModuleLoader implements ModuleContext {
 
   /// Loads a `dart:*` stdlib module by registering its definitions
   /// into the global environment.
-  LoadedModule _loadStdlibModule(Uri uri) {
+  ///
+  /// Returns `null` if the library is not a known stdlib and has no bridged
+  /// content, allowing the caller to check bundle modules or throw an error.
+  LoadedModule? _loadStdlibModule(Uri uri) {
     final libName = uri.path;
+    final uriString = uri.toString();
 
-    if (!_stdlibRegistrars.containsKey(libName)) {
-      throw RuntimeD4rtException(
-        "Dart library 'dart:$libName' is not supported.",
-      );
-    }
-
-    // Register if not already done
-    if (!_registeredStdlibs.contains(libName)) {
-      final registrar = _stdlibRegistrars[libName];
-      if (registrar != null) {
-        registrar(globalEnvironment);
-        Logger.debug(
-          '[AstModuleLoader] Registered stdlib: dart:$libName',
-        );
+    // Check if it's a known stdlib
+    if (_stdlibRegistrars.containsKey(libName)) {
+      // Register if not already done
+      if (!_registeredStdlibs.contains(libName)) {
+        final registrar = _stdlibRegistrars[libName];
+        if (registrar != null) {
+          registrar(globalEnvironment);
+          Logger.debug(
+            '[AstModuleLoader] Registered stdlib: dart:$libName',
+          );
+        }
+        _registeredStdlibs.add(libName);
       }
-      _registeredStdlibs.add(libName);
+
+      // Return an empty module — stdlib symbols are in globalEnvironment
+      final emptyAst = SCompilationUnit(offset: 0, length: 0);
+      final module = LoadedModule(
+        ast: emptyAst,
+        exportedEnvironment: globalEnvironment,
+        uri: uri,
+      );
+      _moduleCache[uri] = module;
+      return module;
     }
 
-    // Return an empty module — stdlib symbols are in globalEnvironment
-    final emptyAst = SCompilationUnit(offset: 0, length: 0);
-    final module = LoadedModule(
-      ast: emptyAst,
-      exportedEnvironment: globalEnvironment,
-      uri: uri,
+    // Not a known stdlib — check if there are bridges registered for this dart: URI
+    if (_hasBridgedContent(uriString)) {
+      Logger.debug(
+        '[AstModuleLoader] dart:$libName has bridged content, loading as bridged module',
+      );
+      return null; // Let caller handle via _tryLoadBridgedModule
+    }
+
+    // No stdlib and no bridges — this dart: library is not supported
+    throw RuntimeD4rtException(
+      "Dart library 'dart:$libName' is not supported.",
     );
-    _moduleCache[uri] = module;
-    return module;
   }
 
   // ===========================================================================

@@ -12,25 +12,34 @@ d4rtgen:
   generateTestRunner: true
   testRunnerPath: test/bridge_test_runner.b.dart
   modules:
+    # --- Layer 0: dart:ui (most fundamental) ---
+    - name: dart_ui
+      barrelImport: dart:ui
+      outputPath: lib/src/bridges/dart_ui_bridges.b.dart
     # --- Layer 1: Base libraries ---
     - name: flutter_painting
       barrelImport: package:flutter/painting.dart
       outputPath: lib/src/bridges/painting_bridges.b.dart
+      skipReExports:
+        - dart:ui
     - name: flutter_foundation
       barrelImport: package:flutter/foundation.dart
       outputPath: lib/src/bridges/foundation_bridges.b.dart
       skipReExports:
+        - dart:ui
         - package:flutter/painting.dart
     - name: flutter_animation
       barrelImport: package:flutter/animation.dart
       outputPath: lib/src/bridges/animation_bridges.b.dart
       skipReExports:
+        - dart:ui
         - package:flutter/painting.dart
         - package:flutter/foundation.dart
     - name: flutter_physics
       barrelImport: package:flutter/physics.dart
       outputPath: lib/src/bridges/physics_bridges.b.dart
       skipReExports:
+        - dart:ui
         - package:flutter/painting.dart
         - package:flutter/foundation.dart
         - package:flutter/animation.dart
@@ -38,6 +47,7 @@ d4rtgen:
       barrelImport: package:flutter/scheduler.dart
       outputPath: lib/src/bridges/scheduler_bridges.b.dart
       skipReExports:
+        - dart:ui
         - package:flutter/painting.dart
         - package:flutter/foundation.dart
         - package:flutter/animation.dart
@@ -46,6 +56,7 @@ d4rtgen:
       barrelImport: package:flutter/semantics.dart
       outputPath: lib/src/bridges/semantics_bridges.b.dart
       skipReExports:
+        - dart:ui
         - package:flutter/painting.dart
         - package:flutter/foundation.dart
         - package:flutter/animation.dart
@@ -55,6 +66,7 @@ d4rtgen:
       barrelImport: package:flutter/services.dart
       outputPath: lib/src/bridges/services_bridges.b.dart
       skipReExports:
+        - dart:ui
         - package:flutter/painting.dart
         - package:flutter/foundation.dart
         - package:flutter/animation.dart
@@ -65,6 +77,7 @@ d4rtgen:
       barrelImport: package:flutter/gestures.dart
       outputPath: lib/src/bridges/gestures_bridges.b.dart
       skipReExports:
+        - dart:ui
         - package:flutter/painting.dart
         - package:flutter/foundation.dart
         - package:flutter/animation.dart
@@ -76,6 +89,7 @@ d4rtgen:
       barrelImport: package:flutter/rendering.dart
       outputPath: lib/src/bridges/rendering_bridges.b.dart
       skipReExports:
+        - dart:ui
         - package:flutter/painting.dart
         - package:flutter/foundation.dart
         - package:flutter/animation.dart
@@ -89,6 +103,7 @@ d4rtgen:
       barrelImport: package:flutter/widgets.dart
       outputPath: lib/src/bridges/widgets_bridges.b.dart
       skipReExports:
+        - dart:ui
         - package:flutter/painting.dart
         - package:flutter/foundation.dart
         - package:flutter/animation.dart
@@ -102,6 +117,7 @@ d4rtgen:
       barrelImport: package:flutter/material.dart
       outputPath: lib/src/bridges/material_widgets_bridges.b.dart
       skipReExports:
+        - dart:ui
         - package:flutter/painting.dart
         - package:flutter/foundation.dart
         - package:flutter/animation.dart
@@ -116,6 +132,7 @@ d4rtgen:
       barrelImport: package:flutter/cupertino.dart
       outputPath: lib/src/bridges/cupertino_bridges.b.dart
       skipReExports:
+        - dart:ui
         - package:flutter/painting.dart
         - package:flutter/foundation.dart
         - package:flutter/animation.dart

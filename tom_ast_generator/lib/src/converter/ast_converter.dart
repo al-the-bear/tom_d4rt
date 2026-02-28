@@ -1,5 +1,6 @@
 // AST Converter: Converts from Dart analyzer AST to serializable AST
 // ignore_for_file: implementation_imports
+// ignore_for_file: curly_braces_in_flow_control_structures
 
 import 'package:analyzer/dart/ast/ast.dart' as analyzer;
 import 'package:analyzer/dart/ast/token.dart' as analyzer show Token;

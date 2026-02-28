@@ -4,6 +4,9 @@
 /// BridgedClass registrations for use with D4rt interpreter.
 library;
 
+// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: unintended_html_in_doc_comment
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -1261,10 +1264,8 @@ class BridgeGenerator {
       dir = p.dirname(dir);
     }
 
-    if (packageRoot == null) {
-      // Fallback to the file's parent directory
-      packageRoot = p.dirname(filePath);
-    }
+    // Fallback to the file's parent directory if no package root found
+    packageRoot ??= p.dirname(filePath);
 
     // Get or create a context for this package root
     if (!_packageAnalysisContexts.containsKey(packageRoot)) {
@@ -1277,7 +1278,15 @@ class BridgeGenerator {
       // Color, Offset, and Size resolve correctly to dart:ui instead of being
       // reported as InvalidType.
       final wsPackageConfig = File(
-        p.normalize(p.join(p.isAbsolute(workspacePath) ? workspacePath : p.join(Directory.current.path, workspacePath), '.dart_tool', 'package_config.json')),
+        p.normalize(
+          p.join(
+            p.isAbsolute(workspacePath)
+                ? workspacePath
+                : p.join(Directory.current.path, workspacePath),
+            '.dart_tool',
+            'package_config.json',
+          ),
+        ),
       );
       final packageConfigFile = wsPackageConfig.existsSync()
           ? wsPackageConfig.path
@@ -1371,6 +1380,33 @@ class BridgeGenerator {
 
     _packagePathCache[packageName] = result;
     return result;
+  }
+
+  /// Resolves a dart: URI to an absolute file path.
+  ///
+  /// Given a URI like `dart:ui`, resolves it to the absolute file system path
+  /// using the analyzer's context.
+  ///
+  /// For Flutter projects, dart:ui is provided by sky_engine package in the
+  /// Flutter SDK cache: `flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart`
+  ///
+  /// Returns null if the dart library cannot be resolved.
+  String? resolveDartUri(String dartUri) {
+    if (!dartUri.startsWith('dart:')) {
+      return null;
+    }
+
+    // Use the analyzer's context to resolve dart: URIs
+    final context = _getAnalysisContext();
+    if (context.contexts.isEmpty) return null;
+
+    final anyContext = context.contexts.first;
+    final session = anyContext.currentSession;
+
+    // Parse the dart: URI and resolve it
+    final uri = Uri.parse(dartUri);
+    final path = session.uriConverter.uriToPath(uri);
+    return path;
   }
 
   /// Resolves a package URI to an absolute file path.
@@ -2011,10 +2047,18 @@ class BridgeGenerator {
     List<String> importShowClause = const [],
     List<String> importHideClause = const [],
   }) async {
-    // Resolve package URIs to file paths
+    // Resolve package: and dart: URIs to file paths
     final resolvedBarrelFiles = <String>[];
     for (final barrelFile in barrelFiles) {
-      if (barrelFile.startsWith('package:')) {
+      if (barrelFile.startsWith('dart:')) {
+        final resolved = resolveDartUri(barrelFile);
+        if (resolved != null) {
+          resolvedBarrelFiles.add(resolved);
+        } else {
+          if (verbose)
+            print('Warning: Could not resolve dart URI: $barrelFile');
+        }
+      } else if (barrelFile.startsWith('package:')) {
         final resolved = await resolvePackageUri(barrelFile);
         if (resolved != null) {
           resolvedBarrelFiles.add(resolved);
@@ -2114,10 +2158,18 @@ class BridgeGenerator {
     List<String> importShowClause = const [],
     List<String> importHideClause = const [],
   }) async {
-    // Resolve package URIs to file paths
+    // Resolve package: and dart: URIs to file paths
     final resolvedBarrelFiles = <String>[];
     for (final barrelFile in barrelFiles) {
-      if (barrelFile.startsWith('package:')) {
+      if (barrelFile.startsWith('dart:')) {
+        final resolved = resolveDartUri(barrelFile);
+        if (resolved != null) {
+          resolvedBarrelFiles.add(resolved);
+        } else {
+          if (verbose)
+            print('Warning: Could not resolve dart URI: $barrelFile');
+        }
+      } else if (barrelFile.startsWith('package:')) {
         final resolved = await resolvePackageUri(barrelFile);
         if (resolved != null) {
           resolvedBarrelFiles.add(resolved);
@@ -7063,6 +7115,24 @@ class BridgeGenerator {
       normalizedPath = Uri.parse(sourceFile).toFilePath();
     }
 
+    // Special handling for sky_engine (dart:ui) files.
+    // Paths like .../flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart
+    // should be converted to dart:ui instead of package:sky_engine/ui/ui.dart.
+    if (normalizedPath.contains('/sky_engine/lib/')) {
+      final skyEngineLibIndex = normalizedPath.indexOf('/sky_engine/lib/');
+      final relativePath = normalizedPath.substring(
+        skyEngineLibIndex + 17,
+      ); // Skip '/sky_engine/lib/'
+      // Map common sky_engine paths to their dart: equivalents
+      if (relativePath.startsWith('ui/')) {
+        // ui/ui.dart, ui/painting.dart, etc. -> dart:ui
+        return 'dart:ui';
+      }
+      // For other sky_engine paths, still use dart: scheme
+      final dartLib = relativePath.split('/').first;
+      return 'dart:$dartLib';
+    }
+
     // Convert path like /path/to/package/lib/src/foo/bar.dart
     // to package:package_name/src/foo/bar.dart
     final libIndex = normalizedPath.indexOf('/lib/');
@@ -8900,7 +8970,6 @@ class BridgeGenerator {
         buffer.writeln(
           "        if (${_lengthCheckLessThanOrEqual('positional', index)}) {",
         );
-        ;
         buffer.writeln(
           "          throw ArgumentError('$contextName: Missing required argument \"${param.name}\" at position $index');",
         );
@@ -9489,17 +9558,16 @@ class BridgeGenerator {
         .map((e) => '${e.key}=${e.value ?? 'null'}')
         .join(',');
     // Extract the base type name (strip nullable suffix) to look up in typeToUri
-    var _cacheBaseType = type;
-    if (_cacheBaseType.endsWith('?')) {
-      _cacheBaseType = _cacheBaseType.substring(0, _cacheBaseType.length - 1);
+    var cacheBaseType = type;
+    if (cacheBaseType.endsWith('?')) {
+      cacheBaseType = cacheBaseType.substring(0, cacheBaseType.length - 1);
     }
     // Strip any prefix (e.g., "pkg.Type" -> "Type")
-    if (_cacheBaseType.contains('.') && !_cacheBaseType.contains('<')) {
-      _cacheBaseType = _cacheBaseType.split('.').last;
+    if (cacheBaseType.contains('.') && !cacheBaseType.contains('<')) {
+      cacheBaseType = cacheBaseType.split('.').last;
     }
-    final _typeUriKey = typeToUri[_cacheBaseType] ?? '';
-    final cacheKey =
-        '$type|$typeParamsKey|${sourceFilePath ?? ''}|$_typeUriKey';
+    final typeUriKey = typeToUri[cacheBaseType] ?? '';
+    final cacheKey = '$type|$typeParamsKey|${sourceFilePath ?? ''}|$typeUriKey';
 
     // Check cache first
     if (_typeResolutionCache.containsKey(cacheKey)) {
@@ -10534,7 +10602,7 @@ class BridgeGenerator {
     required String indent,
   }) {
     final lines = <String>[];
-    final rawName = '${localName}\$raw';
+    final rawName = '$localName\$raw';
     final parsed = _parseRecordType(resolvedType);
 
     lines.add('$indent  final $rawName = positional[$positionalIndex];');

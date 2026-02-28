@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_getters_setters, use_super_parameters
+
 /// Test fixtures for bridge generator class bridging tests.
 ///
 /// This file contains various class definitions to test:

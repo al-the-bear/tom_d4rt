@@ -1,3 +1,6 @@
+// Test fixtures intentionally contain doc comments with generic types
+// ignore_for_file: unintended_html_in_doc_comment
+
 /// Test fixtures for bridge generator Flutter-specific patterns.
 ///
 /// This file reproduces patterns found in Flutter SDK APIs that

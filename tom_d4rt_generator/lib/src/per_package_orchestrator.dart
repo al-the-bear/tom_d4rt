@@ -31,7 +31,7 @@ class PackageInfo {
   /// Map of source file -> barrel file URI that exports it.
   /// Multiple source files may be exported by different barrel files.
   final Map<String, String> sourceFileToBarrel;
-  
+
   /// Whether to generate bridging code for deprecated elements.
   /// If any contributing module has this enabled, it will be true.
   bool generateDeprecatedElements;
@@ -43,7 +43,7 @@ class PackageInfo {
     Map<String, String>? sourceFileToBarrel,
     this.generateDeprecatedElements = false,
   }) : sourceFileToBarrel = sourceFileToBarrel ?? {};
-  
+
   /// Returns all unique barrel file URIs that export classes in this package.
   Set<String> get barrelFiles => sourceFileToBarrel.values.toSet();
 }
@@ -101,12 +101,12 @@ class PerPackageBridgeOrchestrator {
   /// Per-module exclusions, keyed by module name.
   /// Exclusions are only applied to packages from their declaring module.
   final Map<String, _ModuleExclusions> _moduleExclusions = {};
-  
+
   /// Global class lookup for cross-package inheritance resolution.
   /// Built by [buildGlobalClassLookup] before generating bridges.
   /// Key is class name, value is ClassInfo.
   final Map<String, ClassInfo> _globalClassLookup = {};
-  
+
   /// Counter for deprecated elements skipped during generation.
   int skippedDeprecatedCount = 0;
 
@@ -159,7 +159,9 @@ class PerPackageBridgeOrchestrator {
           );
           _userBridgeScanner.scanUnit(parseResult.unit, entity.path);
         } catch (e) {
-          onWarning?.call('Warning: Failed to parse user bridge ${entity.path}: $e');
+          onWarning?.call(
+            'Warning: Failed to parse user bridge ${entity.path}: $e',
+          );
         }
       }
     }
@@ -197,9 +199,14 @@ class PerPackageBridgeOrchestrator {
       );
 
       // Resolve barrel files and track which one is which
-      final resolvedBarrels = <String, String>{}; // resolved path -> original URI
+      final resolvedBarrels =
+          <String, String>{}; // resolved path -> original URI
       for (final f in module.barrelFiles) {
-        if (f.startsWith('package:')) {
+        if (f.startsWith('dart:')) {
+          // dart: library (e.g., dart:ui, dart:core)
+          final resolved = generator.resolveDartUri(f);
+          if (resolved != null) resolvedBarrels[resolved] = f;
+        } else if (f.startsWith('package:')) {
           final resolved = await generator.resolvePackageUri(f);
           if (resolved != null) resolvedBarrels[resolved] = f;
         } else {
@@ -210,19 +217,20 @@ class PerPackageBridgeOrchestrator {
 
       // Parse exports from each barrel file separately to track origin
       final allExports = <String, ExportInfo>{};
-      final sourceFileToBarrel = <String, String>{}; // source file -> barrel URI
-      
+      final sourceFileToBarrel =
+          <String, String>{}; // source file -> barrel URI
+
       for (final entry in resolvedBarrels.entries) {
         final resolvedPath = entry.key;
         final barrelUri = entry.value;
-        
+
         final exports = await generator.parseExportFiles(
           [resolvedPath],
           followAllReExports: module.followAllReExports,
           skipReExports: module.skipReExports,
           followReExports: module.followReExports,
         );
-        
+
         for (final sourceFile in exports.keys) {
           // Track which barrel exports this source file
           // Preference order:
@@ -231,7 +239,7 @@ class PerPackageBridgeOrchestrator {
           // 3. First barrel that exports it (fallback)
           final existingBarrel = sourceFileToBarrel[sourceFile];
           final isPrimaryBarrel = barrelUri == sourceImport;
-          
+
           if (existingBarrel == null) {
             // Not yet tracked - use this barrel
             sourceFileToBarrel[sourceFile] = barrelUri;
@@ -243,7 +251,9 @@ class PerPackageBridgeOrchestrator {
             final sourcePackage = _extractPackageName(sourceFile);
             final barrelPackage = _extractPackageNameFromUri(barrelUri);
             if (sourcePackage != null && barrelPackage == sourcePackage) {
-              final existingBarrelPackage = _extractPackageNameFromUri(existingBarrel);
+              final existingBarrelPackage = _extractPackageNameFromUri(
+                existingBarrel,
+              );
               if (existingBarrelPackage != sourcePackage) {
                 // Existing barrel is from a different package - override with same-package barrel
                 sourceFileToBarrel[sourceFile] = barrelUri;
@@ -272,13 +282,14 @@ class PerPackageBridgeOrchestrator {
         );
 
         _packageInfoMap[pkgName]!.sourceFiles.add(sourceFile);
-        _packageInfoMap[pkgName]!.exportInfo[sourceFile] = allExports[sourceFile]!;
-        
+        _packageInfoMap[pkgName]!.exportInfo[sourceFile] =
+            allExports[sourceFile]!;
+
         // If any module enables deprecated generation, enable it for the package
         if (module.generateDeprecatedElements) {
           _packageInfoMap[pkgName]!.generateDeprecatedElements = true;
         }
-        
+
         // Track which barrel this source file came from
         // Preference order:
         // 1. Primary barrel (sourceImport) - always preferred for consistency
@@ -286,20 +297,24 @@ class PerPackageBridgeOrchestrator {
         // 3. Keep existing barrel (fallback)
         if (sourceFileToBarrel.containsKey(sourceFile)) {
           final barrelUri = sourceFileToBarrel[sourceFile]!;
-          final existingBarrel = _packageInfoMap[pkgName]!.sourceFileToBarrel[sourceFile];
+          final existingBarrel =
+              _packageInfoMap[pkgName]!.sourceFileToBarrel[sourceFile];
           final isPrimaryBarrel = barrelUri == sourceImport;
-          
+
           if (existingBarrel == null) {
-            _packageInfoMap[pkgName]!.sourceFileToBarrel[sourceFile] = barrelUri;
+            _packageInfoMap[pkgName]!.sourceFileToBarrel[sourceFile] =
+                barrelUri;
           } else if (isPrimaryBarrel) {
             // Primary barrel always wins
-            _packageInfoMap[pkgName]!.sourceFileToBarrel[sourceFile] = barrelUri;
+            _packageInfoMap[pkgName]!.sourceFileToBarrel[sourceFile] =
+                barrelUri;
           } else if (existingBarrel != sourceImport) {
             // Existing is not primary, apply same-package preference
-            if (barrelUri.startsWith('package:$pkgName/') && 
+            if (barrelUri.startsWith('package:$pkgName/') &&
                 !existingBarrel.startsWith('package:$pkgName/')) {
               // Prefer barrel from same package over re-exporting package
-              _packageInfoMap[pkgName]!.sourceFileToBarrel[sourceFile] = barrelUri;
+              _packageInfoMap[pkgName]!.sourceFileToBarrel[sourceFile] =
+                  barrelUri;
             }
           }
         }
@@ -316,25 +331,25 @@ class PerPackageBridgeOrchestrator {
   }
 
   /// Builds the global class lookup for cross-package inheritance resolution.
-  /// 
+  ///
   /// This parses all source files from all packages and builds a map of
   /// class name -> ClassInfo. This allows inheritance resolution across
   /// packages (e.g., TomException extends TomBaseException from tom_basics).
-  /// 
+  ///
   /// Call this after [collectPackageInfo] and before [generatePerPackageFiles].
   Future<void> buildGlobalClassLookup() async {
     _globalClassLookup.clear();
-    
+
     for (final entry in _packageInfoMap.entries) {
       final pkgName = entry.key;
       final pkgInfo = entry.value;
-      
+
       // Get barrel files for this package
       final barrelFiles = pkgInfo.barrelFiles;
       final ownPackageBarrels = barrelFiles
           .where((b) => b.startsWith('package:$pkgName/'))
           .toList();
-      
+
       final sourceImports = ownPackageBarrels.isNotEmpty
           ? ownPackageBarrels
           : ['package:$pkgName/$pkgName.dart'];
@@ -348,7 +363,7 @@ class PerPackageBridgeOrchestrator {
         d4rtImport: config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart',
         userBridgeScanner: _userBridgeScanner,
       );
-      
+
       // Parse all classes from this package's source files
       for (final sourceFile in pkgInfo.sourceFiles) {
         try {
@@ -358,12 +373,16 @@ class PerPackageBridgeOrchestrator {
             _globalClassLookup[cls.name] = cls;
           }
         } catch (e) {
-          onWarning?.call('Warning: Failed to parse $sourceFile for class lookup: $e');
+          onWarning?.call(
+            'Warning: Failed to parse $sourceFile for class lookup: $e',
+          );
         }
       }
     }
-    
-    onWarning?.call('Built global class lookup with ${_globalClassLookup.length} classes');
+
+    onWarning?.call(
+      'Built global class lookup with ${_globalClassLookup.length} classes',
+    );
   }
 
   /// Generates per-package bridge files.
@@ -392,7 +411,7 @@ class PerPackageBridgeOrchestrator {
       final ownPackageBarrels = barrelFiles
           .where((b) => b.startsWith('package:$pkgName/'))
           .toList();
-      
+
       final sourceImports = ownPackageBarrels.isNotEmpty
           ? ownPackageBarrels
           : ['package:$pkgName/$pkgName.dart'];
@@ -406,10 +425,10 @@ class PerPackageBridgeOrchestrator {
         d4rtImport: config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart',
         userBridgeScanner: _userBridgeScanner,
       );
-      
+
       // Set per-package option for deprecated element generation
       generator.generateDeprecatedElements = pkgInfo.generateDeprecatedElements;
-      
+
       // Pass global class lookup for cross-package inheritance resolution
       generator.externalClassLookup = Map.of(_globalClassLookup);
 
@@ -429,19 +448,20 @@ class PerPackageBridgeOrchestrator {
         excludeVariables: exclusions.excludeVariables.toList(),
         excludeSourcePatterns: exclusions.excludeSourcePatterns.toList(),
       );
-      
+
       // Accumulate skipped deprecated count
       skippedDeprecatedCount += generator.skippedDeprecatedCount;
 
       // Only include packages that have actual content
-      final hasContent = result.classesGenerated > 0 ||
+      final hasContent =
+          result.classesGenerated > 0 ||
           result.globalFunctionsGenerated > 0 ||
           result.globalVariablesGenerated > 0;
       if (hasContent) {
         generatedFiles[pkgName] = outputPath;
       }
     }
-    
+
     // Report skipped deprecated elements if any
     if (skippedDeprecatedCount > 0) {
       onWarning?.call(
@@ -480,8 +500,12 @@ class PerPackageBridgeOrchestrator {
     buffer.writeln();
     buffer.writeln('// ignore_for_file: unused_import, deprecated_member_use');
     buffer.writeln();
-    buffer.writeln("import '${config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart'}';");
-    buffer.writeln("import '${config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart'}';");
+    buffer.writeln(
+      "import '${config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart'}';",
+    );
+    buffer.writeln(
+      "import '${config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart'}';",
+    );
     buffer.writeln();
 
     // Import per-package files
@@ -516,10 +540,16 @@ class PerPackageBridgeOrchestrator {
     buffer.writeln();
 
     // classSourceUris()
-    buffer.writeln('  /// Returns a map of class names to their canonical source URIs.');
+    buffer.writeln(
+      '  /// Returns a map of class names to their canonical source URIs.',
+    );
     buffer.writeln('  ///');
-    buffer.writeln('  /// Used for deduplication when the same class is exported through');
-    buffer.writeln('  /// multiple barrels (e.g., tom_core_kernel and tom_core_server).');
+    buffer.writeln(
+      '  /// Used for deduplication when the same class is exported through',
+    );
+    buffer.writeln(
+      '  /// multiple barrels (e.g., tom_core_kernel and tom_core_server).',
+    );
     buffer.writeln('  static Map<String, String> classSourceUris() {');
     buffer.writeln('    return {');
     for (final pkgName in sortedPackages) {
@@ -550,7 +580,9 @@ class PerPackageBridgeOrchestrator {
 
     // globalFunctions()
     buffer.writeln('  /// Returns all global functions.');
-    buffer.writeln('  static Map<String, NativeFunctionImpl> globalFunctions() {');
+    buffer.writeln(
+      '  static Map<String, NativeFunctionImpl> globalFunctions() {',
+    );
     buffer.writeln('    return {');
     for (final pkgName in sortedPackages) {
       if (packageFiles.containsKey(pkgName)) {
@@ -564,9 +596,7 @@ class PerPackageBridgeOrchestrator {
     buffer.writeln();
 
     // registerBridges()
-    buffer.writeln(
-      '  /// Register all bridges with the interpreter.',
-    );
+    buffer.writeln('  /// Register all bridges with the interpreter.');
     buffer.writeln(
       '  static void registerBridges(D4rt interpreter, String importPath) {',
     );
@@ -607,8 +637,10 @@ class PerPackageBridgeOrchestrator {
       final file = io.File(pubspecPath);
       if (file.existsSync()) {
         final content = file.readAsStringSync();
-        final nameMatch =
-            RegExp(r'^name:\s*(\S+)', multiLine: true).firstMatch(content);
+        final nameMatch = RegExp(
+          r'^name:\s*(\S+)',
+          multiLine: true,
+        ).firstMatch(content);
         if (nameMatch != null) {
           return nameMatch.group(1);
         }
@@ -620,7 +652,7 @@ class PerPackageBridgeOrchestrator {
     // Fall back to directory name
     return p.basename(packageDir);
   }
-  
+
   /// Extracts package name from a package URI (e.g., 'package:dcli_core/dcli_core.dart' -> 'dcli_core').
   String? _extractPackageNameFromUri(String uri) {
     if (!uri.startsWith('package:')) return null;
@@ -629,7 +661,7 @@ class PerPackageBridgeOrchestrator {
   }
 
   /// Returns combined exclusions for modules that include the given package.
-  /// 
+  ///
   /// Looks up which modules have this package in their `requiredPackages` set
   /// and returns the merged exclusions from only those modules.
   _ModuleExclusions _getExclusionsForPackage(String packageName) {
@@ -637,7 +669,7 @@ class PerPackageBridgeOrchestrator {
     final excludeFunctions = <String>{};
     final excludeVariables = <String>{};
     final excludeSourcePatterns = <String>{};
-    
+
     // Find all modules that include this package
     for (final mapping in _barrelMappings.values) {
       if (mapping.requiredPackages.contains(packageName)) {
@@ -650,7 +682,7 @@ class PerPackageBridgeOrchestrator {
         }
       }
     }
-    
+
     return _ModuleExclusions(
       excludeClasses: excludeClasses,
       excludeFunctions: excludeFunctions,
@@ -666,10 +698,12 @@ class PerPackageBridgeOrchestrator {
     final toFile = to;
 
     // Strip lib/ prefix for calculation
-    final fromDirClean =
-        fromDir.startsWith('lib/') ? fromDir.substring(4) : fromDir;
-    final toFileClean =
-        toFile.startsWith('lib/') ? toFile.substring(4) : toFile;
+    final fromDirClean = fromDir.startsWith('lib/')
+        ? fromDir.substring(4)
+        : fromDir;
+    final toFileClean = toFile.startsWith('lib/')
+        ? toFile.substring(4)
+        : toFile;
 
     // Calculate relative path
     return p.relative(toFileClean, from: fromDirClean);
@@ -679,9 +713,11 @@ class PerPackageBridgeOrchestrator {
   String _toPascalCase(String input) {
     return input
         .split(RegExp(r'[_-]'))
-        .map((part) => part.isEmpty
-            ? ''
-            : part[0].toUpperCase() + part.substring(1).toLowerCase())
+        .map(
+          (part) => part.isEmpty
+              ? ''
+              : part[0].toUpperCase() + part.substring(1).toLowerCase(),
+        )
         .join();
   }
 }
@@ -698,8 +734,8 @@ class _ModuleExclusions {
     Set<String>? excludeFunctions,
     Set<String>? excludeVariables,
     Set<String>? excludeSourcePatterns,
-  })  : excludeClasses = excludeClasses ?? {},
-        excludeFunctions = excludeFunctions ?? {},
-        excludeVariables = excludeVariables ?? {},
-        excludeSourcePatterns = excludeSourcePatterns ?? {};
+  }) : excludeClasses = excludeClasses ?? {},
+       excludeFunctions = excludeFunctions ?? {},
+       excludeVariables = excludeVariables ?? {},
+       excludeSourcePatterns = excludeSourcePatterns ?? {};
 }

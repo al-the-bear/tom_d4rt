@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_getters_setters, use_super_parameters
+
 /// Test fixtures for bridge generator class bridging tests.
 ///
 /// This file contains various class definitions to test:
@@ -41,11 +43,7 @@ class NamedParamsClass {
   final int value;
   final bool enabled;
 
-  NamedParamsClass({
-    required this.name,
-    this.value = 42,
-    this.enabled = false,
-  });
+  NamedParamsClass({required this.name, this.value = 42, this.enabled = false});
 }
 
 // =============================================================================
@@ -63,14 +61,11 @@ class MultiConstructorClass {
 
   /// Named constructor from type.
   MultiConstructorClass.fromType(this.type)
-      : id = 'auto_${DateTime.now().millisecondsSinceEpoch}',
-        count = 0;
+    : id = 'auto_${DateTime.now().millisecondsSinceEpoch}',
+      count = 0;
 
   /// Named constructor with defaults.
-  MultiConstructorClass.empty()
-      : id = '',
-        type = 'unknown',
-        count = 0;
+  MultiConstructorClass.empty() : id = '', type = 'unknown', count = 0;
 
   /// Factory constructor.
   factory MultiConstructorClass.create(String type) {
@@ -225,7 +220,7 @@ class SpecialEntity extends DerivedEntity {
   final int priority;
 
   SpecialEntity(String id, String name, String type, this.priority)
-      : super(id, name, type);
+    : super(id, name, type);
 
   @override
   String describe() => '${super.describe()} priority=$priority';

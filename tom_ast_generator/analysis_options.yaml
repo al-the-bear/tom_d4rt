@@ -16,6 +16,19 @@ include: package:lints/recommended.yaml
 linter:
   rules:
     dangling_library_doc_comments: false
+    # File names like 01_hello.dart are intentional for ordered script examples
+    file_names: false
+    # Library names in test files are for test identification  
+    unnecessary_library_name: false
+
+analyzer:
+  errors:
+    # Ignore deprecated analyzer API warnings - upstream will migrate
+    deprecated_member_use: ignore
+  exclude:
+    # Example sub-projects have their own pubspec.yaml and analysis config.
+    # They must be analyzed individually, not from the parent package.
+    - example/**
 
 # Uncomment the following section to specify additional rules.
 

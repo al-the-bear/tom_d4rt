@@ -141,7 +141,7 @@ Future<void> _generateBridges(
 
     // Resolve barrel files
     final barrelFiles = module.barrelFiles.map((f) {
-      if (f.startsWith('package:')) {
+      if (f.startsWith('package:') || f.startsWith('dart:')) {
         return f;
       }
       return p.join(projectDir, f);
