@@ -88,9 +88,7 @@ class AstModuleLoader implements ModuleContext {
   }) {
     // 1. Check cache
     if (_moduleCache.containsKey(uri)) {
-      Logger.debug(
-        '[AstModuleLoader] Cache hit for module: $uri',
-      );
+      Logger.debug('[AstModuleLoader] Cache hit for module: $uri');
       return _moduleCache[uri]!;
     }
 
@@ -164,9 +162,7 @@ class AstModuleLoader implements ModuleContext {
         final registrar = _stdlibRegistrars[libName];
         if (registrar != null) {
           registrar(globalEnvironment);
-          Logger.debug(
-            '[AstModuleLoader] Registered stdlib: dart:$libName',
-          );
+          Logger.debug('[AstModuleLoader] Registered stdlib: dart:$libName');
         }
         _registeredStdlibs.add(libName);
       }
@@ -353,9 +349,8 @@ class AstModuleLoader implements ModuleContext {
       globalEnvironment.define(
         entry.key,
         GlobalGetter(
-          () => throw RuntimeD4rtException(
-            'Property ${entry.key} is write-only',
-          ),
+          () =>
+              throw RuntimeD4rtException('Property ${entry.key} is write-only'),
           setter: entry.value.setter,
         ),
       );
@@ -525,9 +520,7 @@ class AstModuleLoader implements ModuleContext {
         }
       }
 
-      Logger.debug(
-        '[AstModuleLoader] Export: $exportUriString → $resolvedUri',
-      );
+      Logger.debug('[AstModuleLoader] Export: $exportUriString → $resolvedUri');
 
       final loaded = loadModule(resolvedUri);
       exportedEnv.importEnvironment(

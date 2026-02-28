@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui' show Color;
 
 import 'package:flutter/material.dart';
 import 'package:tom_d4rt_flutterm/tom_d4rt_flutterm.dart';
