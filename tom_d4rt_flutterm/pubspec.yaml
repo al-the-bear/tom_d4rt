@@ -27,6 +27,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  path: ^1.9.0
   tom_d4rt_generator:
     path: ../tom_d4rt_generator
 

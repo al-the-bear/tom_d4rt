@@ -32,13 +32,39 @@ class D4rtTestPage extends StatefulWidget {
   State<D4rtTestPage> createState() => _D4rtTestPageState();
 }
 
+/// Result of a D4rt widget build operation.
+class _BuildResult {
+  final bool success;
+  final String? widgetType;
+  final String? error;
+  final List<String> output;
+
+  _BuildResult({
+    required this.success,
+    this.widgetType,
+    this.error,
+    required this.output,
+  });
+
+  Map<String, dynamic> toJson() => {
+    'status': success ? 'success' : 'error',
+    if (widgetType != null) 'widgetType': widgetType,
+    if (error != null) 'error': error,
+    'output': output,
+  };
+}
+
 class _D4rtTestPageState extends State<D4rtTestPage> {
   final FlutterD4rt _d4rt = FlutterD4rt();
   HttpServer? _server;
   final List<String> _logs = [];
   Widget? _d4rtWidget;
   String? _lastError;
+
+  // Pending build state
   AstBundle? _pendingBundle;
+  Completer<_BuildResult>? _buildCompleter;
+  List<String> _capturedOutput = [];
 
   static const int _serverPort = 4247;
 
@@ -61,6 +87,23 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
         '[${DateTime.now().toIso8601String().substring(11, 19)}] $message',
       );
       if (_logs.length > 100) _logs.removeRange(0, _logs.length - 100);
+    });
+  }
+
+  /// Add a log entry without calling setState (safe to call during build).
+  /// Use _scheduleLogRefresh() after to update the UI.
+  void _addLogEntry(String message) {
+    debugPrint('[D4rtApp] $message');
+    _logs.add(
+      '[${DateTime.now().toIso8601String().substring(11, 19)}] $message',
+    );
+    if (_logs.length > 100) _logs.removeRange(0, _logs.length - 100);
+  }
+
+  /// Schedule a setState to refresh the log UI after build completes.
+  void _scheduleLogRefresh() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) setState(() {});
     });
   }
 
@@ -97,6 +140,9 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
           setState(() {
             _d4rtWidget = null;
             _lastError = null;
+            _pendingBundle = null;
+            _buildCompleter = null;
+            _capturedOutput = [];
           });
           _respond(request, 200, {'status': 'cleared'});
         default:
@@ -144,10 +190,16 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
   }
 
   /// POST /build — Execute a D4rt bundle's `build` function and render the
-  /// returned Widget.
+  /// returned Widget. Waits for the build to complete and returns the result.
   ///
   /// Body: AstBundle JSON
-  /// The bundle must contain a `Widget build(BuildContext context)` function.
+  /// The bundle must contain a `dynamic build(BuildContext context)` function.
+  ///
+  /// Response includes:
+  /// - status: 'success' or 'error'
+  /// - widgetType: the runtime type of the built widget (on success)
+  /// - error: error message (on error)
+  /// - output: captured print() statements from the script
   Future<void> _handleBuild(HttpRequest request) async {
     if (request.method != 'POST') {
       _respond(request, 405, {'error': 'Method not allowed. Use POST.'});
@@ -155,43 +207,106 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
     }
 
     final body = await utf8.decoder.bind(request).join();
-    _log('Building widget (${body.length} bytes)');
+    _addLogEntry('Building widget (${body.length} bytes)');
 
     try {
       final bundle = AstBundle.fromJson(
         jsonDecode(body) as Map<String, dynamic>,
       );
 
-      // Store the bundle and trigger a rebuild — the actual build happens
-      // inside the Flutter build method where we have a valid BuildContext.
+      // Set up completer to wait for build result
+      final completer = Completer<_BuildResult>();
+      _buildCompleter = completer;
+      _capturedOutput = [];
+
+      // Trigger a rebuild — the actual build happens inside the Flutter
+      // build method where we have a valid BuildContext.
       setState(() {
         _pendingBundle = bundle;
         _lastError = null;
       });
 
-      _respond(request, 200, {'status': 'building'});
+      // Yield to allow the frame to be scheduled and built
+      await Future<void>.delayed(Duration.zero);
+
+      // Wait for the build to complete (with timeout)
+      final result = await completer.future.timeout(
+        const Duration(seconds: 10),
+        onTimeout: () => _BuildResult(
+          success: false,
+          error: 'Build timed out after 10 seconds',
+          output: _capturedOutput,
+        ),
+      );
+
+      _addLogEntry(
+        result.success
+            ? 'Build completed: ${result.widgetType}'
+            : 'Build failed: ${result.error}',
+      );
+      _scheduleLogRefresh();
+
+      _respond(request, result.success ? 200 : 400, result.toJson());
     } on FormatException catch (e) {
       _log('JSON parse error: $e');
-      _respond(request, 400, {'error': 'Invalid JSON: $e'});
+      _respond(request, 400, {'error': 'Invalid JSON: $e', 'output': []});
     }
   }
 
   /// Build the D4rt widget from a pending bundle using the current BuildContext.
+  /// Captures print() output and completes the build completer.
   Widget _buildD4rtWidget(BuildContext context) {
     if (_pendingBundle != null) {
-      try {
-        final widget = _d4rt.build<Widget>(_pendingBundle!, context);
-        _d4rtWidget = widget;
-        _lastError = null;
-        _log('Widget built successfully: ${widget.runtimeType}');
-      } on FlutterD4rtException catch (e) {
-        _lastError = e.message;
-        _log('Build error: $e');
-      } catch (e) {
-        _lastError = e.toString();
-        _log('Unexpected build error: $e');
-      }
+      final bundle = _pendingBundle!;
       _pendingBundle = null;
+
+      // Capture print() output using runZoned
+      final output = <String>[];
+      runZoned(
+        () {
+          try {
+            final widget = _d4rt.build<Widget>(bundle, context);
+            _d4rtWidget = widget;
+            _lastError = null;
+
+            // Complete with success
+            _buildCompleter?.complete(
+              _BuildResult(
+                success: true,
+                widgetType: widget.runtimeType.toString(),
+                output: output,
+              ),
+            );
+          } on FlutterD4rtException catch (e) {
+            _lastError = e.message;
+            _buildCompleter?.complete(
+              _BuildResult(success: false, error: e.message, output: output),
+            );
+          } catch (e) {
+            _lastError = e.toString();
+            _buildCompleter?.complete(
+              _BuildResult(success: false, error: e.toString(), output: output),
+            );
+          }
+        },
+        zoneSpecification: ZoneSpecification(
+          print: (self, parent, zone, line) {
+            output.add(line);
+            _capturedOutput.add(line);
+            // Add to app logs (without setState - we're in build)
+            // Use parent.print to avoid recursive capture
+            final logMessage =
+                '[${DateTime.now().toIso8601String().substring(11, 19)}] '
+                '[script] $line';
+            _logs.add(logMessage);
+            if (_logs.length > 100) _logs.removeRange(0, _logs.length - 100);
+            parent.print(zone, '[D4rtApp] [script] $line');
+          },
+        ),
+      );
+      _buildCompleter = null;
+      // Schedule UI refresh to show captured logs
+      _scheduleLogRefresh();
     }
 
     if (_lastError != null) {

@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   tom_d4rt_flutterm:
-    path: ../tom_d4rt_flutterm
+    path: ../..  # Go up from test/tom_d4rt_flutterm_app to tom_d4rt_flutterm
 
 dev_dependencies:
   flutter_test:
