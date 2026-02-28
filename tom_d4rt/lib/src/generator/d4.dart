@@ -73,6 +73,10 @@ class D4 {
         if (e is BridgedEnumValue) {
           return e.nativeValue as T;
         }
+        // INTER-003c: int→double element promotion in lists
+        if (_isDoubleType<T>() && e is int) {
+          return e.toDouble() as T;
+        }
         return e as T;
       }).toList();
     } catch (e) {
@@ -80,6 +84,22 @@ class D4 {
         'Invalid parameter "$paramName": cannot convert List to List<$T> - $e',
       );
     }
+  }
+
+  /// Check if T is double or double? (nullable double)
+  static bool _isDoubleType<T>() {
+    // Check non-nullable double
+    if (T == double) return true;
+    // Check nullable double by examining type string
+    final typeName = T.toString();
+    return typeName == 'double?' || typeName == 'double?';
+  }
+
+  /// Check if T is num or num? (nullable num)
+  static bool _isNumType<T>() {
+    if (T == num) return true;
+    final typeName = T.toString();
+    return typeName == 'num?' || typeName == 'num?';
   }
 
   /// Coerce a List from D4rt, returning null if arg is null.
@@ -157,9 +177,14 @@ class D4 {
       return unwrapped;
     }
 
-    // INTER-003: int→double promotion
-    if (T == double && unwrapped is int) {
+    // INTER-003: int→double promotion (handles both double and double?)
+    if (_isDoubleType<T>() && unwrapped is int) {
       return unwrapped.toDouble() as T;
+    }
+
+    // INTER-003b: int→num promotion (handles both num and num?)
+    if (_isNumType<T>() && unwrapped is int) {
+      return unwrapped as T;
     }
 
     // INTER-004: Collection type casting

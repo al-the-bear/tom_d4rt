@@ -1,3 +1,17 @@
+## 1.8.4
+
+### Bug Fixes
+- **INTER-003**: Fixed nullable double/num type promotion in `D4.extractBridgedArg`
+  - `extractBridgedArg<double?>` now correctly promotes `int` to `double`
+  - `extractBridgedArg<num?>` now correctly handles `int` values
+  - Fixes "Invalid parameter elevation: expected double?, got int" errors in Flutter bridges
+- **INTER-003c**: Fixed `D4.coerceList` to promote int elements to double in `List<double>`
+  - Mixed int/double lists now correctly coerce to `List<double>`
+
+### Internal
+- Added `_isDoubleType<T>()` and `_isNumType<T>()` helpers for nullable type checking
+- Added comprehensive D4 helper unit tests (`d4_helpers_test.dart`)
+
 ## 1.8.3
 
 ### Features
