@@ -8,6 +8,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
+// ignore: implementation_imports
+import 'package:analyzer/src/dart/analysis/analysis_context_collection.dart'
+    show AnalysisContextCollectionImpl;
 import 'package:glob/glob.dart' as glob_pkg;
 import 'package:analyzer/dart/analysis/features.dart';
 import 'package:analyzer/dart/analysis/results.dart';
@@ -1262,9 +1265,24 @@ class BridgeGenerator {
 
     // Get or create a context for this package root
     if (!_packageAnalysisContexts.containsKey(packageRoot)) {
-      _packageAnalysisContexts[packageRoot] = AnalysisContextCollection(
+      // GEN-069: Use the workspace's package_config.json when creating the
+      // per-package context. This is critical for Flutter SDK files: the Flutter
+      // package does not have its own .dart_tool/package_config.json, so the
+      // per-package context cannot resolve dart:ui (provided by sky_engine).
+      // Using the workspace's package config gives the context access to all
+      // transitive dependencies including sky_engine, making dart:ui types like
+      // Color, Offset, and Size resolve correctly to dart:ui instead of being
+      // reported as InvalidType.
+      final wsPackageConfig = File(
+        p.normalize(p.join(p.isAbsolute(workspacePath) ? workspacePath : p.join(Directory.current.path, workspacePath), '.dart_tool', 'package_config.json')),
+      );
+      final packageConfigFile = wsPackageConfig.existsSync()
+          ? wsPackageConfig.path
+          : null;
+      _packageAnalysisContexts[packageRoot] = AnalysisContextCollectionImpl(
         includedPaths: [packageRoot],
         sdkPath: _getSdkPath(),
+        packagesFile: packageConfigFile,
       );
     }
 
