@@ -30,7 +30,7 @@ dependencies:
   yaml: ^3.1.0
   
   # Shared build utilities
-  tom_build_base: ^2.5.2
+  tom_build_base: ^2.5.5
 
   # D4rt runtime (used by testing library)
   tom_d4rt: ^1.8.0

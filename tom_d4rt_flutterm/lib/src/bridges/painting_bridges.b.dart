@@ -1,12 +1,13 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 51 files
-// Generated: 2026-02-27T15:45:11.606632
+// Generated: 2026-02-28T12:38:28.122016
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_ast/tom_d4rt_ast.dart';
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:math' as $dart_math;
 import 'dart:math';
@@ -14,61 +15,70 @@ import 'dart:typed_data';
 import 'dart:ui' as $dart_ui;
 import 'dart:ui';
 
-import 'package:flutter/src/painting/alignment.dart' as $flutter_1;
-import 'package:flutter/src/painting/basic_types.dart' as $flutter_2;
-import 'package:flutter/src/painting/beveled_rectangle_border.dart' as $flutter_3;
-import 'package:flutter/src/painting/binding.dart' as $flutter_4;
-import 'package:flutter/src/painting/border_radius.dart' as $flutter_5;
-import 'package:flutter/src/painting/borders.dart' as $flutter_6;
-import 'package:flutter/src/painting/box_border.dart' as $flutter_7;
-import 'package:flutter/src/painting/box_decoration.dart' as $flutter_8;
-import 'package:flutter/src/painting/box_fit.dart' as $flutter_9;
-import 'package:flutter/src/painting/box_shadow.dart' as $flutter_10;
-import 'package:flutter/src/painting/circle_border.dart' as $flutter_11;
-import 'package:flutter/src/painting/clip.dart' as $flutter_12;
-import 'package:flutter/src/painting/colors.dart' as $flutter_13;
-import 'package:flutter/src/painting/continuous_rectangle_border.dart' as $flutter_14;
-import 'package:flutter/src/painting/debug.dart' as $flutter_15;
-import 'package:flutter/src/painting/decoration.dart' as $flutter_16;
-import 'package:flutter/src/painting/decoration_image.dart' as $flutter_17;
-import 'package:flutter/src/painting/edge_insets.dart' as $flutter_18;
-import 'package:flutter/src/painting/flutter_logo.dart' as $flutter_19;
-import 'package:flutter/src/painting/fractional_offset.dart' as $flutter_20;
-import 'package:flutter/src/painting/geometry.dart' as $flutter_21;
-import 'package:flutter/src/painting/gradient.dart' as $flutter_22;
-import 'package:flutter/src/painting/image_cache.dart' as $flutter_23;
-import 'package:flutter/src/painting/image_decoder.dart' as $flutter_24;
-import 'package:flutter/src/painting/image_provider.dart' as $flutter_25;
-import 'package:flutter/src/painting/image_resolution.dart' as $flutter_26;
-import 'package:flutter/src/painting/image_stream.dart' as $flutter_27;
-import 'package:flutter/src/painting/inline_span.dart' as $flutter_28;
-import 'package:flutter/src/painting/linear_border.dart' as $flutter_29;
-import 'package:flutter/src/painting/matrix_utils.dart' as $flutter_30;
-import 'package:flutter/src/painting/notched_shapes.dart' as $flutter_31;
-import 'package:flutter/src/painting/oval_border.dart' as $flutter_32;
-import 'package:flutter/src/painting/paint_utilities.dart' as $flutter_33;
-import 'package:flutter/src/painting/placeholder_span.dart' as $flutter_34;
-import 'package:flutter/src/painting/rounded_rectangle_border.dart' as $flutter_35;
-import 'package:flutter/src/painting/shader_warm_up.dart' as $flutter_36;
-import 'package:flutter/src/painting/shape_decoration.dart' as $flutter_37;
-import 'package:flutter/src/painting/stadium_border.dart' as $flutter_38;
-import 'package:flutter/src/painting/star_border.dart' as $flutter_39;
-import 'package:flutter/src/painting/strut_style.dart' as $flutter_40;
-import 'package:flutter/src/painting/text_painter.dart' as $flutter_41;
-import 'package:flutter/src/painting/text_scaler.dart' as $flutter_42;
-import 'package:flutter/src/painting/text_span.dart' as $flutter_43;
-import 'package:flutter/src/painting/text_style.dart' as $flutter_44;
-import 'package:flutter/src/services/text_editing.dart' as $flutter_45;
+import 'package:flutter/src/foundation/assertions.dart' as $flutter_1;
+import 'package:flutter/src/foundation/change_notifier.dart' as $flutter_2;
+import 'package:flutter/src/foundation/diagnostics.dart' as $flutter_3;
+import 'package:flutter/src/foundation/platform.dart' as $flutter_4;
+import 'package:flutter/src/gestures/events.dart' as $flutter_5;
+import 'package:flutter/src/gestures/hit_test.dart' as $flutter_6;
+import 'package:flutter/src/gestures/recognizer.dart' as $flutter_7;
+import 'package:flutter/src/painting/alignment.dart' as $flutter_8;
+import 'package:flutter/src/painting/basic_types.dart' as $flutter_9;
+import 'package:flutter/src/painting/beveled_rectangle_border.dart' as $flutter_10;
+import 'package:flutter/src/painting/binding.dart' as $flutter_11;
+import 'package:flutter/src/painting/border_radius.dart' as $flutter_12;
+import 'package:flutter/src/painting/borders.dart' as $flutter_13;
+import 'package:flutter/src/painting/box_border.dart' as $flutter_14;
+import 'package:flutter/src/painting/box_decoration.dart' as $flutter_15;
+import 'package:flutter/src/painting/box_fit.dart' as $flutter_16;
+import 'package:flutter/src/painting/box_shadow.dart' as $flutter_17;
+import 'package:flutter/src/painting/circle_border.dart' as $flutter_18;
+import 'package:flutter/src/painting/clip.dart' as $flutter_19;
+import 'package:flutter/src/painting/colors.dart' as $flutter_20;
+import 'package:flutter/src/painting/continuous_rectangle_border.dart' as $flutter_21;
+import 'package:flutter/src/painting/debug.dart' as $flutter_22;
+import 'package:flutter/src/painting/decoration.dart' as $flutter_23;
+import 'package:flutter/src/painting/decoration_image.dart' as $flutter_24;
+import 'package:flutter/src/painting/edge_insets.dart' as $flutter_25;
+import 'package:flutter/src/painting/flutter_logo.dart' as $flutter_26;
+import 'package:flutter/src/painting/fractional_offset.dart' as $flutter_27;
+import 'package:flutter/src/painting/geometry.dart' as $flutter_28;
+import 'package:flutter/src/painting/gradient.dart' as $flutter_29;
+import 'package:flutter/src/painting/image_cache.dart' as $flutter_30;
+import 'package:flutter/src/painting/image_decoder.dart' as $flutter_31;
+import 'package:flutter/src/painting/image_provider.dart' as $flutter_32;
+import 'package:flutter/src/painting/image_resolution.dart' as $flutter_33;
+import 'package:flutter/src/painting/image_stream.dart' as $flutter_34;
+import 'package:flutter/src/painting/inline_span.dart' as $flutter_35;
+import 'package:flutter/src/painting/linear_border.dart' as $flutter_36;
+import 'package:flutter/src/painting/matrix_utils.dart' as $flutter_37;
+import 'package:flutter/src/painting/notched_shapes.dart' as $flutter_38;
+import 'package:flutter/src/painting/oval_border.dart' as $flutter_39;
+import 'package:flutter/src/painting/paint_utilities.dart' as $flutter_40;
+import 'package:flutter/src/painting/placeholder_span.dart' as $flutter_41;
+import 'package:flutter/src/painting/rounded_rectangle_border.dart' as $flutter_42;
+import 'package:flutter/src/painting/shader_warm_up.dart' as $flutter_43;
+import 'package:flutter/src/painting/shape_decoration.dart' as $flutter_44;
+import 'package:flutter/src/painting/stadium_border.dart' as $flutter_45;
+import 'package:flutter/src/painting/star_border.dart' as $flutter_46;
+import 'package:flutter/src/painting/strut_style.dart' as $flutter_47;
+import 'package:flutter/src/painting/text_painter.dart' as $flutter_48;
+import 'package:flutter/src/painting/text_scaler.dart' as $flutter_49;
+import 'package:flutter/src/painting/text_span.dart' as $flutter_50;
+import 'package:flutter/src/painting/text_style.dart' as $flutter_51;
+import 'package:flutter/src/scheduler/binding.dart' as $flutter_52;
+import 'package:flutter/src/scheduler/priority.dart' as $flutter_53;
+import 'package:flutter/src/services/asset_bundle.dart' as $flutter_54;
+import 'package:flutter/src/services/binary_messenger.dart' as $flutter_55;
+import 'package:flutter/src/services/binding.dart' as $flutter_56;
+import 'package:flutter/src/services/hardware_keyboard.dart' as $flutter_57;
+import 'package:flutter/src/services/mouse_cursor.dart' as $flutter_58;
+import 'package:flutter/src/services/mouse_tracking.dart' as $flutter_59;
+import 'package:flutter/src/services/restoration.dart' as $flutter_60;
+import 'package:flutter/src/services/text_boundary.dart' as $flutter_61;
+import 'package:flutter/src/services/text_editing.dart' as $flutter_62;
 import 'package:vector_math/vector_math_64.dart' as $vector_math_1;
-import 'package:flutter/src/foundation/assertions.dart' as $aux_flutter_5;
-import 'package:flutter/src/foundation/change_notifier.dart' as $aux_flutter;
-import 'package:flutter/src/foundation/diagnostics.dart' as $aux_flutter_2;
-import 'package:flutter/src/foundation/platform.dart' as $aux_flutter_4;
-import 'package:flutter/src/gestures/events.dart' as $aux_flutter_8;
-import 'package:flutter/src/gestures/hit_test.dart' as $aux_flutter_9;
-import 'package:flutter/src/services/asset_bundle.dart' as $aux_flutter_3;
-import 'package:flutter/src/services/mouse_cursor.dart' as $aux_flutter_6;
-import 'package:flutter/src/services/mouse_tracking.dart' as $aux_flutter_7;
+import 'package:flutter/src/foundation/binding.dart' as $aux_flutter;
 
 /// Bridge class for flutter_painting module.
 class FlutterPaintingBridge {
@@ -274,57 +284,57 @@ class FlutterPaintingBridge {
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
-      BridgedEnumDefinition<$flutter_2.RenderComparison>(
+      BridgedEnumDefinition<$flutter_9.RenderComparison>(
         name: 'RenderComparison',
-        values: $flutter_2.RenderComparison.values,
+        values: $flutter_9.RenderComparison.values,
       ),
-      BridgedEnumDefinition<$flutter_2.Axis>(
+      BridgedEnumDefinition<$flutter_9.Axis>(
         name: 'Axis',
-        values: $flutter_2.Axis.values,
+        values: $flutter_9.Axis.values,
       ),
-      BridgedEnumDefinition<$flutter_2.VerticalDirection>(
+      BridgedEnumDefinition<$flutter_9.VerticalDirection>(
         name: 'VerticalDirection',
-        values: $flutter_2.VerticalDirection.values,
+        values: $flutter_9.VerticalDirection.values,
       ),
-      BridgedEnumDefinition<$flutter_2.AxisDirection>(
+      BridgedEnumDefinition<$flutter_9.AxisDirection>(
         name: 'AxisDirection',
-        values: $flutter_2.AxisDirection.values,
+        values: $flutter_9.AxisDirection.values,
       ),
-      BridgedEnumDefinition<$flutter_6.BorderStyle>(
+      BridgedEnumDefinition<$flutter_13.BorderStyle>(
         name: 'BorderStyle',
-        values: $flutter_6.BorderStyle.values,
+        values: $flutter_13.BorderStyle.values,
       ),
-      BridgedEnumDefinition<$flutter_7.BoxShape>(
+      BridgedEnumDefinition<$flutter_14.BoxShape>(
         name: 'BoxShape',
-        values: $flutter_7.BoxShape.values,
+        values: $flutter_14.BoxShape.values,
       ),
-      BridgedEnumDefinition<$flutter_9.BoxFit>(
+      BridgedEnumDefinition<$flutter_16.BoxFit>(
         name: 'BoxFit',
-        values: $flutter_9.BoxFit.values,
+        values: $flutter_16.BoxFit.values,
       ),
-      BridgedEnumDefinition<$flutter_17.ImageRepeat>(
+      BridgedEnumDefinition<$flutter_24.ImageRepeat>(
         name: 'ImageRepeat',
-        values: $flutter_17.ImageRepeat.values,
+        values: $flutter_24.ImageRepeat.values,
       ),
-      BridgedEnumDefinition<$flutter_19.FlutterLogoStyle>(
+      BridgedEnumDefinition<$flutter_26.FlutterLogoStyle>(
         name: 'FlutterLogoStyle',
-        values: $flutter_19.FlutterLogoStyle.values,
+        values: $flutter_26.FlutterLogoStyle.values,
       ),
-      BridgedEnumDefinition<$flutter_25.ResizeImagePolicy>(
+      BridgedEnumDefinition<$flutter_32.ResizeImagePolicy>(
         name: 'ResizeImagePolicy',
-        values: $flutter_25.ResizeImagePolicy.values,
+        values: $flutter_32.ResizeImagePolicy.values,
       ),
-      BridgedEnumDefinition<$flutter_25.WebHtmlElementStrategy>(
+      BridgedEnumDefinition<$flutter_32.WebHtmlElementStrategy>(
         name: 'WebHtmlElementStrategy',
-        values: $flutter_25.WebHtmlElementStrategy.values,
+        values: $flutter_32.WebHtmlElementStrategy.values,
       ),
-      BridgedEnumDefinition<$flutter_41.TextOverflow>(
+      BridgedEnumDefinition<$flutter_48.TextOverflow>(
         name: 'TextOverflow',
-        values: $flutter_41.TextOverflow.values,
+        values: $flutter_48.TextOverflow.values,
       ),
-      BridgedEnumDefinition<$flutter_41.TextWidthBasis>(
+      BridgedEnumDefinition<$flutter_48.TextWidthBasis>(
         name: 'TextWidthBasis',
-        values: $flutter_41.TextWidthBasis.values,
+        values: $flutter_48.TextWidthBasis.values,
       ),
     ];
   }
@@ -403,37 +413,37 @@ class FlutterPaintingBridge {
     final errors = <String>[];
 
     try {
-      interpreter.registerGlobalVariable('debugDisableShadows', $flutter_15.debugDisableShadows, importPath, sourceUri: 'package:flutter/src/painting/debug.dart');
+      interpreter.registerGlobalVariable('debugDisableShadows', $flutter_22.debugDisableShadows, importPath, sourceUri: 'package:flutter/src/painting/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugDisableShadows": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugNetworkImageHttpClientProvider', $flutter_15.debugNetworkImageHttpClientProvider, importPath, sourceUri: 'package:flutter/src/painting/debug.dart');
+      interpreter.registerGlobalVariable('debugNetworkImageHttpClientProvider', $flutter_22.debugNetworkImageHttpClientProvider, importPath, sourceUri: 'package:flutter/src/painting/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugNetworkImageHttpClientProvider": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugOnPaintImage', $flutter_15.debugOnPaintImage, importPath, sourceUri: 'package:flutter/src/painting/debug.dart');
+      interpreter.registerGlobalVariable('debugOnPaintImage', $flutter_22.debugOnPaintImage, importPath, sourceUri: 'package:flutter/src/painting/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugOnPaintImage": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugInvertOversizedImages', $flutter_15.debugInvertOversizedImages, importPath, sourceUri: 'package:flutter/src/painting/debug.dart');
+      interpreter.registerGlobalVariable('debugInvertOversizedImages', $flutter_22.debugInvertOversizedImages, importPath, sourceUri: 'package:flutter/src/painting/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugInvertOversizedImages": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugImageOverheadAllowance', $flutter_15.debugImageOverheadAllowance, importPath, sourceUri: 'package:flutter/src/painting/debug.dart');
+      interpreter.registerGlobalVariable('debugImageOverheadAllowance', $flutter_22.debugImageOverheadAllowance, importPath, sourceUri: 'package:flutter/src/painting/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugImageOverheadAllowance": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugCaptureShaderWarmUpPicture', $flutter_15.debugCaptureShaderWarmUpPicture, importPath, sourceUri: 'package:flutter/src/painting/debug.dart');
+      interpreter.registerGlobalVariable('debugCaptureShaderWarmUpPicture', $flutter_22.debugCaptureShaderWarmUpPicture, importPath, sourceUri: 'package:flutter/src/painting/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugCaptureShaderWarmUpPicture": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugCaptureShaderWarmUpImage', $flutter_15.debugCaptureShaderWarmUpImage, importPath, sourceUri: 'package:flutter/src/painting/debug.dart');
+      interpreter.registerGlobalVariable('debugCaptureShaderWarmUpImage', $flutter_22.debugCaptureShaderWarmUpImage, importPath, sourceUri: 'package:flutter/src/painting/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugCaptureShaderWarmUpImage": $e');
     }
@@ -448,11 +458,11 @@ class FlutterPaintingBridge {
       errors.add('Failed to register variable "radians2Degrees": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kDefaultFontSize', $flutter_41.kDefaultFontSize, importPath, sourceUri: 'package:flutter/src/painting/text_painter.dart');
+      interpreter.registerGlobalVariable('kDefaultFontSize', $flutter_48.kDefaultFontSize, importPath, sourceUri: 'package:flutter/src/painting/text_painter.dart');
     } catch (e) {
       errors.add('Failed to register variable "kDefaultFontSize": $e');
     }
-    interpreter.registerGlobalGetter('imageCache', () => $flutter_4.imageCache, importPath, sourceUri: 'package:flutter/src/painting/binding.dart');
+    interpreter.registerGlobalGetter('imageCache', () => $flutter_11.imageCache, importPath, sourceUri: 'package:flutter/src/painting/binding.dart');
 
     if (errors.isNotEmpty) {
       throw StateError('Bridge registration errors (flutter_painting):\n${errors.join("\n")}');
@@ -464,128 +474,110 @@ class FlutterPaintingBridge {
     return {
       'flipAxis': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'flipAxis');
-        final direction = D4.getRequiredArg<$flutter_2.Axis>(positional, 0, 'direction', 'flipAxis');
-        return $flutter_2.flipAxis(direction);
+        final direction = D4.getRequiredArg<$flutter_9.Axis>(positional, 0, 'direction', 'flipAxis');
+        return $flutter_9.flipAxis(direction);
       },
       'axisDirectionToAxis': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'axisDirectionToAxis');
-        final axisDirection = D4.getRequiredArg<$flutter_2.AxisDirection>(positional, 0, 'axisDirection', 'axisDirectionToAxis');
-        return $flutter_2.axisDirectionToAxis(axisDirection);
+        final axisDirection = D4.getRequiredArg<$flutter_9.AxisDirection>(positional, 0, 'axisDirection', 'axisDirectionToAxis');
+        return $flutter_9.axisDirectionToAxis(axisDirection);
       },
       'textDirectionToAxisDirection': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'textDirectionToAxisDirection');
-        final textDirection = D4.getRequiredArg<$flutter_2.TextDirection>(positional, 0, 'textDirection', 'textDirectionToAxisDirection');
-        return $flutter_2.textDirectionToAxisDirection(textDirection);
+        final textDirection = D4.getRequiredArg<TextDirection>(positional, 0, 'textDirection', 'textDirectionToAxisDirection');
+        return $flutter_9.textDirectionToAxisDirection(textDirection);
       },
       'flipAxisDirection': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'flipAxisDirection');
-        final axisDirection = D4.getRequiredArg<$flutter_2.AxisDirection>(positional, 0, 'axisDirection', 'flipAxisDirection');
-        return $flutter_2.flipAxisDirection(axisDirection);
+        final axisDirection = D4.getRequiredArg<$flutter_9.AxisDirection>(positional, 0, 'axisDirection', 'flipAxisDirection');
+        return $flutter_9.flipAxisDirection(axisDirection);
       },
       'axisDirectionIsReversed': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'axisDirectionIsReversed');
-        final axisDirection = D4.getRequiredArg<$flutter_2.AxisDirection>(positional, 0, 'axisDirection', 'axisDirectionIsReversed');
-        return $flutter_2.axisDirectionIsReversed(axisDirection);
+        final axisDirection = D4.getRequiredArg<$flutter_9.AxisDirection>(positional, 0, 'axisDirection', 'axisDirectionIsReversed');
+        return $flutter_9.axisDirectionIsReversed(axisDirection);
       },
       'paintBorder': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'paintBorder');
-        final canvas = D4.getRequiredArg<$flutter_6.Canvas>(positional, 0, 'canvas', 'paintBorder');
-        final rect = D4.getRequiredArg<$flutter_6.Rect>(positional, 1, 'rect', 'paintBorder');
-        final top = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'top', $flutter_6.BorderSide.none);
-        final right = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'right', $flutter_6.BorderSide.none);
-        final bottom = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'bottom', $flutter_6.BorderSide.none);
-        final left = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'left', $flutter_6.BorderSide.none);
-        return $flutter_6.paintBorder(canvas, rect, top: top, right: right, bottom: bottom, left: left);
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paintBorder');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paintBorder');
+        final top = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'top', $flutter_13.BorderSide.none);
+        final right = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'right', $flutter_13.BorderSide.none);
+        final bottom = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'bottom', $flutter_13.BorderSide.none);
+        final left = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'left', $flutter_13.BorderSide.none);
+        return $flutter_13.paintBorder(canvas, rect, top: top, right: right, bottom: bottom, left: left);
       },
       'applyBoxFit': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'applyBoxFit');
-        final fit = D4.getRequiredArg<$flutter_9.BoxFit>(positional, 0, 'fit', 'applyBoxFit');
-        final inputSize = D4.getRequiredArg<$flutter_9.Size>(positional, 1, 'inputSize', 'applyBoxFit');
-        final outputSize = D4.getRequiredArg<$flutter_9.Size>(positional, 2, 'outputSize', 'applyBoxFit');
-        return $flutter_9.applyBoxFit(fit, inputSize, outputSize);
+        final fit = D4.getRequiredArg<$flutter_16.BoxFit>(positional, 0, 'fit', 'applyBoxFit');
+        final inputSize = D4.getRequiredArg<Size>(positional, 1, 'inputSize', 'applyBoxFit');
+        final outputSize = D4.getRequiredArg<Size>(positional, 2, 'outputSize', 'applyBoxFit');
+        return $flutter_16.applyBoxFit(fit, inputSize, outputSize);
       },
       'debugAssertAllPaintingVarsUnset': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugAssertAllPaintingVarsUnset');
         final reason = D4.getRequiredArg<String>(positional, 0, 'reason', 'debugAssertAllPaintingVarsUnset');
         final debugDisableShadowsOverride = D4.getNamedArgWithDefault<bool>(named, 'debugDisableShadowsOverride', false);
-        return $flutter_15.debugAssertAllPaintingVarsUnset(reason, debugDisableShadowsOverride: debugDisableShadowsOverride);
+        return $flutter_22.debugAssertAllPaintingVarsUnset(reason, debugDisableShadowsOverride: debugDisableShadowsOverride);
       },
       'debugCheckCanResolveTextDirection': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'debugCheckCanResolveTextDirection');
-        final direction = D4.getRequiredArg<$flutter_15.TextDirection?>(positional, 0, 'direction', 'debugCheckCanResolveTextDirection');
+        final direction = D4.getRequiredArg<TextDirection?>(positional, 0, 'direction', 'debugCheckCanResolveTextDirection');
         final target = D4.getRequiredArg<String>(positional, 1, 'target', 'debugCheckCanResolveTextDirection');
-        return $flutter_15.debugCheckCanResolveTextDirection(direction, target);
+        return $flutter_22.debugCheckCanResolveTextDirection(direction, target);
       },
       'paintImage': (visitor, positional, named, typeArgs) {
-        final canvas = D4.getRequiredNamedArg<$flutter_17.Canvas>(named, 'canvas', 'paintImage');
-        final rect = D4.getRequiredNamedArg<$flutter_17.Rect>(named, 'rect', 'paintImage');
-        final image = D4.getRequiredNamedArg<$flutter_17.Image>(named, 'image', 'paintImage');
+        final canvas = D4.getRequiredNamedArg<Canvas>(named, 'canvas', 'paintImage');
+        final rect = D4.getRequiredNamedArg<Rect>(named, 'rect', 'paintImage');
+        final image = D4.getRequiredNamedArg<Image>(named, 'image', 'paintImage');
         final debugImageLabel = D4.getOptionalNamedArg<String?>(named, 'debugImageLabel');
         final scale = D4.getNamedArgWithDefault<double>(named, 'scale', 1.0);
         final opacity = D4.getNamedArgWithDefault<double>(named, 'opacity', 1.0);
-        final colorFilter = D4.getOptionalNamedArg<$flutter_17.ColorFilter?>(named, 'colorFilter');
-        final fit = D4.getOptionalNamedArg<$flutter_9.BoxFit?>(named, 'fit');
-        final alignment = D4.getNamedArgWithDefault<$flutter_1.Alignment>(named, 'alignment', $flutter_1.Alignment.center);
-        final centerSlice = D4.getOptionalNamedArg<$flutter_17.Rect?>(named, 'centerSlice');
-        final repeat = D4.getNamedArgWithDefault<$flutter_17.ImageRepeat>(named, 'repeat', $flutter_17.ImageRepeat.noRepeat);
+        final colorFilter = D4.getOptionalNamedArg<ColorFilter?>(named, 'colorFilter');
+        final fit = D4.getOptionalNamedArg<$flutter_16.BoxFit?>(named, 'fit');
+        final alignment = D4.getNamedArgWithDefault<$flutter_8.Alignment>(named, 'alignment', $flutter_8.Alignment.center);
+        final centerSlice = D4.getOptionalNamedArg<Rect?>(named, 'centerSlice');
+        final repeat = D4.getNamedArgWithDefault<$flutter_24.ImageRepeat>(named, 'repeat', $flutter_24.ImageRepeat.noRepeat);
         final flipHorizontally = D4.getNamedArgWithDefault<bool>(named, 'flipHorizontally', false);
         final invertColors = D4.getNamedArgWithDefault<bool>(named, 'invertColors', false);
+        final filterQuality = D4.getNamedArgWithDefault<FilterQuality>(named, 'filterQuality', $dart_ui.FilterQuality.medium);
         final isAntiAlias = D4.getNamedArgWithDefault<bool>(named, 'isAntiAlias', false);
-        if (!named.containsKey('filterQuality') && !named.containsKey('blendMode')) {
-          $flutter_17.paintImage(canvas: canvas, rect: rect, image: image, debugImageLabel: debugImageLabel, scale: scale, opacity: opacity, colorFilter: colorFilter, fit: fit, alignment: alignment, centerSlice: centerSlice, repeat: repeat, flipHorizontally: flipHorizontally, invertColors: invertColors, isAntiAlias: isAntiAlias);
-          return null;
-        }
-        if (named.containsKey('filterQuality') && !named.containsKey('blendMode')) {
-          final filterQuality = D4.getRequiredNamedArg<dynamic>(named, 'filterQuality', 'paintImage');
-          $flutter_17.paintImage(canvas: canvas, rect: rect, image: image, debugImageLabel: debugImageLabel, scale: scale, opacity: opacity, colorFilter: colorFilter, fit: fit, alignment: alignment, centerSlice: centerSlice, repeat: repeat, flipHorizontally: flipHorizontally, invertColors: invertColors, isAntiAlias: isAntiAlias, filterQuality: filterQuality);
-          return null;
-        }
-        if (!named.containsKey('filterQuality') && named.containsKey('blendMode')) {
-          final blendMode = D4.getRequiredNamedArg<dynamic>(named, 'blendMode', 'paintImage');
-          $flutter_17.paintImage(canvas: canvas, rect: rect, image: image, debugImageLabel: debugImageLabel, scale: scale, opacity: opacity, colorFilter: colorFilter, fit: fit, alignment: alignment, centerSlice: centerSlice, repeat: repeat, flipHorizontally: flipHorizontally, invertColors: invertColors, isAntiAlias: isAntiAlias, blendMode: blendMode);
-          return null;
-        }
-        if (named.containsKey('filterQuality') && named.containsKey('blendMode')) {
-          final filterQuality = D4.getRequiredNamedArg<dynamic>(named, 'filterQuality', 'paintImage');
-          final blendMode = D4.getRequiredNamedArg<dynamic>(named, 'blendMode', 'paintImage');
-          $flutter_17.paintImage(canvas: canvas, rect: rect, image: image, debugImageLabel: debugImageLabel, scale: scale, opacity: opacity, colorFilter: colorFilter, fit: fit, alignment: alignment, centerSlice: centerSlice, repeat: repeat, flipHorizontally: flipHorizontally, invertColors: invertColors, isAntiAlias: isAntiAlias, filterQuality: filterQuality, blendMode: blendMode);
-          return null;
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final blendMode = D4.getNamedArgWithDefault<BlendMode>(named, 'blendMode', $dart_ui.BlendMode.srcOver);
+        return $flutter_24.paintImage(canvas: canvas, rect: rect, image: image, debugImageLabel: debugImageLabel, scale: scale, opacity: opacity, colorFilter: colorFilter, fit: fit, alignment: alignment, centerSlice: centerSlice, repeat: repeat, flipHorizontally: flipHorizontally, invertColors: invertColors, filterQuality: filterQuality, isAntiAlias: isAntiAlias, blendMode: blendMode);
       },
       'positionDependentBox': (visitor, positional, named, typeArgs) {
-        final size = D4.getRequiredNamedArg<$flutter_21.Size>(named, 'size', 'positionDependentBox');
-        final childSize = D4.getRequiredNamedArg<$flutter_21.Size>(named, 'childSize', 'positionDependentBox');
-        final target = D4.getRequiredNamedArg<$flutter_21.Offset>(named, 'target', 'positionDependentBox');
+        final size = D4.getRequiredNamedArg<Size>(named, 'size', 'positionDependentBox');
+        final childSize = D4.getRequiredNamedArg<Size>(named, 'childSize', 'positionDependentBox');
+        final target = D4.getRequiredNamedArg<Offset>(named, 'target', 'positionDependentBox');
         final preferBelow = D4.getRequiredNamedArg<bool>(named, 'preferBelow', 'positionDependentBox');
         final verticalOffset = D4.getNamedArgWithDefault<double>(named, 'verticalOffset', 0.0);
         final margin = D4.getNamedArgWithDefault<double>(named, 'margin', 10.0);
-        return $flutter_21.positionDependentBox(size: size, childSize: childSize, target: target, preferBelow: preferBelow, verticalOffset: verticalOffset, margin: margin);
+        return $flutter_28.positionDependentBox(size: size, childSize: childSize, target: target, preferBelow: preferBelow, verticalOffset: verticalOffset, margin: margin);
       },
       'decodeImageFromList': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'decodeImageFromList');
         final bytes = D4.getRequiredArg<Uint8List>(positional, 0, 'bytes', 'decodeImageFromList');
-        return $flutter_24.decodeImageFromList(bytes);
+        return $flutter_31.decodeImageFromList(bytes);
       },
       'combineSemanticsInfo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'combineSemanticsInfo');
-        final infoList = D4.getRequiredArg<List<$flutter_28.InlineSpanSemanticsInformation>>(positional, 0, 'infoList', 'combineSemanticsInfo');
-        return $flutter_28.combineSemanticsInfo(infoList);
+        final infoList = D4.getRequiredArg<List<$flutter_35.InlineSpanSemanticsInformation>>(positional, 0, 'infoList', 'combineSemanticsInfo');
+        return $flutter_35.combineSemanticsInfo(infoList);
       },
       'debugDescribeTransform': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugDescribeTransform');
         final transform = D4.getRequiredArg<$vector_math_1.Matrix4?>(positional, 0, 'transform', 'debugDescribeTransform');
-        return $flutter_30.debugDescribeTransform(transform);
+        return $flutter_37.debugDescribeTransform(transform);
       },
       'paintZigZag': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 6, 'paintZigZag');
-        final canvas = D4.getRequiredArg<$flutter_33.Canvas>(positional, 0, 'canvas', 'paintZigZag');
-        final paint = D4.getRequiredArg<$flutter_33.Paint>(positional, 1, 'paint', 'paintZigZag');
-        final start = D4.getRequiredArg<$flutter_33.Offset>(positional, 2, 'start', 'paintZigZag');
-        final end = D4.getRequiredArg<$flutter_33.Offset>(positional, 3, 'end', 'paintZigZag');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paintZigZag');
+        final paint = D4.getRequiredArg<Paint>(positional, 1, 'paint', 'paintZigZag');
+        final start = D4.getRequiredArg<Offset>(positional, 2, 'start', 'paintZigZag');
+        final end = D4.getRequiredArg<Offset>(positional, 3, 'end', 'paintZigZag');
         final zigs = D4.getRequiredArg<int>(positional, 4, 'zigs', 'paintZigZag');
         final width = D4.getRequiredArg<double>(positional, 5, 'width', 'paintZigZag');
-        return $flutter_33.paintZigZag(canvas, paint, start, end, zigs, width);
+        return $flutter_40.paintZigZag(canvas, paint, start, end, zigs, width);
       },
       'relativeError': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'relativeError');
@@ -824,10 +816,10 @@ class FlutterPaintingBridge {
       },
       'lerpFontVariations': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerpFontVariations');
-        final a = D4.getRequiredArg<List<dynamic>?>(positional, 0, 'a', 'lerpFontVariations');
-        final b = D4.getRequiredArg<List<dynamic>?>(positional, 1, 'b', 'lerpFontVariations');
+        final a = D4.getRequiredArg<List<FontVariation>?>(positional, 0, 'a', 'lerpFontVariations');
+        final b = D4.getRequiredArg<List<FontVariation>?>(positional, 1, 'b', 'lerpFontVariations');
         final t = D4.getRequiredArg<double>(positional, 2, 't', 'lerpFontVariations');
-        return $flutter_44.lerpFontVariations(a, b, t);
+        return $flutter_51.lerpFontVariations(a, b, t);
       },
     };
   }
@@ -1048,96 +1040,96 @@ class FlutterPaintingBridge {
 
 BridgedClass _createAlignmentGeometryBridge() {
   return BridgedClass(
-    nativeType: $flutter_1.AlignmentGeometry,
+    nativeType: $flutter_8.AlignmentGeometry,
     name: 'AlignmentGeometry',
     constructors: {
       'xy': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'AlignmentGeometry');
         final x = D4.getRequiredArg<double>(positional, 0, 'x', 'AlignmentGeometry');
         final y = D4.getRequiredArg<double>(positional, 1, 'y', 'AlignmentGeometry');
-        return $flutter_1.AlignmentGeometry.xy(x, y);
+        return $flutter_8.AlignmentGeometry.xy(x, y);
       },
       'directional': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'AlignmentGeometry');
         final start = D4.getRequiredArg<double>(positional, 0, 'start', 'AlignmentGeometry');
         final y = D4.getRequiredArg<double>(positional, 1, 'y', 'AlignmentGeometry');
-        return $flutter_1.AlignmentGeometry.directional(start, y);
+        return $flutter_8.AlignmentGeometry.directional(start, y);
       },
     },
     getters: {
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_1.AlignmentGeometry>(target, 'AlignmentGeometry').hashCode,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_8.AlignmentGeometry>(target, 'AlignmentGeometry').hashCode,
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentGeometry>(target, 'AlignmentGeometry');
+        final t = D4.validateTarget<$flutter_8.AlignmentGeometry>(target, 'AlignmentGeometry');
         D4.requireMinArgs(positional, 1, 'add');
-        final other = D4.getRequiredArg<$flutter_1.AlignmentGeometry>(positional, 0, 'other', 'add');
+        final other = D4.getRequiredArg<$flutter_8.AlignmentGeometry>(positional, 0, 'other', 'add');
         return t.add(other);
       },
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentGeometry>(target, 'AlignmentGeometry');
+        final t = D4.validateTarget<$flutter_8.AlignmentGeometry>(target, 'AlignmentGeometry');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final direction = D4.getRequiredArg<$flutter_1.TextDirection?>(positional, 0, 'direction', 'resolve');
+        final direction = D4.getRequiredArg<TextDirection?>(positional, 0, 'direction', 'resolve');
         return t.resolve(direction);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentGeometry>(target, 'AlignmentGeometry');
+        final t = D4.validateTarget<$flutter_8.AlignmentGeometry>(target, 'AlignmentGeometry');
         return t.toString();
       },
       '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentGeometry>(target, 'AlignmentGeometry');
+        final t = D4.validateTarget<$flutter_8.AlignmentGeometry>(target, 'AlignmentGeometry');
         return -t;
       },
       '*': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentGeometry>(target, 'AlignmentGeometry');
+        final t = D4.validateTarget<$flutter_8.AlignmentGeometry>(target, 'AlignmentGeometry');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
         return t * other;
       },
       '/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentGeometry>(target, 'AlignmentGeometry');
+        final t = D4.validateTarget<$flutter_8.AlignmentGeometry>(target, 'AlignmentGeometry');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator/');
         return t / other;
       },
       '~/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentGeometry>(target, 'AlignmentGeometry');
+        final t = D4.validateTarget<$flutter_8.AlignmentGeometry>(target, 'AlignmentGeometry');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator~/');
         return t ~/ other;
       },
       '%': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentGeometry>(target, 'AlignmentGeometry');
+        final t = D4.validateTarget<$flutter_8.AlignmentGeometry>(target, 'AlignmentGeometry');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator%');
         return t % other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentGeometry>(target, 'AlignmentGeometry');
+        final t = D4.validateTarget<$flutter_8.AlignmentGeometry>(target, 'AlignmentGeometry');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     staticGetters: {
-      'topLeft': (visitor) => $flutter_1.AlignmentGeometry.topLeft,
-      'topCenter': (visitor) => $flutter_1.AlignmentGeometry.topCenter,
-      'topRight': (visitor) => $flutter_1.AlignmentGeometry.topRight,
-      'topStart': (visitor) => $flutter_1.AlignmentGeometry.topStart,
-      'topEnd': (visitor) => $flutter_1.AlignmentGeometry.topEnd,
-      'centerLeft': (visitor) => $flutter_1.AlignmentGeometry.centerLeft,
-      'center': (visitor) => $flutter_1.AlignmentGeometry.center,
-      'centerRight': (visitor) => $flutter_1.AlignmentGeometry.centerRight,
-      'centerStart': (visitor) => $flutter_1.AlignmentGeometry.centerStart,
-      'centerEnd': (visitor) => $flutter_1.AlignmentGeometry.centerEnd,
-      'bottomLeft': (visitor) => $flutter_1.AlignmentGeometry.bottomLeft,
-      'bottomCenter': (visitor) => $flutter_1.AlignmentGeometry.bottomCenter,
-      'bottomRight': (visitor) => $flutter_1.AlignmentGeometry.bottomRight,
-      'bottomStart': (visitor) => $flutter_1.AlignmentGeometry.bottomStart,
-      'bottomEnd': (visitor) => $flutter_1.AlignmentGeometry.bottomEnd,
+      'topLeft': (visitor) => $flutter_8.AlignmentGeometry.topLeft,
+      'topCenter': (visitor) => $flutter_8.AlignmentGeometry.topCenter,
+      'topRight': (visitor) => $flutter_8.AlignmentGeometry.topRight,
+      'topStart': (visitor) => $flutter_8.AlignmentGeometry.topStart,
+      'topEnd': (visitor) => $flutter_8.AlignmentGeometry.topEnd,
+      'centerLeft': (visitor) => $flutter_8.AlignmentGeometry.centerLeft,
+      'center': (visitor) => $flutter_8.AlignmentGeometry.center,
+      'centerRight': (visitor) => $flutter_8.AlignmentGeometry.centerRight,
+      'centerStart': (visitor) => $flutter_8.AlignmentGeometry.centerStart,
+      'centerEnd': (visitor) => $flutter_8.AlignmentGeometry.centerEnd,
+      'bottomLeft': (visitor) => $flutter_8.AlignmentGeometry.bottomLeft,
+      'bottomCenter': (visitor) => $flutter_8.AlignmentGeometry.bottomCenter,
+      'bottomRight': (visitor) => $flutter_8.AlignmentGeometry.bottomRight,
+      'bottomStart': (visitor) => $flutter_8.AlignmentGeometry.bottomStart,
+      'bottomEnd': (visitor) => $flutter_8.AlignmentGeometry.bottomEnd,
     },
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_1.AlignmentGeometry?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_1.AlignmentGeometry?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_8.AlignmentGeometry?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_8.AlignmentGeometry?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_1.AlignmentGeometry.lerp(a, b, t_);
+        return $flutter_8.AlignmentGeometry.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
@@ -1181,123 +1173,123 @@ BridgedClass _createAlignmentGeometryBridge() {
 
 BridgedClass _createAlignmentBridge() {
   return BridgedClass(
-    nativeType: $flutter_1.Alignment,
+    nativeType: $flutter_8.Alignment,
     name: 'Alignment',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Alignment');
         final x = D4.getRequiredArg<double>(positional, 0, 'x', 'Alignment');
         final y = D4.getRequiredArg<double>(positional, 1, 'y', 'Alignment');
-        return $flutter_1.Alignment(x, y);
+        return $flutter_8.Alignment(x, y);
       },
     },
     getters: {
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_1.Alignment>(target, 'Alignment').hashCode,
-      'x': (visitor, target) => D4.validateTarget<$flutter_1.Alignment>(target, 'Alignment').x,
-      'y': (visitor, target) => D4.validateTarget<$flutter_1.Alignment>(target, 'Alignment').y,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_8.Alignment>(target, 'Alignment').hashCode,
+      'x': (visitor, target) => D4.validateTarget<$flutter_8.Alignment>(target, 'Alignment').x,
+      'y': (visitor, target) => D4.validateTarget<$flutter_8.Alignment>(target, 'Alignment').y,
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.Alignment>(target, 'Alignment');
+        final t = D4.validateTarget<$flutter_8.Alignment>(target, 'Alignment');
         D4.requireMinArgs(positional, 1, 'add');
-        final other = D4.getRequiredArg<$flutter_1.AlignmentGeometry>(positional, 0, 'other', 'add');
+        final other = D4.getRequiredArg<$flutter_8.AlignmentGeometry>(positional, 0, 'other', 'add');
         return t.add(other);
       },
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.Alignment>(target, 'Alignment');
+        final t = D4.validateTarget<$flutter_8.Alignment>(target, 'Alignment');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final direction = D4.getRequiredArg<$flutter_1.TextDirection?>(positional, 0, 'direction', 'resolve');
+        final direction = D4.getRequiredArg<TextDirection?>(positional, 0, 'direction', 'resolve');
         return t.resolve(direction);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.Alignment>(target, 'Alignment');
+        final t = D4.validateTarget<$flutter_8.Alignment>(target, 'Alignment');
         return t.toString();
       },
       'alongOffset': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.Alignment>(target, 'Alignment');
+        final t = D4.validateTarget<$flutter_8.Alignment>(target, 'Alignment');
         D4.requireMinArgs(positional, 1, 'alongOffset');
-        final other = D4.getRequiredArg<$flutter_1.Offset>(positional, 0, 'other', 'alongOffset');
+        final other = D4.getRequiredArg<Offset>(positional, 0, 'other', 'alongOffset');
         return t.alongOffset(other);
       },
       'alongSize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.Alignment>(target, 'Alignment');
+        final t = D4.validateTarget<$flutter_8.Alignment>(target, 'Alignment');
         D4.requireMinArgs(positional, 1, 'alongSize');
-        final other = D4.getRequiredArg<$flutter_1.Size>(positional, 0, 'other', 'alongSize');
+        final other = D4.getRequiredArg<Size>(positional, 0, 'other', 'alongSize');
         return t.alongSize(other);
       },
       'withinRect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.Alignment>(target, 'Alignment');
+        final t = D4.validateTarget<$flutter_8.Alignment>(target, 'Alignment');
         D4.requireMinArgs(positional, 1, 'withinRect');
-        final rect = D4.getRequiredArg<$flutter_1.Rect>(positional, 0, 'rect', 'withinRect');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'withinRect');
         return t.withinRect(rect);
       },
       'inscribe': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.Alignment>(target, 'Alignment');
+        final t = D4.validateTarget<$flutter_8.Alignment>(target, 'Alignment');
         D4.requireMinArgs(positional, 2, 'inscribe');
-        final size = D4.getRequiredArg<$flutter_1.Size>(positional, 0, 'size', 'inscribe');
-        final rect = D4.getRequiredArg<$flutter_1.Rect>(positional, 1, 'rect', 'inscribe');
+        final size = D4.getRequiredArg<Size>(positional, 0, 'size', 'inscribe');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'inscribe');
         return t.inscribe(size, rect);
       },
       '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.Alignment>(target, 'Alignment');
+        final t = D4.validateTarget<$flutter_8.Alignment>(target, 'Alignment');
         if (positional.isEmpty) {
           // Unary operator
           return -t;
         } else {
           // Binary operator
-          final other = D4.getRequiredArg<$flutter_1.Alignment>(positional, 0, 'other', 'operator-');
+          final other = D4.getRequiredArg<$flutter_8.Alignment>(positional, 0, 'other', 'operator-');
           return t - other;
         }
       },
       '*': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.Alignment>(target, 'Alignment');
+        final t = D4.validateTarget<$flutter_8.Alignment>(target, 'Alignment');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
         return t * other;
       },
       '/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.Alignment>(target, 'Alignment');
+        final t = D4.validateTarget<$flutter_8.Alignment>(target, 'Alignment');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator/');
         return t / other;
       },
       '~/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.Alignment>(target, 'Alignment');
+        final t = D4.validateTarget<$flutter_8.Alignment>(target, 'Alignment');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator~/');
         return t ~/ other;
       },
       '%': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.Alignment>(target, 'Alignment');
+        final t = D4.validateTarget<$flutter_8.Alignment>(target, 'Alignment');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator%');
         return t % other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.Alignment>(target, 'Alignment');
+        final t = D4.validateTarget<$flutter_8.Alignment>(target, 'Alignment');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.Alignment>(target, 'Alignment');
-        final other = D4.getRequiredArg<$flutter_1.Alignment>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_8.Alignment>(target, 'Alignment');
+        final other = D4.getRequiredArg<$flutter_8.Alignment>(positional, 0, 'other', 'operator+');
         return t + other;
       },
     },
     staticGetters: {
-      'topLeft': (visitor) => $flutter_1.Alignment.topLeft,
-      'topCenter': (visitor) => $flutter_1.Alignment.topCenter,
-      'topRight': (visitor) => $flutter_1.Alignment.topRight,
-      'centerLeft': (visitor) => $flutter_1.Alignment.centerLeft,
-      'center': (visitor) => $flutter_1.Alignment.center,
-      'centerRight': (visitor) => $flutter_1.Alignment.centerRight,
-      'bottomLeft': (visitor) => $flutter_1.Alignment.bottomLeft,
-      'bottomCenter': (visitor) => $flutter_1.Alignment.bottomCenter,
-      'bottomRight': (visitor) => $flutter_1.Alignment.bottomRight,
+      'topLeft': (visitor) => $flutter_8.Alignment.topLeft,
+      'topCenter': (visitor) => $flutter_8.Alignment.topCenter,
+      'topRight': (visitor) => $flutter_8.Alignment.topRight,
+      'centerLeft': (visitor) => $flutter_8.Alignment.centerLeft,
+      'center': (visitor) => $flutter_8.Alignment.center,
+      'centerRight': (visitor) => $flutter_8.Alignment.centerRight,
+      'bottomLeft': (visitor) => $flutter_8.Alignment.bottomLeft,
+      'bottomCenter': (visitor) => $flutter_8.Alignment.bottomCenter,
+      'bottomRight': (visitor) => $flutter_8.Alignment.bottomRight,
     },
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_1.Alignment?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_1.Alignment?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_8.Alignment?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_8.Alignment?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_1.Alignment.lerp(a, b, t_);
+        return $flutter_8.Alignment.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
@@ -1340,98 +1332,98 @@ BridgedClass _createAlignmentBridge() {
 
 BridgedClass _createAlignmentDirectionalBridge() {
   return BridgedClass(
-    nativeType: $flutter_1.AlignmentDirectional,
+    nativeType: $flutter_8.AlignmentDirectional,
     name: 'AlignmentDirectional',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'AlignmentDirectional');
         final start = D4.getRequiredArg<double>(positional, 0, 'start', 'AlignmentDirectional');
         final y = D4.getRequiredArg<double>(positional, 1, 'y', 'AlignmentDirectional');
-        return $flutter_1.AlignmentDirectional(start, y);
+        return $flutter_8.AlignmentDirectional(start, y);
       },
     },
     getters: {
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_1.AlignmentDirectional>(target, 'AlignmentDirectional').hashCode,
-      'start': (visitor, target) => D4.validateTarget<$flutter_1.AlignmentDirectional>(target, 'AlignmentDirectional').start,
-      'y': (visitor, target) => D4.validateTarget<$flutter_1.AlignmentDirectional>(target, 'AlignmentDirectional').y,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_8.AlignmentDirectional>(target, 'AlignmentDirectional').hashCode,
+      'start': (visitor, target) => D4.validateTarget<$flutter_8.AlignmentDirectional>(target, 'AlignmentDirectional').start,
+      'y': (visitor, target) => D4.validateTarget<$flutter_8.AlignmentDirectional>(target, 'AlignmentDirectional').y,
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentDirectional>(target, 'AlignmentDirectional');
+        final t = D4.validateTarget<$flutter_8.AlignmentDirectional>(target, 'AlignmentDirectional');
         D4.requireMinArgs(positional, 1, 'add');
-        final other = D4.getRequiredArg<$flutter_1.AlignmentGeometry>(positional, 0, 'other', 'add');
+        final other = D4.getRequiredArg<$flutter_8.AlignmentGeometry>(positional, 0, 'other', 'add');
         return t.add(other);
       },
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentDirectional>(target, 'AlignmentDirectional');
+        final t = D4.validateTarget<$flutter_8.AlignmentDirectional>(target, 'AlignmentDirectional');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final direction = D4.getRequiredArg<$flutter_1.TextDirection?>(positional, 0, 'direction', 'resolve');
+        final direction = D4.getRequiredArg<TextDirection?>(positional, 0, 'direction', 'resolve');
         return t.resolve(direction);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentDirectional>(target, 'AlignmentDirectional');
+        final t = D4.validateTarget<$flutter_8.AlignmentDirectional>(target, 'AlignmentDirectional');
         return t.toString();
       },
       '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentDirectional>(target, 'AlignmentDirectional');
+        final t = D4.validateTarget<$flutter_8.AlignmentDirectional>(target, 'AlignmentDirectional');
         if (positional.isEmpty) {
           // Unary operator
           return -t;
         } else {
           // Binary operator
-          final other = D4.getRequiredArg<$flutter_1.AlignmentDirectional>(positional, 0, 'other', 'operator-');
+          final other = D4.getRequiredArg<$flutter_8.AlignmentDirectional>(positional, 0, 'other', 'operator-');
           return t - other;
         }
       },
       '*': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentDirectional>(target, 'AlignmentDirectional');
+        final t = D4.validateTarget<$flutter_8.AlignmentDirectional>(target, 'AlignmentDirectional');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
         return t * other;
       },
       '/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentDirectional>(target, 'AlignmentDirectional');
+        final t = D4.validateTarget<$flutter_8.AlignmentDirectional>(target, 'AlignmentDirectional');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator/');
         return t / other;
       },
       '~/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentDirectional>(target, 'AlignmentDirectional');
+        final t = D4.validateTarget<$flutter_8.AlignmentDirectional>(target, 'AlignmentDirectional');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator~/');
         return t ~/ other;
       },
       '%': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentDirectional>(target, 'AlignmentDirectional');
+        final t = D4.validateTarget<$flutter_8.AlignmentDirectional>(target, 'AlignmentDirectional');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator%');
         return t % other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentDirectional>(target, 'AlignmentDirectional');
+        final t = D4.validateTarget<$flutter_8.AlignmentDirectional>(target, 'AlignmentDirectional');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.AlignmentDirectional>(target, 'AlignmentDirectional');
-        final other = D4.getRequiredArg<$flutter_1.AlignmentDirectional>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_8.AlignmentDirectional>(target, 'AlignmentDirectional');
+        final other = D4.getRequiredArg<$flutter_8.AlignmentDirectional>(positional, 0, 'other', 'operator+');
         return t + other;
       },
     },
     staticGetters: {
-      'topStart': (visitor) => $flutter_1.AlignmentDirectional.topStart,
-      'topCenter': (visitor) => $flutter_1.AlignmentDirectional.topCenter,
-      'topEnd': (visitor) => $flutter_1.AlignmentDirectional.topEnd,
-      'centerStart': (visitor) => $flutter_1.AlignmentDirectional.centerStart,
-      'center': (visitor) => $flutter_1.AlignmentDirectional.center,
-      'centerEnd': (visitor) => $flutter_1.AlignmentDirectional.centerEnd,
-      'bottomStart': (visitor) => $flutter_1.AlignmentDirectional.bottomStart,
-      'bottomCenter': (visitor) => $flutter_1.AlignmentDirectional.bottomCenter,
-      'bottomEnd': (visitor) => $flutter_1.AlignmentDirectional.bottomEnd,
+      'topStart': (visitor) => $flutter_8.AlignmentDirectional.topStart,
+      'topCenter': (visitor) => $flutter_8.AlignmentDirectional.topCenter,
+      'topEnd': (visitor) => $flutter_8.AlignmentDirectional.topEnd,
+      'centerStart': (visitor) => $flutter_8.AlignmentDirectional.centerStart,
+      'center': (visitor) => $flutter_8.AlignmentDirectional.center,
+      'centerEnd': (visitor) => $flutter_8.AlignmentDirectional.centerEnd,
+      'bottomStart': (visitor) => $flutter_8.AlignmentDirectional.bottomStart,
+      'bottomCenter': (visitor) => $flutter_8.AlignmentDirectional.bottomCenter,
+      'bottomEnd': (visitor) => $flutter_8.AlignmentDirectional.bottomEnd,
     },
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_1.AlignmentDirectional?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_1.AlignmentDirectional?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_8.AlignmentDirectional?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_8.AlignmentDirectional?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_1.AlignmentDirectional.lerp(a, b, t_);
+        return $flutter_8.AlignmentDirectional.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
@@ -1470,27 +1462,27 @@ BridgedClass _createAlignmentDirectionalBridge() {
 
 BridgedClass _createTextAlignVerticalBridge() {
   return BridgedClass(
-    nativeType: $flutter_1.TextAlignVertical,
+    nativeType: $flutter_8.TextAlignVertical,
     name: 'TextAlignVertical',
     constructors: {
       '': (visitor, positional, named) {
         final y = D4.getRequiredNamedArg<double>(named, 'y', 'TextAlignVertical');
-        return $flutter_1.TextAlignVertical(y: y);
+        return $flutter_8.TextAlignVertical(y: y);
       },
     },
     getters: {
-      'y': (visitor, target) => D4.validateTarget<$flutter_1.TextAlignVertical>(target, 'TextAlignVertical').y,
+      'y': (visitor, target) => D4.validateTarget<$flutter_8.TextAlignVertical>(target, 'TextAlignVertical').y,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.TextAlignVertical>(target, 'TextAlignVertical');
+        final t = D4.validateTarget<$flutter_8.TextAlignVertical>(target, 'TextAlignVertical');
         return t.toString();
       },
     },
     staticGetters: {
-      'top': (visitor) => $flutter_1.TextAlignVertical.top,
-      'center': (visitor) => $flutter_1.TextAlignVertical.center,
-      'bottom': (visitor) => $flutter_1.TextAlignVertical.bottom,
+      'top': (visitor) => $flutter_8.TextAlignVertical.top,
+      'center': (visitor) => $flutter_8.TextAlignVertical.center,
+      'bottom': (visitor) => $flutter_8.TextAlignVertical.bottom,
     },
     constructorSignatures: {
       '': 'const TextAlignVertical({required double y})',
@@ -1515,93 +1507,93 @@ BridgedClass _createTextAlignVerticalBridge() {
 
 BridgedClass _createBeveledRectangleBorderBridge() {
   return BridgedClass(
-    nativeType: $flutter_3.BeveledRectangleBorder,
+    nativeType: $flutter_10.BeveledRectangleBorder,
     name: 'BeveledRectangleBorder',
     constructors: {
       '': (visitor, positional, named) {
-        final side = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'side', $flutter_6.BorderSide.none);
-        final borderRadius = D4.getNamedArgWithDefault<$flutter_5.BorderRadiusGeometry>(named, 'borderRadius', $flutter_5.BorderRadius.zero);
-        return $flutter_3.BeveledRectangleBorder(side: side, borderRadius: borderRadius);
+        final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
+        final borderRadius = D4.getNamedArgWithDefault<$flutter_12.BorderRadiusGeometry>(named, 'borderRadius', $flutter_12.BorderRadius.zero);
+        return $flutter_10.BeveledRectangleBorder(side: side, borderRadius: borderRadius);
       },
     },
     getters: {
-      'dimensions': (visitor, target) => D4.validateTarget<$flutter_3.BeveledRectangleBorder>(target, 'BeveledRectangleBorder').dimensions,
-      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_3.BeveledRectangleBorder>(target, 'BeveledRectangleBorder').preferPaintInterior,
-      'side': (visitor, target) => D4.validateTarget<$flutter_3.BeveledRectangleBorder>(target, 'BeveledRectangleBorder').side,
-      'borderRadius': (visitor, target) => D4.validateTarget<$flutter_3.BeveledRectangleBorder>(target, 'BeveledRectangleBorder').borderRadius,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_3.BeveledRectangleBorder>(target, 'BeveledRectangleBorder').hashCode,
+      'dimensions': (visitor, target) => D4.validateTarget<$flutter_10.BeveledRectangleBorder>(target, 'BeveledRectangleBorder').dimensions,
+      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_10.BeveledRectangleBorder>(target, 'BeveledRectangleBorder').preferPaintInterior,
+      'side': (visitor, target) => D4.validateTarget<$flutter_10.BeveledRectangleBorder>(target, 'BeveledRectangleBorder').side,
+      'borderRadius': (visitor, target) => D4.validateTarget<$flutter_10.BeveledRectangleBorder>(target, 'BeveledRectangleBorder').borderRadius,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_10.BeveledRectangleBorder>(target, 'BeveledRectangleBorder').hashCode,
     },
     methods: {
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
+        final t = D4.validateTarget<$flutter_10.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
         D4.requireMinArgs(positional, 1, 'scale');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'scale');
         return t.scale(t_);
       },
       'getOuterPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
+        final t = D4.validateTarget<$flutter_10.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
         D4.requireMinArgs(positional, 1, 'getOuterPath');
-        final rect = D4.getRequiredArg<$flutter_3.Rect>(positional, 0, 'rect', 'getOuterPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_3.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getOuterPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getOuterPath(rect, textDirection: textDirection);
       },
       'getInnerPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
+        final t = D4.validateTarget<$flutter_10.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
         D4.requireMinArgs(positional, 1, 'getInnerPath');
-        final rect = D4.getRequiredArg<$flutter_3.Rect>(positional, 0, 'rect', 'getInnerPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_3.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getInnerPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getInnerPath(rect, textDirection: textDirection);
       },
       'paintInterior': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
+        final t = D4.validateTarget<$flutter_10.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
         D4.requireMinArgs(positional, 3, 'paintInterior');
-        final canvas = D4.getRequiredArg<dynamic>(positional, 0, 'canvas', 'paintInterior');
-        final rect = D4.getRequiredArg<dynamic>(positional, 1, 'rect', 'paintInterior');
-        final paint = D4.getRequiredArg<dynamic>(positional, 2, 'paint', 'paintInterior');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'paintInterior', '<default unavailable>');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paintInterior');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paintInterior');
+        final paint = D4.getRequiredArg<Paint>(positional, 2, 'paint', 'paintInterior');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paintInterior(canvas, rect, paint, textDirection: textDirection);
         return null;
       },
       'paint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
+        final t = D4.validateTarget<$flutter_10.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
         D4.requireMinArgs(positional, 2, 'paint');
-        final canvas = D4.getRequiredArg<$flutter_3.Canvas>(positional, 0, 'canvas', 'paint');
-        final rect = D4.getRequiredArg<$flutter_3.Rect>(positional, 1, 'rect', 'paint');
-        final textDirection = D4.getOptionalNamedArg<$flutter_3.TextDirection?>(named, 'textDirection');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paint');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paint');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paint(canvas, rect, textDirection: textDirection);
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
+        final t = D4.validateTarget<$flutter_10.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
         return t.toString();
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
-        final side = D4.getOptionalNamedArg<$flutter_6.BorderSide?>(named, 'side');
-        final borderRadius = D4.getOptionalNamedArg<$flutter_5.BorderRadiusGeometry?>(named, 'borderRadius');
+        final t = D4.validateTarget<$flutter_10.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
+        final side = D4.getOptionalNamedArg<$flutter_13.BorderSide?>(named, 'side');
+        final borderRadius = D4.getOptionalNamedArg<$flutter_12.BorderRadiusGeometry?>(named, 'borderRadius');
         return t.copyWith(side: side, borderRadius: borderRadius);
       },
       'lerpFrom': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
+        final t = D4.validateTarget<$flutter_10.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
         D4.requireMinArgs(positional, 2, 'lerpFrom');
-        final a = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
+        final a = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpFrom');
         return t.lerpFrom(a, t_);
       },
       'lerpTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
+        final t = D4.validateTarget<$flutter_10.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
         D4.requireMinArgs(positional, 2, 'lerpTo');
-        final b = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
+        final b = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpTo');
         return t.lerpTo(b, t_);
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
-        final other = D4.getRequiredArg<$flutter_6.ShapeBorder>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_10.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
+        final other = D4.getRequiredArg<$flutter_13.ShapeBorder>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
+        final t = D4.validateTarget<$flutter_10.BeveledRectangleBorder>(target, 'BeveledRectangleBorder');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -1613,7 +1605,7 @@ BridgedClass _createBeveledRectangleBorderBridge() {
       'scale': 'ShapeBorder scale(double t)',
       'getOuterPath': 'Path getOuterPath(Rect rect, {TextDirection? textDirection})',
       'getInnerPath': 'Path getInnerPath(Rect rect, {TextDirection? textDirection})',
-      'paintInterior': 'void paintInterior(InvalidType canvas, InvalidType rect, InvalidType paint, {InvalidType textDirection})',
+      'paintInterior': 'void paintInterior(Canvas canvas, Rect rect, Paint paint, {TextDirection? textDirection})',
       'paint': 'void paint(Canvas canvas, Rect rect, {TextDirection? textDirection})',
       'toString': 'String toString()',
       'copyWith': 'BeveledRectangleBorder copyWith({BorderSide? side, BorderRadiusGeometry? borderRadius})',
@@ -1636,74 +1628,300 @@ BridgedClass _createBeveledRectangleBorderBridge() {
 
 BridgedClass _createPaintingBindingBridge() {
   return BridgedClass(
-    nativeType: $flutter_4.PaintingBinding,
+    nativeType: $flutter_11.PaintingBinding,
     name: 'PaintingBinding',
     constructors: {
     },
     getters: {
-      'imageCache': (visitor, target) => D4.validateTarget<$flutter_4.PaintingBinding>(target, 'PaintingBinding').imageCache,
-      'systemFonts': (visitor, target) => D4.validateTarget<$flutter_4.PaintingBinding>(target, 'PaintingBinding').systemFonts,
+      'imageCache': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').imageCache,
+      'systemFonts': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').systemFonts,
+      'window': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').window,
+      'platformDispatcher': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').platformDispatcher,
+      'keyboard': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').keyboard,
+      'keyEventManager': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').keyEventManager,
+      'defaultBinaryMessenger': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').defaultBinaryMessenger,
+      'channelBuffers': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').channelBuffers,
+      'accessibilityFocus': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').accessibilityFocus,
+      'restorationManager': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').restorationManager,
+      'lifecycleState': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').lifecycleState,
+      'transientCallbackCount': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').transientCallbackCount,
+      'endOfFrame': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').endOfFrame,
+      'hasScheduledFrame': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').hasScheduledFrame,
+      'schedulerPhase': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').schedulerPhase,
+      'framesEnabled': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').framesEnabled,
+      'currentFrameTimeStamp': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').currentFrameTimeStamp,
+      'currentSystemFrameTimeStamp': (visitor, target) => D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').currentSystemFrameTimeStamp,
+    },
+    setters: {
+      'schedulingStrategy': (visitor, target, value) => 
+        D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding').schedulingStrategy = value as bool Function({required int priority, required $flutter_52.SchedulerBinding scheduler}),
     },
     methods: {
-      'initInstances': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.PaintingBinding>(target, 'PaintingBinding');
-        t.initInstances();
-        return null;
-      },
       'instantiateImageCodecFromBuffer': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.PaintingBinding>(target, 'PaintingBinding');
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
         D4.requireMinArgs(positional, 1, 'instantiateImageCodecFromBuffer');
-        final buffer = D4.getRequiredArg<$flutter_4.ImmutableBuffer>(positional, 0, 'buffer', 'instantiateImageCodecFromBuffer');
+        final buffer = D4.getRequiredArg<ImmutableBuffer>(positional, 0, 'buffer', 'instantiateImageCodecFromBuffer');
         final cacheWidth = D4.getOptionalNamedArg<int?>(named, 'cacheWidth');
         final cacheHeight = D4.getOptionalNamedArg<int?>(named, 'cacheHeight');
         final allowUpscaling = D4.getNamedArgWithDefault<bool>(named, 'allowUpscaling', false);
         return t.instantiateImageCodecFromBuffer(buffer, cacheWidth: cacheWidth, cacheHeight: cacheHeight, allowUpscaling: allowUpscaling);
       },
       'instantiateImageCodecWithSize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.PaintingBinding>(target, 'PaintingBinding');
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
         D4.requireMinArgs(positional, 1, 'instantiateImageCodecWithSize');
-        final buffer = D4.getRequiredArg<$flutter_4.ImmutableBuffer>(positional, 0, 'buffer', 'instantiateImageCodecWithSize');
-        final getTargetSize = D4.getOptionalNamedArg<$flutter_4.TargetImageSizeCallback?>(named, 'getTargetSize');
-        return t.instantiateImageCodecWithSize(buffer, getTargetSize: getTargetSize);
+        final buffer = D4.getRequiredArg<ImmutableBuffer>(positional, 0, 'buffer', 'instantiateImageCodecWithSize');
+        final getTargetSizeRaw = named['getTargetSize'];
+        return t.instantiateImageCodecWithSize(buffer, getTargetSize: getTargetSizeRaw == null ? null : (int p0, int p1) { return D4.callInterpreterCallback(visitor, getTargetSizeRaw, [p0, p1]) as TargetImageSize; });
       },
-      'evict': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.PaintingBinding>(target, 'PaintingBinding');
-        D4.requireMinArgs(positional, 1, 'evict');
-        final asset = D4.getRequiredArg<String>(positional, 0, 'asset', 'evict');
-        t.evict(asset);
+      'debugCheckZone': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        D4.requireMinArgs(positional, 1, 'debugCheckZone');
+        final entryPoint = D4.getRequiredArg<String>(positional, 0, 'entryPoint', 'debugCheckZone');
+        return t.debugCheckZone(entryPoint);
+      },
+      'reassembleApplication': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        return t.reassembleApplication();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        return t.toString();
+      },
+      'initInstances': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        t.initInstances();
         return null;
       },
-      'handleMemoryPressure': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.PaintingBinding>(target, 'PaintingBinding');
-        t.handleMemoryPressure();
+      'initServiceExtensions': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        (t as dynamic).initServiceExtensions();
         return null;
       },
-      'handleSystemMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.PaintingBinding>(target, 'PaintingBinding');
-        D4.requireMinArgs(positional, 1, 'handleSystemMessage');
-        final systemMessage = D4.getRequiredArg<Object>(positional, 0, 'systemMessage', 'handleSystemMessage');
-        return t.handleSystemMessage(systemMessage);
+      'handleRequestAppExit': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        return t.handleRequestAppExit();
+      },
+      'exitApplication': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        D4.requireMinArgs(positional, 1, 'exitApplication');
+        final exitType = D4.getRequiredArg<AppExitType>(positional, 0, 'exitType', 'exitApplication');
+        final exitCode = D4.getOptionalArgWithDefault<int>(positional, 1, 'exitCode', 0);
+        return t.exitApplication(exitType, exitCode);
+      },
+      'setSystemUiChangeCallback': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        D4.requireMinArgs(positional, 1, 'setSystemUiChangeCallback');
+        if (positional.isEmpty) {
+          throw ArgumentError('setSystemUiChangeCallback: Missing required argument "callback" at position 0');
+        }
+        final callbackRaw = positional[0];
+        t.setSystemUiChangeCallback(callbackRaw == null ? null : (bool p0) { return D4.callInterpreterCallback(visitor, callbackRaw, [p0]) as Future<void>; });
+        return null;
+      },
+      'addTimingsCallback': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        D4.requireMinArgs(positional, 1, 'addTimingsCallback');
+        if (positional.isEmpty) {
+          throw ArgumentError('addTimingsCallback: Missing required argument "callback" at position 0');
+        }
+        final callbackRaw = positional[0];
+        t.addTimingsCallback((List<FrameTiming> p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); });
+        return null;
+      },
+      'removeTimingsCallback': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        D4.requireMinArgs(positional, 1, 'removeTimingsCallback');
+        if (positional.isEmpty) {
+          throw ArgumentError('removeTimingsCallback: Missing required argument "callback" at position 0');
+        }
+        final callbackRaw = positional[0];
+        t.removeTimingsCallback((List<FrameTiming> p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); });
+        return null;
+      },
+      'scheduleTask': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        D4.requireMinArgs(positional, 2, 'scheduleTask');
+        if (positional.isEmpty) {
+          throw ArgumentError('scheduleTask: Missing required argument "task" at position 0');
+        }
+        final taskRaw = positional[0];
+        final priority = D4.getRequiredArg<$flutter_53.Priority>(positional, 1, 'priority', 'scheduleTask');
+        final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
+        final flow = D4.getOptionalNamedArg<Flow?>(named, 'flow');
+        return t.scheduleTask(() { return D4.callInterpreterCallback(visitor, taskRaw, []) as FutureOr<Object>; }, priority, debugLabel: debugLabel, flow: flow);
+      },
+      'unlocked': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        (t as dynamic).unlocked();
+        return null;
+      },
+      'scheduleFrameCallback': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        D4.requireMinArgs(positional, 1, 'scheduleFrameCallback');
+        if (positional.isEmpty) {
+          throw ArgumentError('scheduleFrameCallback: Missing required argument "callback" at position 0');
+        }
+        final callbackRaw = positional[0];
+        final rescheduling = D4.getNamedArgWithDefault<bool>(named, 'rescheduling', false);
+        final scheduleNewFrame = D4.getNamedArgWithDefault<bool>(named, 'scheduleNewFrame', true);
+        return t.scheduleFrameCallback((Duration p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); }, rescheduling: rescheduling, scheduleNewFrame: scheduleNewFrame);
+      },
+      'cancelFrameCallbackWithId': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        D4.requireMinArgs(positional, 1, 'cancelFrameCallbackWithId');
+        final id = D4.getRequiredArg<int>(positional, 0, 'id', 'cancelFrameCallbackWithId');
+        t.cancelFrameCallbackWithId(id);
+        return null;
+      },
+      'debugAssertNoTransientCallbacks': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        D4.requireMinArgs(positional, 1, 'debugAssertNoTransientCallbacks');
+        final reason = D4.getRequiredArg<String>(positional, 0, 'reason', 'debugAssertNoTransientCallbacks');
+        return t.debugAssertNoTransientCallbacks(reason);
+      },
+      'debugAssertNoPendingPerformanceModeRequests': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        D4.requireMinArgs(positional, 1, 'debugAssertNoPendingPerformanceModeRequests');
+        final reason = D4.getRequiredArg<String>(positional, 0, 'reason', 'debugAssertNoPendingPerformanceModeRequests');
+        return t.debugAssertNoPendingPerformanceModeRequests(reason);
+      },
+      'debugAssertNoTimeDilation': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        D4.requireMinArgs(positional, 1, 'debugAssertNoTimeDilation');
+        final reason = D4.getRequiredArg<String>(positional, 0, 'reason', 'debugAssertNoTimeDilation');
+        return t.debugAssertNoTimeDilation(reason);
+      },
+      'addPersistentFrameCallback': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        D4.requireMinArgs(positional, 1, 'addPersistentFrameCallback');
+        if (positional.isEmpty) {
+          throw ArgumentError('addPersistentFrameCallback: Missing required argument "callback" at position 0');
+        }
+        final callbackRaw = positional[0];
+        t.addPersistentFrameCallback((Duration p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); });
+        return null;
+      },
+      'addPostFrameCallback': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        D4.requireMinArgs(positional, 1, 'addPostFrameCallback');
+        if (positional.isEmpty) {
+          throw ArgumentError('addPostFrameCallback: Missing required argument "callback" at position 0');
+        }
+        final callbackRaw = positional[0];
+        final debugLabel = D4.getNamedArgWithDefault<String>(named, 'debugLabel', 'callback');
+        t.addPostFrameCallback((Duration p0) { D4.callInterpreterCallback(visitor, callbackRaw, [p0]); }, debugLabel: debugLabel);
+        return null;
+      },
+      'ensureVisualUpdate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        t.ensureVisualUpdate();
+        return null;
+      },
+      'scheduleFrame': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        t.scheduleFrame();
+        return null;
+      },
+      'scheduleForcedFrame': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        t.scheduleForcedFrame();
+        return null;
+      },
+      'scheduleWarmUpFrame': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        t.scheduleWarmUpFrame();
+        return null;
+      },
+      'resetEpoch': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        t.resetEpoch();
+        return null;
+      },
+      'handleBeginFrame': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        D4.requireMinArgs(positional, 1, 'handleBeginFrame');
+        final rawTimeStamp = D4.getRequiredArg<Duration?>(positional, 0, 'rawTimeStamp', 'handleBeginFrame');
+        t.handleBeginFrame(rawTimeStamp);
+        return null;
+      },
+      'requestPerformanceMode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        D4.requireMinArgs(positional, 1, 'requestPerformanceMode');
+        final mode = D4.getRequiredArg<DartPerformanceMode>(positional, 0, 'mode', 'requestPerformanceMode');
+        return t.requestPerformanceMode(mode);
+      },
+      'debugGetRequestedPerformanceMode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        return t.debugGetRequestedPerformanceMode();
+      },
+      'handleDrawFrame': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.PaintingBinding>(target, 'PaintingBinding');
+        t.handleDrawFrame();
+        return null;
       },
     },
     staticGetters: {
-      'instance': (visitor) => $flutter_4.PaintingBinding.instance,
-      'shaderWarmUp': (visitor) => $flutter_4.PaintingBinding.shaderWarmUp,
+      'instance': (visitor) => $flutter_11.PaintingBinding.instance,
+      'shaderWarmUp': (visitor) => $flutter_11.PaintingBinding.shaderWarmUp,
     },
     staticSetters: {
       'shaderWarmUp': (visitor, value) => 
-        $flutter_4.PaintingBinding.shaderWarmUp = value as $flutter_36.ShaderWarmUp?,
+        $flutter_11.PaintingBinding.shaderWarmUp = value as $flutter_43.ShaderWarmUp?,
     },
     methodSignatures: {
-      'initInstances': 'void initInstances()',
       'instantiateImageCodecFromBuffer': 'Future<ui.Codec> instantiateImageCodecFromBuffer(ui.ImmutableBuffer buffer, {int? cacheWidth, int? cacheHeight, bool allowUpscaling = false})',
       'instantiateImageCodecWithSize': 'Future<ui.Codec> instantiateImageCodecWithSize(ui.ImmutableBuffer buffer, {ui.TargetImageSizeCallback? getTargetSize})',
-      'evict': 'void evict(String asset)',
-      'handleMemoryPressure': 'void handleMemoryPressure()',
-      'handleSystemMessage': 'Future<void> handleSystemMessage(Object systemMessage)',
+      'debugCheckZone': 'bool debugCheckZone(String entryPoint)',
+      'reassembleApplication': 'Future<void> reassembleApplication()',
+      'toString': 'String toString()',
+      'initInstances': 'void initInstances()',
+      'initServiceExtensions': 'void initServiceExtensions()',
+      'handleRequestAppExit': 'Future<AppExitResponse> handleRequestAppExit()',
+      'exitApplication': 'Future<AppExitResponse> exitApplication(AppExitType exitType, [int exitCode = 0])',
+      'setSystemUiChangeCallback': 'void setSystemUiChangeCallback(Future<void> Function(bool)? callback)',
+      'addTimingsCallback': 'void addTimingsCallback(void Function(List<FrameTiming>) callback)',
+      'removeTimingsCallback': 'void removeTimingsCallback(void Function(List<FrameTiming>) callback)',
+      'scheduleTask': 'Future<T> scheduleTask(FutureOr<T> Function() task, Priority priority, {String? debugLabel, Flow? flow})',
+      'unlocked': 'void unlocked()',
+      'scheduleFrameCallback': 'int scheduleFrameCallback(void Function(Duration) callback, {bool rescheduling = false, bool scheduleNewFrame = true})',
+      'cancelFrameCallbackWithId': 'void cancelFrameCallbackWithId(int id)',
+      'debugAssertNoTransientCallbacks': 'bool debugAssertNoTransientCallbacks(String reason)',
+      'debugAssertNoPendingPerformanceModeRequests': 'bool debugAssertNoPendingPerformanceModeRequests(String reason)',
+      'debugAssertNoTimeDilation': 'bool debugAssertNoTimeDilation(String reason)',
+      'addPersistentFrameCallback': 'void addPersistentFrameCallback(void Function(Duration) callback)',
+      'addPostFrameCallback': 'void addPostFrameCallback(void Function(Duration) callback, {String debugLabel = \'callback\'})',
+      'ensureVisualUpdate': 'void ensureVisualUpdate()',
+      'scheduleFrame': 'void scheduleFrame()',
+      'scheduleForcedFrame': 'void scheduleForcedFrame()',
+      'scheduleWarmUpFrame': 'void scheduleWarmUpFrame()',
+      'resetEpoch': 'void resetEpoch()',
+      'handleBeginFrame': 'void handleBeginFrame(Duration? rawTimeStamp)',
+      'requestPerformanceMode': 'PerformanceModeRequestHandle? requestPerformanceMode(DartPerformanceMode mode)',
+      'debugGetRequestedPerformanceMode': 'DartPerformanceMode? debugGetRequestedPerformanceMode()',
+      'handleDrawFrame': 'void handleDrawFrame()',
     },
     getterSignatures: {
       'imageCache': 'ImageCache get imageCache',
       'systemFonts': 'Listenable get systemFonts',
+      'window': 'SingletonFlutterWindow get window',
+      'platformDispatcher': 'PlatformDispatcher get platformDispatcher',
+      'keyboard': 'HardwareKeyboard get keyboard',
+      'keyEventManager': 'KeyEventManager get keyEventManager',
+      'defaultBinaryMessenger': 'BinaryMessenger get defaultBinaryMessenger',
+      'channelBuffers': 'ChannelBuffers get channelBuffers',
+      'accessibilityFocus': 'ValueNotifier<int?> get accessibilityFocus',
+      'restorationManager': 'RestorationManager get restorationManager',
+      'lifecycleState': 'AppLifecycleState? get lifecycleState',
+      'transientCallbackCount': 'int get transientCallbackCount',
+      'endOfFrame': 'Future<void> get endOfFrame',
+      'hasScheduledFrame': 'bool get hasScheduledFrame',
+      'schedulerPhase': 'SchedulerPhase get schedulerPhase',
+      'framesEnabled': 'bool get framesEnabled',
+      'currentFrameTimeStamp': 'Duration get currentFrameTimeStamp',
+      'currentSystemFrameTimeStamp': 'Duration get currentSystemFrameTimeStamp',
+    },
+    setterSignatures: {
+      'schedulingStrategy': 'set schedulingStrategy(bool Function({required int priority, required SchedulerBinding scheduler}) value)',
     },
     staticGetterSignatures: {
       'instance': 'PaintingBinding get instance',
@@ -1721,112 +1939,112 @@ BridgedClass _createPaintingBindingBridge() {
 
 BridgedClass _createBorderRadiusGeometryBridge() {
   return BridgedClass(
-    nativeType: $flutter_5.BorderRadiusGeometry,
+    nativeType: $flutter_12.BorderRadiusGeometry,
     name: 'BorderRadiusGeometry',
     constructors: {
       'all': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BorderRadiusGeometry');
-        final radius = D4.getRequiredArg<$flutter_5.Radius>(positional, 0, 'radius', 'BorderRadiusGeometry');
-        return $flutter_5.BorderRadiusGeometry.all(radius);
+        final radius = D4.getRequiredArg<Radius>(positional, 0, 'radius', 'BorderRadiusGeometry');
+        return $flutter_12.BorderRadiusGeometry.all(radius);
       },
       'circular': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BorderRadiusGeometry');
         final radius = D4.getRequiredArg<double>(positional, 0, 'radius', 'BorderRadiusGeometry');
-        return $flutter_5.BorderRadiusGeometry.circular(radius);
+        return $flutter_12.BorderRadiusGeometry.circular(radius);
       },
       'horizontal': (visitor, positional, named) {
-        final left = D4.getOptionalNamedArg<$flutter_5.Radius?>(named, 'left');
-        final right = D4.getOptionalNamedArg<$flutter_5.Radius?>(named, 'right');
-        final start = D4.getOptionalNamedArg<$flutter_5.Radius?>(named, 'start');
-        final end = D4.getOptionalNamedArg<$flutter_5.Radius?>(named, 'end');
-        return $flutter_5.BorderRadiusGeometry.horizontal(left: left, right: right, start: start, end: end);
+        final left = D4.getOptionalNamedArg<Radius?>(named, 'left');
+        final right = D4.getOptionalNamedArg<Radius?>(named, 'right');
+        final start = D4.getOptionalNamedArg<Radius?>(named, 'start');
+        final end = D4.getOptionalNamedArg<Radius?>(named, 'end');
+        return $flutter_12.BorderRadiusGeometry.horizontal(left: left, right: right, start: start, end: end);
       },
       'only': (visitor, positional, named) {
-        final topLeft = D4.getRequiredNamedArgTodoDefault<$flutter_5.Radius>(named, 'topLeft', 'BorderRadiusGeometry', '<default unavailable>');
-        final topRight = D4.getRequiredNamedArgTodoDefault<$flutter_5.Radius>(named, 'topRight', 'BorderRadiusGeometry', '<default unavailable>');
-        final bottomLeft = D4.getRequiredNamedArgTodoDefault<$flutter_5.Radius>(named, 'bottomLeft', 'BorderRadiusGeometry', '<default unavailable>');
-        final bottomRight = D4.getRequiredNamedArgTodoDefault<$flutter_5.Radius>(named, 'bottomRight', 'BorderRadiusGeometry', '<default unavailable>');
-        return $flutter_5.BorderRadiusGeometry.only(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight);
+        final topLeft = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'topLeft', 'BorderRadiusGeometry', '<default unavailable>');
+        final topRight = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'topRight', 'BorderRadiusGeometry', '<default unavailable>');
+        final bottomLeft = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'bottomLeft', 'BorderRadiusGeometry', '<default unavailable>');
+        final bottomRight = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'bottomRight', 'BorderRadiusGeometry', '<default unavailable>');
+        return $flutter_12.BorderRadiusGeometry.only(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight);
       },
       'directional': (visitor, positional, named) {
-        final topStart = D4.getRequiredNamedArgTodoDefault<$flutter_5.Radius>(named, 'topStart', 'BorderRadiusGeometry', '<default unavailable>');
-        final topEnd = D4.getRequiredNamedArgTodoDefault<$flutter_5.Radius>(named, 'topEnd', 'BorderRadiusGeometry', '<default unavailable>');
-        final bottomStart = D4.getRequiredNamedArgTodoDefault<$flutter_5.Radius>(named, 'bottomStart', 'BorderRadiusGeometry', '<default unavailable>');
-        final bottomEnd = D4.getRequiredNamedArgTodoDefault<$flutter_5.Radius>(named, 'bottomEnd', 'BorderRadiusGeometry', '<default unavailable>');
-        return $flutter_5.BorderRadiusGeometry.directional(topStart: topStart, topEnd: topEnd, bottomStart: bottomStart, bottomEnd: bottomEnd);
+        final topStart = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'topStart', 'BorderRadiusGeometry', '<default unavailable>');
+        final topEnd = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'topEnd', 'BorderRadiusGeometry', '<default unavailable>');
+        final bottomStart = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'bottomStart', 'BorderRadiusGeometry', '<default unavailable>');
+        final bottomEnd = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'bottomEnd', 'BorderRadiusGeometry', '<default unavailable>');
+        return $flutter_12.BorderRadiusGeometry.directional(topStart: topStart, topEnd: topEnd, bottomStart: bottomStart, bottomEnd: bottomEnd);
       },
       'vertical': (visitor, positional, named) {
-        final top = D4.getRequiredNamedArgTodoDefault<$flutter_5.Radius>(named, 'top', 'BorderRadiusGeometry', '<default unavailable>');
-        final bottom = D4.getRequiredNamedArgTodoDefault<$flutter_5.Radius>(named, 'bottom', 'BorderRadiusGeometry', '<default unavailable>');
-        return $flutter_5.BorderRadiusGeometry.vertical(top: top, bottom: bottom);
+        final top = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'top', 'BorderRadiusGeometry', '<default unavailable>');
+        final bottom = D4.getRequiredNamedArgTodoDefault<Radius>(named, 'bottom', 'BorderRadiusGeometry', '<default unavailable>');
+        return $flutter_12.BorderRadiusGeometry.vertical(top: top, bottom: bottom);
       },
     },
     getters: {
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_5.BorderRadiusGeometry>(target, 'BorderRadiusGeometry').hashCode,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_12.BorderRadiusGeometry>(target, 'BorderRadiusGeometry').hashCode,
     },
     methods: {
       'subtract': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
         D4.requireMinArgs(positional, 1, 'subtract');
-        final other = D4.getRequiredArg<$flutter_5.BorderRadiusGeometry>(positional, 0, 'other', 'subtract');
+        final other = D4.getRequiredArg<$flutter_12.BorderRadiusGeometry>(positional, 0, 'other', 'subtract');
         return t.subtract(other);
       },
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
         D4.requireMinArgs(positional, 1, 'add');
-        final other = D4.getRequiredArg<$flutter_5.BorderRadiusGeometry>(positional, 0, 'other', 'add');
+        final other = D4.getRequiredArg<$flutter_12.BorderRadiusGeometry>(positional, 0, 'other', 'add');
         return t.add(other);
       },
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final direction = D4.getRequiredArg<$flutter_5.TextDirection?>(positional, 0, 'direction', 'resolve');
+        final direction = D4.getRequiredArg<TextDirection?>(positional, 0, 'direction', 'resolve');
         return t.resolve(direction);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
         return t.toString();
       },
       '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
         return -t;
       },
       '*': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
         return t * other;
       },
       '/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator/');
         return t / other;
       },
       '~/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator~/');
         return t ~/ other;
       },
       '%': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator%');
         return t % other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusGeometry>(target, 'BorderRadiusGeometry');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     staticGetters: {
-      'zero': (visitor) => $flutter_5.BorderRadiusGeometry.zero,
+      'zero': (visitor) => $flutter_12.BorderRadiusGeometry.zero,
     },
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_5.BorderRadiusGeometry?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_5.BorderRadiusGeometry?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_12.BorderRadiusGeometry?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_12.BorderRadiusGeometry?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_5.BorderRadiusGeometry.lerp(a, b, t_);
+        return $flutter_12.BorderRadiusGeometry.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
@@ -1861,243 +2079,139 @@ BridgedClass _createBorderRadiusGeometryBridge() {
 
 BridgedClass _createBorderRadiusBridge() {
   return BridgedClass(
-    nativeType: $flutter_5.BorderRadius,
+    nativeType: $flutter_12.BorderRadius,
     name: 'BorderRadius',
     constructors: {
       'all': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BorderRadius');
-        final radius = D4.getRequiredArg<$flutter_5.Radius>(positional, 0, 'radius', 'BorderRadius');
-        return $flutter_5.BorderRadius.all(radius);
+        final radius = D4.getRequiredArg<Radius>(positional, 0, 'radius', 'BorderRadius');
+        return $flutter_12.BorderRadius.all(radius);
       },
       'circular': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BorderRadius');
         final radius = D4.getRequiredArg<double>(positional, 0, 'radius', 'BorderRadius');
-        return $flutter_5.BorderRadius.circular(radius);
+        return $flutter_12.BorderRadius.circular(radius);
       },
       'vertical': (visitor, positional, named) {
-        if (!named.containsKey('top') && !named.containsKey('bottom')) {
-          return $flutter_5.BorderRadius.vertical();
-        }
-        if (named.containsKey('top') && !named.containsKey('bottom')) {
-          final top = D4.getRequiredNamedArg<dynamic>(named, 'top', 'BorderRadius');
-          return $flutter_5.BorderRadius.vertical(top: top);
-        }
-        if (!named.containsKey('top') && named.containsKey('bottom')) {
-          final bottom = D4.getRequiredNamedArg<dynamic>(named, 'bottom', 'BorderRadius');
-          return $flutter_5.BorderRadius.vertical(bottom: bottom);
-        }
-        if (named.containsKey('top') && named.containsKey('bottom')) {
-          final top = D4.getRequiredNamedArg<dynamic>(named, 'top', 'BorderRadius');
-          final bottom = D4.getRequiredNamedArg<dynamic>(named, 'bottom', 'BorderRadius');
-          return $flutter_5.BorderRadius.vertical(top: top, bottom: bottom);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final top = D4.getNamedArgWithDefault<Radius>(named, 'top', $dart_ui.Radius.zero);
+        final bottom = D4.getNamedArgWithDefault<Radius>(named, 'bottom', $dart_ui.Radius.zero);
+        return $flutter_12.BorderRadius.vertical(top: top, bottom: bottom);
       },
       'horizontal': (visitor, positional, named) {
-        if (!named.containsKey('left') && !named.containsKey('right')) {
-          return $flutter_5.BorderRadius.horizontal();
-        }
-        if (named.containsKey('left') && !named.containsKey('right')) {
-          final left = D4.getRequiredNamedArg<dynamic>(named, 'left', 'BorderRadius');
-          return $flutter_5.BorderRadius.horizontal(left: left);
-        }
-        if (!named.containsKey('left') && named.containsKey('right')) {
-          final right = D4.getRequiredNamedArg<dynamic>(named, 'right', 'BorderRadius');
-          return $flutter_5.BorderRadius.horizontal(right: right);
-        }
-        if (named.containsKey('left') && named.containsKey('right')) {
-          final left = D4.getRequiredNamedArg<dynamic>(named, 'left', 'BorderRadius');
-          final right = D4.getRequiredNamedArg<dynamic>(named, 'right', 'BorderRadius');
-          return $flutter_5.BorderRadius.horizontal(left: left, right: right);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final left = D4.getNamedArgWithDefault<Radius>(named, 'left', $dart_ui.Radius.zero);
+        final right = D4.getNamedArgWithDefault<Radius>(named, 'right', $dart_ui.Radius.zero);
+        return $flutter_12.BorderRadius.horizontal(left: left, right: right);
       },
       'only': (visitor, positional, named) {
-        if (!named.containsKey('topLeft') && !named.containsKey('topRight') && !named.containsKey('bottomLeft') && !named.containsKey('bottomRight')) {
-          return $flutter_5.BorderRadius.only();
-        }
-        if (named.containsKey('topLeft') && !named.containsKey('topRight') && !named.containsKey('bottomLeft') && !named.containsKey('bottomRight')) {
-          final topLeft = D4.getRequiredNamedArg<dynamic>(named, 'topLeft', 'BorderRadius');
-          return $flutter_5.BorderRadius.only(topLeft: topLeft);
-        }
-        if (!named.containsKey('topLeft') && named.containsKey('topRight') && !named.containsKey('bottomLeft') && !named.containsKey('bottomRight')) {
-          final topRight = D4.getRequiredNamedArg<dynamic>(named, 'topRight', 'BorderRadius');
-          return $flutter_5.BorderRadius.only(topRight: topRight);
-        }
-        if (named.containsKey('topLeft') && named.containsKey('topRight') && !named.containsKey('bottomLeft') && !named.containsKey('bottomRight')) {
-          final topLeft = D4.getRequiredNamedArg<dynamic>(named, 'topLeft', 'BorderRadius');
-          final topRight = D4.getRequiredNamedArg<dynamic>(named, 'topRight', 'BorderRadius');
-          return $flutter_5.BorderRadius.only(topLeft: topLeft, topRight: topRight);
-        }
-        if (!named.containsKey('topLeft') && !named.containsKey('topRight') && named.containsKey('bottomLeft') && !named.containsKey('bottomRight')) {
-          final bottomLeft = D4.getRequiredNamedArg<dynamic>(named, 'bottomLeft', 'BorderRadius');
-          return $flutter_5.BorderRadius.only(bottomLeft: bottomLeft);
-        }
-        if (named.containsKey('topLeft') && !named.containsKey('topRight') && named.containsKey('bottomLeft') && !named.containsKey('bottomRight')) {
-          final topLeft = D4.getRequiredNamedArg<dynamic>(named, 'topLeft', 'BorderRadius');
-          final bottomLeft = D4.getRequiredNamedArg<dynamic>(named, 'bottomLeft', 'BorderRadius');
-          return $flutter_5.BorderRadius.only(topLeft: topLeft, bottomLeft: bottomLeft);
-        }
-        if (!named.containsKey('topLeft') && named.containsKey('topRight') && named.containsKey('bottomLeft') && !named.containsKey('bottomRight')) {
-          final topRight = D4.getRequiredNamedArg<dynamic>(named, 'topRight', 'BorderRadius');
-          final bottomLeft = D4.getRequiredNamedArg<dynamic>(named, 'bottomLeft', 'BorderRadius');
-          return $flutter_5.BorderRadius.only(topRight: topRight, bottomLeft: bottomLeft);
-        }
-        if (named.containsKey('topLeft') && named.containsKey('topRight') && named.containsKey('bottomLeft') && !named.containsKey('bottomRight')) {
-          final topLeft = D4.getRequiredNamedArg<dynamic>(named, 'topLeft', 'BorderRadius');
-          final topRight = D4.getRequiredNamedArg<dynamic>(named, 'topRight', 'BorderRadius');
-          final bottomLeft = D4.getRequiredNamedArg<dynamic>(named, 'bottomLeft', 'BorderRadius');
-          return $flutter_5.BorderRadius.only(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft);
-        }
-        if (!named.containsKey('topLeft') && !named.containsKey('topRight') && !named.containsKey('bottomLeft') && named.containsKey('bottomRight')) {
-          final bottomRight = D4.getRequiredNamedArg<dynamic>(named, 'bottomRight', 'BorderRadius');
-          return $flutter_5.BorderRadius.only(bottomRight: bottomRight);
-        }
-        if (named.containsKey('topLeft') && !named.containsKey('topRight') && !named.containsKey('bottomLeft') && named.containsKey('bottomRight')) {
-          final topLeft = D4.getRequiredNamedArg<dynamic>(named, 'topLeft', 'BorderRadius');
-          final bottomRight = D4.getRequiredNamedArg<dynamic>(named, 'bottomRight', 'BorderRadius');
-          return $flutter_5.BorderRadius.only(topLeft: topLeft, bottomRight: bottomRight);
-        }
-        if (!named.containsKey('topLeft') && named.containsKey('topRight') && !named.containsKey('bottomLeft') && named.containsKey('bottomRight')) {
-          final topRight = D4.getRequiredNamedArg<dynamic>(named, 'topRight', 'BorderRadius');
-          final bottomRight = D4.getRequiredNamedArg<dynamic>(named, 'bottomRight', 'BorderRadius');
-          return $flutter_5.BorderRadius.only(topRight: topRight, bottomRight: bottomRight);
-        }
-        if (named.containsKey('topLeft') && named.containsKey('topRight') && !named.containsKey('bottomLeft') && named.containsKey('bottomRight')) {
-          final topLeft = D4.getRequiredNamedArg<dynamic>(named, 'topLeft', 'BorderRadius');
-          final topRight = D4.getRequiredNamedArg<dynamic>(named, 'topRight', 'BorderRadius');
-          final bottomRight = D4.getRequiredNamedArg<dynamic>(named, 'bottomRight', 'BorderRadius');
-          return $flutter_5.BorderRadius.only(topLeft: topLeft, topRight: topRight, bottomRight: bottomRight);
-        }
-        if (!named.containsKey('topLeft') && !named.containsKey('topRight') && named.containsKey('bottomLeft') && named.containsKey('bottomRight')) {
-          final bottomLeft = D4.getRequiredNamedArg<dynamic>(named, 'bottomLeft', 'BorderRadius');
-          final bottomRight = D4.getRequiredNamedArg<dynamic>(named, 'bottomRight', 'BorderRadius');
-          return $flutter_5.BorderRadius.only(bottomLeft: bottomLeft, bottomRight: bottomRight);
-        }
-        if (named.containsKey('topLeft') && !named.containsKey('topRight') && named.containsKey('bottomLeft') && named.containsKey('bottomRight')) {
-          final topLeft = D4.getRequiredNamedArg<dynamic>(named, 'topLeft', 'BorderRadius');
-          final bottomLeft = D4.getRequiredNamedArg<dynamic>(named, 'bottomLeft', 'BorderRadius');
-          final bottomRight = D4.getRequiredNamedArg<dynamic>(named, 'bottomRight', 'BorderRadius');
-          return $flutter_5.BorderRadius.only(topLeft: topLeft, bottomLeft: bottomLeft, bottomRight: bottomRight);
-        }
-        if (!named.containsKey('topLeft') && named.containsKey('topRight') && named.containsKey('bottomLeft') && named.containsKey('bottomRight')) {
-          final topRight = D4.getRequiredNamedArg<dynamic>(named, 'topRight', 'BorderRadius');
-          final bottomLeft = D4.getRequiredNamedArg<dynamic>(named, 'bottomLeft', 'BorderRadius');
-          final bottomRight = D4.getRequiredNamedArg<dynamic>(named, 'bottomRight', 'BorderRadius');
-          return $flutter_5.BorderRadius.only(topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight);
-        }
-        if (named.containsKey('topLeft') && named.containsKey('topRight') && named.containsKey('bottomLeft') && named.containsKey('bottomRight')) {
-          final topLeft = D4.getRequiredNamedArg<dynamic>(named, 'topLeft', 'BorderRadius');
-          final topRight = D4.getRequiredNamedArg<dynamic>(named, 'topRight', 'BorderRadius');
-          final bottomLeft = D4.getRequiredNamedArg<dynamic>(named, 'bottomLeft', 'BorderRadius');
-          final bottomRight = D4.getRequiredNamedArg<dynamic>(named, 'bottomRight', 'BorderRadius');
-          return $flutter_5.BorderRadius.only(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final topLeft = D4.getNamedArgWithDefault<Radius>(named, 'topLeft', $dart_ui.Radius.zero);
+        final topRight = D4.getNamedArgWithDefault<Radius>(named, 'topRight', $dart_ui.Radius.zero);
+        final bottomLeft = D4.getNamedArgWithDefault<Radius>(named, 'bottomLeft', $dart_ui.Radius.zero);
+        final bottomRight = D4.getNamedArgWithDefault<Radius>(named, 'bottomRight', $dart_ui.Radius.zero);
+        return $flutter_12.BorderRadius.only(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight);
       },
     },
     getters: {
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius').hashCode,
-      'topLeft': (visitor, target) => D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius').topLeft,
-      'topRight': (visitor, target) => D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius').topRight,
-      'bottomLeft': (visitor, target) => D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius').bottomLeft,
-      'bottomRight': (visitor, target) => D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius').bottomRight,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius').hashCode,
+      'topLeft': (visitor, target) => D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius').topLeft,
+      'topRight': (visitor, target) => D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius').topRight,
+      'bottomLeft': (visitor, target) => D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius').bottomLeft,
+      'bottomRight': (visitor, target) => D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius').bottomRight,
     },
     methods: {
       'subtract': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius');
+        final t = D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius');
         D4.requireMinArgs(positional, 1, 'subtract');
-        final other = D4.getRequiredArg<$flutter_5.BorderRadiusGeometry>(positional, 0, 'other', 'subtract');
+        final other = D4.getRequiredArg<$flutter_12.BorderRadiusGeometry>(positional, 0, 'other', 'subtract');
         return t.subtract(other);
       },
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius');
+        final t = D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius');
         D4.requireMinArgs(positional, 1, 'add');
-        final other = D4.getRequiredArg<$flutter_5.BorderRadiusGeometry>(positional, 0, 'other', 'add');
+        final other = D4.getRequiredArg<$flutter_12.BorderRadiusGeometry>(positional, 0, 'other', 'add');
         return t.add(other);
       },
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius');
+        final t = D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final direction = D4.getRequiredArg<$flutter_5.TextDirection?>(positional, 0, 'direction', 'resolve');
+        final direction = D4.getRequiredArg<TextDirection?>(positional, 0, 'direction', 'resolve');
         return t.resolve(direction);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius');
+        final t = D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius');
         return t.toString();
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius');
-        final topLeft = D4.getOptionalNamedArg<$flutter_5.Radius?>(named, 'topLeft');
-        final topRight = D4.getOptionalNamedArg<$flutter_5.Radius?>(named, 'topRight');
-        final bottomLeft = D4.getOptionalNamedArg<$flutter_5.Radius?>(named, 'bottomLeft');
-        final bottomRight = D4.getOptionalNamedArg<$flutter_5.Radius?>(named, 'bottomRight');
+        final t = D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius');
+        final topLeft = D4.getOptionalNamedArg<Radius?>(named, 'topLeft');
+        final topRight = D4.getOptionalNamedArg<Radius?>(named, 'topRight');
+        final bottomLeft = D4.getOptionalNamedArg<Radius?>(named, 'bottomLeft');
+        final bottomRight = D4.getOptionalNamedArg<Radius?>(named, 'bottomRight');
         return t.copyWith(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight);
       },
       'toRRect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius');
+        final t = D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius');
         D4.requireMinArgs(positional, 1, 'toRRect');
-        final rect = D4.getRequiredArg<$flutter_5.Rect>(positional, 0, 'rect', 'toRRect');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'toRRect');
         return t.toRRect(rect);
       },
       'toRSuperellipse': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius');
+        final t = D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius');
         D4.requireMinArgs(positional, 1, 'toRSuperellipse');
-        final rect = D4.getRequiredArg<$flutter_5.Rect>(positional, 0, 'rect', 'toRSuperellipse');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'toRSuperellipse');
         return t.toRSuperellipse(rect);
       },
       '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius');
+        final t = D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius');
         if (positional.isEmpty) {
           // Unary operator
           return -t;
         } else {
           // Binary operator
-          final other = D4.getRequiredArg<$flutter_5.BorderRadius>(positional, 0, 'other', 'operator-');
+          final other = D4.getRequiredArg<$flutter_12.BorderRadius>(positional, 0, 'other', 'operator-');
           return t - other;
         }
       },
       '*': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius');
+        final t = D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
         return t * other;
       },
       '/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius');
+        final t = D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator/');
         return t / other;
       },
       '~/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius');
+        final t = D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator~/');
         return t ~/ other;
       },
       '%': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius');
+        final t = D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator%');
         return t % other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius');
+        final t = D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadius>(target, 'BorderRadius');
-        final other = D4.getRequiredArg<$flutter_5.BorderRadius>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_12.BorderRadius>(target, 'BorderRadius');
+        final other = D4.getRequiredArg<$flutter_12.BorderRadius>(positional, 0, 'other', 'operator+');
         return t + other;
       },
     },
     staticGetters: {
-      'zero': (visitor) => $flutter_5.BorderRadius.zero,
+      'zero': (visitor) => $flutter_12.BorderRadius.zero,
     },
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_5.BorderRadius?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_5.BorderRadius?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_12.BorderRadius?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_12.BorderRadius?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_5.BorderRadius.lerp(a, b, t_);
+        return $flutter_12.BorderRadius.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
@@ -2105,7 +2219,7 @@ BridgedClass _createBorderRadiusBridge() {
       'circular': 'BorderRadius.circular(double radius)',
       'vertical': 'const BorderRadius.vertical({Radius top = Radius.zero, Radius bottom = Radius.zero})',
       'horizontal': 'const BorderRadius.horizontal({Radius left = Radius.zero, Radius right = Radius.zero})',
-      'only': 'const BorderRadius.only({dynamic topLeft = Radius.zero, dynamic topRight = Radius.zero, dynamic bottomLeft = Radius.zero, dynamic bottomRight = Radius.zero})',
+      'only': 'const BorderRadius.only({Radius topLeft = Radius.zero, Radius topRight = Radius.zero, Radius bottomLeft = Radius.zero, Radius bottomRight = Radius.zero})',
     },
     methodSignatures: {
       'subtract': 'BorderRadiusGeometry subtract(BorderRadiusGeometry other)',
@@ -2138,223 +2252,119 @@ BridgedClass _createBorderRadiusBridge() {
 
 BridgedClass _createBorderRadiusDirectionalBridge() {
   return BridgedClass(
-    nativeType: $flutter_5.BorderRadiusDirectional,
+    nativeType: $flutter_12.BorderRadiusDirectional,
     name: 'BorderRadiusDirectional',
     constructors: {
       'all': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BorderRadiusDirectional');
-        final radius = D4.getRequiredArg<$flutter_5.Radius>(positional, 0, 'radius', 'BorderRadiusDirectional');
-        return $flutter_5.BorderRadiusDirectional.all(radius);
+        final radius = D4.getRequiredArg<Radius>(positional, 0, 'radius', 'BorderRadiusDirectional');
+        return $flutter_12.BorderRadiusDirectional.all(radius);
       },
       'circular': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BorderRadiusDirectional');
         final radius = D4.getRequiredArg<double>(positional, 0, 'radius', 'BorderRadiusDirectional');
-        return $flutter_5.BorderRadiusDirectional.circular(radius);
+        return $flutter_12.BorderRadiusDirectional.circular(radius);
       },
       'vertical': (visitor, positional, named) {
-        if (!named.containsKey('top') && !named.containsKey('bottom')) {
-          return $flutter_5.BorderRadiusDirectional.vertical();
-        }
-        if (named.containsKey('top') && !named.containsKey('bottom')) {
-          final top = D4.getRequiredNamedArg<dynamic>(named, 'top', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.vertical(top: top);
-        }
-        if (!named.containsKey('top') && named.containsKey('bottom')) {
-          final bottom = D4.getRequiredNamedArg<dynamic>(named, 'bottom', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.vertical(bottom: bottom);
-        }
-        if (named.containsKey('top') && named.containsKey('bottom')) {
-          final top = D4.getRequiredNamedArg<dynamic>(named, 'top', 'BorderRadiusDirectional');
-          final bottom = D4.getRequiredNamedArg<dynamic>(named, 'bottom', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.vertical(top: top, bottom: bottom);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final top = D4.getNamedArgWithDefault<Radius>(named, 'top', $dart_ui.Radius.zero);
+        final bottom = D4.getNamedArgWithDefault<Radius>(named, 'bottom', $dart_ui.Radius.zero);
+        return $flutter_12.BorderRadiusDirectional.vertical(top: top, bottom: bottom);
       },
       'horizontal': (visitor, positional, named) {
-        if (!named.containsKey('start') && !named.containsKey('end')) {
-          return $flutter_5.BorderRadiusDirectional.horizontal();
-        }
-        if (named.containsKey('start') && !named.containsKey('end')) {
-          final start = D4.getRequiredNamedArg<dynamic>(named, 'start', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.horizontal(start: start);
-        }
-        if (!named.containsKey('start') && named.containsKey('end')) {
-          final end = D4.getRequiredNamedArg<dynamic>(named, 'end', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.horizontal(end: end);
-        }
-        if (named.containsKey('start') && named.containsKey('end')) {
-          final start = D4.getRequiredNamedArg<dynamic>(named, 'start', 'BorderRadiusDirectional');
-          final end = D4.getRequiredNamedArg<dynamic>(named, 'end', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.horizontal(start: start, end: end);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final start = D4.getNamedArgWithDefault<Radius>(named, 'start', $dart_ui.Radius.zero);
+        final end = D4.getNamedArgWithDefault<Radius>(named, 'end', $dart_ui.Radius.zero);
+        return $flutter_12.BorderRadiusDirectional.horizontal(start: start, end: end);
       },
       'only': (visitor, positional, named) {
-        if (!named.containsKey('topStart') && !named.containsKey('topEnd') && !named.containsKey('bottomStart') && !named.containsKey('bottomEnd')) {
-          return $flutter_5.BorderRadiusDirectional.only();
-        }
-        if (named.containsKey('topStart') && !named.containsKey('topEnd') && !named.containsKey('bottomStart') && !named.containsKey('bottomEnd')) {
-          final topStart = D4.getRequiredNamedArg<dynamic>(named, 'topStart', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.only(topStart: topStart);
-        }
-        if (!named.containsKey('topStart') && named.containsKey('topEnd') && !named.containsKey('bottomStart') && !named.containsKey('bottomEnd')) {
-          final topEnd = D4.getRequiredNamedArg<dynamic>(named, 'topEnd', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.only(topEnd: topEnd);
-        }
-        if (named.containsKey('topStart') && named.containsKey('topEnd') && !named.containsKey('bottomStart') && !named.containsKey('bottomEnd')) {
-          final topStart = D4.getRequiredNamedArg<dynamic>(named, 'topStart', 'BorderRadiusDirectional');
-          final topEnd = D4.getRequiredNamedArg<dynamic>(named, 'topEnd', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.only(topStart: topStart, topEnd: topEnd);
-        }
-        if (!named.containsKey('topStart') && !named.containsKey('topEnd') && named.containsKey('bottomStart') && !named.containsKey('bottomEnd')) {
-          final bottomStart = D4.getRequiredNamedArg<dynamic>(named, 'bottomStart', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.only(bottomStart: bottomStart);
-        }
-        if (named.containsKey('topStart') && !named.containsKey('topEnd') && named.containsKey('bottomStart') && !named.containsKey('bottomEnd')) {
-          final topStart = D4.getRequiredNamedArg<dynamic>(named, 'topStart', 'BorderRadiusDirectional');
-          final bottomStart = D4.getRequiredNamedArg<dynamic>(named, 'bottomStart', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.only(topStart: topStart, bottomStart: bottomStart);
-        }
-        if (!named.containsKey('topStart') && named.containsKey('topEnd') && named.containsKey('bottomStart') && !named.containsKey('bottomEnd')) {
-          final topEnd = D4.getRequiredNamedArg<dynamic>(named, 'topEnd', 'BorderRadiusDirectional');
-          final bottomStart = D4.getRequiredNamedArg<dynamic>(named, 'bottomStart', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.only(topEnd: topEnd, bottomStart: bottomStart);
-        }
-        if (named.containsKey('topStart') && named.containsKey('topEnd') && named.containsKey('bottomStart') && !named.containsKey('bottomEnd')) {
-          final topStart = D4.getRequiredNamedArg<dynamic>(named, 'topStart', 'BorderRadiusDirectional');
-          final topEnd = D4.getRequiredNamedArg<dynamic>(named, 'topEnd', 'BorderRadiusDirectional');
-          final bottomStart = D4.getRequiredNamedArg<dynamic>(named, 'bottomStart', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.only(topStart: topStart, topEnd: topEnd, bottomStart: bottomStart);
-        }
-        if (!named.containsKey('topStart') && !named.containsKey('topEnd') && !named.containsKey('bottomStart') && named.containsKey('bottomEnd')) {
-          final bottomEnd = D4.getRequiredNamedArg<dynamic>(named, 'bottomEnd', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.only(bottomEnd: bottomEnd);
-        }
-        if (named.containsKey('topStart') && !named.containsKey('topEnd') && !named.containsKey('bottomStart') && named.containsKey('bottomEnd')) {
-          final topStart = D4.getRequiredNamedArg<dynamic>(named, 'topStart', 'BorderRadiusDirectional');
-          final bottomEnd = D4.getRequiredNamedArg<dynamic>(named, 'bottomEnd', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.only(topStart: topStart, bottomEnd: bottomEnd);
-        }
-        if (!named.containsKey('topStart') && named.containsKey('topEnd') && !named.containsKey('bottomStart') && named.containsKey('bottomEnd')) {
-          final topEnd = D4.getRequiredNamedArg<dynamic>(named, 'topEnd', 'BorderRadiusDirectional');
-          final bottomEnd = D4.getRequiredNamedArg<dynamic>(named, 'bottomEnd', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.only(topEnd: topEnd, bottomEnd: bottomEnd);
-        }
-        if (named.containsKey('topStart') && named.containsKey('topEnd') && !named.containsKey('bottomStart') && named.containsKey('bottomEnd')) {
-          final topStart = D4.getRequiredNamedArg<dynamic>(named, 'topStart', 'BorderRadiusDirectional');
-          final topEnd = D4.getRequiredNamedArg<dynamic>(named, 'topEnd', 'BorderRadiusDirectional');
-          final bottomEnd = D4.getRequiredNamedArg<dynamic>(named, 'bottomEnd', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.only(topStart: topStart, topEnd: topEnd, bottomEnd: bottomEnd);
-        }
-        if (!named.containsKey('topStart') && !named.containsKey('topEnd') && named.containsKey('bottomStart') && named.containsKey('bottomEnd')) {
-          final bottomStart = D4.getRequiredNamedArg<dynamic>(named, 'bottomStart', 'BorderRadiusDirectional');
-          final bottomEnd = D4.getRequiredNamedArg<dynamic>(named, 'bottomEnd', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.only(bottomStart: bottomStart, bottomEnd: bottomEnd);
-        }
-        if (named.containsKey('topStart') && !named.containsKey('topEnd') && named.containsKey('bottomStart') && named.containsKey('bottomEnd')) {
-          final topStart = D4.getRequiredNamedArg<dynamic>(named, 'topStart', 'BorderRadiusDirectional');
-          final bottomStart = D4.getRequiredNamedArg<dynamic>(named, 'bottomStart', 'BorderRadiusDirectional');
-          final bottomEnd = D4.getRequiredNamedArg<dynamic>(named, 'bottomEnd', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.only(topStart: topStart, bottomStart: bottomStart, bottomEnd: bottomEnd);
-        }
-        if (!named.containsKey('topStart') && named.containsKey('topEnd') && named.containsKey('bottomStart') && named.containsKey('bottomEnd')) {
-          final topEnd = D4.getRequiredNamedArg<dynamic>(named, 'topEnd', 'BorderRadiusDirectional');
-          final bottomStart = D4.getRequiredNamedArg<dynamic>(named, 'bottomStart', 'BorderRadiusDirectional');
-          final bottomEnd = D4.getRequiredNamedArg<dynamic>(named, 'bottomEnd', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.only(topEnd: topEnd, bottomStart: bottomStart, bottomEnd: bottomEnd);
-        }
-        if (named.containsKey('topStart') && named.containsKey('topEnd') && named.containsKey('bottomStart') && named.containsKey('bottomEnd')) {
-          final topStart = D4.getRequiredNamedArg<dynamic>(named, 'topStart', 'BorderRadiusDirectional');
-          final topEnd = D4.getRequiredNamedArg<dynamic>(named, 'topEnd', 'BorderRadiusDirectional');
-          final bottomStart = D4.getRequiredNamedArg<dynamic>(named, 'bottomStart', 'BorderRadiusDirectional');
-          final bottomEnd = D4.getRequiredNamedArg<dynamic>(named, 'bottomEnd', 'BorderRadiusDirectional');
-          return $flutter_5.BorderRadiusDirectional.only(topStart: topStart, topEnd: topEnd, bottomStart: bottomStart, bottomEnd: bottomEnd);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final topStart = D4.getNamedArgWithDefault<Radius>(named, 'topStart', $dart_ui.Radius.zero);
+        final topEnd = D4.getNamedArgWithDefault<Radius>(named, 'topEnd', $dart_ui.Radius.zero);
+        final bottomStart = D4.getNamedArgWithDefault<Radius>(named, 'bottomStart', $dart_ui.Radius.zero);
+        final bottomEnd = D4.getNamedArgWithDefault<Radius>(named, 'bottomEnd', $dart_ui.Radius.zero);
+        return $flutter_12.BorderRadiusDirectional.only(topStart: topStart, topEnd: topEnd, bottomStart: bottomStart, bottomEnd: bottomEnd);
       },
     },
     getters: {
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_5.BorderRadiusDirectional>(target, 'BorderRadiusDirectional').hashCode,
-      'topStart': (visitor, target) => D4.validateTarget<$flutter_5.BorderRadiusDirectional>(target, 'BorderRadiusDirectional').topStart,
-      'topEnd': (visitor, target) => D4.validateTarget<$flutter_5.BorderRadiusDirectional>(target, 'BorderRadiusDirectional').topEnd,
-      'bottomStart': (visitor, target) => D4.validateTarget<$flutter_5.BorderRadiusDirectional>(target, 'BorderRadiusDirectional').bottomStart,
-      'bottomEnd': (visitor, target) => D4.validateTarget<$flutter_5.BorderRadiusDirectional>(target, 'BorderRadiusDirectional').bottomEnd,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_12.BorderRadiusDirectional>(target, 'BorderRadiusDirectional').hashCode,
+      'topStart': (visitor, target) => D4.validateTarget<$flutter_12.BorderRadiusDirectional>(target, 'BorderRadiusDirectional').topStart,
+      'topEnd': (visitor, target) => D4.validateTarget<$flutter_12.BorderRadiusDirectional>(target, 'BorderRadiusDirectional').topEnd,
+      'bottomStart': (visitor, target) => D4.validateTarget<$flutter_12.BorderRadiusDirectional>(target, 'BorderRadiusDirectional').bottomStart,
+      'bottomEnd': (visitor, target) => D4.validateTarget<$flutter_12.BorderRadiusDirectional>(target, 'BorderRadiusDirectional').bottomEnd,
     },
     methods: {
       'subtract': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
         D4.requireMinArgs(positional, 1, 'subtract');
-        final other = D4.getRequiredArg<$flutter_5.BorderRadiusGeometry>(positional, 0, 'other', 'subtract');
+        final other = D4.getRequiredArg<$flutter_12.BorderRadiusGeometry>(positional, 0, 'other', 'subtract');
         return t.subtract(other);
       },
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
         D4.requireMinArgs(positional, 1, 'add');
-        final other = D4.getRequiredArg<$flutter_5.BorderRadiusGeometry>(positional, 0, 'other', 'add');
+        final other = D4.getRequiredArg<$flutter_12.BorderRadiusGeometry>(positional, 0, 'other', 'add');
         return t.add(other);
       },
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final direction = D4.getRequiredArg<$flutter_5.TextDirection?>(positional, 0, 'direction', 'resolve');
+        final direction = D4.getRequiredArg<TextDirection?>(positional, 0, 'direction', 'resolve');
         return t.resolve(direction);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
         return t.toString();
       },
       '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
         if (positional.isEmpty) {
           // Unary operator
           return -t;
         } else {
           // Binary operator
-          final other = D4.getRequiredArg<$flutter_5.BorderRadiusDirectional>(positional, 0, 'other', 'operator-');
+          final other = D4.getRequiredArg<$flutter_12.BorderRadiusDirectional>(positional, 0, 'other', 'operator-');
           return t - other;
         }
       },
       '*': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
         return t * other;
       },
       '/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator/');
         return t / other;
       },
       '~/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator~/');
         return t ~/ other;
       },
       '%': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator%');
         return t % other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
-        final other = D4.getRequiredArg<$flutter_5.BorderRadiusDirectional>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_12.BorderRadiusDirectional>(target, 'BorderRadiusDirectional');
+        final other = D4.getRequiredArg<$flutter_12.BorderRadiusDirectional>(positional, 0, 'other', 'operator+');
         return t + other;
       },
     },
     staticGetters: {
-      'zero': (visitor) => $flutter_5.BorderRadiusDirectional.zero,
+      'zero': (visitor) => $flutter_12.BorderRadiusDirectional.zero,
     },
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_5.BorderRadiusDirectional?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_5.BorderRadiusDirectional?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_12.BorderRadiusDirectional?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_12.BorderRadiusDirectional?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_5.BorderRadiusDirectional.lerp(a, b, t_);
+        return $flutter_12.BorderRadiusDirectional.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
@@ -2362,7 +2372,7 @@ BridgedClass _createBorderRadiusDirectionalBridge() {
       'circular': 'BorderRadiusDirectional.circular(double radius)',
       'vertical': 'const BorderRadiusDirectional.vertical({Radius top = Radius.zero, Radius bottom = Radius.zero})',
       'horizontal': 'const BorderRadiusDirectional.horizontal({Radius start = Radius.zero, Radius end = Radius.zero})',
-      'only': 'const BorderRadiusDirectional.only({dynamic topStart = Radius.zero, dynamic topEnd = Radius.zero, dynamic bottomStart = Radius.zero, dynamic bottomEnd = Radius.zero})',
+      'only': 'const BorderRadiusDirectional.only({Radius topStart = Radius.zero, Radius topEnd = Radius.zero, Radius bottomStart = Radius.zero, Radius bottomEnd = Radius.zero})',
     },
     methodSignatures: {
       'subtract': 'BorderRadiusGeometry subtract(BorderRadiusGeometry other)',
@@ -2392,113 +2402,110 @@ BridgedClass _createBorderRadiusDirectionalBridge() {
 
 BridgedClass _createBorderSideBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.BorderSide,
+    nativeType: $flutter_13.BorderSide,
     name: 'BorderSide',
     constructors: {
       '': (visitor, positional, named) {
+        final color = D4.getNamedArgWithDefault<Color>(named, 'color', const $dart_ui.Color(0xFF000000));
         final width = D4.getNamedArgWithDefault<double>(named, 'width', 1.0);
-        final style = D4.getNamedArgWithDefault<$flutter_6.BorderStyle>(named, 'style', $flutter_6.BorderStyle.solid);
-        if (!named.containsKey('color') && !named.containsKey('strokeAlign')) {
-          return $flutter_6.BorderSide(width: width, style: style);
+        final style = D4.getNamedArgWithDefault<$flutter_13.BorderStyle>(named, 'style', $flutter_13.BorderStyle.solid);
+        if (!named.containsKey('strokeAlign')) {
+          return $flutter_13.BorderSide(color: color, width: width, style: style);
         }
-        if (named.containsKey('color') && !named.containsKey('strokeAlign')) {
-          final color = D4.getRequiredNamedArg<dynamic>(named, 'color', 'BorderSide');
-          return $flutter_6.BorderSide(width: width, style: style, color: color);
-        }
-        if (!named.containsKey('color') && named.containsKey('strokeAlign')) {
+        if (named.containsKey('strokeAlign')) {
           final strokeAlign = D4.getRequiredNamedArg<double>(named, 'strokeAlign', 'BorderSide');
-          return $flutter_6.BorderSide(width: width, style: style, strokeAlign: strokeAlign);
-        }
-        if (named.containsKey('color') && named.containsKey('strokeAlign')) {
-          final color = D4.getRequiredNamedArg<dynamic>(named, 'color', 'BorderSide');
-          final strokeAlign = D4.getRequiredNamedArg<double>(named, 'strokeAlign', 'BorderSide');
-          return $flutter_6.BorderSide(width: width, style: style, color: color, strokeAlign: strokeAlign);
+          return $flutter_13.BorderSide(color: color, width: width, style: style, strokeAlign: strokeAlign);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
-      'color': (visitor, target) => D4.validateTarget<$flutter_6.BorderSide>(target, 'BorderSide').color,
-      'width': (visitor, target) => D4.validateTarget<$flutter_6.BorderSide>(target, 'BorderSide').width,
-      'style': (visitor, target) => D4.validateTarget<$flutter_6.BorderSide>(target, 'BorderSide').style,
-      'strokeAlign': (visitor, target) => D4.validateTarget<$flutter_6.BorderSide>(target, 'BorderSide').strokeAlign,
-      'strokeInset': (visitor, target) => D4.validateTarget<$flutter_6.BorderSide>(target, 'BorderSide').strokeInset,
-      'strokeOutset': (visitor, target) => D4.validateTarget<$flutter_6.BorderSide>(target, 'BorderSide').strokeOutset,
-      'strokeOffset': (visitor, target) => D4.validateTarget<$flutter_6.BorderSide>(target, 'BorderSide').strokeOffset,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_6.BorderSide>(target, 'BorderSide').hashCode,
+      'color': (visitor, target) => D4.validateTarget<$flutter_13.BorderSide>(target, 'BorderSide').color,
+      'width': (visitor, target) => D4.validateTarget<$flutter_13.BorderSide>(target, 'BorderSide').width,
+      'style': (visitor, target) => D4.validateTarget<$flutter_13.BorderSide>(target, 'BorderSide').style,
+      'strokeAlign': (visitor, target) => D4.validateTarget<$flutter_13.BorderSide>(target, 'BorderSide').strokeAlign,
+      'strokeInset': (visitor, target) => D4.validateTarget<$flutter_13.BorderSide>(target, 'BorderSide').strokeInset,
+      'strokeOutset': (visitor, target) => D4.validateTarget<$flutter_13.BorderSide>(target, 'BorderSide').strokeOutset,
+      'strokeOffset': (visitor, target) => D4.validateTarget<$flutter_13.BorderSide>(target, 'BorderSide').strokeOffset,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_13.BorderSide>(target, 'BorderSide').hashCode,
     },
     methods: {
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.BorderSide>(target, 'BorderSide');
-        final color = D4.getOptionalNamedArg<$flutter_6.Color?>(named, 'color');
+        final t = D4.validateTarget<$flutter_13.BorderSide>(target, 'BorderSide');
+        final color = D4.getOptionalNamedArg<Color?>(named, 'color');
         final width = D4.getOptionalNamedArg<double?>(named, 'width');
-        final style = D4.getOptionalNamedArg<$flutter_6.BorderStyle?>(named, 'style');
+        final style = D4.getOptionalNamedArg<$flutter_13.BorderStyle?>(named, 'style');
         final strokeAlign = D4.getOptionalNamedArg<double?>(named, 'strokeAlign');
         return t.copyWith(color: color, width: width, style: style, strokeAlign: strokeAlign);
       },
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.BorderSide>(target, 'BorderSide');
+        final t = D4.validateTarget<$flutter_13.BorderSide>(target, 'BorderSide');
         D4.requireMinArgs(positional, 1, 'scale');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'scale');
         return t.scale(t_);
       },
       'toPaint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.BorderSide>(target, 'BorderSide');
+        final t = D4.validateTarget<$flutter_13.BorderSide>(target, 'BorderSide');
         return t.toPaint();
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.BorderSide>(target, 'BorderSide');
+        final t = D4.validateTarget<$flutter_13.BorderSide>(target, 'BorderSide');
         return t.toStringShort();
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.BorderSide>(target, 'BorderSide');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$aux_flutter_2.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
-        return null;
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_13.BorderSide>(target, 'BorderSide');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_13.BorderSide>(target, 'BorderSide');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.BorderSide>(target, 'BorderSide');
+        final t = D4.validateTarget<$flutter_13.BorderSide>(target, 'BorderSide');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     staticGetters: {
-      'none': (visitor) => $flutter_6.BorderSide.none,
-      'strokeAlignInside': (visitor) => $flutter_6.BorderSide.strokeAlignInside,
-      'strokeAlignCenter': (visitor) => $flutter_6.BorderSide.strokeAlignCenter,
-      'strokeAlignOutside': (visitor) => $flutter_6.BorderSide.strokeAlignOutside,
+      'none': (visitor) => $flutter_13.BorderSide.none,
+      'strokeAlignInside': (visitor) => $flutter_13.BorderSide.strokeAlignInside,
+      'strokeAlignCenter': (visitor) => $flutter_13.BorderSide.strokeAlignCenter,
+      'strokeAlignOutside': (visitor) => $flutter_13.BorderSide.strokeAlignOutside,
     },
     staticMethods: {
       'merge': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'merge');
-        final a = D4.getRequiredArg<$flutter_6.BorderSide>(positional, 0, 'a', 'merge');
-        final b = D4.getRequiredArg<$flutter_6.BorderSide>(positional, 1, 'b', 'merge');
-        return $flutter_6.BorderSide.merge(a, b);
+        final a = D4.getRequiredArg<$flutter_13.BorderSide>(positional, 0, 'a', 'merge');
+        final b = D4.getRequiredArg<$flutter_13.BorderSide>(positional, 1, 'b', 'merge');
+        return $flutter_13.BorderSide.merge(a, b);
       },
       'canMerge': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'canMerge');
-        final a = D4.getRequiredArg<$flutter_6.BorderSide>(positional, 0, 'a', 'canMerge');
-        final b = D4.getRequiredArg<$flutter_6.BorderSide>(positional, 1, 'b', 'canMerge');
-        return $flutter_6.BorderSide.canMerge(a, b);
+        final a = D4.getRequiredArg<$flutter_13.BorderSide>(positional, 0, 'a', 'canMerge');
+        final b = D4.getRequiredArg<$flutter_13.BorderSide>(positional, 1, 'b', 'canMerge');
+        return $flutter_13.BorderSide.canMerge(a, b);
       },
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_6.BorderSide>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_6.BorderSide>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_13.BorderSide>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_13.BorderSide>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_6.BorderSide.lerp(a, b, t_);
+        return $flutter_13.BorderSide.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
-      '': 'const BorderSide({dynamic color = const Color(0xFF000000), double width = 1.0, BorderStyle style = BorderStyle.solid, double strokeAlign = strokeAlignInside})',
+      '': 'const BorderSide({Color color = const Color(0xFF000000), double width = 1.0, BorderStyle style = BorderStyle.solid, double strokeAlign = strokeAlignInside})',
     },
     methodSignatures: {
       'copyWith': 'BorderSide copyWith({Color? color, double? width, BorderStyle? style, double? strokeAlign})',
       'scale': 'BorderSide scale(double t)',
       'toPaint': 'Paint toPaint()',
       'toStringShort': 'String toStringShort()',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
     },
     getterSignatures: {
       'color': 'Color get color',
@@ -2530,71 +2537,71 @@ BridgedClass _createBorderSideBridge() {
 
 BridgedClass _createShapeBorderBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.ShapeBorder,
+    nativeType: $flutter_13.ShapeBorder,
     name: 'ShapeBorder',
     constructors: {
     },
     getters: {
-      'dimensions': (visitor, target) => D4.validateTarget<$flutter_6.ShapeBorder>(target, 'ShapeBorder').dimensions,
-      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_6.ShapeBorder>(target, 'ShapeBorder').preferPaintInterior,
+      'dimensions': (visitor, target) => D4.validateTarget<$flutter_13.ShapeBorder>(target, 'ShapeBorder').dimensions,
+      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_13.ShapeBorder>(target, 'ShapeBorder').preferPaintInterior,
     },
     methods: {
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.ShapeBorder>(target, 'ShapeBorder');
+        final t = D4.validateTarget<$flutter_13.ShapeBorder>(target, 'ShapeBorder');
         D4.requireMinArgs(positional, 1, 'scale');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'scale');
         return t.scale(t_);
       },
       'getOuterPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.ShapeBorder>(target, 'ShapeBorder');
+        final t = D4.validateTarget<$flutter_13.ShapeBorder>(target, 'ShapeBorder');
         D4.requireMinArgs(positional, 1, 'getOuterPath');
-        final rect = D4.getRequiredArg<$flutter_6.Rect>(positional, 0, 'rect', 'getOuterPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_6.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getOuterPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getOuterPath(rect, textDirection: textDirection);
       },
       'getInnerPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.ShapeBorder>(target, 'ShapeBorder');
+        final t = D4.validateTarget<$flutter_13.ShapeBorder>(target, 'ShapeBorder');
         D4.requireMinArgs(positional, 1, 'getInnerPath');
-        final rect = D4.getRequiredArg<$flutter_6.Rect>(positional, 0, 'rect', 'getInnerPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_6.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getInnerPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getInnerPath(rect, textDirection: textDirection);
       },
       'paintInterior': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.ShapeBorder>(target, 'ShapeBorder');
+        final t = D4.validateTarget<$flutter_13.ShapeBorder>(target, 'ShapeBorder');
         D4.requireMinArgs(positional, 3, 'paintInterior');
-        final canvas = D4.getRequiredArg<$flutter_6.Canvas>(positional, 0, 'canvas', 'paintInterior');
-        final rect = D4.getRequiredArg<$flutter_6.Rect>(positional, 1, 'rect', 'paintInterior');
-        final paint = D4.getRequiredArg<$flutter_6.Paint>(positional, 2, 'paint', 'paintInterior');
-        final textDirection = D4.getOptionalNamedArg<$flutter_6.TextDirection?>(named, 'textDirection');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paintInterior');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paintInterior');
+        final paint = D4.getRequiredArg<Paint>(positional, 2, 'paint', 'paintInterior');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paintInterior(canvas, rect, paint, textDirection: textDirection);
         return null;
       },
       'paint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.ShapeBorder>(target, 'ShapeBorder');
+        final t = D4.validateTarget<$flutter_13.ShapeBorder>(target, 'ShapeBorder');
         D4.requireMinArgs(positional, 2, 'paint');
-        final canvas = D4.getRequiredArg<$flutter_6.Canvas>(positional, 0, 'canvas', 'paint');
-        final rect = D4.getRequiredArg<$flutter_6.Rect>(positional, 1, 'rect', 'paint');
-        final textDirection = D4.getOptionalNamedArg<$flutter_6.TextDirection?>(named, 'textDirection');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paint');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paint');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paint(canvas, rect, textDirection: textDirection);
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.ShapeBorder>(target, 'ShapeBorder');
+        final t = D4.validateTarget<$flutter_13.ShapeBorder>(target, 'ShapeBorder');
         return t.toString();
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.ShapeBorder>(target, 'ShapeBorder');
-        final other = D4.getRequiredArg<$flutter_6.ShapeBorder>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_13.ShapeBorder>(target, 'ShapeBorder');
+        final other = D4.getRequiredArg<$flutter_13.ShapeBorder>(positional, 0, 'other', 'operator+');
         return t + other;
       },
     },
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_6.ShapeBorder.lerp(a, b, t_);
+        return $flutter_13.ShapeBorder.lerp(a, b, t_);
       },
     },
     methodSignatures: {
@@ -2621,85 +2628,85 @@ BridgedClass _createShapeBorderBridge() {
 
 BridgedClass _createOutlinedBorderBridge() {
   return BridgedClass(
-    nativeType: $flutter_6.OutlinedBorder,
+    nativeType: $flutter_13.OutlinedBorder,
     name: 'OutlinedBorder',
     constructors: {
     },
     getters: {
-      'dimensions': (visitor, target) => D4.validateTarget<$flutter_6.OutlinedBorder>(target, 'OutlinedBorder').dimensions,
-      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_6.OutlinedBorder>(target, 'OutlinedBorder').preferPaintInterior,
-      'side': (visitor, target) => D4.validateTarget<$flutter_6.OutlinedBorder>(target, 'OutlinedBorder').side,
+      'dimensions': (visitor, target) => D4.validateTarget<$flutter_13.OutlinedBorder>(target, 'OutlinedBorder').dimensions,
+      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_13.OutlinedBorder>(target, 'OutlinedBorder').preferPaintInterior,
+      'side': (visitor, target) => D4.validateTarget<$flutter_13.OutlinedBorder>(target, 'OutlinedBorder').side,
     },
     methods: {
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.OutlinedBorder>(target, 'OutlinedBorder');
+        final t = D4.validateTarget<$flutter_13.OutlinedBorder>(target, 'OutlinedBorder');
         D4.requireMinArgs(positional, 1, 'scale');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'scale');
         return t.scale(t_);
       },
       'getOuterPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.OutlinedBorder>(target, 'OutlinedBorder');
+        final t = D4.validateTarget<$flutter_13.OutlinedBorder>(target, 'OutlinedBorder');
         D4.requireMinArgs(positional, 1, 'getOuterPath');
-        final rect = D4.getRequiredArg<dynamic>(positional, 0, 'rect', 'getOuterPath');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'getOuterPath', '<default unavailable>');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getOuterPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getOuterPath(rect, textDirection: textDirection);
       },
       'getInnerPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.OutlinedBorder>(target, 'OutlinedBorder');
+        final t = D4.validateTarget<$flutter_13.OutlinedBorder>(target, 'OutlinedBorder');
         D4.requireMinArgs(positional, 1, 'getInnerPath');
-        final rect = D4.getRequiredArg<dynamic>(positional, 0, 'rect', 'getInnerPath');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'getInnerPath', '<default unavailable>');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getInnerPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getInnerPath(rect, textDirection: textDirection);
       },
       'paintInterior': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.OutlinedBorder>(target, 'OutlinedBorder');
+        final t = D4.validateTarget<$flutter_13.OutlinedBorder>(target, 'OutlinedBorder');
         D4.requireMinArgs(positional, 3, 'paintInterior');
-        final canvas = D4.getRequiredArg<dynamic>(positional, 0, 'canvas', 'paintInterior');
-        final rect = D4.getRequiredArg<dynamic>(positional, 1, 'rect', 'paintInterior');
-        final paint = D4.getRequiredArg<dynamic>(positional, 2, 'paint', 'paintInterior');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'paintInterior', '<default unavailable>');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paintInterior');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paintInterior');
+        final paint = D4.getRequiredArg<Paint>(positional, 2, 'paint', 'paintInterior');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paintInterior(canvas, rect, paint, textDirection: textDirection);
         return null;
       },
       'paint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.OutlinedBorder>(target, 'OutlinedBorder');
+        final t = D4.validateTarget<$flutter_13.OutlinedBorder>(target, 'OutlinedBorder');
         D4.requireMinArgs(positional, 2, 'paint');
-        final canvas = D4.getRequiredArg<dynamic>(positional, 0, 'canvas', 'paint');
-        final rect = D4.getRequiredArg<dynamic>(positional, 1, 'rect', 'paint');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'paint', '<default unavailable>');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paint');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paint');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paint(canvas, rect, textDirection: textDirection);
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.OutlinedBorder>(target, 'OutlinedBorder');
+        final t = D4.validateTarget<$flutter_13.OutlinedBorder>(target, 'OutlinedBorder');
         return t.toString();
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.OutlinedBorder>(target, 'OutlinedBorder');
-        final side = D4.getOptionalNamedArg<$flutter_6.BorderSide?>(named, 'side');
+        final t = D4.validateTarget<$flutter_13.OutlinedBorder>(target, 'OutlinedBorder');
+        final side = D4.getOptionalNamedArg<$flutter_13.BorderSide?>(named, 'side');
         return t.copyWith(side: side);
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.OutlinedBorder>(target, 'OutlinedBorder');
-        final other = D4.getRequiredArg<$flutter_6.ShapeBorder>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_13.OutlinedBorder>(target, 'OutlinedBorder');
+        final other = D4.getRequiredArg<$flutter_13.ShapeBorder>(positional, 0, 'other', 'operator+');
         return t + other;
       },
     },
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_6.OutlinedBorder?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_6.OutlinedBorder?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_13.OutlinedBorder?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_13.OutlinedBorder?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_6.OutlinedBorder.lerp(a, b, t_);
+        return $flutter_13.OutlinedBorder.lerp(a, b, t_);
       },
     },
     methodSignatures: {
       'scale': 'ShapeBorder scale(double t)',
-      'getOuterPath': 'InvalidType getOuterPath(InvalidType rect, {InvalidType textDirection})',
-      'getInnerPath': 'InvalidType getInnerPath(InvalidType rect, {InvalidType textDirection})',
-      'paintInterior': 'void paintInterior(InvalidType canvas, InvalidType rect, InvalidType paint, {InvalidType textDirection})',
-      'paint': 'void paint(InvalidType canvas, InvalidType rect, {InvalidType textDirection})',
+      'getOuterPath': 'Path getOuterPath(Rect rect, {TextDirection? textDirection})',
+      'getInnerPath': 'Path getInnerPath(Rect rect, {TextDirection? textDirection})',
+      'paintInterior': 'void paintInterior(Canvas canvas, Rect rect, Paint paint, {TextDirection? textDirection})',
+      'paint': 'void paint(Canvas canvas, Rect rect, {TextDirection? textDirection})',
       'toString': 'String toString()',
       'copyWith': 'OutlinedBorder copyWith({BorderSide? side})',
     },
@@ -2720,121 +2727,121 @@ BridgedClass _createOutlinedBorderBridge() {
 
 BridgedClass _createBoxBorderBridge() {
   return BridgedClass(
-    nativeType: $flutter_7.BoxBorder,
+    nativeType: $flutter_14.BoxBorder,
     name: 'BoxBorder',
     constructors: {
       'fromLTRB': (visitor, positional, named) {
-        final top = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'top', $flutter_6.BorderSide.none);
-        final right = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'right', $flutter_6.BorderSide.none);
-        final bottom = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'bottom', $flutter_6.BorderSide.none);
-        final left = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'left', $flutter_6.BorderSide.none);
-        return $flutter_7.BoxBorder.fromLTRB(top: top, right: right, bottom: bottom, left: left);
+        final top = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'top', $flutter_13.BorderSide.none);
+        final right = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'right', $flutter_13.BorderSide.none);
+        final bottom = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'bottom', $flutter_13.BorderSide.none);
+        final left = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'left', $flutter_13.BorderSide.none);
+        return $flutter_14.BoxBorder.fromLTRB(top: top, right: right, bottom: bottom, left: left);
       },
       'all': (visitor, positional, named) {
-        final color = D4.getRequiredNamedArgTodoDefault<$flutter_7.Color>(named, 'color', 'BoxBorder', '<default unavailable>');
+        final color = D4.getRequiredNamedArgTodoDefault<Color>(named, 'color', 'BoxBorder', '<default unavailable>');
         final width = D4.getRequiredNamedArgTodoDefault<double>(named, 'width', 'BoxBorder', '<default unavailable>');
-        final style = D4.getRequiredNamedArgTodoDefault<$flutter_6.BorderStyle>(named, 'style', 'BoxBorder', '<default unavailable>');
+        final style = D4.getRequiredNamedArgTodoDefault<$flutter_13.BorderStyle>(named, 'style', 'BoxBorder', '<default unavailable>');
         final strokeAlign = D4.getRequiredNamedArgTodoDefault<double>(named, 'strokeAlign', 'BoxBorder', '<default unavailable>');
-        return $flutter_7.BoxBorder.all(color: color, width: width, style: style, strokeAlign: strokeAlign);
+        return $flutter_14.BoxBorder.all(color: color, width: width, style: style, strokeAlign: strokeAlign);
       },
       'fromBorderSide': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BoxBorder');
-        final side = D4.getRequiredArg<$flutter_6.BorderSide>(positional, 0, 'side', 'BoxBorder');
-        return $flutter_7.BoxBorder.fromBorderSide(side);
+        final side = D4.getRequiredArg<$flutter_13.BorderSide>(positional, 0, 'side', 'BoxBorder');
+        return $flutter_14.BoxBorder.fromBorderSide(side);
       },
       'symmetric': (visitor, positional, named) {
-        final vertical = D4.getRequiredNamedArgTodoDefault<$flutter_6.BorderSide>(named, 'vertical', 'BoxBorder', '<default unavailable>');
-        final horizontal = D4.getRequiredNamedArgTodoDefault<$flutter_6.BorderSide>(named, 'horizontal', 'BoxBorder', '<default unavailable>');
-        return $flutter_7.BoxBorder.symmetric(vertical: vertical, horizontal: horizontal);
+        final vertical = D4.getRequiredNamedArgTodoDefault<$flutter_13.BorderSide>(named, 'vertical', 'BoxBorder', '<default unavailable>');
+        final horizontal = D4.getRequiredNamedArgTodoDefault<$flutter_13.BorderSide>(named, 'horizontal', 'BoxBorder', '<default unavailable>');
+        return $flutter_14.BoxBorder.symmetric(vertical: vertical, horizontal: horizontal);
       },
       'fromSTEB': (visitor, positional, named) {
-        final top = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'top', $flutter_6.BorderSide.none);
-        final start = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'start', $flutter_6.BorderSide.none);
-        final end = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'end', $flutter_6.BorderSide.none);
-        final bottom = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'bottom', $flutter_6.BorderSide.none);
-        return $flutter_7.BoxBorder.fromSTEB(top: top, start: start, end: end, bottom: bottom);
+        final top = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'top', $flutter_13.BorderSide.none);
+        final start = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'start', $flutter_13.BorderSide.none);
+        final end = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'end', $flutter_13.BorderSide.none);
+        final bottom = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'bottom', $flutter_13.BorderSide.none);
+        return $flutter_14.BoxBorder.fromSTEB(top: top, start: start, end: end, bottom: bottom);
       },
     },
     getters: {
-      'dimensions': (visitor, target) => D4.validateTarget<$flutter_7.BoxBorder>(target, 'BoxBorder').dimensions,
-      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_7.BoxBorder>(target, 'BoxBorder').preferPaintInterior,
-      'top': (visitor, target) => D4.validateTarget<$flutter_7.BoxBorder>(target, 'BoxBorder').top,
-      'bottom': (visitor, target) => D4.validateTarget<$flutter_7.BoxBorder>(target, 'BoxBorder').bottom,
-      'isUniform': (visitor, target) => D4.validateTarget<$flutter_7.BoxBorder>(target, 'BoxBorder').isUniform,
+      'dimensions': (visitor, target) => D4.validateTarget<$flutter_14.BoxBorder>(target, 'BoxBorder').dimensions,
+      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_14.BoxBorder>(target, 'BoxBorder').preferPaintInterior,
+      'top': (visitor, target) => D4.validateTarget<$flutter_14.BoxBorder>(target, 'BoxBorder').top,
+      'bottom': (visitor, target) => D4.validateTarget<$flutter_14.BoxBorder>(target, 'BoxBorder').bottom,
+      'isUniform': (visitor, target) => D4.validateTarget<$flutter_14.BoxBorder>(target, 'BoxBorder').isUniform,
     },
     methods: {
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.BoxBorder>(target, 'BoxBorder');
+        final t = D4.validateTarget<$flutter_14.BoxBorder>(target, 'BoxBorder');
         D4.requireMinArgs(positional, 1, 'scale');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'scale');
         return t.scale(t_);
       },
       'getOuterPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.BoxBorder>(target, 'BoxBorder');
+        final t = D4.validateTarget<$flutter_14.BoxBorder>(target, 'BoxBorder');
         D4.requireMinArgs(positional, 1, 'getOuterPath');
-        final rect = D4.getRequiredArg<$flutter_7.Rect>(positional, 0, 'rect', 'getOuterPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_7.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getOuterPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getOuterPath(rect, textDirection: textDirection);
       },
       'getInnerPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.BoxBorder>(target, 'BoxBorder');
+        final t = D4.validateTarget<$flutter_14.BoxBorder>(target, 'BoxBorder');
         D4.requireMinArgs(positional, 1, 'getInnerPath');
-        final rect = D4.getRequiredArg<$flutter_7.Rect>(positional, 0, 'rect', 'getInnerPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_7.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getInnerPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getInnerPath(rect, textDirection: textDirection);
       },
       'paintInterior': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.BoxBorder>(target, 'BoxBorder');
+        final t = D4.validateTarget<$flutter_14.BoxBorder>(target, 'BoxBorder');
         D4.requireMinArgs(positional, 3, 'paintInterior');
-        final canvas = D4.getRequiredArg<$flutter_7.Canvas>(positional, 0, 'canvas', 'paintInterior');
-        final rect = D4.getRequiredArg<$flutter_7.Rect>(positional, 1, 'rect', 'paintInterior');
-        final paint = D4.getRequiredArg<$flutter_7.Paint>(positional, 2, 'paint', 'paintInterior');
-        final textDirection = D4.getOptionalNamedArg<$flutter_7.TextDirection?>(named, 'textDirection');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paintInterior');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paintInterior');
+        final paint = D4.getRequiredArg<Paint>(positional, 2, 'paint', 'paintInterior');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paintInterior(canvas, rect, paint, textDirection: textDirection);
         return null;
       },
       'paint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.BoxBorder>(target, 'BoxBorder');
+        final t = D4.validateTarget<$flutter_14.BoxBorder>(target, 'BoxBorder');
         D4.requireMinArgs(positional, 2, 'paint');
-        final canvas = D4.getRequiredArg<$flutter_7.Canvas>(positional, 0, 'canvas', 'paint');
-        final rect = D4.getRequiredArg<$flutter_7.Rect>(positional, 1, 'rect', 'paint');
-        final textDirection = D4.getOptionalNamedArg<$flutter_7.TextDirection?>(named, 'textDirection');
-        final shape = D4.getNamedArgWithDefault<$flutter_7.BoxShape>(named, 'shape', $flutter_7.BoxShape.rectangle);
-        final borderRadius = D4.getOptionalNamedArg<$flutter_5.BorderRadius?>(named, 'borderRadius');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paint');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paint');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
+        final shape = D4.getNamedArgWithDefault<$flutter_14.BoxShape>(named, 'shape', $flutter_14.BoxShape.rectangle);
+        final borderRadius = D4.getOptionalNamedArg<$flutter_12.BorderRadius?>(named, 'borderRadius');
         t.paint(canvas, rect, textDirection: textDirection, shape: shape, borderRadius: borderRadius);
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.BoxBorder>(target, 'BoxBorder');
+        final t = D4.validateTarget<$flutter_14.BoxBorder>(target, 'BoxBorder');
         return t.toString();
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.BoxBorder>(target, 'BoxBorder');
-        final other = D4.getRequiredArg<$flutter_6.ShapeBorder>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_14.BoxBorder>(target, 'BoxBorder');
+        final other = D4.getRequiredArg<$flutter_13.ShapeBorder>(positional, 0, 'other', 'operator+');
         return t + other;
       },
     },
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_7.BoxBorder?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_7.BoxBorder?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_14.BoxBorder?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_14.BoxBorder?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_7.BoxBorder.lerp(a, b, t_);
+        return $flutter_14.BoxBorder.lerp(a, b, t_);
       },
       'paintNonUniformBorder': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'paintNonUniformBorder');
-        final canvas = D4.getRequiredArg<$flutter_7.Canvas>(positional, 0, 'canvas', 'paintNonUniformBorder');
-        final rect = D4.getRequiredArg<$flutter_7.Rect>(positional, 1, 'rect', 'paintNonUniformBorder');
-        final borderRadius = D4.getRequiredNamedArg<$flutter_5.BorderRadius?>(named, 'borderRadius', 'paintNonUniformBorder');
-        final textDirection = D4.getRequiredNamedArg<$flutter_7.TextDirection?>(named, 'textDirection', 'paintNonUniformBorder');
-        final shape = D4.getNamedArgWithDefault<$flutter_7.BoxShape>(named, 'shape', $flutter_7.BoxShape.rectangle);
-        final top = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'top', $flutter_6.BorderSide.none);
-        final right = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'right', $flutter_6.BorderSide.none);
-        final bottom = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'bottom', $flutter_6.BorderSide.none);
-        final left = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'left', $flutter_6.BorderSide.none);
-        final color = D4.getRequiredNamedArg<$flutter_7.Color>(named, 'color', 'paintNonUniformBorder');
-        return $flutter_7.BoxBorder.paintNonUniformBorder(canvas, rect, borderRadius: borderRadius, textDirection: textDirection, shape: shape, top: top, right: right, bottom: bottom, left: left, color: color);
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paintNonUniformBorder');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paintNonUniformBorder');
+        final borderRadius = D4.getRequiredNamedArg<$flutter_12.BorderRadius?>(named, 'borderRadius', 'paintNonUniformBorder');
+        final textDirection = D4.getRequiredNamedArg<TextDirection?>(named, 'textDirection', 'paintNonUniformBorder');
+        final shape = D4.getNamedArgWithDefault<$flutter_14.BoxShape>(named, 'shape', $flutter_14.BoxShape.rectangle);
+        final top = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'top', $flutter_13.BorderSide.none);
+        final right = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'right', $flutter_13.BorderSide.none);
+        final bottom = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'bottom', $flutter_13.BorderSide.none);
+        final left = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'left', $flutter_13.BorderSide.none);
+        final color = D4.getRequiredNamedArg<Color>(named, 'color', 'paintNonUniformBorder');
+        return $flutter_14.BoxBorder.paintNonUniformBorder(canvas, rect, borderRadius: borderRadius, textDirection: textDirection, shape: shape, top: top, right: right, bottom: bottom, left: left, color: color);
       },
     },
     constructorSignatures: {
@@ -2872,110 +2879,104 @@ BridgedClass _createBoxBorderBridge() {
 
 BridgedClass _createBorderBridge() {
   return BridgedClass(
-    nativeType: $flutter_7.Border,
+    nativeType: $flutter_14.Border,
     name: 'Border',
     constructors: {
       '': (visitor, positional, named) {
-        final top = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'top', $flutter_6.BorderSide.none);
-        final right = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'right', $flutter_6.BorderSide.none);
-        final bottom = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'bottom', $flutter_6.BorderSide.none);
-        final left = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'left', $flutter_6.BorderSide.none);
-        return $flutter_7.Border(top: top, right: right, bottom: bottom, left: left);
+        final top = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'top', $flutter_13.BorderSide.none);
+        final right = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'right', $flutter_13.BorderSide.none);
+        final bottom = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'bottom', $flutter_13.BorderSide.none);
+        final left = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'left', $flutter_13.BorderSide.none);
+        return $flutter_14.Border(top: top, right: right, bottom: bottom, left: left);
       },
       'fromBorderSide': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Border');
-        final side = D4.getRequiredArg<$flutter_6.BorderSide>(positional, 0, 'side', 'Border');
-        return $flutter_7.Border.fromBorderSide(side);
+        final side = D4.getRequiredArg<$flutter_13.BorderSide>(positional, 0, 'side', 'Border');
+        return $flutter_14.Border.fromBorderSide(side);
       },
       'symmetric': (visitor, positional, named) {
-        final vertical = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'vertical', $flutter_6.BorderSide.none);
-        final horizontal = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'horizontal', $flutter_6.BorderSide.none);
-        return $flutter_7.Border.symmetric(vertical: vertical, horizontal: horizontal);
+        final vertical = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'vertical', $flutter_13.BorderSide.none);
+        final horizontal = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'horizontal', $flutter_13.BorderSide.none);
+        return $flutter_14.Border.symmetric(vertical: vertical, horizontal: horizontal);
       },
       'all': (visitor, positional, named) {
+        final color = D4.getNamedArgWithDefault<Color>(named, 'color', const $dart_ui.Color(0xFF000000));
         final width = D4.getNamedArgWithDefault<double>(named, 'width', 1.0);
-        final style = D4.getNamedArgWithDefault<$flutter_6.BorderStyle>(named, 'style', $flutter_6.BorderStyle.solid);
-        final strokeAlign = D4.getNamedArgWithDefault<double>(named, 'strokeAlign', $flutter_6.BorderSide.strokeAlignInside);
-        if (!named.containsKey('color')) {
-          return $flutter_7.Border.all(width: width, style: style, strokeAlign: strokeAlign);
-        }
-        if (named.containsKey('color')) {
-          final color = D4.getRequiredNamedArg<dynamic>(named, 'color', 'Border');
-          return $flutter_7.Border.all(width: width, style: style, strokeAlign: strokeAlign, color: color);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final style = D4.getNamedArgWithDefault<$flutter_13.BorderStyle>(named, 'style', $flutter_13.BorderStyle.solid);
+        final strokeAlign = D4.getNamedArgWithDefault<double>(named, 'strokeAlign', $flutter_13.BorderSide.strokeAlignInside);
+        return $flutter_14.Border.all(color: color, width: width, style: style, strokeAlign: strokeAlign);
       },
     },
     getters: {
-      'dimensions': (visitor, target) => D4.validateTarget<$flutter_7.Border>(target, 'Border').dimensions,
-      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_7.Border>(target, 'Border').preferPaintInterior,
-      'top': (visitor, target) => D4.validateTarget<$flutter_7.Border>(target, 'Border').top,
-      'bottom': (visitor, target) => D4.validateTarget<$flutter_7.Border>(target, 'Border').bottom,
-      'isUniform': (visitor, target) => D4.validateTarget<$flutter_7.Border>(target, 'Border').isUniform,
-      'right': (visitor, target) => D4.validateTarget<$flutter_7.Border>(target, 'Border').right,
-      'left': (visitor, target) => D4.validateTarget<$flutter_7.Border>(target, 'Border').left,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_7.Border>(target, 'Border').hashCode,
+      'dimensions': (visitor, target) => D4.validateTarget<$flutter_14.Border>(target, 'Border').dimensions,
+      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_14.Border>(target, 'Border').preferPaintInterior,
+      'top': (visitor, target) => D4.validateTarget<$flutter_14.Border>(target, 'Border').top,
+      'bottom': (visitor, target) => D4.validateTarget<$flutter_14.Border>(target, 'Border').bottom,
+      'isUniform': (visitor, target) => D4.validateTarget<$flutter_14.Border>(target, 'Border').isUniform,
+      'right': (visitor, target) => D4.validateTarget<$flutter_14.Border>(target, 'Border').right,
+      'left': (visitor, target) => D4.validateTarget<$flutter_14.Border>(target, 'Border').left,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_14.Border>(target, 'Border').hashCode,
     },
     methods: {
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.Border>(target, 'Border');
+        final t = D4.validateTarget<$flutter_14.Border>(target, 'Border');
         D4.requireMinArgs(positional, 1, 'scale');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'scale');
         return t.scale(t_);
       },
       'getOuterPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.Border>(target, 'Border');
+        final t = D4.validateTarget<$flutter_14.Border>(target, 'Border');
         D4.requireMinArgs(positional, 1, 'getOuterPath');
-        final rect = D4.getRequiredArg<dynamic>(positional, 0, 'rect', 'getOuterPath');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'getOuterPath', '<default unavailable>');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getOuterPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getOuterPath(rect, textDirection: textDirection);
       },
       'getInnerPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.Border>(target, 'Border');
+        final t = D4.validateTarget<$flutter_14.Border>(target, 'Border');
         D4.requireMinArgs(positional, 1, 'getInnerPath');
-        final rect = D4.getRequiredArg<dynamic>(positional, 0, 'rect', 'getInnerPath');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'getInnerPath', '<default unavailable>');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getInnerPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getInnerPath(rect, textDirection: textDirection);
       },
       'paintInterior': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.Border>(target, 'Border');
+        final t = D4.validateTarget<$flutter_14.Border>(target, 'Border');
         D4.requireMinArgs(positional, 3, 'paintInterior');
-        final canvas = D4.getRequiredArg<dynamic>(positional, 0, 'canvas', 'paintInterior');
-        final rect = D4.getRequiredArg<dynamic>(positional, 1, 'rect', 'paintInterior');
-        final paint = D4.getRequiredArg<dynamic>(positional, 2, 'paint', 'paintInterior');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'paintInterior', '<default unavailable>');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paintInterior');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paintInterior');
+        final paint = D4.getRequiredArg<Paint>(positional, 2, 'paint', 'paintInterior');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paintInterior(canvas, rect, paint, textDirection: textDirection);
         return null;
       },
       'paint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.Border>(target, 'Border');
+        final t = D4.validateTarget<$flutter_14.Border>(target, 'Border');
         D4.requireMinArgs(positional, 2, 'paint');
-        final canvas = D4.getRequiredArg<$flutter_7.Canvas>(positional, 0, 'canvas', 'paint');
-        final rect = D4.getRequiredArg<$flutter_7.Rect>(positional, 1, 'rect', 'paint');
-        final textDirection = D4.getOptionalNamedArg<$flutter_7.TextDirection?>(named, 'textDirection');
-        final shape = D4.getNamedArgWithDefault<$flutter_7.BoxShape>(named, 'shape', $flutter_7.BoxShape.rectangle);
-        final borderRadius = D4.getOptionalNamedArg<$flutter_5.BorderRadius?>(named, 'borderRadius');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paint');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paint');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
+        final shape = D4.getNamedArgWithDefault<$flutter_14.BoxShape>(named, 'shape', $flutter_14.BoxShape.rectangle);
+        final borderRadius = D4.getOptionalNamedArg<$flutter_12.BorderRadius?>(named, 'borderRadius');
         t.paint(canvas, rect, textDirection: textDirection, shape: shape, borderRadius: borderRadius);
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.Border>(target, 'Border');
+        final t = D4.validateTarget<$flutter_14.Border>(target, 'Border');
         return t.toString();
       },
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.Border>(target, 'Border');
+        final t = D4.validateTarget<$flutter_14.Border>(target, 'Border');
         D4.requireMinArgs(positional, 1, 'add');
-        final other = D4.getRequiredArg<$flutter_6.ShapeBorder>(positional, 0, 'other', 'add');
+        final other = D4.getRequiredArg<$flutter_13.ShapeBorder>(positional, 0, 'other', 'add');
         final reversed = D4.getNamedArgWithDefault<bool>(named, 'reversed', false);
         return t.add(other, reversed: reversed);
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.Border>(target, 'Border');
-        final other = D4.getRequiredArg<$flutter_6.ShapeBorder>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_14.Border>(target, 'Border');
+        final other = D4.getRequiredArg<$flutter_13.ShapeBorder>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.Border>(target, 'Border');
+        final t = D4.validateTarget<$flutter_14.Border>(target, 'Border');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2983,16 +2984,16 @@ BridgedClass _createBorderBridge() {
     staticMethods: {
       'merge': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'merge');
-        final a = D4.getRequiredArg<$flutter_7.Border>(positional, 0, 'a', 'merge');
-        final b = D4.getRequiredArg<$flutter_7.Border>(positional, 1, 'b', 'merge');
-        return $flutter_7.Border.merge(a, b);
+        final a = D4.getRequiredArg<$flutter_14.Border>(positional, 0, 'a', 'merge');
+        final b = D4.getRequiredArg<$flutter_14.Border>(positional, 1, 'b', 'merge');
+        return $flutter_14.Border.merge(a, b);
       },
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_7.Border?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_7.Border?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_14.Border?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_14.Border?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_7.Border.lerp(a, b, t_);
+        return $flutter_14.Border.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
@@ -3003,12 +3004,12 @@ BridgedClass _createBorderBridge() {
     },
     methodSignatures: {
       'scale': 'Border scale(double t)',
-      'getOuterPath': 'InvalidType getOuterPath(InvalidType rect, {InvalidType textDirection})',
-      'getInnerPath': 'InvalidType getInnerPath(InvalidType rect, {InvalidType textDirection})',
-      'paintInterior': 'void paintInterior(InvalidType canvas, InvalidType rect, InvalidType paint, {InvalidType textDirection})',
+      'getOuterPath': 'Path getOuterPath(Rect rect, {TextDirection? textDirection})',
+      'getInnerPath': 'Path getInnerPath(Rect rect, {TextDirection? textDirection})',
+      'paintInterior': 'void paintInterior(Canvas canvas, Rect rect, Paint paint, {TextDirection? textDirection})',
       'paint': 'void paint(Canvas canvas, Rect rect, {TextDirection? textDirection, BoxShape shape = BoxShape.rectangle, BorderRadius? borderRadius})',
       'toString': 'String toString()',
-      'add': 'BoxBorder? add(ShapeBorder other, {bool reversed = false})',
+      'add': 'Border? add(ShapeBorder other, {bool reversed = false})',
     },
     getterSignatures: {
       'dimensions': 'EdgeInsetsGeometry get dimensions',
@@ -3033,87 +3034,87 @@ BridgedClass _createBorderBridge() {
 
 BridgedClass _createBorderDirectionalBridge() {
   return BridgedClass(
-    nativeType: $flutter_7.BorderDirectional,
+    nativeType: $flutter_14.BorderDirectional,
     name: 'BorderDirectional',
     constructors: {
       '': (visitor, positional, named) {
-        final top = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'top', $flutter_6.BorderSide.none);
-        final start = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'start', $flutter_6.BorderSide.none);
-        final end = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'end', $flutter_6.BorderSide.none);
-        final bottom = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'bottom', $flutter_6.BorderSide.none);
-        return $flutter_7.BorderDirectional(top: top, start: start, end: end, bottom: bottom);
+        final top = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'top', $flutter_13.BorderSide.none);
+        final start = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'start', $flutter_13.BorderSide.none);
+        final end = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'end', $flutter_13.BorderSide.none);
+        final bottom = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'bottom', $flutter_13.BorderSide.none);
+        return $flutter_14.BorderDirectional(top: top, start: start, end: end, bottom: bottom);
       },
     },
     getters: {
-      'dimensions': (visitor, target) => D4.validateTarget<$flutter_7.BorderDirectional>(target, 'BorderDirectional').dimensions,
-      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_7.BorderDirectional>(target, 'BorderDirectional').preferPaintInterior,
-      'top': (visitor, target) => D4.validateTarget<$flutter_7.BorderDirectional>(target, 'BorderDirectional').top,
-      'bottom': (visitor, target) => D4.validateTarget<$flutter_7.BorderDirectional>(target, 'BorderDirectional').bottom,
-      'isUniform': (visitor, target) => D4.validateTarget<$flutter_7.BorderDirectional>(target, 'BorderDirectional').isUniform,
-      'start': (visitor, target) => D4.validateTarget<$flutter_7.BorderDirectional>(target, 'BorderDirectional').start,
-      'end': (visitor, target) => D4.validateTarget<$flutter_7.BorderDirectional>(target, 'BorderDirectional').end,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_7.BorderDirectional>(target, 'BorderDirectional').hashCode,
+      'dimensions': (visitor, target) => D4.validateTarget<$flutter_14.BorderDirectional>(target, 'BorderDirectional').dimensions,
+      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_14.BorderDirectional>(target, 'BorderDirectional').preferPaintInterior,
+      'top': (visitor, target) => D4.validateTarget<$flutter_14.BorderDirectional>(target, 'BorderDirectional').top,
+      'bottom': (visitor, target) => D4.validateTarget<$flutter_14.BorderDirectional>(target, 'BorderDirectional').bottom,
+      'isUniform': (visitor, target) => D4.validateTarget<$flutter_14.BorderDirectional>(target, 'BorderDirectional').isUniform,
+      'start': (visitor, target) => D4.validateTarget<$flutter_14.BorderDirectional>(target, 'BorderDirectional').start,
+      'end': (visitor, target) => D4.validateTarget<$flutter_14.BorderDirectional>(target, 'BorderDirectional').end,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_14.BorderDirectional>(target, 'BorderDirectional').hashCode,
     },
     methods: {
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.BorderDirectional>(target, 'BorderDirectional');
+        final t = D4.validateTarget<$flutter_14.BorderDirectional>(target, 'BorderDirectional');
         D4.requireMinArgs(positional, 1, 'scale');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'scale');
         return t.scale(t_);
       },
       'getOuterPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.BorderDirectional>(target, 'BorderDirectional');
+        final t = D4.validateTarget<$flutter_14.BorderDirectional>(target, 'BorderDirectional');
         D4.requireMinArgs(positional, 1, 'getOuterPath');
-        final rect = D4.getRequiredArg<dynamic>(positional, 0, 'rect', 'getOuterPath');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'getOuterPath', '<default unavailable>');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getOuterPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getOuterPath(rect, textDirection: textDirection);
       },
       'getInnerPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.BorderDirectional>(target, 'BorderDirectional');
+        final t = D4.validateTarget<$flutter_14.BorderDirectional>(target, 'BorderDirectional');
         D4.requireMinArgs(positional, 1, 'getInnerPath');
-        final rect = D4.getRequiredArg<dynamic>(positional, 0, 'rect', 'getInnerPath');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'getInnerPath', '<default unavailable>');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getInnerPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getInnerPath(rect, textDirection: textDirection);
       },
       'paintInterior': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.BorderDirectional>(target, 'BorderDirectional');
+        final t = D4.validateTarget<$flutter_14.BorderDirectional>(target, 'BorderDirectional');
         D4.requireMinArgs(positional, 3, 'paintInterior');
-        final canvas = D4.getRequiredArg<dynamic>(positional, 0, 'canvas', 'paintInterior');
-        final rect = D4.getRequiredArg<dynamic>(positional, 1, 'rect', 'paintInterior');
-        final paint = D4.getRequiredArg<dynamic>(positional, 2, 'paint', 'paintInterior');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'paintInterior', '<default unavailable>');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paintInterior');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paintInterior');
+        final paint = D4.getRequiredArg<Paint>(positional, 2, 'paint', 'paintInterior');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paintInterior(canvas, rect, paint, textDirection: textDirection);
         return null;
       },
       'paint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.BorderDirectional>(target, 'BorderDirectional');
+        final t = D4.validateTarget<$flutter_14.BorderDirectional>(target, 'BorderDirectional');
         D4.requireMinArgs(positional, 2, 'paint');
-        final canvas = D4.getRequiredArg<$flutter_7.Canvas>(positional, 0, 'canvas', 'paint');
-        final rect = D4.getRequiredArg<$flutter_7.Rect>(positional, 1, 'rect', 'paint');
-        final textDirection = D4.getOptionalNamedArg<$flutter_7.TextDirection?>(named, 'textDirection');
-        final shape = D4.getNamedArgWithDefault<$flutter_7.BoxShape>(named, 'shape', $flutter_7.BoxShape.rectangle);
-        final borderRadius = D4.getOptionalNamedArg<$flutter_5.BorderRadius?>(named, 'borderRadius');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paint');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paint');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
+        final shape = D4.getNamedArgWithDefault<$flutter_14.BoxShape>(named, 'shape', $flutter_14.BoxShape.rectangle);
+        final borderRadius = D4.getOptionalNamedArg<$flutter_12.BorderRadius?>(named, 'borderRadius');
         t.paint(canvas, rect, textDirection: textDirection, shape: shape, borderRadius: borderRadius);
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.BorderDirectional>(target, 'BorderDirectional');
+        final t = D4.validateTarget<$flutter_14.BorderDirectional>(target, 'BorderDirectional');
         return t.toString();
       },
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.BorderDirectional>(target, 'BorderDirectional');
+        final t = D4.validateTarget<$flutter_14.BorderDirectional>(target, 'BorderDirectional');
         D4.requireMinArgs(positional, 1, 'add');
-        final other = D4.getRequiredArg<$flutter_6.ShapeBorder>(positional, 0, 'other', 'add');
+        final other = D4.getRequiredArg<$flutter_13.ShapeBorder>(positional, 0, 'other', 'add');
         final reversed = D4.getNamedArgWithDefault<bool>(named, 'reversed', false);
         return t.add(other, reversed: reversed);
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.BorderDirectional>(target, 'BorderDirectional');
-        final other = D4.getRequiredArg<$flutter_6.ShapeBorder>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_14.BorderDirectional>(target, 'BorderDirectional');
+        final other = D4.getRequiredArg<$flutter_13.ShapeBorder>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.BorderDirectional>(target, 'BorderDirectional');
+        final t = D4.validateTarget<$flutter_14.BorderDirectional>(target, 'BorderDirectional');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3121,16 +3122,16 @@ BridgedClass _createBorderDirectionalBridge() {
     staticMethods: {
       'merge': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'merge');
-        final a = D4.getRequiredArg<$flutter_7.BorderDirectional>(positional, 0, 'a', 'merge');
-        final b = D4.getRequiredArg<$flutter_7.BorderDirectional>(positional, 1, 'b', 'merge');
-        return $flutter_7.BorderDirectional.merge(a, b);
+        final a = D4.getRequiredArg<$flutter_14.BorderDirectional>(positional, 0, 'a', 'merge');
+        final b = D4.getRequiredArg<$flutter_14.BorderDirectional>(positional, 1, 'b', 'merge');
+        return $flutter_14.BorderDirectional.merge(a, b);
       },
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_7.BorderDirectional?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_7.BorderDirectional?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_14.BorderDirectional?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_14.BorderDirectional?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_7.BorderDirectional.lerp(a, b, t_);
+        return $flutter_14.BorderDirectional.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
@@ -3138,9 +3139,9 @@ BridgedClass _createBorderDirectionalBridge() {
     },
     methodSignatures: {
       'scale': 'BorderDirectional scale(double t)',
-      'getOuterPath': 'InvalidType getOuterPath(InvalidType rect, {InvalidType textDirection})',
-      'getInnerPath': 'InvalidType getInnerPath(InvalidType rect, {InvalidType textDirection})',
-      'paintInterior': 'void paintInterior(InvalidType canvas, InvalidType rect, InvalidType paint, {InvalidType textDirection})',
+      'getOuterPath': 'Path getOuterPath(Rect rect, {TextDirection? textDirection})',
+      'getInnerPath': 'Path getInnerPath(Rect rect, {TextDirection? textDirection})',
+      'paintInterior': 'void paintInterior(Canvas canvas, Rect rect, Paint paint, {TextDirection? textDirection})',
       'paint': 'void paint(Canvas canvas, Rect rect, {TextDirection? textDirection, BoxShape shape = BoxShape.rectangle, BorderRadius? borderRadius})',
       'toString': 'String toString()',
       'add': 'BoxBorder? add(ShapeBorder other, {bool reversed = false})',
@@ -3168,90 +3169,94 @@ BridgedClass _createBorderDirectionalBridge() {
 
 BridgedClass _createBoxDecorationBridge() {
   return BridgedClass(
-    nativeType: $flutter_8.BoxDecoration,
+    nativeType: $flutter_15.BoxDecoration,
     name: 'BoxDecoration',
     constructors: {
       '': (visitor, positional, named) {
-        final color = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'color', 'BoxDecoration', '<default unavailable>');
-        final image = D4.getOptionalNamedArg<$flutter_17.DecorationImage?>(named, 'image');
-        final border = D4.getOptionalNamedArg<$flutter_7.BoxBorder?>(named, 'border');
-        final borderRadius = D4.getOptionalNamedArg<$flutter_5.BorderRadiusGeometry?>(named, 'borderRadius');
-        final boxShadow = D4.coerceListOrNull<$flutter_10.BoxShadow>(named['boxShadow'], 'boxShadow');
-        final gradient = D4.getOptionalNamedArg<$flutter_22.Gradient?>(named, 'gradient');
-        final backgroundBlendMode = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'backgroundBlendMode', 'BoxDecoration', '<default unavailable>');
-        final shape = D4.getNamedArgWithDefault<$flutter_7.BoxShape>(named, 'shape', $flutter_7.BoxShape.rectangle);
-        return $flutter_8.BoxDecoration(color: color, image: image, border: border, borderRadius: borderRadius, boxShadow: boxShadow, gradient: gradient, backgroundBlendMode: backgroundBlendMode, shape: shape);
+        final color = D4.getOptionalNamedArg<Color?>(named, 'color');
+        final image = D4.getOptionalNamedArg<$flutter_24.DecorationImage?>(named, 'image');
+        final border = D4.getOptionalNamedArg<$flutter_14.BoxBorder?>(named, 'border');
+        final borderRadius = D4.getOptionalNamedArg<$flutter_12.BorderRadiusGeometry?>(named, 'borderRadius');
+        final boxShadow = D4.coerceListOrNull<$flutter_17.BoxShadow>(named['boxShadow'], 'boxShadow');
+        final gradient = D4.getOptionalNamedArg<$flutter_29.Gradient?>(named, 'gradient');
+        final backgroundBlendMode = D4.getOptionalNamedArg<BlendMode?>(named, 'backgroundBlendMode');
+        final shape = D4.getNamedArgWithDefault<$flutter_14.BoxShape>(named, 'shape', $flutter_14.BoxShape.rectangle);
+        return $flutter_15.BoxDecoration(color: color, image: image, border: border, borderRadius: borderRadius, boxShadow: boxShadow, gradient: gradient, backgroundBlendMode: backgroundBlendMode, shape: shape);
       },
     },
     getters: {
-      'padding': (visitor, target) => D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration').padding,
-      'isComplex': (visitor, target) => D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration').isComplex,
-      'color': (visitor, target) => D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration').color,
-      'image': (visitor, target) => D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration').image,
-      'border': (visitor, target) => D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration').border,
-      'borderRadius': (visitor, target) => D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration').borderRadius,
-      'boxShadow': (visitor, target) => D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration').boxShadow,
-      'gradient': (visitor, target) => D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration').gradient,
-      'backgroundBlendMode': (visitor, target) => D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration').backgroundBlendMode,
-      'shape': (visitor, target) => D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration').shape,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration').hashCode,
+      'padding': (visitor, target) => D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration').padding,
+      'isComplex': (visitor, target) => D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration').isComplex,
+      'color': (visitor, target) => D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration').color,
+      'image': (visitor, target) => D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration').image,
+      'border': (visitor, target) => D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration').border,
+      'borderRadius': (visitor, target) => D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration').borderRadius,
+      'boxShadow': (visitor, target) => D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration').boxShadow,
+      'gradient': (visitor, target) => D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration').gradient,
+      'backgroundBlendMode': (visitor, target) => D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration').backgroundBlendMode,
+      'shape': (visitor, target) => D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration').shape,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration').hashCode,
     },
     methods: {
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration');
+        final t = D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration');
         return t.toStringShort();
       },
       'debugAssertIsValid': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration');
+        final t = D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration');
         return t.debugAssertIsValid();
       },
       'hitTest': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration');
+        final t = D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration');
         D4.requireMinArgs(positional, 2, 'hitTest');
-        final size = D4.getRequiredArg<$flutter_8.Size>(positional, 0, 'size', 'hitTest');
-        final position = D4.getRequiredArg<$flutter_8.Offset>(positional, 1, 'position', 'hitTest');
-        final textDirection = D4.getOptionalNamedArg<$flutter_8.TextDirection?>(named, 'textDirection');
+        final size = D4.getRequiredArg<Size>(positional, 0, 'size', 'hitTest');
+        final position = D4.getRequiredArg<Offset>(positional, 1, 'position', 'hitTest');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.hitTest(size, position, textDirection: textDirection);
       },
       'createBoxPainter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration');
+        final t = D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration');
         final onChangedRaw = positional.isNotEmpty ? positional[0] : null;
         return t.createBoxPainter(onChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor, onChangedRaw, []); });
       },
       'getClipPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration');
+        final t = D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration');
         D4.requireMinArgs(positional, 2, 'getClipPath');
-        final rect = D4.getRequiredArg<$flutter_8.Rect>(positional, 0, 'rect', 'getClipPath');
-        final textDirection = D4.getRequiredArg<$flutter_8.TextDirection>(positional, 1, 'textDirection', 'getClipPath');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getClipPath');
+        final textDirection = D4.getRequiredArg<TextDirection>(positional, 1, 'textDirection', 'getClipPath');
         return t.getClipPath(rect, textDirection);
       },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration');
-        final color = D4.getOptionalNamedArg<$flutter_8.Color?>(named, 'color');
-        final image = D4.getOptionalNamedArg<$flutter_17.DecorationImage?>(named, 'image');
-        final border = D4.getOptionalNamedArg<$flutter_7.BoxBorder?>(named, 'border');
-        final borderRadius = D4.getOptionalNamedArg<$flutter_5.BorderRadiusGeometry?>(named, 'borderRadius');
-        final boxShadow = D4.coerceListOrNull<$flutter_10.BoxShadow>(named['boxShadow'], 'boxShadow');
-        final gradient = D4.getOptionalNamedArg<$flutter_22.Gradient?>(named, 'gradient');
-        final backgroundBlendMode = D4.getOptionalNamedArg<$flutter_8.BlendMode?>(named, 'backgroundBlendMode');
-        final shape = D4.getOptionalNamedArg<$flutter_7.BoxShape?>(named, 'shape');
+        final t = D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration');
+        final color = D4.getOptionalNamedArg<Color?>(named, 'color');
+        final image = D4.getOptionalNamedArg<$flutter_24.DecorationImage?>(named, 'image');
+        final border = D4.getOptionalNamedArg<$flutter_14.BoxBorder?>(named, 'border');
+        final borderRadius = D4.getOptionalNamedArg<$flutter_12.BorderRadiusGeometry?>(named, 'borderRadius');
+        final boxShadow = D4.coerceListOrNull<$flutter_17.BoxShadow>(named['boxShadow'], 'boxShadow');
+        final gradient = D4.getOptionalNamedArg<$flutter_29.Gradient?>(named, 'gradient');
+        final backgroundBlendMode = D4.getOptionalNamedArg<BlendMode?>(named, 'backgroundBlendMode');
+        final shape = D4.getOptionalNamedArg<$flutter_14.BoxShape?>(named, 'shape');
         return t.copyWith(color: color, image: image, border: border, borderRadius: borderRadius, boxShadow: boxShadow, gradient: gradient, backgroundBlendMode: backgroundBlendMode, shape: shape);
       },
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration');
+        final t = D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration');
         D4.requireMinArgs(positional, 1, 'scale');
         final factor = D4.getRequiredArg<double>(positional, 0, 'factor', 'scale');
         return t.scale(factor);
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$aux_flutter_2.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
-        return null;
-      },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.BoxDecoration>(target, 'BoxDecoration');
+        final t = D4.validateTarget<$flutter_15.BoxDecoration>(target, 'BoxDecoration');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3259,14 +3264,14 @@ BridgedClass _createBoxDecorationBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_8.BoxDecoration?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_8.BoxDecoration?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_15.BoxDecoration?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_15.BoxDecoration?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_8.BoxDecoration.lerp(a, b, t_);
+        return $flutter_15.BoxDecoration.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
-      '': 'const BoxDecoration({dynamic color, DecorationImage? image, BoxBorder? border, BorderRadiusGeometry? borderRadius, List<BoxShadow>? boxShadow, Gradient? gradient, dynamic backgroundBlendMode, BoxShape shape = BoxShape.rectangle})',
+      '': 'const BoxDecoration({Color? color, DecorationImage? image, BoxBorder? border, BorderRadiusGeometry? borderRadius, List<BoxShadow>? boxShadow, Gradient? gradient, BlendMode? backgroundBlendMode, BoxShape shape = BoxShape.rectangle})',
     },
     methodSignatures: {
       'toStringShort': 'String toStringShort()',
@@ -3274,9 +3279,10 @@ BridgedClass _createBoxDecorationBridge() {
       'hitTest': 'bool hitTest(Size size, Offset position, {TextDirection? textDirection})',
       'createBoxPainter': 'BoxPainter createBoxPainter([VoidCallback? onChanged])',
       'getClipPath': 'Path getClipPath(Rect rect, TextDirection textDirection)',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'copyWith': 'BoxDecoration copyWith({Color? color, DecorationImage? image, BoxBorder? border, BorderRadiusGeometry? borderRadius, List<BoxShadow>? boxShadow, Gradient? gradient, BlendMode? backgroundBlendMode, BoxShape? shape})',
       'scale': 'BoxDecoration scale(double factor)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
     getterSignatures: {
       'padding': 'EdgeInsetsGeometry get padding',
@@ -3303,22 +3309,22 @@ BridgedClass _createBoxDecorationBridge() {
 
 BridgedClass _createFittedSizesBridge() {
   return BridgedClass(
-    nativeType: $flutter_9.FittedSizes,
+    nativeType: $flutter_16.FittedSizes,
     name: 'FittedSizes',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'FittedSizes');
-        final source = D4.getRequiredArg<dynamic>(positional, 0, 'source', 'FittedSizes');
-        final destination = D4.getRequiredArg<dynamic>(positional, 1, 'destination', 'FittedSizes');
-        return $flutter_9.FittedSizes(source, destination);
+        final source = D4.getRequiredArg<Size>(positional, 0, 'source', 'FittedSizes');
+        final destination = D4.getRequiredArg<Size>(positional, 1, 'destination', 'FittedSizes');
+        return $flutter_16.FittedSizes(source, destination);
       },
     },
     getters: {
-      'source': (visitor, target) => D4.validateTarget<$flutter_9.FittedSizes>(target, 'FittedSizes').source,
-      'destination': (visitor, target) => D4.validateTarget<$flutter_9.FittedSizes>(target, 'FittedSizes').destination,
+      'source': (visitor, target) => D4.validateTarget<$flutter_16.FittedSizes>(target, 'FittedSizes').source,
+      'destination': (visitor, target) => D4.validateTarget<$flutter_16.FittedSizes>(target, 'FittedSizes').destination,
     },
     constructorSignatures: {
-      '': 'const FittedSizes(dynamic source, dynamic destination)',
+      '': 'const FittedSizes(Size source, Size destination)',
     },
     getterSignatures: {
       'source': 'Size get source',
@@ -3333,55 +3339,59 @@ BridgedClass _createFittedSizesBridge() {
 
 BridgedClass _createBoxShadowBridge() {
   return BridgedClass(
-    nativeType: $flutter_10.BoxShadow,
+    nativeType: $flutter_17.BoxShadow,
     name: 'BoxShadow',
     constructors: {
       '': (visitor, positional, named) {
-        final color = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'color', 'BoxShadow', '<default unavailable>');
-        final offset = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'offset', 'BoxShadow', '<default unavailable>');
-        final blurRadius = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'blurRadius', 'BoxShadow', '<default unavailable>');
+        final offset = D4.getNamedArgWithDefault<Offset>(named, 'offset', $dart_ui.Offset.zero);
+        final blurRadius = D4.getNamedArgWithDefault<double>(named, 'blurRadius', 0.0);
         final spreadRadius = D4.getNamedArgWithDefault<double>(named, 'spreadRadius', 0.0);
-        if (!named.containsKey('blurStyle')) {
-          return $flutter_10.BoxShadow(color: color, offset: offset, blurRadius: blurRadius, spreadRadius: spreadRadius);
+        final blurStyle = D4.getNamedArgWithDefault<BlurStyle>(named, 'blurStyle', $dart_ui.BlurStyle.normal);
+        if (!named.containsKey('color')) {
+          return $flutter_17.BoxShadow(offset: offset, blurRadius: blurRadius, spreadRadius: spreadRadius, blurStyle: blurStyle);
         }
-        if (named.containsKey('blurStyle')) {
-          final blurStyle = D4.getRequiredNamedArg<dynamic>(named, 'blurStyle', 'BoxShadow');
-          return $flutter_10.BoxShadow(color: color, offset: offset, blurRadius: blurRadius, spreadRadius: spreadRadius, blurStyle: blurStyle);
+        if (named.containsKey('color')) {
+          final color = D4.getRequiredNamedArg<Color>(named, 'color', 'BoxShadow');
+          return $flutter_17.BoxShadow(offset: offset, blurRadius: blurRadius, spreadRadius: spreadRadius, blurStyle: blurStyle, color: color);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
-      'spreadRadius': (visitor, target) => D4.validateTarget<$flutter_10.BoxShadow>(target, 'BoxShadow').spreadRadius,
-      'blurStyle': (visitor, target) => D4.validateTarget<$flutter_10.BoxShadow>(target, 'BoxShadow').blurStyle,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_10.BoxShadow>(target, 'BoxShadow').hashCode,
+      'spreadRadius': (visitor, target) => D4.validateTarget<$flutter_17.BoxShadow>(target, 'BoxShadow').spreadRadius,
+      'blurStyle': (visitor, target) => D4.validateTarget<$flutter_17.BoxShadow>(target, 'BoxShadow').blurStyle,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_17.BoxShadow>(target, 'BoxShadow').hashCode,
+      'color': (visitor, target) => D4.validateTarget<$flutter_17.BoxShadow>(target, 'BoxShadow').color,
+      'offset': (visitor, target) => D4.validateTarget<$flutter_17.BoxShadow>(target, 'BoxShadow').offset,
+      'blurRadius': (visitor, target) => D4.validateTarget<$flutter_17.BoxShadow>(target, 'BoxShadow').blurRadius,
+      'blurSigma': (visitor, target) => D4.validateTarget<$flutter_17.BoxShadow>(target, 'BoxShadow').blurSigma,
     },
     methods: {
       'toPaint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.BoxShadow>(target, 'BoxShadow');
+        final t = D4.validateTarget<$flutter_17.BoxShadow>(target, 'BoxShadow');
         return t.toPaint();
       },
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.BoxShadow>(target, 'BoxShadow');
+        final t = D4.validateTarget<$flutter_17.BoxShadow>(target, 'BoxShadow');
         D4.requireMinArgs(positional, 1, 'scale');
         final factor = D4.getRequiredArg<double>(positional, 0, 'factor', 'scale');
         return t.scale(factor);
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.BoxShadow>(target, 'BoxShadow');
-        final color = D4.getOptionalNamedArg<$flutter_10.Color?>(named, 'color');
-        final offset = D4.getOptionalNamedArg<$flutter_10.Offset?>(named, 'offset');
+        final t = D4.validateTarget<$flutter_17.BoxShadow>(target, 'BoxShadow');
+        final color = D4.getOptionalNamedArg<Color?>(named, 'color');
+        final offset = D4.getOptionalNamedArg<Offset?>(named, 'offset');
         final blurRadius = D4.getOptionalNamedArg<double?>(named, 'blurRadius');
         final spreadRadius = D4.getOptionalNamedArg<double?>(named, 'spreadRadius');
-        final blurStyle = D4.getOptionalNamedArg<$flutter_10.BlurStyle?>(named, 'blurStyle');
+        final blurStyle = D4.getOptionalNamedArg<BlurStyle?>(named, 'blurStyle');
         return t.copyWith(color: color, offset: offset, blurRadius: blurRadius, spreadRadius: spreadRadius, blurStyle: blurStyle);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.BoxShadow>(target, 'BoxShadow');
+        final t = D4.validateTarget<$flutter_17.BoxShadow>(target, 'BoxShadow');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.BoxShadow>(target, 'BoxShadow');
+        final t = D4.validateTarget<$flutter_17.BoxShadow>(target, 'BoxShadow');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3389,27 +3399,27 @@ BridgedClass _createBoxShadowBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_10.BoxShadow?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_10.BoxShadow?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_17.BoxShadow?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_17.BoxShadow?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_10.BoxShadow.lerp(a, b, t_);
+        return $flutter_17.BoxShadow.lerp(a, b, t_);
       },
       'lerpList': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerpList');
         if (positional.isEmpty) {
           throw ArgumentError('lerpList: Missing required argument "a" at position 0');
         }
-        final a = D4.coerceListOrNull<$flutter_10.BoxShadow>(positional[0], 'a');
+        final a = D4.coerceListOrNull<$flutter_17.BoxShadow>(positional[0], 'a');
         if (positional.length <= 1) {
           throw ArgumentError('lerpList: Missing required argument "b" at position 1');
         }
-        final b = D4.coerceListOrNull<$flutter_10.BoxShadow>(positional[1], 'b');
+        final b = D4.coerceListOrNull<$flutter_17.BoxShadow>(positional[1], 'b');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerpList');
-        return $flutter_10.BoxShadow.lerpList(a, b, t_);
+        return $flutter_17.BoxShadow.lerpList(a, b, t_);
       },
     },
     constructorSignatures: {
-      '': 'const BoxShadow({dynamic color, dynamic offset, dynamic blurRadius, double spreadRadius = 0.0, dynamic blurStyle = BlurStyle.normal})',
+      '': 'const BoxShadow({Color color = const Color(_kColorDefault), Offset offset = Offset.zero, double blurRadius = 0.0, double spreadRadius = 0.0, BlurStyle blurStyle = BlurStyle.normal})',
     },
     methodSignatures: {
       'toPaint': 'Paint toPaint()',
@@ -3421,6 +3431,10 @@ BridgedClass _createBoxShadowBridge() {
       'spreadRadius': 'double get spreadRadius',
       'blurStyle': 'BlurStyle get blurStyle',
       'hashCode': 'int get hashCode',
+      'color': 'Color get color',
+      'offset': 'Offset get offset',
+      'blurRadius': 'double get blurRadius',
+      'blurSigma': 'double get blurSigma',
     },
     staticMethodSignatures: {
       'lerp': 'BoxShadow? lerp(BoxShadow? a, BoxShadow? b, double t)',
@@ -3435,93 +3449,93 @@ BridgedClass _createBoxShadowBridge() {
 
 BridgedClass _createCircleBorderBridge() {
   return BridgedClass(
-    nativeType: $flutter_11.CircleBorder,
+    nativeType: $flutter_18.CircleBorder,
     name: 'CircleBorder',
     constructors: {
       '': (visitor, positional, named) {
-        final side = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'side', $flutter_6.BorderSide.none);
+        final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
         final eccentricity = D4.getNamedArgWithDefault<double>(named, 'eccentricity', 0.0);
-        return $flutter_11.CircleBorder(side: side, eccentricity: eccentricity);
+        return $flutter_18.CircleBorder(side: side, eccentricity: eccentricity);
       },
     },
     getters: {
-      'dimensions': (visitor, target) => D4.validateTarget<$flutter_11.CircleBorder>(target, 'CircleBorder').dimensions,
-      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_11.CircleBorder>(target, 'CircleBorder').preferPaintInterior,
-      'side': (visitor, target) => D4.validateTarget<$flutter_11.CircleBorder>(target, 'CircleBorder').side,
-      'eccentricity': (visitor, target) => D4.validateTarget<$flutter_11.CircleBorder>(target, 'CircleBorder').eccentricity,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_11.CircleBorder>(target, 'CircleBorder').hashCode,
+      'dimensions': (visitor, target) => D4.validateTarget<$flutter_18.CircleBorder>(target, 'CircleBorder').dimensions,
+      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_18.CircleBorder>(target, 'CircleBorder').preferPaintInterior,
+      'side': (visitor, target) => D4.validateTarget<$flutter_18.CircleBorder>(target, 'CircleBorder').side,
+      'eccentricity': (visitor, target) => D4.validateTarget<$flutter_18.CircleBorder>(target, 'CircleBorder').eccentricity,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_18.CircleBorder>(target, 'CircleBorder').hashCode,
     },
     methods: {
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.CircleBorder>(target, 'CircleBorder');
+        final t = D4.validateTarget<$flutter_18.CircleBorder>(target, 'CircleBorder');
         D4.requireMinArgs(positional, 1, 'scale');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'scale');
         return t.scale(t_);
       },
       'getOuterPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.CircleBorder>(target, 'CircleBorder');
+        final t = D4.validateTarget<$flutter_18.CircleBorder>(target, 'CircleBorder');
         D4.requireMinArgs(positional, 1, 'getOuterPath');
-        final rect = D4.getRequiredArg<$flutter_11.Rect>(positional, 0, 'rect', 'getOuterPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_11.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getOuterPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getOuterPath(rect, textDirection: textDirection);
       },
       'getInnerPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.CircleBorder>(target, 'CircleBorder');
+        final t = D4.validateTarget<$flutter_18.CircleBorder>(target, 'CircleBorder');
         D4.requireMinArgs(positional, 1, 'getInnerPath');
-        final rect = D4.getRequiredArg<$flutter_11.Rect>(positional, 0, 'rect', 'getInnerPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_11.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getInnerPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getInnerPath(rect, textDirection: textDirection);
       },
       'paintInterior': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.CircleBorder>(target, 'CircleBorder');
+        final t = D4.validateTarget<$flutter_18.CircleBorder>(target, 'CircleBorder');
         D4.requireMinArgs(positional, 3, 'paintInterior');
-        final canvas = D4.getRequiredArg<$flutter_11.Canvas>(positional, 0, 'canvas', 'paintInterior');
-        final rect = D4.getRequiredArg<$flutter_11.Rect>(positional, 1, 'rect', 'paintInterior');
-        final paint = D4.getRequiredArg<$flutter_11.Paint>(positional, 2, 'paint', 'paintInterior');
-        final textDirection = D4.getOptionalNamedArg<$flutter_11.TextDirection?>(named, 'textDirection');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paintInterior');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paintInterior');
+        final paint = D4.getRequiredArg<Paint>(positional, 2, 'paint', 'paintInterior');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paintInterior(canvas, rect, paint, textDirection: textDirection);
         return null;
       },
       'paint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.CircleBorder>(target, 'CircleBorder');
+        final t = D4.validateTarget<$flutter_18.CircleBorder>(target, 'CircleBorder');
         D4.requireMinArgs(positional, 2, 'paint');
-        final canvas = D4.getRequiredArg<$flutter_11.Canvas>(positional, 0, 'canvas', 'paint');
-        final rect = D4.getRequiredArg<$flutter_11.Rect>(positional, 1, 'rect', 'paint');
-        final textDirection = D4.getOptionalNamedArg<$flutter_11.TextDirection?>(named, 'textDirection');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paint');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paint');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paint(canvas, rect, textDirection: textDirection);
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.CircleBorder>(target, 'CircleBorder');
+        final t = D4.validateTarget<$flutter_18.CircleBorder>(target, 'CircleBorder');
         return t.toString();
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.CircleBorder>(target, 'CircleBorder');
-        final side = D4.getOptionalNamedArg<$flutter_6.BorderSide?>(named, 'side');
+        final t = D4.validateTarget<$flutter_18.CircleBorder>(target, 'CircleBorder');
+        final side = D4.getOptionalNamedArg<$flutter_13.BorderSide?>(named, 'side');
         final eccentricity = D4.getOptionalNamedArg<double?>(named, 'eccentricity');
         return t.copyWith(side: side, eccentricity: eccentricity);
       },
       'lerpFrom': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.CircleBorder>(target, 'CircleBorder');
+        final t = D4.validateTarget<$flutter_18.CircleBorder>(target, 'CircleBorder');
         D4.requireMinArgs(positional, 2, 'lerpFrom');
-        final a = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
+        final a = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpFrom');
         return t.lerpFrom(a, t_);
       },
       'lerpTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.CircleBorder>(target, 'CircleBorder');
+        final t = D4.validateTarget<$flutter_18.CircleBorder>(target, 'CircleBorder');
         D4.requireMinArgs(positional, 2, 'lerpTo');
-        final b = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
+        final b = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpTo');
         return t.lerpTo(b, t_);
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.CircleBorder>(target, 'CircleBorder');
-        final other = D4.getRequiredArg<$flutter_6.ShapeBorder>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_18.CircleBorder>(target, 'CircleBorder');
+        final other = D4.getRequiredArg<$flutter_13.ShapeBorder>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.CircleBorder>(target, 'CircleBorder');
+        final t = D4.validateTarget<$flutter_18.CircleBorder>(target, 'CircleBorder');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3556,20 +3570,20 @@ BridgedClass _createCircleBorderBridge() {
 
 BridgedClass _createClipContextBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.ClipContext,
+    nativeType: $flutter_19.ClipContext,
     name: 'ClipContext',
     constructors: {
     },
     getters: {
-      'canvas': (visitor, target) => D4.validateTarget<$flutter_12.ClipContext>(target, 'ClipContext').canvas,
+      'canvas': (visitor, target) => D4.validateTarget<$flutter_19.ClipContext>(target, 'ClipContext').canvas,
     },
     methods: {
       'clipPathAndPaint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.ClipContext>(target, 'ClipContext');
+        final t = D4.validateTarget<$flutter_19.ClipContext>(target, 'ClipContext');
         D4.requireMinArgs(positional, 4, 'clipPathAndPaint');
-        final path = D4.getRequiredArg<$flutter_12.Path>(positional, 0, 'path', 'clipPathAndPaint');
-        final clipBehavior = D4.getRequiredArg<$flutter_12.Clip>(positional, 1, 'clipBehavior', 'clipPathAndPaint');
-        final bounds = D4.getRequiredArg<$flutter_12.Rect>(positional, 2, 'bounds', 'clipPathAndPaint');
+        final path = D4.getRequiredArg<Path>(positional, 0, 'path', 'clipPathAndPaint');
+        final clipBehavior = D4.getRequiredArg<Clip>(positional, 1, 'clipBehavior', 'clipPathAndPaint');
+        final bounds = D4.getRequiredArg<Rect>(positional, 2, 'bounds', 'clipPathAndPaint');
         if (positional.length <= 3) {
           throw ArgumentError('clipPathAndPaint: Missing required argument "painter" at position 3');
         }
@@ -3578,11 +3592,11 @@ BridgedClass _createClipContextBridge() {
         return null;
       },
       'clipRRectAndPaint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.ClipContext>(target, 'ClipContext');
+        final t = D4.validateTarget<$flutter_19.ClipContext>(target, 'ClipContext');
         D4.requireMinArgs(positional, 4, 'clipRRectAndPaint');
-        final rrect = D4.getRequiredArg<$flutter_12.RRect>(positional, 0, 'rrect', 'clipRRectAndPaint');
-        final clipBehavior = D4.getRequiredArg<$flutter_12.Clip>(positional, 1, 'clipBehavior', 'clipRRectAndPaint');
-        final bounds = D4.getRequiredArg<$flutter_12.Rect>(positional, 2, 'bounds', 'clipRRectAndPaint');
+        final rrect = D4.getRequiredArg<RRect>(positional, 0, 'rrect', 'clipRRectAndPaint');
+        final clipBehavior = D4.getRequiredArg<Clip>(positional, 1, 'clipBehavior', 'clipRRectAndPaint');
+        final bounds = D4.getRequiredArg<Rect>(positional, 2, 'bounds', 'clipRRectAndPaint');
         if (positional.length <= 3) {
           throw ArgumentError('clipRRectAndPaint: Missing required argument "painter" at position 3');
         }
@@ -3591,11 +3605,11 @@ BridgedClass _createClipContextBridge() {
         return null;
       },
       'clipRSuperellipseAndPaint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.ClipContext>(target, 'ClipContext');
+        final t = D4.validateTarget<$flutter_19.ClipContext>(target, 'ClipContext');
         D4.requireMinArgs(positional, 4, 'clipRSuperellipseAndPaint');
-        final rse = D4.getRequiredArg<$flutter_12.RSuperellipse>(positional, 0, 'rse', 'clipRSuperellipseAndPaint');
-        final clipBehavior = D4.getRequiredArg<$flutter_12.Clip>(positional, 1, 'clipBehavior', 'clipRSuperellipseAndPaint');
-        final bounds = D4.getRequiredArg<$flutter_12.Rect>(positional, 2, 'bounds', 'clipRSuperellipseAndPaint');
+        final rse = D4.getRequiredArg<RSuperellipse>(positional, 0, 'rse', 'clipRSuperellipseAndPaint');
+        final clipBehavior = D4.getRequiredArg<Clip>(positional, 1, 'clipBehavior', 'clipRSuperellipseAndPaint');
+        final bounds = D4.getRequiredArg<Rect>(positional, 2, 'bounds', 'clipRSuperellipseAndPaint');
         if (positional.length <= 3) {
           throw ArgumentError('clipRSuperellipseAndPaint: Missing required argument "painter" at position 3');
         }
@@ -3604,11 +3618,11 @@ BridgedClass _createClipContextBridge() {
         return null;
       },
       'clipRectAndPaint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.ClipContext>(target, 'ClipContext');
+        final t = D4.validateTarget<$flutter_19.ClipContext>(target, 'ClipContext');
         D4.requireMinArgs(positional, 4, 'clipRectAndPaint');
-        final rect = D4.getRequiredArg<$flutter_12.Rect>(positional, 0, 'rect', 'clipRectAndPaint');
-        final clipBehavior = D4.getRequiredArg<$flutter_12.Clip>(positional, 1, 'clipBehavior', 'clipRectAndPaint');
-        final bounds = D4.getRequiredArg<$flutter_12.Rect>(positional, 2, 'bounds', 'clipRectAndPaint');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'clipRectAndPaint');
+        final clipBehavior = D4.getRequiredArg<Clip>(positional, 1, 'clipBehavior', 'clipRectAndPaint');
+        final bounds = D4.getRequiredArg<Rect>(positional, 2, 'bounds', 'clipRectAndPaint');
         if (positional.length <= 3) {
           throw ArgumentError('clipRectAndPaint: Missing required argument "painter" at position 3');
         }
@@ -3635,7 +3649,7 @@ BridgedClass _createClipContextBridge() {
 
 BridgedClass _createHSVColorBridge() {
   return BridgedClass(
-    nativeType: $flutter_13.HSVColor,
+    nativeType: $flutter_20.HSVColor,
     name: 'HSVColor',
     constructors: {
       'fromAHSV': (visitor, positional, named) {
@@ -3644,56 +3658,56 @@ BridgedClass _createHSVColorBridge() {
         final hue = D4.getRequiredArg<double>(positional, 1, 'hue', 'HSVColor');
         final saturation = D4.getRequiredArg<double>(positional, 2, 'saturation', 'HSVColor');
         final value = D4.getRequiredArg<double>(positional, 3, 'value', 'HSVColor');
-        return $flutter_13.HSVColor.fromAHSV(alpha, hue, saturation, value);
+        return $flutter_20.HSVColor.fromAHSV(alpha, hue, saturation, value);
       },
       'fromColor': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'HSVColor');
-        final color = D4.getRequiredArg<$flutter_13.Color>(positional, 0, 'color', 'HSVColor');
-        return $flutter_13.HSVColor.fromColor(color);
+        final color = D4.getRequiredArg<Color>(positional, 0, 'color', 'HSVColor');
+        return $flutter_20.HSVColor.fromColor(color);
       },
     },
     getters: {
-      'alpha': (visitor, target) => D4.validateTarget<$flutter_13.HSVColor>(target, 'HSVColor').alpha,
-      'hue': (visitor, target) => D4.validateTarget<$flutter_13.HSVColor>(target, 'HSVColor').hue,
-      'saturation': (visitor, target) => D4.validateTarget<$flutter_13.HSVColor>(target, 'HSVColor').saturation,
-      'value': (visitor, target) => D4.validateTarget<$flutter_13.HSVColor>(target, 'HSVColor').value,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_13.HSVColor>(target, 'HSVColor').hashCode,
+      'alpha': (visitor, target) => D4.validateTarget<$flutter_20.HSVColor>(target, 'HSVColor').alpha,
+      'hue': (visitor, target) => D4.validateTarget<$flutter_20.HSVColor>(target, 'HSVColor').hue,
+      'saturation': (visitor, target) => D4.validateTarget<$flutter_20.HSVColor>(target, 'HSVColor').saturation,
+      'value': (visitor, target) => D4.validateTarget<$flutter_20.HSVColor>(target, 'HSVColor').value,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_20.HSVColor>(target, 'HSVColor').hashCode,
     },
     methods: {
       'withAlpha': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.HSVColor>(target, 'HSVColor');
+        final t = D4.validateTarget<$flutter_20.HSVColor>(target, 'HSVColor');
         D4.requireMinArgs(positional, 1, 'withAlpha');
         final alpha = D4.getRequiredArg<double>(positional, 0, 'alpha', 'withAlpha');
         return t.withAlpha(alpha);
       },
       'withHue': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.HSVColor>(target, 'HSVColor');
+        final t = D4.validateTarget<$flutter_20.HSVColor>(target, 'HSVColor');
         D4.requireMinArgs(positional, 1, 'withHue');
         final hue = D4.getRequiredArg<double>(positional, 0, 'hue', 'withHue');
         return t.withHue(hue);
       },
       'withSaturation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.HSVColor>(target, 'HSVColor');
+        final t = D4.validateTarget<$flutter_20.HSVColor>(target, 'HSVColor');
         D4.requireMinArgs(positional, 1, 'withSaturation');
         final saturation = D4.getRequiredArg<double>(positional, 0, 'saturation', 'withSaturation');
         return t.withSaturation(saturation);
       },
       'withValue': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.HSVColor>(target, 'HSVColor');
+        final t = D4.validateTarget<$flutter_20.HSVColor>(target, 'HSVColor');
         D4.requireMinArgs(positional, 1, 'withValue');
         final value = D4.getRequiredArg<double>(positional, 0, 'value', 'withValue');
         return t.withValue(value);
       },
       'toColor': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.HSVColor>(target, 'HSVColor');
+        final t = D4.validateTarget<$flutter_20.HSVColor>(target, 'HSVColor');
         return t.toColor();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.HSVColor>(target, 'HSVColor');
+        final t = D4.validateTarget<$flutter_20.HSVColor>(target, 'HSVColor');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.HSVColor>(target, 'HSVColor');
+        final t = D4.validateTarget<$flutter_20.HSVColor>(target, 'HSVColor');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3701,10 +3715,10 @@ BridgedClass _createHSVColorBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_13.HSVColor?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_13.HSVColor?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_20.HSVColor?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_20.HSVColor?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_13.HSVColor.lerp(a, b, t_);
+        return $flutter_20.HSVColor.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
@@ -3738,7 +3752,7 @@ BridgedClass _createHSVColorBridge() {
 
 BridgedClass _createHSLColorBridge() {
   return BridgedClass(
-    nativeType: $flutter_13.HSLColor,
+    nativeType: $flutter_20.HSLColor,
     name: 'HSLColor',
     constructors: {
       'fromAHSL': (visitor, positional, named) {
@@ -3747,56 +3761,56 @@ BridgedClass _createHSLColorBridge() {
         final hue = D4.getRequiredArg<double>(positional, 1, 'hue', 'HSLColor');
         final saturation = D4.getRequiredArg<double>(positional, 2, 'saturation', 'HSLColor');
         final lightness = D4.getRequiredArg<double>(positional, 3, 'lightness', 'HSLColor');
-        return $flutter_13.HSLColor.fromAHSL(alpha, hue, saturation, lightness);
+        return $flutter_20.HSLColor.fromAHSL(alpha, hue, saturation, lightness);
       },
       'fromColor': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'HSLColor');
-        final color = D4.getRequiredArg<$flutter_13.Color>(positional, 0, 'color', 'HSLColor');
-        return $flutter_13.HSLColor.fromColor(color);
+        final color = D4.getRequiredArg<Color>(positional, 0, 'color', 'HSLColor');
+        return $flutter_20.HSLColor.fromColor(color);
       },
     },
     getters: {
-      'alpha': (visitor, target) => D4.validateTarget<$flutter_13.HSLColor>(target, 'HSLColor').alpha,
-      'hue': (visitor, target) => D4.validateTarget<$flutter_13.HSLColor>(target, 'HSLColor').hue,
-      'saturation': (visitor, target) => D4.validateTarget<$flutter_13.HSLColor>(target, 'HSLColor').saturation,
-      'lightness': (visitor, target) => D4.validateTarget<$flutter_13.HSLColor>(target, 'HSLColor').lightness,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_13.HSLColor>(target, 'HSLColor').hashCode,
+      'alpha': (visitor, target) => D4.validateTarget<$flutter_20.HSLColor>(target, 'HSLColor').alpha,
+      'hue': (visitor, target) => D4.validateTarget<$flutter_20.HSLColor>(target, 'HSLColor').hue,
+      'saturation': (visitor, target) => D4.validateTarget<$flutter_20.HSLColor>(target, 'HSLColor').saturation,
+      'lightness': (visitor, target) => D4.validateTarget<$flutter_20.HSLColor>(target, 'HSLColor').lightness,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_20.HSLColor>(target, 'HSLColor').hashCode,
     },
     methods: {
       'withAlpha': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.HSLColor>(target, 'HSLColor');
+        final t = D4.validateTarget<$flutter_20.HSLColor>(target, 'HSLColor');
         D4.requireMinArgs(positional, 1, 'withAlpha');
         final alpha = D4.getRequiredArg<double>(positional, 0, 'alpha', 'withAlpha');
         return t.withAlpha(alpha);
       },
       'withHue': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.HSLColor>(target, 'HSLColor');
+        final t = D4.validateTarget<$flutter_20.HSLColor>(target, 'HSLColor');
         D4.requireMinArgs(positional, 1, 'withHue');
         final hue = D4.getRequiredArg<double>(positional, 0, 'hue', 'withHue');
         return t.withHue(hue);
       },
       'withSaturation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.HSLColor>(target, 'HSLColor');
+        final t = D4.validateTarget<$flutter_20.HSLColor>(target, 'HSLColor');
         D4.requireMinArgs(positional, 1, 'withSaturation');
         final saturation = D4.getRequiredArg<double>(positional, 0, 'saturation', 'withSaturation');
         return t.withSaturation(saturation);
       },
       'withLightness': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.HSLColor>(target, 'HSLColor');
+        final t = D4.validateTarget<$flutter_20.HSLColor>(target, 'HSLColor');
         D4.requireMinArgs(positional, 1, 'withLightness');
         final lightness = D4.getRequiredArg<double>(positional, 0, 'lightness', 'withLightness');
         return t.withLightness(lightness);
       },
       'toColor': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.HSLColor>(target, 'HSLColor');
+        final t = D4.validateTarget<$flutter_20.HSLColor>(target, 'HSLColor');
         return t.toColor();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.HSLColor>(target, 'HSLColor');
+        final t = D4.validateTarget<$flutter_20.HSLColor>(target, 'HSLColor');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.HSLColor>(target, 'HSLColor');
+        final t = D4.validateTarget<$flutter_20.HSLColor>(target, 'HSLColor');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3804,10 +3818,10 @@ BridgedClass _createHSLColorBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_13.HSLColor?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_13.HSLColor?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_20.HSLColor?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_20.HSLColor?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_13.HSLColor.lerp(a, b, t_);
+        return $flutter_20.HSLColor.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
@@ -3841,35 +3855,93 @@ BridgedClass _createHSLColorBridge() {
 
 BridgedClass _createColorSwatchBridge() {
   return BridgedClass(
-    nativeType: $flutter_13.ColorSwatch,
+    nativeType: $flutter_20.ColorSwatch,
     name: 'ColorSwatch',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ColorSwatch');
-        final primary = D4.getRequiredArg<dynamic>(positional, 0, 'primary', 'ColorSwatch');
+        final primary = D4.getRequiredArg<int>(positional, 0, 'primary', 'ColorSwatch');
         if (positional.length <= 1) {
           throw ArgumentError('ColorSwatch: Missing required argument "_swatch" at position 1');
         }
-        final swatch = D4.coerceMap<dynamic, dynamic>(positional[1], '_swatch');
-        return $flutter_13.ColorSwatch(primary, swatch);
+        final swatch = D4.coerceMap<dynamic, Color>(positional[1], '_swatch');
+        return $flutter_20.ColorSwatch(primary, swatch);
       },
     },
     getters: {
-      'keys': (visitor, target) => D4.validateTarget<$flutter_13.ColorSwatch>(target, 'ColorSwatch').keys,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_13.ColorSwatch>(target, 'ColorSwatch').hashCode,
+      'keys': (visitor, target) => D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch').keys,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch').hashCode,
+      'a': (visitor, target) => D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch').a,
+      'r': (visitor, target) => D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch').r,
+      'g': (visitor, target) => D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch').g,
+      'b': (visitor, target) => D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch').b,
+      'colorSpace': (visitor, target) => D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch').colorSpace,
+      'value': (visitor, target) => D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch').value,
+      'alpha': (visitor, target) => D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch').alpha,
+      'opacity': (visitor, target) => D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch').opacity,
+      'red': (visitor, target) => D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch').red,
+      'green': (visitor, target) => D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch').green,
+      'blue': (visitor, target) => D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch').blue,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.ColorSwatch>(target, 'ColorSwatch');
+        final t = D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch');
         return t.toString();
       },
+      'toARGB32': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch');
+        return t.toARGB32();
+      },
+      'withValues': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch');
+        final alpha = D4.getOptionalNamedArg<double?>(named, 'alpha');
+        final red = D4.getOptionalNamedArg<double?>(named, 'red');
+        final green = D4.getOptionalNamedArg<double?>(named, 'green');
+        final blue = D4.getOptionalNamedArg<double?>(named, 'blue');
+        final colorSpace = D4.getOptionalNamedArg<ColorSpace?>(named, 'colorSpace');
+        return t.withValues(alpha: alpha, red: red, green: green, blue: blue, colorSpace: colorSpace);
+      },
+      'withAlpha': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch');
+        D4.requireMinArgs(positional, 1, 'withAlpha');
+        final a = D4.getRequiredArg<int>(positional, 0, 'a', 'withAlpha');
+        return t.withAlpha(a);
+      },
+      'withOpacity': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch');
+        D4.requireMinArgs(positional, 1, 'withOpacity');
+        final opacity = D4.getRequiredArg<double>(positional, 0, 'opacity', 'withOpacity');
+        return t.withOpacity(opacity);
+      },
+      'withRed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch');
+        D4.requireMinArgs(positional, 1, 'withRed');
+        final r = D4.getRequiredArg<int>(positional, 0, 'r', 'withRed');
+        return t.withRed(r);
+      },
+      'withGreen': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch');
+        D4.requireMinArgs(positional, 1, 'withGreen');
+        final g = D4.getRequiredArg<int>(positional, 0, 'g', 'withGreen');
+        return t.withGreen(g);
+      },
+      'withBlue': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch');
+        D4.requireMinArgs(positional, 1, 'withBlue');
+        final b = D4.getRequiredArg<int>(positional, 0, 'b', 'withBlue');
+        return t.withBlue(b);
+      },
+      'computeLuminance': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch');
+        return t.computeLuminance();
+      },
       '[]': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.ColorSwatch>(target, 'ColorSwatch');
+        final t = D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch');
         final index = D4.getRequiredArg<dynamic>(positional, 0, 'index', 'operator[]');
         return t[index];
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.ColorSwatch>(target, 'ColorSwatch');
+        final t = D4.validateTarget<$flutter_20.ColorSwatch>(target, 'ColorSwatch');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3877,21 +3949,40 @@ BridgedClass _createColorSwatchBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_13.ColorSwatch<dynamic>?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_13.ColorSwatch<dynamic>?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_20.ColorSwatch<dynamic>?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_20.ColorSwatch<dynamic>?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_13.ColorSwatch.lerp(a, b, t_);
+        return $flutter_20.ColorSwatch.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
-      '': 'const ColorSwatch(dynamic primary, Map<T, InvalidType> _swatch)',
+      '': 'const ColorSwatch(int primary, Map<T, Color> _swatch)',
     },
     methodSignatures: {
       'toString': 'String toString()',
+      'toARGB32': 'int toARGB32()',
+      'withValues': 'Color withValues({double? alpha, double? red, double? green, double? blue, ColorSpace? colorSpace})',
+      'withAlpha': 'Color withAlpha(int a)',
+      'withOpacity': 'Color withOpacity(double opacity)',
+      'withRed': 'Color withRed(int r)',
+      'withGreen': 'Color withGreen(int g)',
+      'withBlue': 'Color withBlue(int b)',
+      'computeLuminance': 'double computeLuminance()',
     },
     getterSignatures: {
       'keys': 'Iterable<T> get keys',
       'hashCode': 'int get hashCode',
+      'a': 'double get a',
+      'r': 'double get r',
+      'g': 'double get g',
+      'b': 'double get b',
+      'colorSpace': 'ColorSpace get colorSpace',
+      'value': 'int get value',
+      'alpha': 'int get alpha',
+      'opacity': 'double get opacity',
+      'red': 'int get red',
+      'green': 'int get green',
+      'blue': 'int get blue',
     },
     staticMethodSignatures: {
       'lerp': 'ColorSwatch<T>? lerp(ColorSwatch<T>? a, ColorSwatch<T>? b, double t)',
@@ -3905,33 +3996,141 @@ BridgedClass _createColorSwatchBridge() {
 
 BridgedClass _createColorPropertyBridge() {
   return BridgedClass(
-    nativeType: $flutter_13.ColorProperty,
+    nativeType: $flutter_20.ColorProperty,
     name: 'ColorProperty',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ColorProperty');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'ColorProperty');
-        final value = D4.getRequiredArg<dynamic>(positional, 1, 'value', 'ColorProperty');
-        final showName = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'showName', 'ColorProperty', '<default unavailable>');
-        final defaultValue = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'defaultValue', 'ColorProperty', '<default unavailable>');
-        final style = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'style', 'ColorProperty', '<default unavailable>');
-        final level = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'level', 'ColorProperty', '<default unavailable>');
-        return $flutter_13.ColorProperty(name, value, showName: showName, defaultValue: defaultValue, style: style, level: level);
+        final value = D4.getRequiredArg<Color?>(positional, 1, 'value', 'ColorProperty');
+        final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
+        final style = D4.getNamedArgWithDefault<$flutter_3.DiagnosticsTreeStyle>(named, 'style', $flutter_3.DiagnosticsTreeStyle.singleLine);
+        final level = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'level', $flutter_3.DiagnosticLevel.info);
+        if (!named.containsKey('defaultValue')) {
+          return $flutter_20.ColorProperty(name, value, showName: showName, style: style, level: level);
+        }
+        if (named.containsKey('defaultValue')) {
+          final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'ColorProperty');
+          return $flutter_20.ColorProperty(name, value, showName: showName, style: style, level: level, defaultValue: defaultValue);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
+    },
+    getters: {
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').expandableValue,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').allowNameWrap,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').missingIfNull,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').propertyType,
+      'value': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').value,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').exception,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').defaultValue,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').isInteresting,
+      'level': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').level,
+      'name': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').emptyBodyDescription,
+      'style': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').style,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty').allowTruncate,
     },
     methods: {
       'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.ColorProperty>(target, 'ColorProperty');
+        final t = D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty');
         D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$aux_flutter_2.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_3.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
         return t.toJsonMap(delegate);
+      },
+      'valueToString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_3.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.valueToString(parentConfiguration: parentConfiguration);
+      },
+      'toDescription': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_3.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.toDescription(parentConfiguration: parentConfiguration);
+      },
+      'getProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty');
+        return t.getProperties();
+      },
+      'getChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty');
+        return t.getChildren();
+      },
+      'isFiltered': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty');
+        D4.requireMinArgs(positional, 1, 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_3.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        return t.isFiltered(minLevel);
+      },
+      'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty');
+        return t.toTimelineArguments();
+      },
+      'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_3.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        return t.toJsonMapIterative(delegate);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_3.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ColorProperty>(target, 'ColorProperty');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_3.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
     },
     constructorSignatures: {
-      '': 'ColorProperty(String name, dynamic value, {dynamic showName, dynamic defaultValue, dynamic style, dynamic level})',
+      '': 'ColorProperty(String name, Color? value, {bool showName = true, Object? defaultValue = kNoDefaultValue, DiagnosticsTreeStyle style = DiagnosticsTreeStyle.singleLine, DiagnosticLevel level = DiagnosticLevel.info})',
     },
     methodSignatures: {
       'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
+      'valueToString': 'String valueToString({TextTreeConfiguration? parentConfiguration})',
+      'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
+      'getProperties': 'List<DiagnosticsNode> getProperties()',
+      'getChildren': 'List<DiagnosticsNode> getChildren()',
+      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
+      'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
+      'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
+      'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+    },
+    getterSignatures: {
+      'expandableValue': 'bool get expandableValue',
+      'allowWrap': 'bool get allowWrap',
+      'allowNameWrap': 'bool get allowNameWrap',
+      'ifNull': 'String? get ifNull',
+      'ifEmpty': 'String? get ifEmpty',
+      'tooltip': 'String? get tooltip',
+      'missingIfNull': 'bool get missingIfNull',
+      'propertyType': 'Type get propertyType',
+      'value': 'Color get value',
+      'exception': 'Object? get exception',
+      'defaultValue': 'Object? get defaultValue',
+      'isInteresting': 'bool get isInteresting',
+      'level': 'DiagnosticLevel get level',
+      'name': 'String? get name',
+      'showSeparator': 'bool get showSeparator',
+      'showName': 'bool get showName',
+      'linePrefix': 'String? get linePrefix',
+      'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'allowTruncate': 'bool get allowTruncate',
     },
   );
 }
@@ -3942,93 +4141,93 @@ BridgedClass _createColorPropertyBridge() {
 
 BridgedClass _createContinuousRectangleBorderBridge() {
   return BridgedClass(
-    nativeType: $flutter_14.ContinuousRectangleBorder,
+    nativeType: $flutter_21.ContinuousRectangleBorder,
     name: 'ContinuousRectangleBorder',
     constructors: {
       '': (visitor, positional, named) {
-        final side = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'side', $flutter_6.BorderSide.none);
-        final borderRadius = D4.getNamedArgWithDefault<$flutter_5.BorderRadiusGeometry>(named, 'borderRadius', $flutter_5.BorderRadius.zero);
-        return $flutter_14.ContinuousRectangleBorder(side: side, borderRadius: borderRadius);
+        final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
+        final borderRadius = D4.getNamedArgWithDefault<$flutter_12.BorderRadiusGeometry>(named, 'borderRadius', $flutter_12.BorderRadius.zero);
+        return $flutter_21.ContinuousRectangleBorder(side: side, borderRadius: borderRadius);
       },
     },
     getters: {
-      'dimensions': (visitor, target) => D4.validateTarget<$flutter_14.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder').dimensions,
-      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_14.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder').preferPaintInterior,
-      'side': (visitor, target) => D4.validateTarget<$flutter_14.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder').side,
-      'borderRadius': (visitor, target) => D4.validateTarget<$flutter_14.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder').borderRadius,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_14.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder').hashCode,
+      'dimensions': (visitor, target) => D4.validateTarget<$flutter_21.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder').dimensions,
+      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_21.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder').preferPaintInterior,
+      'side': (visitor, target) => D4.validateTarget<$flutter_21.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder').side,
+      'borderRadius': (visitor, target) => D4.validateTarget<$flutter_21.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder').borderRadius,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_21.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder').hashCode,
     },
     methods: {
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
+        final t = D4.validateTarget<$flutter_21.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
         D4.requireMinArgs(positional, 1, 'scale');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'scale');
         return t.scale(t_);
       },
       'getOuterPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
+        final t = D4.validateTarget<$flutter_21.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
         D4.requireMinArgs(positional, 1, 'getOuterPath');
-        final rect = D4.getRequiredArg<$flutter_14.Rect>(positional, 0, 'rect', 'getOuterPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_14.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getOuterPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getOuterPath(rect, textDirection: textDirection);
       },
       'getInnerPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
+        final t = D4.validateTarget<$flutter_21.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
         D4.requireMinArgs(positional, 1, 'getInnerPath');
-        final rect = D4.getRequiredArg<$flutter_14.Rect>(positional, 0, 'rect', 'getInnerPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_14.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getInnerPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getInnerPath(rect, textDirection: textDirection);
       },
       'paintInterior': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
+        final t = D4.validateTarget<$flutter_21.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
         D4.requireMinArgs(positional, 3, 'paintInterior');
-        final canvas = D4.getRequiredArg<dynamic>(positional, 0, 'canvas', 'paintInterior');
-        final rect = D4.getRequiredArg<dynamic>(positional, 1, 'rect', 'paintInterior');
-        final paint = D4.getRequiredArg<dynamic>(positional, 2, 'paint', 'paintInterior');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'paintInterior', '<default unavailable>');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paintInterior');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paintInterior');
+        final paint = D4.getRequiredArg<Paint>(positional, 2, 'paint', 'paintInterior');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paintInterior(canvas, rect, paint, textDirection: textDirection);
         return null;
       },
       'paint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
+        final t = D4.validateTarget<$flutter_21.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
         D4.requireMinArgs(positional, 2, 'paint');
-        final canvas = D4.getRequiredArg<$flutter_14.Canvas>(positional, 0, 'canvas', 'paint');
-        final rect = D4.getRequiredArg<$flutter_14.Rect>(positional, 1, 'rect', 'paint');
-        final textDirection = D4.getOptionalNamedArg<$flutter_14.TextDirection?>(named, 'textDirection');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paint');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paint');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paint(canvas, rect, textDirection: textDirection);
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
+        final t = D4.validateTarget<$flutter_21.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
         return t.toString();
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
-        final side = D4.getOptionalNamedArg<$flutter_6.BorderSide?>(named, 'side');
-        final borderRadius = D4.getOptionalNamedArg<$flutter_5.BorderRadiusGeometry?>(named, 'borderRadius');
+        final t = D4.validateTarget<$flutter_21.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
+        final side = D4.getOptionalNamedArg<$flutter_13.BorderSide?>(named, 'side');
+        final borderRadius = D4.getOptionalNamedArg<$flutter_12.BorderRadiusGeometry?>(named, 'borderRadius');
         return t.copyWith(side: side, borderRadius: borderRadius);
       },
       'lerpFrom': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
+        final t = D4.validateTarget<$flutter_21.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
         D4.requireMinArgs(positional, 2, 'lerpFrom');
-        final a = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
+        final a = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpFrom');
         return t.lerpFrom(a, t_);
       },
       'lerpTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
+        final t = D4.validateTarget<$flutter_21.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
         D4.requireMinArgs(positional, 2, 'lerpTo');
-        final b = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
+        final b = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpTo');
         return t.lerpTo(b, t_);
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
-        final other = D4.getRequiredArg<$flutter_6.ShapeBorder>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_21.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
+        final other = D4.getRequiredArg<$flutter_13.ShapeBorder>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
+        final t = D4.validateTarget<$flutter_21.ContinuousRectangleBorder>(target, 'ContinuousRectangleBorder');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -4040,7 +4239,7 @@ BridgedClass _createContinuousRectangleBorderBridge() {
       'scale': 'ShapeBorder scale(double t)',
       'getOuterPath': 'Path getOuterPath(Rect rect, {TextDirection? textDirection})',
       'getInnerPath': 'Path getInnerPath(Rect rect, {TextDirection? textDirection})',
-      'paintInterior': 'void paintInterior(InvalidType canvas, InvalidType rect, InvalidType paint, {InvalidType textDirection})',
+      'paintInterior': 'void paintInterior(Canvas canvas, Rect rect, Paint paint, {TextDirection? textDirection})',
       'paint': 'void paint(Canvas canvas, Rect rect, {TextDirection? textDirection})',
       'toString': 'String toString()',
       'copyWith': 'ContinuousRectangleBorder copyWith({BorderSide? side, BorderRadiusGeometry? borderRadius})',
@@ -4063,41 +4262,41 @@ BridgedClass _createContinuousRectangleBorderBridge() {
 
 BridgedClass _createImageSizeInfoBridge() {
   return BridgedClass(
-    nativeType: $flutter_15.ImageSizeInfo,
+    nativeType: $flutter_22.ImageSizeInfo,
     name: 'ImageSizeInfo',
     constructors: {
       '': (visitor, positional, named) {
         final source = D4.getOptionalNamedArg<String?>(named, 'source');
-        final displaySize = D4.getRequiredNamedArg<dynamic>(named, 'displaySize', 'ImageSizeInfo');
-        final imageSize = D4.getRequiredNamedArg<dynamic>(named, 'imageSize', 'ImageSizeInfo');
-        return $flutter_15.ImageSizeInfo(source: source, displaySize: displaySize, imageSize: imageSize);
+        final displaySize = D4.getRequiredNamedArg<Size>(named, 'displaySize', 'ImageSizeInfo');
+        final imageSize = D4.getRequiredNamedArg<Size>(named, 'imageSize', 'ImageSizeInfo');
+        return $flutter_22.ImageSizeInfo(source: source, displaySize: displaySize, imageSize: imageSize);
       },
     },
     getters: {
-      'source': (visitor, target) => D4.validateTarget<$flutter_15.ImageSizeInfo>(target, 'ImageSizeInfo').source,
-      'displaySize': (visitor, target) => D4.validateTarget<$flutter_15.ImageSizeInfo>(target, 'ImageSizeInfo').displaySize,
-      'imageSize': (visitor, target) => D4.validateTarget<$flutter_15.ImageSizeInfo>(target, 'ImageSizeInfo').imageSize,
-      'displaySizeInBytes': (visitor, target) => D4.validateTarget<$flutter_15.ImageSizeInfo>(target, 'ImageSizeInfo').displaySizeInBytes,
-      'decodedSizeInBytes': (visitor, target) => D4.validateTarget<$flutter_15.ImageSizeInfo>(target, 'ImageSizeInfo').decodedSizeInBytes,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_15.ImageSizeInfo>(target, 'ImageSizeInfo').hashCode,
+      'source': (visitor, target) => D4.validateTarget<$flutter_22.ImageSizeInfo>(target, 'ImageSizeInfo').source,
+      'displaySize': (visitor, target) => D4.validateTarget<$flutter_22.ImageSizeInfo>(target, 'ImageSizeInfo').displaySize,
+      'imageSize': (visitor, target) => D4.validateTarget<$flutter_22.ImageSizeInfo>(target, 'ImageSizeInfo').imageSize,
+      'displaySizeInBytes': (visitor, target) => D4.validateTarget<$flutter_22.ImageSizeInfo>(target, 'ImageSizeInfo').displaySizeInBytes,
+      'decodedSizeInBytes': (visitor, target) => D4.validateTarget<$flutter_22.ImageSizeInfo>(target, 'ImageSizeInfo').decodedSizeInBytes,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_22.ImageSizeInfo>(target, 'ImageSizeInfo').hashCode,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_15.ImageSizeInfo>(target, 'ImageSizeInfo');
+        final t = D4.validateTarget<$flutter_22.ImageSizeInfo>(target, 'ImageSizeInfo');
         return t.toJson();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_15.ImageSizeInfo>(target, 'ImageSizeInfo');
+        final t = D4.validateTarget<$flutter_22.ImageSizeInfo>(target, 'ImageSizeInfo');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_15.ImageSizeInfo>(target, 'ImageSizeInfo');
+        final t = D4.validateTarget<$flutter_22.ImageSizeInfo>(target, 'ImageSizeInfo');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     constructorSignatures: {
-      '': 'const ImageSizeInfo({String? source, required dynamic displaySize, required dynamic imageSize})',
+      '': 'const ImageSizeInfo({String? source, required Size displaySize, required Size imageSize})',
     },
     methodSignatures: {
       'toJson': 'Map<String, Object?> toJson()',
@@ -4120,51 +4319,62 @@ BridgedClass _createImageSizeInfoBridge() {
 
 BridgedClass _createDecorationBridge() {
   return BridgedClass(
-    nativeType: $flutter_16.Decoration,
+    nativeType: $flutter_23.Decoration,
     name: 'Decoration',
     constructors: {
     },
     getters: {
-      'padding': (visitor, target) => D4.validateTarget<$flutter_16.Decoration>(target, 'Decoration').padding,
-      'isComplex': (visitor, target) => D4.validateTarget<$flutter_16.Decoration>(target, 'Decoration').isComplex,
+      'padding': (visitor, target) => D4.validateTarget<$flutter_23.Decoration>(target, 'Decoration').padding,
+      'isComplex': (visitor, target) => D4.validateTarget<$flutter_23.Decoration>(target, 'Decoration').isComplex,
     },
     methods: {
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_16.Decoration>(target, 'Decoration');
+        final t = D4.validateTarget<$flutter_23.Decoration>(target, 'Decoration');
         return t.toStringShort();
       },
       'debugAssertIsValid': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_16.Decoration>(target, 'Decoration');
+        final t = D4.validateTarget<$flutter_23.Decoration>(target, 'Decoration');
         return t.debugAssertIsValid();
       },
       'hitTest': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_16.Decoration>(target, 'Decoration');
+        final t = D4.validateTarget<$flutter_23.Decoration>(target, 'Decoration');
         D4.requireMinArgs(positional, 2, 'hitTest');
-        final size = D4.getRequiredArg<$flutter_16.Size>(positional, 0, 'size', 'hitTest');
-        final position = D4.getRequiredArg<$flutter_16.Offset>(positional, 1, 'position', 'hitTest');
-        final textDirection = D4.getOptionalNamedArg<$flutter_16.TextDirection?>(named, 'textDirection');
+        final size = D4.getRequiredArg<Size>(positional, 0, 'size', 'hitTest');
+        final position = D4.getRequiredArg<Offset>(positional, 1, 'position', 'hitTest');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.hitTest(size, position, textDirection: textDirection);
       },
       'createBoxPainter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_16.Decoration>(target, 'Decoration');
+        final t = D4.validateTarget<$flutter_23.Decoration>(target, 'Decoration');
         final onChangedRaw = positional.isNotEmpty ? positional[0] : null;
         return t.createBoxPainter(() { D4.callInterpreterCallback(visitor, onChangedRaw, []); });
       },
       'getClipPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_16.Decoration>(target, 'Decoration');
+        final t = D4.validateTarget<$flutter_23.Decoration>(target, 'Decoration');
         D4.requireMinArgs(positional, 2, 'getClipPath');
-        final rect = D4.getRequiredArg<$flutter_16.Rect>(positional, 0, 'rect', 'getClipPath');
-        final textDirection = D4.getRequiredArg<$flutter_16.TextDirection>(positional, 1, 'textDirection', 'getClipPath');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getClipPath');
+        final textDirection = D4.getRequiredArg<TextDirection>(positional, 1, 'textDirection', 'getClipPath');
         return t.getClipPath(rect, textDirection);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_23.Decoration>(target, 'Decoration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_23.Decoration>(target, 'Decoration');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
       },
     },
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_16.Decoration?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_16.Decoration?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_23.Decoration?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_23.Decoration?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_16.Decoration.lerp(a, b, t_);
+        return $flutter_23.Decoration.lerp(a, b, t_);
       },
     },
     methodSignatures: {
@@ -4173,6 +4383,8 @@ BridgedClass _createDecorationBridge() {
       'hitTest': 'bool hitTest(Size size, Offset position, {TextDirection? textDirection})',
       'createBoxPainter': 'BoxPainter createBoxPainter([VoidCallback onChanged])',
       'getClipPath': 'Path getClipPath(Rect rect, TextDirection textDirection)',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
     },
     getterSignatures: {
       'padding': 'EdgeInsetsGeometry get padding',
@@ -4190,25 +4402,25 @@ BridgedClass _createDecorationBridge() {
 
 BridgedClass _createBoxPainterBridge() {
   return BridgedClass(
-    nativeType: $flutter_16.BoxPainter,
+    nativeType: $flutter_23.BoxPainter,
     name: 'BoxPainter',
     constructors: {
     },
     getters: {
-      'onChanged': (visitor, target) => D4.validateTarget<$flutter_16.BoxPainter>(target, 'BoxPainter').onChanged,
+      'onChanged': (visitor, target) => D4.validateTarget<$flutter_23.BoxPainter>(target, 'BoxPainter').onChanged,
     },
     methods: {
       'paint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_16.BoxPainter>(target, 'BoxPainter');
+        final t = D4.validateTarget<$flutter_23.BoxPainter>(target, 'BoxPainter');
         D4.requireMinArgs(positional, 3, 'paint');
-        final canvas = D4.getRequiredArg<$flutter_16.Canvas>(positional, 0, 'canvas', 'paint');
-        final offset = D4.getRequiredArg<$flutter_16.Offset>(positional, 1, 'offset', 'paint');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 2, 'configuration', 'paint');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paint');
+        final offset = D4.getRequiredArg<Offset>(positional, 1, 'offset', 'paint');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 2, 'configuration', 'paint');
         t.paint(canvas, offset, configuration);
         return null;
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_16.BoxPainter>(target, 'BoxPainter');
+        final t = D4.validateTarget<$flutter_23.BoxPainter>(target, 'BoxPainter');
         (t as dynamic).dispose();
         return null;
       },
@@ -4229,51 +4441,45 @@ BridgedClass _createBoxPainterBridge() {
 
 BridgedClass _createDecorationImageBridge() {
   return BridgedClass(
-    nativeType: $flutter_17.DecorationImage,
+    nativeType: $flutter_24.DecorationImage,
     name: 'DecorationImage',
     constructors: {
       '': (visitor, positional, named) {
-        final image = D4.getRequiredNamedArg<$flutter_25.ImageProvider<Object>>(named, 'image', 'DecorationImage');
+        final image = D4.getRequiredNamedArg<$flutter_32.ImageProvider<Object>>(named, 'image', 'DecorationImage');
         final onErrorRaw = named['onError'];
-        final colorFilter = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'colorFilter', 'DecorationImage', '<default unavailable>');
-        final fit = D4.getOptionalNamedArg<$flutter_9.BoxFit?>(named, 'fit');
-        final alignment = D4.getNamedArgWithDefault<$flutter_1.AlignmentGeometry>(named, 'alignment', $flutter_1.Alignment.center);
-        final centerSlice = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'centerSlice', 'DecorationImage', '<default unavailable>');
-        final repeat = D4.getNamedArgWithDefault<$flutter_17.ImageRepeat>(named, 'repeat', $flutter_17.ImageRepeat.noRepeat);
+        final colorFilter = D4.getOptionalNamedArg<ColorFilter?>(named, 'colorFilter');
+        final fit = D4.getOptionalNamedArg<$flutter_16.BoxFit?>(named, 'fit');
+        final alignment = D4.getNamedArgWithDefault<$flutter_8.AlignmentGeometry>(named, 'alignment', $flutter_8.Alignment.center);
+        final centerSlice = D4.getOptionalNamedArg<Rect?>(named, 'centerSlice');
+        final repeat = D4.getNamedArgWithDefault<$flutter_24.ImageRepeat>(named, 'repeat', $flutter_24.ImageRepeat.noRepeat);
         final matchTextDirection = D4.getNamedArgWithDefault<bool>(named, 'matchTextDirection', false);
         final scale = D4.getNamedArgWithDefault<double>(named, 'scale', 1.0);
         final opacity = D4.getNamedArgWithDefault<double>(named, 'opacity', 1.0);
+        final filterQuality = D4.getNamedArgWithDefault<FilterQuality>(named, 'filterQuality', $dart_ui.FilterQuality.medium);
         final invertColors = D4.getNamedArgWithDefault<bool>(named, 'invertColors', false);
         final isAntiAlias = D4.getNamedArgWithDefault<bool>(named, 'isAntiAlias', false);
-        if (!named.containsKey('filterQuality')) {
-          return $flutter_17.DecorationImage(image: image, onError: onErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, onErrorRaw, [p0, p1]); }, colorFilter: colorFilter, fit: fit, alignment: alignment, centerSlice: centerSlice, repeat: repeat, matchTextDirection: matchTextDirection, scale: scale, opacity: opacity, invertColors: invertColors, isAntiAlias: isAntiAlias);
-        }
-        if (named.containsKey('filterQuality')) {
-          final filterQuality = D4.getRequiredNamedArg<dynamic>(named, 'filterQuality', 'DecorationImage');
-          return $flutter_17.DecorationImage(image: image, onError: onErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, onErrorRaw, [p0, p1]); }, colorFilter: colorFilter, fit: fit, alignment: alignment, centerSlice: centerSlice, repeat: repeat, matchTextDirection: matchTextDirection, scale: scale, opacity: opacity, invertColors: invertColors, isAntiAlias: isAntiAlias, filterQuality: filterQuality);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        return $flutter_24.DecorationImage(image: image, onError: onErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, onErrorRaw, [p0, p1]); }, colorFilter: colorFilter, fit: fit, alignment: alignment, centerSlice: centerSlice, repeat: repeat, matchTextDirection: matchTextDirection, scale: scale, opacity: opacity, filterQuality: filterQuality, invertColors: invertColors, isAntiAlias: isAntiAlias);
       },
     },
     getters: {
-      'image': (visitor, target) => D4.validateTarget<$flutter_17.DecorationImage>(target, 'DecorationImage').image,
-      'onError': (visitor, target) => D4.validateTarget<$flutter_17.DecorationImage>(target, 'DecorationImage').onError,
-      'colorFilter': (visitor, target) => D4.validateTarget<$flutter_17.DecorationImage>(target, 'DecorationImage').colorFilter,
-      'fit': (visitor, target) => D4.validateTarget<$flutter_17.DecorationImage>(target, 'DecorationImage').fit,
-      'alignment': (visitor, target) => D4.validateTarget<$flutter_17.DecorationImage>(target, 'DecorationImage').alignment,
-      'centerSlice': (visitor, target) => D4.validateTarget<$flutter_17.DecorationImage>(target, 'DecorationImage').centerSlice,
-      'repeat': (visitor, target) => D4.validateTarget<$flutter_17.DecorationImage>(target, 'DecorationImage').repeat,
-      'matchTextDirection': (visitor, target) => D4.validateTarget<$flutter_17.DecorationImage>(target, 'DecorationImage').matchTextDirection,
-      'scale': (visitor, target) => D4.validateTarget<$flutter_17.DecorationImage>(target, 'DecorationImage').scale,
-      'opacity': (visitor, target) => D4.validateTarget<$flutter_17.DecorationImage>(target, 'DecorationImage').opacity,
-      'filterQuality': (visitor, target) => D4.validateTarget<$flutter_17.DecorationImage>(target, 'DecorationImage').filterQuality,
-      'invertColors': (visitor, target) => D4.validateTarget<$flutter_17.DecorationImage>(target, 'DecorationImage').invertColors,
-      'isAntiAlias': (visitor, target) => D4.validateTarget<$flutter_17.DecorationImage>(target, 'DecorationImage').isAntiAlias,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_17.DecorationImage>(target, 'DecorationImage').hashCode,
+      'image': (visitor, target) => D4.validateTarget<$flutter_24.DecorationImage>(target, 'DecorationImage').image,
+      'onError': (visitor, target) => D4.validateTarget<$flutter_24.DecorationImage>(target, 'DecorationImage').onError,
+      'colorFilter': (visitor, target) => D4.validateTarget<$flutter_24.DecorationImage>(target, 'DecorationImage').colorFilter,
+      'fit': (visitor, target) => D4.validateTarget<$flutter_24.DecorationImage>(target, 'DecorationImage').fit,
+      'alignment': (visitor, target) => D4.validateTarget<$flutter_24.DecorationImage>(target, 'DecorationImage').alignment,
+      'centerSlice': (visitor, target) => D4.validateTarget<$flutter_24.DecorationImage>(target, 'DecorationImage').centerSlice,
+      'repeat': (visitor, target) => D4.validateTarget<$flutter_24.DecorationImage>(target, 'DecorationImage').repeat,
+      'matchTextDirection': (visitor, target) => D4.validateTarget<$flutter_24.DecorationImage>(target, 'DecorationImage').matchTextDirection,
+      'scale': (visitor, target) => D4.validateTarget<$flutter_24.DecorationImage>(target, 'DecorationImage').scale,
+      'opacity': (visitor, target) => D4.validateTarget<$flutter_24.DecorationImage>(target, 'DecorationImage').opacity,
+      'filterQuality': (visitor, target) => D4.validateTarget<$flutter_24.DecorationImage>(target, 'DecorationImage').filterQuality,
+      'invertColors': (visitor, target) => D4.validateTarget<$flutter_24.DecorationImage>(target, 'DecorationImage').invertColors,
+      'isAntiAlias': (visitor, target) => D4.validateTarget<$flutter_24.DecorationImage>(target, 'DecorationImage').isAntiAlias,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_24.DecorationImage>(target, 'DecorationImage').hashCode,
     },
     methods: {
       'createPainter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_17.DecorationImage>(target, 'DecorationImage');
+        final t = D4.validateTarget<$flutter_24.DecorationImage>(target, 'DecorationImage');
         D4.requireMinArgs(positional, 1, 'createPainter');
         if (positional.isEmpty) {
           throw ArgumentError('createPainter: Missing required argument "onChanged" at position 0');
@@ -4282,11 +4488,11 @@ BridgedClass _createDecorationImageBridge() {
         return t.createPainter(() { D4.callInterpreterCallback(visitor, onChangedRaw, []); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_17.DecorationImage>(target, 'DecorationImage');
+        final t = D4.validateTarget<$flutter_24.DecorationImage>(target, 'DecorationImage');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_17.DecorationImage>(target, 'DecorationImage');
+        final t = D4.validateTarget<$flutter_24.DecorationImage>(target, 'DecorationImage');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -4294,14 +4500,14 @@ BridgedClass _createDecorationImageBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_17.DecorationImage?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_17.DecorationImage?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_24.DecorationImage?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_24.DecorationImage?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_17.DecorationImage.lerp(a, b, t_);
+        return $flutter_24.DecorationImage.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
-      '': 'const DecorationImage({required ImageProvider<Object> image, void Function(Object, StackTrace?)? onError, dynamic colorFilter, BoxFit? fit, AlignmentGeometry alignment = Alignment.center, dynamic centerSlice, ImageRepeat repeat = ImageRepeat.noRepeat, bool matchTextDirection = false, double scale = 1.0, double opacity = 1.0, dynamic filterQuality = FilterQuality.medium, bool invertColors = false, bool isAntiAlias = false})',
+      '': 'const DecorationImage({required ImageProvider<Object> image, void Function(Object, StackTrace?)? onError, ColorFilter? colorFilter, BoxFit? fit, AlignmentGeometry alignment = Alignment.center, Rect? centerSlice, ImageRepeat repeat = ImageRepeat.noRepeat, bool matchTextDirection = false, double scale = 1.0, double opacity = 1.0, FilterQuality filterQuality = FilterQuality.medium, bool invertColors = false, bool isAntiAlias = false})',
     },
     methodSignatures: {
       'createPainter': 'DecorationImagePainter createPainter(VoidCallback onChanged)',
@@ -4335,32 +4541,25 @@ BridgedClass _createDecorationImageBridge() {
 
 BridgedClass _createDecorationImagePainterBridge() {
   return BridgedClass(
-    nativeType: $flutter_17.DecorationImagePainter,
+    nativeType: $flutter_24.DecorationImagePainter,
     name: 'DecorationImagePainter',
     constructors: {
     },
     methods: {
       'paint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_17.DecorationImagePainter>(target, 'DecorationImagePainter');
+        final t = D4.validateTarget<$flutter_24.DecorationImagePainter>(target, 'DecorationImagePainter');
         D4.requireMinArgs(positional, 4, 'paint');
-        final canvas = D4.getRequiredArg<$flutter_17.Canvas>(positional, 0, 'canvas', 'paint');
-        final rect = D4.getRequiredArg<$flutter_17.Rect>(positional, 1, 'rect', 'paint');
-        final clipPath = D4.getRequiredArg<$flutter_17.Path?>(positional, 2, 'clipPath', 'paint');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 3, 'configuration', 'paint');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paint');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paint');
+        final clipPath = D4.getRequiredArg<Path?>(positional, 2, 'clipPath', 'paint');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 3, 'configuration', 'paint');
         final blend = D4.getNamedArgWithDefault<double>(named, 'blend', 1.0);
-        if (!named.containsKey('blendMode')) {
-          t.paint(canvas, rect, clipPath, configuration, blend: blend);
-          return null;
-        }
-        if (named.containsKey('blendMode')) {
-          final blendMode = D4.getRequiredNamedArg<dynamic>(named, 'blendMode', 'paint');
-          t.paint(canvas, rect, clipPath, configuration, blend: blend, blendMode: blendMode);
-          return null;
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final blendMode = D4.getNamedArgWithDefault<BlendMode>(named, 'blendMode', $dart_ui.BlendMode.srcOver);
+        t.paint(canvas, rect, clipPath, configuration, blend: blend, blendMode: blendMode);
+        return null;
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_17.DecorationImagePainter>(target, 'DecorationImagePainter');
+        final t = D4.validateTarget<$flutter_24.DecorationImagePainter>(target, 'DecorationImagePainter');
         (t as dynamic).dispose();
         return null;
       },
@@ -4378,32 +4577,32 @@ BridgedClass _createDecorationImagePainterBridge() {
 
 BridgedClass _createEdgeInsetsGeometryBridge() {
   return BridgedClass(
-    nativeType: $flutter_18.EdgeInsetsGeometry,
+    nativeType: $flutter_25.EdgeInsetsGeometry,
     name: 'EdgeInsetsGeometry',
     constructors: {
       'all': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'EdgeInsetsGeometry');
         final value = D4.getRequiredArg<double>(positional, 0, 'value', 'EdgeInsetsGeometry');
-        return $flutter_18.EdgeInsetsGeometry.all(value);
+        return $flutter_25.EdgeInsetsGeometry.all(value);
       },
       'only': (visitor, positional, named) {
         final left = D4.getRequiredNamedArgTodoDefault<double>(named, 'left', 'EdgeInsetsGeometry', '<default unavailable>');
         final right = D4.getRequiredNamedArgTodoDefault<double>(named, 'right', 'EdgeInsetsGeometry', '<default unavailable>');
         final top = D4.getRequiredNamedArgTodoDefault<double>(named, 'top', 'EdgeInsetsGeometry', '<default unavailable>');
         final bottom = D4.getRequiredNamedArgTodoDefault<double>(named, 'bottom', 'EdgeInsetsGeometry', '<default unavailable>');
-        return $flutter_18.EdgeInsetsGeometry.only(left: left, right: right, top: top, bottom: bottom);
+        return $flutter_25.EdgeInsetsGeometry.only(left: left, right: right, top: top, bottom: bottom);
       },
       'directional': (visitor, positional, named) {
         final start = D4.getRequiredNamedArgTodoDefault<double>(named, 'start', 'EdgeInsetsGeometry', '<default unavailable>');
         final end = D4.getRequiredNamedArgTodoDefault<double>(named, 'end', 'EdgeInsetsGeometry', '<default unavailable>');
         final top = D4.getRequiredNamedArgTodoDefault<double>(named, 'top', 'EdgeInsetsGeometry', '<default unavailable>');
         final bottom = D4.getRequiredNamedArgTodoDefault<double>(named, 'bottom', 'EdgeInsetsGeometry', '<default unavailable>');
-        return $flutter_18.EdgeInsetsGeometry.directional(start: start, end: end, top: top, bottom: bottom);
+        return $flutter_25.EdgeInsetsGeometry.directional(start: start, end: end, top: top, bottom: bottom);
       },
       'symmetric': (visitor, positional, named) {
         final vertical = D4.getRequiredNamedArgTodoDefault<double>(named, 'vertical', 'EdgeInsetsGeometry', '<default unavailable>');
         final horizontal = D4.getRequiredNamedArgTodoDefault<double>(named, 'horizontal', 'EdgeInsetsGeometry', '<default unavailable>');
-        return $flutter_18.EdgeInsetsGeometry.symmetric(vertical: vertical, horizontal: horizontal);
+        return $flutter_25.EdgeInsetsGeometry.symmetric(vertical: vertical, horizontal: horizontal);
       },
       'fromLTRB': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'EdgeInsetsGeometry');
@@ -4411,13 +4610,13 @@ BridgedClass _createEdgeInsetsGeometryBridge() {
         final top = D4.getRequiredArg<double>(positional, 1, 'top', 'EdgeInsetsGeometry');
         final right = D4.getRequiredArg<double>(positional, 2, 'right', 'EdgeInsetsGeometry');
         final bottom = D4.getRequiredArg<double>(positional, 3, 'bottom', 'EdgeInsetsGeometry');
-        return $flutter_18.EdgeInsetsGeometry.fromLTRB(left, top, right, bottom);
+        return $flutter_25.EdgeInsetsGeometry.fromLTRB(left, top, right, bottom);
       },
       'fromViewPadding': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'EdgeInsetsGeometry');
-        final padding = D4.getRequiredArg<$flutter_18.ViewPadding>(positional, 0, 'padding', 'EdgeInsetsGeometry');
+        final padding = D4.getRequiredArg<ViewPadding>(positional, 0, 'padding', 'EdgeInsetsGeometry');
         final devicePixelRatio = D4.getRequiredArg<double>(positional, 1, 'devicePixelRatio', 'EdgeInsetsGeometry');
-        return $flutter_18.EdgeInsetsGeometry.fromViewPadding(padding, devicePixelRatio);
+        return $flutter_25.EdgeInsetsGeometry.fromViewPadding(padding, devicePixelRatio);
       },
       'fromSTEB': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'EdgeInsetsGeometry');
@@ -4425,106 +4624,106 @@ BridgedClass _createEdgeInsetsGeometryBridge() {
         final top = D4.getRequiredArg<double>(positional, 1, 'top', 'EdgeInsetsGeometry');
         final end = D4.getRequiredArg<double>(positional, 2, 'end', 'EdgeInsetsGeometry');
         final bottom = D4.getRequiredArg<double>(positional, 3, 'bottom', 'EdgeInsetsGeometry');
-        return $flutter_18.EdgeInsetsGeometry.fromSTEB(start, top, end, bottom);
+        return $flutter_25.EdgeInsetsGeometry.fromSTEB(start, top, end, bottom);
       },
     },
     getters: {
-      'isNonNegative': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry').isNonNegative,
-      'horizontal': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry').horizontal,
-      'vertical': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry').vertical,
-      'collapsedSize': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry').collapsedSize,
-      'flipped': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry').flipped,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry').hashCode,
+      'isNonNegative': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry').isNonNegative,
+      'horizontal': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry').horizontal,
+      'vertical': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry').vertical,
+      'collapsedSize': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry').collapsedSize,
+      'flipped': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry').flipped,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry').hashCode,
     },
     methods: {
       'along': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
         D4.requireMinArgs(positional, 1, 'along');
-        final axis = D4.getRequiredArg<$flutter_2.Axis>(positional, 0, 'axis', 'along');
+        final axis = D4.getRequiredArg<$flutter_9.Axis>(positional, 0, 'axis', 'along');
         return t.along(axis);
       },
       'inflateSize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
         D4.requireMinArgs(positional, 1, 'inflateSize');
-        final size = D4.getRequiredArg<$flutter_18.Size>(positional, 0, 'size', 'inflateSize');
+        final size = D4.getRequiredArg<Size>(positional, 0, 'size', 'inflateSize');
         return t.inflateSize(size);
       },
       'deflateSize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
         D4.requireMinArgs(positional, 1, 'deflateSize');
-        final size = D4.getRequiredArg<$flutter_18.Size>(positional, 0, 'size', 'deflateSize');
+        final size = D4.getRequiredArg<Size>(positional, 0, 'size', 'deflateSize');
         return t.deflateSize(size);
       },
       'subtract': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
         D4.requireMinArgs(positional, 1, 'subtract');
-        final other = D4.getRequiredArg<$flutter_18.EdgeInsetsGeometry>(positional, 0, 'other', 'subtract');
+        final other = D4.getRequiredArg<$flutter_25.EdgeInsetsGeometry>(positional, 0, 'other', 'subtract');
         return t.subtract(other);
       },
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
         D4.requireMinArgs(positional, 1, 'add');
-        final other = D4.getRequiredArg<$flutter_18.EdgeInsetsGeometry>(positional, 0, 'other', 'add');
+        final other = D4.getRequiredArg<$flutter_25.EdgeInsetsGeometry>(positional, 0, 'other', 'add');
         return t.add(other);
       },
       'clamp': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
         D4.requireMinArgs(positional, 2, 'clamp');
-        final min = D4.getRequiredArg<$flutter_18.EdgeInsetsGeometry>(positional, 0, 'min', 'clamp');
-        final max = D4.getRequiredArg<$flutter_18.EdgeInsetsGeometry>(positional, 1, 'max', 'clamp');
+        final min = D4.getRequiredArg<$flutter_25.EdgeInsetsGeometry>(positional, 0, 'min', 'clamp');
+        final max = D4.getRequiredArg<$flutter_25.EdgeInsetsGeometry>(positional, 1, 'max', 'clamp');
         return t.clamp(min, max);
       },
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final direction = D4.getRequiredArg<$flutter_18.TextDirection?>(positional, 0, 'direction', 'resolve');
+        final direction = D4.getRequiredArg<TextDirection?>(positional, 0, 'direction', 'resolve');
         return t.resolve(direction);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
         return t.toString();
       },
       '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
         return -t;
       },
       '*': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
         return t * other;
       },
       '/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator/');
         return t / other;
       },
       '~/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator~/');
         return t ~/ other;
       },
       '%': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator%');
         return t % other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsGeometry>(target, 'EdgeInsetsGeometry');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     staticGetters: {
-      'zero': (visitor) => $flutter_18.EdgeInsetsGeometry.zero,
-      'infinity': (visitor) => $flutter_18.EdgeInsetsGeometry.infinity,
+      'zero': (visitor) => $flutter_25.EdgeInsetsGeometry.zero,
+      'infinity': (visitor) => $flutter_25.EdgeInsetsGeometry.infinity,
     },
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_18.EdgeInsetsGeometry?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_18.EdgeInsetsGeometry?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_25.EdgeInsetsGeometry?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_25.EdgeInsetsGeometry?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_18.EdgeInsetsGeometry.lerp(a, b, t_);
+        return $flutter_25.EdgeInsetsGeometry.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
@@ -4570,7 +4769,7 @@ BridgedClass _createEdgeInsetsGeometryBridge() {
 
 BridgedClass _createEdgeInsetsBridge() {
   return BridgedClass(
-    nativeType: $flutter_18.EdgeInsets,
+    nativeType: $flutter_25.EdgeInsets,
     name: 'EdgeInsets',
     constructors: {
       'fromLTRB': (visitor, positional, named) {
@@ -4579,128 +4778,128 @@ BridgedClass _createEdgeInsetsBridge() {
         final top = D4.getRequiredArg<double>(positional, 1, 'top', 'EdgeInsets');
         final right = D4.getRequiredArg<double>(positional, 2, 'right', 'EdgeInsets');
         final bottom = D4.getRequiredArg<double>(positional, 3, 'bottom', 'EdgeInsets');
-        return $flutter_18.EdgeInsets.fromLTRB(left, top, right, bottom);
+        return $flutter_25.EdgeInsets.fromLTRB(left, top, right, bottom);
       },
       'all': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'EdgeInsets');
         final value = D4.getRequiredArg<double>(positional, 0, 'value', 'EdgeInsets');
-        return $flutter_18.EdgeInsets.all(value);
+        return $flutter_25.EdgeInsets.all(value);
       },
       'only': (visitor, positional, named) {
         final left = D4.getNamedArgWithDefault<double>(named, 'left', 0.0);
         final top = D4.getNamedArgWithDefault<double>(named, 'top', 0.0);
         final right = D4.getNamedArgWithDefault<double>(named, 'right', 0.0);
         final bottom = D4.getNamedArgWithDefault<double>(named, 'bottom', 0.0);
-        return $flutter_18.EdgeInsets.only(left: left, top: top, right: right, bottom: bottom);
+        return $flutter_25.EdgeInsets.only(left: left, top: top, right: right, bottom: bottom);
       },
       'symmetric': (visitor, positional, named) {
         final vertical = D4.getNamedArgWithDefault<double>(named, 'vertical', 0.0);
         final horizontal = D4.getNamedArgWithDefault<double>(named, 'horizontal', 0.0);
-        return $flutter_18.EdgeInsets.symmetric(vertical: vertical, horizontal: horizontal);
+        return $flutter_25.EdgeInsets.symmetric(vertical: vertical, horizontal: horizontal);
       },
       'fromViewPadding': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'EdgeInsets');
-        final padding = D4.getRequiredArg<$flutter_18.ViewPadding>(positional, 0, 'padding', 'EdgeInsets');
+        final padding = D4.getRequiredArg<ViewPadding>(positional, 0, 'padding', 'EdgeInsets');
         final devicePixelRatio = D4.getRequiredArg<double>(positional, 1, 'devicePixelRatio', 'EdgeInsets');
-        return $flutter_18.EdgeInsets.fromViewPadding(padding, devicePixelRatio);
+        return $flutter_25.EdgeInsets.fromViewPadding(padding, devicePixelRatio);
       },
       'fromWindowPadding': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'EdgeInsets');
-        final padding = D4.getRequiredArg<$flutter_18.ViewPadding>(positional, 0, 'padding', 'EdgeInsets');
+        final padding = D4.getRequiredArg<ViewPadding>(positional, 0, 'padding', 'EdgeInsets');
         final devicePixelRatio = D4.getRequiredArg<double>(positional, 1, 'devicePixelRatio', 'EdgeInsets');
-        return $flutter_18.EdgeInsets.fromWindowPadding(padding, devicePixelRatio);
+        return $flutter_25.EdgeInsets.fromWindowPadding(padding, devicePixelRatio);
       },
     },
     getters: {
-      'isNonNegative': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets').isNonNegative,
-      'horizontal': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets').horizontal,
-      'vertical': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets').vertical,
-      'collapsedSize': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets').collapsedSize,
-      'flipped': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets').flipped,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets').hashCode,
-      'left': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets').left,
-      'top': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets').top,
-      'right': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets').right,
-      'bottom': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets').bottom,
-      'topLeft': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets').topLeft,
-      'topRight': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets').topRight,
-      'bottomLeft': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets').bottomLeft,
-      'bottomRight': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets').bottomRight,
+      'isNonNegative': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets').isNonNegative,
+      'horizontal': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets').horizontal,
+      'vertical': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets').vertical,
+      'collapsedSize': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets').collapsedSize,
+      'flipped': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets').flipped,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets').hashCode,
+      'left': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets').left,
+      'top': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets').top,
+      'right': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets').right,
+      'bottom': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets').bottom,
+      'topLeft': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets').topLeft,
+      'topRight': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets').topRight,
+      'bottomLeft': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets').bottomLeft,
+      'bottomRight': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets').bottomRight,
     },
     methods: {
       'along': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         D4.requireMinArgs(positional, 1, 'along');
-        final axis = D4.getRequiredArg<$flutter_2.Axis>(positional, 0, 'axis', 'along');
+        final axis = D4.getRequiredArg<$flutter_9.Axis>(positional, 0, 'axis', 'along');
         return t.along(axis);
       },
       'inflateSize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         D4.requireMinArgs(positional, 1, 'inflateSize');
-        final size = D4.getRequiredArg<dynamic>(positional, 0, 'size', 'inflateSize');
+        final size = D4.getRequiredArg<Size>(positional, 0, 'size', 'inflateSize');
         return t.inflateSize(size);
       },
       'deflateSize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         D4.requireMinArgs(positional, 1, 'deflateSize');
-        final size = D4.getRequiredArg<dynamic>(positional, 0, 'size', 'deflateSize');
+        final size = D4.getRequiredArg<Size>(positional, 0, 'size', 'deflateSize');
         return t.deflateSize(size);
       },
       'subtract': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         D4.requireMinArgs(positional, 1, 'subtract');
-        final other = D4.getRequiredArg<$flutter_18.EdgeInsetsGeometry>(positional, 0, 'other', 'subtract');
+        final other = D4.getRequiredArg<$flutter_25.EdgeInsetsGeometry>(positional, 0, 'other', 'subtract');
         return t.subtract(other);
       },
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         D4.requireMinArgs(positional, 1, 'add');
-        final other = D4.getRequiredArg<$flutter_18.EdgeInsetsGeometry>(positional, 0, 'other', 'add');
+        final other = D4.getRequiredArg<$flutter_25.EdgeInsetsGeometry>(positional, 0, 'other', 'add');
         return t.add(other);
       },
       'clamp': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         D4.requireMinArgs(positional, 2, 'clamp');
-        final min = D4.getRequiredArg<$flutter_18.EdgeInsetsGeometry>(positional, 0, 'min', 'clamp');
-        final max = D4.getRequiredArg<$flutter_18.EdgeInsetsGeometry>(positional, 1, 'max', 'clamp');
+        final min = D4.getRequiredArg<$flutter_25.EdgeInsetsGeometry>(positional, 0, 'min', 'clamp');
+        final max = D4.getRequiredArg<$flutter_25.EdgeInsetsGeometry>(positional, 1, 'max', 'clamp');
         return t.clamp(min, max);
       },
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final direction = D4.getRequiredArg<$flutter_18.TextDirection?>(positional, 0, 'direction', 'resolve');
+        final direction = D4.getRequiredArg<TextDirection?>(positional, 0, 'direction', 'resolve');
         return t.resolve(direction);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         return t.toString();
       },
       'inflateRect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         D4.requireMinArgs(positional, 1, 'inflateRect');
-        final rect = D4.getRequiredArg<$flutter_18.Rect>(positional, 0, 'rect', 'inflateRect');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'inflateRect');
         return t.inflateRect(rect);
       },
       'deflateRect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         D4.requireMinArgs(positional, 1, 'deflateRect');
-        final rect = D4.getRequiredArg<$flutter_18.Rect>(positional, 0, 'rect', 'deflateRect');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'deflateRect');
         return t.deflateRect(rect);
       },
       'inflateRRect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         D4.requireMinArgs(positional, 1, 'inflateRRect');
-        final rect = D4.getRequiredArg<$flutter_18.RRect>(positional, 0, 'rect', 'inflateRRect');
+        final rect = D4.getRequiredArg<RRect>(positional, 0, 'rect', 'inflateRRect');
         return t.inflateRRect(rect);
       },
       'deflateRRect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         D4.requireMinArgs(positional, 1, 'deflateRRect');
-        final rect = D4.getRequiredArg<$flutter_18.RRect>(positional, 0, 'rect', 'deflateRRect');
+        final rect = D4.getRequiredArg<RRect>(positional, 0, 'rect', 'deflateRRect');
         return t.deflateRRect(rect);
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         final left = D4.getOptionalNamedArg<double?>(named, 'left');
         final top = D4.getOptionalNamedArg<double?>(named, 'top');
         final right = D4.getOptionalNamedArg<double?>(named, 'right');
@@ -4708,57 +4907,57 @@ BridgedClass _createEdgeInsetsBridge() {
         return t.copyWith(left: left, top: top, right: right, bottom: bottom);
       },
       '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         if (positional.isEmpty) {
           // Unary operator
           return -t;
         } else {
           // Binary operator
-          final other = D4.getRequiredArg<$flutter_18.EdgeInsets>(positional, 0, 'other', 'operator-');
+          final other = D4.getRequiredArg<$flutter_25.EdgeInsets>(positional, 0, 'other', 'operator-');
           return t - other;
         }
       },
       '*': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
         return t * other;
       },
       '/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator/');
         return t / other;
       },
       '~/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator~/');
         return t ~/ other;
       },
       '%': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator%');
         return t % other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsets>(target, 'EdgeInsets');
-        final other = D4.getRequiredArg<$flutter_18.EdgeInsets>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_25.EdgeInsets>(target, 'EdgeInsets');
+        final other = D4.getRequiredArg<$flutter_25.EdgeInsets>(positional, 0, 'other', 'operator+');
         return t + other;
       },
     },
     staticGetters: {
-      'zero': (visitor) => $flutter_18.EdgeInsets.zero,
+      'zero': (visitor) => $flutter_25.EdgeInsets.zero,
     },
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_18.EdgeInsets?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_18.EdgeInsets?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_25.EdgeInsets?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_25.EdgeInsets?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_18.EdgeInsets.lerp(a, b, t_);
+        return $flutter_25.EdgeInsets.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
@@ -4771,8 +4970,8 @@ BridgedClass _createEdgeInsetsBridge() {
     },
     methodSignatures: {
       'along': 'double along(Axis axis)',
-      'inflateSize': 'InvalidType inflateSize(InvalidType size)',
-      'deflateSize': 'InvalidType deflateSize(InvalidType size)',
+      'inflateSize': 'Size inflateSize(Size size)',
+      'deflateSize': 'Size deflateSize(Size size)',
       'subtract': 'EdgeInsetsGeometry subtract(EdgeInsetsGeometry other)',
       'add': 'EdgeInsetsGeometry add(EdgeInsetsGeometry other)',
       'clamp': 'EdgeInsetsGeometry clamp(EdgeInsetsGeometry min, EdgeInsetsGeometry max)',
@@ -4788,7 +4987,7 @@ BridgedClass _createEdgeInsetsBridge() {
       'isNonNegative': 'bool get isNonNegative',
       'horizontal': 'double get horizontal',
       'vertical': 'double get vertical',
-      'collapsedSize': 'InvalidType get collapsedSize',
+      'collapsedSize': 'Size get collapsedSize',
       'flipped': 'EdgeInsets get flipped',
       'hashCode': 'int get hashCode',
       'left': 'double get left',
@@ -4815,7 +5014,7 @@ BridgedClass _createEdgeInsetsBridge() {
 
 BridgedClass _createEdgeInsetsDirectionalBridge() {
   return BridgedClass(
-    nativeType: $flutter_18.EdgeInsetsDirectional,
+    nativeType: $flutter_25.EdgeInsetsDirectional,
     name: 'EdgeInsetsDirectional',
     constructors: {
       'fromSTEB': (visitor, positional, named) {
@@ -4824,88 +5023,88 @@ BridgedClass _createEdgeInsetsDirectionalBridge() {
         final top = D4.getRequiredArg<double>(positional, 1, 'top', 'EdgeInsetsDirectional');
         final end = D4.getRequiredArg<double>(positional, 2, 'end', 'EdgeInsetsDirectional');
         final bottom = D4.getRequiredArg<double>(positional, 3, 'bottom', 'EdgeInsetsDirectional');
-        return $flutter_18.EdgeInsetsDirectional.fromSTEB(start, top, end, bottom);
+        return $flutter_25.EdgeInsetsDirectional.fromSTEB(start, top, end, bottom);
       },
       'only': (visitor, positional, named) {
         final start = D4.getNamedArgWithDefault<double>(named, 'start', 0.0);
         final top = D4.getNamedArgWithDefault<double>(named, 'top', 0.0);
         final end = D4.getNamedArgWithDefault<double>(named, 'end', 0.0);
         final bottom = D4.getNamedArgWithDefault<double>(named, 'bottom', 0.0);
-        return $flutter_18.EdgeInsetsDirectional.only(start: start, top: top, end: end, bottom: bottom);
+        return $flutter_25.EdgeInsetsDirectional.only(start: start, top: top, end: end, bottom: bottom);
       },
       'symmetric': (visitor, positional, named) {
         final horizontal = D4.getNamedArgWithDefault<double>(named, 'horizontal', 0.0);
         final vertical = D4.getNamedArgWithDefault<double>(named, 'vertical', 0.0);
-        return $flutter_18.EdgeInsetsDirectional.symmetric(horizontal: horizontal, vertical: vertical);
+        return $flutter_25.EdgeInsetsDirectional.symmetric(horizontal: horizontal, vertical: vertical);
       },
       'all': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'EdgeInsetsDirectional');
         final value = D4.getRequiredArg<double>(positional, 0, 'value', 'EdgeInsetsDirectional');
-        return $flutter_18.EdgeInsetsDirectional.all(value);
+        return $flutter_25.EdgeInsetsDirectional.all(value);
       },
     },
     getters: {
-      'isNonNegative': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').isNonNegative,
-      'horizontal': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').horizontal,
-      'vertical': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').vertical,
-      'collapsedSize': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').collapsedSize,
-      'flipped': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').flipped,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').hashCode,
-      'start': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').start,
-      'top': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').top,
-      'end': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').end,
-      'bottom': (visitor, target) => D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').bottom,
+      'isNonNegative': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').isNonNegative,
+      'horizontal': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').horizontal,
+      'vertical': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').vertical,
+      'collapsedSize': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').collapsedSize,
+      'flipped': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').flipped,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').hashCode,
+      'start': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').start,
+      'top': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').top,
+      'end': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').end,
+      'bottom': (visitor, target) => D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional').bottom,
     },
     methods: {
       'along': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
         D4.requireMinArgs(positional, 1, 'along');
-        final axis = D4.getRequiredArg<$flutter_2.Axis>(positional, 0, 'axis', 'along');
+        final axis = D4.getRequiredArg<$flutter_9.Axis>(positional, 0, 'axis', 'along');
         return t.along(axis);
       },
       'inflateSize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
         D4.requireMinArgs(positional, 1, 'inflateSize');
-        final size = D4.getRequiredArg<dynamic>(positional, 0, 'size', 'inflateSize');
+        final size = D4.getRequiredArg<Size>(positional, 0, 'size', 'inflateSize');
         return t.inflateSize(size);
       },
       'deflateSize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
         D4.requireMinArgs(positional, 1, 'deflateSize');
-        final size = D4.getRequiredArg<dynamic>(positional, 0, 'size', 'deflateSize');
+        final size = D4.getRequiredArg<Size>(positional, 0, 'size', 'deflateSize');
         return t.deflateSize(size);
       },
       'subtract': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
         D4.requireMinArgs(positional, 1, 'subtract');
-        final other = D4.getRequiredArg<$flutter_18.EdgeInsetsGeometry>(positional, 0, 'other', 'subtract');
+        final other = D4.getRequiredArg<$flutter_25.EdgeInsetsGeometry>(positional, 0, 'other', 'subtract');
         return t.subtract(other);
       },
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
         D4.requireMinArgs(positional, 1, 'add');
-        final other = D4.getRequiredArg<$flutter_18.EdgeInsetsGeometry>(positional, 0, 'other', 'add');
+        final other = D4.getRequiredArg<$flutter_25.EdgeInsetsGeometry>(positional, 0, 'other', 'add');
         return t.add(other);
       },
       'clamp': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
         D4.requireMinArgs(positional, 2, 'clamp');
-        final min = D4.getRequiredArg<$flutter_18.EdgeInsetsGeometry>(positional, 0, 'min', 'clamp');
-        final max = D4.getRequiredArg<$flutter_18.EdgeInsetsGeometry>(positional, 1, 'max', 'clamp');
+        final min = D4.getRequiredArg<$flutter_25.EdgeInsetsGeometry>(positional, 0, 'min', 'clamp');
+        final max = D4.getRequiredArg<$flutter_25.EdgeInsetsGeometry>(positional, 1, 'max', 'clamp');
         return t.clamp(min, max);
       },
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final direction = D4.getRequiredArg<$flutter_18.TextDirection?>(positional, 0, 'direction', 'resolve');
+        final direction = D4.getRequiredArg<TextDirection?>(positional, 0, 'direction', 'resolve');
         return t.resolve(direction);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
         return t.toString();
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
         final start = D4.getOptionalNamedArg<double?>(named, 'start');
         final top = D4.getOptionalNamedArg<double?>(named, 'top');
         final end = D4.getOptionalNamedArg<double?>(named, 'end');
@@ -4913,57 +5112,57 @@ BridgedClass _createEdgeInsetsDirectionalBridge() {
         return t.copyWith(start: start, top: top, end: end, bottom: bottom);
       },
       '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
         if (positional.isEmpty) {
           // Unary operator
           return -t;
         } else {
           // Binary operator
-          final other = D4.getRequiredArg<$flutter_18.EdgeInsetsDirectional>(positional, 0, 'other', 'operator-');
+          final other = D4.getRequiredArg<$flutter_25.EdgeInsetsDirectional>(positional, 0, 'other', 'operator-');
           return t - other;
         }
       },
       '*': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
         return t * other;
       },
       '/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator/');
         return t / other;
       },
       '~/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator~/');
         return t ~/ other;
       },
       '%': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator%');
         return t % other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_18.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
-        final other = D4.getRequiredArg<$flutter_18.EdgeInsetsDirectional>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_25.EdgeInsetsDirectional>(target, 'EdgeInsetsDirectional');
+        final other = D4.getRequiredArg<$flutter_25.EdgeInsetsDirectional>(positional, 0, 'other', 'operator+');
         return t + other;
       },
     },
     staticGetters: {
-      'zero': (visitor) => $flutter_18.EdgeInsetsDirectional.zero,
+      'zero': (visitor) => $flutter_25.EdgeInsetsDirectional.zero,
     },
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_18.EdgeInsetsDirectional?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_18.EdgeInsetsDirectional?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_25.EdgeInsetsDirectional?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_25.EdgeInsetsDirectional?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_18.EdgeInsetsDirectional.lerp(a, b, t_);
+        return $flutter_25.EdgeInsetsDirectional.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
@@ -4974,8 +5173,8 @@ BridgedClass _createEdgeInsetsDirectionalBridge() {
     },
     methodSignatures: {
       'along': 'double along(Axis axis)',
-      'inflateSize': 'InvalidType inflateSize(InvalidType size)',
-      'deflateSize': 'InvalidType deflateSize(InvalidType size)',
+      'inflateSize': 'Size inflateSize(Size size)',
+      'deflateSize': 'Size deflateSize(Size size)',
       'subtract': 'EdgeInsetsGeometry subtract(EdgeInsetsGeometry other)',
       'add': 'EdgeInsetsGeometry add(EdgeInsetsGeometry other)',
       'clamp': 'EdgeInsetsGeometry clamp(EdgeInsetsGeometry min, EdgeInsetsGeometry max)',
@@ -4987,7 +5186,7 @@ BridgedClass _createEdgeInsetsDirectionalBridge() {
       'isNonNegative': 'bool get isNonNegative',
       'horizontal': 'double get horizontal',
       'vertical': 'double get vertical',
-      'collapsedSize': 'InvalidType get collapsedSize',
+      'collapsedSize': 'Size get collapsedSize',
       'flipped': 'EdgeInsetsDirectional get flipped',
       'hashCode': 'int get hashCode',
       'start': 'double get start',
@@ -5010,68 +5209,66 @@ BridgedClass _createEdgeInsetsDirectionalBridge() {
 
 BridgedClass _createFlutterLogoDecorationBridge() {
   return BridgedClass(
-    nativeType: $flutter_19.FlutterLogoDecoration,
+    nativeType: $flutter_26.FlutterLogoDecoration,
     name: 'FlutterLogoDecoration',
     constructors: {
       '': (visitor, positional, named) {
-        final style = D4.getNamedArgWithDefault<$flutter_19.FlutterLogoStyle>(named, 'style', $flutter_19.FlutterLogoStyle.markOnly);
-        final margin = D4.getNamedArgWithDefault<$flutter_18.EdgeInsets>(named, 'margin', $flutter_18.EdgeInsets.zero);
-        if (!named.containsKey('textColor')) {
-          return $flutter_19.FlutterLogoDecoration(style: style, margin: margin);
-        }
-        if (named.containsKey('textColor')) {
-          final textColor = D4.getRequiredNamedArg<dynamic>(named, 'textColor', 'FlutterLogoDecoration');
-          return $flutter_19.FlutterLogoDecoration(style: style, margin: margin, textColor: textColor);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final textColor = D4.getNamedArgWithDefault<Color>(named, 'textColor', const $dart_ui.Color(0xFF757575));
+        final style = D4.getNamedArgWithDefault<$flutter_26.FlutterLogoStyle>(named, 'style', $flutter_26.FlutterLogoStyle.markOnly);
+        final margin = D4.getNamedArgWithDefault<$flutter_25.EdgeInsets>(named, 'margin', $flutter_25.EdgeInsets.zero);
+        return $flutter_26.FlutterLogoDecoration(textColor: textColor, style: style, margin: margin);
       },
     },
     getters: {
-      'padding': (visitor, target) => D4.validateTarget<$flutter_19.FlutterLogoDecoration>(target, 'FlutterLogoDecoration').padding,
-      'isComplex': (visitor, target) => D4.validateTarget<$flutter_19.FlutterLogoDecoration>(target, 'FlutterLogoDecoration').isComplex,
-      'textColor': (visitor, target) => D4.validateTarget<$flutter_19.FlutterLogoDecoration>(target, 'FlutterLogoDecoration').textColor,
-      'style': (visitor, target) => D4.validateTarget<$flutter_19.FlutterLogoDecoration>(target, 'FlutterLogoDecoration').style,
-      'margin': (visitor, target) => D4.validateTarget<$flutter_19.FlutterLogoDecoration>(target, 'FlutterLogoDecoration').margin,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_19.FlutterLogoDecoration>(target, 'FlutterLogoDecoration').hashCode,
+      'padding': (visitor, target) => D4.validateTarget<$flutter_26.FlutterLogoDecoration>(target, 'FlutterLogoDecoration').padding,
+      'isComplex': (visitor, target) => D4.validateTarget<$flutter_26.FlutterLogoDecoration>(target, 'FlutterLogoDecoration').isComplex,
+      'textColor': (visitor, target) => D4.validateTarget<$flutter_26.FlutterLogoDecoration>(target, 'FlutterLogoDecoration').textColor,
+      'style': (visitor, target) => D4.validateTarget<$flutter_26.FlutterLogoDecoration>(target, 'FlutterLogoDecoration').style,
+      'margin': (visitor, target) => D4.validateTarget<$flutter_26.FlutterLogoDecoration>(target, 'FlutterLogoDecoration').margin,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_26.FlutterLogoDecoration>(target, 'FlutterLogoDecoration').hashCode,
     },
     methods: {
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.FlutterLogoDecoration>(target, 'FlutterLogoDecoration');
+        final t = D4.validateTarget<$flutter_26.FlutterLogoDecoration>(target, 'FlutterLogoDecoration');
         return t.toStringShort();
       },
       'debugAssertIsValid': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.FlutterLogoDecoration>(target, 'FlutterLogoDecoration');
+        final t = D4.validateTarget<$flutter_26.FlutterLogoDecoration>(target, 'FlutterLogoDecoration');
         return t.debugAssertIsValid();
       },
       'hitTest': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.FlutterLogoDecoration>(target, 'FlutterLogoDecoration');
+        final t = D4.validateTarget<$flutter_26.FlutterLogoDecoration>(target, 'FlutterLogoDecoration');
         D4.requireMinArgs(positional, 2, 'hitTest');
-        final size = D4.getRequiredArg<$flutter_19.Size>(positional, 0, 'size', 'hitTest');
-        final position = D4.getRequiredArg<$flutter_19.Offset>(positional, 1, 'position', 'hitTest');
-        final textDirection = D4.getOptionalNamedArg<$flutter_19.TextDirection?>(named, 'textDirection');
+        final size = D4.getRequiredArg<Size>(positional, 0, 'size', 'hitTest');
+        final position = D4.getRequiredArg<Offset>(positional, 1, 'position', 'hitTest');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.hitTest(size, position, textDirection: textDirection);
       },
       'createBoxPainter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.FlutterLogoDecoration>(target, 'FlutterLogoDecoration');
+        final t = D4.validateTarget<$flutter_26.FlutterLogoDecoration>(target, 'FlutterLogoDecoration');
         final onChangedRaw = positional.isNotEmpty ? positional[0] : null;
         return t.createBoxPainter(onChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor, onChangedRaw, []); });
       },
       'getClipPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.FlutterLogoDecoration>(target, 'FlutterLogoDecoration');
+        final t = D4.validateTarget<$flutter_26.FlutterLogoDecoration>(target, 'FlutterLogoDecoration');
         D4.requireMinArgs(positional, 2, 'getClipPath');
-        final rect = D4.getRequiredArg<$flutter_19.Rect>(positional, 0, 'rect', 'getClipPath');
-        final textDirection = D4.getRequiredArg<$flutter_19.TextDirection>(positional, 1, 'textDirection', 'getClipPath');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getClipPath');
+        final textDirection = D4.getRequiredArg<TextDirection>(positional, 1, 'textDirection', 'getClipPath');
         return t.getClipPath(rect, textDirection);
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.FlutterLogoDecoration>(target, 'FlutterLogoDecoration');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$aux_flutter_2.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
-        return null;
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_26.FlutterLogoDecoration>(target, 'FlutterLogoDecoration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_26.FlutterLogoDecoration>(target, 'FlutterLogoDecoration');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.FlutterLogoDecoration>(target, 'FlutterLogoDecoration');
+        final t = D4.validateTarget<$flutter_26.FlutterLogoDecoration>(target, 'FlutterLogoDecoration');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -5079,14 +5276,14 @@ BridgedClass _createFlutterLogoDecorationBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_19.FlutterLogoDecoration?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_19.FlutterLogoDecoration?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_26.FlutterLogoDecoration?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_26.FlutterLogoDecoration?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_19.FlutterLogoDecoration.lerp(a, b, t_);
+        return $flutter_26.FlutterLogoDecoration.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
-      '': 'const FlutterLogoDecoration({dynamic textColor = const Color(0xFF757575), FlutterLogoStyle style = FlutterLogoStyle.markOnly, EdgeInsets margin = EdgeInsets.zero})',
+      '': 'const FlutterLogoDecoration({Color textColor = const Color(0xFF757575), FlutterLogoStyle style = FlutterLogoStyle.markOnly, EdgeInsets margin = EdgeInsets.zero})',
     },
     methodSignatures: {
       'toStringShort': 'String toStringShort()',
@@ -5094,7 +5291,8 @@ BridgedClass _createFlutterLogoDecorationBridge() {
       'hitTest': 'bool hitTest(Size size, Offset position, {TextDirection? textDirection})',
       'createBoxPainter': 'BoxPainter createBoxPainter([VoidCallback? onChanged])',
       'getClipPath': 'Path getClipPath(Rect rect, TextDirection textDirection)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
     },
     getterSignatures: {
       'padding': 'EdgeInsetsGeometry get padding',
@@ -5116,137 +5314,137 @@ BridgedClass _createFlutterLogoDecorationBridge() {
 
 BridgedClass _createFractionalOffsetBridge() {
   return BridgedClass(
-    nativeType: $flutter_20.FractionalOffset,
+    nativeType: $flutter_27.FractionalOffset,
     name: 'FractionalOffset',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'FractionalOffset');
         final dx = D4.getRequiredArg<double>(positional, 0, 'dx', 'FractionalOffset');
         final dy = D4.getRequiredArg<double>(positional, 1, 'dy', 'FractionalOffset');
-        return $flutter_20.FractionalOffset(dx, dy);
+        return $flutter_27.FractionalOffset(dx, dy);
       },
       'fromOffsetAndSize': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'FractionalOffset');
-        final offset = D4.getRequiredArg<$flutter_20.Offset>(positional, 0, 'offset', 'FractionalOffset');
-        final size = D4.getRequiredArg<$flutter_20.Size>(positional, 1, 'size', 'FractionalOffset');
-        return $flutter_20.FractionalOffset.fromOffsetAndSize(offset, size);
+        final offset = D4.getRequiredArg<Offset>(positional, 0, 'offset', 'FractionalOffset');
+        final size = D4.getRequiredArg<Size>(positional, 1, 'size', 'FractionalOffset');
+        return $flutter_27.FractionalOffset.fromOffsetAndSize(offset, size);
       },
       'fromOffsetAndRect': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'FractionalOffset');
-        final offset = D4.getRequiredArg<$flutter_20.Offset>(positional, 0, 'offset', 'FractionalOffset');
-        final rect = D4.getRequiredArg<$flutter_20.Rect>(positional, 1, 'rect', 'FractionalOffset');
-        return $flutter_20.FractionalOffset.fromOffsetAndRect(offset, rect);
+        final offset = D4.getRequiredArg<Offset>(positional, 0, 'offset', 'FractionalOffset');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'FractionalOffset');
+        return $flutter_27.FractionalOffset.fromOffsetAndRect(offset, rect);
       },
     },
     getters: {
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset').hashCode,
-      'x': (visitor, target) => D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset').x,
-      'y': (visitor, target) => D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset').y,
-      'dx': (visitor, target) => D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset').dx,
-      'dy': (visitor, target) => D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset').dy,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset').hashCode,
+      'x': (visitor, target) => D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset').x,
+      'y': (visitor, target) => D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset').y,
+      'dx': (visitor, target) => D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset').dx,
+      'dy': (visitor, target) => D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset').dy,
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset');
+        final t = D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset');
         D4.requireMinArgs(positional, 1, 'add');
-        final other = D4.getRequiredArg<$flutter_1.AlignmentGeometry>(positional, 0, 'other', 'add');
+        final other = D4.getRequiredArg<$flutter_8.AlignmentGeometry>(positional, 0, 'other', 'add');
         return t.add(other);
       },
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset');
+        final t = D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final direction = D4.getRequiredArg<dynamic>(positional, 0, 'direction', 'resolve');
+        final direction = D4.getRequiredArg<TextDirection?>(positional, 0, 'direction', 'resolve');
         return t.resolve(direction);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset');
+        final t = D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset');
         return t.toString();
       },
       'alongOffset': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset');
+        final t = D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset');
         D4.requireMinArgs(positional, 1, 'alongOffset');
-        final other = D4.getRequiredArg<dynamic>(positional, 0, 'other', 'alongOffset');
+        final other = D4.getRequiredArg<Offset>(positional, 0, 'other', 'alongOffset');
         return t.alongOffset(other);
       },
       'alongSize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset');
+        final t = D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset');
         D4.requireMinArgs(positional, 1, 'alongSize');
-        final other = D4.getRequiredArg<dynamic>(positional, 0, 'other', 'alongSize');
+        final other = D4.getRequiredArg<Size>(positional, 0, 'other', 'alongSize');
         return t.alongSize(other);
       },
       'withinRect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset');
+        final t = D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset');
         D4.requireMinArgs(positional, 1, 'withinRect');
-        final rect = D4.getRequiredArg<dynamic>(positional, 0, 'rect', 'withinRect');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'withinRect');
         return t.withinRect(rect);
       },
       'inscribe': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset');
+        final t = D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset');
         D4.requireMinArgs(positional, 2, 'inscribe');
-        final size = D4.getRequiredArg<dynamic>(positional, 0, 'size', 'inscribe');
-        final rect = D4.getRequiredArg<dynamic>(positional, 1, 'rect', 'inscribe');
+        final size = D4.getRequiredArg<Size>(positional, 0, 'size', 'inscribe');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'inscribe');
         return t.inscribe(size, rect);
       },
       '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset');
+        final t = D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset');
         if (positional.isEmpty) {
           // Unary operator
           return -t;
         } else {
           // Binary operator
-          final other = D4.getRequiredArg<$flutter_1.Alignment>(positional, 0, 'other', 'operator-');
+          final other = D4.getRequiredArg<$flutter_8.Alignment>(positional, 0, 'other', 'operator-');
           return t - other;
         }
       },
       '*': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset');
+        final t = D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
         return t * other;
       },
       '/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset');
+        final t = D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator/');
         return t / other;
       },
       '~/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset');
+        final t = D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator~/');
         return t ~/ other;
       },
       '%': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset');
+        final t = D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset');
         final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator%');
         return t % other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset');
+        final t = D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.FractionalOffset>(target, 'FractionalOffset');
-        final other = D4.getRequiredArg<$flutter_1.Alignment>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_27.FractionalOffset>(target, 'FractionalOffset');
+        final other = D4.getRequiredArg<$flutter_8.Alignment>(positional, 0, 'other', 'operator+');
         return t + other;
       },
     },
     staticGetters: {
-      'topLeft': (visitor) => $flutter_20.FractionalOffset.topLeft,
-      'topCenter': (visitor) => $flutter_20.FractionalOffset.topCenter,
-      'topRight': (visitor) => $flutter_20.FractionalOffset.topRight,
-      'centerLeft': (visitor) => $flutter_20.FractionalOffset.centerLeft,
-      'center': (visitor) => $flutter_20.FractionalOffset.center,
-      'centerRight': (visitor) => $flutter_20.FractionalOffset.centerRight,
-      'bottomLeft': (visitor) => $flutter_20.FractionalOffset.bottomLeft,
-      'bottomCenter': (visitor) => $flutter_20.FractionalOffset.bottomCenter,
-      'bottomRight': (visitor) => $flutter_20.FractionalOffset.bottomRight,
+      'topLeft': (visitor) => $flutter_27.FractionalOffset.topLeft,
+      'topCenter': (visitor) => $flutter_27.FractionalOffset.topCenter,
+      'topRight': (visitor) => $flutter_27.FractionalOffset.topRight,
+      'centerLeft': (visitor) => $flutter_27.FractionalOffset.centerLeft,
+      'center': (visitor) => $flutter_27.FractionalOffset.center,
+      'centerRight': (visitor) => $flutter_27.FractionalOffset.centerRight,
+      'bottomLeft': (visitor) => $flutter_27.FractionalOffset.bottomLeft,
+      'bottomCenter': (visitor) => $flutter_27.FractionalOffset.bottomCenter,
+      'bottomRight': (visitor) => $flutter_27.FractionalOffset.bottomRight,
     },
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_20.FractionalOffset?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_20.FractionalOffset?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_27.FractionalOffset?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_27.FractionalOffset?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_20.FractionalOffset.lerp(a, b, t_);
+        return $flutter_27.FractionalOffset.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
@@ -5256,12 +5454,12 @@ BridgedClass _createFractionalOffsetBridge() {
     },
     methodSignatures: {
       'add': 'AlignmentGeometry add(AlignmentGeometry other)',
-      'resolve': 'Alignment resolve(InvalidType direction)',
+      'resolve': 'Alignment resolve(TextDirection? direction)',
       'toString': 'String toString()',
-      'alongOffset': 'InvalidType alongOffset(InvalidType other)',
-      'alongSize': 'InvalidType alongSize(InvalidType other)',
-      'withinRect': 'InvalidType withinRect(InvalidType rect)',
-      'inscribe': 'InvalidType inscribe(InvalidType size, InvalidType rect)',
+      'alongOffset': 'Offset alongOffset(Offset other)',
+      'alongSize': 'Offset alongSize(Size other)',
+      'withinRect': 'Offset withinRect(Rect rect)',
+      'inscribe': 'Rect inscribe(Size size, Rect rect)',
     },
     getterSignatures: {
       'hashCode': 'int get hashCode',
@@ -5293,16 +5491,16 @@ BridgedClass _createFractionalOffsetBridge() {
 
 BridgedClass _createGradientTransformBridge() {
   return BridgedClass(
-    nativeType: $flutter_22.GradientTransform,
+    nativeType: $flutter_29.GradientTransform,
     name: 'GradientTransform',
     constructors: {
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.GradientTransform>(target, 'GradientTransform');
+        final t = D4.validateTarget<$flutter_29.GradientTransform>(target, 'GradientTransform');
         D4.requireMinArgs(positional, 1, 'transform');
-        final bounds = D4.getRequiredArg<$flutter_22.Rect>(positional, 0, 'bounds', 'transform');
-        final textDirection = D4.getOptionalNamedArg<$flutter_22.TextDirection?>(named, 'textDirection');
+        final bounds = D4.getRequiredArg<Rect>(positional, 0, 'bounds', 'transform');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.transform(bounds, textDirection: textDirection);
       },
     },
@@ -5318,33 +5516,33 @@ BridgedClass _createGradientTransformBridge() {
 
 BridgedClass _createGradientRotationBridge() {
   return BridgedClass(
-    nativeType: $flutter_22.GradientRotation,
+    nativeType: $flutter_29.GradientRotation,
     name: 'GradientRotation',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'GradientRotation');
         final radians = D4.getRequiredArg<double>(positional, 0, 'radians', 'GradientRotation');
-        return $flutter_22.GradientRotation(radians);
+        return $flutter_29.GradientRotation(radians);
       },
     },
     getters: {
-      'radians': (visitor, target) => D4.validateTarget<$flutter_22.GradientRotation>(target, 'GradientRotation').radians,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_22.GradientRotation>(target, 'GradientRotation').hashCode,
+      'radians': (visitor, target) => D4.validateTarget<$flutter_29.GradientRotation>(target, 'GradientRotation').radians,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_29.GradientRotation>(target, 'GradientRotation').hashCode,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.GradientRotation>(target, 'GradientRotation');
+        final t = D4.validateTarget<$flutter_29.GradientRotation>(target, 'GradientRotation');
         D4.requireMinArgs(positional, 1, 'transform');
-        final bounds = D4.getRequiredArg<$flutter_22.Rect>(positional, 0, 'bounds', 'transform');
-        final textDirection = D4.getOptionalNamedArg<$flutter_22.TextDirection?>(named, 'textDirection');
+        final bounds = D4.getRequiredArg<Rect>(positional, 0, 'bounds', 'transform');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.transform(bounds, textDirection: textDirection);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.GradientRotation>(target, 'GradientRotation');
+        final t = D4.validateTarget<$flutter_29.GradientRotation>(target, 'GradientRotation');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.GradientRotation>(target, 'GradientRotation');
+        final t = D4.validateTarget<$flutter_29.GradientRotation>(target, 'GradientRotation');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -5369,31 +5567,31 @@ BridgedClass _createGradientRotationBridge() {
 
 BridgedClass _createGradientBridge() {
   return BridgedClass(
-    nativeType: $flutter_22.Gradient,
+    nativeType: $flutter_29.Gradient,
     name: 'Gradient',
     constructors: {
     },
     getters: {
-      'colors': (visitor, target) => D4.validateTarget<$flutter_22.Gradient>(target, 'Gradient').colors,
-      'stops': (visitor, target) => D4.validateTarget<$flutter_22.Gradient>(target, 'Gradient').stops,
-      'transform': (visitor, target) => D4.validateTarget<$flutter_22.Gradient>(target, 'Gradient').transform,
+      'colors': (visitor, target) => D4.validateTarget<$flutter_29.Gradient>(target, 'Gradient').colors,
+      'stops': (visitor, target) => D4.validateTarget<$flutter_29.Gradient>(target, 'Gradient').stops,
+      'transform': (visitor, target) => D4.validateTarget<$flutter_29.Gradient>(target, 'Gradient').transform,
     },
     methods: {
       'createShader': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.Gradient>(target, 'Gradient');
+        final t = D4.validateTarget<$flutter_29.Gradient>(target, 'Gradient');
         D4.requireMinArgs(positional, 1, 'createShader');
-        final rect = D4.getRequiredArg<$flutter_22.Rect>(positional, 0, 'rect', 'createShader');
-        final textDirection = D4.getOptionalNamedArg<$flutter_22.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'createShader');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.createShader(rect, textDirection: textDirection);
       },
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.Gradient>(target, 'Gradient');
+        final t = D4.validateTarget<$flutter_29.Gradient>(target, 'Gradient');
         D4.requireMinArgs(positional, 1, 'scale');
         final factor = D4.getRequiredArg<double>(positional, 0, 'factor', 'scale');
         return t.scale(factor);
       },
       'withOpacity': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.Gradient>(target, 'Gradient');
+        final t = D4.validateTarget<$flutter_29.Gradient>(target, 'Gradient');
         D4.requireMinArgs(positional, 1, 'withOpacity');
         final opacity = D4.getRequiredArg<double>(positional, 0, 'opacity', 'withOpacity');
         return t.withOpacity(opacity);
@@ -5402,10 +5600,10 @@ BridgedClass _createGradientBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_22.Gradient?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_22.Gradient?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_29.Gradient?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_29.Gradient?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_22.Gradient.lerp(a, b, t_);
+        return $flutter_29.Gradient.lerp(a, b, t_);
       },
     },
     methodSignatures: {
@@ -5430,63 +5628,57 @@ BridgedClass _createGradientBridge() {
 
 BridgedClass _createLinearGradientBridge() {
   return BridgedClass(
-    nativeType: $flutter_22.LinearGradient,
+    nativeType: $flutter_29.LinearGradient,
     name: 'LinearGradient',
     constructors: {
       '': (visitor, positional, named) {
-        final begin = D4.getNamedArgWithDefault<$flutter_1.AlignmentGeometry>(named, 'begin', $flutter_1.Alignment.centerLeft);
-        final end = D4.getNamedArgWithDefault<$flutter_1.AlignmentGeometry>(named, 'end', $flutter_1.Alignment.centerRight);
+        final begin = D4.getNamedArgWithDefault<$flutter_8.AlignmentGeometry>(named, 'begin', $flutter_8.Alignment.centerLeft);
+        final end = D4.getNamedArgWithDefault<$flutter_8.AlignmentGeometry>(named, 'end', $flutter_8.Alignment.centerRight);
         if (!named.containsKey('colors') || named['colors'] == null) {
           throw ArgumentError('LinearGradient: Missing required named argument "colors"');
         }
-        final colors = D4.coerceList<dynamic>(named['colors'], 'colors');
+        final colors = D4.coerceList<Color>(named['colors'], 'colors');
         final stops = D4.coerceListOrNull<double>(named['stops'], 'stops');
-        final transform = D4.getOptionalNamedArg<$flutter_22.GradientTransform?>(named, 'transform');
-        if (!named.containsKey('tileMode')) {
-          return $flutter_22.LinearGradient(begin: begin, end: end, colors: colors, stops: stops, transform: transform);
-        }
-        if (named.containsKey('tileMode')) {
-          final tileMode = D4.getRequiredNamedArg<dynamic>(named, 'tileMode', 'LinearGradient');
-          return $flutter_22.LinearGradient(begin: begin, end: end, colors: colors, stops: stops, transform: transform, tileMode: tileMode);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final tileMode = D4.getNamedArgWithDefault<TileMode>(named, 'tileMode', $dart_ui.TileMode.clamp);
+        final transform = D4.getOptionalNamedArg<$flutter_29.GradientTransform?>(named, 'transform');
+        return $flutter_29.LinearGradient(begin: begin, end: end, colors: colors, stops: stops, tileMode: tileMode, transform: transform);
       },
     },
     getters: {
-      'colors': (visitor, target) => D4.validateTarget<$flutter_22.LinearGradient>(target, 'LinearGradient').colors,
-      'stops': (visitor, target) => D4.validateTarget<$flutter_22.LinearGradient>(target, 'LinearGradient').stops,
-      'transform': (visitor, target) => D4.validateTarget<$flutter_22.LinearGradient>(target, 'LinearGradient').transform,
-      'begin': (visitor, target) => D4.validateTarget<$flutter_22.LinearGradient>(target, 'LinearGradient').begin,
-      'end': (visitor, target) => D4.validateTarget<$flutter_22.LinearGradient>(target, 'LinearGradient').end,
-      'tileMode': (visitor, target) => D4.validateTarget<$flutter_22.LinearGradient>(target, 'LinearGradient').tileMode,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_22.LinearGradient>(target, 'LinearGradient').hashCode,
+      'colors': (visitor, target) => D4.validateTarget<$flutter_29.LinearGradient>(target, 'LinearGradient').colors,
+      'stops': (visitor, target) => D4.validateTarget<$flutter_29.LinearGradient>(target, 'LinearGradient').stops,
+      'transform': (visitor, target) => D4.validateTarget<$flutter_29.LinearGradient>(target, 'LinearGradient').transform,
+      'begin': (visitor, target) => D4.validateTarget<$flutter_29.LinearGradient>(target, 'LinearGradient').begin,
+      'end': (visitor, target) => D4.validateTarget<$flutter_29.LinearGradient>(target, 'LinearGradient').end,
+      'tileMode': (visitor, target) => D4.validateTarget<$flutter_29.LinearGradient>(target, 'LinearGradient').tileMode,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_29.LinearGradient>(target, 'LinearGradient').hashCode,
     },
     methods: {
       'createShader': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.LinearGradient>(target, 'LinearGradient');
+        final t = D4.validateTarget<$flutter_29.LinearGradient>(target, 'LinearGradient');
         D4.requireMinArgs(positional, 1, 'createShader');
-        final rect = D4.getRequiredArg<$flutter_22.Rect>(positional, 0, 'rect', 'createShader');
-        final textDirection = D4.getOptionalNamedArg<$flutter_22.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'createShader');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.createShader(rect, textDirection: textDirection);
       },
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.LinearGradient>(target, 'LinearGradient');
+        final t = D4.validateTarget<$flutter_29.LinearGradient>(target, 'LinearGradient');
         D4.requireMinArgs(positional, 1, 'scale');
         final factor = D4.getRequiredArg<double>(positional, 0, 'factor', 'scale');
         return t.scale(factor);
       },
       'withOpacity': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.LinearGradient>(target, 'LinearGradient');
+        final t = D4.validateTarget<$flutter_29.LinearGradient>(target, 'LinearGradient');
         D4.requireMinArgs(positional, 1, 'withOpacity');
         final opacity = D4.getRequiredArg<double>(positional, 0, 'opacity', 'withOpacity');
         return t.withOpacity(opacity);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.LinearGradient>(target, 'LinearGradient');
+        final t = D4.validateTarget<$flutter_29.LinearGradient>(target, 'LinearGradient');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.LinearGradient>(target, 'LinearGradient');
+        final t = D4.validateTarget<$flutter_29.LinearGradient>(target, 'LinearGradient');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -5494,14 +5686,14 @@ BridgedClass _createLinearGradientBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_22.LinearGradient?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_22.LinearGradient?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_29.LinearGradient?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_29.LinearGradient?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_22.LinearGradient.lerp(a, b, t_);
+        return $flutter_29.LinearGradient.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
-      '': 'const LinearGradient({AlignmentGeometry begin = Alignment.centerLeft, AlignmentGeometry end = Alignment.centerRight, required List<InvalidType> colors, List<double>? stops, dynamic tileMode = TileMode.clamp, GradientTransform? transform})',
+      '': 'const LinearGradient({AlignmentGeometry begin = Alignment.centerLeft, AlignmentGeometry end = Alignment.centerRight, required List<Color> colors, List<double>? stops, TileMode tileMode = TileMode.clamp, GradientTransform? transform})',
     },
     methodSignatures: {
       'createShader': 'Shader createShader(Rect rect, {TextDirection? textDirection})',
@@ -5510,7 +5702,7 @@ BridgedClass _createLinearGradientBridge() {
       'toString': 'String toString()',
     },
     getterSignatures: {
-      'colors': 'List<InvalidType> get colors',
+      'colors': 'List<Color> get colors',
       'stops': 'List<double>? get stops',
       'transform': 'GradientTransform? get transform',
       'begin': 'AlignmentGeometry get begin',
@@ -5530,67 +5722,61 @@ BridgedClass _createLinearGradientBridge() {
 
 BridgedClass _createRadialGradientBridge() {
   return BridgedClass(
-    nativeType: $flutter_22.RadialGradient,
+    nativeType: $flutter_29.RadialGradient,
     name: 'RadialGradient',
     constructors: {
       '': (visitor, positional, named) {
-        final center = D4.getNamedArgWithDefault<$flutter_1.AlignmentGeometry>(named, 'center', $flutter_1.Alignment.center);
+        final center = D4.getNamedArgWithDefault<$flutter_8.AlignmentGeometry>(named, 'center', $flutter_8.Alignment.center);
         final radius = D4.getNamedArgWithDefault<double>(named, 'radius', 0.5);
         if (!named.containsKey('colors') || named['colors'] == null) {
           throw ArgumentError('RadialGradient: Missing required named argument "colors"');
         }
-        final colors = D4.coerceList<dynamic>(named['colors'], 'colors');
+        final colors = D4.coerceList<Color>(named['colors'], 'colors');
         final stops = D4.coerceListOrNull<double>(named['stops'], 'stops');
-        final focal = D4.getOptionalNamedArg<$flutter_1.AlignmentGeometry?>(named, 'focal');
+        final tileMode = D4.getNamedArgWithDefault<TileMode>(named, 'tileMode', $dart_ui.TileMode.clamp);
+        final focal = D4.getOptionalNamedArg<$flutter_8.AlignmentGeometry?>(named, 'focal');
         final focalRadius = D4.getNamedArgWithDefault<double>(named, 'focalRadius', 0.0);
-        final transform = D4.getOptionalNamedArg<$flutter_22.GradientTransform?>(named, 'transform');
-        if (!named.containsKey('tileMode')) {
-          return $flutter_22.RadialGradient(center: center, radius: radius, colors: colors, stops: stops, focal: focal, focalRadius: focalRadius, transform: transform);
-        }
-        if (named.containsKey('tileMode')) {
-          final tileMode = D4.getRequiredNamedArg<dynamic>(named, 'tileMode', 'RadialGradient');
-          return $flutter_22.RadialGradient(center: center, radius: radius, colors: colors, stops: stops, focal: focal, focalRadius: focalRadius, transform: transform, tileMode: tileMode);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final transform = D4.getOptionalNamedArg<$flutter_29.GradientTransform?>(named, 'transform');
+        return $flutter_29.RadialGradient(center: center, radius: radius, colors: colors, stops: stops, tileMode: tileMode, focal: focal, focalRadius: focalRadius, transform: transform);
       },
     },
     getters: {
-      'colors': (visitor, target) => D4.validateTarget<$flutter_22.RadialGradient>(target, 'RadialGradient').colors,
-      'stops': (visitor, target) => D4.validateTarget<$flutter_22.RadialGradient>(target, 'RadialGradient').stops,
-      'transform': (visitor, target) => D4.validateTarget<$flutter_22.RadialGradient>(target, 'RadialGradient').transform,
-      'center': (visitor, target) => D4.validateTarget<$flutter_22.RadialGradient>(target, 'RadialGradient').center,
-      'radius': (visitor, target) => D4.validateTarget<$flutter_22.RadialGradient>(target, 'RadialGradient').radius,
-      'tileMode': (visitor, target) => D4.validateTarget<$flutter_22.RadialGradient>(target, 'RadialGradient').tileMode,
-      'focal': (visitor, target) => D4.validateTarget<$flutter_22.RadialGradient>(target, 'RadialGradient').focal,
-      'focalRadius': (visitor, target) => D4.validateTarget<$flutter_22.RadialGradient>(target, 'RadialGradient').focalRadius,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_22.RadialGradient>(target, 'RadialGradient').hashCode,
+      'colors': (visitor, target) => D4.validateTarget<$flutter_29.RadialGradient>(target, 'RadialGradient').colors,
+      'stops': (visitor, target) => D4.validateTarget<$flutter_29.RadialGradient>(target, 'RadialGradient').stops,
+      'transform': (visitor, target) => D4.validateTarget<$flutter_29.RadialGradient>(target, 'RadialGradient').transform,
+      'center': (visitor, target) => D4.validateTarget<$flutter_29.RadialGradient>(target, 'RadialGradient').center,
+      'radius': (visitor, target) => D4.validateTarget<$flutter_29.RadialGradient>(target, 'RadialGradient').radius,
+      'tileMode': (visitor, target) => D4.validateTarget<$flutter_29.RadialGradient>(target, 'RadialGradient').tileMode,
+      'focal': (visitor, target) => D4.validateTarget<$flutter_29.RadialGradient>(target, 'RadialGradient').focal,
+      'focalRadius': (visitor, target) => D4.validateTarget<$flutter_29.RadialGradient>(target, 'RadialGradient').focalRadius,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_29.RadialGradient>(target, 'RadialGradient').hashCode,
     },
     methods: {
       'createShader': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.RadialGradient>(target, 'RadialGradient');
+        final t = D4.validateTarget<$flutter_29.RadialGradient>(target, 'RadialGradient');
         D4.requireMinArgs(positional, 1, 'createShader');
-        final rect = D4.getRequiredArg<$flutter_22.Rect>(positional, 0, 'rect', 'createShader');
-        final textDirection = D4.getOptionalNamedArg<$flutter_22.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'createShader');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.createShader(rect, textDirection: textDirection);
       },
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.RadialGradient>(target, 'RadialGradient');
+        final t = D4.validateTarget<$flutter_29.RadialGradient>(target, 'RadialGradient');
         D4.requireMinArgs(positional, 1, 'scale');
         final factor = D4.getRequiredArg<double>(positional, 0, 'factor', 'scale');
         return t.scale(factor);
       },
       'withOpacity': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.RadialGradient>(target, 'RadialGradient');
+        final t = D4.validateTarget<$flutter_29.RadialGradient>(target, 'RadialGradient');
         D4.requireMinArgs(positional, 1, 'withOpacity');
         final opacity = D4.getRequiredArg<double>(positional, 0, 'opacity', 'withOpacity');
         return t.withOpacity(opacity);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.RadialGradient>(target, 'RadialGradient');
+        final t = D4.validateTarget<$flutter_29.RadialGradient>(target, 'RadialGradient');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.RadialGradient>(target, 'RadialGradient');
+        final t = D4.validateTarget<$flutter_29.RadialGradient>(target, 'RadialGradient');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -5598,14 +5784,14 @@ BridgedClass _createRadialGradientBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_22.RadialGradient?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_22.RadialGradient?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_29.RadialGradient?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_29.RadialGradient?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_22.RadialGradient.lerp(a, b, t_);
+        return $flutter_29.RadialGradient.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
-      '': 'const RadialGradient({AlignmentGeometry center = Alignment.center, double radius = 0.5, required List<InvalidType> colors, List<double>? stops, dynamic tileMode = TileMode.clamp, AlignmentGeometry? focal, double focalRadius = 0.0, GradientTransform? transform})',
+      '': 'const RadialGradient({AlignmentGeometry center = Alignment.center, double radius = 0.5, required List<Color> colors, List<double>? stops, TileMode tileMode = TileMode.clamp, AlignmentGeometry? focal, double focalRadius = 0.0, GradientTransform? transform})',
     },
     methodSignatures: {
       'createShader': 'Shader createShader(Rect rect, {TextDirection? textDirection})',
@@ -5614,7 +5800,7 @@ BridgedClass _createRadialGradientBridge() {
       'toString': 'String toString()',
     },
     getterSignatures: {
-      'colors': 'List<InvalidType> get colors',
+      'colors': 'List<Color> get colors',
       'stops': 'List<double>? get stops',
       'transform': 'GradientTransform? get transform',
       'center': 'AlignmentGeometry get center',
@@ -5636,73 +5822,65 @@ BridgedClass _createRadialGradientBridge() {
 
 BridgedClass _createSweepGradientBridge() {
   return BridgedClass(
-    nativeType: $flutter_22.SweepGradient,
+    nativeType: $flutter_29.SweepGradient,
     name: 'SweepGradient',
     constructors: {
       '': (visitor, positional, named) {
-        final center = D4.getNamedArgWithDefault<$flutter_1.AlignmentGeometry>(named, 'center', $flutter_1.Alignment.center);
+        final center = D4.getNamedArgWithDefault<$flutter_8.AlignmentGeometry>(named, 'center', $flutter_8.Alignment.center);
         final startAngle = D4.getNamedArgWithDefault<double>(named, 'startAngle', 0.0);
         if (!named.containsKey('colors') || named['colors'] == null) {
           throw ArgumentError('SweepGradient: Missing required named argument "colors"');
         }
-        final colors = D4.coerceList<dynamic>(named['colors'], 'colors');
+        final colors = D4.coerceList<Color>(named['colors'], 'colors');
         final stops = D4.coerceListOrNull<double>(named['stops'], 'stops');
-        final transform = D4.getOptionalNamedArg<$flutter_22.GradientTransform?>(named, 'transform');
-        if (!named.containsKey('endAngle') && !named.containsKey('tileMode')) {
-          return $flutter_22.SweepGradient(center: center, startAngle: startAngle, colors: colors, stops: stops, transform: transform);
+        final tileMode = D4.getNamedArgWithDefault<TileMode>(named, 'tileMode', $dart_ui.TileMode.clamp);
+        final transform = D4.getOptionalNamedArg<$flutter_29.GradientTransform?>(named, 'transform');
+        if (!named.containsKey('endAngle')) {
+          return $flutter_29.SweepGradient(center: center, startAngle: startAngle, colors: colors, stops: stops, tileMode: tileMode, transform: transform);
         }
-        if (named.containsKey('endAngle') && !named.containsKey('tileMode')) {
+        if (named.containsKey('endAngle')) {
           final endAngle = D4.getRequiredNamedArg<double>(named, 'endAngle', 'SweepGradient');
-          return $flutter_22.SweepGradient(center: center, startAngle: startAngle, colors: colors, stops: stops, transform: transform, endAngle: endAngle);
-        }
-        if (!named.containsKey('endAngle') && named.containsKey('tileMode')) {
-          final tileMode = D4.getRequiredNamedArg<dynamic>(named, 'tileMode', 'SweepGradient');
-          return $flutter_22.SweepGradient(center: center, startAngle: startAngle, colors: colors, stops: stops, transform: transform, tileMode: tileMode);
-        }
-        if (named.containsKey('endAngle') && named.containsKey('tileMode')) {
-          final endAngle = D4.getRequiredNamedArg<double>(named, 'endAngle', 'SweepGradient');
-          final tileMode = D4.getRequiredNamedArg<dynamic>(named, 'tileMode', 'SweepGradient');
-          return $flutter_22.SweepGradient(center: center, startAngle: startAngle, colors: colors, stops: stops, transform: transform, endAngle: endAngle, tileMode: tileMode);
+          return $flutter_29.SweepGradient(center: center, startAngle: startAngle, colors: colors, stops: stops, tileMode: tileMode, transform: transform, endAngle: endAngle);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
-      'colors': (visitor, target) => D4.validateTarget<$flutter_22.SweepGradient>(target, 'SweepGradient').colors,
-      'stops': (visitor, target) => D4.validateTarget<$flutter_22.SweepGradient>(target, 'SweepGradient').stops,
-      'transform': (visitor, target) => D4.validateTarget<$flutter_22.SweepGradient>(target, 'SweepGradient').transform,
-      'center': (visitor, target) => D4.validateTarget<$flutter_22.SweepGradient>(target, 'SweepGradient').center,
-      'startAngle': (visitor, target) => D4.validateTarget<$flutter_22.SweepGradient>(target, 'SweepGradient').startAngle,
-      'endAngle': (visitor, target) => D4.validateTarget<$flutter_22.SweepGradient>(target, 'SweepGradient').endAngle,
-      'tileMode': (visitor, target) => D4.validateTarget<$flutter_22.SweepGradient>(target, 'SweepGradient').tileMode,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_22.SweepGradient>(target, 'SweepGradient').hashCode,
+      'colors': (visitor, target) => D4.validateTarget<$flutter_29.SweepGradient>(target, 'SweepGradient').colors,
+      'stops': (visitor, target) => D4.validateTarget<$flutter_29.SweepGradient>(target, 'SweepGradient').stops,
+      'transform': (visitor, target) => D4.validateTarget<$flutter_29.SweepGradient>(target, 'SweepGradient').transform,
+      'center': (visitor, target) => D4.validateTarget<$flutter_29.SweepGradient>(target, 'SweepGradient').center,
+      'startAngle': (visitor, target) => D4.validateTarget<$flutter_29.SweepGradient>(target, 'SweepGradient').startAngle,
+      'endAngle': (visitor, target) => D4.validateTarget<$flutter_29.SweepGradient>(target, 'SweepGradient').endAngle,
+      'tileMode': (visitor, target) => D4.validateTarget<$flutter_29.SweepGradient>(target, 'SweepGradient').tileMode,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_29.SweepGradient>(target, 'SweepGradient').hashCode,
     },
     methods: {
       'createShader': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.SweepGradient>(target, 'SweepGradient');
+        final t = D4.validateTarget<$flutter_29.SweepGradient>(target, 'SweepGradient');
         D4.requireMinArgs(positional, 1, 'createShader');
-        final rect = D4.getRequiredArg<$flutter_22.Rect>(positional, 0, 'rect', 'createShader');
-        final textDirection = D4.getOptionalNamedArg<$flutter_22.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'createShader');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.createShader(rect, textDirection: textDirection);
       },
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.SweepGradient>(target, 'SweepGradient');
+        final t = D4.validateTarget<$flutter_29.SweepGradient>(target, 'SweepGradient');
         D4.requireMinArgs(positional, 1, 'scale');
         final factor = D4.getRequiredArg<double>(positional, 0, 'factor', 'scale');
         return t.scale(factor);
       },
       'withOpacity': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.SweepGradient>(target, 'SweepGradient');
+        final t = D4.validateTarget<$flutter_29.SweepGradient>(target, 'SweepGradient');
         D4.requireMinArgs(positional, 1, 'withOpacity');
         final opacity = D4.getRequiredArg<double>(positional, 0, 'opacity', 'withOpacity');
         return t.withOpacity(opacity);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.SweepGradient>(target, 'SweepGradient');
+        final t = D4.validateTarget<$flutter_29.SweepGradient>(target, 'SweepGradient');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_22.SweepGradient>(target, 'SweepGradient');
+        final t = D4.validateTarget<$flutter_29.SweepGradient>(target, 'SweepGradient');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -5710,14 +5888,14 @@ BridgedClass _createSweepGradientBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_22.SweepGradient?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_22.SweepGradient?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_29.SweepGradient?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_29.SweepGradient?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_22.SweepGradient.lerp(a, b, t_);
+        return $flutter_29.SweepGradient.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
-      '': 'const SweepGradient({AlignmentGeometry center = Alignment.center, double startAngle = 0.0, double endAngle = math.pi * 2, required List<InvalidType> colors, List<double>? stops, dynamic tileMode = TileMode.clamp, GradientTransform? transform})',
+      '': 'const SweepGradient({AlignmentGeometry center = Alignment.center, double startAngle = 0.0, double endAngle = math.pi * 2, required List<Color> colors, List<double>? stops, TileMode tileMode = TileMode.clamp, GradientTransform? transform})',
     },
     methodSignatures: {
       'createShader': 'Shader createShader(Rect rect, {TextDirection? textDirection})',
@@ -5726,7 +5904,7 @@ BridgedClass _createSweepGradientBridge() {
       'toString': 'String toString()',
     },
     getterSignatures: {
-      'colors': 'List<InvalidType> get colors',
+      'colors': 'List<Color> get colors',
       'stops': 'List<double>? get stops',
       'transform': 'GradientTransform? get transform',
       'center': 'AlignmentGeometry get center',
@@ -5747,42 +5925,42 @@ BridgedClass _createSweepGradientBridge() {
 
 BridgedClass _createImageCacheBridge() {
   return BridgedClass(
-    nativeType: $flutter_23.ImageCache,
+    nativeType: $flutter_30.ImageCache,
     name: 'ImageCache',
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_23.ImageCache();
+        return $flutter_30.ImageCache();
       },
     },
     getters: {
-      'maximumSize': (visitor, target) => D4.validateTarget<$flutter_23.ImageCache>(target, 'ImageCache').maximumSize,
-      'currentSize': (visitor, target) => D4.validateTarget<$flutter_23.ImageCache>(target, 'ImageCache').currentSize,
-      'maximumSizeBytes': (visitor, target) => D4.validateTarget<$flutter_23.ImageCache>(target, 'ImageCache').maximumSizeBytes,
-      'currentSizeBytes': (visitor, target) => D4.validateTarget<$flutter_23.ImageCache>(target, 'ImageCache').currentSizeBytes,
-      'liveImageCount': (visitor, target) => D4.validateTarget<$flutter_23.ImageCache>(target, 'ImageCache').liveImageCount,
-      'pendingImageCount': (visitor, target) => D4.validateTarget<$flutter_23.ImageCache>(target, 'ImageCache').pendingImageCount,
+      'maximumSize': (visitor, target) => D4.validateTarget<$flutter_30.ImageCache>(target, 'ImageCache').maximumSize,
+      'currentSize': (visitor, target) => D4.validateTarget<$flutter_30.ImageCache>(target, 'ImageCache').currentSize,
+      'maximumSizeBytes': (visitor, target) => D4.validateTarget<$flutter_30.ImageCache>(target, 'ImageCache').maximumSizeBytes,
+      'currentSizeBytes': (visitor, target) => D4.validateTarget<$flutter_30.ImageCache>(target, 'ImageCache').currentSizeBytes,
+      'liveImageCount': (visitor, target) => D4.validateTarget<$flutter_30.ImageCache>(target, 'ImageCache').liveImageCount,
+      'pendingImageCount': (visitor, target) => D4.validateTarget<$flutter_30.ImageCache>(target, 'ImageCache').pendingImageCount,
     },
     setters: {
       'maximumSize': (visitor, target, value) => 
-        D4.validateTarget<$flutter_23.ImageCache>(target, 'ImageCache').maximumSize = value as dynamic,
+        D4.validateTarget<$flutter_30.ImageCache>(target, 'ImageCache').maximumSize = value as dynamic,
       'maximumSizeBytes': (visitor, target, value) => 
-        D4.validateTarget<$flutter_23.ImageCache>(target, 'ImageCache').maximumSizeBytes = value as dynamic,
+        D4.validateTarget<$flutter_30.ImageCache>(target, 'ImageCache').maximumSizeBytes = value as dynamic,
     },
     methods: {
       'clear': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.ImageCache>(target, 'ImageCache');
+        final t = D4.validateTarget<$flutter_30.ImageCache>(target, 'ImageCache');
         t.clear();
         return null;
       },
       'evict': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.ImageCache>(target, 'ImageCache');
+        final t = D4.validateTarget<$flutter_30.ImageCache>(target, 'ImageCache');
         D4.requireMinArgs(positional, 1, 'evict');
         final key = D4.getRequiredArg<Object>(positional, 0, 'key', 'evict');
         final includeLive = D4.getNamedArgWithDefault<bool>(named, 'includeLive', true);
         return t.evict(key, includeLive: includeLive);
       },
       'putIfAbsent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.ImageCache>(target, 'ImageCache');
+        final t = D4.validateTarget<$flutter_30.ImageCache>(target, 'ImageCache');
         D4.requireMinArgs(positional, 2, 'putIfAbsent');
         final key = D4.getRequiredArg<Object>(positional, 0, 'key', 'putIfAbsent');
         if (positional.length <= 1) {
@@ -5790,22 +5968,22 @@ BridgedClass _createImageCacheBridge() {
         }
         final loaderRaw = positional[1];
         final onErrorRaw = named['onError'];
-        return t.putIfAbsent(key, () { return D4.callInterpreterCallback(visitor, loaderRaw, []) as $flutter_27.ImageStreamCompleter; }, onError: onErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, onErrorRaw, [p0, p1]); });
+        return t.putIfAbsent(key, () { return D4.callInterpreterCallback(visitor, loaderRaw, []) as $flutter_34.ImageStreamCompleter; }, onError: onErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, onErrorRaw, [p0, p1]); });
       },
       'statusForKey': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.ImageCache>(target, 'ImageCache');
+        final t = D4.validateTarget<$flutter_30.ImageCache>(target, 'ImageCache');
         D4.requireMinArgs(positional, 1, 'statusForKey');
         final key = D4.getRequiredArg<Object>(positional, 0, 'key', 'statusForKey');
         return t.statusForKey(key);
       },
       'containsKey': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.ImageCache>(target, 'ImageCache');
+        final t = D4.validateTarget<$flutter_30.ImageCache>(target, 'ImageCache');
         D4.requireMinArgs(positional, 1, 'containsKey');
         final key = D4.getRequiredArg<Object>(positional, 0, 'key', 'containsKey');
         return t.containsKey(key);
       },
       'clearLiveImages': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.ImageCache>(target, 'ImageCache');
+        final t = D4.validateTarget<$flutter_30.ImageCache>(target, 'ImageCache');
         t.clearLiveImages();
         return null;
       },
@@ -5842,25 +6020,25 @@ BridgedClass _createImageCacheBridge() {
 
 BridgedClass _createImageCacheStatusBridge() {
   return BridgedClass(
-    nativeType: $flutter_23.ImageCacheStatus,
+    nativeType: $flutter_30.ImageCacheStatus,
     name: 'ImageCacheStatus',
     constructors: {
     },
     getters: {
-      'pending': (visitor, target) => D4.validateTarget<$flutter_23.ImageCacheStatus>(target, 'ImageCacheStatus').pending,
-      'keepAlive': (visitor, target) => D4.validateTarget<$flutter_23.ImageCacheStatus>(target, 'ImageCacheStatus').keepAlive,
-      'live': (visitor, target) => D4.validateTarget<$flutter_23.ImageCacheStatus>(target, 'ImageCacheStatus').live,
-      'tracked': (visitor, target) => D4.validateTarget<$flutter_23.ImageCacheStatus>(target, 'ImageCacheStatus').tracked,
-      'untracked': (visitor, target) => D4.validateTarget<$flutter_23.ImageCacheStatus>(target, 'ImageCacheStatus').untracked,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_23.ImageCacheStatus>(target, 'ImageCacheStatus').hashCode,
+      'pending': (visitor, target) => D4.validateTarget<$flutter_30.ImageCacheStatus>(target, 'ImageCacheStatus').pending,
+      'keepAlive': (visitor, target) => D4.validateTarget<$flutter_30.ImageCacheStatus>(target, 'ImageCacheStatus').keepAlive,
+      'live': (visitor, target) => D4.validateTarget<$flutter_30.ImageCacheStatus>(target, 'ImageCacheStatus').live,
+      'tracked': (visitor, target) => D4.validateTarget<$flutter_30.ImageCacheStatus>(target, 'ImageCacheStatus').tracked,
+      'untracked': (visitor, target) => D4.validateTarget<$flutter_30.ImageCacheStatus>(target, 'ImageCacheStatus').untracked,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_30.ImageCacheStatus>(target, 'ImageCacheStatus').hashCode,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.ImageCacheStatus>(target, 'ImageCacheStatus');
+        final t = D4.validateTarget<$flutter_30.ImageCacheStatus>(target, 'ImageCacheStatus');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.ImageCacheStatus>(target, 'ImageCacheStatus');
+        final t = D4.validateTarget<$flutter_30.ImageCacheStatus>(target, 'ImageCacheStatus');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -5885,54 +6063,54 @@ BridgedClass _createImageCacheStatusBridge() {
 
 BridgedClass _createImageConfigurationBridge() {
   return BridgedClass(
-    nativeType: $flutter_25.ImageConfiguration,
+    nativeType: $flutter_32.ImageConfiguration,
     name: 'ImageConfiguration',
     constructors: {
       '': (visitor, positional, named) {
-        final bundle = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'bundle', 'ImageConfiguration', '<default unavailable>');
+        final bundle = D4.getOptionalNamedArg<$flutter_54.AssetBundle?>(named, 'bundle');
         final devicePixelRatio = D4.getOptionalNamedArg<double?>(named, 'devicePixelRatio');
-        final locale = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'locale', 'ImageConfiguration', '<default unavailable>');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'ImageConfiguration', '<default unavailable>');
-        final size = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'size', 'ImageConfiguration', '<default unavailable>');
-        final platform = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'platform', 'ImageConfiguration', '<default unavailable>');
-        return $flutter_25.ImageConfiguration(bundle: bundle, devicePixelRatio: devicePixelRatio, locale: locale, textDirection: textDirection, size: size, platform: platform);
+        final locale = D4.getOptionalNamedArg<Locale?>(named, 'locale');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
+        final size = D4.getOptionalNamedArg<Size?>(named, 'size');
+        final platform = D4.getOptionalNamedArg<$flutter_4.TargetPlatform?>(named, 'platform');
+        return $flutter_32.ImageConfiguration(bundle: bundle, devicePixelRatio: devicePixelRatio, locale: locale, textDirection: textDirection, size: size, platform: platform);
       },
     },
     getters: {
-      'bundle': (visitor, target) => D4.validateTarget<$flutter_25.ImageConfiguration>(target, 'ImageConfiguration').bundle,
-      'devicePixelRatio': (visitor, target) => D4.validateTarget<$flutter_25.ImageConfiguration>(target, 'ImageConfiguration').devicePixelRatio,
-      'locale': (visitor, target) => D4.validateTarget<$flutter_25.ImageConfiguration>(target, 'ImageConfiguration').locale,
-      'textDirection': (visitor, target) => D4.validateTarget<$flutter_25.ImageConfiguration>(target, 'ImageConfiguration').textDirection,
-      'size': (visitor, target) => D4.validateTarget<$flutter_25.ImageConfiguration>(target, 'ImageConfiguration').size,
-      'platform': (visitor, target) => D4.validateTarget<$flutter_25.ImageConfiguration>(target, 'ImageConfiguration').platform,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_25.ImageConfiguration>(target, 'ImageConfiguration').hashCode,
+      'bundle': (visitor, target) => D4.validateTarget<$flutter_32.ImageConfiguration>(target, 'ImageConfiguration').bundle,
+      'devicePixelRatio': (visitor, target) => D4.validateTarget<$flutter_32.ImageConfiguration>(target, 'ImageConfiguration').devicePixelRatio,
+      'locale': (visitor, target) => D4.validateTarget<$flutter_32.ImageConfiguration>(target, 'ImageConfiguration').locale,
+      'textDirection': (visitor, target) => D4.validateTarget<$flutter_32.ImageConfiguration>(target, 'ImageConfiguration').textDirection,
+      'size': (visitor, target) => D4.validateTarget<$flutter_32.ImageConfiguration>(target, 'ImageConfiguration').size,
+      'platform': (visitor, target) => D4.validateTarget<$flutter_32.ImageConfiguration>(target, 'ImageConfiguration').platform,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_32.ImageConfiguration>(target, 'ImageConfiguration').hashCode,
     },
     methods: {
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ImageConfiguration>(target, 'ImageConfiguration');
-        final bundle = D4.getOptionalNamedArg<$aux_flutter_3.AssetBundle?>(named, 'bundle');
+        final t = D4.validateTarget<$flutter_32.ImageConfiguration>(target, 'ImageConfiguration');
+        final bundle = D4.getOptionalNamedArg<$flutter_54.AssetBundle?>(named, 'bundle');
         final devicePixelRatio = D4.getOptionalNamedArg<double?>(named, 'devicePixelRatio');
-        final locale = D4.getOptionalNamedArg<$flutter_25.Locale?>(named, 'locale');
-        final textDirection = D4.getOptionalNamedArg<$flutter_25.TextDirection?>(named, 'textDirection');
-        final size = D4.getOptionalNamedArg<$flutter_25.Size?>(named, 'size');
-        final platform = D4.getOptionalNamedArg<$aux_flutter_4.TargetPlatform?>(named, 'platform');
+        final locale = D4.getOptionalNamedArg<Locale?>(named, 'locale');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
+        final size = D4.getOptionalNamedArg<Size?>(named, 'size');
+        final platform = D4.getOptionalNamedArg<$flutter_4.TargetPlatform?>(named, 'platform');
         return t.copyWith(bundle: bundle, devicePixelRatio: devicePixelRatio, locale: locale, textDirection: textDirection, size: size, platform: platform);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ImageConfiguration>(target, 'ImageConfiguration');
+        final t = D4.validateTarget<$flutter_32.ImageConfiguration>(target, 'ImageConfiguration');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ImageConfiguration>(target, 'ImageConfiguration');
+        final t = D4.validateTarget<$flutter_32.ImageConfiguration>(target, 'ImageConfiguration');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     staticGetters: {
-      'empty': (visitor) => $flutter_25.ImageConfiguration.empty,
+      'empty': (visitor) => $flutter_32.ImageConfiguration.empty,
     },
     constructorSignatures: {
-      '': 'const ImageConfiguration({dynamic bundle, double? devicePixelRatio, dynamic locale, dynamic textDirection, dynamic size, dynamic platform})',
+      '': 'const ImageConfiguration({AssetBundle? bundle, double? devicePixelRatio, Locale? locale, TextDirection? textDirection, Size? size, TargetPlatform? platform})',
     },
     methodSignatures: {
       'copyWith': 'ImageConfiguration copyWith({AssetBundle? bundle, double? devicePixelRatio, ui.Locale? locale, TextDirection? textDirection, Size? size, TargetPlatform? platform})',
@@ -5959,37 +6137,37 @@ BridgedClass _createImageConfigurationBridge() {
 
 BridgedClass _createImageProviderBridge() {
   return BridgedClass(
-    nativeType: $flutter_25.ImageProvider,
+    nativeType: $flutter_32.ImageProvider,
     name: 'ImageProvider',
     constructors: {
     },
     methods: {
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ImageProvider>(target, 'ImageProvider');
+        final t = D4.validateTarget<$flutter_32.ImageProvider>(target, 'ImageProvider');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 0, 'configuration', 'resolve');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 0, 'configuration', 'resolve');
         return t.resolve(configuration);
       },
       'obtainCacheStatus': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ImageProvider>(target, 'ImageProvider');
-        final configuration = D4.getRequiredNamedArg<$flutter_25.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
+        final t = D4.validateTarget<$flutter_32.ImageProvider>(target, 'ImageProvider');
+        final configuration = D4.getRequiredNamedArg<$flutter_32.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
         final handleErrorRaw = named['handleError'];
         return t.obtainCacheStatus(configuration: configuration, handleError: handleErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, handleErrorRaw, [p0, p1]); });
       },
       'evict': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ImageProvider>(target, 'ImageProvider');
-        final cache = D4.getOptionalNamedArg<$flutter_23.ImageCache?>(named, 'cache');
-        final configuration = D4.getNamedArgWithDefault<$flutter_25.ImageConfiguration>(named, 'configuration', $flutter_25.ImageConfiguration.empty);
+        final t = D4.validateTarget<$flutter_32.ImageProvider>(target, 'ImageProvider');
+        final cache = D4.getOptionalNamedArg<$flutter_30.ImageCache?>(named, 'cache');
+        final configuration = D4.getNamedArgWithDefault<$flutter_32.ImageConfiguration>(named, 'configuration', $flutter_32.ImageConfiguration.empty);
         return t.evict(cache: cache, configuration: configuration);
       },
       'obtainKey': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ImageProvider>(target, 'ImageProvider');
+        final t = D4.validateTarget<$flutter_32.ImageProvider>(target, 'ImageProvider');
         D4.requireMinArgs(positional, 1, 'obtainKey');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 0, 'configuration', 'obtainKey');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 0, 'configuration', 'obtainKey');
         return t.obtainKey(configuration);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ImageProvider>(target, 'ImageProvider');
+        final t = D4.validateTarget<$flutter_32.ImageProvider>(target, 'ImageProvider');
         return t.toString();
       },
     },
@@ -6009,35 +6187,35 @@ BridgedClass _createImageProviderBridge() {
 
 BridgedClass _createAssetBundleImageKeyBridge() {
   return BridgedClass(
-    nativeType: $flutter_25.AssetBundleImageKey,
+    nativeType: $flutter_32.AssetBundleImageKey,
     name: 'AssetBundleImageKey',
     constructors: {
       '': (visitor, positional, named) {
-        final bundle = D4.getRequiredNamedArg<dynamic>(named, 'bundle', 'AssetBundleImageKey');
+        final bundle = D4.getRequiredNamedArg<$flutter_54.AssetBundle>(named, 'bundle', 'AssetBundleImageKey');
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'AssetBundleImageKey');
         final scale = D4.getRequiredNamedArg<double>(named, 'scale', 'AssetBundleImageKey');
-        return $flutter_25.AssetBundleImageKey(bundle: bundle, name: name, scale: scale);
+        return $flutter_32.AssetBundleImageKey(bundle: bundle, name: name, scale: scale);
       },
     },
     getters: {
-      'bundle': (visitor, target) => D4.validateTarget<$flutter_25.AssetBundleImageKey>(target, 'AssetBundleImageKey').bundle,
-      'name': (visitor, target) => D4.validateTarget<$flutter_25.AssetBundleImageKey>(target, 'AssetBundleImageKey').name,
-      'scale': (visitor, target) => D4.validateTarget<$flutter_25.AssetBundleImageKey>(target, 'AssetBundleImageKey').scale,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_25.AssetBundleImageKey>(target, 'AssetBundleImageKey').hashCode,
+      'bundle': (visitor, target) => D4.validateTarget<$flutter_32.AssetBundleImageKey>(target, 'AssetBundleImageKey').bundle,
+      'name': (visitor, target) => D4.validateTarget<$flutter_32.AssetBundleImageKey>(target, 'AssetBundleImageKey').name,
+      'scale': (visitor, target) => D4.validateTarget<$flutter_32.AssetBundleImageKey>(target, 'AssetBundleImageKey').scale,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_32.AssetBundleImageKey>(target, 'AssetBundleImageKey').hashCode,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.AssetBundleImageKey>(target, 'AssetBundleImageKey');
+        final t = D4.validateTarget<$flutter_32.AssetBundleImageKey>(target, 'AssetBundleImageKey');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.AssetBundleImageKey>(target, 'AssetBundleImageKey');
+        final t = D4.validateTarget<$flutter_32.AssetBundleImageKey>(target, 'AssetBundleImageKey');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     constructorSignatures: {
-      '': 'const AssetBundleImageKey({required dynamic bundle, required String name, required double scale})',
+      '': 'const AssetBundleImageKey({required AssetBundle bundle, required String name, required double scale})',
     },
     methodSignatures: {
       'toString': 'String toString()',
@@ -6057,43 +6235,43 @@ BridgedClass _createAssetBundleImageKeyBridge() {
 
 BridgedClass _createAssetBundleImageProviderBridge() {
   return BridgedClass(
-    nativeType: $flutter_25.AssetBundleImageProvider,
+    nativeType: $flutter_32.AssetBundleImageProvider,
     name: 'AssetBundleImageProvider',
     constructors: {
     },
     methods: {
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.AssetBundleImageProvider>(target, 'AssetBundleImageProvider');
+        final t = D4.validateTarget<$flutter_32.AssetBundleImageProvider>(target, 'AssetBundleImageProvider');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 0, 'configuration', 'resolve');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 0, 'configuration', 'resolve');
         return t.resolve(configuration);
       },
       'obtainCacheStatus': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.AssetBundleImageProvider>(target, 'AssetBundleImageProvider');
-        final configuration = D4.getRequiredNamedArg<$flutter_25.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
+        final t = D4.validateTarget<$flutter_32.AssetBundleImageProvider>(target, 'AssetBundleImageProvider');
+        final configuration = D4.getRequiredNamedArg<$flutter_32.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
         final handleErrorRaw = named['handleError'];
-        return t.obtainCacheStatus(configuration: configuration, handleError: (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, handleErrorRaw, [p0, p1]); });
+        return t.obtainCacheStatus(configuration: configuration, handleError: handleErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, handleErrorRaw, [p0, p1]); });
       },
       'evict': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.AssetBundleImageProvider>(target, 'AssetBundleImageProvider');
-        final cache = D4.getOptionalNamedArg<$flutter_23.ImageCache?>(named, 'cache');
-        final configuration = D4.getNamedArgWithDefault<$flutter_25.ImageConfiguration>(named, 'configuration', $flutter_25.ImageConfiguration.empty);
+        final t = D4.validateTarget<$flutter_32.AssetBundleImageProvider>(target, 'AssetBundleImageProvider');
+        final cache = D4.getOptionalNamedArg<$flutter_30.ImageCache?>(named, 'cache');
+        final configuration = D4.getNamedArgWithDefault<$flutter_32.ImageConfiguration>(named, 'configuration', $flutter_32.ImageConfiguration.empty);
         return t.evict(cache: cache, configuration: configuration);
       },
       'obtainKey': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.AssetBundleImageProvider>(target, 'AssetBundleImageProvider');
+        final t = D4.validateTarget<$flutter_32.AssetBundleImageProvider>(target, 'AssetBundleImageProvider');
         D4.requireMinArgs(positional, 1, 'obtainKey');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 0, 'configuration', 'obtainKey');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 0, 'configuration', 'obtainKey');
         return t.obtainKey(configuration);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.AssetBundleImageProvider>(target, 'AssetBundleImageProvider');
+        final t = D4.validateTarget<$flutter_32.AssetBundleImageProvider>(target, 'AssetBundleImageProvider');
         return t.toString();
       },
     },
     methodSignatures: {
       'resolve': 'ImageStream resolve(ImageConfiguration configuration)',
-      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object exception, StackTrace? stackTrace) handleError})',
+      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object, StackTrace?)? handleError})',
       'evict': 'Future<bool> evict({ImageCache? cache, ImageConfiguration configuration = ImageConfiguration.empty})',
       'obtainKey': 'Future<AssetBundleImageKey> obtainKey(ImageConfiguration configuration)',
       'toString': 'String toString()',
@@ -6107,16 +6285,16 @@ BridgedClass _createAssetBundleImageProviderBridge() {
 
 BridgedClass _createResizeImageKeyBridge() {
   return BridgedClass(
-    nativeType: $flutter_25.ResizeImageKey,
+    nativeType: $flutter_32.ResizeImageKey,
     name: 'ResizeImageKey',
     constructors: {
     },
     getters: {
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_25.ResizeImageKey>(target, 'ResizeImageKey').hashCode,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_32.ResizeImageKey>(target, 'ResizeImageKey').hashCode,
     },
     methods: {
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ResizeImageKey>(target, 'ResizeImageKey');
+        final t = D4.validateTarget<$flutter_32.ResizeImageKey>(target, 'ResizeImageKey');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -6133,58 +6311,58 @@ BridgedClass _createResizeImageKeyBridge() {
 
 BridgedClass _createResizeImageBridge() {
   return BridgedClass(
-    nativeType: $flutter_25.ResizeImage,
+    nativeType: $flutter_32.ResizeImage,
     name: 'ResizeImage',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ResizeImage');
-        final imageProvider = D4.getRequiredArg<$flutter_25.ImageProvider<Object>>(positional, 0, 'imageProvider', 'ResizeImage');
+        final imageProvider = D4.getRequiredArg<$flutter_32.ImageProvider<Object>>(positional, 0, 'imageProvider', 'ResizeImage');
         final width = D4.getOptionalNamedArg<int?>(named, 'width');
         final height = D4.getOptionalNamedArg<int?>(named, 'height');
-        final policy = D4.getNamedArgWithDefault<$flutter_25.ResizeImagePolicy>(named, 'policy', $flutter_25.ResizeImagePolicy.exact);
+        final policy = D4.getNamedArgWithDefault<$flutter_32.ResizeImagePolicy>(named, 'policy', $flutter_32.ResizeImagePolicy.exact);
         final allowUpscaling = D4.getNamedArgWithDefault<bool>(named, 'allowUpscaling', false);
-        return $flutter_25.ResizeImage(imageProvider, width: width, height: height, policy: policy, allowUpscaling: allowUpscaling);
+        return $flutter_32.ResizeImage(imageProvider, width: width, height: height, policy: policy, allowUpscaling: allowUpscaling);
       },
     },
     getters: {
-      'imageProvider': (visitor, target) => D4.validateTarget<$flutter_25.ResizeImage>(target, 'ResizeImage').imageProvider,
-      'width': (visitor, target) => D4.validateTarget<$flutter_25.ResizeImage>(target, 'ResizeImage').width,
-      'height': (visitor, target) => D4.validateTarget<$flutter_25.ResizeImage>(target, 'ResizeImage').height,
-      'policy': (visitor, target) => D4.validateTarget<$flutter_25.ResizeImage>(target, 'ResizeImage').policy,
-      'allowUpscaling': (visitor, target) => D4.validateTarget<$flutter_25.ResizeImage>(target, 'ResizeImage').allowUpscaling,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_25.ResizeImage>(target, 'ResizeImage').hashCode,
+      'imageProvider': (visitor, target) => D4.validateTarget<$flutter_32.ResizeImage>(target, 'ResizeImage').imageProvider,
+      'width': (visitor, target) => D4.validateTarget<$flutter_32.ResizeImage>(target, 'ResizeImage').width,
+      'height': (visitor, target) => D4.validateTarget<$flutter_32.ResizeImage>(target, 'ResizeImage').height,
+      'policy': (visitor, target) => D4.validateTarget<$flutter_32.ResizeImage>(target, 'ResizeImage').policy,
+      'allowUpscaling': (visitor, target) => D4.validateTarget<$flutter_32.ResizeImage>(target, 'ResizeImage').allowUpscaling,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_32.ResizeImage>(target, 'ResizeImage').hashCode,
     },
     methods: {
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ResizeImage>(target, 'ResizeImage');
+        final t = D4.validateTarget<$flutter_32.ResizeImage>(target, 'ResizeImage');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 0, 'configuration', 'resolve');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 0, 'configuration', 'resolve');
         return t.resolve(configuration);
       },
       'obtainCacheStatus': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ResizeImage>(target, 'ResizeImage');
-        final configuration = D4.getRequiredNamedArg<$flutter_25.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
+        final t = D4.validateTarget<$flutter_32.ResizeImage>(target, 'ResizeImage');
+        final configuration = D4.getRequiredNamedArg<$flutter_32.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
         final handleErrorRaw = named['handleError'];
-        return t.obtainCacheStatus(configuration: configuration, handleError: (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, handleErrorRaw, [p0, p1]); });
+        return t.obtainCacheStatus(configuration: configuration, handleError: handleErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, handleErrorRaw, [p0, p1]); });
       },
       'evict': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ResizeImage>(target, 'ResizeImage');
-        final cache = D4.getOptionalNamedArg<$flutter_23.ImageCache?>(named, 'cache');
-        final configuration = D4.getNamedArgWithDefault<$flutter_25.ImageConfiguration>(named, 'configuration', $flutter_25.ImageConfiguration.empty);
+        final t = D4.validateTarget<$flutter_32.ResizeImage>(target, 'ResizeImage');
+        final cache = D4.getOptionalNamedArg<$flutter_30.ImageCache?>(named, 'cache');
+        final configuration = D4.getNamedArgWithDefault<$flutter_32.ImageConfiguration>(named, 'configuration', $flutter_32.ImageConfiguration.empty);
         return t.evict(cache: cache, configuration: configuration);
       },
       'obtainKey': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ResizeImage>(target, 'ResizeImage');
+        final t = D4.validateTarget<$flutter_32.ResizeImage>(target, 'ResizeImage');
         D4.requireMinArgs(positional, 1, 'obtainKey');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 0, 'configuration', 'obtainKey');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 0, 'configuration', 'obtainKey');
         return t.obtainKey(configuration);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ResizeImage>(target, 'ResizeImage');
+        final t = D4.validateTarget<$flutter_32.ResizeImage>(target, 'ResizeImage');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ResizeImage>(target, 'ResizeImage');
+        final t = D4.validateTarget<$flutter_32.ResizeImage>(target, 'ResizeImage');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -6194,8 +6372,8 @@ BridgedClass _createResizeImageBridge() {
         D4.requireMinArgs(positional, 3, 'resizeIfNeeded');
         final cacheWidth = D4.getRequiredArg<int?>(positional, 0, 'cacheWidth', 'resizeIfNeeded');
         final cacheHeight = D4.getRequiredArg<int?>(positional, 1, 'cacheHeight', 'resizeIfNeeded');
-        final provider = D4.getRequiredArg<$flutter_25.ImageProvider<Object>>(positional, 2, 'provider', 'resizeIfNeeded');
-        return $flutter_25.ResizeImage.resizeIfNeeded(cacheWidth, cacheHeight, provider);
+        final provider = D4.getRequiredArg<$flutter_32.ImageProvider<Object>>(positional, 2, 'provider', 'resizeIfNeeded');
+        return $flutter_32.ResizeImage.resizeIfNeeded(cacheWidth, cacheHeight, provider);
       },
     },
     constructorSignatures: {
@@ -6203,7 +6381,7 @@ BridgedClass _createResizeImageBridge() {
     },
     methodSignatures: {
       'resolve': 'ImageStream resolve(ImageConfiguration configuration)',
-      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object exception, StackTrace? stackTrace) handleError})',
+      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object, StackTrace?)? handleError})',
       'evict': 'Future<bool> evict({ImageCache? cache, ImageConfiguration configuration = ImageConfiguration.empty})',
       'obtainKey': 'Future<ResizeImageKey> obtainKey(ImageConfiguration configuration)',
       'toString': 'String toString()',
@@ -6228,7 +6406,7 @@ BridgedClass _createResizeImageBridge() {
 
 BridgedClass _createNetworkImageBridge() {
   return BridgedClass(
-    nativeType: $flutter_25.NetworkImage,
+    nativeType: $flutter_32.NetworkImage,
     name: 'NetworkImage',
     constructors: {
       '': (visitor, positional, named) {
@@ -6236,43 +6414,43 @@ BridgedClass _createNetworkImageBridge() {
         final url = D4.getRequiredArg<String>(positional, 0, 'url', 'NetworkImage');
         final scale = D4.getRequiredNamedArgTodoDefault<double>(named, 'scale', 'NetworkImage', '<default unavailable>');
         final headers = D4.coerceMapOrNull<String, String>(named['headers'], 'headers');
-        final webHtmlElementStrategy = D4.getRequiredNamedArgTodoDefault<$flutter_25.WebHtmlElementStrategy>(named, 'webHtmlElementStrategy', 'NetworkImage', '<default unavailable>');
-        return $flutter_25.NetworkImage(url, scale: scale, headers: headers, webHtmlElementStrategy: webHtmlElementStrategy);
+        final webHtmlElementStrategy = D4.getRequiredNamedArgTodoDefault<$flutter_32.WebHtmlElementStrategy>(named, 'webHtmlElementStrategy', 'NetworkImage', '<default unavailable>');
+        return $flutter_32.NetworkImage(url, scale: scale, headers: headers, webHtmlElementStrategy: webHtmlElementStrategy);
       },
     },
     getters: {
-      'url': (visitor, target) => D4.validateTarget<$flutter_25.NetworkImage>(target, 'NetworkImage').url,
-      'scale': (visitor, target) => D4.validateTarget<$flutter_25.NetworkImage>(target, 'NetworkImage').scale,
-      'headers': (visitor, target) => D4.validateTarget<$flutter_25.NetworkImage>(target, 'NetworkImage').headers,
-      'webHtmlElementStrategy': (visitor, target) => D4.validateTarget<$flutter_25.NetworkImage>(target, 'NetworkImage').webHtmlElementStrategy,
+      'url': (visitor, target) => D4.validateTarget<$flutter_32.NetworkImage>(target, 'NetworkImage').url,
+      'scale': (visitor, target) => D4.validateTarget<$flutter_32.NetworkImage>(target, 'NetworkImage').scale,
+      'headers': (visitor, target) => D4.validateTarget<$flutter_32.NetworkImage>(target, 'NetworkImage').headers,
+      'webHtmlElementStrategy': (visitor, target) => D4.validateTarget<$flutter_32.NetworkImage>(target, 'NetworkImage').webHtmlElementStrategy,
     },
     methods: {
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.NetworkImage>(target, 'NetworkImage');
+        final t = D4.validateTarget<$flutter_32.NetworkImage>(target, 'NetworkImage');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 0, 'configuration', 'resolve');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 0, 'configuration', 'resolve');
         return t.resolve(configuration);
       },
       'obtainCacheStatus': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.NetworkImage>(target, 'NetworkImage');
-        final configuration = D4.getRequiredNamedArg<$flutter_25.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
+        final t = D4.validateTarget<$flutter_32.NetworkImage>(target, 'NetworkImage');
+        final configuration = D4.getRequiredNamedArg<$flutter_32.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
         final handleErrorRaw = named['handleError'];
-        return t.obtainCacheStatus(configuration: configuration, handleError: (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, handleErrorRaw, [p0, p1]); });
+        return t.obtainCacheStatus(configuration: configuration, handleError: handleErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, handleErrorRaw, [p0, p1]); });
       },
       'evict': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.NetworkImage>(target, 'NetworkImage');
-        final cache = D4.getOptionalNamedArg<$flutter_23.ImageCache?>(named, 'cache');
-        final configuration = D4.getNamedArgWithDefault<$flutter_25.ImageConfiguration>(named, 'configuration', $flutter_25.ImageConfiguration.empty);
+        final t = D4.validateTarget<$flutter_32.NetworkImage>(target, 'NetworkImage');
+        final cache = D4.getOptionalNamedArg<$flutter_30.ImageCache?>(named, 'cache');
+        final configuration = D4.getNamedArgWithDefault<$flutter_32.ImageConfiguration>(named, 'configuration', $flutter_32.ImageConfiguration.empty);
         return t.evict(cache: cache, configuration: configuration);
       },
       'obtainKey': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.NetworkImage>(target, 'NetworkImage');
+        final t = D4.validateTarget<$flutter_32.NetworkImage>(target, 'NetworkImage');
         D4.requireMinArgs(positional, 1, 'obtainKey');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 0, 'configuration', 'obtainKey');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 0, 'configuration', 'obtainKey');
         return t.obtainKey(configuration);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.NetworkImage>(target, 'NetworkImage');
+        final t = D4.validateTarget<$flutter_32.NetworkImage>(target, 'NetworkImage');
         return t.toString();
       },
     },
@@ -6281,7 +6459,7 @@ BridgedClass _createNetworkImageBridge() {
     },
     methodSignatures: {
       'resolve': 'ImageStream resolve(ImageConfiguration configuration)',
-      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object exception, StackTrace? stackTrace) handleError})',
+      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object, StackTrace?)? handleError})',
       'evict': 'Future<bool> evict({ImageCache? cache, ImageConfiguration configuration = ImageConfiguration.empty})',
       'obtainKey': 'Future<NetworkImage> obtainKey(ImageConfiguration configuration)',
       'toString': 'String toString()',
@@ -6301,52 +6479,52 @@ BridgedClass _createNetworkImageBridge() {
 
 BridgedClass _createFileImageBridge() {
   return BridgedClass(
-    nativeType: $flutter_25.FileImage,
+    nativeType: $flutter_32.FileImage,
     name: 'FileImage',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FileImage');
         final file = D4.getRequiredArg<File>(positional, 0, 'file', 'FileImage');
         final scale = D4.getNamedArgWithDefault<double>(named, 'scale', 1.0);
-        return $flutter_25.FileImage(file, scale: scale);
+        return $flutter_32.FileImage(file, scale: scale);
       },
     },
     getters: {
-      'file': (visitor, target) => D4.validateTarget<$flutter_25.FileImage>(target, 'FileImage').file,
-      'scale': (visitor, target) => D4.validateTarget<$flutter_25.FileImage>(target, 'FileImage').scale,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_25.FileImage>(target, 'FileImage').hashCode,
+      'file': (visitor, target) => D4.validateTarget<$flutter_32.FileImage>(target, 'FileImage').file,
+      'scale': (visitor, target) => D4.validateTarget<$flutter_32.FileImage>(target, 'FileImage').scale,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_32.FileImage>(target, 'FileImage').hashCode,
     },
     methods: {
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.FileImage>(target, 'FileImage');
+        final t = D4.validateTarget<$flutter_32.FileImage>(target, 'FileImage');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 0, 'configuration', 'resolve');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 0, 'configuration', 'resolve');
         return t.resolve(configuration);
       },
       'obtainCacheStatus': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.FileImage>(target, 'FileImage');
-        final configuration = D4.getRequiredNamedArg<$flutter_25.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
+        final t = D4.validateTarget<$flutter_32.FileImage>(target, 'FileImage');
+        final configuration = D4.getRequiredNamedArg<$flutter_32.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
         final handleErrorRaw = named['handleError'];
-        return t.obtainCacheStatus(configuration: configuration, handleError: (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, handleErrorRaw, [p0, p1]); });
+        return t.obtainCacheStatus(configuration: configuration, handleError: handleErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, handleErrorRaw, [p0, p1]); });
       },
       'evict': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.FileImage>(target, 'FileImage');
-        final cache = D4.getOptionalNamedArg<$flutter_23.ImageCache?>(named, 'cache');
-        final configuration = D4.getNamedArgWithDefault<$flutter_25.ImageConfiguration>(named, 'configuration', $flutter_25.ImageConfiguration.empty);
+        final t = D4.validateTarget<$flutter_32.FileImage>(target, 'FileImage');
+        final cache = D4.getOptionalNamedArg<$flutter_30.ImageCache?>(named, 'cache');
+        final configuration = D4.getNamedArgWithDefault<$flutter_32.ImageConfiguration>(named, 'configuration', $flutter_32.ImageConfiguration.empty);
         return t.evict(cache: cache, configuration: configuration);
       },
       'obtainKey': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.FileImage>(target, 'FileImage');
+        final t = D4.validateTarget<$flutter_32.FileImage>(target, 'FileImage');
         D4.requireMinArgs(positional, 1, 'obtainKey');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 0, 'configuration', 'obtainKey');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 0, 'configuration', 'obtainKey');
         return t.obtainKey(configuration);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.FileImage>(target, 'FileImage');
+        final t = D4.validateTarget<$flutter_32.FileImage>(target, 'FileImage');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.FileImage>(target, 'FileImage');
+        final t = D4.validateTarget<$flutter_32.FileImage>(target, 'FileImage');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -6356,7 +6534,7 @@ BridgedClass _createFileImageBridge() {
     },
     methodSignatures: {
       'resolve': 'ImageStream resolve(ImageConfiguration configuration)',
-      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object exception, StackTrace? stackTrace) handleError})',
+      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object, StackTrace?)? handleError})',
       'evict': 'Future<bool> evict({ImageCache? cache, ImageConfiguration configuration = ImageConfiguration.empty})',
       'obtainKey': 'Future<FileImage> obtainKey(ImageConfiguration configuration)',
       'toString': 'String toString()',
@@ -6375,62 +6553,62 @@ BridgedClass _createFileImageBridge() {
 
 BridgedClass _createMemoryImageBridge() {
   return BridgedClass(
-    nativeType: $flutter_25.MemoryImage,
+    nativeType: $flutter_32.MemoryImage,
     name: 'MemoryImage',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MemoryImage');
-        final bytes = D4.getRequiredArg<dynamic>(positional, 0, 'bytes', 'MemoryImage');
+        final bytes = D4.getRequiredArg<Uint8List>(positional, 0, 'bytes', 'MemoryImage');
         final scale = D4.getNamedArgWithDefault<double>(named, 'scale', 1.0);
-        return $flutter_25.MemoryImage(bytes, scale: scale);
+        return $flutter_32.MemoryImage(bytes, scale: scale);
       },
     },
     getters: {
-      'bytes': (visitor, target) => D4.validateTarget<$flutter_25.MemoryImage>(target, 'MemoryImage').bytes,
-      'scale': (visitor, target) => D4.validateTarget<$flutter_25.MemoryImage>(target, 'MemoryImage').scale,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_25.MemoryImage>(target, 'MemoryImage').hashCode,
+      'bytes': (visitor, target) => D4.validateTarget<$flutter_32.MemoryImage>(target, 'MemoryImage').bytes,
+      'scale': (visitor, target) => D4.validateTarget<$flutter_32.MemoryImage>(target, 'MemoryImage').scale,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_32.MemoryImage>(target, 'MemoryImage').hashCode,
     },
     methods: {
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.MemoryImage>(target, 'MemoryImage');
+        final t = D4.validateTarget<$flutter_32.MemoryImage>(target, 'MemoryImage');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 0, 'configuration', 'resolve');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 0, 'configuration', 'resolve');
         return t.resolve(configuration);
       },
       'obtainCacheStatus': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.MemoryImage>(target, 'MemoryImage');
-        final configuration = D4.getRequiredNamedArg<$flutter_25.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
+        final t = D4.validateTarget<$flutter_32.MemoryImage>(target, 'MemoryImage');
+        final configuration = D4.getRequiredNamedArg<$flutter_32.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
         final handleErrorRaw = named['handleError'];
-        return t.obtainCacheStatus(configuration: configuration, handleError: (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, handleErrorRaw, [p0, p1]); });
+        return t.obtainCacheStatus(configuration: configuration, handleError: handleErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, handleErrorRaw, [p0, p1]); });
       },
       'evict': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.MemoryImage>(target, 'MemoryImage');
-        final cache = D4.getOptionalNamedArg<$flutter_23.ImageCache?>(named, 'cache');
-        final configuration = D4.getNamedArgWithDefault<$flutter_25.ImageConfiguration>(named, 'configuration', $flutter_25.ImageConfiguration.empty);
+        final t = D4.validateTarget<$flutter_32.MemoryImage>(target, 'MemoryImage');
+        final cache = D4.getOptionalNamedArg<$flutter_30.ImageCache?>(named, 'cache');
+        final configuration = D4.getNamedArgWithDefault<$flutter_32.ImageConfiguration>(named, 'configuration', $flutter_32.ImageConfiguration.empty);
         return t.evict(cache: cache, configuration: configuration);
       },
       'obtainKey': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.MemoryImage>(target, 'MemoryImage');
+        final t = D4.validateTarget<$flutter_32.MemoryImage>(target, 'MemoryImage');
         D4.requireMinArgs(positional, 1, 'obtainKey');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 0, 'configuration', 'obtainKey');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 0, 'configuration', 'obtainKey');
         return t.obtainKey(configuration);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.MemoryImage>(target, 'MemoryImage');
+        final t = D4.validateTarget<$flutter_32.MemoryImage>(target, 'MemoryImage');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.MemoryImage>(target, 'MemoryImage');
+        final t = D4.validateTarget<$flutter_32.MemoryImage>(target, 'MemoryImage');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     constructorSignatures: {
-      '': 'const MemoryImage(dynamic bytes, {double scale = 1.0})',
+      '': 'const MemoryImage(Uint8List bytes, {double scale = 1.0})',
     },
     methodSignatures: {
       'resolve': 'ImageStream resolve(ImageConfiguration configuration)',
-      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object exception, StackTrace? stackTrace) handleError})',
+      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object, StackTrace?)? handleError})',
       'evict': 'Future<bool> evict({ImageCache? cache, ImageConfiguration configuration = ImageConfiguration.empty})',
       'obtainKey': 'Future<MemoryImage> obtainKey(ImageConfiguration configuration)',
       'toString': 'String toString()',
@@ -6449,92 +6627,92 @@ BridgedClass _createMemoryImageBridge() {
 
 BridgedClass _createExactAssetImageBridge() {
   return BridgedClass(
-    nativeType: $flutter_25.ExactAssetImage,
+    nativeType: $flutter_32.ExactAssetImage,
     name: 'ExactAssetImage',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ExactAssetImage');
         final assetName = D4.getRequiredArg<String>(positional, 0, 'assetName', 'ExactAssetImage');
         final scale = D4.getNamedArgWithDefault<double>(named, 'scale', 1.0);
-        final bundle = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'bundle', 'ExactAssetImage', '<default unavailable>');
+        final bundle = D4.getOptionalNamedArg<$flutter_54.AssetBundle?>(named, 'bundle');
         final package = D4.getOptionalNamedArg<String?>(named, 'package');
-        return $flutter_25.ExactAssetImage(assetName, scale: scale, bundle: bundle, package: package);
+        return $flutter_32.ExactAssetImage(assetName, scale: scale, bundle: bundle, package: package);
       },
     },
     getters: {
-      'assetName': (visitor, target) => D4.validateTarget<$flutter_25.ExactAssetImage>(target, 'ExactAssetImage').assetName,
-      'keyName': (visitor, target) => D4.validateTarget<$flutter_25.ExactAssetImage>(target, 'ExactAssetImage').keyName,
-      'scale': (visitor, target) => D4.validateTarget<$flutter_25.ExactAssetImage>(target, 'ExactAssetImage').scale,
-      'bundle': (visitor, target) => D4.validateTarget<$flutter_25.ExactAssetImage>(target, 'ExactAssetImage').bundle,
-      'package': (visitor, target) => D4.validateTarget<$flutter_25.ExactAssetImage>(target, 'ExactAssetImage').package,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_25.ExactAssetImage>(target, 'ExactAssetImage').hashCode,
+      'assetName': (visitor, target) => D4.validateTarget<$flutter_32.ExactAssetImage>(target, 'ExactAssetImage').assetName,
+      'keyName': (visitor, target) => D4.validateTarget<$flutter_32.ExactAssetImage>(target, 'ExactAssetImage').keyName,
+      'scale': (visitor, target) => D4.validateTarget<$flutter_32.ExactAssetImage>(target, 'ExactAssetImage').scale,
+      'bundle': (visitor, target) => D4.validateTarget<$flutter_32.ExactAssetImage>(target, 'ExactAssetImage').bundle,
+      'package': (visitor, target) => D4.validateTarget<$flutter_32.ExactAssetImage>(target, 'ExactAssetImage').package,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_32.ExactAssetImage>(target, 'ExactAssetImage').hashCode,
     },
     methods: {
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ExactAssetImage>(target, 'ExactAssetImage');
+        final t = D4.validateTarget<$flutter_32.ExactAssetImage>(target, 'ExactAssetImage');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 0, 'configuration', 'resolve');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 0, 'configuration', 'resolve');
         return t.resolve(configuration);
       },
       'obtainCacheStatus': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ExactAssetImage>(target, 'ExactAssetImage');
-        final configuration = D4.getRequiredNamedArg<$flutter_25.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
+        final t = D4.validateTarget<$flutter_32.ExactAssetImage>(target, 'ExactAssetImage');
+        final configuration = D4.getRequiredNamedArg<$flutter_32.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
         final handleErrorRaw = named['handleError'];
-        return t.obtainCacheStatus(configuration: configuration, handleError: (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, handleErrorRaw, [p0, p1]); });
+        return t.obtainCacheStatus(configuration: configuration, handleError: handleErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, handleErrorRaw, [p0, p1]); });
       },
       'evict': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ExactAssetImage>(target, 'ExactAssetImage');
-        final cache = D4.getOptionalNamedArg<$flutter_23.ImageCache?>(named, 'cache');
-        final configuration = D4.getNamedArgWithDefault<$flutter_25.ImageConfiguration>(named, 'configuration', $flutter_25.ImageConfiguration.empty);
+        final t = D4.validateTarget<$flutter_32.ExactAssetImage>(target, 'ExactAssetImage');
+        final cache = D4.getOptionalNamedArg<$flutter_30.ImageCache?>(named, 'cache');
+        final configuration = D4.getNamedArgWithDefault<$flutter_32.ImageConfiguration>(named, 'configuration', $flutter_32.ImageConfiguration.empty);
         return t.evict(cache: cache, configuration: configuration);
       },
       'obtainKey': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ExactAssetImage>(target, 'ExactAssetImage');
+        final t = D4.validateTarget<$flutter_32.ExactAssetImage>(target, 'ExactAssetImage');
         D4.requireMinArgs(positional, 1, 'obtainKey');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 0, 'configuration', 'obtainKey');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 0, 'configuration', 'obtainKey');
         return t.obtainKey(configuration);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ExactAssetImage>(target, 'ExactAssetImage');
+        final t = D4.validateTarget<$flutter_32.ExactAssetImage>(target, 'ExactAssetImage');
         return t.toString();
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ExactAssetImage>(target, 'ExactAssetImage');
+        final t = D4.validateTarget<$flutter_32.ExactAssetImage>(target, 'ExactAssetImage');
         D4.requireMinArgs(positional, 2, 'loadImage');
-        final key = D4.getRequiredArg<$flutter_25.AssetBundleImageKey>(positional, 0, 'key', 'loadImage');
+        final key = D4.getRequiredArg<$flutter_32.AssetBundleImageKey>(positional, 0, 'key', 'loadImage');
         if (positional.length <= 1) {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadImage(key, (dynamic p0, {required dynamic getTargetSize}) { return D4.callInterpreterCallback(visitor, decodeRaw, [p0], {'getTargetSize': getTargetSize}) as dynamic; });
+        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.callInterpreterCallback(visitor, decodeRaw, [p0], {'getTargetSize': getTargetSize}) as Future<Codec>; });
       },
       'loadBuffer': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ExactAssetImage>(target, 'ExactAssetImage');
+        final t = D4.validateTarget<$flutter_32.ExactAssetImage>(target, 'ExactAssetImage');
         D4.requireMinArgs(positional, 2, 'loadBuffer');
-        final key = D4.getRequiredArg<$flutter_25.AssetBundleImageKey>(positional, 0, 'key', 'loadBuffer');
+        final key = D4.getRequiredArg<$flutter_32.AssetBundleImageKey>(positional, 0, 'key', 'loadBuffer');
         if (positional.length <= 1) {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (dynamic p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.callInterpreterCallback(visitor, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}) as dynamic; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.callInterpreterCallback(visitor, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}) as Future<Codec>; });
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.ExactAssetImage>(target, 'ExactAssetImage');
+        final t = D4.validateTarget<$flutter_32.ExactAssetImage>(target, 'ExactAssetImage');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     constructorSignatures: {
-      '': 'const ExactAssetImage(String assetName, {double scale = 1.0, dynamic bundle, String? package})',
+      '': 'const ExactAssetImage(String assetName, {double scale = 1.0, AssetBundle? bundle, String? package})',
     },
     methodSignatures: {
       'resolve': 'ImageStream resolve(ImageConfiguration configuration)',
-      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object exception, StackTrace? stackTrace) handleError})',
+      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object, StackTrace?)? handleError})',
       'evict': 'Future<bool> evict({ImageCache? cache, ImageConfiguration configuration = ImageConfiguration.empty})',
       'obtainKey': 'Future<AssetBundleImageKey> obtainKey(ImageConfiguration configuration)',
       'toString': 'String toString()',
-      'loadImage': 'ImageStreamCompleter loadImage(AssetBundleImageKey key, Future<InvalidType> Function(InvalidType, {InvalidType getTargetSize}) decode)',
-      'loadBuffer': 'ImageStreamCompleter loadBuffer(AssetBundleImageKey key, Future<InvalidType> Function(InvalidType, {bool allowUpscaling, int? cacheHeight, int? cacheWidth}) decode)',
+      'loadImage': 'ImageStreamCompleter loadImage(AssetBundleImageKey key, Future<Codec> Function(ImmutableBuffer, {TargetImageSize Function(int, int)? getTargetSize}) decode)',
+      'loadBuffer': 'ImageStreamCompleter loadBuffer(AssetBundleImageKey key, Future<Codec> Function(ImmutableBuffer, {bool allowUpscaling, int? cacheHeight, int? cacheWidth}) decode)',
     },
     getterSignatures: {
       'assetName': 'String get assetName',
@@ -6553,22 +6731,22 @@ BridgedClass _createExactAssetImageBridge() {
 
 BridgedClass _createNetworkImageLoadExceptionBridge() {
   return BridgedClass(
-    nativeType: $flutter_25.NetworkImageLoadException,
+    nativeType: $flutter_32.NetworkImageLoadException,
     name: 'NetworkImageLoadException',
     constructors: {
       '': (visitor, positional, named) {
         final statusCode = D4.getRequiredNamedArg<int>(named, 'statusCode', 'NetworkImageLoadException');
         final uri = D4.getRequiredNamedArg<Uri>(named, 'uri', 'NetworkImageLoadException');
-        return $flutter_25.NetworkImageLoadException(statusCode: statusCode, uri: uri);
+        return $flutter_32.NetworkImageLoadException(statusCode: statusCode, uri: uri);
       },
     },
     getters: {
-      'statusCode': (visitor, target) => D4.validateTarget<$flutter_25.NetworkImageLoadException>(target, 'NetworkImageLoadException').statusCode,
-      'uri': (visitor, target) => D4.validateTarget<$flutter_25.NetworkImageLoadException>(target, 'NetworkImageLoadException').uri,
+      'statusCode': (visitor, target) => D4.validateTarget<$flutter_32.NetworkImageLoadException>(target, 'NetworkImageLoadException').statusCode,
+      'uri': (visitor, target) => D4.validateTarget<$flutter_32.NetworkImageLoadException>(target, 'NetworkImageLoadException').uri,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.NetworkImageLoadException>(target, 'NetworkImageLoadException');
+        final t = D4.validateTarget<$flutter_32.NetworkImageLoadException>(target, 'NetworkImageLoadException');
         return t.toString();
       },
     },
@@ -6591,90 +6769,90 @@ BridgedClass _createNetworkImageLoadExceptionBridge() {
 
 BridgedClass _createAssetImageBridge() {
   return BridgedClass(
-    nativeType: $flutter_26.AssetImage,
+    nativeType: $flutter_33.AssetImage,
     name: 'AssetImage',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AssetImage');
         final assetName = D4.getRequiredArg<String>(positional, 0, 'assetName', 'AssetImage');
-        final bundle = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'bundle', 'AssetImage', '<default unavailable>');
+        final bundle = D4.getOptionalNamedArg<$flutter_54.AssetBundle?>(named, 'bundle');
         final package = D4.getOptionalNamedArg<String?>(named, 'package');
-        return $flutter_26.AssetImage(assetName, bundle: bundle, package: package);
+        return $flutter_33.AssetImage(assetName, bundle: bundle, package: package);
       },
     },
     getters: {
-      'assetName': (visitor, target) => D4.validateTarget<$flutter_26.AssetImage>(target, 'AssetImage').assetName,
-      'keyName': (visitor, target) => D4.validateTarget<$flutter_26.AssetImage>(target, 'AssetImage').keyName,
-      'bundle': (visitor, target) => D4.validateTarget<$flutter_26.AssetImage>(target, 'AssetImage').bundle,
-      'package': (visitor, target) => D4.validateTarget<$flutter_26.AssetImage>(target, 'AssetImage').package,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_26.AssetImage>(target, 'AssetImage').hashCode,
+      'assetName': (visitor, target) => D4.validateTarget<$flutter_33.AssetImage>(target, 'AssetImage').assetName,
+      'keyName': (visitor, target) => D4.validateTarget<$flutter_33.AssetImage>(target, 'AssetImage').keyName,
+      'bundle': (visitor, target) => D4.validateTarget<$flutter_33.AssetImage>(target, 'AssetImage').bundle,
+      'package': (visitor, target) => D4.validateTarget<$flutter_33.AssetImage>(target, 'AssetImage').package,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_33.AssetImage>(target, 'AssetImage').hashCode,
     },
     methods: {
       'resolve': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_26.AssetImage>(target, 'AssetImage');
+        final t = D4.validateTarget<$flutter_33.AssetImage>(target, 'AssetImage');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 0, 'configuration', 'resolve');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 0, 'configuration', 'resolve');
         return t.resolve(configuration);
       },
       'obtainCacheStatus': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_26.AssetImage>(target, 'AssetImage');
-        final configuration = D4.getRequiredNamedArg<$flutter_25.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
+        final t = D4.validateTarget<$flutter_33.AssetImage>(target, 'AssetImage');
+        final configuration = D4.getRequiredNamedArg<$flutter_32.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
         final handleErrorRaw = named['handleError'];
-        return t.obtainCacheStatus(configuration: configuration, handleError: (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, handleErrorRaw, [p0, p1]); });
+        return t.obtainCacheStatus(configuration: configuration, handleError: handleErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, handleErrorRaw, [p0, p1]); });
       },
       'evict': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_26.AssetImage>(target, 'AssetImage');
-        final cache = D4.getOptionalNamedArg<$flutter_23.ImageCache?>(named, 'cache');
-        final configuration = D4.getNamedArgWithDefault<$flutter_25.ImageConfiguration>(named, 'configuration', $flutter_25.ImageConfiguration.empty);
+        final t = D4.validateTarget<$flutter_33.AssetImage>(target, 'AssetImage');
+        final cache = D4.getOptionalNamedArg<$flutter_30.ImageCache?>(named, 'cache');
+        final configuration = D4.getNamedArgWithDefault<$flutter_32.ImageConfiguration>(named, 'configuration', $flutter_32.ImageConfiguration.empty);
         return t.evict(cache: cache, configuration: configuration);
       },
       'obtainKey': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_26.AssetImage>(target, 'AssetImage');
+        final t = D4.validateTarget<$flutter_33.AssetImage>(target, 'AssetImage');
         D4.requireMinArgs(positional, 1, 'obtainKey');
-        final configuration = D4.getRequiredArg<$flutter_25.ImageConfiguration>(positional, 0, 'configuration', 'obtainKey');
+        final configuration = D4.getRequiredArg<$flutter_32.ImageConfiguration>(positional, 0, 'configuration', 'obtainKey');
         return t.obtainKey(configuration);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_26.AssetImage>(target, 'AssetImage');
+        final t = D4.validateTarget<$flutter_33.AssetImage>(target, 'AssetImage');
         return t.toString();
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_26.AssetImage>(target, 'AssetImage');
+        final t = D4.validateTarget<$flutter_33.AssetImage>(target, 'AssetImage');
         D4.requireMinArgs(positional, 2, 'loadImage');
-        final key = D4.getRequiredArg<$flutter_25.AssetBundleImageKey>(positional, 0, 'key', 'loadImage');
+        final key = D4.getRequiredArg<$flutter_32.AssetBundleImageKey>(positional, 0, 'key', 'loadImage');
         if (positional.length <= 1) {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadImage(key, (dynamic p0, {required dynamic getTargetSize}) { return D4.callInterpreterCallback(visitor, decodeRaw, [p0], {'getTargetSize': getTargetSize}) as dynamic; });
+        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.callInterpreterCallback(visitor, decodeRaw, [p0], {'getTargetSize': getTargetSize}) as Future<Codec>; });
       },
       'loadBuffer': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_26.AssetImage>(target, 'AssetImage');
+        final t = D4.validateTarget<$flutter_33.AssetImage>(target, 'AssetImage');
         D4.requireMinArgs(positional, 2, 'loadBuffer');
-        final key = D4.getRequiredArg<$flutter_25.AssetBundleImageKey>(positional, 0, 'key', 'loadBuffer');
+        final key = D4.getRequiredArg<$flutter_32.AssetBundleImageKey>(positional, 0, 'key', 'loadBuffer');
         if (positional.length <= 1) {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (dynamic p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.callInterpreterCallback(visitor, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}) as dynamic; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.callInterpreterCallback(visitor, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}) as Future<Codec>; });
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_26.AssetImage>(target, 'AssetImage');
+        final t = D4.validateTarget<$flutter_33.AssetImage>(target, 'AssetImage');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     constructorSignatures: {
-      '': 'const AssetImage(String assetName, {dynamic bundle, String? package})',
+      '': 'const AssetImage(String assetName, {AssetBundle? bundle, String? package})',
     },
     methodSignatures: {
       'resolve': 'ImageStream resolve(ImageConfiguration configuration)',
-      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object exception, StackTrace? stackTrace) handleError})',
+      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object, StackTrace?)? handleError})',
       'evict': 'Future<bool> evict({ImageCache? cache, ImageConfiguration configuration = ImageConfiguration.empty})',
       'obtainKey': 'Future<AssetBundleImageKey> obtainKey(ImageConfiguration configuration)',
       'toString': 'String toString()',
-      'loadImage': 'ImageStreamCompleter loadImage(AssetBundleImageKey key, Future<InvalidType> Function(InvalidType, {InvalidType getTargetSize}) decode)',
-      'loadBuffer': 'ImageStreamCompleter loadBuffer(AssetBundleImageKey key, Future<InvalidType> Function(InvalidType, {bool allowUpscaling, int? cacheHeight, int? cacheWidth}) decode)',
+      'loadImage': 'ImageStreamCompleter loadImage(AssetBundleImageKey key, Future<Codec> Function(ImmutableBuffer, {TargetImageSize Function(int, int)? getTargetSize}) decode)',
+      'loadBuffer': 'ImageStreamCompleter loadBuffer(AssetBundleImageKey key, Future<Codec> Function(ImmutableBuffer, {bool allowUpscaling, int? cacheHeight, int? cacheWidth}) decode)',
     },
     getterSignatures: {
       'assetName': 'String get assetName',
@@ -6692,51 +6870,51 @@ BridgedClass _createAssetImageBridge() {
 
 BridgedClass _createImageInfoBridge() {
   return BridgedClass(
-    nativeType: $flutter_27.ImageInfo,
+    nativeType: $flutter_34.ImageInfo,
     name: 'ImageInfo',
     constructors: {
       '': (visitor, positional, named) {
-        final image = D4.getRequiredNamedArg<dynamic>(named, 'image', 'ImageInfo');
+        final image = D4.getRequiredNamedArg<Image>(named, 'image', 'ImageInfo');
         final scale = D4.getNamedArgWithDefault<double>(named, 'scale', 1.0);
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
-        return $flutter_27.ImageInfo(image: image, scale: scale, debugLabel: debugLabel);
+        return $flutter_34.ImageInfo(image: image, scale: scale, debugLabel: debugLabel);
       },
     },
     getters: {
-      'image': (visitor, target) => D4.validateTarget<$flutter_27.ImageInfo>(target, 'ImageInfo').image,
-      'sizeBytes': (visitor, target) => D4.validateTarget<$flutter_27.ImageInfo>(target, 'ImageInfo').sizeBytes,
-      'scale': (visitor, target) => D4.validateTarget<$flutter_27.ImageInfo>(target, 'ImageInfo').scale,
-      'debugLabel': (visitor, target) => D4.validateTarget<$flutter_27.ImageInfo>(target, 'ImageInfo').debugLabel,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_27.ImageInfo>(target, 'ImageInfo').hashCode,
+      'image': (visitor, target) => D4.validateTarget<$flutter_34.ImageInfo>(target, 'ImageInfo').image,
+      'sizeBytes': (visitor, target) => D4.validateTarget<$flutter_34.ImageInfo>(target, 'ImageInfo').sizeBytes,
+      'scale': (visitor, target) => D4.validateTarget<$flutter_34.ImageInfo>(target, 'ImageInfo').scale,
+      'debugLabel': (visitor, target) => D4.validateTarget<$flutter_34.ImageInfo>(target, 'ImageInfo').debugLabel,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_34.ImageInfo>(target, 'ImageInfo').hashCode,
     },
     methods: {
       'clone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageInfo>(target, 'ImageInfo');
+        final t = D4.validateTarget<$flutter_34.ImageInfo>(target, 'ImageInfo');
         return t.clone();
       },
       'isCloneOf': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageInfo>(target, 'ImageInfo');
+        final t = D4.validateTarget<$flutter_34.ImageInfo>(target, 'ImageInfo');
         D4.requireMinArgs(positional, 1, 'isCloneOf');
-        final other = D4.getRequiredArg<$flutter_27.ImageInfo>(positional, 0, 'other', 'isCloneOf');
+        final other = D4.getRequiredArg<$flutter_34.ImageInfo>(positional, 0, 'other', 'isCloneOf');
         return t.isCloneOf(other);
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageInfo>(target, 'ImageInfo');
+        final t = D4.validateTarget<$flutter_34.ImageInfo>(target, 'ImageInfo');
         (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageInfo>(target, 'ImageInfo');
+        final t = D4.validateTarget<$flutter_34.ImageInfo>(target, 'ImageInfo');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageInfo>(target, 'ImageInfo');
+        final t = D4.validateTarget<$flutter_34.ImageInfo>(target, 'ImageInfo');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     constructorSignatures: {
-      '': 'ImageInfo({required dynamic image, double scale = 1.0, String? debugLabel})',
+      '': 'ImageInfo({required Image image, double scale = 1.0, String? debugLabel})',
     },
     methodSignatures: {
       'clone': 'ImageInfo clone()',
@@ -6760,7 +6938,7 @@ BridgedClass _createImageInfoBridge() {
 
 BridgedClass _createImageStreamListenerBridge() {
   return BridgedClass(
-    nativeType: $flutter_27.ImageStreamListener,
+    nativeType: $flutter_34.ImageStreamListener,
     name: 'ImageStreamListener',
     constructors: {
       '': (visitor, positional, named) {
@@ -6771,18 +6949,18 @@ BridgedClass _createImageStreamListenerBridge() {
         final onImageRaw = positional[0];
         final onChunkRaw = named['onChunk'];
         final onErrorRaw = named['onError'];
-        return $flutter_27.ImageStreamListener(($flutter_27.ImageInfo p0, bool p1) { D4.callInterpreterCallback(visitor, onImageRaw, [p0, p1]); }, onChunk: onChunkRaw == null ? null : ($flutter_27.ImageChunkEvent p0) { D4.callInterpreterCallback(visitor, onChunkRaw, [p0]); }, onError: onErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, onErrorRaw, [p0, p1]); });
+        return $flutter_34.ImageStreamListener(($flutter_34.ImageInfo p0, bool p1) { D4.callInterpreterCallback(visitor, onImageRaw, [p0, p1]); }, onChunk: onChunkRaw == null ? null : ($flutter_34.ImageChunkEvent p0) { D4.callInterpreterCallback(visitor, onChunkRaw, [p0]); }, onError: onErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor, onErrorRaw, [p0, p1]); });
       },
     },
     getters: {
-      'onImage': (visitor, target) => D4.validateTarget<$flutter_27.ImageStreamListener>(target, 'ImageStreamListener').onImage,
-      'onChunk': (visitor, target) => D4.validateTarget<$flutter_27.ImageStreamListener>(target, 'ImageStreamListener').onChunk,
-      'onError': (visitor, target) => D4.validateTarget<$flutter_27.ImageStreamListener>(target, 'ImageStreamListener').onError,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_27.ImageStreamListener>(target, 'ImageStreamListener').hashCode,
+      'onImage': (visitor, target) => D4.validateTarget<$flutter_34.ImageStreamListener>(target, 'ImageStreamListener').onImage,
+      'onChunk': (visitor, target) => D4.validateTarget<$flutter_34.ImageStreamListener>(target, 'ImageStreamListener').onChunk,
+      'onError': (visitor, target) => D4.validateTarget<$flutter_34.ImageStreamListener>(target, 'ImageStreamListener').onError,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_34.ImageStreamListener>(target, 'ImageStreamListener').hashCode,
     },
     methods: {
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageStreamListener>(target, 'ImageStreamListener');
+        final t = D4.validateTarget<$flutter_34.ImageStreamListener>(target, 'ImageStreamListener');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -6805,33 +6983,43 @@ BridgedClass _createImageStreamListenerBridge() {
 
 BridgedClass _createImageChunkEventBridge() {
   return BridgedClass(
-    nativeType: $flutter_27.ImageChunkEvent,
+    nativeType: $flutter_34.ImageChunkEvent,
     name: 'ImageChunkEvent',
     constructors: {
       '': (visitor, positional, named) {
         final cumulativeBytesLoaded = D4.getRequiredNamedArg<int>(named, 'cumulativeBytesLoaded', 'ImageChunkEvent');
         final expectedTotalBytes = D4.getRequiredNamedArg<int?>(named, 'expectedTotalBytes', 'ImageChunkEvent');
-        return $flutter_27.ImageChunkEvent(cumulativeBytesLoaded: cumulativeBytesLoaded, expectedTotalBytes: expectedTotalBytes);
+        return $flutter_34.ImageChunkEvent(cumulativeBytesLoaded: cumulativeBytesLoaded, expectedTotalBytes: expectedTotalBytes);
       },
     },
     getters: {
-      'cumulativeBytesLoaded': (visitor, target) => D4.validateTarget<$flutter_27.ImageChunkEvent>(target, 'ImageChunkEvent').cumulativeBytesLoaded,
-      'expectedTotalBytes': (visitor, target) => D4.validateTarget<$flutter_27.ImageChunkEvent>(target, 'ImageChunkEvent').expectedTotalBytes,
+      'cumulativeBytesLoaded': (visitor, target) => D4.validateTarget<$flutter_34.ImageChunkEvent>(target, 'ImageChunkEvent').cumulativeBytesLoaded,
+      'expectedTotalBytes': (visitor, target) => D4.validateTarget<$flutter_34.ImageChunkEvent>(target, 'ImageChunkEvent').expectedTotalBytes,
     },
     methods: {
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageChunkEvent>(target, 'ImageChunkEvent');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$aux_flutter_2.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
-        return null;
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_34.ImageChunkEvent>(target, 'ImageChunkEvent');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_34.ImageChunkEvent>(target, 'ImageChunkEvent');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_34.ImageChunkEvent>(target, 'ImageChunkEvent');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
       },
     },
     constructorSignatures: {
       '': 'const ImageChunkEvent({required int cumulativeBytesLoaded, required int? expectedTotalBytes})',
     },
     methodSignatures: {
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
     },
     getterSignatures: {
       'cumulativeBytesLoaded': 'int get cumulativeBytesLoaded',
@@ -6846,45 +7034,53 @@ BridgedClass _createImageChunkEventBridge() {
 
 BridgedClass _createImageStreamBridge() {
   return BridgedClass(
-    nativeType: $flutter_27.ImageStream,
+    nativeType: $flutter_34.ImageStream,
     name: 'ImageStream',
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_27.ImageStream();
+        return $flutter_34.ImageStream();
       },
     },
     getters: {
-      'completer': (visitor, target) => D4.validateTarget<$flutter_27.ImageStream>(target, 'ImageStream').completer,
-      'key': (visitor, target) => D4.validateTarget<$flutter_27.ImageStream>(target, 'ImageStream').key,
+      'completer': (visitor, target) => D4.validateTarget<$flutter_34.ImageStream>(target, 'ImageStream').completer,
+      'key': (visitor, target) => D4.validateTarget<$flutter_34.ImageStream>(target, 'ImageStream').key,
     },
     methods: {
       'setCompleter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageStream>(target, 'ImageStream');
+        final t = D4.validateTarget<$flutter_34.ImageStream>(target, 'ImageStream');
         D4.requireMinArgs(positional, 1, 'setCompleter');
-        final value = D4.getRequiredArg<$flutter_27.ImageStreamCompleter>(positional, 0, 'value', 'setCompleter');
+        final value = D4.getRequiredArg<$flutter_34.ImageStreamCompleter>(positional, 0, 'value', 'setCompleter');
         t.setCompleter(value);
         return null;
       },
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageStream>(target, 'ImageStream');
+        final t = D4.validateTarget<$flutter_34.ImageStream>(target, 'ImageStream');
         D4.requireMinArgs(positional, 1, 'addListener');
-        final listener = D4.getRequiredArg<$flutter_27.ImageStreamListener>(positional, 0, 'listener', 'addListener');
+        final listener = D4.getRequiredArg<$flutter_34.ImageStreamListener>(positional, 0, 'listener', 'addListener');
         t.addListener(listener);
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageStream>(target, 'ImageStream');
+        final t = D4.validateTarget<$flutter_34.ImageStream>(target, 'ImageStream');
         D4.requireMinArgs(positional, 1, 'removeListener');
-        final listener = D4.getRequiredArg<$flutter_27.ImageStreamListener>(positional, 0, 'listener', 'removeListener');
+        final listener = D4.getRequiredArg<$flutter_34.ImageStreamListener>(positional, 0, 'listener', 'removeListener');
         t.removeListener(listener);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageStream>(target, 'ImageStream');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$aux_flutter_2.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
-        return null;
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_34.ImageStream>(target, 'ImageStream');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_34.ImageStream>(target, 'ImageStream');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_34.ImageStream>(target, 'ImageStream');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
       },
     },
     constructorSignatures: {
@@ -6894,7 +7090,9 @@ BridgedClass _createImageStreamBridge() {
       'setCompleter': 'void setCompleter(ImageStreamCompleter value)',
       'addListener': 'void addListener(ImageStreamListener listener)',
       'removeListener': 'void removeListener(ImageStreamListener listener)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
     },
     getterSignatures: {
       'completer': 'ImageStreamCompleter? get completer',
@@ -6909,13 +7107,13 @@ BridgedClass _createImageStreamBridge() {
 
 BridgedClass _createImageStreamCompleterHandleBridge() {
   return BridgedClass(
-    nativeType: $flutter_27.ImageStreamCompleterHandle,
+    nativeType: $flutter_34.ImageStreamCompleterHandle,
     name: 'ImageStreamCompleterHandle',
     constructors: {
     },
     methods: {
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageStreamCompleterHandle>(target, 'ImageStreamCompleterHandle');
+        final t = D4.validateTarget<$flutter_34.ImageStreamCompleterHandle>(target, 'ImageStreamCompleterHandle');
         (t as dynamic).dispose();
         return null;
       },
@@ -6932,27 +7130,27 @@ BridgedClass _createImageStreamCompleterHandleBridge() {
 
 BridgedClass _createImageStreamCompleterBridge() {
   return BridgedClass(
-    nativeType: $flutter_27.ImageStreamCompleter,
+    nativeType: $flutter_34.ImageStreamCompleter,
     name: 'ImageStreamCompleter',
     constructors: {
     },
     getters: {
-      'debugLabel': (visitor, target) => D4.validateTarget<$flutter_27.ImageStreamCompleter>(target, 'ImageStreamCompleter').debugLabel,
+      'debugLabel': (visitor, target) => D4.validateTarget<$flutter_34.ImageStreamCompleter>(target, 'ImageStreamCompleter').debugLabel,
     },
     setters: {
       'debugLabel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_27.ImageStreamCompleter>(target, 'ImageStreamCompleter').debugLabel = value as String?,
+        D4.validateTarget<$flutter_34.ImageStreamCompleter>(target, 'ImageStreamCompleter').debugLabel = value as String?,
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageStreamCompleter>(target, 'ImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.ImageStreamCompleter>(target, 'ImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'addListener');
-        final listener = D4.getRequiredArg<$flutter_27.ImageStreamListener>(positional, 0, 'listener', 'addListener');
+        final listener = D4.getRequiredArg<$flutter_34.ImageStreamListener>(positional, 0, 'listener', 'addListener');
         t.addListener(listener);
         return null;
       },
       'addEphemeralErrorListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageStreamCompleter>(target, 'ImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.ImageStreamCompleter>(target, 'ImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'addEphemeralErrorListener');
         if (positional.isEmpty) {
           throw ArgumentError('addEphemeralErrorListener: Missing required argument "listener" at position 0');
@@ -6962,23 +7160,23 @@ BridgedClass _createImageStreamCompleterBridge() {
         return null;
       },
       'keepAlive': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageStreamCompleter>(target, 'ImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.ImageStreamCompleter>(target, 'ImageStreamCompleter');
         return t.keepAlive();
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageStreamCompleter>(target, 'ImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.ImageStreamCompleter>(target, 'ImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'removeListener');
-        final listener = D4.getRequiredArg<$flutter_27.ImageStreamListener>(positional, 0, 'listener', 'removeListener');
+        final listener = D4.getRequiredArg<$flutter_34.ImageStreamListener>(positional, 0, 'listener', 'removeListener');
         t.removeListener(listener);
         return null;
       },
       'maybeDispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageStreamCompleter>(target, 'ImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.ImageStreamCompleter>(target, 'ImageStreamCompleter');
         t.maybeDispose();
         return null;
       },
       'addOnLastListenerRemovedCallback': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageStreamCompleter>(target, 'ImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.ImageStreamCompleter>(target, 'ImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'addOnLastListenerRemovedCallback');
         if (positional.isEmpty) {
           throw ArgumentError('addOnLastListenerRemovedCallback: Missing required argument "callback" at position 0');
@@ -6988,7 +7186,7 @@ BridgedClass _createImageStreamCompleterBridge() {
         return null;
       },
       'removeOnLastListenerRemovedCallback': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageStreamCompleter>(target, 'ImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.ImageStreamCompleter>(target, 'ImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'removeOnLastListenerRemovedCallback');
         if (positional.isEmpty) {
           throw ArgumentError('removeOnLastListenerRemovedCallback: Missing required argument "callback" at position 0');
@@ -6998,21 +7196,29 @@ BridgedClass _createImageStreamCompleterBridge() {
         return null;
       },
       'reportError': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageStreamCompleter>(target, 'ImageStreamCompleter');
-        final context = D4.getOptionalNamedArg<$aux_flutter_2.DiagnosticsNode?>(named, 'context');
+        final t = D4.validateTarget<$flutter_34.ImageStreamCompleter>(target, 'ImageStreamCompleter');
+        final context = D4.getOptionalNamedArg<$flutter_3.DiagnosticsNode?>(named, 'context');
         final exception = D4.getRequiredNamedArg<Object>(named, 'exception', 'reportError');
         final stack = D4.getOptionalNamedArg<StackTrace?>(named, 'stack');
-        final informationCollector = D4.getOptionalNamedArg<$aux_flutter_5.InformationCollector?>(named, 'informationCollector');
+        final informationCollectorRaw = named['informationCollector'];
         final silent = D4.getNamedArgWithDefault<bool>(named, 'silent', false);
-        t.reportError(context: context, exception: exception, stack: stack, informationCollector: informationCollector, silent: silent);
+        t.reportError(context: context, exception: exception, stack: stack, informationCollector: informationCollectorRaw == null ? null : () { return D4.callInterpreterCallback(visitor, informationCollectorRaw, []) as Iterable<$flutter_3.DiagnosticsNode>; }, silent: silent);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.ImageStreamCompleter>(target, 'ImageStreamCompleter');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final description = D4.getRequiredArg<$aux_flutter_2.DiagnosticPropertiesBuilder>(positional, 0, 'description', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(description);
-        return null;
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_34.ImageStreamCompleter>(target, 'ImageStreamCompleter');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_34.ImageStreamCompleter>(target, 'ImageStreamCompleter');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_34.ImageStreamCompleter>(target, 'ImageStreamCompleter');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
       },
     },
     methodSignatures: {
@@ -7024,7 +7230,9 @@ BridgedClass _createImageStreamCompleterBridge() {
       'addOnLastListenerRemovedCallback': 'void addOnLastListenerRemovedCallback(VoidCallback callback)',
       'removeOnLastListenerRemovedCallback': 'void removeOnLastListenerRemovedCallback(VoidCallback callback)',
       'reportError': 'void reportError({DiagnosticsNode? context, required Object exception, StackTrace? stack, InformationCollector? informationCollector, bool silent = false})',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder description)',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
     },
     getterSignatures: {
       'debugLabel': 'String? get debugLabel',
@@ -7041,33 +7249,33 @@ BridgedClass _createImageStreamCompleterBridge() {
 
 BridgedClass _createOneFrameImageStreamCompleterBridge() {
   return BridgedClass(
-    nativeType: $flutter_27.OneFrameImageStreamCompleter,
+    nativeType: $flutter_34.OneFrameImageStreamCompleter,
     name: 'OneFrameImageStreamCompleter',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'OneFrameImageStreamCompleter');
-        final image = D4.getRequiredArg<Future<$flutter_27.ImageInfo>>(positional, 0, 'image', 'OneFrameImageStreamCompleter');
-        final informationCollector = D4.getOptionalNamedArg<$aux_flutter_5.InformationCollector?>(named, 'informationCollector');
-        return $flutter_27.OneFrameImageStreamCompleter(image, informationCollector: informationCollector);
+        final image = D4.getRequiredArg<Future<$flutter_34.ImageInfo>>(positional, 0, 'image', 'OneFrameImageStreamCompleter');
+        final informationCollectorRaw = named['informationCollector'];
+        return $flutter_34.OneFrameImageStreamCompleter(image, informationCollector: informationCollectorRaw == null ? null : () { return D4.callInterpreterCallback(visitor, informationCollectorRaw, []) as Iterable<$flutter_3.DiagnosticsNode>; });
       },
     },
     getters: {
-      'debugLabel': (visitor, target) => D4.validateTarget<$flutter_27.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter').debugLabel,
+      'debugLabel': (visitor, target) => D4.validateTarget<$flutter_34.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter').debugLabel,
     },
     setters: {
       'debugLabel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_27.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter').debugLabel = value as String?,
+        D4.validateTarget<$flutter_34.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter').debugLabel = value as String?,
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'addListener');
-        final listener = D4.getRequiredArg<$flutter_27.ImageStreamListener>(positional, 0, 'listener', 'addListener');
+        final listener = D4.getRequiredArg<$flutter_34.ImageStreamListener>(positional, 0, 'listener', 'addListener');
         t.addListener(listener);
         return null;
       },
       'addEphemeralErrorListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'addEphemeralErrorListener');
         if (positional.isEmpty) {
           throw ArgumentError('addEphemeralErrorListener: Missing required argument "listener" at position 0');
@@ -7077,49 +7285,70 @@ BridgedClass _createOneFrameImageStreamCompleterBridge() {
         return null;
       },
       'keepAlive': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
         return t.keepAlive();
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'removeListener');
-        final listener = D4.getRequiredArg<$flutter_27.ImageStreamListener>(positional, 0, 'listener', 'removeListener');
+        final listener = D4.getRequiredArg<$flutter_34.ImageStreamListener>(positional, 0, 'listener', 'removeListener');
         t.removeListener(listener);
         return null;
       },
       'maybeDispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
         t.maybeDispose();
         return null;
       },
       'addOnLastListenerRemovedCallback': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'addOnLastListenerRemovedCallback');
-        final callback = D4.getRequiredArg<dynamic>(positional, 0, 'callback', 'addOnLastListenerRemovedCallback');
-        t.addOnLastListenerRemovedCallback(callback);
+        if (positional.isEmpty) {
+          throw ArgumentError('addOnLastListenerRemovedCallback: Missing required argument "callback" at position 0');
+        }
+        final callbackRaw = positional[0];
+        t.addOnLastListenerRemovedCallback(() { D4.callInterpreterCallback(visitor, callbackRaw, []); });
         return null;
       },
       'removeOnLastListenerRemovedCallback': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'removeOnLastListenerRemovedCallback');
-        final callback = D4.getRequiredArg<dynamic>(positional, 0, 'callback', 'removeOnLastListenerRemovedCallback');
-        t.removeOnLastListenerRemovedCallback(callback);
+        if (positional.isEmpty) {
+          throw ArgumentError('removeOnLastListenerRemovedCallback: Missing required argument "callback" at position 0');
+        }
+        final callbackRaw = positional[0];
+        t.removeOnLastListenerRemovedCallback(() { D4.callInterpreterCallback(visitor, callbackRaw, []); });
         return null;
       },
       'reportError': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
-        final context = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'context', 'reportError', '<default unavailable>');
+        final t = D4.validateTarget<$flutter_34.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
+        final context = D4.getOptionalNamedArg<$flutter_3.DiagnosticsNode?>(named, 'context');
         final exception = D4.getRequiredNamedArg<Object>(named, 'exception', 'reportError');
         final stack = D4.getOptionalNamedArg<StackTrace?>(named, 'stack');
-        final informationCollector = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'informationCollector', 'reportError', '<default unavailable>');
+        final informationCollectorRaw = named['informationCollector'];
         final silent = D4.getNamedArgWithDefault<bool>(named, 'silent', false);
-        t.reportError(context: context, exception: exception, stack: stack, informationCollector: informationCollector, silent: silent);
+        t.reportError(context: context, exception: exception, stack: stack, informationCollector: informationCollectorRaw == null ? null : () { return D4.callInterpreterCallback(visitor, informationCollectorRaw, []) as Iterable<$flutter_3.DiagnosticsNode>; }, silent: silent);
         return null;
       },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_34.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_34.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_34.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.OneFrameImageStreamCompleter>(target, 'OneFrameImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final description = D4.getRequiredArg<dynamic>(positional, 0, 'description', 'debugFillProperties');
+        final description = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'description', 'debugFillProperties');
         (t as dynamic).debugFillProperties(description);
         return null;
       },
@@ -7133,10 +7362,13 @@ BridgedClass _createOneFrameImageStreamCompleterBridge() {
       'keepAlive': 'ImageStreamCompleterHandle keepAlive()',
       'removeListener': 'void removeListener(ImageStreamListener listener)',
       'maybeDispose': 'void maybeDispose()',
-      'addOnLastListenerRemovedCallback': 'void addOnLastListenerRemovedCallback(InvalidType callback)',
-      'removeOnLastListenerRemovedCallback': 'void removeOnLastListenerRemovedCallback(InvalidType callback)',
-      'reportError': 'void reportError({InvalidType context, required Object exception, StackTrace? stack, InvalidType informationCollector, bool silent = false})',
-      'debugFillProperties': 'void debugFillProperties(InvalidType description)',
+      'addOnLastListenerRemovedCallback': 'void addOnLastListenerRemovedCallback(void Function() callback)',
+      'removeOnLastListenerRemovedCallback': 'void removeOnLastListenerRemovedCallback(void Function() callback)',
+      'reportError': 'void reportError({DiagnosticsNode? context, required Object exception, StackTrace? stack, Iterable<DiagnosticsNode> Function()? informationCollector, bool silent = false})',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder description)',
     },
     getterSignatures: {
       'debugLabel': 'String? get debugLabel',
@@ -7153,35 +7385,35 @@ BridgedClass _createOneFrameImageStreamCompleterBridge() {
 
 BridgedClass _createMultiFrameImageStreamCompleterBridge() {
   return BridgedClass(
-    nativeType: $flutter_27.MultiFrameImageStreamCompleter,
+    nativeType: $flutter_34.MultiFrameImageStreamCompleter,
     name: 'MultiFrameImageStreamCompleter',
     constructors: {
       '': (visitor, positional, named) {
         final codec = D4.getRequiredNamedArg<Future<Codec>>(named, 'codec', 'MultiFrameImageStreamCompleter');
         final scale = D4.getRequiredNamedArg<double>(named, 'scale', 'MultiFrameImageStreamCompleter');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
-        final chunkEvents = D4.getOptionalNamedArg<Stream<$flutter_27.ImageChunkEvent>?>(named, 'chunkEvents');
-        final informationCollector = D4.getOptionalNamedArg<$aux_flutter_5.InformationCollector?>(named, 'informationCollector');
-        return $flutter_27.MultiFrameImageStreamCompleter(codec: codec, scale: scale, debugLabel: debugLabel, chunkEvents: chunkEvents, informationCollector: informationCollector);
+        final chunkEvents = D4.getOptionalNamedArg<Stream<$flutter_34.ImageChunkEvent>?>(named, 'chunkEvents');
+        final informationCollectorRaw = named['informationCollector'];
+        return $flutter_34.MultiFrameImageStreamCompleter(codec: codec, scale: scale, debugLabel: debugLabel, chunkEvents: chunkEvents, informationCollector: informationCollectorRaw == null ? null : () { return D4.callInterpreterCallback(visitor, informationCollectorRaw, []) as Iterable<$flutter_3.DiagnosticsNode>; });
       },
     },
     getters: {
-      'debugLabel': (visitor, target) => D4.validateTarget<$flutter_27.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter').debugLabel,
+      'debugLabel': (visitor, target) => D4.validateTarget<$flutter_34.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter').debugLabel,
     },
     setters: {
       'debugLabel': (visitor, target, value) => 
-        D4.validateTarget<$flutter_27.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter').debugLabel = value as String?,
+        D4.validateTarget<$flutter_34.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter').debugLabel = value as String?,
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'addListener');
-        final listener = D4.getRequiredArg<$flutter_27.ImageStreamListener>(positional, 0, 'listener', 'addListener');
+        final listener = D4.getRequiredArg<$flutter_34.ImageStreamListener>(positional, 0, 'listener', 'addListener');
         t.addListener(listener);
         return null;
       },
       'addEphemeralErrorListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'addEphemeralErrorListener');
         if (positional.isEmpty) {
           throw ArgumentError('addEphemeralErrorListener: Missing required argument "listener" at position 0');
@@ -7191,49 +7423,70 @@ BridgedClass _createMultiFrameImageStreamCompleterBridge() {
         return null;
       },
       'keepAlive': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
         return t.keepAlive();
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'removeListener');
-        final listener = D4.getRequiredArg<$flutter_27.ImageStreamListener>(positional, 0, 'listener', 'removeListener');
+        final listener = D4.getRequiredArg<$flutter_34.ImageStreamListener>(positional, 0, 'listener', 'removeListener');
         t.removeListener(listener);
         return null;
       },
       'maybeDispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
         t.maybeDispose();
         return null;
       },
       'addOnLastListenerRemovedCallback': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'addOnLastListenerRemovedCallback');
-        final callback = D4.getRequiredArg<dynamic>(positional, 0, 'callback', 'addOnLastListenerRemovedCallback');
-        t.addOnLastListenerRemovedCallback(callback);
+        if (positional.isEmpty) {
+          throw ArgumentError('addOnLastListenerRemovedCallback: Missing required argument "callback" at position 0');
+        }
+        final callbackRaw = positional[0];
+        t.addOnLastListenerRemovedCallback(() { D4.callInterpreterCallback(visitor, callbackRaw, []); });
         return null;
       },
       'removeOnLastListenerRemovedCallback': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'removeOnLastListenerRemovedCallback');
-        final callback = D4.getRequiredArg<dynamic>(positional, 0, 'callback', 'removeOnLastListenerRemovedCallback');
-        t.removeOnLastListenerRemovedCallback(callback);
+        if (positional.isEmpty) {
+          throw ArgumentError('removeOnLastListenerRemovedCallback: Missing required argument "callback" at position 0');
+        }
+        final callbackRaw = positional[0];
+        t.removeOnLastListenerRemovedCallback(() { D4.callInterpreterCallback(visitor, callbackRaw, []); });
         return null;
       },
       'reportError': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
-        final context = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'context', 'reportError', '<default unavailable>');
+        final t = D4.validateTarget<$flutter_34.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
+        final context = D4.getOptionalNamedArg<$flutter_3.DiagnosticsNode?>(named, 'context');
         final exception = D4.getRequiredNamedArg<Object>(named, 'exception', 'reportError');
         final stack = D4.getOptionalNamedArg<StackTrace?>(named, 'stack');
-        final informationCollector = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'informationCollector', 'reportError', '<default unavailable>');
+        final informationCollectorRaw = named['informationCollector'];
         final silent = D4.getNamedArgWithDefault<bool>(named, 'silent', false);
-        t.reportError(context: context, exception: exception, stack: stack, informationCollector: informationCollector, silent: silent);
+        t.reportError(context: context, exception: exception, stack: stack, informationCollector: informationCollectorRaw == null ? null : () { return D4.callInterpreterCallback(visitor, informationCollectorRaw, []) as Iterable<$flutter_3.DiagnosticsNode>; }, silent: silent);
         return null;
       },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_34.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_34.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_34.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_27.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
+        final t = D4.validateTarget<$flutter_34.MultiFrameImageStreamCompleter>(target, 'MultiFrameImageStreamCompleter');
         D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final description = D4.getRequiredArg<dynamic>(positional, 0, 'description', 'debugFillProperties');
+        final description = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'description', 'debugFillProperties');
         (t as dynamic).debugFillProperties(description);
         return null;
       },
@@ -7247,10 +7500,13 @@ BridgedClass _createMultiFrameImageStreamCompleterBridge() {
       'keepAlive': 'ImageStreamCompleterHandle keepAlive()',
       'removeListener': 'void removeListener(ImageStreamListener listener)',
       'maybeDispose': 'void maybeDispose()',
-      'addOnLastListenerRemovedCallback': 'void addOnLastListenerRemovedCallback(InvalidType callback)',
-      'removeOnLastListenerRemovedCallback': 'void removeOnLastListenerRemovedCallback(InvalidType callback)',
-      'reportError': 'void reportError({InvalidType context, required Object exception, StackTrace? stack, InvalidType informationCollector, bool silent = false})',
-      'debugFillProperties': 'void debugFillProperties(InvalidType description)',
+      'addOnLastListenerRemovedCallback': 'void addOnLastListenerRemovedCallback(void Function() callback)',
+      'removeOnLastListenerRemovedCallback': 'void removeOnLastListenerRemovedCallback(void Function() callback)',
+      'reportError': 'void reportError({DiagnosticsNode? context, required Object exception, StackTrace? stack, Iterable<DiagnosticsNode> Function()? informationCollector, bool silent = false})',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder description)',
     },
     getterSignatures: {
       'debugLabel': 'String? get debugLabel',
@@ -7267,20 +7523,20 @@ BridgedClass _createMultiFrameImageStreamCompleterBridge() {
 
 BridgedClass _createAccumulatorBridge() {
   return BridgedClass(
-    nativeType: $flutter_28.Accumulator,
+    nativeType: $flutter_35.Accumulator,
     name: 'Accumulator',
     constructors: {
       '': (visitor, positional, named) {
         final value = D4.getOptionalArgWithDefault<int>(positional, 0, '_value', 0);
-        return $flutter_28.Accumulator(value);
+        return $flutter_35.Accumulator(value);
       },
     },
     getters: {
-      'value': (visitor, target) => D4.validateTarget<$flutter_28.Accumulator>(target, 'Accumulator').value,
+      'value': (visitor, target) => D4.validateTarget<$flutter_35.Accumulator>(target, 'Accumulator').value,
     },
     methods: {
       'increment': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.Accumulator>(target, 'Accumulator');
+        final t = D4.validateTarget<$flutter_35.Accumulator>(target, 'Accumulator');
         D4.requireMinArgs(positional, 1, 'increment');
         final addend = D4.getRequiredArg<int>(positional, 0, 'addend', 'increment');
         t.increment(addend);
@@ -7305,7 +7561,7 @@ BridgedClass _createAccumulatorBridge() {
 
 BridgedClass _createInlineSpanSemanticsInformationBridge() {
   return BridgedClass(
-    nativeType: $flutter_28.InlineSpanSemanticsInformation,
+    nativeType: $flutter_35.InlineSpanSemanticsInformation,
     name: 'InlineSpanSemanticsInformation',
     constructors: {
       '': (visitor, positional, named) {
@@ -7315,38 +7571,38 @@ BridgedClass _createInlineSpanSemanticsInformationBridge() {
         final semanticsLabel = D4.getOptionalNamedArg<String?>(named, 'semanticsLabel');
         final semanticsIdentifier = D4.getOptionalNamedArg<String?>(named, 'semanticsIdentifier');
         final stringAttributes = named.containsKey('stringAttributes') && named['stringAttributes'] != null
-            ? D4.coerceList<dynamic>(named['stringAttributes'], 'stringAttributes')
-            : const <dynamic>[];
-        final recognizer = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'recognizer', 'InlineSpanSemanticsInformation', '<default unavailable>');
-        return $flutter_28.InlineSpanSemanticsInformation(text, isPlaceholder: isPlaceholder, semanticsLabel: semanticsLabel, semanticsIdentifier: semanticsIdentifier, stringAttributes: stringAttributes, recognizer: recognizer);
+            ? D4.coerceList<StringAttribute>(named['stringAttributes'], 'stringAttributes')
+            : const <StringAttribute>[];
+        final recognizer = D4.getOptionalNamedArg<$flutter_7.GestureRecognizer?>(named, 'recognizer');
+        return $flutter_35.InlineSpanSemanticsInformation(text, isPlaceholder: isPlaceholder, semanticsLabel: semanticsLabel, semanticsIdentifier: semanticsIdentifier, stringAttributes: stringAttributes, recognizer: recognizer);
       },
     },
     getters: {
-      'text': (visitor, target) => D4.validateTarget<$flutter_28.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation').text,
-      'semanticsLabel': (visitor, target) => D4.validateTarget<$flutter_28.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation').semanticsLabel,
-      'semanticsIdentifier': (visitor, target) => D4.validateTarget<$flutter_28.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation').semanticsIdentifier,
-      'recognizer': (visitor, target) => D4.validateTarget<$flutter_28.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation').recognizer,
-      'isPlaceholder': (visitor, target) => D4.validateTarget<$flutter_28.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation').isPlaceholder,
-      'requiresOwnNode': (visitor, target) => D4.validateTarget<$flutter_28.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation').requiresOwnNode,
-      'stringAttributes': (visitor, target) => D4.validateTarget<$flutter_28.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation').stringAttributes,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_28.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation').hashCode,
+      'text': (visitor, target) => D4.validateTarget<$flutter_35.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation').text,
+      'semanticsLabel': (visitor, target) => D4.validateTarget<$flutter_35.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation').semanticsLabel,
+      'semanticsIdentifier': (visitor, target) => D4.validateTarget<$flutter_35.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation').semanticsIdentifier,
+      'recognizer': (visitor, target) => D4.validateTarget<$flutter_35.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation').recognizer,
+      'isPlaceholder': (visitor, target) => D4.validateTarget<$flutter_35.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation').isPlaceholder,
+      'requiresOwnNode': (visitor, target) => D4.validateTarget<$flutter_35.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation').requiresOwnNode,
+      'stringAttributes': (visitor, target) => D4.validateTarget<$flutter_35.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation').stringAttributes,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_35.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation').hashCode,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation');
+        final t = D4.validateTarget<$flutter_35.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation');
+        final t = D4.validateTarget<$flutter_35.InlineSpanSemanticsInformation>(target, 'InlineSpanSemanticsInformation');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     staticGetters: {
-      'placeholder': (visitor) => $flutter_28.InlineSpanSemanticsInformation.placeholder,
+      'placeholder': (visitor) => $flutter_35.InlineSpanSemanticsInformation.placeholder,
     },
     constructorSignatures: {
-      '': 'const InlineSpanSemanticsInformation(String text, {bool isPlaceholder = false, String? semanticsLabel, String? semanticsIdentifier, List<InvalidType> stringAttributes = const <ui.StringAttribute>[], dynamic recognizer})',
+      '': 'const InlineSpanSemanticsInformation(String text, {bool isPlaceholder = false, String? semanticsLabel, String? semanticsIdentifier, List<StringAttribute> stringAttributes = const <ui.StringAttribute>[], GestureRecognizer? recognizer})',
     },
     methodSignatures: {
       'toString': 'String toString()',
@@ -7373,83 +7629,105 @@ BridgedClass _createInlineSpanSemanticsInformationBridge() {
 
 BridgedClass _createInlineSpanBridge() {
   return BridgedClass(
-    nativeType: $flutter_28.InlineSpan,
+    nativeType: $flutter_35.InlineSpan,
     name: 'InlineSpan',
     constructors: {
     },
     getters: {
-      'style': (visitor, target) => D4.validateTarget<$flutter_28.InlineSpan>(target, 'InlineSpan').style,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_28.InlineSpan>(target, 'InlineSpan').hashCode,
+      'style': (visitor, target) => D4.validateTarget<$flutter_35.InlineSpan>(target, 'InlineSpan').style,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_35.InlineSpan>(target, 'InlineSpan').hashCode,
     },
     methods: {
       'build': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.InlineSpan>(target, 'InlineSpan');
+        final t = D4.validateTarget<$flutter_35.InlineSpan>(target, 'InlineSpan');
         D4.requireMinArgs(positional, 1, 'build');
-        final builder = D4.getRequiredArg<$flutter_28.ParagraphBuilder>(positional, 0, 'builder', 'build');
-        final textScaler = D4.getNamedArgWithDefault<$flutter_42.TextScaler>(named, 'textScaler', $flutter_42.TextScaler.noScaling);
-        final dimensions = D4.coerceListOrNull<$flutter_41.PlaceholderDimensions>(named['dimensions'], 'dimensions');
+        final builder = D4.getRequiredArg<ParagraphBuilder>(positional, 0, 'builder', 'build');
+        final textScaler = D4.getNamedArgWithDefault<$flutter_49.TextScaler>(named, 'textScaler', $flutter_49.TextScaler.noScaling);
+        final dimensions = D4.coerceListOrNull<$flutter_48.PlaceholderDimensions>(named['dimensions'], 'dimensions');
         (t as dynamic).build(builder, textScaler: textScaler, dimensions: dimensions);
         return null;
       },
       'visitChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.InlineSpan>(target, 'InlineSpan');
+        final t = D4.validateTarget<$flutter_35.InlineSpan>(target, 'InlineSpan');
         D4.requireMinArgs(positional, 1, 'visitChildren');
         if (positional.isEmpty) {
           throw ArgumentError('visitChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        return t.visitChildren(($flutter_28.InlineSpan p0) { return D4.callInterpreterCallback(visitor, visitor_Raw, [p0]) as bool; });
+        return t.visitChildren(($flutter_35.InlineSpan p0) { return D4.callInterpreterCallback(visitor, visitor_Raw, [p0]) as bool; });
       },
       'visitDirectChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.InlineSpan>(target, 'InlineSpan');
+        final t = D4.validateTarget<$flutter_35.InlineSpan>(target, 'InlineSpan');
         D4.requireMinArgs(positional, 1, 'visitDirectChildren');
         if (positional.isEmpty) {
           throw ArgumentError('visitDirectChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        return t.visitDirectChildren(($flutter_28.InlineSpan p0) { return D4.callInterpreterCallback(visitor, visitor_Raw, [p0]) as bool; });
+        return t.visitDirectChildren(($flutter_35.InlineSpan p0) { return D4.callInterpreterCallback(visitor, visitor_Raw, [p0]) as bool; });
       },
       'getSpanForPosition': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.InlineSpan>(target, 'InlineSpan');
+        final t = D4.validateTarget<$flutter_35.InlineSpan>(target, 'InlineSpan');
         D4.requireMinArgs(positional, 1, 'getSpanForPosition');
-        final position = D4.getRequiredArg<$flutter_28.TextPosition>(positional, 0, 'position', 'getSpanForPosition');
+        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'getSpanForPosition');
         return t.getSpanForPosition(position);
       },
       'toPlainText': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.InlineSpan>(target, 'InlineSpan');
+        final t = D4.validateTarget<$flutter_35.InlineSpan>(target, 'InlineSpan');
         final includeSemanticsLabels = D4.getNamedArgWithDefault<bool>(named, 'includeSemanticsLabels', true);
         final includePlaceholders = D4.getNamedArgWithDefault<bool>(named, 'includePlaceholders', true);
         return t.toPlainText(includeSemanticsLabels: includeSemanticsLabels, includePlaceholders: includePlaceholders);
       },
       'getSemanticsInformation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.InlineSpan>(target, 'InlineSpan');
+        final t = D4.validateTarget<$flutter_35.InlineSpan>(target, 'InlineSpan');
         return t.getSemanticsInformation();
       },
       'codeUnitAt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.InlineSpan>(target, 'InlineSpan');
+        final t = D4.validateTarget<$flutter_35.InlineSpan>(target, 'InlineSpan');
         D4.requireMinArgs(positional, 1, 'codeUnitAt');
         final index = D4.getRequiredArg<int>(positional, 0, 'index', 'codeUnitAt');
         return t.codeUnitAt(index);
       },
       'debugAssertIsValid': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.InlineSpan>(target, 'InlineSpan');
+        final t = D4.validateTarget<$flutter_35.InlineSpan>(target, 'InlineSpan');
         return t.debugAssertIsValid();
       },
       'compareTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.InlineSpan>(target, 'InlineSpan');
+        final t = D4.validateTarget<$flutter_35.InlineSpan>(target, 'InlineSpan');
         D4.requireMinArgs(positional, 1, 'compareTo');
-        final other = D4.getRequiredArg<$flutter_28.InlineSpan>(positional, 0, 'other', 'compareTo');
+        final other = D4.getRequiredArg<$flutter_35.InlineSpan>(positional, 0, 'other', 'compareTo');
         return t.compareTo(other);
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.InlineSpan>(target, 'InlineSpan');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$aux_flutter_2.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
-        return null;
+      'toStringShallow': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_35.InlineSpan>(target, 'InlineSpan');
+        final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        return t.toStringShallow(joiner: joiner, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_35.InlineSpan>(target, 'InlineSpan');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_35.InlineSpan>(target, 'InlineSpan');
+        return t.toStringShort();
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_35.InlineSpan>(target, 'InlineSpan');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_35.InlineSpan>(target, 'InlineSpan');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.InlineSpan>(target, 'InlineSpan');
+        final t = D4.validateTarget<$flutter_35.InlineSpan>(target, 'InlineSpan');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -7464,7 +7742,11 @@ BridgedClass _createInlineSpanBridge() {
       'codeUnitAt': 'int? codeUnitAt(int index)',
       'debugAssertIsValid': 'bool debugAssertIsValid()',
       'compareTo': 'RenderComparison compareTo(InlineSpan other)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'toStringShort': 'String toStringShort()',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
     },
     getterSignatures: {
       'style': 'TextStyle? get style',
@@ -7479,27 +7761,27 @@ BridgedClass _createInlineSpanBridge() {
 
 BridgedClass _createLinearBorderEdgeBridge() {
   return BridgedClass(
-    nativeType: $flutter_29.LinearBorderEdge,
+    nativeType: $flutter_36.LinearBorderEdge,
     name: 'LinearBorderEdge',
     constructors: {
       '': (visitor, positional, named) {
         final size = D4.getNamedArgWithDefault<double>(named, 'size', 1.0);
         final alignment = D4.getNamedArgWithDefault<double>(named, 'alignment', 0.0);
-        return $flutter_29.LinearBorderEdge(size: size, alignment: alignment);
+        return $flutter_36.LinearBorderEdge(size: size, alignment: alignment);
       },
     },
     getters: {
-      'size': (visitor, target) => D4.validateTarget<$flutter_29.LinearBorderEdge>(target, 'LinearBorderEdge').size,
-      'alignment': (visitor, target) => D4.validateTarget<$flutter_29.LinearBorderEdge>(target, 'LinearBorderEdge').alignment,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_29.LinearBorderEdge>(target, 'LinearBorderEdge').hashCode,
+      'size': (visitor, target) => D4.validateTarget<$flutter_36.LinearBorderEdge>(target, 'LinearBorderEdge').size,
+      'alignment': (visitor, target) => D4.validateTarget<$flutter_36.LinearBorderEdge>(target, 'LinearBorderEdge').alignment,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_36.LinearBorderEdge>(target, 'LinearBorderEdge').hashCode,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.LinearBorderEdge>(target, 'LinearBorderEdge');
+        final t = D4.validateTarget<$flutter_36.LinearBorderEdge>(target, 'LinearBorderEdge');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.LinearBorderEdge>(target, 'LinearBorderEdge');
+        final t = D4.validateTarget<$flutter_36.LinearBorderEdge>(target, 'LinearBorderEdge');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -7507,10 +7789,10 @@ BridgedClass _createLinearBorderEdgeBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_29.LinearBorderEdge?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_29.LinearBorderEdge?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_36.LinearBorderEdge?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_36.LinearBorderEdge?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_29.LinearBorderEdge.lerp(a, b, t_);
+        return $flutter_36.LinearBorderEdge.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
@@ -7536,132 +7818,132 @@ BridgedClass _createLinearBorderEdgeBridge() {
 
 BridgedClass _createLinearBorderBridge() {
   return BridgedClass(
-    nativeType: $flutter_29.LinearBorder,
+    nativeType: $flutter_36.LinearBorder,
     name: 'LinearBorder',
     constructors: {
       '': (visitor, positional, named) {
-        final side = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'side', $flutter_6.BorderSide.none);
-        final start = D4.getOptionalNamedArg<$flutter_29.LinearBorderEdge?>(named, 'start');
-        final end = D4.getOptionalNamedArg<$flutter_29.LinearBorderEdge?>(named, 'end');
-        final top = D4.getOptionalNamedArg<$flutter_29.LinearBorderEdge?>(named, 'top');
-        final bottom = D4.getOptionalNamedArg<$flutter_29.LinearBorderEdge?>(named, 'bottom');
-        return $flutter_29.LinearBorder(side: side, start: start, end: end, top: top, bottom: bottom);
+        final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
+        final start = D4.getOptionalNamedArg<$flutter_36.LinearBorderEdge?>(named, 'start');
+        final end = D4.getOptionalNamedArg<$flutter_36.LinearBorderEdge?>(named, 'end');
+        final top = D4.getOptionalNamedArg<$flutter_36.LinearBorderEdge?>(named, 'top');
+        final bottom = D4.getOptionalNamedArg<$flutter_36.LinearBorderEdge?>(named, 'bottom');
+        return $flutter_36.LinearBorder(side: side, start: start, end: end, top: top, bottom: bottom);
       },
       'start': (visitor, positional, named) {
-        final side = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'side', $flutter_6.BorderSide.none);
+        final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
         final alignment = D4.getNamedArgWithDefault<double>(named, 'alignment', 0.0);
         final size = D4.getNamedArgWithDefault<double>(named, 'size', 1.0);
-        return $flutter_29.LinearBorder.start(side: side, alignment: alignment, size: size);
+        return $flutter_36.LinearBorder.start(side: side, alignment: alignment, size: size);
       },
       'end': (visitor, positional, named) {
-        final side = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'side', $flutter_6.BorderSide.none);
+        final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
         final alignment = D4.getNamedArgWithDefault<double>(named, 'alignment', 0.0);
         final size = D4.getNamedArgWithDefault<double>(named, 'size', 1.0);
-        return $flutter_29.LinearBorder.end(side: side, alignment: alignment, size: size);
+        return $flutter_36.LinearBorder.end(side: side, alignment: alignment, size: size);
       },
       'top': (visitor, positional, named) {
-        final side = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'side', $flutter_6.BorderSide.none);
+        final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
         final alignment = D4.getNamedArgWithDefault<double>(named, 'alignment', 0.0);
         final size = D4.getNamedArgWithDefault<double>(named, 'size', 1.0);
-        return $flutter_29.LinearBorder.top(side: side, alignment: alignment, size: size);
+        return $flutter_36.LinearBorder.top(side: side, alignment: alignment, size: size);
       },
       'bottom': (visitor, positional, named) {
-        final side = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'side', $flutter_6.BorderSide.none);
+        final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
         final alignment = D4.getNamedArgWithDefault<double>(named, 'alignment', 0.0);
         final size = D4.getNamedArgWithDefault<double>(named, 'size', 1.0);
-        return $flutter_29.LinearBorder.bottom(side: side, alignment: alignment, size: size);
+        return $flutter_36.LinearBorder.bottom(side: side, alignment: alignment, size: size);
       },
     },
     getters: {
-      'dimensions': (visitor, target) => D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder').dimensions,
-      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder').preferPaintInterior,
-      'side': (visitor, target) => D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder').side,
-      'start': (visitor, target) => D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder').start,
-      'end': (visitor, target) => D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder').end,
-      'top': (visitor, target) => D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder').top,
-      'bottom': (visitor, target) => D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder').bottom,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder').hashCode,
+      'dimensions': (visitor, target) => D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder').dimensions,
+      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder').preferPaintInterior,
+      'side': (visitor, target) => D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder').side,
+      'start': (visitor, target) => D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder').start,
+      'end': (visitor, target) => D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder').end,
+      'top': (visitor, target) => D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder').top,
+      'bottom': (visitor, target) => D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder').bottom,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder').hashCode,
     },
     methods: {
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder');
+        final t = D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder');
         D4.requireMinArgs(positional, 1, 'scale');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'scale');
         return t.scale(t_);
       },
       'getOuterPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder');
+        final t = D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder');
         D4.requireMinArgs(positional, 1, 'getOuterPath');
-        final rect = D4.getRequiredArg<$flutter_29.Rect>(positional, 0, 'rect', 'getOuterPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_29.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getOuterPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getOuterPath(rect, textDirection: textDirection);
       },
       'getInnerPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder');
+        final t = D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder');
         D4.requireMinArgs(positional, 1, 'getInnerPath');
-        final rect = D4.getRequiredArg<$flutter_29.Rect>(positional, 0, 'rect', 'getInnerPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_29.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getInnerPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getInnerPath(rect, textDirection: textDirection);
       },
       'paintInterior': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder');
+        final t = D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder');
         D4.requireMinArgs(positional, 3, 'paintInterior');
-        final canvas = D4.getRequiredArg<dynamic>(positional, 0, 'canvas', 'paintInterior');
-        final rect = D4.getRequiredArg<dynamic>(positional, 1, 'rect', 'paintInterior');
-        final paint = D4.getRequiredArg<dynamic>(positional, 2, 'paint', 'paintInterior');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'paintInterior', '<default unavailable>');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paintInterior');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paintInterior');
+        final paint = D4.getRequiredArg<Paint>(positional, 2, 'paint', 'paintInterior');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paintInterior(canvas, rect, paint, textDirection: textDirection);
         return null;
       },
       'paint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder');
+        final t = D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder');
         D4.requireMinArgs(positional, 2, 'paint');
-        final canvas = D4.getRequiredArg<$flutter_29.Canvas>(positional, 0, 'canvas', 'paint');
-        final rect = D4.getRequiredArg<$flutter_29.Rect>(positional, 1, 'rect', 'paint');
-        final textDirection = D4.getOptionalNamedArg<$flutter_29.TextDirection?>(named, 'textDirection');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paint');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paint');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paint(canvas, rect, textDirection: textDirection);
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder');
+        final t = D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder');
         return t.toString();
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder');
-        final side = D4.getOptionalNamedArg<$flutter_6.BorderSide?>(named, 'side');
-        final start = D4.getOptionalNamedArg<$flutter_29.LinearBorderEdge?>(named, 'start');
-        final end = D4.getOptionalNamedArg<$flutter_29.LinearBorderEdge?>(named, 'end');
-        final top = D4.getOptionalNamedArg<$flutter_29.LinearBorderEdge?>(named, 'top');
-        final bottom = D4.getOptionalNamedArg<$flutter_29.LinearBorderEdge?>(named, 'bottom');
+        final t = D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder');
+        final side = D4.getOptionalNamedArg<$flutter_13.BorderSide?>(named, 'side');
+        final start = D4.getOptionalNamedArg<$flutter_36.LinearBorderEdge?>(named, 'start');
+        final end = D4.getOptionalNamedArg<$flutter_36.LinearBorderEdge?>(named, 'end');
+        final top = D4.getOptionalNamedArg<$flutter_36.LinearBorderEdge?>(named, 'top');
+        final bottom = D4.getOptionalNamedArg<$flutter_36.LinearBorderEdge?>(named, 'bottom');
         return t.copyWith(side: side, start: start, end: end, top: top, bottom: bottom);
       },
       'lerpFrom': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder');
+        final t = D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder');
         D4.requireMinArgs(positional, 2, 'lerpFrom');
-        final a = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
+        final a = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpFrom');
         return t.lerpFrom(a, t_);
       },
       'lerpTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder');
+        final t = D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder');
         D4.requireMinArgs(positional, 2, 'lerpTo');
-        final b = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
+        final b = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpTo');
         return t.lerpTo(b, t_);
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder');
-        final other = D4.getRequiredArg<$flutter_6.ShapeBorder>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder');
+        final other = D4.getRequiredArg<$flutter_13.ShapeBorder>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.LinearBorder>(target, 'LinearBorder');
+        final t = D4.validateTarget<$flutter_36.LinearBorder>(target, 'LinearBorder');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     staticGetters: {
-      'none': (visitor) => $flutter_29.LinearBorder.none,
+      'none': (visitor) => $flutter_36.LinearBorder.none,
     },
     constructorSignatures: {
       '': 'const LinearBorder({BorderSide side = BorderSide.none, LinearBorderEdge? start, LinearBorderEdge? end, LinearBorderEdge? top, LinearBorderEdge? bottom})',
@@ -7674,7 +7956,7 @@ BridgedClass _createLinearBorderBridge() {
       'scale': 'LinearBorder scale(double t)',
       'getOuterPath': 'Path getOuterPath(Rect rect, {TextDirection? textDirection})',
       'getInnerPath': 'Path getInnerPath(Rect rect, {TextDirection? textDirection})',
-      'paintInterior': 'void paintInterior(InvalidType canvas, InvalidType rect, InvalidType paint, {InvalidType textDirection})',
+      'paintInterior': 'void paintInterior(Canvas canvas, Rect rect, Paint paint, {TextDirection? textDirection})',
       'paint': 'void paint(Canvas canvas, Rect rect, {TextDirection? textDirection})',
       'toString': 'String toString()',
       'copyWith': 'LinearBorder copyWith({BorderSide? side, LinearBorderEdge? start, LinearBorderEdge? end, LinearBorderEdge? top, LinearBorderEdge? bottom})',
@@ -7703,7 +7985,7 @@ BridgedClass _createLinearBorderBridge() {
 
 BridgedClass _createMatrixUtilsBridge() {
   return BridgedClass(
-    nativeType: $flutter_30.MatrixUtils,
+    nativeType: $flutter_37.MatrixUtils,
     name: 'MatrixUtils',
     constructors: {
     },
@@ -7711,59 +7993,59 @@ BridgedClass _createMatrixUtilsBridge() {
       'getAsTranslation': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'getAsTranslation');
         final transform = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'transform', 'getAsTranslation');
-        return $flutter_30.MatrixUtils.getAsTranslation(transform);
+        return $flutter_37.MatrixUtils.getAsTranslation(transform);
       },
       'getAsScale': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'getAsScale');
         final transform = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'transform', 'getAsScale');
-        return $flutter_30.MatrixUtils.getAsScale(transform);
+        return $flutter_37.MatrixUtils.getAsScale(transform);
       },
       'multiplyInPlace': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'multiplyInPlace');
         final a = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'a', 'multiplyInPlace');
         final b = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 1, 'b', 'multiplyInPlace');
-        return $flutter_30.MatrixUtils.multiplyInPlace(a, b);
+        return $flutter_37.MatrixUtils.multiplyInPlace(a, b);
       },
       'matrixEquals': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'matrixEquals');
         final a = D4.getRequiredArg<$vector_math_1.Matrix4?>(positional, 0, 'a', 'matrixEquals');
         final b = D4.getRequiredArg<$vector_math_1.Matrix4?>(positional, 1, 'b', 'matrixEquals');
-        return $flutter_30.MatrixUtils.matrixEquals(a, b);
+        return $flutter_37.MatrixUtils.matrixEquals(a, b);
       },
       'isIdentity': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'isIdentity');
         final a = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'a', 'isIdentity');
-        return $flutter_30.MatrixUtils.isIdentity(a);
+        return $flutter_37.MatrixUtils.isIdentity(a);
       },
       'transformPoint': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'transformPoint');
         final transform = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'transform', 'transformPoint');
-        final point = D4.getRequiredArg<$flutter_30.Offset>(positional, 1, 'point', 'transformPoint');
-        return $flutter_30.MatrixUtils.transformPoint(transform, point);
+        final point = D4.getRequiredArg<Offset>(positional, 1, 'point', 'transformPoint');
+        return $flutter_37.MatrixUtils.transformPoint(transform, point);
       },
       'transformRect': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'transformRect');
         final transform = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'transform', 'transformRect');
-        final rect = D4.getRequiredArg<$flutter_30.Rect>(positional, 1, 'rect', 'transformRect');
-        return $flutter_30.MatrixUtils.transformRect(transform, rect);
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'transformRect');
+        return $flutter_37.MatrixUtils.transformRect(transform, rect);
       },
       'inverseTransformRect': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'inverseTransformRect');
         final transform = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'transform', 'inverseTransformRect');
-        final rect = D4.getRequiredArg<$flutter_30.Rect>(positional, 1, 'rect', 'inverseTransformRect');
-        return $flutter_30.MatrixUtils.inverseTransformRect(transform, rect);
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'inverseTransformRect');
+        return $flutter_37.MatrixUtils.inverseTransformRect(transform, rect);
       },
       'createCylindricalProjectionTransform': (visitor, positional, named, typeArgs) {
         final radius = D4.getRequiredNamedArg<double>(named, 'radius', 'createCylindricalProjectionTransform');
         final angle = D4.getRequiredNamedArg<double>(named, 'angle', 'createCylindricalProjectionTransform');
         final perspective = D4.getNamedArgWithDefault<double>(named, 'perspective', 0.001);
-        final orientation = D4.getNamedArgWithDefault<$flutter_2.Axis>(named, 'orientation', $flutter_2.Axis.vertical);
-        return $flutter_30.MatrixUtils.createCylindricalProjectionTransform(radius: radius, angle: angle, perspective: perspective, orientation: orientation);
+        final orientation = D4.getNamedArgWithDefault<$flutter_9.Axis>(named, 'orientation', $flutter_9.Axis.vertical);
+        return $flutter_37.MatrixUtils.createCylindricalProjectionTransform(radius: radius, angle: angle, perspective: perspective, orientation: orientation);
       },
       'forceToPoint': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'forceToPoint');
-        final offset = D4.getRequiredArg<$flutter_30.Offset>(positional, 0, 'offset', 'forceToPoint');
-        return $flutter_30.MatrixUtils.forceToPoint(offset);
+        final offset = D4.getRequiredArg<Offset>(positional, 0, 'offset', 'forceToPoint');
+        return $flutter_37.MatrixUtils.forceToPoint(offset);
       },
     },
     staticMethodSignatures: {
@@ -7787,31 +8069,140 @@ BridgedClass _createMatrixUtilsBridge() {
 
 BridgedClass _createTransformPropertyBridge() {
   return BridgedClass(
-    nativeType: $flutter_30.TransformProperty,
+    nativeType: $flutter_37.TransformProperty,
     name: 'TransformProperty',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'TransformProperty');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'TransformProperty');
-        final value = D4.getRequiredArg<dynamic>(positional, 1, 'value', 'TransformProperty');
-        final showName = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'showName', 'TransformProperty', '<default unavailable>');
-        final defaultValue = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'defaultValue', 'TransformProperty', '<default unavailable>');
-        final level = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'level', 'TransformProperty', '<default unavailable>');
-        return $flutter_30.TransformProperty(name, value, showName: showName, defaultValue: defaultValue, level: level);
+        final value = D4.getRequiredArg<$vector_math_1.Matrix4?>(positional, 1, 'value', 'TransformProperty');
+        final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
+        final level = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'level', $flutter_3.DiagnosticLevel.info);
+        if (!named.containsKey('defaultValue')) {
+          return $flutter_37.TransformProperty(name, value, showName: showName, level: level);
+        }
+        if (named.containsKey('defaultValue')) {
+          final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'TransformProperty');
+          return $flutter_37.TransformProperty(name, value, showName: showName, level: level, defaultValue: defaultValue);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
+    },
+    getters: {
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').expandableValue,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').allowNameWrap,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').missingIfNull,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').propertyType,
+      'value': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').value,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').exception,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').defaultValue,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').isInteresting,
+      'level': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').level,
+      'name': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').emptyBodyDescription,
+      'style': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').style,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty').allowTruncate,
     },
     methods: {
       'valueToString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_30.TransformProperty>(target, 'TransformProperty');
-        final parentConfiguration = D4.getOptionalNamedArg<$aux_flutter_2.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final t = D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_3.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.valueToString(parentConfiguration: parentConfiguration);
+      },
+      'toJsonMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_3.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        return t.toJsonMap(delegate);
+      },
+      'toDescription': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_3.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.toDescription(parentConfiguration: parentConfiguration);
+      },
+      'getProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty');
+        return t.getProperties();
+      },
+      'getChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty');
+        return t.getChildren();
+      },
+      'isFiltered': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty');
+        D4.requireMinArgs(positional, 1, 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_3.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        return t.isFiltered(minLevel);
+      },
+      'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty');
+        return t.toTimelineArguments();
+      },
+      'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_3.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        return t.toJsonMapIterative(delegate);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_3.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_37.TransformProperty>(target, 'TransformProperty');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_3.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
     },
     constructorSignatures: {
-      '': 'TransformProperty(String name, dynamic value, {dynamic showName, dynamic defaultValue, dynamic level})',
+      '': 'TransformProperty(String name, Matrix4? value, {bool showName = true, Object? defaultValue = kNoDefaultValue, DiagnosticLevel level = DiagnosticLevel.info})',
     },
     methodSignatures: {
       'valueToString': 'String valueToString({TextTreeConfiguration? parentConfiguration})',
+      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
+      'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
+      'getProperties': 'List<DiagnosticsNode> getProperties()',
+      'getChildren': 'List<DiagnosticsNode> getChildren()',
+      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
+      'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
+      'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
+      'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+    },
+    getterSignatures: {
+      'expandableValue': 'bool get expandableValue',
+      'allowWrap': 'bool get allowWrap',
+      'allowNameWrap': 'bool get allowNameWrap',
+      'ifNull': 'String? get ifNull',
+      'ifEmpty': 'String? get ifEmpty',
+      'tooltip': 'String? get tooltip',
+      'missingIfNull': 'bool get missingIfNull',
+      'propertyType': 'Type get propertyType',
+      'value': 'Matrix4 get value',
+      'exception': 'Object? get exception',
+      'defaultValue': 'Object? get defaultValue',
+      'isInteresting': 'bool get isInteresting',
+      'level': 'DiagnosticLevel get level',
+      'name': 'String? get name',
+      'showSeparator': 'bool get showSeparator',
+      'showName': 'bool get showName',
+      'linePrefix': 'String? get linePrefix',
+      'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'allowTruncate': 'bool get allowTruncate',
     },
   );
 }
@@ -7822,16 +8213,16 @@ BridgedClass _createTransformPropertyBridge() {
 
 BridgedClass _createNotchedShapeBridge() {
   return BridgedClass(
-    nativeType: $flutter_31.NotchedShape,
+    nativeType: $flutter_38.NotchedShape,
     name: 'NotchedShape',
     constructors: {
     },
     methods: {
       'getOuterPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_31.NotchedShape>(target, 'NotchedShape');
+        final t = D4.validateTarget<$flutter_38.NotchedShape>(target, 'NotchedShape');
         D4.requireMinArgs(positional, 2, 'getOuterPath');
-        final host = D4.getRequiredArg<$flutter_31.Rect>(positional, 0, 'host', 'getOuterPath');
-        final guest = D4.getRequiredArg<$flutter_31.Rect?>(positional, 1, 'guest', 'getOuterPath');
+        final host = D4.getRequiredArg<Rect>(positional, 0, 'host', 'getOuterPath');
+        final guest = D4.getRequiredArg<Rect?>(positional, 1, 'guest', 'getOuterPath');
         return t.getOuterPath(host, guest);
       },
     },
@@ -7847,23 +8238,23 @@ BridgedClass _createNotchedShapeBridge() {
 
 BridgedClass _createCircularNotchedRectangleBridge() {
   return BridgedClass(
-    nativeType: $flutter_31.CircularNotchedRectangle,
+    nativeType: $flutter_38.CircularNotchedRectangle,
     name: 'CircularNotchedRectangle',
     constructors: {
       '': (visitor, positional, named) {
         final inverted = D4.getNamedArgWithDefault<bool>(named, 'inverted', false);
-        return $flutter_31.CircularNotchedRectangle(inverted: inverted);
+        return $flutter_38.CircularNotchedRectangle(inverted: inverted);
       },
     },
     getters: {
-      'inverted': (visitor, target) => D4.validateTarget<$flutter_31.CircularNotchedRectangle>(target, 'CircularNotchedRectangle').inverted,
+      'inverted': (visitor, target) => D4.validateTarget<$flutter_38.CircularNotchedRectangle>(target, 'CircularNotchedRectangle').inverted,
     },
     methods: {
       'getOuterPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_31.CircularNotchedRectangle>(target, 'CircularNotchedRectangle');
+        final t = D4.validateTarget<$flutter_38.CircularNotchedRectangle>(target, 'CircularNotchedRectangle');
         D4.requireMinArgs(positional, 2, 'getOuterPath');
-        final host = D4.getRequiredArg<$flutter_31.Rect>(positional, 0, 'host', 'getOuterPath');
-        final guest = D4.getRequiredArg<$flutter_31.Rect?>(positional, 1, 'guest', 'getOuterPath');
+        final host = D4.getRequiredArg<Rect>(positional, 0, 'host', 'getOuterPath');
+        final guest = D4.getRequiredArg<Rect?>(positional, 1, 'guest', 'getOuterPath');
         return t.getOuterPath(host, guest);
       },
     },
@@ -7885,26 +8276,26 @@ BridgedClass _createCircularNotchedRectangleBridge() {
 
 BridgedClass _createAutomaticNotchedShapeBridge() {
   return BridgedClass(
-    nativeType: $flutter_31.AutomaticNotchedShape,
+    nativeType: $flutter_38.AutomaticNotchedShape,
     name: 'AutomaticNotchedShape',
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AutomaticNotchedShape');
-        final host = D4.getRequiredArg<$flutter_6.ShapeBorder>(positional, 0, 'host', 'AutomaticNotchedShape');
-        final guest = D4.getOptionalArg<$flutter_6.ShapeBorder?>(positional, 1, 'guest');
-        return $flutter_31.AutomaticNotchedShape(host, guest);
+        final host = D4.getRequiredArg<$flutter_13.ShapeBorder>(positional, 0, 'host', 'AutomaticNotchedShape');
+        final guest = D4.getOptionalArg<$flutter_13.ShapeBorder?>(positional, 1, 'guest');
+        return $flutter_38.AutomaticNotchedShape(host, guest);
       },
     },
     getters: {
-      'host': (visitor, target) => D4.validateTarget<$flutter_31.AutomaticNotchedShape>(target, 'AutomaticNotchedShape').host,
-      'guest': (visitor, target) => D4.validateTarget<$flutter_31.AutomaticNotchedShape>(target, 'AutomaticNotchedShape').guest,
+      'host': (visitor, target) => D4.validateTarget<$flutter_38.AutomaticNotchedShape>(target, 'AutomaticNotchedShape').host,
+      'guest': (visitor, target) => D4.validateTarget<$flutter_38.AutomaticNotchedShape>(target, 'AutomaticNotchedShape').guest,
     },
     methods: {
       'getOuterPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_31.AutomaticNotchedShape>(target, 'AutomaticNotchedShape');
+        final t = D4.validateTarget<$flutter_38.AutomaticNotchedShape>(target, 'AutomaticNotchedShape');
         D4.requireMinArgs(positional, 2, 'getOuterPath');
-        final hostRect = D4.getRequiredArg<$flutter_31.Rect>(positional, 0, 'hostRect', 'getOuterPath');
-        final guestRect = D4.getRequiredArg<$flutter_31.Rect?>(positional, 1, 'guestRect', 'getOuterPath');
+        final hostRect = D4.getRequiredArg<Rect>(positional, 0, 'hostRect', 'getOuterPath');
+        final guestRect = D4.getRequiredArg<Rect?>(positional, 1, 'guestRect', 'getOuterPath');
         return t.getOuterPath(hostRect, guestRect);
       },
     },
@@ -7927,93 +8318,93 @@ BridgedClass _createAutomaticNotchedShapeBridge() {
 
 BridgedClass _createOvalBorderBridge() {
   return BridgedClass(
-    nativeType: $flutter_32.OvalBorder,
+    nativeType: $flutter_39.OvalBorder,
     name: 'OvalBorder',
     constructors: {
       '': (visitor, positional, named) {
-        final side = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'side', $flutter_6.BorderSide.none);
+        final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
         final eccentricity = D4.getNamedArgWithDefault<double>(named, 'eccentricity', 1.0);
-        return $flutter_32.OvalBorder(side: side, eccentricity: eccentricity);
+        return $flutter_39.OvalBorder(side: side, eccentricity: eccentricity);
       },
     },
     getters: {
-      'dimensions': (visitor, target) => D4.validateTarget<$flutter_32.OvalBorder>(target, 'OvalBorder').dimensions,
-      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_32.OvalBorder>(target, 'OvalBorder').preferPaintInterior,
-      'side': (visitor, target) => D4.validateTarget<$flutter_32.OvalBorder>(target, 'OvalBorder').side,
-      'eccentricity': (visitor, target) => D4.validateTarget<$flutter_32.OvalBorder>(target, 'OvalBorder').eccentricity,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_32.OvalBorder>(target, 'OvalBorder').hashCode,
+      'dimensions': (visitor, target) => D4.validateTarget<$flutter_39.OvalBorder>(target, 'OvalBorder').dimensions,
+      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_39.OvalBorder>(target, 'OvalBorder').preferPaintInterior,
+      'side': (visitor, target) => D4.validateTarget<$flutter_39.OvalBorder>(target, 'OvalBorder').side,
+      'eccentricity': (visitor, target) => D4.validateTarget<$flutter_39.OvalBorder>(target, 'OvalBorder').eccentricity,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_39.OvalBorder>(target, 'OvalBorder').hashCode,
     },
     methods: {
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.OvalBorder>(target, 'OvalBorder');
+        final t = D4.validateTarget<$flutter_39.OvalBorder>(target, 'OvalBorder');
         D4.requireMinArgs(positional, 1, 'scale');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'scale');
         return t.scale(t_);
       },
       'getOuterPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.OvalBorder>(target, 'OvalBorder');
+        final t = D4.validateTarget<$flutter_39.OvalBorder>(target, 'OvalBorder');
         D4.requireMinArgs(positional, 1, 'getOuterPath');
-        final rect = D4.getRequiredArg<dynamic>(positional, 0, 'rect', 'getOuterPath');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'getOuterPath', '<default unavailable>');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getOuterPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getOuterPath(rect, textDirection: textDirection);
       },
       'getInnerPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.OvalBorder>(target, 'OvalBorder');
+        final t = D4.validateTarget<$flutter_39.OvalBorder>(target, 'OvalBorder');
         D4.requireMinArgs(positional, 1, 'getInnerPath');
-        final rect = D4.getRequiredArg<dynamic>(positional, 0, 'rect', 'getInnerPath');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'getInnerPath', '<default unavailable>');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getInnerPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getInnerPath(rect, textDirection: textDirection);
       },
       'paintInterior': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.OvalBorder>(target, 'OvalBorder');
+        final t = D4.validateTarget<$flutter_39.OvalBorder>(target, 'OvalBorder');
         D4.requireMinArgs(positional, 3, 'paintInterior');
-        final canvas = D4.getRequiredArg<dynamic>(positional, 0, 'canvas', 'paintInterior');
-        final rect = D4.getRequiredArg<dynamic>(positional, 1, 'rect', 'paintInterior');
-        final paint = D4.getRequiredArg<dynamic>(positional, 2, 'paint', 'paintInterior');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'paintInterior', '<default unavailable>');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paintInterior');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paintInterior');
+        final paint = D4.getRequiredArg<Paint>(positional, 2, 'paint', 'paintInterior');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paintInterior(canvas, rect, paint, textDirection: textDirection);
         return null;
       },
       'paint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.OvalBorder>(target, 'OvalBorder');
+        final t = D4.validateTarget<$flutter_39.OvalBorder>(target, 'OvalBorder');
         D4.requireMinArgs(positional, 2, 'paint');
-        final canvas = D4.getRequiredArg<dynamic>(positional, 0, 'canvas', 'paint');
-        final rect = D4.getRequiredArg<dynamic>(positional, 1, 'rect', 'paint');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'paint', '<default unavailable>');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paint');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paint');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paint(canvas, rect, textDirection: textDirection);
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.OvalBorder>(target, 'OvalBorder');
+        final t = D4.validateTarget<$flutter_39.OvalBorder>(target, 'OvalBorder');
         return t.toString();
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.OvalBorder>(target, 'OvalBorder');
-        final side = D4.getOptionalNamedArg<$flutter_6.BorderSide?>(named, 'side');
+        final t = D4.validateTarget<$flutter_39.OvalBorder>(target, 'OvalBorder');
+        final side = D4.getOptionalNamedArg<$flutter_13.BorderSide?>(named, 'side');
         final eccentricity = D4.getOptionalNamedArg<double?>(named, 'eccentricity');
         return t.copyWith(side: side, eccentricity: eccentricity);
       },
       'lerpFrom': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.OvalBorder>(target, 'OvalBorder');
+        final t = D4.validateTarget<$flutter_39.OvalBorder>(target, 'OvalBorder');
         D4.requireMinArgs(positional, 2, 'lerpFrom');
-        final a = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
+        final a = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpFrom');
         return t.lerpFrom(a, t_);
       },
       'lerpTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.OvalBorder>(target, 'OvalBorder');
+        final t = D4.validateTarget<$flutter_39.OvalBorder>(target, 'OvalBorder');
         D4.requireMinArgs(positional, 2, 'lerpTo');
-        final b = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
+        final b = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpTo');
         return t.lerpTo(b, t_);
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.OvalBorder>(target, 'OvalBorder');
-        final other = D4.getRequiredArg<$flutter_6.ShapeBorder>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_39.OvalBorder>(target, 'OvalBorder');
+        final other = D4.getRequiredArg<$flutter_13.ShapeBorder>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.OvalBorder>(target, 'OvalBorder');
+        final t = D4.validateTarget<$flutter_39.OvalBorder>(target, 'OvalBorder');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -8023,10 +8414,10 @@ BridgedClass _createOvalBorderBridge() {
     },
     methodSignatures: {
       'scale': 'ShapeBorder scale(double t)',
-      'getOuterPath': 'InvalidType getOuterPath(InvalidType rect, {InvalidType textDirection})',
-      'getInnerPath': 'InvalidType getInnerPath(InvalidType rect, {InvalidType textDirection})',
-      'paintInterior': 'void paintInterior(InvalidType canvas, InvalidType rect, InvalidType paint, {InvalidType textDirection})',
-      'paint': 'void paint(InvalidType canvas, InvalidType rect, {InvalidType textDirection})',
+      'getOuterPath': 'Path getOuterPath(Rect rect, {TextDirection? textDirection})',
+      'getInnerPath': 'Path getInnerPath(Rect rect, {TextDirection? textDirection})',
+      'paintInterior': 'void paintInterior(Canvas canvas, Rect rect, Paint paint, {TextDirection? textDirection})',
+      'paint': 'void paint(Canvas canvas, Rect rect, {TextDirection? textDirection})',
       'toString': 'String toString()',
       'copyWith': 'OvalBorder copyWith({BorderSide? side, double? eccentricity})',
       'lerpFrom': 'ShapeBorder? lerpFrom(ShapeBorder? a, double t)',
@@ -8048,102 +8439,136 @@ BridgedClass _createOvalBorderBridge() {
 
 BridgedClass _createPlaceholderSpanBridge() {
   return BridgedClass(
-    nativeType: $flutter_34.PlaceholderSpan,
+    nativeType: $flutter_41.PlaceholderSpan,
     name: 'PlaceholderSpan',
     constructors: {
     },
     getters: {
-      'style': (visitor, target) => D4.validateTarget<$flutter_34.PlaceholderSpan>(target, 'PlaceholderSpan').style,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_34.PlaceholderSpan>(target, 'PlaceholderSpan').hashCode,
-      'alignment': (visitor, target) => D4.validateTarget<$flutter_34.PlaceholderSpan>(target, 'PlaceholderSpan').alignment,
-      'baseline': (visitor, target) => D4.validateTarget<$flutter_34.PlaceholderSpan>(target, 'PlaceholderSpan').baseline,
+      'style': (visitor, target) => D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan').style,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan').hashCode,
+      'alignment': (visitor, target) => D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan').alignment,
+      'baseline': (visitor, target) => D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan').baseline,
     },
     methods: {
       'build': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.PlaceholderSpan>(target, 'PlaceholderSpan');
+        final t = D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan');
         D4.requireMinArgs(positional, 1, 'build');
-        final builder = D4.getRequiredArg<dynamic>(positional, 0, 'builder', 'build');
-        final textScaler = D4.getNamedArgWithDefault<$flutter_42.TextScaler>(named, 'textScaler', $flutter_42.TextScaler.noScaling);
-        final dimensions = D4.coerceListOrNull<$flutter_41.PlaceholderDimensions>(named['dimensions'], 'dimensions');
+        final builder = D4.getRequiredArg<ParagraphBuilder>(positional, 0, 'builder', 'build');
+        final textScaler = D4.getNamedArgWithDefault<$flutter_49.TextScaler>(named, 'textScaler', $flutter_49.TextScaler.noScaling);
+        final dimensions = D4.coerceListOrNull<$flutter_48.PlaceholderDimensions>(named['dimensions'], 'dimensions');
         (t as dynamic).build(builder, textScaler: textScaler, dimensions: dimensions);
         return null;
       },
       'visitChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.PlaceholderSpan>(target, 'PlaceholderSpan');
+        final t = D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan');
         D4.requireMinArgs(positional, 1, 'visitChildren');
         if (positional.isEmpty) {
           throw ArgumentError('visitChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        return t.visitChildren(($flutter_28.InlineSpan p0) { return D4.callInterpreterCallback(visitor, visitor_Raw, [p0]) as bool; });
+        return t.visitChildren(($flutter_35.InlineSpan p0) { return D4.callInterpreterCallback(visitor, visitor_Raw, [p0]) as bool; });
       },
       'visitDirectChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.PlaceholderSpan>(target, 'PlaceholderSpan');
+        final t = D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan');
         D4.requireMinArgs(positional, 1, 'visitDirectChildren');
         if (positional.isEmpty) {
           throw ArgumentError('visitDirectChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        return t.visitDirectChildren(($flutter_28.InlineSpan p0) { return D4.callInterpreterCallback(visitor, visitor_Raw, [p0]) as bool; });
+        return t.visitDirectChildren(($flutter_35.InlineSpan p0) { return D4.callInterpreterCallback(visitor, visitor_Raw, [p0]) as bool; });
       },
       'getSpanForPosition': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.PlaceholderSpan>(target, 'PlaceholderSpan');
+        final t = D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan');
         D4.requireMinArgs(positional, 1, 'getSpanForPosition');
-        final position = D4.getRequiredArg<dynamic>(positional, 0, 'position', 'getSpanForPosition');
+        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'getSpanForPosition');
         return t.getSpanForPosition(position);
       },
       'toPlainText': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.PlaceholderSpan>(target, 'PlaceholderSpan');
+        final t = D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan');
         final includeSemanticsLabels = D4.getNamedArgWithDefault<bool>(named, 'includeSemanticsLabels', true);
         final includePlaceholders = D4.getNamedArgWithDefault<bool>(named, 'includePlaceholders', true);
         return t.toPlainText(includeSemanticsLabels: includeSemanticsLabels, includePlaceholders: includePlaceholders);
       },
       'getSemanticsInformation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.PlaceholderSpan>(target, 'PlaceholderSpan');
+        final t = D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan');
         return t.getSemanticsInformation();
       },
       'codeUnitAt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.PlaceholderSpan>(target, 'PlaceholderSpan');
+        final t = D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan');
         D4.requireMinArgs(positional, 1, 'codeUnitAt');
         final index = D4.getRequiredArg<int>(positional, 0, 'index', 'codeUnitAt');
         return t.codeUnitAt(index);
       },
       'debugAssertIsValid': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.PlaceholderSpan>(target, 'PlaceholderSpan');
+        final t = D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan');
         return t.debugAssertIsValid();
       },
       'compareTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.PlaceholderSpan>(target, 'PlaceholderSpan');
+        final t = D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan');
         D4.requireMinArgs(positional, 1, 'compareTo');
-        final other = D4.getRequiredArg<$flutter_28.InlineSpan>(positional, 0, 'other', 'compareTo');
+        final other = D4.getRequiredArg<$flutter_35.InlineSpan>(positional, 0, 'other', 'compareTo');
         return t.compareTo(other);
       },
+      'toStringShallow': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan');
+        final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        return t.toStringShallow(joiner: joiner, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan');
+        return t.toStringShort();
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.PlaceholderSpan>(target, 'PlaceholderSpan');
+        final t = D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan');
         D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$aux_flutter_2.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
         (t as dynamic).debugFillProperties(properties);
         return null;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.PlaceholderSpan>(target, 'PlaceholderSpan');
+        final t = D4.validateTarget<$flutter_41.PlaceholderSpan>(target, 'PlaceholderSpan');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     staticGetters: {
-      'placeholderCodeUnit': (visitor) => $flutter_34.PlaceholderSpan.placeholderCodeUnit,
+      'placeholderCodeUnit': (visitor) => $flutter_41.PlaceholderSpan.placeholderCodeUnit,
     },
     methodSignatures: {
-      'build': 'void build(InvalidType builder, {TextScaler textScaler = TextScaler.noScaling, List<PlaceholderDimensions>? dimensions})',
+      'build': 'void build(ParagraphBuilder builder, {TextScaler textScaler = TextScaler.noScaling, List<PlaceholderDimensions>? dimensions})',
       'visitChildren': 'bool visitChildren(bool Function(InlineSpan) visitor)',
       'visitDirectChildren': 'bool visitDirectChildren(bool Function(InlineSpan) visitor)',
-      'getSpanForPosition': 'InlineSpan? getSpanForPosition(InvalidType position)',
+      'getSpanForPosition': 'InlineSpan? getSpanForPosition(TextPosition position)',
       'toPlainText': 'String toPlainText({bool includeSemanticsLabels = true, bool includePlaceholders = true})',
       'getSemanticsInformation': 'List<InlineSpanSemanticsInformation> getSemanticsInformation()',
       'codeUnitAt': 'int? codeUnitAt(int index)',
       'debugAssertIsValid': 'bool debugAssertIsValid()',
       'compareTo': 'RenderComparison compareTo(InlineSpan other)',
+      'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'toStringShort': 'String toStringShort()',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
     getterSignatures: {
@@ -8164,93 +8589,93 @@ BridgedClass _createPlaceholderSpanBridge() {
 
 BridgedClass _createRoundedRectangleBorderBridge() {
   return BridgedClass(
-    nativeType: $flutter_35.RoundedRectangleBorder,
+    nativeType: $flutter_42.RoundedRectangleBorder,
     name: 'RoundedRectangleBorder',
     constructors: {
       '': (visitor, positional, named) {
-        final side = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'side', $flutter_6.BorderSide.none);
-        final borderRadius = D4.getNamedArgWithDefault<$flutter_5.BorderRadiusGeometry>(named, 'borderRadius', $flutter_5.BorderRadius.zero);
-        return $flutter_35.RoundedRectangleBorder(side: side, borderRadius: borderRadius);
+        final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
+        final borderRadius = D4.getNamedArgWithDefault<$flutter_12.BorderRadiusGeometry>(named, 'borderRadius', $flutter_12.BorderRadius.zero);
+        return $flutter_42.RoundedRectangleBorder(side: side, borderRadius: borderRadius);
       },
     },
     getters: {
-      'dimensions': (visitor, target) => D4.validateTarget<$flutter_35.RoundedRectangleBorder>(target, 'RoundedRectangleBorder').dimensions,
-      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_35.RoundedRectangleBorder>(target, 'RoundedRectangleBorder').preferPaintInterior,
-      'side': (visitor, target) => D4.validateTarget<$flutter_35.RoundedRectangleBorder>(target, 'RoundedRectangleBorder').side,
-      'borderRadius': (visitor, target) => D4.validateTarget<$flutter_35.RoundedRectangleBorder>(target, 'RoundedRectangleBorder').borderRadius,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_35.RoundedRectangleBorder>(target, 'RoundedRectangleBorder').hashCode,
+      'dimensions': (visitor, target) => D4.validateTarget<$flutter_42.RoundedRectangleBorder>(target, 'RoundedRectangleBorder').dimensions,
+      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_42.RoundedRectangleBorder>(target, 'RoundedRectangleBorder').preferPaintInterior,
+      'side': (visitor, target) => D4.validateTarget<$flutter_42.RoundedRectangleBorder>(target, 'RoundedRectangleBorder').side,
+      'borderRadius': (visitor, target) => D4.validateTarget<$flutter_42.RoundedRectangleBorder>(target, 'RoundedRectangleBorder').borderRadius,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_42.RoundedRectangleBorder>(target, 'RoundedRectangleBorder').hashCode,
     },
     methods: {
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
         D4.requireMinArgs(positional, 1, 'scale');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'scale');
         return t.scale(t_);
       },
       'getOuterPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
         D4.requireMinArgs(positional, 1, 'getOuterPath');
-        final rect = D4.getRequiredArg<$flutter_35.Rect>(positional, 0, 'rect', 'getOuterPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_35.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getOuterPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getOuterPath(rect, textDirection: textDirection);
       },
       'getInnerPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
         D4.requireMinArgs(positional, 1, 'getInnerPath');
-        final rect = D4.getRequiredArg<$flutter_35.Rect>(positional, 0, 'rect', 'getInnerPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_35.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getInnerPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getInnerPath(rect, textDirection: textDirection);
       },
       'paintInterior': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
         D4.requireMinArgs(positional, 3, 'paintInterior');
-        final canvas = D4.getRequiredArg<$flutter_35.Canvas>(positional, 0, 'canvas', 'paintInterior');
-        final rect = D4.getRequiredArg<$flutter_35.Rect>(positional, 1, 'rect', 'paintInterior');
-        final paint = D4.getRequiredArg<$flutter_35.Paint>(positional, 2, 'paint', 'paintInterior');
-        final textDirection = D4.getOptionalNamedArg<$flutter_35.TextDirection?>(named, 'textDirection');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paintInterior');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paintInterior');
+        final paint = D4.getRequiredArg<Paint>(positional, 2, 'paint', 'paintInterior');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paintInterior(canvas, rect, paint, textDirection: textDirection);
         return null;
       },
       'paint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
         D4.requireMinArgs(positional, 2, 'paint');
-        final canvas = D4.getRequiredArg<$flutter_35.Canvas>(positional, 0, 'canvas', 'paint');
-        final rect = D4.getRequiredArg<$flutter_35.Rect>(positional, 1, 'rect', 'paint');
-        final textDirection = D4.getOptionalNamedArg<$flutter_35.TextDirection?>(named, 'textDirection');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paint');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paint');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paint(canvas, rect, textDirection: textDirection);
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
         return t.toString();
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
-        final side = D4.getOptionalNamedArg<$flutter_6.BorderSide?>(named, 'side');
-        final borderRadius = D4.getOptionalNamedArg<$flutter_5.BorderRadiusGeometry?>(named, 'borderRadius');
+        final t = D4.validateTarget<$flutter_42.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
+        final side = D4.getOptionalNamedArg<$flutter_13.BorderSide?>(named, 'side');
+        final borderRadius = D4.getOptionalNamedArg<$flutter_12.BorderRadiusGeometry?>(named, 'borderRadius');
         return t.copyWith(side: side, borderRadius: borderRadius);
       },
       'lerpFrom': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
         D4.requireMinArgs(positional, 2, 'lerpFrom');
-        final a = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
+        final a = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpFrom');
         return t.lerpFrom(a, t_);
       },
       'lerpTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
         D4.requireMinArgs(positional, 2, 'lerpTo');
-        final b = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
+        final b = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpTo');
         return t.lerpTo(b, t_);
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
-        final other = D4.getRequiredArg<$flutter_6.ShapeBorder>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_42.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
+        final other = D4.getRequiredArg<$flutter_13.ShapeBorder>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedRectangleBorder>(target, 'RoundedRectangleBorder');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -8285,93 +8710,93 @@ BridgedClass _createRoundedRectangleBorderBridge() {
 
 BridgedClass _createRoundedSuperellipseBorderBridge() {
   return BridgedClass(
-    nativeType: $flutter_35.RoundedSuperellipseBorder,
+    nativeType: $flutter_42.RoundedSuperellipseBorder,
     name: 'RoundedSuperellipseBorder',
     constructors: {
       '': (visitor, positional, named) {
-        final side = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'side', $flutter_6.BorderSide.none);
-        final borderRadius = D4.getOptionalNamedArg<$flutter_5.BorderRadiusGeometry?>(named, 'borderRadius');
-        return $flutter_35.RoundedSuperellipseBorder(side: side, borderRadius: borderRadius);
+        final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
+        final borderRadius = D4.getOptionalNamedArg<$flutter_12.BorderRadiusGeometry?>(named, 'borderRadius');
+        return $flutter_42.RoundedSuperellipseBorder(side: side, borderRadius: borderRadius);
       },
     },
     getters: {
-      'dimensions': (visitor, target) => D4.validateTarget<$flutter_35.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder').dimensions,
-      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_35.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder').preferPaintInterior,
-      'side': (visitor, target) => D4.validateTarget<$flutter_35.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder').side,
-      'borderRadius': (visitor, target) => D4.validateTarget<$flutter_35.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder').borderRadius,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_35.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder').hashCode,
+      'dimensions': (visitor, target) => D4.validateTarget<$flutter_42.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder').dimensions,
+      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_42.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder').preferPaintInterior,
+      'side': (visitor, target) => D4.validateTarget<$flutter_42.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder').side,
+      'borderRadius': (visitor, target) => D4.validateTarget<$flutter_42.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder').borderRadius,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_42.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder').hashCode,
     },
     methods: {
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
         D4.requireMinArgs(positional, 1, 'scale');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'scale');
         return t.scale(t_);
       },
       'getOuterPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
         D4.requireMinArgs(positional, 1, 'getOuterPath');
-        final rect = D4.getRequiredArg<$flutter_35.Rect>(positional, 0, 'rect', 'getOuterPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_35.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getOuterPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getOuterPath(rect, textDirection: textDirection);
       },
       'getInnerPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
         D4.requireMinArgs(positional, 1, 'getInnerPath');
-        final rect = D4.getRequiredArg<$flutter_35.Rect>(positional, 0, 'rect', 'getInnerPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_35.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getInnerPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getInnerPath(rect, textDirection: textDirection);
       },
       'paintInterior': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
         D4.requireMinArgs(positional, 3, 'paintInterior');
-        final canvas = D4.getRequiredArg<$flutter_35.Canvas>(positional, 0, 'canvas', 'paintInterior');
-        final rect = D4.getRequiredArg<$flutter_35.Rect>(positional, 1, 'rect', 'paintInterior');
-        final paint = D4.getRequiredArg<$flutter_35.Paint>(positional, 2, 'paint', 'paintInterior');
-        final textDirection = D4.getOptionalNamedArg<$flutter_35.TextDirection?>(named, 'textDirection');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paintInterior');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paintInterior');
+        final paint = D4.getRequiredArg<Paint>(positional, 2, 'paint', 'paintInterior');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paintInterior(canvas, rect, paint, textDirection: textDirection);
         return null;
       },
       'paint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
         D4.requireMinArgs(positional, 2, 'paint');
-        final canvas = D4.getRequiredArg<$flutter_35.Canvas>(positional, 0, 'canvas', 'paint');
-        final rect = D4.getRequiredArg<$flutter_35.Rect>(positional, 1, 'rect', 'paint');
-        final textDirection = D4.getOptionalNamedArg<$flutter_35.TextDirection?>(named, 'textDirection');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paint');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paint');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paint(canvas, rect, textDirection: textDirection);
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
         return t.toString();
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
-        final side = D4.getOptionalNamedArg<$flutter_6.BorderSide?>(named, 'side');
-        final borderRadius = D4.getOptionalNamedArg<$flutter_5.BorderRadiusGeometry?>(named, 'borderRadius');
+        final t = D4.validateTarget<$flutter_42.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
+        final side = D4.getOptionalNamedArg<$flutter_13.BorderSide?>(named, 'side');
+        final borderRadius = D4.getOptionalNamedArg<$flutter_12.BorderRadiusGeometry?>(named, 'borderRadius');
         return t.copyWith(side: side, borderRadius: borderRadius);
       },
       'lerpFrom': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
         D4.requireMinArgs(positional, 2, 'lerpFrom');
-        final a = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
+        final a = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpFrom');
         return t.lerpFrom(a, t_);
       },
       'lerpTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
         D4.requireMinArgs(positional, 2, 'lerpTo');
-        final b = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
+        final b = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpTo');
         return t.lerpTo(b, t_);
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
-        final other = D4.getRequiredArg<$flutter_6.ShapeBorder>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_42.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
+        final other = D4.getRequiredArg<$flutter_13.ShapeBorder>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
+        final t = D4.validateTarget<$flutter_42.RoundedSuperellipseBorder>(target, 'RoundedSuperellipseBorder');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -8406,16 +8831,16 @@ BridgedClass _createRoundedSuperellipseBorderBridge() {
 
 BridgedClass _createShaderWarmUpBridge() {
   return BridgedClass(
-    nativeType: $flutter_36.ShaderWarmUp,
+    nativeType: $flutter_43.ShaderWarmUp,
     name: 'ShaderWarmUp',
     constructors: {
     },
     getters: {
-      'size': (visitor, target) => D4.validateTarget<$flutter_36.ShaderWarmUp>(target, 'ShaderWarmUp').size,
+      'size': (visitor, target) => D4.validateTarget<$flutter_43.ShaderWarmUp>(target, 'ShaderWarmUp').size,
     },
     methods: {
       'execute': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_36.ShaderWarmUp>(target, 'ShaderWarmUp');
+        final t = D4.validateTarget<$flutter_43.ShaderWarmUp>(target, 'ShaderWarmUp');
         return t.execute();
       },
     },
@@ -8434,71 +8859,75 @@ BridgedClass _createShaderWarmUpBridge() {
 
 BridgedClass _createShapeDecorationBridge() {
   return BridgedClass(
-    nativeType: $flutter_37.ShapeDecoration,
+    nativeType: $flutter_44.ShapeDecoration,
     name: 'ShapeDecoration',
     constructors: {
       '': (visitor, positional, named) {
-        final color = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'color', 'ShapeDecoration', '<default unavailable>');
-        final image = D4.getOptionalNamedArg<$flutter_17.DecorationImage?>(named, 'image');
-        final gradient = D4.getOptionalNamedArg<$flutter_22.Gradient?>(named, 'gradient');
-        final shadows = D4.coerceListOrNull<$flutter_10.BoxShadow>(named['shadows'], 'shadows');
-        final shape = D4.getRequiredNamedArg<$flutter_6.ShapeBorder>(named, 'shape', 'ShapeDecoration');
-        return $flutter_37.ShapeDecoration(color: color, image: image, gradient: gradient, shadows: shadows, shape: shape);
+        final color = D4.getOptionalNamedArg<Color?>(named, 'color');
+        final image = D4.getOptionalNamedArg<$flutter_24.DecorationImage?>(named, 'image');
+        final gradient = D4.getOptionalNamedArg<$flutter_29.Gradient?>(named, 'gradient');
+        final shadows = D4.coerceListOrNull<$flutter_17.BoxShadow>(named['shadows'], 'shadows');
+        final shape = D4.getRequiredNamedArg<$flutter_13.ShapeBorder>(named, 'shape', 'ShapeDecoration');
+        return $flutter_44.ShapeDecoration(color: color, image: image, gradient: gradient, shadows: shadows, shape: shape);
       },
       'fromBoxDecoration': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ShapeDecoration');
-        final source = D4.getRequiredArg<$flutter_8.BoxDecoration>(positional, 0, 'source', 'ShapeDecoration');
-        return $flutter_37.ShapeDecoration.fromBoxDecoration(source);
+        final source = D4.getRequiredArg<$flutter_15.BoxDecoration>(positional, 0, 'source', 'ShapeDecoration');
+        return $flutter_44.ShapeDecoration.fromBoxDecoration(source);
       },
     },
     getters: {
-      'padding': (visitor, target) => D4.validateTarget<$flutter_37.ShapeDecoration>(target, 'ShapeDecoration').padding,
-      'isComplex': (visitor, target) => D4.validateTarget<$flutter_37.ShapeDecoration>(target, 'ShapeDecoration').isComplex,
-      'color': (visitor, target) => D4.validateTarget<$flutter_37.ShapeDecoration>(target, 'ShapeDecoration').color,
-      'gradient': (visitor, target) => D4.validateTarget<$flutter_37.ShapeDecoration>(target, 'ShapeDecoration').gradient,
-      'image': (visitor, target) => D4.validateTarget<$flutter_37.ShapeDecoration>(target, 'ShapeDecoration').image,
-      'shadows': (visitor, target) => D4.validateTarget<$flutter_37.ShapeDecoration>(target, 'ShapeDecoration').shadows,
-      'shape': (visitor, target) => D4.validateTarget<$flutter_37.ShapeDecoration>(target, 'ShapeDecoration').shape,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_37.ShapeDecoration>(target, 'ShapeDecoration').hashCode,
+      'padding': (visitor, target) => D4.validateTarget<$flutter_44.ShapeDecoration>(target, 'ShapeDecoration').padding,
+      'isComplex': (visitor, target) => D4.validateTarget<$flutter_44.ShapeDecoration>(target, 'ShapeDecoration').isComplex,
+      'color': (visitor, target) => D4.validateTarget<$flutter_44.ShapeDecoration>(target, 'ShapeDecoration').color,
+      'gradient': (visitor, target) => D4.validateTarget<$flutter_44.ShapeDecoration>(target, 'ShapeDecoration').gradient,
+      'image': (visitor, target) => D4.validateTarget<$flutter_44.ShapeDecoration>(target, 'ShapeDecoration').image,
+      'shadows': (visitor, target) => D4.validateTarget<$flutter_44.ShapeDecoration>(target, 'ShapeDecoration').shadows,
+      'shape': (visitor, target) => D4.validateTarget<$flutter_44.ShapeDecoration>(target, 'ShapeDecoration').shape,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_44.ShapeDecoration>(target, 'ShapeDecoration').hashCode,
     },
     methods: {
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.ShapeDecoration>(target, 'ShapeDecoration');
+        final t = D4.validateTarget<$flutter_44.ShapeDecoration>(target, 'ShapeDecoration');
         return t.toStringShort();
       },
       'debugAssertIsValid': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.ShapeDecoration>(target, 'ShapeDecoration');
+        final t = D4.validateTarget<$flutter_44.ShapeDecoration>(target, 'ShapeDecoration');
         return t.debugAssertIsValid();
       },
       'hitTest': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.ShapeDecoration>(target, 'ShapeDecoration');
+        final t = D4.validateTarget<$flutter_44.ShapeDecoration>(target, 'ShapeDecoration');
         D4.requireMinArgs(positional, 2, 'hitTest');
-        final size = D4.getRequiredArg<$flutter_37.Size>(positional, 0, 'size', 'hitTest');
-        final position = D4.getRequiredArg<$flutter_37.Offset>(positional, 1, 'position', 'hitTest');
-        final textDirection = D4.getOptionalNamedArg<$flutter_37.TextDirection?>(named, 'textDirection');
+        final size = D4.getRequiredArg<Size>(positional, 0, 'size', 'hitTest');
+        final position = D4.getRequiredArg<Offset>(positional, 1, 'position', 'hitTest');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.hitTest(size, position, textDirection: textDirection);
       },
       'createBoxPainter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.ShapeDecoration>(target, 'ShapeDecoration');
+        final t = D4.validateTarget<$flutter_44.ShapeDecoration>(target, 'ShapeDecoration');
         final onChangedRaw = positional.isNotEmpty ? positional[0] : null;
         return t.createBoxPainter(onChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor, onChangedRaw, []); });
       },
       'getClipPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.ShapeDecoration>(target, 'ShapeDecoration');
+        final t = D4.validateTarget<$flutter_44.ShapeDecoration>(target, 'ShapeDecoration');
         D4.requireMinArgs(positional, 2, 'getClipPath');
-        final rect = D4.getRequiredArg<$flutter_37.Rect>(positional, 0, 'rect', 'getClipPath');
-        final textDirection = D4.getRequiredArg<$flutter_37.TextDirection>(positional, 1, 'textDirection', 'getClipPath');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getClipPath');
+        final textDirection = D4.getRequiredArg<TextDirection>(positional, 1, 'textDirection', 'getClipPath');
         return t.getClipPath(rect, textDirection);
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.ShapeDecoration>(target, 'ShapeDecoration');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$aux_flutter_2.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
-        return null;
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_44.ShapeDecoration>(target, 'ShapeDecoration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_44.ShapeDecoration>(target, 'ShapeDecoration');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.ShapeDecoration>(target, 'ShapeDecoration');
+        final t = D4.validateTarget<$flutter_44.ShapeDecoration>(target, 'ShapeDecoration');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -8506,14 +8935,14 @@ BridgedClass _createShapeDecorationBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_37.ShapeDecoration?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_37.ShapeDecoration?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_44.ShapeDecoration?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_44.ShapeDecoration?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_37.ShapeDecoration.lerp(a, b, t_);
+        return $flutter_44.ShapeDecoration.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
-      '': 'const ShapeDecoration({dynamic color, DecorationImage? image, Gradient? gradient, List<BoxShadow>? shadows, required ShapeBorder shape})',
+      '': 'const ShapeDecoration({Color? color, DecorationImage? image, Gradient? gradient, List<BoxShadow>? shadows, required ShapeBorder shape})',
       'fromBoxDecoration': 'factory ShapeDecoration.fromBoxDecoration(BoxDecoration source)',
     },
     methodSignatures: {
@@ -8522,7 +8951,8 @@ BridgedClass _createShapeDecorationBridge() {
       'hitTest': 'bool hitTest(Size size, Offset position, {TextDirection? textDirection})',
       'createBoxPainter': 'BoxPainter createBoxPainter([VoidCallback? onChanged])',
       'getClipPath': 'Path getClipPath(Rect rect, TextDirection textDirection)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
     },
     getterSignatures: {
       'padding': 'EdgeInsetsGeometry get padding',
@@ -8546,90 +8976,90 @@ BridgedClass _createShapeDecorationBridge() {
 
 BridgedClass _createStadiumBorderBridge() {
   return BridgedClass(
-    nativeType: $flutter_38.StadiumBorder,
+    nativeType: $flutter_45.StadiumBorder,
     name: 'StadiumBorder',
     constructors: {
       '': (visitor, positional, named) {
-        final side = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'side', $flutter_6.BorderSide.none);
-        return $flutter_38.StadiumBorder(side: side);
+        final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
+        return $flutter_45.StadiumBorder(side: side);
       },
     },
     getters: {
-      'dimensions': (visitor, target) => D4.validateTarget<$flutter_38.StadiumBorder>(target, 'StadiumBorder').dimensions,
-      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_38.StadiumBorder>(target, 'StadiumBorder').preferPaintInterior,
-      'side': (visitor, target) => D4.validateTarget<$flutter_38.StadiumBorder>(target, 'StadiumBorder').side,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_38.StadiumBorder>(target, 'StadiumBorder').hashCode,
+      'dimensions': (visitor, target) => D4.validateTarget<$flutter_45.StadiumBorder>(target, 'StadiumBorder').dimensions,
+      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_45.StadiumBorder>(target, 'StadiumBorder').preferPaintInterior,
+      'side': (visitor, target) => D4.validateTarget<$flutter_45.StadiumBorder>(target, 'StadiumBorder').side,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_45.StadiumBorder>(target, 'StadiumBorder').hashCode,
     },
     methods: {
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_38.StadiumBorder>(target, 'StadiumBorder');
+        final t = D4.validateTarget<$flutter_45.StadiumBorder>(target, 'StadiumBorder');
         D4.requireMinArgs(positional, 1, 'scale');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'scale');
         return t.scale(t_);
       },
       'getOuterPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_38.StadiumBorder>(target, 'StadiumBorder');
+        final t = D4.validateTarget<$flutter_45.StadiumBorder>(target, 'StadiumBorder');
         D4.requireMinArgs(positional, 1, 'getOuterPath');
-        final rect = D4.getRequiredArg<$flutter_38.Rect>(positional, 0, 'rect', 'getOuterPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_38.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getOuterPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getOuterPath(rect, textDirection: textDirection);
       },
       'getInnerPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_38.StadiumBorder>(target, 'StadiumBorder');
+        final t = D4.validateTarget<$flutter_45.StadiumBorder>(target, 'StadiumBorder');
         D4.requireMinArgs(positional, 1, 'getInnerPath');
-        final rect = D4.getRequiredArg<$flutter_38.Rect>(positional, 0, 'rect', 'getInnerPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_38.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getInnerPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getInnerPath(rect, textDirection: textDirection);
       },
       'paintInterior': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_38.StadiumBorder>(target, 'StadiumBorder');
+        final t = D4.validateTarget<$flutter_45.StadiumBorder>(target, 'StadiumBorder');
         D4.requireMinArgs(positional, 3, 'paintInterior');
-        final canvas = D4.getRequiredArg<$flutter_38.Canvas>(positional, 0, 'canvas', 'paintInterior');
-        final rect = D4.getRequiredArg<$flutter_38.Rect>(positional, 1, 'rect', 'paintInterior');
-        final paint = D4.getRequiredArg<$flutter_38.Paint>(positional, 2, 'paint', 'paintInterior');
-        final textDirection = D4.getOptionalNamedArg<$flutter_38.TextDirection?>(named, 'textDirection');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paintInterior');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paintInterior');
+        final paint = D4.getRequiredArg<Paint>(positional, 2, 'paint', 'paintInterior');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paintInterior(canvas, rect, paint, textDirection: textDirection);
         return null;
       },
       'paint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_38.StadiumBorder>(target, 'StadiumBorder');
+        final t = D4.validateTarget<$flutter_45.StadiumBorder>(target, 'StadiumBorder');
         D4.requireMinArgs(positional, 2, 'paint');
-        final canvas = D4.getRequiredArg<$flutter_38.Canvas>(positional, 0, 'canvas', 'paint');
-        final rect = D4.getRequiredArg<$flutter_38.Rect>(positional, 1, 'rect', 'paint');
-        final textDirection = D4.getOptionalNamedArg<$flutter_38.TextDirection?>(named, 'textDirection');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paint');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paint');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paint(canvas, rect, textDirection: textDirection);
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_38.StadiumBorder>(target, 'StadiumBorder');
+        final t = D4.validateTarget<$flutter_45.StadiumBorder>(target, 'StadiumBorder');
         return t.toString();
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_38.StadiumBorder>(target, 'StadiumBorder');
-        final side = D4.getOptionalNamedArg<$flutter_6.BorderSide?>(named, 'side');
+        final t = D4.validateTarget<$flutter_45.StadiumBorder>(target, 'StadiumBorder');
+        final side = D4.getOptionalNamedArg<$flutter_13.BorderSide?>(named, 'side');
         return t.copyWith(side: side);
       },
       'lerpFrom': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_38.StadiumBorder>(target, 'StadiumBorder');
+        final t = D4.validateTarget<$flutter_45.StadiumBorder>(target, 'StadiumBorder');
         D4.requireMinArgs(positional, 2, 'lerpFrom');
-        final a = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
+        final a = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpFrom');
         return t.lerpFrom(a, t_);
       },
       'lerpTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_38.StadiumBorder>(target, 'StadiumBorder');
+        final t = D4.validateTarget<$flutter_45.StadiumBorder>(target, 'StadiumBorder');
         D4.requireMinArgs(positional, 2, 'lerpTo');
-        final b = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
+        final b = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpTo');
         return t.lerpTo(b, t_);
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_38.StadiumBorder>(target, 'StadiumBorder');
-        final other = D4.getRequiredArg<$flutter_6.ShapeBorder>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_45.StadiumBorder>(target, 'StadiumBorder');
+        final other = D4.getRequiredArg<$flutter_13.ShapeBorder>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_38.StadiumBorder>(target, 'StadiumBorder');
+        final t = D4.validateTarget<$flutter_45.StadiumBorder>(target, 'StadiumBorder');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -8663,87 +9093,87 @@ BridgedClass _createStadiumBorderBridge() {
 
 BridgedClass _createStarBorderBridge() {
   return BridgedClass(
-    nativeType: $flutter_39.StarBorder,
+    nativeType: $flutter_46.StarBorder,
     name: 'StarBorder',
     constructors: {
       '': (visitor, positional, named) {
-        final side = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'side', $flutter_6.BorderSide.none);
+        final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
         final points = D4.getNamedArgWithDefault<double>(named, 'points', 5);
         final innerRadiusRatio = D4.getNamedArgWithDefault<double>(named, 'innerRadiusRatio', 0.4);
         final pointRounding = D4.getNamedArgWithDefault<double>(named, 'pointRounding', 0);
         final valleyRounding = D4.getNamedArgWithDefault<double>(named, 'valleyRounding', 0);
         final rotation = D4.getNamedArgWithDefault<double>(named, 'rotation', 0);
         final squash = D4.getNamedArgWithDefault<double>(named, 'squash', 0);
-        return $flutter_39.StarBorder(side: side, points: points, innerRadiusRatio: innerRadiusRatio, pointRounding: pointRounding, valleyRounding: valleyRounding, rotation: rotation, squash: squash);
+        return $flutter_46.StarBorder(side: side, points: points, innerRadiusRatio: innerRadiusRatio, pointRounding: pointRounding, valleyRounding: valleyRounding, rotation: rotation, squash: squash);
       },
       'polygon': (visitor, positional, named) {
-        final side = D4.getNamedArgWithDefault<$flutter_6.BorderSide>(named, 'side', $flutter_6.BorderSide.none);
+        final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
         final sides = D4.getNamedArgWithDefault<double>(named, 'sides', 5);
         final pointRounding = D4.getNamedArgWithDefault<double>(named, 'pointRounding', 0);
         final rotation = D4.getNamedArgWithDefault<double>(named, 'rotation', 0);
         final squash = D4.getNamedArgWithDefault<double>(named, 'squash', 0);
-        return $flutter_39.StarBorder.polygon(side: side, sides: sides, pointRounding: pointRounding, rotation: rotation, squash: squash);
+        return $flutter_46.StarBorder.polygon(side: side, sides: sides, pointRounding: pointRounding, rotation: rotation, squash: squash);
       },
     },
     getters: {
-      'dimensions': (visitor, target) => D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder').dimensions,
-      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder').preferPaintInterior,
-      'side': (visitor, target) => D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder').side,
-      'points': (visitor, target) => D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder').points,
-      'innerRadiusRatio': (visitor, target) => D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder').innerRadiusRatio,
-      'pointRounding': (visitor, target) => D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder').pointRounding,
-      'valleyRounding': (visitor, target) => D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder').valleyRounding,
-      'rotation': (visitor, target) => D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder').rotation,
-      'squash': (visitor, target) => D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder').squash,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder').hashCode,
+      'dimensions': (visitor, target) => D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder').dimensions,
+      'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder').preferPaintInterior,
+      'side': (visitor, target) => D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder').side,
+      'points': (visitor, target) => D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder').points,
+      'innerRadiusRatio': (visitor, target) => D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder').innerRadiusRatio,
+      'pointRounding': (visitor, target) => D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder').pointRounding,
+      'valleyRounding': (visitor, target) => D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder').valleyRounding,
+      'rotation': (visitor, target) => D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder').rotation,
+      'squash': (visitor, target) => D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder').squash,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder').hashCode,
     },
     methods: {
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder');
+        final t = D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder');
         D4.requireMinArgs(positional, 1, 'scale');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'scale');
         return t.scale(t_);
       },
       'getOuterPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder');
+        final t = D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder');
         D4.requireMinArgs(positional, 1, 'getOuterPath');
-        final rect = D4.getRequiredArg<$flutter_39.Rect>(positional, 0, 'rect', 'getOuterPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_39.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getOuterPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getOuterPath(rect, textDirection: textDirection);
       },
       'getInnerPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder');
+        final t = D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder');
         D4.requireMinArgs(positional, 1, 'getInnerPath');
-        final rect = D4.getRequiredArg<$flutter_39.Rect>(positional, 0, 'rect', 'getInnerPath');
-        final textDirection = D4.getOptionalNamedArg<$flutter_39.TextDirection?>(named, 'textDirection');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'getInnerPath');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         return t.getInnerPath(rect, textDirection: textDirection);
       },
       'paintInterior': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder');
+        final t = D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder');
         D4.requireMinArgs(positional, 3, 'paintInterior');
-        final canvas = D4.getRequiredArg<dynamic>(positional, 0, 'canvas', 'paintInterior');
-        final rect = D4.getRequiredArg<dynamic>(positional, 1, 'rect', 'paintInterior');
-        final paint = D4.getRequiredArg<dynamic>(positional, 2, 'paint', 'paintInterior');
-        final textDirection = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textDirection', 'paintInterior', '<default unavailable>');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paintInterior');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paintInterior');
+        final paint = D4.getRequiredArg<Paint>(positional, 2, 'paint', 'paintInterior');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paintInterior(canvas, rect, paint, textDirection: textDirection);
         return null;
       },
       'paint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder');
+        final t = D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder');
         D4.requireMinArgs(positional, 2, 'paint');
-        final canvas = D4.getRequiredArg<$flutter_39.Canvas>(positional, 0, 'canvas', 'paint');
-        final rect = D4.getRequiredArg<$flutter_39.Rect>(positional, 1, 'rect', 'paint');
-        final textDirection = D4.getOptionalNamedArg<$flutter_39.TextDirection?>(named, 'textDirection');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paint');
+        final rect = D4.getRequiredArg<Rect>(positional, 1, 'rect', 'paint');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         t.paint(canvas, rect, textDirection: textDirection);
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder');
+        final t = D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder');
         return t.toString();
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder');
-        final side = D4.getOptionalNamedArg<$flutter_6.BorderSide?>(named, 'side');
+        final t = D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder');
+        final side = D4.getOptionalNamedArg<$flutter_13.BorderSide?>(named, 'side');
         final points = D4.getOptionalNamedArg<double?>(named, 'points');
         final innerRadiusRatio = D4.getOptionalNamedArg<double?>(named, 'innerRadiusRatio');
         final pointRounding = D4.getOptionalNamedArg<double?>(named, 'pointRounding');
@@ -8753,26 +9183,26 @@ BridgedClass _createStarBorderBridge() {
         return t.copyWith(side: side, points: points, innerRadiusRatio: innerRadiusRatio, pointRounding: pointRounding, valleyRounding: valleyRounding, rotation: rotation, squash: squash);
       },
       'lerpFrom': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder');
+        final t = D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder');
         D4.requireMinArgs(positional, 2, 'lerpFrom');
-        final a = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
+        final a = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'a', 'lerpFrom');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpFrom');
         return t.lerpFrom(a, t_);
       },
       'lerpTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder');
+        final t = D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder');
         D4.requireMinArgs(positional, 2, 'lerpTo');
-        final b = D4.getRequiredArg<$flutter_6.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
+        final b = D4.getRequiredArg<$flutter_13.ShapeBorder?>(positional, 0, 'b', 'lerpTo');
         final t_ = D4.getRequiredArg<double>(positional, 1, 't', 'lerpTo');
         return t.lerpTo(b, t_);
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder');
-        final other = D4.getRequiredArg<$flutter_6.ShapeBorder>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder');
+        final other = D4.getRequiredArg<$flutter_13.ShapeBorder>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_39.StarBorder>(target, 'StarBorder');
+        final t = D4.validateTarget<$flutter_46.StarBorder>(target, 'StarBorder');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -8785,7 +9215,7 @@ BridgedClass _createStarBorderBridge() {
       'scale': 'ShapeBorder scale(double t)',
       'getOuterPath': 'Path getOuterPath(Rect rect, {TextDirection? textDirection})',
       'getInnerPath': 'Path getInnerPath(Rect rect, {TextDirection? textDirection})',
-      'paintInterior': 'void paintInterior(InvalidType canvas, InvalidType rect, InvalidType paint, {InvalidType textDirection})',
+      'paintInterior': 'void paintInterior(Canvas canvas, Rect rect, Paint paint, {TextDirection? textDirection})',
       'paint': 'void paint(Canvas canvas, Rect rect, {TextDirection? textDirection})',
       'toString': 'String toString()',
       'copyWith': 'StarBorder copyWith({BorderSide? side, double? points, double? innerRadiusRatio, double? pointRounding, double? valleyRounding, double? rotation, double? squash})',
@@ -8813,7 +9243,7 @@ BridgedClass _createStarBorderBridge() {
 
 BridgedClass _createStrutStyleBridge() {
   return BridgedClass(
-    nativeType: $flutter_40.StrutStyle,
+    nativeType: $flutter_47.StrutStyle,
     name: 'StrutStyle',
     constructors: {
       '': (visitor, positional, named) {
@@ -8821,87 +9251,90 @@ BridgedClass _createStrutStyleBridge() {
         final fontFamilyFallback = D4.coerceListOrNull<String>(named['fontFamilyFallback'], 'fontFamilyFallback');
         final fontSize = D4.getOptionalNamedArg<double?>(named, 'fontSize');
         final height = D4.getOptionalNamedArg<double?>(named, 'height');
-        final leadingDistribution = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'leadingDistribution', 'StrutStyle', '<default unavailable>');
+        final leadingDistribution = D4.getOptionalNamedArg<TextLeadingDistribution?>(named, 'leadingDistribution');
         final leading = D4.getOptionalNamedArg<double?>(named, 'leading');
-        final fontWeight = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'fontWeight', 'StrutStyle', '<default unavailable>');
-        final fontStyle = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'fontStyle', 'StrutStyle', '<default unavailable>');
+        final fontWeight = D4.getOptionalNamedArg<FontWeight?>(named, 'fontWeight');
+        final fontStyle = D4.getOptionalNamedArg<FontStyle?>(named, 'fontStyle');
         final forceStrutHeight = D4.getOptionalNamedArg<bool?>(named, 'forceStrutHeight');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final package = D4.getOptionalNamedArg<String?>(named, 'package');
-        return $flutter_40.StrutStyle(fontFamily: fontFamily, fontFamilyFallback: fontFamilyFallback, fontSize: fontSize, height: height, leadingDistribution: leadingDistribution, leading: leading, fontWeight: fontWeight, fontStyle: fontStyle, forceStrutHeight: forceStrutHeight, debugLabel: debugLabel, package: package);
+        return $flutter_47.StrutStyle(fontFamily: fontFamily, fontFamilyFallback: fontFamilyFallback, fontSize: fontSize, height: height, leadingDistribution: leadingDistribution, leading: leading, fontWeight: fontWeight, fontStyle: fontStyle, forceStrutHeight: forceStrutHeight, debugLabel: debugLabel, package: package);
       },
       'fromTextStyle': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'StrutStyle');
-        final textStyle = D4.getRequiredArg<$flutter_44.TextStyle>(positional, 0, 'textStyle', 'StrutStyle');
+        final textStyle = D4.getRequiredArg<$flutter_51.TextStyle>(positional, 0, 'textStyle', 'StrutStyle');
         final fontFamily = D4.getOptionalNamedArg<String?>(named, 'fontFamily');
         final fontFamilyFallback = D4.coerceListOrNull<String>(named['fontFamilyFallback'], 'fontFamilyFallback');
         final fontSize = D4.getOptionalNamedArg<double?>(named, 'fontSize');
         final height = D4.getOptionalNamedArg<double?>(named, 'height');
-        final leadingDistribution = D4.getOptionalNamedArg<$flutter_40.TextLeadingDistribution?>(named, 'leadingDistribution');
+        final leadingDistribution = D4.getOptionalNamedArg<TextLeadingDistribution?>(named, 'leadingDistribution');
         final leading = D4.getOptionalNamedArg<double?>(named, 'leading');
-        final fontWeight = D4.getOptionalNamedArg<$flutter_40.FontWeight?>(named, 'fontWeight');
-        final fontStyle = D4.getOptionalNamedArg<$flutter_40.FontStyle?>(named, 'fontStyle');
+        final fontWeight = D4.getOptionalNamedArg<FontWeight?>(named, 'fontWeight');
+        final fontStyle = D4.getOptionalNamedArg<FontStyle?>(named, 'fontStyle');
         final forceStrutHeight = D4.getOptionalNamedArg<bool?>(named, 'forceStrutHeight');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final package = D4.getOptionalNamedArg<String?>(named, 'package');
-        return $flutter_40.StrutStyle.fromTextStyle(textStyle, fontFamily: fontFamily, fontFamilyFallback: fontFamilyFallback, fontSize: fontSize, height: height, leadingDistribution: leadingDistribution, leading: leading, fontWeight: fontWeight, fontStyle: fontStyle, forceStrutHeight: forceStrutHeight, debugLabel: debugLabel, package: package);
+        return $flutter_47.StrutStyle.fromTextStyle(textStyle, fontFamily: fontFamily, fontFamilyFallback: fontFamilyFallback, fontSize: fontSize, height: height, leadingDistribution: leadingDistribution, leading: leading, fontWeight: fontWeight, fontStyle: fontStyle, forceStrutHeight: forceStrutHeight, debugLabel: debugLabel, package: package);
       },
     },
     getters: {
-      'fontFamily': (visitor, target) => D4.validateTarget<$flutter_40.StrutStyle>(target, 'StrutStyle').fontFamily,
-      'fontFamilyFallback': (visitor, target) => D4.validateTarget<$flutter_40.StrutStyle>(target, 'StrutStyle').fontFamilyFallback,
-      'fontSize': (visitor, target) => D4.validateTarget<$flutter_40.StrutStyle>(target, 'StrutStyle').fontSize,
-      'height': (visitor, target) => D4.validateTarget<$flutter_40.StrutStyle>(target, 'StrutStyle').height,
-      'leadingDistribution': (visitor, target) => D4.validateTarget<$flutter_40.StrutStyle>(target, 'StrutStyle').leadingDistribution,
-      'fontWeight': (visitor, target) => D4.validateTarget<$flutter_40.StrutStyle>(target, 'StrutStyle').fontWeight,
-      'fontStyle': (visitor, target) => D4.validateTarget<$flutter_40.StrutStyle>(target, 'StrutStyle').fontStyle,
-      'leading': (visitor, target) => D4.validateTarget<$flutter_40.StrutStyle>(target, 'StrutStyle').leading,
-      'forceStrutHeight': (visitor, target) => D4.validateTarget<$flutter_40.StrutStyle>(target, 'StrutStyle').forceStrutHeight,
-      'debugLabel': (visitor, target) => D4.validateTarget<$flutter_40.StrutStyle>(target, 'StrutStyle').debugLabel,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_40.StrutStyle>(target, 'StrutStyle').hashCode,
+      'fontFamily': (visitor, target) => D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle').fontFamily,
+      'fontFamilyFallback': (visitor, target) => D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle').fontFamilyFallback,
+      'fontSize': (visitor, target) => D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle').fontSize,
+      'height': (visitor, target) => D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle').height,
+      'leadingDistribution': (visitor, target) => D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle').leadingDistribution,
+      'fontWeight': (visitor, target) => D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle').fontWeight,
+      'fontStyle': (visitor, target) => D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle').fontStyle,
+      'leading': (visitor, target) => D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle').leading,
+      'forceStrutHeight': (visitor, target) => D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle').forceStrutHeight,
+      'debugLabel': (visitor, target) => D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle').debugLabel,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle').hashCode,
     },
     methods: {
       'compareTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_40.StrutStyle>(target, 'StrutStyle');
+        final t = D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle');
         D4.requireMinArgs(positional, 1, 'compareTo');
-        final other = D4.getRequiredArg<$flutter_40.StrutStyle>(positional, 0, 'other', 'compareTo');
+        final other = D4.getRequiredArg<$flutter_47.StrutStyle>(positional, 0, 'other', 'compareTo');
         return t.compareTo(other);
       },
       'inheritFromTextStyle': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_40.StrutStyle>(target, 'StrutStyle');
+        final t = D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle');
         D4.requireMinArgs(positional, 1, 'inheritFromTextStyle');
-        final other = D4.getRequiredArg<$flutter_44.TextStyle?>(positional, 0, 'other', 'inheritFromTextStyle');
+        final other = D4.getRequiredArg<$flutter_51.TextStyle?>(positional, 0, 'other', 'inheritFromTextStyle');
         return t.inheritFromTextStyle(other);
       },
       'merge': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_40.StrutStyle>(target, 'StrutStyle');
+        final t = D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle');
         D4.requireMinArgs(positional, 1, 'merge');
-        final other = D4.getRequiredArg<$flutter_40.StrutStyle?>(positional, 0, 'other', 'merge');
+        final other = D4.getRequiredArg<$flutter_47.StrutStyle?>(positional, 0, 'other', 'merge');
         return t.merge(other);
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_40.StrutStyle>(target, 'StrutStyle');
+        final t = D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle');
         return t.toStringShort();
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_40.StrutStyle>(target, 'StrutStyle');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$aux_flutter_2.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        final prefix = D4.getNamedArgWithDefault<String>(named, 'prefix', '');
-        (t as dynamic).debugFillProperties(properties, prefix: prefix);
-        return null;
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_40.StrutStyle>(target, 'StrutStyle');
+        final t = D4.validateTarget<$flutter_47.StrutStyle>(target, 'StrutStyle');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     staticGetters: {
-      'disabled': (visitor) => $flutter_40.StrutStyle.disabled,
+      'disabled': (visitor) => $flutter_47.StrutStyle.disabled,
     },
     constructorSignatures: {
-      '': 'const StrutStyle({String? fontFamily, List<String>? fontFamilyFallback, double? fontSize, double? height, dynamic leadingDistribution, double? leading, dynamic fontWeight, dynamic fontStyle, bool? forceStrutHeight, String? debugLabel, String? package})',
+      '': 'const StrutStyle({String? fontFamily, List<String>? fontFamilyFallback, double? fontSize, double? height, TextLeadingDistribution? leadingDistribution, double? leading, FontWeight? fontWeight, FontStyle? fontStyle, bool? forceStrutHeight, String? debugLabel, String? package})',
       'fromTextStyle': 'StrutStyle.fromTextStyle(TextStyle textStyle, {String? fontFamily, List<String>? fontFamilyFallback, double? fontSize, double? height, TextLeadingDistribution? leadingDistribution, double? leading, FontWeight? fontWeight, FontStyle? fontStyle, bool? forceStrutHeight, String? debugLabel, String? package})',
     },
     methodSignatures: {
@@ -8909,7 +9342,8 @@ BridgedClass _createStrutStyleBridge() {
       'inheritFromTextStyle': 'StrutStyle inheritFromTextStyle(TextStyle? other)',
       'merge': 'StrutStyle merge(StrutStyle? other)',
       'toStringShort': 'String toStringShort()',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties, {String prefix = \'\'})',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
     },
     getterSignatures: {
       'fontFamily': 'String? get fontFamily',
@@ -8936,83 +9370,94 @@ BridgedClass _createStrutStyleBridge() {
 
 BridgedClass _createTextSelectionBridge() {
   return BridgedClass(
-    nativeType: $flutter_45.TextSelection,
+    nativeType: $flutter_62.TextSelection,
     name: 'TextSelection',
     constructors: {
       '': (visitor, positional, named) {
         final baseOffset = D4.getRequiredNamedArg<int>(named, 'baseOffset', 'TextSelection');
         final extentOffset = D4.getRequiredNamedArg<int>(named, 'extentOffset', 'TextSelection');
+        final affinity = D4.getNamedArgWithDefault<TextAffinity>(named, 'affinity', $dart_ui.TextAffinity.downstream);
         final isDirectional = D4.getNamedArgWithDefault<bool>(named, 'isDirectional', false);
-        if (!named.containsKey('affinity')) {
-          return $flutter_45.TextSelection(baseOffset: baseOffset, extentOffset: extentOffset, isDirectional: isDirectional);
-        }
-        if (named.containsKey('affinity')) {
-          final affinity = D4.getRequiredNamedArg<dynamic>(named, 'affinity', 'TextSelection');
-          return $flutter_45.TextSelection(baseOffset: baseOffset, extentOffset: extentOffset, isDirectional: isDirectional, affinity: affinity);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        return $flutter_62.TextSelection(baseOffset: baseOffset, extentOffset: extentOffset, affinity: affinity, isDirectional: isDirectional);
       },
       'collapsed': (visitor, positional, named) {
         final offset = D4.getRequiredNamedArg<int>(named, 'offset', 'TextSelection');
-        if (!named.containsKey('affinity')) {
-          return $flutter_45.TextSelection.collapsed(offset: offset);
-        }
-        if (named.containsKey('affinity')) {
-          final affinity = D4.getRequiredNamedArg<dynamic>(named, 'affinity', 'TextSelection');
-          return $flutter_45.TextSelection.collapsed(offset: offset, affinity: affinity);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        final affinity = D4.getNamedArgWithDefault<TextAffinity>(named, 'affinity', $dart_ui.TextAffinity.downstream);
+        return $flutter_62.TextSelection.collapsed(offset: offset, affinity: affinity);
       },
       'fromPosition': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TextSelection');
-        final position = D4.getRequiredArg<$flutter_45.TextPosition>(positional, 0, 'position', 'TextSelection');
-        return $flutter_45.TextSelection.fromPosition(position);
+        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'TextSelection');
+        return $flutter_62.TextSelection.fromPosition(position);
       },
     },
     getters: {
-      'baseOffset': (visitor, target) => D4.validateTarget<$flutter_45.TextSelection>(target, 'TextSelection').baseOffset,
-      'extentOffset': (visitor, target) => D4.validateTarget<$flutter_45.TextSelection>(target, 'TextSelection').extentOffset,
-      'affinity': (visitor, target) => D4.validateTarget<$flutter_45.TextSelection>(target, 'TextSelection').affinity,
-      'isDirectional': (visitor, target) => D4.validateTarget<$flutter_45.TextSelection>(target, 'TextSelection').isDirectional,
-      'base': (visitor, target) => D4.validateTarget<$flutter_45.TextSelection>(target, 'TextSelection').base,
-      'extent': (visitor, target) => D4.validateTarget<$flutter_45.TextSelection>(target, 'TextSelection').extent,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_45.TextSelection>(target, 'TextSelection').hashCode,
+      'baseOffset': (visitor, target) => D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection').baseOffset,
+      'extentOffset': (visitor, target) => D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection').extentOffset,
+      'affinity': (visitor, target) => D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection').affinity,
+      'isDirectional': (visitor, target) => D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection').isDirectional,
+      'base': (visitor, target) => D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection').base,
+      'extent': (visitor, target) => D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection').extent,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection').hashCode,
+      'start': (visitor, target) => D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection').start,
+      'end': (visitor, target) => D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection').end,
+      'isValid': (visitor, target) => D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection').isValid,
+      'isCollapsed': (visitor, target) => D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection').isCollapsed,
+      'isNormalized': (visitor, target) => D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection').isNormalized,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_45.TextSelection>(target, 'TextSelection');
+        final t = D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection');
         return t.toString();
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_45.TextSelection>(target, 'TextSelection');
+        final t = D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection');
         final baseOffset = D4.getOptionalNamedArg<int?>(named, 'baseOffset');
         final extentOffset = D4.getOptionalNamedArg<int?>(named, 'extentOffset');
-        final affinity = D4.getOptionalNamedArg<$flutter_45.TextAffinity?>(named, 'affinity');
+        final affinity = D4.getOptionalNamedArg<TextAffinity?>(named, 'affinity');
         final isDirectional = D4.getOptionalNamedArg<bool?>(named, 'isDirectional');
         return t.copyWith(baseOffset: baseOffset, extentOffset: extentOffset, affinity: affinity, isDirectional: isDirectional);
       },
       'expandTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_45.TextSelection>(target, 'TextSelection');
+        final t = D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection');
         D4.requireMinArgs(positional, 1, 'expandTo');
-        final position = D4.getRequiredArg<$flutter_45.TextPosition>(positional, 0, 'position', 'expandTo');
+        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'expandTo');
         final extentAtIndex = D4.getOptionalArgWithDefault<bool>(positional, 1, 'extentAtIndex', false);
         return t.expandTo(position, extentAtIndex);
       },
       'extendTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_45.TextSelection>(target, 'TextSelection');
+        final t = D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection');
         D4.requireMinArgs(positional, 1, 'extendTo');
-        final position = D4.getRequiredArg<$flutter_45.TextPosition>(positional, 0, 'position', 'extendTo');
+        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'extendTo');
         return t.extendTo(position);
       },
+      'textBefore': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection');
+        D4.requireMinArgs(positional, 1, 'textBefore');
+        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'textBefore');
+        return t.textBefore(text);
+      },
+      'textAfter': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection');
+        D4.requireMinArgs(positional, 1, 'textAfter');
+        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'textAfter');
+        return t.textAfter(text);
+      },
+      'textInside': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection');
+        D4.requireMinArgs(positional, 1, 'textInside');
+        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'textInside');
+        return t.textInside(text);
+      },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_45.TextSelection>(target, 'TextSelection');
+        final t = D4.validateTarget<$flutter_62.TextSelection>(target, 'TextSelection');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     constructorSignatures: {
-      '': 'const TextSelection({required int baseOffset, required int extentOffset, dynamic affinity = TextAffinity.downstream, bool isDirectional = false})',
-      'collapsed': 'const TextSelection.collapsed({required int offset, dynamic affinity = TextAffinity.downstream})',
+      '': 'const TextSelection({required int baseOffset, required int extentOffset, TextAffinity affinity = TextAffinity.downstream, bool isDirectional = false})',
+      'collapsed': 'const TextSelection.collapsed({required int offset, TextAffinity affinity = TextAffinity.downstream})',
       'fromPosition': 'TextSelection.fromPosition(TextPosition position)',
     },
     methodSignatures: {
@@ -9020,6 +9465,9 @@ BridgedClass _createTextSelectionBridge() {
       'copyWith': 'TextSelection copyWith({int? baseOffset, int? extentOffset, TextAffinity? affinity, bool? isDirectional})',
       'expandTo': 'TextSelection expandTo(TextPosition position, [bool extentAtIndex = false])',
       'extendTo': 'TextSelection extendTo(TextPosition position)',
+      'textBefore': 'String textBefore(String text)',
+      'textAfter': 'String textAfter(String text)',
+      'textInside': 'String textInside(String text)',
     },
     getterSignatures: {
       'baseOffset': 'int get baseOffset',
@@ -9029,6 +9477,11 @@ BridgedClass _createTextSelectionBridge() {
       'base': 'TextPosition get base',
       'extent': 'TextPosition get extent',
       'hashCode': 'int get hashCode',
+      'start': 'int get start',
+      'end': 'int get end',
+      'isValid': 'bool get isValid',
+      'isCollapsed': 'bool get isCollapsed',
+      'isNormalized': 'bool get isNormalized',
     },
   );
 }
@@ -9039,40 +9492,40 @@ BridgedClass _createTextSelectionBridge() {
 
 BridgedClass _createPlaceholderDimensionsBridge() {
   return BridgedClass(
-    nativeType: $flutter_41.PlaceholderDimensions,
+    nativeType: $flutter_48.PlaceholderDimensions,
     name: 'PlaceholderDimensions',
     constructors: {
       '': (visitor, positional, named) {
-        final size = D4.getRequiredNamedArg<dynamic>(named, 'size', 'PlaceholderDimensions');
-        final alignment = D4.getRequiredNamedArg<dynamic>(named, 'alignment', 'PlaceholderDimensions');
-        final baseline = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'baseline', 'PlaceholderDimensions', '<default unavailable>');
+        final size = D4.getRequiredNamedArg<Size>(named, 'size', 'PlaceholderDimensions');
+        final alignment = D4.getRequiredNamedArg<PlaceholderAlignment>(named, 'alignment', 'PlaceholderDimensions');
+        final baseline = D4.getOptionalNamedArg<TextBaseline?>(named, 'baseline');
         final baselineOffset = D4.getOptionalNamedArg<double?>(named, 'baselineOffset');
-        return $flutter_41.PlaceholderDimensions(size: size, alignment: alignment, baseline: baseline, baselineOffset: baselineOffset);
+        return $flutter_48.PlaceholderDimensions(size: size, alignment: alignment, baseline: baseline, baselineOffset: baselineOffset);
       },
     },
     getters: {
-      'size': (visitor, target) => D4.validateTarget<$flutter_41.PlaceholderDimensions>(target, 'PlaceholderDimensions').size,
-      'alignment': (visitor, target) => D4.validateTarget<$flutter_41.PlaceholderDimensions>(target, 'PlaceholderDimensions').alignment,
-      'baselineOffset': (visitor, target) => D4.validateTarget<$flutter_41.PlaceholderDimensions>(target, 'PlaceholderDimensions').baselineOffset,
-      'baseline': (visitor, target) => D4.validateTarget<$flutter_41.PlaceholderDimensions>(target, 'PlaceholderDimensions').baseline,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_41.PlaceholderDimensions>(target, 'PlaceholderDimensions').hashCode,
+      'size': (visitor, target) => D4.validateTarget<$flutter_48.PlaceholderDimensions>(target, 'PlaceholderDimensions').size,
+      'alignment': (visitor, target) => D4.validateTarget<$flutter_48.PlaceholderDimensions>(target, 'PlaceholderDimensions').alignment,
+      'baselineOffset': (visitor, target) => D4.validateTarget<$flutter_48.PlaceholderDimensions>(target, 'PlaceholderDimensions').baselineOffset,
+      'baseline': (visitor, target) => D4.validateTarget<$flutter_48.PlaceholderDimensions>(target, 'PlaceholderDimensions').baseline,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_48.PlaceholderDimensions>(target, 'PlaceholderDimensions').hashCode,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.PlaceholderDimensions>(target, 'PlaceholderDimensions');
+        final t = D4.validateTarget<$flutter_48.PlaceholderDimensions>(target, 'PlaceholderDimensions');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.PlaceholderDimensions>(target, 'PlaceholderDimensions');
+        final t = D4.validateTarget<$flutter_48.PlaceholderDimensions>(target, 'PlaceholderDimensions');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     staticGetters: {
-      'empty': (visitor) => $flutter_41.PlaceholderDimensions.empty,
+      'empty': (visitor) => $flutter_48.PlaceholderDimensions.empty,
     },
     constructorSignatures: {
-      '': 'const PlaceholderDimensions({required dynamic size, required dynamic alignment, dynamic baseline, double? baselineOffset})',
+      '': 'const PlaceholderDimensions({required Size size, required PlaceholderAlignment alignment, TextBaseline? baseline, double? baselineOffset})',
     },
     methodSignatures: {
       'toString': 'String toString()',
@@ -9096,23 +9549,37 @@ BridgedClass _createPlaceholderDimensionsBridge() {
 
 BridgedClass _createWordBoundaryBridge() {
   return BridgedClass(
-    nativeType: $flutter_41.WordBoundary,
+    nativeType: $flutter_48.WordBoundary,
     name: 'WordBoundary',
     constructors: {
     },
     getters: {
-      'moveByWordBoundary': (visitor, target) => D4.validateTarget<$flutter_41.WordBoundary>(target, 'WordBoundary').moveByWordBoundary,
+      'moveByWordBoundary': (visitor, target) => D4.validateTarget<$flutter_48.WordBoundary>(target, 'WordBoundary').moveByWordBoundary,
     },
     methods: {
       'getTextBoundaryAt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.WordBoundary>(target, 'WordBoundary');
+        final t = D4.validateTarget<$flutter_48.WordBoundary>(target, 'WordBoundary');
         D4.requireMinArgs(positional, 1, 'getTextBoundaryAt');
         final position = D4.getRequiredArg<int>(positional, 0, 'position', 'getTextBoundaryAt');
         return t.getTextBoundaryAt(position);
       },
+      'getLeadingTextBoundaryAt': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.WordBoundary>(target, 'WordBoundary');
+        D4.requireMinArgs(positional, 1, 'getLeadingTextBoundaryAt');
+        final position = D4.getRequiredArg<int>(positional, 0, 'position', 'getLeadingTextBoundaryAt');
+        return t.getLeadingTextBoundaryAt(position);
+      },
+      'getTrailingTextBoundaryAt': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.WordBoundary>(target, 'WordBoundary');
+        D4.requireMinArgs(positional, 1, 'getTrailingTextBoundaryAt');
+        final position = D4.getRequiredArg<int>(positional, 0, 'position', 'getTrailingTextBoundaryAt');
+        return t.getTrailingTextBoundaryAt(position);
+      },
     },
     methodSignatures: {
       'getTextBoundaryAt': 'TextRange getTextBoundaryAt(int position)',
+      'getLeadingTextBoundaryAt': 'int? getLeadingTextBoundaryAt(int position)',
+      'getTrailingTextBoundaryAt': 'int? getTrailingTextBoundaryAt(int position)',
     },
     getterSignatures: {
       'moveByWordBoundary': 'TextBoundary get moveByWordBoundary',
@@ -9126,113 +9593,105 @@ BridgedClass _createWordBoundaryBridge() {
 
 BridgedClass _createTextPainterBridge() {
   return BridgedClass(
-    nativeType: $flutter_41.TextPainter,
+    nativeType: $flutter_48.TextPainter,
     name: 'TextPainter',
     constructors: {
       '': (visitor, positional, named) {
-        final text = D4.getOptionalNamedArg<$flutter_28.InlineSpan?>(named, 'text');
-        final textDirection = D4.getOptionalNamedArg<$flutter_41.TextDirection?>(named, 'textDirection');
+        final text = D4.getOptionalNamedArg<$flutter_35.InlineSpan?>(named, 'text');
+        final textAlign = D4.getNamedArgWithDefault<TextAlign>(named, 'textAlign', $dart_ui.TextAlign.start);
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         final textScaleFactor = D4.getNamedArgWithDefault<double>(named, 'textScaleFactor', 1.0);
         final maxLines = D4.getOptionalNamedArg<int?>(named, 'maxLines');
         final ellipsis = D4.getOptionalNamedArg<String?>(named, 'ellipsis');
-        final locale = D4.getOptionalNamedArg<$flutter_41.Locale?>(named, 'locale');
-        final strutStyle = D4.getOptionalNamedArg<$flutter_40.StrutStyle?>(named, 'strutStyle');
-        final textWidthBasis = D4.getNamedArgWithDefault<$flutter_41.TextWidthBasis>(named, 'textWidthBasis', $flutter_41.TextWidthBasis.parent);
-        final textHeightBehavior = D4.getOptionalNamedArg<$flutter_41.TextHeightBehavior?>(named, 'textHeightBehavior');
-        if (!named.containsKey('textAlign') && !named.containsKey('textScaler')) {
-          return $flutter_41.TextPainter(text: text, textDirection: textDirection, textScaleFactor: textScaleFactor, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior);
+        final locale = D4.getOptionalNamedArg<Locale?>(named, 'locale');
+        final strutStyle = D4.getOptionalNamedArg<$flutter_47.StrutStyle?>(named, 'strutStyle');
+        final textWidthBasis = D4.getNamedArgWithDefault<$flutter_48.TextWidthBasis>(named, 'textWidthBasis', $flutter_48.TextWidthBasis.parent);
+        final textHeightBehavior = D4.getOptionalNamedArg<TextHeightBehavior?>(named, 'textHeightBehavior');
+        if (!named.containsKey('textScaler')) {
+          return $flutter_48.TextPainter(text: text, textAlign: textAlign, textDirection: textDirection, textScaleFactor: textScaleFactor, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior);
         }
-        if (named.containsKey('textAlign') && !named.containsKey('textScaler')) {
-          final textAlign = D4.getRequiredNamedArg<dynamic>(named, 'textAlign', 'TextPainter');
-          return $flutter_41.TextPainter(text: text, textDirection: textDirection, textScaleFactor: textScaleFactor, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, textAlign: textAlign);
-        }
-        if (!named.containsKey('textAlign') && named.containsKey('textScaler')) {
-          final textScaler = D4.getRequiredNamedArg<$flutter_42.TextScaler>(named, 'textScaler', 'TextPainter');
-          return $flutter_41.TextPainter(text: text, textDirection: textDirection, textScaleFactor: textScaleFactor, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, textScaler: textScaler);
-        }
-        if (named.containsKey('textAlign') && named.containsKey('textScaler')) {
-          final textAlign = D4.getRequiredNamedArg<dynamic>(named, 'textAlign', 'TextPainter');
-          final textScaler = D4.getRequiredNamedArg<$flutter_42.TextScaler>(named, 'textScaler', 'TextPainter');
-          return $flutter_41.TextPainter(text: text, textDirection: textDirection, textScaleFactor: textScaleFactor, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, textAlign: textAlign, textScaler: textScaler);
+        if (named.containsKey('textScaler')) {
+          final textScaler = D4.getRequiredNamedArg<$flutter_49.TextScaler>(named, 'textScaler', 'TextPainter');
+          return $flutter_48.TextPainter(text: text, textAlign: textAlign, textDirection: textDirection, textScaleFactor: textScaleFactor, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, textScaler: textScaler);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
     },
     getters: {
-      'text': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').text,
-      'plainText': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').plainText,
-      'textAlign': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').textAlign,
-      'textDirection': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').textDirection,
-      'textScaleFactor': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').textScaleFactor,
-      'textScaler': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').textScaler,
-      'ellipsis': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').ellipsis,
-      'locale': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').locale,
-      'maxLines': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').maxLines,
-      'strutStyle': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').strutStyle,
-      'textWidthBasis': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').textWidthBasis,
-      'textHeightBehavior': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').textHeightBehavior,
-      'inlinePlaceholderBoxes': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').inlinePlaceholderBoxes,
-      'preferredLineHeight': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').preferredLineHeight,
-      'minIntrinsicWidth': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').minIntrinsicWidth,
-      'maxIntrinsicWidth': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').maxIntrinsicWidth,
-      'width': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').width,
-      'height': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').height,
-      'size': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').size,
-      'didExceedMaxLines': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').didExceedMaxLines,
-      'debugPaintTextLayoutBoxes': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').debugPaintTextLayoutBoxes,
-      'wordBoundaries': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').wordBoundaries,
-      'debugDisposed': (visitor, target) => D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').debugDisposed,
+      'text': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').text,
+      'plainText': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').plainText,
+      'textAlign': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').textAlign,
+      'textDirection': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').textDirection,
+      'textScaleFactor': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').textScaleFactor,
+      'textScaler': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').textScaler,
+      'ellipsis': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').ellipsis,
+      'locale': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').locale,
+      'maxLines': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').maxLines,
+      'strutStyle': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').strutStyle,
+      'textWidthBasis': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').textWidthBasis,
+      'textHeightBehavior': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').textHeightBehavior,
+      'inlinePlaceholderBoxes': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').inlinePlaceholderBoxes,
+      'preferredLineHeight': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').preferredLineHeight,
+      'minIntrinsicWidth': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').minIntrinsicWidth,
+      'maxIntrinsicWidth': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').maxIntrinsicWidth,
+      'width': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').width,
+      'height': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').height,
+      'size': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').size,
+      'didExceedMaxLines': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').didExceedMaxLines,
+      'debugPaintTextLayoutBoxes': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').debugPaintTextLayoutBoxes,
+      'wordBoundaries': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').wordBoundaries,
+      'debugDisposed': (visitor, target) => D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').debugDisposed,
     },
     setters: {
       'text': (visitor, target, value) => 
-        D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').text = value as dynamic,
+        D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').text = value as dynamic,
       'textAlign': (visitor, target, value) => 
-        D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').textAlign = value as dynamic,
+        D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').textAlign = value as dynamic,
       'textDirection': (visitor, target, value) => 
-        D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').textDirection = value as dynamic,
+        D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').textDirection = value as dynamic,
       'textScaleFactor': (visitor, target, value) => 
-        D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').textScaleFactor = value as dynamic,
+        D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').textScaleFactor = value as dynamic,
       'textScaler': (visitor, target, value) => 
-        D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').textScaler = value as dynamic,
+        D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').textScaler = value as dynamic,
       'ellipsis': (visitor, target, value) => 
-        D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').ellipsis = value as dynamic,
+        D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').ellipsis = value as dynamic,
       'locale': (visitor, target, value) => 
-        D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').locale = value as dynamic,
+        D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').locale = value as dynamic,
       'maxLines': (visitor, target, value) => 
-        D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').maxLines = value as dynamic,
+        D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').maxLines = value as dynamic,
       'strutStyle': (visitor, target, value) => 
-        D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').strutStyle = value as dynamic,
+        D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').strutStyle = value as dynamic,
       'textWidthBasis': (visitor, target, value) => 
-        D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').textWidthBasis = value as dynamic,
+        D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').textWidthBasis = value as dynamic,
       'textHeightBehavior': (visitor, target, value) => 
-        D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').textHeightBehavior = value as dynamic,
+        D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').textHeightBehavior = value as dynamic,
       'debugPaintTextLayoutBoxes': (visitor, target, value) => 
-        D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter').debugPaintTextLayoutBoxes = value as bool,
+        D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter').debugPaintTextLayoutBoxes = value as bool,
     },
     methods: {
       'markNeedsLayout': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter');
+        final t = D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter');
         t.markNeedsLayout();
         return null;
       },
       'setPlaceholderDimensions': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter');
+        final t = D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter');
         D4.requireMinArgs(positional, 1, 'setPlaceholderDimensions');
         if (positional.isEmpty) {
           throw ArgumentError('setPlaceholderDimensions: Missing required argument "value" at position 0');
         }
-        final value = D4.coerceListOrNull<$flutter_41.PlaceholderDimensions>(positional[0], 'value');
+        final value = D4.coerceListOrNull<$flutter_48.PlaceholderDimensions>(positional[0], 'value');
         t.setPlaceholderDimensions(value);
         return null;
       },
       'computeDistanceToActualBaseline': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter');
+        final t = D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter');
         D4.requireMinArgs(positional, 1, 'computeDistanceToActualBaseline');
-        final baseline = D4.getRequiredArg<$flutter_41.TextBaseline>(positional, 0, 'baseline', 'computeDistanceToActualBaseline');
+        final baseline = D4.getRequiredArg<TextBaseline>(positional, 0, 'baseline', 'computeDistanceToActualBaseline');
         return t.computeDistanceToActualBaseline(baseline);
       },
       'layout': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter');
+        final t = D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter');
         final minWidth = D4.getNamedArgWithDefault<double>(named, 'minWidth', 0.0);
         if (!named.containsKey('maxWidth')) {
           t.layout(minWidth: minWidth);
@@ -9246,165 +9705,149 @@ BridgedClass _createTextPainterBridge() {
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'paint': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter');
+        final t = D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter');
         D4.requireMinArgs(positional, 2, 'paint');
-        final canvas = D4.getRequiredArg<$flutter_41.Canvas>(positional, 0, 'canvas', 'paint');
-        final offset = D4.getRequiredArg<$flutter_41.Offset>(positional, 1, 'offset', 'paint');
+        final canvas = D4.getRequiredArg<Canvas>(positional, 0, 'canvas', 'paint');
+        final offset = D4.getRequiredArg<Offset>(positional, 1, 'offset', 'paint');
         t.paint(canvas, offset);
         return null;
       },
       'getOffsetAfter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter');
+        final t = D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter');
         D4.requireMinArgs(positional, 1, 'getOffsetAfter');
         final offset = D4.getRequiredArg<int>(positional, 0, 'offset', 'getOffsetAfter');
         return t.getOffsetAfter(offset);
       },
       'getOffsetBefore': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter');
+        final t = D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter');
         D4.requireMinArgs(positional, 1, 'getOffsetBefore');
         final offset = D4.getRequiredArg<int>(positional, 0, 'offset', 'getOffsetBefore');
         return t.getOffsetBefore(offset);
       },
       'getOffsetForCaret': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter');
+        final t = D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter');
         D4.requireMinArgs(positional, 2, 'getOffsetForCaret');
-        final position = D4.getRequiredArg<$flutter_41.TextPosition>(positional, 0, 'position', 'getOffsetForCaret');
-        final caretPrototype = D4.getRequiredArg<$flutter_41.Rect>(positional, 1, 'caretPrototype', 'getOffsetForCaret');
+        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'getOffsetForCaret');
+        final caretPrototype = D4.getRequiredArg<Rect>(positional, 1, 'caretPrototype', 'getOffsetForCaret');
         return t.getOffsetForCaret(position, caretPrototype);
       },
       'getFullHeightForCaret': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter');
+        final t = D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter');
         D4.requireMinArgs(positional, 2, 'getFullHeightForCaret');
-        final position = D4.getRequiredArg<$flutter_41.TextPosition>(positional, 0, 'position', 'getFullHeightForCaret');
-        final caretPrototype = D4.getRequiredArg<$flutter_41.Rect>(positional, 1, 'caretPrototype', 'getFullHeightForCaret');
+        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'getFullHeightForCaret');
+        final caretPrototype = D4.getRequiredArg<Rect>(positional, 1, 'caretPrototype', 'getFullHeightForCaret');
         return t.getFullHeightForCaret(position, caretPrototype);
       },
       'getBoxesForSelection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter');
+        final t = D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter');
         D4.requireMinArgs(positional, 1, 'getBoxesForSelection');
-        final selection = D4.getRequiredArg<$flutter_45.TextSelection>(positional, 0, 'selection', 'getBoxesForSelection');
+        final selection = D4.getRequiredArg<$flutter_62.TextSelection>(positional, 0, 'selection', 'getBoxesForSelection');
         if (!named.containsKey('boxHeightStyle') && !named.containsKey('boxWidthStyle')) {
           return t.getBoxesForSelection(selection);
         }
         if (named.containsKey('boxHeightStyle') && !named.containsKey('boxWidthStyle')) {
-          final boxHeightStyle = D4.getRequiredNamedArg<dynamic>(named, 'boxHeightStyle', 'getBoxesForSelection');
+          final boxHeightStyle = D4.getRequiredNamedArg<BoxHeightStyle>(named, 'boxHeightStyle', 'getBoxesForSelection');
           return t.getBoxesForSelection(selection, boxHeightStyle: boxHeightStyle);
         }
         if (!named.containsKey('boxHeightStyle') && named.containsKey('boxWidthStyle')) {
-          final boxWidthStyle = D4.getRequiredNamedArg<dynamic>(named, 'boxWidthStyle', 'getBoxesForSelection');
+          final boxWidthStyle = D4.getRequiredNamedArg<BoxWidthStyle>(named, 'boxWidthStyle', 'getBoxesForSelection');
           return t.getBoxesForSelection(selection, boxWidthStyle: boxWidthStyle);
         }
         if (named.containsKey('boxHeightStyle') && named.containsKey('boxWidthStyle')) {
-          final boxHeightStyle = D4.getRequiredNamedArg<dynamic>(named, 'boxHeightStyle', 'getBoxesForSelection');
-          final boxWidthStyle = D4.getRequiredNamedArg<dynamic>(named, 'boxWidthStyle', 'getBoxesForSelection');
+          final boxHeightStyle = D4.getRequiredNamedArg<BoxHeightStyle>(named, 'boxHeightStyle', 'getBoxesForSelection');
+          final boxWidthStyle = D4.getRequiredNamedArg<BoxWidthStyle>(named, 'boxWidthStyle', 'getBoxesForSelection');
           return t.getBoxesForSelection(selection, boxHeightStyle: boxHeightStyle, boxWidthStyle: boxWidthStyle);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'getClosestGlyphForOffset': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter');
+        final t = D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter');
         D4.requireMinArgs(positional, 1, 'getClosestGlyphForOffset');
-        final offset = D4.getRequiredArg<$flutter_41.Offset>(positional, 0, 'offset', 'getClosestGlyphForOffset');
+        final offset = D4.getRequiredArg<Offset>(positional, 0, 'offset', 'getClosestGlyphForOffset');
         return t.getClosestGlyphForOffset(offset);
       },
       'getPositionForOffset': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter');
+        final t = D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter');
         D4.requireMinArgs(positional, 1, 'getPositionForOffset');
-        final offset = D4.getRequiredArg<$flutter_41.Offset>(positional, 0, 'offset', 'getPositionForOffset');
+        final offset = D4.getRequiredArg<Offset>(positional, 0, 'offset', 'getPositionForOffset');
         return t.getPositionForOffset(offset);
       },
       'getWordBoundary': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter');
+        final t = D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter');
         D4.requireMinArgs(positional, 1, 'getWordBoundary');
-        final position = D4.getRequiredArg<$flutter_41.TextPosition>(positional, 0, 'position', 'getWordBoundary');
+        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'getWordBoundary');
         return t.getWordBoundary(position);
       },
       'getLineBoundary': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter');
+        final t = D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter');
         D4.requireMinArgs(positional, 1, 'getLineBoundary');
-        final position = D4.getRequiredArg<$flutter_41.TextPosition>(positional, 0, 'position', 'getLineBoundary');
+        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'getLineBoundary');
         return t.getLineBoundary(position);
       },
       'computeLineMetrics': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter');
+        final t = D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter');
         return t.computeLineMetrics();
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.TextPainter>(target, 'TextPainter');
+        final t = D4.validateTarget<$flutter_48.TextPainter>(target, 'TextPainter');
         (t as dynamic).dispose();
         return null;
       },
     },
     staticMethods: {
       'computeWidth': (visitor, positional, named, typeArgs) {
-        final text = D4.getRequiredNamedArg<$flutter_28.InlineSpan>(named, 'text', 'computeWidth');
-        final textDirection = D4.getRequiredNamedArg<$flutter_41.TextDirection>(named, 'textDirection', 'computeWidth');
+        final text = D4.getRequiredNamedArg<$flutter_35.InlineSpan>(named, 'text', 'computeWidth');
+        final textDirection = D4.getRequiredNamedArg<TextDirection>(named, 'textDirection', 'computeWidth');
+        final textAlign = D4.getNamedArgWithDefault<TextAlign>(named, 'textAlign', $dart_ui.TextAlign.start);
         final textScaleFactor = D4.getNamedArgWithDefault<double>(named, 'textScaleFactor', 1.0);
-        final textScaler = D4.getNamedArgWithDefault<$flutter_42.TextScaler>(named, 'textScaler', $flutter_42.TextScaler.noScaling);
+        final textScaler = D4.getNamedArgWithDefault<$flutter_49.TextScaler>(named, 'textScaler', $flutter_49.TextScaler.noScaling);
         final maxLines = D4.getOptionalNamedArg<int?>(named, 'maxLines');
         final ellipsis = D4.getOptionalNamedArg<String?>(named, 'ellipsis');
-        final locale = D4.getOptionalNamedArg<$flutter_41.Locale?>(named, 'locale');
-        final strutStyle = D4.getOptionalNamedArg<$flutter_40.StrutStyle?>(named, 'strutStyle');
-        final textWidthBasis = D4.getNamedArgWithDefault<$flutter_41.TextWidthBasis>(named, 'textWidthBasis', $flutter_41.TextWidthBasis.parent);
-        final textHeightBehavior = D4.getOptionalNamedArg<$flutter_41.TextHeightBehavior?>(named, 'textHeightBehavior');
+        final locale = D4.getOptionalNamedArg<Locale?>(named, 'locale');
+        final strutStyle = D4.getOptionalNamedArg<$flutter_47.StrutStyle?>(named, 'strutStyle');
+        final textWidthBasis = D4.getNamedArgWithDefault<$flutter_48.TextWidthBasis>(named, 'textWidthBasis', $flutter_48.TextWidthBasis.parent);
+        final textHeightBehavior = D4.getOptionalNamedArg<TextHeightBehavior?>(named, 'textHeightBehavior');
         final minWidth = D4.getNamedArgWithDefault<double>(named, 'minWidth', 0.0);
-        if (!named.containsKey('textAlign') && !named.containsKey('maxWidth')) {
-          return $flutter_41.TextPainter.computeWidth(text: text, textDirection: textDirection, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth);
+        if (!named.containsKey('maxWidth')) {
+          return $flutter_48.TextPainter.computeWidth(text: text, textDirection: textDirection, textAlign: textAlign, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth);
         }
-        if (named.containsKey('textAlign') && !named.containsKey('maxWidth')) {
-          final textAlign = D4.getRequiredNamedArg<dynamic>(named, 'textAlign', 'computeWidth');
-          return $flutter_41.TextPainter.computeWidth(text: text, textDirection: textDirection, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth, textAlign: textAlign);
-        }
-        if (!named.containsKey('textAlign') && named.containsKey('maxWidth')) {
+        if (named.containsKey('maxWidth')) {
           final maxWidth = D4.getRequiredNamedArg<double>(named, 'maxWidth', 'computeWidth');
-          return $flutter_41.TextPainter.computeWidth(text: text, textDirection: textDirection, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth, maxWidth: maxWidth);
-        }
-        if (named.containsKey('textAlign') && named.containsKey('maxWidth')) {
-          final textAlign = D4.getRequiredNamedArg<dynamic>(named, 'textAlign', 'computeWidth');
-          final maxWidth = D4.getRequiredNamedArg<double>(named, 'maxWidth', 'computeWidth');
-          return $flutter_41.TextPainter.computeWidth(text: text, textDirection: textDirection, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth, textAlign: textAlign, maxWidth: maxWidth);
+          return $flutter_48.TextPainter.computeWidth(text: text, textDirection: textDirection, textAlign: textAlign, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth, maxWidth: maxWidth);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'computeMaxIntrinsicWidth': (visitor, positional, named, typeArgs) {
-        final text = D4.getRequiredNamedArg<$flutter_28.InlineSpan>(named, 'text', 'computeMaxIntrinsicWidth');
-        final textDirection = D4.getRequiredNamedArg<$flutter_41.TextDirection>(named, 'textDirection', 'computeMaxIntrinsicWidth');
+        final text = D4.getRequiredNamedArg<$flutter_35.InlineSpan>(named, 'text', 'computeMaxIntrinsicWidth');
+        final textDirection = D4.getRequiredNamedArg<TextDirection>(named, 'textDirection', 'computeMaxIntrinsicWidth');
+        final textAlign = D4.getNamedArgWithDefault<TextAlign>(named, 'textAlign', $dart_ui.TextAlign.start);
         final textScaleFactor = D4.getNamedArgWithDefault<double>(named, 'textScaleFactor', 1.0);
-        final textScaler = D4.getNamedArgWithDefault<$flutter_42.TextScaler>(named, 'textScaler', $flutter_42.TextScaler.noScaling);
+        final textScaler = D4.getNamedArgWithDefault<$flutter_49.TextScaler>(named, 'textScaler', $flutter_49.TextScaler.noScaling);
         final maxLines = D4.getOptionalNamedArg<int?>(named, 'maxLines');
         final ellipsis = D4.getOptionalNamedArg<String?>(named, 'ellipsis');
-        final locale = D4.getOptionalNamedArg<$flutter_41.Locale?>(named, 'locale');
-        final strutStyle = D4.getOptionalNamedArg<$flutter_40.StrutStyle?>(named, 'strutStyle');
-        final textWidthBasis = D4.getNamedArgWithDefault<$flutter_41.TextWidthBasis>(named, 'textWidthBasis', $flutter_41.TextWidthBasis.parent);
-        final textHeightBehavior = D4.getOptionalNamedArg<$flutter_41.TextHeightBehavior?>(named, 'textHeightBehavior');
+        final locale = D4.getOptionalNamedArg<Locale?>(named, 'locale');
+        final strutStyle = D4.getOptionalNamedArg<$flutter_47.StrutStyle?>(named, 'strutStyle');
+        final textWidthBasis = D4.getNamedArgWithDefault<$flutter_48.TextWidthBasis>(named, 'textWidthBasis', $flutter_48.TextWidthBasis.parent);
+        final textHeightBehavior = D4.getOptionalNamedArg<TextHeightBehavior?>(named, 'textHeightBehavior');
         final minWidth = D4.getNamedArgWithDefault<double>(named, 'minWidth', 0.0);
-        if (!named.containsKey('textAlign') && !named.containsKey('maxWidth')) {
-          return $flutter_41.TextPainter.computeMaxIntrinsicWidth(text: text, textDirection: textDirection, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth);
+        if (!named.containsKey('maxWidth')) {
+          return $flutter_48.TextPainter.computeMaxIntrinsicWidth(text: text, textDirection: textDirection, textAlign: textAlign, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth);
         }
-        if (named.containsKey('textAlign') && !named.containsKey('maxWidth')) {
-          final textAlign = D4.getRequiredNamedArg<dynamic>(named, 'textAlign', 'computeMaxIntrinsicWidth');
-          return $flutter_41.TextPainter.computeMaxIntrinsicWidth(text: text, textDirection: textDirection, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth, textAlign: textAlign);
-        }
-        if (!named.containsKey('textAlign') && named.containsKey('maxWidth')) {
+        if (named.containsKey('maxWidth')) {
           final maxWidth = D4.getRequiredNamedArg<double>(named, 'maxWidth', 'computeMaxIntrinsicWidth');
-          return $flutter_41.TextPainter.computeMaxIntrinsicWidth(text: text, textDirection: textDirection, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth, maxWidth: maxWidth);
-        }
-        if (named.containsKey('textAlign') && named.containsKey('maxWidth')) {
-          final textAlign = D4.getRequiredNamedArg<dynamic>(named, 'textAlign', 'computeMaxIntrinsicWidth');
-          final maxWidth = D4.getRequiredNamedArg<double>(named, 'maxWidth', 'computeMaxIntrinsicWidth');
-          return $flutter_41.TextPainter.computeMaxIntrinsicWidth(text: text, textDirection: textDirection, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth, textAlign: textAlign, maxWidth: maxWidth);
+          return $flutter_48.TextPainter.computeMaxIntrinsicWidth(text: text, textDirection: textDirection, textAlign: textAlign, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, ellipsis: ellipsis, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior, minWidth: minWidth, maxWidth: maxWidth);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'isHighSurrogate': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'isHighSurrogate');
         final value = D4.getRequiredArg<int>(positional, 0, 'value', 'isHighSurrogate');
-        return $flutter_41.TextPainter.isHighSurrogate(value);
+        return $flutter_48.TextPainter.isHighSurrogate(value);
       },
       'isLowSurrogate': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'isLowSurrogate');
         final value = D4.getRequiredArg<int>(positional, 0, 'value', 'isLowSurrogate');
-        return $flutter_41.TextPainter.isLowSurrogate(value);
+        return $flutter_48.TextPainter.isLowSurrogate(value);
       },
     },
     constructorSignatures: {
@@ -9482,27 +9925,27 @@ BridgedClass _createTextPainterBridge() {
 
 BridgedClass _createTextScalerBridge() {
   return BridgedClass(
-    nativeType: $flutter_42.TextScaler,
+    nativeType: $flutter_49.TextScaler,
     name: 'TextScaler',
     constructors: {
       'linear': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TextScaler');
         final textScaleFactor = D4.getRequiredArg<double>(positional, 0, 'textScaleFactor', 'TextScaler');
-        return $flutter_42.TextScaler.linear(textScaleFactor);
+        return $flutter_49.TextScaler.linear(textScaleFactor);
       },
     },
     getters: {
-      'textScaleFactor': (visitor, target) => D4.validateTarget<$flutter_42.TextScaler>(target, 'TextScaler').textScaleFactor,
+      'textScaleFactor': (visitor, target) => D4.validateTarget<$flutter_49.TextScaler>(target, 'TextScaler').textScaleFactor,
     },
     methods: {
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_42.TextScaler>(target, 'TextScaler');
+        final t = D4.validateTarget<$flutter_49.TextScaler>(target, 'TextScaler');
         D4.requireMinArgs(positional, 1, 'scale');
         final fontSize = D4.getRequiredArg<double>(positional, 0, 'fontSize', 'scale');
         return t.scale(fontSize);
       },
       'clamp': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_42.TextScaler>(target, 'TextScaler');
+        final t = D4.validateTarget<$flutter_49.TextScaler>(target, 'TextScaler');
         final minScaleFactor = D4.getNamedArgWithDefault<double>(named, 'minScaleFactor', 0);
         if (!named.containsKey('maxScaleFactor')) {
           return t.clamp(minScaleFactor: minScaleFactor);
@@ -9515,7 +9958,7 @@ BridgedClass _createTextScalerBridge() {
       },
     },
     staticGetters: {
-      'noScaling': (visitor) => $flutter_42.TextScaler.noScaling,
+      'noScaling': (visitor) => $flutter_49.TextScaler.noScaling,
     },
     constructorSignatures: {
       'linear': 'const factory TextScaler.linear(double textScaleFactor)',
@@ -9539,145 +9982,170 @@ BridgedClass _createTextScalerBridge() {
 
 BridgedClass _createTextSpanBridge() {
   return BridgedClass(
-    nativeType: $flutter_43.TextSpan,
+    nativeType: $flutter_50.TextSpan,
     name: 'TextSpan',
     constructors: {
       '': (visitor, positional, named) {
         final text = D4.getOptionalNamedArg<String?>(named, 'text');
-        final children = D4.coerceListOrNull<$flutter_28.InlineSpan>(named['children'], 'children');
-        final style = D4.getOptionalNamedArg<$flutter_44.TextStyle?>(named, 'style');
-        final recognizer = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'recognizer', 'TextSpan', '<default unavailable>');
-        final mouseCursor = D4.getOptionalNamedArg<$aux_flutter_6.MouseCursor?>(named, 'mouseCursor');
-        final onEnter = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onEnter', 'TextSpan', '<default unavailable>');
-        final onExit = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'onExit', 'TextSpan', '<default unavailable>');
+        final children = D4.coerceListOrNull<$flutter_35.InlineSpan>(named['children'], 'children');
+        final style = D4.getOptionalNamedArg<$flutter_51.TextStyle?>(named, 'style');
+        final recognizer = D4.getOptionalNamedArg<$flutter_7.GestureRecognizer?>(named, 'recognizer');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_58.MouseCursor?>(named, 'mouseCursor');
+        final onEnterRaw = named['onEnter'];
+        final onExitRaw = named['onExit'];
         final semanticsLabel = D4.getOptionalNamedArg<String?>(named, 'semanticsLabel');
         final semanticsIdentifier = D4.getOptionalNamedArg<String?>(named, 'semanticsIdentifier');
-        final locale = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'locale', 'TextSpan', '<default unavailable>');
+        final locale = D4.getOptionalNamedArg<Locale?>(named, 'locale');
         final spellOut = D4.getOptionalNamedArg<bool?>(named, 'spellOut');
-        return $flutter_43.TextSpan(text: text, children: children, style: style, recognizer: recognizer, mouseCursor: mouseCursor, onEnter: onEnter, onExit: onExit, semanticsLabel: semanticsLabel, semanticsIdentifier: semanticsIdentifier, locale: locale, spellOut: spellOut);
+        return $flutter_50.TextSpan(text: text, children: children, style: style, recognizer: recognizer, mouseCursor: mouseCursor, onEnter: onEnterRaw == null ? null : ($flutter_5.PointerEnterEvent p0) { D4.callInterpreterCallback(visitor, onEnterRaw, [p0]); }, onExit: onExitRaw == null ? null : ($flutter_5.PointerExitEvent p0) { D4.callInterpreterCallback(visitor, onExitRaw, [p0]); }, semanticsLabel: semanticsLabel, semanticsIdentifier: semanticsIdentifier, locale: locale, spellOut: spellOut);
       },
     },
     getters: {
-      'style': (visitor, target) => D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan').style,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan').hashCode,
-      'text': (visitor, target) => D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan').text,
-      'children': (visitor, target) => D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan').children,
-      'recognizer': (visitor, target) => D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan').recognizer,
-      'mouseCursor': (visitor, target) => D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan').mouseCursor,
-      'onEnter': (visitor, target) => D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan').onEnter,
-      'onExit': (visitor, target) => D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan').onExit,
-      'semanticsLabel': (visitor, target) => D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan').semanticsLabel,
-      'semanticsIdentifier': (visitor, target) => D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan').semanticsIdentifier,
-      'locale': (visitor, target) => D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan').locale,
-      'spellOut': (visitor, target) => D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan').spellOut,
-      'validForMouseTracker': (visitor, target) => D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan').validForMouseTracker,
+      'style': (visitor, target) => D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan').style,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan').hashCode,
+      'text': (visitor, target) => D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan').text,
+      'children': (visitor, target) => D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan').children,
+      'recognizer': (visitor, target) => D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan').recognizer,
+      'mouseCursor': (visitor, target) => D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan').mouseCursor,
+      'onEnter': (visitor, target) => D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan').onEnter,
+      'onExit': (visitor, target) => D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan').onExit,
+      'semanticsLabel': (visitor, target) => D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan').semanticsLabel,
+      'semanticsIdentifier': (visitor, target) => D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan').semanticsIdentifier,
+      'locale': (visitor, target) => D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan').locale,
+      'spellOut': (visitor, target) => D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan').spellOut,
+      'validForMouseTracker': (visitor, target) => D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan').validForMouseTracker,
+      'cursor': (visitor, target) => (D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan') as dynamic).cursor,
     },
     methods: {
       'build': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan');
+        final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
         D4.requireMinArgs(positional, 1, 'build');
-        final builder = D4.getRequiredArg<$flutter_43.ParagraphBuilder>(positional, 0, 'builder', 'build');
-        final textScaler = D4.getNamedArgWithDefault<$flutter_42.TextScaler>(named, 'textScaler', $flutter_42.TextScaler.noScaling);
-        final dimensions = D4.coerceListOrNull<$flutter_41.PlaceholderDimensions>(named['dimensions'], 'dimensions');
+        final builder = D4.getRequiredArg<ParagraphBuilder>(positional, 0, 'builder', 'build');
+        final textScaler = D4.getNamedArgWithDefault<$flutter_49.TextScaler>(named, 'textScaler', $flutter_49.TextScaler.noScaling);
+        final dimensions = D4.coerceListOrNull<$flutter_48.PlaceholderDimensions>(named['dimensions'], 'dimensions');
         (t as dynamic).build(builder, textScaler: textScaler, dimensions: dimensions);
         return null;
       },
       'visitChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan');
+        final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
         D4.requireMinArgs(positional, 1, 'visitChildren');
         if (positional.isEmpty) {
           throw ArgumentError('visitChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        return t.visitChildren(($flutter_28.InlineSpan p0) { return D4.callInterpreterCallback(visitor, visitor_Raw, [p0]) as bool; });
+        return t.visitChildren(($flutter_35.InlineSpan p0) { return D4.callInterpreterCallback(visitor, visitor_Raw, [p0]) as bool; });
       },
       'visitDirectChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan');
+        final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
         D4.requireMinArgs(positional, 1, 'visitDirectChildren');
         if (positional.isEmpty) {
           throw ArgumentError('visitDirectChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        return t.visitDirectChildren(($flutter_28.InlineSpan p0) { return D4.callInterpreterCallback(visitor, visitor_Raw, [p0]) as bool; });
+        return t.visitDirectChildren(($flutter_35.InlineSpan p0) { return D4.callInterpreterCallback(visitor, visitor_Raw, [p0]) as bool; });
       },
       'getSpanForPosition': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan');
+        final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
         D4.requireMinArgs(positional, 1, 'getSpanForPosition');
-        final position = D4.getRequiredArg<dynamic>(positional, 0, 'position', 'getSpanForPosition');
+        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'getSpanForPosition');
         return t.getSpanForPosition(position);
       },
       'toPlainText': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan');
+        final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
         final includeSemanticsLabels = D4.getNamedArgWithDefault<bool>(named, 'includeSemanticsLabels', true);
         final includePlaceholders = D4.getNamedArgWithDefault<bool>(named, 'includePlaceholders', true);
         return t.toPlainText(includeSemanticsLabels: includeSemanticsLabels, includePlaceholders: includePlaceholders);
       },
       'getSemanticsInformation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan');
+        final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
         return t.getSemanticsInformation();
       },
       'codeUnitAt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan');
+        final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
         D4.requireMinArgs(positional, 1, 'codeUnitAt');
         final index = D4.getRequiredArg<int>(positional, 0, 'index', 'codeUnitAt');
         return t.codeUnitAt(index);
       },
       'debugAssertIsValid': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan');
+        final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
         return t.debugAssertIsValid();
       },
       'compareTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan');
+        final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
         D4.requireMinArgs(positional, 1, 'compareTo');
-        final other = D4.getRequiredArg<$flutter_28.InlineSpan>(positional, 0, 'other', 'compareTo');
+        final other = D4.getRequiredArg<$flutter_35.InlineSpan>(positional, 0, 'other', 'compareTo');
         return t.compareTo(other);
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$aux_flutter_2.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
-        return null;
+      'toStringShallow': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
+        final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        return t.toStringShallow(joiner: joiner, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
+        return t.toStringShort();
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
       },
       'handleEvent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan');
+        final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
         D4.requireMinArgs(positional, 2, 'handleEvent');
-        final event = D4.getRequiredArg<$aux_flutter_8.PointerEvent>(positional, 0, 'event', 'handleEvent');
-        final entry = D4.getRequiredArg<$aux_flutter_9.HitTestEntry>(positional, 1, 'entry', 'handleEvent');
+        final event = D4.getRequiredArg<$flutter_5.PointerEvent>(positional, 0, 'event', 'handleEvent');
+        final entry = D4.getRequiredArg<$flutter_6.HitTestEntry>(positional, 1, 'entry', 'handleEvent');
         t.handleEvent(event, entry);
         return null;
       },
-      'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan');
-        return t.toStringShort();
-      },
-      'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan');
-        return t.debugDescribeChildren();
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.TextSpan>(target, 'TextSpan');
+        final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
     constructorSignatures: {
-      '': 'const TextSpan({String? text, List<InlineSpan>? children, TextStyle? style, dynamic recognizer, MouseCursor? mouseCursor, dynamic onEnter, dynamic onExit, String? semanticsLabel, String? semanticsIdentifier, dynamic locale, bool? spellOut})',
+      '': 'const TextSpan({String? text, List<InlineSpan>? children, TextStyle? style, GestureRecognizer? recognizer, MouseCursor? mouseCursor, void Function(PointerEnterEvent)? onEnter, void Function(PointerExitEvent)? onExit, String? semanticsLabel, String? semanticsIdentifier, Locale? locale, bool? spellOut})',
     },
     methodSignatures: {
       'build': 'void build(ui.ParagraphBuilder builder, {TextScaler textScaler = TextScaler.noScaling, List<PlaceholderDimensions>? dimensions})',
       'visitChildren': 'bool visitChildren(InlineSpanVisitor visitor)',
       'visitDirectChildren': 'bool visitDirectChildren(InlineSpanVisitor visitor)',
-      'getSpanForPosition': 'InlineSpan? getSpanForPosition(InvalidType position)',
+      'getSpanForPosition': 'InlineSpan? getSpanForPosition(TextPosition position)',
       'toPlainText': 'String toPlainText({bool includeSemanticsLabels = true, bool includePlaceholders = true})',
       'getSemanticsInformation': 'List<InlineSpanSemanticsInformation> getSemanticsInformation()',
       'codeUnitAt': 'int? codeUnitAt(int index)',
       'debugAssertIsValid': 'bool debugAssertIsValid()',
       'compareTo': 'RenderComparison compareTo(InlineSpan other)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
-      'handleEvent': 'void handleEvent(PointerEvent event, HitTestEntry entry)',
+      'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
-      'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'handleEvent': 'void handleEvent(PointerEvent event, HitTestEntry entry)',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
     getterSignatures: {
       'style': 'TextStyle? get style',
@@ -9693,6 +10161,7 @@ BridgedClass _createTextSpanBridge() {
       'locale': 'ui.Locale? get locale',
       'spellOut': 'bool? get spellOut',
       'validForMouseTracker': 'bool get validForMouseTracker',
+      'cursor': 'MouseCursor get cursor',
     },
   );
 }
@@ -9703,105 +10172,105 @@ BridgedClass _createTextSpanBridge() {
 
 BridgedClass _createTextStyleBridge() {
   return BridgedClass(
-    nativeType: $flutter_44.TextStyle,
+    nativeType: $flutter_51.TextStyle,
     name: 'TextStyle',
     constructors: {
       '': (visitor, positional, named) {
         final inherit = D4.getNamedArgWithDefault<bool>(named, 'inherit', true);
-        final color = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'color', 'TextStyle', '<default unavailable>');
-        final backgroundColor = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'backgroundColor', 'TextStyle', '<default unavailable>');
+        final color = D4.getOptionalNamedArg<Color?>(named, 'color');
+        final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final fontSize = D4.getOptionalNamedArg<double?>(named, 'fontSize');
-        final fontWeight = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'fontWeight', 'TextStyle', '<default unavailable>');
-        final fontStyle = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'fontStyle', 'TextStyle', '<default unavailable>');
+        final fontWeight = D4.getOptionalNamedArg<FontWeight?>(named, 'fontWeight');
+        final fontStyle = D4.getOptionalNamedArg<FontStyle?>(named, 'fontStyle');
         final letterSpacing = D4.getOptionalNamedArg<double?>(named, 'letterSpacing');
         final wordSpacing = D4.getOptionalNamedArg<double?>(named, 'wordSpacing');
-        final textBaseline = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'textBaseline', 'TextStyle', '<default unavailable>');
+        final textBaseline = D4.getOptionalNamedArg<TextBaseline?>(named, 'textBaseline');
         final height = D4.getOptionalNamedArg<double?>(named, 'height');
-        final leadingDistribution = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'leadingDistribution', 'TextStyle', '<default unavailable>');
-        final locale = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'locale', 'TextStyle', '<default unavailable>');
-        final foreground = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'foreground', 'TextStyle', '<default unavailable>');
-        final background = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'background', 'TextStyle', '<default unavailable>');
-        final shadows = D4.coerceListOrNull<dynamic>(named['shadows'], 'shadows');
-        final fontFeatures = D4.coerceListOrNull<dynamic>(named['fontFeatures'], 'fontFeatures');
-        final fontVariations = D4.coerceListOrNull<dynamic>(named['fontVariations'], 'fontVariations');
-        final decoration = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'decoration', 'TextStyle', '<default unavailable>');
-        final decorationColor = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'decorationColor', 'TextStyle', '<default unavailable>');
-        final decorationStyle = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'decorationStyle', 'TextStyle', '<default unavailable>');
+        final leadingDistribution = D4.getOptionalNamedArg<TextLeadingDistribution?>(named, 'leadingDistribution');
+        final locale = D4.getOptionalNamedArg<Locale?>(named, 'locale');
+        final foreground = D4.getOptionalNamedArg<Paint?>(named, 'foreground');
+        final background = D4.getOptionalNamedArg<Paint?>(named, 'background');
+        final shadows = D4.coerceListOrNull<Shadow>(named['shadows'], 'shadows');
+        final fontFeatures = D4.coerceListOrNull<FontFeature>(named['fontFeatures'], 'fontFeatures');
+        final fontVariations = D4.coerceListOrNull<FontVariation>(named['fontVariations'], 'fontVariations');
+        final decoration = D4.getOptionalNamedArg<TextDecoration?>(named, 'decoration');
+        final decorationColor = D4.getOptionalNamedArg<Color?>(named, 'decorationColor');
+        final decorationStyle = D4.getOptionalNamedArg<TextDecorationStyle?>(named, 'decorationStyle');
         final decorationThickness = D4.getOptionalNamedArg<double?>(named, 'decorationThickness');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final fontFamily = D4.getOptionalNamedArg<String?>(named, 'fontFamily');
         final fontFamilyFallback = D4.coerceListOrNull<String>(named['fontFamilyFallback'], 'fontFamilyFallback');
         final package = D4.getOptionalNamedArg<String?>(named, 'package');
-        final overflow = D4.getOptionalNamedArg<$flutter_41.TextOverflow?>(named, 'overflow');
-        return $flutter_44.TextStyle(inherit: inherit, color: color, backgroundColor: backgroundColor, fontSize: fontSize, fontWeight: fontWeight, fontStyle: fontStyle, letterSpacing: letterSpacing, wordSpacing: wordSpacing, textBaseline: textBaseline, height: height, leadingDistribution: leadingDistribution, locale: locale, foreground: foreground, background: background, shadows: shadows, fontFeatures: fontFeatures, fontVariations: fontVariations, decoration: decoration, decorationColor: decorationColor, decorationStyle: decorationStyle, decorationThickness: decorationThickness, debugLabel: debugLabel, fontFamily: fontFamily, fontFamilyFallback: fontFamilyFallback, package: package, overflow: overflow);
+        final overflow = D4.getOptionalNamedArg<$flutter_48.TextOverflow?>(named, 'overflow');
+        return $flutter_51.TextStyle(inherit: inherit, color: color, backgroundColor: backgroundColor, fontSize: fontSize, fontWeight: fontWeight, fontStyle: fontStyle, letterSpacing: letterSpacing, wordSpacing: wordSpacing, textBaseline: textBaseline, height: height, leadingDistribution: leadingDistribution, locale: locale, foreground: foreground, background: background, shadows: shadows, fontFeatures: fontFeatures, fontVariations: fontVariations, decoration: decoration, decorationColor: decorationColor, decorationStyle: decorationStyle, decorationThickness: decorationThickness, debugLabel: debugLabel, fontFamily: fontFamily, fontFamilyFallback: fontFamilyFallback, package: package, overflow: overflow);
       },
     },
     getters: {
-      'inherit': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').inherit,
-      'color': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').color,
-      'backgroundColor': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').backgroundColor,
-      'fontFamily': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').fontFamily,
-      'fontFamilyFallback': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').fontFamilyFallback,
-      'fontSize': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').fontSize,
-      'fontWeight': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').fontWeight,
-      'fontStyle': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').fontStyle,
-      'letterSpacing': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').letterSpacing,
-      'wordSpacing': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').wordSpacing,
-      'textBaseline': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').textBaseline,
-      'height': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').height,
-      'leadingDistribution': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').leadingDistribution,
-      'locale': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').locale,
-      'foreground': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').foreground,
-      'background': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').background,
-      'decoration': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').decoration,
-      'decorationColor': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').decorationColor,
-      'decorationStyle': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').decorationStyle,
-      'decorationThickness': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').decorationThickness,
-      'debugLabel': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').debugLabel,
-      'shadows': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').shadows,
-      'fontFeatures': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').fontFeatures,
-      'fontVariations': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').fontVariations,
-      'overflow': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').overflow,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle').hashCode,
+      'inherit': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').inherit,
+      'color': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').color,
+      'backgroundColor': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').backgroundColor,
+      'fontFamily': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').fontFamily,
+      'fontFamilyFallback': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').fontFamilyFallback,
+      'fontSize': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').fontSize,
+      'fontWeight': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').fontWeight,
+      'fontStyle': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').fontStyle,
+      'letterSpacing': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').letterSpacing,
+      'wordSpacing': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').wordSpacing,
+      'textBaseline': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').textBaseline,
+      'height': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').height,
+      'leadingDistribution': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').leadingDistribution,
+      'locale': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').locale,
+      'foreground': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').foreground,
+      'background': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').background,
+      'decoration': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').decoration,
+      'decorationColor': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').decorationColor,
+      'decorationStyle': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').decorationStyle,
+      'decorationThickness': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').decorationThickness,
+      'debugLabel': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').debugLabel,
+      'shadows': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').shadows,
+      'fontFeatures': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').fontFeatures,
+      'fontVariations': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').fontVariations,
+      'overflow': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').overflow,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle').hashCode,
     },
     methods: {
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle');
+        final t = D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle');
         final inherit = D4.getOptionalNamedArg<bool?>(named, 'inherit');
-        final color = D4.getOptionalNamedArg<$flutter_44.Color?>(named, 'color');
-        final backgroundColor = D4.getOptionalNamedArg<$flutter_44.Color?>(named, 'backgroundColor');
+        final color = D4.getOptionalNamedArg<Color?>(named, 'color');
+        final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final fontSize = D4.getOptionalNamedArg<double?>(named, 'fontSize');
-        final fontWeight = D4.getOptionalNamedArg<$flutter_44.FontWeight?>(named, 'fontWeight');
-        final fontStyle = D4.getOptionalNamedArg<$flutter_44.FontStyle?>(named, 'fontStyle');
+        final fontWeight = D4.getOptionalNamedArg<FontWeight?>(named, 'fontWeight');
+        final fontStyle = D4.getOptionalNamedArg<FontStyle?>(named, 'fontStyle');
         final letterSpacing = D4.getOptionalNamedArg<double?>(named, 'letterSpacing');
         final wordSpacing = D4.getOptionalNamedArg<double?>(named, 'wordSpacing');
-        final textBaseline = D4.getOptionalNamedArg<$flutter_44.TextBaseline?>(named, 'textBaseline');
+        final textBaseline = D4.getOptionalNamedArg<TextBaseline?>(named, 'textBaseline');
         final height = D4.getOptionalNamedArg<double?>(named, 'height');
-        final leadingDistribution = D4.getOptionalNamedArg<$flutter_44.TextLeadingDistribution?>(named, 'leadingDistribution');
-        final locale = D4.getOptionalNamedArg<$flutter_44.Locale?>(named, 'locale');
-        final foreground = D4.getOptionalNamedArg<$flutter_44.Paint?>(named, 'foreground');
-        final background = D4.getOptionalNamedArg<$flutter_44.Paint?>(named, 'background');
-        final shadows = D4.coerceListOrNull<$flutter_44.Shadow>(named['shadows'], 'shadows');
-        final fontFeatures = D4.coerceListOrNull<$flutter_44.FontFeature>(named['fontFeatures'], 'fontFeatures');
-        final fontVariations = D4.coerceListOrNull<$flutter_44.FontVariation>(named['fontVariations'], 'fontVariations');
-        final decoration = D4.getOptionalNamedArg<$flutter_44.TextDecoration?>(named, 'decoration');
-        final decorationColor = D4.getOptionalNamedArg<$flutter_44.Color?>(named, 'decorationColor');
-        final decorationStyle = D4.getOptionalNamedArg<$flutter_44.TextDecorationStyle?>(named, 'decorationStyle');
+        final leadingDistribution = D4.getOptionalNamedArg<TextLeadingDistribution?>(named, 'leadingDistribution');
+        final locale = D4.getOptionalNamedArg<Locale?>(named, 'locale');
+        final foreground = D4.getOptionalNamedArg<Paint?>(named, 'foreground');
+        final background = D4.getOptionalNamedArg<Paint?>(named, 'background');
+        final shadows = D4.coerceListOrNull<Shadow>(named['shadows'], 'shadows');
+        final fontFeatures = D4.coerceListOrNull<FontFeature>(named['fontFeatures'], 'fontFeatures');
+        final fontVariations = D4.coerceListOrNull<FontVariation>(named['fontVariations'], 'fontVariations');
+        final decoration = D4.getOptionalNamedArg<TextDecoration?>(named, 'decoration');
+        final decorationColor = D4.getOptionalNamedArg<Color?>(named, 'decorationColor');
+        final decorationStyle = D4.getOptionalNamedArg<TextDecorationStyle?>(named, 'decorationStyle');
         final decorationThickness = D4.getOptionalNamedArg<double?>(named, 'decorationThickness');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final fontFamily = D4.getOptionalNamedArg<String?>(named, 'fontFamily');
         final fontFamilyFallback = D4.coerceListOrNull<String>(named['fontFamilyFallback'], 'fontFamilyFallback');
         final package = D4.getOptionalNamedArg<String?>(named, 'package');
-        final overflow = D4.getOptionalNamedArg<$flutter_41.TextOverflow?>(named, 'overflow');
+        final overflow = D4.getOptionalNamedArg<$flutter_48.TextOverflow?>(named, 'overflow');
         return t.copyWith(inherit: inherit, color: color, backgroundColor: backgroundColor, fontSize: fontSize, fontWeight: fontWeight, fontStyle: fontStyle, letterSpacing: letterSpacing, wordSpacing: wordSpacing, textBaseline: textBaseline, height: height, leadingDistribution: leadingDistribution, locale: locale, foreground: foreground, background: background, shadows: shadows, fontFeatures: fontFeatures, fontVariations: fontVariations, decoration: decoration, decorationColor: decorationColor, decorationStyle: decorationStyle, decorationThickness: decorationThickness, debugLabel: debugLabel, fontFamily: fontFamily, fontFamilyFallback: fontFamilyFallback, package: package, overflow: overflow);
       },
       'apply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle');
-        final color = D4.getOptionalNamedArg<$flutter_44.Color?>(named, 'color');
-        final backgroundColor = D4.getOptionalNamedArg<$flutter_44.Color?>(named, 'backgroundColor');
-        final decoration = D4.getOptionalNamedArg<$flutter_44.TextDecoration?>(named, 'decoration');
-        final decorationColor = D4.getOptionalNamedArg<$flutter_44.Color?>(named, 'decorationColor');
-        final decorationStyle = D4.getOptionalNamedArg<$flutter_44.TextDecorationStyle?>(named, 'decorationStyle');
+        final t = D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle');
+        final color = D4.getOptionalNamedArg<Color?>(named, 'color');
+        final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
+        final decoration = D4.getOptionalNamedArg<TextDecoration?>(named, 'decoration');
+        final decorationColor = D4.getOptionalNamedArg<Color?>(named, 'decorationColor');
+        final decorationStyle = D4.getOptionalNamedArg<TextDecorationStyle?>(named, 'decorationStyle');
         final decorationThicknessFactor = D4.getNamedArgWithDefault<double>(named, 'decorationThicknessFactor', 1.0);
         final decorationThicknessDelta = D4.getNamedArgWithDefault<double>(named, 'decorationThicknessDelta', 0.0);
         final fontFamily = D4.getOptionalNamedArg<String?>(named, 'fontFamily');
@@ -9809,72 +10278,75 @@ BridgedClass _createTextStyleBridge() {
         final fontSizeFactor = D4.getNamedArgWithDefault<double>(named, 'fontSizeFactor', 1.0);
         final fontSizeDelta = D4.getNamedArgWithDefault<double>(named, 'fontSizeDelta', 0.0);
         final fontWeightDelta = D4.getNamedArgWithDefault<int>(named, 'fontWeightDelta', 0);
-        final fontStyle = D4.getOptionalNamedArg<$flutter_44.FontStyle?>(named, 'fontStyle');
+        final fontStyle = D4.getOptionalNamedArg<FontStyle?>(named, 'fontStyle');
         final letterSpacingFactor = D4.getNamedArgWithDefault<double>(named, 'letterSpacingFactor', 1.0);
         final letterSpacingDelta = D4.getNamedArgWithDefault<double>(named, 'letterSpacingDelta', 0.0);
         final wordSpacingFactor = D4.getNamedArgWithDefault<double>(named, 'wordSpacingFactor', 1.0);
         final wordSpacingDelta = D4.getNamedArgWithDefault<double>(named, 'wordSpacingDelta', 0.0);
         final heightFactor = D4.getNamedArgWithDefault<double>(named, 'heightFactor', 1.0);
         final heightDelta = D4.getNamedArgWithDefault<double>(named, 'heightDelta', 0.0);
-        final textBaseline = D4.getOptionalNamedArg<$flutter_44.TextBaseline?>(named, 'textBaseline');
-        final leadingDistribution = D4.getOptionalNamedArg<$flutter_44.TextLeadingDistribution?>(named, 'leadingDistribution');
-        final locale = D4.getOptionalNamedArg<$flutter_44.Locale?>(named, 'locale');
-        final shadows = D4.coerceListOrNull<$flutter_44.Shadow>(named['shadows'], 'shadows');
-        final fontFeatures = D4.coerceListOrNull<$flutter_44.FontFeature>(named['fontFeatures'], 'fontFeatures');
-        final fontVariations = D4.coerceListOrNull<$flutter_44.FontVariation>(named['fontVariations'], 'fontVariations');
+        final textBaseline = D4.getOptionalNamedArg<TextBaseline?>(named, 'textBaseline');
+        final leadingDistribution = D4.getOptionalNamedArg<TextLeadingDistribution?>(named, 'leadingDistribution');
+        final locale = D4.getOptionalNamedArg<Locale?>(named, 'locale');
+        final shadows = D4.coerceListOrNull<Shadow>(named['shadows'], 'shadows');
+        final fontFeatures = D4.coerceListOrNull<FontFeature>(named['fontFeatures'], 'fontFeatures');
+        final fontVariations = D4.coerceListOrNull<FontVariation>(named['fontVariations'], 'fontVariations');
         final package = D4.getOptionalNamedArg<String?>(named, 'package');
-        final overflow = D4.getOptionalNamedArg<$flutter_41.TextOverflow?>(named, 'overflow');
+        final overflow = D4.getOptionalNamedArg<$flutter_48.TextOverflow?>(named, 'overflow');
         return t.apply(color: color, backgroundColor: backgroundColor, decoration: decoration, decorationColor: decorationColor, decorationStyle: decorationStyle, decorationThicknessFactor: decorationThicknessFactor, decorationThicknessDelta: decorationThicknessDelta, fontFamily: fontFamily, fontFamilyFallback: fontFamilyFallback, fontSizeFactor: fontSizeFactor, fontSizeDelta: fontSizeDelta, fontWeightDelta: fontWeightDelta, fontStyle: fontStyle, letterSpacingFactor: letterSpacingFactor, letterSpacingDelta: letterSpacingDelta, wordSpacingFactor: wordSpacingFactor, wordSpacingDelta: wordSpacingDelta, heightFactor: heightFactor, heightDelta: heightDelta, textBaseline: textBaseline, leadingDistribution: leadingDistribution, locale: locale, shadows: shadows, fontFeatures: fontFeatures, fontVariations: fontVariations, package: package, overflow: overflow);
       },
       'merge': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle');
+        final t = D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle');
         D4.requireMinArgs(positional, 1, 'merge');
-        final other = D4.getRequiredArg<$flutter_44.TextStyle?>(positional, 0, 'other', 'merge');
+        final other = D4.getRequiredArg<$flutter_51.TextStyle?>(positional, 0, 'other', 'merge');
         return t.merge(other);
       },
       'getTextStyle': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle');
+        final t = D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle');
         final textScaleFactor = D4.getNamedArgWithDefault<double>(named, 'textScaleFactor', 1.0);
-        final textScaler = D4.getNamedArgWithDefault<$flutter_42.TextScaler>(named, 'textScaler', $flutter_42.TextScaler.noScaling);
+        final textScaler = D4.getNamedArgWithDefault<$flutter_49.TextScaler>(named, 'textScaler', $flutter_49.TextScaler.noScaling);
         return t.getTextStyle(textScaleFactor: textScaleFactor, textScaler: textScaler);
       },
       'getParagraphStyle': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle');
-        final textAlign = D4.getOptionalNamedArg<$flutter_44.TextAlign?>(named, 'textAlign');
-        final textDirection = D4.getOptionalNamedArg<$flutter_44.TextDirection?>(named, 'textDirection');
-        final textScaler = D4.getNamedArgWithDefault<$flutter_42.TextScaler>(named, 'textScaler', $flutter_42.TextScaler.noScaling);
+        final t = D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle');
+        final textAlign = D4.getOptionalNamedArg<TextAlign?>(named, 'textAlign');
+        final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
+        final textScaler = D4.getNamedArgWithDefault<$flutter_49.TextScaler>(named, 'textScaler', $flutter_49.TextScaler.noScaling);
         final ellipsis = D4.getOptionalNamedArg<String?>(named, 'ellipsis');
         final maxLines = D4.getOptionalNamedArg<int?>(named, 'maxLines');
-        final textHeightBehavior = D4.getOptionalNamedArg<$flutter_44.TextHeightBehavior?>(named, 'textHeightBehavior');
-        final locale = D4.getOptionalNamedArg<$flutter_44.Locale?>(named, 'locale');
+        final textHeightBehavior = D4.getOptionalNamedArg<TextHeightBehavior?>(named, 'textHeightBehavior');
+        final locale = D4.getOptionalNamedArg<Locale?>(named, 'locale');
         final fontFamily = D4.getOptionalNamedArg<String?>(named, 'fontFamily');
         final fontSize = D4.getOptionalNamedArg<double?>(named, 'fontSize');
-        final fontWeight = D4.getOptionalNamedArg<$flutter_44.FontWeight?>(named, 'fontWeight');
-        final fontStyle = D4.getOptionalNamedArg<$flutter_44.FontStyle?>(named, 'fontStyle');
+        final fontWeight = D4.getOptionalNamedArg<FontWeight?>(named, 'fontWeight');
+        final fontStyle = D4.getOptionalNamedArg<FontStyle?>(named, 'fontStyle');
         final height = D4.getOptionalNamedArg<double?>(named, 'height');
-        final strutStyle = D4.getOptionalNamedArg<$flutter_40.StrutStyle?>(named, 'strutStyle');
+        final strutStyle = D4.getOptionalNamedArg<$flutter_47.StrutStyle?>(named, 'strutStyle');
         return t.getParagraphStyle(textAlign: textAlign, textDirection: textDirection, textScaler: textScaler, ellipsis: ellipsis, maxLines: maxLines, textHeightBehavior: textHeightBehavior, locale: locale, fontFamily: fontFamily, fontSize: fontSize, fontWeight: fontWeight, fontStyle: fontStyle, height: height, strutStyle: strutStyle);
       },
       'compareTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle');
+        final t = D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle');
         D4.requireMinArgs(positional, 1, 'compareTo');
-        final other = D4.getRequiredArg<$flutter_44.TextStyle>(positional, 0, 'other', 'compareTo');
+        final other = D4.getRequiredArg<$flutter_51.TextStyle>(positional, 0, 'other', 'compareTo');
         return t.compareTo(other);
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle');
+        final t = D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle');
         return t.toStringShort();
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$aux_flutter_2.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        final prefix = D4.getNamedArgWithDefault<String>(named, 'prefix', '');
-        (t as dynamic).debugFillProperties(properties, prefix: prefix);
-        return null;
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_44.TextStyle>(target, 'TextStyle');
+        final t = D4.validateTarget<$flutter_51.TextStyle>(target, 'TextStyle');
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -9882,14 +10354,14 @@ BridgedClass _createTextStyleBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_44.TextStyle?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_44.TextStyle?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_51.TextStyle?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$flutter_51.TextStyle?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
-        return $flutter_44.TextStyle.lerp(a, b, t_);
+        return $flutter_51.TextStyle.lerp(a, b, t_);
       },
     },
     constructorSignatures: {
-      '': 'const TextStyle({bool inherit = true, dynamic color, dynamic backgroundColor, double? fontSize, dynamic fontWeight, dynamic fontStyle, double? letterSpacing, double? wordSpacing, dynamic textBaseline, double? height, dynamic leadingDistribution, dynamic locale, dynamic foreground, dynamic background, List<InvalidType>? shadows, List<InvalidType>? fontFeatures, List<InvalidType>? fontVariations, dynamic decoration, dynamic decorationColor, dynamic decorationStyle, double? decorationThickness, String? debugLabel, String? fontFamily, List<String>? fontFamilyFallback, String? package, TextOverflow? overflow})',
+      '': 'const TextStyle({bool inherit = true, Color? color, Color? backgroundColor, double? fontSize, FontWeight? fontWeight, FontStyle? fontStyle, double? letterSpacing, double? wordSpacing, TextBaseline? textBaseline, double? height, TextLeadingDistribution? leadingDistribution, Locale? locale, Paint? foreground, Paint? background, List<Shadow>? shadows, List<FontFeature>? fontFeatures, List<FontVariation>? fontVariations, TextDecoration? decoration, Color? decorationColor, TextDecorationStyle? decorationStyle, double? decorationThickness, String? debugLabel, String? fontFamily, List<String>? fontFamilyFallback, String? package, TextOverflow? overflow})',
     },
     methodSignatures: {
       'copyWith': 'TextStyle copyWith({bool? inherit, Color? color, Color? backgroundColor, double? fontSize, FontWeight? fontWeight, FontStyle? fontStyle, double? letterSpacing, double? wordSpacing, TextBaseline? textBaseline, double? height, TextLeadingDistribution? leadingDistribution, Locale? locale, Paint? foreground, Paint? background, List<Shadow>? shadows, List<FontFeature>? fontFeatures, List<FontVariation>? fontVariations, TextDecoration? decoration, Color? decorationColor, TextDecorationStyle? decorationStyle, double? decorationThickness, String? debugLabel, String? fontFamily, List<String>? fontFamilyFallback, String? package, TextOverflow? overflow})',
@@ -9899,7 +10371,8 @@ BridgedClass _createTextStyleBridge() {
       'getParagraphStyle': 'ui.ParagraphStyle getParagraphStyle({TextAlign? textAlign, TextDirection? textDirection, TextScaler textScaler = TextScaler.noScaling, String? ellipsis, int? maxLines, TextHeightBehavior? textHeightBehavior, Locale? locale, String? fontFamily, double? fontSize, FontWeight? fontWeight, FontStyle? fontStyle, double? height, StrutStyle? strutStyle})',
       'compareTo': 'RenderComparison compareTo(TextStyle other)',
       'toStringShort': 'String toStringShort()',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties, {String prefix = \'\'})',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
     },
     getterSignatures: {
       'inherit': 'bool get inherit',

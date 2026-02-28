@@ -17,7 +17,7 @@ dependencies:
     path: ../tom_d4rt_ast
   tom_ast_model:
     path: ../tom_ast_model
-  tom_build_base: ^2.5.2
+  tom_build_base: ^2.5.5
 
 dev_dependencies:
   tom_d4rt_generator:

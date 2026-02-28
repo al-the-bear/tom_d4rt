@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 26 files
-// Generated: 2026-02-27T15:45:17.562741
+// Generated: 2026-02-28T12:38:37.209844
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -2159,21 +2159,27 @@ BridgedClass _createValueListenableBridge() {
       'addListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.ValueListenable>(target, 'ValueListenable');
         D4.requireMinArgs(positional, 1, 'addListener');
-        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'addListener');
-        t.addListener(listener);
+        if (positional.isEmpty) {
+          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
+        }
+        final listenerRaw = positional[0];
+        t.addListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.ValueListenable>(target, 'ValueListenable');
         D4.requireMinArgs(positional, 1, 'removeListener');
-        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'removeListener');
-        t.removeListener(listener);
+        if (positional.isEmpty) {
+          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
+        }
+        final listenerRaw = positional[0];
+        t.removeListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
         return null;
       },
     },
     methodSignatures: {
-      'addListener': 'void addListener(InvalidType listener)',
-      'removeListener': 'void removeListener(InvalidType listener)',
+      'addListener': 'void addListener(void Function() listener)',
+      'removeListener': 'void removeListener(void Function() listener)',
     },
     getterSignatures: {
       'value': 'T get value',
@@ -2268,15 +2274,21 @@ BridgedClass _createValueNotifierBridge() {
       'addListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.ValueNotifier>(target, 'ValueNotifier');
         D4.requireMinArgs(positional, 1, 'addListener');
-        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'addListener');
-        t.addListener(listener);
+        if (positional.isEmpty) {
+          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
+        }
+        final listenerRaw = positional[0];
+        t.addListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.ValueNotifier>(target, 'ValueNotifier');
         D4.requireMinArgs(positional, 1, 'removeListener');
-        final listener = D4.getRequiredArg<dynamic>(positional, 0, 'listener', 'removeListener');
-        t.removeListener(listener);
+        if (positional.isEmpty) {
+          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
+        }
+        final listenerRaw = positional[0];
+        t.removeListener(() { D4.callInterpreterCallback(visitor, listenerRaw, []); });
         return null;
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
@@ -2293,8 +2305,8 @@ BridgedClass _createValueNotifierBridge() {
       '': 'ValueNotifier(T _value)',
     },
     methodSignatures: {
-      'addListener': 'void addListener(InvalidType listener)',
-      'removeListener': 'void removeListener(InvalidType listener)',
+      'addListener': 'void addListener(void Function() listener)',
+      'removeListener': 'void removeListener(void Function() listener)',
       'dispose': 'void dispose()',
       'toString': 'String toString()',
     },
@@ -2903,7 +2915,7 @@ BridgedClass _createObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -2913,7 +2925,7 @@ BridgedClass _createObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -2923,7 +2935,7 @@ BridgedClass _createObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -2945,26 +2957,26 @@ BridgedClass _createObserverListBridge() {
       'clear': 'void clear()',
       'contains': 'bool contains(Object? element)',
       'toList': 'List<T> toList({bool growable = true})',
-      'cast': 'Iterable<dynamic> cast()',
+      'cast': 'Iterable<R> cast()',
       'followedBy': 'Iterable<T> followedBy(Iterable<T> other)',
-      'map': 'Iterable<dynamic> map(dynamic Function(T e) toElement)',
-      'where': 'Iterable<T> where(bool Function(T element) test)',
-      'whereType': 'Iterable<dynamic> whereType()',
-      'expand': 'Iterable<dynamic> expand(Iterable<dynamic> Function(T element) toElements)',
-      'forEach': 'void forEach(void Function(T element) action)',
-      'reduce': 'T reduce(T Function(T value, T element) combine)',
-      'fold': 'dynamic fold(dynamic initialValue, dynamic Function(dynamic previousValue, T element) combine)',
-      'every': 'bool every(bool Function(T element) test)',
+      'map': 'Iterable<T> map(T Function(T) toElement)',
+      'where': 'Iterable<T> where(bool Function(T) test)',
+      'whereType': 'Iterable<T> whereType()',
+      'expand': 'Iterable<T> expand(Iterable<T> Function(T) toElements)',
+      'forEach': 'void forEach(void Function(T) action)',
+      'reduce': 'T reduce(T Function(T, T) combine)',
+      'fold': 'T fold(T initialValue, T Function(T, T) combine)',
+      'every': 'bool every(bool Function(T) test)',
       'join': 'String join([String separator = ""])',
-      'any': 'bool any(bool Function(T element) test)',
+      'any': 'bool any(bool Function(T) test)',
       'toSet': 'Set<T> toSet()',
       'take': 'Iterable<T> take(int count)',
-      'takeWhile': 'Iterable<T> takeWhile(bool Function(T value) test)',
+      'takeWhile': 'Iterable<T> takeWhile(bool Function(T) test)',
       'skip': 'Iterable<T> skip(int count)',
-      'skipWhile': 'Iterable<T> skipWhile(bool Function(T value) test)',
-      'firstWhere': 'T firstWhere(bool Function(T element) test, {T Function() orElse})',
-      'lastWhere': 'T lastWhere(bool Function(T element) test, {T Function() orElse})',
-      'singleWhere': 'T singleWhere(bool Function(T element) test, {T Function() orElse})',
+      'skipWhile': 'Iterable<T> skipWhile(bool Function(T) test)',
+      'firstWhere': 'T firstWhere(bool Function(T) test, {T Function()? orElse})',
+      'lastWhere': 'T lastWhere(bool Function(T) test, {T Function()? orElse})',
+      'singleWhere': 'T singleWhere(bool Function(T) test, {T Function()? orElse})',
       'elementAt': 'T elementAt(int index)',
       'toString': 'String toString()',
     },
@@ -3167,7 +3179,7 @@ BridgedClass _createHashedObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -3177,7 +3189,7 @@ BridgedClass _createHashedObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -3187,7 +3199,7 @@ BridgedClass _createHashedObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -3209,26 +3221,26 @@ BridgedClass _createHashedObserverListBridge() {
       'clear': 'void clear()',
       'contains': 'bool contains(Object? element)',
       'toList': 'List<T> toList({bool growable = true})',
-      'cast': 'Iterable<dynamic> cast()',
+      'cast': 'Iterable<R> cast()',
       'followedBy': 'Iterable<T> followedBy(Iterable<T> other)',
-      'map': 'Iterable<dynamic> map(dynamic Function(T e) toElement)',
-      'where': 'Iterable<T> where(bool Function(T element) test)',
-      'whereType': 'Iterable<dynamic> whereType()',
-      'expand': 'Iterable<dynamic> expand(Iterable<dynamic> Function(T element) toElements)',
-      'forEach': 'void forEach(void Function(T element) action)',
-      'reduce': 'T reduce(T Function(T value, T element) combine)',
-      'fold': 'dynamic fold(dynamic initialValue, dynamic Function(dynamic previousValue, T element) combine)',
-      'every': 'bool every(bool Function(T element) test)',
+      'map': 'Iterable<T> map(T Function(T) toElement)',
+      'where': 'Iterable<T> where(bool Function(T) test)',
+      'whereType': 'Iterable<T> whereType()',
+      'expand': 'Iterable<T> expand(Iterable<T> Function(T) toElements)',
+      'forEach': 'void forEach(void Function(T) action)',
+      'reduce': 'T reduce(T Function(T, T) combine)',
+      'fold': 'T fold(T initialValue, T Function(T, T) combine)',
+      'every': 'bool every(bool Function(T) test)',
       'join': 'String join([String separator = ""])',
-      'any': 'bool any(bool Function(T element) test)',
+      'any': 'bool any(bool Function(T) test)',
       'toSet': 'Set<T> toSet()',
       'take': 'Iterable<T> take(int count)',
-      'takeWhile': 'Iterable<T> takeWhile(bool Function(T value) test)',
+      'takeWhile': 'Iterable<T> takeWhile(bool Function(T) test)',
       'skip': 'Iterable<T> skip(int count)',
-      'skipWhile': 'Iterable<T> skipWhile(bool Function(T value) test)',
-      'firstWhere': 'T firstWhere(bool Function(T element) test, {T Function() orElse})',
-      'lastWhere': 'T lastWhere(bool Function(T element) test, {T Function() orElse})',
-      'singleWhere': 'T singleWhere(bool Function(T element) test, {T Function() orElse})',
+      'skipWhile': 'Iterable<T> skipWhile(bool Function(T) test)',
+      'firstWhere': 'T firstWhere(bool Function(T) test, {T Function()? orElse})',
+      'lastWhere': 'T lastWhere(bool Function(T) test, {T Function()? orElse})',
+      'singleWhere': 'T singleWhere(bool Function(T) test, {T Function()? orElse})',
       'elementAt': 'T elementAt(int index)',
       'toString': 'String toString()',
     },

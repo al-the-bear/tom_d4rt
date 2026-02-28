@@ -111,7 +111,7 @@
     },
     {
       "name": "tom_build_base",
-      "version": "2.5.2",
+      "version": "2.5.5",
       "dependencies": [
         "args",
         "console_markdown",
