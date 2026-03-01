@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-03-01T06:38:19.608941
+// Generated: 2026-03-01T07:42:10.288765
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -49,6 +49,16 @@ class FlutterPhysicsBridge {
       'SpringDescription': 'package:flutter/src/physics/spring_simulation.dart',
       'SpringSimulation': 'package:flutter/src/physics/spring_simulation.dart',
       'ScrollSpringSimulation': 'package:flutter/src/physics/spring_simulation.dart',
+    };
+  }
+
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
     };
   }
 
@@ -200,6 +210,7 @@ BridgedClass _createToleranceBridge() {
   return BridgedClass(
     nativeType: $flutter_6.Tolerance,
     name: 'Tolerance',
+    isAssignable: (v) => v is $flutter_6.Tolerance,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('distance') && !named.containsKey('time') && !named.containsKey('velocity')) {
@@ -280,6 +291,7 @@ BridgedClass _createSimulationBridge() {
   return BridgedClass(
     nativeType: $flutter_4.Simulation,
     name: 'Simulation',
+    isAssignable: (v) => v is $flutter_4.Simulation,
     constructors: {
     },
     getters: {
@@ -336,6 +348,7 @@ BridgedClass _createClampedSimulationBridge() {
   return BridgedClass(
     nativeType: $flutter_1.ClampedSimulation,
     name: 'ClampedSimulation',
+    isAssignable: (v) => v is $flutter_1.ClampedSimulation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ClampedSimulation');
@@ -490,6 +503,7 @@ BridgedClass _createFrictionSimulationBridge() {
   return BridgedClass(
     nativeType: $flutter_2.FrictionSimulation,
     name: 'FrictionSimulation',
+    isAssignable: (v) => v is $flutter_2.FrictionSimulation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'FrictionSimulation');
@@ -576,6 +590,7 @@ BridgedClass _createBoundedFrictionSimulationBridge() {
   return BridgedClass(
     nativeType: $flutter_2.BoundedFrictionSimulation,
     name: 'BoundedFrictionSimulation',
+    isAssignable: (v) => v is $flutter_2.BoundedFrictionSimulation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 5, 'BoundedFrictionSimulation');
@@ -653,6 +668,7 @@ BridgedClass _createGravitySimulationBridge() {
   return BridgedClass(
     nativeType: $flutter_3.GravitySimulation,
     name: 'GravitySimulation',
+    isAssignable: (v) => v is $flutter_3.GravitySimulation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'GravitySimulation');
@@ -720,6 +736,7 @@ BridgedClass _createSpringDescriptionBridge() {
   return BridgedClass(
     nativeType: $flutter_5.SpringDescription,
     name: 'SpringDescription',
+    isAssignable: (v) => v is $flutter_5.SpringDescription,
     constructors: {
       '': (visitor, positional, named) {
         final mass = D4.getRequiredNamedArg<double>(named, 'mass', 'SpringDescription');
@@ -778,6 +795,7 @@ BridgedClass _createSpringSimulationBridge() {
   return BridgedClass(
     nativeType: $flutter_5.SpringSimulation,
     name: 'SpringSimulation',
+    isAssignable: (v) => v is $flutter_5.SpringSimulation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'SpringSimulation');
@@ -849,6 +867,7 @@ BridgedClass _createScrollSpringSimulationBridge() {
   return BridgedClass(
     nativeType: $flutter_5.ScrollSpringSimulation,
     name: 'ScrollSpringSimulation',
+    isAssignable: (v) => v is $flutter_5.ScrollSpringSimulation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'ScrollSpringSimulation');

@@ -1,4 +1,16 @@
-## 1.8.4
+## 1.8.6
+
+### Features
+- **GEN-074**: Added support for class aliases (type alias registration)
+  - New `registerClassAlias()` method in D4rt for registering type aliases
+  - New `defineClassAlias()` method in Environment for alias resolution
+  - Aliases are resolved lazily when looked up - if target class is registered, alias is resolved automatically
+
+### Internal
+- Added `_classAliases` field to D4rt for tracking registered aliases
+- Added `_pendingClassAliases` field to Environment for lazy resolution
+
+## 1.8.5
 
 ### Bug Fixes
 - **INTER-003**: Fixed nullable double/num type promotion in `D4.extractBridgedArg`

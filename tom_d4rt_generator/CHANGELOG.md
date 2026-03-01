@@ -1,3 +1,17 @@
+## 1.8.13
+
+### Added
+
+- **GEN-074** (`bridge_generator.dart`) — Added support for type aliases (non-function typedefs) bridging:
+  - New `visitGenericTypeAlias` in `_ResolvedClassVisitor` collects type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  - Generated `classAliases()` method returns a map of alias name to target class name
+  - `registerBridges()` now automatically registers class aliases with the interpreter
+  - Enables D4rt scripts to use type aliases like `MaterialStateProperty` that resolve to their target classes
+
+### Tests
+
+- **`gen074_type_alias_test.dart`** — Unit tests for type alias detection and code generation (8 tests)
+
 ## 1.8.12
 
 ### Fixed

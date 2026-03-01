@@ -80,6 +80,8 @@ class Environment {
   final List<InterpretedExtension> _unnamedExtensions =
       []; // Store unnamed extensions
   final Map<String, Environment> _prefixedImports = {}; // For prefixed imports
+  /// GEN-074: Pending class aliases waiting for target class registration.
+  final Map<String, String> _pendingClassAliases = {};
 
   /// Creates a new environment, optionally with an enclosing (parent) environment.
   ///
@@ -140,6 +142,54 @@ class Environment {
     _bridgedClasses[name] = bridgedClass;
     _bridgedClassesLookupByType[bridgedClass.nativeType] = bridgedClass;
     Logger.debug("[Environment] Defined bridge for class: $name");
+  }
+
+  /// GEN-074: Registers a type alias for a bridged class.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// allow the same bridged class to be accessed under multiple names.
+  ///
+  /// [aliasName] The alias name (e.g., 'MaterialStateProperty').
+  /// [targetName] The canonical class name (e.g., 'WidgetStateProperty').
+  ///
+  /// If the target class is not yet registered, the alias is stored for
+  /// later resolution. If the target class exists, the bridge is registered
+  /// under the alias name immediately.
+  void defineClassAlias(String aliasName, String targetName) {
+    // Check if target class exists
+    final targetBridge = _bridgedClasses[targetName];
+    if (targetBridge != null) {
+      // Register the same bridge under the alias name
+      _bridgedClasses[aliasName] = targetBridge;
+      Logger.debug(
+          "[Environment] Defined class alias: $aliasName -> $targetName");
+    } else {
+      // Store pending alias for later resolution
+      _pendingClassAliases[aliasName] = targetName;
+      Logger.debug(
+          "[Environment] Stored pending class alias: $aliasName -> $targetName (target not yet registered)");
+    }
+  }
+
+  /// Resolves any pending class aliases after classes have been registered.
+  ///
+  /// Call this after all bridged classes have been defined to resolve
+  /// aliases whose targets weren't yet registered.
+  void resolvePendingClassAliases() {
+    for (final entry in _pendingClassAliases.entries) {
+      final aliasName = entry.key;
+      final targetName = entry.value;
+      final targetBridge = _bridgedClasses[targetName];
+      if (targetBridge != null) {
+        _bridgedClasses[aliasName] = targetBridge;
+        Logger.debug(
+            "[Environment] Resolved pending class alias: $aliasName -> $targetName");
+      } else {
+        Logger.warn(
+            "[Environment] Could not resolve class alias '$aliasName' -> '$targetName': target class not found");
+      }
+    }
+    _pendingClassAliases.clear();
   }
 
   /// Converts a native object to a bridged instance if a bridge exists.
@@ -326,6 +376,20 @@ class Environment {
       Logger.debug(
           " [Env.get] Found bridged class '$name' locally in env: $hashCode");
       return _bridgedClasses[name];
+    }
+
+    // GEN-074: Check if this name is a pending alias
+    if (_pendingClassAliases.containsKey(name)) {
+      final targetName = _pendingClassAliases[name]!;
+      if (_bridgedClasses.containsKey(targetName)) {
+        final targetBridge = _bridgedClasses[targetName]!;
+        // Resolve the alias now
+        _bridgedClasses[name] = targetBridge;
+        _pendingClassAliases.remove(name);
+        Logger.debug(
+            " [Env.get] Resolved class alias '$name' to '$targetName'");
+        return targetBridge;
+      }
     }
 
     // Check for bridged enums

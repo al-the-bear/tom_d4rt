@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 6 files
-// Generated: 2026-03-01T06:38:27.812403
+// Generated: 2026-03-01T07:42:18.674227
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -49,6 +49,16 @@ class FlutterSchedulerBridge {
       'Ticker': 'package:flutter/src/scheduler/ticker.dart',
       'TickerFuture': 'package:flutter/src/scheduler/ticker.dart',
       'TickerCanceled': 'package:flutter/src/scheduler/ticker.dart',
+    };
+  }
+
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
     };
   }
 
@@ -241,6 +251,7 @@ BridgedClass _createPriorityBridge() {
   return BridgedClass(
     nativeType: $flutter_4.Priority,
     name: 'Priority',
+    isAssignable: (v) => v is $flutter_4.Priority,
     constructors: {
     },
     getters: {
@@ -284,6 +295,7 @@ BridgedClass _createPerformanceModeRequestHandleBridge() {
   return BridgedClass(
     nativeType: $flutter_2.PerformanceModeRequestHandle,
     name: 'PerformanceModeRequestHandle',
+    isAssignable: (v) => v is $flutter_2.PerformanceModeRequestHandle,
     constructors: {
     },
     methods: {
@@ -307,6 +319,7 @@ BridgedClass _createSchedulerBindingBridge() {
   return BridgedClass(
     nativeType: $flutter_2.SchedulerBinding,
     name: 'SchedulerBinding',
+    isAssignable: (v) => v is $flutter_2.SchedulerBinding,
     constructors: {
     },
     getters: {
@@ -543,6 +556,7 @@ BridgedClass _createDiagnosticsNodeBridge() {
   return BridgedClass(
     nativeType: $flutter_1.DiagnosticsNode,
     name: 'DiagnosticsNode',
+    isAssignable: (v) => v is $flutter_1.DiagnosticsNode,
     constructors: {
       'message': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DiagnosticsNode');
@@ -671,6 +685,7 @@ BridgedClass _createTickerProviderBridge() {
   return BridgedClass(
     nativeType: $flutter_6.TickerProvider,
     name: 'TickerProvider',
+    isAssignable: (v) => v is $flutter_6.TickerProvider,
     constructors: {
     },
     methods: {
@@ -698,6 +713,7 @@ BridgedClass _createTickerBridge() {
   return BridgedClass(
     nativeType: $flutter_6.Ticker,
     name: 'Ticker',
+    isAssignable: (v) => v is $flutter_6.Ticker,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Ticker');
@@ -790,6 +806,7 @@ BridgedClass _createTickerFutureBridge() {
   return BridgedClass(
     nativeType: $flutter_6.TickerFuture,
     name: 'TickerFuture',
+    isAssignable: (v) => v is $flutter_6.TickerFuture,
     constructors: {
       'complete': (visitor, positional, named) {
         return $flutter_6.TickerFuture.complete();
@@ -877,6 +894,7 @@ BridgedClass _createTickerCanceledBridge() {
   return BridgedClass(
     nativeType: $flutter_6.TickerCanceled,
     name: 'TickerCanceled',
+    isAssignable: (v) => v is $flutter_6.TickerCanceled,
     constructors: {
       '': (visitor, positional, named) {
         final ticker = D4.getOptionalArg<$flutter_6.Ticker?>(positional, 0, 'ticker');

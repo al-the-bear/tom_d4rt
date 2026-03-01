@@ -152,9 +152,26 @@ class Environment {
     if (nativeObject == null) {
       return null;
     }
-    final bridgedClass = toBridgedClass(nativeObject.runtimeType);
-
-    return BridgedInstance(bridgedClass, nativeObject);
+    try {
+      final bridgedClass = toBridgedClass(nativeObject.runtimeType);
+      return BridgedInstance(bridgedClass, nativeObject);
+    } catch (e) {
+      // toBridgedClass failed - try using isAssignable
+      // This handles cases like Curves.linear returning a _Linear (private class)
+      // that should be bridged using the Curve (public supertype) bridge.
+      Environment? current = this;
+      while (current != null) {
+        for (final entry in current._bridgedClassesLookupByType.entries) {
+          final bridge = entry.value;
+          if (bridge.isAssignable != null && bridge.isAssignable!(nativeObject)) {
+            return BridgedInstance(bridge, nativeObject);
+          }
+        }
+        current = current._enclosing;
+      }
+      // No bridge found via isAssignable either, rethrow
+      rethrow;
+    }
   }
 
   BridgedClass toBridgedClass(Type nativeType) {

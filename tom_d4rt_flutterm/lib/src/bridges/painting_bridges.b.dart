@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 51 files
-// Generated: 2026-03-01T06:37:57.407782
+// Generated: 2026-03-01T07:41:47.682418
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -278,6 +278,16 @@ class FlutterPaintingBridge {
       'Matrix4': 'package:vector_math/vector_math_64.dart',
       'Vector3': 'package:vector_math/vector_math_64.dart',
       'Vector2': 'package:vector_math/vector_math_64.dart',
+    };
+  }
+
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
     };
   }
 
@@ -1042,6 +1052,7 @@ BridgedClass _createAlignmentGeometryBridge() {
   return BridgedClass(
     nativeType: $flutter_8.AlignmentGeometry,
     name: 'AlignmentGeometry',
+    isAssignable: (v) => v is $flutter_8.AlignmentGeometry,
     constructors: {
       'xy': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'AlignmentGeometry');
@@ -1175,6 +1186,7 @@ BridgedClass _createAlignmentBridge() {
   return BridgedClass(
     nativeType: $flutter_8.Alignment,
     name: 'Alignment',
+    isAssignable: (v) => v is $flutter_8.Alignment,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Alignment');
@@ -1334,6 +1346,7 @@ BridgedClass _createAlignmentDirectionalBridge() {
   return BridgedClass(
     nativeType: $flutter_8.AlignmentDirectional,
     name: 'AlignmentDirectional',
+    isAssignable: (v) => v is $flutter_8.AlignmentDirectional,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'AlignmentDirectional');
@@ -1464,6 +1477,7 @@ BridgedClass _createTextAlignVerticalBridge() {
   return BridgedClass(
     nativeType: $flutter_8.TextAlignVertical,
     name: 'TextAlignVertical',
+    isAssignable: (v) => v is $flutter_8.TextAlignVertical,
     constructors: {
       '': (visitor, positional, named) {
         final y = D4.getRequiredNamedArg<double>(named, 'y', 'TextAlignVertical');
@@ -1509,6 +1523,7 @@ BridgedClass _createBeveledRectangleBorderBridge() {
   return BridgedClass(
     nativeType: $flutter_10.BeveledRectangleBorder,
     name: 'BeveledRectangleBorder',
+    isAssignable: (v) => v is $flutter_10.BeveledRectangleBorder,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
@@ -1630,6 +1645,7 @@ BridgedClass _createPaintingBindingBridge() {
   return BridgedClass(
     nativeType: $flutter_11.PaintingBinding,
     name: 'PaintingBinding',
+    isAssignable: (v) => v is $flutter_11.PaintingBinding,
     constructors: {
     },
     getters: {
@@ -1941,6 +1957,7 @@ BridgedClass _createBorderRadiusGeometryBridge() {
   return BridgedClass(
     nativeType: $flutter_12.BorderRadiusGeometry,
     name: 'BorderRadiusGeometry',
+    isAssignable: (v) => v is $flutter_12.BorderRadiusGeometry,
     constructors: {
       'all': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BorderRadiusGeometry');
@@ -2081,6 +2098,7 @@ BridgedClass _createBorderRadiusBridge() {
   return BridgedClass(
     nativeType: $flutter_12.BorderRadius,
     name: 'BorderRadius',
+    isAssignable: (v) => v is $flutter_12.BorderRadius,
     constructors: {
       'all': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BorderRadius');
@@ -2254,6 +2272,7 @@ BridgedClass _createBorderRadiusDirectionalBridge() {
   return BridgedClass(
     nativeType: $flutter_12.BorderRadiusDirectional,
     name: 'BorderRadiusDirectional',
+    isAssignable: (v) => v is $flutter_12.BorderRadiusDirectional,
     constructors: {
       'all': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BorderRadiusDirectional');
@@ -2404,6 +2423,7 @@ BridgedClass _createBorderSideBridge() {
   return BridgedClass(
     nativeType: $flutter_13.BorderSide,
     name: 'BorderSide',
+    isAssignable: (v) => v is $flutter_13.BorderSide,
     constructors: {
       '': (visitor, positional, named) {
         final color = D4.getNamedArgWithDefault<Color>(named, 'color', const $dart_ui.Color(0xFF000000));
@@ -2539,6 +2559,7 @@ BridgedClass _createShapeBorderBridge() {
   return BridgedClass(
     nativeType: $flutter_13.ShapeBorder,
     name: 'ShapeBorder',
+    isAssignable: (v) => v is $flutter_13.ShapeBorder,
     constructors: {
     },
     getters: {
@@ -2630,6 +2651,7 @@ BridgedClass _createOutlinedBorderBridge() {
   return BridgedClass(
     nativeType: $flutter_13.OutlinedBorder,
     name: 'OutlinedBorder',
+    isAssignable: (v) => v is $flutter_13.OutlinedBorder,
     constructors: {
     },
     getters: {
@@ -2729,6 +2751,7 @@ BridgedClass _createBoxBorderBridge() {
   return BridgedClass(
     nativeType: $flutter_14.BoxBorder,
     name: 'BoxBorder',
+    isAssignable: (v) => v is $flutter_14.BoxBorder,
     constructors: {
       'fromLTRB': (visitor, positional, named) {
         final top = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'top', $flutter_13.BorderSide.none);
@@ -2881,6 +2904,7 @@ BridgedClass _createBorderBridge() {
   return BridgedClass(
     nativeType: $flutter_14.Border,
     name: 'Border',
+    isAssignable: (v) => v is $flutter_14.Border,
     constructors: {
       '': (visitor, positional, named) {
         final top = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'top', $flutter_13.BorderSide.none);
@@ -3036,6 +3060,7 @@ BridgedClass _createBorderDirectionalBridge() {
   return BridgedClass(
     nativeType: $flutter_14.BorderDirectional,
     name: 'BorderDirectional',
+    isAssignable: (v) => v is $flutter_14.BorderDirectional,
     constructors: {
       '': (visitor, positional, named) {
         final top = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'top', $flutter_13.BorderSide.none);
@@ -3171,6 +3196,7 @@ BridgedClass _createBoxDecorationBridge() {
   return BridgedClass(
     nativeType: $flutter_15.BoxDecoration,
     name: 'BoxDecoration',
+    isAssignable: (v) => v is $flutter_15.BoxDecoration,
     constructors: {
       '': (visitor, positional, named) {
         final color = D4.getOptionalNamedArg<Color?>(named, 'color');
@@ -3311,6 +3337,7 @@ BridgedClass _createFittedSizesBridge() {
   return BridgedClass(
     nativeType: $flutter_16.FittedSizes,
     name: 'FittedSizes',
+    isAssignable: (v) => v is $flutter_16.FittedSizes,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'FittedSizes');
@@ -3341,6 +3368,7 @@ BridgedClass _createBoxShadowBridge() {
   return BridgedClass(
     nativeType: $flutter_17.BoxShadow,
     name: 'BoxShadow',
+    isAssignable: (v) => v is $flutter_17.BoxShadow,
     constructors: {
       '': (visitor, positional, named) {
         final offset = D4.getNamedArgWithDefault<Offset>(named, 'offset', $dart_ui.Offset.zero);
@@ -3451,6 +3479,7 @@ BridgedClass _createCircleBorderBridge() {
   return BridgedClass(
     nativeType: $flutter_18.CircleBorder,
     name: 'CircleBorder',
+    isAssignable: (v) => v is $flutter_18.CircleBorder,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
@@ -3572,6 +3601,7 @@ BridgedClass _createClipContextBridge() {
   return BridgedClass(
     nativeType: $flutter_19.ClipContext,
     name: 'ClipContext',
+    isAssignable: (v) => v is $flutter_19.ClipContext,
     constructors: {
     },
     getters: {
@@ -3651,6 +3681,7 @@ BridgedClass _createHSVColorBridge() {
   return BridgedClass(
     nativeType: $flutter_20.HSVColor,
     name: 'HSVColor',
+    isAssignable: (v) => v is $flutter_20.HSVColor,
     constructors: {
       'fromAHSV': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'HSVColor');
@@ -3754,6 +3785,7 @@ BridgedClass _createHSLColorBridge() {
   return BridgedClass(
     nativeType: $flutter_20.HSLColor,
     name: 'HSLColor',
+    isAssignable: (v) => v is $flutter_20.HSLColor,
     constructors: {
       'fromAHSL': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'HSLColor');
@@ -3857,6 +3889,7 @@ BridgedClass _createColorSwatchBridge() {
   return BridgedClass(
     nativeType: $flutter_20.ColorSwatch,
     name: 'ColorSwatch',
+    isAssignable: (v) => v is $flutter_20.ColorSwatch,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ColorSwatch');
@@ -3998,6 +4031,7 @@ BridgedClass _createColorPropertyBridge() {
   return BridgedClass(
     nativeType: $flutter_20.ColorProperty,
     name: 'ColorProperty',
+    isAssignable: (v) => v is $flutter_20.ColorProperty,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ColorProperty');
@@ -4143,6 +4177,7 @@ BridgedClass _createContinuousRectangleBorderBridge() {
   return BridgedClass(
     nativeType: $flutter_21.ContinuousRectangleBorder,
     name: 'ContinuousRectangleBorder',
+    isAssignable: (v) => v is $flutter_21.ContinuousRectangleBorder,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
@@ -4264,6 +4299,7 @@ BridgedClass _createImageSizeInfoBridge() {
   return BridgedClass(
     nativeType: $flutter_22.ImageSizeInfo,
     name: 'ImageSizeInfo',
+    isAssignable: (v) => v is $flutter_22.ImageSizeInfo,
     constructors: {
       '': (visitor, positional, named) {
         final source = D4.getOptionalNamedArg<String?>(named, 'source');
@@ -4321,6 +4357,7 @@ BridgedClass _createDecorationBridge() {
   return BridgedClass(
     nativeType: $flutter_23.Decoration,
     name: 'Decoration',
+    isAssignable: (v) => v is $flutter_23.Decoration,
     constructors: {
     },
     getters: {
@@ -4404,6 +4441,7 @@ BridgedClass _createBoxPainterBridge() {
   return BridgedClass(
     nativeType: $flutter_23.BoxPainter,
     name: 'BoxPainter',
+    isAssignable: (v) => v is $flutter_23.BoxPainter,
     constructors: {
     },
     getters: {
@@ -4443,6 +4481,7 @@ BridgedClass _createDecorationImageBridge() {
   return BridgedClass(
     nativeType: $flutter_24.DecorationImage,
     name: 'DecorationImage',
+    isAssignable: (v) => v is $flutter_24.DecorationImage,
     constructors: {
       '': (visitor, positional, named) {
         final image = D4.getRequiredNamedArg<$flutter_32.ImageProvider<Object>>(named, 'image', 'DecorationImage');
@@ -4543,6 +4582,7 @@ BridgedClass _createDecorationImagePainterBridge() {
   return BridgedClass(
     nativeType: $flutter_24.DecorationImagePainter,
     name: 'DecorationImagePainter',
+    isAssignable: (v) => v is $flutter_24.DecorationImagePainter,
     constructors: {
     },
     methods: {
@@ -4579,6 +4619,7 @@ BridgedClass _createEdgeInsetsGeometryBridge() {
   return BridgedClass(
     nativeType: $flutter_25.EdgeInsetsGeometry,
     name: 'EdgeInsetsGeometry',
+    isAssignable: (v) => v is $flutter_25.EdgeInsetsGeometry,
     constructors: {
       'all': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'EdgeInsetsGeometry');
@@ -4771,6 +4812,7 @@ BridgedClass _createEdgeInsetsBridge() {
   return BridgedClass(
     nativeType: $flutter_25.EdgeInsets,
     name: 'EdgeInsets',
+    isAssignable: (v) => v is $flutter_25.EdgeInsets,
     constructors: {
       'fromLTRB': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'EdgeInsets');
@@ -5016,6 +5058,7 @@ BridgedClass _createEdgeInsetsDirectionalBridge() {
   return BridgedClass(
     nativeType: $flutter_25.EdgeInsetsDirectional,
     name: 'EdgeInsetsDirectional',
+    isAssignable: (v) => v is $flutter_25.EdgeInsetsDirectional,
     constructors: {
       'fromSTEB': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'EdgeInsetsDirectional');
@@ -5211,6 +5254,7 @@ BridgedClass _createFlutterLogoDecorationBridge() {
   return BridgedClass(
     nativeType: $flutter_26.FlutterLogoDecoration,
     name: 'FlutterLogoDecoration',
+    isAssignable: (v) => v is $flutter_26.FlutterLogoDecoration,
     constructors: {
       '': (visitor, positional, named) {
         final textColor = D4.getNamedArgWithDefault<Color>(named, 'textColor', const $dart_ui.Color(0xFF757575));
@@ -5316,6 +5360,7 @@ BridgedClass _createFractionalOffsetBridge() {
   return BridgedClass(
     nativeType: $flutter_27.FractionalOffset,
     name: 'FractionalOffset',
+    isAssignable: (v) => v is $flutter_27.FractionalOffset,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'FractionalOffset');
@@ -5493,6 +5538,7 @@ BridgedClass _createGradientTransformBridge() {
   return BridgedClass(
     nativeType: $flutter_29.GradientTransform,
     name: 'GradientTransform',
+    isAssignable: (v) => v is $flutter_29.GradientTransform,
     constructors: {
     },
     methods: {
@@ -5518,6 +5564,7 @@ BridgedClass _createGradientRotationBridge() {
   return BridgedClass(
     nativeType: $flutter_29.GradientRotation,
     name: 'GradientRotation',
+    isAssignable: (v) => v is $flutter_29.GradientRotation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'GradientRotation');
@@ -5569,6 +5616,7 @@ BridgedClass _createGradientBridge() {
   return BridgedClass(
     nativeType: $flutter_29.Gradient,
     name: 'Gradient',
+    isAssignable: (v) => v is $flutter_29.Gradient,
     constructors: {
     },
     getters: {
@@ -5630,6 +5678,7 @@ BridgedClass _createLinearGradientBridge() {
   return BridgedClass(
     nativeType: $flutter_29.LinearGradient,
     name: 'LinearGradient',
+    isAssignable: (v) => v is $flutter_29.LinearGradient,
     constructors: {
       '': (visitor, positional, named) {
         final begin = D4.getNamedArgWithDefault<$flutter_8.AlignmentGeometry>(named, 'begin', $flutter_8.Alignment.centerLeft);
@@ -5724,6 +5773,7 @@ BridgedClass _createRadialGradientBridge() {
   return BridgedClass(
     nativeType: $flutter_29.RadialGradient,
     name: 'RadialGradient',
+    isAssignable: (v) => v is $flutter_29.RadialGradient,
     constructors: {
       '': (visitor, positional, named) {
         final center = D4.getNamedArgWithDefault<$flutter_8.AlignmentGeometry>(named, 'center', $flutter_8.Alignment.center);
@@ -5824,6 +5874,7 @@ BridgedClass _createSweepGradientBridge() {
   return BridgedClass(
     nativeType: $flutter_29.SweepGradient,
     name: 'SweepGradient',
+    isAssignable: (v) => v is $flutter_29.SweepGradient,
     constructors: {
       '': (visitor, positional, named) {
         final center = D4.getNamedArgWithDefault<$flutter_8.AlignmentGeometry>(named, 'center', $flutter_8.Alignment.center);
@@ -5927,6 +5978,7 @@ BridgedClass _createImageCacheBridge() {
   return BridgedClass(
     nativeType: $flutter_30.ImageCache,
     name: 'ImageCache',
+    isAssignable: (v) => v is $flutter_30.ImageCache,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_30.ImageCache();
@@ -6022,6 +6074,7 @@ BridgedClass _createImageCacheStatusBridge() {
   return BridgedClass(
     nativeType: $flutter_30.ImageCacheStatus,
     name: 'ImageCacheStatus',
+    isAssignable: (v) => v is $flutter_30.ImageCacheStatus,
     constructors: {
     },
     getters: {
@@ -6065,6 +6118,7 @@ BridgedClass _createImageConfigurationBridge() {
   return BridgedClass(
     nativeType: $flutter_32.ImageConfiguration,
     name: 'ImageConfiguration',
+    isAssignable: (v) => v is $flutter_32.ImageConfiguration,
     constructors: {
       '': (visitor, positional, named) {
         final bundle = D4.getOptionalNamedArg<$flutter_54.AssetBundle?>(named, 'bundle');
@@ -6139,6 +6193,7 @@ BridgedClass _createImageProviderBridge() {
   return BridgedClass(
     nativeType: $flutter_32.ImageProvider,
     name: 'ImageProvider',
+    isAssignable: (v) => v is $flutter_32.ImageProvider,
     constructors: {
     },
     methods: {
@@ -6189,6 +6244,7 @@ BridgedClass _createAssetBundleImageKeyBridge() {
   return BridgedClass(
     nativeType: $flutter_32.AssetBundleImageKey,
     name: 'AssetBundleImageKey',
+    isAssignable: (v) => v is $flutter_32.AssetBundleImageKey,
     constructors: {
       '': (visitor, positional, named) {
         final bundle = D4.getRequiredNamedArg<$flutter_54.AssetBundle>(named, 'bundle', 'AssetBundleImageKey');
@@ -6237,6 +6293,7 @@ BridgedClass _createAssetBundleImageProviderBridge() {
   return BridgedClass(
     nativeType: $flutter_32.AssetBundleImageProvider,
     name: 'AssetBundleImageProvider',
+    isAssignable: (v) => v is $flutter_32.AssetBundleImageProvider,
     constructors: {
     },
     methods: {
@@ -6287,6 +6344,7 @@ BridgedClass _createResizeImageKeyBridge() {
   return BridgedClass(
     nativeType: $flutter_32.ResizeImageKey,
     name: 'ResizeImageKey',
+    isAssignable: (v) => v is $flutter_32.ResizeImageKey,
     constructors: {
     },
     getters: {
@@ -6313,6 +6371,7 @@ BridgedClass _createResizeImageBridge() {
   return BridgedClass(
     nativeType: $flutter_32.ResizeImage,
     name: 'ResizeImage',
+    isAssignable: (v) => v is $flutter_32.ResizeImage,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ResizeImage');
@@ -6408,6 +6467,7 @@ BridgedClass _createNetworkImageBridge() {
   return BridgedClass(
     nativeType: $flutter_32.NetworkImage,
     name: 'NetworkImage',
+    isAssignable: (v) => v is $flutter_32.NetworkImage,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'NetworkImage');
@@ -6481,6 +6541,7 @@ BridgedClass _createFileImageBridge() {
   return BridgedClass(
     nativeType: $flutter_32.FileImage,
     name: 'FileImage',
+    isAssignable: (v) => v is $flutter_32.FileImage,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FileImage');
@@ -6555,6 +6616,7 @@ BridgedClass _createMemoryImageBridge() {
   return BridgedClass(
     nativeType: $flutter_32.MemoryImage,
     name: 'MemoryImage',
+    isAssignable: (v) => v is $flutter_32.MemoryImage,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MemoryImage');
@@ -6629,6 +6691,7 @@ BridgedClass _createExactAssetImageBridge() {
   return BridgedClass(
     nativeType: $flutter_32.ExactAssetImage,
     name: 'ExactAssetImage',
+    isAssignable: (v) => v is $flutter_32.ExactAssetImage,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ExactAssetImage');
@@ -6733,6 +6796,7 @@ BridgedClass _createNetworkImageLoadExceptionBridge() {
   return BridgedClass(
     nativeType: $flutter_32.NetworkImageLoadException,
     name: 'NetworkImageLoadException',
+    isAssignable: (v) => v is $flutter_32.NetworkImageLoadException,
     constructors: {
       '': (visitor, positional, named) {
         final statusCode = D4.getRequiredNamedArg<int>(named, 'statusCode', 'NetworkImageLoadException');
@@ -6771,6 +6835,7 @@ BridgedClass _createAssetImageBridge() {
   return BridgedClass(
     nativeType: $flutter_33.AssetImage,
     name: 'AssetImage',
+    isAssignable: (v) => v is $flutter_33.AssetImage,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AssetImage');
@@ -6872,6 +6937,7 @@ BridgedClass _createImageInfoBridge() {
   return BridgedClass(
     nativeType: $flutter_34.ImageInfo,
     name: 'ImageInfo',
+    isAssignable: (v) => v is $flutter_34.ImageInfo,
     constructors: {
       '': (visitor, positional, named) {
         final image = D4.getRequiredNamedArg<Image>(named, 'image', 'ImageInfo');
@@ -6940,6 +7006,7 @@ BridgedClass _createImageStreamListenerBridge() {
   return BridgedClass(
     nativeType: $flutter_34.ImageStreamListener,
     name: 'ImageStreamListener',
+    isAssignable: (v) => v is $flutter_34.ImageStreamListener,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ImageStreamListener');
@@ -6985,6 +7052,7 @@ BridgedClass _createImageChunkEventBridge() {
   return BridgedClass(
     nativeType: $flutter_34.ImageChunkEvent,
     name: 'ImageChunkEvent',
+    isAssignable: (v) => v is $flutter_34.ImageChunkEvent,
     constructors: {
       '': (visitor, positional, named) {
         final cumulativeBytesLoaded = D4.getRequiredNamedArg<int>(named, 'cumulativeBytesLoaded', 'ImageChunkEvent');
@@ -7036,6 +7104,7 @@ BridgedClass _createImageStreamBridge() {
   return BridgedClass(
     nativeType: $flutter_34.ImageStream,
     name: 'ImageStream',
+    isAssignable: (v) => v is $flutter_34.ImageStream,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_34.ImageStream();
@@ -7109,6 +7178,7 @@ BridgedClass _createImageStreamCompleterHandleBridge() {
   return BridgedClass(
     nativeType: $flutter_34.ImageStreamCompleterHandle,
     name: 'ImageStreamCompleterHandle',
+    isAssignable: (v) => v is $flutter_34.ImageStreamCompleterHandle,
     constructors: {
     },
     methods: {
@@ -7132,6 +7202,7 @@ BridgedClass _createImageStreamCompleterBridge() {
   return BridgedClass(
     nativeType: $flutter_34.ImageStreamCompleter,
     name: 'ImageStreamCompleter',
+    isAssignable: (v) => v is $flutter_34.ImageStreamCompleter,
     constructors: {
     },
     getters: {
@@ -7251,6 +7322,7 @@ BridgedClass _createOneFrameImageStreamCompleterBridge() {
   return BridgedClass(
     nativeType: $flutter_34.OneFrameImageStreamCompleter,
     name: 'OneFrameImageStreamCompleter',
+    isAssignable: (v) => v is $flutter_34.OneFrameImageStreamCompleter,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'OneFrameImageStreamCompleter');
@@ -7387,6 +7459,7 @@ BridgedClass _createMultiFrameImageStreamCompleterBridge() {
   return BridgedClass(
     nativeType: $flutter_34.MultiFrameImageStreamCompleter,
     name: 'MultiFrameImageStreamCompleter',
+    isAssignable: (v) => v is $flutter_34.MultiFrameImageStreamCompleter,
     constructors: {
       '': (visitor, positional, named) {
         final codec = D4.getRequiredNamedArg<Future<Codec>>(named, 'codec', 'MultiFrameImageStreamCompleter');
@@ -7525,6 +7598,7 @@ BridgedClass _createAccumulatorBridge() {
   return BridgedClass(
     nativeType: $flutter_35.Accumulator,
     name: 'Accumulator',
+    isAssignable: (v) => v is $flutter_35.Accumulator,
     constructors: {
       '': (visitor, positional, named) {
         final value = D4.getOptionalArgWithDefault<int>(positional, 0, '_value', 0);
@@ -7563,6 +7637,7 @@ BridgedClass _createInlineSpanSemanticsInformationBridge() {
   return BridgedClass(
     nativeType: $flutter_35.InlineSpanSemanticsInformation,
     name: 'InlineSpanSemanticsInformation',
+    isAssignable: (v) => v is $flutter_35.InlineSpanSemanticsInformation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'InlineSpanSemanticsInformation');
@@ -7631,6 +7706,7 @@ BridgedClass _createInlineSpanBridge() {
   return BridgedClass(
     nativeType: $flutter_35.InlineSpan,
     name: 'InlineSpan',
+    isAssignable: (v) => v is $flutter_35.InlineSpan,
     constructors: {
     },
     getters: {
@@ -7763,6 +7839,7 @@ BridgedClass _createLinearBorderEdgeBridge() {
   return BridgedClass(
     nativeType: $flutter_36.LinearBorderEdge,
     name: 'LinearBorderEdge',
+    isAssignable: (v) => v is $flutter_36.LinearBorderEdge,
     constructors: {
       '': (visitor, positional, named) {
         final size = D4.getNamedArgWithDefault<double>(named, 'size', 1.0);
@@ -7820,6 +7897,7 @@ BridgedClass _createLinearBorderBridge() {
   return BridgedClass(
     nativeType: $flutter_36.LinearBorder,
     name: 'LinearBorder',
+    isAssignable: (v) => v is $flutter_36.LinearBorder,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
@@ -7987,6 +8065,7 @@ BridgedClass _createMatrixUtilsBridge() {
   return BridgedClass(
     nativeType: $flutter_37.MatrixUtils,
     name: 'MatrixUtils',
+    isAssignable: (v) => v is $flutter_37.MatrixUtils,
     constructors: {
     },
     staticMethods: {
@@ -8071,6 +8150,7 @@ BridgedClass _createTransformPropertyBridge() {
   return BridgedClass(
     nativeType: $flutter_37.TransformProperty,
     name: 'TransformProperty',
+    isAssignable: (v) => v is $flutter_37.TransformProperty,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'TransformProperty');
@@ -8215,6 +8295,7 @@ BridgedClass _createNotchedShapeBridge() {
   return BridgedClass(
     nativeType: $flutter_38.NotchedShape,
     name: 'NotchedShape',
+    isAssignable: (v) => v is $flutter_38.NotchedShape,
     constructors: {
     },
     methods: {
@@ -8240,6 +8321,7 @@ BridgedClass _createCircularNotchedRectangleBridge() {
   return BridgedClass(
     nativeType: $flutter_38.CircularNotchedRectangle,
     name: 'CircularNotchedRectangle',
+    isAssignable: (v) => v is $flutter_38.CircularNotchedRectangle,
     constructors: {
       '': (visitor, positional, named) {
         final inverted = D4.getNamedArgWithDefault<bool>(named, 'inverted', false);
@@ -8278,6 +8360,7 @@ BridgedClass _createAutomaticNotchedShapeBridge() {
   return BridgedClass(
     nativeType: $flutter_38.AutomaticNotchedShape,
     name: 'AutomaticNotchedShape',
+    isAssignable: (v) => v is $flutter_38.AutomaticNotchedShape,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AutomaticNotchedShape');
@@ -8320,6 +8403,7 @@ BridgedClass _createOvalBorderBridge() {
   return BridgedClass(
     nativeType: $flutter_39.OvalBorder,
     name: 'OvalBorder',
+    isAssignable: (v) => v is $flutter_39.OvalBorder,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
@@ -8441,6 +8525,7 @@ BridgedClass _createPlaceholderSpanBridge() {
   return BridgedClass(
     nativeType: $flutter_41.PlaceholderSpan,
     name: 'PlaceholderSpan',
+    isAssignable: (v) => v is $flutter_41.PlaceholderSpan,
     constructors: {
     },
     getters: {
@@ -8591,6 +8676,7 @@ BridgedClass _createRoundedRectangleBorderBridge() {
   return BridgedClass(
     nativeType: $flutter_42.RoundedRectangleBorder,
     name: 'RoundedRectangleBorder',
+    isAssignable: (v) => v is $flutter_42.RoundedRectangleBorder,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
@@ -8712,6 +8798,7 @@ BridgedClass _createRoundedSuperellipseBorderBridge() {
   return BridgedClass(
     nativeType: $flutter_42.RoundedSuperellipseBorder,
     name: 'RoundedSuperellipseBorder',
+    isAssignable: (v) => v is $flutter_42.RoundedSuperellipseBorder,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
@@ -8833,6 +8920,7 @@ BridgedClass _createShaderWarmUpBridge() {
   return BridgedClass(
     nativeType: $flutter_43.ShaderWarmUp,
     name: 'ShaderWarmUp',
+    isAssignable: (v) => v is $flutter_43.ShaderWarmUp,
     constructors: {
     },
     getters: {
@@ -8861,6 +8949,7 @@ BridgedClass _createShapeDecorationBridge() {
   return BridgedClass(
     nativeType: $flutter_44.ShapeDecoration,
     name: 'ShapeDecoration',
+    isAssignable: (v) => v is $flutter_44.ShapeDecoration,
     constructors: {
       '': (visitor, positional, named) {
         final color = D4.getOptionalNamedArg<Color?>(named, 'color');
@@ -8978,6 +9067,7 @@ BridgedClass _createStadiumBorderBridge() {
   return BridgedClass(
     nativeType: $flutter_45.StadiumBorder,
     name: 'StadiumBorder',
+    isAssignable: (v) => v is $flutter_45.StadiumBorder,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
@@ -9095,6 +9185,7 @@ BridgedClass _createStarBorderBridge() {
   return BridgedClass(
     nativeType: $flutter_46.StarBorder,
     name: 'StarBorder',
+    isAssignable: (v) => v is $flutter_46.StarBorder,
     constructors: {
       '': (visitor, positional, named) {
         final side = D4.getNamedArgWithDefault<$flutter_13.BorderSide>(named, 'side', $flutter_13.BorderSide.none);
@@ -9245,6 +9336,7 @@ BridgedClass _createStrutStyleBridge() {
   return BridgedClass(
     nativeType: $flutter_47.StrutStyle,
     name: 'StrutStyle',
+    isAssignable: (v) => v is $flutter_47.StrutStyle,
     constructors: {
       '': (visitor, positional, named) {
         final fontFamily = D4.getOptionalNamedArg<String?>(named, 'fontFamily');
@@ -9372,6 +9464,7 @@ BridgedClass _createTextSelectionBridge() {
   return BridgedClass(
     nativeType: $flutter_62.TextSelection,
     name: 'TextSelection',
+    isAssignable: (v) => v is $flutter_62.TextSelection,
     constructors: {
       '': (visitor, positional, named) {
         final baseOffset = D4.getRequiredNamedArg<int>(named, 'baseOffset', 'TextSelection');
@@ -9494,6 +9587,7 @@ BridgedClass _createPlaceholderDimensionsBridge() {
   return BridgedClass(
     nativeType: $flutter_48.PlaceholderDimensions,
     name: 'PlaceholderDimensions',
+    isAssignable: (v) => v is $flutter_48.PlaceholderDimensions,
     constructors: {
       '': (visitor, positional, named) {
         final size = D4.getRequiredNamedArg<Size>(named, 'size', 'PlaceholderDimensions');
@@ -9551,6 +9645,7 @@ BridgedClass _createWordBoundaryBridge() {
   return BridgedClass(
     nativeType: $flutter_48.WordBoundary,
     name: 'WordBoundary',
+    isAssignable: (v) => v is $flutter_48.WordBoundary,
     constructors: {
     },
     getters: {
@@ -9595,6 +9690,7 @@ BridgedClass _createTextPainterBridge() {
   return BridgedClass(
     nativeType: $flutter_48.TextPainter,
     name: 'TextPainter',
+    isAssignable: (v) => v is $flutter_48.TextPainter,
     constructors: {
       '': (visitor, positional, named) {
         final text = D4.getOptionalNamedArg<$flutter_35.InlineSpan?>(named, 'text');
@@ -9927,6 +10023,7 @@ BridgedClass _createTextScalerBridge() {
   return BridgedClass(
     nativeType: $flutter_49.TextScaler,
     name: 'TextScaler',
+    isAssignable: (v) => v is $flutter_49.TextScaler,
     constructors: {
       'linear': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TextScaler');
@@ -9984,6 +10081,7 @@ BridgedClass _createTextSpanBridge() {
   return BridgedClass(
     nativeType: $flutter_50.TextSpan,
     name: 'TextSpan',
+    isAssignable: (v) => v is $flutter_50.TextSpan,
     constructors: {
       '': (visitor, positional, named) {
         final text = D4.getOptionalNamedArg<String?>(named, 'text');
@@ -10174,6 +10272,7 @@ BridgedClass _createTextStyleBridge() {
   return BridgedClass(
     nativeType: $flutter_51.TextStyle,
     name: 'TextStyle',
+    isAssignable: (v) => v is $flutter_51.TextStyle,
     constructors: {
       '': (visitor, positional, named) {
         final inherit = D4.getNamedArgWithDefault<bool>(named, 'inherit', true);
@@ -10416,6 +10515,7 @@ BridgedClass _createMatrix4Bridge() {
   return BridgedClass(
     nativeType: $vector_math_1.Matrix4,
     name: 'Matrix4',
+    isAssignable: (v) => v is $vector_math_1.Matrix4,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 16, 'Matrix4');
@@ -11394,6 +11494,7 @@ BridgedClass _createVector3Bridge() {
   return BridgedClass(
     nativeType: $vector_math_1.Vector3,
     name: 'Vector3',
+    isAssignable: (v) => v is $vector_math_1.Vector3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Vector3');
@@ -12749,6 +12850,7 @@ BridgedClass _createVector2Bridge() {
   return BridgedClass(
     nativeType: $vector_math_1.Vector2,
     name: 'Vector2',
+    isAssignable: (v) => v is $vector_math_1.Vector2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Vector2');

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 11 files
-// Generated: 2026-03-01T06:38:15.367575
+// Generated: 2026-03-01T07:42:05.923901
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -144,6 +144,16 @@ class FlutterAnimationBridge {
       'TweenSequence': 'package:flutter/src/animation/tween_sequence.dart',
       'FlippedTweenSequence': 'package:flutter/src/animation/tween_sequence.dart',
       'TweenSequenceItem': 'package:flutter/src/animation/tween_sequence.dart',
+    };
+  }
+
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
     };
   }
 
@@ -307,6 +317,7 @@ BridgedClass _createTickerProviderBridge() {
   return BridgedClass(
     nativeType: $flutter_14.TickerProvider,
     name: 'TickerProvider',
+    isAssignable: (v) => v is $flutter_14.TickerProvider,
     constructors: {
     },
     methods: {
@@ -334,6 +345,7 @@ BridgedClass _createTickerFutureBridge() {
   return BridgedClass(
     nativeType: $flutter_14.TickerFuture,
     name: 'TickerFuture',
+    isAssignable: (v) => v is $flutter_14.TickerFuture,
     constructors: {
       'complete': (visitor, positional, named) {
         return $flutter_14.TickerFuture.complete();
@@ -421,6 +433,7 @@ BridgedClass _createTickerCanceledBridge() {
   return BridgedClass(
     nativeType: $flutter_14.TickerCanceled,
     name: 'TickerCanceled',
+    isAssignable: (v) => v is $flutter_14.TickerCanceled,
     constructors: {
       '': (visitor, positional, named) {
         final ticker = D4.getOptionalArg<$flutter_14.Ticker?>(positional, 0, 'ticker');
@@ -456,6 +469,7 @@ BridgedClass _createAnimationBridge() {
   return BridgedClass(
     nativeType: $flutter_1.Animation,
     name: 'Animation',
+    isAssignable: (v) => v is $flutter_1.Animation,
     constructors: {
       'fromValueListenable': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Animation');
@@ -559,6 +573,7 @@ BridgedClass _createParametricCurveBridge() {
   return BridgedClass(
     nativeType: $flutter_5.ParametricCurve,
     name: 'ParametricCurve',
+    isAssignable: (v) => v is $flutter_5.ParametricCurve,
     constructors: {
     },
     methods: {
@@ -588,6 +603,7 @@ BridgedClass _createCurveBridge() {
   return BridgedClass(
     nativeType: $flutter_5.Curve,
     name: 'Curve',
+    isAssignable: (v) => v is $flutter_5.Curve,
     constructors: {
     },
     getters: {
@@ -623,6 +639,7 @@ BridgedClass _createSawToothBridge() {
   return BridgedClass(
     nativeType: $flutter_5.SawTooth,
     name: 'SawTooth',
+    isAssignable: (v) => v is $flutter_5.SawTooth,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SawTooth');
@@ -668,6 +685,7 @@ BridgedClass _createIntervalBridge() {
   return BridgedClass(
     nativeType: $flutter_5.Interval,
     name: 'Interval',
+    isAssignable: (v) => v is $flutter_5.Interval,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Interval');
@@ -719,6 +737,7 @@ BridgedClass _createSplitBridge() {
   return BridgedClass(
     nativeType: $flutter_5.Split,
     name: 'Split',
+    isAssignable: (v) => v is $flutter_5.Split,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Split');
@@ -770,6 +789,7 @@ BridgedClass _createThresholdBridge() {
   return BridgedClass(
     nativeType: $flutter_5.Threshold,
     name: 'Threshold',
+    isAssignable: (v) => v is $flutter_5.Threshold,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Threshold');
@@ -815,6 +835,7 @@ BridgedClass _createCubicBridge() {
   return BridgedClass(
     nativeType: $flutter_5.Cubic,
     name: 'Cubic',
+    isAssignable: (v) => v is $flutter_5.Cubic,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'Cubic');
@@ -869,6 +890,7 @@ BridgedClass _createThreePointCubicBridge() {
   return BridgedClass(
     nativeType: $flutter_5.ThreePointCubic,
     name: 'ThreePointCubic',
+    isAssignable: (v) => v is $flutter_5.ThreePointCubic,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 5, 'ThreePointCubic');
@@ -926,6 +948,7 @@ BridgedClass _createCurve2DBridge() {
   return BridgedClass(
     nativeType: $flutter_5.Curve2D,
     name: 'Curve2D',
+    isAssignable: (v) => v is $flutter_5.Curve2D,
     constructors: {
     },
     methods: {
@@ -970,6 +993,7 @@ BridgedClass _createCurve2DSampleBridge() {
   return BridgedClass(
     nativeType: $flutter_5.Curve2DSample,
     name: 'Curve2DSample',
+    isAssignable: (v) => v is $flutter_5.Curve2DSample,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Curve2DSample');
@@ -1009,6 +1033,7 @@ BridgedClass _createCatmullRomSplineBridge() {
   return BridgedClass(
     nativeType: $flutter_5.CatmullRomSpline,
     name: 'CatmullRomSpline',
+    isAssignable: (v) => v is $flutter_5.CatmullRomSpline,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CatmullRomSpline');
@@ -1079,6 +1104,7 @@ BridgedClass _createCatmullRomCurveBridge() {
   return BridgedClass(
     nativeType: $flutter_5.CatmullRomCurve,
     name: 'CatmullRomCurve',
+    isAssignable: (v) => v is $flutter_5.CatmullRomCurve,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CatmullRomCurve');
@@ -1155,6 +1181,7 @@ BridgedClass _createFlippedCurveBridge() {
   return BridgedClass(
     nativeType: $flutter_5.FlippedCurve,
     name: 'FlippedCurve',
+    isAssignable: (v) => v is $flutter_5.FlippedCurve,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FlippedCurve');
@@ -1200,6 +1227,7 @@ BridgedClass _createElasticInCurveBridge() {
   return BridgedClass(
     nativeType: $flutter_5.ElasticInCurve,
     name: 'ElasticInCurve',
+    isAssignable: (v) => v is $flutter_5.ElasticInCurve,
     constructors: {
       '': (visitor, positional, named) {
         final period = D4.getOptionalArgWithDefault<double>(positional, 0, 'period', 0.4);
@@ -1244,6 +1272,7 @@ BridgedClass _createElasticOutCurveBridge() {
   return BridgedClass(
     nativeType: $flutter_5.ElasticOutCurve,
     name: 'ElasticOutCurve',
+    isAssignable: (v) => v is $flutter_5.ElasticOutCurve,
     constructors: {
       '': (visitor, positional, named) {
         final period = D4.getOptionalArgWithDefault<double>(positional, 0, 'period', 0.4);
@@ -1288,6 +1317,7 @@ BridgedClass _createElasticInOutCurveBridge() {
   return BridgedClass(
     nativeType: $flutter_5.ElasticInOutCurve,
     name: 'ElasticInOutCurve',
+    isAssignable: (v) => v is $flutter_5.ElasticInOutCurve,
     constructors: {
       '': (visitor, positional, named) {
         final period = D4.getOptionalArgWithDefault<double>(positional, 0, 'period', 0.4);
@@ -1332,6 +1362,7 @@ BridgedClass _createCurvesBridge() {
   return BridgedClass(
     nativeType: $flutter_5.Curves,
     name: 'Curves',
+    isAssignable: (v) => v is $flutter_5.Curves,
     constructors: {
     },
     staticGetters: {
@@ -1435,6 +1466,7 @@ BridgedClass _createAnimatableBridge() {
   return BridgedClass(
     nativeType: $flutter_7.Animatable,
     name: 'Animatable',
+    isAssignable: (v) => v is $flutter_7.Animatable,
     constructors: {
       'fromCallback': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Animatable');
@@ -1491,6 +1523,7 @@ BridgedClass _createTweenBridge() {
   return BridgedClass(
     nativeType: $flutter_7.Tween,
     name: 'Tween',
+    isAssignable: (v) => v is $flutter_7.Tween,
     constructors: {
       '': (visitor, positional, named) {
         final begin = D4.getOptionalNamedArg<Object?>(named, 'begin');
@@ -1567,6 +1600,7 @@ BridgedClass _createReverseTweenBridge() {
   return BridgedClass(
     nativeType: $flutter_7.ReverseTween,
     name: 'ReverseTween',
+    isAssignable: (v) => v is $flutter_7.ReverseTween,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ReverseTween');
@@ -1645,6 +1679,7 @@ BridgedClass _createColorTweenBridge() {
   return BridgedClass(
     nativeType: $flutter_7.ColorTween,
     name: 'ColorTween',
+    isAssignable: (v) => v is $flutter_7.ColorTween,
     constructors: {
       '': (visitor, positional, named) {
         final begin = D4.getOptionalNamedArg<Color?>(named, 'begin');
@@ -1721,6 +1756,7 @@ BridgedClass _createSizeTweenBridge() {
   return BridgedClass(
     nativeType: $flutter_7.SizeTween,
     name: 'SizeTween',
+    isAssignable: (v) => v is $flutter_7.SizeTween,
     constructors: {
       '': (visitor, positional, named) {
         final begin = D4.getOptionalNamedArg<Size?>(named, 'begin');
@@ -1797,6 +1833,7 @@ BridgedClass _createRectTweenBridge() {
   return BridgedClass(
     nativeType: $flutter_7.RectTween,
     name: 'RectTween',
+    isAssignable: (v) => v is $flutter_7.RectTween,
     constructors: {
       '': (visitor, positional, named) {
         final begin = D4.getOptionalNamedArg<Rect?>(named, 'begin');
@@ -1873,6 +1910,7 @@ BridgedClass _createIntTweenBridge() {
   return BridgedClass(
     nativeType: $flutter_7.IntTween,
     name: 'IntTween',
+    isAssignable: (v) => v is $flutter_7.IntTween,
     constructors: {
       '': (visitor, positional, named) {
         final begin = D4.getOptionalNamedArg<int?>(named, 'begin');
@@ -1949,6 +1987,7 @@ BridgedClass _createStepTweenBridge() {
   return BridgedClass(
     nativeType: $flutter_7.StepTween,
     name: 'StepTween',
+    isAssignable: (v) => v is $flutter_7.StepTween,
     constructors: {
       '': (visitor, positional, named) {
         final begin = D4.getOptionalNamedArg<int?>(named, 'begin');
@@ -2025,6 +2064,7 @@ BridgedClass _createConstantTweenBridge() {
   return BridgedClass(
     nativeType: $flutter_7.ConstantTween,
     name: 'ConstantTween',
+    isAssignable: (v) => v is $flutter_7.ConstantTween,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ConstantTween');
@@ -2101,6 +2141,7 @@ BridgedClass _createCurveTweenBridge() {
   return BridgedClass(
     nativeType: $flutter_7.CurveTween,
     name: 'CurveTween',
+    isAssignable: (v) => v is $flutter_7.CurveTween,
     constructors: {
       '': (visitor, positional, named) {
         final curve = D4.getRequiredNamedArg<$flutter_5.Curve>(named, 'curve', 'CurveTween');
@@ -2171,6 +2212,7 @@ BridgedClass _createSimulationBridge() {
   return BridgedClass(
     nativeType: $flutter_11.Simulation,
     name: 'Simulation',
+    isAssignable: (v) => v is $flutter_11.Simulation,
     constructors: {
     },
     getters: {
@@ -2227,6 +2269,7 @@ BridgedClass _createSpringDescriptionBridge() {
   return BridgedClass(
     nativeType: $flutter_12.SpringDescription,
     name: 'SpringDescription',
+    isAssignable: (v) => v is $flutter_12.SpringDescription,
     constructors: {
       '': (visitor, positional, named) {
         final mass = D4.getRequiredNamedArg<double>(named, 'mass', 'SpringDescription');
@@ -2285,6 +2328,7 @@ BridgedClass _createAnimationControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_2.AnimationController,
     name: 'AnimationController',
+    isAssignable: (v) => v is $flutter_2.AnimationController,
     constructors: {
       '': (visitor, positional, named) {
         final value = D4.getOptionalNamedArg<double?>(named, 'value');
@@ -2529,6 +2573,7 @@ BridgedClass _createAnimationStyleBridge() {
   return BridgedClass(
     nativeType: $flutter_3.AnimationStyle,
     name: 'AnimationStyle',
+    isAssignable: (v) => v is $flutter_3.AnimationStyle,
     constructors: {
       '': (visitor, positional, named) {
         final curve = D4.getOptionalNamedArg<$flutter_5.Curve?>(named, 'curve');
@@ -2620,6 +2665,7 @@ BridgedClass _createAlwaysStoppedAnimationBridge() {
   return BridgedClass(
     nativeType: $flutter_4.AlwaysStoppedAnimation,
     name: 'AlwaysStoppedAnimation',
+    isAssignable: (v) => v is $flutter_4.AlwaysStoppedAnimation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AlwaysStoppedAnimation');
@@ -2722,6 +2768,7 @@ BridgedClass _createAnimationWithParentMixinBridge() {
   return BridgedClass(
     nativeType: $flutter_4.AnimationWithParentMixin,
     name: 'AnimationWithParentMixin',
+    isAssignable: (v) => v is $flutter_4.AnimationWithParentMixin,
     constructors: {
     },
     getters: {
@@ -2791,6 +2838,7 @@ BridgedClass _createProxyAnimationBridge() {
   return BridgedClass(
     nativeType: $flutter_4.ProxyAnimation,
     name: 'ProxyAnimation',
+    isAssignable: (v) => v is $flutter_4.ProxyAnimation,
     constructors: {
       '': (visitor, positional, named) {
         final animation = D4.getOptionalArg<$flutter_1.Animation<double>?>(positional, 0, 'animation');
@@ -2903,6 +2951,7 @@ BridgedClass _createReverseAnimationBridge() {
   return BridgedClass(
     nativeType: $flutter_4.ReverseAnimation,
     name: 'ReverseAnimation',
+    isAssignable: (v) => v is $flutter_4.ReverseAnimation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ReverseAnimation');
@@ -3009,6 +3058,7 @@ BridgedClass _createCurvedAnimationBridge() {
   return BridgedClass(
     nativeType: $flutter_4.CurvedAnimation,
     name: 'CurvedAnimation',
+    isAssignable: (v) => v is $flutter_4.CurvedAnimation,
     constructors: {
       '': (visitor, positional, named) {
         final parent = D4.getRequiredNamedArg<$flutter_1.Animation<double>>(named, 'parent', 'CurvedAnimation');
@@ -3139,6 +3189,7 @@ BridgedClass _createTrainHoppingAnimationBridge() {
   return BridgedClass(
     nativeType: $flutter_4.TrainHoppingAnimation,
     name: 'TrainHoppingAnimation',
+    isAssignable: (v) => v is $flutter_4.TrainHoppingAnimation,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'TrainHoppingAnimation');
@@ -3260,6 +3311,7 @@ BridgedClass _createCompoundAnimationBridge() {
   return BridgedClass(
     nativeType: $flutter_4.CompoundAnimation,
     name: 'CompoundAnimation',
+    isAssignable: (v) => v is $flutter_4.CompoundAnimation,
     constructors: {
     },
     getters: {
@@ -3360,6 +3412,7 @@ BridgedClass _createAnimationMeanBridge() {
   return BridgedClass(
     nativeType: $flutter_4.AnimationMean,
     name: 'AnimationMean',
+    isAssignable: (v) => v is $flutter_4.AnimationMean,
     constructors: {
       '': (visitor, positional, named) {
         final left = D4.getRequiredNamedArg<$flutter_1.Animation<double>>(named, 'left', 'AnimationMean');
@@ -3480,6 +3533,7 @@ BridgedClass _createAnimationMaxBridge() {
   return BridgedClass(
     nativeType: $flutter_4.AnimationMax,
     name: 'AnimationMax',
+    isAssignable: (v) => v is $flutter_4.AnimationMax,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'AnimationMax');
@@ -3601,6 +3655,7 @@ BridgedClass _createAnimationMinBridge() {
   return BridgedClass(
     nativeType: $flutter_4.AnimationMin,
     name: 'AnimationMin',
+    isAssignable: (v) => v is $flutter_4.AnimationMin,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'AnimationMin');
@@ -3722,6 +3777,7 @@ BridgedClass _createAnimationLazyListenerMixinBridge() {
   return BridgedClass(
     nativeType: $flutter_6.AnimationLazyListenerMixin,
     name: 'AnimationLazyListenerMixin',
+    isAssignable: (v) => v is $flutter_6.AnimationLazyListenerMixin,
     constructors: {
     },
     getters: {
@@ -3741,6 +3797,7 @@ BridgedClass _createAnimationEagerListenerMixinBridge() {
   return BridgedClass(
     nativeType: $flutter_6.AnimationEagerListenerMixin,
     name: 'AnimationEagerListenerMixin',
+    isAssignable: (v) => v is $flutter_6.AnimationEagerListenerMixin,
     constructors: {
     },
     methods: {
@@ -3764,6 +3821,7 @@ BridgedClass _createAnimationLocalListenersMixinBridge() {
   return BridgedClass(
     nativeType: $flutter_6.AnimationLocalListenersMixin,
     name: 'AnimationLocalListenersMixin',
+    isAssignable: (v) => v is $flutter_6.AnimationLocalListenersMixin,
     constructors: {
     },
     methods: {
@@ -3803,6 +3861,7 @@ BridgedClass _createAnimationLocalStatusListenersMixinBridge() {
   return BridgedClass(
     nativeType: $flutter_6.AnimationLocalStatusListenersMixin,
     name: 'AnimationLocalStatusListenersMixin',
+    isAssignable: (v) => v is $flutter_6.AnimationLocalStatusListenersMixin,
     constructors: {
     },
     methods: {
@@ -3842,6 +3901,7 @@ BridgedClass _createTweenSequenceBridge() {
   return BridgedClass(
     nativeType: $flutter_8.TweenSequence,
     name: 'TweenSequence',
+    isAssignable: (v) => v is $flutter_8.TweenSequence,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TweenSequence');
@@ -3903,6 +3963,7 @@ BridgedClass _createFlippedTweenSequenceBridge() {
   return BridgedClass(
     nativeType: $flutter_8.FlippedTweenSequence,
     name: 'FlippedTweenSequence',
+    isAssignable: (v) => v is $flutter_8.FlippedTweenSequence,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FlippedTweenSequence');
@@ -3964,6 +4025,7 @@ BridgedClass _createTweenSequenceItemBridge() {
   return BridgedClass(
     nativeType: $flutter_8.TweenSequenceItem,
     name: 'TweenSequenceItem',
+    isAssignable: (v) => v is $flutter_8.TweenSequenceItem,
     constructors: {
       '': (visitor, positional, named) {
         final tween = D4.getRequiredNamedArg<$flutter_7.Animatable<dynamic>>(named, 'tween', 'TweenSequenceItem');

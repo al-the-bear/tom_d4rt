@@ -30,6 +30,8 @@ class D4rt {
   final List<Map<String, LibraryEnum>> _bridgedEnumDefinitions = [];
   final List<Map<String, LibraryClass>> _bridgedClases = [];
   final List<Map<String, LibraryExtension>> _bridgedExtensions = [];
+  /// GEN-074: Class aliases (type aliases) for alias name → target class name mapping.
+  final List<({String aliasName, String targetName, String library})> _classAliases = [];
   InterpretedInstance? _interpretedInstance;
   InterpreterVisitor? _visitor;
   final Map<Type, BridgedClass> _bridgedDefLookupByType = {};
@@ -150,6 +152,20 @@ class D4rt {
     _bridgedDefLookupByType[definition.nativeType] = definition;
     _runner.registerBridgedClass(definition, library, sourceUri: sourceUri);
     _bridgedLibraryUris.add(library);
+  }
+
+  /// GEN-074: Registers a class alias (type alias) for use in interpreted code.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that D4rt scripts can use the alias name to reference
+  /// the target class.
+  ///
+  /// [aliasName] The alias name (e.g., 'MaterialStateProperty').
+  /// [targetName] The target class name (e.g., 'WidgetStateProperty').
+  /// [library] The library path where this alias is exported from.
+  void registerClassAlias(String aliasName, String targetName, String library) {
+    _classAliases.add((aliasName: aliasName, targetName: targetName, library: library));
+    _runner.registerClassAlias(aliasName, targetName, library);
   }
 
   /// Registers a bridged extension for use in interpreted code.
@@ -1703,7 +1719,20 @@ class D4rt {
     }
 
     final nativeType = nativeValue.runtimeType;
-    final bridgedDef = _bridgedDefLookupByType[nativeType];
+    var bridgedDef = _bridgedDefLookupByType[nativeType];
+
+    // If exact type lookup failed, try to find a bridge for a supertype
+    // This handles cases like Curves.linear returning a _Linear (private class)
+    // that should be bridged using the Curve (public supertype) bridge.
+    if (bridgedDef == null) {
+      for (final entry in _bridgedDefLookupByType.entries) {
+        final def = entry.value;
+        if (def.isAssignable != null && def.isAssignable!(nativeValue)) {
+          bridgedDef = def;
+          break;
+        }
+      }
+    }
 
     if (bridgedDef != null) {
       final bridgedClass = globalEnv.get(bridgedDef.name);

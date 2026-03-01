@@ -1008,6 +1008,11 @@ class BridgeGenerator {
   /// Key is the typedef name, value is the expanded signature (e.g., 'Object? Function(Object?)').
   final Map<String, String> _typedefExpansions = {};
 
+  /// GEN-074: Type alias records for class aliases (non-function typedefs).
+  /// Key: alias name, Value: target class name.
+  /// Example: 'MaterialStateProperty' -> 'WidgetStateProperty'
+  final Map<String, String> _typeAliases = {};
+
   /// GEN-017: Global registry of type name → package URI mappings, populated
   /// from the resolved AST during visitor phase via `_collectInfoFromDartType()`.
   /// Used as a penultimate fallback in `_resolveTypeArgument()` before `dynamic`,
@@ -3707,6 +3712,8 @@ class BridgeGenerator {
         skippedDeprecatedCount += visitor.skippedDeprecatedCount;
         // Copy collected typedef expansions to the generator
         _typedefExpansions.addAll(visitor.typedefExpansions);
+        // GEN-074: Copy collected type aliases from the visitor
+        _typeAliases.addAll(visitor.typeAliases);
         // GEN-017: Copy global type-to-URI mappings from resolved AST
         _globalTypeToUri.addAll(visitor.globalTypeToUri);
 
@@ -3836,6 +3843,8 @@ class BridgeGenerator {
 
           // Copy collected typedef expansions to the generator
           _typedefExpansions.addAll(visitor.typedefExpansions);
+          // GEN-074: Copy collected type aliases from the visitor
+          _typeAliases.addAll(visitor.typeAliases);
           // GEN-017: Copy global type-to-URI mappings from resolved AST
           _globalTypeToUri.addAll(visitor.globalTypeToUri);
         }
@@ -5800,6 +5809,21 @@ class BridgeGenerator {
     buffer.writeln('  }');
     buffer.writeln();
 
+    // GEN-074: Generate classAliases method for type alias registration
+    buffer.writeln('  /// Returns a map of type alias names to their target class names.');
+    buffer.writeln('  ///');
+    buffer.writeln('  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`');
+    buffer.writeln('  /// are registered so that code using the alias name can resolve to the');
+    buffer.writeln('  /// bridged class under its canonical name.');
+    buffer.writeln('  static Map<String, String> classAliases() {');
+    buffer.writeln('    return {');
+    for (final entry in _typeAliases.entries) {
+      buffer.writeln("      '${entry.key}': '${entry.value}',");
+    }
+    buffer.writeln('    };');
+    buffer.writeln('  }');
+    buffer.writeln();
+
     // Always generate bridgedEnums method (returns empty list if no enums)
     // This is required for delegating barrel files to compile
     buffer.writeln('  /// Returns all bridged enum definitions.');
@@ -6073,6 +6097,19 @@ class BridgeGenerator {
       );
       buffer.writeln(
         '      interpreter.registerBridgedExtension(extDef, importPath, sourceUri: extSources[extKey]);',
+      );
+      buffer.writeln('    }');
+    }
+    // GEN-074: Register class aliases (type aliases)
+    if (_typeAliases.isNotEmpty) {
+      buffer.writeln();
+      buffer.writeln(
+        '    // Register class aliases (typedef type aliases)',
+      );
+      buffer.writeln('    final aliases = classAliases();');
+      buffer.writeln('    for (final entry in aliases.entries) {');
+      buffer.writeln(
+        '      interpreter.registerClassAlias(entry.key, entry.value, importPath);',
       );
       buffer.writeln('    }');
     }
@@ -7233,6 +7270,9 @@ class BridgeGenerator {
     buffer.writeln('  return BridgedClass(');
     buffer.writeln('    nativeType: $prefixedName,');
     buffer.writeln("    name: '${cls.name}',");
+    // isAssignable: enables supertype bridge lookup for private subclasses
+    // e.g., Curves.linear returns _Linear which should use Curve bridge
+    buffer.writeln('    isAssignable: (v) => v is $prefixedName,');
 
     // Use nativeNames from UserBridge if available
     if (userBridge != null && userBridge.hasNativeNames) {
@@ -12471,6 +12511,11 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
   /// Used to fall back to the definition when a typedef is not exported from the barrel.
   final Map<String, String> typedefExpansions = {};
 
+  /// GEN-074: Type alias records for class aliases (non-function typedefs).
+  /// Key: alias name, Value: target class name.
+  /// Example: 'MaterialStateProperty' -> 'WidgetStateProperty'
+  final Map<String, String> typeAliases = {};
+
   /// GEN-017: Global registry of type name → package URI mappings, populated
   /// from the resolved AST during visitor phase via `_collectInfoFromDartType()`.
   /// Copied to the `BridgeGenerator._globalTypeToUri` after visiting.
@@ -12800,6 +12845,58 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     );
 
     super.visitEnumDeclaration(node);
+  }
+
+  /// GEN-074: Handle type aliases (generic typedef declarations).
+  ///
+  /// Dart supports type aliases in the form:
+  ///   `typedef MaterialStateProperty<T> = WidgetStateProperty<T>;`
+  ///
+  /// This method extracts such aliases where the target type is a class
+  /// (not a function type), recording them for bridge generation.
+  /// The generated code will include a `classAliases()` method that maps
+  /// alias names to their target class names.
+  @override
+  void visitGenericTypeAlias(GenericTypeAlias node) {
+    final aliasName = node.name.lexeme;
+
+    // Skip private type aliases if configured
+    if (skipPrivate && aliasName.startsWith('_')) return;
+
+    // Skip aliases marked as @visibleForTesting, @protected, or @internal
+    if (_hasTestOnlyAnnotation(node)) return;
+
+    // Skip deprecated aliases unless generateDeprecatedElements is enabled
+    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
+      skippedDeprecatedCount++;
+      return;
+    }
+
+    // Get the type this alias refers to
+    final type = node.type;
+
+    // Only handle non-function type aliases
+    // Function type aliases (typedef VoidCallback = void Function()) have
+    // GenericFunctionType as the type
+    if (type is GenericFunctionType) {
+      // This is a function typedef - store the expanded signature
+      // for fallback when the typedef isn't exported from barrel
+      final expandedType = _expandFunctionType(type.type as FunctionType);
+      typedefExpansions[aliasName] = expandedType;
+      super.visitGenericTypeAlias(node);
+      return;
+    }
+
+    // For non-function types (class aliases), extract the target class name
+    if (type is NamedType) {
+      final targetName = type.name2.lexeme;
+
+      // Record the alias: aliasName -> targetName
+      // Example: 'MaterialStateProperty' -> 'WidgetStateProperty'
+      typeAliases[aliasName] = targetName;
+    }
+
+    super.visitGenericTypeAlias(node);
   }
 
   @override

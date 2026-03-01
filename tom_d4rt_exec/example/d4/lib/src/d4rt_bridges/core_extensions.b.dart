@@ -1,10 +1,10 @@
 // D4rt Bridge - Generated file, do not edit
-// Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom/xternal/tom_module_d4rt/tom_d4rt_exec/example/d4/lib/test_extensions.dart
-// Generated: 2026-02-22T08:01:10.697738
+// Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_exec/example/d4/lib/test_extensions.dart
+// Generated: 2026-03-01T07:01:03.263458
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
-import 'package:tom_d4rt_exec/d4rt.dart';
+import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt.dart';
 
 import 'package:d4_example/test_extensions.dart' as $d4_example_1;

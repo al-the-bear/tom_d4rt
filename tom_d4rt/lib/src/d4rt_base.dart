@@ -154,6 +154,8 @@ class D4rt {
   final List<Map<String, LibraryEnum>> _bridgedEnumDefinitions = [];
   final List<Map<String, LibraryClass>> _bridgedClases = [];
   final List<Map<String, LibraryExtension>> _bridgedExtensions = [];
+  /// GEN-074: Class aliases - (aliasName, targetName, library) tuples
+  final List<({String aliasName, String targetName, String library})> _classAliases = [];
   InterpretedInstance? _interpretedInstance;
   InterpreterVisitor? _visitor;
   final Map<Type, BridgedClass> _bridgedDefLookupByType = {};
@@ -201,6 +203,20 @@ class D4rt {
     final libClass = LibraryClass(definition, sourceUri: sourceUri);
     _bridgedClases.add({library: libClass});
     _bridgedDefLookupByType[definition.nativeType] = definition;
+  }
+
+  /// GEN-074: Registers a type alias for a bridged class.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// allow the same bridged class to be accessed under multiple names.
+  ///
+  /// [aliasName] The alias name (e.g., 'MaterialStateProperty').
+  /// [targetName] The canonical class name (e.g., 'WidgetStateProperty').
+  /// [library] The library identifier where this alias should be available.
+  ///
+  /// The alias is registered with the module loader's global environment.
+  void registerClassAlias(String aliasName, String targetName, String library) {
+    _classAliases.add((aliasName: aliasName, targetName: targetName, library: library));
   }
 
   /// Registers a bridged extension for use in interpreted code.

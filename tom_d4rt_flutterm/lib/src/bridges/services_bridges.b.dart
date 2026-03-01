@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 53 files
-// Generated: 2026-03-01T06:38:52.530357
+// Generated: 2026-03-01T07:42:43.006643
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -343,6 +343,16 @@ class FlutterServicesBridge {
       'UndoManagerClient': 'package:flutter/src/services/undo_manager.dart',
       'Vector3': 'package:vector_math/vector_math_64.dart',
       'Vector2': 'package:vector_math/vector_math_64.dart',
+    };
+  }
+
+  /// Returns a map of type alias names to their target class names.
+  ///
+  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
+  /// are registered so that code using the alias name can resolve to the
+  /// bridged class under its canonical name.
+  static Map<String, String> classAliases() {
+    return {
     };
   }
 
@@ -1132,6 +1142,7 @@ BridgedClass _createAssetBundleBridge() {
   return BridgedClass(
     nativeType: $flutter_8.AssetBundle,
     name: 'AssetBundle',
+    isAssignable: (v) => v is $flutter_8.AssetBundle,
     constructors: {
     },
     methods: {
@@ -1212,6 +1223,7 @@ BridgedClass _createNetworkAssetBundleBridge() {
   return BridgedClass(
     nativeType: $flutter_8.NetworkAssetBundle,
     name: 'NetworkAssetBundle',
+    isAssignable: (v) => v is $flutter_8.NetworkAssetBundle,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'NetworkAssetBundle');
@@ -1300,6 +1312,7 @@ BridgedClass _createCachingAssetBundleBridge() {
   return BridgedClass(
     nativeType: $flutter_8.CachingAssetBundle,
     name: 'CachingAssetBundle',
+    isAssignable: (v) => v is $flutter_8.CachingAssetBundle,
     constructors: {
     },
     methods: {
@@ -1380,6 +1393,7 @@ BridgedClass _createPlatformAssetBundleBridge() {
   return BridgedClass(
     nativeType: $flutter_8.PlatformAssetBundle,
     name: 'PlatformAssetBundle',
+    isAssignable: (v) => v is $flutter_8.PlatformAssetBundle,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_8.PlatformAssetBundle();
@@ -1466,6 +1480,7 @@ BridgedClass _createAssetManifestBridge() {
   return BridgedClass(
     nativeType: $flutter_9.AssetManifest,
     name: 'AssetManifest',
+    isAssignable: (v) => v is $flutter_9.AssetManifest,
     constructors: {
     },
     methods: {
@@ -1505,6 +1520,7 @@ BridgedClass _createAssetMetadataBridge() {
   return BridgedClass(
     nativeType: $flutter_9.AssetMetadata,
     name: 'AssetMetadata',
+    isAssignable: (v) => v is $flutter_9.AssetMetadata,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getRequiredNamedArg<String>(named, 'key', 'AssetMetadata');
@@ -1537,6 +1553,7 @@ BridgedClass _createMatrix4Bridge() {
   return BridgedClass(
     nativeType: $vector_math_1.Matrix4,
     name: 'Matrix4',
+    isAssignable: (v) => v is $vector_math_1.Matrix4,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 16, 'Matrix4');
@@ -2515,6 +2532,7 @@ BridgedClass _createAutofillHintsBridge() {
   return BridgedClass(
     nativeType: $flutter_10.AutofillHints,
     name: 'AutofillHints',
+    isAssignable: (v) => v is $flutter_10.AutofillHints,
     constructors: {
     },
     staticGetters: {
@@ -2664,6 +2682,7 @@ BridgedClass _createAutofillConfigurationBridge() {
   return BridgedClass(
     nativeType: $flutter_10.AutofillConfiguration,
     name: 'AutofillConfiguration',
+    isAssignable: (v) => v is $flutter_10.AutofillConfiguration,
     constructors: {
       '': (visitor, positional, named) {
         final uniqueIdentifier = D4.getRequiredNamedArg<String>(named, 'uniqueIdentifier', 'AutofillConfiguration');
@@ -2731,6 +2750,7 @@ BridgedClass _createAutofillClientBridge() {
   return BridgedClass(
     nativeType: $flutter_10.AutofillClient,
     name: 'AutofillClient',
+    isAssignable: (v) => v is $flutter_10.AutofillClient,
     constructors: {
     },
     getters: {
@@ -2764,6 +2784,7 @@ BridgedClass _createAutofillScopeBridge() {
   return BridgedClass(
     nativeType: $flutter_10.AutofillScope,
     name: 'AutofillScope',
+    isAssignable: (v) => v is $flutter_10.AutofillScope,
     constructors: {
     },
     getters: {
@@ -2802,6 +2823,7 @@ BridgedClass _createAutofillScopeMixinBridge() {
   return BridgedClass(
     nativeType: $flutter_10.AutofillScopeMixin,
     name: 'AutofillScopeMixin',
+    isAssignable: (v) => v is $flutter_10.AutofillScopeMixin,
     constructors: {
     },
     getters: {
@@ -2840,6 +2862,7 @@ BridgedClass _createTextSelectionBridge() {
   return BridgedClass(
     nativeType: $flutter_45.TextSelection,
     name: 'TextSelection',
+    isAssignable: (v) => v is $flutter_45.TextSelection,
     constructors: {
       '': (visitor, positional, named) {
         final baseOffset = D4.getRequiredNamedArg<int>(named, 'baseOffset', 'TextSelection');
@@ -2962,6 +2985,7 @@ BridgedClass _createTextInputTypeBridge() {
   return BridgedClass(
     nativeType: $flutter_48.TextInputType,
     name: 'TextInputType',
+    isAssignable: (v) => v is $flutter_48.TextInputType,
     constructors: {
       'numberWithOptions': (visitor, positional, named) {
         final signed = D4.getNamedArgWithDefault<bool?>(named, 'signed', false);
@@ -3046,6 +3070,7 @@ BridgedClass _createTextInputConfigurationBridge() {
   return BridgedClass(
     nativeType: $flutter_48.TextInputConfiguration,
     name: 'TextInputConfiguration',
+    isAssignable: (v) => v is $flutter_48.TextInputConfiguration,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
@@ -3171,6 +3196,7 @@ BridgedClass _createRawFloatingCursorPointBridge() {
   return BridgedClass(
     nativeType: $flutter_48.RawFloatingCursorPoint,
     name: 'RawFloatingCursorPoint',
+    isAssignable: (v) => v is $flutter_48.RawFloatingCursorPoint,
     constructors: {
       '': (visitor, positional, named) {
         final offset = D4.getOptionalNamedArg<Offset?>(named, 'offset');
@@ -3203,6 +3229,7 @@ BridgedClass _createTextEditingValueBridge() {
   return BridgedClass(
     nativeType: $flutter_48.TextEditingValue,
     name: 'TextEditingValue',
+    isAssignable: (v) => v is $flutter_48.TextEditingValue,
     constructors: {
       '': (visitor, positional, named) {
         final text = D4.getNamedArgWithDefault<String>(named, 'text', '');
@@ -3289,6 +3316,7 @@ BridgedClass _createTextSelectionDelegateBridge() {
   return BridgedClass(
     nativeType: $flutter_48.TextSelectionDelegate,
     name: 'TextSelectionDelegate',
+    isAssignable: (v) => v is $flutter_48.TextSelectionDelegate,
     constructors: {
     },
     getters: {
@@ -3383,6 +3411,7 @@ BridgedClass _createTextInputClientBridge() {
   return BridgedClass(
     nativeType: $flutter_48.TextInputClient,
     name: 'TextInputClient',
+    isAssignable: (v) => v is $flutter_48.TextInputClient,
     constructors: {
     },
     getters: {
@@ -3504,6 +3533,7 @@ BridgedClass _createScribbleClientBridge() {
   return BridgedClass(
     nativeType: $flutter_48.ScribbleClient,
     name: 'ScribbleClient',
+    isAssignable: (v) => v is $flutter_48.ScribbleClient,
     constructors: {
     },
     getters: {
@@ -3544,6 +3574,7 @@ BridgedClass _createSelectionRectBridge() {
   return BridgedClass(
     nativeType: $flutter_48.SelectionRect,
     name: 'SelectionRect',
+    isAssignable: (v) => v is $flutter_48.SelectionRect,
     constructors: {
       '': (visitor, positional, named) {
         final position = D4.getRequiredNamedArg<int>(named, 'position', 'SelectionRect');
@@ -3592,6 +3623,7 @@ BridgedClass _createDeltaTextInputClientBridge() {
   return BridgedClass(
     nativeType: $flutter_48.DeltaTextInputClient,
     name: 'DeltaTextInputClient',
+    isAssignable: (v) => v is $flutter_48.DeltaTextInputClient,
     constructors: {
     },
     getters: {
@@ -3724,6 +3756,7 @@ BridgedClass _createTextInputConnectionBridge() {
   return BridgedClass(
     nativeType: $flutter_48.TextInputConnection,
     name: 'TextInputConnection',
+    isAssignable: (v) => v is $flutter_48.TextInputConnection,
     constructors: {
     },
     getters: {
@@ -3836,6 +3869,7 @@ BridgedClass _createTextInputBridge() {
   return BridgedClass(
     nativeType: $flutter_48.TextInput,
     name: 'TextInput',
+    isAssignable: (v) => v is $flutter_48.TextInput,
     constructors: {
     },
     getters: {
@@ -3904,6 +3938,7 @@ BridgedClass _createTextInputControlBridge() {
   return BridgedClass(
     nativeType: $flutter_48.TextInputControl,
     name: 'TextInputControl',
+    isAssignable: (v) => v is $flutter_48.TextInputControl,
     constructors: {
     },
     methods: {
@@ -4026,6 +4061,7 @@ BridgedClass _createSystemContextMenuControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_48.SystemContextMenuController,
     name: 'SystemContextMenuController',
+    isAssignable: (v) => v is $flutter_48.SystemContextMenuController,
     constructors: {
       '': (visitor, positional, named) {
         final onSystemHideRaw = named['onSystemHide'];
@@ -4117,6 +4153,7 @@ BridgedClass _createIOSSystemContextMenuItemDataBridge() {
   return BridgedClass(
     nativeType: $flutter_48.IOSSystemContextMenuItemData,
     name: 'IOSSystemContextMenuItemData',
+    isAssignable: (v) => v is $flutter_48.IOSSystemContextMenuItemData,
     constructors: {
     },
     getters: {
@@ -4148,6 +4185,7 @@ BridgedClass _createIOSSystemContextMenuItemDataCopyBridge() {
   return BridgedClass(
     nativeType: $flutter_48.IOSSystemContextMenuItemDataCopy,
     name: 'IOSSystemContextMenuItemDataCopy',
+    isAssignable: (v) => v is $flutter_48.IOSSystemContextMenuItemDataCopy,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_48.IOSSystemContextMenuItemDataCopy();
@@ -4182,6 +4220,7 @@ BridgedClass _createIOSSystemContextMenuItemDataCutBridge() {
   return BridgedClass(
     nativeType: $flutter_48.IOSSystemContextMenuItemDataCut,
     name: 'IOSSystemContextMenuItemDataCut',
+    isAssignable: (v) => v is $flutter_48.IOSSystemContextMenuItemDataCut,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_48.IOSSystemContextMenuItemDataCut();
@@ -4216,6 +4255,7 @@ BridgedClass _createIOSSystemContextMenuItemDataPasteBridge() {
   return BridgedClass(
     nativeType: $flutter_48.IOSSystemContextMenuItemDataPaste,
     name: 'IOSSystemContextMenuItemDataPaste',
+    isAssignable: (v) => v is $flutter_48.IOSSystemContextMenuItemDataPaste,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_48.IOSSystemContextMenuItemDataPaste();
@@ -4250,6 +4290,7 @@ BridgedClass _createIOSSystemContextMenuItemDataSelectAllBridge() {
   return BridgedClass(
     nativeType: $flutter_48.IOSSystemContextMenuItemDataSelectAll,
     name: 'IOSSystemContextMenuItemDataSelectAll',
+    isAssignable: (v) => v is $flutter_48.IOSSystemContextMenuItemDataSelectAll,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_48.IOSSystemContextMenuItemDataSelectAll();
@@ -4284,6 +4325,7 @@ BridgedClass _createIOSSystemContextMenuItemDataLookUpBridge() {
   return BridgedClass(
     nativeType: $flutter_48.IOSSystemContextMenuItemDataLookUp,
     name: 'IOSSystemContextMenuItemDataLookUp',
+    isAssignable: (v) => v is $flutter_48.IOSSystemContextMenuItemDataLookUp,
     constructors: {
       '': (visitor, positional, named) {
         final title = D4.getRequiredNamedArg<String>(named, 'title', 'IOSSystemContextMenuItemDataLookUp');
@@ -4339,6 +4381,7 @@ BridgedClass _createIOSSystemContextMenuItemDataSearchWebBridge() {
   return BridgedClass(
     nativeType: $flutter_48.IOSSystemContextMenuItemDataSearchWeb,
     name: 'IOSSystemContextMenuItemDataSearchWeb',
+    isAssignable: (v) => v is $flutter_48.IOSSystemContextMenuItemDataSearchWeb,
     constructors: {
       '': (visitor, positional, named) {
         final title = D4.getRequiredNamedArg<String>(named, 'title', 'IOSSystemContextMenuItemDataSearchWeb');
@@ -4394,6 +4437,7 @@ BridgedClass _createIOSSystemContextMenuItemDataShareBridge() {
   return BridgedClass(
     nativeType: $flutter_48.IOSSystemContextMenuItemDataShare,
     name: 'IOSSystemContextMenuItemDataShare',
+    isAssignable: (v) => v is $flutter_48.IOSSystemContextMenuItemDataShare,
     constructors: {
       '': (visitor, positional, named) {
         final title = D4.getRequiredNamedArg<String>(named, 'title', 'IOSSystemContextMenuItemDataShare');
@@ -4449,6 +4493,7 @@ BridgedClass _createIOSSystemContextMenuItemDataLiveTextBridge() {
   return BridgedClass(
     nativeType: $flutter_48.IOSSystemContextMenuItemDataLiveText,
     name: 'IOSSystemContextMenuItemDataLiveText',
+    isAssignable: (v) => v is $flutter_48.IOSSystemContextMenuItemDataLiveText,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_48.IOSSystemContextMenuItemDataLiveText();
@@ -4483,6 +4528,7 @@ BridgedClass _createIOSSystemContextMenuItemDataCustomBridge() {
   return BridgedClass(
     nativeType: $flutter_48.IOSSystemContextMenuItemDataCustom,
     name: 'IOSSystemContextMenuItemDataCustom',
+    isAssignable: (v) => v is $flutter_48.IOSSystemContextMenuItemDataCustom,
     constructors: {
       '': (visitor, positional, named) {
         final title = D4.getRequiredNamedArg<String>(named, 'title', 'IOSSystemContextMenuItemDataCustom');
@@ -4546,6 +4592,7 @@ BridgedClass _createTextEditingDeltaBridge() {
   return BridgedClass(
     nativeType: $flutter_46.TextEditingDelta,
     name: 'TextEditingDelta',
+    isAssignable: (v) => v is $flutter_46.TextEditingDelta,
     constructors: {
       'fromJSON': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TextEditingDelta');
@@ -4609,6 +4656,7 @@ BridgedClass _createTextEditingDeltaInsertionBridge() {
   return BridgedClass(
     nativeType: $flutter_46.TextEditingDeltaInsertion,
     name: 'TextEditingDeltaInsertion',
+    isAssignable: (v) => v is $flutter_46.TextEditingDeltaInsertion,
     constructors: {
       '': (visitor, positional, named) {
         final oldText = D4.getRequiredNamedArg<String>(named, 'oldText', 'TextEditingDeltaInsertion');
@@ -4676,6 +4724,7 @@ BridgedClass _createTextEditingDeltaDeletionBridge() {
   return BridgedClass(
     nativeType: $flutter_46.TextEditingDeltaDeletion,
     name: 'TextEditingDeltaDeletion',
+    isAssignable: (v) => v is $flutter_46.TextEditingDeltaDeletion,
     constructors: {
       '': (visitor, positional, named) {
         final oldText = D4.getRequiredNamedArg<String>(named, 'oldText', 'TextEditingDeltaDeletion');
@@ -4742,6 +4791,7 @@ BridgedClass _createTextEditingDeltaReplacementBridge() {
   return BridgedClass(
     nativeType: $flutter_46.TextEditingDeltaReplacement,
     name: 'TextEditingDeltaReplacement',
+    isAssignable: (v) => v is $flutter_46.TextEditingDeltaReplacement,
     constructors: {
       '': (visitor, positional, named) {
         final oldText = D4.getRequiredNamedArg<String>(named, 'oldText', 'TextEditingDeltaReplacement');
@@ -4811,6 +4861,7 @@ BridgedClass _createTextEditingDeltaNonTextUpdateBridge() {
   return BridgedClass(
     nativeType: $flutter_46.TextEditingDeltaNonTextUpdate,
     name: 'TextEditingDeltaNonTextUpdate',
+    isAssignable: (v) => v is $flutter_46.TextEditingDeltaNonTextUpdate,
     constructors: {
       '': (visitor, positional, named) {
         final oldText = D4.getRequiredNamedArg<String>(named, 'oldText', 'TextEditingDeltaNonTextUpdate');
@@ -4872,6 +4923,7 @@ BridgedClass _createBinaryMessengerBridge() {
   return BridgedClass(
     nativeType: $flutter_11.BinaryMessenger,
     name: 'BinaryMessenger',
+    isAssignable: (v) => v is $flutter_11.BinaryMessenger,
     constructors: {
     },
     methods: {
@@ -4921,6 +4973,7 @@ BridgedClass _createDiagnosticPropertiesBuilderBridge() {
   return BridgedClass(
     nativeType: $flutter_2.DiagnosticPropertiesBuilder,
     name: 'DiagnosticPropertiesBuilder',
+    isAssignable: (v) => v is $flutter_2.DiagnosticPropertiesBuilder,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_2.DiagnosticPropertiesBuilder();
@@ -4981,6 +5034,7 @@ BridgedClass _createWriteBufferBridge() {
   return BridgedClass(
     nativeType: $flutter_4.WriteBuffer,
     name: 'WriteBuffer',
+    isAssignable: (v) => v is $flutter_4.WriteBuffer,
     constructors: {
       '': (visitor, positional, named) {
         final startCapacity = D4.getNamedArgWithDefault<int>(named, 'startCapacity', 8);
@@ -5103,6 +5157,7 @@ BridgedClass _createReadBufferBridge() {
   return BridgedClass(
     nativeType: $flutter_4.ReadBuffer,
     name: 'ReadBuffer',
+    isAssignable: (v) => v is $flutter_4.ReadBuffer,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ReadBuffer');
@@ -5206,6 +5261,7 @@ BridgedClass _createKeyboardKeyBridge() {
   return BridgedClass(
     nativeType: $flutter_23.KeyboardKey,
     name: 'KeyboardKey',
+    isAssignable: (v) => v is $flutter_23.KeyboardKey,
     constructors: {
     },
     methods: {
@@ -5241,6 +5297,7 @@ BridgedClass _createLogicalKeyboardKeyBridge() {
   return BridgedClass(
     nativeType: $flutter_23.LogicalKeyboardKey,
     name: 'LogicalKeyboardKey',
+    isAssignable: (v) => v is $flutter_23.LogicalKeyboardKey,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LogicalKeyboardKey');
@@ -6255,6 +6312,7 @@ BridgedClass _createPhysicalKeyboardKeyBridge() {
   return BridgedClass(
     nativeType: $flutter_23.PhysicalKeyboardKey,
     name: 'PhysicalKeyboardKey',
+    isAssignable: (v) => v is $flutter_23.PhysicalKeyboardKey,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'PhysicalKeyboardKey');
@@ -6867,6 +6925,7 @@ BridgedClass _createKeyEventBridge() {
   return BridgedClass(
     nativeType: $flutter_21.KeyEvent,
     name: 'KeyEvent',
+    isAssignable: (v) => v is $flutter_21.KeyEvent,
     constructors: {
     },
     getters: {
@@ -6918,6 +6977,7 @@ BridgedClass _createKeyDownEventBridge() {
   return BridgedClass(
     nativeType: $flutter_21.KeyDownEvent,
     name: 'KeyDownEvent',
+    isAssignable: (v) => v is $flutter_21.KeyDownEvent,
     constructors: {
       '': (visitor, positional, named) {
         final physicalKey = D4.getRequiredNamedArg<$flutter_23.PhysicalKeyboardKey>(named, 'physicalKey', 'KeyDownEvent');
@@ -6995,6 +7055,7 @@ BridgedClass _createKeyUpEventBridge() {
   return BridgedClass(
     nativeType: $flutter_21.KeyUpEvent,
     name: 'KeyUpEvent',
+    isAssignable: (v) => v is $flutter_21.KeyUpEvent,
     constructors: {
       '': (visitor, positional, named) {
         final physicalKey = D4.getRequiredNamedArg<$flutter_23.PhysicalKeyboardKey>(named, 'physicalKey', 'KeyUpEvent');
@@ -7071,6 +7132,7 @@ BridgedClass _createKeyRepeatEventBridge() {
   return BridgedClass(
     nativeType: $flutter_21.KeyRepeatEvent,
     name: 'KeyRepeatEvent',
+    isAssignable: (v) => v is $flutter_21.KeyRepeatEvent,
     constructors: {
       '': (visitor, positional, named) {
         final physicalKey = D4.getRequiredNamedArg<$flutter_23.PhysicalKeyboardKey>(named, 'physicalKey', 'KeyRepeatEvent');
@@ -7147,6 +7209,7 @@ BridgedClass _createHardwareKeyboardBridge() {
   return BridgedClass(
     nativeType: $flutter_21.HardwareKeyboard,
     name: 'HardwareKeyboard',
+    isAssignable: (v) => v is $flutter_21.HardwareKeyboard,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_21.HardwareKeyboard();
@@ -7249,6 +7312,7 @@ BridgedClass _createRestorationManagerBridge() {
   return BridgedClass(
     nativeType: $flutter_35.RestorationManager,
     name: 'RestorationManager',
+    isAssignable: (v) => v is $flutter_35.RestorationManager,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_35.RestorationManager();
@@ -7314,6 +7378,7 @@ BridgedClass _createRestorationBucketBridge() {
   return BridgedClass(
     nativeType: $flutter_35.RestorationBucket,
     name: 'RestorationBucket',
+    isAssignable: (v) => v is $flutter_35.RestorationBucket,
     constructors: {
       'empty': (visitor, positional, named) {
         final restorationId = D4.getRequiredNamedArg<String>(named, 'restorationId', 'RestorationBucket');
@@ -7430,6 +7495,7 @@ BridgedClass _createServicesBindingBridge() {
   return BridgedClass(
     nativeType: $flutter_12.ServicesBinding,
     name: 'ServicesBinding',
+    isAssignable: (v) => v is $flutter_12.ServicesBinding,
     constructors: {
     },
     getters: {
@@ -7719,6 +7785,7 @@ BridgedClass _createSystemContextMenuClientBridge() {
   return BridgedClass(
     nativeType: $flutter_12.SystemContextMenuClient,
     name: 'SystemContextMenuClient',
+    isAssignable: (v) => v is $flutter_12.SystemContextMenuClient,
     constructors: {
     },
     methods: {
@@ -7750,6 +7817,7 @@ BridgedClass _createBrowserContextMenuBridge() {
   return BridgedClass(
     nativeType: $flutter_13.BrowserContextMenu,
     name: 'BrowserContextMenu',
+    isAssignable: (v) => v is $flutter_13.BrowserContextMenu,
     constructors: {
     },
     staticGetters: {
@@ -7781,6 +7849,7 @@ BridgedClass _createClipboardDataBridge() {
   return BridgedClass(
     nativeType: $flutter_14.ClipboardData,
     name: 'ClipboardData',
+    isAssignable: (v) => v is $flutter_14.ClipboardData,
     constructors: {
       '': (visitor, positional, named) {
         final text = D4.getRequiredNamedArg<String>(named, 'text', 'ClipboardData');
@@ -7807,6 +7876,7 @@ BridgedClass _createClipboardBridge() {
   return BridgedClass(
     nativeType: $flutter_14.Clipboard,
     name: 'Clipboard',
+    isAssignable: (v) => v is $flutter_14.Clipboard,
     constructors: {
     },
     staticGetters: {
@@ -7846,6 +7916,7 @@ BridgedClass _createDeferredComponentBridge() {
   return BridgedClass(
     nativeType: $flutter_16.DeferredComponent,
     name: 'DeferredComponent',
+    isAssignable: (v) => v is $flutter_16.DeferredComponent,
     constructors: {
     },
     staticMethods: {
@@ -7873,6 +7944,7 @@ BridgedClass _createFlutterVersionBridge() {
   return BridgedClass(
     nativeType: $flutter_18.FlutterVersion,
     name: 'FlutterVersion',
+    isAssignable: (v) => v is $flutter_18.FlutterVersion,
     constructors: {
     },
     staticGetters: {
@@ -7902,6 +7974,7 @@ BridgedClass _createFontLoaderBridge() {
   return BridgedClass(
     nativeType: $flutter_19.FontLoader,
     name: 'FontLoader',
+    isAssignable: (v) => v is $flutter_19.FontLoader,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FontLoader');
@@ -7946,6 +8019,7 @@ BridgedClass _createHapticFeedbackBridge() {
   return BridgedClass(
     nativeType: $flutter_20.HapticFeedback,
     name: 'HapticFeedback',
+    isAssignable: (v) => v is $flutter_20.HapticFeedback,
     constructors: {
     },
     staticMethods: {
@@ -7995,6 +8069,7 @@ BridgedClass _createKeyboardInsertedContentBridge() {
   return BridgedClass(
     nativeType: $flutter_22.KeyboardInsertedContent,
     name: 'KeyboardInsertedContent',
+    isAssignable: (v) => v is $flutter_22.KeyboardInsertedContent,
     constructors: {
       '': (visitor, positional, named) {
         final mimeType = D4.getRequiredNamedArg<String>(named, 'mimeType', 'KeyboardInsertedContent');
@@ -8054,6 +8129,7 @@ BridgedClass _createLiveTextBridge() {
   return BridgedClass(
     nativeType: $flutter_25.LiveText,
     name: 'LiveText',
+    isAssignable: (v) => v is $flutter_25.LiveText,
     constructors: {
     },
     staticMethods: {
@@ -8079,6 +8155,7 @@ BridgedClass _createMessageCodecBridge() {
   return BridgedClass(
     nativeType: $flutter_26.MessageCodec,
     name: 'MessageCodec',
+    isAssignable: (v) => v is $flutter_26.MessageCodec,
     constructors: {
     },
     methods: {
@@ -8110,6 +8187,7 @@ BridgedClass _createMethodCallBridge() {
   return BridgedClass(
     nativeType: $flutter_26.MethodCall,
     name: 'MethodCall',
+    isAssignable: (v) => v is $flutter_26.MethodCall,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MethodCall');
@@ -8149,6 +8227,7 @@ BridgedClass _createMethodCodecBridge() {
   return BridgedClass(
     nativeType: $flutter_26.MethodCodec,
     name: 'MethodCodec',
+    isAssignable: (v) => v is $flutter_26.MethodCodec,
     constructors: {
     },
     methods: {
@@ -8202,6 +8281,7 @@ BridgedClass _createPlatformExceptionBridge() {
   return BridgedClass(
     nativeType: $flutter_26.PlatformException,
     name: 'PlatformException',
+    isAssignable: (v) => v is $flutter_26.PlatformException,
     constructors: {
       '': (visitor, positional, named) {
         final code = D4.getRequiredNamedArg<String>(named, 'code', 'PlatformException');
@@ -8246,6 +8326,7 @@ BridgedClass _createMissingPluginExceptionBridge() {
   return BridgedClass(
     nativeType: $flutter_26.MissingPluginException,
     name: 'MissingPluginException',
+    isAssignable: (v) => v is $flutter_26.MissingPluginException,
     constructors: {
       '': (visitor, positional, named) {
         final message = D4.getOptionalArg<String?>(positional, 0, 'message');
@@ -8281,6 +8362,7 @@ BridgedClass _createBinaryCodecBridge() {
   return BridgedClass(
     nativeType: $flutter_27.BinaryCodec,
     name: 'BinaryCodec',
+    isAssignable: (v) => v is $flutter_27.BinaryCodec,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_27.BinaryCodec();
@@ -8318,6 +8400,7 @@ BridgedClass _createStringCodecBridge() {
   return BridgedClass(
     nativeType: $flutter_27.StringCodec,
     name: 'StringCodec',
+    isAssignable: (v) => v is $flutter_27.StringCodec,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_27.StringCodec();
@@ -8355,6 +8438,7 @@ BridgedClass _createJSONMessageCodecBridge() {
   return BridgedClass(
     nativeType: $flutter_27.JSONMessageCodec,
     name: 'JSONMessageCodec',
+    isAssignable: (v) => v is $flutter_27.JSONMessageCodec,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_27.JSONMessageCodec();
@@ -8392,6 +8476,7 @@ BridgedClass _createJSONMethodCodecBridge() {
   return BridgedClass(
     nativeType: $flutter_27.JSONMethodCodec,
     name: 'JSONMethodCodec',
+    isAssignable: (v) => v is $flutter_27.JSONMethodCodec,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_27.JSONMethodCodec();
@@ -8451,6 +8536,7 @@ BridgedClass _createStandardMessageCodecBridge() {
   return BridgedClass(
     nativeType: $flutter_27.StandardMessageCodec,
     name: 'StandardMessageCodec',
+    isAssignable: (v) => v is $flutter_27.StandardMessageCodec,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_27.StandardMessageCodec();
@@ -8528,6 +8614,7 @@ BridgedClass _createStandardMethodCodecBridge() {
   return BridgedClass(
     nativeType: $flutter_27.StandardMethodCodec,
     name: 'StandardMethodCodec',
+    isAssignable: (v) => v is $flutter_27.StandardMethodCodec,
     constructors: {
       '': (visitor, positional, named) {
         final messageCodec = D4.getOptionalArgWithDefault<$flutter_27.StandardMessageCodec>(positional, 0, 'messageCodec', const $flutter_27.StandardMessageCodec());
@@ -8594,6 +8681,7 @@ BridgedClass _createPointerEventBridge() {
   return BridgedClass(
     nativeType: $flutter_5.PointerEvent,
     name: 'PointerEvent',
+    isAssignable: (v) => v is $flutter_5.PointerEvent,
     constructors: {
     },
     getters: {
@@ -8753,6 +8841,7 @@ BridgedClass _createMouseCursorManagerBridge() {
   return BridgedClass(
     nativeType: $flutter_28.MouseCursorManager,
     name: 'MouseCursorManager',
+    isAssignable: (v) => v is $flutter_28.MouseCursorManager,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MouseCursorManager');
@@ -8801,6 +8890,7 @@ BridgedClass _createMouseCursorSessionBridge() {
   return BridgedClass(
     nativeType: $flutter_28.MouseCursorSession,
     name: 'MouseCursorSession',
+    isAssignable: (v) => v is $flutter_28.MouseCursorSession,
     constructors: {
     },
     getters: {
@@ -8822,6 +8912,7 @@ BridgedClass _createMouseCursorBridge() {
   return BridgedClass(
     nativeType: $flutter_28.MouseCursor,
     name: 'MouseCursor',
+    isAssignable: (v) => v is $flutter_28.MouseCursor,
     constructors: {
     },
     getters: {
@@ -8871,6 +8962,7 @@ BridgedClass _createSystemMouseCursorBridge() {
   return BridgedClass(
     nativeType: $flutter_28.SystemMouseCursor,
     name: 'SystemMouseCursor',
+    isAssignable: (v) => v is $flutter_28.SystemMouseCursor,
     constructors: {
     },
     getters: {
@@ -8921,6 +9013,7 @@ BridgedClass _createSystemMouseCursorsBridge() {
   return BridgedClass(
     nativeType: $flutter_28.SystemMouseCursors,
     name: 'SystemMouseCursors',
+    isAssignable: (v) => v is $flutter_28.SystemMouseCursors,
     constructors: {
     },
     staticGetters: {
@@ -9010,6 +9103,7 @@ BridgedClass _createMouseTrackerAnnotationBridge() {
   return BridgedClass(
     nativeType: $flutter_29.MouseTrackerAnnotation,
     name: 'MouseTrackerAnnotation',
+    isAssignable: (v) => v is $flutter_29.MouseTrackerAnnotation,
     constructors: {
       '': (visitor, positional, named) {
         final onEnterRaw = named['onEnter'];
@@ -9067,6 +9161,7 @@ BridgedClass _createBasicMessageChannelBridge() {
   return BridgedClass(
     nativeType: $flutter_30.BasicMessageChannel,
     name: 'BasicMessageChannel',
+    isAssignable: (v) => v is $flutter_30.BasicMessageChannel,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'BasicMessageChannel');
@@ -9122,6 +9217,7 @@ BridgedClass _createMethodChannelBridge() {
   return BridgedClass(
     nativeType: $flutter_30.MethodChannel,
     name: 'MethodChannel',
+    isAssignable: (v) => v is $flutter_30.MethodChannel,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MethodChannel');
@@ -9194,6 +9290,7 @@ BridgedClass _createOptionalMethodChannelBridge() {
   return BridgedClass(
     nativeType: $flutter_30.OptionalMethodChannel,
     name: 'OptionalMethodChannel',
+    isAssignable: (v) => v is $flutter_30.OptionalMethodChannel,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'OptionalMethodChannel');
@@ -9266,6 +9363,7 @@ BridgedClass _createEventChannelBridge() {
   return BridgedClass(
     nativeType: $flutter_30.EventChannel,
     name: 'EventChannel',
+    isAssignable: (v) => v is $flutter_30.EventChannel,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'EventChannel');
@@ -9309,6 +9407,7 @@ BridgedClass _createPlatformViewsRegistryBridge() {
   return BridgedClass(
     nativeType: $flutter_31.PlatformViewsRegistry,
     name: 'PlatformViewsRegistry',
+    isAssignable: (v) => v is $flutter_31.PlatformViewsRegistry,
     constructors: {
     },
     methods: {
@@ -9331,6 +9430,7 @@ BridgedClass _createPlatformViewsServiceBridge() {
   return BridgedClass(
     nativeType: $flutter_31.PlatformViewsService,
     name: 'PlatformViewsService',
+    isAssignable: (v) => v is $flutter_31.PlatformViewsService,
     constructors: {
     },
     staticMethods: {
@@ -9414,6 +9514,7 @@ BridgedClass _createAndroidPointerPropertiesBridge() {
   return BridgedClass(
     nativeType: $flutter_31.AndroidPointerProperties,
     name: 'AndroidPointerProperties',
+    isAssignable: (v) => v is $flutter_31.AndroidPointerProperties,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<int>(named, 'id', 'AndroidPointerProperties');
@@ -9466,6 +9567,7 @@ BridgedClass _createAndroidPointerCoordsBridge() {
   return BridgedClass(
     nativeType: $flutter_31.AndroidPointerCoords,
     name: 'AndroidPointerCoords',
+    isAssignable: (v) => v is $flutter_31.AndroidPointerCoords,
     constructors: {
       '': (visitor, positional, named) {
         final orientation = D4.getRequiredNamedArg<double>(named, 'orientation', 'AndroidPointerCoords');
@@ -9525,6 +9627,7 @@ BridgedClass _createAndroidMotionEventBridge() {
   return BridgedClass(
     nativeType: $flutter_31.AndroidMotionEvent,
     name: 'AndroidMotionEvent',
+    isAssignable: (v) => v is $flutter_31.AndroidMotionEvent,
     constructors: {
       '': (visitor, positional, named) {
         final downTime = D4.getRequiredNamedArg<int>(named, 'downTime', 'AndroidMotionEvent');
@@ -9608,6 +9711,7 @@ BridgedClass _createAndroidViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_31.AndroidViewController,
     name: 'AndroidViewController',
+    isAssignable: (v) => v is $flutter_31.AndroidViewController,
     constructors: {
     },
     getters: {
@@ -9763,6 +9867,7 @@ BridgedClass _createSurfaceAndroidViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_31.SurfaceAndroidViewController,
     name: 'SurfaceAndroidViewController',
+    isAssignable: (v) => v is $flutter_31.SurfaceAndroidViewController,
     constructors: {
     },
     getters: {
@@ -9877,6 +9982,7 @@ BridgedClass _createExpensiveAndroidViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_31.ExpensiveAndroidViewController,
     name: 'ExpensiveAndroidViewController',
+    isAssignable: (v) => v is $flutter_31.ExpensiveAndroidViewController,
     constructors: {
     },
     getters: {
@@ -9991,6 +10097,7 @@ BridgedClass _createHybridAndroidViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_31.HybridAndroidViewController,
     name: 'HybridAndroidViewController',
+    isAssignable: (v) => v is $flutter_31.HybridAndroidViewController,
     constructors: {
     },
     getters: {
@@ -10113,6 +10220,7 @@ BridgedClass _createTextureAndroidViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_31.TextureAndroidViewController,
     name: 'TextureAndroidViewController',
+    isAssignable: (v) => v is $flutter_31.TextureAndroidViewController,
     constructors: {
     },
     getters: {
@@ -10227,6 +10335,7 @@ BridgedClass _createDarwinPlatformViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_31.DarwinPlatformViewController,
     name: 'DarwinPlatformViewController',
+    isAssignable: (v) => v is $flutter_31.DarwinPlatformViewController,
     constructors: {
     },
     getters: {
@@ -10272,6 +10381,7 @@ BridgedClass _createUiKitViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_31.UiKitViewController,
     name: 'UiKitViewController',
+    isAssignable: (v) => v is $flutter_31.UiKitViewController,
     constructors: {
     },
     getters: {
@@ -10317,6 +10427,7 @@ BridgedClass _createAppKitViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_31.AppKitViewController,
     name: 'AppKitViewController',
+    isAssignable: (v) => v is $flutter_31.AppKitViewController,
     constructors: {
     },
     getters: {
@@ -10362,6 +10473,7 @@ BridgedClass _createPlatformViewControllerBridge() {
   return BridgedClass(
     nativeType: $flutter_31.PlatformViewController,
     name: 'PlatformViewController',
+    isAssignable: (v) => v is $flutter_31.PlatformViewController,
     constructors: {
     },
     getters: {
@@ -10411,6 +10523,7 @@ BridgedClass _createPredictiveBackEventBridge() {
   return BridgedClass(
     nativeType: $flutter_32.PredictiveBackEvent,
     name: 'PredictiveBackEvent',
+    isAssignable: (v) => v is $flutter_32.PredictiveBackEvent,
     constructors: {
       'fromMap': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'PredictiveBackEvent');
@@ -10463,6 +10576,7 @@ BridgedClass _createProcessTextActionBridge() {
   return BridgedClass(
     nativeType: $flutter_33.ProcessTextAction,
     name: 'ProcessTextAction',
+    isAssignable: (v) => v is $flutter_33.ProcessTextAction,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ProcessTextAction');
@@ -10502,6 +10616,7 @@ BridgedClass _createProcessTextServiceBridge() {
   return BridgedClass(
     nativeType: $flutter_33.ProcessTextService,
     name: 'ProcessTextService',
+    isAssignable: (v) => v is $flutter_33.ProcessTextService,
     constructors: {
     },
     methods: {
@@ -10533,6 +10648,7 @@ BridgedClass _createDefaultProcessTextServiceBridge() {
   return BridgedClass(
     nativeType: $flutter_33.DefaultProcessTextService,
     name: 'DefaultProcessTextService',
+    isAssignable: (v) => v is $flutter_33.DefaultProcessTextService,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_33.DefaultProcessTextService();
@@ -10570,6 +10686,7 @@ BridgedClass _createScribeBridge() {
   return BridgedClass(
     nativeType: $flutter_36.Scribe,
     name: 'Scribe',
+    isAssignable: (v) => v is $flutter_36.Scribe,
     constructors: {
     },
     staticMethods: {
@@ -10599,6 +10716,7 @@ BridgedClass _createSensitiveContentServiceBridge() {
   return BridgedClass(
     nativeType: $flutter_37.SensitiveContentService,
     name: 'SensitiveContentService',
+    isAssignable: (v) => v is $flutter_37.SensitiveContentService,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_37.SensitiveContentService();
@@ -10652,6 +10770,7 @@ BridgedClass _createSuggestionSpanBridge() {
   return BridgedClass(
     nativeType: $flutter_39.SuggestionSpan,
     name: 'SuggestionSpan',
+    isAssignable: (v) => v is $flutter_39.SuggestionSpan,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SuggestionSpan');
@@ -10701,6 +10820,7 @@ BridgedClass _createSpellCheckResultsBridge() {
   return BridgedClass(
     nativeType: $flutter_39.SpellCheckResults,
     name: 'SpellCheckResults',
+    isAssignable: (v) => v is $flutter_39.SpellCheckResults,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SpellCheckResults');
@@ -10750,6 +10870,7 @@ BridgedClass _createSpellCheckServiceBridge() {
   return BridgedClass(
     nativeType: $flutter_39.SpellCheckService,
     name: 'SpellCheckService',
+    isAssignable: (v) => v is $flutter_39.SpellCheckService,
     constructors: {
     },
     methods: {
@@ -10775,6 +10896,7 @@ BridgedClass _createDefaultSpellCheckServiceBridge() {
   return BridgedClass(
     nativeType: $flutter_39.DefaultSpellCheckService,
     name: 'DefaultSpellCheckService',
+    isAssignable: (v) => v is $flutter_39.DefaultSpellCheckService,
     constructors: {
       '': (visitor, positional, named) {
         return $flutter_39.DefaultSpellCheckService();
@@ -10841,6 +10963,7 @@ BridgedClass _createSystemChannelsBridge() {
   return BridgedClass(
     nativeType: $flutter_40.SystemChannels,
     name: 'SystemChannels',
+    isAssignable: (v) => v is $flutter_40.SystemChannels,
     constructors: {
     },
     staticGetters: {
@@ -10906,6 +11029,7 @@ BridgedClass _createApplicationSwitcherDescriptionBridge() {
   return BridgedClass(
     nativeType: $flutter_41.ApplicationSwitcherDescription,
     name: 'ApplicationSwitcherDescription',
+    isAssignable: (v) => v is $flutter_41.ApplicationSwitcherDescription,
     constructors: {
       '': (visitor, positional, named) {
         final label = D4.getOptionalNamedArg<String?>(named, 'label');
@@ -10935,6 +11059,7 @@ BridgedClass _createSystemUiOverlayStyleBridge() {
   return BridgedClass(
     nativeType: $flutter_41.SystemUiOverlayStyle,
     name: 'SystemUiOverlayStyle',
+    isAssignable: (v) => v is $flutter_41.SystemUiOverlayStyle,
     constructors: {
       '': (visitor, positional, named) {
         final systemNavigationBarColor = D4.getOptionalNamedArg<Color?>(named, 'systemNavigationBarColor');
@@ -11032,6 +11157,7 @@ BridgedClass _createSystemChromeBridge() {
   return BridgedClass(
     nativeType: $flutter_41.SystemChrome,
     name: 'SystemChrome',
+    isAssignable: (v) => v is $flutter_41.SystemChrome,
     constructors: {
     },
     staticMethods: {
@@ -11097,6 +11223,7 @@ BridgedClass _createSystemNavigatorBridge() {
   return BridgedClass(
     nativeType: $flutter_42.SystemNavigator,
     name: 'SystemNavigator',
+    isAssignable: (v) => v is $flutter_42.SystemNavigator,
     constructors: {
     },
     staticMethods: {
@@ -11141,6 +11268,7 @@ BridgedClass _createSystemSoundBridge() {
   return BridgedClass(
     nativeType: $flutter_43.SystemSound,
     name: 'SystemSound',
+    isAssignable: (v) => v is $flutter_43.SystemSound,
     constructors: {
     },
     staticMethods: {
@@ -11164,6 +11292,7 @@ BridgedClass _createTextBoundaryBridge() {
   return BridgedClass(
     nativeType: $flutter_44.TextBoundary,
     name: 'TextBoundary',
+    isAssignable: (v) => v is $flutter_44.TextBoundary,
     constructors: {
     },
     methods: {
@@ -11202,6 +11331,7 @@ BridgedClass _createCharacterBoundaryBridge() {
   return BridgedClass(
     nativeType: $flutter_44.CharacterBoundary,
     name: 'CharacterBoundary',
+    isAssignable: (v) => v is $flutter_44.CharacterBoundary,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CharacterBoundary');
@@ -11248,6 +11378,7 @@ BridgedClass _createLineBoundaryBridge() {
   return BridgedClass(
     nativeType: $flutter_44.LineBoundary,
     name: 'LineBoundary',
+    isAssignable: (v) => v is $flutter_44.LineBoundary,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LineBoundary');
@@ -11294,6 +11425,7 @@ BridgedClass _createParagraphBoundaryBridge() {
   return BridgedClass(
     nativeType: $flutter_44.ParagraphBoundary,
     name: 'ParagraphBoundary',
+    isAssignable: (v) => v is $flutter_44.ParagraphBoundary,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ParagraphBoundary');
@@ -11340,6 +11472,7 @@ BridgedClass _createDocumentBoundaryBridge() {
   return BridgedClass(
     nativeType: $flutter_44.DocumentBoundary,
     name: 'DocumentBoundary',
+    isAssignable: (v) => v is $flutter_44.DocumentBoundary,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DocumentBoundary');
@@ -11386,6 +11519,7 @@ BridgedClass _createTextInputFormatterBridge() {
   return BridgedClass(
     nativeType: $flutter_47.TextInputFormatter,
     name: 'TextInputFormatter',
+    isAssignable: (v) => v is $flutter_47.TextInputFormatter,
     constructors: {
       'withFunction': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TextInputFormatter');
@@ -11422,6 +11556,7 @@ BridgedClass _createFilteringTextInputFormatterBridge() {
   return BridgedClass(
     nativeType: $flutter_47.FilteringTextInputFormatter,
     name: 'FilteringTextInputFormatter',
+    isAssignable: (v) => v is $flutter_47.FilteringTextInputFormatter,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FilteringTextInputFormatter');
@@ -11489,6 +11624,7 @@ BridgedClass _createLengthLimitingTextInputFormatterBridge() {
   return BridgedClass(
     nativeType: $flutter_47.LengthLimitingTextInputFormatter,
     name: 'LengthLimitingTextInputFormatter',
+    isAssignable: (v) => v is $flutter_47.LengthLimitingTextInputFormatter,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LengthLimitingTextInputFormatter');
@@ -11540,6 +11676,7 @@ BridgedClass _createTextLayoutMetricsBridge() {
   return BridgedClass(
     nativeType: $flutter_49.TextLayoutMetrics,
     name: 'TextLayoutMetrics',
+    isAssignable: (v) => v is $flutter_49.TextLayoutMetrics,
     constructors: {
     },
     methods: {
@@ -11601,6 +11738,7 @@ BridgedClass _createUndoManagerBridge() {
   return BridgedClass(
     nativeType: $flutter_50.UndoManager,
     name: 'UndoManager',
+    isAssignable: (v) => v is $flutter_50.UndoManager,
     constructors: {
     },
     staticGetters: {
@@ -11637,6 +11775,7 @@ BridgedClass _createUndoManagerClientBridge() {
   return BridgedClass(
     nativeType: $flutter_50.UndoManagerClient,
     name: 'UndoManagerClient',
+    isAssignable: (v) => v is $flutter_50.UndoManagerClient,
     constructors: {
     },
     getters: {
@@ -11682,6 +11821,7 @@ BridgedClass _createVector3Bridge() {
   return BridgedClass(
     nativeType: $vector_math_1.Vector3,
     name: 'Vector3',
+    isAssignable: (v) => v is $vector_math_1.Vector3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Vector3');
@@ -13037,6 +13177,7 @@ BridgedClass _createVector2Bridge() {
   return BridgedClass(
     nativeType: $vector_math_1.Vector2,
     name: 'Vector2',
+    isAssignable: (v) => v is $vector_math_1.Vector2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Vector2');
