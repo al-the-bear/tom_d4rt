@@ -2,6 +2,10 @@ import 'package:flutter/widgets.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 import 'bridges/material_bridges.b.dart';
+import 'generic_type_relaxers.dart';
+
+/// Whether [registerGenericTypeRelaxers] has been called.
+bool _relaxersRegistered = false;
 
 /// D4rt interpreter configured with Flutter Material bridges.
 ///
@@ -28,6 +32,7 @@ class FlutterD4rt {
 
   /// Creates a new [FlutterD4rt] instance with Flutter bridges registered.
   FlutterD4rt() : _interpreter = D4rt() {
+    _ensureRelaxersRegistered();
     FlutterMaterialBridges.register(_interpreter);
   }
 
@@ -38,7 +43,16 @@ class FlutterD4rt {
   ///
   /// Bridges are registered immediately on construction.
   FlutterD4rt.withInterpreter(this._interpreter) {
+    _ensureRelaxersRegistered();
     FlutterMaterialBridges.register(_interpreter);
+  }
+
+  /// GEN-079: Register generic type relaxers once globally.
+  static void _ensureRelaxersRegistered() {
+    if (!_relaxersRegistered) {
+      registerGenericTypeRelaxers();
+      _relaxersRegistered = true;
+    }
   }
 
   /// The underlying [D4rt] interpreter.

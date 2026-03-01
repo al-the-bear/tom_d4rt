@@ -355,10 +355,15 @@ void main() {
         'G-FBI-61: ElevatedButton.onPressed is required but nullable - only checks containsKey. [2026-02-28] (FAIL)',
         () {
           // Extract ElevatedButton bridge section
-          final elevatedButtonSection =
-              _extractBridgeSection(generatedCode, 'ElevatedButton');
-          expect(elevatedButtonSection, isNotNull,
-              reason: 'ElevatedButton bridge should be generated');
+          final elevatedButtonSection = _extractBridgeSection(
+            generatedCode,
+            'ElevatedButton',
+          );
+          expect(
+            elevatedButtonSection,
+            isNotNull,
+            reason: 'ElevatedButton bridge should be generated',
+          );
 
           // For required nullable, should only check containsKey
           expect(
@@ -381,8 +386,11 @@ void main() {
         () {
           // Extract Switch bridge section
           final switchSection = _extractBridgeSection(generatedCode, 'Switch');
-          expect(switchSection, isNotNull,
-              reason: 'Switch bridge should be generated');
+          expect(
+            switchSection,
+            isNotNull,
+            reason: 'Switch bridge should be generated',
+          );
 
           // For required nullable, should only check containsKey
           expect(
@@ -404,16 +412,22 @@ void main() {
         'G-FBI-63: IconButton.onPressed is required NON-nullable - should check both. [2026-02-28] (PASS)',
         () {
           // Extract IconButton bridge section
-          final iconButtonSection =
-              _extractBridgeSection(generatedCode, 'IconButton');
-          expect(iconButtonSection, isNotNull,
-              reason: 'IconButton bridge should be generated');
+          final iconButtonSection = _extractBridgeSection(
+            generatedCode,
+            'IconButton',
+          );
+          expect(
+            iconButtonSection,
+            isNotNull,
+            reason: 'IconButton bridge should be generated',
+          );
 
           // For required non-nullable, the check should include both containsKey and null check
           expect(
             iconButtonSection,
             contains(
-                "if (!named.containsKey('onPressed') || named['onPressed'] == null)"),
+              "if (!named.containsKey('onPressed') || named['onPressed'] == null)",
+            ),
             reason:
                 'Required non-nullable should check both containsKey AND null value',
           );
@@ -431,8 +445,10 @@ String? _extractBridgeSection(String code, String className) {
   if (startIndex == -1) return null;
 
   // Find the end - next bridge function definition or end of file
-  final nextFuncIndex =
-      code.indexOf('BridgedClass _create', startIndex + funcMarker.length);
+  final nextFuncIndex = code.indexOf(
+    'BridgedClass _create',
+    startIndex + funcMarker.length,
+  );
   final endIndex = nextFuncIndex != -1 ? nextFuncIndex : code.length;
 
   return code.substring(startIndex, endIndex);

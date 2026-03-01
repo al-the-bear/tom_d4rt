@@ -277,6 +277,19 @@ class AstModuleLoader implements ModuleContext {
       );
     }
 
+    // GEN-078: Register class aliases so deprecated names resolve to the
+    // canonical bridged class (e.g., MaterialStateProperty -> WidgetStateProperty).
+    for (final alias in runner.classAliases) {
+      if (alias.library != uriString) continue;
+      if (!_shouldInclude(alias.aliasName, showNames, hideNames)) continue;
+
+      globalEnvironment.defineBridgeAlias(alias.aliasName, alias.targetName);
+      Logger.debug(
+        '[AstModuleLoader] Registered class alias: '
+        '${alias.aliasName} -> ${alias.targetName} from $uriString',
+      );
+    }
+
     // Register bridged extensions
     for (final entry in runner.bridgedExtensions) {
       final libExt = entry[uriString];

@@ -28,7 +28,6 @@ class BridgedClass implements RuntimeType {
   final Type nativeType; // Keep nativeType for bridge logic
 
   @override
-
   /// The name of this class as it appears in interpreted code.
   final String name;
 
@@ -116,28 +115,29 @@ class BridgedClass implements RuntimeType {
   Map<String, String> getterSignatures = {};
   Map<String, String> setterSignatures = {};
 
-  BridgedClass(
-      {required this.nativeType,
-      required this.name,
-      this.nativeNames,
-      this.typeParameterCount = 0,
-      this.canBeUsedAsMixin = false,
-      this.isAssignable,
-      this.constructors = const {},
-      this.staticMethods = const {},
-      this.staticGetters = const {},
-      this.staticSetters = const {},
-      this.methods = const {},
-      this.getters = const {},
-      this.setters = const {},
-      this.constructorSignatures = const {},
-      this.methodSignatures = const {},
-      this.staticMethodSignatures = const {},
-      this.staticGetterSignatures = const {},
-      this.staticSetterSignatures = const {},
-      this.getterSignatures = const {},
-      this.setterSignatures = const {},
-      this.isSubtypeOfFunc});
+  BridgedClass({
+    required this.nativeType,
+    required this.name,
+    this.nativeNames,
+    this.typeParameterCount = 0,
+    this.canBeUsedAsMixin = false,
+    this.isAssignable,
+    this.constructors = const {},
+    this.staticMethods = const {},
+    this.staticGetters = const {},
+    this.staticSetters = const {},
+    this.methods = const {},
+    this.getters = const {},
+    this.setters = const {},
+    this.constructorSignatures = const {},
+    this.methodSignatures = const {},
+    this.staticMethodSignatures = const {},
+    this.staticGetterSignatures = const {},
+    this.staticSetterSignatures = const {},
+    this.getterSignatures = const {},
+    this.setterSignatures = const {},
+    this.isSubtypeOfFunc,
+  });
 
   @override
   bool isSubtypeOf(RuntimeType other, {Object? value}) {
@@ -170,6 +170,16 @@ class BridgedClass implements RuntimeType {
       // int, double are subtypes of num
       if (other.name == 'num' && (name == 'int' || name == 'double')) {
         return true;
+      }
+
+      // GEN-075: Check native type hierarchy via isAssignable
+      // When the value's native object satisfies the target class's isAssignable,
+      // the native type IS a subtype (e.g., Row is a subtype of Widget).
+      if (value != null && other.isAssignable != null) {
+        final nativeValue = value is BridgedInstance
+            ? value.nativeObject
+            : value;
+        if (other.isAssignable!(nativeValue)) return true;
       }
 
       return false;
@@ -218,8 +228,11 @@ class BridgedInstance<T extends Object> implements RuntimeValue {
   final List<RuntimeType> typeArguments;
 
   // Main constructor
-  BridgedInstance(this.bridgedClass, this.nativeObject,
-      {this.typeArguments = const []}); // Removed local initialization
+  BridgedInstance(
+    this.bridgedClass,
+    this.nativeObject, {
+    this.typeArguments = const [],
+  }); // Removed local initialization
 
   @override
   RuntimeType get valueType => bridgedClass;
@@ -240,14 +253,16 @@ class BridgedInstance<T extends Object> implements RuntimeValue {
 
     // 3. If neither method nor getter found, throw an error
     throw RuntimeD4rtException(
-        "Undefined property or method '$name' on bridged instance of '${bridgedClass.name}'");
+      "Undefined property or method '$name' on bridged instance of '${bridgedClass.name}'",
+    );
   }
 
   @override
   void set(String name, Object? value, [InterpreterVisitor? visitor]) {
     // Visitor is optional
     throw UnimplementedD4rtException(
-        "set('$name', ...) not implemented for BridgedInstance of '${bridgedClass.name}'");
+      "set('$name', ...) not implemented for BridgedInstance of '${bridgedClass.name}'",
+    );
   }
 
   @override
@@ -266,7 +281,7 @@ class TypeParameter implements RuntimeType {
   @override
   final String name;
   final RuntimeType?
-      bound; // The extends clause if any (e.g., T extends Object)
+  bound; // The extends clause if any (e.g., T extends Object)
 
   TypeParameter(this.name, {this.bound});
 

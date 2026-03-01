@@ -104,6 +104,11 @@ Future<GenerationResult> generateBridges({
       BuildConfigLoader.getPackageName(projectDir) ?? bridgeConfig.name;
 
   try {
+    // GEN-076: Track class names and source files across modules to prevent
+    // duplicate registrations. Only deduplicates when BOTH name AND source match,
+    // so different classes with the same name (e.g., dart:ui vs Flutter) are kept.
+    final globallyGeneratedClasses = <String, String>{};
+
     // Generate bridges for each module
     for (final module in bridgeConfig.modules) {
       // Determine sourceImport: use barrelImport if provided, otherwise first barrel file
@@ -151,11 +156,22 @@ Future<GenerationResult> generateBridges({
         excludeSourcePatterns: module.excludeSourcePatterns,
         importShowClause: module.importShowClause,
         importHideClause: module.importHideClause,
+        // GEN-076: Pass already-generated class sources for cross-module dedup
+        skipClassSources: globallyGeneratedClasses.isNotEmpty
+            ? globallyGeneratedClasses
+            : null,
       );
 
       totalClasses += result.classesGenerated;
       outputFiles.add(p.join(projectDir, normalizedOutputPath));
       errors.addAll(result.errors);
+      // GEN-076: Accumulate generated class sources for next module
+      globallyGeneratedClasses.addAll(result.generatedClassSources);
+      // DEBUG: Temporary logging for GEN-076
+      print(
+        '  GEN-076: Module ${module.name} generated ${result.generatedClassSources.length} classes, '
+        'global total: ${globallyGeneratedClasses.length}',
+      );
     }
 
     // Generate barrel file if requested

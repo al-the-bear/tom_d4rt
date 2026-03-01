@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 13 files
-// Generated: 2026-03-01T07:41:31.591870
+// Generated: 2026-03-01T11:17:53.845835
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -241,6 +241,7 @@ class DartUiBridge {
   /// bridged class under its canonical name.
   static Map<String, String> classAliases() {
     return {
+      'WindowPadding': 'ViewPadding',
     };
   }
 
@@ -575,6 +576,12 @@ class DartUiBridge {
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
       interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
+    }
+
+    // Register class aliases (typedef type aliases)
+    final aliases = classAliases();
+    for (final entry in aliases.entries) {
+      interpreter.registerClassAlias(entry.key, entry.value, importPath);
     }
   }
 
@@ -3120,9 +3127,9 @@ BridgedClass _createImageBridge() {
     },
     staticSetters: {
       'onCreate': (visitor, value) => 
-        $dart_ui.Image.onCreate = value as ImageEventCallback?,
+        $dart_ui.Image.onCreate = D4.extractBridgedArgOrNull<ImageEventCallback>(value, 'onCreate'),
       'onDispose': (visitor, value) => 
-        $dart_ui.Image.onDispose = value as ImageEventCallback?,
+        $dart_ui.Image.onDispose = D4.extractBridgedArgOrNull<ImageEventCallback>(value, 'onDispose'),
     },
     methodSignatures: {
       'dispose': 'void dispose()',
@@ -3655,7 +3662,10 @@ BridgedClass _createPathMetricsBridge() {
       'followedBy': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
         D4.requireMinArgs(positional, 1, 'followedBy');
-        final other = D4.getRequiredArg<Iterable<$dart_ui.PathMetric>>(positional, 0, 'other', 'followedBy');
+        if (positional.isEmpty) {
+          throw ArgumentError('followedBy: Missing required argument "other" at position 0');
+        }
+        final other = D4.coerceList<$dart_ui.PathMetric>(positional[0], 'other');
         return t.followedBy(other);
       },
       'map': (visitor, target, positional, named, typeArgs) {
@@ -5037,9 +5047,9 @@ BridgedClass _createPictureBridge() {
     },
     staticSetters: {
       'onCreate': (visitor, value) => 
-        $dart_ui.Picture.onCreate = value as PictureEventCallback?,
+        $dart_ui.Picture.onCreate = D4.extractBridgedArgOrNull<PictureEventCallback>(value, 'onCreate'),
       'onDispose': (visitor, value) => 
-        $dart_ui.Picture.onDispose = value as PictureEventCallback?,
+        $dart_ui.Picture.onDispose = D4.extractBridgedArgOrNull<PictureEventCallback>(value, 'onDispose'),
     },
     methodSignatures: {
       'toImage': 'Future<Image> toImage(int width, int height)',
@@ -6758,7 +6768,7 @@ BridgedClass _createSemanticsFlagsBridge() {
     },
     staticSetters: {
       'none': (visitor, value) => 
-        $dart_ui.SemanticsFlags.none = value as $dart_ui.SemanticsFlags,
+        $dart_ui.SemanticsFlags.none = D4.extractBridgedArg<$dart_ui.SemanticsFlags>(value, 'none'),
     },
     constructorSignatures: {
       '': 'SemanticsFlags({CheckedState isChecked = CheckedState.none, Tristate isSelected = Tristate.none, Tristate isEnabled = Tristate.none, Tristate isToggled = Tristate.none, Tristate isExpanded = Tristate.none, Tristate isRequired = Tristate.none, Tristate isFocused = Tristate.none, bool isButton = false, bool isTextField = false, bool isInMutuallyExclusiveGroup = false, bool isHeader = false, bool isObscured = false, bool scopesRoute = false, bool namesRoute = false, bool isHidden = false, bool isImage = false, bool isLiveRegion = false, bool hasImplicitScrolling = false, bool isMultiline = false, bool isReadOnly = false, bool isLink = false, bool isSlider = false, bool isKeyboardKey = false, bool isAccessibilityFocusBlocked = false})',

@@ -53,9 +53,11 @@ void main() {
     // When the direct source.dart export is processed, it should override to null
     // showClause, allowing all symbols (ClassA and ClassB) to be visible.
 
-    test('G-ISS-16: Direct export (no show) overrides restrictive re-export. [2026-03-01] (PASS)', () async {
-      // Source file with multiple classes
-      writeFile('pkg/lib/src/source.dart', '''
+    test(
+      'G-ISS-16: Direct export (no show) overrides restrictive re-export. [2026-03-01] (PASS)',
+      () async {
+        // Source file with multiple classes
+        writeFile('pkg/lib/src/source.dart', '''
 class ClassA {
   String get name => 'A';
 }
@@ -71,8 +73,8 @@ abstract final class StaticContainer {
 }
 ''');
 
-      // Intermediate file that re-exports source.dart with show clause
-      writeFile('pkg/lib/src/intermediate.dart', '''
+        // Intermediate file that re-exports source.dart with show clause
+        writeFile('pkg/lib/src/intermediate.dart', '''
 // Re-export only ClassA from source (like tween.dart exports curves.dart show Curve)
 export 'source.dart' show ClassA;
 
@@ -81,142 +83,178 @@ class IntermediateClass {
 }
 ''');
 
-      // Main barrel - exports intermediate BEFORE source (simulates order in animation.dart)
-      // The intermediate has a restrictive re-export, but the direct export should win
-      writeFile('pkg/lib/barrel.dart', '''
+        // Main barrel - exports intermediate BEFORE source (simulates order in animation.dart)
+        // The intermediate has a restrictive re-export, but the direct export should win
+        writeFile('pkg/lib/barrel.dart', '''
 // This order triggers the bug: intermediate is processed first
 export 'src/intermediate.dart';
 // Direct export should override the restrictive re-export from intermediate
 export 'src/source.dart';
 ''');
 
-      Directory(p.join(root, 'pkg/lib/src/bridges')).createSync(recursive: true);
+        Directory(
+          p.join(root, 'pkg/lib/src/bridges'),
+        ).createSync(recursive: true);
 
-      final generator = BridgeGenerator(
-        workspacePath: p.join(root, 'pkg'),
-        packageName: 'pkg',
-        sourceImport: 'package:pkg/barrel.dart',
-        helpersImport: 'package:tom_d4rt/tom_d4rt.dart',
-        verbose: true,
-      );
+        final generator = BridgeGenerator(
+          workspacePath: p.join(root, 'pkg'),
+          packageName: 'pkg',
+          sourceImport: 'package:pkg/barrel.dart',
+          helpersImport: 'package:tom_d4rt/tom_d4rt.dart',
+          verbose: true,
+        );
 
-      // Parse exports from the barrel
-      final barrelPath = p.join(root, 'pkg/lib/barrel.dart');
-      final exports = await generator.parseExportFiles([barrelPath]);
+        // Parse exports from the barrel
+        final barrelPath = p.join(root, 'pkg/lib/barrel.dart');
+        final exports = await generator.parseExportFiles([barrelPath]);
 
-      // Verify source.dart is in exports
-      final sourcePath = p.normalize(p.join(root, 'pkg/lib/src/source.dart'));
-      expect(exports.containsKey(sourcePath), isTrue,
-          reason: 'source.dart should be in exports map');
+        // Verify source.dart is in exports
+        final sourcePath = p.normalize(p.join(root, 'pkg/lib/src/source.dart'));
+        expect(
+          exports.containsKey(sourcePath),
+          isTrue,
+          reason: 'source.dart should be in exports map',
+        );
 
-      final sourceExport = exports[sourcePath]!;
-      
-      // GEN-072 FIX: The direct export (no show clause) should result in
-      // showClause being null, making ALL symbols visible
-      expect(sourceExport.showClause, isNull,
-          reason: 'GEN-072: Direct export should override restrictive re-export');
-      
-      // All classes should be exported
-      expect(sourceExport.isSymbolExported('ClassA'), isTrue,
-          reason: 'ClassA should be exported');
-      expect(sourceExport.isSymbolExported('ClassB'), isTrue,
-          reason: 'ClassB should be exported (would fail before GEN-072 fix)');
-      expect(sourceExport.isSymbolExported('StaticContainer'), isTrue,
-          reason: 'StaticContainer should be exported (like Flutter Curves)');
-    });
+        final sourceExport = exports[sourcePath]!;
 
-    test('G-ISS-17: Multiple restrictive re-exports still get overridden by direct export. [2026-03-01] (PASS)', () async {
-      // Source file with multiple classes
-      writeFile('pkg/lib/src/source.dart', '''
+        // GEN-072 FIX: The direct export (no show clause) should result in
+        // showClause being null, making ALL symbols visible
+        expect(
+          sourceExport.showClause,
+          isNull,
+          reason:
+              'GEN-072: Direct export should override restrictive re-export',
+        );
+
+        // All classes should be exported
+        expect(
+          sourceExport.isSymbolExported('ClassA'),
+          isTrue,
+          reason: 'ClassA should be exported',
+        );
+        expect(
+          sourceExport.isSymbolExported('ClassB'),
+          isTrue,
+          reason: 'ClassB should be exported (would fail before GEN-072 fix)',
+        );
+        expect(
+          sourceExport.isSymbolExported('StaticContainer'),
+          isTrue,
+          reason: 'StaticContainer should be exported (like Flutter Curves)',
+        );
+      },
+    );
+
+    test(
+      'G-ISS-17: Multiple restrictive re-exports still get overridden by direct export. [2026-03-01] (PASS)',
+      () async {
+        // Source file with multiple classes
+        writeFile('pkg/lib/src/source.dart', '''
 class ClassA {}
 class ClassB {}
 class ClassC {}
 ''');
 
-      // Multiple intermediate files with restrictive re-exports
-      writeFile('pkg/lib/src/intermediate1.dart', '''
+        // Multiple intermediate files with restrictive re-exports
+        writeFile('pkg/lib/src/intermediate1.dart', '''
 export 'source.dart' show ClassA;
 ''');
 
-      writeFile('pkg/lib/src/intermediate2.dart', '''
+        writeFile('pkg/lib/src/intermediate2.dart', '''
 export 'source.dart' show ClassB;
 ''');
 
-      // Main barrel
-      writeFile('pkg/lib/barrel.dart', '''
+        // Main barrel
+        writeFile('pkg/lib/barrel.dart', '''
 export 'src/intermediate1.dart';
 export 'src/intermediate2.dart';
 // Direct export should override both restrictive re-exports
 export 'src/source.dart';
 ''');
 
-      final generator = BridgeGenerator(
-        workspacePath: p.join(root, 'pkg'),
-        packageName: 'pkg',
-        sourceImport: 'package:pkg/barrel.dart',
-        helpersImport: 'package:tom_d4rt/tom_d4rt.dart',
-        verbose: true,
-      );
+        final generator = BridgeGenerator(
+          workspacePath: p.join(root, 'pkg'),
+          packageName: 'pkg',
+          sourceImport: 'package:pkg/barrel.dart',
+          helpersImport: 'package:tom_d4rt/tom_d4rt.dart',
+          verbose: true,
+        );
 
-      final barrelPath = p.join(root, 'pkg/lib/barrel.dart');
-      final exports = await generator.parseExportFiles([barrelPath]);
+        final barrelPath = p.join(root, 'pkg/lib/barrel.dart');
+        final exports = await generator.parseExportFiles([barrelPath]);
 
-      final sourcePath = p.normalize(p.join(root, 'pkg/lib/src/source.dart'));
-      final sourceExport = exports[sourcePath]!;
-      
-      // Direct export should make all classes visible
-      expect(sourceExport.showClause, isNull,
-          reason: 'Direct export should override all restrictive re-exports');
-      expect(sourceExport.isSymbolExported('ClassA'), isTrue);
-      expect(sourceExport.isSymbolExported('ClassB'), isTrue);
-      expect(sourceExport.isSymbolExported('ClassC'), isTrue,
-          reason: 'ClassC should be visible via direct export');
-    });
+        final sourcePath = p.normalize(p.join(root, 'pkg/lib/src/source.dart'));
+        final sourceExport = exports[sourcePath]!;
 
-    test('G-ISS-18: Restrictive export order: direct export first is preserved. [2026-03-01] (PASS)', () async {
-      // Verify that when direct export is processed FIRST, 
-      // subsequent restrictive re-exports don't override it
+        // Direct export should make all classes visible
+        expect(
+          sourceExport.showClause,
+          isNull,
+          reason: 'Direct export should override all restrictive re-exports',
+        );
+        expect(sourceExport.isSymbolExported('ClassA'), isTrue);
+        expect(sourceExport.isSymbolExported('ClassB'), isTrue);
+        expect(
+          sourceExport.isSymbolExported('ClassC'),
+          isTrue,
+          reason: 'ClassC should be visible via direct export',
+        );
+      },
+    );
 
-      writeFile('pkg/lib/src/source.dart', '''
+    test(
+      'G-ISS-18: Restrictive export order: direct export first is preserved. [2026-03-01] (PASS)',
+      () async {
+        // Verify that when direct export is processed FIRST,
+        // subsequent restrictive re-exports don't override it
+
+        writeFile('pkg/lib/src/source.dart', '''
 class ClassA {}
 class ClassB {}
 ''');
 
-      writeFile('pkg/lib/src/intermediate.dart', '''
+        writeFile('pkg/lib/src/intermediate.dart', '''
 export 'source.dart' show ClassA;
 ''');
 
-      // Direct export FIRST, then restrictive re-export
-      writeFile('pkg/lib/barrel.dart', '''
+        // Direct export FIRST, then restrictive re-export
+        writeFile('pkg/lib/barrel.dart', '''
 export 'src/source.dart';
 export 'src/intermediate.dart';
 ''');
 
-      final generator = BridgeGenerator(
-        workspacePath: p.join(root, 'pkg'),
-        packageName: 'pkg',
-        sourceImport: 'package:pkg/barrel.dart',
-        helpersImport: 'package:tom_d4rt/tom_d4rt.dart',
-        verbose: true,
-      );
+        final generator = BridgeGenerator(
+          workspacePath: p.join(root, 'pkg'),
+          packageName: 'pkg',
+          sourceImport: 'package:pkg/barrel.dart',
+          helpersImport: 'package:tom_d4rt/tom_d4rt.dart',
+          verbose: true,
+        );
 
-      final barrelPath = p.join(root, 'pkg/lib/barrel.dart');
-      final exports = await generator.parseExportFiles([barrelPath]);
+        final barrelPath = p.join(root, 'pkg/lib/barrel.dart');
+        final exports = await generator.parseExportFiles([barrelPath]);
 
-      final sourcePath = p.normalize(p.join(root, 'pkg/lib/src/source.dart'));
-      final sourceExport = exports[sourcePath]!;
-      
-      // Direct export was first - existing logic already preserves permissive
-      expect(sourceExport.showClause, isNull,
-          reason: 'Permissive entry should be preserved');
-      expect(sourceExport.isSymbolExported('ClassA'), isTrue);
-      expect(sourceExport.isSymbolExported('ClassB'), isTrue);
-    });
+        final sourcePath = p.normalize(p.join(root, 'pkg/lib/src/source.dart'));
+        final sourceExport = exports[sourcePath]!;
 
-    test('G-ISS-19: Full bridge generation includes all classes from direct export. [2026-03-01] (PASS)', () async {
-      // Verify the fix works end-to-end with actual bridge generation
+        // Direct export was first - existing logic already preserves permissive
+        expect(
+          sourceExport.showClause,
+          isNull,
+          reason: 'Permissive entry should be preserved',
+        );
+        expect(sourceExport.isSymbolExported('ClassA'), isTrue);
+        expect(sourceExport.isSymbolExported('ClassB'), isTrue);
+      },
+    );
 
-      writeFile('pkg/lib/src/source.dart', '''
+    test(
+      'G-ISS-19: Full bridge generation includes all classes from direct export. [2026-03-01] (PASS)',
+      () async {
+        // Verify the fix works end-to-end with actual bridge generation
+
+        writeFile('pkg/lib/src/source.dart', '''
 class PublicClass {
   PublicClass();
   String get label => 'public';
@@ -228,43 +266,55 @@ abstract final class StaticOnly {
 }
 ''');
 
-      writeFile('pkg/lib/src/intermediate.dart', '''
+        writeFile('pkg/lib/src/intermediate.dart', '''
 // Only re-exports PublicClass, not StaticOnly
 export 'source.dart' show PublicClass;
 ''');
 
-      writeFile('pkg/lib/barrel.dart', '''
+        writeFile('pkg/lib/barrel.dart', '''
 export 'src/intermediate.dart';
 export 'src/source.dart';  // Direct export - should include StaticOnly
 ''');
 
-      Directory(p.join(root, 'pkg/lib/src/bridges')).createSync(recursive: true);
+        Directory(
+          p.join(root, 'pkg/lib/src/bridges'),
+        ).createSync(recursive: true);
 
-      final generator = BridgeGenerator(
-        workspacePath: p.join(root, 'pkg'),
-        packageName: 'pkg',
-        sourceImport: 'package:pkg/barrel.dart',
-        helpersImport: 'package:tom_d4rt/tom_d4rt.dart',
-        verbose: true,
-      );
+        final generator = BridgeGenerator(
+          workspacePath: p.join(root, 'pkg'),
+          packageName: 'pkg',
+          sourceImport: 'package:pkg/barrel.dart',
+          helpersImport: 'package:tom_d4rt/tom_d4rt.dart',
+          verbose: true,
+        );
 
-      final outputPath = p.join(root, 'pkg/lib/src/bridges/test.b.dart');
-      final result = await generator.generateBridgesFromExports(
-        barrelFiles: [p.join(root, 'pkg/lib/barrel.dart')],
-        outputPath: outputPath,
-        moduleName: 'test',
-      );
+        final outputPath = p.join(root, 'pkg/lib/src/bridges/test.b.dart');
+        final result = await generator.generateBridgesFromExports(
+          barrelFiles: [p.join(root, 'pkg/lib/barrel.dart')],
+          outputPath: outputPath,
+          moduleName: 'test',
+        );
 
-      expect(result.errors, isEmpty,
-          reason: 'Generation should succeed');
-      expect(result.classesGenerated, equals(2),
-          reason: 'Both PublicClass and StaticOnly should be generated');
+        expect(result.errors, isEmpty, reason: 'Generation should succeed');
+        expect(
+          result.classesGenerated,
+          equals(2),
+          reason: 'Both PublicClass and StaticOnly should be generated',
+        );
 
-      final generatedCode = File(outputPath).readAsStringSync();
-      expect(generatedCode, contains('PublicClass'),
-          reason: 'PublicClass should be in generated code');
-      expect(generatedCode, contains('StaticOnly'),
-          reason: 'StaticOnly should be in generated code (would fail before GEN-072)');
-    });
+        final generatedCode = File(outputPath).readAsStringSync();
+        expect(
+          generatedCode,
+          contains('PublicClass'),
+          reason: 'PublicClass should be in generated code',
+        );
+        expect(
+          generatedCode,
+          contains('StaticOnly'),
+          reason:
+              'StaticOnly should be in generated code (would fail before GEN-072)',
+        );
+      },
+    );
   });
 }

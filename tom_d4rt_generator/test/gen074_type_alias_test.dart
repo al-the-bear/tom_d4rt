@@ -15,8 +15,9 @@ void main() {
 
   setUpAll(() async {
     testFixturesDir = p.join(Directory.current.path, 'test', 'fixtures');
-    tempOutputDir =
-        Directory.systemTemp.createTempSync('gen074_type_alias_test_').path;
+    tempOutputDir = Directory.systemTemp
+        .createTempSync('gen074_type_alias_test_')
+        .path;
 
     // Create a generator for the test fixture
     generator = BridgeGenerator(
@@ -51,100 +52,105 @@ void main() {
 
   group('GEN-074: Type alias bridging', () {
     test(
-        'G-ISS-20: should include classAliases() method in generated code [2026-03-01] (FAIL)',
-        () {
-      // The generator should produce a classAliases() method that maps
-      // alias names to their target class names
-      expect(
-        generatedCode.contains('classAliases()'),
-        isTrue,
-        reason:
-            'Generated code should include classAliases() method for type alias registration',
-      );
-    });
+      'G-ISS-20: should include classAliases() method in generated code [2026-03-01] (FAIL)',
+      () {
+        // The generator should produce a classAliases() method that maps
+        // alias names to their target class names
+        expect(
+          generatedCode.contains('classAliases()'),
+          isTrue,
+          reason:
+              'Generated code should include classAliases() method for type alias registration',
+        );
+      },
+    );
 
     test(
-        'G-ISS-21: MaterialStateProperty should be aliased to WidgetStateProperty [2026-03-01] (FAIL)',
-        () {
-      // The classAliases() method should include MaterialStateProperty -> WidgetStateProperty
-      expect(
-        generatedCode.contains("'MaterialStateProperty'"),
-        isTrue,
-        reason:
-            'MaterialStateProperty should be registered as a type alias',
-      );
-    });
+      'G-ISS-21: MaterialStateProperty should be aliased to WidgetStateProperty [2026-03-01] (FAIL)',
+      () {
+        // The classAliases() method should include MaterialStateProperty -> WidgetStateProperty
+        expect(
+          generatedCode.contains("'MaterialStateProperty'"),
+          isTrue,
+          reason: 'MaterialStateProperty should be registered as a type alias',
+        );
+      },
+    );
 
     test(
-        'G-ISS-22: ButtonStateProperty should be aliased to WidgetStateProperty [2026-03-01] (FAIL)',
-        () {
-      // The classAliases() method should include ButtonStateProperty -> WidgetStateProperty
-      expect(
-        generatedCode.contains("'ButtonStateProperty'"),
-        isTrue,
-        reason:
-            'ButtonStateProperty should be registered as a type alias',
-      );
-    });
+      'G-ISS-22: ButtonStateProperty should be aliased to WidgetStateProperty [2026-03-01] (FAIL)',
+      () {
+        // The classAliases() method should include ButtonStateProperty -> WidgetStateProperty
+        expect(
+          generatedCode.contains("'ButtonStateProperty'"),
+          isTrue,
+          reason: 'ButtonStateProperty should be registered as a type alias',
+        );
+      },
+    );
 
     test(
-        'G-ISS-23: Box should be aliased to SimpleContainer [2026-03-01] (FAIL)',
-        () {
-      // Non-generic type aliases should also be bridged
-      expect(
-        generatedCode.contains("'Box'"),
-        isTrue,
-        reason:
-            'Box should be registered as a type alias for SimpleContainer',
-      );
-    });
+      'G-ISS-23: Box should be aliased to SimpleContainer [2026-03-01] (FAIL)',
+      () {
+        // Non-generic type aliases should also be bridged
+        expect(
+          generatedCode.contains("'Box'"),
+          isTrue,
+          reason:
+              'Box should be registered as a type alias for SimpleContainer',
+        );
+      },
+    );
 
     test(
-        'G-ISS-24: Container should be aliased to SimpleContainer [2026-03-01] (FAIL)',
-        () {
-      // Non-generic type aliases should also be bridged
-      expect(
-        generatedCode.contains("'Container'"),
-        isTrue,
-        reason:
-            'Container should be registered as a type alias for SimpleContainer',
-      );
-    });
+      'G-ISS-24: Container should be aliased to SimpleContainer [2026-03-01] (FAIL)',
+      () {
+        // Non-generic type aliases should also be bridged
+        expect(
+          generatedCode.contains("'Container'"),
+          isTrue,
+          reason:
+              'Container should be registered as a type alias for SimpleContainer',
+        );
+      },
+    );
 
     test(
-        'G-ISS-25: WidgetStateProperty base class should be bridged [2026-03-01] (OK)',
-        () {
-      // The base class should have a bridge
-      expect(
-        generatedCode.contains('_createWidgetStatePropertyBridge'),
-        isTrue,
-        reason:
-            'WidgetStateProperty base class should have a bridge function',
-      );
-    });
+      'G-ISS-25: WidgetStateProperty base class should be bridged [2026-03-01] (OK)',
+      () {
+        // The base class should have a bridge
+        expect(
+          generatedCode.contains('_createWidgetStatePropertyBridge'),
+          isTrue,
+          reason:
+              'WidgetStateProperty base class should have a bridge function',
+        );
+      },
+    );
 
     test(
-        'G-ISS-26: SimpleContainer base class should be bridged [2026-03-01] (OK)',
-        () {
-      // The base class should have a bridge
-      expect(
-        generatedCode.contains('_createSimpleContainerBridge'),
-        isTrue,
-        reason:
-            'SimpleContainer base class should have a bridge function',
-      );
-    });
+      'G-ISS-26: SimpleContainer base class should be bridged [2026-03-01] (OK)',
+      () {
+        // The base class should have a bridge
+        expect(
+          generatedCode.contains('_createSimpleContainerBridge'),
+          isTrue,
+          reason: 'SimpleContainer base class should have a bridge function',
+        );
+      },
+    );
 
     test(
-        'G-ISS-27: registerBridges should call registerClassAlias for aliases [2026-03-01] (FAIL)',
-        () {
-      // The registerBridges method should register class aliases
-      expect(
-        generatedCode.contains('interpreter.registerClassAlias'),
-        isTrue,
-        reason:
-            'registerBridges should call registerClassAlias for type aliases',
-      );
-    });
+      'G-ISS-27: registerBridges should call registerClassAlias for aliases [2026-03-01] (FAIL)',
+      () {
+        // The registerBridges method should register class aliases
+        expect(
+          generatedCode.contains('interpreter.registerClassAlias'),
+          isTrue,
+          reason:
+              'registerBridges should call registerClassAlias for type aliases',
+        );
+      },
+    );
   });
 }

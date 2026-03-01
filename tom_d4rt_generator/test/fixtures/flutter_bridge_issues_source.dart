@@ -294,10 +294,7 @@ class ElevatedButton extends Widget {
   final Widget child;
 
   /// Required nullable callback - null means disabled.
-  const ElevatedButton({
-    required this.onPressed,
-    required this.child,
-  });
+  const ElevatedButton({required this.onPressed, required this.child});
 }
 
 /// Another button with required nullable onChanged.
@@ -306,10 +303,7 @@ class Switch extends Widget {
   final void Function(bool)? onChanged;
 
   /// Required nullable callback - null means disabled.
-  const Switch({
-    required this.value,
-    required this.onChanged,
-  });
+  const Switch({required this.value, required this.onChanged});
 }
 
 /// Widget with multiple required nullable callbacks.
@@ -318,11 +312,7 @@ class FormField extends Widget {
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
 
-  const FormField({
-    this.onSaved,
-    this.validator,
-    this.onChanged,
-  });
+  const FormField({this.onSaved, this.validator, this.onChanged});
 }
 
 /// Widget with required non-nullable callback for comparison.
@@ -331,8 +321,5 @@ class IconButton extends Widget {
   final Widget icon;
 
   /// Required non-nullable callback - must be provided and non-null.
-  const IconButton({
-    required this.onPressed,
-    required this.icon,
-  });
+  const IconButton({required this.onPressed, required this.icon});
 }

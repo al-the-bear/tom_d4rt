@@ -211,7 +211,8 @@ class Environment {
     // Search current environment and enclosing ones
     Environment? current = this;
     while (current != null) {
-      BridgedClass? bridgedClass = current._bridgedClassesLookupByType[nativeType];
+      BridgedClass? bridgedClass =
+          current._bridgedClassesLookupByType[nativeType];
 
       String nativeTypeName = nativeType.toString();
 
@@ -229,7 +230,8 @@ class Environment {
             ?.value;
       } else if (bridgedClass == null && nativeTypeName.contains('<')) {
         bridgedClass = current._bridgedClassesLookupByType.entries
-            .firstWhereOrNull((e) => nativeTypeName.contains('${e.value.name}<'))
+            .firstWhereOrNull(
+                (e) => nativeTypeName.contains('${e.value.name}<'))
             ?.value;
       }
       bridgedClass ??= current._bridgedClassesLookupByType.entries
@@ -245,16 +247,15 @@ class Environment {
       // Check if any registered bridge name is a prefix of the native type name.
       // e.g., "ProgressBothImpl" contains bridge name "Progress"
       if (bridgedClass == null) {
-        bridgedClass = current._bridgedClassesLookupByType.entries
-            .firstWhereOrNull((e) {
-              final bridgeName = e.value.name;
-              // Only match if the bridge name is a substantial prefix (>= 3 chars)
-              // and the native type name starts with it followed by more chars
-              return bridgeName.length >= 3 &&
-                  nativeTypeName.startsWith(bridgeName) &&
-                  nativeTypeName.length > bridgeName.length;
-            })
-            ?.value;
+        bridgedClass =
+            current._bridgedClassesLookupByType.entries.firstWhereOrNull((e) {
+          final bridgeName = e.value.name;
+          // Only match if the bridge name is a substantial prefix (>= 3 chars)
+          // and the native type name starts with it followed by more chars
+          return bridgeName.length >= 3 &&
+              nativeTypeName.startsWith(bridgeName) &&
+              nativeTypeName.length > bridgeName.length;
+        })?.value;
         if (bridgedClass != null) {
           Logger.debug(
               "[Environment] Matched native type '$nativeTypeName' to bridge '${bridgedClass.name}' via prefix matching");
@@ -264,7 +265,7 @@ class Environment {
       if (bridgedClass != null) {
         return bridgedClass;
       }
-      
+
       current = current._enclosing;
     }
 
@@ -411,7 +412,7 @@ class Environment {
   }
 
   /// Unwraps bridge wrappers for setter assignment.
-  /// 
+  ///
   /// GEN-054: BridgedEnumValue wraps native enum values during interpretation.
   /// When assigning to a native setter, we need to unwrap back to the native value.
   Object? _unwrapForSetter(Object? value) {
@@ -427,7 +428,7 @@ class Environment {
         "[Env.assign] Attempting to assign '$name' = $value in env: $hashCode");
     if (_values.containsKey(name)) {
       final existing = _values[name];
-      
+
       // Handle GlobalGetter with setter - call the native setter instead of replacing
       if (existing is GlobalGetter) {
         if (existing.hasSetter) {
@@ -444,19 +445,21 @@ class Environment {
               "This global only has a getter, not a setter.");
         }
       }
-      
+
       Logger.debug(" [Env.assign] Assigned '$name' locally in env: $hashCode");
       _values[name] = value;
       return value;
     }
 
     if (_bridgedClasses.containsKey(name)) {
-      throw RuntimeD4rtException("Cannot assign to the name of a bridged class: $name");
+      throw RuntimeD4rtException(
+          "Cannot assign to the name of a bridged class: $name");
     }
 
     // Prevent assigning to bridged enum names
     if (_bridgedEnums.containsKey(name)) {
-      throw RuntimeD4rtException("Cannot assign to the name of a bridged enum: $name");
+      throw RuntimeD4rtException(
+          "Cannot assign to the name of a bridged enum: $name");
     }
 
     if (_enclosing != null) {
@@ -595,23 +598,24 @@ class Environment {
   /// This relaxes the matching for raw types (types without type arguments):
   /// - If target type is `List` (no type args) and extension is on `List<T>`, allow match
   /// - The extension itself handles type constraints at runtime
-  bool _matchesExtensionType(RuntimeType targetType, RuntimeType extensionOnType) {
+  bool _matchesExtensionType(
+      RuntimeType targetType, RuntimeType extensionOnType) {
     // First try the normal subtype check
     if (targetType.isSubtypeOf(extensionOnType)) {
       return true;
     }
-    
+
     // Bug-98 fix: Relaxed matching for raw types
     // If the target and extension have the same base type name, allow the match.
     // This handles cases where:
-    // - Target is native List (no type parameterization available at runtime)  
+    // - Target is native List (no type parameterization available at runtime)
     // - Extension is on List<int> (has type parameter in declaration)
     if (targetType.name == extensionOnType.name) {
       Logger.debug(
           "[_matchesExtensionType] Allowing same-name type match: ${targetType.name}");
       return true;
     }
-    
+
     return false;
   }
 

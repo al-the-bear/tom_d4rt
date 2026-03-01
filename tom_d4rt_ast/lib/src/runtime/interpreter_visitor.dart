@@ -397,7 +397,22 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         Logger.debug(
           "[visitSimpleIdentifier]   Bridged method '$name' not found either.",
         );
-        // If neither getter nor method, error
+        // GEN-075: Fallback for universal Object properties
+        switch (name) {
+          case 'hashCode':
+            return bridgedInstance.nativeObject.hashCode;
+          case 'runtimeType':
+            return bridgedInstance.nativeObject.runtimeType;
+          case 'toString':
+            return BridgedMethodCallable(
+              bridgedInstance,
+              (visitor, nativeObj, positionalArgs, namedArgs, typeArgs) =>
+                  nativeObj.toString(),
+              name,
+            );
+          default:
+        }
+        // If neither getter, method, nor Object property, error
         throw RuntimeD4rtException(
           "Undefined property or method '$name' on bridged instance of '${bridgedInstance.bridgedClass.name}' accessed via implicit 'this'.",
         );
@@ -890,6 +905,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
     } else if (toBridgedInstance(prefixValue).$2) {
       final bridgedInstance = toBridgedInstance(prefixValue).$1!;
+      // GEN-075: Check universal Object properties first
+      switch (memberName) {
+        case 'hashCode':
+          return bridgedInstance.nativeObject.hashCode;
+        case 'runtimeType':
+          return bridgedInstance.nativeObject.runtimeType;
+        default:
+      }
       final getterAdapter = bridgedInstance.bridgedClass
           .findInstanceGetterAdapter(memberName);
       if (getterAdapter != null) {
@@ -1764,6 +1787,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           } else if (toBridgedInstance(thisInstance).$2) {
             if (rhsValue is BridgedEnumValue) {
               rhsValue = rhsValue.nativeValue;
+            } else if (rhsValue is BridgedInstance) {
+              // GEN-079: Unwrap BridgedInstance for native setter calls
+              rhsValue = rhsValue.nativeObject;
             }
             final bridgedInstance = toBridgedInstance(thisInstance).$1!;
             final bridgedClass = bridgedInstance.bridgedClass;
@@ -2086,6 +2112,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       } else if (toBridgedInstance(targetValue).$2) {
         if (rhsValue is BridgedEnumValue) {
           rhsValue = rhsValue.nativeValue;
+        } else if (rhsValue is BridgedInstance) {
+          // GEN-079: Unwrap BridgedInstance for native setter calls
+          rhsValue = rhsValue.nativeObject;
         }
         final bridgedInstance = toBridgedInstance(targetValue).$1!;
         final setterAdapter = bridgedInstance.bridgedClass
@@ -2135,6 +2164,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       } else if (targetValue is BoundBridgedSuper) {
         if (rhsValue is BridgedEnumValue) {
           rhsValue = rhsValue.nativeValue;
+        } else if (rhsValue is BridgedInstance) {
+          // GEN-079: Unwrap BridgedInstance for native setter calls
+          rhsValue = rhsValue.nativeObject;
         }
         // This handles: super.property = rhsValue; or super.property += rhsValue;
         final instance = targetValue.instance; // Instance 'this'
@@ -2429,6 +2461,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       } else if (toBridgedInstance(target).$2) {
         if (rhsValue is BridgedEnumValue) {
           rhsValue = rhsValue.nativeValue;
+        } else if (rhsValue is BridgedInstance) {
+          // GEN-079: Unwrap BridgedInstance for native setter calls
+          rhsValue = rhsValue.nativeObject;
         }
         final bridgedInstance = toBridgedInstance(target).$1!;
 
@@ -4095,7 +4130,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       final staticGetter = bridgedClass.findStaticGetterAdapter(propertyName);
       if (staticGetter != null) {
         Logger.debug("[SPropertyAccess]   Found static getter adapter.");
-        return wrapNativeReturnValue(staticGetter(this)); // Call static getter adapter
+        return wrapNativeReturnValue(
+          staticGetter(this),
+        ); // Call static getter adapter
       }
 
       final staticMethod = bridgedClass.findStaticMethodAdapter(propertyName);
@@ -4115,11 +4152,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       Logger.debug(
         "[SPropertyAccess] Access on BridgedInstance: ${bridgedInstance.bridgedClass.name}.$propertyName",
       );
+      // GEN-075: Use nativeObject for Object properties
       switch (propertyName) {
         case 'runtimeType':
-          return target.runtimeType;
+          return bridgedInstance.nativeObject.runtimeType;
         case 'hashCode':
-          return target.hashCode;
+          return bridgedInstance.nativeObject.hashCode;
         default:
       }
       final getterAdapter = bridgedInstance.bridgedClass
@@ -9188,12 +9226,42 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   @override
   Object? visitInstanceCreationExpression(SInstanceCreationExpression node) {
     final constructorNameNode = node.constructorName!.type;
-    final constructorName =
-        constructorNameNode!.name!.name; // Name of the class
-    final namedConstructorPart = node
-        .constructorName!
-        .name
-        ?.name; // Name of the named constructor (or null)
+
+    // Resolve class name and named constructor, handling unresolved AST
+    // ambiguity where the parser can't distinguish ClassName.namedCtor(...)
+    // from importPrefix.ClassName(...). In unresolved AST, ClassName goes
+    // into SNamedType.importPrefix and namedCtor goes into SNamedType.name,
+    // with SConstructorName.name being null.
+    String constructorName;
+    String? namedConstructorPart;
+
+    if (node.constructorName!.name != null) {
+      // Resolved form: type.name = class, constructorName.name = named ctor
+      constructorName = constructorNameNode!.name!.name;
+      namedConstructorPart = node.constructorName!.name!.name;
+    } else if (constructorNameNode!.importPrefix != null) {
+      // Unresolved ambiguity: check if importPrefix is actually a class name
+      final possibleClassName = constructorNameNode.importPrefix!.name;
+      Object? possibleType;
+      try {
+        possibleType = environment.get(possibleClassName);
+      } on RuntimeD4rtException {
+        possibleType = null;
+      }
+      if (possibleType is InterpretedClass || possibleType is BridgedClass) {
+        // importPrefix was actually the class name, name is the named ctor
+        constructorName = possibleClassName;
+        namedConstructorPart = constructorNameNode.name!.name;
+      } else {
+        // It really is a prefix.ClassName() call
+        constructorName = constructorNameNode.name!.name;
+        namedConstructorPart = null;
+      }
+    } else {
+      // Simple: ClassName() with no prefix, no named constructor
+      constructorName = constructorNameNode.name!.name;
+      namedConstructorPart = null;
+    }
 
     Logger.debug(
       "[InstanceCreation] Creating instance of '$constructorName'${namedConstructorPart != null ? '.$namedConstructorPart' : ''}",
@@ -9495,8 +9563,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       return nativeValue.map(wrapNativeReturnValue).toList();
     }
     if (nativeValue is Map) {
-      return nativeValue.map((key, value) =>
-          MapEntry(wrapNativeReturnValue(key), wrapNativeReturnValue(value)));
+      return nativeValue.map(
+        (key, value) =>
+            MapEntry(wrapNativeReturnValue(key), wrapNativeReturnValue(value)),
+      );
     }
     // Try to find a bridge for this native value
     final result = toBridgedInstance(nativeValue);

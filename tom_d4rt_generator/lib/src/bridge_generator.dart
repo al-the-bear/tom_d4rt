@@ -105,6 +105,12 @@ class BridgeGeneratorResult {
   /// Warnings (non-fatal issues).
   final List<String> warnings;
 
+  /// GEN-076: Names and source URIs of classes that were generated in this module.
+  /// Used for cross-module deduplication to prevent a re-exported class
+  /// from being registered multiple times across different bridge files.
+  /// Key: class name, Value: source file path.
+  final Map<String, String> generatedClassSources;
+
   const BridgeGeneratorResult({
     required this.classesGenerated,
     this.globalFunctionsGenerated = 0,
@@ -112,6 +118,7 @@ class BridgeGeneratorResult {
     required this.outputFiles,
     this.errors = const [],
     this.warnings = const [],
+    this.generatedClassSources = const {},
   });
 }
 
@@ -1792,14 +1799,31 @@ class BridgeGenerator {
 
           // Check if this is the current package
           if (packageName != null && exportPackageName == packageName) {
+            // GEN-077: Check skipReExports for same-package re-exports.
+            // When e.g. widgets/basic.dart has
+            //   export 'package:flutter/animation.dart';
+            // — the full URI must be checked against skipReExports because
+            // both sides share the same package name ('flutter').
+            if (skipReExports.contains(exportPath)) {
+              if (verbose) {
+                print(
+                  'Skipping same-package re-export $exportPath (in skipReExports)',
+                );
+              }
+              continue;
+            }
             // Convert package: to relative path for current package
             absolutePath = '$workspacePath/lib/$exportRelativePath';
           } else {
             // Determine if we should follow this external package's re-exports
             bool shouldFollow;
             if (followAllReExports) {
-              // Follow all except those in skipReExports
-              shouldFollow = !skipReExports.contains(exportPackageName);
+              // Follow all except those in skipReExports.
+              // GEN-077: Match both full URI (package:foo/bar.dart)
+              // and bare package name (foo) for backwards compatibility.
+              shouldFollow =
+                  !skipReExports.contains(exportPackageName) &&
+                  !skipReExports.contains(exportPath);
             } else {
               // Only follow those explicitly listed in followReExports
               shouldFollow = followReExports.contains(exportPackageName);
@@ -2061,6 +2085,9 @@ class BridgeGenerator {
     List<String>? followReExports,
     List<String> importShowClause = const [],
     List<String> importHideClause = const [],
+    // GEN-076: Cross-module dedup — skip classes already generated in earlier modules.
+    // Maps className → sourceFile so only exact same-source duplicates are skipped.
+    Map<String, String>? skipClassSources,
   }) async {
     // Resolve package: and dart: URIs to file paths
     final resolvedBarrelFiles = <String>[];
@@ -2134,6 +2161,8 @@ class BridgeGenerator {
       exportInfo: exports,
       importShowClause: importShowClause,
       importHideClause: importHideClause,
+      // GEN-076: Forward cross-module dedup map
+      skipClassSources: skipClassSources,
     );
   }
 
@@ -2264,6 +2293,9 @@ class BridgeGenerator {
     Map<String, ExportInfo>? exportInfo,
     List<String> importShowClause = const [],
     List<String> importHideClause = const [],
+    // GEN-076: Cross-module dedup — skip classes already generated in earlier modules.
+    // Maps className → sourceFile so only exact same-source duplicates are skipped.
+    Map<String, String>? skipClassSources,
   }) async {
     _skipReports.clear();
 
@@ -2392,6 +2424,19 @@ class BridgeGenerator {
     final seenClassNames =
         <String, String>{}; // name -> sourceFile of first occurrence
     for (final cls in filteredClasses) {
+      // GEN-076: Cross-module dedup — skip classes from the SAME source file
+      // that were already generated in an earlier module. Different classes with
+      // the same name (e.g., dart:ui TextStyle vs Flutter TextStyle) are kept.
+      if (skipClassSources != null &&
+          skipClassSources.containsKey(cls.name) &&
+          skipClassSources[cls.name] == cls.sourceFile) {
+        _recordSkip(
+          'class',
+          cls.name,
+          'already generated in an earlier module from same source (cross-module dedup)',
+        );
+        continue;
+      }
       if (seenClassNames.containsKey(cls.name)) {
         // GEN-045: Detect barrel-level name collisions
         final firstSourceFile = seenClassNames[cls.name]!;
@@ -2915,6 +2960,10 @@ class BridgeGenerator {
         ..addAll(_nonWrappableDefaultWarnings)
         ..addAll(_missingExportWarnings)
         ..addAll(_skipReports),
+      // GEN-076: Report which classes were generated for cross-module dedup
+      generatedClassSources: {
+        for (final c in bridgeableClasses) c.name: c.sourceFile,
+      },
     );
   }
 
@@ -5810,10 +5859,16 @@ class BridgeGenerator {
     buffer.writeln();
 
     // GEN-074: Generate classAliases method for type alias registration
-    buffer.writeln('  /// Returns a map of type alias names to their target class names.');
+    buffer.writeln(
+      '  /// Returns a map of type alias names to their target class names.',
+    );
     buffer.writeln('  ///');
-    buffer.writeln('  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`');
-    buffer.writeln('  /// are registered so that code using the alias name can resolve to the');
+    buffer.writeln(
+      '  /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`',
+    );
+    buffer.writeln(
+      '  /// are registered so that code using the alias name can resolve to the',
+    );
     buffer.writeln('  /// bridged class under its canonical name.');
     buffer.writeln('  static Map<String, String> classAliases() {');
     buffer.writeln('    return {');
@@ -6103,9 +6158,7 @@ class BridgeGenerator {
     // GEN-074: Register class aliases (type aliases)
     if (_typeAliases.isNotEmpty) {
       buffer.writeln();
-      buffer.writeln(
-        '    // Register class aliases (typedef type aliases)',
-      );
+      buffer.writeln('    // Register class aliases (typedef type aliases)');
       buffer.writeln('    final aliases = classAliases();');
       buffer.writeln('    for (final entry in aliases.entries) {');
       buffer.writeln(
@@ -6410,9 +6463,7 @@ class BridgeGenerator {
                 final requiredCheck = isNullable
                     ? "!named.containsKey('${param.name}')"
                     : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
-                argDeclarations.add(
-                  "        if ($requiredCheck) {",
-                );
+                argDeclarations.add("        if ($requiredCheck) {");
                 argDeclarations.add(
                   "          throw ArgumentError('${func.name}: Missing required named argument \"${param.name}\"');",
                 );
@@ -7361,8 +7412,10 @@ class BridgeGenerator {
             );
           } else {
             // GEN-057: Use _generateSetterCast for proper collection type handling
+            // GEN-075: Pass paramName for extractBridgedArg error messages
             final castExpression = _generateSetterCast(
               setter.returnType,
+              paramName: setter.name,
               typeToUri: setter.returnTypeToUri,
               classTypeParams: cls.typeParameters,
             );
@@ -7509,8 +7562,10 @@ class BridgeGenerator {
       buffer.writeln('    staticSetters: {');
       for (final setter in staticSetters) {
         // GEN-057: Use _generateSetterCast for proper collection type handling
+        // GEN-075: Pass paramName for extractBridgedArg error messages
         final castExpression = _generateSetterCast(
           setter.returnType,
+          paramName: setter.name,
           typeToUri: setter.returnTypeToUri,
           classTypeParams: cls.typeParameters,
         );
@@ -7921,9 +7976,91 @@ class BridgeGenerator {
         sourceFilePath: cls.sourceFile,
       );
     } else {
-      buffer.writeln('        return $ctorCall(${args.join(', ')});');
+      // GEN-075: Type-dispatched construction for generic classes.
+      // When a constructor has a positional parameter whose type is a class
+      // type parameter (e.g., T value), the extracted value has static type
+      // dynamic. This causes Dart to infer the wrong generic type parameter
+      // (e.g., AlwaysStoppedAnimation<dynamic> instead of <double>).
+      // Fix: Generate type dispatch on the runtime type of the value.
+      final typeDispatchParam = _findTypeDispatchParam(
+        positionalParams,
+        cls.typeParameters,
+        [...positionalParams, ...namedParams],
+      );
+      if (typeDispatchParam != null && cls.typeParameters.length == 1) {
+        final localName = _getSafeLocalName(typeDispatchParam.name);
+        final argsStr = args.join(', ');
+        // For named constructors, type arg goes on the class: Class<T>.named(...)
+        // For unnamed constructors, type arg goes on the class: Class<T>(...)
+        String typedCtorCall(String typeArg) {
+          if (ctor.name != null) {
+            return '$prefixedName<$typeArg>.${ctor.name}($argsStr)';
+          }
+          return '$prefixedName<$typeArg>($argsStr)';
+        }
+
+        buffer.writeln(
+          '        // GEN-075: Preserve generic type parameter from runtime value',
+        );
+        buffer.writeln('        switch ($localName) {');
+        buffer.writeln(
+          '          case double _: return ${typedCtorCall('double')};',
+        );
+        buffer.writeln('          case int _: return ${typedCtorCall('int')};');
+        buffer.writeln(
+          '          case String _: return ${typedCtorCall('String')};',
+        );
+        buffer.writeln(
+          '          case bool _: return ${typedCtorCall('bool')};',
+        );
+        buffer.writeln('          default: return $ctorCall($argsStr);');
+        buffer.writeln('        }');
+      } else {
+        buffer.writeln('        return $ctorCall(${args.join(', ')});');
+      }
     }
     return true;
+  }
+
+  /// GEN-075: Find a positional parameter whose type is a class type parameter.
+  /// Returns the first such parameter, or null if none exists.
+  /// Also checks that:
+  /// 1. No other constructor parameter uses the type parameter in a nested
+  ///    generic position (e.g., List<TreeSliverNode<T>>)
+  /// 2. The type parameter has no bound constraint (e.g., T extends KeyboardKey)
+  ParameterInfo? _findTypeDispatchParam(
+    List<ParameterInfo> positionalParams,
+    Map<String, String?> classTypeParams,
+    List<ParameterInfo> allConstructorParams,
+  ) {
+    ParameterInfo? candidate;
+    String? typeParamName;
+    for (final param in positionalParams) {
+      final baseType = param.type.replaceAll('?', '');
+      if (classTypeParams.containsKey(baseType)) {
+        candidate = param;
+        typeParamName = baseType;
+        break;
+      }
+    }
+    if (candidate == null || typeParamName == null) return null;
+
+    // Skip if the type parameter has a bound constraint (e.g., T extends Foo)
+    final bound = classTypeParams[typeParamName];
+    if (bound != null && bound.isNotEmpty) {
+      return null;
+    }
+
+    // Check that no OTHER param uses the type parameter in a nested generic.
+    // E.g., List<Node<T>> would break because the outer List can't be cast.
+    for (final param in allConstructorParams) {
+      if (param == candidate) continue;
+      final paramType = param.type;
+      if (paramType.contains('<') && paramType.contains(typeParamName)) {
+        return null;
+      }
+    }
+    return candidate;
   }
 
   /// GEN-052: Get the unprefixed type name for lookup in known type maps.
@@ -9019,18 +9156,18 @@ class BridgeGenerator {
         classTypeParams: classTypeParams,
         sourceFilePath: sourceFilePath,
       );
-      
+
       // Check if value type is a function type - needs inline conversion
       final cleanValueType = valueType.replaceAll('?', '');
       final isFunctionValue = _isFunctionTypeName(cleanValueType);
-      
+
       if (isFunctionValue) {
         // Get function type info for the value type
         FunctionTypeInfo? valueFuncInfo;
         final lookupName = _getUnprefixedTypeName(cleanValueType);
         valueFuncInfo = _knownFunctionTypeAliasInfo[lookupName];
         valueFuncInfo ??= _parseFunctionType(cleanValueType);
-        
+
         if (valueFuncInfo != null) {
           // Generate inline conversion code
           if (param.isRequired) {
@@ -9074,7 +9211,9 @@ class BridgeGenerator {
               if (isNullable) {
                 buffer.writeln("        $fullMapType? $localName;");
               } else {
-                buffer.writeln("        var $localName = <$keyType, $valueType>{};");
+                buffer.writeln(
+                  "        var $localName = <$keyType, $valueType>{};",
+                );
               }
               buffer.writeln(
                 "        if (${_lengthCheckGreaterThan('positional', index)} && positional[$index] != null) {",
@@ -9137,7 +9276,9 @@ class BridgeGenerator {
             if (isNullable) {
               buffer.writeln("        $fullMapType? $localName;");
             } else {
-              buffer.writeln("        var $localName = <$keyType, $valueType>{};");
+              buffer.writeln(
+                "        var $localName = <$keyType, $valueType>{};",
+              );
             }
             buffer.writeln(
               "        if (${_lengthCheckGreaterThan('positional', index)} && positional[$index] != null) {",
@@ -9169,7 +9310,7 @@ class BridgeGenerator {
           return true;
         }
       }
-      
+
       // Non-function value type: use D4.coerceMap as before
       final coerceMethod = isNullable ? 'D4.coerceMapOrNull' : 'D4.coerceMap';
       if (param.isRequired) {
@@ -9497,9 +9638,7 @@ class BridgeGenerator {
         final requiredCheck = isNullable
             ? "!named.containsKey('${param.name}')"
             : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
-        buffer.writeln(
-          "        if ($requiredCheck) {",
-        );
+        buffer.writeln("        if ($requiredCheck) {");
         buffer.writeln(
           "          throw ArgumentError('$contextName: Missing required named argument \"${param.name}\"');",
         );
@@ -9542,9 +9681,7 @@ class BridgeGenerator {
           final requiredCheck = isNullable
               ? "!named.containsKey('${param.name}')"
               : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
-          buffer.writeln(
-            "        if ($requiredCheck) {",
-          );
+          buffer.writeln("        if ($requiredCheck) {");
           buffer.writeln(
             "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
           );
@@ -9589,9 +9726,7 @@ class BridgeGenerator {
         final requiredCheck = isNullable
             ? "!named.containsKey('${param.name}')"
             : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
-        buffer.writeln(
-          "        if ($requiredCheck) {",
-        );
+        buffer.writeln("        if ($requiredCheck) {");
         buffer.writeln(
           "          throw ArgumentError('$contextName: Missing required named argument \"${param.name}\"');",
         );
@@ -9628,18 +9763,18 @@ class BridgeGenerator {
         classTypeParams: classTypeParams,
         sourceFilePath: sourceFilePath,
       );
-      
+
       // Check if value type is a function type - needs inline conversion
       final cleanValueType = valueType.replaceAll('?', '');
       final isFunctionValue = _isFunctionTypeName(cleanValueType);
-      
+
       if (isFunctionValue) {
         // Get function type info for the value type
         FunctionTypeInfo? valueFuncInfo;
         final lookupName = _getUnprefixedTypeName(cleanValueType);
         valueFuncInfo = _knownFunctionTypeAliasInfo[lookupName];
         valueFuncInfo ??= _parseFunctionType(cleanValueType);
-        
+
         if (valueFuncInfo != null) {
           // Generate inline conversion code
           if (param.isRequired) {
@@ -9647,9 +9782,7 @@ class BridgeGenerator {
             final requiredCheck = isNullable
                 ? "!named.containsKey('${param.name}')"
                 : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
-            buffer.writeln(
-              "        if ($requiredCheck) {",
-            );
+            buffer.writeln("        if ($requiredCheck) {");
             buffer.writeln(
               "          throw ArgumentError('$contextName: Missing required named argument \"${param.name}\"');",
             );
@@ -9687,7 +9820,9 @@ class BridgeGenerator {
               if (isNullable) {
                 buffer.writeln("        $fullMapType? $localName;");
               } else {
-                buffer.writeln("        var $localName = <$keyType, $valueType>{};");
+                buffer.writeln(
+                  "        var $localName = <$keyType, $valueType>{};",
+                );
               }
               buffer.writeln(
                 "        if (named.containsKey('${param.name}') && named['${param.name}'] != null) {",
@@ -9725,9 +9860,7 @@ class BridgeGenerator {
               final requiredCheck = isNullable
                   ? "!named.containsKey('${param.name}')"
                   : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
-              buffer.writeln(
-                "        if ($requiredCheck) {",
-              );
+              buffer.writeln("        if ($requiredCheck) {");
               buffer.writeln(
                 "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default. Value must be specified.');",
               );
@@ -9754,7 +9887,9 @@ class BridgeGenerator {
             if (isNullable) {
               buffer.writeln("        $fullMapType? $localName;");
             } else {
-              buffer.writeln("        var $localName = <$keyType, $valueType>{};");
+              buffer.writeln(
+                "        var $localName = <$keyType, $valueType>{};",
+              );
             }
             buffer.writeln(
               "        if (named.containsKey('${param.name}') && named['${param.name}'] != null) {",
@@ -9786,7 +9921,7 @@ class BridgeGenerator {
           return true;
         }
       }
-      
+
       // Non-function value type: use D4.coerceMap as before
       final coerceMethod = isNullable ? 'D4.coerceMapOrNull' : 'D4.coerceMap';
       if (param.isRequired) {
@@ -9794,9 +9929,7 @@ class BridgeGenerator {
         final requiredCheck = isNullable
             ? "!named.containsKey('${param.name}')"
             : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
-        buffer.writeln(
-          "        if ($requiredCheck) {",
-        );
+        buffer.writeln("        if ($requiredCheck) {");
         buffer.writeln(
           "          throw ArgumentError('$contextName: Missing required named argument \"${param.name}\"');",
         );
@@ -9839,9 +9972,7 @@ class BridgeGenerator {
           final requiredCheck = isNullable
               ? "!named.containsKey('${param.name}')"
               : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
-          buffer.writeln(
-            "        if ($requiredCheck) {",
-          );
+          buffer.writeln("        if ($requiredCheck) {");
           buffer.writeln(
             "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
           );
@@ -9991,13 +10122,17 @@ class BridgeGenerator {
   /// creates generic List<Object?> and Map<Object?, Object?> at runtime.
   /// Direct casting fails because Dart lists/maps are not covariant for casting.
   ///
+  /// GEN-075: For non-collection types, uses D4.extractBridgedArg to correctly
+  /// unwrap BridgedInstance values (e.g., BridgedInstance<Offset> → Offset).
+  ///
   /// This method generates proper conversion expressions:
   /// - `List<String>` → `(value as List).cast<String>().toList()`
   /// - `List<String>?` → `value == null ? null : (value as List).cast<String>().toList()`
   /// - `Map<String, int>` → `(value as Map).cast<String, int>()`
-  /// - Other types → `value as Type`
+  /// - Other types → `D4.extractBridgedArg<Type>(value, 'name')`
   String _generateSetterCast(
     String type, {
+    String paramName = 'value',
     Map<String, String> typeToUri = const {},
     Map<String, String?> classTypeParams = const {},
   }) {
@@ -10065,13 +10200,27 @@ class BridgeGenerator {
       }
     }
 
-    // Default: use simple cast with prefixed type
+    // Default: use D4.extractBridgedArg for proper BridgedInstance unwrapping
+    // GEN-075: This correctly handles BridgedInstance<Offset> → Offset,
+    // BridgedInstance<Color> → Color, etc., plus int→double promotion.
     final prefixedType = _getTypeArgument(
       type,
       typeToUri: typeToUri,
       classTypeParams: classTypeParams,
     );
-    return 'value as $prefixedType';
+    if (isNullable) {
+      final nonNullablePrefixedType = _getTypeArgument(
+        baseType,
+        typeToUri: typeToUri,
+        classTypeParams: classTypeParams,
+      );
+      return "D4.extractBridgedArgOrNull<$nonNullablePrefixedType>(value, '$paramName')";
+    }
+    // For dynamic type, no extraction needed
+    if (prefixedType == 'dynamic') {
+      return 'value as $prefixedType';
+    }
+    return "D4.extractBridgedArg<$prefixedType>(value, '$paramName')";
   }
 
   /// Internal implementation of type argument resolution.
@@ -10494,7 +10643,14 @@ class BridgeGenerator {
     const builtInTypes = {
       // dart:core types
       'int', 'double', 'num', 'String', 'bool', 'void', 'dynamic', 'Object',
-      'List', 'Map', 'Set', 'Iterable', 'Iterator', 'Future', 'Stream', 'Function',
+      'List',
+      'Map',
+      'Set',
+      'Iterable',
+      'Iterator',
+      'Future',
+      'Stream',
+      'Function',
       'Type', 'Symbol', 'Null', 'Never', 'Duration', 'DateTime', 'Uri', 'Enum',
       'BigInt', 'Comparable', 'Pattern', 'Match', 'RegExp', 'Runes',
       'StringBuffer', 'StringSink', 'Sink', 'Error', 'Exception', 'StackTrace',
@@ -11449,7 +11605,9 @@ class BridgeGenerator {
     final baseType = type.endsWith('?')
         ? type.substring(0, type.length - 1)
         : type;
-    return baseType.startsWith('List<') && baseType.endsWith('>');
+    // GEN-075: Also match Iterable<> — D4rt sends lists for both
+    return (baseType.startsWith('List<') || baseType.startsWith('Iterable<')) &&
+        baseType.endsWith('>');
   }
 
   /// Checks if a type is a Map type (e.g., Map<String, int>).
@@ -11471,8 +11629,9 @@ class BridgeGenerator {
     var baseType = listType.endsWith('?')
         ? listType.substring(0, listType.length - 1)
         : listType;
-    // Extract content between List< and >
-    final elementType = baseType.substring(5, baseType.length - 1);
+    // GEN-075: Handle both List<> and Iterable<> prefixes
+    final prefixLen = baseType.startsWith('Iterable<') ? 9 : 5;
+    final elementType = baseType.substring(prefixLen, baseType.length - 1);
 
     // Check if element type is a known function type alias
     // These can't be passed from D4rt, so we use dynamic
@@ -11488,14 +11647,17 @@ class BridgeGenerator {
     );
   }
 
-  /// Extracts the raw element type from a List type without any prefixing.
+  /// Extracts the raw element type from a List/Iterable type without any prefixing.
   /// Used to check if the element is a function typedef.
   String _extractListElementType(String listType) {
     var baseType = listType.endsWith('?')
         ? listType.substring(0, listType.length - 1)
         : listType;
-    // Extract content between List< and >
-    return baseType.substring(5, baseType.length - 1).replaceAll('?', '');
+    // GEN-075: Handle both List<> and Iterable<> prefixes
+    final prefixLen = baseType.startsWith('Iterable<') ? 9 : 5;
+    return baseType
+        .substring(prefixLen, baseType.length - 1)
+        .replaceAll('?', '');
   }
 
   /// Known function typedef names that can't be bridged.
@@ -12155,11 +12317,11 @@ class BridgeGenerator {
     final lines = <String>[];
     final rawVarName = '${localName}Raw';
     final fullMapType = 'Map<$keyType, $valueType>';
-    
+
     // Declare raw map variable
     lines.add('$indent// Convert map with function values inline');
     lines.add('${indent}final $rawVarName = $rawMapExpr as Map?;');
-    
+
     // Initialize result map
     if (declareVariable) {
       if (isNullable) {
@@ -12173,9 +12335,9 @@ class BridgeGenerator {
         lines.add('${indent}$localName = <$keyType, $valueType>{};');
       }
     }
-    
+
     lines.add('${indent}if ($rawVarName != null) {');
-    
+
     // Generate the wrapper expression for the map value
     // We'll use a temp variable 'v' for the raw value
     final wrapperExpr = _generateFunctionWrapper(
@@ -12186,13 +12348,13 @@ class BridgeGenerator {
       classTypeParams: classTypeParams,
       sourceFilePath: sourceFilePath,
     );
-    
+
     // Loop over entries
     lines.add('$indent  for (final entry in $rawVarName.entries) {');
     lines.add('$indent    final k = entry.key as $keyType;');
     lines.add('$indent    final v = entry.value;');
     lines.add('$indent    if (v == null) {');
-    
+
     // Handle null value
     if (valueType.endsWith('?')) {
       if (isNullable) {
@@ -12202,10 +12364,12 @@ class BridgeGenerator {
         lines.add('$indent      $localName[k] = null;');
       }
     } else {
-      lines.add('$indent      // Skip null values for non-nullable function type');
+      lines.add(
+        '$indent      // Skip null values for non-nullable function type',
+      );
     }
     lines.add('$indent    } else if (v is Callable) {');
-    
+
     // Wrap Callable
     if (isNullable) {
       lines.add('$indent      $localName ??= <$keyType, $valueType>{};');
@@ -12213,9 +12377,9 @@ class BridgeGenerator {
     } else {
       lines.add('$indent      $localName[k] = $wrapperExpr;');
     }
-    
+
     lines.add('$indent    } else {');
-    
+
     // Direct cast for already-typed value
     if (isNullable) {
       lines.add('$indent      $localName ??= <$keyType, $valueType>{};');
@@ -12223,11 +12387,11 @@ class BridgeGenerator {
     } else {
       lines.add('$indent      $localName[k] = v as $valueType;');
     }
-    
+
     lines.add('$indent    }');
     lines.add('$indent  }');
     lines.add('$indent}');
-    
+
     return lines;
   }
 
@@ -12607,13 +12771,13 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     return null;
   }
 
-  /// Checks if a node has @visibleForTesting, @protected, or @internal annotation.
-  /// These members should not be bridged as they are not part of the public API.
+  /// Checks if a node has @visibleForTesting or @internal annotation.
+  /// GEN-075: @protected is NOT skipped - bridge code calls methods on native
+  /// objects, so @protected methods should be bridged.
   bool _hasTestOnlyAnnotation(AnnotatedNode node) {
     for (final annotation in node.metadata) {
       final name = annotation.name.name;
       if (name == 'visibleForTesting' ||
-          name == 'protected' ||
           name == 'internal' ||
           name == 'visibleForOverriding' ||
           name == 'mustBeOverridden') {
@@ -12623,13 +12787,15 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     return false;
   }
 
-  /// Checks if an element has @visibleForTesting, @protected, or @internal.
+  /// Checks if an element has @visibleForTesting or @internal.
   /// Used for inherited members collected from resolved elements.
+  ///
+  /// GEN-075: @protected is NOT skipped - bridge code calls methods on native
+  /// objects, so @protected methods should be bridged.
   bool _hasTestOnlyElementAnnotation(Element element) {
     final dynamic dynamicElement = element;
     try {
       if (dynamicElement.isVisibleForTesting == true ||
-          dynamicElement.isProtected == true ||
           dynamicElement.isInternal == true ||
           dynamicElement.isMustBeOverridden == true ||
           dynamicElement.isVisibleForOverriding == true) {
@@ -12641,7 +12807,6 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
 
     for (final annotation in element.metadata.annotations) {
       if (annotation.isVisibleForTesting ||
-          annotation.isProtected ||
           annotation.isInternal ||
           annotation.isMustBeOverridden ||
           annotation.isVisibleForOverriding) {
@@ -12650,7 +12815,6 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
 
       final annotationSource = annotation.toSource();
       if (annotationSource.contains('visibleForTesting') ||
-          annotationSource.contains('protected') ||
           annotationSource.contains('internal') ||
           annotationSource.contains('mustBeOverridden') ||
           annotationSource.contains('visibleForOverriding')) {
@@ -12662,7 +12826,6 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           ?.type
           ?.getDisplayString();
       if (annotationType == 'VisibleForTesting' ||
-          annotationType == 'Protected' ||
           annotationType == 'Internal' ||
           annotationType == 'MustBeOverridden') {
         return true;
@@ -12866,11 +13029,14 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     // Skip aliases marked as @visibleForTesting, @protected, or @internal
     if (_hasTestOnlyAnnotation(node)) return;
 
-    // Skip deprecated aliases unless generateDeprecatedElements is enabled
-    if (!generateDeprecatedElements && _hasDeprecatedAnnotation(node)) {
-      skippedDeprecatedCount++;
-      return;
-    }
+    // GEN-078: Do NOT skip deprecated non-function type aliases. Type aliases
+    // (e.g., typedef MaterialStateProperty<T> = WidgetStateProperty<T>) exist
+    // specifically for backward compatibility. Skipping them defeats their
+    // purpose because D4rt scripts using the old name would fail with
+    // "Undefined variable". We still skip deprecated function typedefs since
+    // those aren't used for class resolution.
+    final isDeprecated =
+        !generateDeprecatedElements && _hasDeprecatedAnnotation(node);
 
     // Get the type this alias refers to
     final type = node.type;
@@ -12879,6 +13045,12 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     // Function type aliases (typedef VoidCallback = void Function()) have
     // GenericFunctionType as the type
     if (type is GenericFunctionType) {
+      // Skip deprecated function typedefs
+      if (isDeprecated) {
+        skippedDeprecatedCount++;
+        super.visitGenericTypeAlias(node);
+        return;
+      }
       // This is a function typedef - store the expanded signature
       // for fallback when the typedef isn't exported from barrel
       final expandedType = _expandFunctionType(type.type as FunctionType);
@@ -12887,7 +13059,8 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       return;
     }
 
-    // For non-function types (class aliases), extract the target class name
+    // For non-function types (class aliases), always collect them
+    // even when deprecated — they are needed for name resolution
     if (type is NamedType) {
       final targetName = type.name2.lexeme;
 
@@ -14558,13 +14731,13 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
     this.generateDeprecatedElements = false,
   });
 
-  /// Checks if a node has @visibleForTesting, @protected, or @internal annotation.
-  /// These members should not be bridged as they are not part of the public API.
+  /// Checks if a node has @visibleForTesting or @internal annotation.
+  /// GEN-075: @protected is NOT skipped - bridge code calls methods on native
+  /// objects, so @protected methods should be bridged.
   bool _hasTestOnlyAnnotation(AnnotatedNode node) {
     for (final annotation in node.metadata) {
       final name = annotation.name.name;
       if (name == 'visibleForTesting' ||
-          name == 'protected' ||
           name == 'internal' ||
           name == 'visibleForOverriding' ||
           name == 'mustBeOverridden') {

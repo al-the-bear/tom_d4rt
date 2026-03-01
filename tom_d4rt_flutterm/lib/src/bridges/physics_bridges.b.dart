@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-03-01T07:42:10.288765
+// Generated: 2026-03-01T11:18:31.957854
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -299,7 +299,7 @@ BridgedClass _createSimulationBridge() {
     },
     setters: {
       'tolerance': (visitor, target, value) => 
-        D4.validateTarget<$flutter_4.Simulation>(target, 'Simulation').tolerance = value as $flutter_6.Tolerance,
+        D4.validateTarget<$flutter_4.Simulation>(target, 'Simulation').tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(value, 'tolerance'),
     },
     methods: {
       'x': (visitor, target, positional, named, typeArgs) {
@@ -446,7 +446,7 @@ BridgedClass _createClampedSimulationBridge() {
     },
     setters: {
       'tolerance': (visitor, target, value) => 
-        D4.validateTarget<$flutter_1.ClampedSimulation>(target, 'ClampedSimulation').tolerance = value as $flutter_6.Tolerance,
+        D4.validateTarget<$flutter_1.ClampedSimulation>(target, 'ClampedSimulation').tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(value, 'tolerance'),
     },
     methods: {
       'x': (visitor, target, positional, named, typeArgs) {
@@ -529,7 +529,7 @@ BridgedClass _createFrictionSimulationBridge() {
     },
     setters: {
       'tolerance': (visitor, target, value) => 
-        D4.validateTarget<$flutter_2.FrictionSimulation>(target, 'FrictionSimulation').tolerance = value as $flutter_6.Tolerance,
+        D4.validateTarget<$flutter_2.FrictionSimulation>(target, 'FrictionSimulation').tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(value, 'tolerance'),
     },
     methods: {
       'x': (visitor, target, positional, named, typeArgs) {
@@ -608,7 +608,7 @@ BridgedClass _createBoundedFrictionSimulationBridge() {
     },
     setters: {
       'tolerance': (visitor, target, value) => 
-        D4.validateTarget<$flutter_2.BoundedFrictionSimulation>(target, 'BoundedFrictionSimulation').tolerance = value as $flutter_6.Tolerance,
+        D4.validateTarget<$flutter_2.BoundedFrictionSimulation>(target, 'BoundedFrictionSimulation').tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(value, 'tolerance'),
     },
     methods: {
       'x': (visitor, target, positional, named, typeArgs) {
@@ -684,7 +684,7 @@ BridgedClass _createGravitySimulationBridge() {
     },
     setters: {
       'tolerance': (visitor, target, value) => 
-        D4.validateTarget<$flutter_3.GravitySimulation>(target, 'GravitySimulation').tolerance = value as $flutter_6.Tolerance,
+        D4.validateTarget<$flutter_3.GravitySimulation>(target, 'GravitySimulation').tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(value, 'tolerance'),
     },
     methods: {
       'x': (visitor, target, positional, named, typeArgs) {
@@ -814,7 +814,7 @@ BridgedClass _createSpringSimulationBridge() {
     },
     setters: {
       'tolerance': (visitor, target, value) => 
-        D4.validateTarget<$flutter_5.SpringSimulation>(target, 'SpringSimulation').tolerance = value as $flutter_6.Tolerance,
+        D4.validateTarget<$flutter_5.SpringSimulation>(target, 'SpringSimulation').tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(value, 'tolerance'),
     },
     methods: {
       'x': (visitor, target, positional, named, typeArgs) {
@@ -885,7 +885,7 @@ BridgedClass _createScrollSpringSimulationBridge() {
     },
     setters: {
       'tolerance': (visitor, target, value) => 
-        D4.validateTarget<$flutter_5.ScrollSpringSimulation>(target, 'ScrollSpringSimulation').tolerance = value as $flutter_6.Tolerance,
+        D4.validateTarget<$flutter_5.ScrollSpringSimulation>(target, 'ScrollSpringSimulation').tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(value, 'tolerance'),
     },
     methods: {
       'x': (visitor, target, positional, named, typeArgs) {

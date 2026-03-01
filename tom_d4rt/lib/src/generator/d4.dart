@@ -213,17 +213,16 @@ class D4 {
     // Return a Function that captures the visitor and callable
     // This creates a closure that can be called with any arguments
     return (
-      [Object? p0,
-      Object? p1,
-      Object? p2,
-      Object? p3,
-      Object? p4,
-      Object? p5,
-      Object? p6,
-      Object? p7,
-      Object? p8,
-      Object? p9]
-    ) {
+        [Object? p0,
+        Object? p1,
+        Object? p2,
+        Object? p3,
+        Object? p4,
+        Object? p5,
+        Object? p6,
+        Object? p7,
+        Object? p8,
+        Object? p9]) {
       // Build args list from non-null positional parameters
       final args = <Object?>[];
       // We need to determine actual arg count from the callable if possible
@@ -257,6 +256,57 @@ class D4 {
   // Bridged Argument Extraction
   // ==========================================================================
 
+  /// Unwrap a single element from BridgedInstance/BridgedEnumValue.
+  static Object? _unwrapElement(Object? e) {
+    if (e is BridgedInstance) return e.nativeObject;
+    if (e is BridgedEnumValue) return e.nativeValue;
+    return e;
+  }
+
+  /// Unwrap all BridgedInstance/BridgedEnumValue elements in a list.
+  static List<Object?> _unwrapListElements(List<Object?> list) {
+    bool needsUnwrap = false;
+    for (final e in list) {
+      if (e is BridgedInstance || e is BridgedEnumValue) {
+        needsUnwrap = true;
+        break;
+      }
+    }
+    if (!needsUnwrap) return list;
+    return list.map(_unwrapElement).toList();
+  }
+
+  /// Cast list elements to a specific primitive type.
+  /// Returns null if the element type is not a known primitive.
+  static List<Object?>? _castListElements(
+      List<Object?> list, String elementType) {
+    return switch (elementType) {
+      'int' => list.cast<int>().toList(),
+      'double' =>
+        list.map((e) => e is int ? e.toDouble() : e).cast<double>().toList(),
+      'String' => list.cast<String>().toList(),
+      'num' => list.cast<num>().toList(),
+      'bool' => list.cast<bool>().toList(),
+      'Object' || 'dynamic' => list.cast<Object>().toList(),
+      _ => null, // Non-primitive: caller should try direct cast
+    };
+  }
+
+  /// Cast set elements to a specific primitive type.
+  /// Returns null if the element type is not a known primitive.
+  static Set<Object?>? _castSetElements(Set<Object?> set, String elementType) {
+    return switch (elementType) {
+      'int' => set.cast<int>().toSet(),
+      'double' =>
+        set.map((e) => e is int ? e.toDouble() : e).cast<double>().toSet(),
+      'String' => set.cast<String>().toSet(),
+      'num' => set.cast<num>().toSet(),
+      'bool' => set.cast<bool>().toSet(),
+      'Object' || 'dynamic' => set.cast<Object>().toSet(),
+      _ => null,
+    };
+  }
+
   /// Extract a typed value from a BridgedInstance or native object.
   ///
   /// Handles both wrapped (BridgedInstance) and unwrapped (native) objects.
@@ -266,8 +316,11 @@ class D4 {
   /// INTER-004: Supports collection type casting (List, Set, Map)
   static T extractBridgedArg<T>(Object? arg, String paramName) {
     // Unwrap BridgedInstance or BridgedEnumValue if needed
-    final unwrapped = arg is BridgedInstance ? arg.nativeObject :
-                      arg is BridgedEnumValue ? arg.nativeValue : arg;
+    final unwrapped = arg is BridgedInstance
+        ? arg.nativeObject
+        : arg is BridgedEnumValue
+            ? arg.nativeValue
+            : arg;
 
     if (unwrapped is T) {
       return unwrapped;
@@ -284,56 +337,43 @@ class D4 {
     }
 
     // INTER-004: Collection type casting
-    // List<Object?> → List<T>
-    if (unwrapped is List && T.toString().startsWith('List<')) {
+    // List<Object?> → List<T> or Iterable<T>
+    final tStr = T.toString();
+
+    if (unwrapped is List &&
+        (tStr.startsWith('List<') || tStr.startsWith('Iterable<'))) {
       try {
-        // Extract element type from T string (e.g., "List<int>" → "int")
-        final elementType = T.toString().substring(5, T.toString().length - 1);
-        if (elementType == 'int') {
-          return (unwrapped.cast<int>().toList()) as T;
-        } else if (elementType == 'double') {
-          return (unwrapped.map((e) => e is int ? e.toDouble() : e).cast<double>().toList()) as T;
-        } else if (elementType == 'String') {
-          return (unwrapped.cast<String>().toList()) as T;
-        } else if (elementType == 'num') {
-          return (unwrapped.cast<num>().toList()) as T;
-        } else if (elementType == 'bool') {
-          return (unwrapped.cast<bool>().toList()) as T;
-        } else if (elementType == 'Object' || elementType == 'dynamic') {
-          return (unwrapped.cast<Object>().toList()) as T;
-        }
-        // For other types, try direct casting
-        return unwrapped as T;
+        // INTER-006: First unwrap any BridgedInstance/BridgedEnumValue elements
+        final unwrappedList = _unwrapListElements(unwrapped);
+        // Determine element type from T string
+        final isIterable = tStr.startsWith('Iterable<');
+        final prefixLen = isIterable ? 9 : 5; // 'Iterable<' or 'List<'
+        final elementType = tStr.substring(prefixLen, tStr.length - 1);
+        final result = _castListElements(unwrappedList, elementType);
+        if (result != null) return result as T;
+        // For non-primitive element types, try direct cast after unwrapping
+        return unwrappedList as T;
       } catch (_) {
         // Fall through to error
       }
     }
 
     // Set<Object?> → Set<T>
-    if (unwrapped is Set && T.toString().startsWith('Set<')) {
+    if (unwrapped is Set && tStr.startsWith('Set<')) {
       try {
-        final elementType = T.toString().substring(4, T.toString().length - 1);
-        if (elementType == 'int') {
-          return (unwrapped.cast<int>().toSet()) as T;
-        } else if (elementType == 'double') {
-          return (unwrapped.map((e) => e is int ? e.toDouble() : e).cast<double>().toSet()) as T;
-        } else if (elementType == 'String') {
-          return (unwrapped.cast<String>().toSet()) as T;
-        } else if (elementType == 'num') {
-          return (unwrapped.cast<num>().toSet()) as T;
-        } else if (elementType == 'bool') {
-          return (unwrapped.cast<bool>().toSet()) as T;
-        } else if (elementType == 'Object' || elementType == 'dynamic') {
-          return (unwrapped.cast<Object>().toSet()) as T;
-        }
-        return unwrapped as T;
+        // INTER-006: Unwrap elements first
+        final unwrappedSet = unwrapped.map(_unwrapElement).toSet();
+        final elementType = tStr.substring(4, tStr.length - 1);
+        final result = _castSetElements(unwrappedSet, elementType);
+        if (result != null) return result as T;
+        return unwrappedSet as T;
       } catch (_) {
         // Fall through to error
       }
     }
 
     // Map casting support
-    if (unwrapped is Map && T.toString().startsWith('Map<')) {
+    if (unwrapped is Map && tStr.startsWith('Map<')) {
       try {
         return unwrapped as T;
       } catch (_) {

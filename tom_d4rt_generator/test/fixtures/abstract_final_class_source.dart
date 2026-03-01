@@ -33,8 +33,8 @@ class ExponentialCurve extends Curve {
   double transform(double t) => (t == 0.0)
       ? 0.0
       : t == 1.0
-          ? 1.0
-          : t;
+      ? 1.0
+      : t;
 }
 
 /// Abstract final class with only static members - like Flutter's Curves.

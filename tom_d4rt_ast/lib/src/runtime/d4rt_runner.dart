@@ -108,8 +108,10 @@ class D4rtRunner {
   final List<Map<String, LibraryEnum>> _bridgedEnumDefinitions = [];
   final List<Map<String, LibraryClass>> _bridgedClasses = [];
   final List<Map<String, LibraryExtension>> _bridgedExtensions = [];
+
   /// GEN-074: Class aliases (type aliases) for alias name → target class name mapping.
-  final List<({String aliasName, String targetName, String library})> _classAliases = [];
+  final List<({String aliasName, String targetName, String library})>
+  _classAliases = [];
   final List<Map<String, LibraryFunction>> _libraryFunctions = [];
   final List<Map<String, LibraryVariable>> _libraryVariables = [];
   final List<Map<String, LibraryGetter>> _libraryGetters = [];
@@ -188,12 +190,16 @@ class D4rtRunner {
   /// [targetName] The target class name (e.g., 'WidgetStateProperty').
   /// [library] The library path where this alias is exported from.
   void registerClassAlias(String aliasName, String targetName, String library) {
-    _classAliases.add((aliasName: aliasName, targetName: targetName, library: library));
+    _classAliases.add((
+      aliasName: aliasName,
+      targetName: targetName,
+      library: library,
+    ));
   }
 
   /// Registered class aliases keyed by library URI.
-  List<({String aliasName, String targetName, String library})> get classAliases =>
-      _classAliases;
+  List<({String aliasName, String targetName, String library})>
+  get classAliases => _classAliases;
 
   /// Registers a bridged extension.
   void registerBridgedExtension(

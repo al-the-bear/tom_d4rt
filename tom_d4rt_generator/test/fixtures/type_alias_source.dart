@@ -12,8 +12,8 @@ class WidgetStateProperty<T> {
       WidgetStateProperty<T>(value);
 
   static WidgetStateProperty<T?> resolveWith<T>(
-          T? Function(Set<String> states) callback) =>
-      _ResolveWithProperty<T>(callback);
+    T? Function(Set<String> states) callback,
+  ) => _ResolveWithProperty<T>(callback);
 }
 
 class _ResolveWithProperty<T> extends WidgetStateProperty<T?> {
@@ -48,10 +48,7 @@ class ButtonTheme {
   final MaterialStateProperty<double?>? elevation;
   final ButtonStateProperty<Color?>? backgroundColor;
 
-  ButtonTheme({
-    this.elevation,
-    this.backgroundColor,
-  });
+  ButtonTheme({this.elevation, this.backgroundColor});
 }
 
 // Helper type for testing

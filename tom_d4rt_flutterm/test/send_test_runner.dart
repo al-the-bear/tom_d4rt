@@ -126,10 +126,7 @@ class SendTestRunner {
   static Future<void> _killExistingProcess() async {
     try {
       // Find process using port
-      final result = await Process.run(
-        'lsof',
-        ['-t', '-i', ':$defaultPort'],
-      );
+      final result = await Process.run('lsof', ['-t', '-i', ':$defaultPort']);
       final pids = result.stdout
           .toString()
           .trim()
@@ -153,9 +150,7 @@ class SendTestRunner {
   }
 
   /// Start the test app process.
-  static Future<void> _startTestApp({
-    required Duration timeout,
-  }) async {
+  static Future<void> _startTestApp({required Duration timeout}) async {
     // Kill any existing process first
     await _killExistingProcess();
 
@@ -186,7 +181,11 @@ class SendTestRunner {
         // Try to connect to health endpoint
         final tempClient = HttpClient();
         try {
-          final request = await tempClient.get(defaultHost, defaultPort, '/health');
+          final request = await tempClient.get(
+            defaultHost,
+            defaultPort,
+            '/health',
+          );
           final response = await request.close();
           if (response.statusCode == 200) {
             ready = true;

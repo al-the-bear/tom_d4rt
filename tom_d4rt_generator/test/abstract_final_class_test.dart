@@ -17,8 +17,9 @@ void main() {
 
   setUpAll(() {
     testFixturesDir = p.join(Directory.current.path, 'test', 'fixtures');
-    tempOutputDir =
-        Directory.systemTemp.createTempSync('abstract_final_class_').path;
+    tempOutputDir = Directory.systemTemp
+        .createTempSync('abstract_final_class_')
+        .path;
   });
 
   tearDownAll(() {
@@ -175,9 +176,12 @@ void main() {
         expect(generatedCode, contains("name: 'Circle'"));
       });
 
-      test('G-AFC-22: Circle.draw method is accessible. [2026-03-01] (PASS)', () {
-        expect(generatedCode, contains("'draw'"));
-      });
+      test(
+        'G-AFC-22: Circle.draw method is accessible. [2026-03-01] (PASS)',
+        () {
+          expect(generatedCode, contains("'draw'"));
+        },
+      );
     });
 
     // =========================================================================
@@ -204,9 +208,12 @@ void main() {
         expect(generatedCode, contains("name: 'Loggable'"));
       });
 
-      test('G-AFC-41: Loggable.log method is accessible. [2026-03-01] (PASS)', () {
-        expect(generatedCode, contains("'log'"));
-      });
+      test(
+        'G-AFC-41: Loggable.log method is accessible. [2026-03-01] (PASS)',
+        () {
+          expect(generatedCode, contains("'log'"));
+        },
+      );
     });
   });
 }
