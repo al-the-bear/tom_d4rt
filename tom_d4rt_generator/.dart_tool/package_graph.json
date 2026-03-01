@@ -5,7 +5,7 @@
   "packages": [
     {
       "name": "tom_d4rt_generator",
-      "version": "1.8.13",
+      "version": "1.8.14",
       "dependencies": [
         "analyzer",
         "args",
