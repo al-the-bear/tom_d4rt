@@ -11,6 +11,14 @@ import '../callable.dart';
 import '../exceptions.dart';
 import '../interpreter_visitor.dart';
 
+/// GEN-079: Factory callback for creating typed wrappers.
+///
+/// Takes the raw unwrapped value and the inner type argument string
+/// (e.g., 'Color?' for `WidgetStateProperty<Color?>`).
+/// Returns a properly typed wrapper, or null if the type arg is not supported.
+typedef GenericTypeWrapperFactory =
+    Object? Function(Object value, String innerTypeArg);
+
 /// D4 - Static helper class for D4rt bridge code generation.
 ///
 /// All generated bridge code uses these static methods for:
@@ -33,6 +41,32 @@ import '../interpreter_visitor.dart';
 class D4 {
   // Private constructor - all methods are static
   D4._();
+
+  // ==========================================================================
+  // GEN-079: Generic Type Wrapper Registration
+  // ==========================================================================
+
+  /// Registered wrapper factories keyed by base type name.
+  ///
+  /// Example: 'WidgetStateProperty' → factory that creates
+  /// typed WidgetStateProperty wrappers.
+  static final Map<String, GenericTypeWrapperFactory> _genericTypeWrappers = {};
+
+  /// Register a wrapper factory for a generic base type.
+  ///
+  /// When [extractBridgedArg] encounters a value whose `is T` check fails
+  /// due to generic type argument mismatch (e.g., `WidgetStatePropertyAll<dynamic>`
+  /// vs `WidgetStateProperty<Color?>`), it looks up a registered factory for
+  /// the base type name and uses it to create a properly typed wrapper.
+  ///
+  /// The [baseTypeName] is the unparameterized type name (e.g., 'WidgetStateProperty').
+  /// The [factory] receives the raw value and the desired inner type argument string.
+  static void registerGenericTypeWrapper(
+    String baseTypeName,
+    GenericTypeWrapperFactory factory,
+  ) {
+    _genericTypeWrappers[baseTypeName] = factory;
+  }
 
   // ==========================================================================
   // List Coercion
@@ -102,6 +136,13 @@ class D4 {
     return typeName == 'num?' || typeName == 'num?';
   }
 
+  /// GEN-075: Unwrap a single element from BridgedInstance/BridgedEnumValue.
+  static Object? _unwrapElement(Object? e) {
+    if (e is BridgedInstance) return e.nativeObject;
+    if (e is BridgedEnumValue) return e.nativeValue;
+    return e;
+  }
+
   /// Coerce a List from D4rt, returning null if arg is null.
   static List<T>? coerceListOrNull<T>(Object? arg, String paramName) {
     if (arg == null) return null;
@@ -117,8 +158,8 @@ class D4 {
   /// D4rt creates `Map<Object?, Object?>` when evaluating map literals. This
   /// function coerces the map to the expected key and value types.
   ///
-  /// [visitor] is required when map values are functions (e.g., callbacks).
-  /// Pass null when map values are not functions.
+  /// If [visitor] is provided and the value type V is a function type,
+  /// InterpretedFunction values will be wrapped in proper callbacks.
   static Map<K, V> coerceMap<K, V>(
     Object? arg,
     String paramName, [
@@ -158,19 +199,26 @@ class D4 {
     }
   }
 
-  /// Coerce a single map value to type V, wrapping functions if needed.
+  /// Coerce a Map from D4rt, returning null if arg is null.
+  ///
+  /// If [visitor] is provided and the value type V is a function type,
+  /// InterpretedFunction values will be wrapped in proper callbacks.
+  static Map<K, V>? coerceMapOrNull<K, V>(
+    Object? arg,
+    String paramName, [
+    InterpreterVisitor? visitor,
+  ]) {
+    if (arg == null) return null;
+    return coerceMap<K, V>(arg, paramName, visitor);
+  }
+
+  /// Coerce a single map value, handling function type wrapping.
   static V _coerceMapValue<V>(
     Object? v,
     String paramName,
     InterpreterVisitor? visitor,
   ) {
-    // Handle BridgedInstance wrapping
     final unwrapped = v is BridgedInstance ? v.nativeObject : v;
-
-    // If already correct type, return as-is
-    if (unwrapped is V) {
-      return unwrapped;
-    }
 
     // If V is a function type and v is an InterpretedFunction, wrap it
     // We detect function types by checking the type name string
@@ -204,29 +252,59 @@ class D4 {
 
   /// Wrap an InterpretedFunction/Callable for use as a Map value function.
   ///
-  /// Creates a dynamic wrapper that accepts any number of positional arguments.
-  /// The actual argument count is determined by what the caller passes.
+  /// Detects the expected return type from V and creates an appropriate wrapper.
+  /// For common widget builder patterns like `Widget Function(BuildContext)`,
+  /// returns the correctly typed wrapper.
   static dynamic _wrapCallableForMap<V>(
     Object callable,
     InterpreterVisitor visitor,
   ) {
-    // Return a Function that captures the visitor and callable
-    // This creates a closure that can be called with any arguments
-    return (
-        [Object? p0,
-        Object? p1,
-        Object? p2,
-        Object? p3,
-        Object? p4,
-        Object? p5,
-        Object? p6,
-        Object? p7,
-        Object? p8,
-        Object? p9]) {
-      // Build args list from non-null positional parameters
+    // Extract function signature info from V
+    final vType = V.toString();
+
+    // Check for common single-argument patterns like "Widget Function(BuildContext)"
+    // Pattern: "ReturnType Function(ArgType)" or "(ArgType) => ReturnType"
+    // Note: Using untyped parameters to get dynamic, which is assignable to any type
+    if (_isSingleArgFunction(vType)) {
+      // Return a wrapper with 1 required positional argument (untyped = dynamic)
+      return (arg) {
+        if (callable is Callable) {
+          return callable.call(visitor, [arg], {});
+        }
+        throw ArgumentD4rtException(
+          'Cannot call non-callable in Map value: ${callable.runtimeType}',
+        );
+      };
+    }
+
+    // Check for no-argument functions like "void Function()"
+    if (_isNoArgFunction(vType)) {
+      return () {
+        if (callable is Callable) {
+          return callable.call(visitor, [], {});
+        }
+        throw ArgumentD4rtException(
+          'Cannot call non-callable in Map value: ${callable.runtimeType}',
+        );
+      };
+    }
+
+    // Check for two-argument functions (untyped = dynamic)
+    if (_isTwoArgFunction(vType)) {
+      return (arg1, arg2) {
+        if (callable is Callable) {
+          return callable.call(visitor, [arg1, arg2], {});
+        }
+        throw ArgumentD4rtException(
+          'Cannot call non-callable in Map value: ${callable.runtimeType}',
+        );
+      };
+    }
+
+    // Fallback: variable-arity wrapper with dynamic params
+    // Note: Using untyped optional params for flexibility
+    return ([p0, p1, p2, p3, p4, p5, p6, p7, p8, p9]) {
       final args = <Object?>[];
-      // We need to determine actual arg count from the callable if possible
-      // For now, we pass all non-null arguments
       if (p0 != null) args.add(p0);
       if (p1 != null) args.add(p1);
       if (p2 != null) args.add(p2);
@@ -238,74 +316,61 @@ class D4 {
       if (p8 != null) args.add(p8);
       if (p9 != null) args.add(p9);
 
-      return callInterpreterCallback(visitor, callable, args);
+      if (callable is Callable) {
+        return callable.call(visitor, args, {});
+      }
+      throw ArgumentD4rtException(
+        'Cannot call non-callable object in Map value: ${callable.runtimeType}',
+      );
     };
   }
 
-  /// Coerce a Map from D4rt, returning null if arg is null.
-  static Map<K, V>? coerceMapOrNull<K, V>(
-    Object? arg,
-    String paramName, [
-    InterpreterVisitor? visitor,
-  ]) {
-    if (arg == null) return null;
-    return coerceMap<K, V>(arg, paramName, visitor);
+  /// Check if type is a single-argument function.
+  /// Examples: "Widget Function(BuildContext)", "(BuildContext) => Widget"
+  static bool _isSingleArgFunction(String typeName) {
+    // Match "ReturnType Function(SingleType)" - no comma means single arg
+    final functionMatch = RegExp(r'Function\(([^,)]+)\)$').firstMatch(typeName);
+    if (functionMatch != null) {
+      return true;
+    }
+    // Match "(SingleType) => ReturnType"
+    final arrowMatch = RegExp(r'\(([^,)]+)\)\s*=>\s*\S+$').firstMatch(typeName);
+    if (arrowMatch != null) {
+      return true;
+    }
+    return false;
+  }
+
+  /// Check if type is a no-argument function.
+  /// Examples: "void Function()", "() => void"
+  static bool _isNoArgFunction(String typeName) {
+    return typeName.contains('Function()') ||
+        RegExp(r'\(\)\s*=>').hasMatch(typeName);
+  }
+
+  /// Check if type is a two-argument function.
+  /// Examples: "Widget Function(BuildContext, Widget)", "(A, B) => R"
+  static bool _isTwoArgFunction(String typeName) {
+    // Match "Function(Type1, Type2)" - exactly one comma
+    final functionMatch = RegExp(
+      r'Function\(([^,]+),\s*([^,)]+)\)$',
+    ).firstMatch(typeName);
+    if (functionMatch != null) {
+      return true;
+    }
+    // Match "(Type1, Type2) => ReturnType"
+    final arrowMatch = RegExp(
+      r'\(([^,]+),\s*([^,)]+)\)\s*=>',
+    ).firstMatch(typeName);
+    if (arrowMatch != null) {
+      return true;
+    }
+    return false;
   }
 
   // ==========================================================================
   // Bridged Argument Extraction
   // ==========================================================================
-
-  /// Unwrap a single element from BridgedInstance/BridgedEnumValue.
-  static Object? _unwrapElement(Object? e) {
-    if (e is BridgedInstance) return e.nativeObject;
-    if (e is BridgedEnumValue) return e.nativeValue;
-    return e;
-  }
-
-  /// Unwrap all BridgedInstance/BridgedEnumValue elements in a list.
-  static List<Object?> _unwrapListElements(List<Object?> list) {
-    bool needsUnwrap = false;
-    for (final e in list) {
-      if (e is BridgedInstance || e is BridgedEnumValue) {
-        needsUnwrap = true;
-        break;
-      }
-    }
-    if (!needsUnwrap) return list;
-    return list.map(_unwrapElement).toList();
-  }
-
-  /// Cast list elements to a specific primitive type.
-  /// Returns null if the element type is not a known primitive.
-  static List<Object?>? _castListElements(
-      List<Object?> list, String elementType) {
-    return switch (elementType) {
-      'int' => list.cast<int>().toList(),
-      'double' =>
-        list.map((e) => e is int ? e.toDouble() : e).cast<double>().toList(),
-      'String' => list.cast<String>().toList(),
-      'num' => list.cast<num>().toList(),
-      'bool' => list.cast<bool>().toList(),
-      'Object' || 'dynamic' => list.cast<Object>().toList(),
-      _ => null, // Non-primitive: caller should try direct cast
-    };
-  }
-
-  /// Cast set elements to a specific primitive type.
-  /// Returns null if the element type is not a known primitive.
-  static Set<Object?>? _castSetElements(Set<Object?> set, String elementType) {
-    return switch (elementType) {
-      'int' => set.cast<int>().toSet(),
-      'double' =>
-        set.map((e) => e is int ? e.toDouble() : e).cast<double>().toSet(),
-      'String' => set.cast<String>().toSet(),
-      'num' => set.cast<num>().toSet(),
-      'bool' => set.cast<bool>().toSet(),
-      'Object' || 'dynamic' => set.cast<Object>().toSet(),
-      _ => null,
-    };
-  }
 
   /// Extract a typed value from a BridgedInstance or native object.
   ///
@@ -319,11 +384,38 @@ class D4 {
     final unwrapped = arg is BridgedInstance
         ? arg.nativeObject
         : arg is BridgedEnumValue
-            ? arg.nativeValue
-            : arg;
+        ? arg.nativeValue
+        : arg;
 
     if (unwrapped is T) {
       return unwrapped;
+    }
+
+    // GEN-079: Generic type wrapper resolution.
+    // When T is a complex generic (e.g., WidgetStateProperty<Color?>?),
+    // the `is T` check fails if the value was created with `<dynamic>`
+    // (e.g., WidgetStatePropertyAll<dynamic>) because Dart's reified generics
+    // require exact type argument matching for subtype checks.
+    // Use registered wrapper factories to create properly typed proxy objects.
+    if (unwrapped != null && _genericTypeWrappers.isNotEmpty) {
+      final tStr = T.toString();
+      // Strip trailing '?' for nullable generic types
+      String baseT = tStr;
+      while (baseT.endsWith('?')) {
+        baseT = baseT.substring(0, baseT.length - 1);
+      }
+      if (baseT.contains('<')) {
+        final baseTypeName = baseT.substring(0, baseT.indexOf('<'));
+        final factory = _genericTypeWrappers[baseTypeName];
+        if (factory != null) {
+          final innerTypeArg = baseT.substring(
+            baseT.indexOf('<') + 1,
+            baseT.lastIndexOf('>'),
+          );
+          final wrapped = factory(unwrapped, innerTypeArg);
+          if (wrapped is T) return wrapped;
+        }
+      }
     }
 
     // INTER-003: int→double promotion (handles both double and double?)
@@ -337,22 +429,32 @@ class D4 {
     }
 
     // INTER-004: Collection type casting
-    // List<Object?> → List<T> or Iterable<T>
+    // GEN-075: Unwrap BridgedInstance/BridgedEnumValue elements first
     final tStr = T.toString();
 
+    // List<Object?> → List<T> (also handles Iterable<T>)
     if (unwrapped is List &&
         (tStr.startsWith('List<') || tStr.startsWith('Iterable<'))) {
       try {
-        // INTER-006: First unwrap any BridgedInstance/BridgedEnumValue elements
-        final unwrappedList = _unwrapListElements(unwrapped);
-        // Determine element type from T string
-        final isIterable = tStr.startsWith('Iterable<');
-        final prefixLen = isIterable ? 9 : 5; // 'Iterable<' or 'List<'
+        // Unwrap any BridgedInstance/BridgedEnumValue elements
+        final unwrappedList = unwrapped.map(_unwrapElement).toList();
+        // Extract element type from T string
+        final prefixLen = tStr.startsWith('List<') ? 5 : 9;
         final elementType = tStr.substring(prefixLen, tStr.length - 1);
-        final result = _castListElements(unwrappedList, elementType);
-        if (result != null) return result as T;
-        // For non-primitive element types, try direct cast after unwrapping
-        return unwrappedList as T;
+        return switch (elementType) {
+              'int' => unwrappedList.cast<int>().toList(),
+              'double' =>
+                unwrappedList
+                    .map((e) => e is int ? e.toDouble() : e)
+                    .cast<double>()
+                    .toList(),
+              'String' => unwrappedList.cast<String>().toList(),
+              'num' => unwrappedList.cast<num>().toList(),
+              'bool' => unwrappedList.cast<bool>().toList(),
+              'Object' || 'dynamic' => unwrappedList.cast<Object>().toList(),
+              _ => unwrappedList,
+            }
+            as T;
       } catch (_) {
         // Fall through to error
       }
@@ -361,19 +463,29 @@ class D4 {
     // Set<Object?> → Set<T>
     if (unwrapped is Set && tStr.startsWith('Set<')) {
       try {
-        // INTER-006: Unwrap elements first
         final unwrappedSet = unwrapped.map(_unwrapElement).toSet();
         final elementType = tStr.substring(4, tStr.length - 1);
-        final result = _castSetElements(unwrappedSet, elementType);
-        if (result != null) return result as T;
-        return unwrappedSet as T;
+        return switch (elementType) {
+              'int' => unwrappedSet.cast<int>().toSet(),
+              'double' =>
+                unwrappedSet
+                    .map((e) => e is int ? e.toDouble() : e)
+                    .cast<double>()
+                    .toSet(),
+              'String' => unwrappedSet.cast<String>().toSet(),
+              'num' => unwrappedSet.cast<num>().toSet(),
+              'bool' => unwrappedSet.cast<bool>().toSet(),
+              'Object' || 'dynamic' => unwrappedSet.cast<Object>().toSet(),
+              _ => unwrappedSet,
+            }
+            as T;
       } catch (_) {
         // Fall through to error
       }
     }
 
     // Map casting support
-    if (unwrapped is Map && tStr.startsWith('Map<')) {
+    if (unwrapped is Map && T.toString().startsWith('Map<')) {
       try {
         return unwrapped as T;
       } catch (_) {
@@ -381,8 +493,9 @@ class D4 {
       }
     }
 
-    final actualType =
-        arg is BridgedInstance ? arg.nativeObject.runtimeType : arg.runtimeType;
+    final actualType = arg is BridgedInstance
+        ? arg.nativeObject.runtimeType
+        : arg.runtimeType;
     throw ArgumentD4rtException(
       'Invalid parameter "$paramName": expected $T, got $actualType',
     );

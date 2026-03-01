@@ -1,3 +1,14 @@
+## 1.8.7
+
+### Bug Fixes
+- **GEN-078**: Runtime bridge alias resolution via `defineBridgeAlias()` in Environment
+- **GEN-079**: Generic type wrapper registration for covariant generic type resolution
+  - New `GenericTypeWrapperFactory` typedef and `registerGenericTypeWrapper()` in D4 class
+  - `extractBridgedArg<T>` now looks up registered wrappers when `is T` check fails due to generic type argument mismatch
+- **GEN-080**: Fixed named constructor resolution for unresolved AST ambiguity
+  - `const ColorFilter.mode(...)` now correctly resolves the class name instead of the named constructor part
+- Fixed `BridgedInstance` unwrapping in 4 setter assignment paths in `visitAssignmentExpression`
+
 ## 1.8.6
 
 ### Features

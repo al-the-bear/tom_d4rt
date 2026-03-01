@@ -1,3 +1,10 @@
+## 1.8.14
+
+### Bug Fixes
+
+- **GEN-077**: Skip same-package re-exports to prevent duplicate bridge generation (e.g., Tween only in animation module)
+- **GEN-078**: Collect deprecated non-function type aliases (e.g., `MaterialStateProperty`)
+
 ## 1.8.13
 
 ### Added
