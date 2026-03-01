@@ -6385,8 +6385,12 @@ class BridgeGenerator {
             }
           }
         }
+        // Use combinatorial dispatch for up to 6 non-wrappable defaults
+        // (generates 2^N branches, max 64). Above this threshold, falls back
+        // to getRequiredNamedArgTodoDefault which requires callers to always
+        // provide the value explicitly.
         final useCombinatorial =
-            nonWrappableDefaults.isNotEmpty && nonWrappableDefaults.length <= 4;
+            nonWrappableDefaults.isNotEmpty && nonWrappableDefaults.length <= 6;
 
         // Use function type parameters for type erasure
         final funcTypeParams = func.typeParameters;
@@ -7925,8 +7929,12 @@ class BridgeGenerator {
         }
       }
     }
+    // Use combinatorial dispatch for up to 6 non-wrappable defaults
+    // (generates 2^N branches, max 64). Above this threshold, falls back
+    // to getRequiredNamedArgTodoDefault which requires callers to always
+    // provide the value explicitly.
     final useCombinatorial =
-        nonWrappableDefaults.isNotEmpty && nonWrappableDefaults.length <= 4;
+        nonWrappableDefaults.isNotEmpty && nonWrappableDefaults.length <= 6;
 
     // Extract named parameters
     for (final param in namedParams) {
@@ -8646,8 +8654,12 @@ class BridgeGenerator {
         }
       }
     }
+    // Use combinatorial dispatch for up to 6 non-wrappable defaults
+    // (generates 2^N branches, max 64). Above this threshold, falls back
+    // to getRequiredNamedArgTodoDefault which requires callers to always
+    // provide the value explicitly.
     final useCombinatorial =
-        nonWrappableDefaults.isNotEmpty && nonWrappableDefaults.length <= 4;
+        nonWrappableDefaults.isNotEmpty && nonWrappableDefaults.length <= 6;
 
     // Extract named parameters
     for (final param in namedParams) {

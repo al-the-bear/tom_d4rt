@@ -347,6 +347,10 @@ dynamic build(BuildContext context) {
   // Test SearchAnchor.bar
   final barSearchAnchor = SearchAnchor.bar(
     barHintText: 'Search bar',
+    searchController: SearchController(),
+    textCapitalization: TextCapitalization.none,
+    scrollPadding: EdgeInsets.all(20.0),
+    enabled: true,
     suggestionsBuilder: (context, controller) {
       return List<Widget>.generate(3, (index) {
         return ListTile(

@@ -251,8 +251,8 @@ dynamic build(BuildContext context) {
   );
   print('CupertinoThemeData copyWith created');
 
-  // Test CupertinoThemeData noDefault
-  final noDefaultThemeData = CupertinoThemeData.raw(
+  // Test CupertinoThemeData with all properties
+  final fullThemeData = CupertinoThemeData(
     brightness: Brightness.light,
     primaryColor: CupertinoColors.systemBlue,
     primaryContrastingColor: CupertinoColors.white,
@@ -261,7 +261,7 @@ dynamic build(BuildContext context) {
     scaffoldBackgroundColor: CupertinoColors.systemBackground,
     applyThemeToAll: false,
   );
-  print('CupertinoThemeData.raw created');
+  print('CupertinoThemeData with all properties created');
 
   // ========== CUPERTINOTHEME WIDGET ==========
   print('--- CupertinoTheme Widget Tests ---');

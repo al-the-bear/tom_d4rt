@@ -135,8 +135,8 @@ dynamic build(BuildContext context) {
   // ========== TEXTRANGE ==========
   print('--- TextRange Tests ---');
 
-  final range = const TextRange(start: 5, end: 15);
-  print('TextRange(5, 15): start=${range.start}, end=${range.end}');
+  final range = const TextRange(start: 5, end: 10);
+  print('TextRange(5, 10): start=${range.start}, end=${range.end}');
   print('isValid: ${range.isValid}');
   print('isCollapsed: ${range.isCollapsed}');
   print('isNormalized: ${range.isNormalized}');

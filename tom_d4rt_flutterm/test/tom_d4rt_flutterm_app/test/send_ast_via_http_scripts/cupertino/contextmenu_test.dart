@@ -112,6 +112,11 @@ dynamic build(BuildContext context) {
 
   // Test basic CupertinoScrollbar
   final basicScrollbar = CupertinoScrollbar(
+    thickness: 3.0,
+    thicknessWhileDragging: 6.0,
+    radius: Radius.circular(1.5),
+    radiusWhileDragging: Radius.circular(4.0),
+    mainAxisMargin: 2.0,
     child: ListView.builder(
       itemCount: 50,
       itemBuilder: (context, index) => ListTile(title: Text('Item $index')),
@@ -121,6 +126,11 @@ dynamic build(BuildContext context) {
 
   // Test CupertinoScrollbar with controller
   final controlledScrollbar = CupertinoScrollbar(
+    thickness: 3.0,
+    thicknessWhileDragging: 6.0,
+    radius: Radius.circular(1.5),
+    radiusWhileDragging: Radius.circular(4.0),
+    mainAxisMargin: 2.0,
     controller: ScrollController(),
     child: ListView.builder(
       itemCount: 50,
@@ -132,6 +142,11 @@ dynamic build(BuildContext context) {
 
   // Test CupertinoScrollbar with thumbVisibility
   final visibleScrollbar = CupertinoScrollbar(
+    thickness: 3.0,
+    thicknessWhileDragging: 6.0,
+    radius: Radius.circular(1.5),
+    radiusWhileDragging: Radius.circular(4.0),
+    mainAxisMargin: 2.0,
     thumbVisibility: true,
     child: ListView.builder(
       itemCount: 50,
@@ -144,6 +159,10 @@ dynamic build(BuildContext context) {
   // Test CupertinoScrollbar with thickness
   final thickScrollbar = CupertinoScrollbar(
     thickness: 10.0,
+    thicknessWhileDragging: 6.0,
+    radius: Radius.circular(1.5),
+    radiusWhileDragging: Radius.circular(4.0),
+    mainAxisMargin: 2.0,
     child: ListView.builder(
       itemCount: 50,
       itemBuilder: (context, index) =>
@@ -154,7 +173,11 @@ dynamic build(BuildContext context) {
 
   // Test CupertinoScrollbar with thicknessWhileDragging
   final draggingScrollbar = CupertinoScrollbar(
+    thickness: 3.0,
     thicknessWhileDragging: 12.0,
+    radius: Radius.circular(1.5),
+    radiusWhileDragging: Radius.circular(4.0),
+    mainAxisMargin: 2.0,
     child: ListView.builder(
       itemCount: 50,
       itemBuilder: (context, index) =>
@@ -165,7 +188,11 @@ dynamic build(BuildContext context) {
 
   // Test CupertinoScrollbar with radius
   final radiusScrollbar = CupertinoScrollbar(
+    thickness: 3.0,
+    thicknessWhileDragging: 6.0,
     radius: Radius.circular(4.0),
+    radiusWhileDragging: Radius.circular(4.0),
+    mainAxisMargin: 2.0,
     child: ListView.builder(
       itemCount: 50,
       itemBuilder: (context, index) =>
@@ -176,7 +203,11 @@ dynamic build(BuildContext context) {
 
   // Test CupertinoScrollbar with radiusWhileDragging
   final radiusDraggingScrollbar = CupertinoScrollbar(
+    thickness: 3.0,
+    thicknessWhileDragging: 6.0,
+    radius: Radius.circular(1.5),
     radiusWhileDragging: Radius.circular(8.0),
+    mainAxisMargin: 2.0,
     child: ListView.builder(
       itemCount: 50,
       itemBuilder: (context, index) =>
@@ -187,6 +218,11 @@ dynamic build(BuildContext context) {
 
   // Test CupertinoScrollbar with scrollbarOrientation
   final orientedScrollbar = CupertinoScrollbar(
+    thickness: 3.0,
+    thicknessWhileDragging: 6.0,
+    radius: Radius.circular(1.5),
+    radiusWhileDragging: Radius.circular(4.0),
+    mainAxisMargin: 2.0,
     scrollbarOrientation: ScrollbarOrientation.left,
     child: ListView.builder(
       itemCount: 50,
@@ -198,6 +234,11 @@ dynamic build(BuildContext context) {
 
   // Test CupertinoScrollbar with notificationPredicate
   final predicateScrollbar = CupertinoScrollbar(
+    thickness: 3.0,
+    thicknessWhileDragging: 6.0,
+    radius: Radius.circular(1.5),
+    radiusWhileDragging: Radius.circular(4.0),
+    mainAxisMargin: 2.0,
     notificationPredicate: (notification) => true,
     child: ListView.builder(
       itemCount: 50,
@@ -310,6 +351,11 @@ dynamic build(BuildContext context) {
             Expanded(
               child: CupertinoScrollbar(
                 thumbVisibility: true,
+                thickness: 3.0,
+                thicknessWhileDragging: 6.0,
+                radius: Radius.circular(1.5),
+                radiusWhileDragging: Radius.circular(4.0),
+                mainAxisMargin: 2.0,
                 child: ListView.builder(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   itemCount: 30,

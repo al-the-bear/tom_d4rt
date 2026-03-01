@@ -263,6 +263,7 @@ dynamic build(BuildContext context) {
     tabBar: CupertinoTabBar(
       items: [
         BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(CupertinoIcons.settings), label: 'Settings'),
       ],
     ),
     tabBuilder: (context, index) {

@@ -72,8 +72,8 @@ dynamic build(BuildContext context) {
     'BorderSide toPaint: color=${paint.color}, strokeWidth=${paint.strokeWidth}',
   );
 
-  // Test BorderSide.merge
-  final mergedSide = BorderSide.merge(basicSide, colorSide);
+  // Test BorderSide.merge (same color, different widths)
+  final mergedSide = BorderSide.merge(basicSide, basicSide.copyWith(width: 3.0));
   print('BorderSide.merge: $mergedSide');
 
   // Test BorderSide.canMerge

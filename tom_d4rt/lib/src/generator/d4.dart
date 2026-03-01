@@ -568,18 +568,22 @@ class D4 {
 
   /// Get a required named argument with type checking.
   ///
-  /// Throws ArgumentError if the argument is missing or has wrong type.
+  /// Throws [ArgumentD4rtException] if the argument is missing.
+  /// For nullable required parameters (e.g., `required bool? value`),
+  /// null is a valid value — only absence is an error.
   static T getRequiredNamedArg<T>(
     Map<String, Object?> named,
     String paramName,
     String methodName,
   ) {
-    if (!named.containsKey(paramName) || named[paramName] == null) {
+    if (!named.containsKey(paramName)) {
       throw ArgumentD4rtException(
         '$methodName: Missing required named argument "$paramName"',
       );
     }
-    return extractBridgedArg<T>(named[paramName], paramName);
+    final value = named[paramName];
+    if (value == null) return null as T;
+    return extractBridgedArg<T>(value, paramName);
   }
 
   /// Get an optional named argument with type checking.

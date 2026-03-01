@@ -22,7 +22,6 @@ dynamic build(BuildContext context) {
   print('OpacityLayer applies opacity to child layers');
   print('ShaderMaskLayer applies a shader mask to child layers');
   print('BackdropFilterLayer applies a backdrop filter');
-  print('PhysicalModelLayer renders physical material shadows');
 
   // ========== OFFSET LAYER ==========
   print('--- OffsetLayer Tests ---');
@@ -116,35 +115,28 @@ dynamic build(BuildContext context) {
   );
   print('TransformLayer created with rotation transform');
 
-  // ========== PHYSICAL MODEL LAYER ==========
-  print('--- PhysicalModelLayer Tests ---');
+  // ========== OPACITY LAYER (ADDITIONAL) ==========
+  print('--- OpacityLayer Tests ---');
 
-  final physicalLayer = PhysicalModelLayer(
-    clipPath: Path()..addRect(Rect.fromLTWH(0.0, 0.0, 100.0, 80.0)),
-    elevation: 4.0,
-    color: Color(0xFFFFFFFF),
-    shadowColor: Color(0x80000000),
+  final opacityLayer2 = OpacityLayer(
+    alpha: 200,
+    offset: Offset(10.0, 20.0),
   );
-  print('PhysicalModelLayer elevation: ${physicalLayer.elevation}');
-  print('PhysicalModelLayer color: ${physicalLayer.color}');
-  print('PhysicalModelLayer shadowColor: ${physicalLayer.shadowColor}');
+  print('OpacityLayer alpha: ${opacityLayer2.alpha}');
+  print('OpacityLayer offset: ${opacityLayer2.offset}');
 
-  // Test different elevations
-  final lowElevation = PhysicalModelLayer(
-    clipPath: Path()..addRect(Rect.fromLTWH(0.0, 0.0, 100.0, 80.0)),
-    elevation: 1.0,
-    color: Color(0xFFFFFFFF),
-    shadowColor: Color(0x80000000),
+  // Test different alpha values
+  final opaqueLayer = OpacityLayer(
+    alpha: 255,
+    offset: Offset.zero,
   );
-  print('Low elevation: ${lowElevation.elevation}');
+  print('Opaque layer alpha: ${opaqueLayer.alpha}');
 
-  final highElevation = PhysicalModelLayer(
-    clipPath: Path()..addRect(Rect.fromLTWH(0.0, 0.0, 100.0, 80.0)),
-    elevation: 24.0,
-    color: Color(0xFFFFFFFF),
-    shadowColor: Color(0x80000000),
+  final semiTransparentLayer = OpacityLayer(
+    alpha: 128,
+    offset: Offset(5.0, 5.0),
   );
-  print('High elevation: ${highElevation.elevation}');
+  print('Semi-transparent alpha: ${semiTransparentLayer.alpha}');
 
   // ========== BACKDROP FILTER LAYER ==========
   print('--- BackdropFilterLayer Tests ---');

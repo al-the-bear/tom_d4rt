@@ -582,7 +582,7 @@ dynamic build(BuildContext context) {
           tabs: [
             Tab(icon: Icon(Icons.home), text: 'Basic'),
             Tab(icon: Icon(Icons.style), text: 'Styled'),
-            Tab(icon: Icon(Icons.scroll), text: 'Scrollable'),
+            Tab(icon: Icon(Icons.list), text: 'Scrollable'),
             Tab(icon: Icon(Icons.more), text: 'Secondary'),
           ],
         ),

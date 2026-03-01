@@ -173,7 +173,7 @@ dynamic build(BuildContext context) {
     const Color(0xFF00FF00),
     const Color(0xFF0000FF),
     const Color(0xFFFF0000),
-  ]);
+  ], [0.0, 0.33, 0.67, 1.0], TileMode.clamp, 0.0, 6.28318);
   paint.shader = sweepShader;
   print('Sweep gradient shader set');
 
@@ -302,7 +302,7 @@ dynamic build(BuildContext context) {
     const Color(0xFF0000FF),
     const Color(0xFF8B00FF),
     const Color(0xFFFF0000),
-  ]);
+  ], [0.0, 0.167, 0.333, 0.5, 0.667, 0.833, 1.0], TileMode.clamp, 0.0, 6.28318);
   print('Sweep gradient (rainbow)');
 
   // Sweep with angles

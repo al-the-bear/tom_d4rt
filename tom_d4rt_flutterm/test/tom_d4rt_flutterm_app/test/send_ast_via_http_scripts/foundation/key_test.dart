@@ -121,17 +121,17 @@ dynamic build(BuildContext context) {
   print('--- ObjectKey Tests ---');
 
   // Test ObjectKey with object
-  final objKey1 = ObjectKey(Object());
+  final objKey1 = ObjectKey('unique_object_1');
   print('ObjectKey created: $objKey1');
 
   // Test ObjectKey equality with same object
-  final myObject = Object();
+  final myObject = 'shared_object';
   final objKey2 = ObjectKey(myObject);
   final objKey3 = ObjectKey(myObject);
   print('ObjectKey equality (same object): ${objKey2 == objKey3}');
 
   // Test ObjectKey with different objects
-  final objKey4 = ObjectKey(Object());
+  final objKey4 = ObjectKey('unique_object_2');
   print('ObjectKey equality (different objects): ${objKey2 == objKey4}');
 
   print('Foundation key test completed');

@@ -248,7 +248,7 @@ dynamic build(BuildContext context) {
 
   // Test ThemeData with cardTheme
   final cardThemeData = ThemeData(
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: Colors.blue.shade50,
       elevation: 8.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),

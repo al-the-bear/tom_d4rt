@@ -122,6 +122,10 @@ dynamic build(BuildContext context) {
 
   // Test Navigator widget with onGenerateRoute
   final generatedRoutes = Navigator(
+    pages: const <Page<dynamic>>[],
+    transitionDelegate: DefaultTransitionDelegate<dynamic>(),
+    routeTraversalEdgeBehavior: TraversalEdgeBehavior.closedLoop,
+    routeDirectionalTraversalEdgeBehavior: TraversalEdgeBehavior.closedLoop,
     onGenerateRoute: (settings) {
       print('onGenerateRoute called for: ${settings.name}');
       if (settings.name == '/') {
@@ -150,6 +154,10 @@ dynamic build(BuildContext context) {
 
   // Test Navigator with observers
   final withObservers = Navigator(
+    pages: const <Page<dynamic>>[],
+    transitionDelegate: DefaultTransitionDelegate<dynamic>(),
+    routeTraversalEdgeBehavior: TraversalEdgeBehavior.closedLoop,
+    routeDirectionalTraversalEdgeBehavior: TraversalEdgeBehavior.closedLoop,
     observers: [NavigatorObserver()],
     onGenerateRoute: (settings) =>
         MaterialPageRoute(builder: (_) => Center(child: Text('Observed'))),

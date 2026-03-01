@@ -235,6 +235,7 @@ dynamic build(BuildContext context) {
   // Test CupertinoDatePicker with minuteInterval
   final intervalPicker = CupertinoDatePicker(
     minuteInterval: 15,
+    initialDateTime: DateTime(2025, 6, 15, 10, 0),
     mode: CupertinoDatePickerMode.time,
     onDateTimeChanged: (dateTime) {},
   );
