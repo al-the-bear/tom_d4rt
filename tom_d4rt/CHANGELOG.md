@@ -1,3 +1,25 @@
+## 1.8.10
+
+### Bug Fixes
+- **RC-1**: Active visitor mechanism (`D4.withActiveVisitor`) for interface proxy creation inside bridge helper methods
+- **RC-2**: Generic constructor dispatch in `visitMethodInvocation` + constructor override mechanism (fires even without type args, null = fallthrough)
+- **RC-3**: StrutStyle constructor override creates `painting.StrutStyle` (dart:ui version is opaque)
+- **RC-5**: Implicit bridged super for both Path A (`callable.dart`) and Path B (`runtime_types.dart` `InterpretedClass.call`)
+- Supplementary method adapters for `@protected` methods (e.g., `notifyListeners`)
+- `GenericConstructorFactory` typedef now accepts nullable `typeArgs`
+
+## 1.8.9
+
+### Bug Fixes
+- Synced `d4.dart` with active visitor mechanism and supplementary method support
+- Generic constructor registry and type coercion infrastructure
+
+## 1.8.8
+
+### Bug Fixes
+- **GEN-075**: Fixed required nullable argument handling in generated bridge constructors
+- **GEN-076**: Raised combinatorial dispatch threshold for non-wrappable default parameters
+
 ## 1.8.7
 
 ### Bug Fixes

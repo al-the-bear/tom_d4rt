@@ -1,3 +1,14 @@
+## 1.8.16
+
+### Bug Fixes
+- **RC-4**: Generator map key unwrap via `D4.extractBridgedArg` instead of raw cast
+
+## 1.8.15
+
+### Bug Fixes
+- **GEN-075**: Fixed required nullable argument handling — generates null-safe parameter extraction
+- **GEN-076**: Raised non-wrappable default threshold from 4 to 8 to reduce combinatorial explosion
+
 ## 1.8.14
 
 ### Bug Fixes

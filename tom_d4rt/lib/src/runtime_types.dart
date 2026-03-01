@@ -615,6 +615,27 @@ class InterpretedClass implements Callable, RuntimeType {
         // the superclass's createAndInitializeInstance will handle field initialization.
         // No error needed here.
       }
+
+      // RC-5 Path B: Also check for bridged superclass when no explicit constructor.
+      // When an interpreted class extends a bridged class (e.g., CounterNotifier
+      // extends ChangeNotifier) and has no explicit constructor, the bridged
+      // superclass's default constructor must still be called to initialize
+      // the native super object (bridgedSuperObject).
+      if (bridgedSuperclass != null && instance.bridgedSuperObject == null) {
+        final defaultBridgedCtor =
+            bridgedSuperclass!.findConstructorAdapter('');
+        if (defaultBridgedCtor != null) {
+          Logger.debug(
+              "[Instance Init] Calling implicit bridged super() for class '$name' (bridged super: ${bridgedSuperclass!.name})");
+          try {
+            final nativeSuperObject = defaultBridgedCtor(visitor, [], {});
+            instance.bridgedSuperObject = nativeSuperObject;
+          } catch (e) {
+            Logger.error(
+                "[Instance Init] Error during implicit bridged super() for '$name': $e");
+          }
+        }
+      }
     }
 
     // Field initializers from constructor list (e.g., : this.x = y) need separate handling.
@@ -1246,6 +1267,19 @@ class InterpretedInstance implements RuntimeValue {
               "[Instance.get] Found method '$name' in bridged superclass '${bridgedSuper.name}' at level '${currentClass.name}'. Returning bound callable.");
           return BridgedSuperMethodCallable(
               nativeTarget, methodAdapter, name, bridgedSuper.name);
+        }
+
+        // RC-5: Check supplementary method adapters for unbridged methods.
+        // Methods like ChangeNotifier.notifyListeners() are @protected and
+        // not included in the generated bridge. Supplementary adapters
+        // registered via D4.registerSupplementaryMethod() fill this gap.
+        final supplementaryAdapter = D4.findSupplementaryMethod(
+            bridgedSuper.name, name);
+        if (supplementaryAdapter != null) {
+          Logger.debug(
+              "[Instance.get] Found supplementary method '$name' for bridged superclass '${bridgedSuper.name}'.");
+          return BridgedSuperMethodCallable(
+              nativeTarget, supplementaryAdapter, name, bridgedSuper.name);
         }
       }
 
