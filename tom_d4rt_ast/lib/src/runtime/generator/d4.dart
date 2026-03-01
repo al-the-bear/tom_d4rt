@@ -7,9 +7,12 @@ library;
 
 import '../bridge/bridged_types.dart';
 import '../bridge/bridged_enum.dart';
+import '../bridge/registration.dart' show BridgedMethodAdapter;
 import '../callable.dart';
 import '../exceptions.dart';
 import '../interpreter_visitor.dart';
+import '../runtime_interfaces.dart';
+import '../runtime_types.dart';
 
 /// GEN-079: Factory callback for creating typed wrappers.
 ///
@@ -18,6 +21,43 @@ import '../interpreter_visitor.dart';
 /// Returns a properly typed wrapper, or null if the type arg is not supported.
 typedef GenericTypeWrapperFactory =
     Object? Function(Object value, String innerTypeArg);
+
+/// RC-1: Factory for creating native proxy objects that delegate method calls
+/// back to an [InterpretedInstance].
+///
+/// When a D4rt script class implements or extends a bridged abstract class
+/// or interface (e.g., `class MyClipper extends CustomClipper<Path>`),
+/// the resulting [InterpretedInstance] cannot be used directly as the native
+/// type. An interface proxy wraps it in a native object that delegates
+/// method calls back to the interpreter.
+///
+/// The [visitor] is the current interpreter for dispatching callbacks.
+/// The [instance] is the D4rt interpreted instance that provides the implementation.
+typedef InterfaceProxyFactory = Object? Function(
+    InterpreterVisitor visitor, InterpretedInstance instance);
+
+/// RC-3: Factory for converting one type to another when they represent
+/// the same concept but live in different packages.
+///
+/// Example: `painting.TextStyle` → `dart:ui.TextStyle` via `getTextStyle()`.
+typedef TypeCoercionFactory = Object? Function(Object value);
+
+/// RC-2: Factory for constructing generic bridged classes with type arguments.
+///
+/// When a D4rt script calls `GlobalKey<NavigatorState>()`, the type argument
+/// is evaluated at runtime but Dart requires compile-time generic types.
+/// This factory receives the evaluated [RuntimeType] list and dispatches to
+/// the correct statically-typed constructor.
+///
+/// The [visitor] is the current interpreter context.
+/// [positionalArgs] and [namedArgs] are the converted arguments.
+/// [typeArguments] are the evaluated type arguments from the script,
+/// or null when called without type arguments (constructor override).
+typedef GenericConstructorFactory = Object? Function(
+    InterpreterVisitor visitor,
+    List<Object?> positionalArgs,
+    Map<String, Object?> namedArgs,
+    List<RuntimeType>? typeArguments);
 
 /// D4 - Static helper class for D4rt bridge code generation.
 ///
@@ -43,6 +83,30 @@ class D4 {
   D4._();
 
   // ==========================================================================
+  // Active Visitor (for interface proxy creation in bridge constructor helpers)
+  // ==========================================================================
+
+  /// The currently active [InterpreterVisitor] during bridge constructor/method
+  /// execution. Set via [withActiveVisitor] before calling bridge adapters.
+  ///
+  /// This allows [extractBridgedArg] to access the visitor for interface proxy
+  /// creation even when called indirectly via helper methods (getRequiredNamedArg
+  /// etc.) that don't pass the visitor parameter.
+  static InterpreterVisitor? _activeVisitor;
+
+  /// Execute [fn] with the given [visitor] as the active visitor.
+  /// Restores the previous visitor when done (supports nesting).
+  static T withActiveVisitor<T>(InterpreterVisitor visitor, T Function() fn) {
+    final previous = _activeVisitor;
+    _activeVisitor = visitor;
+    try {
+      return fn();
+    } finally {
+      _activeVisitor = previous;
+    }
+  }
+
+  // ==========================================================================
   // GEN-079: Generic Type Wrapper Registration
   // ==========================================================================
 
@@ -51,6 +115,59 @@ class D4 {
   /// Example: 'WidgetStateProperty' → factory that creates
   /// typed WidgetStateProperty wrappers.
   static final Map<String, GenericTypeWrapperFactory> _genericTypeWrappers = {};
+
+  // ==========================================================================
+  // RC-1: Interface Proxy Registration
+  // ==========================================================================
+
+  /// Registered interface proxy factories keyed by bridged class name.
+  ///
+  /// When [extractBridgedArg] encounters an [InterpretedInstance] whose class
+  /// hierarchy includes a bridged interface/superclass, it looks up a proxy
+  /// factory here to create a native object that delegates back to the interpreter.
+  static final Map<String, InterfaceProxyFactory> _interfaceProxies = {};
+
+  /// Register a proxy factory for a bridged interface or abstract class.
+  ///
+  /// The [bridgedTypeName] is the name of the bridged class/interface.
+  /// The [factory] creates a native proxy that delegates to the InterpreterVisitor.
+  static void registerInterfaceProxy(
+    String bridgedTypeName,
+    InterfaceProxyFactory factory,
+  ) {
+    _interfaceProxies[bridgedTypeName] = factory;
+  }
+
+  // ==========================================================================
+  // RC-3: Type Coercion Registration
+  // ==========================================================================
+
+  /// Registered type coercion factories keyed by "SourceType->TargetType".
+  ///
+  /// When [extractBridgedArg<T>] receives a value that isn't T but has a
+  /// registered coercion from its runtime type to T, it applies the coercion.
+  static final Map<String, TypeCoercionFactory> _typeCoercions = {};
+
+  /// Register a type coercion from one type to another.
+  ///
+  /// [sourceTypeName] is the runtime type name of the source (e.g., 'TextStyle').
+  /// [targetTypeName] is the expected type name (e.g., 'TextStyle') — but in a
+  /// different package. The key used is "sourceType->targetType" but since both
+  /// may have the same name, we use the native [Type] objects.
+  /// [sourceType] and [targetType] are the actual Dart [Type] objects.
+  /// The [factory] converts the source to the target type.
+  static void registerTypeCoercion({
+    required Type sourceType,
+    required Type targetType,
+    required TypeCoercionFactory factory,
+  }) {
+    final key = '${sourceType.hashCode}->${targetType.hashCode}';
+    _typeCoercions[key] = factory;
+    // Also store by type objects for lookup
+    _typeCoercionsByType[_TypePair(sourceType, targetType)] = factory;
+  }
+
+  static final Map<_TypePair, TypeCoercionFactory> _typeCoercionsByType = {};
 
   /// Register a wrapper factory for a generic base type.
   ///
@@ -66,6 +183,75 @@ class D4 {
     GenericTypeWrapperFactory factory,
   ) {
     _genericTypeWrappers[baseTypeName] = factory;
+  }
+
+  // ==========================================================================
+  // RC-2: Generic Constructor Registration
+  // ==========================================================================
+
+  /// Registered generic constructor factories keyed by "ClassName.ctorName".
+  ///
+  /// When a bridged class constructor is called with type arguments
+  /// (e.g., `GlobalKey<NavigatorState>()`), the interpreter checks this map
+  /// first. If found, the factory handles the construction with proper
+  /// generic type arguments. Otherwise, the regular constructor adapter runs.
+  static final Map<String, GenericConstructorFactory> _genericConstructors = {};
+
+  /// Register a generic constructor factory for a bridged class.
+  ///
+  /// [className] - The bridged class name (e.g., 'GlobalKey').
+  /// [constructorName] - The constructor name ('' for default, 'named' for named).
+  /// [factory] - Creates the native object using the provided type arguments.
+  static void registerGenericConstructor(
+    String className,
+    String constructorName,
+    GenericConstructorFactory factory,
+  ) {
+    _genericConstructors['$className.$constructorName'] = factory;
+  }
+
+  /// Look up a registered generic constructor factory.
+  ///
+  /// Returns null if no generic constructor is registered for this class/ctor.
+  static GenericConstructorFactory? findGenericConstructor(
+    String className,
+    String constructorName,
+  ) {
+    return _genericConstructors['$className.$constructorName'];
+  }
+
+  // ==========================================================================
+  // RC-5: Supplementary Method Adapters
+  // ==========================================================================
+
+  /// Supplementary method adapters for bridged classes.
+  ///
+  /// These fill gaps where the bridge generator skips methods (e.g. @protected
+  /// methods like ChangeNotifier.notifyListeners). Checked as a fallback
+  /// after the main bridge method lookup in InterpretedInstance.get().
+  static final Map<String, Map<String, BridgedMethodAdapter>>
+      _supplementaryMethods = {};
+
+  /// Register a supplementary method adapter for a bridged class.
+  ///
+  /// [bridgedClassName] - The name of the bridged class.
+  /// [methodName] - The method name to add.
+  /// [adapter] - The method adapter (same signature as generated adapters).
+  static void registerSupplementaryMethod(
+    String bridgedClassName,
+    String methodName,
+    BridgedMethodAdapter adapter,
+  ) {
+    _supplementaryMethods
+        .putIfAbsent(bridgedClassName, () => {})[methodName] = adapter;
+  }
+
+  /// Look up a supplementary method adapter.
+  static BridgedMethodAdapter? findSupplementaryMethod(
+    String bridgedClassName,
+    String methodName,
+  ) {
+    return _supplementaryMethods[bridgedClassName]?[methodName];
   }
 
   // ==========================================================================
@@ -106,6 +292,21 @@ class D4 {
         }
         if (e is BridgedEnumValue) {
           return e.nativeValue as T;
+        }
+        // RC-1: InterpretedInstance element unwrapping.
+        // When a D4rt list contains interpreted widgets/objects that extend
+        // a bridged type, unwrap via bridgedSuperObject.
+        if (e is InterpretedInstance) {
+          if (e.bridgedSuperObject is T) {
+            return e.bridgedSuperObject as T;
+          }
+          // RC-1: Try interface proxy for elements that implement a bridged interface
+          final effectiveVisitor = _activeVisitor;
+          if (_interfaceProxies.isNotEmpty && effectiveVisitor != null) {
+            final proxy =
+                tryCreateInterfaceProxyWithVisitor<T>(e, effectiveVisitor);
+            if (proxy != null) return proxy;
+          }
         }
         // INTER-003c: int→double element promotion in lists
         if (_isDoubleType<T>() && e is int) {
@@ -188,7 +389,11 @@ class D4 {
     // Coerce each key-value pair to the expected types
     try {
       return value.map<K, V>((k, v) {
-        final key = k is BridgedInstance ? k.nativeObject as K : k as K;
+        final key = k is BridgedInstance
+            ? k.nativeObject as K
+            : k is BridgedEnumValue
+                ? k.nativeValue as K
+                : k as K;
         final val = _coerceMapValue<V>(v, paramName, visitor);
         return MapEntry(key, val);
       });
@@ -377,9 +582,13 @@ class D4 {
   /// Handles both wrapped (BridgedInstance) and unwrapped (native) objects.
   /// Throws ArgumentError if the type doesn't match.
   ///
+  /// If [visitor] is provided, interface proxy creation is enabled for
+  /// InterpretedInstance values that implement bridged abstract types.
+  ///
   /// INTER-003: Supports int→double promotion
   /// INTER-004: Supports collection type casting (List, Set, Map)
-  static T extractBridgedArg<T>(Object? arg, String paramName) {
+  static T extractBridgedArg<T>(Object? arg, String paramName,
+      [InterpreterVisitor? visitor]) {
     // Unwrap BridgedInstance or BridgedEnumValue if needed
     final unwrapped = arg is BridgedInstance
         ? arg.nativeObject
@@ -493,9 +702,46 @@ class D4 {
       }
     }
 
+    // RC-1: InterpretedInstance → bridgedSuperObject unwrapping.
+    // When a D4rt script class extends a bridged class (e.g.,
+    // `class _StatefulDemo extends StatefulWidget`), the InterpretedInstance
+    // holds the native object in bridgedSuperObject.
+    if (arg is InterpretedInstance) {
+      final superObj = arg.bridgedSuperObject;
+      if (superObj is T) {
+        return superObj;
+      }
+      // RC-1: Try registered interface proxy factories.
+      // For abstract classes/interfaces (CustomClipper, TickerProvider),
+      // bridgedSuperObject may be null. Use a proxy factory to create a
+      // native delegate that calls back into the interpreter.
+      final effectiveVisitor = visitor ?? _activeVisitor;
+      if (_interfaceProxies.isNotEmpty && effectiveVisitor != null) {
+        final proxyResult =
+            tryCreateInterfaceProxyWithVisitor<T>(arg, effectiveVisitor);
+        if (proxyResult != null) return proxyResult;
+      }
+    }
+
+    // RC-3: Cross-package type coercion.
+    // When the unwrapped value has the same conceptual type but from a
+    // different package (e.g., painting.TextStyle vs dart:ui.TextStyle),
+    // use a registered coercion to convert.
+    if (unwrapped != null && _typeCoercionsByType.isNotEmpty) {
+      final sourceType = unwrapped.runtimeType;
+      for (final entry in _typeCoercionsByType.entries) {
+        if (entry.key.sourceType == sourceType) {
+          final coerced = entry.value(unwrapped);
+          if (coerced is T) return coerced;
+        }
+      }
+    }
+
     final actualType = arg is BridgedInstance
         ? arg.nativeObject.runtimeType
-        : arg.runtimeType;
+        : arg is InterpretedInstance
+            ? 'InterpretedInstance(${arg.klass.name})'
+            : arg.runtimeType;
     throw ArgumentD4rtException(
       'Invalid parameter "$paramName": expected $T, got $actualType',
     );
@@ -506,9 +752,10 @@ class D4 {
   ///
   /// Handles both wrapped (BridgedInstance) and unwrapped (native) objects.
   /// Throws ArgumentError if the type doesn't match (and is non-null).
-  static T? extractBridgedArgOrNull<T>(Object? arg, String paramName) {
+  static T? extractBridgedArgOrNull<T>(Object? arg, String paramName,
+      [InterpreterVisitor? visitor]) {
     if (arg == null) return null;
-    return extractBridgedArg<T>(arg, paramName);
+    return extractBridgedArg<T>(arg, paramName, visitor);
   }
 
   // ==========================================================================
@@ -742,6 +989,43 @@ class D4 {
       );
     }
   }
+
+  // ==========================================================================
+  // RC-1: Interface Proxy Helpers
+  // ==========================================================================
+
+  /// Try to create an interface proxy with a visitor context.
+  ///
+  /// This is the full version that can actually create proxies.
+  /// Called from contexts where the visitor is available.
+  static T? tryCreateInterfaceProxyWithVisitor<T>(
+    InterpretedInstance instance,
+    InterpreterVisitor visitor,
+  ) {
+    final klass = instance.klass;
+
+    // Walk hierarchy: bridgedSuperclass, bridgedInterfaces, bridgedMixins
+    final candidates = <String>[];
+    if (klass.bridgedSuperclass != null) {
+      candidates.add(klass.bridgedSuperclass!.name);
+    }
+    for (final iface in klass.bridgedInterfaces) {
+      candidates.add(iface.name);
+    }
+    for (final mixin in klass.bridgedMixins) {
+      candidates.add(mixin.name);
+    }
+
+    for (final name in candidates) {
+      final factory = _interfaceProxies[name];
+      if (factory != null) {
+        final proxy = factory(visitor, instance);
+        if (proxy is T) return proxy;
+      }
+    }
+
+    return null;
+  }
 }
 
 // =============================================================================
@@ -817,4 +1101,26 @@ class D4 {
 /// 5. Use `MyListUserBridge.nativeNames` in the generated `BridgedClass`
 abstract class D4UserBridge {
   // Empty marker class - all override methods in subclasses must be static
+}
+
+// =============================================================================
+// RC-3: Type Pair Key for Coercion Map
+// =============================================================================
+
+/// Key for the type coercion map, pairing source and target [Type] objects.
+class _TypePair {
+  final Type sourceType;
+  final Type targetType;
+
+  const _TypePair(this.sourceType, this.targetType);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is _TypePair &&
+          sourceType == other.sourceType &&
+          targetType == other.targetType;
+
+  @override
+  int get hashCode => Object.hash(sourceType, targetType);
 }

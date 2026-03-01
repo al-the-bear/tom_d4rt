@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 import 'bridges/material_bridges.b.dart';
+import 'd4rt_runtime_registrations.dart';
 import 'generic_type_relaxers.dart';
 
 /// Whether [registerGenericTypeRelaxers] has been called.
@@ -51,6 +52,7 @@ class FlutterD4rt {
   static void _ensureRelaxersRegistered() {
     if (!_relaxersRegistered) {
       registerGenericTypeRelaxers();
+      registerD4rtRuntimeExtensions();
       _relaxersRegistered = true;
     }
   }

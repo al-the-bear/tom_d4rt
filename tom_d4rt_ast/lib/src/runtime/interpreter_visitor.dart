@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:tom_d4rt_ast/runtime.dart';
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_enum.dart';
+import 'package:tom_d4rt_ast/src/runtime/generator/d4.dart';
 import 'package:tom_d4rt_ast/src/runtime/module_context.dart';
 
 /// Main visitor that walks the AST and interprets the code.
@@ -3359,10 +3360,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               evaluationResult as (List<Object?>, Map<String, Object?>);
 
           try {
-            final nativeObject = constructorAdapter(
+            // Wrap with withActiveVisitor so that D4 helper methods can
+            // access the visitor for interface proxy creation (RC-1).
+            final nativeObject = D4.withActiveVisitor(
               this,
-              positionalArgs,
-              namedArgs,
+              () => constructorAdapter(this, positionalArgs, namedArgs),
             );
 
             if (nativeObject == null) {
@@ -3655,6 +3657,57 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     } else if (calleeValue is BridgedClass && node.target == null) {
       // Call of a bridged default constructor (ex: StringBuffer())
       final bridgedClass = calleeValue;
+
+      // RC-2: Evaluate type arguments (e.g., GlobalKey<NavigatorState>())
+      List<RuntimeType>? evaluatedTypeArguments;
+      final typeArgsNode = node.typeArguments;
+      if (typeArgsNode != null) {
+        evaluatedTypeArguments = typeArgsNode.arguments
+            .map((typeNode) => _resolveTypeAnnotation(typeNode))
+            .toList();
+      }
+
+      // RC-2: Check generic constructor registry first.
+      // Fires for both generic calls (GlobalKey<NavigatorState>()) and
+      // non-generic constructor overrides (StrutStyle()).
+      // Returns null to fall through to regular bridge constructor.
+      final genericCtor = D4.findGenericConstructor(
+        bridgedClass.name,
+        '',
+      );
+      if (genericCtor != null) {
+        final evaluationResult = _evaluateArgumentsAsync(node.argumentList);
+        if (evaluationResult is AsyncSuspensionRequest) {
+          return evaluationResult;
+        }
+        final (positionalArgs, namedArgs) =
+            evaluationResult as (List<Object?>, Map<String, Object?>);
+        try {
+          final nativeObject = D4.withActiveVisitor(
+            this,
+            () => genericCtor(
+                this, positionalArgs, namedArgs, evaluatedTypeArguments),
+          );
+          // null means "fall through to regular constructor"
+          if (nativeObject != null) {
+            if (nativeObject is Future || nativeObject is Stream) {
+              return nativeObject;
+            }
+            final bridgedInstance = BridgedInstance(bridgedClass, nativeObject);
+            Logger.debug(
+              "[visitMethodInvocation]   Created via generic constructor factory: ${nativeObject.runtimeType}",
+            );
+            return bridgedInstance;
+          }
+        } on RuntimeD4rtException {
+          rethrow;
+        } catch (e) {
+          throw RuntimeD4rtException(
+            "Error in generic constructor factory for '${bridgedClass.name}': $e",
+          );
+        }
+      }
+
       final constructorAdapter = bridgedClass.findConstructorAdapter(
         '',
       ); // Search for the default constructor ''
@@ -3672,10 +3725,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             evaluationResult as (List<Object?>, Map<String, Object?>);
 
         try {
-          final nativeObject = constructorAdapter(
+          // Wrap with withActiveVisitor so that D4 helper methods can
+          // access the visitor for interface proxy creation (RC-1).
+          final nativeObject = D4.withActiveVisitor(
             this,
-            positionalArgs,
-            namedArgs,
+            () => constructorAdapter(this, positionalArgs, namedArgs),
           );
           if (nativeObject == null) {
             throw RuntimeD4rtException(
@@ -9407,9 +9461,58 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
       final (positionalArgs, namedArgs) = _evaluateArguments(node.argumentList);
 
+      // RC-2: Evaluate type arguments for BridgedClass constructors
+      List<RuntimeType>? evaluatedTypeArguments;
+      final typeArgsNode = node.constructorName!.type!.typeArguments;
+      if (typeArgsNode != null) {
+        evaluatedTypeArguments = typeArgsNode.arguments
+            .map((typeNode) => _resolveTypeAnnotation(typeNode))
+            .toList();
+      }
+
       // Find the constructor adapter (bridged)
       final constructorLookupName =
           namedConstructorPart ?? ''; // Use '' if null
+
+      // RC-2: Check for a registered generic constructor factory first.
+      // Fires for both generic calls (GlobalKey<NavigatorState>()) and
+      // non-generic constructor overrides (StrutStyle()).
+      // Returns null to fall through to regular bridge constructor.
+      {
+        final genericCtor = D4.findGenericConstructor(
+          constructorName,
+          constructorLookupName,
+        );
+        if (genericCtor != null) {
+          try {
+            final nativeObject = genericCtor(
+              this,
+              positionalArgs,
+              namedArgs,
+              evaluatedTypeArguments,
+            );
+            // null means "fall through to regular constructor"
+            if (nativeObject != null) {
+              if (nativeObject is Future || nativeObject is Stream) {
+                return nativeObject;
+              }
+              final bridgedInstance =
+                  BridgedInstance(bridgedClass, nativeObject);
+              Logger.debug(
+                "[InstanceCreation]   Created via generic constructor factory: ${nativeObject.runtimeType}",
+              );
+              return bridgedInstance;
+            }
+          } on RuntimeD4rtException {
+            rethrow;
+          } catch (e) {
+            throw RuntimeD4rtException(
+              "Error in generic constructor factory for '$constructorName': $e",
+            );
+          }
+        }
+      }
+
       final constructorAdapter = bridgedClass.findConstructorAdapter(
         constructorLookupName,
       );
@@ -9426,10 +9529,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // 1. Converting the interpreted positionalArgs/namedArgs to native types.
         // 2. Calling the actual native constructor.
         // 3. Returning the created native object.
-        final nativeObject = constructorAdapter(
+        // Wrap with withActiveVisitor so that D4 helper methods (getRequiredNamedArg
+        // etc.) can access the visitor for interface proxy creation (RC-1).
+        final nativeObject = D4.withActiveVisitor(
           this,
-          positionalArgs,
-          namedArgs,
+          () => constructorAdapter(this, positionalArgs, namedArgs),
         );
 
         // Check if the adapter returned a value (it should)

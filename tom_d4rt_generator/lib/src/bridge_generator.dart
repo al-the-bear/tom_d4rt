@@ -12363,7 +12363,10 @@ class BridgeGenerator {
 
     // Loop over entries
     lines.add('$indent  for (final entry in $rawVarName.entries) {');
-    lines.add('$indent    final k = entry.key as $keyType;');
+    // RC-4: Use D4.extractBridgedArg for map keys to unwrap BridgedInstance.
+    // Direct `as` cast fails when the key is wrapped in BridgedInstance.
+    lines.add(
+        "$indent    final k = D4.extractBridgedArg<$keyType>(entry.key, '${localName}[key]');");
     lines.add('$indent    final v = entry.value;');
     lines.add('$indent    if (v == null) {');
 

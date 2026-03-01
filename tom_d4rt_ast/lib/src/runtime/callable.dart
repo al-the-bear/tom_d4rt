@@ -976,6 +976,32 @@ class InterpretedFunction implements Callable {
         // If superclass has NO explicit constructors, it uses the implicit default
         // constructor which does nothing - no need to call it explicitly
       }
+
+      // RC-5: Implicit super() for bridged superclasses.
+      // When an interpreted class extends a bridged class (e.g., `class CounterNotifier extends ChangeNotifier`)
+      // and has no explicit super() call, the bridged default constructor must be invoked
+      // to initialize `bridgedSuperObject`. Without this, inherited method lookups fail.
+      if (!explicitSuperCalled && superClass == null && ownerType is InterpretedClass) {
+        final ownerClass = ownerType as InterpretedClass;
+        final bridgedSuperClass = ownerClass.bridgedSuperclass;
+        if (bridgedSuperClass != null && thisValue is InterpretedInstance && thisValue.bridgedSuperObject == null) {
+          final defaultBridgedCtor = bridgedSuperClass.findConstructorAdapter('');
+          if (defaultBridgedCtor != null) {
+            try {
+              final nativeSuperObject = defaultBridgedCtor(visitor, [], {});
+              thisValue.bridgedSuperObject = nativeSuperObject;
+              Logger.debug(
+                  "[ImplicitSuperCall] Stored native object from bridged super constructor '' ($nativeSuperObject)");
+            } on RuntimeD4rtException catch (e) {
+              throw RuntimeD4rtException(
+                  "Error during implicit bridged super constructor: ${e.message}");
+            } catch (e) {
+              throw RuntimeD4rtException(
+                  "Native error during implicit bridged super constructor: $e");
+            }
+          }
+        }
+      }
     }
 
     return _ExecutionPreparationResult(executionEnvironment, redirected);
