@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 52 files
-// Generated: 2026-02-28T15:11:59.172919
+// Sources: 53 files
+// Generated: 2026-03-01T03:23:01.146744
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -65,7 +65,7 @@ import 'package:flutter/src/services/text_input.dart' as $flutter_48;
 import 'package:flutter/src/services/text_layout_metrics.dart' as $flutter_49;
 import 'package:flutter/src/services/undo_manager.dart' as $flutter_50;
 import 'package:vector_math/vector_math_64.dart' as $vector_math_1;
-import 'package:flutter/src/foundation/binding.dart' as $aux_flutter_2;
+import 'package:flutter/src/foundation/binding.dart' as $aux_flutter;
 
 /// Bridge class for flutter_services module.
 class FlutterServicesBridge {
@@ -79,18 +79,54 @@ class FlutterServicesBridge {
       _createAssetManifestBridge(),
       _createAssetMetadataBridge(),
       _createMatrix4Bridge(),
+      _createAutofillHintsBridge(),
       _createAutofillConfigurationBridge(),
+      _createAutofillClientBridge(),
       _createAutofillScopeBridge(),
+      _createAutofillScopeMixinBridge(),
       _createTextSelectionBridge(),
+      _createTextInputTypeBridge(),
+      _createTextInputConfigurationBridge(),
+      _createRawFloatingCursorPointBridge(),
+      _createTextEditingValueBridge(),
+      _createTextSelectionDelegateBridge(),
+      _createTextInputClientBridge(),
+      _createScribbleClientBridge(),
+      _createSelectionRectBridge(),
+      _createDeltaTextInputClientBridge(),
+      _createTextInputConnectionBridge(),
+      _createTextInputBridge(),
+      _createTextInputControlBridge(),
+      _createSystemContextMenuControllerBridge(),
+      _createIOSSystemContextMenuItemDataBridge(),
+      _createIOSSystemContextMenuItemDataCopyBridge(),
+      _createIOSSystemContextMenuItemDataCutBridge(),
+      _createIOSSystemContextMenuItemDataPasteBridge(),
+      _createIOSSystemContextMenuItemDataSelectAllBridge(),
+      _createIOSSystemContextMenuItemDataLookUpBridge(),
+      _createIOSSystemContextMenuItemDataSearchWebBridge(),
+      _createIOSSystemContextMenuItemDataShareBridge(),
+      _createIOSSystemContextMenuItemDataLiveTextBridge(),
+      _createIOSSystemContextMenuItemDataCustomBridge(),
       _createTextEditingDeltaBridge(),
+      _createTextEditingDeltaInsertionBridge(),
+      _createTextEditingDeltaDeletionBridge(),
+      _createTextEditingDeltaReplacementBridge(),
+      _createTextEditingDeltaNonTextUpdateBridge(),
       _createBinaryMessengerBridge(),
       _createDiagnosticPropertiesBuilderBridge(),
       _createWriteBufferBridge(),
       _createReadBufferBridge(),
+      _createKeyboardKeyBridge(),
       _createLogicalKeyboardKeyBridge(),
       _createPhysicalKeyboardKeyBridge(),
+      _createKeyEventBridge(),
+      _createKeyDownEventBridge(),
+      _createKeyUpEventBridge(),
+      _createKeyRepeatEventBridge(),
       _createHardwareKeyboardBridge(),
       _createRestorationManagerBridge(),
+      _createRestorationBucketBridge(),
       _createServicesBindingBridge(),
       _createSystemContextMenuClientBridge(),
       _createBrowserContextMenuBridge(),
@@ -183,18 +219,54 @@ class FlutterServicesBridge {
       'AssetManifest': 'package:flutter/src/services/asset_manifest.dart',
       'AssetMetadata': 'package:flutter/src/services/asset_manifest.dart',
       'Matrix4': 'package:vector_math/vector_math_64.dart',
+      'AutofillHints': 'package:flutter/src/services/autofill.dart',
       'AutofillConfiguration': 'package:flutter/src/services/autofill.dart',
+      'AutofillClient': 'package:flutter/src/services/autofill.dart',
       'AutofillScope': 'package:flutter/src/services/autofill.dart',
+      'AutofillScopeMixin': 'package:flutter/src/services/autofill.dart',
       'TextSelection': 'package:flutter/src/services/text_editing.dart',
+      'TextInputType': 'package:flutter/src/services/text_input.dart',
+      'TextInputConfiguration': 'package:flutter/src/services/text_input.dart',
+      'RawFloatingCursorPoint': 'package:flutter/src/services/text_input.dart',
+      'TextEditingValue': 'package:flutter/src/services/text_input.dart',
+      'TextSelectionDelegate': 'package:flutter/src/services/text_input.dart',
+      'TextInputClient': 'package:flutter/src/services/text_input.dart',
+      'ScribbleClient': 'package:flutter/src/services/text_input.dart',
+      'SelectionRect': 'package:flutter/src/services/text_input.dart',
+      'DeltaTextInputClient': 'package:flutter/src/services/text_input.dart',
+      'TextInputConnection': 'package:flutter/src/services/text_input.dart',
+      'TextInput': 'package:flutter/src/services/text_input.dart',
+      'TextInputControl': 'package:flutter/src/services/text_input.dart',
+      'SystemContextMenuController': 'package:flutter/src/services/text_input.dart',
+      'IOSSystemContextMenuItemData': 'package:flutter/src/services/text_input.dart',
+      'IOSSystemContextMenuItemDataCopy': 'package:flutter/src/services/text_input.dart',
+      'IOSSystemContextMenuItemDataCut': 'package:flutter/src/services/text_input.dart',
+      'IOSSystemContextMenuItemDataPaste': 'package:flutter/src/services/text_input.dart',
+      'IOSSystemContextMenuItemDataSelectAll': 'package:flutter/src/services/text_input.dart',
+      'IOSSystemContextMenuItemDataLookUp': 'package:flutter/src/services/text_input.dart',
+      'IOSSystemContextMenuItemDataSearchWeb': 'package:flutter/src/services/text_input.dart',
+      'IOSSystemContextMenuItemDataShare': 'package:flutter/src/services/text_input.dart',
+      'IOSSystemContextMenuItemDataLiveText': 'package:flutter/src/services/text_input.dart',
+      'IOSSystemContextMenuItemDataCustom': 'package:flutter/src/services/text_input.dart',
       'TextEditingDelta': 'package:flutter/src/services/text_editing_delta.dart',
+      'TextEditingDeltaInsertion': 'package:flutter/src/services/text_editing_delta.dart',
+      'TextEditingDeltaDeletion': 'package:flutter/src/services/text_editing_delta.dart',
+      'TextEditingDeltaReplacement': 'package:flutter/src/services/text_editing_delta.dart',
+      'TextEditingDeltaNonTextUpdate': 'package:flutter/src/services/text_editing_delta.dart',
       'BinaryMessenger': 'package:flutter/src/services/binary_messenger.dart',
       'DiagnosticPropertiesBuilder': 'package:flutter/src/foundation/diagnostics.dart',
       'WriteBuffer': 'package:flutter/src/foundation/serialization.dart',
       'ReadBuffer': 'package:flutter/src/foundation/serialization.dart',
+      'KeyboardKey': 'package:flutter/src/services/keyboard_key.g.dart',
       'LogicalKeyboardKey': 'package:flutter/src/services/keyboard_key.g.dart',
       'PhysicalKeyboardKey': 'package:flutter/src/services/keyboard_key.g.dart',
+      'KeyEvent': 'package:flutter/src/services/hardware_keyboard.dart',
+      'KeyDownEvent': 'package:flutter/src/services/hardware_keyboard.dart',
+      'KeyUpEvent': 'package:flutter/src/services/hardware_keyboard.dart',
+      'KeyRepeatEvent': 'package:flutter/src/services/hardware_keyboard.dart',
       'HardwareKeyboard': 'package:flutter/src/services/hardware_keyboard.dart',
       'RestorationManager': 'package:flutter/src/services/restoration.dart',
+      'RestorationBucket': 'package:flutter/src/services/restoration.dart',
       'ServicesBinding': 'package:flutter/src/services/binding.dart',
       'SystemContextMenuClient': 'package:flutter/src/services/binding.dart',
       'BrowserContextMenu': 'package:flutter/src/services/browser_context_menu.dart',
@@ -277,6 +349,30 @@ class FlutterServicesBridge {
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
+      BridgedEnumDefinition<$flutter_48.SmartDashesType>(
+        name: 'SmartDashesType',
+        values: $flutter_48.SmartDashesType.values,
+      ),
+      BridgedEnumDefinition<$flutter_48.SmartQuotesType>(
+        name: 'SmartQuotesType',
+        values: $flutter_48.SmartQuotesType.values,
+      ),
+      BridgedEnumDefinition<$flutter_48.TextInputAction>(
+        name: 'TextInputAction',
+        values: $flutter_48.TextInputAction.values,
+      ),
+      BridgedEnumDefinition<$flutter_48.TextCapitalization>(
+        name: 'TextCapitalization',
+        values: $flutter_48.TextCapitalization.values,
+      ),
+      BridgedEnumDefinition<$flutter_48.FloatingCursorDragState>(
+        name: 'FloatingCursorDragState',
+        values: $flutter_48.FloatingCursorDragState.values,
+      ),
+      BridgedEnumDefinition<$flutter_48.SelectionChangedCause>(
+        name: 'SelectionChangedCause',
+        values: $flutter_48.SelectionChangedCause.values,
+      ),
       BridgedEnumDefinition<$flutter_2.DiagnosticLevel>(
         name: 'DiagnosticLevel',
         values: $flutter_2.DiagnosticLevel.values,
@@ -284,6 +380,13 @@ class FlutterServicesBridge {
       BridgedEnumDefinition<$flutter_3.TargetPlatform>(
         name: 'TargetPlatform',
         values: $flutter_3.TargetPlatform.values,
+      ),
+      BridgedEnumDefinition<$flutter_21.KeyboardLockMode>(
+        name: 'KeyboardLockMode',
+        values: $flutter_21.KeyboardLockMode.values,
+        getters: {
+          'logicalKey': (visitor, target) => (target as $flutter_21.KeyboardLockMode).logicalKey,
+        },
       ),
       BridgedEnumDefinition<$flutter_32.SwipeEdge>(
         name: 'SwipeEdge',
@@ -330,8 +433,15 @@ class FlutterServicesBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
     return {
+      'SmartDashesType': 'package:flutter/src/services/text_input.dart',
+      'SmartQuotesType': 'package:flutter/src/services/text_input.dart',
+      'TextInputAction': 'package:flutter/src/services/text_input.dart',
+      'TextCapitalization': 'package:flutter/src/services/text_input.dart',
+      'FloatingCursorDragState': 'package:flutter/src/services/text_input.dart',
+      'SelectionChangedCause': 'package:flutter/src/services/text_input.dart',
       'DiagnosticLevel': 'package:flutter/src/foundation/diagnostics.dart',
       'TargetPlatform': 'package:flutter/src/foundation/platform.dart',
+      'KeyboardLockMode': 'package:flutter/src/services/hardware_keyboard.dart',
       'SwipeEdge': 'package:flutter/src/services/predictive_back_event.dart',
       'ContentSensitivity': 'package:flutter/src/services/sensitive_content.dart',
       'ServicesServiceExtensions': 'package:flutter/src/services/service_extensions.dart',
@@ -805,6 +915,11 @@ class FlutterServicesBridge {
         final v = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'v', 'buildPlaneVectors');
         return $vector_math_1.buildPlaneVectors(planeNormal, u, v);
       },
+      'debugIsSerializableForRestoration': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'debugIsSerializableForRestoration');
+        final object = D4.getRequiredArg<Object?>(positional, 0, 'object', 'debugIsSerializableForRestoration');
+        return $flutter_35.debugIsSerializableForRestoration(object);
+      },
       'debugAssertAllServicesVarsUnset': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugAssertAllServicesVarsUnset');
         final reason = D4.getRequiredArg<String>(positional, 0, 'reason', 'debugAssertAllServicesVarsUnset');
@@ -854,6 +969,7 @@ class FlutterServicesBridge {
       'cross2A': 'package:vector_math/src/vector_math_64/vector.dart',
       'cross2B': 'package:vector_math/src/vector_math_64/vector.dart',
       'buildPlaneVectors': 'package:vector_math/src/vector_math_64/vector.dart',
+      'debugIsSerializableForRestoration': 'package:flutter/src/services/restoration.dart',
       'debugAssertAllServicesVarsUnset': 'package:flutter/src/services/debug.dart',
       'runeToLowerCase': 'package:flutter/src/services/raw_keyboard_macos.dart',
     };
@@ -892,6 +1008,7 @@ class FlutterServicesBridge {
       'cross2A': 'void cross2A(double x, Vector2 y, Vector2 out)',
       'cross2B': 'void cross2B(Vector2 x, double y, Vector2 out)',
       'buildPlaneVectors': 'void buildPlaneVectors(Vector3 planeNormal, Vector3 u, Vector3 v)',
+      'debugIsSerializableForRestoration': 'bool debugIsSerializableForRestoration(Object? object)',
       'debugAssertAllServicesVarsUnset': 'bool debugAssertAllServicesVarsUnset(String reason)',
       'runeToLowerCase': 'int runeToLowerCase(int rune)',
     };
@@ -948,6 +1065,7 @@ class FlutterServicesBridge {
       'package:flutter/src/services/text_editing.dart',
       'package:flutter/src/services/text_editing_delta.dart',
       'package:flutter/src/services/text_formatter.dart',
+      'package:flutter/src/services/text_input.dart',
       'package:flutter/src/services/text_layout_metrics.dart',
       'package:flutter/src/services/undo_manager.dart',
       'package:vector_math/src/vector_math_64/constants.dart',
@@ -984,8 +1102,15 @@ class FlutterServicesBridge {
 
   /// Returns a list of bridged enum names.
   static List<String> get enumNames => [
+    'SmartDashesType',
+    'SmartQuotesType',
+    'TextInputAction',
+    'TextCapitalization',
+    'FloatingCursorDragState',
+    'SelectionChangedCause',
     'DiagnosticLevel',
     'TargetPlatform',
+    'KeyboardLockMode',
     'SwipeEdge',
     'ContentSensitivity',
     'ServicesServiceExtensions',
@@ -2383,6 +2508,155 @@ BridgedClass _createMatrix4Bridge() {
 }
 
 // =============================================================================
+// AutofillHints Bridge
+// =============================================================================
+
+BridgedClass _createAutofillHintsBridge() {
+  return BridgedClass(
+    nativeType: $flutter_10.AutofillHints,
+    name: 'AutofillHints',
+    constructors: {
+    },
+    staticGetters: {
+      'addressCity': (visitor) => $flutter_10.AutofillHints.addressCity,
+      'addressCityAndState': (visitor) => $flutter_10.AutofillHints.addressCityAndState,
+      'addressState': (visitor) => $flutter_10.AutofillHints.addressState,
+      'birthday': (visitor) => $flutter_10.AutofillHints.birthday,
+      'birthdayDay': (visitor) => $flutter_10.AutofillHints.birthdayDay,
+      'birthdayMonth': (visitor) => $flutter_10.AutofillHints.birthdayMonth,
+      'birthdayYear': (visitor) => $flutter_10.AutofillHints.birthdayYear,
+      'countryCode': (visitor) => $flutter_10.AutofillHints.countryCode,
+      'countryName': (visitor) => $flutter_10.AutofillHints.countryName,
+      'creditCardExpirationDate': (visitor) => $flutter_10.AutofillHints.creditCardExpirationDate,
+      'creditCardExpirationDay': (visitor) => $flutter_10.AutofillHints.creditCardExpirationDay,
+      'creditCardExpirationMonth': (visitor) => $flutter_10.AutofillHints.creditCardExpirationMonth,
+      'creditCardExpirationYear': (visitor) => $flutter_10.AutofillHints.creditCardExpirationYear,
+      'creditCardFamilyName': (visitor) => $flutter_10.AutofillHints.creditCardFamilyName,
+      'creditCardGivenName': (visitor) => $flutter_10.AutofillHints.creditCardGivenName,
+      'creditCardMiddleName': (visitor) => $flutter_10.AutofillHints.creditCardMiddleName,
+      'creditCardName': (visitor) => $flutter_10.AutofillHints.creditCardName,
+      'creditCardNumber': (visitor) => $flutter_10.AutofillHints.creditCardNumber,
+      'creditCardSecurityCode': (visitor) => $flutter_10.AutofillHints.creditCardSecurityCode,
+      'creditCardType': (visitor) => $flutter_10.AutofillHints.creditCardType,
+      'email': (visitor) => $flutter_10.AutofillHints.email,
+      'familyName': (visitor) => $flutter_10.AutofillHints.familyName,
+      'fullStreetAddress': (visitor) => $flutter_10.AutofillHints.fullStreetAddress,
+      'gender': (visitor) => $flutter_10.AutofillHints.gender,
+      'givenName': (visitor) => $flutter_10.AutofillHints.givenName,
+      'impp': (visitor) => $flutter_10.AutofillHints.impp,
+      'jobTitle': (visitor) => $flutter_10.AutofillHints.jobTitle,
+      'language': (visitor) => $flutter_10.AutofillHints.language,
+      'location': (visitor) => $flutter_10.AutofillHints.location,
+      'middleInitial': (visitor) => $flutter_10.AutofillHints.middleInitial,
+      'middleName': (visitor) => $flutter_10.AutofillHints.middleName,
+      'name': (visitor) => $flutter_10.AutofillHints.name,
+      'namePrefix': (visitor) => $flutter_10.AutofillHints.namePrefix,
+      'nameSuffix': (visitor) => $flutter_10.AutofillHints.nameSuffix,
+      'newPassword': (visitor) => $flutter_10.AutofillHints.newPassword,
+      'newUsername': (visitor) => $flutter_10.AutofillHints.newUsername,
+      'nickname': (visitor) => $flutter_10.AutofillHints.nickname,
+      'oneTimeCode': (visitor) => $flutter_10.AutofillHints.oneTimeCode,
+      'organizationName': (visitor) => $flutter_10.AutofillHints.organizationName,
+      'password': (visitor) => $flutter_10.AutofillHints.password,
+      'photo': (visitor) => $flutter_10.AutofillHints.photo,
+      'postalAddress': (visitor) => $flutter_10.AutofillHints.postalAddress,
+      'postalAddressExtended': (visitor) => $flutter_10.AutofillHints.postalAddressExtended,
+      'postalAddressExtendedPostalCode': (visitor) => $flutter_10.AutofillHints.postalAddressExtendedPostalCode,
+      'postalCode': (visitor) => $flutter_10.AutofillHints.postalCode,
+      'streetAddressLevel1': (visitor) => $flutter_10.AutofillHints.streetAddressLevel1,
+      'streetAddressLevel2': (visitor) => $flutter_10.AutofillHints.streetAddressLevel2,
+      'streetAddressLevel3': (visitor) => $flutter_10.AutofillHints.streetAddressLevel3,
+      'streetAddressLevel4': (visitor) => $flutter_10.AutofillHints.streetAddressLevel4,
+      'streetAddressLine1': (visitor) => $flutter_10.AutofillHints.streetAddressLine1,
+      'streetAddressLine2': (visitor) => $flutter_10.AutofillHints.streetAddressLine2,
+      'streetAddressLine3': (visitor) => $flutter_10.AutofillHints.streetAddressLine3,
+      'sublocality': (visitor) => $flutter_10.AutofillHints.sublocality,
+      'telephoneNumber': (visitor) => $flutter_10.AutofillHints.telephoneNumber,
+      'telephoneNumberAreaCode': (visitor) => $flutter_10.AutofillHints.telephoneNumberAreaCode,
+      'telephoneNumberCountryCode': (visitor) => $flutter_10.AutofillHints.telephoneNumberCountryCode,
+      'telephoneNumberDevice': (visitor) => $flutter_10.AutofillHints.telephoneNumberDevice,
+      'telephoneNumberExtension': (visitor) => $flutter_10.AutofillHints.telephoneNumberExtension,
+      'telephoneNumberLocal': (visitor) => $flutter_10.AutofillHints.telephoneNumberLocal,
+      'telephoneNumberLocalPrefix': (visitor) => $flutter_10.AutofillHints.telephoneNumberLocalPrefix,
+      'telephoneNumberLocalSuffix': (visitor) => $flutter_10.AutofillHints.telephoneNumberLocalSuffix,
+      'telephoneNumberNational': (visitor) => $flutter_10.AutofillHints.telephoneNumberNational,
+      'transactionAmount': (visitor) => $flutter_10.AutofillHints.transactionAmount,
+      'transactionCurrency': (visitor) => $flutter_10.AutofillHints.transactionCurrency,
+      'url': (visitor) => $flutter_10.AutofillHints.url,
+      'username': (visitor) => $flutter_10.AutofillHints.username,
+    },
+    staticGetterSignatures: {
+      'addressCity': 'String get addressCity',
+      'addressCityAndState': 'String get addressCityAndState',
+      'addressState': 'String get addressState',
+      'birthday': 'String get birthday',
+      'birthdayDay': 'String get birthdayDay',
+      'birthdayMonth': 'String get birthdayMonth',
+      'birthdayYear': 'String get birthdayYear',
+      'countryCode': 'String get countryCode',
+      'countryName': 'String get countryName',
+      'creditCardExpirationDate': 'String get creditCardExpirationDate',
+      'creditCardExpirationDay': 'String get creditCardExpirationDay',
+      'creditCardExpirationMonth': 'String get creditCardExpirationMonth',
+      'creditCardExpirationYear': 'String get creditCardExpirationYear',
+      'creditCardFamilyName': 'String get creditCardFamilyName',
+      'creditCardGivenName': 'String get creditCardGivenName',
+      'creditCardMiddleName': 'String get creditCardMiddleName',
+      'creditCardName': 'String get creditCardName',
+      'creditCardNumber': 'String get creditCardNumber',
+      'creditCardSecurityCode': 'String get creditCardSecurityCode',
+      'creditCardType': 'String get creditCardType',
+      'email': 'String get email',
+      'familyName': 'String get familyName',
+      'fullStreetAddress': 'String get fullStreetAddress',
+      'gender': 'String get gender',
+      'givenName': 'String get givenName',
+      'impp': 'String get impp',
+      'jobTitle': 'String get jobTitle',
+      'language': 'String get language',
+      'location': 'String get location',
+      'middleInitial': 'String get middleInitial',
+      'middleName': 'String get middleName',
+      'name': 'String get name',
+      'namePrefix': 'String get namePrefix',
+      'nameSuffix': 'String get nameSuffix',
+      'newPassword': 'String get newPassword',
+      'newUsername': 'String get newUsername',
+      'nickname': 'String get nickname',
+      'oneTimeCode': 'String get oneTimeCode',
+      'organizationName': 'String get organizationName',
+      'password': 'String get password',
+      'photo': 'String get photo',
+      'postalAddress': 'String get postalAddress',
+      'postalAddressExtended': 'String get postalAddressExtended',
+      'postalAddressExtendedPostalCode': 'String get postalAddressExtendedPostalCode',
+      'postalCode': 'String get postalCode',
+      'streetAddressLevel1': 'String get streetAddressLevel1',
+      'streetAddressLevel2': 'String get streetAddressLevel2',
+      'streetAddressLevel3': 'String get streetAddressLevel3',
+      'streetAddressLevel4': 'String get streetAddressLevel4',
+      'streetAddressLine1': 'String get streetAddressLine1',
+      'streetAddressLine2': 'String get streetAddressLine2',
+      'streetAddressLine3': 'String get streetAddressLine3',
+      'sublocality': 'String get sublocality',
+      'telephoneNumber': 'String get telephoneNumber',
+      'telephoneNumberAreaCode': 'String get telephoneNumberAreaCode',
+      'telephoneNumberCountryCode': 'String get telephoneNumberCountryCode',
+      'telephoneNumberDevice': 'String get telephoneNumberDevice',
+      'telephoneNumberExtension': 'String get telephoneNumberExtension',
+      'telephoneNumberLocal': 'String get telephoneNumberLocal',
+      'telephoneNumberLocalPrefix': 'String get telephoneNumberLocalPrefix',
+      'telephoneNumberLocalSuffix': 'String get telephoneNumberLocalSuffix',
+      'telephoneNumberNational': 'String get telephoneNumberNational',
+      'transactionAmount': 'String get transactionAmount',
+      'transactionCurrency': 'String get transactionCurrency',
+      'url': 'String get url',
+      'username': 'String get username',
+    },
+  );
+}
+
+// =============================================================================
 // AutofillConfiguration Bridge
 // =============================================================================
 
@@ -2450,6 +2724,39 @@ BridgedClass _createAutofillConfigurationBridge() {
 }
 
 // =============================================================================
+// AutofillClient Bridge
+// =============================================================================
+
+BridgedClass _createAutofillClientBridge() {
+  return BridgedClass(
+    nativeType: $flutter_10.AutofillClient,
+    name: 'AutofillClient',
+    constructors: {
+    },
+    getters: {
+      'autofillId': (visitor, target) => D4.validateTarget<$flutter_10.AutofillClient>(target, 'AutofillClient').autofillId,
+      'textInputConfiguration': (visitor, target) => D4.validateTarget<$flutter_10.AutofillClient>(target, 'AutofillClient').textInputConfiguration,
+    },
+    methods: {
+      'autofill': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_10.AutofillClient>(target, 'AutofillClient');
+        D4.requireMinArgs(positional, 1, 'autofill');
+        final newEditingValue = D4.getRequiredArg<$flutter_48.TextEditingValue>(positional, 0, 'newEditingValue', 'autofill');
+        t.autofill(newEditingValue);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'autofill': 'void autofill(TextEditingValue newEditingValue)',
+    },
+    getterSignatures: {
+      'autofillId': 'String get autofillId',
+      'textInputConfiguration': 'TextInputConfiguration get textInputConfiguration',
+    },
+  );
+}
+
+// =============================================================================
 // AutofillScope Bridge
 // =============================================================================
 
@@ -2480,6 +2787,44 @@ BridgedClass _createAutofillScopeBridge() {
     methodSignatures: {
       'getAutofillClient': 'AutofillClient? getAutofillClient(String autofillId)',
       'attach': 'TextInputConnection attach(TextInputClient trigger, TextInputConfiguration configuration)',
+    },
+    getterSignatures: {
+      'autofillClients': 'Iterable<AutofillClient> get autofillClients',
+    },
+  );
+}
+
+// =============================================================================
+// AutofillScopeMixin Bridge
+// =============================================================================
+
+BridgedClass _createAutofillScopeMixinBridge() {
+  return BridgedClass(
+    nativeType: $flutter_10.AutofillScopeMixin,
+    name: 'AutofillScopeMixin',
+    constructors: {
+    },
+    getters: {
+      'autofillClients': (visitor, target) => D4.validateTarget<$flutter_10.AutofillScopeMixin>(target, 'AutofillScopeMixin').autofillClients,
+    },
+    methods: {
+      'attach': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_10.AutofillScopeMixin>(target, 'AutofillScopeMixin');
+        D4.requireMinArgs(positional, 2, 'attach');
+        final trigger = D4.getRequiredArg<$flutter_48.TextInputClient>(positional, 0, 'trigger', 'attach');
+        final configuration = D4.getRequiredArg<$flutter_48.TextInputConfiguration>(positional, 1, 'configuration', 'attach');
+        return t.attach(trigger, configuration);
+      },
+      'getAutofillClient': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_10.AutofillScopeMixin>(target, 'AutofillScopeMixin');
+        D4.requireMinArgs(positional, 1, 'getAutofillClient');
+        final autofillId = D4.getRequiredArg<String>(positional, 0, 'autofillId', 'getAutofillClient');
+        return t.getAutofillClient(autofillId);
+      },
+    },
+    methodSignatures: {
+      'attach': 'TextInputConnection attach(TextInputClient trigger, TextInputConfiguration configuration)',
+      'getAutofillClient': 'AutofillClient? getAutofillClient(String autofillId)',
     },
     getterSignatures: {
       'autofillClients': 'Iterable<AutofillClient> get autofillClients',
@@ -2610,6 +2955,1590 @@ BridgedClass _createTextSelectionBridge() {
 }
 
 // =============================================================================
+// TextInputType Bridge
+// =============================================================================
+
+BridgedClass _createTextInputTypeBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.TextInputType,
+    name: 'TextInputType',
+    constructors: {
+      'numberWithOptions': (visitor, positional, named) {
+        final signed = D4.getNamedArgWithDefault<bool?>(named, 'signed', false);
+        final decimal = D4.getNamedArgWithDefault<bool?>(named, 'decimal', false);
+        return $flutter_48.TextInputType.numberWithOptions(signed: signed, decimal: decimal);
+      },
+    },
+    getters: {
+      'index': (visitor, target) => D4.validateTarget<$flutter_48.TextInputType>(target, 'TextInputType').index,
+      'signed': (visitor, target) => D4.validateTarget<$flutter_48.TextInputType>(target, 'TextInputType').signed,
+      'decimal': (visitor, target) => D4.validateTarget<$flutter_48.TextInputType>(target, 'TextInputType').decimal,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_48.TextInputType>(target, 'TextInputType').hashCode,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputType>(target, 'TextInputType');
+        return t.toJson();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputType>(target, 'TextInputType');
+        return t.toString();
+      },
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputType>(target, 'TextInputType');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    staticGetters: {
+      'text': (visitor) => $flutter_48.TextInputType.text,
+      'multiline': (visitor) => $flutter_48.TextInputType.multiline,
+      'number': (visitor) => $flutter_48.TextInputType.number,
+      'phone': (visitor) => $flutter_48.TextInputType.phone,
+      'datetime': (visitor) => $flutter_48.TextInputType.datetime,
+      'emailAddress': (visitor) => $flutter_48.TextInputType.emailAddress,
+      'url': (visitor) => $flutter_48.TextInputType.url,
+      'visiblePassword': (visitor) => $flutter_48.TextInputType.visiblePassword,
+      'name': (visitor) => $flutter_48.TextInputType.name,
+      'streetAddress': (visitor) => $flutter_48.TextInputType.streetAddress,
+      'none': (visitor) => $flutter_48.TextInputType.none,
+      'webSearch': (visitor) => $flutter_48.TextInputType.webSearch,
+      'twitter': (visitor) => $flutter_48.TextInputType.twitter,
+      'values': (visitor) => $flutter_48.TextInputType.values,
+    },
+    constructorSignatures: {
+      'numberWithOptions': 'const TextInputType.numberWithOptions({bool? signed = false, bool? decimal = false})',
+    },
+    methodSignatures: {
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'index': 'int get index',
+      'signed': 'bool? get signed',
+      'decimal': 'bool? get decimal',
+      'hashCode': 'int get hashCode',
+    },
+    staticGetterSignatures: {
+      'text': 'TextInputType get text',
+      'multiline': 'TextInputType get multiline',
+      'number': 'TextInputType get number',
+      'phone': 'TextInputType get phone',
+      'datetime': 'TextInputType get datetime',
+      'emailAddress': 'TextInputType get emailAddress',
+      'url': 'TextInputType get url',
+      'visiblePassword': 'TextInputType get visiblePassword',
+      'name': 'TextInputType get name',
+      'streetAddress': 'TextInputType get streetAddress',
+      'none': 'TextInputType get none',
+      'webSearch': 'TextInputType get webSearch',
+      'twitter': 'TextInputType get twitter',
+      'values': 'List<TextInputType> get values',
+    },
+  );
+}
+
+// =============================================================================
+// TextInputConfiguration Bridge
+// =============================================================================
+
+BridgedClass _createTextInputConfigurationBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.TextInputConfiguration,
+    name: 'TextInputConfiguration',
+    constructors: {
+      '': (visitor, positional, named) {
+        final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
+        final inputType = D4.getNamedArgWithDefault<$flutter_48.TextInputType>(named, 'inputType', $flutter_48.TextInputType.text);
+        final readOnly = D4.getNamedArgWithDefault<bool>(named, 'readOnly', false);
+        final obscureText = D4.getNamedArgWithDefault<bool>(named, 'obscureText', false);
+        final autocorrect = D4.getNamedArgWithDefault<bool>(named, 'autocorrect', true);
+        final smartDashesType = D4.getOptionalNamedArg<$flutter_48.SmartDashesType?>(named, 'smartDashesType');
+        final smartQuotesType = D4.getOptionalNamedArg<$flutter_48.SmartQuotesType?>(named, 'smartQuotesType');
+        final enableSuggestions = D4.getNamedArgWithDefault<bool>(named, 'enableSuggestions', true);
+        final enableInteractiveSelection = D4.getNamedArgWithDefault<bool>(named, 'enableInteractiveSelection', true);
+        final actionLabel = D4.getOptionalNamedArg<String?>(named, 'actionLabel');
+        final inputAction = D4.getNamedArgWithDefault<$flutter_48.TextInputAction>(named, 'inputAction', $flutter_48.TextInputAction.done);
+        final keyboardAppearance = D4.getNamedArgWithDefault<Brightness>(named, 'keyboardAppearance', $dart_ui.Brightness.light);
+        final textCapitalization = D4.getNamedArgWithDefault<$flutter_48.TextCapitalization>(named, 'textCapitalization', $flutter_48.TextCapitalization.none);
+        final autofillConfiguration = D4.getNamedArgWithDefault<$flutter_10.AutofillConfiguration>(named, 'autofillConfiguration', $flutter_10.AutofillConfiguration.disabled);
+        final enableIMEPersonalizedLearning = D4.getNamedArgWithDefault<bool>(named, 'enableIMEPersonalizedLearning', true);
+        final allowedMimeTypes = named.containsKey('allowedMimeTypes') && named['allowedMimeTypes'] != null
+            ? D4.coerceList<String>(named['allowedMimeTypes'], 'allowedMimeTypes')
+            : const <String>[];
+        final enableDeltaModel = D4.getNamedArgWithDefault<bool>(named, 'enableDeltaModel', false);
+        final hintLocales = named.containsKey('hintLocales') && named['hintLocales'] != null
+            ? D4.coerceListOrNull<Locale>(named['hintLocales'], 'hintLocales')
+            : const <Locale>[];
+        return $flutter_48.TextInputConfiguration(viewId: viewId, inputType: inputType, readOnly: readOnly, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, enableInteractiveSelection: enableInteractiveSelection, actionLabel: actionLabel, inputAction: inputAction, keyboardAppearance: keyboardAppearance, textCapitalization: textCapitalization, autofillConfiguration: autofillConfiguration, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, allowedMimeTypes: allowedMimeTypes, enableDeltaModel: enableDeltaModel, hintLocales: hintLocales);
+      },
+    },
+    getters: {
+      'viewId': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').viewId,
+      'inputType': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').inputType,
+      'readOnly': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').readOnly,
+      'obscureText': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').obscureText,
+      'autocorrect': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').autocorrect,
+      'autofillConfiguration': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').autofillConfiguration,
+      'smartDashesType': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').smartDashesType,
+      'smartQuotesType': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').smartQuotesType,
+      'enableSuggestions': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').enableSuggestions,
+      'enableInteractiveSelection': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').enableInteractiveSelection,
+      'actionLabel': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').actionLabel,
+      'inputAction': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').inputAction,
+      'textCapitalization': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').textCapitalization,
+      'keyboardAppearance': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').keyboardAppearance,
+      'enableIMEPersonalizedLearning': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').enableIMEPersonalizedLearning,
+      'allowedMimeTypes': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').allowedMimeTypes,
+      'hintLocales': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').hintLocales,
+      'enableDeltaModel': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').enableDeltaModel,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration').hashCode,
+    },
+    methods: {
+      'copyWith': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration');
+        final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
+        final inputType = D4.getOptionalNamedArg<$flutter_48.TextInputType?>(named, 'inputType');
+        final readOnly = D4.getOptionalNamedArg<bool?>(named, 'readOnly');
+        final obscureText = D4.getOptionalNamedArg<bool?>(named, 'obscureText');
+        final autocorrect = D4.getOptionalNamedArg<bool?>(named, 'autocorrect');
+        final smartDashesType = D4.getOptionalNamedArg<$flutter_48.SmartDashesType?>(named, 'smartDashesType');
+        final smartQuotesType = D4.getOptionalNamedArg<$flutter_48.SmartQuotesType?>(named, 'smartQuotesType');
+        final enableSuggestions = D4.getOptionalNamedArg<bool?>(named, 'enableSuggestions');
+        final enableInteractiveSelection = D4.getOptionalNamedArg<bool?>(named, 'enableInteractiveSelection');
+        final actionLabel = D4.getOptionalNamedArg<String?>(named, 'actionLabel');
+        final inputAction = D4.getOptionalNamedArg<$flutter_48.TextInputAction?>(named, 'inputAction');
+        final keyboardAppearance = D4.getOptionalNamedArg<Brightness?>(named, 'keyboardAppearance');
+        final textCapitalization = D4.getOptionalNamedArg<$flutter_48.TextCapitalization?>(named, 'textCapitalization');
+        final enableIMEPersonalizedLearning = D4.getOptionalNamedArg<bool?>(named, 'enableIMEPersonalizedLearning');
+        final allowedMimeTypes = D4.coerceListOrNull<String>(named['allowedMimeTypes'], 'allowedMimeTypes');
+        final autofillConfiguration = D4.getOptionalNamedArg<$flutter_10.AutofillConfiguration?>(named, 'autofillConfiguration');
+        final enableDeltaModel = D4.getOptionalNamedArg<bool?>(named, 'enableDeltaModel');
+        final hintLocales = D4.coerceListOrNull<Locale>(named['hintLocales'], 'hintLocales');
+        return t.copyWith(viewId: viewId, inputType: inputType, readOnly: readOnly, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, enableInteractiveSelection: enableInteractiveSelection, actionLabel: actionLabel, inputAction: inputAction, keyboardAppearance: keyboardAppearance, textCapitalization: textCapitalization, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, allowedMimeTypes: allowedMimeTypes, autofillConfiguration: autofillConfiguration, enableDeltaModel: enableDeltaModel, hintLocales: hintLocales);
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration');
+        return t.toJson();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration');
+        return t.toString();
+      },
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputConfiguration>(target, 'TextInputConfiguration');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'const TextInputConfiguration({int? viewId, TextInputType inputType = TextInputType.text, bool readOnly = false, bool obscureText = false, bool autocorrect = true, SmartDashesType? smartDashesType, SmartQuotesType? smartQuotesType, bool enableSuggestions = true, bool enableInteractiveSelection = true, String? actionLabel, TextInputAction inputAction = TextInputAction.done, Brightness keyboardAppearance = Brightness.light, TextCapitalization textCapitalization = TextCapitalization.none, AutofillConfiguration autofillConfiguration = AutofillConfiguration.disabled, bool enableIMEPersonalizedLearning = true, List<String> allowedMimeTypes = const <String>[], bool enableDeltaModel = false, List<Locale>? hintLocales = const <Locale>[]})',
+    },
+    methodSignatures: {
+      'copyWith': 'TextInputConfiguration copyWith({int? viewId, TextInputType? inputType, bool? readOnly, bool? obscureText, bool? autocorrect, SmartDashesType? smartDashesType, SmartQuotesType? smartQuotesType, bool? enableSuggestions, bool? enableInteractiveSelection, String? actionLabel, TextInputAction? inputAction, Brightness? keyboardAppearance, TextCapitalization? textCapitalization, bool? enableIMEPersonalizedLearning, List<String>? allowedMimeTypes, AutofillConfiguration? autofillConfiguration, bool? enableDeltaModel, List<Locale>? hintLocales})',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'viewId': 'int? get viewId',
+      'inputType': 'TextInputType get inputType',
+      'readOnly': 'bool get readOnly',
+      'obscureText': 'bool get obscureText',
+      'autocorrect': 'bool get autocorrect',
+      'autofillConfiguration': 'AutofillConfiguration get autofillConfiguration',
+      'smartDashesType': 'SmartDashesType get smartDashesType',
+      'smartQuotesType': 'SmartQuotesType get smartQuotesType',
+      'enableSuggestions': 'bool get enableSuggestions',
+      'enableInteractiveSelection': 'bool get enableInteractiveSelection',
+      'actionLabel': 'String? get actionLabel',
+      'inputAction': 'TextInputAction get inputAction',
+      'textCapitalization': 'TextCapitalization get textCapitalization',
+      'keyboardAppearance': 'Brightness get keyboardAppearance',
+      'enableIMEPersonalizedLearning': 'bool get enableIMEPersonalizedLearning',
+      'allowedMimeTypes': 'List<String> get allowedMimeTypes',
+      'hintLocales': 'List<Locale>? get hintLocales',
+      'enableDeltaModel': 'bool get enableDeltaModel',
+      'hashCode': 'int get hashCode',
+    },
+  );
+}
+
+// =============================================================================
+// RawFloatingCursorPoint Bridge
+// =============================================================================
+
+BridgedClass _createRawFloatingCursorPointBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.RawFloatingCursorPoint,
+    name: 'RawFloatingCursorPoint',
+    constructors: {
+      '': (visitor, positional, named) {
+        final offset = D4.getOptionalNamedArg<Offset?>(named, 'offset');
+        final startLocation = D4.getOptionalNamedArg<(Offset, $flutter_45.TextPosition)?>(named, 'startLocation');
+        final state = D4.getRequiredNamedArg<$flutter_48.FloatingCursorDragState>(named, 'state', 'RawFloatingCursorPoint');
+        return $flutter_48.RawFloatingCursorPoint(offset: offset, startLocation: startLocation, state: state);
+      },
+    },
+    getters: {
+      'offset': (visitor, target) => D4.validateTarget<$flutter_48.RawFloatingCursorPoint>(target, 'RawFloatingCursorPoint').offset,
+      'startLocation': (visitor, target) => D4.validateTarget<$flutter_48.RawFloatingCursorPoint>(target, 'RawFloatingCursorPoint').startLocation,
+      'state': (visitor, target) => D4.validateTarget<$flutter_48.RawFloatingCursorPoint>(target, 'RawFloatingCursorPoint').state,
+    },
+    constructorSignatures: {
+      '': 'RawFloatingCursorPoint({Offset? offset, (Offset, TextPosition)? startLocation, required FloatingCursorDragState state})',
+    },
+    getterSignatures: {
+      'offset': 'Offset? get offset',
+      'startLocation': '(Offset, TextPosition)? get startLocation',
+      'state': 'FloatingCursorDragState get state',
+    },
+  );
+}
+
+// =============================================================================
+// TextEditingValue Bridge
+// =============================================================================
+
+BridgedClass _createTextEditingValueBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.TextEditingValue,
+    name: 'TextEditingValue',
+    constructors: {
+      '': (visitor, positional, named) {
+        final text = D4.getNamedArgWithDefault<String>(named, 'text', '');
+        final selection = D4.getNamedArgWithDefault<$flutter_45.TextSelection>(named, 'selection', const $flutter_45.TextSelection.collapsed(offset: -1));
+        final composing = D4.getNamedArgWithDefault<TextRange>(named, 'composing', $dart_ui.TextRange.empty);
+        return $flutter_48.TextEditingValue(text: text, selection: selection, composing: composing);
+      },
+      'fromJSON': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'TextEditingValue');
+        if (positional.isEmpty) {
+          throw ArgumentError('TextEditingValue: Missing required argument "encoded" at position 0');
+        }
+        final encoded = D4.coerceMap<String, dynamic>(positional[0], 'encoded');
+        return $flutter_48.TextEditingValue.fromJSON(encoded);
+      },
+    },
+    getters: {
+      'text': (visitor, target) => D4.validateTarget<$flutter_48.TextEditingValue>(target, 'TextEditingValue').text,
+      'selection': (visitor, target) => D4.validateTarget<$flutter_48.TextEditingValue>(target, 'TextEditingValue').selection,
+      'composing': (visitor, target) => D4.validateTarget<$flutter_48.TextEditingValue>(target, 'TextEditingValue').composing,
+      'isComposingRangeValid': (visitor, target) => D4.validateTarget<$flutter_48.TextEditingValue>(target, 'TextEditingValue').isComposingRangeValid,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_48.TextEditingValue>(target, 'TextEditingValue').hashCode,
+    },
+    methods: {
+      'copyWith': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextEditingValue>(target, 'TextEditingValue');
+        final text = D4.getOptionalNamedArg<String?>(named, 'text');
+        final selection = D4.getOptionalNamedArg<$flutter_45.TextSelection?>(named, 'selection');
+        final composing = D4.getOptionalNamedArg<TextRange?>(named, 'composing');
+        return t.copyWith(text: text, selection: selection, composing: composing);
+      },
+      'replaced': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextEditingValue>(target, 'TextEditingValue');
+        D4.requireMinArgs(positional, 2, 'replaced');
+        final replacementRange = D4.getRequiredArg<TextRange>(positional, 0, 'replacementRange', 'replaced');
+        final replacementString = D4.getRequiredArg<String>(positional, 1, 'replacementString', 'replaced');
+        return t.replaced(replacementRange, replacementString);
+      },
+      'toJSON': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextEditingValue>(target, 'TextEditingValue');
+        return t.toJSON();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextEditingValue>(target, 'TextEditingValue');
+        return t.toString();
+      },
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextEditingValue>(target, 'TextEditingValue');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    staticGetters: {
+      'empty': (visitor) => $flutter_48.TextEditingValue.empty,
+    },
+    constructorSignatures: {
+      '': 'const TextEditingValue({String text = \'\', TextSelection selection = const TextSelection.collapsed(offset: -1), TextRange composing = TextRange.empty})',
+      'fromJSON': 'factory TextEditingValue.fromJSON(Map<String, dynamic> encoded)',
+    },
+    methodSignatures: {
+      'copyWith': 'TextEditingValue copyWith({String? text, TextSelection? selection, TextRange? composing})',
+      'replaced': 'TextEditingValue replaced(TextRange replacementRange, String replacementString)',
+      'toJSON': 'Map<String, dynamic> toJSON()',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'text': 'String get text',
+      'selection': 'TextSelection get selection',
+      'composing': 'TextRange get composing',
+      'isComposingRangeValid': 'bool get isComposingRangeValid',
+      'hashCode': 'int get hashCode',
+    },
+    staticGetterSignatures: {
+      'empty': 'TextEditingValue get empty',
+    },
+  );
+}
+
+// =============================================================================
+// TextSelectionDelegate Bridge
+// =============================================================================
+
+BridgedClass _createTextSelectionDelegateBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.TextSelectionDelegate,
+    name: 'TextSelectionDelegate',
+    constructors: {
+    },
+    getters: {
+      'textEditingValue': (visitor, target) => D4.validateTarget<$flutter_48.TextSelectionDelegate>(target, 'TextSelectionDelegate').textEditingValue,
+      'cutEnabled': (visitor, target) => D4.validateTarget<$flutter_48.TextSelectionDelegate>(target, 'TextSelectionDelegate').cutEnabled,
+      'copyEnabled': (visitor, target) => D4.validateTarget<$flutter_48.TextSelectionDelegate>(target, 'TextSelectionDelegate').copyEnabled,
+      'pasteEnabled': (visitor, target) => D4.validateTarget<$flutter_48.TextSelectionDelegate>(target, 'TextSelectionDelegate').pasteEnabled,
+      'selectAllEnabled': (visitor, target) => D4.validateTarget<$flutter_48.TextSelectionDelegate>(target, 'TextSelectionDelegate').selectAllEnabled,
+      'lookUpEnabled': (visitor, target) => D4.validateTarget<$flutter_48.TextSelectionDelegate>(target, 'TextSelectionDelegate').lookUpEnabled,
+      'searchWebEnabled': (visitor, target) => D4.validateTarget<$flutter_48.TextSelectionDelegate>(target, 'TextSelectionDelegate').searchWebEnabled,
+      'shareEnabled': (visitor, target) => D4.validateTarget<$flutter_48.TextSelectionDelegate>(target, 'TextSelectionDelegate').shareEnabled,
+      'liveTextInputEnabled': (visitor, target) => D4.validateTarget<$flutter_48.TextSelectionDelegate>(target, 'TextSelectionDelegate').liveTextInputEnabled,
+    },
+    methods: {
+      'userUpdateTextEditingValue': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextSelectionDelegate>(target, 'TextSelectionDelegate');
+        D4.requireMinArgs(positional, 2, 'userUpdateTextEditingValue');
+        final value = D4.getRequiredArg<$flutter_48.TextEditingValue>(positional, 0, 'value', 'userUpdateTextEditingValue');
+        final cause = D4.getRequiredArg<$flutter_48.SelectionChangedCause>(positional, 1, 'cause', 'userUpdateTextEditingValue');
+        t.userUpdateTextEditingValue(value, cause);
+        return null;
+      },
+      'hideToolbar': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextSelectionDelegate>(target, 'TextSelectionDelegate');
+        final hideHandles = D4.getOptionalArgWithDefault<bool>(positional, 0, 'hideHandles', true);
+        t.hideToolbar(hideHandles);
+        return null;
+      },
+      'bringIntoView': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextSelectionDelegate>(target, 'TextSelectionDelegate');
+        D4.requireMinArgs(positional, 1, 'bringIntoView');
+        final position = D4.getRequiredArg<TextPosition>(positional, 0, 'position', 'bringIntoView');
+        t.bringIntoView(position);
+        return null;
+      },
+      'cutSelection': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextSelectionDelegate>(target, 'TextSelectionDelegate');
+        D4.requireMinArgs(positional, 1, 'cutSelection');
+        final cause = D4.getRequiredArg<$flutter_48.SelectionChangedCause>(positional, 0, 'cause', 'cutSelection');
+        t.cutSelection(cause);
+        return null;
+      },
+      'pasteText': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextSelectionDelegate>(target, 'TextSelectionDelegate');
+        D4.requireMinArgs(positional, 1, 'pasteText');
+        final cause = D4.getRequiredArg<$flutter_48.SelectionChangedCause>(positional, 0, 'cause', 'pasteText');
+        return t.pasteText(cause);
+      },
+      'selectAll': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextSelectionDelegate>(target, 'TextSelectionDelegate');
+        D4.requireMinArgs(positional, 1, 'selectAll');
+        final cause = D4.getRequiredArg<$flutter_48.SelectionChangedCause>(positional, 0, 'cause', 'selectAll');
+        t.selectAll(cause);
+        return null;
+      },
+      'copySelection': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextSelectionDelegate>(target, 'TextSelectionDelegate');
+        D4.requireMinArgs(positional, 1, 'copySelection');
+        final cause = D4.getRequiredArg<$flutter_48.SelectionChangedCause>(positional, 0, 'cause', 'copySelection');
+        t.copySelection(cause);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'userUpdateTextEditingValue': 'void userUpdateTextEditingValue(TextEditingValue value, SelectionChangedCause cause)',
+      'hideToolbar': 'void hideToolbar([bool hideHandles = true])',
+      'bringIntoView': 'void bringIntoView(TextPosition position)',
+      'cutSelection': 'void cutSelection(SelectionChangedCause cause)',
+      'pasteText': 'Future<void> pasteText(SelectionChangedCause cause)',
+      'selectAll': 'void selectAll(SelectionChangedCause cause)',
+      'copySelection': 'void copySelection(SelectionChangedCause cause)',
+    },
+    getterSignatures: {
+      'textEditingValue': 'TextEditingValue get textEditingValue',
+      'cutEnabled': 'bool get cutEnabled',
+      'copyEnabled': 'bool get copyEnabled',
+      'pasteEnabled': 'bool get pasteEnabled',
+      'selectAllEnabled': 'bool get selectAllEnabled',
+      'lookUpEnabled': 'bool get lookUpEnabled',
+      'searchWebEnabled': 'bool get searchWebEnabled',
+      'shareEnabled': 'bool get shareEnabled',
+      'liveTextInputEnabled': 'bool get liveTextInputEnabled',
+    },
+  );
+}
+
+// =============================================================================
+// TextInputClient Bridge
+// =============================================================================
+
+BridgedClass _createTextInputClientBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.TextInputClient,
+    name: 'TextInputClient',
+    constructors: {
+    },
+    getters: {
+      'currentTextEditingValue': (visitor, target) => D4.validateTarget<$flutter_48.TextInputClient>(target, 'TextInputClient').currentTextEditingValue,
+      'currentAutofillScope': (visitor, target) => D4.validateTarget<$flutter_48.TextInputClient>(target, 'TextInputClient').currentAutofillScope,
+    },
+    methods: {
+      'updateEditingValue': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputClient>(target, 'TextInputClient');
+        D4.requireMinArgs(positional, 1, 'updateEditingValue');
+        final value = D4.getRequiredArg<$flutter_48.TextEditingValue>(positional, 0, 'value', 'updateEditingValue');
+        t.updateEditingValue(value);
+        return null;
+      },
+      'performAction': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputClient>(target, 'TextInputClient');
+        D4.requireMinArgs(positional, 1, 'performAction');
+        final action = D4.getRequiredArg<$flutter_48.TextInputAction>(positional, 0, 'action', 'performAction');
+        t.performAction(action);
+        return null;
+      },
+      'insertContent': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputClient>(target, 'TextInputClient');
+        D4.requireMinArgs(positional, 1, 'insertContent');
+        final content = D4.getRequiredArg<$flutter_22.KeyboardInsertedContent>(positional, 0, 'content', 'insertContent');
+        t.insertContent(content);
+        return null;
+      },
+      'performPrivateCommand': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputClient>(target, 'TextInputClient');
+        D4.requireMinArgs(positional, 2, 'performPrivateCommand');
+        final action = D4.getRequiredArg<String>(positional, 0, 'action', 'performPrivateCommand');
+        if (positional.length <= 1) {
+          throw ArgumentError('performPrivateCommand: Missing required argument "data" at position 1');
+        }
+        final data = D4.coerceMap<String, dynamic>(positional[1], 'data');
+        t.performPrivateCommand(action, data);
+        return null;
+      },
+      'updateFloatingCursor': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputClient>(target, 'TextInputClient');
+        D4.requireMinArgs(positional, 1, 'updateFloatingCursor');
+        final point = D4.getRequiredArg<$flutter_48.RawFloatingCursorPoint>(positional, 0, 'point', 'updateFloatingCursor');
+        t.updateFloatingCursor(point);
+        return null;
+      },
+      'showAutocorrectionPromptRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputClient>(target, 'TextInputClient');
+        D4.requireMinArgs(positional, 2, 'showAutocorrectionPromptRect');
+        final start = D4.getRequiredArg<int>(positional, 0, 'start', 'showAutocorrectionPromptRect');
+        final end = D4.getRequiredArg<int>(positional, 1, 'end', 'showAutocorrectionPromptRect');
+        t.showAutocorrectionPromptRect(start, end);
+        return null;
+      },
+      'connectionClosed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputClient>(target, 'TextInputClient');
+        t.connectionClosed();
+        return null;
+      },
+      'didChangeInputControl': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputClient>(target, 'TextInputClient');
+        D4.requireMinArgs(positional, 2, 'didChangeInputControl');
+        final oldControl = D4.getRequiredArg<$flutter_48.TextInputControl?>(positional, 0, 'oldControl', 'didChangeInputControl');
+        final newControl = D4.getRequiredArg<$flutter_48.TextInputControl?>(positional, 1, 'newControl', 'didChangeInputControl');
+        t.didChangeInputControl(oldControl, newControl);
+        return null;
+      },
+      'showToolbar': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputClient>(target, 'TextInputClient');
+        t.showToolbar();
+        return null;
+      },
+      'insertTextPlaceholder': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputClient>(target, 'TextInputClient');
+        D4.requireMinArgs(positional, 1, 'insertTextPlaceholder');
+        final size = D4.getRequiredArg<Size>(positional, 0, 'size', 'insertTextPlaceholder');
+        t.insertTextPlaceholder(size);
+        return null;
+      },
+      'removeTextPlaceholder': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputClient>(target, 'TextInputClient');
+        t.removeTextPlaceholder();
+        return null;
+      },
+      'performSelector': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputClient>(target, 'TextInputClient');
+        D4.requireMinArgs(positional, 1, 'performSelector');
+        final selectorName = D4.getRequiredArg<String>(positional, 0, 'selectorName', 'performSelector');
+        t.performSelector(selectorName);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'updateEditingValue': 'void updateEditingValue(TextEditingValue value)',
+      'performAction': 'void performAction(TextInputAction action)',
+      'insertContent': 'void insertContent(KeyboardInsertedContent content)',
+      'performPrivateCommand': 'void performPrivateCommand(String action, Map<String, dynamic> data)',
+      'updateFloatingCursor': 'void updateFloatingCursor(RawFloatingCursorPoint point)',
+      'showAutocorrectionPromptRect': 'void showAutocorrectionPromptRect(int start, int end)',
+      'connectionClosed': 'void connectionClosed()',
+      'didChangeInputControl': 'void didChangeInputControl(TextInputControl? oldControl, TextInputControl? newControl)',
+      'showToolbar': 'void showToolbar()',
+      'insertTextPlaceholder': 'void insertTextPlaceholder(Size size)',
+      'removeTextPlaceholder': 'void removeTextPlaceholder()',
+      'performSelector': 'void performSelector(String selectorName)',
+    },
+    getterSignatures: {
+      'currentTextEditingValue': 'TextEditingValue? get currentTextEditingValue',
+      'currentAutofillScope': 'AutofillScope? get currentAutofillScope',
+    },
+  );
+}
+
+// =============================================================================
+// ScribbleClient Bridge
+// =============================================================================
+
+BridgedClass _createScribbleClientBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.ScribbleClient,
+    name: 'ScribbleClient',
+    constructors: {
+    },
+    getters: {
+      'elementIdentifier': (visitor, target) => D4.validateTarget<$flutter_48.ScribbleClient>(target, 'ScribbleClient').elementIdentifier,
+      'bounds': (visitor, target) => D4.validateTarget<$flutter_48.ScribbleClient>(target, 'ScribbleClient').bounds,
+    },
+    methods: {
+      'onScribbleFocus': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.ScribbleClient>(target, 'ScribbleClient');
+        D4.requireMinArgs(positional, 1, 'onScribbleFocus');
+        final offset = D4.getRequiredArg<Offset>(positional, 0, 'offset', 'onScribbleFocus');
+        t.onScribbleFocus(offset);
+        return null;
+      },
+      'isInScribbleRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.ScribbleClient>(target, 'ScribbleClient');
+        D4.requireMinArgs(positional, 1, 'isInScribbleRect');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'isInScribbleRect');
+        return t.isInScribbleRect(rect);
+      },
+    },
+    methodSignatures: {
+      'onScribbleFocus': 'void onScribbleFocus(Offset offset)',
+      'isInScribbleRect': 'bool isInScribbleRect(Rect rect)',
+    },
+    getterSignatures: {
+      'elementIdentifier': 'String get elementIdentifier',
+      'bounds': 'Rect get bounds',
+    },
+  );
+}
+
+// =============================================================================
+// SelectionRect Bridge
+// =============================================================================
+
+BridgedClass _createSelectionRectBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.SelectionRect,
+    name: 'SelectionRect',
+    constructors: {
+      '': (visitor, positional, named) {
+        final position = D4.getRequiredNamedArg<int>(named, 'position', 'SelectionRect');
+        final bounds = D4.getRequiredNamedArg<Rect>(named, 'bounds', 'SelectionRect');
+        final direction = D4.getNamedArgWithDefault<TextDirection>(named, 'direction', $dart_ui.TextDirection.ltr);
+        return $flutter_48.SelectionRect(position: position, bounds: bounds, direction: direction);
+      },
+    },
+    getters: {
+      'position': (visitor, target) => D4.validateTarget<$flutter_48.SelectionRect>(target, 'SelectionRect').position,
+      'bounds': (visitor, target) => D4.validateTarget<$flutter_48.SelectionRect>(target, 'SelectionRect').bounds,
+      'direction': (visitor, target) => D4.validateTarget<$flutter_48.SelectionRect>(target, 'SelectionRect').direction,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_48.SelectionRect>(target, 'SelectionRect').hashCode,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.SelectionRect>(target, 'SelectionRect');
+        return t.toString();
+      },
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.SelectionRect>(target, 'SelectionRect');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'const SelectionRect({required int position, required Rect bounds, TextDirection direction = TextDirection.ltr})',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'position': 'int get position',
+      'bounds': 'Rect get bounds',
+      'direction': 'TextDirection get direction',
+      'hashCode': 'int get hashCode',
+    },
+  );
+}
+
+// =============================================================================
+// DeltaTextInputClient Bridge
+// =============================================================================
+
+BridgedClass _createDeltaTextInputClientBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.DeltaTextInputClient,
+    name: 'DeltaTextInputClient',
+    constructors: {
+    },
+    getters: {
+      'currentTextEditingValue': (visitor, target) => D4.validateTarget<$flutter_48.DeltaTextInputClient>(target, 'DeltaTextInputClient').currentTextEditingValue,
+      'currentAutofillScope': (visitor, target) => D4.validateTarget<$flutter_48.DeltaTextInputClient>(target, 'DeltaTextInputClient').currentAutofillScope,
+    },
+    methods: {
+      'updateEditingValueWithDeltas': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.DeltaTextInputClient>(target, 'DeltaTextInputClient');
+        D4.requireMinArgs(positional, 1, 'updateEditingValueWithDeltas');
+        if (positional.isEmpty) {
+          throw ArgumentError('updateEditingValueWithDeltas: Missing required argument "textEditingDeltas" at position 0');
+        }
+        final textEditingDeltas = D4.coerceList<$flutter_46.TextEditingDelta>(positional[0], 'textEditingDeltas');
+        t.updateEditingValueWithDeltas(textEditingDeltas);
+        return null;
+      },
+      'updateEditingValue': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.DeltaTextInputClient>(target, 'DeltaTextInputClient');
+        D4.requireMinArgs(positional, 1, 'updateEditingValue');
+        final value = D4.getRequiredArg<$flutter_48.TextEditingValue>(positional, 0, 'value', 'updateEditingValue');
+        t.updateEditingValue(value);
+        return null;
+      },
+      'performAction': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.DeltaTextInputClient>(target, 'DeltaTextInputClient');
+        D4.requireMinArgs(positional, 1, 'performAction');
+        final action = D4.getRequiredArg<$flutter_48.TextInputAction>(positional, 0, 'action', 'performAction');
+        t.performAction(action);
+        return null;
+      },
+      'insertContent': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.DeltaTextInputClient>(target, 'DeltaTextInputClient');
+        D4.requireMinArgs(positional, 1, 'insertContent');
+        final content = D4.getRequiredArg<$flutter_22.KeyboardInsertedContent>(positional, 0, 'content', 'insertContent');
+        t.insertContent(content);
+        return null;
+      },
+      'performPrivateCommand': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.DeltaTextInputClient>(target, 'DeltaTextInputClient');
+        D4.requireMinArgs(positional, 2, 'performPrivateCommand');
+        final action = D4.getRequiredArg<String>(positional, 0, 'action', 'performPrivateCommand');
+        if (positional.length <= 1) {
+          throw ArgumentError('performPrivateCommand: Missing required argument "data" at position 1');
+        }
+        final data = D4.coerceMap<String, dynamic>(positional[1], 'data');
+        t.performPrivateCommand(action, data);
+        return null;
+      },
+      'updateFloatingCursor': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.DeltaTextInputClient>(target, 'DeltaTextInputClient');
+        D4.requireMinArgs(positional, 1, 'updateFloatingCursor');
+        final point = D4.getRequiredArg<$flutter_48.RawFloatingCursorPoint>(positional, 0, 'point', 'updateFloatingCursor');
+        t.updateFloatingCursor(point);
+        return null;
+      },
+      'showAutocorrectionPromptRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.DeltaTextInputClient>(target, 'DeltaTextInputClient');
+        D4.requireMinArgs(positional, 2, 'showAutocorrectionPromptRect');
+        final start = D4.getRequiredArg<int>(positional, 0, 'start', 'showAutocorrectionPromptRect');
+        final end = D4.getRequiredArg<int>(positional, 1, 'end', 'showAutocorrectionPromptRect');
+        t.showAutocorrectionPromptRect(start, end);
+        return null;
+      },
+      'connectionClosed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.DeltaTextInputClient>(target, 'DeltaTextInputClient');
+        t.connectionClosed();
+        return null;
+      },
+      'didChangeInputControl': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.DeltaTextInputClient>(target, 'DeltaTextInputClient');
+        D4.requireMinArgs(positional, 2, 'didChangeInputControl');
+        final oldControl = D4.getRequiredArg<$flutter_48.TextInputControl?>(positional, 0, 'oldControl', 'didChangeInputControl');
+        final newControl = D4.getRequiredArg<$flutter_48.TextInputControl?>(positional, 1, 'newControl', 'didChangeInputControl');
+        t.didChangeInputControl(oldControl, newControl);
+        return null;
+      },
+      'showToolbar': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.DeltaTextInputClient>(target, 'DeltaTextInputClient');
+        t.showToolbar();
+        return null;
+      },
+      'insertTextPlaceholder': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.DeltaTextInputClient>(target, 'DeltaTextInputClient');
+        D4.requireMinArgs(positional, 1, 'insertTextPlaceholder');
+        final size = D4.getRequiredArg<Size>(positional, 0, 'size', 'insertTextPlaceholder');
+        t.insertTextPlaceholder(size);
+        return null;
+      },
+      'removeTextPlaceholder': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.DeltaTextInputClient>(target, 'DeltaTextInputClient');
+        t.removeTextPlaceholder();
+        return null;
+      },
+      'performSelector': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.DeltaTextInputClient>(target, 'DeltaTextInputClient');
+        D4.requireMinArgs(positional, 1, 'performSelector');
+        final selectorName = D4.getRequiredArg<String>(positional, 0, 'selectorName', 'performSelector');
+        t.performSelector(selectorName);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'updateEditingValueWithDeltas': 'void updateEditingValueWithDeltas(List<TextEditingDelta> textEditingDeltas)',
+      'updateEditingValue': 'void updateEditingValue(TextEditingValue value)',
+      'performAction': 'void performAction(TextInputAction action)',
+      'insertContent': 'void insertContent(KeyboardInsertedContent content)',
+      'performPrivateCommand': 'void performPrivateCommand(String action, Map<String, dynamic> data)',
+      'updateFloatingCursor': 'void updateFloatingCursor(RawFloatingCursorPoint point)',
+      'showAutocorrectionPromptRect': 'void showAutocorrectionPromptRect(int start, int end)',
+      'connectionClosed': 'void connectionClosed()',
+      'didChangeInputControl': 'void didChangeInputControl(TextInputControl? oldControl, TextInputControl? newControl)',
+      'showToolbar': 'void showToolbar()',
+      'insertTextPlaceholder': 'void insertTextPlaceholder(Size size)',
+      'removeTextPlaceholder': 'void removeTextPlaceholder()',
+      'performSelector': 'void performSelector(String selectorName)',
+    },
+    getterSignatures: {
+      'currentTextEditingValue': 'TextEditingValue? get currentTextEditingValue',
+      'currentAutofillScope': 'AutofillScope? get currentAutofillScope',
+    },
+  );
+}
+
+// =============================================================================
+// TextInputConnection Bridge
+// =============================================================================
+
+BridgedClass _createTextInputConnectionBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.TextInputConnection,
+    name: 'TextInputConnection',
+    constructors: {
+    },
+    getters: {
+      'attached': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConnection>(target, 'TextInputConnection').attached,
+      'scribbleInProgress': (visitor, target) => D4.validateTarget<$flutter_48.TextInputConnection>(target, 'TextInputConnection').scribbleInProgress,
+    },
+    methods: {
+      'show': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputConnection>(target, 'TextInputConnection');
+        t.show();
+        return null;
+      },
+      'requestAutofill': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputConnection>(target, 'TextInputConnection');
+        t.requestAutofill();
+        return null;
+      },
+      'updateConfig': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputConnection>(target, 'TextInputConnection');
+        D4.requireMinArgs(positional, 1, 'updateConfig');
+        final configuration = D4.getRequiredArg<$flutter_48.TextInputConfiguration>(positional, 0, 'configuration', 'updateConfig');
+        t.updateConfig(configuration);
+        return null;
+      },
+      'setEditingState': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputConnection>(target, 'TextInputConnection');
+        D4.requireMinArgs(positional, 1, 'setEditingState');
+        final value = D4.getRequiredArg<$flutter_48.TextEditingValue>(positional, 0, 'value', 'setEditingState');
+        t.setEditingState(value);
+        return null;
+      },
+      'setEditableSizeAndTransform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputConnection>(target, 'TextInputConnection');
+        D4.requireMinArgs(positional, 2, 'setEditableSizeAndTransform');
+        final editableBoxSize = D4.getRequiredArg<Size>(positional, 0, 'editableBoxSize', 'setEditableSizeAndTransform');
+        final transform = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 1, 'transform', 'setEditableSizeAndTransform');
+        t.setEditableSizeAndTransform(editableBoxSize, transform);
+        return null;
+      },
+      'setComposingRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputConnection>(target, 'TextInputConnection');
+        D4.requireMinArgs(positional, 1, 'setComposingRect');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'setComposingRect');
+        t.setComposingRect(rect);
+        return null;
+      },
+      'setCaretRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputConnection>(target, 'TextInputConnection');
+        D4.requireMinArgs(positional, 1, 'setCaretRect');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'setCaretRect');
+        t.setCaretRect(rect);
+        return null;
+      },
+      'setSelectionRects': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputConnection>(target, 'TextInputConnection');
+        D4.requireMinArgs(positional, 1, 'setSelectionRects');
+        if (positional.isEmpty) {
+          throw ArgumentError('setSelectionRects: Missing required argument "selectionRects" at position 0');
+        }
+        final selectionRects = D4.coerceList<$flutter_48.SelectionRect>(positional[0], 'selectionRects');
+        t.setSelectionRects(selectionRects);
+        return null;
+      },
+      'setStyle': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputConnection>(target, 'TextInputConnection');
+        final fontFamily = D4.getRequiredNamedArg<String?>(named, 'fontFamily', 'setStyle');
+        final fontSize = D4.getRequiredNamedArg<double?>(named, 'fontSize', 'setStyle');
+        final fontWeight = D4.getRequiredNamedArg<FontWeight?>(named, 'fontWeight', 'setStyle');
+        final textDirection = D4.getRequiredNamedArg<TextDirection>(named, 'textDirection', 'setStyle');
+        final textAlign = D4.getRequiredNamedArg<TextAlign>(named, 'textAlign', 'setStyle');
+        t.setStyle(fontFamily: fontFamily, fontSize: fontSize, fontWeight: fontWeight, textDirection: textDirection, textAlign: textAlign);
+        return null;
+      },
+      'close': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputConnection>(target, 'TextInputConnection');
+        t.close();
+        return null;
+      },
+      'connectionClosedReceived': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputConnection>(target, 'TextInputConnection');
+        t.connectionClosedReceived();
+        return null;
+      },
+    },
+    methodSignatures: {
+      'show': 'void show()',
+      'requestAutofill': 'void requestAutofill()',
+      'updateConfig': 'void updateConfig(TextInputConfiguration configuration)',
+      'setEditingState': 'void setEditingState(TextEditingValue value)',
+      'setEditableSizeAndTransform': 'void setEditableSizeAndTransform(Size editableBoxSize, Matrix4 transform)',
+      'setComposingRect': 'void setComposingRect(Rect rect)',
+      'setCaretRect': 'void setCaretRect(Rect rect)',
+      'setSelectionRects': 'void setSelectionRects(List<SelectionRect> selectionRects)',
+      'setStyle': 'void setStyle({required String? fontFamily, required double? fontSize, required FontWeight? fontWeight, required TextDirection textDirection, required TextAlign textAlign})',
+      'close': 'void close()',
+      'connectionClosedReceived': 'void connectionClosedReceived()',
+    },
+    getterSignatures: {
+      'attached': 'bool get attached',
+      'scribbleInProgress': 'bool get scribbleInProgress',
+    },
+  );
+}
+
+// =============================================================================
+// TextInput Bridge
+// =============================================================================
+
+BridgedClass _createTextInputBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.TextInput,
+    name: 'TextInput',
+    constructors: {
+    },
+    getters: {
+      'scribbleInProgress': (visitor, target) => D4.validateTarget<$flutter_48.TextInput>(target, 'TextInput').scribbleInProgress,
+    },
+    staticMethods: {
+      'setInputControl': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'setInputControl');
+        final newControl = D4.getRequiredArg<$flutter_48.TextInputControl?>(positional, 0, 'newControl', 'setInputControl');
+        return $flutter_48.TextInput.setInputControl(newControl);
+      },
+      'restorePlatformInputControl': (visitor, positional, named, typeArgs) {
+        return $flutter_48.TextInput.restorePlatformInputControl();
+      },
+      'ensureInitialized': (visitor, positional, named, typeArgs) {
+        return $flutter_48.TextInput.ensureInitialized();
+      },
+      'attach': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'attach');
+        final client = D4.getRequiredArg<$flutter_48.TextInputClient>(positional, 0, 'client', 'attach');
+        final configuration = D4.getRequiredArg<$flutter_48.TextInputConfiguration>(positional, 1, 'configuration', 'attach');
+        return $flutter_48.TextInput.attach(client, configuration);
+      },
+      'updateEditingValue': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'updateEditingValue');
+        final value = D4.getRequiredArg<$flutter_48.TextEditingValue>(positional, 0, 'value', 'updateEditingValue');
+        return $flutter_48.TextInput.updateEditingValue(value);
+      },
+      'finishAutofillContext': (visitor, positional, named, typeArgs) {
+        final shouldSave = D4.getNamedArgWithDefault<bool>(named, 'shouldSave', true);
+        return $flutter_48.TextInput.finishAutofillContext(shouldSave: shouldSave);
+      },
+      'registerScribbleElement': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'registerScribbleElement');
+        final elementIdentifier = D4.getRequiredArg<String>(positional, 0, 'elementIdentifier', 'registerScribbleElement');
+        final scribbleClient = D4.getRequiredArg<$flutter_48.ScribbleClient>(positional, 1, 'scribbleClient', 'registerScribbleElement');
+        return $flutter_48.TextInput.registerScribbleElement(elementIdentifier, scribbleClient);
+      },
+      'unregisterScribbleElement': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'unregisterScribbleElement');
+        final elementIdentifier = D4.getRequiredArg<String>(positional, 0, 'elementIdentifier', 'unregisterScribbleElement');
+        return $flutter_48.TextInput.unregisterScribbleElement(elementIdentifier);
+      },
+    },
+    getterSignatures: {
+      'scribbleInProgress': 'bool get scribbleInProgress',
+    },
+    staticMethodSignatures: {
+      'setInputControl': 'void setInputControl(TextInputControl? newControl)',
+      'restorePlatformInputControl': 'void restorePlatformInputControl()',
+      'ensureInitialized': 'void ensureInitialized()',
+      'attach': 'TextInputConnection attach(TextInputClient client, TextInputConfiguration configuration)',
+      'updateEditingValue': 'void updateEditingValue(TextEditingValue value)',
+      'finishAutofillContext': 'void finishAutofillContext({bool shouldSave = true})',
+      'registerScribbleElement': 'void registerScribbleElement(String elementIdentifier, ScribbleClient scribbleClient)',
+      'unregisterScribbleElement': 'void unregisterScribbleElement(String elementIdentifier)',
+    },
+  );
+}
+
+// =============================================================================
+// TextInputControl Bridge
+// =============================================================================
+
+BridgedClass _createTextInputControlBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.TextInputControl,
+    name: 'TextInputControl',
+    constructors: {
+    },
+    methods: {
+      'attach': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputControl>(target, 'TextInputControl');
+        D4.requireMinArgs(positional, 2, 'attach');
+        final client = D4.getRequiredArg<$flutter_48.TextInputClient>(positional, 0, 'client', 'attach');
+        final configuration = D4.getRequiredArg<$flutter_48.TextInputConfiguration>(positional, 1, 'configuration', 'attach');
+        t.attach(client, configuration);
+        return null;
+      },
+      'detach': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputControl>(target, 'TextInputControl');
+        D4.requireMinArgs(positional, 1, 'detach');
+        final client = D4.getRequiredArg<$flutter_48.TextInputClient>(positional, 0, 'client', 'detach');
+        t.detach(client);
+        return null;
+      },
+      'show': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputControl>(target, 'TextInputControl');
+        t.show();
+        return null;
+      },
+      'hide': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputControl>(target, 'TextInputControl');
+        t.hide();
+        return null;
+      },
+      'updateConfig': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputControl>(target, 'TextInputControl');
+        D4.requireMinArgs(positional, 1, 'updateConfig');
+        final configuration = D4.getRequiredArg<$flutter_48.TextInputConfiguration>(positional, 0, 'configuration', 'updateConfig');
+        t.updateConfig(configuration);
+        return null;
+      },
+      'setEditingState': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputControl>(target, 'TextInputControl');
+        D4.requireMinArgs(positional, 1, 'setEditingState');
+        final value = D4.getRequiredArg<$flutter_48.TextEditingValue>(positional, 0, 'value', 'setEditingState');
+        t.setEditingState(value);
+        return null;
+      },
+      'setEditableSizeAndTransform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputControl>(target, 'TextInputControl');
+        D4.requireMinArgs(positional, 2, 'setEditableSizeAndTransform');
+        final editableBoxSize = D4.getRequiredArg<Size>(positional, 0, 'editableBoxSize', 'setEditableSizeAndTransform');
+        final transform = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 1, 'transform', 'setEditableSizeAndTransform');
+        t.setEditableSizeAndTransform(editableBoxSize, transform);
+        return null;
+      },
+      'setComposingRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputControl>(target, 'TextInputControl');
+        D4.requireMinArgs(positional, 1, 'setComposingRect');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'setComposingRect');
+        t.setComposingRect(rect);
+        return null;
+      },
+      'setCaretRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputControl>(target, 'TextInputControl');
+        D4.requireMinArgs(positional, 1, 'setCaretRect');
+        final rect = D4.getRequiredArg<Rect>(positional, 0, 'rect', 'setCaretRect');
+        t.setCaretRect(rect);
+        return null;
+      },
+      'setSelectionRects': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputControl>(target, 'TextInputControl');
+        D4.requireMinArgs(positional, 1, 'setSelectionRects');
+        if (positional.isEmpty) {
+          throw ArgumentError('setSelectionRects: Missing required argument "selectionRects" at position 0');
+        }
+        final selectionRects = D4.coerceList<$flutter_48.SelectionRect>(positional[0], 'selectionRects');
+        t.setSelectionRects(selectionRects);
+        return null;
+      },
+      'setStyle': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputControl>(target, 'TextInputControl');
+        final fontFamily = D4.getRequiredNamedArg<String?>(named, 'fontFamily', 'setStyle');
+        final fontSize = D4.getRequiredNamedArg<double?>(named, 'fontSize', 'setStyle');
+        final fontWeight = D4.getRequiredNamedArg<FontWeight?>(named, 'fontWeight', 'setStyle');
+        final textDirection = D4.getRequiredNamedArg<TextDirection>(named, 'textDirection', 'setStyle');
+        final textAlign = D4.getRequiredNamedArg<TextAlign>(named, 'textAlign', 'setStyle');
+        t.setStyle(fontFamily: fontFamily, fontSize: fontSize, fontWeight: fontWeight, textDirection: textDirection, textAlign: textAlign);
+        return null;
+      },
+      'requestAutofill': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputControl>(target, 'TextInputControl');
+        t.requestAutofill();
+        return null;
+      },
+      'finishAutofillContext': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.TextInputControl>(target, 'TextInputControl');
+        final shouldSave = D4.getNamedArgWithDefault<bool>(named, 'shouldSave', true);
+        t.finishAutofillContext(shouldSave: shouldSave);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'attach': 'void attach(TextInputClient client, TextInputConfiguration configuration)',
+      'detach': 'void detach(TextInputClient client)',
+      'show': 'void show()',
+      'hide': 'void hide()',
+      'updateConfig': 'void updateConfig(TextInputConfiguration configuration)',
+      'setEditingState': 'void setEditingState(TextEditingValue value)',
+      'setEditableSizeAndTransform': 'void setEditableSizeAndTransform(Size editableBoxSize, Matrix4 transform)',
+      'setComposingRect': 'void setComposingRect(Rect rect)',
+      'setCaretRect': 'void setCaretRect(Rect rect)',
+      'setSelectionRects': 'void setSelectionRects(List<SelectionRect> selectionRects)',
+      'setStyle': 'void setStyle({required String? fontFamily, required double? fontSize, required FontWeight? fontWeight, required TextDirection textDirection, required TextAlign textAlign})',
+      'requestAutofill': 'void requestAutofill()',
+      'finishAutofillContext': 'void finishAutofillContext({bool shouldSave = true})',
+    },
+  );
+}
+
+// =============================================================================
+// SystemContextMenuController Bridge
+// =============================================================================
+
+BridgedClass _createSystemContextMenuControllerBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.SystemContextMenuController,
+    name: 'SystemContextMenuController',
+    constructors: {
+      '': (visitor, positional, named) {
+        final onSystemHideRaw = named['onSystemHide'];
+        return $flutter_48.SystemContextMenuController(onSystemHide: onSystemHideRaw == null ? null : () { D4.callInterpreterCallback(visitor, onSystemHideRaw, []); });
+      },
+    },
+    getters: {
+      'onSystemHide': (visitor, target) => D4.validateTarget<$flutter_48.SystemContextMenuController>(target, 'SystemContextMenuController').onSystemHide,
+    },
+    methods: {
+      'handleSystemHide': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.SystemContextMenuController>(target, 'SystemContextMenuController');
+        t.handleSystemHide();
+        return null;
+      },
+      'handleCustomContextMenuAction': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.SystemContextMenuController>(target, 'SystemContextMenuController');
+        D4.requireMinArgs(positional, 1, 'handleCustomContextMenuAction');
+        final callbackId = D4.getRequiredArg<String>(positional, 0, 'callbackId', 'handleCustomContextMenuAction');
+        t.handleCustomContextMenuAction(callbackId);
+        return null;
+      },
+      'show': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.SystemContextMenuController>(target, 'SystemContextMenuController');
+        D4.requireMinArgs(positional, 1, 'show');
+        final targetRect = D4.getRequiredArg<Rect>(positional, 0, 'targetRect', 'show');
+        return t.show(targetRect);
+      },
+      'showWithItems': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.SystemContextMenuController>(target, 'SystemContextMenuController');
+        D4.requireMinArgs(positional, 2, 'showWithItems');
+        final targetRect = D4.getRequiredArg<Rect>(positional, 0, 'targetRect', 'showWithItems');
+        if (positional.length <= 1) {
+          throw ArgumentError('showWithItems: Missing required argument "items" at position 1');
+        }
+        final items = D4.coerceList<$flutter_48.IOSSystemContextMenuItemData>(positional[1], 'items');
+        return t.showWithItems(targetRect, items);
+      },
+      'hide': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.SystemContextMenuController>(target, 'SystemContextMenuController');
+        return t.hide();
+      },
+      'dispose': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.SystemContextMenuController>(target, 'SystemContextMenuController');
+        (t as dynamic).dispose();
+        return null;
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.SystemContextMenuController>(target, 'SystemContextMenuController');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.SystemContextMenuController>(target, 'SystemContextMenuController');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.SystemContextMenuController>(target, 'SystemContextMenuController');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+    },
+    constructorSignatures: {
+      '': 'SystemContextMenuController({void Function()? onSystemHide})',
+    },
+    methodSignatures: {
+      'handleSystemHide': 'void handleSystemHide()',
+      'handleCustomContextMenuAction': 'void handleCustomContextMenuAction(String callbackId)',
+      'show': 'Future<void> show(Rect targetRect)',
+      'showWithItems': 'Future<void> showWithItems(Rect targetRect, List<IOSSystemContextMenuItemData> items)',
+      'hide': 'Future<void> hide()',
+      'dispose': 'void dispose()',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+    },
+    getterSignatures: {
+      'onSystemHide': 'VoidCallback? get onSystemHide',
+    },
+  );
+}
+
+// =============================================================================
+// IOSSystemContextMenuItemData Bridge
+// =============================================================================
+
+BridgedClass _createIOSSystemContextMenuItemDataBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.IOSSystemContextMenuItemData,
+    name: 'IOSSystemContextMenuItemData',
+    constructors: {
+    },
+    getters: {
+      'title': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemData>(target, 'IOSSystemContextMenuItemData').title,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemData>(target, 'IOSSystemContextMenuItemData').hashCode,
+    },
+    methods: {
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemData>(target, 'IOSSystemContextMenuItemData');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'const IOSSystemContextMenuItemData()',
+    },
+    getterSignatures: {
+      'title': 'String? get title',
+      'hashCode': 'int get hashCode',
+    },
+  );
+}
+
+// =============================================================================
+// IOSSystemContextMenuItemDataCopy Bridge
+// =============================================================================
+
+BridgedClass _createIOSSystemContextMenuItemDataCopyBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.IOSSystemContextMenuItemDataCopy,
+    name: 'IOSSystemContextMenuItemDataCopy',
+    constructors: {
+      '': (visitor, positional, named) {
+        return $flutter_48.IOSSystemContextMenuItemDataCopy();
+      },
+    },
+    getters: {
+      'title': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataCopy>(target, 'IOSSystemContextMenuItemDataCopy').title,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataCopy>(target, 'IOSSystemContextMenuItemDataCopy').hashCode,
+    },
+    methods: {
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataCopy>(target, 'IOSSystemContextMenuItemDataCopy');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'const IOSSystemContextMenuItemDataCopy()',
+    },
+    getterSignatures: {
+      'title': 'String? get title',
+      'hashCode': 'int get hashCode',
+    },
+  );
+}
+
+// =============================================================================
+// IOSSystemContextMenuItemDataCut Bridge
+// =============================================================================
+
+BridgedClass _createIOSSystemContextMenuItemDataCutBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.IOSSystemContextMenuItemDataCut,
+    name: 'IOSSystemContextMenuItemDataCut',
+    constructors: {
+      '': (visitor, positional, named) {
+        return $flutter_48.IOSSystemContextMenuItemDataCut();
+      },
+    },
+    getters: {
+      'title': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataCut>(target, 'IOSSystemContextMenuItemDataCut').title,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataCut>(target, 'IOSSystemContextMenuItemDataCut').hashCode,
+    },
+    methods: {
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataCut>(target, 'IOSSystemContextMenuItemDataCut');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'const IOSSystemContextMenuItemDataCut()',
+    },
+    getterSignatures: {
+      'title': 'String? get title',
+      'hashCode': 'int get hashCode',
+    },
+  );
+}
+
+// =============================================================================
+// IOSSystemContextMenuItemDataPaste Bridge
+// =============================================================================
+
+BridgedClass _createIOSSystemContextMenuItemDataPasteBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.IOSSystemContextMenuItemDataPaste,
+    name: 'IOSSystemContextMenuItemDataPaste',
+    constructors: {
+      '': (visitor, positional, named) {
+        return $flutter_48.IOSSystemContextMenuItemDataPaste();
+      },
+    },
+    getters: {
+      'title': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataPaste>(target, 'IOSSystemContextMenuItemDataPaste').title,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataPaste>(target, 'IOSSystemContextMenuItemDataPaste').hashCode,
+    },
+    methods: {
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataPaste>(target, 'IOSSystemContextMenuItemDataPaste');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'const IOSSystemContextMenuItemDataPaste()',
+    },
+    getterSignatures: {
+      'title': 'String? get title',
+      'hashCode': 'int get hashCode',
+    },
+  );
+}
+
+// =============================================================================
+// IOSSystemContextMenuItemDataSelectAll Bridge
+// =============================================================================
+
+BridgedClass _createIOSSystemContextMenuItemDataSelectAllBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.IOSSystemContextMenuItemDataSelectAll,
+    name: 'IOSSystemContextMenuItemDataSelectAll',
+    constructors: {
+      '': (visitor, positional, named) {
+        return $flutter_48.IOSSystemContextMenuItemDataSelectAll();
+      },
+    },
+    getters: {
+      'title': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataSelectAll>(target, 'IOSSystemContextMenuItemDataSelectAll').title,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataSelectAll>(target, 'IOSSystemContextMenuItemDataSelectAll').hashCode,
+    },
+    methods: {
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataSelectAll>(target, 'IOSSystemContextMenuItemDataSelectAll');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'const IOSSystemContextMenuItemDataSelectAll()',
+    },
+    getterSignatures: {
+      'title': 'String? get title',
+      'hashCode': 'int get hashCode',
+    },
+  );
+}
+
+// =============================================================================
+// IOSSystemContextMenuItemDataLookUp Bridge
+// =============================================================================
+
+BridgedClass _createIOSSystemContextMenuItemDataLookUpBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.IOSSystemContextMenuItemDataLookUp,
+    name: 'IOSSystemContextMenuItemDataLookUp',
+    constructors: {
+      '': (visitor, positional, named) {
+        final title = D4.getRequiredNamedArg<String>(named, 'title', 'IOSSystemContextMenuItemDataLookUp');
+        return $flutter_48.IOSSystemContextMenuItemDataLookUp(title: title);
+      },
+    },
+    getters: {
+      'title': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataLookUp>(target, 'IOSSystemContextMenuItemDataLookUp').title,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataLookUp>(target, 'IOSSystemContextMenuItemDataLookUp').hashCode,
+    },
+    methods: {
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataLookUp>(target, 'IOSSystemContextMenuItemDataLookUp');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataLookUp>(target, 'IOSSystemContextMenuItemDataLookUp');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataLookUp>(target, 'IOSSystemContextMenuItemDataLookUp');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataLookUp>(target, 'IOSSystemContextMenuItemDataLookUp');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'const IOSSystemContextMenuItemDataLookUp({required String title})',
+    },
+    methodSignatures: {
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+    },
+    getterSignatures: {
+      'title': 'String get title',
+      'hashCode': 'int get hashCode',
+    },
+  );
+}
+
+// =============================================================================
+// IOSSystemContextMenuItemDataSearchWeb Bridge
+// =============================================================================
+
+BridgedClass _createIOSSystemContextMenuItemDataSearchWebBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.IOSSystemContextMenuItemDataSearchWeb,
+    name: 'IOSSystemContextMenuItemDataSearchWeb',
+    constructors: {
+      '': (visitor, positional, named) {
+        final title = D4.getRequiredNamedArg<String>(named, 'title', 'IOSSystemContextMenuItemDataSearchWeb');
+        return $flutter_48.IOSSystemContextMenuItemDataSearchWeb(title: title);
+      },
+    },
+    getters: {
+      'title': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataSearchWeb>(target, 'IOSSystemContextMenuItemDataSearchWeb').title,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataSearchWeb>(target, 'IOSSystemContextMenuItemDataSearchWeb').hashCode,
+    },
+    methods: {
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataSearchWeb>(target, 'IOSSystemContextMenuItemDataSearchWeb');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataSearchWeb>(target, 'IOSSystemContextMenuItemDataSearchWeb');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataSearchWeb>(target, 'IOSSystemContextMenuItemDataSearchWeb');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataSearchWeb>(target, 'IOSSystemContextMenuItemDataSearchWeb');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'const IOSSystemContextMenuItemDataSearchWeb({required String title})',
+    },
+    methodSignatures: {
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+    },
+    getterSignatures: {
+      'title': 'String get title',
+      'hashCode': 'int get hashCode',
+    },
+  );
+}
+
+// =============================================================================
+// IOSSystemContextMenuItemDataShare Bridge
+// =============================================================================
+
+BridgedClass _createIOSSystemContextMenuItemDataShareBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.IOSSystemContextMenuItemDataShare,
+    name: 'IOSSystemContextMenuItemDataShare',
+    constructors: {
+      '': (visitor, positional, named) {
+        final title = D4.getRequiredNamedArg<String>(named, 'title', 'IOSSystemContextMenuItemDataShare');
+        return $flutter_48.IOSSystemContextMenuItemDataShare(title: title);
+      },
+    },
+    getters: {
+      'title': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataShare>(target, 'IOSSystemContextMenuItemDataShare').title,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataShare>(target, 'IOSSystemContextMenuItemDataShare').hashCode,
+    },
+    methods: {
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataShare>(target, 'IOSSystemContextMenuItemDataShare');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataShare>(target, 'IOSSystemContextMenuItemDataShare');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataShare>(target, 'IOSSystemContextMenuItemDataShare');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataShare>(target, 'IOSSystemContextMenuItemDataShare');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'const IOSSystemContextMenuItemDataShare({required String title})',
+    },
+    methodSignatures: {
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+    },
+    getterSignatures: {
+      'title': 'String get title',
+      'hashCode': 'int get hashCode',
+    },
+  );
+}
+
+// =============================================================================
+// IOSSystemContextMenuItemDataLiveText Bridge
+// =============================================================================
+
+BridgedClass _createIOSSystemContextMenuItemDataLiveTextBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.IOSSystemContextMenuItemDataLiveText,
+    name: 'IOSSystemContextMenuItemDataLiveText',
+    constructors: {
+      '': (visitor, positional, named) {
+        return $flutter_48.IOSSystemContextMenuItemDataLiveText();
+      },
+    },
+    getters: {
+      'title': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataLiveText>(target, 'IOSSystemContextMenuItemDataLiveText').title,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataLiveText>(target, 'IOSSystemContextMenuItemDataLiveText').hashCode,
+    },
+    methods: {
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataLiveText>(target, 'IOSSystemContextMenuItemDataLiveText');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'const IOSSystemContextMenuItemDataLiveText()',
+    },
+    getterSignatures: {
+      'title': 'String? get title',
+      'hashCode': 'int get hashCode',
+    },
+  );
+}
+
+// =============================================================================
+// IOSSystemContextMenuItemDataCustom Bridge
+// =============================================================================
+
+BridgedClass _createIOSSystemContextMenuItemDataCustomBridge() {
+  return BridgedClass(
+    nativeType: $flutter_48.IOSSystemContextMenuItemDataCustom,
+    name: 'IOSSystemContextMenuItemDataCustom',
+    constructors: {
+      '': (visitor, positional, named) {
+        final title = D4.getRequiredNamedArg<String>(named, 'title', 'IOSSystemContextMenuItemDataCustom');
+        if (!named.containsKey('onPressed') || named['onPressed'] == null) {
+          throw ArgumentError('IOSSystemContextMenuItemDataCustom: Missing required named argument "onPressed"');
+        }
+        final onPressedRaw = named['onPressed'];
+        return $flutter_48.IOSSystemContextMenuItemDataCustom(title: title, onPressed: () { D4.callInterpreterCallback(visitor, onPressedRaw, []); });
+      },
+    },
+    getters: {
+      'title': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataCustom>(target, 'IOSSystemContextMenuItemDataCustom').title,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataCustom>(target, 'IOSSystemContextMenuItemDataCustom').hashCode,
+      'onPressed': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataCustom>(target, 'IOSSystemContextMenuItemDataCustom').onPressed,
+      'callbackId': (visitor, target) => D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataCustom>(target, 'IOSSystemContextMenuItemDataCustom').callbackId,
+    },
+    methods: {
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataCustom>(target, 'IOSSystemContextMenuItemDataCustom');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataCustom>(target, 'IOSSystemContextMenuItemDataCustom');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataCustom>(target, 'IOSSystemContextMenuItemDataCustom');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_48.IOSSystemContextMenuItemDataCustom>(target, 'IOSSystemContextMenuItemDataCustom');
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'const IOSSystemContextMenuItemDataCustom({required String title, required void Function() onPressed})',
+    },
+    methodSignatures: {
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+    },
+    getterSignatures: {
+      'title': 'String get title',
+      'hashCode': 'int get hashCode',
+      'onPressed': 'VoidCallback get onPressed',
+      'callbackId': 'String get callbackId',
+    },
+  );
+}
+
+// =============================================================================
 // TextEditingDelta Bridge
 // =============================================================================
 
@@ -2657,6 +4586,269 @@ BridgedClass _createTextEditingDeltaBridge() {
     },
     constructorSignatures: {
       'fromJSON': 'factory TextEditingDelta.fromJSON(Map<String, dynamic> encoded)',
+    },
+    methodSignatures: {
+      'apply': 'TextEditingValue apply(TextEditingValue value)',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+    },
+    getterSignatures: {
+      'oldText': 'String get oldText',
+      'selection': 'TextSelection get selection',
+      'composing': 'TextRange get composing',
+    },
+  );
+}
+
+// =============================================================================
+// TextEditingDeltaInsertion Bridge
+// =============================================================================
+
+BridgedClass _createTextEditingDeltaInsertionBridge() {
+  return BridgedClass(
+    nativeType: $flutter_46.TextEditingDeltaInsertion,
+    name: 'TextEditingDeltaInsertion',
+    constructors: {
+      '': (visitor, positional, named) {
+        final oldText = D4.getRequiredNamedArg<String>(named, 'oldText', 'TextEditingDeltaInsertion');
+        final textInserted = D4.getRequiredNamedArg<String>(named, 'textInserted', 'TextEditingDeltaInsertion');
+        final insertionOffset = D4.getRequiredNamedArg<int>(named, 'insertionOffset', 'TextEditingDeltaInsertion');
+        final selection = D4.getRequiredNamedArg<$flutter_45.TextSelection>(named, 'selection', 'TextEditingDeltaInsertion');
+        final composing = D4.getRequiredNamedArg<TextRange>(named, 'composing', 'TextEditingDeltaInsertion');
+        return $flutter_46.TextEditingDeltaInsertion(oldText: oldText, textInserted: textInserted, insertionOffset: insertionOffset, selection: selection, composing: composing);
+      },
+    },
+    getters: {
+      'oldText': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaInsertion>(target, 'TextEditingDeltaInsertion').oldText,
+      'selection': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaInsertion>(target, 'TextEditingDeltaInsertion').selection,
+      'composing': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaInsertion>(target, 'TextEditingDeltaInsertion').composing,
+      'textInserted': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaInsertion>(target, 'TextEditingDeltaInsertion').textInserted,
+      'insertionOffset': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaInsertion>(target, 'TextEditingDeltaInsertion').insertionOffset,
+    },
+    methods: {
+      'apply': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_46.TextEditingDeltaInsertion>(target, 'TextEditingDeltaInsertion');
+        D4.requireMinArgs(positional, 1, 'apply');
+        final value = D4.getRequiredArg<$flutter_48.TextEditingValue>(positional, 0, 'value', 'apply');
+        return t.apply(value);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_46.TextEditingDeltaInsertion>(target, 'TextEditingDeltaInsertion');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_46.TextEditingDeltaInsertion>(target, 'TextEditingDeltaInsertion');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_46.TextEditingDeltaInsertion>(target, 'TextEditingDeltaInsertion');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+    },
+    constructorSignatures: {
+      '': 'const TextEditingDeltaInsertion({required String oldText, required String textInserted, required int insertionOffset, required TextSelection selection, required TextRange composing})',
+    },
+    methodSignatures: {
+      'apply': 'TextEditingValue apply(TextEditingValue value)',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+    },
+    getterSignatures: {
+      'oldText': 'String get oldText',
+      'selection': 'TextSelection get selection',
+      'composing': 'TextRange get composing',
+      'textInserted': 'String get textInserted',
+      'insertionOffset': 'int get insertionOffset',
+    },
+  );
+}
+
+// =============================================================================
+// TextEditingDeltaDeletion Bridge
+// =============================================================================
+
+BridgedClass _createTextEditingDeltaDeletionBridge() {
+  return BridgedClass(
+    nativeType: $flutter_46.TextEditingDeltaDeletion,
+    name: 'TextEditingDeltaDeletion',
+    constructors: {
+      '': (visitor, positional, named) {
+        final oldText = D4.getRequiredNamedArg<String>(named, 'oldText', 'TextEditingDeltaDeletion');
+        final deletedRange = D4.getRequiredNamedArg<TextRange>(named, 'deletedRange', 'TextEditingDeltaDeletion');
+        final selection = D4.getRequiredNamedArg<$flutter_45.TextSelection>(named, 'selection', 'TextEditingDeltaDeletion');
+        final composing = D4.getRequiredNamedArg<TextRange>(named, 'composing', 'TextEditingDeltaDeletion');
+        return $flutter_46.TextEditingDeltaDeletion(oldText: oldText, deletedRange: deletedRange, selection: selection, composing: composing);
+      },
+    },
+    getters: {
+      'oldText': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaDeletion>(target, 'TextEditingDeltaDeletion').oldText,
+      'selection': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaDeletion>(target, 'TextEditingDeltaDeletion').selection,
+      'composing': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaDeletion>(target, 'TextEditingDeltaDeletion').composing,
+      'deletedRange': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaDeletion>(target, 'TextEditingDeltaDeletion').deletedRange,
+      'textDeleted': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaDeletion>(target, 'TextEditingDeltaDeletion').textDeleted,
+    },
+    methods: {
+      'apply': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_46.TextEditingDeltaDeletion>(target, 'TextEditingDeltaDeletion');
+        D4.requireMinArgs(positional, 1, 'apply');
+        final value = D4.getRequiredArg<$flutter_48.TextEditingValue>(positional, 0, 'value', 'apply');
+        return t.apply(value);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_46.TextEditingDeltaDeletion>(target, 'TextEditingDeltaDeletion');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_46.TextEditingDeltaDeletion>(target, 'TextEditingDeltaDeletion');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_46.TextEditingDeltaDeletion>(target, 'TextEditingDeltaDeletion');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+    },
+    constructorSignatures: {
+      '': 'const TextEditingDeltaDeletion({required String oldText, required TextRange deletedRange, required TextSelection selection, required TextRange composing})',
+    },
+    methodSignatures: {
+      'apply': 'TextEditingValue apply(TextEditingValue value)',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+    },
+    getterSignatures: {
+      'oldText': 'String get oldText',
+      'selection': 'TextSelection get selection',
+      'composing': 'TextRange get composing',
+      'deletedRange': 'TextRange get deletedRange',
+      'textDeleted': 'String get textDeleted',
+    },
+  );
+}
+
+// =============================================================================
+// TextEditingDeltaReplacement Bridge
+// =============================================================================
+
+BridgedClass _createTextEditingDeltaReplacementBridge() {
+  return BridgedClass(
+    nativeType: $flutter_46.TextEditingDeltaReplacement,
+    name: 'TextEditingDeltaReplacement',
+    constructors: {
+      '': (visitor, positional, named) {
+        final oldText = D4.getRequiredNamedArg<String>(named, 'oldText', 'TextEditingDeltaReplacement');
+        final replacementText = D4.getRequiredNamedArg<String>(named, 'replacementText', 'TextEditingDeltaReplacement');
+        final replacedRange = D4.getRequiredNamedArg<TextRange>(named, 'replacedRange', 'TextEditingDeltaReplacement');
+        final selection = D4.getRequiredNamedArg<$flutter_45.TextSelection>(named, 'selection', 'TextEditingDeltaReplacement');
+        final composing = D4.getRequiredNamedArg<TextRange>(named, 'composing', 'TextEditingDeltaReplacement');
+        return $flutter_46.TextEditingDeltaReplacement(oldText: oldText, replacementText: replacementText, replacedRange: replacedRange, selection: selection, composing: composing);
+      },
+    },
+    getters: {
+      'oldText': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaReplacement>(target, 'TextEditingDeltaReplacement').oldText,
+      'selection': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaReplacement>(target, 'TextEditingDeltaReplacement').selection,
+      'composing': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaReplacement>(target, 'TextEditingDeltaReplacement').composing,
+      'replacementText': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaReplacement>(target, 'TextEditingDeltaReplacement').replacementText,
+      'replacedRange': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaReplacement>(target, 'TextEditingDeltaReplacement').replacedRange,
+      'textReplaced': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaReplacement>(target, 'TextEditingDeltaReplacement').textReplaced,
+    },
+    methods: {
+      'apply': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_46.TextEditingDeltaReplacement>(target, 'TextEditingDeltaReplacement');
+        D4.requireMinArgs(positional, 1, 'apply');
+        final value = D4.getRequiredArg<$flutter_48.TextEditingValue>(positional, 0, 'value', 'apply');
+        return t.apply(value);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_46.TextEditingDeltaReplacement>(target, 'TextEditingDeltaReplacement');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_46.TextEditingDeltaReplacement>(target, 'TextEditingDeltaReplacement');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_46.TextEditingDeltaReplacement>(target, 'TextEditingDeltaReplacement');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+    },
+    constructorSignatures: {
+      '': 'const TextEditingDeltaReplacement({required String oldText, required String replacementText, required TextRange replacedRange, required TextSelection selection, required TextRange composing})',
+    },
+    methodSignatures: {
+      'apply': 'TextEditingValue apply(TextEditingValue value)',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+    },
+    getterSignatures: {
+      'oldText': 'String get oldText',
+      'selection': 'TextSelection get selection',
+      'composing': 'TextRange get composing',
+      'replacementText': 'String get replacementText',
+      'replacedRange': 'TextRange get replacedRange',
+      'textReplaced': 'String get textReplaced',
+    },
+  );
+}
+
+// =============================================================================
+// TextEditingDeltaNonTextUpdate Bridge
+// =============================================================================
+
+BridgedClass _createTextEditingDeltaNonTextUpdateBridge() {
+  return BridgedClass(
+    nativeType: $flutter_46.TextEditingDeltaNonTextUpdate,
+    name: 'TextEditingDeltaNonTextUpdate',
+    constructors: {
+      '': (visitor, positional, named) {
+        final oldText = D4.getRequiredNamedArg<String>(named, 'oldText', 'TextEditingDeltaNonTextUpdate');
+        final selection = D4.getRequiredNamedArg<$flutter_45.TextSelection>(named, 'selection', 'TextEditingDeltaNonTextUpdate');
+        final composing = D4.getRequiredNamedArg<TextRange>(named, 'composing', 'TextEditingDeltaNonTextUpdate');
+        return $flutter_46.TextEditingDeltaNonTextUpdate(oldText: oldText, selection: selection, composing: composing);
+      },
+    },
+    getters: {
+      'oldText': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaNonTextUpdate>(target, 'TextEditingDeltaNonTextUpdate').oldText,
+      'selection': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaNonTextUpdate>(target, 'TextEditingDeltaNonTextUpdate').selection,
+      'composing': (visitor, target) => D4.validateTarget<$flutter_46.TextEditingDeltaNonTextUpdate>(target, 'TextEditingDeltaNonTextUpdate').composing,
+    },
+    methods: {
+      'apply': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_46.TextEditingDeltaNonTextUpdate>(target, 'TextEditingDeltaNonTextUpdate');
+        D4.requireMinArgs(positional, 1, 'apply');
+        final value = D4.getRequiredArg<$flutter_48.TextEditingValue>(positional, 0, 'value', 'apply');
+        return t.apply(value);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_46.TextEditingDeltaNonTextUpdate>(target, 'TextEditingDeltaNonTextUpdate');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_46.TextEditingDeltaNonTextUpdate>(target, 'TextEditingDeltaNonTextUpdate');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_46.TextEditingDeltaNonTextUpdate>(target, 'TextEditingDeltaNonTextUpdate');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+    },
+    constructorSignatures: {
+      '': 'const TextEditingDeltaNonTextUpdate({required String oldText, required TextSelection selection, required TextRange composing})',
     },
     methodSignatures: {
       'apply': 'TextEditingValue apply(TextEditingValue value)',
@@ -3002,6 +5194,41 @@ BridgedClass _createReadBufferBridge() {
     getterSignatures: {
       'data': 'ByteData get data',
       'hasRemaining': 'bool get hasRemaining',
+    },
+  );
+}
+
+// =============================================================================
+// KeyboardKey Bridge
+// =============================================================================
+
+BridgedClass _createKeyboardKeyBridge() {
+  return BridgedClass(
+    nativeType: $flutter_23.KeyboardKey,
+    name: 'KeyboardKey',
+    constructors: {
+    },
+    methods: {
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_23.KeyboardKey>(target, 'KeyboardKey');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_23.KeyboardKey>(target, 'KeyboardKey');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_23.KeyboardKey>(target, 'KeyboardKey');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+    },
+    methodSignatures: {
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
     },
   );
 }
@@ -4633,6 +6860,286 @@ BridgedClass _createPhysicalKeyboardKeyBridge() {
 }
 
 // =============================================================================
+// KeyEvent Bridge
+// =============================================================================
+
+BridgedClass _createKeyEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_21.KeyEvent,
+    name: 'KeyEvent',
+    constructors: {
+    },
+    getters: {
+      'physicalKey': (visitor, target) => D4.validateTarget<$flutter_21.KeyEvent>(target, 'KeyEvent').physicalKey,
+      'logicalKey': (visitor, target) => D4.validateTarget<$flutter_21.KeyEvent>(target, 'KeyEvent').logicalKey,
+      'character': (visitor, target) => D4.validateTarget<$flutter_21.KeyEvent>(target, 'KeyEvent').character,
+      'timeStamp': (visitor, target) => D4.validateTarget<$flutter_21.KeyEvent>(target, 'KeyEvent').timeStamp,
+      'deviceType': (visitor, target) => D4.validateTarget<$flutter_21.KeyEvent>(target, 'KeyEvent').deviceType,
+      'synthesized': (visitor, target) => D4.validateTarget<$flutter_21.KeyEvent>(target, 'KeyEvent').synthesized,
+    },
+    methods: {
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.KeyEvent>(target, 'KeyEvent');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.KeyEvent>(target, 'KeyEvent');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.KeyEvent>(target, 'KeyEvent');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+    },
+    methodSignatures: {
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+    },
+    getterSignatures: {
+      'physicalKey': 'PhysicalKeyboardKey get physicalKey',
+      'logicalKey': 'LogicalKeyboardKey get logicalKey',
+      'character': 'String? get character',
+      'timeStamp': 'Duration get timeStamp',
+      'deviceType': 'ui.KeyEventDeviceType get deviceType',
+      'synthesized': 'bool get synthesized',
+    },
+  );
+}
+
+// =============================================================================
+// KeyDownEvent Bridge
+// =============================================================================
+
+BridgedClass _createKeyDownEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_21.KeyDownEvent,
+    name: 'KeyDownEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        final physicalKey = D4.getRequiredNamedArg<$flutter_23.PhysicalKeyboardKey>(named, 'physicalKey', 'KeyDownEvent');
+        final logicalKey = D4.getRequiredNamedArg<$flutter_23.LogicalKeyboardKey>(named, 'logicalKey', 'KeyDownEvent');
+        final character = D4.getOptionalNamedArg<String?>(named, 'character');
+        final timeStamp = D4.getRequiredNamedArg<Duration>(named, 'timeStamp', 'KeyDownEvent');
+        final synthesized = D4.getNamedArgWithDefault<bool>(named, 'synthesized', false);
+        if (!named.containsKey('deviceType')) {
+          return $flutter_21.KeyDownEvent(physicalKey: physicalKey, logicalKey: logicalKey, character: character, timeStamp: timeStamp, synthesized: synthesized);
+        }
+        if (named.containsKey('deviceType')) {
+          final deviceType = D4.getRequiredNamedArg<KeyEventDeviceType>(named, 'deviceType', 'KeyDownEvent');
+          return $flutter_21.KeyDownEvent(physicalKey: physicalKey, logicalKey: logicalKey, character: character, timeStamp: timeStamp, synthesized: synthesized, deviceType: deviceType);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
+      },
+    },
+    getters: {
+      'physicalKey': (visitor, target) => D4.validateTarget<$flutter_21.KeyDownEvent>(target, 'KeyDownEvent').physicalKey,
+      'logicalKey': (visitor, target) => D4.validateTarget<$flutter_21.KeyDownEvent>(target, 'KeyDownEvent').logicalKey,
+      'character': (visitor, target) => D4.validateTarget<$flutter_21.KeyDownEvent>(target, 'KeyDownEvent').character,
+      'timeStamp': (visitor, target) => D4.validateTarget<$flutter_21.KeyDownEvent>(target, 'KeyDownEvent').timeStamp,
+      'deviceType': (visitor, target) => D4.validateTarget<$flutter_21.KeyDownEvent>(target, 'KeyDownEvent').deviceType,
+      'synthesized': (visitor, target) => D4.validateTarget<$flutter_21.KeyDownEvent>(target, 'KeyDownEvent').synthesized,
+    },
+    methods: {
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.KeyDownEvent>(target, 'KeyDownEvent');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.KeyDownEvent>(target, 'KeyDownEvent');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.KeyDownEvent>(target, 'KeyDownEvent');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.KeyDownEvent>(target, 'KeyDownEvent');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_2.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+    },
+    constructorSignatures: {
+      '': 'const KeyDownEvent({required PhysicalKeyboardKey physicalKey, required LogicalKeyboardKey logicalKey, String? character, required Duration timeStamp, bool synthesized = false, KeyEventDeviceType deviceType = ui.KeyEventDeviceType.keyboard})',
+    },
+    methodSignatures: {
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+    },
+    getterSignatures: {
+      'physicalKey': 'PhysicalKeyboardKey get physicalKey',
+      'logicalKey': 'LogicalKeyboardKey get logicalKey',
+      'character': 'String? get character',
+      'timeStamp': 'Duration get timeStamp',
+      'deviceType': 'KeyEventDeviceType get deviceType',
+      'synthesized': 'bool get synthesized',
+    },
+  );
+}
+
+// =============================================================================
+// KeyUpEvent Bridge
+// =============================================================================
+
+BridgedClass _createKeyUpEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_21.KeyUpEvent,
+    name: 'KeyUpEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        final physicalKey = D4.getRequiredNamedArg<$flutter_23.PhysicalKeyboardKey>(named, 'physicalKey', 'KeyUpEvent');
+        final logicalKey = D4.getRequiredNamedArg<$flutter_23.LogicalKeyboardKey>(named, 'logicalKey', 'KeyUpEvent');
+        final timeStamp = D4.getRequiredNamedArg<Duration>(named, 'timeStamp', 'KeyUpEvent');
+        final synthesized = D4.getNamedArgWithDefault<bool>(named, 'synthesized', false);
+        if (!named.containsKey('deviceType')) {
+          return $flutter_21.KeyUpEvent(physicalKey: physicalKey, logicalKey: logicalKey, timeStamp: timeStamp, synthesized: synthesized);
+        }
+        if (named.containsKey('deviceType')) {
+          final deviceType = D4.getRequiredNamedArg<KeyEventDeviceType>(named, 'deviceType', 'KeyUpEvent');
+          return $flutter_21.KeyUpEvent(physicalKey: physicalKey, logicalKey: logicalKey, timeStamp: timeStamp, synthesized: synthesized, deviceType: deviceType);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
+      },
+    },
+    getters: {
+      'physicalKey': (visitor, target) => D4.validateTarget<$flutter_21.KeyUpEvent>(target, 'KeyUpEvent').physicalKey,
+      'logicalKey': (visitor, target) => D4.validateTarget<$flutter_21.KeyUpEvent>(target, 'KeyUpEvent').logicalKey,
+      'character': (visitor, target) => D4.validateTarget<$flutter_21.KeyUpEvent>(target, 'KeyUpEvent').character,
+      'timeStamp': (visitor, target) => D4.validateTarget<$flutter_21.KeyUpEvent>(target, 'KeyUpEvent').timeStamp,
+      'deviceType': (visitor, target) => D4.validateTarget<$flutter_21.KeyUpEvent>(target, 'KeyUpEvent').deviceType,
+      'synthesized': (visitor, target) => D4.validateTarget<$flutter_21.KeyUpEvent>(target, 'KeyUpEvent').synthesized,
+    },
+    methods: {
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.KeyUpEvent>(target, 'KeyUpEvent');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.KeyUpEvent>(target, 'KeyUpEvent');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.KeyUpEvent>(target, 'KeyUpEvent');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.KeyUpEvent>(target, 'KeyUpEvent');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_2.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+    },
+    constructorSignatures: {
+      '': 'const KeyUpEvent({required PhysicalKeyboardKey physicalKey, required LogicalKeyboardKey logicalKey, required Duration timeStamp, bool synthesized = false, KeyEventDeviceType deviceType = ui.KeyEventDeviceType.keyboard})',
+    },
+    methodSignatures: {
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+    },
+    getterSignatures: {
+      'physicalKey': 'PhysicalKeyboardKey get physicalKey',
+      'logicalKey': 'LogicalKeyboardKey get logicalKey',
+      'character': 'String? get character',
+      'timeStamp': 'Duration get timeStamp',
+      'deviceType': 'KeyEventDeviceType get deviceType',
+      'synthesized': 'bool get synthesized',
+    },
+  );
+}
+
+// =============================================================================
+// KeyRepeatEvent Bridge
+// =============================================================================
+
+BridgedClass _createKeyRepeatEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_21.KeyRepeatEvent,
+    name: 'KeyRepeatEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        final physicalKey = D4.getRequiredNamedArg<$flutter_23.PhysicalKeyboardKey>(named, 'physicalKey', 'KeyRepeatEvent');
+        final logicalKey = D4.getRequiredNamedArg<$flutter_23.LogicalKeyboardKey>(named, 'logicalKey', 'KeyRepeatEvent');
+        final character = D4.getOptionalNamedArg<String?>(named, 'character');
+        final timeStamp = D4.getRequiredNamedArg<Duration>(named, 'timeStamp', 'KeyRepeatEvent');
+        if (!named.containsKey('deviceType')) {
+          return $flutter_21.KeyRepeatEvent(physicalKey: physicalKey, logicalKey: logicalKey, character: character, timeStamp: timeStamp);
+        }
+        if (named.containsKey('deviceType')) {
+          final deviceType = D4.getRequiredNamedArg<KeyEventDeviceType>(named, 'deviceType', 'KeyRepeatEvent');
+          return $flutter_21.KeyRepeatEvent(physicalKey: physicalKey, logicalKey: logicalKey, character: character, timeStamp: timeStamp, deviceType: deviceType);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
+      },
+    },
+    getters: {
+      'physicalKey': (visitor, target) => D4.validateTarget<$flutter_21.KeyRepeatEvent>(target, 'KeyRepeatEvent').physicalKey,
+      'logicalKey': (visitor, target) => D4.validateTarget<$flutter_21.KeyRepeatEvent>(target, 'KeyRepeatEvent').logicalKey,
+      'character': (visitor, target) => D4.validateTarget<$flutter_21.KeyRepeatEvent>(target, 'KeyRepeatEvent').character,
+      'timeStamp': (visitor, target) => D4.validateTarget<$flutter_21.KeyRepeatEvent>(target, 'KeyRepeatEvent').timeStamp,
+      'deviceType': (visitor, target) => D4.validateTarget<$flutter_21.KeyRepeatEvent>(target, 'KeyRepeatEvent').deviceType,
+      'synthesized': (visitor, target) => D4.validateTarget<$flutter_21.KeyRepeatEvent>(target, 'KeyRepeatEvent').synthesized,
+    },
+    methods: {
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.KeyRepeatEvent>(target, 'KeyRepeatEvent');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.KeyRepeatEvent>(target, 'KeyRepeatEvent');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_2.DiagnosticLevel>(named, 'minLevel', $flutter_2.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.KeyRepeatEvent>(target, 'KeyRepeatEvent');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_2.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.KeyRepeatEvent>(target, 'KeyRepeatEvent');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_2.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+    },
+    constructorSignatures: {
+      '': 'const KeyRepeatEvent({required PhysicalKeyboardKey physicalKey, required LogicalKeyboardKey logicalKey, String? character, required Duration timeStamp, KeyEventDeviceType deviceType = ui.KeyEventDeviceType.keyboard})',
+    },
+    methodSignatures: {
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+    },
+    getterSignatures: {
+      'physicalKey': 'PhysicalKeyboardKey get physicalKey',
+      'logicalKey': 'LogicalKeyboardKey get logicalKey',
+      'character': 'String? get character',
+      'timeStamp': 'Duration get timeStamp',
+      'deviceType': 'KeyEventDeviceType get deviceType',
+      'synthesized': 'bool get synthesized',
+    },
+  );
+}
+
+// =============================================================================
 // HardwareKeyboard Bridge
 // =============================================================================
 
@@ -4795,6 +7302,122 @@ BridgedClass _createRestorationManagerBridge() {
     getterSignatures: {
       'rootBucket': 'Future<RestorationBucket?> get rootBucket',
       'isReplacing': 'bool get isReplacing',
+    },
+  );
+}
+
+// =============================================================================
+// RestorationBucket Bridge
+// =============================================================================
+
+BridgedClass _createRestorationBucketBridge() {
+  return BridgedClass(
+    nativeType: $flutter_35.RestorationBucket,
+    name: 'RestorationBucket',
+    constructors: {
+      'empty': (visitor, positional, named) {
+        final restorationId = D4.getRequiredNamedArg<String>(named, 'restorationId', 'RestorationBucket');
+        final debugOwner = D4.getRequiredNamedArg<Object?>(named, 'debugOwner', 'RestorationBucket');
+        return $flutter_35.RestorationBucket.empty(restorationId: restorationId, debugOwner: debugOwner);
+      },
+      'root': (visitor, positional, named) {
+        final manager = D4.getRequiredNamedArg<$flutter_35.RestorationManager>(named, 'manager', 'RestorationBucket');
+        if (!named.containsKey('rawData')) {
+          throw ArgumentError('RestorationBucket: Missing required named argument "rawData"');
+        }
+        final rawData = D4.coerceMapOrNull<Object?, Object?>(named['rawData'], 'rawData');
+        return $flutter_35.RestorationBucket.root(manager: manager, rawData: rawData);
+      },
+      'child': (visitor, positional, named) {
+        final restorationId = D4.getRequiredNamedArg<String>(named, 'restorationId', 'RestorationBucket');
+        final parent = D4.getRequiredNamedArg<$flutter_35.RestorationBucket>(named, 'parent', 'RestorationBucket');
+        final debugOwner = D4.getRequiredNamedArg<Object?>(named, 'debugOwner', 'RestorationBucket');
+        return $flutter_35.RestorationBucket.child(restorationId: restorationId, parent: parent, debugOwner: debugOwner);
+      },
+    },
+    getters: {
+      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_35.RestorationBucket>(target, 'RestorationBucket').debugOwner,
+      'isReplacing': (visitor, target) => D4.validateTarget<$flutter_35.RestorationBucket>(target, 'RestorationBucket').isReplacing,
+      'restorationId': (visitor, target) => D4.validateTarget<$flutter_35.RestorationBucket>(target, 'RestorationBucket').restorationId,
+    },
+    methods: {
+      'read': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_35.RestorationBucket>(target, 'RestorationBucket');
+        D4.requireMinArgs(positional, 1, 'read');
+        final restorationId = D4.getRequiredArg<String>(positional, 0, 'restorationId', 'read');
+        return t.read(restorationId);
+      },
+      'write': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_35.RestorationBucket>(target, 'RestorationBucket');
+        D4.requireMinArgs(positional, 2, 'write');
+        final restorationId = D4.getRequiredArg<String>(positional, 0, 'restorationId', 'write');
+        final value = D4.getRequiredArg<dynamic>(positional, 1, 'value', 'write');
+        t.write(restorationId, value);
+        return null;
+      },
+      'remove': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_35.RestorationBucket>(target, 'RestorationBucket');
+        D4.requireMinArgs(positional, 1, 'remove');
+        final restorationId = D4.getRequiredArg<String>(positional, 0, 'restorationId', 'remove');
+        return t.remove(restorationId);
+      },
+      'contains': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_35.RestorationBucket>(target, 'RestorationBucket');
+        D4.requireMinArgs(positional, 1, 'contains');
+        final restorationId = D4.getRequiredArg<String>(positional, 0, 'restorationId', 'contains');
+        return t.contains(restorationId);
+      },
+      'claimChild': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_35.RestorationBucket>(target, 'RestorationBucket');
+        D4.requireMinArgs(positional, 1, 'claimChild');
+        final restorationId = D4.getRequiredArg<String>(positional, 0, 'restorationId', 'claimChild');
+        final debugOwner = D4.getRequiredNamedArg<Object?>(named, 'debugOwner', 'claimChild');
+        return t.claimChild(restorationId, debugOwner: debugOwner);
+      },
+      'adoptChild': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_35.RestorationBucket>(target, 'RestorationBucket');
+        D4.requireMinArgs(positional, 1, 'adoptChild');
+        final child = D4.getRequiredArg<$flutter_35.RestorationBucket>(positional, 0, 'child', 'adoptChild');
+        t.adoptChild(child);
+        return null;
+      },
+      'rename': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_35.RestorationBucket>(target, 'RestorationBucket');
+        D4.requireMinArgs(positional, 1, 'rename');
+        final newRestorationId = D4.getRequiredArg<String>(positional, 0, 'newRestorationId', 'rename');
+        t.rename(newRestorationId);
+        return null;
+      },
+      'dispose': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_35.RestorationBucket>(target, 'RestorationBucket');
+        (t as dynamic).dispose();
+        return null;
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_35.RestorationBucket>(target, 'RestorationBucket');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      'empty': 'RestorationBucket.empty({required String restorationId, required Object? debugOwner})',
+      'root': 'RestorationBucket.root({required RestorationManager manager, required Map<Object?, Object?>? rawData})',
+      'child': 'RestorationBucket.child({required String restorationId, required RestorationBucket parent, required Object? debugOwner})',
+    },
+    methodSignatures: {
+      'read': 'P? read(String restorationId)',
+      'write': 'void write(String restorationId, P value)',
+      'remove': 'P? remove(String restorationId)',
+      'contains': 'bool contains(String restorationId)',
+      'claimChild': 'RestorationBucket claimChild(String restorationId, {required Object? debugOwner})',
+      'adoptChild': 'void adoptChild(RestorationBucket child)',
+      'rename': 'void rename(String newRestorationId)',
+      'dispose': 'void dispose()',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'debugOwner': 'Object? get debugOwner',
+      'isReplacing': 'bool get isReplacing',
+      'restorationId': 'String get restorationId',
     },
   );
 }

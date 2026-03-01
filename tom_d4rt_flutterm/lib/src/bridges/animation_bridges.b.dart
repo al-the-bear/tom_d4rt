@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 11 files
-// Generated: 2026-02-28T15:11:21.718153
+// Generated: 2026-03-01T03:22:23.624577
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -24,6 +24,7 @@ import 'package:flutter/src/physics/simulation.dart' as $flutter_11;
 import 'package:flutter/src/physics/spring_simulation.dart' as $flutter_12;
 import 'package:flutter/src/physics/tolerance.dart' as $flutter_13;
 import 'package:flutter/src/scheduler/ticker.dart' as $flutter_14;
+import 'package:flutter/cupertino.dart' as $aux_flutter;
 
 /// Bridge class for flutter_animation module.
 class FlutterAnimationBridge {
@@ -34,8 +35,33 @@ class FlutterAnimationBridge {
       _createTickerFutureBridge(),
       _createTickerCanceledBridge(),
       _createAnimationBridge(),
+      _createParametricCurveBridge(),
       _createCurveBridge(),
+      _createSawToothBridge(),
+      _createIntervalBridge(),
+      _createSplitBridge(),
+      _createThresholdBridge(),
+      _createCubicBridge(),
+      _createThreePointCubicBridge(),
+      _createCurve2DBridge(),
+      _createCurve2DSampleBridge(),
+      _createCatmullRomSplineBridge(),
+      _createCatmullRomCurveBridge(),
+      _createFlippedCurveBridge(),
+      _createElasticInCurveBridge(),
+      _createElasticOutCurveBridge(),
+      _createElasticInOutCurveBridge(),
+      _createCurvesBridge(),
       _createAnimatableBridge(),
+      _createTweenBridge(),
+      _createReverseTweenBridge(),
+      _createColorTweenBridge(),
+      _createSizeTweenBridge(),
+      _createRectTweenBridge(),
+      _createIntTweenBridge(),
+      _createStepTweenBridge(),
+      _createConstantTweenBridge(),
+      _createCurveTweenBridge(),
       _createSimulationBridge(),
       _createSpringDescriptionBridge(),
       _createAnimationControllerBridge(),
@@ -70,8 +96,33 @@ class FlutterAnimationBridge {
       'TickerFuture': 'package:flutter/src/scheduler/ticker.dart',
       'TickerCanceled': 'package:flutter/src/scheduler/ticker.dart',
       'Animation': 'package:flutter/src/animation/animation.dart',
+      'ParametricCurve': 'package:flutter/src/animation/curves.dart',
       'Curve': 'package:flutter/src/animation/curves.dart',
+      'SawTooth': 'package:flutter/src/animation/curves.dart',
+      'Interval': 'package:flutter/src/animation/curves.dart',
+      'Split': 'package:flutter/src/animation/curves.dart',
+      'Threshold': 'package:flutter/src/animation/curves.dart',
+      'Cubic': 'package:flutter/src/animation/curves.dart',
+      'ThreePointCubic': 'package:flutter/src/animation/curves.dart',
+      'Curve2D': 'package:flutter/src/animation/curves.dart',
+      'Curve2DSample': 'package:flutter/src/animation/curves.dart',
+      'CatmullRomSpline': 'package:flutter/src/animation/curves.dart',
+      'CatmullRomCurve': 'package:flutter/src/animation/curves.dart',
+      'FlippedCurve': 'package:flutter/src/animation/curves.dart',
+      'ElasticInCurve': 'package:flutter/src/animation/curves.dart',
+      'ElasticOutCurve': 'package:flutter/src/animation/curves.dart',
+      'ElasticInOutCurve': 'package:flutter/src/animation/curves.dart',
+      'Curves': 'package:flutter/src/animation/curves.dart',
       'Animatable': 'package:flutter/src/animation/tween.dart',
+      'Tween': 'package:flutter/src/animation/tween.dart',
+      'ReverseTween': 'package:flutter/src/animation/tween.dart',
+      'ColorTween': 'package:flutter/src/animation/tween.dart',
+      'SizeTween': 'package:flutter/src/animation/tween.dart',
+      'RectTween': 'package:flutter/src/animation/tween.dart',
+      'IntTween': 'package:flutter/src/animation/tween.dart',
+      'StepTween': 'package:flutter/src/animation/tween.dart',
+      'ConstantTween': 'package:flutter/src/animation/tween.dart',
+      'CurveTween': 'package:flutter/src/animation/tween.dart',
       'Simulation': 'package:flutter/src/physics/simulation.dart',
       'SpringDescription': 'package:flutter/src/physics/spring_simulation.dart',
       'AnimationController': 'package:flutter/src/animation/animation_controller.dart',
@@ -99,6 +150,16 @@ class FlutterAnimationBridge {
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
+      BridgedEnumDefinition<$flutter_1.AnimationStatus>(
+        name: 'AnimationStatus',
+        values: $flutter_1.AnimationStatus.values,
+        getters: {
+          'isDismissed': (visitor, target) => (target as $flutter_1.AnimationStatus).isDismissed,
+          'isCompleted': (visitor, target) => (target as $flutter_1.AnimationStatus).isCompleted,
+          'isAnimating': (visitor, target) => (target as $flutter_1.AnimationStatus).isAnimating,
+          'isForwardOrCompleted': (visitor, target) => (target as $flutter_1.AnimationStatus).isForwardOrCompleted,
+        },
+      ),
       BridgedEnumDefinition<$flutter_2.AnimationBehavior>(
         name: 'AnimationBehavior',
         values: $flutter_2.AnimationBehavior.values,
@@ -112,6 +173,7 @@ class FlutterAnimationBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
     return {
+      'AnimationStatus': 'package:flutter/src/animation/animation.dart',
       'AnimationBehavior': 'package:flutter/src/animation/animation_controller.dart',
     };
   }
@@ -231,6 +293,7 @@ class FlutterAnimationBridge {
 
   /// Returns a list of bridged enum names.
   static List<String> get enumNames => [
+    'AnimationStatus',
     'AnimationBehavior',
   ];
 
@@ -489,6 +552,35 @@ BridgedClass _createAnimationBridge() {
 }
 
 // =============================================================================
+// ParametricCurve Bridge
+// =============================================================================
+
+BridgedClass _createParametricCurveBridge() {
+  return BridgedClass(
+    nativeType: $flutter_5.ParametricCurve,
+    name: 'ParametricCurve',
+    constructors: {
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.ParametricCurve>(target, 'ParametricCurve');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.ParametricCurve>(target, 'ParametricCurve');
+        return t.toString();
+      },
+    },
+    methodSignatures: {
+      'transform': 'T transform(double t)',
+      'toString': 'String toString()',
+    },
+  );
+}
+
+// =============================================================================
 // Curve Bridge
 // =============================================================================
 
@@ -519,6 +611,818 @@ BridgedClass _createCurveBridge() {
     },
     getterSignatures: {
       'flipped': 'Curve get flipped',
+    },
+  );
+}
+
+// =============================================================================
+// SawTooth Bridge
+// =============================================================================
+
+BridgedClass _createSawToothBridge() {
+  return BridgedClass(
+    nativeType: $flutter_5.SawTooth,
+    name: 'SawTooth',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'SawTooth');
+        final count = D4.getRequiredArg<int>(positional, 0, 'count', 'SawTooth');
+        return $flutter_5.SawTooth(count);
+      },
+    },
+    getters: {
+      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.SawTooth>(target, 'SawTooth').flipped,
+      'count': (visitor, target) => D4.validateTarget<$flutter_5.SawTooth>(target, 'SawTooth').count,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.SawTooth>(target, 'SawTooth');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.SawTooth>(target, 'SawTooth');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SawTooth(int count)',
+    },
+    methodSignatures: {
+      'transform': 'double transform(double t)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'flipped': 'Curve get flipped',
+      'count': 'int get count',
+    },
+  );
+}
+
+// =============================================================================
+// Interval Bridge
+// =============================================================================
+
+BridgedClass _createIntervalBridge() {
+  return BridgedClass(
+    nativeType: $flutter_5.Interval,
+    name: 'Interval',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'Interval');
+        final begin = D4.getRequiredArg<double>(positional, 0, 'begin', 'Interval');
+        final end = D4.getRequiredArg<double>(positional, 1, 'end', 'Interval');
+        final curve = D4.getNamedArgWithDefault<$flutter_5.Curve>(named, 'curve', $aux_flutter.Curves.linear);
+        return $flutter_5.Interval(begin, end, curve: curve);
+      },
+    },
+    getters: {
+      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.Interval>(target, 'Interval').flipped,
+      'begin': (visitor, target) => D4.validateTarget<$flutter_5.Interval>(target, 'Interval').begin,
+      'end': (visitor, target) => D4.validateTarget<$flutter_5.Interval>(target, 'Interval').end,
+      'curve': (visitor, target) => D4.validateTarget<$flutter_5.Interval>(target, 'Interval').curve,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.Interval>(target, 'Interval');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.Interval>(target, 'Interval');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const Interval(double begin, double end, {Curve curve = Curves.linear})',
+    },
+    methodSignatures: {
+      'transform': 'double transform(double t)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'flipped': 'Curve get flipped',
+      'begin': 'double get begin',
+      'end': 'double get end',
+      'curve': 'Curve get curve',
+    },
+  );
+}
+
+// =============================================================================
+// Split Bridge
+// =============================================================================
+
+BridgedClass _createSplitBridge() {
+  return BridgedClass(
+    nativeType: $flutter_5.Split,
+    name: 'Split',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'Split');
+        final split = D4.getRequiredArg<double>(positional, 0, 'split', 'Split');
+        final beginCurve = D4.getNamedArgWithDefault<$flutter_5.Curve>(named, 'beginCurve', $aux_flutter.Curves.linear);
+        final endCurve = D4.getNamedArgWithDefault<$flutter_5.Curve>(named, 'endCurve', $aux_flutter.Curves.easeOutCubic);
+        return $flutter_5.Split(split, beginCurve: beginCurve, endCurve: endCurve);
+      },
+    },
+    getters: {
+      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.Split>(target, 'Split').flipped,
+      'split': (visitor, target) => D4.validateTarget<$flutter_5.Split>(target, 'Split').split,
+      'beginCurve': (visitor, target) => D4.validateTarget<$flutter_5.Split>(target, 'Split').beginCurve,
+      'endCurve': (visitor, target) => D4.validateTarget<$flutter_5.Split>(target, 'Split').endCurve,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.Split>(target, 'Split');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.Split>(target, 'Split');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const Split(double split, {Curve beginCurve = Curves.linear, Curve endCurve = Curves.easeOutCubic})',
+    },
+    methodSignatures: {
+      'transform': 'double transform(double t)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'flipped': 'Curve get flipped',
+      'split': 'double get split',
+      'beginCurve': 'Curve get beginCurve',
+      'endCurve': 'Curve get endCurve',
+    },
+  );
+}
+
+// =============================================================================
+// Threshold Bridge
+// =============================================================================
+
+BridgedClass _createThresholdBridge() {
+  return BridgedClass(
+    nativeType: $flutter_5.Threshold,
+    name: 'Threshold',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'Threshold');
+        final threshold = D4.getRequiredArg<double>(positional, 0, 'threshold', 'Threshold');
+        return $flutter_5.Threshold(threshold);
+      },
+    },
+    getters: {
+      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.Threshold>(target, 'Threshold').flipped,
+      'threshold': (visitor, target) => D4.validateTarget<$flutter_5.Threshold>(target, 'Threshold').threshold,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.Threshold>(target, 'Threshold');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.Threshold>(target, 'Threshold');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const Threshold(double threshold)',
+    },
+    methodSignatures: {
+      'transform': 'double transform(double t)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'flipped': 'Curve get flipped',
+      'threshold': 'double get threshold',
+    },
+  );
+}
+
+// =============================================================================
+// Cubic Bridge
+// =============================================================================
+
+BridgedClass _createCubicBridge() {
+  return BridgedClass(
+    nativeType: $flutter_5.Cubic,
+    name: 'Cubic',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 4, 'Cubic');
+        final a = D4.getRequiredArg<double>(positional, 0, 'a', 'Cubic');
+        final b = D4.getRequiredArg<double>(positional, 1, 'b', 'Cubic');
+        final c = D4.getRequiredArg<double>(positional, 2, 'c', 'Cubic');
+        final d = D4.getRequiredArg<double>(positional, 3, 'd', 'Cubic');
+        return $flutter_5.Cubic(a, b, c, d);
+      },
+    },
+    getters: {
+      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic').flipped,
+      'a': (visitor, target) => D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic').a,
+      'b': (visitor, target) => D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic').b,
+      'c': (visitor, target) => D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic').c,
+      'd': (visitor, target) => D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic').d,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const Cubic(double a, double b, double c, double d)',
+    },
+    methodSignatures: {
+      'transform': 'double transform(double t)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'flipped': 'Curve get flipped',
+      'a': 'double get a',
+      'b': 'double get b',
+      'c': 'double get c',
+      'd': 'double get d',
+    },
+  );
+}
+
+// =============================================================================
+// ThreePointCubic Bridge
+// =============================================================================
+
+BridgedClass _createThreePointCubicBridge() {
+  return BridgedClass(
+    nativeType: $flutter_5.ThreePointCubic,
+    name: 'ThreePointCubic',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 5, 'ThreePointCubic');
+        final a1 = D4.getRequiredArg<Offset>(positional, 0, 'a1', 'ThreePointCubic');
+        final b1 = D4.getRequiredArg<Offset>(positional, 1, 'b1', 'ThreePointCubic');
+        final midpoint = D4.getRequiredArg<Offset>(positional, 2, 'midpoint', 'ThreePointCubic');
+        final a2 = D4.getRequiredArg<Offset>(positional, 3, 'a2', 'ThreePointCubic');
+        final b2 = D4.getRequiredArg<Offset>(positional, 4, 'b2', 'ThreePointCubic');
+        return $flutter_5.ThreePointCubic(a1, b1, midpoint, a2, b2);
+      },
+    },
+    getters: {
+      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic').flipped,
+      'a1': (visitor, target) => D4.validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic').a1,
+      'b1': (visitor, target) => D4.validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic').b1,
+      'midpoint': (visitor, target) => D4.validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic').midpoint,
+      'a2': (visitor, target) => D4.validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic').a2,
+      'b2': (visitor, target) => D4.validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic').b2,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const ThreePointCubic(Offset a1, Offset b1, Offset midpoint, Offset a2, Offset b2)',
+    },
+    methodSignatures: {
+      'transform': 'double transform(double t)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'flipped': 'Curve get flipped',
+      'a1': 'Offset get a1',
+      'b1': 'Offset get b1',
+      'midpoint': 'Offset get midpoint',
+      'a2': 'Offset get a2',
+      'b2': 'Offset get b2',
+    },
+  );
+}
+
+// =============================================================================
+// Curve2D Bridge
+// =============================================================================
+
+BridgedClass _createCurve2DBridge() {
+  return BridgedClass(
+    nativeType: $flutter_5.Curve2D,
+    name: 'Curve2D',
+    constructors: {
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.Curve2D>(target, 'Curve2D');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.Curve2D>(target, 'Curve2D');
+        return t.toString();
+      },
+      'generateSamples': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.Curve2D>(target, 'Curve2D');
+        final start = D4.getNamedArgWithDefault<double>(named, 'start', 0.0);
+        final end = D4.getNamedArgWithDefault<double>(named, 'end', 1.0);
+        final tolerance = D4.getNamedArgWithDefault<double>(named, 'tolerance', 1e-10);
+        return t.generateSamples(start: start, end: end, tolerance: tolerance);
+      },
+      'findInverse': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.Curve2D>(target, 'Curve2D');
+        D4.requireMinArgs(positional, 1, 'findInverse');
+        final x = D4.getRequiredArg<double>(positional, 0, 'x', 'findInverse');
+        return t.findInverse(x);
+      },
+    },
+    methodSignatures: {
+      'transform': 'Offset transform(double t)',
+      'toString': 'String toString()',
+      'generateSamples': 'Iterable<Curve2DSample> generateSamples({double start = 0.0, double end = 1.0, double tolerance = 1e-10})',
+      'findInverse': 'double findInverse(double x)',
+    },
+  );
+}
+
+// =============================================================================
+// Curve2DSample Bridge
+// =============================================================================
+
+BridgedClass _createCurve2DSampleBridge() {
+  return BridgedClass(
+    nativeType: $flutter_5.Curve2DSample,
+    name: 'Curve2DSample',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'Curve2DSample');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'Curve2DSample');
+        final value = D4.getRequiredArg<Offset>(positional, 1, 'value', 'Curve2DSample');
+        return $flutter_5.Curve2DSample(t_, value);
+      },
+    },
+    getters: {
+      't': (visitor, target) => D4.validateTarget<$flutter_5.Curve2DSample>(target, 'Curve2DSample').t,
+      'value': (visitor, target) => D4.validateTarget<$flutter_5.Curve2DSample>(target, 'Curve2DSample').value,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.Curve2DSample>(target, 'Curve2DSample');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const Curve2DSample(double t, Offset value)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      't': 'double get t',
+      'value': 'Offset get value',
+    },
+  );
+}
+
+// =============================================================================
+// CatmullRomSpline Bridge
+// =============================================================================
+
+BridgedClass _createCatmullRomSplineBridge() {
+  return BridgedClass(
+    nativeType: $flutter_5.CatmullRomSpline,
+    name: 'CatmullRomSpline',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'CatmullRomSpline');
+        if (positional.isEmpty) {
+          throw ArgumentError('CatmullRomSpline: Missing required argument "controlPoints" at position 0');
+        }
+        final controlPoints = D4.coerceList<Offset>(positional[0], 'controlPoints');
+        final tension = D4.getNamedArgWithDefault<double>(named, 'tension', 0.0);
+        final startHandle = D4.getOptionalNamedArg<Offset?>(named, 'startHandle');
+        final endHandle = D4.getOptionalNamedArg<Offset?>(named, 'endHandle');
+        return $flutter_5.CatmullRomSpline(controlPoints, tension: tension, startHandle: startHandle, endHandle: endHandle);
+      },
+      'precompute': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'CatmullRomSpline');
+        if (positional.isEmpty) {
+          throw ArgumentError('CatmullRomSpline: Missing required argument "controlPoints" at position 0');
+        }
+        final controlPoints = D4.coerceList<Offset>(positional[0], 'controlPoints');
+        final tension = D4.getNamedArgWithDefault<double>(named, 'tension', 0.0);
+        final startHandle = D4.getOptionalNamedArg<Offset?>(named, 'startHandle');
+        final endHandle = D4.getOptionalNamedArg<Offset?>(named, 'endHandle');
+        return $flutter_5.CatmullRomSpline.precompute(controlPoints, tension: tension, startHandle: startHandle, endHandle: endHandle);
+      },
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.CatmullRomSpline>(target, 'CatmullRomSpline');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.CatmullRomSpline>(target, 'CatmullRomSpline');
+        return t.toString();
+      },
+      'generateSamples': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.CatmullRomSpline>(target, 'CatmullRomSpline');
+        final start = D4.getNamedArgWithDefault<double>(named, 'start', 0.0);
+        final end = D4.getNamedArgWithDefault<double>(named, 'end', 1.0);
+        final tolerance = D4.getNamedArgWithDefault<double>(named, 'tolerance', 1e-10);
+        return t.generateSamples(start: start, end: end, tolerance: tolerance);
+      },
+      'findInverse': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.CatmullRomSpline>(target, 'CatmullRomSpline');
+        D4.requireMinArgs(positional, 1, 'findInverse');
+        final x = D4.getRequiredArg<double>(positional, 0, 'x', 'findInverse');
+        return t.findInverse(x);
+      },
+    },
+    constructorSignatures: {
+      '': 'CatmullRomSpline(List<Offset> controlPoints, {double tension = 0.0, Offset? startHandle, Offset? endHandle})',
+      'precompute': 'CatmullRomSpline.precompute(List<Offset> controlPoints, {double tension = 0.0, Offset? startHandle, Offset? endHandle})',
+    },
+    methodSignatures: {
+      'transform': 'Offset transform(double t)',
+      'toString': 'String toString()',
+      'generateSamples': 'Iterable<Curve2DSample> generateSamples({double start = 0.0, double end = 1.0, double tolerance = 1e-10})',
+      'findInverse': 'double findInverse(double x)',
+    },
+  );
+}
+
+// =============================================================================
+// CatmullRomCurve Bridge
+// =============================================================================
+
+BridgedClass _createCatmullRomCurveBridge() {
+  return BridgedClass(
+    nativeType: $flutter_5.CatmullRomCurve,
+    name: 'CatmullRomCurve',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'CatmullRomCurve');
+        if (positional.isEmpty) {
+          throw ArgumentError('CatmullRomCurve: Missing required argument "controlPoints" at position 0');
+        }
+        final controlPoints = D4.coerceList<Offset>(positional[0], 'controlPoints');
+        final tension = D4.getNamedArgWithDefault<double>(named, 'tension', 0.0);
+        return $flutter_5.CatmullRomCurve(controlPoints, tension: tension);
+      },
+      'precompute': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'CatmullRomCurve');
+        if (positional.isEmpty) {
+          throw ArgumentError('CatmullRomCurve: Missing required argument "controlPoints" at position 0');
+        }
+        final controlPoints = D4.coerceList<Offset>(positional[0], 'controlPoints');
+        final tension = D4.getNamedArgWithDefault<double>(named, 'tension', 0.0);
+        return $flutter_5.CatmullRomCurve.precompute(controlPoints, tension: tension);
+      },
+    },
+    getters: {
+      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.CatmullRomCurve>(target, 'CatmullRomCurve').flipped,
+      'controlPoints': (visitor, target) => D4.validateTarget<$flutter_5.CatmullRomCurve>(target, 'CatmullRomCurve').controlPoints,
+      'tension': (visitor, target) => D4.validateTarget<$flutter_5.CatmullRomCurve>(target, 'CatmullRomCurve').tension,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.CatmullRomCurve>(target, 'CatmullRomCurve');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.CatmullRomCurve>(target, 'CatmullRomCurve');
+        return t.toString();
+      },
+    },
+    staticMethods: {
+      'validateControlPoints': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'validateControlPoints');
+        if (positional.isEmpty) {
+          throw ArgumentError('validateControlPoints: Missing required argument "controlPoints" at position 0');
+        }
+        final controlPoints = D4.coerceListOrNull<Offset>(positional[0], 'controlPoints');
+        final tension = D4.getNamedArgWithDefault<double>(named, 'tension', 0.0);
+        final reasons = D4.coerceListOrNull<String>(named['reasons'], 'reasons');
+        return $flutter_5.CatmullRomCurve.validateControlPoints(controlPoints, tension: tension, reasons: reasons);
+      },
+    },
+    constructorSignatures: {
+      '': 'CatmullRomCurve(List<Offset> controlPoints, {double tension = 0.0})',
+      'precompute': 'CatmullRomCurve.precompute(List<Offset> controlPoints, {double tension = 0.0})',
+    },
+    methodSignatures: {
+      'transform': 'double transform(double t)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'flipped': 'Curve get flipped',
+      'controlPoints': 'List<Offset> get controlPoints',
+      'tension': 'double get tension',
+    },
+    staticMethodSignatures: {
+      'validateControlPoints': 'bool validateControlPoints(List<Offset>? controlPoints, {double tension = 0.0, List<String>? reasons})',
+    },
+  );
+}
+
+// =============================================================================
+// FlippedCurve Bridge
+// =============================================================================
+
+BridgedClass _createFlippedCurveBridge() {
+  return BridgedClass(
+    nativeType: $flutter_5.FlippedCurve,
+    name: 'FlippedCurve',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'FlippedCurve');
+        final curve = D4.getRequiredArg<$flutter_5.Curve>(positional, 0, 'curve', 'FlippedCurve');
+        return $flutter_5.FlippedCurve(curve);
+      },
+    },
+    getters: {
+      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.FlippedCurve>(target, 'FlippedCurve').flipped,
+      'curve': (visitor, target) => D4.validateTarget<$flutter_5.FlippedCurve>(target, 'FlippedCurve').curve,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.FlippedCurve>(target, 'FlippedCurve');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.FlippedCurve>(target, 'FlippedCurve');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const FlippedCurve(Curve curve)',
+    },
+    methodSignatures: {
+      'transform': 'double transform(double t)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'flipped': 'Curve get flipped',
+      'curve': 'Curve get curve',
+    },
+  );
+}
+
+// =============================================================================
+// ElasticInCurve Bridge
+// =============================================================================
+
+BridgedClass _createElasticInCurveBridge() {
+  return BridgedClass(
+    nativeType: $flutter_5.ElasticInCurve,
+    name: 'ElasticInCurve',
+    constructors: {
+      '': (visitor, positional, named) {
+        final period = D4.getOptionalArgWithDefault<double>(positional, 0, 'period', 0.4);
+        return $flutter_5.ElasticInCurve(period);
+      },
+    },
+    getters: {
+      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.ElasticInCurve>(target, 'ElasticInCurve').flipped,
+      'period': (visitor, target) => D4.validateTarget<$flutter_5.ElasticInCurve>(target, 'ElasticInCurve').period,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.ElasticInCurve>(target, 'ElasticInCurve');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.ElasticInCurve>(target, 'ElasticInCurve');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const ElasticInCurve([double period = 0.4])',
+    },
+    methodSignatures: {
+      'transform': 'double transform(double t)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'flipped': 'Curve get flipped',
+      'period': 'double get period',
+    },
+  );
+}
+
+// =============================================================================
+// ElasticOutCurve Bridge
+// =============================================================================
+
+BridgedClass _createElasticOutCurveBridge() {
+  return BridgedClass(
+    nativeType: $flutter_5.ElasticOutCurve,
+    name: 'ElasticOutCurve',
+    constructors: {
+      '': (visitor, positional, named) {
+        final period = D4.getOptionalArgWithDefault<double>(positional, 0, 'period', 0.4);
+        return $flutter_5.ElasticOutCurve(period);
+      },
+    },
+    getters: {
+      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.ElasticOutCurve>(target, 'ElasticOutCurve').flipped,
+      'period': (visitor, target) => D4.validateTarget<$flutter_5.ElasticOutCurve>(target, 'ElasticOutCurve').period,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.ElasticOutCurve>(target, 'ElasticOutCurve');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.ElasticOutCurve>(target, 'ElasticOutCurve');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const ElasticOutCurve([double period = 0.4])',
+    },
+    methodSignatures: {
+      'transform': 'double transform(double t)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'flipped': 'Curve get flipped',
+      'period': 'double get period',
+    },
+  );
+}
+
+// =============================================================================
+// ElasticInOutCurve Bridge
+// =============================================================================
+
+BridgedClass _createElasticInOutCurveBridge() {
+  return BridgedClass(
+    nativeType: $flutter_5.ElasticInOutCurve,
+    name: 'ElasticInOutCurve',
+    constructors: {
+      '': (visitor, positional, named) {
+        final period = D4.getOptionalArgWithDefault<double>(positional, 0, 'period', 0.4);
+        return $flutter_5.ElasticInOutCurve(period);
+      },
+    },
+    getters: {
+      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.ElasticInOutCurve>(target, 'ElasticInOutCurve').flipped,
+      'period': (visitor, target) => D4.validateTarget<$flutter_5.ElasticInOutCurve>(target, 'ElasticInOutCurve').period,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.ElasticInOutCurve>(target, 'ElasticInOutCurve');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_5.ElasticInOutCurve>(target, 'ElasticInOutCurve');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const ElasticInOutCurve([double period = 0.4])',
+    },
+    methodSignatures: {
+      'transform': 'double transform(double t)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'flipped': 'Curve get flipped',
+      'period': 'double get period',
+    },
+  );
+}
+
+// =============================================================================
+// Curves Bridge
+// =============================================================================
+
+BridgedClass _createCurvesBridge() {
+  return BridgedClass(
+    nativeType: $flutter_5.Curves,
+    name: 'Curves',
+    constructors: {
+    },
+    staticGetters: {
+      'linear': (visitor) => $flutter_5.Curves.linear,
+      'decelerate': (visitor) => $flutter_5.Curves.decelerate,
+      'fastLinearToSlowEaseIn': (visitor) => $flutter_5.Curves.fastLinearToSlowEaseIn,
+      'fastEaseInToSlowEaseOut': (visitor) => $flutter_5.Curves.fastEaseInToSlowEaseOut,
+      'ease': (visitor) => $flutter_5.Curves.ease,
+      'easeIn': (visitor) => $flutter_5.Curves.easeIn,
+      'easeInToLinear': (visitor) => $flutter_5.Curves.easeInToLinear,
+      'easeInSine': (visitor) => $flutter_5.Curves.easeInSine,
+      'easeInQuad': (visitor) => $flutter_5.Curves.easeInQuad,
+      'easeInCubic': (visitor) => $flutter_5.Curves.easeInCubic,
+      'easeInQuart': (visitor) => $flutter_5.Curves.easeInQuart,
+      'easeInQuint': (visitor) => $flutter_5.Curves.easeInQuint,
+      'easeInExpo': (visitor) => $flutter_5.Curves.easeInExpo,
+      'easeInCirc': (visitor) => $flutter_5.Curves.easeInCirc,
+      'easeInBack': (visitor) => $flutter_5.Curves.easeInBack,
+      'easeOut': (visitor) => $flutter_5.Curves.easeOut,
+      'linearToEaseOut': (visitor) => $flutter_5.Curves.linearToEaseOut,
+      'easeOutSine': (visitor) => $flutter_5.Curves.easeOutSine,
+      'easeOutQuad': (visitor) => $flutter_5.Curves.easeOutQuad,
+      'easeOutCubic': (visitor) => $flutter_5.Curves.easeOutCubic,
+      'easeOutQuart': (visitor) => $flutter_5.Curves.easeOutQuart,
+      'easeOutQuint': (visitor) => $flutter_5.Curves.easeOutQuint,
+      'easeOutExpo': (visitor) => $flutter_5.Curves.easeOutExpo,
+      'easeOutCirc': (visitor) => $flutter_5.Curves.easeOutCirc,
+      'easeOutBack': (visitor) => $flutter_5.Curves.easeOutBack,
+      'easeInOut': (visitor) => $flutter_5.Curves.easeInOut,
+      'easeInOutSine': (visitor) => $flutter_5.Curves.easeInOutSine,
+      'easeInOutQuad': (visitor) => $flutter_5.Curves.easeInOutQuad,
+      'easeInOutCubic': (visitor) => $flutter_5.Curves.easeInOutCubic,
+      'easeInOutCubicEmphasized': (visitor) => $flutter_5.Curves.easeInOutCubicEmphasized,
+      'easeInOutQuart': (visitor) => $flutter_5.Curves.easeInOutQuart,
+      'easeInOutQuint': (visitor) => $flutter_5.Curves.easeInOutQuint,
+      'easeInOutExpo': (visitor) => $flutter_5.Curves.easeInOutExpo,
+      'easeInOutCirc': (visitor) => $flutter_5.Curves.easeInOutCirc,
+      'easeInOutBack': (visitor) => $flutter_5.Curves.easeInOutBack,
+      'fastOutSlowIn': (visitor) => $flutter_5.Curves.fastOutSlowIn,
+      'slowMiddle': (visitor) => $flutter_5.Curves.slowMiddle,
+      'bounceIn': (visitor) => $flutter_5.Curves.bounceIn,
+      'bounceOut': (visitor) => $flutter_5.Curves.bounceOut,
+      'bounceInOut': (visitor) => $flutter_5.Curves.bounceInOut,
+      'elasticIn': (visitor) => $flutter_5.Curves.elasticIn,
+      'elasticOut': (visitor) => $flutter_5.Curves.elasticOut,
+      'elasticInOut': (visitor) => $flutter_5.Curves.elasticInOut,
+    },
+    staticGetterSignatures: {
+      'linear': 'Curve get linear',
+      'decelerate': 'Curve get decelerate',
+      'fastLinearToSlowEaseIn': 'Cubic get fastLinearToSlowEaseIn',
+      'fastEaseInToSlowEaseOut': 'ThreePointCubic get fastEaseInToSlowEaseOut',
+      'ease': 'Cubic get ease',
+      'easeIn': 'Cubic get easeIn',
+      'easeInToLinear': 'Cubic get easeInToLinear',
+      'easeInSine': 'Cubic get easeInSine',
+      'easeInQuad': 'Cubic get easeInQuad',
+      'easeInCubic': 'Cubic get easeInCubic',
+      'easeInQuart': 'Cubic get easeInQuart',
+      'easeInQuint': 'Cubic get easeInQuint',
+      'easeInExpo': 'Cubic get easeInExpo',
+      'easeInCirc': 'Cubic get easeInCirc',
+      'easeInBack': 'Cubic get easeInBack',
+      'easeOut': 'Cubic get easeOut',
+      'linearToEaseOut': 'Cubic get linearToEaseOut',
+      'easeOutSine': 'Cubic get easeOutSine',
+      'easeOutQuad': 'Cubic get easeOutQuad',
+      'easeOutCubic': 'Cubic get easeOutCubic',
+      'easeOutQuart': 'Cubic get easeOutQuart',
+      'easeOutQuint': 'Cubic get easeOutQuint',
+      'easeOutExpo': 'Cubic get easeOutExpo',
+      'easeOutCirc': 'Cubic get easeOutCirc',
+      'easeOutBack': 'Cubic get easeOutBack',
+      'easeInOut': 'Cubic get easeInOut',
+      'easeInOutSine': 'Cubic get easeInOutSine',
+      'easeInOutQuad': 'Cubic get easeInOutQuad',
+      'easeInOutCubic': 'Cubic get easeInOutCubic',
+      'easeInOutCubicEmphasized': 'ThreePointCubic get easeInOutCubicEmphasized',
+      'easeInOutQuart': 'Cubic get easeInOutQuart',
+      'easeInOutQuint': 'Cubic get easeInOutQuint',
+      'easeInOutExpo': 'Cubic get easeInOutExpo',
+      'easeInOutCirc': 'Cubic get easeInOutCirc',
+      'easeInOutBack': 'Cubic get easeInOutBack',
+      'fastOutSlowIn': 'Cubic get fastOutSlowIn',
+      'slowMiddle': 'Cubic get slowMiddle',
+      'bounceIn': 'Curve get bounceIn',
+      'bounceOut': 'Curve get bounceOut',
+      'bounceInOut': 'Curve get bounceInOut',
+      'elasticIn': 'ElasticInCurve get elasticIn',
+      'elasticOut': 'ElasticOutCurve get elasticOut',
+      'elasticInOut': 'ElasticInOutCurve get elasticInOut',
     },
   );
 }
@@ -575,6 +1479,686 @@ BridgedClass _createAnimatableBridge() {
       'evaluate': 'T evaluate(Animation<double> animation)',
       'animate': 'Animation<T> animate(Animation<double> parent)',
       'chain': 'Animatable<T> chain(Animatable<double> parent)',
+    },
+  );
+}
+
+// =============================================================================
+// Tween Bridge
+// =============================================================================
+
+BridgedClass _createTweenBridge() {
+  return BridgedClass(
+    nativeType: $flutter_7.Tween,
+    name: 'Tween',
+    constructors: {
+      '': (visitor, positional, named) {
+        final begin = D4.getOptionalNamedArg<Object?>(named, 'begin');
+        final end = D4.getOptionalNamedArg<Object?>(named, 'end');
+        return $flutter_7.Tween(begin: begin, end: end);
+      },
+    },
+    getters: {
+      'begin': (visitor, target) => D4.validateTarget<$flutter_7.Tween>(target, 'Tween').begin,
+      'end': (visitor, target) => D4.validateTarget<$flutter_7.Tween>(target, 'Tween').end,
+    },
+    setters: {
+      'begin': (visitor, target, value) => 
+        D4.validateTarget<$flutter_7.Tween>(target, 'Tween').begin = value as Object?,
+      'end': (visitor, target, value) => 
+        D4.validateTarget<$flutter_7.Tween>(target, 'Tween').end = value as Object?,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.Tween>(target, 'Tween');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'evaluate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.Tween>(target, 'Tween');
+        D4.requireMinArgs(positional, 1, 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        return t.evaluate(animation);
+      },
+      'animate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.Tween>(target, 'Tween');
+        D4.requireMinArgs(positional, 1, 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        return t.animate(parent);
+      },
+      'chain': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.Tween>(target, 'Tween');
+        D4.requireMinArgs(positional, 1, 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        return t.chain(parent);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.Tween>(target, 'Tween');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'Tween({T? begin, T? end})',
+    },
+    methodSignatures: {
+      'transform': 'T transform(double t)',
+      'evaluate': 'T evaluate(Animation<double> animation)',
+      'animate': 'Animation<T> animate(Animation<double> parent)',
+      'chain': 'Animatable<T> chain(Animatable<double> parent)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'begin': 'T? get begin',
+      'end': 'T? get end',
+    },
+    setterSignatures: {
+      'begin': 'set begin(dynamic value)',
+      'end': 'set end(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// ReverseTween Bridge
+// =============================================================================
+
+BridgedClass _createReverseTweenBridge() {
+  return BridgedClass(
+    nativeType: $flutter_7.ReverseTween,
+    name: 'ReverseTween',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'ReverseTween');
+        final parent = D4.getRequiredArg<$flutter_7.Tween<Object?>>(positional, 0, 'parent', 'ReverseTween');
+        return $flutter_7.ReverseTween(parent);
+      },
+    },
+    getters: {
+      'begin': (visitor, target) => D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween').begin,
+      'end': (visitor, target) => D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween').end,
+      'parent': (visitor, target) => D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween').parent,
+    },
+    setters: {
+      'begin': (visitor, target, value) => 
+        D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween').begin = value as Object?,
+      'end': (visitor, target, value) => 
+        D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween').end = value as Object?,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'evaluate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween');
+        D4.requireMinArgs(positional, 1, 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        return t.evaluate(animation);
+      },
+      'animate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween');
+        D4.requireMinArgs(positional, 1, 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        return t.animate(parent);
+      },
+      'chain': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween');
+        D4.requireMinArgs(positional, 1, 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        return t.chain(parent);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'ReverseTween(Tween<T> parent)',
+    },
+    methodSignatures: {
+      'transform': 'T transform(double t)',
+      'evaluate': 'T evaluate(Animation<double> animation)',
+      'animate': 'Animation<T> animate(Animation<double> parent)',
+      'chain': 'Animatable<T> chain(Animatable<double> parent)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'begin': 'T get begin',
+      'end': 'T get end',
+      'parent': 'Tween<T> get parent',
+    },
+    setterSignatures: {
+      'begin': 'set begin(dynamic value)',
+      'end': 'set end(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// ColorTween Bridge
+// =============================================================================
+
+BridgedClass _createColorTweenBridge() {
+  return BridgedClass(
+    nativeType: $flutter_7.ColorTween,
+    name: 'ColorTween',
+    constructors: {
+      '': (visitor, positional, named) {
+        final begin = D4.getOptionalNamedArg<Color?>(named, 'begin');
+        final end = D4.getOptionalNamedArg<Color?>(named, 'end');
+        return $flutter_7.ColorTween(begin: begin, end: end);
+      },
+    },
+    getters: {
+      'begin': (visitor, target) => D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween').begin,
+      'end': (visitor, target) => D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween').end,
+    },
+    setters: {
+      'begin': (visitor, target, value) => 
+        D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween').begin = value as dynamic,
+      'end': (visitor, target, value) => 
+        D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween').end = value as dynamic,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'evaluate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween');
+        D4.requireMinArgs(positional, 1, 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        return t.evaluate(animation);
+      },
+      'animate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween');
+        D4.requireMinArgs(positional, 1, 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        return t.animate(parent);
+      },
+      'chain': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween');
+        D4.requireMinArgs(positional, 1, 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        return t.chain(parent);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'ColorTween({Color? begin, Color? end})',
+    },
+    methodSignatures: {
+      'transform': 'Color? transform(double t)',
+      'evaluate': 'Color? evaluate(Animation<double> animation)',
+      'animate': 'Animation<Color?> animate(Animation<double> parent)',
+      'chain': 'Animatable<Color?> chain(Animatable<double> parent)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'begin': 'Color? get begin',
+      'end': 'Color? get end',
+    },
+    setterSignatures: {
+      'begin': 'set begin(dynamic value)',
+      'end': 'set end(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// SizeTween Bridge
+// =============================================================================
+
+BridgedClass _createSizeTweenBridge() {
+  return BridgedClass(
+    nativeType: $flutter_7.SizeTween,
+    name: 'SizeTween',
+    constructors: {
+      '': (visitor, positional, named) {
+        final begin = D4.getOptionalNamedArg<Size?>(named, 'begin');
+        final end = D4.getOptionalNamedArg<Size?>(named, 'end');
+        return $flutter_7.SizeTween(begin: begin, end: end);
+      },
+    },
+    getters: {
+      'begin': (visitor, target) => D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween').begin,
+      'end': (visitor, target) => D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween').end,
+    },
+    setters: {
+      'begin': (visitor, target, value) => 
+        D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween').begin = value as dynamic,
+      'end': (visitor, target, value) => 
+        D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween').end = value as dynamic,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'evaluate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween');
+        D4.requireMinArgs(positional, 1, 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        return t.evaluate(animation);
+      },
+      'animate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween');
+        D4.requireMinArgs(positional, 1, 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        return t.animate(parent);
+      },
+      'chain': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween');
+        D4.requireMinArgs(positional, 1, 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        return t.chain(parent);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'SizeTween({Size? begin, Size? end})',
+    },
+    methodSignatures: {
+      'transform': 'Size? transform(double t)',
+      'evaluate': 'Size? evaluate(Animation<double> animation)',
+      'animate': 'Animation<Size?> animate(Animation<double> parent)',
+      'chain': 'Animatable<Size?> chain(Animatable<double> parent)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'begin': 'Size? get begin',
+      'end': 'Size? get end',
+    },
+    setterSignatures: {
+      'begin': 'set begin(dynamic value)',
+      'end': 'set end(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// RectTween Bridge
+// =============================================================================
+
+BridgedClass _createRectTweenBridge() {
+  return BridgedClass(
+    nativeType: $flutter_7.RectTween,
+    name: 'RectTween',
+    constructors: {
+      '': (visitor, positional, named) {
+        final begin = D4.getOptionalNamedArg<Rect?>(named, 'begin');
+        final end = D4.getOptionalNamedArg<Rect?>(named, 'end');
+        return $flutter_7.RectTween(begin: begin, end: end);
+      },
+    },
+    getters: {
+      'begin': (visitor, target) => D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween').begin,
+      'end': (visitor, target) => D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween').end,
+    },
+    setters: {
+      'begin': (visitor, target, value) => 
+        D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween').begin = value as dynamic,
+      'end': (visitor, target, value) => 
+        D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween').end = value as dynamic,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'evaluate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween');
+        D4.requireMinArgs(positional, 1, 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        return t.evaluate(animation);
+      },
+      'animate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween');
+        D4.requireMinArgs(positional, 1, 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        return t.animate(parent);
+      },
+      'chain': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween');
+        D4.requireMinArgs(positional, 1, 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        return t.chain(parent);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'RectTween({Rect? begin, Rect? end})',
+    },
+    methodSignatures: {
+      'transform': 'Rect? transform(double t)',
+      'evaluate': 'Rect? evaluate(Animation<double> animation)',
+      'animate': 'Animation<Rect?> animate(Animation<double> parent)',
+      'chain': 'Animatable<Rect?> chain(Animatable<double> parent)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'begin': 'Rect? get begin',
+      'end': 'Rect? get end',
+    },
+    setterSignatures: {
+      'begin': 'set begin(dynamic value)',
+      'end': 'set end(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// IntTween Bridge
+// =============================================================================
+
+BridgedClass _createIntTweenBridge() {
+  return BridgedClass(
+    nativeType: $flutter_7.IntTween,
+    name: 'IntTween',
+    constructors: {
+      '': (visitor, positional, named) {
+        final begin = D4.getOptionalNamedArg<int?>(named, 'begin');
+        final end = D4.getOptionalNamedArg<int?>(named, 'end');
+        return $flutter_7.IntTween(begin: begin, end: end);
+      },
+    },
+    getters: {
+      'begin': (visitor, target) => D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween').begin,
+      'end': (visitor, target) => D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween').end,
+    },
+    setters: {
+      'begin': (visitor, target, value) => 
+        D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween').begin = value as dynamic,
+      'end': (visitor, target, value) => 
+        D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween').end = value as dynamic,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'evaluate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween');
+        D4.requireMinArgs(positional, 1, 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        return t.evaluate(animation);
+      },
+      'animate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween');
+        D4.requireMinArgs(positional, 1, 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        return t.animate(parent);
+      },
+      'chain': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween');
+        D4.requireMinArgs(positional, 1, 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        return t.chain(parent);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'IntTween({int? begin, int? end})',
+    },
+    methodSignatures: {
+      'transform': 'int transform(double t)',
+      'evaluate': 'int evaluate(Animation<double> animation)',
+      'animate': 'Animation<int> animate(Animation<double> parent)',
+      'chain': 'Animatable<int> chain(Animatable<double> parent)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'begin': 'int get begin',
+      'end': 'int get end',
+    },
+    setterSignatures: {
+      'begin': 'set begin(dynamic value)',
+      'end': 'set end(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// StepTween Bridge
+// =============================================================================
+
+BridgedClass _createStepTweenBridge() {
+  return BridgedClass(
+    nativeType: $flutter_7.StepTween,
+    name: 'StepTween',
+    constructors: {
+      '': (visitor, positional, named) {
+        final begin = D4.getOptionalNamedArg<int?>(named, 'begin');
+        final end = D4.getOptionalNamedArg<int?>(named, 'end');
+        return $flutter_7.StepTween(begin: begin, end: end);
+      },
+    },
+    getters: {
+      'begin': (visitor, target) => D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween').begin,
+      'end': (visitor, target) => D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween').end,
+    },
+    setters: {
+      'begin': (visitor, target, value) => 
+        D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween').begin = value as dynamic,
+      'end': (visitor, target, value) => 
+        D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween').end = value as dynamic,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'evaluate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween');
+        D4.requireMinArgs(positional, 1, 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        return t.evaluate(animation);
+      },
+      'animate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween');
+        D4.requireMinArgs(positional, 1, 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        return t.animate(parent);
+      },
+      'chain': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween');
+        D4.requireMinArgs(positional, 1, 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        return t.chain(parent);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'StepTween({int? begin, int? end})',
+    },
+    methodSignatures: {
+      'transform': 'int transform(double t)',
+      'evaluate': 'int evaluate(Animation<double> animation)',
+      'animate': 'Animation<int> animate(Animation<double> parent)',
+      'chain': 'Animatable<int> chain(Animatable<double> parent)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'begin': 'int get begin',
+      'end': 'int get end',
+    },
+    setterSignatures: {
+      'begin': 'set begin(dynamic value)',
+      'end': 'set end(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// ConstantTween Bridge
+// =============================================================================
+
+BridgedClass _createConstantTweenBridge() {
+  return BridgedClass(
+    nativeType: $flutter_7.ConstantTween,
+    name: 'ConstantTween',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'ConstantTween');
+        final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'ConstantTween');
+        return $flutter_7.ConstantTween(value);
+      },
+    },
+    getters: {
+      'begin': (visitor, target) => D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween').begin,
+      'end': (visitor, target) => D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween').end,
+    },
+    setters: {
+      'begin': (visitor, target, value) => 
+        D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween').begin = value as dynamic,
+      'end': (visitor, target, value) => 
+        D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween').end = value as dynamic,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'evaluate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween');
+        D4.requireMinArgs(positional, 1, 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        return t.evaluate(animation);
+      },
+      'animate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween');
+        D4.requireMinArgs(positional, 1, 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        return t.animate(parent);
+      },
+      'chain': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween');
+        D4.requireMinArgs(positional, 1, 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        return t.chain(parent);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'ConstantTween(T value)',
+    },
+    methodSignatures: {
+      'transform': 'T transform(double t)',
+      'evaluate': 'T evaluate(Animation<double> animation)',
+      'animate': 'Animation<T> animate(Animation<double> parent)',
+      'chain': 'Animatable<T> chain(Animatable<double> parent)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'begin': 'T get begin',
+      'end': 'T get end',
+    },
+    setterSignatures: {
+      'begin': 'set begin(dynamic value)',
+      'end': 'set end(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// CurveTween Bridge
+// =============================================================================
+
+BridgedClass _createCurveTweenBridge() {
+  return BridgedClass(
+    nativeType: $flutter_7.CurveTween,
+    name: 'CurveTween',
+    constructors: {
+      '': (visitor, positional, named) {
+        final curve = D4.getRequiredNamedArg<$flutter_5.Curve>(named, 'curve', 'CurveTween');
+        return $flutter_7.CurveTween(curve: curve);
+      },
+    },
+    getters: {
+      'curve': (visitor, target) => D4.validateTarget<$flutter_7.CurveTween>(target, 'CurveTween').curve,
+    },
+    setters: {
+      'curve': (visitor, target, value) => 
+        D4.validateTarget<$flutter_7.CurveTween>(target, 'CurveTween').curve = value as $flutter_5.Curve,
+    },
+    methods: {
+      'transform': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.CurveTween>(target, 'CurveTween');
+        D4.requireMinArgs(positional, 1, 'transform');
+        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        return t.transform(t_);
+      },
+      'evaluate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.CurveTween>(target, 'CurveTween');
+        D4.requireMinArgs(positional, 1, 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        return t.evaluate(animation);
+      },
+      'animate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.CurveTween>(target, 'CurveTween');
+        D4.requireMinArgs(positional, 1, 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        return t.animate(parent);
+      },
+      'chain': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.CurveTween>(target, 'CurveTween');
+        D4.requireMinArgs(positional, 1, 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        return t.chain(parent);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.CurveTween>(target, 'CurveTween');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'CurveTween({required Curve curve})',
+    },
+    methodSignatures: {
+      'transform': 'double transform(double t)',
+      'evaluate': 'double evaluate(Animation<double> animation)',
+      'animate': 'Animation<double> animate(Animation<double> parent)',
+      'chain': 'Animatable<double> chain(Animatable<double> parent)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'curve': 'Curve get curve',
+    },
+    setterSignatures: {
+      'curve': 'set curve(dynamic value)',
     },
   );
 }

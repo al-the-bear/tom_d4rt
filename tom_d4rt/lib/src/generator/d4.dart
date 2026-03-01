@@ -116,7 +116,14 @@ class D4 {
   ///
   /// D4rt creates `Map<Object?, Object?>` when evaluating map literals. This
   /// function coerces the map to the expected key and value types.
-  static Map<K, V> coerceMap<K, V>(Object? arg, String paramName) {
+  ///
+  /// [visitor] is required when map values are functions (e.g., callbacks).
+  /// Pass null when map values are not functions.
+  static Map<K, V> coerceMap<K, V>(
+    Object? arg,
+    String paramName, [
+    InterpreterVisitor? visitor,
+  ]) {
     if (arg == null) {
       throw ArgumentD4rtException(
         'Invalid parameter "$paramName": expected Map<$K, $V>, got null',
@@ -141,7 +148,7 @@ class D4 {
     try {
       return value.map<K, V>((k, v) {
         final key = k is BridgedInstance ? k.nativeObject as K : k as K;
-        final val = v is BridgedInstance ? v.nativeObject as V : v as V;
+        final val = _coerceMapValue<V>(v, paramName, visitor);
         return MapEntry(key, val);
       });
     } catch (e) {
@@ -151,10 +158,99 @@ class D4 {
     }
   }
 
+  /// Coerce a single map value to type V, wrapping functions if needed.
+  static V _coerceMapValue<V>(
+    Object? v,
+    String paramName,
+    InterpreterVisitor? visitor,
+  ) {
+    // Handle BridgedInstance wrapping
+    final unwrapped = v is BridgedInstance ? v.nativeObject : v;
+
+    // If already correct type, return as-is
+    if (unwrapped is V) {
+      return unwrapped;
+    }
+
+    // If V is a function type and v is an InterpretedFunction, wrap it
+    // We detect function types by checking the type name string
+    final vTypeName = V.toString();
+    if (_looksLikeFunctionType(vTypeName) &&
+        (v is InterpretedFunction || v is NativeFunction || v is Callable)) {
+      if (visitor == null) {
+        throw ArgumentD4rtException(
+          'Invalid parameter "$paramName": Map contains function values but '
+          'visitor was not provided for callback wrapping',
+        );
+      }
+      return _wrapCallableForMap<V>(v!, visitor) as V;
+    }
+
+    // Direct cast as fallback
+    return unwrapped as V;
+  }
+
+  /// Check if a type string looks like a function type.
+  static bool _looksLikeFunctionType(String typeName) {
+    // Function types look like:
+    // - "() => void"
+    // - "(int) => String"
+    // - "void Function()"
+    // - "Widget Function(BuildContext)"
+    return typeName.contains('=>') ||
+        typeName.contains('Function(') ||
+        typeName.contains('Function<');
+  }
+
+  /// Wrap an InterpretedFunction/Callable for use as a Map value function.
+  ///
+  /// Creates a dynamic wrapper that accepts any number of positional arguments.
+  /// The actual argument count is determined by what the caller passes.
+  static dynamic _wrapCallableForMap<V>(
+    Object callable,
+    InterpreterVisitor visitor,
+  ) {
+    // Return a Function that captures the visitor and callable
+    // This creates a closure that can be called with any arguments
+    return (
+      [Object? p0,
+      Object? p1,
+      Object? p2,
+      Object? p3,
+      Object? p4,
+      Object? p5,
+      Object? p6,
+      Object? p7,
+      Object? p8,
+      Object? p9]
+    ) {
+      // Build args list from non-null positional parameters
+      final args = <Object?>[];
+      // We need to determine actual arg count from the callable if possible
+      // For now, we pass all non-null arguments
+      if (p0 != null) args.add(p0);
+      if (p1 != null) args.add(p1);
+      if (p2 != null) args.add(p2);
+      if (p3 != null) args.add(p3);
+      if (p4 != null) args.add(p4);
+      if (p5 != null) args.add(p5);
+      if (p6 != null) args.add(p6);
+      if (p7 != null) args.add(p7);
+      if (p8 != null) args.add(p8);
+      if (p9 != null) args.add(p9);
+
+      return callInterpreterCallback(visitor, callable, args);
+    };
+  }
+
   /// Coerce a Map from D4rt, returning null if arg is null.
-  static Map<K, V>? coerceMapOrNull<K, V>(Object? arg, String paramName) {
+  static Map<K, V>? coerceMapOrNull<K, V>(
+    Object? arg,
+    String paramName, [
+    InterpreterVisitor? visitor,
+  ]) {
     if (arg == null) return null;
-    return coerceMap<K, V>(arg, paramName);
+    return coerceMap<K, V>(arg, paramName, visitor);
   }
 
   // ==========================================================================

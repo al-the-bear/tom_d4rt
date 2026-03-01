@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 13 files
-// Generated: 2026-02-28T15:10:47.987076
+// Generated: 2026-03-01T03:21:49.768447
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -6901,7 +6901,7 @@ BridgedClass _createSemanticsUpdateBuilderBridge() {
         final headingLevel = D4.getNamedArgWithDefault<int>(named, 'headingLevel', 0);
         final linkUrl = D4.getNamedArgWithDefault<String>(named, 'linkUrl', '');
         final role = D4.getNamedArgWithDefault<$dart_ui.SemanticsRole>(named, 'role', $dart_ui.SemanticsRole.none);
-        if (!named.containsKey('controlsNodes') || named['controlsNodes'] == null) {
+        if (!named.containsKey('controlsNodes')) {
           throw ArgumentError('updateNode: Missing required named argument "controlsNodes"');
         }
         final controlsNodes = D4.coerceListOrNull<String>(named['controlsNodes'], 'controlsNodes');

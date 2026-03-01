@@ -1940,12 +1940,22 @@ class BridgeGenerator {
               existingInfo.showClause == null &&
               existingInfo.hideClause == null;
 
+          // GEN-072: Check if current export is more permissive (no restrictions).
+          // This is true when the export statement has no show/hide clause AND
+          // there are no parent restrictions from the barrel chain above.
+          final isCurrentMorePermissive =
+              hideShow == null &&
+              parentShowClause == null &&
+              parentHideClause == null;
+
           // Override if:
           // - No existing entry
+          // - Current is more permissive than existing (GEN-072: prefer permissive)
           // - This barrel is same-package and existing is not
           // - Existing is not more permissive AND this isn't less preferred
           final shouldOverride =
               existingInfo == null ||
+              (isCurrentMorePermissive && !isExistingMorePermissive) ||
               (isSamePackageBarrel && !existingIsSamePackage) ||
               (!isExistingMorePermissive && !existingIsSamePackage);
 
@@ -6359,8 +6369,12 @@ class BridgeGenerator {
                   : 'D4.coerceList';
 
               if (param.isRequired) {
+                // GEN-071: Required nullable params only check containsKey, non-nullable also check null
+                final requiredCheck = isNullable
+                    ? "!named.containsKey('${param.name}')"
+                    : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
                 argDeclarations.add(
-                  "        if (!named.containsKey('${param.name}') || named['${param.name}'] == null) {",
+                  "        if ($requiredCheck) {",
                 );
                 argDeclarations.add(
                   "          throw ArgumentError('${func.name}: Missing required named argument \"${param.name}\"');",
@@ -8965,6 +8979,158 @@ class BridgeGenerator {
         classTypeParams: classTypeParams,
         sourceFilePath: sourceFilePath,
       );
+      
+      // Check if value type is a function type - needs inline conversion
+      final cleanValueType = valueType.replaceAll('?', '');
+      final isFunctionValue = _isFunctionTypeName(cleanValueType);
+      
+      if (isFunctionValue) {
+        // Get function type info for the value type
+        FunctionTypeInfo? valueFuncInfo;
+        final lookupName = _getUnprefixedTypeName(cleanValueType);
+        valueFuncInfo = _knownFunctionTypeAliasInfo[lookupName];
+        valueFuncInfo ??= _parseFunctionType(cleanValueType);
+        
+        if (valueFuncInfo != null) {
+          // Generate inline conversion code
+          if (param.isRequired) {
+            buffer.writeln(
+              "        if (${_lengthCheckLessThanOrEqual('positional', index)}) {",
+            );
+            buffer.writeln(
+              "          throw ArgumentError('$contextName: Missing required argument \"${param.name}\" at position $index');",
+            );
+            buffer.writeln("        }");
+            final lines = _generateInlineFunctionMapConversion(
+              localName: localName,
+              rawMapExpr: 'positional[$index]',
+              keyType: keyType,
+              valueType: valueType,
+              funcInfo: valueFuncInfo,
+              isNullable: isNullable,
+              typeToUri: param.typeToUri,
+              classTypeParams: classTypeParams,
+              sourceFilePath: sourceFilePath,
+            );
+            for (final line in lines) {
+              buffer.writeln(line);
+            }
+          } else if (param.defaultValue != null) {
+            // Optional with default
+            if (_isWrappableDefault(
+              param.defaultValue!,
+              typeToUri: param.typeToUri,
+              sourceFilePath: sourceFilePath,
+            )) {
+              final typedDefault = _getTypedDefaultValue(
+                param.defaultValue!,
+                param.type,
+                typeToUri: param.typeToUri,
+                classTypeParams: classTypeParams,
+                sourceFilePath: sourceFilePath,
+              );
+              // Declare variable before the if block for proper scoping
+              final fullMapType = 'Map<$keyType, $valueType>';
+              if (isNullable) {
+                buffer.writeln("        $fullMapType? $localName;");
+              } else {
+                buffer.writeln("        var $localName = <$keyType, $valueType>{};");
+              }
+              buffer.writeln(
+                "        if (${_lengthCheckGreaterThan('positional', index)} && positional[$index] != null) {",
+              );
+              final lines = _generateInlineFunctionMapConversion(
+                localName: localName,
+                rawMapExpr: 'positional[$index]',
+                keyType: keyType,
+                valueType: valueType,
+                funcInfo: valueFuncInfo,
+                isNullable: isNullable,
+                declareVariable: false,
+                typeToUri: param.typeToUri,
+                classTypeParams: classTypeParams,
+                sourceFilePath: sourceFilePath,
+                indent: '          ',
+              );
+              for (final line in lines) {
+                buffer.writeln(line);
+              }
+              buffer.writeln("        } else {");
+              buffer.writeln("          $localName = $typedDefault;");
+              buffer.writeln("        }");
+            } else {
+              // Non-wrappable default
+              _recordNonWrappableDefault(
+                contextName,
+                param.name,
+                param.defaultValue!,
+              );
+              buffer.writeln(
+                "        // TODO: Non-wrappable default: ${param.defaultValue}",
+              );
+              buffer.writeln(
+                "        if (${_lengthCheckLessThanOrEqual('positional', index)} || positional[$index] == null) {",
+              );
+              buffer.writeln(
+                "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default. Value must be specified.');",
+              );
+              buffer.writeln("        }");
+              final lines = _generateInlineFunctionMapConversion(
+                localName: localName,
+                rawMapExpr: 'positional[$index]',
+                keyType: keyType,
+                valueType: valueType,
+                funcInfo: valueFuncInfo,
+                isNullable: isNullable,
+                typeToUri: param.typeToUri,
+                classTypeParams: classTypeParams,
+                sourceFilePath: sourceFilePath,
+              );
+              for (final line in lines) {
+                buffer.writeln(line);
+              }
+            }
+          } else {
+            // Optional without default
+            // Declare variable before the if block for proper scoping
+            final fullMapType = 'Map<$keyType, $valueType>';
+            if (isNullable) {
+              buffer.writeln("        $fullMapType? $localName;");
+            } else {
+              buffer.writeln("        var $localName = <$keyType, $valueType>{};");
+            }
+            buffer.writeln(
+              "        if (${_lengthCheckGreaterThan('positional', index)} && positional[$index] != null) {",
+            );
+            final lines = _generateInlineFunctionMapConversion(
+              localName: localName,
+              rawMapExpr: 'positional[$index]',
+              keyType: keyType,
+              valueType: valueType,
+              funcInfo: valueFuncInfo,
+              isNullable: isNullable,
+              declareVariable: false,
+              typeToUri: param.typeToUri,
+              classTypeParams: classTypeParams,
+              sourceFilePath: sourceFilePath,
+              indent: '          ',
+            );
+            for (final line in lines) {
+              buffer.writeln(line);
+            }
+            buffer.writeln("        } else {");
+            if (isNullable) {
+              buffer.writeln("          $localName = null;");
+            } else {
+              // Keep empty map default (already set at declaration)
+            }
+            buffer.writeln("        }");
+          }
+          return true;
+        }
+      }
+      
+      // Non-function value type: use D4.coerceMap as before
       final coerceMethod = isNullable ? 'D4.coerceMapOrNull' : 'D4.coerceMap';
       if (param.isRequired) {
         buffer.writeln(
@@ -9287,8 +9453,12 @@ class BridgeGenerator {
       );
       final coerceMethod = isNullable ? 'D4.coerceListOrNull' : 'D4.coerceList';
       if (param.isRequired) {
+        // GEN-071: Required nullable params only check containsKey, non-nullable also check null
+        final requiredCheck = isNullable
+            ? "!named.containsKey('${param.name}')"
+            : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
         buffer.writeln(
-          "        if (!named.containsKey('${param.name}') || named['${param.name}'] == null) {",
+          "        if ($requiredCheck) {",
         );
         buffer.writeln(
           "          throw ArgumentError('$contextName: Missing required named argument \"${param.name}\"');",
@@ -9328,8 +9498,12 @@ class BridgeGenerator {
           buffer.writeln(
             "        // TODO: Non-wrappable default: ${param.defaultValue}",
           );
+          // GEN-071: Required nullable params only check containsKey, non-nullable also check null
+          final requiredCheck = isNullable
+              ? "!named.containsKey('${param.name}')"
+              : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
           buffer.writeln(
-            "        if (!named.containsKey('${param.name}') || named['${param.name}'] == null) {",
+            "        if ($requiredCheck) {",
           );
           buffer.writeln(
             "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
@@ -9371,8 +9545,12 @@ class BridgeGenerator {
       // Use camelCase suffix to satisfy non_constant_identifier_names lint
       final rawVarName = '${localName}Raw';
       if (param.isRequired) {
+        // GEN-071: Required nullable params only check containsKey, non-nullable also check null
+        final requiredCheck = isNullable
+            ? "!named.containsKey('${param.name}')"
+            : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
         buffer.writeln(
-          "        if (!named.containsKey('${param.name}') || named['${param.name}'] == null) {",
+          "        if ($requiredCheck) {",
         );
         buffer.writeln(
           "          throw ArgumentError('$contextName: Missing required named argument \"${param.name}\"');",
@@ -9410,10 +9588,174 @@ class BridgeGenerator {
         classTypeParams: classTypeParams,
         sourceFilePath: sourceFilePath,
       );
+      
+      // Check if value type is a function type - needs inline conversion
+      final cleanValueType = valueType.replaceAll('?', '');
+      final isFunctionValue = _isFunctionTypeName(cleanValueType);
+      
+      if (isFunctionValue) {
+        // Get function type info for the value type
+        FunctionTypeInfo? valueFuncInfo;
+        final lookupName = _getUnprefixedTypeName(cleanValueType);
+        valueFuncInfo = _knownFunctionTypeAliasInfo[lookupName];
+        valueFuncInfo ??= _parseFunctionType(cleanValueType);
+        
+        if (valueFuncInfo != null) {
+          // Generate inline conversion code
+          if (param.isRequired) {
+            // GEN-071: Required nullable params only check containsKey, non-nullable also check null
+            final requiredCheck = isNullable
+                ? "!named.containsKey('${param.name}')"
+                : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
+            buffer.writeln(
+              "        if ($requiredCheck) {",
+            );
+            buffer.writeln(
+              "          throw ArgumentError('$contextName: Missing required named argument \"${param.name}\"');",
+            );
+            buffer.writeln("        }");
+            final lines = _generateInlineFunctionMapConversion(
+              localName: localName,
+              rawMapExpr: "named['${param.name}']",
+              keyType: keyType,
+              valueType: valueType,
+              funcInfo: valueFuncInfo,
+              isNullable: isNullable,
+              typeToUri: param.typeToUri,
+              classTypeParams: classTypeParams,
+              sourceFilePath: sourceFilePath,
+            );
+            for (final line in lines) {
+              buffer.writeln(line);
+            }
+          } else if (param.defaultValue != null) {
+            // Optional with default
+            if (_isWrappableDefault(
+              param.defaultValue!,
+              typeToUri: param.typeToUri,
+              sourceFilePath: sourceFilePath,
+            )) {
+              final typedDefault = _getTypedDefaultValue(
+                param.defaultValue!,
+                param.type,
+                typeToUri: param.typeToUri,
+                classTypeParams: classTypeParams,
+                sourceFilePath: sourceFilePath,
+              );
+              // Declare variable before the if block for proper scoping
+              final fullMapType = 'Map<$keyType, $valueType>';
+              if (isNullable) {
+                buffer.writeln("        $fullMapType? $localName;");
+              } else {
+                buffer.writeln("        var $localName = <$keyType, $valueType>{};");
+              }
+              buffer.writeln(
+                "        if (named.containsKey('${param.name}') && named['${param.name}'] != null) {",
+              );
+              final lines = _generateInlineFunctionMapConversion(
+                localName: localName,
+                rawMapExpr: "named['${param.name}']",
+                keyType: keyType,
+                valueType: valueType,
+                funcInfo: valueFuncInfo,
+                isNullable: isNullable,
+                declareVariable: false,
+                typeToUri: param.typeToUri,
+                classTypeParams: classTypeParams,
+                sourceFilePath: sourceFilePath,
+                indent: '          ',
+              );
+              for (final line in lines) {
+                buffer.writeln(line);
+              }
+              buffer.writeln("        } else {");
+              buffer.writeln("          $localName = $typedDefault;");
+              buffer.writeln("        }");
+            } else {
+              // Non-wrappable default
+              _recordNonWrappableDefault(
+                contextName,
+                param.name,
+                param.defaultValue!,
+              );
+              buffer.writeln(
+                "        // TODO: Non-wrappable default: ${param.defaultValue}",
+              );
+              // GEN-071: Required nullable params only check containsKey, non-nullable also check null
+              final requiredCheck = isNullable
+                  ? "!named.containsKey('${param.name}')"
+                  : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
+              buffer.writeln(
+                "        if ($requiredCheck) {",
+              );
+              buffer.writeln(
+                "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default. Value must be specified.');",
+              );
+              buffer.writeln("        }");
+              final lines = _generateInlineFunctionMapConversion(
+                localName: localName,
+                rawMapExpr: "named['${param.name}']",
+                keyType: keyType,
+                valueType: valueType,
+                funcInfo: valueFuncInfo,
+                isNullable: isNullable,
+                typeToUri: param.typeToUri,
+                classTypeParams: classTypeParams,
+                sourceFilePath: sourceFilePath,
+              );
+              for (final line in lines) {
+                buffer.writeln(line);
+              }
+            }
+          } else {
+            // Optional without default
+            // Declare variable before the if block for proper scoping
+            final fullMapType = 'Map<$keyType, $valueType>';
+            if (isNullable) {
+              buffer.writeln("        $fullMapType? $localName;");
+            } else {
+              buffer.writeln("        var $localName = <$keyType, $valueType>{};");
+            }
+            buffer.writeln(
+              "        if (named.containsKey('${param.name}') && named['${param.name}'] != null) {",
+            );
+            final lines = _generateInlineFunctionMapConversion(
+              localName: localName,
+              rawMapExpr: "named['${param.name}']",
+              keyType: keyType,
+              valueType: valueType,
+              funcInfo: valueFuncInfo,
+              isNullable: isNullable,
+              declareVariable: false,
+              typeToUri: param.typeToUri,
+              classTypeParams: classTypeParams,
+              sourceFilePath: sourceFilePath,
+              indent: '          ',
+            );
+            for (final line in lines) {
+              buffer.writeln(line);
+            }
+            buffer.writeln("        } else {");
+            if (isNullable) {
+              buffer.writeln("          $localName = null;");
+            } else {
+              // Keep empty map default (already set at declaration)
+            }
+            buffer.writeln("        }");
+          }
+          return true;
+        }
+      }
+      
+      // Non-function value type: use D4.coerceMap as before
       final coerceMethod = isNullable ? 'D4.coerceMapOrNull' : 'D4.coerceMap';
       if (param.isRequired) {
+        // GEN-071: Required nullable params only check containsKey, non-nullable also check null
+        final requiredCheck = isNullable
+            ? "!named.containsKey('${param.name}')"
+            : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
         buffer.writeln(
-          "        if (!named.containsKey('${param.name}') || named['${param.name}'] == null) {",
+          "        if ($requiredCheck) {",
         );
         buffer.writeln(
           "          throw ArgumentError('$contextName: Missing required named argument \"${param.name}\"');",
@@ -9453,8 +9795,12 @@ class BridgeGenerator {
           buffer.writeln(
             "        // TODO: Non-wrappable default: ${param.defaultValue}",
           );
+          // GEN-071: Required nullable params only check containsKey, non-nullable also check null
+          final requiredCheck = isNullable
+              ? "!named.containsKey('${param.name}')"
+              : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
           buffer.writeln(
-            "        if (!named.containsKey('${param.name}') || named['${param.name}'] == null) {",
+            "        if ($requiredCheck) {",
           );
           buffer.writeln(
             "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
@@ -10108,7 +10454,7 @@ class BridgeGenerator {
     const builtInTypes = {
       // dart:core types
       'int', 'double', 'num', 'String', 'bool', 'void', 'dynamic', 'Object',
-      'List', 'Map', 'Set', 'Iterable', 'Future', 'Stream', 'Function',
+      'List', 'Map', 'Set', 'Iterable', 'Iterator', 'Future', 'Stream', 'Function',
       'Type', 'Symbol', 'Null', 'Never', 'Duration', 'DateTime', 'Uri', 'Enum',
       'BigInt', 'Comparable', 'Pattern', 'Match', 'RegExp', 'Runes',
       'StringBuffer', 'StringSink', 'Sink', 'Error', 'Exception', 'StackTrace',
@@ -11741,6 +12087,108 @@ class BridgeGenerator {
     } else {
       return wrapper;
     }
+  }
+
+  /// Generates inline map conversion code for maps with function values.
+  ///
+  /// This is needed because D4.coerceMap cannot cast InterpretedFunction
+  /// to typed function signatures due to Dart's strict function subtyping.
+  /// Instead, we generate inline code that creates properly-typed wrappers.
+  ///
+  /// If [declareVariable] is false, assumes the variable is already declared
+  /// and only generates the population code (for use in if/else blocks).
+  ///
+  /// Returns the generated code lines as a list of strings.
+  List<String> _generateInlineFunctionMapConversion({
+    required String localName,
+    required String rawMapExpr,
+    required String keyType,
+    required String valueType,
+    required FunctionTypeInfo funcInfo,
+    required bool isNullable,
+    bool declareVariable = true,
+    Map<String, String> typeToUri = const {},
+    Map<String, String?> classTypeParams = const {},
+    String? sourceFilePath,
+    String indent = '        ',
+  }) {
+    final lines = <String>[];
+    final rawVarName = '${localName}Raw';
+    final fullMapType = 'Map<$keyType, $valueType>';
+    
+    // Declare raw map variable
+    lines.add('$indent// Convert map with function values inline');
+    lines.add('${indent}final $rawVarName = $rawMapExpr as Map?;');
+    
+    // Initialize result map
+    if (declareVariable) {
+      if (isNullable) {
+        lines.add('${indent}$fullMapType? $localName;');
+      } else {
+        lines.add('${indent}final $localName = <$keyType, $valueType>{};');
+      }
+    } else {
+      // Variable already declared - initialize it
+      if (!isNullable) {
+        lines.add('${indent}$localName = <$keyType, $valueType>{};');
+      }
+    }
+    
+    lines.add('${indent}if ($rawVarName != null) {');
+    
+    // Generate the wrapper expression for the map value
+    // We'll use a temp variable 'v' for the raw value
+    final wrapperExpr = _generateFunctionWrapper(
+      callbackVarName: 'v',
+      funcInfo: funcInfo,
+      isNullable: false, // Individual values - handle null in the loop
+      typeToUri: typeToUri,
+      classTypeParams: classTypeParams,
+      sourceFilePath: sourceFilePath,
+    );
+    
+    // Loop over entries
+    lines.add('$indent  for (final entry in $rawVarName.entries) {');
+    lines.add('$indent    final k = entry.key as $keyType;');
+    lines.add('$indent    final v = entry.value;');
+    lines.add('$indent    if (v == null) {');
+    
+    // Handle null value
+    if (valueType.endsWith('?')) {
+      if (isNullable) {
+        lines.add('$indent      $localName ??= <$keyType, $valueType>{};');
+        lines.add('$indent      $localName![k] = null;');
+      } else {
+        lines.add('$indent      $localName[k] = null;');
+      }
+    } else {
+      lines.add('$indent      // Skip null values for non-nullable function type');
+    }
+    lines.add('$indent    } else if (v is Callable) {');
+    
+    // Wrap Callable
+    if (isNullable) {
+      lines.add('$indent      $localName ??= <$keyType, $valueType>{};');
+      lines.add('$indent      $localName![k] = $wrapperExpr;');
+    } else {
+      lines.add('$indent      $localName[k] = $wrapperExpr;');
+    }
+    
+    lines.add('$indent    } else {');
+    
+    // Direct cast for already-typed value
+    if (isNullable) {
+      lines.add('$indent      $localName ??= <$keyType, $valueType>{};');
+      lines.add('$indent      $localName![k] = v as $valueType;');
+    } else {
+      lines.add('$indent      $localName[k] = v as $valueType;');
+    }
+    
+    lines.add('$indent    }');
+    lines.add('$indent  }');
+    lines.add('$indent}');
+    
+    return lines;
   }
 
   /// Extracts the key and value types from a Map type.

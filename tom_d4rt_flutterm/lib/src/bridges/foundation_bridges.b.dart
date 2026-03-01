@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 26 files
-// Generated: 2026-02-28T15:11:12.866714
+// Sources: 28 files
+// Generated: 2026-03-01T03:22:14.751077
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -50,8 +50,30 @@ class FlutterFoundationBridge {
       _createCategoryBridge(),
       _createDocumentationIconBridge(),
       _createSummaryBridge(),
+      _createCachingIterableBridge(),
+      _createFactoryBridge(),
+      _createTextTreeConfigurationBridge(),
+      _createTextTreeRendererBridge(),
       _createDiagnosticsNodeBridge(),
+      _createMessagePropertyBridge(),
+      _createStringPropertyBridge(),
+      _createDoublePropertyBridge(),
+      _createIntPropertyBridge(),
+      _createPercentPropertyBridge(),
+      _createFlagPropertyBridge(),
+      _createIterablePropertyBridge(),
+      _createEnumPropertyBridge(),
+      _createObjectFlagPropertyBridge(),
+      _createFlagsSummaryBridge(),
+      _createDiagnosticsPropertyBridge(),
+      _createDiagnosticableNodeBridge(),
+      _createDiagnosticableTreeNodeBridge(),
       _createDiagnosticPropertiesBuilderBridge(),
+      _createDiagnosticableBridge(),
+      _createDiagnosticableTreeBridge(),
+      _createDiagnosticableTreeMixinBridge(),
+      _createDiagnosticsBlockBridge(),
+      _createDiagnosticsSerializationDelegateBridge(),
       _createStackFrameBridge(),
       _createPartialStackFrameBridge(),
       _createStackFilterBridge(),
@@ -105,8 +127,30 @@ class FlutterFoundationBridge {
       'Category': 'package:flutter/src/foundation/annotations.dart',
       'DocumentationIcon': 'package:flutter/src/foundation/annotations.dart',
       'Summary': 'package:flutter/src/foundation/annotations.dart',
+      'CachingIterable': 'package:flutter/src/foundation/basic_types.dart',
+      'Factory': 'package:flutter/src/foundation/basic_types.dart',
+      'TextTreeConfiguration': 'package:flutter/src/foundation/diagnostics.dart',
+      'TextTreeRenderer': 'package:flutter/src/foundation/diagnostics.dart',
       'DiagnosticsNode': 'package:flutter/src/foundation/diagnostics.dart',
+      'MessageProperty': 'package:flutter/src/foundation/diagnostics.dart',
+      'StringProperty': 'package:flutter/src/foundation/diagnostics.dart',
+      'DoubleProperty': 'package:flutter/src/foundation/diagnostics.dart',
+      'IntProperty': 'package:flutter/src/foundation/diagnostics.dart',
+      'PercentProperty': 'package:flutter/src/foundation/diagnostics.dart',
+      'FlagProperty': 'package:flutter/src/foundation/diagnostics.dart',
+      'IterableProperty': 'package:flutter/src/foundation/diagnostics.dart',
+      'EnumProperty': 'package:flutter/src/foundation/diagnostics.dart',
+      'ObjectFlagProperty': 'package:flutter/src/foundation/diagnostics.dart',
+      'FlagsSummary': 'package:flutter/src/foundation/diagnostics.dart',
+      'DiagnosticsProperty': 'package:flutter/src/foundation/diagnostics.dart',
+      'DiagnosticableNode': 'package:flutter/src/foundation/diagnostics.dart',
+      'DiagnosticableTreeNode': 'package:flutter/src/foundation/diagnostics.dart',
       'DiagnosticPropertiesBuilder': 'package:flutter/src/foundation/diagnostics.dart',
+      'Diagnosticable': 'package:flutter/src/foundation/diagnostics.dart',
+      'DiagnosticableTree': 'package:flutter/src/foundation/diagnostics.dart',
+      'DiagnosticableTreeMixin': 'package:flutter/src/foundation/diagnostics.dart',
+      'DiagnosticsBlock': 'package:flutter/src/foundation/diagnostics.dart',
+      'DiagnosticsSerializationDelegate': 'package:flutter/src/foundation/diagnostics.dart',
       'StackFrame': 'package:flutter/src/foundation/stack_frame.dart',
       'PartialStackFrame': 'package:flutter/src/foundation/assertions.dart',
       'StackFilter': 'package:flutter/src/foundation/assertions.dart',
@@ -283,6 +327,61 @@ class FlutterFoundationBridge {
       errors.add('Failed to register variable "visibleForTesting": $e');
     }
     try {
+      interpreter.registerGlobalVariable('sparseTextConfiguration', $flutter_12.sparseTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "sparseTextConfiguration": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('dashedTextConfiguration', $flutter_12.dashedTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "dashedTextConfiguration": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('denseTextConfiguration', $flutter_12.denseTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "denseTextConfiguration": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('transitionTextConfiguration', $flutter_12.transitionTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "transitionTextConfiguration": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('errorTextConfiguration', $flutter_12.errorTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "errorTextConfiguration": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('whitespaceTextConfiguration', $flutter_12.whitespaceTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "whitespaceTextConfiguration": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('flatTextConfiguration', $flutter_12.flatTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "flatTextConfiguration": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('singleLineTextConfiguration', $flutter_12.singleLineTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "singleLineTextConfiguration": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('errorPropertyTextConfiguration', $flutter_12.errorPropertyTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "errorPropertyTextConfiguration": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('shallowTextConfiguration', $flutter_12.shallowTextConfiguration, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "shallowTextConfiguration": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('kNoDefaultValue', $flutter_12.kNoDefaultValue, importPath, sourceUri: 'package:flutter/src/foundation/diagnostics.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "kNoDefaultValue": $e');
+    }
+    try {
       interpreter.registerGlobalVariable('kMaxUnsignedSMI', $flutter_5.kMaxUnsignedSMI, importPath, sourceUri: 'package:flutter/src/foundation/bitfield.dart');
     } catch (e) {
       errors.add('Failed to register variable "kMaxUnsignedSMI": $e');
@@ -318,6 +417,11 @@ class FlutterFoundationBridge {
       errors.add('Failed to register variable "kIsWasm": $e');
     }
     try {
+      interpreter.registerGlobalVariable('debugPrint', $flutter_21.debugPrint, importPath, sourceUri: 'package:flutter/src/foundation/print.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "debugPrint": $e');
+    }
+    try {
       interpreter.registerGlobalVariable('debugInstrumentationEnabled', $flutter_11.debugInstrumentationEnabled, importPath, sourceUri: 'package:flutter/src/foundation/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugInstrumentationEnabled": $e');
@@ -350,6 +454,7 @@ class FlutterFoundationBridge {
     interpreter.registerGlobalGetter('isCanvasKit', () => $flutter_6.isCanvasKit, importPath, sourceUri: 'package:flutter/src/foundation/capabilities.dart');
     interpreter.registerGlobalGetter('isSkwasm', () => $flutter_6.isSkwasm, importPath, sourceUri: 'package:flutter/src/foundation/capabilities.dart');
     interpreter.registerGlobalGetter('isSkiaWeb', () => $flutter_6.isSkiaWeb, importPath, sourceUri: 'package:flutter/src/foundation/capabilities.dart');
+    interpreter.registerGlobalGetter('debugPrintDone', () => $flutter_21.debugPrintDone, importPath, sourceUri: 'package:flutter/src/foundation/print.dart');
     interpreter.registerGlobalGetter('defaultTargetPlatform', () => $flutter_20.defaultTargetPlatform, importPath, sourceUri: 'package:flutter/src/foundation/platform.dart');
     interpreter.registerGlobalGetter('debugDefaultTargetPlatformOverride', () => $flutter_20.debugDefaultTargetPlatformOverride, importPath, sourceUri: 'package:flutter/src/foundation/platform.dart');
     interpreter.registerGlobalSetter('debugDefaultTargetPlatformOverride', (v) => $flutter_20.debugDefaultTargetPlatformOverride = v as $flutter_20.TargetPlatform?, importPath, sourceUri: 'package:flutter/src/foundation/platform.dart');
@@ -362,6 +467,23 @@ class FlutterFoundationBridge {
   /// Returns a map of global function names to their native implementations.
   static Map<String, NativeFunctionImpl> globalFunctions() {
     return {
+      'lerpDuration': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 3, 'lerpDuration');
+        final a = D4.getRequiredArg<Duration>(positional, 0, 'a', 'lerpDuration');
+        final b = D4.getRequiredArg<Duration>(positional, 1, 'b', 'lerpDuration');
+        final t = D4.getRequiredArg<double>(positional, 2, 't', 'lerpDuration');
+        return $flutter_3.lerpDuration(a, b, t);
+      },
+      'shortHash': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'shortHash');
+        final object = D4.getRequiredArg<Object?>(positional, 0, 'object', 'shortHash');
+        return $flutter_12.shortHash(object);
+      },
+      'describeIdentity': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'describeIdentity');
+        final object = D4.getRequiredArg<Object?>(positional, 0, 'object', 'describeIdentity');
+        return $flutter_12.describeIdentity(object);
+      },
       'debugPrintStack': (visitor, positional, named, typeArgs) {
         final stackTrace = D4.getOptionalNamedArg<StackTrace?>(named, 'stackTrace');
         final label = D4.getOptionalNamedArg<String?>(named, 'label');
@@ -408,6 +530,25 @@ class FlutterFoundationBridge {
         final onBytesReceivedRaw = named['onBytesReceived'];
         final onBytesReceived = onBytesReceivedRaw == null ? null : (int p0, int? p1) { D4.callInterpreterCallback(visitor, onBytesReceivedRaw, [p0, p1]); };
         return $flutter_9.consolidateHttpClientResponseBytes(response, autoUncompress: autoUncompress, onBytesReceived: onBytesReceived);
+      },
+      'debugPrintSynchronously': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'debugPrintSynchronously');
+        final message = D4.getRequiredArg<String?>(positional, 0, 'message', 'debugPrintSynchronously');
+        final wrapWidth = D4.getOptionalNamedArg<int?>(named, 'wrapWidth');
+        return $flutter_21.debugPrintSynchronously(message, wrapWidth: wrapWidth);
+      },
+      'debugPrintThrottled': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'debugPrintThrottled');
+        final message = D4.getRequiredArg<String?>(positional, 0, 'message', 'debugPrintThrottled');
+        final wrapWidth = D4.getOptionalNamedArg<int?>(named, 'wrapWidth');
+        return $flutter_21.debugPrintThrottled(message, wrapWidth: wrapWidth);
+      },
+      'debugWordWrap': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'debugWordWrap');
+        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'debugWordWrap');
+        final width = D4.getRequiredArg<int>(positional, 1, 'width', 'debugWordWrap');
+        final wrapIndent = D4.getNamedArgWithDefault<String>(named, 'wrapIndent', '');
+        return $flutter_21.debugWordWrap(message, width, wrapIndent: wrapIndent);
       },
       'debugAssertAllFoundationVarsUnset': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugAssertAllFoundationVarsUnset');
@@ -475,6 +616,9 @@ class FlutterFoundationBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> globalFunctionSourceUris() {
     return {
+      'lerpDuration': 'package:flutter/src/foundation/basic_types.dart',
+      'shortHash': 'package:flutter/src/foundation/diagnostics.dart',
+      'describeIdentity': 'package:flutter/src/foundation/diagnostics.dart',
       'debugPrintStack': 'package:flutter/src/foundation/assertions.dart',
       'setEquals': 'package:flutter/src/foundation/collections.dart',
       'listEquals': 'package:flutter/src/foundation/collections.dart',
@@ -482,6 +626,9 @@ class FlutterFoundationBridge {
       'binarySearch': 'package:flutter/src/foundation/collections.dart',
       'mergeSort': 'package:flutter/src/foundation/collections.dart',
       'consolidateHttpClientResponseBytes': 'package:flutter/src/foundation/consolidate_response.dart',
+      'debugPrintSynchronously': 'package:flutter/src/foundation/print.dart',
+      'debugPrintThrottled': 'package:flutter/src/foundation/print.dart',
+      'debugWordWrap': 'package:flutter/src/foundation/print.dart',
       'debugAssertAllFoundationVarsUnset': 'package:flutter/src/foundation/debug.dart',
       'debugInstrumentAction': 'package:flutter/src/foundation/debug.dart',
       'debugFormatDouble': 'package:flutter/src/foundation/debug.dart',
@@ -495,6 +642,9 @@ class FlutterFoundationBridge {
   /// Returns a map of global function names to their display signatures.
   static Map<String, String> globalFunctionSignatures() {
     return {
+      'lerpDuration': 'Duration lerpDuration(Duration a, Duration b, double t)',
+      'shortHash': 'String shortHash(Object? object)',
+      'describeIdentity': 'String describeIdentity(Object? object)',
       'debugPrintStack': 'void debugPrintStack({StackTrace? stackTrace, String? label, int? maxFrames})',
       'setEquals': 'bool setEquals(Set<T>? a, Set<T>? b)',
       'listEquals': 'bool listEquals(List<T>? a, List<T>? b)',
@@ -502,6 +652,9 @@ class FlutterFoundationBridge {
       'binarySearch': 'int binarySearch(List<T> sortedList, T value)',
       'mergeSort': 'void mergeSort(List<T> list, {int start = 0, int? end, int Function(T, T)? compare})',
       'consolidateHttpClientResponseBytes': 'Future<Uint8List> consolidateHttpClientResponseBytes(HttpClientResponse response, {bool autoUncompress = true, BytesReceivedCallback? onBytesReceived})',
+      'debugPrintSynchronously': 'void debugPrintSynchronously(String? message, {int? wrapWidth})',
+      'debugPrintThrottled': 'void debugPrintThrottled(String? message, {int? wrapWidth})',
+      'debugWordWrap': 'Iterable<String> debugWordWrap(String message, int width, {String wrapIndent = \'\'})',
       'debugAssertAllFoundationVarsUnset': 'bool debugAssertAllFoundationVarsUnset(String reason, {DebugPrintCallback debugPrintOverride = debugPrintThrottled})',
       'debugInstrumentAction': 'Future<T> debugInstrumentAction(String description, Future<T> Function() action)',
       'debugFormatDouble': 'String debugFormatDouble(double? value)',
@@ -521,6 +674,7 @@ class FlutterFoundationBridge {
     return [
       'package:flutter/src/foundation/annotations.dart',
       'package:flutter/src/foundation/assertions.dart',
+      'package:flutter/src/foundation/basic_types.dart',
       'package:flutter/src/foundation/binding.dart',
       'package:flutter/src/foundation/bitfield.dart',
       'package:flutter/src/foundation/capabilities.dart',
@@ -538,6 +692,7 @@ class FlutterFoundationBridge {
       'package:flutter/src/foundation/observer_list.dart',
       'package:flutter/src/foundation/persistent_hash_map.dart',
       'package:flutter/src/foundation/platform.dart',
+      'package:flutter/src/foundation/print.dart',
       'package:flutter/src/foundation/serialization.dart',
       'package:flutter/src/foundation/service_extensions.dart',
       'package:flutter/src/foundation/stack_frame.dart',
@@ -661,6 +816,429 @@ BridgedClass _createSummaryBridge() {
     },
     getterSignatures: {
       'text': 'String get text',
+    },
+  );
+}
+
+// =============================================================================
+// CachingIterable Bridge
+// =============================================================================
+
+BridgedClass _createCachingIterableBridge() {
+  return BridgedClass(
+    nativeType: $flutter_3.CachingIterable,
+    name: 'CachingIterable',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'CachingIterable');
+        final prefillIterator = D4.getRequiredArg<Iterator<dynamic>>(positional, 0, '_prefillIterator', 'CachingIterable');
+        return $flutter_3.CachingIterable(prefillIterator);
+      },
+    },
+    getters: {
+      'iterator': (visitor, target) => D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable').iterator,
+      'length': (visitor, target) => D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable').length,
+      'isEmpty': (visitor, target) => D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable').isEmpty,
+      'isNotEmpty': (visitor, target) => D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable').isNotEmpty,
+      'first': (visitor, target) => D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable').first,
+      'last': (visitor, target) => D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable').last,
+      'single': (visitor, target) => D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable').single,
+    },
+    methods: {
+      'map': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 1, 'map');
+        if (positional.isEmpty) {
+          throw ArgumentError('map: Missing required argument "toElement" at position 0');
+        }
+        final toElementRaw = positional[0];
+        return t.map((dynamic p0) { return D4.callInterpreterCallback(visitor, toElementRaw, [p0]) as dynamic; });
+      },
+      'where': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 1, 'where');
+        if (positional.isEmpty) {
+          throw ArgumentError('where: Missing required argument "test" at position 0');
+        }
+        final testRaw = positional[0];
+        return t.where((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; });
+      },
+      'expand': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 1, 'expand');
+        if (positional.isEmpty) {
+          throw ArgumentError('expand: Missing required argument "toElements" at position 0');
+        }
+        final toElementsRaw = positional[0];
+        return t.expand((dynamic p0) { return D4.callInterpreterCallback(visitor, toElementsRaw, [p0]) as Iterable<dynamic>; });
+      },
+      'take': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 1, 'take');
+        final count = D4.getRequiredArg<int>(positional, 0, 'count', 'take');
+        return t.take(count);
+      },
+      'takeWhile': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 1, 'takeWhile');
+        if (positional.isEmpty) {
+          throw ArgumentError('takeWhile: Missing required argument "test" at position 0');
+        }
+        final testRaw = positional[0];
+        return t.takeWhile((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; });
+      },
+      'skip': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 1, 'skip');
+        final count = D4.getRequiredArg<int>(positional, 0, 'count', 'skip');
+        return t.skip(count);
+      },
+      'skipWhile': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 1, 'skipWhile');
+        if (positional.isEmpty) {
+          throw ArgumentError('skipWhile: Missing required argument "test" at position 0');
+        }
+        final testRaw = positional[0];
+        return t.skipWhile((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; });
+      },
+      'elementAt': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 1, 'elementAt');
+        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'elementAt');
+        return t.elementAt(index);
+      },
+      'toList': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        final growable = D4.getNamedArgWithDefault<bool>(named, 'growable', true);
+        return t.toList(growable: growable);
+      },
+      'cast': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        return t.cast();
+      },
+      'followedBy': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 1, 'followedBy');
+        final other = D4.getRequiredArg<Iterable<dynamic>>(positional, 0, 'other', 'followedBy');
+        return t.followedBy(other);
+      },
+      'whereType': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        return t.whereType();
+      },
+      'contains': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 1, 'contains');
+        final element = D4.getRequiredArg<Object?>(positional, 0, 'element', 'contains');
+        return t.contains(element);
+      },
+      'forEach': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 1, 'forEach');
+        if (positional.isEmpty) {
+          throw ArgumentError('forEach: Missing required argument "action" at position 0');
+        }
+        final actionRaw = positional[0];
+        t.forEach((dynamic p0) { D4.callInterpreterCallback(visitor, actionRaw, [p0]); });
+        return null;
+      },
+      'reduce': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 1, 'reduce');
+        if (positional.isEmpty) {
+          throw ArgumentError('reduce: Missing required argument "combine" at position 0');
+        }
+        final combineRaw = positional[0];
+        return t.reduce((dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor, combineRaw, [p0, p1]) as dynamic; });
+      },
+      'fold': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 2, 'fold');
+        final initialValue = D4.getRequiredArg<dynamic>(positional, 0, 'initialValue', 'fold');
+        if (positional.length <= 1) {
+          throw ArgumentError('fold: Missing required argument "combine" at position 1');
+        }
+        final combineRaw = positional[1];
+        return t.fold(initialValue, (dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor, combineRaw, [p0, p1]) as dynamic; });
+      },
+      'every': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 1, 'every');
+        if (positional.isEmpty) {
+          throw ArgumentError('every: Missing required argument "test" at position 0');
+        }
+        final testRaw = positional[0];
+        return t.every((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; });
+      },
+      'join': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        final separator = D4.getOptionalArgWithDefault<String>(positional, 0, 'separator', "");
+        return t.join(separator);
+      },
+      'any': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 1, 'any');
+        if (positional.isEmpty) {
+          throw ArgumentError('any: Missing required argument "test" at position 0');
+        }
+        final testRaw = positional[0];
+        return t.any((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; });
+      },
+      'toSet': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        return t.toSet();
+      },
+      'firstWhere': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 1, 'firstWhere');
+        if (positional.isEmpty) {
+          throw ArgumentError('firstWhere: Missing required argument "test" at position 0');
+        }
+        final testRaw = positional[0];
+        final orElseRaw = named['orElse'];
+        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+      },
+      'lastWhere': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 1, 'lastWhere');
+        if (positional.isEmpty) {
+          throw ArgumentError('lastWhere: Missing required argument "test" at position 0');
+        }
+        final testRaw = positional[0];
+        final orElseRaw = named['orElse'];
+        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+      },
+      'singleWhere': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        D4.requireMinArgs(positional, 1, 'singleWhere');
+        if (positional.isEmpty) {
+          throw ArgumentError('singleWhere: Missing required argument "test" at position 0');
+        }
+        final testRaw = positional[0];
+        final orElseRaw = named['orElse'];
+        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor, orElseRaw, []) as dynamic; });
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'CachingIterable(Iterator<E> _prefillIterator)',
+    },
+    methodSignatures: {
+      'map': 'Iterable<T> map(T Function(E e) toElement)',
+      'where': 'Iterable<E> where(bool Function(E element) test)',
+      'expand': 'Iterable<T> expand(Iterable<T> Function(E element) toElements)',
+      'take': 'Iterable<E> take(int count)',
+      'takeWhile': 'Iterable<E> takeWhile(bool Function(E value) test)',
+      'skip': 'Iterable<E> skip(int count)',
+      'skipWhile': 'Iterable<E> skipWhile(bool Function(E value) test)',
+      'elementAt': 'E elementAt(int index)',
+      'toList': 'List<E> toList({bool growable = true})',
+      'cast': 'Iterable<R> cast()',
+      'followedBy': 'Iterable<E> followedBy(Iterable<E> other)',
+      'whereType': 'Iterable<T> whereType()',
+      'contains': 'bool contains(Object? element)',
+      'forEach': 'void forEach(void Function(E) action)',
+      'reduce': 'E reduce(E Function(E, E) combine)',
+      'fold': 'T fold(T initialValue, T Function(T, E) combine)',
+      'every': 'bool every(bool Function(E) test)',
+      'join': 'String join([String separator = ""])',
+      'any': 'bool any(bool Function(E) test)',
+      'toSet': 'Set<E> toSet()',
+      'firstWhere': 'E firstWhere(bool Function(E) test, {E Function()? orElse})',
+      'lastWhere': 'E lastWhere(bool Function(E) test, {E Function()? orElse})',
+      'singleWhere': 'E singleWhere(bool Function(E) test, {E Function()? orElse})',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'iterator': 'Iterator<E> get iterator',
+      'length': 'int get length',
+      'isEmpty': 'bool get isEmpty',
+      'isNotEmpty': 'bool get isNotEmpty',
+      'first': 'E get first',
+      'last': 'E get last',
+      'single': 'E get single',
+    },
+  );
+}
+
+// =============================================================================
+// Factory Bridge
+// =============================================================================
+
+BridgedClass _createFactoryBridge() {
+  return BridgedClass(
+    nativeType: $flutter_3.Factory,
+    name: 'Factory',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'Factory');
+        if (positional.isEmpty) {
+          throw ArgumentError('Factory: Missing required argument "constructor" at position 0');
+        }
+        final constructorRaw = positional[0];
+        return $flutter_3.Factory(() { return D4.callInterpreterCallback(visitor, constructorRaw, []) as dynamic; });
+      },
+    },
+    getters: {
+      'constructor': (visitor, target) => D4.validateTarget<$flutter_3.Factory>(target, 'Factory').constructor,
+      'type': (visitor, target) => D4.validateTarget<$flutter_3.Factory>(target, 'Factory').type,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.Factory>(target, 'Factory');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const Factory(T Function() constructor)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'constructor': 'ValueGetter<T> get constructor',
+      'type': 'Type get type',
+    },
+  );
+}
+
+// =============================================================================
+// TextTreeConfiguration Bridge
+// =============================================================================
+
+BridgedClass _createTextTreeConfigurationBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.TextTreeConfiguration,
+    name: 'TextTreeConfiguration',
+    constructors: {
+      '': (visitor, positional, named) {
+        final prefixLineOne = D4.getRequiredNamedArg<String>(named, 'prefixLineOne', 'TextTreeConfiguration');
+        final prefixOtherLines = D4.getRequiredNamedArg<String>(named, 'prefixOtherLines', 'TextTreeConfiguration');
+        final prefixLastChildLineOne = D4.getRequiredNamedArg<String>(named, 'prefixLastChildLineOne', 'TextTreeConfiguration');
+        final prefixOtherLinesRootNode = D4.getRequiredNamedArg<String>(named, 'prefixOtherLinesRootNode', 'TextTreeConfiguration');
+        final linkCharacter = D4.getRequiredNamedArg<String>(named, 'linkCharacter', 'TextTreeConfiguration');
+        final propertyPrefixIfChildren = D4.getRequiredNamedArg<String>(named, 'propertyPrefixIfChildren', 'TextTreeConfiguration');
+        final propertyPrefixNoChildren = D4.getRequiredNamedArg<String>(named, 'propertyPrefixNoChildren', 'TextTreeConfiguration');
+        final lineBreak = D4.getNamedArgWithDefault<String>(named, 'lineBreak', '\n');
+        final lineBreakProperties = D4.getNamedArgWithDefault<bool>(named, 'lineBreakProperties', true);
+        final afterName = D4.getNamedArgWithDefault<String>(named, 'afterName', ':');
+        final afterDescriptionIfBody = D4.getNamedArgWithDefault<String>(named, 'afterDescriptionIfBody', '');
+        final afterDescription = D4.getNamedArgWithDefault<String>(named, 'afterDescription', '');
+        final beforeProperties = D4.getNamedArgWithDefault<String>(named, 'beforeProperties', '');
+        final afterProperties = D4.getNamedArgWithDefault<String>(named, 'afterProperties', '');
+        final mandatoryAfterProperties = D4.getNamedArgWithDefault<String>(named, 'mandatoryAfterProperties', '');
+        final propertySeparator = D4.getNamedArgWithDefault<String>(named, 'propertySeparator', '');
+        final bodyIndent = D4.getNamedArgWithDefault<String>(named, 'bodyIndent', '');
+        final footer = D4.getNamedArgWithDefault<String>(named, 'footer', '');
+        final showChildren = D4.getNamedArgWithDefault<bool>(named, 'showChildren', true);
+        final addBlankLineIfNoChildren = D4.getNamedArgWithDefault<bool>(named, 'addBlankLineIfNoChildren', true);
+        final isNameOnOwnLine = D4.getNamedArgWithDefault<bool>(named, 'isNameOnOwnLine', false);
+        final isBlankLineBetweenPropertiesAndChildren = D4.getNamedArgWithDefault<bool>(named, 'isBlankLineBetweenPropertiesAndChildren', true);
+        final beforeName = D4.getNamedArgWithDefault<String>(named, 'beforeName', '');
+        final suffixLineOne = D4.getNamedArgWithDefault<String>(named, 'suffixLineOne', '');
+        final mandatoryFooter = D4.getNamedArgWithDefault<String>(named, 'mandatoryFooter', '');
+        return $flutter_12.TextTreeConfiguration(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, prefixLastChildLineOne: prefixLastChildLineOne, prefixOtherLinesRootNode: prefixOtherLinesRootNode, linkCharacter: linkCharacter, propertyPrefixIfChildren: propertyPrefixIfChildren, propertyPrefixNoChildren: propertyPrefixNoChildren, lineBreak: lineBreak, lineBreakProperties: lineBreakProperties, afterName: afterName, afterDescriptionIfBody: afterDescriptionIfBody, afterDescription: afterDescription, beforeProperties: beforeProperties, afterProperties: afterProperties, mandatoryAfterProperties: mandatoryAfterProperties, propertySeparator: propertySeparator, bodyIndent: bodyIndent, footer: footer, showChildren: showChildren, addBlankLineIfNoChildren: addBlankLineIfNoChildren, isNameOnOwnLine: isNameOnOwnLine, isBlankLineBetweenPropertiesAndChildren: isBlankLineBetweenPropertiesAndChildren, beforeName: beforeName, suffixLineOne: suffixLineOne, mandatoryFooter: mandatoryFooter);
+      },
+    },
+    getters: {
+      'prefixLineOne': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').prefixLineOne,
+      'suffixLineOne': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').suffixLineOne,
+      'prefixOtherLines': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').prefixOtherLines,
+      'prefixLastChildLineOne': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').prefixLastChildLineOne,
+      'prefixOtherLinesRootNode': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').prefixOtherLinesRootNode,
+      'propertyPrefixIfChildren': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').propertyPrefixIfChildren,
+      'propertyPrefixNoChildren': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').propertyPrefixNoChildren,
+      'linkCharacter': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').linkCharacter,
+      'childLinkSpace': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').childLinkSpace,
+      'lineBreak': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').lineBreak,
+      'lineBreakProperties': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').lineBreakProperties,
+      'beforeName': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').beforeName,
+      'afterName': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').afterName,
+      'afterDescriptionIfBody': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').afterDescriptionIfBody,
+      'afterDescription': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').afterDescription,
+      'beforeProperties': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').beforeProperties,
+      'afterProperties': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').afterProperties,
+      'mandatoryAfterProperties': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').mandatoryAfterProperties,
+      'propertySeparator': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').propertySeparator,
+      'bodyIndent': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').bodyIndent,
+      'showChildren': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').showChildren,
+      'addBlankLineIfNoChildren': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').addBlankLineIfNoChildren,
+      'isNameOnOwnLine': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').isNameOnOwnLine,
+      'footer': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').footer,
+      'mandatoryFooter': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').mandatoryFooter,
+      'isBlankLineBetweenPropertiesAndChildren': (visitor, target) => D4.validateTarget<$flutter_12.TextTreeConfiguration>(target, 'TextTreeConfiguration').isBlankLineBetweenPropertiesAndChildren,
+    },
+    constructorSignatures: {
+      '': 'TextTreeConfiguration({required String prefixLineOne, required String prefixOtherLines, required String prefixLastChildLineOne, required String prefixOtherLinesRootNode, required String linkCharacter, required String propertyPrefixIfChildren, required String propertyPrefixNoChildren, String lineBreak = \'\\n\', bool lineBreakProperties = true, String afterName = \':\', String afterDescriptionIfBody = \'\', String afterDescription = \'\', String beforeProperties = \'\', String afterProperties = \'\', String mandatoryAfterProperties = \'\', String propertySeparator = \'\', String bodyIndent = \'\', String footer = \'\', bool showChildren = true, bool addBlankLineIfNoChildren = true, bool isNameOnOwnLine = false, bool isBlankLineBetweenPropertiesAndChildren = true, String beforeName = \'\', String suffixLineOne = \'\', String mandatoryFooter = \'\'})',
+    },
+    getterSignatures: {
+      'prefixLineOne': 'String get prefixLineOne',
+      'suffixLineOne': 'String get suffixLineOne',
+      'prefixOtherLines': 'String get prefixOtherLines',
+      'prefixLastChildLineOne': 'String get prefixLastChildLineOne',
+      'prefixOtherLinesRootNode': 'String get prefixOtherLinesRootNode',
+      'propertyPrefixIfChildren': 'String get propertyPrefixIfChildren',
+      'propertyPrefixNoChildren': 'String get propertyPrefixNoChildren',
+      'linkCharacter': 'String get linkCharacter',
+      'childLinkSpace': 'String get childLinkSpace',
+      'lineBreak': 'String get lineBreak',
+      'lineBreakProperties': 'bool get lineBreakProperties',
+      'beforeName': 'String get beforeName',
+      'afterName': 'String get afterName',
+      'afterDescriptionIfBody': 'String get afterDescriptionIfBody',
+      'afterDescription': 'String get afterDescription',
+      'beforeProperties': 'String get beforeProperties',
+      'afterProperties': 'String get afterProperties',
+      'mandatoryAfterProperties': 'String get mandatoryAfterProperties',
+      'propertySeparator': 'String get propertySeparator',
+      'bodyIndent': 'String get bodyIndent',
+      'showChildren': 'bool get showChildren',
+      'addBlankLineIfNoChildren': 'bool get addBlankLineIfNoChildren',
+      'isNameOnOwnLine': 'bool get isNameOnOwnLine',
+      'footer': 'String get footer',
+      'mandatoryFooter': 'String get mandatoryFooter',
+      'isBlankLineBetweenPropertiesAndChildren': 'bool get isBlankLineBetweenPropertiesAndChildren',
+    },
+  );
+}
+
+// =============================================================================
+// TextTreeRenderer Bridge
+// =============================================================================
+
+BridgedClass _createTextTreeRendererBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.TextTreeRenderer,
+    name: 'TextTreeRenderer',
+    constructors: {
+      '': (visitor, positional, named) {
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 100);
+        final wrapWidthProperties = D4.getNamedArgWithDefault<int>(named, 'wrapWidthProperties', 65);
+        final maxDescendentsTruncatableNode = D4.getNamedArgWithDefault<int>(named, 'maxDescendentsTruncatableNode', -1);
+        return $flutter_12.TextTreeRenderer(minLevel: minLevel, wrapWidth: wrapWidth, wrapWidthProperties: wrapWidthProperties, maxDescendentsTruncatableNode: maxDescendentsTruncatableNode);
+      },
+    },
+    methods: {
+      'render': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.TextTreeRenderer>(target, 'TextTreeRenderer');
+        D4.requireMinArgs(positional, 1, 'render');
+        final node = D4.getRequiredArg<$flutter_12.DiagnosticsNode>(positional, 0, 'node', 'render');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.render(node, prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration);
+      },
+    },
+    constructorSignatures: {
+      '': 'TextTreeRenderer({DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 100, int wrapWidthProperties = 65, int maxDescendentsTruncatableNode = -1})',
+    },
+    methodSignatures: {
+      'render': 'String render(DiagnosticsNode node, {String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration})',
     },
   );
 }
@@ -794,6 +1372,1908 @@ BridgedClass _createDiagnosticsNodeBridge() {
 }
 
 // =============================================================================
+// MessageProperty Bridge
+// =============================================================================
+
+BridgedClass _createMessagePropertyBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.MessageProperty,
+    name: 'MessageProperty',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'MessageProperty');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'MessageProperty');
+        final message = D4.getRequiredArg<String>(positional, 1, 'message', 'MessageProperty');
+        final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.singleLine);
+        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        return $flutter_12.MessageProperty(name, message, style: style, level: level);
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').showSeparator,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').level,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').value,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').style,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').allowTruncate,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').expandableValue,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').missingIfNull,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').propertyType,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').exception,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').defaultValue,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').isInteresting,
+    },
+    methods: {
+      'toDescription': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.toDescription(parentConfiguration: parentConfiguration);
+      },
+      'isFiltered': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
+        D4.requireMinArgs(positional, 1, 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        return t.isFiltered(minLevel);
+      },
+      'getProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
+        return t.getProperties();
+      },
+      'getChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
+        return t.getChildren();
+      },
+      'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
+        return t.toTimelineArguments();
+      },
+      'toJsonMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        return t.toJsonMap(delegate);
+      },
+      'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        return t.toJsonMapIterative(delegate);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'valueToString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.valueToString(parentConfiguration: parentConfiguration);
+      },
+    },
+    constructorSignatures: {
+      '': 'MessageProperty(String name, String message, {DiagnosticsTreeStyle style = DiagnosticsTreeStyle.singleLine, DiagnosticLevel level = DiagnosticLevel.info})',
+    },
+    methodSignatures: {
+      'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
+      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
+      'getProperties': 'List<DiagnosticsNode> getProperties()',
+      'getChildren': 'List<DiagnosticsNode> getChildren()',
+      'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
+      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
+      'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
+      'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'valueToString': 'String valueToString({TextTreeConfiguration? parentConfiguration})',
+    },
+    getterSignatures: {
+      'name': 'String? get name',
+      'showSeparator': 'bool get showSeparator',
+      'level': 'DiagnosticLevel get level',
+      'showName': 'bool get showName',
+      'linePrefix': 'String? get linePrefix',
+      'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'value': 'void get value',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'allowWrap': 'bool get allowWrap',
+      'allowNameWrap': 'bool get allowNameWrap',
+      'allowTruncate': 'bool get allowTruncate',
+      'expandableValue': 'bool get expandableValue',
+      'ifNull': 'String? get ifNull',
+      'ifEmpty': 'String? get ifEmpty',
+      'tooltip': 'String? get tooltip',
+      'missingIfNull': 'bool get missingIfNull',
+      'propertyType': 'Type get propertyType',
+      'exception': 'Object? get exception',
+      'defaultValue': 'Object? get defaultValue',
+      'isInteresting': 'bool get isInteresting',
+    },
+  );
+}
+
+// =============================================================================
+// StringProperty Bridge
+// =============================================================================
+
+BridgedClass _createStringPropertyBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.StringProperty,
+    name: 'StringProperty',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'StringProperty');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'StringProperty');
+        final value = D4.getRequiredArg<String?>(positional, 1, 'value', 'StringProperty');
+        final description = D4.getOptionalNamedArg<String?>(named, 'description');
+        final tooltip = D4.getOptionalNamedArg<String?>(named, 'tooltip');
+        final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
+        final quoted = D4.getNamedArgWithDefault<bool>(named, 'quoted', true);
+        final ifEmpty = D4.getOptionalNamedArg<String?>(named, 'ifEmpty');
+        final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.singleLine);
+        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        if (!named.containsKey('defaultValue')) {
+          return $flutter_12.StringProperty(name, value, description: description, tooltip: tooltip, showName: showName, quoted: quoted, ifEmpty: ifEmpty, style: style, level: level);
+        }
+        if (named.containsKey('defaultValue')) {
+          final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'StringProperty');
+          return $flutter_12.StringProperty(name, value, description: description, tooltip: tooltip, showName: showName, quoted: quoted, ifEmpty: ifEmpty, style: style, level: level, defaultValue: defaultValue);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').showSeparator,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').level,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').value,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').style,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').allowTruncate,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').expandableValue,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').missingIfNull,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').propertyType,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').exception,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').defaultValue,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').isInteresting,
+      'quoted': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').quoted,
+    },
+    methods: {
+      'toDescription': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.toDescription(parentConfiguration: parentConfiguration);
+      },
+      'isFiltered': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
+        D4.requireMinArgs(positional, 1, 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        return t.isFiltered(minLevel);
+      },
+      'getProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
+        return t.getProperties();
+      },
+      'getChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
+        return t.getChildren();
+      },
+      'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
+        return t.toTimelineArguments();
+      },
+      'toJsonMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        return t.toJsonMap(delegate);
+      },
+      'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        return t.toJsonMapIterative(delegate);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'valueToString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.valueToString(parentConfiguration: parentConfiguration);
+      },
+    },
+    constructorSignatures: {
+      '': 'StringProperty(String name, String? value, {String? description, String? tooltip, bool showName = true, Object? defaultValue = kNoDefaultValue, bool quoted = true, String? ifEmpty, DiagnosticsTreeStyle style = DiagnosticsTreeStyle.singleLine, DiagnosticLevel level = DiagnosticLevel.info})',
+    },
+    methodSignatures: {
+      'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
+      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
+      'getProperties': 'List<DiagnosticsNode> getProperties()',
+      'getChildren': 'List<DiagnosticsNode> getChildren()',
+      'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
+      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
+      'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
+      'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'valueToString': 'String valueToString({TextTreeConfiguration? parentConfiguration})',
+    },
+    getterSignatures: {
+      'name': 'String? get name',
+      'showSeparator': 'bool get showSeparator',
+      'level': 'DiagnosticLevel get level',
+      'showName': 'bool get showName',
+      'linePrefix': 'String? get linePrefix',
+      'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'value': 'String get value',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'allowWrap': 'bool get allowWrap',
+      'allowNameWrap': 'bool get allowNameWrap',
+      'allowTruncate': 'bool get allowTruncate',
+      'expandableValue': 'bool get expandableValue',
+      'ifNull': 'String? get ifNull',
+      'ifEmpty': 'String? get ifEmpty',
+      'tooltip': 'String? get tooltip',
+      'missingIfNull': 'bool get missingIfNull',
+      'propertyType': 'Type get propertyType',
+      'exception': 'Object? get exception',
+      'defaultValue': 'Object? get defaultValue',
+      'isInteresting': 'bool get isInteresting',
+      'quoted': 'bool get quoted',
+    },
+  );
+}
+
+// =============================================================================
+// DoubleProperty Bridge
+// =============================================================================
+
+BridgedClass _createDoublePropertyBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.DoubleProperty,
+    name: 'DoubleProperty',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'DoubleProperty');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'DoubleProperty');
+        final value = D4.getRequiredArg<double?>(positional, 1, 'value', 'DoubleProperty');
+        final ifNull = D4.getOptionalNamedArg<String?>(named, 'ifNull');
+        final unit = D4.getOptionalNamedArg<String?>(named, 'unit');
+        final tooltip = D4.getOptionalNamedArg<String?>(named, 'tooltip');
+        final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
+        final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.singleLine);
+        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        if (!named.containsKey('defaultValue')) {
+          return $flutter_12.DoubleProperty(name, value, ifNull: ifNull, unit: unit, tooltip: tooltip, showName: showName, style: style, level: level);
+        }
+        if (named.containsKey('defaultValue')) {
+          final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'DoubleProperty');
+          return $flutter_12.DoubleProperty(name, value, ifNull: ifNull, unit: unit, tooltip: tooltip, showName: showName, style: style, level: level, defaultValue: defaultValue);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
+      },
+      'lazy': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'DoubleProperty');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'DoubleProperty');
+        if (positional.length <= 1) {
+          throw ArgumentError('DoubleProperty: Missing required argument "computeValue" at position 1');
+        }
+        final computeValueRaw = positional[1];
+        final ifNull = D4.getOptionalNamedArg<String?>(named, 'ifNull');
+        final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
+        final unit = D4.getOptionalNamedArg<String?>(named, 'unit');
+        final tooltip = D4.getOptionalNamedArg<String?>(named, 'tooltip');
+        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        if (!named.containsKey('defaultValue')) {
+          return $flutter_12.DoubleProperty.lazy(name, () { return D4.callInterpreterCallback(visitor, computeValueRaw, []) as double?; }, ifNull: ifNull, showName: showName, unit: unit, tooltip: tooltip, level: level);
+        }
+        if (named.containsKey('defaultValue')) {
+          final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'DoubleProperty');
+          return $flutter_12.DoubleProperty.lazy(name, () { return D4.callInterpreterCallback(visitor, computeValueRaw, []) as double?; }, ifNull: ifNull, showName: showName, unit: unit, tooltip: tooltip, level: level, defaultValue: defaultValue);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
+      },
+    },
+    getters: {
+      'unit': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').unit,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').expandableValue,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').allowNameWrap,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').missingIfNull,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').propertyType,
+      'value': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').value,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').exception,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').defaultValue,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').isInteresting,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').level,
+      'name': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').emptyBodyDescription,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').style,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty').allowTruncate,
+    },
+    methods: {
+      'numberToString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        return t.numberToString();
+      },
+      'toJsonMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        return t.toJsonMap(delegate);
+      },
+      'valueToString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.valueToString(parentConfiguration: parentConfiguration);
+      },
+      'toDescription': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.toDescription(parentConfiguration: parentConfiguration);
+      },
+      'getProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        return t.getProperties();
+      },
+      'getChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        return t.getChildren();
+      },
+      'isFiltered': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        D4.requireMinArgs(positional, 1, 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        return t.isFiltered(minLevel);
+      },
+      'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        return t.toTimelineArguments();
+      },
+      'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        return t.toJsonMapIterative(delegate);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DoubleProperty>(target, 'DoubleProperty');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+    },
+    constructorSignatures: {
+      '': 'DoubleProperty(String name, double? value, {String? ifNull, String? unit, String? tooltip, Object? defaultValue = kNoDefaultValue, bool showName = true, DiagnosticsTreeStyle style = DiagnosticsTreeStyle.singleLine, DiagnosticLevel level = DiagnosticLevel.info})',
+      'lazy': 'DoubleProperty.lazy(String name, double? Function() computeValue, {String? ifNull, bool showName = true, String? unit, String? tooltip, Object? defaultValue = kNoDefaultValue, DiagnosticLevel level = DiagnosticLevel.info})',
+    },
+    methodSignatures: {
+      'numberToString': 'String numberToString()',
+      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
+      'valueToString': 'String valueToString({TextTreeConfiguration? parentConfiguration})',
+      'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
+      'getProperties': 'List<DiagnosticsNode> getProperties()',
+      'getChildren': 'List<DiagnosticsNode> getChildren()',
+      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
+      'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
+      'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
+      'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+    },
+    getterSignatures: {
+      'unit': 'String? get unit',
+      'expandableValue': 'bool get expandableValue',
+      'allowWrap': 'bool get allowWrap',
+      'allowNameWrap': 'bool get allowNameWrap',
+      'ifNull': 'String? get ifNull',
+      'ifEmpty': 'String? get ifEmpty',
+      'tooltip': 'String? get tooltip',
+      'missingIfNull': 'bool get missingIfNull',
+      'propertyType': 'Type get propertyType',
+      'value': 'double get value',
+      'exception': 'Object? get exception',
+      'defaultValue': 'Object? get defaultValue',
+      'isInteresting': 'bool get isInteresting',
+      'level': 'DiagnosticLevel get level',
+      'name': 'String? get name',
+      'showSeparator': 'bool get showSeparator',
+      'showName': 'bool get showName',
+      'linePrefix': 'String? get linePrefix',
+      'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'allowTruncate': 'bool get allowTruncate',
+    },
+  );
+}
+
+// =============================================================================
+// IntProperty Bridge
+// =============================================================================
+
+BridgedClass _createIntPropertyBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.IntProperty,
+    name: 'IntProperty',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'IntProperty');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'IntProperty');
+        final value = D4.getRequiredArg<int?>(positional, 1, 'value', 'IntProperty');
+        final ifNull = D4.getOptionalNamedArg<String?>(named, 'ifNull');
+        final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
+        final unit = D4.getOptionalNamedArg<String?>(named, 'unit');
+        final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.singleLine);
+        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        if (!named.containsKey('defaultValue')) {
+          return $flutter_12.IntProperty(name, value, ifNull: ifNull, showName: showName, unit: unit, style: style, level: level);
+        }
+        if (named.containsKey('defaultValue')) {
+          final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'IntProperty');
+          return $flutter_12.IntProperty(name, value, ifNull: ifNull, showName: showName, unit: unit, style: style, level: level, defaultValue: defaultValue);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
+      },
+    },
+    getters: {
+      'unit': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').unit,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').expandableValue,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').allowNameWrap,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').missingIfNull,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').propertyType,
+      'value': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').value,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').exception,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').defaultValue,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').isInteresting,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').level,
+      'name': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').emptyBodyDescription,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').style,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty').allowTruncate,
+    },
+    methods: {
+      'numberToString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        return t.numberToString();
+      },
+      'toJsonMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        return t.toJsonMap(delegate);
+      },
+      'valueToString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.valueToString(parentConfiguration: parentConfiguration);
+      },
+      'toDescription': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.toDescription(parentConfiguration: parentConfiguration);
+      },
+      'getProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        return t.getProperties();
+      },
+      'getChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        return t.getChildren();
+      },
+      'isFiltered': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        D4.requireMinArgs(positional, 1, 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        return t.isFiltered(minLevel);
+      },
+      'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        return t.toTimelineArguments();
+      },
+      'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        return t.toJsonMapIterative(delegate);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IntProperty>(target, 'IntProperty');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+    },
+    constructorSignatures: {
+      '': 'IntProperty(String name, int? value, {String? ifNull, bool showName = true, String? unit, Object? defaultValue = kNoDefaultValue, DiagnosticsTreeStyle style = DiagnosticsTreeStyle.singleLine, DiagnosticLevel level = DiagnosticLevel.info})',
+    },
+    methodSignatures: {
+      'numberToString': 'String numberToString()',
+      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
+      'valueToString': 'String valueToString({TextTreeConfiguration? parentConfiguration})',
+      'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
+      'getProperties': 'List<DiagnosticsNode> getProperties()',
+      'getChildren': 'List<DiagnosticsNode> getChildren()',
+      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
+      'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
+      'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
+      'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+    },
+    getterSignatures: {
+      'unit': 'String? get unit',
+      'expandableValue': 'bool get expandableValue',
+      'allowWrap': 'bool get allowWrap',
+      'allowNameWrap': 'bool get allowNameWrap',
+      'ifNull': 'String? get ifNull',
+      'ifEmpty': 'String? get ifEmpty',
+      'tooltip': 'String? get tooltip',
+      'missingIfNull': 'bool get missingIfNull',
+      'propertyType': 'Type get propertyType',
+      'value': 'int get value',
+      'exception': 'Object? get exception',
+      'defaultValue': 'Object? get defaultValue',
+      'isInteresting': 'bool get isInteresting',
+      'level': 'DiagnosticLevel get level',
+      'name': 'String? get name',
+      'showSeparator': 'bool get showSeparator',
+      'showName': 'bool get showName',
+      'linePrefix': 'String? get linePrefix',
+      'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'allowTruncate': 'bool get allowTruncate',
+    },
+  );
+}
+
+// =============================================================================
+// PercentProperty Bridge
+// =============================================================================
+
+BridgedClass _createPercentPropertyBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.PercentProperty,
+    name: 'PercentProperty',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'PercentProperty');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'PercentProperty');
+        final fraction = D4.getRequiredArg<double?>(positional, 1, 'fraction', 'PercentProperty');
+        final ifNull = D4.getOptionalNamedArg<String?>(named, 'ifNull');
+        final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
+        final tooltip = D4.getOptionalNamedArg<String?>(named, 'tooltip');
+        final unit = D4.getOptionalNamedArg<String?>(named, 'unit');
+        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        return $flutter_12.PercentProperty(name, fraction, ifNull: ifNull, showName: showName, tooltip: tooltip, unit: unit, level: level);
+      },
+    },
+    getters: {
+      'unit': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').unit,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').expandableValue,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').allowNameWrap,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').missingIfNull,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').propertyType,
+      'value': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').value,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').exception,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').defaultValue,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').isInteresting,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').level,
+      'name': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').showSeparator,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').emptyBodyDescription,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').style,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty').allowTruncate,
+    },
+    methods: {
+      'numberToString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        return t.numberToString();
+      },
+      'toJsonMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        return t.toJsonMap(delegate);
+      },
+      'valueToString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.valueToString(parentConfiguration: parentConfiguration);
+      },
+      'toDescription': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.toDescription(parentConfiguration: parentConfiguration);
+      },
+      'getProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        return t.getProperties();
+      },
+      'getChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        return t.getChildren();
+      },
+      'isFiltered': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        D4.requireMinArgs(positional, 1, 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        return t.isFiltered(minLevel);
+      },
+      'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        return t.toTimelineArguments();
+      },
+      'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        return t.toJsonMapIterative(delegate);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PercentProperty>(target, 'PercentProperty');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+    },
+    constructorSignatures: {
+      '': 'PercentProperty(String name, double? fraction, {String? ifNull, bool showName = true, String? tooltip, String? unit, DiagnosticLevel level = DiagnosticLevel.info})',
+    },
+    methodSignatures: {
+      'numberToString': 'String numberToString()',
+      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
+      'valueToString': 'String valueToString({TextTreeConfiguration? parentConfiguration})',
+      'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
+      'getProperties': 'List<DiagnosticsNode> getProperties()',
+      'getChildren': 'List<DiagnosticsNode> getChildren()',
+      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
+      'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
+      'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
+      'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+    },
+    getterSignatures: {
+      'unit': 'String? get unit',
+      'expandableValue': 'bool get expandableValue',
+      'allowWrap': 'bool get allowWrap',
+      'allowNameWrap': 'bool get allowNameWrap',
+      'ifNull': 'String? get ifNull',
+      'ifEmpty': 'String? get ifEmpty',
+      'tooltip': 'String? get tooltip',
+      'missingIfNull': 'bool get missingIfNull',
+      'propertyType': 'Type get propertyType',
+      'value': 'double get value',
+      'exception': 'Object? get exception',
+      'defaultValue': 'Object? get defaultValue',
+      'isInteresting': 'bool get isInteresting',
+      'level': 'DiagnosticLevel get level',
+      'name': 'String? get name',
+      'showSeparator': 'bool get showSeparator',
+      'showName': 'bool get showName',
+      'linePrefix': 'String? get linePrefix',
+      'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'allowTruncate': 'bool get allowTruncate',
+    },
+  );
+}
+
+// =============================================================================
+// FlagProperty Bridge
+// =============================================================================
+
+BridgedClass _createFlagPropertyBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.FlagProperty,
+    name: 'FlagProperty',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'FlagProperty');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'FlagProperty');
+        final value = D4.getRequiredNamedArg<bool?>(named, 'value', 'FlagProperty');
+        final ifTrue = D4.getOptionalNamedArg<String?>(named, 'ifTrue');
+        final ifFalse = D4.getOptionalNamedArg<String?>(named, 'ifFalse');
+        final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', false);
+        final defaultValue = D4.getOptionalNamedArg<Object?>(named, 'defaultValue');
+        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        return $flutter_12.FlagProperty(name, value: value, ifTrue: ifTrue, ifFalse: ifFalse, showName: showName, defaultValue: defaultValue, level: level);
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').showSeparator,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').level,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').value,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').style,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').allowTruncate,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').expandableValue,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').missingIfNull,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').propertyType,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').exception,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').defaultValue,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').isInteresting,
+      'ifTrue': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').ifTrue,
+      'ifFalse': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').ifFalse,
+    },
+    methods: {
+      'toDescription': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.toDescription(parentConfiguration: parentConfiguration);
+      },
+      'isFiltered': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
+        D4.requireMinArgs(positional, 1, 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        return t.isFiltered(minLevel);
+      },
+      'getProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
+        return t.getProperties();
+      },
+      'getChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
+        return t.getChildren();
+      },
+      'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
+        return t.toTimelineArguments();
+      },
+      'toJsonMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        return t.toJsonMap(delegate);
+      },
+      'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        return t.toJsonMapIterative(delegate);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'valueToString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.valueToString(parentConfiguration: parentConfiguration);
+      },
+    },
+    constructorSignatures: {
+      '': 'FlagProperty(String name, {required bool? value, String? ifTrue, String? ifFalse, bool showName = false, Object? defaultValue, DiagnosticLevel level = DiagnosticLevel.info})',
+    },
+    methodSignatures: {
+      'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
+      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
+      'getProperties': 'List<DiagnosticsNode> getProperties()',
+      'getChildren': 'List<DiagnosticsNode> getChildren()',
+      'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
+      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
+      'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
+      'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'valueToString': 'String valueToString({TextTreeConfiguration? parentConfiguration})',
+    },
+    getterSignatures: {
+      'name': 'String? get name',
+      'showSeparator': 'bool get showSeparator',
+      'level': 'DiagnosticLevel get level',
+      'showName': 'bool get showName',
+      'linePrefix': 'String? get linePrefix',
+      'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'value': 'bool get value',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'allowWrap': 'bool get allowWrap',
+      'allowNameWrap': 'bool get allowNameWrap',
+      'allowTruncate': 'bool get allowTruncate',
+      'expandableValue': 'bool get expandableValue',
+      'ifNull': 'String? get ifNull',
+      'ifEmpty': 'String? get ifEmpty',
+      'tooltip': 'String? get tooltip',
+      'missingIfNull': 'bool get missingIfNull',
+      'propertyType': 'Type get propertyType',
+      'exception': 'Object? get exception',
+      'defaultValue': 'Object? get defaultValue',
+      'isInteresting': 'bool get isInteresting',
+      'ifTrue': 'String? get ifTrue',
+      'ifFalse': 'String? get ifFalse',
+    },
+  );
+}
+
+// =============================================================================
+// IterableProperty Bridge
+// =============================================================================
+
+BridgedClass _createIterablePropertyBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.IterableProperty,
+    name: 'IterableProperty',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'IterableProperty');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'IterableProperty');
+        final value = D4.getRequiredArg<Iterable<dynamic>?>(positional, 1, 'value', 'IterableProperty');
+        final ifNull = D4.getOptionalNamedArg<String?>(named, 'ifNull');
+        final ifEmpty = D4.getNamedArgWithDefault<String?>(named, 'ifEmpty', '[]');
+        final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.singleLine);
+        final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
+        final showSeparator = D4.getNamedArgWithDefault<bool>(named, 'showSeparator', true);
+        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        if (!named.containsKey('defaultValue')) {
+          return $flutter_12.IterableProperty(name, value, ifNull: ifNull, ifEmpty: ifEmpty, style: style, showName: showName, showSeparator: showSeparator, level: level);
+        }
+        if (named.containsKey('defaultValue')) {
+          final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'IterableProperty');
+          return $flutter_12.IterableProperty(name, value, ifNull: ifNull, ifEmpty: ifEmpty, style: style, showName: showName, showSeparator: showSeparator, level: level, defaultValue: defaultValue);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').showSeparator,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').level,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').value,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').style,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').allowTruncate,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').expandableValue,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').missingIfNull,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').propertyType,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').exception,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').defaultValue,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').isInteresting,
+    },
+    methods: {
+      'toDescription': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.toDescription(parentConfiguration: parentConfiguration);
+      },
+      'isFiltered': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
+        D4.requireMinArgs(positional, 1, 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        return t.isFiltered(minLevel);
+      },
+      'getProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
+        return t.getProperties();
+      },
+      'getChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
+        return t.getChildren();
+      },
+      'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
+        return t.toTimelineArguments();
+      },
+      'toJsonMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        return t.toJsonMap(delegate);
+      },
+      'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        return t.toJsonMapIterative(delegate);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'valueToString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.valueToString(parentConfiguration: parentConfiguration);
+      },
+    },
+    constructorSignatures: {
+      '': 'IterableProperty(String name, Iterable<T>? value, {Object? defaultValue = kNoDefaultValue, String? ifNull, String? ifEmpty = \'[]\', DiagnosticsTreeStyle style = DiagnosticsTreeStyle.singleLine, bool showName = true, bool showSeparator = true, DiagnosticLevel level = DiagnosticLevel.info})',
+    },
+    methodSignatures: {
+      'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
+      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
+      'getProperties': 'List<DiagnosticsNode> getProperties()',
+      'getChildren': 'List<DiagnosticsNode> getChildren()',
+      'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
+      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
+      'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
+      'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'valueToString': 'String valueToString({TextTreeConfiguration? parentConfiguration})',
+    },
+    getterSignatures: {
+      'name': 'String? get name',
+      'showSeparator': 'bool get showSeparator',
+      'level': 'DiagnosticLevel get level',
+      'showName': 'bool get showName',
+      'linePrefix': 'String? get linePrefix',
+      'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'value': 'Iterable<T> get value',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'allowWrap': 'bool get allowWrap',
+      'allowNameWrap': 'bool get allowNameWrap',
+      'allowTruncate': 'bool get allowTruncate',
+      'expandableValue': 'bool get expandableValue',
+      'ifNull': 'String? get ifNull',
+      'ifEmpty': 'String? get ifEmpty',
+      'tooltip': 'String? get tooltip',
+      'missingIfNull': 'bool get missingIfNull',
+      'propertyType': 'Type get propertyType',
+      'exception': 'Object? get exception',
+      'defaultValue': 'Object? get defaultValue',
+      'isInteresting': 'bool get isInteresting',
+    },
+  );
+}
+
+// =============================================================================
+// EnumProperty Bridge
+// =============================================================================
+
+BridgedClass _createEnumPropertyBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.EnumProperty,
+    name: 'EnumProperty',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'EnumProperty');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'EnumProperty');
+        final value = D4.getRequiredArg<Enum?>(positional, 1, 'value', 'EnumProperty');
+        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        if (!named.containsKey('defaultValue')) {
+          return $flutter_12.EnumProperty(name, value, level: level);
+        }
+        if (named.containsKey('defaultValue')) {
+          final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'EnumProperty');
+          return $flutter_12.EnumProperty(name, value, level: level, defaultValue: defaultValue);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').showSeparator,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').level,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').value,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').style,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').allowTruncate,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').expandableValue,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').missingIfNull,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').propertyType,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').exception,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').defaultValue,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').isInteresting,
+    },
+    methods: {
+      'toDescription': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.toDescription(parentConfiguration: parentConfiguration);
+      },
+      'isFiltered': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
+        D4.requireMinArgs(positional, 1, 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        return t.isFiltered(minLevel);
+      },
+      'getProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
+        return t.getProperties();
+      },
+      'getChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
+        return t.getChildren();
+      },
+      'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
+        return t.toTimelineArguments();
+      },
+      'toJsonMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        return t.toJsonMap(delegate);
+      },
+      'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        return t.toJsonMapIterative(delegate);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'valueToString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.valueToString(parentConfiguration: parentConfiguration);
+      },
+    },
+    constructorSignatures: {
+      '': 'EnumProperty(String name, T? value, {Object? defaultValue = kNoDefaultValue, DiagnosticLevel level = DiagnosticLevel.info})',
+    },
+    methodSignatures: {
+      'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
+      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
+      'getProperties': 'List<DiagnosticsNode> getProperties()',
+      'getChildren': 'List<DiagnosticsNode> getChildren()',
+      'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
+      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
+      'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
+      'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'valueToString': 'String valueToString({TextTreeConfiguration? parentConfiguration})',
+    },
+    getterSignatures: {
+      'name': 'String? get name',
+      'showSeparator': 'bool get showSeparator',
+      'level': 'DiagnosticLevel get level',
+      'showName': 'bool get showName',
+      'linePrefix': 'String? get linePrefix',
+      'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'value': 'T get value',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'allowWrap': 'bool get allowWrap',
+      'allowNameWrap': 'bool get allowNameWrap',
+      'allowTruncate': 'bool get allowTruncate',
+      'expandableValue': 'bool get expandableValue',
+      'ifNull': 'String? get ifNull',
+      'ifEmpty': 'String? get ifEmpty',
+      'tooltip': 'String? get tooltip',
+      'missingIfNull': 'bool get missingIfNull',
+      'propertyType': 'Type get propertyType',
+      'exception': 'Object? get exception',
+      'defaultValue': 'Object? get defaultValue',
+      'isInteresting': 'bool get isInteresting',
+    },
+  );
+}
+
+// =============================================================================
+// ObjectFlagProperty Bridge
+// =============================================================================
+
+BridgedClass _createObjectFlagPropertyBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.ObjectFlagProperty,
+    name: 'ObjectFlagProperty',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'ObjectFlagProperty');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'ObjectFlagProperty');
+        final value = D4.getRequiredArg<dynamic>(positional, 1, 'value', 'ObjectFlagProperty');
+        final ifPresent = D4.getOptionalNamedArg<String?>(named, 'ifPresent');
+        final ifNull = D4.getOptionalNamedArg<String?>(named, 'ifNull');
+        final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', false);
+        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        return $flutter_12.ObjectFlagProperty(name, value, ifPresent: ifPresent, ifNull: ifNull, showName: showName, level: level);
+      },
+      'has': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'ObjectFlagProperty');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'ObjectFlagProperty');
+        final value = D4.getRequiredArg<dynamic>(positional, 1, 'value', 'ObjectFlagProperty');
+        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        return $flutter_12.ObjectFlagProperty.has(name, value, level: level);
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').showSeparator,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').level,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').value,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').style,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').allowTruncate,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').expandableValue,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').missingIfNull,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').propertyType,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').exception,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').defaultValue,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').isInteresting,
+      'ifPresent': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').ifPresent,
+    },
+    methods: {
+      'toDescription': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.toDescription(parentConfiguration: parentConfiguration);
+      },
+      'isFiltered': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        D4.requireMinArgs(positional, 1, 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        return t.isFiltered(minLevel);
+      },
+      'getProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        return t.getProperties();
+      },
+      'getChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        return t.getChildren();
+      },
+      'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        return t.toTimelineArguments();
+      },
+      'toJsonMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        return t.toJsonMap(delegate);
+      },
+      'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        return t.toJsonMapIterative(delegate);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'valueToString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.valueToString(parentConfiguration: parentConfiguration);
+      },
+    },
+    constructorSignatures: {
+      '': 'ObjectFlagProperty(String name, T? value, {String? ifPresent, String? ifNull, bool showName = false, DiagnosticLevel level = DiagnosticLevel.info})',
+      'has': 'ObjectFlagProperty.has(String name, T? value, {DiagnosticLevel level = DiagnosticLevel.info})',
+    },
+    methodSignatures: {
+      'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
+      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
+      'getProperties': 'List<DiagnosticsNode> getProperties()',
+      'getChildren': 'List<DiagnosticsNode> getChildren()',
+      'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
+      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
+      'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
+      'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'valueToString': 'String valueToString({TextTreeConfiguration? parentConfiguration})',
+    },
+    getterSignatures: {
+      'name': 'String? get name',
+      'showSeparator': 'bool get showSeparator',
+      'level': 'DiagnosticLevel get level',
+      'showName': 'bool get showName',
+      'linePrefix': 'String? get linePrefix',
+      'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'value': 'T get value',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'allowWrap': 'bool get allowWrap',
+      'allowNameWrap': 'bool get allowNameWrap',
+      'allowTruncate': 'bool get allowTruncate',
+      'expandableValue': 'bool get expandableValue',
+      'ifNull': 'String? get ifNull',
+      'ifEmpty': 'String? get ifEmpty',
+      'tooltip': 'String? get tooltip',
+      'missingIfNull': 'bool get missingIfNull',
+      'propertyType': 'Type get propertyType',
+      'exception': 'Object? get exception',
+      'defaultValue': 'Object? get defaultValue',
+      'isInteresting': 'bool get isInteresting',
+      'ifPresent': 'String? get ifPresent',
+    },
+  );
+}
+
+// =============================================================================
+// FlagsSummary Bridge
+// =============================================================================
+
+BridgedClass _createFlagsSummaryBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.FlagsSummary,
+    name: 'FlagsSummary',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'FlagsSummary');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'FlagsSummary');
+        if (positional.length <= 1) {
+          throw ArgumentError('FlagsSummary: Missing required argument "value" at position 1');
+        }
+        final value = D4.coerceMap<String, dynamic>(positional[1], 'value');
+        final ifEmpty = D4.getOptionalNamedArg<String?>(named, 'ifEmpty');
+        final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
+        final showSeparator = D4.getNamedArgWithDefault<bool>(named, 'showSeparator', true);
+        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        return $flutter_12.FlagsSummary(name, value, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, level: level);
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').showSeparator,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').level,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').value,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').style,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').allowTruncate,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').expandableValue,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').missingIfNull,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').propertyType,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').exception,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').defaultValue,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').isInteresting,
+    },
+    methods: {
+      'toDescription': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.toDescription(parentConfiguration: parentConfiguration);
+      },
+      'isFiltered': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
+        D4.requireMinArgs(positional, 1, 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        return t.isFiltered(minLevel);
+      },
+      'getProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
+        return t.getProperties();
+      },
+      'getChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
+        return t.getChildren();
+      },
+      'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
+        return t.toTimelineArguments();
+      },
+      'toJsonMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
+        D4.requireMinArgs(positional, 1, 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        return t.toJsonMap(delegate);
+      },
+      'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
+        D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        return t.toJsonMapIterative(delegate);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'valueToString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.valueToString(parentConfiguration: parentConfiguration);
+      },
+    },
+    constructorSignatures: {
+      '': 'FlagsSummary(String name, Map<String, T?> value, {String? ifEmpty, bool showName = true, bool showSeparator = true, DiagnosticLevel level = DiagnosticLevel.info})',
+    },
+    methodSignatures: {
+      'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
+      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
+      'getProperties': 'List<DiagnosticsNode> getProperties()',
+      'getChildren': 'List<DiagnosticsNode> getChildren()',
+      'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
+      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
+      'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
+      'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'valueToString': 'String valueToString({TextTreeConfiguration? parentConfiguration})',
+    },
+    getterSignatures: {
+      'name': 'String? get name',
+      'showSeparator': 'bool get showSeparator',
+      'level': 'DiagnosticLevel get level',
+      'showName': 'bool get showName',
+      'linePrefix': 'String? get linePrefix',
+      'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'value': 'Map<String, T?> get value',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'allowWrap': 'bool get allowWrap',
+      'allowNameWrap': 'bool get allowNameWrap',
+      'allowTruncate': 'bool get allowTruncate',
+      'expandableValue': 'bool get expandableValue',
+      'ifNull': 'String? get ifNull',
+      'ifEmpty': 'String? get ifEmpty',
+      'tooltip': 'String? get tooltip',
+      'missingIfNull': 'bool get missingIfNull',
+      'propertyType': 'Type get propertyType',
+      'exception': 'Object? get exception',
+      'defaultValue': 'Object? get defaultValue',
+      'isInteresting': 'bool get isInteresting',
+    },
+  );
+}
+
+// =============================================================================
+// DiagnosticsProperty Bridge
+// =============================================================================
+
+BridgedClass _createDiagnosticsPropertyBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.DiagnosticsProperty,
+    name: 'DiagnosticsProperty',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'DiagnosticsProperty');
+        final name = D4.getRequiredArg<String?>(positional, 0, 'name', 'DiagnosticsProperty');
+        final value = D4.getRequiredArg<dynamic>(positional, 1, 'value', 'DiagnosticsProperty');
+        final description = D4.getOptionalNamedArg<String?>(named, 'description');
+        final ifNull = D4.getOptionalNamedArg<String?>(named, 'ifNull');
+        final ifEmpty = D4.getOptionalNamedArg<String?>(named, 'ifEmpty');
+        final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
+        final showSeparator = D4.getNamedArgWithDefault<bool>(named, 'showSeparator', true);
+        final tooltip = D4.getOptionalNamedArg<String?>(named, 'tooltip');
+        final missingIfNull = D4.getNamedArgWithDefault<bool>(named, 'missingIfNull', false);
+        final linePrefix = D4.getOptionalNamedArg<String?>(named, 'linePrefix');
+        final expandableValue = D4.getNamedArgWithDefault<bool>(named, 'expandableValue', false);
+        final allowWrap = D4.getNamedArgWithDefault<bool>(named, 'allowWrap', true);
+        final allowNameWrap = D4.getNamedArgWithDefault<bool>(named, 'allowNameWrap', true);
+        final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.singleLine);
+        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        if (!named.containsKey('defaultValue')) {
+          return $flutter_12.DiagnosticsProperty(name, value, description: description, ifNull: ifNull, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, tooltip: tooltip, missingIfNull: missingIfNull, linePrefix: linePrefix, expandableValue: expandableValue, allowWrap: allowWrap, allowNameWrap: allowNameWrap, style: style, level: level);
+        }
+        if (named.containsKey('defaultValue')) {
+          final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'DiagnosticsProperty');
+          return $flutter_12.DiagnosticsProperty(name, value, description: description, ifNull: ifNull, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, tooltip: tooltip, missingIfNull: missingIfNull, linePrefix: linePrefix, expandableValue: expandableValue, allowWrap: allowWrap, allowNameWrap: allowNameWrap, style: style, level: level, defaultValue: defaultValue);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
+      },
+      'lazy': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'DiagnosticsProperty');
+        final name = D4.getRequiredArg<String?>(positional, 0, 'name', 'DiagnosticsProperty');
+        if (positional.length <= 1) {
+          throw ArgumentError('DiagnosticsProperty: Missing required argument "computeValue" at position 1');
+        }
+        final computeValueRaw = positional[1];
+        final description = D4.getOptionalNamedArg<String?>(named, 'description');
+        final ifNull = D4.getOptionalNamedArg<String?>(named, 'ifNull');
+        final ifEmpty = D4.getOptionalNamedArg<String?>(named, 'ifEmpty');
+        final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
+        final showSeparator = D4.getNamedArgWithDefault<bool>(named, 'showSeparator', true);
+        final tooltip = D4.getOptionalNamedArg<String?>(named, 'tooltip');
+        final missingIfNull = D4.getNamedArgWithDefault<bool>(named, 'missingIfNull', false);
+        final expandableValue = D4.getNamedArgWithDefault<bool>(named, 'expandableValue', false);
+        final allowWrap = D4.getNamedArgWithDefault<bool>(named, 'allowWrap', true);
+        final allowNameWrap = D4.getNamedArgWithDefault<bool>(named, 'allowNameWrap', true);
+        final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.singleLine);
+        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        if (!named.containsKey('defaultValue')) {
+          return $flutter_12.DiagnosticsProperty.lazy(name, () { return D4.callInterpreterCallback(visitor, computeValueRaw, []) as dynamic; }, description: description, ifNull: ifNull, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, tooltip: tooltip, missingIfNull: missingIfNull, expandableValue: expandableValue, allowWrap: allowWrap, allowNameWrap: allowNameWrap, style: style, level: level);
+        }
+        if (named.containsKey('defaultValue')) {
+          final defaultValue = D4.getRequiredNamedArg<Object?>(named, 'defaultValue', 'DiagnosticsProperty');
+          return $flutter_12.DiagnosticsProperty.lazy(name, () { return D4.callInterpreterCallback(visitor, computeValueRaw, []) as dynamic; }, description: description, ifNull: ifNull, ifEmpty: ifEmpty, showName: showName, showSeparator: showSeparator, tooltip: tooltip, missingIfNull: missingIfNull, expandableValue: expandableValue, allowWrap: allowWrap, allowNameWrap: allowNameWrap, style: style, level: level, defaultValue: defaultValue);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').showSeparator,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').level,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').value,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').style,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').allowTruncate,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').expandableValue,
+      'ifNull': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').ifNull,
+      'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').ifEmpty,
+      'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').tooltip,
+      'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').missingIfNull,
+      'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').propertyType,
+      'exception': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').exception,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').defaultValue,
+      'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').isInteresting,
+    },
+    methods: {
+      'toDescription': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.toDescription(parentConfiguration: parentConfiguration);
+      },
+      'isFiltered': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        D4.requireMinArgs(positional, 1, 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        return t.isFiltered(minLevel);
+      },
+      'getProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        return t.getProperties();
+      },
+      'getChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        return t.getChildren();
+      },
+      'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        return t.toTimelineArguments();
+      },
+      'toJsonMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        return t.toJsonMap(delegate);
+      },
+      'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        return t.toJsonMapIterative(delegate);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'valueToString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.valueToString(parentConfiguration: parentConfiguration);
+      },
+    },
+    constructorSignatures: {
+      '': 'DiagnosticsProperty(String? name, T? value, {String? description, String? ifNull, String? ifEmpty, bool showName = true, bool showSeparator = true, Object? defaultValue = kNoDefaultValue, String? tooltip, bool missingIfNull = false, String? linePrefix, bool expandableValue = false, bool allowWrap = true, bool allowNameWrap = true, DiagnosticsTreeStyle style = DiagnosticsTreeStyle.singleLine, DiagnosticLevel level = DiagnosticLevel.info})',
+      'lazy': 'DiagnosticsProperty.lazy(String? name, ComputePropertyValueCallback<T> computeValue, {String? description, String? ifNull, String? ifEmpty, bool showName = true, bool showSeparator = true, Object? defaultValue = kNoDefaultValue, String? tooltip, bool missingIfNull = false, bool expandableValue = false, bool allowWrap = true, bool allowNameWrap = true, DiagnosticsTreeStyle style = DiagnosticsTreeStyle.singleLine, DiagnosticLevel level = DiagnosticLevel.info})',
+    },
+    methodSignatures: {
+      'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
+      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
+      'getProperties': 'List<DiagnosticsNode> getProperties()',
+      'getChildren': 'List<DiagnosticsNode> getChildren()',
+      'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
+      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
+      'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
+      'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'valueToString': 'String valueToString({TextTreeConfiguration? parentConfiguration})',
+    },
+    getterSignatures: {
+      'name': 'String? get name',
+      'showSeparator': 'bool get showSeparator',
+      'level': 'DiagnosticLevel get level',
+      'showName': 'bool get showName',
+      'linePrefix': 'String? get linePrefix',
+      'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'value': 'T? get value',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'allowWrap': 'bool get allowWrap',
+      'allowNameWrap': 'bool get allowNameWrap',
+      'allowTruncate': 'bool get allowTruncate',
+      'expandableValue': 'bool get expandableValue',
+      'ifNull': 'String? get ifNull',
+      'ifEmpty': 'String? get ifEmpty',
+      'tooltip': 'String? get tooltip',
+      'missingIfNull': 'bool get missingIfNull',
+      'propertyType': 'Type get propertyType',
+      'exception': 'Object? get exception',
+      'defaultValue': 'Object? get defaultValue',
+      'isInteresting': 'bool get isInteresting',
+    },
+  );
+}
+
+// =============================================================================
+// DiagnosticableNode Bridge
+// =============================================================================
+
+BridgedClass _createDiagnosticableNodeBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.DiagnosticableNode,
+    name: 'DiagnosticableNode',
+    constructors: {
+      '': (visitor, positional, named) {
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final value = D4.getRequiredNamedArg<$flutter_12.Diagnosticable>(named, 'value', 'DiagnosticableNode');
+        final style = D4.getRequiredNamedArg<$flutter_12.DiagnosticsTreeStyle?>(named, 'style', 'DiagnosticableNode');
+        return $flutter_12.DiagnosticableNode(name: name, value: value, style: style);
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').showSeparator,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').level,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').value,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').style,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').allowTruncate,
+      'builder': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').builder,
+    },
+    methods: {
+      'toDescription': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.toDescription(parentConfiguration: parentConfiguration);
+      },
+      'isFiltered': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
+        D4.requireMinArgs(positional, 1, 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        return t.isFiltered(minLevel);
+      },
+      'getProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
+        return t.getProperties();
+      },
+      'getChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
+        return t.getChildren();
+      },
+      'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
+        return t.toTimelineArguments();
+      },
+      'toJsonMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
+        D4.requireMinArgs(positional, 1, 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        return t.toJsonMap(delegate);
+      },
+      'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
+        D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        return t.toJsonMapIterative(delegate);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+    },
+    constructorSignatures: {
+      '': 'DiagnosticableNode({String? name, required T value, required DiagnosticsTreeStyle? style})',
+    },
+    methodSignatures: {
+      'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
+      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
+      'getProperties': 'List<DiagnosticsNode> getProperties()',
+      'getChildren': 'List<DiagnosticsNode> getChildren()',
+      'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
+      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
+      'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
+      'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+    },
+    getterSignatures: {
+      'name': 'String? get name',
+      'showSeparator': 'bool get showSeparator',
+      'level': 'DiagnosticLevel get level',
+      'showName': 'bool get showName',
+      'linePrefix': 'String? get linePrefix',
+      'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'value': 'T get value',
+      'style': 'DiagnosticsTreeStyle get style',
+      'allowWrap': 'bool get allowWrap',
+      'allowNameWrap': 'bool get allowNameWrap',
+      'allowTruncate': 'bool get allowTruncate',
+      'builder': 'DiagnosticPropertiesBuilder? get builder',
+    },
+  );
+}
+
+// =============================================================================
+// DiagnosticableTreeNode Bridge
+// =============================================================================
+
+BridgedClass _createDiagnosticableTreeNodeBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.DiagnosticableTreeNode,
+    name: 'DiagnosticableTreeNode',
+    constructors: {
+      '': (visitor, positional, named) {
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final value = D4.getRequiredNamedArg<$flutter_12.DiagnosticableTree>(named, 'value', 'DiagnosticableTreeNode');
+        final style = D4.getRequiredNamedArg<$flutter_12.DiagnosticsTreeStyle?>(named, 'style', 'DiagnosticableTreeNode');
+        return $flutter_12.DiagnosticableTreeNode(name: name, value: value, style: style);
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').showSeparator,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').level,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').value,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').style,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').allowTruncate,
+      'builder': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').builder,
+    },
+    methods: {
+      'toDescription': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.toDescription(parentConfiguration: parentConfiguration);
+      },
+      'isFiltered': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        D4.requireMinArgs(positional, 1, 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        return t.isFiltered(minLevel);
+      },
+      'getProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        return t.getProperties();
+      },
+      'getChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        return t.getChildren();
+      },
+      'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        return t.toTimelineArguments();
+      },
+      'toJsonMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        D4.requireMinArgs(positional, 1, 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        return t.toJsonMap(delegate);
+      },
+      'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        return t.toJsonMapIterative(delegate);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+    },
+    constructorSignatures: {
+      '': 'DiagnosticableTreeNode({String? name, required DiagnosticableTree value, required DiagnosticsTreeStyle? style})',
+    },
+    methodSignatures: {
+      'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
+      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
+      'getProperties': 'List<DiagnosticsNode> getProperties()',
+      'getChildren': 'List<DiagnosticsNode> getChildren()',
+      'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
+      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
+      'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
+      'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+    },
+    getterSignatures: {
+      'name': 'String? get name',
+      'showSeparator': 'bool get showSeparator',
+      'level': 'DiagnosticLevel get level',
+      'showName': 'bool get showName',
+      'linePrefix': 'String? get linePrefix',
+      'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'value': 'DiagnosticableTree get value',
+      'style': 'DiagnosticsTreeStyle get style',
+      'allowWrap': 'bool get allowWrap',
+      'allowNameWrap': 'bool get allowNameWrap',
+      'allowTruncate': 'bool get allowTruncate',
+      'builder': 'DiagnosticPropertiesBuilder? get builder',
+    },
+  );
+}
+
+// =============================================================================
 // DiagnosticPropertiesBuilder Bridge
 // =============================================================================
 
@@ -849,6 +3329,356 @@ BridgedClass _createDiagnosticPropertiesBuilderBridge() {
     setterSignatures: {
       'defaultDiagnosticsTreeStyle': 'set defaultDiagnosticsTreeStyle(dynamic value)',
       'emptyBodyDescription': 'set emptyBodyDescription(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// Diagnosticable Bridge
+// =============================================================================
+
+BridgedClass _createDiagnosticableBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.Diagnosticable,
+    name: 'Diagnosticable',
+    constructors: {
+    },
+    methods: {
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.Diagnosticable>(target, 'Diagnosticable');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.Diagnosticable>(target, 'Diagnosticable');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.Diagnosticable>(target, 'Diagnosticable');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_12.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+    },
+    methodSignatures: {
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+    },
+  );
+}
+
+// =============================================================================
+// DiagnosticableTree Bridge
+// =============================================================================
+
+BridgedClass _createDiagnosticableTreeBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.DiagnosticableTree,
+    name: 'DiagnosticableTree',
+    constructors: {
+    },
+    methods: {
+      'toStringShallow': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTree>(target, 'DiagnosticableTree');
+        final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        return t.toStringShallow(joiner: joiner, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTree>(target, 'DiagnosticableTree');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTree>(target, 'DiagnosticableTree');
+        return t.toStringShort();
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTree>(target, 'DiagnosticableTree');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_12.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTree>(target, 'DiagnosticableTree');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+    },
+    methodSignatures: {
+      'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'toStringShort': 'String toStringShort()',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+    },
+  );
+}
+
+// =============================================================================
+// DiagnosticableTreeMixin Bridge
+// =============================================================================
+
+BridgedClass _createDiagnosticableTreeMixinBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.DiagnosticableTreeMixin,
+    name: 'DiagnosticableTreeMixin',
+    constructors: {
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toStringShallow': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        return t.toStringShallow(joiner: joiner, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        return t.toStringShort();
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_12.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+    },
+    methodSignatures: {
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'toStringShort': 'String toStringShort()',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+    },
+  );
+}
+
+// =============================================================================
+// DiagnosticsBlock Bridge
+// =============================================================================
+
+BridgedClass _createDiagnosticsBlockBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.DiagnosticsBlock,
+    name: 'DiagnosticsBlock',
+    constructors: {
+      '': (visitor, positional, named) {
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getNamedArgWithDefault<$flutter_12.DiagnosticsTreeStyle>(named, 'style', $flutter_12.DiagnosticsTreeStyle.whitespace);
+        final showName = D4.getNamedArgWithDefault<bool>(named, 'showName', true);
+        final showSeparator = D4.getNamedArgWithDefault<bool>(named, 'showSeparator', true);
+        final linePrefix = D4.getOptionalNamedArg<String?>(named, 'linePrefix');
+        final value = D4.getOptionalNamedArg<Object?>(named, 'value');
+        final description = D4.getOptionalNamedArg<String?>(named, 'description');
+        final level = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'level', $flutter_12.DiagnosticLevel.info);
+        final allowTruncate = D4.getNamedArgWithDefault<bool>(named, 'allowTruncate', false);
+        final children = named.containsKey('children') && named['children'] != null
+            ? D4.coerceList<$flutter_12.DiagnosticsNode>(named['children'], 'children')
+            : const <$flutter_12.DiagnosticsNode>[];
+        final properties = named.containsKey('properties') && named['properties'] != null
+            ? D4.coerceList<$flutter_12.DiagnosticsNode>(named['properties'], 'properties')
+            : const <$flutter_12.DiagnosticsNode>[];
+        return $flutter_12.DiagnosticsBlock(name: name, style: style, showName: showName, showSeparator: showSeparator, linePrefix: linePrefix, value: value, description: description, level: level, allowTruncate: allowTruncate, children: children, properties: properties);
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').showSeparator,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').level,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').value,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').style,
+      'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').allowWrap,
+      'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').allowTruncate,
+    },
+    methods: {
+      'toDescription': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.toDescription(parentConfiguration: parentConfiguration);
+      },
+      'isFiltered': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        D4.requireMinArgs(positional, 1, 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        return t.isFiltered(minLevel);
+      },
+      'getProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        return t.getProperties();
+      },
+      'getChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        return t.getChildren();
+      },
+      'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        return t.toTimelineArguments();
+      },
+      'toJsonMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        D4.requireMinArgs(positional, 1, 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        return t.toJsonMap(delegate);
+      },
+      'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        D4.requireMinArgs(positional, 1, 'toJsonMapIterative');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMapIterative');
+        return t.toJsonMapIterative(delegate);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(parentConfiguration: parentConfiguration, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+    },
+    constructorSignatures: {
+      '': 'DiagnosticsBlock({String? name, DiagnosticsTreeStyle style = DiagnosticsTreeStyle.whitespace, bool showName = true, bool showSeparator = true, String? linePrefix, Object? value, String? description, DiagnosticLevel level = DiagnosticLevel.info, bool allowTruncate = false, List<DiagnosticsNode> children = const <DiagnosticsNode>[], List<DiagnosticsNode> properties = const <DiagnosticsNode>[]})',
+    },
+    methodSignatures: {
+      'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
+      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
+      'getProperties': 'List<DiagnosticsNode> getProperties()',
+      'getChildren': 'List<DiagnosticsNode> getChildren()',
+      'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
+      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
+      'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
+      'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+    },
+    getterSignatures: {
+      'name': 'String? get name',
+      'showSeparator': 'bool get showSeparator',
+      'level': 'DiagnosticLevel get level',
+      'showName': 'bool get showName',
+      'linePrefix': 'String? get linePrefix',
+      'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'value': 'Object? get value',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'allowWrap': 'bool get allowWrap',
+      'allowNameWrap': 'bool get allowNameWrap',
+      'allowTruncate': 'bool get allowTruncate',
+    },
+  );
+}
+
+// =============================================================================
+// DiagnosticsSerializationDelegate Bridge
+// =============================================================================
+
+BridgedClass _createDiagnosticsSerializationDelegateBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.DiagnosticsSerializationDelegate,
+    name: 'DiagnosticsSerializationDelegate',
+    constructors: {
+      '': (visitor, positional, named) {
+        final subtreeDepth = D4.getRequiredNamedArgTodoDefault<int>(named, 'subtreeDepth', 'DiagnosticsSerializationDelegate', '<default unavailable>');
+        final includeProperties = D4.getRequiredNamedArgTodoDefault<bool>(named, 'includeProperties', 'DiagnosticsSerializationDelegate', '<default unavailable>');
+        return $flutter_12.DiagnosticsSerializationDelegate(subtreeDepth: subtreeDepth, includeProperties: includeProperties);
+      },
+    },
+    getters: {
+      'subtreeDepth': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate').subtreeDepth,
+      'includeProperties': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate').includeProperties,
+      'expandPropertyValues': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate').expandPropertyValues,
+    },
+    methods: {
+      'additionalNodeProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
+        D4.requireMinArgs(positional, 1, 'additionalNodeProperties');
+        final node = D4.getRequiredArg<$flutter_12.DiagnosticsNode>(positional, 0, 'node', 'additionalNodeProperties');
+        final fullDetails = D4.getNamedArgWithDefault<bool>(named, 'fullDetails', true);
+        return t.additionalNodeProperties(node, fullDetails: fullDetails);
+      },
+      'filterChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
+        D4.requireMinArgs(positional, 2, 'filterChildren');
+        if (positional.isEmpty) {
+          throw ArgumentError('filterChildren: Missing required argument "nodes" at position 0');
+        }
+        final nodes = D4.coerceList<$flutter_12.DiagnosticsNode>(positional[0], 'nodes');
+        final owner = D4.getRequiredArg<$flutter_12.DiagnosticsNode>(positional, 1, 'owner', 'filterChildren');
+        return t.filterChildren(nodes, owner);
+      },
+      'filterProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
+        D4.requireMinArgs(positional, 2, 'filterProperties');
+        if (positional.isEmpty) {
+          throw ArgumentError('filterProperties: Missing required argument "nodes" at position 0');
+        }
+        final nodes = D4.coerceList<$flutter_12.DiagnosticsNode>(positional[0], 'nodes');
+        final owner = D4.getRequiredArg<$flutter_12.DiagnosticsNode>(positional, 1, 'owner', 'filterProperties');
+        return t.filterProperties(nodes, owner);
+      },
+      'truncateNodesList': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
+        D4.requireMinArgs(positional, 2, 'truncateNodesList');
+        if (positional.isEmpty) {
+          throw ArgumentError('truncateNodesList: Missing required argument "nodes" at position 0');
+        }
+        final nodes = D4.coerceList<$flutter_12.DiagnosticsNode>(positional[0], 'nodes');
+        final owner = D4.getRequiredArg<$flutter_12.DiagnosticsNode?>(positional, 1, 'owner', 'truncateNodesList');
+        return t.truncateNodesList(nodes, owner);
+      },
+      'delegateForNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
+        D4.requireMinArgs(positional, 1, 'delegateForNode');
+        final node = D4.getRequiredArg<$flutter_12.DiagnosticsNode>(positional, 0, 'node', 'delegateForNode');
+        return t.delegateForNode(node);
+      },
+      'copyWith': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticsSerializationDelegate>(target, 'DiagnosticsSerializationDelegate');
+        final subtreeDepth = D4.getRequiredNamedArgTodoDefault<int>(named, 'subtreeDepth', 'copyWith', '<default unavailable>');
+        final includeProperties = D4.getRequiredNamedArgTodoDefault<bool>(named, 'includeProperties', 'copyWith', '<default unavailable>');
+        return t.copyWith(subtreeDepth: subtreeDepth, includeProperties: includeProperties);
+      },
+    },
+    constructorSignatures: {
+      '': 'const factory DiagnosticsSerializationDelegate({int subtreeDepth, bool includeProperties})',
+    },
+    methodSignatures: {
+      'additionalNodeProperties': 'Map<String, Object?> additionalNodeProperties(DiagnosticsNode node, {bool fullDetails = true})',
+      'filterChildren': 'List<DiagnosticsNode> filterChildren(List<DiagnosticsNode> nodes, DiagnosticsNode owner)',
+      'filterProperties': 'List<DiagnosticsNode> filterProperties(List<DiagnosticsNode> nodes, DiagnosticsNode owner)',
+      'truncateNodesList': 'List<DiagnosticsNode> truncateNodesList(List<DiagnosticsNode> nodes, DiagnosticsNode? owner)',
+      'delegateForNode': 'DiagnosticsSerializationDelegate delegateForNode(DiagnosticsNode node)',
+      'copyWith': 'DiagnosticsSerializationDelegate copyWith({int subtreeDepth, bool includeProperties})',
+    },
+    getterSignatures: {
+      'subtreeDepth': 'int get subtreeDepth',
+      'includeProperties': 'bool get includeProperties',
+      'expandPropertyValues': 'bool get expandPropertyValues',
     },
   );
 }
@@ -1502,43 +4332,38 @@ BridgedClass _createErrorSpacerBridge() {
       },
     },
     getters: {
-      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').expandableValue,
+      'name': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').name,
+      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').showSeparator,
+      'level': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').level,
+      'showName': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').showName,
+      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').linePrefix,
+      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').value,
+      'style': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').style,
       'allowWrap': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').allowWrap,
       'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').allowTruncate,
+      'expandableValue': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').expandableValue,
       'ifNull': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').ifNull,
       'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').ifEmpty,
       'tooltip': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').tooltip,
       'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').missingIfNull,
       'propertyType': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').propertyType,
-      'value': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').value,
       'exception': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').exception,
       'defaultValue': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').defaultValue,
       'isInteresting': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').isInteresting,
-      'level': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').level,
-      'name': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').name,
-      'showSeparator': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').showSeparator,
-      'showName': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').showName,
-      'linePrefix': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').linePrefix,
-      'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').emptyBodyDescription,
-      'style': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').style,
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').allowTruncate,
     },
     methods: {
-      'toJsonMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
-        D4.requireMinArgs(positional, 1, 'toJsonMap');
-        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
-        return t.toJsonMap(delegate);
-      },
-      'valueToString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
-        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
-        return t.valueToString(parentConfiguration: parentConfiguration);
-      },
       'toDescription': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
         final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
         return t.toDescription(parentConfiguration: parentConfiguration);
+      },
+      'isFiltered': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
+        D4.requireMinArgs(positional, 1, 'isFiltered');
+        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
+        return t.isFiltered(minLevel);
       },
       'getProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
@@ -1548,15 +4373,15 @@ BridgedClass _createErrorSpacerBridge() {
         final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
         return t.getChildren();
       },
-      'isFiltered': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
-        D4.requireMinArgs(positional, 1, 'isFiltered');
-        final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
-        return t.isFiltered(minLevel);
-      },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
         return t.toTimelineArguments();
+      },
+      'toJsonMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
+        D4.requireMinArgs(positional, 1, 'toJsonMap');
+        final delegate = D4.getRequiredArg<$flutter_12.DiagnosticsSerializationDelegate>(positional, 0, 'delegate', 'toJsonMap');
+        return t.toJsonMap(delegate);
       },
       'toJsonMapIterative': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
@@ -1579,43 +4404,48 @@ BridgedClass _createErrorSpacerBridge() {
         final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
         return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, parentConfiguration: parentConfiguration, minLevel: minLevel, wrapWidth: wrapWidth);
       },
+      'valueToString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer');
+        final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
+        return t.valueToString(parentConfiguration: parentConfiguration);
+      },
     },
     constructorSignatures: {
       '': 'ErrorSpacer()',
     },
     methodSignatures: {
-      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
-      'valueToString': 'String valueToString({TextTreeConfiguration? parentConfiguration})',
       'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
+      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
       'getProperties': 'List<DiagnosticsNode> getProperties()',
       'getChildren': 'List<DiagnosticsNode> getChildren()',
-      'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
       'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
+      'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
       'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
       'toString': 'String toString({TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'valueToString': 'String valueToString({TextTreeConfiguration? parentConfiguration})',
     },
     getterSignatures: {
-      'expandableValue': 'bool get expandableValue',
+      'name': 'String? get name',
+      'showSeparator': 'bool get showSeparator',
+      'level': 'DiagnosticLevel get level',
+      'showName': 'bool get showName',
+      'linePrefix': 'String? get linePrefix',
+      'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'value': 'void get value',
+      'style': 'DiagnosticsTreeStyle? get style',
       'allowWrap': 'bool get allowWrap',
       'allowNameWrap': 'bool get allowNameWrap',
+      'allowTruncate': 'bool get allowTruncate',
+      'expandableValue': 'bool get expandableValue',
       'ifNull': 'String? get ifNull',
       'ifEmpty': 'String? get ifEmpty',
       'tooltip': 'String? get tooltip',
       'missingIfNull': 'bool get missingIfNull',
       'propertyType': 'Type get propertyType',
-      'value': 'void get value',
       'exception': 'Object? get exception',
       'defaultValue': 'Object? get defaultValue',
       'isInteresting': 'bool get isInteresting',
-      'level': 'DiagnosticLevel get level',
-      'name': 'String? get name',
-      'showSeparator': 'bool get showSeparator',
-      'showName': 'bool get showName',
-      'linePrefix': 'String? get linePrefix',
-      'emptyBodyDescription': 'String? get emptyBodyDescription',
-      'style': 'DiagnosticsTreeStyle? get style',
-      'allowTruncate': 'bool get allowTruncate',
     },
   );
 }
@@ -1886,27 +4716,19 @@ BridgedClass _createDiagnosticsStackTraceBridge() {
       },
     },
     getters: {
-      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').allowTruncate,
-      'level': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').level,
-      'value': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').value,
       'name': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').name,
       'showSeparator': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').showSeparator,
+      'level': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').level,
       'showName': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').showName,
       'linePrefix': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').linePrefix,
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').emptyBodyDescription,
+      'value': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').value,
       'style': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').style,
       'allowWrap': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').allowWrap,
       'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').allowNameWrap,
+      'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').allowTruncate,
     },
     methods: {
-      'getChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace');
-        return t.getChildren();
-      },
-      'getProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace');
-        return t.getProperties();
-      },
       'toDescription': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace');
         final parentConfiguration = D4.getOptionalNamedArg<$flutter_12.TextTreeConfiguration?>(named, 'parentConfiguration');
@@ -1917,6 +4739,14 @@ BridgedClass _createDiagnosticsStackTraceBridge() {
         D4.requireMinArgs(positional, 1, 'isFiltered');
         final minLevel = D4.getRequiredArg<$flutter_12.DiagnosticLevel>(positional, 0, 'minLevel', 'isFiltered');
         return t.isFiltered(minLevel);
+      },
+      'getProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace');
+        return t.getProperties();
+      },
+      'getChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace');
+        return t.getChildren();
       },
       'toTimelineArguments': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace');
@@ -1955,10 +4785,10 @@ BridgedClass _createDiagnosticsStackTraceBridge() {
       'singleFrame': 'DiagnosticsStackTrace.singleFrame(String name, {required String frame, bool showSeparator = true})',
     },
     methodSignatures: {
-      'getChildren': 'List<DiagnosticsNode> getChildren()',
-      'getProperties': 'List<DiagnosticsNode> getProperties()',
       'toDescription': 'String toDescription({TextTreeConfiguration? parentConfiguration})',
       'isFiltered': 'bool isFiltered(DiagnosticLevel minLevel)',
+      'getProperties': 'List<DiagnosticsNode> getProperties()',
+      'getChildren': 'List<DiagnosticsNode> getChildren()',
       'toTimelineArguments': 'Map<String, String>? toTimelineArguments()',
       'toJsonMap': 'Map<String, Object?> toJsonMap(DiagnosticsSerializationDelegate delegate)',
       'toJsonMapIterative': 'Map<String, Object?> toJsonMapIterative(DiagnosticsSerializationDelegate delegate)',
@@ -1966,17 +4796,17 @@ BridgedClass _createDiagnosticsStackTraceBridge() {
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, TextTreeConfiguration? parentConfiguration, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
     },
     getterSignatures: {
-      'allowTruncate': 'bool get allowTruncate',
-      'level': 'DiagnosticLevel get level',
-      'value': 'Object? get value',
       'name': 'String? get name',
       'showSeparator': 'bool get showSeparator',
+      'level': 'DiagnosticLevel get level',
       'showName': 'bool get showName',
       'linePrefix': 'String? get linePrefix',
       'emptyBodyDescription': 'String? get emptyBodyDescription',
+      'value': 'Object? get value',
       'style': 'DiagnosticsTreeStyle? get style',
       'allowWrap': 'bool get allowWrap',
       'allowNameWrap': 'bool get allowNameWrap',
+      'allowTruncate': 'bool get allowTruncate',
     },
   );
 }

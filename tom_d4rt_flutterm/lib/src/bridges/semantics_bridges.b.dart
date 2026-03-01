@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 14 files
-// Generated: 2026-02-28T15:11:47.089719
+// Generated: 2026-03-01T03:22:48.952130
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -39,6 +39,11 @@ class FlutterSemanticsBridge {
       _createMatrix4Bridge(),
       _createTextSelectionBridge(),
       _createSemanticsEventBridge(),
+      _createAnnounceSemanticsEventBridge(),
+      _createTooltipSemanticsEventBridge(),
+      _createLongPressSemanticsEventBridge(),
+      _createTapSemanticEventBridge(),
+      _createFocusSemanticEventBridge(),
       _createSemanticsTagBridge(),
       _createChildSemanticsConfigurationsResultBridge(),
       _createChildSemanticsConfigurationsResultBuilderBridge(),
@@ -74,6 +79,11 @@ class FlutterSemanticsBridge {
       'Matrix4': 'package:vector_math/vector_math_64.dart',
       'TextSelection': 'package:flutter/src/services/text_editing.dart',
       'SemanticsEvent': 'package:flutter/src/semantics/semantics_event.dart',
+      'AnnounceSemanticsEvent': 'package:flutter/src/semantics/semantics_event.dart',
+      'TooltipSemanticsEvent': 'package:flutter/src/semantics/semantics_event.dart',
+      'LongPressSemanticsEvent': 'package:flutter/src/semantics/semantics_event.dart',
+      'TapSemanticEvent': 'package:flutter/src/semantics/semantics_event.dart',
+      'FocusSemanticEvent': 'package:flutter/src/semantics/semantics_event.dart',
       'SemanticsTag': 'package:flutter/src/semantics/semantics.dart',
       'ChildSemanticsConfigurationsResult': 'package:flutter/src/semantics/semantics.dart',
       'ChildSemanticsConfigurationsResultBuilder': 'package:flutter/src/semantics/semantics.dart',
@@ -106,6 +116,10 @@ class FlutterSemanticsBridge {
         name: 'DiagnosticsTreeStyle',
         values: $flutter_2.DiagnosticsTreeStyle.values,
       ),
+      BridgedEnumDefinition<$flutter_7.Assertiveness>(
+        name: 'Assertiveness',
+        values: $flutter_7.Assertiveness.values,
+      ),
       BridgedEnumDefinition<$flutter_6.AccessibilityFocusBlockType>(
         name: 'AccessibilityFocusBlockType',
         values: $flutter_6.AccessibilityFocusBlockType.values,
@@ -125,6 +139,7 @@ class FlutterSemanticsBridge {
     return {
       'DiagnosticLevel': 'package:flutter/src/foundation/diagnostics.dart',
       'DiagnosticsTreeStyle': 'package:flutter/src/foundation/diagnostics.dart',
+      'Assertiveness': 'package:flutter/src/semantics/semantics_event.dart',
       'AccessibilityFocusBlockType': 'package:flutter/src/semantics/semantics.dart',
       'DebugSemanticsDumpOrder': 'package:flutter/src/semantics/semantics.dart',
     };
@@ -574,6 +589,7 @@ class FlutterSemanticsBridge {
   static List<String> get enumNames => [
     'DiagnosticLevel',
     'DiagnosticsTreeStyle',
+    'Assertiveness',
     'AccessibilityFocusBlockType',
     'DebugSemanticsDumpOrder',
   ];
@@ -2062,6 +2078,248 @@ BridgedClass _createSemanticsEventBridge() {
 }
 
 // =============================================================================
+// AnnounceSemanticsEvent Bridge
+// =============================================================================
+
+BridgedClass _createAnnounceSemanticsEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_7.AnnounceSemanticsEvent,
+    name: 'AnnounceSemanticsEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 3, 'AnnounceSemanticsEvent');
+        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'AnnounceSemanticsEvent');
+        final textDirection = D4.getRequiredArg<TextDirection>(positional, 1, 'textDirection', 'AnnounceSemanticsEvent');
+        final viewId = D4.getRequiredArg<int>(positional, 2, 'viewId', 'AnnounceSemanticsEvent');
+        final assertiveness = D4.getNamedArgWithDefault<$flutter_7.Assertiveness>(named, 'assertiveness', $flutter_7.Assertiveness.polite);
+        return $flutter_7.AnnounceSemanticsEvent(message, textDirection, viewId, assertiveness: assertiveness);
+      },
+    },
+    getters: {
+      'type': (visitor, target) => D4.validateTarget<$flutter_7.AnnounceSemanticsEvent>(target, 'AnnounceSemanticsEvent').type,
+      'viewId': (visitor, target) => D4.validateTarget<$flutter_7.AnnounceSemanticsEvent>(target, 'AnnounceSemanticsEvent').viewId,
+      'message': (visitor, target) => D4.validateTarget<$flutter_7.AnnounceSemanticsEvent>(target, 'AnnounceSemanticsEvent').message,
+      'textDirection': (visitor, target) => D4.validateTarget<$flutter_7.AnnounceSemanticsEvent>(target, 'AnnounceSemanticsEvent').textDirection,
+      'assertiveness': (visitor, target) => D4.validateTarget<$flutter_7.AnnounceSemanticsEvent>(target, 'AnnounceSemanticsEvent').assertiveness,
+    },
+    methods: {
+      'toMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.AnnounceSemanticsEvent>(target, 'AnnounceSemanticsEvent');
+        final nodeId = D4.getOptionalNamedArg<int?>(named, 'nodeId');
+        return t.toMap(nodeId: nodeId);
+      },
+      'getDataMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.AnnounceSemanticsEvent>(target, 'AnnounceSemanticsEvent');
+        return t.getDataMap();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.AnnounceSemanticsEvent>(target, 'AnnounceSemanticsEvent');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const AnnounceSemanticsEvent(String message, TextDirection textDirection, int viewId, {Assertiveness assertiveness = Assertiveness.polite})',
+    },
+    methodSignatures: {
+      'toMap': 'Map<String, dynamic> toMap({int? nodeId})',
+      'getDataMap': 'Map<String, dynamic> getDataMap()',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'type': 'String get type',
+      'viewId': 'int get viewId',
+      'message': 'String get message',
+      'textDirection': 'TextDirection get textDirection',
+      'assertiveness': 'Assertiveness get assertiveness',
+    },
+  );
+}
+
+// =============================================================================
+// TooltipSemanticsEvent Bridge
+// =============================================================================
+
+BridgedClass _createTooltipSemanticsEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_7.TooltipSemanticsEvent,
+    name: 'TooltipSemanticsEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'TooltipSemanticsEvent');
+        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'TooltipSemanticsEvent');
+        return $flutter_7.TooltipSemanticsEvent(message);
+      },
+    },
+    getters: {
+      'type': (visitor, target) => D4.validateTarget<$flutter_7.TooltipSemanticsEvent>(target, 'TooltipSemanticsEvent').type,
+      'message': (visitor, target) => D4.validateTarget<$flutter_7.TooltipSemanticsEvent>(target, 'TooltipSemanticsEvent').message,
+    },
+    methods: {
+      'toMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.TooltipSemanticsEvent>(target, 'TooltipSemanticsEvent');
+        final nodeId = D4.getOptionalNamedArg<int?>(named, 'nodeId');
+        return t.toMap(nodeId: nodeId);
+      },
+      'getDataMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.TooltipSemanticsEvent>(target, 'TooltipSemanticsEvent');
+        return t.getDataMap();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.TooltipSemanticsEvent>(target, 'TooltipSemanticsEvent');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const TooltipSemanticsEvent(String message)',
+    },
+    methodSignatures: {
+      'toMap': 'Map<String, dynamic> toMap({int? nodeId})',
+      'getDataMap': 'Map<String, dynamic> getDataMap()',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'type': 'String get type',
+      'message': 'String get message',
+    },
+  );
+}
+
+// =============================================================================
+// LongPressSemanticsEvent Bridge
+// =============================================================================
+
+BridgedClass _createLongPressSemanticsEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_7.LongPressSemanticsEvent,
+    name: 'LongPressSemanticsEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        return $flutter_7.LongPressSemanticsEvent();
+      },
+    },
+    getters: {
+      'type': (visitor, target) => D4.validateTarget<$flutter_7.LongPressSemanticsEvent>(target, 'LongPressSemanticsEvent').type,
+    },
+    methods: {
+      'toMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.LongPressSemanticsEvent>(target, 'LongPressSemanticsEvent');
+        final nodeId = D4.getOptionalNamedArg<int?>(named, 'nodeId');
+        return t.toMap(nodeId: nodeId);
+      },
+      'getDataMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.LongPressSemanticsEvent>(target, 'LongPressSemanticsEvent');
+        return t.getDataMap();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.LongPressSemanticsEvent>(target, 'LongPressSemanticsEvent');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const LongPressSemanticsEvent()',
+    },
+    methodSignatures: {
+      'toMap': 'Map<String, dynamic> toMap({int? nodeId})',
+      'getDataMap': 'Map<String, dynamic> getDataMap()',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'type': 'String get type',
+    },
+  );
+}
+
+// =============================================================================
+// TapSemanticEvent Bridge
+// =============================================================================
+
+BridgedClass _createTapSemanticEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_7.TapSemanticEvent,
+    name: 'TapSemanticEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        return $flutter_7.TapSemanticEvent();
+      },
+    },
+    getters: {
+      'type': (visitor, target) => D4.validateTarget<$flutter_7.TapSemanticEvent>(target, 'TapSemanticEvent').type,
+    },
+    methods: {
+      'toMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.TapSemanticEvent>(target, 'TapSemanticEvent');
+        final nodeId = D4.getOptionalNamedArg<int?>(named, 'nodeId');
+        return t.toMap(nodeId: nodeId);
+      },
+      'getDataMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.TapSemanticEvent>(target, 'TapSemanticEvent');
+        return t.getDataMap();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.TapSemanticEvent>(target, 'TapSemanticEvent');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const TapSemanticEvent()',
+    },
+    methodSignatures: {
+      'toMap': 'Map<String, dynamic> toMap({int? nodeId})',
+      'getDataMap': 'Map<String, dynamic> getDataMap()',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'type': 'String get type',
+    },
+  );
+}
+
+// =============================================================================
+// FocusSemanticEvent Bridge
+// =============================================================================
+
+BridgedClass _createFocusSemanticEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_7.FocusSemanticEvent,
+    name: 'FocusSemanticEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        return $flutter_7.FocusSemanticEvent();
+      },
+    },
+    getters: {
+      'type': (visitor, target) => D4.validateTarget<$flutter_7.FocusSemanticEvent>(target, 'FocusSemanticEvent').type,
+    },
+    methods: {
+      'toMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.FocusSemanticEvent>(target, 'FocusSemanticEvent');
+        final nodeId = D4.getOptionalNamedArg<int?>(named, 'nodeId');
+        return t.toMap(nodeId: nodeId);
+      },
+      'getDataMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.FocusSemanticEvent>(target, 'FocusSemanticEvent');
+        return t.getDataMap();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.FocusSemanticEvent>(target, 'FocusSemanticEvent');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const FocusSemanticEvent()',
+    },
+    methodSignatures: {
+      'toMap': 'Map<String, dynamic> toMap({int? nodeId})',
+      'getDataMap': 'Map<String, dynamic> getDataMap()',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'type': 'String get type',
+    },
+  );
+}
+
+// =============================================================================
 // SemanticsTag Bridge
 // =============================================================================
 
@@ -2835,7 +3093,28 @@ BridgedClass _createSemanticsPropertiesBridge() {
         final onDismissRaw = named['onDismiss'];
         final onExpandRaw = named['onExpand'];
         final onCollapseRaw = named['onCollapse'];
-        final customSemanticsActions = D4.coerceMapOrNull<$flutter_6.CustomSemanticsAction, void Function()>(named['customSemanticsActions'], 'customSemanticsActions');
+        Map<$flutter_6.CustomSemanticsAction, void Function()>? customSemanticsActions;
+        if (named.containsKey('customSemanticsActions') && named['customSemanticsActions'] != null) {
+          // Convert map with function values inline
+          final customSemanticsActionsRaw = named['customSemanticsActions'] as Map?;
+          if (customSemanticsActionsRaw != null) {
+            for (final entry in customSemanticsActionsRaw.entries) {
+              final k = entry.key as $flutter_6.CustomSemanticsAction;
+              final v = entry.value;
+              if (v == null) {
+                // Skip null values for non-nullable function type
+              } else if (v is Callable) {
+                customSemanticsActions ??= <$flutter_6.CustomSemanticsAction, void Function()>{};
+                customSemanticsActions![k] = () { D4.callInterpreterCallback(visitor, v, []); };
+              } else {
+                customSemanticsActions ??= <$flutter_6.CustomSemanticsAction, void Function()>{};
+                customSemanticsActions![k] = v as void Function();
+              }
+            }
+          }
+        } else {
+          customSemanticsActions = null;
+        }
         final minValue = D4.getOptionalNamedArg<String?>(named, 'minValue');
         final maxValue = D4.getOptionalNamedArg<String?>(named, 'maxValue');
         return $flutter_6.SemanticsProperties(enabled: enabled, checked: checked, mixed: mixed, expanded: expanded, selected: selected, toggled: toggled, button: button, link: link, linkUrl: linkUrl, header: header, headingLevel: headingLevel, textField: textField, slider: slider, keyboardKey: keyboardKey, readOnly: readOnly, focusable: focusable, focused: focused, accessibilityFocusBlockType: accessibilityFocusBlockType, inMutuallyExclusiveGroup: inMutuallyExclusiveGroup, hidden: hidden, obscured: obscured, multiline: multiline, scopesRoute: scopesRoute, namesRoute: namesRoute, image: image, liveRegion: liveRegion, isRequired: isRequired, maxValueLength: maxValueLength, currentValueLength: currentValueLength, identifier: identifier, traversalParentIdentifier: traversalParentIdentifier, traversalChildIdentifier: traversalChildIdentifier, label: label, attributedLabel: attributedLabel, value: value, attributedValue: attributedValue, increasedValue: increasedValue, attributedIncreasedValue: attributedIncreasedValue, decreasedValue: decreasedValue, attributedDecreasedValue: attributedDecreasedValue, hint: hint, tooltip: tooltip, attributedHint: attributedHint, hintOverrides: hintOverrides, textDirection: textDirection, sortKey: sortKey, tagForChildren: tagForChildren, role: role, controlsNodes: controlsNodes, inputType: inputType, validationResult: validationResult, hitTestBehavior: hitTestBehavior, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor, onTapRaw, []); }, onLongPress: onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor, onLongPressRaw, []); }, onScrollLeft: onScrollLeftRaw == null ? null : () { D4.callInterpreterCallback(visitor, onScrollLeftRaw, []); }, onScrollRight: onScrollRightRaw == null ? null : () { D4.callInterpreterCallback(visitor, onScrollRightRaw, []); }, onScrollUp: onScrollUpRaw == null ? null : () { D4.callInterpreterCallback(visitor, onScrollUpRaw, []); }, onScrollDown: onScrollDownRaw == null ? null : () { D4.callInterpreterCallback(visitor, onScrollDownRaw, []); }, onIncrease: onIncreaseRaw == null ? null : () { D4.callInterpreterCallback(visitor, onIncreaseRaw, []); }, onDecrease: onDecreaseRaw == null ? null : () { D4.callInterpreterCallback(visitor, onDecreaseRaw, []); }, onCopy: onCopyRaw == null ? null : () { D4.callInterpreterCallback(visitor, onCopyRaw, []); }, onCut: onCutRaw == null ? null : () { D4.callInterpreterCallback(visitor, onCutRaw, []); }, onPaste: onPasteRaw == null ? null : () { D4.callInterpreterCallback(visitor, onPasteRaw, []); }, onMoveCursorForwardByCharacter: onMoveCursorForwardByCharacterRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorForwardByCharacterRaw, [p0]); }, onMoveCursorBackwardByCharacter: onMoveCursorBackwardByCharacterRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorBackwardByCharacterRaw, [p0]); }, onMoveCursorForwardByWord: onMoveCursorForwardByWordRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorForwardByWordRaw, [p0]); }, onMoveCursorBackwardByWord: onMoveCursorBackwardByWordRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor, onMoveCursorBackwardByWordRaw, [p0]); }, onSetSelection: onSetSelectionRaw == null ? null : ($flutter_9.TextSelection p0) { D4.callInterpreterCallback(visitor, onSetSelectionRaw, [p0]); }, onSetText: onSetTextRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor, onSetTextRaw, [p0]); }, onDidGainAccessibilityFocus: onDidGainAccessibilityFocusRaw == null ? null : () { D4.callInterpreterCallback(visitor, onDidGainAccessibilityFocusRaw, []); }, onDidLoseAccessibilityFocus: onDidLoseAccessibilityFocusRaw == null ? null : () { D4.callInterpreterCallback(visitor, onDidLoseAccessibilityFocusRaw, []); }, onFocus: onFocusRaw == null ? null : () { D4.callInterpreterCallback(visitor, onFocusRaw, []); }, onDismiss: onDismissRaw == null ? null : () { D4.callInterpreterCallback(visitor, onDismissRaw, []); }, onExpand: onExpandRaw == null ? null : () { D4.callInterpreterCallback(visitor, onExpandRaw, []); }, onCollapse: onCollapseRaw == null ? null : () { D4.callInterpreterCallback(visitor, onCollapseRaw, []); }, customSemanticsActions: customSemanticsActions, minValue: minValue, maxValue: maxValue);

@@ -116,7 +116,14 @@ class D4 {
   ///
   /// D4rt creates `Map<Object?, Object?>` when evaluating map literals. This
   /// function coerces the map to the expected key and value types.
-  static Map<K, V> coerceMap<K, V>(Object? arg, String paramName) {
+  ///
+  /// If [visitor] is provided and the value type V is a function type,
+  /// InterpretedFunction values will be wrapped in proper callbacks.
+  static Map<K, V> coerceMap<K, V>(
+    Object? arg,
+    String paramName, [
+    InterpreterVisitor? visitor,
+  ]) {
     if (arg == null) {
       throw ArgumentD4rtException(
         'Invalid parameter "$paramName": expected Map<$K, $V>, got null',
@@ -141,7 +148,7 @@ class D4 {
     try {
       return value.map<K, V>((k, v) {
         final key = k is BridgedInstance ? k.nativeObject as K : k as K;
-        final val = v is BridgedInstance ? v.nativeObject as V : v as V;
+        final val = _coerceMapValue<V>(v, paramName, visitor);
         return MapEntry(key, val);
       });
     } catch (e) {
@@ -152,10 +159,181 @@ class D4 {
   }
 
   /// Coerce a Map from D4rt, returning null if arg is null.
-  static Map<K, V>? coerceMapOrNull<K, V>(Object? arg, String paramName) {
+  ///
+  /// If [visitor] is provided and the value type V is a function type,
+  /// InterpretedFunction values will be wrapped in proper callbacks.
+  static Map<K, V>? coerceMapOrNull<K, V>(
+    Object? arg,
+    String paramName, [
+    InterpreterVisitor? visitor,
+  ]) {
     if (arg == null) return null;
-    return coerceMap<K, V>(arg, paramName);
+    return coerceMap<K, V>(arg, paramName, visitor);
   }
+
+  /// Coerce a single map value, handling function type wrapping.
+  static V _coerceMapValue<V>(
+    Object? v,
+    String paramName,
+    InterpreterVisitor? visitor,
+  ) {
+    final unwrapped = v is BridgedInstance ? v.nativeObject : v;
+
+    // If V is a function type and v is an InterpretedFunction, wrap it
+    // We detect function types by checking the type name string
+    final vTypeName = V.toString();
+    if (_looksLikeFunctionType(vTypeName) &&
+        (v is InterpretedFunction || v is NativeFunction || v is Callable)) {
+      if (visitor == null) {
+        throw ArgumentD4rtException(
+          'Invalid parameter "$paramName": Map contains function values but '
+          'visitor was not provided for callback wrapping',
+        );
+      }
+      return _wrapCallableForMap<V>(v!, visitor) as V;
+    }
+
+    // Direct cast as fallback
+    return unwrapped as V;
+  }
+
+  /// Check if a type string looks like a function type.
+  static bool _looksLikeFunctionType(String typeName) {
+    // Function types look like:
+    // - "() => void"
+    // - "(int) => String"
+    // - "void Function()"
+    // - "Widget Function(BuildContext)"
+    return typeName.contains('=>') ||
+        typeName.contains('Function(') ||
+        typeName.contains('Function<');
+  }
+
+  /// Wrap an InterpretedFunction/Callable for use as a Map value function.
+  ///
+  /// Detects the expected return type from V and creates an appropriate wrapper.
+  /// For common widget builder patterns like `Widget Function(BuildContext)`,
+  /// returns the correctly typed wrapper.
+  static dynamic _wrapCallableForMap<V>(
+    Object callable,
+    InterpreterVisitor visitor,
+  ) {
+    // Extract function signature info from V
+    final vType = V.toString();
+    
+    // Check for common single-argument patterns like "Widget Function(BuildContext)"
+    // Pattern: "ReturnType Function(ArgType)" or "(ArgType) => ReturnType"
+    // Note: Using untyped parameters to get dynamic, which is assignable to any type
+    if (_isSingleArgFunction(vType)) {
+      // Return a wrapper with 1 required positional argument (untyped = dynamic)
+      return (arg) {
+        if (callable is Callable) {
+          return callable.call(visitor, [arg], {});
+        }
+        throw ArgumentD4rtException(
+          'Cannot call non-callable in Map value: ${callable.runtimeType}',
+        );
+      };
+    }
+    
+    // Check for no-argument functions like "void Function()"
+    if (_isNoArgFunction(vType)) {
+      return () {
+        if (callable is Callable) {
+          return callable.call(visitor, [], {});
+        }
+        throw ArgumentD4rtException(
+          'Cannot call non-callable in Map value: ${callable.runtimeType}',
+        );
+      };
+    }
+    
+    // Check for two-argument functions (untyped = dynamic)
+    if (_isTwoArgFunction(vType)) {
+      return (arg1, arg2) {
+        if (callable is Callable) {
+          return callable.call(visitor, [arg1, arg2], {});
+        }
+        throw ArgumentD4rtException(
+          'Cannot call non-callable in Map value: ${callable.runtimeType}',
+        );
+      };
+    }
+    
+    // Fallback: variable-arity wrapper with dynamic params
+    // Note: Using untyped optional params for flexibility
+    return (
+      [p0,
+      p1,
+      p2,
+      p3,
+      p4,
+      p5,
+      p6,
+      p7,
+      p8,
+      p9]
+    ) {
+      final args = <Object?>[];
+      if (p0 != null) args.add(p0);
+      if (p1 != null) args.add(p1);
+      if (p2 != null) args.add(p2);
+      if (p3 != null) args.add(p3);
+      if (p4 != null) args.add(p4);
+      if (p5 != null) args.add(p5);
+      if (p6 != null) args.add(p6);
+      if (p7 != null) args.add(p7);
+      if (p8 != null) args.add(p8);
+      if (p9 != null) args.add(p9);
+
+      if (callable is Callable) {
+        return callable.call(visitor, args, {});
+      }
+      throw ArgumentD4rtException(
+        'Cannot call non-callable object in Map value: ${callable.runtimeType}',
+      );
+    };
+  }
+  
+  /// Check if type is a single-argument function.
+  /// Examples: "Widget Function(BuildContext)", "(BuildContext) => Widget"
+  static bool _isSingleArgFunction(String typeName) {
+    // Match "ReturnType Function(SingleType)" - no comma means single arg
+    final functionMatch = RegExp(r'Function\(([^,)]+)\)$').firstMatch(typeName);
+    if (functionMatch != null) {
+      return true;
+    }
+    // Match "(SingleType) => ReturnType"
+    final arrowMatch = RegExp(r'\(([^,)]+)\)\s*=>\s*\S+$').firstMatch(typeName);
+    if (arrowMatch != null) {
+      return true;
+    }
+    return false;
+  }
+  
+  /// Check if type is a no-argument function.
+  /// Examples: "void Function()", "() => void"
+  static bool _isNoArgFunction(String typeName) {
+    return typeName.contains('Function()') || 
+           RegExp(r'\(\)\s*=>').hasMatch(typeName);
+  }
+  
+  /// Check if type is a two-argument function.
+  /// Examples: "Widget Function(BuildContext, Widget)", "(A, B) => R"
+  static bool _isTwoArgFunction(String typeName) {
+    // Match "Function(Type1, Type2)" - exactly one comma
+    final functionMatch = RegExp(r'Function\(([^,]+),\s*([^,)]+)\)$').firstMatch(typeName);
+    if (functionMatch != null) {
+      return true;
+    }
+    // Match "(Type1, Type2) => ReturnType"
+    final arrowMatch = RegExp(r'\(([^,]+),\s*([^,)]+)\)\s*=>').firstMatch(typeName);
+    if (arrowMatch != null) {
+      return true;
+    }
+    return false;
+  }
+
 
   // ==========================================================================
   // Bridged Argument Extraction

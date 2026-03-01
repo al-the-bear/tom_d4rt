@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 34 files
-// Generated: 2026-02-28T15:12:09.234833
+// Generated: 2026-03-01T03:23:11.324236
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
@@ -59,11 +59,24 @@ class FlutterGesturesBridge {
       _createMatrix4Bridge(),
       _createDeviceGestureSettingsBridge(),
       _createPointerEventBridge(),
+      _createPointerAddedEventBridge(),
+      _createPointerRemovedEventBridge(),
+      _createPointerHoverEventBridge(),
+      _createPointerEnterEventBridge(),
+      _createPointerExitEventBridge(),
       _createPointerDownEventBridge(),
+      _createPointerMoveEventBridge(),
       _createPointerUpEventBridge(),
       _createPointerSignalEventBridge(),
+      _createPointerScrollEventBridge(),
+      _createPointerScrollInertiaCancelEventBridge(),
+      _createPointerScaleEventBridge(),
       _createPointerPanZoomStartEventBridge(),
+      _createPointerPanZoomUpdateEventBridge(),
+      _createPointerPanZoomEndEventBridge(),
       _createPointerCancelEventBridge(),
+      _createHitTestableBridge(),
+      _createHitTestDispatcherBridge(),
       _createHitTestTargetBridge(),
       _createHitTestEntryBridge(),
       _createHitTestResultBridge(),
@@ -74,6 +87,12 @@ class FlutterGesturesBridge {
       _createFlutterErrorDetailsForPointerEventDispatcherBridge(),
       _createPointerEventConverterBridge(),
       _createVelocityBridge(),
+      _createVelocityEstimateBridge(),
+      _createVelocityTrackerBridge(),
+      _createIOSScrollViewFlingVelocityTrackerBridge(),
+      _createMacOSScrollViewFlingVelocityTrackerBridge(),
+      _createDragDownDetailsBridge(),
+      _createDragStartDetailsBridge(),
       _createDragUpdateDetailsBridge(),
       _createDragEndDetailsBridge(),
       _createDragBridge(),
@@ -89,6 +108,10 @@ class FlutterGesturesBridge {
       _createPolynomialFitBridge(),
       _createLeastSquaresSolverBridge(),
       _createGestureArenaTeamBridge(),
+      _createGestureRecognizerBridge(),
+      _createOneSequenceGestureRecognizerBridge(),
+      _createPrimaryPointerGestureRecognizerBridge(),
+      _createOffsetPairBridge(),
       _createDragGestureRecognizerBridge(),
       _createVerticalDragGestureRecognizerBridge(),
       _createHorizontalDragGestureRecognizerBridge(),
@@ -101,6 +124,9 @@ class FlutterGesturesBridge {
       _createDelayedMultiDragGestureRecognizerBridge(),
       _createTapDownDetailsBridge(),
       _createTapUpDetailsBridge(),
+      _createTapMoveDetailsBridge(),
+      _createBaseTapGestureRecognizerBridge(),
+      _createTapGestureRecognizerBridge(),
       _createDoubleTapGestureRecognizerBridge(),
       _createMultiTapGestureRecognizerBridge(),
       _createSerialTapDownDetailsBridge(),
@@ -139,11 +165,24 @@ class FlutterGesturesBridge {
       'Matrix4': 'package:vector_math/vector_math_64.dart',
       'DeviceGestureSettings': 'package:flutter/src/gestures/gesture_settings.dart',
       'PointerEvent': 'package:flutter/src/gestures/events.dart',
+      'PointerAddedEvent': 'package:flutter/src/gestures/events.dart',
+      'PointerRemovedEvent': 'package:flutter/src/gestures/events.dart',
+      'PointerHoverEvent': 'package:flutter/src/gestures/events.dart',
+      'PointerEnterEvent': 'package:flutter/src/gestures/events.dart',
+      'PointerExitEvent': 'package:flutter/src/gestures/events.dart',
       'PointerDownEvent': 'package:flutter/src/gestures/events.dart',
+      'PointerMoveEvent': 'package:flutter/src/gestures/events.dart',
       'PointerUpEvent': 'package:flutter/src/gestures/events.dart',
       'PointerSignalEvent': 'package:flutter/src/gestures/events.dart',
+      'PointerScrollEvent': 'package:flutter/src/gestures/events.dart',
+      'PointerScrollInertiaCancelEvent': 'package:flutter/src/gestures/events.dart',
+      'PointerScaleEvent': 'package:flutter/src/gestures/events.dart',
       'PointerPanZoomStartEvent': 'package:flutter/src/gestures/events.dart',
+      'PointerPanZoomUpdateEvent': 'package:flutter/src/gestures/events.dart',
+      'PointerPanZoomEndEvent': 'package:flutter/src/gestures/events.dart',
       'PointerCancelEvent': 'package:flutter/src/gestures/events.dart',
+      'HitTestable': 'package:flutter/src/gestures/hit_test.dart',
+      'HitTestDispatcher': 'package:flutter/src/gestures/hit_test.dart',
       'HitTestTarget': 'package:flutter/src/gestures/hit_test.dart',
       'HitTestEntry': 'package:flutter/src/gestures/hit_test.dart',
       'HitTestResult': 'package:flutter/src/gestures/hit_test.dart',
@@ -154,6 +193,12 @@ class FlutterGesturesBridge {
       'FlutterErrorDetailsForPointerEventDispatcher': 'package:flutter/src/gestures/binding.dart',
       'PointerEventConverter': 'package:flutter/src/gestures/converter.dart',
       'Velocity': 'package:flutter/src/gestures/velocity_tracker.dart',
+      'VelocityEstimate': 'package:flutter/src/gestures/velocity_tracker.dart',
+      'VelocityTracker': 'package:flutter/src/gestures/velocity_tracker.dart',
+      'IOSScrollViewFlingVelocityTracker': 'package:flutter/src/gestures/velocity_tracker.dart',
+      'MacOSScrollViewFlingVelocityTracker': 'package:flutter/src/gestures/velocity_tracker.dart',
+      'DragDownDetails': 'package:flutter/src/gestures/drag_details.dart',
+      'DragStartDetails': 'package:flutter/src/gestures/drag_details.dart',
       'DragUpdateDetails': 'package:flutter/src/gestures/drag_details.dart',
       'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart',
       'Drag': 'package:flutter/src/gestures/drag.dart',
@@ -169,6 +214,10 @@ class FlutterGesturesBridge {
       'PolynomialFit': 'package:flutter/src/gestures/lsq_solver.dart',
       'LeastSquaresSolver': 'package:flutter/src/gestures/lsq_solver.dart',
       'GestureArenaTeam': 'package:flutter/src/gestures/team.dart',
+      'GestureRecognizer': 'package:flutter/src/gestures/recognizer.dart',
+      'OneSequenceGestureRecognizer': 'package:flutter/src/gestures/recognizer.dart',
+      'PrimaryPointerGestureRecognizer': 'package:flutter/src/gestures/recognizer.dart',
+      'OffsetPair': 'package:flutter/src/gestures/recognizer.dart',
       'DragGestureRecognizer': 'package:flutter/src/gestures/monodrag.dart',
       'VerticalDragGestureRecognizer': 'package:flutter/src/gestures/monodrag.dart',
       'HorizontalDragGestureRecognizer': 'package:flutter/src/gestures/monodrag.dart',
@@ -181,6 +230,9 @@ class FlutterGesturesBridge {
       'DelayedMultiDragGestureRecognizer': 'package:flutter/src/gestures/multidrag.dart',
       'TapDownDetails': 'package:flutter/src/gestures/tap.dart',
       'TapUpDetails': 'package:flutter/src/gestures/tap.dart',
+      'TapMoveDetails': 'package:flutter/src/gestures/tap.dart',
+      'BaseTapGestureRecognizer': 'package:flutter/src/gestures/tap.dart',
+      'TapGestureRecognizer': 'package:flutter/src/gestures/tap.dart',
       'DoubleTapGestureRecognizer': 'package:flutter/src/gestures/multitap.dart',
       'MultiTapGestureRecognizer': 'package:flutter/src/gestures/multitap.dart',
       'SerialTapDownDetails': 'package:flutter/src/gestures/multitap.dart',
@@ -216,6 +268,14 @@ class FlutterGesturesBridge {
         name: 'DragStartBehavior',
         values: $flutter_24.DragStartBehavior.values,
       ),
+      BridgedEnumDefinition<$flutter_24.MultitouchDragStrategy>(
+        name: 'MultitouchDragStrategy',
+        values: $flutter_24.MultitouchDragStrategy.values,
+      ),
+      BridgedEnumDefinition<$flutter_24.GestureRecognizerState>(
+        name: 'GestureRecognizerState',
+        values: $flutter_24.GestureRecognizerState.values,
+      ),
     ];
   }
 
@@ -227,6 +287,8 @@ class FlutterGesturesBridge {
     return {
       'GestureDisposition': 'package:flutter/src/gestures/arena.dart',
       'DragStartBehavior': 'package:flutter/src/gestures/recognizer.dart',
+      'MultitouchDragStrategy': 'package:flutter/src/gestures/recognizer.dart',
+      'GestureRecognizerState': 'package:flutter/src/gestures/recognizer.dart',
     };
   }
 
@@ -290,6 +352,66 @@ class FlutterGesturesBridge {
       interpreter.registerGlobalVariable('radians2Degrees', $vector_math_1.radians2Degrees, importPath, sourceUri: 'package:vector_math/src/vector_math_64/constants.dart');
     } catch (e) {
       errors.add('Failed to register variable "radians2Degrees": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('kPrimaryButton', $flutter_12.kPrimaryButton, importPath, sourceUri: 'package:flutter/src/gestures/events.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "kPrimaryButton": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('kSecondaryButton', $flutter_12.kSecondaryButton, importPath, sourceUri: 'package:flutter/src/gestures/events.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "kSecondaryButton": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('kPrimaryMouseButton', $flutter_12.kPrimaryMouseButton, importPath, sourceUri: 'package:flutter/src/gestures/events.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "kPrimaryMouseButton": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('kSecondaryMouseButton', $flutter_12.kSecondaryMouseButton, importPath, sourceUri: 'package:flutter/src/gestures/events.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "kSecondaryMouseButton": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('kStylusContact', $flutter_12.kStylusContact, importPath, sourceUri: 'package:flutter/src/gestures/events.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "kStylusContact": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('kPrimaryStylusButton', $flutter_12.kPrimaryStylusButton, importPath, sourceUri: 'package:flutter/src/gestures/events.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "kPrimaryStylusButton": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('kTertiaryButton', $flutter_12.kTertiaryButton, importPath, sourceUri: 'package:flutter/src/gestures/events.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "kTertiaryButton": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('kMiddleMouseButton', $flutter_12.kMiddleMouseButton, importPath, sourceUri: 'package:flutter/src/gestures/events.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "kMiddleMouseButton": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('kSecondaryStylusButton', $flutter_12.kSecondaryStylusButton, importPath, sourceUri: 'package:flutter/src/gestures/events.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "kSecondaryStylusButton": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('kBackMouseButton', $flutter_12.kBackMouseButton, importPath, sourceUri: 'package:flutter/src/gestures/events.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "kBackMouseButton": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('kForwardMouseButton', $flutter_12.kForwardMouseButton, importPath, sourceUri: 'package:flutter/src/gestures/events.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "kForwardMouseButton": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable('kTouchContact', $flutter_12.kTouchContact, importPath, sourceUri: 'package:flutter/src/gestures/events.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "kTouchContact": $e');
     }
     try {
       interpreter.registerGlobalVariable('kPressTimeout', $flutter_6.kPressTimeout, importPath, sourceUri: 'package:flutter/src/gestures/constants.dart');
@@ -670,6 +792,43 @@ class FlutterGesturesBridge {
         final v = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'v', 'buildPlaneVectors');
         return $vector_math_1.buildPlaneVectors(planeNormal, u, v);
       },
+      'nthMouseButton': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'nthMouseButton');
+        final number = D4.getRequiredArg<int>(positional, 0, 'number', 'nthMouseButton');
+        return $flutter_12.nthMouseButton(number);
+      },
+      'nthStylusButton': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'nthStylusButton');
+        final number = D4.getRequiredArg<int>(positional, 0, 'number', 'nthStylusButton');
+        return $flutter_12.nthStylusButton(number);
+      },
+      'smallestButton': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'smallestButton');
+        final buttons = D4.getRequiredArg<int>(positional, 0, 'buttons', 'smallestButton');
+        return $flutter_12.smallestButton(buttons);
+      },
+      'isSingleButton': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'isSingleButton');
+        final buttons = D4.getRequiredArg<int>(positional, 0, 'buttons', 'isSingleButton');
+        return $flutter_12.isSingleButton(buttons);
+      },
+      'computeHitSlop': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'computeHitSlop');
+        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 0, 'kind', 'computeHitSlop');
+        final settings = D4.getRequiredArg<$flutter_15.DeviceGestureSettings?>(positional, 1, 'settings', 'computeHitSlop');
+        return $flutter_12.computeHitSlop(kind, settings);
+      },
+      'computePanSlop': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'computePanSlop');
+        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 0, 'kind', 'computePanSlop');
+        final settings = D4.getRequiredArg<$flutter_15.DeviceGestureSettings?>(positional, 1, 'settings', 'computePanSlop');
+        return $flutter_12.computePanSlop(kind, settings);
+      },
+      'computeScaleSlop': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'computeScaleSlop');
+        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 0, 'kind', 'computeScaleSlop');
+        return $flutter_12.computeScaleSlop(kind);
+      },
       'debugAssertAllGesturesVarsUnset': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugAssertAllGesturesVarsUnset');
         final reason = D4.getRequiredArg<String>(positional, 0, 'reason', 'debugAssertAllGesturesVarsUnset');
@@ -714,6 +873,13 @@ class FlutterGesturesBridge {
       'cross2A': 'package:vector_math/src/vector_math_64/vector.dart',
       'cross2B': 'package:vector_math/src/vector_math_64/vector.dart',
       'buildPlaneVectors': 'package:vector_math/src/vector_math_64/vector.dart',
+      'nthMouseButton': 'package:flutter/src/gestures/events.dart',
+      'nthStylusButton': 'package:flutter/src/gestures/events.dart',
+      'smallestButton': 'package:flutter/src/gestures/events.dart',
+      'isSingleButton': 'package:flutter/src/gestures/events.dart',
+      'computeHitSlop': 'package:flutter/src/gestures/events.dart',
+      'computePanSlop': 'package:flutter/src/gestures/events.dart',
+      'computeScaleSlop': 'package:flutter/src/gestures/events.dart',
       'debugAssertAllGesturesVarsUnset': 'package:flutter/src/gestures/debug.dart',
     };
   }
@@ -751,6 +917,13 @@ class FlutterGesturesBridge {
       'cross2A': 'void cross2A(double x, Vector2 y, Vector2 out)',
       'cross2B': 'void cross2B(Vector2 x, double y, Vector2 out)',
       'buildPlaneVectors': 'void buildPlaneVectors(Vector3 planeNormal, Vector3 u, Vector3 v)',
+      'nthMouseButton': 'int nthMouseButton(int number)',
+      'nthStylusButton': 'int nthStylusButton(int number)',
+      'smallestButton': 'int smallestButton(int buttons)',
+      'isSingleButton': 'bool isSingleButton(int buttons)',
+      'computeHitSlop': 'double computeHitSlop(PointerDeviceKind kind, DeviceGestureSettings? settings)',
+      'computePanSlop': 'double computePanSlop(PointerDeviceKind kind, DeviceGestureSettings? settings)',
+      'computeScaleSlop': 'double computeScaleSlop(PointerDeviceKind kind)',
       'debugAssertAllGesturesVarsUnset': 'bool debugAssertAllGesturesVarsUnset(String reason)',
     };
   }
@@ -826,6 +999,8 @@ class FlutterGesturesBridge {
   static List<String> get enumNames => [
     'GestureDisposition',
     'DragStartBehavior',
+    'MultitouchDragStrategy',
+    'GestureRecognizerState',
   ];
 
 }
@@ -2327,6 +2502,881 @@ BridgedClass _createPointerEventBridge() {
 }
 
 // =============================================================================
+// PointerAddedEvent Bridge
+// =============================================================================
+
+BridgedClass _createPointerAddedEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.PointerAddedEvent,
+    name: 'PointerAddedEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
+        final timeStamp = D4.getNamedArgWithDefault<Duration>(named, 'timeStamp', Duration.zero);
+        final pointer = D4.getNamedArgWithDefault<int>(named, 'pointer', 0);
+        final kind = D4.getNamedArgWithDefault<PointerDeviceKind>(named, 'kind', $dart_ui.PointerDeviceKind.touch);
+        final device = D4.getNamedArgWithDefault<int>(named, 'device', 0);
+        final position = D4.getNamedArgWithDefault<Offset>(named, 'position', $dart_ui.Offset.zero);
+        final obscured = D4.getNamedArgWithDefault<bool>(named, 'obscured', false);
+        final pressureMin = D4.getNamedArgWithDefault<double>(named, 'pressureMin', 1.0);
+        final pressureMax = D4.getNamedArgWithDefault<double>(named, 'pressureMax', 1.0);
+        final distance = D4.getNamedArgWithDefault<double>(named, 'distance', 0.0);
+        final distanceMax = D4.getNamedArgWithDefault<double>(named, 'distanceMax', 0.0);
+        final radiusMin = D4.getNamedArgWithDefault<double>(named, 'radiusMin', 0.0);
+        final radiusMax = D4.getNamedArgWithDefault<double>(named, 'radiusMax', 0.0);
+        final orientation = D4.getNamedArgWithDefault<double>(named, 'orientation', 0.0);
+        final tilt = D4.getNamedArgWithDefault<double>(named, 'tilt', 0.0);
+        final embedderId = D4.getNamedArgWithDefault<int>(named, 'embedderId', 0);
+        return $flutter_12.PointerAddedEvent(viewId: viewId, timeStamp: timeStamp, pointer: pointer, kind: kind, device: device, position: position, obscured: obscured, pressureMin: pressureMin, pressureMax: pressureMax, distance: distance, distanceMax: distanceMax, radiusMin: radiusMin, radiusMax: radiusMax, orientation: orientation, tilt: tilt, embedderId: embedderId);
+      },
+    },
+    getters: {
+      'viewId': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').viewId,
+      'embedderId': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').embedderId,
+      'timeStamp': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').timeStamp,
+      'pointer': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').pointer,
+      'kind': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').kind,
+      'device': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').device,
+      'position': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').position,
+      'localPosition': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').localPosition,
+      'delta': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').delta,
+      'localDelta': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').localDelta,
+      'buttons': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').buttons,
+      'down': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').down,
+      'obscured': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').obscured,
+      'pressure': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').pressure,
+      'pressureMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').pressureMin,
+      'pressureMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').pressureMax,
+      'distance': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').distance,
+      'distanceMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').distanceMin,
+      'distanceMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').distanceMax,
+      'size': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').size,
+      'radiusMajor': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').radiusMajor,
+      'radiusMinor': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').radiusMinor,
+      'radiusMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').radiusMin,
+      'radiusMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').radiusMax,
+      'orientation': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').orientation,
+      'tilt': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').tilt,
+      'platformData': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').platformData,
+      'synthesized': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').synthesized,
+      'transform': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').transform,
+      'original': (visitor, target) => D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent').original,
+    },
+    methods: {
+      'transformed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent');
+        D4.requireMinArgs(positional, 1, 'transformed');
+        final transform = D4.getRequiredArg<$vector_math_1.Matrix4?>(positional, 0, 'transform', 'transformed');
+        return t.transformed(transform);
+      },
+      'copyWith': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent');
+        final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
+        final timeStamp = D4.getOptionalNamedArg<Duration?>(named, 'timeStamp');
+        final pointer = D4.getOptionalNamedArg<int?>(named, 'pointer');
+        final kind = D4.getOptionalNamedArg<PointerDeviceKind?>(named, 'kind');
+        final device = D4.getOptionalNamedArg<int?>(named, 'device');
+        final position = D4.getOptionalNamedArg<Offset?>(named, 'position');
+        final delta = D4.getOptionalNamedArg<Offset?>(named, 'delta');
+        final buttons = D4.getOptionalNamedArg<int?>(named, 'buttons');
+        final obscured = D4.getOptionalNamedArg<bool?>(named, 'obscured');
+        final pressure = D4.getOptionalNamedArg<double?>(named, 'pressure');
+        final pressureMin = D4.getOptionalNamedArg<double?>(named, 'pressureMin');
+        final pressureMax = D4.getOptionalNamedArg<double?>(named, 'pressureMax');
+        final distance = D4.getOptionalNamedArg<double?>(named, 'distance');
+        final distanceMax = D4.getOptionalNamedArg<double?>(named, 'distanceMax');
+        final size = D4.getOptionalNamedArg<double?>(named, 'size');
+        final radiusMajor = D4.getOptionalNamedArg<double?>(named, 'radiusMajor');
+        final radiusMinor = D4.getOptionalNamedArg<double?>(named, 'radiusMinor');
+        final radiusMin = D4.getOptionalNamedArg<double?>(named, 'radiusMin');
+        final radiusMax = D4.getOptionalNamedArg<double?>(named, 'radiusMax');
+        final orientation = D4.getOptionalNamedArg<double?>(named, 'orientation');
+        final tilt = D4.getOptionalNamedArg<double?>(named, 'tilt');
+        final synthesized = D4.getOptionalNamedArg<bool?>(named, 'synthesized');
+        final embedderId = D4.getOptionalNamedArg<int?>(named, 'embedderId');
+        return t.copyWith(viewId: viewId, timeStamp: timeStamp, pointer: pointer, kind: kind, device: device, position: position, delta: delta, buttons: buttons, obscured: obscured, pressure: pressure, pressureMin: pressureMin, pressureMax: pressureMax, distance: distance, distanceMax: distanceMax, size: size, radiusMajor: radiusMajor, radiusMinor: radiusMinor, radiusMin: radiusMin, radiusMax: radiusMax, orientation: orientation, tilt: tilt, synthesized: synthesized, embedderId: embedderId);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'toStringFull': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerAddedEvent>(target, 'PointerAddedEvent');
+        return t.toStringFull();
+      },
+    },
+    constructorSignatures: {
+      '': 'const PointerAddedEvent({int viewId = 0, Duration timeStamp = Duration.zero, int pointer = 0, PointerDeviceKind kind = PointerDeviceKind.touch, int device = 0, Offset position = Offset.zero, bool obscured = false, double pressureMin = 1.0, double pressureMax = 1.0, double distance = 0.0, double distanceMax = 0.0, double radiusMin = 0.0, double radiusMax = 0.0, double orientation = 0.0, double tilt = 0.0, int embedderId = 0})',
+    },
+    methodSignatures: {
+      'transformed': 'PointerAddedEvent transformed(Matrix4? transform)',
+      'copyWith': 'PointerAddedEvent copyWith({int? viewId, Duration? timeStamp, int? pointer, PointerDeviceKind? kind, int? device, Offset? position, Offset? delta, int? buttons, bool? obscured, double? pressure, double? pressureMin, double? pressureMax, double? distance, double? distanceMax, double? size, double? radiusMajor, double? radiusMinor, double? radiusMin, double? radiusMax, double? orientation, double? tilt, bool? synthesized, int? embedderId})',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toStringFull': 'String toStringFull()',
+    },
+    getterSignatures: {
+      'viewId': 'int get viewId',
+      'embedderId': 'int get embedderId',
+      'timeStamp': 'Duration get timeStamp',
+      'pointer': 'int get pointer',
+      'kind': 'PointerDeviceKind get kind',
+      'device': 'int get device',
+      'position': 'Offset get position',
+      'localPosition': 'Offset get localPosition',
+      'delta': 'Offset get delta',
+      'localDelta': 'Offset get localDelta',
+      'buttons': 'int get buttons',
+      'down': 'bool get down',
+      'obscured': 'bool get obscured',
+      'pressure': 'double get pressure',
+      'pressureMin': 'double get pressureMin',
+      'pressureMax': 'double get pressureMax',
+      'distance': 'double get distance',
+      'distanceMin': 'double get distanceMin',
+      'distanceMax': 'double get distanceMax',
+      'size': 'double get size',
+      'radiusMajor': 'double get radiusMajor',
+      'radiusMinor': 'double get radiusMinor',
+      'radiusMin': 'double get radiusMin',
+      'radiusMax': 'double get radiusMax',
+      'orientation': 'double get orientation',
+      'tilt': 'double get tilt',
+      'platformData': 'int get platformData',
+      'synthesized': 'bool get synthesized',
+      'transform': 'Matrix4? get transform',
+      'original': 'PointerEvent? get original',
+    },
+  );
+}
+
+// =============================================================================
+// PointerRemovedEvent Bridge
+// =============================================================================
+
+BridgedClass _createPointerRemovedEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.PointerRemovedEvent,
+    name: 'PointerRemovedEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
+        final timeStamp = D4.getNamedArgWithDefault<Duration>(named, 'timeStamp', Duration.zero);
+        final pointer = D4.getNamedArgWithDefault<int>(named, 'pointer', 0);
+        final kind = D4.getNamedArgWithDefault<PointerDeviceKind>(named, 'kind', $dart_ui.PointerDeviceKind.touch);
+        final device = D4.getNamedArgWithDefault<int>(named, 'device', 0);
+        final position = D4.getNamedArgWithDefault<Offset>(named, 'position', $dart_ui.Offset.zero);
+        final obscured = D4.getNamedArgWithDefault<bool>(named, 'obscured', false);
+        final pressureMin = D4.getNamedArgWithDefault<double>(named, 'pressureMin', 1.0);
+        final pressureMax = D4.getNamedArgWithDefault<double>(named, 'pressureMax', 1.0);
+        final distanceMax = D4.getNamedArgWithDefault<double>(named, 'distanceMax', 0.0);
+        final radiusMin = D4.getNamedArgWithDefault<double>(named, 'radiusMin', 0.0);
+        final radiusMax = D4.getNamedArgWithDefault<double>(named, 'radiusMax', 0.0);
+        final original = D4.getOptionalNamedArg<$flutter_12.PointerRemovedEvent?>(named, 'original');
+        final embedderId = D4.getNamedArgWithDefault<int>(named, 'embedderId', 0);
+        return $flutter_12.PointerRemovedEvent(viewId: viewId, timeStamp: timeStamp, pointer: pointer, kind: kind, device: device, position: position, obscured: obscured, pressureMin: pressureMin, pressureMax: pressureMax, distanceMax: distanceMax, radiusMin: radiusMin, radiusMax: radiusMax, original: original, embedderId: embedderId);
+      },
+    },
+    getters: {
+      'viewId': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').viewId,
+      'embedderId': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').embedderId,
+      'timeStamp': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').timeStamp,
+      'pointer': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').pointer,
+      'kind': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').kind,
+      'device': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').device,
+      'position': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').position,
+      'localPosition': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').localPosition,
+      'delta': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').delta,
+      'localDelta': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').localDelta,
+      'buttons': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').buttons,
+      'down': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').down,
+      'obscured': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').obscured,
+      'pressure': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').pressure,
+      'pressureMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').pressureMin,
+      'pressureMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').pressureMax,
+      'distance': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').distance,
+      'distanceMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').distanceMin,
+      'distanceMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').distanceMax,
+      'size': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').size,
+      'radiusMajor': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').radiusMajor,
+      'radiusMinor': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').radiusMinor,
+      'radiusMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').radiusMin,
+      'radiusMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').radiusMax,
+      'orientation': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').orientation,
+      'tilt': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').tilt,
+      'platformData': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').platformData,
+      'synthesized': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').synthesized,
+      'transform': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').transform,
+      'original': (visitor, target) => D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent').original,
+    },
+    methods: {
+      'transformed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent');
+        D4.requireMinArgs(positional, 1, 'transformed');
+        final transform = D4.getRequiredArg<$vector_math_1.Matrix4?>(positional, 0, 'transform', 'transformed');
+        return t.transformed(transform);
+      },
+      'copyWith': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent');
+        final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
+        final timeStamp = D4.getOptionalNamedArg<Duration?>(named, 'timeStamp');
+        final pointer = D4.getOptionalNamedArg<int?>(named, 'pointer');
+        final kind = D4.getOptionalNamedArg<PointerDeviceKind?>(named, 'kind');
+        final device = D4.getOptionalNamedArg<int?>(named, 'device');
+        final position = D4.getOptionalNamedArg<Offset?>(named, 'position');
+        final delta = D4.getOptionalNamedArg<Offset?>(named, 'delta');
+        final buttons = D4.getOptionalNamedArg<int?>(named, 'buttons');
+        final obscured = D4.getOptionalNamedArg<bool?>(named, 'obscured');
+        final pressure = D4.getOptionalNamedArg<double?>(named, 'pressure');
+        final pressureMin = D4.getOptionalNamedArg<double?>(named, 'pressureMin');
+        final pressureMax = D4.getOptionalNamedArg<double?>(named, 'pressureMax');
+        final distance = D4.getOptionalNamedArg<double?>(named, 'distance');
+        final distanceMax = D4.getOptionalNamedArg<double?>(named, 'distanceMax');
+        final size = D4.getOptionalNamedArg<double?>(named, 'size');
+        final radiusMajor = D4.getOptionalNamedArg<double?>(named, 'radiusMajor');
+        final radiusMinor = D4.getOptionalNamedArg<double?>(named, 'radiusMinor');
+        final radiusMin = D4.getOptionalNamedArg<double?>(named, 'radiusMin');
+        final radiusMax = D4.getOptionalNamedArg<double?>(named, 'radiusMax');
+        final orientation = D4.getOptionalNamedArg<double?>(named, 'orientation');
+        final tilt = D4.getOptionalNamedArg<double?>(named, 'tilt');
+        final synthesized = D4.getOptionalNamedArg<bool?>(named, 'synthesized');
+        final embedderId = D4.getOptionalNamedArg<int?>(named, 'embedderId');
+        return t.copyWith(viewId: viewId, timeStamp: timeStamp, pointer: pointer, kind: kind, device: device, position: position, delta: delta, buttons: buttons, obscured: obscured, pressure: pressure, pressureMin: pressureMin, pressureMax: pressureMax, distance: distance, distanceMax: distanceMax, size: size, radiusMajor: radiusMajor, radiusMinor: radiusMinor, radiusMin: radiusMin, radiusMax: radiusMax, orientation: orientation, tilt: tilt, synthesized: synthesized, embedderId: embedderId);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'toStringFull': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerRemovedEvent>(target, 'PointerRemovedEvent');
+        return t.toStringFull();
+      },
+    },
+    constructorSignatures: {
+      '': 'const PointerRemovedEvent({int viewId = 0, Duration timeStamp = Duration.zero, int pointer = 0, PointerDeviceKind kind = PointerDeviceKind.touch, int device = 0, Offset position = Offset.zero, bool obscured = false, double pressureMin = 1.0, double pressureMax = 1.0, double distanceMax = 0.0, double radiusMin = 0.0, double radiusMax = 0.0, PointerRemovedEvent? original, int embedderId = 0})',
+    },
+    methodSignatures: {
+      'transformed': 'PointerRemovedEvent transformed(Matrix4? transform)',
+      'copyWith': 'PointerRemovedEvent copyWith({int? viewId, Duration? timeStamp, int? pointer, PointerDeviceKind? kind, int? device, Offset? position, Offset? delta, int? buttons, bool? obscured, double? pressure, double? pressureMin, double? pressureMax, double? distance, double? distanceMax, double? size, double? radiusMajor, double? radiusMinor, double? radiusMin, double? radiusMax, double? orientation, double? tilt, bool? synthesized, int? embedderId})',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toStringFull': 'String toStringFull()',
+    },
+    getterSignatures: {
+      'viewId': 'int get viewId',
+      'embedderId': 'int get embedderId',
+      'timeStamp': 'Duration get timeStamp',
+      'pointer': 'int get pointer',
+      'kind': 'PointerDeviceKind get kind',
+      'device': 'int get device',
+      'position': 'Offset get position',
+      'localPosition': 'Offset get localPosition',
+      'delta': 'Offset get delta',
+      'localDelta': 'Offset get localDelta',
+      'buttons': 'int get buttons',
+      'down': 'bool get down',
+      'obscured': 'bool get obscured',
+      'pressure': 'double get pressure',
+      'pressureMin': 'double get pressureMin',
+      'pressureMax': 'double get pressureMax',
+      'distance': 'double get distance',
+      'distanceMin': 'double get distanceMin',
+      'distanceMax': 'double get distanceMax',
+      'size': 'double get size',
+      'radiusMajor': 'double get radiusMajor',
+      'radiusMinor': 'double get radiusMinor',
+      'radiusMin': 'double get radiusMin',
+      'radiusMax': 'double get radiusMax',
+      'orientation': 'double get orientation',
+      'tilt': 'double get tilt',
+      'platformData': 'int get platformData',
+      'synthesized': 'bool get synthesized',
+      'transform': 'Matrix4? get transform',
+      'original': 'PointerEvent? get original',
+    },
+  );
+}
+
+// =============================================================================
+// PointerHoverEvent Bridge
+// =============================================================================
+
+BridgedClass _createPointerHoverEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.PointerHoverEvent,
+    name: 'PointerHoverEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
+        final timeStamp = D4.getNamedArgWithDefault<Duration>(named, 'timeStamp', Duration.zero);
+        final kind = D4.getNamedArgWithDefault<PointerDeviceKind>(named, 'kind', $dart_ui.PointerDeviceKind.touch);
+        final pointer = D4.getNamedArgWithDefault<int>(named, 'pointer', 0);
+        final device = D4.getNamedArgWithDefault<int>(named, 'device', 0);
+        final position = D4.getNamedArgWithDefault<Offset>(named, 'position', $dart_ui.Offset.zero);
+        final delta = D4.getNamedArgWithDefault<Offset>(named, 'delta', $dart_ui.Offset.zero);
+        final buttons = D4.getNamedArgWithDefault<int>(named, 'buttons', 0);
+        final obscured = D4.getNamedArgWithDefault<bool>(named, 'obscured', false);
+        final pressureMin = D4.getNamedArgWithDefault<double>(named, 'pressureMin', 1.0);
+        final pressureMax = D4.getNamedArgWithDefault<double>(named, 'pressureMax', 1.0);
+        final distance = D4.getNamedArgWithDefault<double>(named, 'distance', 0.0);
+        final distanceMax = D4.getNamedArgWithDefault<double>(named, 'distanceMax', 0.0);
+        final size = D4.getNamedArgWithDefault<double>(named, 'size', 0.0);
+        final radiusMajor = D4.getNamedArgWithDefault<double>(named, 'radiusMajor', 0.0);
+        final radiusMinor = D4.getNamedArgWithDefault<double>(named, 'radiusMinor', 0.0);
+        final radiusMin = D4.getNamedArgWithDefault<double>(named, 'radiusMin', 0.0);
+        final radiusMax = D4.getNamedArgWithDefault<double>(named, 'radiusMax', 0.0);
+        final orientation = D4.getNamedArgWithDefault<double>(named, 'orientation', 0.0);
+        final tilt = D4.getNamedArgWithDefault<double>(named, 'tilt', 0.0);
+        final synthesized = D4.getNamedArgWithDefault<bool>(named, 'synthesized', false);
+        final embedderId = D4.getNamedArgWithDefault<int>(named, 'embedderId', 0);
+        return $flutter_12.PointerHoverEvent(viewId: viewId, timeStamp: timeStamp, kind: kind, pointer: pointer, device: device, position: position, delta: delta, buttons: buttons, obscured: obscured, pressureMin: pressureMin, pressureMax: pressureMax, distance: distance, distanceMax: distanceMax, size: size, radiusMajor: radiusMajor, radiusMinor: radiusMinor, radiusMin: radiusMin, radiusMax: radiusMax, orientation: orientation, tilt: tilt, synthesized: synthesized, embedderId: embedderId);
+      },
+    },
+    getters: {
+      'viewId': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').viewId,
+      'embedderId': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').embedderId,
+      'timeStamp': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').timeStamp,
+      'pointer': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').pointer,
+      'kind': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').kind,
+      'device': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').device,
+      'position': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').position,
+      'localPosition': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').localPosition,
+      'delta': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').delta,
+      'localDelta': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').localDelta,
+      'buttons': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').buttons,
+      'down': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').down,
+      'obscured': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').obscured,
+      'pressure': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').pressure,
+      'pressureMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').pressureMin,
+      'pressureMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').pressureMax,
+      'distance': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').distance,
+      'distanceMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').distanceMin,
+      'distanceMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').distanceMax,
+      'size': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').size,
+      'radiusMajor': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').radiusMajor,
+      'radiusMinor': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').radiusMinor,
+      'radiusMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').radiusMin,
+      'radiusMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').radiusMax,
+      'orientation': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').orientation,
+      'tilt': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').tilt,
+      'platformData': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').platformData,
+      'synthesized': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').synthesized,
+      'transform': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').transform,
+      'original': (visitor, target) => D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent').original,
+    },
+    methods: {
+      'transformed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent');
+        D4.requireMinArgs(positional, 1, 'transformed');
+        final transform = D4.getRequiredArg<$vector_math_1.Matrix4?>(positional, 0, 'transform', 'transformed');
+        return t.transformed(transform);
+      },
+      'copyWith': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent');
+        final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
+        final timeStamp = D4.getOptionalNamedArg<Duration?>(named, 'timeStamp');
+        final pointer = D4.getOptionalNamedArg<int?>(named, 'pointer');
+        final kind = D4.getOptionalNamedArg<PointerDeviceKind?>(named, 'kind');
+        final device = D4.getOptionalNamedArg<int?>(named, 'device');
+        final position = D4.getOptionalNamedArg<Offset?>(named, 'position');
+        final delta = D4.getOptionalNamedArg<Offset?>(named, 'delta');
+        final buttons = D4.getOptionalNamedArg<int?>(named, 'buttons');
+        final obscured = D4.getOptionalNamedArg<bool?>(named, 'obscured');
+        final pressure = D4.getOptionalNamedArg<double?>(named, 'pressure');
+        final pressureMin = D4.getOptionalNamedArg<double?>(named, 'pressureMin');
+        final pressureMax = D4.getOptionalNamedArg<double?>(named, 'pressureMax');
+        final distance = D4.getOptionalNamedArg<double?>(named, 'distance');
+        final distanceMax = D4.getOptionalNamedArg<double?>(named, 'distanceMax');
+        final size = D4.getOptionalNamedArg<double?>(named, 'size');
+        final radiusMajor = D4.getOptionalNamedArg<double?>(named, 'radiusMajor');
+        final radiusMinor = D4.getOptionalNamedArg<double?>(named, 'radiusMinor');
+        final radiusMin = D4.getOptionalNamedArg<double?>(named, 'radiusMin');
+        final radiusMax = D4.getOptionalNamedArg<double?>(named, 'radiusMax');
+        final orientation = D4.getOptionalNamedArg<double?>(named, 'orientation');
+        final tilt = D4.getOptionalNamedArg<double?>(named, 'tilt');
+        final synthesized = D4.getOptionalNamedArg<bool?>(named, 'synthesized');
+        final embedderId = D4.getOptionalNamedArg<int?>(named, 'embedderId');
+        return t.copyWith(viewId: viewId, timeStamp: timeStamp, pointer: pointer, kind: kind, device: device, position: position, delta: delta, buttons: buttons, obscured: obscured, pressure: pressure, pressureMin: pressureMin, pressureMax: pressureMax, distance: distance, distanceMax: distanceMax, size: size, radiusMajor: radiusMajor, radiusMinor: radiusMinor, radiusMin: radiusMin, radiusMax: radiusMax, orientation: orientation, tilt: tilt, synthesized: synthesized, embedderId: embedderId);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'toStringFull': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerHoverEvent>(target, 'PointerHoverEvent');
+        return t.toStringFull();
+      },
+    },
+    constructorSignatures: {
+      '': 'const PointerHoverEvent({int viewId = 0, Duration timeStamp = Duration.zero, PointerDeviceKind kind = PointerDeviceKind.touch, int pointer = 0, int device = 0, Offset position = Offset.zero, Offset delta = Offset.zero, int buttons = 0, bool obscured = false, double pressureMin = 1.0, double pressureMax = 1.0, double distance = 0.0, double distanceMax = 0.0, double size = 0.0, double radiusMajor = 0.0, double radiusMinor = 0.0, double radiusMin = 0.0, double radiusMax = 0.0, double orientation = 0.0, double tilt = 0.0, bool synthesized = false, int embedderId = 0})',
+    },
+    methodSignatures: {
+      'transformed': 'PointerHoverEvent transformed(Matrix4? transform)',
+      'copyWith': 'PointerHoverEvent copyWith({int? viewId, Duration? timeStamp, int? pointer, PointerDeviceKind? kind, int? device, Offset? position, Offset? delta, int? buttons, bool? obscured, double? pressure, double? pressureMin, double? pressureMax, double? distance, double? distanceMax, double? size, double? radiusMajor, double? radiusMinor, double? radiusMin, double? radiusMax, double? orientation, double? tilt, bool? synthesized, int? embedderId})',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toStringFull': 'String toStringFull()',
+    },
+    getterSignatures: {
+      'viewId': 'int get viewId',
+      'embedderId': 'int get embedderId',
+      'timeStamp': 'Duration get timeStamp',
+      'pointer': 'int get pointer',
+      'kind': 'PointerDeviceKind get kind',
+      'device': 'int get device',
+      'position': 'Offset get position',
+      'localPosition': 'Offset get localPosition',
+      'delta': 'Offset get delta',
+      'localDelta': 'Offset get localDelta',
+      'buttons': 'int get buttons',
+      'down': 'bool get down',
+      'obscured': 'bool get obscured',
+      'pressure': 'double get pressure',
+      'pressureMin': 'double get pressureMin',
+      'pressureMax': 'double get pressureMax',
+      'distance': 'double get distance',
+      'distanceMin': 'double get distanceMin',
+      'distanceMax': 'double get distanceMax',
+      'size': 'double get size',
+      'radiusMajor': 'double get radiusMajor',
+      'radiusMinor': 'double get radiusMinor',
+      'radiusMin': 'double get radiusMin',
+      'radiusMax': 'double get radiusMax',
+      'orientation': 'double get orientation',
+      'tilt': 'double get tilt',
+      'platformData': 'int get platformData',
+      'synthesized': 'bool get synthesized',
+      'transform': 'Matrix4? get transform',
+      'original': 'PointerEvent? get original',
+    },
+  );
+}
+
+// =============================================================================
+// PointerEnterEvent Bridge
+// =============================================================================
+
+BridgedClass _createPointerEnterEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.PointerEnterEvent,
+    name: 'PointerEnterEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
+        final timeStamp = D4.getNamedArgWithDefault<Duration>(named, 'timeStamp', Duration.zero);
+        final pointer = D4.getNamedArgWithDefault<int>(named, 'pointer', 0);
+        final kind = D4.getNamedArgWithDefault<PointerDeviceKind>(named, 'kind', $dart_ui.PointerDeviceKind.touch);
+        final device = D4.getNamedArgWithDefault<int>(named, 'device', 0);
+        final position = D4.getNamedArgWithDefault<Offset>(named, 'position', $dart_ui.Offset.zero);
+        final delta = D4.getNamedArgWithDefault<Offset>(named, 'delta', $dart_ui.Offset.zero);
+        final buttons = D4.getNamedArgWithDefault<int>(named, 'buttons', 0);
+        final obscured = D4.getNamedArgWithDefault<bool>(named, 'obscured', false);
+        final pressureMin = D4.getNamedArgWithDefault<double>(named, 'pressureMin', 1.0);
+        final pressureMax = D4.getNamedArgWithDefault<double>(named, 'pressureMax', 1.0);
+        final distance = D4.getNamedArgWithDefault<double>(named, 'distance', 0.0);
+        final distanceMax = D4.getNamedArgWithDefault<double>(named, 'distanceMax', 0.0);
+        final size = D4.getNamedArgWithDefault<double>(named, 'size', 0.0);
+        final radiusMajor = D4.getNamedArgWithDefault<double>(named, 'radiusMajor', 0.0);
+        final radiusMinor = D4.getNamedArgWithDefault<double>(named, 'radiusMinor', 0.0);
+        final radiusMin = D4.getNamedArgWithDefault<double>(named, 'radiusMin', 0.0);
+        final radiusMax = D4.getNamedArgWithDefault<double>(named, 'radiusMax', 0.0);
+        final orientation = D4.getNamedArgWithDefault<double>(named, 'orientation', 0.0);
+        final tilt = D4.getNamedArgWithDefault<double>(named, 'tilt', 0.0);
+        final down = D4.getNamedArgWithDefault<bool>(named, 'down', false);
+        final synthesized = D4.getNamedArgWithDefault<bool>(named, 'synthesized', false);
+        final embedderId = D4.getNamedArgWithDefault<int>(named, 'embedderId', 0);
+        return $flutter_12.PointerEnterEvent(viewId: viewId, timeStamp: timeStamp, pointer: pointer, kind: kind, device: device, position: position, delta: delta, buttons: buttons, obscured: obscured, pressureMin: pressureMin, pressureMax: pressureMax, distance: distance, distanceMax: distanceMax, size: size, radiusMajor: radiusMajor, radiusMinor: radiusMinor, radiusMin: radiusMin, radiusMax: radiusMax, orientation: orientation, tilt: tilt, down: down, synthesized: synthesized, embedderId: embedderId);
+      },
+      'fromMouseEvent': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'PointerEnterEvent');
+        final event = D4.getRequiredArg<$flutter_12.PointerEvent>(positional, 0, 'event', 'PointerEnterEvent');
+        return $flutter_12.PointerEnterEvent.fromMouseEvent(event);
+      },
+    },
+    getters: {
+      'viewId': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').viewId,
+      'embedderId': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').embedderId,
+      'timeStamp': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').timeStamp,
+      'pointer': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').pointer,
+      'kind': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').kind,
+      'device': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').device,
+      'position': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').position,
+      'localPosition': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').localPosition,
+      'delta': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').delta,
+      'localDelta': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').localDelta,
+      'buttons': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').buttons,
+      'down': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').down,
+      'obscured': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').obscured,
+      'pressure': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').pressure,
+      'pressureMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').pressureMin,
+      'pressureMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').pressureMax,
+      'distance': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').distance,
+      'distanceMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').distanceMin,
+      'distanceMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').distanceMax,
+      'size': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').size,
+      'radiusMajor': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').radiusMajor,
+      'radiusMinor': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').radiusMinor,
+      'radiusMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').radiusMin,
+      'radiusMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').radiusMax,
+      'orientation': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').orientation,
+      'tilt': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').tilt,
+      'platformData': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').platformData,
+      'synthesized': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').synthesized,
+      'transform': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').transform,
+      'original': (visitor, target) => D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent').original,
+    },
+    methods: {
+      'transformed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent');
+        D4.requireMinArgs(positional, 1, 'transformed');
+        final transform = D4.getRequiredArg<$vector_math_1.Matrix4?>(positional, 0, 'transform', 'transformed');
+        return t.transformed(transform);
+      },
+      'copyWith': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent');
+        final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
+        final timeStamp = D4.getOptionalNamedArg<Duration?>(named, 'timeStamp');
+        final pointer = D4.getOptionalNamedArg<int?>(named, 'pointer');
+        final kind = D4.getOptionalNamedArg<PointerDeviceKind?>(named, 'kind');
+        final device = D4.getOptionalNamedArg<int?>(named, 'device');
+        final position = D4.getOptionalNamedArg<Offset?>(named, 'position');
+        final delta = D4.getOptionalNamedArg<Offset?>(named, 'delta');
+        final buttons = D4.getOptionalNamedArg<int?>(named, 'buttons');
+        final obscured = D4.getOptionalNamedArg<bool?>(named, 'obscured');
+        final pressure = D4.getOptionalNamedArg<double?>(named, 'pressure');
+        final pressureMin = D4.getOptionalNamedArg<double?>(named, 'pressureMin');
+        final pressureMax = D4.getOptionalNamedArg<double?>(named, 'pressureMax');
+        final distance = D4.getOptionalNamedArg<double?>(named, 'distance');
+        final distanceMax = D4.getOptionalNamedArg<double?>(named, 'distanceMax');
+        final size = D4.getOptionalNamedArg<double?>(named, 'size');
+        final radiusMajor = D4.getOptionalNamedArg<double?>(named, 'radiusMajor');
+        final radiusMinor = D4.getOptionalNamedArg<double?>(named, 'radiusMinor');
+        final radiusMin = D4.getOptionalNamedArg<double?>(named, 'radiusMin');
+        final radiusMax = D4.getOptionalNamedArg<double?>(named, 'radiusMax');
+        final orientation = D4.getOptionalNamedArg<double?>(named, 'orientation');
+        final tilt = D4.getOptionalNamedArg<double?>(named, 'tilt');
+        final synthesized = D4.getOptionalNamedArg<bool?>(named, 'synthesized');
+        final embedderId = D4.getOptionalNamedArg<int?>(named, 'embedderId');
+        return t.copyWith(viewId: viewId, timeStamp: timeStamp, pointer: pointer, kind: kind, device: device, position: position, delta: delta, buttons: buttons, obscured: obscured, pressure: pressure, pressureMin: pressureMin, pressureMax: pressureMax, distance: distance, distanceMax: distanceMax, size: size, radiusMajor: radiusMajor, radiusMinor: radiusMinor, radiusMin: radiusMin, radiusMax: radiusMax, orientation: orientation, tilt: tilt, synthesized: synthesized, embedderId: embedderId);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'toStringFull': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerEnterEvent>(target, 'PointerEnterEvent');
+        return t.toStringFull();
+      },
+    },
+    constructorSignatures: {
+      '': 'const PointerEnterEvent({int viewId = 0, Duration timeStamp = Duration.zero, int pointer = 0, PointerDeviceKind kind = PointerDeviceKind.touch, int device = 0, Offset position = Offset.zero, Offset delta = Offset.zero, int buttons = 0, bool obscured = false, double pressureMin = 1.0, double pressureMax = 1.0, double distance = 0.0, double distanceMax = 0.0, double size = 0.0, double radiusMajor = 0.0, double radiusMinor = 0.0, double radiusMin = 0.0, double radiusMax = 0.0, double orientation = 0.0, double tilt = 0.0, bool down = false, bool synthesized = false, int embedderId = 0})',
+      'fromMouseEvent': 'factory PointerEnterEvent.fromMouseEvent(PointerEvent event)',
+    },
+    methodSignatures: {
+      'transformed': 'PointerEnterEvent transformed(Matrix4? transform)',
+      'copyWith': 'PointerEnterEvent copyWith({int? viewId, Duration? timeStamp, int? pointer, PointerDeviceKind? kind, int? device, Offset? position, Offset? delta, int? buttons, bool? obscured, double? pressure, double? pressureMin, double? pressureMax, double? distance, double? distanceMax, double? size, double? radiusMajor, double? radiusMinor, double? radiusMin, double? radiusMax, double? orientation, double? tilt, bool? synthesized, int? embedderId})',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toStringFull': 'String toStringFull()',
+    },
+    getterSignatures: {
+      'viewId': 'int get viewId',
+      'embedderId': 'int get embedderId',
+      'timeStamp': 'Duration get timeStamp',
+      'pointer': 'int get pointer',
+      'kind': 'PointerDeviceKind get kind',
+      'device': 'int get device',
+      'position': 'Offset get position',
+      'localPosition': 'Offset get localPosition',
+      'delta': 'Offset get delta',
+      'localDelta': 'Offset get localDelta',
+      'buttons': 'int get buttons',
+      'down': 'bool get down',
+      'obscured': 'bool get obscured',
+      'pressure': 'double get pressure',
+      'pressureMin': 'double get pressureMin',
+      'pressureMax': 'double get pressureMax',
+      'distance': 'double get distance',
+      'distanceMin': 'double get distanceMin',
+      'distanceMax': 'double get distanceMax',
+      'size': 'double get size',
+      'radiusMajor': 'double get radiusMajor',
+      'radiusMinor': 'double get radiusMinor',
+      'radiusMin': 'double get radiusMin',
+      'radiusMax': 'double get radiusMax',
+      'orientation': 'double get orientation',
+      'tilt': 'double get tilt',
+      'platformData': 'int get platformData',
+      'synthesized': 'bool get synthesized',
+      'transform': 'Matrix4? get transform',
+      'original': 'PointerEvent? get original',
+    },
+  );
+}
+
+// =============================================================================
+// PointerExitEvent Bridge
+// =============================================================================
+
+BridgedClass _createPointerExitEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.PointerExitEvent,
+    name: 'PointerExitEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
+        final timeStamp = D4.getNamedArgWithDefault<Duration>(named, 'timeStamp', Duration.zero);
+        final kind = D4.getNamedArgWithDefault<PointerDeviceKind>(named, 'kind', $dart_ui.PointerDeviceKind.touch);
+        final pointer = D4.getNamedArgWithDefault<int>(named, 'pointer', 0);
+        final device = D4.getNamedArgWithDefault<int>(named, 'device', 0);
+        final position = D4.getNamedArgWithDefault<Offset>(named, 'position', $dart_ui.Offset.zero);
+        final delta = D4.getNamedArgWithDefault<Offset>(named, 'delta', $dart_ui.Offset.zero);
+        final buttons = D4.getNamedArgWithDefault<int>(named, 'buttons', 0);
+        final obscured = D4.getNamedArgWithDefault<bool>(named, 'obscured', false);
+        final pressureMin = D4.getNamedArgWithDefault<double>(named, 'pressureMin', 1.0);
+        final pressureMax = D4.getNamedArgWithDefault<double>(named, 'pressureMax', 1.0);
+        final distance = D4.getNamedArgWithDefault<double>(named, 'distance', 0.0);
+        final distanceMax = D4.getNamedArgWithDefault<double>(named, 'distanceMax', 0.0);
+        final size = D4.getNamedArgWithDefault<double>(named, 'size', 0.0);
+        final radiusMajor = D4.getNamedArgWithDefault<double>(named, 'radiusMajor', 0.0);
+        final radiusMinor = D4.getNamedArgWithDefault<double>(named, 'radiusMinor', 0.0);
+        final radiusMin = D4.getNamedArgWithDefault<double>(named, 'radiusMin', 0.0);
+        final radiusMax = D4.getNamedArgWithDefault<double>(named, 'radiusMax', 0.0);
+        final orientation = D4.getNamedArgWithDefault<double>(named, 'orientation', 0.0);
+        final tilt = D4.getNamedArgWithDefault<double>(named, 'tilt', 0.0);
+        final down = D4.getNamedArgWithDefault<bool>(named, 'down', false);
+        final synthesized = D4.getNamedArgWithDefault<bool>(named, 'synthesized', false);
+        final embedderId = D4.getNamedArgWithDefault<int>(named, 'embedderId', 0);
+        return $flutter_12.PointerExitEvent(viewId: viewId, timeStamp: timeStamp, kind: kind, pointer: pointer, device: device, position: position, delta: delta, buttons: buttons, obscured: obscured, pressureMin: pressureMin, pressureMax: pressureMax, distance: distance, distanceMax: distanceMax, size: size, radiusMajor: radiusMajor, radiusMinor: radiusMinor, radiusMin: radiusMin, radiusMax: radiusMax, orientation: orientation, tilt: tilt, down: down, synthesized: synthesized, embedderId: embedderId);
+      },
+      'fromMouseEvent': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'PointerExitEvent');
+        final event = D4.getRequiredArg<$flutter_12.PointerEvent>(positional, 0, 'event', 'PointerExitEvent');
+        return $flutter_12.PointerExitEvent.fromMouseEvent(event);
+      },
+    },
+    getters: {
+      'viewId': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').viewId,
+      'embedderId': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').embedderId,
+      'timeStamp': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').timeStamp,
+      'pointer': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').pointer,
+      'kind': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').kind,
+      'device': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').device,
+      'position': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').position,
+      'localPosition': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').localPosition,
+      'delta': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').delta,
+      'localDelta': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').localDelta,
+      'buttons': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').buttons,
+      'down': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').down,
+      'obscured': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').obscured,
+      'pressure': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').pressure,
+      'pressureMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').pressureMin,
+      'pressureMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').pressureMax,
+      'distance': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').distance,
+      'distanceMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').distanceMin,
+      'distanceMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').distanceMax,
+      'size': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').size,
+      'radiusMajor': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').radiusMajor,
+      'radiusMinor': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').radiusMinor,
+      'radiusMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').radiusMin,
+      'radiusMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').radiusMax,
+      'orientation': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').orientation,
+      'tilt': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').tilt,
+      'platformData': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').platformData,
+      'synthesized': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').synthesized,
+      'transform': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').transform,
+      'original': (visitor, target) => D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent').original,
+    },
+    methods: {
+      'transformed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent');
+        D4.requireMinArgs(positional, 1, 'transformed');
+        final transform = D4.getRequiredArg<$vector_math_1.Matrix4?>(positional, 0, 'transform', 'transformed');
+        return t.transformed(transform);
+      },
+      'copyWith': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent');
+        final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
+        final timeStamp = D4.getOptionalNamedArg<Duration?>(named, 'timeStamp');
+        final pointer = D4.getOptionalNamedArg<int?>(named, 'pointer');
+        final kind = D4.getOptionalNamedArg<PointerDeviceKind?>(named, 'kind');
+        final device = D4.getOptionalNamedArg<int?>(named, 'device');
+        final position = D4.getOptionalNamedArg<Offset?>(named, 'position');
+        final delta = D4.getOptionalNamedArg<Offset?>(named, 'delta');
+        final buttons = D4.getOptionalNamedArg<int?>(named, 'buttons');
+        final obscured = D4.getOptionalNamedArg<bool?>(named, 'obscured');
+        final pressure = D4.getOptionalNamedArg<double?>(named, 'pressure');
+        final pressureMin = D4.getOptionalNamedArg<double?>(named, 'pressureMin');
+        final pressureMax = D4.getOptionalNamedArg<double?>(named, 'pressureMax');
+        final distance = D4.getOptionalNamedArg<double?>(named, 'distance');
+        final distanceMax = D4.getOptionalNamedArg<double?>(named, 'distanceMax');
+        final size = D4.getOptionalNamedArg<double?>(named, 'size');
+        final radiusMajor = D4.getOptionalNamedArg<double?>(named, 'radiusMajor');
+        final radiusMinor = D4.getOptionalNamedArg<double?>(named, 'radiusMinor');
+        final radiusMin = D4.getOptionalNamedArg<double?>(named, 'radiusMin');
+        final radiusMax = D4.getOptionalNamedArg<double?>(named, 'radiusMax');
+        final orientation = D4.getOptionalNamedArg<double?>(named, 'orientation');
+        final tilt = D4.getOptionalNamedArg<double?>(named, 'tilt');
+        final synthesized = D4.getOptionalNamedArg<bool?>(named, 'synthesized');
+        final embedderId = D4.getOptionalNamedArg<int?>(named, 'embedderId');
+        return t.copyWith(viewId: viewId, timeStamp: timeStamp, pointer: pointer, kind: kind, device: device, position: position, delta: delta, buttons: buttons, obscured: obscured, pressure: pressure, pressureMin: pressureMin, pressureMax: pressureMax, distance: distance, distanceMax: distanceMax, size: size, radiusMajor: radiusMajor, radiusMinor: radiusMinor, radiusMin: radiusMin, radiusMax: radiusMax, orientation: orientation, tilt: tilt, synthesized: synthesized, embedderId: embedderId);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'toStringFull': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerExitEvent>(target, 'PointerExitEvent');
+        return t.toStringFull();
+      },
+    },
+    constructorSignatures: {
+      '': 'const PointerExitEvent({int viewId = 0, Duration timeStamp = Duration.zero, PointerDeviceKind kind = PointerDeviceKind.touch, int pointer = 0, int device = 0, Offset position = Offset.zero, Offset delta = Offset.zero, int buttons = 0, bool obscured = false, double pressureMin = 1.0, double pressureMax = 1.0, double distance = 0.0, double distanceMax = 0.0, double size = 0.0, double radiusMajor = 0.0, double radiusMinor = 0.0, double radiusMin = 0.0, double radiusMax = 0.0, double orientation = 0.0, double tilt = 0.0, bool down = false, bool synthesized = false, int embedderId = 0})',
+      'fromMouseEvent': 'factory PointerExitEvent.fromMouseEvent(PointerEvent event)',
+    },
+    methodSignatures: {
+      'transformed': 'PointerExitEvent transformed(Matrix4? transform)',
+      'copyWith': 'PointerExitEvent copyWith({int? viewId, Duration? timeStamp, int? pointer, PointerDeviceKind? kind, int? device, Offset? position, Offset? delta, int? buttons, bool? obscured, double? pressure, double? pressureMin, double? pressureMax, double? distance, double? distanceMax, double? size, double? radiusMajor, double? radiusMinor, double? radiusMin, double? radiusMax, double? orientation, double? tilt, bool? synthesized, int? embedderId})',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toStringFull': 'String toStringFull()',
+    },
+    getterSignatures: {
+      'viewId': 'int get viewId',
+      'embedderId': 'int get embedderId',
+      'timeStamp': 'Duration get timeStamp',
+      'pointer': 'int get pointer',
+      'kind': 'PointerDeviceKind get kind',
+      'device': 'int get device',
+      'position': 'Offset get position',
+      'localPosition': 'Offset get localPosition',
+      'delta': 'Offset get delta',
+      'localDelta': 'Offset get localDelta',
+      'buttons': 'int get buttons',
+      'down': 'bool get down',
+      'obscured': 'bool get obscured',
+      'pressure': 'double get pressure',
+      'pressureMin': 'double get pressureMin',
+      'pressureMax': 'double get pressureMax',
+      'distance': 'double get distance',
+      'distanceMin': 'double get distanceMin',
+      'distanceMax': 'double get distanceMax',
+      'size': 'double get size',
+      'radiusMajor': 'double get radiusMajor',
+      'radiusMinor': 'double get radiusMinor',
+      'radiusMin': 'double get radiusMin',
+      'radiusMax': 'double get radiusMax',
+      'orientation': 'double get orientation',
+      'tilt': 'double get tilt',
+      'platformData': 'int get platformData',
+      'synthesized': 'bool get synthesized',
+      'transform': 'Matrix4? get transform',
+      'original': 'PointerEvent? get original',
+    },
+  );
+}
+
+// =============================================================================
 // PointerDownEvent Bridge
 // =============================================================================
 
@@ -2464,6 +3514,188 @@ BridgedClass _createPointerDownEventBridge() {
     methodSignatures: {
       'transformed': 'PointerDownEvent transformed(Matrix4? transform)',
       'copyWith': 'PointerDownEvent copyWith({int? viewId, Duration? timeStamp, int? pointer, PointerDeviceKind? kind, int? device, Offset? position, Offset? delta, int? buttons, bool? obscured, double? pressure, double? pressureMin, double? pressureMax, double? distance, double? distanceMax, double? size, double? radiusMajor, double? radiusMinor, double? radiusMin, double? radiusMax, double? orientation, double? tilt, bool? synthesized, int? embedderId})',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toStringFull': 'String toStringFull()',
+    },
+    getterSignatures: {
+      'viewId': 'int get viewId',
+      'embedderId': 'int get embedderId',
+      'timeStamp': 'Duration get timeStamp',
+      'pointer': 'int get pointer',
+      'kind': 'PointerDeviceKind get kind',
+      'device': 'int get device',
+      'position': 'Offset get position',
+      'localPosition': 'Offset get localPosition',
+      'delta': 'Offset get delta',
+      'localDelta': 'Offset get localDelta',
+      'buttons': 'int get buttons',
+      'down': 'bool get down',
+      'obscured': 'bool get obscured',
+      'pressure': 'double get pressure',
+      'pressureMin': 'double get pressureMin',
+      'pressureMax': 'double get pressureMax',
+      'distance': 'double get distance',
+      'distanceMin': 'double get distanceMin',
+      'distanceMax': 'double get distanceMax',
+      'size': 'double get size',
+      'radiusMajor': 'double get radiusMajor',
+      'radiusMinor': 'double get radiusMinor',
+      'radiusMin': 'double get radiusMin',
+      'radiusMax': 'double get radiusMax',
+      'orientation': 'double get orientation',
+      'tilt': 'double get tilt',
+      'platformData': 'int get platformData',
+      'synthesized': 'bool get synthesized',
+      'transform': 'Matrix4? get transform',
+      'original': 'PointerEvent? get original',
+    },
+  );
+}
+
+// =============================================================================
+// PointerMoveEvent Bridge
+// =============================================================================
+
+BridgedClass _createPointerMoveEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.PointerMoveEvent,
+    name: 'PointerMoveEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
+        final timeStamp = D4.getNamedArgWithDefault<Duration>(named, 'timeStamp', Duration.zero);
+        final pointer = D4.getNamedArgWithDefault<int>(named, 'pointer', 0);
+        final kind = D4.getNamedArgWithDefault<PointerDeviceKind>(named, 'kind', $dart_ui.PointerDeviceKind.touch);
+        final device = D4.getNamedArgWithDefault<int>(named, 'device', 0);
+        final position = D4.getNamedArgWithDefault<Offset>(named, 'position', $dart_ui.Offset.zero);
+        final delta = D4.getNamedArgWithDefault<Offset>(named, 'delta', $dart_ui.Offset.zero);
+        final obscured = D4.getNamedArgWithDefault<bool>(named, 'obscured', false);
+        final pressure = D4.getNamedArgWithDefault<double>(named, 'pressure', 1.0);
+        final pressureMin = D4.getNamedArgWithDefault<double>(named, 'pressureMin', 1.0);
+        final pressureMax = D4.getNamedArgWithDefault<double>(named, 'pressureMax', 1.0);
+        final distanceMax = D4.getNamedArgWithDefault<double>(named, 'distanceMax', 0.0);
+        final size = D4.getNamedArgWithDefault<double>(named, 'size', 0.0);
+        final radiusMajor = D4.getNamedArgWithDefault<double>(named, 'radiusMajor', 0.0);
+        final radiusMinor = D4.getNamedArgWithDefault<double>(named, 'radiusMinor', 0.0);
+        final radiusMin = D4.getNamedArgWithDefault<double>(named, 'radiusMin', 0.0);
+        final radiusMax = D4.getNamedArgWithDefault<double>(named, 'radiusMax', 0.0);
+        final orientation = D4.getNamedArgWithDefault<double>(named, 'orientation', 0.0);
+        final tilt = D4.getNamedArgWithDefault<double>(named, 'tilt', 0.0);
+        final platformData = D4.getNamedArgWithDefault<int>(named, 'platformData', 0);
+        final synthesized = D4.getNamedArgWithDefault<bool>(named, 'synthesized', false);
+        final embedderId = D4.getNamedArgWithDefault<int>(named, 'embedderId', 0);
+        if (!named.containsKey('buttons')) {
+          return $flutter_12.PointerMoveEvent(viewId: viewId, timeStamp: timeStamp, pointer: pointer, kind: kind, device: device, position: position, delta: delta, obscured: obscured, pressure: pressure, pressureMin: pressureMin, pressureMax: pressureMax, distanceMax: distanceMax, size: size, radiusMajor: radiusMajor, radiusMinor: radiusMinor, radiusMin: radiusMin, radiusMax: radiusMax, orientation: orientation, tilt: tilt, platformData: platformData, synthesized: synthesized, embedderId: embedderId);
+        }
+        if (named.containsKey('buttons')) {
+          final buttons = D4.getRequiredNamedArg<int>(named, 'buttons', 'PointerMoveEvent');
+          return $flutter_12.PointerMoveEvent(viewId: viewId, timeStamp: timeStamp, pointer: pointer, kind: kind, device: device, position: position, delta: delta, obscured: obscured, pressure: pressure, pressureMin: pressureMin, pressureMax: pressureMax, distanceMax: distanceMax, size: size, radiusMajor: radiusMajor, radiusMinor: radiusMinor, radiusMin: radiusMin, radiusMax: radiusMax, orientation: orientation, tilt: tilt, platformData: platformData, synthesized: synthesized, embedderId: embedderId, buttons: buttons);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
+      },
+    },
+    getters: {
+      'viewId': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').viewId,
+      'embedderId': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').embedderId,
+      'timeStamp': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').timeStamp,
+      'pointer': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').pointer,
+      'kind': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').kind,
+      'device': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').device,
+      'position': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').position,
+      'localPosition': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').localPosition,
+      'delta': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').delta,
+      'localDelta': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').localDelta,
+      'buttons': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').buttons,
+      'down': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').down,
+      'obscured': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').obscured,
+      'pressure': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').pressure,
+      'pressureMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').pressureMin,
+      'pressureMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').pressureMax,
+      'distance': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').distance,
+      'distanceMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').distanceMin,
+      'distanceMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').distanceMax,
+      'size': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').size,
+      'radiusMajor': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').radiusMajor,
+      'radiusMinor': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').radiusMinor,
+      'radiusMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').radiusMin,
+      'radiusMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').radiusMax,
+      'orientation': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').orientation,
+      'tilt': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').tilt,
+      'platformData': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').platformData,
+      'synthesized': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').synthesized,
+      'transform': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').transform,
+      'original': (visitor, target) => D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent').original,
+    },
+    methods: {
+      'transformed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent');
+        D4.requireMinArgs(positional, 1, 'transformed');
+        final transform = D4.getRequiredArg<$vector_math_1.Matrix4?>(positional, 0, 'transform', 'transformed');
+        return t.transformed(transform);
+      },
+      'copyWith': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent');
+        final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
+        final timeStamp = D4.getOptionalNamedArg<Duration?>(named, 'timeStamp');
+        final pointer = D4.getOptionalNamedArg<int?>(named, 'pointer');
+        final kind = D4.getOptionalNamedArg<PointerDeviceKind?>(named, 'kind');
+        final device = D4.getOptionalNamedArg<int?>(named, 'device');
+        final position = D4.getOptionalNamedArg<Offset?>(named, 'position');
+        final delta = D4.getOptionalNamedArg<Offset?>(named, 'delta');
+        final buttons = D4.getOptionalNamedArg<int?>(named, 'buttons');
+        final obscured = D4.getOptionalNamedArg<bool?>(named, 'obscured');
+        final pressure = D4.getOptionalNamedArg<double?>(named, 'pressure');
+        final pressureMin = D4.getOptionalNamedArg<double?>(named, 'pressureMin');
+        final pressureMax = D4.getOptionalNamedArg<double?>(named, 'pressureMax');
+        final distance = D4.getOptionalNamedArg<double?>(named, 'distance');
+        final distanceMax = D4.getOptionalNamedArg<double?>(named, 'distanceMax');
+        final size = D4.getOptionalNamedArg<double?>(named, 'size');
+        final radiusMajor = D4.getOptionalNamedArg<double?>(named, 'radiusMajor');
+        final radiusMinor = D4.getOptionalNamedArg<double?>(named, 'radiusMinor');
+        final radiusMin = D4.getOptionalNamedArg<double?>(named, 'radiusMin');
+        final radiusMax = D4.getOptionalNamedArg<double?>(named, 'radiusMax');
+        final orientation = D4.getOptionalNamedArg<double?>(named, 'orientation');
+        final tilt = D4.getOptionalNamedArg<double?>(named, 'tilt');
+        final synthesized = D4.getOptionalNamedArg<bool?>(named, 'synthesized');
+        final embedderId = D4.getOptionalNamedArg<int?>(named, 'embedderId');
+        return t.copyWith(viewId: viewId, timeStamp: timeStamp, pointer: pointer, kind: kind, device: device, position: position, delta: delta, buttons: buttons, obscured: obscured, pressure: pressure, pressureMin: pressureMin, pressureMax: pressureMax, distance: distance, distanceMax: distanceMax, size: size, radiusMajor: radiusMajor, radiusMinor: radiusMinor, radiusMin: radiusMin, radiusMax: radiusMax, orientation: orientation, tilt: tilt, synthesized: synthesized, embedderId: embedderId);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'toStringFull': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerMoveEvent>(target, 'PointerMoveEvent');
+        return t.toStringFull();
+      },
+    },
+    constructorSignatures: {
+      '': 'const PointerMoveEvent({int viewId = 0, Duration timeStamp = Duration.zero, int pointer = 0, PointerDeviceKind kind = PointerDeviceKind.touch, int device = 0, Offset position = Offset.zero, Offset delta = Offset.zero, int buttons = kPrimaryButton, bool obscured = false, double pressure = 1.0, double pressureMin = 1.0, double pressureMax = 1.0, double distanceMax = 0.0, double size = 0.0, double radiusMajor = 0.0, double radiusMinor = 0.0, double radiusMin = 0.0, double radiusMax = 0.0, double orientation = 0.0, double tilt = 0.0, int platformData = 0, bool synthesized = false, int embedderId = 0})',
+    },
+    methodSignatures: {
+      'transformed': 'PointerMoveEvent transformed(Matrix4? transform)',
+      'copyWith': 'PointerMoveEvent copyWith({int? viewId, Duration? timeStamp, int? pointer, PointerDeviceKind? kind, int? device, Offset? position, Offset? delta, int? buttons, bool? obscured, double? pressure, double? pressureMin, double? pressureMax, double? distance, double? distanceMax, double? size, double? radiusMajor, double? radiusMinor, double? radiusMin, double? radiusMax, double? orientation, double? tilt, bool? synthesized, int? embedderId})',
       'toStringShort': 'String toStringShort()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
@@ -2822,6 +4054,513 @@ BridgedClass _createPointerSignalEventBridge() {
 }
 
 // =============================================================================
+// PointerScrollEvent Bridge
+// =============================================================================
+
+BridgedClass _createPointerScrollEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.PointerScrollEvent,
+    name: 'PointerScrollEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
+        final timeStamp = D4.getNamedArgWithDefault<Duration>(named, 'timeStamp', Duration.zero);
+        final kind = D4.getNamedArgWithDefault<PointerDeviceKind>(named, 'kind', $dart_ui.PointerDeviceKind.mouse);
+        final device = D4.getNamedArgWithDefault<int>(named, 'device', 0);
+        final position = D4.getNamedArgWithDefault<Offset>(named, 'position', $dart_ui.Offset.zero);
+        final scrollDelta = D4.getNamedArgWithDefault<Offset>(named, 'scrollDelta', $dart_ui.Offset.zero);
+        final embedderId = D4.getNamedArgWithDefault<int>(named, 'embedderId', 0);
+        final onRespondRaw = named['onRespond'];
+        return $flutter_12.PointerScrollEvent(viewId: viewId, timeStamp: timeStamp, kind: kind, device: device, position: position, scrollDelta: scrollDelta, embedderId: embedderId, onRespond: onRespondRaw == null ? null : ({required bool allowPlatformDefault}) { D4.callInterpreterCallback(visitor, onRespondRaw, [], {'allowPlatformDefault': allowPlatformDefault}); });
+      },
+    },
+    getters: {
+      'viewId': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').viewId,
+      'embedderId': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').embedderId,
+      'timeStamp': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').timeStamp,
+      'pointer': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').pointer,
+      'kind': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').kind,
+      'device': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').device,
+      'position': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').position,
+      'localPosition': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').localPosition,
+      'delta': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').delta,
+      'localDelta': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').localDelta,
+      'buttons': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').buttons,
+      'down': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').down,
+      'obscured': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').obscured,
+      'pressure': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').pressure,
+      'pressureMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').pressureMin,
+      'pressureMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').pressureMax,
+      'distance': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').distance,
+      'distanceMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').distanceMin,
+      'distanceMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').distanceMax,
+      'size': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').size,
+      'radiusMajor': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').radiusMajor,
+      'radiusMinor': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').radiusMinor,
+      'radiusMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').radiusMin,
+      'radiusMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').radiusMax,
+      'orientation': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').orientation,
+      'tilt': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').tilt,
+      'platformData': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').platformData,
+      'synthesized': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').synthesized,
+      'transform': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').transform,
+      'original': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').original,
+      'scrollDelta': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent').scrollDelta,
+    },
+    methods: {
+      'transformed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent');
+        D4.requireMinArgs(positional, 1, 'transformed');
+        final transform = D4.getRequiredArg<$vector_math_1.Matrix4?>(positional, 0, 'transform', 'transformed');
+        return t.transformed(transform);
+      },
+      'copyWith': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent');
+        final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
+        final timeStamp = D4.getOptionalNamedArg<Duration?>(named, 'timeStamp');
+        final pointer = D4.getOptionalNamedArg<int?>(named, 'pointer');
+        final kind = D4.getOptionalNamedArg<PointerDeviceKind?>(named, 'kind');
+        final device = D4.getOptionalNamedArg<int?>(named, 'device');
+        final position = D4.getOptionalNamedArg<Offset?>(named, 'position');
+        final delta = D4.getOptionalNamedArg<Offset?>(named, 'delta');
+        final buttons = D4.getOptionalNamedArg<int?>(named, 'buttons');
+        final obscured = D4.getOptionalNamedArg<bool?>(named, 'obscured');
+        final pressure = D4.getOptionalNamedArg<double?>(named, 'pressure');
+        final pressureMin = D4.getOptionalNamedArg<double?>(named, 'pressureMin');
+        final pressureMax = D4.getOptionalNamedArg<double?>(named, 'pressureMax');
+        final distance = D4.getOptionalNamedArg<double?>(named, 'distance');
+        final distanceMax = D4.getOptionalNamedArg<double?>(named, 'distanceMax');
+        final size = D4.getOptionalNamedArg<double?>(named, 'size');
+        final radiusMajor = D4.getOptionalNamedArg<double?>(named, 'radiusMajor');
+        final radiusMinor = D4.getOptionalNamedArg<double?>(named, 'radiusMinor');
+        final radiusMin = D4.getOptionalNamedArg<double?>(named, 'radiusMin');
+        final radiusMax = D4.getOptionalNamedArg<double?>(named, 'radiusMax');
+        final orientation = D4.getOptionalNamedArg<double?>(named, 'orientation');
+        final tilt = D4.getOptionalNamedArg<double?>(named, 'tilt');
+        final synthesized = D4.getOptionalNamedArg<bool?>(named, 'synthesized');
+        final embedderId = D4.getOptionalNamedArg<int?>(named, 'embedderId');
+        final onRespondRaw = named['onRespond'];
+        return t.copyWith(viewId: viewId, timeStamp: timeStamp, pointer: pointer, kind: kind, device: device, position: position, delta: delta, buttons: buttons, obscured: obscured, pressure: pressure, pressureMin: pressureMin, pressureMax: pressureMax, distance: distance, distanceMax: distanceMax, size: size, radiusMajor: radiusMajor, radiusMinor: radiusMinor, radiusMin: radiusMin, radiusMax: radiusMax, orientation: orientation, tilt: tilt, synthesized: synthesized, embedderId: embedderId, onRespond: onRespondRaw == null ? null : ({required bool allowPlatformDefault}) { D4.callInterpreterCallback(visitor, onRespondRaw, [], {'allowPlatformDefault': allowPlatformDefault}); });
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'respond': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent');
+        final allowPlatformDefault = D4.getRequiredNamedArg<bool>(named, 'allowPlatformDefault', 'respond');
+        t.respond(allowPlatformDefault: allowPlatformDefault);
+        return null;
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'toStringFull': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScrollEvent>(target, 'PointerScrollEvent');
+        return t.toStringFull();
+      },
+    },
+    constructorSignatures: {
+      '': 'const PointerScrollEvent({int viewId = 0, Duration timeStamp = Duration.zero, PointerDeviceKind kind = PointerDeviceKind.mouse, int device = 0, Offset position = Offset.zero, Offset scrollDelta = Offset.zero, int embedderId = 0, RespondPointerEventCallback? onRespond})',
+    },
+    methodSignatures: {
+      'transformed': 'PointerScrollEvent transformed(Matrix4? transform)',
+      'copyWith': 'PointerScrollEvent copyWith({int? viewId, Duration? timeStamp, int? pointer, PointerDeviceKind? kind, int? device, Offset? position, Offset? delta, int? buttons, bool? obscured, double? pressure, double? pressureMin, double? pressureMax, double? distance, double? distanceMax, double? size, double? radiusMajor, double? radiusMinor, double? radiusMin, double? radiusMax, double? orientation, double? tilt, bool? synthesized, int? embedderId, void Function({required bool allowPlatformDefault})? onRespond})',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'respond': 'void respond({required bool allowPlatformDefault})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toStringFull': 'String toStringFull()',
+    },
+    getterSignatures: {
+      'viewId': 'int get viewId',
+      'embedderId': 'int get embedderId',
+      'timeStamp': 'Duration get timeStamp',
+      'pointer': 'int get pointer',
+      'kind': 'PointerDeviceKind get kind',
+      'device': 'int get device',
+      'position': 'Offset get position',
+      'localPosition': 'Offset get localPosition',
+      'delta': 'Offset get delta',
+      'localDelta': 'Offset get localDelta',
+      'buttons': 'int get buttons',
+      'down': 'bool get down',
+      'obscured': 'bool get obscured',
+      'pressure': 'double get pressure',
+      'pressureMin': 'double get pressureMin',
+      'pressureMax': 'double get pressureMax',
+      'distance': 'double get distance',
+      'distanceMin': 'double get distanceMin',
+      'distanceMax': 'double get distanceMax',
+      'size': 'double get size',
+      'radiusMajor': 'double get radiusMajor',
+      'radiusMinor': 'double get radiusMinor',
+      'radiusMin': 'double get radiusMin',
+      'radiusMax': 'double get radiusMax',
+      'orientation': 'double get orientation',
+      'tilt': 'double get tilt',
+      'platformData': 'int get platformData',
+      'synthesized': 'bool get synthesized',
+      'transform': 'Matrix4? get transform',
+      'original': 'PointerEvent? get original',
+      'scrollDelta': 'Offset get scrollDelta',
+    },
+  );
+}
+
+// =============================================================================
+// PointerScrollInertiaCancelEvent Bridge
+// =============================================================================
+
+BridgedClass _createPointerScrollInertiaCancelEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.PointerScrollInertiaCancelEvent,
+    name: 'PointerScrollInertiaCancelEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
+        final timeStamp = D4.getNamedArgWithDefault<Duration>(named, 'timeStamp', Duration.zero);
+        final kind = D4.getNamedArgWithDefault<PointerDeviceKind>(named, 'kind', $dart_ui.PointerDeviceKind.mouse);
+        final device = D4.getNamedArgWithDefault<int>(named, 'device', 0);
+        final position = D4.getNamedArgWithDefault<Offset>(named, 'position', $dart_ui.Offset.zero);
+        final embedderId = D4.getNamedArgWithDefault<int>(named, 'embedderId', 0);
+        return $flutter_12.PointerScrollInertiaCancelEvent(viewId: viewId, timeStamp: timeStamp, kind: kind, device: device, position: position, embedderId: embedderId);
+      },
+    },
+    getters: {
+      'viewId': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').viewId,
+      'embedderId': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').embedderId,
+      'timeStamp': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').timeStamp,
+      'pointer': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').pointer,
+      'kind': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').kind,
+      'device': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').device,
+      'position': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').position,
+      'localPosition': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').localPosition,
+      'delta': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').delta,
+      'localDelta': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').localDelta,
+      'buttons': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').buttons,
+      'down': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').down,
+      'obscured': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').obscured,
+      'pressure': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').pressure,
+      'pressureMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').pressureMin,
+      'pressureMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').pressureMax,
+      'distance': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').distance,
+      'distanceMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').distanceMin,
+      'distanceMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').distanceMax,
+      'size': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').size,
+      'radiusMajor': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').radiusMajor,
+      'radiusMinor': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').radiusMinor,
+      'radiusMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').radiusMin,
+      'radiusMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').radiusMax,
+      'orientation': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').orientation,
+      'tilt': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').tilt,
+      'platformData': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').platformData,
+      'synthesized': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').synthesized,
+      'transform': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').transform,
+      'original': (visitor, target) => D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent').original,
+    },
+    methods: {
+      'transformed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent');
+        D4.requireMinArgs(positional, 1, 'transformed');
+        final transform = D4.getRequiredArg<$vector_math_1.Matrix4?>(positional, 0, 'transform', 'transformed');
+        return t.transformed(transform);
+      },
+      'copyWith': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent');
+        final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
+        final timeStamp = D4.getOptionalNamedArg<Duration?>(named, 'timeStamp');
+        final pointer = D4.getOptionalNamedArg<int?>(named, 'pointer');
+        final kind = D4.getOptionalNamedArg<PointerDeviceKind?>(named, 'kind');
+        final device = D4.getOptionalNamedArg<int?>(named, 'device');
+        final position = D4.getOptionalNamedArg<Offset?>(named, 'position');
+        final delta = D4.getOptionalNamedArg<Offset?>(named, 'delta');
+        final buttons = D4.getOptionalNamedArg<int?>(named, 'buttons');
+        final obscured = D4.getOptionalNamedArg<bool?>(named, 'obscured');
+        final pressure = D4.getOptionalNamedArg<double?>(named, 'pressure');
+        final pressureMin = D4.getOptionalNamedArg<double?>(named, 'pressureMin');
+        final pressureMax = D4.getOptionalNamedArg<double?>(named, 'pressureMax');
+        final distance = D4.getOptionalNamedArg<double?>(named, 'distance');
+        final distanceMax = D4.getOptionalNamedArg<double?>(named, 'distanceMax');
+        final size = D4.getOptionalNamedArg<double?>(named, 'size');
+        final radiusMajor = D4.getOptionalNamedArg<double?>(named, 'radiusMajor');
+        final radiusMinor = D4.getOptionalNamedArg<double?>(named, 'radiusMinor');
+        final radiusMin = D4.getOptionalNamedArg<double?>(named, 'radiusMin');
+        final radiusMax = D4.getOptionalNamedArg<double?>(named, 'radiusMax');
+        final orientation = D4.getOptionalNamedArg<double?>(named, 'orientation');
+        final tilt = D4.getOptionalNamedArg<double?>(named, 'tilt');
+        final synthesized = D4.getOptionalNamedArg<bool?>(named, 'synthesized');
+        final embedderId = D4.getOptionalNamedArg<int?>(named, 'embedderId');
+        return t.copyWith(viewId: viewId, timeStamp: timeStamp, pointer: pointer, kind: kind, device: device, position: position, delta: delta, buttons: buttons, obscured: obscured, pressure: pressure, pressureMin: pressureMin, pressureMax: pressureMax, distance: distance, distanceMax: distanceMax, size: size, radiusMajor: radiusMajor, radiusMinor: radiusMinor, radiusMin: radiusMin, radiusMax: radiusMax, orientation: orientation, tilt: tilt, synthesized: synthesized, embedderId: embedderId);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'respond': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent');
+        final allowPlatformDefault = D4.getRequiredNamedArg<bool>(named, 'allowPlatformDefault', 'respond');
+        t.respond(allowPlatformDefault: allowPlatformDefault);
+        return null;
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'toStringFull': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScrollInertiaCancelEvent>(target, 'PointerScrollInertiaCancelEvent');
+        return t.toStringFull();
+      },
+    },
+    constructorSignatures: {
+      '': 'const PointerScrollInertiaCancelEvent({int viewId = 0, Duration timeStamp = Duration.zero, PointerDeviceKind kind = PointerDeviceKind.mouse, int device = 0, Offset position = Offset.zero, int embedderId = 0})',
+    },
+    methodSignatures: {
+      'transformed': 'PointerScrollInertiaCancelEvent transformed(Matrix4? transform)',
+      'copyWith': 'PointerScrollInertiaCancelEvent copyWith({int? viewId, Duration? timeStamp, int? pointer, PointerDeviceKind? kind, int? device, Offset? position, Offset? delta, int? buttons, bool? obscured, double? pressure, double? pressureMin, double? pressureMax, double? distance, double? distanceMax, double? size, double? radiusMajor, double? radiusMinor, double? radiusMin, double? radiusMax, double? orientation, double? tilt, bool? synthesized, int? embedderId})',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'respond': 'void respond({required bool allowPlatformDefault})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toStringFull': 'String toStringFull()',
+    },
+    getterSignatures: {
+      'viewId': 'int get viewId',
+      'embedderId': 'int get embedderId',
+      'timeStamp': 'Duration get timeStamp',
+      'pointer': 'int get pointer',
+      'kind': 'PointerDeviceKind get kind',
+      'device': 'int get device',
+      'position': 'Offset get position',
+      'localPosition': 'Offset get localPosition',
+      'delta': 'Offset get delta',
+      'localDelta': 'Offset get localDelta',
+      'buttons': 'int get buttons',
+      'down': 'bool get down',
+      'obscured': 'bool get obscured',
+      'pressure': 'double get pressure',
+      'pressureMin': 'double get pressureMin',
+      'pressureMax': 'double get pressureMax',
+      'distance': 'double get distance',
+      'distanceMin': 'double get distanceMin',
+      'distanceMax': 'double get distanceMax',
+      'size': 'double get size',
+      'radiusMajor': 'double get radiusMajor',
+      'radiusMinor': 'double get radiusMinor',
+      'radiusMin': 'double get radiusMin',
+      'radiusMax': 'double get radiusMax',
+      'orientation': 'double get orientation',
+      'tilt': 'double get tilt',
+      'platformData': 'int get platformData',
+      'synthesized': 'bool get synthesized',
+      'transform': 'Matrix4? get transform',
+      'original': 'PointerEvent? get original',
+    },
+  );
+}
+
+// =============================================================================
+// PointerScaleEvent Bridge
+// =============================================================================
+
+BridgedClass _createPointerScaleEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.PointerScaleEvent,
+    name: 'PointerScaleEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
+        final timeStamp = D4.getNamedArgWithDefault<Duration>(named, 'timeStamp', Duration.zero);
+        final kind = D4.getNamedArgWithDefault<PointerDeviceKind>(named, 'kind', $dart_ui.PointerDeviceKind.mouse);
+        final device = D4.getNamedArgWithDefault<int>(named, 'device', 0);
+        final position = D4.getNamedArgWithDefault<Offset>(named, 'position', $dart_ui.Offset.zero);
+        final embedderId = D4.getNamedArgWithDefault<int>(named, 'embedderId', 0);
+        final scale = D4.getNamedArgWithDefault<double>(named, 'scale', 1.0);
+        return $flutter_12.PointerScaleEvent(viewId: viewId, timeStamp: timeStamp, kind: kind, device: device, position: position, embedderId: embedderId, scale: scale);
+      },
+    },
+    getters: {
+      'viewId': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').viewId,
+      'embedderId': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').embedderId,
+      'timeStamp': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').timeStamp,
+      'pointer': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').pointer,
+      'kind': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').kind,
+      'device': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').device,
+      'position': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').position,
+      'localPosition': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').localPosition,
+      'delta': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').delta,
+      'localDelta': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').localDelta,
+      'buttons': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').buttons,
+      'down': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').down,
+      'obscured': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').obscured,
+      'pressure': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').pressure,
+      'pressureMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').pressureMin,
+      'pressureMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').pressureMax,
+      'distance': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').distance,
+      'distanceMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').distanceMin,
+      'distanceMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').distanceMax,
+      'size': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').size,
+      'radiusMajor': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').radiusMajor,
+      'radiusMinor': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').radiusMinor,
+      'radiusMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').radiusMin,
+      'radiusMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').radiusMax,
+      'orientation': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').orientation,
+      'tilt': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').tilt,
+      'platformData': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').platformData,
+      'synthesized': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').synthesized,
+      'transform': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').transform,
+      'original': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').original,
+      'scale': (visitor, target) => D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent').scale,
+    },
+    methods: {
+      'transformed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent');
+        D4.requireMinArgs(positional, 1, 'transformed');
+        final transform = D4.getRequiredArg<$vector_math_1.Matrix4?>(positional, 0, 'transform', 'transformed');
+        return t.transformed(transform);
+      },
+      'copyWith': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent');
+        final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
+        final timeStamp = D4.getOptionalNamedArg<Duration?>(named, 'timeStamp');
+        final pointer = D4.getOptionalNamedArg<int?>(named, 'pointer');
+        final kind = D4.getOptionalNamedArg<PointerDeviceKind?>(named, 'kind');
+        final device = D4.getOptionalNamedArg<int?>(named, 'device');
+        final position = D4.getOptionalNamedArg<Offset?>(named, 'position');
+        final delta = D4.getOptionalNamedArg<Offset?>(named, 'delta');
+        final buttons = D4.getOptionalNamedArg<int?>(named, 'buttons');
+        final obscured = D4.getOptionalNamedArg<bool?>(named, 'obscured');
+        final pressure = D4.getOptionalNamedArg<double?>(named, 'pressure');
+        final pressureMin = D4.getOptionalNamedArg<double?>(named, 'pressureMin');
+        final pressureMax = D4.getOptionalNamedArg<double?>(named, 'pressureMax');
+        final distance = D4.getOptionalNamedArg<double?>(named, 'distance');
+        final distanceMax = D4.getOptionalNamedArg<double?>(named, 'distanceMax');
+        final size = D4.getOptionalNamedArg<double?>(named, 'size');
+        final radiusMajor = D4.getOptionalNamedArg<double?>(named, 'radiusMajor');
+        final radiusMinor = D4.getOptionalNamedArg<double?>(named, 'radiusMinor');
+        final radiusMin = D4.getOptionalNamedArg<double?>(named, 'radiusMin');
+        final radiusMax = D4.getOptionalNamedArg<double?>(named, 'radiusMax');
+        final orientation = D4.getOptionalNamedArg<double?>(named, 'orientation');
+        final tilt = D4.getOptionalNamedArg<double?>(named, 'tilt');
+        final synthesized = D4.getOptionalNamedArg<bool?>(named, 'synthesized');
+        final embedderId = D4.getOptionalNamedArg<int?>(named, 'embedderId');
+        final scale = D4.getOptionalNamedArg<double?>(named, 'scale');
+        return t.copyWith(viewId: viewId, timeStamp: timeStamp, pointer: pointer, kind: kind, device: device, position: position, delta: delta, buttons: buttons, obscured: obscured, pressure: pressure, pressureMin: pressureMin, pressureMax: pressureMax, distance: distance, distanceMax: distanceMax, size: size, radiusMajor: radiusMajor, radiusMinor: radiusMinor, radiusMin: radiusMin, radiusMax: radiusMax, orientation: orientation, tilt: tilt, synthesized: synthesized, embedderId: embedderId, scale: scale);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'respond': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent');
+        final allowPlatformDefault = D4.getRequiredNamedArg<bool>(named, 'allowPlatformDefault', 'respond');
+        t.respond(allowPlatformDefault: allowPlatformDefault);
+        return null;
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'toStringFull': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerScaleEvent>(target, 'PointerScaleEvent');
+        return t.toStringFull();
+      },
+    },
+    constructorSignatures: {
+      '': 'const PointerScaleEvent({int viewId = 0, Duration timeStamp = Duration.zero, PointerDeviceKind kind = PointerDeviceKind.mouse, int device = 0, Offset position = Offset.zero, int embedderId = 0, double scale = 1.0})',
+    },
+    methodSignatures: {
+      'transformed': 'PointerScaleEvent transformed(Matrix4? transform)',
+      'copyWith': 'PointerScaleEvent copyWith({int? viewId, Duration? timeStamp, int? pointer, PointerDeviceKind? kind, int? device, Offset? position, Offset? delta, int? buttons, bool? obscured, double? pressure, double? pressureMin, double? pressureMax, double? distance, double? distanceMax, double? size, double? radiusMajor, double? radiusMinor, double? radiusMin, double? radiusMax, double? orientation, double? tilt, bool? synthesized, int? embedderId, double? scale})',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'respond': 'void respond({required bool allowPlatformDefault})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toStringFull': 'String toStringFull()',
+    },
+    getterSignatures: {
+      'viewId': 'int get viewId',
+      'embedderId': 'int get embedderId',
+      'timeStamp': 'Duration get timeStamp',
+      'pointer': 'int get pointer',
+      'kind': 'PointerDeviceKind get kind',
+      'device': 'int get device',
+      'position': 'Offset get position',
+      'localPosition': 'Offset get localPosition',
+      'delta': 'Offset get delta',
+      'localDelta': 'Offset get localDelta',
+      'buttons': 'int get buttons',
+      'down': 'bool get down',
+      'obscured': 'bool get obscured',
+      'pressure': 'double get pressure',
+      'pressureMin': 'double get pressureMin',
+      'pressureMax': 'double get pressureMax',
+      'distance': 'double get distance',
+      'distanceMin': 'double get distanceMin',
+      'distanceMax': 'double get distanceMax',
+      'size': 'double get size',
+      'radiusMajor': 'double get radiusMajor',
+      'radiusMinor': 'double get radiusMinor',
+      'radiusMin': 'double get radiusMin',
+      'radiusMax': 'double get radiusMax',
+      'orientation': 'double get orientation',
+      'tilt': 'double get tilt',
+      'platformData': 'int get platformData',
+      'synthesized': 'bool get synthesized',
+      'transform': 'Matrix4? get transform',
+      'original': 'PointerEvent? get original',
+      'scale': 'double get scale',
+    },
+  );
+}
+
+// =============================================================================
 // PointerPanZoomStartEvent Bridge
 // =============================================================================
 
@@ -2940,6 +4679,348 @@ BridgedClass _createPointerPanZoomStartEventBridge() {
     methodSignatures: {
       'transformed': 'PointerPanZoomStartEvent transformed(Matrix4? transform)',
       'copyWith': 'PointerPanZoomStartEvent copyWith({int? viewId, Duration? timeStamp, int? pointer, PointerDeviceKind? kind, int? device, Offset? position, Offset? delta, int? buttons, bool? obscured, double? pressure, double? pressureMin, double? pressureMax, double? distance, double? distanceMax, double? size, double? radiusMajor, double? radiusMinor, double? radiusMin, double? radiusMax, double? orientation, double? tilt, bool? synthesized, int? embedderId})',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toStringFull': 'String toStringFull()',
+    },
+    getterSignatures: {
+      'viewId': 'int get viewId',
+      'embedderId': 'int get embedderId',
+      'timeStamp': 'Duration get timeStamp',
+      'pointer': 'int get pointer',
+      'kind': 'PointerDeviceKind get kind',
+      'device': 'int get device',
+      'position': 'Offset get position',
+      'localPosition': 'Offset get localPosition',
+      'delta': 'Offset get delta',
+      'localDelta': 'Offset get localDelta',
+      'buttons': 'int get buttons',
+      'down': 'bool get down',
+      'obscured': 'bool get obscured',
+      'pressure': 'double get pressure',
+      'pressureMin': 'double get pressureMin',
+      'pressureMax': 'double get pressureMax',
+      'distance': 'double get distance',
+      'distanceMin': 'double get distanceMin',
+      'distanceMax': 'double get distanceMax',
+      'size': 'double get size',
+      'radiusMajor': 'double get radiusMajor',
+      'radiusMinor': 'double get radiusMinor',
+      'radiusMin': 'double get radiusMin',
+      'radiusMax': 'double get radiusMax',
+      'orientation': 'double get orientation',
+      'tilt': 'double get tilt',
+      'platformData': 'int get platformData',
+      'synthesized': 'bool get synthesized',
+      'transform': 'Matrix4? get transform',
+      'original': 'PointerEvent? get original',
+    },
+  );
+}
+
+// =============================================================================
+// PointerPanZoomUpdateEvent Bridge
+// =============================================================================
+
+BridgedClass _createPointerPanZoomUpdateEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.PointerPanZoomUpdateEvent,
+    name: 'PointerPanZoomUpdateEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
+        final timeStamp = D4.getNamedArgWithDefault<Duration>(named, 'timeStamp', Duration.zero);
+        final device = D4.getNamedArgWithDefault<int>(named, 'device', 0);
+        final pointer = D4.getNamedArgWithDefault<int>(named, 'pointer', 0);
+        final position = D4.getNamedArgWithDefault<Offset>(named, 'position', $dart_ui.Offset.zero);
+        final embedderId = D4.getNamedArgWithDefault<int>(named, 'embedderId', 0);
+        final pan = D4.getNamedArgWithDefault<Offset>(named, 'pan', $dart_ui.Offset.zero);
+        final panDelta = D4.getNamedArgWithDefault<Offset>(named, 'panDelta', $dart_ui.Offset.zero);
+        final scale = D4.getNamedArgWithDefault<double>(named, 'scale', 1.0);
+        final rotation = D4.getNamedArgWithDefault<double>(named, 'rotation', 0.0);
+        final synthesized = D4.getNamedArgWithDefault<bool>(named, 'synthesized', false);
+        return $flutter_12.PointerPanZoomUpdateEvent(viewId: viewId, timeStamp: timeStamp, device: device, pointer: pointer, position: position, embedderId: embedderId, pan: pan, panDelta: panDelta, scale: scale, rotation: rotation, synthesized: synthesized);
+      },
+    },
+    getters: {
+      'viewId': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').viewId,
+      'embedderId': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').embedderId,
+      'timeStamp': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').timeStamp,
+      'pointer': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').pointer,
+      'kind': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').kind,
+      'device': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').device,
+      'position': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').position,
+      'localPosition': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').localPosition,
+      'delta': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').delta,
+      'localDelta': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').localDelta,
+      'buttons': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').buttons,
+      'down': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').down,
+      'obscured': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').obscured,
+      'pressure': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').pressure,
+      'pressureMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').pressureMin,
+      'pressureMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').pressureMax,
+      'distance': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').distance,
+      'distanceMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').distanceMin,
+      'distanceMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').distanceMax,
+      'size': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').size,
+      'radiusMajor': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').radiusMajor,
+      'radiusMinor': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').radiusMinor,
+      'radiusMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').radiusMin,
+      'radiusMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').radiusMax,
+      'orientation': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').orientation,
+      'tilt': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').tilt,
+      'platformData': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').platformData,
+      'synthesized': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').synthesized,
+      'transform': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').transform,
+      'original': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').original,
+      'pan': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').pan,
+      'localPan': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').localPan,
+      'panDelta': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').panDelta,
+      'localPanDelta': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').localPanDelta,
+      'scale': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').scale,
+      'rotation': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent').rotation,
+    },
+    methods: {
+      'transformed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent');
+        D4.requireMinArgs(positional, 1, 'transformed');
+        final transform = D4.getRequiredArg<$vector_math_1.Matrix4?>(positional, 0, 'transform', 'transformed');
+        return t.transformed(transform);
+      },
+      'copyWith': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent');
+        final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
+        final timeStamp = D4.getOptionalNamedArg<Duration?>(named, 'timeStamp');
+        final pointer = D4.getOptionalNamedArg<int?>(named, 'pointer');
+        final kind = D4.getOptionalNamedArg<PointerDeviceKind?>(named, 'kind');
+        final device = D4.getOptionalNamedArg<int?>(named, 'device');
+        final position = D4.getOptionalNamedArg<Offset?>(named, 'position');
+        final delta = D4.getOptionalNamedArg<Offset?>(named, 'delta');
+        final buttons = D4.getOptionalNamedArg<int?>(named, 'buttons');
+        final obscured = D4.getOptionalNamedArg<bool?>(named, 'obscured');
+        final pressure = D4.getOptionalNamedArg<double?>(named, 'pressure');
+        final pressureMin = D4.getOptionalNamedArg<double?>(named, 'pressureMin');
+        final pressureMax = D4.getOptionalNamedArg<double?>(named, 'pressureMax');
+        final distance = D4.getOptionalNamedArg<double?>(named, 'distance');
+        final distanceMax = D4.getOptionalNamedArg<double?>(named, 'distanceMax');
+        final size = D4.getOptionalNamedArg<double?>(named, 'size');
+        final radiusMajor = D4.getOptionalNamedArg<double?>(named, 'radiusMajor');
+        final radiusMinor = D4.getOptionalNamedArg<double?>(named, 'radiusMinor');
+        final radiusMin = D4.getOptionalNamedArg<double?>(named, 'radiusMin');
+        final radiusMax = D4.getOptionalNamedArg<double?>(named, 'radiusMax');
+        final orientation = D4.getOptionalNamedArg<double?>(named, 'orientation');
+        final tilt = D4.getOptionalNamedArg<double?>(named, 'tilt');
+        final synthesized = D4.getOptionalNamedArg<bool?>(named, 'synthesized');
+        final embedderId = D4.getOptionalNamedArg<int?>(named, 'embedderId');
+        final pan = D4.getOptionalNamedArg<Offset?>(named, 'pan');
+        final localPan = D4.getOptionalNamedArg<Offset?>(named, 'localPan');
+        final panDelta = D4.getOptionalNamedArg<Offset?>(named, 'panDelta');
+        final localPanDelta = D4.getOptionalNamedArg<Offset?>(named, 'localPanDelta');
+        final scale = D4.getOptionalNamedArg<double?>(named, 'scale');
+        final rotation = D4.getOptionalNamedArg<double?>(named, 'rotation');
+        return t.copyWith(viewId: viewId, timeStamp: timeStamp, pointer: pointer, kind: kind, device: device, position: position, delta: delta, buttons: buttons, obscured: obscured, pressure: pressure, pressureMin: pressureMin, pressureMax: pressureMax, distance: distance, distanceMax: distanceMax, size: size, radiusMajor: radiusMajor, radiusMinor: radiusMinor, radiusMin: radiusMin, radiusMax: radiusMax, orientation: orientation, tilt: tilt, synthesized: synthesized, embedderId: embedderId, pan: pan, localPan: localPan, panDelta: panDelta, localPanDelta: localPanDelta, scale: scale, rotation: rotation);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'toStringFull': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerPanZoomUpdateEvent>(target, 'PointerPanZoomUpdateEvent');
+        return t.toStringFull();
+      },
+    },
+    constructorSignatures: {
+      '': 'const PointerPanZoomUpdateEvent({int viewId = 0, Duration timeStamp = Duration.zero, int device = 0, int pointer = 0, Offset position = Offset.zero, int embedderId = 0, Offset pan = Offset.zero, Offset panDelta = Offset.zero, double scale = 1.0, double rotation = 0.0, bool synthesized = false})',
+    },
+    methodSignatures: {
+      'transformed': 'PointerPanZoomUpdateEvent transformed(Matrix4? transform)',
+      'copyWith': 'PointerPanZoomUpdateEvent copyWith({int? viewId, Duration? timeStamp, int? pointer, PointerDeviceKind? kind, int? device, Offset? position, Offset? delta, int? buttons, bool? obscured, double? pressure, double? pressureMin, double? pressureMax, double? distance, double? distanceMax, double? size, double? radiusMajor, double? radiusMinor, double? radiusMin, double? radiusMax, double? orientation, double? tilt, bool? synthesized, int? embedderId, Offset? pan, Offset? localPan, Offset? panDelta, Offset? localPanDelta, double? scale, double? rotation})',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toStringFull': 'String toStringFull()',
+    },
+    getterSignatures: {
+      'viewId': 'int get viewId',
+      'embedderId': 'int get embedderId',
+      'timeStamp': 'Duration get timeStamp',
+      'pointer': 'int get pointer',
+      'kind': 'PointerDeviceKind get kind',
+      'device': 'int get device',
+      'position': 'Offset get position',
+      'localPosition': 'Offset get localPosition',
+      'delta': 'Offset get delta',
+      'localDelta': 'Offset get localDelta',
+      'buttons': 'int get buttons',
+      'down': 'bool get down',
+      'obscured': 'bool get obscured',
+      'pressure': 'double get pressure',
+      'pressureMin': 'double get pressureMin',
+      'pressureMax': 'double get pressureMax',
+      'distance': 'double get distance',
+      'distanceMin': 'double get distanceMin',
+      'distanceMax': 'double get distanceMax',
+      'size': 'double get size',
+      'radiusMajor': 'double get radiusMajor',
+      'radiusMinor': 'double get radiusMinor',
+      'radiusMin': 'double get radiusMin',
+      'radiusMax': 'double get radiusMax',
+      'orientation': 'double get orientation',
+      'tilt': 'double get tilt',
+      'platformData': 'int get platformData',
+      'synthesized': 'bool get synthesized',
+      'transform': 'Matrix4? get transform',
+      'original': 'PointerEvent? get original',
+      'pan': 'Offset get pan',
+      'localPan': 'Offset get localPan',
+      'panDelta': 'Offset get panDelta',
+      'localPanDelta': 'Offset get localPanDelta',
+      'scale': 'double get scale',
+      'rotation': 'double get rotation',
+    },
+  );
+}
+
+// =============================================================================
+// PointerPanZoomEndEvent Bridge
+// =============================================================================
+
+BridgedClass _createPointerPanZoomEndEventBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.PointerPanZoomEndEvent,
+    name: 'PointerPanZoomEndEvent',
+    constructors: {
+      '': (visitor, positional, named) {
+        final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
+        final timeStamp = D4.getNamedArgWithDefault<Duration>(named, 'timeStamp', Duration.zero);
+        final device = D4.getNamedArgWithDefault<int>(named, 'device', 0);
+        final pointer = D4.getNamedArgWithDefault<int>(named, 'pointer', 0);
+        final position = D4.getNamedArgWithDefault<Offset>(named, 'position', $dart_ui.Offset.zero);
+        final embedderId = D4.getNamedArgWithDefault<int>(named, 'embedderId', 0);
+        final synthesized = D4.getNamedArgWithDefault<bool>(named, 'synthesized', false);
+        return $flutter_12.PointerPanZoomEndEvent(viewId: viewId, timeStamp: timeStamp, device: device, pointer: pointer, position: position, embedderId: embedderId, synthesized: synthesized);
+      },
+    },
+    getters: {
+      'viewId': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').viewId,
+      'embedderId': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').embedderId,
+      'timeStamp': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').timeStamp,
+      'pointer': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').pointer,
+      'kind': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').kind,
+      'device': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').device,
+      'position': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').position,
+      'localPosition': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').localPosition,
+      'delta': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').delta,
+      'localDelta': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').localDelta,
+      'buttons': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').buttons,
+      'down': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').down,
+      'obscured': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').obscured,
+      'pressure': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').pressure,
+      'pressureMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').pressureMin,
+      'pressureMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').pressureMax,
+      'distance': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').distance,
+      'distanceMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').distanceMin,
+      'distanceMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').distanceMax,
+      'size': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').size,
+      'radiusMajor': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').radiusMajor,
+      'radiusMinor': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').radiusMinor,
+      'radiusMin': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').radiusMin,
+      'radiusMax': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').radiusMax,
+      'orientation': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').orientation,
+      'tilt': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').tilt,
+      'platformData': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').platformData,
+      'synthesized': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').synthesized,
+      'transform': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').transform,
+      'original': (visitor, target) => D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent').original,
+    },
+    methods: {
+      'transformed': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent');
+        D4.requireMinArgs(positional, 1, 'transformed');
+        final transform = D4.getRequiredArg<$vector_math_1.Matrix4?>(positional, 0, 'transform', 'transformed');
+        return t.transformed(transform);
+      },
+      'copyWith': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent');
+        final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
+        final timeStamp = D4.getOptionalNamedArg<Duration?>(named, 'timeStamp');
+        final pointer = D4.getOptionalNamedArg<int?>(named, 'pointer');
+        final kind = D4.getOptionalNamedArg<PointerDeviceKind?>(named, 'kind');
+        final device = D4.getOptionalNamedArg<int?>(named, 'device');
+        final position = D4.getOptionalNamedArg<Offset?>(named, 'position');
+        final delta = D4.getOptionalNamedArg<Offset?>(named, 'delta');
+        final buttons = D4.getOptionalNamedArg<int?>(named, 'buttons');
+        final obscured = D4.getOptionalNamedArg<bool?>(named, 'obscured');
+        final pressure = D4.getOptionalNamedArg<double?>(named, 'pressure');
+        final pressureMin = D4.getOptionalNamedArg<double?>(named, 'pressureMin');
+        final pressureMax = D4.getOptionalNamedArg<double?>(named, 'pressureMax');
+        final distance = D4.getOptionalNamedArg<double?>(named, 'distance');
+        final distanceMax = D4.getOptionalNamedArg<double?>(named, 'distanceMax');
+        final size = D4.getOptionalNamedArg<double?>(named, 'size');
+        final radiusMajor = D4.getOptionalNamedArg<double?>(named, 'radiusMajor');
+        final radiusMinor = D4.getOptionalNamedArg<double?>(named, 'radiusMinor');
+        final radiusMin = D4.getOptionalNamedArg<double?>(named, 'radiusMin');
+        final radiusMax = D4.getOptionalNamedArg<double?>(named, 'radiusMax');
+        final orientation = D4.getOptionalNamedArg<double?>(named, 'orientation');
+        final tilt = D4.getOptionalNamedArg<double?>(named, 'tilt');
+        final synthesized = D4.getOptionalNamedArg<bool?>(named, 'synthesized');
+        final embedderId = D4.getOptionalNamedArg<int?>(named, 'embedderId');
+        return t.copyWith(viewId: viewId, timeStamp: timeStamp, pointer: pointer, kind: kind, device: device, position: position, delta: delta, buttons: buttons, obscured: obscured, pressure: pressure, pressureMin: pressureMin, pressureMax: pressureMax, distance: distance, distanceMax: distanceMax, size: size, radiusMajor: radiusMajor, radiusMinor: radiusMinor, radiusMin: radiusMin, radiusMax: radiusMax, orientation: orientation, tilt: tilt, synthesized: synthesized, embedderId: embedderId);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'toStringFull': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.PointerPanZoomEndEvent>(target, 'PointerPanZoomEndEvent');
+        return t.toStringFull();
+      },
+    },
+    constructorSignatures: {
+      '': 'const PointerPanZoomEndEvent({int viewId = 0, Duration timeStamp = Duration.zero, int device = 0, int pointer = 0, Offset position = Offset.zero, int embedderId = 0, bool synthesized = false})',
+    },
+    methodSignatures: {
+      'transformed': 'PointerPanZoomEndEvent transformed(Matrix4? transform)',
+      'copyWith': 'PointerPanZoomEndEvent copyWith({int? viewId, Duration? timeStamp, int? pointer, PointerDeviceKind? kind, int? device, Offset? position, Offset? delta, int? buttons, bool? obscured, double? pressure, double? pressureMin, double? pressureMax, double? distance, double? distanceMax, double? size, double? radiusMajor, double? radiusMinor, double? radiusMin, double? radiusMax, double? orientation, double? tilt, bool? synthesized, int? embedderId})',
       'toStringShort': 'String toStringShort()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
@@ -3150,6 +5231,68 @@ BridgedClass _createPointerCancelEventBridge() {
       'synthesized': 'bool get synthesized',
       'transform': 'Matrix4? get transform',
       'original': 'PointerEvent? get original',
+    },
+  );
+}
+
+// =============================================================================
+// HitTestable Bridge
+// =============================================================================
+
+BridgedClass _createHitTestableBridge() {
+  return BridgedClass(
+    nativeType: $flutter_16.HitTestable,
+    name: 'HitTestable',
+    constructors: {
+    },
+    methods: {
+      'hitTest': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_16.HitTestable>(target, 'HitTestable');
+        D4.requireMinArgs(positional, 2, 'hitTest');
+        final result = D4.getRequiredArg<$flutter_16.HitTestResult>(positional, 0, 'result', 'hitTest');
+        final position = D4.getRequiredArg<Offset>(positional, 1, 'position', 'hitTest');
+        t.hitTest(result, position);
+        return null;
+      },
+      'hitTestInView': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_16.HitTestable>(target, 'HitTestable');
+        D4.requireMinArgs(positional, 3, 'hitTestInView');
+        final result = D4.getRequiredArg<$flutter_16.HitTestResult>(positional, 0, 'result', 'hitTestInView');
+        final position = D4.getRequiredArg<Offset>(positional, 1, 'position', 'hitTestInView');
+        final viewId = D4.getRequiredArg<int>(positional, 2, 'viewId', 'hitTestInView');
+        t.hitTestInView(result, position, viewId);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'hitTest': 'void hitTest(HitTestResult result, Offset position)',
+      'hitTestInView': 'void hitTestInView(HitTestResult result, Offset position, int viewId)',
+    },
+  );
+}
+
+// =============================================================================
+// HitTestDispatcher Bridge
+// =============================================================================
+
+BridgedClass _createHitTestDispatcherBridge() {
+  return BridgedClass(
+    nativeType: $flutter_16.HitTestDispatcher,
+    name: 'HitTestDispatcher',
+    constructors: {
+    },
+    methods: {
+      'dispatchEvent': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_16.HitTestDispatcher>(target, 'HitTestDispatcher');
+        D4.requireMinArgs(positional, 2, 'dispatchEvent');
+        final event = D4.getRequiredArg<$flutter_12.PointerEvent>(positional, 0, 'event', 'dispatchEvent');
+        final result = D4.getRequiredArg<$flutter_16.HitTestResult>(positional, 1, 'result', 'dispatchEvent');
+        t.dispatchEvent(event, result);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'dispatchEvent': 'void dispatchEvent(PointerEvent event, HitTestResult result)',
     },
   );
 }
@@ -3749,6 +5892,308 @@ BridgedClass _createVelocityBridge() {
 }
 
 // =============================================================================
+// VelocityEstimate Bridge
+// =============================================================================
+
+BridgedClass _createVelocityEstimateBridge() {
+  return BridgedClass(
+    nativeType: $flutter_30.VelocityEstimate,
+    name: 'VelocityEstimate',
+    constructors: {
+      '': (visitor, positional, named) {
+        final pixelsPerSecond = D4.getRequiredNamedArg<Offset>(named, 'pixelsPerSecond', 'VelocityEstimate');
+        final confidence = D4.getRequiredNamedArg<double>(named, 'confidence', 'VelocityEstimate');
+        final duration = D4.getRequiredNamedArg<Duration>(named, 'duration', 'VelocityEstimate');
+        final offset = D4.getRequiredNamedArg<Offset>(named, 'offset', 'VelocityEstimate');
+        return $flutter_30.VelocityEstimate(pixelsPerSecond: pixelsPerSecond, confidence: confidence, duration: duration, offset: offset);
+      },
+    },
+    getters: {
+      'pixelsPerSecond': (visitor, target) => D4.validateTarget<$flutter_30.VelocityEstimate>(target, 'VelocityEstimate').pixelsPerSecond,
+      'confidence': (visitor, target) => D4.validateTarget<$flutter_30.VelocityEstimate>(target, 'VelocityEstimate').confidence,
+      'duration': (visitor, target) => D4.validateTarget<$flutter_30.VelocityEstimate>(target, 'VelocityEstimate').duration,
+      'offset': (visitor, target) => D4.validateTarget<$flutter_30.VelocityEstimate>(target, 'VelocityEstimate').offset,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_30.VelocityEstimate>(target, 'VelocityEstimate');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const VelocityEstimate({required Offset pixelsPerSecond, required double confidence, required Duration duration, required Offset offset})',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'pixelsPerSecond': 'Offset get pixelsPerSecond',
+      'confidence': 'double get confidence',
+      'duration': 'Duration get duration',
+      'offset': 'Offset get offset',
+    },
+  );
+}
+
+// =============================================================================
+// VelocityTracker Bridge
+// =============================================================================
+
+BridgedClass _createVelocityTrackerBridge() {
+  return BridgedClass(
+    nativeType: $flutter_30.VelocityTracker,
+    name: 'VelocityTracker',
+    constructors: {
+      'withKind': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'VelocityTracker');
+        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 0, 'kind', 'VelocityTracker');
+        return $flutter_30.VelocityTracker.withKind(kind);
+      },
+    },
+    getters: {
+      'kind': (visitor, target) => D4.validateTarget<$flutter_30.VelocityTracker>(target, 'VelocityTracker').kind,
+    },
+    methods: {
+      'addPosition': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_30.VelocityTracker>(target, 'VelocityTracker');
+        D4.requireMinArgs(positional, 2, 'addPosition');
+        final time = D4.getRequiredArg<Duration>(positional, 0, 'time', 'addPosition');
+        final position = D4.getRequiredArg<Offset>(positional, 1, 'position', 'addPosition');
+        t.addPosition(time, position);
+        return null;
+      },
+      'getVelocityEstimate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_30.VelocityTracker>(target, 'VelocityTracker');
+        return t.getVelocityEstimate();
+      },
+      'getVelocity': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_30.VelocityTracker>(target, 'VelocityTracker');
+        return t.getVelocity();
+      },
+    },
+    constructorSignatures: {
+      'withKind': 'VelocityTracker.withKind(PointerDeviceKind kind)',
+    },
+    methodSignatures: {
+      'addPosition': 'void addPosition(Duration time, Offset position)',
+      'getVelocityEstimate': 'VelocityEstimate? getVelocityEstimate()',
+      'getVelocity': 'Velocity getVelocity()',
+    },
+    getterSignatures: {
+      'kind': 'PointerDeviceKind get kind',
+    },
+  );
+}
+
+// =============================================================================
+// IOSScrollViewFlingVelocityTracker Bridge
+// =============================================================================
+
+BridgedClass _createIOSScrollViewFlingVelocityTrackerBridge() {
+  return BridgedClass(
+    nativeType: $flutter_30.IOSScrollViewFlingVelocityTracker,
+    name: 'IOSScrollViewFlingVelocityTracker',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'IOSScrollViewFlingVelocityTracker');
+        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 0, 'kind', 'IOSScrollViewFlingVelocityTracker');
+        return $flutter_30.IOSScrollViewFlingVelocityTracker(kind);
+      },
+    },
+    getters: {
+      'kind': (visitor, target) => D4.validateTarget<$flutter_30.IOSScrollViewFlingVelocityTracker>(target, 'IOSScrollViewFlingVelocityTracker').kind,
+    },
+    methods: {
+      'addPosition': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_30.IOSScrollViewFlingVelocityTracker>(target, 'IOSScrollViewFlingVelocityTracker');
+        D4.requireMinArgs(positional, 2, 'addPosition');
+        final time = D4.getRequiredArg<Duration>(positional, 0, 'time', 'addPosition');
+        final position = D4.getRequiredArg<Offset>(positional, 1, 'position', 'addPosition');
+        t.addPosition(time, position);
+        return null;
+      },
+      'getVelocityEstimate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_30.IOSScrollViewFlingVelocityTracker>(target, 'IOSScrollViewFlingVelocityTracker');
+        return t.getVelocityEstimate();
+      },
+      'getVelocity': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_30.IOSScrollViewFlingVelocityTracker>(target, 'IOSScrollViewFlingVelocityTracker');
+        return t.getVelocity();
+      },
+    },
+    constructorSignatures: {
+      '': 'IOSScrollViewFlingVelocityTracker(PointerDeviceKind kind)',
+    },
+    methodSignatures: {
+      'addPosition': 'void addPosition(Duration time, Offset position)',
+      'getVelocityEstimate': 'VelocityEstimate getVelocityEstimate()',
+      'getVelocity': 'Velocity getVelocity()',
+    },
+    getterSignatures: {
+      'kind': 'PointerDeviceKind get kind',
+    },
+  );
+}
+
+// =============================================================================
+// MacOSScrollViewFlingVelocityTracker Bridge
+// =============================================================================
+
+BridgedClass _createMacOSScrollViewFlingVelocityTrackerBridge() {
+  return BridgedClass(
+    nativeType: $flutter_30.MacOSScrollViewFlingVelocityTracker,
+    name: 'MacOSScrollViewFlingVelocityTracker',
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'MacOSScrollViewFlingVelocityTracker');
+        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 0, 'kind', 'MacOSScrollViewFlingVelocityTracker');
+        return $flutter_30.MacOSScrollViewFlingVelocityTracker(kind);
+      },
+    },
+    getters: {
+      'kind': (visitor, target) => D4.validateTarget<$flutter_30.MacOSScrollViewFlingVelocityTracker>(target, 'MacOSScrollViewFlingVelocityTracker').kind,
+    },
+    methods: {
+      'addPosition': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_30.MacOSScrollViewFlingVelocityTracker>(target, 'MacOSScrollViewFlingVelocityTracker');
+        D4.requireMinArgs(positional, 2, 'addPosition');
+        final time = D4.getRequiredArg<Duration>(positional, 0, 'time', 'addPosition');
+        final position = D4.getRequiredArg<Offset>(positional, 1, 'position', 'addPosition');
+        t.addPosition(time, position);
+        return null;
+      },
+      'getVelocityEstimate': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_30.MacOSScrollViewFlingVelocityTracker>(target, 'MacOSScrollViewFlingVelocityTracker');
+        return t.getVelocityEstimate();
+      },
+      'getVelocity': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_30.MacOSScrollViewFlingVelocityTracker>(target, 'MacOSScrollViewFlingVelocityTracker');
+        return t.getVelocity();
+      },
+    },
+    constructorSignatures: {
+      '': 'MacOSScrollViewFlingVelocityTracker(PointerDeviceKind kind)',
+    },
+    methodSignatures: {
+      'addPosition': 'void addPosition(Duration time, Offset position)',
+      'getVelocityEstimate': 'VelocityEstimate getVelocityEstimate()',
+      'getVelocity': 'Velocity getVelocity()',
+    },
+    getterSignatures: {
+      'kind': 'PointerDeviceKind get kind',
+    },
+  );
+}
+
+// =============================================================================
+// DragDownDetails Bridge
+// =============================================================================
+
+BridgedClass _createDragDownDetailsBridge() {
+  return BridgedClass(
+    nativeType: $flutter_10.DragDownDetails,
+    name: 'DragDownDetails',
+    constructors: {
+      '': (visitor, positional, named) {
+        final globalPosition = D4.getNamedArgWithDefault<Offset>(named, 'globalPosition', $dart_ui.Offset.zero);
+        final localPosition = D4.getOptionalNamedArg<Offset?>(named, 'localPosition');
+        return $flutter_10.DragDownDetails(globalPosition: globalPosition, localPosition: localPosition);
+      },
+    },
+    getters: {
+      'globalPosition': (visitor, target) => D4.validateTarget<$flutter_10.DragDownDetails>(target, 'DragDownDetails').globalPosition,
+      'localPosition': (visitor, target) => D4.validateTarget<$flutter_10.DragDownDetails>(target, 'DragDownDetails').localPosition,
+    },
+    methods: {
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_10.DragDownDetails>(target, 'DragDownDetails');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_10.DragDownDetails>(target, 'DragDownDetails');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_10.DragDownDetails>(target, 'DragDownDetails');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+    },
+    constructorSignatures: {
+      '': 'DragDownDetails({Offset globalPosition = Offset.zero, Offset? localPosition})',
+    },
+    methodSignatures: {
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+    },
+    getterSignatures: {
+      'globalPosition': 'Offset get globalPosition',
+      'localPosition': 'Offset get localPosition',
+    },
+  );
+}
+
+// =============================================================================
+// DragStartDetails Bridge
+// =============================================================================
+
+BridgedClass _createDragStartDetailsBridge() {
+  return BridgedClass(
+    nativeType: $flutter_10.DragStartDetails,
+    name: 'DragStartDetails',
+    constructors: {
+      '': (visitor, positional, named) {
+        final globalPosition = D4.getNamedArgWithDefault<Offset>(named, 'globalPosition', $dart_ui.Offset.zero);
+        final localPosition = D4.getOptionalNamedArg<Offset?>(named, 'localPosition');
+        final sourceTimeStamp = D4.getOptionalNamedArg<Duration?>(named, 'sourceTimeStamp');
+        final kind = D4.getOptionalNamedArg<PointerDeviceKind?>(named, 'kind');
+        return $flutter_10.DragStartDetails(globalPosition: globalPosition, localPosition: localPosition, sourceTimeStamp: sourceTimeStamp, kind: kind);
+      },
+    },
+    getters: {
+      'globalPosition': (visitor, target) => D4.validateTarget<$flutter_10.DragStartDetails>(target, 'DragStartDetails').globalPosition,
+      'localPosition': (visitor, target) => D4.validateTarget<$flutter_10.DragStartDetails>(target, 'DragStartDetails').localPosition,
+      'sourceTimeStamp': (visitor, target) => D4.validateTarget<$flutter_10.DragStartDetails>(target, 'DragStartDetails').sourceTimeStamp,
+      'kind': (visitor, target) => D4.validateTarget<$flutter_10.DragStartDetails>(target, 'DragStartDetails').kind,
+    },
+    methods: {
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_10.DragStartDetails>(target, 'DragStartDetails');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_10.DragStartDetails>(target, 'DragStartDetails');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_10.DragStartDetails>(target, 'DragStartDetails');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+    },
+    constructorSignatures: {
+      '': 'DragStartDetails({Offset globalPosition = Offset.zero, Offset? localPosition, Duration? sourceTimeStamp, PointerDeviceKind? kind})',
+    },
+    methodSignatures: {
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+    },
+    getterSignatures: {
+      'globalPosition': 'Offset get globalPosition',
+      'localPosition': 'Offset get localPosition',
+      'sourceTimeStamp': 'Duration? get sourceTimeStamp',
+      'kind': 'PointerDeviceKind? get kind',
+    },
+  );
+}
+
+// =============================================================================
 // DragUpdateDetails Bridge
 // =============================================================================
 
@@ -3930,12 +6375,20 @@ BridgedClass _createEagerGestureRecognizerBridge() {
       },
     },
     getters: {
-      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_11.EagerGestureRecognizer>(target, 'EagerGestureRecognizer').debugDescription,
-      'team': (visitor, target) => D4.validateTarget<$flutter_11.EagerGestureRecognizer>(target, 'EagerGestureRecognizer').team,
       'debugOwner': (visitor, target) => D4.validateTarget<$flutter_11.EagerGestureRecognizer>(target, 'EagerGestureRecognizer').debugOwner,
       'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_11.EagerGestureRecognizer>(target, 'EagerGestureRecognizer').gestureSettings,
       'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_11.EagerGestureRecognizer>(target, 'EagerGestureRecognizer').supportedDevices,
       'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_11.EagerGestureRecognizer>(target, 'EagerGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_11.EagerGestureRecognizer>(target, 'EagerGestureRecognizer').debugDescription,
+      'team': (visitor, target) => D4.validateTarget<$flutter_11.EagerGestureRecognizer>(target, 'EagerGestureRecognizer').team,
+    },
+    setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_11.EagerGestureRecognizer>(target, 'EagerGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_11.EagerGestureRecognizer>(target, 'EagerGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+      'team': (visitor, target, value) => 
+        D4.validateTarget<$flutter_11.EagerGestureRecognizer>(target, 'EagerGestureRecognizer').team = value as dynamic,
     },
     methods: {
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
@@ -3952,11 +6405,6 @@ BridgedClass _createEagerGestureRecognizerBridge() {
         t.rejectGesture(pointer);
         return null;
       },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.EagerGestureRecognizer>(target, 'EagerGestureRecognizer');
-        (t as dynamic).dispose();
-        return null;
-      },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_11.EagerGestureRecognizer>(target, 'EagerGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
@@ -3971,11 +6419,9 @@ BridgedClass _createEagerGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_11.EagerGestureRecognizer>(target, 'EagerGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -4011,6 +6457,13 @@ BridgedClass _createEagerGestureRecognizerBridge() {
         final t = D4.validateTarget<$flutter_11.EagerGestureRecognizer>(target, 'EagerGestureRecognizer');
         return t.debugDescribeChildren();
       },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_11.EagerGestureRecognizer>(target, 'EagerGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
     },
     constructorSignatures: {
       '': 'EagerGestureRecognizer({Set<PointerDeviceKind>? supportedDevices, bool Function(int) allowedButtonsFilter = _defaultButtonAcceptBehavior})',
@@ -4018,24 +6471,29 @@ BridgedClass _createEagerGestureRecognizerBridge() {
     methodSignatures: {
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
     getterSignatures: {
-      'debugDescription': 'String get debugDescription',
-      'team': 'GestureArenaTeam? get team',
       'debugOwner': 'Object? get debugOwner',
       'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
       'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
       'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+      'team': 'GestureArenaTeam? get team',
+    },
+    setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'team': 'set team(GestureArenaTeam? value)',
     },
   );
 }
@@ -4132,6 +6590,12 @@ BridgedClass _createForcePressGestureRecognizerBridge() {
       },
     },
     getters: {
+      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').debugOwner,
+      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').gestureSettings,
+      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').supportedDevices,
+      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').debugDescription,
+      'team': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').team,
       'onStart': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').onStart,
       'onUpdate': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').onUpdate,
       'onPeak': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').onPeak,
@@ -4139,14 +6603,14 @@ BridgedClass _createForcePressGestureRecognizerBridge() {
       'startPressure': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').startPressure,
       'peakPressure': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').peakPressure,
       'interpolation': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').interpolation,
-      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').debugDescription,
-      'team': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').team,
-      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').debugOwner,
-      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').gestureSettings,
-      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').supportedDevices,
-      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').allowedButtonsFilter,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+      'team': (visitor, target, value) => 
+        D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').team = value as dynamic,
       'onStart': (visitor, target, value) => 
         D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer').onStart = value as $flutter_13.GestureForcePressStartCallback?,
       'onUpdate': (visitor, target, value) => 
@@ -4171,11 +6635,6 @@ BridgedClass _createForcePressGestureRecognizerBridge() {
         t.rejectGesture(pointer);
         return null;
       },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer');
-        (t as dynamic).dispose();
-        return null;
-      },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
@@ -4190,11 +6649,9 @@ BridgedClass _createForcePressGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -4230,6 +6687,13 @@ BridgedClass _createForcePressGestureRecognizerBridge() {
         final t = D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer');
         return t.debugDescribeChildren();
       },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_13.ForcePressGestureRecognizer>(target, 'ForcePressGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
     },
     constructorSignatures: {
       '': 'ForcePressGestureRecognizer({double startPressure = 0.4, double peakPressure = 0.85, double Function(double, double, double) interpolation = _inverseLerp, Object? debugOwner, Set<PointerDeviceKind>? supportedDevices, bool Function(int) allowedButtonsFilter = _defaultButtonAcceptBehavior})',
@@ -4237,18 +6701,24 @@ BridgedClass _createForcePressGestureRecognizerBridge() {
     methodSignatures: {
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
     getterSignatures: {
+      'debugOwner': 'Object? get debugOwner',
+      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
+      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
+      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+      'team': 'GestureArenaTeam? get team',
       'onStart': 'GestureForcePressStartCallback? get onStart',
       'onUpdate': 'GestureForcePressUpdateCallback? get onUpdate',
       'onPeak': 'GestureForcePressPeakCallback? get onPeak',
@@ -4256,14 +6726,11 @@ BridgedClass _createForcePressGestureRecognizerBridge() {
       'startPressure': 'double get startPressure',
       'peakPressure': 'double get peakPressure',
       'interpolation': 'GestureForceInterpolation get interpolation',
-      'debugDescription': 'String get debugDescription',
-      'team': 'GestureArenaTeam? get team',
-      'debugOwner': 'Object? get debugOwner',
-      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
-      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
-      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'team': 'set team(GestureArenaTeam? value)',
       'onStart': 'set onStart(dynamic value)',
       'onUpdate': 'set onUpdate(dynamic value)',
       'onPeak': 'set onPeak(dynamic value)',
@@ -4528,6 +6995,18 @@ BridgedClass _createLongPressGestureRecognizerBridge() {
       },
     },
     getters: {
+      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').debugOwner,
+      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').gestureSettings,
+      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').supportedDevices,
+      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').debugDescription,
+      'team': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').team,
+      'deadline': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').deadline,
+      'preAcceptSlopTolerance': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').preAcceptSlopTolerance,
+      'postAcceptSlopTolerance': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').postAcceptSlopTolerance,
+      'state': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').state,
+      'primaryPointer': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').primaryPointer,
+      'initialPosition': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').initialPosition,
       'onLongPressDown': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPressDown,
       'onLongPressCancel': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPressCancel,
       'onLongPress': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPress,
@@ -4549,20 +7028,14 @@ BridgedClass _createLongPressGestureRecognizerBridge() {
       'onTertiaryLongPressMoveUpdate': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onTertiaryLongPressMoveUpdate,
       'onTertiaryLongPressUp': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onTertiaryLongPressUp,
       'onTertiaryLongPressEnd': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onTertiaryLongPressEnd,
-      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').debugDescription,
-      'deadline': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').deadline,
-      'preAcceptSlopTolerance': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').preAcceptSlopTolerance,
-      'postAcceptSlopTolerance': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').postAcceptSlopTolerance,
-      'state': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').state,
-      'primaryPointer': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').primaryPointer,
-      'initialPosition': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').initialPosition,
-      'team': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').team,
-      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').debugOwner,
-      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').gestureSettings,
-      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').supportedDevices,
-      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').allowedButtonsFilter,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+      'team': (visitor, target, value) => 
+        D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').team = value as dynamic,
       'onLongPressDown': (visitor, target, value) => 
         D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer').onLongPressDown = value as $flutter_17.GestureLongPressDownCallback?,
       'onLongPressCancel': (visitor, target, value) => 
@@ -4614,51 +7087,11 @@ BridgedClass _createLongPressGestureRecognizerBridge() {
         t.acceptGesture(pointer);
         return null;
       },
-      'addAllowedPointer': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'addAllowedPointer');
-        final event = D4.getRequiredArg<$flutter_12.PointerDownEvent>(positional, 0, 'event', 'addAllowedPointer');
-        t.addAllowedPointer(event);
-        return null;
-      },
-      'handleNonAllowedPointer': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'handleNonAllowedPointer');
-        final event = D4.getRequiredArg<$flutter_12.PointerDownEvent>(positional, 0, 'event', 'handleNonAllowedPointer');
-        t.handleNonAllowedPointer(event);
-        return null;
-      },
-      'handleEvent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'handleEvent');
-        final event = D4.getRequiredArg<$flutter_12.PointerEvent>(positional, 0, 'event', 'handleEvent');
-        t.handleEvent(event);
-        return null;
-      },
       'rejectGesture': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'rejectGesture');
         final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'rejectGesture');
         t.rejectGesture(pointer);
-        return null;
-      },
-      'didStopTrackingLastPointer': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'didStopTrackingLastPointer');
-        final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'didStopTrackingLastPointer');
-        t.didStopTrackingLastPointer(pointer);
-        return null;
-      },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer');
-        (t as dynamic).dispose();
-        return null;
-      },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
         return null;
       },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
@@ -4673,6 +7106,11 @@ BridgedClass _createLongPressGestureRecognizerBridge() {
         D4.requireMinArgs(positional, 1, 'addPointer');
         final event = D4.getRequiredArg<$flutter_12.PointerDownEvent>(positional, 0, 'event', 'addPointer');
         t.addPointer(event);
+        return null;
+      },
+      'dispose': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer');
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -4708,29 +7146,76 @@ BridgedClass _createLongPressGestureRecognizerBridge() {
         final t = D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer');
         return t.debugDescribeChildren();
       },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'addAllowedPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'addAllowedPointer');
+        final event = D4.getRequiredArg<$flutter_12.PointerDownEvent>(positional, 0, 'event', 'addAllowedPointer');
+        t.addAllowedPointer(event);
+        return null;
+      },
+      'handleNonAllowedPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'handleNonAllowedPointer');
+        final event = D4.getRequiredArg<$flutter_12.PointerDownEvent>(positional, 0, 'event', 'handleNonAllowedPointer');
+        t.handleNonAllowedPointer(event);
+        return null;
+      },
+      'handleEvent': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'handleEvent');
+        final event = D4.getRequiredArg<$flutter_12.PointerEvent>(positional, 0, 'event', 'handleEvent');
+        t.handleEvent(event);
+        return null;
+      },
+      'didStopTrackingLastPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_17.LongPressGestureRecognizer>(target, 'LongPressGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'didStopTrackingLastPointer');
+        final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'didStopTrackingLastPointer');
+        t.didStopTrackingLastPointer(pointer);
+        return null;
+      },
     },
     constructorSignatures: {
       '': 'LongPressGestureRecognizer({Duration? duration, double? postAcceptSlopTolerance = null, Set<PointerDeviceKind>? supportedDevices, Object? debugOwner, AllowedButtonsFilter? allowedButtonsFilter})',
     },
     methodSignatures: {
       'acceptGesture': 'void acceptGesture(int pointer)',
-      'addAllowedPointer': 'void addAllowedPointer(PointerDownEvent event)',
-      'handleNonAllowedPointer': 'void handleNonAllowedPointer(PointerDownEvent event)',
-      'handleEvent': 'void handleEvent(PointerEvent event)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'didStopTrackingLastPointer': 'void didStopTrackingLastPointer(int pointer)',
-      'dispose': 'void dispose()',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'addAllowedPointer': 'void addAllowedPointer(PointerDownEvent event)',
+      'handleNonAllowedPointer': 'void handleNonAllowedPointer(PointerDownEvent event)',
+      'handleEvent': 'void handleEvent(PointerEvent event)',
+      'didStopTrackingLastPointer': 'void didStopTrackingLastPointer(int pointer)',
     },
     getterSignatures: {
+      'debugOwner': 'Object? get debugOwner',
+      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
+      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
+      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+      'team': 'GestureArenaTeam? get team',
+      'deadline': 'Duration? get deadline',
+      'preAcceptSlopTolerance': 'double? get preAcceptSlopTolerance',
+      'postAcceptSlopTolerance': 'double? get postAcceptSlopTolerance',
+      'state': 'GestureRecognizerState get state',
+      'primaryPointer': 'int? get primaryPointer',
+      'initialPosition': 'OffsetPair? get initialPosition',
       'onLongPressDown': 'GestureLongPressDownCallback? get onLongPressDown',
       'onLongPressCancel': 'GestureLongPressCancelCallback? get onLongPressCancel',
       'onLongPress': 'GestureLongPressCallback? get onLongPress',
@@ -4752,20 +7237,11 @@ BridgedClass _createLongPressGestureRecognizerBridge() {
       'onTertiaryLongPressMoveUpdate': 'GestureLongPressMoveUpdateCallback? get onTertiaryLongPressMoveUpdate',
       'onTertiaryLongPressUp': 'GestureLongPressUpCallback? get onTertiaryLongPressUp',
       'onTertiaryLongPressEnd': 'GestureLongPressEndCallback? get onTertiaryLongPressEnd',
-      'debugDescription': 'String get debugDescription',
-      'deadline': 'Duration? get deadline',
-      'preAcceptSlopTolerance': 'double? get preAcceptSlopTolerance',
-      'postAcceptSlopTolerance': 'double? get postAcceptSlopTolerance',
-      'state': 'GestureRecognizerState get state',
-      'primaryPointer': 'int? get primaryPointer',
-      'initialPosition': 'OffsetPair? get initialPosition',
-      'team': 'GestureArenaTeam? get team',
-      'debugOwner': 'Object? get debugOwner',
-      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
-      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
-      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'team': 'set team(GestureArenaTeam? value)',
       'onLongPressDown': 'set onLongPressDown(dynamic value)',
       'onLongPressCancel': 'set onLongPressCancel(dynamic value)',
       'onLongPress': 'set onLongPress(dynamic value)',
@@ -4934,6 +7410,472 @@ BridgedClass _createGestureArenaTeamBridge() {
 }
 
 // =============================================================================
+// GestureRecognizer Bridge
+// =============================================================================
+
+BridgedClass _createGestureRecognizerBridge() {
+  return BridgedClass(
+    nativeType: $flutter_24.GestureRecognizer,
+    name: 'GestureRecognizer',
+    constructors: {
+    },
+    getters: {
+      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer').debugOwner,
+      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer').gestureSettings,
+      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer').supportedDevices,
+      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer').debugDescription,
+    },
+    setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+    },
+    methods: {
+      'acceptGesture': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'acceptGesture');
+        final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'acceptGesture');
+        t.acceptGesture(pointer);
+        return null;
+      },
+      'rejectGesture': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'rejectGesture');
+        final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'rejectGesture');
+        t.rejectGesture(pointer);
+        return null;
+      },
+      'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
+        final event = D4.getRequiredArg<$flutter_12.PointerPanZoomStartEvent>(positional, 0, 'event', 'addPointerPanZoom');
+        t.addPointerPanZoom(event);
+        return null;
+      },
+      'addPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'addPointer');
+        final event = D4.getRequiredArg<$flutter_12.PointerDownEvent>(positional, 0, 'event', 'addPointer');
+        t.addPointer(event);
+        return null;
+      },
+      'dispose': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer');
+        (t as dynamic).dispose();
+        return null;
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toStringShallow': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer');
+        final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        return t.toStringShallow(joiner: joiner, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer');
+        return t.toStringShort();
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer');
+        return t.debugDescribeChildren();
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.GestureRecognizer>(target, 'GestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'acceptGesture': 'void acceptGesture(int pointer)',
+      'rejectGesture': 'void rejectGesture(int pointer)',
+      'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
+      'addPointer': 'void addPointer(PointerDownEvent event)',
+      'dispose': 'void dispose()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'toStringShort': 'String toStringShort()',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+    },
+    getterSignatures: {
+      'debugOwner': 'Object? get debugOwner',
+      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
+      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
+      'allowedButtonsFilter': 'AllowedButtonsFilter get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+    },
+    setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// OneSequenceGestureRecognizer Bridge
+// =============================================================================
+
+BridgedClass _createOneSequenceGestureRecognizerBridge() {
+  return BridgedClass(
+    nativeType: $flutter_24.OneSequenceGestureRecognizer,
+    name: 'OneSequenceGestureRecognizer',
+    constructors: {
+    },
+    getters: {
+      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer').debugOwner,
+      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer').gestureSettings,
+      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer').supportedDevices,
+      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer').debugDescription,
+      'team': (visitor, target) => D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer').team,
+    },
+    setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+      'team': (visitor, target, value) => 
+        D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer').team = value as dynamic,
+    },
+    methods: {
+      'acceptGesture': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'acceptGesture');
+        final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'acceptGesture');
+        t.acceptGesture(pointer);
+        return null;
+      },
+      'rejectGesture': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'rejectGesture');
+        final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'rejectGesture');
+        t.rejectGesture(pointer);
+        return null;
+      },
+      'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
+        final event = D4.getRequiredArg<$flutter_12.PointerPanZoomStartEvent>(positional, 0, 'event', 'addPointerPanZoom');
+        t.addPointerPanZoom(event);
+        return null;
+      },
+      'addPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'addPointer');
+        final event = D4.getRequiredArg<$flutter_12.PointerDownEvent>(positional, 0, 'event', 'addPointer');
+        t.addPointer(event);
+        return null;
+      },
+      'dispose': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer');
+        (t as dynamic).dispose();
+        return null;
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toStringShallow': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer');
+        final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        return t.toStringShallow(joiner: joiner, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer');
+        return t.toStringShort();
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer');
+        return t.debugDescribeChildren();
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.OneSequenceGestureRecognizer>(target, 'OneSequenceGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'acceptGesture': 'void acceptGesture(int pointer)',
+      'rejectGesture': 'void rejectGesture(int pointer)',
+      'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
+      'addPointer': 'void addPointer(PointerDownEvent event)',
+      'dispose': 'void dispose()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'toStringShort': 'String toStringShort()',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+    },
+    getterSignatures: {
+      'debugOwner': 'Object? get debugOwner',
+      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
+      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
+      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+      'team': 'GestureArenaTeam? get team',
+    },
+    setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'team': 'set team(GestureArenaTeam? value)',
+    },
+  );
+}
+
+// =============================================================================
+// PrimaryPointerGestureRecognizer Bridge
+// =============================================================================
+
+BridgedClass _createPrimaryPointerGestureRecognizerBridge() {
+  return BridgedClass(
+    nativeType: $flutter_24.PrimaryPointerGestureRecognizer,
+    name: 'PrimaryPointerGestureRecognizer',
+    constructors: {
+    },
+    getters: {
+      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').debugOwner,
+      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').gestureSettings,
+      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').supportedDevices,
+      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').debugDescription,
+      'team': (visitor, target) => D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').team,
+      'deadline': (visitor, target) => D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').deadline,
+      'preAcceptSlopTolerance': (visitor, target) => D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').preAcceptSlopTolerance,
+      'postAcceptSlopTolerance': (visitor, target) => D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').postAcceptSlopTolerance,
+      'state': (visitor, target) => D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').state,
+      'primaryPointer': (visitor, target) => D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').primaryPointer,
+      'initialPosition': (visitor, target) => D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').initialPosition,
+    },
+    setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+      'team': (visitor, target, value) => 
+        D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer').team = value as dynamic,
+    },
+    methods: {
+      'acceptGesture': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'acceptGesture');
+        final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'acceptGesture');
+        t.acceptGesture(pointer);
+        return null;
+      },
+      'rejectGesture': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'rejectGesture');
+        final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'rejectGesture');
+        t.rejectGesture(pointer);
+        return null;
+      },
+      'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
+        final event = D4.getRequiredArg<$flutter_12.PointerPanZoomStartEvent>(positional, 0, 'event', 'addPointerPanZoom');
+        t.addPointerPanZoom(event);
+        return null;
+      },
+      'addPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'addPointer');
+        final event = D4.getRequiredArg<$flutter_12.PointerDownEvent>(positional, 0, 'event', 'addPointer');
+        t.addPointer(event);
+        return null;
+      },
+      'dispose': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer');
+        (t as dynamic).dispose();
+        return null;
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toStringShallow': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer');
+        final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        return t.toStringShallow(joiner: joiner, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer');
+        return t.toStringShort();
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer');
+        return t.debugDescribeChildren();
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.PrimaryPointerGestureRecognizer>(target, 'PrimaryPointerGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'acceptGesture': 'void acceptGesture(int pointer)',
+      'rejectGesture': 'void rejectGesture(int pointer)',
+      'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
+      'addPointer': 'void addPointer(PointerDownEvent event)',
+      'dispose': 'void dispose()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'toStringShort': 'String toStringShort()',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+    },
+    getterSignatures: {
+      'debugOwner': 'Object? get debugOwner',
+      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
+      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
+      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+      'team': 'GestureArenaTeam? get team',
+      'deadline': 'Duration? get deadline',
+      'preAcceptSlopTolerance': 'double? get preAcceptSlopTolerance',
+      'postAcceptSlopTolerance': 'double? get postAcceptSlopTolerance',
+      'state': 'GestureRecognizerState get state',
+      'primaryPointer': 'int? get primaryPointer',
+      'initialPosition': 'OffsetPair? get initialPosition',
+    },
+    setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'team': 'set team(GestureArenaTeam? value)',
+    },
+  );
+}
+
+// =============================================================================
+// OffsetPair Bridge
+// =============================================================================
+
+BridgedClass _createOffsetPairBridge() {
+  return BridgedClass(
+    nativeType: $flutter_24.OffsetPair,
+    name: 'OffsetPair',
+    constructors: {
+      '': (visitor, positional, named) {
+        final local = D4.getRequiredNamedArg<Offset>(named, 'local', 'OffsetPair');
+        final global = D4.getRequiredNamedArg<Offset>(named, 'global', 'OffsetPair');
+        return $flutter_24.OffsetPair(local: local, global: global);
+      },
+      'fromEventPosition': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'OffsetPair');
+        final event = D4.getRequiredArg<$flutter_12.PointerEvent>(positional, 0, 'event', 'OffsetPair');
+        return $flutter_24.OffsetPair.fromEventPosition(event);
+      },
+      'fromEventDelta': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'OffsetPair');
+        final event = D4.getRequiredArg<$flutter_12.PointerEvent>(positional, 0, 'event', 'OffsetPair');
+        return $flutter_24.OffsetPair.fromEventDelta(event);
+      },
+    },
+    getters: {
+      'local': (visitor, target) => D4.validateTarget<$flutter_24.OffsetPair>(target, 'OffsetPair').local,
+      'global': (visitor, target) => D4.validateTarget<$flutter_24.OffsetPair>(target, 'OffsetPair').global,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.OffsetPair>(target, 'OffsetPair');
+        return t.toString();
+      },
+      '+': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.OffsetPair>(target, 'OffsetPair');
+        final other = D4.getRequiredArg<$flutter_24.OffsetPair>(positional, 0, 'other', 'operator+');
+        return t + other;
+      },
+      '-': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_24.OffsetPair>(target, 'OffsetPair');
+        final other = D4.getRequiredArg<$flutter_24.OffsetPair>(positional, 0, 'other', 'operator-');
+        return t - other;
+      },
+    },
+    staticGetters: {
+      'zero': (visitor) => $flutter_24.OffsetPair.zero,
+    },
+    constructorSignatures: {
+      '': 'const OffsetPair({required Offset local, required Offset global})',
+      'fromEventPosition': 'OffsetPair.fromEventPosition(PointerEvent event)',
+      'fromEventDelta': 'OffsetPair.fromEventDelta(PointerEvent event)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'local': 'Offset get local',
+      'global': 'Offset get global',
+    },
+    staticGetterSignatures: {
+      'zero': 'OffsetPair get zero',
+    },
+  );
+}
+
+// =============================================================================
 // DragGestureRecognizer Bridge
 // =============================================================================
 
@@ -4944,6 +7886,12 @@ BridgedClass _createDragGestureRecognizerBridge() {
     constructors: {
     },
     getters: {
+      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').debugOwner,
+      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').gestureSettings,
+      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').supportedDevices,
+      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').debugDescription,
+      'team': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').team,
       'dragStartBehavior': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').dragStartBehavior,
       'multitouchDragStrategy': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').multitouchDragStrategy,
       'onDown': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').onDown,
@@ -4958,14 +7906,14 @@ BridgedClass _createDragGestureRecognizerBridge() {
       'velocityTrackerBuilder': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').velocityTrackerBuilder,
       'lastPosition': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').lastPosition,
       'globalDistanceMoved': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').globalDistanceMoved,
-      'team': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').team,
-      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').debugOwner,
-      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').gestureSettings,
-      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').supportedDevices,
-      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').allowedButtonsFilter,
-      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').debugDescription,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+      'team': (visitor, target, value) => 
+        D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').team = value as dynamic,
       'dragStartBehavior': (visitor, target, value) => 
         D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').dragStartBehavior = value as $flutter_24.DragStartBehavior,
       'multitouchDragStrategy': (visitor, target, value) => 
@@ -4992,27 +7940,6 @@ BridgedClass _createDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer').velocityTrackerBuilder = value as $flutter_19.GestureVelocityTrackerBuilder,
     },
     methods: {
-      'isFlingGesture': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer');
-        D4.requireMinArgs(positional, 2, 'isFlingGesture');
-        final estimate = D4.getRequiredArg<$flutter_30.VelocityEstimate>(positional, 0, 'estimate', 'isFlingGesture');
-        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 1, 'kind', 'isFlingGesture');
-        return t.isFlingGesture(estimate, kind);
-      },
-      'considerFling': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer');
-        D4.requireMinArgs(positional, 2, 'considerFling');
-        final estimate = D4.getRequiredArg<$flutter_30.VelocityEstimate>(positional, 0, 'estimate', 'considerFling');
-        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 1, 'kind', 'considerFling');
-        return t.considerFling(estimate, kind);
-      },
-      'hasSufficientGlobalDistanceToAccept': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer');
-        D4.requireMinArgs(positional, 2, 'hasSufficientGlobalDistanceToAccept');
-        final pointerDeviceKind = D4.getRequiredArg<PointerDeviceKind>(positional, 0, 'pointerDeviceKind', 'hasSufficientGlobalDistanceToAccept');
-        final deviceTouchSlop = D4.getRequiredArg<double?>(positional, 1, 'deviceTouchSlop', 'hasSufficientGlobalDistanceToAccept');
-        return t.hasSufficientGlobalDistanceToAccept(pointerDeviceKind, deviceTouchSlop);
-      },
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'acceptGesture');
@@ -5025,11 +7952,6 @@ BridgedClass _createDragGestureRecognizerBridge() {
         D4.requireMinArgs(positional, 1, 'rejectGesture');
         final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'rejectGesture');
         t.rejectGesture(pointer);
-        return null;
-      },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer');
-        (t as dynamic).dispose();
         return null;
       },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
@@ -5046,11 +7968,9 @@ BridgedClass _createDragGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -5086,28 +8006,62 @@ BridgedClass _createDragGestureRecognizerBridge() {
         final t = D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer');
         return t.debugDescribeChildren();
       },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'isFlingGesture': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer');
+        D4.requireMinArgs(positional, 2, 'isFlingGesture');
+        final estimate = D4.getRequiredArg<$flutter_30.VelocityEstimate>(positional, 0, 'estimate', 'isFlingGesture');
+        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 1, 'kind', 'isFlingGesture');
+        return t.isFlingGesture(estimate, kind);
+      },
+      'considerFling': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer');
+        D4.requireMinArgs(positional, 2, 'considerFling');
+        final estimate = D4.getRequiredArg<$flutter_30.VelocityEstimate>(positional, 0, 'estimate', 'considerFling');
+        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 1, 'kind', 'considerFling');
+        return t.considerFling(estimate, kind);
+      },
+      'hasSufficientGlobalDistanceToAccept': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_19.DragGestureRecognizer>(target, 'DragGestureRecognizer');
+        D4.requireMinArgs(positional, 2, 'hasSufficientGlobalDistanceToAccept');
+        final pointerDeviceKind = D4.getRequiredArg<PointerDeviceKind>(positional, 0, 'pointerDeviceKind', 'hasSufficientGlobalDistanceToAccept');
+        final deviceTouchSlop = D4.getRequiredArg<double?>(positional, 1, 'deviceTouchSlop', 'hasSufficientGlobalDistanceToAccept');
+        return t.hasSufficientGlobalDistanceToAccept(pointerDeviceKind, deviceTouchSlop);
+      },
     },
     constructorSignatures: {
       '': 'DragGestureRecognizer({Object? debugOwner, DragStartBehavior dragStartBehavior = DragStartBehavior.start, MultitouchDragStrategy multitouchDragStrategy = MultitouchDragStrategy.latestPointer, VelocityTracker Function(PointerEvent) velocityTrackerBuilder = _defaultBuilder, bool onlyAcceptDragOnThreshold = false, Set<PointerDeviceKind>? supportedDevices, bool Function(int) allowedButtonsFilter = _defaultButtonAcceptBehavior})',
     },
     methodSignatures: {
-      'isFlingGesture': 'bool isFlingGesture(VelocityEstimate estimate, PointerDeviceKind kind)',
-      'considerFling': 'DragEndDetails? considerFling(VelocityEstimate estimate, PointerDeviceKind kind)',
-      'hasSufficientGlobalDistanceToAccept': 'bool hasSufficientGlobalDistanceToAccept(PointerDeviceKind pointerDeviceKind, double? deviceTouchSlop)',
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'isFlingGesture': 'bool isFlingGesture(VelocityEstimate estimate, PointerDeviceKind kind)',
+      'considerFling': 'DragEndDetails? considerFling(VelocityEstimate estimate, PointerDeviceKind kind)',
+      'hasSufficientGlobalDistanceToAccept': 'bool hasSufficientGlobalDistanceToAccept(PointerDeviceKind pointerDeviceKind, double? deviceTouchSlop)',
     },
     getterSignatures: {
+      'debugOwner': 'Object? get debugOwner',
+      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
+      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
+      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+      'team': 'GestureArenaTeam? get team',
       'dragStartBehavior': 'DragStartBehavior get dragStartBehavior',
       'multitouchDragStrategy': 'MultitouchDragStrategy get multitouchDragStrategy',
       'onDown': 'GestureDragDownCallback? get onDown',
@@ -5122,14 +8076,11 @@ BridgedClass _createDragGestureRecognizerBridge() {
       'velocityTrackerBuilder': 'GestureVelocityTrackerBuilder get velocityTrackerBuilder',
       'lastPosition': 'OffsetPair get lastPosition',
       'globalDistanceMoved': 'double get globalDistanceMoved',
-      'team': 'GestureArenaTeam? get team',
-      'debugOwner': 'Object? get debugOwner',
-      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
-      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
-      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
-      'debugDescription': 'String get debugDescription',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'team': 'set team(GestureArenaTeam? value)',
       'dragStartBehavior': 'set dragStartBehavior(dynamic value)',
       'multitouchDragStrategy': 'set multitouchDragStrategy(dynamic value)',
       'onDown': 'set onDown(dynamic value)',
@@ -5170,6 +8121,12 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
       },
     },
     getters: {
+      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').debugOwner,
+      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').gestureSettings,
+      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').supportedDevices,
+      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').debugDescription,
+      'team': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').team,
       'dragStartBehavior': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').dragStartBehavior,
       'multitouchDragStrategy': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').multitouchDragStrategy,
       'onDown': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').onDown,
@@ -5184,14 +8141,14 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
       'velocityTrackerBuilder': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').velocityTrackerBuilder,
       'lastPosition': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').lastPosition,
       'globalDistanceMoved': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').globalDistanceMoved,
-      'team': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').team,
-      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').debugOwner,
-      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').gestureSettings,
-      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').supportedDevices,
-      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').allowedButtonsFilter,
-      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').debugDescription,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+      'team': (visitor, target, value) => 
+        D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').team = value as dynamic,
       'dragStartBehavior': (visitor, target, value) => 
         D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').dragStartBehavior = value as $flutter_24.DragStartBehavior,
       'multitouchDragStrategy': (visitor, target, value) => 
@@ -5218,27 +8175,6 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer').velocityTrackerBuilder = value as $flutter_19.GestureVelocityTrackerBuilder,
     },
     methods: {
-      'isFlingGesture': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer');
-        D4.requireMinArgs(positional, 2, 'isFlingGesture');
-        final estimate = D4.getRequiredArg<$flutter_30.VelocityEstimate>(positional, 0, 'estimate', 'isFlingGesture');
-        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 1, 'kind', 'isFlingGesture');
-        return t.isFlingGesture(estimate, kind);
-      },
-      'considerFling': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer');
-        D4.requireMinArgs(positional, 2, 'considerFling');
-        final estimate = D4.getRequiredArg<$flutter_30.VelocityEstimate>(positional, 0, 'estimate', 'considerFling');
-        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 1, 'kind', 'considerFling');
-        return t.considerFling(estimate, kind);
-      },
-      'hasSufficientGlobalDistanceToAccept': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer');
-        D4.requireMinArgs(positional, 2, 'hasSufficientGlobalDistanceToAccept');
-        final pointerDeviceKind = D4.getRequiredArg<PointerDeviceKind>(positional, 0, 'pointerDeviceKind', 'hasSufficientGlobalDistanceToAccept');
-        final deviceTouchSlop = D4.getRequiredArg<double?>(positional, 1, 'deviceTouchSlop', 'hasSufficientGlobalDistanceToAccept');
-        return t.hasSufficientGlobalDistanceToAccept(pointerDeviceKind, deviceTouchSlop);
-      },
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'acceptGesture');
@@ -5251,11 +8187,6 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
         D4.requireMinArgs(positional, 1, 'rejectGesture');
         final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'rejectGesture');
         t.rejectGesture(pointer);
-        return null;
-      },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer');
-        (t as dynamic).dispose();
         return null;
       },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
@@ -5272,11 +8203,9 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -5311,6 +8240,34 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
       'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer');
         return t.debugDescribeChildren();
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'isFlingGesture': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer');
+        D4.requireMinArgs(positional, 2, 'isFlingGesture');
+        final estimate = D4.getRequiredArg<$flutter_30.VelocityEstimate>(positional, 0, 'estimate', 'isFlingGesture');
+        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 1, 'kind', 'isFlingGesture');
+        return t.isFlingGesture(estimate, kind);
+      },
+      'considerFling': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer');
+        D4.requireMinArgs(positional, 2, 'considerFling');
+        final estimate = D4.getRequiredArg<$flutter_30.VelocityEstimate>(positional, 0, 'estimate', 'considerFling');
+        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 1, 'kind', 'considerFling');
+        return t.considerFling(estimate, kind);
+      },
+      'hasSufficientGlobalDistanceToAccept': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer');
+        D4.requireMinArgs(positional, 2, 'hasSufficientGlobalDistanceToAccept');
+        final pointerDeviceKind = D4.getRequiredArg<PointerDeviceKind>(positional, 0, 'pointerDeviceKind', 'hasSufficientGlobalDistanceToAccept');
+        final deviceTouchSlop = D4.getRequiredArg<double?>(positional, 1, 'deviceTouchSlop', 'hasSufficientGlobalDistanceToAccept');
+        return t.hasSufficientGlobalDistanceToAccept(pointerDeviceKind, deviceTouchSlop);
       },
       'isPointerAllowed': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_19.VerticalDragGestureRecognizer>(target, 'VerticalDragGestureRecognizer');
@@ -5351,21 +8308,21 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
       '': 'VerticalDragGestureRecognizer({Object? debugOwner, Set<PointerDeviceKind>? supportedDevices, bool Function(int) allowedButtonsFilter = _defaultButtonAcceptBehavior})',
     },
     methodSignatures: {
-      'isFlingGesture': 'bool isFlingGesture(VelocityEstimate estimate, PointerDeviceKind kind)',
-      'considerFling': 'DragEndDetails? considerFling(VelocityEstimate estimate, PointerDeviceKind kind)',
-      'hasSufficientGlobalDistanceToAccept': 'bool hasSufficientGlobalDistanceToAccept(PointerDeviceKind pointerDeviceKind, double? deviceTouchSlop)',
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'isFlingGesture': 'bool isFlingGesture(VelocityEstimate estimate, PointerDeviceKind kind)',
+      'considerFling': 'DragEndDetails? considerFling(VelocityEstimate estimate, PointerDeviceKind kind)',
+      'hasSufficientGlobalDistanceToAccept': 'bool hasSufficientGlobalDistanceToAccept(PointerDeviceKind pointerDeviceKind, double? deviceTouchSlop)',
       'isPointerAllowed': 'bool isPointerAllowed(PointerEvent event)',
       'addAllowedPointer': 'void addAllowedPointer(PointerDownEvent event)',
       'addAllowedPointerPanZoom': 'void addAllowedPointerPanZoom(PointerPanZoomStartEvent event)',
@@ -5373,6 +8330,12 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
       'didStopTrackingLastPointer': 'void didStopTrackingLastPointer(int pointer)',
     },
     getterSignatures: {
+      'debugOwner': 'Object? get debugOwner',
+      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
+      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
+      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+      'team': 'GestureArenaTeam? get team',
       'dragStartBehavior': 'DragStartBehavior get dragStartBehavior',
       'multitouchDragStrategy': 'MultitouchDragStrategy get multitouchDragStrategy',
       'onDown': 'void Function(DragDownDetails)? get onDown',
@@ -5387,14 +8350,11 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
       'velocityTrackerBuilder': 'VelocityTracker Function(PointerEvent) get velocityTrackerBuilder',
       'lastPosition': 'OffsetPair get lastPosition',
       'globalDistanceMoved': 'double get globalDistanceMoved',
-      'team': 'GestureArenaTeam? get team',
-      'debugOwner': 'Object? get debugOwner',
-      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
-      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
-      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
-      'debugDescription': 'String get debugDescription',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'team': 'set team(GestureArenaTeam? value)',
       'dragStartBehavior': 'set dragStartBehavior(dynamic value)',
       'multitouchDragStrategy': 'set multitouchDragStrategy(dynamic value)',
       'onDown': 'set onDown(dynamic value)',
@@ -5435,6 +8395,12 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
       },
     },
     getters: {
+      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').debugOwner,
+      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').gestureSettings,
+      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').supportedDevices,
+      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').debugDescription,
+      'team': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').team,
       'dragStartBehavior': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').dragStartBehavior,
       'multitouchDragStrategy': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').multitouchDragStrategy,
       'onDown': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').onDown,
@@ -5449,14 +8415,14 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
       'velocityTrackerBuilder': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').velocityTrackerBuilder,
       'lastPosition': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').lastPosition,
       'globalDistanceMoved': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').globalDistanceMoved,
-      'team': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').team,
-      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').debugOwner,
-      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').gestureSettings,
-      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').supportedDevices,
-      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').allowedButtonsFilter,
-      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').debugDescription,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+      'team': (visitor, target, value) => 
+        D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').team = value as dynamic,
       'dragStartBehavior': (visitor, target, value) => 
         D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').dragStartBehavior = value as $flutter_24.DragStartBehavior,
       'multitouchDragStrategy': (visitor, target, value) => 
@@ -5483,27 +8449,6 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
         D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer').velocityTrackerBuilder = value as $flutter_19.GestureVelocityTrackerBuilder,
     },
     methods: {
-      'isFlingGesture': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer');
-        D4.requireMinArgs(positional, 2, 'isFlingGesture');
-        final estimate = D4.getRequiredArg<$flutter_30.VelocityEstimate>(positional, 0, 'estimate', 'isFlingGesture');
-        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 1, 'kind', 'isFlingGesture');
-        return t.isFlingGesture(estimate, kind);
-      },
-      'considerFling': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer');
-        D4.requireMinArgs(positional, 2, 'considerFling');
-        final estimate = D4.getRequiredArg<$flutter_30.VelocityEstimate>(positional, 0, 'estimate', 'considerFling');
-        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 1, 'kind', 'considerFling');
-        return t.considerFling(estimate, kind);
-      },
-      'hasSufficientGlobalDistanceToAccept': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer');
-        D4.requireMinArgs(positional, 2, 'hasSufficientGlobalDistanceToAccept');
-        final pointerDeviceKind = D4.getRequiredArg<PointerDeviceKind>(positional, 0, 'pointerDeviceKind', 'hasSufficientGlobalDistanceToAccept');
-        final deviceTouchSlop = D4.getRequiredArg<double?>(positional, 1, 'deviceTouchSlop', 'hasSufficientGlobalDistanceToAccept');
-        return t.hasSufficientGlobalDistanceToAccept(pointerDeviceKind, deviceTouchSlop);
-      },
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'acceptGesture');
@@ -5516,11 +8461,6 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
         D4.requireMinArgs(positional, 1, 'rejectGesture');
         final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'rejectGesture');
         t.rejectGesture(pointer);
-        return null;
-      },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer');
-        (t as dynamic).dispose();
         return null;
       },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
@@ -5537,11 +8477,9 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -5576,6 +8514,34 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
       'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer');
         return t.debugDescribeChildren();
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'isFlingGesture': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer');
+        D4.requireMinArgs(positional, 2, 'isFlingGesture');
+        final estimate = D4.getRequiredArg<$flutter_30.VelocityEstimate>(positional, 0, 'estimate', 'isFlingGesture');
+        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 1, 'kind', 'isFlingGesture');
+        return t.isFlingGesture(estimate, kind);
+      },
+      'considerFling': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer');
+        D4.requireMinArgs(positional, 2, 'considerFling');
+        final estimate = D4.getRequiredArg<$flutter_30.VelocityEstimate>(positional, 0, 'estimate', 'considerFling');
+        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 1, 'kind', 'considerFling');
+        return t.considerFling(estimate, kind);
+      },
+      'hasSufficientGlobalDistanceToAccept': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer');
+        D4.requireMinArgs(positional, 2, 'hasSufficientGlobalDistanceToAccept');
+        final pointerDeviceKind = D4.getRequiredArg<PointerDeviceKind>(positional, 0, 'pointerDeviceKind', 'hasSufficientGlobalDistanceToAccept');
+        final deviceTouchSlop = D4.getRequiredArg<double?>(positional, 1, 'deviceTouchSlop', 'hasSufficientGlobalDistanceToAccept');
+        return t.hasSufficientGlobalDistanceToAccept(pointerDeviceKind, deviceTouchSlop);
       },
       'isPointerAllowed': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_19.HorizontalDragGestureRecognizer>(target, 'HorizontalDragGestureRecognizer');
@@ -5616,21 +8582,21 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
       '': 'HorizontalDragGestureRecognizer({Object? debugOwner, Set<PointerDeviceKind>? supportedDevices, bool Function(int) allowedButtonsFilter = _defaultButtonAcceptBehavior})',
     },
     methodSignatures: {
-      'isFlingGesture': 'bool isFlingGesture(VelocityEstimate estimate, PointerDeviceKind kind)',
-      'considerFling': 'DragEndDetails? considerFling(VelocityEstimate estimate, PointerDeviceKind kind)',
-      'hasSufficientGlobalDistanceToAccept': 'bool hasSufficientGlobalDistanceToAccept(PointerDeviceKind pointerDeviceKind, double? deviceTouchSlop)',
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'isFlingGesture': 'bool isFlingGesture(VelocityEstimate estimate, PointerDeviceKind kind)',
+      'considerFling': 'DragEndDetails? considerFling(VelocityEstimate estimate, PointerDeviceKind kind)',
+      'hasSufficientGlobalDistanceToAccept': 'bool hasSufficientGlobalDistanceToAccept(PointerDeviceKind pointerDeviceKind, double? deviceTouchSlop)',
       'isPointerAllowed': 'bool isPointerAllowed(PointerEvent event)',
       'addAllowedPointer': 'void addAllowedPointer(PointerDownEvent event)',
       'addAllowedPointerPanZoom': 'void addAllowedPointerPanZoom(PointerPanZoomStartEvent event)',
@@ -5638,6 +8604,12 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
       'didStopTrackingLastPointer': 'void didStopTrackingLastPointer(int pointer)',
     },
     getterSignatures: {
+      'debugOwner': 'Object? get debugOwner',
+      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
+      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
+      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+      'team': 'GestureArenaTeam? get team',
       'dragStartBehavior': 'DragStartBehavior get dragStartBehavior',
       'multitouchDragStrategy': 'MultitouchDragStrategy get multitouchDragStrategy',
       'onDown': 'void Function(DragDownDetails)? get onDown',
@@ -5652,14 +8624,11 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
       'velocityTrackerBuilder': 'VelocityTracker Function(PointerEvent) get velocityTrackerBuilder',
       'lastPosition': 'OffsetPair get lastPosition',
       'globalDistanceMoved': 'double get globalDistanceMoved',
-      'team': 'GestureArenaTeam? get team',
-      'debugOwner': 'Object? get debugOwner',
-      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
-      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
-      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
-      'debugDescription': 'String get debugDescription',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'team': 'set team(GestureArenaTeam? value)',
       'dragStartBehavior': 'set dragStartBehavior(dynamic value)',
       'multitouchDragStrategy': 'set multitouchDragStrategy(dynamic value)',
       'onDown': 'set onDown(dynamic value)',
@@ -5700,6 +8669,12 @@ BridgedClass _createPanGestureRecognizerBridge() {
       },
     },
     getters: {
+      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').debugOwner,
+      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').gestureSettings,
+      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').supportedDevices,
+      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').debugDescription,
+      'team': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').team,
       'dragStartBehavior': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').dragStartBehavior,
       'multitouchDragStrategy': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').multitouchDragStrategy,
       'onDown': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').onDown,
@@ -5714,14 +8689,14 @@ BridgedClass _createPanGestureRecognizerBridge() {
       'velocityTrackerBuilder': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').velocityTrackerBuilder,
       'lastPosition': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').lastPosition,
       'globalDistanceMoved': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').globalDistanceMoved,
-      'team': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').team,
-      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').debugOwner,
-      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').gestureSettings,
-      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').supportedDevices,
-      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').allowedButtonsFilter,
-      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').debugDescription,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+      'team': (visitor, target, value) => 
+        D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').team = value as dynamic,
       'dragStartBehavior': (visitor, target, value) => 
         D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').dragStartBehavior = value as $flutter_24.DragStartBehavior,
       'multitouchDragStrategy': (visitor, target, value) => 
@@ -5748,27 +8723,6 @@ BridgedClass _createPanGestureRecognizerBridge() {
         D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer').velocityTrackerBuilder = value as $flutter_19.GestureVelocityTrackerBuilder,
     },
     methods: {
-      'isFlingGesture': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer');
-        D4.requireMinArgs(positional, 2, 'isFlingGesture');
-        final estimate = D4.getRequiredArg<$flutter_30.VelocityEstimate>(positional, 0, 'estimate', 'isFlingGesture');
-        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 1, 'kind', 'isFlingGesture');
-        return t.isFlingGesture(estimate, kind);
-      },
-      'considerFling': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer');
-        D4.requireMinArgs(positional, 2, 'considerFling');
-        final estimate = D4.getRequiredArg<$flutter_30.VelocityEstimate>(positional, 0, 'estimate', 'considerFling');
-        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 1, 'kind', 'considerFling');
-        return t.considerFling(estimate, kind);
-      },
-      'hasSufficientGlobalDistanceToAccept': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer');
-        D4.requireMinArgs(positional, 2, 'hasSufficientGlobalDistanceToAccept');
-        final pointerDeviceKind = D4.getRequiredArg<PointerDeviceKind>(positional, 0, 'pointerDeviceKind', 'hasSufficientGlobalDistanceToAccept');
-        final deviceTouchSlop = D4.getRequiredArg<double?>(positional, 1, 'deviceTouchSlop', 'hasSufficientGlobalDistanceToAccept');
-        return t.hasSufficientGlobalDistanceToAccept(pointerDeviceKind, deviceTouchSlop);
-      },
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'acceptGesture');
@@ -5781,11 +8735,6 @@ BridgedClass _createPanGestureRecognizerBridge() {
         D4.requireMinArgs(positional, 1, 'rejectGesture');
         final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'rejectGesture');
         t.rejectGesture(pointer);
-        return null;
-      },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer');
-        (t as dynamic).dispose();
         return null;
       },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
@@ -5802,11 +8751,9 @@ BridgedClass _createPanGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -5841,6 +8788,34 @@ BridgedClass _createPanGestureRecognizerBridge() {
       'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer');
         return t.debugDescribeChildren();
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'isFlingGesture': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer');
+        D4.requireMinArgs(positional, 2, 'isFlingGesture');
+        final estimate = D4.getRequiredArg<$flutter_30.VelocityEstimate>(positional, 0, 'estimate', 'isFlingGesture');
+        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 1, 'kind', 'isFlingGesture');
+        return t.isFlingGesture(estimate, kind);
+      },
+      'considerFling': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer');
+        D4.requireMinArgs(positional, 2, 'considerFling');
+        final estimate = D4.getRequiredArg<$flutter_30.VelocityEstimate>(positional, 0, 'estimate', 'considerFling');
+        final kind = D4.getRequiredArg<PointerDeviceKind>(positional, 1, 'kind', 'considerFling');
+        return t.considerFling(estimate, kind);
+      },
+      'hasSufficientGlobalDistanceToAccept': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer');
+        D4.requireMinArgs(positional, 2, 'hasSufficientGlobalDistanceToAccept');
+        final pointerDeviceKind = D4.getRequiredArg<PointerDeviceKind>(positional, 0, 'pointerDeviceKind', 'hasSufficientGlobalDistanceToAccept');
+        final deviceTouchSlop = D4.getRequiredArg<double?>(positional, 1, 'deviceTouchSlop', 'hasSufficientGlobalDistanceToAccept');
+        return t.hasSufficientGlobalDistanceToAccept(pointerDeviceKind, deviceTouchSlop);
       },
       'isPointerAllowed': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_19.PanGestureRecognizer>(target, 'PanGestureRecognizer');
@@ -5881,21 +8856,21 @@ BridgedClass _createPanGestureRecognizerBridge() {
       '': 'PanGestureRecognizer({Object? debugOwner, Set<PointerDeviceKind>? supportedDevices, bool Function(int) allowedButtonsFilter = _defaultButtonAcceptBehavior})',
     },
     methodSignatures: {
-      'isFlingGesture': 'bool isFlingGesture(VelocityEstimate estimate, PointerDeviceKind kind)',
-      'considerFling': 'DragEndDetails? considerFling(VelocityEstimate estimate, PointerDeviceKind kind)',
-      'hasSufficientGlobalDistanceToAccept': 'bool hasSufficientGlobalDistanceToAccept(PointerDeviceKind pointerDeviceKind, double? deviceTouchSlop)',
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'isFlingGesture': 'bool isFlingGesture(VelocityEstimate estimate, PointerDeviceKind kind)',
+      'considerFling': 'DragEndDetails? considerFling(VelocityEstimate estimate, PointerDeviceKind kind)',
+      'hasSufficientGlobalDistanceToAccept': 'bool hasSufficientGlobalDistanceToAccept(PointerDeviceKind pointerDeviceKind, double? deviceTouchSlop)',
       'isPointerAllowed': 'bool isPointerAllowed(PointerEvent event)',
       'addAllowedPointer': 'void addAllowedPointer(PointerDownEvent event)',
       'addAllowedPointerPanZoom': 'void addAllowedPointerPanZoom(PointerPanZoomStartEvent event)',
@@ -5903,6 +8878,12 @@ BridgedClass _createPanGestureRecognizerBridge() {
       'didStopTrackingLastPointer': 'void didStopTrackingLastPointer(int pointer)',
     },
     getterSignatures: {
+      'debugOwner': 'Object? get debugOwner',
+      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
+      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
+      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+      'team': 'GestureArenaTeam? get team',
       'dragStartBehavior': 'DragStartBehavior get dragStartBehavior',
       'multitouchDragStrategy': 'MultitouchDragStrategy get multitouchDragStrategy',
       'onDown': 'void Function(DragDownDetails)? get onDown',
@@ -5917,14 +8898,11 @@ BridgedClass _createPanGestureRecognizerBridge() {
       'velocityTrackerBuilder': 'VelocityTracker Function(PointerEvent) get velocityTrackerBuilder',
       'lastPosition': 'OffsetPair get lastPosition',
       'globalDistanceMoved': 'double get globalDistanceMoved',
-      'team': 'GestureArenaTeam? get team',
-      'debugOwner': 'Object? get debugOwner',
-      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
-      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
-      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
-      'debugDescription': 'String get debugDescription',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'team': 'set team(GestureArenaTeam? value)',
       'dragStartBehavior': 'set dragStartBehavior(dynamic value)',
       'multitouchDragStrategy': 'set multitouchDragStrategy(dynamic value)',
       'onDown': 'set onDown(dynamic value)',
@@ -5977,14 +8955,18 @@ BridgedClass _createMultiDragGestureRecognizerBridge() {
     constructors: {
     },
     getters: {
-      'onStart': (visitor, target) => D4.validateTarget<$flutter_20.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').onStart,
       'debugOwner': (visitor, target) => D4.validateTarget<$flutter_20.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').debugOwner,
       'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_20.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').gestureSettings,
       'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_20.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').supportedDevices,
       'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_20.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').allowedButtonsFilter,
       'debugDescription': (visitor, target) => D4.validateTarget<$flutter_20.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').debugDescription,
+      'onStart': (visitor, target) => D4.validateTarget<$flutter_20.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').onStart,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_20.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_20.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
       'onStart': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer').onStart = value as $flutter_20.GestureMultiDragStartCallback?,
     },
@@ -6003,11 +8985,6 @@ BridgedClass _createMultiDragGestureRecognizerBridge() {
         t.rejectGesture(pointer);
         return null;
       },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer');
-        (t as dynamic).dispose();
-        return null;
-      },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
@@ -6022,11 +8999,9 @@ BridgedClass _createMultiDragGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -6062,30 +9037,39 @@ BridgedClass _createMultiDragGestureRecognizerBridge() {
         final t = D4.validateTarget<$flutter_20.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer');
         return t.debugDescribeChildren();
       },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.MultiDragGestureRecognizer>(target, 'MultiDragGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
     },
     methodSignatures: {
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
     getterSignatures: {
-      'onStart': 'GestureMultiDragStartCallback? get onStart',
       'debugOwner': 'Object? get debugOwner',
       'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
       'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
       'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
       'debugDescription': 'String get debugDescription',
+      'onStart': 'GestureMultiDragStartCallback? get onStart',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
       'onStart': 'set onStart(dynamic value)',
     },
   );
@@ -6108,14 +9092,18 @@ BridgedClass _createImmediateMultiDragGestureRecognizerBridge() {
       },
     },
     getters: {
-      'onStart': (visitor, target) => D4.validateTarget<$flutter_20.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').onStart,
       'debugOwner': (visitor, target) => D4.validateTarget<$flutter_20.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').debugOwner,
       'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_20.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').gestureSettings,
       'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_20.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').supportedDevices,
       'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_20.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').allowedButtonsFilter,
       'debugDescription': (visitor, target) => D4.validateTarget<$flutter_20.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').debugDescription,
+      'onStart': (visitor, target) => D4.validateTarget<$flutter_20.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').onStart,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_20.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_20.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
       'onStart': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer').onStart = value as $flutter_20.GestureMultiDragStartCallback?,
     },
@@ -6134,11 +9122,6 @@ BridgedClass _createImmediateMultiDragGestureRecognizerBridge() {
         t.rejectGesture(pointer);
         return null;
       },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer');
-        (t as dynamic).dispose();
-        return null;
-      },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
@@ -6153,11 +9136,9 @@ BridgedClass _createImmediateMultiDragGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -6193,6 +9174,13 @@ BridgedClass _createImmediateMultiDragGestureRecognizerBridge() {
         final t = D4.validateTarget<$flutter_20.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer');
         return t.debugDescribeChildren();
       },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
       'addAllowedPointer': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.ImmediateMultiDragGestureRecognizer>(target, 'ImmediateMultiDragGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addAllowedPointer');
@@ -6207,27 +9195,29 @@ BridgedClass _createImmediateMultiDragGestureRecognizerBridge() {
     methodSignatures: {
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
       'addAllowedPointer': 'void addAllowedPointer(PointerDownEvent event)',
     },
     getterSignatures: {
-      'onStart': 'Drag? Function(Offset)? get onStart',
       'debugOwner': 'Object? get debugOwner',
       'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
       'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
       'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
       'debugDescription': 'String get debugDescription',
+      'onStart': 'Drag? Function(Offset)? get onStart',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
       'onStart': 'set onStart(dynamic value)',
     },
   );
@@ -6250,14 +9240,18 @@ BridgedClass _createHorizontalMultiDragGestureRecognizerBridge() {
       },
     },
     getters: {
-      'onStart': (visitor, target) => D4.validateTarget<$flutter_20.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').onStart,
       'debugOwner': (visitor, target) => D4.validateTarget<$flutter_20.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').debugOwner,
       'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_20.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').gestureSettings,
       'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_20.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').supportedDevices,
       'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_20.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').allowedButtonsFilter,
       'debugDescription': (visitor, target) => D4.validateTarget<$flutter_20.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').debugDescription,
+      'onStart': (visitor, target) => D4.validateTarget<$flutter_20.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').onStart,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_20.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_20.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
       'onStart': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer').onStart = value as $flutter_20.GestureMultiDragStartCallback?,
     },
@@ -6276,11 +9270,6 @@ BridgedClass _createHorizontalMultiDragGestureRecognizerBridge() {
         t.rejectGesture(pointer);
         return null;
       },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer');
-        (t as dynamic).dispose();
-        return null;
-      },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
@@ -6295,11 +9284,9 @@ BridgedClass _createHorizontalMultiDragGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -6335,6 +9322,13 @@ BridgedClass _createHorizontalMultiDragGestureRecognizerBridge() {
         final t = D4.validateTarget<$flutter_20.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer');
         return t.debugDescribeChildren();
       },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
       'addAllowedPointer': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.HorizontalMultiDragGestureRecognizer>(target, 'HorizontalMultiDragGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addAllowedPointer');
@@ -6349,27 +9343,29 @@ BridgedClass _createHorizontalMultiDragGestureRecognizerBridge() {
     methodSignatures: {
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
       'addAllowedPointer': 'void addAllowedPointer(PointerDownEvent event)',
     },
     getterSignatures: {
-      'onStart': 'Drag? Function(Offset)? get onStart',
       'debugOwner': 'Object? get debugOwner',
       'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
       'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
       'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
       'debugDescription': 'String get debugDescription',
+      'onStart': 'Drag? Function(Offset)? get onStart',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
       'onStart': 'set onStart(dynamic value)',
     },
   );
@@ -6392,14 +9388,18 @@ BridgedClass _createVerticalMultiDragGestureRecognizerBridge() {
       },
     },
     getters: {
-      'onStart': (visitor, target) => D4.validateTarget<$flutter_20.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').onStart,
       'debugOwner': (visitor, target) => D4.validateTarget<$flutter_20.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').debugOwner,
       'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_20.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').gestureSettings,
       'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_20.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').supportedDevices,
       'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_20.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').allowedButtonsFilter,
       'debugDescription': (visitor, target) => D4.validateTarget<$flutter_20.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').debugDescription,
+      'onStart': (visitor, target) => D4.validateTarget<$flutter_20.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').onStart,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_20.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_20.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
       'onStart': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer').onStart = value as $flutter_20.GestureMultiDragStartCallback?,
     },
@@ -6418,11 +9418,6 @@ BridgedClass _createVerticalMultiDragGestureRecognizerBridge() {
         t.rejectGesture(pointer);
         return null;
       },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer');
-        (t as dynamic).dispose();
-        return null;
-      },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
@@ -6437,11 +9432,9 @@ BridgedClass _createVerticalMultiDragGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -6477,6 +9470,13 @@ BridgedClass _createVerticalMultiDragGestureRecognizerBridge() {
         final t = D4.validateTarget<$flutter_20.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer');
         return t.debugDescribeChildren();
       },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
       'addAllowedPointer': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.VerticalMultiDragGestureRecognizer>(target, 'VerticalMultiDragGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addAllowedPointer');
@@ -6491,27 +9491,29 @@ BridgedClass _createVerticalMultiDragGestureRecognizerBridge() {
     methodSignatures: {
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
       'addAllowedPointer': 'void addAllowedPointer(PointerDownEvent event)',
     },
     getterSignatures: {
-      'onStart': 'Drag? Function(Offset)? get onStart',
       'debugOwner': 'Object? get debugOwner',
       'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
       'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
       'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
       'debugDescription': 'String get debugDescription',
+      'onStart': 'Drag? Function(Offset)? get onStart',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
       'onStart': 'set onStart(dynamic value)',
     },
   );
@@ -6541,15 +9543,19 @@ BridgedClass _createDelayedMultiDragGestureRecognizerBridge() {
       },
     },
     getters: {
-      'onStart': (visitor, target) => D4.validateTarget<$flutter_20.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').onStart,
       'debugOwner': (visitor, target) => D4.validateTarget<$flutter_20.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').debugOwner,
       'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_20.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').gestureSettings,
       'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_20.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').supportedDevices,
       'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_20.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').allowedButtonsFilter,
       'debugDescription': (visitor, target) => D4.validateTarget<$flutter_20.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').debugDescription,
+      'onStart': (visitor, target) => D4.validateTarget<$flutter_20.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').onStart,
       'delay': (visitor, target) => D4.validateTarget<$flutter_20.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').delay,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_20.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_20.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
       'onStart': (visitor, target, value) => 
         D4.validateTarget<$flutter_20.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer').onStart = value as $flutter_20.GestureMultiDragStartCallback?,
     },
@@ -6568,11 +9574,6 @@ BridgedClass _createDelayedMultiDragGestureRecognizerBridge() {
         t.rejectGesture(pointer);
         return null;
       },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_20.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer');
-        (t as dynamic).dispose();
-        return null;
-      },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
@@ -6587,11 +9588,9 @@ BridgedClass _createDelayedMultiDragGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -6627,6 +9626,13 @@ BridgedClass _createDelayedMultiDragGestureRecognizerBridge() {
         final t = D4.validateTarget<$flutter_20.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer');
         return t.debugDescribeChildren();
       },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
       'addAllowedPointer': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.DelayedMultiDragGestureRecognizer>(target, 'DelayedMultiDragGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addAllowedPointer');
@@ -6641,28 +9647,30 @@ BridgedClass _createDelayedMultiDragGestureRecognizerBridge() {
     methodSignatures: {
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
       'addAllowedPointer': 'void addAllowedPointer(PointerDownEvent event)',
     },
     getterSignatures: {
-      'onStart': 'Drag? Function(Offset)? get onStart',
       'debugOwner': 'Object? get debugOwner',
       'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
       'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
       'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
       'debugDescription': 'String get debugDescription',
+      'onStart': 'Drag? Function(Offset)? get onStart',
       'delay': 'Duration get delay',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
       'onStart': 'set onStart(dynamic value)',
     },
   );
@@ -6777,6 +9785,521 @@ BridgedClass _createTapUpDetailsBridge() {
 }
 
 // =============================================================================
+// TapMoveDetails Bridge
+// =============================================================================
+
+BridgedClass _createTapMoveDetailsBridge() {
+  return BridgedClass(
+    nativeType: $flutter_27.TapMoveDetails,
+    name: 'TapMoveDetails',
+    constructors: {
+      '': (visitor, positional, named) {
+        final kind = D4.getRequiredNamedArg<PointerDeviceKind>(named, 'kind', 'TapMoveDetails');
+        final globalPosition = D4.getNamedArgWithDefault<Offset>(named, 'globalPosition', $dart_ui.Offset.zero);
+        final delta = D4.getNamedArgWithDefault<Offset>(named, 'delta', $dart_ui.Offset.zero);
+        final localPosition = D4.getOptionalNamedArg<Offset?>(named, 'localPosition');
+        return $flutter_27.TapMoveDetails(kind: kind, globalPosition: globalPosition, delta: delta, localPosition: localPosition);
+      },
+    },
+    getters: {
+      'globalPosition': (visitor, target) => D4.validateTarget<$flutter_27.TapMoveDetails>(target, 'TapMoveDetails').globalPosition,
+      'localPosition': (visitor, target) => D4.validateTarget<$flutter_27.TapMoveDetails>(target, 'TapMoveDetails').localPosition,
+      'kind': (visitor, target) => D4.validateTarget<$flutter_27.TapMoveDetails>(target, 'TapMoveDetails').kind,
+      'delta': (visitor, target) => D4.validateTarget<$flutter_27.TapMoveDetails>(target, 'TapMoveDetails').delta,
+    },
+    constructorSignatures: {
+      '': 'TapMoveDetails({required PointerDeviceKind kind, Offset globalPosition = Offset.zero, Offset delta = Offset.zero, Offset? localPosition})',
+    },
+    getterSignatures: {
+      'globalPosition': 'Offset get globalPosition',
+      'localPosition': 'Offset get localPosition',
+      'kind': 'PointerDeviceKind get kind',
+      'delta': 'Offset get delta',
+    },
+  );
+}
+
+// =============================================================================
+// BaseTapGestureRecognizer Bridge
+// =============================================================================
+
+BridgedClass _createBaseTapGestureRecognizerBridge() {
+  return BridgedClass(
+    nativeType: $flutter_27.BaseTapGestureRecognizer,
+    name: 'BaseTapGestureRecognizer',
+    constructors: {
+    },
+    getters: {
+      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').debugOwner,
+      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').gestureSettings,
+      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').supportedDevices,
+      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').debugDescription,
+      'team': (visitor, target) => D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').team,
+      'deadline': (visitor, target) => D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').deadline,
+      'preAcceptSlopTolerance': (visitor, target) => D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').preAcceptSlopTolerance,
+      'postAcceptSlopTolerance': (visitor, target) => D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').postAcceptSlopTolerance,
+      'state': (visitor, target) => D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').state,
+      'primaryPointer': (visitor, target) => D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').primaryPointer,
+      'initialPosition': (visitor, target) => D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').initialPosition,
+    },
+    setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+      'team': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer').team = value as dynamic,
+    },
+    methods: {
+      'acceptGesture': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'acceptGesture');
+        final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'acceptGesture');
+        t.acceptGesture(pointer);
+        return null;
+      },
+      'rejectGesture': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'rejectGesture');
+        final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'rejectGesture');
+        t.rejectGesture(pointer);
+        return null;
+      },
+      'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
+        final event = D4.getRequiredArg<$flutter_12.PointerPanZoomStartEvent>(positional, 0, 'event', 'addPointerPanZoom');
+        t.addPointerPanZoom(event);
+        return null;
+      },
+      'addPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'addPointer');
+        final event = D4.getRequiredArg<$flutter_12.PointerDownEvent>(positional, 0, 'event', 'addPointer');
+        t.addPointer(event);
+        return null;
+      },
+      'dispose': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
+        (t as dynamic).dispose();
+        return null;
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toStringShallow': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
+        final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        return t.toStringShallow(joiner: joiner, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
+        return t.toStringShort();
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
+        return t.debugDescribeChildren();
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'addAllowedPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'addAllowedPointer');
+        final event = D4.getRequiredArg<$flutter_12.PointerDownEvent>(positional, 0, 'event', 'addAllowedPointer');
+        t.addAllowedPointer(event);
+        return null;
+      },
+      'handleNonAllowedPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'handleNonAllowedPointer');
+        final event = D4.getRequiredArg<$flutter_12.PointerDownEvent>(positional, 0, 'event', 'handleNonAllowedPointer');
+        t.handleNonAllowedPointer(event);
+        return null;
+      },
+      'handleEvent': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'handleEvent');
+        final event = D4.getRequiredArg<$flutter_12.PointerEvent>(positional, 0, 'event', 'handleEvent');
+        t.handleEvent(event);
+        return null;
+      },
+      'didStopTrackingLastPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.BaseTapGestureRecognizer>(target, 'BaseTapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'didStopTrackingLastPointer');
+        final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'didStopTrackingLastPointer');
+        t.didStopTrackingLastPointer(pointer);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'acceptGesture': 'void acceptGesture(int pointer)',
+      'rejectGesture': 'void rejectGesture(int pointer)',
+      'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
+      'addPointer': 'void addPointer(PointerDownEvent event)',
+      'dispose': 'void dispose()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'toStringShort': 'String toStringShort()',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'addAllowedPointer': 'void addAllowedPointer(PointerDownEvent event)',
+      'handleNonAllowedPointer': 'void handleNonAllowedPointer(PointerDownEvent event)',
+      'handleEvent': 'void handleEvent(PointerEvent event)',
+      'didStopTrackingLastPointer': 'void didStopTrackingLastPointer(int pointer)',
+    },
+    getterSignatures: {
+      'debugOwner': 'Object? get debugOwner',
+      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
+      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
+      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+      'team': 'GestureArenaTeam? get team',
+      'deadline': 'Duration? get deadline',
+      'preAcceptSlopTolerance': 'double? get preAcceptSlopTolerance',
+      'postAcceptSlopTolerance': 'double? get postAcceptSlopTolerance',
+      'state': 'GestureRecognizerState get state',
+      'primaryPointer': 'int? get primaryPointer',
+      'initialPosition': 'OffsetPair? get initialPosition',
+    },
+    setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'team': 'set team(GestureArenaTeam? value)',
+    },
+  );
+}
+
+// =============================================================================
+// TapGestureRecognizer Bridge
+// =============================================================================
+
+BridgedClass _createTapGestureRecognizerBridge() {
+  return BridgedClass(
+    nativeType: $flutter_27.TapGestureRecognizer,
+    name: 'TapGestureRecognizer',
+    constructors: {
+      '': (visitor, positional, named) {
+        final debugOwner = D4.getOptionalNamedArg<Object?>(named, 'debugOwner');
+        final supportedDevices = D4.getOptionalNamedArg<Set<PointerDeviceKind>?>(named, 'supportedDevices');
+        if (!named.containsKey('allowedButtonsFilter') && !named.containsKey('preAcceptSlopTolerance') && !named.containsKey('postAcceptSlopTolerance')) {
+          return $flutter_27.TapGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices);
+        }
+        if (named.containsKey('allowedButtonsFilter') && !named.containsKey('preAcceptSlopTolerance') && !named.containsKey('postAcceptSlopTolerance')) {
+          final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
+          final allowedButtonsFilter = (int p0) { return D4.callInterpreterCallback(visitor, allowedButtonsFilterRaw, [p0]) as bool; };
+          return $flutter_27.TapGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilter);
+        }
+        if (!named.containsKey('allowedButtonsFilter') && named.containsKey('preAcceptSlopTolerance') && !named.containsKey('postAcceptSlopTolerance')) {
+          final preAcceptSlopTolerance = D4.getRequiredNamedArg<double?>(named, 'preAcceptSlopTolerance', 'TapGestureRecognizer');
+          return $flutter_27.TapGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, preAcceptSlopTolerance: preAcceptSlopTolerance);
+        }
+        if (named.containsKey('allowedButtonsFilter') && named.containsKey('preAcceptSlopTolerance') && !named.containsKey('postAcceptSlopTolerance')) {
+          final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
+          final allowedButtonsFilter = (int p0) { return D4.callInterpreterCallback(visitor, allowedButtonsFilterRaw, [p0]) as bool; };
+          final preAcceptSlopTolerance = D4.getRequiredNamedArg<double?>(named, 'preAcceptSlopTolerance', 'TapGestureRecognizer');
+          return $flutter_27.TapGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilter, preAcceptSlopTolerance: preAcceptSlopTolerance);
+        }
+        if (!named.containsKey('allowedButtonsFilter') && !named.containsKey('preAcceptSlopTolerance') && named.containsKey('postAcceptSlopTolerance')) {
+          final postAcceptSlopTolerance = D4.getRequiredNamedArg<double?>(named, 'postAcceptSlopTolerance', 'TapGestureRecognizer');
+          return $flutter_27.TapGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, postAcceptSlopTolerance: postAcceptSlopTolerance);
+        }
+        if (named.containsKey('allowedButtonsFilter') && !named.containsKey('preAcceptSlopTolerance') && named.containsKey('postAcceptSlopTolerance')) {
+          final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
+          final allowedButtonsFilter = (int p0) { return D4.callInterpreterCallback(visitor, allowedButtonsFilterRaw, [p0]) as bool; };
+          final postAcceptSlopTolerance = D4.getRequiredNamedArg<double?>(named, 'postAcceptSlopTolerance', 'TapGestureRecognizer');
+          return $flutter_27.TapGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilter, postAcceptSlopTolerance: postAcceptSlopTolerance);
+        }
+        if (!named.containsKey('allowedButtonsFilter') && named.containsKey('preAcceptSlopTolerance') && named.containsKey('postAcceptSlopTolerance')) {
+          final preAcceptSlopTolerance = D4.getRequiredNamedArg<double?>(named, 'preAcceptSlopTolerance', 'TapGestureRecognizer');
+          final postAcceptSlopTolerance = D4.getRequiredNamedArg<double?>(named, 'postAcceptSlopTolerance', 'TapGestureRecognizer');
+          return $flutter_27.TapGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, preAcceptSlopTolerance: preAcceptSlopTolerance, postAcceptSlopTolerance: postAcceptSlopTolerance);
+        }
+        if (named.containsKey('allowedButtonsFilter') && named.containsKey('preAcceptSlopTolerance') && named.containsKey('postAcceptSlopTolerance')) {
+          final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
+          final allowedButtonsFilter = (int p0) { return D4.callInterpreterCallback(visitor, allowedButtonsFilterRaw, [p0]) as bool; };
+          final preAcceptSlopTolerance = D4.getRequiredNamedArg<double?>(named, 'preAcceptSlopTolerance', 'TapGestureRecognizer');
+          final postAcceptSlopTolerance = D4.getRequiredNamedArg<double?>(named, 'postAcceptSlopTolerance', 'TapGestureRecognizer');
+          return $flutter_27.TapGestureRecognizer(debugOwner: debugOwner, supportedDevices: supportedDevices, allowedButtonsFilter: allowedButtonsFilter, preAcceptSlopTolerance: preAcceptSlopTolerance, postAcceptSlopTolerance: postAcceptSlopTolerance);
+        }
+        throw StateError('Unreachable: all named parameter combinations should be covered');
+      },
+    },
+    getters: {
+      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').debugOwner,
+      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').gestureSettings,
+      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').supportedDevices,
+      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').debugDescription,
+      'team': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').team,
+      'deadline': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').deadline,
+      'preAcceptSlopTolerance': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').preAcceptSlopTolerance,
+      'postAcceptSlopTolerance': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').postAcceptSlopTolerance,
+      'state': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').state,
+      'primaryPointer': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').primaryPointer,
+      'initialPosition': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').initialPosition,
+      'onTapDown': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTapDown,
+      'onTapUp': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTapUp,
+      'onTap': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTap,
+      'onTapMove': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTapMove,
+      'onTapCancel': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTapCancel,
+      'onSecondaryTap': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onSecondaryTap,
+      'onSecondaryTapDown': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onSecondaryTapDown,
+      'onSecondaryTapUp': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onSecondaryTapUp,
+      'onSecondaryTapCancel': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onSecondaryTapCancel,
+      'onTertiaryTapDown': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTertiaryTapDown,
+      'onTertiaryTapUp': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTertiaryTapUp,
+      'onTertiaryTapCancel': (visitor, target) => D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTertiaryTapCancel,
+    },
+    setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+      'team': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').team = value as dynamic,
+      'onTapDown': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTapDown = value as dynamic,
+      'onTapUp': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTapUp = value as dynamic,
+      'onTap': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTap = value as dynamic,
+      'onTapMove': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTapMove = value as $flutter_27.GestureTapMoveCallback?,
+      'onTapCancel': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTapCancel = value as dynamic,
+      'onSecondaryTap': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onSecondaryTap = value as dynamic,
+      'onSecondaryTapDown': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onSecondaryTapDown = value as dynamic,
+      'onSecondaryTapUp': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onSecondaryTapUp = value as dynamic,
+      'onSecondaryTapCancel': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onSecondaryTapCancel = value as dynamic,
+      'onTertiaryTapDown': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTertiaryTapDown = value as dynamic,
+      'onTertiaryTapUp': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTertiaryTapUp = value as dynamic,
+      'onTertiaryTapCancel': (visitor, target, value) => 
+        D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer').onTertiaryTapCancel = value as dynamic,
+    },
+    methods: {
+      'acceptGesture': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'acceptGesture');
+        final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'acceptGesture');
+        t.acceptGesture(pointer);
+        return null;
+      },
+      'rejectGesture': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'rejectGesture');
+        final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'rejectGesture');
+        t.rejectGesture(pointer);
+        return null;
+      },
+      'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
+        final event = D4.getRequiredArg<$flutter_12.PointerPanZoomStartEvent>(positional, 0, 'event', 'addPointerPanZoom');
+        t.addPointerPanZoom(event);
+        return null;
+      },
+      'addPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'addPointer');
+        final event = D4.getRequiredArg<$flutter_12.PointerDownEvent>(positional, 0, 'event', 'addPointer');
+        t.addPointer(event);
+        return null;
+      },
+      'dispose': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        (t as dynamic).dispose();
+        return null;
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toStringShallow': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        return t.toStringShallow(joiner: joiner, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_3.DiagnosticLevel>(named, 'minLevel', $flutter_3.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        return t.toStringShort();
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_3.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        return t.debugDescribeChildren();
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'addAllowedPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'addAllowedPointer');
+        final event = D4.getRequiredArg<$flutter_12.PointerDownEvent>(positional, 0, 'event', 'addAllowedPointer');
+        t.addAllowedPointer(event);
+        return null;
+      },
+      'handleNonAllowedPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'handleNonAllowedPointer');
+        final event = D4.getRequiredArg<$flutter_12.PointerDownEvent>(positional, 0, 'event', 'handleNonAllowedPointer');
+        t.handleNonAllowedPointer(event);
+        return null;
+      },
+      'handleEvent': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'handleEvent');
+        final event = D4.getRequiredArg<$flutter_12.PointerEvent>(positional, 0, 'event', 'handleEvent');
+        t.handleEvent(event);
+        return null;
+      },
+      'didStopTrackingLastPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'didStopTrackingLastPointer');
+        final pointer = D4.getRequiredArg<int>(positional, 0, 'pointer', 'didStopTrackingLastPointer');
+        t.didStopTrackingLastPointer(pointer);
+        return null;
+      },
+      'handlePrimaryPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'handlePrimaryPointer');
+        final event = D4.getRequiredArg<$flutter_12.PointerEvent>(positional, 0, 'event', 'handlePrimaryPointer');
+        t.handlePrimaryPointer(event);
+        return null;
+      },
+      'resolve': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'resolve');
+        final disposition = D4.getRequiredArg<$flutter_4.GestureDisposition>(positional, 0, 'disposition', 'resolve');
+        t.resolve(disposition);
+        return null;
+      },
+      'didExceedDeadline': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.TapGestureRecognizer>(target, 'TapGestureRecognizer');
+        t.didExceedDeadline();
+        return null;
+      },
+    },
+    constructorSignatures: {
+      '': 'TapGestureRecognizer({Object? debugOwner, Set<PointerDeviceKind>? supportedDevices, bool Function(int) allowedButtonsFilter = _defaultButtonAcceptBehavior, double? preAcceptSlopTolerance = _unsetTouchSlop, double? postAcceptSlopTolerance = _unsetTouchSlop})',
+    },
+    methodSignatures: {
+      'acceptGesture': 'void acceptGesture(int pointer)',
+      'rejectGesture': 'void rejectGesture(int pointer)',
+      'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
+      'addPointer': 'void addPointer(PointerDownEvent event)',
+      'dispose': 'void dispose()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'toStringShort': 'String toStringShort()',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'addAllowedPointer': 'void addAllowedPointer(PointerDownEvent event)',
+      'handleNonAllowedPointer': 'void handleNonAllowedPointer(PointerDownEvent event)',
+      'handleEvent': 'void handleEvent(PointerEvent event)',
+      'didStopTrackingLastPointer': 'void didStopTrackingLastPointer(int pointer)',
+      'handlePrimaryPointer': 'void handlePrimaryPointer(PointerEvent event)',
+      'resolve': 'void resolve(GestureDisposition disposition)',
+      'didExceedDeadline': 'void didExceedDeadline()',
+    },
+    getterSignatures: {
+      'debugOwner': 'Object? get debugOwner',
+      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
+      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
+      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+      'team': 'GestureArenaTeam? get team',
+      'deadline': 'Duration? get deadline',
+      'preAcceptSlopTolerance': 'double? get preAcceptSlopTolerance',
+      'postAcceptSlopTolerance': 'double? get postAcceptSlopTolerance',
+      'state': 'GestureRecognizerState get state',
+      'primaryPointer': 'int? get primaryPointer',
+      'initialPosition': 'OffsetPair? get initialPosition',
+      'onTapDown': 'GestureTapDownCallback? get onTapDown',
+      'onTapUp': 'GestureTapUpCallback? get onTapUp',
+      'onTap': 'GestureTapCallback? get onTap',
+      'onTapMove': 'GestureTapMoveCallback? get onTapMove',
+      'onTapCancel': 'GestureTapCancelCallback? get onTapCancel',
+      'onSecondaryTap': 'GestureTapCallback? get onSecondaryTap',
+      'onSecondaryTapDown': 'GestureTapDownCallback? get onSecondaryTapDown',
+      'onSecondaryTapUp': 'GestureTapUpCallback? get onSecondaryTapUp',
+      'onSecondaryTapCancel': 'GestureTapCancelCallback? get onSecondaryTapCancel',
+      'onTertiaryTapDown': 'GestureTapDownCallback? get onTertiaryTapDown',
+      'onTertiaryTapUp': 'GestureTapUpCallback? get onTertiaryTapUp',
+      'onTertiaryTapCancel': 'GestureTapCancelCallback? get onTertiaryTapCancel',
+    },
+    setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'team': 'set team(GestureArenaTeam? value)',
+      'onTapDown': 'set onTapDown(dynamic value)',
+      'onTapUp': 'set onTapUp(dynamic value)',
+      'onTap': 'set onTap(dynamic value)',
+      'onTapMove': 'set onTapMove(dynamic value)',
+      'onTapCancel': 'set onTapCancel(dynamic value)',
+      'onSecondaryTap': 'set onSecondaryTap(dynamic value)',
+      'onSecondaryTapDown': 'set onSecondaryTapDown(dynamic value)',
+      'onSecondaryTapUp': 'set onSecondaryTapUp(dynamic value)',
+      'onSecondaryTapCancel': 'set onSecondaryTapCancel(dynamic value)',
+      'onTertiaryTapDown': 'set onTertiaryTapDown(dynamic value)',
+      'onTertiaryTapUp': 'set onTertiaryTapUp(dynamic value)',
+      'onTertiaryTapCancel': 'set onTertiaryTapCancel(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
 // DoubleTapGestureRecognizer Bridge
 // =============================================================================
 
@@ -6800,16 +10323,20 @@ BridgedClass _createDoubleTapGestureRecognizerBridge() {
       },
     },
     getters: {
-      'onDoubleTapDown': (visitor, target) => D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').onDoubleTapDown,
-      'onDoubleTap': (visitor, target) => D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').onDoubleTap,
-      'onDoubleTapCancel': (visitor, target) => D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').onDoubleTapCancel,
-      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').debugDescription,
       'debugOwner': (visitor, target) => D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').debugOwner,
       'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').gestureSettings,
       'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').supportedDevices,
       'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').debugDescription,
+      'onDoubleTapDown': (visitor, target) => D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').onDoubleTapDown,
+      'onDoubleTap': (visitor, target) => D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').onDoubleTap,
+      'onDoubleTapCancel': (visitor, target) => D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').onDoubleTapCancel,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
       'onDoubleTapDown': (visitor, target, value) => 
         D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer').onDoubleTapDown = value as dynamic,
       'onDoubleTap': (visitor, target, value) => 
@@ -6832,11 +10359,6 @@ BridgedClass _createDoubleTapGestureRecognizerBridge() {
         t.rejectGesture(pointer);
         return null;
       },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer');
-        (t as dynamic).dispose();
-        return null;
-      },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
@@ -6851,11 +10373,9 @@ BridgedClass _createDoubleTapGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -6891,6 +10411,13 @@ BridgedClass _createDoubleTapGestureRecognizerBridge() {
         final t = D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer');
         return t.debugDescribeChildren();
       },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.DoubleTapGestureRecognizer>(target, 'DoubleTapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
     },
     constructorSignatures: {
       '': 'DoubleTapGestureRecognizer({Object? debugOwner, Set<PointerDeviceKind>? supportedDevices, bool Function(int) allowedButtonsFilter = _defaultButtonAcceptBehavior})',
@@ -6898,28 +10425,30 @@ BridgedClass _createDoubleTapGestureRecognizerBridge() {
     methodSignatures: {
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
     getterSignatures: {
-      'onDoubleTapDown': 'GestureTapDownCallback? get onDoubleTapDown',
-      'onDoubleTap': 'GestureDoubleTapCallback? get onDoubleTap',
-      'onDoubleTapCancel': 'GestureTapCancelCallback? get onDoubleTapCancel',
-      'debugDescription': 'String get debugDescription',
       'debugOwner': 'Object? get debugOwner',
       'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
       'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
       'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+      'onDoubleTapDown': 'GestureTapDownCallback? get onDoubleTapDown',
+      'onDoubleTap': 'GestureDoubleTapCallback? get onDoubleTap',
+      'onDoubleTapCancel': 'GestureTapCancelCallback? get onDoubleTapCancel',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
       'onDoubleTapDown': 'set onDoubleTapDown(dynamic value)',
       'onDoubleTap': 'set onDoubleTap(dynamic value)',
       'onDoubleTapCancel': 'set onDoubleTapCancel(dynamic value)',
@@ -6952,19 +10481,23 @@ BridgedClass _createMultiTapGestureRecognizerBridge() {
       },
     },
     getters: {
+      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').debugOwner,
+      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').gestureSettings,
+      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').supportedDevices,
+      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').debugDescription,
       'onTapDown': (visitor, target) => D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').onTapDown,
       'onTapUp': (visitor, target) => D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').onTapUp,
       'onTap': (visitor, target) => D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').onTap,
       'onTapCancel': (visitor, target) => D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').onTapCancel,
       'longTapDelay': (visitor, target) => D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').longTapDelay,
       'onLongTapDown': (visitor, target) => D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').onLongTapDown,
-      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').debugDescription,
-      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').debugOwner,
-      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').gestureSettings,
-      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').supportedDevices,
-      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').allowedButtonsFilter,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
       'onTapDown': (visitor, target, value) => 
         D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer').onTapDown = value as $flutter_21.GestureMultiTapDownCallback?,
       'onTapUp': (visitor, target, value) => 
@@ -6993,11 +10526,6 @@ BridgedClass _createMultiTapGestureRecognizerBridge() {
         t.rejectGesture(pointer);
         return null;
       },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer');
-        (t as dynamic).dispose();
-        return null;
-      },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
@@ -7012,11 +10540,9 @@ BridgedClass _createMultiTapGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -7052,6 +10578,13 @@ BridgedClass _createMultiTapGestureRecognizerBridge() {
         final t = D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer');
         return t.debugDescribeChildren();
       },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.MultiTapGestureRecognizer>(target, 'MultiTapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
     },
     constructorSignatures: {
       '': 'MultiTapGestureRecognizer({Duration longTapDelay = Duration.zero, Object? debugOwner, Set<PointerDeviceKind>? supportedDevices, bool Function(int) allowedButtonsFilter = _defaultButtonAcceptBehavior})',
@@ -7059,31 +10592,33 @@ BridgedClass _createMultiTapGestureRecognizerBridge() {
     methodSignatures: {
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
     getterSignatures: {
+      'debugOwner': 'Object? get debugOwner',
+      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
+      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
+      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
       'onTapDown': 'GestureMultiTapDownCallback? get onTapDown',
       'onTapUp': 'GestureMultiTapUpCallback? get onTapUp',
       'onTap': 'GestureMultiTapCallback? get onTap',
       'onTapCancel': 'GestureMultiTapCancelCallback? get onTapCancel',
       'longTapDelay': 'Duration get longTapDelay',
       'onLongTapDown': 'GestureMultiTapDownCallback? get onLongTapDown',
-      'debugDescription': 'String get debugDescription',
-      'debugOwner': 'Object? get debugOwner',
-      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
-      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
-      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
       'onTapDown': 'set onTapDown(dynamic value)',
       'onTapUp': 'set onTapUp(dynamic value)',
       'onTap': 'set onTap(dynamic value)',
@@ -7283,17 +10818,21 @@ BridgedClass _createSerialTapGestureRecognizerBridge() {
       },
     },
     getters: {
-      'onSerialTapDown': (visitor, target) => D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').onSerialTapDown,
-      'onSerialTapCancel': (visitor, target) => D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').onSerialTapCancel,
-      'onSerialTapUp': (visitor, target) => D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').onSerialTapUp,
-      'isTrackingPointer': (visitor, target) => D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').isTrackingPointer,
-      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').debugDescription,
       'debugOwner': (visitor, target) => D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').debugOwner,
       'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').gestureSettings,
       'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').supportedDevices,
       'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').debugDescription,
+      'onSerialTapDown': (visitor, target) => D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').onSerialTapDown,
+      'onSerialTapCancel': (visitor, target) => D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').onSerialTapCancel,
+      'onSerialTapUp': (visitor, target) => D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').onSerialTapUp,
+      'isTrackingPointer': (visitor, target) => D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').isTrackingPointer,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
       'onSerialTapDown': (visitor, target, value) => 
         D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer').onSerialTapDown = value as $flutter_21.GestureSerialTapDownCallback?,
       'onSerialTapCancel': (visitor, target, value) => 
@@ -7316,11 +10855,6 @@ BridgedClass _createSerialTapGestureRecognizerBridge() {
         t.rejectGesture(pointer);
         return null;
       },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer');
-        (t as dynamic).dispose();
-        return null;
-      },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
@@ -7335,11 +10869,9 @@ BridgedClass _createSerialTapGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -7375,6 +10907,13 @@ BridgedClass _createSerialTapGestureRecognizerBridge() {
         final t = D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer');
         return t.debugDescribeChildren();
       },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.SerialTapGestureRecognizer>(target, 'SerialTapGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
     },
     constructorSignatures: {
       '': 'SerialTapGestureRecognizer({Object? debugOwner, Set<PointerDeviceKind>? supportedDevices, bool Function(int) allowedButtonsFilter = _defaultButtonAcceptBehavior})',
@@ -7382,29 +10921,31 @@ BridgedClass _createSerialTapGestureRecognizerBridge() {
     methodSignatures: {
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
     getterSignatures: {
-      'onSerialTapDown': 'GestureSerialTapDownCallback? get onSerialTapDown',
-      'onSerialTapCancel': 'GestureSerialTapCancelCallback? get onSerialTapCancel',
-      'onSerialTapUp': 'GestureSerialTapUpCallback? get onSerialTapUp',
-      'isTrackingPointer': 'bool get isTrackingPointer',
-      'debugDescription': 'String get debugDescription',
       'debugOwner': 'Object? get debugOwner',
       'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
       'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
       'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+      'onSerialTapDown': 'GestureSerialTapDownCallback? get onSerialTapDown',
+      'onSerialTapCancel': 'GestureSerialTapCancelCallback? get onSerialTapCancel',
+      'onSerialTapUp': 'GestureSerialTapUpCallback? get onSerialTapUp',
+      'isTrackingPointer': 'bool get isTrackingPointer',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
       'onSerialTapDown': 'set onSerialTapDown(dynamic value)',
       'onSerialTapCancel': 'set onSerialTapCancel(dynamic value)',
       'onSerialTapUp': 'set onSerialTapUp(dynamic value)',
@@ -7699,6 +11240,12 @@ BridgedClass _createScaleGestureRecognizerBridge() {
       },
     },
     getters: {
+      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').debugOwner,
+      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').gestureSettings,
+      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').supportedDevices,
+      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').debugDescription,
+      'team': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').team,
       'dragStartBehavior': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').dragStartBehavior,
       'onStart': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').onStart,
       'onUpdate': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').onUpdate,
@@ -7706,14 +11253,14 @@ BridgedClass _createScaleGestureRecognizerBridge() {
       'trackpadScrollCausesScale': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').trackpadScrollCausesScale,
       'trackpadScrollToScaleFactor': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').trackpadScrollToScaleFactor,
       'pointerCount': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').pointerCount,
-      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').debugDescription,
-      'team': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').team,
-      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').debugOwner,
-      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').gestureSettings,
-      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').supportedDevices,
-      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').allowedButtonsFilter,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+      'team': (visitor, target, value) => 
+        D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').team = value as dynamic,
       'dragStartBehavior': (visitor, target, value) => 
         D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer').dragStartBehavior = value as $flutter_24.DragStartBehavior,
       'onStart': (visitor, target, value) => 
@@ -7742,11 +11289,6 @@ BridgedClass _createScaleGestureRecognizerBridge() {
         t.rejectGesture(pointer);
         return null;
       },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer');
-        (t as dynamic).dispose();
-        return null;
-      },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
@@ -7761,11 +11303,9 @@ BridgedClass _createScaleGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -7801,6 +11341,13 @@ BridgedClass _createScaleGestureRecognizerBridge() {
         final t = D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer');
         return t.debugDescribeChildren();
       },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_26.ScaleGestureRecognizer>(target, 'ScaleGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
     },
     constructorSignatures: {
       '': 'ScaleGestureRecognizer({Object? debugOwner, Set<PointerDeviceKind>? supportedDevices, bool Function(int) allowedButtonsFilter = _defaultButtonAcceptBehavior, DragStartBehavior dragStartBehavior = DragStartBehavior.down, bool trackpadScrollCausesScale = false, Offset trackpadScrollToScaleFactor = kDefaultTrackpadScrollToScaleFactor})',
@@ -7808,18 +11355,24 @@ BridgedClass _createScaleGestureRecognizerBridge() {
     methodSignatures: {
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
     getterSignatures: {
+      'debugOwner': 'Object? get debugOwner',
+      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
+      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
+      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+      'team': 'GestureArenaTeam? get team',
       'dragStartBehavior': 'DragStartBehavior get dragStartBehavior',
       'onStart': 'GestureScaleStartCallback? get onStart',
       'onUpdate': 'GestureScaleUpdateCallback? get onUpdate',
@@ -7827,14 +11380,11 @@ BridgedClass _createScaleGestureRecognizerBridge() {
       'trackpadScrollCausesScale': 'bool get trackpadScrollCausesScale',
       'trackpadScrollToScaleFactor': 'Offset get trackpadScrollToScaleFactor',
       'pointerCount': 'int get pointerCount',
-      'debugDescription': 'String get debugDescription',
-      'team': 'GestureArenaTeam? get team',
-      'debugOwner': 'Object? get debugOwner',
-      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
-      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
-      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'team': 'set team(GestureArenaTeam? value)',
       'dragStartBehavior': 'set dragStartBehavior(dynamic value)',
       'onStart': 'set onStart(dynamic value)',
       'onUpdate': 'set onUpdate(dynamic value)',
@@ -8162,6 +11712,12 @@ BridgedClass _createBaseTapAndDragGestureRecognizerBridge() {
     constructors: {
     },
     getters: {
+      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').debugOwner,
+      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').gestureSettings,
+      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').supportedDevices,
+      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').debugDescription,
+      'team': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').team,
       'dragStartBehavior': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').dragStartBehavior,
       'dragUpdateThrottleFrequency': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').dragUpdateThrottleFrequency,
       'maxConsecutiveTap': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').maxConsecutiveTap,
@@ -8172,17 +11728,17 @@ BridgedClass _createBaseTapAndDragGestureRecognizerBridge() {
       'onDragUpdate': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onDragUpdate,
       'onDragEnd': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onDragEnd,
       'onCancel': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').onCancel,
-      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').debugDescription,
-      'team': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').team,
-      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').debugOwner,
-      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').gestureSettings,
-      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').supportedDevices,
-      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').allowedButtonsFilter,
       'currentDown': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').currentDown,
       'currentUp': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').currentUp,
       'consecutiveTapCount': (visitor, target) => D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').consecutiveTapCount,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+      'team': (visitor, target, value) => 
+        D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').team = value as dynamic,
       'dragStartBehavior': (visitor, target, value) => 
         D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer').dragStartBehavior = value as $flutter_24.DragStartBehavior,
       'dragUpdateThrottleFrequency': (visitor, target, value) => 
@@ -8223,11 +11779,6 @@ BridgedClass _createBaseTapAndDragGestureRecognizerBridge() {
         t.rejectGesture(pointer);
         return null;
       },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer');
-        (t as dynamic).dispose();
-        return null;
-      },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
@@ -8242,11 +11793,9 @@ BridgedClass _createBaseTapAndDragGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -8282,6 +11831,13 @@ BridgedClass _createBaseTapAndDragGestureRecognizerBridge() {
         final t = D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer');
         return t.debugDescribeChildren();
       },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
       'addAllowedPointer': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.BaseTapAndDragGestureRecognizer>(target, 'BaseTapAndDragGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addAllowedPointer');
@@ -8303,20 +11859,26 @@ BridgedClass _createBaseTapAndDragGestureRecognizerBridge() {
     methodSignatures: {
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
       'addAllowedPointer': 'void addAllowedPointer(PointerDownEvent event)',
       'handleEvent': 'void handleEvent(PointerEvent event)',
     },
     getterSignatures: {
+      'debugOwner': 'Object? get debugOwner',
+      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
+      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
+      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+      'team': 'GestureArenaTeam? get team',
       'dragStartBehavior': 'DragStartBehavior get dragStartBehavior',
       'dragUpdateThrottleFrequency': 'Duration? get dragUpdateThrottleFrequency',
       'maxConsecutiveTap': 'int? get maxConsecutiveTap',
@@ -8327,17 +11889,14 @@ BridgedClass _createBaseTapAndDragGestureRecognizerBridge() {
       'onDragUpdate': 'GestureTapDragUpdateCallback? get onDragUpdate',
       'onDragEnd': 'GestureTapDragEndCallback? get onDragEnd',
       'onCancel': 'GestureCancelCallback? get onCancel',
-      'debugDescription': 'String get debugDescription',
-      'team': 'GestureArenaTeam? get team',
-      'debugOwner': 'Object? get debugOwner',
-      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
-      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
-      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
       'currentDown': 'PointerDownEvent? get currentDown',
       'currentUp': 'PointerUpEvent? get currentUp',
       'consecutiveTapCount': 'int get consecutiveTapCount',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'team': 'set team(GestureArenaTeam? value)',
       'dragStartBehavior': 'set dragStartBehavior(dynamic value)',
       'dragUpdateThrottleFrequency': 'set dragUpdateThrottleFrequency(dynamic value)',
       'maxConsecutiveTap': 'set maxConsecutiveTap(dynamic value)',
@@ -8370,6 +11929,12 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
       },
     },
     getters: {
+      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').debugOwner,
+      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').gestureSettings,
+      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').supportedDevices,
+      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').debugDescription,
+      'team': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').team,
       'dragStartBehavior': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').dragStartBehavior,
       'dragUpdateThrottleFrequency': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').dragUpdateThrottleFrequency,
       'maxConsecutiveTap': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').maxConsecutiveTap,
@@ -8380,17 +11945,17 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
       'onDragUpdate': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onDragUpdate,
       'onDragEnd': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onDragEnd,
       'onCancel': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').onCancel,
-      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').debugDescription,
-      'team': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').team,
-      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').debugOwner,
-      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').gestureSettings,
-      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').supportedDevices,
-      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').allowedButtonsFilter,
       'currentDown': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').currentDown,
       'currentUp': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').currentUp,
       'consecutiveTapCount': (visitor, target) => D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').consecutiveTapCount,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+      'team': (visitor, target, value) => 
+        D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').team = value as dynamic,
       'dragStartBehavior': (visitor, target, value) => 
         D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer').dragStartBehavior = value as $flutter_24.DragStartBehavior,
       'dragUpdateThrottleFrequency': (visitor, target, value) => 
@@ -8431,11 +11996,6 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
         t.rejectGesture(pointer);
         return null;
       },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer');
-        (t as dynamic).dispose();
-        return null;
-      },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
@@ -8450,11 +12010,9 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -8489,6 +12047,13 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
       'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer');
         return t.debugDescribeChildren();
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
       },
       'addAllowedPointer': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.TapAndHorizontalDragGestureRecognizer>(target, 'TapAndHorizontalDragGestureRecognizer');
@@ -8531,16 +12096,16 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
     methodSignatures: {
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
       'addAllowedPointer': 'void addAllowedPointer(PointerDownEvent event)',
       'handleEvent': 'void handleEvent(PointerEvent event)',
       'isPointerAllowed': 'bool isPointerAllowed(PointerEvent event)',
@@ -8548,6 +12113,12 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
       'didStopTrackingLastPointer': 'void didStopTrackingLastPointer(int pointer)',
     },
     getterSignatures: {
+      'debugOwner': 'Object? get debugOwner',
+      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
+      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
+      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+      'team': 'GestureArenaTeam? get team',
       'dragStartBehavior': 'DragStartBehavior get dragStartBehavior',
       'dragUpdateThrottleFrequency': 'Duration? get dragUpdateThrottleFrequency',
       'maxConsecutiveTap': 'int? get maxConsecutiveTap',
@@ -8558,17 +12129,14 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
       'onDragUpdate': 'void Function(TapDragUpdateDetails)? get onDragUpdate',
       'onDragEnd': 'void Function(TapDragEndDetails)? get onDragEnd',
       'onCancel': 'void Function()? get onCancel',
-      'debugDescription': 'String get debugDescription',
-      'team': 'GestureArenaTeam? get team',
-      'debugOwner': 'Object? get debugOwner',
-      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
-      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
-      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
       'currentDown': 'PointerDownEvent? get currentDown',
       'currentUp': 'PointerUpEvent? get currentUp',
       'consecutiveTapCount': 'int get consecutiveTapCount',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'team': 'set team(GestureArenaTeam? value)',
       'dragStartBehavior': 'set dragStartBehavior(dynamic value)',
       'dragUpdateThrottleFrequency': 'set dragUpdateThrottleFrequency(dynamic value)',
       'maxConsecutiveTap': 'set maxConsecutiveTap(dynamic value)',
@@ -8601,6 +12169,12 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
       },
     },
     getters: {
+      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').debugOwner,
+      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').gestureSettings,
+      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').supportedDevices,
+      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').allowedButtonsFilter,
+      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').debugDescription,
+      'team': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').team,
       'dragStartBehavior': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').dragStartBehavior,
       'dragUpdateThrottleFrequency': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').dragUpdateThrottleFrequency,
       'maxConsecutiveTap': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').maxConsecutiveTap,
@@ -8611,17 +12185,17 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
       'onDragUpdate': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onDragUpdate,
       'onDragEnd': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onDragEnd,
       'onCancel': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').onCancel,
-      'debugDescription': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').debugDescription,
-      'team': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').team,
-      'debugOwner': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').debugOwner,
-      'gestureSettings': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').gestureSettings,
-      'supportedDevices': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').supportedDevices,
-      'allowedButtonsFilter': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').allowedButtonsFilter,
       'currentDown': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').currentDown,
       'currentUp': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').currentUp,
       'consecutiveTapCount': (visitor, target) => D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').consecutiveTapCount,
     },
     setters: {
+      'gestureSettings': (visitor, target, value) => 
+        D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').gestureSettings = value as $flutter_15.DeviceGestureSettings?,
+      'supportedDevices': (visitor, target, value) => 
+        D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').supportedDevices = value == null ? null : (value as Set).cast<PointerDeviceKind>().toSet(),
+      'team': (visitor, target, value) => 
+        D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').team = value as dynamic,
       'dragStartBehavior': (visitor, target, value) => 
         D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer').dragStartBehavior = value as $flutter_24.DragStartBehavior,
       'dragUpdateThrottleFrequency': (visitor, target, value) => 
@@ -8662,11 +12236,6 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
         t.rejectGesture(pointer);
         return null;
       },
-      'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer');
-        (t as dynamic).dispose();
-        return null;
-      },
       'addPointerPanZoom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer');
         D4.requireMinArgs(positional, 1, 'addPointerPanZoom');
@@ -8681,11 +12250,9 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
         t.addPointer(event);
         return null;
       },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+      'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
+        (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -8720,6 +12287,13 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
       'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer');
         return t.debugDescribeChildren();
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_3.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
       },
       'addAllowedPointer': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.TapAndPanGestureRecognizer>(target, 'TapAndPanGestureRecognizer');
@@ -8762,16 +12336,16 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
     methodSignatures: {
       'acceptGesture': 'void acceptGesture(int pointer)',
       'rejectGesture': 'void rejectGesture(int pointer)',
-      'dispose': 'void dispose()',
       'addPointerPanZoom': 'void addPointerPanZoom(PointerPanZoomStartEvent event)',
       'addPointer': 'void addPointer(PointerDownEvent event)',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'dispose': 'void dispose()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
       'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
       'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
       'toStringShort': 'String toStringShort()',
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
       'addAllowedPointer': 'void addAllowedPointer(PointerDownEvent event)',
       'handleEvent': 'void handleEvent(PointerEvent event)',
       'isPointerAllowed': 'bool isPointerAllowed(PointerEvent event)',
@@ -8779,6 +12353,12 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
       'didStopTrackingLastPointer': 'void didStopTrackingLastPointer(int pointer)',
     },
     getterSignatures: {
+      'debugOwner': 'Object? get debugOwner',
+      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
+      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
+      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
+      'debugDescription': 'String get debugDescription',
+      'team': 'GestureArenaTeam? get team',
       'dragStartBehavior': 'DragStartBehavior get dragStartBehavior',
       'dragUpdateThrottleFrequency': 'Duration? get dragUpdateThrottleFrequency',
       'maxConsecutiveTap': 'int? get maxConsecutiveTap',
@@ -8789,17 +12369,14 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
       'onDragUpdate': 'void Function(TapDragUpdateDetails)? get onDragUpdate',
       'onDragEnd': 'void Function(TapDragEndDetails)? get onDragEnd',
       'onCancel': 'void Function()? get onCancel',
-      'debugDescription': 'String get debugDescription',
-      'team': 'GestureArenaTeam? get team',
-      'debugOwner': 'Object? get debugOwner',
-      'gestureSettings': 'DeviceGestureSettings? get gestureSettings',
-      'supportedDevices': 'Set<PointerDeviceKind>? get supportedDevices',
-      'allowedButtonsFilter': 'bool Function(int) get allowedButtonsFilter',
       'currentDown': 'PointerDownEvent? get currentDown',
       'currentUp': 'PointerUpEvent? get currentUp',
       'consecutiveTapCount': 'int get consecutiveTapCount',
     },
     setterSignatures: {
+      'gestureSettings': 'set gestureSettings(dynamic value)',
+      'supportedDevices': 'set supportedDevices(dynamic value)',
+      'team': 'set team(GestureArenaTeam? value)',
       'dragStartBehavior': 'set dragStartBehavior(dynamic value)',
       'dragUpdateThrottleFrequency': 'set dragUpdateThrottleFrequency(dynamic value)',
       'maxConsecutiveTap': 'set maxConsecutiveTap(dynamic value)',

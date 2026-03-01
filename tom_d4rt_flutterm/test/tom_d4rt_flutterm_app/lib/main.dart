@@ -255,14 +255,17 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
 
   /// Build the D4rt widget from a pending bundle using the current BuildContext.
   /// Captures print() output and completes the build completer.
+  /// Uses runZonedGuarded to protect against uncaught errors crashing the app.
   Widget _buildD4rtWidget(BuildContext context) {
     if (_pendingBundle != null) {
       final bundle = _pendingBundle!;
       _pendingBundle = null;
 
-      // Capture print() output using runZoned
+      // Capture print() output using runZonedGuarded for error protection
       final output = <String>[];
-      runZoned(
+      var buildCompleted = false;
+
+      runZonedGuarded(
         () {
           try {
             final widget = _d4rt.build<Widget>(bundle, context);
@@ -270,22 +273,52 @@ class _D4rtTestPageState extends State<D4rtTestPage> {
             _lastError = null;
 
             // Complete with success
-            _buildCompleter?.complete(
-              _BuildResult(
-                success: true,
-                widgetType: widget.runtimeType.toString(),
-                output: output,
-              ),
-            );
+            if (!buildCompleted) {
+              buildCompleted = true;
+              _buildCompleter?.complete(
+                _BuildResult(
+                  success: true,
+                  widgetType: widget.runtimeType.toString(),
+                  output: output,
+                ),
+              );
+            }
           } on FlutterD4rtException catch (e) {
             _lastError = e.message;
-            _buildCompleter?.complete(
-              _BuildResult(success: false, error: e.message, output: output),
-            );
-          } catch (e) {
+            if (!buildCompleted) {
+              buildCompleted = true;
+              _buildCompleter?.complete(
+                _BuildResult(success: false, error: e.message, output: output),
+              );
+            }
+          } catch (e, stackTrace) {
             _lastError = e.toString();
+            debugPrint('[D4rtApp] Build error: $e\n$stackTrace');
+            if (!buildCompleted) {
+              buildCompleted = true;
+              _buildCompleter?.complete(
+                _BuildResult(
+                  success: false,
+                  error: e.toString(),
+                  output: output,
+                ),
+              );
+            }
+          }
+        },
+        (error, stackTrace) {
+          // Uncaught async error handler - prevents app crash
+          debugPrint('[D4rtApp] Uncaught error in D4rt execution: $error');
+          debugPrint('[D4rtApp] Stack trace: $stackTrace');
+          _lastError = 'Uncaught error: $error';
+          if (!buildCompleted) {
+            buildCompleted = true;
             _buildCompleter?.complete(
-              _BuildResult(success: false, error: e.toString(), output: output),
+              _BuildResult(
+                success: false,
+                error: 'Uncaught error: $error',
+                output: output,
+              ),
             );
           }
         },

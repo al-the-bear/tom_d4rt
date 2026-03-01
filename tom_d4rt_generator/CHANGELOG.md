@@ -1,3 +1,31 @@
+## 1.8.12
+
+### Fixed
+
+- **GEN-073** (`bridge_generator.dart`) — Added `Iterator` to the list of built-in types that don't need import prefixes. This fixes compile errors in generated code where `Iterator<E>` was incorrectly prefixed with Flutter imports (e.g., `$flutter_3.Iterator`).
+
+## 1.8.11
+
+### Fixed
+
+- **GEN-072** (`bridge_generator.dart`) — Fixed export detection bug where a direct export (no show/hide clause) didn't override a restrictive re-export from the same package when processed in wrong order. This caused classes like Flutter's `Curves` to be incorrectly marked as "not exported from barrel file" even though they were directly exported. The fix adds `isCurrentMorePermissive && !isExistingMorePermissive` check to `shouldOverride` logic.
+
+### Added
+
+- **`gen072_permissive_override_test.dart`** — Unit tests for GEN-072 fix, verifying permissive exports override restrictive same-package re-exports.
+
+## 1.8.10
+
+### Fixed
+
+- **GEN-071** (`bridge_generator.dart`) — Fixed required nullable parameters incorrectly rejecting null values. Parameters marked as `required` + nullable now correctly accept explicit null.
+
+## 1.8.9
+
+### Fixed
+
+- **`bridge_generator.dart`** — Minor fixes and improvements to bridge generation.
+
 ## 1.8.8
 
 ### Added
