@@ -15,7 +15,7 @@
 | [GEN-080](#gen-080) | `bridge_api.dart` missing `skipReExports` / `followAllReExports` / `followReExports` | API | **FIXED** |
 | [GEN-081](#gen-081) | `isAssignable` missing from `tom_d4rt` BridgedClass (present in `tom_d4rt_ast`) | Runtime | **FIXED** |
 | [GEN-082](#gen-082) | Setter `_generateSetterCast` missing `sourceFilePath` — types resolve to `dynamic` | Generator | **FIXED** |
-| [G-DOV-8](#g-dov-8) | Sealed class switch statement pattern variable scoping | Interpreter | **OPEN** |
+| [G-DOV-8](#g-dov-8) | Sealed class switch statement pattern variable scoping | Interpreter | **FIXED** |
 | [G-FLP-54](#g-flp-54) | Function setter loses required named params in cast | Generator | **FIXED** (test was wrong) |
 | [G-FLP-55](#g-flp-55) | `@protected` members included in bridges (by design) | Generator | **CLOSED** (by design) |
 | [G-FLP-57](#g-flp-57) | Overrides of `@protected` base members included | Generator | **CLOSED** (by design) |
@@ -164,13 +164,13 @@ Added `sourceFilePath` parameter to `_generateSetterCast()` and forwarded `cls.s
 
 ---
 
-## Open Issues
+## Fixed Issues (Interpreter)
 
 ### G-DOV-8
 
 **Sealed class switch statement pattern variable scoping**
 
-**Status:** OPEN
+**Status:** FIXED (2026-03-02) — existing fix in `visitSwitchStatement` already works; test was stale
 
 **a) Problem:**
 
@@ -183,19 +183,17 @@ class Square extends Shape { final double side; Square(this.side); }
 
 String describe(Shape s) => switch (s) {
   Circle(radius: var r) => 'Circle r=$r',
-  Square(side: var m) => 'Square s=$m',  // "Undefined variable: m"
+  Square(side: var m) => 'Square s=$m',  // Was: "Undefined variable: m"
 };
 ```
 
 **b) Root Cause:**
 
-The interpreter's `visitSwitchExpression` / `visitSwitchStatement` doesn't properly scope pattern variables per-case. Variables bound in one case leak into subsequent case evaluation, and variables introduced only in later cases aren't declared in the correct scope.
+The interpreter's `visitSwitchStatement` originally didn't scope pattern variables per-case. Variables bound in one case leaked into subsequent case evaluation.
 
 **c) Resolution:**
 
-Requires interpreter fix in `interpreter_visitor.dart` — each switch case needs its own child `Environment` to contain pattern-bound variables. Not a generator issue.
-
-**Why needed:** Sealed classes with exhaustive switch patterns are idiomatic modern Dart (3.0+). Without this, D4rt scripts can't use pattern matching on sealed hierarchies.
+Already fixed in `interpreter_visitor.dart` (G-DOV-8 FIX comment at line ~8668). Each pattern case creates a `tempEnvironment` and executes with correct scoping. Guard clauses also evaluated in the pattern scope. The test was still marked `(FAIL)` but the fix was already in place — updated to `(PASS)` in all 3 test copies.
 
 ---
 
@@ -605,22 +603,25 @@ if ((T == double || null is T && unwrapped is int)) {
 |----------|-------|--------|
 | Fixed (generator) | 5 | GEN-078, GEN-079, GEN-080, GEN-082, G-FLP-54 |
 | Fixed (runtime) | 1 | GEN-081 (tom_d4rt isAssignable sync) |
+| Fixed (interpreter) | 1 | G-DOV-8 (sealed class switch scoping) |
+| Fixed (runtime) | 1 | I-BUG-14b (records >9 positional fields, extended to 16) |
 | Closed (by design) | 2 | G-FLP-55, G-FLP-57 (@protected not filtered) |
 | Verified (already work) | 12 | G-FBI-04, G-FBI-12, G-FBI-21, G-FBI-22, G-FBI-32, G-FBI-33, G-FBI-34, G-FBI-40, G-NUM-11, G-NUM-12, G-NUM-15, G-NUM-26, G-NUM-27, G-NUM-31 |
-| Open (interpreter) | 1 | G-DOV-8 (sealed class switch scoping) |
-| **Total** | **23** | |
+| Won't fix (Dart limitation) | 1 | I-BUG-14a (records with named fields — not constructable at runtime) |
+| **Total** | **25** | |
 
 **Current test status (2026-03-02):**
 - Generator tests: **618 passed, 0 skipped, 0 failed**
 - d4rt_tester_test: 28/28 passed
 - d4rt_coverage_test: 94/94 passed
-- tom_d4rt: 1700 passed, 1 skipped, 2 failed (pre-existing: I-BUG-14a/b Records)
+- tom_d4rt: 1701 passed, 1 skipped, 1 failed (I-BUG-14a — Dart limitation)
 - tom_d4rt_ast: 80 passed, 0 failed
-- tom_d4rt_exec: 2241 passed, 3 failed (pre-existing: I-BUG-14a/b + G-DOV2-7)
+- tom_d4rt_exec: 2148 passed, 3 failed (I-BUG-14a + G-DOV2-7 + d4rt_tester infra)
 - tom_d4rt_dcli: 695 passed, 0 failed
 - tom_dcli_exec: 378 passed, 0 failed
 - tom_d4rt_flutterm: 108 passed (integration), 0 failed
 
-### Remaining Open Issue
+### Remaining Open Issues
 
-**G-DOV-8** (sealed class switch pattern scoping) is an **interpreter issue**, not a generator issue. It requires a fix in `interpreter_visitor.dart` to create per-case `Environment` scopes for pattern-bound variables.
+- **I-BUG-14a** (records with named fields) is a **Dart language limitation** — native records with named fields cannot be constructed dynamically at runtime. The interpreter returns `InterpretedRecord` which has the correct data but doesn't pass `isA<({int x, int y})>()` type checks.
+- **G-DOV2-7** (extension on enum type resolution) — interpreter issue, not tracked in this generator issues file.

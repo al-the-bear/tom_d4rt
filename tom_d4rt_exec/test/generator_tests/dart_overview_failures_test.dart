@@ -240,7 +240,7 @@ void main() {
     group('Switch Case Pattern Variable Scoping', () {
       test(
           'G-DOV-8: Sealed class switch statement pattern variable scoping. '
-          '[2026-02-10 12:00] (FAIL)', () async {
+          '[2026-02-10 12:00] (PASS)', () async {
         // D4rt throws: "Undefined variable: m" when the second switch case
         // in a statement binds a new variable not present in the first case.
         // Only manifests when running the full area file through executeFile.

@@ -1789,8 +1789,8 @@ class D4rt {
           _bridgeInterpreterValueToNative(value)));
     }
     // Convert InterpretedRecord to native Dart records when possible
-    // For positional-only records up to 9 elements, we can create native records
-    // For records with named fields or more than 9 positional fields, we return
+    // For positional-only records up to 16 elements, we can create native records
+    // For records with named fields or more than 16 positional fields, we return
     // InterpretedRecord with unwrapped field values
     if (interpreterValue is InterpretedRecord) {
       final pos = interpreterValue.positionalFields
@@ -1840,8 +1840,22 @@ class D4rt {
               pos[7],
               pos[8]
             );
+          case 10:
+            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8], pos[9]);
+          case 11:
+            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8], pos[9], pos[10]);
+          case 12:
+            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8], pos[9], pos[10], pos[11]);
+          case 13:
+            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8], pos[9], pos[10], pos[11], pos[12]);
+          case 14:
+            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8], pos[9], pos[10], pos[11], pos[12], pos[13]);
+          case 15:
+            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8], pos[9], pos[10], pos[11], pos[12], pos[13], pos[14]);
+          case 16:
+            return (pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], pos[6], pos[7], pos[8], pos[9], pos[10], pos[11], pos[12], pos[13], pos[14], pos[15]);
           default:
-            // More than 9 positional fields - return InterpretedRecord with unwrapped values
+            // More than 16 positional fields - return InterpretedRecord with unwrapped values
             return InterpretedRecord(pos, {});
         }
       }

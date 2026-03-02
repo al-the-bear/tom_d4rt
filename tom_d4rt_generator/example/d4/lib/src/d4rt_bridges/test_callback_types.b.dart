@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/example/d4/lib/test_callback_types.dart
-// Generated: 2026-03-02T18:40:12.821106
+// Generated: 2026-03-02T19:19:26.784589
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 

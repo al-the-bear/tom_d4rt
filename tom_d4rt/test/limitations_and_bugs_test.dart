@@ -106,7 +106,7 @@ Future<int> main() async {
     });
 
     // Bug-14: >9 positional fields can't be converted
-    test('I-BUG-14b: Records with >9 positional fields. [2026-02-10 06:37] (FAIL)', () {
+    test('I-BUG-14b: Records with >9 positional fields. [2026-02-10 06:37] (PASS)', () {
       const source = '''
 (int, int, int, int, int, int, int, int, int, int) main() {
   return (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
